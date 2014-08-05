@@ -12,4 +12,6 @@ public final class LibTorrent {
     }
 
     public static native String version();
+
+    public static native void createTorrent(String[] paths);
 }
