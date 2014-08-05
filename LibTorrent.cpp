@@ -10,16 +10,14 @@ JNI_METHOD_END
 
 JNI_METHOD_BEGIN(LibTorrent, void, createTorrent, jobjectArray paths)
 
-    int length = env->GetArrayLength(paths);
+    JNI_ARRAY_FOREACH_BEGIN(paths, jstring, str)
 
-    for (int i=0; i<length; i++) {
-        jstring str = (jstring) env->GetObjectArrayElement( paths, i);
-
-        jboolean isCopy;
-        const char *path = env->GetStringUTFChars(str, &isCopy);
+        JNI_GET_STRING(str, path)
 
         printf(path, "\n");
 
-        env->ReleaseStringUTFChars(str, path);
-    }
+        JNI_RELEASE_STRING(str, path)
+
+    JNI_ARRAY_FOREACH_END
+
 JNI_METHOD_END

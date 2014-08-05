@@ -10,4 +10,21 @@
 #define JNI_METHOD_END \
     }
 
+#define JNI_ARRAY_FOREACH_BEGIN(arr, type, name) \
+    int arrLength = env->GetArrayLength(arr);\
+    \
+    for (int arrIndex = 0; arrIndex < arrLength; arrIndex++) {\
+        type name = (type) env->GetObjectArrayElement(arr, arrIndex);
+
+
+#define JNI_ARRAY_FOREACH_END \
+    }
+
+#define JNI_GET_STRING(str, name) \
+    jboolean isStrCopy; \
+    const char* name = env->GetStringUTFChars(str, &isStrCopy);
+
+#define JNI_RELEASE_STRING(str, name) \
+    env->ReleaseStringUTFChars(str, name);
+
 #endif
