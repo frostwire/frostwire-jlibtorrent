@@ -2,8 +2,8 @@
 
 #include <libtorrent/version.hpp>
 
-JNIEXPORT jstring JNICALL Java_com_frostwire_libtorrent_LibTorrent_version
-        (JNIEnv* env, jobject obj) {
+JNI_METHOD_BEGIN(LibTorrent, jstring, version)
 
     return env->NewStringUTF(LIBTORRENT_VERSION);
-}
+
+JNI_METHOD_END

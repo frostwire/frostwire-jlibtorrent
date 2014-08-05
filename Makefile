@@ -3,7 +3,7 @@ CFLAGS =
 INCLUDES = -I/usr/local/include
 LDFLAGS = -L/usr/local/lib
 LIBS = -ltorrent-rasterbar -lboost_system
-SRCS = jlibtorrent.cpp
+SRCS = jlibtorrent.cpp LibTorrent.cpp
 OBJS = $(SRCS:.cpp=.o)
 TARGET = jlibtorrent.dylib
 
