@@ -35,4 +35,6 @@
     JNI_RELEASE_STRING(arrElement, name) \
     JNI_ARRAY_FOREACH_END
 
+#define BOOST_ASIO_SEPARATE_COMPILATION
+
 #endif
