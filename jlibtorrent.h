@@ -27,4 +27,12 @@
 #define JNI_RELEASE_STRING(str, name) \
     env->ReleaseStringUTFChars(str, name);
 
+#define JNI_STRING_ARRAY_FOREACH_BEGIN(arr, name) \
+    JNI_ARRAY_FOREACH_BEGIN(arr, jstring, arrElement) \
+        JNI_GET_STRING(arrElement, name)
+
+#define JNI_STRING_ARRAY_FOREACH_END(name) \
+    JNI_RELEASE_STRING(arrElement, name) \
+    JNI_ARRAY_FOREACH_END
+
 #endif
