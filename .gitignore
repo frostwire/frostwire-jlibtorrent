@@ -1,0 +1,8 @@
+*~
+.DS_Store
+/.idea
+/java/.idea/
+/java/out/
+/jlibtorrent.dylib
+*.o
+/jlibtorrent.xcodeproj/xcuserdata/

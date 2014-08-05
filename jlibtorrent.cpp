@@ -1,3 +1,5 @@
+#include <JavaVM/jni.h>
+
 #define BOOST_ASIO_SEPARATE_COMPILATION
 
 #include <libtorrent/file_storage.hpp>
