@@ -7,9 +7,9 @@
 extern "C" {
 #endif
 
-JNI_METHOD(LibTorrent, jstring, version)
+JNI_METHOD(Session, jlong, create)
 
-JNI_METHOD(LibTorrent, void, createTorrent, jobjectArray)
+JNI_METHOD(Session, void, release, jlong)
 
 #ifdef __cplusplus
 }

@@ -8,10 +8,8 @@
 
 /* Begin PBXFileReference section */
 		C93892BBE237AE5DAD16F28A /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		C9389598DBBC6552EE1F6731 /* LibTorrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibTorrent.h; sourceTree = "<group>"; };
-		C93899FA43053A733FDFA05C /* jlibtorrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jlibtorrent.h; sourceTree = "<group>"; };
-		C9389AE4ACD91A0B4725EA94 /* jlibtorrent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jlibtorrent.cpp; sourceTree = "<group>"; };
-		C9389FCE6EE86C1E2569F556 /* LibTorrent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LibTorrent.cpp; sourceTree = "<group>"; };
+		C9389949A8533BA29067FE51 /* src */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
+		C9389F753E5A412400DDC2D6 /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -19,11 +17,9 @@
 			isa = PBXGroup;
 			children = (
 				C9389B3ED837E5C5F0016D37 /* Products */,
-				C9389AE4ACD91A0B4725EA94 /* jlibtorrent.cpp */,
 				C93892BBE237AE5DAD16F28A /* Makefile */,
-				C9389598DBBC6552EE1F6731 /* LibTorrent.h */,
-				C9389FCE6EE86C1E2569F556 /* LibTorrent.cpp */,
-				C93899FA43053A733FDFA05C /* jlibtorrent.h */,
+				C9389F753E5A412400DDC2D6 /* include */,
+				C9389949A8533BA29067FE51 /* src */,
 			);
 			sourceTree = "<group>";
 		};

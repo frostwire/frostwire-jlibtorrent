@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         String[] paths = {"/Users/aldenml/Downloads/test.pdf"};
 
-        LibTorrent.createTorrent(paths);
+        System.out.println(LibTorrent.version());
+        Session s = new Session();
     }
 }

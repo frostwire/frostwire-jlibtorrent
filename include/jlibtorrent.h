@@ -1,11 +1,13 @@
 #ifndef _JLIBTORRENT_H
 #define _JLIBTORRENT_H
 
+#include <JavaVM/jni.h>
+
 #define JNI_METHOD(clazz, type, name, ...) \
     JNIEXPORT type JNICALL Java_com_frostwire_libtorrent_##clazz##_##name(JNIEnv*, jobject, ##__VA_ARGS__);
 
 #define JNI_METHOD_BEGIN(clazz, type, name, ...) \
-    JNIEXPORT type JNICALL Java_com_frostwire_libtorrent_##clazz##_##name(JNIEnv* env, jobject obj, ##__VA_ARGS__) {
+    JNIEXPORT type JNICALL Java_com_frostwire_libtorrent_##clazz##_##name(JNIEnv *env, jobject obj, ##__VA_ARGS__) {
 
 #define JNI_METHOD_END \
     }
@@ -22,7 +24,7 @@
 
 #define JNI_GET_STRING(str, name) \
     jboolean isStrCopy; \
-    const char* name = env->GetStringUTFChars(str, &isStrCopy);
+    const char *name = env->GetStringUTFChars(str, &isStrCopy);
 
 #define JNI_RELEASE_STRING(str, name) \
     env->ReleaseStringUTFChars(str, name);
