@@ -15,6 +15,8 @@ JNI_METHOD(Session, jlong, startNATPMP, jlong)
 JNI_METHOD(Session, void, startLSD, jlong)
 JNI_METHOD(Session, void, startDHT, jlong)
 
+JNI_METHOD(Session, void, waitForAlerts, jlong, jint)
+
 #ifdef __cplusplus
 }
 #endif
