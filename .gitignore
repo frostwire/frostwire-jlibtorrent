@@ -6,3 +6,4 @@
 /jlibtorrent.dylib
 *.o
 /jlibtorrent.xcodeproj/xcuserdata/
+/obj
