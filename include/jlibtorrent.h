@@ -3,8 +3,6 @@
 
 #include <JavaVM/jni.h>
 
-#define CLASS_NAME  MyClass
-
 #define METHOD_NAME_HELPER(x, y) Java_com_frostwire_libtorrent_##x##_##y
 #define METHOD_NAME(x, y) METHOD_NAME_HELPER(x, y)
 
