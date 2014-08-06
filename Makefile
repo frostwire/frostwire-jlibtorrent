@@ -1,19 +1,19 @@
 CC = g++
 CFLAGS =
-INCLUDES = -I/usr/local/include
+INCLUDES = -I/usr/local/include -Iinclude
 LDFLAGS = -L/usr/local/lib
 LIBS = -ltorrent-rasterbar -lboost_system
-SRCS = jlibtorrent.cpp LibTorrent.cpp
-OBJS = $(SRCS:.cpp=.o)
+CPP_FILES := $(wildcard src/*.cpp)
+OBJ_FILES := $(addprefix obj/,$(notdir $(CPP_FILES:.cpp=.o)))
 TARGET = jlibtorrent.dylib
 
 all: $(SRCS) $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) $(LIBS) $(OBJS) -dynamiclib -o $@
+$(TARGET): $(OBJ_FILES)
+	$(CC) $(LDFLAGS) $(LIBS) -dynamiclib -o $@ $^
 
-.cpp.o:
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+obj/%.o: src/%.cpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 clean:
-	rm -rf *.o *~ $(TARGET)
+	rm -rf *.dylib obj/*.o *~ $(TARGET)
