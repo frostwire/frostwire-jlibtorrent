@@ -3,6 +3,8 @@
 #include <libtorrent/session.hpp>
 #include <libtorrent/alert.hpp>
 
+#include <boost/foreach.hpp>
+
 using namespace std;
 using namespace libtorrent;
 
@@ -64,8 +66,8 @@ JNI_METHOD_BEGIN(void, waitForAlerts, jlong handle, jint millis)
         s->pop_alerts(&alerts);
     }
 
-    for (auto it = alerts.begin(); it != alerts.end(); ++it) {
-        cout << *it << "\n";
+    for (alert *a: alerts) {
+        //cout << *a << "\n";
     }
 
 JNI_METHOD_END

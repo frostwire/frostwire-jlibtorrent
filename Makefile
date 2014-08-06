@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wc++11-extensions
+CFLAGS = -Wno-c++11-extensions
 INCLUDES = -I/usr/local/include -Iinclude
 LDFLAGS = -L/usr/local/lib
 LIBS = -ltorrent-rasterbar -lboost_system

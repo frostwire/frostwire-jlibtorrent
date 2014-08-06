@@ -42,4 +42,6 @@
 
 #define BOOST_ASIO_SEPARATE_COMPILATION
 
+#define foreach BOOST_FOREACH
+
 #endif
