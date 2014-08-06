@@ -7,13 +7,13 @@
 using namespace std;
 using namespace libtorrent;
 
-JNI_METHOD_BEGIN(LibTorrent, jstring, version)
+JNI_METHOD_BEGIN(jstring, version)
 
     return env->NewStringUTF(LIBTORRENT_VERSION);
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(LibTorrent, void, createTorrent, jobjectArray paths)
+JNI_METHOD_BEGIN(void, createTorrent, jobjectArray paths)
 
     file_storage fs;
 

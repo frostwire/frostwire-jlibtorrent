@@ -7,15 +7,17 @@
 extern "C" {
 #endif
 
-JNI_METHOD(Session, jlong, create)
-JNI_METHOD(Session, void, release, jlong)
+#define CLASS_NAME Session
 
-JNI_METHOD(Session, jlong, startUPnP, jlong)
-JNI_METHOD(Session, jlong, startNATPMP, jlong)
-JNI_METHOD(Session, void, startLSD, jlong)
-JNI_METHOD(Session, void, startDHT, jlong)
+JNI_METHOD(jlong, create)
+JNI_METHOD(void, release, jlong)
 
-JNI_METHOD(Session, void, waitForAlerts, jlong, jint)
+JNI_METHOD(jlong, startUPnP, jlong)
+JNI_METHOD(jlong, startNATPMP, jlong)
+JNI_METHOD(void, startLSD, jlong)
+JNI_METHOD(void, startDHT, jlong)
+
+JNI_METHOD(void, waitForAlerts, jlong, jint)
 
 #ifdef __cplusplus
 }

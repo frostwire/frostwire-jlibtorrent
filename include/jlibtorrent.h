@@ -8,10 +8,10 @@
 #define METHOD_NAME_HELPER(x, y) Java_com_frostwire_libtorrent_##x##_##y
 #define METHOD_NAME(x, y) METHOD_NAME_HELPER(x, y)
 
-#define JNI_METHOD(clazz, type, name, ...) \
+#define JNI_METHOD(type, name, ...) \
     JNIEXPORT type JNICALL METHOD_NAME(CLASS_NAME, name)(JNIEnv*, jobject, ##__VA_ARGS__);
 
-#define JNI_METHOD_BEGIN(clazz, type, name, ...) \
+#define JNI_METHOD_BEGIN(type, name, ...) \
     JNIEXPORT type JNICALL METHOD_NAME(CLASS_NAME, name)(JNIEnv *env, jobject obj, ##__VA_ARGS__) {
 
 #define JNI_METHOD_END \

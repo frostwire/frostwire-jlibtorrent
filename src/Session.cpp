@@ -6,7 +6,7 @@
 using namespace std;
 using namespace libtorrent;
 
-JNI_METHOD_BEGIN(Session, jlong, create)
+JNI_METHOD_BEGIN(jlong, create)
 
     session *s = new session();
 
@@ -14,7 +14,7 @@ JNI_METHOD_BEGIN(Session, jlong, create)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(Session, void, release, jlong handle)
+JNI_METHOD_BEGIN(void, release, jlong handle)
 
     session *s = (session *) handle;
 
@@ -22,7 +22,7 @@ JNI_METHOD_BEGIN(Session, void, release, jlong handle)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(Session, jlong, startUPnP, jlong handle)
+JNI_METHOD_BEGIN(jlong, startUPnP, jlong handle)
 
     session *s = (session *) handle;
 
@@ -30,7 +30,7 @@ JNI_METHOD_BEGIN(Session, jlong, startUPnP, jlong handle)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(Session, jlong, startNATPMP, jlong handle)
+JNI_METHOD_BEGIN(jlong, startNATPMP, jlong handle)
 
     session *s = (session *) handle;
 
@@ -38,7 +38,7 @@ JNI_METHOD_BEGIN(Session, jlong, startNATPMP, jlong handle)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(Session, void, startLSD, jlong handle)
+JNI_METHOD_BEGIN(void, startLSD, jlong handle)
 
     session *s = (session *) handle;
 
@@ -46,7 +46,7 @@ JNI_METHOD_BEGIN(Session, void, startLSD, jlong handle)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(Session, void, startDHT, jlong handle)
+JNI_METHOD_BEGIN(void, startDHT, jlong handle)
 
     session *s = (session *) handle;
 
@@ -54,7 +54,7 @@ JNI_METHOD_BEGIN(Session, void, startDHT, jlong handle)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(Session, void, waitForAlerts, jlong handle, jint millis)
+JNI_METHOD_BEGIN(void, waitForAlerts, jlong handle, jint millis)
 
     session *s = (session *) handle;
 
