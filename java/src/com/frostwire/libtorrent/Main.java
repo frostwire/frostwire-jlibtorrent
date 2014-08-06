@@ -12,6 +12,8 @@ public class Main {
 
         s.startNetworking();
 
+        s.waitForAlerts(10000);
+
         System.out.println("ENTER to exit");
         System.in.read();
     }

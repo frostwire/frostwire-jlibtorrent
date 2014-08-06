@@ -67,7 +67,7 @@ JNI_METHOD_BEGIN(void, waitForAlerts, jlong handle, jint millis)
     }
 
     for (alert *a: alerts) {
-        //cout << *a << "\n";
+        cout << (*a).what() << "\n";
     }
 
 JNI_METHOD_END
