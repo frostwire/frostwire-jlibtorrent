@@ -12,11 +12,15 @@ public class Session {
     }
 
     public void startNetworking() {
-        this.upnp = startUPnP(session);
-        this.natpmp = startNATPMP(session);
+        upnp = startUPnP(session);
+        natpmp = startNATPMP(session);
 
-        this.startLSD(session);
-        this.startDHT(session);
+        startLSD(session);
+        startDHT(session);
+    }
+
+    public void waitForAlerts(int millis) {
+        waitForAlerts(session, millis);
     }
 
     @Override
@@ -38,4 +42,6 @@ public class Session {
     private native void startLSD(long handle);
 
     private native void startDHT(long handle);
+
+    private native void waitForAlerts(long handle, int millis);
 }
