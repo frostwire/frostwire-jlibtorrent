@@ -1,5 +1,5 @@
-#ifndef _LIBTORRENT_H
-#define _LIBTORRENT_H
+#ifndef _SESSION_H
+#define _SESSION_H
 
 #include "jlibtorrent.h"
 
@@ -22,4 +22,4 @@ JNI_METHOD(void, waitForAlerts, jlong, jint)
 #ifdef __cplusplus
 }
 #endif
-#endif
+#endif //_SESSION_H
