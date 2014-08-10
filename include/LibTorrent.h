@@ -16,4 +16,4 @@ JNI_METHOD(void, createTorrent, jobjectArray)
 #ifdef __cplusplus
 }
 #endif
-#endif
+#endif //_LIBTORRENT_H

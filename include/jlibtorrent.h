@@ -44,4 +44,4 @@
 
 #define foreach BOOST_FOREACH
 
-#endif
+#endif //_JLIBTORRENT_H
