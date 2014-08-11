@@ -12,8 +12,8 @@ extern "C" {
 JNI_METHOD(jlong, create)
 JNI_METHOD(void, release, jlong)
 
-JNI_METHOD(jlong, startUPnP, jlong)
-JNI_METHOD(jlong, startNATPMP, jlong)
+JNI_METHOD(void, startUPnP, jlong)
+JNI_METHOD(void, startNATPMP, jlong)
 JNI_METHOD(void, startLSD, jlong)
 JNI_METHOD(void, startDHT, jlong)
 

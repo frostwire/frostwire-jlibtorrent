@@ -16,19 +16,19 @@ JNI_METHOD_BEGIN(void, release, jlong handle)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(jlong, startUPnP, jlong handle)
+JNI_METHOD_BEGIN(void, startUPnP, jlong handle)
 
     session *s = (session *) handle;
 
-    return (jlong) s->start_upnp();
+    s->start_upnp();
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(jlong, startNATPMP, jlong handle)
+JNI_METHOD_BEGIN(void, startNATPMP, jlong handle)
 
     session *s = (session *) handle;
 
-    return (jlong) s->start_natpmp();
+    s->start_natpmp();
 
 JNI_METHOD_END
 
