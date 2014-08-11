@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 
-#define CLASS_NAME LibTorrent
+#define JNI_CLASS_NAME LibTorrent
 
 JNI_METHOD(jstring, version)
 

@@ -1,13 +1,5 @@
 #include "Session.h"
 
-#include <libtorrent/session.hpp>
-#include <libtorrent/alert.hpp>
-
-#include <boost/foreach.hpp>
-
-using namespace std;
-using namespace libtorrent;
-
 JNI_METHOD_BEGIN(jlong, create)
 
     session *s = new session();

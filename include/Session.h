@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 
-#define CLASS_NAME Session
+#define JNI_CLASS_NAME Session
 
 JNI_METHOD(jlong, create)
 JNI_METHOD(void, release, jlong)

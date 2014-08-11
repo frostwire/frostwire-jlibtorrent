@@ -1,12 +1,5 @@
 #include "LibTorrent.h"
 
-#include <libtorrent/version.hpp>
-#include <libtorrent/file_storage.hpp>
-#include <libtorrent/create_torrent.hpp>
-
-using namespace std;
-using namespace libtorrent;
-
 JNI_METHOD_BEGIN(jstring, version)
 
     return env->NewStringUTF(LIBTORRENT_VERSION);

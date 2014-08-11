@@ -7,10 +7,10 @@
 #define METHOD_NAME(x, y) METHOD_NAME_HELPER(x, y)
 
 #define JNI_METHOD(type, name, ...) \
-    JNIEXPORT type JNICALL METHOD_NAME(CLASS_NAME, name)(JNIEnv*, jobject, ##__VA_ARGS__);
+    JNIEXPORT type JNICALL METHOD_NAME(JNI_CLASS_NAME, name)(JNIEnv*, jobject, ##__VA_ARGS__);
 
 #define JNI_METHOD_BEGIN(type, name, ...) \
-    JNIEXPORT type JNICALL METHOD_NAME(CLASS_NAME, name)(JNIEnv *env, jobject obj, ##__VA_ARGS__) {
+    JNIEXPORT type JNICALL METHOD_NAME(JNI_CLASS_NAME, name)(JNIEnv *env, jobject obj, ##__VA_ARGS__) {
 
 #define JNI_METHOD_END \
     }
@@ -42,6 +42,16 @@
 
 #define BOOST_ASIO_SEPARATE_COMPILATION
 
-#define foreach BOOST_FOREACH
+#include <string>
+
+using namespace std;
+
+#include <libtorrent/version.hpp>
+#include <libtorrent/file_storage.hpp>
+#include <libtorrent/create_torrent.hpp>
+#include <libtorrent/session.hpp>
+#include <libtorrent/alert.hpp>
+
+using namespace libtorrent;
 
 #endif //_JLIBTORRENT_H
