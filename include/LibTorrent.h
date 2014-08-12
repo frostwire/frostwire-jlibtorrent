@@ -15,6 +15,8 @@ JNI_METHOD(jstring, version)
 
 #endif //JNI_INTERFACE_ENABLED
 
+const char *libtorrent_version();
+
 #ifdef __cplusplus
 }
 #endif

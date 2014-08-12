@@ -4,8 +4,12 @@
 
 JNI_METHOD_BEGIN(jstring, version)
 
-    return env->NewStringUTF(LIBTORRENT_VERSION);
+    return env->NewStringUTF(libtorrent_version());
 
 JNI_METHOD_END
+
+const char *libtorrent_version() {
+    return LIBTORRENT_VERSION;
+}
 
 #endif //JNI_INTERFACE_ENABLED
