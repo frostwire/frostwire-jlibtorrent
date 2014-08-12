@@ -48,7 +48,7 @@ JNI_METHOD_BEGIN(void, startDHT, jlong handle)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(void, waitForAlerts, jlong handle, jint millis)
+JNI_METHOD_BEGIN(jobjectArray, waitForAlerts, jlong handle, jint millis)
 
     session *s = (session *) handle;
 

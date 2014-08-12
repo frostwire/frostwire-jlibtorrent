@@ -1,5 +1,10 @@
 package com.frostwire.libtorrent;
 
+import com.frostwire.libtorrent.Alerts.Alert;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class Session {
 
     private final long session;
@@ -19,8 +24,8 @@ public class Session {
         startDHT(session);
     }
 
-    public void waitForAlerts(int millis) {
-        waitForAlerts(session, millis);
+    public List<Alert> waitForAlerts(int millis) {
+        return Arrays.asList(waitForAlerts(session, millis));
     }
 
     @Override
@@ -43,5 +48,5 @@ public class Session {
 
     private native void startDHT(long handle);
 
-    private native void waitForAlerts(long handle, int millis);
+    private native Alert[] waitForAlerts(long handle, int millis);
 }

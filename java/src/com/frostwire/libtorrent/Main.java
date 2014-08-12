@@ -8,13 +8,21 @@ public class Main {
 
         // trigger the native library's load
         System.out.println(LibTorrent.version());
-        Session s = new Session();
+        final Session s = new Session();
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                s.waitForAlerts(10000);
+            }
+        });
+
+        t.setDaemon(true);
+        t.start();
 
         s.startNetworking();
 
-        s.waitForAlerts(10000);
-
         System.out.println("ENTER to exit");
-        System.in.read();
+        Thread.sleep(5000);
     }
 }
