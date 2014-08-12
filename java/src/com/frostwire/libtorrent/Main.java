@@ -1,5 +1,9 @@
 package com.frostwire.libtorrent;
 
+import com.frostwire.libtorrent.alerts.Alert;
+
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -13,7 +17,13 @@ public class Main {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                s.waitForAlerts(10000);
+                while (true) {
+                    List<Alert> alerts = s.waitForAlerts(1000);
+                    for (Alert alert : alerts) {
+                        System.out.println(alert.timestamp + " - " + alert.what);
+                    }
+                    System.out.println("loop");
+                }
             }
         });
 
@@ -22,7 +32,8 @@ public class Main {
 
         s.startNetworking();
 
-        System.out.println("ENTER to exit");
-        Thread.sleep(5000);
+        System.out.println("About to exit");
+        Thread.sleep(10000);
+        System.out.println("exited");
     }
 }

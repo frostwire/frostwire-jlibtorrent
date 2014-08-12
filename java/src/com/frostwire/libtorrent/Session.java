@@ -1,6 +1,6 @@
 package com.frostwire.libtorrent;
 
-import com.frostwire.libtorrent.Alerts.Alert;
+import com.frostwire.libtorrent.alerts.Alert;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Session {
         startLSD(session);
         startDHT(session);
     }
-    
+
     public void stopNetworking() {
         stopUPnP(session);
         stopNATPMP(session);

@@ -90,8 +90,27 @@ JNI_METHOD_BEGIN(jobjectArray, waitForAlerts, jlong handle, jint millis)
         s->pop_alerts(&alerts);
     }
 
-    for (alert *a: alerts) {
-        cout << (*a).what() << "\n";
+    JNI_NEW_ARRAY("com/frostwire/libtorrent/alerts/Alert", alerts.size(), arr)
+
+    for (int i = 0; i < alerts.size(); i++) {
+        cout << alerts[i]->what() << endl;
+        jstring what = env->NewStringUTF(alerts[i]->what());
+
+        jmethodID mid;
+        jclass handlerClass = env->FindClass("com/frostwire/libtorrent/Alerts");
+        if (handlerClass == NULL) {
+            /* error handling */
+        }
+        mid = env->GetMethodID(handlerClass, "test", "(Ljava/lang/String;)com/frostwire/libtorrent/Alerts");
+        if (mid == NULL) {
+            /* error handling */
+        }
+
+        jobject obj = env->CallStaticObjectMethod(handlerClass, mid, what);
+
+        JNI_ARRAY_SET(arr, i, obj)
     }
+
+    return arr;
 
 JNI_METHOD_END
