@@ -10,6 +10,6 @@ JNI_METHOD_BEGIN(jstring, version)
 
         return env->NewStringUTF(libtorrent_version());
 
-JNI_METHOD_END_RET
+JNI_METHOD_END_RET(jstring)
 
 #endif //JNI_INTERFACE_ENABLED

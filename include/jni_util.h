@@ -25,10 +25,10 @@ using namespace std;
         }\
     }
 
-#define JNI_METHOD_END_RET \
+#define JNI_METHOD_END_RET(type) \
         } catch (...) {\
             translate_cpp_exception(env);\
-            return NULL;\
+            return (type) NULL;\
         }\
     }
 
