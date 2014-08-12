@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+#ifdef JNI_INTERFACE_ENABLED
+
 #define JNI_CLASS_NAME Session
 
 JNI_METHOD(jlong, create)
@@ -23,6 +25,8 @@ JNI_METHOD(void, stopLSD, jlong)
 JNI_METHOD(void, stopDHT, jlong)
 
 JNI_METHOD(jobjectArray, waitForAlerts, jlong, jint)
+
+#endif //JNI_INTERFACE_ENABLED
 
 #ifdef __cplusplus
 }

@@ -1,7 +1,11 @@
 #ifndef _JLIBTORRENT_H
 #define _JLIBTORRENT_H
 
+#define JNI_INTERFACE_ENABLED
+
+#ifdef JNI_INTERFACE_ENABLED
 #include "jni_util.h"
+#endif //JNI_INTERFACE_ENABLED
 
 #define BOOST_ASIO_SEPARATE_COMPILATION
 

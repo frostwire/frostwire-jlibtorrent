@@ -7,9 +7,13 @@
 extern "C" {
 #endif
 
+#ifdef JNI_INTERFACE_ENABLED
+
 #define JNI_CLASS_NAME LibTorrent
 
 JNI_METHOD(jstring, version)
+
+#endif //JNI_INTERFACE_ENABLED
 
 #ifdef __cplusplus
 }

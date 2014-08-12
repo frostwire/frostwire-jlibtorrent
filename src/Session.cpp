@@ -1,5 +1,7 @@
 #include "Session.h"
 
+#ifdef JNI_INTERFACE_ENABLED
+
 JNI_METHOD_BEGIN(jlong, create)
 
     session *s = new session();
@@ -115,3 +117,5 @@ JNI_METHOD_BEGIN(jobjectArray, waitForAlerts, jlong handle, jint millis)
     return arr;
 
 JNI_METHOD_END
+
+#endif //JNI_INTERFACE_ENABLED
