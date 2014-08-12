@@ -3,6 +3,12 @@
 
 #include <JavaVM/jni.h>
 
+#include <stdexcept>
+#include <string>
+#include <ios>
+
+using namespace std;
+
 #define METHOD_NAME_HELPER(x, y) Java_com_frostwire_libtorrent_##x##_##y
 #define METHOD_NAME(x, y) METHOD_NAME_HELPER(x, y)
 
@@ -47,5 +53,57 @@
 
 #define JNI_ARRAY_SET(arr, indx, obj) env->SetObjectArrayElement(arr, indx, obj);
 
+struct ThrownJavaException : runtime_error {
+
+    ThrownJavaException() : runtime_error("") {
+    }
+
+    ThrownJavaException(const string &msg) : runtime_error(msg) {
+    }
+};
+
+struct NewJavaException : public ThrownJavaException {
+
+    NewJavaException(JNIEnv *env, const char *type = "", const char *message = "")
+            : ThrownJavaException(type + string(" ") + message) {
+        jclass newExcCls = env->FindClass(type);
+        if (newExcCls != NULL) {
+            env->ThrowNew(newExcCls, message);
+        }
+    }
+};
+
+struct NewJavaError : public NewJavaException {
+
+    NewJavaError(JNIEnv *env, const char *message = "")
+            : NewJavaException(env, "java/lang/Error", message) {
+    }
+};
+
+inline void assert_no_java_exception(JNIEnv *env) {
+    if (env->ExceptionCheck() == JNI_FALSE) {
+        throw ThrownJavaException("assert_no_java_exception");
+    }
+}
+
+inline void translate_cpp_exception(JNIEnv *env) {
+    try {
+        throw;
+    } catch (const ThrownJavaException &) {
+        //already reported to Java, ignore
+    } catch (const std::bad_alloc &rhs) {
+        //translate OOM C++ exception to a Java exception
+        NewJavaException(env, "java/lang/OutOfMemoryError", rhs.what());
+    } catch (const ios_base::failure &rhs) { //sample translation
+        //translate IO C++ exception to a Java exception
+        NewJavaException(env, "java/io/IOException", rhs.what());
+    } catch (const exception &e) {
+        //translate unknown C++ exception to a Java exception
+        NewJavaError(env, e.what());
+    } catch (...) {
+        //translate unknown C++ exception to a Java exception
+        NewJavaError(env, "Unknown exception type");
+    }
+}
 
 #endif //_JNI_UTIL_H

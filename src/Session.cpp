@@ -146,34 +146,39 @@ JNI_METHOD_END
 
 JNI_METHOD_BEGIN(jobjectArray, waitForAlert, jint millis)
 
-    int n = 0;
-    alert **alerts = session_wait_for_alert(millis, &n);
+    try {
+        int n = 0;
+        alert **alerts = session_wait_for_alert(millis, &n);
 
-    JNI_NEW_ARRAY("com/frostwire/libtorrent/alerts/Alert", n, arr)
+        JNI_NEW_ARRAY("com/frostwire/libtorrent/alerts/Alert", n, arr)
 
-    for (int i = 0; i < n; i++) {
-        jstring what = env->NewStringUTF(alerts[i]->what());
+        for (int i = 0; i < n; i++) {
+            jstring what = env->NewStringUTF(alerts[i]->what());
 
-        jmethodID mid;
-        jclass handlerClass = env->FindClass("com/frostwire/libtorrent/Alerts");
-        if (handlerClass == NULL) {
-            cout << "no clazz" << endl;
+            jmethodID mid;
+            jclass clazz = env->FindClass("com/frostwire/libtorrent/Alerts");
+            if (clazz == NULL) {
+                throw NewJavaError(env, "Error getting class com/frostwire/libtorrent/Alerts");
+            }
+            mid = env->GetStaticMethodID(clazz, "test", "(Ljava/lang/String;)Lcom/frostwire/libtorrent/alerts/Alert;");
+            if (mid == NULL) {
+                throw NewJavaError(env, "Cant find method \"test\" in com/frostwire/libtorrent/Alerts");
+            }
+
+            jobject obj = env->CallStaticObjectMethod(clazz, mid, what);
+
+            delete alerts[i];
+
+            JNI_ARRAY_SET(arr, i, obj)
         }
-        mid = env->GetStaticMethodID(handlerClass, "test", "(Ljava/lang/String;)Lcom/frostwire/libtorrent/alerts/Alert;");
-        if (mid == NULL) {
-            cout << "no method" << endl;
-        }
 
-        jobject obj = env->CallStaticObjectMethod(handlerClass, mid, what);
+        delete alerts;
 
-        delete alerts[i];
-
-        JNI_ARRAY_SET(arr, i, obj)
+        return arr;
+    } catch (...) {
+        translate_cpp_exception(env);
+        return NULL;
     }
-
-    delete alerts;
-
-    return arr;
 
 JNI_METHOD_END
 

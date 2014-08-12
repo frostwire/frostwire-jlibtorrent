@@ -9,7 +9,7 @@
 
 #define BOOST_ASIO_SEPARATE_COMPILATION
 
-#include <string>
+#include <stdexcept>
 
 using namespace std;
 
