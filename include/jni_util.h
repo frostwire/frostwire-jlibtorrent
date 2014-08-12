@@ -1,9 +1,7 @@
-#ifndef _JLIBTORRENT_H
-#define _JLIBTORRENT_H
+#ifndef _JNI_UTIL_H
+#define _JNI_UTIL_H
 
 #include <JavaVM/jni.h>
-
-// BEGIN JNI MACROS -----------------------------------------------
 
 #define METHOD_NAME_HELPER(x, y) Java_com_frostwire_libtorrent_##x##_##y
 #define METHOD_NAME(x, y) METHOD_NAME_HELPER(x, y)
@@ -49,22 +47,5 @@
 
 #define JNI_ARRAY_SET(arr, indx, obj) env->SetObjectArrayElement(arr, indx, obj);
 
-// END JNI MACROS -----------------------------------------------
 
-#include "jni_util.h"
-
-#define BOOST_ASIO_SEPARATE_COMPILATION
-
-#include <string>
-
-using namespace std;
-
-#include <libtorrent/version.hpp>
-#include <libtorrent/file_storage.hpp>
-#include <libtorrent/create_torrent.hpp>
-#include <libtorrent/session.hpp>
-#include <libtorrent/alert.hpp>
-
-using namespace libtorrent;
-
-#endif //_JLIBTORRENT_H
+#endif //_JNI_UTIL_H
