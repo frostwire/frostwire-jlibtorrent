@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+const char *libtorrent_version();
+
 #ifdef JNI_INTERFACE_ENABLED
 
 #define JNI_CLASS_NAME LibTorrent
@@ -14,8 +16,6 @@ extern "C" {
 JNI_METHOD(jstring, version)
 
 #endif //JNI_INTERFACE_ENABLED
-
-const char *libtorrent_version();
 
 #ifdef __cplusplus
 }

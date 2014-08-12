@@ -7,57 +7,53 @@ import java.util.List;
 
 public class Session {
 
-    private final long session;
-
     public Session() {
-        this.session = create();
+        create();
     }
 
     public void startNetworking() {
-        startUPnP(session);
-        startNATPMP(session);
-        startLSD(session);
-        startDHT(session);
+        startUPnP();
+        startNATPMP();
+        startLSD();
+        startDHT();
     }
 
     public void stopNetworking() {
-        stopUPnP(session);
-        stopNATPMP(session);
-        stopLSD(session);
-        stopDHT(session);
+        stopUPnP();
+        stopNATPMP();
+        stopLSD();
+        stopDHT();
     }
 
     public List<Alert> waitForAlerts(int millis) {
-        return Arrays.asList(waitForAlerts(session, millis));
+        return Arrays.asList(waitForAlert(millis));
     }
 
     @Override
     protected void finalize() throws Throwable {
-        if (session != 0) {
-            release(session);
-        }
+        release();
         super.finalize();
     }
 
     private native long create();
 
-    private native void release(long handle);
+    private native void release();
 
-    private native void startUPnP(long handle);
+    private native void startUPnP();
 
-    private native void startNATPMP(long handle);
+    private native void startNATPMP();
 
-    private native void startLSD(long handle);
+    private native void startLSD();
 
-    private native void startDHT(long handle);
+    private native void startDHT();
 
-    private native void stopUPnP(long handle);
+    private native void stopUPnP();
 
-    private native void stopNATPMP(long handle);
+    private native void stopNATPMP();
 
-    private native void stopLSD(long handle);
+    private native void stopLSD();
 
-    private native void stopDHT(long handle);
+    private native void stopDHT();
 
-    private native Alert[] waitForAlerts(long handle, int millis);
+    private native Alert[] waitForAlert(int millis);
 }

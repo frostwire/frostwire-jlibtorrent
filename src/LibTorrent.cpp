@@ -1,5 +1,9 @@
 #include "LibTorrent.h"
 
+const char *libtorrent_version() {
+    return LIBTORRENT_VERSION;
+}
+
 #ifdef JNI_INTERFACE_ENABLED
 
 JNI_METHOD_BEGIN(jstring, version)
@@ -7,9 +11,5 @@ JNI_METHOD_BEGIN(jstring, version)
     return env->NewStringUTF(libtorrent_version());
 
 JNI_METHOD_END
-
-const char *libtorrent_version() {
-    return LIBTORRENT_VERSION;
-}
 
 #endif //JNI_INTERFACE_ENABLED

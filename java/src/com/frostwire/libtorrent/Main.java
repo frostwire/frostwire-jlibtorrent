@@ -34,5 +34,7 @@ public class Main {
 
         System.out.println("Enter to exit");
         System.in.read();
+
+        s.stopNetworking();
     }
 }
