@@ -16,9 +16,20 @@ using namespace std;
     JNIEXPORT type JNICALL METHOD_NAME(JNI_CLASS_NAME, name)(JNIEnv*, jobject, ##__VA_ARGS__);
 
 #define JNI_METHOD_BEGIN(type, name, ...) \
-    JNIEXPORT type JNICALL METHOD_NAME(JNI_CLASS_NAME, name)(JNIEnv *env, jobject obj, ##__VA_ARGS__) {
+    JNIEXPORT type JNICALL METHOD_NAME(JNI_CLASS_NAME, name)(JNIEnv *env, jobject obj, ##__VA_ARGS__) {\
+        try {
 
 #define JNI_METHOD_END \
+        } catch (...) {\
+            translate_cpp_exception(env);\
+        }\
+    }
+
+#define JNI_METHOD_END_RET \
+        } catch (...) {\
+            translate_cpp_exception(env);\
+            return NULL;\
+        }\
     }
 
 #define JNI_ARRAY_FOREACH_BEGIN(arr, type, name) \

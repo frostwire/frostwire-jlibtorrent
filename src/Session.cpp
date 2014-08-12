@@ -86,67 +86,66 @@ alert **session_wait_for_alert(int millis, int *size) {
 
 JNI_METHOD_BEGIN(void, create)
 
-    session_create();
+        session_create();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, release)
 
-    session_release();
+        session_release();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, startUPnP)
 
-    session_start_upnp();
+        session_start_upnp();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, startNATPMP)
 
-    session_start_natpmp();
+        session_start_natpmp();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, startLSD)
 
-    session_start_lsd();
+        session_start_lsd();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, startDHT)
 
-    session_start_dht();
+        session_start_dht();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, stopUPnP)
 
-    session_stop_upnp();
+        session_stop_upnp();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, stopNATPMP)
 
-    session_stop_natpmp();
+        session_stop_natpmp();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, stopLSD)
 
-    session_stop_lsd();
+        session_stop_lsd();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(void, stopDHT)
 
-    session_stop_dht();
+        session_stop_dht();
 
 JNI_METHOD_END
 
 JNI_METHOD_BEGIN(jobjectArray, waitForAlert, jint millis)
 
-    try {
         int n = 0;
         alert **alerts = session_wait_for_alert(millis, &n);
 
@@ -175,11 +174,7 @@ JNI_METHOD_BEGIN(jobjectArray, waitForAlert, jint millis)
         delete alerts;
 
         return arr;
-    } catch (...) {
-        translate_cpp_exception(env);
-        return NULL;
-    }
 
-JNI_METHOD_END
+JNI_METHOD_END_RET
 
 #endif //JNI_INTERFACE_ENABLED
