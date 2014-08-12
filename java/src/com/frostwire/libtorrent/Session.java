@@ -35,9 +35,9 @@ public class Session {
 
     private native void release(long handle);
 
-    private native long startUPnP(long handle);
+    private native void startUPnP(long handle);
 
-    private native long startNATPMP(long handle);
+    private native void startNATPMP(long handle);
 
     private native void startLSD(long handle);
 
