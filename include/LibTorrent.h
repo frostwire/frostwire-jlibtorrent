@@ -11,8 +11,6 @@ extern "C" {
 
 JNI_METHOD(jstring, version)
 
-JNI_METHOD(void, createTorrent, jobjectArray)
-
 #ifdef __cplusplus
 }
 #endif
