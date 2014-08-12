@@ -9,19 +9,22 @@ public class Session {
 
     private final long session;
 
-    private long upnp;
-    private long natpmp;
-
     public Session() {
         this.session = create();
     }
 
     public void startNetworking() {
-        upnp = startUPnP(session);
-        natpmp = startNATPMP(session);
-
+        startUPnP(session);
+        startNATPMP(session);
         startLSD(session);
         startDHT(session);
+    }
+    
+    public void stopNetworking() {
+        stopUPnP(session);
+        stopNATPMP(session);
+        stopLSD(session);
+        stopDHT(session);
     }
 
     public List<Alert> waitForAlerts(int millis) {
@@ -47,6 +50,14 @@ public class Session {
     private native void startLSD(long handle);
 
     private native void startDHT(long handle);
+
+    private native void stopUPnP(long handle);
+
+    private native void stopNATPMP(long handle);
+
+    private native void stopLSD(long handle);
+
+    private native void stopDHT(long handle);
 
     private native Alert[] waitForAlerts(long handle, int millis);
 }

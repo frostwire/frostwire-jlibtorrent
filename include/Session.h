@@ -17,6 +17,11 @@ JNI_METHOD(void, startNATPMP, jlong)
 JNI_METHOD(void, startLSD, jlong)
 JNI_METHOD(void, startDHT, jlong)
 
+JNI_METHOD(void, stopUPnP, jlong)
+JNI_METHOD(void, stopNATPMP, jlong)
+JNI_METHOD(void, stopLSD, jlong)
+JNI_METHOD(void, stopDHT, jlong)
+
 JNI_METHOD(jobjectArray, waitForAlerts, jlong, jint)
 
 #ifdef __cplusplus

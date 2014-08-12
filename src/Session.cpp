@@ -48,6 +48,38 @@ JNI_METHOD_BEGIN(void, startDHT, jlong handle)
 
 JNI_METHOD_END
 
+JNI_METHOD_BEGIN(void, stopUPnP, jlong handle)
+
+    session *s = (session *) handle;
+
+    s->stop_upnp();
+
+JNI_METHOD_END
+
+JNI_METHOD_BEGIN(void, stopNATPMP, jlong handle)
+
+    session *s = (session *) handle;
+
+    s->stop_natpmp();
+
+JNI_METHOD_END
+
+JNI_METHOD_BEGIN(void, stopLSD, jlong handle)
+
+    session *s = (session *) handle;
+
+    s->stop_lsd();
+
+JNI_METHOD_END
+
+JNI_METHOD_BEGIN(void, stopDHT, jlong handle)
+
+    session *s = (session *) handle;
+
+    s->stop_dht();
+
+JNI_METHOD_END
+
 JNI_METHOD_BEGIN(jobjectArray, waitForAlerts, jlong handle, jint millis)
 
     session *s = (session *) handle;
