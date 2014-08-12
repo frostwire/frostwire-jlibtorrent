@@ -4,6 +4,8 @@ JNI_METHOD_BEGIN(jlong, create)
 
     session *s = new session();
 
+    s->set_alert_mask(alert::all_categories);
+
     return (jlong) s;
 
 JNI_METHOD_END
@@ -93,17 +95,16 @@ JNI_METHOD_BEGIN(jobjectArray, waitForAlerts, jlong handle, jint millis)
     JNI_NEW_ARRAY("com/frostwire/libtorrent/alerts/Alert", alerts.size(), arr)
 
     for (int i = 0; i < alerts.size(); i++) {
-        cout << alerts[i]->what() << endl;
         jstring what = env->NewStringUTF(alerts[i]->what());
 
         jmethodID mid;
         jclass handlerClass = env->FindClass("com/frostwire/libtorrent/Alerts");
         if (handlerClass == NULL) {
-            /* error handling */
+            cout << "no clazz" << endl;
         }
-        mid = env->GetMethodID(handlerClass, "test", "(Ljava/lang/String;)com/frostwire/libtorrent/Alerts");
+        mid = env->GetStaticMethodID(handlerClass, "test", "(Ljava/lang/String;)Lcom/frostwire/libtorrent/alerts/Alert;");
         if (mid == NULL) {
-            /* error handling */
+            cout << "no method" << endl;
         }
 
         jobject obj = env->CallStaticObjectMethod(handlerClass, mid, what);

@@ -32,8 +32,7 @@ public class Main {
 
         s.startNetworking();
 
-        System.out.println("About to exit");
-        Thread.sleep(10000);
-        System.out.println("exited");
+        System.out.println("Enter to exit");
+        System.in.read();
     }
 }
