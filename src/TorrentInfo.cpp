@@ -23,7 +23,7 @@ int num_pieces(torrent_info_ptr ti) {
 }
 
 const char *info_hash(torrent_info_ptr ti) {
-    return ti->info_hash().to_string().c_str();
+    return to_hex(ti->info_hash().to_string()).c_str();
 }
 
 #ifdef JNI_INTERFACE_ENABLED
