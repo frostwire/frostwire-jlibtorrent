@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Throwable {
 
         String[] paths = {"/Users/aldenml/Downloads/test.pdf"};
 
@@ -31,6 +31,9 @@ public class Main {
         t.start();
 
         s.startNetworking();
+
+        TorrentInfo ti = new TorrentInfo("/Users/aldenml/Downloads/frostwire-5.7.5.dmg.torrent", 0);
+        System.out.println(ti.mkString());
 
         System.out.println("Enter to exit");
         System.in.read();

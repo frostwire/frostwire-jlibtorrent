@@ -1,78 +1,57 @@
 #include "Session.h"
 
-session *hSession = NULL;
+session_ptr session_create() {
+    session_ptr s = new session();
 
-void check_session() {
-    if (hSession == NULL) {
-        throw runtime_error("Internal libtorrent session is NULL");
-    }
+    s->set_alert_mask(alert::all_categories);
+
+    return s;
 }
 
-void session_create() {
-    if (hSession != NULL) {
-        throw runtime_error("Internal libtorrent session is already created");
-    }
-
-    hSession = new session();
-
-    hSession->set_alert_mask(alert::all_categories);
+void session_release(session_ptr s) {
+    delete s;
 }
 
-void session_release() {
-    check_session();
-    delete hSession;
+void session_start_upnp(session_ptr s) {
+    s->start_upnp();
 }
 
-void session_start_upnp() {
-    check_session();
-    hSession->start_upnp();
+void session_start_natpmp(session_ptr s) {
+    s->start_natpmp();
 }
 
-void session_start_natpmp() {
-    check_session();
-    hSession->start_natpmp();
+void session_start_lsd(session_ptr s) {
+    s->start_lsd();
 }
 
-void session_start_lsd() {
-    check_session();
-    hSession->start_lsd();
+void session_start_dht(session_ptr s) {
+    s->start_dht();
 }
 
-void session_start_dht() {
-    check_session();
-    hSession->start_dht();
+void session_stop_upnp(session_ptr s) {
+    s->stop_upnp();
 }
 
-void session_stop_upnp() {
-    check_session();
-    hSession->stop_upnp();
+void session_stop_natpmp(session_ptr s) {
+    s->stop_natpmp();
 }
 
-void session_stop_natpmp() {
-    check_session();
-    hSession->stop_natpmp();
+void session_stop_lsd(session_ptr s) {
+    s->stop_lsd();
 }
 
-void session_stop_lsd() {
-    check_session();
-    hSession->stop_lsd();
+void session_stop_dht(session_ptr s) {
+    s->stop_dht();
 }
 
-void session_stop_dht() {
-    check_session();
-    hSession->stop_dht();
-}
-
-alert **session_wait_for_alert(int millis, int *size) {
-    check_session();
-
+alert_array session_wait_for_alert(session_ptr s, int millis, int *size) {
     deque<alert *> alerts;
 
-    if (hSession->wait_for_alert(milliseconds(millis)) != 0) {
-        hSession->pop_alerts(&alerts);
+    if (s->wait_for_alert(milliseconds(millis)) != 0) {
+        s->pop_alerts(&alerts);
     }
 
-    alert **arr = new alert *[alerts.size()];
+    alert_array arr = new alert *[alerts.size()];
     *size = alerts.size();
 
     for (int i = 0; i < alerts.size(); i++) {
@@ -84,71 +63,73 @@ alert **session_wait_for_alert(int millis, int *size) {
 
 #ifdef JNI_INTERFACE_ENABLED
 
-JNI_METHOD_BEGIN(void, create)
+#define JNI_METHOD_BEGIN_S(type, name, ...) \
+    JNI_METHOD_BEGIN_HANDLE(type, name, session_ptr, s, ##__VA_ARGS__)
 
-    session_create();
+JNI_METHOD_BEGIN(jlong, create)
 
-JNI_METHOD_END
+        return (jlong) session_create();
 
-JNI_METHOD_BEGIN(void, release)
+JNI_METHOD_END_RET(jlong)
 
-    session_release();
+JNI_METHOD_BEGIN_S(void, release)
 
-JNI_METHOD_END
-
-JNI_METHOD_BEGIN(void, startUPnP)
-
-    session_start_upnp();
+        session_release(s);
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(void, startNATPMP)
+JNI_METHOD_BEGIN_S(void, startUPnP)
 
-    session_start_natpmp();
-
-JNI_METHOD_END
-
-JNI_METHOD_BEGIN(void, startLSD)
-
-    session_start_lsd();
+        session_start_upnp(s);
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(void, startDHT)
+JNI_METHOD_BEGIN_S(void, startNATPMP)
 
-    session_start_dht();
-
-JNI_METHOD_END
-
-JNI_METHOD_BEGIN(void, stopUPnP)
-
-    session_stop_upnp();
+        session_start_natpmp(s);
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(void, stopNATPMP)
+JNI_METHOD_BEGIN_S(void, startLSD)
 
-    session_stop_natpmp();
-
-JNI_METHOD_END
-
-JNI_METHOD_BEGIN(void, stopLSD)
-
-    session_stop_lsd();
+        session_start_lsd(s);
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(void, stopDHT)
+JNI_METHOD_BEGIN_S(void, startDHT)
 
-    session_stop_dht();
+        session_start_dht(s);
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN(jobjectArray, waitForAlert, jint millis)
+JNI_METHOD_BEGIN_S(void, stopUPnP)
 
-    try {
+        session_stop_upnp(s);
+
+JNI_METHOD_END
+
+JNI_METHOD_BEGIN_S(void, stopNATPMP)
+
+        session_stop_natpmp(s);
+
+JNI_METHOD_END
+
+JNI_METHOD_BEGIN_S(void, stopLSD)
+
+        session_stop_lsd(s);
+
+JNI_METHOD_END
+
+JNI_METHOD_BEGIN_S(void, stopDHT)
+
+        session_stop_dht(s);
+
+JNI_METHOD_END
+
+JNI_METHOD_BEGIN_S(jobjectArray, waitForAlert, jint millis)
+
         int n = 0;
-        alert **alerts = session_wait_for_alert(millis, &n);
+        alert_array alerts = session_wait_for_alert(s, millis, &n);
 
         JNI_NEW_ARRAY("com/frostwire/libtorrent/alerts/Alert", n, arr)
 
@@ -175,11 +156,7 @@ JNI_METHOD_BEGIN(jobjectArray, waitForAlert, jint millis)
         delete alerts;
 
         return arr;
-    } catch (...) {
-        translate_cpp_exception(env);
-        return NULL;
-    }
 
-JNI_METHOD_END
+JNI_METHOD_END_RET(jobjectArray)
 
 #endif //JNI_INTERFACE_ENABLED
