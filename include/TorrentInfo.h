@@ -25,11 +25,11 @@ const char *info_hash(torrent_info_ptr);
 JNI_METHOD(jlong, create, jstring, int)
 JNI_METHOD_HANDLE(void, release)
 
-JNI_METHOD_HANDLE(jlong, total_size)
-JNI_METHOD_HANDLE(jint, piece_length)
-JNI_METHOD_HANDLE(jint, num_pieces)
+JNI_METHOD_HANDLE(jlong, totalSize)
+JNI_METHOD_HANDLE(jint, pieceLength)
+JNI_METHOD_HANDLE(jint, numPieces)
 
-JNI_METHOD_HANDLE(jstring, info_hash)
+JNI_METHOD_HANDLE(jstring, infoHash)
 
 #endif //JNI_INTERFACE_ENABLED
 

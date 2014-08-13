@@ -50,25 +50,25 @@ JNI_METHOD_BEGIN_TI(void, release)
 
 JNI_METHOD_END
 
-JNI_METHOD_BEGIN_TI(jlong, total_size)
+JNI_METHOD_BEGIN_TI(jlong, totalSize)
 
         return total_size(ti);
 
 JNI_METHOD_END_RET(jlong)
 
-JNI_METHOD_BEGIN_TI(jint, piece_length)
+JNI_METHOD_BEGIN_TI(jint, pieceLength)
 
         return piece_length(ti);
 
 JNI_METHOD_END_RET(jint)
 
-JNI_METHOD_BEGIN_TI(jint, num_pieces)
+JNI_METHOD_BEGIN_TI(jint, numPieces)
 
         return num_pieces(ti);
 
 JNI_METHOD_END_RET(jint)
 
-JNI_METHOD_BEGIN_TI(jstring, info_hash)
+JNI_METHOD_BEGIN_TI(jstring, infoHash)
 
         return env->NewStringUTF(info_hash(ti));
 
