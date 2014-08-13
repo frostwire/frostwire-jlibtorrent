@@ -7,57 +7,57 @@ import java.util.List;
 
 public class Session {
 
-    private final long s;
+    private final long h;
 
     public Session() {
-        this.s = create();
+        this.h = create();
     }
 
     public void startNetworking() {
-        startUPnP(s);
-        startNATPMP(s);
-        startLSD(s);
-        startDHT(s);
+        startUPnP(h);
+        startNATPMP(h);
+        startLSD(h);
+        startDHT(h);
     }
 
     public void stopNetworking() {
-        stopUPnP(s);
-        stopNATPMP(s);
-        stopLSD(s);
-        stopDHT(s);
+        stopUPnP(h);
+        stopNATPMP(h);
+        stopLSD(h);
+        stopDHT(h);
     }
 
     public List<Alert> waitForAlerts(int millis) {
-        return Arrays.asList(waitForAlert(s, millis));
+        return Arrays.asList(waitForAlert(h, millis));
     }
 
     @Override
     protected void finalize() throws Throwable {
-        if (this.s != 0) {
-            release(this.s);
+        if (this.h != 0) {
+            release(this.h);
         }
         super.finalize();
     }
 
     private native long create();
 
-    private native void release(long s);
+    private native void release(long h);
 
-    private native void startUPnP(long s);
+    private native void startUPnP(long h);
 
-    private native void startNATPMP(long s);
+    private native void startNATPMP(long h);
 
-    private native void startLSD(long s);
+    private native void startLSD(long h);
 
-    private native void startDHT(long s);
+    private native void startDHT(long h);
 
-    private native void stopUPnP(long s);
+    private native void stopUPnP(long h);
 
-    private native void stopNATPMP(long s);
+    private native void stopNATPMP(long h);
 
-    private native void stopLSD(long s);
+    private native void stopLSD(long h);
 
-    private native void stopDHT(long s);
+    private native void stopDHT(long h);
 
-    private native Alert[] waitForAlert(long s, int millis);
+    private native Alert[] waitForAlert(long h, int millis);
 }

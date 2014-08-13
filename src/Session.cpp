@@ -64,8 +64,7 @@ alert_array session_wait_for_alert(session_ptr s, int millis, int *size) {
 #ifdef JNI_INTERFACE_ENABLED
 
 #define JNI_METHOD_BEGIN_S(type, name, ...) \
-    JNI_METHOD_BEGIN(type, name, jlong hSession, ##__VA_ARGS__)\
-        session_ptr s = (session_ptr) hSession;
+    JNI_METHOD_BEGIN_HANDLE(type, name, session_ptr, s, ##__VA_ARGS__)
 
 JNI_METHOD_BEGIN(jlong, create)
 

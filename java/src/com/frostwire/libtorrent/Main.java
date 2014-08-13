@@ -32,6 +32,9 @@ public class Main {
 
         s.startNetworking();
 
+        TorrentInfo ti = new TorrentInfo("/Users/aldenml/Downloads/frostwire-5.7.5.dmg.torrent", 0);
+        System.out.println(ti.mkString());
+
         System.out.println("Enter to exit");
         System.in.read();
 

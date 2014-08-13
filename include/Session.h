@@ -31,19 +31,19 @@ alert_array session_wait_for_alert(session_ptr, int, int *);
 #define JNI_CLASS_NAME Session
 
 JNI_METHOD(jlong, create)
-JNI_METHOD(void, release, jlong)
+JNI_METHOD_HANDLE(void, release)
 
-JNI_METHOD(void, startUPnP, jlong)
-JNI_METHOD(void, startNATPMP, jlong)
-JNI_METHOD(void, startLSD, jlong)
-JNI_METHOD(void, startDHT, jlong)
+JNI_METHOD_HANDLE(void, startUPnP)
+JNI_METHOD_HANDLE(void, startNATPMP)
+JNI_METHOD_HANDLE(void, startLSD)
+JNI_METHOD_HANDLE(void, startDHT)
 
-JNI_METHOD(void, stopUPnP, jlong)
-JNI_METHOD(void, stopNATPMP, jlong)
-JNI_METHOD(void, stopLSD, jlong)
-JNI_METHOD(void, stopDHT, jlong)
+JNI_METHOD_HANDLE(void, stopUPnP)
+JNI_METHOD_HANDLE(void, stopNATPMP)
+JNI_METHOD_HANDLE(void, stopLSD)
+JNI_METHOD_HANDLE(void, stopDHT)
 
-JNI_METHOD(jobjectArray, waitForAlert, jlong, jint)
+JNI_METHOD_HANDLE(jobjectArray, waitForAlert, jint)
 
 #endif //JNI_INTERFACE_ENABLED
 
