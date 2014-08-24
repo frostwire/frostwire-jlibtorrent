@@ -1,18 +1,23 @@
-ifeq ($UNAME, Linux)
+UNAME=$(shell uname)
+
+INCLUDES = -Iinclude
+ifeq ($(UNAME), Linux)
 CC = g++
+INCLUDES += -I/usr/lib/jvm/java-1.7.0-openjdk-amd64/include
+TARGET = jlibtorrent.so
 endif
 
-ifeq ($UNAME, Darwin)
+ifeq ($(UNAME), Darwin)
 CC = clang
+INCLUDES += -I/usr/local/include
+TARGET = jlibtorrent.dylib
 endif
 
-CFLAGS = -Wno-c++11-extensions -std=c++11
-INCLUDES = -I/usr/local/include -Iinclude
 LDFLAGS = -L/usr/local/lib
 LIBS = -ltorrent-rasterbar -lboost_system
+CFLAGS = -Wno-c++11-extensions -std=c++11
 CPP_FILES := $(wildcard src/*.cpp)
 OBJ_FILES := $(addprefix obj/,$(notdir $(CPP_FILES:.cpp=.o)))
-TARGET = jlibtorrent.dylib
 
 all: $(SRCS) $(TARGET)
 

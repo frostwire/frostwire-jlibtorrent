@@ -1,7 +1,11 @@
 #ifndef _JNI_UTIL_H
 #define _JNI_UTIL_H
 
+#ifdef __APPLE__
 #include <JavaVM/jni.h>
+#elif __linux
+#include <jni.h>
+#endif
 
 #include <stdexcept>
 #include <string>
