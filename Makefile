@@ -1,4 +1,11 @@
+ifeq ($UNAME, Linux)
 CC = g++
+endif
+
+ifeq ($UNAME, Darwin)
+CC = clang
+endif
+
 CFLAGS = -Wno-c++11-extensions -std=c++11
 INCLUDES = -I/usr/local/include -Iinclude
 LDFLAGS = -L/usr/local/lib
