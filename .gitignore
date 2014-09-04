@@ -7,3 +7,4 @@
 *.o
 /jlibtorrent.xcodeproj/xcuserdata/
 /obj
+frostwire-jlibtorrent.iws
