@@ -29,7 +29,7 @@ INCLUDES="-I/usr/local/include -I/Library/Java/JavaVirtualMachines/jdk1.8.0_20.j
 LIBS="-ltorrent-rasterbar -lboost_system"
 CFLAGS="-stdlib=libc++ -std=c++11 -O3 -DBOOST_ASIO_DYN_LINK=1 -DTORRENT_NO_DEPRECATE=1 -DTORRENT_DISABLE_GEO_IP=1"
 LDFLAGS="-L/usr/local/lib"
-TARGET="jlibtorrent.dylib"
+TARGET="libjlibtorrent.dylib"
 
 $CC $CFLAGS $INCLUDES -c libtorrent_jni.cpp
 $CC $LDFLAGS $LIBS -dynamiclib -o $TARGET libtorrent_jni.o

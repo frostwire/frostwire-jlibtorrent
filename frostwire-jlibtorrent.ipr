@@ -24,6 +24,9 @@
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
   <component name="IdProvider" IDEtalkID="A1B6637C8B81E1319BDEDF363758B361" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">

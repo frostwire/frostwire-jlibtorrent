@@ -7,7 +7,7 @@ import java.io.File;
 public final class LibTorrent {
 
     static {
-        System.load(new File("../jlibtorrent.dylib").getAbsolutePath());
+        System.loadLibrary("jlibtorrent");
     }
 
     private LibTorrent() {

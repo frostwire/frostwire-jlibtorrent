@@ -1,6 +1,7 @@
 *~
 .DS_Store
 /.idea
+/out
 /java/.idea/
 /java/out/
 /jlibtorrent.dylib
