@@ -1,13 +1,13 @@
 #!/bin/bash
 
-JAVA_SRC_OUTPUT=src/com/frostwire/libtorrent/swig
+JAVA_SRC_OUTPUT=src/com/frostwire/jlibtorrent/swig
 
 rm -rf ${JAVA_SRC_OUTPUT}
 mkdir -p ${JAVA_SRC_OUTPUT}
 
 swig -c++ -java -o libtorrent_jni.cpp \
     -outdir ${JAVA_SRC_OUTPUT} \
-    -package com.frostwire.libtorrent.swig \
+    -package com.frostwire.jlibtorrent.swig \
     -Ilibtorrent-rasterbar-1.0.1/include \
     -I/usr/local/include \
     -DBOOST_ASIO_DECL="" \
