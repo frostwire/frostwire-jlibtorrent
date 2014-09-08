@@ -2,10 +2,15 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
+
+    static {
+        System.loadLibrary("jlibtorrent");
+    }
 
     // public only to test
     public final session s;
@@ -14,6 +19,17 @@ public class Session {
         this.s = new session();
 
         init();
+    }
+
+    public TorrentHandle add(File torrent) {
+        TorrentInfo ti = new TorrentInfo(torrent.getAbsolutePath());
+
+        add_torrent_params p = new add_torrent_params();
+        p.setSave_path("/Users/aldenml/Downloads");
+        p.setTi(ti.getInf());
+        torrent_handle th = s.add_torrent(p);
+
+        return new TorrentHandle(th);
     }
 
     public List<alert> waitForAlerts(int millis) {

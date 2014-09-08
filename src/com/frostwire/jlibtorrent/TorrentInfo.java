@@ -5,39 +5,53 @@ import com.frostwire.jlibtorrent.swig.torrent_info;
 
 public class TorrentInfo {
 
-    private final torrent_info inf;
+    private final torrent_info ti;
+
+    private final String name;
+    private final String infoHash;
+
+    public TorrentInfo(torrent_info ti) {
+        this.ti = ti;
+
+        this.name = this.ti.name();
+        this.infoHash = libtorrent.to_hex(this.ti.info_hash().to_string());
+    }
 
     public TorrentInfo(String filename) {
-        this.inf = new torrent_info(filename);
+        this(new torrent_info(filename));
     }
 
-    public long totalSize() {
-        return this.inf.total_size();
+    public String getName() {
+        return this.name;
     }
 
-    public int pieceLength() {
-        return this.inf.piece_length();
+    public long getTotalSize() {
+        return this.ti.total_size();
     }
 
-    public int numPieces() {
-        return this.inf.num_pieces();
+    public int getPieceLength() {
+        return this.ti.piece_length();
     }
 
-    public String infoHash() {
-        return libtorrent.to_hex(this.inf.info_hash().to_string());
+    public int getNumPieces() {
+        return this.ti.num_pieces();
+    }
+
+    public String getInfoHash() {
+        return infoHash;
     }
 
     public torrent_info getInf() {
-        return this.inf;
+        return this.ti;
     }
 
     public String mkString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("total_size = " + totalSize() + System.lineSeparator());
-        sb.append("piece_length = " + pieceLength() + System.lineSeparator());
-        sb.append("num_pieces = " + numPieces() + System.lineSeparator());
-        sb.append("info_hash = " + infoHash() + System.lineSeparator());
+        sb.append("total_size = " + getTotalSize() + System.lineSeparator());
+        sb.append("piece_length = " + getPieceLength() + System.lineSeparator());
+        sb.append("num_pieces = " + getNumPieces() + System.lineSeparator());
+        sb.append("info_hash = " + getInfoHash() + System.lineSeparator());
 
         return sb.toString();
     }
