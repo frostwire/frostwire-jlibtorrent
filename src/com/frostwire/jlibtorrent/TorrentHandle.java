@@ -32,6 +32,12 @@ public final class TorrentHandle {
         return th.status().getIs_finished();
     }
 
+    /**
+     * It is important not to call this method for each field in the status
+     * for performance reasons.
+     *
+     * @return
+     */
     public TorrentStatus getStatus() {
         return new TorrentStatus(th.status());
     }
