@@ -28,6 +28,7 @@ public class Session {
         p.setSave_path("/Users/aldenml/Downloads");
         p.setTi(ti.getInf());
         torrent_handle th = s.add_torrent(p);
+        th.auto_managed(false);
 
         return new TorrentHandle(th);
     }

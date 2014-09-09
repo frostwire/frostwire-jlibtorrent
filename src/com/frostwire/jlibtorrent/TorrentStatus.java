@@ -30,7 +30,7 @@ public final class TorrentStatus {
 //    time_t completed_time;
 //    time_t last_seen_complete;
 //    storage_mode_t storage_mode;
-//    float progress;
+        this.progress = status.getProgress();
 //    int progress_ppm;
 //    int queue_position;
 //    int download_rate;
@@ -107,8 +107,15 @@ public final class TorrentStatus {
 //    time_t completed_time;
 //    time_t last_seen_complete;
 //    storage_mode_t storage_mode;
-//    float progress;
-//    int progress_ppm;
+
+    /**
+     * A value in the range [0, 1], that represents the progress of the torrent's
+     * current task. It may be checking files or downloading.
+     *
+     * @return
+     */
+    public final float progress;
+    //    int progress_ppm;
 //    int queue_position;
 //    int download_rate;
 //    int upload_rate;
