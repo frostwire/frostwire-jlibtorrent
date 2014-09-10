@@ -113,8 +113,23 @@ public final class TorrentStatus {
     public final long totalRedundantBytes;
     //    bitfield pieces;
 //    bitfield verified_pieces;
+
+    /**
+     * The total number of bytes of the file(s) that we have. All this does not necessarily
+     * has to be downloaded during this session (that's total_payload_download).
+     */
     public final long totalDone;
+
+    /**
+     * The number of bytes we have downloaded, only counting the pieces that we actually want
+     * to download. i.e. excluding any pieces that we have but have priority 0 (i.e. not wanted).
+     */
     public final long totalWantedDone;
+
+    /**
+     * The total number of bytes we want to download. This may be smaller than the total
+     * torrent size in case any pieces are prioritized to 0, i.e. not wanted.
+     */
     public final long totalWanted;
 
     /**
@@ -174,7 +189,20 @@ public final class TorrentStatus {
      */
     public final int uploadRate;
 
+    /**
+     * The total transfer rate of payload only, not counting protocol chatter.
+     * This might be slightly smaller than the other rates, but if projected over
+     * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
+     *
+     */
     public final int downloadPayloadRate;
+
+    /**
+     * The total transfer rate of payload only, not counting protocol chatter.
+     * This might be slightly smaller than the other rates, but if projected over
+     * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
+     *
+     */
     public final int uploadPayloadRate;
 
     /**

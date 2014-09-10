@@ -8,7 +8,7 @@ import java.io.File;
 
 public final class TorrentHandle {
 
-    private static final long REQUEST_STATUS_RESOLUTION = 500;
+    private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
 
     private final torrent_handle th;
     private final File torrentFile;
@@ -64,7 +64,7 @@ public final class TorrentHandle {
      */
     public TorrentStatus getStatus(boolean force) {
         long now = System.currentTimeMillis();
-        if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION) {
+        if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
             lastStatusRequestTime = now;
             lastStatus = new TorrentStatus(th.status());
         }

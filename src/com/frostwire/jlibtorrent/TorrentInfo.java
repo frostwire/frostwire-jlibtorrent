@@ -31,14 +31,33 @@ public final class TorrentInfo {
         return this.name;
     }
 
+    /**
+     * The total number of bytes the torrent-file represents (all the files in it).
+     *
+     * @return
+     */
     public long getTotalSize() {
         return this.ti.total_size();
     }
 
+    /**
+     * The number of byte for each piece.
+     * <p/>
+     * The difference between piece_size() and piece_length() is that piece_size() takes
+     * the piece index as argument and gives you the exact size of that piece. It will always
+     * be the same as piece_length() except in the case of the last piece, which may be smaller.
+     *
+     * @return
+     */
     public int getPieceLength() {
         return this.ti.piece_length();
     }
 
+    /**
+     * The total number of pieces.
+     *
+     * @return
+     */
     public int getNumPieces() {
         return this.ti.num_pieces();
     }
