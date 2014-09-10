@@ -29,7 +29,7 @@ public final class TorrentStatus {
         this.addedTime = status.getAdded_time();
         this.completedTime = status.getCompleted_time();
         this.lastSeenComplete = status.getLast_seen_complete();
-//    storage_mode_t storage_mode;
+        this.storage_mode = StorageMode.fromSwig(status.getStorage_mode());
         this.progress = status.getProgress();
         this.progressPpm = status.getProgress_ppm();
         this.queuePosition = status.getQueue_position();
@@ -121,7 +121,12 @@ public final class TorrentStatus {
     public final int addedTime;
     public final int completedTime;
     public final int lastSeenComplete;
-//    storage_mode_t storage_mode;
+
+    /**
+     * The allocation mode for the torrent. See storage_mode_t for the options.
+     * For more information, see storage allocation.
+     */
+    public final StorageMode storage_mode;
 
     /**
      * A value in the range [0, 1], that represents the progress of the torrent's
@@ -149,12 +154,39 @@ public final class TorrentStatus {
 
     public final int downloadPayloadRate;
     public final int uploadPayloadRate;
+
+    /**
+     * The number of peers that are seeding that this client is currently connected to.
+     */
     public final int numSeeds;
+
+    /**
+     * The number of peers this torrent currently is connected to. Peer connections that
+     * are in the half-open state (is attempting to connect) or are queued for later
+     * connection attempt do not count. Although they are visible in the peer list when
+     * you call get_peer_info().
+     */
     public final int numPeers;
+
     public final int numComplete;
     public final int numIncomplete;
+
+    /**
+     * The number of seeds in our peer list and the total number of peers (including seeds).
+     * We are not necessarily connected to all the peers in our peer list. This is the number
+     * of peers we know of in total, including banned peers and peers that we have failed to
+     * connect to.
+     */
     public final int listSeeds;
+
+    /**
+     * The number of seeds in our peer list and the total number of peers (including seeds).
+     * We are not necessarily connected to all the peers in our peer list. This is the number
+     * of peers we know of in total, including banned peers and peers that we have failed to
+     * connect to.
+     */
     public final int listPeers;
+
     public final int connectCandidates;
     public final int numPieces;
     public final int distributedFullCopies;
@@ -222,7 +254,7 @@ public final class TorrentStatus {
                 case checking_resume_data:
                     return CHECKING_RESUME_DATA;
                 default:
-                    throw new IllegalArgumentException("No enum value supported");
+                    throw new IllegalArgumentException("Enum value not supported");
             }
         }
     }
