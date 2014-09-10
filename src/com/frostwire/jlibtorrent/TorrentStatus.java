@@ -26,9 +26,9 @@ public final class TorrentStatus {
         this.totalWanted = status.getTotal_wanted();
         this.allTimeUpload = status.getAll_time_upload();
         this.allTimeDownload = status.getAll_time_download();
-        this.addedTime = status.getAdded_time();
-        this.completedTime = status.getCompleted_time();
-        this.lastSeenComplete = status.getLast_seen_complete();
+        this.addedTime = PosixTime.time2millis(status.getAdded_time());
+        this.completedTime = PosixTime.time2millis(status.getCompleted_time());
+        this.lastSeenComplete = PosixTime.time2millis(status.getLast_seen_complete());
         this.storage_mode = StorageMode.fromSwig(status.getStorage_mode());
         this.progress = status.getProgress();
         this.progressPpm = status.getProgress_ppm();
@@ -130,19 +130,19 @@ public final class TorrentStatus {
     public final long allTimeDownload;
 
     /**
-     * The posix-time when this torrent was added. i.e. what time(NULL) returned at the time.
+     * The posix-time (in milliseconds) when this torrent was added. i.e. what time(NULL) returned at the time.
      */
-    public final int addedTime;
+    public final long addedTime;
 
     /**
-     * The posix-time when this torrent was finished. If the torrent is not yet finished, this is 0.
+     * The posix-time (in milliseconds) when this torrent was finished. If the torrent is not yet finished, this is 0.
      */
-    public final int completedTime;
+    public final long completedTime;
 
     /**
-     * The time when we, or one of our peers, last saw a complete copy of this torrent.
+     * The time (in milliseconds) when we, or one of our peers, last saw a complete copy of this torrent.
      */
-    public final int lastSeenComplete;
+    public final long lastSeenComplete;
 
     /**
      * The allocation mode for the torrent. See storage_mode_t for the options.
