@@ -116,10 +116,32 @@ public final class TorrentStatus {
     public final long totalDone;
     public final long totalWantedDone;
     public final long totalWanted;
+
+    /**
+     * This is the accumulated upload payload byte counter. They are saved in and restored
+     * from resume data to keep totals across sessions.
+     */
     public final long allTimeUpload;
+
+    /**
+     * This is the accumulated download payload byte counters. They are saved in and restored
+     * from resume data to keep totals across sessions.
+     */
     public final long allTimeDownload;
+
+    /**
+     * The posix-time when this torrent was added. i.e. what time(NULL) returned at the time.
+     */
     public final int addedTime;
+
+    /**
+     * The posix-time when this torrent was finished. If the torrent is not yet finished, this is 0.
+     */
     public final int completedTime;
+
+    /**
+     * The time when we, or one of our peers, last saw a complete copy of this torrent.
+     */
     public final int lastSeenComplete;
 
     /**
