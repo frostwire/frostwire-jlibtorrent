@@ -4,11 +4,14 @@ import com.frostwire.jlibtorrent.swig.torrent_handle;
 import com.frostwire.jlibtorrent.swig.torrent_handle.status_flags_t;
 import com.frostwire.jlibtorrent.swig.torrent_status;
 
+import java.io.File;
+
 public final class TorrentHandle {
 
     private static final long REQUEST_STATUS_RESOLUTION = 500;
 
     private final torrent_handle th;
+    private final File torrentFile;
 
     private final TorrentInfo ti;
     private final String infoHash;
@@ -16,11 +19,25 @@ public final class TorrentHandle {
     private long lastStatusRequestTime;
     private TorrentStatus lastStatus;
 
-    public TorrentHandle(torrent_handle th) {
+    TorrentHandle(torrent_handle th, File torrentFile) {
         this.th = th;
+        this.torrentFile = torrentFile;
 
         this.ti = new TorrentInfo(this.th.torrent_file());
         this.infoHash = this.ti.getInfoHash();
+    }
+
+    public torrent_handle getSwig() {
+        return th;
+    }
+
+    /**
+     * This could be null in case the torrent is built from a magnet
+     *
+     * @return
+     */
+    public File getTorrentFile() {
+        return torrentFile;
     }
 
     public TorrentInfo getTorrentInfo() {

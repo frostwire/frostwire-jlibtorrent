@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.session.options_t;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,8 +13,7 @@ public class Session {
         System.loadLibrary("jlibtorrent");
     }
 
-    // public only to test
-    public final session s;
+    private final session s;
 
     public Session() {
         this.s = new session();
@@ -21,16 +21,60 @@ public class Session {
         init();
     }
 
-    public TorrentHandle add(File torrent) {
-        TorrentInfo ti = new TorrentInfo(torrent.getAbsolutePath());
+    public session getSwig() {
+        return s;
+    }
+
+    /**
+     * You add torrents through the add_torrent() function where you give an object with all the parameters. The add_torrent() overloads will block until the torrent has been added (or failed to be added) and returns an error code and a torrent_handle. In order to add torrents more efficiently, consider using async_add_torrent() which returns immediately, without waiting for the torrent to add. Notification of the torrent being added is sent as add_torrent_alert.
+     * <p/>
+     * The overload that does not take an error_code throws an exception on error and is not available when building without exception support. The torrent_handle returned by add_torrent() can be used to retrieve information about the torrent's progress, its peers etc. It is also used to abort a torrent.
+     * <p/>
+     * If the torrent you are trying to add already exists in the session (is either queued for checking, being checked or downloading) add_torrent() will throw libtorrent_exception which derives from std::exception unless duplicate_is_error is set to false. In that case, add_torrent() will return the handle to the existing torrent.
+     * <p/>
+     * all torrent_handles must be destructed before the session is destructed!
+     *
+     * @param torrentFile
+     * @return
+     */
+    public TorrentHandle addTorrent(File torrentFile) {
+        TorrentInfo ti = new TorrentInfo(torrentFile);
 
         add_torrent_params p = new add_torrent_params();
         p.setSave_path("/Users/aldenml/Downloads");
-        p.setTi(ti.getInf());
+        p.setTi(ti.getSwig());
         torrent_handle th = s.add_torrent(p);
         th.auto_managed(false);
 
-        return new TorrentHandle(th);
+        return new TorrentHandle(th, torrentFile);
+    }
+
+    /**
+     * This method will close all peer connections associated with the torrent and tell the
+     * tracker that we've stopped participating in the swarm. This operation cannot fail.
+     * When it completes, you will receive a torrent_removed_alert.
+     * <p/>
+     * The optional second argument options can be used to delete all the files downloaded
+     * by this torrent. To do so, pass in the value session::delete_files. The removal of
+     * the torrent is asyncronous, there is no guarantee that adding the same torrent immediately
+     * after it was removed will not throw a libtorrent_exception exception. Once the torrent
+     * is deleted, a torrent_deleted_alert is posted.
+     *
+     * @param th
+     */
+    public void removeTorrent(TorrentHandle th, Options options) {
+        s.remove_torrent(th.getSwig(), Options.toSwig(options));
+    }
+
+    /**
+     * This method will close all peer connections associated with the torrent and tell the
+     * tracker that we've stopped participating in the swarm. This operation cannot fail.
+     * When it completes, you will receive a torrent_removed_alert.
+     *
+     * @param th
+     */
+    public void removeTorrent(TorrentHandle th) {
+        this.removeTorrent(th, Options.NONE);
     }
 
     public List<alert> waitForAlerts(int millis) {
@@ -169,5 +213,31 @@ public class Session {
         }
 
         return r;
+    }
+
+    public enum Options {
+
+        NONE,
+        DELETE_FILES;
+
+        public static Options fromSwig(options_t opts) {
+            switch (opts) {
+                case delete_files:
+                    return DELETE_FILES;
+                default:
+                    throw new IllegalArgumentException("Enum value not supported");
+            }
+        }
+
+        public static int toSwig(Options opts) {
+            switch (opts) {
+                case NONE:
+                    return 0;
+                case DELETE_FILES:
+                    return options_t.delete_files.swigValue();
+                default:
+                    throw new IllegalArgumentException("Enum value not supported");
+            }
+        }
     }
 }
