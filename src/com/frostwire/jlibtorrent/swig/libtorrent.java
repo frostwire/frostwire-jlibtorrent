@@ -143,8 +143,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.merkle_get_sibling(arg0);
   }
 
-  public static void trim_path_element(SWIGTYPE_p_std__string path_element) {
-    libtorrent_jni.trim_path_element(SWIGTYPE_p_std__string.getCPtr(path_element));
+  public static void trim_path_element(String path_element) {
+    libtorrent_jni.trim_path_element(path_element);
   }
 
   public static long hash_value(torrent_status ts) {
@@ -319,8 +319,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.remove_extension(f);
   }
 
-  public static void replace_extension(SWIGTYPE_p_std__string f, String ext) {
-    libtorrent_jni.replace_extension(SWIGTYPE_p_std__string.getCPtr(f), ext);
+  public static void replace_extension(String f, String ext) {
+    libtorrent_jni.replace_extension(f, ext);
   }
 
   public static boolean is_root_path(String f) {
@@ -455,8 +455,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.url_has_argument__SWIG_1(url, argument);
   }
 
-  public static void convert_path_to_posix(SWIGTYPE_p_std__string path) {
-    libtorrent_jni.convert_path_to_posix(SWIGTYPE_p_std__string.getCPtr(path));
+  public static void convert_path_to_posix(String path) {
+    libtorrent_jni.convert_path_to_posix(path);
   }
 
   public static String read_until(String str, char delim, String end) {
@@ -489,6 +489,10 @@ public class libtorrent implements libtorrentConstants {
 
   public static String convert_from_native(String s) {
     return libtorrent_jni.convert_from_native(s);
+  }
+
+  public static String integer_to_str(String buf, int size, long val) {
+    return libtorrent_jni.integer_to_str(buf, size, val);
   }
 
 }

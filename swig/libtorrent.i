@@ -61,6 +61,7 @@
 #include "libtorrent/file.hpp"
 #include "libtorrent/time.hpp"
 #include "libtorrent/escape_string.hpp"
+#include "libtorrent/bencode.hpp"
     
 // aditional includes
     
@@ -147,7 +148,11 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 
 %auto_ptr(libtorrent::alert)
 
+%apply const std::string & {std::string &};
+
 typedef long time_t;
+typedef int64_t size_type;
+typedef uint64_t unsigned_size_type;
 
 namespace std {
     %template(void_ptr_int_pair) pair<void*, int>;
@@ -291,6 +296,7 @@ namespace std {
 %include "file.hpp"
 %include "libtorrent/time.hpp"
 %include "libtorrent/escape_string.hpp"
+%include "libtorrent/bencode.hpp"
 
 namespace libtorrent {
     

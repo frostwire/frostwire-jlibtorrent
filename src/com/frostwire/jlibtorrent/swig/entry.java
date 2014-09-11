@@ -79,8 +79,8 @@ public class entry {
     return new SWIGTYPE_p_long_long(libtorrent_jni.entry_integer__SWIG_0(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_std__string string() {
-    return new SWIGTYPE_p_std__string(libtorrent_jni.entry_string__SWIG_0(swigCPtr, this), false);
+  public String string() {
+    return libtorrent_jni.entry_string__SWIG_0(swigCPtr, this);
   }
 
   public SWIGTYPE_p_std__listT_libtorrent__entry_t list() {

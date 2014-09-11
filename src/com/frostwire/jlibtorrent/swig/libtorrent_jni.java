@@ -807,7 +807,7 @@ public class libtorrent_jni {
   public final static native boolean entry_op_eq(long jarg1, entry jarg1_, long jarg2, entry jarg2_);
   public final static native boolean entry_op_neq(long jarg1, entry jarg1_, long jarg2, entry jarg2_);
   public final static native long entry_integer__SWIG_0(long jarg1, entry jarg1_);
-  public final static native long entry_string__SWIG_0(long jarg1, entry jarg1_);
+  public final static native String entry_string__SWIG_0(long jarg1, entry jarg1_);
   public final static native long entry_list__SWIG_0(long jarg1, entry jarg1_);
   public final static native long entry_dict__SWIG_0(long jarg1, entry jarg1_);
   public final static native void entry_swap(long jarg1, entry jarg1_, long jarg2, entry jarg2_);
@@ -1186,7 +1186,7 @@ public class libtorrent_jni {
   public final static native int merkle_num_nodes(int jarg1);
   public final static native int merkle_get_parent(int jarg1);
   public final static native int merkle_get_sibling(int jarg1);
-  public final static native void trim_path_element(long jarg1);
+  public final static native void trim_path_element(String jarg1);
   public final static native long new_announce_entry__SWIG_0(String jarg1);
   public final static native long new_announce_entry__SWIG_1();
   public final static native void delete_announce_entry(long jarg1);
@@ -4142,7 +4142,7 @@ public class libtorrent_jni {
   public final static native String next_path_element(String jarg1);
   public final static native String extension(String jarg1);
   public final static native String remove_extension(String jarg1);
-  public final static native void replace_extension(long jarg1, String jarg2);
+  public final static native void replace_extension(String jarg1, String jarg2);
   public final static native boolean is_root_path(String jarg1);
   public final static native String parent_path(String jarg1);
   public final static native boolean has_parent_path(String jarg1);
@@ -4212,7 +4212,7 @@ public class libtorrent_jni {
   public final static native String base32decode(String jarg1);
   public final static native String url_has_argument__SWIG_0(String jarg1, String jarg2, long jarg3);
   public final static native String url_has_argument__SWIG_1(String jarg1, String jarg2);
-  public final static native void convert_path_to_posix(long jarg1);
+  public final static native void convert_path_to_posix(String jarg1);
   public final static native String read_until(String jarg1, char jarg2, String jarg3);
   public final static native int hex_to_int(char jarg1);
   public final static native boolean is_hex(String jarg1, int jarg2);
@@ -4221,6 +4221,10 @@ public class libtorrent_jni {
   public final static native boolean from_hex(String jarg1, int jarg2, String jarg3);
   public final static native String convert_to_native(String jarg1);
   public final static native String convert_from_native(String jarg1);
+  public final static native String invalid_encoding_what(long jarg1, invalid_encoding jarg1_);
+  public final static native long new_invalid_encoding();
+  public final static native void delete_invalid_encoding(long jarg1);
+  public final static native String integer_to_str(String jarg1, int jarg2, long jarg3);
   public final static native long default_storage_SWIGUpcast(long jarg1);
   public final static native long disabled_storage_SWIGUpcast(long jarg1);
   public final static native long policy_ipv4_peer_SWIGUpcast(long jarg1);
