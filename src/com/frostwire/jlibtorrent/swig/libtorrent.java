@@ -495,4 +495,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.integer_to_str(buf, size, val);
   }
 
+  public static char_vector entry_bencode(entry e) {
+    return new char_vector(libtorrent_jni.entry_bencode(entry.getCPtr(e), e), true);
+  }
+
 }

@@ -4225,6 +4225,7 @@ public class libtorrent_jni {
   public final static native long new_invalid_encoding();
   public final static native void delete_invalid_encoding(long jarg1);
   public final static native String integer_to_str(String jarg1, int jarg2, long jarg3);
+  public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long default_storage_SWIGUpcast(long jarg1);
   public final static native long disabled_storage_SWIGUpcast(long jarg1);
   public final static native long policy_ipv4_peer_SWIGUpcast(long jarg1);

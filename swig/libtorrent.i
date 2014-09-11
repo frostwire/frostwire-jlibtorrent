@@ -78,6 +78,12 @@ namespace libtorrent {
     int type() { return 0; }
     int category() { return 0; }
     char* what() { return NULL; }
+
+    std::vector<char> entry_bencode(const entry& e) {
+        std::vector<char> buffer;
+        bencode(std::back_inserter(buffer), e);
+        return buffer;
+    }
 }
     
 // exception helper functions
@@ -361,4 +367,6 @@ namespace libtorrent {
         return dynamic_cast<libtorrent::dht_error_alert *>(alert);
     }
 };
+
+std::vector<char> entry_bencode(const entry& e);
 }
