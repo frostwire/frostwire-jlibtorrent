@@ -14,4 +14,8 @@ public final class LibTorrent {
     public static String version() {
         return libtorrent.LIBTORRENT_VERSION;
     }
+
+    static long time2millis(int time) {
+        return ((long) time) * 1000;
+    }
 }

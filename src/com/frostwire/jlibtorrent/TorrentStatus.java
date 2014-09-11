@@ -26,9 +26,9 @@ public final class TorrentStatus {
         this.totalWanted = status.getTotal_wanted();
         this.allTimeUpload = status.getAll_time_upload();
         this.allTimeDownload = status.getAll_time_download();
-        this.addedTime = PosixTime.time2millis(status.getAdded_time());
-        this.completedTime = PosixTime.time2millis(status.getCompleted_time());
-        this.lastSeenComplete = PosixTime.time2millis(status.getLast_seen_complete());
+        this.addedTime = LibTorrent.time2millis(status.getAdded_time());
+        this.completedTime = LibTorrent.time2millis(status.getCompleted_time());
+        this.lastSeenComplete = LibTorrent.time2millis(status.getLast_seen_complete());
         this.storage_mode = StorageMode.fromSwig(status.getStorage_mode());
         this.progress = status.getProgress();
         this.progressPpm = status.getProgress_ppm();

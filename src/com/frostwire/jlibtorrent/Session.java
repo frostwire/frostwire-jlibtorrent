@@ -18,7 +18,11 @@ public class Session {
     public Session() {
         this.s = new session();
 
-        init();
+        s.set_alert_mask(alert.category_t.all_categories.swigValue());
+
+        int_int_pair pr = new int_int_pair(6881, 6889);
+        error_code ec = new error_code();
+        s.listen_on(pr, ec);
     }
 
     public session getSwig() {
@@ -35,13 +39,14 @@ public class Session {
      * all torrent_handles must be destructed before the session is destructed!
      *
      * @param torrentFile
+     * @param saveDir
      * @return
      */
-    public TorrentHandle addTorrent(File torrentFile) {
+    public TorrentHandle addTorrent(File torrentFile, File saveDir) {
         TorrentInfo ti = new TorrentInfo(torrentFile);
 
         add_torrent_params p = new add_torrent_params();
-        p.setSave_path("/Users/aldenml/Downloads");
+        p.setSave_path(saveDir.getAbsolutePath());
         p.setTi(ti.getSwig());
         torrent_handle th = s.add_torrent(p);
         th.auto_managed(false);
@@ -77,7 +82,18 @@ public class Session {
         this.removeTorrent(th, Options.NONE);
     }
 
-    public List<alert> waitForAlerts(int millis) {
+    /**
+     * Blocks until an alert is available, or for no more than max_wait time. If wait_for_alert returns
+     * because of the time-out, and no alerts are available, it returns 0. If at least one alert
+     * was generated, a pointer to that alert is returned. The alert is not popped, any subsequent calls
+     * to wait_for_alert will return the same pointer until the alert is popped by calling pop_alert.
+     * This is useful for leaving any alert dispatching mechanism independent of this blocking call, the
+     * dispatcher can be called and it can pop the alert independently.
+     *
+     * @param millis
+     * @return
+     */
+    public List<alert> waitForAlerts(long millis) {
         SWIGTYPE_p_boost__posix_time__time_duration max_wait = libtorrent.milliseconds(millis);
         alert ptr = s.wait_for_alert(max_wait);
 
@@ -99,14 +115,6 @@ public class Session {
         }
 
         return alerts;
-    }
-
-    private void init() {
-        s.set_alert_mask(alert.category_t.all_categories.swigValue());
-
-        int_int_pair pr = new int_int_pair(6881, 6889);
-        error_code ec = new error_code();
-        s.listen_on(pr, ec);
     }
 
     private alert cast_alert(alert a) {
@@ -211,6 +219,8 @@ public class Session {
         if (r != null) {
             return r;
         }
+
+        r = a;
 
         return r;
     }
