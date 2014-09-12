@@ -82,7 +82,7 @@ void entry_to_lazy_entry(entry bencoded_entry, lazy_entry& result_lazy_entry) {
     lazy_bdecode(tmp, tmp + size, result_lazy_entry, ec);
     */
 
-    std::cout << "Entry to Lazy Entry: " << print_entry(result_lazy_entry) << "\n";
+    std::cout << "Entry to Lazy Entry: " << print_entry(result_lazy_entry, false, 4) << "\n";
 }
 
 int main() {
@@ -138,7 +138,7 @@ int main() {
 
     if (myTorrentLazyBencodedEntry.dict_find("info") != NULL) {
         lazy_entry* infoLazyEntry = myTorrentLazyBencodedEntry.dict_find("info");
-        std::cout << "info! : " << print_entry(*infoLazyEntry) << std::endl;
+        std::cout << "info! : " << print_entry(*infoLazyEntry, false, 4) << std::endl;
     }
 
     string magnet_url = "magnet:?xt=urn:btih:31e57ca5b87c5df6cbb764830b66c0b6417daeb3&dn=frostwire-5.7.6.windows.coc.premium.exe&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&iipp=0af0769099c2";
