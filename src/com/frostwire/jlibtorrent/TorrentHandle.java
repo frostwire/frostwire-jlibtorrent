@@ -92,4 +92,13 @@ public final class TorrentHandle {
     public void resume() {
         th.resume();
     }
+
+    public boolean needSaveResumeData() {
+        return th.need_save_resume_data();
+    }
+
+    public void saveResumeData() {
+        // 2 - save_info_dict
+        th.save_resume_data();
+    }
 }

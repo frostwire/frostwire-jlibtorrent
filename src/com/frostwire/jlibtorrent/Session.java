@@ -150,6 +150,12 @@ public class Session {
             return r;
         }
 
+        // this needs an urgent refactor
+        r = alert.cast_to_save_resume_data_alert(a);
+        if (r != null) {
+            return r;
+        }
+
         r = alert.cast_to_torrent_alert(a);
         if (r != null) {
             return r;

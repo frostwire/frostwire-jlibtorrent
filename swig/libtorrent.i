@@ -366,6 +366,9 @@ namespace libtorrent {
     static libtorrent::dht_error_alert *cast_to_dht_error_alert(alert *alert) {
         return dynamic_cast<libtorrent::dht_error_alert *>(alert);
     }
+    static libtorrent::save_resume_data_alert *cast_to_save_resume_data_alert(alert *alert) {
+        return dynamic_cast<libtorrent::save_resume_data_alert *>(alert);
+    }
 };
 
 std::vector<char> entry_bencode(const entry& e);

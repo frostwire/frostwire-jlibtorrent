@@ -159,6 +159,11 @@ public class alert {
     return (cPtr == 0) ? null : new dht_error_alert(cPtr, false);
   }
 
+  public static save_resume_data_alert cast_to_save_resume_data_alert(alert alert) {
+    long cPtr = libtorrent_jni.alert_cast_to_save_resume_data_alert(alert.getCPtr(alert), alert);
+    return (cPtr == 0) ? null : new save_resume_data_alert(cPtr, false);
+  }
+
   public enum category_t {
     error_notification(libtorrent_jni.alert_error_notification_get()),
     peer_notification(libtorrent_jni.alert_peer_notification_get()),

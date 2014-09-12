@@ -1819,6 +1819,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_rss_item_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_listen_succeeded_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_error_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_save_resume_data_alert(long jarg1, alert jarg1_);
   public final static native String torrent_alert_message(long jarg1, torrent_alert jarg1_);
   public final static native void torrent_alert_handle_set(long jarg1, torrent_alert jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_alert_handle_get(long jarg1, torrent_alert jarg1_);
