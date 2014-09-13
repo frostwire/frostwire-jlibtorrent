@@ -79,22 +79,6 @@ public class disabled_storage extends storage_interface {
     return libtorrent_jni.disabled_storage_physical_offset(swigCPtr, this, arg0, arg1);
   }
 
-  public int readv(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs, int flags) {
-    return libtorrent_jni.disabled_storage_readv__SWIG_0(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs, flags);
-  }
-
-  public int readv(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs) {
-    return libtorrent_jni.disabled_storage_readv__SWIG_1(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs);
-  }
-
-  public int writev(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs, int flags) {
-    return libtorrent_jni.disabled_storage_writev__SWIG_0(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs, flags);
-  }
-
-  public int writev(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs) {
-    return libtorrent_jni.disabled_storage_writev__SWIG_1(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs);
-  }
-
   public boolean move_slot(int arg0, int arg1) {
     return libtorrent_jni.disabled_storage_move_slot(swigCPtr, this, arg0, arg1);
   }

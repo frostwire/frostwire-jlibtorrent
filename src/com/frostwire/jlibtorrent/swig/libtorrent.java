@@ -435,14 +435,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.base32decode(s);
   }
 
-  public static String url_has_argument(String url, String argument, SWIGTYPE_p_std__string__size_type out_pos) {
-    return libtorrent_jni.url_has_argument__SWIG_0(url, argument, SWIGTYPE_p_std__string__size_type.getCPtr(out_pos));
-  }
-
-  public static String url_has_argument(String url, String argument) {
-    return libtorrent_jni.url_has_argument__SWIG_1(url, argument);
-  }
-
   public static void convert_path_to_posix(String path) {
     libtorrent_jni.convert_path_to_posix(path);
   }

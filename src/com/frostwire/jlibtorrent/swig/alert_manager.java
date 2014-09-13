@@ -89,10 +89,6 @@ public class alert_manager {
     return libtorrent_jni.alert_manager_set_alert_queue_size_limit(swigCPtr, this, queue_size_limit_);
   }
 
-  public void set_dispatch_function(SWIGTYPE_p_boost__functionT_void_fstd__auto_ptrT_libtorrent__alert_tF_t arg0) {
-    libtorrent_jni.alert_manager_set_dispatch_function(swigCPtr, this, SWIGTYPE_p_boost__functionT_void_fstd__auto_ptrT_libtorrent__alert_tF_t.getCPtr(arg0));
-  }
-
   public void add_extension(plugin ext) {
     libtorrent_jni.alert_manager_add_extension(swigCPtr, this, plugin.getCPtr(ext), ext);
   }

@@ -43,10 +43,6 @@ public class ip_filter {
     return libtorrent_jni.ip_filter_access(swigCPtr, this, address.getCPtr(addr), addr);
   }
 
-  public SWIGTYPE_p_boost__tupleT_std__vectorT_libtorrent__ip_rangeT_boost__asio__ip__address_v4_t_t_std__vectorT_libtorrent__ip_rangeT_boost__asio__ip__address_v6_t_t_t export_filter() {
-    return new SWIGTYPE_p_boost__tupleT_std__vectorT_libtorrent__ip_rangeT_boost__asio__ip__address_v4_t_t_std__vectorT_libtorrent__ip_rangeT_boost__asio__ip__address_v6_t_t_t(libtorrent_jni.ip_filter_export_filter(swigCPtr, this), true);
-  }
-
   public ip_filter() {
     this(libtorrent_jni.new_ip_filter(), true);
   }

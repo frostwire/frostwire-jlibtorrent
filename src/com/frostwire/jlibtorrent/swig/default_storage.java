@@ -83,22 +83,6 @@ public class default_storage extends storage_interface {
     libtorrent_jni.default_storage_hint_read(swigCPtr, this, slot, offset, len);
   }
 
-  public int readv(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs, int flags) {
-    return libtorrent_jni.default_storage_readv__SWIG_0(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs, flags);
-  }
-
-  public int readv(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs) {
-    return libtorrent_jni.default_storage_readv__SWIG_1(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs);
-  }
-
-  public int writev(SWIGTYPE_p_file__iovec_t buf, int slot, int offset, int num_bufs, int flags) {
-    return libtorrent_jni.default_storage_writev__SWIG_0(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(buf), slot, offset, num_bufs, flags);
-  }
-
-  public int writev(SWIGTYPE_p_file__iovec_t buf, int slot, int offset, int num_bufs) {
-    return libtorrent_jni.default_storage_writev__SWIG_1(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(buf), slot, offset, num_bufs);
-  }
-
   public long physical_offset(int slot, int offset) {
     return libtorrent_jni.default_storage_physical_offset(swigCPtr, this, slot, offset);
   }

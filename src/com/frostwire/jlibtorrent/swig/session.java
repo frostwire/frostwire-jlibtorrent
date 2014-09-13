@@ -337,10 +337,6 @@ public class session {
     libtorrent_jni.session_set_alert_mask(swigCPtr, this, m);
   }
 
-  public void set_alert_dispatch(SWIGTYPE_p_boost__functionT_void_fstd__auto_ptrT_libtorrent__alert_tF_t fun) {
-    libtorrent_jni.session_set_alert_dispatch(swigCPtr, this, SWIGTYPE_p_boost__functionT_void_fstd__auto_ptrT_libtorrent__alert_tF_t.getCPtr(fun));
-  }
-
   public connection_queue get_connection_queue() {
     return new connection_queue(libtorrent_jni.session_get_connection_queue(swigCPtr, this), false);
   }

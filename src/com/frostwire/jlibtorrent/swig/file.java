@@ -73,14 +73,6 @@ public class file {
     return libtorrent_jni.file_size_alignment(swigCPtr, this);
   }
 
-  public long writev(long file_offset, SWIGTYPE_p_iovec bufs, int num_bufs, error_code ec) {
-    return libtorrent_jni.file_writev(swigCPtr, this, file_offset, SWIGTYPE_p_iovec.getCPtr(bufs), num_bufs, error_code.getCPtr(ec), ec);
-  }
-
-  public long readv(long file_offset, SWIGTYPE_p_iovec bufs, int num_bufs, error_code ec) {
-    return libtorrent_jni.file_readv(swigCPtr, this, file_offset, SWIGTYPE_p_iovec.getCPtr(bufs), num_bufs, error_code.getCPtr(ec), ec);
-  }
-
   public void hint_read(long file_offset, int len) {
     libtorrent_jni.file_hint_read(swigCPtr, this, file_offset, len);
   }

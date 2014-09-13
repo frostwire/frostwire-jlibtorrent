@@ -47,22 +47,6 @@ public class storage_interface {
     libtorrent_jni.storage_interface_set_file_priority(swigCPtr, this, unsigned_char_vector.getCPtr(prio), prio);
   }
 
-  public int readv(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs, int flags) {
-    return libtorrent_jni.storage_interface_readv__SWIG_0(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs, flags);
-  }
-
-  public int readv(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs) {
-    return libtorrent_jni.storage_interface_readv__SWIG_1(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs);
-  }
-
-  public int writev(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs, int flags) {
-    return libtorrent_jni.storage_interface_writev__SWIG_0(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs, flags);
-  }
-
-  public int writev(SWIGTYPE_p_file__iovec_t bufs, int slot, int offset, int num_bufs) {
-    return libtorrent_jni.storage_interface_writev__SWIG_1(swigCPtr, this, SWIGTYPE_p_file__iovec_t.getCPtr(bufs), slot, offset, num_bufs);
-  }
-
   public void hint_read(int arg0, int arg1, int arg2) {
     libtorrent_jni.storage_interface_hint_read(swigCPtr, this, arg0, arg1, arg2);
   }

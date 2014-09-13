@@ -186,7 +186,6 @@ namespace std {
     %template(file_slice_vector) vector<libtorrent::file_slice>;
     %template(peer_request_vector) vector<libtorrent::peer_request>;
     %template(piece_block_vector) vector<libtorrent::piece_block>;
-    %template(piece_picker_downloading_piece_vector) vector<libtorrent::piece_picker::downloading_piece>;
     %template(pending_block_vector) vector<libtorrent::pending_block>;
     %template(dht_routing_bucket_vector) vector<libtorrent::dht_routing_bucket>;
     %template(dht_lookup_vector) vector<libtorrent::dht_lookup>;
@@ -215,6 +214,38 @@ namespace std {
 
 %ignore partial_hash;
 %ignore ssl_ctx;
+
+// this are ignore until we solve the specific type issues
+%ignore url_has_argument; // global
+%ignore export_filter; // ip_filter
+%ignore getExtensions; // add_torrent_params
+%ignore setExtensions; // add_torrent_params
+%ignore on_peer_name_lookup; // torrent
+%ignore on_name_lookup; // torrent
+%ignore on_proxy_name_lookup; // torrent
+%ignore set_dispatch_function; // alert_manager
+%ignore set_alert_dispatch; // session
+%ignore readv;
+%ignore writev;
+%ignore incoming_piece; // peer_connection
+%ignore send_buffer; // peer_connection
+%ignore send_buffer; // bt_peer_connection
+%ignore async_check_fastresume; // piece_manager
+%ignore async_check_files; // piece_manager
+%ignore async_rename_file; // piece_manager
+%ignore async_read; // piece_manager
+%ignore async_read_and_hash; // piece_manager
+%ignore async_cache; // piece_manager
+%ignore async_write; // piece_manager
+%ignore async_hash; // piece_manager
+%ignore async_release_files; // piece_manager
+%ignore async_clear_read_cache; // piece_manager
+%ignore async_delete_files; // piece_manager
+%ignore async_move_storage; // piece_manager
+%ignore async_set_file_priority; // piece_manager
+%ignore async_save_resume_data; // piece_manager
+%ignore setCallback; // disk_io_job
+%ignore add_job; // disk_io_thread
 
 %ignore operator=;
 %ignore operator!;

@@ -883,20 +883,8 @@ public class torrent {
     libtorrent_jni.torrent_completed(swigCPtr, this);
   }
 
-  public void on_peer_name_lookup(error_code e, SWIGTYPE_p_tcp__resolver__iterator i, sha1_hash pid) {
-    libtorrent_jni.torrent_on_peer_name_lookup(swigCPtr, this, error_code.getCPtr(e), e, SWIGTYPE_p_tcp__resolver__iterator.getCPtr(i), sha1_hash.getCPtr(pid), pid);
-  }
-
-  public void on_name_lookup(error_code e, SWIGTYPE_p_tcp__resolver__iterator i, SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator url, SWIGTYPE_p_tcp__endpoint proxy) {
-    libtorrent_jni.torrent_on_name_lookup(swigCPtr, this, error_code.getCPtr(e), e, SWIGTYPE_p_tcp__resolver__iterator.getCPtr(i), SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator.getCPtr(url), SWIGTYPE_p_tcp__endpoint.getCPtr(proxy));
-  }
-
   public void connect_web_seed(SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator web, SWIGTYPE_p_tcp__endpoint a) {
     libtorrent_jni.torrent_connect_web_seed(swigCPtr, this, SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator.getCPtr(web), SWIGTYPE_p_tcp__endpoint.getCPtr(a));
-  }
-
-  public void on_proxy_name_lookup(error_code e, SWIGTYPE_p_tcp__resolver__iterator i, SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator url) {
-    libtorrent_jni.torrent_on_proxy_name_lookup(swigCPtr, this, error_code.getCPtr(e), e, SWIGTYPE_p_tcp__resolver__iterator.getCPtr(i), SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator.getCPtr(url));
   }
 
   public void remove_web_seed(SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator web) {

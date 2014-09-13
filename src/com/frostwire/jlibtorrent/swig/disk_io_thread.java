@@ -55,14 +55,6 @@ public class disk_io_thread {
     libtorrent_jni.disk_io_thread_stop(swigCPtr, this, piece_manager.getCPtr(s), s);
   }
 
-  public int add_job(disk_io_job j, SWIGTYPE_p_boost__functionT_void_fint_libtorrent__disk_io_job_const_RF_t f) {
-    return libtorrent_jni.disk_io_thread_add_job__SWIG_0(swigCPtr, this, disk_io_job.getCPtr(j), j, SWIGTYPE_p_boost__functionT_void_fint_libtorrent__disk_io_job_const_RF_t.getCPtr(f));
-  }
-
-  public int add_job(disk_io_job j) {
-    return libtorrent_jni.disk_io_thread_add_job__SWIG_1(swigCPtr, this, disk_io_job.getCPtr(j), j);
-  }
-
   public long queue_buffer_size() {
     return libtorrent_jni.disk_io_thread_queue_buffer_size(swigCPtr, this);
   }
