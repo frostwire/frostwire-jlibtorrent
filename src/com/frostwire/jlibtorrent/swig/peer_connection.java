@@ -27,11 +27,13 @@ public class peer_connection extends bandwidth_socket {
   }
 
   public synchronized void delete() {
-    if(swigCPtr != 0 && swigCMemOwnDerived) {
-      swigCMemOwnDerived = false;
-      libtorrent_jni.delete_peer_connection(swigCPtr);
+    if (swigCPtr != 0) {
+      if (swigCMemOwnDerived) {
+        swigCMemOwnDerived = false;
+        libtorrent_jni.delete_peer_connection(swigCPtr);
+      }
+      swigCPtr = 0;
     }
-    swigCPtr = 0;
     super.delete();
   }
 
@@ -193,12 +195,8 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_can_write(swigCPtr, this);
   }
 
-  public boolean can_read(SWIGTYPE_p_unsigned_char state) {
-    return libtorrent_jni.peer_connection_can_read__SWIG_0(swigCPtr, this, SWIGTYPE_p_unsigned_char.getCPtr(state));
-  }
-
   public boolean can_read() {
-    return libtorrent_jni.peer_connection_can_read__SWIG_1(swigCPtr, this);
+    return libtorrent_jni.peer_connection_can_read(swigCPtr, this);
   }
 
   public boolean is_seed() {
@@ -307,10 +305,6 @@ public class peer_connection extends bandwidth_socket {
 
   public void second_tick(int tick_interval_ms) {
     libtorrent_jni.peer_connection_second_tick(swigCPtr, this, tick_interval_ms);
-  }
-
-  public SWIGTYPE_p_boost__shared_ptrT_socket_type_t get_socket() {
-    return new SWIGTYPE_p_boost__shared_ptrT_socket_type_t(libtorrent_jni.peer_connection_get_socket(swigCPtr, this), true);
   }
 
   public SWIGTYPE_p_tcp__endpoint remote() {
@@ -719,15 +713,6 @@ public class peer_connection extends bandwidth_socket {
 
   public void setup_receive() {
     libtorrent_jni.peer_connection_setup_receive__SWIG_1(swigCPtr, this);
-  }
-
-  public void setM_channel_state(SWIGTYPE_p_unsigned_char value) {
-    libtorrent_jni.peer_connection_m_channel_state_set(swigCPtr, this, SWIGTYPE_p_unsigned_char.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_unsigned_char getM_channel_state() {
-    long cPtr = libtorrent_jni.peer_connection_m_channel_state_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
   }
 
   public enum connection_type {

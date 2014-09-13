@@ -10,7 +10,7 @@ package com.frostwire.jlibtorrent.swig;
 
 public class bandwidth_socket {
   private long swigCPtr;
-  protected boolean swigCMemOwn;
+  private boolean swigCMemOwn;
 
   protected bandwidth_socket(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;

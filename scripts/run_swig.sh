@@ -22,12 +22,14 @@ swig -c++ -java -o libtorrent_jni.cpp \
     -DTORRENT_USE_IPV6=1 \
     -DTORRENT_DISABLE_GEO_IP=1 \
     -DTORRENT_USE_BOOST_DATE_TIME=1 \
+    -DTORRENT_USE_OPENSSL=1 \
+    -DNDEBUG=1 \
     swig/libtorrent.i
 
 CC="clang++"
 INCLUDES="-I/usr/local/include -I/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/include/ -I/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/include/darwin"
-LIBS="-ltorrent-rasterbar -lboost_system"
-CFLAGS="-stdlib=libc++ -std=c++11 -O3 -DBOOST_ASIO_DYN_LINK=1 -DTORRENT_NO_DEPRECATE=1 -DTORRENT_DISABLE_GEO_IP=1"
+LIBS="-ltorrent-rasterbar -lboost_system -lssl -lcrypto -lz"
+CFLAGS="-stdlib=libc++ -std=c++11 -O3 -DBOOST_ASIO_DYN_LINK=1 -DTORRENT_NO_DEPRECATE=1 -DTORRENT_DISABLE_GEO_IP=1 -DTORRENT_USE_OPENSSL=1 -DNDEBUG=1"
 LDFLAGS="-L/usr/local/lib"
 TARGET="libjlibtorrent.dylib"
 

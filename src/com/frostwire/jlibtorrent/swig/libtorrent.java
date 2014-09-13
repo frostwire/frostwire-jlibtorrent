@@ -93,18 +93,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.throw_type_error();
   }
 
-  public static void SHA1_init(sha_ctx context) {
-    libtorrent_jni.SHA1_init(sha_ctx.getCPtr(context), context);
-  }
-
-  public static void SHA1_update(sha_ctx context, SWIGTYPE_p_unsigned_char data, long len) {
-    libtorrent_jni.SHA1_update(sha_ctx.getCPtr(context), context, SWIGTYPE_p_unsigned_char.getCPtr(data), len);
-  }
-
-  public static void SHA1_final(SWIGTYPE_p_unsigned_char digest, sha_ctx context) {
-    libtorrent_jni.SHA1_final(SWIGTYPE_p_unsigned_char.getCPtr(digest), sha_ctx.getCPtr(context), context);
-  }
-
   public static storage_interface default_storage_constructor(file_storage arg0, file_storage mapped, String arg2, file_pool arg3, unsigned_char_vector arg4) {
     long cPtr = libtorrent_jni.default_storage_constructor(file_storage.getCPtr(arg0), arg0, file_storage.getCPtr(mapped), mapped, arg2, file_pool.getCPtr(arg3), arg3, unsigned_char_vector.getCPtr(arg4), arg4);
     return (cPtr == 0) ? null : new storage_interface(cPtr, false);
@@ -493,10 +481,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static String integer_to_str(String buf, int size, long val) {
     return libtorrent_jni.integer_to_str(buf, size, val);
-  }
-
-  public static char_vector entry_bencode(entry e) {
-    return new char_vector(libtorrent_jni.entry_bencode(entry.getCPtr(e), e), true);
   }
 
 }

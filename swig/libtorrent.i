@@ -22,7 +22,6 @@
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/sha1_hash.hpp"
-#include "libtorrent/hasher.hpp"
 #include "libtorrent/piece_picker.hpp"
 #include "libtorrent/storage_defs.hpp"
 #include "libtorrent/storage.hpp"
@@ -78,12 +77,6 @@ namespace libtorrent {
     int type() { return 0; }
     int category() { return 0; }
     char* what() { return NULL; }
-
-    std::vector<char> entry_bencode(const entry& e) {
-        std::vector<char> buffer;
-        bencode(std::back_inserter(buffer), e);
-        return buffer;
-    }
 }
     
 // exception helper functions
@@ -150,6 +143,8 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 %shared_ptr(libtorrent::peer_plugin)
 %shared_ptr(libtorrent::torrent_plugin)
 %shared_ptr(libtorrent::request_callback)
+%shared_ptr(libtorrent::bandwidth_socket)
+%shared_ptr(libtorrent::peer_connection)
 %shared_ptr(libtorrent::bt_peer_connection)
 
 %auto_ptr(libtorrent::alert)
@@ -209,7 +204,7 @@ namespace std {
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
     %template(int_sha1_hash_map) map<int, libtorrent::sha1_hash>;
-    
+
     %template(alert_ptr_deque) deque<libtorrent::alert*>;
 };
 
@@ -217,6 +212,9 @@ namespace std {
 %ignore clone;
 %ignore new_feed;
 %ignore parse_feed;
+
+%ignore partial_hash;
+%ignore ssl_ctx;
 
 %ignore operator=;
 %ignore operator!;
@@ -235,6 +233,8 @@ namespace std {
 %ignore operator|=;
 %ignore operator int;
 %ignore operator();
+%ignore operator<<;
+%ignore operator>>;
 %ignore operator unspecified_bool_type;
 %ignore operator udp::endpoint;
 %ignore operator tcp::endpoint;
@@ -262,7 +262,6 @@ namespace std {
 %include "libtorrent/error_code.hpp"
 %include "libtorrent/entry.hpp"
 %include "libtorrent/sha1_hash.hpp"
-%include "libtorrent/hasher.hpp"
 %include "libtorrent/storage_defs.hpp"
 %include "libtorrent/storage.hpp"
 %include "libtorrent/file_storage.hpp"
@@ -371,5 +370,11 @@ namespace libtorrent {
     }
 };
 
-std::vector<char> entry_bencode(const entry& e);
+%extend entry {
+    std::vector<char> bencode() {
+        std::vector<char> buffer;
+        libtorrent::bencode(std::back_inserter(buffer), *$self);
+        return buffer;
+    }
+};
 }

@@ -1204,6 +1204,14 @@ public class torrent {
     return libtorrent_jni.torrent_is_ssl_torrent(swigCPtr, this);
   }
 
+  public void set_ssl_cert(String certificate, String private_key, String dh_params, String passphrase) {
+    libtorrent_jni.torrent_set_ssl_cert(swigCPtr, this, certificate, private_key, dh_params, passphrase);
+  }
+
+  public void set_ssl_cert_buffer(String certificate, String private_key, String dh_params) {
+    libtorrent_jni.torrent_set_ssl_cert_buffer(swigCPtr, this, certificate, private_key, dh_params);
+  }
+
   public int num_time_critical_pieces() {
     return libtorrent_jni.torrent_num_time_critical_pieces(swigCPtr, this);
   }

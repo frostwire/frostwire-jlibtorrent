@@ -116,6 +116,10 @@ public class entry {
     return libtorrent_jni.entry_m_type_queried_get(swigCPtr, this);
   }
 
+  public char_vector bencode() {
+    return new char_vector(libtorrent_jni.entry_bencode(swigCPtr, this), true);
+  }
+
   public enum data_type {
     int_t,
     string_t,

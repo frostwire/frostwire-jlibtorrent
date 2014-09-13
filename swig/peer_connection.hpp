@@ -293,7 +293,7 @@ namespace libtorrent
 		// tells if this connection has data it want to send
 		// and has enough upload bandwidth quota left to send it.
 		bool can_write() const;
-		bool can_read(boost::uint8_t* state = 0) const;
+		bool can_read() const;
 
 		bool is_seed() const;
 		int num_have_pieces() const { return m_num_pieces; }
@@ -356,7 +356,7 @@ namespace libtorrent
 
 		//void timeout_requests();
 
-		boost::shared_ptr<socket_type> get_socket() const { return m_socket; }
+		//boost::shared_ptr<socket_type> get_socket() const { return m_socket; }
 		tcp::endpoint const& remote() const { return m_remote; }
 
 		bitfield const& get_bitfield() const;
@@ -727,7 +727,7 @@ namespace libtorrent
 
 		// upload and download channel state
 		// enum from peer_info::bw_state
-		boost::uint8_t m_channel_state[2];
+		//boost::uint8_t m_channel_state[2];
 
 	private:
 
