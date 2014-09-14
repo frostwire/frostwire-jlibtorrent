@@ -245,6 +245,10 @@ namespace std {
 %ignore libtorrent::session::get_io_service;
 %ignore libtorrent::session::get_connection_queue;
 %ignore libtorrent::session::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)>);
+%ignore libtorrent::session::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>, std::string);
+%ignore libtorrent::session::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>);
+%ignore libtorrent::session::dht_get_item(boost::array<char, 32>, std::string);
+%ignore libtorrent::session::dht_get_item(boost::array<char, 32>);
 %ignore libtorrent::peer_connection::incoming_piece;
 %ignore libtorrent::peer_connection::send_buffer;
 %ignore libtorrent::peer_connection::associated_torrent;
@@ -290,6 +294,10 @@ namespace std {
 %ignore libtorrent::entry::entry(entry const&);
 %ignore libtorrent::buffer::operator[];
 %ignore libtorrent::stats_alert::transferred;
+%ignore libtorrent::dht_mutable_item_alert::key;
+%ignore libtorrent::dht_mutable_item_alert::signature;
+%ignore libtorrent::dht_put_alert::public_key;
+%ignore libtorrent::dht_put_alert::signature;
 
 %ignore operator=;
 %ignore operator!;

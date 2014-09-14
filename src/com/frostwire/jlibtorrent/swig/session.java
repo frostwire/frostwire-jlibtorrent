@@ -176,27 +176,11 @@ public class session {
   }
 
   public void dht_get_item(sha1_hash target) {
-    libtorrent_jni.session_dht_get_item__SWIG_0(swigCPtr, this, sha1_hash.getCPtr(target), target);
-  }
-
-  public void dht_get_item(SWIGTYPE_p_boost__arrayT_char_32_t key, String salt) {
-    libtorrent_jni.session_dht_get_item__SWIG_1(swigCPtr, this, SWIGTYPE_p_boost__arrayT_char_32_t.getCPtr(key), salt);
-  }
-
-  public void dht_get_item(SWIGTYPE_p_boost__arrayT_char_32_t key) {
-    libtorrent_jni.session_dht_get_item__SWIG_2(swigCPtr, this, SWIGTYPE_p_boost__arrayT_char_32_t.getCPtr(key));
+    libtorrent_jni.session_dht_get_item(swigCPtr, this, sha1_hash.getCPtr(target), target);
   }
 
   public sha1_hash dht_put_item(entry data) {
-    return new sha1_hash(libtorrent_jni.session_dht_put_item__SWIG_0(swigCPtr, this, entry.getCPtr(data), data), true);
-  }
-
-  public void dht_put_item(SWIGTYPE_p_boost__arrayT_char_32_t key, SWIGTYPE_p_boost__functionT_void_flibtorrent__entry_R_boost__arrayT_char_64_t_R_unsigned_long_long_R_std__string_const_RF_t cb, String salt) {
-    libtorrent_jni.session_dht_put_item__SWIG_1(swigCPtr, this, SWIGTYPE_p_boost__arrayT_char_32_t.getCPtr(key), SWIGTYPE_p_boost__functionT_void_flibtorrent__entry_R_boost__arrayT_char_64_t_R_unsigned_long_long_R_std__string_const_RF_t.getCPtr(cb), salt);
-  }
-
-  public void dht_put_item(SWIGTYPE_p_boost__arrayT_char_32_t key, SWIGTYPE_p_boost__functionT_void_flibtorrent__entry_R_boost__arrayT_char_64_t_R_unsigned_long_long_R_std__string_const_RF_t cb) {
-    libtorrent_jni.session_dht_put_item__SWIG_2(swigCPtr, this, SWIGTYPE_p_boost__arrayT_char_32_t.getCPtr(key), SWIGTYPE_p_boost__functionT_void_flibtorrent__entry_R_boost__arrayT_char_64_t_R_unsigned_long_long_R_std__string_const_RF_t.getCPtr(cb));
+    return new sha1_hash(libtorrent_jni.session_dht_put_item(swigCPtr, this, entry.getCPtr(data), data), true);
   }
 
   public void add_extension(plugin ext) {

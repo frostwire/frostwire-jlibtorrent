@@ -2002,10 +2002,6 @@ public class libtorrent_jni {
   public final static native void delete_dht_immutable_item_alert(long jarg1);
   public final static native String dht_mutable_item_alert_message(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native boolean dht_mutable_item_alert_discardable(long jarg1, dht_mutable_item_alert jarg1_);
-  public final static native void dht_mutable_item_alert_key_set(long jarg1, dht_mutable_item_alert jarg1_, long jarg2);
-  public final static native long dht_mutable_item_alert_key_get(long jarg1, dht_mutable_item_alert jarg1_);
-  public final static native void dht_mutable_item_alert_signature_set(long jarg1, dht_mutable_item_alert jarg1_, long jarg2);
-  public final static native long dht_mutable_item_alert_signature_get(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void dht_mutable_item_alert_seq_set(long jarg1, dht_mutable_item_alert jarg1_, java.math.BigInteger jarg2);
   public final static native java.math.BigInteger dht_mutable_item_alert_seq_get(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void dht_mutable_item_alert_salt_set(long jarg1, dht_mutable_item_alert jarg1_, String jarg2);
@@ -2016,10 +2012,6 @@ public class libtorrent_jni {
   public final static native String dht_put_alert_message(long jarg1, dht_put_alert jarg1_);
   public final static native void dht_put_alert_target_set(long jarg1, dht_put_alert jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long dht_put_alert_target_get(long jarg1, dht_put_alert jarg1_);
-  public final static native void dht_put_alert_public_key_set(long jarg1, dht_put_alert jarg1_, long jarg2);
-  public final static native long dht_put_alert_public_key_get(long jarg1, dht_put_alert jarg1_);
-  public final static native void dht_put_alert_signature_set(long jarg1, dht_put_alert jarg1_, long jarg2);
-  public final static native long dht_put_alert_signature_get(long jarg1, dht_put_alert jarg1_);
   public final static native void dht_put_alert_salt_set(long jarg1, dht_put_alert jarg1_, String jarg2);
   public final static native String dht_put_alert_salt_get(long jarg1, dht_put_alert jarg1_);
   public final static native void dht_put_alert_seq_set(long jarg1, dht_put_alert jarg1_, java.math.BigInteger jarg2);
@@ -3374,12 +3366,8 @@ public class libtorrent_jni {
   public final static native boolean session_is_dht_running(long jarg1, session jarg1_);
   public final static native void session_add_dht_node(long jarg1, session jarg1_, long jarg2, string_int_pair jarg2_);
   public final static native void session_add_dht_router(long jarg1, session jarg1_, long jarg2, string_int_pair jarg2_);
-  public final static native void session_dht_get_item__SWIG_0(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
-  public final static native void session_dht_get_item__SWIG_1(long jarg1, session jarg1_, long jarg2, String jarg3);
-  public final static native void session_dht_get_item__SWIG_2(long jarg1, session jarg1_, long jarg2);
-  public final static native long session_dht_put_item__SWIG_0(long jarg1, session jarg1_, long jarg2, entry jarg2_);
-  public final static native void session_dht_put_item__SWIG_1(long jarg1, session jarg1_, long jarg2, long jarg3, String jarg4);
-  public final static native void session_dht_put_item__SWIG_2(long jarg1, session jarg1_, long jarg2, long jarg3);
+  public final static native void session_dht_get_item(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long session_dht_put_item(long jarg1, session jarg1_, long jarg2, entry jarg2_);
   public final static native void session_add_extension(long jarg1, session jarg1_, long jarg2, plugin jarg2_);
   public final static native void session_load_asnum_db(long jarg1, session jarg1_, String jarg2);
   public final static native void session_load_country_db(long jarg1, session jarg1_, String jarg2);

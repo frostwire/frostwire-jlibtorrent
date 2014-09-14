@@ -43,22 +43,6 @@ public class dht_mutable_item_alert extends alert {
     return libtorrent_jni.dht_mutable_item_alert_discardable(swigCPtr, this);
   }
 
-  public void setKey(SWIGTYPE_p_boost__arrayT_char_32_t value) {
-    libtorrent_jni.dht_mutable_item_alert_key_set(swigCPtr, this, SWIGTYPE_p_boost__arrayT_char_32_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_boost__arrayT_char_32_t getKey() {
-    return new SWIGTYPE_p_boost__arrayT_char_32_t(libtorrent_jni.dht_mutable_item_alert_key_get(swigCPtr, this), true);
-  }
-
-  public void setSignature(SWIGTYPE_p_boost__arrayT_char_64_t value) {
-    libtorrent_jni.dht_mutable_item_alert_signature_set(swigCPtr, this, SWIGTYPE_p_boost__arrayT_char_64_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_boost__arrayT_char_64_t getSignature() {
-    return new SWIGTYPE_p_boost__arrayT_char_64_t(libtorrent_jni.dht_mutable_item_alert_signature_get(swigCPtr, this), true);
-  }
-
   public void setSeq(java.math.BigInteger value) {
     libtorrent_jni.dht_mutable_item_alert_seq_set(swigCPtr, this, value);
   }
