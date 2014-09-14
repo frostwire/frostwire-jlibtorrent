@@ -769,8 +769,7 @@ public class libtorrent_jni {
   public final static native long new_entry__SWIG_2(long jarg1);
   public final static native long new_entry__SWIG_3(long jarg1);
   public final static native long new_entry__SWIG_4(int jarg1);
-  public final static native long new_entry__SWIG_5(long jarg1, entry jarg1_);
-  public final static native long new_entry__SWIG_6();
+  public final static native long new_entry__SWIG_5();
   public final static native void delete_entry(long jarg1);
   public final static native boolean entry_op_eq(long jarg1, entry jarg1_, long jarg2, entry jarg2_);
   public final static native boolean entry_op_neq(long jarg1, entry jarg1_, long jarg2, entry jarg2_);
@@ -797,9 +796,6 @@ public class libtorrent_jni {
   public final static native boolean sha1_hash_op_eq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean sha1_hash_op_neq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean sha1_hash_op_lt(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
-  public final static native long sha1_hash_op_get_at__SWIG_0(long jarg1, sha1_hash jarg1_, int jarg2);
-  public final static native long sha1_hash_begin__SWIG_0(long jarg1, sha1_hash jarg1_);
-  public final static native long sha1_hash_end__SWIG_0(long jarg1, sha1_hash jarg1_);
   public final static native String sha1_hash_to_string(long jarg1, sha1_hash jarg1_);
   public final static native void delete_sha1_hash(long jarg1);
   public final static native long get_filesizes(long jarg1, file_storage jarg1_, String jarg2);
@@ -3212,7 +3208,6 @@ public class libtorrent_jni {
   public final static native void torrent_file_progress__SWIG_2(long jarg1, torrent jarg1_, long jarg2, int64_vector jarg2_);
   public final static native void torrent_use_interface(long jarg1, torrent jarg1_, String jarg2);
   public final static native long torrent_get_interface(long jarg1, torrent jarg1_);
-  public final static native void torrent_connect_to_url_seed(long jarg1, torrent jarg1_, long jarg2);
   public final static native boolean torrent_connect_to_peer__SWIG_0(long jarg1, torrent jarg1_, long jarg2, policy.peer jarg2_, boolean jarg3);
   public final static native boolean torrent_connect_to_peer__SWIG_1(long jarg1, torrent jarg1_, long jarg2, policy.peer jarg2_);
   public final static native int torrent_priority(long jarg1, torrent jarg1_);
@@ -3224,13 +3219,9 @@ public class libtorrent_jni {
   public final static native int torrent_bandwidth_throttle(long jarg1, torrent jarg1_, int jarg2);
   public final static native void torrent_add_web_seed__SWIG_0(long jarg1, torrent jarg1_, String jarg2, int jarg3);
   public final static native void torrent_add_web_seed__SWIG_1(long jarg1, torrent jarg1_, String jarg2, int jarg3, String jarg4, long jarg5, string_string_pair_vector jarg5_);
-  public final static native void torrent_remove_web_seed__SWIG_0(long jarg1, torrent jarg1_, String jarg2, int jarg3);
   public final static native void torrent_disconnect_web_seed(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
   public final static native void torrent_retry_web_seed__SWIG_0(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_, int jarg3);
   public final static native void torrent_retry_web_seed__SWIG_1(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
-  public final static native void torrent_remove_web_seed__SWIG_1(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
-  public final static native long torrent_web_seeds__SWIG_0(long jarg1, torrent jarg1_);
-  public final static native long torrent_web_seeds__SWIG_1(long jarg1, torrent jarg1_, int jarg2);
   public final static native boolean torrent_free_upload_slots(long jarg1, torrent jarg1_);
   public final static native boolean torrent_choke_peer(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
   public final static native boolean torrent_unchoke_peer__SWIG_0(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_, boolean jarg3);
@@ -3283,8 +3274,6 @@ public class libtorrent_jni {
   public final static native void torrent_disconnect_all(long jarg1, torrent jarg1_, long jarg2, error_code jarg2_);
   public final static native int torrent_disconnect_peers(long jarg1, torrent jarg1_, int jarg2, long jarg3, error_code jarg3_);
   public final static native void torrent_completed(long jarg1, torrent jarg1_);
-  public final static native void torrent_connect_web_seed(long jarg1, torrent jarg1_, long jarg2, long jarg3);
-  public final static native void torrent_remove_web_seed__SWIG_2(long jarg1, torrent jarg1_, long jarg2);
   public final static native void torrent_finished(long jarg1, torrent jarg1_);
   public final static native void torrent_resume_download(long jarg1, torrent jarg1_);
   public final static native void torrent_piece_finished(long jarg1, torrent jarg1_, int jarg2, int jarg3);

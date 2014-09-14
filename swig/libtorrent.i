@@ -273,10 +273,18 @@ namespace std {
 %ignore libtorrent::torrent::cancel_block;
 %ignore libtorrent::torrent::to_req;
 %ignore libtorrent::torrent::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)> const&, void*);
+%ignore libtorrent::torrent::connect_to_url_seed;
+%ignore libtorrent::torrent::connect_web_seed;
+%ignore libtorrent::torrent::remove_web_seed;
+%ignore libtorrent::torrent::web_seeds;
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
 %ignore libtorrent::policy::ipv6_peer::addr;
 %ignore libtorrent::torrent_handle::add_extension;
+%ignore libtorrent::sha1_hash::begin;
+%ignore libtorrent::sha1_hash::end;
+%ignore libtorrent::sha1_hash::operator[];
+%ignore libtorrent::entry::entry(entry const&);
 
 %ignore operator=;
 %ignore operator!;

@@ -59,12 +59,8 @@ public class entry {
     this(libtorrent_jni.new_entry__SWIG_4(t.swigValue()), true);
   }
 
-  public entry(entry e) {
-    this(libtorrent_jni.new_entry__SWIG_5(entry.getCPtr(e), e), true);
-  }
-
   public entry() {
-    this(libtorrent_jni.new_entry__SWIG_6(), true);
+    this(libtorrent_jni.new_entry__SWIG_5(), true);
   }
 
   public boolean op_eq(entry e) {

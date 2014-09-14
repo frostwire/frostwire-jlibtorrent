@@ -561,10 +561,6 @@ public class torrent {
     return new SWIGTYPE_p_tcp__endpoint(libtorrent_jni.torrent_get_interface(swigCPtr, this), true);
   }
 
-  public void connect_to_url_seed(SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator url) {
-    libtorrent_jni.torrent_connect_to_url_seed(swigCPtr, this, SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator.getCPtr(url));
-  }
-
   public boolean connect_to_peer(policy.peer peerinfo, boolean ignore_limit) {
     return libtorrent_jni.torrent_connect_to_peer__SWIG_0(swigCPtr, this, policy.peer.getCPtr(peerinfo), peerinfo, ignore_limit);
   }
@@ -610,10 +606,6 @@ public class torrent {
     libtorrent_jni.torrent_add_web_seed__SWIG_1(swigCPtr, this, url, type.swigValue(), auth, string_string_pair_vector.getCPtr(extra_headers), extra_headers);
   }
 
-  public void remove_web_seed(String url, web_seed_entry.type_t type) {
-    libtorrent_jni.torrent_remove_web_seed__SWIG_0(swigCPtr, this, url, type.swigValue());
-  }
-
   public void disconnect_web_seed(peer_connection p) {
     libtorrent_jni.torrent_disconnect_web_seed(swigCPtr, this, peer_connection.getCPtr(p), p);
   }
@@ -624,18 +616,6 @@ public class torrent {
 
   public void retry_web_seed(peer_connection p) {
     libtorrent_jni.torrent_retry_web_seed__SWIG_1(swigCPtr, this, peer_connection.getCPtr(p), p);
-  }
-
-  public void remove_web_seed(peer_connection p) {
-    libtorrent_jni.torrent_remove_web_seed__SWIG_1(swigCPtr, this, peer_connection.getCPtr(p), p);
-  }
-
-  public SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t web_seeds() {
-    return new SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t(libtorrent_jni.torrent_web_seeds__SWIG_0(swigCPtr, this), true);
-  }
-
-  public SWIGTYPE_p_std__setT_std__string_t web_seeds(web_seed_entry.type_t type) {
-    return new SWIGTYPE_p_std__setT_std__string_t(libtorrent_jni.torrent_web_seeds__SWIG_1(swigCPtr, this, type.swigValue()), true);
   }
 
   public boolean free_upload_slots() {
@@ -845,14 +825,6 @@ public class torrent {
 
   public void completed() {
     libtorrent_jni.torrent_completed(swigCPtr, this);
-  }
-
-  public void connect_web_seed(SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator web, SWIGTYPE_p_tcp__endpoint a) {
-    libtorrent_jni.torrent_connect_web_seed(swigCPtr, this, SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator.getCPtr(web), SWIGTYPE_p_tcp__endpoint.getCPtr(a));
-  }
-
-  public void remove_web_seed(SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator web) {
-    libtorrent_jni.torrent_remove_web_seed__SWIG_2(swigCPtr, this, SWIGTYPE_p_std__listT_libtorrent__web_seed_entry_t__iterator.getCPtr(web));
   }
 
   public void finished() {
