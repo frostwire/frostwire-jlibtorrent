@@ -84,20 +84,22 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_min_announce_in(swigCPtr, this);
   }
 
-  public void setNext_announce(SWIGTYPE_p_boost__posix_time__ptime value) {
-    libtorrent_jni.announce_entry_next_announce_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(value));
+  public void setNext_announce(ptime value) {
+    libtorrent_jni.announce_entry_next_announce_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime getNext_announce() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.announce_entry_next_announce_get(swigCPtr, this), true);
+  public ptime getNext_announce() {
+    long cPtr = libtorrent_jni.announce_entry_next_announce_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
-  public void setMin_announce(SWIGTYPE_p_boost__posix_time__ptime value) {
-    libtorrent_jni.announce_entry_min_announce_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(value));
+  public void setMin_announce(ptime value) {
+    libtorrent_jni.announce_entry_min_announce_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime getMin_announce() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.announce_entry_min_announce_get(swigCPtr, this), true);
+  public ptime getMin_announce() {
+    long cPtr = libtorrent_jni.announce_entry_min_announce_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
   public void setScrape_incomplete(int value) {
@@ -208,8 +210,8 @@ public class announce_entry {
     libtorrent_jni.announce_entry_failed__SWIG_1(swigCPtr, this, session_settings.getCPtr(sett), sett);
   }
 
-  public boolean can_announce(SWIGTYPE_p_boost__posix_time__ptime now, boolean is_seed) {
-    return libtorrent_jni.announce_entry_can_announce(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(now), is_seed);
+  public boolean can_announce(ptime now, boolean is_seed) {
+    return libtorrent_jni.announce_entry_can_announce(swigCPtr, this, ptime.getCPtr(now), now, is_seed);
   }
 
   public boolean is_working() {

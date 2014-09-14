@@ -35,28 +35,31 @@ public class time_critical_piece {
     }
   }
 
-  public void setFirst_requested(SWIGTYPE_p_boost__posix_time__ptime value) {
-    libtorrent_jni.time_critical_piece_first_requested_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(value));
+  public void setFirst_requested(ptime value) {
+    libtorrent_jni.time_critical_piece_first_requested_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime getFirst_requested() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.time_critical_piece_first_requested_get(swigCPtr, this), true);
+  public ptime getFirst_requested() {
+    long cPtr = libtorrent_jni.time_critical_piece_first_requested_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
-  public void setLast_requested(SWIGTYPE_p_boost__posix_time__ptime value) {
-    libtorrent_jni.time_critical_piece_last_requested_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(value));
+  public void setLast_requested(ptime value) {
+    libtorrent_jni.time_critical_piece_last_requested_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime getLast_requested() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.time_critical_piece_last_requested_get(swigCPtr, this), true);
+  public ptime getLast_requested() {
+    long cPtr = libtorrent_jni.time_critical_piece_last_requested_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
-  public void setDeadline(SWIGTYPE_p_boost__posix_time__ptime value) {
-    libtorrent_jni.time_critical_piece_deadline_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(value));
+  public void setDeadline(ptime value) {
+    libtorrent_jni.time_critical_piece_deadline_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime getDeadline() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.time_critical_piece_deadline_get(swigCPtr, this), true);
+  public ptime getDeadline() {
+    long cPtr = libtorrent_jni.time_critical_piece_deadline_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
   public void setFlags(int value) {

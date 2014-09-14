@@ -85,20 +85,22 @@ public class torrent_status {
     return (cPtr == 0) ? null : new torrent_info(cPtr, true);
   }
 
-  public void setNext_announce(SWIGTYPE_p_boost__posix_time__time_duration value) {
-    libtorrent_jni.torrent_status_next_announce_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__time_duration.getCPtr(value));
+  public void setNext_announce(time_duration value) {
+    libtorrent_jni.torrent_status_next_announce_set(swigCPtr, this, time_duration.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__time_duration getNext_announce() {
-    return new SWIGTYPE_p_boost__posix_time__time_duration(libtorrent_jni.torrent_status_next_announce_get(swigCPtr, this), true);
+  public time_duration getNext_announce() {
+    long cPtr = libtorrent_jni.torrent_status_next_announce_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new time_duration(cPtr, false);
   }
 
-  public void setAnnounce_interval(SWIGTYPE_p_boost__posix_time__time_duration value) {
-    libtorrent_jni.torrent_status_announce_interval_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__time_duration.getCPtr(value));
+  public void setAnnounce_interval(time_duration value) {
+    libtorrent_jni.torrent_status_announce_interval_set(swigCPtr, this, time_duration.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__time_duration getAnnounce_interval() {
-    return new SWIGTYPE_p_boost__posix_time__time_duration(libtorrent_jni.torrent_status_announce_interval_get(swigCPtr, this), true);
+  public time_duration getAnnounce_interval() {
+    long cPtr = libtorrent_jni.torrent_status_announce_interval_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new time_duration(cPtr, false);
   }
 
   public void setCurrent_tracker(String value) {

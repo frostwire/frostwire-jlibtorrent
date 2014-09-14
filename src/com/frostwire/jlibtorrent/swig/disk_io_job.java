@@ -65,12 +65,13 @@ public class disk_io_job {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public void setStart_time(SWIGTYPE_p_boost__posix_time__ptime value) {
-    libtorrent_jni.disk_io_job_start_time_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(value));
+  public void setStart_time(ptime value) {
+    libtorrent_jni.disk_io_job_start_time_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime getStart_time() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.disk_io_job_start_time_get(swigCPtr, this), true);
+  public ptime getStart_time() {
+    long cPtr = libtorrent_jni.disk_io_job_start_time_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
   public void setStr(String value) {

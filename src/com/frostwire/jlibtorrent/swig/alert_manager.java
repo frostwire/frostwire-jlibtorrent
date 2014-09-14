@@ -68,8 +68,8 @@ public class alert_manager {
     return libtorrent_jni.alert_manager_should_post(swigCPtr, this, alert.getCPtr(a), a);
   }
 
-  public alert wait_for_alert(SWIGTYPE_p_boost__posix_time__time_duration max_wait) {
-    long cPtr = libtorrent_jni.alert_manager_wait_for_alert(swigCPtr, this, SWIGTYPE_p_boost__posix_time__time_duration.getCPtr(max_wait));
+  public alert wait_for_alert(time_duration max_wait) {
+    long cPtr = libtorrent_jni.alert_manager_wait_for_alert(swigCPtr, this, time_duration.getCPtr(max_wait), max_wait);
     return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 

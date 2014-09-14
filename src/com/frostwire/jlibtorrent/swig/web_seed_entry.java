@@ -88,12 +88,13 @@ public class web_seed_entry {
     return (cPtr == 0) ? null : new string_string_pair_vector(cPtr, false);
   }
 
-  public void setRetry(SWIGTYPE_p_boost__posix_time__ptime value) {
-    libtorrent_jni.web_seed_entry_retry_set(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(value));
+  public void setRetry(ptime value) {
+    libtorrent_jni.web_seed_entry_retry_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime getRetry() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.web_seed_entry_retry_get(swigCPtr, this), true);
+  public ptime getRetry() {
+    long cPtr = libtorrent_jni.web_seed_entry_retry_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
   public void setSupports_keepalive(boolean value) {

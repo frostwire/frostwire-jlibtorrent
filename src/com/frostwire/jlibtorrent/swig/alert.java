@@ -35,8 +35,8 @@ public class alert {
     }
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime timestamp() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.alert_timestamp(swigCPtr, this), true);
+  public ptime timestamp() {
+    return new ptime(libtorrent_jni.alert_timestamp(swigCPtr, this), true);
   }
 
   public int type() {

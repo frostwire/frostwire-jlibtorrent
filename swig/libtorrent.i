@@ -199,6 +199,20 @@ namespace std {
     %template(alert_ptr_deque) deque<libtorrent::alert*>;
 };
 
+namespace boost {
+
+    namespace posix_time {
+
+        class ptime {
+
+        };
+
+        class time_duration {
+
+        };
+    }
+}
+
 // this are ignore until we solve the specific type issues
 
 %ignore match_filesizes;

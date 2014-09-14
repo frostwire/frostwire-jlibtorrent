@@ -309,52 +309,52 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.log_time();
   }
 
-  public static SWIGTYPE_p_boost__posix_time__ptime time_now() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.time_now(), false);
+  public static ptime time_now() {
+    return new ptime(libtorrent_jni.time_now(), false);
   }
 
-  public static SWIGTYPE_p_boost__posix_time__ptime time_now_hires() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.time_now_hires(), true);
+  public static ptime time_now_hires() {
+    return new ptime(libtorrent_jni.time_now_hires(), true);
   }
 
-  public static SWIGTYPE_p_boost__posix_time__ptime min_time() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.min_time(), true);
+  public static ptime min_time() {
+    return new ptime(libtorrent_jni.min_time(), true);
   }
 
-  public static SWIGTYPE_p_boost__posix_time__ptime max_time() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.max_time(), true);
+  public static ptime max_time() {
+    return new ptime(libtorrent_jni.max_time(), true);
   }
 
-  public static SWIGTYPE_p_boost__posix_time__time_duration seconds(long s) {
-    return new SWIGTYPE_p_boost__posix_time__time_duration(libtorrent_jni.seconds(s), true);
+  public static time_duration seconds(long s) {
+    return new time_duration(libtorrent_jni.seconds(s), true);
   }
 
-  public static SWIGTYPE_p_boost__posix_time__time_duration milliseconds(long s) {
-    return new SWIGTYPE_p_boost__posix_time__time_duration(libtorrent_jni.milliseconds(s), true);
+  public static time_duration milliseconds(long s) {
+    return new time_duration(libtorrent_jni.milliseconds(s), true);
   }
 
-  public static SWIGTYPE_p_boost__posix_time__time_duration microsec(long s) {
-    return new SWIGTYPE_p_boost__posix_time__time_duration(libtorrent_jni.microsec(s), true);
+  public static time_duration microsec(long s) {
+    return new time_duration(libtorrent_jni.microsec(s), true);
   }
 
-  public static SWIGTYPE_p_boost__posix_time__time_duration minutes(long s) {
-    return new SWIGTYPE_p_boost__posix_time__time_duration(libtorrent_jni.minutes(s), true);
+  public static time_duration minutes(long s) {
+    return new time_duration(libtorrent_jni.minutes(s), true);
   }
 
-  public static SWIGTYPE_p_boost__posix_time__time_duration hours(long s) {
-    return new SWIGTYPE_p_boost__posix_time__time_duration(libtorrent_jni.hours(s), true);
+  public static time_duration hours(long s) {
+    return new time_duration(libtorrent_jni.hours(s), true);
   }
 
-  public static long total_seconds(SWIGTYPE_p_boost__posix_time__time_duration td) {
-    return libtorrent_jni.total_seconds(SWIGTYPE_p_boost__posix_time__time_duration.getCPtr(td));
+  public static long total_seconds(time_duration td) {
+    return libtorrent_jni.total_seconds(time_duration.getCPtr(td), td);
   }
 
-  public static long total_milliseconds(SWIGTYPE_p_boost__posix_time__time_duration td) {
-    return libtorrent_jni.total_milliseconds(SWIGTYPE_p_boost__posix_time__time_duration.getCPtr(td));
+  public static long total_milliseconds(time_duration td) {
+    return libtorrent_jni.total_milliseconds(time_duration.getCPtr(td), td);
   }
 
-  public static long total_microseconds(SWIGTYPE_p_boost__posix_time__time_duration td) {
-    return libtorrent_jni.total_microseconds(SWIGTYPE_p_boost__posix_time__time_duration.getCPtr(td));
+  public static long total_microseconds(time_duration td) {
+    return libtorrent_jni.total_microseconds(time_duration.getCPtr(td), td);
   }
 
   public static String unescape_string(String s, error_code ec) {

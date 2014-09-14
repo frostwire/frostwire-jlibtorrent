@@ -393,8 +393,8 @@ public class torrent {
     libtorrent_jni.torrent_set_announce_to_lsd(swigCPtr, this, b);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime started() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.torrent_started(swigCPtr, this), true);
+  public ptime started() {
+    return new ptime(libtorrent_jni.torrent_started(swigCPtr, this), true);
   }
 
   public void do_pause() {
@@ -710,12 +710,12 @@ public class torrent {
     libtorrent_jni.torrent_do_connect_boost(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_boost__posix_time__ptime next_announce() {
-    return new SWIGTYPE_p_boost__posix_time__ptime(libtorrent_jni.torrent_next_announce(swigCPtr, this), true);
+  public ptime next_announce() {
+    return new ptime(libtorrent_jni.torrent_next_announce(swigCPtr, this), true);
   }
 
-  public void force_tracker_request(SWIGTYPE_p_boost__posix_time__ptime arg0, int tracker_idx) {
-    libtorrent_jni.torrent_force_tracker_request(swigCPtr, this, SWIGTYPE_p_boost__posix_time__ptime.getCPtr(arg0), tracker_idx);
+  public void force_tracker_request(ptime arg0, int tracker_idx) {
+    libtorrent_jni.torrent_force_tracker_request(swigCPtr, this, ptime.getCPtr(arg0), arg0, tracker_idx);
   }
 
   public void scrape_tracker() {
