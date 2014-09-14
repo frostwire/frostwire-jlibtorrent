@@ -137,7 +137,6 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 
 %shared_ptr(libtorrent::torrent)
 %shared_ptr(libtorrent::entry)
-%shared_ptr(libtorrent::feed)
 %shared_ptr(libtorrent::plugin)
 %shared_ptr(libtorrent::peer_plugin)
 %shared_ptr(libtorrent::torrent_plugin)
@@ -210,21 +209,23 @@ namespace std {
 %ignore clone;
 %ignore new_feed;
 %ignore parse_feed;
-
-%ignore partial_hash;
 %ignore ssl_ctx;
-%ignore piece_manager;
-%ignore disk_io_thread;
+
+%ignore libtorrent::partial_hash;
+%ignore libtorrent::piece_manager;
+%ignore libtorrent::disk_io_thread;
+%ignore libtorrent::feed;
 
 // this are ignore until we solve the specific type issues
 %ignore libtorrent::to_string(size_type);
 %ignore url_has_argument; // global
 %ignore export_filter; // ip_filter
-%ignore getExtensions; // add_torrent_params
-%ignore setExtensions; // add_torrent_params
+%ignore libtorrent::add_torrent_params::extensions;
 %ignore on_peer_name_lookup; // torrent
 %ignore on_name_lookup; // torrent
 %ignore on_proxy_name_lookup; // torrent
+%ignore libtorrent::torrent::async_verify_piece;
+%ignore libtorrent::connection_queue::enqueue;
 %ignore set_dispatch_function; // alert_manager
 %ignore set_alert_dispatch; // session
 %ignore readv;

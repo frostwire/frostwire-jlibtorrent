@@ -899,10 +899,6 @@ public class torrent {
     libtorrent_jni.torrent_resume_download(swigCPtr, this);
   }
 
-  public void async_verify_piece(int piece_index, SWIGTYPE_p_boost__functionT_void_fintF_t arg1) {
-    libtorrent_jni.torrent_async_verify_piece(swigCPtr, this, piece_index, SWIGTYPE_p_boost__functionT_void_fintF_t.getCPtr(arg1));
-  }
-
   public void piece_finished(int index, int passed_hash_check) {
     libtorrent_jni.torrent_piece_finished(swigCPtr, this, index, passed_hash_check);
   }

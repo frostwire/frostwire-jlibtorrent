@@ -147,15 +147,6 @@ public class add_torrent_params {
     return (cPtr == 0) ? null : new unsigned_char_vector(cPtr, false);
   }
 
-  public void setExtensions(SWIGTYPE_p_std__vectorT_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t_t value) {
-    libtorrent_jni.add_torrent_params_extensions_set(swigCPtr, this, SWIGTYPE_p_std__vectorT_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_std__vectorT_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t_t getExtensions() {
-    long cPtr = libtorrent_jni.add_torrent_params_extensions_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_std__vectorT_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t_t(cPtr, false);
-  }
-
   public void setTrackerid(String value) {
     libtorrent_jni.add_torrent_params_trackerid_set(swigCPtr, this, value);
   }

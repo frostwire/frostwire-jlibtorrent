@@ -43,14 +43,6 @@ public class connection_queue {
     return libtorrent_jni.connection_queue_free_slots(swigCPtr, this);
   }
 
-  public void enqueue(SWIGTYPE_p_boost__functionT_void_fintF_t on_connect, SWIGTYPE_p_boost__functionT_void_fF_t on_timeout, SWIGTYPE_p_boost__posix_time__time_duration timeout, int priority) {
-    libtorrent_jni.connection_queue_enqueue__SWIG_0(swigCPtr, this, SWIGTYPE_p_boost__functionT_void_fintF_t.getCPtr(on_connect), SWIGTYPE_p_boost__functionT_void_fF_t.getCPtr(on_timeout), SWIGTYPE_p_boost__posix_time__time_duration.getCPtr(timeout), priority);
-  }
-
-  public void enqueue(SWIGTYPE_p_boost__functionT_void_fintF_t on_connect, SWIGTYPE_p_boost__functionT_void_fF_t on_timeout, SWIGTYPE_p_boost__posix_time__time_duration timeout) {
-    libtorrent_jni.connection_queue_enqueue__SWIG_1(swigCPtr, this, SWIGTYPE_p_boost__functionT_void_fintF_t.getCPtr(on_connect), SWIGTYPE_p_boost__functionT_void_fF_t.getCPtr(on_timeout), SWIGTYPE_p_boost__posix_time__time_duration.getCPtr(timeout));
-  }
-
   public boolean done(int ticket) {
     return libtorrent_jni.connection_queue_done(swigCPtr, this, ticket);
   }
