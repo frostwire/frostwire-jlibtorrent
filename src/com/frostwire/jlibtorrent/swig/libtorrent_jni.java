@@ -1176,7 +1176,6 @@ public class libtorrent_jni {
   public final static native long torrent_info_merkle_tree(long jarg1, torrent_info jarg1_);
   public final static native void torrent_info_set_merkle_tree(long jarg1, torrent_info jarg1_, long jarg2, sha1_hash_vector jarg2_);
   public final static native String torrent_info_name(long jarg1, torrent_info jarg1_);
-  public final static native long torrent_info_creation_date(long jarg1, torrent_info jarg1_);
   public final static native String torrent_info_creator(long jarg1, torrent_info jarg1_);
   public final static native String torrent_info_comment(long jarg1, torrent_info jarg1_);
   public final static native long torrent_info_nodes(long jarg1, torrent_info jarg1_);
@@ -1189,6 +1188,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_info_add_merkle_nodes(long jarg1, torrent_info jarg1_, long jarg2, int_sha1_hash_map jarg2_, int jarg3);
   public final static native long torrent_info_build_merkle_list(long jarg1, torrent_info jarg1_, int jarg2);
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
+  public final static native int torrent_info_get_creation_date(long jarg1, torrent_info jarg1_);
   public final static native long hash_value(long jarg1, torrent_status jarg1_);
   public final static native void throw_invalid_handle();
   public final static native void block_info_set_peer(long jarg1, block_info jarg1_, long jarg2, tcp_endpoint jarg2_);

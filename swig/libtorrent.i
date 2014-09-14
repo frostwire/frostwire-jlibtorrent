@@ -302,6 +302,7 @@ namespace std {
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
 %ignore libtorrent::udp_error_alert::endpoint;
+%ignore libtorrent::torrent_info::creation_date;
 
 %ignore operator=;
 %ignore operator!;
@@ -465,6 +466,12 @@ namespace libtorrent {
 %extend add_torrent_params {
     static add_torrent_params create_instance() {
         return add_torrent_params();
+    }
+};
+
+%extend torrent_info {
+    time_t get_creation_date() {
+        return $self->creation_date().get_value_or(0);
     }
 };
 }

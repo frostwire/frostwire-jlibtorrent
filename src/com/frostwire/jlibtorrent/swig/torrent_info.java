@@ -221,10 +221,6 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_name(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_boost__optionalT_long_t creation_date() {
-    return new SWIGTYPE_p_boost__optionalT_long_t(libtorrent_jni.torrent_info_creation_date(swigCPtr, this), true);
-  }
-
   public String creator() {
     return libtorrent_jni.torrent_info_creator(swigCPtr, this);
   }
@@ -272,6 +268,10 @@ public class torrent_info {
 
   public boolean is_merkle_torrent() {
     return libtorrent_jni.torrent_info_is_merkle_torrent(swigCPtr, this);
+  }
+
+  public int get_creation_date() {
+    return libtorrent_jni.torrent_info_get_creation_date(swigCPtr, this);
   }
 
 }
