@@ -133,7 +133,6 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 %intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)
 %intrusive_ptr(libtorrent::peer_connection)
-%intrusive_ptr(libtorrent::piece_manager)
 %intrusive_ptr(libtorrent::file)
 
 %shared_ptr(libtorrent::torrent)
@@ -214,6 +213,8 @@ namespace std {
 
 %ignore partial_hash;
 %ignore ssl_ctx;
+%ignore piece_manager;
+%ignore disk_io_thread;
 
 // this are ignore until we solve the specific type issues
 %ignore libtorrent::to_string(size_type);
@@ -231,22 +232,8 @@ namespace std {
 %ignore incoming_piece; // peer_connection
 %ignore send_buffer; // peer_connection
 %ignore send_buffer; // bt_peer_connection
-%ignore async_check_fastresume; // piece_manager
-%ignore async_check_files; // piece_manager
-%ignore async_rename_file; // piece_manager
-%ignore async_read; // piece_manager
-%ignore async_read_and_hash; // piece_manager
-%ignore async_cache; // piece_manager
-%ignore async_write; // piece_manager
-%ignore async_hash; // piece_manager
-%ignore async_release_files; // piece_manager
-%ignore async_clear_read_cache; // piece_manager
-%ignore async_delete_files; // piece_manager
-%ignore async_move_storage; // piece_manager
-%ignore async_set_file_priority; // piece_manager
-%ignore async_save_resume_data; // piece_manager
-%ignore disk_io_job::getCallback;
-%ignore disk_io_job::setCallback;
+%ignore libtorrent::disk_io_job::callback;
+%ignore libtorrent::disk_io_job::storage;
 %ignore getBlocks;
 %ignore setBlocks;
 %ignore add_job; // disk_io_thread

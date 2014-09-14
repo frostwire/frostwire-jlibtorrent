@@ -47,24 +47,6 @@ public class disk_io_job {
     return libtorrent_jni.disk_io_job_buffer_get(swigCPtr, this);
   }
 
-  public void setCallback(SWIGTYPE_p_boost__functionT_void_fint_libtorrent__disk_io_job_const_RF_t value) {
-    libtorrent_jni.disk_io_job_callback_set(swigCPtr, this, SWIGTYPE_p_boost__functionT_void_fint_libtorrent__disk_io_job_const_RF_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_boost__functionT_void_fint_libtorrent__disk_io_job_const_RF_t getCallback() {
-    long cPtr = libtorrent_jni.disk_io_job_callback_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_boost__functionT_void_fint_libtorrent__disk_io_job_const_RF_t(cPtr, false);
-  }
-
-  public void setStorage(piece_manager value) {
-    libtorrent_jni.disk_io_job_storage_set(swigCPtr, this, piece_manager.getCPtr(value), value);
-  }
-
-  public piece_manager getStorage() {
-    long cPtr = libtorrent_jni.disk_io_job_storage_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new piece_manager(cPtr, true);
-  }
-
   public void setResume_data(entry value) {
     libtorrent_jni.disk_io_job_resume_data_set(swigCPtr, this, entry.getCPtr(value), value);
   }
