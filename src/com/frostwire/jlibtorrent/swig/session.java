@@ -91,10 +91,6 @@ public class session {
     libtorrent_jni.session_post_torrent_updates(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_io_service get_io_service() {
-    return new SWIGTYPE_p_io_service(libtorrent_jni.session_get_io_service(swigCPtr, this), false);
-  }
-
   public torrent_handle find_torrent(sha1_hash info_hash) {
     return new torrent_handle(libtorrent_jni.session_find_torrent(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash), true);
   }
@@ -327,10 +323,6 @@ public class session {
 
   public void set_alert_mask(long m) {
     libtorrent_jni.session_set_alert_mask(swigCPtr, this, m);
-  }
-
-  public connection_queue get_connection_queue() {
-    return new connection_queue(libtorrent_jni.session_get_connection_queue(swigCPtr, this), false);
   }
 
   public void start_lsd() {

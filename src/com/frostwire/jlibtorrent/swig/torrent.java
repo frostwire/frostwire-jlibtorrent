@@ -325,10 +325,6 @@ public class torrent {
     return libtorrent_jni.torrent_bytes_left(swigCPtr, this);
   }
 
-  public int block_bytes_wanted(SWIGTYPE_p_piece_block p) {
-    return libtorrent_jni.torrent_block_bytes_wanted(swigCPtr, this, SWIGTYPE_p_piece_block.getCPtr(p));
-  }
-
   public void bytes_done(torrent_status st, boolean accurate) {
     libtorrent_jni.torrent_bytes_done(swigCPtr, this, torrent_status.getCPtr(st), st, accurate);
   }
@@ -670,10 +666,6 @@ public class torrent {
     libtorrent_jni.torrent_remove_peer(swigCPtr, this, peer_connection.getCPtr(p), p);
   }
 
-  public void cancel_block(SWIGTYPE_p_piece_block block) {
-    libtorrent_jni.torrent_cancel_block(swigCPtr, this, SWIGTYPE_p_piece_block.getCPtr(block));
-  }
-
   public boolean want_more_peers() {
     return libtorrent_jni.torrent_want_more_peers(swigCPtr, this);
   }
@@ -845,10 +837,6 @@ public class torrent {
 
   public int block_size() {
     return libtorrent_jni.torrent_block_size(swigCPtr, this);
-  }
-
-  public peer_request to_req(SWIGTYPE_p_piece_block p) {
-    return new peer_request(libtorrent_jni.torrent_to_req(swigCPtr, this, SWIGTYPE_p_piece_block.getCPtr(p)), true);
   }
 
   public void disconnect_all(error_code ec) {

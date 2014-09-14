@@ -8,13 +8,12 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class tracker_connection extends timeout_handler {
+public class tracker_connection {
   private long swigCPtr;
-  private boolean swigCMemOwnDerived;
+  private boolean swigCMemOwnBase;
 
   protected tracker_connection(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.tracker_connection_SWIGSmartPtrUpcast(cPtr), true);
-    swigCMemOwnDerived = cMemoryOwn;
+    swigCMemOwnBase = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
@@ -27,12 +26,11 @@ public class tracker_connection extends timeout_handler {
   }
 
   public synchronized void delete() {
-    if(swigCPtr != 0 && swigCMemOwnDerived) {
-      swigCMemOwnDerived = false;
+    if(swigCPtr != 0 && swigCMemOwnBase) {
+      swigCMemOwnBase = false;
       libtorrent_jni.delete_tracker_connection(swigCPtr);
     }
     swigCPtr = 0;
-    super.delete();
   }
 
   public tracker_request tracker_req() {

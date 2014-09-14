@@ -243,14 +243,6 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_has_piece(swigCPtr, this, i);
   }
 
-  public pending_block_vector download_queue() {
-    return new pending_block_vector(libtorrent_jni.peer_connection_download_queue(swigCPtr, this), false);
-  }
-
-  public pending_block_vector request_queue() {
-    return new pending_block_vector(libtorrent_jni.peer_connection_request_queue(swigCPtr, this), false);
-  }
-
   public peer_request_vector upload_queue() {
     return new peer_request_vector(libtorrent_jni.peer_connection_upload_queue(swigCPtr, this), false);
   }
@@ -551,28 +543,8 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_can_request_time_critical(swigCPtr, this);
   }
 
-  public boolean make_time_critical(SWIGTYPE_p_piece_block block) {
-    return libtorrent_jni.peer_connection_make_time_critical(swigCPtr, this, SWIGTYPE_p_piece_block.getCPtr(block));
-  }
-
-  public boolean add_request(SWIGTYPE_p_piece_block b, int flags) {
-    return libtorrent_jni.peer_connection_add_request__SWIG_0(swigCPtr, this, SWIGTYPE_p_piece_block.getCPtr(b), flags);
-  }
-
-  public boolean add_request(SWIGTYPE_p_piece_block b) {
-    return libtorrent_jni.peer_connection_add_request__SWIG_1(swigCPtr, this, SWIGTYPE_p_piece_block.getCPtr(b));
-  }
-
   public void cancel_all_requests() {
     libtorrent_jni.peer_connection_cancel_all_requests(swigCPtr, this);
-  }
-
-  public void cancel_request(SWIGTYPE_p_piece_block b, boolean force) {
-    libtorrent_jni.peer_connection_cancel_request__SWIG_0(swigCPtr, this, SWIGTYPE_p_piece_block.getCPtr(b), force);
-  }
-
-  public void cancel_request(SWIGTYPE_p_piece_block b) {
-    libtorrent_jni.peer_connection_cancel_request__SWIG_1(swigCPtr, this, SWIGTYPE_p_piece_block.getCPtr(b));
   }
 
   public void send_block_requests() {

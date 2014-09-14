@@ -48,7 +48,6 @@
 #include "libtorrent/disk_buffer_holder.hpp"
 #include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/bt_peer_connection.hpp"
-#include "libtorrent/connection_queue.hpp"
 #include "libtorrent/ip_voter.hpp"
 #include "libtorrent/file_pool.hpp"
 #include "libtorrent/ip_filter.hpp"
@@ -181,7 +180,6 @@ namespace std {
     %template(feed_item_vector) vector<libtorrent::feed_item>;
     %template(file_slice_vector) vector<libtorrent::file_slice>;
     %template(peer_request_vector) vector<libtorrent::peer_request>;
-    %template(pending_block_vector) vector<libtorrent::pending_block>;
     %template(dht_routing_bucket_vector) vector<libtorrent::dht_routing_bucket>;
     %template(dht_lookup_vector) vector<libtorrent::dht_lookup>;
     %template(policy_peer_ptr_vector) vector<libtorrent::policy::peer*>;
@@ -215,6 +213,10 @@ namespace std {
 %ignore libtorrent::disk_io_thread;
 %ignore libtorrent::feed;
 %ignore libtorrent::request_callback;
+%ignore libtorrent::has_block;
+%ignore libtorrent::pending_block;
+%ignore libtorrent::timeout_handler;
+%ignore libtorrent::connection_queue;
 
 // this are ignore until we solve the specific type issues
 %ignore libtorrent::to_string(size_type);
@@ -233,9 +235,16 @@ namespace std {
 %ignore set_dispatch_function; // alert_manager
 %ignore libtorrent::session::set_alert_dispatch;
 %ignore libtorrent::session::get_torrent_status;
+%ignore libtorrent::session::get_io_service;
+%ignore libtorrent::session::get_connection_queue;
 %ignore libtorrent::peer_connection::incoming_piece;
 %ignore libtorrent::peer_connection::send_buffer;
 %ignore libtorrent::peer_connection::associated_torrent;
+%ignore libtorrent::peer_connection::add_request;
+%ignore libtorrent::peer_connection::cancel_request;
+%ignore libtorrent::peer_connection::make_time_critical;
+%ignore libtorrent::peer_connection::download_queue;
+%ignore libtorrent::peer_connection::request_queue;
 %ignore send_buffer; // bt_peer_connection
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
@@ -252,6 +261,9 @@ namespace std {
 %ignore libtorrent::torrent::tracker_response;
 %ignore libtorrent::torrent::begin;
 %ignore libtorrent::torrent::end;
+%ignore libtorrent::torrent::block_bytes_wanted;
+%ignore libtorrent::torrent::cancel_block;
+%ignore libtorrent::torrent::to_req;
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
 %ignore libtorrent::policy::ipv6_peer::addr;
@@ -327,7 +339,6 @@ namespace std {
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
 %include "bt_peer_connection.hpp"
-%include "libtorrent/connection_queue.hpp"
 %include "ip_voter.hpp"
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
