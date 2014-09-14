@@ -209,10 +209,6 @@ public class buffer {
     return libtorrent_jni.buffer_empty(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_char op_get_at(long i) {
-    return new SWIGTYPE_p_char(libtorrent_jni.buffer_op_get_at__SWIG_0(swigCPtr, this, i), false);
-  }
-
   public String begin() {
     return libtorrent_jni.buffer_begin__SWIG_0(swigCPtr, this);
   }

@@ -47,10 +47,6 @@ public class disk_buffer_pool {
     libtorrent_jni.disk_buffer_pool_free_buffer(swigCPtr, this, buf);
   }
 
-  public void free_multiple_buffers(SWIGTYPE_p_p_char bufvec, int numbufs) {
-    libtorrent_jni.disk_buffer_pool_free_multiple_buffers(swigCPtr, this, SWIGTYPE_p_p_char.getCPtr(bufvec), numbufs);
-  }
-
   public int block_size() {
     return libtorrent_jni.disk_buffer_pool_block_size(swigCPtr, this);
   }

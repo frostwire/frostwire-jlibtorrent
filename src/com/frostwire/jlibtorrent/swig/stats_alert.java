@@ -39,15 +39,6 @@ public class stats_alert extends torrent_alert {
     return libtorrent_jni.stats_alert_message(swigCPtr, this);
   }
 
-  public void setTransferred(SWIGTYPE_p_int value) {
-    libtorrent_jni.stats_alert_transferred_set(swigCPtr, this, SWIGTYPE_p_int.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_int getTransferred() {
-    long cPtr = libtorrent_jni.stats_alert_transferred_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_int(cPtr, false);
-  }
-
   public void setInterval(int value) {
     libtorrent_jni.stats_alert_interval_set(swigCPtr, this, value);
   }

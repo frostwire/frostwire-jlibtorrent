@@ -1938,8 +1938,6 @@ public class libtorrent_jni {
   public final static native long dht_get_peers_alert_info_hash_get(long jarg1, dht_get_peers_alert jarg1_);
   public final static native void delete_dht_get_peers_alert(long jarg1);
   public final static native String stats_alert_message(long jarg1, stats_alert jarg1_);
-  public final static native void stats_alert_transferred_set(long jarg1, stats_alert jarg1_, long jarg2);
-  public final static native long stats_alert_transferred_get(long jarg1, stats_alert jarg1_);
   public final static native void stats_alert_interval_set(long jarg1, stats_alert jarg1_, int jarg2);
   public final static native int stats_alert_interval_get(long jarg1, stats_alert jarg1_);
   public final static native void delete_stats_alert(long jarg1);
@@ -3505,7 +3503,6 @@ public class libtorrent_jni {
   public final static native long new_disk_buffer_pool(int jarg1);
   public final static native String disk_buffer_pool_allocate_buffer(long jarg1, disk_buffer_pool jarg1_, String jarg2);
   public final static native void disk_buffer_pool_free_buffer(long jarg1, disk_buffer_pool jarg1_, String jarg2);
-  public final static native void disk_buffer_pool_free_multiple_buffers(long jarg1, disk_buffer_pool jarg1_, long jarg2, int jarg3);
   public final static native int disk_buffer_pool_block_size(long jarg1, disk_buffer_pool jarg1_);
   public final static native void disk_buffer_pool_release_memory(long jarg1, disk_buffer_pool jarg1_);
   public final static native int disk_buffer_pool_in_use(long jarg1, disk_buffer_pool jarg1_);
@@ -3596,10 +3593,6 @@ public class libtorrent_jni {
   public final static native int port_filter_access(long jarg1, port_filter jarg1_, int jarg2);
   public final static native long new_port_filter();
   public final static native void delete_port_filter(long jarg1);
-  public final static native int lazy_bdecode__SWIG_0(String jarg1, String jarg2, long jarg3, lazy_entry jarg3_, long jarg4, error_code jarg4_, long jarg5, int jarg6, int jarg7);
-  public final static native int lazy_bdecode__SWIG_1(String jarg1, String jarg2, long jarg3, lazy_entry jarg3_, long jarg4, error_code jarg4_, long jarg5, int jarg6);
-  public final static native int lazy_bdecode__SWIG_2(String jarg1, String jarg2, long jarg3, lazy_entry jarg3_, long jarg4, error_code jarg4_, long jarg5);
-  public final static native int lazy_bdecode__SWIG_3(String jarg1, String jarg2, long jarg3, lazy_entry jarg3_, long jarg4, error_code jarg4_);
   public final static native long new_pascal_string(String jarg1, int jarg2);
   public final static native void pascal_string_len_set(long jarg1, pascal_string jarg1_, int jarg2);
   public final static native int pascal_string_len_get(long jarg1, pascal_string jarg1_);
@@ -3684,7 +3677,6 @@ public class libtorrent_jni {
   public final static native long buffer_capacity(long jarg1, buffer jarg1_);
   public final static native void buffer_reserve(long jarg1, buffer jarg1_, long jarg2);
   public final static native boolean buffer_empty(long jarg1, buffer jarg1_);
-  public final static native long buffer_op_get_at__SWIG_0(long jarg1, buffer jarg1_, long jarg2);
   public final static native String buffer_begin__SWIG_0(long jarg1, buffer jarg1_);
   public final static native String buffer_end__SWIG_0(long jarg1, buffer jarg1_);
   public final static native void buffer_swap(long jarg1, buffer jarg1_, long jarg2, buffer jarg2_);

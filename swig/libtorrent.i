@@ -200,6 +200,8 @@ namespace std {
     %template(alert_ptr_deque) deque<libtorrent::alert*>;
 };
 
+// this are ignore until we solve the specific type issues
+
 %ignore match_filesizes;
 %ignore clone;
 %ignore new_feed;
@@ -222,8 +224,8 @@ namespace std {
 %ignore libtorrent::default_storage;
 %ignore libtorrent::default_storage_constructor;
 %ignore libtorrent::disabled_storage_constructor;
+%ignore libtorrent::lazy_bdecode;
 
-// this are ignore until we solve the specific type issues
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
@@ -257,6 +259,7 @@ namespace std {
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
+%ignore libtorrent::disk_buffer_pool::free_multiple_buffers;
 %ignore libtorrent::plugin::added;
 %ignore getBlocks;
 %ignore setBlocks;
@@ -285,6 +288,8 @@ namespace std {
 %ignore libtorrent::sha1_hash::end;
 %ignore libtorrent::sha1_hash::operator[];
 %ignore libtorrent::entry::entry(entry const&);
+%ignore libtorrent::buffer::operator[];
+%ignore libtorrent::stats_alert::transferred;
 
 %ignore operator=;
 %ignore operator!;
