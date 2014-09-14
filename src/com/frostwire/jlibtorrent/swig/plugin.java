@@ -40,10 +40,6 @@ public class plugin {
     return (cPtr == 0) ? null : new torrent_plugin(cPtr, true);
   }
 
-  public void added(SWIGTYPE_p_libtorrent__aux__session_impl arg0) {
-    libtorrent_jni.plugin_added(swigCPtr, this, SWIGTYPE_p_libtorrent__aux__session_impl.getCPtr(arg0));
-  }
-
   public void on_alert(alert arg0) {
     libtorrent_jni.plugin_on_alert(swigCPtr, this, alert.getCPtr(arg0), arg0);
   }

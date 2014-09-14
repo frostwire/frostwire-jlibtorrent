@@ -2470,7 +2470,6 @@ public class libtorrent_jni {
   public final static native boolean peer_connection_has_peer_choked(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_update_interest(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_get_peer_info(long jarg1, peer_connection jarg1_, long jarg2, peer_info jarg2_);
-  public final static native long peer_connection_associated_torrent(long jarg1, peer_connection jarg1_);
   public final static native long peer_connection_statistics(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_add_stat(long jarg1, peer_connection jarg1_, long jarg2, long jarg3);
   public final static native void peer_connection_second_tick(long jarg1, peer_connection jarg1_, int jarg2);
@@ -3156,7 +3155,6 @@ public class libtorrent_jni {
   public final static native boolean time_critical_piece_op_lt(long jarg1, time_critical_piece jarg1_, long jarg2, time_critical_piece jarg2_);
   public final static native long new_time_critical_piece();
   public final static native void delete_time_critical_piece(long jarg1);
-  public final static native long new_torrent(long jarg1, long jarg2, int jarg3, int jarg4, long jarg5, add_torrent_params jarg5_, long jarg6, sha1_hash jarg6_);
   public final static native void delete_torrent(long jarg1);
   public final static native long torrent_obfuscated_hash(long jarg1, torrent jarg1_);
   public final static native long torrent_info_hash(long jarg1, torrent jarg1_);
@@ -3212,7 +3210,6 @@ public class libtorrent_jni {
   public final static native int torrent_state(long jarg1, torrent jarg1_);
   public final static native void torrent_set_state(long jarg1, torrent jarg1_, int jarg2);
   public final static native long torrent_settings(long jarg1, torrent jarg1_);
-  public final static native long torrent_session(long jarg1, torrent jarg1_);
   public final static native void torrent_set_sequential_download(long jarg1, torrent jarg1_, boolean jarg2);
   public final static native boolean torrent_is_sequential_download(long jarg1, torrent jarg1_);
   public final static native void torrent_queue_up(long jarg1, torrent jarg1_);
@@ -3543,7 +3540,6 @@ public class libtorrent_jni {
   public final static native void session_stop_natpmp(long jarg1, session jarg1_);
   public final static native void delete_plugin(long jarg1);
   public final static native long plugin_new_torrent(long jarg1, plugin jarg1_, long jarg2, torrent jarg2_, long jarg3);
-  public final static native void plugin_added(long jarg1, plugin jarg1_, long jarg2);
   public final static native void plugin_on_alert(long jarg1, plugin jarg1_, long jarg2, alert jarg2_);
   public final static native void plugin_on_tick(long jarg1, plugin jarg1_);
   public final static native boolean plugin_on_optimistic_unchoke(long jarg1, plugin jarg1_, long jarg2, policy_peer_ptr_vector jarg2_);
@@ -3592,8 +3588,6 @@ public class libtorrent_jni {
   public final static native void peer_plugin_tick(long jarg1, peer_plugin jarg1_);
   public final static native boolean peer_plugin_write_request(long jarg1, peer_plugin jarg1_, long jarg2, peer_request jarg2_);
   public final static native long new_peer_plugin();
-  public final static native long new_disk_buffer_holder__SWIG_0(long jarg1, String jarg2);
-  public final static native long new_disk_buffer_holder__SWIG_1(long jarg1, disk_buffer_pool jarg1_, String jarg2);
   public final static native void delete_disk_buffer_holder(long jarg1);
   public final static native String disk_buffer_holder_release(long jarg1, disk_buffer_holder jarg1_);
   public final static native String disk_buffer_holder_get(long jarg1, disk_buffer_holder jarg1_);
@@ -3890,7 +3884,6 @@ public class libtorrent_jni {
   public final static native boolean tracker_connection_on_receive(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, long jarg3, String jarg4, int jarg5);
   public final static native boolean tracker_connection_on_receive_hostname(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, String jarg3, String jarg4, int jarg5);
   public final static native long tracker_connection_self(long jarg1, tracker_connection jarg1_);
-  public final static native long new_tracker_manager(long jarg1, long jarg2, proxy_settings jarg2_);
   public final static native void delete_tracker_manager(long jarg1);
   public final static native void tracker_manager_abort_all_requests__SWIG_0(long jarg1, tracker_manager jarg1_, boolean jarg2);
   public final static native void tracker_manager_abort_all_requests__SWIG_1(long jarg1, tracker_manager jarg1_);

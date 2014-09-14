@@ -35,10 +35,6 @@ public class tracker_manager {
     }
   }
 
-  public tracker_manager(SWIGTYPE_p_libtorrent__aux__session_impl ses, proxy_settings ps) {
-    this(libtorrent_jni.new_tracker_manager(SWIGTYPE_p_libtorrent__aux__session_impl.getCPtr(ses), proxy_settings.getCPtr(ps), ps), true);
-  }
-
   public void abort_all_requests(boolean all) {
     libtorrent_jni.tracker_manager_abort_all_requests__SWIG_0(swigCPtr, this, all);
   }

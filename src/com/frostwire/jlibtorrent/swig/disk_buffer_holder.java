@@ -35,14 +35,6 @@ public class disk_buffer_holder {
     }
   }
 
-  public disk_buffer_holder(SWIGTYPE_p_libtorrent__aux__session_impl ses, String buf) {
-    this(libtorrent_jni.new_disk_buffer_holder__SWIG_0(SWIGTYPE_p_libtorrent__aux__session_impl.getCPtr(ses), buf), true);
-  }
-
-  public disk_buffer_holder(disk_buffer_pool disk_pool, String buf) {
-    this(libtorrent_jni.new_disk_buffer_holder__SWIG_1(disk_buffer_pool.getCPtr(disk_pool), disk_pool, buf), true);
-  }
-
   public String release() {
     return libtorrent_jni.disk_buffer_holder_release(swigCPtr, this);
   }

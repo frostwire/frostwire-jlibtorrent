@@ -35,10 +35,6 @@ public class torrent {
     }
   }
 
-  public torrent(SWIGTYPE_p_libtorrent__aux__session_impl ses, SWIGTYPE_p_tcp__endpoint net_interface, int block_size, int seq, add_torrent_params p, sha1_hash info_hash) {
-    this(libtorrent_jni.new_torrent(SWIGTYPE_p_libtorrent__aux__session_impl.getCPtr(ses), SWIGTYPE_p_tcp__endpoint.getCPtr(net_interface), block_size, seq, add_torrent_params.getCPtr(p), p, sha1_hash.getCPtr(info_hash), info_hash), true);
-  }
-
   public sha1_hash obfuscated_hash() {
     return new sha1_hash(libtorrent_jni.torrent_obfuscated_hash(swigCPtr, this), false);
   }
@@ -279,10 +275,6 @@ public class torrent {
 
   public session_settings settings() {
     return new session_settings(libtorrent_jni.torrent_settings(swigCPtr, this), false);
-  }
-
-  public SWIGTYPE_p_libtorrent__aux__session_impl session() {
-    return new SWIGTYPE_p_libtorrent__aux__session_impl(libtorrent_jni.torrent_session(swigCPtr, this), false);
   }
 
   public void set_sequential_download(boolean sd) {

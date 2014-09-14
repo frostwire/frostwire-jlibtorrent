@@ -220,6 +220,7 @@ namespace std {
 
 // this are ignore until we solve the specific type issues
 %ignore libtorrent::to_string(size_type);
+%ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
 %ignore libtorrent::tracker_connection::requester;
 %ignore url_has_argument; // global
@@ -234,15 +235,20 @@ namespace std {
 %ignore set_dispatch_function; // alert_manager
 %ignore libtorrent::session::set_alert_dispatch;
 %ignore libtorrent::session::get_torrent_status;
-%ignore incoming_piece; // peer_connection
-%ignore send_buffer; // peer_connection
+%ignore libtorrent::peer_connection::incoming_piece;
+%ignore libtorrent::peer_connection::send_buffer;
+%ignore libtorrent::peer_connection::associated_torrent;
 %ignore send_buffer; // bt_peer_connection
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
+%ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
+%ignore libtorrent::plugin::added;
 %ignore getBlocks;
 %ignore setBlocks;
 %ignore add_job; // disk_io_thread
-%ignore libtorrent::torrent::filesystem();
+%ignore libtorrent::torrent::torrent;
+%ignore libtorrent::torrent::filesystem;
+%ignore libtorrent::torrent::session;
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
 %ignore libtorrent::policy::ipv6_peer::addr;

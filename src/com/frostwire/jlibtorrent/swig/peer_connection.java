@@ -291,10 +291,6 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_get_peer_info(swigCPtr, this, peer_info.getCPtr(p), p);
   }
 
-  public SWIGTYPE_p_boost__weak_ptrT_libtorrent__torrent_t associated_torrent() {
-    return new SWIGTYPE_p_boost__weak_ptrT_libtorrent__torrent_t(libtorrent_jni.peer_connection_associated_torrent(swigCPtr, this), true);
-  }
-
   public stat statistics() {
     return new stat(libtorrent_jni.peer_connection_statistics(swigCPtr, this), false);
   }
