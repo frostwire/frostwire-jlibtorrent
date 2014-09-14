@@ -51,7 +51,6 @@
 #include "libtorrent/connection_queue.hpp"
 #include "libtorrent/ip_voter.hpp"
 #include "libtorrent/file_pool.hpp"
-#include "libtorrent/http_parser.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/lazy_entry.hpp"
 #include "libtorrent/buffer.hpp"
@@ -182,7 +181,6 @@ namespace std {
     %template(feed_item_vector) vector<libtorrent::feed_item>;
     %template(file_slice_vector) vector<libtorrent::file_slice>;
     %template(peer_request_vector) vector<libtorrent::peer_request>;
-    %template(piece_block_vector) vector<libtorrent::piece_block>;
     %template(pending_block_vector) vector<libtorrent::pending_block>;
     %template(dht_routing_bucket_vector) vector<libtorrent::dht_routing_bucket>;
     %template(dht_lookup_vector) vector<libtorrent::dht_lookup>;
@@ -249,6 +247,11 @@ namespace std {
 %ignore libtorrent::torrent::torrent;
 %ignore libtorrent::torrent::filesystem;
 %ignore libtorrent::torrent::session;
+%ignore libtorrent::torrent::picker;
+%ignore libtorrent::torrent::on_torrent_download;
+%ignore libtorrent::torrent::tracker_response;
+%ignore libtorrent::torrent::begin;
+%ignore libtorrent::torrent::end;
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
 %ignore libtorrent::policy::ipv6_peer::addr;
@@ -327,7 +330,6 @@ namespace std {
 %include "libtorrent/connection_queue.hpp"
 %include "ip_voter.hpp"
 %include "libtorrent/file_pool.hpp"
-%include "http_parser.hpp"
 %include "libtorrent/ip_filter.hpp"
 %include "lazy_entry.hpp"
 %include "libtorrent/buffer.hpp"

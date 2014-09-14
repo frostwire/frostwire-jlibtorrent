@@ -183,18 +183,6 @@ public class libtorrent implements libtorrentConstants {
     return new session_settings(libtorrent_jni.high_performance_seed(), true);
   }
 
-  public static boolean is_ok_status(int http_status) {
-    return libtorrent_jni.is_ok_status(http_status);
-  }
-
-  public static boolean is_redirect(int http_status) {
-    return libtorrent_jni.is_redirect(http_status);
-  }
-
-  public static String resolve_redirect_location(String referrer, String location) {
-    return libtorrent_jni.resolve_redirect_location(referrer, location);
-  }
-
   public static int plus_one(int val) {
     return libtorrent_jni.plus_one(val);
   }

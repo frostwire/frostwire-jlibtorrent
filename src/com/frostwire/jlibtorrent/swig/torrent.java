@@ -694,14 +694,6 @@ public class torrent {
     return libtorrent_jni.torrent_num_seeds(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_std__setT_libtorrent__peer_connection_p_t__const_iterator begin() {
-    return new SWIGTYPE_p_std__setT_libtorrent__peer_connection_p_t__const_iterator(libtorrent_jni.torrent_begin__SWIG_0(swigCPtr, this), true);
-  }
-
-  public SWIGTYPE_p_std__setT_libtorrent__peer_connection_p_t__const_iterator end() {
-    return new SWIGTYPE_p_std__setT_libtorrent__peer_connection_p_t__const_iterator(libtorrent_jni.torrent_end__SWIG_0(swigCPtr, this), true);
-  }
-
   public void resolve_peer_country(peer_connection p) {
     libtorrent_jni.torrent_resolve_peer_country(swigCPtr, this, peer_connection.getCPtr(p), p);
   }
@@ -720,10 +712,6 @@ public class torrent {
 
   public void refresh_explicit_cache(int cache_size) {
     libtorrent_jni.torrent_refresh_explicit_cache(swigCPtr, this, cache_size);
-  }
-
-  public void tracker_response(tracker_request r, address tracker_ip, SWIGTYPE_p_std__listT_boost__asio__ip__address_t ip_list, peer_entry_vector e, int interval, int min_interval, int complete, int incomplete, int downloaded, address external_ip, String trackerid) {
-    libtorrent_jni.torrent_tracker_response(swigCPtr, this, tracker_request.getCPtr(r), r, address.getCPtr(tracker_ip), tracker_ip, SWIGTYPE_p_std__listT_boost__asio__ip__address_t.getCPtr(ip_list), peer_entry_vector.getCPtr(e), e, interval, min_interval, complete, incomplete, downloaded, address.getCPtr(external_ip), external_ip, trackerid);
   }
 
   public void tracker_request_error(tracker_request r, int response_code, error_code ec, String msg, int retry_interval) {
@@ -935,10 +923,6 @@ public class torrent {
     return new alert_manager(libtorrent_jni.torrent_alerts(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_piece_picker picker() {
-    return new SWIGTYPE_p_piece_picker(libtorrent_jni.torrent_picker(swigCPtr, this), false);
-  }
-
   public boolean has_picker() {
     return libtorrent_jni.torrent_has_picker(swigCPtr, this);
   }
@@ -1102,10 +1086,6 @@ public class torrent {
 
   public boolean set_metadata(String metadata_buf, int metadata_size) {
     return libtorrent_jni.torrent_set_metadata(swigCPtr, this, metadata_buf, metadata_size);
-  }
-
-  public void on_torrent_download(error_code ec, http_parser parser, String data, int size) {
-    libtorrent_jni.torrent_on_torrent_download(swigCPtr, this, error_code.getCPtr(ec), ec, http_parser.getCPtr(parser), parser, data, size);
   }
 
   public int sequence_number() {
