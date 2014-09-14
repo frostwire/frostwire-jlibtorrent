@@ -35,11 +35,6 @@ public class plugin {
     }
   }
 
-  public torrent_plugin new_torrent(torrent arg0, SWIGTYPE_p_void arg1) {
-    long cPtr = libtorrent_jni.plugin_new_torrent(swigCPtr, this, torrent.getCPtr(arg0), arg0, SWIGTYPE_p_void.getCPtr(arg1));
-    return (cPtr == 0) ? null : new torrent_plugin(cPtr, true);
-  }
-
   public void on_alert(alert arg0) {
     libtorrent_jni.plugin_on_alert(swigCPtr, this, alert.getCPtr(arg0), arg0);
   }

@@ -9,14 +9,6 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent_jni {
-  public final static native long new_void_ptr_int_pair__SWIG_0();
-  public final static native long new_void_ptr_int_pair__SWIG_1(long jarg1, int jarg2);
-  public final static native long new_void_ptr_int_pair__SWIG_2(long jarg1, void_ptr_int_pair jarg1_);
-  public final static native void void_ptr_int_pair_first_set(long jarg1, void_ptr_int_pair jarg1_, long jarg2);
-  public final static native long void_ptr_int_pair_first_get(long jarg1, void_ptr_int_pair jarg1_);
-  public final static native void void_ptr_int_pair_second_set(long jarg1, void_ptr_int_pair jarg1_, int jarg2);
-  public final static native int void_ptr_int_pair_second_get(long jarg1, void_ptr_int_pair jarg1_);
-  public final static native void delete_void_ptr_int_pair(long jarg1);
   public final static native long new_char_const_ptr_int_pair__SWIG_0();
   public final static native long new_char_const_ptr_int_pair__SWIG_1(String jarg1, int jarg2);
   public final static native long new_char_const_ptr_int_pair__SWIG_2(long jarg1, char_const_ptr_int_pair jarg1_);
@@ -162,16 +154,6 @@ public class libtorrent_jni {
   public final static native long string_string_pair_vector_get(long jarg1, string_string_pair_vector jarg1_, int jarg2);
   public final static native void string_string_pair_vector_set(long jarg1, string_string_pair_vector jarg1_, int jarg2, long jarg3, string_string_pair jarg3_);
   public final static native void delete_string_string_pair_vector(long jarg1);
-  public final static native long new_void_ptr_vector();
-  public final static native long void_ptr_vector_size(long jarg1, void_ptr_vector jarg1_);
-  public final static native long void_ptr_vector_capacity(long jarg1, void_ptr_vector jarg1_);
-  public final static native void void_ptr_vector_reserve(long jarg1, void_ptr_vector jarg1_, long jarg2);
-  public final static native boolean void_ptr_vector_isEmpty(long jarg1, void_ptr_vector jarg1_);
-  public final static native void void_ptr_vector_clear(long jarg1, void_ptr_vector jarg1_);
-  public final static native void void_ptr_vector_add(long jarg1, void_ptr_vector jarg1_, long jarg2);
-  public final static native long void_ptr_vector_get(long jarg1, void_ptr_vector jarg1_, int jarg2);
-  public final static native void void_ptr_vector_set(long jarg1, void_ptr_vector jarg1_, int jarg2, long jarg3);
-  public final static native void delete_void_ptr_vector(long jarg1);
   public final static native long new_unsigned_char_vector();
   public final static native long unsigned_char_vector_size(long jarg1, unsigned_char_vector jarg1_);
   public final static native long unsigned_char_vector_capacity(long jarg1, unsigned_char_vector jarg1_);
@@ -1521,8 +1503,6 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_resume_data_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_storage_mode_set(long jarg1, add_torrent_params jarg1_, int jarg2);
   public final static native int add_torrent_params_storage_mode_get(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_userdata_set(long jarg1, add_torrent_params jarg1_, long jarg2);
-  public final static native long add_torrent_params_userdata_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_file_priorities_set(long jarg1, add_torrent_params jarg1_, long jarg2, unsigned_char_vector jarg2_);
   public final static native long add_torrent_params_file_priorities_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_trackerid_set(long jarg1, add_torrent_params jarg1_, String jarg2);
@@ -3445,7 +3425,6 @@ public class libtorrent_jni {
   public final static native void session_start_natpmp(long jarg1, session jarg1_);
   public final static native void session_stop_natpmp(long jarg1, session jarg1_);
   public final static native void delete_plugin(long jarg1);
-  public final static native long plugin_new_torrent(long jarg1, plugin jarg1_, long jarg2, torrent jarg2_, long jarg3);
   public final static native void plugin_on_alert(long jarg1, plugin jarg1_, long jarg2, alert jarg2_);
   public final static native void plugin_on_tick(long jarg1, plugin jarg1_);
   public final static native boolean plugin_on_optimistic_unchoke(long jarg1, plugin jarg1_, long jarg2, policy_peer_ptr_vector jarg2_);

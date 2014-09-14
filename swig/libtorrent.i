@@ -149,7 +149,6 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 typedef long time_t;
 
 namespace std {
-    %template(void_ptr_int_pair) pair<void*, int>;
     %template(char_const_ptr_int_pair) pair<const char *, int>;
     %template(int_int_pair) pair<int, int>;
     %template(string_int_pair) pair<std::string, int>;
@@ -168,7 +167,6 @@ namespace std {
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
 
-    %template(void_ptr_vector) vector<void*>;
     %template(unsigned_char_vector) vector<unsigned char>;
     %template(float_vector) vector<float>;
     %template(int_vector) vector<int>;
@@ -234,6 +232,7 @@ namespace std {
 %ignore export_filter; // ip_filter
 %ignore libtorrent::add_torrent_params::extensions;
 %ignore libtorrent::add_torrent_params::storage;
+%ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore on_peer_name_lookup; // torrent
 %ignore on_name_lookup; // torrent
@@ -261,6 +260,7 @@ namespace std {
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
 %ignore libtorrent::disk_buffer_pool::free_multiple_buffers;
 %ignore libtorrent::plugin::added;
+%ignore libtorrent::plugin::new_torrent;
 %ignore getBlocks;
 %ignore setBlocks;
 %ignore add_job; // disk_io_thread
