@@ -77,10 +77,6 @@ public class tracker_connection {
     libtorrent_jni.tracker_connection_received_bytes(swigCPtr, this, bytes);
   }
 
-  public boolean on_receive(error_code ec, SWIGTYPE_p_udp__endpoint ep, String buf, int size) {
-    return libtorrent_jni.tracker_connection_on_receive(swigCPtr, this, error_code.getCPtr(ec), ec, SWIGTYPE_p_udp__endpoint.getCPtr(ep), buf, size);
-  }
-
   public boolean on_receive_hostname(error_code ec, String hostname, String buf, int size) {
     return libtorrent_jni.tracker_connection_on_receive_hostname(swigCPtr, this, error_code.getCPtr(ec), ec, hostname, buf, size);
   }

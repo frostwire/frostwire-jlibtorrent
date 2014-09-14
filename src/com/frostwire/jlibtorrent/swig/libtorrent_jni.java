@@ -1846,8 +1846,6 @@ public class libtorrent_jni {
   public final static native String metadata_received_alert_message(long jarg1, metadata_received_alert jarg1_);
   public final static native void delete_metadata_received_alert(long jarg1);
   public final static native String udp_error_alert_message(long jarg1, udp_error_alert jarg1_);
-  public final static native void udp_error_alert_endpoint_set(long jarg1, udp_error_alert jarg1_, long jarg2);
-  public final static native long udp_error_alert_endpoint_get(long jarg1, udp_error_alert jarg1_);
   public final static native void udp_error_alert_error_set(long jarg1, udp_error_alert jarg1_, long jarg2, error_code jarg2_);
   public final static native long udp_error_alert_error_get(long jarg1, udp_error_alert jarg1_);
   public final static native void delete_udp_error_alert(long jarg1);
@@ -3698,7 +3696,6 @@ public class libtorrent_jni {
   public final static native long tracker_connection_bind_interface(long jarg1, tracker_connection jarg1_);
   public final static native void tracker_connection_sent_bytes(long jarg1, tracker_connection jarg1_, int jarg2);
   public final static native void tracker_connection_received_bytes(long jarg1, tracker_connection jarg1_, int jarg2);
-  public final static native boolean tracker_connection_on_receive(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, long jarg3, String jarg4, int jarg5);
   public final static native boolean tracker_connection_on_receive_hostname(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, String jarg3, String jarg4, int jarg5);
   public final static native long tracker_connection_self(long jarg1, tracker_connection jarg1_);
   public final static native void delete_tracker_manager(long jarg1);
@@ -3709,16 +3706,6 @@ public class libtorrent_jni {
   public final static native int tracker_manager_num_requests(long jarg1, tracker_manager jarg1_);
   public final static native void tracker_manager_sent_bytes(long jarg1, tracker_manager jarg1_, int jarg2);
   public final static native void tracker_manager_received_bytes(long jarg1, tracker_manager jarg1_, int jarg2);
-  public final static native boolean tracker_manager_incoming_packet__SWIG_0(long jarg1, tracker_manager jarg1_, long jarg2, error_code jarg2_, long jarg3, String jarg4, int jarg5);
-  public final static native boolean tracker_manager_incoming_packet__SWIG_1(long jarg1, tracker_manager jarg1_, long jarg2, error_code jarg2_, String jarg3, String jarg4, int jarg5);
-  public final static native long new_union_endpoint__SWIG_0(long jarg1);
-  public final static native long new_union_endpoint__SWIG_1(long jarg1);
-  public final static native long new_union_endpoint__SWIG_2();
-  public final static native void union_endpoint_port_set(long jarg1, union_endpoint jarg1_, int jarg2);
-  public final static native int union_endpoint_port_get(long jarg1, union_endpoint jarg1_);
-  public final static native void union_endpoint_v4_set(long jarg1, union_endpoint jarg1_, boolean jarg2);
-  public final static native boolean union_endpoint_v4_get(long jarg1, union_endpoint jarg1_);
-  public final static native void delete_union_endpoint(long jarg1);
   public final static native int _FILE_OFFSET_BITS_get();
   public final static native int _XOPEN_SOURCE_get();
   public final static native void file_status_file_size_set(long jarg1, file_status jarg1_, long jarg2);

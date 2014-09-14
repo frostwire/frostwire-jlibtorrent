@@ -63,12 +63,4 @@ public class tracker_manager {
     libtorrent_jni.tracker_manager_received_bytes(swigCPtr, this, bytes);
   }
 
-  public boolean incoming_packet(error_code e, SWIGTYPE_p_udp__endpoint ep, String buf, int size) {
-    return libtorrent_jni.tracker_manager_incoming_packet__SWIG_0(swigCPtr, this, error_code.getCPtr(e), e, SWIGTYPE_p_udp__endpoint.getCPtr(ep), buf, size);
-  }
-
-  public boolean incoming_packet(error_code e, String hostname, String buf, int size) {
-    return libtorrent_jni.tracker_manager_incoming_packet__SWIG_1(swigCPtr, this, error_code.getCPtr(e), e, hostname, buf, size);
-  }
-
 }

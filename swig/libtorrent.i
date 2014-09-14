@@ -54,7 +54,6 @@
 #include "libtorrent/lazy_entry.hpp"
 #include "libtorrent/buffer.hpp"
 #include "libtorrent/tracker_manager.hpp"
-#include "libtorrent/union_endpoint.hpp"
 #include "libtorrent/file.hpp"
 #include "libtorrent/time.hpp"
 #include "libtorrent/escape_string.hpp"
@@ -227,7 +226,9 @@ namespace std {
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
+%ignore libtorrent::tracker_manager::incoming_packet;
 %ignore libtorrent::tracker_connection::requester;
+%ignore libtorrent::tracker_connection::on_receive;
 %ignore url_has_argument; // global
 %ignore export_filter; // ip_filter
 %ignore libtorrent::add_torrent_params::extensions;
@@ -298,6 +299,7 @@ namespace std {
 %ignore libtorrent::dht_mutable_item_alert::signature;
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
+%ignore libtorrent::udp_error_alert::endpoint;
 
 %ignore operator=;
 %ignore operator!;
@@ -376,7 +378,6 @@ namespace std {
 %include "lazy_entry.hpp"
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/tracker_manager.hpp"
-%include "union_endpoint.hpp"
 %include "file.hpp"
 %include "libtorrent/time.hpp"
 %include "libtorrent/escape_string.hpp"

@@ -39,14 +39,6 @@ public class udp_error_alert extends alert {
     return libtorrent_jni.udp_error_alert_message(swigCPtr, this);
   }
 
-  public void setEndpoint(SWIGTYPE_p_udp__endpoint value) {
-    libtorrent_jni.udp_error_alert_endpoint_set(swigCPtr, this, SWIGTYPE_p_udp__endpoint.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_udp__endpoint getEndpoint() {
-    return new SWIGTYPE_p_udp__endpoint(libtorrent_jni.udp_error_alert_endpoint_get(swigCPtr, this), true);
-  }
-
   public void setError(error_code value) {
     libtorrent_jni.udp_error_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
