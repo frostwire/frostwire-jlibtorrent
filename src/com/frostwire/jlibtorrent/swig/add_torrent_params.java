@@ -35,14 +35,6 @@ public class add_torrent_params {
     }
   }
 
-  public add_torrent_params(SWIGTYPE_p_boost__functionT_libtorrent__storage_interface_pflibtorrent__file_storage_const_R_libtorrent__file_storage_const_p_std__string_const_R_libtorrent__file_pool_R_std__vectorT_boost__uint8_t_t_const_RF_t sc) {
-    this(libtorrent_jni.new_add_torrent_params__SWIG_0(SWIGTYPE_p_boost__functionT_libtorrent__storage_interface_pflibtorrent__file_storage_const_R_libtorrent__file_storage_const_p_std__string_const_R_libtorrent__file_pool_R_std__vectorT_boost__uint8_t_t_const_RF_t.getCPtr(sc)), true);
-  }
-
-  public add_torrent_params() {
-    this(libtorrent_jni.new_add_torrent_params__SWIG_1(), true);
-  }
-
   public void setVersion(int value) {
     libtorrent_jni.add_torrent_params_version_set(swigCPtr, this, value);
   }
@@ -217,6 +209,10 @@ public class add_torrent_params {
 
   public int getDownload_limit() {
     return libtorrent_jni.add_torrent_params_download_limit_get(swigCPtr, this);
+  }
+
+  public static add_torrent_params create_instance() {
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance(), true);
   }
 
   public enum flags_t {

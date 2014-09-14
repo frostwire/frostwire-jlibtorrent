@@ -93,16 +93,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.throw_type_error();
   }
 
-  public static storage_interface default_storage_constructor(file_storage arg0, file_storage mapped, String arg2, file_pool arg3, unsigned_char_vector arg4) {
-    long cPtr = libtorrent_jni.default_storage_constructor(file_storage.getCPtr(arg0), arg0, file_storage.getCPtr(mapped), mapped, arg2, file_pool.getCPtr(arg3), arg3, unsigned_char_vector.getCPtr(arg4), arg4);
-    return (cPtr == 0) ? null : new storage_interface(cPtr, false);
-  }
-
-  public static storage_interface disabled_storage_constructor(file_storage arg0, file_storage mapped, String arg2, file_pool arg3, unsigned_char_vector arg4) {
-    long cPtr = libtorrent_jni.disabled_storage_constructor(file_storage.getCPtr(arg0), arg0, file_storage.getCPtr(mapped), mapped, arg2, file_pool.getCPtr(arg3), arg3, unsigned_char_vector.getCPtr(arg4), arg4);
-    return (cPtr == 0) ? null : new storage_interface(cPtr, false);
-  }
-
   public static long_long_long_2_pair_vector get_filesizes(file_storage t, String p) {
     return new long_long_long_2_pair_vector(libtorrent_jni.get_filesizes(file_storage.getCPtr(t), t, p), true);
   }

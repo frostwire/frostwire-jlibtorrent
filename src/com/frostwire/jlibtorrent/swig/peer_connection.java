@@ -563,10 +563,6 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_in_handshake(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_boost__optionalT_piece_block_progress_t downloading_piece_progress() {
-    return new SWIGTYPE_p_boost__optionalT_piece_block_progress_t(libtorrent_jni.peer_connection_downloading_piece_progress(swigCPtr, this), true);
-  }
-
   public void setup_send() {
     libtorrent_jni.peer_connection_setup_send(swigCPtr, this);
   }

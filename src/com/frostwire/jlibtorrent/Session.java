@@ -45,7 +45,7 @@ public class Session {
     public TorrentHandle addTorrent(File torrentFile, File saveDir) {
         TorrentInfo ti = new TorrentInfo(torrentFile);
 
-        add_torrent_params p = new add_torrent_params();
+        add_torrent_params p = add_torrent_params.create_instance();
         p.setSave_path(saveDir.getAbsolutePath());
         p.setTi(ti.getSwig());
         torrent_handle th = s.add_torrent(p);

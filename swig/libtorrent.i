@@ -207,7 +207,6 @@ namespace std {
 %ignore ssl_ctx;
 %ignore readv;
 %ignore writev;
-%ignore libtorrent::parse_int;
 
 %ignore libtorrent::partial_hash;
 %ignore libtorrent::piece_manager;
@@ -218,6 +217,11 @@ namespace std {
 %ignore libtorrent::pending_block;
 %ignore libtorrent::timeout_handler;
 %ignore libtorrent::connection_queue;
+%ignore libtorrent::parse_int;
+%ignore libtorrent::file_pool;
+%ignore libtorrent::default_storage;
+%ignore libtorrent::default_storage_constructor;
+%ignore libtorrent::disabled_storage_constructor;
 
 // this are ignore until we solve the specific type issues
 %ignore libtorrent::to_string(size_type);
@@ -228,6 +232,7 @@ namespace std {
 %ignore export_filter; // ip_filter
 %ignore libtorrent::add_torrent_params::extensions;
 %ignore libtorrent::add_torrent_params::storage;
+%ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore on_peer_name_lookup; // torrent
 %ignore on_name_lookup; // torrent
 %ignore on_proxy_name_lookup; // torrent
@@ -247,6 +252,7 @@ namespace std {
 %ignore libtorrent::peer_connection::make_time_critical;
 %ignore libtorrent::peer_connection::download_queue;
 %ignore libtorrent::peer_connection::request_queue;
+%ignore libtorrent::peer_connection::downloading_piece_progress;
 %ignore send_buffer; // bt_peer_connection
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
@@ -429,6 +435,12 @@ namespace libtorrent {
         std::vector<char> buffer;
         libtorrent::bencode(std::back_inserter(buffer), *$self);
         return buffer;
+    }
+};
+
+%extend add_torrent_params {
+    static add_torrent_params create_instance() {
+        return add_torrent_params();
     }
 };
 }
