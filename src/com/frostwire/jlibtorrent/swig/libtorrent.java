@@ -223,10 +223,6 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_bdecode_category(), false);
   }
 
-  public static String parse_int(String start, String end, char delimiter, SWIGTYPE_p_long_long val, SWIGTYPE_p_bdecode_errors__error_code_enum ec) {
-    return libtorrent_jni.parse_int(start, end, delimiter, SWIGTYPE_p_long_long.getCPtr(val), SWIGTYPE_p_bdecode_errors__error_code_enum.getCPtr(ec));
-  }
-
   public static int gzip_header(String buf, int size) {
     return libtorrent_jni.gzip_header(buf, size);
   }

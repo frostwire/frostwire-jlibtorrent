@@ -207,6 +207,7 @@ namespace std {
 %ignore ssl_ctx;
 %ignore readv;
 %ignore writev;
+%ignore libtorrent::parse_int;
 
 %ignore libtorrent::partial_hash;
 %ignore libtorrent::piece_manager;

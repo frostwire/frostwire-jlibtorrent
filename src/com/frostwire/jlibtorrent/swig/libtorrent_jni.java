@@ -3700,7 +3700,6 @@ public class libtorrent_jni {
   public final static native String print_entry__SWIG_1(long jarg1, lazy_entry jarg1_, boolean jarg2);
   public final static native String print_entry__SWIG_2(long jarg1, lazy_entry jarg1_);
   public final static native long get_bdecode_category();
-  public final static native String parse_int(String jarg1, String jarg2, char jarg3, long jarg4, long jarg5);
   public final static native long new_buffer_interval__SWIG_0();
   public final static native long new_buffer_interval__SWIG_1(String jarg1, String jarg2);
   public final static native char buffer_interval_op_get_at(long jarg1, buffer.interval jarg1_, int jarg2);
