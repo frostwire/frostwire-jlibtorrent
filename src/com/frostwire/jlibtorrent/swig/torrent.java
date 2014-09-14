@@ -959,10 +959,6 @@ public class torrent {
     return new policy(libtorrent_jni.torrent_get_policy(swigCPtr, this), false);
   }
 
-  public piece_manager filesystem() {
-    return new piece_manager(libtorrent_jni.torrent_filesystem(swigCPtr, this), true);
-  }
-
   public torrent_info torrent_file() {
     return new torrent_info(libtorrent_jni.torrent_torrent_file(swigCPtr, this), true);
   }

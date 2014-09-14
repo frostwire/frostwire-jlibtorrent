@@ -249,22 +249,6 @@ public class bt_peer_connection extends peer_connection {
     libtorrent_jni.bt_peer_connection_append_const_send_buffer(swigCPtr, this, buffer, size);
   }
 
-  public void send_buffer(String begin, int size, int flags, SWIGTYPE_p_f_p_char_int_p_void__void fun, SWIGTYPE_p_void userdata) {
-    libtorrent_jni.bt_peer_connection_send_buffer__SWIG_0(swigCPtr, this, begin, size, flags, SWIGTYPE_p_f_p_char_int_p_void__void.getCPtr(fun), SWIGTYPE_p_void.getCPtr(userdata));
-  }
-
-  public void send_buffer(String begin, int size, int flags, SWIGTYPE_p_f_p_char_int_p_void__void fun) {
-    libtorrent_jni.bt_peer_connection_send_buffer__SWIG_1(swigCPtr, this, begin, size, flags, SWIGTYPE_p_f_p_char_int_p_void__void.getCPtr(fun));
-  }
-
-  public void send_buffer(String begin, int size, int flags) {
-    libtorrent_jni.bt_peer_connection_send_buffer__SWIG_2(swigCPtr, this, begin, size, flags);
-  }
-
-  public void send_buffer(String begin, int size) {
-    libtorrent_jni.bt_peer_connection_send_buffer__SWIG_3(swigCPtr, this, begin, size);
-  }
-
   public final static int upload_only_msg = libtorrent_jni.bt_peer_connection_upload_only_msg_get();
   public final static int holepunch_msg = libtorrent_jni.bt_peer_connection_holepunch_msg_get();
   public final static int dont_have_msg = libtorrent_jni.bt_peer_connection_dont_have_msg_get();

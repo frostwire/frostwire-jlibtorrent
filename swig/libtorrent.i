@@ -216,6 +216,7 @@ namespace std {
 %ignore ssl_ctx;
 
 // this are ignore until we solve the specific type issues
+%ignore libtorrent::to_string(size_type);
 %ignore url_has_argument; // global
 %ignore export_filter; // ip_filter
 %ignore getExtensions; // add_torrent_params
@@ -244,8 +245,12 @@ namespace std {
 %ignore async_move_storage; // piece_manager
 %ignore async_set_file_priority; // piece_manager
 %ignore async_save_resume_data; // piece_manager
-%ignore setCallback; // disk_io_job
+%ignore disk_io_job::getCallback;
+%ignore disk_io_job::setCallback;
+%ignore getBlocks;
+%ignore setBlocks;
 %ignore add_job; // disk_io_thread
+%ignore libtorrent::torrent::filesystem();
 
 %ignore operator=;
 %ignore operator!;

@@ -599,22 +599,6 @@ public class peer_connection extends bandwidth_socket {
     return new SWIGTYPE_p_boost__optionalT_piece_block_progress_t(libtorrent_jni.peer_connection_downloading_piece_progress(swigCPtr, this), true);
   }
 
-  public void send_buffer(String begin, int size, int flags, SWIGTYPE_p_f_p_char_int_p_void__void fun, SWIGTYPE_p_void userdata) {
-    libtorrent_jni.peer_connection_send_buffer__SWIG_0(swigCPtr, this, begin, size, flags, SWIGTYPE_p_f_p_char_int_p_void__void.getCPtr(fun), SWIGTYPE_p_void.getCPtr(userdata));
-  }
-
-  public void send_buffer(String begin, int size, int flags, SWIGTYPE_p_f_p_char_int_p_void__void fun) {
-    libtorrent_jni.peer_connection_send_buffer__SWIG_1(swigCPtr, this, begin, size, flags, SWIGTYPE_p_f_p_char_int_p_void__void.getCPtr(fun));
-  }
-
-  public void send_buffer(String begin, int size, int flags) {
-    libtorrent_jni.peer_connection_send_buffer__SWIG_2(swigCPtr, this, begin, size, flags);
-  }
-
-  public void send_buffer(String begin, int size) {
-    libtorrent_jni.peer_connection_send_buffer__SWIG_3(swigCPtr, this, begin, size);
-  }
-
   public void setup_send() {
     libtorrent_jni.peer_connection_setup_send(swigCPtr, this);
   }

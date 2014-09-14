@@ -2643,10 +2643,6 @@ public class libtorrent_jni {
   public final static native boolean peer_connection_in_handshake(long jarg1, peer_connection jarg1_);
   public final static native long peer_connection_downloading_piece_progress(long jarg1, peer_connection jarg1_);
   public final static native int peer_connection_message_type_request_get();
-  public final static native void peer_connection_send_buffer__SWIG_0(long jarg1, peer_connection jarg1_, String jarg2, int jarg3, int jarg4, long jarg5, long jarg6);
-  public final static native void peer_connection_send_buffer__SWIG_1(long jarg1, peer_connection jarg1_, String jarg2, int jarg3, int jarg4, long jarg5);
-  public final static native void peer_connection_send_buffer__SWIG_2(long jarg1, peer_connection jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native void peer_connection_send_buffer__SWIG_3(long jarg1, peer_connection jarg1_, String jarg2, int jarg3);
   public final static native void peer_connection_setup_send(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_cork_socket(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_uncork_socket(long jarg1, peer_connection jarg1_);
@@ -3478,7 +3474,6 @@ public class libtorrent_jni {
   public final static native long torrent_picker(long jarg1, torrent jarg1_);
   public final static native boolean torrent_has_picker(long jarg1, torrent jarg1_);
   public final static native long torrent_get_policy(long jarg1, torrent jarg1_);
-  public final static native long torrent_filesystem(long jarg1, torrent jarg1_);
   public final static native long torrent_torrent_file(long jarg1, torrent jarg1_);
   public final static native long torrent_get_torrent_copy(long jarg1, torrent jarg1_);
   public final static native String torrent_uuid(long jarg1, torrent jarg1_);
@@ -3777,10 +3772,6 @@ public class libtorrent_jni {
   public final static native void bt_peer_connection_on_connected(long jarg1, bt_peer_connection jarg1_);
   public final static native void bt_peer_connection_on_metadata(long jarg1, bt_peer_connection jarg1_);
   public final static native void bt_peer_connection_append_const_send_buffer(long jarg1, bt_peer_connection jarg1_, String jarg2, int jarg3);
-  public final static native void bt_peer_connection_send_buffer__SWIG_0(long jarg1, bt_peer_connection jarg1_, String jarg2, int jarg3, int jarg4, long jarg5, long jarg6);
-  public final static native void bt_peer_connection_send_buffer__SWIG_1(long jarg1, bt_peer_connection jarg1_, String jarg2, int jarg3, int jarg4, long jarg5);
-  public final static native void bt_peer_connection_send_buffer__SWIG_2(long jarg1, bt_peer_connection jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native void bt_peer_connection_send_buffer__SWIG_3(long jarg1, bt_peer_connection jarg1_, String jarg2, int jarg3);
   public final static native long new_connection_queue(long jarg1);
   public final static native int connection_queue_free_slots(long jarg1, connection_queue jarg1_);
   public final static native void connection_queue_enqueue__SWIG_0(long jarg1, connection_queue jarg1_, long jarg2, long jarg3, long jarg4, int jarg5);
@@ -4122,7 +4113,6 @@ public class libtorrent_jni {
   public final static native long total_seconds(long jarg1);
   public final static native long total_milliseconds(long jarg1);
   public final static native long total_microseconds(long jarg1);
-  public final static native long to_string(long jarg1);
   public final static native String unescape_string(String jarg1, long jarg2, error_code jarg2_);
   public final static native String escape_string(String jarg1, int jarg2);
   public final static native String escape_path(String jarg1, int jarg2);
