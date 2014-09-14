@@ -143,14 +143,6 @@ public class torrent_handle {
     return new SWIGTYPE_p_std__setT_std__string_t(libtorrent_jni.torrent_handle_http_seeds(swigCPtr, this), true);
   }
 
-  public void add_extension(SWIGTYPE_p_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t ext, SWIGTYPE_p_void userdata) {
-    libtorrent_jni.torrent_handle_add_extension__SWIG_0(swigCPtr, this, SWIGTYPE_p_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t.getCPtr(ext), SWIGTYPE_p_void.getCPtr(userdata));
-  }
-
-  public void add_extension(SWIGTYPE_p_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t ext) {
-    libtorrent_jni.torrent_handle_add_extension__SWIG_1(swigCPtr, this, SWIGTYPE_p_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t.getCPtr(ext));
-  }
-
   public boolean set_metadata(String metadata, int size) {
     return libtorrent_jni.torrent_handle_set_metadata(swigCPtr, this, metadata, size);
   }

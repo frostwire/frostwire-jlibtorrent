@@ -199,12 +199,8 @@ public class session {
     libtorrent_jni.session_dht_put_item__SWIG_2(swigCPtr, this, SWIGTYPE_p_boost__arrayT_char_32_t.getCPtr(key), SWIGTYPE_p_boost__functionT_void_flibtorrent__entry_R_boost__arrayT_char_64_t_R_unsigned_long_long_R_std__string_const_RF_t.getCPtr(cb));
   }
 
-  public void add_extension(SWIGTYPE_p_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t ext) {
-    libtorrent_jni.session_add_extension__SWIG_0(swigCPtr, this, SWIGTYPE_p_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t.getCPtr(ext));
-  }
-
   public void add_extension(plugin ext) {
-    libtorrent_jni.session_add_extension__SWIG_1(swigCPtr, this, plugin.getCPtr(ext), ext);
+    libtorrent_jni.session_add_extension(swigCPtr, this, plugin.getCPtr(ext), ext);
   }
 
   public void load_asnum_db(String file) {

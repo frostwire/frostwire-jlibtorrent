@@ -56,11 +56,7 @@ public class torrent {
   }
 
   public void add_extension(torrent_plugin arg0) {
-    libtorrent_jni.torrent_add_extension__SWIG_0(swigCPtr, this, torrent_plugin.getCPtr(arg0), arg0);
-  }
-
-  public void add_extension(SWIGTYPE_p_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t ext, SWIGTYPE_p_void userdata) {
-    libtorrent_jni.torrent_add_extension__SWIG_1(swigCPtr, this, SWIGTYPE_p_boost__functionT_boost__shared_ptrT_libtorrent__torrent_plugin_t_flibtorrent__torrent_p_void_pF_t.getCPtr(ext), SWIGTYPE_p_void.getCPtr(userdata));
+    libtorrent_jni.torrent_add_extension(swigCPtr, this, torrent_plugin.getCPtr(arg0), arg0);
   }
 
   public void notify_extension_add_peer(SWIGTYPE_p_tcp__endpoint ip, int src, int flags) {

@@ -1296,8 +1296,6 @@ public class libtorrent_jni {
   public final static native void torrent_handle_add_http_seed(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native void torrent_handle_remove_http_seed(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native long torrent_handle_http_seeds(long jarg1, torrent_handle jarg1_);
-  public final static native void torrent_handle_add_extension__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, long jarg3);
-  public final static native void torrent_handle_add_extension__SWIG_1(long jarg1, torrent_handle jarg1_, long jarg2);
   public final static native boolean torrent_handle_set_metadata(long jarg1, torrent_handle jarg1_, String jarg2, int jarg3);
   public final static native boolean torrent_handle_is_valid(long jarg1, torrent_handle jarg1_);
   public final static native int torrent_handle_graceful_pause_get();
@@ -3118,8 +3116,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_is_deleted(long jarg1, torrent jarg1_);
   public final static native void torrent_start(long jarg1, torrent jarg1_);
   public final static native void torrent_start_download_url(long jarg1, torrent jarg1_);
-  public final static native void torrent_add_extension__SWIG_0(long jarg1, torrent jarg1_, long jarg2, torrent_plugin jarg2_);
-  public final static native void torrent_add_extension__SWIG_1(long jarg1, torrent jarg1_, long jarg2, long jarg3);
+  public final static native void torrent_add_extension(long jarg1, torrent jarg1_, long jarg2, torrent_plugin jarg2_);
   public final static native void torrent_notify_extension_add_peer(long jarg1, torrent jarg1_, long jarg2, int jarg3, int jarg4);
   public final static native long torrent_find_lowest_ranking_peer(long jarg1, torrent jarg1_);
   public final static native void torrent_init(long jarg1, torrent jarg1_);
@@ -3440,8 +3437,7 @@ public class libtorrent_jni {
   public final static native long session_dht_put_item__SWIG_0(long jarg1, session jarg1_, long jarg2, entry jarg2_);
   public final static native void session_dht_put_item__SWIG_1(long jarg1, session jarg1_, long jarg2, long jarg3, String jarg4);
   public final static native void session_dht_put_item__SWIG_2(long jarg1, session jarg1_, long jarg2, long jarg3);
-  public final static native void session_add_extension__SWIG_0(long jarg1, session jarg1_, long jarg2);
-  public final static native void session_add_extension__SWIG_1(long jarg1, session jarg1_, long jarg2, plugin jarg2_);
+  public final static native void session_add_extension(long jarg1, session jarg1_, long jarg2, plugin jarg2_);
   public final static native void session_load_asnum_db(long jarg1, session jarg1_, String jarg2);
   public final static native void session_load_country_db(long jarg1, session jarg1_, String jarg2);
   public final static native int session_as_for_ip(long jarg1, session jarg1_, long jarg2, address jarg2_);

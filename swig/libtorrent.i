@@ -238,6 +238,7 @@ namespace std {
 %ignore libtorrent::session::get_torrent_status;
 %ignore libtorrent::session::get_io_service;
 %ignore libtorrent::session::get_connection_queue;
+%ignore libtorrent::session::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)>);
 %ignore libtorrent::peer_connection::incoming_piece;
 %ignore libtorrent::peer_connection::send_buffer;
 %ignore libtorrent::peer_connection::associated_torrent;
@@ -265,9 +266,11 @@ namespace std {
 %ignore libtorrent::torrent::block_bytes_wanted;
 %ignore libtorrent::torrent::cancel_block;
 %ignore libtorrent::torrent::to_req;
+%ignore libtorrent::torrent::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)> const&, void*);
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
 %ignore libtorrent::policy::ipv6_peer::addr;
+%ignore libtorrent::torrent_handle::add_extension;
 
 %ignore operator=;
 %ignore operator!;
