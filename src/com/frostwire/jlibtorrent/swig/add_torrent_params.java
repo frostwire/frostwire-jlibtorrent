@@ -120,15 +120,6 @@ public class add_torrent_params {
     return storage_mode_t.swigToEnum(libtorrent_jni.add_torrent_params_storage_mode_get(swigCPtr, this));
   }
 
-  public void setStorage(SWIGTYPE_p_boost__functionT_libtorrent__storage_interface_pflibtorrent__file_storage_const_R_libtorrent__file_storage_const_p_std__string_const_R_libtorrent__file_pool_R_std__vectorT_boost__uint8_t_t_const_RF_t value) {
-    libtorrent_jni.add_torrent_params_storage_set(swigCPtr, this, SWIGTYPE_p_boost__functionT_libtorrent__storage_interface_pflibtorrent__file_storage_const_R_libtorrent__file_storage_const_p_std__string_const_R_libtorrent__file_pool_R_std__vectorT_boost__uint8_t_t_const_RF_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_boost__functionT_libtorrent__storage_interface_pflibtorrent__file_storage_const_R_libtorrent__file_storage_const_p_std__string_const_R_libtorrent__file_pool_R_std__vectorT_boost__uint8_t_t_const_RF_t getStorage() {
-    long cPtr = libtorrent_jni.add_torrent_params_storage_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_boost__functionT_libtorrent__storage_interface_pflibtorrent__file_storage_const_R_libtorrent__file_storage_const_p_std__string_const_R_libtorrent__file_pool_R_std__vectorT_boost__uint8_t_t_const_RF_t(cPtr, false);
-  }
-
   public void setUserdata(SWIGTYPE_p_void value) {
     libtorrent_jni.add_torrent_params_userdata_set(swigCPtr, this, SWIGTYPE_p_void.getCPtr(value));
   }

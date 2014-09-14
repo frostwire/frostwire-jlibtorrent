@@ -477,7 +477,6 @@ public class libtorrent_jni {
   public final static native long new_address_v4__SWIG_0();
   public final static native long new_address_v4__SWIG_1(long jarg1);
   public final static native long new_address_v4__SWIG_2(long jarg1, address_v4 jarg1_);
-  public final static native long address_v4_to_bytes(long jarg1, address_v4 jarg1_);
   public final static native long address_v4_to_ulong(long jarg1, address_v4 jarg1_);
   public final static native String address_v4_to_string__SWIG_0(long jarg1, address_v4 jarg1_);
   public final static native String address_v4_to_string__SWIG_1(long jarg1, address_v4 jarg1_, long jarg2, error_code jarg2_);
@@ -503,7 +502,6 @@ public class libtorrent_jni {
   public final static native long new_address_v6__SWIG_1(long jarg1, address_v6 jarg1_);
   public final static native long address_v6_scope_id__SWIG_0(long jarg1, address_v6 jarg1_);
   public final static native void address_v6_scope_id__SWIG_1(long jarg1, address_v6 jarg1_, long jarg2);
-  public final static native long address_v6_to_bytes(long jarg1, address_v6 jarg1_);
   public final static native String address_v6_to_string__SWIG_0(long jarg1, address_v6 jarg1_);
   public final static native String address_v6_to_string__SWIG_1(long jarg1, address_v6 jarg1_, long jarg2, error_code jarg2_);
   public final static native long address_v6_to_v4(long jarg1, address_v6 jarg1_);
@@ -1091,7 +1089,6 @@ public class libtorrent_jni {
   public final static native long policy_ipv4_peer_addr_get(long jarg1, policy.ipv4_peer jarg1_);
   public final static native void delete_policy_ipv4_peer(long jarg1);
   public final static native long new_policy_ipv6_peer(long jarg1, boolean jarg2, int jarg3);
-  public final static native long policy_ipv6_peer_addr_get(long jarg1, policy.ipv6_peer jarg1_);
   public final static native void delete_policy_ipv6_peer(long jarg1);
   public final static native int policy_num_peers(long jarg1, policy jarg1_);
   public final static native long new_policy_peer_address_compare();
@@ -1574,8 +1571,6 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_resume_data_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_storage_mode_set(long jarg1, add_torrent_params jarg1_, int jarg2);
   public final static native int add_torrent_params_storage_mode_get(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_storage_set(long jarg1, add_torrent_params jarg1_, long jarg2);
-  public final static native long add_torrent_params_storage_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_userdata_set(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native long add_torrent_params_userdata_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_file_priorities_set(long jarg1, add_torrent_params jarg1_, long jarg2, unsigned_char_vector jarg2_);
@@ -3469,8 +3464,6 @@ public class libtorrent_jni {
   public final static native void session_save_state__SWIG_0(long jarg1, session jarg1_, long jarg2, entry jarg2_, long jarg3);
   public final static native void session_save_state__SWIG_1(long jarg1, session jarg1_, long jarg2, entry jarg2_);
   public final static native void session_load_state(long jarg1, session jarg1_, long jarg2, lazy_entry jarg2_);
-  public final static native void session_get_torrent_status__SWIG_0(long jarg1, session jarg1_, long jarg2, torrent_status_vector jarg2_, long jarg3, long jarg4);
-  public final static native void session_get_torrent_status__SWIG_1(long jarg1, session jarg1_, long jarg2, torrent_status_vector jarg2_, long jarg3);
   public final static native void session_refresh_torrent_status__SWIG_0(long jarg1, session jarg1_, long jarg2, torrent_status_vector jarg2_, long jarg3);
   public final static native void session_refresh_torrent_status__SWIG_1(long jarg1, session jarg1_, long jarg2, torrent_status_vector jarg2_);
   public final static native void session_post_torrent_updates(long jarg1, session jarg1_);
@@ -3875,13 +3868,6 @@ public class libtorrent_jni {
   public final static native void tracker_request_apply_ip_filter_set(long jarg1, tracker_request jarg1_, boolean jarg2);
   public final static native boolean tracker_request_apply_ip_filter_get(long jarg1, tracker_request jarg1_);
   public final static native void delete_tracker_request(long jarg1);
-  public final static native void delete_request_callback(long jarg1);
-  public final static native void request_callback_tracker_warning(long jarg1, request_callback jarg1_, long jarg2, tracker_request jarg2_, String jarg3);
-  public final static native void request_callback_tracker_scrape_response(long jarg1, request_callback jarg1_, long jarg2, tracker_request jarg2_, int jarg3, int jarg4, int jarg5, int jarg6);
-  public final static native void request_callback_tracker_response(long jarg1, request_callback jarg1_, long jarg2, tracker_request jarg2_, long jarg3, address jarg3_, long jarg4, long jarg5, peer_entry_vector jarg5_, int jarg6, int jarg7, int jarg8, int jarg9, int jarg10, long jarg11, address jarg11_, String jarg12);
-  public final static native void request_callback_tracker_request_error(long jarg1, request_callback jarg1_, long jarg2, tracker_request jarg2_, int jarg3, long jarg4, error_code jarg4_, String jarg5, int jarg6);
-  public final static native void request_callback_m_tracker_address_set(long jarg1, request_callback jarg1_, long jarg2);
-  public final static native long request_callback_m_tracker_address_get(long jarg1, request_callback jarg1_);
   public final static native void timeout_handler_set_timeout(long jarg1, timeout_handler jarg1_, int jarg2, int jarg3);
   public final static native void timeout_handler_restart_read_timeout(long jarg1, timeout_handler jarg1_);
   public final static native void timeout_handler_cancel(long jarg1, timeout_handler jarg1_);
@@ -3889,7 +3875,6 @@ public class libtorrent_jni {
   public final static native void timeout_handler_on_timeout(long jarg1, timeout_handler jarg1_, long jarg2, error_code jarg2_);
   public final static native void delete_timeout_handler(long jarg1);
   public final static native long timeout_handler_get_io_service(long jarg1, timeout_handler jarg1_);
-  public final static native long tracker_connection_requester(long jarg1, tracker_connection jarg1_);
   public final static native void delete_tracker_connection(long jarg1);
   public final static native long tracker_connection_tracker_req(long jarg1, tracker_connection jarg1_);
   public final static native void tracker_connection_fail__SWIG_0(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, int jarg3, String jarg4, int jarg5, int jarg6);
@@ -3907,8 +3892,6 @@ public class libtorrent_jni {
   public final static native long tracker_connection_self(long jarg1, tracker_connection jarg1_);
   public final static native long new_tracker_manager(long jarg1, long jarg2, proxy_settings jarg2_);
   public final static native void delete_tracker_manager(long jarg1);
-  public final static native void tracker_manager_queue_request__SWIG_0(long jarg1, tracker_manager jarg1_, long jarg2, long jarg3, connection_queue jarg3_, long jarg4, tracker_request jarg4_, String jarg5, long jarg6);
-  public final static native void tracker_manager_queue_request__SWIG_1(long jarg1, tracker_manager jarg1_, long jarg2, long jarg3, connection_queue jarg3_, long jarg4, tracker_request jarg4_, String jarg5);
   public final static native void tracker_manager_abort_all_requests__SWIG_0(long jarg1, tracker_manager jarg1_, boolean jarg2);
   public final static native void tracker_manager_abort_all_requests__SWIG_1(long jarg1, tracker_manager jarg1_);
   public final static native void tracker_manager_remove_request(long jarg1, tracker_manager jarg1_, long jarg2, tracker_connection jarg2_);

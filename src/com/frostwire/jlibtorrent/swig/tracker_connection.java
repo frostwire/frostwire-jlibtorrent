@@ -35,11 +35,6 @@ public class tracker_connection extends timeout_handler {
     super.delete();
   }
 
-  public request_callback requester() {
-    long cPtr = libtorrent_jni.tracker_connection_requester(swigCPtr, this);
-    return (cPtr == 0) ? null : new request_callback(cPtr, true);
-  }
-
   public tracker_request tracker_req() {
     return new tracker_request(libtorrent_jni.tracker_connection_tracker_req(swigCPtr, this), false);
   }

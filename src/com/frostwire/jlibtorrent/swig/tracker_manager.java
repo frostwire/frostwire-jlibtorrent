@@ -39,14 +39,6 @@ public class tracker_manager {
     this(libtorrent_jni.new_tracker_manager(SWIGTYPE_p_libtorrent__aux__session_impl.getCPtr(ses), proxy_settings.getCPtr(ps), ps), true);
   }
 
-  public void queue_request(SWIGTYPE_p_io_service ios, connection_queue cc, tracker_request r, String auth, SWIGTYPE_p_boost__weak_ptrT_libtorrent__request_callback_t c) {
-    libtorrent_jni.tracker_manager_queue_request__SWIG_0(swigCPtr, this, SWIGTYPE_p_io_service.getCPtr(ios), connection_queue.getCPtr(cc), cc, tracker_request.getCPtr(r), r, auth, SWIGTYPE_p_boost__weak_ptrT_libtorrent__request_callback_t.getCPtr(c));
-  }
-
-  public void queue_request(SWIGTYPE_p_io_service ios, connection_queue cc, tracker_request r, String auth) {
-    libtorrent_jni.tracker_manager_queue_request__SWIG_1(swigCPtr, this, SWIGTYPE_p_io_service.getCPtr(ios), connection_queue.getCPtr(cc), cc, tracker_request.getCPtr(r), r, auth);
-  }
-
   public void abort_all_requests(boolean all) {
     libtorrent_jni.tracker_manager_abort_all_requests__SWIG_0(swigCPtr, this, all);
   }

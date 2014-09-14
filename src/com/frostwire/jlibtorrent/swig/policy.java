@@ -417,10 +417,6 @@ public class policy {
       this(libtorrent_jni.new_policy_ipv6_peer(SWIGTYPE_p_tcp__endpoint.getCPtr(ip), connectable, src), true);
     }
   
-    public SWIGTYPE_p_boost__asio__detail__arrayT_unsigned_char_16_t getAddr() {
-      return new SWIGTYPE_p_boost__asio__detail__arrayT_unsigned_char_16_t(libtorrent_jni.policy_ipv6_peer_addr_get(swigCPtr, this), true);
-    }
-  
   }
 
   public int num_peers() {

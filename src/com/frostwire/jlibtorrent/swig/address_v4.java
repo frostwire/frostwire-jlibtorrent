@@ -47,10 +47,6 @@ public class address_v4 {
     this(libtorrent_jni.new_address_v4__SWIG_2(address_v4.getCPtr(other), other), true);
   }
 
-  public SWIGTYPE_p_boost__asio__detail__arrayT_unsigned_char_4_t to_bytes() {
-    return new SWIGTYPE_p_boost__asio__detail__arrayT_unsigned_char_4_t(libtorrent_jni.address_v4_to_bytes(swigCPtr, this), true);
-  }
-
   public long to_ulong() {
     return libtorrent_jni.address_v4_to_ulong(swigCPtr, this);
   }

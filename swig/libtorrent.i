@@ -140,7 +140,6 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 %shared_ptr(libtorrent::plugin)
 %shared_ptr(libtorrent::peer_plugin)
 %shared_ptr(libtorrent::torrent_plugin)
-%shared_ptr(libtorrent::request_callback)
 %shared_ptr(libtorrent::bandwidth_socket)
 %shared_ptr(libtorrent::peer_connection)
 %shared_ptr(libtorrent::bt_peer_connection)
@@ -210,26 +209,31 @@ namespace std {
 %ignore new_feed;
 %ignore parse_feed;
 %ignore ssl_ctx;
+%ignore readv;
+%ignore writev;
 
 %ignore libtorrent::partial_hash;
 %ignore libtorrent::piece_manager;
 %ignore libtorrent::disk_io_thread;
 %ignore libtorrent::feed;
+%ignore libtorrent::request_callback;
 
 // this are ignore until we solve the specific type issues
 %ignore libtorrent::to_string(size_type);
+%ignore libtorrent::tracker_manager::queue_request;
+%ignore libtorrent::tracker_connection::requester;
 %ignore url_has_argument; // global
 %ignore export_filter; // ip_filter
 %ignore libtorrent::add_torrent_params::extensions;
+%ignore libtorrent::add_torrent_params::storage;
 %ignore on_peer_name_lookup; // torrent
 %ignore on_name_lookup; // torrent
 %ignore on_proxy_name_lookup; // torrent
 %ignore libtorrent::torrent::async_verify_piece;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore set_dispatch_function; // alert_manager
-%ignore set_alert_dispatch; // session
-%ignore readv;
-%ignore writev;
+%ignore libtorrent::session::set_alert_dispatch;
+%ignore libtorrent::session::get_torrent_status;
 %ignore incoming_piece; // peer_connection
 %ignore send_buffer; // peer_connection
 %ignore send_buffer; // bt_peer_connection
@@ -239,6 +243,9 @@ namespace std {
 %ignore setBlocks;
 %ignore add_job; // disk_io_thread
 %ignore libtorrent::torrent::filesystem();
+%ignore boost::asio::ip::address_v4::to_bytes;
+%ignore boost::asio::ip::address_v6::to_bytes;
+%ignore libtorrent::policy::ipv6_peer::addr;
 
 %ignore operator=;
 %ignore operator!;

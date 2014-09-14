@@ -79,14 +79,6 @@ public class session {
     libtorrent_jni.session_load_state(swigCPtr, this, lazy_entry.getCPtr(e), e);
   }
 
-  public void get_torrent_status(torrent_status_vector ret, SWIGTYPE_p_boost__functionT_bool_flibtorrent__torrent_status_const_RF_t pred, long flags) {
-    libtorrent_jni.session_get_torrent_status__SWIG_0(swigCPtr, this, torrent_status_vector.getCPtr(ret), ret, SWIGTYPE_p_boost__functionT_bool_flibtorrent__torrent_status_const_RF_t.getCPtr(pred), flags);
-  }
-
-  public void get_torrent_status(torrent_status_vector ret, SWIGTYPE_p_boost__functionT_bool_flibtorrent__torrent_status_const_RF_t pred) {
-    libtorrent_jni.session_get_torrent_status__SWIG_1(swigCPtr, this, torrent_status_vector.getCPtr(ret), ret, SWIGTYPE_p_boost__functionT_bool_flibtorrent__torrent_status_const_RF_t.getCPtr(pred));
-  }
-
   public void refresh_torrent_status(torrent_status_vector ret, long flags) {
     libtorrent_jni.session_refresh_torrent_status__SWIG_0(swigCPtr, this, torrent_status_vector.getCPtr(ret), ret, flags);
   }

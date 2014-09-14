@@ -51,10 +51,6 @@ public class address_v6 {
     libtorrent_jni.address_v6_scope_id__SWIG_1(swigCPtr, this, id);
   }
 
-  public SWIGTYPE_p_boost__asio__detail__arrayT_unsigned_char_16_t to_bytes() {
-    return new SWIGTYPE_p_boost__asio__detail__arrayT_unsigned_char_16_t(libtorrent_jni.address_v6_to_bytes(swigCPtr, this), true);
-  }
-
   public String to_string() {
     return libtorrent_jni.address_v6_to_string__SWIG_0(swigCPtr, this);
   }
