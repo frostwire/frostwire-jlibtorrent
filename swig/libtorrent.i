@@ -145,6 +145,7 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 %auto_ptr(libtorrent::alert)
 
 %apply const std::string & {std::string &};
+%apply const boost::int64_t & {boost::int64_t &};
 
 typedef long time_t;
 

@@ -71,8 +71,8 @@ public class entry {
     return libtorrent_jni.entry_op_neq(swigCPtr, this, entry.getCPtr(e), e);
   }
 
-  public SWIGTYPE_p_long_long integer() {
-    return new SWIGTYPE_p_long_long(libtorrent_jni.entry_integer__SWIG_0(swigCPtr, this), false);
+  public long integer() {
+    return libtorrent_jni.entry_integer__SWIG_0(swigCPtr, this);
   }
 
   public String string() {
