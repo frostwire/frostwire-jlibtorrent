@@ -39,8 +39,8 @@ public class policy {
     this(libtorrent_jni.new_policy(torrent.getCPtr(t), t), true);
   }
 
-  public policy.peer add_peer(SWIGTYPE_p_tcp__endpoint remote, sha1_hash pid, int source, char flags) {
-    long cPtr = libtorrent_jni.policy_add_peer(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(remote), sha1_hash.getCPtr(pid), pid, source, flags);
+  public policy.peer add_peer(tcp_endpoint remote, sha1_hash pid, int source, char flags) {
+    long cPtr = libtorrent_jni.policy_add_peer(swigCPtr, this, tcp_endpoint.getCPtr(remote), remote, sha1_hash.getCPtr(pid), pid, source, flags);
     return (cPtr == 0) ? null : new policy.peer(cPtr, false);
   }
 
@@ -371,8 +371,8 @@ public class policy {
       super.delete();
     }
   
-    public ipv4_peer(SWIGTYPE_p_tcp__endpoint ip, boolean connectable, int src) {
-      this(libtorrent_jni.new_policy_ipv4_peer(SWIGTYPE_p_tcp__endpoint.getCPtr(ip), connectable, src), true);
+    public ipv4_peer(tcp_endpoint ip, boolean connectable, int src) {
+      this(libtorrent_jni.new_policy_ipv4_peer(tcp_endpoint.getCPtr(ip), ip, connectable, src), true);
     }
   
     public void setAddr(address_v4 value) {
@@ -413,8 +413,8 @@ public class policy {
       super.delete();
     }
   
-    public ipv6_peer(SWIGTYPE_p_tcp__endpoint ip, boolean connectable, int src) {
-      this(libtorrent_jni.new_policy_ipv6_peer(SWIGTYPE_p_tcp__endpoint.getCPtr(ip), connectable, src), true);
+    public ipv6_peer(tcp_endpoint ip, boolean connectable, int src) {
+      this(libtorrent_jni.new_policy_ipv6_peer(tcp_endpoint.getCPtr(ip), ip, connectable, src), true);
     }
   
   }

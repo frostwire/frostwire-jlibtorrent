@@ -68,8 +68,8 @@ public class torrent_plugin {
     libtorrent_jni.torrent_plugin_on_state(swigCPtr, this, arg0);
   }
 
-  public void on_add_peer(SWIGTYPE_p_tcp__endpoint arg0, int arg1, int arg2) {
-    libtorrent_jni.torrent_plugin_on_add_peer(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(arg0), arg1, arg2);
+  public void on_add_peer(tcp_endpoint arg0, int arg1, int arg2) {
+    libtorrent_jni.torrent_plugin_on_add_peer(swigCPtr, this, tcp_endpoint.getCPtr(arg0), arg0, arg1, arg2);
   }
 
   public torrent_plugin() {

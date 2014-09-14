@@ -295,8 +295,8 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_second_tick(swigCPtr, this, tick_interval_ms);
   }
 
-  public SWIGTYPE_p_tcp__endpoint remote() {
-    return new SWIGTYPE_p_tcp__endpoint(libtorrent_jni.peer_connection_remote(swigCPtr, this), false);
+  public tcp_endpoint remote() {
+    return new tcp_endpoint(libtorrent_jni.peer_connection_remote(swigCPtr, this), false);
   }
 
   public bitfield get_bitfield() {

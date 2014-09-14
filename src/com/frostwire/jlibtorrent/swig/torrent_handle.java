@@ -329,12 +329,12 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_set_sequential_download(swigCPtr, this, sd);
   }
 
-  public void connect_peer(SWIGTYPE_p_tcp__endpoint adr, int source) {
-    libtorrent_jni.torrent_handle_connect_peer__SWIG_0(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(adr), source);
+  public void connect_peer(tcp_endpoint adr, int source) {
+    libtorrent_jni.torrent_handle_connect_peer__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, source);
   }
 
-  public void connect_peer(SWIGTYPE_p_tcp__endpoint adr) {
-    libtorrent_jni.torrent_handle_connect_peer__SWIG_1(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(adr));
+  public void connect_peer(tcp_endpoint adr) {
+    libtorrent_jni.torrent_handle_connect_peer__SWIG_1(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr);
   }
 
   public void set_max_uploads(int max_uploads) {

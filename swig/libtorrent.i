@@ -126,6 +126,7 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 %include <enums.swg>
 
 %include "std_vector2.i"
+%include "endpoint.i"
 
 %intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)

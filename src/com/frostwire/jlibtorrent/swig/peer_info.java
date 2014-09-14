@@ -67,12 +67,13 @@ public class peer_info {
     return libtorrent_jni.peer_info_write_state_get(swigCPtr, this);
   }
 
-  public void setIp(SWIGTYPE_p_tcp__endpoint value) {
-    libtorrent_jni.peer_info_ip_set(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(value));
+  public void setIp(tcp_endpoint value) {
+    libtorrent_jni.peer_info_ip_set(swigCPtr, this, tcp_endpoint.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_tcp__endpoint getIp() {
-    return new SWIGTYPE_p_tcp__endpoint(libtorrent_jni.peer_info_ip_get(swigCPtr, this), true);
+  public tcp_endpoint getIp() {
+    long cPtr = libtorrent_jni.peer_info_ip_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
   public void setUp_speed(int value) {
@@ -453,12 +454,13 @@ public class peer_info {
     return libtorrent_jni.peer_info_estimated_reciprocation_rate_get(swigCPtr, this);
   }
 
-  public void setLocal_endpoint(SWIGTYPE_p_tcp__endpoint value) {
-    libtorrent_jni.peer_info_local_endpoint_set(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(value));
+  public void setLocal_endpoint(tcp_endpoint value) {
+    libtorrent_jni.peer_info_local_endpoint_set(swigCPtr, this, tcp_endpoint.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_tcp__endpoint getLocal_endpoint() {
-    return new SWIGTYPE_p_tcp__endpoint(libtorrent_jni.peer_info_local_endpoint_get(swigCPtr, this), true);
+  public tcp_endpoint getLocal_endpoint() {
+    long cPtr = libtorrent_jni.peer_info_local_endpoint_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
   public peer_info() {

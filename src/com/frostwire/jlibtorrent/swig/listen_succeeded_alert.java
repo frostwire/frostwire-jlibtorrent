@@ -43,12 +43,13 @@ public class listen_succeeded_alert extends alert {
     return libtorrent_jni.listen_succeeded_alert_discardable(swigCPtr, this);
   }
 
-  public void setEndpoint(SWIGTYPE_p_tcp__endpoint value) {
-    libtorrent_jni.listen_succeeded_alert_endpoint_set(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(value));
+  public void setEndpoint(tcp_endpoint value) {
+    libtorrent_jni.listen_succeeded_alert_endpoint_set(swigCPtr, this, tcp_endpoint.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_tcp__endpoint getEndpoint() {
-    return new SWIGTYPE_p_tcp__endpoint(libtorrent_jni.listen_succeeded_alert_endpoint_get(swigCPtr, this), true);
+  public tcp_endpoint getEndpoint() {
+    long cPtr = libtorrent_jni.listen_succeeded_alert_endpoint_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
   public void setSock_type(listen_succeeded_alert.socket_type_t value) {

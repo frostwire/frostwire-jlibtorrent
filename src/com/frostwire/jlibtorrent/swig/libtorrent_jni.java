@@ -9,6 +9,10 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent_jni {
+  public final static native int tcp_endpoint_port(long jarg1, tcp_endpoint jarg1_);
+  public final static native String tcp_endpoint_address(long jarg1, tcp_endpoint jarg1_);
+  public final static native long new_tcp_endpoint();
+  public final static native void delete_tcp_endpoint(long jarg1);
   public final static native long new_char_const_ptr_int_pair__SWIG_0();
   public final static native long new_char_const_ptr_int_pair__SWIG_1(String jarg1, int jarg2);
   public final static native long new_char_const_ptr_int_pair__SWIG_2(long jarg1, char_const_ptr_int_pair jarg1_);
@@ -948,10 +952,10 @@ public class libtorrent_jni {
   public final static native long new_ufloat16__SWIG_0();
   public final static native long new_ufloat16__SWIG_1(int jarg1);
   public final static native void delete_ufloat16(long jarg1);
-  public final static native long peer_priority(long jarg1, long jarg2);
+  public final static native long peer_priority(long jarg1, tcp_endpoint jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native void request_a_block(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
   public final static native long new_policy(long jarg1, torrent jarg1_);
-  public final static native long policy_add_peer(long jarg1, policy jarg1_, long jarg2, long jarg3, sha1_hash jarg3_, int jarg4, char jarg5);
+  public final static native long policy_add_peer(long jarg1, policy jarg1_, long jarg2, tcp_endpoint jarg2_, long jarg3, sha1_hash jarg3_, int jarg4, char jarg5);
   public final static native boolean policy_update_peer_port(long jarg1, policy jarg1_, int jarg2, long jarg3, policy.peer jarg3_, int jarg4);
   public final static native boolean policy_new_connection(long jarg1, policy jarg1_, long jarg2, peer_connection jarg2_, int jarg3);
   public final static native void policy_connection_closed(long jarg1, policy jarg1_, long jarg2, peer_connection jarg2_, int jarg3);
@@ -1020,11 +1024,11 @@ public class libtorrent_jni {
   public final static native void policy_peer_web_seed_set(long jarg1, policy.peer jarg1_, boolean jarg2);
   public final static native boolean policy_peer_web_seed_get(long jarg1, policy.peer jarg1_);
   public final static native void delete_policy_peer(long jarg1);
-  public final static native long new_policy_ipv4_peer(long jarg1, boolean jarg2, int jarg3);
+  public final static native long new_policy_ipv4_peer(long jarg1, tcp_endpoint jarg1_, boolean jarg2, int jarg3);
   public final static native void policy_ipv4_peer_addr_set(long jarg1, policy.ipv4_peer jarg1_, long jarg2, address_v4 jarg2_);
   public final static native long policy_ipv4_peer_addr_get(long jarg1, policy.ipv4_peer jarg1_);
   public final static native void delete_policy_ipv4_peer(long jarg1);
-  public final static native long new_policy_ipv6_peer(long jarg1, boolean jarg2, int jarg3);
+  public final static native long new_policy_ipv6_peer(long jarg1, tcp_endpoint jarg1_, boolean jarg2, int jarg3);
   public final static native void delete_policy_ipv6_peer(long jarg1);
   public final static native int policy_num_peers(long jarg1, policy jarg1_);
   public final static native long new_policy_peer_address_compare();
@@ -1115,7 +1119,7 @@ public class libtorrent_jni {
   public final static native boolean web_seed_entry_resolving_get(long jarg1, web_seed_entry jarg1_);
   public final static native void web_seed_entry_removed_set(long jarg1, web_seed_entry jarg1_, boolean jarg2);
   public final static native boolean web_seed_entry_removed_get(long jarg1, web_seed_entry jarg1_);
-  public final static native void web_seed_entry_endpoint_set(long jarg1, web_seed_entry jarg1_, long jarg2);
+  public final static native void web_seed_entry_endpoint_set(long jarg1, web_seed_entry jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long web_seed_entry_endpoint_get(long jarg1, web_seed_entry jarg1_);
   public final static native void web_seed_entry_peer_info_set(long jarg1, web_seed_entry jarg1_, long jarg2, policy.ipv4_peer jarg2_);
   public final static native long web_seed_entry_peer_info_get(long jarg1, web_seed_entry jarg1_);
@@ -1187,7 +1191,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
   public final static native long hash_value(long jarg1, torrent_status jarg1_);
   public final static native void throw_invalid_handle();
-  public final static native void block_info_set_peer(long jarg1, block_info jarg1_, long jarg2);
+  public final static native void block_info_set_peer(long jarg1, block_info jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native void block_info_bytes_progress_set(long jarg1, block_info jarg1_, long jarg2);
   public final static native long block_info_bytes_progress_get(long jarg1, block_info jarg1_);
   public final static native void block_info_block_size_set(long jarg1, block_info jarg1_, long jarg2);
@@ -1301,8 +1305,8 @@ public class libtorrent_jni {
   public final static native void torrent_handle_set_download_limit(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native int torrent_handle_download_limit(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_set_sequential_download(long jarg1, torrent_handle jarg1_, boolean jarg2);
-  public final static native void torrent_handle_connect_peer__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, int jarg3);
-  public final static native void torrent_handle_connect_peer__SWIG_1(long jarg1, torrent_handle jarg1_, long jarg2);
+  public final static native void torrent_handle_connect_peer__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, int jarg3);
+  public final static native void torrent_handle_connect_peer__SWIG_1(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native void torrent_handle_set_max_uploads(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native int torrent_handle_max_uploads(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_set_max_connections(long jarg1, torrent_handle jarg1_, int jarg2);
@@ -1636,7 +1640,7 @@ public class libtorrent_jni {
   public final static native void delete_torrent_alert(long jarg1);
   public final static native int peer_alert_category(long jarg1, peer_alert jarg1_);
   public final static native String peer_alert_message(long jarg1, peer_alert jarg1_);
-  public final static native void peer_alert_ip_set(long jarg1, peer_alert jarg1_, long jarg2);
+  public final static native void peer_alert_ip_set(long jarg1, peer_alert jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long peer_alert_ip_get(long jarg1, peer_alert jarg1_);
   public final static native void peer_alert_pid_set(long jarg1, peer_alert jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long peer_alert_pid_get(long jarg1, peer_alert jarg1_);
@@ -1855,7 +1859,7 @@ public class libtorrent_jni {
   public final static native void delete_external_ip_alert(long jarg1);
   public final static native String listen_failed_alert_message(long jarg1, listen_failed_alert jarg1_);
   public final static native boolean listen_failed_alert_discardable(long jarg1, listen_failed_alert jarg1_);
-  public final static native void listen_failed_alert_endpoint_set(long jarg1, listen_failed_alert jarg1_, long jarg2);
+  public final static native void listen_failed_alert_endpoint_set(long jarg1, listen_failed_alert jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long listen_failed_alert_endpoint_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void listen_failed_alert_error_set(long jarg1, listen_failed_alert jarg1_, long jarg2, error_code jarg2_);
   public final static native long listen_failed_alert_error_get(long jarg1, listen_failed_alert jarg1_);
@@ -1866,7 +1870,7 @@ public class libtorrent_jni {
   public final static native void delete_listen_failed_alert(long jarg1);
   public final static native String listen_succeeded_alert_message(long jarg1, listen_succeeded_alert jarg1_);
   public final static native boolean listen_succeeded_alert_discardable(long jarg1, listen_succeeded_alert jarg1_);
-  public final static native void listen_succeeded_alert_endpoint_set(long jarg1, listen_succeeded_alert jarg1_, long jarg2);
+  public final static native void listen_succeeded_alert_endpoint_set(long jarg1, listen_succeeded_alert jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long listen_succeeded_alert_endpoint_get(long jarg1, listen_succeeded_alert jarg1_);
   public final static native void listen_succeeded_alert_sock_type_set(long jarg1, listen_succeeded_alert jarg1_, int jarg2);
   public final static native int listen_succeeded_alert_sock_type_get(long jarg1, listen_succeeded_alert jarg1_);
@@ -1957,7 +1961,7 @@ public class libtorrent_jni {
   public final static native String incoming_connection_alert_message(long jarg1, incoming_connection_alert jarg1_);
   public final static native void incoming_connection_alert_socket_type_set(long jarg1, incoming_connection_alert jarg1_, int jarg2);
   public final static native int incoming_connection_alert_socket_type_get(long jarg1, incoming_connection_alert jarg1_);
-  public final static native void incoming_connection_alert_ip_set(long jarg1, incoming_connection_alert jarg1_, long jarg2);
+  public final static native void incoming_connection_alert_ip_set(long jarg1, incoming_connection_alert jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long incoming_connection_alert_ip_get(long jarg1, incoming_connection_alert jarg1_);
   public final static native void delete_incoming_connection_alert(long jarg1);
   public final static native String add_torrent_alert_message(long jarg1, add_torrent_alert jarg1_);
@@ -2173,7 +2177,7 @@ public class libtorrent_jni {
   public final static native char peer_info_read_state_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_write_state_set(long jarg1, peer_info jarg1_, char jarg2);
   public final static native char peer_info_write_state_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_ip_set(long jarg1, peer_info jarg1_, long jarg2);
+  public final static native void peer_info_ip_set(long jarg1, peer_info jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long peer_info_ip_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_up_speed_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_up_speed_get(long jarg1, peer_info jarg1_);
@@ -2272,12 +2276,12 @@ public class libtorrent_jni {
   public final static native int peer_info_progress_ppm_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_estimated_reciprocation_rate_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_estimated_reciprocation_rate_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_local_endpoint_set(long jarg1, peer_info jarg1_, long jarg2);
+  public final static native void peer_info_local_endpoint_set(long jarg1, peer_info jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long peer_info_local_endpoint_get(long jarg1, peer_info jarg1_);
   public final static native long new_peer_info();
   public final static native void delete_peer_info(long jarg1);
   public final static native int peer_list_entry_banned_get();
-  public final static native void peer_list_entry_ip_set(long jarg1, peer_list_entry jarg1_, long jarg2);
+  public final static native void peer_list_entry_ip_set(long jarg1, peer_list_entry jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long peer_list_entry_ip_get(long jarg1, peer_list_entry jarg1_);
   public final static native void peer_list_entry_flags_set(long jarg1, peer_list_entry jarg1_, int jarg2);
   public final static native int peer_list_entry_flags_get(long jarg1, peer_list_entry jarg1_);
@@ -3057,11 +3061,11 @@ public class libtorrent_jni {
   public final static native void torrent_start(long jarg1, torrent jarg1_);
   public final static native void torrent_start_download_url(long jarg1, torrent jarg1_);
   public final static native void torrent_add_extension(long jarg1, torrent jarg1_, long jarg2, torrent_plugin jarg2_);
-  public final static native void torrent_notify_extension_add_peer(long jarg1, torrent jarg1_, long jarg2, int jarg3, int jarg4);
+  public final static native void torrent_notify_extension_add_peer(long jarg1, torrent jarg1_, long jarg2, tcp_endpoint jarg2_, int jarg3, int jarg4);
   public final static native long torrent_find_lowest_ranking_peer(long jarg1, torrent jarg1_);
   public final static native void torrent_init(long jarg1, torrent jarg1_);
-  public final static native long torrent_find_introducer(long jarg1, torrent jarg1_, long jarg2);
-  public final static native long torrent_find_peer(long jarg1, torrent jarg1_, long jarg2);
+  public final static native long torrent_find_introducer(long jarg1, torrent jarg1_, long jarg2, tcp_endpoint jarg2_);
+  public final static native long torrent_find_peer(long jarg1, torrent jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native void torrent_on_resume_data_checked(long jarg1, torrent jarg1_, int jarg2, long jarg3, disk_io_job jarg3_);
   public final static native void torrent_on_force_recheck(long jarg1, torrent jarg1_, int jarg2, long jarg3, disk_io_job jarg3_);
   public final static native void torrent_on_piece_checked(long jarg1, torrent jarg1_, int jarg2, long jarg3, disk_io_job jarg3_);
@@ -3198,7 +3202,7 @@ public class libtorrent_jni {
   public final static native void torrent_remove_peer(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
   public final static native boolean torrent_want_more_peers(long jarg1, torrent jarg1_);
   public final static native boolean torrent_try_connect_peer(long jarg1, torrent jarg1_);
-  public final static native void torrent_add_peer(long jarg1, torrent jarg1_, long jarg2, int jarg3);
+  public final static native void torrent_add_peer(long jarg1, torrent jarg1_, long jarg2, tcp_endpoint jarg2_, int jarg3);
   public final static native int torrent_num_peers(long jarg1, torrent jarg1_);
   public final static native int torrent_num_seeds(long jarg1, torrent jarg1_);
   public final static native void torrent_resolve_peer_country(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
@@ -3274,10 +3278,10 @@ public class libtorrent_jni {
   public final static native void torrent_seen_complete(long jarg1, torrent jarg1_);
   public final static native int torrent_time_since_complete(long jarg1, torrent jarg1_);
   public final static native int torrent_last_seen_complete(long jarg1, torrent jarg1_);
-  public final static native int torrent_get_peer_upload_limit(long jarg1, torrent jarg1_, long jarg2);
-  public final static native int torrent_get_peer_download_limit(long jarg1, torrent jarg1_, long jarg2);
-  public final static native void torrent_set_peer_upload_limit(long jarg1, torrent jarg1_, long jarg2, int jarg3);
-  public final static native void torrent_set_peer_download_limit(long jarg1, torrent jarg1_, long jarg2, int jarg3);
+  public final static native int torrent_get_peer_upload_limit(long jarg1, torrent jarg1_, long jarg2, tcp_endpoint jarg2_);
+  public final static native int torrent_get_peer_download_limit(long jarg1, torrent jarg1_, long jarg2, tcp_endpoint jarg2_);
+  public final static native void torrent_set_peer_upload_limit(long jarg1, torrent jarg1_, long jarg2, tcp_endpoint jarg2_, int jarg3);
+  public final static native void torrent_set_peer_download_limit(long jarg1, torrent jarg1_, long jarg2, tcp_endpoint jarg2_, int jarg3);
   public final static native void torrent_set_upload_limit__SWIG_0(long jarg1, torrent jarg1_, int jarg2, boolean jarg3);
   public final static native void torrent_set_upload_limit__SWIG_1(long jarg1, torrent jarg1_, int jarg2);
   public final static native int torrent_upload_limit(long jarg1, torrent jarg1_);
@@ -3428,7 +3432,7 @@ public class libtorrent_jni {
   public final static native void torrent_plugin_on_state(long jarg1, torrent_plugin jarg1_, int jarg2);
   public final static native int torrent_plugin_first_time_get();
   public final static native int torrent_plugin_filtered_get();
-  public final static native void torrent_plugin_on_add_peer(long jarg1, torrent_plugin jarg1_, long jarg2, int jarg3, int jarg4);
+  public final static native void torrent_plugin_on_add_peer(long jarg1, torrent_plugin jarg1_, long jarg2, tcp_endpoint jarg2_, int jarg3, int jarg4);
   public final static native long new_torrent_plugin();
   public final static native void delete_peer_plugin(long jarg1);
   public final static native String peer_plugin_type(long jarg1, peer_plugin jarg1_);
@@ -3529,7 +3533,7 @@ public class libtorrent_jni {
   public final static native void bt_peer_connection_write_extensions(long jarg1, bt_peer_connection jarg1_);
   public final static native void bt_peer_connection_write_upload_only(long jarg1, bt_peer_connection jarg1_);
   public final static native void bt_peer_connection_write_share_mode(long jarg1, bt_peer_connection jarg1_);
-  public final static native void bt_peer_connection_write_holepunch_msg(long jarg1, bt_peer_connection jarg1_, int jarg2, long jarg3, int jarg4);
+  public final static native void bt_peer_connection_write_holepunch_msg(long jarg1, bt_peer_connection jarg1_, int jarg2, long jarg3, tcp_endpoint jarg3_, int jarg4);
   public final static native void bt_peer_connection_write_keepalive(long jarg1, bt_peer_connection jarg1_);
   public final static native void bt_peer_connection_write_dht_port(long jarg1, bt_peer_connection jarg1_, int jarg2);
   public final static native void bt_peer_connection_write_have_all(long jarg1, bt_peer_connection jarg1_);

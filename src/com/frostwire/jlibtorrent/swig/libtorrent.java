@@ -97,8 +97,8 @@ public class libtorrent implements libtorrentConstants {
     return new long_long_long_2_pair_vector(libtorrent_jni.get_filesizes(file_storage.getCPtr(t), t, p), true);
   }
 
-  public static long peer_priority(SWIGTYPE_p_tcp__endpoint e1, SWIGTYPE_p_tcp__endpoint e2) {
-    return libtorrent_jni.peer_priority(SWIGTYPE_p_tcp__endpoint.getCPtr(e1), SWIGTYPE_p_tcp__endpoint.getCPtr(e2));
+  public static long peer_priority(tcp_endpoint e1, tcp_endpoint e2) {
+    return libtorrent_jni.peer_priority(tcp_endpoint.getCPtr(e1), e1, tcp_endpoint.getCPtr(e2), e2);
   }
 
   public static void request_a_block(torrent t, peer_connection c) {

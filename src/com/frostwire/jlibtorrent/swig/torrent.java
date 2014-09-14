@@ -59,8 +59,8 @@ public class torrent {
     libtorrent_jni.torrent_add_extension(swigCPtr, this, torrent_plugin.getCPtr(arg0), arg0);
   }
 
-  public void notify_extension_add_peer(SWIGTYPE_p_tcp__endpoint ip, int src, int flags) {
-    libtorrent_jni.torrent_notify_extension_add_peer(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(ip), src, flags);
+  public void notify_extension_add_peer(tcp_endpoint ip, int src, int flags) {
+    libtorrent_jni.torrent_notify_extension_add_peer(swigCPtr, this, tcp_endpoint.getCPtr(ip), ip, src, flags);
   }
 
   public peer_connection find_lowest_ranking_peer() {
@@ -72,13 +72,13 @@ public class torrent {
     libtorrent_jni.torrent_init(swigCPtr, this);
   }
 
-  public bt_peer_connection find_introducer(SWIGTYPE_p_tcp__endpoint ep) {
-    long cPtr = libtorrent_jni.torrent_find_introducer(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(ep));
+  public bt_peer_connection find_introducer(tcp_endpoint ep) {
+    long cPtr = libtorrent_jni.torrent_find_introducer(swigCPtr, this, tcp_endpoint.getCPtr(ep), ep);
     return (cPtr == 0) ? null : new bt_peer_connection(cPtr, true);
   }
 
-  public bt_peer_connection find_peer(SWIGTYPE_p_tcp__endpoint ep) {
-    long cPtr = libtorrent_jni.torrent_find_peer(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(ep));
+  public bt_peer_connection find_peer(tcp_endpoint ep) {
+    long cPtr = libtorrent_jni.torrent_find_peer(swigCPtr, this, tcp_endpoint.getCPtr(ep), ep);
     return (cPtr == 0) ? null : new bt_peer_connection(cPtr, true);
   }
 
@@ -557,8 +557,8 @@ public class torrent {
     libtorrent_jni.torrent_use_interface(swigCPtr, this, net_interface);
   }
 
-  public SWIGTYPE_p_tcp__endpoint get_interface() {
-    return new SWIGTYPE_p_tcp__endpoint(libtorrent_jni.torrent_get_interface(swigCPtr, this), true);
+  public tcp_endpoint get_interface() {
+    return new tcp_endpoint(libtorrent_jni.torrent_get_interface(swigCPtr, this), true);
   }
 
   public boolean connect_to_peer(policy.peer peerinfo, boolean ignore_limit) {
@@ -650,8 +650,8 @@ public class torrent {
     return libtorrent_jni.torrent_try_connect_peer(swigCPtr, this);
   }
 
-  public void add_peer(SWIGTYPE_p_tcp__endpoint adr, int source) {
-    libtorrent_jni.torrent_add_peer(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(adr), source);
+  public void add_peer(tcp_endpoint adr, int source) {
+    libtorrent_jni.torrent_add_peer(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, source);
   }
 
   public int num_peers() {
@@ -746,8 +746,8 @@ public class torrent {
     libtorrent_jni.torrent_set_tracker_login(swigCPtr, this, name, pw);
   }
 
-  public SWIGTYPE_p_tcp__endpoint current_tracker() {
-    return new SWIGTYPE_p_tcp__endpoint(libtorrent_jni.torrent_current_tracker(swigCPtr, this), true);
+  public tcp_endpoint current_tracker() {
+    return new tcp_endpoint(libtorrent_jni.torrent_current_tracker(swigCPtr, this), true);
   }
 
   public announce_entry find_tracker(tracker_request r) {
@@ -956,20 +956,20 @@ public class torrent {
     return libtorrent_jni.torrent_last_seen_complete(swigCPtr, this);
   }
 
-  public int get_peer_upload_limit(SWIGTYPE_p_tcp__endpoint ip) {
-    return libtorrent_jni.torrent_get_peer_upload_limit(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(ip));
+  public int get_peer_upload_limit(tcp_endpoint ip) {
+    return libtorrent_jni.torrent_get_peer_upload_limit(swigCPtr, this, tcp_endpoint.getCPtr(ip), ip);
   }
 
-  public int get_peer_download_limit(SWIGTYPE_p_tcp__endpoint ip) {
-    return libtorrent_jni.torrent_get_peer_download_limit(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(ip));
+  public int get_peer_download_limit(tcp_endpoint ip) {
+    return libtorrent_jni.torrent_get_peer_download_limit(swigCPtr, this, tcp_endpoint.getCPtr(ip), ip);
   }
 
-  public void set_peer_upload_limit(SWIGTYPE_p_tcp__endpoint ip, int limit) {
-    libtorrent_jni.torrent_set_peer_upload_limit(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(ip), limit);
+  public void set_peer_upload_limit(tcp_endpoint ip, int limit) {
+    libtorrent_jni.torrent_set_peer_upload_limit(swigCPtr, this, tcp_endpoint.getCPtr(ip), ip, limit);
   }
 
-  public void set_peer_download_limit(SWIGTYPE_p_tcp__endpoint ip, int limit) {
-    libtorrent_jni.torrent_set_peer_download_limit(swigCPtr, this, SWIGTYPE_p_tcp__endpoint.getCPtr(ip), limit);
+  public void set_peer_download_limit(tcp_endpoint ip, int limit) {
+    libtorrent_jni.torrent_set_peer_download_limit(swigCPtr, this, tcp_endpoint.getCPtr(ip), ip, limit);
   }
 
   public void set_upload_limit(int limit, boolean state_update) {

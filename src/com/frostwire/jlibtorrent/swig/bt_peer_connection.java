@@ -205,8 +205,8 @@ public class bt_peer_connection extends peer_connection {
     libtorrent_jni.bt_peer_connection_write_share_mode(swigCPtr, this);
   }
 
-  public void write_holepunch_msg(int type, SWIGTYPE_p_tcp__endpoint ep, int error) {
-    libtorrent_jni.bt_peer_connection_write_holepunch_msg(swigCPtr, this, type, SWIGTYPE_p_tcp__endpoint.getCPtr(ep), error);
+  public void write_holepunch_msg(int type, tcp_endpoint ep, int error) {
+    libtorrent_jni.bt_peer_connection_write_holepunch_msg(swigCPtr, this, type, tcp_endpoint.getCPtr(ep), ep, error);
   }
 
   public void write_keepalive() {
