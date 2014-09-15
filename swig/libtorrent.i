@@ -434,75 +434,87 @@ namespace libtorrent {
     
 // alert types conversion due to lack of polymorphic return type
 %extend alert {
-    static libtorrent::dht_announce_alert *cast_to_dht_announce_alert(alert *alert) {
-        return dynamic_cast<libtorrent::dht_announce_alert *>(alert);
+#define CAST_ALERT_METHOD(name) \
+    static libtorrent::##name *cast_to_##name(alert *alert) { \
+        return dynamic_cast<libtorrent::##name *>(alert); \
     }
-    static libtorrent::dht_put_alert *cast_to_dht_put_alert(alert *alert) {
-        return dynamic_cast<libtorrent::dht_put_alert *>(alert);
-    }
-    static libtorrent::external_ip_alert *cast_to_external_ip_alert(alert *alert) {
-        return dynamic_cast<libtorrent::external_ip_alert *>(alert);
-    }
-    static libtorrent::listen_failed_alert *cast_to_listen_failed_alert(alert *alert) {
-        return dynamic_cast<libtorrent::listen_failed_alert *>(alert);
-    }
-    static libtorrent::state_update_alert *cast_to_state_update_alert(alert *alert) {
-        return dynamic_cast<libtorrent::state_update_alert *>(alert);
-    }
-    static libtorrent::portmap_alert *cast_to_portmap_alert(alert *alert) {
-        return dynamic_cast<libtorrent::portmap_alert *>(alert);
-    }
-    static libtorrent::torrent_alert *cast_to_torrent_alert(alert *alert) {
-        return dynamic_cast<libtorrent::torrent_alert *>(alert);
-    }
-    static libtorrent::rss_alert *cast_to_rss_alert(alert *alert) {
-        return dynamic_cast<libtorrent::rss_alert *>(alert);
-    }
-    static libtorrent::dht_bootstrap_alert *cast_to_dht_bootstrap_alert(alert *alert) {
-        return dynamic_cast<libtorrent::dht_bootstrap_alert *>(alert);
-    }
-    static libtorrent::dht_get_peers_alert *cast_to_dht_get_peers_alert(alert *alert) {
-        return dynamic_cast<libtorrent::dht_get_peers_alert *>(alert);
-    }
-    static libtorrent::incoming_connection_alert *cast_to_incoming_connection_alert(alert *alert) {
-        return dynamic_cast<libtorrent::incoming_connection_alert *>(alert);
-    }
-    static libtorrent::i2p_alert *cast_to_i2p_alert(alert *alert) {
-        return dynamic_cast<libtorrent::i2p_alert *>(alert);
-    }
-    static libtorrent::dht_mutable_item_alert *cast_to_dht_mutable_item_alert(alert *alert) {
-        return dynamic_cast<libtorrent::dht_mutable_item_alert *>(alert);
-    }
-    static libtorrent::dht_immutable_item_alert *cast_to_dht_immutable_item_alert(alert *alert) {
-        return dynamic_cast<libtorrent::dht_immutable_item_alert *>(alert);
-    }
-    static libtorrent::udp_error_alert *cast_to_udp_error_alert(alert *alert) {
-        return dynamic_cast<libtorrent::udp_error_alert *>(alert);
-    }
-    static libtorrent::portmap_error_alert *cast_to_portmap_error_alert(alert *alert) {
-        return dynamic_cast<libtorrent::portmap_error_alert *>(alert);
-    }
-    static libtorrent::portmap_log_alert *cast_to_portmap_log_alert(alert *alert) {
-        return dynamic_cast<libtorrent::portmap_log_alert *>(alert);
-    }
-    static libtorrent::rss_item_alert *cast_to_rss_item_alert(alert *alert) {
-        return dynamic_cast<libtorrent::rss_item_alert *>(alert);
-    }
-    static libtorrent::listen_succeeded_alert *cast_to_listen_succeeded_alert(alert *alert) {
-        return dynamic_cast<libtorrent::listen_succeeded_alert *>(alert);
-    }
-    static libtorrent::dht_error_alert *cast_to_dht_error_alert(alert *alert) {
-        return dynamic_cast<libtorrent::dht_error_alert *>(alert);
-    }
-    static libtorrent::save_resume_data_alert *cast_to_save_resume_data_alert(alert *alert) {
-        return dynamic_cast<libtorrent::save_resume_data_alert *>(alert);
-    }
-    static libtorrent::torrent_finished_alert *cast_to_torrent_finished_alert(alert *alert) {
-        return dynamic_cast<libtorrent::torrent_finished_alert *>(alert);
-    }
-    static libtorrent::metadata_received_alert *cast_to_metadata_received_alert(alert *alert) {
-        return dynamic_cast<libtorrent::metadata_received_alert *>(alert);
-    }
+
+    CAST_ALERT_METHOD(torrent_alert)
+    CAST_ALERT_METHOD(peer_alert)
+    CAST_ALERT_METHOD(tracker_alert)
+    CAST_ALERT_METHOD(torrent_added_alert)
+    CAST_ALERT_METHOD(torrent_removed_alert)
+    CAST_ALERT_METHOD(read_piece_alert)
+    CAST_ALERT_METHOD(file_completed_alert)
+    CAST_ALERT_METHOD(file_renamed_alert)
+    CAST_ALERT_METHOD(file_rename_failed_alert)
+    CAST_ALERT_METHOD(performance_alert)
+    CAST_ALERT_METHOD(state_changed_alert)
+    CAST_ALERT_METHOD(tracker_error_alert)
+    CAST_ALERT_METHOD(tracker_warning_alert)
+    CAST_ALERT_METHOD(scrape_reply_alert)
+    CAST_ALERT_METHOD(scrape_failed_alert)
+    CAST_ALERT_METHOD(tracker_reply_alert)
+    CAST_ALERT_METHOD(dht_reply_alert)
+    CAST_ALERT_METHOD(tracker_announce_alert)
+    CAST_ALERT_METHOD(hash_failed_alert)
+    CAST_ALERT_METHOD(peer_ban_alert)
+    CAST_ALERT_METHOD(peer_unsnubbed_alert)
+    CAST_ALERT_METHOD(peer_snubbed_alert)
+    CAST_ALERT_METHOD(peer_error_alert)
+    CAST_ALERT_METHOD(peer_connect_alert)
+    CAST_ALERT_METHOD(peer_disconnected_alert)
+    CAST_ALERT_METHOD(invalid_request_alert)
+    CAST_ALERT_METHOD(torrent_finished_alert)
+    CAST_ALERT_METHOD(piece_finished_alert)
+    CAST_ALERT_METHOD(request_dropped_alert)
+    CAST_ALERT_METHOD(block_timeout_alert)
+    CAST_ALERT_METHOD(block_finished_alert)
+    CAST_ALERT_METHOD(block_downloading_alert)
+    CAST_ALERT_METHOD(unwanted_block_alert)
+    CAST_ALERT_METHOD(storage_moved_alert)
+    CAST_ALERT_METHOD(storage_moved_failed_alert)
+    CAST_ALERT_METHOD(torrent_deleted_alert)
+    CAST_ALERT_METHOD(torrent_delete_failed_alert)
+    CAST_ALERT_METHOD(save_resume_data_alert)
+    CAST_ALERT_METHOD(save_resume_data_failed_alert)
+    CAST_ALERT_METHOD(torrent_paused_alert)
+    CAST_ALERT_METHOD(torrent_resumed_alert)
+    CAST_ALERT_METHOD(torrent_checked_alert)
+    CAST_ALERT_METHOD(url_seed_alert)
+    CAST_ALERT_METHOD(file_error_alert)
+    CAST_ALERT_METHOD(metadata_failed_alert)
+    CAST_ALERT_METHOD(metadata_received_alert)
+    CAST_ALERT_METHOD(udp_error_alert)
+    CAST_ALERT_METHOD(external_ip_alert)
+    CAST_ALERT_METHOD(listen_failed_alert)
+    CAST_ALERT_METHOD(listen_succeeded_alert)
+    CAST_ALERT_METHOD(portmap_error_alert)
+    CAST_ALERT_METHOD(portmap_alert)
+    CAST_ALERT_METHOD(portmap_log_alert)
+    CAST_ALERT_METHOD(fastresume_rejected_alert)
+    CAST_ALERT_METHOD(peer_blocked_alert)
+    CAST_ALERT_METHOD(dht_announce_alert)
+    CAST_ALERT_METHOD(dht_get_peers_alert)
+    CAST_ALERT_METHOD(stats_alert)
+    CAST_ALERT_METHOD(cache_flushed_alert)
+    CAST_ALERT_METHOD(anonymous_mode_alert)
+    CAST_ALERT_METHOD(lsd_peer_alert)
+    CAST_ALERT_METHOD(trackerid_alert)
+    CAST_ALERT_METHOD(dht_bootstrap_alert)
+    CAST_ALERT_METHOD(rss_alert)
+    CAST_ALERT_METHOD(torrent_error_alert)
+    CAST_ALERT_METHOD(torrent_need_cert_alert)
+    CAST_ALERT_METHOD(incoming_connection_alert)
+    CAST_ALERT_METHOD(add_torrent_alert)
+    CAST_ALERT_METHOD(state_update_alert)
+    CAST_ALERT_METHOD(torrent_update_alert)
+    CAST_ALERT_METHOD(rss_item_alert)
+    CAST_ALERT_METHOD(dht_error_alert)
+    CAST_ALERT_METHOD(dht_immutable_item_alert)
+    CAST_ALERT_METHOD(dht_mutable_item_alert)
+    CAST_ALERT_METHOD(dht_put_alert)
+    CAST_ALERT_METHOD(i2p_alert)
 };
 
 %extend entry {
