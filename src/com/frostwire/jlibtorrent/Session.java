@@ -18,6 +18,8 @@
 
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
@@ -179,6 +181,11 @@ public final class Session {
         }
 
         r = alert.cast_to_torrent_finished_alert(a);
+        if (r != null) {
+            return r;
+        }
+
+        r = alert.cast_to_metadata_received_alert(a);
         if (r != null) {
             return r;
         }

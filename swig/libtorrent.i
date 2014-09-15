@@ -58,6 +58,8 @@
 #include "libtorrent/time.hpp"
 #include "libtorrent/escape_string.hpp"
 #include "libtorrent/bencode.hpp"
+#include "libtorrent/magnet_uri.hpp"
+#include "libtorrent/create_torrent.hpp"
     
 // aditional includes
     
@@ -240,6 +242,8 @@ namespace boost {
 %ignore libtorrent::disabled_storage_constructor;
 %ignore libtorrent::lazy_bdecode;
 %ignore libtorrent::url_has_argument;
+%ignore libtorrent::set_piece_hashes;
+%ignore libtorrent::detail::add_files_impl;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::tracker_manager::tracker_manager;
@@ -304,12 +308,17 @@ namespace boost {
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;
+%ignore libtorrent::sha1_hash::sha1_hash(char const *);
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;
 %ignore libtorrent::sha1_hash::operator[];
+%ignore libtorrent::sha1_hash::assign(char const *);
 %ignore libtorrent::entry::entry(entry const&);
 %ignore libtorrent::entry::entry(list_type const&);
 %ignore libtorrent::entry::list;
+%ignore libtorrent::entry::find_key(std::string const &) const;
+%ignore libtorrent::entry::find_key(char const *);
+%ignore libtorrent::entry::find_key(char const *) const;
 %ignore libtorrent::buffer::operator[];
 %ignore libtorrent::stats_alert::transferred;
 %ignore libtorrent::dht_mutable_item_alert::key;
@@ -405,6 +414,8 @@ namespace boost {
 %include "libtorrent/time.hpp"
 %include "libtorrent/escape_string.hpp"
 %include "libtorrent/bencode.hpp"
+%include "libtorrent/magnet_uri.hpp"
+%include "libtorrent/create_torrent.hpp"
 
 namespace libtorrent {
     
@@ -476,6 +487,9 @@ namespace libtorrent {
     static libtorrent::torrent_finished_alert *cast_to_torrent_finished_alert(alert *alert) {
         return dynamic_cast<libtorrent::torrent_finished_alert *>(alert);
     }
+    static libtorrent::metadata_received_alert *cast_to_metadata_received_alert(alert *alert) {
+        return dynamic_cast<libtorrent::metadata_received_alert *>(alert);
+    }
 };
 
 %extend entry {
@@ -510,6 +524,9 @@ namespace libtorrent {
 %extend add_torrent_params {
     static add_torrent_params create_instance() {
         return add_torrent_params();
+    }
+    static add_torrent_params create_instance_no_storage() {
+        return add_torrent_params(disabled_storage_constructor);
     }
 };
 

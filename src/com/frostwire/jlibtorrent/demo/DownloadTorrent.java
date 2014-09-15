@@ -16,8 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.frostwire.jlibtorrent;
+package com.frostwire.jlibtorrent.demo;
 
+import com.frostwire.jlibtorrent.LibTorrent;
+import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.swig.alert;
 import com.frostwire.jlibtorrent.swig.torrent_finished_alert;
 
@@ -28,7 +31,7 @@ import java.util.List;
  * @author gubatron
  * @author aldenml
  */
-public final class Main {
+public final class DownloadTorrent {
 
     public static void main(String[] args) throws Throwable {
 

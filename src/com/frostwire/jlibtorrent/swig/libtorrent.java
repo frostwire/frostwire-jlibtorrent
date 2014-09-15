@@ -429,4 +429,44 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.integer_to_str(buf, size, val);
   }
 
+  public static String make_magnet_uri(torrent_handle handle) {
+    return libtorrent_jni.make_magnet_uri__SWIG_0(torrent_handle.getCPtr(handle), handle);
+  }
+
+  public static String make_magnet_uri(torrent_info info) {
+    return libtorrent_jni.make_magnet_uri__SWIG_1(torrent_info.getCPtr(info), info);
+  }
+
+  public static void parse_magnet_uri(String uri, add_torrent_params p, error_code ec) {
+    libtorrent_jni.parse_magnet_uri(uri, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec);
+  }
+
+  public static boolean default_pred(String arg0) {
+    return libtorrent_jni.default_pred(arg0);
+  }
+
+  public static boolean ignore_subdir(String leaf) {
+    return libtorrent_jni.ignore_subdir(leaf);
+  }
+
+  public static void nop(int arg0) {
+    libtorrent_jni.nop(arg0);
+  }
+
+  public static int get_file_attributes(String p) {
+    return libtorrent_jni.get_file_attributes(p);
+  }
+
+  public static String get_symlink_path(String p) {
+    return libtorrent_jni.get_symlink_path(p);
+  }
+
+  public static void add_files(file_storage fs, String file, long flags) {
+    libtorrent_jni.add_files__SWIG_2(file_storage.getCPtr(fs), fs, file, flags);
+  }
+
+  public static void add_files(file_storage fs, String file) {
+    libtorrent_jni.add_files__SWIG_3(file_storage.getCPtr(fs), fs, file);
+  }
+
 }

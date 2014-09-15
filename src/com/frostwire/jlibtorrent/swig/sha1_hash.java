@@ -52,7 +52,7 @@ public class sha1_hash {
   }
 
   public void assign(String s) {
-    libtorrent_jni.sha1_hash_assign__SWIG_0(swigCPtr, this, s);
+    libtorrent_jni.sha1_hash_assign(swigCPtr, this, s);
   }
 
   public void clear() {
