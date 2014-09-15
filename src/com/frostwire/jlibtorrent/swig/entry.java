@@ -47,20 +47,16 @@ public class entry {
     this(libtorrent_jni.new_entry__SWIG_1(arg0), true);
   }
 
-  public entry(SWIGTYPE_p_std__listT_libtorrent__entry_t arg0) {
-    this(libtorrent_jni.new_entry__SWIG_2(SWIGTYPE_p_std__listT_libtorrent__entry_t.getCPtr(arg0)), true);
-  }
-
   public entry(long arg0) {
-    this(libtorrent_jni.new_entry__SWIG_3(arg0), true);
+    this(libtorrent_jni.new_entry__SWIG_2(arg0), true);
   }
 
   public entry(entry.data_type t) {
-    this(libtorrent_jni.new_entry__SWIG_4(t.swigValue()), true);
+    this(libtorrent_jni.new_entry__SWIG_3(t.swigValue()), true);
   }
 
   public entry() {
-    this(libtorrent_jni.new_entry__SWIG_5(), true);
+    this(libtorrent_jni.new_entry__SWIG_4(), true);
   }
 
   public boolean op_eq(entry e) {
@@ -77,10 +73,6 @@ public class entry {
 
   public String string() {
     return libtorrent_jni.entry_string__SWIG_0(swigCPtr, this);
-  }
-
-  public SWIGTYPE_p_std__listT_libtorrent__entry_t list() {
-    return new SWIGTYPE_p_std__listT_libtorrent__entry_t(libtorrent_jni.entry_list__SWIG_0(swigCPtr, this), false);
   }
 
   public string_entry_map dict() {
@@ -114,6 +106,10 @@ public class entry {
 
   public char_vector bencode() {
     return new char_vector(libtorrent_jni.entry_bencode(swigCPtr, this), true);
+  }
+
+  public entry_vector list_v() {
+    return new entry_vector(libtorrent_jni.entry_list_v(swigCPtr, this), true);
   }
 
   public enum data_type {

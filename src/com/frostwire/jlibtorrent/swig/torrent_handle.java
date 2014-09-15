@@ -127,20 +127,12 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_remove_url_seed(swigCPtr, this, url);
   }
 
-  public SWIGTYPE_p_std__setT_std__string_t url_seeds() {
-    return new SWIGTYPE_p_std__setT_std__string_t(libtorrent_jni.torrent_handle_url_seeds(swigCPtr, this), true);
-  }
-
   public void add_http_seed(String url) {
     libtorrent_jni.torrent_handle_add_http_seed(swigCPtr, this, url);
   }
 
   public void remove_http_seed(String url) {
     libtorrent_jni.torrent_handle_remove_http_seed(swigCPtr, this, url);
-  }
-
-  public SWIGTYPE_p_std__setT_std__string_t http_seeds() {
-    return new SWIGTYPE_p_std__setT_std__string_t(libtorrent_jni.torrent_handle_http_seeds(swigCPtr, this), true);
   }
 
   public boolean set_metadata(String metadata, int size) {
@@ -392,6 +384,14 @@ public class torrent_handle {
   public torrent native_handle() {
     long cPtr = libtorrent_jni.torrent_handle_native_handle(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent(cPtr, true);
+  }
+
+  public string_vector http_seeds_v() {
+    return new string_vector(libtorrent_jni.torrent_handle_http_seeds_v(swigCPtr, this), true);
+  }
+
+  public string_vector url_seeds_v() {
+    return new string_vector(libtorrent_jni.torrent_handle_url_seeds_v(swigCPtr, this), true);
   }
 
   public enum flags_t {

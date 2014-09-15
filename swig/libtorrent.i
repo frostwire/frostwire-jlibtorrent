@@ -186,7 +186,8 @@ namespace std {
     %template(partial_piece_info_vector) vector<libtorrent::partial_piece_info>;
     %template(cached_piece_info_vector) vector<libtorrent::cached_piece_info>;
     %template(peer_info_vector) vector<libtorrent::peer_info>;
-    
+
+    %template(entry_vector) vector<libtorrent::entry>;
     %template(web_seed_entry_vector) vector<libtorrent::web_seed_entry>;
     %template(peer_entry_vector) vector<libtorrent::peer_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
@@ -306,10 +307,14 @@ namespace boost {
 %ignore boost::asio::ip::address_v6::to_bytes;
 %ignore libtorrent::policy::ipv6_peer::addr;
 %ignore libtorrent::torrent_handle::add_extension;
+%ignore libtorrent::torrent_handle::http_seeds;
+%ignore libtorrent::torrent_handle::url_seeds;
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;
 %ignore libtorrent::sha1_hash::operator[];
 %ignore libtorrent::entry::entry(entry const&);
+%ignore libtorrent::entry::entry(list_type const&);
+%ignore libtorrent::entry::list;
 %ignore libtorrent::buffer::operator[];
 %ignore libtorrent::stats_alert::transferred;
 %ignore libtorrent::dht_mutable_item_alert::key;
@@ -477,6 +482,27 @@ namespace libtorrent {
         std::vector<char> buffer;
         libtorrent::bencode(std::back_inserter(buffer), *$self);
         return buffer;
+    }
+
+    std::vector<entry> list_v() {
+        std::list<entry> l = $self->list();
+        std::vector<entry> v{ std::make_move_iterator(std::begin(l)),
+                          std::make_move_iterator(std::end(l)) };
+        return v;
+    }
+};
+
+%extend torrent_handle {
+    std::vector<std::string> http_seeds_v() {
+        std::set<std::string> s = $self->http_seeds();
+        std::vector<std::string> v(s.begin(), s.end());
+        return v;
+    }
+
+    std::vector<std::string> url_seeds_v() {
+        std::set<std::string> s = $self->url_seeds();
+        std::vector<std::string> v(s.begin(), s.end());
+        return v;
     }
 };
 
