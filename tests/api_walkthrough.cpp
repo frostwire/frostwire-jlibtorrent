@@ -67,9 +67,7 @@ void download_torrent_from_magnet(string magnet_url, entry &result) {
   if (ec) fprintf(stderr, "%s\n", ec.message().c_str());
 
   //s->add_torrent(p, ec);
-  while (!th.has_metadata()) {
 
-  }
 
 }
 
