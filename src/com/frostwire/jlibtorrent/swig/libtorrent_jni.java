@@ -13,6 +13,10 @@ public class libtorrent_jni {
   public final static native String tcp_endpoint_address(long jarg1, tcp_endpoint jarg1_);
   public final static native long new_tcp_endpoint();
   public final static native void delete_tcp_endpoint(long jarg1);
+  public final static native int udp_endpoint_port(long jarg1, udp_endpoint jarg1_);
+  public final static native String udp_endpoint_address(long jarg1, udp_endpoint jarg1_);
+  public final static native long new_udp_endpoint();
+  public final static native void delete_udp_endpoint(long jarg1);
   public final static native long new_char_const_ptr_int_pair__SWIG_0();
   public final static native long new_char_const_ptr_int_pair__SWIG_1(String jarg1, int jarg2);
   public final static native long new_char_const_ptr_int_pair__SWIG_2(long jarg1, char_const_ptr_int_pair jarg1_);
@@ -2114,7 +2118,7 @@ public class libtorrent_jni {
   public final static native int metadata_received_alert_static_category_get();
   public final static native String metadata_received_alert_message(long jarg1, metadata_received_alert jarg1_);
   public final static native void delete_metadata_received_alert(long jarg1);
-  public final static native long new_udp_error_alert(long jarg1, long jarg2, error_code jarg2_);
+  public final static native long new_udp_error_alert(long jarg1, udp_endpoint jarg1_, long jarg2, error_code jarg2_);
   public final static native int udp_error_alert_alert_type_get();
   public final static native int udp_error_alert_type(long jarg1, udp_error_alert jarg1_);
   public final static native int udp_error_alert_category(long jarg1, udp_error_alert jarg1_);

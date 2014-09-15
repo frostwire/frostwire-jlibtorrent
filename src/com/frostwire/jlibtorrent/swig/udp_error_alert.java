@@ -35,8 +35,8 @@ public class udp_error_alert extends alert {
     super.delete();
   }
 
-  public udp_error_alert(SWIGTYPE_p_udp__endpoint ep, error_code ec) {
-    this(libtorrent_jni.new_udp_error_alert(SWIGTYPE_p_udp__endpoint.getCPtr(ep), error_code.getCPtr(ec), ec), true);
+  public udp_error_alert(udp_endpoint ep, error_code ec) {
+    this(libtorrent_jni.new_udp_error_alert(udp_endpoint.getCPtr(ep), ep, error_code.getCPtr(ec), ec), true);
   }
 
   public int type() {
