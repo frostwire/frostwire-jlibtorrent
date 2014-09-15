@@ -1,3 +1,21 @@
+/*
+ * Created by Angel Leon (@gubatron), Alden Torres (aldenml)
+ * Copyright (c) 2011-2014, FrostWire(R). All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.*;
@@ -7,7 +25,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Session {
+/**
+ * @author gubatron
+ * @author aldenml
+ */
+public final class Session {
 
     static {
         System.loadLibrary("jlibtorrent");
@@ -94,7 +116,7 @@ public class Session {
      * @return
      */
     public List<alert> waitForAlerts(long millis) {
-        SWIGTYPE_p_boost__posix_time__time_duration max_wait = libtorrent.milliseconds(millis);
+        time_duration max_wait = libtorrent.milliseconds(millis);
         alert ptr = s.wait_for_alert(max_wait);
 
         alert_ptr_deque deque = new alert_ptr_deque();
@@ -152,6 +174,11 @@ public class Session {
 
         // this needs an urgent refactor
         r = alert.cast_to_save_resume_data_alert(a);
+        if (r != null) {
+            return r;
+        }
+
+        r = alert.cast_to_torrent_finished_alert(a);
         if (r != null) {
             return r;
         }

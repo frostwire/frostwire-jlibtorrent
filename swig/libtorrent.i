@@ -473,6 +473,9 @@ namespace libtorrent {
     static libtorrent::save_resume_data_alert *cast_to_save_resume_data_alert(alert *alert) {
         return dynamic_cast<libtorrent::save_resume_data_alert *>(alert);
     }
+    static libtorrent::torrent_finished_alert *cast_to_torrent_finished_alert(alert *alert) {
+        return dynamic_cast<libtorrent::torrent_finished_alert *>(alert);
+    }
 };
 
 %extend entry {
