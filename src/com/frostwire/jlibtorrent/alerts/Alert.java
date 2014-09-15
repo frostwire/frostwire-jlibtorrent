@@ -24,15 +24,7 @@ import com.frostwire.jlibtorrent.swig.alert;
  * @author gubatron
  * @author aldenml
  */
-public abstract class AbstractAlert<T extends alert> implements Alert<T> {
+public interface Alert<T extends alert> {
 
-    private final T alert;
-
-    public AbstractAlert(T alert) {
-        this.alert = alert;
-    }
-
-    public final T getSwig() {
-        return alert;
-    }
+    public T getSwig();
 }

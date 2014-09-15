@@ -20,6 +20,8 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
@@ -52,13 +54,13 @@ public final class GetMagnet {
             @Override
             public void run() {
                 while (true) {
-                    List<alert> alerts = s.waitForAlerts(1000);
-                    for (alert alert : alerts) {
+                    List<Alert<?>> alerts = s.waitForAlerts(1000);
+                    for (Alert<?> alert : alerts) {
                         //System.out.println("alert: " + alert.what() + " - " + alert.message());
 
-                        if (alert instanceof metadata_received_alert) {
+                        if (alert instanceof MetadataReceivedAlert) {
 
-                            metadata_received_alert a = (metadata_received_alert) alert;
+                            metadata_received_alert a = ((MetadataReceivedAlert) alert).getSwig();
                             torrent_handle th = a.getHandle();
                             torrent_info ti = th.torrent_file();
                             create_torrent ct = new create_torrent(ti);

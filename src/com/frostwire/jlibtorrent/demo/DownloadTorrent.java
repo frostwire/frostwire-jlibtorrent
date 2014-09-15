@@ -21,8 +21,8 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.TorrentHandle;
-import com.frostwire.jlibtorrent.swig.alert;
-import com.frostwire.jlibtorrent.swig.torrent_finished_alert;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 
 import java.io.File;
 import java.util.List;
@@ -50,11 +50,11 @@ public final class DownloadTorrent {
             @Override
             public void run() {
                 while (true) {
-                    List<alert> alerts = s.waitForAlerts(1000);
-                    for (alert alert : alerts) {
+                    List<Alert<?>> alerts = s.waitForAlerts(1000);
+                    for (Alert<?> alert : alerts) {
                         //System.out.println("alert: " + alert.what() + " - " + alert.message());
 
-                        if (alert instanceof torrent_finished_alert) {
+                        if (alert instanceof TorrentFinishedAlert) {
                             System.out.print("Torrent finished");
                             System.exit(0);
                         }

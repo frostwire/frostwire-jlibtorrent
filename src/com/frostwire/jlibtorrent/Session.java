@@ -18,14 +18,19 @@
 
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.TorrentHandle;
-import com.frostwire.jlibtorrent.TorrentInfo;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.GenericAlert;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author gubatron
@@ -33,8 +38,12 @@ import java.util.List;
  */
 public final class Session {
 
+    private static final Map<Integer, CastAlertFunction> CAST_TABLE = new HashMap<Integer, CastAlertFunction>();
+
     static {
         System.loadLibrary("jlibtorrent");
+
+        buildAlertCastTable();
     }
 
     private final session s;
@@ -117,7 +126,7 @@ public final class Session {
      * @param millis
      * @return
      */
-    public List<alert> waitForAlerts(long millis) {
+    public List<Alert<?>> waitForAlerts(long millis) {
         time_duration max_wait = libtorrent.milliseconds(millis);
         alert ptr = s.wait_for_alert(max_wait);
 
@@ -126,141 +135,117 @@ public final class Session {
             s.pop_alerts(deque);
         }
 
-        List<alert> alerts = new ArrayList<alert>((int) deque.size());
+        List<Alert<?>> alerts = new ArrayList<Alert<?>>((int) deque.size());
 
         for (int i = 0; i < deque.size(); i++) {
             alert a = deque.getitem(i);
-            a = cast_alert(a);
-            if (a != null) {
-                alerts.add(a);
-            } else {
-                System.out.println("Alert type not supported: " + a.what() + " - " + a.category() + " - " + a.message());
-            }
+            alerts.add(castAlert(a));
         }
 
         return alerts;
     }
 
-    private alert cast_alert(alert a) {
-        alert r = null;
+    private static void buildAlertCastTable() {
+        CAST_ALERT_METHOD(torrent_alert.class);
+        CAST_ALERT_METHOD(peer_alert.class);
+        CAST_ALERT_METHOD(tracker_alert.class);
+        CAST_ALERT_METHOD(torrent_added_alert.class);
+        CAST_ALERT_METHOD(torrent_removed_alert.class);
+        CAST_ALERT_METHOD(read_piece_alert.class);
+        CAST_ALERT_METHOD(file_completed_alert.class);
+        CAST_ALERT_METHOD(file_renamed_alert.class);
+        CAST_ALERT_METHOD(file_rename_failed_alert.class);
+        CAST_ALERT_METHOD(performance_alert.class);
+        CAST_ALERT_METHOD(state_changed_alert.class);
+        CAST_ALERT_METHOD(tracker_error_alert.class);
+        CAST_ALERT_METHOD(tracker_warning_alert.class);
+        CAST_ALERT_METHOD(scrape_reply_alert.class);
+        CAST_ALERT_METHOD(scrape_failed_alert.class);
+        CAST_ALERT_METHOD(tracker_reply_alert.class);
+        CAST_ALERT_METHOD(dht_reply_alert.class);
+        CAST_ALERT_METHOD(tracker_announce_alert.class);
+        CAST_ALERT_METHOD(hash_failed_alert.class);
+        CAST_ALERT_METHOD(peer_ban_alert.class);
+        CAST_ALERT_METHOD(peer_unsnubbed_alert.class);
+        CAST_ALERT_METHOD(peer_snubbed_alert.class);
+        CAST_ALERT_METHOD(peer_error_alert.class);
+        CAST_ALERT_METHOD(peer_connect_alert.class);
+        CAST_ALERT_METHOD(peer_disconnected_alert.class);
+        CAST_ALERT_METHOD(invalid_request_alert.class);
+        CAST_ALERT_METHOD(torrent_finished_alert.class);
+        CAST_ALERT_METHOD(piece_finished_alert.class);
+        CAST_ALERT_METHOD(request_dropped_alert.class);
+        CAST_ALERT_METHOD(block_timeout_alert.class);
+        CAST_ALERT_METHOD(block_finished_alert.class);
+        CAST_ALERT_METHOD(block_downloading_alert.class);
+        CAST_ALERT_METHOD(unwanted_block_alert.class);
+        CAST_ALERT_METHOD(storage_moved_alert.class);
+        CAST_ALERT_METHOD(storage_moved_failed_alert.class);
+        CAST_ALERT_METHOD(torrent_deleted_alert.class);
+        CAST_ALERT_METHOD(torrent_delete_failed_alert.class);
+        CAST_ALERT_METHOD(save_resume_data_alert.class);
+        CAST_ALERT_METHOD(save_resume_data_failed_alert.class);
+        CAST_ALERT_METHOD(torrent_paused_alert.class);
+        CAST_ALERT_METHOD(torrent_resumed_alert.class);
+        CAST_ALERT_METHOD(torrent_checked_alert.class);
+        CAST_ALERT_METHOD(url_seed_alert.class);
+        CAST_ALERT_METHOD(file_error_alert.class);
+        CAST_ALERT_METHOD(metadata_failed_alert.class);
+        CAST_ALERT_METHOD(metadata_received_alert.class);
+        CAST_ALERT_METHOD(udp_error_alert.class);
+        CAST_ALERT_METHOD(external_ip_alert.class);
+        CAST_ALERT_METHOD(listen_failed_alert.class);
+        CAST_ALERT_METHOD(listen_succeeded_alert.class);
+        CAST_ALERT_METHOD(portmap_error_alert.class);
+        CAST_ALERT_METHOD(portmap_alert.class);
+        CAST_ALERT_METHOD(portmap_log_alert.class);
+        CAST_ALERT_METHOD(fastresume_rejected_alert.class);
+        CAST_ALERT_METHOD(peer_blocked_alert.class);
+        CAST_ALERT_METHOD(dht_announce_alert.class);
+        CAST_ALERT_METHOD(dht_get_peers_alert.class);
+        CAST_ALERT_METHOD(stats_alert.class);
+        CAST_ALERT_METHOD(cache_flushed_alert.class);
+        CAST_ALERT_METHOD(anonymous_mode_alert.class);
+        CAST_ALERT_METHOD(lsd_peer_alert.class);
+        CAST_ALERT_METHOD(trackerid_alert.class);
+        CAST_ALERT_METHOD(dht_bootstrap_alert.class);
+        CAST_ALERT_METHOD(rss_alert.class);
+        CAST_ALERT_METHOD(torrent_error_alert.class);
+        CAST_ALERT_METHOD(torrent_need_cert_alert.class);
+        CAST_ALERT_METHOD(incoming_connection_alert.class);
+        CAST_ALERT_METHOD(add_torrent_alert.class);
+        CAST_ALERT_METHOD(state_update_alert.class);
+        CAST_ALERT_METHOD(torrent_update_alert.class);
+        CAST_ALERT_METHOD(rss_item_alert.class);
+        CAST_ALERT_METHOD(dht_error_alert.class);
+        CAST_ALERT_METHOD(dht_immutable_item_alert.class);
+        CAST_ALERT_METHOD(dht_mutable_item_alert.class);
+        CAST_ALERT_METHOD(dht_put_alert.class);
+        CAST_ALERT_METHOD(i2p_alert.class);
+    }
 
-        r = alert.cast_to_dht_announce_alert(a);
-        if (r != null) {
-            return r;
+    private static void CAST_ALERT_METHOD(Class<? extends alert> clazz) {
+        try {
+            Field f = clazz.getDeclaredField("alert_type");
+            int type = f.getInt(null);
+            CastAlertFunction function = new CastAlertFunction(clazz);
+
+            CAST_TABLE.put(type, function);
+        } catch (Throwable e) {
+            System.out.println(e);
         }
+    }
 
-        r = alert.cast_to_dht_put_alert(a);
-        if (r != null) {
-            return r;
+    private Alert<?> castAlert(alert a) {
+        CastAlertFunction function = CAST_TABLE.get(a.type());
+
+        Alert<?> r;
+
+        if (function != null) {
+            r = function.cast(a);
+        } else {
+            r = new GenericAlert(a);
         }
-
-        r = alert.cast_to_external_ip_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_listen_failed_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_state_update_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_portmap_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        // this needs an urgent refactor
-        r = alert.cast_to_save_resume_data_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_torrent_finished_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_metadata_received_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_torrent_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_rss_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_dht_bootstrap_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_dht_get_peers_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_incoming_connection_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_i2p_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_dht_mutable_item_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_dht_immutable_item_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_udp_error_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_portmap_error_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_portmap_log_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_rss_item_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_listen_succeeded_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = alert.cast_to_dht_error_alert(a);
-        if (r != null) {
-            return r;
-        }
-
-        r = a;
 
         return r;
     }
@@ -288,6 +273,57 @@ public final class Session {
                 default:
                     throw new IllegalArgumentException("Enum value not supported");
             }
+        }
+    }
+
+    private static class CastAlertFunction {
+
+        private final Method method;
+        private final Constructor<? extends Alert<?>> constructor;
+
+        public CastAlertFunction(Class<? extends alert> swigClazz) throws NoSuchMethodException, ClassNotFoundException {
+
+            String swigClazzName = swigClazz.getName().replace("com.frostwire.jlibtorrent.swig.", "");
+            String libClazzName = "com.frostwire.jlibtorrent.alerts." + capitalizeAlertTypeName(swigClazzName);
+
+            @SuppressWarnings("unchecked")
+            Class<? extends Alert<?>> libClazz = (Class<? extends Alert<?>>) Class.forName(libClazzName);
+
+            this.method = alert.class.getDeclaredMethod("cast_to_" + swigClazzName, alert.class);
+            this.constructor = libClazz.getDeclaredConstructor(swigClazz);
+        }
+
+        public Alert<?> cast(alert a) {
+            Alert<?> r;
+
+            try {
+                Object obj = method.invoke(null, a);
+                r = constructor.newInstance(obj);
+            } catch (Throwable e) {
+                System.out.println(e);
+                r = new GenericAlert(a);
+            }
+
+            return r;
+        }
+
+        private static String capitalizeAlertTypeName(String s) {
+            StringBuilder sb = new StringBuilder(s.length());
+
+            boolean capitalize = true;
+            for (int i = 0; i < s.length(); i++) {
+                char ch = s.charAt(i);
+                if (capitalize) {
+                    sb.append(Character.toUpperCase(ch));
+                    capitalize = false;
+                } else if (ch == '_') {
+                    capitalize = true;
+                } else {
+                    sb.append(ch);
+                }
+            }
+
+            return sb.toString();
         }
     }
 }
