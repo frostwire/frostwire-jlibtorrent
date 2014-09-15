@@ -16,12 +16,14 @@ using namespace std;
 using namespace boost::filesystem;
 using namespace libtorrent;
 
+
 bool add_file_filter(std::string const& f)
 {
     if (filename(f)[0] == '.') return false;
     fprintf(stderr, "%s\n", f.c_str());
     return true;
 }
+
 
 void print_entry(entry bencoded_torrent_entry) {
     // create the torrent and print it to stdout
@@ -31,7 +33,8 @@ void print_entry(entry bencoded_torrent_entry) {
     fclose(stdout);
 }
 
-void download_torrent_from_magnet(string magnet_url, entry& result) {
+
+void download_torrent_from_magnet(string magnet_url, entry &result) {
   session* s = new session(fingerprint("FW", 0, 1, 0, 0), std::make_pair(48900,49000),"0.0.0.0",0);
   session_settings sett;
   sett.user_agent = "fw";
@@ -63,7 +66,10 @@ void download_torrent_from_magnet(string magnet_url, entry& result) {
 
   if (ec) fprintf(stderr, "%s\n", ec.message().c_str());
 
-  s->add_torrent(p, ec);
+  //s->add_torrent(p, ec);
+  while (!th.has_metadata()) {
+
+  }
 
 }
 
@@ -93,12 +99,12 @@ int main() {
     int piece_size = 0;
     file_storage fs;
 
-    create_torrent t(fs,piece_size,pad_file_limit,flags);
-
     std::string content_file_path = libtorrent::complete("/Users/gubatron/instassist.log");
 
     //the api is full of C-style useful calls like this, directly at the libtorrent:: namespace.
     add_files(fs, content_file_path, add_file_filter, flags);
+
+    create_torrent t(fs,piece_size,pad_file_limit,flags);
 
     std::string tracker = "udp://tracker.frostwire.com:6969/announce";
     t.add_tracker(tracker,0);
@@ -137,8 +143,9 @@ int main() {
     }
 
     if (myTorrentLazyBencodedEntry.dict_find("info") != NULL) {
-        lazy_entry* infoLazyEntry = myTorrentLazyBencodedEntry.dict_find("info");
-        std::cout << "info! : " << print_entry(*infoLazyEntry, false, 4) << std::endl;
+      //lazy_entry *infoLazyEntryPtr = myTorrentLazyBencodedEntry.dict_find("info");
+        //const char * infoLazyEntryString = infoLazyEntryPtr->string_value();
+        //std::cout << "info! : " << infoLazyEntryString << std::endl;
     }
 
     string magnet_url = "magnet:?xt=urn:btih:31e57ca5b87c5df6cbb764830b66c0b6417daeb3&dn=frostwire-5.7.6.windows.coc.premium.exe&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&iipp=0af0769099c2";
