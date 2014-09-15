@@ -1688,8 +1688,6 @@ public class libtorrent_jni {
   public final static native void torrent_removed_alert_info_hash_set(long jarg1, torrent_removed_alert jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long torrent_removed_alert_info_hash_get(long jarg1, torrent_removed_alert jarg1_);
   public final static native void delete_torrent_removed_alert(long jarg1);
-  public final static native long new_read_piece_alert__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, int jarg4);
-  public final static native long new_read_piece_alert__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, error_code jarg3_);
   public final static native int read_piece_alert_alert_type_get();
   public final static native int read_piece_alert_type(long jarg1, read_piece_alert jarg1_);
   public final static native int read_piece_alert_category(long jarg1, read_piece_alert jarg1_);
@@ -2431,7 +2429,6 @@ public class libtorrent_jni {
   public final static native void dht_immutable_item_alert_item_set(long jarg1, dht_immutable_item_alert jarg1_, long jarg2, entry jarg2_);
   public final static native long dht_immutable_item_alert_item_get(long jarg1, dht_immutable_item_alert jarg1_);
   public final static native void delete_dht_immutable_item_alert(long jarg1);
-  public final static native long new_dht_mutable_item_alert(long jarg1, long jarg2, java.math.BigInteger jarg3, String jarg4, long jarg5, entry jarg5_);
   public final static native int dht_mutable_item_alert_alert_type_get();
   public final static native int dht_mutable_item_alert_type(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native int dht_mutable_item_alert_category(long jarg1, dht_mutable_item_alert jarg1_);
@@ -2446,8 +2443,6 @@ public class libtorrent_jni {
   public final static native void dht_mutable_item_alert_item_set(long jarg1, dht_mutable_item_alert jarg1_, long jarg2, entry jarg2_);
   public final static native long dht_mutable_item_alert_item_get(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void delete_dht_mutable_item_alert(long jarg1);
-  public final static native long new_dht_put_alert__SWIG_0(long jarg1, sha1_hash jarg1_);
-  public final static native long new_dht_put_alert__SWIG_1(long jarg1, long jarg2, String jarg3, java.math.BigInteger jarg4);
   public final static native int dht_put_alert_alert_type_get();
   public final static native int dht_put_alert_type(long jarg1, dht_put_alert jarg1_);
   public final static native int dht_put_alert_category(long jarg1, dht_put_alert jarg1_);

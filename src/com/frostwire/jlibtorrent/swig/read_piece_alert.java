@@ -35,14 +35,6 @@ public class read_piece_alert extends torrent_alert {
     super.delete();
   }
 
-  public read_piece_alert(torrent_handle h, int p, SWIGTYPE_p_boost__shared_arrayT_char_t d, int s) {
-    this(libtorrent_jni.new_read_piece_alert__SWIG_0(torrent_handle.getCPtr(h), h, p, SWIGTYPE_p_boost__shared_arrayT_char_t.getCPtr(d), s), true);
-  }
-
-  public read_piece_alert(torrent_handle h, int p, error_code e) {
-    this(libtorrent_jni.new_read_piece_alert__SWIG_1(torrent_handle.getCPtr(h), h, p, error_code.getCPtr(e), e), true);
-  }
-
   public int type() {
     return libtorrent_jni.read_piece_alert_type(swigCPtr, this);
   }

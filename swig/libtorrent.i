@@ -330,14 +330,17 @@ namespace boost {
 %ignore libtorrent::buffer::end() const;
 %ignore libtorrent::buffer::operator[];
 %ignore libtorrent::stats_alert::transferred;
+%ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
 %ignore libtorrent::dht_mutable_item_alert::key;
 %ignore libtorrent::dht_mutable_item_alert::signature;
+%ignore libtorrent::dht_put_alert::dht_put_alert;
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
 %ignore libtorrent::udp_error_alert::endpoint;
 %ignore libtorrent::torrent_info::torrent_info(char const *,int);
 %ignore libtorrent::torrent_info::creation_date;
 %ignore libtorrent::torrent_info::metadata;
+%ignore libtorrent::read_piece_alert::read_piece_alert;
 %ignore libtorrent::read_piece_alert::buffer;
 
 %ignore boost::asio::ip::address_v4::to_bytes;
