@@ -239,6 +239,7 @@ namespace boost {
 %ignore libtorrent::default_storage_constructor;
 %ignore libtorrent::disabled_storage_constructor;
 %ignore libtorrent::lazy_bdecode;
+%ignore libtorrent::url_has_argument;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::tracker_manager::tracker_manager;
@@ -246,18 +247,14 @@ namespace boost {
 %ignore libtorrent::tracker_manager::incoming_packet;
 %ignore libtorrent::tracker_connection::requester;
 %ignore libtorrent::tracker_connection::on_receive;
-%ignore url_has_argument; // global
-%ignore export_filter; // ip_filter
+%ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::extensions;
 %ignore libtorrent::add_torrent_params::storage;
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
-%ignore on_peer_name_lookup; // torrent
-%ignore on_name_lookup; // torrent
-%ignore on_proxy_name_lookup; // torrent
 %ignore libtorrent::torrent::async_verify_piece;
 %ignore libtorrent::connection_queue::enqueue;
-%ignore set_dispatch_function; // alert_manager
+%ignore libtorrent::alert_manager::set_dispatch_function;
 %ignore libtorrent::session::set_alert_dispatch;
 %ignore libtorrent::session::get_torrent_status;
 %ignore libtorrent::session::get_io_service;
@@ -276,16 +273,13 @@ namespace boost {
 %ignore libtorrent::peer_connection::download_queue;
 %ignore libtorrent::peer_connection::request_queue;
 %ignore libtorrent::peer_connection::downloading_piece_progress;
-%ignore send_buffer; // bt_peer_connection
+%ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
 %ignore libtorrent::disk_buffer_pool::free_multiple_buffers;
 %ignore libtorrent::plugin::added;
 %ignore libtorrent::plugin::new_torrent;
-%ignore getBlocks;
-%ignore setBlocks;
-%ignore add_job; // disk_io_thread
 %ignore libtorrent::torrent::torrent;
 %ignore libtorrent::torrent::filesystem;
 %ignore libtorrent::torrent::session;
@@ -302,9 +296,10 @@ namespace boost {
 %ignore libtorrent::torrent::connect_web_seed;
 %ignore libtorrent::torrent::remove_web_seed;
 %ignore libtorrent::torrent::web_seeds;
+%ignore libtorrent::torrent::on_peer_name_lookup;
+%ignore libtorrent::torrent::on_name_lookup;
+%ignore libtorrent::torrent::on_proxy_name_lookup;
 %ignore libtorrent::torrent::read_piece_struct::piece_data;
-%ignore boost::asio::ip::address_v4::to_bytes;
-%ignore boost::asio::ip::address_v6::to_bytes;
 %ignore libtorrent::policy::ipv6_peer::addr;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
@@ -325,6 +320,9 @@ namespace boost {
 %ignore libtorrent::torrent_info::creation_date;
 %ignore libtorrent::torrent_info::metadata;
 %ignore libtorrent::read_piece_alert::buffer;
+
+%ignore boost::asio::ip::address_v4::to_bytes;
+%ignore boost::asio::ip::address_v6::to_bytes;
 
 %ignore operator=;
 %ignore operator!;
