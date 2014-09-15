@@ -254,10 +254,6 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_metadata_size(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_boost__shared_arrayT_char_t metadata() {
-    return new SWIGTYPE_p_boost__shared_arrayT_char_t(libtorrent_jni.torrent_info_metadata(swigCPtr, this), true);
-  }
-
   public boolean add_merkle_nodes(int_sha1_hash_map subtree, int piece) {
     return libtorrent_jni.torrent_info_add_merkle_nodes(swigCPtr, this, int_sha1_hash_map.getCPtr(subtree), subtree, piece);
   }

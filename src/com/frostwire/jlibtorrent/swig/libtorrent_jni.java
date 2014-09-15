@@ -1188,7 +1188,6 @@ public class libtorrent_jni {
   public final static native long torrent_info_info(long jarg1, torrent_info jarg1_, String jarg2);
   public final static native void torrent_info_swap(long jarg1, torrent_info jarg1_, long jarg2, torrent_info jarg2_);
   public final static native int torrent_info_metadata_size(long jarg1, torrent_info jarg1_);
-  public final static native long torrent_info_metadata(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_add_merkle_nodes(long jarg1, torrent_info jarg1_, long jarg2, int_sha1_hash_map jarg2_, int jarg3);
   public final static native long torrent_info_build_merkle_list(long jarg1, torrent_info jarg1_, int jarg2);
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
@@ -1667,8 +1666,6 @@ public class libtorrent_jni {
   public final static native boolean read_piece_alert_discardable(long jarg1, read_piece_alert jarg1_);
   public final static native void read_piece_alert_ec_set(long jarg1, read_piece_alert jarg1_, long jarg2, error_code jarg2_);
   public final static native long read_piece_alert_ec_get(long jarg1, read_piece_alert jarg1_);
-  public final static native void read_piece_alert_buffer_set(long jarg1, read_piece_alert jarg1_, long jarg2);
-  public final static native long read_piece_alert_buffer_get(long jarg1, read_piece_alert jarg1_);
   public final static native void read_piece_alert_piece_set(long jarg1, read_piece_alert jarg1_, int jarg2);
   public final static native int read_piece_alert_piece_get(long jarg1, read_piece_alert jarg1_);
   public final static native void read_piece_alert_size_set(long jarg1, read_piece_alert jarg1_, int jarg2);
@@ -3092,8 +3089,6 @@ public class libtorrent_jni {
   public final static native void torrent_on_disk_write_complete(long jarg1, torrent jarg1_, int jarg2, long jarg3, disk_io_job jarg3_, long jarg4, peer_request jarg4_);
   public final static native void torrent_on_disk_cache_complete(long jarg1, torrent jarg1_, int jarg2, long jarg3, disk_io_job jarg3_);
   public final static native void torrent_set_progress_ppm(long jarg1, torrent jarg1_, int jarg2);
-  public final static native void torrent_read_piece_struct_piece_data_set(long jarg1, torrent.read_piece_struct jarg1_, long jarg2);
-  public final static native long torrent_read_piece_struct_piece_data_get(long jarg1, torrent.read_piece_struct jarg1_);
   public final static native void torrent_read_piece_struct_blocks_left_set(long jarg1, torrent.read_piece_struct jarg1_, int jarg2);
   public final static native int torrent_read_piece_struct_blocks_left_get(long jarg1, torrent.read_piece_struct jarg1_);
   public final static native void torrent_read_piece_struct_fail_set(long jarg1, torrent.read_piece_struct jarg1_, boolean jarg2);

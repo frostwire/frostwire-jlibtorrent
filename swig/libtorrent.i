@@ -301,6 +301,7 @@ namespace boost {
 %ignore libtorrent::torrent::connect_web_seed;
 %ignore libtorrent::torrent::remove_web_seed;
 %ignore libtorrent::torrent::web_seeds;
+%ignore libtorrent::torrent::read_piece_struct::piece_data;
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
 %ignore libtorrent::policy::ipv6_peer::addr;
@@ -317,6 +318,8 @@ namespace boost {
 %ignore libtorrent::dht_put_alert::signature;
 %ignore libtorrent::udp_error_alert::endpoint;
 %ignore libtorrent::torrent_info::creation_date;
+%ignore libtorrent::torrent_info::metadata;
+%ignore libtorrent::read_piece_alert::buffer;
 
 %ignore operator=;
 %ignore operator!;

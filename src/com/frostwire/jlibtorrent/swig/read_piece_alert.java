@@ -52,14 +52,6 @@ public class read_piece_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public void setBuffer(SWIGTYPE_p_boost__shared_arrayT_char_t value) {
-    libtorrent_jni.read_piece_alert_buffer_set(swigCPtr, this, SWIGTYPE_p_boost__shared_arrayT_char_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_boost__shared_arrayT_char_t getBuffer() {
-    return new SWIGTYPE_p_boost__shared_arrayT_char_t(libtorrent_jni.read_piece_alert_buffer_get(swigCPtr, this), true);
-  }
-
   public void setPiece(int value) {
     libtorrent_jni.read_piece_alert_piece_set(swigCPtr, this, value);
   }

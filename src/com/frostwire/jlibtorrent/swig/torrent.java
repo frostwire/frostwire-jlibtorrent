@@ -193,14 +193,6 @@ public class torrent {
       }
     }
   
-    public void setPiece_data(SWIGTYPE_p_boost__shared_arrayT_char_t value) {
-      libtorrent_jni.torrent_read_piece_struct_piece_data_set(swigCPtr, this, SWIGTYPE_p_boost__shared_arrayT_char_t.getCPtr(value));
-    }
-  
-    public SWIGTYPE_p_boost__shared_arrayT_char_t getPiece_data() {
-      return new SWIGTYPE_p_boost__shared_arrayT_char_t(libtorrent_jni.torrent_read_piece_struct_piece_data_get(swigCPtr, this), true);
-    }
-  
     public void setBlocks_left(int value) {
       libtorrent_jni.torrent_read_piece_struct_blocks_left_set(swigCPtr, this, value);
     }
