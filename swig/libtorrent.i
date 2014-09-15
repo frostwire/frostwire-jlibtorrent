@@ -427,8 +427,6 @@ namespace boost {
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
 
-%include alert_types.i
-
 namespace libtorrent {
     
 // alert types conversion due to lack of polymorphic return type

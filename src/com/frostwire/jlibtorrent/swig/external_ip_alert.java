@@ -35,6 +35,22 @@ public class external_ip_alert extends alert {
     super.delete();
   }
 
+  public external_ip_alert(address ip) {
+    this(libtorrent_jni.new_external_ip_alert(address.getCPtr(ip), ip), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.external_ip_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.external_ip_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.external_ip_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.external_ip_alert_message(swigCPtr, this);
   }
@@ -48,4 +64,6 @@ public class external_ip_alert extends alert {
     return (cPtr == 0) ? null : new address(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.external_ip_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.external_ip_alert_static_category_get();
 }

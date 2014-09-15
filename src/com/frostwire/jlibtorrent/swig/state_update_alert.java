@@ -35,6 +35,18 @@ public class state_update_alert extends alert {
     super.delete();
   }
 
+  public int type() {
+    return libtorrent_jni.state_update_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.state_update_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.state_update_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.state_update_alert_message(swigCPtr, this);
   }
@@ -52,4 +64,10 @@ public class state_update_alert extends alert {
     return (cPtr == 0) ? null : new torrent_status_vector(cPtr, false);
   }
 
+  public state_update_alert() {
+    this(libtorrent_jni.new_state_update_alert(), true);
+  }
+
+  public final static int alert_type = libtorrent_jni.state_update_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.state_update_alert_static_category_get();
 }

@@ -35,6 +35,22 @@ public class peer_disconnected_alert extends peer_alert {
     super.delete();
   }
 
+  public peer_disconnected_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, error_code e) {
+    this(libtorrent_jni.new_peer_disconnected_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, error_code.getCPtr(e), e), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.peer_disconnected_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.peer_disconnected_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.peer_disconnected_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.peer_disconnected_alert_message(swigCPtr, this);
   }
@@ -48,4 +64,6 @@ public class peer_disconnected_alert extends peer_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.peer_disconnected_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.peer_disconnected_alert_static_category_get();
 }

@@ -61,4 +61,6 @@ public class peer_alert extends torrent_alert {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.peer_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.peer_alert_static_category_get();
 }

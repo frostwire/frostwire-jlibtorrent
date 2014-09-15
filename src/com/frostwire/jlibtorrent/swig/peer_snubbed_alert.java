@@ -35,8 +35,25 @@ public class peer_snubbed_alert extends peer_alert {
     super.delete();
   }
 
+  public peer_snubbed_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id) {
+    this(libtorrent_jni.new_peer_snubbed_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.peer_snubbed_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.peer_snubbed_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.peer_snubbed_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.peer_snubbed_alert_message(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.peer_snubbed_alert_alert_type_get();
 }

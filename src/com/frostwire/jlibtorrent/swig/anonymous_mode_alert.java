@@ -35,6 +35,22 @@ public class anonymous_mode_alert extends torrent_alert {
     super.delete();
   }
 
+  public anonymous_mode_alert(torrent_handle h, int k, String s) {
+    this(libtorrent_jni.new_anonymous_mode_alert(torrent_handle.getCPtr(h), h, k, s), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.anonymous_mode_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.anonymous_mode_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.anonymous_mode_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.anonymous_mode_alert_message(swigCPtr, this);
   }
@@ -55,6 +71,8 @@ public class anonymous_mode_alert extends torrent_alert {
     return libtorrent_jni.anonymous_mode_alert_str_get(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.anonymous_mode_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.anonymous_mode_alert_static_category_get();
   public enum kind_t {
     tracker_not_anonymous(libtorrent_jni.anonymous_mode_alert_tracker_not_anonymous_get());
 

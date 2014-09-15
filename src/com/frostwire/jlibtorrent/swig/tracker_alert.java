@@ -51,4 +51,6 @@ public class tracker_alert extends torrent_alert {
     return libtorrent_jni.tracker_alert_url_get(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.tracker_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.tracker_alert_static_category_get();
 }

@@ -48,4 +48,5 @@ public class torrent_alert extends alert {
     return (cPtr == 0) ? null : new torrent_handle(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.torrent_alert_alert_type_get();
 }

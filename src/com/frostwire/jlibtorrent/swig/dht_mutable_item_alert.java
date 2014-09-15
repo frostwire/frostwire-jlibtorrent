@@ -35,6 +35,22 @@ public class dht_mutable_item_alert extends alert {
     super.delete();
   }
 
+  public dht_mutable_item_alert(SWIGTYPE_p_boost__arrayT_char_32_t k, SWIGTYPE_p_boost__arrayT_char_64_t sig, java.math.BigInteger sequence, String s, entry i) {
+    this(libtorrent_jni.new_dht_mutable_item_alert(SWIGTYPE_p_boost__arrayT_char_32_t.getCPtr(k), SWIGTYPE_p_boost__arrayT_char_64_t.getCPtr(sig), sequence, s, entry.getCPtr(i), i), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.dht_mutable_item_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.dht_mutable_item_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.dht_mutable_item_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.dht_mutable_item_alert_message(swigCPtr, this);
   }
@@ -67,4 +83,6 @@ public class dht_mutable_item_alert extends alert {
     return new entry(libtorrent_jni.dht_mutable_item_alert_item_get(swigCPtr, this), true);
   }
 
+  public final static int alert_type = libtorrent_jni.dht_mutable_item_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.dht_mutable_item_alert_static_category_get();
 }

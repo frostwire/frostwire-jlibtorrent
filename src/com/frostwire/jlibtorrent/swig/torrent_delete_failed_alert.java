@@ -35,6 +35,22 @@ public class torrent_delete_failed_alert extends torrent_alert {
     super.delete();
   }
 
+  public torrent_delete_failed_alert(torrent_handle h, error_code e, sha1_hash ih) {
+    this(libtorrent_jni.new_torrent_delete_failed_alert(torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e, sha1_hash.getCPtr(ih), ih), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.torrent_delete_failed_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.torrent_delete_failed_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.torrent_delete_failed_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.torrent_delete_failed_alert_message(swigCPtr, this);
   }
@@ -61,4 +77,6 @@ public class torrent_delete_failed_alert extends torrent_alert {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.torrent_delete_failed_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.torrent_delete_failed_alert_static_category_get();
 }

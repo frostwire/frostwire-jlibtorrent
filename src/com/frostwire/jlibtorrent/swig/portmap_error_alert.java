@@ -35,6 +35,22 @@ public class portmap_error_alert extends alert {
     super.delete();
   }
 
+  public portmap_error_alert(int i, int t, error_code e) {
+    this(libtorrent_jni.new_portmap_error_alert(i, t, error_code.getCPtr(e), e), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.portmap_error_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.portmap_error_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.portmap_error_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.portmap_error_alert_message(swigCPtr, this);
   }
@@ -64,4 +80,6 @@ public class portmap_error_alert extends alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.portmap_error_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.portmap_error_alert_static_category_get();
 }

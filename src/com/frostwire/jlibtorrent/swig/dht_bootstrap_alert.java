@@ -35,8 +35,26 @@ public class dht_bootstrap_alert extends alert {
     super.delete();
   }
 
+  public dht_bootstrap_alert() {
+    this(libtorrent_jni.new_dht_bootstrap_alert(), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.dht_bootstrap_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.dht_bootstrap_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.dht_bootstrap_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.dht_bootstrap_alert_message(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.dht_bootstrap_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.dht_bootstrap_alert_static_category_get();
 }

@@ -35,6 +35,22 @@ public class rss_alert extends alert {
     super.delete();
   }
 
+  public rss_alert(feed_handle h, String u, int s, error_code ec) {
+    this(libtorrent_jni.new_rss_alert(feed_handle.getCPtr(h), h, u, s, error_code.getCPtr(ec), ec), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.rss_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.rss_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.rss_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.rss_alert_message(swigCPtr, this);
   }
@@ -73,6 +89,8 @@ public class rss_alert extends alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.rss_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.rss_alert_static_category_get();
   public enum state_t {
     state_updating,
     state_updated,

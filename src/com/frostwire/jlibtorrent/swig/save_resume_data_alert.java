@@ -35,6 +35,22 @@ public class save_resume_data_alert extends torrent_alert {
     super.delete();
   }
 
+  public save_resume_data_alert(entry rd, torrent_handle h) {
+    this(libtorrent_jni.new_save_resume_data_alert(entry.getCPtr(rd), rd, torrent_handle.getCPtr(h), h), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.save_resume_data_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.save_resume_data_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.save_resume_data_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.save_resume_data_alert_message(swigCPtr, this);
   }
@@ -52,4 +68,6 @@ public class save_resume_data_alert extends torrent_alert {
     return (cPtr == 0) ? null : new entry(cPtr, true);
   }
 
+  public final static int alert_type = libtorrent_jni.save_resume_data_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.save_resume_data_alert_static_category_get();
 }

@@ -35,6 +35,22 @@ public class dht_immutable_item_alert extends alert {
     super.delete();
   }
 
+  public dht_immutable_item_alert(sha1_hash t, entry i) {
+    this(libtorrent_jni.new_dht_immutable_item_alert(sha1_hash.getCPtr(t), t, entry.getCPtr(i), i), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.dht_immutable_item_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.dht_immutable_item_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.dht_immutable_item_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.dht_immutable_item_alert_message(swigCPtr, this);
   }
@@ -60,4 +76,6 @@ public class dht_immutable_item_alert extends alert {
     return new entry(libtorrent_jni.dht_immutable_item_alert_item_get(swigCPtr, this), true);
   }
 
+  public final static int alert_type = libtorrent_jni.dht_immutable_item_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.dht_immutable_item_alert_static_category_get();
 }

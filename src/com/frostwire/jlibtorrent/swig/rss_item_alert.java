@@ -35,6 +35,22 @@ public class rss_item_alert extends alert {
     super.delete();
   }
 
+  public rss_item_alert(feed_handle h, feed_item item) {
+    this(libtorrent_jni.new_rss_item_alert(feed_handle.getCPtr(h), h, feed_item.getCPtr(item), item), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.rss_item_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.rss_item_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.rss_item_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.rss_item_alert_message(swigCPtr, this);
   }
@@ -57,4 +73,6 @@ public class rss_item_alert extends alert {
     return (cPtr == 0) ? null : new feed_item(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.rss_item_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.rss_item_alert_static_category_get();
 }

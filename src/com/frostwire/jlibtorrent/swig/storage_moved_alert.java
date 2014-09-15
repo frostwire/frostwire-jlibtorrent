@@ -35,6 +35,22 @@ public class storage_moved_alert extends torrent_alert {
     super.delete();
   }
 
+  public storage_moved_alert(torrent_handle h, String p) {
+    this(libtorrent_jni.new_storage_moved_alert(torrent_handle.getCPtr(h), h, p), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.storage_moved_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.storage_moved_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.storage_moved_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.storage_moved_alert_message(swigCPtr, this);
   }
@@ -47,4 +63,6 @@ public class storage_moved_alert extends torrent_alert {
     return libtorrent_jni.storage_moved_alert_path_get(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.storage_moved_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.storage_moved_alert_static_category_get();
 }

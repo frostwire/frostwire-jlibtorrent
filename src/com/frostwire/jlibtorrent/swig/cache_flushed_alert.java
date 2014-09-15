@@ -35,4 +35,22 @@ public class cache_flushed_alert extends torrent_alert {
     super.delete();
   }
 
+  public cache_flushed_alert(torrent_handle h) {
+    this(libtorrent_jni.new_cache_flushed_alert(torrent_handle.getCPtr(h), h), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.cache_flushed_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.cache_flushed_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.cache_flushed_alert_what(swigCPtr, this);
+  }
+
+  public final static int alert_type = libtorrent_jni.cache_flushed_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.cache_flushed_alert_static_category_get();
 }

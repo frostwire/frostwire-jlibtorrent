@@ -35,8 +35,26 @@ public class lsd_peer_alert extends peer_alert {
     super.delete();
   }
 
+  public lsd_peer_alert(torrent_handle h, tcp_endpoint i) {
+    this(libtorrent_jni.new_lsd_peer_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(i), i), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.lsd_peer_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.lsd_peer_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.lsd_peer_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.lsd_peer_alert_message(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.lsd_peer_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.lsd_peer_alert_static_category_get();
 }

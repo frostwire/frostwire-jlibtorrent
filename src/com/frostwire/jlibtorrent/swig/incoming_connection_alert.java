@@ -35,6 +35,22 @@ public class incoming_connection_alert extends alert {
     super.delete();
   }
 
+  public incoming_connection_alert(int t, tcp_endpoint i) {
+    this(libtorrent_jni.new_incoming_connection_alert(t, tcp_endpoint.getCPtr(i), i), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.incoming_connection_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.incoming_connection_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.incoming_connection_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.incoming_connection_alert_message(swigCPtr, this);
   }
@@ -56,4 +72,6 @@ public class incoming_connection_alert extends alert {
     return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.incoming_connection_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.incoming_connection_alert_static_category_get();
 }

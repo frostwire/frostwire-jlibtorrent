@@ -35,6 +35,22 @@ public class listen_failed_alert extends alert {
     super.delete();
   }
 
+  public listen_failed_alert(tcp_endpoint ep, int op, error_code ec, listen_failed_alert.socket_type_t t) {
+    this(libtorrent_jni.new_listen_failed_alert(tcp_endpoint.getCPtr(ep), ep, op, error_code.getCPtr(ec), ec, t.swigValue()), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.listen_failed_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.listen_failed_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.listen_failed_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.listen_failed_alert_message(swigCPtr, this);
   }
@@ -122,6 +138,8 @@ public class listen_failed_alert extends alert {
     }
   }
 
+  public final static int alert_type = libtorrent_jni.listen_failed_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.listen_failed_alert_static_category_get();
   public enum op_t {
     parse_addr,
     open,

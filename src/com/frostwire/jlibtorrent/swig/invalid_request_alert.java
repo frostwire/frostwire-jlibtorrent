@@ -35,6 +35,22 @@ public class invalid_request_alert extends peer_alert {
     super.delete();
   }
 
+  public invalid_request_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, peer_request r) {
+    this(libtorrent_jni.new_invalid_request_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, peer_request.getCPtr(r), r), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.invalid_request_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.invalid_request_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.invalid_request_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.invalid_request_alert_message(swigCPtr, this);
   }
@@ -48,4 +64,5 @@ public class invalid_request_alert extends peer_alert {
     return (cPtr == 0) ? null : new peer_request(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.invalid_request_alert_alert_type_get();
 }

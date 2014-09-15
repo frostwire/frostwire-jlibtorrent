@@ -35,6 +35,26 @@ public class dht_put_alert extends alert {
     super.delete();
   }
 
+  public dht_put_alert(sha1_hash t) {
+    this(libtorrent_jni.new_dht_put_alert__SWIG_0(sha1_hash.getCPtr(t), t), true);
+  }
+
+  public dht_put_alert(SWIGTYPE_p_boost__arrayT_char_32_t key, SWIGTYPE_p_boost__arrayT_char_64_t sig, String s, java.math.BigInteger sequence_number) {
+    this(libtorrent_jni.new_dht_put_alert__SWIG_1(SWIGTYPE_p_boost__arrayT_char_32_t.getCPtr(key), SWIGTYPE_p_boost__arrayT_char_64_t.getCPtr(sig), s, sequence_number), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.dht_put_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.dht_put_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.dht_put_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.dht_put_alert_message(swigCPtr, this);
   }
@@ -64,4 +84,6 @@ public class dht_put_alert extends alert {
     return libtorrent_jni.dht_put_alert_seq_get(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.dht_put_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.dht_put_alert_static_category_get();
 }

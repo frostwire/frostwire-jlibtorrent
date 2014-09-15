@@ -35,6 +35,22 @@ public class file_rename_failed_alert extends torrent_alert {
     super.delete();
   }
 
+  public file_rename_failed_alert(torrent_handle h, int idx, error_code ec) {
+    this(libtorrent_jni.new_file_rename_failed_alert(torrent_handle.getCPtr(h), h, idx, error_code.getCPtr(ec), ec), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.file_rename_failed_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.file_rename_failed_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.file_rename_failed_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.file_rename_failed_alert_message(swigCPtr, this);
   }
@@ -60,4 +76,6 @@ public class file_rename_failed_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.file_rename_failed_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.file_rename_failed_alert_static_category_get();
 }

@@ -35,6 +35,22 @@ public class dht_error_alert extends alert {
     super.delete();
   }
 
+  public dht_error_alert(int op, error_code ec) {
+    this(libtorrent_jni.new_dht_error_alert(op, error_code.getCPtr(ec), ec), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.dht_error_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.dht_error_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.dht_error_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.dht_error_alert_message(swigCPtr, this);
   }
@@ -56,6 +72,8 @@ public class dht_error_alert extends alert {
     return dht_error_alert.op_t.swigToEnum(libtorrent_jni.dht_error_alert_operation_get(swigCPtr, this));
   }
 
+  public final static int alert_type = libtorrent_jni.dht_error_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.dht_error_alert_static_category_get();
   public enum op_t {
     unknown,
     hostname_lookup;

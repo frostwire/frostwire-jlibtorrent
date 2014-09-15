@@ -35,6 +35,22 @@ public class torrent_update_alert extends torrent_alert {
     super.delete();
   }
 
+  public torrent_update_alert(torrent_handle h, sha1_hash old_hash, sha1_hash new_hash) {
+    this(libtorrent_jni.new_torrent_update_alert(torrent_handle.getCPtr(h), h, sha1_hash.getCPtr(old_hash), old_hash, sha1_hash.getCPtr(new_hash), new_hash), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.torrent_update_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.torrent_update_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.torrent_update_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.torrent_update_alert_message(swigCPtr, this);
   }
@@ -61,4 +77,6 @@ public class torrent_update_alert extends torrent_alert {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.torrent_update_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.torrent_update_alert_static_category_get();
 }

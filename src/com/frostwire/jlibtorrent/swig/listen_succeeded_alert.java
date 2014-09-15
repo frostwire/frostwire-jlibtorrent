@@ -35,6 +35,22 @@ public class listen_succeeded_alert extends alert {
     super.delete();
   }
 
+  public listen_succeeded_alert(tcp_endpoint ep, listen_succeeded_alert.socket_type_t t) {
+    this(libtorrent_jni.new_listen_succeeded_alert(tcp_endpoint.getCPtr(ep), ep, t.swigValue()), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.listen_succeeded_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.listen_succeeded_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.listen_succeeded_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.listen_succeeded_alert_message(swigCPtr, this);
   }
@@ -103,4 +119,6 @@ public class listen_succeeded_alert extends alert {
     }
   }
 
+  public final static int alert_type = libtorrent_jni.listen_succeeded_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.listen_succeeded_alert_static_category_get();
 }

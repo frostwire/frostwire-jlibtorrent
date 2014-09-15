@@ -35,6 +35,26 @@ public class url_seed_alert extends torrent_alert {
     super.delete();
   }
 
+  public url_seed_alert(torrent_handle h, String u, error_code e) {
+    this(libtorrent_jni.new_url_seed_alert__SWIG_0(torrent_handle.getCPtr(h), h, u, error_code.getCPtr(e), e), true);
+  }
+
+  public url_seed_alert(torrent_handle h, String u, String m) {
+    this(libtorrent_jni.new_url_seed_alert__SWIG_1(torrent_handle.getCPtr(h), h, u, m), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.url_seed_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.url_seed_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.url_seed_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.url_seed_alert_message(swigCPtr, this);
   }
@@ -55,4 +75,6 @@ public class url_seed_alert extends torrent_alert {
     return libtorrent_jni.url_seed_alert_msg_get(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.url_seed_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.url_seed_alert_static_category_get();
 }

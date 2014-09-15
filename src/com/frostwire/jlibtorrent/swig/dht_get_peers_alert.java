@@ -35,6 +35,22 @@ public class dht_get_peers_alert extends alert {
     super.delete();
   }
 
+  public dht_get_peers_alert(sha1_hash ih) {
+    this(libtorrent_jni.new_dht_get_peers_alert(sha1_hash.getCPtr(ih), ih), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.dht_get_peers_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.dht_get_peers_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.dht_get_peers_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.dht_get_peers_alert_message(swigCPtr, this);
   }
@@ -48,4 +64,6 @@ public class dht_get_peers_alert extends alert {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.dht_get_peers_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.dht_get_peers_alert_static_category_get();
 }

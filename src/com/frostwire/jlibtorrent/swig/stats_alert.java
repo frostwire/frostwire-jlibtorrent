@@ -35,6 +35,22 @@ public class stats_alert extends torrent_alert {
     super.delete();
   }
 
+  public stats_alert(torrent_handle h, int interval, stat s) {
+    this(libtorrent_jni.new_stats_alert(torrent_handle.getCPtr(h), h, interval, stat.getCPtr(s), s), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.stats_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.stats_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.stats_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.stats_alert_message(swigCPtr, this);
   }
@@ -47,6 +63,8 @@ public class stats_alert extends torrent_alert {
     return libtorrent_jni.stats_alert_interval_get(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.stats_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.stats_alert_static_category_get();
   public enum stats_channel {
     upload_payload,
     upload_protocol,

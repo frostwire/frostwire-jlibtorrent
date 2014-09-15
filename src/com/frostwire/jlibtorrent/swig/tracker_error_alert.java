@@ -35,6 +35,22 @@ public class tracker_error_alert extends tracker_alert {
     super.delete();
   }
 
+  public tracker_error_alert(torrent_handle h, int times, int status, String u, error_code e, String m) {
+    this(libtorrent_jni.new_tracker_error_alert(torrent_handle.getCPtr(h), h, times, status, u, error_code.getCPtr(e), e, m), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.tracker_error_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.tracker_error_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.tracker_error_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.tracker_error_alert_message(swigCPtr, this);
   }
@@ -72,4 +88,6 @@ public class tracker_error_alert extends tracker_alert {
     return libtorrent_jni.tracker_error_alert_msg_get(swigCPtr, this);
   }
 
+  public final static int alert_type = libtorrent_jni.tracker_error_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.tracker_error_alert_static_category_get();
 }
