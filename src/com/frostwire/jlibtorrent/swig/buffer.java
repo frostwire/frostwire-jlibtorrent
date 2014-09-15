@@ -174,7 +174,7 @@ public class buffer {
   }
 
   public buffer.interval data() {
-    return new buffer.interval(libtorrent_jni.buffer_data__SWIG_0(swigCPtr, this), true);
+    return new buffer.interval(libtorrent_jni.buffer_data(swigCPtr, this), true);
   }
 
   public void resize(long n) {
@@ -210,11 +210,11 @@ public class buffer {
   }
 
   public String begin() {
-    return libtorrent_jni.buffer_begin__SWIG_0(swigCPtr, this);
+    return libtorrent_jni.buffer_begin(swigCPtr, this);
   }
 
   public String end() {
-    return libtorrent_jni.buffer_end__SWIG_0(swigCPtr, this);
+    return libtorrent_jni.buffer_end(swigCPtr, this);
   }
 
   public void swap(buffer b) {

@@ -316,9 +316,18 @@ namespace boost {
 %ignore libtorrent::entry::entry(entry const&);
 %ignore libtorrent::entry::entry(list_type const&);
 %ignore libtorrent::entry::list;
+%ignore libtorrent::entry::integer() const;
+%ignore libtorrent::entry::string() const;
+%ignore libtorrent::entry::dict() const;
 %ignore libtorrent::entry::find_key(std::string const &) const;
 %ignore libtorrent::entry::find_key(char const *);
 %ignore libtorrent::entry::find_key(char const *) const;
+%ignore libtorrent::entry::operator [](char const *);
+%ignore libtorrent::entry::operator [](char const *) const;
+%ignore libtorrent::entry::operator [](std::string const &) const;
+%ignore libtorrent::buffer::data() const;
+%ignore libtorrent::buffer::begin() const;
+%ignore libtorrent::buffer::end() const;
 %ignore libtorrent::buffer::operator[];
 %ignore libtorrent::stats_alert::transferred;
 %ignore libtorrent::dht_mutable_item_alert::key;
@@ -326,6 +335,7 @@ namespace boost {
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
 %ignore libtorrent::udp_error_alert::endpoint;
+%ignore libtorrent::torrent_info::torrent_info(char const *,int);
 %ignore libtorrent::torrent_info::creation_date;
 %ignore libtorrent::torrent_info::metadata;
 %ignore libtorrent::read_piece_alert::buffer;
@@ -416,6 +426,8 @@ namespace boost {
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
+
+%include alert_types.i
 
 namespace libtorrent {
     

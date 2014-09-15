@@ -68,15 +68,15 @@ public class entry {
   }
 
   public long integer() {
-    return libtorrent_jni.entry_integer__SWIG_0(swigCPtr, this);
+    return libtorrent_jni.entry_integer(swigCPtr, this);
   }
 
   public String string() {
-    return libtorrent_jni.entry_string__SWIG_0(swigCPtr, this);
+    return libtorrent_jni.entry_string(swigCPtr, this);
   }
 
   public string_entry_map dict() {
-    return new string_entry_map(libtorrent_jni.entry_dict__SWIG_0(swigCPtr, this), false);
+    return new string_entry_map(libtorrent_jni.entry_dict(swigCPtr, this), false);
   }
 
   public void swap(entry e) {
@@ -84,7 +84,7 @@ public class entry {
   }
 
   public entry op_get_at(String key) {
-    return new entry(libtorrent_jni.entry_op_get_at__SWIG_0(swigCPtr, this, key), true);
+    return new entry(libtorrent_jni.entry_op_get_at(swigCPtr, this, key), true);
   }
 
   public entry find_key(String key) {
