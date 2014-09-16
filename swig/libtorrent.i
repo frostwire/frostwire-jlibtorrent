@@ -577,11 +577,12 @@ namespace libtorrent {
 };
 
 %extend session {
-    void add_all_extensions() {
-        $self->add_extension(&libtorrent::create_ut_pex_plugin);
-        $self->add_extension(&libtorrent::create_ut_metadata_plugin);
+    void add_lt_trackers_extension() {
         $self->add_extension(&libtorrent::create_lt_trackers_plugin);
-        $self->add_extension(&libtorrent::create_smart_ban_plugin);
+    }
+
+    void add_smart_ban_extension() {
+         $self->add_extension(&libtorrent::create_smart_ban_plugin);
     }
 };
 }

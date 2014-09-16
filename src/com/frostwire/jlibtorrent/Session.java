@@ -28,6 +28,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author gubatron
@@ -66,7 +68,8 @@ public final class Session {
         s.start_natpmp();
         s.start_lsd();
 
-        s.add_all_extensions();
+        s.add_lt_trackers_extension();
+        s.add_smart_ban_extension();
 
         this.running = true;
         this.listeners = Collections.synchronizedList(new LinkedList<AlertListener>());
@@ -83,7 +86,9 @@ public final class Session {
     }
 
     public void addListener(AlertListener listener) {
-        this.listeners.add(listener);
+        if (listener != null) {
+            this.listeners.add(listener);
+        }
     }
 
     public void removeListener(AlertListener listener) {
@@ -141,6 +146,63 @@ public final class Session {
      */
     public void removeTorrent(TorrentHandle th) {
         this.removeTorrent(th, Options.NONE);
+    }
+
+    /**
+     * @param uri
+     * @param timeout in milliseconds
+     * @return
+     */
+    public byte[] fetchMagnet(String uri, long timeout) {
+
+        add_torrent_params p = add_torrent_params.create_instance_no_storage();
+        error_code ec = new error_code();
+        libtorrent.parse_magnet_uri(uri, p, ec);
+
+        final torrent_handle th = s.add_torrent(p);
+        th.auto_managed(false);
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener l = new AlertListener() {
+            @Override
+            public boolean accept(Alert<?> alert) {
+                if (!(alert.getSwig() instanceof metadata_received_alert)) {
+                    return false;
+                }
+
+                metadata_received_alert mra = (metadata_received_alert) alert.getSwig();
+
+                return mra.getHandle().op_eq(th);
+            }
+
+            @Override
+            public void onAlert(Alert<?> alert) {
+                // we are here only if we received the corresponding metadata_received_alert
+                signal.countDown();
+            }
+        };
+
+        addListener(l);
+
+        try {
+            signal.await(timeout, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+        }
+
+        removeListener(l);
+
+        byte[] data = null;
+
+        torrent_info ti = th.torrent_file();
+        if (ti != null) {
+            create_torrent ct = new create_torrent(ti);
+            data = LibTorrent.vector2bytes(ct.generate().bencode());
+        }
+
+        s.remove_torrent(th);
+
+        return data;
     }
 
     private void alertsLoop() {

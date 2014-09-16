@@ -31,4 +31,6 @@ public interface Alert<T extends alert> {
     public int getType();
 
     public int getCategory();
+
+    public String getWhat();
 }

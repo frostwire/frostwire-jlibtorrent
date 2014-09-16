@@ -337,8 +337,12 @@ public class session {
     libtorrent_jni.session_stop_natpmp(swigCPtr, this);
   }
 
-  public void add_all_extensions() {
-    libtorrent_jni.session_add_all_extensions(swigCPtr, this);
+  public void add_lt_trackers_extension() {
+    libtorrent_jni.session_add_lt_trackers_extension(swigCPtr, this);
+  }
+
+  public void add_smart_ban_extension() {
+    libtorrent_jni.session_add_smart_ban_extension(swigCPtr, this);
   }
 
   public enum save_state_flags_t {

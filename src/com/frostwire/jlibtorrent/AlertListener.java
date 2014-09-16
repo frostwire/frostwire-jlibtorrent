@@ -26,7 +26,7 @@ import com.frostwire.jlibtorrent.alerts.Alert;
  */
 public interface AlertListener {
 
-    public boolean accept(Alert<?> a);
+    public boolean accept(Alert<?> alert);
 
-    public void onAlert(Alert<?> a);
+    public void onAlert(Alert<?> alert);
 }
