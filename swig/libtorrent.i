@@ -225,6 +225,7 @@ namespace boost {
 %ignore readv;
 %ignore writev;
 
+%ignore libtorrent::TORRENT_CFG;
 %ignore libtorrent::partial_hash;
 %ignore libtorrent::piece_manager;
 %ignore libtorrent::disk_io_thread;
@@ -360,6 +361,7 @@ namespace boost {
 %ignore libtorrent::lazy_entry::list_at(int) const;
 %ignore libtorrent::bdecode_errors::error_code_enum;
 %ignore libtorrent::bdecode_errors::make_error_code;
+%ignore libtorrent::block_info::peer;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -417,9 +419,9 @@ namespace boost {
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/policy.hpp"
 %include "libtorrent/torrent_info.hpp"
-%include "torrent_handle.hpp"
+%include "libtorrent/torrent_handle.hpp"
 %include "libtorrent/add_torrent_params.hpp"
-%include "rss.hpp"
+%include "libtorrent/rss.hpp"
 %include "libtorrent/alert.hpp"
 %include "alert_types.hpp"
 %include "libtorrent/alert_manager.hpp"
@@ -432,7 +434,7 @@ namespace boost {
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
 %include "libtorrent/torrent.hpp"
-%include "session.hpp"
+%include "libtorrent/session.hpp"
 %include "libtorrent/extensions.hpp"
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
