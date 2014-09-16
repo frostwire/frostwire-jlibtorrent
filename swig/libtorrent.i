@@ -5,9 +5,6 @@
 #include <string>
 #include <ios>
 
-#include <boost/asio/ip/address.hpp>
-#include <boost/asio/ip/address_v4.hpp>
-#include <boost/asio/ip/address_v6.hpp>
 #include <boost/system/error_code.hpp>
     
 #include "libtorrent/version.hpp"
@@ -127,7 +124,7 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 %include <enums.swg>
 
 %include "std_vector2.i"
-%include "endpoint.i"
+%include "boost.i"
 
 %intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)
@@ -200,20 +197,6 @@ namespace std {
 
     %template(alert_ptr_deque) deque<libtorrent::alert*>;
 };
-
-namespace boost {
-
-    namespace posix_time {
-
-        class ptime {
-
-        };
-
-        class time_duration {
-
-        };
-    }
-}
 
 // this are ignore until we solve the specific type issues
 
@@ -404,9 +387,6 @@ namespace boost {
 %rename(op_gt) operator>;
 %rename(op_get_at) operator[];
 
-%include "address.hpp"
-%include "address_v4.hpp"
-%include "address_v6.hpp"
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
