@@ -195,10 +195,6 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_can_write(swigCPtr, this);
   }
 
-  public boolean can_read() {
-    return libtorrent_jni.peer_connection_can_read(swigCPtr, this);
-  }
-
   public boolean is_seed() {
     return libtorrent_jni.peer_connection_is_seed(swigCPtr, this);
   }
@@ -367,8 +363,8 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_is_outgoing(swigCPtr, this);
   }
 
-  public boolean received_listen_port() {
-    return libtorrent_jni.peer_connection_received_listen_port(swigCPtr, this);
+  public void received_listen_port() {
+    libtorrent_jni.peer_connection_received_listen_port(swigCPtr, this);
   }
 
   public boolean on_local_network() {

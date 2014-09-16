@@ -2850,7 +2850,6 @@ public class libtorrent_jni {
   public final static native void peer_connection_superseed_piece(long jarg1, peer_connection jarg1_, int jarg2, int jarg3);
   public final static native boolean peer_connection_super_seeded_piece(long jarg1, peer_connection jarg1_, int jarg2);
   public final static native boolean peer_connection_can_write(long jarg1, peer_connection jarg1_);
-  public final static native boolean peer_connection_can_read(long jarg1, peer_connection jarg1_);
   public final static native boolean peer_connection_is_seed(long jarg1, peer_connection jarg1_);
   public final static native int peer_connection_num_have_pieces(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_set_share_mode(long jarg1, peer_connection jarg1_, boolean jarg2);
@@ -2893,7 +2892,7 @@ public class libtorrent_jni {
   public final static native void peer_connection_received_valid_data(long jarg1, peer_connection jarg1_, int jarg2);
   public final static native boolean peer_connection_received_invalid_data(long jarg1, peer_connection jarg1_, int jarg2, boolean jarg3);
   public final static native boolean peer_connection_is_outgoing(long jarg1, peer_connection jarg1_);
-  public final static native boolean peer_connection_received_listen_port(long jarg1, peer_connection jarg1_);
+  public final static native void peer_connection_received_listen_port(long jarg1, peer_connection jarg1_);
   public final static native boolean peer_connection_on_local_network(long jarg1, peer_connection jarg1_);
   public final static native boolean peer_connection_ignore_bandwidth_limits__SWIG_0(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_ignore_bandwidth_limits__SWIG_1(long jarg1, peer_connection jarg1_, boolean jarg2);
@@ -2968,8 +2967,6 @@ public class libtorrent_jni {
   public final static native int peer_connection_num_reading_bytes(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_setup_receive__SWIG_0(long jarg1, peer_connection jarg1_, int jarg2);
   public final static native void peer_connection_setup_receive__SWIG_1(long jarg1, peer_connection jarg1_);
-  public final static native long new_cork(long jarg1, peer_connection jarg1_);
-  public final static native void delete_cork(long jarg1);
   public final static native void dht_lookup_type_set(long jarg1, dht_lookup jarg1_, String jarg2);
   public final static native String dht_lookup_type_get(long jarg1, dht_lookup jarg1_);
   public final static native void dht_lookup_outstanding_requests_set(long jarg1, dht_lookup jarg1_, int jarg2);

@@ -244,6 +244,7 @@ namespace boost {
 %ignore libtorrent::url_has_argument;
 %ignore libtorrent::set_piece_hashes;
 %ignore libtorrent::hash_value;
+%ignore libtorrent::cork;
 %ignore libtorrent::detail::add_files_impl;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::generic_category;
@@ -281,6 +282,12 @@ namespace boost {
 %ignore libtorrent::peer_connection::download_queue;
 %ignore libtorrent::peer_connection::request_queue;
 %ignore libtorrent::peer_connection::downloading_piece_progress;
+%ignore libtorrent::peer_connection::timeout_requests;
+%ignore libtorrent::peer_connection::reset_upload_quota;
+%ignore libtorrent::peer_connection::m_channel_state;
+%ignore libtorrent::peer_connection::can_read;
+%ignore libtorrent::peer_connection::get_socket;
+%ignore libtorrent::peer_connection::received_listen_port() const;
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;
@@ -430,7 +437,7 @@ namespace boost {
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/bandwidth_limit.hpp"
 %include "libtorrent/bandwidth_socket.hpp"
-%include "peer_connection.hpp"
+%include "libtorrent/peer_connection.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
 %include "libtorrent/torrent.hpp"
