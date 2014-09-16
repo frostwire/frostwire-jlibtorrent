@@ -268,6 +268,7 @@ namespace boost {
 %ignore libtorrent::session::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>);
 %ignore libtorrent::session::dht_get_item(boost::array<char, 32>, std::string);
 %ignore libtorrent::session::dht_get_item(boost::array<char, 32>);
+%ignore libtorrent::peer_connection::peer_connection;
 %ignore libtorrent::peer_connection::incoming_piece;
 %ignore libtorrent::peer_connection::send_buffer;
 %ignore libtorrent::peer_connection::associated_torrent;
@@ -278,6 +279,8 @@ namespace boost {
 %ignore libtorrent::peer_connection::request_queue;
 %ignore libtorrent::peer_connection::downloading_piece_progress;
 %ignore libtorrent::bt_peer_connection::send_buffer;
+%ignore libtorrent::bt_peer_connection::write_metadata;
+%ignore libtorrent::bt_peer_connection::write_metadata_request;
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
@@ -416,7 +419,7 @@ namespace boost {
 %include "extensions.hpp"
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
-%include "bt_peer_connection.hpp"
+%include "libtorrent/bt_peer_connection.hpp"
 %include "ip_voter.hpp"
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"

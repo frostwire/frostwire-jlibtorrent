@@ -8,7 +8,6 @@ mkdir -p ${JAVA_SRC_OUTPUT}
 swig -c++ -java -o libtorrent_jni.cpp \
     -outdir ${JAVA_SRC_OUTPUT} \
     -package com.frostwire.jlibtorrent.swig \
-    -Ilibtorrent-rasterbar-1.0.1/include \
     -I/usr/local/include \
     -DBOOST_ASIO_DECL="" \
     -DBOOST_NO_TYPEID=1 \
