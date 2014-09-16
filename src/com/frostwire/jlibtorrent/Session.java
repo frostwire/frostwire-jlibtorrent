@@ -56,6 +56,9 @@ public final class Session {
         int_int_pair pr = new int_int_pair(6881, 6889);
         error_code ec = new error_code();
         s.listen_on(pr, ec);
+
+        s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
+        s.start_dht();
     }
 
     public session getSwig() {
