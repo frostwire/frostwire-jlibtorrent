@@ -18,15 +18,15 @@
 
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.swig.metadata_received_alert;
+import com.frostwire.jlibtorrent.swig.peer_alert;
 
 /**
  * @author gubatron
  * @author aldenml
  */
-public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_alert> {
+public class PeerAlert<T extends peer_alert> extends TorrentAlert<T> {
 
-    public MetadataReceivedAlert(metadata_received_alert alert) {
+    public PeerAlert(T alert) {
         super(alert);
     }
 }

@@ -24,7 +24,7 @@ import com.frostwire.jlibtorrent.swig.torrent_finished_alert;
  * @author gubatron
  * @author aldenml
  */
-public class TorrentFinishedAlert extends TorrentAlert<torrent_finished_alert> {
+public final class TorrentFinishedAlert extends TorrentAlert<torrent_finished_alert> {
 
     public TorrentFinishedAlert(torrent_finished_alert alert) {
         super(alert);

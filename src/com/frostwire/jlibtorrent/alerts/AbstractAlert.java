@@ -26,13 +26,26 @@ import com.frostwire.jlibtorrent.swig.alert;
  */
 public abstract class AbstractAlert<T extends alert> implements Alert<T> {
 
-    private final T alert;
+    protected final T alert;
+    protected final int type;
 
     public AbstractAlert(T alert) {
         this.alert = alert;
+        this.type = alert.type();
     }
 
+    @Override
     public final T getSwig() {
         return alert;
+    }
+
+    @Override
+    public int getType() {
+        return type;
+    }
+
+    @Override
+    public int getCategory() {
+        return alert.category();
     }
 }

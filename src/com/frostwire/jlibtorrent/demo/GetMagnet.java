@@ -50,38 +50,38 @@ public final class GetMagnet {
         torrent_handle th = s.getSwig().add_torrent(p);
         th.auto_managed(false);
 
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    List<Alert<?>> alerts = s.waitForAlerts(1000);
-                    for (Alert<?> alert : alerts) {
-                        //System.out.println("alert: " + alert.what() + " - " + alert.message());
-
-                        if (alert instanceof MetadataReceivedAlert) {
-
-                            metadata_received_alert a = ((MetadataReceivedAlert) alert).getSwig();
-                            torrent_handle th = a.getHandle();
-                            torrent_info ti = th.torrent_file();
-                            create_torrent ct = new create_torrent(ti);
-                            byte[] data = LibTorrent.vector2bytes(ct.generate().bencode());
-                            try {
-                                Files.write(downloadDir.toPath(), data);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            System.out.print("Torrent metadata received");
-                            System.exit(0);
-                        }
-
-                        System.out.println("Downloading magnet...");
-                    }
-                }
-            }
-        });
-
-        t.start();
-        t.join();
+//        Thread t = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    List<Alert<?>> alerts = s.waitForAlerts(1000);
+//                    for (Alert<?> alert : alerts) {
+//                        //System.out.println("alert: " + alert.what() + " - " + alert.message());
+//
+//                        if (alert instanceof MetadataReceivedAlert) {
+//
+//                            metadata_received_alert a = ((MetadataReceivedAlert) alert).getSwig();
+//                            torrent_handle th = a.getHandle();
+//                            torrent_info ti = th.torrent_file();
+//                            create_torrent ct = new create_torrent(ti);
+//                            byte[] data = LibTorrent.vector2bytes(ct.generate().bencode());
+//                            try {
+//                                Files.write(downloadDir.toPath(), data);
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            System.out.print("Torrent metadata received");
+//                            System.exit(0);
+//                        }
+//
+//                        System.out.println("Downloading magnet...");
+//                    }
+//                }
+//            }
+//        });
+//
+//        t.start();
+//        t.join();
     }
 }

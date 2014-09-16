@@ -39,9 +39,16 @@ public final class Session {
         System.loadLibrary("jlibtorrent");
     }
 
+    private static final Logger LOG = Logger.getLogger(Session.class);
+
+    private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
+
     private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildAlertCastTable();
 
     private final session s;
+
+    private boolean running;
+    private List<AlertListener> listeners;
 
     public Session(fingerprint fingerprint) {
 
@@ -60,6 +67,11 @@ public final class Session {
         s.start_lsd();
 
         s.add_all_extensions();
+
+        this.running = true;
+        this.listeners = Collections.synchronizedList(new LinkedList<AlertListener>());
+
+        alertsLoop();
     }
 
     public Session() {
@@ -68,6 +80,14 @@ public final class Session {
 
     public session getSwig() {
         return s;
+    }
+
+    public void addListener(AlertListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public void removeListener(AlertListener listener) {
+        this.listeners.remove(listener);
     }
 
     /**
@@ -123,34 +143,42 @@ public final class Session {
         this.removeTorrent(th, Options.NONE);
     }
 
-    /**
-     * Blocks until an alert is available, or for no more than max_wait time. If wait_for_alert returns
-     * because of the time-out, and no alerts are available, it returns 0. If at least one alert
-     * was generated, a pointer to that alert is returned. The alert is not popped, any subsequent calls
-     * to wait_for_alert will return the same pointer until the alert is popped by calling pop_alert.
-     * This is useful for leaving any alert dispatching mechanism independent of this blocking call, the
-     * dispatcher can be called and it can pop the alert independently.
-     *
-     * @param millis
-     * @return
-     */
-    public List<Alert<?>> waitForAlerts(long millis) {
-        time_duration max_wait = libtorrent.milliseconds(millis);
-        alert ptr = s.wait_for_alert(max_wait);
+    private void alertsLoop() {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                time_duration max_wait = libtorrent.milliseconds(ALERTS_LOOP_WAIT_MILLIS);
+                while (running) {
+                    alert ptr = s.wait_for_alert(max_wait);
 
-        alert_ptr_deque deque = new alert_ptr_deque();
-        if (ptr != null) {
-            s.pop_alerts(deque);
-        }
+                    alert_ptr_deque deque = new alert_ptr_deque();
+                    if (ptr != null) {
+                        s.pop_alerts(deque);
+                    }
 
-        List<Alert<?>> alerts = new ArrayList<Alert<?>>((int) deque.size());
+                    List<Alert<?>> alerts = new ArrayList<Alert<?>>((int) deque.size());
 
-        for (int i = 0; i < deque.size(); i++) {
-            alert a = deque.getitem(i);
-            alerts.add(castAlert(a));
-        }
+                    for (int i = 0; i < deque.size(); i++) {
+                        Alert<?> a = castAlert(deque.getitem(i));
+                        synchronized (listeners) {
+                            for (AlertListener l : listeners) {
+                                try {
+                                    if (l.accept(a)) {
+                                        l.onAlert(a);
+                                    }
+                                } catch (Throwable e) {
+                                    LOG.warn("Error calling alert listener", e);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
 
-        return alerts;
+        Thread t = new Thread(r, "LTEngine-alertsLoop");
+        t.setDaemon(true);
+        t.start();
     }
 
     private static Map<Integer, CastAlertFunction> buildAlertCastTable() {
@@ -244,7 +272,7 @@ public final class Session {
 
             map.put(type, function);
         } catch (Throwable e) {
-            System.out.println(e);
+            LOG.warn(e.toString());
         }
     }
 
@@ -312,7 +340,7 @@ public final class Session {
                 Object obj = method.invoke(null, a);
                 r = constructor.newInstance(obj);
             } catch (Throwable e) {
-                System.out.println(e);
+                LOG.warn(e.toString());
                 r = new GenericAlert(a);
             }
 

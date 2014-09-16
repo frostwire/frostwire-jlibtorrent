@@ -18,15 +18,23 @@
 
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.swig.metadata_received_alert;
+import com.frostwire.jlibtorrent.swig.block_finished_alert;
 
 /**
  * @author gubatron
  * @author aldenml
  */
-public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_alert> {
+public final class BlockFinishedAlert extends PeerAlert<block_finished_alert> {
 
-    public MetadataReceivedAlert(metadata_received_alert alert) {
+    public BlockFinishedAlert(block_finished_alert alert) {
         super(alert);
+    }
+
+    public int getBlockIndex() {
+        return alert.getBlock_index();
+    }
+
+    public int getPieceIndex() {
+        return alert.getPiece_index();
     }
 }

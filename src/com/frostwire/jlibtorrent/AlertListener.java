@@ -16,17 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.frostwire.jlibtorrent.alerts;
+package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.metadata_received_alert;
+import com.frostwire.jlibtorrent.alerts.Alert;
 
 /**
  * @author gubatron
  * @author aldenml
  */
-public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_alert> {
+public interface AlertListener {
 
-    public MetadataReceivedAlert(metadata_received_alert alert) {
-        super(alert);
-    }
+    public boolean accept(Alert<?> a);
+
+    public void onAlert(Alert<?> a);
 }

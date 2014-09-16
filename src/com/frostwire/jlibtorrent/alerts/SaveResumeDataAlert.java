@@ -24,7 +24,7 @@ import com.frostwire.jlibtorrent.swig.save_resume_data_alert;
  * @author gubatron
  * @author aldenml
  */
-public class SaveResumeDataAlert extends TorrentAlert<save_resume_data_alert> {
+public final class SaveResumeDataAlert extends TorrentAlert<save_resume_data_alert> {
 
     public SaveResumeDataAlert(save_resume_data_alert alert) {
         super(alert);

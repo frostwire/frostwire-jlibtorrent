@@ -20,12 +20,13 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.TorrentAlertAdapter;
 import com.frostwire.jlibtorrent.TorrentHandle;
-import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 
 import java.io.File;
-import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author gubatron
@@ -46,27 +47,22 @@ public final class DownloadTorrent {
 
         final TorrentHandle th = s.addTorrent(torrentFile, torrentFile.getParentFile());
 
-        Thread t = new Thread(new Runnable() {
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        s.addListener(new TorrentAlertAdapter(th) {
             @Override
-            public void run() {
-                while (true) {
-                    List<Alert<?>> alerts = s.waitForAlerts(1000);
-                    for (Alert<?> alert : alerts) {
-                        //System.out.println("alert: " + alert.what() + " - " + alert.message());
+            public void onBlockFinished(BlockFinishedAlert alert) {
+                int p = (int) (th.getStatus().progress * 100);
+                System.out.println("Progress: " + p);
+            }
 
-                        if (alert instanceof TorrentFinishedAlert) {
-                            System.out.print("Torrent finished");
-                            System.exit(0);
-                        }
-
-                        int p = (int) (th.getStatus().progress * 100);
-                        System.out.println("Progress: " + p);
-                    }
-                }
+            @Override
+            public void onFinished(TorrentFinishedAlert alert) {
+                System.out.print("Torrent finished");
+                signal.countDown();
             }
         });
 
-        t.start();
-        t.join();
+        signal.await();
     }
 }

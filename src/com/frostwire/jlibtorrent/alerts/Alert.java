@@ -27,4 +27,8 @@ import com.frostwire.jlibtorrent.swig.alert;
 public interface Alert<T extends alert> {
 
     public T getSwig();
+
+    public int getType();
+
+    public int getCategory();
 }
