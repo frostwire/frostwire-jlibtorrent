@@ -345,6 +345,8 @@ namespace boost {
 %ignore libtorrent::torrent_info::metadata;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
 %ignore libtorrent::read_piece_alert::buffer;
+%ignore libtorrent::peer_plugin::on_extended;
+%ignore libtorrent::peer_plugin::on_unknown_message;
 
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
@@ -416,7 +418,7 @@ namespace boost {
 %include "libtorrent/session_settings.hpp"
 %include "libtorrent/torrent.hpp"
 %include "session.hpp"
-%include "extensions.hpp"
+%include "libtorrent/extensions.hpp"
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
 %include "libtorrent/bt_peer_connection.hpp"
