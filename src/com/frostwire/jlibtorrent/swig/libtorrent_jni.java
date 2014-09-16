@@ -3936,6 +3936,7 @@ public class libtorrent_jni {
   public final static native void session_delete_port_mapping(long jarg1, session jarg1_, int jarg2);
   public final static native void session_start_natpmp(long jarg1, session jarg1_);
   public final static native void session_stop_natpmp(long jarg1, session jarg1_);
+  public final static native void session_add_all_extensions(long jarg1, session jarg1_);
   public final static native void delete_plugin(long jarg1);
   public final static native void plugin_on_alert(long jarg1, plugin jarg1_, long jarg2, alert jarg2_);
   public final static native void plugin_on_tick(long jarg1, plugin jarg1_);
@@ -4146,10 +4147,6 @@ public class libtorrent_jni {
   public final static native char buffer_const_interval_op_get_at(long jarg1, buffer.const_interval jarg1_, int jarg2);
   public final static native boolean buffer_const_interval_op_eq(long jarg1, buffer.const_interval jarg1_, long jarg2, buffer.const_interval jarg2_);
   public final static native int buffer_const_interval_left(long jarg1, buffer.const_interval jarg1_);
-  public final static native void buffer_const_interval_begin_set(long jarg1, buffer.const_interval jarg1_, String jarg2);
-  public final static native String buffer_const_interval_begin_get(long jarg1, buffer.const_interval jarg1_);
-  public final static native void buffer_const_interval_end_set(long jarg1, buffer.const_interval jarg1_, String jarg2);
-  public final static native String buffer_const_interval_end_get(long jarg1, buffer.const_interval jarg1_);
   public final static native void delete_buffer_const_interval(long jarg1);
   public final static native long new_buffer__SWIG_0(long jarg1);
   public final static native long new_buffer__SWIG_1();

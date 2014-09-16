@@ -337,6 +337,10 @@ public class session {
     libtorrent_jni.session_stop_natpmp(swigCPtr, this);
   }
 
+  public void add_all_extensions() {
+    libtorrent_jni.session_add_all_extensions(swigCPtr, this);
+  }
+
   public enum save_state_flags_t {
     save_settings(libtorrent_jni.session_save_settings_get()),
     save_dht_settings(libtorrent_jni.session_save_dht_settings_get()),

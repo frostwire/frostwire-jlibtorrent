@@ -143,22 +143,6 @@ public class buffer {
       return libtorrent_jni.buffer_const_interval_left(swigCPtr, this);
     }
   
-    public void setBegin(String value) {
-      libtorrent_jni.buffer_const_interval_begin_set(swigCPtr, this, value);
-    }
-  
-    public String getBegin() {
-      return libtorrent_jni.buffer_const_interval_begin_get(swigCPtr, this);
-    }
-  
-    public void setEnd(String value) {
-      libtorrent_jni.buffer_const_interval_end_set(swigCPtr, this, value);
-    }
-  
-    public String getEnd() {
-      return libtorrent_jni.buffer_const_interval_end_get(swigCPtr, this);
-    }
-  
   }
 
   public buffer(long n) {

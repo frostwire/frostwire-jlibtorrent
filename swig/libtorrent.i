@@ -56,6 +56,11 @@
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
+
+#include "libtorrent/extensions/ut_pex.hpp"
+#include "libtorrent/extensions/ut_metadata.hpp"
+#include "libtorrent/extensions/lt_trackers.hpp"
+#include "libtorrent/extensions/smart_ban.hpp"
     
 // aditional includes
     
@@ -332,6 +337,8 @@ namespace std {
 %ignore libtorrent::buffer::begin() const;
 %ignore libtorrent::buffer::end() const;
 %ignore libtorrent::buffer::operator[];
+%ignore libtorrent::buffer::const_interval::begin;
+%ignore libtorrent::buffer::const_interval::end;
 %ignore libtorrent::stats_alert::transferred;
 %ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
 %ignore libtorrent::dht_mutable_item_alert::key;
@@ -566,6 +573,15 @@ namespace libtorrent {
 %extend torrent_info {
     time_t get_creation_date() {
         return $self->creation_date().get_value_or(0);
+    }
+};
+
+%extend session {
+    void add_all_extensions() {
+        $self->add_extension(&libtorrent::create_ut_pex_plugin);
+        $self->add_extension(&libtorrent::create_ut_metadata_plugin);
+        $self->add_extension(&libtorrent::create_lt_trackers_plugin);
+        $self->add_extension(&libtorrent::create_smart_ban_plugin);
     }
 };
 }

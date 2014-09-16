@@ -27,11 +27,7 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author gubatron
@@ -39,25 +35,35 @@ import java.util.Map;
  */
 public final class Session {
 
-    private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildAlertCastTable();
-
     static {
         System.loadLibrary("jlibtorrent");
     }
 
+    private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildAlertCastTable();
+
     private final session s;
 
-    public Session() {
-        this.s = new session();
+    public Session(fingerprint fingerprint) {
+
+        this.s = new session(fingerprint);
 
         s.set_alert_mask(alert.category_t.all_categories.swigValue());
 
-        int_int_pair pr = new int_int_pair(6881, 6889);
+        int_int_pair pr = new int_int_pair(6881, 6981);
         error_code ec = new error_code();
         s.listen_on(pr, ec);
 
         s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
-        s.start_dht();
+
+        s.start_upnp();
+        s.start_natpmp();
+        s.start_lsd();
+
+        s.add_all_extensions();
+    }
+
+    public Session() {
+        this(new fingerprint("FW", 0, 0, 1, 1));
     }
 
     public session getSwig() {
@@ -226,7 +232,7 @@ public final class Session {
         CAST_ALERT_METHOD(dht_mutable_item_alert.class, map);
         CAST_ALERT_METHOD(dht_put_alert.class, map);
         CAST_ALERT_METHOD(i2p_alert.class, map);
-        
+
         return Collections.unmodifiableMap(map);
     }
 
