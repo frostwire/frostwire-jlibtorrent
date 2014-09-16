@@ -15,6 +15,8 @@ public interface libtorrentConstants {
   public final static int LIBTORRENT_VERSION_NUM = libtorrent_jni.LIBTORRENT_VERSION_NUM_get();
   public final static String LIBTORRENT_VERSION = libtorrent_jni.LIBTORRENT_VERSION_get();
   public final static String LIBTORRENT_REVISION = libtorrent_jni.LIBTORRENT_REVISION_get();
+  public final static int min_request_queue = libtorrent_jni.min_request_queue_get();
+
   public final static int tracker_retry_delay_min = libtorrent_jni.tracker_retry_delay_min_get();
   public final static int tracker_retry_delay_max = libtorrent_jni.tracker_retry_delay_max_get();
 

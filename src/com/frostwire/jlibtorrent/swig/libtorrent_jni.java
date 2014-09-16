@@ -968,6 +968,7 @@ public class libtorrent_jni {
   public final static native long new_ufloat16__SWIG_0();
   public final static native long new_ufloat16__SWIG_1(int jarg1);
   public final static native void delete_ufloat16(long jarg1);
+  public final static native int min_request_queue_get();
   public final static native long peer_priority(long jarg1, tcp_endpoint jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native void request_a_block(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
   public final static native long new_policy(long jarg1, torrent jarg1_);
@@ -1053,7 +1054,6 @@ public class libtorrent_jni {
   public final static native int policy_num_seeds(long jarg1, policy jarg1_);
   public final static native int policy_num_connect_candidates(long jarg1, policy jarg1_);
   public final static native void policy_recalculate_connect_candidates(long jarg1, policy jarg1_);
-  public final static native void policy_erase_peer(long jarg1, policy jarg1_, long jarg2, policy.peer jarg2_);
   public final static native void delete_policy(long jarg1);
   public final static native int tracker_retry_delay_min_get();
   public final static native int tracker_retry_delay_max_get();

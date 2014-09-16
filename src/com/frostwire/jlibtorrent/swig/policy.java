@@ -472,8 +472,4 @@ public class policy {
     libtorrent_jni.policy_recalculate_connect_candidates(swigCPtr, this);
   }
 
-  public void erase_peer(policy.peer p) {
-    libtorrent_jni.policy_erase_peer(swigCPtr, this, policy.peer.getCPtr(p), p);
-  }
-
 }

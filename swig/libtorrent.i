@@ -309,7 +309,13 @@ namespace boost {
 %ignore libtorrent::torrent::on_name_lookup;
 %ignore libtorrent::torrent::on_proxy_name_lookup;
 %ignore libtorrent::torrent::read_piece_struct::piece_data;
+%ignore libtorrent::policy::begin_peer;
+%ignore libtorrent::policy::end_peer;
+%ignore libtorrent::policy::erase_peer;
+%ignore libtorrent::policy::find_peers;
 %ignore libtorrent::policy::peer::rank;
+%ignore libtorrent::policy::peer::address;
+%ignore libtorrent::policy::peer::ip;
 %ignore libtorrent::policy::ipv6_peer::addr;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
@@ -409,7 +415,7 @@ namespace boost {
 %include "libtorrent/storage_defs.hpp"
 %include "libtorrent/storage.hpp"
 %include "libtorrent/file_storage.hpp"
-%include "policy.hpp"
+%include "libtorrent/policy.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "torrent_handle.hpp"
 %include "libtorrent/add_torrent_params.hpp"
