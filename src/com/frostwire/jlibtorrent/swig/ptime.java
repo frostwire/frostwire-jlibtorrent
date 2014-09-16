@@ -35,6 +35,38 @@ public class ptime {
     }
   }
 
+  public String zone_name() {
+    return libtorrent_jni.ptime_zone_name(swigCPtr, this);
+  }
+
+  public String zone_abbrev() {
+    return libtorrent_jni.ptime_zone_abbrev(swigCPtr, this);
+  }
+
+  public String zone_as_posix_string() {
+    return libtorrent_jni.ptime_zone_as_posix_string(swigCPtr, this);
+  }
+
+  public boolean is_not_a_date_time() {
+    return libtorrent_jni.ptime_is_not_a_date_time(swigCPtr, this);
+  }
+
+  public boolean is_infinity() {
+    return libtorrent_jni.ptime_is_infinity(swigCPtr, this);
+  }
+
+  public boolean is_pos_infinity() {
+    return libtorrent_jni.ptime_is_pos_infinity(swigCPtr, this);
+  }
+
+  public boolean is_neg_infinity() {
+    return libtorrent_jni.ptime_is_neg_infinity(swigCPtr, this);
+  }
+
+  public boolean is_special() {
+    return libtorrent_jni.ptime_is_special(swigCPtr, this);
+  }
+
   public ptime() {
     this(libtorrent_jni.new_ptime(), true);
   }

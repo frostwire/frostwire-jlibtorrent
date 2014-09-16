@@ -9,14 +9,76 @@
 
 namespace boost {
 
+    namespace date_time {
+
+        enum special_values {not_a_date_time,
+                            neg_infin, pos_infin,
+                            min_date_time,  max_date_time,
+                            not_special, NumSpecialValues};
+
+        enum time_resolutions {
+            sec,
+            tenth,
+            hundreth, // deprecated misspelled version of hundredth
+            hundredth = hundreth,
+            milli,
+            ten_thousandth,
+            micro,
+            nano,
+            NumResolutions
+        };
+    }
+
     namespace posix_time {
 
         class ptime {
+        public:
 
+            std::string zone_name();
+            std::string zone_abbrev();
+            std::string zone_as_posix_string();
+
+            bool is_not_a_date_time();
+            bool is_infinity();
+            bool is_pos_infinity();
+            bool is_neg_infinity();
+            bool is_special();
         };
 
         class time_duration {
+        public:
 
+            time_duration();
+            time_duration(boost::int64_t hours_in,
+                  boost::int64_t minutes_in,
+                  boost::int64_t seconds_in,
+                  boost::int64_t frac_sec_in);
+            time_duration(time_duration other);
+            time_duration(boost::date_time::special_values sv);
+
+            static time_duration unit();
+            static boost::int64_t ticks_per_second();
+            static boost::date_time::time_resolutions resolution();
+
+            boost::int64_t hours();
+            boost::int64_t minutes();
+            boost::int64_t seconds();
+            boost::int64_t total_seconds();
+            boost::int64_t total_milliseconds();
+            boost::int64_t total_nanoseconds();
+            boost::int64_t total_microseconds();
+            boost::int64_t fractional_seconds();
+
+            static unsigned short num_fractional_digits();
+
+            bool is_negative();
+
+            boost::int64_t ticks();
+
+            bool is_special();
+            bool is_pos_infinity();
+            bool is_neg_infinity();
+            bool is_not_a_date_time();
         };
     }
 
