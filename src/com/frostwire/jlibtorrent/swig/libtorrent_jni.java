@@ -986,7 +986,6 @@ public class libtorrent_jni {
   public final static native long new_policy_peer(int jarg1, boolean jarg2, int jarg3);
   public final static native long policy_peer_total_download(long jarg1, policy.peer jarg1_);
   public final static native long policy_peer_total_upload(long jarg1, policy.peer jarg1_);
-  public final static native long policy_peer_rank(long jarg1, policy.peer jarg1_, long jarg2, external_ip jarg2_, int jarg3);
   public final static native String policy_peer_dest(long jarg1, policy.peer jarg1_);
   public final static native void policy_peer_prev_amount_upload_set(long jarg1, policy.peer jarg1_, long jarg2);
   public final static native long policy_peer_prev_amount_upload_get(long jarg1, policy.peer jarg1_);
@@ -4042,12 +4041,6 @@ public class libtorrent_jni {
   public final static native void bt_peer_connection_on_connected(long jarg1, bt_peer_connection jarg1_);
   public final static native void bt_peer_connection_on_metadata(long jarg1, bt_peer_connection jarg1_);
   public final static native void bt_peer_connection_append_const_send_buffer(long jarg1, bt_peer_connection jarg1_, String jarg2, int jarg3);
-  public final static native long new_ip_voter();
-  public final static native boolean ip_voter_cast_vote(long jarg1, ip_voter jarg1_, long jarg2, address jarg2_, int jarg3, long jarg4, address jarg4_);
-  public final static native void delete_ip_voter(long jarg1);
-  public final static native boolean external_ip_cast_vote(long jarg1, external_ip jarg1_, long jarg2, address jarg2_, int jarg3, long jarg4, address jarg4_);
-  public final static native long new_external_ip();
-  public final static native void delete_external_ip(long jarg1);
   public final static native int plus_one(int jarg1);
   public final static native int minus_one(int jarg1);
   public final static native int ip_filter_blocked_get();
@@ -4063,6 +4056,7 @@ public class libtorrent_jni {
   public final static native long new_pascal_string(String jarg1, int jarg2);
   public final static native void pascal_string_len_set(long jarg1, pascal_string jarg1_, int jarg2);
   public final static native int pascal_string_len_get(long jarg1, pascal_string jarg1_);
+  public final static native void pascal_string_ptr_set(long jarg1, pascal_string jarg1_, String jarg2);
   public final static native String pascal_string_ptr_get(long jarg1, pascal_string jarg1_);
   public final static native boolean pascal_string_op_lt(long jarg1, pascal_string jarg1_, long jarg2, pascal_string jarg2_);
   public final static native void delete_pascal_string(long jarg1);
@@ -4104,6 +4098,7 @@ public class libtorrent_jni {
   public final static native void delete_lazy_entry(long jarg1);
   public final static native long lazy_entry_data_section(long jarg1, lazy_entry jarg1_);
   public final static native void lazy_entry_swap(long jarg1, lazy_entry jarg1_, long jarg2, lazy_entry jarg2_);
+  public final static native void lazy_dict_entry_name_set(long jarg1, lazy_dict_entry jarg1_, String jarg2);
   public final static native String lazy_dict_entry_name_get(long jarg1, lazy_dict_entry jarg1_);
   public final static native long lazy_dict_entry_val_get(long jarg1, lazy_dict_entry jarg1_);
   public final static native long new_lazy_dict_entry();
@@ -4231,6 +4226,7 @@ public class libtorrent_jni {
   public final static native int file_status_mode_get(long jarg1, file_status jarg1_);
   public final static native long new_file_status();
   public final static native void delete_file_status(long jarg1);
+  public final static native int dont_follow_links_get();
   public final static native void stat_file__SWIG_0(String jarg1, long jarg2, file_status jarg2_, long jarg3, error_code jarg3_, int jarg4);
   public final static native void stat_file__SWIG_1(String jarg1, long jarg2, file_status jarg2_, long jarg3, error_code jarg3_);
   public final static native void rename(String jarg1, String jarg2, long jarg3, error_code jarg3_);

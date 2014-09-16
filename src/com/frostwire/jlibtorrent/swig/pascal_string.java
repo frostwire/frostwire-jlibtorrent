@@ -47,6 +47,10 @@ public class pascal_string {
     return libtorrent_jni.pascal_string_len_get(swigCPtr, this);
   }
 
+  public void setPtr(String value) {
+    libtorrent_jni.pascal_string_ptr_set(swigCPtr, this, value);
+  }
+
   public String getPtr() {
     return libtorrent_jni.pascal_string_ptr_get(swigCPtr, this);
   }

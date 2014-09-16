@@ -48,7 +48,6 @@
 #include "libtorrent/disk_buffer_holder.hpp"
 #include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/bt_peer_connection.hpp"
-#include "libtorrent/ip_voter.hpp"
 #include "libtorrent/file_pool.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/lazy_entry.hpp"
@@ -307,6 +306,7 @@ namespace boost {
 %ignore libtorrent::torrent::on_name_lookup;
 %ignore libtorrent::torrent::on_proxy_name_lookup;
 %ignore libtorrent::torrent::read_piece_struct::piece_data;
+%ignore libtorrent::policy::peer::rank;
 %ignore libtorrent::policy::ipv6_peer::addr;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
@@ -347,6 +347,10 @@ namespace boost {
 %ignore libtorrent::read_piece_alert::buffer;
 %ignore libtorrent::peer_plugin::on_extended;
 %ignore libtorrent::peer_plugin::on_unknown_message;
+%ignore libtorrent::lazy_entry::dict_find(char const *) const;
+%ignore libtorrent::lazy_entry::list_at(int) const;
+%ignore libtorrent::bdecode_errors::error_code_enum;
+%ignore libtorrent::bdecode_errors::make_error_code;
 
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
@@ -422,13 +426,12 @@ namespace boost {
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
 %include "libtorrent/bt_peer_connection.hpp"
-%include "ip_voter.hpp"
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
-%include "lazy_entry.hpp"
+%include "libtorrent/lazy_entry.hpp"
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/tracker_manager.hpp"
-%include "file.hpp"
+%include "libtorrent/file.hpp"
 %include "libtorrent/time.hpp"
 %include "libtorrent/escape_string.hpp"
 %include "libtorrent/bencode.hpp"

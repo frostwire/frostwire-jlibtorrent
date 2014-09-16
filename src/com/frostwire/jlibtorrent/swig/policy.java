@@ -123,10 +123,6 @@ public class policy {
       return libtorrent_jni.policy_peer_total_upload(swigCPtr, this);
     }
   
-    public long rank(external_ip external, int external_port) {
-      return libtorrent_jni.policy_peer_rank(swigCPtr, this, external_ip.getCPtr(external), external, external_port);
-    }
-  
     public String dest() {
       return libtorrent_jni.policy_peer_dest(swigCPtr, this);
     }

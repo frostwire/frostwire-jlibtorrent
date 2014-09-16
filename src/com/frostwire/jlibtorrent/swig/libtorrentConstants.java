@@ -22,4 +22,6 @@ public interface libtorrentConstants {
   public final static int TORRENT_DEBUG_STREAMING = libtorrent_jni.TORRENT_DEBUG_STREAMING_get();
   public final static int _FILE_OFFSET_BITS = libtorrent_jni._FILE_OFFSET_BITS_get();
   public final static int _XOPEN_SOURCE = libtorrent_jni._XOPEN_SOURCE_get();
+  public final static int dont_follow_links = libtorrent_jni.dont_follow_links_get();
+
 }

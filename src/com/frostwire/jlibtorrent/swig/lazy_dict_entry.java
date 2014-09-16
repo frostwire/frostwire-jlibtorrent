@@ -35,6 +35,10 @@ public class lazy_dict_entry {
     }
   }
 
+  public void setName(String value) {
+    libtorrent_jni.lazy_dict_entry_name_set(swigCPtr, this, value);
+  }
+
   public String getName() {
     return libtorrent_jni.lazy_dict_entry_name_get(swigCPtr, this);
   }
