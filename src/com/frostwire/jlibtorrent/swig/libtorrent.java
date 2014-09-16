@@ -9,64 +9,64 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent implements libtorrentConstants {
-  public static boolean op_eq(address a1, address a2) {
-    return libtorrent_jni.op_eq__SWIG_0(address.getCPtr(a1), a1, address.getCPtr(a2), a2);
+  public static error_category system_category() {
+    return new error_category(libtorrent_jni.system_category(), false);
   }
 
-  public static boolean op_neq(address a1, address a2) {
-    return libtorrent_jni.op_neq__SWIG_0(address.getCPtr(a1), a1, address.getCPtr(a2), a2);
-  }
-
-  public static boolean op_lt(address a1, address a2) {
-    return libtorrent_jni.op_lt__SWIG_0(address.getCPtr(a1), a1, address.getCPtr(a2), a2);
-  }
-
-  public static boolean op_gt(address a1, address a2) {
-    return libtorrent_jni.op_gt__SWIG_0(address.getCPtr(a1), a1, address.getCPtr(a2), a2);
-  }
-
-  public static boolean op_eq(address_v4 a1, address_v4 a2) {
-    return libtorrent_jni.op_eq__SWIG_1(address_v4.getCPtr(a1), a1, address_v4.getCPtr(a2), a2);
-  }
-
-  public static boolean op_neq(address_v4 a1, address_v4 a2) {
-    return libtorrent_jni.op_neq__SWIG_1(address_v4.getCPtr(a1), a1, address_v4.getCPtr(a2), a2);
-  }
-
-  public static boolean op_lt(address_v4 a1, address_v4 a2) {
-    return libtorrent_jni.op_lt__SWIG_1(address_v4.getCPtr(a1), a1, address_v4.getCPtr(a2), a2);
-  }
-
-  public static boolean op_gt(address_v4 a1, address_v4 a2) {
-    return libtorrent_jni.op_gt__SWIG_1(address_v4.getCPtr(a1), a1, address_v4.getCPtr(a2), a2);
-  }
-
-  public static boolean op_eq(address_v6 a1, address_v6 a2) {
-    return libtorrent_jni.op_eq__SWIG_2(address_v6.getCPtr(a1), a1, address_v6.getCPtr(a2), a2);
-  }
-
-  public static boolean op_neq(address_v6 a1, address_v6 a2) {
-    return libtorrent_jni.op_neq__SWIG_2(address_v6.getCPtr(a1), a1, address_v6.getCPtr(a2), a2);
-  }
-
-  public static boolean op_lt(address_v6 a1, address_v6 a2) {
-    return libtorrent_jni.op_lt__SWIG_2(address_v6.getCPtr(a1), a1, address_v6.getCPtr(a2), a2);
-  }
-
-  public static boolean op_gt(address_v6 a1, address_v6 a2) {
-    return libtorrent_jni.op_gt__SWIG_2(address_v6.getCPtr(a1), a1, address_v6.getCPtr(a2), a2);
+  public static error_category generic_category() {
+    return new error_category(libtorrent_jni.generic_category(), false);
   }
 
   public static boolean op_eq(error_condition lhs, error_condition rhs) {
-    return libtorrent_jni.op_eq(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
+    return libtorrent_jni.op_eq__SWIG_0(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
   }
 
   public static boolean op_lt(error_condition lhs, error_condition rhs) {
-    return libtorrent_jni.op_lt(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
+    return libtorrent_jni.op_lt__SWIG_0(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
   }
 
-  public static error_code make_error_code(error_code_enum e) {
+  public static boolean op_eq(error_code lhs, error_code rhs) {
+    return libtorrent_jni.op_eq__SWIG_1(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
+  }
+
+  public static boolean op_lt(error_code lhs, error_code rhs) {
+    return libtorrent_jni.op_lt__SWIG_1(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
+  }
+
+  public static boolean op_neq(error_code lhs, error_code rhs) {
+    return libtorrent_jni.op_neq__SWIG_0(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
+  }
+
+  public static boolean op_neq(error_condition lhs, error_condition rhs) {
+    return libtorrent_jni.op_neq__SWIG_1(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
+  }
+
+  public static boolean op_eq(error_code code, error_condition condition) {
+    return libtorrent_jni.op_eq__SWIG_2(error_code.getCPtr(code), code, error_condition.getCPtr(condition), condition);
+  }
+
+  public static boolean op_neq(error_code lhs, error_condition rhs) {
+    return libtorrent_jni.op_neq__SWIG_2(error_code.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
+  }
+
+  public static boolean op_eq(error_condition condition, error_code code) {
+    return libtorrent_jni.op_eq__SWIG_3(error_condition.getCPtr(condition), condition, error_code.getCPtr(code), code);
+  }
+
+  public static boolean op_neq(error_condition lhs, error_code rhs) {
+    return libtorrent_jni.op_neq__SWIG_3(error_condition.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
+  }
+
+  public static long hash_value(error_code ec) {
+    return libtorrent_jni.hash_value(error_code.getCPtr(ec), ec);
+  }
+
+  public static error_code make_error_code(errc_t e) {
     return new error_code(libtorrent_jni.make_error_code(e.swigValue()), true);
+  }
+
+  public static error_condition make_error_condition(errc_t e) {
+    return new error_condition(libtorrent_jni.make_error_condition(e.swigValue()), true);
   }
 
   public static error_category get_libtorrent_category() {
@@ -83,10 +83,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static error_category get_posix_category() {
     return new error_category(libtorrent_jni.get_posix_category(), false);
-  }
-
-  public static error_category generic_category() {
-    return new error_category(libtorrent_jni.generic_category(), false);
   }
 
   public static void throw_type_error() {
@@ -123,10 +119,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static void trim_path_element(String path_element) {
     libtorrent_jni.trim_path_element(path_element);
-  }
-
-  public static long hash_value(torrent_status ts) {
-    return libtorrent_jni.hash_value(torrent_status.getCPtr(ts), ts);
   }
 
   public static void throw_invalid_handle() {

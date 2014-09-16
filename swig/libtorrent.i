@@ -242,7 +242,10 @@ namespace boost {
 %ignore libtorrent::lazy_bdecode;
 %ignore libtorrent::url_has_argument;
 %ignore libtorrent::set_piece_hashes;
+%ignore libtorrent::hash_value;
 %ignore libtorrent::detail::add_files_impl;
+%ignore libtorrent::errors::make_error_code;
+%ignore libtorrent::generic_category;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::tracker_manager::tracker_manager;
@@ -352,6 +355,8 @@ namespace boost {
 %ignore libtorrent::bdecode_errors::error_code_enum;
 %ignore libtorrent::bdecode_errors::make_error_code;
 
+%ignore boost::throws;
+%ignore boost::detail::throws;
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
 
@@ -387,7 +392,7 @@ namespace boost {
 %include "address.hpp"
 %include "address_v4.hpp"
 %include "address_v6.hpp"
-%include "error_code.hpp"
+%include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/ptime.hpp"

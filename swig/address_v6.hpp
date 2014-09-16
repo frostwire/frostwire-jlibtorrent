@@ -160,36 +160,36 @@ public:
   BOOST_ASIO_DECL bool is_multicast_site_local() const;
 
   /// Compare two addresses for equality.
-  BOOST_ASIO_DECL friend bool operator==(
-      const address_v6& a1, const address_v6& a2);
-
-  /// Compare two addresses for inequality.
-  friend bool operator!=(const address_v6& a1, const address_v6& a2)
-  {
-    return !(a1 == a2);
-  }
-
-  /// Compare addresses for ordering.
-  BOOST_ASIO_DECL friend bool operator<(
-      const address_v6& a1, const address_v6& a2);
-
-  /// Compare addresses for ordering.
-  friend bool operator>(const address_v6& a1, const address_v6& a2)
-  {
-    return a2 < a1;
-  }
-
-  /// Compare addresses for ordering.
-  friend bool operator<=(const address_v6& a1, const address_v6& a2)
-  {
-    return !(a2 < a1);
-  }
-
-  /// Compare addresses for ordering.
-  friend bool operator>=(const address_v6& a1, const address_v6& a2)
-  {
-    return !(a1 < a2);
-  }
+//  BOOST_ASIO_DECL friend bool operator==(
+//      const address_v6& a1, const address_v6& a2);
+//
+//  /// Compare two addresses for inequality.
+//  friend bool operator!=(const address_v6& a1, const address_v6& a2)
+//  {
+//    return !(a1 == a2);
+//  }
+//
+//  /// Compare addresses for ordering.
+//  BOOST_ASIO_DECL friend bool operator<(
+//      const address_v6& a1, const address_v6& a2);
+//
+//  /// Compare addresses for ordering.
+//  friend bool operator>(const address_v6& a1, const address_v6& a2)
+//  {
+//    return a2 < a1;
+//  }
+//
+//  /// Compare addresses for ordering.
+//  friend bool operator<=(const address_v6& a1, const address_v6& a2)
+//  {
+//    return !(a2 < a1);
+//  }
+//
+//  /// Compare addresses for ordering.
+//  friend bool operator>=(const address_v6& a1, const address_v6& a2)
+//  {
+//    return !(a1 < a2);
+//  }
 
   /// Obtain an address object that represents any address.
   //static address_v6 any()

@@ -128,34 +128,34 @@ public:
   BOOST_ASIO_DECL bool is_multicast() const;
 
   /// Compare two addresses for equality.
-  BOOST_ASIO_DECL friend bool operator==(const address& a1, const address& a2);
+  //BOOST_ASIO_DECL friend bool operator==(const address& a1, const address& a2);
 
   /// Compare two addresses for inequality.
-  friend bool operator!=(const address& a1, const address& a2)
-  {
-    return !(a1 == a2);
-  }
+//  friend bool operator!=(const address& a1, const address& a2)
+//  {
+//    return !(a1 == a2);
+//  }
 
   /// Compare addresses for ordering.
-  BOOST_ASIO_DECL friend bool operator<(const address& a1, const address& a2);
+  //BOOST_ASIO_DECL friend bool operator<(const address& a1, const address& a2);
 
   /// Compare addresses for ordering.
-  friend bool operator>(const address& a1, const address& a2)
-  {
-    return a2 < a1;
-  }
+//  friend bool operator>(const address& a1, const address& a2)
+//  {
+//    return a2 < a1;
+//  }
 
   /// Compare addresses for ordering.
-  friend bool operator<=(const address& a1, const address& a2)
-  {
-    return !(a2 < a1);
-  }
-
-  /// Compare addresses for ordering.
-  friend bool operator>=(const address& a1, const address& a2)
-  {
-    return !(a1 < a2);
-  }
+//  friend bool operator<=(const address& a1, const address& a2)
+//  {
+//    return !(a2 < a1);
+//  }
+//
+//  /// Compare addresses for ordering.
+//  friend bool operator>=(const address& a1, const address& a2)
+//  {
+//    return !(a1 < a2);
+//  }
 
 private:
   // The type of the address.

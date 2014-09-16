@@ -14,6 +14,7 @@ swig -c++ -java -o libtorrent_jni.cpp \
     -DBOOST_VERSION=105000 \
     -DBOOST_POSIX_API=1 \
     -DBOOST_SYSTEM_NOEXCEPT="" \
+    -DBOOST_SYSTEM_DECL="" \
     -DBOOST_SYSTEM_NO_DEPRECATED=1 \
     -DTORRENT_NO_DEPRECATE=1 \
     -DTORRENT_EXPORT="" \
