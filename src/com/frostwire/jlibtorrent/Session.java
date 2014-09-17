@@ -54,7 +54,7 @@ public final class Session {
 
     public Session(fingerprint fingerprint) {
 
-        this.s = new session(fingerprint);
+        this.s = new session();
 
         s.set_alert_mask(alert.category_t.all_categories.swigValue());
 
@@ -63,13 +63,6 @@ public final class Session {
         s.listen_on(pr, ec);
 
         s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
-
-        s.start_upnp();
-        s.start_natpmp();
-        s.start_lsd();
-
-        s.add_lt_trackers_extension();
-        s.add_smart_ban_extension();
 
         this.running = true;
         this.listeners = Collections.synchronizedList(new LinkedList<AlertListener>());
