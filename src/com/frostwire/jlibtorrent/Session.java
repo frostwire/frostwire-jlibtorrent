@@ -229,6 +229,12 @@ public final class Session {
         return s.is_listening();
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        this.running = false;
+        super.finalize();
+    }
+
     private void alertsLoop() {
         Runnable r = new Runnable() {
             @Override

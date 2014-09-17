@@ -21,6 +21,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.block_finished_alert;
 import com.frostwire.jlibtorrent.swig.metadata_received_alert;
+import com.frostwire.jlibtorrent.swig.save_resume_data_alert;
 import com.frostwire.jlibtorrent.swig.torrent_finished_alert;
 
 /**
@@ -54,7 +55,9 @@ public class TorrentAlertAdapter implements AlertListener {
         } else if (type == block_finished_alert.alert_type) {
             onBlockFinished((BlockFinishedAlert) alert);
         } else if (type == metadata_received_alert.alert_type) {
-            onMetadataReceivedAlert((MetadataReceivedAlert) alert);
+            onMetadataReceived((MetadataReceivedAlert) alert);
+        } else if (type == save_resume_data_alert.alert_type) {
+            onSaveResumeData((SaveResumeDataAlert) alert);
         }
     }
 
@@ -64,6 +67,9 @@ public class TorrentAlertAdapter implements AlertListener {
     public void onBlockFinished(BlockFinishedAlert alert) {
     }
 
-    public void onMetadataReceivedAlert(MetadataReceivedAlert alert) {
+    public void onMetadataReceived(MetadataReceivedAlert alert) {
+    }
+
+    public void onSaveResumeData(SaveResumeDataAlert alert) {
     }
 }
