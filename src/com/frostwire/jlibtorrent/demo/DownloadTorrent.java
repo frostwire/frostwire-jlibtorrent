@@ -57,7 +57,7 @@ public final class DownloadTorrent {
             }
 
             @Override
-            public void onFinished(TorrentFinishedAlert alert) {
+            public void onTorrentFinished(TorrentFinishedAlert alert) {
                 System.out.print("Torrent finished");
                 signal.countDown();
             }

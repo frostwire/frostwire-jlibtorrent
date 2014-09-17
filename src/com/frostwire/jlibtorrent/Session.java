@@ -114,7 +114,7 @@ public final class Session {
         torrent_handle th = s.add_torrent(p);
         th.auto_managed(false);
 
-        return new TorrentHandle(th, torrentFile);
+        return new TorrentHandle(th);
     }
 
     public TorrentHandle addTorrent(File torrentFile, File saveDir) {
@@ -198,7 +198,7 @@ public final class Session {
         torrent_info ti = th.torrent_file();
         if (ti != null) {
             create_torrent ct = new create_torrent(ti);
-            data = LibTorrent.vector2bytes(ct.generate().bencode());
+            data = LibTorrent.char_vector2bytes(ct.generate().bencode());
         }
 
         s.remove_torrent(th);
