@@ -24,6 +24,7 @@ import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -115,6 +116,26 @@ public final class Session {
         th.auto_managed(false);
 
         return new TorrentHandle(th);
+    }
+
+    public void asyncAddTorrent(File torrentFile, File saveDir) throws IOException {
+        String torrentPath = torrentFile.getAbsolutePath();
+        String savePath = saveDir.getAbsolutePath();
+
+        torrent_info ti = new torrent_info(torrentPath);
+
+        add_torrent_params p = add_torrent_params.create_instance();
+        p.setTi(ti);
+        p.setSave_path(savePath);
+
+        File resumeFile = new File(torrentFile.getParent(), Utils.getBaseName(torrentPath) + ".resume");
+
+        if (resumeFile.exists()) {
+            byte[] data = Utils.readFileToByteArray(resumeFile);
+            p.setResume_data(LibTorrent.bytes2char_vector(data));
+        }
+
+        s.async_add_torrent(p);
     }
 
     public TorrentHandle addTorrent(File torrentFile, File saveDir) {
