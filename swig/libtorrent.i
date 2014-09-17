@@ -551,6 +551,12 @@ namespace libtorrent {
     }
 };
 
+%extend lazy_entry {
+    static int bdecode(std::vector<char> buffer, lazy_entry& e, error_code& ec) {
+        return lazy_bdecode(&buffer[0], &buffer[0] + buffer.size(), e, ec);
+    }
+};
+
 %extend torrent_handle {
     std::vector<std::string> http_seeds_v() {
         std::set<std::string> s = $self->http_seeds();

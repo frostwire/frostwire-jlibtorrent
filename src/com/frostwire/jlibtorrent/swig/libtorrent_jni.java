@@ -4126,6 +4126,7 @@ public class libtorrent_jni {
   public final static native void delete_lazy_entry(long jarg1);
   public final static native long lazy_entry_data_section(long jarg1, lazy_entry jarg1_);
   public final static native void lazy_entry_swap(long jarg1, lazy_entry jarg1_, long jarg2, lazy_entry jarg2_);
+  public final static native int lazy_entry_bdecode(long jarg1, char_vector jarg1_, long jarg2, lazy_entry jarg2_, long jarg3, error_code jarg3_);
   public final static native void lazy_dict_entry_name_set(long jarg1, lazy_dict_entry jarg1_, String jarg2);
   public final static native String lazy_dict_entry_name_get(long jarg1, lazy_dict_entry jarg1_);
   public final static native long lazy_dict_entry_val_get(long jarg1, lazy_dict_entry jarg1_);

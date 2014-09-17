@@ -191,6 +191,10 @@ public class lazy_entry {
     libtorrent_jni.lazy_entry_swap(swigCPtr, this, lazy_entry.getCPtr(e), e);
   }
 
+  public static int bdecode(char_vector buffer, lazy_entry e, error_code ec) {
+    return libtorrent_jni.lazy_entry_bdecode(char_vector.getCPtr(buffer), buffer, lazy_entry.getCPtr(e), e, error_code.getCPtr(ec), ec);
+  }
+
   public enum entry_type_t {
     none_t,
     dict_t,

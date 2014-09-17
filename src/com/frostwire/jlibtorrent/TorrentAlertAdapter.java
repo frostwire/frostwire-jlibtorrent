@@ -57,6 +57,8 @@ public class TorrentAlertAdapter implements AlertListener {
             onBlockFinished((BlockFinishedAlert) alert);
         } else if (type == metadata_received_alert.alert_type) {
             onMetadataReceived((MetadataReceivedAlert) alert);
+        } else if (type == metadata_failed_alert.alert_type) {
+            onMetadataFailed((MetadataFailedAlert) alert);
         } else if (type == save_resume_data_alert.alert_type) {
             onSaveResumeData((SaveResumeDataAlert) alert);
         }
@@ -75,6 +77,9 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void onMetadataReceived(MetadataReceivedAlert alert) {
+    }
+
+    public void onMetadataFailed(MetadataFailedAlert alert) {
     }
 
     public void onSaveResumeData(SaveResumeDataAlert alert) {

@@ -37,7 +37,7 @@ public final class TorrentHandle {
     private long lastStatusRequestTime;
     private TorrentStatus lastStatus;
 
-    TorrentHandle(torrent_handle th) {
+    public TorrentHandle(torrent_handle th) {
         this.th = th;
     }
 
@@ -46,7 +46,8 @@ public final class TorrentHandle {
     }
 
     public TorrentInfo getTorrentInfo() {
-        return new TorrentInfo(th.torrent_file());
+        torrent_info ti = th.torrent_file();
+        return ti != null ? new TorrentInfo(th.torrent_file()) : null;
     }
 
     public boolean isPaused() {
