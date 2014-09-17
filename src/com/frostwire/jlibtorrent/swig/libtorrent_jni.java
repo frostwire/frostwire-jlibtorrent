@@ -1561,8 +1561,6 @@ public class libtorrent_jni {
   public final static native String add_torrent_params_uuid_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_source_feed_url_set(long jarg1, add_torrent_params jarg1_, String jarg2);
   public final static native String add_torrent_params_source_feed_url_get(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_flags_set(long jarg1, add_torrent_params jarg1_, java.math.BigInteger jarg2);
-  public final static native java.math.BigInteger add_torrent_params_flags_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_info_hash_set(long jarg1, add_torrent_params jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long add_torrent_params_info_hash_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_max_uploads_set(long jarg1, add_torrent_params jarg1_, int jarg2);
@@ -1573,6 +1571,8 @@ public class libtorrent_jni {
   public final static native int add_torrent_params_upload_limit_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_download_limit_set(long jarg1, add_torrent_params jarg1_, int jarg2);
   public final static native int add_torrent_params_download_limit_get(long jarg1, add_torrent_params jarg1_);
+  public final static native long add_torrent_params_getFlags(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_setFlags(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_create_instance_no_storage();
   public final static native void delete_add_torrent_params(long jarg1);

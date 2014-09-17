@@ -153,14 +153,6 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_source_feed_url_get(swigCPtr, this);
   }
 
-  public void setFlags(java.math.BigInteger value) {
-    libtorrent_jni.add_torrent_params_flags_set(swigCPtr, this, value);
-  }
-
-  public java.math.BigInteger getFlags() {
-    return libtorrent_jni.add_torrent_params_flags_get(swigCPtr, this);
-  }
-
   public void setInfo_hash(sha1_hash value) {
     libtorrent_jni.add_torrent_params_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
@@ -200,6 +192,14 @@ public class add_torrent_params {
 
   public int getDownload_limit() {
     return libtorrent_jni.add_torrent_params_download_limit_get(swigCPtr, this);
+  }
+
+  public long getFlags() {
+    return libtorrent_jni.add_torrent_params_getFlags(swigCPtr, this);
+  }
+
+  public void setFlags(long flags) {
+    libtorrent_jni.add_torrent_params_setFlags(swigCPtr, this, flags);
   }
 
   public static add_torrent_params create_instance() {

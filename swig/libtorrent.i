@@ -244,10 +244,11 @@ namespace std {
 %ignore libtorrent::tracker_connection::requester;
 %ignore libtorrent::tracker_connection::on_receive;
 %ignore libtorrent::ip_filter::export_filter;
+%ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore libtorrent::add_torrent_params::extensions;
 %ignore libtorrent::add_torrent_params::storage;
 %ignore libtorrent::add_torrent_params::userdata;
-%ignore libtorrent::add_torrent_params::add_torrent_params;
+%ignore libtorrent::add_torrent_params::flags;
 %ignore libtorrent::torrent::async_verify_piece;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert_manager::set_dispatch_function;
@@ -572,9 +573,18 @@ namespace libtorrent {
 };
 
 %extend add_torrent_params {
+    long long getFlags() {
+        return (long long)$self->flags;
+    }
+
+    void setFlags(long long flags) {
+        $self->flags = flags;
+    }
+
     static add_torrent_params create_instance() {
         return add_torrent_params();
     }
+
     static add_torrent_params create_instance_no_storage() {
         return add_torrent_params(disabled_storage_constructor);
     }
