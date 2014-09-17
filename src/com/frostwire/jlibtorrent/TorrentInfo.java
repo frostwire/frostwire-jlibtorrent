@@ -18,7 +18,6 @@
 
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.torrent_info;
 
 import java.io.File;
@@ -31,14 +30,8 @@ public final class TorrentInfo {
 
     private final torrent_info ti;
 
-    private final String name;
-    private final String infoHash;
-
     public TorrentInfo(torrent_info ti) {
         this.ti = ti;
-
-        this.name = this.ti.name();
-        this.infoHash = libtorrent.to_hex(this.ti.info_hash().to_string());
     }
 
     public TorrentInfo(File torrentFile) {
@@ -50,7 +43,7 @@ public final class TorrentInfo {
     }
 
     public String getName() {
-        return this.name;
+        return ti.name();
     }
 
     /**
@@ -85,7 +78,7 @@ public final class TorrentInfo {
     }
 
     public String getInfoHash() {
-        return infoHash;
+        return LibTorrent.info_hash2string(ti.info_hash());
     }
 
     public String mkString() {

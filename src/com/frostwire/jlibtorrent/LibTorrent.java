@@ -20,6 +20,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.sha1_hash;
 import com.frostwire.jlibtorrent.swig.unsigned_char_vector;
 
 /**
@@ -43,7 +44,7 @@ public final class LibTorrent {
         return ((long) time) * 1000;
     }
 
-    public static byte[] vector2bytes(char_vector v) {
+    public static byte[] char_vector2bytes(char_vector v) {
         int size = (int) v.size();
         byte[] arr = new byte[size];
 
@@ -72,5 +73,9 @@ public final class LibTorrent {
         }
 
         return v;
+    }
+
+    public static String info_hash2string(sha1_hash hash) {
+        return libtorrent.to_hex(hash.to_string());
     }
 }

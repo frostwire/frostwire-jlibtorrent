@@ -19,10 +19,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
-import com.frostwire.jlibtorrent.swig.block_finished_alert;
-import com.frostwire.jlibtorrent.swig.metadata_received_alert;
-import com.frostwire.jlibtorrent.swig.save_resume_data_alert;
-import com.frostwire.jlibtorrent.swig.torrent_finished_alert;
+import com.frostwire.jlibtorrent.swig.*;
 
 /**
  * @author gubatron
@@ -50,8 +47,12 @@ public class TorrentAlertAdapter implements AlertListener {
     @Override
     public void onAlert(Alert<?> alert) {
         int type = alert.getType();
-        if (type == torrent_finished_alert.alert_type) {
-            onFinished((TorrentFinishedAlert) alert);
+        if (type == torrent_added_alert.alert_type) {
+            onTorrentAdded((TorrentAddedAlert) alert);
+        } else if (type == torrent_finished_alert.alert_type) {
+            onTorrentFinished((TorrentFinishedAlert) alert);
+        } else if (type == torrent_removed_alert.alert_type) {
+            onTorrentRemoved((TorrentRemovedAlert) alert);
         } else if (type == block_finished_alert.alert_type) {
             onBlockFinished((BlockFinishedAlert) alert);
         } else if (type == metadata_received_alert.alert_type) {
@@ -61,7 +62,13 @@ public class TorrentAlertAdapter implements AlertListener {
         }
     }
 
-    public void onFinished(TorrentFinishedAlert alert) {
+    public void onTorrentAdded(TorrentAddedAlert alert) {
+    }
+
+    public void onTorrentFinished(TorrentFinishedAlert alert) {
+    }
+
+    public void onTorrentRemoved(TorrentRemovedAlert alert) {
     }
 
     public void onBlockFinished(BlockFinishedAlert alert) {

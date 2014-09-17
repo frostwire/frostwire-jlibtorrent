@@ -24,8 +24,6 @@ import com.frostwire.jlibtorrent.swig.torrent_handle.status_flags_t;
 import com.frostwire.jlibtorrent.swig.torrent_info;
 import com.frostwire.jlibtorrent.swig.torrent_status;
 
-import java.io.File;
-
 /**
  * @author gubatron
  * @author aldenml
@@ -35,37 +33,20 @@ public final class TorrentHandle {
     private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
 
     private final torrent_handle th;
-    private final File torrentFile;
-
-    private final TorrentInfo ti;
-    private final String infoHash;
 
     private long lastStatusRequestTime;
     private TorrentStatus lastStatus;
 
-    TorrentHandle(torrent_handle th, File torrentFile) {
+    TorrentHandle(torrent_handle th) {
         this.th = th;
-        this.torrentFile = torrentFile;
-
-        this.ti = new TorrentInfo(this.th.torrent_file());
-        this.infoHash = this.ti.getInfoHash();
     }
 
     public torrent_handle getSwig() {
         return th;
     }
 
-    /**
-     * This could be null in case the torrent is built from a magnet
-     *
-     * @return
-     */
-    public File getTorrentFile() {
-        return torrentFile;
-    }
-
     public TorrentInfo getTorrentInfo() {
-        return ti;
+        return new TorrentInfo(th.torrent_file());
     }
 
     public boolean isPaused() {
@@ -106,7 +87,7 @@ public final class TorrentHandle {
     }
 
     public String getInfoHash() {
-        return infoHash;
+        return LibTorrent.info_hash2string(th.info_hash());
     }
 
     public void pause() {
@@ -122,8 +103,7 @@ public final class TorrentHandle {
     }
 
     public void saveResumeData() {
-        // 2 - save_info_dict
-        th.save_resume_data();
+        th.save_resume_data(torrent_handle.save_resume_flags_t.save_info_dict.swigValue());
     }
 
     public String getDisplayName() {
