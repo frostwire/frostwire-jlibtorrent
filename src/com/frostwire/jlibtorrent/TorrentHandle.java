@@ -18,8 +18,10 @@
 
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.int_vector;
 import com.frostwire.jlibtorrent.swig.torrent_handle;
 import com.frostwire.jlibtorrent.swig.torrent_handle.status_flags_t;
+import com.frostwire.jlibtorrent.swig.torrent_info;
 import com.frostwire.jlibtorrent.swig.torrent_status;
 
 import java.io.File;
@@ -122,5 +124,39 @@ public final class TorrentHandle {
     public void saveResumeData() {
         // 2 - save_info_dict
         th.save_resume_data();
+    }
+
+    public String getDisplayName() {
+        torrent_info ti = null;
+        if (!th.is_valid() || (ti = th.torrent_file()) == null) {
+            return "Unknown";
+        }
+
+        String name;
+
+        if (ti.num_files() == 1) {
+            name = ti.files().file_name(0);
+        } else {
+            name = ti.name();
+        }
+
+        return name;
+    }
+
+    public boolean isPartial() {
+        if (!th.is_valid()) {
+            return false;
+        }
+
+        int_vector v = th.file_priorities();
+
+        long size = v.size();
+        for (int i = 0; i < size; i++) {
+            if (v.get(i) == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

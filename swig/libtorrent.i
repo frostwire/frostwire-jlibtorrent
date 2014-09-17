@@ -545,6 +545,10 @@ namespace libtorrent {
                           std::make_move_iterator(std::end(l)) };
         return v;
     }
+
+    static entry bdecode(std::vector<char> buffer) {
+        return bdecode(buffer.begin(), buffer.end());
+    }
 };
 
 %extend torrent_handle {

@@ -112,6 +112,10 @@ public class entry {
     return new entry_vector(libtorrent_jni.entry_list_v(swigCPtr, this), true);
   }
 
+  public static entry bdecode(char_vector buffer) {
+    return new entry(libtorrent_jni.entry_bdecode(char_vector.getCPtr(buffer), buffer), true);
+  }
+
   public enum data_type {
     int_t,
     string_t,

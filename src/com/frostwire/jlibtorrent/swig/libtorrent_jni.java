@@ -816,6 +816,7 @@ public class libtorrent_jni {
   public final static native short entry_m_type_queried_get(long jarg1, entry jarg1_);
   public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long entry_list_v(long jarg1, entry jarg1_);
+  public final static native long entry_bdecode(long jarg1, char_vector jarg1_);
   public final static native void throw_type_error();
   public final static native int sha1_hash_size_get();
   public final static native long new_sha1_hash__SWIG_0();

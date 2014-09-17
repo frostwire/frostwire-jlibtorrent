@@ -108,16 +108,24 @@ public final class Session {
      * @param saveDir
      * @return
      */
-    public TorrentHandle addTorrent(File torrentFile, File saveDir) {
+    public TorrentHandle addTorrent(File torrentFile, byte[] priorities, File saveDir) {
         TorrentInfo ti = new TorrentInfo(torrentFile);
 
         add_torrent_params p = add_torrent_params.create_instance();
         p.setSave_path(saveDir.getAbsolutePath());
         p.setTi(ti.getSwig());
+        if (priorities != null) {
+            p.setFile_priorities(LibTorrent.bytes2unsigned_char_vector(priorities));
+        }
+        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
         torrent_handle th = s.add_torrent(p);
         th.auto_managed(false);
 
         return new TorrentHandle(th, torrentFile);
+    }
+
+    public TorrentHandle addTorrent(File torrentFile, File saveDir) {
+        return addTorrent(torrentFile, null, saveDir);
     }
 
     /**
@@ -203,6 +211,22 @@ public final class Session {
         s.remove_torrent(th);
 
         return data;
+    }
+
+    public void pause() {
+        s.pause();
+    }
+
+    public void resume() {
+        s.resume();
+    }
+
+    public boolean isPaused() {
+        return s.is_paused();
+    }
+
+    public boolean isListening() {
+        return s.is_listening();
     }
 
     private void alertsLoop() {

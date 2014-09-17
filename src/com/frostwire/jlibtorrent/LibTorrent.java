@@ -20,6 +20,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.unsigned_char_vector;
 
 /**
  * @author gubatron
@@ -51,5 +52,25 @@ public final class LibTorrent {
         }
 
         return arr;
+    }
+
+    public static char_vector bytes2char_vector(byte[] arr) {
+        char_vector v = new char_vector();
+
+        for (int i = 0; i < arr.length; i++) {
+            v.add((char) arr[i]);
+        }
+
+        return v;
+    }
+
+    public static unsigned_char_vector bytes2unsigned_char_vector(byte[] arr) {
+        unsigned_char_vector v = new unsigned_char_vector();
+
+        for (int i = 0; i < arr.length; i++) {
+            v.add((short) arr[i]);
+        }
+
+        return v;
     }
 }
