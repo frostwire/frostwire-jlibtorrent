@@ -18,15 +18,15 @@
 
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.swig.torrent_finished_alert;
+import com.frostwire.jlibtorrent.swig.tracker_alert;
 
 /**
  * @author gubatron
  * @author aldenml
  */
-public final class TrackerAlert extends TorrentAlert<torrent_finished_alert> {
+public final class TrackerAlert extends TorrentAlert<tracker_alert> {
 
-    public TrackerAlert(torrent_finished_alert alert) {
+    public TrackerAlert(tracker_alert alert) {
         super(alert);
     }
 }

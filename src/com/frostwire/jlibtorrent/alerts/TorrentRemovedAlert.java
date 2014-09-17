@@ -18,15 +18,15 @@
 
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.swig.torrent_finished_alert;
+import com.frostwire.jlibtorrent.swig.torrent_removed_alert;
 
 /**
  * @author gubatron
  * @author aldenml
  */
-public final class TorrentRemovedAlert extends TorrentAlert<torrent_finished_alert> {
+public final class TorrentRemovedAlert extends TorrentAlert<torrent_removed_alert> {
 
-    public TorrentRemovedAlert(torrent_finished_alert alert) {
+    public TorrentRemovedAlert(torrent_removed_alert alert) {
         super(alert);
     }
 }
