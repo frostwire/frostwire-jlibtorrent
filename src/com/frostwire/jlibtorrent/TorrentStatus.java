@@ -26,87 +26,89 @@ import com.frostwire.jlibtorrent.swig.torrent_status;
  */
 public final class TorrentStatus {
 
-    TorrentStatus(torrent_status status) {
+    private final torrent_status ts;
+
+    TorrentStatus(torrent_status ts) {
+        this.ts = ts;
 //    torrent_handle handle;
 //    std::string error;
-//    std::string save_path;
 //    std::string name;
 //    boost::intrusive_ptr<const torrent_info> torrent_file;
 //    boost::posix_time::time_duration next_announce;
 //    boost::posix_time::time_duration announce_interval;
 //    std::string current_tracker;
-        this.totalDownload = status.getTotal_download();
-        this.totalUpload = status.getTotal_upload();
-        this.totalPayloadDownload = status.getTotal_payload_download();
-        this.totalPayloadUpload = status.getTotal_payload_upload();
-        this.totalFailedBytes = status.getTotal_failed_bytes();
-        this.totalRedundantBytes = status.getTotal_redundant_bytes();
+        this.totalDownload = ts.getTotal_download();
+        this.totalUpload = ts.getTotal_upload();
+        this.totalPayloadDownload = ts.getTotal_payload_download();
+        this.totalPayloadUpload = ts.getTotal_payload_upload();
+        this.totalFailedBytes = ts.getTotal_failed_bytes();
+        this.totalRedundantBytes = ts.getTotal_redundant_bytes();
 //    bitfield pieces;
 //    bitfield verified_pieces;
-        this.totalDone = status.getTotal_done();
-        this.totalWantedDone = status.getTotal_wanted_done();
-        this.totalWanted = status.getTotal_wanted();
-        this.allTimeUpload = status.getAll_time_upload();
-        this.allTimeDownload = status.getAll_time_download();
-        this.addedTime = LibTorrent.time2millis(status.getAdded_time());
-        this.completedTime = LibTorrent.time2millis(status.getCompleted_time());
-        this.lastSeenComplete = LibTorrent.time2millis(status.getLast_seen_complete());
-        this.storage_mode = StorageMode.fromSwig(status.getStorage_mode());
-        this.progress = status.getProgress();
-        this.progressPpm = status.getProgress_ppm();
-        this.queuePosition = status.getQueue_position();
-        this.downloadRate = status.getDownload_rate();
-        this.uploadRate = status.getUpload_rate();
-        this.downloadPayloadRate = status.getDownload_payload_rate();
-        this.uploadPayloadRate = status.getUpload_payload_rate();
-        this.numSeeds = status.getNum_seeds();
-        this.numPeers = status.getNum_peers();
-        this.numComplete = status.getNum_complete();
-        this.numIncomplete = status.getNum_incomplete();
-        this.listSeeds = status.getList_seeds();
-        this.listPeers = status.getList_peers();
-        this.connectCandidates = status.getConnect_candidates();
-        this.numPieces = status.getNum_pieces();
-        this.distributedFullCopies = status.getDistributed_full_copies();
-        this.distributedFraction = status.getDistributed_fraction();
-        this.distributedCopies = status.getDistributed_copies();
-        this.blockSize = status.getBlock_size();
-        this.numUploads = status.getNum_uploads();
-        this.numConnections = status.getNum_connections();
-        this.uploadsLimit = status.getUploads_limit();
-        this.connectionsLimit = status.getConnections_limit();
-        this.upBandwidthQueue = status.getUp_bandwidth_queue();
-        this.downBandwidthQueue = status.getDown_bandwidth_queue();
-        this.timeSinceUpload = status.getTime_since_upload();
-        this.timeSinceDownload = status.getTime_since_download();
-        this.activeTime = status.getActive_time();
-        this.finishedTime = status.getFinished_time();
-        this.seedingTime = status.getSeeding_time();
-        this.seedRank = status.getSeed_rank();
-        this.lastScrape = status.getLast_scrape();
-        this.sparseRegions = status.getSparse_regions();
-        this.priority = status.getPriority();
-        this.state = State.fromSwig(status.getState());
-        this.isNeedSaveResume = status.getNeed_save_resume();
-        this.isIpFilterApplies = status.getIp_filter_applies();
-        this.isUploadMode = status.getUpload_mode();
-        this.isShareMode = status.getShare_mode();
-        this.isSuperSeeding = status.getSuper_seeding();
-        this.isPaused = status.getPaused();
-        this.isAutoManaged = status.getAuto_managed();
-        this.isSequentialDownload = status.getSequential_download();
-        this.isSeeding = status.getIs_seeding();
-        this.isFinished = status.getIs_finished();
-        this.hasMetadata = status.getHas_metadata();
-        this.hasIncoming = status.getHas_incoming();
-        this.isSeedMode = status.getSeed_mode();
-        this.isMovingStorage = status.getMoving_storage();
+        this.totalDone = ts.getTotal_done();
+        this.totalWantedDone = ts.getTotal_wanted_done();
+        this.totalWanted = ts.getTotal_wanted();
+        this.allTimeUpload = ts.getAll_time_upload();
+        this.allTimeDownload = ts.getAll_time_download();
+        this.addedTime = LibTorrent.time2millis(ts.getAdded_time());
+        this.completedTime = LibTorrent.time2millis(ts.getCompleted_time());
+        this.lastSeenComplete = LibTorrent.time2millis(ts.getLast_seen_complete());
+        this.storage_mode = StorageMode.fromSwig(ts.getStorage_mode());
+        this.progress = ts.getProgress();
+        this.progressPpm = ts.getProgress_ppm();
+        this.queuePosition = ts.getQueue_position();
+        this.downloadRate = ts.getDownload_rate();
+        this.uploadRate = ts.getUpload_rate();
+        this.downloadPayloadRate = ts.getDownload_payload_rate();
+        this.uploadPayloadRate = ts.getUpload_payload_rate();
+        this.numSeeds = ts.getNum_seeds();
+        this.numPeers = ts.getNum_peers();
+        this.numComplete = ts.getNum_complete();
+        this.numIncomplete = ts.getNum_incomplete();
+        this.listSeeds = ts.getList_seeds();
+        this.listPeers = ts.getList_peers();
+        this.connectCandidates = ts.getConnect_candidates();
+        this.numPieces = ts.getNum_pieces();
+        this.distributedFullCopies = ts.getDistributed_full_copies();
+        this.distributedFraction = ts.getDistributed_fraction();
+        this.distributedCopies = ts.getDistributed_copies();
+        this.blockSize = ts.getBlock_size();
+        this.numUploads = ts.getNum_uploads();
+        this.numConnections = ts.getNum_connections();
+        this.uploadsLimit = ts.getUploads_limit();
+        this.connectionsLimit = ts.getConnections_limit();
+        this.upBandwidthQueue = ts.getUp_bandwidth_queue();
+        this.downBandwidthQueue = ts.getDown_bandwidth_queue();
+        this.timeSinceUpload = ts.getTime_since_upload();
+        this.timeSinceDownload = ts.getTime_since_download();
+        this.activeTime = ts.getActive_time();
+        this.finishedTime = ts.getFinished_time();
+        this.seedingTime = ts.getSeeding_time();
+        this.seedRank = ts.getSeed_rank();
+        this.lastScrape = ts.getLast_scrape();
+        this.sparseRegions = ts.getSparse_regions();
+        this.priority = ts.getPriority();
+        this.state = State.fromSwig(ts.getState());
+        this.isNeedSaveResume = ts.getNeed_save_resume();
+        this.isIpFilterApplies = ts.getIp_filter_applies();
+        this.isUploadMode = ts.getUpload_mode();
+        this.isShareMode = ts.getShare_mode();
+        this.isSuperSeeding = ts.getSuper_seeding();
+        this.isPaused = ts.getPaused();
+        this.isAutoManaged = ts.getAuto_managed();
+        this.isSequentialDownload = ts.getSequential_download();
+        this.isSeeding = ts.getIs_seeding();
+        this.isFinished = ts.getIs_finished();
+        this.hasMetadata = ts.getHas_metadata();
+        this.hasIncoming = ts.getHas_incoming();
+        this.isSeedMode = ts.getSeed_mode();
+        this.isMovingStorage = ts.getMoving_storage();
 //    sha1_hash info_hash;
     }
 
     //    torrent_handle handle;
 //    std::string error;
-//    std::string save_path;
+
 //    std::string name;
 //    boost::intrusive_ptr<const torrent_info> torrent_file;
 //    boost::posix_time::time_duration next_announce;
@@ -215,7 +217,6 @@ public final class TorrentStatus {
      * The total transfer rate of payload only, not counting protocol chatter.
      * This might be slightly smaller than the other rates, but if projected over
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
-     *
      */
     public final int downloadPayloadRate;
 
@@ -223,7 +224,6 @@ public final class TorrentStatus {
      * The total transfer rate of payload only, not counting protocol chatter.
      * This might be slightly smaller than the other rates, but if projected over
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
-     *
      */
     public final int uploadPayloadRate;
 
