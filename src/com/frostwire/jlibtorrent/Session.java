@@ -29,6 +29,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -50,8 +51,8 @@ public final class Session {
 
     private final session s;
 
+    private final List<AlertListener> listeners;
     private boolean running;
-    private List<AlertListener> listeners;
 
     public Session(fingerprint fingerprint) {
 
@@ -65,8 +66,8 @@ public final class Session {
 
         s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
 
+        this.listeners = new CopyOnWriteArrayList<AlertListener>();
         this.running = true;
-        this.listeners = Collections.synchronizedList(new LinkedList<AlertListener>());
 
         alertsLoop();
     }
@@ -106,14 +107,22 @@ public final class Session {
         TorrentInfo ti = new TorrentInfo(torrentFile);
 
         add_torrent_params p = add_torrent_params.create_instance();
-        p.setSave_path(saveDir.getAbsolutePath());
+
         p.setTi(ti.getSwig());
+        p.setSave_path(saveDir.getAbsolutePath());
+        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
+
         if (priorities != null) {
             p.setFile_priorities(LibTorrent.bytes2unsigned_char_vector(priorities));
         }
-        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
+
+        long flags = p.getFlags();
+
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+
+        p.setFlags(flags);
+
         torrent_handle th = s.add_torrent(p);
-        th.auto_managed(false);
 
         return new TorrentHandle(th);
     }
@@ -125,13 +134,17 @@ public final class Session {
         torrent_info ti = new torrent_info(torrentPath);
 
         add_torrent_params p = add_torrent_params.create_instance();
+        
         p.setTi(ti);
         p.setSave_path(savePath);
+        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 
         long flags = p.getFlags();
 
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+
         if (resumeFile != null && resumeFile.exists()) {
-            flags = flags | add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
+            flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
             byte[] data = Utils.readFileToByteArray(resumeFile);
             p.setResume_data(LibTorrent.bytes2char_vector(data));
         }
