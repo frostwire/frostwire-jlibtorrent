@@ -79,4 +79,8 @@ public final class LibTorrent {
     public static byte[] entry2bytes(entry e) {
         return char_vector2bytes(e.bencode());
     }
+
+    public static entry bytes2entry(byte[] arr) {
+        return entry.bdecode(bytes2char_vector(arr));
+    }
 }
