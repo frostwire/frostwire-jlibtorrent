@@ -18,10 +18,7 @@
 
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.char_vector;
-import com.frostwire.jlibtorrent.swig.libtorrent;
-import com.frostwire.jlibtorrent.swig.sha1_hash;
-import com.frostwire.jlibtorrent.swig.unsigned_char_vector;
+import com.frostwire.jlibtorrent.swig.*;
 
 /**
  * @author gubatron
@@ -77,5 +74,9 @@ public final class LibTorrent {
 
     public static String info_hash2string(sha1_hash hash) {
         return libtorrent.to_hex(hash.to_string());
+    }
+
+    public static byte[] entry2bytes(entry e) {
+        return char_vector2bytes(e.bencode());
     }
 }

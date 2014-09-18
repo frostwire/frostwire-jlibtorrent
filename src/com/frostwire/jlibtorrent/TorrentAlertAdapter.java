@@ -47,19 +47,32 @@ public class TorrentAlertAdapter implements AlertListener {
     @Override
     public void onAlert(Alert<?> alert) {
         int type = alert.getType();
+
         if (type == torrent_added_alert.alert_type) {
             onTorrentAdded((TorrentAddedAlert) alert);
-        } else if (type == torrent_finished_alert.alert_type) {
+        }
+
+        if (type == torrent_finished_alert.alert_type) {
             onTorrentFinished((TorrentFinishedAlert) alert);
-        } else if (type == torrent_removed_alert.alert_type) {
+        }
+
+        if (type == torrent_removed_alert.alert_type) {
             onTorrentRemoved((TorrentRemovedAlert) alert);
-        } else if (type == block_finished_alert.alert_type) {
+        }
+
+        if (type == block_finished_alert.alert_type) {
             onBlockFinished((BlockFinishedAlert) alert);
-        } else if (type == metadata_received_alert.alert_type) {
+        }
+
+        if (type == metadata_received_alert.alert_type) {
             onMetadataReceived((MetadataReceivedAlert) alert);
-        } else if (type == metadata_failed_alert.alert_type) {
+        }
+
+        if (type == metadata_failed_alert.alert_type) {
             onMetadataFailed((MetadataFailedAlert) alert);
-        } else if (type == save_resume_data_alert.alert_type) {
+        }
+
+        if (type == save_resume_data_alert.alert_type) {
             onSaveResumeData((SaveResumeDataAlert) alert);
         }
     }
