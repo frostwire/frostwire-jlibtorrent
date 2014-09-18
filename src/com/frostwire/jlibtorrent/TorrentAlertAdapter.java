@@ -75,6 +75,10 @@ public class TorrentAlertAdapter implements AlertListener {
         if (type == save_resume_data_alert.alert_type) {
             onSaveResumeData((SaveResumeDataAlert) alert);
         }
+
+        if (type == file_error_alert.alert_type) {
+            onFileError((FileErrorAlert) alert);
+        }
     }
 
     public void onTorrentAdded(TorrentAddedAlert alert) {
@@ -96,5 +100,8 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void onSaveResumeData(SaveResumeDataAlert alert) {
+    }
+
+    public void onFileError(FileErrorAlert alert) {
     }
 }

@@ -30,22 +30,17 @@ public final class TorrentStatus {
 
     TorrentStatus(torrent_status ts) {
         this.ts = ts;
-//    torrent_handle handle;
-//    std::string error;
 //    std::string name;
 //    boost::intrusive_ptr<const torrent_info> torrent_file;
 //    boost::posix_time::time_duration next_announce;
 //    boost::posix_time::time_duration announce_interval;
 //    std::string current_tracker;
-        this.totalDownload = ts.getTotal_download();
-        this.totalUpload = ts.getTotal_upload();
         this.totalPayloadDownload = ts.getTotal_payload_download();
         this.totalPayloadUpload = ts.getTotal_payload_upload();
         this.totalFailedBytes = ts.getTotal_failed_bytes();
         this.totalRedundantBytes = ts.getTotal_redundant_bytes();
 //    bitfield pieces;
 //    bitfield verified_pieces;
-        this.totalDone = ts.getTotal_done();
         this.totalWantedDone = ts.getTotal_wanted_done();
         this.totalWanted = ts.getTotal_wanted();
         this.allTimeUpload = ts.getAll_time_upload();
@@ -54,15 +49,6 @@ public final class TorrentStatus {
         this.completedTime = LibTorrent.time2millis(ts.getCompleted_time());
         this.lastSeenComplete = LibTorrent.time2millis(ts.getLast_seen_complete());
         this.storage_mode = StorageMode.fromSwig(ts.getStorage_mode());
-        this.progress = ts.getProgress();
-        this.progressPpm = ts.getProgress_ppm();
-        this.queuePosition = ts.getQueue_position();
-        this.downloadRate = ts.getDownload_rate();
-        this.uploadRate = ts.getUpload_rate();
-        this.downloadPayloadRate = ts.getDownload_payload_rate();
-        this.uploadPayloadRate = ts.getUpload_payload_rate();
-        this.numSeeds = ts.getNum_seeds();
-        this.numPeers = ts.getNum_peers();
         this.numComplete = ts.getNum_complete();
         this.numIncomplete = ts.getNum_incomplete();
         this.listSeeds = ts.getList_seeds();
@@ -88,7 +74,6 @@ public final class TorrentStatus {
         this.lastScrape = ts.getLast_scrape();
         this.sparseRegions = ts.getSparse_regions();
         this.priority = ts.getPriority();
-        this.state = State.fromSwig(ts.getState());
         this.isNeedSaveResume = ts.getNeed_save_resume();
         this.isIpFilterApplies = ts.getIp_filter_applies();
         this.isUploadMode = ts.getUpload_mode();
@@ -106,8 +91,18 @@ public final class TorrentStatus {
 //    sha1_hash info_hash;
     }
 
-    //    torrent_handle handle;
-//    std::string error;
+    // a handle to the torrent whose status the object represents.
+    public TorrentHandle getHandle() {
+        return new TorrentHandle(ts.getHandle());
+    }
+
+    // may be set to an error message describing why the torrent
+    // was paused, in case it was paused by an error. If the torrent
+    // is not paused or if it's paused but not because of an error,
+    // this string is empty.
+    public String getError() {
+        return ts.getError();
+    }
 
 //    std::string name;
 //    boost::intrusive_ptr<const torrent_info> torrent_file;
@@ -121,7 +116,9 @@ public final class TorrentStatus {
      * again. When a torrent is paused, these counters are reset to 0. If you want complete,
      * persistent, stats, see allTimeUpload and allTimeDownload.
      */
-    public final long totalDownload;
+    public long getTotalDownload() {
+        return ts.getTotal_download();
+    }
 
     /**
      * The number of bytes downloaded and uploaded to all peers, accumulated, this session
@@ -129,7 +126,9 @@ public final class TorrentStatus {
      * again. When a torrent is paused, these counters are reset to 0. If you want complete,
      * persistent, stats, see allTimeUpload and allTimeDownload.
      */
-    public final long totalUpload;
+    public long getTotalUpload() {
+        return ts.getTotal_upload();
+    }
 
     public final long totalPayloadDownload;
     public final long totalPayloadUpload;
@@ -142,7 +141,9 @@ public final class TorrentStatus {
      * The total number of bytes of the file(s) that we have. All this does not necessarily
      * has to be downloaded during this session (that's total_payload_download).
      */
-    public final long totalDone;
+    public long getTotalDone() {
+        return ts.getTotal_done();
+    }
 
     /**
      * The number of bytes we have downloaded, only counting the pieces that we actually want
@@ -195,42 +196,68 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public final float progress;
-    public final int progressPpm;
-    public final int queuePosition;
+    public float getProgress() {
+        return ts.getProgress();
+    }
+
+    // progress parts per million (progress * 1000000) when disabling
+    // floating point operations, this is the only option to query progress
+
+    // reflects the same value as ``progress``, but instead in a range [0,
+    // 1000000] (ppm = parts per million). When floating point operations are
+    // disabled, this is the only alternative to the floating point value in
+    public int getProgressPpm() {
+        return ts.getProgress_ppm();
+    }
+
+    // the position this torrent has in the download
+    // queue. If the torrent is a seed or finished, this is -1.
+    public int getQueuePosition() {
+        return ts.getQueue_position();
+    }
 
     /**
      * The total rates for all peers for this torrent. These will usually have better
      * precision than summing the rates from all peers. The rates are given as the
      * number of bytes per second.
      */
-    public final int downloadRate;
+    public int getDownloadRate() {
+        return ts.getDownload_rate();
+    }
 
     /**
      * The total rates for all peers for this torrent. These will usually have better
      * precision than summing the rates from all peers. The rates are given as the
      * number of bytes per second.
      */
-    public final int uploadRate;
+    public int getUploadRate() {
+        return ts.getUpload_rate();
+    }
 
     /**
      * The total transfer rate of payload only, not counting protocol chatter.
      * This might be slightly smaller than the other rates, but if projected over
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
      */
-    public final int downloadPayloadRate;
+    public int getDownloadPayloadRate() {
+        return ts.getDownload_payload_rate();
+    }
 
     /**
      * The total transfer rate of payload only, not counting protocol chatter.
      * This might be slightly smaller than the other rates, but if projected over
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
      */
-    public final int uploadPayloadRate;
+    public int getUploadPayloadRate() {
+        return ts.getUpload_payload_rate();
+    }
 
     /**
      * The number of peers that are seeding that this client is currently connected to.
      */
-    public final int numSeeds;
+    public int getNumSeeds() {
+        return ts.getNum_seeds();
+    }
 
     /**
      * The number of peers this torrent currently is connected to. Peer connections that
@@ -238,7 +265,9 @@ public final class TorrentStatus {
      * connection attempt do not count. Although they are visible in the peer list when
      * you call get_peer_info().
      */
-    public final int numPeers;
+    public int getNumPeers() {
+        return ts.getNum_peers();
+    }
 
     public final int numComplete;
     public final int numIncomplete;
@@ -280,7 +309,14 @@ public final class TorrentStatus {
     public final int lastScrape;
     public final int sparseRegions;
     public final int priority;
-    public final State state;
+
+    /**
+     * The main state the torrent is in. See torrent_status::state_t.
+     */
+    public State getState() {
+        return State.fromSwig(ts.getState());
+    }
+
     public final boolean isNeedSaveResume;
     public final boolean isIpFilterApplies;
     public final boolean isUploadMode;

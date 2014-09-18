@@ -91,6 +91,28 @@ public final class TorrentHandle {
         return LibTorrent.info_hash2string(th.info_hash());
     }
 
+    // ``pause()``, and ``resume()`` will disconnect all peers and reconnect
+    // all peers respectively. When a torrent is paused, it will however
+    // remember all share ratios to all peers and remember all potential (not
+    // connected) peers. Torrents may be paused automatically if there is a
+    // file error (e.g. disk full) or something similar. See
+    // file_error_alert.
+    //
+    // To know if a torrent is paused or not, call
+    // ``torrent_handle::status()`` and inspect ``torrent_status::paused``.
+    //
+    // The ``flags`` argument to pause can be set to
+    // ``torrent_handle::graceful_pause`` which will delay the disconnect of
+    // peers that we're still downloading outstanding requests from. The
+    // torrent will not accept any more requests and will disconnect all idle
+    // peers. As soon as a peer is done transferring the blocks that were
+    // requested from it, it is disconnected. This is a graceful shut down of
+    // the torrent in the sense that no downloaded bytes are wasted.
+    //
+    // torrents that are auto-managed may be automatically resumed again. It
+    // does not make sense to pause an auto-managed torrent without making it
+    // not automanaged first. Torrents are auto-managed by default when added
+    // to the session. For more information, see queuing_.
     public void pause() {
         th.pause();
     }
@@ -274,5 +296,17 @@ public final class TorrentHandle {
         }
 
         return false;
+    }
+
+    // Returns true if this handle refers to a valid torrent and false if it
+    // hasn't been initialized or if the torrent it refers to has been
+    // aborted. Note that a handle may become invalid after it has been added
+    // to the session. Usually this is because the storage for the torrent is
+    // somehow invalid or if the filenames are not allowed (and hence cannot
+    // be opened/created) on your filesystem. If such an error occurs, a
+    // file_error_alert is generated and all handles that refers to that
+    // torrent will become invalid.
+    public boolean isValid() {
+        return th.is_valid();
     }
 }

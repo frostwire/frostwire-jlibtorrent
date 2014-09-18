@@ -52,7 +52,7 @@ public final class DownloadTorrent {
         s.addListener(new TorrentAlertAdapter(th) {
             @Override
             public void onBlockFinished(BlockFinishedAlert alert) {
-                int p = (int) (th.getStatus().progress * 100);
+                int p = (int) (th.getStatus().getProgress() * 100);
                 System.out.println("Progress: " + p);
             }
 
