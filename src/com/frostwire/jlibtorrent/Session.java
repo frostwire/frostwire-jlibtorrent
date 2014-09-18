@@ -118,7 +118,7 @@ public final class Session {
         return new TorrentHandle(th);
     }
 
-    public void asyncAddTorrent(File torrentFile, File saveDir, boolean paused) throws IOException {
+    public void asyncAddTorrent(File torrentFile, File saveDir, File resumeFile) throws IOException {
         String torrentPath = torrentFile.getAbsolutePath();
         String savePath = saveDir.getAbsolutePath();
 
@@ -128,17 +128,15 @@ public final class Session {
         p.setTi(ti);
         p.setSave_path(savePath);
 
-        File resumeFile = new File(torrentFile.getParent(), Utils.getBaseName(torrentPath) + ".resume");
+        long flags = p.getFlags();
 
-        if (resumeFile.exists()) {
-            int flags = add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
-            if (paused) {
-                flags = flags | add_torrent_params.flags_t.flag_paused.swigValue();
-            }
-            p.setFlags(flags);
+        if (resumeFile != null && resumeFile.exists()) {
+            flags = flags | add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
             byte[] data = Utils.readFileToByteArray(resumeFile);
             p.setResume_data(LibTorrent.bytes2char_vector(data));
         }
+
+        p.setFlags(flags);
 
         s.async_add_torrent(p);
     }

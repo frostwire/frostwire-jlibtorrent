@@ -33,7 +33,7 @@ public final class EntryDump {
     public static void main(String[] args) throws Throwable {
 
         // comment this line for a real application
-        args = new String[]{"/Users/aldenml/Downloads/test.resume"};
+        args = new String[]{"/Users/aldenml/Downloads/test.torrent"};
 
         File file = new File(args[0]);
 
