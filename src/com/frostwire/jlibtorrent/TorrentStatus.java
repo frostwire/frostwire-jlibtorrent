@@ -48,7 +48,6 @@ public final class TorrentStatus {
         this.addedTime = LibTorrent.time2millis(ts.getAdded_time());
         this.completedTime = LibTorrent.time2millis(ts.getCompleted_time());
         this.lastSeenComplete = LibTorrent.time2millis(ts.getLast_seen_complete());
-        this.storage_mode = StorageMode.fromSwig(ts.getStorage_mode());
         this.numComplete = ts.getNum_complete();
         this.numIncomplete = ts.getNum_incomplete();
         this.listSeeds = ts.getList_seeds();
@@ -188,7 +187,9 @@ public final class TorrentStatus {
      * The allocation mode for the torrent. See storage_mode_t for the options.
      * For more information, see storage allocation.
      */
-    public final StorageMode storage_mode;
+    public final StorageMode getStorageMode() {
+        return StorageMode.fromSwig(ts.getStorage_mode());
+    }
 
     /**
      * A value in the range [0, 1], that represents the progress of the torrent's
@@ -334,36 +335,34 @@ public final class TorrentStatus {
 //    sha1_hash info_hash;
 
     public static enum State {
-        QUEUED_FOR_CHECKING,
-        CHECKING_FILES,
-        DOWNLOADING_METADATA,
-        DOWNLOADING,
-        FINISHED,
-        SEEDING,
-        ALLOCATING,
-        CHECKING_RESUME_DATA;
 
-        public static State fromSwig(torrent_status.state_t state) {
-            switch (state) {
-                case queued_for_checking:
-                    return QUEUED_FOR_CHECKING;
-                case checking_files:
-                    return CHECKING_FILES;
-                case downloading_metadata:
-                    return DOWNLOADING_METADATA;
-                case downloading:
-                    return DOWNLOADING;
-                case finished:
-                    return FINISHED;
-                case seeding:
-                    return SEEDING;
-                case allocating:
-                    return ALLOCATING;
-                case checking_resume_data:
-                    return CHECKING_RESUME_DATA;
-                default:
-                    throw new IllegalArgumentException("Enum value not supported");
+        QUEUED_FOR_CHECKING(torrent_status.state_t.queued_for_checking),
+        CHECKING_FILES(torrent_status.state_t.checking_files),
+        DOWNLOADING_METADATA(torrent_status.state_t.downloading_metadata),
+        DOWNLOADING(torrent_status.state_t.downloading),
+        FINISHED(torrent_status.state_t.finished),
+        SEEDING(torrent_status.state_t.seeding),
+        ALLOCATING(torrent_status.state_t.allocating),
+        CHECKING_RESUME_DATA(torrent_status.state_t.checking_resume_data);
+
+        private State(torrent_status.state_t swigObj) {
+            this.swigObj = swigObj;
+        }
+
+        private final torrent_status.state_t swigObj;
+
+        public torrent_status.state_t getSwig() {
+            return swigObj;
+        }
+
+        public static State fromSwig(torrent_status.state_t swigObj) {
+            State[] enumValues = State.class.getEnumConstants();
+            for (State ev : enumValues) {
+                if (ev.getSwig() == swigObj) {
+                    return ev;
+                }
             }
+            throw new IllegalArgumentException("No enum " + State.class + " with swig value " + swigObj);
         }
     }
 }

@@ -26,20 +26,26 @@ import com.frostwire.jlibtorrent.swig.storage_mode_t;
  */
 public enum StorageMode {
 
-    STORAGE_MODE_ALLOCATE,
-    STORAGE_MODE_SPARSE,
-    INTERNAL_STORAGE_MODE_COMPACT_DEPRECATED;
+    STORAGE_MODE_ALLOCATE(storage_mode_t.storage_mode_allocate),
+    STORAGE_MODE_SPARSE(storage_mode_t.storage_mode_sparse);
 
-    public static StorageMode fromSwig(storage_mode_t mode) {
-        switch (mode) {
-            case storage_mode_allocate:
-                return STORAGE_MODE_ALLOCATE;
-            case storage_mode_sparse:
-                return STORAGE_MODE_SPARSE;
-            case internal_storage_mode_compact_deprecated:
-                return INTERNAL_STORAGE_MODE_COMPACT_DEPRECATED;
-            default:
-                throw new IllegalArgumentException("Enum value not supported");
+    private StorageMode(storage_mode_t swigObj) {
+        this.swigObj = swigObj;
+    }
+
+    private final storage_mode_t swigObj;
+
+    public storage_mode_t getSwig() {
+        return swigObj;
+    }
+
+    public static StorageMode fromSwig(storage_mode_t swigObj) {
+        StorageMode[] enumValues = StorageMode.class.getEnumConstants();
+        for (StorageMode ev : enumValues) {
+            if (ev.getSwig() == swigObj) {
+                return ev;
+            }
         }
+        throw new IllegalArgumentException("No enum " + StorageMode.class + " with swig value " + swigObj);
     }
 }

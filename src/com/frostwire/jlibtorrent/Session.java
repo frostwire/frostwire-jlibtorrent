@@ -134,7 +134,7 @@ public final class Session {
         torrent_info ti = new torrent_info(torrentPath);
 
         add_torrent_params p = add_torrent_params.create_instance();
-        
+
         p.setTi(ti);
         p.setSave_path(savePath);
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
@@ -172,7 +172,7 @@ public final class Session {
      * @param th
      */
     public void removeTorrent(TorrentHandle th, Options options) {
-        s.remove_torrent(th.getSwig(), Options.toSwig(options));
+        s.remove_torrent(th.getSwig(), options.getSwig().swigValue());
     }
 
     /**
@@ -183,7 +183,7 @@ public final class Session {
      * @param th
      */
     public void removeTorrent(TorrentHandle th) {
-        this.removeTorrent(th, Options.NONE);
+        s.remove_torrent(th.getSwig());
     }
 
     /**
@@ -413,28 +413,16 @@ public final class Session {
     }
 
     public enum Options {
+        DELETE_FILES(options_t.delete_files);
 
-        NONE,
-        DELETE_FILES;
-
-        public static Options fromSwig(options_t opts) {
-            switch (opts) {
-                case delete_files:
-                    return DELETE_FILES;
-                default:
-                    throw new IllegalArgumentException("Enum value not supported");
-            }
+        private Options(options_t swigObj) {
+            this.swigObj = swigObj;
         }
 
-        public static int toSwig(Options opts) {
-            switch (opts) {
-                case NONE:
-                    return 0;
-                case DELETE_FILES:
-                    return options_t.delete_files.swigValue();
-                default:
-                    throw new IllegalArgumentException("Enum value not supported");
-            }
+        private final options_t swigObj;
+
+        public options_t getSwig() {
+            return swigObj;
         }
     }
 
