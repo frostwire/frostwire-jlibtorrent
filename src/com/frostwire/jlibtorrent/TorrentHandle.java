@@ -18,11 +18,8 @@
 
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.int_vector;
-import com.frostwire.jlibtorrent.swig.torrent_handle;
+import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.torrent_handle.status_flags_t;
-import com.frostwire.jlibtorrent.swig.torrent_info;
-import com.frostwire.jlibtorrent.swig.torrent_status;
 
 /**
  * @author gubatron
@@ -308,5 +305,14 @@ public final class TorrentHandle {
     // torrent will become invalid.
     public boolean isValid() {
         return th.is_valid();
+    }
+
+    // Generates a magnet URI from the specified torrent. If the torrent
+    // handle is invalid, null is returned.
+    //
+    // For more information about magnet links, see magnet-links_.
+    //
+    public String makeMagnetUri() {
+        return th.is_valid() ? libtorrent.make_magnet_uri(th) : null;
     }
 }

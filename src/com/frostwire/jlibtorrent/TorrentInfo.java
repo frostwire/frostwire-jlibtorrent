@@ -18,6 +18,7 @@
 
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.torrent_info;
 
 import java.io.File;
@@ -90,5 +91,14 @@ public final class TorrentInfo {
         sb.append("info_hash = " + getInfoHash() + System.lineSeparator());
 
         return sb.toString();
+    }
+
+    // Generates a magnet URI from the specified torrent. If the torrent
+    // is invalid, null is returned.
+    //
+    // For more information about magnet links, see magnet-links_.
+    //
+    public String makeMagnetUri() {
+        return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
     }
 }
