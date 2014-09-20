@@ -50,11 +50,15 @@ public final class Session {
 
     private static final Logger LOG = Logger.getLogger(Session.class);
 
+    private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
     private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildAlertCastTable();
 
     private final session s;
+
+    private long lastStatusRequestTime;
+    private SessionStatus lastStatus;
 
     private final List<AlertListener> listeners;
     private boolean running;
@@ -286,10 +290,31 @@ public final class Session {
         return new SessionProxy(s.abort());
     }
 
-    // returns session wide-statistics and status. For more information, see
-    // the ``session_status`` struct.
+    /**
+     * Returns session wide-statistics and status.
+     *
+     * It is important not to call this method for each field in the status
+     * for performance reasons.
+     *
+     * @return
+     */
+    public SessionStatus getStatus(boolean force) {
+        long now = System.currentTimeMillis();
+        if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
+            lastStatusRequestTime = now;
+            lastStatus = new SessionStatus(s.status());
+        }
+
+        return lastStatus;
+    }
+
+    /**
+     * Returns session wide-statistics and status.
+     *
+     * @return
+     */
     public SessionStatus getStatus() {
-        return new SessionStatus(s.status());
+        return this.getStatus(false);
     }
 
     @Override
