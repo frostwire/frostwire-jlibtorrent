@@ -19,7 +19,6 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
-import com.frostwire.jlibtorrent.swig.*;
 
 /**
  * @author gubatron
@@ -46,38 +45,32 @@ public class TorrentAlertAdapter implements AlertListener {
 
     @Override
     public void onAlert(Alert<?> alert) {
-        int type = alert.getType();
-
-        if (type == torrent_added_alert.alert_type) {
-            onTorrentAdded((TorrentAddedAlert) alert);
-        }
-
-        if (type == torrent_finished_alert.alert_type) {
-            onTorrentFinished((TorrentFinishedAlert) alert);
-        }
-
-        if (type == torrent_removed_alert.alert_type) {
-            onTorrentRemoved((TorrentRemovedAlert) alert);
-        }
-
-        if (type == block_finished_alert.alert_type) {
-            onBlockFinished((BlockFinishedAlert) alert);
-        }
-
-        if (type == metadata_received_alert.alert_type) {
-            onMetadataReceived((MetadataReceivedAlert) alert);
-        }
-
-        if (type == metadata_failed_alert.alert_type) {
-            onMetadataFailed((MetadataFailedAlert) alert);
-        }
-
-        if (type == save_resume_data_alert.alert_type) {
-            onSaveResumeData((SaveResumeDataAlert) alert);
-        }
-
-        if (type == file_error_alert.alert_type) {
-            onFileError((FileErrorAlert) alert);
+        AlertType type = alert.getType();
+        switch (type) {
+            case TORRENT_ADDED:
+                onTorrentAdded((TorrentAddedAlert) alert);
+                break;
+            case TORRENT_FINISHED:
+                onTorrentFinished((TorrentFinishedAlert) alert);
+                break;
+            case TORRENT_REMOVED:
+                onTorrentRemoved((TorrentRemovedAlert) alert);
+                break;
+            case BLOCK_FINISHED:
+                onBlockFinished((BlockFinishedAlert) alert);
+                break;
+            case METADATA_RECEIVED:
+                onMetadataReceived((MetadataReceivedAlert) alert);
+                break;
+            case METADATA_FAILED:
+                onMetadataFailed((MetadataFailedAlert) alert);
+                break;
+            case SAVE_RESUME_DATA:
+                onSaveResumeData((SaveResumeDataAlert) alert);
+                break;
+            case FILE_ERROR:
+                onFileError((FileErrorAlert) alert);
+                break;
         }
     }
 

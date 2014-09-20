@@ -28,7 +28,7 @@ public interface Alert<T extends alert> {
 
     public T getSwig();
 
-    public int getType();
+    public AlertType getType();
 
     public int getCategory();
 

@@ -38,8 +38,8 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     }
 
     @Override
-    public int getType() {
-        return alert.type();
+    public AlertType getType() {
+        return AlertType.fromSwig(alert.type());
     }
 
     @Override

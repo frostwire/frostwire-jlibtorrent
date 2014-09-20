@@ -37,6 +37,11 @@ import java.util.concurrent.TimeUnit;
  * @author gubatron
  * @author aldenml
  */
+// The session holds all state that spans multiple torrents. Among other
+// things it runs the network loop and manages all torrents. Once it's
+// created, the session object will spawn the main thread that will do all
+// the work. The main thread will be idle as long it doesn't have any
+// torrents to participate in.
 public final class Session {
 
     static {
@@ -257,6 +262,10 @@ public final class Session {
 
     public boolean isListening() {
         return s.is_listening();
+    }
+
+    public SessionProxy abort() {
+        return new SessionProxy(s.abort());
     }
 
     @Override
