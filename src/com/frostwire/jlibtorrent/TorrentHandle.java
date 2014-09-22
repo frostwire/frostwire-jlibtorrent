@@ -21,6 +21,9 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.torrent_handle.status_flags_t;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -378,5 +381,130 @@ public final class TorrentHandle {
     // setting, for upload and download, respectively.
     public void setDownloadLimit(int limit) {
         th.set_download_limit(limit);
+    }
+
+    // ``force_recheck`` puts the torrent back in a state where it assumes to
+    // have no resume data. All peers will be disconnected and the torrent
+    // will stop announcing to the tracker. The torrent will be added to the
+    // checking queue, and will be checked (all the files will be read and
+    // compared to the piece hashes). Once the check is complete, the torrent
+    // will start connecting to peers again, as normal.
+    public void forceRecheck() {
+        th.force_recheck();
+    }
+
+    // ``force_reannounce()`` will force this torrent to do another tracker
+    // request, to receive new peers. The ``seconds`` argument specifies how
+    // many seconds from now to issue the tracker announces.
+    //
+    // If the tracker's ``min_interval`` has not passed since the last
+    // announce, the forced announce will be scheduled to happen immediately
+    // as the ``min_interval`` expires. This is to honor trackers minimum
+    // re-announce interval settings.
+    //
+    // The ``tracker_index`` argument specifies which tracker to re-announce.
+    // If set to -1 (which is the default), all trackers are re-announce.
+    //
+    public void forceReannounce(int seconds, int tracker_index) {
+        th.force_reannounce(seconds, tracker_index);
+    }
+
+    // ``force_reannounce()`` will force this torrent to do another tracker
+    // request, to receive new peers. The ``seconds`` argument specifies how
+    // many seconds from now to issue the tracker announces.
+    //
+    // If the tracker's ``min_interval`` has not passed since the last
+    // announce, the forced announce will be scheduled to happen immediately
+    // as the ``min_interval`` expires. This is to honor trackers minimum
+    // re-announce interval settings.
+    //
+    // The ``tracker_index`` argument specifies which tracker to re-announce.
+    // If set to -1 (which is the default), all trackers are re-announce.
+    //
+    public void forceReannounce(int seconds) {
+        th.force_reannounce(seconds);
+    }
+
+    // ``force_reannounce()`` will force this torrent to do another tracker
+    // request, to receive new peers. The ``seconds`` argument specifies how
+    // many seconds from now to issue the tracker announces.
+    //
+    // If the tracker's ``min_interval`` has not passed since the last
+    // announce, the forced announce will be scheduled to happen immediately
+    // as the ``min_interval`` expires. This is to honor trackers minimum
+    // re-announce interval settings.
+    //
+    // The ``tracker_index`` argument specifies which tracker to re-announce.
+    // If set to -1 (which is the default), all trackers are re-announce.
+    //
+    public void forceReannounce() {
+        th.force_reannounce();
+    }
+
+    /**
+     * Announce the torrent to the DHT immediately.
+     */
+    public void forceDHTAnnounce() {
+        th.force_dht_announce();
+    }
+
+    // ``scrape_tracker()`` will send a scrape request to the tracker. A
+    // scrape request queries the tracker for statistics such as total number
+    // of incomplete peers, complete peers, number of downloads etc.
+    //
+    // This request will specifically update the ``num_complete`` and
+    // ``num_incomplete`` fields in the torrent_status struct once it
+    // completes. When it completes, it will generate a scrape_reply_alert.
+    // If it fails, it will generate a scrape_failed_alert.
+    public void scrapeTracker() {
+        th.scrape_tracker();
+    }
+
+    // ``trackers()`` will return the list of trackers for this torrent. The
+    // announce entry contains both a string ``url`` which specify the
+    // announce url for the tracker as well as an int ``tier``, which is
+    // specifies the order in which this tracker is tried.
+    public List<AnnounceEntry> getTrackers() {
+        announce_entry_vector v = th.trackers();
+        int size = (int) v.size();
+        List<AnnounceEntry> list = new ArrayList<AnnounceEntry>(size);
+
+        for (int i = 0; i < size; i++) {
+            list.add(new AnnounceEntry(v.get(i)));
+        }
+
+        return list;
+    }
+
+    // If you want
+    // libtorrent to use another list of trackers for this torrent, you can
+    // use ``replace_trackers()`` which takes a list of the same form as the
+    // one returned from ``trackers()`` and will replace it. If you want an
+    // immediate effect, you have to call force_reannounce(). See
+    // announce_entry.
+    //
+    // The updated set of trackers will be saved in the resume data, and when
+    // a torrent is started with resume data, the trackers from the resume
+    // data will replace the original ones.
+    public void replaceTrackers(List<AnnounceEntry> trackers) {
+        announce_entry_vector v = new announce_entry_vector();
+
+        for (AnnounceEntry e : trackers) {
+            v.add(e.getSwig());
+        }
+
+        th.replace_trackers(v);
+    }
+
+    // ``add_tracker()`` will look if the specified tracker is already in the
+    // set. If it is, it doesn't do anything. If it's not in the current set
+    // of trackers, it will insert it in the tier specified in the
+    // announce_entry.
+    //
+    // The updated set of trackers will be saved in the resume data, and when
+    // a torrent is started with resume data, the trackers from the resume
+    // data will replace the original ones.
+    public void addTracker(AnnounceEntry tracker) {
+        th.add_tracker(tracker.getSwig());
     }
 }

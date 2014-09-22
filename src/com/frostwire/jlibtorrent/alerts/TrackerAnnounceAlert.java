@@ -18,23 +18,30 @@
 
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.swig.tracker_alert;
+import com.frostwire.jlibtorrent.swig.tracker_announce_alert;
 
 /**
- * This is a base class used for alerts that are associated with a
- * specific tracker. It derives from torrent_alert since a tracker
- * is also associated with a specific torrent.
+ * This alert is generated each time a tracker announce is sent (or attempted to be sent).
+ * <p/>
+ * There are no extra data members in this alert. The url can be found in the base class
+ * however.
  *
  * @author gubatron
  * @author aldenml
  */
-public class TrackerAlert<T extends tracker_alert> extends TorrentAlert<T> {
+public final class TrackerAnnounceAlert extends TrackerAlert<tracker_announce_alert> {
 
-    public TrackerAlert(T alert) {
+    public TrackerAnnounceAlert(tracker_announce_alert alert) {
         super(alert);
     }
 
-    public String getUrl() {
-        return alert.getUrl();
+    // specifies what event was sent to the tracker. It is defined as:
+    //
+    // 0. None
+    // 1. Completed
+    // 2. Started
+    // 3. Stopped
+    public int getEvent() {
+        return alert.getEvent();
     }
 }

@@ -16,25 +16,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.frostwire.jlibtorrent.alerts;
+package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.tracker_alert;
+import com.frostwire.jlibtorrent.swig.announce_entry;
 
 /**
- * This is a base class used for alerts that are associated with a
- * specific tracker. It derives from torrent_alert since a tracker
- * is also associated with a specific torrent.
+ * This class holds information about one bittorrent tracker, as it
+ * relates to a specific torrent.
  *
  * @author gubatron
  * @author aldenml
  */
-public class TrackerAlert<T extends tracker_alert> extends TorrentAlert<T> {
+public class AnnounceEntry {
 
-    public TrackerAlert(T alert) {
-        super(alert);
+    private final announce_entry e;
+
+    public AnnounceEntry(announce_entry e) {
+        this.e = e;
     }
 
+    public AnnounceEntry(String url) {
+        this(new announce_entry(url));
+    }
+
+    public announce_entry getSwig() {
+        return e;
+    }
+
+    /**
+     * Tracker URL as it appeared in the torrent file.
+     *
+     * @return
+     */
     public String getUrl() {
-        return alert.getUrl();
+        return e.getUrl();
     }
 }

@@ -21,6 +21,8 @@ package com.frostwire.jlibtorrent.alerts;
 import com.frostwire.jlibtorrent.swig.block_finished_alert;
 
 /**
+ * This alert is generated when a block request receives a response.
+ *
  * @author gubatron
  * @author aldenml
  */
