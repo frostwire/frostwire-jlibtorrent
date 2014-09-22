@@ -553,7 +553,7 @@ namespace libtorrent {
 };
 
 %extend lazy_entry {
-    static int bdecode(std::vector<char> buffer, lazy_entry& e, error_code& ec) {
+    static int bdecode(std::vector<char>& buffer, lazy_entry& e, error_code& ec) {
         return lazy_bdecode(&buffer[0], &buffer[0] + buffer.size(), e, ec);
     }
 };

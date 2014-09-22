@@ -19,10 +19,7 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
-import com.frostwire.jlibtorrent.swig.char_vector;
-import com.frostwire.jlibtorrent.swig.error_code;
-import com.frostwire.jlibtorrent.swig.lazy_entry;
-import com.frostwire.jlibtorrent.swig.torrent_info;
+import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -57,5 +54,6 @@ public final class LazyRead {
         torrent_info ti = new torrent_info(e);
 
         System.out.println(LibTorrent.info_hash2string(ti.info_hash()));
+        System.out.println(libtorrent.print_entry(e));
     }
 }
