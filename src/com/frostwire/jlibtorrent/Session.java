@@ -331,6 +331,47 @@ public final class Session {
         s.set_settings(settings.getSwig());
     }
 
+    // loads and saves all session settings, including dht_settings,
+    // encryption settings and proxy settings. ``save_state`` writes all keys
+    // to the ``entry`` that's passed in, which needs to either not be
+    // initialized, or initialized as a dictionary.
+    //
+    // ``load_state`` expects a lazy_entry which can be built from a bencoded
+    // buffer with lazy_bdecode().
+    //
+    // The ``flags`` arguments passed in to ``save_state`` can be used to
+    // filter which parts of the session state to save. By default, all state
+    // is saved (except for the individual torrents). see save_state_flags_t
+    public byte[] saveState() {
+        entry e = new entry();
+        s.save_state(e);
+        return LibTorrent.entry2bytes(e);
+    }
+
+    // loads and saves all session settings, including dht_settings,
+    // encryption settings and proxy settings. ``save_state`` writes all keys
+    // to the ``entry`` that's passed in, which needs to either not be
+    // initialized, or initialized as a dictionary.
+    //
+    // ``load_state`` expects a lazy_entry which can be built from a bencoded
+    // buffer with lazy_bdecode().
+    //
+    // The ``flags`` arguments passed in to ``save_state`` can be used to
+    // filter which parts of the session state to save. By default, all state
+    // is saved (except for the individual torrents). see save_state_flags_t
+    public void loadState(byte[] data) {
+        char_vector buffer = LibTorrent.bytes2char_vector(data);
+        lazy_entry e = new lazy_entry();
+        error_code ec = new error_code();
+        int ret = lazy_entry.bdecode(buffer, e, ec);
+
+        if (ret == 0) {
+            s.load_state(e);
+        } else {
+            LOG.error("failed to decode torrent: " + ec.message());
+        }
+    }
+
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
