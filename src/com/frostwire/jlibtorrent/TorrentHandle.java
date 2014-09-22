@@ -315,4 +315,68 @@ public final class TorrentHandle {
     public String makeMagnetUri() {
         return th.is_valid() ? libtorrent.make_magnet_uri(th) : null;
     }
+
+    // ``set_upload_limit`` will limit the upload bandwidth used by this
+    // particular torrent to the limit you set. It is given as the number of
+    // bytes per second the torrent is allowed to upload.
+    // ``set_download_limit`` works the same way but for download bandwidth
+    // instead of upload bandwidth. Note that setting a higher limit on a
+    // torrent then the global limit
+    // (``session_settings::upload_rate_limit``) will not override the global
+    // rate limit. The torrent can never upload more than the global rate
+    // limit.
+    //
+    // ``upload_limit`` and ``download_limit`` will return the current limit
+    // setting, for upload and download, respectively.
+    public int getUploadLimit() {
+        return th.upload_limit();
+    }
+
+    // ``set_upload_limit`` will limit the upload bandwidth used by this
+    // particular torrent to the limit you set. It is given as the number of
+    // bytes per second the torrent is allowed to upload.
+    // ``set_download_limit`` works the same way but for download bandwidth
+    // instead of upload bandwidth. Note that setting a higher limit on a
+    // torrent then the global limit
+    // (``session_settings::upload_rate_limit``) will not override the global
+    // rate limit. The torrent can never upload more than the global rate
+    // limit.
+    //
+    // ``upload_limit`` and ``download_limit`` will return the current limit
+    // setting, for upload and download, respectively.
+    public void setUploadLimit(int limit) {
+        th.set_upload_limit(limit);
+    }
+
+    // ``set_upload_limit`` will limit the upload bandwidth used by this
+    // particular torrent to the limit you set. It is given as the number of
+    // bytes per second the torrent is allowed to upload.
+    // ``set_download_limit`` works the same way but for download bandwidth
+    // instead of upload bandwidth. Note that setting a higher limit on a
+    // torrent then the global limit
+    // (``session_settings::upload_rate_limit``) will not override the global
+    // rate limit. The torrent can never upload more than the global rate
+    // limit.
+    //
+    // ``upload_limit`` and ``download_limit`` will return the current limit
+    // setting, for upload and download, respectively.
+    public int getDownloadLimit() {
+        return th.download_limit();
+    }
+
+    // ``set_upload_limit`` will limit the upload bandwidth used by this
+    // particular torrent to the limit you set. It is given as the number of
+    // bytes per second the torrent is allowed to upload.
+    // ``set_download_limit`` works the same way but for download bandwidth
+    // instead of upload bandwidth. Note that setting a higher limit on a
+    // torrent then the global limit
+    // (``session_settings::upload_rate_limit``) will not override the global
+    // rate limit. The torrent can never upload more than the global rate
+    // limit.
+    //
+    // ``upload_limit`` and ``download_limit`` will return the current limit
+    // setting, for upload and download, respectively.
+    public void setDownloadLimit(int limit) {
+        th.set_download_limit(limit);
+    }
 }

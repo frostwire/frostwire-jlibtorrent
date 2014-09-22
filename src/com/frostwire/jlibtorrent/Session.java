@@ -292,7 +292,7 @@ public final class Session {
 
     /**
      * Returns session wide-statistics and status.
-     *
+     * <p/>
      * It is important not to call this method for each field in the status
      * for performance reasons.
      *
@@ -315,6 +315,20 @@ public final class Session {
      */
     public SessionStatus getStatus() {
         return this.getStatus(false);
+    }
+
+    // Sets the session settings and the packet encryption settings
+    // respectively. See session_settings and pe_settings for more
+    // information on available options.
+    public SessionSettings getSettings() {
+        return new SessionSettings(s.settings());
+    }
+
+    // Sets the session settings and the packet encryption settings
+    // respectively. See session_settings and pe_settings for more
+    // information on available options.
+    public void setSettings(SessionSettings settings) {
+        s.set_settings(settings.getSwig());
     }
 
     @Override
