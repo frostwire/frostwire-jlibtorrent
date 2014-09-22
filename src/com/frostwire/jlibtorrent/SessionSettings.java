@@ -18,6 +18,7 @@
 
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.session_settings;
 
 /**
@@ -165,5 +166,34 @@ public final class SessionSettings {
     // A value of 0 means unlimited.
     public void setLocalDownloadRateLimit(int value) {
         s.setLocal_download_rate_limit(value);
+    }
+
+    // The default values of the session settings are set for a regular
+    // bittorrent client running on a desktop system. There are functions that
+    // can set the session settings to pre set settings for other environments.
+    // These can be used for the basis, and should be tweaked to fit your needs
+    // better.
+    public static SessionSettings newDefaults() {
+        return new SessionSettings(new session_settings());
+    }
+
+    // ``min_memory_usage`` returns settings that will use the minimal amount of
+    // RAM, at the potential expense of upload and download performance. It
+    // adjusts the socket buffer sizes, disables the disk cache, lowers the send
+    // buffer watermarks so that each connection only has at most one block in
+    // use at any one time. It lowers the outstanding blocks send to the disk
+    // I/O thread so that connections only have one block waiting to be flushed
+    // to disk at any given time. It lowers the max number of peers in the peer
+    // list for torrents. It performs multiple smaller reads when it hashes
+    // pieces, instead of reading it all into memory before hashing.
+    //
+    // This configuration is inteded to be the starting point for embedded
+    // devices. It will significantly reduce memory usage.
+    public static SessionSettings newMinMemoryUsage() {
+        return new SessionSettings(libtorrent.min_memory_usage());
+    }
+
+    public static SessionSettings newHighPerformanceSeed() {
+        return new SessionSettings(libtorrent.high_performance_seed());
     }
 }
