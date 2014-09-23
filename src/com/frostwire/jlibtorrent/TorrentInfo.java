@@ -106,4 +106,17 @@ public final class TorrentInfo {
     public String makeMagnetUri() {
         return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
     }
+
+    /**
+     * The file_storage object contains the information on how to map the pieces to
+     * files. It is separated from the torrent_info object because when creating torrents
+     * a storage object needs to be created without having a torrent file. When renaming files
+     * in a storage, the storage needs to make its own copy of the file_storage in order
+     * to make its mapping differ from the one in the torrent file.
+     *
+     * @return
+     */
+    public FileStorage getFiles() {
+        return new FileStorage(ti.files());
+    }
 }
