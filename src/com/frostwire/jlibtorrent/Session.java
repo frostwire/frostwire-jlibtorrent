@@ -20,6 +20,8 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.GenericAlert;
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
+import com.frostwire.jlibtorrent.alerts.TorrentAddedAlert;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
@@ -206,26 +208,25 @@ public final class Session {
         error_code ec = new error_code();
         libtorrent.parse_magnet_uri(uri, p, ec);
 
+        p.setName("fetchMagnet - " + uri);
+
+        long flags = p.getFlags();
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+        p.setFlags(flags);
+
         final torrent_handle th = s.add_torrent(p);
-        th.auto_managed(false);
 
         final CountDownLatch signal = new CountDownLatch(1);
 
-        AlertListener l = new AlertListener() {
+        AlertListener l = new TorrentAlertAdapter(new TorrentHandle(th)) {
+
             @Override
-            public boolean accept(Alert<?> alert) {
-                if (!(alert.getSwig() instanceof metadata_received_alert)) {
-                    return false;
-                }
-
-                metadata_received_alert mra = (metadata_received_alert) alert.getSwig();
-
-                return mra.getHandle().op_eq(th);
+            public void onTorrentAdded(TorrentAddedAlert alert) {
+                th.resume();
             }
 
             @Override
-            public void onAlert(Alert<?> alert) {
-                // we are here only if we received the corresponding metadata_received_alert
+            public void onMetadataReceived(MetadataReceivedAlert alert) {
                 signal.countDown();
             }
         };
@@ -239,17 +240,20 @@ public final class Session {
 
         removeListener(l);
 
-        byte[] data = null;
+        try {
+            byte[] data = null;
 
-        torrent_info ti = th.torrent_file();
-        if (ti != null) {
-            create_torrent ct = new create_torrent(ti);
-            data = LibTorrent.char_vector2bytes(ct.generate().bencode());
+            torrent_info ti = th.torrent_file();
+            if (ti != null) {
+                create_torrent ct = new create_torrent(ti);
+                data = LibTorrent.char_vector2bytes(ct.generate().bencode());
+            }
+
+            return data;
+
+        } finally {
+            s.remove_torrent(th);
         }
-
-        s.remove_torrent(th);
-
-        return data;
     }
 
     public void pause() {

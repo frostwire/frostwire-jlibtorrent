@@ -87,6 +87,11 @@ public final class TorrentHandle {
         return ts.getSave_path();
     }
 
+    public String getName() {
+        torrent_status ts = th.status(status_flags_t.query_name.swigValue());
+        return ts.getName();
+    }
+
     public String getInfoHash() {
         return LibTorrent.info_hash2string(th.info_hash());
     }
