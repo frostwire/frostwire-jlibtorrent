@@ -376,7 +376,38 @@ public final class Session {
         }
     }
 
-    //public TorrentHandle
+    /**
+     * Looks for a torrent with the given info-hash. In
+     * case there is such a torrent in the session, a torrent_handle to that
+     * torrent is returned.
+     *
+     * @param infoHash
+     * @return
+     */
+    public TorrentHandle findTorrent(Sha1Hash infoHash) {
+        torrent_handle th = s.find_torrent(infoHash.getSwig());
+
+        return th.is_valid() ? new TorrentHandle(th) : null;
+    }
+
+    /**
+     * Returns a list of torrent handles to all the
+     * torrents currently in the session.
+     *
+     * @return
+     */
+    public List<TorrentHandle> getTorrents() {
+        torrent_handle_vector v = s.get_torrents();
+        long size = v.size();
+
+        List<TorrentHandle> l = new ArrayList<TorrentHandle>((int) size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(new TorrentHandle(v.get(i)));
+        }
+
+        return l;
+    }
 
     @Override
     protected void finalize() throws Throwable {
