@@ -119,4 +119,16 @@ public final class TorrentInfo {
     public FileStorage getFiles() {
         return new FileStorage(ti.files());
     }
+
+    /**
+     * Returns true if this torrent_info object has a torrent loaded.
+     * <p/>
+     * This is primarily used to determine if a magnet link has had its
+     * metadata resolved yet or not.
+     *
+     * @return
+     */
+    public boolean isValid() {
+        return ti.is_valid();
+    }
 }
