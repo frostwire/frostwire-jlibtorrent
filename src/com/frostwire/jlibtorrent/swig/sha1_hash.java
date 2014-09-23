@@ -79,5 +79,13 @@ public class sha1_hash {
     return libtorrent_jni.sha1_hash_to_string(swigCPtr, this);
   }
 
+  public String to_hex() {
+    return libtorrent_jni.sha1_hash_to_hex(swigCPtr, this);
+  }
+
+  public static boolean from_hex(String hex, sha1_hash h) {
+    return libtorrent_jni.sha1_hash_from_hex(hex, sha1_hash.getCPtr(h), h);
+  }
+
   public final static int size = libtorrent_jni.sha1_hash_size_get();
 }

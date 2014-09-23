@@ -830,6 +830,8 @@ public class libtorrent_jni {
   public final static native boolean sha1_hash_op_neq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean sha1_hash_op_lt(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native String sha1_hash_to_string(long jarg1, sha1_hash jarg1_);
+  public final static native String sha1_hash_to_hex(long jarg1, sha1_hash jarg1_);
+  public final static native boolean sha1_hash_from_hex(String jarg1, long jarg2, sha1_hash jarg2_);
   public final static native void delete_sha1_hash(long jarg1);
   public final static native long get_filesizes(long jarg1, file_storage jarg1_, String jarg2);
   public final static native boolean storage_interface_initialize(long jarg1, storage_interface jarg1_, boolean jarg2);

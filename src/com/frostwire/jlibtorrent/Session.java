@@ -376,6 +376,8 @@ public final class Session {
         }
     }
 
+    //public TorrentHandle
+
     @Override
     protected void finalize() throws Throwable {
         this.running = false;

@@ -605,4 +605,14 @@ namespace libtorrent {
          $self->add_extension(&libtorrent::create_smart_ban_plugin);
     }
 };
+
+%extend sha1_hash {
+    std::string to_hex() {
+        return to_hex($self->to_string());
+    }
+
+    static bool from_hex(char *hex, sha1_hash& h) {
+        return from_hex(hex, 40, (char*)&h[0]);
+    }
+};
 }

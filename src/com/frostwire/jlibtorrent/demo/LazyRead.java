@@ -19,6 +19,7 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
+import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
@@ -53,7 +54,7 @@ public final class LazyRead {
 
         torrent_info ti = new torrent_info(e);
 
-        System.out.println(LibTorrent.info_hash2string(ti.info_hash()));
+        System.out.println(new Sha1Hash(ti.info_hash()));
         System.out.println(libtorrent.print_entry(e));
     }
 }

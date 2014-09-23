@@ -75,11 +75,16 @@ public final class TorrentInfo {
      * @return
      */
     public int getNumPieces() {
-        return this.ti.num_pieces();
+        return ti.num_pieces();
     }
 
-    public String getInfoHash() {
-        return LibTorrent.info_hash2string(ti.info_hash());
+    /**
+     * returns the info-hash of the torrent.
+     *
+     * @return
+     */
+    public Sha1Hash getInfoHash() {
+        return new Sha1Hash(ti.info_hash());
     }
 
     public String mkString() {

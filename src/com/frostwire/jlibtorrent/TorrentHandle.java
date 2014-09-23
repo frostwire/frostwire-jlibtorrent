@@ -92,8 +92,13 @@ public final class TorrentHandle {
         return ts.getName();
     }
 
-    public String getInfoHash() {
-        return LibTorrent.info_hash2string(th.info_hash());
+    /**
+     * returns the info-hash for the torrent.
+     *
+     * @return
+     */
+    public Sha1Hash getInfoHash() {
+        return new Sha1Hash(th.info_hash());
     }
 
     // ``pause()``, and ``resume()`` will disconnect all peers and reconnect

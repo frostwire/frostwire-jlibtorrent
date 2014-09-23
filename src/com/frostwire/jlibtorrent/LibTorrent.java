@@ -72,10 +72,6 @@ public final class LibTorrent {
         return v;
     }
 
-    public static String info_hash2string(sha1_hash hash) {
-        return libtorrent.to_hex(hash.to_string());
-    }
-
     public static byte[] entry2bytes(entry e) {
         return char_vector2bytes(e.bencode());
     }
