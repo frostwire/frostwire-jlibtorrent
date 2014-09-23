@@ -18,10 +18,7 @@
 
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.LibTorrent;
-import com.frostwire.jlibtorrent.Session;
-import com.frostwire.jlibtorrent.TorrentAlertAdapter;
-import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.swig.entry;
@@ -47,7 +44,7 @@ public final class PartialDownload {
         System.out.println("Using libtorrent version: " + LibTorrent.version());
 
         byte[] data = Files.readAllBytes(torrentFile.toPath());
-        entry e = entry.bdecode(LibTorrent.bytes2char_vector(data));
+        entry e = entry.bdecode(Vectors.bytes2char_vector(data));
 
         entry_vector files = e.find_key("info").find_key("files").list_v();
 

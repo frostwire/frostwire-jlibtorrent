@@ -20,6 +20,7 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
@@ -42,7 +43,7 @@ public final class LazyRead {
 
         byte[] data = Files.readAllBytes(torrentFile.toPath());
 
-        char_vector buffer = LibTorrent.bytes2char_vector(data);
+        char_vector buffer = Vectors.bytes2char_vector(data);
         lazy_entry e = new lazy_entry();
         error_code ec = new error_code();
         int ret = lazy_entry.bdecode(buffer, e, ec);

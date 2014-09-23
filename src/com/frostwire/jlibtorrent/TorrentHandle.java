@@ -517,4 +517,58 @@ public final class TorrentHandle {
     public void addTracker(AnnounceEntry tracker) {
         th.add_tracker(tracker.getSwig());
     }
+
+    /**
+     * index must be in the range [0, number_of_files).
+     * <p/>
+     * The priority values are the same as for piece_priority().
+     * <p/>
+     * Whenever a file priority is changed, all other piece priorities are
+     * reset to match the file priorities. In order to maintain sepcial
+     * priorities for particular pieces, piece_priority() has to be called
+     * again for those pieces.
+     * <p/>
+     * You cannot set the file priorities on a torrent that does not yet have
+     * metadata or a torrent that is a seed. ``file_priority(int, int)`` and
+     * prioritize_files() are both no-ops for such torrents.
+     *
+     * @param index
+     * @param priority
+     */
+    public void setFilePriority(int index, int priority) {
+        th.file_priority(index, priority);
+    }
+
+    /**
+     * index must be in the range [0, number_of_files).
+     * <p/>
+     * queries or sets the priority of file index.
+     *
+     * @param index
+     * @return
+     */
+    public int getFilePriority(int index) {
+        return th.file_priority(index);
+    }
+
+    /**
+     * Takes a vector that has at as many elements as
+     * there are files in the torrent. Each entry is the priority of that
+     * file. The function sets the priorities of all the pieces in the
+     * torrent based on the vector.
+     *
+     * @param priorities
+     */
+    public void prioritizeFiles(int[] priorities) {
+        th.prioritize_files(Vectors.ints2int_vector(priorities));
+    }
+
+    /**
+     * Returns a vector with the priorities of all files.
+     *
+     * @return
+     */
+    public int[] getFilePriorities() {
+        return Vectors.int_vector2ints(th.file_priorities());
+    }
 }

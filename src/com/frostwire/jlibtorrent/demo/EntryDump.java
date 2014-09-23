@@ -20,6 +20,7 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.Utils;
+import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.entry;
 
 import java.io.File;
@@ -41,7 +42,7 @@ public final class EntryDump {
 
         byte[] data = Utils.readFileToByteArray(file);
 
-        entry e = LibTorrent.bytes2entry(data);
+        entry e = entry.bdecode(Vectors.bytes2char_vector(data));
 
         System.out.println(e.to_string());
     }

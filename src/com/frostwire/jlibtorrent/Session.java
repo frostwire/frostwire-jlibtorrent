@@ -124,7 +124,7 @@ public final class Session {
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 
         if (priorities != null) {
-            p.setFile_priorities(LibTorrent.bytes2unsigned_char_vector(priorities));
+            p.setFile_priorities(Vectors.bytes2unsigned_char_vector(priorities));
         }
 
         long flags = p.getFlags();
@@ -157,7 +157,7 @@ public final class Session {
         if (resumeFile != null && resumeFile.exists()) {
             flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
             byte[] data = Utils.readFileToByteArray(resumeFile);
-            p.setResume_data(LibTorrent.bytes2char_vector(data));
+            p.setResume_data(Vectors.bytes2char_vector(data));
         }
 
         p.setFlags(flags);
@@ -246,7 +246,7 @@ public final class Session {
             torrent_info ti = th.torrent_file();
             if (ti != null) {
                 create_torrent ct = new create_torrent(ti);
-                data = LibTorrent.char_vector2bytes(ct.generate().bencode());
+                data = Vectors.char_vector2bytes(ct.generate().bencode());
             }
 
             return data;
@@ -349,7 +349,7 @@ public final class Session {
     public byte[] saveState() {
         entry e = new entry();
         s.save_state(e);
-        return LibTorrent.entry2bytes(e);
+        return Vectors.char_vector2bytes(e.bencode());
     }
 
     // loads and saves all session settings, including dht_settings,
@@ -364,7 +364,7 @@ public final class Session {
     // filter which parts of the session state to save. By default, all state
     // is saved (except for the individual torrents). see save_state_flags_t
     public void loadState(byte[] data) {
-        char_vector buffer = LibTorrent.bytes2char_vector(data);
+        char_vector buffer = Vectors.bytes2char_vector(data);
         lazy_entry e = new lazy_entry();
         error_code ec = new error_code();
         int ret = lazy_entry.bdecode(buffer, e, ec);

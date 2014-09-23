@@ -45,9 +45,6 @@ public final class TorrentStatus {
         this.totalWanted = ts.getTotal_wanted();
         this.allTimeUpload = ts.getAll_time_upload();
         this.allTimeDownload = ts.getAll_time_download();
-        this.addedTime = LibTorrent.time2millis(ts.getAdded_time());
-        this.completedTime = LibTorrent.time2millis(ts.getCompleted_time());
-        this.lastSeenComplete = LibTorrent.time2millis(ts.getLast_seen_complete());
         this.numComplete = ts.getNum_complete();
         this.numIncomplete = ts.getNum_incomplete();
         this.listSeeds = ts.getList_seeds();
@@ -171,17 +168,23 @@ public final class TorrentStatus {
     /**
      * The posix-time (in milliseconds) when this torrent was added. i.e. what time(NULL) returned at the time.
      */
-    public final long addedTime;
+    public long getAddedTime() {
+        return time2millis(ts.getAdded_time());
+    }
 
     /**
      * The posix-time (in milliseconds) when this torrent was finished. If the torrent is not yet finished, this is 0.
      */
-    public final long completedTime;
+    public long getCompletedTime() {
+        return time2millis(ts.getCompleted_time());
+    }
 
     /**
      * The time (in milliseconds) when we, or one of our peers, last saw a complete copy of this torrent.
      */
-    public final long lastSeenComplete;
+    public long lastSeenComplete() {
+        return time2millis(ts.getLast_seen_complete());
+    }
 
     /**
      * The allocation mode for the torrent. See storage_mode_t for the options.
@@ -332,7 +335,14 @@ public final class TorrentStatus {
     public final boolean hasIncoming;
     public final boolean isSeedMode;
     public final boolean isMovingStorage;
-//    sha1_hash info_hash;
+
+    public Sha1Hash getInfoHash() {
+        return new Sha1Hash(ts.getInfo_hash());
+    }
+
+    private static long time2millis(int time) {
+        return ((long) time) * 1000;
+    }
 
     public static enum State {
 
