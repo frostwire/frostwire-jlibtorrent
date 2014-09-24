@@ -37,6 +37,8 @@ public enum AlertType {
     PORTMAP(portmap_alert.alert_type),
     PORTMAP_ERROR(portmap_error_alert.alert_type),
     PORTMAP_LOG(portmap_log_alert.alert_type),
+    TRACKER_ANNOUNCE(tracker_announce_alert.alert_type),
+    READ_PIECE(read_piece_alert.alert_type),
     UNKNOWN(Integer.MAX_VALUE);
 
     private AlertType(int swigValue) {

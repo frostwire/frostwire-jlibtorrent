@@ -71,6 +71,12 @@ public class TorrentAlertAdapter implements AlertListener {
             case FILE_ERROR:
                 onFileError((FileErrorAlert) alert);
                 break;
+            case TRACKER_ANNOUNCE:
+                onTrackerAnnounce((TrackerAnnounceAlert) alert);
+                break;
+            case READ_PIECE:
+                onReadPiece((ReadPieceAlert) alert);
+                break;
         }
     }
 
@@ -96,5 +102,11 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void onFileError(FileErrorAlert alert) {
+    }
+
+    public void onTrackerAnnounce(TrackerAnnounceAlert alert) {
+    }
+
+    public void onReadPiece(ReadPieceAlert alert) {
     }
 }
