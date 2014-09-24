@@ -42,3 +42,5 @@ public final class DownloadTorrent {
     }
 }
 ```
+
+frostwire-jlibtorrent is currently compatible with libtorrent-rasterbar-1.0.2
