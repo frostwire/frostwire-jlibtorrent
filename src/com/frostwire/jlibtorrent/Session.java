@@ -194,7 +194,9 @@ public final class Session {
      * @param th
      */
     public void removeTorrent(TorrentHandle th) {
-        s.remove_torrent(th.getSwig());
+        if (th.isValid()) {
+            s.remove_torrent(th.getSwig());
+        }
     }
 
     /**
