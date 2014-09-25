@@ -60,13 +60,6 @@ public final class TorrentStatus {
         this.isPaused = ts.getPaused();
         this.isAutoManaged = ts.getAuto_managed();
         this.isSequentialDownload = ts.getSequential_download();
-        this.isSeeding = ts.getIs_seeding();
-        this.isFinished = ts.getIs_finished();
-        this.hasMetadata = ts.getHas_metadata();
-        this.hasIncoming = ts.getHas_incoming();
-        this.isSeedMode = ts.getSeed_mode();
-        this.isMovingStorage = ts.getMoving_storage();
-//    sha1_hash info_hash;
     }
 
     // a handle to the torrent whose status the object represents.
@@ -311,12 +304,71 @@ public final class TorrentStatus {
     public final boolean isPaused;
     public final boolean isAutoManaged;
     public final boolean isSequentialDownload;
-    public final boolean isSeeding;
-    public final boolean isFinished;
-    public final boolean hasMetadata;
-    public final boolean hasIncoming;
-    public final boolean isSeedMode;
-    public final boolean isMovingStorage;
+
+    /**
+     * true if all pieces have been downloaded.
+     *
+     * @return
+     */
+    public boolean isSeeding() {
+        return ts.getIs_seeding();
+    }
+
+    /**
+     * true if all pieces that have a priority > 0 are downloaded. There is
+     * only a distinction between finished and seeding if some pieces or
+     * files have been set to priority 0, i.e. are not downloaded.
+     *
+     * @return
+     */
+    public boolean isFinished() {
+        return ts.getIs_finished();
+    }
+
+    /**
+     * true if this torrent has metadata (either it was started from a
+     * .torrent file or the metadata has been downloaded). The only scenario
+     * where this can be false is when the torrent was started torrent-less
+     * (i.e. with just an info-hash and tracker ip, a magnet link for
+     * instance).
+     *
+     * @return
+     */
+    public boolean hasMetadata() {
+        return ts.getHas_metadata();
+    }
+
+    /**
+     * true if there has ever been an incoming connection attempt to this
+     * torrent.
+     *
+     * @return
+     */
+    public boolean hasIncoming() {
+        return ts.getHas_incoming();
+    }
+
+    /**
+     * true if the torrent is in seed_mode. If the torrent was started in
+     * seed mode, it will leave seed mode once all pieces have been checked
+     * or as soon as one piece fails the hash check.
+     *
+     * @return
+     */
+    public boolean isSeedMode() {
+        return ts.getSeed_mode();
+    }
+
+    /**
+     * this is true if this torrent's storage is currently being moved from
+     * one location to another. This may potentially be a long operation
+     * if a large file ends up being copied from one drive to another.
+     *
+     * @return
+     */
+    public boolean isMovingStorage() {
+        return ts.getMoving_storage();
+    }
 
     public Sha1Hash getInfoHash() {
         return new Sha1Hash(ts.getInfo_hash());

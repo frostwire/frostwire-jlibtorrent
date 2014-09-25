@@ -32,18 +32,6 @@ public final class TorrentHandle {
         return ti != null ? new TorrentInfo(th.torrent_file()) : null;
     }
 
-    public boolean isPaused() {
-        return th.status().getPaused();
-    }
-
-    public boolean isSeeding() {
-        return th.status().getIs_seeding();
-    }
-
-    public boolean isFinished() {
-        return th.status().getIs_finished();
-    }
-
     /**
      * It is important not to call this method for each field in the status
      * for performance reasons.
@@ -541,8 +529,12 @@ public final class TorrentHandle {
      *
      * @param priorities
      */
-    public void prioritizeFiles(int[] priorities) {
-        th.prioritize_files(Vectors.ints2int_vector(priorities));
+    public void prioritizeFiles(Priority[] priorities) {
+        int[] arr = new int[priorities.length];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = priorities[i] != Priority.UNKNOWN ? priorities[i].getSwig() : Priority.ZERO.getSwig();
+        }
+        th.prioritize_files(Vectors.ints2int_vector(arr));
     }
 
     /**
