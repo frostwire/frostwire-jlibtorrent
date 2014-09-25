@@ -57,7 +57,6 @@ public final class TorrentStatus {
         this.isUploadMode = ts.getUpload_mode();
         this.isShareMode = ts.getShare_mode();
         this.isSuperSeeding = ts.getSuper_seeding();
-        this.isPaused = ts.getPaused();
         this.isAutoManaged = ts.getAuto_managed();
         this.isSequentialDownload = ts.getSequential_download();
     }
@@ -301,7 +300,20 @@ public final class TorrentStatus {
     public final boolean isUploadMode;
     public final boolean isShareMode;
     public final boolean isSuperSeeding;
-    public final boolean isPaused;
+
+    /**
+     * set to true if the torrent is paused and false otherwise. It's only
+     * true if the torrent itself is paused. If the torrent is not running
+     * because the session is paused, this is still false. To know if a
+     * torrent is active or not, you need to inspect both
+     * ``torrent_status::paused`` and ``session::is_paused()``.
+     *
+     * @return
+     */
+    public boolean isPaused() {
+        return ts.getPaused();
+    }
+
     public final boolean isAutoManaged;
     public final boolean isSequentialDownload;
 

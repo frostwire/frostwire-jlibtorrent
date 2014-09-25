@@ -9,11 +9,13 @@ public enum Priority {
     /**
      * piece or file is not downloaded at all
      */
+    IGNORE(0),
     ZERO(0),
 
     /**
      * normal priority. Download order is dependent on availability
      */
+    NORMAL(1),
     ONE(1),
 
     /**

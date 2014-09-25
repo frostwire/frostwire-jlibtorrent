@@ -120,7 +120,11 @@ public final class Session {
         return new TorrentHandle(th);
     }
 
-    public void asyncAddTorrent(File torrentFile, File saveDir, File resumeFile) throws IOException {
+    public TorrentHandle addTorrent(File torrentFile, File saveDir) {
+        return addTorrent(torrentFile, null, saveDir);
+    }
+
+    public void asyncAddTorrent(File torrentFile, Priority[] priorities, File saveDir, File resumeFile) throws IOException {
         String torrentPath = torrentFile.getAbsolutePath();
         String savePath = saveDir.getAbsolutePath();
 
@@ -131,6 +135,14 @@ public final class Session {
         p.setTi(ti);
         p.setSave_path(savePath);
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
+
+        if (priorities != null) {
+            byte[] arr = new byte[priorities.length];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = (byte) priorities[i].getSwig();
+            }
+            p.setFile_priorities(Vectors.bytes2unsigned_char_vector(arr));
+        }
 
         long flags = p.getFlags();
 
@@ -147,8 +159,12 @@ public final class Session {
         s.async_add_torrent(p);
     }
 
-    public TorrentHandle addTorrent(File torrentFile, File saveDir) {
-        return addTorrent(torrentFile, null, saveDir);
+    public void asyncAddTorrent(File torrentFile, File saveDir, File resumeFile) throws IOException {
+        asyncAddTorrent(torrentFile, null, saveDir, resumeFile);
+    }
+
+    public void asyncAddTorrent(File torrentFile, File saveDir) throws IOException {
+        asyncAddTorrent(torrentFile, null, saveDir, null);
     }
 
     /**
