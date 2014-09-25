@@ -71,13 +71,13 @@ export CXXFLAGS=-O3
 
 **Building the shared library**
 
-make libtorrent, and then, go to the [scripts/](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/scripts) folder of our project and execute the [run_swig.sh](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/scripts/run_swig.sh) script. The result will be a `libjlibtorrent.dylib` which you can then use on your Java project along with the [Java sources](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/com/frostwire/jlibtorrent) of the frostwire-jlibtorrent api. Make sure the .dylib is on your project's java lib path.
+make libtorrent, and then, go to the [build/](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/scripts) folder of our project and execute the [run_swig.sh](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/build/run_swig.sh) script. The result will be a `libjlibtorrent.dylib` which you can then use on your Java project along with the [Java sources](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/com/frostwire/jlibtorrent) of the frostwire-jlibtorrent api. Make sure the .dylib is on your project's java lib path.
 
 You can always clone the project to your development environment and add it to the build path of your project as a dependency (which would help us in the event you find a bug and you submit a pull request), or copy the sources directly in your project source folder, however you can always just create the `frostwire-jlibtorrent.jar` and add it to your buildpath and classpath by using the gradle script in the scripts folder.
 
 **Building the frostwire-jlibtorrent.jar**
 
-inside the `scripts/` folder just invoke 
+inside the `build/` folder just invoke 
 `gradle build` 
 
-you will find the resulting `frostwire-jlibtorrent.jar` at `scripts/build/libs/frostwire-jlibtorrent.jar`.
+you will find the resulting `frostwire-jlibtorrent.jar` at `build/build/libs/frostwire-jlibtorrent.jar`.
