@@ -76,4 +76,8 @@ make libtorrent, and then, go to the [scripts/](https://github.com/frostwire/fro
 You can always clone the project to your development environment and add it to the build path of your project as a dependency (which would help us in the event you find a bug and you submit a pull request), or copy the sources directly in your project source folder, however you can always just create the `frostwire-jlibtorrent.jar` and add it to your buildpath and classpath by using the gradle script in the scripts folder.
 
 **Building the frostwire-jlibtorrent.jar**
-just invoke `gradle build` and you will find the resulting `frostwire-jlibtorrent.jar` at `scripts/build/libs/frostwire-jlibtorrent.jar`.
+
+inside the `scripts/` folder just invoke 
+`gradle build` 
+
+you will find the resulting `frostwire-jlibtorrent.jar` at `scripts/build/libs/frostwire-jlibtorrent.jar`.
