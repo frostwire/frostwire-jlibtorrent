@@ -48,6 +48,8 @@ frostwire-jlibtorrent is currently compatible with libtorrent-rasterbar-1.0.2
 Building
 ========
 
+**Requirements**
+
 You will have to build libtorrent first on your system, we've included build scripts on the "scripts" folder, for now we just have the MacOSX build scripts ready, Windows, Linux and Android coming soon (perhaps even with your help, pull requests welcome).
 
 If you have not built libtorrent yet, you can get [libtorrent 1.0.2 sources from sourceforge](https://sourceforge.net/projects/libtorrent/files/libtorrent/libtorrent-rasterbar-1.0.2.tar.gz/download).
@@ -67,6 +69,11 @@ export CXXFLAGS=-O3
 ./configure --enable-shared --enable-static --enable-debug --enable-python-binding --disable-deprecated-functions
 ```
 
+**Building the shared library**
+
 make libtorrent, and then, go to the [scripts/](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/scripts) folder of our project and execute the [run_swig.sh](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/scripts/run_swig.sh) script. The result will be a `libjlibtorrent.dylib` which you can then use on your Java project along with the [Java sources](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/com/frostwire/jlibtorrent) of the frostwire-jlibtorrent api. Make sure the .dylib is on your project's java lib path.
 
-If you don't want to copy the frostwire-jlibtorrent java sources to your project, you can always create the `frostwire-jlibtorrent.jar` by using the gradle script in the scripts folder, just invoke `gradle build` and you will find the resulting `frostwire-jlibtorrent.jar` at `scripts/build/libs/frostwire-jlibtorrent.jar`.
+You can always clone the project to your development environment and add it to the build path of your project as a dependency (which would help us in the event you find a bug and you submit a pull request), or copy the sources directly in your project source folder, however you can always just create the `frostwire-jlibtorrent.jar` and add it to your buildpath and classpath by using the gradle script in the scripts folder.
+
+**Building the frostwire-jlibtorrent.jar**
+just invoke `gradle build` and you will find the resulting `frostwire-jlibtorrent.jar` at `scripts/build/libs/frostwire-jlibtorrent.jar`.
