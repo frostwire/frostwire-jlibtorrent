@@ -4,7 +4,7 @@ A swig Java interface for libtorrent by the makers of FrostWire.
 
 Develop libtorrent based apps with the joy of coding in Java.
 
-Here's a simple example of how to create a .torrent downloader using **jlibtorrent**.
+Here's a simple example of how to create a .torrent downloader using **frostwire-jlibtorrent**.
 
 ```
 public final class DownloadTorrent {
@@ -44,3 +44,29 @@ public final class DownloadTorrent {
 ```
 
 frostwire-jlibtorrent is currently compatible with libtorrent-rasterbar-1.0.2
+
+Building
+========
+
+You will have to build libtorrent first on your system, we've included build scripts on the "scripts" folder, for now we just have the MacOSX build scripts ready, Windows, Linux and Android coming soon (perhaps even with your help, pull requests welcome).
+
+If you have not built libtorrent yet, you can get [libtorrent 1.0.2 sources from sourceforge](https://sourceforge.net/projects/libtorrent/files/libtorrent/libtorrent-rasterbar-1.0.2.tar.gz/download).
+
+This is a suggested `configure` you can invoke prior to building libtorrent, add/remove flags to your needs:
+```
+export CC=clang
+export CXX=clang
+export CFLAGS="-O3 -DTORRENT_USE_IPV6=1 -DNDEBUG=1"
+export CXXFLAGS="-O3 -DTORRENT_USE_IPV6=1 -DNDEBUG=1"
+
+export CC=clang
+export CXX=clang
+export CFLAGS="-O3 -DTORRENT_USE_IPV6=1"
+export CXXFLAGS=-O3
+
+./configure --enable-shared --enable-static --enable-debug --enable-python-binding --disable-deprecated-functions
+```
+
+make libtorrent, and then, go to the [scripts/](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/scripts) folder of our project and execute the [run_swig.sh](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/scripts/run_swig.sh) script. The result will be a `libjlibtorrent.dylib` which you can then use on your Java project along with the [Java sources](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/com/frostwire/jlibtorrent) of the frostwire-jlibtorrent api. Make sure the .dylib is on your project's java lib path.
+
+If you don't want to copy the frostwire-jlibtorrent java sources to your project, you can always create the `frostwire-jlibtorrent.jar` by using the gradle script in the scripts folder, just invoke `gradle build` and you will find the resulting `frostwire-jlibtorrent.jar` at `scripts/build/libs/frostwire-jlibtorrent.jar`.
