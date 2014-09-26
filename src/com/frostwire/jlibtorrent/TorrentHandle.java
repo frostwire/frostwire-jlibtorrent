@@ -262,15 +262,11 @@ public final class TorrentHandle {
     }
 
     public boolean isPartial() {
-        if (!th.is_valid()) {
-            return false;
-        }
-
         int_vector v = th.file_priorities();
 
         long size = v.size();
         for (int i = 0; i < size; i++) {
-            if (v.get(i) == 0) {
+            if (v.get(i) == Priority.IGNORE.getSwig()) {
                 return true;
             }
         }
@@ -548,5 +544,71 @@ public final class TorrentHandle {
      */
     public int[] getFilePriorities() {
         return Vectors.int_vector2ints(th.file_priorities());
+    }
+
+    // This function fills in the supplied vector with the the number of
+    // bytes downloaded of each file in this torrent. The progress values are
+    // ordered the same as the files in the torrent_info. This operation is
+    // not very cheap. Its complexity is *O(n + mj)*. Where *n* is the number
+    // of files, *m* is the number of downloading pieces and *j* is the
+    // number of blocks in a piece.
+    //
+    // The ``flags`` parameter can be used to specify the granularity of the
+    // file progress. If left at the default value of 0, the progress will be
+    // as accurate as possible, but also more expensive to calculate. If
+    // ``torrent_handle::piece_granularity`` is specified, the progress will
+    // be specified in piece granularity. i.e. only pieces that have been
+    // fully downloaded and passed the hash check count. When specifying
+    // piece granularity, the operation is a lot cheaper, since libtorrent
+    // already keeps track of this internally and no calculation is required.
+    public long[] getFileProgress(FileProgressFlags flags) {
+        int64_vector v = new int64_vector();
+        th.file_progress(v, flags.getSwig().swigValue());
+        return Vectors.int64_vector2longs(v);
+    }
+
+    // This function fills in the supplied vector with the the number of
+    // bytes downloaded of each file in this torrent. The progress values are
+    // ordered the same as the files in the torrent_info. This operation is
+    // not very cheap. Its complexity is *O(n + mj)*. Where *n* is the number
+    // of files, *m* is the number of downloading pieces and *j* is the
+    // number of blocks in a piece.
+    //
+    // The ``flags`` parameter can be used to specify the granularity of the
+    // file progress. If left at the default value of 0, the progress will be
+    // as accurate as possible, but also more expensive to calculate. If
+    // ``torrent_handle::piece_granularity`` is specified, the progress will
+    // be specified in piece granularity. i.e. only pieces that have been
+    // fully downloaded and passed the hash check count. When specifying
+    // piece granularity, the operation is a lot cheaper, since libtorrent
+    // already keeps track of this internally and no calculation is required.
+    public long[] getFileProgress() {
+        int64_vector v = new int64_vector();
+        th.file_progress(v);
+        return Vectors.int64_vector2longs(v);
+    }
+
+    /**
+     * flags to be passed in file_progress().
+     */
+    public enum FileProgressFlags {
+
+        /**
+         * only calculate file progress at piece granularity. This makes
+         * the file_progress() call cheaper and also only takes bytes that
+         * have passed the hash check into account, so progress cannot
+         * regress in this mode.
+         */
+        PIECE_GRANULARITY(torrent_handle.file_progress_flags_t.piece_granularity);
+
+        private FileProgressFlags(torrent_handle.file_progress_flags_t swigObj) {
+            this.swigObj = swigObj;
+        }
+
+        private final torrent_handle.file_progress_flags_t swigObj;
+
+        public torrent_handle.file_progress_flags_t getSwig() {
+            return swigObj;
+        }
     }
 }

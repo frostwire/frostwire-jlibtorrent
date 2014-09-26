@@ -16,19 +16,12 @@ public final class TorrentStatus {
 //    boost::intrusive_ptr<const torrent_info> torrent_file;
 //    boost::posix_time::time_duration next_announce;
 //    boost::posix_time::time_duration announce_interval;
-//    std::string current_tracker;
-        this.totalPayloadDownload = ts.getTotal_payload_download();
-        this.totalPayloadUpload = ts.getTotal_payload_upload();
-        this.totalFailedBytes = ts.getTotal_failed_bytes();
-        this.totalRedundantBytes = ts.getTotal_redundant_bytes();
 //    bitfield pieces;
 //    bitfield verified_pieces;
         this.totalWantedDone = ts.getTotal_wanted_done();
         this.totalWanted = ts.getTotal_wanted();
         this.allTimeUpload = ts.getAll_time_upload();
         this.allTimeDownload = ts.getAll_time_download();
-        this.numComplete = ts.getNum_complete();
-        this.numIncomplete = ts.getNum_incomplete();
         this.listSeeds = ts.getList_seeds();
         this.listPeers = ts.getList_peers();
         this.connectCandidates = ts.getConnect_candidates();
@@ -61,24 +54,64 @@ public final class TorrentStatus {
         this.isSequentialDownload = ts.getSequential_download();
     }
 
-    // a handle to the torrent whose status the object represents.
+    /**
+     * a handle to the torrent whose status the object represents.
+     *
+     * @return
+     */
     public TorrentHandle getHandle() {
         return new TorrentHandle(ts.getHandle());
     }
 
-    // may be set to an error message describing why the torrent
-    // was paused, in case it was paused by an error. If the torrent
-    // is not paused or if it's paused but not because of an error,
-    // this string is empty.
+    /**
+     * may be set to an error message describing why the torrent
+     * was paused, in case it was paused by an error. If the torrent
+     * is not paused or if it's paused but not because of an error,
+     * this string is empty.
+     *
+     * @return
+     */
     public String getError() {
         return ts.getError();
     }
 
-//    std::string name;
-//    boost::intrusive_ptr<const torrent_info> torrent_file;
+    /**
+     * the name of the torrent. Typically this is derived from the
+     * .torrent file. In case the torrent was started without metadata,
+     * and hasn't completely received it yet, it returns the name given
+     * to it when added to the session. See ``session::add_torrent``.
+     * This field is only included if the torrent status is queried
+     * with ``torrent_handle::query_name``.
+     *
+     * @return
+     */
+    public String getName() {
+        return ts.getName();
+    }
+
+    /**
+     * set to point to the ``torrent_info`` object for this torrent. It's
+     * only included if the torrent status is queried with
+     * ``torrent_handle::query_torrent_file``.
+     *
+     * @return
+     */
+    public TorrentInfo getTorrentFile() {
+        return new TorrentInfo(ts.getTorrent_file());
+    }
+
 //    boost::posix_time::time_duration next_announce;
 //    boost::posix_time::time_duration announce_interval;
-//    std::string current_tracker;
+
+    /**
+     * the URL of the last working tracker. If no tracker request has
+     * been successful yet, it's set to an empty string.
+     *
+     * @return
+     */
+    public String getCurrentTracker() {
+        return ts.getCurrent_tracker();
+    }
 
     /**
      * The number of bytes downloaded and uploaded to all peers, accumulated, this session
@@ -100,10 +133,52 @@ public final class TorrentStatus {
         return ts.getTotal_upload();
     }
 
-    public final long totalPayloadDownload;
-    public final long totalPayloadUpload;
-    public final long totalFailedBytes;
-    public final long totalRedundantBytes;
+    /**
+     * Counts the amount of bytes received this session, but only
+     * the actual payload data (i.e the interesting data), these counters
+     * ignore any protocol overhead.
+     *
+     * @return
+     */
+    public long getTotalPayloadDownload() {
+        return ts.getTotal_payload_download();
+    }
+
+    /**
+     * Counts the amount of bytes send this session, but only
+     * the actual payload data (i.e the interesting data), these counters
+     * ignore any protocol overhead.
+     *
+     * @return
+     */
+    public long getTotalPayloadUpload() {
+        return ts.getTotal_payload_upload();
+    }
+
+    /**
+     * The number of bytes that has been downloaded and that has failed the
+     * piece hash test. In other words, this is just how much crap that has
+     * been downloaded.
+     *
+     * @return
+     */
+    public long getTotalFailedBytes() {
+        return ts.getTotal_failed_bytes();
+    }
+
+    // the number of bytes that has been downloaded even though that data
+    // already was downloaded. The reason for this is that in some situations
+    // the same data can be downloaded by mistake. When libtorrent sends
+    // requests to a peer, and the peer doesn't send a response within a
+    // certain timeout, libtorrent will re-request that block. Another
+    // situation when libtorrent may re-request blocks is when the requests
+    // it sends out are not replied in FIFO-order (it will re-request blocks
+    // that are skipped by an out of order block). This is supposed to be as
+    // low as possible.
+    public long getTotalRedundantBytes() {
+        return ts.getTotal_redundant_bytes();
+    }
+
     //    bitfield pieces;
 //    bitfield verified_pieces;
 
@@ -247,8 +322,29 @@ public final class TorrentStatus {
         return ts.getNum_peers();
     }
 
-    public final int numComplete;
-    public final int numIncomplete;
+    /**
+     * If the tracker sends scrape info in its announce reply, these fields
+     * will be set to the total number of peers that have the whole file and
+     * the total number of peers that are still downloading. set to -1 if the
+     * tracker did not send any scrape data in its announce reply.
+     *
+     * @return
+     */
+    public int getNumComplete() {
+        return ts.getNum_complete();
+    }
+
+    /**
+     * If the tracker sends scrape info in its announce reply, these fields
+     * will be set to the total number of peers that have the whole file and
+     * the total number of peers that are still downloading. set to -1 if the
+     * tracker did not send any scrape data in its announce reply.
+     *
+     * @return
+     */
+    public int getNumIncomplete() {
+        return ts.getNum_incomplete();
+    }
 
     /**
      * The number of seeds in our peer list and the total number of peers (including seeds).
