@@ -42,3 +42,5 @@ public final class DownloadTorrent {
     }
 }
 ```
+
+[![tip for next commit](https://tip4commit.com/projects/983.svg)](https://tip4commit.com/github/frostwire/frostwire-jlibtorrent)
