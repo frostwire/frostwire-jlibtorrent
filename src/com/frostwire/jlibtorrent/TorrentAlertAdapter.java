@@ -38,6 +38,9 @@ public class TorrentAlertAdapter implements AlertListener {
             case TORRENT_REMOVED:
                 onTorrentRemoved((TorrentRemovedAlert) alert);
                 break;
+            case TORRENT_UPDATE:
+                onTorrentUpdate((TorrentUpdateAlert) alert);
+                break;
             case BLOCK_FINISHED:
                 onBlockFinished((BlockFinishedAlert) alert);
                 break;
@@ -69,6 +72,9 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void onTorrentRemoved(TorrentRemovedAlert alert) {
+    }
+
+    public void onTorrentUpdate(TorrentUpdateAlert alert) {
     }
 
     public void onBlockFinished(BlockFinishedAlert alert) {
