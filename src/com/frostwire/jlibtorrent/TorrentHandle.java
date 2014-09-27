@@ -532,7 +532,7 @@ public final class TorrentHandle {
     public void prioritizeFiles(Priority[] priorities) {
         int[] arr = new int[priorities.length];
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = priorities[i] != Priority.UNKNOWN ? priorities[i].getSwig() : Priority.ZERO.getSwig();
+            arr[i] = priorities[i] != Priority.UNKNOWN ? priorities[i].getSwig() : Priority.IGNORE.getSwig();
         }
         th.prioritize_files(Vectors.ints2int_vector(arr));
     }
