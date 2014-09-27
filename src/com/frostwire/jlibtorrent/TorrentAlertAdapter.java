@@ -53,6 +53,9 @@ public class TorrentAlertAdapter implements AlertListener {
             case SAVE_RESUME_DATA:
                 onSaveResumeData((SaveResumeDataAlert) alert);
                 break;
+            case FILE_COMPLETED:
+                onFileCompleted((FileCompletedAlert) alert);
+                break;
             case FILE_ERROR:
                 onFileError((FileErrorAlert) alert);
                 break;
@@ -87,6 +90,9 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void onSaveResumeData(SaveResumeDataAlert alert) {
+    }
+
+    public void onFileCompleted(FileCompletedAlert alert) {
     }
 
     public void onFileError(FileErrorAlert alert) {
