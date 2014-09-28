@@ -113,4 +113,8 @@ public final class TorrentInfo {
     public boolean isValid() {
         return ti.is_valid();
     }
+
+    public String getHash() {
+        return getInfoHash().toString();
+    }
 }
