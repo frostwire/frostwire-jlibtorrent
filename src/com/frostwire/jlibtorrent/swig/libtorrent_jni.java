@@ -4293,7 +4293,12 @@ public class libtorrent_jni {
   public final static native int ed25519_signature_size_get();
   public final static native int ed25519_scalar_size_get();
   public final static native int ed25519_shared_secret_size_get();
-  public final static native int ed25519_create_seed(long jarg1, unsigned_char_vector jarg1_);
+  public final static native int ed25519_create_seed(long jarg1, char_vector jarg1_);
+  public final static native void ed25519_create_keypair(long jarg1, char_vector jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_);
+  public final static native void ed25519_sign(long jarg1, char_vector jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, char_vector jarg4_);
+  public final static native int ed25519_verify(long jarg1, char_vector jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_);
+  public final static native void ed25519_add_scalar(long jarg1, char_vector jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_);
+  public final static native void ed25519_key_exchange(long jarg1, char_vector jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_);
   public final static native long new_ed25519();
   public final static native void delete_ed25519(long jarg1);
   public final static native long policy_ipv4_peer_SWIGUpcast(long jarg1);

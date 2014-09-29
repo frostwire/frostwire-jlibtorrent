@@ -13,7 +13,7 @@ public final class DhtPut {
 
         final Session s = new Session();
 
-        short[] seed = new short[Ed25519.SEED_SIZE];
+        byte[] seed = new byte[Ed25519.SEED_SIZE];
         int r = Ed25519.createSeed(seed);
         System.out.println("r = " + r);
         for (int i = 0; i < seed.length; i++) {

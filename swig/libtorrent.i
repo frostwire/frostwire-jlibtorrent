@@ -121,15 +121,53 @@ public:
     static const int scalar_size = ed25519_scalar_size;
     static const int shared_secret_size = ed25519_shared_secret_size;
 
-    static int create_seed(std::vector<unsigned char>& seed) {
-        return ed25519_create_seed(&seed[0]);
+    static int create_seed(std::vector<char>& seed) {
+        return ed25519_create_seed((unsigned char*)seed.data());
     }
 
-    //static create_keypair(unsigned char *public_key, unsigned char *private_key, const unsigned char *seed);
-    //sign(unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *public_key, const unsigned char *private_key);
-    //verify(const unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *private_key);
-    //add_scalar(unsigned char *public_key, unsigned char *private_key, const unsigned char *scalar);
-    //key_exchange(unsigned char *shared_secret, const unsigned char *public_key, const unsigned char *private_key);
+    static void create_keypair(std::vector<char>& public_key,
+                               std::vector<char>& private_key,
+                               std::vector<char>& seed) {
+        ed25519_create_keypair((unsigned char*)public_key.data(),
+                               (unsigned char*)private_key.data(),
+                               (unsigned char*)seed.data());
+    }
+
+    static void sign(std::vector<char>& signature,
+                     std::vector<char>& message,
+                     std::vector<char>& public_key,
+                     std::vector<char>& private_key) {
+        ed25519_sign((unsigned char*)signature.data(),
+                     (unsigned char*)message.data(),
+                     message.size(),
+                     (unsigned char*)public_key.data(),
+                     (unsigned char*)private_key.data());
+    }
+
+    static int verify(std::vector<char>& signature,
+                      std::vector<char>& message,
+                      std::vector<char>& private_key) {
+        return ed25519_verify((unsigned char*)signature.data(),
+                              (unsigned char*)message.data(),
+                              message.size(),
+                              (unsigned char*)private_key.data());
+    }
+
+    static void add_scalar(std::vector<char>& public_key,
+                           std::vector<char>& private_key,
+                           std::vector<char>& scalar) {
+        ed25519_add_scalar((unsigned char*)public_key.data(),
+                           (unsigned char*)private_key.data(),
+                           (unsigned char*)scalar.data());
+    }
+
+    static void key_exchange(std::vector<char>& shared_secret,
+                             std::vector<char>& public_key,
+                             std::vector<char>& private_key) {
+        ed25519_key_exchange((unsigned char*)shared_secret.data(),
+                             (unsigned char*)public_key.data(),
+                             (unsigned char*)private_key.data());
+    }
 };
 %}
 
@@ -724,10 +762,26 @@ public:
     static const int scalar_size = ed25519_scalar_size;
     static const int shared_secret_size = ed25519_shared_secret_size;
 
-    static int create_seed(std::vector<unsigned char>& seed);
-    //create_keypair(unsigned char *public_key, unsigned char *private_key, const unsigned char *seed);
-    //sign(unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *public_key, const unsigned char *private_key);
-    //verify(const unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *private_key);
-    //add_scalar(unsigned char *public_key, unsigned char *private_key, const unsigned char *scalar);
-    //key_exchange(unsigned char *shared_secret, const unsigned char *public_key, const unsigned char *private_key);
+    static int create_seed(std::vector<char>& seed);
+
+    static void create_keypair(std::vector<char>& public_key,
+                               std::vector<char>& private_key,
+                               std::vector<char>& seed);
+
+    static void sign(std::vector<char>& signature,
+                     std::vector<char>& message,
+                     std::vector<char>& public_key,
+                     std::vector<char>& private_key);
+
+    static int verify(std::vector<char>& signature,
+                      std::vector<char>& message,
+                      std::vector<char>& private_key);
+
+    static void add_scalar(std::vector<char>& public_key,
+                           std::vector<char>& private_key,
+                           std::vector<char>& scalar);
+
+    static void key_exchange(std::vector<char>& shared_secret,
+                             std::vector<char>& public_key,
+                             std::vector<char>& private_key);
 };

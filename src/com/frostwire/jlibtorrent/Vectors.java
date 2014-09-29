@@ -25,6 +25,14 @@ public final class Vectors {
         return arr;
     }
 
+    public static void char_vector2bytes(char_vector v, byte[] arr) {
+        int size = (int) v.size();
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = (byte) v.get(i);
+        }
+    }
+
     public static char_vector bytes2char_vector(byte[] arr) {
         char_vector v = new char_vector();
 
@@ -91,6 +99,15 @@ public final class Vectors {
         unsigned_char_vector v = new unsigned_char_vector();
         for (int i = 0; i < size; i++) {
             v.add((short) 0);
+        }
+
+        return v;
+    }
+
+    public static char_vector new_char_vector(int size) {
+        char_vector v = new char_vector();
+        for (int i = 0; i < size; i++) {
+            v.add((char) 0);
         }
 
         return v;

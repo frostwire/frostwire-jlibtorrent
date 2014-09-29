@@ -35,8 +35,28 @@ public class ed25519 {
     }
   }
 
-  public static int create_seed(unsigned_char_vector seed) {
-    return libtorrent_jni.ed25519_create_seed(unsigned_char_vector.getCPtr(seed), seed);
+  public static int create_seed(char_vector seed) {
+    return libtorrent_jni.ed25519_create_seed(char_vector.getCPtr(seed), seed);
+  }
+
+  public static void create_keypair(char_vector public_key, char_vector private_key, char_vector seed) {
+    libtorrent_jni.ed25519_create_keypair(char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key, char_vector.getCPtr(seed), seed);
+  }
+
+  public static void sign(char_vector signature, char_vector message, char_vector public_key, char_vector private_key) {
+    libtorrent_jni.ed25519_sign(char_vector.getCPtr(signature), signature, char_vector.getCPtr(message), message, char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key);
+  }
+
+  public static int verify(char_vector signature, char_vector message, char_vector private_key) {
+    return libtorrent_jni.ed25519_verify(char_vector.getCPtr(signature), signature, char_vector.getCPtr(message), message, char_vector.getCPtr(private_key), private_key);
+  }
+
+  public static void add_scalar(char_vector public_key, char_vector private_key, char_vector scalar) {
+    libtorrent_jni.ed25519_add_scalar(char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key, char_vector.getCPtr(scalar), scalar);
+  }
+
+  public static void key_exchange(char_vector shared_secret, char_vector public_key, char_vector private_key) {
+    libtorrent_jni.ed25519_key_exchange(char_vector.getCPtr(shared_secret), shared_secret, char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key);
   }
 
   public ed25519() {
