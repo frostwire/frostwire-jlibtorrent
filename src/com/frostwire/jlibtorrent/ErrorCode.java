@@ -8,7 +8,7 @@ import com.frostwire.jlibtorrent.swig.error_code;
  */
 public final class ErrorCode {
 
-    private error_code ec;
+    private final error_code ec;
 
     public ErrorCode(error_code ec) {
         this.ec = ec;

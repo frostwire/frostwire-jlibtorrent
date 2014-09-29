@@ -6,6 +6,8 @@ import com.frostwire.jlibtorrent.swig.torrent_info;
 import java.io.File;
 
 /**
+ * This class represents the information stored in a .torrent file
+ *
  * @author gubatron
  * @author aldenml
  */
@@ -80,11 +82,14 @@ public final class TorrentInfo {
         return sb.toString();
     }
 
-    // Generates a magnet URI from the specified torrent. If the torrent
-    // is invalid, null is returned.
-    //
-    // For more information about magnet links, see magnet-links_.
-    //
+    /**
+     * Generates a magnet URI from the specified torrent. If the torrent
+     * is invalid, null is returned.
+     * <p/>
+     * For more information about magnet links, see magnet-links_.
+     *
+     * @return
+     */
     public String makeMagnetUri() {
         return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
     }

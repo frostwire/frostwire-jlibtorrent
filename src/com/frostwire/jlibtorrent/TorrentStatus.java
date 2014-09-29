@@ -3,6 +3,9 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.torrent_status;
 
 /**
+ * Holds a snapshot of the status of a torrent, as queried by
+ * torrent_handle::status().
+ *
  * @author gubatron
  * @author aldenml
  */
@@ -12,16 +15,6 @@ public final class TorrentStatus {
 
     TorrentStatus(torrent_status ts) {
         this.ts = ts;
-//    std::string name;
-//    boost::intrusive_ptr<const torrent_info> torrent_file;
-//    boost::posix_time::time_duration next_announce;
-//    boost::posix_time::time_duration announce_interval;
-//    bitfield pieces;
-//    bitfield verified_pieces;
-        this.totalWantedDone = ts.getTotal_wanted_done();
-        this.totalWanted = ts.getTotal_wanted();
-        this.allTimeUpload = ts.getAll_time_upload();
-        this.allTimeDownload = ts.getAll_time_download();
         this.listSeeds = ts.getList_seeds();
         this.listPeers = ts.getList_peers();
         this.connectCandidates = ts.getConnect_candidates();
@@ -50,8 +43,6 @@ public final class TorrentStatus {
         this.isUploadMode = ts.getUpload_mode();
         this.isShareMode = ts.getShare_mode();
         this.isSuperSeeding = ts.getSuper_seeding();
-        this.isAutoManaged = ts.getAuto_managed();
-        this.isSequentialDownload = ts.getSequential_download();
     }
 
     /**
@@ -100,8 +91,24 @@ public final class TorrentStatus {
         return new TorrentInfo(ts.getTorrent_file());
     }
 
-//    boost::posix_time::time_duration next_announce;
-//    boost::posix_time::time_duration announce_interval;
+    /**
+     * The time until the torrent will announce itself to the tracker.
+     *
+     * @return
+     */
+    public TimeDuration getNextAnnounce() {
+        return new TimeDuration(ts.getNext_announce());
+    }
+
+    /**
+     * The time the tracker want us to wait until we announce ourself
+     * again the next time.
+     *
+     * @return
+     */
+    public TimeDuration getAnnounceInterval() {
+        return new TimeDuration(ts.getAnnounce_interval());
+    }
 
     /**
      * the URL of the last working tracker. If no tracker request has
@@ -166,21 +173,44 @@ public final class TorrentStatus {
         return ts.getTotal_failed_bytes();
     }
 
-    // the number of bytes that has been downloaded even though that data
-    // already was downloaded. The reason for this is that in some situations
-    // the same data can be downloaded by mistake. When libtorrent sends
-    // requests to a peer, and the peer doesn't send a response within a
-    // certain timeout, libtorrent will re-request that block. Another
-    // situation when libtorrent may re-request blocks is when the requests
-    // it sends out are not replied in FIFO-order (it will re-request blocks
-    // that are skipped by an out of order block). This is supposed to be as
-    // low as possible.
+    /**
+     * The number of bytes that has been downloaded even though that data
+     * already was downloaded. The reason for this is that in some situations
+     * the same data can be downloaded by mistake. When libtorrent sends
+     * requests to a peer, and the peer doesn't send a response within a
+     * certain timeout, libtorrent will re-request that block. Another
+     * situation when libtorrent may re-request blocks is when the requests
+     * it sends out are not replied in FIFO-order (it will re-request blocks
+     * that are skipped by an out of order block). This is supposed to be as
+     * low as possible.
+     *
+     * @return
+     */
     public long getTotalRedundantBytes() {
         return ts.getTotal_redundant_bytes();
     }
 
-    //    bitfield pieces;
-//    bitfield verified_pieces;
+    /**
+     * A bitmask that represents which pieces we have (set to true) and the
+     * pieces we don't have. It's a pointer and may be set to 0 if the
+     * torrent isn't downloading or seeding.
+     *
+     * @return
+     */
+    public Bitfield getPieces() {
+        return new Bitfield(ts.getPieces());
+    }
+
+    /**
+     * A bitmask representing which pieces has had their hash checked. This
+     * only applies to torrents in *seed mode*. If the torrent is not in seed
+     * mode, this bitmask may be empty.
+     *
+     * @return
+     */
+    public Bitfield getVerifiedPieces() {
+        return new Bitfield(ts.getVerified_pieces());
+    }
 
     /**
      * The total number of bytes of the file(s) that we have. All this does not necessarily
@@ -194,25 +224,33 @@ public final class TorrentStatus {
      * The number of bytes we have downloaded, only counting the pieces that we actually want
      * to download. i.e. excluding any pieces that we have but have priority 0 (i.e. not wanted).
      */
-    public final long totalWantedDone;
+    public long getTotalWantedDone() {
+        return ts.getTotal_wanted_done();
+    }
 
     /**
      * The total number of bytes we want to download. This may be smaller than the total
      * torrent size in case any pieces are prioritized to 0, i.e. not wanted.
      */
-    public final long totalWanted;
+    public long getTotalWanted() {
+        return ts.getTotal_wanted();
+    }
 
     /**
      * This is the accumulated upload payload byte counter. They are saved in and restored
      * from resume data to keep totals across sessions.
      */
-    public final long allTimeUpload;
+    public long getAllTimeUpload() {
+        return ts.getAll_time_upload();
+    }
 
     /**
      * This is the accumulated download payload byte counters. They are saved in and restored
      * from resume data to keep totals across sessions.
      */
-    public final long allTimeDownload;
+    public long getAllTimeDownload() {
+        return ts.getAll_time_download();
+    }
 
     /**
      * The posix-time (in milliseconds) when this torrent was added. i.e. what time(NULL) returned at the time.
@@ -410,8 +448,26 @@ public final class TorrentStatus {
         return ts.getPaused();
     }
 
-    public final boolean isAutoManaged;
-    public final boolean isSequentialDownload;
+    /**
+     * set to true if the torrent is auto managed, i.e. libtorrent is
+     * responsible for determining whether it should be started or queued.
+     * For more info see queuing_
+     *
+     * @return
+     */
+    public boolean isAutoManaged() {
+        return ts.getAuto_managed();
+    }
+
+    /**
+     * true when the torrent is in sequential download mode. In this mode
+     * pieces are downloaded in order rather than rarest first.
+     *
+     * @return
+     */
+    public boolean isSequentialDownload() {
+        return ts.getSequential_download();
+    }
 
     /**
      * true if all pieces have been downloaded.
@@ -478,6 +534,11 @@ public final class TorrentStatus {
         return ts.getMoving_storage();
     }
 
+    /**
+     * the info-hash for this torrent.
+     *
+     * @return
+     */
     public Sha1Hash getInfoHash() {
         return new Sha1Hash(ts.getInfo_hash());
     }

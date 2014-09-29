@@ -24,7 +24,7 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     @Override
-    public boolean accept(Alert<?> alert) {
+    public final boolean accept(Alert<?> alert) {
         if (!(alert instanceof TorrentAlert<?>)) {
             return false;
         }
