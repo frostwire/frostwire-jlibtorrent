@@ -359,6 +359,9 @@ namespace std {
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::block_info::peer;
 %ignore libtorrent::lazy_dict_entry;
+%ignore libtorrent::disabled_storage;
+%ignore libtorrent::http_errors;
+%ignore libtorrent::invalid_encoding;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -611,6 +614,34 @@ namespace libtorrent {
 
     static bool from_hex(char *hex, sha1_hash& h) {
         return from_hex(hex, 40, (char*)&h[0]);
+    }
+};
+
+%extend dht_mutable_item_alert {
+    std::vector<char> key_v() {
+        boost::array<char, 32> arr = $self->key;
+        std::vector<char> v(arr.begin(), arr.end());
+        return v;
+    }
+
+    std::vector<char> signature_v() {
+        boost::array<char, 64> arr = $self->signature;
+        std::vector<char> v(arr.begin(), arr.end());
+        return v;
+    }
+};
+
+%extend dht_put_alert {
+    std::vector<char> public_key_v() {
+        boost::array<char, 32> arr = $self->public_key;
+        std::vector<char> v(arr.begin(), arr.end());
+        return v;
+    }
+
+    std::vector<char> signature_v() {
+        boost::array<char, 64> arr = $self->signature;
+        std::vector<char> v(arr.begin(), arr.end());
+        return v;
     }
 };
 }

@@ -76,6 +76,14 @@ public class dht_put_alert extends alert {
     return libtorrent_jni.dht_put_alert_seq_get(swigCPtr, this);
   }
 
+  public char_vector public_key_v() {
+    return new char_vector(libtorrent_jni.dht_put_alert_public_key_v(swigCPtr, this), true);
+  }
+
+  public char_vector signature_v() {
+    return new char_vector(libtorrent_jni.dht_put_alert_signature_v(swigCPtr, this), true);
+  }
+
   public final static int alert_type = libtorrent_jni.dht_put_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_put_alert_static_category_get();
 }

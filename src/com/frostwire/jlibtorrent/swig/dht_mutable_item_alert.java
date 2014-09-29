@@ -79,6 +79,14 @@ public class dht_mutable_item_alert extends alert {
     return new entry(libtorrent_jni.dht_mutable_item_alert_item_get(swigCPtr, this), true);
   }
 
+  public char_vector key_v() {
+    return new char_vector(libtorrent_jni.dht_mutable_item_alert_key_v(swigCPtr, this), true);
+  }
+
+  public char_vector signature_v() {
+    return new char_vector(libtorrent_jni.dht_mutable_item_alert_signature_v(swigCPtr, this), true);
+  }
+
   public final static int alert_type = libtorrent_jni.dht_mutable_item_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_mutable_item_alert_static_category_get();
 }
