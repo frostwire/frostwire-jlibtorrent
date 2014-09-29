@@ -50,13 +50,13 @@ public final class PartialDownload {
 
         s.addListener(new TorrentAlertAdapter(th) {
             @Override
-            public void onBlockFinished(BlockFinishedAlert alert) {
+            public void blockFinished(BlockFinishedAlert alert) {
                 int p = (int) (th.getStatus().getProgress() * 100);
                 System.out.println("Progress: " + p);
             }
 
             @Override
-            public void onTorrentFinished(TorrentFinishedAlert alert) {
+            public void torrentFinished(TorrentFinishedAlert alert) {
                 System.out.print("Torrent finished");
                 signal.countDown();
             }

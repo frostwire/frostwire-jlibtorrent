@@ -38,7 +38,7 @@ public final class Session {
     private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
-    private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildAlertCastTable();
+    private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildCastAlertTable();
 
     private final session s;
 
@@ -222,12 +222,12 @@ public final class Session {
         AlertListener l = new TorrentAlertAdapter(new TorrentHandle(th)) {
 
             @Override
-            public void onTorrentAdded(TorrentAddedAlert alert) {
+            public void torrentAdded(TorrentAddedAlert alert) {
                 th.resume();
             }
 
             @Override
-            public void onMetadataReceived(MetadataReceivedAlert alert) {
+            public void metadataReceived(MetadataReceivedAlert alert) {
                 signal.countDown();
             }
         };
@@ -467,7 +467,7 @@ public final class Session {
         t.start();
     }
 
-    private static Map<Integer, CastAlertFunction> buildAlertCastTable() {
+    private static Map<Integer, CastAlertFunction> buildCastAlertTable() {
         Map<Integer, CastAlertFunction> map = new HashMap<Integer, CastAlertFunction>();
 
         CAST_ALERT_METHOD(torrent_alert.class, map);
@@ -576,7 +576,14 @@ public final class Session {
         return r;
     }
 
+    /**
+     * Flags to be passed in to remove_torrent().
+     */
     public enum Options {
+
+        /**
+         * Delete the files belonging to the torrent from disk.
+         */
         DELETE_FILES(options_t.delete_files);
 
         private Options(options_t swigObj) {
@@ -590,7 +597,7 @@ public final class Session {
         }
     }
 
-    private static class CastAlertFunction {
+    private static final class CastAlertFunction {
 
         private final Method method;
         private final Constructor<? extends Alert<?>> constructor;

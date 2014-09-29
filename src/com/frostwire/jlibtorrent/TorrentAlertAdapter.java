@@ -2,13 +2,21 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
 
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author gubatron
  * @author aldenml
  */
 public class TorrentAlertAdapter implements AlertListener {
 
+    private static final Logger LOG = Logger.getLogger(TorrentAlertAdapter.class);
+
     protected final TorrentHandle th;
+
+    private static final Map<String, CallAlertFunction> CALL_TABLE = buildCallAlertTable();
 
     public TorrentAlertAdapter(TorrentHandle th) {
         this.th = th;
@@ -27,86 +35,90 @@ public class TorrentAlertAdapter implements AlertListener {
 
     @Override
     public void alert(Alert<?> alert) {
-        AlertType type = alert.getType();
-        switch (type) {
-            case TORRENT_ADDED:
-                onTorrentAdded((TorrentAddedAlert) alert);
-                break;
-            case TORRENT_FINISHED:
-                onTorrentFinished((TorrentFinishedAlert) alert);
-                break;
-            case TORRENT_REMOVED:
-                onTorrentRemoved((TorrentRemovedAlert) alert);
-                break;
-            case TORRENT_UPDATE:
-                onTorrentUpdate((TorrentUpdateAlert) alert);
-                break;
-            case BLOCK_FINISHED:
-                onBlockFinished((BlockFinishedAlert) alert);
-                break;
-            case METADATA_RECEIVED:
-                onMetadataReceived((MetadataReceivedAlert) alert);
-                break;
-            case METADATA_FAILED:
-                onMetadataFailed((MetadataFailedAlert) alert);
-                break;
-            case SAVE_RESUME_DATA:
-                onSaveResumeData((SaveResumeDataAlert) alert);
-                break;
-            case FILE_COMPLETED:
-                onFileCompleted((FileCompletedAlert) alert);
-                break;
-            case FILE_RENAMED:
-                onFileRenamed((FileRenamedAlert) alert);
-                break;
-            case FILE_ERROR:
-                onFileError((FileErrorAlert) alert);
-                break;
-            case TRACKER_ANNOUNCE:
-                onTrackerAnnounce((TrackerAnnounceAlert) alert);
-                break;
-            case READ_PIECE:
-                onReadPiece((ReadPieceAlert) alert);
-                break;
+        CallAlertFunction function = CALL_TABLE.get(alert.getClass().getName());
+        if (function != null) {
+            function.invoke(this, alert);
         }
     }
 
-    public void onTorrentAdded(TorrentAddedAlert alert) {
+    public void torrentAdded(TorrentAddedAlert alert) {
     }
 
-    public void onTorrentFinished(TorrentFinishedAlert alert) {
+    public void torrentFinished(TorrentFinishedAlert alert) {
     }
 
-    public void onTorrentRemoved(TorrentRemovedAlert alert) {
+    public void torrentRemoved(TorrentRemovedAlert alert) {
     }
 
-    public void onTorrentUpdate(TorrentUpdateAlert alert) {
+    public void torrentUpdate(TorrentUpdateAlert alert) {
     }
 
-    public void onBlockFinished(BlockFinishedAlert alert) {
+    public void blockFinished(BlockFinishedAlert alert) {
     }
 
-    public void onMetadataReceived(MetadataReceivedAlert alert) {
+    public void metadataReceived(MetadataReceivedAlert alert) {
     }
 
-    public void onMetadataFailed(MetadataFailedAlert alert) {
+    public void metadataFailed(MetadataFailedAlert alert) {
     }
 
-    public void onSaveResumeData(SaveResumeDataAlert alert) {
+    public void saveResumeData(SaveResumeDataAlert alert) {
     }
 
-    public void onFileCompleted(FileCompletedAlert alert) {
+    public void fileCompleted(FileCompletedAlert alert) {
     }
 
-    public void onFileRenamed(FileRenamedAlert alert) {
+    public void fileRenamed(FileRenamedAlert alert) {
     }
 
-    public void onFileError(FileErrorAlert alert) {
+    public void fileError(FileErrorAlert alert) {
     }
 
-    public void onTrackerAnnounce(TrackerAnnounceAlert alert) {
+    public void trackerAnnounce(TrackerAnnounceAlert alert) {
     }
 
-    public void onReadPiece(ReadPieceAlert alert) {
+    public void readPiece(ReadPieceAlert alert) {
+    }
+
+    private static Map<String, CallAlertFunction> buildCallAlertTable() {
+        Map<String, CallAlertFunction> map = new HashMap<String, CallAlertFunction>();
+
+        for (Method m : TorrentAlertAdapter.class.getDeclaredMethods()) {
+            Class<?> returnType = m.getReturnType();
+            Class<?>[] parameterTypes = m.getParameterTypes();
+            if (isAlertMethod(returnType, parameterTypes)) {
+                try {
+                    Class<?> clazz = parameterTypes[0];
+                    CallAlertFunction function = new CallAlertFunction(m);
+
+                    map.put(clazz.getName(), function);
+                } catch (Throwable e) {
+                    LOG.warn(e.toString());
+                }
+            }
+        }
+
+        return map;
+    }
+
+    private static boolean isAlertMethod(Class<?> returnType, Class<?>[] parameterTypes) {
+        return returnType.equals(void.class) && parameterTypes.length == 1 && Alert.class.isAssignableFrom(parameterTypes[0]);
+    }
+
+    private static final class CallAlertFunction {
+
+        private final Method method;
+
+        public CallAlertFunction(Method method) {
+            this.method = method;
+        }
+
+        public void invoke(TorrentAlertAdapter adapter, Alert<?> alert) {
+            try {
+                method.invoke(adapter, alert);
+            } catch (Throwable e) {
+                LOG.warn(e.toString());
+            }
+        }
     }
 }
