@@ -56,6 +56,9 @@ public class TorrentAlertAdapter implements AlertListener {
             case FILE_COMPLETED:
                 onFileCompleted((FileCompletedAlert) alert);
                 break;
+            case FILE_RENAMED:
+                onFileRenamed((FileRenamedAlert) alert);
+                break;
             case FILE_ERROR:
                 onFileError((FileErrorAlert) alert);
                 break;
@@ -93,6 +96,9 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void onFileCompleted(FileCompletedAlert alert) {
+    }
+
+    public void onFileRenamed(FileRenamedAlert alert) {
     }
 
     public void onFileError(FileErrorAlert alert) {

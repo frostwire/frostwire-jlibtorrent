@@ -17,6 +17,7 @@ public enum AlertType {
     METADATA_RECEIVED(metadata_received_alert.alert_type),
     METADATA_FAILED(metadata_failed_alert.alert_type),
     FILE_COMPLETED(file_completed_alert.alert_type),
+    FILE_RENAMED(file_renamed_alert.alert_type),
     FILE_ERROR(file_error_alert.alert_type),
     PORTMAP(portmap_alert.alert_type),
     PORTMAP_ERROR(portmap_error_alert.alert_type),
