@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.TrackerAnnounceEvent;
 import com.frostwire.jlibtorrent.swig.tracker_announce_alert;
 
 /**
@@ -17,13 +18,12 @@ public final class TrackerAnnounceAlert extends TrackerAlert<tracker_announce_al
         super(alert);
     }
 
-    // specifies what event was sent to the tracker. It is defined as:
-    //
-    // 0. None
-    // 1. Completed
-    // 2. Started
-    // 3. Stopped
-    public int getEvent() {
-        return alert.getEvent();
+    /**
+     * Specifies what event was sent to the tracker.
+     *
+     * @return
+     */
+    public TrackerAnnounceEvent getEvent() {
+        return TrackerAnnounceEvent.fromSwig(alert.getEvent());
     }
 }

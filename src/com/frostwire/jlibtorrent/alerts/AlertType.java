@@ -24,6 +24,8 @@ public enum AlertType {
     PORTMAP_LOG(portmap_log_alert.alert_type),
     TRACKER_ANNOUNCE(tracker_announce_alert.alert_type),
     READ_PIECE(read_piece_alert.alert_type),
+    STATE_CHANGED(state_changed_alert.alert_type),
+    DHT_REPLY(dht_reply_alert.alert_type),
     UNKNOWN(-1);
 
     private AlertType(int swigValue) {

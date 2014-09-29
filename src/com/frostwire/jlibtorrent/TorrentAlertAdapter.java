@@ -81,6 +81,12 @@ public class TorrentAlertAdapter implements AlertListener {
     public void readPiece(ReadPieceAlert alert) {
     }
 
+    public void stateChanged(StateChangedAlert alert) {
+    }
+
+    public void dhtReply(DhtReplyAlert alert) {
+    }
+
     private static Map<String, CallAlertFunction> buildCallAlertTable() {
         Map<String, CallAlertFunction> map = new HashMap<String, CallAlertFunction>();
 
