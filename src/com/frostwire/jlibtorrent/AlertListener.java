@@ -10,5 +10,5 @@ public interface AlertListener {
 
     public boolean accept(Alert<?> alert);
 
-    public void onAlert(Alert<?> alert);
+    public void alert(Alert<?> alert);
 }

@@ -9,7 +9,7 @@ import com.frostwire.jlibtorrent.swig.announce_entry;
  * @author gubatron
  * @author aldenml
  */
-public class AnnounceEntry {
+public final class AnnounceEntry {
 
     private final announce_entry e;
 
@@ -17,6 +17,11 @@ public class AnnounceEntry {
         this.e = e;
     }
 
+    /**
+     * Constructs a tracker announce entry with ``u`` as the URL.
+     *
+     * @param url
+     */
     public AnnounceEntry(String url) {
         this(new announce_entry(url));
     }
@@ -32,5 +37,26 @@ public class AnnounceEntry {
      */
     public String getUrl() {
         return e.getUrl();
+    }
+
+    /**
+     * The current ``&trackerid=`` argument passed to the tracker.
+     * this is optional and is normally empty (in which case no
+     * trackerid is sent).
+     *
+     * @return
+     */
+    public String getTrackerId() {
+        return e.getTrackerid();
+    }
+
+    /**
+     * If this tracker has returned an error or warning message
+     * that message is stored here.
+     *
+     * @return
+     */
+    public String getMessage() {
+        return e.getMessage();
     }
 }

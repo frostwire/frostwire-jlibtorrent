@@ -3,16 +3,14 @@ package com.frostwire.jlibtorrent;
 import java.util.logging.Level;
 
 /**
- * 
  * @author gubatron
  * @author aldenml
- *
  */
 public final class Logger {
 
     private final java.util.logging.Logger jul;
 
-    Logger(java.util.logging.Logger jul) {
+    private Logger(java.util.logging.Logger jul) {
         this.jul = jul;
     }
 

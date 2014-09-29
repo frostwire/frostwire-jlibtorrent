@@ -18,14 +18,15 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * The session holds all state that spans multiple torrents. Among other
+ * things it runs the network loop and manages all torrents. Once it's
+ * created, the session object will spawn the main thread that will do all
+ * the work. The main thread will be idle as long it doesn't have any
+ * torrents to participate in.
+ *
  * @author gubatron
  * @author aldenml
  */
-// The session holds all state that spans multiple torrents. Among other
-// things it runs the network loop and manages all torrents. Once it's
-// created, the session object will spawn the main thread that will do all
-// the work. The main thread will be idle as long it doesn't have any
-// torrents to participate in.
 public final class Session {
 
     static {
@@ -272,24 +273,21 @@ public final class Session {
         return s.is_listening();
     }
 
-    // In case you want to destruct the session asynchrounously, you can
-    // request a session destruction proxy. If you don't do this, the
-    // destructor of the session object will block while the trackers are
-    // contacted. If you keep one ``session_proxy`` to the session when
-    // destructing it, the destructor will not block, but start to close down
-    // the session, the destructor of the proxy will then synchronize the
-    // threads. So, the destruction of the session is performed from the
-    // ``session`` destructor call until the ``session_proxy`` destructor
-    // call. The ``session_proxy`` does not have any operations on it (since
-    // the session is being closed down, no operations are allowed on it).
-    // The only valid operation is calling the destructor::
-    //
-    // 	class session_proxy
-    // 	{
-    // 	public:
-    // 		session_proxy();
-    // 		~session_proxy()
-    // 	};
+    /**
+     * In case you want to destruct the session asynchrounously, you can
+     * request a session destruction proxy. If you don't do this, the
+     * destructor of the session object will block while the trackers are
+     * contacted. If you keep one ``session_proxy`` to the session when
+     * destructing it, the destructor will not block, but start to close down
+     * the session, the destructor of the proxy will then synchronize the
+     * threads. So, the destruction of the session is performed from the
+     * ``session`` destructor call until the ``session_proxy`` destructor
+     * call. The ``session_proxy`` does not have any operations on it (since
+     * the session is being closed down, no operations are allowed on it).
+     * The only valid operation is calling the destructor::
+     *
+     * @return
+     */
     public SessionProxy abort() {
         return new SessionProxy(s.abort());
     }
@@ -321,48 +319,64 @@ public final class Session {
         return this.getStatus(false);
     }
 
-    // Sets the session settings and the packet encryption settings
-    // respectively. See session_settings and pe_settings for more
-    // information on available options.
+    /**
+     * The session settings and the packet encryption settings
+     * respectively. See session_settings and pe_settings for more
+     * information on available options.
+     *
+     * @return
+     */
     public SessionSettings getSettings() {
         return new SessionSettings(s.settings());
     }
 
-    // Sets the session settings and the packet encryption settings
-    // respectively. See session_settings and pe_settings for more
-    // information on available options.
+    /**
+     * Sets the session settings and the packet encryption settings
+     * respectively. See session_settings and pe_settings for more
+     * information on available options.
+     *
+     * @param settings
+     */
     public void setSettings(SessionSettings settings) {
         s.set_settings(settings.getSwig());
     }
 
-    // loads and saves all session settings, including dht_settings,
-    // encryption settings and proxy settings. ``save_state`` writes all keys
-    // to the ``entry`` that's passed in, which needs to either not be
-    // initialized, or initialized as a dictionary.
-    //
-    // ``load_state`` expects a lazy_entry which can be built from a bencoded
-    // buffer with lazy_bdecode().
-    //
-    // The ``flags`` arguments passed in to ``save_state`` can be used to
-    // filter which parts of the session state to save. By default, all state
-    // is saved (except for the individual torrents). see save_state_flags_t
+    /**
+     * Loads and saves all session settings, including dht_settings,
+     * encryption settings and proxy settings. ``save_state`` writes all keys
+     * to the ``entry`` that's passed in, which needs to either not be
+     * initialized, or initialized as a dictionary.
+     * <p/>
+     * ``load_state`` expects a lazy_entry which can be built from a bencoded
+     * buffer with lazy_bdecode().
+     * <p/>
+     * The ``flags`` arguments passed in to ``save_state`` can be used to
+     * filter which parts of the session state to save. By default, all state
+     * is saved (except for the individual torrents). see save_state_flags_t
+     *
+     * @return
+     */
     public byte[] saveState() {
         entry e = new entry();
         s.save_state(e);
         return Vectors.char_vector2bytes(e.bencode());
     }
 
-    // loads and saves all session settings, including dht_settings,
-    // encryption settings and proxy settings. ``save_state`` writes all keys
-    // to the ``entry`` that's passed in, which needs to either not be
-    // initialized, or initialized as a dictionary.
-    //
-    // ``load_state`` expects a lazy_entry which can be built from a bencoded
-    // buffer with lazy_bdecode().
-    //
-    // The ``flags`` arguments passed in to ``save_state`` can be used to
-    // filter which parts of the session state to save. By default, all state
-    // is saved (except for the individual torrents). see save_state_flags_t
+    /**
+     * Loads and saves all session settings, including dht_settings,
+     * encryption settings and proxy settings. ``save_state`` writes all keys
+     * to the ``entry`` that's passed in, which needs to either not be
+     * initialized, or initialized as a dictionary.
+     * <p/>
+     * ``load_state`` expects a lazy_entry which can be built from a bencoded
+     * buffer with lazy_bdecode().
+     * <p/>
+     * The ``flags`` arguments passed in to ``save_state`` can be used to
+     * filter which parts of the session state to save. By default, all state
+     * is saved (except for the individual torrents). see save_state_flags_t
+     *
+     * @param data
+     */
     public void loadState(byte[] data) {
         char_vector buffer = Vectors.bytes2char_vector(data);
         lazy_entry e = new lazy_entry();
@@ -436,7 +450,7 @@ public final class Session {
                             for (AlertListener l : listeners) {
                                 try {
                                     if (l.accept(a)) {
-                                        l.onAlert(a);
+                                        l.alert(a);
                                     }
                                 } catch (Throwable e) {
                                     LOG.warn("Error calling alert listener", e);

@@ -26,7 +26,7 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     @Override
-    public void onAlert(Alert<?> alert) {
+    public void alert(Alert<?> alert) {
         AlertType type = alert.getType();
         switch (type) {
             case TORRENT_ADDED:
