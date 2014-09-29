@@ -3,7 +3,6 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.GenericAlert;
 import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentAddedAlert;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
@@ -220,12 +219,6 @@ public final class Session {
         final CountDownLatch signal = new CountDownLatch(1);
 
         AlertListener l = new TorrentAlertAdapter(new TorrentHandle(th)) {
-
-            @Override
-            public void torrentAdded(TorrentAddedAlert alert) {
-                th.resume();
-            }
-
             @Override
             public void metadataReceived(MetadataReceivedAlert alert) {
                 signal.countDown();
@@ -233,6 +226,8 @@ public final class Session {
         };
 
         addListener(l);
+
+        th.resume();
 
         try {
             signal.await(timeout, TimeUnit.MILLISECONDS);
@@ -441,8 +436,6 @@ public final class Session {
                     if (ptr != null) {
                         s.pop_alerts(deque);
                     }
-
-                    List<Alert<?>> alerts = new ArrayList<Alert<?>>((int) deque.size());
 
                     for (int i = 0; i < deque.size(); i++) {
                         Alert<?> a = castAlert(deque.getitem(i));

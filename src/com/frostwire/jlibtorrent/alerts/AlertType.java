@@ -24,7 +24,7 @@ public enum AlertType {
     PORTMAP_LOG(portmap_log_alert.alert_type),
     TRACKER_ANNOUNCE(tracker_announce_alert.alert_type),
     READ_PIECE(read_piece_alert.alert_type),
-    UNKNOWN(Integer.MAX_VALUE);
+    UNKNOWN(-1);
 
     private AlertType(int swigValue) {
         this.swigValue = swigValue;

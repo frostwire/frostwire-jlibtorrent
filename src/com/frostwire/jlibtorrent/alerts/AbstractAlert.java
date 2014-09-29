@@ -25,12 +25,12 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     }
 
     @Override
-    public int getCategory() {
-        return alert.category();
+    public String getWhat() {
+        return alert.what();
     }
 
     @Override
-    public String getWhat() {
-        return alert.what();
+    public int getCategory() {
+        return alert.category();
     }
 }

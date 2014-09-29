@@ -12,7 +12,7 @@ public interface Alert<T extends alert> {
 
     public AlertType getType();
 
-    public int getCategory();
-
     public String getWhat();
+
+    public int getCategory();
 }

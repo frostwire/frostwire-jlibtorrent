@@ -45,6 +45,8 @@ public final class DownloadTorrent {
             }
         });
 
+        th.resume();
+
         signal.await();
     }
 }

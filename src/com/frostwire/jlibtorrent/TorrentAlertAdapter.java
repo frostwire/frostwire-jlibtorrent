@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.*;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     @Override
-    public final boolean accept(Alert<?> alert) {
+    public boolean accept(Alert<?> alert) {
         if (!(alert instanceof TorrentAlert<?>)) {
             return false;
         }
@@ -98,7 +99,7 @@ public class TorrentAlertAdapter implements AlertListener {
             }
         }
 
-        return map;
+        return Collections.unmodifiableMap(map);
     }
 
     private static boolean isAlertMethod(Class<?> returnType, Class<?>[] parameterTypes) {
