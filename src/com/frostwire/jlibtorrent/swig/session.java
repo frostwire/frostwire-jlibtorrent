@@ -176,11 +176,11 @@ public class session {
   }
 
   public void dht_get_item(sha1_hash target) {
-    libtorrent_jni.session_dht_get_item(swigCPtr, this, sha1_hash.getCPtr(target), target);
+    libtorrent_jni.session_dht_get_item__SWIG_0(swigCPtr, this, sha1_hash.getCPtr(target), target);
   }
 
   public sha1_hash dht_put_item(entry data) {
-    return new sha1_hash(libtorrent_jni.session_dht_put_item(swigCPtr, this, entry.getCPtr(data), data), true);
+    return new sha1_hash(libtorrent_jni.session_dht_put_item__SWIG_0(swigCPtr, this, entry.getCPtr(data), data), true);
   }
 
   public void add_extension(plugin ext) {
@@ -343,6 +343,22 @@ public class session {
 
   public void add_smart_ban_extension() {
     libtorrent_jni.session_add_smart_ban_extension(swigCPtr, this);
+  }
+
+  public void dht_get_item(char_vector key_v, String salt) {
+    libtorrent_jni.session_dht_get_item__SWIG_1(swigCPtr, this, char_vector.getCPtr(key_v), key_v, salt);
+  }
+
+  public void dht_get_item(char_vector key_v) {
+    libtorrent_jni.session_dht_get_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(key_v), key_v);
+  }
+
+  public void dht_put_item(char_vector public_key_v, char_vector private_key_v, entry data, String salt) {
+    libtorrent_jni.session_dht_put_item__SWIG_1(swigCPtr, this, char_vector.getCPtr(public_key_v), public_key_v, char_vector.getCPtr(private_key_v), private_key_v, entry.getCPtr(data), data, salt);
+  }
+
+  public void dht_put_item(char_vector public_key_v, char_vector private_key_v, entry data) {
+    libtorrent_jni.session_dht_put_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(public_key_v), public_key_v, char_vector.getCPtr(private_key_v), private_key_v, entry.getCPtr(data), data);
   }
 
   public enum save_state_flags_t {

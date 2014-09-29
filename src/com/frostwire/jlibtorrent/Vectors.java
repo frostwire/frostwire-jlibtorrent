@@ -86,4 +86,13 @@ public final class Vectors {
 
         return arr;
     }
+
+    public static unsigned_char_vector new_unsigned_char_vector(int size) {
+        unsigned_char_vector v = new unsigned_char_vector();
+        for (int i = 0; i < size; i++) {
+            v.add((short) 0);
+        }
+
+        return v;
+    }
 }

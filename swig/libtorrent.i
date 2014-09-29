@@ -60,6 +60,9 @@
 #include "libtorrent/extensions/ut_metadata.hpp"
 #include "libtorrent/extensions/lt_trackers.hpp"
 #include "libtorrent/extensions/smart_ban.hpp"
+
+#include "libtorrent/kademlia/item.hpp"
+#include "libtorrent/ed25519.hpp"
     
 // aditional includes
     
@@ -89,6 +92,45 @@ inline void new_java_exception(JNIEnv *env, const char *type = "", const char *m
 inline void new_java_error(JNIEnv *env, const char *message = "") {
     new_java_exception(env, "java/lang/Error", message);
 }
+
+void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
+    std::string const& salt, char const* public_key, char const* private_key,
+    entry& data)
+{
+	using libtorrent::dht::sign_mutable_item;
+
+	e = data;
+	std::vector<char> buf;
+	bencode(std::back_inserter(buf), e);
+	++seq;
+	sign_mutable_item(std::pair<char const*, int>(&buf[0], buf.size()),
+        std::pair<char const*, int>(&salt[0], salt.size()),
+        seq,
+        public_key,
+        private_key,
+        sig.data());
+}
+
+class ed25519 {
+public:
+
+    static const int seed_size = ed25519_seed_size;
+    static const int private_key_size = ed25519_private_key_size;
+    static const int public_key_size = ed25519_public_key_size;
+    static const int signature_size = ed25519_signature_size;
+    static const int scalar_size = ed25519_scalar_size;
+    static const int shared_secret_size = ed25519_shared_secret_size;
+
+    static int create_seed(std::vector<unsigned char>& seed) {
+        return ed25519_create_seed(&seed[0]);
+    }
+
+    //static create_keypair(unsigned char *public_key, unsigned char *private_key, const unsigned char *seed);
+    //sign(unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *public_key, const unsigned char *private_key);
+    //verify(const unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *private_key);
+    //add_scalar(unsigned char *public_key, unsigned char *private_key, const unsigned char *scalar);
+    //key_exchange(unsigned char *shared_secret, const unsigned char *public_key, const unsigned char *private_key);
+};
 %}
 
 %exception {
@@ -605,6 +647,32 @@ namespace libtorrent {
     void add_smart_ban_extension() {
          $self->add_extension(&libtorrent::create_smart_ban_plugin);
     }
+
+    void dht_get_item(std::vector<char> key_v, std::string salt = std::string()) {
+        boost::array<char, 32> key;
+
+        for (int i = 0; i < 32; i++) {
+            key[i] = key_v[i];
+        }
+
+        $self->dht_get_item(key, salt);
+    }
+
+    void dht_put_item(std::vector<char> public_key_v, std::vector<char> private_key_v, entry& data, std::string salt = std::string()) {
+        boost::array<char, 32> public_key;
+    	boost::array<char, 64> private_key;
+
+    	for (int i = 0; i < 32; i++) {
+    	    public_key[i] = public_key_v[i];
+    	}
+
+    	for (int i = 0; i < 64; i++) {
+            private_key_v[i] = private_key_v[i];
+        }
+
+        $self->dht_put_item(public_key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
+            public_key.data(), private_key.data(), data), salt);
+    }
 };
 
 %extend sha1_hash {
@@ -645,3 +713,21 @@ namespace libtorrent {
     }
 };
 }
+
+class ed25519 {
+public:
+
+    static const int seed_size = ed25519_seed_size;
+    static const int private_key_size = ed25519_private_key_size;
+    static const int public_key_size = ed25519_public_key_size;
+    static const int signature_size = ed25519_signature_size;
+    static const int scalar_size = ed25519_scalar_size;
+    static const int shared_secret_size = ed25519_shared_secret_size;
+
+    static int create_seed(std::vector<unsigned char>& seed);
+    //create_keypair(unsigned char *public_key, unsigned char *private_key, const unsigned char *seed);
+    //sign(unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *public_key, const unsigned char *private_key);
+    //verify(const unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *private_key);
+    //add_scalar(unsigned char *public_key, unsigned char *private_key, const unsigned char *scalar);
+    //key_exchange(unsigned char *shared_secret, const unsigned char *public_key, const unsigned char *private_key);
+};

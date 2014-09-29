@@ -3878,8 +3878,8 @@ public class libtorrent_jni {
   public final static native boolean session_is_dht_running(long jarg1, session jarg1_);
   public final static native void session_add_dht_node(long jarg1, session jarg1_, long jarg2, string_int_pair jarg2_);
   public final static native void session_add_dht_router(long jarg1, session jarg1_, long jarg2, string_int_pair jarg2_);
-  public final static native void session_dht_get_item(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
-  public final static native long session_dht_put_item(long jarg1, session jarg1_, long jarg2, entry jarg2_);
+  public final static native void session_dht_get_item__SWIG_0(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long session_dht_put_item__SWIG_0(long jarg1, session jarg1_, long jarg2, entry jarg2_);
   public final static native void session_add_extension(long jarg1, session jarg1_, long jarg2, plugin jarg2_);
   public final static native void session_load_asnum_db(long jarg1, session jarg1_, String jarg2);
   public final static native void session_load_country_db(long jarg1, session jarg1_, String jarg2);
@@ -3926,6 +3926,10 @@ public class libtorrent_jni {
   public final static native void session_stop_natpmp(long jarg1, session jarg1_);
   public final static native void session_add_lt_trackers_extension(long jarg1, session jarg1_);
   public final static native void session_add_smart_ban_extension(long jarg1, session jarg1_);
+  public final static native void session_dht_get_item__SWIG_1(long jarg1, session jarg1_, long jarg2, char_vector jarg2_, String jarg3);
+  public final static native void session_dht_get_item__SWIG_2(long jarg1, session jarg1_, long jarg2, char_vector jarg2_);
+  public final static native void session_dht_put_item__SWIG_1(long jarg1, session jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_, String jarg5);
+  public final static native void session_dht_put_item__SWIG_2(long jarg1, session jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_);
   public final static native void delete_plugin(long jarg1);
   public final static native void plugin_on_alert(long jarg1, plugin jarg1_, long jarg2, alert jarg2_);
   public final static native void plugin_on_tick(long jarg1, plugin jarg1_);
@@ -4283,6 +4287,15 @@ public class libtorrent_jni {
   public final static native String get_symlink_path(String jarg1);
   public final static native void add_files__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
   public final static native void add_files__SWIG_3(long jarg1, file_storage jarg1_, String jarg2);
+  public final static native int ed25519_seed_size_get();
+  public final static native int ed25519_private_key_size_get();
+  public final static native int ed25519_public_key_size_get();
+  public final static native int ed25519_signature_size_get();
+  public final static native int ed25519_scalar_size_get();
+  public final static native int ed25519_shared_secret_size_get();
+  public final static native int ed25519_create_seed(long jarg1, unsigned_char_vector jarg1_);
+  public final static native long new_ed25519();
+  public final static native void delete_ed25519(long jarg1);
   public final static native long policy_ipv4_peer_SWIGUpcast(long jarg1);
   public final static native long policy_ipv6_peer_SWIGUpcast(long jarg1);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
