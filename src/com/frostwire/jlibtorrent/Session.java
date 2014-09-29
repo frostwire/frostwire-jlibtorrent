@@ -445,6 +445,10 @@ public final class Session {
         s.dht_get_item(Vectors.bytes2char_vector(key), salt);
     }
 
+    public void dhtPutItem(Entry entry) {
+        s.dht_put_item(entry.getSwig());
+    }
+
     // store an immutable item. The ``key`` is the public key the blob is
     // to be stored under. The optional ``salt`` argument is a string that
     // is to be mixed in with the key when determining where in the DHT
