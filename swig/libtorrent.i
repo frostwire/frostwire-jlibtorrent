@@ -50,7 +50,6 @@
 #include "libtorrent/lazy_entry.hpp"
 #include "libtorrent/buffer.hpp"
 #include "libtorrent/tracker_manager.hpp"
-#include "libtorrent/file.hpp"
 #include "libtorrent/time.hpp"
 #include "libtorrent/escape_string.hpp"
 #include "libtorrent/bencode.hpp"
@@ -134,7 +133,6 @@ inline void new_java_error(JNIEnv *env, const char *message = "") {
 %intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)
 %intrusive_ptr(libtorrent::peer_connection)
-%intrusive_ptr(libtorrent::file)
 
 %shared_ptr(libtorrent::torrent)
 %shared_ptr(libtorrent::entry)
@@ -360,6 +358,7 @@ namespace std {
 %ignore libtorrent::bdecode_errors::error_code_enum;
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::block_info::peer;
+%ignore libtorrent::lazy_dict_entry;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -439,7 +438,6 @@ namespace std {
 %include "libtorrent/lazy_entry.hpp"
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/tracker_manager.hpp"
-%include "libtorrent/file.hpp"
 %include "libtorrent/time.hpp"
 %include "libtorrent/escape_string.hpp"
 %include "libtorrent/bencode.hpp"
