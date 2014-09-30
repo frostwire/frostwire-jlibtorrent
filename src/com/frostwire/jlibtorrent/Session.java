@@ -143,7 +143,6 @@ public final class Session {
         if (resumeFile != null) {
             try {
                 byte[] data = Utils.readFileToByteArray(resumeFile);
-                flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
                 p.setResume_data(Vectors.bytes2char_vector(data));
             } catch (Throwable e) {
                 LOG.warn("Unable to set resume data", e);
@@ -157,14 +156,22 @@ public final class Session {
 
     public void asyncAddTorrent(File torrentFile, File saveDir, File resumeFile) throws IOException {
         String torrentPath = torrentFile.getAbsolutePath();
-        String savePath = saveDir.getAbsolutePath();
+
+        String savePath = null;
+        if (saveDir != null) {
+            savePath = saveDir.getAbsolutePath();
+        } else if (resumeFile == null) {
+            throw new IllegalArgumentException("Both saveDir and resumeFile can't be null at the same time");
+        }
 
         torrent_info ti = new torrent_info(torrentPath);
 
         add_torrent_params p = add_torrent_params.create_instance();
 
         p.setTi(ti);
-        p.setSave_path(savePath);
+        if (savePath != null) {
+            p.setSave_path(savePath);
+        }
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 
         long flags = p.getFlags();
@@ -172,7 +179,6 @@ public final class Session {
         flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
 
         if (resumeFile != null && resumeFile.exists()) {
-            flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
             byte[] data = Utils.readFileToByteArray(resumeFile);
             p.setResume_data(Vectors.bytes2char_vector(data));
         }
