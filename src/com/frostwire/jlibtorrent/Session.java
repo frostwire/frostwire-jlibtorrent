@@ -2,7 +2,6 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.GenericAlert;
-import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
@@ -13,8 +12,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The session holds all state that spans multiple torrents. Among other
@@ -223,60 +220,13 @@ public final class Session {
     }
 
     /**
-     * @param uri
-     * @param timeout in milliseconds
-     * @return
+     * Pausing the session has the same effect as pausing every torrent in
+     * it, except that torrents will not be resumed by the auto-manage
+     * mechanism. Resuming will restore the torrents to their previous paused
+     * state. i.e. the session pause state is separate from the torrent pause
+     * state. A torrent is inactive if it is paused or if the session is
+     * paused.
      */
-    public byte[] fetchMagnet(String uri, long timeout) {
-
-        add_torrent_params p = add_torrent_params.create_instance_no_storage();
-        error_code ec = new error_code();
-        libtorrent.parse_magnet_uri(uri, p, ec);
-
-        p.setName("fetchMagnet - " + uri);
-
-        long flags = p.getFlags();
-        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-        p.setFlags(flags);
-
-        final torrent_handle th = s.add_torrent(p);
-
-        final CountDownLatch signal = new CountDownLatch(1);
-
-        AlertListener l = new TorrentAlertAdapter(new TorrentHandle(th)) {
-            @Override
-            public void metadataReceived(MetadataReceivedAlert alert) {
-                signal.countDown();
-            }
-        };
-
-        addListener(l);
-
-        th.resume();
-
-        try {
-            signal.await(timeout, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-        }
-
-        removeListener(l);
-
-        try {
-            byte[] data = null;
-
-            torrent_info ti = th.torrent_file();
-            if (ti != null) {
-                create_torrent ct = new create_torrent(ti);
-                data = Vectors.char_vector2bytes(ct.generate().bencode());
-            }
-
-            return data;
-
-        } finally {
-            s.remove_torrent(th);
-        }
-    }
-
     public void pause() {
         s.pause();
     }

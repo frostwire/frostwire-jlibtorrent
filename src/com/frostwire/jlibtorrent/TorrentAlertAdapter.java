@@ -57,6 +57,9 @@ public class TorrentAlertAdapter implements AlertListener {
     public void torrentDeleted(TorrentDeletedAlert alert) {
     }
 
+    public void addTorrent(AddTorrentAlert alert) {
+    }
+
     public void blockFinished(BlockFinishedAlert alert) {
     }
 

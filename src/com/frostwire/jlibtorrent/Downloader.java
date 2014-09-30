@@ -1,6 +1,11 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
+import com.frostwire.jlibtorrent.swig.*;
+
 import java.io.File;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class provides a lens only functionality.
@@ -55,5 +60,78 @@ public final class Downloader {
         }
 
         download(new TorrentInfo(torrent), saveDir, priorities, null);
+    }
+
+    /**
+     * @param uri
+     * @param timeout in milliseconds
+     * @return
+     */
+    public byte[] fetchMagnet(String uri, long timeout) {
+
+        add_torrent_params p = add_torrent_params.create_instance_no_storage();
+        error_code ec = new error_code();
+        libtorrent.parse_magnet_uri(uri, p, ec);
+
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
+
+        torrent_handle th = s.getSwig().find_torrent(p.getInfo_hash());
+
+        if (th != null && th.is_valid()) {
+            // we have a download with the same info-hash, let's see if we have the torrent info
+            torrent_info ti = th.torrent_file();
+            if (ti != null && ti.is_valid()) {
+                // ok. we have it, ready to return the data
+                return new TorrentInfo(th.torrent_file()).bencode();
+            } else {
+                // we can't risk the current download
+                return null;
+            }
+        }
+
+        p.setName("fetchMagnet - " + uri);
+
+        long flags = p.getFlags();
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+        p.setFlags(flags);
+
+        th = s.getSwig().add_torrent(p);
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener l = new TorrentAlertAdapter(new TorrentHandle(th)) {
+            @Override
+            public void metadataReceived(MetadataReceivedAlert alert) {
+                signal.countDown();
+            }
+        };
+
+        s.addListener(l);
+
+        th.resume();
+
+        try {
+            signal.await(timeout, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+        }
+
+        s.removeListener(l);
+
+        try {
+            byte[] data = null;
+
+            torrent_info ti = th.torrent_file();
+            if (ti != null) {
+                create_torrent ct = new create_torrent(ti);
+                data = Vectors.char_vector2bytes(ct.generate().bencode());
+            }
+
+            return data;
+
+        } finally {
+            s.getSwig().remove_torrent(th);
+        }
     }
 }

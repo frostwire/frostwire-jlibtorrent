@@ -178,6 +178,10 @@ public final class TorrentInfo {
         return new Entry(new create_torrent(ti).generate());
     }
 
+    public byte[] bencode() {
+        return toEntry().bencode();
+    }
+
     public static TorrentInfo bdecode(byte[] data) {
         lazy_entry e = new lazy_entry();
         error_code ec = new error_code();

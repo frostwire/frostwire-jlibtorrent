@@ -13,6 +13,7 @@ public enum AlertType {
     TORRENT_REMOVED(torrent_removed_alert.alert_type),
     TORRENT_UPDATE(torrent_update_alert.alert_type),
     TORRENT_DELETED(torrent_deleted_alert.alert_type),
+    ADD_TORRENT(add_torrent_alert.alert_type),
     SAVE_RESUME_DATA(save_resume_data_alert.alert_type),
     BLOCK_FINISHED(block_finished_alert.alert_type),
     METADATA_RECEIVED(metadata_received_alert.alert_type),

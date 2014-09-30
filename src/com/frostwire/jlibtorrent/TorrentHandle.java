@@ -27,6 +27,17 @@ public final class TorrentHandle {
         return th;
     }
 
+    /**
+     * Returns a pointer to the torrent_info object associated with this
+     * torrent. The torrent_info object may be a copy of the internal object.
+     * If the torrent doesn't have metadata, the pointer will not be
+     * initialized (i.e. a NULL pointer). The torrent may be in a state
+     * without metadata only if it was started without a .torrent file, e.g.
+     * by using the libtorrent extension of just supplying a tracker and
+     * info-hash.
+     *
+     * @return
+     */
     public TorrentInfo getTorrentInfo() {
         torrent_info ti = th.torrent_file();
         return ti != null ? new TorrentInfo(th.torrent_file()) : null;
@@ -248,36 +259,6 @@ public final class TorrentHandle {
     //	the initial loop, and thwart the counter otherwise.
     public void saveResumeData() {
         th.save_resume_data(torrent_handle.save_resume_flags_t.save_info_dict.swigValue());
-    }
-
-    public String getDisplayName() {
-        torrent_info ti = null;
-        if (!th.is_valid() || (ti = th.torrent_file()) == null) {
-            return "Unknown";
-        }
-
-        String name;
-
-        if (ti.num_files() == 1) {
-            name = ti.files().file_name(0);
-        } else {
-            name = ti.name();
-        }
-
-        return name;
-    }
-
-    public boolean isPartial() {
-        int_vector v = th.file_priorities();
-
-        long size = v.size();
-        for (int i = 0; i < size; i++) {
-            if (v.get(i) == Priority.IGNORE.getSwig()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
