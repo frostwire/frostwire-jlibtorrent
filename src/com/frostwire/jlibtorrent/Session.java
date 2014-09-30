@@ -126,6 +126,30 @@ public final class Session {
         return addTorrent(torrentFile, null, saveDir);
     }
 
+    public void asyncAddTorrent(TorrentInfo ti, Priority[] priorities, File saveDir, File resumeFile) throws IOException {
+
+        add_torrent_params p = add_torrent_params.create_instance();
+
+        p.setTi(ti.getSwig());
+        setFilePriorities(p, priorities);
+        p.setSave_path(saveDir.getAbsolutePath());
+        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
+
+        long flags = p.getFlags();
+
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+
+        if (resumeFile != null && resumeFile.exists()) {
+            flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
+            byte[] data = Utils.readFileToByteArray(resumeFile);
+            p.setResume_data(Vectors.bytes2char_vector(data));
+        }
+
+        p.setFlags(flags);
+
+        s.async_add_torrent(p);
+    }
+
     public void asyncAddTorrent(File torrentFile, Priority[] priorities, File saveDir, File resumeFile) throws IOException {
         String torrentPath = torrentFile.getAbsolutePath();
         String savePath = saveDir.getAbsolutePath();
@@ -652,6 +676,16 @@ public final class Session {
         Thread t = new Thread(r, "LTEngine-alertsLoop");
         t.setDaemon(true);
         t.start();
+    }
+
+    private static void setFilePriorities(add_torrent_params p, Priority[] priorities) {
+        if (priorities != null) {
+            byte[] arr = new byte[priorities.length];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = (byte) priorities[i].getSwig();
+            }
+            p.setFile_priorities(Vectors.bytes2unsigned_char_vector(arr));
+        }
     }
 
     private static Map<Integer, CastAlertFunction> buildCastAlertTable() {

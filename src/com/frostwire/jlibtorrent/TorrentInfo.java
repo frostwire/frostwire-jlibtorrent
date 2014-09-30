@@ -1,5 +1,7 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.error_code;
+import com.frostwire.jlibtorrent.swig.lazy_entry;
 import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.torrent_info;
 
@@ -19,8 +21,8 @@ public final class TorrentInfo {
         this.ti = ti;
     }
 
-    public TorrentInfo(File torrentFile) {
-        this(new torrent_info(torrentFile.getAbsolutePath()));
+    public TorrentInfo(File torrent) {
+        this(new torrent_info(torrent.getAbsolutePath()));
     }
 
     public torrent_info getSwig() {
@@ -119,7 +121,39 @@ public final class TorrentInfo {
         return ti.is_valid();
     }
 
+    /**
+     * If you need index-access to files you can use the ``num_files()`` and ``file_at()``
+     * to access files using indices.
+     *
+     * @return
+     */
+    public int getNumFiles() {
+        return ti.num_files();
+    }
+
+    /**
+     * If you need index-access to files you can use the ``num_files()`` and ``file_at()``
+     * to access files using indices.
+     *
+     * @return
+     */
+    public FileEntry getFileAt(int index) {
+        return new FileEntry(ti.file_at(index));
+    }
+
     public String getHash() {
         return getInfoHash().toString();
+    }
+
+    public static TorrentInfo bdecode(byte[] data) {
+        lazy_entry e = new lazy_entry();
+        error_code ec = new error_code();
+        int ret = lazy_entry.bdecode(Vectors.bytes2char_vector(data), e, ec);
+
+        if (ret == 0) {
+            return new TorrentInfo(new torrent_info(e));
+        } else {
+            throw new IllegalArgumentException("Can't decode data");
+        }
     }
 }
