@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.error_code;
-import com.frostwire.jlibtorrent.swig.lazy_entry;
-import com.frostwire.jlibtorrent.swig.libtorrent;
-import com.frostwire.jlibtorrent.swig.torrent_info;
+import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 
@@ -71,6 +68,16 @@ public final class TorrentInfo {
      */
     public Sha1Hash getInfoHash() {
         return new Sha1Hash(ti.info_hash());
+    }
+
+    /**
+     * returns the info-hash as a string.
+     *
+     * @return
+     * @see TorrentInfo#getInfoHash()
+     */
+    public String getInfoHashStr() {
+        return ti.info_hash().to_hex();
     }
 
     public String mkString() {
@@ -141,8 +148,8 @@ public final class TorrentInfo {
         return new FileEntry(ti.file_at(index));
     }
 
-    public String getHash() {
-        return getInfoHash().toString();
+    public Entry toEntry() {
+        return new Entry(new create_torrent(ti).generate());
     }
 
     public static TorrentInfo bdecode(byte[] data) {

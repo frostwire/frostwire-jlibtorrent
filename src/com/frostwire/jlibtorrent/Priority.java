@@ -70,4 +70,14 @@ public enum Priority {
         }
         return UNKNOWN;
     }
+
+    public static Priority[] array(Priority value, int size) {
+        Priority[] arr = new Priority[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = value;
+        }
+
+        return arr;
+    }
 }

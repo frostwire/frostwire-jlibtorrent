@@ -1,6 +1,8 @@
 package com.frostwire.jlibtorrent;
 
 /**
+ * This class provides a lens only functionality.
+ *
  * @author gubatron
  * @author aldenml
  */
@@ -8,7 +10,7 @@ public final class DHT {
 
     private final Session s;
 
-    DHT(Session s) {
+    public DHT(Session s) {
         this.s = s;
     }
 

@@ -97,6 +97,12 @@ public final class TorrentHandle {
         th.pause();
     }
 
+    /**
+     * ``resume()`` will disconnect all peers and reconnect
+     * all peers respectively.
+     * <p/>
+     * Torrents that are auto-managed may be automatically resumed again.
+     */
     public void resume() {
         th.resume();
     }
@@ -505,8 +511,8 @@ public final class TorrentHandle {
      * @param index
      * @param priority
      */
-    public void setFilePriority(int index, int priority) {
-        th.file_priority(index, priority);
+    public void setFilePriority(int index, Priority priority) {
+        th.file_priority(index, priority.getSwig());
     }
 
     /**
@@ -542,8 +548,14 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public int[] getFilePriorities() {
-        return Vectors.int_vector2ints(th.file_priorities());
+    public Priority[] getFilePriorities() {
+        int_vector v = th.file_priorities();
+        int size = (int) v.size();
+        Priority[] arr = new Priority[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = Priority.fromSwig(v.get(i));
+        }
+        return arr;
     }
 
     // This function fills in the supplied vector with the the number of

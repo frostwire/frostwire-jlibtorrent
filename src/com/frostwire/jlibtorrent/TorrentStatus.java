@@ -291,18 +291,26 @@ public final class TorrentStatus {
         return ts.getProgress();
     }
 
-    // progress parts per million (progress * 1000000) when disabling
-    // floating point operations, this is the only option to query progress
-
-    // reflects the same value as ``progress``, but instead in a range [0,
-    // 1000000] (ppm = parts per million). When floating point operations are
-    // disabled, this is the only alternative to the floating point value in
+    /**
+     * progress parts per million (progress * 1000000) when disabling
+     * floating point operations, this is the only option to query progress
+     * <p/>
+     * reflects the same value as ``progress``, but instead in a range [0,
+     * 1000000] (ppm = parts per million). When floating point operations are
+     * disabled, this is the only alternative to the floating point value in.
+     *
+     * @return
+     */
     public int getProgressPpm() {
         return ts.getProgress_ppm();
     }
 
-    // the position this torrent has in the download
-    // queue. If the torrent is a seed or finished, this is -1.
+    /**
+     * the position this torrent has in the download
+     * queue. If the torrent is a seed or finished, this is -1.
+     *
+     * @return
+     */
     public int getQueuePosition() {
         return ts.getQueue_position();
     }

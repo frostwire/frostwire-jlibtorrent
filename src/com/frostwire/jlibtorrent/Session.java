@@ -40,7 +40,6 @@ public final class Session {
     private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildCastAlertTable();
 
     private final session s;
-    private final DHT dht;
 
     private long lastStatusRequestTime;
     private SessionStatus lastStatus;
@@ -51,7 +50,6 @@ public final class Session {
     public Session(fingerprint fingerprint) {
 
         this.s = new session();
-        this.dht = new DHT(this);
 
         s.set_alert_mask(alert.category_t.all_categories.swigValue());
 
@@ -126,23 +124,27 @@ public final class Session {
         return addTorrent(torrentFile, null, saveDir);
     }
 
-    public void asyncAddTorrent(TorrentInfo ti, Priority[] priorities, File saveDir, File resumeFile) throws IOException {
+    public void asyncAddTorrent(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile) {
 
         add_torrent_params p = add_torrent_params.create_instance();
 
         p.setTi(ti.getSwig());
-        setFilePriorities(p, priorities);
         p.setSave_path(saveDir.getAbsolutePath());
+        p.setFile_priorities(Vectors.priorities2unsigned_char_vector(priorities));
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 
         long flags = p.getFlags();
 
         flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
 
-        if (resumeFile != null && resumeFile.exists()) {
-            flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
-            byte[] data = Utils.readFileToByteArray(resumeFile);
-            p.setResume_data(Vectors.bytes2char_vector(data));
+        if (resumeFile != null) {
+            try {
+                byte[] data = Utils.readFileToByteArray(resumeFile);
+                flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
+                p.setResume_data(Vectors.bytes2char_vector(data));
+            } catch (Throwable e) {
+                LOG.warn("Unable to set resume data", e);
+            }
         }
 
         p.setFlags(flags);
@@ -415,6 +417,8 @@ public final class Session {
      * Looks for a torrent with the given info-hash. In
      * case there is such a torrent in the session, a torrent_handle to that
      * torrent is returned.
+     * <p/>
+     * In case the torrent cannot be found, a null is returned.
      *
      * @param infoHash
      * @return
@@ -632,10 +636,6 @@ public final class Session {
         return s.is_dht_running();
     }
 
-    public DHT getDHT() {
-        return dht;
-    }
-
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
@@ -676,16 +676,6 @@ public final class Session {
         Thread t = new Thread(r, "LTEngine-alertsLoop");
         t.setDaemon(true);
         t.start();
-    }
-
-    private static void setFilePriorities(add_torrent_params p, Priority[] priorities) {
-        if (priorities != null) {
-            byte[] arr = new byte[priorities.length];
-            for (int i = 0; i < arr.length; i++) {
-                arr[i] = (byte) priorities[i].getSwig();
-            }
-            p.setFile_priorities(Vectors.bytes2unsigned_char_vector(arr));
-        }
     }
 
     private static Map<Integer, CastAlertFunction> buildCastAlertTable() {

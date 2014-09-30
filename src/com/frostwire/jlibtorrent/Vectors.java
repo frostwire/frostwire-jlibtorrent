@@ -112,4 +112,14 @@ public final class Vectors {
 
         return v;
     }
+
+    public static unsigned_char_vector priorities2unsigned_char_vector(Priority[] arr) {
+        unsigned_char_vector v = new unsigned_char_vector();
+
+        for (int i = 0; i < arr.length; i++) {
+            v.add((short) arr[i].getSwig());
+        }
+
+        return v;
+    }
 }
