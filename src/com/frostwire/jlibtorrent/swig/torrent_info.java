@@ -41,56 +41,44 @@ public class torrent_info {
     this(libtorrent_jni.new_torrent_info__SWIG_1(lazy_entry.getCPtr(torrent_file), torrent_file), true);
   }
 
-  public torrent_info(String buffer, int size, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_2(buffer, size, flags), true);
-  }
-
   public torrent_info(String filename, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_3(filename, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_2(filename, flags), true);
   }
 
   public torrent_info(String filename) {
-    this(libtorrent_jni.new_torrent_info__SWIG_4(filename), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_3(filename), true);
   }
 
   public torrent_info(torrent_info t, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_5(torrent_info.getCPtr(t), t, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_4(torrent_info.getCPtr(t), t, flags), true);
   }
 
   public torrent_info(torrent_info t) {
-    this(libtorrent_jni.new_torrent_info__SWIG_6(torrent_info.getCPtr(t), t), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_5(torrent_info.getCPtr(t), t), true);
   }
 
   public torrent_info(sha1_hash info_hash, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_7(sha1_hash.getCPtr(info_hash), info_hash, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_6(sha1_hash.getCPtr(info_hash), info_hash, flags), true);
   }
 
   public torrent_info(sha1_hash info_hash) {
-    this(libtorrent_jni.new_torrent_info__SWIG_8(sha1_hash.getCPtr(info_hash), info_hash), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_7(sha1_hash.getCPtr(info_hash), info_hash), true);
   }
 
   public torrent_info(lazy_entry torrent_file, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_9(lazy_entry.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_8(lazy_entry.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec, flags), true);
   }
 
   public torrent_info(lazy_entry torrent_file, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_10(lazy_entry.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec), true);
-  }
-
-  public torrent_info(String buffer, int size, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_11(buffer, size, error_code.getCPtr(ec), ec, flags), true);
-  }
-
-  public torrent_info(String buffer, int size, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_12(buffer, size, error_code.getCPtr(ec), ec), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_9(lazy_entry.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec), true);
   }
 
   public torrent_info(String filename, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_13(filename, error_code.getCPtr(ec), ec, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_10(filename, error_code.getCPtr(ec), ec, flags), true);
   }
 
   public torrent_info(String filename, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_14(filename, error_code.getCPtr(ec), ec), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_11(filename, error_code.getCPtr(ec), ec), true);
   }
 
   public file_storage files() {
