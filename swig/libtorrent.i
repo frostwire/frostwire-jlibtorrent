@@ -290,6 +290,11 @@ namespace std {
 %ignore ssl_ctx;
 %ignore readv;
 %ignore writev;
+%ignore default_pred;
+%ignore ignore_subdir;
+%ignore integer_to_str;
+%ignore get_file_attributes;
+%ignore get_symlink_path;
 
 %ignore libtorrent::TORRENT_CFG;
 %ignore libtorrent::partial_hash;
@@ -316,6 +321,24 @@ namespace std {
 %ignore libtorrent::generic_category;
 
 %ignore libtorrent::to_string(size_type);
+%ignore libtorrent::read_until;
+%ignore libtorrent::is_hex;
+%ignore libtorrent::to_hex(char const*, int, char*);
+%ignore libtorrent::from_hex(char const*, int, char*);
+%ignore libtorrent::convert_to_native;
+%ignore libtorrent::convert_from_native;
+%ignore libtorrent::throw_type_error;
+%ignore libtorrent::trim_path_element;
+%ignore libtorrent::throw_invalid_handle;
+%ignore libtorrent::request_a_block;
+%ignore libtorrent::merkle_num_leafs;
+%ignore libtorrent::merkle_num_nodes;
+%ignore libtorrent::merkle_get_parent;
+%ignore libtorrent::merkle_get_sibling;
+%ignore libtorrent::gzip_header;
+%ignore libtorrent::convert_path_to_posix;
+%ignore libtorrent::hex_to_int;
+
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
 %ignore libtorrent::tracker_manager::incoming_packet;

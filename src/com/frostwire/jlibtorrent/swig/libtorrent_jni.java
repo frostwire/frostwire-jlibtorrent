@@ -817,7 +817,6 @@ public class libtorrent_jni {
   public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long entry_list_v(long jarg1, entry jarg1_);
   public final static native long entry_bdecode(long jarg1, char_vector jarg1_);
-  public final static native void throw_type_error();
   public final static native int sha1_hash_size_get();
   public final static native long new_sha1_hash__SWIG_0();
   public final static native long sha1_hash_max();
@@ -984,7 +983,6 @@ public class libtorrent_jni {
   public final static native void delete_ufloat16(long jarg1);
   public final static native int min_request_queue_get();
   public final static native long peer_priority(long jarg1, tcp_endpoint jarg1_, long jarg2, tcp_endpoint jarg2_);
-  public final static native void request_a_block(long jarg1, torrent jarg1_, long jarg2, peer_connection jarg2_);
   public final static native long new_policy(long jarg1, torrent jarg1_);
   public final static native long policy_add_peer(long jarg1, policy jarg1_, long jarg2, tcp_endpoint jarg2_, long jarg3, sha1_hash jarg3_, int jarg4, char jarg5);
   public final static native boolean policy_update_peer_port(long jarg1, policy jarg1_, int jarg2, long jarg3, policy.peer jarg3_, int jarg4);
@@ -1071,11 +1069,6 @@ public class libtorrent_jni {
   public final static native void delete_policy(long jarg1);
   public final static native int tracker_retry_delay_min_get();
   public final static native int tracker_retry_delay_max_get();
-  public final static native int merkle_num_leafs(int jarg1);
-  public final static native int merkle_num_nodes(int jarg1);
-  public final static native int merkle_get_parent(int jarg1);
-  public final static native int merkle_get_sibling(int jarg1);
-  public final static native void trim_path_element(String jarg1);
   public final static native long new_announce_entry__SWIG_0(String jarg1);
   public final static native long new_announce_entry__SWIG_1();
   public final static native void delete_announce_entry(long jarg1);
@@ -1217,7 +1210,6 @@ public class libtorrent_jni {
   public final static native long torrent_info_build_merkle_list(long jarg1, torrent_info jarg1_, int jarg2);
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
   public final static native int torrent_info_get_creation_date(long jarg1, torrent_info jarg1_);
-  public final static native void throw_invalid_handle();
   public final static native void block_info_set_peer(long jarg1, block_info jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native void block_info_bytes_progress_set(long jarg1, block_info jarg1_, long jarg2);
   public final static native long block_info_bytes_progress_get(long jarg1, block_info jarg1_);
@@ -4153,7 +4145,6 @@ public class libtorrent_jni {
   public final static native String buffer_begin(long jarg1, buffer jarg1_);
   public final static native String buffer_end(long jarg1, buffer jarg1_);
   public final static native void buffer_swap(long jarg1, buffer jarg1_, long jarg2, buffer jarg2_);
-  public final static native int gzip_header(String jarg1, int jarg2);
   public final static native long new_tracker_request();
   public final static native int tracker_request_announce_request_get();
   public final static native int tracker_request_scrape_request_get();
@@ -4236,16 +4227,7 @@ public class libtorrent_jni {
   public final static native String base64encode(String jarg1);
   public final static native String base32encode(String jarg1);
   public final static native String base32decode(String jarg1);
-  public final static native void convert_path_to_posix(String jarg1);
-  public final static native String read_until(String jarg1, char jarg2, String jarg3);
-  public final static native int hex_to_int(char jarg1);
-  public final static native boolean is_hex(String jarg1, int jarg2);
-  public final static native String to_hex__SWIG_0(String jarg1);
-  public final static native void to_hex__SWIG_1(String jarg1, int jarg2, String jarg3);
-  public final static native boolean from_hex(String jarg1, int jarg2, String jarg3);
-  public final static native String convert_to_native(String jarg1);
-  public final static native String convert_from_native(String jarg1);
-  public final static native String integer_to_str(String jarg1, int jarg2, long jarg3);
+  public final static native String to_hex(String jarg1);
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
   public final static native void parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
@@ -4280,11 +4262,7 @@ public class libtorrent_jni {
   public final static native int create_torrent_piece_size(long jarg1, create_torrent jarg1_, int jarg2);
   public final static native boolean create_torrent_should_add_file_hashes(long jarg1, create_torrent jarg1_);
   public final static native long create_torrent_merkle_tree(long jarg1, create_torrent jarg1_);
-  public final static native boolean default_pred(String jarg1);
-  public final static native boolean ignore_subdir(String jarg1);
   public final static native void nop(int jarg1);
-  public final static native int get_file_attributes(String jarg1);
-  public final static native String get_symlink_path(String jarg1);
   public final static native void add_files__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
   public final static native void add_files__SWIG_3(long jarg1, file_storage jarg1_, String jarg2);
   public final static native int ed25519_seed_size_get();

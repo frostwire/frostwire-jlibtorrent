@@ -85,44 +85,12 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_posix_category(), false);
   }
 
-  public static void throw_type_error() {
-    libtorrent_jni.throw_type_error();
-  }
-
   public static long_long_long_2_pair_vector get_filesizes(file_storage t, String p) {
     return new long_long_long_2_pair_vector(libtorrent_jni.get_filesizes(file_storage.getCPtr(t), t, p), true);
   }
 
   public static long peer_priority(tcp_endpoint e1, tcp_endpoint e2) {
     return libtorrent_jni.peer_priority(tcp_endpoint.getCPtr(e1), e1, tcp_endpoint.getCPtr(e2), e2);
-  }
-
-  public static void request_a_block(torrent t, peer_connection c) {
-    libtorrent_jni.request_a_block(torrent.getCPtr(t), t, peer_connection.getCPtr(c), c);
-  }
-
-  public static int merkle_num_leafs(int arg0) {
-    return libtorrent_jni.merkle_num_leafs(arg0);
-  }
-
-  public static int merkle_num_nodes(int arg0) {
-    return libtorrent_jni.merkle_num_nodes(arg0);
-  }
-
-  public static int merkle_get_parent(int arg0) {
-    return libtorrent_jni.merkle_get_parent(arg0);
-  }
-
-  public static int merkle_get_sibling(int arg0) {
-    return libtorrent_jni.merkle_get_sibling(arg0);
-  }
-
-  public static void trim_path_element(String path_element) {
-    libtorrent_jni.trim_path_element(path_element);
-  }
-
-  public static void throw_invalid_handle() {
-    libtorrent_jni.throw_invalid_handle();
   }
 
   public static torrent_handle add_feed_item(session s, feed_item fi, add_torrent_params p) {
@@ -175,10 +143,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static error_category get_bdecode_category() {
     return new error_category(libtorrent_jni.get_bdecode_category(), false);
-  }
-
-  public static int gzip_header(String buf, int size) {
-    return libtorrent_jni.gzip_header(buf, size);
   }
 
   public static String time_now_string() {
@@ -269,44 +233,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.base32decode(s);
   }
 
-  public static void convert_path_to_posix(String path) {
-    libtorrent_jni.convert_path_to_posix(path);
-  }
-
-  public static String read_until(String str, char delim, String end) {
-    return libtorrent_jni.read_until(str, delim, end);
-  }
-
-  public static int hex_to_int(char in) {
-    return libtorrent_jni.hex_to_int(in);
-  }
-
-  public static boolean is_hex(String in, int len) {
-    return libtorrent_jni.is_hex(in, len);
-  }
-
   public static String to_hex(String s) {
-    return libtorrent_jni.to_hex__SWIG_0(s);
-  }
-
-  public static void to_hex(String in, int len, String out) {
-    libtorrent_jni.to_hex__SWIG_1(in, len, out);
-  }
-
-  public static boolean from_hex(String in, int len, String out) {
-    return libtorrent_jni.from_hex(in, len, out);
-  }
-
-  public static String convert_to_native(String s) {
-    return libtorrent_jni.convert_to_native(s);
-  }
-
-  public static String convert_from_native(String s) {
-    return libtorrent_jni.convert_from_native(s);
-  }
-
-  public static String integer_to_str(String buf, int size, long val) {
-    return libtorrent_jni.integer_to_str(buf, size, val);
+    return libtorrent_jni.to_hex(s);
   }
 
   public static String make_magnet_uri(torrent_handle handle) {
@@ -321,24 +249,8 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.parse_magnet_uri(uri, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec);
   }
 
-  public static boolean default_pred(String arg0) {
-    return libtorrent_jni.default_pred(arg0);
-  }
-
-  public static boolean ignore_subdir(String leaf) {
-    return libtorrent_jni.ignore_subdir(leaf);
-  }
-
   public static void nop(int arg0) {
     libtorrent_jni.nop(arg0);
-  }
-
-  public static int get_file_attributes(String p) {
-    return libtorrent_jni.get_file_attributes(p);
-  }
-
-  public static String get_symlink_path(String p) {
-    return libtorrent_jni.get_symlink_path(p);
   }
 
   public static void add_files(file_storage fs, String file, long flags) {
