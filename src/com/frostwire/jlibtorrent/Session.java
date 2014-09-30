@@ -130,7 +130,10 @@ public final class Session {
 
         p.setTi(ti.getSwig());
         p.setSave_path(saveDir.getAbsolutePath());
-        p.setFile_priorities(Vectors.priorities2unsigned_char_vector(priorities));
+
+        if (priorities != null) {
+            p.setFile_priorities(Vectors.priorities2unsigned_char_vector(priorities));
+        }
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 
         long flags = p.getFlags();
