@@ -13,7 +13,7 @@ public class TorrentAlert<T extends torrent_alert> extends AbstractAlert<T> {
         super(alert);
     }
 
-    public TorrentHandle getTorrentHandle() {
+    public TorrentHandle getHandle() {
         return new TorrentHandle(alert.getHandle());
     }
 }

@@ -607,9 +607,7 @@ public final class Session {
                         synchronized (listeners) {
                             for (AlertListener l : listeners) {
                                 try {
-                                    if (l.accept(a)) {
-                                        l.alert(a);
-                                    }
+                                    l.alert(a);
                                 } catch (Throwable e) {
                                     LOG.warn("Error calling alert listener", e);
                                 }

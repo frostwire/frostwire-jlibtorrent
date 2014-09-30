@@ -26,11 +26,6 @@ public final class DhtPut {
         s.addListener(new AlertListener() {
 
             @Override
-            public boolean accept(Alert<?> alert) {
-                return true;
-            }
-
-            @Override
             public void alert(Alert<?> alert) {
                 //System.out.println(alert.getSwig().message());
 

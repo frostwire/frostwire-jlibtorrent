@@ -24,18 +24,15 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     @Override
-    public final boolean accept(Alert<?> alert) {
+    public final void alert(Alert<?> alert) {
         if (!(alert instanceof TorrentAlert<?>)) {
-            return false;
+            return;
         }
 
-        TorrentAlert<?> ta = (TorrentAlert<?>) alert;
+        if (!((TorrentAlert<?>) alert).getSwig().getHandle().op_eq(th.getSwig())) {
+            return;
+        }
 
-        return ta.getSwig().getHandle().op_eq(th.getSwig());
-    }
-
-    @Override
-    public void alert(Alert<?> alert) {
         CallAlertFunction function = CALL_TABLE.get(alert.getClass().getName());
         if (function != null) {
             function.invoke(this, alert);

@@ -29,16 +29,13 @@ public final class PartialDownload2 {
         final CountDownLatch s2 = new CountDownLatch(2);
 
         s.addListener(new AlertListener() {
-
-            @Override
-            public boolean accept(Alert<?> alert) {
-                return alert instanceof TorrentAlert<?>;
-            }
-
             @Override
             public void alert(Alert<?> alert) {
+                if (!(alert instanceof TorrentAlert<?>)) {
+                    return;
+                }
                 TorrentAlert<?> ta = (TorrentAlert<?>) alert;
-                TorrentHandle th = ta.getTorrentHandle();
+                TorrentHandle th = ta.getHandle();
 
                 switch (alert.getType()) {
                     case TORRENT_ADDED:
