@@ -24,6 +24,7 @@ public enum AlertType {
     PORTMAP_ERROR(portmap_error_alert.alert_type),
     PORTMAP_LOG(portmap_log_alert.alert_type),
     TRACKER_ANNOUNCE(tracker_announce_alert.alert_type),
+    TRACKER_WARNING(tracker_warning_alert.alert_type),
     TRACKER_ERROR(tracker_error_alert.alert_type),
     READ_PIECE(read_piece_alert.alert_type),
     STATE_CHANGED(state_changed_alert.alert_type),

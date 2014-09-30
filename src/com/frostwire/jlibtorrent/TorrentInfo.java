@@ -18,6 +18,13 @@ public final class TorrentInfo {
         this.ti = ti;
     }
 
+    /**
+     * load the torrent file and decode it inside
+     * the constructor, for convenience. This might not be the most suitable for applications that
+     * want to be able to report detailed errors on what might go wrong.
+     *
+     * @param torrent
+     */
     public TorrentInfo(File torrent) {
         this(new torrent_info(torrent.getAbsolutePath()));
     }
@@ -26,8 +33,48 @@ public final class TorrentInfo {
         return this.ti;
     }
 
+    /**
+     * returns the name of the torrent.
+     * <p/>
+     * the name is an UTF-8 encoded strings.
+     *
+     * @return
+     */
     public String getName() {
         return ti.name();
+    }
+
+    /**
+     * returns the comment associated with the torrent. If there's no comment,
+     * it will return an empty string.
+     * <p/>
+     * the comment is an UTF-8 encoded strings.
+     *
+     * @return
+     */
+    public String getComment() {
+        return ti.comment();
+    }
+
+    /**
+     * returns the creation date of
+     * the torrent as time_t (`posix time`_). If there's no time stamp in the torrent file,
+     * a value of zero is returned.
+     *
+     * @return
+     */
+    public int getCreationDate() {
+        return ti.get_creation_date();
+    }
+
+    /**
+     * returns the creator string in the torrent. If there is no creator string
+     * it will return an empty string.
+     *
+     * @return
+     */
+    public String getCreator() {
+        return ti.creator();
     }
 
     /**

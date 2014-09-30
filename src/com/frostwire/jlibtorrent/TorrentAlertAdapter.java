@@ -81,6 +81,9 @@ public class TorrentAlertAdapter implements AlertListener {
     public void trackerAnnounce(TrackerAnnounceAlert alert) {
     }
 
+    public void trackerWarning(TrackerWarningAlert alert) {
+    }
+
     public void trackerError(TrackerErrorAlert alert) {
     }
 
