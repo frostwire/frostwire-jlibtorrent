@@ -53,6 +53,13 @@ public final class Sha1Hash {
         return h.is_all_zeros();
     }
 
+    /**
+     * Returns the hex representation of this has.
+     * <p/>
+     * This method uses internally the libtorrent to_hex function.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return h.to_hex();

@@ -21,4 +21,8 @@ public final class Entry {
     public entry getSwig() {
         return e;
     }
+
+    public byte[] bencode() {
+        return Vectors.char_vector2bytes(e.bencode());
+    }
 }

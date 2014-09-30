@@ -118,27 +118,6 @@ public final class TorrentInfo {
     }
 
     /**
-     * returns the info-hash as a string.
-     *
-     * @return
-     * @see TorrentInfo#getInfoHash()
-     */
-    public String getInfoHashStr() {
-        return ti.info_hash().to_hex();
-    }
-
-    public String mkString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("total_size = " + getTotalSize() + System.lineSeparator());
-        sb.append("piece_length = " + getPieceLength() + System.lineSeparator());
-        sb.append("num_pieces = " + getNumPieces() + System.lineSeparator());
-        sb.append("info_hash = " + getInfoHash() + System.lineSeparator());
-
-        return sb.toString();
-    }
-
-    /**
      * Generates a magnet URI from the specified torrent. If the torrent
      * is invalid, null is returned.
      * <p/>
