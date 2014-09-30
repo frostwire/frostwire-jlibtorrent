@@ -40,6 +40,7 @@ public final class Session {
     private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildCastAlertTable();
 
     private final session s;
+    private final DHT dht;
 
     private long lastStatusRequestTime;
     private SessionStatus lastStatus;
@@ -50,6 +51,7 @@ public final class Session {
     public Session(fingerprint fingerprint) {
 
         this.s = new session();
+        this.dht = new DHT(this);
 
         s.set_alert_mask(alert.category_t.all_categories.swigValue());
 
@@ -419,6 +421,16 @@ public final class Session {
     }
 
     /**
+     * query the DHT for an immutable item at the ``target`` hash.
+     * the result is posted as a dht_immutable_item_alert.
+     *
+     * @param target
+     */
+    public void dhtGetItem(Sha1Hash target) {
+        s.dht_get_item(target.getSwig());
+    }
+
+    /**
      * Query the DHT for a mutable item under the public key ``key``.
      * this is an ed25519 key. ``salt`` is optional and may be left
      * as an empty string if no salt is to be used.
@@ -427,7 +439,7 @@ public final class Session {
      *
      * @param key
      */
-    public void getDhtItem(byte[] key) {
+    public void dhtGetItem(byte[] key) {
         s.dht_get_item(Vectors.bytes2char_vector(key));
     }
 
@@ -441,12 +453,21 @@ public final class Session {
      * @param key
      * @param salt
      */
-    public void getDhtItem(byte[] key, String salt) {
+    public void dhtGetItem(byte[] key, String salt) {
         s.dht_get_item(Vectors.bytes2char_vector(key), salt);
     }
 
-    public void dhtPutItem(Entry entry) {
-        s.dht_put_item(entry.getSwig());
+    /**
+     * Store the given bencoded data as an immutable item in the DHT.
+     * the returned hash is the key that is to be used to look the item
+     * up agan. It's just the sha-1 hash of the bencoded form of the
+     * structure.
+     *
+     * @param entry
+     * @return
+     */
+    public Sha1Hash dhtPutItem(Entry entry) {
+        return new Sha1Hash(s.dht_put_item(entry.getSwig()));
     }
 
     // store an immutable item. The ``key`` is the public key the blob is
@@ -533,6 +554,62 @@ public final class Session {
     // calling the callback in between is convenient.
     public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, String salt) {
         s.dht_put_item(Vectors.bytes2char_vector(publicKey), Vectors.bytes2char_vector(privateKey), entry.getSwig(), salt);
+    }
+
+    // starts/stops UPnP, NATPMP or LSD port mappers they are stopped by
+    // default These functions are not available in case
+    // ``TORRENT_DISABLE_DHT`` is defined. ``start_dht`` starts the dht node
+    // and makes the trackerless service available to torrents. The startup
+    // state is optional and can contain nodes and the node id from the
+    // previous session. The dht node state is a bencoded dictionary with the
+    // following entries:
+    //
+    // nodes
+    // 	A list of strings, where each string is a node endpoint encoded in
+    // 	binary. If the string is 6 bytes long, it is an IPv4 address of 4
+    // 	bytes, encoded in network byte order (big endian), followed by a 2
+    // 	byte port number (also network byte order). If the string is 18
+    // 	bytes long, it is 16 bytes of IPv6 address followed by a 2 bytes
+    // 	port number (also network byte order).
+    //
+    // node-id
+    // 	The node id written as a readable string as a hexadecimal number.
+    //
+    // ``dht_state`` will return the current state of the dht node, this can
+    // be used to start up the node again, passing this entry to
+    // ``start_dht``. It is a good idea to save this to disk when the session
+    // is closed, and read it up again when starting.
+    //
+    // If the port the DHT is supposed to listen on is already in use, and
+    // exception is thrown, ``asio::error``.
+    //
+    // ``stop_dht`` stops the dht node.
+    //
+    // ``add_dht_node`` adds a node to the routing table. This can be used if
+    // your client has its own source of bootstrapping nodes.
+    //
+    // ``set_dht_settings`` sets some parameters availavle to the dht node.
+    // See dht_settings for more information.
+    //
+    // ``is_dht_running()`` returns true if the DHT support has been started
+    // and false
+    // otherwise.
+    public void startDHT() {
+        s.start_dht();
+    }
+
+    public void stopDHT() {
+        s.stop_dht();
+    }
+
+    //void set_dht_settings(dht_settings const& settings);
+
+    public boolean isDHTRunning() {
+        return s.is_dht_running();
+    }
+
+    public DHT getDHT() {
+        return dht;
     }
 
     @Override
