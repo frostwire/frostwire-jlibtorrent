@@ -72,10 +72,16 @@ public class TorrentAlertAdapter implements AlertListener {
     public void fileRenamed(FileRenamedAlert alert) {
     }
 
+    public void fileRenameFailed(FileRenameFailedAlert alert) {
+    }
+
     public void fileError(FileErrorAlert alert) {
     }
 
     public void trackerAnnounce(TrackerAnnounceAlert alert) {
+    }
+
+    public void trackerError(TrackerErrorAlert alert) {
     }
 
     public void readPiece(ReadPieceAlert alert) {

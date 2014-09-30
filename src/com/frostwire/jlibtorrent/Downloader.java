@@ -16,6 +16,14 @@ public final class Downloader {
         this.s = s;
     }
 
+    public TorrentHandle find(Sha1Hash infoHash) {
+        return s.findTorrent(infoHash);
+    }
+
+    public TorrentHandle find(String infoHash) {
+        return s.findTorrent(new Sha1Hash(infoHash));
+    }
+
     public void download(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile) {
         TorrentHandle th = s.findTorrent(ti.getInfoHash());
 
