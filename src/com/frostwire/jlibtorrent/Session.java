@@ -342,6 +342,40 @@ public final class Session {
     }
 
     /**
+     * These functions sets and queries the proxy settings to be used for the
+     * session.
+     * <p/>
+     * For more information on what settings are available for proxies, see
+     * proxy_settings. If the session is not in anonymous mode, proxies that
+     * aren't working or fail, will automatically be disabled and packets
+     * will flow without using any proxy. If you want to enforce using a
+     * proxy, even when the proxy doesn't work, enable anonymous_mode in
+     * session_settings.
+     *
+     * @return
+     */
+    public ProxySettings getProxy() {
+        return new ProxySettings(s.proxy());
+    }
+
+    /**
+     * These functions sets and queries the proxy settings to be used for the
+     * session.
+     * <p/>
+     * For more information on what settings are available for proxies, see
+     * proxy_settings. If the session is not in anonymous mode, proxies that
+     * aren't working or fail, will automatically be disabled and packets
+     * will flow without using any proxy. If you want to enforce using a
+     * proxy, even when the proxy doesn't work, enable anonymous_mode in
+     * session_settings.
+     *
+     * @param settings
+     */
+    public void setProxy(ProxySettings settings) {
+        s.set_proxy(settings.getSwig());
+    }
+
+    /**
      * Loads and saves all session settings, including dht_settings,
      * encryption settings and proxy settings. ``save_state`` writes all keys
      * to the ``entry`` that's passed in, which needs to either not be

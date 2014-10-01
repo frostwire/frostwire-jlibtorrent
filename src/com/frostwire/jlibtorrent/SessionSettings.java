@@ -2153,7 +2153,7 @@ public final class SessionSettings {
     /**
      * options for session_settings::suggest_mode.
      */
-    public static enum SuggestMode {
+    public enum SuggestMode {
 
         /**
          * the default. will not send out suggest messages.
@@ -2197,7 +2197,7 @@ public final class SessionSettings {
      * the different choking algorithms available. Set
      * session_settings::choking_algorithm to one of these
      */
-    public static enum ChokingAlgorithm {
+    public enum ChokingAlgorithm {
 
         /**
          * the traditional choker with a fixed number of unchoke slots, as
@@ -2264,7 +2264,7 @@ public final class SessionSettings {
      * the different choking algorithms available when seeding. Set
      * session_settings::seed_choking_algorithm to one of these
      */
-    public static enum SeedChokingAlgorithm {
+    public enum SeedChokingAlgorithm {
 
         /**
          * round-robins the peers that are unchoked when seeding. This
@@ -2319,7 +2319,7 @@ public final class SessionSettings {
      * session_settings::disk_io_read_mode and disk_io_write_mode to one of
      * these.
      */
-    public static enum IoBufferMode {
+    public enum IoBufferMode {
 
         /**
          * This is the default and files are opened normally, with the OS
@@ -2373,7 +2373,7 @@ public final class SessionSettings {
      * the disk cache algorithms available. Set
      * session_settings::disk_cache_algorithm to one of these.
      */
-    public static enum DiskCacheAlgo {
+    public enum DiskCacheAlgo {
 
         /**
          * This flushes the entire piece, in the write cache, that was least
@@ -2419,7 +2419,7 @@ public final class SessionSettings {
     /**
      * the options for session_settings::mixed_mode_algorithm.
      */
-    public static enum BandwidthMixedAlgo {
+    public enum BandwidthMixedAlgo {
 
         /**
          * disables the mixed mode bandwidth balancing
