@@ -19,6 +19,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * created, the session object will spawn the main thread that will do all
  * the work. The main thread will be idle as long it doesn't have any
  * torrents to participate in.
+ * <p/>
+ * This class belongs to a middle logical layer of abstraction. It's a wrapper
+ * of the underlying swig session object (from libtorrent), but it does not
+ * expose all the raw features, not expose a very high level interface
+ * like {@link com.frostwire.jlibtorrent.DHT DHT} or
+ * {@link com.frostwire.jlibtorrent.Downloader Downloader}.
  *
  * @author gubatron
  * @author aldenml
@@ -44,7 +50,7 @@ public final class Session {
     private final List<AlertListener> listeners;
     private boolean running;
 
-    public Session(fingerprint fingerprint) {
+    public Session() {
 
         this.s = new session();
 
@@ -62,8 +68,29 @@ public final class Session {
         alertsLoop();
     }
 
-    public Session() {
-        this(new fingerprint("FW", 0, 0, 1, 1));
+    public Session(int p0, int p1, String iface) {
+
+        if (p0 < 0) {
+            throw new IllegalArgumentException("Illegal port range");
+        }
+        if (p0 > p1) {
+            throw new IllegalArgumentException("Illegal port range");
+        }
+
+        fingerprint print = new fingerprint("LT", libtorrent.LIBTORRENT_VERSION_MAJOR, libtorrent.LIBTORRENT_VERSION_MINOR, 0, 0);
+        int_int_pair listen_port_range = new int_int_pair(p0, p1);
+        String listen_interface = iface;
+        int flags = session.session_flags_t.start_default_features.swigValue() | session.session_flags_t.add_default_plugins.swigValue();
+        int alert_mask = alert.category_t.all_categories.swigValue();
+
+        this.s = new session(print, listen_port_range, listen_interface, flags, alert_mask);
+
+        this.listeners = new CopyOnWriteArrayList<AlertListener>();
+        this.running = true;
+
+        alertsLoop();
+
+        s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
     }
 
     public session getSwig() {
@@ -593,11 +620,13 @@ public final class Session {
         Runnable r = new Runnable() {
             @Override
             public void run() {
+                alert_ptr_deque deque = new alert_ptr_deque();
+
                 time_duration max_wait = libtorrent.milliseconds(ALERTS_LOOP_WAIT_MILLIS);
+
                 while (running) {
                     alert ptr = s.wait_for_alert(max_wait);
 
-                    alert_ptr_deque deque = new alert_ptr_deque();
                     if (ptr != null) {
                         s.pop_alerts(deque);
                     }
@@ -614,6 +643,8 @@ public final class Session {
                             }
                         }
                     }
+
+                    deque.clear();
                 }
             }
         };
