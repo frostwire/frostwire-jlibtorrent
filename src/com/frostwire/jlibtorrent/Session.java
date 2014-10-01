@@ -68,7 +68,10 @@ public final class Session {
         alertsLoop();
     }
 
-    public Session(int p0, int p1, String iface) {
+    public Session(Pair<Integer, Integer> prange, String iface) {
+
+        int p0 = prange.first;
+        int p1 = prange.second;
 
         if (p0 < 0) {
             throw new IllegalArgumentException("Illegal port range");
@@ -78,7 +81,7 @@ public final class Session {
         }
 
         fingerprint print = new fingerprint("LT", libtorrent.LIBTORRENT_VERSION_MAJOR, libtorrent.LIBTORRENT_VERSION_MINOR, 0, 0);
-        int_int_pair listen_port_range = new int_int_pair(p0, p1);
+        int_int_pair listen_port_range = prange.to_int_int_pair();
         String listen_interface = iface;
         int flags = session.session_flags_t.start_default_features.swigValue() | session.session_flags_t.add_default_plugins.swigValue();
         int alert_mask = alert.category_t.all_categories.swigValue();

@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.PortmapType;
 import com.frostwire.jlibtorrent.swig.portmap_log_alert;
 
 /**

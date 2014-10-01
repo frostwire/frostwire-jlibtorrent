@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.Pair;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.alerts.Alert;
 
@@ -12,7 +13,7 @@ public final class SessionTest {
 
     public static void main(String[] args) throws Throwable {
 
-        final Session s = new Session(6881, 6981, "0.0.0.0");
+        final Session s = new Session(new Pair<Integer, Integer>(6881, 6981), "0.0.0.0");
 
         s.addListener(new AlertListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.frostwire.jlibtorrent;
+package com.frostwire.jlibtorrent.alerts;
 
 /**
  * @author gubatron

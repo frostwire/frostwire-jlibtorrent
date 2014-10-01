@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
-import com.frostwire.jlibtorrent.PortmapType;
 import com.frostwire.jlibtorrent.swig.portmap_error_alert;
 
 /**

@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.TrackerAnnounceEvent;
 import com.frostwire.jlibtorrent.swig.tracker_announce_alert;
 
 /**
@@ -25,5 +24,38 @@ public final class TrackerAnnounceAlert extends TrackerAlert<tracker_announce_al
      */
     public TrackerAnnounceEvent getEvent() {
         return TrackerAnnounceEvent.fromSwig(alert.getEvent());
+    }
+
+    public enum TrackerAnnounceEvent {
+
+        NONE(0),
+
+        COMPLETED(1),
+
+        STARTED(2),
+
+        STOPPED(3),
+
+        UNKNOWN(-1);
+
+        private TrackerAnnounceEvent(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        public int getSwig() {
+            return swigValue;
+        }
+
+        public static TrackerAnnounceEvent fromSwig(int swigValue) {
+            TrackerAnnounceEvent[] enumValues = TrackerAnnounceEvent.class.getEnumConstants();
+            for (TrackerAnnounceEvent ev : enumValues) {
+                if (ev.getSwig() == swigValue) {
+                    return ev;
+                }
+            }
+            return UNKNOWN;
+        }
     }
 }
