@@ -387,11 +387,29 @@ public final class SessionSettings {
     // and add_torrent() for instance.
     //bool free_torrent_hashes;
 
-    // indicates whether or not the UPnP implementation should ignore any
-    // broadcast response from a device whose address is not the configured
-    // router for this machine. i.e. it's a way to not talk to other people's
-    // routers by mistake.
-    //bool upnp_ignore_nonrouters;
+    /**
+     * indicates whether or not the UPnP implementation should ignore any
+     * broadcast response from a device whose address is not the configured
+     * router for this machine. i.e. it's a way to not talk to other people's
+     * routers by mistake.
+     *
+     * @return
+     */
+    public boolean isUPnPIgnoreNonRouters() {
+        return s.getUpnp_ignore_nonrouters();
+    }
+
+    /**
+     * indicates whether or not the UPnP implementation should ignore any
+     * broadcast response from a device whose address is not the configured
+     * router for this machine. i.e. it's a way to not talk to other people's
+     * routers by mistake.
+     *
+     * @param value
+     */
+    public void setUPnPIgnoreNonRouters(boolean value) {
+        s.setUpnp_ignore_nonrouters(value);
+    }
 
     // This is the minimum send buffer target size (send buffer includes
     // bytes pending being read from disk). For good and snappy seeding
@@ -636,57 +654,416 @@ public final class SessionSettings {
         s.setOutgoing_ports(value.to_int_int_pair());
     }
 
-    // for auto managed torrents, these are the limits they are subject to.
-    // If there are too many torrents some of the auto managed ones will be
-    // paused until some slots free up.
-    //
-    // ``active_dht_limit`` and ``active_tracker_limit`` limits the number of
-    // torrents that will be active on the DHT and their tracker. If the
-    // active limit is set higher than these numbers, some torrents will be
-    // "active" in the sense that they will accept incoming connections, but
-    // not announce on the DHT or their trackers.
-    //
-    // ``active_lsd_limit`` is the max number of torrents to announce to the
-    // local network over the local service discovery protocol. By default
-    // this is 80, which is no more than one announce every 5 seconds
-    // (assuming the default announce interval of 5 minutes).
-    //
-    // ``active_limit`` is a hard limit on the number of active torrents.
-    // This applies even to slow torrents.
-    //
-    // You can have more torrents *active*, even though they are not
-    // announced to the DHT, lsd or their tracker. If some peer knows about
-    // you for any reason and tries to connect, it will still be accepted,
-    // unless the torrent is paused, which means it won't accept any
-    // connections.
-    //
-    // ``active_downloads`` and ``active_seeds`` controls how many active
-    // seeding and downloading torrents the queuing mechanism allows. The
-    // target number of active torrents is ``min(active_downloads +
-    // active_seeds, active_limit)``. ``active_downloads`` and
-    // ``active_seeds`` are upper limits on the number of downloading
-    // torrents and seeding torrents respectively. Setting the value to -1
-    // means unlimited.
-    //
-    // For example if there are 10 seeding torrents and 10 downloading
-    // torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
-    // there will be 4 seeds active and 4 downloading torrents. If the
-    // settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
-    // there will be 2 downloading torrents and 4 seeding torrents active.
-    // Torrents that are not auto managed are also counted against these
-    // limits. If there are non-auto managed torrents that use up all the
-    // slots, no auto managed torrent will be activated.
-    //int active_downloads;
-    //int active_seeds;
-    //int active_dht_limit;
-    //int active_tracker_limit;
-    //int active_lsd_limit;
-    //int active_limit;
 
-    // prefer seeding torrents when determining which torrents to give active
-    // slots to, the default is false which gives preference to downloading
-    // torrents
-    //bool auto_manage_prefer_seeds;
+    /**
+     * `active_downloads`` controls how many active
+     * downloading torrents the queuing mechanism allows.
+     * <p/>
+     * The target number of active torrents is ``min(active_downloads +
+     * active_seeds, active_limit)``. ``active_downloads`` and
+     * ``active_seeds`` are upper limits on the number of downloading
+     * torrents and seeding torrents respectively. Setting the value to -1
+     * means unlimited.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @return
+     */
+    public int getActiveDownloads() {
+        return s.getActive_downloads();
+    }
+
+    /**
+     * `active_downloads`` controls how many active
+     * downloading torrents the queuing mechanism allows.
+     * <p/>
+     * The target number of active torrents is ``min(active_downloads +
+     * active_seeds, active_limit)``. ``active_downloads`` and
+     * ``active_seeds`` are upper limits on the number of downloading
+     * torrents and seeding torrents respectively. Setting the value to -1
+     * means unlimited.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @param value
+     */
+    public void setActiveDownloads(int value) {
+        s.setActive_downloads(value);
+    }
+
+    /**
+     * ``active_seeds`` controls how many active seeding
+     * torrents the queuing mechanism allows.
+     * <p/>
+     * The target number of active torrents is ``min(active_downloads +
+     * active_seeds, active_limit)``. ``active_downloads`` and
+     * ``active_seeds`` are upper limits on the number of downloading
+     * torrents and seeding torrents respectively. Setting the value to -1
+     * means unlimited.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @return
+     */
+    public int getActiveSeeds() {
+        return s.getActive_seeds();
+    }
+
+    /**
+     * ``active_seeds`` controls how many active seeding
+     * torrents the queuing mechanism allows.
+     * <p/>
+     * The target number of active torrents is ``min(active_downloads +
+     * active_seeds, active_limit)``. ``active_downloads`` and
+     * ``active_seeds`` are upper limits on the number of downloading
+     * torrents and seeding torrents respectively. Setting the value to -1
+     * means unlimited.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @param value
+     */
+    public void setActiveSeeds(int value) {
+        s.setActive_seeds(value);
+    }
+
+    /**
+     * `active_dht_limit`` limits the number of
+     * torrents that will be active on the DHT. If the
+     * active limit is set higher than these numbers, some torrents will be
+     * "active" in the sense that they will accept incoming connections, but
+     * not announce on the DHT or their trackers.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @return
+     */
+    public int getActiveDHTLimit() {
+        return s.getActive_dht_limit();
+    }
+
+    /**
+     * `active_dht_limit`` limits the number of
+     * torrents that will be active on the DHT. If the
+     * active limit is set higher than these numbers, some torrents will be
+     * "active" in the sense that they will accept incoming connections, but
+     * not announce on the DHT or their trackers.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @param value
+     */
+    public void setActiveDHTLimit(int value) {
+        s.setActive_dht_limit(value);
+    }
+
+    /**
+     * `active_tracker_limit`` limits the number of
+     * torrents that will be active on the tracker. If the
+     * active limit is set higher than these numbers, some torrents will be
+     * "active" in the sense that they will accept incoming connections, but
+     * not announce on the DHT or their trackers.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @return
+     */
+    public int getActiveTrackerLimit() {
+        return s.getActive_tracker_limit();
+    }
+
+    /**
+     * `active_tracker_limit`` limits the number of
+     * torrents that will be active on the tracker. If the
+     * active limit is set higher than these numbers, some torrents will be
+     * "active" in the sense that they will accept incoming connections, but
+     * not announce on the DHT or their trackers.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @param value
+     */
+    public void setActiveTrackerLimit(int value) {
+        s.setActive_tracker_limit(value);
+    }
+
+    /**
+     * ``active_lsd_limit`` is the max number of torrents to announce to the
+     * local network over the local service discovery protocol. By default
+     * this is 80, which is no more than one announce every 5 seconds
+     * (assuming the default announce interval of 5 minutes).
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @return
+     */
+    public int getActiveLsdLimit() {
+        return s.getActive_lsd_limit();
+    }
+
+    /**
+     * ``active_lsd_limit`` is the max number of torrents to announce to the
+     * local network over the local service discovery protocol. By default
+     * this is 80, which is no more than one announce every 5 seconds
+     * (assuming the default announce interval of 5 minutes).
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @param value
+     */
+    public void setActiveLsdLimit(int value) {
+        s.setActive_lsd_limit(value);
+    }
+
+    /**
+     * ``active_limit`` is a hard limit on the number of active torrents.
+     * This applies even to slow torrents.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @return
+     */
+    public int getActiveLimit() {
+        return s.getActive_limit();
+    }
+
+    /**
+     * ``active_limit`` is a hard limit on the number of active torrents.
+     * This applies even to slow torrents.
+     * <p/>
+     * For auto managed torrents, these are the limits they are subject to.
+     * If there are too many torrents some of the auto managed ones will be
+     * paused until some slots free up.
+     * <p/>
+     * You can have more torrents *active*, even though they are not
+     * announced to the DHT, lsd or their tracker. If some peer knows about
+     * you for any reason and tries to connect, it will still be accepted,
+     * unless the torrent is paused, which means it won't accept any
+     * connections.
+     * <p/>
+     * For example if there are 10 seeding torrents and 10 downloading
+     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
+     * there will be 4 seeds active and 4 downloading torrents. If the
+     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
+     * there will be 2 downloading torrents and 4 seeding torrents active.
+     * Torrents that are not auto managed are also counted against these
+     * limits. If there are non-auto managed torrents that use up all the
+     * slots, no auto managed torrent will be activated.
+     *
+     * @param value
+     */
+    public void setActiveLimit(int value) {
+        s.setActive_limit(value);
+    }
+
+    /**
+     * prefer seeding torrents when determining which torrents to give active
+     * slots to, the default is false which gives preference to downloading
+     * torrents
+     *
+     * @return
+     */
+    public boolean getAutoManagePreferSeeds() {
+        return s.getAuto_manage_prefer_seeds();
+    }
+
+    /**
+     * prefer seeding torrents when determining which torrents to give active
+     * slots to, the default is false which gives preference to downloading
+     * torrents
+     *
+     * @param value
+     */
+    public void setAutoManagePreferSeeds(boolean value) {
+        s.setAuto_manage_prefer_seeds(value);
+    }
 
     // if true, torrents without any payload transfers are not subject to the
     // ``active_seeds`` and ``active_downloads`` limits. This is intended to

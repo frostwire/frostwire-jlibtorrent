@@ -82,35 +82,39 @@ public final class TorrentHandle {
         return new Sha1Hash(th.info_hash());
     }
 
-    // ``pause()``, and ``resume()`` will disconnect all peers and reconnect
-    // all peers respectively. When a torrent is paused, it will however
-    // remember all share ratios to all peers and remember all potential (not
-    // connected) peers. Torrents may be paused automatically if there is a
-    // file error (e.g. disk full) or something similar. See
-    // file_error_alert.
-    //
-    // To know if a torrent is paused or not, call
-    // ``torrent_handle::status()`` and inspect ``torrent_status::paused``.
-    //
-    // The ``flags`` argument to pause can be set to
-    // ``torrent_handle::graceful_pause`` which will delay the disconnect of
-    // peers that we're still downloading outstanding requests from. The
-    // torrent will not accept any more requests and will disconnect all idle
-    // peers. As soon as a peer is done transferring the blocks that were
-    // requested from it, it is disconnected. This is a graceful shut down of
-    // the torrent in the sense that no downloaded bytes are wasted.
-    //
-    // torrents that are auto-managed may be automatically resumed again. It
-    // does not make sense to pause an auto-managed torrent without making it
-    // not automanaged first. Torrents are auto-managed by default when added
-    // to the session. For more information, see queuing_.
+    /**
+     * ``pause()`` will disconnect all peers.
+     * <p/>
+     * When a torrent is paused, it will however
+     * remember all share ratios to all peers and remember all potential (not
+     * connected) peers. Torrents may be paused automatically if there is a
+     * file error (e.g. disk full) or something similar. See
+     * file_error_alert.
+     * <p/>
+     * To know if a torrent is paused or not, call
+     * ``torrent_handle::status()`` and inspect ``torrent_status::paused``.
+     * <p/>
+     * The ``flags`` argument to pause can be set to
+     * ``torrent_handle::graceful_pause`` which will delay the disconnect of
+     * peers that we're still downloading outstanding requests from. The
+     * torrent will not accept any more requests and will disconnect all idle
+     * peers. As soon as a peer is done transferring the blocks that were
+     * requested from it, it is disconnected. This is a graceful shut down of
+     * the torrent in the sense that no downloaded bytes are wasted.
+     * <p/>
+     * torrents that are auto-managed may be automatically resumed again. It
+     * does not make sense to pause an auto-managed torrent without making it
+     * not automanaged first.
+     * <p/>
+     * The current {@link Session} add torrent implementations add the torrent
+     * in no-auto-managed mode.
+     */
     public void pause() {
         th.pause();
     }
 
     /**
-     * ``resume()`` will disconnect all peers and reconnect
-     * all peers respectively.
+     * ``resume()`` will reconnect all peers.
      * <p/>
      * Torrents that are auto-managed may be automatically resumed again.
      */
@@ -118,18 +122,32 @@ public final class TorrentHandle {
         th.resume();
     }
 
-    // This function returns true if any whole chunk has been downloaded
-    // since the torrent was first loaded or since the last time the resume
-    // data was saved. When saving resume data periodically, it makes sense
-    // to skip any torrent which hasn't downloaded anything since the last
-    // time.
-    //
-    //.. note::
-    //	A torrent's resume data is considered saved as soon as the alert is
-    //	posted. It is important to make sure this alert is received and
-    //	handled in order for this function to be meaningful.
+    /**
+     * This function returns true if any whole chunk has been downloaded
+     * since the torrent was first loaded or since the last time the resume
+     * data was saved. When saving resume data periodically, it makes sense
+     * to skip any torrent which hasn't downloaded anything since the last
+     * time.
+     * <p/>
+     * .. note::
+     * A torrent's resume data is considered saved as soon as the alert is
+     * posted. It is important to make sure this alert is received and
+     * handled in order for this function to be meaningful.
+     *
+     * @return
+     */
     public boolean needSaveResumeData() {
         return th.need_save_resume_data();
+    }
+
+    /**
+     * changes whether the torrent is auto managed or not. For more info,
+     * see queuing_.
+     *
+     * @param value
+     */
+    public void setAutoManaged(boolean value) {
+        th.auto_managed(value);
     }
 
     // ``save_resume_data()`` generates fast-resume data and returns it as an
