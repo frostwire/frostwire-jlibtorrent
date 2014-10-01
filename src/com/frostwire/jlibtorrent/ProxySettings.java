@@ -89,8 +89,8 @@ public final class ProxySettings {
      *
      * @return
      */
-    public short getType() {
-        return s.getType();
+    public ProxyType getType() {
+        return ProxyType.fromSwig(s.getType());
     }
 
     /**
@@ -99,8 +99,8 @@ public final class ProxySettings {
      *
      * @param value
      */
-    public void setType(short value) {
-        s.setType(value);
+    public void setType(ProxyType value) {
+        s.setType((short) value.getSwig());
     }
 
     /**
