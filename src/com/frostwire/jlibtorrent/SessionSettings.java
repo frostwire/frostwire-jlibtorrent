@@ -1132,20 +1132,59 @@ public final class SessionSettings {
     // torrents, this puts a limit on how often a scrape request is sent.
     //int auto_scrape_min_interval;
 
-    // the maximum number of peers in the list of known peers. These peers
-    // are not necessarily connected, so this number should be much greater
-    // than the maximum number of connected peers. Peers are evicted from the
-    // cache when the list grows passed 90% of this limit, and once the size
-    // hits the limit, peers are no longer added to the list. If this limit
-    // is set to 0, there is no limit on how many peers we'll keep in the
-    // peer list.
-    //int max_peerlist_size;
+    /**
+     * the maximum number of peers in the list of known peers. These peers
+     * are not necessarily connected, so this number should be much greater
+     * than the maximum number of connected peers. Peers are evicted from the
+     * cache when the list grows passed 90% of this limit, and once the size
+     * hits the limit, peers are no longer added to the list. If this limit
+     * is set to 0, there is no limit on how many peers we'll keep in the
+     * peer list.
+     *
+     * @return
+     */
+    public int getMaxPeerlistSize() {
+        return s.getMax_peerlist_size();
+    }
 
-    // the max peer list size used for torrents that are paused. This default
-    // to the same as ``max_peerlist_size``, but can be used to save memory
-    // for paused torrents, since it's not as important for them to keep a
-    // large peer list.
-    //int max_paused_peerlist_size;
+    /**
+     * the maximum number of peers in the list of known peers. These peers
+     * are not necessarily connected, so this number should be much greater
+     * than the maximum number of connected peers. Peers are evicted from the
+     * cache when the list grows passed 90% of this limit, and once the size
+     * hits the limit, peers are no longer added to the list. If this limit
+     * is set to 0, there is no limit on how many peers we'll keep in the
+     * peer list.
+     *
+     * @param value
+     */
+    public void setMaxPeerlistSize(int value) {
+        s.setMax_peerlist_size(value);
+    }
+
+    /**
+     * the max peer list size used for torrents that are paused. This default
+     * to the same as ``max_peerlist_size``, but can be used to save memory
+     * for paused torrents, since it's not as important for them to keep a
+     * large peer list.
+     *
+     * @return
+     */
+    public int getMaxPausedPeerlistSize() {
+        return s.getMax_paused_peerlist_size();
+    }
+
+    /**
+     * the max peer list size used for torrents that are paused. This default
+     * to the same as ``max_peerlist_size``, but can be used to save memory
+     * for paused torrents, since it's not as important for them to keep a
+     * large peer list.
+     *
+     * @param value
+     */
+    public void getMaxPausedPeerlistSize(int value) {
+        s.setMax_paused_peerlist_size(value);
+    }
 
     // the minimum allowed announce interval for a tracker. This is specified
     // in seconds, defaults to 5 minutes and is used as a sanity check on
@@ -1635,37 +1674,129 @@ public final class SessionSettings {
         s.setLocal_download_rate_limit(value);
     }
 
-    // sets the rate limit on the DHT. This is specified in bytes per second
-    // and defaults to 4000. For busy boxes with lots of torrents that
-    // requires more DHT traffic, this should be raised.
-    //int dht_upload_rate_limit;
+    /**
+     * sets the rate limit on the DHT. This is specified in bytes per second
+     * and defaults to 4000. For busy boxes with lots of torrents that
+     * requires more DHT traffic, this should be raised.
+     *
+     * @return
+     */
+    public int getDHTUploadRateLimit() {
+        return s.getDht_upload_rate_limit();
+    }
 
-    // the max number of unchoked peers in the session. The number of unchoke
-    // slots may be ignored depending on what ``choking_algorithm`` is set
-    // to. A value of -1 means infinite.
-    //int unchoke_slots_limit;
+    /**
+     * sets the rate limit on the DHT. This is specified in bytes per second
+     * and defaults to 4000. For busy boxes with lots of torrents that
+     * requires more DHT traffic, this should be raised.
+     *
+     * @param value
+     */
+    public void getDHTUploadRateLimit(int value) {
+        s.setDht_upload_rate_limit(value);
+    }
 
-    // sets the maximum number of half-open connections libtorrent will have
-    // when connecting to peers. A half-open connection is one where
-    // connect() has been called, but the connection still hasn't been
-    // established (nor failed). Windows XP Service Pack 2 sets a default,
-    // system wide, limit of the number of half-open connections to 10. So,
-    // this limit can be used to work nicer together with other network
-    // applications on that system. The default is to have no limit, and
-    // passing -1 as the limit, means to have no limit. When limiting the
-    // number of simultaneous connection attempts, peers will be put in a
-    // queue waiting for their turn to get connected.
-    //int half_open_limit;
+    /**
+     * the max number of unchoked peers in the session. The number of unchoke
+     * slots may be ignored depending on what ``choking_algorithm`` is set
+     * to. A value of -1 means infinite.
+     *
+     * @return
+     */
+    public int getUnchokeSlotsLimit() {
+        return s.getUnchoke_slots_limit();
+    }
 
-    // sets a global limit on the number of connections opened. The number of
-    // connections is set to a hard minimum of at least two per torrent, so
-    // if you set a too low connections limit, and open too many torrents,
-    // the limit will not be met.
-    //int connections_limit;
+    /**
+     * the max number of unchoked peers in the session. The number of unchoke
+     * slots may be ignored depending on what ``choking_algorithm`` is set
+     * to. A value of -1 means infinite.
+     *
+     * @param value
+     */
+    public void setUnchokeSlotsLimit(int value) {
+        s.setUnchoke_slots_limit(value);
+    }
 
-    // the number of extra incoming connections allowed temporarily, in order
-    // to support replacing peers
-    //int connections_slack;
+    /**
+     * sets the maximum number of half-open connections libtorrent will have
+     * when connecting to peers. A half-open connection is one where
+     * connect() has been called, but the connection still hasn't been
+     * established (nor failed). Windows XP Service Pack 2 sets a default,
+     * system wide, limit of the number of half-open connections to 10. So,
+     * this limit can be used to work nicer together with other network
+     * applications on that system. The default is to have no limit, and
+     * passing -1 as the limit, means to have no limit. When limiting the
+     * number of simultaneous connection attempts, peers will be put in a
+     * queue waiting for their turn to get connected.
+     *
+     * @return
+     */
+    public int getHalfOpenLimit() {
+        return s.getHalf_open_limit();
+    }
+
+    /**
+     * sets the maximum number of half-open connections libtorrent will have
+     * when connecting to peers. A half-open connection is one where
+     * connect() has been called, but the connection still hasn't been
+     * established (nor failed). Windows XP Service Pack 2 sets a default,
+     * system wide, limit of the number of half-open connections to 10. So,
+     * this limit can be used to work nicer together with other network
+     * applications on that system. The default is to have no limit, and
+     * passing -1 as the limit, means to have no limit. When limiting the
+     * number of simultaneous connection attempts, peers will be put in a
+     * queue waiting for their turn to get connected.
+     *
+     * @param value
+     */
+    public void setHalgOpenLimit(int value) {
+        s.setHalf_open_limit(value);
+    }
+
+    /**
+     * sets a global limit on the number of connections opened. The number of
+     * connections is set to a hard minimum of at least two per torrent, so
+     * if you set a too low connections limit, and open too many torrents,
+     * the limit will not be met.
+     *
+     * @return
+     */
+    public int getConnectionsLimit() {
+        return s.getConnections_limit();
+    }
+
+    /**
+     * sets a global limit on the number of connections opened. The number of
+     * connections is set to a hard minimum of at least two per torrent, so
+     * if you set a too low connections limit, and open too many torrents,
+     * the limit will not be met.
+     *
+     * @param value
+     */
+    public void setConnectionsLimit(int value) {
+        s.setConnections_limit(value);
+    }
+
+    /**
+     * the number of extra incoming connections allowed temporarily, in order
+     * to support replacing peers.
+     *
+     * @return
+     */
+    public int getConnectionsSlack() {
+        return s.getConnections_slack();
+    }
+
+    /**
+     * the number of extra incoming connections allowed temporarily, in order
+     * to support replacing peers.
+     *
+     * @param value
+     */
+    public void setConnectionsSlack(int value) {
+        s.setConnections_slack(value);
+    }
 
     // the target delay for uTP sockets in milliseconds. A high value will
     // make uTP connections more aggressive and cause longer queues in the
@@ -1821,9 +1952,25 @@ public final class SessionSettings {
     // to 1000.
     //int alert_queue_size;
 
-    // the maximum allowed size (in bytes) to be received
-    // by the metadata extension, i.e. magnet links. It defaults to 1 MiB.
-    //int max_metadata_size;
+    /**
+     * the maximum allowed size (in bytes) to be received
+     * by the metadata extension, i.e. magnet links. It defaults to 1 MiB.
+     *
+     * @return
+     */
+    public int getMaxMetadataSize() {
+        return s.getMax_metadata_size();
+    }
+
+    /**
+     * the maximum allowed size (in bytes) to be received
+     * by the metadata extension, i.e. magnet links. It defaults to 1 MiB.
+     *
+     * @param value
+     */
+    public void setMaxMetadataSize(int value) {
+        s.setMax_metadata_size(value);
+    }
 
     // true by default, which means the number of connection attempts per
     // second may be limited to below the ``connection_speed``, in case we're
@@ -1923,14 +2070,61 @@ public final class SessionSettings {
     // memory to the kernel when cache pressure is low.
     //bool use_disk_cache_pool;
 
-    // the download and upload rate limits for a torrent to be considered
-    // active by the queuing mechanism. A torrent whose download rate is less
-    // than ``inactive_down_rate`` and whose upload rate is less than
-    // ``inactive_up_rate`` for ``auto_manage_startup`` seconds, is
-    // considered inactive, and another queued torrent may be startert.
-    // This logic is disabled if ``dont_count_slow_torrents`` is false.
-    //int inactive_down_rate;
-    //int inactive_up_rate;
+    /**
+     * the download rate limit for a torrent to be considered
+     * active by the queuing mechanism. A torrent whose download rate is less
+     * than ``inactive_down_rate`` and whose upload rate is less than
+     * ``inactive_up_rate`` for ``auto_manage_startup`` seconds, is
+     * considered inactive, and another queued torrent may be startert.
+     * This logic is disabled if ``dont_count_slow_torrents`` is false.
+     *
+     * @return
+     */
+    public int getInactiveDownRate() {
+        return s.getInactive_down_rate();
+    }
+
+    /**
+     * the download rate limit for a torrent to be considered
+     * active by the queuing mechanism. A torrent whose download rate is less
+     * than ``inactive_down_rate`` and whose upload rate is less than
+     * ``inactive_up_rate`` for ``auto_manage_startup`` seconds, is
+     * considered inactive, and another queued torrent may be startert.
+     * This logic is disabled if ``dont_count_slow_torrents`` is false.
+     *
+     * @param value
+     */
+    public void setInactiveDownRate(int value) {
+        s.setInactive_down_rate(value);
+    }
+
+    /**
+     * the upload rate limit for a torrent to be considered
+     * active by the queuing mechanism. A torrent whose download rate is less
+     * than ``inactive_down_rate`` and whose upload rate is less than
+     * ``inactive_up_rate`` for ``auto_manage_startup`` seconds, is
+     * considered inactive, and another queued torrent may be startert.
+     * This logic is disabled if ``dont_count_slow_torrents`` is false.
+     *
+     * @return
+     */
+    public int getInactiveUpRate() {
+        return s.getInactive_up_rate();
+    }
+
+    /**
+     * the upload rate limit for a torrent to be considered
+     * active by the queuing mechanism. A torrent whose download rate is less
+     * than ``inactive_down_rate`` and whose upload rate is less than
+     * ``inactive_up_rate`` for ``auto_manage_startup`` seconds, is
+     * considered inactive, and another queued torrent may be startert.
+     * This logic is disabled if ``dont_count_slow_torrents`` is false.
+     *
+     * @param value
+     */
+    public void setInactiveUpRate(int value) {
+        s.setInactive_up_rate(value);
+    }
 
     /**
      * Returns settings that will use the minimal amount of
