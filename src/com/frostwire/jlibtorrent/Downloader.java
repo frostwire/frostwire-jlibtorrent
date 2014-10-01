@@ -51,7 +51,7 @@ public final class Downloader {
         download(ti, saveDir, null, null);
     }
 
-    public void download(File torrent, File saveDir, boolean[] selection) {
+    public void download(TorrentInfo ti, File saveDir, boolean[] selection) {
         Priority[] priorities = null;
 
         if (selection != null) {
@@ -64,7 +64,11 @@ public final class Downloader {
             }
         }
 
-        download(new TorrentInfo(torrent), saveDir, priorities, null);
+        download(ti, saveDir, priorities, null);
+    }
+
+    public void download(File torrent, File saveDir, boolean[] selection) {
+        download(new TorrentInfo(torrent), saveDir, selection);
     }
 
     /**
