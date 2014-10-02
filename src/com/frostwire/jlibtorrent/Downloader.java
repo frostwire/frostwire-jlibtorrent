@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
+import com.frostwire.jlibtorrent.alerts.TorrentPrioritizeAlert;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
@@ -41,6 +42,7 @@ public final class Downloader {
                 }
 
                 th.prioritizeFiles(priorities);
+                s.fireAlert(new TorrentPrioritizeAlert(th));
             }
         } else { // new download
             s.asyncAddTorrent(ti, saveDir, priorities, resumeFile);

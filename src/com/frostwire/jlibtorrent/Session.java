@@ -730,15 +730,7 @@ public final class Session {
 
                     for (int i = 0; i < deque.size(); i++) {
                         Alert<?> a = castAlert(deque.getitem(i));
-                        synchronized (listeners) {
-                            for (AlertListener l : listeners) {
-                                try {
-                                    l.alert(a);
-                                } catch (Throwable e) {
-                                    LOG.warn("Error calling alert listener", e);
-                                }
-                            }
-                        }
+                        fireAlert(a);
                     }
 
                     deque.clear();
@@ -749,6 +741,16 @@ public final class Session {
         Thread t = new Thread(r, "LTEngine-alertsLoop");
         t.setDaemon(true);
         t.start();
+    }
+
+    void fireAlert(Alert<?> a) {
+        for (AlertListener l : listeners) {
+            try {
+                l.alert(a);
+            } catch (Throwable e) {
+                LOG.warn("Error calling alert listener", e);
+            }
+        }
     }
 
     private static Map<Integer, CastAlertFunction> buildCastAlertTable() {

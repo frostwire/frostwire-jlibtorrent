@@ -29,7 +29,7 @@ public class TorrentAlertAdapter implements AlertListener {
             return;
         }
 
-        if (!((TorrentAlert<?>) alert).getSwig().getHandle().op_eq(th.getSwig())) {
+        if (!((TorrentAlert<?>) alert).getHandle().getSwig().op_eq(th.getSwig())) {
             return;
         }
 
@@ -84,6 +84,9 @@ public class TorrentAlertAdapter implements AlertListener {
     public void trackerAnnounce(TrackerAnnounceAlert alert) {
     }
 
+    public void trackerReply(TrackerReplyAlert alert) {
+    }
+
     public void trackerWarning(TrackerWarningAlert alert) {
     }
 
@@ -97,6 +100,15 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void dhtReply(DhtReplyAlert alert) {
+    }
+
+    public void scrapeReply(ScrapeReplyAlert alert) {
+    }
+
+    public void scrapeFailed(ScrapeFailedAlert alert) {
+    }
+
+    public void torrentPrioritize(TorrentPrioritizeAlert alert) {
     }
 
     private static Map<String, CallAlertFunction> buildCallAlertTable() {

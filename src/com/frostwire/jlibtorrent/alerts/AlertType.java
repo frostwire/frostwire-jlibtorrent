@@ -26,6 +26,7 @@ public enum AlertType {
     PORTMAP_ERROR(portmap_error_alert.alert_type),
     PORTMAP_LOG(portmap_log_alert.alert_type),
     TRACKER_ANNOUNCE(tracker_announce_alert.alert_type),
+    TRACKER_REPLY(tracker_reply_alert.alert_type),
     TRACKER_WARNING(tracker_warning_alert.alert_type),
     TRACKER_ERROR(tracker_error_alert.alert_type),
     READ_PIECE(read_piece_alert.alert_type),
@@ -36,7 +37,10 @@ public enum AlertType {
     EXTERNAL_IP(external_ip_alert.alert_type),
     LISTEN_SUCCEEDED(listen_succeeded_alert.alert_type),
     STATE_UPDATE(state_update_alert.alert_type),
-    UNKNOWN(-1);
+    SCRAPE_REPLY_ALERT(scrape_reply_alert.alert_type),
+    SCRAPE_FAILED_ALERT(scrape_failed_alert.alert_type),
+    UNKNOWN(-1),
+    TORRENT_PRIORITIZE(-2);
 
     private AlertType(int swigValue) {
         this.swigValue = swigValue;

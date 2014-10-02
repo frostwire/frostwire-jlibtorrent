@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.swig.torrent_alert;
  * @author gubatron
  * @author aldenml
  */
-public class TorrentAlert<T extends torrent_alert> extends AbstractAlert<T> {
+public abstract class TorrentAlert<T extends torrent_alert> extends AbstractAlert<T> {
 
     public TorrentAlert(T alert) {
         super(alert);
