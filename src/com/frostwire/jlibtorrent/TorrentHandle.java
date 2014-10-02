@@ -4,12 +4,39 @@ import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.torrent_handle.status_flags_t;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author gubatron
  * @author aldenml
  */
+// You will usually have to store your torrent handles somewhere, since it's
+// the object through which you retrieve information about the torrent and
+// aborts the torrent.
+//
+// .. warning::
+// 	Any member function that returns a value or fills in a value has to be
+// 	made synchronously. This means it has to wait for the main thread to
+// 	complete the query before it can return. This might potentially be
+// 	expensive if done from within a GUI thread that needs to stay
+// 	responsive. Try to avoid quering for information you don't need, and
+// 	try to do it in as few calls as possible. You can get most of the
+// 	interesting information about a torrent from the
+// 	torrent_handle::status() call.
+//
+// The default constructor will initialize the handle to an invalid state.
+// Which means you cannot perform any operation on it, unless you first
+// assign it a valid handle. If you try to perform any operation on an
+// uninitialized handle, it will throw ``invalid_handle``.
+//
+// .. warning::
+// 	All operations on a torrent_handle may throw libtorrent_exception
+// 	exception, in case the handle is no longer refering to a torrent.
+// 	There is one exception is_valid() will never throw. Since the torrents
+// 	are processed by a background thread, there is no guarantee that a
+// 	handle will remain valid between two calls.
+//
 public final class TorrentHandle {
 
     private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
@@ -25,6 +52,62 @@ public final class TorrentHandle {
 
     public torrent_handle getSwig() {
         return th;
+    }
+
+    /**
+     * This function starts an asynchronous read operation of the specified
+     * piece from this torrent. You must have completed the download of the
+     * specified piece before calling this function.
+     * <p/>
+     * When the read operation is completed, it is passed back through an
+     * alert, read_piece_alert. Since this alert is a reponse to an explicit
+     * call, it will always be posted, regardless of the alert mask.
+     * <p/>
+     * Note that if you read multiple pieces, the read operations are not
+     * guaranteed to finish in the same order as you initiated them.
+     *
+     * @param piece
+     */
+    public void readPiece(int piece) {
+        th.read_piece(piece);
+    }
+
+    /**
+     * Returns true if this piece has been completely downloaded, and false
+     * otherwise.
+     *
+     * @param piece
+     * @return
+     */
+    public boolean havePiece(int piece) {
+        return th.have_piece(piece);
+    }
+
+    /**
+     * takes a reference to a vector that will be cleared and filled with one
+     * entry for each peer connected to this torrent, given the handle is
+     * valid. If the torrent_handle is invalid, it will return an empty list.
+     * <p/>
+     * Each entry in the vector contains
+     * information about that particular peer. See peer_info.
+     *
+     * @return
+     */
+    public List<PeerInfo> getPeerInfo() {
+        if (!th.is_valid()) {
+            return Collections.emptyList();
+        }
+
+        peer_info_vector v = new peer_info_vector();
+        th.get_peer_info(v);
+
+        int size = (int) v.size();
+        List<PeerInfo> l = new ArrayList<PeerInfo>(size);
+        for (int i = 0; i < size; i++) {
+            l.add(new PeerInfo(v.get(i)));
+        }
+
+        return l;
     }
 
     /**
