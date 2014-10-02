@@ -13,7 +13,7 @@ public final class SessionTest {
 
     public static void main(String[] args) throws Throwable {
 
-        final Session s = new Session(new Pair<Integer, Integer>(6881, 6981), "0.0.0.0");
+        final Session s = new Session();
 
         s.addListener(new AlertListener() {
             @Override

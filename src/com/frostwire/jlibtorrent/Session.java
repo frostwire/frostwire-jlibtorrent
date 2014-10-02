@@ -50,43 +50,12 @@ public final class Session {
     private final List<AlertListener> listeners;
     private boolean running;
 
-    public Session() {
+    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface) {
 
-        this.s = new session();
-
-        s.set_alert_mask(alert.category_t.all_categories.swigValue());
-
-        int_int_pair pr = new int_int_pair(6881, 6981);
-        error_code ec = new error_code();
-        s.listen_on(pr, ec);
-
-        s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
-
-        this.listeners = new CopyOnWriteArrayList<AlertListener>();
-        this.running = true;
-
-        alertsLoop();
-    }
-
-    public Session(Pair<Integer, Integer> prange, String iface) {
-
-        int p0 = prange.first;
-        int p1 = prange.second;
-
-        if (p0 < 0) {
-            throw new IllegalArgumentException("Illegal port range");
-        }
-        if (p0 > p1) {
-            throw new IllegalArgumentException("Illegal port range");
-        }
-
-        fingerprint print = new fingerprint("LT", libtorrent.LIBTORRENT_VERSION_MAJOR, libtorrent.LIBTORRENT_VERSION_MINOR, 0, 0);
-        int_int_pair listen_port_range = prange.to_int_int_pair();
-        String listen_interface = iface;
         int flags = session.session_flags_t.start_default_features.swigValue() | session.session_flags_t.add_default_plugins.swigValue();
         int alert_mask = alert.category_t.all_categories.swigValue();
 
-        this.s = new session(print, listen_port_range, listen_interface, flags, alert_mask);
+        this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
 
         this.listeners = new CopyOnWriteArrayList<AlertListener>();
         this.running = true;
@@ -94,6 +63,14 @@ public final class Session {
         alertsLoop();
 
         s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
+    }
+
+    public Session(Fingerprint print) {
+        this(print, new Pair<Integer, Integer>(0, 0), "0.0.0.0");
+    }
+
+    public Session() {
+        this(new Fingerprint());
     }
 
     public session getSwig() {
