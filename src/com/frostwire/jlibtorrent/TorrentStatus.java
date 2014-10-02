@@ -15,34 +15,6 @@ public final class TorrentStatus {
 
     public TorrentStatus(torrent_status ts) {
         this.ts = ts;
-        this.listSeeds = ts.getList_seeds();
-        this.listPeers = ts.getList_peers();
-        this.connectCandidates = ts.getConnect_candidates();
-        this.numPieces = ts.getNum_pieces();
-        this.distributedFullCopies = ts.getDistributed_full_copies();
-        this.distributedFraction = ts.getDistributed_fraction();
-        this.distributedCopies = ts.getDistributed_copies();
-        this.blockSize = ts.getBlock_size();
-        this.numUploads = ts.getNum_uploads();
-        this.numConnections = ts.getNum_connections();
-        this.uploadsLimit = ts.getUploads_limit();
-        this.connectionsLimit = ts.getConnections_limit();
-        this.upBandwidthQueue = ts.getUp_bandwidth_queue();
-        this.downBandwidthQueue = ts.getDown_bandwidth_queue();
-        this.timeSinceUpload = ts.getTime_since_upload();
-        this.timeSinceDownload = ts.getTime_since_download();
-        this.activeTime = ts.getActive_time();
-        this.finishedTime = ts.getFinished_time();
-        this.seedingTime = ts.getSeeding_time();
-        this.seedRank = ts.getSeed_rank();
-        this.lastScrape = ts.getLast_scrape();
-        this.sparseRegions = ts.getSparse_regions();
-        this.priority = ts.getPriority();
-        this.isNeedSaveResume = ts.getNeed_save_resume();
-        this.isIpFilterApplies = ts.getIp_filter_applies();
-        this.isUploadMode = ts.getUpload_mode();
-        this.isShareMode = ts.getShare_mode();
-        this.isSuperSeeding = ts.getSuper_seeding();
     }
 
     /**
@@ -398,7 +370,9 @@ public final class TorrentStatus {
      * of peers we know of in total, including banned peers and peers that we have failed to
      * connect to.
      */
-    public final int listSeeds;
+    public int getListSeeds() {
+        return ts.getList_seeds();
+    }
 
     /**
      * The number of seeds in our peer list and the total number of peers (including seeds).
@@ -406,29 +380,31 @@ public final class TorrentStatus {
      * of peers we know of in total, including banned peers and peers that we have failed to
      * connect to.
      */
-    public final int listPeers;
+    public int getListPeers() {
+        return ts.getList_peers();
+    }
 
-    public final int connectCandidates;
-    public final int numPieces;
-    public final int distributedFullCopies;
-    public final int distributedFraction;
-    public final float distributedCopies;
-    public final int blockSize;
-    public final int numUploads;
-    public final int numConnections;
-    public final int uploadsLimit;
-    public final int connectionsLimit;
-    public final int upBandwidthQueue;
-    public final int downBandwidthQueue;
-    public final int timeSinceUpload;
-    public final int timeSinceDownload;
-    public final int activeTime;
-    public final int finishedTime;
-    public final int seedingTime;
-    public final int seedRank;
-    public final int lastScrape;
-    public final int sparseRegions;
-    public final int priority;
+//    public final int connectCandidates;
+//    public final int numPieces;
+//    public final int distributedFullCopies;
+//    public final int distributedFraction;
+//    public final float distributedCopies;
+//    public final int blockSize;
+//    public final int numUploads;
+//    public final int numConnections;
+//    public final int uploadsLimit;
+//    public final int connectionsLimit;
+//    public final int upBandwidthQueue;
+//    public final int downBandwidthQueue;
+//    public final int timeSinceUpload;
+//    public final int timeSinceDownload;
+//    public final int activeTime;
+//    public final int finishedTime;
+//    public final int seedingTime;
+//    public final int seedRank;
+//    public final int lastScrape;
+//    public final int sparseRegions;
+//    public final int priority;
 
     /**
      * The main state the torrent is in. See torrent_status::state_t.
@@ -437,11 +413,11 @@ public final class TorrentStatus {
         return State.fromSwig(ts.getState());
     }
 
-    public final boolean isNeedSaveResume;
-    public final boolean isIpFilterApplies;
-    public final boolean isUploadMode;
-    public final boolean isShareMode;
-    public final boolean isSuperSeeding;
+//    public final boolean isNeedSaveResume;
+//    public final boolean isIpFilterApplies;
+//    public final boolean isUploadMode;
+//    public final boolean isShareMode;
+//    public final boolean isSuperSeeding;
 
     /**
      * set to true if the torrent is paused and false otherwise. It's only

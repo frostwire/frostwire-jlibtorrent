@@ -127,6 +127,17 @@ public final class TorrentHandle {
     }
 
     /**
+     * `status()`` will return a structure with information about the status
+     * of this torrent. If the torrent_handle is invalid, it will throw
+     * libtorrent_exception exception. See torrent_status. The ``flags``
+     * argument filters what information is returned in the torrent_status.
+     * Some information in there is relatively expensive to calculate, and if
+     * you're not interested in it (and see performance issues), you can
+     * filter them out.
+     * <p/>
+     * By default everything is included. The flags you can use to decide
+     * what to *include* are defined in the status_flags_t enum.
+     * <p/>
      * It is important not to call this method for each field in the status
      * for performance reasons.
      *
@@ -142,6 +153,17 @@ public final class TorrentHandle {
         return lastStatus;
     }
 
+    /**
+     * `status()`` will return a structure with information about the status
+     * of this torrent. If the torrent_handle is invalid, it will throw
+     * libtorrent_exception exception. See torrent_status. The ``flags``
+     * argument filters what information is returned in the torrent_status.
+     * Some information in there is relatively expensive to calculate, and if
+     * you're not interested in it (and see performance issues), you can
+     * filter them out.
+     *
+     * @return
+     */
     public TorrentStatus getStatus() {
         return this.getStatus(false);
     }
