@@ -13,7 +13,7 @@ public final class TorrentStatus {
 
     private final torrent_status ts;
 
-    TorrentStatus(torrent_status ts) {
+    public TorrentStatus(torrent_status ts) {
         this.ts = ts;
         this.listSeeds = ts.getList_seeds();
         this.listPeers = ts.getList_peers();

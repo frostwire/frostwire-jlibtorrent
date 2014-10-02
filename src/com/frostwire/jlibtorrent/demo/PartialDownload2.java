@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.FileCompletedAlert;
+import com.frostwire.jlibtorrent.alerts.StateChangedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
 
 import java.io.File;
@@ -51,6 +52,9 @@ public final class PartialDownload2 {
                         s1.countDown();
                         s2.countDown();
                         break;
+                    case STATE_CHANGED:
+                        StateChangedAlert sca = (StateChangedAlert) ta;
+                        System.out.println("State change: " + sca.getPrevState() + " -> " + sca.getState());
                     case TORRENT_FINISHED:
                         System.out.println("Torrent finished");
                         break;
