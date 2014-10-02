@@ -69,6 +69,10 @@ public final class Session {
         this(print, new Pair<Integer, Integer>(0, 0), "0.0.0.0");
     }
 
+    public Session(Pair<Integer, Integer> prange, String iface) {
+        this(new Fingerprint(), prange, iface);
+    }
+
     public Session() {
         this(new Fingerprint());
     }
