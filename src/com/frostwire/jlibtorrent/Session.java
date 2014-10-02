@@ -844,7 +844,7 @@ public final class Session {
 
             map.put(type, function);
         } catch (Throwable e) {
-            LOG.warn(e.toString());
+            //LOG.warn(e.toString());
         }
     }
 
