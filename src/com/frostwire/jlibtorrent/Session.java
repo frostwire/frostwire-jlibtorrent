@@ -231,6 +231,25 @@ public final class Session {
     }
 
     /**
+     * In case you want to destruct the session asynchrounously, you can
+     * request a session destruction proxy. If you don't do this, the
+     * destructor of the session object will block while the trackers are
+     * contacted. If you keep one ``session_proxy`` to the session when
+     * destructing it, the destructor will not block, but start to close down
+     * the session, the destructor of the proxy will then synchronize the
+     * threads. So, the destruction of the session is performed from the
+     * ``session`` destructor call until the ``session_proxy`` destructor
+     * call. The ``session_proxy`` does not have any operations on it (since
+     * the session is being closed down, no operations are allowed on it).
+     * The only valid operation is calling the destructor::
+     *
+     * @return
+     */
+    public SessionProxy abort() {
+        return new SessionProxy(s.abort());
+    }
+
+    /**
      * Pausing the session has the same effect as pausing every torrent in
      * it, except that torrents will not be resumed by the auto-manage
      * mechanism. Resuming will restore the torrents to their previous paused
@@ -252,25 +271,6 @@ public final class Session {
 
     public boolean isListening() {
         return s.is_listening();
-    }
-
-    /**
-     * In case you want to destruct the session asynchrounously, you can
-     * request a session destruction proxy. If you don't do this, the
-     * destructor of the session object will block while the trackers are
-     * contacted. If you keep one ``session_proxy`` to the session when
-     * destructing it, the destructor will not block, but start to close down
-     * the session, the destructor of the proxy will then synchronize the
-     * threads. So, the destruction of the session is performed from the
-     * ``session`` destructor call until the ``session_proxy`` destructor
-     * call. The ``session_proxy`` does not have any operations on it (since
-     * the session is being closed down, no operations are allowed on it).
-     * The only valid operation is calling the destructor::
-     *
-     * @return
-     */
-    public SessionProxy abort() {
-        return new SessionProxy(s.abort());
     }
 
     /**
@@ -440,6 +440,60 @@ public final class Session {
         return l;
     }
 
+    // starts/stops UPnP, NATPMP or LSD port mappers they are stopped by
+    // default These functions are not available in case
+    // ``TORRENT_DISABLE_DHT`` is defined. ``start_dht`` starts the dht node
+    // and makes the trackerless service available to torrents. The startup
+    // state is optional and can contain nodes and the node id from the
+    // previous session. The dht node state is a bencoded dictionary with the
+    // following entries:
+    //
+    // nodes
+    // 	A list of strings, where each string is a node endpoint encoded in
+    // 	binary. If the string is 6 bytes long, it is an IPv4 address of 4
+    // 	bytes, encoded in network byte order (big endian), followed by a 2
+    // 	byte port number (also network byte order). If the string is 18
+    // 	bytes long, it is 16 bytes of IPv6 address followed by a 2 bytes
+    // 	port number (also network byte order).
+    //
+    // node-id
+    // 	The node id written as a readable string as a hexadecimal number.
+    //
+    // ``dht_state`` will return the current state of the dht node, this can
+    // be used to start up the node again, passing this entry to
+    // ``start_dht``. It is a good idea to save this to disk when the session
+    // is closed, and read it up again when starting.
+    //
+    // If the port the DHT is supposed to listen on is already in use, and
+    // exception is thrown, ``asio::error``.
+    //
+    // ``stop_dht`` stops the dht node.
+    //
+    // ``add_dht_node`` adds a node to the routing table. This can be used if
+    // your client has its own source of bootstrapping nodes.
+    //
+    // ``set_dht_settings`` sets some parameters availavle to the dht node.
+    // See dht_settings for more information.
+    //
+    // ``is_dht_running()`` returns true if the DHT support has been started
+    // and false
+    // otherwise.
+    public void startDHT() {
+        s.start_dht();
+    }
+
+    public void stopDHT() {
+        s.stop_dht();
+    }
+
+    void setDHTSettings(DHTSettings settings) {
+        s.set_dht_settings(settings.getSwig());
+    }
+
+    public boolean isDHTRunning() {
+        return s.is_dht_running();
+    }
+
     /**
      * query the DHT for an immutable item at the ``target`` hash.
      * the result is posted as a dht_immutable_item_alert.
@@ -576,56 +630,81 @@ public final class Session {
         s.dht_put_item(Vectors.bytes2char_vector(publicKey), Vectors.bytes2char_vector(privateKey), entry.getSwig(), salt);
     }
 
-    // starts/stops UPnP, NATPMP or LSD port mappers they are stopped by
-    // default These functions are not available in case
-    // ``TORRENT_DISABLE_DHT`` is defined. ``start_dht`` starts the dht node
-    // and makes the trackerless service available to torrents. The startup
-    // state is optional and can contain nodes and the node id from the
-    // previous session. The dht node state is a bencoded dictionary with the
-    // following entries:
-    //
-    // nodes
-    // 	A list of strings, where each string is a node endpoint encoded in
-    // 	binary. If the string is 6 bytes long, it is an IPv4 address of 4
-    // 	bytes, encoded in network byte order (big endian), followed by a 2
-    // 	byte port number (also network byte order). If the string is 18
-    // 	bytes long, it is 16 bytes of IPv6 address followed by a 2 bytes
-    // 	port number (also network byte order).
-    //
-    // node-id
-    // 	The node id written as a readable string as a hexadecimal number.
-    //
-    // ``dht_state`` will return the current state of the dht node, this can
-    // be used to start up the node again, passing this entry to
-    // ``start_dht``. It is a good idea to save this to disk when the session
-    // is closed, and read it up again when starting.
-    //
-    // If the port the DHT is supposed to listen on is already in use, and
-    // exception is thrown, ``asio::error``.
-    //
-    // ``stop_dht`` stops the dht node.
-    //
-    // ``add_dht_node`` adds a node to the routing table. This can be used if
-    // your client has its own source of bootstrapping nodes.
-    //
-    // ``set_dht_settings`` sets some parameters availavle to the dht node.
-    // See dht_settings for more information.
-    //
-    // ``is_dht_running()`` returns true if the DHT support has been started
-    // and false
-    // otherwise.
-    public void startDHT() {
-        s.start_dht();
+    /**
+     * Starts and stops Local Service Discovery. This service will broadcast
+     * the infohashes of all the non-private torrents on the local network to
+     * look for peers on the same swarm within multicast reach.
+     * <p/>
+     * It is turned off by default.
+     */
+    public void startLSD() {
+        s.start_lsd();
     }
 
-    public void stopDHT() {
-        s.stop_dht();
+    /**
+     * Starts and stops Local Service Discovery. This service will broadcast
+     * the infohashes of all the non-private torrents on the local network to
+     * look for peers on the same swarm within multicast reach.
+     * <p/>
+     * It is turned off by default.
+     */
+    public void stopLSD() {
+        s.stop_lsd();
     }
 
-    //void set_dht_settings(dht_settings const& settings);
+    // Starts and stops the UPnP service. When started, the listen port and
+    // the DHT port are attempted to be forwarded on local UPnP router
+    // devices.
+    //
+    // The upnp object returned by ``start_upnp()`` can be used to add and
+    // remove arbitrary port mappings. Mapping status is returned through the
+    // portmap_alert and the portmap_error_alert. The object will be valid
+    // until ``stop_upnp()`` is called. See upnp-and-nat-pmp_.
+    //
+    // It is off by default.
+    public void startUPnP() {
+        s.start_upnp();
+    }
 
-    public boolean isDHTRunning() {
-        return s.is_dht_running();
+    public void stopUPnP() {
+        s.stop_upnp();
+    }
+
+    /**
+     * add_port_mapping adds a port forwarding on UPnP and/or NAT-PMP,
+     * whichever is enabled. The return value is a handle referring to the
+     * port mapping that was just created. Pass it to delete_port_mapping()
+     * to remove it.
+     *
+     * @param t
+     * @param externalPort
+     * @param localPort
+     * @return
+     */
+    public int addPortMapping(ProtocolType t, int externalPort, int localPort) {
+        return s.add_port_mapping(t.getSwig(), externalPort, localPort);
+    }
+
+    public void deletePortMapping(int handle) {
+        s.delete_port_mapping(handle);
+    }
+
+    // Starts and stops the NAT-PMP service. When started, the listen port
+    // and the DHT port are attempted to be forwarded on the router through
+    // NAT-PMP.
+    //
+    // The natpmp object returned by ``start_natpmp()`` can be used to add
+    // and remove arbitrary port mappings. Mapping status is returned through
+    // the portmap_alert and the portmap_error_alert. The object will be
+    // valid until ``stop_natpmp()`` is called. See upnp-and-nat-pmp_.
+    //
+    // It is off by default.
+    public void startNATPMP() {
+        s.start_natpmp();
+    }
+
+    public void stopNATPMP() {
+        s.stop_natpmp();
     }
 
     @Override
@@ -798,6 +877,26 @@ public final class Session {
         private final options_t swigObj;
 
         public options_t getSwig() {
+            return swigObj;
+        }
+    }
+
+    /**
+     * protocols used by add_port_mapping().
+     */
+    public enum ProtocolType {
+
+        UDP(session.protocol_type.udp),
+
+        TCP(session.protocol_type.tcp);
+
+        private ProtocolType(session.protocol_type swigObj) {
+            this.swigObj = swigObj;
+        }
+
+        private final session.protocol_type swigObj;
+
+        public session.protocol_type getSwig() {
             return swigObj;
         }
     }
