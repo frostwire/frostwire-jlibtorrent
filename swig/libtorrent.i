@@ -319,6 +319,7 @@ namespace std {
 %ignore libtorrent::detail::add_files_impl;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::generic_category;
+%ignore libtorrent::torrent;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -407,6 +408,7 @@ namespace std {
 %ignore libtorrent::torrent::on_name_lookup;
 %ignore libtorrent::torrent::on_proxy_name_lookup;
 %ignore libtorrent::torrent::read_piece_struct::piece_data;
+%ignore libtorrent::policy::policy;
 %ignore libtorrent::policy::begin_peer;
 %ignore libtorrent::policy::end_peer;
 %ignore libtorrent::policy::erase_peer;
@@ -418,6 +420,7 @@ namespace std {
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;
+%ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::sha1_hash::sha1_hash(char const *);
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;

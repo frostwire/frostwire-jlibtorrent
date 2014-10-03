@@ -35,10 +35,6 @@ public class policy {
     }
   }
 
-  public policy(torrent t) {
-    this(libtorrent_jni.new_policy(torrent.getCPtr(t), t), true);
-  }
-
   public policy.peer add_peer(tcp_endpoint remote, sha1_hash pid, int source, char flags) {
     long cPtr = libtorrent_jni.policy_add_peer(swigCPtr, this, tcp_endpoint.getCPtr(remote), remote, sha1_hash.getCPtr(pid), pid, source, flags);
     return (cPtr == 0) ? null : new policy.peer(cPtr, false);

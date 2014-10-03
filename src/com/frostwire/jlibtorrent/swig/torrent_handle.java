@@ -381,11 +381,6 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_op_lt(swigCPtr, this, torrent_handle.getCPtr(h), h);
   }
 
-  public torrent native_handle() {
-    long cPtr = libtorrent_jni.torrent_handle_native_handle(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent(cPtr, true);
-  }
-
   public string_vector http_seeds_v() {
     return new string_vector(libtorrent_jni.torrent_handle_http_seeds_v(swigCPtr, this), true);
   }
