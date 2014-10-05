@@ -183,10 +183,6 @@ public class session {
     return new sha1_hash(libtorrent_jni.session_dht_put_item__SWIG_0(swigCPtr, this, entry.getCPtr(data), data), true);
   }
 
-  public void add_extension(plugin ext) {
-    libtorrent_jni.session_add_extension(swigCPtr, this, plugin.getCPtr(ext), ext);
-  }
-
   public void load_asnum_db(String file) {
     libtorrent_jni.session_load_asnum_db(swigCPtr, this, file);
   }

@@ -320,6 +320,9 @@ namespace std {
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::generic_category;
 %ignore libtorrent::torrent;
+%ignore libtorrent::alert_manager;
+%ignore libtorrent::plugin;
+%ignore libtorrent::torrent_plugin;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -363,6 +366,7 @@ namespace std {
 %ignore libtorrent::session::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>);
 %ignore libtorrent::session::dht_get_item(boost::array<char, 32>, std::string);
 %ignore libtorrent::session::dht_get_item(boost::array<char, 32>);
+%ignore libtorrent::session::add_extension;
 %ignore libtorrent::peer_connection::peer_connection;
 %ignore libtorrent::peer_connection::incoming_piece;
 %ignore libtorrent::peer_connection::send_buffer;
