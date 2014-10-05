@@ -53,26 +53,6 @@ public final class Downloader {
         download(ti, saveDir, null, null);
     }
 
-    public void download(TorrentInfo ti, File saveDir, boolean[] selection) {
-        Priority[] priorities = null;
-
-        if (selection != null) {
-            priorities = Priority.array(Priority.IGNORE, selection.length);
-
-            for (int i = 0; i < priorities.length; i++) {
-                if (selection[i]) {
-                    priorities[i] = Priority.NORMAL;
-                }
-            }
-        }
-
-        download(ti, saveDir, priorities, null);
-    }
-
-    public void download(File torrent, File saveDir, boolean[] selection) {
-        download(new TorrentInfo(torrent), saveDir, selection);
-    }
-
     /**
      * This method is not thread safe.
      *
