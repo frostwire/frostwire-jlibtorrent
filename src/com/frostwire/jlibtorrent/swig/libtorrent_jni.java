@@ -379,16 +379,6 @@ public class libtorrent_jni {
   public final static native long dht_lookup_vector_get(long jarg1, dht_lookup_vector jarg1_, int jarg2);
   public final static native void dht_lookup_vector_set(long jarg1, dht_lookup_vector jarg1_, int jarg2, long jarg3, dht_lookup jarg3_);
   public final static native void delete_dht_lookup_vector(long jarg1);
-  public final static native long new_policy_peer_ptr_vector();
-  public final static native long policy_peer_ptr_vector_size(long jarg1, policy_peer_ptr_vector jarg1_);
-  public final static native long policy_peer_ptr_vector_capacity(long jarg1, policy_peer_ptr_vector jarg1_);
-  public final static native void policy_peer_ptr_vector_reserve(long jarg1, policy_peer_ptr_vector jarg1_, long jarg2);
-  public final static native boolean policy_peer_ptr_vector_isEmpty(long jarg1, policy_peer_ptr_vector jarg1_);
-  public final static native void policy_peer_ptr_vector_clear(long jarg1, policy_peer_ptr_vector jarg1_);
-  public final static native void policy_peer_ptr_vector_add(long jarg1, policy_peer_ptr_vector jarg1_, long jarg2, policy.peer jarg2_);
-  public final static native long policy_peer_ptr_vector_get(long jarg1, policy_peer_ptr_vector jarg1_, int jarg2);
-  public final static native void policy_peer_ptr_vector_set(long jarg1, policy_peer_ptr_vector jarg1_, int jarg2, long jarg3, policy.peer jarg3_);
-  public final static native void delete_policy_peer_ptr_vector(long jarg1);
   public final static native long new_partial_piece_info_vector();
   public final static native long partial_piece_info_vector_size(long jarg1, partial_piece_info_vector jarg1_);
   public final static native long partial_piece_info_vector_capacity(long jarg1, partial_piece_info_vector jarg1_);

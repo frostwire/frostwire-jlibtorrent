@@ -262,7 +262,6 @@ namespace std {
     %template(peer_request_vector) vector<libtorrent::peer_request>;
     %template(dht_routing_bucket_vector) vector<libtorrent::dht_routing_bucket>;
     %template(dht_lookup_vector) vector<libtorrent::dht_lookup>;
-    %template(policy_peer_ptr_vector) vector<libtorrent::policy::peer*>;
     
     %template(partial_piece_info_vector) vector<libtorrent::partial_piece_info>;
     %template(cached_piece_info_vector) vector<libtorrent::cached_piece_info>;
