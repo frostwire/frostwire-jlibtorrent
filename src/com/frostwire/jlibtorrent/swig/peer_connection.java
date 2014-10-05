@@ -70,15 +70,6 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_send_allowed_set(swigCPtr, this);
   }
 
-  public void add_extension(peer_plugin arg0) {
-    libtorrent_jni.peer_connection_add_extension(swigCPtr, this, peer_plugin.getCPtr(arg0), arg0);
-  }
-
-  public peer_plugin find_plugin(String type) {
-    long cPtr = libtorrent_jni.peer_connection_find_plugin(swigCPtr, this, type);
-    return (cPtr == 0) ? null : new peer_plugin(cPtr, true);
-  }
-
   public void init() {
     libtorrent_jni.peer_connection_init(swigCPtr, this);
   }

@@ -231,11 +231,6 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_set_ssl_certificate_buffer(swigCPtr, this, certificate, private_key, dh_params);
   }
 
-  public storage_interface get_storage_impl() {
-    long cPtr = libtorrent_jni.torrent_handle_get_storage_impl(swigCPtr, this);
-    return (cPtr == 0) ? null : new storage_interface(cPtr, false);
-  }
-
   public torrent_info torrent_file() {
     long cPtr = libtorrent_jni.torrent_handle_torrent_file(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent_info(cPtr, true);

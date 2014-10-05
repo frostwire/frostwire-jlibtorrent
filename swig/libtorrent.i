@@ -235,22 +235,17 @@ namespace std {
     %template(int_int_pair) pair<int, int>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
-    %template(long_long_long_1_pair) pair<long, long long>;
     %template(long_long_long_2_pair) pair<long long, long>;
-    %template(long_long_long_long_pair) pair<long long, long long>;
     %template(string_lazy_entry_const_ptr_pair) pair<std::string, const libtorrent::lazy_entry *>;
     
     %template(string_vector) vector<std::string>;
     %template(char_vector) vector<char>;
     %template(bool_vector) vector<bool>;
-    %template(long_long_long_1_pair_vector) vector<std::pair<long, long long>>;
     %template(long_long_long_2_pair_vector) vector<std::pair<long long, long>>;
-    %template(long_long_long_long_pair_vector) vector<std::pair<long long, long long>>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
 
     %template(unsigned_char_vector) vector<unsigned char>;
-    %template(float_vector) vector<float>;
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<int64_t>;
     %template(sha1_hash_vector) vector<libtorrent::sha1_hash>;
@@ -322,6 +317,22 @@ namespace std {
 %ignore libtorrent::alert_manager;
 %ignore libtorrent::plugin;
 %ignore libtorrent::torrent_plugin;
+%ignore libtorrent::bandwidth_channel;
+%ignore libtorrent::bt_peer_connection;
+%ignore libtorrent::disk_io_job;
+%ignore libtorrent::is_read_operation;
+%ignore libtorrent::operation_has_buffer;
+%ignore libtorrent::internal_file_entry;
+%ignore libtorrent::peer_plugin;
+%ignore libtorrent::libtorrent_exception;
+%ignore libtorrent::libtorrent_exception_error;
+%ignore libtorrent::libtorrent_exception_what;
+%ignore libtorrent::storage_interface;
+%ignore libtorrent::time_critical_piece;
+%ignore libtorrent::tracker_manager;
+%ignore libtorrent::tracker_connection;
+%ignore libtorrent::tracker_request;
+%ignore libtorrent::type_error;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -381,6 +392,8 @@ namespace std {
 %ignore libtorrent::peer_connection::m_channel_state;
 %ignore libtorrent::peer_connection::can_read;
 %ignore libtorrent::peer_connection::get_socket;
+%ignore libtorrent::peer_connection::add_extension;
+%ignore libtorrent::peer_connection::find_plugin;
 %ignore libtorrent::peer_connection::received_listen_port() const;
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
@@ -424,6 +437,7 @@ namespace std {
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;
 %ignore libtorrent::torrent_handle::native_handle;
+%ignore libtorrent::torrent_handle::get_storage_impl;
 %ignore libtorrent::sha1_hash::sha1_hash(char const *);
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;
