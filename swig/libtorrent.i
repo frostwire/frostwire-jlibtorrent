@@ -784,6 +784,13 @@ namespace libtorrent {
         return v;
     }
 };
+
+%extend stats_alert {
+    std::vector<int> transferred_v() {
+        std::vector<int> v($self->transferred, $self->transferred + stats_alert::stats_channel::num_channels);
+        return v;
+    }
+};
 }
 
 class ed25519 {

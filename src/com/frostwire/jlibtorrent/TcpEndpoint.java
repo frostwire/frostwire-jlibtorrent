@@ -17,4 +17,12 @@ public final class TcpEndpoint {
     public tcp_endpoint getSwig() {
         return endp;
     }
+
+    public String getAddress() {
+        return endp.address();
+    }
+
+    public int getPort() {
+        return endp.port();
+    }
 }

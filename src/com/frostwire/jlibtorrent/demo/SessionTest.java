@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.Pair;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.alerts.Alert;
 
@@ -17,8 +16,6 @@ public final class SessionTest {
 
         s.addListener(new AlertListener() {
             @Override
-
-
             public void alert(Alert<?> alert) {
                 System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
             }

@@ -2304,6 +2304,7 @@ public class libtorrent_jni {
   public final static native String stats_alert_message(long jarg1, stats_alert jarg1_);
   public final static native void stats_alert_interval_set(long jarg1, stats_alert jarg1_, int jarg2);
   public final static native int stats_alert_interval_get(long jarg1, stats_alert jarg1_);
+  public final static native long stats_alert_transferred_v(long jarg1, stats_alert jarg1_);
   public final static native void delete_stats_alert(long jarg1);
   public final static native long new_cache_flushed_alert(long jarg1, torrent_handle jarg1_);
   public final static native int cache_flushed_alert_alert_type_get();
