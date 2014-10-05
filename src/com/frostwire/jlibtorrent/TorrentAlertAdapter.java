@@ -180,6 +180,27 @@ public class TorrentAlertAdapter implements AlertListener {
     public void requestDropped(RequestDroppedAlert alert) {
     }
 
+    public void anonymousMode(AnonymousModeAlert alert) {
+    }
+
+    public void blockDownloading(BlockDownloadingAlert alert) {
+    }
+
+    public void blockTimeout(BlockTimeoutAlert alert) {
+    }
+
+    public void cacheFlushed(CacheFlushedAlert alert) {
+    }
+
+    public void storageMovedFailed(StorageMovedFailedAlert alert) {
+    }
+
+    public void trackerid(TrackeridAlert alert) {
+    }
+
+    public void unwantedBlock(UnwantedBlockAlert alert) {
+    }
+
     public void torrentPrioritize(TorrentPrioritizeAlert alert) {
     }
 

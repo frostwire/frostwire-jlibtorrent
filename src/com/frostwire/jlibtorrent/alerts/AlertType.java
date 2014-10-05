@@ -65,6 +65,17 @@ public enum AlertType {
     PEER_UNSNUBBED(peer_unsnubbed_alert.alert_type),
     REQUEST_DROPPED(request_dropped_alert.alert_type),
     UDP_ERROR(udp_error_alert.alert_type),
+    ANONYMOUS_MODE(anonymous_mode_alert.alert_type),
+    BLOCK_DOWNLOADING(block_downloading_alert.alert_type),
+    BLOCK_TIMEOUT(block_timeout_alert.alert_type),
+    CACHE_FLUSHED(cache_flushed_alert.alert_type),
+    DHT_ANNOUNCE(dht_announce_alert.alert_type),
+    I2P(i2p_alert.alert_type),
+    RSS(rss_alert.alert_type),
+    RSS_ITEM(rss_item_alert.alert_type),
+    STORAGE_MOVED_FAILED(storage_moved_failed_alert.alert_type),
+    TRACKERID(trackerid_alert.alert_type),
+    UNWANTED_BLOCK(unwanted_block_alert.alert_type),
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
 
