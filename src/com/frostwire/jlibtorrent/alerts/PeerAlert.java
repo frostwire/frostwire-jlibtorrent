@@ -11,7 +11,7 @@ import com.frostwire.jlibtorrent.swig.peer_alert;
  * @author gubatron
  * @author aldenml
  */
-public class PeerAlert<T extends peer_alert> extends TorrentAlert<T> {
+public abstract class PeerAlert<T extends peer_alert> extends TorrentAlert<T> {
 
     public PeerAlert(T alert) {
         super(alert);

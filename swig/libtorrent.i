@@ -468,7 +468,6 @@ namespace std {
 %ignore libtorrent::dht_put_alert::dht_put_alert;
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
-%ignore libtorrent::udp_error_alert::endpoint;
 %ignore libtorrent::torrent_info::torrent_info(char const *, int);
 %ignore libtorrent::torrent_info::torrent_info(char const *, int, int);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int);

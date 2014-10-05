@@ -2051,6 +2051,8 @@ public class libtorrent_jni {
   public final static native String udp_error_alert_what(long jarg1, udp_error_alert jarg1_);
   public final static native int udp_error_alert_static_category_get();
   public final static native String udp_error_alert_message(long jarg1, udp_error_alert jarg1_);
+  public final static native void udp_error_alert_endpoint_set(long jarg1, udp_error_alert jarg1_, long jarg2, udp_endpoint jarg2_);
+  public final static native long udp_error_alert_endpoint_get(long jarg1, udp_error_alert jarg1_);
   public final static native void udp_error_alert_error_set(long jarg1, udp_error_alert jarg1_, long jarg2, error_code jarg2_);
   public final static native long udp_error_alert_error_get(long jarg1, udp_error_alert jarg1_);
   public final static native void delete_udp_error_alert(long jarg1);

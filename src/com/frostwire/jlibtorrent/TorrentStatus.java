@@ -531,7 +531,7 @@ public final class TorrentStatus {
         return ((long) time) * 1000;
     }
 
-    public static enum State {
+    public enum State {
 
         QUEUED_FOR_CHECKING(torrent_status.state_t.queued_for_checking),
         CHECKING_FILES(torrent_status.state_t.checking_files),

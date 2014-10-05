@@ -84,6 +84,9 @@ public class TorrentAlertAdapter implements AlertListener {
     public void saveResumeData(SaveResumeDataAlert alert) {
     }
 
+    public void fastresumeRejected(FastresumeRejectedAlert alert) {
+    }
+
     public void fileCompleted(FileCompletedAlert alert) {
     }
 
@@ -94,6 +97,9 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void fileError(FileErrorAlert alert) {
+    }
+
+    public void hashFailed(HashFailedAlert alert) {
     }
 
     public void trackerAnnounce(TrackerAnnounceAlert alert) {
@@ -121,6 +127,57 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     public void scrapeFailed(ScrapeFailedAlert alert) {
+    }
+
+    public void lsdPeer(LsdPeerAlert alert) {
+    }
+
+    public void peerBlocked(PeerBlockedAlert alert) {
+    }
+
+    public void performance(PerformanceAlert alert) {
+    }
+
+    public void pieceFinished(PieceFinishedAlert alert) {
+    }
+
+    public void saveResumeDataFailed(SaveResumeDataFailedAlert alert) {
+    }
+
+    public void stats(StatsAlert alert) {
+    }
+
+    public void storageMoved(StorageMovedAlert alert) {
+    }
+
+    public void torrentDeleteFailed(TorrentDeleteFailedAlert alert) {
+    }
+
+    public void urlSeed(UrlSeedAlert alert) {
+    }
+
+    public void invalidRequest(InvalidRequestAlert alert) {
+    }
+
+    public void peerBan(PeerBanAlert alert) {
+    }
+
+    public void peerConnect(PeerConnectAlert alert) {
+    }
+
+    public void peerDisconnected(PeerDisconnectedAlert alert) {
+    }
+
+    public void peerError(PeerErrorAlert alert) {
+    }
+
+    public void peerSnubbed(PeerSnubbedAlert alert) {
+    }
+
+    public void peerUnsnubbe(PeerUnsnubbedAlert alert) {
+    }
+
+    public void requestDropped(RequestDroppedAlert alert) {
     }
 
     public void torrentPrioritize(TorrentPrioritizeAlert alert) {
