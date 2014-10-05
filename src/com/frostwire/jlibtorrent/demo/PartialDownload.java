@@ -36,15 +36,12 @@ public final class PartialDownload {
         }
 
         // Download only the first file
-        byte[] priorities = new byte[(int) files.size()];
-        priorities[0] = 7;
-        for (int i = 1; i < files.size(); i++) {
-            priorities[i] = 0;
-        }
+        Priority[] priorities = Priority.array(Priority.IGNORE, (int) files.size());
+        priorities[0] = Priority.NORMAL;
 
         final Session s = new Session();
 
-        final TorrentHandle th = s.addTorrent(torrentFile, priorities, torrentFile.getParentFile());
+        final TorrentHandle th = s.addTorrent(new TorrentInfo(torrentFile), torrentFile.getParentFile(), priorities, null);
 
         final CountDownLatch signal = new CountDownLatch(1);
 

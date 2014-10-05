@@ -6,7 +6,6 @@ import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -92,112 +91,192 @@ public final class Session {
     }
 
     /**
-     * You add torrents through the add_torrent() function where you give an object with all the parameters. The add_torrent() overloads will block until the torrent has been added (or failed to be added) and returns an error code and a torrent_handle. In order to add torrents more efficiently, consider using async_add_torrent() which returns immediately, without waiting for the torrent to add. Notification of the torrent being added is sent as add_torrent_alert.
+     * You add torrents through the add_torrent() function where you give an
+     * object with all the parameters. The add_torrent() overloads will block
+     * until the torrent has been added (or failed to be added) and returns
+     * an error code and a torrent_handle. In order to add torrents more
+     * efficiently, consider using async_add_torrent() which returns
+     * immediately, without waiting for the torrent to add. Notification of
+     * the torrent being added is sent as add_torrent_alert.
      * <p/>
-     * The overload that does not take an error_code throws an exception on error and is not available when building without exception support. The torrent_handle returned by add_torrent() can be used to retrieve information about the torrent's progress, its peers etc. It is also used to abort a torrent.
+     * The overload that does not take an error_code throws an exception on
+     * error and is not available when building without exception support.
+     * The torrent_handle returned by add_torrent() can be used to retrieve
+     * information about the torrent's progress, its peers etc. It is also
+     * used to abort a torrent.
      * <p/>
-     * If the torrent you are trying to add already exists in the session (is either queued for checking, being checked or downloading) add_torrent() will throw libtorrent_exception which derives from std::exception unless duplicate_is_error is set to false. In that case, add_torrent() will return the handle to the existing torrent.
+     * If the torrent you are trying to add already exists in the session (is
+     * either queued for checking, being checked or downloading)
+     * ``add_torrent()`` will throw libtorrent_exception which derives from
+     * ``std::exception`` unless duplicate_is_error is set to false. In that
+     * case, add_torrent() will return the handle to the existing torrent.
      * <p/>
      * all torrent_handles must be destructed before the session is destructed!
      *
-     * @param torrentFile
+     * @param ti
+     * @param saveDir
+     * @param priorities
+     * @param resumeFile
+     * @return
+     */
+    public TorrentHandle addTorrent(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile) {
+        return addTorrentSupport(ti, saveDir, priorities, resumeFile, false);
+    }
+
+    /**
+     * You add torrents through the add_torrent() function where you give an
+     * object with all the parameters. The add_torrent() overloads will block
+     * until the torrent has been added (or failed to be added) and returns
+     * an error code and a torrent_handle. In order to add torrents more
+     * efficiently, consider using async_add_torrent() which returns
+     * immediately, without waiting for the torrent to add. Notification of
+     * the torrent being added is sent as add_torrent_alert.
+     * <p/>
+     * The overload that does not take an error_code throws an exception on
+     * error and is not available when building without exception support.
+     * The torrent_handle returned by add_torrent() can be used to retrieve
+     * information about the torrent's progress, its peers etc. It is also
+     * used to abort a torrent.
+     * <p/>
+     * If the torrent you are trying to add already exists in the session (is
+     * either queued for checking, being checked or downloading)
+     * ``add_torrent()`` will throw libtorrent_exception which derives from
+     * ``std::exception`` unless duplicate_is_error is set to false. In that
+     * case, add_torrent() will return the handle to the existing torrent.
+     * <p/>
+     * all torrent_handles must be destructed before the session is destructed!
+     *
+     * @param torrent
+     * @param saveDir
+     * @param resumeFile
+     * @return
+     */
+    public TorrentHandle addTorrent(File torrent, File saveDir, File resumeFile) {
+        return addTorrent(new TorrentInfo(torrent), saveDir, null, resumeFile);
+    }
+
+    /**
+     * You add torrents through the add_torrent() function where you give an
+     * object with all the parameters. The add_torrent() overloads will block
+     * until the torrent has been added (or failed to be added) and returns
+     * an error code and a torrent_handle. In order to add torrents more
+     * efficiently, consider using async_add_torrent() which returns
+     * immediately, without waiting for the torrent to add. Notification of
+     * the torrent being added is sent as add_torrent_alert.
+     * <p/>
+     * The overload that does not take an error_code throws an exception on
+     * error and is not available when building without exception support.
+     * The torrent_handle returned by add_torrent() can be used to retrieve
+     * information about the torrent's progress, its peers etc. It is also
+     * used to abort a torrent.
+     * <p/>
+     * If the torrent you are trying to add already exists in the session (is
+     * either queued for checking, being checked or downloading)
+     * ``add_torrent()`` will throw libtorrent_exception which derives from
+     * ``std::exception`` unless duplicate_is_error is set to false. In that
+     * case, add_torrent() will return the handle to the existing torrent.
+     * <p/>
+     * all torrent_handles must be destructed before the session is destructed!
+     *
+     * @param torrent
      * @param saveDir
      * @return
      */
-    public TorrentHandle addTorrent(File torrentFile, byte[] priorities, File saveDir) {
-        TorrentInfo ti = new TorrentInfo(torrentFile);
-
-        add_torrent_params p = add_torrent_params.create_instance();
-
-        p.setTi(ti.getSwig());
-        p.setSave_path(saveDir.getAbsolutePath());
-        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
-
-        if (priorities != null) {
-            p.setFile_priorities(Vectors.bytes2unsigned_char_vector(priorities));
-        }
-
-        long flags = p.getFlags();
-
-        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-
-        p.setFlags(flags);
-
-        torrent_handle th = s.add_torrent(p);
-
-        return new TorrentHandle(th);
+    public TorrentHandle addTorrent(File torrent, File saveDir) {
+        return addTorrent(torrent, saveDir, null);
     }
 
-    public TorrentHandle addTorrent(File torrentFile, File saveDir) {
-        return addTorrent(torrentFile, null, saveDir);
-    }
-
+    /**
+     * You add torrents through the add_torrent() function where you give an
+     * object with all the parameters. The add_torrent() overloads will block
+     * until the torrent has been added (or failed to be added) and returns
+     * an error code and a torrent_handle. In order to add torrents more
+     * efficiently, consider using async_add_torrent() which returns
+     * immediately, without waiting for the torrent to add. Notification of
+     * the torrent being added is sent as add_torrent_alert.
+     * <p/>
+     * The overload that does not take an error_code throws an exception on
+     * error and is not available when building without exception support.
+     * The torrent_handle returned by add_torrent() can be used to retrieve
+     * information about the torrent's progress, its peers etc. It is also
+     * used to abort a torrent.
+     * <p/>
+     * If the torrent you are trying to add already exists in the session (is
+     * either queued for checking, being checked or downloading)
+     * ``add_torrent()`` will throw libtorrent_exception which derives from
+     * ``std::exception`` unless duplicate_is_error is set to false. In that
+     * case, add_torrent() will return the handle to the existing torrent.
+     * <p/>
+     * all torrent_handles must be destructed before the session is destructed!
+     *
+     * @param ti
+     * @param saveDir
+     * @param priorities
+     * @param resumeFile
+     */
     public void asyncAddTorrent(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile) {
-
-        add_torrent_params p = add_torrent_params.create_instance();
-
-        p.setTi(ti.getSwig());
-        p.setSave_path(saveDir.getAbsolutePath());
-
-        if (priorities != null) {
-            p.setFile_priorities(Vectors.priorities2unsigned_char_vector(priorities));
-        }
-        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
-
-        long flags = p.getFlags();
-
-        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-
-        if (resumeFile != null) {
-            try {
-                byte[] data = Utils.readFileToByteArray(resumeFile);
-                p.setResume_data(Vectors.bytes2char_vector(data));
-            } catch (Throwable e) {
-                LOG.warn("Unable to set resume data", e);
-            }
-        }
-
-        p.setFlags(flags);
-
-        s.async_add_torrent(p);
+        addTorrentSupport(ti, saveDir, priorities, resumeFile, true);
     }
 
-    public void asyncAddTorrent(File torrentFile, File saveDir, File resumeFile) throws IOException {
-        String torrentPath = torrentFile.getAbsolutePath();
-
-        String savePath = null;
-        if (saveDir != null) {
-            savePath = saveDir.getAbsolutePath();
-        } else if (resumeFile == null) {
-            throw new IllegalArgumentException("Both saveDir and resumeFile can't be null at the same time");
-        }
-
-        torrent_info ti = new torrent_info(torrentPath);
-
-        add_torrent_params p = add_torrent_params.create_instance();
-
-        p.setTi(ti);
-        if (savePath != null) {
-            p.setSave_path(savePath);
-        }
-        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
-
-        long flags = p.getFlags();
-
-        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-
-        if (resumeFile != null && resumeFile.exists()) {
-            byte[] data = Utils.readFileToByteArray(resumeFile);
-            p.setResume_data(Vectors.bytes2char_vector(data));
-        }
-
-        p.setFlags(flags);
-
-        s.async_add_torrent(p);
+    /**
+     * You add torrents through the add_torrent() function where you give an
+     * object with all the parameters. The add_torrent() overloads will block
+     * until the torrent has been added (or failed to be added) and returns
+     * an error code and a torrent_handle. In order to add torrents more
+     * efficiently, consider using async_add_torrent() which returns
+     * immediately, without waiting for the torrent to add. Notification of
+     * the torrent being added is sent as add_torrent_alert.
+     * <p/>
+     * The overload that does not take an error_code throws an exception on
+     * error and is not available when building without exception support.
+     * The torrent_handle returned by add_torrent() can be used to retrieve
+     * information about the torrent's progress, its peers etc. It is also
+     * used to abort a torrent.
+     * <p/>
+     * If the torrent you are trying to add already exists in the session (is
+     * either queued for checking, being checked or downloading)
+     * ``add_torrent()`` will throw libtorrent_exception which derives from
+     * ``std::exception`` unless duplicate_is_error is set to false. In that
+     * case, add_torrent() will return the handle to the existing torrent.
+     * <p/>
+     * all torrent_handles must be destructed before the session is destructed!
+     *
+     * @param torrent
+     * @param saveDir
+     * @param resumeFile
+     */
+    public void asyncAddTorrent(File torrent, File saveDir, File resumeFile) {
+        asyncAddTorrent(new TorrentInfo(torrent), saveDir, null, resumeFile);
     }
 
-    public void asyncAddTorrent(File torrentFile, File saveDir) throws IOException {
-        asyncAddTorrent(torrentFile, saveDir, null);
+    /**
+     * You add torrents through the add_torrent() function where you give an
+     * object with all the parameters. The add_torrent() overloads will block
+     * until the torrent has been added (or failed to be added) and returns
+     * an error code and a torrent_handle. In order to add torrents more
+     * efficiently, consider using async_add_torrent() which returns
+     * immediately, without waiting for the torrent to add. Notification of
+     * the torrent being added is sent as add_torrent_alert.
+     * <p/>
+     * The overload that does not take an error_code throws an exception on
+     * error and is not available when building without exception support.
+     * The torrent_handle returned by add_torrent() can be used to retrieve
+     * information about the torrent's progress, its peers etc. It is also
+     * used to abort a torrent.
+     * <p/>
+     * If the torrent you are trying to add already exists in the session (is
+     * either queued for checking, being checked or downloading)
+     * ``add_torrent()`` will throw libtorrent_exception which derives from
+     * ``std::exception`` unless duplicate_is_error is set to false. In that
+     * case, add_torrent() will return the handle to the existing torrent.
+     * <p/>
+     * all torrent_handles must be destructed before the session is destructed!
+     *
+     * @param torrent
+     * @param saveDir
+     */
+    public void asyncAddTorrent(File torrent, File saveDir) {
+        asyncAddTorrent(torrent, saveDir, null);
     }
 
     /**
@@ -711,6 +790,51 @@ public final class Session {
     protected void finalize() throws Throwable {
         this.running = false;
         super.finalize();
+    }
+
+    private TorrentHandle addTorrentSupport(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile, boolean async) {
+
+        String savePath = null;
+        if (saveDir != null) {
+            savePath = saveDir.getAbsolutePath();
+        } else if (resumeFile == null) {
+            throw new IllegalArgumentException("Both saveDir and resumeFile can't be null at the same time");
+        }
+
+        add_torrent_params p = add_torrent_params.create_instance();
+
+        p.setTi(ti.getSwig());
+        if (savePath != null) {
+            p.setSave_path(savePath);
+        }
+
+        if (priorities != null) {
+            p.setFile_priorities(Vectors.priorities2unsigned_char_vector(priorities));
+        }
+        p.setStorage_mode(storage_mode_t.storage_mode_sparse);
+
+        long flags = p.getFlags();
+
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+
+        if (resumeFile != null) {
+            try {
+                byte[] data = Utils.readFileToByteArray(resumeFile);
+                p.setResume_data(Vectors.bytes2char_vector(data));
+            } catch (Throwable e) {
+                LOG.warn("Unable to set resume data", e);
+            }
+        }
+
+        p.setFlags(flags);
+
+        if (async) {
+            s.async_add_torrent(p);
+            return null;
+        } else {
+            torrent_handle th = s.add_torrent(p);
+            return new TorrentHandle(th);
+        }
     }
 
     private void alertsLoop() {
