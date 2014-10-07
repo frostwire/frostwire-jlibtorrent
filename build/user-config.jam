@@ -1,0 +1,17 @@
+import os ;
+
+androidARMToolchainRoot = $ANDROID_ARM_TOOLCHAIN_ROOT ;
+    using gcc : androidarm :
+        $(androidARMToolchainRoot)/bin/arm-linux-androideabi-g++ :
+        <compileflags>-mthumb
+        <compileflags>-fno-strict-aliasing
+        <compileflags>-O3
+        <compileflags>-DNDEBUG
+        <compileflags>-lstdc++
+        <compileflags>-D__GLIBC__
+        <compileflags>-D_GLIBCXX__PTHREADS
+        <compileflags>-D__arm__
+        <compileflags>-D_REENTRANT
+        <archiver>$(androidARMToolchainRoot)/bin/arm-linux-androideabi-ar
+        <ranlib>$(androidARMToolchainRoot)/bin/arm-linux-androideabi-ranlib
+        ;
