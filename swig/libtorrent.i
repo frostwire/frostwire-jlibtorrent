@@ -333,6 +333,9 @@ namespace std {
 %ignore libtorrent::tracker_connection;
 %ignore libtorrent::tracker_request;
 %ignore libtorrent::type_error;
+%ignore libtorrent::buffer;
+%ignore libtorrent::disk_buffer_pool;
+%ignore libtorrent::disk_buffer_holder;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
