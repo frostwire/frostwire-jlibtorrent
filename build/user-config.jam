@@ -1,7 +1,16 @@
+import feature ;
 import os ;
+import toolset ;
 
-androidARMToolchainRoot = $ANDROID_ARM_TOOLCHAIN_ROOT ;
-    using gcc : androidarm :
+feature.extend toolset : android-arm ;
+
+rule init ( * : * )
+{
+
+}
+
+androidARMToolchainRoot = $(ANDROID_ARM_TOOLCHAIN_ROOT) ;
+    using android-arm :
         $(androidARMToolchainRoot)/bin/arm-linux-androideabi-g++ :
         <compileflags>-mthumb
         <compileflags>-fno-strict-aliasing
