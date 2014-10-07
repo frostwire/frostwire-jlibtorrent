@@ -7,7 +7,6 @@ import com.frostwire.jlibtorrent.swig.entry;
 import com.frostwire.jlibtorrent.swig.entry_vector;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -25,7 +24,7 @@ public final class PartialDownload {
 
         System.out.println("Using libtorrent version: " + LibTorrent.version());
 
-        byte[] data = Files.readAllBytes(torrentFile.toPath());
+        byte[] data = Utils.readFileToByteArray(torrentFile);
         entry e = entry.bdecode(Vectors.bytes2char_vector(data));
 
         entry_vector files = e.find_key("info").find_key("files").list_v();

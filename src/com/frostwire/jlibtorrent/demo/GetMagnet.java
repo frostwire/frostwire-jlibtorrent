@@ -2,9 +2,9 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.Downloader;
 import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.Utils;
 
 import java.io.File;
-import java.nio.file.Files;
 
 /**
  * @author gubatron
@@ -24,7 +24,7 @@ public final class GetMagnet {
         byte[] data = d.fetchMagnet(uri, 30000);
 
         if (data != null) {
-            Files.write(saveDir.toPath(), data);
+            Utils.writeByteArrayToFile(saveDir, data);
             System.out.println("Torrent data saved to: " + saveDir);
         } else {
             System.out.println("Failed to retrieve the magnet");

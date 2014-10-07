@@ -670,8 +670,7 @@ namespace libtorrent {
 
     std::vector<entry> list_v() {
         std::list<entry> l = $self->list();
-        std::vector<entry> v{ std::make_move_iterator(std::begin(l)),
-                          std::make_move_iterator(std::end(l)) };
+        std::vector<entry> v(l.begin(), l.end());
         return v;
     }
 

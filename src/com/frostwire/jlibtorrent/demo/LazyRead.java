@@ -2,11 +2,11 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.Utils;
 import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
-import java.nio.file.Files;
 
 /**
  * @author gubatron
@@ -23,7 +23,7 @@ public final class LazyRead {
 
         System.out.println("Using libtorrent version: " + LibTorrent.version());
 
-        byte[] data = Files.readAllBytes(torrentFile.toPath());
+        byte[] data = Utils.readFileToByteArray(torrentFile);
 
         char_vector buffer = Vectors.bytes2char_vector(data);
         lazy_entry e = new lazy_entry();
