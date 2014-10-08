@@ -384,9 +384,42 @@ public final class TorrentStatus {
         return ts.getList_peers();
     }
 
-//    public final int connectCandidates;
-//    public final int numPieces;
-//    public final int distributedFullCopies;
+    /**
+     * the number of peers in this torrent's peer list that is a candidate to
+     * be connected to. i.e. It has fewer connect attempts than the max fail
+     * count, it is not a seed if we are a seed, it is not banned etc. If
+     * this is 0, it means we don't know of any more peers that we can try.
+     *
+     * @return
+     */
+    public int getConnectCandidates() {
+        return ts.getConnect_candidates();
+    }
+
+    /**
+     * the number of pieces that has been downloaded. It is equivalent to:
+     * ``std::accumulate(pieces->begin(), pieces->end())``. So you don't have
+     * to count yourself. This can be used to see if anything has updated
+     * since last time if you want to keep a graph of the pieces up to date.
+     *
+     * @return
+     */
+    public int getNumPieces() {
+        return ts.getNum_pieces();
+    }
+
+    /**
+     * the number of distributed copies of the torrent. Note that one copy
+     * may be spread out among many peers. It tells how many copies there are
+     * currently of the rarest piece(s) among the peers this client is
+     * connected to.
+     *
+     * @return
+     */
+    public int getDistributedFullCopies() {
+        return ts.getDistributed_full_copies();
+    }
+
 //    public final int distributedFraction;
 //    public final float distributedCopies;
 //    public final int blockSize;
@@ -410,14 +443,63 @@ public final class TorrentStatus {
      * The main state the torrent is in. See torrent_status::state_t.
      */
     public State getState() {
-        return State.fromSwig(ts.getState());
+        return State.fromSwig(ts.getState().swigValue());
     }
 
-//    public final boolean isNeedSaveResume;
-//    public final boolean isIpFilterApplies;
-//    public final boolean isUploadMode;
-//    public final boolean isShareMode;
-//    public final boolean isSuperSeeding;
+    /**
+     * true if this torrent has unsaved changes
+     * to its download state and statistics since the last resume data
+     * was saved.
+     *
+     * @return
+     */
+    public boolean needSaveResume() {
+        return ts.getNeed_save_resume();
+    }
+
+    /**
+     * true if the session global IP filter applies
+     * to this torrent. This defaults to true.
+     *
+     * @return
+     */
+    public boolean ipFilterApplies() {
+        return ts.getIp_filter_applies();
+    }
+
+    /**
+     * true if the torrent is blocked from downloading. This typically
+     * happens when a disk write operation fails. If the torrent is
+     * auto-managed, it will periodically be taken out of this state, in the
+     * hope that the disk condition (be it disk full or permission errors)
+     * has been resolved. If the torrent is not auto-managed, you have to
+     * explicitly take it out of the upload mode by calling set_upload_mode()
+     * on the torrent_handle.
+     *
+     * @return
+     */
+    public boolean isUploadMode() {
+        return ts.getUpload_mode();
+    }
+
+    /**
+     * true if the torrent is currently in share-mode, i.e. not downloading
+     * the torrent, but just helping the swarm out.
+     *
+     * @return
+     */
+    public boolean isShareMode() {
+        return ts.getShare_mode();
+    }
+
+    /**
+     * true if the torrent is in super seeding mode.
+     *
+     * @return
+     */
+    public boolean isSuperSeeding() {
+        return ts.getSuper_seeding();
+    }
 
     /**
      * set to true if the torrent is paused and false otherwise. It's only
@@ -531,35 +613,89 @@ public final class TorrentStatus {
         return ((long) time) * 1000;
     }
 
+    /**
+     * the different overall states a torrent can be in.
+     */
     public enum State {
 
-        QUEUED_FOR_CHECKING(torrent_status.state_t.queued_for_checking),
-        CHECKING_FILES(torrent_status.state_t.checking_files),
-        DOWNLOADING_METADATA(torrent_status.state_t.downloading_metadata),
-        DOWNLOADING(torrent_status.state_t.downloading),
-        FINISHED(torrent_status.state_t.finished),
-        SEEDING(torrent_status.state_t.seeding),
-        ALLOCATING(torrent_status.state_t.allocating),
-        CHECKING_RESUME_DATA(torrent_status.state_t.checking_resume_data);
+        /**
+         * The torrent is in the queue for being checked. But there
+         * currently is another torrent that are being checked.
+         * This torrent will wait for its turn.
+         */
+        QUEUED_FOR_CHECKING(torrent_status.state_t.queued_for_checking.swigValue()),
 
-        private State(torrent_status.state_t swigObj) {
-            this.swigObj = swigObj;
+        /**
+         * The torrent has not started its download yet, and is
+         * currently checking existing files.
+         */
+        CHECKING_FILES(torrent_status.state_t.checking_files.swigValue()),
+
+        /**
+         * The torrent is trying to download metadata from peers.
+         * This assumes the metadata_transfer extension is in use.
+         */
+        DOWNLOADING_METADATA(torrent_status.state_t.downloading_metadata.swigValue()),
+
+        /**
+         * The torrent is being downloaded. This is the state
+         * most torrents will be in most of the time. The progress
+         * meter will tell how much of the files that has been
+         * downloaded.
+         */
+        DOWNLOADING(torrent_status.state_t.downloading.swigValue()),
+
+        /**
+         * In this state the torrent has finished downloading but
+         * still doesn't have the entire torrent. i.e. some pieces
+         * are filtered and won't get downloaded.
+         */
+        FINISHED(torrent_status.state_t.finished.swigValue()),
+
+        /**
+         * In this state the torrent has finished downloading and
+         * is a pure seeder.
+         */
+        SEEDING(torrent_status.state_t.seeding.swigValue()),
+
+        /**
+         * If the torrent was started in full allocation mode, this
+         * indicates that the (disk) storage for the torrent is
+         * allocated.
+         */
+        ALLOCATING(torrent_status.state_t.allocating.swigValue()),
+
+        /**
+         * The torrent is currently checking the fastresume data and
+         * comparing it to the files on disk. This is typically
+         * completed in a fraction of a second, but if you add a
+         * large number of torrents at once, they will queue up.
+         */
+        CHECKING_RESUME_DATA(torrent_status.state_t.checking_resume_data.swigValue()),
+
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        private State(int swigValue) {
+            this.swigValue = swigValue;
         }
 
-        private final torrent_status.state_t swigObj;
+        private final int swigValue;
 
-        public torrent_status.state_t getSwig() {
-            return swigObj;
+        public int getSwig() {
+            return swigValue;
         }
 
-        public static State fromSwig(torrent_status.state_t swigObj) {
+        public static State fromSwig(int swigValue) {
             State[] enumValues = State.class.getEnumConstants();
             for (State ev : enumValues) {
-                if (ev.getSwig() == swigObj) {
+                if (ev.getSwig() == swigValue) {
                     return ev;
                 }
             }
-            throw new IllegalArgumentException("No enum " + State.class + " with swig value " + swigObj);
+            return UNKNOWN;
         }
     }
 }
