@@ -331,15 +331,18 @@ public final class Session {
     /**
      * Pausing the session has the same effect as pausing every torrent in
      * it, except that torrents will not be resumed by the auto-manage
-     * mechanism. Resuming will restore the torrents to their previous paused
-     * state. i.e. the session pause state is separate from the torrent pause
-     * state. A torrent is inactive if it is paused or if the session is
-     * paused.
+     * mechanism.
      */
     public void pause() {
         s.pause();
     }
 
+    /**
+     * Resuming will restore the torrents to their previous paused
+     * state. i.e. the session pause state is separate from the torrent pause
+     * state. A torrent is inactive if it is paused or if the session is
+     * paused.
+     */
     public void resume() {
         s.resume();
     }

@@ -118,11 +118,29 @@ public final class SessionSettings {
     // peers if a piece fails the hash check.
     //int whole_pieces_threshold;
 
-    // the number of seconds to wait for any activity on the peer wire before
-    // closing the connectiong due to time out. This defaults to 120 seconds,
-    // since that's what's specified in the protocol specification. After
-    // half the time out, a keep alive message is sent.
-    //int peer_timeout;
+    /**
+     * The number of seconds to wait for any activity on the peer wire before
+     * closing the connectiong due to time out. This defaults to 120 seconds,
+     * since that's what's specified in the protocol specification. After
+     * half the time out, a keep alive message is sent.
+     *
+     * @return
+     */
+    public int getPeerTimeout() {
+        return s.getPeer_timeout();
+    }
+
+    /**
+     * The number of seconds to wait for any activity on the peer wire before
+     * closing the connectiong due to time out. This defaults to 120 seconds,
+     * since that's what's specified in the protocol specification. After
+     * half the time out, a keep alive message is sent.
+     *
+     * @param value
+     */
+    public void setPeerTimeout(int value) {
+        s.setPeer_timeout(value);
+    }
 
     /**
      * same as peer_timeout, but only applies to url-seeds. this is usually
@@ -483,13 +501,33 @@ public final class SessionSettings {
         s.setSeed_choking_algorithm(value.getSwig());
     }
 
-    // specifies if parole mode should be used. Parole mode means that peers
-    // that participate in pieces that fail the hash check are put in a mode
-    // where they are only allowed to download whole pieces. If the whole
-    // piece a peer in parole mode fails the hash check, it is banned. If a
-    // peer participates in a piece that passes the hash check, it is taken
-    // out of parole mode.
-    //bool use_parole_mode;
+    /**
+     * Specifies if parole mode should be used. Parole mode means that peers
+     * that participate in pieces that fail the hash check are put in a mode
+     * where they are only allowed to download whole pieces. If the whole
+     * piece a peer in parole mode fails the hash check, it is banned. If a
+     * peer participates in a piece that passes the hash check, it is taken
+     * out of parole mode.
+     *
+     * @return
+     */
+    public boolean useParoleMode() {
+        return s.getUse_parole_mode();
+    }
+
+    /**
+     * Specifies if parole mode should be used. Parole mode means that peers
+     * that participate in pieces that fail the hash check are put in a mode
+     * where they are only allowed to download whole pieces. If the whole
+     * piece a peer in parole mode fails the hash check, it is banned. If a
+     * peer participates in a piece that passes the hash check, it is taken
+     * out of parole mode.
+     *
+     * @param value
+     */
+    public void useParoleMode(boolean value) {
+        s.setUse_parole_mode(value);
+    }
 
     // the disk write and read  cache. It is specified in units of 16 KiB
     // blocks. Buffers that are part of a peer's send or receive buffer also
@@ -1291,7 +1329,7 @@ public final class SessionSettings {
      * @return
      */
     public DiskCacheAlgo getDiskCacheAlgorithm() {
-        return DiskCacheAlgo.fromSwig(s.getDisk_cache_algorithm());
+        return DiskCacheAlgo.fromSwig(s.getDisk_cache_algorithm().swigValue());
     }
 
     /**
@@ -1301,7 +1339,8 @@ public final class SessionSettings {
      * @param value
      */
     public void setDiskCacheAlgorithm(DiskCacheAlgo value) {
-        s.setDisk_cache_algorithm(value.getSwig());
+        session_settings.disk_cache_algo_t v = session_settings.disk_cache_algo_t.swigToEnum(value.getSwig());
+        s.setDisk_cache_algorithm(v);
     }
 
     // the number of blocks to read into the read cache when a read cache
@@ -1506,15 +1545,37 @@ public final class SessionSettings {
     // files won't be checked, but will go straight to download mode.
     //bool no_recheck_incomplete_resume;
 
-    // defaults to false. When set to true, the client tries to hide its
-    // identity to a certain degree. The peer-ID will no longer include the
-    // client's fingerprint. The user-agent will be reset to an empty string.
-    // It will also try to not leak other identifying information, such as
-    // your local listen port, your IP etc.
-    //
-    // If you're using I2P, a VPN or a proxy, it might make sense to enable
-    // anonymous mode.
-    //bool anonymous_mode;
+    /**
+     * defaults to false. When set to true, the client tries to hide its
+     * identity to a certain degree. The peer-ID will no longer include the
+     * client's fingerprint. The user-agent will be reset to an empty string.
+     * It will also try to not leak other identifying information, such as
+     * your local listen port, your IP etc.
+     * <p/>
+     * If you're using I2P, a VPN or a proxy, it might make sense to enable
+     * anonymous mode.
+     *
+     * @return
+     */
+    public boolean isAnonymousMode() {
+        return s.getAnonymous_mode();
+    }
+
+    /**
+     * defaults to false. When set to true, the client tries to hide its
+     * identity to a certain degree. The peer-ID will no longer include the
+     * client's fingerprint. The user-agent will be reset to an empty string.
+     * It will also try to not leak other identifying information, such as
+     * your local listen port, your IP etc.
+     * <p/>
+     * If you're using I2P, a VPN or a proxy, it might make sense to enable
+     * anonymous mode.
+     *
+     * @param value
+     */
+    public void setAnonymousMode(boolean value) {
+        s.setAnonymous_mode(value);
+    }
 
     // disables any communication that's not going over a proxy. Enabling
     // this requires a proxy to be configured as well, see
@@ -1838,14 +1899,35 @@ public final class SessionSettings {
     // doubled.
     //int utp_connect_timeout;
 
-    // controls if the uTP socket manager is allowed to increase the socket
-    // buffer if a network interface with a large MTU is used (such as
-    // loopback or ethernet jumbo frames). This defaults to true and might
-    // improve uTP throughput. For RAM constrained systems, disabling this
-    // typically saves around 30kB in user space and probably around 400kB in
-    // kernel socket buffers (it adjusts the send and receive buffer size on
-    // the kernel socket, both for IPv4 and IPv6).
-    //bool utp_dynamic_sock_buf;
+    /**
+     * controls if the uTP socket manager is allowed to increase the socket
+     * buffer if a network interface with a large MTU is used (such as
+     * loopback or ethernet jumbo frames). This defaults to true and might
+     * improve uTP throughput. For RAM constrained systems, disabling this
+     * typically saves around 30kB in user space and probably around 400kB in
+     * kernel socket buffers (it adjusts the send and receive buffer size on
+     * the kernel socket, both for IPv4 and IPv6).
+     *
+     * @return
+     */
+    public boolean isUtpDynamicSockBuf() {
+        return s.getUtp_dynamic_sock_buf();
+    }
+
+    /**
+     * controls if the uTP socket manager is allowed to increase the socket
+     * buffer if a network interface with a large MTU is used (such as
+     * loopback or ethernet jumbo frames). This defaults to true and might
+     * improve uTP throughput. For RAM constrained systems, disabling this
+     * typically saves around 30kB in user space and probably around 400kB in
+     * kernel socket buffers (it adjusts the send and receive buffer size on
+     * the kernel socket, both for IPv4 and IPv6).
+     *
+     * @param value
+     */
+    public void setUtpDynamicSockBuf(boolean value) {
+        s.setUtp_dynamic_sock_buf(value);
+    }
 
     // controls how the congestion window is changed when a packet loss is
     // experienced. It's specified as a percentage multiplier for ``cwnd``.
@@ -1891,19 +1973,6 @@ public final class SessionSettings {
      */
     public void setMixedModeAlgorithm(BandwidthMixedAlgo value) {
         s.setMixed_mode_algorithm(value.getSwig());
-    }
-
-    /**
-     * The default values of the session settings are set for a regular
-     * bittorrent client running on a desktop system. There are functions that
-     * can set the session settings to pre set settings for other environments.
-     * These can be used for the basis, and should be tweaked to fit your needs
-     * better.
-     *
-     * @return
-     */
-    public static SessionSettings newDefaults() {
-        return new SessionSettings(new session_settings());
     }
 
     // determines if uTP connections should be throttled by the global rate
@@ -2013,16 +2082,39 @@ public final class SessionSettings {
     // party processes from corrupting the files under libtorrent's feet.
     //bool lock_files;
 
-    // sets the listen port for SSL connections. If this is set to 0, no SSL
-    // listen port is opened. Otherwise a socket is opened on this port. This
-    // setting is only taken into account when opening the regular listen
-    // port, and won't re-open the listen socket simply by changing this
-    // setting.
-    //
-    // if this is 0, outgoing SSL connections are disabled
-    //
-    // It defaults to port 4433.
-    //int ssl_listen;
+    /**
+     * Sets the listen port for SSL connections. If this is set to 0, no SSL
+     * listen port is opened. Otherwise a socket is opened on this port. This
+     * setting is only taken into account when opening the regular listen
+     * port, and won't re-open the listen socket simply by changing this
+     * setting.
+     * <p/>
+     * if this is 0, outgoing SSL connections are disabled.
+     * <p/>
+     * It defaults to port 4433.
+     *
+     * @return
+     */
+    public int getSslListen() {
+        return s.getSsl_listen();
+    }
+
+    /**
+     * Sets the listen port for SSL connections. If this is set to 0, no SSL
+     * listen port is opened. Otherwise a socket is opened on this port. This
+     * setting is only taken into account when opening the regular listen
+     * port, and won't re-open the listen socket simply by changing this
+     * setting.
+     * <p/>
+     * if this is 0, outgoing SSL connections are disabled.
+     * <p/>
+     * It defaults to port 4433.
+     *
+     * @param value
+     */
+    public void setSslListen(int value) {
+        s.setSsl_listen(value);
+    }
 
     // ``tracker_backoff`` determines how aggressively to back off from
     // retrying failing trackers. This value determines *x* in the following
@@ -2124,6 +2216,19 @@ public final class SessionSettings {
      */
     public void setInactiveUpRate(int value) {
         s.setInactive_up_rate(value);
+    }
+
+    /**
+     * The default values of the session settings are set for a regular
+     * bittorrent client running on a desktop system. There are functions that
+     * can set the session settings to pre set settings for other environments.
+     * These can be used for the basis, and should be tweaked to fit your needs
+     * better.
+     *
+     * @return
+     */
+    public static SessionSettings newDefaults() {
+        return new SessionSettings(new session_settings());
     }
 
     /**
@@ -2379,13 +2484,13 @@ public final class SessionSettings {
          * This flushes the entire piece, in the write cache, that was least
          * recently written to.
          */
-        LRU(session_settings.disk_cache_algo_t.lru),
+        LRU(session_settings.disk_cache_algo_t.lru.swigValue()),
 
         /**
          * will flush the largest sequences of contiguous blocks from the
          * write cache, regarless of the piece's last use time.
          */
-        LARGEST_CONTIGUOUS(session_settings.disk_cache_algo_t.largest_contiguous),
+        LARGEST_CONTIGUOUS(session_settings.disk_cache_algo_t.largest_contiguous.swigValue()),
 
         /**
          * will prioritize flushing blocks that will avoid having to read them
@@ -2393,26 +2498,31 @@ public final class SessionSettings {
          * especially useful for high throughput setups, where reading from
          * the disk is especially expensive.
          */
-        AVOID_READBACK(session_settings.disk_cache_algo_t.avoid_readback);
+        AVOID_READBACK(session_settings.disk_cache_algo_t.avoid_readback.swigValue()),
 
-        private DiskCacheAlgo(session_settings.disk_cache_algo_t swigObj) {
-            this.swigObj = swigObj;
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        private DiskCacheAlgo(int swigValue) {
+            this.swigValue = swigValue;
         }
 
-        private final session_settings.disk_cache_algo_t swigObj;
+        private final int swigValue;
 
-        public session_settings.disk_cache_algo_t getSwig() {
-            return swigObj;
+        public int getSwig() {
+            return swigValue;
         }
 
-        public static DiskCacheAlgo fromSwig(session_settings.disk_cache_algo_t swigObj) {
+        public static DiskCacheAlgo fromSwig(int swigValue) {
             DiskCacheAlgo[] enumValues = DiskCacheAlgo.class.getEnumConstants();
             for (DiskCacheAlgo ev : enumValues) {
-                if (ev.getSwig() == swigObj) {
+                if (ev.getSwig() == swigValue) {
                     return ev;
                 }
             }
-            throw new IllegalArgumentException("No enum " + DiskCacheAlgo.class + " with swig value " + swigObj);
+            throw new IllegalArgumentException("No enum " + DiskCacheAlgo.class + " with swig value " + swigValue);
         }
     }
 
