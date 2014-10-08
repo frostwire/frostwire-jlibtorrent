@@ -21,7 +21,7 @@ public final class StateChangedAlert extends TorrentAlert<state_changed_alert> {
      * @return
      */
     public TorrentStatus.State getState() {
-        return TorrentStatus.State.fromSwig(alert.getState());
+        return TorrentStatus.State.fromSwig(alert.getState().swigValue());
     }
 
     /**
@@ -30,6 +30,6 @@ public final class StateChangedAlert extends TorrentAlert<state_changed_alert> {
      * @return
      */
     public TorrentStatus.State getPrevState() {
-        return TorrentStatus.State.fromSwig(alert.getPrev_state());
+        return TorrentStatus.State.fromSwig(alert.getPrev_state().swigValue());
     }
 }
