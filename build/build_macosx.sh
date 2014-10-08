@@ -7,7 +7,7 @@
 #$LIBTORRENT_LIBS
 
 #export CXXFLAGS="-stdlib=libc++ -std=c++11 -O3 -I$BOOST_ROOT"
-#$BOOST_ROOT/b2 variant=release link=static
+#$BOOST_ROOT/b2 variant=release link=static --stagedir=macosx stage
 #$BOOST_ROOT/bjam toolset=darwin variant=release link=static deprecated-functions=off
 
 CXX=clang++
@@ -21,4 +21,5 @@ TARGET="libjlibtorrent.dylib"
 $CXX $CXXFLAGS $DEFINES $INCLUDES -c swig/libtorrent_jni.cpp
 $CXX -dynamiclib -o $TARGET libtorrent_jni.o $LIBS $LDFLAGS
 
+strip -S -x $TARGET
 rm -rf libtorrent_jni.o

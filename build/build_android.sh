@@ -7,7 +7,7 @@
 #$LIBTORRENT_LIBS
 
 #copy user-config.jam to ~/
-#make-standalone-toolchain.sh --platform=android-15 --arch=arm  --toolchain=arm-linux-androideabi-4.8 --install-dir=toolchain-platform-15-arm-gcc-4.8
+#make-standalone-toolchain.sh --platform=android-15 --arch=arm --toolchain=arm-linux-androideabi-4.8 --install-dir=toolchain-platform-15-arm-gcc-4.8
 #export CXXFLAGS="-mthumb -fno-strict-aliasing -lstdc++ -O3 -D__GLIBC__ -D_GLIBCXX__PTHREADS -D__arm__ -D_REENTRANT -I$BOOST_ROOT"
 #$BOOST_ROOT/b2 toolset=gcc-arm variant=release link=static target-os=linux --stagedir=android stage
 #$BOOST_ROOT/bjam toolset=gcc-arm variant=release link=static target-os=linux deprecated-functions=off
