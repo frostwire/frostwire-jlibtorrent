@@ -5,6 +5,7 @@
 /java/.idea/
 /java/out/
 /libjlibtorrent.dylib
+/libjlibtorrent.so
 *.o
 /jlibtorrent.xcodeproj/xcuserdata/
 /obj

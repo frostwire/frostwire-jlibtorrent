@@ -1,26 +1,15 @@
-import feature ;
-import os ;
-import toolset ;
-
-feature.extend toolset : android-arm ;
-
-rule init ( * : * )
-{
-
-}
-
-androidARMToolchainRoot = $(ANDROID_ARM_TOOLCHAIN_ROOT) ;
-    using android-arm :
-        $(androidARMToolchainRoot)/bin/arm-linux-androideabi-g++ :
-        <compileflags>-mthumb
-        <compileflags>-fno-strict-aliasing
-        <compileflags>-O3
-        <compileflags>-DNDEBUG
-        <compileflags>-lstdc++
-        <compileflags>-D__GLIBC__
-        <compileflags>-D_GLIBCXX__PTHREADS
-        <compileflags>-D__arm__
-        <compileflags>-D_REENTRANT
-        <archiver>$(androidARMToolchainRoot)/bin/arm-linux-androideabi-ar
-        <ranlib>$(androidARMToolchainRoot)/bin/arm-linux-androideabi-ranlib
-        ;
+import option ; 
+  
+using gcc : arm : arm-linux-androideabi-g++ :
+    <cxxflags>-mthumb
+    <cxxflags>-fno-strict-aliasing
+    <cxxflags>-lstdc++
+    <cxxflags>-O3
+    <cxxflags>-DNDEBUG
+    <cxxflags>-D__GLIBC__
+    <cxxflags>-D_GLIBCXX__PTHREADS
+    <cxxflags>-D__arm__
+    <cxxflags>-D_REENTRANT
+    ;
+ 
+option.set keep-going : false ;
