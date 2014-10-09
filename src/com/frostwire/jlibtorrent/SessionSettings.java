@@ -268,9 +268,25 @@ public final class SessionSettings {
     // from seeding.
     //bool lazy_bitfields;
 
-    // if a peer is uninteresting and uninterested for longer than this
-    // number of seconds, it will be disconnected. default is 10 minutes
-    //int inactivity_timeout;
+    /**
+     * if a peer is uninteresting and uninterested for longer than this
+     * number of seconds, it will be disconnected. default is 10 minutes
+     *
+     * @return
+     */
+    public int getInactivityTimeout() {
+        return s.getInactivity_timeout();
+    }
+
+    /**
+     * if a peer is uninteresting and uninterested for longer than this
+     * number of seconds, it will be disconnected. default is 10 minutes
+     *
+     * @param value
+     */
+    public void setInactivityTimeout(int value) {
+        s.setInactivity_timeout(value);
+    }
 
     // the number of seconds between chokes/unchokes. On this interval, peers
     // are re-evaluated for being choked/unchoked. This is defined as 30
@@ -346,28 +362,87 @@ public final class SessionSettings {
         s.setSuggest_mode(value.getSwig());
     }
 
-    // the maximum number of bytes a connection may have pending in the disk
-    // write queue before its download rate is being throttled. This prevents
-    // fast downloads to slow medias to allocate more memory indefinitely.
-    // This should be set to at least 16 kB to not completely disrupt normal
-    // downloads. If it's set to 0, you will be starving the disk thread and
-    // nothing will be written to disk. this is a per session setting.
-    //
-    // When this limit is reached, the peer connections will stop reading
-    // data from their sockets, until the disk thread catches up. Setting
-    // this too low will severly limit your download rate.
-    //int max_queued_disk_bytes;
+    /**
+     * the maximum number of bytes a connection may have pending in the disk
+     * write queue before its download rate is being throttled. This prevents
+     * fast downloads to slow medias to allocate more memory indefinitely.
+     * This should be set to at least 16 kB to not completely disrupt normal
+     * downloads. If it's set to 0, you will be starving the disk thread and
+     * nothing will be written to disk. this is a per session setting.
+     * <p/>
+     * When this limit is reached, the peer connections will stop reading
+     * data from their sockets, until the disk thread catches up. Setting
+     * this too low will severly limit your download rate.
+     *
+     * @return
+     */
+    public int getMaxQueuedDiskBytes() {
+        return s.getMax_queued_disk_bytes();
+    }
 
-    // this is the low watermark for the disk buffer queue. whenever the
-    // number of queued bytes exceed the max_queued_disk_bytes, libtorrent
-    // will wait for it to drop below this value before issuing more reads
-    // from the sockets. If set to 0, the low watermark will be half of the
-    // max queued disk bytes
-    //int max_queued_disk_bytes_low_watermark;
+    /**
+     * the maximum number of bytes a connection may have pending in the disk
+     * write queue before its download rate is being throttled. This prevents
+     * fast downloads to slow medias to allocate more memory indefinitely.
+     * This should be set to at least 16 kB to not completely disrupt normal
+     * downloads. If it's set to 0, you will be starving the disk thread and
+     * nothing will be written to disk. this is a per session setting.
+     * <p/>
+     * When this limit is reached, the peer connections will stop reading
+     * data from their sockets, until the disk thread catches up. Setting
+     * this too low will severly limit your download rate.
+     *
+     * @param value
+     */
+    public void setMaxQueuedDiskBytes(int value) {
+        s.setMax_queued_disk_bytes(value);
+    }
 
-    // the number of seconds to wait for a handshake response from a peer. If
-    // no response is received within this time, the peer is disconnected.
-    //int handshake_timeout;
+    /**
+     * this is the low watermark for the disk buffer queue. whenever the
+     * number of queued bytes exceed the max_queued_disk_bytes, libtorrent
+     * will wait for it to drop below this value before issuing more reads
+     * from the sockets. If set to 0, the low watermark will be half of the
+     * max queued disk bytes.
+     *
+     * @return
+     */
+    public int getMaxQueuedDiskBytesLowWatermark() {
+        return s.getMax_queued_disk_bytes_low_watermark();
+    }
+
+    /**
+     * this is the low watermark for the disk buffer queue. whenever the
+     * number of queued bytes exceed the max_queued_disk_bytes, libtorrent
+     * will wait for it to drop below this value before issuing more reads
+     * from the sockets. If set to 0, the low watermark will be half of the
+     * max queued disk bytes.
+     *
+     * @param value
+     */
+    public void setMaxQueuedDiskBytesLowWatermark(int value) {
+        s.setMax_queued_disk_bytes_low_watermark(value);
+    }
+
+    /**
+     * The number of seconds to wait for a handshake response from a peer. If
+     * no response is received within this time, the peer is disconnected.
+     *
+     * @return
+     */
+    public int getHandshakeTimeout() {
+        return s.getHandshake_timeout();
+    }
+
+    /**
+     * The number of seconds to wait for a handshake response from a peer. If
+     * no response is received within this time, the peer is disconnected.
+     *
+     * @param value
+     */
+    public void setHandshakeTimeout(int value) {
+        s.setHandshake_timeout(value);
+    }
 
     /**
      * determines how the DHT is used. If this is true, the DHT will only be
@@ -429,33 +504,97 @@ public final class SessionSettings {
         s.setUpnp_ignore_nonrouters(value);
     }
 
-    // This is the minimum send buffer target size (send buffer includes
-    // bytes pending being read from disk). For good and snappy seeding
-    // performance, set this fairly high, to at least fit a few blocks. This
-    // is essentially the initial window size which will determine how fast
-    // we can ramp up the send rate
-    //int send_buffer_low_watermark;
+    /**
+     * This is the minimum send buffer target size (send buffer includes
+     * bytes pending being read from disk). For good and snappy seeding
+     * performance, set this fairly high, to at least fit a few blocks. This
+     * is essentially the initial window size which will determine how fast
+     * we can ramp up the send rate.
+     *
+     * @return
+     */
+    public int getSendBufferLowWatermark() {
+        return s.getSend_buffer_low_watermark();
+    }
 
-    // the upper limit of the send buffer low-watermark.
-    //
-    // if the send buffer has fewer bytes than this, we'll read another 16kB
-    // block onto it. If set too small, upload rate capacity will suffer. If
-    // set too high, memory will be wasted. The actual watermark may be lower
-    // than this in case the upload rate is low, this is the upper limit.
-    //int send_buffer_watermark;
+    /**
+     * This is the minimum send buffer target size (send buffer includes
+     * bytes pending being read from disk). For good and snappy seeding
+     * performance, set this fairly high, to at least fit a few blocks. This
+     * is essentially the initial window size which will determine how fast
+     * we can ramp up the send rate.
+     *
+     * @param value
+     */
+    public void setSendBufferLowWatermark(int value) {
+        s.setSend_buffer_low_watermark(value);
+    }
 
-    // the current upload rate to a peer is multiplied by this factor to get
-    // the send buffer watermark. The factor is specified as a percentage.
-    // i.e. 50 indicates a factor of 0.5.
-    //
-    // This product is clamped to the send_buffer_watermark setting to not
-    // exceed the max. For high speed upload, this should be set to a greater
-    // value than 100. The default is 50.
-    //
-    // For high capacity connections, setting this higher can improve upload
-    // performance and disk throughput. Setting it too high may waste RAM and
-    // create a bias towards read jobs over write jobs.
-    //int send_buffer_watermark_factor;
+    /**
+     * the upper limit of the send buffer low-watermark.
+     * <p/>
+     * if the send buffer has fewer bytes than this, we'll read another 16kB
+     * block onto it. If set too small, upload rate capacity will suffer. If
+     * set too high, memory will be wasted. The actual watermark may be lower
+     * than this in case the upload rate is low, this is the upper limit.
+     *
+     * @return
+     */
+    public int getSendBufferWatermark() {
+        return s.getSend_buffer_watermark();
+    }
+
+    /**
+     * the upper limit of the send buffer low-watermark.
+     * <p/>
+     * if the send buffer has fewer bytes than this, we'll read another 16kB
+     * block onto it. If set too small, upload rate capacity will suffer. If
+     * set too high, memory will be wasted. The actual watermark may be lower
+     * than this in case the upload rate is low, this is the upper limit.
+     *
+     * @param value
+     */
+    public void setSendBufferWatermark(int value) {
+        s.setSend_buffer_watermark(value);
+    }
+
+    /**
+     * the current upload rate to a peer is multiplied by this factor to get
+     * the send buffer watermark. The factor is specified as a percentage.
+     * i.e. 50 indicates a factor of 0.5.
+     * <p/>
+     * This product is clamped to the send_buffer_watermark setting to not
+     * exceed the max. For high speed upload, this should be set to a greater
+     * value than 100. The default is 50.
+     * <p/>
+     * For high capacity connections, setting this higher can improve upload
+     * performance and disk throughput. Setting it too high may waste RAM and
+     * create a bias towards read jobs over write jobs.
+     *
+     * @return
+     */
+    public int getSendBufferWatermarkFactor() {
+        return s.getSend_buffer_watermark_factor();
+    }
+
+    /**
+     * the current upload rate to a peer is multiplied by this factor to get
+     * the send buffer watermark. The factor is specified as a percentage.
+     * i.e. 50 indicates a factor of 0.5.
+     * <p/>
+     * This product is clamped to the send_buffer_watermark setting to not
+     * exceed the max. For high speed upload, this should be set to a greater
+     * value than 100. The default is 50.
+     * <p/>
+     * For high capacity connections, setting this higher can improve upload
+     * performance and disk throughput. Setting it too high may waste RAM and
+     * create a bias towards read jobs over write jobs.
+     *
+     * @param value
+     */
+    public void setSendBufferWatermarkFactor(int value) {
+        s.setSend_buffer_watermark_factor(value);
+    }
 
     /**
      * specifies which algorithm to use to determine which peers to unchoke.
@@ -529,21 +668,49 @@ public final class SessionSettings {
         s.setUse_parole_mode(value);
     }
 
-    // the disk write and read  cache. It is specified in units of 16 KiB
-    // blocks. Buffers that are part of a peer's send or receive buffer also
-    // count against this limit. Send and receive buffers will never be
-    // denied to be allocated, but they will cause the actual cached blocks
-    // to be flushed or evicted. If this is set to -1, the cache size is
-    // automatically set to the amount of physical RAM available in the
-    // machine divided by 8. If the amount of physical RAM cannot be
-    // determined, it's set to 1024 (= 16 MiB).
-    //
-    // Disk buffers are allocated using a pool allocator, the number of
-    // blocks that are allocated at a time when the pool needs to grow can be
-    // specified in ``cache_buffer_chunk_size``. This defaults to 16 blocks.
-    // Lower numbers saves memory at the expense of more heap allocations. It
-    // must be at least 1.
-    //int cache_size;
+    /**
+     * the disk write and read  cache. It is specified in units of 16 KiB
+     * blocks. Buffers that are part of a peer's send or receive buffer also
+     * count against this limit. Send and receive buffers will never be
+     * denied to be allocated, but they will cause the actual cached blocks
+     * to be flushed or evicted. If this is set to -1, the cache size is
+     * automatically set to the amount of physical RAM available in the
+     * machine divided by 8. If the amount of physical RAM cannot be
+     * determined, it's set to 1024 (= 16 MiB).
+     * <p/>
+     * Disk buffers are allocated using a pool allocator, the number of
+     * blocks that are allocated at a time when the pool needs to grow can be
+     * specified in ``cache_buffer_chunk_size``. This defaults to 16 blocks.
+     * Lower numbers saves memory at the expense of more heap allocations. It
+     * must be at least 1.
+     *
+     * @return
+     */
+    public int getCacheSize() {
+        return s.getCache_size();
+    }
+
+    /**
+     * the disk write and read  cache. It is specified in units of 16 KiB
+     * blocks. Buffers that are part of a peer's send or receive buffer also
+     * count against this limit. Send and receive buffers will never be
+     * denied to be allocated, but they will cause the actual cached blocks
+     * to be flushed or evicted. If this is set to -1, the cache size is
+     * automatically set to the amount of physical RAM available in the
+     * machine divided by 8. If the amount of physical RAM cannot be
+     * determined, it's set to 1024 (= 16 MiB).
+     * <p/>
+     * Disk buffers are allocated using a pool allocator, the number of
+     * blocks that are allocated at a time when the pool needs to grow can be
+     * specified in ``cache_buffer_chunk_size``. This defaults to 16 blocks.
+     * Lower numbers saves memory at the expense of more heap allocations. It
+     * must be at least 1.
+     *
+     * @param value
+     */
+    public void setCacheSize(int value) {
+        s.setCache_size(value);
+    }
 
     // this is the number of disk buffer blocks (16 kiB) that should be
     // allocated at a time. It must be at least 1. Lower number saves memory
@@ -554,9 +721,25 @@ public final class SessionSettings {
     // before it's forcefully flushed to disk.
     //int cache_expiry;
 
-    // when set to true (default), the disk cache is also used to cache
-    // pieces read from disk. Blocks for writing pieces takes presedence.
-    //bool use_read_cache;
+    /**
+     * when set to true (default), the disk cache is also used to cache
+     * pieces read from disk. Blocks for writing pieces takes presedence.
+     *
+     * @return
+     */
+    public boolean useReadCache() {
+        return s.getUse_read_cache();
+    }
+
+    /**
+     * when set to true (default), the disk cache is also used to cache
+     * pieces read from disk. Blocks for writing pieces takes presedence.
+     *
+     * @param value
+     */
+    public void useReadCache(boolean value) {
+        s.setUse_read_cache(value);
+    }
 
     // defaults to 0. If set to something greater than 0, the disk read cache
     // will not be evicted by cache misses and will explicitly be controlled
@@ -640,14 +823,61 @@ public final class SessionSettings {
         s.setDisk_io_read_mode(value.getSwig());
     }
 
-    // when set to true, instead of issuing multiple adjacent reads or writes
-    // to the disk, allocate a larger buffer, copy all writes into it and
-    // issue a single write. For reads, read into a larger buffer and copy
-    // the buffer into the smaller individual read buffers afterwards. This
-    // may save system calls, but will cost in additional memory allocation
-    // and copying.
-    //bool coalesce_reads;
-    //bool coalesce_writes;
+    /**
+     * when set to true, instead of issuing multiple adjacent reads or writes
+     * to the disk, allocate a larger buffer, copy all writes into it and
+     * issue a single write. For reads, read into a larger buffer and copy
+     * the buffer into the smaller individual read buffers afterwards. This
+     * may save system calls, but will cost in additional memory allocation
+     * and copying.
+     *
+     * @return
+     */
+    public boolean isCoalesceReads() {
+        return s.getCoalesce_reads();
+    }
+
+    /**
+     * when set to true, instead of issuing multiple adjacent reads or writes
+     * to the disk, allocate a larger buffer, copy all writes into it and
+     * issue a single write. For reads, read into a larger buffer and copy
+     * the buffer into the smaller individual read buffers afterwards. This
+     * may save system calls, but will cost in additional memory allocation
+     * and copying.
+     *
+     * @param value
+     */
+    public void setCoalesceReads(boolean value) {
+        s.setCoalesce_reads(value);
+    }
+
+    /**
+     * when set to true, instead of issuing multiple adjacent reads or writes
+     * to the disk, allocate a larger buffer, copy all writes into it and
+     * issue a single write. For reads, read into a larger buffer and copy
+     * the buffer into the smaller individual read buffers afterwards. This
+     * may save system calls, but will cost in additional memory allocation
+     * and copying.
+     *
+     * @return
+     */
+    public boolean isCoalesceWrites() {
+        return s.getCoalesce_writes();
+    }
+
+    /**
+     * when set to true, instead of issuing multiple adjacent reads or writes
+     * to the disk, allocate a larger buffer, copy all writes into it and
+     * issue a single write. For reads, read into a larger buffer and copy
+     * the buffer into the smaller individual read buffers afterwards. This
+     * may save system calls, but will cost in additional memory allocation
+     * and copying.
+     *
+     * @param value
+     */
+    public void setCoalesceWrites(boolean value) {
+        s.setCoalesce_writes(value);
+    }
 
     /**
      * if set to something other than (0, 0) is a range of ports used to bind
@@ -1134,6 +1364,32 @@ public final class SessionSettings {
     // See queuing_.
     //int seed_time_limit;
 
+    /**
+     * controls a feature where libtorrent periodically can disconnect the
+     * least useful peers in the hope of connecting to better ones.
+     * ``peer_turnover_interval`` controls the interval of this optimistic
+     * disconnect. It defaults to every 5 minutes, and is specified in
+     * seconds.
+     *
+     * @return
+     */
+    public int getPeerTurnoverInterval() {
+        return s.getPeer_turnover_interval();
+    }
+
+    /**
+     * controls a feature where libtorrent periodically can disconnect the
+     * least useful peers in the hope of connecting to better ones.
+     * ``peer_turnover_interval`` controls the interval of this optimistic
+     * disconnect. It defaults to every 5 minutes, and is specified in
+     * seconds.
+     *
+     * @param value
+     */
+    public void setPeerTurnoverInterval(int value) {
+        s.setPeer_turnover_interval(value);
+    }
+
     // controls a feature where libtorrent periodically can disconnect the
     // least useful peers in the hope of connecting to better ones.
     // ``peer_turnover_interval`` controls the interval of this optimistic
@@ -1148,7 +1404,6 @@ public final class SessionSettings {
     // unchokes. If a torrent has more than this fraction of its connection
     // limit, the optimistic unchoke is triggered. This defaults to 90% (i.e.
     // 0.9f).
-    //int peer_turnover_interval;
     //float peer_turnover;
     //float peer_turnover_cutoff;
 
@@ -1220,7 +1475,7 @@ public final class SessionSettings {
      *
      * @param value
      */
-    public void getMaxPausedPeerlistSize(int value) {
+    public void setMaxPausedPeerlistSize(int value) {
         s.setMax_paused_peerlist_size(value);
     }
 
@@ -1302,17 +1557,41 @@ public final class SessionSettings {
     //int recv_socket_buffer_size;
     //int send_socket_buffer_size;
 
-    // chooses between two ways of reading back piece data from disk when its
-    // complete and needs to be verified against the piece hash. This happens
-    // if some blocks were flushed to the disk out of order. Everything that
-    // is flushed in order is hashed as it goes along. Optimizing for speed
-    // will allocate space to fit all the the remaingin, unhashed, part of
-    // the piece, reads the data into it in a single call and hashes it. This
-    // is the default. If ``optimizing_hashing_for_speed`` is false, a single
-    // block will be allocated (16 kB), and the unhashed parts of the piece
-    // are read, one at a time, and hashed in this single block. This is
-    // appropriate on systems that are memory constrained.
-    //bool optimize_hashing_for_speed;
+    /**
+     * chooses between two ways of reading back piece data from disk when its
+     * complete and needs to be verified against the piece hash. This happens
+     * if some blocks were flushed to the disk out of order. Everything that
+     * is flushed in order is hashed as it goes along. Optimizing for speed
+     * will allocate space to fit all the the remaingin, unhashed, part of
+     * the piece, reads the data into it in a single call and hashes it. This
+     * is the default. If ``optimizing_hashing_for_speed`` is false, a single
+     * block will be allocated (16 kB), and the unhashed parts of the piece
+     * are read, one at a time, and hashed in this single block. This is
+     * appropriate on systems that are memory constrained.
+     *
+     * @return
+     */
+    public boolean optimizeHashingForSpeed() {
+        return s.getOptimize_hashing_for_speed();
+    }
+
+    /**
+     * chooses between two ways of reading back piece data from disk when its
+     * complete and needs to be verified against the piece hash. This happens
+     * if some blocks were flushed to the disk out of order. Everything that
+     * is flushed in order is hashed as it goes along. Optimizing for speed
+     * will allocate space to fit all the the remaingin, unhashed, part of
+     * the piece, reads the data into it in a single call and hashes it. This
+     * is the default. If ``optimizing_hashing_for_speed`` is false, a single
+     * block will be allocated (16 kB), and the unhashed parts of the piece
+     * are read, one at a time, and hashed in this single block. This is
+     * appropriate on systems that are memory constrained.
+     *
+     * @param value
+     */
+    public void optimizeHashingForSpeed(boolean value) {
+        s.setOptimize_hashing_for_speed(value);
+    }
 
     // the number of milliseconds to sleep
     // in between disk read operations when checking torrents. This defaults
@@ -1438,12 +1717,31 @@ public final class SessionSettings {
     // triggered the cache line to be read into the cache in the first place.
     //bool volatile_read_cache;
 
-    // enables the disk cache to adjust the size
-    // of a cache line generated by peers to depend on the upload rate
-    // you are sending to that peer. The intention is to optimize the RAM
-    // usage of the cache, to read ahead further for peers that you're
-    // sending faster to.
-    //bool guided_read_cache;
+    /**
+     * enables the disk cache to adjust the size
+     * of a cache line generated by peers to depend on the upload rate
+     * you are sending to that peer. The intention is to optimize the RAM
+     * usage of the cache, to read ahead further for peers that you're
+     * sending faster to.
+     *
+     * @return
+     */
+    public boolean isGuidedReadCache() {
+        return s.getGuided_read_cache();
+    }
+
+    /**
+     * enables the disk cache to adjust the size
+     * of a cache line generated by peers to depend on the upload rate
+     * you are sending to that peer. The intention is to optimize the RAM
+     * usage of the cache, to read ahead further for peers that you're
+     * sending faster to.
+     *
+     * @param value
+     */
+    public void setGuidedReadCache(boolean value) {
+        s.setGuided_read_cache(value);
+    }
 
     // the minimum number of seconds any read cache line is kept in the
     // cache. This defaults to one second but may be greater if
@@ -1507,12 +1805,31 @@ public final class SessionSettings {
     // that has been requested from another peer already.
     //bool strict_end_game_mode;
 
-    // if set to true, the local peer discovery (or Local Service Discovery)
-    // will not only use IP multicast, but also broadcast its messages. This
-    // can be useful when running on networks that don't support multicast.
-    // Since broadcast messages might be expensive and disruptive on
-    // networks, only every 8th announce uses broadcast.
-    //bool broadcast_lsd;
+    /**
+     * if set to true, the local peer discovery (or Local Service Discovery)
+     * will not only use IP multicast, but also broadcast its messages. This
+     * can be useful when running on networks that don't support multicast.
+     * Since broadcast messages might be expensive and disruptive on
+     * networks, only every 8th announce uses broadcast.
+     *
+     * @return
+     */
+    public boolean broadcastLSD() {
+        return s.getBroadcast_lsd();
+    }
+
+    /**
+     * if set to true, the local peer discovery (or Local Service Discovery)
+     * will not only use IP multicast, but also broadcast its messages. This
+     * can be useful when running on networks that don't support multicast.
+     * Since broadcast messages might be expensive and disruptive on
+     * networks, only every 8th announce uses broadcast.
+     *
+     * @param value
+     */
+    public void broadcastLSD(boolean value) {
+        s.setBroadcast_lsd(value);
+    }
 
     // these all determines if libtorrent should attempt to make outgoing
     // connections of the specific type, or allow incoming connection. By
@@ -1586,12 +1903,31 @@ public final class SessionSettings {
     // are done via DNS lookups that aren't supported by proxies.
     //bool force_proxy;
 
-    // specifies the number of milliseconds between internal ticks. This is
-    // the frequency with which bandwidth quota is distributed to peers. It
-    // should not be more than one second (i.e. 1000 ms). Setting this to a
-    // low value (around 100) means higher resolution bandwidth quota
-    // distribution, setting it to a higher value saves CPU cycles.
-    //int tick_interval;
+    /**
+     * specifies the number of milliseconds between internal ticks. This is
+     * the frequency with which bandwidth quota is distributed to peers. It
+     * should not be more than one second (i.e. 1000 ms). Setting this to a
+     * low value (around 100) means higher resolution bandwidth quota
+     * distribution, setting it to a higher value saves CPU cycles.
+     *
+     * @return
+     */
+    public int getTickInterval() {
+        return s.getTick_interval();
+    }
+
+    /**
+     * specifies the number of milliseconds between internal ticks. This is
+     * the frequency with which bandwidth quota is distributed to peers. It
+     * should not be more than one second (i.e. 1000 ms). Setting this to a
+     * low value (around 100) means higher resolution bandwidth quota
+     * distribution, setting it to a higher value saves CPU cycles.
+     *
+     * @param value
+     */
+    public void setTickInterval(int value) {
+        s.setTick_interval(value);
+    }
 
     // specifies whether downloads from web seeds is reported to the
     // tracker or not. Defaults to on
