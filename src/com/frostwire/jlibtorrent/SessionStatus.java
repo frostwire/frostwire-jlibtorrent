@@ -119,20 +119,79 @@ public final class SessionStatus {
         return s.getTotal_payload_upload();
     }
 
-    /*
-            // the estimated TCP/IP overhead in each direction.
-            int ip_overhead_upload_rate;
-            int ip_overhead_download_rate;
-            size_type total_ip_overhead_download;
-            size_type total_ip_overhead_upload;
+    /**
+     * The estimated TCP/IP overhead.
+     *
+     * @return
+     */
+    public int getIPOverheadUploadRate() {
+        return s.getIp_overhead_upload_rate();
+    }
 
-            // the upload and download rate used by DHT traffic. Also the total number
-            // of bytes sent and received to and from the DHT.
-            int dht_upload_rate;
-            int dht_download_rate;
-            size_type total_dht_download;
-            size_type total_dht_upload;
+    /**
+     * The estimated TCP/IP overhead.
+     *
+     * @return
+     */
+    public int getIPOverheadDownloadRate() {
+        return s.getIp_overhead_download_rate();
+    }
 
+    /**
+     * The estimated TCP/IP overhead.
+     *
+     * @return
+     */
+    public long getTotalIPOverheadDownload() {
+        return s.getTotal_ip_overhead_download();
+    }
+
+    /**
+     * The estimated TCP/IP overhead.
+     *
+     * @return
+     */
+    public long getTotalIPOverheadUpload() {
+        return s.getTotal_ip_overhead_upload();
+    }
+
+    /**
+     * The upload rate used by DHT traffic.
+     *
+     * @return
+     */
+    public int getDHTUploadRate() {
+        return s.getDht_upload_rate();
+    }
+
+    /**
+     * The download rate used by DHT traffic.
+     *
+     * @return
+     */
+    public int getDHTDownloadRate() {
+        return s.getDht_download_rate();
+    }
+
+    /**
+     * The total number of bytes received from the DHT.
+     *
+     * @return
+     */
+    public long getTotalDHTDownload() {
+        return s.getTotal_dht_download();
+    }
+
+    /**
+     * The total number of bytes sent to the DHT.
+     *
+     * @return
+     */
+    public long getTotalDHTUpload() {
+        return s.getTotal_dht_upload();
+    }
+
+/*
             // the upload and download rate used by tracker traffic. Also the total number
             // of bytes sent and received to and from trackers.
             int tracker_upload_rate;
