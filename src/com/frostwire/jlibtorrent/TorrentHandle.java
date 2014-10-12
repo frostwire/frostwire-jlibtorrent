@@ -245,131 +245,133 @@ public final class TorrentHandle {
         th.auto_managed(value);
     }
 
-    // ``save_resume_data()`` generates fast-resume data and returns it as an
-    // entry. This entry is suitable for being bencoded. For more information
-    // about how fast-resume works, see fast-resume_.
-    //
-    // The ``flags`` argument is a bitmask of flags ORed together. see
-    // save_resume_flags_t
-    //
-    // This operation is asynchronous, ``save_resume_data`` will return
-    // immediately. The resume data is delivered when it's done through an
-    // save_resume_data_alert.
-    //
-    // The fast resume data will be empty in the following cases:
-    //
-    //	1. The torrent handle is invalid.
-    //	2. The torrent is checking (or is queued for checking) its storage, it
-    //	   will obviously not be ready to write resume data.
-    //	3. The torrent hasn't received valid metadata and was started without
-    //	   metadata (see libtorrent's metadata-from-peers_ extension)
-    //
-    // Note that by the time you receive the fast resume data, it may already
-    // be invalid if the torrent is still downloading! The recommended
-    // practice is to first pause the session, then generate the fast resume
-    // data, and then close it down. Make sure to not remove_torrent() before
-    // you receive the save_resume_data_alert though. There's no need to
-    // pause when saving intermittent resume data.
-    //
-    //.. warning::
-    //   If you pause every torrent individually instead of pausing the
-    //   session, every torrent will have its paused state saved in the
-    //   resume data!
-    //
-    //.. warning::
-    //   The resume data contains the modification timestamps for all files.
-    //   If one file has been modified when the torrent is added again, the
-    //   will be rechecked. When shutting down, make sure to flush the disk
-    //   cache before saving the resume data. This will make sure that the
-    //   file timestamps are up to date and won't be modified after saving
-    //   the resume data. The recommended way to do this is to pause the
-    //   torrent, which will flush the cache and disconnect all peers.
-    //
-    //.. note::
-    //   It is typically a good idea to save resume data whenever a torrent
-    //   is completed or paused. In those cases you don't need to pause the
-    //   torrent or the session, since the torrent will do no more writing to
-    //   its files. If you save resume data for torrents when they are
-    //   paused, you can accelerate the shutdown process by not saving resume
-    //   data again for paused torrents. Completed torrents should have their
-    //   resume data saved when they complete and on exit, since their
-    //   statistics might be updated.
-    //
-    //	In full allocation mode the reume data is never invalidated by
-    //	subsequent writes to the files, since pieces won't move around. This
-    //	means that you don't need to pause before writing resume data in full
-    //	or sparse mode. If you don't, however, any data written to disk after
-    //	you saved resume data and before the session closed is lost.
-    //
-    // It also means that if the resume data is out dated, libtorrent will
-    // not re-check the files, but assume that it is fairly recent. The
-    // assumption is that it's better to loose a little bit than to re-check
-    // the entire file.
-    //
-    // It is still a good idea to save resume data periodically during
-    // download as well as when closing down.
-    //
-    // Example code to pause and save resume data for all torrents and wait
-    // for the alerts:
-    //
-    // .. code:: c++
-    //
-    //	extern int outstanding_resume_data; // global counter of outstanding resume data
-    //	std::vector<torrent_handle> handles = ses.get_torrents();
-    //	ses.pause();
-    //	for (std::vector<torrent_handle>::iterator i = handles.begin();
-    //		i != handles.end(); ++i)
-    //	{
-    //		torrent_handle& h = *i;
-    //		if (!h.is_valid()) continue;
-    //		torrent_status s = h.status();
-    //		if (!s.has_metadata) continue;
-    //		if (!s.need_save_resume_data()) continue;
-    //
-    //		h.save_resume_data();
-    //		++outstanding_resume_data;
-    //	}
-    //
-    //	while (outstanding_resume_data > 0)
-    //	{
-    //		alert const* a = ses.wait_for_alert(seconds(10));
-    //
-    //		// if we don't get an alert within 10 seconds, abort
-    //		if (a == 0) break;
-    //
-    //		std::auto_ptr<alert> holder = ses.pop_alert();
-    //
-    //		if (alert_cast<save_resume_data_failed_alert>(a))
-    //		{
-    //			process_alert(a);
-    //			--outstanding_resume_data;
-    //			continue;
-    //		}
-    //
-    //		save_resume_data_alert const* rd = alert_cast<save_resume_data_alert>(a);
-    //		if (rd == 0)
-    //		{
-    //			process_alert(a);
-    //			continue;
-    //		}
-    //
-    //		torrent_handle h = rd->handle;
-    //		torrent_status st = h.status(torrent_handle::query_save_path | torrent_handle::query_name);
-    //		std::ofstream out((st.save_path
-    //			+ "/" + st.name + ".fastresume").c_str()
-    //			, std::ios_base::binary);
-    //		out.unsetf(std::ios_base::skipws);
-    //		bencode(std::ostream_iterator<char>(out), *rd->resume_data);
-    //		--outstanding_resume_data;
-    //	}
-    //
-    //.. note::
-    //	Note how ``outstanding_resume_data`` is a global counter in this
-    //	example. This is deliberate, otherwise there is a race condition for
-    //	torrents that was just asked to save their resume data, they posted
-    //	the alert, but it has not been received yet. Those torrents would
-    //	report that they don't need to save resume data again, and skipped by
-    //	the initial loop, and thwart the counter otherwise.
+    /**
+     * ``save_resume_data()`` generates fast-resume data and returns it as an
+     * entry. This entry is suitable for being bencoded. For more information
+     * about how fast-resume works, see fast-resume_.
+     * <p/>
+     * The ``flags`` argument is a bitmask of flags ORed together. see
+     * save_resume_flags_t
+     * <p/>
+     * This operation is asynchronous, ``save_resume_data`` will return
+     * immediately. The resume data is delivered when it's done through an
+     * save_resume_data_alert.
+     * <p/>
+     * The fast resume data will be empty in the following cases:
+     * <p/>
+     * 1. The torrent handle is invalid.
+     * 2. The torrent is checking (or is queued for checking) its storage, it
+     * will obviously not be ready to write resume data.
+     * 3. The torrent hasn't received valid metadata and was started without
+     * metadata (see libtorrent's metadata-from-peers_ extension)
+     * <p/>
+     * Note that by the time you receive the fast resume data, it may already
+     * be invalid if the torrent is still downloading! The recommended
+     * practice is to first pause the session, then generate the fast resume
+     * data, and then close it down. Make sure to not remove_torrent() before
+     * you receive the save_resume_data_alert though. There's no need to
+     * pause when saving intermittent resume data.
+     * <p/>
+     * .. warning::
+     * If you pause every torrent individually instead of pausing the
+     * session, every torrent will have its paused state saved in the
+     * resume data!
+     * <p/>
+     * .. warning::
+     * The resume data contains the modification timestamps for all files.
+     * If one file has been modified when the torrent is added again, the
+     * will be rechecked. When shutting down, make sure to flush the disk
+     * cache before saving the resume data. This will make sure that the
+     * file timestamps are up to date and won't be modified after saving
+     * the resume data. The recommended way to do this is to pause the
+     * torrent, which will flush the cache and disconnect all peers.
+     * <p/>
+     * .. note::
+     * It is typically a good idea to save resume data whenever a torrent
+     * is completed or paused. In those cases you don't need to pause the
+     * torrent or the session, since the torrent will do no more writing to
+     * its files. If you save resume data for torrents when they are
+     * paused, you can accelerate the shutdown process by not saving resume
+     * data again for paused torrents. Completed torrents should have their
+     * resume data saved when they complete and on exit, since their
+     * statistics might be updated.
+     * <p/>
+     * In full allocation mode the reume data is never invalidated by
+     * subsequent writes to the files, since pieces won't move around. This
+     * means that you don't need to pause before writing resume data in full
+     * or sparse mode. If you don't, however, any data written to disk after
+     * you saved resume data and before the session closed is lost.
+     * <p/>
+     * It also means that if the resume data is out dated, libtorrent will
+     * not re-check the files, but assume that it is fairly recent. The
+     * assumption is that it's better to loose a little bit than to re-check
+     * the entire file.
+     * <p/>
+     * It is still a good idea to save resume data periodically during
+     * download as well as when closing down.
+     * <p/>
+     * Example code to pause and save resume data for all torrents and wait
+     * for the alerts:
+     * <p/>
+     * .. code:: c++
+     * <p/>
+     * extern int outstanding_resume_data; // global counter of outstanding resume data
+     * std::vector<torrent_handle> handles = ses.get_torrents();
+     * ses.pause();
+     * for (std::vector<torrent_handle>::iterator i = handles.begin();
+     * i != handles.end(); ++i)
+     * {
+     * torrent_handle& h = *i;
+     * if (!h.is_valid()) continue;
+     * torrent_status s = h.status();
+     * if (!s.has_metadata) continue;
+     * if (!s.need_save_resume_data()) continue;
+     * <p/>
+     * h.save_resume_data();
+     * ++outstanding_resume_data;
+     * }
+     * <p/>
+     * while (outstanding_resume_data > 0)
+     * {
+     * alert const* a = ses.wait_for_alert(seconds(10));
+     * <p/>
+     * // if we don't get an alert within 10 seconds, abort
+     * if (a == 0) break;
+     * <p/>
+     * std::auto_ptr<alert> holder = ses.pop_alert();
+     * <p/>
+     * if (alert_cast<save_resume_data_failed_alert>(a))
+     * {
+     * process_alert(a);
+     * --outstanding_resume_data;
+     * continue;
+     * }
+     * <p/>
+     * save_resume_data_alert const* rd = alert_cast<save_resume_data_alert>(a);
+     * if (rd == 0)
+     * {
+     * process_alert(a);
+     * continue;
+     * }
+     * <p/>
+     * torrent_handle h = rd->handle;
+     * torrent_status st = h.status(torrent_handle::query_save_path | torrent_handle::query_name);
+     * std::ofstream out((st.save_path
+     * + "/" + st.name + ".fastresume").c_str()
+     * , std::ios_base::binary);
+     * out.unsetf(std::ios_base::skipws);
+     * bencode(std::ostream_iterator<char>(out), *rd->resume_data);
+     * --outstanding_resume_data;
+     * }
+     * <p/>
+     * .. note::
+     * Note how ``outstanding_resume_data`` is a global counter in this
+     * example. This is deliberate, otherwise there is a race condition for
+     * torrents that was just asked to save their resume data, they posted
+     * the alert, but it has not been received yet. Those torrents would
+     * report that they don't need to save resume data again, and skipped by
+     * the initial loop, and thwart the counter otherwise.
+     */
     public void saveResumeData() {
         th.save_resume_data(torrent_handle.save_resume_flags_t.save_info_dict.swigValue());
     }
