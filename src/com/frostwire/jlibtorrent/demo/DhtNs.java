@@ -119,11 +119,9 @@ public class DhtNs {
         return hex;
     }
 
+    /** returns 20 byte array out of the sha1 of the key given*/
     private static byte[] getDHTKey(String key) {
-        byte[] keySha1Hash = sha1(key);
-        byte[] result = new byte[Ed25519.SEED_SIZE];
-        System.arraycopy(keySha1Hash,0,result,0,32);
-        return result;
+        return sha1(key);
     }
 
     private static byte[] sha1(String str) {
@@ -144,7 +142,7 @@ public class DhtNs {
         /** I'm guessing the seed could be the hash of a secondary public key
          * for instance.
          */
-        byte[] seed = new byte[] { //length Ed25519.SEED_SIZE = 32 bytes
+        byte[] salt = new byte[] { //length Ed25519.SEED_SIZE = 32 bytes
             0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa,
             0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11, 0x12, 0x13, 0x14,
             0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d,
@@ -162,10 +160,10 @@ public class DhtNs {
 
         //Ed25519.createKeypair(publicKey, privateKey, seed);
 
-        System.out.println("seed:     " + toHex(seed));
+        System.out.println("salt:     " + toHex(salt));
         System.out.println("priv key: " + toHex(privateKey));
 
-        return new PrivateKey(privateKey, seed);
+        return new PrivateKey(privateKey, salt);
     }
 
     private static class PrivateKey {
