@@ -528,22 +528,14 @@ public final class TorrentHandle {
         th.force_dht_announce();
     }
 
-    // ``scrape_tracker()`` will send a scrape request to the tracker. A
-    // scrape request queries the tracker for statistics such as total number
-    // of incomplete peers, complete peers, number of downloads etc.
-    //
-    // This request will specifically update the ``num_complete`` and
-    // ``num_incomplete`` fields in the torrent_status struct once it
-    // completes. When it completes, it will generate a scrape_reply_alert.
-    // If it fails, it will generate a scrape_failed_alert.
-    public void scrapeTracker() {
-        th.scrape_tracker();
-    }
-
-    // ``trackers()`` will return the list of trackers for this torrent. The
-    // announce entry contains both a string ``url`` which specify the
-    // announce url for the tracker as well as an int ``tier``, which is
-    // specifies the order in which this tracker is tried.
+    /**
+     * Will return the list of trackers for this torrent. The
+     * announce entry contains both a string ``url`` which specify the
+     * announce url for the tracker as well as an int ``tier``, which is
+     * specifies the order in which this tracker is tried.
+     *
+     * @return
+     */
     public List<AnnounceEntry> getTrackers() {
         announce_entry_vector v = th.trackers();
         int size = (int) v.size();
@@ -554,6 +546,20 @@ public final class TorrentHandle {
         }
 
         return list;
+    }
+
+    /**
+     * Will send a scrape request to the tracker. A
+     * scrape request queries the tracker for statistics such as total number
+     * of incomplete peers, complete peers, number of downloads etc.
+     * <p/>
+     * This request will specifically update the ``num_complete`` and
+     * ``num_incomplete`` fields in the torrent_status struct once it
+     * completes. When it completes, it will generate a scrape_reply_alert.
+     * If it fails, it will generate a scrape_failed_alert.
+     */
+    public void scrapeTracker() {
+        th.scrape_tracker();
     }
 
     // If you want
@@ -586,6 +592,50 @@ public final class TorrentHandle {
     // data will replace the original ones.
     public void addTracker(AnnounceEntry tracker) {
         th.add_tracker(tracker.getSwig());
+    }
+
+    // ``add_url_seed()`` adds another url to the torrent's list of url
+    // seeds. If the given url already exists in that list, the call has no
+    // effect. The torrent will connect to the server and try to download
+    // pieces from it, unless it's paused, queued, checking or seeding.
+    // ``remove_url_seed()`` removes the given url if it exists already.
+    // ``url_seeds()`` return a set of the url seeds currently in this
+    // torrent. Note that urls that fails may be removed automatically from
+    // the list.
+    //
+    // See http-seeding_ for more information.
+    public void addUrlSeed(String url) {
+        th.add_url_seed(url);
+    }
+
+    // ``add_url_seed()`` adds another url to the torrent's list of url
+    // seeds. If the given url already exists in that list, the call has no
+    // effect. The torrent will connect to the server and try to download
+    // pieces from it, unless it's paused, queued, checking or seeding.
+    // ``remove_url_seed()`` removes the given url if it exists already.
+    // ``url_seeds()`` return a set of the url seeds currently in this
+    // torrent. Note that urls that fails may be removed automatically from
+    // the list.
+    //
+    // See http-seeding_ for more information.
+    public void removeUrlSeed(String url) {
+        th.remove_url_seed(url);
+    }
+
+    // These functions are identical as the ``*_url_seed()`` variants, but
+    // they operate on `BEP 17`_ web seeds instead of `BEP 19`_.
+    //
+    // See http-seeding_ for more information.
+    public void addHttpSeed(String url) {
+        th.add_url_seed(url);
+    }
+
+    // These functions are identical as the ``*_url_seed()`` variants, but
+    // they operate on `BEP 17`_ web seeds instead of `BEP 19`_.
+    //
+    // See http-seeding_ for more information.
+    public void removeHttpSeed(String url) {
+        th.remove_http_seed(url);
     }
 
     /**

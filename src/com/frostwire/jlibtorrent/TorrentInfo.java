@@ -3,6 +3,8 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the information stored in a .torrent file
@@ -78,6 +80,124 @@ public final class TorrentInfo {
     }
 
     /**
+     * Adds one url to the list of url seeds. Currently, the only transport protocol supported for the url
+     * is http.
+     *
+     * @param url
+     */
+    public void addUrlSeed(String url) {
+        ti.add_url_seed(url);
+    }
+
+    /**
+     * Adds one url to the list of url seeds. Currently, the only transport protocol supported for the url
+     * is http.
+     * <p/>
+     * The ``extern_auth`` argument can be used for other athorization schemese than
+     * basic HTTP authorization. If set, it will override any username and password
+     * found in the URL itself. The string will be sent as the HTTP authorization header's
+     * value (without specifying "Basic").
+     *
+     * @param url
+     * @param externAuth
+     */
+    public void addUrlSeed(String url, String externAuth) {
+        ti.add_url_seed(url, externAuth);
+    }
+
+    /**
+     * Adds one url to the list of url seeds. Currently, the only transport protocol supported for the url
+     * is http.
+     * <p/>
+     * he ``extern_auth`` argument can be used for other athorization schemese than
+     * basic HTTP authorization. If set, it will override any username and password
+     * found in the URL itself. The string will be sent as the HTTP authorization header's
+     * value (without specifying "Basic").
+     * <p/>
+     * The ``extra_headers`` argument defaults to an empty list, but can be used to
+     * insert custom HTTP headers in the requests to a specific web seed.
+     *
+     * @param url
+     * @param externAuth
+     * @param extraHeaders
+     */
+    public void addUrlSeed(String url, String externAuth, List<Pair<String, String>> extraHeaders) {
+        string_string_pair_vector v = new string_string_pair_vector();
+        for (int i = 0; i < extraHeaders.size(); i++) {
+            v.add(extraHeaders.get(i).to_string_string_pair());
+        }
+        ti.add_url_seed(url, externAuth, v);
+    }
+
+    /**
+     * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
+     * is http.
+     *
+     * @param url
+     */
+    public void addHttpSeed(String url) {
+        ti.add_url_seed(url);
+    }
+
+    /**
+     * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
+     * is http.
+     * <p/>
+     * The ``extern_auth`` argument can be used for other athorization schemese than
+     * basic HTTP authorization. If set, it will override any username and password
+     * found in the URL itself. The string will be sent as the HTTP authorization header's
+     * value (without specifying "Basic").
+     *
+     * @param url
+     * @param externAuth
+     */
+    public void addHttpSeed(String url, String externAuth) {
+        ti.add_url_seed(url, externAuth);
+    }
+
+    /**
+     * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
+     * is http.
+     * <p/>
+     * he ``extern_auth`` argument can be used for other athorization schemese than
+     * basic HTTP authorization. If set, it will override any username and password
+     * found in the URL itself. The string will be sent as the HTTP authorization header's
+     * value (without specifying "Basic").
+     * <p/>
+     * The ``extra_headers`` argument defaults to an empty list, but can be used to
+     * insert custom HTTP headers in the requests to a specific web seed.
+     *
+     * @param url
+     * @param externAuth
+     * @param extraHeaders
+     */
+    public void addHttpSeed(String url, String externAuth, List<Pair<String, String>> extraHeaders) {
+        string_string_pair_vector v = new string_string_pair_vector();
+        for (int i = 0; i < extraHeaders.size(); i++) {
+            v.add(extraHeaders.get(i).to_string_string_pair());
+        }
+        ti.add_url_seed(url, externAuth, v);
+    }
+
+    /**
+     * returns all url seeds and http seeds in the torrent. Each entry
+     * is a ``web_seed_entry`` and may refer to either a url seed or http seed.
+     *
+     * @return
+     */
+    public List<WebSeedEntry> getWebSeeds() {
+        web_seed_entry_vector v = ti.web_seeds();
+        int size = (int) v.size();
+
+        List<WebSeedEntry> l = new ArrayList<WebSeedEntry>(size);
+        for (int i = 0; i < size; i++) {
+            l.add(new WebSeedEntry(v.get(i)));
+        }
+
+        return l;
+    }
+
+    /**
      * The total number of bytes the torrent-file represents (all the files in it).
      *
      * @return
@@ -140,6 +260,17 @@ public final class TorrentInfo {
      */
     public FileStorage getFiles() {
         return new FileStorage(ti.files());
+    }
+
+    /**
+     * returns the original (unmodified) file storage for this torrent. This
+     * is used by the web server connection, which needs to request files with the original
+     * names. Filename may be chaged using ``torrent_info::rename_file()``.
+     *
+     * @return
+     */
+    public FileStorage getOrigFiles() {
+        return new FileStorage(ti.orig_files());
     }
 
     /**
