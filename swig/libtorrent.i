@@ -207,11 +207,11 @@ public:
 %include <std_auto_ptr.i>
 %include <std_string.i>
 %include <std_pair.i>
-%include <std_map.i>
 %include <std_deque.i>
 %include <enums.swg>
 
 %include "std_vector2.i"
+%include "std_map2.i"
 %include "std_list.i"
 %include "boost.i"
 
