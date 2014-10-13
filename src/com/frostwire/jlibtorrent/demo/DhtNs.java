@@ -1,16 +1,12 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.Ed25519;
 import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.Session;
-import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.DhtBootstrapAlert;
-import com.frostwire.jlibtorrent.alerts.DhtGetPeersAlert;
-import com.frostwire.jlibtorrent.alerts.DhtPutAlert;
+import com.frostwire.jlibtorrent.Vectors;
+import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.entry_vector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +14,7 @@ import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -52,34 +49,93 @@ public class DhtNs {
                 lt_entry.list_v().add(ipStringEntry);
             }
 
-            s.dhtPutItem(getDHTKey("ob://foo.dont.squat.here.com"),
+            byte[] dhtKey = getDHTKey(name);
+            String dhtHexKey = toHex(dhtKey);
+            System.out.println("register " + name + " (" + dhtHexKey+ ")");
+
+            Entry entry = new Entry(lt_entry);
+            System.out.println(entryToBencodedString(entry));
+
+            s.dhtPutItem(dhtKey,
                     keys.getPrivateKey(),
-                    new Entry(lt_entry),
+                    entry,
                     toHex(keys.getSalt()));
+        }
+    }
+
+    public static void checkName(final Session s, final String name) {
+        if (!s.isDHTRunning()) {
+            System.out.println("Wait a little longer, connecting to the DHT...");
+        }  else {
+            byte[] dhtKey = getDHTKey(name);
+            String dhtHexKey = toHex(dhtKey);
+            System.out.println("check " + name + " (" + dhtHexKey+ ")");
+            s.dhtGetItem(dhtKey);
         }
     }
 
     public static void main(String[] args) throws IOException {
         final long dht_bootstrap_time_start = System.currentTimeMillis();
         final Session s = new Session();
+        s.stopUPnP();
+
+        final HashMap<String, Alert> keyAlertMap = new HashMap<String, Alert>();
+
         s.addListener(new AlertListener() {
             @Override
             public void alert(Alert<?> alert) {
+                String alertType = alert.getType().toString();
+                if (alertType.equals("PORTMAP_LOG") ||
+                    alertType.equals("EXTERNAL_IP") ||
+                    alertType.equals("LISTEN_SUCCEEDED") ||
+                    alertType.equals("DHT_GET_PEERS")) {
+                    return;
+                }
+
                 System.out.println("");
-                System.out.println(alert.getSwig().message());
+                System.out.println(alert.getType().toString() + ": " + alert.getSwig().message());
 
-                if (alert instanceof DhtBootstrapAlert) {
-                    final long dht_bootstrap_time_end = System.currentTimeMillis();
-                    final long dht_bootstrap_time = dht_bootstrap_time_end - dht_bootstrap_time_start;
-                    System.out.println("\nConnected to the DHT network in " + dht_bootstrap_time + " ms");
+                if (alert instanceof DhtBootstrapAlert ||
+                        alert instanceof DhtPutAlert ||
+                        alert instanceof DhtReplyAlert) {
+
+                    if (alert instanceof DhtBootstrapAlert) {
+                        DhtBootstrapAlert bstrap = (DhtBootstrapAlert) alert;
+                        System.out.println("DhtBoostrapAlert: " + bstrap.getSwig().message());
+                        final long dht_bootstrap_time_end = System.currentTimeMillis();
+                        final long dht_bootstrap_time = dht_bootstrap_time_end - dht_bootstrap_time_start;
+                        System.out.println("\nConnected to the DHT network in " + dht_bootstrap_time + " ms");
+                    }
+
+                    if (alert instanceof DhtPutAlert) {
+                        DhtPutAlert put = (DhtPutAlert) alert;
+                        System.out.println("DHT put alert with public key: " + toHex(put.getPublicKey()) + "\n");
+                    }
+
+                    if (alert instanceof DhtReplyAlert) {
+                        DhtReplyAlert reply = (DhtReplyAlert) alert;
+                        System.out.println("DHT reply alert getUrl() => " + reply.getUrl());
+                    }
+
+                    if (alert instanceof DhtImmutableItemAlert) {
+                        DhtImmutableItemAlert immutableAlert = (DhtImmutableItemAlert) alert;
+                        Entry item = immutableAlert.getItem();
+                        String itemStr = new String(item.bencode());
+                        System.out.println("DHT Immutable Item Alert (" + immutableAlert.getSwig().getTarget().to_hex() +") => " + itemStr);
+                        System.out.println(entryToBencodedString(item));
+                    }
+
+                    if (alert instanceof DhtMutableItemAlert) {
+                        DhtMutableItemAlert mutableAlert = (DhtMutableItemAlert) alert;
+                        Entry item = mutableAlert.getItem();
+                        String itemStr = new String(item.bencode());
+                        char_vector key_char_vector = mutableAlert.getSwig().key_v();
+                        byte[] keyInBytes = new byte[(int) key_char_vector.size()];
+                        Vectors.char_vector2bytes(key_char_vector, keyInBytes);
+                        System.out.println("DHT Mutable Item Alert (" + toHex(keyInBytes)  +") => " + itemStr);
+                        System.out.println(entryToBencodedString(item));
+                    }
                 }
-
-                if (alert instanceof DhtPutAlert) {
-                    DhtPutAlert put = (DhtPutAlert) alert;
-                    System.out.println("DHT put alert with public key:");
-                    System.out.println(toHex(put.getPublicKey()));
-                }
-
             }
         });
 
@@ -90,15 +146,29 @@ public class DhtNs {
             System.out.print("$ ");//prompt
             String line = br.readLine().trim();
             if (line.contains("quit")) {
+                s.stopDHT();
+                System.out.println("stop DHT");
+                s.stopLSD();
+                System.out.println("stop LSD");
+                s.stopNATPMP();
+                System.out.println("stop NATPMP");
                 break;
             } else if (line.startsWith("?") || line.toLowerCase().startsWith("help")) {
                 System.out.println("Commands: register <name>, check <name>, quit");
             } else if (line.toLowerCase().startsWith("register")) {
                 String[] split = line.split(" ");
-                String name = split[1].trim();
-                List<String> servers = new ArrayList<String>();
-                servers.add("127.0.0.1");
-                registerName(s, "foo://" + name, servers, createPrivateKey());
+                if (split.length > 1) {
+                    String name = split[1].trim();
+                    List<String> servers = new ArrayList<String>();
+                    servers.add("127.0.0.1");
+                    registerName(s, "foo://" + name, servers, createPrivateKey());
+                }
+            } else if (line.toLowerCase().startsWith("check")) {
+                String[] split = line.split(" ");
+                if (split.length > 1) {
+                    String name = split[1].trim();
+                    checkName(s, name);
+                }
             } else if (!line.isEmpty()) {
                 System.out.println("Invalid command: " + line);
                 System.out.println("Try ? for help");
@@ -133,6 +203,10 @@ public class DhtNs {
         }
         digest.update(str.getBytes());
         return digest.digest();
+    }
+
+    private static String entryToBencodedString(Entry e) {
+        return new String(e.bencode());
     }
 
     /**
