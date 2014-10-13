@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.entry_list;
 import com.frostwire.jlibtorrent.swig.entry_vector;
 
 import java.io.File;
@@ -27,11 +28,11 @@ public final class PartialDownload {
         byte[] data = Utils.readFileToByteArray(torrentFile);
         entry e = entry.bdecode(Vectors.bytes2char_vector(data));
 
-        entry_vector files = e.find_key("info").find_key("files").list_v();
+        entry_vector files = e.find_key("info").find_key("files").list().to_vector();
 
         System.out.println("Files inside the torrent");
         for (int i = 0; i < files.size(); i++) {
-            System.out.println(files.get(i).find_key("path").list_v().get(0).to_string());
+            System.out.println(files.get(i).find_key("path").list().front().to_string());
         }
 
         // Download only the first file

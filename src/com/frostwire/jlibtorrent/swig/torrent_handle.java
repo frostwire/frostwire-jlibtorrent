@@ -376,14 +376,6 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_op_lt(swigCPtr, this, torrent_handle.getCPtr(h), h);
   }
 
-  public string_vector http_seeds_v() {
-    return new string_vector(libtorrent_jni.torrent_handle_http_seeds_v(swigCPtr, this), true);
-  }
-
-  public string_vector url_seeds_v() {
-    return new string_vector(libtorrent_jni.torrent_handle_url_seeds_v(swigCPtr, this), true);
-  }
-
   public enum flags_t {
     overwrite_existing(libtorrent_jni.torrent_handle_overwrite_existing_get());
 

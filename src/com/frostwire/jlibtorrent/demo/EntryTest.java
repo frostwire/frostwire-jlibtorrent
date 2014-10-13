@@ -2,7 +2,9 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.Entry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +23,13 @@ public final class EntryTest {
 
         Entry e = Entry.fromMap(m);
 
+        List<Object> l = new ArrayList<Object>();
+
+        l.add("l1");
+        l.add("l2");
+
         m.put("m", e);
+        m.put("l", l);
 
         e = Entry.fromMap(m);
 

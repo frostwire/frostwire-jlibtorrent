@@ -42,11 +42,11 @@ public class DhtNs {
             System.out.println("Wait a little longer, connecting to the DHT...");
         } else {
             entry lt_entry = new entry(entry.data_type.list_t);
-            lt_entry.list_v().reserve(serverIps.size());
+            //lt_entry.list_v().reserve(serverIps.size());
 
             for (String ip : serverIps) {
                 entry ipStringEntry = new entry(ip);
-                lt_entry.list_v().add(ipStringEntry);
+                lt_entry.list().push_back(ipStringEntry);
             }
 
             byte[] dhtKey = getDHTKey(name);

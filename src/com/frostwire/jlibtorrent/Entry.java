@@ -1,8 +1,10 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.entry_list;
 import com.frostwire.jlibtorrent.swig.string_entry_map;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,6 +48,31 @@ public final class Entry {
         return new Entry(entry.bdecode(Vectors.bytes2char_vector(data)));
     }
 
+    public static Entry fromList(List<?> list) {
+        entry e = new entry(entry.data_type.list_t);
+
+        entry_list d = e.list();
+        for (Object v : list) {
+            if (v instanceof String) {
+                d.push_back(new entry((String) v));
+            } else if (v instanceof Integer) {
+                d.push_back(new entry((Integer) v));
+            } else if (v instanceof Entry) {
+                d.push_back(((Entry) v).getSwig());
+            } else if (v instanceof entry) {
+                d.push_back((entry) v);
+            } else if (v instanceof List) {
+                d.push_back(fromList((List<?>) v).getSwig());
+            } else if (v instanceof Map) {
+                d.push_back(fromMap((Map<?, ?>) v).getSwig());
+            } else {
+                d.push_back(new entry(v.toString()));
+            }
+        }
+
+        return new Entry(e);
+    }
+
     public static Entry fromMap(Map<?, ?> map) {
         entry e = new entry(entry.data_type.dictionary_t);
 
@@ -62,6 +89,8 @@ public final class Entry {
                 d.set(k, ((Entry) v).getSwig());
             } else if (v instanceof entry) {
                 d.set(k, (entry) v);
+            } else if (v instanceof List) {
+                d.set(k, fromList((List<?>) v).getSwig());
             } else if (v instanceof Map) {
                 d.set(k, fromMap((Map<?, ?>) v).getSwig());
             } else {

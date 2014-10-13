@@ -212,6 +212,7 @@ public:
 %include <enums.swg>
 
 %include "std_vector2.i"
+%include "std_list.i"
 %include "boost.i"
 
 %intrusive_ptr(libtorrent::torrent_info)
@@ -271,6 +272,8 @@ namespace std {
     %template(peer_entry_vector) vector<libtorrent::peer_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
+
+    %template(entry_list) list<libtorrent::entry>;
 
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
@@ -450,12 +453,10 @@ namespace std {
 %ignore libtorrent::sha1_hash::end;
 %ignore libtorrent::sha1_hash::operator[];
 %ignore libtorrent::sha1_hash::assign(char const *);
-%ignore libtorrent::entry::entry(entry const&);
-%ignore libtorrent::entry::entry(list_type const&);
-%ignore libtorrent::entry::list;
 %ignore libtorrent::entry::integer() const;
 %ignore libtorrent::entry::string() const;
 %ignore libtorrent::entry::dict() const;
+%ignore libtorrent::entry::list() const;
 %ignore libtorrent::entry::find_key(std::string const &) const;
 %ignore libtorrent::entry::find_key(char const *);
 %ignore libtorrent::entry::find_key(char const *) const;
@@ -685,12 +686,6 @@ namespace libtorrent {
         return buffer;
     }
 
-    std::vector<entry> list_v() {
-        std::list<entry> l = $self->list();
-        std::vector<entry> v(l.begin(), l.end());
-        return v;
-    }
-
     static entry bdecode(std::vector<char> buffer) {
         return bdecode(buffer.begin(), buffer.end());
     }
@@ -699,20 +694,6 @@ namespace libtorrent {
 %extend lazy_entry {
     static int bdecode(std::vector<char>& buffer, lazy_entry& e, error_code& ec) {
         return lazy_bdecode(&buffer[0], &buffer[0] + buffer.size(), e, ec);
-    }
-};
-
-%extend torrent_handle {
-    std::vector<std::string> http_seeds_v() {
-        std::set<std::string> s = $self->http_seeds();
-        std::vector<std::string> v(s.begin(), s.end());
-        return v;
-    }
-
-    std::vector<std::string> url_seeds_v() {
-        std::set<std::string> s = $self->url_seeds();
-        std::vector<std::string> v(s.begin(), s.end());
-        return v;
     }
 };
 

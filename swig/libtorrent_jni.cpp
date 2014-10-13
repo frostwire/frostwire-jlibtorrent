@@ -458,6 +458,10 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 #include <stdexcept>
 
 
+#include <list>
+#include <stdexcept>
+
+
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/address_v4.hpp>
 #include <boost/asio/ip/address_v6.hpp>
@@ -843,6 +847,10 @@ SWIGINTERN void std_vector_Sl_libtorrent_peer_list_entry_Sg__set(std::vector< li
                 else
                     throw std::out_of_range("vector index out of range");
             }
+SWIGINTERN std::vector< libtorrent::entry > std_list_Sl_libtorrent_entry_Sg__to_vector(std::list< libtorrent::entry > *self){
+                    std::vector<libtorrent::entry> v(self->begin(), self->end());
+                    return v;
+                }
 SWIGINTERN long const &std_map_Sl_std_string_Sc_long_Sg__get(std::map< std::string,long > *self,std::string const &key){
                 std::map<std::string,long >::iterator i = self->find(key);
                 if (i != self->end())
@@ -970,11 +978,6 @@ SWIGINTERN std::vector< char > libtorrent_entry_bencode(libtorrent::entry *self)
         libtorrent::bencode(std::back_inserter(buffer), *self);
         return buffer;
     }
-SWIGINTERN std::vector< libtorrent::entry > libtorrent_entry_list_v(libtorrent::entry *self){
-        std::list<entry> l = self->list();
-        std::vector<entry> v(l.begin(), l.end());
-        return v;
-    }
 SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< char > buffer){
         return bdecode(buffer.begin(), buffer.end());
     }
@@ -994,16 +997,6 @@ template<class T> struct SWIG_intrusive_deleter {
 
 SWIGINTERN time_t libtorrent_torrent_info_get_creation_date(libtorrent::torrent_info *self){
         return self->creation_date().get_value_or(0);
-    }
-SWIGINTERN std::vector< std::string > libtorrent_torrent_handle_http_seeds_v(libtorrent::torrent_handle *self){
-        std::set<std::string> s = self->http_seeds();
-        std::vector<std::string> v(s.begin(), s.end());
-        return v;
-    }
-SWIGINTERN std::vector< std::string > libtorrent_torrent_handle_url_seeds_v(libtorrent::torrent_handle *self){
-        std::set<std::string> s = self->url_seeds();
-        std::vector<std::string> v(s.begin(), s.end());
-        return v;
     }
 SWIGINTERN long long libtorrent_add_torrent_params_getFlags(libtorrent::add_torrent_params *self){
         return (long long)self->flags;
@@ -16255,6 +16248,488 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1list(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  std::list< libtorrent::entry > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (std::list< libtorrent::entry > *)new std::list< libtorrent::entry >();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::list< libtorrent::entry > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1isEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      result = (bool)((std::list< libtorrent::entry > const *)arg1)->empty();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  std::list< libtorrent::entry >::size_type result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      result = ((std::list< libtorrent::entry > const *)arg1)->size();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1max_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  std::list< libtorrent::entry >::size_type result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      result = ((std::list< libtorrent::entry > const *)arg1)->max_size();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1front(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  std::list< libtorrent::entry >::value_type *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      result = (std::list< libtorrent::entry >::value_type *) &(arg1)->front();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(boost::shared_ptr< const libtorrent::entry > **)&jresult = new boost::shared_ptr< const libtorrent::entry >(result SWIG_NO_NULL_DELETER_0); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1back(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  std::list< libtorrent::entry >::value_type *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      result = (std::list< libtorrent::entry >::value_type *) &(arg1)->back();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(boost::shared_ptr< const libtorrent::entry > **)&jresult = new boost::shared_ptr< const libtorrent::entry >(result SWIG_NO_NULL_DELETER_0); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1push_1front(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  std::list< libtorrent::entry >::value_type *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  
+  arg2 = (std::list< libtorrent::entry >::value_type *)((*(boost::shared_ptr< const libtorrent::entry > **)&jarg2) ? (*(boost::shared_ptr< const libtorrent::entry > **)&jarg2)->get() : 0);
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::list< libtorrent::entry >::value_type const & reference is null");
+    return ;
+  } 
+  {
+    try {
+      (arg1)->push_front((std::list< libtorrent::entry >::value_type const &)*arg2);
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return ;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return ;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1pop_1front(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      (arg1)->pop_front();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return ;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return ;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1push_1back(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  std::list< libtorrent::entry >::value_type *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  
+  arg2 = (std::list< libtorrent::entry >::value_type *)((*(boost::shared_ptr< const libtorrent::entry > **)&jarg2) ? (*(boost::shared_ptr< const libtorrent::entry > **)&jarg2)->get() : 0);
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::list< libtorrent::entry >::value_type const & reference is null");
+    return ;
+  } 
+  {
+    try {
+      (arg1)->push_back((std::list< libtorrent::entry >::value_type const &)*arg2);
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return ;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return ;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1pop_1back(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      (arg1)->pop_back();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return ;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return ;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      (arg1)->clear();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return ;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return ;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1to_1vector(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  std::vector< libtorrent::entry > result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      result = std_list_Sl_libtorrent_entry_Sg__to_vector(arg1);
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< libtorrent::entry > **)&jresult = new std::vector< libtorrent::entry >((const std::vector< libtorrent::entry > &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1entry_1list(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  std::list< libtorrent::entry > *arg1 = (std::list< libtorrent::entry > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(std::list< libtorrent::entry > **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return ;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return ;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return ;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1string_1long_1map_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   std::map< std::string,long > *result = 0 ;
@@ -26885,7 +27360,51 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::entry::list_type *arg1 = 0 ;
+  libtorrent::entry *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::entry::list_type **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::entry::list_type const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (libtorrent::entry *)new libtorrent::entry((libtorrent::entry::list_type const &)*arg1);
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  
+  *(boost::shared_ptr<  libtorrent::entry > **)&jresult = result ? new boost::shared_ptr<  libtorrent::entry >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   libtorrent::entry::integer_type *arg1 = 0 ;
   libtorrent::entry::integer_type temp1 ;
@@ -26926,7 +27445,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jint jarg1) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jlong jresult = 0 ;
   libtorrent::entry::data_type arg1 ;
   libtorrent::entry *result = 0 ;
@@ -26965,7 +27484,52 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_14(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_15(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::entry *arg1 = 0 ;
+  libtorrent::entry *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  
+  arg1 = (libtorrent::entry *)((*(boost::shared_ptr< const libtorrent::entry > **)&jarg1) ? (*(boost::shared_ptr< const libtorrent::entry > **)&jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::entry const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (libtorrent::entry *)new libtorrent::entry((libtorrent::entry const &)*arg1);
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  
+  *(boost::shared_ptr<  libtorrent::entry > **)&jresult = result ? new boost::shared_ptr<  libtorrent::entry >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_16(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   libtorrent::entry *result = 0 ;
   
@@ -27214,6 +27778,47 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_e
     }
   }
   jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::entry *arg1 = (libtorrent::entry *) 0 ;
+  boost::shared_ptr< libtorrent::entry > *smartarg1 = 0 ;
+  libtorrent::entry::list_type *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  
+  smartarg1 = *(boost::shared_ptr<  libtorrent::entry > **)&jarg1;
+  arg1 = (libtorrent::entry *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try {
+      result = (libtorrent::entry::list_type *) &(arg1)->list();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(libtorrent::entry::list_type **)&jresult = result; 
   return jresult;
 }
 
@@ -27520,47 +28125,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ent
     }
   }
   *(std::vector< char > **)&jresult = new std::vector< char >((const std::vector< char > &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1list_1v(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::entry *arg1 = (libtorrent::entry *) 0 ;
-  boost::shared_ptr< libtorrent::entry > *smartarg1 = 0 ;
-  std::vector< libtorrent::entry > result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  
-  smartarg1 = *(boost::shared_ptr<  libtorrent::entry > **)&jarg1;
-  arg1 = (libtorrent::entry *)(smartarg1 ? smartarg1->get() : 0); 
-  {
-    try {
-      result = libtorrent_entry_list_v(arg1);
-    } catch (const std::out_of_range &e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-      return 0;
-    } catch (const std::bad_alloc &e) {
-      //translate OOM C++ exception to a Java exception
-      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-      return 0;
-    } catch (const std::ios_base::failure &e) {
-      //translate IO C++ exception to a Java exception
-      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
-      return 0;
-    } catch (const std::exception &e) {
-      //translate unknown C++ exception to a Java exception
-      new_java_error(jenv, e.what());
-      return 0;
-    } catch (...) {
-      //translate unknown C++ exception to a Java exception
-      new_java_error(jenv, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< libtorrent::entry > **)&jresult = new std::vector< libtorrent::entry >((const std::vector< libtorrent::entry > &)result); 
   return jresult;
 }
 
@@ -41310,82 +41874,6 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
     }
   }
   jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1http_1seeds_1v(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
-  std::vector< std::string > result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::torrent_handle **)&jarg1; 
-  {
-    try {
-      result = libtorrent_torrent_handle_http_seeds_v(arg1);
-    } catch (const std::out_of_range &e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-      return 0;
-    } catch (const std::bad_alloc &e) {
-      //translate OOM C++ exception to a Java exception
-      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-      return 0;
-    } catch (const std::ios_base::failure &e) {
-      //translate IO C++ exception to a Java exception
-      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
-      return 0;
-    } catch (const std::exception &e) {
-      //translate unknown C++ exception to a Java exception
-      new_java_error(jenv, e.what());
-      return 0;
-    } catch (...) {
-      //translate unknown C++ exception to a Java exception
-      new_java_error(jenv, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< std::string > **)&jresult = new std::vector< std::string >((const std::vector< std::string > &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1url_1seeds_1v(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
-  std::vector< std::string > result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::torrent_handle **)&jarg1; 
-  {
-    try {
-      result = libtorrent_torrent_handle_url_seeds_v(arg1);
-    } catch (const std::out_of_range &e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-      return 0;
-    } catch (const std::bad_alloc &e) {
-      //translate OOM C++ exception to a Java exception
-      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-      return 0;
-    } catch (const std::ios_base::failure &e) {
-      //translate IO C++ exception to a Java exception
-      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
-      return 0;
-    } catch (const std::exception &e) {
-      //translate unknown C++ exception to a Java exception
-      new_java_error(jenv, e.what());
-      return 0;
-    } catch (...) {
-      //translate unknown C++ exception to a Java exception
-      new_java_error(jenv, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< std::string > **)&jresult = new std::vector< std::string >((const std::vector< std::string > &)result); 
   return jresult;
 }
 
