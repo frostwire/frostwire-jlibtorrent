@@ -39,6 +39,10 @@ public final class Entry {
         return Vectors.char_vector2bytes(e.bencode());
     }
 
+    public String bencodedString() {
+        return new String(bencode());
+    }
+
     @Override
     public String toString() {
         return e.to_string();
