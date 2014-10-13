@@ -315,7 +315,6 @@ namespace std {
 %ignore libtorrent::hash_value;
 %ignore libtorrent::cork;
 %ignore libtorrent::detail::add_files_impl;
-%ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::generic_category;
 %ignore libtorrent::torrent;
 %ignore libtorrent::alert_manager;
@@ -494,10 +493,9 @@ namespace std {
 %ignore libtorrent::lazy_dict_entry;
 %ignore libtorrent::disabled_storage;
 %ignore libtorrent::invalid_encoding;
+%ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
-%ignore libtorrent::bdecode_errors::error_code_enum;
 %ignore libtorrent::upnp_errors::make_error_code;
-%ignore libtorrent::upnp_errors::error_code_enum;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -533,12 +531,18 @@ namespace std {
 %rename(op_gt) operator>;
 %rename(op_get_at) operator[];
 
+%rename(errors) libtorrent::errors::error_code_enum;
+%rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
+%rename(upnp_errors) libtorrent::upnp_errors::error_code_enum;
+
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/ptime.hpp"
 %include "libtorrent/size_type.hpp"
+%javaconst(1);
 %include "libtorrent/error_code.hpp"
+%javaconst(0);
 %include "libtorrent/fingerprint.hpp"
 %include "libtorrent/bitfield.hpp"
 %include "libtorrent/stat.hpp"
@@ -573,7 +577,9 @@ namespace std {
 %include "libtorrent/bt_peer_connection.hpp"
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
+%javaconst(1);
 %include "libtorrent/lazy_entry.hpp"
+%javaconst(0);
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/tracker_manager.hpp"
 %include "libtorrent/time.hpp"
@@ -581,7 +587,9 @@ namespace std {
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
+%javaconst(1);
 %include "libtorrent/upnp.hpp"
+%javaconst(0);
 
 namespace libtorrent {
     

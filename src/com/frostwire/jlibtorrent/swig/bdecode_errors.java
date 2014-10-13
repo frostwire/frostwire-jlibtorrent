@@ -8,52 +8,44 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum http_errors {
-  cont(100),
-  ok(200),
-  created(201),
-  accepted(202),
-  no_content(204),
-  multiple_choices(300),
-  moved_permanently(301),
-  moved_temporarily(302),
-  not_modified(304),
-  bad_request(400),
-  unauthorized(401),
-  forbidden(403),
-  not_found(404),
-  internal_server_error(500),
-  not_implemented(501),
-  bad_gateway(502),
-  service_unavailable(503);
+public enum bdecode_errors {
+  no_error(0),
+  expected_string,
+  expected_colon,
+  unexpected_eof,
+  expected_value,
+  depth_exceeded,
+  limit_exceeded,
+  overflow,
+  error_code_max;
 
   public final int swigValue() {
     return swigValue;
   }
 
-  public static http_errors swigToEnum(int swigValue) {
-    http_errors[] swigValues = http_errors.class.getEnumConstants();
+  public static bdecode_errors swigToEnum(int swigValue) {
+    bdecode_errors[] swigValues = bdecode_errors.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (http_errors swigEnum : swigValues)
+    for (bdecode_errors swigEnum : swigValues)
       if (swigEnum.swigValue == swigValue)
         return swigEnum;
-    throw new IllegalArgumentException("No enum " + http_errors.class + " with value " + swigValue);
+    throw new IllegalArgumentException("No enum " + bdecode_errors.class + " with value " + swigValue);
   }
 
   @SuppressWarnings("unused")
-  private http_errors() {
+  private bdecode_errors() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private http_errors(int swigValue) {
+  private bdecode_errors(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private http_errors(http_errors swigEnum) {
+  private bdecode_errors(bdecode_errors swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

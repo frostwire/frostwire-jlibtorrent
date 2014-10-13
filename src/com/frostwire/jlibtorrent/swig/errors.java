@@ -8,8 +8,8 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum error_code_enum {
-  no_error(libtorrent_jni.no_error_get()),
+public enum errors {
+  no_error(0),
   file_collision,
   failed_hash_check,
   torrent_is_no_dict,
@@ -123,12 +123,12 @@ public enum error_code_enum {
   requires_ssl_connection,
   invalid_ssl_cert,
   not_an_ssl_torrent,
-  unsupported_protocol_version(libtorrent_jni.unsupported_protocol_version_get()),
+  unsupported_protocol_version(120),
   natpmp_not_authorized,
   network_failure,
   no_resources,
   unsupported_opcode,
-  missing_file_sizes(libtorrent_jni.missing_file_sizes_get()),
+  missing_file_sizes(130),
   no_files_in_resume_data,
   missing_pieces,
   mismatching_number_of_files,
@@ -141,11 +141,11 @@ public enum error_code_enum {
   invalid_slot_list,
   invalid_piece_index,
   pieces_need_reorder,
-  http_parse_error(libtorrent_jni.http_parse_error_get()),
+  http_parse_error(150),
   http_missing_location,
   http_failed_decompress,
-  no_i2p_router(libtorrent_jni.no_i2p_router_get()),
-  scrape_not_available(libtorrent_jni.scrape_not_available_get()),
+  no_i2p_router(160),
+  scrape_not_available(170),
   invalid_tracker_response,
   invalid_peer_dict,
   tracker_failure,
@@ -161,29 +161,29 @@ public enum error_code_enum {
     return swigValue;
   }
 
-  public static error_code_enum swigToEnum(int swigValue) {
-    error_code_enum[] swigValues = error_code_enum.class.getEnumConstants();
+  public static errors swigToEnum(int swigValue) {
+    errors[] swigValues = errors.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (error_code_enum swigEnum : swigValues)
+    for (errors swigEnum : swigValues)
       if (swigEnum.swigValue == swigValue)
         return swigEnum;
-    throw new IllegalArgumentException("No enum " + error_code_enum.class + " with value " + swigValue);
+    throw new IllegalArgumentException("No enum " + errors.class + " with value " + swigValue);
   }
 
   @SuppressWarnings("unused")
-  private error_code_enum() {
+  private errors() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private error_code_enum(int swigValue) {
+  private errors(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private error_code_enum(error_code_enum swigEnum) {
+  private errors(errors swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

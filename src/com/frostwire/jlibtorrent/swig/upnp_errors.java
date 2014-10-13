@@ -8,52 +8,46 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum http_errors {
-  cont(100),
-  ok(200),
-  created(201),
-  accepted(202),
-  no_content(204),
-  multiple_choices(300),
-  moved_permanently(301),
-  moved_temporarily(302),
-  not_modified(304),
-  bad_request(400),
-  unauthorized(401),
-  forbidden(403),
-  not_found(404),
-  internal_server_error(500),
-  not_implemented(501),
-  bad_gateway(502),
-  service_unavailable(503);
+public enum upnp_errors {
+  no_error(0),
+  invalid_argument(402),
+  action_failed(501),
+  value_not_in_array(714),
+  source_ip_cannot_be_wildcarded(715),
+  external_port_cannot_be_wildcarded(716),
+  port_mapping_conflict(718),
+  internal_port_must_match_external(724),
+  only_permanent_leases_supported(725),
+  remote_host_must_be_wildcard(726),
+  external_port_must_be_wildcard(727);
 
   public final int swigValue() {
     return swigValue;
   }
 
-  public static http_errors swigToEnum(int swigValue) {
-    http_errors[] swigValues = http_errors.class.getEnumConstants();
+  public static upnp_errors swigToEnum(int swigValue) {
+    upnp_errors[] swigValues = upnp_errors.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (http_errors swigEnum : swigValues)
+    for (upnp_errors swigEnum : swigValues)
       if (swigEnum.swigValue == swigValue)
         return swigEnum;
-    throw new IllegalArgumentException("No enum " + http_errors.class + " with value " + swigValue);
+    throw new IllegalArgumentException("No enum " + upnp_errors.class + " with value " + swigValue);
   }
 
   @SuppressWarnings("unused")
-  private http_errors() {
+  private upnp_errors() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private http_errors(int swigValue) {
+  private upnp_errors(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private http_errors(http_errors swigEnum) {
+  private upnp_errors(upnp_errors swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }
