@@ -392,11 +392,12 @@ public final class TorrentHandle {
         return th.is_valid();
     }
 
-    // Generates a magnet URI from the specified torrent. If the torrent
-    // handle is invalid, null is returned.
-    //
-    // For more information about magnet links, see magnet-links_.
-    //
+    /**
+     * Generates a magnet URI from the specified torrent. If the torrent
+     * handle is invalid, null is returned.
+     *
+     * @return
+     */
     public String makeMagnetUri() {
         return th.is_valid() ? libtorrent.make_magnet_uri(th) : null;
     }

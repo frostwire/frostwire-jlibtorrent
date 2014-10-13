@@ -734,20 +734,20 @@ public final class Session {
         s.stop_lsd();
     }
 
-    // Starts and stops the UPnP service. When started, the listen port and
-    // the DHT port are attempted to be forwarded on local UPnP router
-    // devices.
-    //
-    // The upnp object returned by ``start_upnp()`` can be used to add and
-    // remove arbitrary port mappings. Mapping status is returned through the
-    // portmap_alert and the portmap_error_alert. The object will be valid
-    // until ``stop_upnp()`` is called. See upnp-and-nat-pmp_.
-    //
-    // It is off by default.
+    /**
+     * Starts the UPnP service. When started, the listen port and
+     * the DHT port are attempted to be forwarded on local UPnP router
+     * devices.
+     */
     public void startUPnP() {
         s.start_upnp();
     }
 
+    /**
+     * Stops the UPnP service. When started, the listen port and
+     * the DHT port are attempted to be forwarded on local UPnP router
+     * devices.
+     */
     public void stopUPnP() {
         s.stop_upnp();
     }
@@ -771,20 +771,20 @@ public final class Session {
         s.delete_port_mapping(handle);
     }
 
-    // Starts and stops the NAT-PMP service. When started, the listen port
-    // and the DHT port are attempted to be forwarded on the router through
-    // NAT-PMP.
-    //
-    // The natpmp object returned by ``start_natpmp()`` can be used to add
-    // and remove arbitrary port mappings. Mapping status is returned through
-    // the portmap_alert and the portmap_error_alert. The object will be
-    // valid until ``stop_natpmp()`` is called. See upnp-and-nat-pmp_.
-    //
-    // It is off by default.
+    /**
+     * Starts the NAT-PMP service. When started, the listen port
+     * and the DHT port are attempted to be forwarded on the router through
+     * NAT-PMP.
+     */
     public void startNATPMP() {
         s.start_natpmp();
     }
 
+    /**
+     * Stops the NAT-PMP service. When started, the listen port
+     * and the DHT port are attempted to be forwarded on the router through
+     * NAT-PMP.
+     */
     public void stopNATPMP() {
         s.stop_natpmp();
     }

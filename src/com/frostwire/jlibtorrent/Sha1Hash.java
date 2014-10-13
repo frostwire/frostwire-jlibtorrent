@@ -60,9 +60,13 @@ public final class Sha1Hash {
      *
      * @return
      */
+    public String toHex() {
+        return h.to_hex();
+    }
+
     @Override
     public String toString() {
-        return h.to_hex();
+        return toHex();
     }
 
     @Override
