@@ -5,8 +5,7 @@ import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.alerts.*;
-import com.frostwire.jlibtorrent.swig.char_vector;
-import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * Created by gubatron on 10/10/14.
  *
- * A rought proof of concept for a simple distributed
+ * A rough proof of concept for a simple distributed
  * domain name system service that runs on top
  * of the Bittorrent DHT.
  * <p/>
@@ -75,6 +74,7 @@ public class DhtNs {
     }
 
     public static void main(String[] args) throws IOException {
+        testEntryToBencode();
         final long dht_bootstrap_time_start = System.currentTimeMillis();
         final Session s = new Session();
         s.stopUPnP();
@@ -209,9 +209,21 @@ public class DhtNs {
         return new String(e.bencode());
     }
 
-    /**
-     * @return
-     */
+    private static void testEntryToBencode() {
+        entry url_list = new entry(entry.data_type.dictionary_t);
+        url_list.list_v().add(new entry("http://server1.com"));
+        url_list.list_v().add(new entry("http://server2.com"));
+        entry swig_entry = new entry();
+        swig_entry.dict().set("url-list", url_list);
+        Entry e = new Entry(swig_entry);
+
+        byte[] bencoded_entry = e.bencode();
+        lazy_entry lentry = new lazy_entry();
+        char_vector charvecBuffer = Vectors.bytes2char_vector(bencoded_entry);
+        lazy_entry.bdecode(charvecBuffer, lentry, new error_code());
+        libtorrent.print_entry(lentry);
+    }
+
     private static PrivateKey createPrivateKey() {
         /** I'm guessing the seed could be the hash of a secondary public key
          * for instance.
