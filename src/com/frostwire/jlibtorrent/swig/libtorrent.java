@@ -253,4 +253,8 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.add_files__SWIG_3(file_storage.getCPtr(fs), fs, file);
   }
 
+  public static error_category get_upnp_category() {
+    return new error_category(libtorrent_jni.get_upnp_category(), false);
+  }
+
 }

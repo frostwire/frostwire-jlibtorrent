@@ -3583,6 +3583,7 @@ public class libtorrent_jni {
   public final static native void nop(int jarg1);
   public final static native void add_files__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
   public final static native void add_files__SWIG_3(long jarg1, file_storage jarg1_, String jarg2);
+  public final static native long get_upnp_category();
   public final static native int ed25519_seed_size_get();
   public final static native int ed25519_private_key_size_get();
   public final static native int ed25519_public_key_size_get();

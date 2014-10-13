@@ -243,7 +243,6 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include "libtorrent/stat.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/address.hpp"
-#include "libtorrent/error_code.hpp"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/sha1_hash.hpp"
 #include "libtorrent/piece_picker.hpp"
@@ -282,6 +281,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
+#include "libtorrent/upnp.hpp"
 
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -292,9 +292,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include "libtorrent/ed25519.hpp"
     
 // aditional includes
-    
-#include <boost/system/error_code.hpp>
-    
+
 using namespace boost;
 using namespace boost::system;
     
@@ -100203,6 +100201,41 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
       return ;
     }
   }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_get_1upnp_1category(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::system::error_category *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::system::error_category *) &libtorrent::get_upnp_category();
+    } catch (const std::out_of_range &e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::bad_alloc &e) {
+      //translate OOM C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+      return 0;
+    } catch (const std::ios_base::failure &e) {
+      //translate IO C++ exception to a Java exception
+      SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+      return 0;
+    } catch (const std::exception &e) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, e.what());
+      return 0;
+    } catch (...) {
+      //translate unknown C++ exception to a Java exception
+      new_java_error(jenv, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(boost::system::error_category **)&jresult = result; 
+  return jresult;
 }
 
 

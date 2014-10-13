@@ -22,7 +22,6 @@
 #include "libtorrent/stat.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/address.hpp"
-#include "libtorrent/error_code.hpp"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/sha1_hash.hpp"
 #include "libtorrent/piece_picker.hpp"
@@ -61,6 +60,7 @@
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
+#include "libtorrent/upnp.hpp"
 
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -71,9 +71,7 @@
 #include "libtorrent/ed25519.hpp"
     
 // aditional includes
-    
-#include <boost/system/error_code.hpp>
-    
+
 using namespace boost;
 using namespace boost::system;
     
@@ -342,6 +340,7 @@ namespace std {
 %ignore libtorrent::buffer;
 %ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::disk_buffer_holder;
+%ignore libtorrent::upnp;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -491,13 +490,14 @@ namespace std {
 %ignore libtorrent::peer_plugin::on_unknown_message;
 %ignore libtorrent::lazy_entry::dict_find(char const *) const;
 %ignore libtorrent::lazy_entry::list_at(int) const;
-%ignore libtorrent::bdecode_errors::error_code_enum;
-%ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::block_info::peer;
 %ignore libtorrent::lazy_dict_entry;
 %ignore libtorrent::disabled_storage;
-%ignore libtorrent::http_errors;
 %ignore libtorrent::invalid_encoding;
+%ignore libtorrent::bdecode_errors::make_error_code;
+%ignore libtorrent::bdecode_errors::error_code_enum;
+%ignore libtorrent::upnp_errors::make_error_code;
+%ignore libtorrent::upnp_errors::error_code_enum;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -544,7 +544,6 @@ namespace std {
 %include "libtorrent/stat.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/address.hpp"
-%include "libtorrent/error_code.hpp"
 %include "libtorrent/entry.hpp"
 %include "libtorrent/sha1_hash.hpp"
 %include "libtorrent/storage_defs.hpp"
@@ -582,6 +581,7 @@ namespace std {
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
+%include "libtorrent/upnp.hpp"
 
 namespace libtorrent {
     
