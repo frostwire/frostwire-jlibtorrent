@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.Entry;
-import com.frostwire.jlibtorrent.LibTorrent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +12,6 @@ import java.util.Map;
 public final class EntryTest {
 
     public static void main(String[] args) throws Throwable {
-
-        System.out.println("Using libtorrent version: " + LibTorrent.version());
 
         Map<String, Object> m = new HashMap<String, Object>();
 

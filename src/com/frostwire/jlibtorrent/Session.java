@@ -30,10 +30,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public final class Session {
 
-    static {
-        System.loadLibrary("jlibtorrent");
-    }
-
     private static final Logger LOG = Logger.getLogger(Session.class);
 
     private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;

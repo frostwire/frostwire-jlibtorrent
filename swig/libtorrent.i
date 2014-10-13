@@ -1,5 +1,11 @@
 %module (jniclassname="libtorrent_jni") libtorrent
 
+%pragma(java) jniclasscode=%{
+    static {
+        System.loadLibrary("jlibtorrent");
+    }
+%}
+
 %{
 #include <stdexcept>
 #include <string>

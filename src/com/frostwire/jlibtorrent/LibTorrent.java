@@ -8,10 +8,6 @@ import com.frostwire.jlibtorrent.swig.libtorrent;
  */
 public final class LibTorrent {
 
-    static {
-        System.loadLibrary("jlibtorrent");
-    }
-
     private LibTorrent() {
     }
 

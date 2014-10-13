@@ -9,6 +9,11 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent_jni {
+
+    static {
+        System.loadLibrary("jlibtorrent");
+    }
+
   public final static native int hundredth_get();
   public final static native String ptime_zone_name(long jarg1, ptime jarg1_);
   public final static native String ptime_zone_abbrev(long jarg1, ptime jarg1_);
