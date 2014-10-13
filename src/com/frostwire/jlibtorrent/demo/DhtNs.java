@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.Entry;
-import com.frostwire.jlibtorrent.Session;
-import com.frostwire.jlibtorrent.Vectors;
+import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.*;
 
@@ -15,7 +12,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by gubatron on 10/10/14.
@@ -37,7 +33,7 @@ public class DhtNs {
     public static void registerName(final Session s,
                                     final String name,
                                     final List<String> serverIps,
-                                    final PrivateKey keys) {
+                                    final KeyPair keys) {
         if (!s.isDHTRunning()) {
             System.out.println("Wait a little longer, connecting to the DHT...");
         } else {
@@ -58,8 +54,7 @@ public class DhtNs {
 
             s.dhtPutItem(dhtKey,
                     keys.getPrivateKey(),
-                    entry,
-                    toHex(keys.getSalt()));
+                    entry);
         }
     }
 
@@ -93,7 +88,7 @@ public class DhtNs {
                 }
 
                 System.out.println("");
-                System.out.println(alert.getType().toString() + ": " + alert.getSwig().message());
+                System.out.println(alert.getType().toString() + "("+ alert.getClass()+"): " + alert.getSwig().message());
 
                 if (alert instanceof DhtBootstrapAlert ||
                         alert instanceof DhtPutAlert ||
@@ -139,7 +134,15 @@ public class DhtNs {
             }
         });
 
-        PrivateKey fooKey = createPrivateKey();
+        //this would be made probably out of the hashes of your PGP key pair.
+        final byte[] seed = new byte[] { //length Ed25519.SEED_SIZE = 32 bytes
+                0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa,
+                0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11, 0x12, 0x13, 0x14,
+                0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d,
+                0x1e, 0x1f
+        };
+
+        KeyPair fooKeyPairs = new KeyPair(seed);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
@@ -161,7 +164,8 @@ public class DhtNs {
                     String name = split[1].trim();
                     List<String> servers = new ArrayList<String>();
                     servers.add("127.0.0.1");
-                    registerName(s, "foo://" + name, servers, createPrivateKey());
+                    servers.add("localhost");
+                    registerName(s, "foo://" + name, servers, fooKeyPairs);
                 }
             } else if (line.toLowerCase().startsWith("check")) {
                 String[] split = line.split(" ");
@@ -209,49 +213,26 @@ public class DhtNs {
         return new String(e.bencode());
     }
 
-    private static PrivateKey createPrivateKey() {
-        /** I'm guessing the seed could be the hash of a secondary public key
-         * for instance.
-         */
-        byte[] salt = new byte[] { //length Ed25519.SEED_SIZE = 32 bytes
-            0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa,
-            0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11, 0x12, 0x13, 0x14,
-            0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d,
-            0x1e, 0x1f
-        };
 
+    private static class KeyPair {
+        private final byte[] pub = new byte[Ed25519.PUBLIC_KEY_SIZE];
+        private final byte[] pri = new byte[Ed25519.PRIVATE_KEY_SIZE];
+        private byte[] seed;
 
-        /** the private key could be the sha1hash of a PGP private key for example */
-        //dummy key for the test
-        byte[] privateKey = new byte[] {
-            0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa,
-            0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11, 0x12, 0x13, 0x14,
-            0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e,
-            0x1f } ;
-
-        //Ed25519.createKeypair(publicKey, privateKey, seed);
-
-        System.out.println("salt:     " + toHex(salt));
-        System.out.println("priv key: " + toHex(privateKey));
-
-        return new PrivateKey(privateKey, salt);
-    }
-
-    private static class PrivateKey {
-        private final byte[] pri;
-        private final byte[] salt;
-
-        PrivateKey(byte[] privateKey, byte[] salt) {
-            pri = privateKey;
-            this.salt = salt;
+        KeyPair(byte[] seed) {
+            Ed25519.createKeypair(pub, pri, seed);
+            System.out.println("seed    : " + toHex(seed));
+            System.out.println("pub key : " + toHex(pub));
+            System.out.println("priv key: " + toHex(pri));
+            this.seed = seed;
         }
 
         public byte[] getPrivateKey() {
             return pri;
         }
 
-        public byte[] getSalt() {
-            return salt;
+        public byte[] getPublicKey() {
+            return pub;
         }
     }
 }
