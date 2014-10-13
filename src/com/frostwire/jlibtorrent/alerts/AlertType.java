@@ -38,7 +38,6 @@ public enum AlertType {
     TRACKER_ERROR(tracker_error_alert.alert_type),
     READ_PIECE(read_piece_alert.alert_type),
     STATE_CHANGED(state_changed_alert.alert_type),
-    DHT_MUTABLE_ITEM_ALERT(dht_mutable_item_alert.alert_type),
     DHT_REPLY(dht_reply_alert.alert_type),
     DHT_BOOTSTRAP(dht_bootstrap_alert.alert_type),
     DHT_GET_PEERS(dht_get_peers_alert.alert_type),
