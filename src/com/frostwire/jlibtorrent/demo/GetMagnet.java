@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.Downloader;
+import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.Utils;
 
@@ -24,6 +25,8 @@ public final class GetMagnet {
         byte[] data = d.fetchMagnet(uri, 30000);
 
         if (data != null) {
+            System.out.println(Entry.bdecode(data));
+
             Utils.writeByteArrayToFile(saveDir, data);
             System.out.println("Torrent data saved to: " + saveDir);
         } else {

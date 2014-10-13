@@ -42,6 +42,10 @@ public final class Entry {
         return e.to_string();
     }
 
+    public static Entry bdecode(byte[] data) {
+        return new Entry(entry.bdecode(Vectors.bytes2char_vector(data)));
+    }
+
     public static Entry fromMap(Map<?, ?> map) {
         entry e = new entry(entry.data_type.dictionary_t);
 

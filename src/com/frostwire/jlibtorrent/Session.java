@@ -496,7 +496,7 @@ public final class Session {
     public TorrentHandle findTorrent(Sha1Hash infoHash) {
         torrent_handle th = s.find_torrent(infoHash.getSwig());
 
-        return th.is_valid() ? new TorrentHandle(th) : null;
+        return th != null && th.is_valid() ? new TorrentHandle(th) : null;
     }
 
     /**
