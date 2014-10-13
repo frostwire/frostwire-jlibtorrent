@@ -76,6 +76,7 @@ public enum AlertType {
     STORAGE_MOVED_FAILED(storage_moved_failed_alert.alert_type),
     TRACKERID(trackerid_alert.alert_type),
     UNWANTED_BLOCK(unwanted_block_alert.alert_type),
+    DHT_PUT(dht_put_alert.alert_type),
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
 
