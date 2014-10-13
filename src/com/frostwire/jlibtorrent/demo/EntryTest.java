@@ -1,6 +1,8 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.Entry;
+import com.frostwire.jlibtorrent.swig.string_entry_map;
+import com.frostwire.jlibtorrent.swig.string_vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,5 +36,12 @@ public final class EntryTest {
         e = Entry.fromMap(m);
 
         System.out.println(e.toString());
+
+        string_entry_map dict = e.getSwig().dict();
+        string_vector keys = dict.keys();
+        for (int i = 0; i < keys.size(); i++) {
+            String k = keys.get(i);
+            System.out.println(k + "=" + dict.get(k).to_string());
+        }
     }
 }

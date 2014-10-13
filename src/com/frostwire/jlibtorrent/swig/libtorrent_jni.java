@@ -440,6 +440,7 @@ public class libtorrent_jni {
   public final static native void string_long_map_set(long jarg1, string_long_map jarg1_, String jarg2, int jarg3);
   public final static native void string_long_map_del(long jarg1, string_long_map jarg1_, String jarg2);
   public final static native boolean string_long_map_has_key(long jarg1, string_long_map jarg1_, String jarg2);
+  public final static native long string_long_map_keys(long jarg1, string_long_map jarg1_);
   public final static native void delete_string_long_map(long jarg1);
   public final static native long new_string_entry_map__SWIG_0();
   public final static native long new_string_entry_map__SWIG_1(long jarg1, string_entry_map jarg1_);
@@ -450,6 +451,7 @@ public class libtorrent_jni {
   public final static native void string_entry_map_set(long jarg1, string_entry_map jarg1_, String jarg2, long jarg3, entry jarg3_);
   public final static native void string_entry_map_del(long jarg1, string_entry_map jarg1_, String jarg2);
   public final static native boolean string_entry_map_has_key(long jarg1, string_entry_map jarg1_, String jarg2);
+  public final static native long string_entry_map_keys(long jarg1, string_entry_map jarg1_);
   public final static native void delete_string_entry_map(long jarg1);
   public final static native long new_int_sha1_hash_map__SWIG_0();
   public final static native long new_int_sha1_hash_map__SWIG_1(long jarg1, int_sha1_hash_map jarg1_);
@@ -460,6 +462,7 @@ public class libtorrent_jni {
   public final static native void int_sha1_hash_map_set(long jarg1, int_sha1_hash_map jarg1_, int jarg2, long jarg3, sha1_hash jarg3_);
   public final static native void int_sha1_hash_map_del(long jarg1, int_sha1_hash_map jarg1_, int jarg2);
   public final static native boolean int_sha1_hash_map_has_key(long jarg1, int_sha1_hash_map jarg1_, int jarg2);
+  public final static native long int_sha1_hash_map_keys(long jarg1, int_sha1_hash_map jarg1_);
   public final static native void delete_int_sha1_hash_map(long jarg1);
   public final static native boolean alert_ptr_deque_empty(long jarg1, alert_ptr_deque jarg1_);
   public final static native long new_alert_ptr_deque__SWIG_0();

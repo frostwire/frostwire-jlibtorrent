@@ -71,4 +71,8 @@ public class int_sha1_hash_map {
     return libtorrent_jni.int_sha1_hash_map_has_key(swigCPtr, this, key);
   }
 
+  public int_vector keys() {
+    return new int_vector(libtorrent_jni.int_sha1_hash_map_keys(swigCPtr, this), true);
+  }
+
 }

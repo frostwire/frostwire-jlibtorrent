@@ -71,4 +71,8 @@ public class string_entry_map {
     return libtorrent_jni.string_entry_map_has_key(swigCPtr, this, key);
   }
 
+  public string_vector keys() {
+    return new string_vector(libtorrent_jni.string_entry_map_keys(swigCPtr, this), true);
+  }
+
 }
