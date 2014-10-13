@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by gubatron on 10/10/14.
@@ -74,7 +75,6 @@ public class DhtNs {
     }
 
     public static void main(String[] args) throws IOException {
-        testEntryToBencode();
         final long dht_bootstrap_time_start = System.currentTimeMillis();
         final Session s = new Session();
         s.stopUPnP();
@@ -207,21 +207,6 @@ public class DhtNs {
 
     private static String entryToBencodedString(Entry e) {
         return new String(e.bencode());
-    }
-
-    private static void testEntryToBencode() {
-        entry url_list = new entry(entry.data_type.dictionary_t);
-        url_list.list_v().add(new entry("http://server1.com"));
-        url_list.list_v().add(new entry("http://server2.com"));
-        entry swig_entry = new entry();
-        swig_entry.dict().set("url-list", url_list);
-        Entry e = new Entry(swig_entry);
-
-        byte[] bencoded_entry = e.bencode();
-        lazy_entry lentry = new lazy_entry();
-        char_vector charvecBuffer = Vectors.bytes2char_vector(bencoded_entry);
-        lazy_entry.bdecode(charvecBuffer, lentry, new error_code());
-        libtorrent.print_entry(lentry);
     }
 
     private static PrivateKey createPrivateKey() {

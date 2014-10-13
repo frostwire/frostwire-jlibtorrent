@@ -32,7 +32,7 @@ public final class EntryTest {
         m.put("l", l);
 
         e = Entry.fromMap(m);
-
+        System.out.println(e.bencodedString());
         System.out.println(e.toString());
     }
 }
