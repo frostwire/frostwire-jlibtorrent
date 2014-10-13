@@ -5,8 +5,7 @@ import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.alerts.*;
-import com.frostwire.jlibtorrent.swig.char_vector;
-import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,11 +15,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by gubatron on 10/10/14.
  *
- * A rought proof of concept for a simple distributed
+ * A rough proof of concept for a simple distributed
  * domain name system service that runs on top
  * of the Bittorrent DHT.
  * <p/>
@@ -209,9 +209,6 @@ public class DhtNs {
         return new String(e.bencode());
     }
 
-    /**
-     * @return
-     */
     private static PrivateKey createPrivateKey() {
         /** I'm guessing the seed could be the hash of a secondary public key
          * for instance.
