@@ -321,6 +321,7 @@ public final class Session {
      * @return
      */
     public SessionProxy abort() {
+        running = false;
         return new SessionProxy(s.abort());
     }
 
@@ -861,7 +862,7 @@ public final class Session {
             }
         };
 
-        Thread t = new Thread(r, "LTEngine-alertsLoop");
+        Thread t = new Thread(r, "Session-alertsLoop");
         t.setDaemon(true);
         t.start();
     }

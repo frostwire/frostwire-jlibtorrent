@@ -256,17 +256,53 @@ public final class SessionSettings {
         s.setConnection_speed(value);
     }
 
-    // if this is set to true, have messages will be sent to peers that
-    // already have the piece. This is typically not necessary, but it might
-    // be necessary for collecting statistics in some cases. Default is
-    // false.
-    //bool send_redundant_have;
+    /**
+     * if this is set to true, have messages will be sent to peers that
+     * already have the piece. This is typically not necessary, but it might
+     * be necessary for collecting statistics in some cases. Default is
+     * false.
+     *
+     * @return
+     */
+    public boolean isSendRedundantHave() {
+        return s.getSend_redundant_have();
+    }
 
-    // prevents outgoing bitfields from being full. If the client is seed, a
-    // few bits will be set to 0, and later filled in with have-messages.
-    // This is an old attempt to prevent certain ISPs from stopping people
-    // from seeding.
-    //bool lazy_bitfields;
+    /**
+     * if this is set to true, have messages will be sent to peers that
+     * already have the piece. This is typically not necessary, but it might
+     * be necessary for collecting statistics in some cases. Default is
+     * false.
+     *
+     * @param value
+     */
+    public void setSendRedundantHave(boolean value) {
+        s.setSend_redundant_have(value);
+    }
+
+    /**
+     * prevents outgoing bitfields from being full. If the client is seed, a
+     * few bits will be set to 0, and later filled in with have-messages.
+     * This is an old attempt to prevent certain ISPs from stopping people
+     * from seeding.
+     *
+     * @return
+     */
+    public boolean isLazyBitfields() {
+        return s.getLazy_bitfields();
+    }
+
+    /**
+     * prevents outgoing bitfields from being full. If the client is seed, a
+     * few bits will be set to 0, and later filled in with have-messages.
+     * This is an old attempt to prevent certain ISPs from stopping people
+     * from seeding.
+     *
+     * @param value
+     */
+    public void setLazyBitfields(boolean value) {
+        s.setLazy_bitfields(value);
+    }
 
     /**
      * if a peer is uninteresting and uninterested for longer than this
