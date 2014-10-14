@@ -420,11 +420,75 @@ public final class TorrentStatus {
         return ts.getDistributed_full_copies();
     }
 
-//    public final int distributedFraction;
-//    public final float distributedCopies;
-//    public final int blockSize;
-//    public final int numUploads;
-//    public final int numConnections;
+    /**
+     * tells the share of pieces that have more copies than the rarest
+     * // piece(s). Divide this number by 1000 to get the fraction.
+     * //
+     * // For example, if ``distributed_full_copies`` is 2 and
+     * // ``distrbuted_fraction`` is 500, it means that the rarest pieces have
+     * // only 2 copies among the peers this torrent is connected to, and that
+     * // 50% of all the pieces have more than two copies.
+     * //
+     * // If we are a seed, the piece picker is deallocated as an optimization,
+     * // and piece availability is no longer tracked. In this case the
+     * // distributed copies members are set to -1.
+     *
+     * @return
+     */
+    public int getDistributedFraction() {
+        return ts.getDistributed_fraction();
+    }
+
+    /**
+     * the number of distributed copies of the file. note that one copy may
+     * be spread out among many peers. This is a floating point
+     * representation of the distributed copies.
+     * <p/>
+     * the integer part tells how many copies
+     * there are of the rarest piece(s)
+     * <p/>
+     * the fractional part tells the fraction of pieces that
+     * have more copies than the rarest piece(s).
+     *
+     * @return
+     */
+    public float getDistributedCopies() {
+        return ts.getDistributed_copies();
+    }
+
+    /**
+     * the size of a block, in bytes. A block is a sub piece, it is the
+     * number of bytes that each piece request asks for and the number of
+     * bytes that each bit in the ``partial_piece_info``'s bitset represents,
+     * see get_download_queue(). This is typically 16 kB, but it may be
+     * larger if the pieces are larger.
+     *
+     * @return
+     */
+    public int getBlockSize() {
+        return ts.getBlock_size();
+    }
+
+    /**
+     * the number of unchoked peers in this torrent.
+     *
+     * @return
+     */
+    public int getNumUploads() {
+        return ts.getNum_uploads();
+    }
+
+    /**
+     * the number of peer connections this torrent has, including half-open
+     * connections that hasn't completed the bittorrent handshake yet. This
+     * is always >= ``num_peers``.
+     *
+     * @return
+     */
+    public int getNumConnections() {
+        return ts.getNum_connections();
+    }
+
 //    public final int uploadsLimit;
 //    public final int connectionsLimit;
 //    public final int upBandwidthQueue;

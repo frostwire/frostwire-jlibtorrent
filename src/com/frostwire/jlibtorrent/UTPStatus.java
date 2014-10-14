@@ -24,11 +24,26 @@ public final class UTPStatus {
 
     // gauges. These are snapshots of the number of
     // uTP sockets in each respective state
-//    int num_idle;
-//    int num_syn_sent;
-//    int num_connected;
-//    int num_fin_sent;
-//    int num_close_wait;
+
+    public int getNumIdle() {
+        return s.getNum_idle();
+    }
+
+    public int getNumSynSent() {
+        return s.getNum_syn_sent();
+    }
+
+    public int getNumConnected() {
+        return s.getNum_connected();
+    }
+
+    public int getNumFinSent() {
+        return s.getNum_fin_sent();
+    }
+
+    public int getNumCloseWait() {
+        return s.getNum_close_wait();
+    }
 
     // counters. These are monotonically increasing
     // and cumulative counters for their respective event.
@@ -37,15 +52,47 @@ public final class UTPStatus {
         return s.getPacket_loss();
     }
 
-//    boost::uint64_t timeout;
-//    boost::uint64_t packets_in;
-//    boost::uint64_t packets_out;
-//    boost::uint64_t fast_retransmit;
-//    boost::uint64_t packet_resend;
-//    boost::uint64_t samples_above_target;
-//    boost::uint64_t samples_below_target;
-//    boost::uint64_t payload_pkts_in;
-//    boost::uint64_t payload_pkts_out;
-//    boost::uint64_t invalid_pkts_in;
-//    boost::uint64_t redundant_pkts_in;
+    public BigInteger getTimeout() {
+        return s.getTimeout();
+    }
+
+    public BigInteger getPacketsIn() {
+        return s.getPackets_in();
+    }
+
+    public BigInteger getPacketsOut() {
+        return s.getPackets_out();
+    }
+
+    public BigInteger getFastRetransmit() {
+        return s.getFast_retransmit();
+    }
+
+    public BigInteger getPacketResend() {
+        return s.getPacket_resend();
+    }
+
+    public BigInteger getSamplesAboveTarget() {
+        return s.getSamples_above_target();
+    }
+
+    public BigInteger getSamplesBelowTarget() {
+        return s.getSamples_below_target();
+    }
+
+    public BigInteger getPayloadPktsIn() {
+        return s.getPayload_pkts_in();
+    }
+
+    public BigInteger getPayloadPktsOut() {
+        return s.getPayload_pkts_out();
+    }
+
+    public BigInteger getInvalidPktsIn() {
+        return s.getInvalid_pkts_in();
+    }
+
+    public BigInteger getRedundantPktsIn() {
+        return s.getRedundant_pkts_in();
+    }
 }

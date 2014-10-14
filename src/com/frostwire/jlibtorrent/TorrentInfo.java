@@ -36,47 +36,68 @@ public final class TorrentInfo {
     }
 
     /**
-     * returns the name of the torrent.
+     * The file_storage object contains the information on how to map the pieces to
+     * files. It is separated from the torrent_info object because when creating torrents
+     * a storage object needs to be created without having a torrent file. When renaming files
+     * in a storage, the storage needs to make its own copy of the file_storage in order
+     * to make its mapping differ from the one in the torrent file.
+     *
+     * @return
+     */
+    public FileStorage getFiles() {
+        return new FileStorage(ti.files());
+    }
+
+    /**
+     * returns the original (unmodified) file storage for this torrent. This
+     * is used by the web server connection, which needs to request files with the original
+     * names. Filename may be chaged using ``torrent_info::rename_file()``.
+     *
+     * @return
+     */
+    public FileStorage getOrigFiles() {
+        return new FileStorage(ti.orig_files());
+    }
+
+    /**
+     * Adds a tracker to the announce-list.
+     *
+     * @param url
+     */
+    public void addTracker(String url) {
+        ti.add_tracker(url);
+    }
+
+    /**
+     * Adds a tracker to the announce-list. The ``tier`` determines the order in
+     * which the trackers are to be tried.
+     *
+     * @param url
+     * @param tier
+     */
+    public void addTracker(String url, int tier) {
+        ti.add_tracker(url, tier);
+    }
+
+    /**
+     * will return a sorted vector of ``announce_entry``.
      * <p/>
-     * the name is an UTF-8 encoded strings.
+     * Each announce entry contains a string, which is the tracker url, and a tier index. The
+     * tier index is the high-level priority. No matter which trackers that works or not, the
+     * ones with lower tier will always be tried before the one with higher tier number.
      *
      * @return
      */
-    public String getName() {
-        return ti.name();
-    }
+    public List<AnnounceEntry> getTrackers() {
+        announce_entry_vector v = ti.trackers();
+        int size = (int) v.size();
 
-    /**
-     * returns the comment associated with the torrent. If there's no comment,
-     * it will return an empty string.
-     * <p/>
-     * the comment is an UTF-8 encoded strings.
-     *
-     * @return
-     */
-    public String getComment() {
-        return ti.comment();
-    }
+        List<AnnounceEntry> l = new ArrayList<AnnounceEntry>(size);
+        for (int i = 0; i < size; i++) {
+            l.add(new AnnounceEntry(v.get(i)));
+        }
 
-    /**
-     * returns the creation date of
-     * the torrent as time_t (`posix time`_). If there's no time stamp in the torrent file,
-     * a value of zero is returned.
-     *
-     * @return
-     */
-    public int getCreationDate() {
-        return ti.get_creation_date();
-    }
-
-    /**
-     * returns the creator string in the torrent. If there is no creator string
-     * it will return an empty string.
-     *
-     * @return
-     */
-    public String getCreator() {
-        return ti.creator();
+        return l;
     }
 
     /**
@@ -238,54 +259,6 @@ public final class TorrentInfo {
     }
 
     /**
-     * Generates a magnet URI from the specified torrent. If the torrent
-     * is invalid, null is returned.
-     * <p/>
-     * For more information about magnet links, see magnet-links_.
-     *
-     * @return
-     */
-    public String makeMagnetUri() {
-        return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
-    }
-
-    /**
-     * The file_storage object contains the information on how to map the pieces to
-     * files. It is separated from the torrent_info object because when creating torrents
-     * a storage object needs to be created without having a torrent file. When renaming files
-     * in a storage, the storage needs to make its own copy of the file_storage in order
-     * to make its mapping differ from the one in the torrent file.
-     *
-     * @return
-     */
-    public FileStorage getFiles() {
-        return new FileStorage(ti.files());
-    }
-
-    /**
-     * returns the original (unmodified) file storage for this torrent. This
-     * is used by the web server connection, which needs to request files with the original
-     * names. Filename may be chaged using ``torrent_info::rename_file()``.
-     *
-     * @return
-     */
-    public FileStorage getOrigFiles() {
-        return new FileStorage(ti.orig_files());
-    }
-
-    /**
-     * Returns true if this torrent_info object has a torrent loaded.
-     * <p/>
-     * This is primarily used to determine if a magnet link has had its
-     * metadata resolved yet or not.
-     *
-     * @return
-     */
-    public boolean isValid() {
-        return ti.is_valid();
-    }
-
-    /**
      * If you need index-access to files you can use the ``num_files()`` and ``file_at()``
      * to access files using indices.
      *
@@ -303,6 +276,112 @@ public final class TorrentInfo {
      */
     public FileEntry getFileAt(int index) {
         return new FileEntry(ti.file_at(index));
+    }
+
+    /**
+     * Returns true if this torrent_info object has a torrent loaded.
+     * <p/>
+     * This is primarily used to determine if a magnet link has had its
+     * metadata resolved yet or not.
+     *
+     * @return
+     */
+    public boolean isValid() {
+        return ti.is_valid();
+    }
+
+    /**
+     * returns true if this torrent is private. i.e., it should not be
+     * distributed on the trackerless network (the kademlia DHT).
+     *
+     * @return
+     */
+    public boolean isPrivate() {
+        return ti.priv();
+    }
+
+    /**
+     * returns true if this is an i2p torrent. This is determined by whether
+     * or not it has a tracker whose URL domain name ends with ".i2p". i2p
+     * torrents disable the DHT and local peer discovery as well as talking
+     * to peers over anything other than the i2p network.
+     *
+     * @return
+     */
+    public boolean isI2P() {
+        return ti.is_i2p();
+    }
+
+    public int getPieceSize(int index) {
+        return ti.piece_size(index);
+    }
+
+    /**
+     * takes a piece-index and returns the 20-bytes sha1-hash for that
+     * piece and ``info_hash()`` returns the 20-bytes sha1-hash for the info-section of the
+     * torrent file.
+     *
+     * @param index
+     * @return
+     */
+    public Sha1Hash getHashForPiece(int index) {
+        return new Sha1Hash(ti.hash_for_piece(index));
+    }
+
+    /**
+     * returns the name of the torrent.
+     * <p/>
+     * the name is an UTF-8 encoded strings.
+     *
+     * @return
+     */
+    public String getName() {
+        return ti.name();
+    }
+
+    /**
+     * returns the creation date of
+     * the torrent as time_t (`posix time`_). If there's no time stamp in the torrent file,
+     * a value of zero is returned.
+     *
+     * @return
+     */
+    public int getCreationDate() {
+        return ti.get_creation_date();
+    }
+
+    /**
+     * returns the creator string in the torrent. If there is no creator string
+     * it will return an empty string.
+     *
+     * @return
+     */
+    public String getCreator() {
+        return ti.creator();
+    }
+
+    /**
+     * returns the comment associated with the torrent. If there's no comment,
+     * it will return an empty string.
+     * <p/>
+     * the comment is an UTF-8 encoded strings.
+     *
+     * @return
+     */
+    public String getComment() {
+        return ti.comment();
+    }
+
+    /**
+     * Generates a magnet URI from the specified torrent. If the torrent
+     * is invalid, null is returned.
+     * <p/>
+     * For more information about magnet links, see magnet-links_.
+     *
+     * @return
+     */
+    public String makeMagnetUri() {
+        return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
     }
 
     public Entry toEntry() {
