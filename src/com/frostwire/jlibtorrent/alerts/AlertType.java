@@ -78,6 +78,7 @@ public enum AlertType {
     UNWANTED_BLOCK(unwanted_block_alert.alert_type),
     DHT_PUT(dht_put_alert.alert_type),
     DHT_MUTABLE_ITEM(dht_mutable_item_alert.alert_type),
+    DHT_IMMUTABLE_ITEM(dht_immutable_item_alert.alert_type),
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
 
