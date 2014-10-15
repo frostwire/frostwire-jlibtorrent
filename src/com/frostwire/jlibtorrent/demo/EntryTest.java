@@ -34,8 +34,7 @@ public final class EntryTest {
         m.put("l", l);
 
         e = Entry.fromMap(m);
-        System.out.println(e.bencodedString());
-        System.out.println(e.toString());
+        System.out.println(e);
 
         string_entry_map dict = e.getSwig().dict();
         string_vector keys = dict.keys();

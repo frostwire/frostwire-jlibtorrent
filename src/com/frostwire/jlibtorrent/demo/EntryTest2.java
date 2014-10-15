@@ -23,7 +23,7 @@ public final class EntryTest2 {
         final entry swig_entry = new entry();
         swig_entry.dict().set("url-list", url_list);
         final Entry e = new Entry(swig_entry);
-        final String oldSchoolBencodedMapString = e.bencodedString();
+        final String oldSchoolBencodedMapString = new String(e.bencode());
 
         //now using Java's collection API
         final List<String> urlList = new ArrayList<String>();
@@ -31,7 +31,7 @@ public final class EntryTest2 {
         urlList.add("http://server2.com");
         final Map<String,Object> urlListMap = new HashMap<String, Object>();
         urlListMap.put("url-list", urlList);
-        final String javaAPIBencodedMapString = Entry.fromMap(urlListMap).bencodedString();
+        final String javaAPIBencodedMapString = new String(Entry.fromMap(urlListMap).bencode());
 
         final String expectedBencodedList = "d8:url-listl18:http://server1.com18:http://server2.comee";
         assert(expectedBencodedList.equals(oldSchoolBencodedMapString));
@@ -58,7 +58,7 @@ public final class EntryTest2 {
         licenseMap.put("license", Entry.fromMap(openSourceMap).getSwig());
 
         final String expectedLicenseBencoded = "d7:licensed11:open-sourced17:attributionAuthor13:FrostWire LLC16:attributionTitle15:FrostWire 5.7.714:attributionUrl24:http://www.frostwire.com10:licenseUrl37:https://www.gnu.org/licenses/gpl.htmleee";
-        final String bencodedLicenseMap = Entry.fromMap(licenseMap).bencodedString();
+        final String bencodedLicenseMap = new String(Entry.fromMap(licenseMap).bencode());
         assert(expectedLicenseBencoded.equals(bencodedLicenseMap));
 
         System.out.println("expected: " + expectedLicenseBencoded);
