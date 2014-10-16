@@ -173,6 +173,12 @@ public:
                              (unsigned char*)private_key.data());
     }
 };
+
+std::string to_hex(std::vector<char>& v) {
+    std::vector<char> s(2 * v.size());
+    to_hex(v.data(), v.size(), s.data());
+    return std::string(s.begin(), s.end());
+}
 %}
 
 %exception {
@@ -362,6 +368,7 @@ namespace std {
 %ignore libtorrent::gzip_header;
 %ignore libtorrent::convert_path_to_posix;
 %ignore libtorrent::hex_to_int;
+%ignore libtorrent::to_hex;
 
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
@@ -836,3 +843,5 @@ public:
                              std::vector<char>& public_key,
                              std::vector<char>& private_key);
 };
+
+std::string to_hex(std::vector<char>& v);

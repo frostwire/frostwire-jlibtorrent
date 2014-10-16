@@ -184,6 +184,8 @@ public class DhtNs {
                 0x1e, 0x1f
         };
 
+        //Ed25519.createSeed(seed);
+
         KeyPair fooKeyPairs = new KeyPair(seed);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

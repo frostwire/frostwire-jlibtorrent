@@ -225,10 +225,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.base32decode(s);
   }
 
-  public static String to_hex(String s) {
-    return libtorrent_jni.to_hex(s);
-  }
-
   public static String make_magnet_uri(torrent_handle handle) {
     return libtorrent_jni.make_magnet_uri__SWIG_0(torrent_handle.getCPtr(handle), handle);
   }
@@ -255,6 +251,10 @@ public class libtorrent implements libtorrentConstants {
 
   public static error_category get_upnp_category() {
     return new error_category(libtorrent_jni.get_upnp_category(), false);
+  }
+
+  public static String to_hex(char_vector v) {
+    return libtorrent_jni.to_hex(char_vector.getCPtr(v), v);
   }
 
 }

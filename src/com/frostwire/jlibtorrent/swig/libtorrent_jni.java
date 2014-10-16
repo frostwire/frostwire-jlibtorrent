@@ -3538,7 +3538,6 @@ public class libtorrent_jni {
   public final static native String base64encode(String jarg1);
   public final static native String base32encode(String jarg1);
   public final static native String base32decode(String jarg1);
-  public final static native String to_hex(String jarg1);
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
   public final static native void parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
@@ -3591,6 +3590,7 @@ public class libtorrent_jni {
   public final static native void ed25519_key_exchange(long jarg1, char_vector jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_);
   public final static native long new_ed25519();
   public final static native void delete_ed25519(long jarg1);
+  public final static native String to_hex(long jarg1, char_vector jarg1_);
   public final static native long policy_ipv4_peer_SWIGUpcast(long jarg1);
   public final static native long policy_ipv6_peer_SWIGUpcast(long jarg1);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
