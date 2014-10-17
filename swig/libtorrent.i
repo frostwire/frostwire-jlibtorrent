@@ -107,8 +107,8 @@ void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq
 	std::vector<char> buf;
 	bencode(std::back_inserter(buf), e);
 	++seq;
-	sign_mutable_item(std::pair<char const*, int>(&buf[0], buf.size()),
-        std::pair<char const*, int>(&salt[0], salt.size()),
+	sign_mutable_item(std::pair<char const*, int>(buf.data(), buf.size()),
+        std::pair<char const*, int>(salt.data(), salt.size()),
         seq,
         public_key,
         private_key,
@@ -257,6 +257,9 @@ public:
         $action
     } catch (const std::out_of_range &e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+        return $null;
+    } catch (const std::invalid_argument &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, e.what());
         return $null;
     } catch (const std::bad_alloc &e) {
         //translate OOM C++ exception to a Java exception
@@ -818,19 +821,20 @@ namespace libtorrent {
         $self->dht_get_item(key, salt);
     }
 
-    void dht_put_item(std::vector<char>& public_key_v, std::vector<char>& private_key_v, entry& data, std::string salt = std::string()) {
-        boost::array<char, 32> public_key;
-    	boost::array<char, 64> private_key;
+    void dht_put_item(std::vector<char>& public_key, std::vector<char>& private_key, entry& data, std::string salt = std::string()) {
+        if (public_key.size() != 32) {
+            throw std::invalid_argument("Public key must be of size 32");
+        }
+        if (private_key.size() != 64) {
+            throw std::invalid_argument("Private key must be of size 64");
+        }
+        boost::array<char, 32> key;
 
     	for (int i = 0; i < 32; i++) {
-    	    public_key[i] = public_key_v[i];
+    	    key[i] = public_key[i];
     	}
 
-    	for (int i = 0; i < 64; i++) {
-            private_key_v[i] = private_key_v[i];
-        }
-
-        $self->dht_put_item(public_key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
+        $self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
             public_key.data(), private_key.data(), data), salt);
     }
 };

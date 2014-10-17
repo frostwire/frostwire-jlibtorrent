@@ -349,12 +349,12 @@ public class session {
     libtorrent_jni.session_dht_get_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(key_v), key_v);
   }
 
-  public void dht_put_item(char_vector public_key_v, char_vector private_key_v, entry data, String salt) {
-    libtorrent_jni.session_dht_put_item__SWIG_1(swigCPtr, this, char_vector.getCPtr(public_key_v), public_key_v, char_vector.getCPtr(private_key_v), private_key_v, entry.getCPtr(data), data, salt);
+  public void dht_put_item(char_vector public_key, char_vector private_key, entry data, String salt) {
+    libtorrent_jni.session_dht_put_item__SWIG_1(swigCPtr, this, char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data, salt);
   }
 
-  public void dht_put_item(char_vector public_key_v, char_vector private_key_v, entry data) {
-    libtorrent_jni.session_dht_put_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(public_key_v), public_key_v, char_vector.getCPtr(private_key_v), private_key_v, entry.getCPtr(data), data);
+  public void dht_put_item(char_vector public_key, char_vector private_key, entry data) {
+    libtorrent_jni.session_dht_put_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data);
   }
 
   public enum save_state_flags_t {
