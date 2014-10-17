@@ -1,11 +1,9 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.Ed25519;
-import com.frostwire.jlibtorrent.Entry;
-import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.DhtBootstrapAlert;
+import com.frostwire.jlibtorrent.alerts.DhtAnnounceAlert;
+import com.frostwire.jlibtorrent.alerts.DhtMutableItemAlert;
 import com.frostwire.jlibtorrent.alerts.DhtPutAlert;
 import com.frostwire.jlibtorrent.swig.entry;
 
@@ -27,16 +25,31 @@ public final class DhtPut {
 
             @Override
             public void alert(Alert<?> alert) {
-                //System.out.println(alert.getSwig().message());
+                System.out.println(alert.getSwig().message());
 
-                if (alert instanceof DhtBootstrapAlert) {
+                if (alert instanceof DhtAnnounceAlert) {
+                    String a = ((DhtAnnounceAlert) alert).getIP().getSwig().to_string();
+                    int p = ((DhtAnnounceAlert) alert).getPort();
+                    s.addDHTNode(new Pair<String, Integer>(a, p));
                     signal.countDown();
                 }
 
                 if (alert instanceof DhtPutAlert) {
                     DhtPutAlert put = (DhtPutAlert) alert;
                     System.out.println("DHT put alert with public key:");
-                    System.out.println(toHex(put.getPublicKey()));
+                    System.out.println("PK:" + LibTorrent.toHex(put.getPublicKey()));
+                    System.out.println("SIG:" + LibTorrent.toHex(put.getSignature()));
+                    System.out.println("SALT:" + put.getSalt());
+
+                    s.dhtGetItem(put.getPublicKey(), "ts");
+                }
+
+                if (alert instanceof DhtMutableItemAlert) {
+                    DhtMutableItemAlert m = (DhtMutableItemAlert) alert;
+                    System.out.println(m.getItem());
+                    System.out.println("PK:" + LibTorrent.toHex(m.getKey()));
+                    System.out.println("SIG:" + LibTorrent.toHex(m.getSignature()));
+                    System.out.println("SALT:" + m.getSalt());
                 }
             }
         });
@@ -45,7 +58,8 @@ public final class DhtPut {
 
         signal.await();
 
-        System.out.println("DHT bootstraped");
+        System.out.println("DHT with peers");
+        System.out.println("Peers: " + s.getStatus().getDHTNodes());
 
         byte[] seed = new byte[Ed25519.SEED_SIZE];
         int r = Ed25519.createSeed(seed);
@@ -54,26 +68,12 @@ public final class DhtPut {
         byte[] privateKey = new byte[Ed25519.PRIVATE_KEY_SIZE];
 
         Ed25519.createKeypair(publicKey, privateKey, seed);
-
-        s.dhtPutItem(publicKey, privateKey, new Entry(new entry("test")));
-
         System.out.println("public key:");
-        System.out.println(toHex(publicKey));
+        System.out.println(LibTorrent.toHex(publicKey));
+
+        s.dhtPutItem(publicKey, privateKey, new Entry(new entry("test")), "ts");
 
         System.out.println("Press ENTER to exit");
         System.in.read();
-    }
-
-    private static String toHex(byte[] arr) {
-        String hex = "";
-        for (int i = 0; i < arr.length; i++) {
-            String t = Integer.toHexString(arr[i] & 0xFF);
-            if (t.length() < 2) {
-                t = "0" + t;
-            }
-            hex += t;
-        }
-
-        return hex;
     }
 }
