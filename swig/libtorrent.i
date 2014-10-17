@@ -332,7 +332,7 @@ namespace std {
 
     %template(unsigned_char_vector) vector<unsigned char>;
     %template(int_vector) vector<int>;
-    %template(int64_vector) vector<int64_t>;
+    %template(int64_vector) vector<long long>;
     %template(sha1_hash_vector) vector<libtorrent::sha1_hash>;
     %template(torrent_status_vector) vector<libtorrent::torrent_status>;
     %template(torrent_handle_vector) vector<libtorrent::torrent_handle>;

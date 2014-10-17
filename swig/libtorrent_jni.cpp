@@ -664,14 +664,14 @@ SWIGINTERN void std_vector_Sl_int_Sg__set(std::vector< int > *self,int i,std::ve
                 else
                     throw std::out_of_range("vector index out of range");
             }
-SWIGINTERN std::vector< long long >::const_reference std_vector_Sl_int64_t_Sg__get(std::vector< int64_t > *self,int i){
+SWIGINTERN std::vector< long long >::const_reference std_vector_Sl_long_SS_long_Sg__get(std::vector< long long > *self,int i){
                 int size = int(self->size());
                 if (i>=0 && i<size)
                     return (*self)[i];
                 else
                     throw std::out_of_range("vector index out of range");
             }
-SWIGINTERN void std_vector_Sl_int64_t_Sg__set(std::vector< int64_t > *self,int i,std::vector< long long >::value_type const &val){
+SWIGINTERN void std_vector_Sl_long_SS_long_Sg__set(std::vector< long long > *self,int i,std::vector< long long >::value_type const &val){
                 int size = int(self->size());
                 if (i>=0 && i<size)
                     (*self)[i] = val;
@@ -9928,13 +9928,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1int64_1vector(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  std::vector< int64_t > *result = 0 ;
+  std::vector< long long > *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   {
     try {
-      result = (std::vector< int64_t > *)new std::vector< int64_t >();
+      result = (std::vector< long long > *)new std::vector< long long >();
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return 0;
@@ -9959,23 +9959,23 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
       return 0;
     }
   }
-  *(std::vector< int64_t > **)&jresult = result; 
+  *(std::vector< long long > **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int64_1vector_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   std::vector< long long >::size_type result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   {
     try {
-      result = ((std::vector< int64_t > const *)arg1)->size();
+      result = ((std::vector< long long > const *)arg1)->size();
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return 0;
@@ -10007,16 +10007,16 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int64_1vector_1capacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   std::vector< long long >::size_type result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   {
     try {
-      result = ((std::vector< int64_t > const *)arg1)->capacity();
+      result = ((std::vector< long long > const *)arg1)->capacity();
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return 0;
@@ -10047,13 +10047,13 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int64_1vector_1reserve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   std::vector< long long >::size_type arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   arg2 = (std::vector< long long >::size_type)jarg2; 
   {
     try {
@@ -10087,16 +10087,16 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int6
 
 SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int64_1vector_1isEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jboolean jresult = 0 ;
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   {
     try {
-      result = (bool)((std::vector< int64_t > const *)arg1)->empty();
+      result = (bool)((std::vector< long long > const *)arg1)->empty();
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return 0;
@@ -10127,12 +10127,12 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int64_1vector_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   {
     try {
       (arg1)->clear();
@@ -10164,14 +10164,14 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int6
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int64_1vector_1add(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   std::vector< long long >::value_type *arg2 = 0 ;
   std::vector< long long >::value_type temp2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   temp2 = (std::vector< long long >::value_type)jarg2; 
   arg2 = &temp2; 
   {
@@ -10206,19 +10206,19 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int6
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int64_1vector_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   jlong jresult = 0 ;
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   int arg2 ;
   std::vector< long long >::value_type *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   arg2 = (int)jarg2; 
   {
     try {
       try {
-        result = (std::vector< long long >::value_type *) &std_vector_Sl_int64_t_Sg__get(arg1,arg2);
+        result = (std::vector< long long >::value_type *) &std_vector_Sl_long_SS_long_Sg__get(arg1,arg2);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -10255,7 +10255,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int64_1vector_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   int arg2 ;
   std::vector< long long >::value_type *arg3 = 0 ;
   std::vector< long long >::value_type temp3 ;
@@ -10263,14 +10263,14 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int6
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   arg2 = (int)jarg2; 
   temp3 = (std::vector< long long >::value_type)jarg3; 
   arg3 = &temp3; 
   {
     try {
       try {
-        std_vector_Sl_int64_t_Sg__set(arg1,arg2,(long long const &)*arg3);
+        std_vector_Sl_long_SS_long_Sg__set(arg1,arg2,(long long const &)*arg3);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -10305,11 +10305,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int6
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1int64_1vector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  std::vector< int64_t > *arg1 = (std::vector< int64_t > *) 0 ;
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(std::vector< int64_t > **)&jarg1; 
+  arg1 = *(std::vector< long long > **)&jarg1; 
   {
     try {
       delete arg1;
