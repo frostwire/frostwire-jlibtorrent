@@ -917,9 +917,9 @@ public:
 
     static int canonical_string(std::vector<char>& v, long seq, std::string& salt, std::vector<char>& out);
 
-    static sha1_hash item_target_id(std::vector<char>& v);
+    static libtorrent::sha1_hash item_target_id(std::vector<char>& v);
 
-    static sha1_hash item_target_id(std::vector<char>& salt, std::vector<char>& pk);
+    static libtorrent::sha1_hash item_target_id(std::vector<char>& salt, std::vector<char>& pk);
 
     static bool verify_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig);
 

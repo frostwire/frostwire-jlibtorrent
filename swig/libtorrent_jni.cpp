@@ -100629,7 +100629,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1item_1target_1id_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   std::vector< char > *arg1 = 0 ;
-  sha1_hash result;
+  libtorrent::sha1_hash result;
   
   (void)jenv;
   (void)jcls;
@@ -100663,7 +100663,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
       return 0;
     }
   }
-  *(sha1_hash **)&jresult = new sha1_hash((const sha1_hash &)result); 
+  *(libtorrent::sha1_hash **)&jresult = new libtorrent::sha1_hash((const libtorrent::sha1_hash &)result); 
   return jresult;
 }
 
@@ -100672,7 +100672,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
   jlong jresult = 0 ;
   std::vector< char > *arg1 = 0 ;
   std::vector< char > *arg2 = 0 ;
-  sha1_hash result;
+  libtorrent::sha1_hash result;
   
   (void)jenv;
   (void)jcls;
@@ -100712,7 +100712,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
       return 0;
     }
   }
-  *(sha1_hash **)&jresult = new sha1_hash((const sha1_hash &)result); 
+  *(libtorrent::sha1_hash **)&jresult = new libtorrent::sha1_hash((const libtorrent::sha1_hash &)result); 
   return jresult;
 }
 
