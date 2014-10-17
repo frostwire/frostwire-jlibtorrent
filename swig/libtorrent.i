@@ -179,6 +179,77 @@ std::string to_hex(std::vector<char>& v) {
     to_hex(v.data(), v.size(), s.data());
     return std::string(s.begin(), s.end());
 }
+
+namespace libtorrent {
+namespace dht {
+    // code copied from item.cpp
+    enum { canonical_length = 1200 };
+    int canonical_string(std::pair<char const*, int> v, boost::uint64_t seq
+        , std::pair<char const*, int> salt, char out[canonical_length])
+    {
+        // v must be valid bencoding!
+#ifdef TORRENT_DEBUG
+        lazy_entry e;
+        error_code ec;
+        TORRENT_ASSERT(lazy_bdecode(v.first, v.first + v.second, e, ec) == 0);
+#endif
+        char* ptr = out;
+
+        int left = canonical_length - (ptr - out);
+        if (salt.second > 0)
+        {
+            ptr += snprintf(ptr, left, "4:salt%d:", salt.second);
+            left = canonical_length - (ptr - out);
+            memcpy(ptr, salt.first, (std::min)(salt.second, left));
+            ptr += (std::min)(salt.second, left);
+            left = canonical_length - (ptr - out);
+        }
+        ptr += snprintf(ptr, canonical_length - (ptr - out)
+            , "3:seqi%" PRId64 "e1:v", seq);
+        left = canonical_length - (ptr - out);
+        memcpy(ptr, v.first, (std::min)(v.second, left));
+        ptr += (std::min)(v.second, left);
+        TORRENT_ASSERT((ptr - out) <= canonical_length);
+        return ptr - out;
+    }
+}
+}
+
+class dht_item {
+public:
+
+    static int canonical_string(std::vector<char>& v, long seq, std::string& salt, std::vector<char>& out) {
+        return dht::canonical_string(std::pair<char const*, int>(v.data(), v.size()),
+                                     seq,
+                                     std::pair<char const*, int>(salt.data(), salt.size()),
+                                     out.data());
+    }
+
+    static sha1_hash item_target_id(std::vector<char>& v) {
+        return dht::item_target_id(std::pair<char const*, int>(v.data(), v.size()));
+    }
+
+    static sha1_hash item_target_id(std::vector<char>& salt, std::vector<char>& pk) {
+        return dht::item_target_id(std::pair<char const*, int>(salt.data(), salt.size()), pk.data());
+    }
+
+    static bool verify_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig) {
+        return dht::verify_mutable_item(std::pair<char const*, int>(v.data(), v.size()),
+                                        std::pair<char const*, int>(salt.data(), salt.size()),
+                                        seq,
+                                        pk.data(),
+                                        sig.data());
+    }
+
+    static void sign_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig) {
+        dht::sign_mutable_item(std::pair<char const*, int>(v.data(), v.size()),
+                               std::pair<char const*, int>(salt.data(), salt.size()),
+                               seq,
+                               pk.data(),
+                               sk.data(),
+                               sig.data());
+    }
+};
 %}
 
 %exception {
@@ -840,3 +911,17 @@ public:
 };
 
 std::string to_hex(std::vector<char>& v);
+
+class dht_item {
+public:
+
+    static int canonical_string(std::vector<char>& v, long seq, std::string& salt, std::vector<char>& out);
+
+    static sha1_hash item_target_id(std::vector<char>& v);
+
+    static sha1_hash item_target_id(std::vector<char>& salt, std::vector<char>& pk);
+
+    static bool verify_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig);
+
+    static void sign_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig);
+};

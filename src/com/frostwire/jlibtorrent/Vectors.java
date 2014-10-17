@@ -33,6 +33,26 @@ public final class Vectors {
         }
     }
 
+    public static String char_vector2string(char_vector v, int size) {
+        StringBuilder sb = new StringBuilder(size);
+
+        for (int i = 0; i < size; i++) {
+            sb.append(v.get(i));
+        }
+
+        return sb.toString();
+    }
+
+    public static char_vector string2char_vector(String s) {
+        char_vector v = new char_vector();
+
+        for (int i = 0; i < s.length(); i++) {
+            v.add(s.charAt(i));
+        }
+
+        return v;
+    }
+
     public static char_vector bytes2char_vector(byte[] arr) {
         char_vector v = new char_vector();
 

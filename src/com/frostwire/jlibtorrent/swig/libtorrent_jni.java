@@ -3591,6 +3591,13 @@ public class libtorrent_jni {
   public final static native long new_ed25519();
   public final static native void delete_ed25519(long jarg1);
   public final static native String to_hex(long jarg1, char_vector jarg1_);
+  public final static native int dht_item_canonical_string(long jarg1, char_vector jarg1_, int jarg2, String jarg3, long jarg4, char_vector jarg4_);
+  public final static native long dht_item_item_target_id__SWIG_0(long jarg1, char_vector jarg1_);
+  public final static native long dht_item_item_target_id__SWIG_1(long jarg1, char_vector jarg1_, long jarg2, char_vector jarg2_);
+  public final static native boolean dht_item_verify_mutable_item(long jarg1, char_vector jarg1_, String jarg2, int jarg3, long jarg4, char_vector jarg4_, long jarg5, char_vector jarg5_);
+  public final static native void dht_item_sign_mutable_item(long jarg1, char_vector jarg1_, String jarg2, int jarg3, long jarg4, char_vector jarg4_, long jarg5, char_vector jarg5_, long jarg6, char_vector jarg6_);
+  public final static native long new_dht_item();
+  public final static native void delete_dht_item(long jarg1);
   public final static native long policy_ipv4_peer_SWIGUpcast(long jarg1);
   public final static native long policy_ipv6_peer_SWIGUpcast(long jarg1);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);

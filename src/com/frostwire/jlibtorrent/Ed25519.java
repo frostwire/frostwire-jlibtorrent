@@ -64,7 +64,7 @@ public final class Ed25519 {
         return ed25519.verify(Vectors.bytes2char_vector(signature), Vectors.bytes2char_vector(message), Vectors.bytes2char_vector(privateKey));
     }
 
-    public static void add_scalar(byte[] publicKey, byte[] privateKey, byte[] scalar) {
+    public static void addScalar(byte[] publicKey, byte[] privateKey, byte[] scalar) {
         if (publicKey == null || publicKey.length != PUBLIC_KEY_SIZE) {
             throw new IllegalArgumentException("public key buffer must be not null and of size " + PUBLIC_KEY_SIZE);
         }
@@ -75,13 +75,13 @@ public final class Ed25519 {
         char_vector v1 = Vectors.new_char_vector(PUBLIC_KEY_SIZE);
         char_vector v2 = Vectors.new_char_vector(PRIVATE_KEY_SIZE);
 
-        ed25519.create_keypair(v1, v2, Vectors.bytes2char_vector(scalar));
+        ed25519.add_scalar(v1, v2, Vectors.bytes2char_vector(scalar));
 
         Vectors.char_vector2bytes(v1, publicKey);
         Vectors.char_vector2bytes(v2, privateKey);
     }
 
-    public static void key_exchange(byte[] sharedSecret, byte[] publicKey, byte[] privateKey) {
+    public static void keyExchange(byte[] sharedSecret, byte[] publicKey, byte[] privateKey) {
         if (sharedSecret == null || sharedSecret.length != SHARED_SECRET_SIZE) {
             throw new IllegalArgumentException("shared secret buffer must be not null and of size " + SHARED_SECRET_SIZE);
         }
