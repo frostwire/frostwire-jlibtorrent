@@ -574,6 +574,33 @@ public final class Session {
     }
 
     /**
+     * takes a host name and port pair. That endpoint will be
+     * pinged, and if a valid DHT reply is received, the node will be added to
+     * the routing table.
+     *
+     * @param node
+     */
+    public void addDHTNode(Pair<String, Integer> node) {
+        s.add_dht_node(node.to_string_int_pair());
+    }
+
+    /**
+     * adds the given endpoint to a list of DHT router nodes.
+     * If a search is ever made while the routing table is empty, those nodes will
+     * be used as backups. Nodes in the router node list will also never be added
+     * to the regular routing table, which effectively means they are only used
+     * for bootstrapping, to keep the load off them.
+     * <p/>
+     * An example routing node that you could typically add is
+     * ``router.bittorrent.com``.
+     *
+     * @param node
+     */
+    public void addDHTRouter(Pair<String, Integer> node) {
+        s.add_dht_router(node.to_string_int_pair());
+    }
+
+    /**
      * query the DHT for an immutable item at the ``target`` hash.
      * the result is posted as a dht_immutable_item_alert.
      *

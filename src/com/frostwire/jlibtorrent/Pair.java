@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.int_int_pair;
+import com.frostwire.jlibtorrent.swig.string_int_pair;
 import com.frostwire.jlibtorrent.swig.string_string_pair;
 
 /**
@@ -44,5 +45,16 @@ public final class Pair<T1, T2> {
         }
 
         return new string_string_pair((String) first, (String) second);
+    }
+
+    /**
+     * @return
+     */
+    public string_int_pair to_string_int_pair() {
+        if (!String.class.equals(first.getClass()) || !Integer.class.equals(second.getClass())) {
+            throw new IllegalArgumentException("Incompatible types");
+        }
+
+        return new string_int_pair((String) first, (Integer) second);
     }
 }

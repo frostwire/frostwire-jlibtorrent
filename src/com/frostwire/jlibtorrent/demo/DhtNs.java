@@ -2,7 +2,8 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.*;
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.char_vector;
+import com.frostwire.jlibtorrent.swig.entry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by gubatron on 10/10/14.
- *
+ * <p/>
  * A rough proof of concept for a simple distributed
  * domain name system service that runs on top
  * of the Bittorrent DHT.
@@ -46,7 +47,7 @@ public class DhtNs {
 
             byte[] dhtKey = getDHTKey(name);
             String dhtHexKey = toHex(dhtKey);
-            System.out.println("register " + name + " (" + dhtHexKey+ ")");
+            System.out.println("register " + name + " (" + dhtHexKey + ")");
 
             Entry entry = new Entry(lt_entry);
             System.out.println(entry);
@@ -79,7 +80,7 @@ public class DhtNs {
 
             byte[] dhtKey = getDHTKey(name);
             String dhtHexKey = toHex(dhtKey);
-            System.out.println("register " + name + " (" + dhtHexKey+ ")");
+            System.out.println("register " + name + " (" + dhtHexKey + ")");
 
             Entry entry = new Entry(lt_entry);
             System.out.println(entry);
@@ -93,10 +94,10 @@ public class DhtNs {
     public static void checkName(final Session s, final String name, final KeyPair keys) {
         if (!s.isDHTRunning()) {
             System.out.println("Wait a little longer, connecting to the DHT...");
-        }  else {
+        } else {
             byte[] dhtKey = getDHTKey(name);
             String dhtHexKey = toHex(dhtKey);
-            System.out.println("check " + name + " (" + dhtHexKey+ ")");
+            System.out.println("check " + name + " (" + dhtHexKey + ")");
             s.dhtGetItem(keys.getPublicKey());
         }
     }
@@ -114,22 +115,22 @@ public class DhtNs {
                 String alertType = alert.getType().toString();
 
                 if (alertType.equals("PORTMAP_LOG") ||
-                    alertType.equals("EXTERNAL_IP") ||
-                    alertType.equals("LISTEN_SUCCEEDED") ||
-                    alertType.equals("DHT_GET_PEERS")) {
+                        alertType.equals("EXTERNAL_IP") ||
+                        alertType.equals("LISTEN_SUCCEEDED") ||
+                        alertType.equals("DHT_GET_PEERS")) {
                     return;
                 }
 
 
                 System.out.println("");
-                System.out.println(alert.getType().toString() + "("+ alert.getClass()+"): " + alert.getSwig().message());
+                System.out.println(alert.getType().toString() + "(" + alert.getClass() + "): " + alert.getSwig().message());
 
                 if (alert instanceof DhtBootstrapAlert ||
-                    alert instanceof DhtPutAlert ||
-                    alert instanceof DhtReplyAlert ||
-                    alert instanceof DhtImmutableItemAlert ||
-                    alert instanceof DhtMutableItemAlert ||
-                    alert instanceof DhtErrorAlert) {
+                        alert instanceof DhtPutAlert ||
+                        alert instanceof DhtReplyAlert ||
+                        alert instanceof DhtImmutableItemAlert ||
+                        alert instanceof DhtMutableItemAlert ||
+                        alert instanceof DhtErrorAlert) {
 
                     if (alert instanceof DhtErrorAlert) {
                         System.out.println("DHT ERROR!: " + ((DhtErrorAlert) alert).getError().message());
@@ -138,7 +139,7 @@ public class DhtNs {
                     if (alert instanceof DhtBootstrapAlert) {
                         DhtBootstrapAlert bstrap = (DhtBootstrapAlert) alert;
                         System.out.println("DhtBoostrapAlert: message(" + bstrap.getSwig().message() + ")\n" +
-                        "what: (" + bstrap.getSwig().what() + ")");
+                                "what: (" + bstrap.getSwig().what() + ")");
                         final long dht_bootstrap_time_end = System.currentTimeMillis();
                         final long dht_bootstrap_time = dht_bootstrap_time_end - dht_bootstrap_time_start;
                         System.out.println("\nConnected to the DHT network in " + dht_bootstrap_time + " ms");
@@ -157,8 +158,8 @@ public class DhtNs {
                     if (alert instanceof DhtImmutableItemAlert) {
                         DhtImmutableItemAlert immutableAlert = (DhtImmutableItemAlert) alert;
                         Entry item = immutableAlert.getItem();
-                        System.out.println("DHT Immutable Item Alert (" + immutableAlert.getSwig().getTarget().to_hex() +") => ");
-                        System.out.println("\t\t\t\t"+ item);
+                        System.out.println("DHT Immutable Item Alert (" + immutableAlert.getSwig().getTarget().to_hex() + ") => ");
+                        System.out.println("\t\t\t\t" + item);
                     }
 
                     if (alert instanceof DhtMutableItemAlert) {
@@ -167,8 +168,8 @@ public class DhtNs {
                         char_vector key_char_vector = mutableAlert.getSwig().key_v();
                         byte[] keyInBytes = new byte[(int) key_char_vector.size()];
                         Vectors.char_vector2bytes(key_char_vector, keyInBytes);
-                        System.out.println("DHT Mutable Item Alert (" + toHex(keyInBytes)  +") => ");
-                        System.out.println("\t\t\t\t"+item);
+                        System.out.println("DHT Mutable Item Alert (" + toHex(keyInBytes) + ") => ");
+                        System.out.println("\t\t\t\t" + item);
                         System.out.println("Seq: " + mutableAlert.getSeq());
                         System.out.println("Signature: " + toHex(mutableAlert.getSignature()));
                     }
@@ -177,7 +178,7 @@ public class DhtNs {
         });
 
         //this would be made probably out of the hashes of your PGP key pair.
-        final byte[] seed = new byte[] { //length Ed25519.SEED_SIZE = 32 bytes
+        final byte[] seed = new byte[]{ //length Ed25519.SEED_SIZE = 32 bytes
                 0x10, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa,
                 0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11, 0x12, 0x13, 0x14,
                 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d,
@@ -220,15 +221,13 @@ public class DhtNs {
                     servers.add("localhost");
                     putName(s, "foo://" + name, servers);
                 }
-            }
-            else if (line.toLowerCase().startsWith("get")) {
+            } else if (line.toLowerCase().startsWith("get")) {
                 String[] split = line.split(" ");
                 if (split.length > 1) {
                     String hex = split[1].trim();
                     getName(s, hex);
                 }
-            }
-            else if (line.toLowerCase().startsWith("check")) {
+            } else if (line.toLowerCase().startsWith("check")) {
                 String[] split = line.split(" ");
                 if (split.length > 1) {
                     String name = split[1].trim();
@@ -237,8 +236,7 @@ public class DhtNs {
             } else if (line.toLowerCase().startsWith("upnp")) {
                 System.out.println("starting upnp...");
                 s.startUPnP();
-            }
-            else if (!line.isEmpty()) {
+            } else if (!line.isEmpty()) {
                 System.out.println("Invalid command: " + line);
                 System.out.println("Try ? for help");
             }
@@ -246,19 +244,12 @@ public class DhtNs {
     }
 
     private static String toHex(byte[] arr) {
-        String hex = "";
-        for (int i = 0; i < arr.length; i++) {
-            String t = Integer.toHexString(arr[i] & 0xFF);
-            if (t.length() < 2) {
-                t = "0" + t;
-            }
-            hex += t;
-        }
-
-        return hex;
+        return LibTorrent.toHex(arr);
     }
 
-    /** returns 20 byte array out of the sha1 of the key given*/
+    /**
+     * returns 20 byte array out of the sha1 of the key given
+     */
     private static byte[] getDHTKey(String key) {
         return sha1(key);
     }
