@@ -693,7 +693,7 @@ namespace libtorrent {
         return buffer;
     }
 
-    static entry bdecode(std::vector<char> buffer) {
+    static entry bdecode(std::vector<char>& buffer) {
         return bdecode(buffer.begin(), buffer.end());
     }
 };
@@ -737,7 +737,7 @@ namespace libtorrent {
          $self->add_extension(&libtorrent::create_smart_ban_plugin);
     }
 
-    void dht_get_item(std::vector<char> key_v, std::string salt = std::string()) {
+    void dht_get_item(std::vector<char>& key_v, std::string salt = std::string()) {
         boost::array<char, 32> key;
 
         for (int i = 0; i < 32; i++) {
@@ -747,7 +747,7 @@ namespace libtorrent {
         $self->dht_get_item(key, salt);
     }
 
-    void dht_put_item(std::vector<char> public_key_v, std::vector<char> private_key_v, entry& data, std::string salt = std::string()) {
+    void dht_put_item(std::vector<char>& public_key_v, std::vector<char>& private_key_v, entry& data, std::string salt = std::string()) {
         boost::array<char, 32> public_key;
     	boost::array<char, 64> private_key;
 
@@ -777,35 +777,30 @@ namespace libtorrent {
 %extend dht_mutable_item_alert {
     std::vector<char> key_v() {
         boost::array<char, 32> arr = $self->key;
-        std::vector<char> v(arr.begin(), arr.end());
-        return v;
+        return std::vector<char>(arr.begin(), arr.end());
     }
 
     std::vector<char> signature_v() {
         boost::array<char, 64> arr = $self->signature;
-        std::vector<char> v(arr.begin(), arr.end());
-        return v;
+        return std::vector<char>(arr.begin(), arr.end());
     }
 };
 
 %extend dht_put_alert {
     std::vector<char> public_key_v() {
         boost::array<char, 32> arr = $self->public_key;
-        std::vector<char> v(arr.begin(), arr.end());
-        return v;
+        return std::vector<char>(arr.begin(), arr.end());
     }
 
     std::vector<char> signature_v() {
         boost::array<char, 64> arr = $self->signature;
-        std::vector<char> v(arr.begin(), arr.end());
-        return v;
+        return std::vector<char>(arr.begin(), arr.end());
     }
 };
 
 %extend stats_alert {
     std::vector<int> transferred_v() {
-        std::vector<int> v($self->transferred, $self->transferred + stats_alert::stats_channel::num_channels);
-        return v;
+        return std::vector<int>($self->transferred, $self->transferred + stats_alert::stats_channel::num_channels);
     }
 };
 }

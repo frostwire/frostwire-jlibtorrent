@@ -130,10 +130,18 @@ public class DhtNs {
                         alert instanceof DhtReplyAlert ||
                         alert instanceof DhtImmutableItemAlert ||
                         alert instanceof DhtMutableItemAlert ||
-                        alert instanceof DhtErrorAlert) {
+                        alert instanceof DhtErrorAlert ||
+                        alert instanceof DhtAnnounceAlert) {
 
                     if (alert instanceof DhtErrorAlert) {
                         System.out.println("DHT ERROR!: " + ((DhtErrorAlert) alert).getError().message());
+                    }
+
+                    if (alert instanceof DhtAnnounceAlert) {
+                        String a = ((DhtAnnounceAlert) alert).getIP().getSwig().to_string();
+                        int p = ((DhtAnnounceAlert) alert).getPort();
+                        s.addDHTNode(new Pair<String, Integer>(a, p));
+                        System.out.println("Added node: " + a + ":" + p);
                     }
 
                     if (alert instanceof DhtBootstrapAlert) {

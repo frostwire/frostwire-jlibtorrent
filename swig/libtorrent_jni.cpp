@@ -1005,7 +1005,7 @@ SWIGINTERN std::vector< char > libtorrent_entry_bencode(libtorrent::entry *self)
         libtorrent::bencode(std::back_inserter(buffer), *self);
         return buffer;
     }
-SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< char > buffer){
+SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< char > &buffer){
         return bdecode(buffer.begin(), buffer.end());
     }
 SWIGINTERN std::string libtorrent_sha1_hash_to_hex(libtorrent::sha1_hash *self){
@@ -1114,28 +1114,23 @@ SWIGINTERN libtorrent::dht_mutable_item_alert *libtorrent_alert_cast_to_dht_muta
 SWIGINTERN libtorrent::dht_put_alert *libtorrent_alert_cast_to_dht_put_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::dht_put_alert *>(alert);      }
 SWIGINTERN libtorrent::i2p_alert *libtorrent_alert_cast_to_i2p_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::i2p_alert *>(alert);      }
 SWIGINTERN std::vector< int > libtorrent_stats_alert_transferred_v(libtorrent::stats_alert *self){
-        std::vector<int> v(self->transferred, self->transferred + stats_alert::stats_channel::num_channels);
-        return v;
+        return std::vector<int>(self->transferred, self->transferred + stats_alert::stats_channel::num_channels);
     }
 SWIGINTERN std::vector< char > libtorrent_dht_mutable_item_alert_key_v(libtorrent::dht_mutable_item_alert *self){
         boost::array<char, 32> arr = self->key;
-        std::vector<char> v(arr.begin(), arr.end());
-        return v;
+        return std::vector<char>(arr.begin(), arr.end());
     }
 SWIGINTERN std::vector< char > libtorrent_dht_mutable_item_alert_signature_v(libtorrent::dht_mutable_item_alert *self){
         boost::array<char, 64> arr = self->signature;
-        std::vector<char> v(arr.begin(), arr.end());
-        return v;
+        return std::vector<char>(arr.begin(), arr.end());
     }
 SWIGINTERN std::vector< char > libtorrent_dht_put_alert_public_key_v(libtorrent::dht_put_alert *self){
         boost::array<char, 32> arr = self->public_key;
-        std::vector<char> v(arr.begin(), arr.end());
-        return v;
+        return std::vector<char>(arr.begin(), arr.end());
     }
 SWIGINTERN std::vector< char > libtorrent_dht_put_alert_signature_v(libtorrent::dht_put_alert *self){
         boost::array<char, 64> arr = self->signature;
-        std::vector<char> v(arr.begin(), arr.end());
-        return v;
+        return std::vector<char>(arr.begin(), arr.end());
     }
 SWIGINTERN void libtorrent_session_add_lt_trackers_extension(libtorrent::session *self){
         self->add_extension(&libtorrent::create_lt_trackers_plugin);
@@ -1143,7 +1138,7 @@ SWIGINTERN void libtorrent_session_add_lt_trackers_extension(libtorrent::session
 SWIGINTERN void libtorrent_session_add_smart_ban_extension(libtorrent::session *self){
          self->add_extension(&libtorrent::create_smart_ban_plugin);
     }
-SWIGINTERN void libtorrent_session_dht_get_item__SWIG_1(libtorrent::session *self,std::vector< char > key_v,std::string salt=std::string()){
+SWIGINTERN void libtorrent_session_dht_get_item__SWIG_1(libtorrent::session *self,std::vector< char > &key_v,std::string salt=std::string()){
         boost::array<char, 32> key;
 
         for (int i = 0; i < 32; i++) {
@@ -1152,7 +1147,7 @@ SWIGINTERN void libtorrent_session_dht_get_item__SWIG_1(libtorrent::session *sel
 
         self->dht_get_item(key, salt);
     }
-SWIGINTERN void libtorrent_session_dht_put_item__SWIG_1(libtorrent::session *self,std::vector< char > public_key_v,std::vector< char > private_key_v,libtorrent::entry &data,std::string salt=std::string()){
+SWIGINTERN void libtorrent_session_dht_put_item__SWIG_1(libtorrent::session *self,std::vector< char > &public_key_v,std::vector< char > &private_key_v,libtorrent::entry &data,std::string salt=std::string()){
         boost::array<char, 32> public_key;
     	boost::array<char, 64> private_key;
 
@@ -28272,22 +28267,20 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ent
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1bdecode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  std::vector< char > arg1 ;
-  std::vector< char > *argp1 ;
+  std::vector< char > *arg1 = 0 ;
   libtorrent::entry result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  argp1 = *(std::vector< char > **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< char >");
+  arg1 = *(std::vector< char > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
     return 0;
-  }
-  arg1 = *argp1; 
+  } 
   {
     try {
-      result = libtorrent_entry_bdecode(arg1);
+      result = libtorrent_entry_bdecode(*arg1);
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return 0;
@@ -95096,21 +95089,19 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1dht_1get_1item_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jstring jarg3) {
   libtorrent::session *arg1 = (libtorrent::session *) 0 ;
-  std::vector< char > arg2 ;
+  std::vector< char > *arg2 = 0 ;
   std::string arg3 ;
-  std::vector< char > *argp2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(libtorrent::session **)&jarg1; 
-  argp2 = *(std::vector< char > **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< char >");
+  arg2 = *(std::vector< char > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
     return ;
-  }
-  arg2 = *argp2; 
+  } 
   if(!jarg3) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
     return ;
@@ -95121,7 +95112,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   {
     try {
-      libtorrent_session_dht_get_item__SWIG_1(arg1,arg2,arg3);
+      libtorrent_session_dht_get_item__SWIG_1(arg1,*arg2,arg3);
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return ;
@@ -95148,23 +95139,21 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1dht_1get_1item_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   libtorrent::session *arg1 = (libtorrent::session *) 0 ;
-  std::vector< char > arg2 ;
-  std::vector< char > *argp2 ;
+  std::vector< char > *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(libtorrent::session **)&jarg1; 
-  argp2 = *(std::vector< char > **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< char >");
+  arg2 = *(std::vector< char > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
     return ;
-  }
-  arg2 = *argp2; 
+  } 
   {
     try {
-      libtorrent_session_dht_get_item__SWIG_1(arg1,arg2);
+      libtorrent_session_dht_get_item__SWIG_1(arg1,*arg2);
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return ;
@@ -95191,12 +95180,10 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1dht_1put_1item_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jstring jarg5) {
   libtorrent::session *arg1 = (libtorrent::session *) 0 ;
-  std::vector< char > arg2 ;
-  std::vector< char > arg3 ;
+  std::vector< char > *arg2 = 0 ;
+  std::vector< char > *arg3 = 0 ;
   libtorrent::entry *arg4 = 0 ;
   std::string arg5 ;
-  std::vector< char > *argp2 ;
-  std::vector< char > *argp3 ;
   
   (void)jenv;
   (void)jcls;
@@ -95205,18 +95192,16 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   (void)jarg3_;
   (void)jarg4_;
   arg1 = *(libtorrent::session **)&jarg1; 
-  argp2 = *(std::vector< char > **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< char >");
+  arg2 = *(std::vector< char > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
     return ;
-  }
-  arg2 = *argp2; 
-  argp3 = *(std::vector< char > **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< char >");
+  } 
+  arg3 = *(std::vector< char > **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
     return ;
-  }
-  arg3 = *argp3; 
+  } 
   
   arg4 = (libtorrent::entry *)((*(boost::shared_ptr<  libtorrent::entry > **)&jarg4) ? (*(boost::shared_ptr<  libtorrent::entry > **)&jarg4)->get() : 0);
   if (!arg4) {
@@ -95233,7 +95218,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
   {
     try {
-      libtorrent_session_dht_put_item__SWIG_1(arg1,arg2,arg3,*arg4,arg5);
+      libtorrent_session_dht_put_item__SWIG_1(arg1,*arg2,*arg3,*arg4,arg5);
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return ;
@@ -95260,11 +95245,9 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1dht_1put_1item_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_) {
   libtorrent::session *arg1 = (libtorrent::session *) 0 ;
-  std::vector< char > arg2 ;
-  std::vector< char > arg3 ;
+  std::vector< char > *arg2 = 0 ;
+  std::vector< char > *arg3 = 0 ;
   libtorrent::entry *arg4 = 0 ;
-  std::vector< char > *argp2 ;
-  std::vector< char > *argp3 ;
   
   (void)jenv;
   (void)jcls;
@@ -95273,18 +95256,16 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   (void)jarg3_;
   (void)jarg4_;
   arg1 = *(libtorrent::session **)&jarg1; 
-  argp2 = *(std::vector< char > **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< char >");
+  arg2 = *(std::vector< char > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
     return ;
-  }
-  arg2 = *argp2; 
-  argp3 = *(std::vector< char > **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< char >");
+  } 
+  arg3 = *(std::vector< char > **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
     return ;
-  }
-  arg3 = *argp3; 
+  } 
   
   arg4 = (libtorrent::entry *)((*(boost::shared_ptr<  libtorrent::entry > **)&jarg4) ? (*(boost::shared_ptr<  libtorrent::entry > **)&jarg4)->get() : 0);
   if (!arg4) {
@@ -95293,7 +95274,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   } 
   {
     try {
-      libtorrent_session_dht_put_item__SWIG_1(arg1,arg2,arg3,*arg4);
+      libtorrent_session_dht_put_item__SWIG_1(arg1,*arg2,*arg3,*arg4);
     } catch (const std::out_of_range &e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
       return ;
