@@ -59,16 +59,57 @@ public final class SessionSettings {
         s.setUser_agent(value);
     }
 
-    // the number of seconds the tracker connection will wait from when it
-    // sent the request until it considers the tracker to have timed-out.
-    // Default value is 60 seconds.
-    //int tracker_completion_timeout;
+    /**
+     * The number of seconds the tracker connection will wait from when it
+     * sent the request until it considers the tracker to have timed-out.
+     * <p/>
+     * Default value is 60 seconds.
+     *
+     * @return
+     */
+    public int getTrackerCompletionTimeout() {
+        return s.getTracker_completion_timeout();
+    }
 
-    // the number of seconds to wait to receive any data from the tracker. If
-    // no data is received for this number of seconds, the tracker will be
-    // considered as having timed out. If a tracker is down, this is the kind
-    // of timeout that will occur. The default value is 20 seconds.
-    //int tracker_receive_timeout;
+    /**
+     * The number of seconds the tracker connection will wait from when it
+     * sent the request until it considers the tracker to have timed-out.
+     * <p/>
+     * Default value is 60 seconds.
+     *
+     * @param value
+     */
+    public void setTrackerCompletionTimeout(int value) {
+        s.setTracker_completion_timeout(value);
+    }
+
+    /**
+     * The number of seconds to wait to receive any data from the tracker. If
+     * no data is received for this number of seconds, the tracker will be
+     * considered as having timed out. If a tracker is down, this is the kind
+     * of timeout that will occur.
+     * <p/>
+     * The default value is 20 seconds.
+     *
+     * @return
+     */
+    public int getTrackerReceiveTimeout() {
+        return s.getTracker_receive_timeout();
+    }
+
+    /**
+     * The number of seconds to wait to receive any data from the tracker. If
+     * no data is received for this number of seconds, the tracker will be
+     * considered as having timed out. If a tracker is down, this is the kind
+     * of timeout that will occur.
+     * <p/>
+     * The default value is 20 seconds.
+     *
+     * @param value
+     */
+    public void setTrackerReceiveTimeout(int value) {
+        s.setTracker_receive_timeout(value);
+    }
 
     // the time to wait when sending a stopped message before considering a
     // tracker to have timed out. this is usually shorter, to make the client
@@ -2361,27 +2402,85 @@ public final class SessionSettings {
     // first time).
     //int listen_queue_size;
 
-    // if true, the ``&ip=`` argument in tracker requests (unless otherwise
-    // specified) will be set to the intermediate IP address, if the user is
-    // double NATed. If ther user is not double NATed, this option has no
-    // affect.
-    //bool announce_double_nat;
+    /**
+     * if true, the ``&ip=`` argument in tracker requests (unless otherwise
+     * specified) will be set to the intermediate IP address, if the user is
+     * double NATed. If ther user is not double NATed, this option has no
+     * affect.
+     *
+     * @return
+     */
+    public boolean announceDoubleNAT() {
+        return s.getAnnounce_double_nat();
+    }
 
-    // the number of peers to try to connect to immediately when the first
-    // tracker response is received for a torrent. This is a boost to given
-    // to new torrents to accelerate them starting up. The normal connect
-    // scheduler is run once every second, this allows peers to be connected
-    // immediately instead of waiting for the session tick to trigger
-    // connections.
-    //int torrent_connect_boost;
+    /**
+     * if true, the ``&ip=`` argument in tracker requests (unless otherwise
+     * specified) will be set to the intermediate IP address, if the user is
+     * double NATed. If ther user is not double NATed, this option has no
+     * affect.
+     *
+     * @param value
+     */
+    public void announceDoubleNAT(boolean value) {
+        s.setAnnounce_double_nat(value);
+    }
 
-    // determines if seeding (and finished) torrents should attempt to make
-    // outgoing connections or not. By default this is true. It may be set to
-    // false in very specific applications where the cost of making outgoing
-    // connections is high, and there are no or small benefits of doing so.
-    // For instance, if no nodes are behind a firewall or a NAT, seeds don't
-    // need to make outgoing connections.
-    //bool seeding_outgoing_connections;
+    /**
+     * the number of peers to try to connect to immediately when the first
+     * tracker response is received for a torrent. This is a boost to given
+     * to new torrents to accelerate them starting up. The normal connect
+     * scheduler is run once every second, this allows peers to be connected
+     * immediately instead of waiting for the session tick to trigger
+     * connections.
+     *
+     * @return
+     */
+    public int getTorrentConnectBoost() {
+        return s.getTorrent_connect_boost();
+    }
+
+    /**
+     * the number of peers to try to connect to immediately when the first
+     * tracker response is received for a torrent. This is a boost to given
+     * to new torrents to accelerate them starting up. The normal connect
+     * scheduler is run once every second, this allows peers to be connected
+     * immediately instead of waiting for the session tick to trigger
+     * connections.
+     *
+     * @param value
+     */
+    public void setTorrentConnectBoost(int value) {
+        s.setTorrent_connect_boost(value);
+    }
+
+    /**
+     * determines if seeding (and finished) torrents should attempt to make
+     * outgoing connections or not. By default this is true. It may be set to
+     * false in very specific applications where the cost of making outgoing
+     * connections is high, and there are no or small benefits of doing so.
+     * For instance, if no nodes are behind a firewall or a NAT, seeds don't
+     * need to make outgoing connections.
+     *
+     * @return
+     */
+    public boolean isSeedingOutgoingConnections() {
+        return s.getSeeding_outgoing_connections();
+    }
+
+    /**
+     * determines if seeding (and finished) torrents should attempt to make
+     * outgoing connections or not. By default this is true. It may be set to
+     * false in very specific applications where the cost of making outgoing
+     * connections is high, and there are no or small benefits of doing so.
+     * For instance, if no nodes are behind a firewall or a NAT, seeds don't
+     * need to make outgoing connections.
+     *
+     * @param value
+     */
+    public void setSeedingOutgoingConnections(boolean value) {
+        s.setSeeding_outgoing_connections(value);
+    }
 
     // if true (which is the default), libtorrent will not connect to any
     // peers on priviliged ports (<= 1023). This can mitigate using
