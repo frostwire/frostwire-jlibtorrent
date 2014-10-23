@@ -49,6 +49,9 @@ public enum Priority {
      */
     SEVEN(7),
 
+    /**
+     *
+     */
     UNKNOWN(-1);
 
     private Priority(int swigValue) {

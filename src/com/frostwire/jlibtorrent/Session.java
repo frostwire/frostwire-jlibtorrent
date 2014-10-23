@@ -289,7 +289,7 @@ public final class Session {
      * @param th
      */
     public void removeTorrent(TorrentHandle th, Options options) {
-        s.remove_torrent(th.getSwig(), options.getSwig().swigValue());
+        s.remove_torrent(th.getSwig(), options.getSwig());
     }
 
     /**
@@ -895,6 +895,7 @@ public final class Session {
     }
 
     void fireAlert(Alert<?> a) {
+        //LOG.debug(a.toString());
         for (AlertListener l : listeners) {
             try {
                 l.alert(a);
@@ -1021,16 +1022,21 @@ public final class Session {
         /**
          * Delete the files belonging to the torrent from disk.
          */
-        DELETE_FILES(options_t.delete_files);
+        DELETE_FILES(options_t.delete_files.swigValue()),
 
-        private Options(options_t swigObj) {
-            this.swigObj = swigObj;
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        private Options(int swigValue) {
+            this.swigValue = swigValue;
         }
 
-        private final options_t swigObj;
+        private final int swigValue;
 
-        public options_t getSwig() {
-            return swigObj;
+        public int getSwig() {
+            return swigValue;
         }
     }
 

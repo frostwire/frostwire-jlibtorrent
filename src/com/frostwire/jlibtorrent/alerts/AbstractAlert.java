@@ -33,4 +33,9 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     public int getCategory() {
         return alert.category();
     }
+
+    @Override
+    public String toString() {
+        return getType() + " - " + getWhat() + " - " + alert.message();
+    }
 }
