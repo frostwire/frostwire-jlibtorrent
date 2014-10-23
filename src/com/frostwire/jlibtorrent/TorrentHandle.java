@@ -246,6 +246,69 @@ public final class TorrentHandle {
     }
 
     /**
+     * Every torrent that is added is assigned a queue position exactly one
+     * greater than the greatest queue position of all existing torrents.
+     * Torrents that are being seeded have -1 as their queue position, since
+     * they're no longer in line to be downloaded.
+     * <p/>
+     * When a torrent is removed or turns into a seed, all torrents with
+     * greater queue positions have their positions decreased to fill in the
+     * space in the sequence.
+     * <p/>
+     * This function returns the torrent's position in the download
+     * queue. The torrents with the smallest numbers are the ones that are
+     * being downloaded. The smaller number, the closer the torrent is to the
+     * front of the line to be started.
+     * <p/>
+     * The queue position is also available in the torrent_status.
+     *
+     * @return
+     */
+    public int getQueuePosition() {
+        return th.queue_position();
+    }
+
+    /**
+     * The ``queue_position_*()`` functions adjust the torrents position in
+     * the queue. Up means closer to the front and down means closer to the
+     * back of the queue. Top and bottom refers to the front and the back of
+     * the queue respectively.
+     */
+    public void queuePositionUp() {
+        th.queue_position_up();
+    }
+
+    /**
+     * The ``queue_position_*()`` functions adjust the torrents position in
+     * the queue. Up means closer to the front and down means closer to the
+     * back of the queue. Top and bottom refers to the front and the back of
+     * the queue respectively.
+     */
+    public void queuePositionDown() {
+        th.queue_position_down();
+    }
+
+    /**
+     * The ``queue_position_*()`` functions adjust the torrents position in
+     * the queue. Up means closer to the front and down means closer to the
+     * back of the queue. Top and bottom refers to the front and the back of
+     * the queue respectively.
+     */
+    public void queuePositionTop() {
+        th.queue_position_top();
+    }
+
+    /**
+     * The ``queue_position_*()`` functions adjust the torrents position in
+     * the queue. Up means closer to the front and down means closer to the
+     * back of the queue. Top and bottom refers to the front and the back of
+     * the queue respectively.
+     */
+    public void queuePositionBottom() {
+        th.queue_position_bottom();
+    }
+
+    /**
      * ``save_resume_data()`` generates fast-resume data and returns it as an
      * entry. This entry is suitable for being bencoded. For more information
      * about how fast-resume works, see fast-resume_.
