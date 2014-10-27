@@ -24,6 +24,11 @@ public final class DhtPut {
         s.addListener(new AlertListener() {
 
             @Override
+            public int[] types() {
+                return null;
+            }
+
+            @Override
             public void alert(Alert<?> alert) {
                 System.out.println(alert.getSwig().message());
 

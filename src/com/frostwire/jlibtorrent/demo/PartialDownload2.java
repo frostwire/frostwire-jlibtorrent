@@ -31,6 +31,11 @@ public final class PartialDownload2 {
 
         s.addListener(new AlertListener() {
             @Override
+            public int[] types() {
+                return null;
+            }
+
+            @Override
             public void alert(Alert<?> alert) {
                 if (!(alert instanceof TorrentAlert<?>)) {
                     return;

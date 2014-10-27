@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentPrioritizeAlert;
 import com.frostwire.jlibtorrent.swig.*;
@@ -16,6 +17,8 @@ import java.util.concurrent.TimeUnit;
  * @author aldenml
  */
 public final class Downloader {
+
+    private static final int[] LISTENER_TYPES = new int[] { AlertType.METADATA_RECEIVED.getSwig() };
 
     private final Session s;
 
@@ -61,7 +64,6 @@ public final class Downloader {
      * @return
      */
     public byte[] fetchMagnet(String uri, long timeout) {
-
         add_torrent_params p = add_torrent_params.create_instance_no_storage();
         error_code ec = new error_code();
         libtorrent.parse_magnet_uri(uri, p, ec);
@@ -90,6 +92,11 @@ public final class Downloader {
         final CountDownLatch signal = new CountDownLatch(1);
 
         AlertListener l = new AlertListener() {
+            @Override
+            public int[] types() {
+                return LISTENER_TYPES;
+            }
+
             @Override
             public void alert(Alert<?> alert) {
                 if (!(alert instanceof MetadataReceivedAlert)) {

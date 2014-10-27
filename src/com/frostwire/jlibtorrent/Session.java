@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.GenericAlert;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
+import com.frostwire.util.SparseArray;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -42,7 +43,8 @@ public final class Session {
     private long lastStatusRequestTime;
     private SessionStatus lastStatus;
 
-    private final List<AlertListener> listeners;
+    private final SparseArray<ArrayList<AlertListener>> listeners;
+    private final SparseArray<AlertListener[]> listenerSnapshots;
     private boolean running;
 
     public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface) {
@@ -52,7 +54,8 @@ public final class Session {
 
         this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
 
-        this.listeners = new CopyOnWriteArrayList<AlertListener>();
+        this.listeners = new SparseArray<ArrayList<AlertListener>>();
+        this.listenerSnapshots = new SparseArray<AlertListener[]>();
         this.running = true;
 
         alertsLoop();
@@ -77,13 +80,45 @@ public final class Session {
     }
 
     public void addListener(AlertListener listener) {
-        if (listener != null) {
-            this.listeners.add(listener);
-        }
+        modifyListeners(true, listener);
     }
 
     public void removeListener(AlertListener listener) {
-        this.listeners.remove(listener);
+        modifyListeners(false, listener);
+    }
+
+    private ArrayList<AlertListener> getListenersByType(int type) {
+        ArrayList<AlertListener> result = this.listeners.get(-1);
+        if (result == null) {
+            result = new ArrayList<AlertListener>();
+            this.listeners.append(type, result);
+        }
+        return result;
+    }
+
+    private void modifyListeners(boolean adding, AlertListener listener) {
+        if (listener != null) {
+            int[] types = listener.types();
+
+            //all alert-type including listener
+            if (types == null) {
+                modifyListeners(adding, -1, listener);
+            } else {
+                for (int i = 0; i < types.length; i++) {
+                    modifyListeners(adding, types[i], listener);
+                }
+            }
+        }
+    }
+
+    private void modifyListeners(boolean adding, int type, AlertListener listener) {
+        List<AlertListener> l = getListenersByType(type);
+        if (adding) {
+            l.add(listener);
+        } else {
+            l.remove(listener);
+        }
+        listenerSnapshots.append(type, l.toArray(new AlertListener[0]));
     }
 
     /**
@@ -877,14 +912,19 @@ public final class Session {
 
                     if (ptr != null) {
                         s.pop_alerts(deque);
+                        long size = deque.size();
+                        for (int i = 0; i < size; i++) {
+                            alert swigAlert = deque.getitem(i);
+                            List<AlertListener> alertListeners = listeners.get(swigAlert.type());
+                            if (alertListeners != null && !alertListeners.isEmpty()) {
+                                Alert<?> alert = castAlert(swigAlert);
+                                fireAlert(alert);
+                            }
+                        }
+                        deque.clear();
+
                     }
 
-                    for (int i = 0; i < deque.size(); i++) {
-                        Alert<?> a = castAlert(deque.getitem(i));
-                        fireAlert(a);
-                    }
-
-                    deque.clear();
                 }
             }
         };
@@ -895,12 +935,14 @@ public final class Session {
     }
 
     void fireAlert(Alert<?> a) {
-        //LOG.debug(a.toString());
-        for (AlertListener l : listeners) {
-            try {
-                l.alert(a);
-            } catch (Throwable e) {
-                LOG.warn("Error calling alert listener", e);
+        AlertListener[] alertListeners = listenerSnapshots.get(a.getSwig().type());
+        if (alertListeners != null) {
+            for (int i=0; i < alertListeners.length; i++) {
+                try {
+                    alertListeners[i].alert(a);
+                } catch (Throwable e) {
+                    LOG.warn("Error calling alert listener", e);
+                }
             }
         }
     }

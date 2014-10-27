@@ -24,6 +24,11 @@ public class TorrentAlertAdapter implements AlertListener {
     }
 
     @Override
+    public int[] types() {
+        return null;
+    }
+
+    @Override
     public final void alert(Alert<?> alert) {
         if (!(alert instanceof TorrentAlert<?>)) {
             return;

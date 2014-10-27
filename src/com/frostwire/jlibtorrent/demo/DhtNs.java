@@ -111,6 +111,11 @@ public class DhtNs {
 
         s.addListener(new AlertListener() {
             @Override
+            public int[] types() {
+                return null;
+            }
+
+            @Override
             public void alert(Alert<?> alert) {
                 String alertType = alert.getType().toString();
 
