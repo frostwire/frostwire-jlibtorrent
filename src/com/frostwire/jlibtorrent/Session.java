@@ -88,7 +88,7 @@ public final class Session {
     }
 
     private ArrayList<AlertListener> getListenersByType(int type) {
-        ArrayList<AlertListener> result = this.listeners.get(-1);
+        ArrayList<AlertListener> result = this.listeners.get(type);
         if (result == null) {
             result = new ArrayList<AlertListener>();
             this.listeners.append(type, result);
