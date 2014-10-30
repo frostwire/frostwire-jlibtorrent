@@ -1,11 +1,15 @@
 package com.frostwire.jlibtorrent.demo;
 
+import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.DHT;
-import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.swig.add_torrent_params;
+import com.frostwire.jlibtorrent.swig.error_code;
+import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.torrent_handle;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author gubatron
@@ -20,15 +24,36 @@ public final class GetMagnet2 {
 
         Session s = new Session();
 
+        s.addListener(new AlertListener() {
+            @Override
+            public int[] types() {
+                return null;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                System.out.println(alert);
+            }
+        });
+
         DHT dht = new DHT(s);
 
         System.out.println("Waiting for nodes in DHT");
         dht.waitNodes(1);
         System.out.println("Nodes in DHT: " + dht.nodes());
 
-        Entry entry = dht.get("86d0502ead28e495c9e67665340f72aa72fe304e", 1, TimeUnit.MINUTES);
+        add_torrent_params p = add_torrent_params.create_instance_no_storage();
+        error_code ec = new error_code();
+        libtorrent.parse_magnet_uri(uri, p, ec);
 
-        System.out.println("get result: " + entry);
+        p.setName("fetchMagnet - " + uri);
+
+        long flags = p.getFlags();
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+        p.setFlags(flags);
+
+        torrent_handle th = s.getSwig().add_torrent(p);
+        //th.resume();
 
         System.in.read();
     }

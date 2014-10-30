@@ -821,11 +821,16 @@ public final class Session {
     }
 
     void fireAlert(Alert<?> a) {
-        AlertListener[] alertListeners = listenerSnapshots.get(a.getSwig().type());
-        if (alertListeners != null) {
-            for (int i = 0; i < alertListeners.length; i++) {
+        fireAlert(a, a.getSwig().type());
+        fireAlert(a, -1);
+    }
+
+    private void fireAlert(Alert<?> a, int type) {
+        AlertListener[] listeners = listenerSnapshots.get(type);
+        if (listeners != null) {
+            for (int i = 0; i < listeners.length; i++) {
                 try {
-                    alertListeners[i].alert(a);
+                    listeners[i].alert(a);
                 } catch (Throwable e) {
                     LOG.warn("Error calling alert listener", e);
                 }
@@ -894,14 +899,23 @@ public final class Session {
                         long size = deque.size();
                         for (int i = 0; i < size; i++) {
                             alert swigAlert = deque.getitem(i);
-                            List<AlertListener> alertListeners = listeners.get(swigAlert.type());
-                            if (alertListeners != null && !alertListeners.isEmpty()) {
-                                Alert<?> alert = castAlert(swigAlert);
-                                fireAlert(alert);
+                            int type = swigAlert.type();
+
+                            Alert<?> alert = null;
+
+                            if (listeners.indexOfKey(type) >= 0) {
+                                alert = castAlert(swigAlert);
+                                fireAlert(alert, type);
+                            }
+
+                            if (listeners.indexOfKey(-1) >= 0) {
+                                if (alert == null) {
+                                    alert = castAlert(swigAlert);
+                                }
+                                fireAlert(alert, -1);
                             }
                         }
                         deque.clear();
-
                     }
 
                 }
@@ -913,15 +927,6 @@ public final class Session {
         t.start();
     }
 
-    private ArrayList<AlertListener> getListenersByType(int type) {
-        ArrayList<AlertListener> result = this.listeners.get(type);
-        if (result == null) {
-            result = new ArrayList<AlertListener>();
-            this.listeners.append(type, result);
-        }
-        return result;
-    }
-
     private void modifyListeners(boolean adding, AlertListener listener) {
         if (listener != null) {
             int[] types = listener.types();
@@ -931,6 +936,9 @@ public final class Session {
                 modifyListeners(adding, -1, listener);
             } else {
                 for (int i = 0; i < types.length; i++) {
+                    if (types[i] == -1) {
+                        throw new IllegalArgumentException("Type can't be the key of all (-1)");
+                    }
                     modifyListeners(adding, types[i], listener);
                 }
             }
@@ -938,12 +946,18 @@ public final class Session {
     }
 
     private void modifyListeners(boolean adding, int type, AlertListener listener) {
-        List<AlertListener> l = getListenersByType(type);
+        ArrayList<AlertListener> l = listeners.get(type);
+        if (l == null) {
+            l = new ArrayList<AlertListener>();
+            listeners.append(type, l);
+        }
+
         if (adding) {
             l.add(listener);
         } else {
             l.remove(listener);
         }
+
         listenerSnapshots.append(type, l.toArray(new AlertListener[0]));
     }
 
