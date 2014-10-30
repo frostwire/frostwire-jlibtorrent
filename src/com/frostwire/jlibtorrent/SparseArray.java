@@ -1,4 +1,4 @@
-package com.frostwire.util;
+package com.frostwire.jlibtorrent;
 
 /*
  * Copyright (C) 2006 The Android Open Source Project
@@ -44,7 +44,7 @@ package com.frostwire.util;
  * keys in ascending order, or the values corresponding to the keys in ascending
  * order in the case of <code>valueAt(int)</code>.</p>
  */
-public class SparseArray<E> implements Cloneable {
+class SparseArray<E> implements Cloneable {
     private static final Object DELETED = new Object();
     private boolean mGarbage = false;
 
@@ -444,25 +444,6 @@ public class SparseArray<E> implements Cloneable {
         while (lo <= hi) {
             final int mid = (lo + hi) >>> 1;
             final int midVal = array[mid];
-
-            if (midVal < value) {
-                lo = mid + 1;
-            } else if (midVal > value) {
-                hi = mid - 1;
-            } else {
-                return mid;  // value found
-            }
-        }
-        return ~lo;  // value not present
-    }
-
-    static int binarySearch(long[] array, int size, long value) {
-        int lo = 0;
-        int hi = size - 1;
-
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            final long midVal = array[mid];
 
             if (midVal < value) {
                 lo = mid + 1;

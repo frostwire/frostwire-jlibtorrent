@@ -1,12 +1,13 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.Entry;
+import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.swig.dht_immutable_item_alert;
 
 /**
- * This alert is posted as a response to a call to session::get_item(),
- * specifically the overload for looking up immutable items in the DHT.
+ * This alert is posted as a response to a call to {@link Session#dhtGetItem(Sha1Hash)},
+ * looking up immutable items in the DHT.
  *
  * @author gubatron
  * @author aldenml
@@ -19,7 +20,7 @@ public final class DhtImmutableItemAlert extends AbstractAlert<dht_immutable_ite
 
     /**
      * The target hash of the immutable item. This must
-     * match the sha-1 hash of the bencoded form of ``item``.
+     * match the sha-1 hash of the bencoded form of the item.
      *
      * @return
      */

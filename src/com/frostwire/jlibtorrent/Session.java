@@ -1,17 +1,16 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
 import com.frostwire.jlibtorrent.alerts.GenericAlert;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
-import com.frostwire.util.SparseArray;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * The session holds all state that spans multiple torrents. Among other
@@ -86,40 +85,6 @@ public final class Session {
 
     public void removeListener(AlertListener listener) {
         modifyListeners(false, listener);
-    }
-
-    private ArrayList<AlertListener> getListenersByType(int type) {
-        ArrayList<AlertListener> result = this.listeners.get(type);
-        if (result == null) {
-            result = new ArrayList<AlertListener>();
-            this.listeners.append(type, result);
-        }
-        return result;
-    }
-
-    private void modifyListeners(boolean adding, AlertListener listener) {
-        if (listener != null) {
-            int[] types = listener.types();
-
-            //all alert-type including listener
-            if (types == null) {
-                modifyListeners(adding, -1, listener);
-            } else {
-                for (int i = 0; i < types.length; i++) {
-                    modifyListeners(adding, types[i], listener);
-                }
-            }
-        }
-    }
-
-    private void modifyListeners(boolean adding, int type, AlertListener listener) {
-        List<AlertListener> l = getListenersByType(type);
-        if (adding) {
-            l.add(listener);
-        } else {
-            l.remove(listener);
-        }
-        listenerSnapshots.append(type, l.toArray(new AlertListener[0]));
     }
 
     /**
@@ -637,8 +602,8 @@ public final class Session {
     }
 
     /**
-     * query the DHT for an immutable item at the ``target`` hash.
-     * the result is posted as a dht_immutable_item_alert.
+     * Query the DHT for an immutable item at the target hash.
+     * the result is posted as a {@link DhtImmutableItemAlert}.
      *
      * @param target
      */
@@ -855,6 +820,19 @@ public final class Session {
         super.finalize();
     }
 
+    void fireAlert(Alert<?> a) {
+        AlertListener[] alertListeners = listenerSnapshots.get(a.getSwig().type());
+        if (alertListeners != null) {
+            for (int i = 0; i < alertListeners.length; i++) {
+                try {
+                    alertListeners[i].alert(a);
+                } catch (Throwable e) {
+                    LOG.warn("Error calling alert listener", e);
+                }
+            }
+        }
+    }
+
     private TorrentHandle addTorrentSupport(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile, boolean async) {
 
         String savePath = null;
@@ -935,17 +913,38 @@ public final class Session {
         t.start();
     }
 
-    void fireAlert(Alert<?> a) {
-        AlertListener[] alertListeners = listenerSnapshots.get(a.getSwig().type());
-        if (alertListeners != null) {
-            for (int i=0; i < alertListeners.length; i++) {
-                try {
-                    alertListeners[i].alert(a);
-                } catch (Throwable e) {
-                    LOG.warn("Error calling alert listener", e);
+    private ArrayList<AlertListener> getListenersByType(int type) {
+        ArrayList<AlertListener> result = this.listeners.get(type);
+        if (result == null) {
+            result = new ArrayList<AlertListener>();
+            this.listeners.append(type, result);
+        }
+        return result;
+    }
+
+    private void modifyListeners(boolean adding, AlertListener listener) {
+        if (listener != null) {
+            int[] types = listener.types();
+
+            //all alert-type including listener
+            if (types == null) {
+                modifyListeners(adding, -1, listener);
+            } else {
+                for (int i = 0; i < types.length; i++) {
+                    modifyListeners(adding, types[i], listener);
                 }
             }
         }
+    }
+
+    private void modifyListeners(boolean adding, int type, AlertListener listener) {
+        List<AlertListener> l = getListenersByType(type);
+        if (adding) {
+            l.add(listener);
+        } else {
+            l.remove(listener);
+        }
+        listenerSnapshots.append(type, l.toArray(new AlertListener[0]));
     }
 
     private static Map<Integer, CastAlertFunction> buildCastAlertTable() {

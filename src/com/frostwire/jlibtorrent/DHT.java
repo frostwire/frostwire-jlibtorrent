@@ -1,8 +1,15 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.dht_item;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_IMMUTABLE_ITEM;
 
 /**
  * This class provides a lens only functionality.
@@ -11,6 +18,8 @@ import com.frostwire.jlibtorrent.swig.sha1_hash;
  * @author aldenml
  */
 public final class DHT {
+
+    private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.getSwig()};
 
     private final Session s;
 
@@ -30,8 +39,64 @@ public final class DHT {
         return s.isDHTRunning();
     }
 
+    public void waitNodes(int nodes) {
+        boolean ready = false;
+        while (!ready) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // ignore
+            }
+
+            ready = s.getStatus().getDHTNodes() > nodes;
+        }
+    }
+
+    public int nodes() {
+        return s.getStatus().getDHTNodes();
+    }
+
     public void get(String sha1) {
         s.dhtGetItem(new Sha1Hash(sha1));
+    }
+
+    public Entry get(String sha1, long timeout, TimeUnit unit) {
+        final Sha1Hash target = new Sha1Hash(sha1);
+        final Entry[] result = {null};
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener l = new AlertListener() {
+
+            @Override
+            public int[] types() {
+                return DHT_IMMUTABLE_ITEM_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                if (alert instanceof DhtImmutableItemAlert) {
+                    DhtImmutableItemAlert itemAlert = (DhtImmutableItemAlert) alert;
+                    if (target.equals(itemAlert.getTarget())) {
+                        result[0] = itemAlert.getItem();
+                        signal.countDown();
+                    }
+                }
+            }
+        };
+
+        s.addListener(l);
+
+        s.dhtGetItem(target);
+
+        try {
+            signal.await(timeout, unit);
+        } catch (InterruptedException e) {
+            // ignore
+        }
+
+        s.removeListener(l);
+
+        return result[0];
     }
 
     public String put(Entry entry) {
