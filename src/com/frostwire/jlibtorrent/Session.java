@@ -61,6 +61,7 @@ public final class Session {
         alertsLoop();
 
         s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
+        s.add_dht_router(new string_int_pair("dht.transmissionbt.com", 6881));
     }
 
     public Session(Fingerprint print) {
