@@ -821,7 +821,7 @@ public final class Session {
     }
 
     void fireAlert(Alert<?> a) {
-        fireAlert(a, a.getSwig().type());
+        fireAlert(a, a.getType().getSwig());
         fireAlert(a, -1);
     }
 
