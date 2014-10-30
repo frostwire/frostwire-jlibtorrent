@@ -53,7 +53,7 @@ public final class GetMagnet2 {
         p.setFlags(flags);
 
         torrent_handle th = s.getSwig().add_torrent(p);
-        //th.resume();
+        th.resume();
 
         System.in.read();
     }

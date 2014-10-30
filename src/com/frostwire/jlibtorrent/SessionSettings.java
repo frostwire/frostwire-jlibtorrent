@@ -252,26 +252,95 @@ public final class SessionSettings {
         s.setAllow_multiple_connections_per_ip(value);
     }
 
-    // the maximum times we try to connect to a peer before stop connecting
-    // again. If a peer succeeds, its failcounter is reset. If a peer is
-    // retrieved from a peer source (other than DHT) the failcount is
-    // decremented by one, allowing another try.
-    //int max_failcount;
+    /**
+     * The maximum times we try to connect to a peer before stop connecting
+     * again. If a peer succeeds, its failcounter is reset. If a peer is
+     * retrieved from a peer source (other than DHT) the failcount is
+     * decremented by one, allowing another try.
+     *
+     * @return
+     */
+    public int getMaxFailcount() {
+        return s.getMax_failcount();
+    }
 
-    // the number of seconds to wait to reconnect to a peer. this time is
-    // multiplied with the failcount.
-    //int min_reconnect_time;
+    /**
+     * The maximum times we try to connect to a peer before stop connecting
+     * again. If a peer succeeds, its failcounter is reset. If a peer is
+     * retrieved from a peer source (other than DHT) the failcount is
+     * decremented by one, allowing another try.
+     *
+     * @param value
+     */
+    public void setMaxFailcount(int value) {
+        s.setMax_failcount(value);
+    }
 
-    // the number of seconds to wait after a connection attempt is initiated
-    // to a peer until it is considered as having timed out. The default is
-    // 10 seconds. This setting is especially important in case the number of
-    // half-open connections are limited, since stale half-open connection
-    // may delay the connection of other peers considerably.
-    //int peer_connect_timeout;
+    /**
+     * The number of seconds to wait to reconnect to a peer. this time is
+     * multiplied with the failcount.
+     *
+     * @return
+     */
+    public int getMinReconnectTime() {
+        return s.getMin_reconnect_time();
+    }
 
-    // if set to true, upload, download and unchoke limits are ignored for
-    // peers on the local network.
-    //bool ignore_limits_on_local_network;
+    /**
+     * The number of seconds to wait to reconnect to a peer. this time is
+     * multiplied with the failcount.
+     *
+     * @param value
+     */
+    public void setMinReconnectTime(int value) {
+        s.setMin_reconnect_time(value);
+    }
+
+    /**
+     * The number of seconds to wait after a connection attempt is initiated
+     * to a peer until it is considered as having timed out. The default is
+     * 10 seconds. This setting is especially important in case the number of
+     * half-open connections are limited, since stale half-open connection
+     * may delay the connection of other peers considerably.
+     *
+     * @return
+     */
+    public int getPeerConnectTimeout() {
+        return s.getPeer_connect_timeout();
+    }
+
+    /**
+     * The number of seconds to wait after a connection attempt is initiated
+     * to a peer until it is considered as having timed out. The default is
+     * 10 seconds. This setting is especially important in case the number of
+     * half-open connections are limited, since stale half-open connection
+     * may delay the connection of other peers considerably.
+     *
+     * @param value
+     */
+    public void setPeerConnectTimeout(int value) {
+        s.setPeer_connect_timeout(value);
+    }
+
+    /**
+     * If set to true, upload, download and unchoke limits are ignored for
+     * peers on the local network.
+     *
+     * @return
+     */
+    public boolean ignoreLimitsOnLocalNetwork() {
+        return s.getIgnore_limits_on_local_network();
+    }
+
+    /**
+     * If set to true, upload, download and unchoke limits are ignored for
+     * peers on the local network.
+     *
+     * @param value
+     */
+    public void ignoreLimitsOnLocalNetwork(boolean value) {
+        s.setIgnore_limits_on_local_network(value);
+    }
 
     /**
      * the number of connection attempts that are made per second. If a
@@ -2516,7 +2585,7 @@ public final class SessionSettings {
     // second may be limited to below the ``connection_speed``, in case we're
     // close to bump up against the limit of number of connections. The
     // intention of this setting is to more evenly distribute our connection
-    // attempts over time, instead of attempting to connectin in batches, and
+    // attempts over time, instead of attempting to connect in in batches, and
     // timing them out in batches.
     //bool smooth_connects;
 
@@ -2727,17 +2796,17 @@ public final class SessionSettings {
     }
 
     /**
-     * options for session_settings::suggest_mode.
+     * Options for {@link #setSuggestMode}.
      */
     public enum SuggestMode {
 
         /**
-         * the default. will not send out suggest messages.
+         * The default. will not send out suggest messages.
          */
         NO_PIECE_SUGGESTIONS(session_settings.suggest_mode_t.no_piece_suggestions.swigValue()),
 
         /**
-         * send out suggest messages for the most recent pieces that are in
+         * Send out suggest messages for the most recent pieces that are in
          * the read cache.
          */
         SUGGEST_READ_CACHE(session_settings.suggest_mode_t.suggest_read_cache.swigValue()),
