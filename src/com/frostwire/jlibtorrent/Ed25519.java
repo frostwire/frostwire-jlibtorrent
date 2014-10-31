@@ -75,8 +75,8 @@ public final class Ed25519 {
             throw new IllegalArgumentException("scalar must be not null and of size " + SCALAR_SIZE);
         }
 
-        char_vector v1 = Vectors.new_char_vector(PUBLIC_KEY_SIZE);
-        char_vector v2 = Vectors.new_char_vector(PRIVATE_KEY_SIZE);
+        char_vector v1 = Vectors.bytes2char_vector(publicKey);
+        char_vector v2 = Vectors.bytes2char_vector(privateKey);
         char_vector v3 = Vectors.bytes2char_vector(scalar);
 
         ed25519.add_scalar(v1, v2, v3);
