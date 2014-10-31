@@ -71,11 +71,15 @@ public final class Ed25519 {
         if (privateKey == null || privateKey.length != PRIVATE_KEY_SIZE) {
             throw new IllegalArgumentException("private key buffer must be not null and of size " + PRIVATE_KEY_SIZE);
         }
+        if (scalar == null || scalar.length != SCALAR_SIZE) {
+            throw new IllegalArgumentException("scalar must be not null and of size " + SCALAR_SIZE);
+        }
 
         char_vector v1 = Vectors.new_char_vector(PUBLIC_KEY_SIZE);
         char_vector v2 = Vectors.new_char_vector(PRIVATE_KEY_SIZE);
+        char_vector v3 = Vectors.bytes2char_vector(scalar);
 
-        ed25519.add_scalar(v1, v2, Vectors.bytes2char_vector(scalar));
+        ed25519.add_scalar(v1, v2, v3);
 
         Vectors.char_vector2bytes(v1, publicKey);
         Vectors.char_vector2bytes(v2, privateKey);
