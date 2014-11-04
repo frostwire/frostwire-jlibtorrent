@@ -2,6 +2,8 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.file_storage;
 
+import java.io.File;
+
 /**
  * The ``file_storage`` class represents a file list and the piece
  * size. Everything necessary to interpret a regular bittorrent storage
@@ -92,7 +94,10 @@ public final class FileStorage {
      * @return
      */
     public String getFilePath(int index, String savePath) {
-        return fs.file_path(index, savePath);
+        // not calling the corresponding swig function because internally,
+        // the use of the function GetStringUTFChars does not consider the case of
+        // a copy not made
+        return savePath + File.separator + fs.file_path(index);
     }
 
     /**
