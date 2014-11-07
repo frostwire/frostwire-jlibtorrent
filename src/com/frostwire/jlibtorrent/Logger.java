@@ -2,6 +2,8 @@ package com.frostwire.jlibtorrent;
 
 import java.util.logging.Level;
 
+import static java.util.logging.Level.INFO;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -9,9 +11,11 @@ import java.util.logging.Level;
 public final class Logger {
 
     private final java.util.logging.Logger jul;
+    private final String name;
 
-    private Logger(java.util.logging.Logger jul) {
+    Logger(java.util.logging.Logger jul) {
         this.jul = jul;
+        this.name = jul.getName();
     }
 
     public static Logger getLogger(Class<?> clazz) {
@@ -19,34 +23,34 @@ public final class Logger {
     }
 
     public void info(String msg) {
-        jul.info(msg);
+        jul.logp(INFO, name, "", msg);
     }
 
     public void info(String msg, Throwable e) {
-        jul.log(Level.INFO, msg, e);
+        jul.logp(Level.INFO, name, "", msg, e);
     }
 
     public void warn(String msg) {
-        jul.info(msg);
+        jul.logp(INFO, name, "", msg);
     }
 
     public void warn(String msg, Throwable e) {
-        jul.log(Level.WARNING, msg, e);
+        jul.logp(Level.INFO, name, "", msg, e);
     }
 
     public void error(String msg) {
-        jul.info(msg);
+        jul.logp(INFO, name, "", msg);
     }
 
     public void error(String msg, Throwable e) {
-        jul.log(Level.INFO, msg, e);
+        jul.logp(Level.INFO, name, "", msg, e);
     }
 
     public void debug(String msg) {
-        jul.info(msg);
+        jul.logp(INFO, name, "", msg);
     }
 
     public void debug(String msg, Throwable e) {
-        jul.log(Level.INFO, msg, e);
+        jul.logp(Level.INFO, name, "", msg, e);
     }
 }
