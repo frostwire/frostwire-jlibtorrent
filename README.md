@@ -87,3 +87,7 @@ you will find the resulting `frostwire-jlibtorrent.jar` at `build/build/libs/fro
 
 [![tip for next commit](https://tip4commit.com/projects/983.svg)](https://tip4commit.com/github/frostwire/frostwire-jlibtorrent)
 
+License
+========
+
+This software is offered under the MIT License, available [here](License.md).
