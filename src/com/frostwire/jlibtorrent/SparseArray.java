@@ -35,7 +35,7 @@ package com.frostwire.jlibtorrent;
  * keys: instead of compacting its array immediately, it leaves the removed entry marked
  * as deleted.  The entry can then be re-used for the same key, or compacted later in
  * a single garbage collection step of all removed entries.  This garbage collection will
- * need to be performed at any time the array needs to be grown or the the map size or
+ * need to be performed at any time the array needs to be grown or the map size or
  * entry values are retrieved.</p>
  *
  * <p>It is possible to iterate over the items in this container using
