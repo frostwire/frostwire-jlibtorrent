@@ -1708,7 +1708,7 @@ public final class SessionSettings {
      * complete and needs to be verified against the piece hash. This happens
      * if some blocks were flushed to the disk out of order. Everything that
      * is flushed in order is hashed as it goes along. Optimizing for speed
-     * will allocate space to fit all the the remaingin, unhashed, part of
+     * will allocate space to fit all the remaining, unhashed, part of
      * the piece, reads the data into it in a single call and hashes it. This
      * is the default. If ``optimizing_hashing_for_speed`` is false, a single
      * block will be allocated (16 kB), and the unhashed parts of the piece
@@ -1726,7 +1726,7 @@ public final class SessionSettings {
      * complete and needs to be verified against the piece hash. This happens
      * if some blocks were flushed to the disk out of order. Everything that
      * is flushed in order is hashed as it goes along. Optimizing for speed
-     * will allocate space to fit all the the remaingin, unhashed, part of
+     * will allocate space to fit all the remaining, unhashed, part of
      * the piece, reads the data into it in a single call and hashes it. This
      * is the default. If ``optimizing_hashing_for_speed`` is false, a single
      * block will be allocated (16 kB), and the unhashed parts of the piece
@@ -2585,7 +2585,7 @@ public final class SessionSettings {
     // second may be limited to below the ``connection_speed``, in case we're
     // close to bump up against the limit of number of connections. The
     // intention of this setting is to more evenly distribute our connection
-    // attempts over time, instead of attempting to connect in in batches, and
+    // attempts over time, instead of attempting to connect in batches, and
     // timing them out in batches.
     //bool smooth_connects;
 
