@@ -5,7 +5,7 @@ import com.frostwire.jlibtorrent.swig.file_storage;
 import java.io.File;
 
 /**
- * The ``file_storage`` class represents a file list and the piece
+ * This class represents a file list and the piece
  * size. Everything necessary to interpret a regular bittorrent storage
  * file structure.
  *

@@ -111,12 +111,31 @@ public final class SessionSettings {
         s.setTracker_receive_timeout(value);
     }
 
-    // the time to wait when sending a stopped message before considering a
-    // tracker to have timed out. this is usually shorter, to make the client
-    // quit faster
-    //
-    // This is given in seconds. Default is 10 seconds.
-    //int stop_tracker_timeout;
+    /**
+     * The time to wait when sending a stopped message before considering a
+     * tracker to have timed out. this is usually shorter, to make the client
+     * quit faster.
+     * <p/>
+     * This is given in seconds. Default is 10 seconds.
+     *
+     * @return
+     */
+    public int getStopTrackerTimeout() {
+        return s.getStop_tracker_timeout();
+    }
+
+    /**
+     * The time to wait when sending a stopped message before considering a
+     * tracker to have timed out. this is usually shorter, to make the client
+     * quit faster.
+     * <p/>
+     * This is given in seconds. Default is 10 seconds.
+     *
+     * @param value
+     */
+    public void setStopTrackerTimeout(int value) {
+        s.setStop_tracker_timeout(value);
+    }
 
     // the maximum number of bytes in a tracker response. If a response size
     // passes this number it will be rejected and the connection will be
@@ -127,9 +146,25 @@ public final class SessionSettings {
     // 1 megabyte.
     //int tracker_maximum_response_length;
 
-    // controls the number of seconds from a request is sent until it times
-    // out if no piece response is returned.
-    //int piece_timeout;
+    /**
+     * Controls the number of seconds from a request is sent until it times
+     * out if no piece response is returned.
+     *
+     * @return
+     */
+    public int getPieceTimeout() {
+        return s.getPiece_timeout();
+    }
+
+    /**
+     * Controls the number of seconds from a request is sent until it times
+     * out if no piece response is returned.
+     *
+     * @param value
+     */
+    public void setPieceTimeout(int value) {
+        s.setPiece_timeout(value);
+    }
 
     // the number of seconds one block (16kB) is expected to be received
     // within. If it's not, the block is requested from a different peer
