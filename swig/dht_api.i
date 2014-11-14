@@ -41,6 +41,10 @@ namespace libtorrent {
         $self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
             public_key.data(), private_key.data(), data), salt);
     }
+
+    void dht_get_peers(sha1_hash const& info_hash) {
+        dht_get_peers($self, info_hash, false);
+    }
 };
 
 }
