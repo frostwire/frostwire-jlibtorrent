@@ -85,16 +85,22 @@ namespace libtorrent {
     char* what() { return NULL; }
 }
     
-// exception helper functions
-inline void new_java_exception(JNIEnv *env, const char *type = "", const char *message = "") {
-    jclass newExcCls = env->FindClass(type);
-    if (newExcCls != NULL) {
-        env->ThrowNew(newExcCls, message);
+void translate_cpp_exception(JNIEnv *jenv) {
+    try {
+        throw;
+    } catch (const std::out_of_range &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+    } catch (const std::invalid_argument &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, e.what());
+    } catch (const std::bad_alloc &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaOutOfMemoryError, e.what());
+    } catch (const std::ios_base::failure &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+    } catch (const std::exception &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaUnknownError, e.what());
+    } catch (...) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaUnknownError, "Unknown exception type");
     }
-}
-    
-inline void new_java_error(JNIEnv *env, const char *message = "") {
-    new_java_exception(env, "java/lang/Error", message);
 }
 
 void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
@@ -255,27 +261,8 @@ public:
 %exception {
     try {
         $action
-    } catch (const std::out_of_range &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-        return $null;
-    } catch (const std::invalid_argument &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, e.what());
-        return $null;
-    } catch (const std::bad_alloc &e) {
-        //translate OOM C++ exception to a Java exception
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-        return $null;
-    } catch (const std::ios_base::failure &e) {
-        //translate IO C++ exception to a Java exception
-        SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
-        return $null;
-    } catch (const std::exception &e) {
-        //translate unknown C++ exception to a Java exception
-        new_java_error(jenv, e.what());
-        return $null;
     } catch (...) {
-        //translate unknown C++ exception to a Java exception
-        new_java_error(jenv, "Unknown exception type");
+        translate_cpp_exception(jenv);
         return $null;
     }
 }
