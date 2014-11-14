@@ -8,35 +8,35 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * You will usually have to store your torrent handles somewhere, since it's
+ * the object through which you retrieve information about the torrent and
+ * aborts the torrent.
+ * <p/>
+ * .. warning::
+ * Any member function that returns a value or fills in a value has to be
+ * made synchronously. This means it has to wait for the main thread to
+ * complete the query before it can return. This might potentially be
+ * expensive if done from within a GUI thread that needs to stay
+ * responsive. Try to avoid quering for information you don't need, and
+ * try to do it in as few calls as possible. You can get most of the
+ * interesting information about a torrent from the
+ * torrent_handle::status() call.
+ * <p/>
+ * The default constructor will initialize the handle to an invalid state.
+ * Which means you cannot perform any operation on it, unless you first
+ * assign it a valid handle. If you try to perform any operation on an
+ * uninitialized handle, it will throw ``invalid_handle``.
+ * <p/>
+ * .. warning::
+ * All operations on a torrent_handle may throw libtorrent_exception
+ * exception, in case the handle is no longer refering to a torrent.
+ * There is one exception is_valid() will never throw. Since the torrents
+ * are processed by a background thread, there is no guarantee that a
+ * handle will remain valid between two calls.
+ *
  * @author gubatron
  * @author aldenml
  */
-// You will usually have to store your torrent handles somewhere, since it's
-// the object through which you retrieve information about the torrent and
-// aborts the torrent.
-//
-// .. warning::
-// 	Any member function that returns a value or fills in a value has to be
-// 	made synchronously. This means it has to wait for the main thread to
-// 	complete the query before it can return. This might potentially be
-// 	expensive if done from within a GUI thread that needs to stay
-// 	responsive. Try to avoid quering for information you don't need, and
-// 	try to do it in as few calls as possible. You can get most of the
-// 	interesting information about a torrent from the
-// 	torrent_handle::status() call.
-//
-// The default constructor will initialize the handle to an invalid state.
-// Which means you cannot perform any operation on it, unless you first
-// assign it a valid handle. If you try to perform any operation on an
-// uninitialized handle, it will throw ``invalid_handle``.
-//
-// .. warning::
-// 	All operations on a torrent_handle may throw libtorrent_exception
-// 	exception, in case the handle is no longer refering to a torrent.
-// 	There is one exception is_valid() will never throw. Since the torrents
-// 	are processed by a background thread, there is no guarantee that a
-// 	handle will remain valid between two calls.
-//
 public final class TorrentHandle {
 
     private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
@@ -571,18 +571,19 @@ public final class TorrentHandle {
         th.force_reannounce(seconds);
     }
 
-    // ``force_reannounce()`` will force this torrent to do another tracker
-    // request, to receive new peers. The ``seconds`` argument specifies how
-    // many seconds from now to issue the tracker announces.
-    //
-    // If the tracker's ``min_interval`` has not passed since the last
-    // announce, the forced announce will be scheduled to happen immediately
-    // as the ``min_interval`` expires. This is to honor trackers minimum
-    // re-announce interval settings.
-    //
-    // The ``tracker_index`` argument specifies which tracker to re-announce.
-    // If set to -1 (which is the default), all trackers are re-announce.
-    //
+    /**
+     * Force this torrent to do another tracker
+     * request, to receive new peers. The ``seconds`` argument specifies how
+     * many seconds from now to issue the tracker announces.
+     * <p/>
+     * If the tracker's ``min_interval`` has not passed since the last
+     * announce, the forced announce will be scheduled to happen immediately
+     * as the ``min_interval`` expires. This is to honor trackers minimum
+     * re-announce interval settings.
+     * <p/>
+     * The ``tracker_index`` argument specifies which tracker to re-announce.
+     * If set to -1 (which is the default), all trackers are re-announce.
+     */
     public void forceReannounce() {
         th.force_reannounce();
     }
