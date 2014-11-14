@@ -79,6 +79,7 @@ public enum AlertType {
     DHT_PUT(dht_put_alert.alert_type),
     DHT_MUTABLE_ITEM(dht_mutable_item_alert.alert_type),
     DHT_IMMUTABLE_ITEM(dht_immutable_item_alert.alert_type),
+    DHT_GET_PEERS_REPLY_ALERT(dht_get_peers_reply_alert.alert_type),
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
 

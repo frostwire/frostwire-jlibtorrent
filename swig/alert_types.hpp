@@ -2057,6 +2057,22 @@ namespace libtorrent
 		error_code error;
 	};
 
+	struct TORRENT_EXPORT dht_get_peers_reply_alert: alert
+    {
+        // internal
+        dht_get_peers_reply_alert(libtorrent::sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
+            : info_hash(ih), peers(v) {
+        }
+
+        TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert);
+
+        static const int static_category = alert::dht_notification;
+        virtual std::string message() const;
+
+        sha1_hash info_hash;
+        std::vector<tcp::endpoint> peers;
+    };
+
 #undef TORRENT_DEFINE_ALERT
 
 }

@@ -3,9 +3,12 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.DhtBootstrapAlert;
+import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
 
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -33,6 +36,13 @@ public final class DhtTest {
 
                 if (alert instanceof DhtBootstrapAlert) {
                     signal.countDown();
+                }
+
+                if (alert instanceof DhtGetPeersReplyAlert) {
+                    ArrayList<TcpEndpoint> peers = ((DhtGetPeersReplyAlert) alert).getPeers();
+                    for (int i = 0; i < peers.size(); i++) {
+                        System.out.println(peers.get(i));
+                    }
                 }
             }
         });

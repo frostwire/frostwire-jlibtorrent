@@ -1042,6 +1042,8 @@ public final class Session {
         CAST_ALERT_METHOD(dht_put_alert.class, map);
         CAST_ALERT_METHOD(i2p_alert.class, map);
 
+        CAST_ALERT_METHOD(dht_get_peers_reply_alert.class, map);
+
         return Collections.unmodifiableMap(map);
     }
 

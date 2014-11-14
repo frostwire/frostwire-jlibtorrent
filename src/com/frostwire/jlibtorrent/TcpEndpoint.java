@@ -25,4 +25,9 @@ public final class TcpEndpoint {
     public int getPort() {
         return endp.port();
     }
+
+    @Override
+    public String toString() {
+        return "tcp:" + endp.address() + ":" + endp.port();
+    }
 }

@@ -47,6 +47,8 @@ template class rob<dht_tracker_m_dht, &dht_tracker::m_dht>;
 	virtual int category() const { return static_category; } \
 	virtual char const* what() const { return #name; }
 
+namespace libtorrent {
+
 struct dht_get_peers_reply_alert: alert {
 
 	dht_get_peers_reply_alert(sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
@@ -68,6 +70,8 @@ struct dht_get_peers_reply_alert: alert {
 	sha1_hash info_hash;
 	std::vector<tcp::endpoint> peers;
 };
+
+}
 
 void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
     std::string const& salt, char const* public_key, char const* private_key,

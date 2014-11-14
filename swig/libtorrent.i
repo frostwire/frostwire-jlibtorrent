@@ -323,6 +323,7 @@ namespace std {
     %template(peer_entry_vector) vector<libtorrent::peer_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
+    %template(tcp_endpoint_vector) vector<tcp::endpoint>;
 
     %template(entry_list) list<libtorrent::entry>;
 
@@ -729,6 +730,8 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_mutable_item_alert)
     CAST_ALERT_METHOD(dht_put_alert)
     CAST_ALERT_METHOD(i2p_alert)
+
+    CAST_ALERT_METHOD(dht_get_peers_reply_alert)
 };
 
 %extend entry {
@@ -812,6 +815,7 @@ namespace libtorrent {
         return std::vector<int>($self->transferred, $self->transferred + stats_alert::stats_channel::num_channels);
     }
 };
+
 }
 
 class ed25519 {
