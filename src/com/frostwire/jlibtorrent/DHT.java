@@ -103,6 +103,14 @@ public final class DHT {
         return s.dhtPutItem(entry).toString();
     }
 
+    public void getPeers(String sha1) {
+        s.dhtGetPeers(new Sha1Hash(sha1));
+    }
+
+    public void announce(String sha1) {
+        s.dhtAnnounce(new Sha1Hash(sha1));
+    }
+
     /**
      * calculate the target hash for an immutable item.
      *

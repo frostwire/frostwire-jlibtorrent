@@ -94,30 +94,50 @@ void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq
 void dht_get_peers_fun(std::vector<tcp::endpoint> const& peers,
 						boost::shared_ptr<aux::session_impl> s, sha1_hash const& ih) {
 
-	if (s->m_alerts.should_post<dht_reply_alert>()) {
+	if (s->m_alerts.should_post<dht_get_peers_reply_alert>()) {
 		s->m_alerts.post_alert(dht_get_peers_reply_alert(ih, peers));
 	}
 }
 
 // search for nodes with ids close to id or with peers
 // for info-hash id
-void dht_get_peers(session* s, sha1_hash const& info_hash, bool privacy_lookups) {
+void dht_get_peers(session* s, sha1_hash const& info_hash) {
 
 	boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
-	boost::intrusive_ptr<dht::dht_tracker> s_dht_tracker = s_impl->m_dht;
-	const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
+    boost::intrusive_ptr<dht::dht_tracker> s_dht_tracker = s_impl->m_dht;
+    const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
+
+	bool privacy_lookups = node.get().settings().privacy_lookups;
 
     boost::intrusive_ptr<get_peers> ta;
 	if (privacy_lookups)
 	{
-		ta.reset(new obfuscated_get_peers(node, info_hash
-			, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash), NULL, 0));
+		ta.reset(new obfuscated_get_peers(node, info_hash,
+			boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash), NULL, 0));
 	}
 	else
 	{
-		ta.reset(new get_peers(node, info_hash
-			, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash), NULL, 0));
+		ta.reset(new get_peers(node, info_hash,
+			boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash), NULL, 0));
 	}
 
 	ta->start();
+}
+
+void dht_announce(session* s, sha1_hash const& info_hash) {
+
+	boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
+    boost::intrusive_ptr<dht::dht_tracker> s_dht_tracker = s_impl->m_dht;
+    const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
+
+    int port = s->listen_port();
+
+	int flags = 0;
+    // if we allow incoming uTP connections, set the implied_port
+    // argument in the announce, this will make the DHT node use
+    // our source port in the packet as our listen port, which is
+    // likely more accurate when behind a NAT
+    if (s->settings().enable_incoming_utp) flags |= dht::dht_tracker::flag_implied_port;
+
+	node.get().announce(info_hash, port, flags, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash));
 }

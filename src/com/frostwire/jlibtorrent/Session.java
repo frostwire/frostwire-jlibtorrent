@@ -349,6 +349,30 @@ public final class Session {
         return s.is_paused();
     }
 
+    /**
+     * returns the port we ended up listening on. Since you
+     * just pass a port-range to the constructor and to ``listen_on()``, to
+     * know which port it ended up using, you have to ask the session using
+     * this function.
+     *
+     * @return
+     */
+    public int getListenPort() {
+        return s.listen_port();
+    }
+
+    public int getSslListenPort() {
+        return s.ssl_listen_port();
+    }
+
+    /**
+     * will tell you whether or not the session has
+     * successfully opened a listening port. If it hasn't, this function will
+     * return false, and then you can use ``listen_on()`` to make another
+     * attempt.
+     *
+     * @return
+     */
     public boolean isListening() {
         return s.is_listening();
     }
@@ -735,6 +759,14 @@ public final class Session {
     // calling the callback in between is convenient.
     public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, String salt) {
         s.dht_put_item(Vectors.bytes2char_vector(publicKey), Vectors.bytes2char_vector(privateKey), entry.getSwig(), salt);
+    }
+
+    public void dhtGetPeers(Sha1Hash infoHash) {
+        s.dht_get_peers(infoHash.getSwig());
+    }
+
+    public void dhtAnnounce(Sha1Hash infoHash) {
+        s.dht_announce(infoHash.getSwig());
     }
 
     /**

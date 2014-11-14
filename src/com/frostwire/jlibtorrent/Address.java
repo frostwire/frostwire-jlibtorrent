@@ -17,4 +17,9 @@ public final class Address {
     public address getSwig() {
         return addr;
     }
+
+    @Override
+    public String toString() {
+        return addr.to_string();
+    }
 }

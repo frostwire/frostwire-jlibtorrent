@@ -1241,7 +1241,10 @@ SWIGINTERN void libtorrent_session_dht_put_item__SWIG_1(libtorrent::session *sel
             public_key.data(), private_key.data(), data), salt);
     }
 SWIGINTERN void libtorrent_session_dht_get_peers(libtorrent::session *self,libtorrent::sha1_hash const &info_hash){
-        dht_get_peers(self, info_hash, false);
+        dht_get_peers(self, info_hash);
+    }
+SWIGINTERN void libtorrent_session_dht_announce(libtorrent::session *self,libtorrent::sha1_hash const &info_hash){
+        dht_announce(self, info_hash);
     }
 SWIGINTERN int libtorrent_lazy_entry_bdecode(std::vector< char > &buffer,libtorrent::lazy_entry &e,libtorrent::error_code &ec){
         return lazy_bdecode(&buffer[0], &buffer[0] + buffer.size(), e, ec);
@@ -67325,6 +67328,31 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   {
     try {
       libtorrent_session_dht_get_peers(arg1,(libtorrent::sha1_hash const &)*arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1dht_1announce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  libtorrent::session *arg1 = (libtorrent::session *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(libtorrent::session **)&jarg1; 
+  arg2 = *(libtorrent::sha1_hash **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::sha1_hash const & reference is null");
+    return ;
+  } 
+  {
+    try {
+      libtorrent_session_dht_announce(arg1,(libtorrent::sha1_hash const &)*arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;

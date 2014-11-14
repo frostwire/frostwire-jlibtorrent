@@ -43,7 +43,11 @@ namespace libtorrent {
     }
 
     void dht_get_peers(sha1_hash const& info_hash) {
-        dht_get_peers($self, info_hash, false);
+        dht_get_peers($self, info_hash);
+    }
+
+    void dht_announce(sha1_hash const& info_hash) {
+        dht_announce($self, info_hash);
     }
 };
 

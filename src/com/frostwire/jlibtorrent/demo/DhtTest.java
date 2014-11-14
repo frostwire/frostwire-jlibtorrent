@@ -1,12 +1,13 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.DHT;
 import com.frostwire.jlibtorrent.Session;
-import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.DhtBootstrapAlert;
 import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
+import com.frostwire.jlibtorrent.alerts.ExternalIpAlert;
 
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -20,8 +21,11 @@ public final class DhtTest {
     public static void main(String[] args) throws Throwable {
 
         final Session s = new Session();
+        final DHT dht = new DHT(s);
 
-        final CountDownLatch signal = new CountDownLatch(2);
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        final String[] externalEndp = new String[1];
 
         s.addListener(new AlertListener() {
 
@@ -32,7 +36,7 @@ public final class DhtTest {
 
             @Override
             public void alert(Alert<?> alert) {
-                System.out.println(alert.getSwig().message());
+                System.out.println(alert);
 
                 if (alert instanceof DhtBootstrapAlert) {
                     signal.countDown();
@@ -43,6 +47,13 @@ public final class DhtTest {
                     for (int i = 0; i < peers.size(); i++) {
                         System.out.println(peers.get(i));
                     }
+                    System.out.println("EXTERNAL: " + externalEndp[0]);
+                }
+
+                if (alert instanceof ExternalIpAlert) {
+                    String addr = ((ExternalIpAlert) alert).getExternalAddress().toString();
+                    int port = s.getListenPort();
+                    externalEndp[0] = addr + ":" + port;
                 }
             }
         });
@@ -53,7 +64,16 @@ public final class DhtTest {
 
         System.out.println("Calling dht_get_peers");
 
-        s.getSwig().dht_get_peers(new Sha1Hash("86d0502ead28e495c9e67665340f72aa72fe304").getSwig());
+        dht.getPeers("86d0502ead28e495c9e67665340f72aa72fe304");
+
+        Thread.sleep(4000);
+
+        dht.announce("47d0502ead28e495c9e67665340f72aa72fe304");
+
+        System.out.println("Waiting 15 seconds");
+        Thread.sleep(15000);
+
+        dht.getPeers("47d0502ead28e495c9e67665340f72aa72fe304");
 
         System.out.println("Press ENTER to exit");
         System.in.read();

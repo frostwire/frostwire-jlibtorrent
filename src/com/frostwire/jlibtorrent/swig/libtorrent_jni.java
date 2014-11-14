@@ -3478,6 +3478,7 @@ public class libtorrent_jni {
   public final static native void session_dht_put_item__SWIG_1(long jarg1, session jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_, String jarg5);
   public final static native void session_dht_put_item__SWIG_2(long jarg1, session jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_);
   public final static native void session_dht_get_peers(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void session_dht_announce(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native int plus_one(int jarg1);
   public final static native int minus_one(int jarg1);
   public final static native int ip_filter_blocked_get();
