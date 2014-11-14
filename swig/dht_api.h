@@ -39,6 +39,36 @@ struct dht_tracker_m_dht { typedef node_impl dht_tracker::*type; };
 template class rob<dht_tracker_m_dht, &dht_tracker::m_dht>;
 // END PRIVATE HACK
 
+#define TORRENT_DEFINE_ALERT(name) \
+	const static int alert_type = __LINE__; \
+	virtual int type() const { return alert_type; } \
+	virtual std::auto_ptr<alert> clone() const \
+	{ return std::auto_ptr<alert>(new name(*this)); } \
+	virtual int category() const { return static_category; } \
+	virtual char const* what() const { return #name; }
+
+struct dht_get_peers_reply_alert: alert {
+
+	dht_get_peers_reply_alert(sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
+		: info_hash(ih), peers(v) {
+	}
+
+	TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert); // same line as other alert?
+
+	const static int static_category = alert::dht_notification;
+
+	std::string message() const {
+    	char ih_hex[41];
+    	to_hex((const char*)&info_hash[0], 20, ih_hex);
+    	char msg[200];
+    	snprintf(msg, sizeof(msg), "incoming dht get_peers reply: %s, peers %ld", ih_hex, peers.size());
+    	return msg;
+    }
+
+	sha1_hash info_hash;
+	std::vector<tcp::endpoint> peers;
+};
+
 void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
     std::string const& salt, char const* public_key, char const* private_key,
     entry& data)
@@ -57,9 +87,12 @@ void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq
         sig.data());
 }
 
-void dht_get_peers_fun(std::vector<tcp::endpoint> const& v, sha1_hash const& ih) {
+void dht_get_peers_fun(std::vector<tcp::endpoint> const& peers,
+						boost::shared_ptr<aux::session_impl> s, sha1_hash const& ih) {
 
-    std::cout << "got peers" << std::endl;
+	if (s->m_alerts.should_post<dht_reply_alert>()) {
+		s->m_alerts.post_alert(dht_get_peers_reply_alert(ih, peers));
+	}
 }
 
 // search for nodes with ids close to id or with peers
@@ -74,12 +107,12 @@ void dht_get_peers(session* s, sha1_hash const& info_hash, bool privacy_lookups)
 	if (privacy_lookups)
 	{
 		ta.reset(new obfuscated_get_peers(node, info_hash
-			, boost::bind(&dht_get_peers_fun, _1, info_hash), NULL, 0));
+			, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash), NULL, 0));
 	}
 	else
 	{
 		ta.reset(new get_peers(node, info_hash
-			, boost::bind(&dht_get_peers_fun, _1, info_hash), NULL, 0));
+			, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash), NULL, 0));
 	}
 
 	ta->start();
