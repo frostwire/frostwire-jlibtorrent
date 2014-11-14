@@ -324,24 +324,6 @@ void translate_cpp_exception(JNIEnv *jenv) {
     }
 }
 
-void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
-    std::string const& salt, char const* public_key, char const* private_key,
-    entry& data)
-{
-	using libtorrent::dht::sign_mutable_item;
-
-	e = data;
-	std::vector<char> buf;
-	bencode(std::back_inserter(buf), e);
-	++seq;
-	sign_mutable_item(std::pair<char const*, int>(buf.data(), buf.size()),
-        std::pair<char const*, int>(salt.data(), salt.size()),
-        seq,
-        public_key,
-        private_key,
-        sig.data());
-}
-
 class ed25519 {
 public:
 
@@ -558,6 +540,9 @@ SWIGINTERN std::string tcp_endpoint_address(tcp::endpoint *self){
 SWIGINTERN std::string udp_endpoint_address(udp::endpoint *self){
                 return self->address().to_string();
             }
+
+#include "dht_api.h"
+
 SWIGINTERN std::vector< std::string >::const_reference std_vector_Sl_std_string_Sg__get(std::vector< std::string > *self,int i){
                 int size = int(self->size());
                 if (i>=0 && i<size)
