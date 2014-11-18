@@ -264,7 +264,7 @@ public:
 %include "std_list.i"
 %include "boost.i"
 
-%include "dht_api.i"
+%include "session_extend.i"
 
 %intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)

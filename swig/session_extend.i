@@ -1,6 +1,6 @@
 
 %{
-#include "dht_api.h"
+#include "session_extend.h"
 %}
 
 namespace libtorrent {
