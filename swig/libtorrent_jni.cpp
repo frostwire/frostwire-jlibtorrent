@@ -541,7 +541,7 @@ SWIGINTERN std::string udp_endpoint_address(udp::endpoint *self){
                 return self->address().to_string();
             }
 
-#include "dht_api.h"
+#include "session_extend.h"
 
 SWIGINTERN std::vector< std::string >::const_reference std_vector_Sl_std_string_Sg__get(std::vector< std::string > *self,int i){
                 int size = int(self->size());
