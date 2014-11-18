@@ -124,13 +124,18 @@ void dht_get_peers(session* s, sha1_hash const& info_hash) {
 	ta->start();
 }
 
-void dht_announce(session* s, sha1_hash const& info_hash) {
+void dht_announce(session* s, sha1_hash const& info_hash, int port, int flags) {
 
 	boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
     boost::intrusive_ptr<dht::dht_tracker> s_dht_tracker = s_impl->m_dht;
     const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
 
-    int port = s->listen_port();
+	node.get().announce(info_hash, port, flags, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash));
+}
+
+void dht_announce(session* s, sha1_hash const& info_hash) {
+
+	int port = s->listen_port();
 
 	int flags = 0;
     // if we allow incoming uTP connections, set the implied_port
@@ -139,5 +144,5 @@ void dht_announce(session* s, sha1_hash const& info_hash) {
     // likely more accurate when behind a NAT
     if (s->settings().enable_incoming_utp) flags |= dht::dht_tracker::flag_implied_port;
 
-	node.get().announce(info_hash, port, flags, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash));
+	dht_announce(s, info_hash, port, flags);
 }

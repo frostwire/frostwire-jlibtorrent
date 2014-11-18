@@ -107,6 +107,10 @@ public final class DHT {
         s.dhtGetPeers(new Sha1Hash(sha1));
     }
 
+    public void announce(String sha1, int port, int flags) {
+        s.dhtAnnounce(new Sha1Hash(sha1), port, flags);
+    }
+
     public void announce(String sha1) {
         s.dhtAnnounce(new Sha1Hash(sha1));
     }

@@ -68,7 +68,7 @@ public final class DhtTest {
 
         Thread.sleep(4000);
 
-        dht.announce("47d0502ead28e495c9e67665340f72aa72fe304");
+        dht.announce("47d0502ead28e495c9e67665340f72aa72fe304", 9999, 0);
 
         System.out.println("Waiting 15 seconds");
         Thread.sleep(15000);

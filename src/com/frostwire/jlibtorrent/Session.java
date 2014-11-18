@@ -765,6 +765,10 @@ public final class Session {
         s.dht_get_peers(infoHash.getSwig());
     }
 
+    public void dhtAnnounce(Sha1Hash infoHash, int port, int flags) {
+        s.dht_announce(infoHash.getSwig(), port, flags);
+    }
+
     public void dhtAnnounce(Sha1Hash infoHash) {
         s.dht_announce(infoHash.getSwig());
     }

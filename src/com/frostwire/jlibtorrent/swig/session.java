@@ -361,8 +361,12 @@ public class session {
     libtorrent_jni.session_dht_get_peers(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash);
   }
 
+  public void dht_announce(sha1_hash info_hash, int port, int flags) {
+    libtorrent_jni.session_dht_announce__SWIG_0(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, port, flags);
+  }
+
   public void dht_announce(sha1_hash info_hash) {
-    libtorrent_jni.session_dht_announce(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash);
+    libtorrent_jni.session_dht_announce__SWIG_1(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash);
   }
 
   public enum save_state_flags_t {
