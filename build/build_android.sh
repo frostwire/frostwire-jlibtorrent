@@ -13,9 +13,8 @@
 #$BOOST_ROOT/b2 toolset=gcc-arm variant=release link=static target-os=linux --stagedir="android-arm" stage
 #$BOOST_ROOT/bjam toolset=gcc-arm variant=release link=static target-os=linux deprecated-functions=off
 
-CXX=arm-linux-androideabi-g++
-#CXX=i686-linux-android-g++
-# use the env one CXXFLAGS="-mthumb -fno-strict-aliasing -lstdc++ -O3 -D__GLIBC__ -D_GLIBCXX__PTHREADS -D__arm__ -D_REENTRANT"
+CXX=x86_64-linux-android-g++
+CXXFLAGS="-fno-strict-aliasing -lstdc++ -O3 -D__GLIBC__ -D_GLIBCXX__PTHREADS -D_REENTRANT"
 DEFINES="-DNDEBUG=1 -DBOOST_ASIO_SEPARATE_COMPILATION=1 -DTORRENT_USE_CLOCK_GETTIME=1 -DTORRENT_DISABLE_GEO_IP=1 -DTORRENT_NO_DEPRECATE=1"
 INCLUDES="-I$BOOST_ROOT -I$LIBTORRENT_ROOT/include -I$JDK_INCLUDE_1 -I$JDK_INCLUDE_2"
 LIBS="-ltorrent -lboost_system -lboost_chrono -lboost_date_time -lboost_thread"
