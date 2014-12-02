@@ -12,18 +12,138 @@ import com.frostwire.jlibtorrent.swig.torrent_status;
 public final class TorrentStatus {
 
     private final torrent_status ts;
+    private final TorrentHandle torrentHandle;
+    private final String error;
+    private final String name;
+    private final TorrentInfo torrentInfo;
+    private final TimeDuration nextAnnounce;
+    private final TimeDuration announceInterval;
+    private final String currentTracker;
+    private final long totalDownload;
+    private final long totalUpload;
+    private final long totalPayloadDownload;
+    private final long totalPayloadUpload;
+    private final long totalFailedBytes;
+    private final long totalRedundantBytes;
+    private final Bitfield pieces;
+    private final Bitfield verifiedPieces;
+    private final long totalDone;
+    private final long totalWantedDone;
+    private final long totalWanted;
+    private final long allTimeUpload;
+    private final long allTimeDownload;
+    private final long addedTime;
+    private final long completedTime;
+    private final long lastSeenComplete;
+    private final StorageMode storageMode;
+    private final float progress;
+    private final int progressPpm;
+    private final int queuePosition;
+    private final int downloadRate;
+    private final int uploadRate;
+    private final int downloadPayloadRate;
+    private final int uploadPayloadRate;
+    private final int numSeeds;
+    private final int numPeers;
+    private final int numComplete;
+    private final int numIncomplete;
+    private final int listSeeds;
+    private final int listPeers;
+    private final int connectCandidates;
+    private final int numPieces;
+    private final int distributedFullCopies;
+    private final int distributedFraction;
+    private final float distributedCopies;
+    private final int blockSize;
+    private final int numUploads;
+    private final int numConnections;
+    private final State state;
+    private final boolean needSaveResume;
+    private final boolean ipFilterApplies;
+    private final boolean isUploadMode;
+    private final boolean isShareMode;
+    private final boolean isSuperSeeding;
+    private final boolean isPaused;
+    private final boolean isAutoManaged;
+    private final boolean isSequentialDownload;
+    private final boolean isSeeding;
+    private final boolean isFinished;
+    private final boolean hasMetadata;
+    private final boolean hasIncoming;
+    private final boolean isSeedMode;
+    private final boolean isMovingStorage;
+    private final Sha1Hash infoHash;
 
     public TorrentStatus(torrent_status ts) {
         this.ts = ts;
+        this.torrentHandle = new TorrentHandle(ts.getHandle());
+        this.error =  ts.getError();
+        this.name = ts.getName();
+        this.torrentInfo = new TorrentInfo(ts.getTorrent_file());
+        this.nextAnnounce = new TimeDuration(ts.getNext_announce());
+        this.announceInterval = new TimeDuration(ts.getAnnounce_interval());
+        this.currentTracker = ts.getCurrent_tracker();
+        this.totalDownload = ts.getTotal_download();
+        this.totalUpload = ts.getTotal_upload();
+        this.totalPayloadDownload = ts.getTotal_payload_download();
+        this.totalPayloadUpload = ts.getTotal_payload_upload();
+        this.totalFailedBytes = ts.getTotal_failed_bytes();
+        this.totalRedundantBytes = ts.getTotal_redundant_bytes();
+        this.pieces = new Bitfield(ts.getPieces());
+        this.verifiedPieces = new Bitfield(ts.getVerified_pieces());
+        this.totalDone = ts.getTotal_done();
+        this.totalWantedDone =  ts.getTotal_wanted_done();
+        this.totalWanted = ts.getTotal_wanted();
+        this.allTimeUpload = ts.getAll_time_upload();
+        this.allTimeDownload = ts.getAll_time_download();
+        this.addedTime = time2millis(ts.getAdded_time());
+        this.completedTime = time2millis(ts.getCompleted_time());
+        this.lastSeenComplete = time2millis(ts.getLast_seen_complete());
+        this.storageMode = StorageMode.fromSwig(ts.getStorage_mode());
+        this.progress = ts.getProgress();
+        this.progressPpm = ts.getProgress_ppm();
+        this.queuePosition = ts.getQueue_position();
+        this.downloadRate = ts.getDownload_rate();
+        this.uploadRate = ts.getUpload_rate();
+        this.downloadPayloadRate = ts.getDownload_payload_rate();
+        this.uploadPayloadRate = ts.getUpload_payload_rate();
+        this.numSeeds = ts.getNum_seeds();
+        this.numPeers = ts.getNum_peers();
+        this.numComplete = ts.getNum_complete();
+        this.numIncomplete = ts.getNum_incomplete();
+        this.listSeeds = ts.getList_seeds();
+        this.listPeers = ts.getList_peers();
+        this.connectCandidates = ts.getConnect_candidates();
+        this.numPieces = ts.getNum_pieces();
+        this.distributedFullCopies = ts.getDistributed_full_copies();
+        this.distributedFraction = ts.getDistributed_fraction();
+        this.distributedCopies = ts.getDistributed_copies();
+        this.blockSize = ts.getBlock_size();
+        this.numUploads = ts.getNum_uploads();
+        this.numConnections = ts.getNum_connections();
+        this.state = State.fromSwig(ts.getState().swigValue());
+        this.needSaveResume = ts.getNeed_save_resume();
+        this.ipFilterApplies = ts.getIp_filter_applies();
+        this.isUploadMode = ts.getUpload_mode();
+        this.isShareMode = ts.getShare_mode();
+        this.isSuperSeeding = ts.getSuper_seeding();
+        this.isPaused = ts.getPaused();
+        this.isAutoManaged = ts.getAuto_managed();
+        this.isSequentialDownload = ts.getSequential_download();
+        this.isSeeding = ts.getIs_seeding();
+        this.isFinished = ts.getIs_finished();
+        this.hasMetadata = ts.getHas_metadata();
+        this.hasIncoming = ts.getHas_incoming();
+        this.isSeedMode = ts.getSeed_mode();
+        this.isMovingStorage = ts.getMoving_storage();
+        this.infoHash = new Sha1Hash(ts.getInfo_hash());
     }
 
     /**
      * a handle to the torrent whose status the object represents.
-     *
-     * @return
      */
     public TorrentHandle getHandle() {
-        return new TorrentHandle(ts.getHandle());
+        return torrentHandle;
     }
 
     /**
@@ -35,7 +155,7 @@ public final class TorrentStatus {
      * @return
      */
     public String getError() {
-        return ts.getError();
+        return error;
     }
 
     /**
@@ -49,7 +169,7 @@ public final class TorrentStatus {
      * @return
      */
     public String getName() {
-        return ts.getName();
+        return name;
     }
 
     /**
@@ -60,7 +180,7 @@ public final class TorrentStatus {
      * @return
      */
     public TorrentInfo getTorrentFile() {
-        return new TorrentInfo(ts.getTorrent_file());
+        return torrentInfo;
     }
 
     /**
@@ -69,7 +189,7 @@ public final class TorrentStatus {
      * @return
      */
     public TimeDuration getNextAnnounce() {
-        return new TimeDuration(ts.getNext_announce());
+        return nextAnnounce;
     }
 
     /**
@@ -79,7 +199,7 @@ public final class TorrentStatus {
      * @return
      */
     public TimeDuration getAnnounceInterval() {
-        return new TimeDuration(ts.getAnnounce_interval());
+        return announceInterval;
     }
 
     /**
@@ -89,7 +209,7 @@ public final class TorrentStatus {
      * @return
      */
     public String getCurrentTracker() {
-        return ts.getCurrent_tracker();
+        return currentTracker;
     }
 
     /**
@@ -99,7 +219,7 @@ public final class TorrentStatus {
      * persistent, stats, see allTimeUpload and allTimeDownload.
      */
     public long getTotalDownload() {
-        return ts.getTotal_download();
+        return totalDownload;
     }
 
     /**
@@ -109,7 +229,7 @@ public final class TorrentStatus {
      * persistent, stats, see allTimeUpload and allTimeDownload.
      */
     public long getTotalUpload() {
-        return ts.getTotal_upload();
+        return totalUpload;
     }
 
     /**
@@ -120,7 +240,7 @@ public final class TorrentStatus {
      * @return
      */
     public long getTotalPayloadDownload() {
-        return ts.getTotal_payload_download();
+        return totalPayloadDownload;
     }
 
     /**
@@ -131,7 +251,7 @@ public final class TorrentStatus {
      * @return
      */
     public long getTotalPayloadUpload() {
-        return ts.getTotal_payload_upload();
+        return totalPayloadUpload;
     }
 
     /**
@@ -142,7 +262,7 @@ public final class TorrentStatus {
      * @return
      */
     public long getTotalFailedBytes() {
-        return ts.getTotal_failed_bytes();
+        return totalFailedBytes;
     }
 
     /**
@@ -159,7 +279,7 @@ public final class TorrentStatus {
      * @return
      */
     public long getTotalRedundantBytes() {
-        return ts.getTotal_redundant_bytes();
+        return totalRedundantBytes;
     }
 
     /**
@@ -170,7 +290,7 @@ public final class TorrentStatus {
      * @return
      */
     public Bitfield getPieces() {
-        return new Bitfield(ts.getPieces());
+        return pieces;
     }
 
     /**
@@ -181,7 +301,7 @@ public final class TorrentStatus {
      * @return
      */
     public Bitfield getVerifiedPieces() {
-        return new Bitfield(ts.getVerified_pieces());
+        return verifiedPieces;
     }
 
     /**
@@ -189,7 +309,7 @@ public final class TorrentStatus {
      * has to be downloaded during this session (that's total_payload_download).
      */
     public long getTotalDone() {
-        return ts.getTotal_done();
+        return totalDone;
     }
 
     /**
@@ -197,7 +317,7 @@ public final class TorrentStatus {
      * to download. i.e. excluding any pieces that we have but have priority 0 (i.e. not wanted).
      */
     public long getTotalWantedDone() {
-        return ts.getTotal_wanted_done();
+        return totalWantedDone;
     }
 
     /**
@@ -205,7 +325,7 @@ public final class TorrentStatus {
      * torrent size in case any pieces are prioritized to 0, i.e. not wanted.
      */
     public long getTotalWanted() {
-        return ts.getTotal_wanted();
+        return totalWanted;
     }
 
     /**
@@ -213,7 +333,7 @@ public final class TorrentStatus {
      * from resume data to keep totals across sessions.
      */
     public long getAllTimeUpload() {
-        return ts.getAll_time_upload();
+        return allTimeUpload;
     }
 
     /**
@@ -221,28 +341,28 @@ public final class TorrentStatus {
      * from resume data to keep totals across sessions.
      */
     public long getAllTimeDownload() {
-        return ts.getAll_time_download();
+        return allTimeDownload;
     }
 
     /**
      * The posix-time (in milliseconds) when this torrent was added. i.e. what time(NULL) returned at the time.
      */
     public long getAddedTime() {
-        return time2millis(ts.getAdded_time());
+        return addedTime;
     }
 
     /**
      * The posix-time (in milliseconds) when this torrent was finished. If the torrent is not yet finished, this is 0.
      */
     public long getCompletedTime() {
-        return time2millis(ts.getCompleted_time());
+        return completedTime;
     }
 
     /**
      * The time (in milliseconds) when we, or one of our peers, last saw a complete copy of this torrent.
      */
     public long lastSeenComplete() {
-        return time2millis(ts.getLast_seen_complete());
+        return lastSeenComplete;
     }
 
     /**
@@ -250,7 +370,7 @@ public final class TorrentStatus {
      * For more information, see storage allocation.
      */
     public final StorageMode getStorageMode() {
-        return StorageMode.fromSwig(ts.getStorage_mode());
+        return storageMode;
     }
 
     /**
@@ -260,7 +380,7 @@ public final class TorrentStatus {
      * @return
      */
     public float getProgress() {
-        return ts.getProgress();
+        return progress;
     }
 
     /**
@@ -274,7 +394,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getProgressPpm() {
-        return ts.getProgress_ppm();
+        return progressPpm;
     }
 
     /**
@@ -284,7 +404,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getQueuePosition() {
-        return ts.getQueue_position();
+        return queuePosition;
     }
 
     /**
@@ -293,7 +413,7 @@ public final class TorrentStatus {
      * number of bytes per second.
      */
     public int getDownloadRate() {
-        return ts.getDownload_rate();
+        return downloadRate;
     }
 
     /**
@@ -302,7 +422,7 @@ public final class TorrentStatus {
      * number of bytes per second.
      */
     public int getUploadRate() {
-        return ts.getUpload_rate();
+        return uploadRate;
     }
 
     /**
@@ -311,7 +431,7 @@ public final class TorrentStatus {
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
      */
     public int getDownloadPayloadRate() {
-        return ts.getDownload_payload_rate();
+        return downloadPayloadRate;
     }
 
     /**
@@ -320,14 +440,14 @@ public final class TorrentStatus {
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
      */
     public int getUploadPayloadRate() {
-        return ts.getUpload_payload_rate();
+        return uploadPayloadRate;
     }
 
     /**
      * The number of peers that are seeding that this client is currently connected to.
      */
     public int getNumSeeds() {
-        return ts.getNum_seeds();
+        return numSeeds;
     }
 
     /**
@@ -337,7 +457,7 @@ public final class TorrentStatus {
      * you call get_peer_info().
      */
     public int getNumPeers() {
-        return ts.getNum_peers();
+        return numPeers;
     }
 
     /**
@@ -349,7 +469,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getNumComplete() {
-        return ts.getNum_complete();
+        return numComplete;
     }
 
     /**
@@ -361,7 +481,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getNumIncomplete() {
-        return ts.getNum_incomplete();
+        return numIncomplete;
     }
 
     /**
@@ -371,7 +491,7 @@ public final class TorrentStatus {
      * connect to.
      */
     public int getListSeeds() {
-        return ts.getList_seeds();
+        return listSeeds;
     }
 
     /**
@@ -381,7 +501,7 @@ public final class TorrentStatus {
      * connect to.
      */
     public int getListPeers() {
-        return ts.getList_peers();
+        return listPeers;
     }
 
     /**
@@ -393,7 +513,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getConnectCandidates() {
-        return ts.getConnect_candidates();
+        return connectCandidates;
     }
 
     /**
@@ -405,7 +525,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getNumPieces() {
-        return ts.getNum_pieces();
+        return numPieces;
     }
 
     /**
@@ -417,7 +537,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getDistributedFullCopies() {
-        return ts.getDistributed_full_copies();
+        return distributedFullCopies;
     }
 
     /**
@@ -436,7 +556,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getDistributedFraction() {
-        return ts.getDistributed_fraction();
+        return distributedFraction;
     }
 
     /**
@@ -453,7 +573,7 @@ public final class TorrentStatus {
      * @return
      */
     public float getDistributedCopies() {
-        return ts.getDistributed_copies();
+        return distributedCopies;
     }
 
     /**
@@ -466,7 +586,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getBlockSize() {
-        return ts.getBlock_size();
+        return blockSize;
     }
 
     /**
@@ -475,7 +595,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getNumUploads() {
-        return ts.getNum_uploads();
+        return numUploads;
     }
 
     /**
@@ -486,7 +606,7 @@ public final class TorrentStatus {
      * @return
      */
     public int getNumConnections() {
-        return ts.getNum_connections();
+        return numConnections;
     }
 
 //    public final int uploadsLimit;
@@ -507,7 +627,7 @@ public final class TorrentStatus {
      * The main state the torrent is in. See torrent_status::state_t.
      */
     public State getState() {
-        return State.fromSwig(ts.getState().swigValue());
+        return state;
     }
 
     /**
@@ -518,7 +638,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean needSaveResume() {
-        return ts.getNeed_save_resume();
+        return needSaveResume;
     }
 
     /**
@@ -528,7 +648,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean ipFilterApplies() {
-        return ts.getIp_filter_applies();
+        return ipFilterApplies;
     }
 
     /**
@@ -543,7 +663,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean isUploadMode() {
-        return ts.getUpload_mode();
+        return isUploadMode;
     }
 
     /**
@@ -553,7 +673,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean isShareMode() {
-        return ts.getShare_mode();
+        return isShareMode;
     }
 
     /**
@@ -562,7 +682,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean isSuperSeeding() {
-        return ts.getSuper_seeding();
+        return isSuperSeeding;
     }
 
     /**
@@ -575,7 +695,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean isPaused() {
-        return ts.getPaused();
+        return isPaused;
     }
 
     /**
@@ -616,7 +736,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean isFinished() {
-        return ts.getIs_finished();
+        return isFinished;
     }
 
     /**
@@ -629,7 +749,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean hasMetadata() {
-        return ts.getHas_metadata();
+        return hasMetadata;
     }
 
     /**
@@ -639,7 +759,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean hasIncoming() {
-        return ts.getHas_incoming();
+        return hasIncoming;
     }
 
     /**
@@ -650,7 +770,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean isSeedMode() {
-        return ts.getSeed_mode();
+        return isSeedMode;
     }
 
     /**
@@ -661,7 +781,7 @@ public final class TorrentStatus {
      * @return
      */
     public boolean isMovingStorage() {
-        return ts.getMoving_storage();
+        return isMovingStorage;
     }
 
     /**
@@ -670,7 +790,7 @@ public final class TorrentStatus {
      * @return
      */
     public Sha1Hash getInfoHash() {
-        return new Sha1Hash(ts.getInfo_hash());
+        return infoHash;
     }
 
     private static long time2millis(int time) {

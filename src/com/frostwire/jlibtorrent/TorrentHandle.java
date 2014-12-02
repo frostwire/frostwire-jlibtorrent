@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class TorrentHandle {
 
-    private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
+    private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 1000;
 
     private final torrent_handle th;
 
