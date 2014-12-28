@@ -20,7 +20,6 @@ public final class GetMagnet2 {
     public static void main(String[] args) throws Throwable {
 
         String uri = "magnet:?xt=urn:btih:86d0502ead28e495c9e67665340f72aa72fe304e&dn=Frostwire.5.3.6.+%5BWindows%5D&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337";
-        File saveDir = new File("/Users/aldenml/Downloads/frostwire_installer.torrent");
 
         Session s = new Session();
 
