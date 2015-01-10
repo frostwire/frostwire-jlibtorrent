@@ -23,7 +23,7 @@ public final class DhtRouter {
 
             @Override
             public void alert(Alert<?> alert) {
-                System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
+                //System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
             }
         });
         DHT dht = new DHT(s);
@@ -31,6 +31,7 @@ public final class DhtRouter {
         System.out.println("Waiting for nodes in DHT");
         dht.waitNodes(1);
         System.out.println("Nodes in DHT: " + dht.nodes());
+        System.out.println("Global DHT nodes: " + s.getStatus(true).getDHTGlobalNodes());
     }
 
     private static List<Pair<String, Integer>> defaultRouters() {

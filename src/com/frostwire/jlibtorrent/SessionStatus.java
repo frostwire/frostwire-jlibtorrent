@@ -285,7 +285,7 @@ public final class SessionStatus {
     }
 
     /**
-     * an estimation of the total number of nodes in the DHT network.
+     * An estimation of the total number of nodes in the DHT network.
      *
      * @return
      */
