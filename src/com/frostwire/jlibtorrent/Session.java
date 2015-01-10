@@ -46,7 +46,7 @@ public final class Session {
     private final SparseArray<AlertListener[]> listenerSnapshots;
     private boolean running;
 
-    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface) {
+    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers) {
 
         int flags = session.session_flags_t.start_default_features.swigValue() | session.session_flags_t.add_default_plugins.swigValue();
         int alert_mask = alert.category_t.all_categories.swigValue();
@@ -59,8 +59,13 @@ public final class Session {
 
         alertsLoop();
 
-        s.add_dht_router(new string_int_pair("router.bittorrent.com", 6881));
-        s.add_dht_router(new string_int_pair("dht.transmissionbt.com", 6881));
+        for (Pair<String, Integer> router : routers) {
+            s.add_dht_router(router.to_string_int_pair());
+        }
+    }
+
+    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface) {
+        this(print, prange, iface, defaultRouters());
     }
 
     public Session(Fingerprint print) {
@@ -996,6 +1001,15 @@ public final class Session {
         }
 
         listenerSnapshots.append(type, l.toArray(new AlertListener[0]));
+    }
+
+    private static List<Pair<String, Integer>> defaultRouters() {
+        List<Pair<String, Integer>> list = new LinkedList<Pair<String, Integer>>();
+
+        list.add(new Pair<String, Integer>("router.bittorrent.com", 6881));
+        list.add(new Pair<String, Integer>("dht.transmissionbt.com", 6881));
+
+        return list;
     }
 
     private static Map<Integer, CastAlertFunction> buildCastAlertTable() {
