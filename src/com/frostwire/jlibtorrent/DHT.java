@@ -1,14 +1,17 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
 import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.dht_item;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_GET_PEERS_REPLY_ALERT;
 import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_IMMUTABLE_ITEM;
 
 /**
@@ -20,6 +23,7 @@ import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_IMMUTABLE_ITEM;
 public final class DHT {
 
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.getSwig()};
+    private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {DHT_GET_PEERS_REPLY_ALERT.getSwig()};
 
     private final Session s;
 
@@ -105,6 +109,45 @@ public final class DHT {
 
     public void getPeers(String sha1) {
         s.dhtGetPeers(new Sha1Hash(sha1));
+    }
+
+    public ArrayList<TcpEndpoint> getPeers(String sha1, long timeout, TimeUnit unit) {
+        final Sha1Hash target = new Sha1Hash(sha1);
+        final Object[] result = {new ArrayList<TcpEndpoint>()};
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener l = new AlertListener() {
+
+            @Override
+            public int[] types() {
+                return DHT_GET_PEERS_REPLY_ALERT_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                if (alert instanceof DhtGetPeersReplyAlert) {
+                    DhtGetPeersReplyAlert replyAlert = (DhtGetPeersReplyAlert) alert;
+                    if (target.equals(replyAlert.getInfoHash())) {
+                        result[0] = replyAlert.getPeers();
+                        signal.countDown();
+                    }
+                }
+            }
+        };
+
+        s.addListener(l);
+
+        s.dhtGetPeers(target);
+
+        try {
+            signal.await(timeout, unit);
+        } catch (InterruptedException e) {
+            // ignore
+        }
+
+        s.removeListener(l);
+
+        return (ArrayList<TcpEndpoint>) result[0];
     }
 
     public void announce(String sha1, int port, int flags) {

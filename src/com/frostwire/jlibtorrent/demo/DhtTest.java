@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.DHT;
-import com.frostwire.jlibtorrent.Session;
-import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.DhtBootstrapAlert;
 import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
@@ -36,7 +33,7 @@ public final class DhtTest {
 
             @Override
             public void alert(Alert<?> alert) {
-                System.out.println(alert);
+                //System.out.println(alert);
 
                 if (alert instanceof DhtBootstrapAlert) {
                     signal.countDown();
@@ -62,18 +59,20 @@ public final class DhtTest {
 
         signal.await();
 
-        System.out.println("Calling dht_get_peers");
+        //System.out.println("Calling dht_get_peers");
 
-        dht.getPeers("86d0502ead28e495c9e67665340f72aa72fe304");
+        //dht.getPeers("86d0502ead28e495c9e67665340f72aa72fe304");
 
         Thread.sleep(4000);
+        dht.waitNodes(1);
 
-        dht.announce("47d0502ead28e495c9e67665340f72aa72fe304", 9999, 0);
+        //dht.announce("47d0502ead28e495c9e67665340f72aa72fe304", 9999, 0);
 
-        System.out.println("Waiting 15 seconds");
-        Thread.sleep(15000);
+        //System.out.println("Waiting 15 seconds");
+        //Thread.sleep(15000);
 
-        dht.getPeers("47d0502ead28e495c9e67665340f72aa72fe304");
+        dht.getPeers("5472d2fe734c16f28912e1e756b57e2470148b93");
+        //dht.getPeers("47d0502ead28e495c9e67665340f72aa72fe304");
 
         System.out.println("Press ENTER to exit");
         System.in.read();
