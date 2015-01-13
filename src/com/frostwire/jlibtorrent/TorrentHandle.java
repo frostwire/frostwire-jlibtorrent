@@ -529,6 +529,23 @@ public final class TorrentHandle {
         th.set_download_limit(limit);
     }
 
+    /**
+     * Enables or disables *sequential download*.
+     * <p/>
+     * When enabled, the piece picker will pick pieces in sequence
+     * instead of rarest first. In this mode, piece priorities are ignored,
+     * with the exception of priority 7, which are still preferred over the
+     * sequential piece order.
+     * <p/>
+     * Enabling sequential download will affect the piece distribution
+     * negatively in the swarm. It should be used sparingly.
+     *
+     * @param sequential
+     */
+    public void setSequentialDownload(boolean sequential) {
+        th.set_sequential_download(sequential);
+    }
+
     // ``force_recheck`` puts the torrent back in a state where it assumes to
     // have no resume data. All peers will be disconnected and the torrent
     // will stop announcing to the tracker. The torrent will be added to the
@@ -770,6 +787,103 @@ public final class TorrentHandle {
     }
 
     /**
+     * This function sets or resets the deadline associated with a specific
+     * piece index (``index``). libtorrent will attempt to download this
+     * entire piece before the deadline expires. This is not necessarily
+     * possible, but pieces with a more recent deadline will always be
+     * prioritized over pieces with a deadline further ahead in time. The
+     * deadline (and flags) of a piece can be changed by calling this
+     * function again.
+     * <p/>
+     * If the piece is already downloaded when this call is made, nothing
+     * happens, unless the alert_when_available flag is set, in which case it
+     * will do the same thing as calling read_piece() for ``index``.
+     *
+     * @param index
+     * @param deadline
+     */
+    public void setPieceDeadline(int index, int deadline) {
+        th.set_piece_deadline(index, deadline);
+    }
+
+    /**
+     * This function sets or resets the deadline associated with a specific
+     * piece index (``index``). libtorrent will attempt to download this
+     * entire piece before the deadline expires. This is not necessarily
+     * possible, but pieces with a more recent deadline will always be
+     * prioritized over pieces with a deadline further ahead in time. The
+     * deadline (and flags) of a piece can be changed by calling this
+     * function again.
+     * <p/>
+     * The ``flags`` parameter can be used to ask libtorrent to send an alert
+     * once the piece has been downloaded, by passing alert_when_available.
+     * When set, the read_piece_alert alert will be delivered, with the piece
+     * data, when it's downloaded.
+     * <p/>
+     * If the piece is already downloaded when this call is made, nothing
+     * happens, unless the alert_when_available flag is set, in which case it
+     * will do the same thing as calling read_piece() for ``index``.
+     *
+     * @param index
+     * @param deadline
+     * @param flags
+     */
+    public void setPieceDeadline(int index, int deadline, DeadlineFlags flags) {
+        th.set_piece_deadline(index, deadline, flags.getSwig());
+    }
+
+    /**
+     * Removes the deadline from the piece. If it
+     * hasn't already been downloaded, it will no longer be considered a
+     * priority.
+     *
+     * @param index
+     */
+    public void resetPieceDeadline(int index) {
+        th.reset_piece_deadline(index);
+    }
+
+    /**
+     * Removes deadlines on all pieces in the torrent.
+     * As if {@link #resetPieceDeadline(int)} was called on all pieces.
+     */
+    public void clearPieceDeadlines() {
+        th.clear_piece_deadlines();
+    }
+
+    /**
+     * This sets the bandwidth priority of this torrent. The priority of a
+     * torrent determines how much bandwidth its peers are assigned when
+     * distributing upload and download rate quotas. A high number gives more
+     * bandwidth. The priority must be within the range [0, 255].
+     * <p/>
+     * The default priority is 0, which is the lowest priority.
+     * <p/>
+     * To query the priority of a torrent, use the
+     * ``torrent_handle::status()`` call.
+     * <p/>
+     * Torrents with higher priority will not nececcarily get as much
+     * bandwidth as they can consume, even if there's is more quota. Other
+     * peers will still be weighed in when bandwidth is being distributed.
+     * With other words, bandwidth is not distributed strictly in order of
+     * priority, but the priority is used as a weight.
+     * <p/>
+     * Peers whose Torrent has a higher priority will take precedence when
+     * distributing unchoke slots. This is a strict prioritization where
+     * every interested peer on a high priority torrent will be unchoked
+     * before any other, lower priority, torrents have any peers unchoked.
+     *
+     * @param priority
+     */
+    public void setPriority(int priority) {
+        if (priority < 0 || 255 < priority) {
+            throw new IllegalArgumentException("The priority must be within the range [0, 255]");
+        }
+
+        th.set_priority(priority);
+    }
+
+    /**
      * This function fills in the supplied vector with the number of
      * bytes downloaded of each file in this torrent. The progress values are
      * ordered the same as the files in the torrent_info. This operation is
@@ -837,7 +951,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * flags to be passed in file_progress().
+     * flags to be passed in {} file_progress().
      */
     public enum FileProgressFlags {
 
@@ -852,6 +966,24 @@ public final class TorrentHandle {
         PIECE_GRANULARITY(torrent_handle.file_progress_flags_t.piece_granularity.swigValue());
 
         private FileProgressFlags(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        public int getSwig() {
+            return swigValue;
+        }
+    }
+
+    /**
+     * Flags for {@link #setPieceDeadline(int, int, com.frostwire.jlibtorrent.TorrentHandle.DeadlineFlags)}.
+     */
+    public enum DeadlineFlags {
+
+        ALERT_WHEN_AVAILABLE(torrent_handle.deadline_flags.alert_when_available.swigValue());
+
+        private DeadlineFlags(int swigValue) {
             this.swigValue = swigValue;
         }
 
