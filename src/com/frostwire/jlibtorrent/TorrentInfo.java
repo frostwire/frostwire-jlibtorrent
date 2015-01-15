@@ -21,8 +21,9 @@ public final class TorrentInfo {
     }
 
     /**
-     * load the torrent file and decode it inside
-     * the constructor, for convenience. This might not be the most suitable for applications that
+     * Load the torrent file and decode it inside the constructor, for convenience.
+     * <p/>
+     * This might not be the most suitable for applications that
      * want to be able to report detailed errors on what might go wrong.
      *
      * @param torrent
@@ -36,8 +37,10 @@ public final class TorrentInfo {
     }
 
     /**
-     * The file_storage object contains the information on how to map the pieces to
-     * files. It is separated from the torrent_info object because when creating torrents
+     * The {@link com.frostwire.jlibtorrent.FileStorage} object contains the information on
+     * how to map the pieces to files.
+     * <p/>
+     * It is separated from the torrent_info object because when creating torrents
      * a storage object needs to be created without having a torrent file. When renaming files
      * in a storage, the storage needs to make its own copy of the file_storage in order
      * to make its mapping differ from the one in the torrent file.
