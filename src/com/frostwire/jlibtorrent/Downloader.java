@@ -46,6 +46,11 @@ public final class Downloader {
 
                 th.prioritizeFiles(priorities);
                 s.fireAlert(new TorrentPrioritizeAlert(th));
+            } else {
+               // did they just add the entire torrent (therefore not selecting any priorities)
+                final Priority[] wholeTorrentPriorities = Priority.array(Priority.NORMAL, ti.getNumFiles());
+                th.prioritizeFiles(wholeTorrentPriorities);
+                s.fireAlert(new TorrentPrioritizeAlert(th));
             }
         } else { // new download
             s.asyncAddTorrent(ti, saveDir, priorities, resumeFile);
