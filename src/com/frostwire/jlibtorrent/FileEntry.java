@@ -3,7 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.file_entry;
 
 /**
- * information about a file in a file_storage
+ * Information about a file in a {@link com.frostwire.jlibtorrent.FileStorage}
  *
  * @author gubatron
  * @author aldenml
@@ -21,7 +21,7 @@ public final class FileEntry {
     }
 
     /**
-     * the full path of this file. The paths are unicode strings
+     * The full path of this file. The paths are unicode strings
      * encoded in UTF-8.
      *
      * @return
@@ -31,7 +31,7 @@ public final class FileEntry {
     }
 
     /**
-     * the path which this is a symlink to, or empty if this is
+     * The path which this is a symlink to, or empty if this is
      * not a symlink. This field is only used if the ``symlink_attribute`` is set.
      *
      * @return
@@ -41,7 +41,7 @@ public final class FileEntry {
     }
 
     /**
-     * the offset of this file inside the torrent.
+     * The offset of this file inside the torrent.
      *
      * @return
      */
