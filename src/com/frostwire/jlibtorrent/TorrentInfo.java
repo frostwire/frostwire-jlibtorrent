@@ -272,13 +272,66 @@ public final class TorrentInfo {
     }
 
     /**
-     * If you need index-access to files you can use the ``num_files()`` and ``file_at()``
-     * to access files using indices.
+     * If you need index-access to files you can use the {@link #getNumFiles()}
+     * and {@link #getFileAt(int)} to access files using indices.
      *
      * @return
      */
     public FileEntry getFileAt(int index) {
         return new FileEntry(ti.file_at(index));
+    }
+
+    /**
+     * This function will map a piece index, a byte offset within that piece and
+     * a size (in bytes) into the corresponding files with offsets where that data
+     * for that piece is supposed to be stored.
+     *
+     * @param piece
+     * @param offset
+     * @param size
+     * @return
+     * @see com.frostwire.jlibtorrent.FileSlice
+     */
+    public ArrayList<FileSlice> mapBlock(int piece, long offset, int size) {
+        file_slice_vector v = ti.map_block(piece, offset, size);
+        int vSize = (int) v.size();
+
+        ArrayList<FileSlice> l = new ArrayList<FileSlice>(vSize);
+        for (int i = 0; i < vSize; i++) {
+            l.add(new FileSlice(v.get(i)));
+        }
+
+        return l;
+    }
+
+    /**
+     * This function will map a range in a specific file into a range in the torrent.
+     * The {@code offset} parameter is the offset in the file, given in bytes, where
+     * 0 is the start of the file.
+     * <p/>
+     * The input range is assumed to be valid within the torrent. {@code offset + size}
+     * is not allowed to be greater than the file size. {@code index}
+     * must refer to a valid file, i.e. it cannot be {@code >= getNumFiles()}.
+     *
+     * @param file
+     * @param offset
+     * @param size
+     * @return
+     * @see com.frostwire.jlibtorrent.PeerRequest
+     */
+    public PeerRequest mapFile(int file, long offset, int size) {
+        return new PeerRequest(ti.map_file(file, offset, size));
+    }
+
+    /**
+     * Returns the SSL root certificate for the torrent, if it is an SSL
+     * torrent. Otherwise returns an empty string. The certificate is
+     * the public certificate in x509 format.
+     *
+     * @return
+     */
+    public String getSslCert() {
+        return ti.ssl_cert();
     }
 
     /**

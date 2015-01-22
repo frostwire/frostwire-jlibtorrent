@@ -3,9 +3,9 @@ package com.frostwire.jlibtorrent.alerts;
 import com.frostwire.jlibtorrent.swig.piece_finished_alert;
 
 /**
- * this alert is posted every time a piece completes downloading
- * and passes the hash check. This alert derives from torrent_alert
- * which contains the torrent_handle to the torrent the piece belongs to.
+ * This alert is posted every time a piece completes downloading
+ * and passes the hash check. This alert derives from {@link com.frostwire.jlibtorrent.alerts.TorrentAlert}
+ * which contains the {@link com.frostwire.jlibtorrent.TorrentHandle} to the torrent the piece belongs to.
  *
  * @author gubatron
  * @author aldenml

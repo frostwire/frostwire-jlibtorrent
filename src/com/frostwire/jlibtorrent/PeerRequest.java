@@ -3,7 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.peer_request;
 
 /**
- * represents a byte range within a piece. Internally this is
+ * Represents a byte range within a piece. Internally this is
  * is used for incoming piece requests.
  *
  * @author gubatron
@@ -22,7 +22,7 @@ public final class PeerRequest {
     }
 
     /**
-     * the index of the piece in which the range starts.
+     * The index of the piece in which the range starts.
      *
      * @return
      */
@@ -31,7 +31,7 @@ public final class PeerRequest {
     }
 
     /**
-     * the offset within that piece where the range starts.
+     * The offset within that piece where the range starts.
      *
      * @return
      */
@@ -40,7 +40,7 @@ public final class PeerRequest {
     }
 
     /**
-     * the size of the range, in bytes.
+     * The size of the range, in bytes.
      *
      * @return
      */

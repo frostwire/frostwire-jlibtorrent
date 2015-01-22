@@ -60,7 +60,8 @@ public final class TorrentHandle {
      * specified piece before calling this function.
      * <p/>
      * When the read operation is completed, it is passed back through an
-     * alert, read_piece_alert. Since this alert is a reponse to an explicit
+     * alert, {@link com.frostwire.jlibtorrent.alerts.ReadPieceAlert}.
+     * Since this alert is a response to an explicit
      * call, it will always be posted, regardless of the alert mask.
      * <p/>
      * Note that if you read multiple pieces, the read operations are not
