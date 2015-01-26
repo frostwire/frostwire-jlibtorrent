@@ -8,22 +8,26 @@ import com.frostwire.jlibtorrent.swig.file_slice;
  * The {@link #getFileIndex()} refers to the index of the file (in the {@link com.frostwire.jlibtorrent.TorrentInfo}).
  * To get the path and filename, use {@link com.frostwire.jlibtorrent.TorrentInfo#getFileAt(int)} and give the
  * {@link #getFileIndex()} as argument. The {@link #getOffset()} is the byte offset in the file where the range
- * starts, and {@link #getSize()} is the number of bytes this range is. The size + offset
+ * starts, and {@link #getSize()} is the number of bytes this range is. The {@code size + offset}
  * will never be greater than the file size.
+ * <p/>
+ * Note: This class does not store internally a reference to the native swig file_slice. This is because
+ * we are dealing with only three integral values and we want to avoid keep a reference to a memory in the
+ * native heap.
  *
  * @author gubatron
  * @author aldenml
  */
 public final class FileSlice {
 
-    private final file_slice e;
+    private final int fileIndex;
+    private final long offset;
+    private final long size;
 
     public FileSlice(file_slice e) {
-        this.e = e;
-    }
-
-    public file_slice getSwig() {
-        return e;
+        this.fileIndex = e.getFile_index();
+        this.offset = e.getOffset();
+        this.size = e.getSize();
     }
 
     /**
@@ -32,7 +36,7 @@ public final class FileSlice {
      * @return
      */
     public int getFileIndex() {
-        return e.getFile_index();
+        return fileIndex;
     }
 
     /**
@@ -41,7 +45,7 @@ public final class FileSlice {
      * @return
      */
     public long getOffset() {
-        return e.getOffset();
+        return offset;
     }
 
     /**
@@ -50,6 +54,6 @@ public final class FileSlice {
      * @return
      */
     public long getSize() {
-        return e.getSize();
+        return size;
     }
 }

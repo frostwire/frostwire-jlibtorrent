@@ -17,7 +17,7 @@ public final class PieceFinishedAlert extends TorrentAlert<piece_finished_alert>
     }
 
     /**
-     * the index of the piece that finished.
+     * The index of the piece that finished.
      *
      * @return
      */
