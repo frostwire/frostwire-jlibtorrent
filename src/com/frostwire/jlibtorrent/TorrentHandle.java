@@ -113,7 +113,9 @@ public final class TorrentHandle {
 
     /**
      * Returns a pointer to the torrent_info object associated with this
-     * torrent. The torrent_info object may be a copy of the internal object.
+     * torrent. The {@link com.frostwire.jlibtorrent.TorrentInfo} object
+     * may be a copy of the internal object.
+     * <p/>
      * If the torrent doesn't have metadata, the pointer will not be
      * initialized (i.e. a NULL pointer). The torrent may be in a state
      * without metadata only if it was started without a .torrent file, e.g.

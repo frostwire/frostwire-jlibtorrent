@@ -45,7 +45,6 @@ public final class PieceMap {
         int totalSlices = 0;
 
         for (FileSliceTracker tracker : trackers) {
-            tracker.freeze();
             int numSlices = tracker.getNumSlices();
             System.out.println("File Index: " + tracker.getFileIndex() + ", slices: " + numSlices);
             totalSlices = totalSlices + numSlices;
