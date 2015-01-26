@@ -56,4 +56,9 @@ public final class FileSlice {
     public long getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        return String.format("FileSlice(fileIndex: %d, offset: %d, size: %d)", fileIndex, offset, size);
+    }
 }

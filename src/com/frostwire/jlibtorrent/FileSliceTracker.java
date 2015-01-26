@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import java.util.Iterator;
 import java.util.TreeMap;
 
 /**
@@ -9,17 +10,34 @@ import java.util.TreeMap;
 public final class FileSliceTracker {
 
     private final int fileIndex;
-
     private final TreeMap<Long, Pair<FileSlice, Boolean>> slices;
 
     public FileSliceTracker(int fileIndex) {
         this.fileIndex = fileIndex;
-
         this.slices = new TreeMap<Long, Pair<FileSlice, Boolean>>();
     }
 
     public int getFileIndex() {
         return fileIndex;
+    }
+
+    public long getSequentialDownloaded() {
+        Iterator<Pair<FileSlice, Boolean>> it = slices.values().iterator();
+
+        long downloaded = 0;
+        boolean done = false;
+
+        while (!done && it.hasNext()) {
+            Pair<FileSlice, Boolean> p = it.next();
+
+            if (Boolean.TRUE.equals(p.second)) { // complete
+                downloaded = downloaded + p.first.getSize();
+            } else {
+                done = true;
+            }
+        }
+
+        return downloaded;
     }
 
     public void addSlice(FileSlice slice) throws IllegalArgumentException {
