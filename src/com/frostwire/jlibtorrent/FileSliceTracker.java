@@ -34,12 +34,19 @@ public final class FileSliceTracker {
         return slices.size();
     }
 
-    public boolean isComplete(long offset) {
-        return Boolean.TRUE.equals(slices.get(offset).second);
+    public boolean isComplete(long offset) throws IllegalArgumentException {
+        Pair<FileSlice, Boolean> p = slices.get(offset);
+        if (p == null) {
+            throw new IllegalArgumentException("offset is not contained in the internal structure");
+        }
+        return Boolean.TRUE.equals(p.second);
     }
 
-    public void setComplete(long offset, boolean complete) {
+    public void setComplete(long offset, boolean complete) throws IllegalArgumentException {
         Pair<FileSlice, Boolean> p = slices.get(offset);
+        if (p == null) {
+            throw new IllegalArgumentException("offset is not contained in the internal structure");
+        }
         slices.put(offset, new Pair<FileSlice, Boolean>(p.first, Boolean.valueOf(complete)));
     }
 }
