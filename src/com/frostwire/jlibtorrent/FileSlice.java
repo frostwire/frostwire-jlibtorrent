@@ -11,8 +11,8 @@ import com.frostwire.jlibtorrent.swig.file_slice;
  * starts, and {@link #getSize()} is the number of bytes this range is. The {@code size + offset}
  * will never be greater than the file size.
  * <p/>
- * Note: This class does not store internally a reference to the native swig file_slice. This is because
- * we are dealing with only three integral values and we want to avoid keep a reference to a memory in the
+ * Implementation note: This class does not store internally a reference to the native swig file_slice. This is because
+ * we are dealing with only three integral values and we want to avoid keeping a reference to a memory in the
  * native heap.
  *
  * @author gubatron

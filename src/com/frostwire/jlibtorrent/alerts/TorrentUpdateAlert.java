@@ -8,8 +8,8 @@ import com.frostwire.jlibtorrent.swig.torrent_update_alert;
  * specific cases. For instance, when a torrent is downloaded from a URL, the true info
  * hash is not known immediately. First the .torrent file must be downloaded and parsed.
  * <p/>
- * Once this download completes, the ``torrent_update_alert`` is posted to notify the client
- * of the info-hash changing.
+ * Once this download completes, the {@link com.frostwire.jlibtorrent.alerts.TorrentUpdateAlert} is
+ * posted to notify the client of the info-hash changing.
  *
  * @author gubatron
  * @author aldenml
