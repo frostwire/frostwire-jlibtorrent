@@ -10,11 +10,11 @@ import java.util.TreeMap;
 public final class FileSliceTracker {
 
     private final int fileIndex;
-    private final TreeMap<Long, Pair<FileSlice, Boolean>> slices;
+    private final TreeMap<Integer, Pair<FileSlice, Boolean>> slices;
 
     public FileSliceTracker(int fileIndex) {
         this.fileIndex = fileIndex;
-        this.slices = new TreeMap<Long, Pair<FileSlice, Boolean>>();
+        this.slices = new TreeMap<Integer, Pair<FileSlice, Boolean>>();
     }
 
     public int getFileIndex() {
@@ -40,31 +40,31 @@ public final class FileSliceTracker {
         return downloaded;
     }
 
-    public void addSlice(FileSlice slice) throws IllegalArgumentException {
+    public void addSlice(int pieceIndex, FileSlice slice) throws IllegalArgumentException {
         if (slice.getFileIndex() != fileIndex) {
             throw new IllegalArgumentException("Invalid file index");
         }
 
-        slices.put(slice.getOffset(), new Pair<FileSlice, Boolean>(slice, Boolean.FALSE));
+        slices.put(pieceIndex, new Pair<FileSlice, Boolean>(slice, Boolean.FALSE));
     }
 
     public int getNumSlices() {
         return slices.size();
     }
 
-    public boolean isComplete(long offset) throws IllegalArgumentException {
-        Pair<FileSlice, Boolean> p = slices.get(offset);
+    public boolean isComplete(int pieceIndex) throws IllegalArgumentException {
+        Pair<FileSlice, Boolean> p = slices.get(pieceIndex);
         if (p == null) {
-            throw new IllegalArgumentException("offset is not contained in the internal structure");
+            throw new IllegalArgumentException("piece index is not contained in the internal structure");
         }
         return Boolean.TRUE.equals(p.second);
     }
 
-    public void setComplete(long offset, boolean complete) throws IllegalArgumentException {
-        Pair<FileSlice, Boolean> p = slices.get(offset);
+    public void setComplete(int pieceIndex, boolean complete) throws IllegalArgumentException {
+        Pair<FileSlice, Boolean> p = slices.get(pieceIndex);
         if (p == null) {
-            throw new IllegalArgumentException("offset is not contained in the internal structure");
+            throw new IllegalArgumentException("piece index is not contained in the internal structure");
         }
-        slices.put(offset, new Pair<FileSlice, Boolean>(p.first, Boolean.valueOf(complete)));
+        slices.put(pieceIndex, new Pair<FileSlice, Boolean>(p.first, Boolean.valueOf(complete)));
     }
 }

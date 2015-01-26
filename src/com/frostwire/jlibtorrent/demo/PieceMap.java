@@ -38,7 +38,7 @@ public final class PieceMap {
                     trackers[fileIndex] = new FileSliceTracker(fileIndex);
                 }
 
-                trackers[fileIndex].addSlice(slice);
+                trackers[fileIndex].addSlice(i, slice);
             }
         }
 
