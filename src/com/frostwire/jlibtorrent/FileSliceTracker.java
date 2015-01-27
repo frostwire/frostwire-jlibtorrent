@@ -52,6 +52,16 @@ public final class FileSliceTracker {
         return slices.size();
     }
 
+    public int[] getPieces() {
+        Integer[] arr = slices.keySet().toArray(new Integer[0]);
+        int[] r = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            r[i] = arr[i];
+        }
+
+        return r;
+    }
+
     public boolean isComplete(int pieceIndex) throws IllegalArgumentException {
         Pair<FileSlice, Boolean> p = slices.get(pieceIndex);
         if (p == null) {
