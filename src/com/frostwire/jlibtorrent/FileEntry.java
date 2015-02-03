@@ -32,7 +32,7 @@ public final class FileEntry {
 
     /**
      * The path which this is a symlink to, or empty if this is
-     * not a symlink. This field is only used if the ``symlink_attribute`` is set.
+     * not a symlink. This field is only used if the {@code symlink_attribute} is set.
      *
      * @return
      */
@@ -50,7 +50,7 @@ public final class FileEntry {
     }
 
     /**
-     * the size of the file (in bytes) and ``offset`` is the byte offset
+     * The size of the file (in bytes) and {@code offset} is the byte offset
      * of the file within the torrent. i.e. the sum of all the sizes of the files
      * before it in the list.
      *
@@ -61,10 +61,10 @@ public final class FileEntry {
     }
 
     /**
-     * the offset in the file where the storage should start. The normal
+     * The offset in the file where the storage should start. The normal
      * case is to have this set to 0, so that the storage starts saving data at the start
      * if the file. In cases where multiple files are mapped into the same file though,
-     * the ``file_base`` should be set to an offset so that the different regions do
+     * the {@code file_base} should be set to an offset so that the different regions do
      * not overlap. This is used when mapping "unselected" files into a so-called part
      * file.
      *
@@ -75,7 +75,7 @@ public final class FileEntry {
     }
 
     /**
-     * the modification time of this file specified in posix time.
+     * The modification time of this file specified in posix time.
      *
      * @return
      */
@@ -84,7 +84,7 @@ public final class FileEntry {
     }
 
     /**
-     * a sha-1 hash of the content of the file, or zeroes, if no
+     * The sha-1 hash of the content of the file, or zeroes, if no
      * file hash was present in the torrent file. It can be used to potentially
      * find alternative sources for the file.
      *
@@ -95,9 +95,9 @@ public final class FileEntry {
     }
 
     /**
-     * set to true for files that are not part of the data of the torrent.
+     * Set to true for files that are not part of the data of the torrent.
      * They are just there to make sure the next file is aligned to a particular byte offset
-     * or piece boundry. These files should typically be hidden from an end user. They are
+     * or piece boundary. These files should typically be hidden from an end user. They are
      * not written to disk.
      *
      * @return
@@ -107,7 +107,7 @@ public final class FileEntry {
     }
 
     /**
-     * true if the file was marked as hidden (on windows).
+     * True if the file was marked as hidden (on windows).
      *
      * @return
      */
@@ -116,7 +116,7 @@ public final class FileEntry {
     }
 
     /**
-     * true if the file was marked as executable (posix)
+     * True if the file was marked as executable (posix)
      *
      * @return
      */
@@ -125,8 +125,8 @@ public final class FileEntry {
     }
 
     /**
-     * true if the file was a symlink. If this is the case
-     * the ``symlink_index`` refers to a string which specifies the original location
+     * True if the file was a symlink. If this is the case
+     * the {@code symlink_index} refers to a string which specifies the original location
      * where the data for this file was found.
      *
      * @return

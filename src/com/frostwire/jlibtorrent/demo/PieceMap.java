@@ -1,11 +1,9 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.FileSlice;
-import com.frostwire.jlibtorrent.FileSliceTracker;
+import com.frostwire.jlibtorrent.PiecesTracker;
 import com.frostwire.jlibtorrent.TorrentInfo;
 
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * @author gubatron
@@ -23,33 +21,19 @@ public final class PieceMap {
 
         TorrentInfo ti = new TorrentInfo(torrentFile);
 
+        int numFiles = ti.getNumFiles();
         int numPieces = ti.getNumPieces();
 
         System.out.println("Num Pieces: " + numPieces);
 
-        FileSliceTracker[] trackers = new FileSliceTracker[ti.getNumFiles()];
+        PiecesTracker tracker = new PiecesTracker(ti);
 
-        for (int i = 0; i < numPieces; i++) {
-            ArrayList<FileSlice> slices = ti.mapBlock(i, 0, ti.getPieceSize(i));
-            for (FileSlice slice : slices) {
-                int fileIndex = slice.getFileIndex();
-
-                if (trackers[fileIndex] == null) {
-                    trackers[fileIndex] = new FileSliceTracker(fileIndex);
-                }
-
-                trackers[fileIndex].addSlice(i, slice);
-            }
+        for (int i = 0; i < numPieces / 2; i++) {
+            tracker.setComplete(i, true);
         }
 
-        int totalSlices = 0;
-
-        for (FileSliceTracker tracker : trackers) {
-            int numSlices = tracker.getNumSlices();
-            System.out.println("File Index: " + tracker.getFileIndex() + ", slices: " + numSlices);
-            totalSlices = totalSlices + numSlices;
+        for (int i = 0; i < numFiles; i++) {
+            System.out.println("File index (seq)completed: " + tracker.getSequentialDownloaded(i));
         }
-
-        System.out.println("Total Slices: " + totalSlices);
     }
 }
