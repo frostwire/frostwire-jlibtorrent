@@ -64,7 +64,7 @@ public final class PiecesTracker {
         this.complete[pieceIndex] = complete;
     }
 
-    public long getSequentialDownloaded(int fileIndex) {
+    public long getSequentialDownloadedBytes(int fileIndex) {
         int[] pieces = files[fileIndex];
 
         long downloaded = 0;
@@ -80,5 +80,23 @@ public final class PiecesTracker {
         }
 
         return downloaded;
+    }
+
+    public int getSequentialDownloadedPieces(int fileIndex) {
+        int[] pieces = files[fileIndex];
+
+        int count = 0;
+
+        for (int i = 0; i < pieces.length; i++) {
+            int pieceIndex = pieces[i];
+
+            if (complete[pieceIndex]) {
+                count++;
+            } else {
+                break;
+            }
+        }
+
+        return count;
     }
 }

@@ -33,7 +33,7 @@ public final class PieceMap {
         }
 
         for (int i = 0; i < numFiles; i++) {
-            System.out.println("File index (seq)completed: " + tracker.getSequentialDownloaded(i));
+            System.out.println("File index (seq)completed: " + tracker.getSequentialDownloadedBytes(i));
         }
     }
 }
