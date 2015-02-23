@@ -61,6 +61,7 @@
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/upnp.hpp"
+#include "libtorrent/bloom_filter.hpp"
 
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -550,6 +551,9 @@ namespace std {
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::upnp_errors::make_error_code;
+%ignore libtorrent::set_bits;
+%ignore libtorrent::has_bits;
+%ignore libtorrent::count_zero_bits;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -644,6 +648,7 @@ namespace std {
 %javaconst(1);
 %include "libtorrent/upnp.hpp"
 %javaconst(0);
+%include "libtorrent/bloom_filter.hpp"
 
 namespace libtorrent {
     
@@ -815,6 +820,8 @@ namespace libtorrent {
         return std::vector<int>($self->transferred, $self->transferred + stats_alert::stats_channel::num_channels);
     }
 };
+
+%template(sha1_bloom_filter) bloom_filter<160>;
 
 }
 
