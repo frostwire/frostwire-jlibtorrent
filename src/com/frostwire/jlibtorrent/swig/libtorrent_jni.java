@@ -3601,6 +3601,8 @@ public class libtorrent_jni {
   public final static native void nop(int jarg1);
   public final static native void add_files__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
   public final static native void add_files__SWIG_3(long jarg1, file_storage jarg1_, String jarg2);
+  public final static native void set_piece_hashes__SWIG_0(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
+  public final static native void set_piece_hashes__SWIG_1(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native long get_upnp_category();
   public final static native boolean sha1_bloom_filter_find(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void sha1_bloom_filter_set(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
