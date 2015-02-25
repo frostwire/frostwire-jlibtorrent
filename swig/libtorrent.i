@@ -394,6 +394,9 @@ namespace std {
 %ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::disk_buffer_holder;
 %ignore libtorrent::upnp;
+%ignore libtorrent::buffer_allocator_interface;
+%ignore libtorrent::ipv4_peer_entry;
+%ignore libtorrent::ipv6_peer_entry;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -415,6 +418,7 @@ namespace std {
 %ignore libtorrent::hex_to_int;
 %ignore libtorrent::to_hex;
 %ignore libtorrent::nop;
+%ignore libtorrent::to_string;
 
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;

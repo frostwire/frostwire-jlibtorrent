@@ -190,10 +190,6 @@ public class libtorrent implements libtorrentConstants {
     return new SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point(libtorrent_jni.max_time(), true);
   }
 
-  public static SWIGTYPE_p_boost__arrayT_char_4_std__numeric_limitsT_boost__int64_t_t__digits10_t to_string(long n) {
-    return new SWIGTYPE_p_boost__arrayT_char_4_std__numeric_limitsT_boost__int64_t_t__digits10_t(libtorrent_jni.to_string(n), true);
-  }
-
   public static String unescape_string(String s, error_code ec) {
     return libtorrent_jni.unescape_string(s, error_code.getCPtr(ec), ec);
   }
