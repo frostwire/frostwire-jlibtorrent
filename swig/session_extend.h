@@ -9,8 +9,8 @@ using namespace libtorrent::dht;
 // and m_dht in dht_tracker
 #include "libtorrent/aux_/session_impl.hpp"
 
-#define TORRENT_DEFINE_ALERT(name) \
-	const static int alert_type = __LINE__; \
+#define TORRENT_DEFINE_ALERT(name, seq) \
+	static const int alert_type = seq; \
 	virtual int type() const { return alert_type; } \
 	virtual std::auto_ptr<alert> clone() const \
 	{ return std::auto_ptr<alert>(new name(*this)); } \
@@ -25,7 +25,7 @@ struct dht_get_peers_reply_alert: alert {
 		: info_hash(ih), peers(v) {
 	}
 
-	TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert); // same line as other alert?
+	TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert, user_alert_id + 100);
 
 	const static int static_category = alert::dht_notification;
 

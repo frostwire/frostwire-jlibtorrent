@@ -264,6 +264,8 @@ public:
 %include "std_list.i"
 %include "boost.i"
 
+%include "session_extend.i"
+
 %intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)
 %intrusive_ptr(libtorrent::peer_connection)
@@ -658,8 +660,6 @@ namespace std {
 %javaconst(0);
 %include "libtorrent/bloom_filter.hpp"
 
-%include "session_extend.i"
-
 namespace libtorrent {
     
 // alert types conversion due to lack of polymorphic return type
@@ -801,6 +801,32 @@ namespace libtorrent {
         return from_hex(hex, 40, (char*)&h[0]);
     }
 };
+
+static const int user_alert_id = 10000;
+
+#define TORRENT_DEFINE_ALERT(name, seq) \
+	static const int alert_type = seq; \
+	virtual int type() const { return alert_type; } \
+	virtual std::auto_ptr<alert> clone() const \
+	{ return std::auto_ptr<alert>(new name(*this)); } \
+	virtual int category() const { return static_category; } \
+	virtual char const* what() const { return #name; }
+
+    struct TORRENT_EXPORT dht_get_peers_reply_alert: alert
+    {
+        // internal
+        dht_get_peers_reply_alert(libtorrent::sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
+            : info_hash(ih), peers(v) {
+        }
+
+        TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert, user_alert_id + 100);
+
+        static const int static_category = alert::dht_notification;
+        virtual std::string message() const;
+
+        sha1_hash info_hash;
+        std::vector<tcp::endpoint> peers;
+    };
 
 %extend dht_mutable_item_alert {
     std::vector<char> key_v() {

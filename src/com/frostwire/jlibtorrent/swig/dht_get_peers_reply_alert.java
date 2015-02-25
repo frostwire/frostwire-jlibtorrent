@@ -35,6 +35,22 @@ public class dht_get_peers_reply_alert extends alert {
     super.delete();
   }
 
+  public dht_get_peers_reply_alert(sha1_hash ih, tcp_endpoint_vector v) {
+    this(libtorrent_jni.new_dht_get_peers_reply_alert(sha1_hash.getCPtr(ih), ih, tcp_endpoint_vector.getCPtr(v), v), true);
+  }
+
+  public int type() {
+    return libtorrent_jni.dht_get_peers_reply_alert_type(swigCPtr, this);
+  }
+
+  public int category() {
+    return libtorrent_jni.dht_get_peers_reply_alert_category(swigCPtr, this);
+  }
+
+  public String what() {
+    return libtorrent_jni.dht_get_peers_reply_alert_what(swigCPtr, this);
+  }
+
   public String message() {
     return libtorrent_jni.dht_get_peers_reply_alert_message(swigCPtr, this);
   }
@@ -57,5 +73,6 @@ public class dht_get_peers_reply_alert extends alert {
     return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
   }
 
+  public final static int alert_type = libtorrent_jni.dht_get_peers_reply_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_get_peers_reply_alert_static_category_get();
 }

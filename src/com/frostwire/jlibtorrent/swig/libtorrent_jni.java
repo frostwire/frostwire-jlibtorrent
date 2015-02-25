@@ -3261,6 +3261,11 @@ public class libtorrent_jni {
   public final static native void set_piece_hashes__SWIG_0(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
   public final static native void set_piece_hashes__SWIG_1(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native long get_upnp_category();
+  public final static native long new_dht_get_peers_reply_alert(long jarg1, sha1_hash jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
+  public final static native int dht_get_peers_reply_alert_alert_type_get();
+  public final static native int dht_get_peers_reply_alert_type(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native int dht_get_peers_reply_alert_category(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native String dht_get_peers_reply_alert_what(long jarg1, dht_get_peers_reply_alert jarg1_);
   public final static native int dht_get_peers_reply_alert_static_category_get();
   public final static native String dht_get_peers_reply_alert_message(long jarg1, dht_get_peers_reply_alert jarg1_);
   public final static native void dht_get_peers_reply_alert_info_hash_set(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, sha1_hash jarg2_);
