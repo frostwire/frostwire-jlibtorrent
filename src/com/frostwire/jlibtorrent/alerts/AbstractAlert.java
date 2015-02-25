@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.PTime;
 import com.frostwire.jlibtorrent.swig.alert;
 
 /**
@@ -17,6 +18,11 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     @Override
     public final T getSwig() {
         return alert;
+    }
+
+    @Override
+    public PTime getTimestamp() {
+        return new PTime(alert.timestamp());
     }
 
     @Override

@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class peer_connection extends peer_connection_hot_members {
+public class peer_connection extends bandwidth_socket {
   private long swigCPtr;
   private boolean swigCMemOwnDerived;
 

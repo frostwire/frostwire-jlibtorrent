@@ -2749,8 +2749,6 @@ public class libtorrent_jni {
   public final static native long peer_connection_args_disk_thread_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_ios_set(long jarg1, peer_connection_args jarg1_, long jarg2);
   public final static native long peer_connection_args_ios_get(long jarg1, peer_connection_args jarg1_);
-  public final static native void peer_connection_args_tor_set(long jarg1, peer_connection_args jarg1_, long jarg2);
-  public final static native long peer_connection_args_tor_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_s_set(long jarg1, peer_connection_args jarg1_, long jarg2);
   public final static native long peer_connection_args_s_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_endp_set(long jarg1, peer_connection_args jarg1_, long jarg2, tcp_endpoint jarg2_);
@@ -2759,11 +2757,6 @@ public class libtorrent_jni {
   public final static native long peer_connection_args_peerinfo_get(long jarg1, peer_connection_args jarg1_);
   public final static native long new_peer_connection_args();
   public final static native void delete_peer_connection_args(long jarg1);
-  public final static native long new_peer_connection_hot_members(long jarg1, long jarg2, long jarg3);
-  public final static native void peer_connection_hot_members_m_ses_set(long jarg1, peer_connection_hot_members jarg1_, long jarg2);
-  public final static native long peer_connection_hot_members_m_ses_get(long jarg1, peer_connection_hot_members jarg1_);
-  public final static native long peer_connection_hot_members_m_settings_get(long jarg1, peer_connection_hot_members jarg1_);
-  public final static native void delete_peer_connection_hot_members(long jarg1);
   public final static native int peer_connection_bittorrent_connection_get();
   public final static native int peer_connection_url_seed_connection_get();
   public final static native int peer_connection_http_seed_connection_get();

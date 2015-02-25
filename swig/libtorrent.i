@@ -402,6 +402,7 @@ namespace std {
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::block_cache_reference;
 %ignore libtorrent::torrent_ref_holder;
+%ignore libtorrent::peer_connection_hot_members;
 %ignore libtorrent::ipv4_peer_entry;
 %ignore libtorrent::ipv6_peer_entry;
 
@@ -479,6 +480,7 @@ namespace std {
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;
 %ignore libtorrent::peer_connection_args::allocator;
+%ignore libtorrent::peer_connection_args::tor;
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
