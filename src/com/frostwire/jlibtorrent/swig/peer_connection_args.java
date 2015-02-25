@@ -62,15 +62,6 @@ public class peer_connection_args {
     return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__counters(cPtr, false);
   }
 
-  public void setDisk_thread(SWIGTYPE_p_libtorrent__disk_interface value) {
-    libtorrent_jni.peer_connection_args_disk_thread_set(swigCPtr, this, SWIGTYPE_p_libtorrent__disk_interface.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_libtorrent__disk_interface getDisk_thread() {
-    long cPtr = libtorrent_jni.peer_connection_args_disk_thread_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__disk_interface(cPtr, false);
-  }
-
   public void setIos(SWIGTYPE_p_io_service value) {
     libtorrent_jni.peer_connection_args_ios_set(swigCPtr, this, SWIGTYPE_p_io_service.getCPtr(value));
   }

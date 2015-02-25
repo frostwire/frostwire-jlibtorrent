@@ -65,15 +65,6 @@ public class storage_params {
     return libtorrent_jni.storage_params_path_get(swigCPtr, this);
   }
 
-  public void setPool(SWIGTYPE_p_libtorrent__file_pool value) {
-    libtorrent_jni.storage_params_pool_set(swigCPtr, this, SWIGTYPE_p_libtorrent__file_pool.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_libtorrent__file_pool getPool() {
-    long cPtr = libtorrent_jni.storage_params_pool_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__file_pool(cPtr, false);
-  }
-
   public void setMode(storage_mode_t value) {
     libtorrent_jni.storage_params_mode_set(swigCPtr, this, value.swigValue());
   }

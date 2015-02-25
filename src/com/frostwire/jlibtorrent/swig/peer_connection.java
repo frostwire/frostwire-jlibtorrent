@@ -627,14 +627,6 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_get_priority(swigCPtr, this, channel);
   }
 
-  public void setM_send_buffer(SWIGTYPE_p_chained_buffer value) {
-    libtorrent_jni.peer_connection_m_send_buffer_set(swigCPtr, this, SWIGTYPE_p_chained_buffer.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_chained_buffer getM_send_buffer() {
-    return new SWIGTYPE_p_chained_buffer(libtorrent_jni.peer_connection_m_send_buffer_get(swigCPtr, this), true);
-  }
-
   public enum connection_type {
     bittorrent_connection(libtorrent_jni.peer_connection_bittorrent_connection_get()),
     url_seed_connection(libtorrent_jni.peer_connection_url_seed_connection_get()),

@@ -81,11 +81,6 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_posix_category(), false);
   }
 
-  public static SWIGTYPE_p_libtorrent__storage_interface zero_storage_constructor(storage_params arg0) {
-    long cPtr = libtorrent_jni.zero_storage_constructor(storage_params.getCPtr(arg0), arg0);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__storage_interface(cPtr, false);
-  }
-
   public static long_long_long_2_pair_vector get_filesizes(file_storage t, String p) {
     return new long_long_long_2_pair_vector(libtorrent_jni.get_filesizes(file_storage.getCPtr(t), t, p), true);
   }

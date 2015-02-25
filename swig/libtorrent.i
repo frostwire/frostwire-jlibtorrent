@@ -478,11 +478,13 @@ namespace std {
 %ignore libtorrent::peer_connection::append_send_buffer;
 %ignore libtorrent::peer_connection::m_allocator;
 %ignore libtorrent::peer_connection::m_extensions;
+%ignore libtorrent::peer_connection::m_send_buffer;
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;
 %ignore libtorrent::peer_connection_args::allocator;
 %ignore libtorrent::peer_connection_args::tor;
+%ignore libtorrent::peer_connection_args::disk_thread;
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
@@ -567,9 +569,12 @@ namespace std {
 %ignore libtorrent::set_bits;
 %ignore libtorrent::has_bits;
 %ignore libtorrent::count_zero_bits;
+%ignore libtorrent::zero_storage_constructor;
 
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::session::m_impl;
+%ignore libtorrent::storage_params::pool;
+%ignore libtorrent::cached_piece_info::storage;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;

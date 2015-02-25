@@ -799,8 +799,6 @@ public class libtorrent_jni {
   public final static native long storage_params_mapped_files_get(long jarg1, storage_params jarg1_);
   public final static native void storage_params_path_set(long jarg1, storage_params jarg1_, String jarg2);
   public final static native String storage_params_path_get(long jarg1, storage_params jarg1_);
-  public final static native void storage_params_pool_set(long jarg1, storage_params jarg1_, long jarg2);
-  public final static native long storage_params_pool_get(long jarg1, storage_params jarg1_);
   public final static native void storage_params_mode_set(long jarg1, storage_params jarg1_, int jarg2);
   public final static native int storage_params_mode_get(long jarg1, storage_params jarg1_);
   public final static native void storage_params_priorities_set(long jarg1, storage_params jarg1_, long jarg2, unsigned_char_vector jarg2_);
@@ -808,7 +806,6 @@ public class libtorrent_jni {
   public final static native void storage_params_info_set(long jarg1, storage_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long storage_params_info_get(long jarg1, storage_params jarg1_);
   public final static native void delete_storage_params(long jarg1);
-  public final static native long zero_storage_constructor(long jarg1, storage_params jarg1_);
   public final static native long get_filesizes(long jarg1, file_storage jarg1_, String jarg2);
   public final static native int bufs_size(long jarg1, int jarg2);
   public final static native int copy_bufs(long jarg1, int jarg2, long jarg3);
@@ -2496,8 +2493,6 @@ public class libtorrent_jni {
   public final static native long dht_stats_alert_routing_table_get(long jarg1, dht_stats_alert jarg1_);
   public final static native void delete_dht_stats_alert(long jarg1);
   public final static native int num_alert_types_get();
-  public final static native void cached_piece_info_storage_set(long jarg1, cached_piece_info jarg1_, long jarg2);
-  public final static native long cached_piece_info_storage_get(long jarg1, cached_piece_info jarg1_);
   public final static native void cached_piece_info_blocks_set(long jarg1, cached_piece_info jarg1_, long jarg2, bool_vector jarg2_);
   public final static native long cached_piece_info_blocks_get(long jarg1, cached_piece_info jarg1_);
   public final static native void cached_piece_info_last_use_set(long jarg1, cached_piece_info jarg1_, long jarg2, ptime jarg2_);
@@ -2754,8 +2749,6 @@ public class libtorrent_jni {
   public final static native long peer_connection_args_sett_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_stats_counters_set(long jarg1, peer_connection_args jarg1_, long jarg2);
   public final static native long peer_connection_args_stats_counters_get(long jarg1, peer_connection_args jarg1_);
-  public final static native void peer_connection_args_disk_thread_set(long jarg1, peer_connection_args jarg1_, long jarg2);
-  public final static native long peer_connection_args_disk_thread_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_ios_set(long jarg1, peer_connection_args jarg1_, long jarg2);
   public final static native long peer_connection_args_ios_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_s_set(long jarg1, peer_connection_args jarg1_, long jarg2);
@@ -2920,8 +2913,6 @@ public class libtorrent_jni {
   public final static native long peer_connection_self(long jarg1, peer_connection jarg1_);
   public final static native long peer_connection_stats_counters(long jarg1, peer_connection jarg1_);
   public final static native int peer_connection_get_priority(long jarg1, peer_connection jarg1_, int jarg2);
-  public final static native void peer_connection_m_send_buffer_set(long jarg1, peer_connection jarg1_, long jarg2);
-  public final static native long peer_connection_m_send_buffer_get(long jarg1, peer_connection jarg1_);
   public final static native long new_proxy_settings__SWIG_0();
   public final static native long new_proxy_settings__SWIG_1(long jarg1);
   public final static native void proxy_settings_hostname_set(long jarg1, proxy_settings jarg1_, String jarg2);

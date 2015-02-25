@@ -35,15 +35,6 @@ public class cached_piece_info {
     }
   }
 
-  public void setStorage(SWIGTYPE_p_libtorrent__piece_manager value) {
-    libtorrent_jni.cached_piece_info_storage_set(swigCPtr, this, SWIGTYPE_p_libtorrent__piece_manager.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_libtorrent__piece_manager getStorage() {
-    long cPtr = libtorrent_jni.cached_piece_info_storage_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__piece_manager(cPtr, false);
-  }
-
   public void setBlocks(bool_vector value) {
     libtorrent_jni.cached_piece_info_blocks_set(swigCPtr, this, bool_vector.getCPtr(value), value);
   }
