@@ -635,14 +635,6 @@ public class peer_connection extends peer_connection_hot_members {
     return new SWIGTYPE_p_chained_buffer(libtorrent_jni.peer_connection_m_send_buffer_get(swigCPtr, this), true);
   }
 
-  public void setM_allocator(SWIGTYPE_p_buffer_allocator_interface value) {
-    libtorrent_jni.peer_connection_m_allocator_set(swigCPtr, this, SWIGTYPE_p_buffer_allocator_interface.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_buffer_allocator_interface getM_allocator() {
-    return new SWIGTYPE_p_buffer_allocator_interface(libtorrent_jni.peer_connection_m_allocator_get(swigCPtr, this), false);
-  }
-
   public void setM_extensions(SWIGTYPE_p_std__listT_boost__shared_ptrT_libtorrent__peer_plugin_t_t value) {
     libtorrent_jni.peer_connection_m_extensions_set(swigCPtr, this, SWIGTYPE_p_std__listT_boost__shared_ptrT_libtorrent__peer_plugin_t_t.getCPtr(value));
   }

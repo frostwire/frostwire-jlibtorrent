@@ -278,6 +278,7 @@ public:
 %shared_ptr(libtorrent::bandwidth_socket)
 %shared_ptr(libtorrent::peer_connection)
 %shared_ptr(libtorrent::bt_peer_connection)
+%shared_ptr(libtorrent::torrent_info)
 
 %auto_ptr(libtorrent::alert)
 
@@ -473,9 +474,11 @@ namespace std {
 %ignore libtorrent::peer_connection::received_listen_port() const;
 %ignore libtorrent::peer_connection::append_const_send_buffer;
 %ignore libtorrent::peer_connection::append_send_buffer;
+%ignore libtorrent::peer_connection::m_allocator;
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;
+%ignore libtorrent::peer_connection_args::allocator;
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
@@ -622,7 +625,7 @@ namespace std {
 %include "libtorrent/add_torrent_params.hpp"
 %include "libtorrent/rss.hpp"
 %include "libtorrent/alert.hpp"
-%include "alert_types.hpp"
+%include "libtorrent/alert_types.hpp"
 %include "libtorrent/alert_manager.hpp"
 %include "libtorrent/disk_io_thread.hpp"
 %include "libtorrent/peer.hpp"

@@ -35,8 +35,8 @@ public class peer_error_alert extends peer_alert {
     super.delete();
   }
 
-  public peer_error_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, error_code e) {
-    this(libtorrent_jni.new_peer_error_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, error_code.getCPtr(e), e), true);
+  public peer_error_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, int op, error_code e) {
+    this(libtorrent_jni.new_peer_error_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, op, error_code.getCPtr(e), e), true);
   }
 
   public int type() {
@@ -53,6 +53,14 @@ public class peer_error_alert extends peer_alert {
 
   public String message() {
     return libtorrent_jni.peer_error_alert_message(swigCPtr, this);
+  }
+
+  public void setOperation(int value) {
+    libtorrent_jni.peer_error_alert_operation_set(swigCPtr, this, value);
+  }
+
+  public int getOperation() {
+    return libtorrent_jni.peer_error_alert_operation_get(swigCPtr, this);
   }
 
   public void setError(error_code value) {

@@ -118,6 +118,14 @@ public class libtorrent implements libtorrentConstants {
     return new torrent_handle(libtorrent_jni.add_feed_item__SWIG_1(session.getCPtr(s), s, feed_item.getCPtr(fi), fi, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec), true);
   }
 
+  public static String operation_name(int op) {
+    return libtorrent_jni.operation_name(op);
+  }
+
+  public static int getUser_alert_id() {
+    return libtorrent_jni.user_alert_id_get();
+  }
+
   public static int source_rank(int source_bitmask) {
     return libtorrent_jni.source_rank(source_bitmask);
   }

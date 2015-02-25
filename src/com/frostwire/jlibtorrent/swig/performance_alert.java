@@ -71,6 +71,7 @@ public class performance_alert extends torrent_alert {
     send_buffer_watermark_too_low,
     too_many_optimistic_unchoke_slots,
     too_high_disk_queue_limit,
+    aio_limit_reached,
     bittyrant_with_no_uplimit,
     too_few_outgoing_ports,
     too_few_file_descriptors,

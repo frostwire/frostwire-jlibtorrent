@@ -35,8 +35,8 @@ public class peer_disconnected_alert extends peer_alert {
     super.delete();
   }
 
-  public peer_disconnected_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, error_code e) {
-    this(libtorrent_jni.new_peer_disconnected_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, error_code.getCPtr(e), e), true);
+  public peer_disconnected_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, SWIGTYPE_p_operation_t op, int type, error_code e) {
+    this(libtorrent_jni.new_peer_disconnected_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, SWIGTYPE_p_operation_t.getCPtr(op), type, error_code.getCPtr(e), e), true);
   }
 
   public int type() {
@@ -53,6 +53,22 @@ public class peer_disconnected_alert extends peer_alert {
 
   public String message() {
     return libtorrent_jni.peer_disconnected_alert_message(swigCPtr, this);
+  }
+
+  public void setSocket_type(int value) {
+    libtorrent_jni.peer_disconnected_alert_socket_type_set(swigCPtr, this, value);
+  }
+
+  public int getSocket_type() {
+    return libtorrent_jni.peer_disconnected_alert_socket_type_get(swigCPtr, this);
+  }
+
+  public void setOperation(SWIGTYPE_p_operation_t value) {
+    libtorrent_jni.peer_disconnected_alert_operation_set(swigCPtr, this, SWIGTYPE_p_operation_t.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_operation_t getOperation() {
+    return new SWIGTYPE_p_operation_t(libtorrent_jni.peer_disconnected_alert_operation_get(swigCPtr, this), true);
   }
 
   public void setError(error_code value) {

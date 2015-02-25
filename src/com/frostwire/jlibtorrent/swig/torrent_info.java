@@ -10,10 +10,10 @@ package com.frostwire.jlibtorrent.swig;
 
 public class torrent_info {
   private long swigCPtr;
-  private boolean swigCMemOwnBase;
+  private boolean swigCMemOwn;
 
   protected torrent_info(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwnBase = cMemoryOwn;
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
@@ -26,11 +26,13 @@ public class torrent_info {
   }
 
   public synchronized void delete() {
-    if(swigCPtr != 0 && swigCMemOwnBase) {
-      swigCMemOwnBase = false;
-      libtorrent_jni.delete_torrent_info(swigCPtr);
+    if (swigCPtr != 0) {
+      if (swigCMemOwn) {
+        swigCMemOwn = false;
+        libtorrent_jni.delete_torrent_info(swigCPtr);
+      }
+      swigCPtr = 0;
     }
-    swigCPtr = 0;
   }
 
   public torrent_info(lazy_entry torrent_file, int flags) {

@@ -48,5 +48,13 @@ public class torrent_alert extends alert {
     return (cPtr == 0) ? null : new torrent_handle(cPtr, false);
   }
 
+  public void setName(String value) {
+    libtorrent_jni.torrent_alert_name_set(swigCPtr, this, value);
+  }
+
+  public String getName() {
+    return libtorrent_jni.torrent_alert_name_get(swigCPtr, this);
+  }
+
   public final static int alert_type = libtorrent_jni.torrent_alert_alert_type_get();
 }

@@ -75,11 +75,11 @@ public class stats_alert extends torrent_alert {
     download_payload,
     download_protocol,
     upload_ip_protocol,
-    upload_dht_protocol,
-    upload_tracker_protocol,
+    deprecated1,
+    deprecated2,
     download_ip_protocol,
-    download_dht_protocol,
-    download_tracker_protocol,
+    deprecated3,
+    deprecated4,
     num_channels;
 
     public final int swigValue() {

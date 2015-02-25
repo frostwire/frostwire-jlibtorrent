@@ -55,6 +55,10 @@ public class torrent_removed_alert extends torrent_alert {
     return libtorrent_jni.torrent_removed_alert_message(swigCPtr, this);
   }
 
+  public boolean discardable() {
+    return libtorrent_jni.torrent_removed_alert_discardable(swigCPtr, this);
+  }
+
   public void setInfo_hash(sha1_hash value) {
     libtorrent_jni.torrent_removed_alert_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }

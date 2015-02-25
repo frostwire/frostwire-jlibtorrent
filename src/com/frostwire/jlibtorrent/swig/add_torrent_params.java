@@ -43,13 +43,13 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_version_get(swigCPtr, this);
   }
 
-  public void setTi(SWIGTYPE_p_boost__shared_ptrT_libtorrent__torrent_info_t value) {
-    libtorrent_jni.add_torrent_params_ti_set(swigCPtr, this, SWIGTYPE_p_boost__shared_ptrT_libtorrent__torrent_info_t.getCPtr(value));
+  public void setTi(torrent_info value) {
+    libtorrent_jni.add_torrent_params_ti_set(swigCPtr, this, torrent_info.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_boost__shared_ptrT_libtorrent__torrent_info_t getTi() {
+  public torrent_info getTi() {
     long cPtr = libtorrent_jni.add_torrent_params_ti_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_boost__shared_ptrT_libtorrent__torrent_info_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_info(cPtr, true);
   }
 
   public void setTrackers(string_vector value) {

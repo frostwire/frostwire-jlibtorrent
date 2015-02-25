@@ -79,7 +79,8 @@ public class listen_succeeded_alert extends alert {
   public enum socket_type_t {
     tcp,
     tcp_ssl,
-    udp;
+    udp,
+    utp_ssl;
 
     public final int swigValue() {
       return swigValue;

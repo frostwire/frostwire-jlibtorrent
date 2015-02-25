@@ -59,16 +59,16 @@ public class dht_lookup_vector {
     libtorrent_jni.dht_lookup_vector_clear(swigCPtr, this);
   }
 
-  public void add(SWIGTYPE_p_libtorrent__dht_lookup x) {
-    libtorrent_jni.dht_lookup_vector_add(swigCPtr, this, SWIGTYPE_p_libtorrent__dht_lookup.getCPtr(x));
+  public void add(dht_lookup x) {
+    libtorrent_jni.dht_lookup_vector_add(swigCPtr, this, dht_lookup.getCPtr(x), x);
   }
 
-  public SWIGTYPE_p_libtorrent__dht_lookup get(int i) {
-    return new SWIGTYPE_p_libtorrent__dht_lookup(libtorrent_jni.dht_lookup_vector_get(swigCPtr, this, i), false);
+  public dht_lookup get(int i) {
+    return new dht_lookup(libtorrent_jni.dht_lookup_vector_get(swigCPtr, this, i), false);
   }
 
-  public void set(int i, SWIGTYPE_p_libtorrent__dht_lookup val) {
-    libtorrent_jni.dht_lookup_vector_set(swigCPtr, this, i, SWIGTYPE_p_libtorrent__dht_lookup.getCPtr(val));
+  public void set(int i, dht_lookup val) {
+    libtorrent_jni.dht_lookup_vector_set(swigCPtr, this, i, dht_lookup.getCPtr(val), val);
   }
 
 }

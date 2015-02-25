@@ -35,8 +35,8 @@ public class torrent_error_alert extends torrent_alert {
     super.delete();
   }
 
-  public torrent_error_alert(torrent_handle h, error_code e) {
-    this(libtorrent_jni.new_torrent_error_alert(torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e), true);
+  public torrent_error_alert(torrent_handle h, error_code e, String f) {
+    this(libtorrent_jni.new_torrent_error_alert(torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e, f), true);
   }
 
   public int type() {
@@ -62,6 +62,14 @@ public class torrent_error_alert extends torrent_alert {
   public error_code getError() {
     long cPtr = libtorrent_jni.torrent_error_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);
+  }
+
+  public void setError_file(String value) {
+    libtorrent_jni.torrent_error_alert_error_file_set(swigCPtr, this, value);
+  }
+
+  public String getError_file() {
+    return libtorrent_jni.torrent_error_alert_error_file_get(swigCPtr, this);
   }
 
   public final static int alert_type = libtorrent_jni.torrent_error_alert_alert_type_get();

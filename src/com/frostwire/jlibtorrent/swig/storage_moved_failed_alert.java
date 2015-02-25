@@ -35,8 +35,8 @@ public class storage_moved_failed_alert extends torrent_alert {
     super.delete();
   }
 
-  public storage_moved_failed_alert(torrent_handle h, error_code e) {
-    this(libtorrent_jni.new_storage_moved_failed_alert(torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e), true);
+  public storage_moved_failed_alert(torrent_handle h, error_code e, String file, String op) {
+    this(libtorrent_jni.new_storage_moved_failed_alert(torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e, file, op), true);
   }
 
   public int type() {
@@ -62,6 +62,22 @@ public class storage_moved_failed_alert extends torrent_alert {
   public error_code getError() {
     long cPtr = libtorrent_jni.storage_moved_failed_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);
+  }
+
+  public void setFile(String value) {
+    libtorrent_jni.storage_moved_failed_alert_file_set(swigCPtr, this, value);
+  }
+
+  public String getFile() {
+    return libtorrent_jni.storage_moved_failed_alert_file_get(swigCPtr, this);
+  }
+
+  public void setOperation(String value) {
+    libtorrent_jni.storage_moved_failed_alert_operation_set(swigCPtr, this, value);
+  }
+
+  public String getOperation() {
+    return libtorrent_jni.storage_moved_failed_alert_operation_get(swigCPtr, this);
   }
 
   public final static int alert_type = libtorrent_jni.storage_moved_failed_alert_alert_type_get();

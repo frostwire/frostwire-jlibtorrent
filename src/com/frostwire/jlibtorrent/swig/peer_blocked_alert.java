@@ -80,7 +80,8 @@ public class peer_blocked_alert extends torrent_alert {
     i2p_mixed,
     privileged_ports,
     utp_disabled,
-    tcp_disabled;
+    tcp_disabled,
+    invalid_local_interface;
 
     public final int swigValue() {
       return swigValue;
