@@ -14,7 +14,7 @@ CXX=clang++
 CXXFLAGS="-stdlib=libc++ -std=c++11 -O3"
 DEFINES="-DNDEBUG=1 -DBOOST_ASIO_SEPARATE_COMPILATION=1 -DTORRENT_USE_ABSOLUTE_TIME=1 -DTORRENT_DISABLE_GEO_IP=1 -DTORRENT_NO_DEPRECATE=1"
 INCLUDES="-I$BOOST_ROOT -I$LIBTORRENT_ROOT/include -I$JDK_INCLUDE_1 -I$JDK_INCLUDE_2"
-LIBS="-ltorrent -lboost_system -lboost_chrono -lboost_date_time -lboost_thread"
+LIBS="-ltorrent_trunk -lboost_system -lboost_chrono -lboost_date_time -lboost_thread"
 LDFLAGS="-L$LIBTORRENT_LIBS"
 TARGET="libjlibtorrent.dylib"
 
