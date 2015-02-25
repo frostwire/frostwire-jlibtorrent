@@ -44,6 +44,7 @@
 #include "libtorrent/torrent.hpp"
 #include "libtorrent/session.hpp"
 #include "libtorrent/extensions.hpp"
+#include "libtorrent/disk_io_job.hpp"
 #include "libtorrent/disk_buffer_holder.hpp"
 #include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/bt_peer_connection.hpp"
@@ -413,6 +414,7 @@ namespace std {
 %ignore libtorrent::convert_path_to_posix;
 %ignore libtorrent::hex_to_int;
 %ignore libtorrent::to_hex;
+%ignore libtorrent::nop;
 
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
@@ -456,6 +458,8 @@ namespace std {
 %ignore libtorrent::peer_connection::add_extension;
 %ignore libtorrent::peer_connection::find_plugin;
 %ignore libtorrent::peer_connection::received_listen_port() const;
+%ignore libtorrent::peer_connection::append_const_send_buffer;
+%ignore libtorrent::peer_connection::append_send_buffer;
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;
@@ -618,6 +622,7 @@ namespace std {
 %include "libtorrent/torrent.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/extensions.hpp"
+%include "libtorrent/disk_io_job.hpp"
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
 %include "libtorrent/bt_peer_connection.hpp"

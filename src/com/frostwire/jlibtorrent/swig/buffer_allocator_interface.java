@@ -43,8 +43,8 @@ public class buffer_allocator_interface {
     libtorrent_jni.buffer_allocator_interface_free_disk_buffer(swigCPtr, this, b);
   }
 
-  public void reclaim_block(SWIGTYPE_p_block_cache_reference ref) {
-    libtorrent_jni.buffer_allocator_interface_reclaim_block(swigCPtr, this, SWIGTYPE_p_block_cache_reference.getCPtr(ref));
+  public void reclaim_block(block_cache_reference ref) {
+    libtorrent_jni.buffer_allocator_interface_reclaim_block(swigCPtr, this, block_cache_reference.getCPtr(ref), ref);
   }
 
   public String allocate_disk_buffer(SWIGTYPE_p_bool exceeded, SWIGTYPE_p_boost__shared_ptrT_libtorrent__disk_observer_t o, String category) {

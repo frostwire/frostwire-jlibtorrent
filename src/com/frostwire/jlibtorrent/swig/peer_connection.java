@@ -542,38 +542,6 @@ public class peer_connection extends peer_connection_hot_members {
     libtorrent_jni.peer_connection_uncork_socket(swigCPtr, this);
   }
 
-  public void append_send_buffer(String buffer, int size, SWIGTYPE_p_chained_buffer__free_buffer_fun destructor, SWIGTYPE_p_void userdata, SWIGTYPE_p_block_cache_reference ref) {
-    libtorrent_jni.peer_connection_append_send_buffer__SWIG_0(swigCPtr, this, buffer, size, SWIGTYPE_p_chained_buffer__free_buffer_fun.getCPtr(destructor), SWIGTYPE_p_void.getCPtr(userdata), SWIGTYPE_p_block_cache_reference.getCPtr(ref));
-  }
-
-  public void append_send_buffer(String buffer, int size, SWIGTYPE_p_chained_buffer__free_buffer_fun destructor, SWIGTYPE_p_void userdata) {
-    libtorrent_jni.peer_connection_append_send_buffer__SWIG_1(swigCPtr, this, buffer, size, SWIGTYPE_p_chained_buffer__free_buffer_fun.getCPtr(destructor), SWIGTYPE_p_void.getCPtr(userdata));
-  }
-
-  public void append_send_buffer(String buffer, int size, SWIGTYPE_p_chained_buffer__free_buffer_fun destructor) {
-    libtorrent_jni.peer_connection_append_send_buffer__SWIG_2(swigCPtr, this, buffer, size, SWIGTYPE_p_chained_buffer__free_buffer_fun.getCPtr(destructor));
-  }
-
-  public void append_send_buffer(String buffer, int size) {
-    libtorrent_jni.peer_connection_append_send_buffer__SWIG_3(swigCPtr, this, buffer, size);
-  }
-
-  public void append_const_send_buffer(String buffer, int size, SWIGTYPE_p_chained_buffer__free_buffer_fun destructor, SWIGTYPE_p_void userdata, SWIGTYPE_p_block_cache_reference ref) {
-    libtorrent_jni.peer_connection_append_const_send_buffer__SWIG_0(swigCPtr, this, buffer, size, SWIGTYPE_p_chained_buffer__free_buffer_fun.getCPtr(destructor), SWIGTYPE_p_void.getCPtr(userdata), SWIGTYPE_p_block_cache_reference.getCPtr(ref));
-  }
-
-  public void append_const_send_buffer(String buffer, int size, SWIGTYPE_p_chained_buffer__free_buffer_fun destructor, SWIGTYPE_p_void userdata) {
-    libtorrent_jni.peer_connection_append_const_send_buffer__SWIG_1(swigCPtr, this, buffer, size, SWIGTYPE_p_chained_buffer__free_buffer_fun.getCPtr(destructor), SWIGTYPE_p_void.getCPtr(userdata));
-  }
-
-  public void append_const_send_buffer(String buffer, int size, SWIGTYPE_p_chained_buffer__free_buffer_fun destructor) {
-    libtorrent_jni.peer_connection_append_const_send_buffer__SWIG_2(swigCPtr, this, buffer, size, SWIGTYPE_p_chained_buffer__free_buffer_fun.getCPtr(destructor));
-  }
-
-  public void append_const_send_buffer(String buffer, int size) {
-    libtorrent_jni.peer_connection_append_const_send_buffer__SWIG_3(swigCPtr, this, buffer, size);
-  }
-
   public void set_country(String c) {
     libtorrent_jni.peer_connection_set_country(swigCPtr, this, c);
   }

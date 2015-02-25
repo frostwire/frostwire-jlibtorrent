@@ -122,10 +122,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.source_rank(source_bitmask);
   }
 
-  public static void nop(String arg0, SWIGTYPE_p_void arg1, SWIGTYPE_p_block_cache_reference arg2) {
-    libtorrent_jni.nop(arg0, SWIGTYPE_p_void.getCPtr(arg1), SWIGTYPE_p_block_cache_reference.getCPtr(arg2));
-  }
-
   public static void initialize_file_progress(SWIGTYPE_p_std__vectorT_unsigned_long_long_t file_progress, SWIGTYPE_p_piece_picker picker, file_storage fs) {
     libtorrent_jni.initialize_file_progress(SWIGTYPE_p_std__vectorT_unsigned_long_long_t.getCPtr(file_progress), SWIGTYPE_p_piece_picker.getCPtr(picker), file_storage.getCPtr(fs), fs);
   }
