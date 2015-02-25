@@ -293,15 +293,6 @@ public class session {
     libtorrent_jni.session_delete_port_mapping(swigCPtr, this, handle);
   }
 
-  public void setM_impl(SWIGTYPE_p_boost__shared_ptrT_libtorrent__aux__session_impl_t value) {
-    libtorrent_jni.session_m_impl_set(swigCPtr, this, SWIGTYPE_p_boost__shared_ptrT_libtorrent__aux__session_impl_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_boost__shared_ptrT_libtorrent__aux__session_impl_t getM_impl() {
-    long cPtr = libtorrent_jni.session_m_impl_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_boost__shared_ptrT_libtorrent__aux__session_impl_t(cPtr, false);
-  }
-
   public void add_lt_trackers_extension() {
     libtorrent_jni.session_add_lt_trackers_extension(swigCPtr, this);
   }

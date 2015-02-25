@@ -59817,34 +59817,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1m_1impl_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  libtorrent::session *arg1 = (libtorrent::session *) 0 ;
-  boost::shared_ptr< libtorrent::aux::session_impl > *arg2 = (boost::shared_ptr< libtorrent::aux::session_impl > *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::session **)&jarg1; 
-  arg2 = *(boost::shared_ptr< libtorrent::aux::session_impl > **)&jarg2; 
-  if (arg1) (arg1)->m_impl = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1m_1impl_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::session *arg1 = (libtorrent::session *) 0 ;
-  boost::shared_ptr< libtorrent::aux::session_impl > *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::session **)&jarg1; 
-  result = (boost::shared_ptr< libtorrent::aux::session_impl > *)& ((arg1)->m_impl);
-  *(boost::shared_ptr< libtorrent::aux::session_impl > **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1add_1lt_1trackers_1extension(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   libtorrent::session *arg1 = (libtorrent::session *) 0 ;
   

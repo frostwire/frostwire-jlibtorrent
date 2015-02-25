@@ -2942,8 +2942,6 @@ public class libtorrent_jni {
   public final static native int session_tcp_get();
   public final static native int session_add_port_mapping(long jarg1, session jarg1_, int jarg2, int jarg3, int jarg4);
   public final static native void session_delete_port_mapping(long jarg1, session jarg1_, int jarg2);
-  public final static native void session_m_impl_set(long jarg1, session jarg1_, long jarg2);
-  public final static native long session_m_impl_get(long jarg1, session jarg1_);
   public final static native void session_add_lt_trackers_extension(long jarg1, session jarg1_);
   public final static native void session_add_smart_ban_extension(long jarg1, session jarg1_);
   public final static native void session_dht_get_item__SWIG_1(long jarg1, session jarg1_, long jarg2, char_vector jarg2_, String jarg3);

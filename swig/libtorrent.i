@@ -543,6 +543,9 @@ namespace std {
 %ignore libtorrent::has_bits;
 %ignore libtorrent::count_zero_bits;
 
+%ignore libtorrent::detail::nop;
+%ignore libtorrent::session::m_impl;
+
 %ignore boost::throws;
 %ignore boost::detail::throws;
 %ignore boost::asio::ip::address_v4::to_bytes;
