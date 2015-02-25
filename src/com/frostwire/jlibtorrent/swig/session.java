@@ -243,12 +243,12 @@ public class session {
     libtorrent_jni.session_delete_peer_class(swigCPtr, this, cid);
   }
 
-  public SWIGTYPE_p_peer_class_info get_peer_class(int cid) {
-    return new SWIGTYPE_p_peer_class_info(libtorrent_jni.session_get_peer_class(swigCPtr, this, cid), true);
+  public peer_class_info get_peer_class(int cid) {
+    return new peer_class_info(libtorrent_jni.session_get_peer_class(swigCPtr, this, cid), true);
   }
 
-  public void set_peer_class(int cid, SWIGTYPE_p_peer_class_info pci) {
-    libtorrent_jni.session_set_peer_class(swigCPtr, this, cid, SWIGTYPE_p_peer_class_info.getCPtr(pci));
+  public void set_peer_class(int cid, peer_class_info pci) {
+    libtorrent_jni.session_set_peer_class(swigCPtr, this, cid, peer_class_info.getCPtr(pci), pci);
   }
 
   public void remove_torrent(torrent_handle h, int options) {

@@ -53,13 +53,13 @@ public class peer_connection_args {
     return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__aux__session_settings(cPtr, false);
   }
 
-  public void setStats_counters(SWIGTYPE_p_libtorrent__counters value) {
-    libtorrent_jni.peer_connection_args_stats_counters_set(swigCPtr, this, SWIGTYPE_p_libtorrent__counters.getCPtr(value));
+  public void setStats_counters(counters value) {
+    libtorrent_jni.peer_connection_args_stats_counters_set(swigCPtr, this, counters.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_libtorrent__counters getStats_counters() {
+  public counters getStats_counters() {
     long cPtr = libtorrent_jni.peer_connection_args_stats_counters_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__counters(cPtr, false);
+    return (cPtr == 0) ? null : new counters(cPtr, false);
   }
 
   public void setS(SWIGTYPE_p_boost__shared_ptrT_socket_type_t value) {

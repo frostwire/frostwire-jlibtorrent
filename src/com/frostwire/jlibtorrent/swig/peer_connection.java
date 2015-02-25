@@ -314,12 +314,12 @@ public class peer_connection extends bandwidth_socket {
     return new ptime(libtorrent_jni.peer_connection_last_received(swigCPtr, this), true);
   }
 
-  public void disconnect(error_code ec, SWIGTYPE_p_operation_t op, int error) {
-    libtorrent_jni.peer_connection_disconnect__SWIG_0(swigCPtr, this, error_code.getCPtr(ec), ec, SWIGTYPE_p_operation_t.getCPtr(op), error);
+  public void disconnect(error_code ec, operation_t op, int error) {
+    libtorrent_jni.peer_connection_disconnect__SWIG_0(swigCPtr, this, error_code.getCPtr(ec), ec, op.swigValue(), error);
   }
 
-  public void disconnect(error_code ec, SWIGTYPE_p_operation_t op) {
-    libtorrent_jni.peer_connection_disconnect__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec, SWIGTYPE_p_operation_t.getCPtr(op));
+  public void disconnect(error_code ec, operation_t op) {
+    libtorrent_jni.peer_connection_disconnect__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec, op.swigValue());
   }
 
   public void connect_failed(error_code e) {
@@ -619,8 +619,8 @@ public class peer_connection extends bandwidth_socket {
     return (cPtr == 0) ? null : new peer_connection(cPtr, true);
   }
 
-  public SWIGTYPE_p_libtorrent__counters stats_counters() {
-    return new SWIGTYPE_p_libtorrent__counters(libtorrent_jni.peer_connection_stats_counters(swigCPtr, this), false);
+  public counters stats_counters() {
+    return new counters(libtorrent_jni.peer_connection_stats_counters(swigCPtr, this), false);
   }
 
   public int get_priority(int channel) {
