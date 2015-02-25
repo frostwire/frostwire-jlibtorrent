@@ -116,13 +116,13 @@ public class peer_connection_args {
     return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
-  public void setPeerinfo(SWIGTYPE_p_libtorrent__torrent_peer value) {
-    libtorrent_jni.peer_connection_args_peerinfo_set(swigCPtr, this, SWIGTYPE_p_libtorrent__torrent_peer.getCPtr(value));
+  public void setPeerinfo(torrent_peer value) {
+    libtorrent_jni.peer_connection_args_peerinfo_set(swigCPtr, this, torrent_peer.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_libtorrent__torrent_peer getPeerinfo() {
+  public torrent_peer getPeerinfo() {
     long cPtr = libtorrent_jni.peer_connection_args_peerinfo_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__torrent_peer(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_peer(cPtr, false);
   }
 
   public peer_connection_args() {

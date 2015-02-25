@@ -38,6 +38,7 @@
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/bandwidth_limit.hpp"
 #include "libtorrent/bandwidth_socket.hpp"
+#include "libtorrent/torrent_peer.hpp"
 #include "libtorrent/peer_connection.hpp"
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
@@ -299,6 +300,7 @@ namespace std {
     %template(long_long_long_2_pair_vector) vector<std::pair<long long, long>>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
+    %template(int_int_pair_vector) vector<std::pair<int, int>>;
 
     %template(unsigned_char_vector) vector<unsigned char>;
     %template(int_vector) vector<int>;
@@ -378,6 +380,7 @@ namespace std {
 %ignore libtorrent::bandwidth_channel;
 %ignore libtorrent::bt_peer_connection;
 %ignore libtorrent::disk_io_job;
+%ignore libtorrent::disk_job_fence;
 %ignore libtorrent::is_read_operation;
 %ignore libtorrent::operation_has_buffer;
 %ignore libtorrent::internal_file_entry;
@@ -397,6 +400,7 @@ namespace std {
 %ignore libtorrent::upnp;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::block_cache_reference;
+%ignore libtorrent::torrent_ref_holder;
 %ignore libtorrent::ipv4_peer_entry;
 %ignore libtorrent::ipv6_peer_entry;
 
@@ -625,6 +629,7 @@ namespace std {
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/bandwidth_limit.hpp"
 %include "libtorrent/bandwidth_socket.hpp"
+%include "libtorrent/torrent_peer.hpp"
 %include "libtorrent/peer_connection.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"

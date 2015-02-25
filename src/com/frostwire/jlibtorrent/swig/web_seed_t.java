@@ -68,12 +68,13 @@ public class web_seed_t extends web_seed_entry {
     return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
   }
 
-  public void setPeer_info(SWIGTYPE_p_ipv4_peer value) {
-    libtorrent_jni.web_seed_t_peer_info_set(swigCPtr, this, SWIGTYPE_p_ipv4_peer.getCPtr(value));
+  public void setPeer_info(ipv4_peer value) {
+    libtorrent_jni.web_seed_t_peer_info_set(swigCPtr, this, ipv4_peer.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_ipv4_peer getPeer_info() {
-    return new SWIGTYPE_p_ipv4_peer(libtorrent_jni.web_seed_t_peer_info_get(swigCPtr, this), true);
+  public ipv4_peer getPeer_info() {
+    long cPtr = libtorrent_jni.web_seed_t_peer_info_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ipv4_peer(cPtr, false);
   }
 
   public void setSupports_keepalive(boolean value) {

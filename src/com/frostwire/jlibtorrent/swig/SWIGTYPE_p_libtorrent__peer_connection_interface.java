@@ -8,18 +8,18 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class SWIGTYPE_p_libtorrent__torrent_peer {
+public class SWIGTYPE_p_libtorrent__peer_connection_interface {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_libtorrent__torrent_peer(long cPtr, boolean futureUse) {
+  protected SWIGTYPE_p_libtorrent__peer_connection_interface(long cPtr, boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_libtorrent__torrent_peer() {
+  protected SWIGTYPE_p_libtorrent__peer_connection_interface() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_libtorrent__torrent_peer obj) {
+  protected static long getCPtr(SWIGTYPE_p_libtorrent__peer_connection_interface obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

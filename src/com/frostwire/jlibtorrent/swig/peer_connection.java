@@ -45,13 +45,13 @@ public class peer_connection extends peer_connection_hot_members {
     libtorrent_jni.peer_connection_start(swigCPtr, this);
   }
 
-  public void set_peer_info(SWIGTYPE_p_libtorrent__torrent_peer pi) {
-    libtorrent_jni.peer_connection_set_peer_info(swigCPtr, this, SWIGTYPE_p_libtorrent__torrent_peer.getCPtr(pi));
+  public void set_peer_info(torrent_peer pi) {
+    libtorrent_jni.peer_connection_set_peer_info(swigCPtr, this, torrent_peer.getCPtr(pi), pi);
   }
 
-  public SWIGTYPE_p_libtorrent__torrent_peer peer_info_struct() {
+  public torrent_peer peer_info_struct() {
     long cPtr = libtorrent_jni.peer_connection_peer_info_struct(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__torrent_peer(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_peer(cPtr, false);
   }
 
   public void peer_exceeds_limit() {
