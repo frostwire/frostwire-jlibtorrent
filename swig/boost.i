@@ -7,6 +7,8 @@
 #include <boost/asio/ip/udp.hpp>
 %}
 
+%rename(posix_time_duration) boost::posix_time::time_duration;
+
 namespace boost {
 
     namespace date_time {
@@ -30,20 +32,6 @@ namespace boost {
     }
 
     namespace posix_time {
-
-        class ptime {
-        public:
-
-            std::string zone_name();
-            std::string zone_abbrev();
-            std::string zone_as_posix_string();
-
-            bool is_not_a_date_time();
-            bool is_infinity();
-            bool is_pos_infinity();
-            bool is_neg_infinity();
-            bool is_special();
-        };
 
         class time_duration {
         public:
@@ -210,4 +198,11 @@ namespace udp {
     };
 }
 
+class ptime {
+public:
+};
+
+class time_duration {
+public:
+};
 

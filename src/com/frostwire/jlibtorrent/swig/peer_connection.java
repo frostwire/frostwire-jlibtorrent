@@ -214,12 +214,12 @@ public class peer_connection extends peer_connection_hot_members {
     libtorrent_jni.peer_connection_clear_request_queue(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_time_duration download_queue_time(int extra_bytes) {
-    return new SWIGTYPE_p_time_duration(libtorrent_jni.peer_connection_download_queue_time__SWIG_0(swigCPtr, this, extra_bytes), true);
+  public time_duration download_queue_time(int extra_bytes) {
+    return new time_duration(libtorrent_jni.peer_connection_download_queue_time__SWIG_0(swigCPtr, this, extra_bytes), true);
   }
 
-  public SWIGTYPE_p_time_duration download_queue_time() {
-    return new SWIGTYPE_p_time_duration(libtorrent_jni.peer_connection_download_queue_time__SWIG_1(swigCPtr, this), true);
+  public time_duration download_queue_time() {
+    return new time_duration(libtorrent_jni.peer_connection_download_queue_time__SWIG_1(swigCPtr, this), true);
   }
 
   public boolean is_interesting() {
@@ -306,12 +306,12 @@ public class peer_connection extends peer_connection_hot_members {
     return new int_vector(libtorrent_jni.peer_connection_suggested_pieces(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_ptime connected_time() {
-    return new SWIGTYPE_p_ptime(libtorrent_jni.peer_connection_connected_time(swigCPtr, this), true);
+  public ptime connected_time() {
+    return new ptime(libtorrent_jni.peer_connection_connected_time(swigCPtr, this), true);
   }
 
-  public SWIGTYPE_p_ptime last_received() {
-    return new SWIGTYPE_p_ptime(libtorrent_jni.peer_connection_last_received(swigCPtr, this), true);
+  public ptime last_received() {
+    return new ptime(libtorrent_jni.peer_connection_last_received(swigCPtr, this), true);
   }
 
   public void disconnect(error_code ec, SWIGTYPE_p_operation_t op, int error) {
@@ -590,8 +590,8 @@ public class peer_connection extends peer_connection_hot_members {
     return libtorrent_jni.peer_connection_uploaded_since_unchoked(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_ptime time_of_last_unchoke() {
-    return new SWIGTYPE_p_ptime(libtorrent_jni.peer_connection_time_of_last_unchoke(swigCPtr, this), true);
+  public ptime time_of_last_unchoke() {
+    return new ptime(libtorrent_jni.peer_connection_time_of_last_unchoke(swigCPtr, this), true);
   }
 
   public void on_disk() {

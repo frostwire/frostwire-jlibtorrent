@@ -51,12 +51,13 @@ public class web_seed_t extends web_seed_entry {
     this(libtorrent_jni.new_web_seed_t__SWIG_3(url_, type_.swigValue()), true);
   }
 
-  public void setRetry(SWIGTYPE_p_ptime value) {
-    libtorrent_jni.web_seed_t_retry_set(swigCPtr, this, SWIGTYPE_p_ptime.getCPtr(value));
+  public void setRetry(ptime value) {
+    libtorrent_jni.web_seed_t_retry_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_ptime getRetry() {
-    return new SWIGTYPE_p_ptime(libtorrent_jni.web_seed_t_retry_get(swigCPtr, this), true);
+  public ptime getRetry() {
+    long cPtr = libtorrent_jni.web_seed_t_retry_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
   public void setEndpoints(tcp_endpoint_vector value) {

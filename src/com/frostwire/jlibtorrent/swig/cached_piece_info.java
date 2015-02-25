@@ -53,12 +53,13 @@ public class cached_piece_info {
     return (cPtr == 0) ? null : new bool_vector(cPtr, false);
   }
 
-  public void setLast_use(SWIGTYPE_p_ptime value) {
-    libtorrent_jni.cached_piece_info_last_use_set(swigCPtr, this, SWIGTYPE_p_ptime.getCPtr(value));
+  public void setLast_use(ptime value) {
+    libtorrent_jni.cached_piece_info_last_use_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_ptime getLast_use() {
-    return new SWIGTYPE_p_ptime(libtorrent_jni.cached_piece_info_last_use_get(swigCPtr, this), true);
+  public ptime getLast_use() {
+    long cPtr = libtorrent_jni.cached_piece_info_last_use_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
   public void setNext_to_hash(int value) {
