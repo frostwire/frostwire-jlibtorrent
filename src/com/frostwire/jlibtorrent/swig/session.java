@@ -147,10 +147,6 @@ public class session {
     return libtorrent_jni.session_is_paused(swigCPtr, this);
   }
 
-  public void set_load_function(SWIGTYPE_p_boost__functionT_void_flibtorrent__sha1_hash_const_R_std__vectorT_char_t_R_boost__system__error_code_RF_t fun) {
-    libtorrent_jni.session_set_load_function(swigCPtr, this, SWIGTYPE_p_boost__functionT_void_flibtorrent__sha1_hash_const_R_std__vectorT_char_t_R_boost__system__error_code_RF_t.getCPtr(fun));
-  }
-
   public void get_cache_info(cache_status ret, torrent_handle h, int flags) {
     libtorrent_jni.session_get_cache_info__SWIG_0(swigCPtr, this, cache_status.getCPtr(ret), ret, torrent_handle.getCPtr(h), h, flags);
   }

@@ -2876,7 +2876,6 @@ public class libtorrent_jni {
   public final static native void session_pause(long jarg1, session jarg1_);
   public final static native void session_resume(long jarg1, session jarg1_);
   public final static native boolean session_is_paused(long jarg1, session jarg1_);
-  public final static native void session_set_load_function(long jarg1, session jarg1_, long jarg2);
   public final static native int session_disk_cache_no_pieces_get();
   public final static native void session_get_cache_info__SWIG_0(long jarg1, session jarg1_, long jarg2, cache_status jarg2_, long jarg3, torrent_handle jarg3_, int jarg4);
   public final static native void session_get_cache_info__SWIG_1(long jarg1, session jarg1_, long jarg2, cache_status jarg2_, long jarg3, torrent_handle jarg3_);
@@ -3088,13 +3087,10 @@ public class libtorrent_jni {
   public final static native int create_torrent_piece_length(long jarg1, create_torrent jarg1_);
   public final static native int create_torrent_piece_size(long jarg1, create_torrent jarg1_, int jarg2);
   public final static native long create_torrent_merkle_tree(long jarg1, create_torrent jarg1_);
-  public final static native void add_files__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4);
-  public final static native void add_files__SWIG_1(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
-  public final static native void add_files__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
-  public final static native void add_files__SWIG_3(long jarg1, file_storage jarg1_, String jarg2);
-  public final static native void set_piece_hashes__SWIG_0(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, long jarg4, error_code jarg4_);
-  public final static native void set_piece_hashes__SWIG_1(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
-  public final static native void set_piece_hashes__SWIG_2(long jarg1, create_torrent jarg1_, String jarg2);
+  public final static native void add_files__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
+  public final static native void add_files__SWIG_1(long jarg1, file_storage jarg1_, String jarg2);
+  public final static native void set_piece_hashes__SWIG_0(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
+  public final static native void set_piece_hashes__SWIG_1(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native long get_upnp_category();
   public final static native boolean sha1_bloom_filter_find(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void sha1_bloom_filter_set(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);

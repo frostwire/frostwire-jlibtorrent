@@ -238,32 +238,20 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.parse_magnet_uri(uri, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec);
   }
 
-  public static void add_files(file_storage fs, String file, SWIGTYPE_p_boost__functionT_bool_fstd__stringF_t p, long flags) {
-    libtorrent_jni.add_files__SWIG_0(file_storage.getCPtr(fs), fs, file, SWIGTYPE_p_boost__functionT_bool_fstd__stringF_t.getCPtr(p), flags);
-  }
-
-  public static void add_files(file_storage fs, String file, SWIGTYPE_p_boost__functionT_bool_fstd__stringF_t p) {
-    libtorrent_jni.add_files__SWIG_1(file_storage.getCPtr(fs), fs, file, SWIGTYPE_p_boost__functionT_bool_fstd__stringF_t.getCPtr(p));
-  }
-
   public static void add_files(file_storage fs, String file, long flags) {
-    libtorrent_jni.add_files__SWIG_2(file_storage.getCPtr(fs), fs, file, flags);
+    libtorrent_jni.add_files__SWIG_0(file_storage.getCPtr(fs), fs, file, flags);
   }
 
   public static void add_files(file_storage fs, String file) {
-    libtorrent_jni.add_files__SWIG_3(file_storage.getCPtr(fs), fs, file);
-  }
-
-  public static void set_piece_hashes(create_torrent t, String p, SWIGTYPE_p_boost__functionT_void_fintF_t f, error_code ec) {
-    libtorrent_jni.set_piece_hashes__SWIG_0(create_torrent.getCPtr(t), t, p, SWIGTYPE_p_boost__functionT_void_fintF_t.getCPtr(f), error_code.getCPtr(ec), ec);
+    libtorrent_jni.add_files__SWIG_1(file_storage.getCPtr(fs), fs, file);
   }
 
   public static void set_piece_hashes(create_torrent t, String p, error_code ec) {
-    libtorrent_jni.set_piece_hashes__SWIG_1(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
+    libtorrent_jni.set_piece_hashes__SWIG_0(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
   public static void set_piece_hashes(create_torrent t, String p) {
-    libtorrent_jni.set_piece_hashes__SWIG_2(create_torrent.getCPtr(t), t, p);
+    libtorrent_jni.set_piece_hashes__SWIG_1(create_torrent.getCPtr(t), t, p);
   }
 
   public static error_category get_upnp_category() {
