@@ -85,22 +85,6 @@ public class libtorrent implements libtorrentConstants {
     return new long_long_long_2_pair_vector(libtorrent_jni.get_filesizes(file_storage.getCPtr(t), t, p), true);
   }
 
-  public static int bufs_size(SWIGTYPE_p_file__iovec_t bufs, int num_bufs) {
-    return libtorrent_jni.bufs_size(SWIGTYPE_p_file__iovec_t.getCPtr(bufs), num_bufs);
-  }
-
-  public static int copy_bufs(SWIGTYPE_p_file__iovec_t bufs, int bytes, SWIGTYPE_p_file__iovec_t target) {
-    return libtorrent_jni.copy_bufs(SWIGTYPE_p_file__iovec_t.getCPtr(bufs), bytes, SWIGTYPE_p_file__iovec_t.getCPtr(target));
-  }
-
-  public static void advance_bufs(SWIGTYPE_p_p_file__iovec_t bufs, int bytes) {
-    libtorrent_jni.advance_bufs(SWIGTYPE_p_p_file__iovec_t.getCPtr(bufs), bytes);
-  }
-
-  public static void clear_bufs(SWIGTYPE_p_file__iovec_t bufs, int num_bufs) {
-    libtorrent_jni.clear_bufs(SWIGTYPE_p_file__iovec_t.getCPtr(bufs), num_bufs);
-  }
-
   public static void sanitize_append_path_element(String path, String element, int element_len) {
     libtorrent_jni.sanitize_append_path_element(path, element, element_len);
   }

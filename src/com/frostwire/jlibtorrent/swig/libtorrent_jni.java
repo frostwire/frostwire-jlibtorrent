@@ -807,10 +807,6 @@ public class libtorrent_jni {
   public final static native long storage_params_info_get(long jarg1, storage_params jarg1_);
   public final static native void delete_storage_params(long jarg1);
   public final static native long get_filesizes(long jarg1, file_storage jarg1_, String jarg2);
-  public final static native int bufs_size(long jarg1, int jarg2);
-  public final static native int copy_bufs(long jarg1, int jarg2, long jarg3);
-  public final static native void advance_bufs(long jarg1, int jarg2);
-  public final static native void clear_bufs(long jarg1, int jarg2);
   public final static native void zero_storage_initialize(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native boolean zero_storage_has_any_file(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native void zero_storage_set_file_priority(long jarg1, zero_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
@@ -826,7 +822,6 @@ public class libtorrent_jni {
   public final static native void storage_piece_set_remove_piece(long jarg1, storage_piece_set jarg1_, long jarg2);
   public final static native boolean storage_piece_set_has_piece(long jarg1, storage_piece_set jarg1_, long jarg2);
   public final static native int storage_piece_set_num_pieces(long jarg1, storage_piece_set jarg1_);
-  public final static native long storage_piece_set_cached_pieces(long jarg1, storage_piece_set jarg1_);
   public final static native long new_storage_piece_set();
   public final static native void delete_storage_piece_set(long jarg1);
   public final static native void file_slice_file_index_set(long jarg1, file_slice jarg1_, int jarg2);
@@ -2749,8 +2744,6 @@ public class libtorrent_jni {
   public final static native long peer_connection_args_sett_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_stats_counters_set(long jarg1, peer_connection_args jarg1_, long jarg2);
   public final static native long peer_connection_args_stats_counters_get(long jarg1, peer_connection_args jarg1_);
-  public final static native void peer_connection_args_ios_set(long jarg1, peer_connection_args jarg1_, long jarg2);
-  public final static native long peer_connection_args_ios_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_s_set(long jarg1, peer_connection_args jarg1_, long jarg2);
   public final static native long peer_connection_args_s_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_endp_set(long jarg1, peer_connection_args jarg1_, long jarg2, tcp_endpoint jarg2_);

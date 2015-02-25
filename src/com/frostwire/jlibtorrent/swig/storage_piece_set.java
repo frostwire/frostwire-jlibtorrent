@@ -51,10 +51,6 @@ public class storage_piece_set {
     return libtorrent_jni.storage_piece_set_num_pieces(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_boost__unordered_setT_libtorrent__cached_piece_entry_p_t cached_pieces() {
-    return new SWIGTYPE_p_boost__unordered_setT_libtorrent__cached_piece_entry_p_t(libtorrent_jni.storage_piece_set_cached_pieces(swigCPtr, this), false);
-  }
-
   public storage_piece_set() {
     this(libtorrent_jni.new_storage_piece_set(), true);
   }
