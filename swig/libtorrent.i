@@ -44,6 +44,7 @@
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
 #include "libtorrent/peer_class.hpp"
+#include "libtorrent/peer_class_type_filter.hpp"
 #include "libtorrent/torrent.hpp"
 #include "libtorrent/session.hpp"
 #include "libtorrent/extensions.hpp"
@@ -432,6 +433,7 @@ namespace std {
 %ignore libtorrent::to_string;
 %ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>, boost::uint32_t);
 %ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>);
+%ignore libtorrent::initialize_file_progress;
 
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
@@ -585,6 +587,7 @@ namespace std {
 %ignore libtorrent::storage_piece_set::cached_pieces;
 %ignore libtorrent::peer_class::priority;
 %ignore libtorrent::peer_class::channel;
+%ignore libtorrent::torrent_peer::connection;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -658,6 +661,7 @@ namespace std {
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
 %include "libtorrent/peer_class.hpp"
+%include "libtorrent/peer_class_type_filter.hpp"
 %include "libtorrent/torrent.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/extensions.hpp"

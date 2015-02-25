@@ -231,8 +231,8 @@ public class session {
     libtorrent_jni.session_set_peer_class_filter(swigCPtr, this, ip_filter.getCPtr(f), f);
   }
 
-  public void set_peer_class_type_filter(SWIGTYPE_p_peer_class_type_filter f) {
-    libtorrent_jni.session_set_peer_class_type_filter(swigCPtr, this, SWIGTYPE_p_peer_class_type_filter.getCPtr(f));
+  public void set_peer_class_type_filter(peer_class_type_filter f) {
+    libtorrent_jni.session_set_peer_class_type_filter(swigCPtr, this, peer_class_type_filter.getCPtr(f), f);
   }
 
   public int create_peer_class(String name) {

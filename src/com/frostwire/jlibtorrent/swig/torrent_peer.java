@@ -79,15 +79,6 @@ public class torrent_peer {
     return libtorrent_jni.torrent_peer_prev_amount_download_get(swigCPtr, this);
   }
 
-  public void setConnection(SWIGTYPE_p_libtorrent__peer_connection_interface value) {
-    libtorrent_jni.torrent_peer_connection_set(swigCPtr, this, SWIGTYPE_p_libtorrent__peer_connection_interface.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_libtorrent__peer_connection_interface getConnection() {
-    long cPtr = libtorrent_jni.torrent_peer_connection_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__peer_connection_interface(cPtr, false);
-  }
-
   public void setPeer_rank(long value) {
     libtorrent_jni.torrent_peer_peer_rank_set(swigCPtr, this, value);
   }

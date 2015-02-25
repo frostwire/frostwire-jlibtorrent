@@ -2697,8 +2697,6 @@ public class libtorrent_jni {
   public final static native long torrent_peer_prev_amount_upload_get(long jarg1, torrent_peer jarg1_);
   public final static native void torrent_peer_prev_amount_download_set(long jarg1, torrent_peer jarg1_, long jarg2);
   public final static native long torrent_peer_prev_amount_download_get(long jarg1, torrent_peer jarg1_);
-  public final static native void torrent_peer_connection_set(long jarg1, torrent_peer jarg1_, long jarg2);
-  public final static native long torrent_peer_connection_get(long jarg1, torrent_peer jarg1_);
   public final static native void torrent_peer_peer_rank_set(long jarg1, torrent_peer jarg1_, long jarg2);
   public final static native long torrent_peer_peer_rank_get(long jarg1, torrent_peer jarg1_);
   public final static native void torrent_peer_last_optimistically_unchoked_set(long jarg1, torrent_peer jarg1_, int jarg2);
@@ -3000,8 +2998,15 @@ public class libtorrent_jni {
   public final static native long peer_class_pool_at__SWIG_0(long jarg1, peer_class_pool jarg1_, short jarg2);
   public final static native long new_peer_class_pool();
   public final static native void delete_peer_class_pool(long jarg1);
+  public final static native long new_peer_class_type_filter();
+  public final static native int peer_class_type_filter_tcp_socket_get();
+  public final static native void peer_class_type_filter_add(long jarg1, peer_class_type_filter jarg1_, int jarg2, int jarg3);
+  public final static native void peer_class_type_filter_remove(long jarg1, peer_class_type_filter jarg1_, int jarg2, int jarg3);
+  public final static native void peer_class_type_filter_disallow(long jarg1, peer_class_type_filter jarg1_, int jarg2, int jarg3);
+  public final static native void peer_class_type_filter_allow(long jarg1, peer_class_type_filter jarg1_, int jarg2, int jarg3);
+  public final static native long peer_class_type_filter_apply(long jarg1, peer_class_type_filter jarg1_, int jarg2, long jarg3);
+  public final static native void delete_peer_class_type_filter(long jarg1);
   public final static native int TORRENT_DEBUG_STREAMING_get();
-  public final static native void initialize_file_progress(long jarg1, uint64_vector jarg1_, long jarg2, long jarg3, file_storage jarg3_);
   public final static native void resume_data_t_buf_set(long jarg1, resume_data_t jarg1_, long jarg2, char_vector jarg2_);
   public final static native long resume_data_t_buf_get(long jarg1, resume_data_t jarg1_);
   public final static native long resume_data_t_entry_get(long jarg1, resume_data_t jarg1_);
@@ -3106,7 +3111,7 @@ public class libtorrent_jni {
   public final static native int session_ssl_listen_port(long jarg1, session jarg1_);
   public final static native boolean session_is_listening(long jarg1, session jarg1_);
   public final static native void session_set_peer_class_filter(long jarg1, session jarg1_, long jarg2, ip_filter jarg2_);
-  public final static native void session_set_peer_class_type_filter(long jarg1, session jarg1_, long jarg2);
+  public final static native void session_set_peer_class_type_filter(long jarg1, session jarg1_, long jarg2, peer_class_type_filter jarg2_);
   public final static native int session_create_peer_class(long jarg1, session jarg1_, String jarg2);
   public final static native void session_delete_peer_class(long jarg1, session jarg1_, int jarg2);
   public final static native long session_get_peer_class(long jarg1, session jarg1_, int jarg2);
