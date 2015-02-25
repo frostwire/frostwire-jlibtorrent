@@ -1060,6 +1060,7 @@ public final class Session {
         CAST_ALERT_METHOD(peer_blocked_alert.class, map);
         CAST_ALERT_METHOD(dht_announce_alert.class, map);
         CAST_ALERT_METHOD(dht_get_peers_alert.class, map);
+        CAST_ALERT_METHOD(dht_outgoing_get_peers_alert.class, map);
         CAST_ALERT_METHOD(stats_alert.class, map);
         CAST_ALERT_METHOD(cache_flushed_alert.class, map);
         CAST_ALERT_METHOD(anonymous_mode_alert.class, map);

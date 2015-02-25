@@ -1508,6 +1508,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_peer_blocked_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_announce_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_get_peers_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_dht_outgoing_get_peers_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_cache_flushed_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_anonymous_mode_alert(long jarg1, alert jarg1_);
@@ -3260,6 +3261,13 @@ public class libtorrent_jni {
   public final static native void set_piece_hashes__SWIG_0(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
   public final static native void set_piece_hashes__SWIG_1(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native long get_upnp_category();
+  public final static native int dht_get_peers_reply_alert_static_category_get();
+  public final static native String dht_get_peers_reply_alert_message(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native void dht_get_peers_reply_alert_info_hash_set(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long dht_get_peers_reply_alert_info_hash_get(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native void dht_get_peers_reply_alert_peers_set(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
+  public final static native long dht_get_peers_reply_alert_peers_get(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native void delete_dht_get_peers_reply_alert(long jarg1);
   public final static native boolean sha1_bloom_filter_find(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void sha1_bloom_filter_set(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native String sha1_bloom_filter_to_string(long jarg1, sha1_bloom_filter jarg1_);
@@ -3378,4 +3386,5 @@ public class libtorrent_jni {
   public final static native long ipv6_peer_SWIGUpcast(long jarg1);
   public final static native long peer_connection_SWIGSmartPtrUpcast(long jarg1);
   public final static native long web_seed_t_SWIGUpcast(long jarg1);
+  public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
 }

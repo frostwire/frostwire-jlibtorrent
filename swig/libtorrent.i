@@ -264,8 +264,6 @@ public:
 %include "std_list.i"
 %include "boost.i"
 
-%include "session_extend.i"
-
 %intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)
 %intrusive_ptr(libtorrent::peer_connection)
@@ -660,6 +658,8 @@ namespace std {
 %javaconst(0);
 %include "libtorrent/bloom_filter.hpp"
 
+%include "session_extend.i"
+
 namespace libtorrent {
     
 // alert types conversion due to lack of polymorphic return type
@@ -726,6 +726,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(peer_blocked_alert)
     CAST_ALERT_METHOD(dht_announce_alert)
     CAST_ALERT_METHOD(dht_get_peers_alert)
+    CAST_ALERT_METHOD(dht_outgoing_get_peers_alert)
     CAST_ALERT_METHOD(stats_alert)
     CAST_ALERT_METHOD(cache_flushed_alert)
     CAST_ALERT_METHOD(anonymous_mode_alert)

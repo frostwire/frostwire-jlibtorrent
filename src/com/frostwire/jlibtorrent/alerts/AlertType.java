@@ -41,6 +41,7 @@ public enum AlertType {
     DHT_REPLY(dht_reply_alert.alert_type),
     DHT_BOOTSTRAP(dht_bootstrap_alert.alert_type),
     DHT_GET_PEERS(dht_get_peers_alert.alert_type),
+    DHT_OUTGOING_GET_PEERS(dht_outgoing_get_peers_alert.alert_type),
     EXTERNAL_IP(external_ip_alert.alert_type),
     LISTEN_SUCCEEDED(listen_succeeded_alert.alert_type),
     STATE_UPDATE(state_update_alert.alert_type),
