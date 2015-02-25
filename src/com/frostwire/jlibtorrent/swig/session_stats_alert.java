@@ -67,13 +67,13 @@ public class session_stats_alert extends alert {
     return libtorrent_jni.session_stats_alert_timestamp_get(swigCPtr, this);
   }
 
-  public void setValues(SWIGTYPE_p_std__vectorT_unsigned_long_long_t value) {
-    libtorrent_jni.session_stats_alert_values_set(swigCPtr, this, SWIGTYPE_p_std__vectorT_unsigned_long_long_t.getCPtr(value));
+  public void setValues(uint64_vector value) {
+    libtorrent_jni.session_stats_alert_values_set(swigCPtr, this, uint64_vector.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_std__vectorT_unsigned_long_long_t getValues() {
+  public uint64_vector getValues() {
     long cPtr = libtorrent_jni.session_stats_alert_values_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_std__vectorT_unsigned_long_long_t(cPtr, false);
+    return (cPtr == 0) ? null : new uint64_vector(cPtr, false);
   }
 
   public final static int alert_type = libtorrent_jni.session_stats_alert_alert_type_get();

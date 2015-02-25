@@ -134,8 +134,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.peer_priority(tcp_endpoint.getCPtr(e1), e1, tcp_endpoint.getCPtr(e2), e2);
   }
 
-  public static void initialize_file_progress(SWIGTYPE_p_std__vectorT_unsigned_long_long_t file_progress, SWIGTYPE_p_piece_picker picker, file_storage fs) {
-    libtorrent_jni.initialize_file_progress(SWIGTYPE_p_std__vectorT_unsigned_long_long_t.getCPtr(file_progress), SWIGTYPE_p_piece_picker.getCPtr(picker), file_storage.getCPtr(fs), fs);
+  public static void initialize_file_progress(uint64_vector file_progress, SWIGTYPE_p_piece_picker picker, file_storage fs) {
+    libtorrent_jni.initialize_file_progress(uint64_vector.getCPtr(file_progress), file_progress, SWIGTYPE_p_piece_picker.getCPtr(picker), file_storage.getCPtr(fs), fs);
   }
 
   public static void min_memory_usage(SWIGTYPE_p_settings_pack set) {

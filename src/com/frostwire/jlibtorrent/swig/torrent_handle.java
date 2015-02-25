@@ -107,10 +107,6 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_file_progress__SWIG_1(swigCPtr, this, int64_vector.getCPtr(progress), progress);
   }
 
-  public void file_status(SWIGTYPE_p_std__vectorT_pool_file_status_t status) {
-    libtorrent_jni.torrent_handle_file_status(swigCPtr, this, SWIGTYPE_p_std__vectorT_pool_file_status_t.getCPtr(status));
-  }
-
   public void clear_error() {
     libtorrent_jni.torrent_handle_clear_error(swigCPtr, this);
   }

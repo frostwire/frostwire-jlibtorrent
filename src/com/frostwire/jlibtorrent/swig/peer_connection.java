@@ -635,15 +635,6 @@ public class peer_connection extends bandwidth_socket {
     return new SWIGTYPE_p_chained_buffer(libtorrent_jni.peer_connection_m_send_buffer_get(swigCPtr, this), true);
   }
 
-  public void setM_extensions(SWIGTYPE_p_std__listT_boost__shared_ptrT_libtorrent__peer_plugin_t_t value) {
-    libtorrent_jni.peer_connection_m_extensions_set(swigCPtr, this, SWIGTYPE_p_std__listT_boost__shared_ptrT_libtorrent__peer_plugin_t_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_std__listT_boost__shared_ptrT_libtorrent__peer_plugin_t_t getM_extensions() {
-    long cPtr = libtorrent_jni.peer_connection_m_extensions_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_std__listT_boost__shared_ptrT_libtorrent__peer_plugin_t_t(cPtr, false);
-  }
-
   public enum connection_type {
     bittorrent_connection(libtorrent_jni.peer_connection_bittorrent_connection_get()),
     url_seed_connection(libtorrent_jni.peer_connection_url_seed_connection_get()),

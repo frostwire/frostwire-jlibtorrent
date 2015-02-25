@@ -306,6 +306,7 @@ namespace std {
     %template(unsigned_char_vector) vector<unsigned char>;
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<long long>;
+    %template(uint64_vector) vector<unsigned long long>;
     %template(sha1_hash_vector) vector<libtorrent::sha1_hash>;
     %template(torrent_status_vector) vector<libtorrent::torrent_status>;
     %template(torrent_handle_vector) vector<libtorrent::torrent_handle>;
@@ -315,7 +316,7 @@ namespace std {
     %template(peer_request_vector) vector<libtorrent::peer_request>;
     %template(dht_routing_bucket_vector) vector<libtorrent::dht_routing_bucket>;
     %template(dht_lookup_vector) vector<libtorrent::dht_lookup>;
-    
+
     %template(partial_piece_info_vector) vector<libtorrent::partial_piece_info>;
     %template(cached_piece_info_vector) vector<libtorrent::cached_piece_info>;
     %template(peer_info_vector) vector<libtorrent::peer_info>;
@@ -476,6 +477,7 @@ namespace std {
 %ignore libtorrent::peer_connection::append_const_send_buffer;
 %ignore libtorrent::peer_connection::append_send_buffer;
 %ignore libtorrent::peer_connection::m_allocator;
+%ignore libtorrent::peer_connection::m_extensions;
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;
@@ -512,6 +514,7 @@ namespace std {
 %ignore libtorrent::torrent_handle::url_seeds;
 %ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::torrent_handle::get_storage_impl;
+%ignore libtorrent::torrent_handle::file_status;
 %ignore libtorrent::sha1_hash::sha1_hash(char const *);
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;

@@ -252,6 +252,16 @@ public class libtorrent_jni {
   public final static native long int64_vector_get(long jarg1, int64_vector jarg1_, int jarg2);
   public final static native void int64_vector_set(long jarg1, int64_vector jarg1_, int jarg2, long jarg3);
   public final static native void delete_int64_vector(long jarg1);
+  public final static native long new_uint64_vector();
+  public final static native long uint64_vector_size(long jarg1, uint64_vector jarg1_);
+  public final static native long uint64_vector_capacity(long jarg1, uint64_vector jarg1_);
+  public final static native void uint64_vector_reserve(long jarg1, uint64_vector jarg1_, long jarg2);
+  public final static native boolean uint64_vector_isEmpty(long jarg1, uint64_vector jarg1_);
+  public final static native void uint64_vector_clear(long jarg1, uint64_vector jarg1_);
+  public final static native void uint64_vector_add(long jarg1, uint64_vector jarg1_, java.math.BigInteger jarg2);
+  public final static native java.math.BigInteger uint64_vector_get(long jarg1, uint64_vector jarg1_, int jarg2);
+  public final static native void uint64_vector_set(long jarg1, uint64_vector jarg1_, int jarg2, java.math.BigInteger jarg3);
+  public final static native void delete_uint64_vector(long jarg1);
   public final static native long new_sha1_hash_vector();
   public final static native long sha1_hash_vector_size(long jarg1, sha1_hash_vector jarg1_);
   public final static native long sha1_hash_vector_capacity(long jarg1, sha1_hash_vector jarg1_);
@@ -1069,7 +1079,6 @@ public class libtorrent_jni {
   public final static native int torrent_handle_piece_granularity_get();
   public final static native void torrent_handle_file_progress__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, int64_vector jarg2_, int jarg3);
   public final static native void torrent_handle_file_progress__SWIG_1(long jarg1, torrent_handle jarg1_, long jarg2, int64_vector jarg2_);
-  public final static native void torrent_handle_file_status(long jarg1, torrent_handle jarg1_, long jarg2);
   public final static native void torrent_handle_clear_error(long jarg1, torrent_handle jarg1_);
   public final static native long torrent_handle_trackers(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_replace_trackers(long jarg1, torrent_handle jarg1_, long jarg2, announce_entry_vector jarg2_);
@@ -2300,7 +2309,7 @@ public class libtorrent_jni {
   public final static native boolean session_stats_alert_discardable(long jarg1, session_stats_alert jarg1_);
   public final static native void session_stats_alert_timestamp_set(long jarg1, session_stats_alert jarg1_, java.math.BigInteger jarg2);
   public final static native java.math.BigInteger session_stats_alert_timestamp_get(long jarg1, session_stats_alert jarg1_);
-  public final static native void session_stats_alert_values_set(long jarg1, session_stats_alert jarg1_, long jarg2);
+  public final static native void session_stats_alert_values_set(long jarg1, session_stats_alert jarg1_, long jarg2, uint64_vector jarg2_);
   public final static native long session_stats_alert_values_get(long jarg1, session_stats_alert jarg1_);
   public final static native void delete_session_stats_alert(long jarg1);
   public final static native long new_torrent_update_alert(long jarg1, torrent_handle jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, sha1_hash jarg3_);
@@ -2913,8 +2922,6 @@ public class libtorrent_jni {
   public final static native int peer_connection_get_priority(long jarg1, peer_connection jarg1_, int jarg2);
   public final static native void peer_connection_m_send_buffer_set(long jarg1, peer_connection jarg1_, long jarg2);
   public final static native long peer_connection_m_send_buffer_get(long jarg1, peer_connection jarg1_);
-  public final static native void peer_connection_m_extensions_set(long jarg1, peer_connection jarg1_, long jarg2);
-  public final static native long peer_connection_m_extensions_get(long jarg1, peer_connection jarg1_);
   public final static native long new_proxy_settings__SWIG_0();
   public final static native long new_proxy_settings__SWIG_1(long jarg1);
   public final static native void proxy_settings_hostname_set(long jarg1, proxy_settings jarg1_, String jarg2);
@@ -2965,7 +2972,7 @@ public class libtorrent_jni {
   public final static native int dht_settings_block_ratelimit_get(long jarg1, dht_settings jarg1_);
   public final static native void delete_dht_settings(long jarg1);
   public final static native int TORRENT_DEBUG_STREAMING_get();
-  public final static native void initialize_file_progress(long jarg1, long jarg2, long jarg3, file_storage jarg3_);
+  public final static native void initialize_file_progress(long jarg1, uint64_vector jarg1_, long jarg2, long jarg3, file_storage jarg3_);
   public final static native void resume_data_t_buf_set(long jarg1, resume_data_t jarg1_, long jarg2, char_vector jarg2_);
   public final static native long resume_data_t_buf_get(long jarg1, resume_data_t jarg1_);
   public final static native long resume_data_t_entry_get(long jarg1, resume_data_t jarg1_);
