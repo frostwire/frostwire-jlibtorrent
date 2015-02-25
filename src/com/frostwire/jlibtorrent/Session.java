@@ -398,62 +398,6 @@ public final class Session {
     }
 
     /**
-     * The session settings and the packet encryption settings
-     * respectively. See session_settings and pe_settings for more
-     * information on available options.
-     *
-     * @return
-     */
-    public SessionSettings getSettings() {
-        return new SessionSettings(s.settings());
-    }
-
-    /**
-     * Sets the session settings and the packet encryption settings
-     * respectively. See session_settings and pe_settings for more
-     * information on available options.
-     *
-     * @param settings
-     */
-    public void setSettings(SessionSettings settings) {
-        s.set_settings(settings.getSwig());
-    }
-
-    /**
-     * These functions sets and queries the proxy settings to be used for the
-     * session.
-     * <p/>
-     * For more information on what settings are available for proxies, see
-     * proxy_settings. If the session is not in anonymous mode, proxies that
-     * aren't working or fail, will automatically be disabled and packets
-     * will flow without using any proxy. If you want to enforce using a
-     * proxy, even when the proxy doesn't work, enable anonymous_mode in
-     * session_settings.
-     *
-     * @return
-     */
-    public ProxySettings getProxy() {
-        return new ProxySettings(s.proxy());
-    }
-
-    /**
-     * These functions sets and queries the proxy settings to be used for the
-     * session.
-     * <p/>
-     * For more information on what settings are available for proxies, see
-     * proxy_settings. If the session is not in anonymous mode, proxies that
-     * aren't working or fail, will automatically be disabled and packets
-     * will flow without using any proxy. If you want to enforce using a
-     * proxy, even when the proxy doesn't work, enable anonymous_mode in
-     * session_settings.
-     *
-     * @param settings
-     */
-    public void setProxy(ProxySettings settings) {
-        s.set_proxy(settings.getSwig());
-    }
-
-    /**
      * Loads and saves all session settings, including dht_settings,
      * encryption settings and proxy settings. ``save_state`` writes all keys
      * to the ``entry`` that's passed in, which needs to either not be
@@ -575,13 +519,6 @@ public final class Session {
     // ``is_dht_running()`` returns true if the DHT support has been started
     // and false
     // otherwise.
-    public void startDHT() {
-        s.start_dht();
-    }
-
-    public void stopDHT() {
-        s.stop_dht();
-    }
 
     void setDHTSettings(DHTSettings settings) {
         s.set_dht_settings(settings.getSwig());
@@ -767,46 +704,6 @@ public final class Session {
     }
 
     /**
-     * Starts and stops Local Service Discovery. This service will broadcast
-     * the infohashes of all the non-private torrents on the local network to
-     * look for peers on the same swarm within multicast reach.
-     * <p/>
-     * It is turned off by default.
-     */
-    public void startLSD() {
-        s.start_lsd();
-    }
-
-    /**
-     * Starts and stops Local Service Discovery. This service will broadcast
-     * the infohashes of all the non-private torrents on the local network to
-     * look for peers on the same swarm within multicast reach.
-     * <p/>
-     * It is turned off by default.
-     */
-    public void stopLSD() {
-        s.stop_lsd();
-    }
-
-    /**
-     * Starts the UPnP service. When started, the listen port and
-     * the DHT port are attempted to be forwarded on local UPnP router
-     * devices.
-     */
-    public void startUPnP() {
-        s.start_upnp();
-    }
-
-    /**
-     * Stops the UPnP service. When started, the listen port and
-     * the DHT port are attempted to be forwarded on local UPnP router
-     * devices.
-     */
-    public void stopUPnP() {
-        s.stop_upnp();
-    }
-
-    /**
      * add_port_mapping adds a port forwarding on UPnP and/or NAT-PMP,
      * whichever is enabled. The return value is a handle referring to the
      * port mapping that was just created. Pass it to delete_port_mapping()
@@ -823,24 +720,6 @@ public final class Session {
 
     public void deletePortMapping(int handle) {
         s.delete_port_mapping(handle);
-    }
-
-    /**
-     * Starts the NAT-PMP service. When started, the listen port
-     * and the DHT port are attempted to be forwarded on the router through
-     * NAT-PMP.
-     */
-    public void startNATPMP() {
-        s.start_natpmp();
-    }
-
-    /**
-     * Stops the NAT-PMP service. When started, the listen port
-     * and the DHT port are attempted to be forwarded on the router through
-     * NAT-PMP.
-     */
-    public void stopNATPMP() {
-        s.stop_natpmp();
     }
 
     @Override
