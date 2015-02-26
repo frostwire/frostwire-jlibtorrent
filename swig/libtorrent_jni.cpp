@@ -3025,6 +3025,78 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1high_1resolution_1clock_1time_1point(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::chrono::high_resolution_clock::time_point *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::chrono::high_resolution_clock::time_point *)new boost::chrono::high_resolution_clock::time_point();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock::time_point **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1high_1resolution_1clock_1time_1point(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  boost::chrono::high_resolution_clock::time_point *arg1 = (boost::chrono::high_resolution_clock::time_point *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(boost::chrono::high_resolution_clock::time_point **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1high_1resolution_1clock(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::chrono::high_resolution_clock *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::chrono::high_resolution_clock *)new boost::chrono::high_resolution_clock();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1high_1resolution_1clock(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  boost::chrono::high_resolution_clock *arg1 = (boost::chrono::high_resolution_clock *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(boost::chrono::high_resolution_clock **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_1endpoint_1port(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   tcp::endpoint *arg1 = (tcp::endpoint *) 0 ;

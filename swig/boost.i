@@ -167,6 +167,17 @@ namespace boost {
             };
         }
     }
+
+    namespace chrono {
+
+        class high_resolution_clock {
+        public:
+
+            class time_point {
+            public:
+            };
+        };
+    }
 }
 
 %rename(tcp_endpoint) tcp::endpoint;

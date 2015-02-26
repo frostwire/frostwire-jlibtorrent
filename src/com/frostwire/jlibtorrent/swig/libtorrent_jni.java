@@ -91,6 +91,10 @@ public class libtorrent_jni {
   public final static native boolean address_v6_is_multicast_org_local(long jarg1, address_v6 jarg1_);
   public final static native boolean address_v6_is_multicast_site_local(long jarg1, address_v6 jarg1_);
   public final static native void delete_address_v6(long jarg1);
+  public final static native long new_high_resolution_clock_time_point();
+  public final static native void delete_high_resolution_clock_time_point(long jarg1);
+  public final static native long new_high_resolution_clock();
+  public final static native void delete_high_resolution_clock(long jarg1);
   public final static native int tcp_endpoint_port(long jarg1, tcp_endpoint jarg1_);
   public final static native String tcp_endpoint_address(long jarg1, tcp_endpoint jarg1_);
   public final static native long new_tcp_endpoint();

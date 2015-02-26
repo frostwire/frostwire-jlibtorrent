@@ -161,20 +161,20 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.log_time();
   }
 
-  public static SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point time_now() {
-    return new SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point(libtorrent_jni.time_now(), false);
+  public static high_resolution_clock.time_point time_now() {
+    return new high_resolution_clock.time_point(libtorrent_jni.time_now(), false);
   }
 
-  public static SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point time_now_hires() {
-    return new SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point(libtorrent_jni.time_now_hires(), true);
+  public static high_resolution_clock.time_point time_now_hires() {
+    return new high_resolution_clock.time_point(libtorrent_jni.time_now_hires(), true);
   }
 
-  public static SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point min_time() {
-    return new SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point(libtorrent_jni.min_time(), true);
+  public static high_resolution_clock.time_point min_time() {
+    return new high_resolution_clock.time_point(libtorrent_jni.min_time(), true);
   }
 
-  public static SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point max_time() {
-    return new SWIGTYPE_p_boost__chrono__high_resolution_clock__time_point(libtorrent_jni.max_time(), true);
+  public static high_resolution_clock.time_point max_time() {
+    return new high_resolution_clock.time_point(libtorrent_jni.max_time(), true);
   }
 
   public static String unescape_string(String s, error_code ec) {
