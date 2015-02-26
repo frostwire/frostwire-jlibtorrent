@@ -1258,6 +1258,7 @@ SWIGINTERN libtorrent::dht_immutable_item_alert *libtorrent_alert_cast_to_dht_im
 SWIGINTERN libtorrent::dht_mutable_item_alert *libtorrent_alert_cast_to_dht_mutable_item_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::dht_mutable_item_alert *>(alert);      }
 SWIGINTERN libtorrent::dht_put_alert *libtorrent_alert_cast_to_dht_put_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::dht_put_alert *>(alert);      }
 SWIGINTERN libtorrent::i2p_alert *libtorrent_alert_cast_to_i2p_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::i2p_alert *>(alert);      }
+SWIGINTERN libtorrent::dht_stats_alert *libtorrent_alert_cast_to_dht_stats_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::dht_stats_alert *>(alert);      }
 SWIGINTERN libtorrent::dht_get_peers_reply_alert *libtorrent_alert_cast_to_dht_get_peers_reply_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::dht_get_peers_reply_alert *>(alert);      }
 SWIGINTERN std::vector< int > libtorrent_stats_alert_transferred_v(libtorrent::stats_alert *self){
         return std::vector<int>(self->transferred, self->transferred + stats_alert::stats_channel::num_channels);
@@ -33429,6 +33430,28 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
     }
   }
   *(libtorrent::i2p_alert **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1cast_1to_1dht_1stats_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::alert *arg1 = (libtorrent::alert *) 0 ;
+  libtorrent::dht_stats_alert *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::alert **)&jarg1; 
+  {
+    try {
+      result = (libtorrent::dht_stats_alert *)libtorrent_alert_cast_to_dht_stats_alert(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(libtorrent::dht_stats_alert **)&jresult = result; 
   return jresult;
 }
 

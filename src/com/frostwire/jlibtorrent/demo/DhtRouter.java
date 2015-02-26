@@ -23,9 +23,13 @@ public final class DhtRouter {
 
             @Override
             public void alert(Alert<?> alert) {
-                //System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
+                System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
             }
         });
+
+        Thread.sleep(5000);
+        s.dhtGetPeers(new Sha1Hash("86d0502ead28e495c9e67665340f72aa72fe304e"));
+
         DHT dht = new DHT(s);
 
         System.out.println("Waiting for nodes in DHT");
@@ -36,7 +40,8 @@ public final class DhtRouter {
     private static List<Pair<String, Integer>> defaultRouters() {
         List<Pair<String, Integer>> list = new LinkedList<Pair<String, Integer>>();
 
-        list.add(new Pair<String, Integer>("54.205.168.85", 6881));
+        list.add(new Pair<String, Integer>("router.bittorrent.com", 6881));
+        list.add(new Pair<String, Integer>("dht.transmissionbt.com", 6881));
 
         return list;
     }

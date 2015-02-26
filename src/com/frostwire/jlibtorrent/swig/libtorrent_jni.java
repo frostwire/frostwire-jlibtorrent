@@ -1561,6 +1561,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_dht_mutable_item_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_put_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_i2p_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_dht_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_get_peers_reply_alert(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
   public final static native int user_alert_id_get();

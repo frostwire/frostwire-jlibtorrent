@@ -794,6 +794,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_mutable_item_alert)
     CAST_ALERT_METHOD(dht_put_alert)
     CAST_ALERT_METHOD(i2p_alert)
+    CAST_ALERT_METHOD(dht_stats_alert)
 
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)
 };

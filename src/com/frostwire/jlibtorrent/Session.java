@@ -39,6 +39,7 @@ public final class Session {
 
     private long lastStatsRequestTime;
     private long[] lastStatsValues;
+    private long lastDHTNodes;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
@@ -749,6 +750,10 @@ public final class Session {
         s.delete_port_mapping(handle);
     }
 
+    public SessionStats getStats() {
+        return new SessionStats(lastStatsValues, lastDHTNodes);
+    }
+
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
@@ -839,9 +844,14 @@ public final class Session {
 
                             Alert<?> alert = null;
 
-                            if (type == AlertType.SESSION_STATS_ALERT.getSwig()) {
+                            if (type == AlertType.SESSION_STATS.getSwig()) {
                                 alert = castAlert(swigAlert);
                                 lastStatsValues = ((SessionStatsAlert) alert).getValues();
+                            }
+
+                            if (type == AlertType.DHT_STATS.getSwig()) {
+                                alert = castAlert(swigAlert);
+                                lastDHTNodes = countDHTNodes((DhtStatsAlert) alert);
                             }
 
                             if (listeners.indexOfKey(type) >= 0) {
@@ -851,7 +861,8 @@ public final class Session {
                                 fireAlert(alert, type);
                             }
 
-                            if (type != AlertType.SESSION_STATS_ALERT.getSwig() &&
+                            if (type != AlertType.SESSION_STATS.getSwig() &&
+                                    type != AlertType.DHT_STATS.getSwig() &&
                                     listeners.indexOfKey(-1) >= 0) {
                                 if (alert == null) {
                                     alert = castAlert(swigAlert);
@@ -866,6 +877,7 @@ public final class Session {
                     if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
                         lastStatsRequestTime = now;
                         postSessionStats();
+                        postDHTStats();
                     }
                 }
             }
@@ -917,6 +929,18 @@ public final class Session {
         list.add(new Pair<String, Integer>("dht.transmissionbt.com", 6881));
 
         return list;
+    }
+
+    private static long countDHTNodes(DhtStatsAlert alert) {
+        DHTRoutingBucket[] buckets = alert.getRoutingTable();
+
+        long n = 0;
+
+        for (DHTRoutingBucket b : buckets) {
+            n += b.getNumNodes();
+        }
+
+        return n;
     }
 
     private static Map<Integer, CastAlertFunction> buildCastAlertTable() {
@@ -1000,6 +1024,7 @@ public final class Session {
         CAST_ALERT_METHOD(dht_mutable_item_alert.class, map);
         CAST_ALERT_METHOD(dht_put_alert.class, map);
         CAST_ALERT_METHOD(i2p_alert.class, map);
+        CAST_ALERT_METHOD(dht_stats_alert.class, map);
 
         CAST_ALERT_METHOD(dht_get_peers_reply_alert.class, map);
 
@@ -1018,7 +1043,7 @@ public final class Session {
         }
     }
 
-    private Alert<?> castAlert(alert a) {
+    private static Alert<?> castAlert(alert a) {
         CastAlertFunction function = CAST_TABLE.get(a.type());
 
         Alert<?> r;
@@ -1030,10 +1055,6 @@ public final class Session {
         }
 
         return r;
-    }
-
-    public SessionStats getStats() {
-        return new SessionStats(lastStatsValues);
     }
 
     /**

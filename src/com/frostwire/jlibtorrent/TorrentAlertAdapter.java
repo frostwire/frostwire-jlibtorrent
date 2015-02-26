@@ -209,6 +209,9 @@ public class TorrentAlertAdapter implements AlertListener {
     public void unwantedBlock(UnwantedBlockAlert alert) {
     }
 
+    public void dhtStats(DhtStatsAlert alert) {
+    }
+
     public void torrentPrioritize(TorrentPrioritizeAlert alert) {
     }
 

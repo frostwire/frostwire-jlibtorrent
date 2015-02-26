@@ -45,7 +45,7 @@ public enum AlertType {
     EXTERNAL_IP(external_ip_alert.alert_type),
     LISTEN_SUCCEEDED(listen_succeeded_alert.alert_type),
     STATE_UPDATE(state_update_alert.alert_type),
-    SESSION_STATS_ALERT(session_stats_alert.alert_type),
+    SESSION_STATS(session_stats_alert.alert_type),
     SCRAPE_REPLY(scrape_reply_alert.alert_type),
     SCRAPE_FAILED(scrape_failed_alert.alert_type),
     LSD_PEER(lsd_peer_alert.alert_type),
@@ -81,6 +81,7 @@ public enum AlertType {
     DHT_PUT(dht_put_alert.alert_type),
     DHT_MUTABLE_ITEM(dht_mutable_item_alert.alert_type),
     DHT_IMMUTABLE_ITEM(dht_immutable_item_alert.alert_type),
+    DHT_STATS(dht_stats_alert.alert_type),
     DHT_GET_PEERS_REPLY_ALERT(dht_get_peers_reply_alert.alert_type),
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
