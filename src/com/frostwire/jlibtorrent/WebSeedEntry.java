@@ -42,7 +42,7 @@ public final class WebSeedEntry {
      * @return
      */
     public Type getType() {
-        return Type.fromSwig(e.getType().swigValue());
+        return Type.fromSwig(e.getType());
     }
 
     /**
@@ -72,85 +72,6 @@ public final class WebSeedEntry {
         }
 
         return l;
-    }
-
-    /**
-     * if this is > now, we can't reconnect yet.
-     *
-     * @return
-     */
-    public PTime getRetry() {
-        return new PTime(e.getRetry());
-    }
-
-    /**
-     * this is initialized to true, but if we discover the
-     * server not to support it, it's set to false, and we
-     * make larger requests.
-     *
-     * @return
-     */
-    public boolean supportsKeepAlive() {
-        return e.getSupports_keepalive();
-    }
-
-    /**
-     * This indicates whether or not we're resolving the
-     * hostname of this URL.
-     *
-     * @return
-     */
-    public boolean isResolving() {
-        return e.getResolving();
-    }
-
-    /**
-     * if the user wanted to remove this while
-     * we were resolving it. In this case, we set
-     * the removed flag to true, to make the resolver
-     * callback remove it.
-     *
-     * @return
-     */
-    public boolean isRemoved() {
-        return e.getRemoved();
-    }
-
-    /**
-     * if the hostname of the web seed has been resolved,
-     * this is its IP address.
-     *
-     * @return
-     */
-    public TcpEndpoint getEndpoint() {
-        return new TcpEndpoint(e.getEndpoint());
-    }
-
-    /**
-     * This is the peer_info field used for the
-     * connection, just to count hash failures
-     * it's also used to hold the peer_connection
-     * pointer, when the web seed is connected.
-     *
-     * @return
-     */
-    public Policy.IPv4Peer getPeerInfo() {
-        return new Policy.IPv4Peer(e.getPeer_info());
-    }
-
-    /**
-     * if the web server doesn't support keepalive or a block request was
-     * interrupted, the block received so far is kept here for the next
-     * connection to pick up.
-     *
-     * @return
-     */
-    public PeerRequest getRestartRequest() {
-        return new PeerRequest(e.getRestart_request());
-    }
-
-    public byte[] getRestartPiece() {
-        return Vectors.char_vector2bytes(e.getRestart_piece());
     }
 
     /**

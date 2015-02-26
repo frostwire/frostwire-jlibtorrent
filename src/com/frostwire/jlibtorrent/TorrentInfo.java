@@ -273,16 +273,6 @@ public final class TorrentInfo {
     }
 
     /**
-     * If you need index-access to files you can use the {@link #getNumFiles()}
-     * and {@link #getFileAt(int)} to access files using indices.
-     *
-     * @return
-     */
-    public FileEntry getFileAt(int index) {
-        return new FileEntry(ti.file_at(index));
-    }
-
-    /**
      * This function will map a piece index, a byte offset within that piece and
      * a size (in bytes) into the corresponding files with offsets where that data
      * for that piece is supposed to be stored.
