@@ -22,5 +22,9 @@ public interface Alert<T extends alert> {
 
     public String getWhat();
 
+    public String getMessage();
+
     public int getCategory();
+
+    public boolean isDiscardable();
 }

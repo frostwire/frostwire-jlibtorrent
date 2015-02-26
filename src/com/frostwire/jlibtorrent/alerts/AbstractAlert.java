@@ -36,8 +36,18 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     }
 
     @Override
+    public String getMessage() {
+        return alert.message();
+    }
+
+    @Override
     public int getCategory() {
         return alert.category();
+    }
+
+    @Override
+    public boolean isDiscardable() {
+        return alert.discardable();
     }
 
     @Override

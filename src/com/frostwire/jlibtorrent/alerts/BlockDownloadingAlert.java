@@ -14,10 +14,6 @@ public final class BlockDownloadingAlert extends PeerAlert<block_downloading_ale
         super(alert);
     }
 
-    public String getPeerSpeedmsg() {
-        return alert.getPeer_speedmsg();
-    }
-
     public int getBlockIndex() {
         return alert.getBlock_index();
     }

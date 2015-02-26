@@ -1,18 +1,17 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
-import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.listen_failed_alert;
 
 /**
  * This alert is generated when none of the ports, given in the port range, to
- * session can be opened for listening. The ``endpoint`` member is the
- * interface and port that failed, ``error`` is the error code describing
+ * session can be opened for listening. The {@link #getInterface()} member is the
+ * interface and port that failed, {@link #getError()} is the error code describing
  * the failure.
  * <p/>
  * libtorrent may sometimes try to listen on port 0, if all other ports failed.
  * Port 0 asks the operating system to pick a port that's free). If that fails
- * you may see a listen_failed_alert with port 0 even if you didn't ask to
+ * you may see a {@link com.frostwire.jlibtorrent.alerts.ListenFailedAlert} with port 0 even if you didn't ask to
  * listen on it.
  *
  * @author gubatron
@@ -25,16 +24,16 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
     }
 
     /**
-     * the endpoint libtorrent attempted to listen on.
+     * The interface libtorrent attempted to listen on.
      *
      * @return
      */
-    public TcpEndpoint getEndpoint() {
-        return new TcpEndpoint(alert.getEndpoint());
+    public String getInterface() {
+        return alert.get_interface();
     }
 
     /**
-     * the error the system returned.
+     * The error the system returned.
      *
      * @return
      */
@@ -43,18 +42,20 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
     }
 
     /**
-     * the specific low level operation that failed. See op_t.
+     * The specific low level operation that failed.
      *
      * @return
+     * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.Operation
      */
     public Operation getOperation() {
         return Operation.fromSwig(alert.getOperation());
     }
 
     /**
-     * the type of listen socket this alert refers to.
+     * The type of listen socket this alert refers to.
      *
      * @return
+     * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.SocketType
      */
     public SocketType getSocketType() {
         return SocketType.fromSwig(alert.getSock_type().swigValue());
