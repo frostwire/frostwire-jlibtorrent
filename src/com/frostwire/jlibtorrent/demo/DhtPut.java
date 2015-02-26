@@ -8,6 +8,7 @@ import com.frostwire.jlibtorrent.alerts.DhtPutAlert;
 import com.frostwire.jlibtorrent.swig.entry;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author gubatron
@@ -61,7 +62,7 @@ public final class DhtPut {
 
         System.out.println("Waiting to DHT bootstrap");
 
-        signal.await();
+        signal.await(10, TimeUnit.SECONDS);
 
         System.out.println("DHT with peers");
         System.out.println("Peers: " + s.getStats().getDHTNodes());
