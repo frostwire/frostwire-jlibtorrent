@@ -407,6 +407,8 @@ namespace std {
 %ignore libtorrent::block_cache_reference;
 %ignore libtorrent::torrent_ref_holder;
 %ignore libtorrent::peer_connection_hot_members;
+%ignore libtorrent::torrent_hot_members;
+%ignore libtorrent::storage_piece_set;
 %ignore libtorrent::ipv4_peer_entry;
 %ignore libtorrent::ipv6_peer_entry;
 
@@ -490,6 +492,8 @@ namespace std {
 %ignore libtorrent::peer_connection_args::tor;
 %ignore libtorrent::peer_connection_args::disk_thread;
 %ignore libtorrent::peer_connection_args::ios;
+%ignore libtorrent::peer_connection_args::ses;
+%ignore libtorrent::peer_connection_args::sett;
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
@@ -584,7 +588,6 @@ namespace std {
 %ignore libtorrent::session::m_impl;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::cached_piece_info::storage;
-%ignore libtorrent::storage_piece_set::cached_pieces;
 %ignore libtorrent::peer_class::priority;
 %ignore libtorrent::peer_class::channel;
 %ignore libtorrent::torrent_peer::connection;

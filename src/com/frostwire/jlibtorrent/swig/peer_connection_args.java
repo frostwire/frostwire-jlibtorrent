@@ -35,24 +35,6 @@ public class peer_connection_args {
     }
   }
 
-  public void setSes(SWIGTYPE_p_libtorrent__aux__session_interface value) {
-    libtorrent_jni.peer_connection_args_ses_set(swigCPtr, this, SWIGTYPE_p_libtorrent__aux__session_interface.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_libtorrent__aux__session_interface getSes() {
-    long cPtr = libtorrent_jni.peer_connection_args_ses_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__aux__session_interface(cPtr, false);
-  }
-
-  public void setSett(SWIGTYPE_p_libtorrent__aux__session_settings value) {
-    libtorrent_jni.peer_connection_args_sett_set(swigCPtr, this, SWIGTYPE_p_libtorrent__aux__session_settings.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_libtorrent__aux__session_settings getSett() {
-    long cPtr = libtorrent_jni.peer_connection_args_sett_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__aux__session_settings(cPtr, false);
-  }
-
   public void setStats_counters(counters value) {
     libtorrent_jni.peer_connection_args_stats_counters_set(swigCPtr, this, counters.getCPtr(value), value);
   }

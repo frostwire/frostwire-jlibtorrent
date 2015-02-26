@@ -818,12 +818,6 @@ public class libtorrent_jni {
   public final static native void zero_storage_delete_files(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native long new_zero_storage();
   public final static native void delete_zero_storage(long jarg1);
-  public final static native void storage_piece_set_add_piece(long jarg1, storage_piece_set jarg1_, long jarg2);
-  public final static native void storage_piece_set_remove_piece(long jarg1, storage_piece_set jarg1_, long jarg2);
-  public final static native boolean storage_piece_set_has_piece(long jarg1, storage_piece_set jarg1_, long jarg2);
-  public final static native int storage_piece_set_num_pieces(long jarg1, storage_piece_set jarg1_);
-  public final static native long new_storage_piece_set();
-  public final static native void delete_storage_piece_set(long jarg1);
   public final static native void file_slice_file_index_set(long jarg1, file_slice jarg1_, int jarg2);
   public final static native int file_slice_file_index_get(long jarg1, file_slice jarg1_);
   public final static native void file_slice_offset_set(long jarg1, file_slice jarg1_, long jarg2);
@@ -2747,10 +2741,6 @@ public class libtorrent_jni {
   public final static native void delete_ipv6_peer(long jarg1);
   public final static native long new_peer_address_compare();
   public final static native void delete_peer_address_compare(long jarg1);
-  public final static native void peer_connection_args_ses_set(long jarg1, peer_connection_args jarg1_, long jarg2);
-  public final static native long peer_connection_args_ses_get(long jarg1, peer_connection_args jarg1_);
-  public final static native void peer_connection_args_sett_set(long jarg1, peer_connection_args jarg1_, long jarg2);
-  public final static native long peer_connection_args_sett_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_stats_counters_set(long jarg1, peer_connection_args jarg1_, long jarg2, counters jarg2_);
   public final static native long peer_connection_args_stats_counters_get(long jarg1, peer_connection_args jarg1_);
   public final static native void peer_connection_args_s_set(long jarg1, peer_connection_args jarg1_, long jarg2);
@@ -3033,8 +3023,6 @@ public class libtorrent_jni {
   public final static native void web_seed_t_restart_piece_set(long jarg1, web_seed_t jarg1_, long jarg2, char_vector jarg2_);
   public final static native long web_seed_t_restart_piece_get(long jarg1, web_seed_t jarg1_);
   public final static native void delete_web_seed_t(long jarg1);
-  public final static native long new_torrent_hot_members(long jarg1, long jarg2, add_torrent_params jarg2_, int jarg3);
-  public final static native void delete_torrent_hot_members(long jarg1);
   public final static native void stats_metric_name_set(long jarg1, stats_metric jarg1_, String jarg2);
   public final static native String stats_metric_name_get(long jarg1, stats_metric jarg1_);
   public final static native void stats_metric_value_index_set(long jarg1, stats_metric jarg1_, int jarg2);
