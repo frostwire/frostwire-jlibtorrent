@@ -39,9 +39,4 @@ public class ipv6_peer extends torrent_peer {
     this(libtorrent_jni.new_ipv6_peer(tcp_endpoint.getCPtr(ip), ip, connectable, src), true);
   }
 
-  public SWIGTYPE_p_boost__asio__ip__address_v6__bytes_type getAddr() {
-    long cPtr = libtorrent_jni.ipv6_peer_addr_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_boost__asio__ip__address_v6__bytes_type(cPtr, false);
-  }
-
 }

@@ -409,6 +409,7 @@ namespace std {
 %ignore libtorrent::peer_connection_hot_members;
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
+%ignore libtorrent::peer_connection_args;
 %ignore libtorrent::ipv4_peer_entry;
 %ignore libtorrent::ipv6_peer_entry;
 
@@ -591,6 +592,7 @@ namespace std {
 %ignore libtorrent::peer_class::priority;
 %ignore libtorrent::peer_class::channel;
 %ignore libtorrent::torrent_peer::connection;
+%ignore libtorrent::ipv6_peer::addr;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
