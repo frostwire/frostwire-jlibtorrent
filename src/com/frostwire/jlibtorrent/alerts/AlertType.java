@@ -45,6 +45,7 @@ public enum AlertType {
     EXTERNAL_IP(external_ip_alert.alert_type),
     LISTEN_SUCCEEDED(listen_succeeded_alert.alert_type),
     STATE_UPDATE(state_update_alert.alert_type),
+    SESSION_STATS_ALERT(session_stats_alert.alert_type),
     SCRAPE_REPLY(scrape_reply_alert.alert_type),
     SCRAPE_FAILED(scrape_failed_alert.alert_type),
     LSD_PEER(lsd_peer_alert.alert_type),

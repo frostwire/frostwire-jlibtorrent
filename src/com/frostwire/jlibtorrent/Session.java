@@ -36,6 +36,7 @@ public final class Session {
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
     private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildCastAlertTable();
+    private static final StatsMetric[] statsMetrics = LibTorrent.sessionStatsMetrics();
 
     private final session s;
 

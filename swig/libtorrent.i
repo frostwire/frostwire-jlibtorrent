@@ -786,6 +786,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(incoming_connection_alert)
     CAST_ALERT_METHOD(add_torrent_alert)
     CAST_ALERT_METHOD(state_update_alert)
+    CAST_ALERT_METHOD(session_stats_alert)
     CAST_ALERT_METHOD(torrent_update_alert)
     CAST_ALERT_METHOD(rss_item_alert)
     CAST_ALERT_METHOD(dht_error_alert)

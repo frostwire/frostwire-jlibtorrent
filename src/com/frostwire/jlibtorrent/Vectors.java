@@ -112,6 +112,17 @@ public final class Vectors {
         return arr;
     }
 
+    public static long[] uint64_vector2longs(uint64_vector v) {
+        int size = (int) v.size();
+        long[] arr = new long[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = v.get(i).longValue();
+        }
+
+        return arr;
+    }
+
     public static boolean[] bool_vector2booleans(bool_vector v) {
         int size = (int) v.size();
         boolean[] arr = new boolean[size];
