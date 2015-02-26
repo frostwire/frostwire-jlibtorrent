@@ -44,6 +44,7 @@
 #include "libtorrent/peer_connection.hpp"
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
+#include "libtorrent/settings_pack.hpp"
 #include "libtorrent/peer_class.hpp"
 #include "libtorrent/peer_class_type_filter.hpp"
 #include "libtorrent/torrent.hpp"
@@ -324,6 +325,7 @@ namespace std {
     %template(partial_piece_info_vector) vector<libtorrent::partial_piece_info>;
     %template(cached_piece_info_vector) vector<libtorrent::cached_piece_info>;
     %template(peer_info_vector) vector<libtorrent::peer_info>;
+    %template(stats_metric_vector) vector<libtorrent::stats_metric>;
 
     %template(entry_vector) vector<libtorrent::entry>;
     %template(web_seed_entry_vector) vector<libtorrent::web_seed_entry>;
@@ -586,6 +588,8 @@ namespace std {
 %ignore libtorrent::bufs_size;
 %ignore libtorrent::clear_bufs;
 %ignore libtorrent::copy_bufs;
+%ignore libtorrent::apply_pack;
+%ignore libtorrent::save_settings_to_dict;
 
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::session::m_impl;
@@ -674,6 +678,7 @@ namespace std {
 %include "libtorrent/peer_connection.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
+%include "libtorrent/settings_pack.hpp"
 %include "libtorrent/peer_class.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"
 %include "libtorrent/torrent.hpp"

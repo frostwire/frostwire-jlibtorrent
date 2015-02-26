@@ -113,20 +113,33 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.peer_priority(tcp_endpoint.getCPtr(e1), e1, tcp_endpoint.getCPtr(e2), e2);
   }
 
-  public static void min_memory_usage(SWIGTYPE_p_settings_pack set) {
-    libtorrent_jni.min_memory_usage(SWIGTYPE_p_settings_pack.getCPtr(set));
+  public static settings_pack load_pack_from_dict(lazy_entry settings) {
+    long cPtr = libtorrent_jni.load_pack_from_dict(lazy_entry.getCPtr(settings), settings);
+    return (cPtr == 0) ? null : new settings_pack(cPtr, false);
   }
 
-  public static void high_performance_seed(SWIGTYPE_p_settings_pack set) {
-    libtorrent_jni.high_performance_seed(SWIGTYPE_p_settings_pack.getCPtr(set));
+  public static int setting_by_name(String name) {
+    return libtorrent_jni.setting_by_name(name);
+  }
+
+  public static String name_for_setting(int s) {
+    return libtorrent_jni.name_for_setting(s);
+  }
+
+  public static void min_memory_usage(settings_pack set) {
+    libtorrent_jni.min_memory_usage(settings_pack.getCPtr(set), set);
+  }
+
+  public static void high_performance_seed(settings_pack set) {
+    libtorrent_jni.high_performance_seed(settings_pack.getCPtr(set), set);
   }
 
   public static int find_metric_idx(String name) {
     return libtorrent_jni.find_metric_idx(name);
   }
 
-  public static SWIGTYPE_p_std__vectorT_libtorrent__stats_metric_t session_stats_metrics() {
-    return new SWIGTYPE_p_std__vectorT_libtorrent__stats_metric_t(libtorrent_jni.session_stats_metrics(), true);
+  public static stats_metric_vector session_stats_metrics() {
+    return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
 
   public static int plus_one(int val) {
