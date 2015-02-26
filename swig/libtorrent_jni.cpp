@@ -260,6 +260,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include "libtorrent/peer.hpp"
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/bandwidth_socket.hpp"
+#include "libtorrent/ip_voter.hpp"
 #include "libtorrent/torrent_peer.hpp"
 #include "libtorrent/peer_connection.hpp"
 #include "libtorrent/session_status.hpp"
@@ -53724,6 +53725,205 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1ip_1voter(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  libtorrent::ip_voter *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (libtorrent::ip_voter *)new libtorrent::ip_voter();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(libtorrent::ip_voter **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1voter_1cast_1vote(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jlong jarg4, jobject jarg4_) {
+  jboolean jresult = 0 ;
+  libtorrent::ip_voter *arg1 = (libtorrent::ip_voter *) 0 ;
+  libtorrent::address *arg2 = 0 ;
+  int arg3 ;
+  libtorrent::address *arg4 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg4_;
+  arg1 = *(libtorrent::ip_voter **)&jarg1; 
+  arg2 = *(libtorrent::address **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::address const & reference is null");
+    return 0;
+  } 
+  arg3 = (int)jarg3; 
+  arg4 = *(libtorrent::address **)&jarg4;
+  if (!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::address const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (bool)(arg1)->cast_vote((libtorrent::address const &)*arg2,arg3,(libtorrent::address const &)*arg4);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1voter_1external_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::ip_voter *arg1 = (libtorrent::ip_voter *) 0 ;
+  libtorrent::address result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::ip_voter **)&jarg1; 
+  {
+    try {
+      result = ((libtorrent::ip_voter const *)arg1)->external_address();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(libtorrent::address **)&jresult = new libtorrent::address((const libtorrent::address &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1ip_1voter(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  libtorrent::ip_voter *arg1 = (libtorrent::ip_voter *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(libtorrent::ip_voter **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_external_1ip_1cast_1vote(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jlong jarg4, jobject jarg4_) {
+  jboolean jresult = 0 ;
+  libtorrent::external_ip *arg1 = (libtorrent::external_ip *) 0 ;
+  libtorrent::address *arg2 = 0 ;
+  int arg3 ;
+  libtorrent::address *arg4 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg4_;
+  arg1 = *(libtorrent::external_ip **)&jarg1; 
+  arg2 = *(libtorrent::address **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::address const & reference is null");
+    return 0;
+  } 
+  arg3 = (int)jarg3; 
+  arg4 = *(libtorrent::address **)&jarg4;
+  if (!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::address const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (bool)(arg1)->cast_vote((libtorrent::address const &)*arg2,arg3,(libtorrent::address const &)*arg4);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_external_1ip_1external_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  libtorrent::external_ip *arg1 = (libtorrent::external_ip *) 0 ;
+  libtorrent::address *arg2 = 0 ;
+  libtorrent::address result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(libtorrent::external_ip **)&jarg1; 
+  arg2 = *(libtorrent::address **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::address const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = ((libtorrent::external_ip const *)arg1)->external_address((libtorrent::address const &)*arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(libtorrent::address **)&jresult = new libtorrent::address((const libtorrent::address &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1external_1ip(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  libtorrent::external_ip *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (libtorrent::external_ip *)new libtorrent::external_ip();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(libtorrent::external_ip **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1external_1ip(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  libtorrent::external_ip *arg1 = (libtorrent::external_ip *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(libtorrent::external_ip **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1priority(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   tcp::endpoint arg1 ;
@@ -53862,7 +54062,7 @@ SWIGEXPORT jobject JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_t
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1peer_1rank(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1peer_1rank(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
   jlong jresult = 0 ;
   libtorrent::torrent_peer *arg1 = (libtorrent::torrent_peer *) 0 ;
   libtorrent::external_ip *arg2 = 0 ;
@@ -53872,6 +54072,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(libtorrent::torrent_peer **)&jarg1; 
   arg2 = *(libtorrent::external_ip **)&jarg2;
   if (!arg2) {
