@@ -23,9 +23,10 @@ public final class PiecesTracker {
         this.sizes = new long[numFiles][];
         this.complete = new boolean[numPieces];
 
+        FileStorage fs = ti.getFiles();
+
         for (int fileIndex = 0; fileIndex < numFiles; fileIndex++) {
-            FileEntry fe = ti.getFileAt(fileIndex);
-            long size = fe.getSize();
+            long size = fs.getFileSize(fileIndex);
             int firstPiece = ti.mapFile(fileIndex, 0, 1).getPiece();
             int lastPiece = ti.mapFile(fileIndex, size - 1, 1).getPiece();
 
