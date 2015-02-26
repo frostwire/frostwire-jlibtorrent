@@ -33,15 +33,11 @@ public final class DHT {
     }
 
     public void start() {
-        SettingsPack pack = new SettingsPack();
-        pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), true);
-        s.applySettings(pack);
+        toggleDHT(true);
     }
 
     public void stop() {
-        SettingsPack pack = new SettingsPack();
-        pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), false);
-        s.applySettings(pack);
+        toggleDHT(false);
     }
 
     public boolean isRunning() {
@@ -161,6 +157,12 @@ public final class DHT {
 
     public void announce(String sha1) {
         s.dhtAnnounce(new Sha1Hash(sha1));
+    }
+
+    private void toggleDHT(boolean on) {
+        SettingsPack pack = new SettingsPack();
+        pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), on);
+        s.applySettings(pack);
     }
 
     /**
