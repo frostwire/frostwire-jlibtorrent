@@ -53,7 +53,7 @@ public final class PartialDownload2 {
                         break;
                     case FILE_COMPLETED:
                         FileCompletedAlert fca = (FileCompletedAlert) ta;
-                        System.out.println("File finished: " + th.getTorrentInfo().getFileAt(fca.getIndex()).getPath());
+                        System.out.println("File finished: " + th.getTorrentInfo().getFiles().getFilePath(fca.getIndex()));
                         s1.countDown();
                         s2.countDown();
                         break;
