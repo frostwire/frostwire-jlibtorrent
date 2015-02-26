@@ -732,9 +732,9 @@ public final class TorrentHandle {
     // IPv4 or IPv6 address). When specifying multiple interfaces, the
     // torrent will round-robin which interface to use for each outgoing
     // conneciton. This is useful for clients that are multi-homed.
-    public void useInterface(String netInterface) {
-        th.use_interface(netInterface);
-    }
+//    public void useInterface(String netInterface) {
+//        th.use_interface(netInterface);
+//    }
 
     // Fills the specified ``std::vector<int>`` with the availability for
     // each piece in this torrent. libtorrent does not keep track of

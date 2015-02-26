@@ -5,6 +5,7 @@ import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
 import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.dht_item;
+import com.frostwire.jlibtorrent.swig.settings_pack;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 
 import java.util.ArrayList;
@@ -32,11 +33,15 @@ public final class DHT {
     }
 
     public void start() {
-        s.startDHT();
+        SettingsPack pack = new SettingsPack();
+        pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), true);
+        s.applySettings(pack);
     }
 
     public void stop() {
-        s.stopDHT();
+        SettingsPack pack = new SettingsPack();
+        pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), false);
+        s.applySettings(pack);
     }
 
     public boolean isRunning() {
