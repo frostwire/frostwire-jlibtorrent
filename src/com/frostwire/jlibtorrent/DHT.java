@@ -53,12 +53,12 @@ public final class DHT {
                 // ignore
             }
 
-            ready = s.getStatus().getDHTNodes() > nodes;
+            ready = s.getStats().getDHTNodes() > nodes;
         }
     }
 
-    public int nodes() {
-        return s.getStatus().getDHTNodes();
+    public long nodes() {
+        return s.getStats().getDHTNodes();
     }
 
     public void get(String sha1) {

@@ -34,4 +34,9 @@ public final class StatsMetric {
     public int getType() {
         return sm.getType();
     }
+
+    @Override
+    public String toString() {
+        return sm.getName() + ":" + sm.getValue_index() + ":" + (sm.getType() == TYPE_COUNTER ? "counter" : "gauge");
+    }
 }

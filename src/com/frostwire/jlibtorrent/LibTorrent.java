@@ -48,4 +48,16 @@ public final class LibTorrent {
 
         return arr;
     }
+
+    /**
+     * given a name of a metric, this function returns the counter index of it,
+     * or -1 if it could not be found. The counter index is the index into the
+     * values array returned by session_stats_alert.
+     *
+     * @param name
+     * @return
+     */
+    public static int findMetricIdx(String name) {
+        return libtorrent.find_metric_idx(name);
+    }
 }

@@ -1,8 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
-import com.frostwire.jlibtorrent.alerts.GenericAlert;
+import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
@@ -32,13 +30,15 @@ public final class Session {
 
     private static final Logger LOG = Logger.getLogger(Session.class);
 
-    private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
+    private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
     private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildCastAlertTable();
-    private static final StatsMetric[] statsMetrics = LibTorrent.sessionStatsMetrics();
 
     private final session s;
+
+    private long lastStatsRequestTime;
+    private long[] lastStatsValues;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
@@ -457,12 +457,10 @@ public final class Session {
     }
 
     /**
-     * This function will post a session_stats_alert object, containing a
+     * This function will post a {@link com.frostwire.jlibtorrent.alerts.SessionStatsAlert} object, containing a
      * snapshot of the performance counters from the internals of libtorrent.
      * To interpret these counters, query the session via
      * session_stats_metrics().
-     * <p/>
-     * For more information, see the session-statistics_ section.
      */
     public void postSessionStats() {
         s.post_session_stats();
@@ -841,8 +839,15 @@ public final class Session {
 
                             Alert<?> alert = null;
 
-                            if (listeners.indexOfKey(type) >= 0) {
+                            if (type == AlertType.SESSION_STATS_ALERT.getSwig()) {
                                 alert = castAlert(swigAlert);
+                                lastStatsValues = ((SessionStatsAlert) alert).getValues();
+                            }
+
+                            if (listeners.indexOfKey(type) >= 0) {
+                                if (alert == null) {
+                                    alert = castAlert(swigAlert);
+                                }
                                 fireAlert(alert, type);
                             }
 
@@ -854,6 +859,12 @@ public final class Session {
                             }
                         }
                         deque.clear();
+                    }
+
+                    long now = System.currentTimeMillis();
+                    if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
+                        lastStatsRequestTime = now;
+                        postSessionStats();
                     }
                 }
             }
@@ -1017,6 +1028,10 @@ public final class Session {
         }
 
         return r;
+    }
+
+    public SessionStats getStats() {
+        return new SessionStats(lastStatsValues);
     }
 
     /**
