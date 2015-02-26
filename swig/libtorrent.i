@@ -330,6 +330,8 @@ namespace std {
     %template(peer_entry_vector) vector<libtorrent::peer_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
+    %template(ipv4_peer_entry_vector) vector<libtorrent::ipv4_peer>;
+    %template(ipv6_peer_entry_vector) vector<libtorrent::ipv6_peer>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
 
     %template(entry_list) list<libtorrent::entry>;
@@ -411,8 +413,6 @@ namespace std {
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
 %ignore libtorrent::peer_connection_args;
-%ignore libtorrent::ipv4_peer_entry;
-%ignore libtorrent::ipv6_peer_entry;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -599,6 +599,8 @@ namespace std {
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::file_storage::apply_pointer_offset;
+%ignore libtorrent::ipv4_peer_entry::ip;
+%ignore libtorrent::ipv6_peer_entry::ip;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
