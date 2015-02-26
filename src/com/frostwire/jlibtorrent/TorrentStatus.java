@@ -59,27 +59,27 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public TorrentInfo getTorrentFile() {
-        return new TorrentInfo(ts.getTorrent_file());
-    }
+//    public TorrentInfo getTorrentFile() {
+//        return new TorrentInfo(ts.getTorrent_file());
+//    }
 
     /**
      * The time until the torrent will announce itself to the tracker.
      *
      * @return
      */
-    public TimeDuration getNextAnnounce() {
-        return new TimeDuration(ts.getNext_announce());
+    public PosixTimeDuration getNextAnnounce() {
+        return new PosixTimeDuration(ts.getNext_announce());
     }
 
     /**
-     * The time the tracker want us to wait until we announce ourself
+     * The time the tracker want us to wait until we announce our self
      * again the next time.
      *
      * @return
      */
-    public TimeDuration getAnnounceInterval() {
-        return new TimeDuration(ts.getAnnounce_interval());
+    public PosixTimeDuration getAnnounceInterval() {
+        return new PosixTimeDuration(ts.getAnnounce_interval());
     }
 
     /**
@@ -682,12 +682,7 @@ public final class TorrentStatus {
      */
     public enum State {
 
-        /**
-         * The torrent is in the queue for being checked. But there
-         * currently is another torrent that are being checked.
-         * This torrent will wait for its turn.
-         */
-        QUEUED_FOR_CHECKING(torrent_status.state_t.queued_for_checking.swigValue()),
+        UNUSED_ENUM_FOR_BACKWARDS_COMPATIBILITY(torrent_status.state_t.unused_enum_for_backwards_compatibility.swigValue()),
 
         /**
          * The torrent has not started its download yet, and is
