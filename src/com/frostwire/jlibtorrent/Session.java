@@ -39,9 +39,6 @@ public final class Session {
 
     private final session s;
 
-    private long lastStatusRequestTime;
-    private SessionStatus lastStatus;
-
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
     private boolean running;
@@ -371,33 +368,6 @@ public final class Session {
     }
 
     /**
-     * Returns session wide-statistics and status.
-     * <p/>
-     * It is important not to call this method for each field in the status
-     * for performance reasons.
-     *
-     * @return
-     */
-    public SessionStatus getStatus(boolean force) {
-        long now = System.currentTimeMillis();
-        if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
-            lastStatusRequestTime = now;
-            lastStatus = new SessionStatus(s.status());
-        }
-
-        return lastStatus;
-    }
-
-    /**
-     * Returns session wide-statistics and status.
-     *
-     * @return
-     */
-    public SessionStatus getStatus() {
-        return this.getStatus(false);
-    }
-
-    /**
      * Loads and saves all session settings, including dht_settings,
      * encryption settings and proxy settings. ``save_state`` writes all keys
      * to the ``entry`` that's passed in, which needs to either not be
@@ -444,6 +414,53 @@ public final class Session {
         } else {
             LOG.error("failed to decode torrent: " + ec.message());
         }
+    }
+
+    /**
+     * This functions instructs the session to post the state_update_alert,
+     * containing the status of all torrents whose state changed since the
+     * last time this function was called.
+     * <p/>
+     * Only torrents who has the state subscription flag set will be
+     * included. This flag is on by default. See add_torrent_params.
+     * the ``flags`` argument is the same as for torrent_handle::status().
+     * see torrent_handle::status_flags_t.
+     *
+     * @param flags
+     */
+    public void postTorrentUpdates(TorrentHandle.StatusFlags flags) {
+        s.post_torrent_updates(flags.getSwig());
+    }
+
+    /**
+     * This functions instructs the session to post the state_update_alert,
+     * containing the status of all torrents whose state changed since the
+     * last time this function was called.
+     * <p/>
+     * Only torrents who has the state subscription flag set will be
+     * included.
+     */
+    public void postTorrentUpdates() {
+        s.post_torrent_updates();
+    }
+
+    /**
+     * This function will post a session_stats_alert object, containing a
+     * snapshot of the performance counters from the internals of libtorrent.
+     * To interpret these counters, query the session via
+     * session_stats_metrics().
+     * <p/>
+     * For more information, see the session-statistics_ section.
+     */
+    public void postSessionStats() {
+        s.post_session_stats();
+    }
+
+    /**
+     * This will cause a dht_stats_alert to be posted.
+     */
+    public void postDHTStats() {
+        s.post_dht_stats();
     }
 
     /**

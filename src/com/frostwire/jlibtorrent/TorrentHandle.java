@@ -1036,21 +1036,58 @@ public final class TorrentHandle {
     }
 
     /**
-     * flags to be passed in {} file_progress().
+     * Flags to pass in to status() to specify which properties of the
+     * torrent to query for. By default all flags are set.
      */
-    public enum FileProgressFlags {
-
-        DEFAULT(0),
+    public enum StatusFlags {
 
         /**
-         * only calculate file progress at piece granularity. This makes
-         * the file_progress() call cheaper and also only takes bytes that
-         * have passed the hash check into account, so progress cannot
-         * regress in this mode.
+         * calculates ``distributed_copies``, ``distributed_full_copies`` and
+         * ``distributed_fraction``.
          */
-        PIECE_GRANULARITY(torrent_handle.file_progress_flags_t.piece_granularity.swigValue());
+        QUERY_DISTRIBUTED_COPIES(status_flags_t.query_distributed_copies.swigValue()),
 
-        private FileProgressFlags(int swigValue) {
+        /**
+         * includes partial downloaded blocks in ``total_done`` and
+         * ``total_wanted_done``.
+         */
+        QUERY_ACCURATE_DOWNLOAD_COUNTERS(status_flags_t.query_accurate_download_counters.swigValue()),
+
+        /**
+         * includes ``last_seen_complete``.
+         */
+        QUERY_LAST_SEEN_COMPLETE(status_flags_t.query_last_seen_complete.swigValue()),
+
+        /**
+         * includes ``pieces``.
+         */
+        QUERY_PIECES(status_flags_t.query_pieces.swigValue()),
+
+        /**
+         * includes ``verified_pieces`` (only applies to torrents in *seed mode*).
+         */
+        QUERY_VERIFIED_PIECES(status_flags_t.query_verified_pieces.swigValue()),
+
+        /**
+         * includes ``torrent_file``, which is all the static information from the .torrent file.
+         */
+        QUERY_TORRENT_FILE(status_flags_t.query_torrent_file.swigValue()),
+
+        /**
+         * includes ``name``, the name of the torrent. This is either derived
+         * from the .torrent file, or from the ``&dn=`` magnet link argument
+         * or possibly some other source. If the name of the torrent is not
+         * known, this is an empty string.
+         */
+        QUERY_NAME(status_flags_t.query_name.swigValue()),
+
+        /**
+         * includes ``save_path``, the path to the directory the files of the
+         * torrent are saved to.
+         */
+        QUERY_SAVE_PATH(status_flags_t.query_save_path.swigValue());
+
+        private StatusFlags(int swigValue) {
             this.swigValue = swigValue;
         }
 
@@ -1069,6 +1106,32 @@ public final class TorrentHandle {
         ALERT_WHEN_AVAILABLE(torrent_handle.deadline_flags.alert_when_available.swigValue());
 
         private DeadlineFlags(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        public int getSwig() {
+            return swigValue;
+        }
+    }
+
+    /**
+     * Flags to be passed in {@link #getFileProgress(com.frostwire.jlibtorrent.TorrentHandle.FileProgressFlags)}.
+     */
+    public enum FileProgressFlags {
+
+        DEFAULT(0),
+
+        /**
+         * only calculate file progress at piece granularity. This makes
+         * the file_progress() call cheaper and also only takes bytes that
+         * have passed the hash check into account, so progress cannot
+         * regress in this mode.
+         */
+        PIECE_GRANULARITY(torrent_handle.file_progress_flags_t.piece_granularity.swigValue());
+
+        private FileProgressFlags(int swigValue) {
             this.swigValue = swigValue;
         }
 
