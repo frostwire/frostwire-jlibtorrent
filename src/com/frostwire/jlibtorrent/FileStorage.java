@@ -50,45 +50,6 @@ public final class FileStorage {
     }
 
     /**
-     * Adds a file to the file storage.
-     * <p/>
-     * If more files than one are added, certain restrictions to their paths apply.
-     * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
-     * That is, the first path element of all files must be the same.
-     * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #setName(String)}.
-     * <p/>
-     * The built in functions to traverse a directory to add files will
-     * make sure this requirement is fulfilled.
-     *
-     * @param e
-     * @param filehash
-     */
-    public void addFile(FileEntry e, String filehash) {
-        fs.add_file(e.getSwig(), filehash);
-    }
-
-    /**
-     * Adds a file to the file storage.
-     * <p/>
-     * If more files than one are added, certain restrictions to their paths apply.
-     * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
-     * That is, the first path element of all files must be the same.
-     * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #setName(String)}.
-     * <p/>
-     * The built in functions to traverse a directory to add files will
-     * make sure this requirement is fulfilled.
-     *
-     * @param e
-     */
-    public void addFile(FileEntry e) {
-        fs.add_file(e.getSwig());
-    }
-
-    /**
      * Adds a file to the file storage. The {@code flags} argument sets attributes on the file.
      * The file attributes is an extension and may not work in all bittorrent clients.
      * <p/>
@@ -102,15 +63,15 @@ public final class FileStorage {
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
-     * @param p
-     * @param size
-     * @param flags
+     * @param path
+     * @param fileSize
+     * @param fileFlags
      * @param mtime
-     * @param s_p
+     * @param symlinkPath
      * @see com.frostwire.jlibtorrent.FileStorage.Flags
      */
-    public void addFile(String p, long size, Flags flags, int mtime, String s_p) {
-        fs.add_file(p, size, flags.getSwig(), mtime, s_p);
+    public void addFile(String path, long fileSize, Flags fileFlags, int mtime, String symlinkPath) {
+        fs.add_file(path, fileSize, fileFlags.getSwig(), mtime, symlinkPath);
     }
 
     /**
@@ -192,20 +153,6 @@ public final class FileStorage {
     }
 
     /**
-     * This is a low-level function that sets the name of a file
-     * by making it reference a buffer that is not owned by the {@link com.frostwire.jlibtorrent.FileStorage}.
-     * it's an optimization used when loading .torrent files, to not
-     * duplicate names in memory.
-     *
-     * @param index
-     * @param newFilename
-     * @param length
-     */
-    public void renameFileBorrow(int index, String newFilename, int length) {
-        fs.rename_file_borrow(index, newFilename, length);
-    }
-
-    /**
      * Returns a list of {@link com.frostwire.jlibtorrent.FileSlice} objects representing the portions of
      * files the specified piece index, byte offset and size range overlaps.
      * <p/>
@@ -249,17 +196,6 @@ public final class FileStorage {
      */
     public int getNumFiles() {
         return fs.num_files();
-    }
-
-    /**
-     * Returns a {@link com.frostwire.jlibtorrent.FileEntry} with information about the file
-     * at {@code index}. Index must be in the range {@code [0, getNumFiles())}.
-     *
-     * @param index
-     * @return
-     */
-    public FileEntry at(int index) {
-        return new FileEntry(fs.at(index));
     }
 
     /**
