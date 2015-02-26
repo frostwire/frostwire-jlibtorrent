@@ -217,3 +217,8 @@ class time_duration {
 public:
 };
 
+time_duration seconds(long long);
+time_duration milliseconds(long long);
+time_duration microseconds(long long);
+time_duration minutes(long long);
+time_duration hours(long long);

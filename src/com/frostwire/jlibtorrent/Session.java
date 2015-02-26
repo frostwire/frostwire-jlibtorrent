@@ -843,7 +843,6 @@ public final class Session {
                         }
                         deque.clear();
                     }
-
                 }
             }
         };

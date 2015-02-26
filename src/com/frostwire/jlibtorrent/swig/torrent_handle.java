@@ -240,10 +240,6 @@ public class torrent_handle {
     return (cPtr == 0) ? null : new torrent_info(cPtr, true);
   }
 
-  public void use_interface(String net_interface) {
-    libtorrent_jni.torrent_handle_use_interface(swigCPtr, this, net_interface);
-  }
-
   public void piece_availability(int_vector avail) {
     libtorrent_jni.torrent_handle_piece_availability(swigCPtr, this, int_vector.getCPtr(avail), avail);
   }

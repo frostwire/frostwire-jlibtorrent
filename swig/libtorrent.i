@@ -440,6 +440,7 @@ namespace std {
 %ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>, boost::uint32_t);
 %ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>);
 %ignore libtorrent::initialize_file_progress;
+%ignore libtorrent::get_filesizes;
 
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
@@ -531,6 +532,7 @@ namespace std {
 %ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::torrent_handle::get_storage_impl;
 %ignore libtorrent::torrent_handle::file_status;
+%ignore libtorrent::torrent_handle::use_interface;
 %ignore libtorrent::sha1_hash::sha1_hash(char const *);
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;
@@ -904,6 +906,10 @@ static const int user_alert_id = 10000;
 };
 
 %template(sha1_bloom_filter) bloom_filter<160>;
+
+//%template(total_seconds_long) libtorrent::total_seconds<long long>;
+//%template(total_milliseconds_long) libtorrent::total_milliseconds<long long>;
+//%template(total_microseconds_long) libtorrent::total_microseconds<long long>;
 
 }
 

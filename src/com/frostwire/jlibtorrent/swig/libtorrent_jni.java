@@ -107,6 +107,11 @@ public class libtorrent_jni {
   public final static native void delete_ptime(long jarg1);
   public final static native long new_time_duration();
   public final static native void delete_time_duration(long jarg1);
+  public final static native long seconds(long jarg1);
+  public final static native long milliseconds(long jarg1);
+  public final static native long microseconds(long jarg1);
+  public final static native long minutes(long jarg1);
+  public final static native long hours(long jarg1);
   public final static native long new_char_const_ptr_int_pair__SWIG_0();
   public final static native long new_char_const_ptr_int_pair__SWIG_1(String jarg1, int jarg2);
   public final static native long new_char_const_ptr_int_pair__SWIG_2(long jarg1, char_const_ptr_int_pair jarg1_);
@@ -840,7 +845,6 @@ public class libtorrent_jni {
   public final static native void storage_params_info_set(long jarg1, storage_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long storage_params_info_get(long jarg1, storage_params jarg1_);
   public final static native void delete_storage_params(long jarg1);
-  public final static native long get_filesizes(long jarg1, file_storage jarg1_, String jarg2);
   public final static native void zero_storage_initialize(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native boolean zero_storage_has_any_file(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native void zero_storage_set_file_priority(long jarg1, zero_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
@@ -1133,7 +1137,6 @@ public class libtorrent_jni {
   public final static native void torrent_handle_set_ssl_certificate__SWIG_1(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4);
   public final static native void torrent_handle_set_ssl_certificate_buffer(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4);
   public final static native long torrent_handle_torrent_file(long jarg1, torrent_handle jarg1_);
-  public final static native void torrent_handle_use_interface(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native void torrent_handle_piece_availability(long jarg1, torrent_handle jarg1_, long jarg2, int_vector jarg2_);
   public final static native void torrent_handle_piece_priority__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, int jarg3);
   public final static native int torrent_handle_piece_priority__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2);

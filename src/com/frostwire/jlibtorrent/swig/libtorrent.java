@@ -9,6 +9,26 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent implements libtorrentConstants {
+  public static time_duration seconds(long arg0) {
+    return new time_duration(libtorrent_jni.seconds(arg0), true);
+  }
+
+  public static time_duration milliseconds(long arg0) {
+    return new time_duration(libtorrent_jni.milliseconds(arg0), true);
+  }
+
+  public static time_duration microseconds(long arg0) {
+    return new time_duration(libtorrent_jni.microseconds(arg0), true);
+  }
+
+  public static time_duration minutes(long arg0) {
+    return new time_duration(libtorrent_jni.minutes(arg0), true);
+  }
+
+  public static time_duration hours(long arg0) {
+    return new time_duration(libtorrent_jni.hours(arg0), true);
+  }
+
   public static error_category system_category() {
     return new error_category(libtorrent_jni.system_category(), false);
   }
@@ -79,10 +99,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static error_category get_posix_category() {
     return new error_category(libtorrent_jni.get_posix_category(), false);
-  }
-
-  public static long_long_long_2_pair_vector get_filesizes(file_storage t, String p) {
-    return new long_long_long_2_pair_vector(libtorrent_jni.get_filesizes(file_storage.getCPtr(t), t, p), true);
   }
 
   public static void sanitize_append_path_element(String path, String element, int element_len) {

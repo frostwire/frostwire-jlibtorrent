@@ -73,7 +73,7 @@ void dht_get_peers_fun(std::vector<tcp::endpoint> const& peers,
 // for info-hash id
 void dht_get_peers(session* s, sha1_hash const& info_hash) {
 
-	aux::session_impl* s_impl = s->m_impl.get();
+	boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
     dht::dht_tracker* s_dht_tracker = s_impl->dht();
     const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(s_dht_tracker->m_dht);
 
@@ -96,7 +96,7 @@ void dht_get_peers(session* s, sha1_hash const& info_hash) {
 
 void dht_announce(session* s, sha1_hash const& info_hash, int port, int flags) {
 
-	aux::session_impl* s_impl = s->m_impl.get();
+	boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
     dht::dht_tracker* s_dht_tracker = s_impl->dht();
     const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(s_dht_tracker->m_dht);
 
@@ -112,7 +112,7 @@ void dht_announce(session* s, sha1_hash const& info_hash) {
     // argument in the announce, this will make the DHT node use
     // our source port in the packet as our listen port, which is
     // likely more accurate when behind a NAT
-    if (s->settings().enable_incoming_utp) flags |= dht::dht_tracker::flag_implied_port;
+    if (s->get_settings().get_bool(settings_pack::enable_incoming_utp)) flags |= dht::dht_tracker::flag_implied_port;
 
 	dht_announce(s, info_hash, port, flags);
 }
