@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.settings_pack;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -207,11 +208,11 @@ public class DhtNs {
             System.out.print("$ ");//prompt
             String line = br.readLine().trim();
             if (line.toLowerCase().startsWith("quit") || line.toLowerCase().startsWith("stop")) {
-                s.stopDHT();
+                stopDHT(s);
                 System.out.println("stop DHT");
-                s.stopLSD();
+                stopLSD(s);
                 System.out.println("stop LSD");
-                s.stopNATPMP();
+                stopNATPMP(s);
                 System.out.println("stop NATPMP");
                 break;
             } else if (line.startsWith("?") || line.toLowerCase().startsWith("help")) {
@@ -248,7 +249,7 @@ public class DhtNs {
                 }
             } else if (line.toLowerCase().startsWith("upnp")) {
                 System.out.println("starting upnp...");
-                s.startUPnP();
+                startUPnP(s);
             } else if (!line.isEmpty()) {
                 System.out.println("Invalid command: " + line);
                 System.out.println("Try ? for help");
@@ -276,6 +277,30 @@ public class DhtNs {
         }
         digest.update(str.getBytes());
         return digest.digest();
+    }
+
+    private static void stopDHT(Session s) {
+        SettingsPack pack = new SettingsPack();
+        pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), false);
+        s.applySettings(pack);
+    }
+
+    private static void stopLSD(Session s) {
+        SettingsPack pack = new SettingsPack();
+        pack.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), false);
+        s.applySettings(pack);
+    }
+
+    private static void stopNATPMP(Session s) {
+        SettingsPack pack = new SettingsPack();
+        pack.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), false);
+        s.applySettings(pack);
+    }
+
+    private static void startUPnP(Session s) {
+        SettingsPack pack = new SettingsPack();
+        pack.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), true);
+        s.applySettings(pack);
     }
 
     private static class KeyPair {
