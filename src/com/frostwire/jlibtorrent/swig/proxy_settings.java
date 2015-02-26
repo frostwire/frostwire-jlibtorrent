@@ -35,14 +35,6 @@ public class proxy_settings {
     }
   }
 
-  public proxy_settings() {
-    this(libtorrent_jni.new_proxy_settings__SWIG_0(), true);
-  }
-
-  public proxy_settings(SWIGTYPE_p_libtorrent__aux__session_settings sett) {
-    this(libtorrent_jni.new_proxy_settings__SWIG_1(SWIGTYPE_p_libtorrent__aux__session_settings.getCPtr(sett)), true);
-  }
-
   public void setHostname(String value) {
     libtorrent_jni.proxy_settings_hostname_set(swigCPtr, this, value);
   }

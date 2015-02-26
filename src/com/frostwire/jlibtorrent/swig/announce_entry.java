@@ -202,14 +202,6 @@ public class announce_entry {
     libtorrent_jni.announce_entry_reset(swigCPtr, this);
   }
 
-  public void failed(SWIGTYPE_p_libtorrent__aux__session_settings sett, int retry_interval) {
-    libtorrent_jni.announce_entry_failed__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__aux__session_settings.getCPtr(sett), retry_interval);
-  }
-
-  public void failed(SWIGTYPE_p_libtorrent__aux__session_settings sett) {
-    libtorrent_jni.announce_entry_failed__SWIG_1(swigCPtr, this, SWIGTYPE_p_libtorrent__aux__session_settings.getCPtr(sett));
-  }
-
   public boolean can_announce(ptime now, boolean is_seed) {
     return libtorrent_jni.announce_entry_can_announce(swigCPtr, this, ptime.getCPtr(now), now, is_seed);
   }

@@ -219,10 +219,6 @@ public class file_storage {
     return libtorrent_jni.file_storage_file_name_len(swigCPtr, this, index);
   }
 
-  public void apply_pointer_offset(SWIGTYPE_p_ptrdiff_t off) {
-    libtorrent_jni.file_storage_apply_pointer_offset(swigCPtr, this, SWIGTYPE_p_ptrdiff_t.getCPtr(off));
-  }
-
   public enum flags_t {
     pad_file(libtorrent_jni.file_storage_pad_file_get()),
     attribute_hidden(libtorrent_jni.file_storage_attribute_hidden_get()),

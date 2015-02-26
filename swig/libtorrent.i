@@ -463,6 +463,7 @@ namespace std {
 %ignore libtorrent::session::dht_get_item(boost::array<char, 32>);
 %ignore libtorrent::session::add_extension;
 %ignore libtorrent::session::set_load_function;
+%ignore libtorrent::session::get_settings;
 %ignore libtorrent::peer_connection::peer_connection;
 %ignore libtorrent::peer_connection::incoming_piece;
 %ignore libtorrent::peer_connection::send_buffer;
@@ -593,6 +594,10 @@ namespace std {
 %ignore libtorrent::peer_class::channel;
 %ignore libtorrent::torrent_peer::connection;
 %ignore libtorrent::ipv6_peer::addr;
+%ignore libtorrent::announce_entry::failed;
+%ignore libtorrent::proxy_settings::proxy_settings;
+%ignore libtorrent::torrent_status::torrent_file;
+%ignore libtorrent::file_storage::apply_pointer_offset;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;

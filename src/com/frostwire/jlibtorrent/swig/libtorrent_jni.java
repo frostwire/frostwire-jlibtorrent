@@ -881,7 +881,6 @@ public class libtorrent_jni {
   public final static native int file_storage_file_index_at_offset(long jarg1, file_storage jarg1_, long jarg2);
   public final static native String file_storage_file_name_ptr(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_file_name_len(long jarg1, file_storage jarg1_, int jarg2);
-  public final static native void file_storage_apply_pointer_offset(long jarg1, file_storage jarg1_, long jarg2);
   public final static native void sanitize_append_path_element(String jarg1, String jarg2, int jarg3);
   public final static native int tracker_retry_delay_min_get();
   public final static native int tracker_retry_delay_max_get();
@@ -931,8 +930,6 @@ public class libtorrent_jni {
   public final static native void announce_entry_send_stats_set(long jarg1, announce_entry jarg1_, boolean jarg2);
   public final static native boolean announce_entry_send_stats_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_reset(long jarg1, announce_entry jarg1_);
-  public final static native void announce_entry_failed__SWIG_0(long jarg1, announce_entry jarg1_, long jarg2, int jarg3);
-  public final static native void announce_entry_failed__SWIG_1(long jarg1, announce_entry jarg1_, long jarg2);
   public final static native boolean announce_entry_can_announce(long jarg1, announce_entry jarg1_, long jarg2, ptime jarg2_, boolean jarg3);
   public final static native boolean announce_entry_is_working(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_trim(long jarg1, announce_entry jarg1_);
@@ -1153,8 +1150,6 @@ public class libtorrent_jni {
   public final static native String torrent_status_save_path_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_name_set(long jarg1, torrent_status jarg1_, String jarg2);
   public final static native String torrent_status_name_get(long jarg1, torrent_status jarg1_);
-  public final static native void torrent_status_torrent_file_set(long jarg1, torrent_status jarg1_, long jarg2);
-  public final static native long torrent_status_torrent_file_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_next_announce_set(long jarg1, torrent_status jarg1_, long jarg2, posix_time_duration jarg2_);
   public final static native long torrent_status_next_announce_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_announce_interval_set(long jarg1, torrent_status jarg1_, long jarg2, posix_time_duration jarg2_);
@@ -2894,8 +2889,6 @@ public class libtorrent_jni {
   public final static native long peer_connection_self(long jarg1, peer_connection jarg1_);
   public final static native long peer_connection_stats_counters(long jarg1, peer_connection jarg1_);
   public final static native int peer_connection_get_priority(long jarg1, peer_connection jarg1_, int jarg2);
-  public final static native long new_proxy_settings__SWIG_0();
-  public final static native long new_proxy_settings__SWIG_1(long jarg1);
   public final static native void proxy_settings_hostname_set(long jarg1, proxy_settings jarg1_, String jarg2);
   public final static native String proxy_settings_hostname_get(long jarg1, proxy_settings jarg1_);
   public final static native void proxy_settings_username_set(long jarg1, proxy_settings jarg1_, String jarg2);
@@ -3099,7 +3092,6 @@ public class libtorrent_jni {
   public final static native void session_remove_torrent__SWIG_0(long jarg1, session jarg1_, long jarg2, torrent_handle jarg2_, int jarg3);
   public final static native void session_remove_torrent__SWIG_1(long jarg1, session jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native void session_apply_settings(long jarg1, session jarg1_, long jarg2);
-  public final static native long session_get_settings(long jarg1, session jarg1_);
   public final static native long session_pop_alert(long jarg1, session jarg1_);
   public final static native void session_pop_alerts(long jarg1, session jarg1_, long jarg2, alert_ptr_deque jarg2_);
   public final static native long session_wait_for_alert(long jarg1, session jarg1_, long jarg2, time_duration jarg2_);

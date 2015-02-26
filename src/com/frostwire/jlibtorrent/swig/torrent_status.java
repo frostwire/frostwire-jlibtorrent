@@ -76,15 +76,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_name_get(swigCPtr, this);
   }
 
-  public void setTorrent_file(SWIGTYPE_p_boost__weak_ptrT_libtorrent__torrent_info_const_t value) {
-    libtorrent_jni.torrent_status_torrent_file_set(swigCPtr, this, SWIGTYPE_p_boost__weak_ptrT_libtorrent__torrent_info_const_t.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_boost__weak_ptrT_libtorrent__torrent_info_const_t getTorrent_file() {
-    long cPtr = libtorrent_jni.torrent_status_torrent_file_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_boost__weak_ptrT_libtorrent__torrent_info_const_t(cPtr, false);
-  }
-
   public void setNext_announce(posix_time_duration value) {
     libtorrent_jni.torrent_status_next_announce_set(swigCPtr, this, posix_time_duration.getCPtr(value), value);
   }
