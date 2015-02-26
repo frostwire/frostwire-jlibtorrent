@@ -851,7 +851,8 @@ public final class Session {
                                 fireAlert(alert, type);
                             }
 
-                            if (listeners.indexOfKey(-1) >= 0) {
+                            if (type != AlertType.SESSION_STATS_ALERT.getSwig() &&
+                                    listeners.indexOfKey(-1) >= 0) {
                                 if (alert == null) {
                                     alert = castAlert(swigAlert);
                                 }
@@ -991,6 +992,7 @@ public final class Session {
         CAST_ALERT_METHOD(incoming_connection_alert.class, map);
         CAST_ALERT_METHOD(add_torrent_alert.class, map);
         CAST_ALERT_METHOD(state_update_alert.class, map);
+        CAST_ALERT_METHOD(session_stats_alert.class, map);
         CAST_ALERT_METHOD(torrent_update_alert.class, map);
         CAST_ALERT_METHOD(rss_item_alert.class, map);
         CAST_ALERT_METHOD(dht_error_alert.class, map);

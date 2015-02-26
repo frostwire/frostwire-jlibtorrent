@@ -409,6 +409,11 @@ public class alert {
     return (cPtr == 0) ? null : new state_update_alert(cPtr, false);
   }
 
+  public static session_stats_alert cast_to_session_stats_alert(alert alert) {
+    long cPtr = libtorrent_jni.alert_cast_to_session_stats_alert(alert.getCPtr(alert), alert);
+    return (cPtr == 0) ? null : new session_stats_alert(cPtr, false);
+  }
+
   public static torrent_update_alert cast_to_torrent_update_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_torrent_update_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new torrent_update_alert(cPtr, false);

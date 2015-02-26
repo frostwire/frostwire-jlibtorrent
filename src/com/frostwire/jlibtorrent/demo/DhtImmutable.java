@@ -3,12 +3,14 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.DhtBootstrapAlert;
 import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
 import com.frostwire.jlibtorrent.alerts.DhtPutAlert;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author gubatron
@@ -51,9 +53,11 @@ public final class DhtImmutable {
             }
         });
 
+        s.dhtGetPeers(new Sha1Hash("86d0502ead28e495c9e67665340f72aa72fe304e"));
+
         System.out.println("Waiting to DHT bootstrap");
 
-        signal.await();
+        signal.await(10, TimeUnit.SECONDS);
 
         System.out.println("Putting item");
 

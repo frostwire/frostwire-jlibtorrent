@@ -1250,6 +1250,7 @@ SWIGINTERN libtorrent::torrent_need_cert_alert *libtorrent_alert_cast_to_torrent
 SWIGINTERN libtorrent::incoming_connection_alert *libtorrent_alert_cast_to_incoming_connection_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::incoming_connection_alert *>(alert);      }
 SWIGINTERN libtorrent::add_torrent_alert *libtorrent_alert_cast_to_add_torrent_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::add_torrent_alert *>(alert);      }
 SWIGINTERN libtorrent::state_update_alert *libtorrent_alert_cast_to_state_update_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::state_update_alert *>(alert);      }
+SWIGINTERN libtorrent::session_stats_alert *libtorrent_alert_cast_to_session_stats_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::session_stats_alert *>(alert);      }
 SWIGINTERN libtorrent::torrent_update_alert *libtorrent_alert_cast_to_torrent_update_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::torrent_update_alert *>(alert);      }
 SWIGINTERN libtorrent::rss_item_alert *libtorrent_alert_cast_to_rss_item_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::rss_item_alert *>(alert);      }
 SWIGINTERN libtorrent::dht_error_alert *libtorrent_alert_cast_to_dht_error_alert(libtorrent::alert *alert){          return dynamic_cast<libtorrent::dht_error_alert *>(alert);      }
@@ -33252,6 +33253,28 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
     }
   }
   *(libtorrent::state_update_alert **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1cast_1to_1session_1stats_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::alert *arg1 = (libtorrent::alert *) 0 ;
+  libtorrent::session_stats_alert *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::alert **)&jarg1; 
+  {
+    try {
+      result = (libtorrent::session_stats_alert *)libtorrent_alert_cast_to_session_stats_alert(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(libtorrent::session_stats_alert **)&jresult = result; 
   return jresult;
 }
 

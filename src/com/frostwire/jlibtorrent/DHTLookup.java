@@ -4,7 +4,7 @@ import com.frostwire.jlibtorrent.swig.dht_lookup;
 
 /**
  * Holds statistics about a current dht_lookup operation.
- * a DHT lookup is the travesal of nodes, looking up a
+ * a DHT lookup is the traversal of nodes, looking up a
  * set of target nodes in the DHT for retrieving and possibly
  * storing information in the DHT
  *

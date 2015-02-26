@@ -1553,6 +1553,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_incoming_connection_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_add_torrent_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_state_update_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_session_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_torrent_update_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_rss_item_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_error_alert(long jarg1, alert jarg1_);
