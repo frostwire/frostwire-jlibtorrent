@@ -330,8 +330,8 @@ namespace std {
     %template(peer_entry_vector) vector<libtorrent::peer_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
-    %template(ipv4_peer_entry_vector) vector<libtorrent::ipv4_peer>;
-    %template(ipv6_peer_entry_vector) vector<libtorrent::ipv6_peer>;
+    %template(ipv4_peer_entry_vector) vector<libtorrent::ipv4_peer_entry>;
+    %template(ipv6_peer_entry_vector) vector<libtorrent::ipv6_peer_entry>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
 
     %template(entry_list) list<libtorrent::entry>;

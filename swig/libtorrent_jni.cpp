@@ -947,28 +947,28 @@ SWIGINTERN void std_vector_Sl_libtorrent_peer_list_entry_Sg__set(std::vector< li
                 else
                     throw std::out_of_range("vector index out of range");
             }
-SWIGINTERN std::vector< libtorrent::ipv4_peer >::const_reference std_vector_Sl_libtorrent_ipv4_peer_Sg__get(std::vector< libtorrent::ipv4_peer > *self,int i){
+SWIGINTERN std::vector< libtorrent::ipv4_peer_entry >::const_reference std_vector_Sl_libtorrent_ipv4_peer_entry_Sg__get(std::vector< libtorrent::ipv4_peer_entry > *self,int i){
                 int size = int(self->size());
                 if (i>=0 && i<size)
                     return (*self)[i];
                 else
                     throw std::out_of_range("vector index out of range");
             }
-SWIGINTERN void std_vector_Sl_libtorrent_ipv4_peer_Sg__set(std::vector< libtorrent::ipv4_peer > *self,int i,std::vector< libtorrent::ipv4_peer >::value_type const &val){
+SWIGINTERN void std_vector_Sl_libtorrent_ipv4_peer_entry_Sg__set(std::vector< libtorrent::ipv4_peer_entry > *self,int i,std::vector< libtorrent::ipv4_peer_entry >::value_type const &val){
                 int size = int(self->size());
                 if (i>=0 && i<size)
                     (*self)[i] = val;
                 else
                     throw std::out_of_range("vector index out of range");
             }
-SWIGINTERN std::vector< libtorrent::ipv6_peer >::const_reference std_vector_Sl_libtorrent_ipv6_peer_Sg__get(std::vector< libtorrent::ipv6_peer > *self,int i){
+SWIGINTERN std::vector< libtorrent::ipv6_peer_entry >::const_reference std_vector_Sl_libtorrent_ipv6_peer_entry_Sg__get(std::vector< libtorrent::ipv6_peer_entry > *self,int i){
                 int size = int(self->size());
                 if (i>=0 && i<size)
                     return (*self)[i];
                 else
                     throw std::out_of_range("vector index out of range");
             }
-SWIGINTERN void std_vector_Sl_libtorrent_ipv6_peer_Sg__set(std::vector< libtorrent::ipv6_peer > *self,int i,std::vector< libtorrent::ipv6_peer >::value_type const &val){
+SWIGINTERN void std_vector_Sl_libtorrent_ipv6_peer_entry_Sg__set(std::vector< libtorrent::ipv6_peer_entry > *self,int i,std::vector< libtorrent::ipv6_peer_entry >::value_type const &val){
                 int size = int(self->size());
                 if (i>=0 && i<size)
                     (*self)[i] = val;
@@ -10778,35 +10778,35 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1ipv4_1peer_1entry_1vector(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  std::vector< libtorrent::ipv4_peer > *result = 0 ;
+  std::vector< libtorrent::ipv4_peer_entry > *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   {
     try {
-      result = (std::vector< libtorrent::ipv4_peer > *)new std::vector< libtorrent::ipv4_peer >();
+      result = (std::vector< libtorrent::ipv4_peer_entry > *)new std::vector< libtorrent::ipv4_peer_entry >();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
     }
   }
-  *(std::vector< libtorrent::ipv4_peer > **)&jresult = result; 
+  *(std::vector< libtorrent::ipv4_peer_entry > **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4_1peer_1entry_1vector_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
-  std::vector< libtorrent::ipv4_peer >::size_type result;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry >::size_type result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
   {
     try {
-      result = ((std::vector< libtorrent::ipv4_peer > const *)arg1)->size();
+      result = ((std::vector< libtorrent::ipv4_peer_entry > const *)arg1)->size();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -10819,16 +10819,16 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4_1peer_1entry_1vector_1capacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
-  std::vector< libtorrent::ipv4_peer >::size_type result;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry >::size_type result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
   {
     try {
-      result = ((std::vector< libtorrent::ipv4_peer > const *)arg1)->capacity();
+      result = ((std::vector< libtorrent::ipv4_peer_entry > const *)arg1)->capacity();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -10840,14 +10840,14 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4_1peer_1entry_1vector_1reserve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
-  std::vector< libtorrent::ipv4_peer >::size_type arg2 ;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry >::size_type arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
-  arg2 = (std::vector< libtorrent::ipv4_peer >::size_type)jarg2; 
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
+  arg2 = (std::vector< libtorrent::ipv4_peer_entry >::size_type)jarg2; 
   {
     try {
       (arg1)->reserve(arg2);
@@ -10861,16 +10861,16 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4
 
 SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4_1peer_1entry_1vector_1isEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jboolean jresult = 0 ;
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
   {
     try {
-      result = (bool)((std::vector< libtorrent::ipv4_peer > const *)arg1)->empty();
+      result = (bool)((std::vector< libtorrent::ipv4_peer_entry > const *)arg1)->empty();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -10882,12 +10882,12 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4_1peer_1entry_1vector_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
   {
     try {
       (arg1)->clear();
@@ -10900,22 +10900,22 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4_1peer_1entry_1vector_1add(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
-  std::vector< libtorrent::ipv4_peer >::value_type *arg2 = 0 ;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry >::value_type *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
-  arg2 = *(std::vector< libtorrent::ipv4_peer >::value_type **)&jarg2;
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
+  arg2 = *(std::vector< libtorrent::ipv4_peer_entry >::value_type **)&jarg2;
   if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::ipv4_peer >::value_type const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::ipv4_peer_entry >::value_type const & reference is null");
     return ;
   } 
   {
     try {
-      (arg1)->push_back((std::vector< libtorrent::ipv4_peer >::value_type const &)*arg2);
+      (arg1)->push_back((std::vector< libtorrent::ipv4_peer_entry >::value_type const &)*arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;
@@ -10926,19 +10926,19 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4_1peer_1entry_1vector_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   jlong jresult = 0 ;
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
   int arg2 ;
-  std::vector< libtorrent::ipv4_peer >::value_type *result = 0 ;
+  std::vector< libtorrent::ipv4_peer_entry >::value_type *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
   arg2 = (int)jarg2; 
   {
     try {
       try {
-        result = (std::vector< libtorrent::ipv4_peer >::value_type *) &std_vector_Sl_libtorrent_ipv4_peer_Sg__get(arg1,arg2);
+        result = (std::vector< libtorrent::ipv4_peer_entry >::value_type *) &std_vector_Sl_libtorrent_ipv4_peer_entry_Sg__get(arg1,arg2);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -10950,31 +10950,31 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv
       return 0;
     }
   }
-  *(std::vector< libtorrent::ipv4_peer >::value_type **)&jresult = result; 
+  *(std::vector< libtorrent::ipv4_peer_entry >::value_type **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4_1peer_1entry_1vector_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
   int arg2 ;
-  std::vector< libtorrent::ipv4_peer >::value_type *arg3 = 0 ;
+  std::vector< libtorrent::ipv4_peer_entry >::value_type *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg3_;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
   arg2 = (int)jarg2; 
-  arg3 = *(std::vector< libtorrent::ipv4_peer >::value_type **)&jarg3;
+  arg3 = *(std::vector< libtorrent::ipv4_peer_entry >::value_type **)&jarg3;
   if (!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::ipv4_peer >::value_type const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::ipv4_peer_entry >::value_type const & reference is null");
     return ;
   } 
   {
     try {
       try {
-        std_vector_Sl_libtorrent_ipv4_peer_Sg__set(arg1,arg2,(libtorrent::ipv4_peer const &)*arg3);
+        std_vector_Sl_libtorrent_ipv4_peer_entry_Sg__set(arg1,arg2,(libtorrent::ipv4_peer_entry const &)*arg3);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -10990,11 +10990,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv4
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1ipv4_1peer_1entry_1vector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  std::vector< libtorrent::ipv4_peer > *arg1 = (std::vector< libtorrent::ipv4_peer > *) 0 ;
+  std::vector< libtorrent::ipv4_peer_entry > *arg1 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(std::vector< libtorrent::ipv4_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg1; 
   {
     try {
       delete arg1;
@@ -11008,35 +11008,35 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1ipv6_1peer_1entry_1vector(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  std::vector< libtorrent::ipv6_peer > *result = 0 ;
+  std::vector< libtorrent::ipv6_peer_entry > *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   {
     try {
-      result = (std::vector< libtorrent::ipv6_peer > *)new std::vector< libtorrent::ipv6_peer >();
+      result = (std::vector< libtorrent::ipv6_peer_entry > *)new std::vector< libtorrent::ipv6_peer_entry >();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
     }
   }
-  *(std::vector< libtorrent::ipv6_peer > **)&jresult = result; 
+  *(std::vector< libtorrent::ipv6_peer_entry > **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6_1peer_1entry_1vector_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
-  std::vector< libtorrent::ipv6_peer >::size_type result;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry >::size_type result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
   {
     try {
-      result = ((std::vector< libtorrent::ipv6_peer > const *)arg1)->size();
+      result = ((std::vector< libtorrent::ipv6_peer_entry > const *)arg1)->size();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -11049,16 +11049,16 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6_1peer_1entry_1vector_1capacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
-  std::vector< libtorrent::ipv6_peer >::size_type result;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry >::size_type result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
   {
     try {
-      result = ((std::vector< libtorrent::ipv6_peer > const *)arg1)->capacity();
+      result = ((std::vector< libtorrent::ipv6_peer_entry > const *)arg1)->capacity();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -11070,14 +11070,14 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6_1peer_1entry_1vector_1reserve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
-  std::vector< libtorrent::ipv6_peer >::size_type arg2 ;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry >::size_type arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
-  arg2 = (std::vector< libtorrent::ipv6_peer >::size_type)jarg2; 
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
+  arg2 = (std::vector< libtorrent::ipv6_peer_entry >::size_type)jarg2; 
   {
     try {
       (arg1)->reserve(arg2);
@@ -11091,16 +11091,16 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6
 
 SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6_1peer_1entry_1vector_1isEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jboolean jresult = 0 ;
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
   {
     try {
-      result = (bool)((std::vector< libtorrent::ipv6_peer > const *)arg1)->empty();
+      result = (bool)((std::vector< libtorrent::ipv6_peer_entry > const *)arg1)->empty();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -11112,12 +11112,12 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6_1peer_1entry_1vector_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
   {
     try {
       (arg1)->clear();
@@ -11130,22 +11130,22 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6_1peer_1entry_1vector_1add(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
-  std::vector< libtorrent::ipv6_peer >::value_type *arg2 = 0 ;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry >::value_type *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
-  arg2 = *(std::vector< libtorrent::ipv6_peer >::value_type **)&jarg2;
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
+  arg2 = *(std::vector< libtorrent::ipv6_peer_entry >::value_type **)&jarg2;
   if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::ipv6_peer >::value_type const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::ipv6_peer_entry >::value_type const & reference is null");
     return ;
   } 
   {
     try {
-      (arg1)->push_back((std::vector< libtorrent::ipv6_peer >::value_type const &)*arg2);
+      (arg1)->push_back((std::vector< libtorrent::ipv6_peer_entry >::value_type const &)*arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;
@@ -11156,19 +11156,19 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6_1peer_1entry_1vector_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   jlong jresult = 0 ;
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
   int arg2 ;
-  std::vector< libtorrent::ipv6_peer >::value_type *result = 0 ;
+  std::vector< libtorrent::ipv6_peer_entry >::value_type *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
   arg2 = (int)jarg2; 
   {
     try {
       try {
-        result = (std::vector< libtorrent::ipv6_peer >::value_type *) &std_vector_Sl_libtorrent_ipv6_peer_Sg__get(arg1,arg2);
+        result = (std::vector< libtorrent::ipv6_peer_entry >::value_type *) &std_vector_Sl_libtorrent_ipv6_peer_entry_Sg__get(arg1,arg2);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -11180,31 +11180,31 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv
       return 0;
     }
   }
-  *(std::vector< libtorrent::ipv6_peer >::value_type **)&jresult = result; 
+  *(std::vector< libtorrent::ipv6_peer_entry >::value_type **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6_1peer_1entry_1vector_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
   int arg2 ;
-  std::vector< libtorrent::ipv6_peer >::value_type *arg3 = 0 ;
+  std::vector< libtorrent::ipv6_peer_entry >::value_type *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg3_;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
   arg2 = (int)jarg2; 
-  arg3 = *(std::vector< libtorrent::ipv6_peer >::value_type **)&jarg3;
+  arg3 = *(std::vector< libtorrent::ipv6_peer_entry >::value_type **)&jarg3;
   if (!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::ipv6_peer >::value_type const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::ipv6_peer_entry >::value_type const & reference is null");
     return ;
   } 
   {
     try {
       try {
-        std_vector_Sl_libtorrent_ipv6_peer_Sg__set(arg1,arg2,(libtorrent::ipv6_peer const &)*arg3);
+        std_vector_Sl_libtorrent_ipv6_peer_entry_Sg__set(arg1,arg2,(libtorrent::ipv6_peer_entry const &)*arg3);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -11220,11 +11220,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ipv6
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1ipv6_1peer_1entry_1vector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  std::vector< libtorrent::ipv6_peer > *arg1 = (std::vector< libtorrent::ipv6_peer > *) 0 ;
+  std::vector< libtorrent::ipv6_peer_entry > *arg1 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(std::vector< libtorrent::ipv6_peer > **)&jarg1; 
+  arg1 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg1; 
   {
     try {
       delete arg1;
@@ -65100,13 +65100,14 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tra
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1response_1peers4_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1response_1peers4_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   libtorrent::tracker_response *arg1 = (libtorrent::tracker_response *) 0 ;
   std::vector< libtorrent::ipv4_peer_entry > *arg2 = (std::vector< libtorrent::ipv4_peer_entry > *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(libtorrent::tracker_response **)&jarg1; 
   arg2 = *(std::vector< libtorrent::ipv4_peer_entry > **)&jarg2; 
   if (arg1) (arg1)->peers4 = *arg2;
@@ -65128,13 +65129,14 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tra
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1response_1peers6_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1response_1peers6_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   libtorrent::tracker_response *arg1 = (libtorrent::tracker_response *) 0 ;
   std::vector< libtorrent::ipv6_peer_entry > *arg2 = (std::vector< libtorrent::ipv6_peer_entry > *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(libtorrent::tracker_response **)&jarg1; 
   arg2 = *(std::vector< libtorrent::ipv6_peer_entry > **)&jarg2; 
   if (arg1) (arg1)->peers6 = *arg2;

@@ -442,9 +442,9 @@ public class libtorrent_jni {
   public final static native void ipv4_peer_entry_vector_reserve(long jarg1, ipv4_peer_entry_vector jarg1_, long jarg2);
   public final static native boolean ipv4_peer_entry_vector_isEmpty(long jarg1, ipv4_peer_entry_vector jarg1_);
   public final static native void ipv4_peer_entry_vector_clear(long jarg1, ipv4_peer_entry_vector jarg1_);
-  public final static native void ipv4_peer_entry_vector_add(long jarg1, ipv4_peer_entry_vector jarg1_, long jarg2, ipv4_peer jarg2_);
+  public final static native void ipv4_peer_entry_vector_add(long jarg1, ipv4_peer_entry_vector jarg1_, long jarg2, ipv4_peer_entry jarg2_);
   public final static native long ipv4_peer_entry_vector_get(long jarg1, ipv4_peer_entry_vector jarg1_, int jarg2);
-  public final static native void ipv4_peer_entry_vector_set(long jarg1, ipv4_peer_entry_vector jarg1_, int jarg2, long jarg3, ipv4_peer jarg3_);
+  public final static native void ipv4_peer_entry_vector_set(long jarg1, ipv4_peer_entry_vector jarg1_, int jarg2, long jarg3, ipv4_peer_entry jarg3_);
   public final static native void delete_ipv4_peer_entry_vector(long jarg1);
   public final static native long new_ipv6_peer_entry_vector();
   public final static native long ipv6_peer_entry_vector_size(long jarg1, ipv6_peer_entry_vector jarg1_);
@@ -452,9 +452,9 @@ public class libtorrent_jni {
   public final static native void ipv6_peer_entry_vector_reserve(long jarg1, ipv6_peer_entry_vector jarg1_, long jarg2);
   public final static native boolean ipv6_peer_entry_vector_isEmpty(long jarg1, ipv6_peer_entry_vector jarg1_);
   public final static native void ipv6_peer_entry_vector_clear(long jarg1, ipv6_peer_entry_vector jarg1_);
-  public final static native void ipv6_peer_entry_vector_add(long jarg1, ipv6_peer_entry_vector jarg1_, long jarg2, ipv6_peer jarg2_);
+  public final static native void ipv6_peer_entry_vector_add(long jarg1, ipv6_peer_entry_vector jarg1_, long jarg2, ipv6_peer_entry jarg2_);
   public final static native long ipv6_peer_entry_vector_get(long jarg1, ipv6_peer_entry_vector jarg1_, int jarg2);
-  public final static native void ipv6_peer_entry_vector_set(long jarg1, ipv6_peer_entry_vector jarg1_, int jarg2, long jarg3, ipv6_peer jarg3_);
+  public final static native void ipv6_peer_entry_vector_set(long jarg1, ipv6_peer_entry_vector jarg1_, int jarg2, long jarg3, ipv6_peer_entry jarg3_);
   public final static native void delete_ipv6_peer_entry_vector(long jarg1);
   public final static native long new_tcp_endpoint_vector();
   public final static native long tcp_endpoint_vector_size(long jarg1, tcp_endpoint_vector jarg1_);
@@ -3221,9 +3221,9 @@ public class libtorrent_jni {
   public final static native long new_tracker_response();
   public final static native void tracker_response_peers_set(long jarg1, tracker_response jarg1_, long jarg2, peer_entry_vector jarg2_);
   public final static native long tracker_response_peers_get(long jarg1, tracker_response jarg1_);
-  public final static native void tracker_response_peers4_set(long jarg1, tracker_response jarg1_, long jarg2);
+  public final static native void tracker_response_peers4_set(long jarg1, tracker_response jarg1_, long jarg2, ipv4_peer_entry_vector jarg2_);
   public final static native long tracker_response_peers4_get(long jarg1, tracker_response jarg1_);
-  public final static native void tracker_response_peers6_set(long jarg1, tracker_response jarg1_, long jarg2);
+  public final static native void tracker_response_peers6_set(long jarg1, tracker_response jarg1_, long jarg2, ipv6_peer_entry_vector jarg2_);
   public final static native long tracker_response_peers6_get(long jarg1, tracker_response jarg1_);
   public final static native void tracker_response_external_ip_set(long jarg1, tracker_response jarg1_, long jarg2, address jarg2_);
   public final static native long tracker_response_external_ip_get(long jarg1, tracker_response jarg1_);
