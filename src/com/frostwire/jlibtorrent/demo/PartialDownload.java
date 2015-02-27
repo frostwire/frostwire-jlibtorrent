@@ -43,6 +43,8 @@ public final class PartialDownload {
 
         final TorrentHandle th = s.addTorrent(new TorrentInfo(torrentFile), torrentFile.getParentFile(), priorities, null);
 
+        th.resume();
+
         final CountDownLatch signal = new CountDownLatch(1);
 
         s.addListener(new TorrentAlertAdapter(th) {

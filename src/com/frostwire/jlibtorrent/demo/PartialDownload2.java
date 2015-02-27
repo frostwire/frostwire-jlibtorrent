@@ -54,14 +54,26 @@ public final class PartialDownload2 {
                     case FILE_COMPLETED:
                         FileCompletedAlert fca = (FileCompletedAlert) ta;
                         System.out.println("File finished: " + th.getTorrentInfo().getFiles().getFilePath(fca.getIndex()));
-                        s1.countDown();
-                        s2.countDown();
+
+                        if (fca.getIndex() == 0) {
+                            s1.countDown();
+                        }
+
+                        if (fca.getIndex() == 1) {
+                            s2.countDown();
+                        }
                         break;
                     case STATE_CHANGED:
                         StateChangedAlert sca = (StateChangedAlert) ta;
                         System.out.println("State change: " + sca.getPrevState() + " -> " + sca.getState());
                     case TORRENT_FINISHED:
                         System.out.println("Torrent finished");
+
+                        if (s1.getCount() > 0) {
+                            s1.countDown();
+                        } else {
+                            s2.countDown();
+                        }
                         break;
                 }
             }
