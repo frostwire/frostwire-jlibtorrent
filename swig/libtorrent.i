@@ -785,6 +785,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(incoming_connection_alert)
     CAST_ALERT_METHOD(add_torrent_alert)
     CAST_ALERT_METHOD(state_update_alert)
+    CAST_ALERT_METHOD(mmap_cache_alert)
     CAST_ALERT_METHOD(session_stats_alert)
     CAST_ALERT_METHOD(torrent_update_alert)
     CAST_ALERT_METHOD(rss_item_alert)
@@ -795,6 +796,9 @@ namespace libtorrent {
     CAST_ALERT_METHOD(i2p_alert)
     CAST_ALERT_METHOD(dht_outgoing_get_peers_alert)
     CAST_ALERT_METHOD(log_alert)
+    CAST_ALERT_METHOD(torrent_log_alert)
+    CAST_ALERT_METHOD(peer_log_alert)
+    CAST_ALERT_METHOD(lsd_error_alert)
     CAST_ALERT_METHOD(dht_stats_alert)
 
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)

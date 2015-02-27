@@ -209,6 +209,12 @@ public class TorrentAlertAdapter implements AlertListener {
     public void unwantedBlock(UnwantedBlockAlert alert) {
     }
 
+    public void torrentLog(TorrentLogAlert alert) {
+    }
+
+    public void peerLog(PeerLogAlert alert) {
+    }
+
     public void torrentPrioritize(TorrentPrioritizeAlert alert) {
     }
 

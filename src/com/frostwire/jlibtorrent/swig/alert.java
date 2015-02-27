@@ -404,6 +404,11 @@ public class alert {
     return (cPtr == 0) ? null : new state_update_alert(cPtr, false);
   }
 
+  public static mmap_cache_alert cast_to_mmap_cache_alert(alert alert) {
+    long cPtr = libtorrent_jni.alert_cast_to_mmap_cache_alert(alert.getCPtr(alert), alert);
+    return (cPtr == 0) ? null : new mmap_cache_alert(cPtr, false);
+  }
+
   public static session_stats_alert cast_to_session_stats_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_session_stats_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new session_stats_alert(cPtr, false);
@@ -452,6 +457,21 @@ public class alert {
   public static log_alert cast_to_log_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_log_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new log_alert(cPtr, false);
+  }
+
+  public static torrent_log_alert cast_to_torrent_log_alert(alert alert) {
+    long cPtr = libtorrent_jni.alert_cast_to_torrent_log_alert(alert.getCPtr(alert), alert);
+    return (cPtr == 0) ? null : new torrent_log_alert(cPtr, false);
+  }
+
+  public static peer_log_alert cast_to_peer_log_alert(alert alert) {
+    long cPtr = libtorrent_jni.alert_cast_to_peer_log_alert(alert.getCPtr(alert), alert);
+    return (cPtr == 0) ? null : new peer_log_alert(cPtr, false);
+  }
+
+  public static lsd_error_alert cast_to_lsd_error_alert(alert alert) {
+    long cPtr = libtorrent_jni.alert_cast_to_lsd_error_alert(alert.getCPtr(alert), alert);
+    return (cPtr == 0) ? null : new lsd_error_alert(cPtr, false);
   }
 
   public static dht_stats_alert cast_to_dht_stats_alert(alert alert) {

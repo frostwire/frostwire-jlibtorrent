@@ -1017,6 +1017,7 @@ public final class Session {
         CAST_ALERT_METHOD(incoming_connection_alert.class, map);
         CAST_ALERT_METHOD(add_torrent_alert.class, map);
         CAST_ALERT_METHOD(state_update_alert.class, map);
+        CAST_ALERT_METHOD(mmap_cache_alert.class, map);
         CAST_ALERT_METHOD(session_stats_alert.class, map);
         CAST_ALERT_METHOD(torrent_update_alert.class, map);
         CAST_ALERT_METHOD(rss_item_alert.class, map);
@@ -1027,6 +1028,9 @@ public final class Session {
         CAST_ALERT_METHOD(i2p_alert.class, map);
         CAST_ALERT_METHOD(dht_outgoing_get_peers_alert.class, map);
         CAST_ALERT_METHOD(log_alert.class, map);
+        CAST_ALERT_METHOD(torrent_log_alert.class, map);
+        CAST_ALERT_METHOD(peer_log_alert.class, map);
+        CAST_ALERT_METHOD(lsd_error_alert.class, map);
         CAST_ALERT_METHOD(dht_stats_alert.class, map);
 
         CAST_ALERT_METHOD(dht_get_peers_reply_alert.class, map);

@@ -13,7 +13,7 @@ import com.frostwire.jlibtorrent.swig.log_alert;
  * @author gubatron
  * @author aldenml
  */
-public abstract class LogAlert extends AbstractAlert<log_alert> {
+public final class LogAlert extends AbstractAlert<log_alert> {
 
     public LogAlert(log_alert alert) {
         super(alert);
