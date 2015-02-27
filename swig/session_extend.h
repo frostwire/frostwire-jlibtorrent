@@ -41,6 +41,29 @@ struct dht_get_peers_reply_alert: alert {
 	std::vector<tcp::endpoint> peers;
 };
 
+struct set_piece_hashes_alert: alert {
+
+	set_piece_hashes_alert(std::string const& id, int progress, int num_pieces)
+		: id(id),
+		  progress(progress),
+		  num_pieces(num_pieces){
+	}
+
+	TORRENT_DEFINE_ALERT(set_piece_hashes_alert, user_alert_id + 101);
+
+	const static int static_category = alert::progress_notification;
+
+	std::string message() const {
+    	char msg[200];
+    	snprintf(msg, sizeof(msg), "creating torrent %s, piece hash progress %d/%d", id.c_str(), progress, num_pieces);
+    	return msg;
+    }
+
+	std::string id;
+	int progress;
+	int num_pieces;
+};
+
 }
 
 void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
@@ -115,4 +138,17 @@ void dht_announce(session* s, sha1_hash const& info_hash) {
     if (s->get_settings().get_bool(settings_pack::enable_incoming_utp)) flags |= dht::dht_tracker::flag_implied_port;
 
 	dht_announce(s, info_hash, port, flags);
+}
+
+void set_piece_hashes_fun(int i, boost::shared_ptr<aux::session_impl> s, std::string& id, int num_pieces) {
+	if (s->m_alerts.should_post<set_piece_hashes_alert>()) {
+        s->m_alerts.post_alert(set_piece_hashes_alert(id, i + 1, num_pieces));
+    }
+}
+
+void set_piece_hashes_with_progress(session* s, std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
+
+    boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
+
+	set_piece_hashes(t, p, boost::bind(&set_piece_hashes_fun, _1, s_impl, id, t.num_pieces()), ec);
 }

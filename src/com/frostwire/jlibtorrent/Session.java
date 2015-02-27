@@ -1034,6 +1034,7 @@ public final class Session {
         CAST_ALERT_METHOD(dht_stats_alert.class, map);
 
         CAST_ALERT_METHOD(dht_get_peers_reply_alert.class, map);
+        CAST_ALERT_METHOD(set_piece_hashes_alert.class, map);
 
         return Collections.unmodifiableMap(map);
     }

@@ -321,6 +321,10 @@ public class session {
     libtorrent_jni.session_dht_announce__SWIG_1(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash);
   }
 
+  public void set_piece_hashes_with_progress(String id, create_torrent t, String p, error_code ec) {
+    libtorrent_jni.session_set_piece_hashes_with_progress(swigCPtr, this, id, create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
+  }
+
   public enum save_state_flags_t {
     save_settings(libtorrent_jni.session_save_settings_get()),
     save_dht_settings(libtorrent_jni.session_save_dht_settings_get()),

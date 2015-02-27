@@ -243,6 +243,7 @@ public:
                                sig.data());
     }
 };
+
 %}
 
 %exception {
@@ -802,6 +803,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_stats_alert)
 
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)
+    CAST_ALERT_METHOD(set_piece_hashes_alert)
 };
 
 %extend entry {
@@ -880,6 +882,29 @@ static const int user_alert_id = 10000;
 
         sha1_hash info_hash;
         std::vector<tcp::endpoint> peers;
+    };
+
+    struct set_piece_hashes_alert: alert {
+
+    	set_piece_hashes_alert(std::string const& id, int progress, int num_pieces)
+    		: id(id),
+    		  progress(progress),
+    		  num_pieces(num_pieces){
+    	}
+
+    	TORRENT_DEFINE_ALERT(set_piece_hashes_alert, user_alert_id + 101);
+
+    	static const int static_category = alert::progress_notification;
+
+    	std::string message() const {
+        	char msg[200];
+        	snprintf(msg, sizeof(msg), "creating torrent %s, piece hash progress %d/%d", id.c_str(), progress, num_pieces);
+        	return msg;
+        }
+
+    	std::string id;
+    	int progress;
+    	int num_pieces;
     };
 
 %extend dht_mutable_item_alert {
@@ -969,3 +994,4 @@ public:
 
     static void sign_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig);
 };
+

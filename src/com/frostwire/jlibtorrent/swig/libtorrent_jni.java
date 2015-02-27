@@ -1568,6 +1568,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_lsd_error_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_get_peers_reply_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_set_piece_hashes_alert(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
   public final static native int user_alert_id_get();
   public final static native int torrent_alert_alert_type_get();
@@ -3205,6 +3206,7 @@ public class libtorrent_jni {
   public final static native void session_dht_get_peers(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void session_dht_announce__SWIG_0(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_, int jarg3, int jarg4);
   public final static native void session_dht_announce__SWIG_1(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void session_set_piece_hashes_with_progress(long jarg1, session jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
   public final static native void pool_file_status_file_index_set(long jarg1, pool_file_status jarg1_, int jarg2);
   public final static native int pool_file_status_file_index_get(long jarg1, pool_file_status jarg1_);
   public final static native void pool_file_status_last_use_set(long jarg1, pool_file_status jarg1_, long jarg2, ptime jarg2_);
@@ -3367,6 +3369,20 @@ public class libtorrent_jni {
   public final static native void dht_get_peers_reply_alert_peers_set(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
   public final static native long dht_get_peers_reply_alert_peers_get(long jarg1, dht_get_peers_reply_alert jarg1_);
   public final static native void delete_dht_get_peers_reply_alert(long jarg1);
+  public final static native long new_set_piece_hashes_alert(String jarg1, int jarg2, int jarg3);
+  public final static native int set_piece_hashes_alert_alert_type_get();
+  public final static native int set_piece_hashes_alert_type(long jarg1, set_piece_hashes_alert jarg1_);
+  public final static native int set_piece_hashes_alert_category(long jarg1, set_piece_hashes_alert jarg1_);
+  public final static native String set_piece_hashes_alert_what(long jarg1, set_piece_hashes_alert jarg1_);
+  public final static native int set_piece_hashes_alert_static_category_get();
+  public final static native String set_piece_hashes_alert_message(long jarg1, set_piece_hashes_alert jarg1_);
+  public final static native void set_piece_hashes_alert_id_set(long jarg1, set_piece_hashes_alert jarg1_, String jarg2);
+  public final static native String set_piece_hashes_alert_id_get(long jarg1, set_piece_hashes_alert jarg1_);
+  public final static native void set_piece_hashes_alert_progress_set(long jarg1, set_piece_hashes_alert jarg1_, int jarg2);
+  public final static native int set_piece_hashes_alert_progress_get(long jarg1, set_piece_hashes_alert jarg1_);
+  public final static native void set_piece_hashes_alert_num_pieces_set(long jarg1, set_piece_hashes_alert jarg1_, int jarg2);
+  public final static native int set_piece_hashes_alert_num_pieces_get(long jarg1, set_piece_hashes_alert jarg1_);
+  public final static native void delete_set_piece_hashes_alert(long jarg1);
   public final static native boolean sha1_bloom_filter_find(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void sha1_bloom_filter_set(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native String sha1_bloom_filter_to_string(long jarg1, sha1_bloom_filter jarg1_);
@@ -3486,4 +3502,5 @@ public class libtorrent_jni {
   public final static native long peer_connection_SWIGSmartPtrUpcast(long jarg1);
   public final static native long web_seed_t_SWIGUpcast(long jarg1);
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
+  public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
 }
