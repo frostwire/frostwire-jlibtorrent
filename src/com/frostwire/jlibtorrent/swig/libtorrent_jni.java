@@ -1540,7 +1540,6 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_peer_blocked_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_announce_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_get_peers_alert(long jarg1, alert jarg1_);
-  public final static native long alert_cast_to_dht_outgoing_get_peers_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_cache_flushed_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_anonymous_mode_alert(long jarg1, alert jarg1_);
@@ -1561,6 +1560,8 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_dht_mutable_item_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_put_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_i2p_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_dht_outgoing_get_peers_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_log_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_get_peers_reply_alert(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);

@@ -773,7 +773,6 @@ namespace libtorrent {
     CAST_ALERT_METHOD(peer_blocked_alert)
     CAST_ALERT_METHOD(dht_announce_alert)
     CAST_ALERT_METHOD(dht_get_peers_alert)
-    CAST_ALERT_METHOD(dht_outgoing_get_peers_alert)
     CAST_ALERT_METHOD(stats_alert)
     CAST_ALERT_METHOD(cache_flushed_alert)
     CAST_ALERT_METHOD(anonymous_mode_alert)
@@ -794,6 +793,8 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_mutable_item_alert)
     CAST_ALERT_METHOD(dht_put_alert)
     CAST_ALERT_METHOD(i2p_alert)
+    CAST_ALERT_METHOD(dht_outgoing_get_peers_alert)
+    CAST_ALERT_METHOD(log_alert)
     CAST_ALERT_METHOD(dht_stats_alert)
 
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)

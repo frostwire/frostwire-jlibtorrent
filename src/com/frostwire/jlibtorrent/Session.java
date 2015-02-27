@@ -1005,7 +1005,6 @@ public final class Session {
         CAST_ALERT_METHOD(peer_blocked_alert.class, map);
         CAST_ALERT_METHOD(dht_announce_alert.class, map);
         CAST_ALERT_METHOD(dht_get_peers_alert.class, map);
-        CAST_ALERT_METHOD(dht_outgoing_get_peers_alert.class, map);
         CAST_ALERT_METHOD(stats_alert.class, map);
         CAST_ALERT_METHOD(cache_flushed_alert.class, map);
         CAST_ALERT_METHOD(anonymous_mode_alert.class, map);
@@ -1026,6 +1025,8 @@ public final class Session {
         CAST_ALERT_METHOD(dht_mutable_item_alert.class, map);
         CAST_ALERT_METHOD(dht_put_alert.class, map);
         CAST_ALERT_METHOD(i2p_alert.class, map);
+        CAST_ALERT_METHOD(dht_outgoing_get_peers_alert.class, map);
+        CAST_ALERT_METHOD(log_alert.class, map);
         CAST_ALERT_METHOD(dht_stats_alert.class, map);
 
         CAST_ALERT_METHOD(dht_get_peers_reply_alert.class, map);
