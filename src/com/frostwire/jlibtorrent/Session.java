@@ -754,6 +754,10 @@ public final class Session {
         return new SessionStats(lastStatsValues, lastDHTNodes);
     }
 
+    public void setPieceHashes(String id, create_torrent t, String p, error_code ec) {
+        s.set_piece_hashes_with_progress(id, t, p, ec);
+    }
+
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
