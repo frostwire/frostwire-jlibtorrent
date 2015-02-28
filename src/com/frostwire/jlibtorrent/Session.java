@@ -755,7 +755,7 @@ public final class Session {
     }
 
     public void setPieceHashes(String id, create_torrent t, String p, error_code ec) {
-        s.set_piece_hashes_with_progress(id, t, p, ec);
+        s.set_piece_hashes(id, t, p, ec);
     }
 
     @Override

@@ -8,6 +8,7 @@
 %}
 
 %rename(posix_time_duration) boost::posix_time::time_duration;
+%rename(boost_system_category) boost::system::system_category;
 
 namespace boost {
 

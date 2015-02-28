@@ -146,7 +146,7 @@ void set_piece_hashes_fun(int i, boost::shared_ptr<aux::session_impl> s, std::st
     }
 }
 
-void set_piece_hashes_with_progress(session* s, std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
+void set_piece_hashes(session* s, std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
 
     boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
 

@@ -32,6 +32,7 @@
 #include "libtorrent/rss.hpp"
 #include "libtorrent/operations.hpp"
 #include "libtorrent/performance_counters.hpp"
+#include "libtorrent/close_reason.hpp"
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
 #include "libtorrent/alert_manager.hpp"
@@ -576,6 +577,9 @@ namespace std {
 %ignore libtorrent::peer_plugin::on_unknown_message;
 %ignore libtorrent::lazy_entry::dict_find(char const *) const;
 %ignore libtorrent::lazy_entry::list_at(int) const;
+%ignore libtorrent::lazy_entry::dict_find(std::string const &);
+%ignore libtorrent::lazy_entry::dict_find(std::string const &) const;
+%ignore libtorrent::lazy_entry::dict_find_dict(std::string const &) const;
 %ignore libtorrent::block_info::peer;
 %ignore libtorrent::lazy_dict_entry;
 %ignore libtorrent::disabled_storage;
@@ -669,6 +673,7 @@ namespace std {
 %include "libtorrent/rss.hpp"
 %include "libtorrent/operations.hpp"
 %include "libtorrent/performance_counters.hpp"
+%include "libtorrent/close_reason.hpp"
 %include "libtorrent/alert.hpp"
 %include "libtorrent/alert_types.hpp"
 %include "libtorrent/alert_manager.hpp"

@@ -89,7 +89,7 @@ public class lazy_entry {
   }
 
   public lazy_entry dict_find(String name) {
-    long cPtr = libtorrent_jni.lazy_entry_dict_find__SWIG_0(swigCPtr, this, name);
+    long cPtr = libtorrent_jni.lazy_entry_dict_find(swigCPtr, this, name);
     return (cPtr == 0) ? null : new lazy_entry(cPtr, false);
   }
 
@@ -120,7 +120,7 @@ public class lazy_entry {
   }
 
   public lazy_entry dict_find_dict(String name) {
-    long cPtr = libtorrent_jni.lazy_entry_dict_find_dict__SWIG_0(swigCPtr, this, name);
+    long cPtr = libtorrent_jni.lazy_entry_dict_find_dict(swigCPtr, this, name);
     return (cPtr == 0) ? null : new lazy_entry(cPtr, false);
   }
 

@@ -29,8 +29,8 @@ public class libtorrent implements libtorrentConstants {
     return new time_duration(libtorrent_jni.hours(arg0), true);
   }
 
-  public static error_category system_category() {
-    return new error_category(libtorrent_jni.system_category(), false);
+  public static error_category boost_system_category() {
+    return new error_category(libtorrent_jni.boost_system_category(), false);
   }
 
   public static error_category generic_category() {
@@ -97,6 +97,10 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_http_category(), false);
   }
 
+  public static error_category system_category() {
+    return new error_category(libtorrent_jni.system_category(), false);
+  }
+
   public static error_category get_posix_category() {
     return new error_category(libtorrent_jni.get_posix_category(), false);
   }
@@ -111,6 +115,10 @@ public class libtorrent implements libtorrentConstants {
 
   public static torrent_handle add_feed_item(session s, feed_item fi, add_torrent_params p, error_code ec) {
     return new torrent_handle(libtorrent_jni.add_feed_item__SWIG_1(session.getCPtr(s), s, feed_item.getCPtr(fi), fi, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static close_reason_t error_to_close_reason(error_code ec) {
+    return close_reason_t.swigToEnum(libtorrent_jni.error_to_close_reason(error_code.getCPtr(ec), ec));
   }
 
   public static String operation_name(int op) {

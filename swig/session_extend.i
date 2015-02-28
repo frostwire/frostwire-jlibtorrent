@@ -54,8 +54,8 @@ namespace libtorrent {
         dht_announce($self, info_hash);
     }
 
-    void set_piece_hashes_with_progress(std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
-        set_piece_hashes_with_progress($self, id, t, p, ec);
+    void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
+        set_piece_hashes($self, id, t, p, ec);
     }
 };
 

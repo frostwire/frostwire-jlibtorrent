@@ -640,7 +640,7 @@ public class libtorrent_jni {
   public final static native boolean error_category_op_eq(long jarg1, error_category jarg1_, long jarg2, error_category jarg2_);
   public final static native boolean error_category_op_neq(long jarg1, error_category jarg1_, long jarg2, error_category jarg2_);
   public final static native boolean error_category_op_lt(long jarg1, error_category jarg1_, long jarg2, error_category jarg2_);
-  public final static native long system_category();
+  public final static native long boost_system_category();
   public final static native long generic_category();
   public final static native long new_error_condition__SWIG_0();
   public final static native long new_error_condition__SWIG_1(int jarg1, long jarg2, error_category jarg2_);
@@ -682,6 +682,7 @@ public class libtorrent_jni {
   public final static native String LIBTORRENT_REVISION_get();
   public final static native long get_libtorrent_category();
   public final static native long get_http_category();
+  public final static native long system_category();
   public final static native long get_posix_category();
   public final static native long new_storage_error__SWIG_0();
   public final static native long new_storage_error__SWIG_1(long jarg1, error_code jarg1_);
@@ -1458,6 +1459,9 @@ public class libtorrent_jni {
   public final static native void counters_set_value(long jarg1, counters jarg1_, int jarg2, long jarg3);
   public final static native void counters_blend_stats_counter(long jarg1, counters jarg1_, int jarg2, long jarg3, int jarg4);
   public final static native void delete_counters(long jarg1);
+  public final static native int close_no_reason_get();
+  public final static native int close_encryption_error_get();
+  public final static native int error_to_close_reason(long jarg1, error_code jarg1_);
   public final static native int TORRENT_MAX_ALERT_TYPES_get();
   public final static native int alert_error_notification_get();
   public final static native int alert_peer_notification_get();
@@ -1813,7 +1817,7 @@ public class libtorrent_jni {
   public final static native void peer_connect_alert_socket_type_set(long jarg1, peer_connect_alert jarg1_, int jarg2);
   public final static native int peer_connect_alert_socket_type_get(long jarg1, peer_connect_alert jarg1_);
   public final static native void delete_peer_connect_alert(long jarg1);
-  public final static native long new_peer_disconnected_alert(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, long jarg3, sha1_hash jarg3_, int jarg4, int jarg5, long jarg6, error_code jarg6_);
+  public final static native long new_peer_disconnected_alert(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, long jarg3, sha1_hash jarg3_, int jarg4, int jarg5, long jarg6, error_code jarg6_, int jarg7);
   public final static native int peer_disconnected_alert_alert_type_get();
   public final static native int peer_disconnected_alert_type(long jarg1, peer_disconnected_alert jarg1_);
   public final static native int peer_disconnected_alert_category(long jarg1, peer_disconnected_alert jarg1_);
@@ -1826,6 +1830,8 @@ public class libtorrent_jni {
   public final static native int peer_disconnected_alert_operation_get(long jarg1, peer_disconnected_alert jarg1_);
   public final static native void peer_disconnected_alert_error_set(long jarg1, peer_disconnected_alert jarg1_, long jarg2, error_code jarg2_);
   public final static native long peer_disconnected_alert_error_get(long jarg1, peer_disconnected_alert jarg1_);
+  public final static native void peer_disconnected_alert_reason_set(long jarg1, peer_disconnected_alert jarg1_, int jarg2);
+  public final static native int peer_disconnected_alert_reason_get(long jarg1, peer_disconnected_alert jarg1_);
   public final static native void delete_peer_disconnected_alert(long jarg1);
   public final static native long new_invalid_request_alert(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, long jarg3, sha1_hash jarg3_, long jarg4, peer_request jarg4_);
   public final static native int invalid_request_alert_alert_type_get();
@@ -3206,7 +3212,7 @@ public class libtorrent_jni {
   public final static native void session_dht_get_peers(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void session_dht_announce__SWIG_0(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_, int jarg3, int jarg4);
   public final static native void session_dht_announce__SWIG_1(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
-  public final static native void session_set_piece_hashes_with_progress(long jarg1, session jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
+  public final static native void session_set_piece_hashes(long jarg1, session jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
   public final static native void pool_file_status_file_index_set(long jarg1, pool_file_status jarg1_, int jarg2);
   public final static native int pool_file_status_file_index_get(long jarg1, pool_file_status jarg1_);
   public final static native void pool_file_status_last_use_set(long jarg1, pool_file_status jarg1_, long jarg2, ptime jarg2_);
@@ -3247,14 +3253,14 @@ public class libtorrent_jni {
   public final static native void lazy_entry_construct_dict(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native long lazy_entry_dict_append(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native void lazy_entry_pop(long jarg1, lazy_entry jarg1_);
-  public final static native long lazy_entry_dict_find__SWIG_0(long jarg1, lazy_entry jarg1_, String jarg2);
+  public final static native long lazy_entry_dict_find(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native long lazy_entry_dict_find_string(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native String lazy_entry_dict_find_string_value(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native long lazy_entry_dict_find_pstr(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native long lazy_entry_dict_find_int_value__SWIG_0(long jarg1, lazy_entry jarg1_, String jarg2, long jarg3);
   public final static native long lazy_entry_dict_find_int_value__SWIG_1(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native long lazy_entry_dict_find_int(long jarg1, lazy_entry jarg1_, String jarg2);
-  public final static native long lazy_entry_dict_find_dict__SWIG_0(long jarg1, lazy_entry jarg1_, String jarg2);
+  public final static native long lazy_entry_dict_find_dict(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native long lazy_entry_dict_find_list(long jarg1, lazy_entry jarg1_, String jarg2);
   public final static native long lazy_entry_dict_at(long jarg1, lazy_entry jarg1_, int jarg2);
   public final static native int lazy_entry_dict_size(long jarg1, lazy_entry jarg1_);
