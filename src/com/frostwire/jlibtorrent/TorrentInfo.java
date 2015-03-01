@@ -24,7 +24,13 @@ public final class TorrentInfo {
         lazy_entry lentry = new lazy_entry();
         error_code ec = new error_code();
         lazy_entry.bdecode(Vectors.bytes2char_vector(bencodedBytes), lentry, ec);
-        this.ti = new torrent_info(lentry);
+
+        if (ec.value() != 0) {
+            this.ti = null;
+            throw new RuntimeException(ec.message());
+        } else {
+            this.ti = new torrent_info(lentry);
+        }
     }
 
     /**
