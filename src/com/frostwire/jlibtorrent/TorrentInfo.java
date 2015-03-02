@@ -20,6 +20,18 @@ public final class TorrentInfo {
         this.ti = ti;
     }
 
+    public TorrentInfo(byte[] bencodedBytes) {
+        lazy_entry lentry = new lazy_entry();
+        error_code ec = new error_code();
+        lazy_entry.bdecode(Vectors.bytes2char_vector(bencodedBytes), lentry, ec);
+
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        } else {
+            this.ti = new torrent_info(lentry);
+        }
+    }
+
     /**
      * Load the torrent file and decode it inside the constructor, for convenience.
      * <p/>
