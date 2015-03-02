@@ -137,9 +137,17 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.peer_priority(tcp_endpoint.getCPtr(e1), e1, tcp_endpoint.getCPtr(e2), e2);
   }
 
+  public static void initialize_default_settings(session_settings s) {
+    libtorrent_jni.initialize_default_settings(session_settings.getCPtr(s), s);
+  }
+
   public static settings_pack load_pack_from_dict(lazy_entry settings) {
     long cPtr = libtorrent_jni.load_pack_from_dict(lazy_entry.getCPtr(settings), settings);
     return (cPtr == 0) ? null : new settings_pack(cPtr, false);
+  }
+
+  public static void save_settings_to_dict(session_settings s, string_entry_map sett) {
+    libtorrent_jni.save_settings_to_dict(session_settings.getCPtr(s), s, string_entry_map.getCPtr(sett), sett);
   }
 
   public static int setting_by_name(String name) {

@@ -45,6 +45,7 @@
 #include "libtorrent/peer_connection.hpp"
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
+#include "libtorrent/aux_/session_settings.hpp"
 #include "libtorrent/settings_pack.hpp"
 #include "libtorrent/peer_class.hpp"
 #include "libtorrent/peer_class_type_filter.hpp"
@@ -470,7 +471,6 @@ namespace std {
 %ignore libtorrent::session::dht_get_item(boost::array<char, 32>);
 %ignore libtorrent::session::add_extension;
 %ignore libtorrent::session::set_load_function;
-%ignore libtorrent::session::get_settings;
 %ignore libtorrent::peer_connection::peer_connection;
 %ignore libtorrent::peer_connection::incoming_piece;
 %ignore libtorrent::peer_connection::send_buffer;
@@ -597,7 +597,6 @@ namespace std {
 %ignore libtorrent::clear_bufs;
 %ignore libtorrent::copy_bufs;
 %ignore libtorrent::apply_pack;
-%ignore libtorrent::save_settings_to_dict;
 %ignore libtorrent::storage_error::operator bool() const;
 
 %ignore libtorrent::detail::nop;
@@ -689,6 +688,7 @@ namespace std {
 %include "libtorrent/peer_connection.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
+%include "libtorrent/aux_/session_settings.hpp"
 %include "libtorrent/settings_pack.hpp"
 %include "libtorrent/peer_class.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"

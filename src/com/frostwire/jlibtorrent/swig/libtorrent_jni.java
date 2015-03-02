@@ -3003,7 +3003,17 @@ public class libtorrent_jni {
   public final static native void dht_settings_block_ratelimit_set(long jarg1, dht_settings jarg1_, int jarg2);
   public final static native int dht_settings_block_ratelimit_get(long jarg1, dht_settings jarg1_);
   public final static native void delete_dht_settings(long jarg1);
+  public final static native void initialize_default_settings(long jarg1, session_settings jarg1_);
+  public final static native void session_settings_set_str(long jarg1, session_settings jarg1_, int jarg2, String jarg3);
+  public final static native String session_settings_get_str(long jarg1, session_settings jarg1_, int jarg2);
+  public final static native void session_settings_set_int(long jarg1, session_settings jarg1_, int jarg2, int jarg3);
+  public final static native int session_settings_get_int(long jarg1, session_settings jarg1_, int jarg2);
+  public final static native void session_settings_set_bool(long jarg1, session_settings jarg1_, int jarg2, boolean jarg3);
+  public final static native boolean session_settings_get_bool(long jarg1, session_settings jarg1_, int jarg2);
+  public final static native long new_session_settings();
+  public final static native void delete_session_settings(long jarg1);
   public final static native long load_pack_from_dict(long jarg1, lazy_entry jarg1_);
+  public final static native void save_settings_to_dict(long jarg1, session_settings jarg1_, long jarg2, string_entry_map jarg2_);
   public final static native int setting_by_name(String jarg1);
   public final static native String name_for_setting(int jarg1);
   public final static native void settings_pack_set_str(long jarg1, settings_pack jarg1_, int jarg2, String jarg3);
@@ -3190,6 +3200,7 @@ public class libtorrent_jni {
   public final static native void session_remove_torrent__SWIG_0(long jarg1, session jarg1_, long jarg2, torrent_handle jarg2_, int jarg3);
   public final static native void session_remove_torrent__SWIG_1(long jarg1, session jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native void session_apply_settings(long jarg1, session jarg1_, long jarg2, settings_pack jarg2_);
+  public final static native long session_get_settings(long jarg1, session jarg1_);
   public final static native long session_pop_alert(long jarg1, session jarg1_);
   public final static native void session_pop_alerts(long jarg1, session jarg1_, long jarg2, alert_ptr_deque jarg2_);
   public final static native long session_wait_for_alert(long jarg1, session jarg1_, long jarg2, time_duration jarg2_);

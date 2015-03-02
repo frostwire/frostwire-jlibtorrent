@@ -263,6 +263,10 @@ public class session {
     libtorrent_jni.session_apply_settings(swigCPtr, this, settings_pack.getCPtr(s), s);
   }
 
+  public session_settings get_settings() {
+    return new session_settings(libtorrent_jni.session_get_settings(swigCPtr, this), true);
+  }
+
   public alert pop_alert() {
      long cPtr = libtorrent_jni.session_pop_alert(swigCPtr, this);
      return (cPtr == 0) ? null : new alert(cPtr, true);

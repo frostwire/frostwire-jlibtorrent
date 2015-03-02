@@ -34,4 +34,12 @@ public final class SettingsPack {
     public void setBoolean(int name, boolean value) {
         sp.set_bool(name, value);
     }
+
+    public int getInteger(int name) {
+        return sp.get_int(name);
+    }
+
+    public void setInteger(int name, int value) {
+        sp.set_int(name, value);
+    }
 }
