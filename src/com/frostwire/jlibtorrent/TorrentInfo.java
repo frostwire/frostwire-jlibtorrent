@@ -26,8 +26,7 @@ public final class TorrentInfo {
         lazy_entry.bdecode(Vectors.bytes2char_vector(bencodedBytes), lentry, ec);
 
         if (ec.value() != 0) {
-            this.ti = null;
-            throw new RuntimeException(ec.message());
+            throw new IllegalArgumentException(ec.message());
         } else {
             this.ti = new torrent_info(lentry);
         }
