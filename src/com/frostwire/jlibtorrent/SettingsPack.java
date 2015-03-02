@@ -42,4 +42,12 @@ public final class SettingsPack {
     public void setInteger(int name, int value) {
         sp.set_int(name, value);
     }
+
+    public String getString(int name) {
+        return sp.get_str(name);
+    }
+
+    public void setString(int name, String value) {
+        sp.set_str(name, value);
+    }
 }
