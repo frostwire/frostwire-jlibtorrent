@@ -417,6 +417,7 @@ namespace std {
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
 %ignore libtorrent::peer_connection_args;
+%ignore libtorrent::peer_class_pool;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -597,6 +598,7 @@ namespace std {
 %ignore libtorrent::copy_bufs;
 %ignore libtorrent::apply_pack;
 %ignore libtorrent::save_settings_to_dict;
+%ignore libtorrent::storage_error::operator bool() const;
 
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::session::m_impl;
@@ -604,6 +606,7 @@ namespace std {
 %ignore libtorrent::cached_piece_info::storage;
 %ignore libtorrent::peer_class::priority;
 %ignore libtorrent::peer_class::channel;
+%ignore libtorrent::peer_class_pool::at(libtorrent::peer_class_t) const;
 %ignore libtorrent::torrent_peer::connection;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::announce_entry::failed;

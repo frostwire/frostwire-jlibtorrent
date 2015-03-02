@@ -3068,12 +3068,6 @@ public class libtorrent_jni {
   public final static native void peer_class_label_set(long jarg1, peer_class jarg1_, String jarg2);
   public final static native String peer_class_label_get(long jarg1, peer_class jarg1_);
   public final static native void delete_peer_class(long jarg1);
-  public final static native short peer_class_pool_new_peer_class(long jarg1, peer_class_pool jarg1_, String jarg2);
-  public final static native void peer_class_pool_decref(long jarg1, peer_class_pool jarg1_, short jarg2);
-  public final static native void peer_class_pool_incref(long jarg1, peer_class_pool jarg1_, short jarg2);
-  public final static native long peer_class_pool_at__SWIG_0(long jarg1, peer_class_pool jarg1_, short jarg2);
-  public final static native long new_peer_class_pool();
-  public final static native void delete_peer_class_pool(long jarg1);
   public final static native long new_peer_class_type_filter();
   public final static native int peer_class_type_filter_tcp_socket_get();
   public final static native void peer_class_type_filter_add(long jarg1, peer_class_type_filter jarg1_, int jarg2, int jarg3);
