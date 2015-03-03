@@ -38,8 +38,7 @@ public final class Session {
     private final session s;
 
     private long lastStatsRequestTime;
-    private long[] lastStatsValues;
-    private long lastDHTNodes;
+    private SessionStats.StatsSnapshot[] lastStats;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
@@ -51,6 +50,8 @@ public final class Session {
         int alert_mask = alert.category_t.all_categories.swigValue();
 
         this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
+
+        lastStats = new SessionStats.StatsSnapshot[2];
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -751,7 +752,11 @@ public final class Session {
     }
 
     public SessionStats getStats() {
-        return new SessionStats(lastStatsValues, lastDHTNodes);
+        return new SessionStats(lastStats);
+    }
+
+    public SessionSettings getSettings() {
+        return new SessionSettings(s.get_settings());
     }
 
     public void setPieceHashes(String id, create_torrent t, String p, error_code ec) {
@@ -852,12 +857,9 @@ public final class Session {
 
                             if (type == AlertType.SESSION_STATS.getSwig()) {
                                 alert = castAlert(swigAlert);
-                                lastStatsValues = ((SessionStatsAlert) alert).getValues();
-                            }
-
-                            if (type == AlertType.DHT_STATS.getSwig()) {
-                                alert = castAlert(swigAlert);
-                                lastDHTNodes = countDHTNodes((DhtStatsAlert) alert);
+                                SessionStats.StatsSnapshot snapshot = new SessionStats.StatsSnapshot((SessionStatsAlert) alert);
+                                lastStats[0] = lastStats[1];
+                                lastStats[1] = snapshot;
                             }
 
                             if (listeners.indexOfKey(type) >= 0) {
@@ -868,7 +870,6 @@ public final class Session {
                             }
 
                             if (type != AlertType.SESSION_STATS.getSwig() &&
-                                    type != AlertType.DHT_STATS.getSwig() &&
                                     listeners.indexOfKey(-1) >= 0) {
                                 if (alert == null) {
                                     alert = castAlert(swigAlert);
@@ -883,7 +884,6 @@ public final class Session {
                     if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
                         lastStatsRequestTime = now;
                         postSessionStats();
-                        postDHTStats();
                     }
                 }
             }
