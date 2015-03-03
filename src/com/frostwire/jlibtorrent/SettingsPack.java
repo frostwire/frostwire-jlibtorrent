@@ -51,27 +51,59 @@ public final class SettingsPack {
         sp.set_str(name, value);
     }
 
-    public void setDownloadRateLimit(int limit) {
-        sp.set_int(settings_pack.int_types.download_rate_limit.swigValue(), limit);
+    public void setDownloadRateLimit(int value) {
+        sp.set_int(settings_pack.int_types.download_rate_limit.swigValue(), value);
     }
 
-    public void setUploadRateLimit(int limit) {
-        sp.set_int(settings_pack.int_types.upload_rate_limit.swigValue(), limit);
+    public void setUploadRateLimit(int value) {
+        sp.set_int(settings_pack.int_types.upload_rate_limit.swigValue(), value);
     }
 
-    public void setActiveDownloads(int limit) {
-        sp.set_int(settings_pack.int_types.active_downloads.swigValue(), limit);
+    public void setActiveDownloads(int value) {
+        sp.set_int(settings_pack.int_types.active_downloads.swigValue(), value);
     }
 
-    public void setActiveSeeds(int limit) {
-        sp.set_int(settings_pack.int_types.active_seeds.swigValue(), limit);
+    public void setActiveSeeds(int value) {
+        sp.set_int(settings_pack.int_types.active_seeds.swigValue(), value);
     }
 
-    public void setConnectionsLimit(int limit) {
-        sp.set_int(settings_pack.int_types.connections_limit.swigValue(), limit);
+    public void setConnectionsLimit(int value) {
+        sp.set_int(settings_pack.int_types.connections_limit.swigValue(), value);
     }
 
-    public void setMaxPeerlistSize(int limit) {
-        sp.set_int(settings_pack.int_types.max_peerlist_size.swigValue(), limit);
+    public void setMaxPeerlistSize(int value) {
+        sp.set_int(settings_pack.int_types.max_peerlist_size.swigValue(), value);
+    }
+
+    public void setMaxQueuedDiskBytes(int value) {
+        sp.set_int(settings_pack.int_types.max_queued_disk_bytes.swigValue(), value);
+    }
+
+    public void setSendBufferWatermark(int value) {
+        sp.set_int(settings_pack.int_types.send_buffer_watermark.swigValue(), value);
+    }
+
+    public void setCacheSize(int value) {
+        sp.set_int(settings_pack.int_types.cache_size.swigValue(), value);
+    }
+
+    public void setUtpDynamicSockBuf(boolean value) {
+        sp.set_bool(settings_pack.bool_types.utp_dynamic_sock_buf.swigValue(), value);
+    }
+
+    public void setGuidedReadCache(boolean value) {
+        sp.set_bool(settings_pack.bool_types.guided_read_cache.swigValue(), value);
+    }
+
+    public void setTickInterval(int value) {
+        sp.set_int(settings_pack.int_types.tick_interval.swigValue(), value);
+    }
+
+    public void setInactivityTimeout(int value) {
+        sp.set_int(settings_pack.int_types.inactivity_timeout.swigValue(), value);
+    }
+
+    public void setSeedingOutgoingConnections(boolean value) {
+        sp.set_bool(settings_pack.bool_types.seeding_outgoing_connections.swigValue(), value);
     }
 }
