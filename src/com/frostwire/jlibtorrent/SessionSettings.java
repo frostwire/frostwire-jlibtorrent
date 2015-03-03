@@ -35,4 +35,20 @@ public final class SessionSettings {
     public int getSendBufferWatermark() {
         return s.get_int(settings_pack.int_types.send_buffer_watermark.swigValue());
     }
+
+    public int getActiveDownloads() {
+        return s.get_int(settings_pack.int_types.active_downloads.swigValue());
+    }
+
+    public int getActiveSeeds() {
+        return s.get_int(settings_pack.int_types.active_seeds.swigValue());
+    }
+
+    public int getConnectionsLimit() {
+        return s.get_int(settings_pack.int_types.connections_limit.swigValue());
+    }
+
+    public int getMaxPeerlistSize() {
+        return s.get_int(settings_pack.int_types.max_peerlist_size.swigValue());
+    }
 }

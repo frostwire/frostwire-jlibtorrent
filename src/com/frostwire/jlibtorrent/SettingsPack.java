@@ -50,4 +50,28 @@ public final class SettingsPack {
     public void setString(int name, String value) {
         sp.set_str(name, value);
     }
+
+    public void setDownloadRateLimit(int limit) {
+        sp.set_int(settings_pack.int_types.download_rate_limit.swigValue(), limit);
+    }
+
+    public void setUploadRateLimit(int limit) {
+        sp.set_int(settings_pack.int_types.upload_rate_limit.swigValue(), limit);
+    }
+
+    public void setActiveDownloads(int limit) {
+        sp.set_int(settings_pack.int_types.active_downloads.swigValue(), limit);
+    }
+
+    public void setActiveSeeds(int limit) {
+        sp.set_int(settings_pack.int_types.active_seeds.swigValue(), limit);
+    }
+
+    public void setConnectionsLimit(int limit) {
+        sp.set_int(settings_pack.int_types.connections_limit.swigValue(), limit);
+    }
+
+    public void setMaxPeerlistSize(int limit) {
+        sp.set_int(settings_pack.int_types.max_peerlist_size.swigValue(), limit);
+    }
 }
