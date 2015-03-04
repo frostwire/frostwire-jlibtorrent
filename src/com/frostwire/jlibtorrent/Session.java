@@ -38,7 +38,7 @@ public final class Session {
     private final session s;
 
     private long lastStatsRequestTime;
-    private SessionStats.StatsSnapshot[] lastStats;
+    private SessionStats lastStats;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
@@ -51,7 +51,7 @@ public final class Session {
 
         this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
 
-        lastStats = new SessionStats.StatsSnapshot[2];
+        this.lastStats = new SessionStats(0, null);
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -752,7 +752,7 @@ public final class Session {
     }
 
     public SessionStats getStats() {
-        return new SessionStats(lastStats);
+        return lastStats;
     }
 
     public SessionSettings getSettings() {
@@ -857,9 +857,7 @@ public final class Session {
 
                             if (type == AlertType.SESSION_STATS.getSwig()) {
                                 alert = castAlert(swigAlert);
-                                SessionStats.StatsSnapshot snapshot = new SessionStats.StatsSnapshot((SessionStatsAlert) alert);
-                                lastStats[0] = lastStats[1];
-                                lastStats[1] = snapshot;
+                                SessionStats lastStats = new SessionStats((SessionStatsAlert) alert);
                             }
 
                             if (listeners.indexOfKey(type) >= 0) {
