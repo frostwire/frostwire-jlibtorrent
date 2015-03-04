@@ -857,7 +857,7 @@ public final class Session {
 
                             if (type == AlertType.SESSION_STATS.getSwig()) {
                                 alert = castAlert(swigAlert);
-                                SessionStats lastStats = new SessionStats((SessionStatsAlert) alert);
+                                lastStats = new SessionStats((SessionStatsAlert) alert);
                             }
 
                             if (listeners.indexOfKey(type) >= 0) {
