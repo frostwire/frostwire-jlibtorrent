@@ -33,7 +33,7 @@ public final class DhtRouter {
         DHT dht = new DHT(s);
 
         System.out.println("Waiting for nodes in DHT");
-        dht.waitNodes(1);
+        Thread.sleep(5000);
         System.out.println("Nodes in DHT: " + dht.nodes());
     }
 

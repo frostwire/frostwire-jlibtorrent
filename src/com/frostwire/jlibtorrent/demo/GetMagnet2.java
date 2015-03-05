@@ -40,7 +40,7 @@ public final class GetMagnet2 {
         dht.getPeers("86d0502ead28e495c9e67665340f72aa72fe304");
 
         System.out.println("Waiting for nodes in DHT");
-        dht.waitNodes(1);
+        Thread.sleep(5000);
         System.out.println("Nodes in DHT: " + dht.nodes());
 
         add_torrent_params p = add_torrent_params.create_instance_no_storage();

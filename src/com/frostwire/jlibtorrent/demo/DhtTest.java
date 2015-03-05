@@ -67,8 +67,7 @@ public final class DhtTest {
 
         dht.getPeers("86d0502ead28e495c9e67665340f72aa72fe304");
 
-        Thread.sleep(4000);
-        dht.waitNodes(1);
+        Thread.sleep(5000);
 
         dht.announce("47d0502ead28e495c9e67665340f72aa72fe304", 9999, 0);
 
