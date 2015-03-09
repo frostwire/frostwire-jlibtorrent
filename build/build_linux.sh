@@ -1,12 +1,19 @@
 #!/bin/bash
 
+# Make sure these environment variables set.
 #$BOOST_ROOT
 #$LIBTORRENT_ROOT
 #$LIBTORRENT_LIBS
 
+# The first time you will need to build boost using the following 2 lines
 #export CXXFLAGS="-std=c++11 -O3 -fPIC -I$BOOST_ROOT"
 #$BOOST_ROOT/b2 variant=release link=static --stagedir=linux stage cxxflags=-fPIC cflags=-fPIC
+
+# After you've built boost, you should build libtorrent like this
 #$BOOST_ROOT/bjam toolset=gcc variant=release link=static deprecated-functions=off boost=source cxxflags=-fPIC cflags=-fPIC
+
+# All the lines above we leave commented as they're only needed as requirements to build frostwire-jlibtorrent
+# All further compilations will just need the script below.
 
 JDK_INCLUDE_1=/usr/lib/jvm/java-7-openjdk-amd64/include
 JDK_INCLUDE_2=/usr/lib/jvm/java-7-openjdk-amd64/include/linux
