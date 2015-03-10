@@ -47,14 +47,6 @@ public class torrent_peer {
     return libtorrent_jni.torrent_peer_total_upload(swigCPtr, this);
   }
 
-  public long rank(external_ip external, int external_port) {
-    return libtorrent_jni.torrent_peer_rank(swigCPtr, this, external_ip.getCPtr(external), external, external_port);
-  }
-
-  public address address() {
-    return new address(libtorrent_jni.torrent_peer_address(swigCPtr, this), true);
-  }
-
   public String dest() {
     return libtorrent_jni.torrent_peer_dest(swigCPtr, this);
   }

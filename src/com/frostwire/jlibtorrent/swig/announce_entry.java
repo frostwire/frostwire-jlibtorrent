@@ -202,10 +202,6 @@ public class announce_entry {
     libtorrent_jni.announce_entry_reset(swigCPtr, this);
   }
 
-  public boolean can_announce(ptime now, boolean is_seed) {
-    return libtorrent_jni.announce_entry_can_announce(swigCPtr, this, ptime.getCPtr(now), now, is_seed);
-  }
-
   public boolean is_working() {
     return libtorrent_jni.announce_entry_is_working(swigCPtr, this);
   }

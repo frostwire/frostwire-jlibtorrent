@@ -419,6 +419,8 @@ namespace std {
 %ignore libtorrent::storage_piece_set;
 %ignore libtorrent::peer_connection_args;
 %ignore libtorrent::peer_class_pool;
+%ignore libtorrent::ip_voter;
+%ignore libtorrent::external_ip;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -607,8 +609,11 @@ namespace std {
 %ignore libtorrent::peer_class::channel;
 %ignore libtorrent::peer_class_pool::at(libtorrent::peer_class_t) const;
 %ignore libtorrent::torrent_peer::connection;
+%ignore libtorrent::torrent_peer::rank;
+%ignore libtorrent::torrent_peer::address;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::announce_entry::failed;
+%ignore libtorrent::announce_entry::can_announce;
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::file_storage::apply_pointer_offset;

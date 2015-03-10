@@ -969,7 +969,6 @@ public class libtorrent_jni {
   public final static native void announce_entry_send_stats_set(long jarg1, announce_entry jarg1_, boolean jarg2);
   public final static native boolean announce_entry_send_stats_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_reset(long jarg1, announce_entry jarg1_);
-  public final static native boolean announce_entry_can_announce(long jarg1, announce_entry jarg1_, long jarg2, ptime jarg2_, boolean jarg3);
   public final static native boolean announce_entry_is_working(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_trim(long jarg1, announce_entry jarg1_);
   public final static native long new_web_seed_entry__SWIG_0(String jarg1, int jarg2, String jarg3, long jarg4, string_string_pair_vector jarg4_);
@@ -2733,20 +2732,10 @@ public class libtorrent_jni {
   public final static native void bandwidth_socket_assign_bandwidth(long jarg1, bandwidth_socket jarg1_, int jarg2, int jarg3);
   public final static native boolean bandwidth_socket_is_disconnecting(long jarg1, bandwidth_socket jarg1_);
   public final static native void delete_bandwidth_socket(long jarg1);
-  public final static native long new_ip_voter();
-  public final static native boolean ip_voter_cast_vote(long jarg1, ip_voter jarg1_, long jarg2, address jarg2_, int jarg3, long jarg4, address jarg4_);
-  public final static native long ip_voter_external_address(long jarg1, ip_voter jarg1_);
-  public final static native void delete_ip_voter(long jarg1);
-  public final static native boolean external_ip_cast_vote(long jarg1, external_ip jarg1_, long jarg2, address jarg2_, int jarg3, long jarg4, address jarg4_);
-  public final static native long external_ip_external_address(long jarg1, external_ip jarg1_, long jarg2, address jarg2_);
-  public final static native long new_external_ip();
-  public final static native void delete_external_ip(long jarg1);
   public final static native long peer_priority(long jarg1, tcp_endpoint jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long new_torrent_peer(int jarg1, boolean jarg2, int jarg3);
   public final static native java.math.BigInteger torrent_peer_total_download(long jarg1, torrent_peer jarg1_);
   public final static native java.math.BigInteger torrent_peer_total_upload(long jarg1, torrent_peer jarg1_);
-  public final static native long torrent_peer_rank(long jarg1, torrent_peer jarg1_, long jarg2, external_ip jarg2_, int jarg3);
-  public final static native long torrent_peer_address(long jarg1, torrent_peer jarg1_);
   public final static native String torrent_peer_dest(long jarg1, torrent_peer jarg1_);
   public final static native long torrent_peer_ip(long jarg1, torrent_peer jarg1_);
   public final static native void torrent_peer_prev_amount_upload_set(long jarg1, torrent_peer jarg1_, long jarg2);
