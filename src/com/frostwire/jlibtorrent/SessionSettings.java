@@ -19,7 +19,6 @@ public final class SessionSettings {
         return s;
     }
 
-
     public int getDownloadRateLimit() {
         return s.get_int(settings_pack.int_types.download_rate_limit.swigValue());
     }
