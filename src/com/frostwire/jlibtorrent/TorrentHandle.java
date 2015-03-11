@@ -212,12 +212,59 @@ public final class TorrentHandle {
     }
 
     /**
-     * ``resume()`` will reconnect all peers.
+     * Will reconnect all peers.
      * <p/>
      * Torrents that are auto-managed may be automatically resumed again.
      */
     public void resume() {
         th.resume();
+    }
+
+    /**
+     * Explicitly sets the upload mode of the torrent. In upload mode, the
+     * torrent will not request any pieces. If the torrent is auto managed,
+     * it will automatically be taken out of upload mode periodically (see
+     * ``session_settings::optimistic_disk_retry``). Torrents are
+     * automatically put in upload mode whenever they encounter a disk write
+     * error.
+     * <p/>
+     * {@code value} should be true to enter upload mode, and false to leave it.
+     * <p/>
+     * To test if a torrent is in upload mode, call
+     * ``torrent_handle::status()`` and inspect
+     * ``torrent_status::upload_mode``.
+     *
+     * @param value
+     */
+    public void setUploadMode(boolean value) {
+        th.set_upload_mode(value);
+    }
+
+    /**
+     * Enable or disable share mode for this torrent. When in share mode, the
+     * torrent will not necessarily be downloaded, especially not the whole
+     * of it. Only parts that are likely to be distributed to more than 2
+     * other peers are downloaded, and only if the previous prediction was
+     * correct.
+     *
+     * @param value
+     */
+    public void setShareMode(boolean value) {
+        th.set_share_mode(value);
+    }
+
+    /**
+     * Instructs libtorrent to flush all the disk caches for this torrent and
+     * close all file handles. This is done asynchronously and you will be
+     * notified that it's complete through {@link com.frostwire.jlibtorrent.alerts.CacheFlushedAlert}.
+     * <p/>
+     * Note that by the time you get the alert, libtorrent may have cached
+     * more data for the torrent, but you are guaranteed that whatever cached
+     * data libtorrent had by the time you called
+     * {@link #flushCache()} has been written to disk.
+     */
+    public void flushCache() {
+        th.flush_cache();
     }
 
     /**
