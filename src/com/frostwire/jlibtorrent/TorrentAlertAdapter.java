@@ -11,7 +11,7 @@ import java.util.Map;
  * @author gubatron
  * @author aldenml
  */
-public class TorrentAlertAdapter implements AlertListener {
+public abstract class TorrentAlertAdapter implements AlertListener {
 
     private static final Logger LOG = Logger.getLogger(TorrentAlertAdapter.class);
 
