@@ -419,12 +419,12 @@ public final class Session {
      */
     public void loadState(byte[] data) {
         char_vector buffer = Vectors.bytes2char_vector(data);
-        lazy_entry e = new lazy_entry();
+        bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
-        int ret = lazy_entry.bdecode(buffer, e, ec);
+        int ret = bdecode_node.bdecode(buffer, n, ec);
 
         if (ret == 0) {
-            s.load_state(e);
+            s.load_state(n);
         } else {
             LOG.error("failed to decode torrent: " + ec.message());
         }
@@ -841,7 +841,7 @@ public final class Session {
             public void run() {
                 alert_ptr_deque deque = new alert_ptr_deque();
 
-                time_duration max_wait = libtorrent.milliseconds(ALERTS_LOOP_WAIT_MILLIS);
+                high_resolution_clock.duration max_wait = libtorrent.milliseconds(ALERTS_LOOP_WAIT_MILLIS);
 
                 while (running) {
                     alert ptr = s.wait_for_alert(max_wait);

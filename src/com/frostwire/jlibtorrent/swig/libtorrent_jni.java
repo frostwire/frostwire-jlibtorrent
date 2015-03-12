@@ -105,10 +105,6 @@ public class libtorrent_jni {
   public final static native String udp_endpoint_address(long jarg1, udp_endpoint jarg1_);
   public final static native long new_udp_endpoint();
   public final static native void delete_udp_endpoint(long jarg1);
-  public final static native long new_ptime();
-  public final static native void delete_ptime(long jarg1);
-  public final static native long new_time_duration();
-  public final static native void delete_time_duration(long jarg1);
   public final static native long seconds(long jarg1);
   public final static native long milliseconds(long jarg1);
   public final static native long microseconds(long jarg1);
@@ -3277,6 +3273,7 @@ public class libtorrent_jni {
   public final static native void bdecode_node_swap(long jarg1, bdecode_node jarg1_, long jarg2, bdecode_node jarg2_);
   public final static native void bdecode_node_reserve(long jarg1, bdecode_node jarg1_, int jarg2);
   public final static native void bdecode_node_switch_underlying_buffer(long jarg1, bdecode_node jarg1_, String jarg2);
+  public final static native int bdecode_node_bdecode(long jarg1, char_vector jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_);
   public final static native void delete_bdecode_node(long jarg1);
   public final static native String print_entry__SWIG_0(long jarg1, bdecode_node jarg1_, boolean jarg2, int jarg3);
   public final static native String print_entry__SWIG_1(long jarg1, bdecode_node jarg1_, boolean jarg2);

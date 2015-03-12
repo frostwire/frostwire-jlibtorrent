@@ -20,19 +20,6 @@ public final class TorrentInfo {
         this.ti = ti;
     }
 
-    public TorrentInfo(byte[] bencodedBytes) {
-        lazy_entry lentry = new lazy_entry();
-        error_code ec = new error_code();
-        lazy_entry.bdecode(Vectors.bytes2char_vector(bencodedBytes), lentry, ec);
-
-        if (ec.value() != 0) {
-            this.ti = null;
-            throw new IllegalArgumentException(ec.message());
-        } else {
-            this.ti = new torrent_info(lentry);
-        }
-    }
-
     /**
      * Load the torrent file and decode it inside the constructor, for convenience.
      * <p/>
@@ -453,12 +440,12 @@ public final class TorrentInfo {
     }
 
     public static TorrentInfo bdecode(byte[] data) {
-        lazy_entry e = new lazy_entry();
+        bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
-        int ret = lazy_entry.bdecode(Vectors.bytes2char_vector(data), e, ec);
+        int ret = bdecode_node.bdecode(Vectors.bytes2char_vector(data), n, ec);
 
         if (ret == 0) {
-            return new TorrentInfo(new torrent_info(e));
+            return new TorrentInfo(new torrent_info(n));
         } else {
             throw new IllegalArgumentException("Can't decode data");
         }

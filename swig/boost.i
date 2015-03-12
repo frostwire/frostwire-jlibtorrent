@@ -214,16 +214,8 @@ namespace udp {
     };
 }
 
-class ptime {
-public:
-};
-
-class time_duration {
-public:
-};
-
-time_duration seconds(long long);
-time_duration milliseconds(long long);
-time_duration microseconds(long long);
-time_duration minutes(long long);
-time_duration hours(long long);
+boost::chrono::high_resolution_clock::duration seconds(long long);
+boost::chrono::high_resolution_clock::duration milliseconds(long long);
+boost::chrono::high_resolution_clock::duration microseconds(long long);
+boost::chrono::high_resolution_clock::duration minutes(long long);
+boost::chrono::high_resolution_clock::duration hours(long long);

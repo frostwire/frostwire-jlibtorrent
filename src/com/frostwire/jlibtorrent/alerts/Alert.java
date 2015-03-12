@@ -1,6 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.PTime;
+import com.frostwire.jlibtorrent.TimePoint;
 import com.frostwire.jlibtorrent.swig.alert;
 
 /**
@@ -16,7 +16,7 @@ public interface Alert<T extends alert> {
      *
      * @return
      */
-    public PTime getTimestamp();
+    public TimePoint getTimestamp();
 
     public AlertType getType();
 

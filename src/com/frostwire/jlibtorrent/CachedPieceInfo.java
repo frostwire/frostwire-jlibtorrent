@@ -43,8 +43,8 @@ public final class CachedPieceInfo {
      *
      * @return
      */
-    public PTime getLastUse() {
-        return new PTime(i.getLast_use());
+    public TimePoint getLastUse() {
+        return new TimePoint(i.getLast_use());
     }
 
     /**
