@@ -410,7 +410,7 @@ namespace std {
 %ignore libtorrent::buffer;
 %ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::disk_buffer_holder;
-%ignore libtorrent::upnp;
+ignore libtorrent::upnp;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::block_cache_reference;
 %ignore libtorrent::torrent_ref_holder;
@@ -951,6 +951,8 @@ static const int user_alert_id = 10000;
 };
 
 %template(sha1_bloom_filter) bloom_filter<160>;
+
+%template(EnabledSharedFromThisA) boost::enabled_shared_from_this<upnp>;
 
 //%template(total_seconds_long) libtorrent::total_seconds<long long>;
 //%template(total_milliseconds_long) libtorrent::total_milliseconds<long long>;
