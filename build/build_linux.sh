@@ -13,11 +13,11 @@
 
 # Download boost from boost.org (1.56 is the version we use, we've had high CPU usage issues with 1.57 and Windows Networking)
 # run the ./bootstrap.sh script so that ./b2 will work. Then execute:
-# $BOOST_ROOT/b2 variant=release link=static --stagedir=linux stage cxxflags=-fPIC cflags=-fPIC --with-chrono --with-system --with-random --with-thread
+# $BOOST_ROOT/b2 variant=release link=static --stagedir=linux stage cxxflags=-fPIC cflags=-fPIC --with-chrono --with-system --with-random --with-thread --with_date_time --with-filesystem; cp $BOOST_ROOT/linux/lib/*.a $LIBTORRENT_LIBS/
 
 # BUILDING libtorrent
 # After you've built boost, you should build libtorrent like this from your $LIBTORRENT_ROOT folder.
-# $BOOST_ROOT/bjam toolset=gcc variant=release link=static deprecated-functions=off boost=source cxxflags=-fPIC cflags=-fPIC
+# $BOOST_ROOT/bjam toolset=gcc variant=release link=static deprecated-functions=off boost=source cxxflags=-fPIC cflags=-fPIC; cp $LIBTORRENT_ROOT/bin/gcc-4.9.1/release/boost-source/deprecated-functions-off/link-static/threading-multi/libtorrent.a $LIBTORRENT_LIBS/libtorrent_trunk.a; cp $LIBTORRENT_LIBS/libtorrent_trunk.a $LIBTORRENT_LIBS/libtorrent.a
 
 # Once you've build boost and libtorrent, copy all the .a files to $LIBTORRENT_LIBS wherever that may be.
 # You should end up with a list like follows:
