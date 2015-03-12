@@ -39,6 +39,7 @@ public final class Session {
 
     private long lastStatsRequestTime;
     private SessionStats lastStats;
+    private DHTStats lastDHTStats;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
@@ -52,6 +53,7 @@ public final class Session {
         this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
 
         this.lastStats = new SessionStats(0, null);
+        this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -755,6 +757,10 @@ public final class Session {
         return lastStats;
     }
 
+    public DHTStats getDHTStats() {
+        return lastDHTStats;
+    }
+
     public SessionSettings getSettings() {
         return new SessionSettings(s.get_settings());
     }
@@ -860,6 +866,11 @@ public final class Session {
                                 lastStats = new SessionStats((SessionStatsAlert) alert);
                             }
 
+                            if (type == AlertType.DHT_STATS.getSwig()) {
+                                alert = castAlert(swigAlert);
+                                lastDHTStats = new DHTStats(((DhtStatsAlert) alert).getRoutingTable());
+                            }
+
                             if (listeners.indexOfKey(type) >= 0) {
                                 if (alert == null) {
                                     alert = castAlert(swigAlert);
@@ -868,6 +879,7 @@ public final class Session {
                             }
 
                             if (type != AlertType.SESSION_STATS.getSwig() &&
+                                    type != AlertType.DHT_STATS.getSwig() &&
                                     listeners.indexOfKey(-1) >= 0) {
                                 if (alert == null) {
                                     alert = castAlert(swigAlert);
@@ -882,6 +894,7 @@ public final class Session {
                     if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
                         lastStatsRequestTime = now;
                         postSessionStats();
+                        postDHTStats();
                     }
                 }
             }

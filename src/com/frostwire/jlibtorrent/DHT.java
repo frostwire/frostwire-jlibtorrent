@@ -44,6 +44,19 @@ public final class DHT {
         return s.isDHTRunning();
     }
 
+    public void waitNodes(int nodes) {
+        boolean ready = false;
+        while (!ready) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // ignore
+            }
+
+            ready = s.getDHTStats().totalNodes() > nodes;
+        }
+    }
+
     public long nodes() {
         return s.getStats().getDHTNodes();
     }
