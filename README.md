@@ -51,28 +51,17 @@ Building
 
 **Requirements**
 
-You will have to build libtorrent first on your system, we've included build scripts on the "scripts" folder, for now we just have the MacOSX build scripts ready, Windows, Linux and Android coming soon (perhaps even with your help, pull requests welcome).
+You will have to build libtorrent first on your system, we've included build scripts in the `build` folder.
 
-If you have not built libtorrent yet, you can get [libtorrent 1.0.2 sources from sourceforge](https://sourceforge.net/projects/libtorrent/files/libtorrent/libtorrent-rasterbar-1.0.2.tar.gz/download).
+If you have not built libtorrent yet, you can get [libtorrent sources from sourceforge](https://sourceforge.net/p/libtorrent/code/HEAD/tree/trunk/).
 
-This is a suggested `configure` you can invoke prior to building libtorrent, add/remove flags to your needs:
-```
-export CC=clang
-export CXX=clang
-export CFLAGS="-O3 -DTORRENT_USE_IPV6=1 -DNDEBUG=1"
-export CXXFLAGS="-O3 -DTORRENT_USE_IPV6=1 -DNDEBUG=1"
-
-export CC=clang
-export CXX=clang
-export CFLAGS="-O3 -DTORRENT_USE_IPV6=1"
-export CXXFLAGS=-O3
-
-./configure --enable-shared --enable-static --enable-debug --enable-python-binding --disable-deprecated-functions
-```
+If you are building for Windows, we suggest you use boost 1.55, [boost 1.56 introduced severe bugs in Windows networking](http://forum.frostwire.com/viewtopic.php?f=1&t=23421#p60796).
 
 **Building the shared library**
 
-make libtorrent, and then, go to the [build/](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/scripts) folder of our project and execute the [run_swig.sh](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/build/run_swig.sh) script. The result will be a `libjlibtorrent.dylib` which you can then use on your Java project along with the [Java sources](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/com/frostwire/jlibtorrent) of the frostwire-jlibtorrent api. Make sure the .dylib is on your project's java lib path.
+make libtorrent, and then, go to the [build/](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/build) folder of our project and execute the [run_swig.sh](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/build/run_swig.sh) script and then the `build_xxx.sh` script corresponding to the OS you want to build for. 
+
+The result will be a `libjlibtorrent.dylib`, or `libjlibtorrent.so` or `jlibtorrent.dll` which you can then use on your Java project along with the [Java sources](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/com/frostwire/jlibtorrent) of the frostwire-jlibtorrent api. Make sure the `.dylib`, `.so` or `.dll` is on your project's java lib path.
 
 You can always clone the project to your development environment and add it to the build path of your project as a dependency (which would help us in the event you find a bug and you submit a pull request), or copy the sources directly in your project source folder, however you can always just create the `frostwire-jlibtorrent.jar` and add it to your buildpath and classpath by using the gradle script in the scripts folder.
 
