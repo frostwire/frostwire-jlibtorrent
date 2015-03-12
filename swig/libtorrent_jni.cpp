@@ -542,6 +542,27 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ip/udp.hpp>
 
+boost::chrono::high_resolution_clock::duration to_seconds(long long n) {
+    return boost::chrono::seconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_milliseconds(long long n) {
+    return boost::chrono::milliseconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_microseconds(long long n) {
+    return boost::chrono::microseconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_minutes(long long n) {
+    return boost::chrono::minutes(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_hours(long long n) {
+    return boost::chrono::hours(n);
+}
+
+
 SWIGINTERN std::string tcp_endpoint_address(tcp::endpoint *self){
                 return self->address().to_string();
             }
@@ -3351,7 +3372,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_seconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1seconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   long long arg1 ;
   boost::chrono::high_resolution_clock::duration result;
@@ -3361,7 +3382,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sec
   arg1 = (long long)jarg1; 
   {
     try {
-      result = seconds(arg1);
+      result = to_seconds(arg1);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -3372,7 +3393,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sec
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_milliseconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1milliseconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   long long arg1 ;
   boost::chrono::high_resolution_clock::duration result;
@@ -3382,7 +3403,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mil
   arg1 = (long long)jarg1; 
   {
     try {
-      result = milliseconds(arg1);
+      result = to_milliseconds(arg1);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -3393,7 +3414,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mil
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_microseconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1microseconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   long long arg1 ;
   boost::chrono::high_resolution_clock::duration result;
@@ -3403,7 +3424,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mic
   arg1 = (long long)jarg1; 
   {
     try {
-      result = microseconds(arg1);
+      result = to_microseconds(arg1);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -3414,7 +3435,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mic
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_minutes(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1minutes(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   long long arg1 ;
   boost::chrono::high_resolution_clock::duration result;
@@ -3424,7 +3445,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_min
   arg1 = (long long)jarg1; 
   {
     try {
-      result = minutes(arg1);
+      result = to_minutes(arg1);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -3435,7 +3456,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_min
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_hours(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1hours(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   long long arg1 ;
   boost::chrono::high_resolution_clock::duration result;
@@ -3445,7 +3466,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_hou
   arg1 = (long long)jarg1; 
   {
     try {
-      result = hours(arg1);
+      result = to_hours(arg1);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;

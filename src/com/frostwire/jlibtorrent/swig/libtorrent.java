@@ -9,24 +9,24 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent implements libtorrentConstants {
-  public static high_resolution_clock.duration seconds(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.seconds(arg0), true);
+  public static high_resolution_clock.duration to_seconds(long arg0) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_seconds(arg0), true);
   }
 
-  public static high_resolution_clock.duration milliseconds(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.milliseconds(arg0), true);
+  public static high_resolution_clock.duration to_milliseconds(long arg0) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_milliseconds(arg0), true);
   }
 
-  public static high_resolution_clock.duration microseconds(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.microseconds(arg0), true);
+  public static high_resolution_clock.duration to_microseconds(long arg0) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_microseconds(arg0), true);
   }
 
-  public static high_resolution_clock.duration minutes(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.minutes(arg0), true);
+  public static high_resolution_clock.duration to_minutes(long arg0) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_minutes(arg0), true);
   }
 
-  public static high_resolution_clock.duration hours(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.hours(arg0), true);
+  public static high_resolution_clock.duration to_hours(long arg0) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_hours(arg0), true);
   }
 
   public static error_category boost_system_category() {

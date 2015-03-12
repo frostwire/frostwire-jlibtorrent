@@ -5,6 +5,27 @@
 
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ip/udp.hpp>
+
+boost::chrono::high_resolution_clock::duration to_seconds(long long n) {
+    return boost::chrono::seconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_milliseconds(long long n) {
+    return boost::chrono::milliseconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_microseconds(long long n) {
+    return boost::chrono::microseconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_minutes(long long n) {
+    return boost::chrono::minutes(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_hours(long long n) {
+    return boost::chrono::hours(n);
+}
+
 %}
 
 %rename(posix_time_duration) boost::posix_time::time_duration;
@@ -214,8 +235,8 @@ namespace udp {
     };
 }
 
-boost::chrono::high_resolution_clock::duration seconds(long long);
-boost::chrono::high_resolution_clock::duration milliseconds(long long);
-boost::chrono::high_resolution_clock::duration microseconds(long long);
-boost::chrono::high_resolution_clock::duration minutes(long long);
-boost::chrono::high_resolution_clock::duration hours(long long);
+boost::chrono::high_resolution_clock::duration to_seconds(long long);
+boost::chrono::high_resolution_clock::duration to_milliseconds(long long);
+boost::chrono::high_resolution_clock::duration to_microseconds(long long);
+boost::chrono::high_resolution_clock::duration to_minutes(long long);
+boost::chrono::high_resolution_clock::duration to_hours(long long);

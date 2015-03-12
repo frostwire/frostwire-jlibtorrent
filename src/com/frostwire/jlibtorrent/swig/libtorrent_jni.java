@@ -105,11 +105,11 @@ public class libtorrent_jni {
   public final static native String udp_endpoint_address(long jarg1, udp_endpoint jarg1_);
   public final static native long new_udp_endpoint();
   public final static native void delete_udp_endpoint(long jarg1);
-  public final static native long seconds(long jarg1);
-  public final static native long milliseconds(long jarg1);
-  public final static native long microseconds(long jarg1);
-  public final static native long minutes(long jarg1);
-  public final static native long hours(long jarg1);
+  public final static native long to_seconds(long jarg1);
+  public final static native long to_milliseconds(long jarg1);
+  public final static native long to_microseconds(long jarg1);
+  public final static native long to_minutes(long jarg1);
+  public final static native long to_hours(long jarg1);
   public final static native long new_char_const_ptr_int_pair__SWIG_0();
   public final static native long new_char_const_ptr_int_pair__SWIG_1(String jarg1, int jarg2);
   public final static native long new_char_const_ptr_int_pair__SWIG_2(long jarg1, char_const_ptr_int_pair jarg1_);

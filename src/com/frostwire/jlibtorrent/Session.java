@@ -841,7 +841,7 @@ public final class Session {
             public void run() {
                 alert_ptr_deque deque = new alert_ptr_deque();
 
-                high_resolution_clock.duration max_wait = libtorrent.milliseconds(ALERTS_LOOP_WAIT_MILLIS);
+                high_resolution_clock.duration max_wait = libtorrent.to_milliseconds(ALERTS_LOOP_WAIT_MILLIS);
 
                 while (running) {
                     alert ptr = s.wait_for_alert(max_wait);
