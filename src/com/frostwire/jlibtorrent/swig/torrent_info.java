@@ -35,12 +35,12 @@ public class torrent_info {
     }
   }
 
-  public torrent_info(lazy_entry torrent_file, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_0(lazy_entry.getCPtr(torrent_file), torrent_file, flags), true);
+  public torrent_info(bdecode_node torrent_file, int flags) {
+    this(libtorrent_jni.new_torrent_info__SWIG_0(bdecode_node.getCPtr(torrent_file), torrent_file, flags), true);
   }
 
-  public torrent_info(lazy_entry torrent_file) {
-    this(libtorrent_jni.new_torrent_info__SWIG_1(lazy_entry.getCPtr(torrent_file), torrent_file), true);
+  public torrent_info(bdecode_node torrent_file) {
+    this(libtorrent_jni.new_torrent_info__SWIG_1(bdecode_node.getCPtr(torrent_file), torrent_file), true);
   }
 
   public torrent_info(String filename, int flags) {
@@ -63,12 +63,12 @@ public class torrent_info {
     this(libtorrent_jni.new_torrent_info__SWIG_6(sha1_hash.getCPtr(info_hash), info_hash), true);
   }
 
-  public torrent_info(lazy_entry torrent_file, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_7(lazy_entry.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec, flags), true);
+  public torrent_info(bdecode_node torrent_file, error_code ec, int flags) {
+    this(libtorrent_jni.new_torrent_info__SWIG_7(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec, flags), true);
   }
 
-  public torrent_info(lazy_entry torrent_file, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_8(lazy_entry.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec), true);
+  public torrent_info(bdecode_node torrent_file, error_code ec) {
+    this(libtorrent_jni.new_torrent_info__SWIG_8(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec), true);
   }
 
   public torrent_info(String filename, error_code ec, int flags) {
@@ -231,13 +231,12 @@ public class torrent_info {
     libtorrent_jni.torrent_info_add_node(swigCPtr, this, string_int_pair.getCPtr(node), node);
   }
 
-  public boolean parse_info_section(lazy_entry e, error_code ec, int flags) {
-    return libtorrent_jni.torrent_info_parse_info_section(swigCPtr, this, lazy_entry.getCPtr(e), e, error_code.getCPtr(ec), ec, flags);
+  public boolean parse_info_section(bdecode_node e, error_code ec, int flags) {
+    return libtorrent_jni.torrent_info_parse_info_section(swigCPtr, this, bdecode_node.getCPtr(e), e, error_code.getCPtr(ec), ec, flags);
   }
 
-  public lazy_entry info(String key) {
-    long cPtr = libtorrent_jni.torrent_info_info(swigCPtr, this, key);
-    return (cPtr == 0) ? null : new lazy_entry(cPtr, false);
+  public bdecode_node info(String key) {
+    return new bdecode_node(libtorrent_jni.torrent_info_info(swigCPtr, this, key), true);
   }
 
   public void swap(torrent_info ti) {
@@ -260,8 +259,8 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_is_merkle_torrent(swigCPtr, this);
   }
 
-  public boolean parse_torrent_file(lazy_entry libtorrent, error_code ec, int flags) {
-    return libtorrent_jni.torrent_info_parse_torrent_file(swigCPtr, this, lazy_entry.getCPtr(libtorrent), libtorrent, error_code.getCPtr(ec), ec, flags);
+  public boolean parse_torrent_file(bdecode_node libtorrent, error_code ec, int flags) {
+    return libtorrent_jni.torrent_info_parse_torrent_file(swigCPtr, this, bdecode_node.getCPtr(libtorrent), libtorrent, error_code.getCPtr(ec), ec, flags);
   }
 
   public int get_creation_date() {

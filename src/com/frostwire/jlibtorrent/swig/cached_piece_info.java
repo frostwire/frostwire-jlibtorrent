@@ -44,13 +44,13 @@ public class cached_piece_info {
     return (cPtr == 0) ? null : new bool_vector(cPtr, false);
   }
 
-  public void setLast_use(ptime value) {
-    libtorrent_jni.cached_piece_info_last_use_set(swigCPtr, this, ptime.getCPtr(value), value);
+  public void setLast_use(high_resolution_clock.time_point value) {
+    libtorrent_jni.cached_piece_info_last_use_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
   }
 
-  public ptime getLast_use() {
+  public high_resolution_clock.time_point getLast_use() {
     long cPtr = libtorrent_jni.cached_piece_info_last_use_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ptime(cPtr, false);
+    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
   }
 
   public void setNext_to_hash(int value) {

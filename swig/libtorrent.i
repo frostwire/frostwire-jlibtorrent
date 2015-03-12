@@ -15,6 +15,7 @@
     
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
+#include "libtorrent/time.hpp"
 #include "libtorrent/fingerprint.hpp"
 #include "libtorrent/bitfield.hpp"
 #include "libtorrent/stat.hpp"
@@ -58,10 +59,9 @@
 #include "libtorrent/bt_peer_connection.hpp"
 #include "libtorrent/file_pool.hpp"
 #include "libtorrent/ip_filter.hpp"
-#include "libtorrent/lazy_entry.hpp"
+#include "libtorrent/bdecode.hpp"
 #include "libtorrent/buffer.hpp"
 #include "libtorrent/tracker_manager.hpp"
-#include "libtorrent/time.hpp"
 #include "libtorrent/escape_string.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
@@ -301,7 +301,7 @@ namespace std {
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
     %template(long_long_long_2_pair) pair<long long, long>;
-    %template(string_lazy_entry_const_ptr_pair) pair<std::string, const libtorrent::lazy_entry *>;
+    %template(string_bdecode_node_pair) pair<std::string, libtorrent::bdecode_node>;
     
     %template(string_vector) vector<std::string>;
     %template(char_vector) vector<char>;
@@ -378,7 +378,7 @@ namespace std {
 %ignore libtorrent::default_storage;
 %ignore libtorrent::default_storage_constructor;
 %ignore libtorrent::disabled_storage_constructor;
-%ignore libtorrent::lazy_bdecode;
+%ignore libtorrent::bdecode;
 %ignore libtorrent::url_has_argument;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
@@ -578,11 +578,11 @@ namespace std {
 %ignore libtorrent::read_piece_alert::buffer;
 %ignore libtorrent::peer_plugin::on_extended;
 %ignore libtorrent::peer_plugin::on_unknown_message;
-%ignore libtorrent::lazy_entry::dict_find(char const *) const;
-%ignore libtorrent::lazy_entry::list_at(int) const;
-%ignore libtorrent::lazy_entry::dict_find(std::string const &);
-%ignore libtorrent::lazy_entry::dict_find(std::string const &) const;
-%ignore libtorrent::lazy_entry::dict_find_dict(std::string const &) const;
+%ignore libtorrent::bdecode_node::dict_find(char const *) const;
+%ignore libtorrent::bdecode_node::list_at(int) const;
+%ignore libtorrent::bdecode_node::dict_find(std::string const &);
+%ignore libtorrent::bdecode_node::dict_find(std::string const &) const;
+%ignore libtorrent::bdecode_node::dict_find_dict(char const *) const;
 %ignore libtorrent::block_info::peer;
 %ignore libtorrent::lazy_dict_entry;
 %ignore libtorrent::disabled_storage;
@@ -599,7 +599,6 @@ namespace std {
 %ignore libtorrent::clear_bufs;
 %ignore libtorrent::copy_bufs;
 %ignore libtorrent::apply_pack;
-%ignore libtorrent::storage_error::operator bool() const;
 
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::session::m_impl;
@@ -658,12 +657,16 @@ namespace std {
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
 %rename(upnp_errors) libtorrent::upnp_errors::error_code_enum;
 
+%rename(value) libtorrent::storage_error::operator bool() const;
+%rename(is_none_t) libtorrent::bdecode_node::operator bool() const;
+
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
 %javaconst(1);
 %include "libtorrent/error_code.hpp"
 %javaconst(0);
+%include "libtorrent/time.hpp"
 %include "libtorrent/fingerprint.hpp"
 %include "libtorrent/bitfield.hpp"
 %include "libtorrent/stat.hpp"
@@ -707,11 +710,10 @@ namespace std {
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
 %javaconst(1);
-%include "libtorrent/lazy_entry.hpp"
+%include "libtorrent/bdecode.hpp"
 %javaconst(0);
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/tracker_manager.hpp"
-%include "libtorrent/time.hpp"
 %include "libtorrent/escape_string.hpp"
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"

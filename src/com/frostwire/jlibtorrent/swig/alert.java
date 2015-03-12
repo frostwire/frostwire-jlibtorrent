@@ -35,8 +35,8 @@ public class alert {
     }
   }
 
-  public ptime timestamp() {
-    return new ptime(libtorrent_jni.alert_timestamp(swigCPtr, this), true);
+  public high_resolution_clock.time_point timestamp() {
+    return new high_resolution_clock.time_point(libtorrent_jni.alert_timestamp(swigCPtr, this), true);
   }
 
   public int type() {

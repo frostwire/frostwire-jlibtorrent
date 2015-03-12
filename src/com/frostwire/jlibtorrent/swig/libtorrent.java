@@ -105,6 +105,14 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_posix_category(), false);
   }
 
+  public static high_resolution_clock.time_point min_time() {
+    return new high_resolution_clock.time_point(libtorrent_jni.min_time(), true);
+  }
+
+  public static high_resolution_clock.time_point max_time() {
+    return new high_resolution_clock.time_point(libtorrent_jni.max_time(), true);
+  }
+
   public static void sanitize_append_path_element(String path, String element, int element_len) {
     libtorrent_jni.sanitize_append_path_element(path, element, element_len);
   }
@@ -141,8 +149,8 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.initialize_default_settings(session_settings.getCPtr(s), s);
   }
 
-  public static settings_pack load_pack_from_dict(lazy_entry settings) {
-    long cPtr = libtorrent_jni.load_pack_from_dict(lazy_entry.getCPtr(settings), settings);
+  public static settings_pack load_pack_from_dict(bdecode_node settings) {
+    long cPtr = libtorrent_jni.load_pack_from_dict(bdecode_node.getCPtr(settings), settings);
     return (cPtr == 0) ? null : new settings_pack(cPtr, false);
   }
 
@@ -182,44 +190,20 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.minus_one(val);
   }
 
-  public static String print_entry(lazy_entry e, boolean single_line, int indent) {
-    return libtorrent_jni.print_entry__SWIG_0(lazy_entry.getCPtr(e), e, single_line, indent);
-  }
-
-  public static String print_entry(lazy_entry e, boolean single_line) {
-    return libtorrent_jni.print_entry__SWIG_1(lazy_entry.getCPtr(e), e, single_line);
-  }
-
-  public static String print_entry(lazy_entry e) {
-    return libtorrent_jni.print_entry__SWIG_2(lazy_entry.getCPtr(e), e);
-  }
-
   public static error_category get_bdecode_category() {
     return new error_category(libtorrent_jni.get_bdecode_category(), false);
   }
 
-  public static String time_now_string() {
-    return libtorrent_jni.time_now_string();
+  public static String print_entry(bdecode_node e, boolean single_line, int indent) {
+    return libtorrent_jni.print_entry__SWIG_0(bdecode_node.getCPtr(e), e, single_line, indent);
   }
 
-  public static String log_time() {
-    return libtorrent_jni.log_time();
+  public static String print_entry(bdecode_node e, boolean single_line) {
+    return libtorrent_jni.print_entry__SWIG_1(bdecode_node.getCPtr(e), e, single_line);
   }
 
-  public static high_resolution_clock.time_point time_now() {
-    return new high_resolution_clock.time_point(libtorrent_jni.time_now(), false);
-  }
-
-  public static high_resolution_clock.time_point time_now_hires() {
-    return new high_resolution_clock.time_point(libtorrent_jni.time_now_hires(), true);
-  }
-
-  public static high_resolution_clock.time_point min_time() {
-    return new high_resolution_clock.time_point(libtorrent_jni.min_time(), true);
-  }
-
-  public static high_resolution_clock.time_point max_time() {
-    return new high_resolution_clock.time_point(libtorrent_jni.max_time(), true);
+  public static String print_entry(bdecode_node e) {
+    return libtorrent_jni.print_entry__SWIG_2(bdecode_node.getCPtr(e), e);
   }
 
   public static String unescape_string(String s, error_code ec) {

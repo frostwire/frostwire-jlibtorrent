@@ -68,6 +68,39 @@ public class high_resolution_clock {
   
   }
 
+  static public class duration {
+    private long swigCPtr;
+    protected boolean swigCMemOwn;
+  
+    protected duration(long cPtr, boolean cMemoryOwn) {
+      swigCMemOwn = cMemoryOwn;
+      swigCPtr = cPtr;
+    }
+  
+    protected static long getCPtr(duration obj) {
+      return (obj == null) ? 0 : obj.swigCPtr;
+    }
+  
+    protected void finalize() {
+      delete();
+    }
+  
+    public synchronized void delete() {
+      if (swigCPtr != 0) {
+        if (swigCMemOwn) {
+          swigCMemOwn = false;
+          libtorrent_jni.delete_high_resolution_clock_duration(swigCPtr);
+        }
+        swigCPtr = 0;
+      }
+    }
+  
+    public duration() {
+      this(libtorrent_jni.new_high_resolution_clock_duration(), true);
+    }
+  
+  }
+
   public high_resolution_clock() {
     this(libtorrent_jni.new_high_resolution_clock(), true);
   }

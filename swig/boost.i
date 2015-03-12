@@ -177,6 +177,10 @@ namespace boost {
             class time_point {
             public:
             };
+
+            class duration {
+            public:
+            };
         };
     }
 }

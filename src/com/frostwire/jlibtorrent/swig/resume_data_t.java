@@ -44,9 +44,13 @@ public class resume_data_t {
     return (cPtr == 0) ? null : new char_vector(cPtr, false);
   }
 
-  public lazy_entry getEntry() {
-    long cPtr = libtorrent_jni.resume_data_t_entry_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new lazy_entry(cPtr, false);
+  public void setNode(bdecode_node value) {
+    libtorrent_jni.resume_data_t_node_set(swigCPtr, this, bdecode_node.getCPtr(value), value);
+  }
+
+  public bdecode_node getNode() {
+    long cPtr = libtorrent_jni.resume_data_t_node_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new bdecode_node(cPtr, false);
   }
 
   public resume_data_t() {

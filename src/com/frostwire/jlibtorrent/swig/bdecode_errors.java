@@ -10,7 +10,7 @@ package com.frostwire.jlibtorrent.swig;
 
 public enum bdecode_errors {
   no_error(0),
-  expected_string,
+  expected_digit,
   expected_colon,
   unexpected_eof,
   expected_value,

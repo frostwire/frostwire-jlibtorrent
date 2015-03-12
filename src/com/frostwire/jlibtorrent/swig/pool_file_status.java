@@ -43,13 +43,13 @@ public class pool_file_status {
     return libtorrent_jni.pool_file_status_file_index_get(swigCPtr, this);
   }
 
-  public void setLast_use(ptime value) {
-    libtorrent_jni.pool_file_status_last_use_set(swigCPtr, this, ptime.getCPtr(value), value);
+  public void setLast_use(high_resolution_clock.time_point value) {
+    libtorrent_jni.pool_file_status_last_use_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
   }
 
-  public ptime getLast_use() {
+  public high_resolution_clock.time_point getLast_use() {
     long cPtr = libtorrent_jni.pool_file_status_last_use_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ptime(cPtr, false);
+    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
   }
 
   public void setOpen_mode(int value) {

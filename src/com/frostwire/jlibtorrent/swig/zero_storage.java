@@ -51,8 +51,8 @@ public class zero_storage {
     return libtorrent_jni.zero_storage_move_storage(swigCPtr, this, arg0, arg1, storage_error.getCPtr(arg2), arg2);
   }
 
-  public boolean verify_resume_data(lazy_entry arg0, storage_error arg1) {
-    return libtorrent_jni.zero_storage_verify_resume_data(swigCPtr, this, lazy_entry.getCPtr(arg0), arg0, storage_error.getCPtr(arg1), arg1);
+  public boolean verify_resume_data(bdecode_node arg0, storage_error arg1) {
+    return libtorrent_jni.zero_storage_verify_resume_data(swigCPtr, this, bdecode_node.getCPtr(arg0), arg0, storage_error.getCPtr(arg1), arg1);
   }
 
   public void write_resume_data(entry arg0, storage_error arg1) {

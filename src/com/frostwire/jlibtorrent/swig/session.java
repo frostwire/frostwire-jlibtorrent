@@ -83,8 +83,8 @@ public class session {
     libtorrent_jni.session_save_state__SWIG_1(swigCPtr, this, entry.getCPtr(e), e);
   }
 
-  public void load_state(lazy_entry e) {
-    libtorrent_jni.session_load_state(swigCPtr, this, lazy_entry.getCPtr(e), e);
+  public void load_state(bdecode_node e) {
+    libtorrent_jni.session_load_state(swigCPtr, this, bdecode_node.getCPtr(e), e);
   }
 
   public void refresh_torrent_status(torrent_status_vector ret, long flags) {
@@ -276,8 +276,8 @@ public class session {
     libtorrent_jni.session_pop_alerts(swigCPtr, this, alert_ptr_deque.getCPtr(alerts), alerts);
   }
 
-  public alert wait_for_alert(time_duration max_wait) {
-    long cPtr = libtorrent_jni.session_wait_for_alert(swigCPtr, this, time_duration.getCPtr(max_wait), max_wait);
+  public alert wait_for_alert(high_resolution_clock.duration max_wait) {
+    long cPtr = libtorrent_jni.session_wait_for_alert(swigCPtr, this, high_resolution_clock.duration.getCPtr(max_wait), max_wait);
     return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 
