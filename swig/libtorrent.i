@@ -410,7 +410,6 @@ namespace std {
 %ignore libtorrent::buffer;
 %ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::disk_buffer_holder;
-%ignore libtorrent::upnp;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::block_cache_reference;
 %ignore libtorrent::torrent_ref_holder;
@@ -618,6 +617,10 @@ namespace std {
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::ipv4_peer_entry::ip;
 %ignore libtorrent::ipv6_peer_entry::ip;
+%ignore libtorrent::upnp::upnp;
+%ignore libtorrent::upnp::start;
+%ignore libtorrent::upnp::drain_state;
+%ignore libtorrent::upnp::get_mapping(int, int&, int&, int&) const;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -949,6 +952,23 @@ static const int user_alert_id = 10000;
 %extend stats_alert {
     std::vector<int> transferred_v() {
         return std::vector<int>($self->transferred, $self->transferred + stats_alert::stats_channel::num_channels);
+    }
+};
+
+%extend upnp {
+    bool get_mapping(int mapping_index, std::vector<int>& res) {
+
+        int local_port = 0;
+        int external_port = 0;
+        int protocol = 0;
+
+        bool r = $self->get_mapping(mapping_index, local_port, external_port, protocol);
+
+        res[0] = local_port;
+        res[1] = external_port;
+        res[2] = protocol;
+
+        return r;
     }
 };
 

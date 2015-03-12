@@ -1352,8 +1352,25 @@ SWIGINTERN void libtorrent_session_dht_announce__SWIG_1(libtorrent::session *sel
 SWIGINTERN void libtorrent_session_set_piece_hashes(libtorrent::session *self,std::string const &id,libtorrent::create_torrent &t,std::string const &p,libtorrent::error_code &ec){
         set_piece_hashes(self, id, t, p, ec);
     }
+SWIGINTERN libtorrent::upnp *libtorrent_session_get_upnp(libtorrent::session *self){
+        return get_upnp(self);
+    }
 SWIGINTERN int libtorrent_bdecode_node_bdecode(std::vector< char > &buffer,libtorrent::bdecode_node &ret,libtorrent::error_code &ec){
         return libtorrent::bdecode(&buffer[0], &buffer[0] + buffer.size(), ret, ec);
+    }
+SWIGINTERN bool libtorrent_upnp_get_mapping(libtorrent::upnp *self,int mapping_index,std::vector< int > &res){
+
+        int local_port = 0;
+        int external_port = 0;
+        int protocol = 0;
+
+        bool r = self->get_mapping(mapping_index, local_port, external_port, protocol);
+
+        res[0] = local_port;
+        res[1] = external_port;
+        res[2] = protocol;
+
+        return r;
     }
 
 #ifdef __cplusplus
@@ -64608,6 +64625,28 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 }
 
 
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1get_1upnp(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::session *arg1 = (libtorrent::session *) 0 ;
+  libtorrent::upnp *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::session **)&jarg1; 
+  {
+    try {
+      result = (libtorrent::upnp *)libtorrent_session_get_upnp(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(libtorrent::upnp **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pool_1file_1status_1file_1index_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::pool_file_status *arg1 = (libtorrent::pool_file_status *) 0 ;
   int arg2 ;
@@ -67750,6 +67789,160 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_get
     }
   }
   *(boost::system::error_category **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1upnp(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  libtorrent::upnp *arg1 = (libtorrent::upnp *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(libtorrent::upnp **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_upnp_1add_1mapping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4) {
+  jint jresult = 0 ;
+  libtorrent::upnp *arg1 = (libtorrent::upnp *) 0 ;
+  libtorrent::upnp::protocol_type arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::upnp **)&jarg1; 
+  arg2 = (libtorrent::upnp::protocol_type)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  {
+    try {
+      result = (int)(arg1)->add_mapping(arg2,arg3,arg4);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_upnp_1delete_1mapping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  libtorrent::upnp *arg1 = (libtorrent::upnp *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::upnp **)&jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      (arg1)->delete_mapping(arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_upnp_1discover_1device(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  libtorrent::upnp *arg1 = (libtorrent::upnp *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::upnp **)&jarg1; 
+  {
+    try {
+      (arg1)->discover_device();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_upnp_1close(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  libtorrent::upnp *arg1 = (libtorrent::upnp *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::upnp **)&jarg1; 
+  {
+    try {
+      (arg1)->close();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_upnp_1router_1model(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  libtorrent::upnp *arg1 = (libtorrent::upnp *) 0 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::upnp **)&jarg1; 
+  {
+    try {
+      result = (arg1)->router_model();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_upnp_1get_1mapping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jboolean jresult = 0 ;
+  libtorrent::upnp *arg1 = (libtorrent::upnp *) 0 ;
+  int arg2 ;
+  std::vector< int > *arg3 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(libtorrent::upnp **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(std::vector< int > **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int > & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (bool)libtorrent_upnp_get_mapping(arg1,arg2,*arg3);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
   return jresult;
 }
 

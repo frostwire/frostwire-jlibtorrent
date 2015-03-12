@@ -152,3 +152,11 @@ void set_piece_hashes(session* s, std::string const& id, libtorrent::create_torr
 
 	set_piece_hashes(t, p, boost::bind(&set_piece_hashes_fun, _1, s_impl, id, t.num_pieces()), ec);
 }
+
+upnp* get_upnp(session* s) {
+
+    boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
+    boost::shared_ptr<upnp> m_upnp = s_impl->m_upnp;
+
+    return m_upnp ? m_upnp.get() : NULL;
+}

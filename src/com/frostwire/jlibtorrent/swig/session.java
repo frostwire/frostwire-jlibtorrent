@@ -329,6 +329,11 @@ public class session {
     libtorrent_jni.session_set_piece_hashes(swigCPtr, this, id, create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
+  public upnp get_upnp() {
+    long cPtr = libtorrent_jni.session_get_upnp(swigCPtr, this);
+    return (cPtr == 0) ? null : new upnp(cPtr, false);
+  }
+
   public enum save_state_flags_t {
     save_settings(libtorrent_jni.session_save_settings_get()),
     save_dht_settings(libtorrent_jni.session_save_dht_settings_get()),

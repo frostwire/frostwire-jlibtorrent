@@ -3209,6 +3209,7 @@ public class libtorrent_jni {
   public final static native void session_dht_announce__SWIG_0(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_, int jarg3, int jarg4);
   public final static native void session_dht_announce__SWIG_1(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void session_set_piece_hashes(long jarg1, session jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
+  public final static native long session_get_upnp(long jarg1, session jarg1_);
   public final static native void pool_file_status_file_index_set(long jarg1, pool_file_status jarg1_, int jarg2);
   public final static native int pool_file_status_file_index_get(long jarg1, pool_file_status jarg1_);
   public final static native void pool_file_status_last_use_set(long jarg1, pool_file_status jarg1_, long jarg2, high_resolution_clock.time_point jarg2_);
@@ -3352,6 +3353,13 @@ public class libtorrent_jni {
   public final static native void set_piece_hashes__SWIG_0(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
   public final static native void set_piece_hashes__SWIG_1(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native long get_upnp_category();
+  public final static native void delete_upnp(long jarg1);
+  public final static native int upnp_add_mapping(long jarg1, upnp jarg1_, int jarg2, int jarg3, int jarg4);
+  public final static native void upnp_delete_mapping(long jarg1, upnp jarg1_, int jarg2);
+  public final static native void upnp_discover_device(long jarg1, upnp jarg1_);
+  public final static native void upnp_close(long jarg1, upnp jarg1_);
+  public final static native String upnp_router_model(long jarg1, upnp jarg1_);
+  public final static native boolean upnp_get_mapping(long jarg1, upnp jarg1_, int jarg2, long jarg3, int_vector jarg3_);
   public final static native long new_dht_get_peers_reply_alert(long jarg1, sha1_hash jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
   public final static native int dht_get_peers_reply_alert_alert_type_get();
   public final static native int dht_get_peers_reply_alert_type(long jarg1, dht_get_peers_reply_alert jarg1_);

@@ -5,6 +5,8 @@
 
 namespace libtorrent {
 
+class upnp;
+
 %extend session {
 
     void add_lt_trackers_extension() {
@@ -56,6 +58,10 @@ namespace libtorrent {
 
     void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
         set_piece_hashes($self, id, t, p, ec);
+    }
+
+    upnp* get_upnp() {
+        return get_upnp($self);
     }
 };
 
