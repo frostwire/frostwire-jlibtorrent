@@ -769,6 +769,10 @@ public final class Session {
         s.set_piece_hashes(id, t, p, ec);
     }
 
+    public UPnP getUPnP() {
+        return new UPnP(s.get_upnp());
+    }
+
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
