@@ -23,7 +23,6 @@
 #include "libtorrent/address.hpp"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/sha1_hash.hpp"
-#include "libtorrent/piece_picker.hpp"
 #include "libtorrent/storage_defs.hpp"
 #include "libtorrent/storage.hpp"
 #include "libtorrent/file_storage.hpp"

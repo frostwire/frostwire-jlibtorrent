@@ -5,9 +5,39 @@
 
 using namespace libtorrent::dht;
 
-// IMPORTANT NOTE: To use this code, you need to make public m_impl in session
-// and m_dht in dht_tracker
+// BEGIN PRIVATE HACK
 #include "libtorrent/aux_/session_impl.hpp"
+
+using namespace libtorrent::aux;
+
+template<typename Tag>
+struct result {
+  /* export it ... */
+  typedef typename Tag::type type;
+  static type ptr;
+};
+
+template<typename Tag>
+typename result<Tag>::type result<Tag>::ptr;
+
+template<typename Tag, typename Tag::type p>
+struct rob : result<Tag> {
+  /* fill it ... */
+  struct filler {
+    filler() { result<Tag>::ptr = p; }
+  };
+  static filler filler_obj;
+};
+
+template<typename Tag, typename Tag::type p>
+typename rob<Tag, p>::filler rob<Tag, p>::filler_obj;
+
+struct session_m_impl { typedef boost::shared_ptr<aux::session_impl> session::*type; };
+template class rob<session_m_impl, &session::m_impl>;
+
+struct dht_tracker_m_dht { typedef node_impl dht_tracker::*type; };
+template class rob<dht_tracker_m_dht, &dht_tracker::m_dht>;
+// END PRIVATE HACK
 
 #define TORRENT_DEFINE_ALERT(name, seq) \
 	static const int alert_type = seq; \
@@ -96,9 +126,9 @@ void dht_get_peers_fun(std::vector<tcp::endpoint> const& peers,
 // for info-hash id
 void dht_get_peers(session* s, sha1_hash const& info_hash) {
 
-	boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
+    boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
     dht::dht_tracker* s_dht_tracker = s_impl->dht();
-    const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(s_dht_tracker->m_dht);
+    const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
 
 	bool privacy_lookups = node.get().settings().privacy_lookups;
 
@@ -119,9 +149,9 @@ void dht_get_peers(session* s, sha1_hash const& info_hash) {
 
 void dht_announce(session* s, sha1_hash const& info_hash, int port, int flags) {
 
-	boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
+    boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
     dht::dht_tracker* s_dht_tracker = s_impl->dht();
-    const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(s_dht_tracker->m_dht);
+    const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
 
 	node.get().announce(info_hash, port, flags, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash));
 }
@@ -148,14 +178,14 @@ void set_piece_hashes_fun(int i, boost::shared_ptr<aux::session_impl> s, std::st
 
 void set_piece_hashes(session* s, std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
 
-    boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
+    boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
 
 	set_piece_hashes(t, p, boost::bind(&set_piece_hashes_fun, _1, s_impl, id, t.num_pieces()), ec);
 }
 
 upnp* get_upnp(session* s) {
 
-    boost::shared_ptr<aux::session_impl> s_impl = s->m_impl;
+    boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
     boost::shared_ptr<upnp> m_upnp = s_impl->m_upnp;
 
     return m_upnp ? m_upnp.get() : NULL;
