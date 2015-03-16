@@ -80,6 +80,8 @@ public final class DhtTest {
         //dht.getPeers("5472d2fe734c16f28912e1e756b57e2470148b93");
         dht.getPeers("47d0502ead28e495c9e67665340f72aa72fe304");
 
+        System.out.println("Nodes in DHT: " + dht.totalNodes());
+
         System.out.println("Press ENTER to exit");
         System.in.read();
     }
