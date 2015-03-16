@@ -34,7 +34,7 @@ public final class DhtRouter {
 
         System.out.println("Waiting for nodes in DHT");
         Thread.sleep(5000);
-        System.out.println("Nodes in DHT: " + dht.nodes());
+        System.out.println("Nodes in DHT: " + dht.totalNodes());
     }
 
     private static List<Pair<String, Integer>> defaultRouters() {

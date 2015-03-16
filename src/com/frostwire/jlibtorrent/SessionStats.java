@@ -49,6 +49,12 @@ public final class SessionStats {
         return Collections.unmodifiableMap(m);
     }
 
+    /**
+     * NOTE: This method returns always zero due due to the way it's
+     * implemented in libtorrent.
+     *
+     * @return
+     */
     public long getDHTNodes() {
         return value(DHT_NODES_IDX);
     }

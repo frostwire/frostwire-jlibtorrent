@@ -41,7 +41,7 @@ public final class GetMagnet2 {
 
         System.out.println("Waiting for nodes in DHT");
         Thread.sleep(5000);
-        System.out.println("Nodes in DHT: " + dht.nodes());
+        System.out.println("Nodes in DHT: " + dht.totalNodes());
 
         add_torrent_params p = add_torrent_params.create_instance_no_storage();
         error_code ec = new error_code();

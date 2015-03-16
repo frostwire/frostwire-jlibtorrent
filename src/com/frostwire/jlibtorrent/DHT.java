@@ -57,8 +57,18 @@ public final class DHT {
         }
     }
 
+    /**
+     * Use totalNodes instead.
+     *
+     * @return
+     */
+    @Deprecated
     public long nodes() {
-        return s.getStats().getDHTNodes();
+        return totalNodes();
+    }
+
+    public long totalNodes() {
+        return s.getDHTStats().totalNodes();
     }
 
     public void get(String sha1) {
