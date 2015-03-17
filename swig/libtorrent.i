@@ -61,7 +61,6 @@
 #include "libtorrent/bdecode.hpp"
 #include "libtorrent/buffer.hpp"
 #include "libtorrent/tracker_manager.hpp"
-#include "libtorrent/escape_string.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
@@ -183,9 +182,9 @@ namespace dht {
     {
         // v must be valid bencoding!
 #ifdef TORRENT_DEBUG
-        lazy_entry e;
+        bdecode_node e;
         error_code ec;
-        TORRENT_ASSERT(lazy_bdecode(v.first, v.first + v.second, e, ec) == 0);
+        TORRENT_ASSERT(bdecode(v.first, v.first + v.second, e, ec) == 0);
 #endif
         char* ptr = out;
 
@@ -716,7 +715,6 @@ namespace std {
 %javaconst(0);
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/tracker_manager.hpp"
-%include "libtorrent/escape_string.hpp"
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"

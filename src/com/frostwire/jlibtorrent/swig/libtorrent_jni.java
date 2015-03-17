@@ -3307,15 +3307,6 @@ public class libtorrent_jni {
   public final static native void tracker_response_downloaded_set(long jarg1, tracker_response jarg1_, int jarg2);
   public final static native int tracker_response_downloaded_get(long jarg1, tracker_response jarg1_);
   public final static native void delete_tracker_response(long jarg1);
-  public final static native String unescape_string(String jarg1, long jarg2, error_code jarg2_);
-  public final static native String escape_string(String jarg1, int jarg2);
-  public final static native String escape_path(String jarg1, int jarg2);
-  public final static native String maybe_url_encode(String jarg1);
-  public final static native String resolve_file_url(String jarg1);
-  public final static native boolean need_encoding(String jarg1, int jarg2);
-  public final static native String base64encode(String jarg1);
-  public final static native String base32encode(String jarg1);
-  public final static native String base32decode(String jarg1);
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
   public final static native void parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);

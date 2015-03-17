@@ -206,42 +206,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.print_entry__SWIG_2(bdecode_node.getCPtr(e), e);
   }
 
-  public static String unescape_string(String s, error_code ec) {
-    return libtorrent_jni.unescape_string(s, error_code.getCPtr(ec), ec);
-  }
-
-  public static String escape_string(String str, int len) {
-    return libtorrent_jni.escape_string(str, len);
-  }
-
-  public static String escape_path(String str, int len) {
-    return libtorrent_jni.escape_path(str, len);
-  }
-
-  public static String maybe_url_encode(String url) {
-    return libtorrent_jni.maybe_url_encode(url);
-  }
-
-  public static String resolve_file_url(String url) {
-    return libtorrent_jni.resolve_file_url(url);
-  }
-
-  public static boolean need_encoding(String str, int len) {
-    return libtorrent_jni.need_encoding(str, len);
-  }
-
-  public static String base64encode(String s) {
-    return libtorrent_jni.base64encode(s);
-  }
-
-  public static String base32encode(String s) {
-    return libtorrent_jni.base32encode(s);
-  }
-
-  public static String base32decode(String s) {
-    return libtorrent_jni.base32decode(s);
-  }
-
   public static String make_magnet_uri(torrent_handle handle) {
     return libtorrent_jni.make_magnet_uri__SWIG_0(torrent_handle.getCPtr(handle), handle);
   }
