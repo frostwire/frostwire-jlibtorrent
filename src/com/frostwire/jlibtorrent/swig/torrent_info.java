@@ -107,6 +107,14 @@ public class torrent_info {
     return new announce_entry_vector(libtorrent_jni.torrent_info_trackers(swigCPtr, this), false);
   }
 
+  public sha1_hash_vector similar_torrents() {
+    return new sha1_hash_vector(libtorrent_jni.torrent_info_similar_torrents(swigCPtr, this), true);
+  }
+
+  public string_vector collections() {
+    return new string_vector(libtorrent_jni.torrent_info_collections(swigCPtr, this), true);
+  }
+
   public void add_url_seed(String url, String extern_auth, string_string_pair_vector extra_headers) {
     libtorrent_jni.torrent_info_add_url_seed__SWIG_0(swigCPtr, this, url, extern_auth, string_string_pair_vector.getCPtr(extra_headers), extra_headers);
   }

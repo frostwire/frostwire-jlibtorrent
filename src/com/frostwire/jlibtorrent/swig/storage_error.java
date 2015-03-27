@@ -90,7 +90,9 @@ public class storage_error {
     alloc_cache_piece,
     partfile_move,
     partfile_read,
-    partfile_write;
+    partfile_write,
+    check_resume,
+    hard_link;
 
     public final int swigValue() {
       return swigValue;

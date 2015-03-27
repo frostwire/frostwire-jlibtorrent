@@ -851,7 +851,7 @@ public class libtorrent_jni {
   public final static native boolean zero_storage_has_any_file(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native void zero_storage_set_file_priority(long jarg1, zero_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
   public final static native int zero_storage_move_storage(long jarg1, zero_storage jarg1_, String jarg2, int jarg3, long jarg4, storage_error jarg4_);
-  public final static native boolean zero_storage_verify_resume_data(long jarg1, zero_storage jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, storage_error jarg3_);
+  public final static native boolean zero_storage_verify_resume_data(long jarg1, zero_storage jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, string_vector jarg3_, long jarg4, storage_error jarg4_);
   public final static native void zero_storage_write_resume_data(long jarg1, zero_storage jarg1_, long jarg2, entry jarg2_, long jarg3, storage_error jarg3_);
   public final static native void zero_storage_release_files(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native void zero_storage_rename_file(long jarg1, zero_storage jarg1_, int jarg2, String jarg3, long jarg4, storage_error jarg4_);
@@ -898,9 +898,10 @@ public class libtorrent_jni {
   public final static native void file_storage_swap(long jarg1, file_storage jarg1_, long jarg2, file_storage jarg2_);
   public final static native void file_storage_unload(long jarg1, file_storage jarg1_);
   public final static native boolean file_storage_is_loaded(long jarg1, file_storage jarg1_);
-  public final static native void file_storage_optimize__SWIG_0(long jarg1, file_storage jarg1_, int jarg2, int jarg3);
-  public final static native void file_storage_optimize__SWIG_1(long jarg1, file_storage jarg1_, int jarg2);
-  public final static native void file_storage_optimize__SWIG_2(long jarg1, file_storage jarg1_);
+  public final static native void file_storage_optimize__SWIG_0(long jarg1, file_storage jarg1_, int jarg2, int jarg3, boolean jarg4);
+  public final static native void file_storage_optimize__SWIG_1(long jarg1, file_storage jarg1_, int jarg2, int jarg3);
+  public final static native void file_storage_optimize__SWIG_2(long jarg1, file_storage jarg1_, int jarg2);
+  public final static native void file_storage_optimize__SWIG_3(long jarg1, file_storage jarg1_);
   public final static native long file_storage_hash(long jarg1, file_storage jarg1_, int jarg2);
   public final static native String file_storage_symlink(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_mtime(long jarg1, file_storage jarg1_, int jarg2);
@@ -911,7 +912,7 @@ public class libtorrent_jni {
   public final static native boolean file_storage_pad_file_at(long jarg1, file_storage jarg1_, int jarg2);
   public final static native long file_storage_file_offset(long jarg1, file_storage jarg1_, int jarg2);
   public final static native long file_storage_file_path_hash(long jarg1, file_storage jarg1_, int jarg2, String jarg3);
-  public final static native long file_storage_path_hash(long jarg1, file_storage jarg1_, int jarg2, String jarg3);
+  public final static native void file_storage_all_path_hashes(long jarg1, file_storage jarg1_, long jarg2);
   public final static native int file_storage_flag_pad_file_get();
   public final static native int file_storage_flag_hidden_get();
   public final static native int file_storage_flag_executable_get();
@@ -1005,6 +1006,8 @@ public class libtorrent_jni {
   public final static native void torrent_info_add_tracker__SWIG_0(long jarg1, torrent_info jarg1_, String jarg2, int jarg3);
   public final static native void torrent_info_add_tracker__SWIG_1(long jarg1, torrent_info jarg1_, String jarg2);
   public final static native long torrent_info_trackers(long jarg1, torrent_info jarg1_);
+  public final static native long torrent_info_similar_torrents(long jarg1, torrent_info jarg1_);
+  public final static native long torrent_info_collections(long jarg1, torrent_info jarg1_);
   public final static native void torrent_info_add_url_seed__SWIG_0(long jarg1, torrent_info jarg1_, String jarg2, String jarg3, long jarg4, string_string_pair_vector jarg4_);
   public final static native void torrent_info_add_url_seed__SWIG_1(long jarg1, torrent_info jarg1_, String jarg2, String jarg3);
   public final static native void torrent_info_add_url_seed__SWIG_2(long jarg1, torrent_info jarg1_, String jarg2);
@@ -3310,10 +3313,12 @@ public class libtorrent_jni {
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
   public final static native void parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
+  public final static native int create_torrent_optimize_alignment_get();
   public final static native int create_torrent_optimize_get();
   public final static native int create_torrent_merkle_get();
   public final static native int create_torrent_modification_time_get();
   public final static native int create_torrent_symlinks_get();
+  public final static native int create_torrent_mutable_torrent_support_get();
   public final static native long new_create_torrent__SWIG_0(long jarg1, file_storage jarg1_, int jarg2, int jarg3, int jarg4, int jarg5);
   public final static native long new_create_torrent__SWIG_1(long jarg1, file_storage jarg1_, int jarg2, int jarg3, int jarg4);
   public final static native long new_create_torrent__SWIG_2(long jarg1, file_storage jarg1_, int jarg2, int jarg3);
@@ -3339,6 +3344,8 @@ public class libtorrent_jni {
   public final static native int create_torrent_piece_length(long jarg1, create_torrent jarg1_);
   public final static native int create_torrent_piece_size(long jarg1, create_torrent jarg1_, int jarg2);
   public final static native long create_torrent_merkle_tree(long jarg1, create_torrent jarg1_);
+  public final static native void create_torrent_add_similar_torrent(long jarg1, create_torrent jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void create_torrent_add_collection(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native void add_files__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
   public final static native void add_files__SWIG_1(long jarg1, file_storage jarg1_, String jarg2);
   public final static native void set_piece_hashes__SWIG_0(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);

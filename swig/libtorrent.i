@@ -969,7 +969,7 @@ static const int user_alert_id = 10000;
     }
 };
 
-%template(sha1_bloom_filter) bloom_filter<160>;
+%template(sha1_bloom_filter) bloom_filter<20>;
 
 //%template(total_seconds_long) libtorrent::total_seconds<long long>;
 //%template(total_milliseconds_long) libtorrent::total_milliseconds<long long>;
