@@ -19,6 +19,12 @@ public class Sha1BloomFilterTest {
         for (Sha1Hash h : hashes) {
             System.out.println("Has " + h + "? -> " + bloomFilter.find(h.getSwig()));
             bloomFilter.set(h.getSwig());
+            final String asString = bloomFilter.to_string();
+            if (asString != null) {
+                System.out.println("sha1_bloom_filter::to_string() -> [" + asString + "](" + asString.length() + " characters)");
+            } else {
+                System.out.println("sha1_bloom_filter::to_string() -> Error: null!");
+            }
         }
 
         System.out.println("=== now after they've been added ===");
