@@ -50,13 +50,7 @@ INCLUDES="-I$BOOST_ROOT -I$LIBTORRENT_ROOT/include -I$JDK_INCLUDE_1 -I$JDK_INCLU
 LIBS="-ltorrent -lboost_system -lboost_chrono -lboost_date_time -lboost_thread -lboost_random"
 CXXFLAGS="-fPIC -fno-strict-aliasing -O3"
 
-#debug mode
-CXXFLAGS="-fPIC -fno-strict-aliasing -g"
-
-#linux server mode (no optimizations, no debug)
-CXXFLAGS="-fPIC -fno-strict-aliasing"
-
-LDFLAGS="-fPIC -Wl,-Bsymbolic -pthread -L$LIBTORRENT_LIBS"
+LDFLAGS="-Wl,-Bsymbolic -pthread -L$LIBTORRENT_LIBS"
 TARGET="libjlibtorrent.so"
 
 $CXX $CXXFLAGS $DEFINES $INCLUDES -std=c++11 -c swig/libtorrent_jni.cpp
