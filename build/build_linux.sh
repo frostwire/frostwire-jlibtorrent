@@ -13,11 +13,13 @@
 
 # Download boost from boost.org (1.56 is the version we use, we've had high CPU usage issues with 1.57 and Windows Networking)
 # run the ./bootstrap.sh script so that ./b2 will work. Then execute:
+
+# Release for Desktop
 # $BOOST_ROOT/b2 variant=release link=static --stagedir=linux stage cxxflags=-fPIC cflags=-fPIC --with-chrono --with-system --with-random --with-thread --with_date_time --with-filesystem; cp $BOOST_ROOT/linux/lib/*.a $LIBTORRENT_LIBS/
 
 # BUILDING libtorrent
 # After you've built boost, you should build libtorrent like this from your $LIBTORRENT_ROOT folder.
-# $BOOST_ROOT/bjam toolset=gcc variant=release link=static deprecated-functions=off boost=source cxxflags=-fPIC cflags=-fPIC; cp $LIBTORRENT_ROOT/bin/gcc-4.9.1/release/boost-source/deprecated-functions-off/link-static/threading-multi/libtorrent.a $LIBTORRENT_LIBS/libtorrent_trunk.a; cp $LIBTORRENT_LIBS/libtorrent_trunk.a $LIBTORRENT_LIBS/libtorrent.a
+# $BOOST_ROOT/bjam toolset=gcc variant=release link=static deprecated-functions=off cflags=-fPIC
 
 # Once you've build boost and libtorrent, copy all the .a files to $LIBTORRENT_LIBS wherever that may be.
 # You should end up with a list like follows:
@@ -36,16 +38,25 @@
 #
 # Download swig 3 from swig.org (./configure; ./make; sudo make install)
 
-JDK_INCLUDE_1=/usr/lib/jvm/java-7-openjdk-amd64/include
-JDK_INCLUDE_2=/usr/lib/jvm/java-7-openjdk-amd64/include/linux
+#JDK_INCLUDE_1=/usr/lib/jvm/java-7-openjdk-amd64/include
+#JDK_INCLUDE_2=/usr/lib/jvm/java-7-openjdk-amd64/include/linux
+
+JDK_INCLUDE_1=/usr/lib/jvm/java-8-oracle/include/
+JDK_INCLUDE_2=/usr/lib/jvm/java-8-oracle/include/linux
 
 CXX=g++
-#-DBOOST_ASIO_DISABLE_BOOST_CHRONO=1
-DEFINES="-DNDEBUG=1 -DBOOST_ASIO_SEPARATE_COMPILATION=1 -DTORRENT_USE_CLOCK_GETTIME=1 -DTORRENT_DISABLE_GEO_IP=1 -DTORRENT_NO_DEPRECATE=1 -DBOOST_ASIO_DISABLE_STD_CHRONO=1 -DBOOST_ASIO_HAS_BOOST_CHRONO=1"
+DEFINES="-DNDEBUG=1 -DBOOST_ASIO_SEPARATE_COMPILATION=1 -DTORRENT_USE_CLOCK_GETTIME=1 -DTORRENT_DISABLE_GEO_IP=1 -DTORRENT_NO_DEPRECATE=1"
 INCLUDES="-I$BOOST_ROOT -I$LIBTORRENT_ROOT/include -I$JDK_INCLUDE_1 -I$JDK_INCLUDE_2"
-LIBS="-ltorrent_trunk -lboost_system -lboost_chrono -lboost_date_time -lboost_thread -lboost_random"
+LIBS="-ltorrent -lboost_system -lboost_chrono -lboost_date_time -lboost_thread -lboost_random"
 CXXFLAGS="-fPIC -fno-strict-aliasing -O3"
-LDFLAGS="-fPIC -Wl,-Bsymbolic -L$LIBTORRENT_LIBS"
+
+#debug mode
+CXXFLAGS="-fPIC -fno-strict-aliasing -g"
+
+#linux server mode (no optimizations, no debug)
+CXXFLAGS="-fPIC -fno-strict-aliasing"
+
+LDFLAGS="-fPIC -Wl,-Bsymbolic -pthread -L$LIBTORRENT_LIBS"
 TARGET="libjlibtorrent.so"
 
 $CXX $CXXFLAGS $DEFINES $INCLUDES -std=c++11 -c swig/libtorrent_jni.cpp
