@@ -8,7 +8,7 @@
 
 #copy user-config.jam to ~/ change it for intel if necessary
 #make-standalone-toolchain.sh --platform=android-15 --arch=arm --toolchain=arm-linux-androideabi-4.8 --install-dir=toolchain-platform-15-arm-gcc-4.8
-#ARM: export CXXFLAGS="-mthumb -fno-strict-aliasing -lstdc++ -O3 -D__GLIBC__ -D_GLIBCXX__PTHREADS -D__arm__ -D_REENTRANT -I$BOOST_ROOT -DBOOST_ATOMIC_LLONG_LOCK_FREE=2"
+#ARM: export CXXFLAGS="-mthumb -fno-strict-aliasing -lstdc++ -O3 -D__GLIBC__ -D_GLIBCXX__PTHREADS -D__arm__ -D_REENTRANT -I$BOOST_ROOT -DBOOST_ASIO_DISABLE_STD_CHRONO=1 -DBOOST_ASIO_HAS_BOOST_CHRONO=1 -DBOOST_ATOMIC_LLONG_LOCK_FREE=2"
 #X86: export CXXFLAGS="-fno-strict-aliasing -lstdc++ -O3 -D__GLIBC__ -D_GLIBCXX__PTHREADS -D_REENTRANT -I$BOOST_ROOT"
 #$BOOST_ROOT/b2 toolset=gcc-arm variant=release link=static target-os=linux --stagedir="android-arm" stage
 #$BOOST_ROOT/bjam toolset=gcc-arm variant=release link=static target-os=linux deprecated-functions=off
