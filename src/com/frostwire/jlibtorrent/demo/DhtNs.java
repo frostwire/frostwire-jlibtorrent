@@ -258,7 +258,7 @@ public class DhtNs {
     }
 
     private static String toHex(byte[] arr) {
-        return LibTorrent.toHex(arr);
+        return Utils.toHex(arr);
     }
 
     /**

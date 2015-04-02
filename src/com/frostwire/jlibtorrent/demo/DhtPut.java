@@ -43,8 +43,8 @@ public final class DhtPut {
                 if (alert instanceof DhtPutAlert) {
                     DhtPutAlert put = (DhtPutAlert) alert;
                     System.out.println("DHT put alert with public key:");
-                    System.out.println("PK:" + LibTorrent.toHex(put.getPublicKey()));
-                    System.out.println("SIG:" + LibTorrent.toHex(put.getSignature()));
+                    System.out.println("PK:" + Utils.toHex(put.getPublicKey()));
+                    System.out.println("SIG:" + Utils.toHex(put.getSignature()));
                     System.out.println("SALT:" + put.getSalt());
 
                     s.dhtGetItem(put.getPublicKey(), "ts");
@@ -53,8 +53,8 @@ public final class DhtPut {
                 if (alert instanceof DhtMutableItemAlert) {
                     DhtMutableItemAlert m = (DhtMutableItemAlert) alert;
                     System.out.println(m.getItem());
-                    System.out.println("PK:" + LibTorrent.toHex(m.getKey()));
-                    System.out.println("SIG:" + LibTorrent.toHex(m.getSignature()));
+                    System.out.println("PK:" + Utils.toHex(m.getKey()));
+                    System.out.println("SIG:" + Utils.toHex(m.getSignature()));
                     System.out.println("SALT:" + m.getSalt());
                 }
             }
@@ -75,7 +75,7 @@ public final class DhtPut {
 
         Ed25519.createKeypair(publicKey, privateKey, seed);
         System.out.println("public key:");
-        System.out.println(LibTorrent.toHex(publicKey));
+        System.out.println(Utils.toHex(publicKey));
 
         s.dhtPutItem(publicKey, privateKey, new Entry(new entry("test")), "ts");
 

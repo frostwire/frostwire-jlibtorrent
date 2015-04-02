@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.DHT;
-import com.frostwire.jlibtorrent.Ed25519;
-import com.frostwire.jlibtorrent.Entry;
-import com.frostwire.jlibtorrent.LibTorrent;
+import com.frostwire.jlibtorrent.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +28,7 @@ public final class DhtItemTest {
 
         int size = DHT.canonicalString(e, seq, salt, out);
 
-        System.out.println(LibTorrent.toHex(out));
+        System.out.println(Utils.toHex(out));
 
         //final byte[] seed = new byte[Ed25519.SEED_SIZE];
         final byte[] seed = new byte[]{ //length Ed25519.SEED_SIZE = 32 bytes
@@ -45,13 +42,13 @@ public final class DhtItemTest {
 
         //Ed25519.createSeed(seed);
         Ed25519.createKeypair(pk, sk, seed);
-        System.out.println("PK:" + LibTorrent.toHex(pk));
-        System.out.println("SK:" + LibTorrent.toHex(sk));
+        System.out.println("PK:" + Utils.toHex(pk));
+        System.out.println("SK:" + Utils.toHex(sk));
 
         byte[] sig = new byte[Ed25519.SIGNATURE_SIZE];
         DHT.signMutableItem(e, salt, seq, pk, sk, sig);
 
-        System.out.println(LibTorrent.toHex(sig));
+        System.out.println(Utils.toHex(sig));
 
         System.out.println(DHT.verifyMutableItem(e, salt, seq, pk, sig));
     }

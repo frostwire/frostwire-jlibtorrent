@@ -167,12 +167,6 @@ public:
     }
 };
 
-std::string to_hex(std::vector<char>& v) {
-    std::vector<char> s(2 * v.size());
-    to_hex(v.data(), v.size(), s.data());
-    return std::string(s.begin(), s.end());
-}
-
 namespace libtorrent {
 namespace dht {
     // code copied from item.cpp
@@ -420,7 +414,7 @@ namespace std {
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
 %ignore libtorrent::is_hex;
-%ignore libtorrent::to_hex(char const*, int, char*);
+%ignore libtorrent::to_hex;
 %ignore libtorrent::from_hex(char const*, int, char*);
 %ignore libtorrent::convert_to_native;
 %ignore libtorrent::convert_from_native;
@@ -435,7 +429,6 @@ namespace std {
 %ignore libtorrent::gzip_header;
 %ignore libtorrent::convert_path_to_posix;
 %ignore libtorrent::hex_to_int;
-%ignore libtorrent::to_hex;
 %ignore libtorrent::nop;
 %ignore libtorrent::to_string;
 %ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>, boost::uint32_t);
@@ -1007,8 +1000,6 @@ public:
                              std::vector<char>& public_key,
                              std::vector<char>& private_key);
 };
-
-std::string to_hex(std::vector<char>& v);
 
 class dht_item {
 public:

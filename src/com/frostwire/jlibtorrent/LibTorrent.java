@@ -17,17 +17,6 @@ public final class LibTorrent {
     }
 
     /**
-     * returns the string in hexadecimal representation using the internal libtorrent to_hex
-     * function.
-     *
-     * @param data
-     * @return
-     */
-    public static String toHex(byte[] data) {
-        return libtorrent.to_hex(Vectors.bytes2char_vector(data));
-    }
-
-    /**
      * This free function returns the list of available metrics exposed by
      * libtorrent's statistics API. Each metric has a name and a *value index*.
      * The value index is the index into the array in session_stats_alert where

@@ -21,6 +21,8 @@ import java.io.*;
 
 public final class Utils {
 
+    private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
+
     private Utils() {
     }
 
@@ -340,12 +342,12 @@ public final class Utils {
 
     /**
      * Writes a byte array to a file creating the file if it does not exist.
-     * <p>
+     * <p/>
      * NOTE: As from v1.3, the parent directories of the file will be created
      * if they do not exist.
      *
-     * @param file  the file to write to
-     * @param data  the content to write to the file
+     * @param file the file to write to
+     * @param data the content to write to the file
      * @throws IOException in case of an I/O error
      * @since 1.1
      */
@@ -356,10 +358,10 @@ public final class Utils {
     /**
      * Writes a byte array to a file creating the file if it does not exist.
      *
-     * @param file  the file to write to
-     * @param data  the content to write to the file
+     * @param file   the file to write to
+     * @param data   the content to write to the file
      * @param append if {@code true}, then bytes will be added to the
-     * end of the file rather than overwriting
+     *               end of the file rather than overwriting
      * @throws IOException in case of an I/O error
      * @since IO 2.1
      */
@@ -375,20 +377,21 @@ public final class Utils {
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * Opens a {@link FileOutputStream} for the specified file, checking and
      * creating the parent directory if it does not exist.
-     * <p>
+     * <p/>
      * At the end of the method either the stream will be successfully opened,
      * or an exception will have been thrown.
-     * <p>
+     * <p/>
      * The parent directory will be created if it does not exist.
      * The file will be created if it does not exist.
      * An exception is thrown if the file object exists but is a directory.
      * An exception is thrown if the file exists but cannot be written to.
      * An exception is thrown if the parent directory cannot be created.
      *
-     * @param file  the file to open for output, must not be {@code null}
+     * @param file the file to open for output, must not be {@code null}
      * @return a new {@link FileOutputStream} for the specified file
      * @throws IOException if the file object is a directory
      * @throws IOException if the file cannot be written to
@@ -402,19 +405,19 @@ public final class Utils {
     /**
      * Opens a {@link FileOutputStream} for the specified file, checking and
      * creating the parent directory if it does not exist.
-     * <p>
+     * <p/>
      * At the end of the method either the stream will be successfully opened,
      * or an exception will have been thrown.
-     * <p>
+     * <p/>
      * The parent directory will be created if it does not exist.
      * The file will be created if it does not exist.
      * An exception is thrown if the file object exists but is a directory.
      * An exception is thrown if the file exists but cannot be written to.
      * An exception is thrown if the parent directory cannot be created.
      *
-     * @param file  the file to open for output, must not be {@code null}
+     * @param file   the file to open for output, must not be {@code null}
      * @param append if {@code true}, then bytes will be added to the
-     * end of the file rather than overwriting
+     *               end of the file rather than overwriting
      * @return a new {@link FileOutputStream} for the specified file
      * @throws IOException if the file object is a directory
      * @throws IOException if the file cannot be written to
@@ -438,5 +441,16 @@ public final class Utils {
             }
         }
         return new FileOutputStream(file, append);
+    }
+
+    public static String toHex(byte[] bytes) {
+        char[] hexChars = new char[bytes.length * 2];
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = HEX_CHARS[v >>> 4];
+            hexChars[j * 2 + 1] = HEX_CHARS[v & 0x0F];
+        }
+
+        return new String(hexChars);
     }
 }

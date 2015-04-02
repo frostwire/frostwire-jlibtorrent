@@ -230,8 +230,4 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_upnp_category(), false);
   }
 
-  public static String to_hex(char_vector v) {
-    return libtorrent_jni.to_hex(char_vector.getCPtr(v), v);
-  }
-
 }
