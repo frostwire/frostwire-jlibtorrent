@@ -316,8 +316,6 @@ namespace std {
     %template(sha1_hash_vector) vector<libtorrent::sha1_hash>;
     %template(torrent_status_vector) vector<libtorrent::torrent_status>;
     %template(torrent_handle_vector) vector<libtorrent::torrent_handle>;
-    %template(feed_handle_vector) vector<libtorrent::feed_handle>;
-    %template(feed_item_vector) vector<libtorrent::feed_item>;
     %template(file_slice_vector) vector<libtorrent::file_slice>;
     %template(peer_request_vector) vector<libtorrent::peer_request>;
     %template(dht_routing_bucket_vector) vector<libtorrent::dht_routing_bucket>;
@@ -613,6 +611,7 @@ namespace std {
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::file_storage::apply_pointer_offset;
+%ignore libtorrent::file_storage::all_path_hashes;
 %ignore libtorrent::ipv4_peer_entry::ip;
 %ignore libtorrent::ipv6_peer_entry::ip;
 %ignore libtorrent::upnp::upnp;
@@ -795,7 +794,6 @@ namespace libtorrent {
     CAST_ALERT_METHOD(lsd_peer_alert)
     CAST_ALERT_METHOD(trackerid_alert)
     CAST_ALERT_METHOD(dht_bootstrap_alert)
-    CAST_ALERT_METHOD(rss_alert)
     CAST_ALERT_METHOD(torrent_error_alert)
     CAST_ALERT_METHOD(torrent_need_cert_alert)
     CAST_ALERT_METHOD(incoming_connection_alert)
@@ -804,7 +802,6 @@ namespace libtorrent {
     CAST_ALERT_METHOD(mmap_cache_alert)
     CAST_ALERT_METHOD(session_stats_alert)
     CAST_ALERT_METHOD(torrent_update_alert)
-    CAST_ALERT_METHOD(rss_item_alert)
     CAST_ALERT_METHOD(dht_error_alert)
     CAST_ALERT_METHOD(dht_immutable_item_alert)
     CAST_ALERT_METHOD(dht_mutable_item_alert)

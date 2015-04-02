@@ -117,14 +117,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.sanitize_append_path_element(path, element, element_len);
   }
 
-  public static torrent_handle add_feed_item(session s, feed_item fi, add_torrent_params p) {
-    return new torrent_handle(libtorrent_jni.add_feed_item__SWIG_0(session.getCPtr(s), s, feed_item.getCPtr(fi), fi, add_torrent_params.getCPtr(p), p), true);
-  }
-
-  public static torrent_handle add_feed_item(session s, feed_item fi, add_torrent_params p, error_code ec) {
-    return new torrent_handle(libtorrent_jni.add_feed_item__SWIG_1(session.getCPtr(s), s, feed_item.getCPtr(fi), fi, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec), true);
-  }
-
   public static close_reason_t error_to_close_reason(error_code ec) {
     return close_reason_t.swigToEnum(libtorrent_jni.error_to_close_reason(error_code.getCPtr(ec), ec));
   }

@@ -1030,7 +1030,6 @@ public final class Session {
         CAST_ALERT_METHOD(lsd_peer_alert.class, map);
         CAST_ALERT_METHOD(trackerid_alert.class, map);
         CAST_ALERT_METHOD(dht_bootstrap_alert.class, map);
-        CAST_ALERT_METHOD(rss_alert.class, map);
         CAST_ALERT_METHOD(torrent_error_alert.class, map);
         CAST_ALERT_METHOD(torrent_need_cert_alert.class, map);
         CAST_ALERT_METHOD(incoming_connection_alert.class, map);
@@ -1039,7 +1038,6 @@ public final class Session {
         CAST_ALERT_METHOD(mmap_cache_alert.class, map);
         CAST_ALERT_METHOD(session_stats_alert.class, map);
         CAST_ALERT_METHOD(torrent_update_alert.class, map);
-        CAST_ALERT_METHOD(rss_item_alert.class, map);
         CAST_ALERT_METHOD(dht_error_alert.class, map);
         CAST_ALERT_METHOD(dht_immutable_item_alert.class, map);
         CAST_ALERT_METHOD(dht_mutable_item_alert.class, map);

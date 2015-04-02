@@ -159,18 +159,6 @@ public class session {
     libtorrent_jni.session_get_cache_info__SWIG_2(swigCPtr, this, cache_status.getCPtr(ret), ret);
   }
 
-  public feed_handle add_feed(feed_settings feed) {
-    return new feed_handle(libtorrent_jni.session_add_feed(swigCPtr, this, feed_settings.getCPtr(feed), feed), true);
-  }
-
-  public void remove_feed(feed_handle h) {
-    libtorrent_jni.session_remove_feed(swigCPtr, this, feed_handle.getCPtr(h), h);
-  }
-
-  public void get_feeds(feed_handle_vector f) {
-    libtorrent_jni.session_get_feeds(swigCPtr, this, feed_handle_vector.getCPtr(f), f);
-  }
-
   public void set_dht_settings(dht_settings settings) {
     libtorrent_jni.session_set_dht_settings(swigCPtr, this, dht_settings.getCPtr(settings), settings);
   }
@@ -339,8 +327,7 @@ public class session {
     save_dht_settings(libtorrent_jni.session_save_dht_settings_get()),
     save_dht_state(libtorrent_jni.session_save_dht_state_get()),
     save_encryption_settings(libtorrent_jni.session_save_encryption_settings_get()),
-    save_as_map(libtorrent_jni.session_save_as_map_get()),
-    save_feeds(libtorrent_jni.session_save_feeds_get());
+    save_as_map(libtorrent_jni.session_save_as_map_get());
 
     public final int swigValue() {
       return swigValue;

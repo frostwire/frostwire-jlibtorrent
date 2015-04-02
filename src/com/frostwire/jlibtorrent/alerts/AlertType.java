@@ -72,8 +72,6 @@ public enum AlertType {
     BLOCK_TIMEOUT(block_timeout_alert.alert_type),
     CACHE_FLUSHED(cache_flushed_alert.alert_type),
     DHT_ANNOUNCE(dht_announce_alert.alert_type),
-    RSS(rss_alert.alert_type),
-    RSS_ITEM(rss_item_alert.alert_type),
     STORAGE_MOVED_FAILED(storage_moved_failed_alert.alert_type),
     TRACKERID(trackerid_alert.alert_type),
     UNWANTED_BLOCK(unwanted_block_alert.alert_type),
@@ -92,7 +90,7 @@ public enum AlertType {
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
 
-    private AlertType(int swigValue) {
+    AlertType(int swigValue) {
         this.swigValue = swigValue;
     }
 

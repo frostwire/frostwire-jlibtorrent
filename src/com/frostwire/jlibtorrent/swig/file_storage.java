@@ -143,16 +143,20 @@ public class file_storage {
     return libtorrent_jni.file_storage_is_loaded(swigCPtr, this);
   }
 
+  public void optimize(int pad_file_limit, int alignment, boolean tail_padding) {
+    libtorrent_jni.file_storage_optimize__SWIG_0(swigCPtr, this, pad_file_limit, alignment, tail_padding);
+  }
+
   public void optimize(int pad_file_limit, int alignment) {
-    libtorrent_jni.file_storage_optimize__SWIG_0(swigCPtr, this, pad_file_limit, alignment);
+    libtorrent_jni.file_storage_optimize__SWIG_1(swigCPtr, this, pad_file_limit, alignment);
   }
 
   public void optimize(int pad_file_limit) {
-    libtorrent_jni.file_storage_optimize__SWIG_1(swigCPtr, this, pad_file_limit);
+    libtorrent_jni.file_storage_optimize__SWIG_2(swigCPtr, this, pad_file_limit);
   }
 
   public void optimize() {
-    libtorrent_jni.file_storage_optimize__SWIG_2(swigCPtr, this);
+    libtorrent_jni.file_storage_optimize__SWIG_3(swigCPtr, this);
   }
 
   public sha1_hash hash(int index) {
@@ -193,10 +197,6 @@ public class file_storage {
 
   public long file_path_hash(int index, String save_path) {
     return libtorrent_jni.file_storage_file_path_hash(swigCPtr, this, index, save_path);
-  }
-
-  public long path_hash(int index, String save_path) {
-    return libtorrent_jni.file_storage_path_hash(swigCPtr, this, index, save_path);
   }
 
   public string_vector paths() {

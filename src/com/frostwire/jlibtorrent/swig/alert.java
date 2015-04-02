@@ -374,11 +374,6 @@ public class alert {
     return (cPtr == 0) ? null : new dht_bootstrap_alert(cPtr, false);
   }
 
-  public static rss_alert cast_to_rss_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_rss_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new rss_alert(cPtr, false);
-  }
-
   public static torrent_error_alert cast_to_torrent_error_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_torrent_error_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new torrent_error_alert(cPtr, false);
@@ -417,11 +412,6 @@ public class alert {
   public static torrent_update_alert cast_to_torrent_update_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_torrent_update_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new torrent_update_alert(cPtr, false);
-  }
-
-  public static rss_item_alert cast_to_rss_item_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_rss_item_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new rss_item_alert(cPtr, false);
   }
 
   public static dht_error_alert cast_to_dht_error_alert(alert alert) {
