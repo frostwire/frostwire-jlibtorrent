@@ -5,7 +5,7 @@ import com.frostwire.jlibtorrent.swig.listen_failed_alert;
 
 /**
  * This alert is generated when none of the ports, given in the port range, to
- * session can be opened for listening. The {@link #getInterface()} member is the
+ * session can be opened for listening. The {@link #listenInterface()} member is the
  * interface and port that failed, {@link #getError()} is the error code describing
  * the failure.
  * <p/>
@@ -24,12 +24,12 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
     }
 
     /**
-     * The interface libtorrent attempted to listen on.
+     * The interface libtorrent attempted to listen on that failed.
      *
      * @return
      */
-    public String getInterface() {
-        return alert.get_interface();
+    public String listenInterface() {
+        return alert.listen_interface();
     }
 
     /**
@@ -70,7 +70,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
         SOCKS5(listen_failed_alert.socket_type_t.socks5.swigValue()),
         UNKNOWN(-1);
 
-        private SocketType(int swigValue) {
+        SocketType(int swigValue) {
             this.swigValue = swigValue;
         }
 
@@ -101,7 +101,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
         ACCEPT(listen_failed_alert.op_t.accept.swigValue()),
         UNKNOWN(-1);
 
-        private Operation(int swigValue) {
+        Operation(int swigValue) {
             this.swigValue = swigValue;
         }
 

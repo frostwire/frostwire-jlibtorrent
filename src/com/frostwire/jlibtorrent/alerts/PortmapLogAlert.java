@@ -17,11 +17,16 @@ public final class PortmapLogAlert extends AbstractAlert<portmap_log_alert> {
         super(alert);
     }
 
-    public PortmapType getMapType() {
-        return PortmapType.fromSwig(alert.getMap_type());
+    public int mapType() {
+        return alert.getMap_type();
     }
 
-    public String getMessage() {
-        return alert.getMsg();
+    /**
+     * The message associated with this log line.
+     *
+     * @return
+     */
+    public String logMessage() {
+        return alert.log_message();
     }
 }

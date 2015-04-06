@@ -16,7 +16,12 @@ public final class TrackeridAlert extends TorrentAlert<trackerid_alert> {
         super(alert);
     }
 
-    public String getTrackerId() {
-        return alert.getTrackerid();
+    /**
+     * The tracker ID returned by the tracker.
+     *
+     * @return
+     */
+    public String trackerId() {
+        return alert.tracker_id();
     }
 }

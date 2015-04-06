@@ -34,7 +34,12 @@ public final class TrackerErrorAlert extends TrackerAlert<tracker_error_alert> {
         return new ErrorCode(alert.getError());
     }
 
-    public String getMsg() {
-        return alert.getMsg();
+    /**
+     * The message associated with this error.
+     *
+     * @return
+     */
+    public String errorMessage() {
+        return alert.error_message();
     }
 }

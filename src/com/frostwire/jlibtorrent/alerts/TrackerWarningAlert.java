@@ -17,11 +17,11 @@ public final class TrackerWarningAlert extends TrackerAlert<tracker_warning_aler
     }
 
     /**
-     * contains the warning message from the tracker.
+     * The message associated with this warning.
      *
      * @return
      */
-    public String getMsg() {
-        return alert.getMsg();
+    public String warningMessage() {
+        return alert.warning_message();
     }
 }

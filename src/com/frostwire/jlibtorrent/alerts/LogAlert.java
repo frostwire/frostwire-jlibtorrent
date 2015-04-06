@@ -20,11 +20,11 @@ public final class LogAlert extends AbstractAlert<log_alert> {
     }
 
     /**
-     * The log message.
+     * Returns the log message.
      *
      * @return
      */
-    public String getMsg() {
-        return alert.getMsg();
+    public String msg() {
+        return alert.msg();
     }
 }
