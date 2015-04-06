@@ -13,30 +13,32 @@ public final class StatsMetric {
     public static final int TYPE_COUNTER = stats_metric.type_counter;
     public static final int TYPE_GAUGE = stats_metric.type_gauge;
 
-    private final stats_metric sm;
-
     public StatsMetric(stats_metric sm) {
-        this.sm = sm;
+        this.name = sm.getName();
+        this.valueIndex = sm.getValue_index();
+        this.type = sm.getType();
     }
 
-    public stats_metric getSwig() {
-        return sm;
-    }
+    public final String name;
 
-    public String getName() {
-        return sm.getName();
-    }
+    public final int valueIndex;
 
-    public int getValueIndex() {
-        return sm.getValue_index();
-    }
-
-    public int getType() {
-        return sm.getType();
-    }
+    public final int type;
 
     @Override
     public String toString() {
-        return sm.getName() + ":" + sm.getValue_index() + ":" + (sm.getType() == TYPE_COUNTER ? "counter" : "gauge");
+        return name + ":" + valueIndex + ":" + typeString();
+    }
+
+    private String typeString() {
+        String str = "unknown";
+
+        if (type == TYPE_COUNTER) {
+            str = "counter";
+        } else if (type == TYPE_GAUGE) {
+            str = "gauge";
+        }
+
+        return str;
     }
 }
