@@ -17,20 +17,24 @@ public final class FileErrorAlert extends TorrentAlert<file_error_alert> {
     }
 
     /**
-     * The path to the file that was accessed when the error occurred.
-     *
-     * @return
-     */
-    public String getFile() {
-        return alert.getFile();
-    }
-
-    /**
      * The error code describing the error.
      *
      * @return
      */
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
+    }
+
+    public String operation() {
+        return alert.getOperation();
+    }
+
+    /**
+     * The file that experienced the error.
+     *
+     * @return
+     */
+    public String filename() {
+        return alert.filename();
     }
 }

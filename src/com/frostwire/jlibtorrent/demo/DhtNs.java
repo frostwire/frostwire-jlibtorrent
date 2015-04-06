@@ -166,7 +166,7 @@ public class DhtNs {
 
                     if (alert instanceof DhtReplyAlert) {
                         DhtReplyAlert reply = (DhtReplyAlert) alert;
-                        System.out.println("DHT reply alert getUrl() => " + reply.getUrl());
+                        System.out.println("DHT reply alert trackerUrl() => " + reply.trackerUrl());
                     }
 
                     if (alert instanceof DhtImmutableItemAlert) {

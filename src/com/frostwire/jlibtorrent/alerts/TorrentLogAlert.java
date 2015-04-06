@@ -24,7 +24,7 @@ public final class TorrentLogAlert extends TorrentAlert<torrent_log_alert> {
      *
      * @return
      */
-    public String getMsg() {
-        return alert.getMsg();
+    public String msg() {
+        return alert.msg();
     }
 }

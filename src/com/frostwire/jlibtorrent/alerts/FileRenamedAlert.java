@@ -3,7 +3,7 @@ package com.frostwire.jlibtorrent.alerts;
 import com.frostwire.jlibtorrent.swig.file_renamed_alert;
 
 /**
- * This is posted as a response to a torrent_handle::rename_file() call, if the rename
+ * This is posted as a response to a {@link com.frostwire.jlibtorrent.TorrentHandle#renameFile(int, String)}, if the rename
  * operation succeeds.
  *
  * @author gubatron
@@ -15,17 +15,16 @@ public final class FileRenamedAlert extends TorrentAlert<file_renamed_alert> {
         super(alert);
     }
 
-    public String getName() {
-        return alert.getName();
+    public String newName() {
+        return alert.new_name();
     }
 
     /**
-     * Refers to the index of the file that was renamed,
-     * ``name`` is the new name of the file.
+     * Refers to the index of the file that was renamed.
      *
      * @return
      */
-    public int getIndex() {
+    public int index() {
         return alert.getIndex();
     }
 }
