@@ -35,8 +35,8 @@ public class torrent_log_alert extends torrent_alert {
     super.delete();
   }
 
-  public torrent_log_alert(torrent_handle h, String log) {
-    this(libtorrent_jni.new_torrent_log_alert(torrent_handle.getCPtr(h), h, log), true);
+  public torrent_log_alert(stack_allocator alloc, torrent_handle h, String log) {
+    this(libtorrent_jni.new_torrent_log_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, log), true);
   }
 
   public int type() {
@@ -55,14 +55,11 @@ public class torrent_log_alert extends torrent_alert {
     return libtorrent_jni.torrent_log_alert_message(swigCPtr, this);
   }
 
-  public void setMsg(String value) {
-    libtorrent_jni.torrent_log_alert_msg_set(swigCPtr, this, value);
+  public String msg() {
+    return libtorrent_jni.torrent_log_alert_msg(swigCPtr, this);
   }
 
-  public String getMsg() {
-    return libtorrent_jni.torrent_log_alert_msg_get(swigCPtr, this);
-  }
-
+  public final static int priority = libtorrent_jni.torrent_log_alert_priority_get();
   public final static int alert_type = libtorrent_jni.torrent_log_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.torrent_log_alert_static_category_get();
 }

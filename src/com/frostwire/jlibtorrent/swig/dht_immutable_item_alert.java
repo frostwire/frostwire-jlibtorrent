@@ -35,8 +35,8 @@ public class dht_immutable_item_alert extends alert {
     super.delete();
   }
 
-  public dht_immutable_item_alert(sha1_hash t, entry i) {
-    this(libtorrent_jni.new_dht_immutable_item_alert(sha1_hash.getCPtr(t), t, entry.getCPtr(i), i), true);
+  public dht_immutable_item_alert(stack_allocator alloc, sha1_hash t, entry i) {
+    this(libtorrent_jni.new_dht_immutable_item_alert(stack_allocator.getCPtr(alloc), alloc, sha1_hash.getCPtr(t), t, entry.getCPtr(i), i), true);
   }
 
   public int type() {
@@ -53,10 +53,6 @@ public class dht_immutable_item_alert extends alert {
 
   public String message() {
     return libtorrent_jni.dht_immutable_item_alert_message(swigCPtr, this);
-  }
-
-  public boolean discardable() {
-    return libtorrent_jni.dht_immutable_item_alert_discardable(swigCPtr, this);
   }
 
   public void setTarget(sha1_hash value) {
@@ -76,6 +72,7 @@ public class dht_immutable_item_alert extends alert {
     return new entry(libtorrent_jni.dht_immutable_item_alert_item_get(swigCPtr, this), true);
   }
 
+  public final static int priority = libtorrent_jni.dht_immutable_item_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_immutable_item_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_immutable_item_alert_static_category_get();
 }

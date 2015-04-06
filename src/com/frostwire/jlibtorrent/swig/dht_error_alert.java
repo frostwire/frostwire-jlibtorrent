@@ -35,8 +35,8 @@ public class dht_error_alert extends alert {
     super.delete();
   }
 
-  public dht_error_alert(int op, error_code ec) {
-    this(libtorrent_jni.new_dht_error_alert(op, error_code.getCPtr(ec), ec), true);
+  public dht_error_alert(stack_allocator alloc, int op, error_code ec) {
+    this(libtorrent_jni.new_dht_error_alert(stack_allocator.getCPtr(alloc), alloc, op, error_code.getCPtr(ec), ec), true);
   }
 
   public int type() {
@@ -72,6 +72,7 @@ public class dht_error_alert extends alert {
     return dht_error_alert.op_t.swigToEnum(libtorrent_jni.dht_error_alert_operation_get(swigCPtr, this));
   }
 
+  public final static int priority = libtorrent_jni.dht_error_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_error_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_error_alert_static_category_get();
   public enum op_t {

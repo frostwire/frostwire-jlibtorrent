@@ -35,8 +35,8 @@ public class add_torrent_alert extends torrent_alert {
     super.delete();
   }
 
-  public add_torrent_alert(torrent_handle h, add_torrent_params p, error_code ec) {
-    this(libtorrent_jni.new_add_torrent_alert(torrent_handle.getCPtr(h), h, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec), true);
+  public add_torrent_alert(stack_allocator alloc, torrent_handle h, add_torrent_params p, error_code ec) {
+    this(libtorrent_jni.new_add_torrent_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec), true);
   }
 
   public int type() {
@@ -53,10 +53,6 @@ public class add_torrent_alert extends torrent_alert {
 
   public String message() {
     return libtorrent_jni.add_torrent_alert_message(swigCPtr, this);
-  }
-
-  public boolean discardable() {
-    return libtorrent_jni.add_torrent_alert_discardable(swigCPtr, this);
   }
 
   public void setParams(add_torrent_params value) {
@@ -77,6 +73,7 @@ public class add_torrent_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
+  public final static int priority = libtorrent_jni.add_torrent_alert_priority_get();
   public final static int alert_type = libtorrent_jni.add_torrent_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.add_torrent_alert_static_category_get();
 }

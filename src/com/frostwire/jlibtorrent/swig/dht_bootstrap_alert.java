@@ -35,8 +35,8 @@ public class dht_bootstrap_alert extends alert {
     super.delete();
   }
 
-  public dht_bootstrap_alert() {
-    this(libtorrent_jni.new_dht_bootstrap_alert(), true);
+  public dht_bootstrap_alert(stack_allocator alloc) {
+    this(libtorrent_jni.new_dht_bootstrap_alert(stack_allocator.getCPtr(alloc), alloc), true);
   }
 
   public int type() {
@@ -55,6 +55,7 @@ public class dht_bootstrap_alert extends alert {
     return libtorrent_jni.dht_bootstrap_alert_message(swigCPtr, this);
   }
 
+  public final static int priority = libtorrent_jni.dht_bootstrap_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_bootstrap_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_bootstrap_alert_static_category_get();
 }

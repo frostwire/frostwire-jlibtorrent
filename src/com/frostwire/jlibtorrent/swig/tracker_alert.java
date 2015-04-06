@@ -43,12 +43,8 @@ public class tracker_alert extends torrent_alert {
     return libtorrent_jni.tracker_alert_message(swigCPtr, this);
   }
 
-  public void setUrl(String value) {
-    libtorrent_jni.tracker_alert_url_set(swigCPtr, this, value);
-  }
-
-  public String getUrl() {
-    return libtorrent_jni.tracker_alert_url_get(swigCPtr, this);
+  public String tracker_url() {
+    return libtorrent_jni.tracker_alert_tracker_url(swigCPtr, this);
   }
 
   public final static int alert_type = libtorrent_jni.tracker_alert_alert_type_get();

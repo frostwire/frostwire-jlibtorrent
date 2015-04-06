@@ -51,10 +51,6 @@ public class read_piece_alert extends torrent_alert {
     return libtorrent_jni.read_piece_alert_message(swigCPtr, this);
   }
 
-  public boolean discardable() {
-    return libtorrent_jni.read_piece_alert_discardable(swigCPtr, this);
-  }
-
   public void setEc(error_code value) {
     libtorrent_jni.read_piece_alert_ec_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
@@ -80,6 +76,7 @@ public class read_piece_alert extends torrent_alert {
     return libtorrent_jni.read_piece_alert_size_get(swigCPtr, this);
   }
 
+  public final static int priority = libtorrent_jni.read_piece_alert_priority_get();
   public final static int alert_type = libtorrent_jni.read_piece_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.read_piece_alert_static_category_get();
 }

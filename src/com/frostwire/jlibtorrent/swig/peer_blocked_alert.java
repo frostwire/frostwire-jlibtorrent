@@ -35,8 +35,8 @@ public class peer_blocked_alert extends torrent_alert {
     super.delete();
   }
 
-  public peer_blocked_alert(torrent_handle h, address i, int r) {
-    this(libtorrent_jni.new_peer_blocked_alert(torrent_handle.getCPtr(h), h, address.getCPtr(i), i, r), true);
+  public peer_blocked_alert(stack_allocator alloc, torrent_handle h, address i, int r) {
+    this(libtorrent_jni.new_peer_blocked_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, address.getCPtr(i), i, r), true);
   }
 
   public int type() {
@@ -72,6 +72,7 @@ public class peer_blocked_alert extends torrent_alert {
     return libtorrent_jni.peer_blocked_alert_reason_get(swigCPtr, this);
   }
 
+  public final static int priority = libtorrent_jni.peer_blocked_alert_priority_get();
   public final static int alert_type = libtorrent_jni.peer_blocked_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.peer_blocked_alert_static_category_get();
   public enum reason_t {

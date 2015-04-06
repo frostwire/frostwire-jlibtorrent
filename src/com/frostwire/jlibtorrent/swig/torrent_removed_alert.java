@@ -35,8 +35,8 @@ public class torrent_removed_alert extends torrent_alert {
     super.delete();
   }
 
-  public torrent_removed_alert(torrent_handle h, sha1_hash ih) {
-    this(libtorrent_jni.new_torrent_removed_alert(torrent_handle.getCPtr(h), h, sha1_hash.getCPtr(ih), ih), true);
+  public torrent_removed_alert(stack_allocator alloc, torrent_handle h, sha1_hash ih) {
+    this(libtorrent_jni.new_torrent_removed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, sha1_hash.getCPtr(ih), ih), true);
   }
 
   public int type() {
@@ -55,10 +55,6 @@ public class torrent_removed_alert extends torrent_alert {
     return libtorrent_jni.torrent_removed_alert_message(swigCPtr, this);
   }
 
-  public boolean discardable() {
-    return libtorrent_jni.torrent_removed_alert_discardable(swigCPtr, this);
-  }
-
   public void setInfo_hash(sha1_hash value) {
     libtorrent_jni.torrent_removed_alert_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
@@ -68,6 +64,7 @@ public class torrent_removed_alert extends torrent_alert {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
+  public final static int priority = libtorrent_jni.torrent_removed_alert_priority_get();
   public final static int alert_type = libtorrent_jni.torrent_removed_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.torrent_removed_alert_static_category_get();
 }

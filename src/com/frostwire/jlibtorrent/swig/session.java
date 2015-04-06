@@ -255,13 +255,8 @@ public class session {
     return new session_settings(libtorrent_jni.session_get_settings(swigCPtr, this), true);
   }
 
-  public alert pop_alert() {
-     long cPtr = libtorrent_jni.session_pop_alert(swigCPtr, this);
-     return (cPtr == 0) ? null : new alert(cPtr, true);
-   }
-
-  public void pop_alerts(alert_ptr_deque alerts) {
-    libtorrent_jni.session_pop_alerts(swigCPtr, this, alert_ptr_deque.getCPtr(alerts), alerts);
+  public void pop_alerts(alert_ptr_vector alerts) {
+    libtorrent_jni.session_pop_alerts(swigCPtr, this, alert_ptr_vector.getCPtr(alerts), alerts);
   }
 
   public alert wait_for_alert(high_resolution_clock.duration max_wait) {

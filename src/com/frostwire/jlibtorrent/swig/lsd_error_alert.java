@@ -35,8 +35,8 @@ public class lsd_error_alert extends alert {
     super.delete();
   }
 
-  public lsd_error_alert(error_code ec) {
-    this(libtorrent_jni.new_lsd_error_alert(error_code.getCPtr(ec), ec), true);
+  public lsd_error_alert(stack_allocator alloc, error_code ec) {
+    this(libtorrent_jni.new_lsd_error_alert(stack_allocator.getCPtr(alloc), alloc, error_code.getCPtr(ec), ec), true);
   }
 
   public int type() {
@@ -64,6 +64,7 @@ public class lsd_error_alert extends alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
+  public final static int priority = libtorrent_jni.lsd_error_alert_priority_get();
   public final static int alert_type = libtorrent_jni.lsd_error_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.lsd_error_alert_static_category_get();
 }

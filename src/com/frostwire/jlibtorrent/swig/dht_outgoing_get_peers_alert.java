@@ -35,8 +35,8 @@ public class dht_outgoing_get_peers_alert extends alert {
     super.delete();
   }
 
-  public dht_outgoing_get_peers_alert(sha1_hash ih, sha1_hash obfih, udp_endpoint ep) {
-    this(libtorrent_jni.new_dht_outgoing_get_peers_alert(sha1_hash.getCPtr(ih), ih, sha1_hash.getCPtr(obfih), obfih, udp_endpoint.getCPtr(ep), ep), true);
+  public dht_outgoing_get_peers_alert(stack_allocator alloc, sha1_hash ih, sha1_hash obfih, udp_endpoint ep) {
+    this(libtorrent_jni.new_dht_outgoing_get_peers_alert(stack_allocator.getCPtr(alloc), alloc, sha1_hash.getCPtr(ih), ih, sha1_hash.getCPtr(obfih), obfih, udp_endpoint.getCPtr(ep), ep), true);
   }
 
   public int type() {
@@ -82,6 +82,7 @@ public class dht_outgoing_get_peers_alert extends alert {
     return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
   }
 
+  public final static int priority = libtorrent_jni.dht_outgoing_get_peers_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_outgoing_get_peers_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_outgoing_get_peers_alert_static_category_get();
 }

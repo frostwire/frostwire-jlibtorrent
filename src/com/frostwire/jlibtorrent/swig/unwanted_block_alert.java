@@ -35,8 +35,8 @@ public class unwanted_block_alert extends peer_alert {
     super.delete();
   }
 
-  public unwanted_block_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, int block_num, int piece_num) {
-    this(libtorrent_jni.new_unwanted_block_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, block_num, piece_num), true);
+  public unwanted_block_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, int block_num, int piece_num) {
+    this(libtorrent_jni.new_unwanted_block_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, block_num, piece_num), true);
   }
 
   public int type() {
@@ -71,5 +71,6 @@ public class unwanted_block_alert extends peer_alert {
     return libtorrent_jni.unwanted_block_alert_piece_index_get(swigCPtr, this);
   }
 
+  public final static int priority = libtorrent_jni.unwanted_block_alert_priority_get();
   public final static int alert_type = libtorrent_jni.unwanted_block_alert_alert_type_get();
 }

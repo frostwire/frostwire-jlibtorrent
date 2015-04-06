@@ -35,8 +35,8 @@ public class fastresume_rejected_alert extends torrent_alert {
     super.delete();
   }
 
-  public fastresume_rejected_alert(torrent_handle h, error_code ec, String file, String op) {
-    this(libtorrent_jni.new_fastresume_rejected_alert(torrent_handle.getCPtr(h), h, error_code.getCPtr(ec), ec, file, op), true);
+  public fastresume_rejected_alert(stack_allocator alloc, torrent_handle h, error_code ec, String file, String op) {
+    this(libtorrent_jni.new_fastresume_rejected_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, error_code.getCPtr(ec), ec, file, op), true);
   }
 
   public int type() {
@@ -64,12 +64,8 @@ public class fastresume_rejected_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public void setFile(String value) {
-    libtorrent_jni.fastresume_rejected_alert_file_set(swigCPtr, this, value);
-  }
-
-  public String getFile() {
-    return libtorrent_jni.fastresume_rejected_alert_file_get(swigCPtr, this);
+  public String file_path() {
+    return libtorrent_jni.fastresume_rejected_alert_file_path(swigCPtr, this);
   }
 
   public void setOperation(String value) {
@@ -80,6 +76,7 @@ public class fastresume_rejected_alert extends torrent_alert {
     return libtorrent_jni.fastresume_rejected_alert_operation_get(swigCPtr, this);
   }
 
+  public final static int priority = libtorrent_jni.fastresume_rejected_alert_priority_get();
   public final static int alert_type = libtorrent_jni.fastresume_rejected_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.fastresume_rejected_alert_static_category_get();
 }

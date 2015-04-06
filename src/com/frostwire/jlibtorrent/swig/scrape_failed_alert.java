@@ -35,12 +35,12 @@ public class scrape_failed_alert extends tracker_alert {
     super.delete();
   }
 
-  public scrape_failed_alert(torrent_handle h, String u, error_code e) {
-    this(libtorrent_jni.new_scrape_failed_alert__SWIG_0(torrent_handle.getCPtr(h), h, u, error_code.getCPtr(e), e), true);
+  public scrape_failed_alert(stack_allocator alloc, torrent_handle h, String u, error_code e) {
+    this(libtorrent_jni.new_scrape_failed_alert__SWIG_0(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, u, error_code.getCPtr(e), e), true);
   }
 
-  public scrape_failed_alert(torrent_handle h, String u, String m) {
-    this(libtorrent_jni.new_scrape_failed_alert__SWIG_1(torrent_handle.getCPtr(h), h, u, m), true);
+  public scrape_failed_alert(stack_allocator alloc, torrent_handle h, String u, String m) {
+    this(libtorrent_jni.new_scrape_failed_alert__SWIG_1(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, u, m), true);
   }
 
   public int type() {
@@ -59,14 +59,20 @@ public class scrape_failed_alert extends tracker_alert {
     return libtorrent_jni.scrape_failed_alert_message(swigCPtr, this);
   }
 
-  public void setMsg(String value) {
-    libtorrent_jni.scrape_failed_alert_msg_set(swigCPtr, this, value);
+  public void setError(error_code value) {
+    libtorrent_jni.scrape_failed_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
 
-  public String getMsg() {
-    return libtorrent_jni.scrape_failed_alert_msg_get(swigCPtr, this);
+  public error_code getError() {
+    long cPtr = libtorrent_jni.scrape_failed_alert_error_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
+  public String error_message() {
+    return libtorrent_jni.scrape_failed_alert_error_message(swigCPtr, this);
+  }
+
+  public final static int priority = libtorrent_jni.scrape_failed_alert_priority_get();
   public final static int alert_type = libtorrent_jni.scrape_failed_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.scrape_failed_alert_static_category_get();
 }

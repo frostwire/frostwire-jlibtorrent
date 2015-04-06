@@ -35,8 +35,8 @@ public class session_stats_alert extends alert {
     super.delete();
   }
 
-  public session_stats_alert() {
-    this(libtorrent_jni.new_session_stats_alert(), true);
+  public session_stats_alert(stack_allocator alloc, counters cnt) {
+    this(libtorrent_jni.new_session_stats_alert(stack_allocator.getCPtr(alloc), alloc, counters.getCPtr(cnt), cnt), true);
   }
 
   public int type() {
@@ -55,27 +55,11 @@ public class session_stats_alert extends alert {
     return libtorrent_jni.session_stats_alert_message(swigCPtr, this);
   }
 
-  public boolean discardable() {
-    return libtorrent_jni.session_stats_alert_discardable(swigCPtr, this);
+  public long get_vale(int index) {
+    return libtorrent_jni.session_stats_alert_get_vale(swigCPtr, this, index);
   }
 
-  public void setTimestamp(java.math.BigInteger value) {
-    libtorrent_jni.session_stats_alert_timestamp_set(swigCPtr, this, value);
-  }
-
-  public java.math.BigInteger getTimestamp() {
-    return libtorrent_jni.session_stats_alert_timestamp_get(swigCPtr, this);
-  }
-
-  public void setValues(uint64_vector value) {
-    libtorrent_jni.session_stats_alert_values_set(swigCPtr, this, uint64_vector.getCPtr(value), value);
-  }
-
-  public uint64_vector getValues() {
-    long cPtr = libtorrent_jni.session_stats_alert_values_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new uint64_vector(cPtr, false);
-  }
-
+  public final static int priority = libtorrent_jni.session_stats_alert_priority_get();
   public final static int alert_type = libtorrent_jni.session_stats_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.session_stats_alert_static_category_get();
 }

@@ -55,10 +55,6 @@ public class alert {
     return libtorrent_jni.alert_category(swigCPtr, this);
   }
 
-  public boolean discardable() {
-    return libtorrent_jni.alert_discardable(swigCPtr, this);
-  }
-
   public static torrent_alert cast_to_torrent_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_torrent_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new torrent_alert(cPtr, false);
@@ -492,7 +488,6 @@ public class alert {
     performance_warning(libtorrent_jni.alert_performance_warning_get()),
     dht_notification(libtorrent_jni.alert_dht_notification_get()),
     stats_notification(libtorrent_jni.alert_stats_notification_get()),
-    rss_notification(libtorrent_jni.alert_rss_notification_get()),
     session_log_notification(libtorrent_jni.alert_session_log_notification_get()),
     torrent_log_notification(libtorrent_jni.alert_torrent_log_notification_get()),
     peer_log_notification(libtorrent_jni.alert_peer_log_notification_get()),

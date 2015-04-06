@@ -336,6 +336,7 @@ namespace std {
     %template(int_sha1_hash_map) map<int, libtorrent::sha1_hash>;
 
     %template(alert_ptr_deque) deque<libtorrent::alert*>;
+    %template(alert_ptr_vector) vector<libtorrent::alert*>;
 };
 
 // this are ignore until we solve the specific type issues
@@ -461,6 +462,8 @@ namespace std {
 %ignore libtorrent::session::dht_get_item(boost::array<char, 32>);
 %ignore libtorrent::session::add_extension;
 %ignore libtorrent::session::set_load_function;
+%ignore libtorrent::session::set_alert_notify;
+%ignore libtorrent::session_stats_alert::values;
 %ignore libtorrent::peer_connection::peer_connection;
 %ignore libtorrent::peer_connection::incoming_piece;
 %ignore libtorrent::peer_connection::send_buffer;
@@ -942,6 +945,12 @@ static const int user_alert_id = 10000;
     }
 };
 
+%extend session_stats_alert {
+    long long get_vale(int index) {
+        return values[index];
+    }
+};
+
 %extend upnp {
     bool get_mapping(int mapping_index, std::vector<int>& res) {
 
@@ -958,6 +967,11 @@ static const int user_alert_id = 10000;
         return r;
     }
 };
+
+namespace aux {
+class stack_allocator {
+};
+}
 
 %template(sha1_bloom_filter) bloom_filter<160>;
 
@@ -1014,4 +1028,3 @@ public:
 
     static void sign_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig);
 };
-

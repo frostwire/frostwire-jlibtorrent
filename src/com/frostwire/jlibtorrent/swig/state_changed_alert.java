@@ -35,8 +35,8 @@ public class state_changed_alert extends torrent_alert {
     super.delete();
   }
 
-  public state_changed_alert(torrent_handle h, torrent_status.state_t st, torrent_status.state_t prev_st) {
-    this(libtorrent_jni.new_state_changed_alert(torrent_handle.getCPtr(h), h, st.swigValue(), prev_st.swigValue()), true);
+  public state_changed_alert(stack_allocator alloc, torrent_handle h, torrent_status.state_t st, torrent_status.state_t prev_st) {
+    this(libtorrent_jni.new_state_changed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, st.swigValue(), prev_st.swigValue()), true);
   }
 
   public int type() {
@@ -71,6 +71,7 @@ public class state_changed_alert extends torrent_alert {
     return torrent_status.state_t.swigToEnum(libtorrent_jni.state_changed_alert_prev_state_get(swigCPtr, this));
   }
 
+  public final static int priority = libtorrent_jni.state_changed_alert_priority_get();
   public final static int alert_type = libtorrent_jni.state_changed_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.state_changed_alert_static_category_get();
 }

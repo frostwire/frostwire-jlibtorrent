@@ -35,8 +35,8 @@ public class external_ip_alert extends alert {
     super.delete();
   }
 
-  public external_ip_alert(address ip) {
-    this(libtorrent_jni.new_external_ip_alert(address.getCPtr(ip), ip), true);
+  public external_ip_alert(stack_allocator alloc, address ip) {
+    this(libtorrent_jni.new_external_ip_alert(stack_allocator.getCPtr(alloc), alloc, address.getCPtr(ip), ip), true);
   }
 
   public int type() {
@@ -64,6 +64,7 @@ public class external_ip_alert extends alert {
     return (cPtr == 0) ? null : new address(cPtr, false);
   }
 
+  public final static int priority = libtorrent_jni.external_ip_alert_priority_get();
   public final static int alert_type = libtorrent_jni.external_ip_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.external_ip_alert_static_category_get();
 }

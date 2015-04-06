@@ -35,8 +35,8 @@ public class file_renamed_alert extends torrent_alert {
     super.delete();
   }
 
-  public file_renamed_alert(torrent_handle h, String n, int idx) {
-    this(libtorrent_jni.new_file_renamed_alert(torrent_handle.getCPtr(h), h, n, idx), true);
+  public file_renamed_alert(stack_allocator alloc, torrent_handle h, String n, int idx) {
+    this(libtorrent_jni.new_file_renamed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, n, idx), true);
   }
 
   public int type() {
@@ -55,16 +55,8 @@ public class file_renamed_alert extends torrent_alert {
     return libtorrent_jni.file_renamed_alert_message(swigCPtr, this);
   }
 
-  public boolean discardable() {
-    return libtorrent_jni.file_renamed_alert_discardable(swigCPtr, this);
-  }
-
-  public void setName(String value) {
-    libtorrent_jni.file_renamed_alert_name_set(swigCPtr, this, value);
-  }
-
-  public String getName() {
-    return libtorrent_jni.file_renamed_alert_name_get(swigCPtr, this);
+  public String new_name() {
+    return libtorrent_jni.file_renamed_alert_new_name(swigCPtr, this);
   }
 
   public void setIndex(int value) {
@@ -75,6 +67,7 @@ public class file_renamed_alert extends torrent_alert {
     return libtorrent_jni.file_renamed_alert_index_get(swigCPtr, this);
   }
 
+  public final static int priority = libtorrent_jni.file_renamed_alert_priority_get();
   public final static int alert_type = libtorrent_jni.file_renamed_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.file_renamed_alert_static_category_get();
 }
