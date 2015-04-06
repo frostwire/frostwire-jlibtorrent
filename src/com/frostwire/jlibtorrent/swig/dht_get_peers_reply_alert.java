@@ -73,6 +73,7 @@ public class dht_get_peers_reply_alert extends alert {
     return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
   }
 
+  public final static int priority = libtorrent_jni.dht_get_peers_reply_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_get_peers_reply_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_get_peers_reply_alert_static_category_get();
 }

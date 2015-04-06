@@ -46,11 +46,6 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     }
 
     @Override
-    public boolean isDiscardable() {
-        return alert.discardable();
-    }
-
-    @Override
     public String toString() {
         return getType() + " - " + getWhat() + " - " + alert.message();
     }

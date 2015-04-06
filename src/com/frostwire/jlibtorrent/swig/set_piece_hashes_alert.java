@@ -79,6 +79,7 @@ public class set_piece_hashes_alert extends alert {
     return libtorrent_jni.set_piece_hashes_alert_num_pieces_get(swigCPtr, this);
   }
 
+  public final static int priority = libtorrent_jni.set_piece_hashes_alert_priority_get();
   public final static int alert_type = libtorrent_jni.set_piece_hashes_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.set_piece_hashes_alert_static_category_get();
 }

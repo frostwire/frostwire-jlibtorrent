@@ -335,7 +335,6 @@ namespace std {
     %template(string_entry_map) map<std::string, libtorrent::entry>;
     %template(int_sha1_hash_map) map<int, libtorrent::sha1_hash>;
 
-    %template(alert_ptr_deque) deque<libtorrent::alert*>;
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
 };
 
@@ -868,11 +867,10 @@ namespace libtorrent {
 
 static const int user_alert_id = 10000;
 
-#define TORRENT_DEFINE_ALERT(name, seq) \
+#define TORRENT_DEFINE_ALERT_IMPL(name, seq, prio) \
+	static const int priority = prio; \
 	static const int alert_type = seq; \
 	virtual int type() const { return alert_type; } \
-	virtual std::auto_ptr<alert> clone() const \
-	{ return std::auto_ptr<alert>(new name(*this)); } \
 	virtual int category() const { return static_category; } \
 	virtual char const* what() const { return #name; }
 
@@ -883,7 +881,7 @@ static const int user_alert_id = 10000;
             : info_hash(ih), peers(v) {
         }
 
-        TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert, user_alert_id + 100);
+        TORRENT_DEFINE_ALERT_IMPL(dht_get_peers_reply_alert, user_alert_id + 100, 0)
 
         static const int static_category = alert::dht_notification;
         virtual std::string message() const;
@@ -900,7 +898,7 @@ static const int user_alert_id = 10000;
     		  num_pieces(num_pieces){
     	}
 
-    	TORRENT_DEFINE_ALERT(set_piece_hashes_alert, user_alert_id + 101);
+    	TORRENT_DEFINE_ALERT_IMPL(set_piece_hashes_alert, user_alert_id + 101, 0);
 
     	static const int static_category = alert::progress_notification;
 

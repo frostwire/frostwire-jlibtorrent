@@ -39,11 +39,10 @@ struct dht_tracker_m_dht { typedef node_impl dht_tracker::*type; };
 template class rob<dht_tracker_m_dht, &dht_tracker::m_dht>;
 // END PRIVATE HACK
 
-#define TORRENT_DEFINE_ALERT(name, seq) \
+#define TORRENT_DEFINE_ALERT_IMPL(name, seq, prio) \
+	static const int priority = prio; \
 	static const int alert_type = seq; \
 	virtual int type() const { return alert_type; } \
-	virtual std::auto_ptr<alert> clone() const \
-	{ return std::auto_ptr<alert>(new name(*this)); } \
 	virtual int category() const { return static_category; } \
 	virtual char const* what() const { return #name; }
 
@@ -55,7 +54,7 @@ struct dht_get_peers_reply_alert: alert {
 		: info_hash(ih), peers(v) {
 	}
 
-	TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert, user_alert_id + 100);
+	TORRENT_DEFINE_ALERT_IMPL(dht_get_peers_reply_alert, user_alert_id + 100, 0);
 
 	const static int static_category = alert::dht_notification;
 
@@ -79,7 +78,7 @@ struct set_piece_hashes_alert: alert {
 		  num_pieces(num_pieces){
 	}
 
-	TORRENT_DEFINE_ALERT(set_piece_hashes_alert, user_alert_id + 101);
+	TORRENT_DEFINE_ALERT_IMPL(set_piece_hashes_alert, user_alert_id + 101, 0);
 
 	const static int static_category = alert::progress_notification;
 
