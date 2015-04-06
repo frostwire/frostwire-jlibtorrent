@@ -74,8 +74,5 @@ public class AnnounceTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }
