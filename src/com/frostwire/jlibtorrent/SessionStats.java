@@ -20,29 +20,36 @@ public final class SessionStats {
     private static final int RECV_BYTES_IDX = LibTorrent.findMetricIdx("net.recv_bytes");
     private static final int SENT_BYTES_IDX = LibTorrent.findMetricIdx("net.sent_bytes");
 
-    SessionStats(long timestamp, long[] values) {
-        this.timestamp = timestamp;
-        this.values = values;
+    SessionStats() {
+        this.values = null;
     }
 
     SessionStats(SessionStatsAlert alert) {
-        this(alert.getStatsTimestamp(), alert.getValues());
+        if (alert == null) {
+            throw new IllegalArgumentException("alert can't be null");
+
+        }
+        this.values = new long[STATS_METRICS.length];
+
+        for (int i = 0; i < STATS_METRICS.length; i++) {
+            int index = STATS_METRICS[i].valueIndex;
+            values[index] = alert.value(index);
+        }
     }
 
-    public final long timestamp;
     public final long[] values;
 
     public Map<String, Long> nonZeroValues() {
-        if (timestamp <= 0 || values == null) {
+        if (values == null) {
             return Collections.emptyMap();
         }
 
         HashMap<String, Long> m = new HashMap<String, Long>();
 
         for (StatsMetric sm : STATS_METRICS) {
-            long value = values[sm.getValueIndex()];
+            long value = values[sm.valueIndex];
             if (value != 0) {
-                m.put(sm.getName(), value);
+                m.put(sm.name, value);
             }
         }
 
@@ -76,7 +83,7 @@ public final class SessionStats {
     }
 
     private long value(int valueIdx) {
-        if (timestamp <= 0 || values == null) {
+        if (values == null) {
             return 0;
         }
 

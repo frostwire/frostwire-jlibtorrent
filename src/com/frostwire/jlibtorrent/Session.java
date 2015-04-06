@@ -52,7 +52,7 @@ public final class Session {
 
         this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
 
-        this.lastStats = new SessionStats(0, null);
+        this.lastStats = new SessionStats();
         this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
