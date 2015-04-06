@@ -16,7 +16,12 @@ public abstract class TrackerAlert<T extends tracker_alert> extends TorrentAlert
         super(alert);
     }
 
-    public String getUrl() {
-        return alert.getUrl();
+    /**
+     * Returns a null-terminated string of the tracker's URL.
+     *
+     * @return
+     */
+    public String trackerUrl() {
+        return alert.tracker_url();
     }
 }

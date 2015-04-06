@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.session_stats_alert;
 
 /**
@@ -19,19 +18,6 @@ public final class SessionStatsAlert extends AbstractAlert<session_stats_alert> 
     }
 
     /**
-     * the number of microseconds since the session was
-     * started. It represent the time when the snapshot of values was taken. When
-     * the network thread is under heavy load, the latency between calling
-     * post_session_stats() and receiving this alert may be significant, and
-     * the timestamp may help provide higher accuracy in measurements.
-     *
-     * @return
-     */
-    public long getStatsTimestamp() {
-        return alert.getTimestamp().longValue();
-    }
-
-    /**
      * An array are a mix of *counters* and *gauges*, which
      * meanings can be queries via the session_stats_metrics() function on the session.
      * The mapping from a specific metric to an index into this array is constant for a
@@ -42,7 +28,7 @@ public final class SessionStatsAlert extends AbstractAlert<session_stats_alert> 
      *
      * @return
      */
-    public long[] getValues() {
-        return Vectors.uint64_vector2longs(alert.getValues());
+    public long value(int index) {
+        return alert.get_vale(index);
     }
 }
