@@ -2209,7 +2209,6 @@ public class libtorrent_jni {
   public final static native String torrent_error_alert_message(long jarg1, torrent_error_alert jarg1_);
   public final static native void torrent_error_alert_error_set(long jarg1, torrent_error_alert jarg1_, long jarg2, error_code jarg2_);
   public final static native long torrent_error_alert_error_get(long jarg1, torrent_error_alert jarg1_);
-  public final static native String torrent_error_alert_filename(long jarg1, torrent_error_alert jarg1_);
   public final static native void delete_torrent_error_alert(long jarg1);
   public final static native long new_torrent_need_cert_alert(long jarg1, stack_allocator jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native int torrent_need_cert_alert_priority_get();
@@ -3270,7 +3269,7 @@ public class libtorrent_jni {
   public final static native void upnp_close(long jarg1, upnp jarg1_);
   public final static native String upnp_router_model(long jarg1, upnp jarg1_);
   public final static native boolean upnp_get_mapping(long jarg1, upnp jarg1_, int jarg2, long jarg3, int_vector jarg3_);
-  public final static native long new_dht_get_peers_reply_alert(long jarg1, sha1_hash jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
+  public final static native long new_dht_get_peers_reply_alert(long jarg1, stack_allocator jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, tcp_endpoint_vector jarg3_);
   public final static native int dht_get_peers_reply_alert_priority_get();
   public final static native int dht_get_peers_reply_alert_alert_type_get();
   public final static native int dht_get_peers_reply_alert_type(long jarg1, dht_get_peers_reply_alert jarg1_);
@@ -3283,7 +3282,7 @@ public class libtorrent_jni {
   public final static native void dht_get_peers_reply_alert_peers_set(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
   public final static native long dht_get_peers_reply_alert_peers_get(long jarg1, dht_get_peers_reply_alert jarg1_);
   public final static native void delete_dht_get_peers_reply_alert(long jarg1);
-  public final static native long new_set_piece_hashes_alert(String jarg1, int jarg2, int jarg3);
+  public final static native long new_set_piece_hashes_alert(long jarg1, stack_allocator jarg1_, String jarg2, int jarg3, int jarg4);
   public final static native int set_piece_hashes_alert_priority_get();
   public final static native int set_piece_hashes_alert_alert_type_get();
   public final static native int set_piece_hashes_alert_type(long jarg1, set_piece_hashes_alert jarg1_);

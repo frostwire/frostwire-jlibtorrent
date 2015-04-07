@@ -613,6 +613,7 @@ namespace std {
 %ignore libtorrent::upnp::start;
 %ignore libtorrent::upnp::drain_state;
 %ignore libtorrent::upnp::get_mapping(int, int&, int&, int&) const;
+%ignore libtorrent::torrent_error_alert::filename;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -877,7 +878,7 @@ static const int user_alert_id = 10000;
     struct TORRENT_EXPORT dht_get_peers_reply_alert: alert
     {
         // internal
-        dht_get_peers_reply_alert(libtorrent::sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
+        dht_get_peers_reply_alert(aux::stack_allocator& alloc, libtorrent::sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
             : info_hash(ih), peers(v) {
         }
 
@@ -892,7 +893,7 @@ static const int user_alert_id = 10000;
 
     struct set_piece_hashes_alert: alert {
 
-    	set_piece_hashes_alert(std::string const& id, int progress, int num_pieces)
+    	set_piece_hashes_alert(aux::stack_allocator& alloc, std::string const& id, int progress, int num_pieces)
     		: id(id),
     		  progress(progress),
     		  num_pieces(num_pieces){
