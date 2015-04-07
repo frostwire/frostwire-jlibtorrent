@@ -6,7 +6,6 @@ import com.frostwire.jlibtorrent.swig.create_torrent;
 import com.frostwire.jlibtorrent.swig.error_code;
 import com.frostwire.jlibtorrent.swig.file_storage;
 import com.frostwire.jlibtorrent.swig.libtorrent;
-import com.limegroup.gnutella.gui.I18n;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
