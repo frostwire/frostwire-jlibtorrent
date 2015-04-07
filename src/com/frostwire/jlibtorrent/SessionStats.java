@@ -33,7 +33,9 @@ public final class SessionStats {
 
         for (int i = 0; i < STATS_METRICS.length; i++) {
             int index = STATS_METRICS[i].valueIndex;
-            values[index] = alert.value(index);
+            if (index < values.length) {
+                values[index] = alert.value(index);
+            } // TODO: Review this if
         }
     }
 
