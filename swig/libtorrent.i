@@ -944,8 +944,8 @@ static const int user_alert_id = 10000;
 };
 
 %extend session_stats_alert {
-    long long get_vale(int index) {
-        return values[index];
+    long long get_value(int index) {
+        return $self->values[index];
     }
 };
 

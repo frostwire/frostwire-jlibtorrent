@@ -1210,8 +1210,8 @@ SWIGINTERN libtorrent::set_piece_hashes_alert *libtorrent_alert_cast_to_set_piec
 SWIGINTERN std::vector< int > libtorrent_stats_alert_transferred_v(libtorrent::stats_alert *self){
         return std::vector<int>(self->transferred, self->transferred + stats_alert::stats_channel::num_channels);
     }
-SWIGINTERN long long libtorrent_session_stats_alert_get_vale(libtorrent::session_stats_alert *self,int index){
-        return values[index];
+SWIGINTERN long long libtorrent_session_stats_alert_get_value(libtorrent::session_stats_alert *self,int index){
+        return self->values[index];
     }
 SWIGINTERN std::vector< char > libtorrent_dht_mutable_item_alert_key_v(libtorrent::dht_mutable_item_alert *self){
         boost::array<char, 32> arr = self->key;
@@ -47194,7 +47194,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_s
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1stats_1alert_1get_1vale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1stats_1alert_1get_1value(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   jlong jresult = 0 ;
   libtorrent::session_stats_alert *arg1 = (libtorrent::session_stats_alert *) 0 ;
   int arg2 ;
@@ -47207,7 +47207,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   arg2 = (int)jarg2; 
   {
     try {
-      result = (long long)libtorrent_session_stats_alert_get_vale(arg1,arg2);
+      result = (long long)libtorrent_session_stats_alert_get_value(arg1,arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;

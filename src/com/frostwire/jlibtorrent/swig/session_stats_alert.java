@@ -55,8 +55,8 @@ public class session_stats_alert extends alert {
     return libtorrent_jni.session_stats_alert_message(swigCPtr, this);
   }
 
-  public long get_vale(int index) {
-    return libtorrent_jni.session_stats_alert_get_vale(swigCPtr, this, index);
+  public long get_value(int index) {
+    return libtorrent_jni.session_stats_alert_get_value(swigCPtr, this, index);
   }
 
   public final static int priority = libtorrent_jni.session_stats_alert_priority_get();

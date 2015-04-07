@@ -2278,7 +2278,7 @@ public class libtorrent_jni {
   public final static native String session_stats_alert_what(long jarg1, session_stats_alert jarg1_);
   public final static native int session_stats_alert_static_category_get();
   public final static native String session_stats_alert_message(long jarg1, session_stats_alert jarg1_);
-  public final static native long session_stats_alert_get_vale(long jarg1, session_stats_alert jarg1_, int jarg2);
+  public final static native long session_stats_alert_get_value(long jarg1, session_stats_alert jarg1_, int jarg2);
   public final static native void delete_session_stats_alert(long jarg1);
   public final static native long new_torrent_update_alert(long jarg1, stack_allocator jarg1_, long jarg2, torrent_handle jarg2_, long jarg3, sha1_hash jarg3_, long jarg4, sha1_hash jarg4_);
   public final static native int torrent_update_alert_priority_get();

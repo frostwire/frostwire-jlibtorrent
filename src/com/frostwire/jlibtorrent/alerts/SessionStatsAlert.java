@@ -29,6 +29,6 @@ public final class SessionStatsAlert extends AbstractAlert<session_stats_alert> 
      * @return
      */
     public long value(int index) {
-        return alert.get_vale(index);
+        return alert.get_value(index);
     }
 }

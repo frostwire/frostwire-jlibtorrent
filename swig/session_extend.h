@@ -50,7 +50,7 @@ namespace libtorrent {
 
 struct dht_get_peers_reply_alert: alert {
 
-	dht_get_peers_reply_alert(sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
+	dht_get_peers_reply_alert(aux::stack_allocator& alloc, sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
 		: info_hash(ih), peers(v) {
 	}
 
@@ -72,7 +72,7 @@ struct dht_get_peers_reply_alert: alert {
 
 struct set_piece_hashes_alert: alert {
 
-	set_piece_hashes_alert(std::string const& id, int progress, int num_pieces)
+	set_piece_hashes_alert(aux::stack_allocator& alloc, std::string const& id, int progress, int num_pieces)
 		: id(id),
 		  progress(progress),
 		  num_pieces(num_pieces){
@@ -117,7 +117,7 @@ void dht_get_peers_fun(std::vector<tcp::endpoint> const& peers,
 						boost::shared_ptr<aux::session_impl> s, sha1_hash const& ih) {
 
 	if (s->m_alerts.should_post<dht_get_peers_reply_alert>()) {
-		s->m_alerts.post_alert(dht_get_peers_reply_alert(ih, peers));
+		s->m_alerts.emplace_alert<dht_get_peers_reply_alert>(ih, peers);
 	}
 }
 
@@ -171,7 +171,7 @@ void dht_announce(session* s, sha1_hash const& info_hash) {
 
 void set_piece_hashes_fun(int i, boost::shared_ptr<aux::session_impl> s, std::string& id, int num_pieces) {
 	if (s->m_alerts.should_post<set_piece_hashes_alert>()) {
-        s->m_alerts.post_alert(set_piece_hashes_alert(id, i + 1, num_pieces));
+        s->m_alerts.emplace_alert<set_piece_hashes_alert>(id, i + 1, num_pieces);
     }
 }
 
