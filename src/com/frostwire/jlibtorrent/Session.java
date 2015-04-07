@@ -849,7 +849,7 @@ public final class Session {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                alert_ptr_vector deque = new alert_ptr_vector();
+                alert_ptr_vector vector = new alert_ptr_vector();
 
                 high_resolution_clock.duration max_wait = libtorrent.to_milliseconds(ALERTS_LOOP_WAIT_MILLIS);
 
@@ -857,10 +857,10 @@ public final class Session {
                     alert ptr = s.wait_for_alert(max_wait);
 
                     if (ptr != null) {
-                        s.pop_alerts(deque);
-                        long size = deque.size();
+                        s.pop_alerts(vector);
+                        long size = vector.size();
                         for (int i = 0; i < size; i++) {
-                            alert swigAlert = deque.get(i);
+                            alert swigAlert = vector.get(i);
                             int type = swigAlert.type();
 
                             Alert<?> alert = null;
@@ -891,7 +891,7 @@ public final class Session {
                                 fireAlert(alert, -1);
                             }
                         }
-                        deque.clear();
+                        vector.clear();
                     }
 
                     long now = System.currentTimeMillis();
