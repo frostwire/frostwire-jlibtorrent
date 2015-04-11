@@ -831,8 +831,9 @@ public class libtorrent_jni {
   public final static native long file_slice_size_get(long jarg1, file_slice jarg1_);
   public final static native long new_file_slice();
   public final static native void delete_file_slice(long jarg1);
-  public final static native long new_file_storage();
+  public final static native long new_file_storage__SWIG_0();
   public final static native void delete_file_storage(long jarg1);
+  public final static native long new_file_storage__SWIG_1(long jarg1, file_storage jarg1_);
   public final static native boolean file_storage_is_valid(long jarg1, file_storage jarg1_);
   public final static native int file_storage_pad_file_get();
   public final static native int file_storage_attribute_hidden_get();

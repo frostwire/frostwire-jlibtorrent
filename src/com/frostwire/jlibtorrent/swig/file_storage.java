@@ -36,7 +36,11 @@ public class file_storage {
   }
 
   public file_storage() {
-    this(libtorrent_jni.new_file_storage(), true);
+    this(libtorrent_jni.new_file_storage__SWIG_0(), true);
+  }
+
+  public file_storage(file_storage f) {
+    this(libtorrent_jni.new_file_storage__SWIG_1(file_storage.getCPtr(f), f), true);
   }
 
   public boolean is_valid() {
