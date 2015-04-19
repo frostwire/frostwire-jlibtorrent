@@ -28,7 +28,7 @@ echo on
 set CFLAGS=/MT /O2 /fp:fast /nologo /DWIN32 /EHsc /c /DNDEBUG=1 /DBOOST_ASIO_SEPARATE_COMPILATION=1 /DTORRENT_DISABLE_GEO_IP=1 /DTORRENT_NO_DEPRECATE=1
 
 set BOOST_ROOT=C:\boost_1_55_0
-set LIBTORRENT_ROOT=C:\libtorrent-code-10890-trunk
+set LIBTORRENT_ROOT=C:\libtorrent-april-11-2015-fix-no-deprecated-functions
 set JAVA_HOME=C:\Program Files (x86)\Java\jdk1.8.0_25
 set VS_VERSION=11
 set VS_ROOT=C:\Program Files (x86)\Microsoft Visual Studio %VS_VERSION%.0
