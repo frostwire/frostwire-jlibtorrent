@@ -7,7 +7,7 @@
 #$LIBTORRENT_LIBS
 
 #export CXXFLAGS="-stdlib=libc++ -std=c++11 -O3 -flto -I$BOOST_ROOT"
-#$BOOST_ROOT/b2 variant=release link=static --stagedir=macosx stage --without-context --without-coroutine --without-python --without-mpi --without-wave --without-test --without-graph --without-graph_parallel --without-iostreams
+#$BOOST_ROOT/b2 cxxflags="$CXXFLAGS" variant=release link=static --stagedir=macosx stage --without-context --without-coroutine --without-python --without-mpi --without-wave --without-test --without-graph --without-graph_parallel --without-iostreams
 #$BOOST_ROOT/bjam toolset=darwin variant=release link=static deprecated-functions=off logging=off
 
 CXX=clang++
