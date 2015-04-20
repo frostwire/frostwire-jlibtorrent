@@ -46,7 +46,7 @@ JDK_INCLUDE_2=/usr/lib/jvm/java-8-oracle/include/linux
 
 CXX=g++
 DEFINES="-DNDEBUG=1 -DBOOST_ASIO_SEPARATE_COMPILATION=1 -DTORRENT_USE_CLOCK_GETTIME=1 -DTORRENT_DISABLE_GEO_IP=1 -DTORRENT_NO_DEPRECATE=1"
-INCLUDES="-I$BOOST_ROOT -I$LIBTORRENT_ROOT/include -I$JDK_INCLUDE_1 -I$JDK_INCLUDE_2"
+INCLUDES="-I$BOOST_ROOT -I$LIBTORRENT_ROOT/include/ -I$LIBTORRENT_ROOT/include/libtorrent/ -I$JDK_INCLUDE_1 -I$JDK_INCLUDE_2"
 LIBS="-ltorrent -lboost_system -lboost_chrono -lboost_date_time -lboost_thread -lboost_random"
 CXXFLAGS="-fPIC -fno-strict-aliasing -O3"
 
