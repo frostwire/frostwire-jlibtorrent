@@ -29,14 +29,6 @@ public class libtorrent implements libtorrentConstants {
     return new high_resolution_clock.duration(libtorrent_jni.to_hours(arg0), true);
   }
 
-  public static error_category boost_system_category() {
-    return new error_category(libtorrent_jni.boost_system_category(), false);
-  }
-
-  public static error_category generic_category() {
-    return new error_category(libtorrent_jni.generic_category(), false);
-  }
-
   public static boolean op_eq(error_condition lhs, error_condition rhs) {
     return libtorrent_jni.op_eq__SWIG_0(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
   }

@@ -394,6 +394,37 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_est_reciprocation_rate(swigCPtr, this);
   }
 
+  public void peer_log(String fmt) {
+    libtorrent_jni.peer_connection_peer_log(swigCPtr, this, fmt);
+  }
+
+  public void setM_connect_time(high_resolution_clock.time_point value) {
+    libtorrent_jni.peer_connection_m_connect_time_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
+  }
+
+  public high_resolution_clock.time_point getM_connect_time() {
+    long cPtr = libtorrent_jni.peer_connection_m_connect_time_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
+  }
+
+  public void setM_bitfield_time(high_resolution_clock.time_point value) {
+    libtorrent_jni.peer_connection_m_bitfield_time_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
+  }
+
+  public high_resolution_clock.time_point getM_bitfield_time() {
+    long cPtr = libtorrent_jni.peer_connection_m_bitfield_time_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
+  }
+
+  public void setM_unchoke_time(high_resolution_clock.time_point value) {
+    libtorrent_jni.peer_connection_m_unchoke_time_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
+  }
+
+  public high_resolution_clock.time_point getM_unchoke_time() {
+    long cPtr = libtorrent_jni.peer_connection_m_unchoke_time_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
+  }
+
   public void incoming_keepalive() {
     libtorrent_jni.peer_connection_incoming_keepalive(swigCPtr, this);
   }

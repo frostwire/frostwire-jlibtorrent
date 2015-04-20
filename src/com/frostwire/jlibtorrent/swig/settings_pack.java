@@ -128,8 +128,7 @@ public class settings_pack {
     proxy_password,
     i2p_hostname,
     peer_fingerprint,
-    max_string_setting_internal,
-    num_string_settings(libtorrent_jni.settings_pack_num_string_settings_get());
+    max_string_setting_internal;
 
     public final int swigValue() {
       return swigValue;
@@ -239,8 +238,7 @@ public class settings_pack {
     proxy_hostnames,
     proxy_peer_connections,
     auto_sequential,
-    max_bool_setting_internal,
-    num_bool_settings(libtorrent_jni.settings_pack_num_bool_settings_get());
+    max_bool_setting_internal;
 
     public final int swigValue() {
       return swigValue;
@@ -407,8 +405,7 @@ public class settings_pack {
     proxy_type,
     proxy_port,
     i2p_port,
-    max_int_setting_internal,
-    num_int_settings(libtorrent_jni.settings_pack_num_int_settings_get());
+    max_int_setting_internal;
 
     public final int swigValue() {
       return swigValue;
@@ -437,6 +434,49 @@ public class settings_pack {
 
     @SuppressWarnings("unused")
     private int_types(int_types swigEnum) {
+      this.swigValue = swigEnum.swigValue;
+      SwigNext.next = this.swigValue+1;
+    }
+
+    private final int swigValue;
+
+    private static class SwigNext {
+      private static int next = 0;
+    }
+  }
+
+  public enum settings_counts_t {
+    num_string_settings(libtorrent_jni.settings_pack_num_string_settings_get()),
+    num_bool_settings(libtorrent_jni.settings_pack_num_bool_settings_get()),
+    num_int_settings(libtorrent_jni.settings_pack_num_int_settings_get());
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public static settings_counts_t swigToEnum(int swigValue) {
+      settings_counts_t[] swigValues = settings_counts_t.class.getEnumConstants();
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (settings_counts_t swigEnum : swigValues)
+        if (swigEnum.swigValue == swigValue)
+          return swigEnum;
+      throw new IllegalArgumentException("No enum " + settings_counts_t.class + " with value " + swigValue);
+    }
+
+    @SuppressWarnings("unused")
+    private settings_counts_t() {
+      this.swigValue = SwigNext.next++;
+    }
+
+    @SuppressWarnings("unused")
+    private settings_counts_t(int swigValue) {
+      this.swigValue = swigValue;
+      SwigNext.next = swigValue+1;
+    }
+
+    @SuppressWarnings("unused")
+    private settings_counts_t(settings_counts_t swigEnum) {
       this.swigValue = swigEnum.swigValue;
       SwigNext.next = this.swigValue+1;
     }

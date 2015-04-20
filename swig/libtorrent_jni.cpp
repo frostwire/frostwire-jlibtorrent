@@ -14370,44 +14370,6 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_boost_1system_1category(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::system::error_category *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (boost::system::error_category *) &boost::system::system_category();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::system::error_category **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_generic_1category(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::system::error_category *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (boost::system::error_category *) &boost::system::generic_category();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::system::error_category **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1error_1condition_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   boost::system::error_condition *result = 0 ;
@@ -37083,13 +37045,16 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1invalid_1request_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1invalid_1request_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_, jboolean jarg6, jboolean jarg7, jboolean jarg8) {
   jlong jresult = 0 ;
   libtorrent::aux::stack_allocator *arg1 = 0 ;
   libtorrent::torrent_handle *arg2 = 0 ;
   tcp::endpoint *arg3 = 0 ;
   libtorrent::peer_id *arg4 = 0 ;
   libtorrent::peer_request *arg5 = 0 ;
+  bool arg6 ;
+  bool arg7 ;
+  bool arg8 ;
   libtorrent::invalid_request_alert *result = 0 ;
   
   (void)jenv;
@@ -37124,9 +37089,12 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::peer_request const & reference is null");
     return 0;
   } 
+  arg6 = jarg6 ? true : false; 
+  arg7 = jarg7 ? true : false; 
+  arg8 = jarg8 ? true : false; 
   {
     try {
-      result = (libtorrent::invalid_request_alert *)new libtorrent::invalid_request_alert(*arg1,(libtorrent::torrent_handle const &)*arg2,(tcp::endpoint const &)*arg3,(libtorrent::peer_id const &)*arg4,(libtorrent::peer_request const &)*arg5);
+      result = (libtorrent::invalid_request_alert *)new libtorrent::invalid_request_alert(*arg1,(libtorrent::torrent_handle const &)*arg2,(tcp::endpoint const &)*arg3,(libtorrent::peer_id const &)*arg4,(libtorrent::peer_request const &)*arg5,arg6,arg7,arg8);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -37274,6 +37242,90 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_inv
   arg1 = *(libtorrent::invalid_request_alert **)&jarg1; 
   result = (libtorrent::peer_request *)& ((arg1)->request);
   *(libtorrent::peer_request **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_invalid_1request_1alert_1we_1have_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  libtorrent::invalid_request_alert *arg1 = (libtorrent::invalid_request_alert *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::invalid_request_alert **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->we_have = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_invalid_1request_1alert_1we_1have_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  libtorrent::invalid_request_alert *arg1 = (libtorrent::invalid_request_alert *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::invalid_request_alert **)&jarg1; 
+  result = (bool) ((arg1)->we_have);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_invalid_1request_1alert_1peer_1interested_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  libtorrent::invalid_request_alert *arg1 = (libtorrent::invalid_request_alert *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::invalid_request_alert **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->peer_interested = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_invalid_1request_1alert_1peer_1interested_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  libtorrent::invalid_request_alert *arg1 = (libtorrent::invalid_request_alert *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::invalid_request_alert **)&jarg1; 
+  result = (bool) ((arg1)->peer_interested);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_invalid_1request_1alert_1withheld_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  libtorrent::invalid_request_alert *arg1 = (libtorrent::invalid_request_alert *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::invalid_request_alert **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->withheld = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_invalid_1request_1alert_1withheld_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  libtorrent::invalid_request_alert *arg1 = (libtorrent::invalid_request_alert *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::invalid_request_alert **)&jarg1; 
+  result = (bool) ((arg1)->withheld);
+  jresult = (jboolean)result; 
   return jresult;
 }
 
@@ -56559,6 +56611,140 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
 }
 
 
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1peer_1log(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *arg3 = 0 ;
+  boost::shared_ptr< libtorrent::peer_connection const > *smartarg1 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  
+  smartarg1 = *(boost::shared_ptr< const libtorrent::peer_connection > **)&jarg1;
+  arg1 = (libtorrent::peer_connection *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  {
+    try {
+      ((libtorrent::peer_connection const *)arg1)->peer_log((char const *)arg2,arg3);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1m_1connect_1time_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
+  libtorrent::time_point *arg2 = (libtorrent::time_point *) 0 ;
+  boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  
+  smartarg1 = *(boost::shared_ptr<  libtorrent::peer_connection > **)&jarg1;
+  arg1 = (libtorrent::peer_connection *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = *(libtorrent::time_point **)&jarg2; 
+  if (arg1) (arg1)->m_connect_time = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1m_1connect_1time_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
+  boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
+  libtorrent::time_point *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  
+  smartarg1 = *(boost::shared_ptr<  libtorrent::peer_connection > **)&jarg1;
+  arg1 = (libtorrent::peer_connection *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (libtorrent::time_point *)& ((arg1)->m_connect_time);
+  *(libtorrent::time_point **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1m_1bitfield_1time_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
+  libtorrent::time_point *arg2 = (libtorrent::time_point *) 0 ;
+  boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  
+  smartarg1 = *(boost::shared_ptr<  libtorrent::peer_connection > **)&jarg1;
+  arg1 = (libtorrent::peer_connection *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = *(libtorrent::time_point **)&jarg2; 
+  if (arg1) (arg1)->m_bitfield_time = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1m_1bitfield_1time_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
+  boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
+  libtorrent::time_point *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  
+  smartarg1 = *(boost::shared_ptr<  libtorrent::peer_connection > **)&jarg1;
+  arg1 = (libtorrent::peer_connection *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (libtorrent::time_point *)& ((arg1)->m_bitfield_time);
+  *(libtorrent::time_point **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1m_1unchoke_1time_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
+  libtorrent::time_point *arg2 = (libtorrent::time_point *) 0 ;
+  boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  
+  smartarg1 = *(boost::shared_ptr<  libtorrent::peer_connection > **)&jarg1;
+  arg1 = (libtorrent::peer_connection *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = *(libtorrent::time_point **)&jarg2; 
+  if (arg1) (arg1)->m_unchoke_time = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1m_1unchoke_1time_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
+  boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
+  libtorrent::time_point *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  
+  smartarg1 = *(boost::shared_ptr<  libtorrent::peer_connection > **)&jarg1;
+  arg1 = (libtorrent::peer_connection *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (libtorrent::time_point *)& ((arg1)->m_unchoke_time);
+  *(libtorrent::time_point **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1incoming_1keepalive(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
   boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
@@ -59246,18 +59432,6 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sett
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_settings_1pack_1num_1string_1settings_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  libtorrent::settings_pack::string_types result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (libtorrent::settings_pack::string_types)libtorrent::settings_pack::num_string_settings;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_settings_1pack_1allow_1multiple_1connections_1per_1ip_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   libtorrent::settings_pack::bool_types result;
@@ -59265,18 +59439,6 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sett
   (void)jenv;
   (void)jcls;
   result = (libtorrent::settings_pack::bool_types)libtorrent::settings_pack::allow_multiple_connections_per_ip;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_settings_1pack_1num_1bool_1settings_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  libtorrent::settings_pack::bool_types result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (libtorrent::settings_pack::bool_types)libtorrent::settings_pack::num_bool_settings;
   jresult = (jint)result; 
   return jresult;
 }
@@ -59294,13 +59456,37 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sett
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_settings_1pack_1num_1int_1settings_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_settings_1pack_1num_1string_1settings_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  libtorrent::settings_pack::int_types result;
+  libtorrent::settings_pack::settings_counts_t result;
   
   (void)jenv;
   (void)jcls;
-  result = (libtorrent::settings_pack::int_types)libtorrent::settings_pack::num_int_settings;
+  result = (libtorrent::settings_pack::settings_counts_t)libtorrent::settings_pack::num_string_settings;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_settings_1pack_1num_1bool_1settings_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  libtorrent::settings_pack::settings_counts_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (libtorrent::settings_pack::settings_counts_t)libtorrent::settings_pack::num_bool_settings;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_settings_1pack_1num_1int_1settings_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  libtorrent::settings_pack::settings_counts_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (libtorrent::settings_pack::settings_counts_t)libtorrent::settings_pack::num_int_settings;
   jresult = (jint)result; 
   return jresult;
 }

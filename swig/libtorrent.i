@@ -619,6 +619,12 @@ namespace std {
 %ignore boost::detail::throws;
 %ignore boost::asio::ip::address_v4::to_bytes;
 %ignore boost::asio::ip::address_v6::to_bytes;
+%ignore boost::system::generic_category;
+%ignore boost::system::system_category;
+%ignore boost::asio::error::get_netdb_category;
+%ignore boost::asio::error::get_addrinfo_category;
+%ignore boost::asio::error::get_misc_category;
+%ignore boost::asio::detail::posix_tss_ptr_create;
 
 %ignore operator=;
 %ignore operator!;
