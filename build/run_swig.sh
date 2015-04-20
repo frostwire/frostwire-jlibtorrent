@@ -25,5 +25,9 @@ swig -c++ -java -o swig/libtorrent_jni.cpp \
     -DTORRENT_DISABLE_GEO_IP=1 \
     -DTORRENT_USE_BOOST_DATE_TIME=1 \
     -DTORRENT_USE_OPENSSL=1 \
+    -DTORRENT_EXCEPTION_THROW_SPECIFIER=noexcept \
+    -DTORRENT_NO_RETURN="" \
+    -DTORRENT_OVERRIDE="" \
+    -DTORRENT_FINAL="" \
     -DNDEBUG=1 \
     swig/libtorrent.i
