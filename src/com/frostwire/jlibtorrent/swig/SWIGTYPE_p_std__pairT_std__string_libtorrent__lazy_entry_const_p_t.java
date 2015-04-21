@@ -8,18 +8,18 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class SWIGTYPE_p_std__vectorT_libtorrent__feed_item_t {
+public class SWIGTYPE_p_std__pairT_std__string_libtorrent__lazy_entry_const_p_t {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_std__vectorT_libtorrent__feed_item_t(long cPtr, boolean futureUse) {
+  protected SWIGTYPE_p_std__pairT_std__string_libtorrent__lazy_entry_const_p_t(long cPtr, boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_std__vectorT_libtorrent__feed_item_t() {
+  protected SWIGTYPE_p_std__pairT_std__string_libtorrent__lazy_entry_const_p_t() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_std__vectorT_libtorrent__feed_item_t obj) {
+  protected static long getCPtr(SWIGTYPE_p_std__pairT_std__string_libtorrent__lazy_entry_const_p_t obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

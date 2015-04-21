@@ -75,8 +75,8 @@ public class session {
     libtorrent_jni.session_save_state__SWIG_1(swigCPtr, this, entry.getCPtr(e), e);
   }
 
-  public void load_state(SWIGTYPE_p_libtorrent__lazy_entry e) {
-    libtorrent_jni.session_load_state(swigCPtr, this, SWIGTYPE_p_libtorrent__lazy_entry.getCPtr(e));
+  public void load_state(lazy_entry e) {
+    libtorrent_jni.session_load_state(swigCPtr, this, lazy_entry.getCPtr(e), e);
   }
 
   public void refresh_torrent_status(torrent_status_vector ret, long flags) {
@@ -137,18 +137,6 @@ public class session {
 
   public void get_cache_info(sha1_hash ih, cached_piece_info_vector ret) {
     libtorrent_jni.session_get_cache_info(swigCPtr, this, sha1_hash.getCPtr(ih), ih, cached_piece_info_vector.getCPtr(ret), ret);
-  }
-
-  public feed_handle add_feed(feed_settings feed) {
-    return new feed_handle(libtorrent_jni.session_add_feed(swigCPtr, this, feed_settings.getCPtr(feed), feed), true);
-  }
-
-  public void remove_feed(feed_handle h) {
-    libtorrent_jni.session_remove_feed(swigCPtr, this, feed_handle.getCPtr(h), h);
-  }
-
-  public void get_feeds(SWIGTYPE_p_std__vectorT_libtorrent__feed_handle_t f) {
-    libtorrent_jni.session_get_feeds(swigCPtr, this, SWIGTYPE_p_std__vectorT_libtorrent__feed_handle_t.getCPtr(f));
   }
 
   public void start_dht() {

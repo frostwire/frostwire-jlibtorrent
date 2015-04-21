@@ -49,7 +49,7 @@
 #include "libtorrent/bt_peer_connection.hpp"
 #include "libtorrent/file_pool.hpp"
 #include "libtorrent/ip_filter.hpp"
-#include "libtorrent/bdecode.hpp"
+#include "libtorrent/lazy_entry.hpp"
 #include "libtorrent/buffer.hpp"
 #include "libtorrent/tracker_manager.hpp"
 #include "libtorrent/bencode.hpp"
@@ -349,6 +349,8 @@ namespace std {
 %ignore libtorrent::piece_manager;
 %ignore libtorrent::disk_io_thread;
 %ignore libtorrent::feed;
+%ignore libtorrent::feed_status;
+%ignore libtorrent::feed_handle;
 %ignore libtorrent::request_callback;
 %ignore libtorrent::has_block;
 %ignore libtorrent::pending_block;
@@ -453,6 +455,9 @@ namespace std {
 %ignore libtorrent::session::add_extension;
 %ignore libtorrent::session::set_load_function;
 %ignore libtorrent::session::set_alert_notify;
+%ignore libtorrent::session::get_feeds;
+%ignore libtorrent::session::remove_feed;
+%ignore libtorrent::session::add_feed;
 %ignore libtorrent::session_stats_alert::values;
 %ignore libtorrent::peer_connection::peer_connection;
 %ignore libtorrent::peer_connection::incoming_piece;
@@ -608,6 +613,8 @@ namespace std {
 %ignore libtorrent::upnp::get_mapping(int, int&, int&, int&) const;
 %ignore libtorrent::torrent_error_alert::filename;
 %ignore libtorrent::web_seed_entry::peer_info;
+%ignore libtorrent::rss_alert;
+%ignore libtorrent::rss_item_alert;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -697,7 +704,7 @@ namespace std {
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
 %javaconst(1);
-//%include "libtorrent/bdecode.hpp"
+%include "libtorrent/lazy_entry.hpp"
 %javaconst(0);
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/tracker_manager.hpp"
@@ -809,9 +816,9 @@ namespace libtorrent {
     }
 };
 
-%extend bdecode_node {
-    static int bdecode(std::vector<char>& buffer, bdecode_node& ret, error_code& ec) {
-        return libtorrent::bdecode(&buffer[0], &buffer[0] + buffer.size(), ret, ec);
+%extend lazy_entry {
+    static int bdecode(std::vector<char>& buffer, lazy_entry& ret, error_code& ec) {
+        return libtorrent::lazy_bdecode(&buffer[0], &buffer[0] + buffer.size(), ret, ec);
     }
 };
 
