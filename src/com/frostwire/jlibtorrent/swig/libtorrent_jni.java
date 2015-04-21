@@ -2653,7 +2653,6 @@ public class libtorrent_jni {
   public final static native short peer_list_entry_source_get(long jarg1, peer_list_entry jarg1_);
   public final static native long new_peer_list_entry();
   public final static native void delete_peer_list_entry(long jarg1);
-  public final static native int source_rank(int jarg1);
   public final static native void bandwidth_socket_assign_bandwidth(long jarg1, bandwidth_socket jarg1_, int jarg2, int jarg3);
   public final static native boolean bandwidth_socket_is_disconnecting(long jarg1, bandwidth_socket jarg1_);
   public final static native void delete_bandwidth_socket(long jarg1);

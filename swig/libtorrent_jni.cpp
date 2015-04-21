@@ -53330,27 +53330,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_source_1rank(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  jint jresult = 0 ;
-  int arg1 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (int)jarg1; 
-  {
-    try {
-      result = (int)libtorrent::source_rank(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bandwidth_1socket_1assign_1bandwidth(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
   libtorrent::bandwidth_socket *arg1 = (libtorrent::bandwidth_socket *) 0 ;
   int arg2 ;
