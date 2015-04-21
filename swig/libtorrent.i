@@ -361,7 +361,7 @@ namespace std {
 %ignore libtorrent::disabled_storage_constructor;
 %ignore libtorrent::bdecode;
 %ignore libtorrent::url_has_argument;
-%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
+%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)>, error_code&);
 %ignore libtorrent::hash_value;
 %ignore libtorrent::cork;
 %ignore libtorrent::detail::add_files_impl;
@@ -477,6 +477,8 @@ namespace std {
 %ignore libtorrent::peer_connection::m_allocator;
 %ignore libtorrent::peer_connection::m_extensions;
 %ignore libtorrent::peer_connection::m_send_buffer;
+%ignore libtorrent::peer_connection::set_peer_info;
+%ignore libtorrent::peer_connection::peer_info_struct;
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;
@@ -605,6 +607,7 @@ namespace std {
 %ignore libtorrent::upnp::drain_state;
 %ignore libtorrent::upnp::get_mapping(int, int&, int&, int&) const;
 %ignore libtorrent::torrent_error_alert::filename;
+%ignore libtorrent::web_seed_entry::peer_info;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -783,20 +786,12 @@ namespace libtorrent {
     CAST_ALERT_METHOD(incoming_connection_alert)
     CAST_ALERT_METHOD(add_torrent_alert)
     CAST_ALERT_METHOD(state_update_alert)
-    CAST_ALERT_METHOD(mmap_cache_alert)
-    CAST_ALERT_METHOD(session_stats_alert)
     CAST_ALERT_METHOD(torrent_update_alert)
     CAST_ALERT_METHOD(dht_error_alert)
     CAST_ALERT_METHOD(dht_immutable_item_alert)
     CAST_ALERT_METHOD(dht_mutable_item_alert)
     CAST_ALERT_METHOD(dht_put_alert)
     CAST_ALERT_METHOD(i2p_alert)
-    CAST_ALERT_METHOD(dht_outgoing_get_peers_alert)
-    CAST_ALERT_METHOD(log_alert)
-    CAST_ALERT_METHOD(torrent_log_alert)
-    CAST_ALERT_METHOD(peer_log_alert)
-    CAST_ALERT_METHOD(lsd_error_alert)
-    CAST_ALERT_METHOD(dht_stats_alert)
 
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)
     CAST_ALERT_METHOD(set_piece_hashes_alert)

@@ -205,16 +205,12 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.add_files__SWIG_3(file_storage.getCPtr(fs), fs, file);
   }
 
-  public static void set_piece_hashes(create_torrent t, String p, SWIGTYPE_p_boost__functionT_void_fintF_t f, error_code ec) {
-    libtorrent_jni.set_piece_hashes__SWIG_0(create_torrent.getCPtr(t), t, p, SWIGTYPE_p_boost__functionT_void_fintF_t.getCPtr(f), error_code.getCPtr(ec), ec);
-  }
-
   public static void set_piece_hashes(create_torrent t, String p, error_code ec) {
-    libtorrent_jni.set_piece_hashes__SWIG_1(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
+    libtorrent_jni.set_piece_hashes__SWIG_0(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
   public static void set_piece_hashes(create_torrent t, String p) {
-    libtorrent_jni.set_piece_hashes__SWIG_2(create_torrent.getCPtr(t), t, p);
+    libtorrent_jni.set_piece_hashes__SWIG_1(create_torrent.getCPtr(t), t, p);
   }
 
   public static error_category get_upnp_category() {

@@ -45,21 +45,12 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_start(swigCPtr, this);
   }
 
-  public void set_peer_info(SWIGTYPE_p_policy__peer pi) {
-    libtorrent_jni.peer_connection_set_peer_info(swigCPtr, this, SWIGTYPE_p_policy__peer.getCPtr(pi));
-  }
-
   public void peer_exceeds_limit() {
     libtorrent_jni.peer_connection_peer_exceeds_limit(swigCPtr, this);
   }
 
   public void peer_disconnected_other() {
     libtorrent_jni.peer_connection_peer_disconnected_other(swigCPtr, this);
-  }
-
-  public SWIGTYPE_p_policy__peer peer_info_struct() {
-    long cPtr = libtorrent_jni.peer_connection_peer_info_struct(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_policy__peer(cPtr, false);
   }
 
   public peer_connection.peer_speed_t peer_speed() {

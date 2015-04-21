@@ -129,14 +129,6 @@ public class web_seed_entry {
     return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
-  public void setPeer_info(SWIGTYPE_p_policy__ipv4_peer value) {
-    libtorrent_jni.web_seed_entry_peer_info_set(swigCPtr, this, SWIGTYPE_p_policy__ipv4_peer.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_policy__ipv4_peer getPeer_info() {
-    return new SWIGTYPE_p_policy__ipv4_peer(libtorrent_jni.web_seed_entry_peer_info_get(swigCPtr, this), true);
-  }
-
   public void setRestart_request(peer_request value) {
     libtorrent_jni.web_seed_entry_restart_request_set(swigCPtr, this, peer_request.getCPtr(value), value);
   }

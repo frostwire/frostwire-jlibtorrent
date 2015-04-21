@@ -399,16 +399,6 @@ public class alert {
     return (cPtr == 0) ? null : new state_update_alert(cPtr, false);
   }
 
-  public static SWIGTYPE_p_libtorrent__mmap_cache_alert cast_to_mmap_cache_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_mmap_cache_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__mmap_cache_alert(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_libtorrent__session_stats_alert cast_to_session_stats_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_session_stats_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__session_stats_alert(cPtr, false);
-  }
-
   public static torrent_update_alert cast_to_torrent_update_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_torrent_update_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new torrent_update_alert(cPtr, false);
@@ -437,36 +427,6 @@ public class alert {
   public static i2p_alert cast_to_i2p_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_i2p_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new i2p_alert(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_libtorrent__dht_outgoing_get_peers_alert cast_to_dht_outgoing_get_peers_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_dht_outgoing_get_peers_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__dht_outgoing_get_peers_alert(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_libtorrent__log_alert cast_to_log_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_log_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__log_alert(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_libtorrent__torrent_log_alert cast_to_torrent_log_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_torrent_log_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__torrent_log_alert(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_libtorrent__peer_log_alert cast_to_peer_log_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_peer_log_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__peer_log_alert(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_libtorrent__lsd_error_alert cast_to_lsd_error_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_lsd_error_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__lsd_error_alert(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_libtorrent__dht_stats_alert cast_to_dht_stats_alert(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_dht_stats_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__dht_stats_alert(cPtr, false);
   }
 
   public static dht_get_peers_reply_alert cast_to_dht_get_peers_reply_alert(alert alert) {
