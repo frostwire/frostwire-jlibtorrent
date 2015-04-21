@@ -316,8 +316,6 @@ namespace std {
     %template(peer_entry_vector) vector<libtorrent::peer_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
-    %template(ipv4_peer_entry_vector) vector<libtorrent::ipv4_peer_entry>;
-    %template(ipv6_peer_entry_vector) vector<libtorrent::ipv6_peer_entry>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
 
     %template(entry_list) list<libtorrent::entry>;
@@ -326,7 +324,7 @@ namespace std {
     %template(string_entry_map) map<std::string, libtorrent::entry>;
     %template(int_sha1_hash_map) map<int, libtorrent::sha1_hash>;
 
-    %template(alert_ptr_vector) vector<libtorrent::alert*>;
+    %template(alert_ptr_deque) deque<libtorrent::alert*>;
 };
 
 // this are ignore until we solve the specific type issues
@@ -361,7 +359,7 @@ namespace std {
 %ignore libtorrent::default_storage;
 %ignore libtorrent::default_storage_constructor;
 %ignore libtorrent::disabled_storage_constructor;
-%ignore libtorrent::bdecode;
+%ignore libtorrent::lazy_bdecode;
 %ignore libtorrent::url_has_argument;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)>, error_code&);
 %ignore libtorrent::hash_value;

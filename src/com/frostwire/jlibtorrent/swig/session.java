@@ -276,8 +276,8 @@ public class session {
      return (cPtr == 0) ? null : new alert(cPtr, true);
    }
 
-  public void pop_alerts(SWIGTYPE_p_std__dequeT_libtorrent__alert_p_t alerts) {
-    libtorrent_jni.session_pop_alerts(swigCPtr, this, SWIGTYPE_p_std__dequeT_libtorrent__alert_p_t.getCPtr(alerts));
+  public void pop_alerts(alert_ptr_deque alerts) {
+    libtorrent_jni.session_pop_alerts(swigCPtr, this, alert_ptr_deque.getCPtr(alerts), alerts);
   }
 
   public alert wait_for_alert(SWIGTYPE_p_time_duration max_wait) {

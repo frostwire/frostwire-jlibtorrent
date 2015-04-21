@@ -185,22 +185,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.minus_one(val);
   }
 
-  public static int lazy_bdecode(String start, String end, lazy_entry ret, error_code ec, SWIGTYPE_p_int error_pos, int depth_limit, int item_limit) {
-    return libtorrent_jni.lazy_bdecode__SWIG_0(start, end, lazy_entry.getCPtr(ret), ret, error_code.getCPtr(ec), ec, SWIGTYPE_p_int.getCPtr(error_pos), depth_limit, item_limit);
-  }
-
-  public static int lazy_bdecode(String start, String end, lazy_entry ret, error_code ec, SWIGTYPE_p_int error_pos, int depth_limit) {
-    return libtorrent_jni.lazy_bdecode__SWIG_1(start, end, lazy_entry.getCPtr(ret), ret, error_code.getCPtr(ec), ec, SWIGTYPE_p_int.getCPtr(error_pos), depth_limit);
-  }
-
-  public static int lazy_bdecode(String start, String end, lazy_entry ret, error_code ec, SWIGTYPE_p_int error_pos) {
-    return libtorrent_jni.lazy_bdecode__SWIG_2(start, end, lazy_entry.getCPtr(ret), ret, error_code.getCPtr(ec), ec, SWIGTYPE_p_int.getCPtr(error_pos));
-  }
-
-  public static int lazy_bdecode(String start, String end, lazy_entry ret, error_code ec) {
-    return libtorrent_jni.lazy_bdecode__SWIG_3(start, end, lazy_entry.getCPtr(ret), ret, error_code.getCPtr(ec), ec);
-  }
-
   public static String print_entry(lazy_entry e, boolean single_line, int indent) {
     return libtorrent_jni.print_entry__SWIG_0(lazy_entry.getCPtr(e), e, single_line, indent);
   }
