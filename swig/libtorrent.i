@@ -14,6 +14,7 @@
 #include <boost/system/error_code.hpp>
     
 #include "libtorrent/version.hpp"
+#include "libtorrent/size_type.hpp"
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/time.hpp"
 #include "libtorrent/fingerprint.hpp"
@@ -284,7 +285,7 @@ namespace std {
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
     %template(long_long_long_2_pair) pair<long long, long>;
-    %template(string_bdecode_node_pair) pair<std::string, libtorrent::bdecode_node>;
+    %template(string_lazy_entry_ptr_pair) pair<std::string, libtorrent::lazy_entry const*>;
     
     %template(string_vector) vector<std::string>;
     %template(char_vector) vector<char>;
@@ -309,7 +310,6 @@ namespace std {
     %template(partial_piece_info_vector) vector<libtorrent::partial_piece_info>;
     %template(cached_piece_info_vector) vector<libtorrent::cached_piece_info>;
     %template(peer_info_vector) vector<libtorrent::peer_info>;
-    %template(stats_metric_vector) vector<libtorrent::stats_metric>;
 
     %template(entry_vector) vector<libtorrent::entry>;
     %template(web_seed_entry_vector) vector<libtorrent::web_seed_entry>;
@@ -666,6 +666,7 @@ namespace std {
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
+%include "libtorrent/size_type.hpp"
 %javaconst(1);
 %include "libtorrent/error_code.hpp"
 %javaconst(0);

@@ -265,8 +265,8 @@ public class peer_connection extends bandwidth_socket {
     return new stat(libtorrent_jni.peer_connection_statistics(swigCPtr, this), false);
   }
 
-  public void add_stat(SWIGTYPE_p_size_type downloaded, SWIGTYPE_p_size_type uploaded) {
-    libtorrent_jni.peer_connection_add_stat(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(downloaded), SWIGTYPE_p_size_type.getCPtr(uploaded));
+  public void add_stat(long downloaded, long uploaded) {
+    libtorrent_jni.peer_connection_add_stat(swigCPtr, this, downloaded, uploaded);
   }
 
   public void second_tick(int tick_interval_ms) {
@@ -601,16 +601,16 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_set_last_seen_complete(swigCPtr, this, ago);
   }
 
-  public SWIGTYPE_p_size_type uploaded_in_last_round() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.peer_connection_uploaded_in_last_round(swigCPtr, this), true);
+  public long uploaded_in_last_round() {
+    return libtorrent_jni.peer_connection_uploaded_in_last_round(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type downloaded_in_last_round() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.peer_connection_downloaded_in_last_round(swigCPtr, this), true);
+  public long downloaded_in_last_round() {
+    return libtorrent_jni.peer_connection_downloaded_in_last_round(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type uploaded_since_unchoked() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.peer_connection_uploaded_since_unchoked(swigCPtr, this), true);
+  public long uploaded_since_unchoked() {
+    return libtorrent_jni.peer_connection_uploaded_since_unchoked(swigCPtr, this);
   }
 
   public void on_disk() {

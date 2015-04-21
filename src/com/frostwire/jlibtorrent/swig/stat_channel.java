@@ -55,12 +55,12 @@ public class stat_channel {
     return libtorrent_jni.stat_channel_low_pass_rate(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type total() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.stat_channel_total(swigCPtr, this), true);
+  public long total() {
+    return libtorrent_jni.stat_channel_total(swigCPtr, this);
   }
 
-  public void offset(SWIGTYPE_p_size_type c) {
-    libtorrent_jni.stat_channel_offset(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(c));
+  public void offset(long c) {
+    libtorrent_jni.stat_channel_offset(swigCPtr, this, c);
   }
 
   public int counter() {

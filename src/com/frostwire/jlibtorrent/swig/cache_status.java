@@ -39,52 +39,52 @@ public class cache_status {
     this(libtorrent_jni.new_cache_status(), true);
   }
 
-  public void setBlocks_written(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.cache_status_blocks_written_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setBlocks_written(long value) {
+    libtorrent_jni.cache_status_blocks_written_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getBlocks_written() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.cache_status_blocks_written_get(swigCPtr, this), true);
+  public long getBlocks_written() {
+    return libtorrent_jni.cache_status_blocks_written_get(swigCPtr, this);
   }
 
-  public void setWrites(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.cache_status_writes_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setWrites(long value) {
+    libtorrent_jni.cache_status_writes_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getWrites() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.cache_status_writes_get(swigCPtr, this), true);
+  public long getWrites() {
+    return libtorrent_jni.cache_status_writes_get(swigCPtr, this);
   }
 
-  public void setBlocks_read(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.cache_status_blocks_read_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setBlocks_read(long value) {
+    libtorrent_jni.cache_status_blocks_read_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getBlocks_read() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.cache_status_blocks_read_get(swigCPtr, this), true);
+  public long getBlocks_read() {
+    return libtorrent_jni.cache_status_blocks_read_get(swigCPtr, this);
   }
 
-  public void setBlocks_read_hit(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.cache_status_blocks_read_hit_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setBlocks_read_hit(long value) {
+    libtorrent_jni.cache_status_blocks_read_hit_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getBlocks_read_hit() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.cache_status_blocks_read_hit_get(swigCPtr, this), true);
+  public long getBlocks_read_hit() {
+    return libtorrent_jni.cache_status_blocks_read_hit_get(swigCPtr, this);
   }
 
-  public void setReads(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.cache_status_reads_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setReads(long value) {
+    libtorrent_jni.cache_status_reads_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getReads() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.cache_status_reads_get(swigCPtr, this), true);
+  public long getReads() {
+    return libtorrent_jni.cache_status_reads_get(swigCPtr, this);
   }
 
-  public void setQueued_bytes(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.cache_status_queued_bytes_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setQueued_bytes(long value) {
+    libtorrent_jni.cache_status_queued_bytes_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getQueued_bytes() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.cache_status_queued_bytes_get(swigCPtr, this), true);
+  public long getQueued_bytes() {
+    return libtorrent_jni.cache_status_queued_bytes_get(swigCPtr, this);
   }
 
   public void setCache_size(int value) {

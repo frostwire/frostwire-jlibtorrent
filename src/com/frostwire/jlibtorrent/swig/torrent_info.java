@@ -139,8 +139,8 @@ public class torrent_info {
     return new web_seed_entry_vector(libtorrent_jni.torrent_info_web_seeds(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_size_type total_size() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_info_total_size(swigCPtr, this), true);
+  public long total_size() {
+    return libtorrent_jni.torrent_info_total_size(swigCPtr, this);
   }
 
   public int piece_length() {
@@ -163,12 +163,12 @@ public class torrent_info {
     return new file_entry(libtorrent_jni.torrent_info_file_at(swigCPtr, this, index), true);
   }
 
-  public file_slice_vector map_block(int piece, SWIGTYPE_p_size_type offset, int size) {
-    return new file_slice_vector(libtorrent_jni.torrent_info_map_block(swigCPtr, this, piece, SWIGTYPE_p_size_type.getCPtr(offset), size), true);
+  public file_slice_vector map_block(int piece, long offset, int size) {
+    return new file_slice_vector(libtorrent_jni.torrent_info_map_block(swigCPtr, this, piece, offset, size), true);
   }
 
-  public peer_request map_file(int file, SWIGTYPE_p_size_type offset, int size) {
-    return new peer_request(libtorrent_jni.torrent_info_map_file(swigCPtr, this, file, SWIGTYPE_p_size_type.getCPtr(offset), size), true);
+  public peer_request map_file(int file, long offset, int size) {
+    return new peer_request(libtorrent_jni.torrent_info_map_file(swigCPtr, this, file, offset, size), true);
   }
 
   public String ssl_cert() {

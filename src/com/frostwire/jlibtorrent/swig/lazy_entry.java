@@ -129,8 +129,8 @@ public class lazy_entry {
     return (cPtr == 0) ? null : new lazy_entry(cPtr, false);
   }
 
-  public SWIGTYPE_p_std__pairT_std__string_libtorrent__lazy_entry_const_p_t dict_at(int i) {
-    return new SWIGTYPE_p_std__pairT_std__string_libtorrent__lazy_entry_const_p_t(libtorrent_jni.lazy_entry_dict_at(swigCPtr, this, i), true);
+  public string_lazy_entry_ptr_pair dict_at(int i) {
+    return new string_lazy_entry_ptr_pair(libtorrent_jni.lazy_entry_dict_at(swigCPtr, this, i), true);
   }
 
   public int dict_size() {

@@ -108,20 +108,20 @@ public class peer_info {
     return libtorrent_jni.peer_info_payload_down_speed_get(swigCPtr, this);
   }
 
-  public void setTotal_download(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.peer_info_total_download_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setTotal_download(long value) {
+    libtorrent_jni.peer_info_total_download_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getTotal_download() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.peer_info_total_download_get(swigCPtr, this), true);
+  public long getTotal_download() {
+    return libtorrent_jni.peer_info_total_download_get(swigCPtr, this);
   }
 
-  public void setTotal_upload(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.peer_info_total_upload_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setTotal_upload(long value) {
+    libtorrent_jni.peer_info_total_upload_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getTotal_upload() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.peer_info_total_upload_get(swigCPtr, this), true);
+  public long getTotal_upload() {
+    return libtorrent_jni.peer_info_total_upload_get(swigCPtr, this);
   }
 
   public void setPid(sha1_hash value) {

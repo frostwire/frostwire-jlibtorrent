@@ -115,12 +115,12 @@ public class stat {
     return libtorrent_jni.stat_download_rate(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type total_upload() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.stat_total_upload(swigCPtr, this), true);
+  public long total_upload() {
+    return libtorrent_jni.stat_total_upload(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type total_download() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.stat_total_download(swigCPtr, this), true);
+  public long total_download() {
+    return libtorrent_jni.stat_total_download(swigCPtr, this);
   }
 
   public int upload_payload_rate() {
@@ -131,32 +131,32 @@ public class stat {
     return libtorrent_jni.stat_download_payload_rate(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type total_payload_upload() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.stat_total_payload_upload(swigCPtr, this), true);
+  public long total_payload_upload() {
+    return libtorrent_jni.stat_total_payload_upload(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type total_payload_download() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.stat_total_payload_download(swigCPtr, this), true);
+  public long total_payload_download() {
+    return libtorrent_jni.stat_total_payload_download(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type total_protocol_upload() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.stat_total_protocol_upload(swigCPtr, this), true);
+  public long total_protocol_upload() {
+    return libtorrent_jni.stat_total_protocol_upload(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type total_protocol_download() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.stat_total_protocol_download(swigCPtr, this), true);
+  public long total_protocol_download() {
+    return libtorrent_jni.stat_total_protocol_download(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_size_type total_transfer(int channel) {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.stat_total_transfer(swigCPtr, this, channel), true);
+  public long total_transfer(int channel) {
+    return libtorrent_jni.stat_total_transfer(swigCPtr, this, channel);
   }
 
   public int transfer_rate(int channel) {
     return libtorrent_jni.stat_transfer_rate(swigCPtr, this, channel);
   }
 
-  public void add_stat(SWIGTYPE_p_size_type downloaded, SWIGTYPE_p_size_type uploaded) {
-    libtorrent_jni.stat_add_stat(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(downloaded), SWIGTYPE_p_size_type.getCPtr(uploaded));
+  public void add_stat(long downloaded, long uploaded) {
+    libtorrent_jni.stat_add_stat(swigCPtr, this, downloaded, uploaded);
   }
 
   public int last_payload_downloaded() {

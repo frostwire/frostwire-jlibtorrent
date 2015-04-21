@@ -87,12 +87,12 @@ public class feed_item {
     return libtorrent_jni.feed_item_category_get(swigCPtr, this);
   }
 
-  public void setSize(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.feed_item_size_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setSize(long value) {
+    libtorrent_jni.feed_item_size_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getSize() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.feed_item_size_get(swigCPtr, this), true);
+  public long getSize() {
+    return libtorrent_jni.feed_item_size_get(swigCPtr, this);
   }
 
   public void setHandle(torrent_handle value) {

@@ -55,28 +55,28 @@ public class file_entry {
     return libtorrent_jni.file_entry_symlink_path_get(swigCPtr, this);
   }
 
-  public void setOffset(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.file_entry_offset_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setOffset(long value) {
+    libtorrent_jni.file_entry_offset_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getOffset() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.file_entry_offset_get(swigCPtr, this), true);
+  public long getOffset() {
+    return libtorrent_jni.file_entry_offset_get(swigCPtr, this);
   }
 
-  public void setSize(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.file_entry_size_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setSize(long value) {
+    libtorrent_jni.file_entry_size_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getSize() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.file_entry_size_get(swigCPtr, this), true);
+  public long getSize() {
+    return libtorrent_jni.file_entry_size_get(swigCPtr, this);
   }
 
-  public void setFile_base(SWIGTYPE_p_size_type value) {
-    libtorrent_jni.file_entry_file_base_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
+  public void setFile_base(long value) {
+    libtorrent_jni.file_entry_file_base_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_size_type getFile_base() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.file_entry_file_base_get(swigCPtr, this), true);
+  public long getFile_base() {
+    return libtorrent_jni.file_entry_file_base_get(swigCPtr, this);
   }
 
   public void setMtime(int value) {

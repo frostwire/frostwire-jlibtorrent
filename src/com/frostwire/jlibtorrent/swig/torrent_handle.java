@@ -95,12 +95,12 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_set_priority(swigCPtr, this, prio);
   }
 
-  public void file_progress(SWIGTYPE_p_std__vectorT_size_type_t progress, int flags) {
-    libtorrent_jni.torrent_handle_file_progress__SWIG_0(swigCPtr, this, SWIGTYPE_p_std__vectorT_size_type_t.getCPtr(progress), flags);
+  public void file_progress(int64_vector progress, int flags) {
+    libtorrent_jni.torrent_handle_file_progress__SWIG_0(swigCPtr, this, int64_vector.getCPtr(progress), progress, flags);
   }
 
-  public void file_progress(SWIGTYPE_p_std__vectorT_size_type_t progress) {
-    libtorrent_jni.torrent_handle_file_progress__SWIG_1(swigCPtr, this, SWIGTYPE_p_std__vectorT_size_type_t.getCPtr(progress));
+  public void file_progress(int64_vector progress) {
+    libtorrent_jni.torrent_handle_file_progress__SWIG_1(swigCPtr, this, int64_vector.getCPtr(progress), progress);
   }
 
   public void clear_error() {

@@ -51,8 +51,8 @@ public class entry {
     this(libtorrent_jni.new_entry__SWIG_2(entry_list.getCPtr(arg0), arg0), true);
   }
 
-  public entry(SWIGTYPE_p_size_type arg0) {
-    this(libtorrent_jni.new_entry__SWIG_3(SWIGTYPE_p_size_type.getCPtr(arg0)), true);
+  public entry(long arg0) {
+    this(libtorrent_jni.new_entry__SWIG_3(arg0), true);
   }
 
   public entry(entry.data_type t) {
@@ -75,8 +75,8 @@ public class entry {
     return libtorrent_jni.entry_op_neq(swigCPtr, this, entry.getCPtr(e), e);
   }
 
-  public SWIGTYPE_p_size_type integer() {
-    return new SWIGTYPE_p_size_type(libtorrent_jni.entry_integer(swigCPtr, this), false);
+  public long integer() {
+    return libtorrent_jni.entry_integer(swigCPtr, this);
   }
 
   public String string() {
