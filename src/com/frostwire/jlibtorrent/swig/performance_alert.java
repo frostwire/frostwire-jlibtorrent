@@ -35,8 +35,8 @@ public class performance_alert extends torrent_alert {
     super.delete();
   }
 
-  public performance_alert(stack_allocator alloc, torrent_handle h, performance_alert.performance_warning_t w) {
-    this(libtorrent_jni.new_performance_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, w.swigValue()), true);
+  public performance_alert(torrent_handle h, performance_alert.performance_warning_t w) {
+    this(libtorrent_jni.new_performance_alert(torrent_handle.getCPtr(h), h, w.swigValue()), true);
   }
 
   public int type() {
@@ -71,7 +71,6 @@ public class performance_alert extends torrent_alert {
     send_buffer_watermark_too_low,
     too_many_optimistic_unchoke_slots,
     too_high_disk_queue_limit,
-    aio_limit_reached,
     bittyrant_with_no_uplimit,
     too_few_outgoing_ports,
     too_few_file_descriptors,
@@ -115,7 +114,6 @@ public class performance_alert extends torrent_alert {
     }
   }
 
-  public final static int priority = libtorrent_jni.performance_alert_priority_get();
   public final static int alert_type = libtorrent_jni.performance_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.performance_alert_static_category_get();
 }

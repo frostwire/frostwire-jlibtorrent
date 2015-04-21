@@ -35,8 +35,8 @@ public class torrent_resumed_alert extends torrent_alert {
     super.delete();
   }
 
-  public torrent_resumed_alert(stack_allocator alloc, torrent_handle h) {
-    this(libtorrent_jni.new_torrent_resumed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h), true);
+  public torrent_resumed_alert(torrent_handle h) {
+    this(libtorrent_jni.new_torrent_resumed_alert(torrent_handle.getCPtr(h), h), true);
   }
 
   public int type() {
@@ -55,7 +55,6 @@ public class torrent_resumed_alert extends torrent_alert {
     return libtorrent_jni.torrent_resumed_alert_message(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.torrent_resumed_alert_priority_get();
   public final static int alert_type = libtorrent_jni.torrent_resumed_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.torrent_resumed_alert_static_category_get();
 }

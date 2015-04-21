@@ -35,8 +35,8 @@ public class file_completed_alert extends torrent_alert {
     super.delete();
   }
 
-  public file_completed_alert(stack_allocator alloc, torrent_handle h, int idx) {
-    this(libtorrent_jni.new_file_completed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, idx), true);
+  public file_completed_alert(torrent_handle h, int idx) {
+    this(libtorrent_jni.new_file_completed_alert(torrent_handle.getCPtr(h), h, idx), true);
   }
 
   public int type() {
@@ -63,7 +63,6 @@ public class file_completed_alert extends torrent_alert {
     return libtorrent_jni.file_completed_alert_index_get(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.file_completed_alert_priority_get();
   public final static int alert_type = libtorrent_jni.file_completed_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.file_completed_alert_static_category_get();
 }

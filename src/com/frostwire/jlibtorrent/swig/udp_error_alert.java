@@ -35,8 +35,8 @@ public class udp_error_alert extends alert {
     super.delete();
   }
 
-  public udp_error_alert(stack_allocator alloc, udp_endpoint ep, error_code ec) {
-    this(libtorrent_jni.new_udp_error_alert(stack_allocator.getCPtr(alloc), alloc, udp_endpoint.getCPtr(ep), ep, error_code.getCPtr(ec), ec), true);
+  public udp_error_alert(udp_endpoint ep, error_code ec) {
+    this(libtorrent_jni.new_udp_error_alert(udp_endpoint.getCPtr(ep), ep, error_code.getCPtr(ec), ec), true);
   }
 
   public int type() {
@@ -73,7 +73,6 @@ public class udp_error_alert extends alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public final static int priority = libtorrent_jni.udp_error_alert_priority_get();
   public final static int alert_type = libtorrent_jni.udp_error_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.udp_error_alert_static_category_get();
 }

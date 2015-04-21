@@ -43,20 +43,20 @@ public class file_slice {
     return libtorrent_jni.file_slice_file_index_get(swigCPtr, this);
   }
 
-  public void setOffset(long value) {
-    libtorrent_jni.file_slice_offset_set(swigCPtr, this, value);
+  public void setOffset(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.file_slice_offset_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getOffset() {
-    return libtorrent_jni.file_slice_offset_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getOffset() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.file_slice_offset_get(swigCPtr, this), true);
   }
 
-  public void setSize(long value) {
-    libtorrent_jni.file_slice_size_set(swigCPtr, this, value);
+  public void setSize(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.file_slice_size_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getSize() {
-    return libtorrent_jni.file_slice_size_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getSize() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.file_slice_size_get(swigCPtr, this), true);
   }
 
   public file_slice() {

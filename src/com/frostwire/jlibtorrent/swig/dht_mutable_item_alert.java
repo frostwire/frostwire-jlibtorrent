@@ -51,6 +51,10 @@ public class dht_mutable_item_alert extends alert {
     return libtorrent_jni.dht_mutable_item_alert_message(swigCPtr, this);
   }
 
+  public boolean discardable() {
+    return libtorrent_jni.dht_mutable_item_alert_discardable(swigCPtr, this);
+  }
+
   public void setSeq(java.math.BigInteger value) {
     libtorrent_jni.dht_mutable_item_alert_seq_set(swigCPtr, this, value);
   }
@@ -83,7 +87,6 @@ public class dht_mutable_item_alert extends alert {
     return new char_vector(libtorrent_jni.dht_mutable_item_alert_signature_v(swigCPtr, this), true);
   }
 
-  public final static int priority = libtorrent_jni.dht_mutable_item_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_mutable_item_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_mutable_item_alert_static_category_get();
 }

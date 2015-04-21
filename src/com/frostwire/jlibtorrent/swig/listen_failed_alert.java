@@ -35,8 +35,8 @@ public class listen_failed_alert extends alert {
     super.delete();
   }
 
-  public listen_failed_alert(stack_allocator alloc, String iface, int op, error_code ec, listen_failed_alert.socket_type_t t) {
-    this(libtorrent_jni.new_listen_failed_alert(stack_allocator.getCPtr(alloc), alloc, iface, op, error_code.getCPtr(ec), ec, t.swigValue()), true);
+  public listen_failed_alert(tcp_endpoint ep, int op, error_code ec, listen_failed_alert.socket_type_t t) {
+    this(libtorrent_jni.new_listen_failed_alert(tcp_endpoint.getCPtr(ep), ep, op, error_code.getCPtr(ec), ec, t.swigValue()), true);
   }
 
   public int type() {
@@ -55,8 +55,17 @@ public class listen_failed_alert extends alert {
     return libtorrent_jni.listen_failed_alert_message(swigCPtr, this);
   }
 
-  public String listen_interface() {
-    return libtorrent_jni.listen_failed_alert_listen_interface(swigCPtr, this);
+  public boolean discardable() {
+    return libtorrent_jni.listen_failed_alert_discardable(swigCPtr, this);
+  }
+
+  public void setEndpoint(tcp_endpoint value) {
+    libtorrent_jni.listen_failed_alert_endpoint_set(swigCPtr, this, tcp_endpoint.getCPtr(value), value);
+  }
+
+  public tcp_endpoint getEndpoint() {
+    long cPtr = libtorrent_jni.listen_failed_alert_endpoint_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
   public void setError(error_code value) {
@@ -89,8 +98,7 @@ public class listen_failed_alert extends alert {
     tcp_ssl,
     udp,
     i2p,
-    socks5,
-    utp_ssl;
+    socks5;
 
     public final int swigValue() {
       return swigValue;
@@ -130,7 +138,6 @@ public class listen_failed_alert extends alert {
     }
   }
 
-  public final static int priority = libtorrent_jni.listen_failed_alert_priority_get();
   public final static int alert_type = libtorrent_jni.listen_failed_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.listen_failed_alert_static_category_get();
   public enum op_t {

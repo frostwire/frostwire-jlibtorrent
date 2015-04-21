@@ -35,8 +35,8 @@ public class invalid_request_alert extends peer_alert {
     super.delete();
   }
 
-  public invalid_request_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, peer_request r, boolean we_have, boolean peer_interested, boolean withheld) {
-    this(libtorrent_jni.new_invalid_request_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, peer_request.getCPtr(r), r, we_have, peer_interested, withheld), true);
+  public invalid_request_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, peer_request r) {
+    this(libtorrent_jni.new_invalid_request_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, peer_request.getCPtr(r), r), true);
   }
 
   public int type() {
@@ -64,30 +64,5 @@ public class invalid_request_alert extends peer_alert {
     return (cPtr == 0) ? null : new peer_request(cPtr, false);
   }
 
-  public void setWe_have(boolean value) {
-    libtorrent_jni.invalid_request_alert_we_have_set(swigCPtr, this, value);
-  }
-
-  public boolean getWe_have() {
-    return libtorrent_jni.invalid_request_alert_we_have_get(swigCPtr, this);
-  }
-
-  public void setPeer_interested(boolean value) {
-    libtorrent_jni.invalid_request_alert_peer_interested_set(swigCPtr, this, value);
-  }
-
-  public boolean getPeer_interested() {
-    return libtorrent_jni.invalid_request_alert_peer_interested_get(swigCPtr, this);
-  }
-
-  public void setWithheld(boolean value) {
-    libtorrent_jni.invalid_request_alert_withheld_set(swigCPtr, this, value);
-  }
-
-  public boolean getWithheld() {
-    return libtorrent_jni.invalid_request_alert_withheld_get(swigCPtr, this);
-  }
-
-  public final static int priority = libtorrent_jni.invalid_request_alert_priority_get();
   public final static int alert_type = libtorrent_jni.invalid_request_alert_alert_type_get();
 }

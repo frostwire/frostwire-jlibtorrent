@@ -35,10 +35,6 @@ public class state_update_alert extends alert {
     super.delete();
   }
 
-  public state_update_alert(stack_allocator alloc, torrent_status_vector st) {
-    this(libtorrent_jni.new_state_update_alert(stack_allocator.getCPtr(alloc), alloc, torrent_status_vector.getCPtr(st), st), true);
-  }
-
   public int type() {
     return libtorrent_jni.state_update_alert_type(swigCPtr, this);
   }
@@ -55,6 +51,10 @@ public class state_update_alert extends alert {
     return libtorrent_jni.state_update_alert_message(swigCPtr, this);
   }
 
+  public boolean discardable() {
+    return libtorrent_jni.state_update_alert_discardable(swigCPtr, this);
+  }
+
   public void setStatus(torrent_status_vector value) {
     libtorrent_jni.state_update_alert_status_set(swigCPtr, this, torrent_status_vector.getCPtr(value), value);
   }
@@ -64,7 +64,10 @@ public class state_update_alert extends alert {
     return (cPtr == 0) ? null : new torrent_status_vector(cPtr, false);
   }
 
-  public final static int priority = libtorrent_jni.state_update_alert_priority_get();
+  public state_update_alert() {
+    this(libtorrent_jni.new_state_update_alert(), true);
+  }
+
   public final static int alert_type = libtorrent_jni.state_update_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.state_update_alert_static_category_get();
 }

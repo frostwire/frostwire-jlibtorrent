@@ -51,14 +51,6 @@ public class dht_routing_bucket {
     return libtorrent_jni.dht_routing_bucket_num_replacements_get(swigCPtr, this);
   }
 
-  public void setLast_active(int value) {
-    libtorrent_jni.dht_routing_bucket_last_active_set(swigCPtr, this, value);
-  }
-
-  public int getLast_active() {
-    return libtorrent_jni.dht_routing_bucket_last_active_get(swigCPtr, this);
-  }
-
   public dht_routing_bucket() {
     this(libtorrent_jni.new_dht_routing_bucket(), true);
   }

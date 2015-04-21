@@ -35,8 +35,8 @@ public class dht_announce_alert extends alert {
     super.delete();
   }
 
-  public dht_announce_alert(stack_allocator alloc, address i, int p, sha1_hash ih) {
-    this(libtorrent_jni.new_dht_announce_alert(stack_allocator.getCPtr(alloc), alloc, address.getCPtr(i), i, p, sha1_hash.getCPtr(ih), ih), true);
+  public dht_announce_alert(address i, int p, sha1_hash ih) {
+    this(libtorrent_jni.new_dht_announce_alert(address.getCPtr(i), i, p, sha1_hash.getCPtr(ih), ih), true);
   }
 
   public int type() {
@@ -81,7 +81,6 @@ public class dht_announce_alert extends alert {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
-  public final static int priority = libtorrent_jni.dht_announce_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_announce_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_announce_alert_static_category_get();
 }

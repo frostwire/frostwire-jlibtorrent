@@ -35,8 +35,8 @@ public class metadata_received_alert extends torrent_alert {
     super.delete();
   }
 
-  public metadata_received_alert(stack_allocator alloc, torrent_handle h) {
-    this(libtorrent_jni.new_metadata_received_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h), true);
+  public metadata_received_alert(torrent_handle h) {
+    this(libtorrent_jni.new_metadata_received_alert(torrent_handle.getCPtr(h), h), true);
   }
 
   public int type() {
@@ -55,7 +55,6 @@ public class metadata_received_alert extends torrent_alert {
     return libtorrent_jni.metadata_received_alert_message(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.metadata_received_alert_priority_get();
   public final static int alert_type = libtorrent_jni.metadata_received_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.metadata_received_alert_static_category_get();
 }

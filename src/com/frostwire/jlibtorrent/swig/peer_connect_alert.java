@@ -35,8 +35,8 @@ public class peer_connect_alert extends peer_alert {
     super.delete();
   }
 
-  public peer_connect_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, int type) {
-    this(libtorrent_jni.new_peer_connect_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, type), true);
+  public peer_connect_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, int type) {
+    this(libtorrent_jni.new_peer_connect_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, type), true);
   }
 
   public int type() {
@@ -63,7 +63,6 @@ public class peer_connect_alert extends peer_alert {
     return libtorrent_jni.peer_connect_alert_socket_type_get(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.peer_connect_alert_priority_get();
   public final static int alert_type = libtorrent_jni.peer_connect_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.peer_connect_alert_static_category_get();
 }

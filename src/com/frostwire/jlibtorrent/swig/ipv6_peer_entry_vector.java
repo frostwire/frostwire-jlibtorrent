@@ -59,16 +59,16 @@ public class ipv6_peer_entry_vector {
     libtorrent_jni.ipv6_peer_entry_vector_clear(swigCPtr, this);
   }
 
-  public void add(ipv6_peer_entry x) {
-    libtorrent_jni.ipv6_peer_entry_vector_add(swigCPtr, this, ipv6_peer_entry.getCPtr(x), x);
+  public void add(SWIGTYPE_p_libtorrent__ipv6_peer_entry x) {
+    libtorrent_jni.ipv6_peer_entry_vector_add(swigCPtr, this, SWIGTYPE_p_libtorrent__ipv6_peer_entry.getCPtr(x));
   }
 
-  public ipv6_peer_entry get(int i) {
-    return new ipv6_peer_entry(libtorrent_jni.ipv6_peer_entry_vector_get(swigCPtr, this, i), false);
+  public SWIGTYPE_p_libtorrent__ipv6_peer_entry get(int i) {
+    return new SWIGTYPE_p_libtorrent__ipv6_peer_entry(libtorrent_jni.ipv6_peer_entry_vector_get(swigCPtr, this, i), false);
   }
 
-  public void set(int i, ipv6_peer_entry val) {
-    libtorrent_jni.ipv6_peer_entry_vector_set(swigCPtr, this, i, ipv6_peer_entry.getCPtr(val), val);
+  public void set(int i, SWIGTYPE_p_libtorrent__ipv6_peer_entry val) {
+    libtorrent_jni.ipv6_peer_entry_vector_set(swigCPtr, this, i, SWIGTYPE_p_libtorrent__ipv6_peer_entry.getCPtr(val));
   }
 
 }

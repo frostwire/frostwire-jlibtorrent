@@ -59,16 +59,16 @@ public class stats_metric_vector {
     libtorrent_jni.stats_metric_vector_clear(swigCPtr, this);
   }
 
-  public void add(stats_metric x) {
-    libtorrent_jni.stats_metric_vector_add(swigCPtr, this, stats_metric.getCPtr(x), x);
+  public void add(SWIGTYPE_p_libtorrent__stats_metric x) {
+    libtorrent_jni.stats_metric_vector_add(swigCPtr, this, SWIGTYPE_p_libtorrent__stats_metric.getCPtr(x));
   }
 
-  public stats_metric get(int i) {
-    return new stats_metric(libtorrent_jni.stats_metric_vector_get(swigCPtr, this, i), false);
+  public SWIGTYPE_p_libtorrent__stats_metric get(int i) {
+    return new SWIGTYPE_p_libtorrent__stats_metric(libtorrent_jni.stats_metric_vector_get(swigCPtr, this, i), false);
   }
 
-  public void set(int i, stats_metric val) {
-    libtorrent_jni.stats_metric_vector_set(swigCPtr, this, i, stats_metric.getCPtr(val), val);
+  public void set(int i, SWIGTYPE_p_libtorrent__stats_metric val) {
+    libtorrent_jni.stats_metric_vector_set(swigCPtr, this, i, SWIGTYPE_p_libtorrent__stats_metric.getCPtr(val));
   }
 
 }

@@ -35,8 +35,8 @@ public class portmap_error_alert extends alert {
     super.delete();
   }
 
-  public portmap_error_alert(stack_allocator alloc, int i, int t, error_code e) {
-    this(libtorrent_jni.new_portmap_error_alert(stack_allocator.getCPtr(alloc), alloc, i, t, error_code.getCPtr(e), e), true);
+  public portmap_error_alert(int i, int t, error_code e) {
+    this(libtorrent_jni.new_portmap_error_alert(i, t, error_code.getCPtr(e), e), true);
   }
 
   public int type() {
@@ -80,7 +80,6 @@ public class portmap_error_alert extends alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public final static int priority = libtorrent_jni.portmap_error_alert_priority_get();
   public final static int alert_type = libtorrent_jni.portmap_error_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.portmap_error_alert_static_category_get();
 }

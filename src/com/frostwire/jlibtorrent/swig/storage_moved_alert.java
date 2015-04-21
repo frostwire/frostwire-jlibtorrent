@@ -35,8 +35,8 @@ public class storage_moved_alert extends torrent_alert {
     super.delete();
   }
 
-  public storage_moved_alert(stack_allocator alloc, torrent_handle h, String p) {
-    this(libtorrent_jni.new_storage_moved_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, p), true);
+  public storage_moved_alert(torrent_handle h, String p) {
+    this(libtorrent_jni.new_storage_moved_alert(torrent_handle.getCPtr(h), h, p), true);
   }
 
   public int type() {
@@ -55,11 +55,14 @@ public class storage_moved_alert extends torrent_alert {
     return libtorrent_jni.storage_moved_alert_message(swigCPtr, this);
   }
 
-  public String storage_path() {
-    return libtorrent_jni.storage_moved_alert_storage_path(swigCPtr, this);
+  public void setPath(String value) {
+    libtorrent_jni.storage_moved_alert_path_set(swigCPtr, this, value);
   }
 
-  public final static int priority = libtorrent_jni.storage_moved_alert_priority_get();
+  public String getPath() {
+    return libtorrent_jni.storage_moved_alert_path_get(swigCPtr, this);
+  }
+
   public final static int alert_type = libtorrent_jni.storage_moved_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.storage_moved_alert_static_category_get();
 }

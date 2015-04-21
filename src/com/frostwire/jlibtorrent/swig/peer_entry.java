@@ -35,12 +35,20 @@ public class peer_entry {
     }
   }
 
-  public void setHostname(String value) {
-    libtorrent_jni.peer_entry_hostname_set(swigCPtr, this, value);
+  public void setIp(String value) {
+    libtorrent_jni.peer_entry_ip_set(swigCPtr, this, value);
   }
 
-  public String getHostname() {
-    return libtorrent_jni.peer_entry_hostname_get(swigCPtr, this);
+  public String getIp() {
+    return libtorrent_jni.peer_entry_ip_get(swigCPtr, this);
+  }
+
+  public void setPort(int value) {
+    libtorrent_jni.peer_entry_port_set(swigCPtr, this, value);
+  }
+
+  public int getPort() {
+    return libtorrent_jni.peer_entry_port_get(swigCPtr, this);
   }
 
   public void setPid(sha1_hash value) {
@@ -50,14 +58,6 @@ public class peer_entry {
   public sha1_hash getPid() {
     long cPtr = libtorrent_jni.peer_entry_pid_get(swigCPtr, this);
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
-  }
-
-  public void setPort(int value) {
-    libtorrent_jni.peer_entry_port_set(swigCPtr, this, value);
-  }
-
-  public int getPort() {
-    return libtorrent_jni.peer_entry_port_get(swigCPtr, this);
   }
 
   public boolean op_eq(peer_entry p) {

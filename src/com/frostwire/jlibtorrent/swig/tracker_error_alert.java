@@ -35,8 +35,8 @@ public class tracker_error_alert extends tracker_alert {
     super.delete();
   }
 
-  public tracker_error_alert(stack_allocator alloc, torrent_handle h, int times, int status, String u, error_code e, String m) {
-    this(libtorrent_jni.new_tracker_error_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, times, status, u, error_code.getCPtr(e), e, m), true);
+  public tracker_error_alert(torrent_handle h, int times, int status, String u, error_code e, String m) {
+    this(libtorrent_jni.new_tracker_error_alert(torrent_handle.getCPtr(h), h, times, status, u, error_code.getCPtr(e), e, m), true);
   }
 
   public int type() {
@@ -80,11 +80,14 @@ public class tracker_error_alert extends tracker_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public String error_message() {
-    return libtorrent_jni.tracker_error_alert_error_message(swigCPtr, this);
+  public void setMsg(String value) {
+    libtorrent_jni.tracker_error_alert_msg_set(swigCPtr, this, value);
   }
 
-  public final static int priority = libtorrent_jni.tracker_error_alert_priority_get();
+  public String getMsg() {
+    return libtorrent_jni.tracker_error_alert_msg_get(swigCPtr, this);
+  }
+
   public final static int alert_type = libtorrent_jni.tracker_error_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.tracker_error_alert_static_category_get();
 }

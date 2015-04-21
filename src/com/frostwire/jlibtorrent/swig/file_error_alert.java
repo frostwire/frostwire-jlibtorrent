@@ -35,8 +35,8 @@ public class file_error_alert extends torrent_alert {
     super.delete();
   }
 
-  public file_error_alert(stack_allocator alloc, error_code ec, String file, String op, torrent_handle h) {
-    this(libtorrent_jni.new_file_error_alert(stack_allocator.getCPtr(alloc), alloc, error_code.getCPtr(ec), ec, file, op, torrent_handle.getCPtr(h), h), true);
+  public file_error_alert(String f, torrent_handle h, error_code e) {
+    this(libtorrent_jni.new_file_error_alert(f, torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e), true);
   }
 
   public int type() {
@@ -55,6 +55,14 @@ public class file_error_alert extends torrent_alert {
     return libtorrent_jni.file_error_alert_message(swigCPtr, this);
   }
 
+  public void setFile(String value) {
+    libtorrent_jni.file_error_alert_file_set(swigCPtr, this, value);
+  }
+
+  public String getFile() {
+    return libtorrent_jni.file_error_alert_file_get(swigCPtr, this);
+  }
+
   public void setError(error_code value) {
     libtorrent_jni.file_error_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
@@ -64,19 +72,6 @@ public class file_error_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public void setOperation(String value) {
-    libtorrent_jni.file_error_alert_operation_set(swigCPtr, this, value);
-  }
-
-  public String getOperation() {
-    return libtorrent_jni.file_error_alert_operation_get(swigCPtr, this);
-  }
-
-  public String filename() {
-    return libtorrent_jni.file_error_alert_filename(swigCPtr, this);
-  }
-
-  public final static int priority = libtorrent_jni.file_error_alert_priority_get();
   public final static int alert_type = libtorrent_jni.file_error_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.file_error_alert_static_category_get();
 }

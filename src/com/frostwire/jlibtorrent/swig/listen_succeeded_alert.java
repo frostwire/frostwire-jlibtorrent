@@ -35,8 +35,8 @@ public class listen_succeeded_alert extends alert {
     super.delete();
   }
 
-  public listen_succeeded_alert(stack_allocator alloc, tcp_endpoint ep, listen_succeeded_alert.socket_type_t t) {
-    this(libtorrent_jni.new_listen_succeeded_alert(stack_allocator.getCPtr(alloc), alloc, tcp_endpoint.getCPtr(ep), ep, t.swigValue()), true);
+  public listen_succeeded_alert(tcp_endpoint ep, listen_succeeded_alert.socket_type_t t) {
+    this(libtorrent_jni.new_listen_succeeded_alert(tcp_endpoint.getCPtr(ep), ep, t.swigValue()), true);
   }
 
   public int type() {
@@ -53,6 +53,10 @@ public class listen_succeeded_alert extends alert {
 
   public String message() {
     return libtorrent_jni.listen_succeeded_alert_message(swigCPtr, this);
+  }
+
+  public boolean discardable() {
+    return libtorrent_jni.listen_succeeded_alert_discardable(swigCPtr, this);
   }
 
   public void setEndpoint(tcp_endpoint value) {
@@ -75,8 +79,7 @@ public class listen_succeeded_alert extends alert {
   public enum socket_type_t {
     tcp,
     tcp_ssl,
-    udp,
-    utp_ssl;
+    udp;
 
     public final int swigValue() {
       return swigValue;
@@ -116,7 +119,6 @@ public class listen_succeeded_alert extends alert {
     }
   }
 
-  public final static int priority = libtorrent_jni.listen_succeeded_alert_priority_get();
   public final static int alert_type = libtorrent_jni.listen_succeeded_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.listen_succeeded_alert_static_category_get();
 }

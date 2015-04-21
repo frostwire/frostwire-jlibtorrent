@@ -35,7 +35,7 @@ public class ip_filter {
     }
   }
 
-  public void add_rule(address first, address last, long flags) {
+  public void add_rule(address first, address last, int flags) {
     libtorrent_jni.ip_filter_add_rule(swigCPtr, this, address.getCPtr(first), first, address.getCPtr(last), last, flags);
   }
 

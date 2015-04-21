@@ -35,7 +35,7 @@ public class port_filter {
     }
   }
 
-  public void add_rule(int first, int last, long flags) {
+  public void add_rule(int first, int last, int flags) {
     libtorrent_jni.port_filter_add_rule(swigCPtr, this, first, last, flags);
   }
 

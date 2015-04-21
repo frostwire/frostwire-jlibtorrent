@@ -35,12 +35,12 @@ public class url_seed_alert extends torrent_alert {
     super.delete();
   }
 
-  public url_seed_alert(stack_allocator alloc, torrent_handle h, String u, error_code e) {
-    this(libtorrent_jni.new_url_seed_alert__SWIG_0(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, u, error_code.getCPtr(e), e), true);
+  public url_seed_alert(torrent_handle h, String u, error_code e) {
+    this(libtorrent_jni.new_url_seed_alert__SWIG_0(torrent_handle.getCPtr(h), h, u, error_code.getCPtr(e), e), true);
   }
 
-  public url_seed_alert(stack_allocator alloc, torrent_handle h, String u, String m) {
-    this(libtorrent_jni.new_url_seed_alert__SWIG_1(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, u, m), true);
+  public url_seed_alert(torrent_handle h, String u, String m) {
+    this(libtorrent_jni.new_url_seed_alert__SWIG_1(torrent_handle.getCPtr(h), h, u, m), true);
   }
 
   public int type() {
@@ -59,24 +59,22 @@ public class url_seed_alert extends torrent_alert {
     return libtorrent_jni.url_seed_alert_message(swigCPtr, this);
   }
 
-  public void setError(error_code value) {
-    libtorrent_jni.url_seed_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
+  public void setUrl(String value) {
+    libtorrent_jni.url_seed_alert_url_set(swigCPtr, this, value);
   }
 
-  public error_code getError() {
-    long cPtr = libtorrent_jni.url_seed_alert_error_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new error_code(cPtr, false);
+  public String getUrl() {
+    return libtorrent_jni.url_seed_alert_url_get(swigCPtr, this);
   }
 
-  public String server_url() {
-    return libtorrent_jni.url_seed_alert_server_url(swigCPtr, this);
+  public void setMsg(String value) {
+    libtorrent_jni.url_seed_alert_msg_set(swigCPtr, this, value);
   }
 
-  public String error_message() {
-    return libtorrent_jni.url_seed_alert_error_message(swigCPtr, this);
+  public String getMsg() {
+    return libtorrent_jni.url_seed_alert_msg_get(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.url_seed_alert_priority_get();
   public final static int alert_type = libtorrent_jni.url_seed_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.url_seed_alert_static_category_get();
 }

@@ -35,8 +35,8 @@ public class alert {
     }
   }
 
-  public high_resolution_clock.time_point timestamp() {
-    return new high_resolution_clock.time_point(libtorrent_jni.alert_timestamp(swigCPtr, this), true);
+  public SWIGTYPE_p_ptime timestamp() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.alert_timestamp(swigCPtr, this), true);
   }
 
   public int type() {
@@ -53,6 +53,10 @@ public class alert {
 
   public int category() {
     return libtorrent_jni.alert_category(swigCPtr, this);
+  }
+
+  public boolean discardable() {
+    return libtorrent_jni.alert_discardable(swigCPtr, this);
   }
 
   public static torrent_alert cast_to_torrent_alert(alert alert) {
@@ -395,14 +399,14 @@ public class alert {
     return (cPtr == 0) ? null : new state_update_alert(cPtr, false);
   }
 
-  public static mmap_cache_alert cast_to_mmap_cache_alert(alert alert) {
+  public static SWIGTYPE_p_libtorrent__mmap_cache_alert cast_to_mmap_cache_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_mmap_cache_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new mmap_cache_alert(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__mmap_cache_alert(cPtr, false);
   }
 
-  public static session_stats_alert cast_to_session_stats_alert(alert alert) {
+  public static SWIGTYPE_p_libtorrent__session_stats_alert cast_to_session_stats_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_session_stats_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new session_stats_alert(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__session_stats_alert(cPtr, false);
   }
 
   public static torrent_update_alert cast_to_torrent_update_alert(alert alert) {
@@ -435,34 +439,34 @@ public class alert {
     return (cPtr == 0) ? null : new i2p_alert(cPtr, false);
   }
 
-  public static dht_outgoing_get_peers_alert cast_to_dht_outgoing_get_peers_alert(alert alert) {
+  public static SWIGTYPE_p_libtorrent__dht_outgoing_get_peers_alert cast_to_dht_outgoing_get_peers_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_dht_outgoing_get_peers_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new dht_outgoing_get_peers_alert(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__dht_outgoing_get_peers_alert(cPtr, false);
   }
 
-  public static log_alert cast_to_log_alert(alert alert) {
+  public static SWIGTYPE_p_libtorrent__log_alert cast_to_log_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_log_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new log_alert(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__log_alert(cPtr, false);
   }
 
-  public static torrent_log_alert cast_to_torrent_log_alert(alert alert) {
+  public static SWIGTYPE_p_libtorrent__torrent_log_alert cast_to_torrent_log_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_torrent_log_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new torrent_log_alert(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__torrent_log_alert(cPtr, false);
   }
 
-  public static peer_log_alert cast_to_peer_log_alert(alert alert) {
+  public static SWIGTYPE_p_libtorrent__peer_log_alert cast_to_peer_log_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_peer_log_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new peer_log_alert(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__peer_log_alert(cPtr, false);
   }
 
-  public static lsd_error_alert cast_to_lsd_error_alert(alert alert) {
+  public static SWIGTYPE_p_libtorrent__lsd_error_alert cast_to_lsd_error_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_lsd_error_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new lsd_error_alert(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__lsd_error_alert(cPtr, false);
   }
 
-  public static dht_stats_alert cast_to_dht_stats_alert(alert alert) {
+  public static SWIGTYPE_p_libtorrent__dht_stats_alert cast_to_dht_stats_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_dht_stats_alert(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new dht_stats_alert(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__dht_stats_alert(cPtr, false);
   }
 
   public static dht_get_peers_reply_alert cast_to_dht_get_peers_reply_alert(alert alert) {
@@ -488,9 +492,7 @@ public class alert {
     performance_warning(libtorrent_jni.alert_performance_warning_get()),
     dht_notification(libtorrent_jni.alert_dht_notification_get()),
     stats_notification(libtorrent_jni.alert_stats_notification_get()),
-    session_log_notification(libtorrent_jni.alert_session_log_notification_get()),
-    torrent_log_notification(libtorrent_jni.alert_torrent_log_notification_get()),
-    peer_log_notification(libtorrent_jni.alert_peer_log_notification_get()),
+    rss_notification(libtorrent_jni.alert_rss_notification_get()),
     all_categories(libtorrent_jni.alert_all_categories_get());
 
     public final int swigValue() {

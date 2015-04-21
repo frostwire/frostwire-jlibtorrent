@@ -39,8 +39,8 @@ public class string_bdecode_node_pair {
     this(libtorrent_jni.new_string_bdecode_node_pair__SWIG_0(), true);
   }
 
-  public string_bdecode_node_pair(String first, bdecode_node second) {
-    this(libtorrent_jni.new_string_bdecode_node_pair__SWIG_1(first, bdecode_node.getCPtr(second), second), true);
+  public string_bdecode_node_pair(String first, SWIGTYPE_p_libtorrent__bdecode_node second) {
+    this(libtorrent_jni.new_string_bdecode_node_pair__SWIG_1(first, SWIGTYPE_p_libtorrent__bdecode_node.getCPtr(second)), true);
   }
 
   public string_bdecode_node_pair(string_bdecode_node_pair p) {
@@ -55,13 +55,12 @@ public class string_bdecode_node_pair {
     return libtorrent_jni.string_bdecode_node_pair_first_get(swigCPtr, this);
   }
 
-  public void setSecond(bdecode_node value) {
-    libtorrent_jni.string_bdecode_node_pair_second_set(swigCPtr, this, bdecode_node.getCPtr(value), value);
+  public void setSecond(SWIGTYPE_p_libtorrent__bdecode_node value) {
+    libtorrent_jni.string_bdecode_node_pair_second_set(swigCPtr, this, SWIGTYPE_p_libtorrent__bdecode_node.getCPtr(value));
   }
 
-  public bdecode_node getSecond() {
-    long cPtr = libtorrent_jni.string_bdecode_node_pair_second_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bdecode_node(cPtr, false);
+  public SWIGTYPE_p_libtorrent__bdecode_node getSecond() {
+    return new SWIGTYPE_p_libtorrent__bdecode_node(libtorrent_jni.string_bdecode_node_pair_second_get(swigCPtr, this), true);
   }
 
 }

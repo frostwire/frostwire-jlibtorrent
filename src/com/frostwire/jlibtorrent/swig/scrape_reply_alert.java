@@ -35,8 +35,8 @@ public class scrape_reply_alert extends tracker_alert {
     super.delete();
   }
 
-  public scrape_reply_alert(stack_allocator alloc, torrent_handle h, int incomp, int comp, String u) {
-    this(libtorrent_jni.new_scrape_reply_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, incomp, comp, u), true);
+  public scrape_reply_alert(torrent_handle h, int incomp, int comp, String u) {
+    this(libtorrent_jni.new_scrape_reply_alert(torrent_handle.getCPtr(h), h, incomp, comp, u), true);
   }
 
   public int type() {
@@ -71,6 +71,5 @@ public class scrape_reply_alert extends tracker_alert {
     return libtorrent_jni.scrape_reply_alert_complete_get(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.scrape_reply_alert_priority_get();
   public final static int alert_type = libtorrent_jni.scrape_reply_alert_alert_type_get();
 }

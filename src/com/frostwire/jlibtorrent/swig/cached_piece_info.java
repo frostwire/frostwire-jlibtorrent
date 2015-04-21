@@ -35,6 +35,14 @@ public class cached_piece_info {
     }
   }
 
+  public void setPiece(int value) {
+    libtorrent_jni.cached_piece_info_piece_set(swigCPtr, this, value);
+  }
+
+  public int getPiece() {
+    return libtorrent_jni.cached_piece_info_piece_get(swigCPtr, this);
+  }
+
   public void setBlocks(bool_vector value) {
     libtorrent_jni.cached_piece_info_blocks_set(swigCPtr, this, bool_vector.getCPtr(value), value);
   }
@@ -44,13 +52,12 @@ public class cached_piece_info {
     return (cPtr == 0) ? null : new bool_vector(cPtr, false);
   }
 
-  public void setLast_use(high_resolution_clock.time_point value) {
-    libtorrent_jni.cached_piece_info_last_use_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
+  public void setLast_use(SWIGTYPE_p_ptime value) {
+    libtorrent_jni.cached_piece_info_last_use_set(swigCPtr, this, SWIGTYPE_p_ptime.getCPtr(value));
   }
 
-  public high_resolution_clock.time_point getLast_use() {
-    long cPtr = libtorrent_jni.cached_piece_info_last_use_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
+  public SWIGTYPE_p_ptime getLast_use() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.cached_piece_info_last_use_get(swigCPtr, this), true);
   }
 
   public void setNext_to_hash(int value) {
@@ -61,14 +68,6 @@ public class cached_piece_info {
     return libtorrent_jni.cached_piece_info_next_to_hash_get(swigCPtr, this);
   }
 
-  public void setPiece(int value) {
-    libtorrent_jni.cached_piece_info_piece_set(swigCPtr, this, value);
-  }
-
-  public int getPiece() {
-    return libtorrent_jni.cached_piece_info_piece_get(swigCPtr, this);
-  }
-
   public void setKind(cached_piece_info.kind_t value) {
     libtorrent_jni.cached_piece_info_kind_set(swigCPtr, this, value.swigValue());
   }
@@ -77,22 +76,13 @@ public class cached_piece_info {
     return cached_piece_info.kind_t.swigToEnum(libtorrent_jni.cached_piece_info_kind_get(swigCPtr, this));
   }
 
-  public void setNeed_readback(boolean value) {
-    libtorrent_jni.cached_piece_info_need_readback_set(swigCPtr, this, value);
-  }
-
-  public boolean getNeed_readback() {
-    return libtorrent_jni.cached_piece_info_need_readback_get(swigCPtr, this);
-  }
-
   public cached_piece_info() {
     this(libtorrent_jni.new_cached_piece_info(), true);
   }
 
   public enum kind_t {
     read_cache(libtorrent_jni.cached_piece_info_read_cache_get()),
-    write_cache(libtorrent_jni.cached_piece_info_write_cache_get()),
-    volatile_read_cache(libtorrent_jni.cached_piece_info_volatile_read_cache_get());
+    write_cache(libtorrent_jni.cached_piece_info_write_cache_get());
 
     public final int swigValue() {
       return swigValue;

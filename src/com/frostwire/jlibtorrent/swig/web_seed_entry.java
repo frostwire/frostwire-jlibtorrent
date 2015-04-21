@@ -63,6 +63,14 @@ public class web_seed_entry {
     return libtorrent_jni.web_seed_entry_url_get(swigCPtr, this);
   }
 
+  public void setType(web_seed_entry.type_t value) {
+    libtorrent_jni.web_seed_entry_type_set(swigCPtr, this, value.swigValue());
+  }
+
+  public web_seed_entry.type_t getType() {
+    return web_seed_entry.type_t.swigToEnum(libtorrent_jni.web_seed_entry_type_get(swigCPtr, this));
+  }
+
   public void setAuth(String value) {
     libtorrent_jni.web_seed_entry_auth_set(swigCPtr, this, value);
   }
@@ -80,12 +88,71 @@ public class web_seed_entry {
     return (cPtr == 0) ? null : new string_string_pair_vector(cPtr, false);
   }
 
-  public void setType(short value) {
-    libtorrent_jni.web_seed_entry_type_set(swigCPtr, this, value);
+  public void setRetry(SWIGTYPE_p_ptime value) {
+    libtorrent_jni.web_seed_entry_retry_set(swigCPtr, this, SWIGTYPE_p_ptime.getCPtr(value));
   }
 
-  public short getType() {
-    return libtorrent_jni.web_seed_entry_type_get(swigCPtr, this);
+  public SWIGTYPE_p_ptime getRetry() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.web_seed_entry_retry_get(swigCPtr, this), true);
+  }
+
+  public void setSupports_keepalive(boolean value) {
+    libtorrent_jni.web_seed_entry_supports_keepalive_set(swigCPtr, this, value);
+  }
+
+  public boolean getSupports_keepalive() {
+    return libtorrent_jni.web_seed_entry_supports_keepalive_get(swigCPtr, this);
+  }
+
+  public void setResolving(boolean value) {
+    libtorrent_jni.web_seed_entry_resolving_set(swigCPtr, this, value);
+  }
+
+  public boolean getResolving() {
+    return libtorrent_jni.web_seed_entry_resolving_get(swigCPtr, this);
+  }
+
+  public void setRemoved(boolean value) {
+    libtorrent_jni.web_seed_entry_removed_set(swigCPtr, this, value);
+  }
+
+  public boolean getRemoved() {
+    return libtorrent_jni.web_seed_entry_removed_get(swigCPtr, this);
+  }
+
+  public void setEndpoint(tcp_endpoint value) {
+    libtorrent_jni.web_seed_entry_endpoint_set(swigCPtr, this, tcp_endpoint.getCPtr(value), value);
+  }
+
+  public tcp_endpoint getEndpoint() {
+    long cPtr = libtorrent_jni.web_seed_entry_endpoint_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
+  }
+
+  public void setPeer_info(SWIGTYPE_p_policy__ipv4_peer value) {
+    libtorrent_jni.web_seed_entry_peer_info_set(swigCPtr, this, SWIGTYPE_p_policy__ipv4_peer.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_policy__ipv4_peer getPeer_info() {
+    return new SWIGTYPE_p_policy__ipv4_peer(libtorrent_jni.web_seed_entry_peer_info_get(swigCPtr, this), true);
+  }
+
+  public void setRestart_request(peer_request value) {
+    libtorrent_jni.web_seed_entry_restart_request_set(swigCPtr, this, peer_request.getCPtr(value), value);
+  }
+
+  public peer_request getRestart_request() {
+    long cPtr = libtorrent_jni.web_seed_entry_restart_request_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new peer_request(cPtr, false);
+  }
+
+  public void setRestart_piece(char_vector value) {
+    libtorrent_jni.web_seed_entry_restart_piece_set(swigCPtr, this, char_vector.getCPtr(value), value);
+  }
+
+  public char_vector getRestart_piece() {
+    long cPtr = libtorrent_jni.web_seed_entry_restart_piece_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new char_vector(cPtr, false);
   }
 
   public enum type_t {

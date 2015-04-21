@@ -35,10 +35,6 @@ public class set_piece_hashes_alert extends alert {
     super.delete();
   }
 
-  public set_piece_hashes_alert(stack_allocator alloc, String id, int progress, int num_pieces) {
-    this(libtorrent_jni.new_set_piece_hashes_alert(stack_allocator.getCPtr(alloc), alloc, id, progress, num_pieces), true);
-  }
-
   public int type() {
     return libtorrent_jni.set_piece_hashes_alert_type(swigCPtr, this);
   }

@@ -35,8 +35,8 @@ public class piece_finished_alert extends torrent_alert {
     super.delete();
   }
 
-  public piece_finished_alert(stack_allocator alloc, torrent_handle h, int piece_num) {
-    this(libtorrent_jni.new_piece_finished_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, piece_num), true);
+  public piece_finished_alert(torrent_handle h, int piece_num) {
+    this(libtorrent_jni.new_piece_finished_alert(torrent_handle.getCPtr(h), h, piece_num), true);
   }
 
   public int type() {
@@ -63,7 +63,6 @@ public class piece_finished_alert extends torrent_alert {
     return libtorrent_jni.piece_finished_alert_piece_index_get(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.piece_finished_alert_priority_get();
   public final static int alert_type = libtorrent_jni.piece_finished_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.piece_finished_alert_static_category_get();
 }

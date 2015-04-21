@@ -35,8 +35,8 @@ public class block_downloading_alert extends peer_alert {
     super.delete();
   }
 
-  public block_downloading_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, int block_num, int piece_num) {
-    this(libtorrent_jni.new_block_downloading_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, block_num, piece_num), true);
+  public block_downloading_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, String speedmsg, int block_num, int piece_num) {
+    this(libtorrent_jni.new_block_downloading_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, speedmsg, block_num, piece_num), true);
   }
 
   public int type() {
@@ -55,6 +55,14 @@ public class block_downloading_alert extends peer_alert {
     return libtorrent_jni.block_downloading_alert_message(swigCPtr, this);
   }
 
+  public void setPeer_speedmsg(String value) {
+    libtorrent_jni.block_downloading_alert_peer_speedmsg_set(swigCPtr, this, value);
+  }
+
+  public String getPeer_speedmsg() {
+    return libtorrent_jni.block_downloading_alert_peer_speedmsg_get(swigCPtr, this);
+  }
+
   public void setBlock_index(int value) {
     libtorrent_jni.block_downloading_alert_block_index_set(swigCPtr, this, value);
   }
@@ -71,7 +79,6 @@ public class block_downloading_alert extends peer_alert {
     return libtorrent_jni.block_downloading_alert_piece_index_get(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.block_downloading_alert_priority_get();
   public final static int alert_type = libtorrent_jni.block_downloading_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.block_downloading_alert_static_category_get();
 }

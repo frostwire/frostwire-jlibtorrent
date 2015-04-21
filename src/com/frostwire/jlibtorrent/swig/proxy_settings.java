@@ -91,4 +91,51 @@ public class proxy_settings {
     return libtorrent_jni.proxy_settings_proxy_peer_connections_get(swigCPtr, this);
   }
 
+  public enum proxy_type {
+    none,
+    socks4,
+    socks5,
+    socks5_pw,
+    http,
+    http_pw,
+    i2p_proxy;
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public static proxy_type swigToEnum(int swigValue) {
+      proxy_type[] swigValues = proxy_type.class.getEnumConstants();
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (proxy_type swigEnum : swigValues)
+        if (swigEnum.swigValue == swigValue)
+          return swigEnum;
+      throw new IllegalArgumentException("No enum " + proxy_type.class + " with value " + swigValue);
+    }
+
+    @SuppressWarnings("unused")
+    private proxy_type() {
+      this.swigValue = SwigNext.next++;
+    }
+
+    @SuppressWarnings("unused")
+    private proxy_type(int swigValue) {
+      this.swigValue = swigValue;
+      SwigNext.next = swigValue+1;
+    }
+
+    @SuppressWarnings("unused")
+    private proxy_type(proxy_type swigEnum) {
+      this.swigValue = swigEnum.swigValue;
+      SwigNext.next = this.swigValue+1;
+    }
+
+    private final int swigValue;
+
+    private static class SwigNext {
+      private static int next = 0;
+    }
+  }
+
 }

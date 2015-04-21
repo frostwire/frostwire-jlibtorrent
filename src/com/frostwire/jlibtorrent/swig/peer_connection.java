@@ -45,13 +45,8 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_start(swigCPtr, this);
   }
 
-  public void set_peer_info(torrent_peer pi) {
-    libtorrent_jni.peer_connection_set_peer_info(swigCPtr, this, torrent_peer.getCPtr(pi), pi);
-  }
-
-  public torrent_peer peer_info_struct() {
-    long cPtr = libtorrent_jni.peer_connection_peer_info_struct(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent_peer(cPtr, false);
+  public void set_peer_info(SWIGTYPE_p_policy__peer pi) {
+    libtorrent_jni.peer_connection_set_peer_info(swigCPtr, this, SWIGTYPE_p_policy__peer.getCPtr(pi));
   }
 
   public void peer_exceeds_limit() {
@@ -60,6 +55,15 @@ public class peer_connection extends bandwidth_socket {
 
   public void peer_disconnected_other() {
     libtorrent_jni.peer_connection_peer_disconnected_other(swigCPtr, this);
+  }
+
+  public SWIGTYPE_p_policy__peer peer_info_struct() {
+    long cPtr = libtorrent_jni.peer_connection_peer_info_struct(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_policy__peer(cPtr, false);
+  }
+
+  public peer_connection.peer_speed_t peer_speed() {
+    return peer_connection.peer_speed_t.swigToEnum(libtorrent_jni.peer_connection_peer_speed(swigCPtr, this));
   }
 
   public void send_allowed_set() {
@@ -78,12 +82,32 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_on_metadata_impl(swigCPtr, this);
   }
 
-  public void picker_options(int o) {
-    libtorrent_jni.peer_connection_picker_options__SWIG_0(swigCPtr, this, o);
+  public int get_upload_limit() {
+    return libtorrent_jni.peer_connection_get_upload_limit(swigCPtr, this);
   }
 
-  public int prefer_contiguous_blocks() {
-    return libtorrent_jni.peer_connection_prefer_contiguous_blocks__SWIG_0(swigCPtr, this);
+  public int get_download_limit() {
+    return libtorrent_jni.peer_connection_get_download_limit(swigCPtr, this);
+  }
+
+  public void set_upload_limit(int limit) {
+    libtorrent_jni.peer_connection_set_upload_limit(swigCPtr, this, limit);
+  }
+
+  public void set_download_limit(int limit) {
+    libtorrent_jni.peer_connection_set_download_limit(swigCPtr, this, limit);
+  }
+
+  public int upload_limit() {
+    return libtorrent_jni.peer_connection_upload_limit(swigCPtr, this);
+  }
+
+  public int download_limit() {
+    return libtorrent_jni.peer_connection_download_limit(swigCPtr, this);
+  }
+
+  public int prefer_whole_pieces() {
+    return libtorrent_jni.peer_connection_prefer_whole_pieces__SWIG_0(swigCPtr, this);
   }
 
   public boolean on_parole() {
@@ -91,11 +115,11 @@ public class peer_connection extends bandwidth_socket {
   }
 
   public int picker_options() {
-    return libtorrent_jni.peer_connection_picker_options__SWIG_1(swigCPtr, this);
+    return libtorrent_jni.peer_connection_picker_options(swigCPtr, this);
   }
 
-  public void prefer_contiguous_blocks(int num) {
-    libtorrent_jni.peer_connection_prefer_contiguous_blocks__SWIG_1(swigCPtr, this, num);
+  public void prefer_whole_pieces(int num) {
+    libtorrent_jni.peer_connection_prefer_whole_pieces__SWIG_1(swigCPtr, this, num);
   }
 
   public boolean request_large_blocks() {
@@ -130,6 +154,10 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_ignore_stats__SWIG_1(swigCPtr, this, b);
   }
 
+  public void set_priority(int p) {
+    libtorrent_jni.peer_connection_set_priority(swigCPtr, this, p);
+  }
+
   public long peer_rank() {
     return libtorrent_jni.peer_connection_peer_rank(swigCPtr, this);
   }
@@ -140,10 +168,6 @@ public class peer_connection extends bandwidth_socket {
 
   public boolean fast_reconnect() {
     return libtorrent_jni.peer_connection_fast_reconnect__SWIG_1(swigCPtr, this);
-  }
-
-  public void received_piece(int index) {
-    libtorrent_jni.peer_connection_received_piece(swigCPtr, this, index);
   }
 
   public void announce_piece(int index) {
@@ -214,12 +238,12 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_clear_request_queue(swigCPtr, this);
   }
 
-  public high_resolution_clock.duration download_queue_time(int extra_bytes) {
-    return new high_resolution_clock.duration(libtorrent_jni.peer_connection_download_queue_time__SWIG_0(swigCPtr, this, extra_bytes), true);
+  public SWIGTYPE_p_time_duration download_queue_time(int extra_bytes) {
+    return new SWIGTYPE_p_time_duration(libtorrent_jni.peer_connection_download_queue_time__SWIG_0(swigCPtr, this, extra_bytes), true);
   }
 
-  public high_resolution_clock.duration download_queue_time() {
-    return new high_resolution_clock.duration(libtorrent_jni.peer_connection_download_queue_time__SWIG_1(swigCPtr, this), true);
+  public SWIGTYPE_p_time_duration download_queue_time() {
+    return new SWIGTYPE_p_time_duration(libtorrent_jni.peer_connection_download_queue_time__SWIG_1(swigCPtr, this), true);
   }
 
   public boolean is_interesting() {
@@ -238,14 +262,6 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_has_peer_choked(swigCPtr, this);
   }
 
-  public void choke_this_peer() {
-    libtorrent_jni.peer_connection_choke_this_peer(swigCPtr, this);
-  }
-
-  public void maybe_unchoke_this_peer() {
-    libtorrent_jni.peer_connection_maybe_unchoke_this_peer(swigCPtr, this);
-  }
-
   public void update_interest() {
     libtorrent_jni.peer_connection_update_interest(swigCPtr, this);
   }
@@ -258,28 +274,8 @@ public class peer_connection extends bandwidth_socket {
     return new stat(libtorrent_jni.peer_connection_statistics(swigCPtr, this), false);
   }
 
-  public void add_stat(long downloaded, long uploaded) {
-    libtorrent_jni.peer_connection_add_stat(swigCPtr, this, downloaded, uploaded);
-  }
-
-  public void sent_bytes(int bytes_payload, int bytes_protocol) {
-    libtorrent_jni.peer_connection_sent_bytes(swigCPtr, this, bytes_payload, bytes_protocol);
-  }
-
-  public void received_bytes(int bytes_payload, int bytes_protocol) {
-    libtorrent_jni.peer_connection_received_bytes(swigCPtr, this, bytes_payload, bytes_protocol);
-  }
-
-  public void trancieve_ip_packet(int bytes, boolean ipv6) {
-    libtorrent_jni.peer_connection_trancieve_ip_packet(swigCPtr, this, bytes, ipv6);
-  }
-
-  public void sent_syn(boolean ipv6) {
-    libtorrent_jni.peer_connection_sent_syn(swigCPtr, this, ipv6);
-  }
-
-  public void received_synack(boolean ipv6) {
-    libtorrent_jni.peer_connection_received_synack(swigCPtr, this, ipv6);
+  public void add_stat(SWIGTYPE_p_size_type downloaded, SWIGTYPE_p_size_type uploaded) {
+    libtorrent_jni.peer_connection_add_stat(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(downloaded), SWIGTYPE_p_size_type.getCPtr(uploaded));
   }
 
   public void second_tick(int tick_interval_ms) {
@@ -288,10 +284,6 @@ public class peer_connection extends bandwidth_socket {
 
   public tcp_endpoint remote() {
     return new tcp_endpoint(libtorrent_jni.peer_connection_remote(swigCPtr, this), false);
-  }
-
-  public tcp_endpoint local_endpoint() {
-    return new tcp_endpoint(libtorrent_jni.peer_connection_local_endpoint(swigCPtr, this), true);
   }
 
   public bitfield get_bitfield() {
@@ -306,20 +298,24 @@ public class peer_connection extends bandwidth_socket {
     return new int_vector(libtorrent_jni.peer_connection_suggested_pieces(swigCPtr, this), false);
   }
 
-  public high_resolution_clock.time_point connected_time() {
-    return new high_resolution_clock.time_point(libtorrent_jni.peer_connection_connected_time(swigCPtr, this), true);
+  public SWIGTYPE_p_ptime connected_time() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.peer_connection_connected_time(swigCPtr, this), true);
   }
 
-  public high_resolution_clock.time_point last_received() {
-    return new high_resolution_clock.time_point(libtorrent_jni.peer_connection_last_received(swigCPtr, this), true);
+  public SWIGTYPE_p_ptime last_received() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.peer_connection_last_received(swigCPtr, this), true);
   }
 
-  public void disconnect(error_code ec, operation_t op, int error) {
-    libtorrent_jni.peer_connection_disconnect__SWIG_0(swigCPtr, this, error_code.getCPtr(ec), ec, op.swigValue(), error);
+  public void on_timeout() {
+    libtorrent_jni.peer_connection_on_timeout(swigCPtr, this);
   }
 
-  public void disconnect(error_code ec, operation_t op) {
-    libtorrent_jni.peer_connection_disconnect__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec, op.swigValue());
+  public void disconnect(error_code ec, int error) {
+    libtorrent_jni.peer_connection_disconnect__SWIG_0(swigCPtr, this, error_code.getCPtr(ec), ec, error);
+  }
+
+  public void disconnect(error_code ec) {
+    libtorrent_jni.peer_connection_disconnect__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec);
   }
 
   public void connect_failed(error_code e) {
@@ -336,6 +332,14 @@ public class peer_connection extends bandwidth_socket {
 
   public boolean is_connecting() {
     return libtorrent_jni.peer_connection_is_connecting(swigCPtr, this);
+  }
+
+  public boolean is_queued() {
+    return libtorrent_jni.peer_connection_is_queued(swigCPtr, this);
+  }
+
+  public void on_connect(int ticket) {
+    libtorrent_jni.peer_connection_on_connect(swigCPtr, this, ticket);
   }
 
   public void received_valid_data(int index) {
@@ -358,8 +362,20 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_on_local_network(swigCPtr, this);
   }
 
+  public boolean ignore_bandwidth_limits() {
+    return libtorrent_jni.peer_connection_ignore_bandwidth_limits__SWIG_0(swigCPtr, this);
+  }
+
+  public void ignore_bandwidth_limits(boolean i) {
+    libtorrent_jni.peer_connection_ignore_bandwidth_limits__SWIG_1(swigCPtr, this, i);
+  }
+
   public boolean ignore_unchoke_slots() {
-    return libtorrent_jni.peer_connection_ignore_unchoke_slots(swigCPtr, this);
+    return libtorrent_jni.peer_connection_ignore_unchoke_slots__SWIG_0(swigCPtr, this);
+  }
+
+  public void ignore_unchoke_slots(boolean i) {
+    libtorrent_jni.peer_connection_ignore_unchoke_slots__SWIG_1(swigCPtr, this, i);
   }
 
   public boolean failed() {
@@ -370,16 +386,24 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_desired_queue_size(swigCPtr, this);
   }
 
-  public int download_payload_rate() {
-    return libtorrent_jni.peer_connection_download_payload_rate(swigCPtr, this);
+  public boolean bittyrant_unchoke_compare(peer_connection p) {
+    return libtorrent_jni.peer_connection_bittyrant_unchoke_compare(swigCPtr, this, peer_connection.getCPtr(p), p);
+  }
+
+  public boolean unchoke_compare(peer_connection p) {
+    return libtorrent_jni.peer_connection_unchoke_compare(swigCPtr, this, peer_connection.getCPtr(p), p);
+  }
+
+  public boolean upload_rate_compare(peer_connection p) {
+    return libtorrent_jni.peer_connection_upload_rate_compare(swigCPtr, this, peer_connection.getCPtr(p), p);
   }
 
   public void reset_choke_counters() {
     libtorrent_jni.peer_connection_reset_choke_counters(swigCPtr, this);
   }
 
-  public boolean disconnect_if_redundant() {
-    return libtorrent_jni.peer_connection_disconnect_if_redundant(swigCPtr, this);
+  public void disconnect_if_redundant() {
+    libtorrent_jni.peer_connection_disconnect_if_redundant(swigCPtr, this);
   }
 
   public void increase_est_reciprocation_rate() {
@@ -392,37 +416,6 @@ public class peer_connection extends bandwidth_socket {
 
   public int est_reciprocation_rate() {
     return libtorrent_jni.peer_connection_est_reciprocation_rate(swigCPtr, this);
-  }
-
-  public void peer_log(String fmt) {
-    libtorrent_jni.peer_connection_peer_log(swigCPtr, this, fmt);
-  }
-
-  public void setM_connect_time(high_resolution_clock.time_point value) {
-    libtorrent_jni.peer_connection_m_connect_time_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
-  }
-
-  public high_resolution_clock.time_point getM_connect_time() {
-    long cPtr = libtorrent_jni.peer_connection_m_connect_time_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
-  }
-
-  public void setM_bitfield_time(high_resolution_clock.time_point value) {
-    libtorrent_jni.peer_connection_m_bitfield_time_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
-  }
-
-  public high_resolution_clock.time_point getM_bitfield_time() {
-    long cPtr = libtorrent_jni.peer_connection_m_bitfield_time_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
-  }
-
-  public void setM_unchoke_time(high_resolution_clock.time_point value) {
-    libtorrent_jni.peer_connection_m_unchoke_time_set(swigCPtr, this, high_resolution_clock.time_point.getCPtr(value), value);
-  }
-
-  public high_resolution_clock.time_point getM_unchoke_time() {
-    long cPtr = libtorrent_jni.peer_connection_m_unchoke_time_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.time_point(cPtr, false);
   }
 
   public void incoming_keepalive() {
@@ -533,10 +526,6 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_snub_peer(swigCPtr, this);
   }
 
-  public void reject_piece(int index) {
-    libtorrent_jni.peer_connection_reject_piece(swigCPtr, this, index);
-  }
-
   public boolean can_request_time_critical() {
     return libtorrent_jni.peer_connection_can_request_time_critical(swigCPtr, this);
   }
@@ -547,6 +536,10 @@ public class peer_connection extends bandwidth_socket {
 
   public void send_block_requests() {
     libtorrent_jni.peer_connection_send_block_requests(swigCPtr, this);
+  }
+
+  public int bandwidth_throttle(int channel) {
+    return libtorrent_jni.peer_connection_bandwidth_throttle(swigCPtr, this, channel);
   }
 
   public void assign_bandwidth(int channel, int amount) {
@@ -563,10 +556,6 @@ public class peer_connection extends bandwidth_socket {
 
   public void cork_socket() {
     libtorrent_jni.peer_connection_cork_socket(swigCPtr, this);
-  }
-
-  public boolean is_corked() {
-    return libtorrent_jni.peer_connection_is_corked(swigCPtr, this);
   }
 
   public void uncork_socket() {
@@ -593,6 +582,18 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_send_buffer_capacity(swigCPtr, this);
   }
 
+  public int packet_size() {
+    return libtorrent_jni.peer_connection_packet_size(swigCPtr, this);
+  }
+
+  public boolean packet_finished() {
+    return libtorrent_jni.peer_connection_packet_finished(swigCPtr, this);
+  }
+
+  public int receive_pos() {
+    return libtorrent_jni.peer_connection_receive_pos(swigCPtr, this);
+  }
+
   public void max_out_request_queue(int s) {
     libtorrent_jni.peer_connection_max_out_request_queue__SWIG_0(swigCPtr, this, s);
   }
@@ -609,28 +610,20 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_set_last_seen_complete(swigCPtr, this, ago);
   }
 
-  public long uploaded_in_last_round() {
-    return libtorrent_jni.peer_connection_uploaded_in_last_round(swigCPtr, this);
+  public SWIGTYPE_p_size_type uploaded_in_last_round() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.peer_connection_uploaded_in_last_round(swigCPtr, this), true);
   }
 
-  public long downloaded_in_last_round() {
-    return libtorrent_jni.peer_connection_downloaded_in_last_round(swigCPtr, this);
+  public SWIGTYPE_p_size_type downloaded_in_last_round() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.peer_connection_downloaded_in_last_round(swigCPtr, this), true);
   }
 
-  public long uploaded_since_unchoked() {
-    return libtorrent_jni.peer_connection_uploaded_since_unchoked(swigCPtr, this);
-  }
-
-  public high_resolution_clock.time_point time_of_last_unchoke() {
-    return new high_resolution_clock.time_point(libtorrent_jni.peer_connection_time_of_last_unchoke(swigCPtr, this), true);
+  public SWIGTYPE_p_size_type uploaded_since_unchoked() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.peer_connection_uploaded_since_unchoked(swigCPtr, this), true);
   }
 
   public void on_disk() {
     libtorrent_jni.peer_connection_on_disk(swigCPtr, this);
-  }
-
-  public void on_allocate_disk_buffer(String buffer, int buffer_size) {
-    libtorrent_jni.peer_connection_on_allocate_disk_buffer(swigCPtr, this, buffer, buffer_size);
   }
 
   public int num_reading_bytes() {
@@ -643,19 +636,6 @@ public class peer_connection extends bandwidth_socket {
 
   public void setup_receive() {
     libtorrent_jni.peer_connection_setup_receive__SWIG_1(swigCPtr, this);
-  }
-
-  public peer_connection self() {
-    long cPtr = libtorrent_jni.peer_connection_self(swigCPtr, this);
-    return (cPtr == 0) ? null : new peer_connection(cPtr, true);
-  }
-
-  public counters stats_counters() {
-    return new counters(libtorrent_jni.peer_connection_stats_counters(swigCPtr, this), false);
-  }
-
-  public int get_priority(int channel) {
-    return libtorrent_jni.peer_connection_get_priority(swigCPtr, this, channel);
   }
 
   public enum connection_type {
@@ -733,6 +713,49 @@ public class peer_connection extends bandwidth_socket {
 
     @SuppressWarnings("unused")
     private channels(channels swigEnum) {
+      this.swigValue = swigEnum.swigValue;
+      SwigNext.next = this.swigValue+1;
+    }
+
+    private final int swigValue;
+
+    private static class SwigNext {
+      private static int next = 0;
+    }
+  }
+
+  public enum peer_speed_t {
+    slow(libtorrent_jni.peer_connection_slow_get()),
+    medium,
+    fast;
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public static peer_speed_t swigToEnum(int swigValue) {
+      peer_speed_t[] swigValues = peer_speed_t.class.getEnumConstants();
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (peer_speed_t swigEnum : swigValues)
+        if (swigEnum.swigValue == swigValue)
+          return swigEnum;
+      throw new IllegalArgumentException("No enum " + peer_speed_t.class + " with value " + swigValue);
+    }
+
+    @SuppressWarnings("unused")
+    private peer_speed_t() {
+      this.swigValue = SwigNext.next++;
+    }
+
+    @SuppressWarnings("unused")
+    private peer_speed_t(int swigValue) {
+      this.swigValue = swigValue;
+      SwigNext.next = swigValue+1;
+    }
+
+    @SuppressWarnings("unused")
+    private peer_speed_t(peer_speed_t swigEnum) {
       this.swigValue = swigEnum.swigValue;
       SwigNext.next = this.swigValue+1;
     }

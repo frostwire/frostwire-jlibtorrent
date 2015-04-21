@@ -35,8 +35,8 @@ public class incoming_connection_alert extends alert {
     super.delete();
   }
 
-  public incoming_connection_alert(stack_allocator alloc, int t, tcp_endpoint i) {
-    this(libtorrent_jni.new_incoming_connection_alert(stack_allocator.getCPtr(alloc), alloc, t, tcp_endpoint.getCPtr(i), i), true);
+  public incoming_connection_alert(int t, tcp_endpoint i) {
+    this(libtorrent_jni.new_incoming_connection_alert(t, tcp_endpoint.getCPtr(i), i), true);
   }
 
   public int type() {
@@ -72,7 +72,6 @@ public class incoming_connection_alert extends alert {
     return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
-  public final static int priority = libtorrent_jni.incoming_connection_alert_priority_get();
   public final static int alert_type = libtorrent_jni.incoming_connection_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.incoming_connection_alert_static_category_get();
 }

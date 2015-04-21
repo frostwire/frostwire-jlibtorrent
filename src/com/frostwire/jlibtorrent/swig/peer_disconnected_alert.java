@@ -35,8 +35,8 @@ public class peer_disconnected_alert extends peer_alert {
     super.delete();
   }
 
-  public peer_disconnected_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, operation_t op, int type, error_code e, close_reason_t r) {
-    this(libtorrent_jni.new_peer_disconnected_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, op.swigValue(), type, error_code.getCPtr(e), e, r.swigValue()), true);
+  public peer_disconnected_alert(torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, error_code e) {
+    this(libtorrent_jni.new_peer_disconnected_alert(torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, error_code.getCPtr(e), e), true);
   }
 
   public int type() {
@@ -55,22 +55,6 @@ public class peer_disconnected_alert extends peer_alert {
     return libtorrent_jni.peer_disconnected_alert_message(swigCPtr, this);
   }
 
-  public void setSocket_type(int value) {
-    libtorrent_jni.peer_disconnected_alert_socket_type_set(swigCPtr, this, value);
-  }
-
-  public int getSocket_type() {
-    return libtorrent_jni.peer_disconnected_alert_socket_type_get(swigCPtr, this);
-  }
-
-  public void setOperation(operation_t value) {
-    libtorrent_jni.peer_disconnected_alert_operation_set(swigCPtr, this, value.swigValue());
-  }
-
-  public operation_t getOperation() {
-    return operation_t.swigToEnum(libtorrent_jni.peer_disconnected_alert_operation_get(swigCPtr, this));
-  }
-
   public void setError(error_code value) {
     libtorrent_jni.peer_disconnected_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
@@ -80,15 +64,6 @@ public class peer_disconnected_alert extends peer_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public void setReason(close_reason_t value) {
-    libtorrent_jni.peer_disconnected_alert_reason_set(swigCPtr, this, value.swigValue());
-  }
-
-  public close_reason_t getReason() {
-    return close_reason_t.swigToEnum(libtorrent_jni.peer_disconnected_alert_reason_get(swigCPtr, this));
-  }
-
-  public final static int priority = libtorrent_jni.peer_disconnected_alert_priority_get();
   public final static int alert_type = libtorrent_jni.peer_disconnected_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.peer_disconnected_alert_static_category_get();
 }

@@ -35,8 +35,8 @@ public class tracker_warning_alert extends tracker_alert {
     super.delete();
   }
 
-  public tracker_warning_alert(stack_allocator alloc, torrent_handle h, String u, String m) {
-    this(libtorrent_jni.new_tracker_warning_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, u, m), true);
+  public tracker_warning_alert(torrent_handle h, String u, String m) {
+    this(libtorrent_jni.new_tracker_warning_alert(torrent_handle.getCPtr(h), h, u, m), true);
   }
 
   public int type() {
@@ -55,11 +55,14 @@ public class tracker_warning_alert extends tracker_alert {
     return libtorrent_jni.tracker_warning_alert_message(swigCPtr, this);
   }
 
-  public String warning_message() {
-    return libtorrent_jni.tracker_warning_alert_warning_message(swigCPtr, this);
+  public void setMsg(String value) {
+    libtorrent_jni.tracker_warning_alert_msg_set(swigCPtr, this, value);
   }
 
-  public final static int priority = libtorrent_jni.tracker_warning_alert_priority_get();
+  public String getMsg() {
+    return libtorrent_jni.tracker_warning_alert_msg_get(swigCPtr, this);
+  }
+
   public final static int alert_type = libtorrent_jni.tracker_warning_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.tracker_warning_alert_static_category_get();
 }

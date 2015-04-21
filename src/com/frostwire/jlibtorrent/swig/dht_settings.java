@@ -143,20 +143,4 @@ public class dht_settings {
     return libtorrent_jni.dht_settings_ignore_dark_internet_get(swigCPtr, this);
   }
 
-  public void setBlock_timeout(int value) {
-    libtorrent_jni.dht_settings_block_timeout_set(swigCPtr, this, value);
-  }
-
-  public int getBlock_timeout() {
-    return libtorrent_jni.dht_settings_block_timeout_get(swigCPtr, this);
-  }
-
-  public void setBlock_ratelimit(int value) {
-    libtorrent_jni.dht_settings_block_ratelimit_set(swigCPtr, this, value);
-  }
-
-  public int getBlock_ratelimit() {
-    return libtorrent_jni.dht_settings_block_ratelimit_get(swigCPtr, this);
-  }
-
 }

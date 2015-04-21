@@ -35,8 +35,8 @@ public class i2p_alert extends alert {
     super.delete();
   }
 
-  public i2p_alert(stack_allocator alloc, error_code ec) {
-    this(libtorrent_jni.new_i2p_alert(stack_allocator.getCPtr(alloc), alloc, error_code.getCPtr(ec), ec), true);
+  public i2p_alert(error_code ec) {
+    this(libtorrent_jni.new_i2p_alert(error_code.getCPtr(ec), ec), true);
   }
 
   public int type() {
@@ -64,7 +64,6 @@ public class i2p_alert extends alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public final static int priority = libtorrent_jni.i2p_alert_priority_get();
   public final static int alert_type = libtorrent_jni.i2p_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.i2p_alert_static_category_get();
 }

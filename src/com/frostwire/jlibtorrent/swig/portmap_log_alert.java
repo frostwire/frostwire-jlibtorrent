@@ -35,8 +35,8 @@ public class portmap_log_alert extends alert {
     super.delete();
   }
 
-  public portmap_log_alert(stack_allocator alloc, int t, String m) {
-    this(libtorrent_jni.new_portmap_log_alert(stack_allocator.getCPtr(alloc), alloc, t, m), true);
+  public portmap_log_alert(int t, String m) {
+    this(libtorrent_jni.new_portmap_log_alert(t, m), true);
   }
 
   public int type() {
@@ -63,11 +63,14 @@ public class portmap_log_alert extends alert {
     return libtorrent_jni.portmap_log_alert_map_type_get(swigCPtr, this);
   }
 
-  public String log_message() {
-    return libtorrent_jni.portmap_log_alert_log_message(swigCPtr, this);
+  public void setMsg(String value) {
+    libtorrent_jni.portmap_log_alert_msg_set(swigCPtr, this, value);
   }
 
-  public final static int priority = libtorrent_jni.portmap_log_alert_priority_get();
+  public String getMsg() {
+    return libtorrent_jni.portmap_log_alert_msg_get(swigCPtr, this);
+  }
+
   public final static int alert_type = libtorrent_jni.portmap_log_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.portmap_log_alert_static_category_get();
 }

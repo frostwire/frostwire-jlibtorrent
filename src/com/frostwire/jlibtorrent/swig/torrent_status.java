@@ -102,52 +102,52 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_current_tracker_get(swigCPtr, this);
   }
 
-  public void setTotal_download(long value) {
-    libtorrent_jni.torrent_status_total_download_set(swigCPtr, this, value);
+  public void setTotal_download(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_download_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_download() {
-    return libtorrent_jni.torrent_status_total_download_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_download() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_download_get(swigCPtr, this), true);
   }
 
-  public void setTotal_upload(long value) {
-    libtorrent_jni.torrent_status_total_upload_set(swigCPtr, this, value);
+  public void setTotal_upload(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_upload_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_upload() {
-    return libtorrent_jni.torrent_status_total_upload_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_upload() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_upload_get(swigCPtr, this), true);
   }
 
-  public void setTotal_payload_download(long value) {
-    libtorrent_jni.torrent_status_total_payload_download_set(swigCPtr, this, value);
+  public void setTotal_payload_download(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_payload_download_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_payload_download() {
-    return libtorrent_jni.torrent_status_total_payload_download_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_payload_download() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_payload_download_get(swigCPtr, this), true);
   }
 
-  public void setTotal_payload_upload(long value) {
-    libtorrent_jni.torrent_status_total_payload_upload_set(swigCPtr, this, value);
+  public void setTotal_payload_upload(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_payload_upload_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_payload_upload() {
-    return libtorrent_jni.torrent_status_total_payload_upload_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_payload_upload() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_payload_upload_get(swigCPtr, this), true);
   }
 
-  public void setTotal_failed_bytes(long value) {
-    libtorrent_jni.torrent_status_total_failed_bytes_set(swigCPtr, this, value);
+  public void setTotal_failed_bytes(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_failed_bytes_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_failed_bytes() {
-    return libtorrent_jni.torrent_status_total_failed_bytes_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_failed_bytes() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_failed_bytes_get(swigCPtr, this), true);
   }
 
-  public void setTotal_redundant_bytes(long value) {
-    libtorrent_jni.torrent_status_total_redundant_bytes_set(swigCPtr, this, value);
+  public void setTotal_redundant_bytes(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_redundant_bytes_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_redundant_bytes() {
-    return libtorrent_jni.torrent_status_total_redundant_bytes_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_redundant_bytes() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_redundant_bytes_get(swigCPtr, this), true);
   }
 
   public void setPieces(bitfield value) {
@@ -168,44 +168,44 @@ public class torrent_status {
     return (cPtr == 0) ? null : new bitfield(cPtr, false);
   }
 
-  public void setTotal_done(long value) {
-    libtorrent_jni.torrent_status_total_done_set(swigCPtr, this, value);
+  public void setTotal_done(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_done_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_done() {
-    return libtorrent_jni.torrent_status_total_done_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_done() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_done_get(swigCPtr, this), true);
   }
 
-  public void setTotal_wanted_done(long value) {
-    libtorrent_jni.torrent_status_total_wanted_done_set(swigCPtr, this, value);
+  public void setTotal_wanted_done(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_wanted_done_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_wanted_done() {
-    return libtorrent_jni.torrent_status_total_wanted_done_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_wanted_done() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_wanted_done_get(swigCPtr, this), true);
   }
 
-  public void setTotal_wanted(long value) {
-    libtorrent_jni.torrent_status_total_wanted_set(swigCPtr, this, value);
+  public void setTotal_wanted(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_total_wanted_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getTotal_wanted() {
-    return libtorrent_jni.torrent_status_total_wanted_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getTotal_wanted() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_total_wanted_get(swigCPtr, this), true);
   }
 
-  public void setAll_time_upload(long value) {
-    libtorrent_jni.torrent_status_all_time_upload_set(swigCPtr, this, value);
+  public void setAll_time_upload(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_all_time_upload_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getAll_time_upload() {
-    return libtorrent_jni.torrent_status_all_time_upload_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getAll_time_upload() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_all_time_upload_get(swigCPtr, this), true);
   }
 
-  public void setAll_time_download(long value) {
-    libtorrent_jni.torrent_status_all_time_download_set(swigCPtr, this, value);
+  public void setAll_time_download(SWIGTYPE_p_size_type value) {
+    libtorrent_jni.torrent_status_all_time_download_set(swigCPtr, this, SWIGTYPE_p_size_type.getCPtr(value));
   }
 
-  public long getAll_time_download() {
-    return libtorrent_jni.torrent_status_all_time_download_get(swigCPtr, this);
+  public SWIGTYPE_p_size_type getAll_time_download() {
+    return new SWIGTYPE_p_size_type(libtorrent_jni.torrent_status_all_time_download_get(swigCPtr, this), true);
   }
 
   public void setAdded_time(int value) {
@@ -632,14 +632,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_moving_storage_get(swigCPtr, this);
   }
 
-  public void setIs_loaded(boolean value) {
-    libtorrent_jni.torrent_status_is_loaded_set(swigCPtr, this, value);
-  }
-
-  public boolean getIs_loaded() {
-    return libtorrent_jni.torrent_status_is_loaded_get(swigCPtr, this);
-  }
-
   public void setInfo_hash(sha1_hash value) {
     libtorrent_jni.torrent_status_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
@@ -650,7 +642,7 @@ public class torrent_status {
   }
 
   public enum state_t {
-    unused_enum_for_backwards_compatibility,
+    queued_for_checking,
     checking_files,
     downloading_metadata,
     downloading,

@@ -127,25 +127,20 @@ public class create_torrent {
     return libtorrent_jni.create_torrent_piece_size(swigCPtr, this, i);
   }
 
+  public boolean should_add_file_hashes() {
+    return libtorrent_jni.create_torrent_should_add_file_hashes(swigCPtr, this);
+  }
+
   public sha1_hash_vector merkle_tree() {
     return new sha1_hash_vector(libtorrent_jni.create_torrent_merkle_tree(swigCPtr, this), false);
   }
 
-  public void add_similar_torrent(sha1_hash ih) {
-    libtorrent_jni.create_torrent_add_similar_torrent(swigCPtr, this, sha1_hash.getCPtr(ih), ih);
-  }
-
-  public void add_collection(String c) {
-    libtorrent_jni.create_torrent_add_collection(swigCPtr, this, c);
-  }
-
   public enum flags_t {
-    optimize_alignment(libtorrent_jni.create_torrent_optimize_alignment_get()),
     optimize(libtorrent_jni.create_torrent_optimize_get()),
     merkle(libtorrent_jni.create_torrent_merkle_get()),
     modification_time(libtorrent_jni.create_torrent_modification_time_get()),
     symlinks(libtorrent_jni.create_torrent_symlinks_get()),
-    mutable_torrent_support(libtorrent_jni.create_torrent_mutable_torrent_support_get());
+    calculate_file_hashes(libtorrent_jni.create_torrent_calculate_file_hashes_get());
 
     public final int swigValue() {
       return swigValue;

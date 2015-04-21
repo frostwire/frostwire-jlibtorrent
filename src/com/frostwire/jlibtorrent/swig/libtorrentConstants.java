@@ -19,8 +19,5 @@ public interface libtorrentConstants {
   public final static int tracker_retry_delay_max = libtorrent_jni.tracker_retry_delay_max_get();
 
   public final static int TORRENT_MAX_ALERT_TYPES = libtorrent_jni.TORRENT_MAX_ALERT_TYPES_get();
-  public final static int num_alert_types = libtorrent_jni.num_alert_types_get();
-
-  public final static int TORRENT_ALERT_MANAGER_MAX_ARITY = libtorrent_jni.TORRENT_ALERT_MANAGER_MAX_ARITY_get();
   public final static int TORRENT_DEBUG_STREAMING = libtorrent_jni.TORRENT_DEBUG_STREAMING_get();
 }

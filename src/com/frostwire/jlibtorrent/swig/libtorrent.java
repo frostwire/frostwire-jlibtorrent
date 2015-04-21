@@ -89,77 +89,92 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_http_category(), false);
   }
 
-  public static error_category system_category() {
-    return new error_category(libtorrent_jni.system_category(), false);
+  public static error_category get_system_category() {
+    return new error_category(libtorrent_jni.get_system_category(), false);
   }
 
   public static error_category get_posix_category() {
     return new error_category(libtorrent_jni.get_posix_category(), false);
   }
 
-  public static high_resolution_clock.time_point min_time() {
-    return new high_resolution_clock.time_point(libtorrent_jni.min_time(), true);
+  public static String time_now_string() {
+    return libtorrent_jni.time_now_string();
   }
 
-  public static high_resolution_clock.time_point max_time() {
-    return new high_resolution_clock.time_point(libtorrent_jni.max_time(), true);
+  public static String log_time() {
+    return libtorrent_jni.log_time();
   }
 
-  public static void sanitize_append_path_element(String path, String element, int element_len) {
-    libtorrent_jni.sanitize_append_path_element(path, element, element_len);
+  public static SWIGTYPE_p_ptime time_now() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.time_now(), false);
   }
 
-  public static close_reason_t error_to_close_reason(error_code ec) {
-    return close_reason_t.swigToEnum(libtorrent_jni.error_to_close_reason(error_code.getCPtr(ec), ec));
+  public static SWIGTYPE_p_ptime time_now_hires() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.time_now_hires(), true);
   }
 
-  public static String operation_name(int op) {
-    return libtorrent_jni.operation_name(op);
+  public static SWIGTYPE_p_ptime min_time() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.min_time(), true);
+  }
+
+  public static SWIGTYPE_p_ptime max_time() {
+    return new SWIGTYPE_p_ptime(libtorrent_jni.max_time(), true);
+  }
+
+  public static SWIGTYPE_p_time_duration seconds(long s) {
+    return new SWIGTYPE_p_time_duration(libtorrent_jni.seconds(s), true);
+  }
+
+  public static SWIGTYPE_p_time_duration milliseconds(long s) {
+    return new SWIGTYPE_p_time_duration(libtorrent_jni.milliseconds(s), true);
+  }
+
+  public static SWIGTYPE_p_time_duration microsec(long s) {
+    return new SWIGTYPE_p_time_duration(libtorrent_jni.microsec(s), true);
+  }
+
+  public static SWIGTYPE_p_time_duration minutes(long s) {
+    return new SWIGTYPE_p_time_duration(libtorrent_jni.minutes(s), true);
+  }
+
+  public static SWIGTYPE_p_time_duration hours(long s) {
+    return new SWIGTYPE_p_time_duration(libtorrent_jni.hours(s), true);
+  }
+
+  public static long total_seconds(SWIGTYPE_p_time_duration td) {
+    return libtorrent_jni.total_seconds(SWIGTYPE_p_time_duration.getCPtr(td));
+  }
+
+  public static long total_milliseconds(SWIGTYPE_p_time_duration td) {
+    return libtorrent_jni.total_milliseconds(SWIGTYPE_p_time_duration.getCPtr(td));
+  }
+
+  public static long total_microseconds(SWIGTYPE_p_time_duration td) {
+    return libtorrent_jni.total_microseconds(SWIGTYPE_p_time_duration.getCPtr(td));
+  }
+
+  public static torrent_handle add_feed_item(session s, feed_item fi, add_torrent_params p) {
+    return new torrent_handle(libtorrent_jni.add_feed_item__SWIG_0(session.getCPtr(s), s, feed_item.getCPtr(fi), fi, add_torrent_params.getCPtr(p), p), true);
+  }
+
+  public static torrent_handle add_feed_item(session s, feed_item fi, add_torrent_params p, error_code ec) {
+    return new torrent_handle(libtorrent_jni.add_feed_item__SWIG_1(session.getCPtr(s), s, feed_item.getCPtr(fi), fi, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec), true);
   }
 
   public static int getUser_alert_id() {
     return libtorrent_jni.user_alert_id_get();
   }
 
-  public static long peer_priority(tcp_endpoint e1, tcp_endpoint e2) {
-    return libtorrent_jni.peer_priority(tcp_endpoint.getCPtr(e1), e1, tcp_endpoint.getCPtr(e2), e2);
+  public static int source_rank(int source_bitmask) {
+    return libtorrent_jni.source_rank(source_bitmask);
   }
 
-  public static void initialize_default_settings(session_settings s) {
-    libtorrent_jni.initialize_default_settings(session_settings.getCPtr(s), s);
+  public static session_settings min_memory_usage() {
+    return new session_settings(libtorrent_jni.min_memory_usage(), true);
   }
 
-  public static settings_pack load_pack_from_dict(bdecode_node settings) {
-    long cPtr = libtorrent_jni.load_pack_from_dict(bdecode_node.getCPtr(settings), settings);
-    return (cPtr == 0) ? null : new settings_pack(cPtr, false);
-  }
-
-  public static void save_settings_to_dict(session_settings s, string_entry_map sett) {
-    libtorrent_jni.save_settings_to_dict(session_settings.getCPtr(s), s, string_entry_map.getCPtr(sett), sett);
-  }
-
-  public static int setting_by_name(String name) {
-    return libtorrent_jni.setting_by_name(name);
-  }
-
-  public static String name_for_setting(int s) {
-    return libtorrent_jni.name_for_setting(s);
-  }
-
-  public static void min_memory_usage(settings_pack set) {
-    libtorrent_jni.min_memory_usage(settings_pack.getCPtr(set), set);
-  }
-
-  public static void high_performance_seed(settings_pack set) {
-    libtorrent_jni.high_performance_seed(settings_pack.getCPtr(set), set);
-  }
-
-  public static int find_metric_idx(String name) {
-    return libtorrent_jni.find_metric_idx(name);
-  }
-
-  public static stats_metric_vector session_stats_metrics() {
-    return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
+  public static session_settings high_performance_seed() {
+    return new session_settings(libtorrent_jni.high_performance_seed(), true);
   }
 
   public static int plus_one(int val) {
@@ -168,22 +183,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static int minus_one(int val) {
     return libtorrent_jni.minus_one(val);
-  }
-
-  public static error_category get_bdecode_category() {
-    return new error_category(libtorrent_jni.get_bdecode_category(), false);
-  }
-
-  public static String print_entry(bdecode_node e, boolean single_line, int indent) {
-    return libtorrent_jni.print_entry__SWIG_0(bdecode_node.getCPtr(e), e, single_line, indent);
-  }
-
-  public static String print_entry(bdecode_node e, boolean single_line) {
-    return libtorrent_jni.print_entry__SWIG_1(bdecode_node.getCPtr(e), e, single_line);
-  }
-
-  public static String print_entry(bdecode_node e) {
-    return libtorrent_jni.print_entry__SWIG_2(bdecode_node.getCPtr(e), e);
   }
 
   public static String make_magnet_uri(torrent_handle handle) {
@@ -199,19 +198,23 @@ public class libtorrent implements libtorrentConstants {
   }
 
   public static void add_files(file_storage fs, String file, long flags) {
-    libtorrent_jni.add_files__SWIG_0(file_storage.getCPtr(fs), fs, file, flags);
+    libtorrent_jni.add_files__SWIG_2(file_storage.getCPtr(fs), fs, file, flags);
   }
 
   public static void add_files(file_storage fs, String file) {
-    libtorrent_jni.add_files__SWIG_1(file_storage.getCPtr(fs), fs, file);
+    libtorrent_jni.add_files__SWIG_3(file_storage.getCPtr(fs), fs, file);
+  }
+
+  public static void set_piece_hashes(create_torrent t, String p, SWIGTYPE_p_boost__functionT_void_fintF_t f, error_code ec) {
+    libtorrent_jni.set_piece_hashes__SWIG_0(create_torrent.getCPtr(t), t, p, SWIGTYPE_p_boost__functionT_void_fintF_t.getCPtr(f), error_code.getCPtr(ec), ec);
   }
 
   public static void set_piece_hashes(create_torrent t, String p, error_code ec) {
-    libtorrent_jni.set_piece_hashes__SWIG_0(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
+    libtorrent_jni.set_piece_hashes__SWIG_1(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
   public static void set_piece_hashes(create_torrent t, String p) {
-    libtorrent_jni.set_piece_hashes__SWIG_1(create_torrent.getCPtr(t), t, p);
+    libtorrent_jni.set_piece_hashes__SWIG_2(create_torrent.getCPtr(t), t, p);
   }
 
   public static error_category get_upnp_category() {
