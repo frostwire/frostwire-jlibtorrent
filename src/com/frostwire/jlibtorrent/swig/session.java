@@ -280,8 +280,8 @@ public class session {
     libtorrent_jni.session_pop_alerts(swigCPtr, this, alert_ptr_deque.getCPtr(alerts), alerts);
   }
 
-  public alert wait_for_alert(SWIGTYPE_p_time_duration max_wait) {
-    long cPtr = libtorrent_jni.session_wait_for_alert(swigCPtr, this, SWIGTYPE_p_time_duration.getCPtr(max_wait));
+  public alert wait_for_alert(posix_time_duration max_wait) {
+    long cPtr = libtorrent_jni.session_wait_for_alert(swigCPtr, this, posix_time_duration.getCPtr(max_wait), max_wait);
     return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 

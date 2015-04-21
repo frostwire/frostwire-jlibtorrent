@@ -38,6 +38,8 @@ public class libtorrent_jni {
   public final static native boolean posix_time_duration_is_neg_infinity(long jarg1, posix_time_duration jarg1_);
   public final static native boolean posix_time_duration_is_not_a_date_time(long jarg1, posix_time_duration jarg1_);
   public final static native void delete_posix_time_duration(long jarg1);
+  public final static native long new_ptime();
+  public final static native void delete_ptime(long jarg1);
   public final static native long new_address__SWIG_0();
   public final static native long new_address__SWIG_1(long jarg1, address_v4 jarg1_);
   public final static native long new_address__SWIG_2(long jarg1, address_v6 jarg1_);
@@ -641,9 +643,9 @@ public class libtorrent_jni {
   public final static native long microsec(long jarg1);
   public final static native long minutes(long jarg1);
   public final static native long hours(long jarg1);
-  public final static native long total_seconds(long jarg1);
-  public final static native long total_milliseconds(long jarg1);
-  public final static native long total_microseconds(long jarg1);
+  public final static native long total_seconds(long jarg1, posix_time_duration jarg1_);
+  public final static native long total_milliseconds(long jarg1, posix_time_duration jarg1_);
+  public final static native long total_microseconds(long jarg1, posix_time_duration jarg1_);
   public final static native long new_fingerprint(String jarg1, int jarg2, int jarg3, int jarg4, int jarg5);
   public final static native String fingerprint_to_string(long jarg1, fingerprint jarg1_);
   public final static native void fingerprint_name_set(long jarg1, fingerprint jarg1_, String jarg2);
@@ -891,9 +893,9 @@ public class libtorrent_jni {
   public final static native long announce_entry_last_error_get(long jarg1, announce_entry jarg1_);
   public final static native int announce_entry_next_announce_in(long jarg1, announce_entry jarg1_);
   public final static native int announce_entry_min_announce_in(long jarg1, announce_entry jarg1_);
-  public final static native void announce_entry_next_announce_set(long jarg1, announce_entry jarg1_, long jarg2);
+  public final static native void announce_entry_next_announce_set(long jarg1, announce_entry jarg1_, long jarg2, ptime jarg2_);
   public final static native long announce_entry_next_announce_get(long jarg1, announce_entry jarg1_);
-  public final static native void announce_entry_min_announce_set(long jarg1, announce_entry jarg1_, long jarg2);
+  public final static native void announce_entry_min_announce_set(long jarg1, announce_entry jarg1_, long jarg2, ptime jarg2_);
   public final static native long announce_entry_min_announce_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_scrape_incomplete_set(long jarg1, announce_entry jarg1_, int jarg2);
   public final static native int announce_entry_scrape_incomplete_get(long jarg1, announce_entry jarg1_);
@@ -939,7 +941,7 @@ public class libtorrent_jni {
   public final static native String web_seed_entry_auth_get(long jarg1, web_seed_entry jarg1_);
   public final static native void web_seed_entry_extra_headers_set(long jarg1, web_seed_entry jarg1_, long jarg2, string_string_pair_vector jarg2_);
   public final static native long web_seed_entry_extra_headers_get(long jarg1, web_seed_entry jarg1_);
-  public final static native void web_seed_entry_retry_set(long jarg1, web_seed_entry jarg1_, long jarg2);
+  public final static native void web_seed_entry_retry_set(long jarg1, web_seed_entry jarg1_, long jarg2, ptime jarg2_);
   public final static native long web_seed_entry_retry_get(long jarg1, web_seed_entry jarg1_);
   public final static native void web_seed_entry_supports_keepalive_set(long jarg1, web_seed_entry jarg1_, boolean jarg2);
   public final static native boolean web_seed_entry_supports_keepalive_get(long jarg1, web_seed_entry jarg1_);
@@ -2281,7 +2283,7 @@ public class libtorrent_jni {
   public final static native int cached_piece_info_piece_get(long jarg1, cached_piece_info jarg1_);
   public final static native void cached_piece_info_blocks_set(long jarg1, cached_piece_info jarg1_, long jarg2, bool_vector jarg2_);
   public final static native long cached_piece_info_blocks_get(long jarg1, cached_piece_info jarg1_);
-  public final static native void cached_piece_info_last_use_set(long jarg1, cached_piece_info jarg1_, long jarg2);
+  public final static native void cached_piece_info_last_use_set(long jarg1, cached_piece_info jarg1_, long jarg2, ptime jarg2_);
   public final static native long cached_piece_info_last_use_get(long jarg1, cached_piece_info jarg1_);
   public final static native void cached_piece_info_next_to_hash_set(long jarg1, cached_piece_info jarg1_, int jarg2);
   public final static native int cached_piece_info_next_to_hash_get(long jarg1, cached_piece_info jarg1_);
@@ -2410,11 +2412,11 @@ public class libtorrent_jni {
   public final static native int peer_info_upload_limit_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_download_limit_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_download_limit_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_last_request_set(long jarg1, peer_info jarg1_, long jarg2);
+  public final static native void peer_info_last_request_set(long jarg1, peer_info jarg1_, long jarg2, posix_time_duration jarg2_);
   public final static native long peer_info_last_request_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_last_active_set(long jarg1, peer_info jarg1_, long jarg2);
+  public final static native void peer_info_last_active_set(long jarg1, peer_info jarg1_, long jarg2, posix_time_duration jarg2_);
   public final static native long peer_info_last_active_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_download_queue_time_set(long jarg1, peer_info jarg1_, long jarg2);
+  public final static native void peer_info_download_queue_time_set(long jarg1, peer_info jarg1_, long jarg2, posix_time_duration jarg2_);
   public final static native long peer_info_download_queue_time_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_queue_bytes_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_queue_bytes_get(long jarg1, peer_info jarg1_);
@@ -3303,7 +3305,7 @@ public class libtorrent_jni {
   public final static native long session_i2p_proxy(long jarg1, session jarg1_);
   public final static native long session_pop_alert(long jarg1, session jarg1_);
   public final static native void session_pop_alerts(long jarg1, session jarg1_, long jarg2, alert_ptr_deque jarg2_);
-  public final static native long session_wait_for_alert(long jarg1, session jarg1_, long jarg2);
+  public final static native long session_wait_for_alert(long jarg1, session jarg1_, long jarg2, posix_time_duration jarg2_);
   public final static native void session_set_alert_mask(long jarg1, session jarg1_, long jarg2);
   public final static native void session_start_lsd(long jarg1, session jarg1_);
   public final static native void session_stop_lsd(long jarg1, session jarg1_);

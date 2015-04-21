@@ -158,28 +158,31 @@ public class peer_info {
     return libtorrent_jni.peer_info_download_limit_get(swigCPtr, this);
   }
 
-  public void setLast_request(SWIGTYPE_p_time_duration value) {
-    libtorrent_jni.peer_info_last_request_set(swigCPtr, this, SWIGTYPE_p_time_duration.getCPtr(value));
+  public void setLast_request(posix_time_duration value) {
+    libtorrent_jni.peer_info_last_request_set(swigCPtr, this, posix_time_duration.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_time_duration getLast_request() {
-    return new SWIGTYPE_p_time_duration(libtorrent_jni.peer_info_last_request_get(swigCPtr, this), true);
+  public posix_time_duration getLast_request() {
+    long cPtr = libtorrent_jni.peer_info_last_request_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new posix_time_duration(cPtr, false);
   }
 
-  public void setLast_active(SWIGTYPE_p_time_duration value) {
-    libtorrent_jni.peer_info_last_active_set(swigCPtr, this, SWIGTYPE_p_time_duration.getCPtr(value));
+  public void setLast_active(posix_time_duration value) {
+    libtorrent_jni.peer_info_last_active_set(swigCPtr, this, posix_time_duration.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_time_duration getLast_active() {
-    return new SWIGTYPE_p_time_duration(libtorrent_jni.peer_info_last_active_get(swigCPtr, this), true);
+  public posix_time_duration getLast_active() {
+    long cPtr = libtorrent_jni.peer_info_last_active_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new posix_time_duration(cPtr, false);
   }
 
-  public void setDownload_queue_time(SWIGTYPE_p_time_duration value) {
-    libtorrent_jni.peer_info_download_queue_time_set(swigCPtr, this, SWIGTYPE_p_time_duration.getCPtr(value));
+  public void setDownload_queue_time(posix_time_duration value) {
+    libtorrent_jni.peer_info_download_queue_time_set(swigCPtr, this, posix_time_duration.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_time_duration getDownload_queue_time() {
-    return new SWIGTYPE_p_time_duration(libtorrent_jni.peer_info_download_queue_time_get(swigCPtr, this), true);
+  public posix_time_duration getDownload_queue_time() {
+    long cPtr = libtorrent_jni.peer_info_download_queue_time_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new posix_time_duration(cPtr, false);
   }
 
   public void setQueue_bytes(int value) {

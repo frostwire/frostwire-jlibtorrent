@@ -84,20 +84,22 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_min_announce_in(swigCPtr, this);
   }
 
-  public void setNext_announce(SWIGTYPE_p_ptime value) {
-    libtorrent_jni.announce_entry_next_announce_set(swigCPtr, this, SWIGTYPE_p_ptime.getCPtr(value));
+  public void setNext_announce(ptime value) {
+    libtorrent_jni.announce_entry_next_announce_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_ptime getNext_announce() {
-    return new SWIGTYPE_p_ptime(libtorrent_jni.announce_entry_next_announce_get(swigCPtr, this), true);
+  public ptime getNext_announce() {
+    long cPtr = libtorrent_jni.announce_entry_next_announce_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
-  public void setMin_announce(SWIGTYPE_p_ptime value) {
-    libtorrent_jni.announce_entry_min_announce_set(swigCPtr, this, SWIGTYPE_p_ptime.getCPtr(value));
+  public void setMin_announce(ptime value) {
+    libtorrent_jni.announce_entry_min_announce_set(swigCPtr, this, ptime.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_ptime getMin_announce() {
-    return new SWIGTYPE_p_ptime(libtorrent_jni.announce_entry_min_announce_get(swigCPtr, this), true);
+  public ptime getMin_announce() {
+    long cPtr = libtorrent_jni.announce_entry_min_announce_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ptime(cPtr, false);
   }
 
   public void setScrape_incomplete(int value) {

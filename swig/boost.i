@@ -90,6 +90,9 @@ namespace boost {
             bool is_neg_infinity();
             bool is_not_a_date_time();
         };
+
+        class ptime {
+        };
     }
 
     namespace asio {

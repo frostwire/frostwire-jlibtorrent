@@ -15,6 +15,7 @@
     
 #include "libtorrent/version.hpp"
 #include "libtorrent/size_type.hpp"
+#include "libtorrent/ptime.hpp"
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/time.hpp"
 #include "libtorrent/fingerprint.hpp"
@@ -665,6 +666,7 @@ namespace std {
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/size_type.hpp"
+%include "libtorrent/ptime.hpp"
 %javaconst(1);
 %include "libtorrent/error_code.hpp"
 %javaconst(0);
