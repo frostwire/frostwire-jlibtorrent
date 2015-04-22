@@ -22,6 +22,6 @@ public final class TrackerWarningAlert extends TrackerAlert<tracker_warning_aler
      * @return
      */
     public String warningMessage() {
-        return alert.warning_message();
+        return alert.getMsg();
     }
 }

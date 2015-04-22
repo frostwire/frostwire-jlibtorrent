@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
 import com.frostwire.jlibtorrent.swig.listen_failed_alert;
+import com.frostwire.jlibtorrent.swig.tcp_endpoint;
 
 /**
  * This alert is generated when none of the ports, given in the port range, to
@@ -29,7 +30,8 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return
      */
     public String listenInterface() {
-        return alert.listen_interface();
+        tcp_endpoint endp = alert.getEndpoint();
+        return endp.address() + ":" + endp.port();
     }
 
     /**

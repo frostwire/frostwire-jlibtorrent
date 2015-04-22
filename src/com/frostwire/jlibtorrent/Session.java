@@ -849,9 +849,9 @@ public final class Session {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                alert_ptr_vector vector = new alert_ptr_vector();
+                alert_ptr_deque vector = new alert_ptr_deque();
 
-                high_resolution_clock.duration max_wait = libtorrent.to_milliseconds(ALERTS_LOOP_WAIT_MILLIS);
+                posix_time_duration max_wait = libtorrent.milliseconds(ALERTS_LOOP_WAIT_MILLIS);
 
                 while (running) {
                     alert ptr = s.wait_for_alert(max_wait);
@@ -860,7 +860,7 @@ public final class Session {
                         s.pop_alerts(vector);
                         long size = vector.size();
                         for (int i = 0; i < size; i++) {
-                            alert swigAlert = vector.get(i);
+                            alert swigAlert = vector.getitem(i);
                             int type = swigAlert.type();
 
                             Alert<?> alert = null;
@@ -1035,20 +1035,12 @@ public final class Session {
         CAST_ALERT_METHOD(incoming_connection_alert.class, map);
         CAST_ALERT_METHOD(add_torrent_alert.class, map);
         CAST_ALERT_METHOD(state_update_alert.class, map);
-        CAST_ALERT_METHOD(mmap_cache_alert.class, map);
-        CAST_ALERT_METHOD(session_stats_alert.class, map);
         CAST_ALERT_METHOD(torrent_update_alert.class, map);
         CAST_ALERT_METHOD(dht_error_alert.class, map);
         CAST_ALERT_METHOD(dht_immutable_item_alert.class, map);
         CAST_ALERT_METHOD(dht_mutable_item_alert.class, map);
         CAST_ALERT_METHOD(dht_put_alert.class, map);
         CAST_ALERT_METHOD(i2p_alert.class, map);
-        CAST_ALERT_METHOD(dht_outgoing_get_peers_alert.class, map);
-        CAST_ALERT_METHOD(log_alert.class, map);
-        CAST_ALERT_METHOD(torrent_log_alert.class, map);
-        CAST_ALERT_METHOD(peer_log_alert.class, map);
-        CAST_ALERT_METHOD(lsd_error_alert.class, map);
-        CAST_ALERT_METHOD(dht_stats_alert.class, map);
 
         CAST_ALERT_METHOD(dht_get_peers_reply_alert.class, map);
         CAST_ALERT_METHOD(set_piece_hashes_alert.class, map);

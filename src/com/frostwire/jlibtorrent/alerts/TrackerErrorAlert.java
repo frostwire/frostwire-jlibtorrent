@@ -40,6 +40,6 @@ public final class TrackerErrorAlert extends TrackerAlert<tracker_error_alert> {
      * @return
      */
     public String errorMessage() {
-        return alert.error_message();
+        return alert.getMsg();
     }
 }

@@ -25,9 +25,9 @@ public final class FileErrorAlert extends TorrentAlert<file_error_alert> {
         return new ErrorCode(alert.getError());
     }
 
-    public String operation() {
-        return alert.getOperation();
-    }
+//    public String operation() {
+//        return alert.getOperation();
+//    }
 
     /**
      * The file that experienced the error.
@@ -35,6 +35,6 @@ public final class FileErrorAlert extends TorrentAlert<file_error_alert> {
      * @return
      */
     public String filename() {
-        return alert.filename();
+        return alert.getFile();
     }
 }

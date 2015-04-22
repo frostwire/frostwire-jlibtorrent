@@ -1,6 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.high_resolution_clock.time_point;
+import com.frostwire.jlibtorrent.swig.ptime;
 
 /**
  * @author gubatron
@@ -8,13 +8,13 @@ import com.frostwire.jlibtorrent.swig.high_resolution_clock.time_point;
  */
 public final class TimePoint {
 
-    private final time_point tp;
+    private final ptime tp;
 
-    public TimePoint(time_point tp) {
+    public TimePoint(ptime tp) {
         this.tp = tp;
     }
 
-    public time_point getSwig() {
+    public ptime getSwig() {
         return tp;
     }
 }

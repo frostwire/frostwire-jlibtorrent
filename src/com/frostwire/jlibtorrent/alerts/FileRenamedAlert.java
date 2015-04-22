@@ -16,7 +16,7 @@ public final class FileRenamedAlert extends TorrentAlert<file_renamed_alert> {
     }
 
     public String newName() {
-        return alert.new_name();
+        return alert.getName();
     }
 
     /**

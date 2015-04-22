@@ -4,7 +4,6 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.settings_pack;
 
 import java.io.BufferedReader;
 import java.io.IOException;

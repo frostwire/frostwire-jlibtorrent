@@ -24,9 +24,9 @@ public final class ScrapeFailedAlert extends TrackerAlert<scrape_failed_alert> {
      *
      * @return
      */
-    public ErrorCode error() {
-        return new ErrorCode(alert.getError());
-    }
+//    public ErrorCode error() {
+//        return new ErrorCode(alert.getError());
+//    }
 
     /**
      * If the error indicates there is an associated message, this returns
@@ -35,6 +35,6 @@ public final class ScrapeFailedAlert extends TrackerAlert<scrape_failed_alert> {
      * @return
      */
     public String errorMessage() {
-        return alert.error_message();
+        return alert.getMsg();
     }
 }

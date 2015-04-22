@@ -26,7 +26,7 @@ public abstract class TorrentAlert<T extends torrent_alert> extends AbstractAler
         return new TorrentHandle(alert.getHandle());
     }
 
-    public String torrentName() {
-        return alert.torrent_name();
-    }
+//    public String torrentName() {
+//        return alert.torrent_name();
+//    }
 }

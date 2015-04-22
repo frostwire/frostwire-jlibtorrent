@@ -27,6 +27,6 @@ public final class PortmapLogAlert extends AbstractAlert<portmap_log_alert> {
      * @return
      */
     public String logMessage() {
-        return alert.log_message();
+        return alert.getMsg();
     }
 }

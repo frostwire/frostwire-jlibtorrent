@@ -44,11 +44,11 @@ public final class StatsAlert extends TorrentAlert<stats_alert> {
         DOWNLOAD_PAYLOAD(stats_alert.stats_channel.download_payload.swigValue()),
         DOWNLOAD_PROTOCOL(stats_alert.stats_channel.download_protocol.swigValue()),
         UPLOAD_IP_PROTOCOL(stats_alert.stats_channel.upload_ip_protocol.swigValue()),
-        DEPRECATED1(stats_alert.stats_channel.deprecated1.swigValue()),
-        DEPRECATED2(stats_alert.stats_channel.deprecated2.swigValue()),
+        //DEPRECATED1(stats_alert.stats_channel.deprecated1.swigValue()),
+        //DEPRECATED2(stats_alert.stats_channel.deprecated2.swigValue()),
         DOWNLOAD_IP_PROTOCOL(stats_alert.stats_channel.download_ip_protocol.swigValue()),
-        DEPRECATED3(stats_alert.stats_channel.deprecated3.swigValue()),
-        DEPRECATED4(stats_alert.stats_channel.deprecated4.swigValue()),
+        //DEPRECATED3(stats_alert.stats_channel.deprecated3.swigValue()),
+        //DEPRECATED4(stats_alert.stats_channel.deprecated4.swigValue()),
         NUM_CHANNELS(stats_alert.stats_channel.num_channels.swigValue());
 
         private StatsChannel(int swigValue) {

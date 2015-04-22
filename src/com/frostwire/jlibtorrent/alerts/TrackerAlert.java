@@ -22,6 +22,6 @@ public abstract class TrackerAlert<T extends tracker_alert> extends TorrentAlert
      * @return
      */
     public String trackerUrl() {
-        return alert.tracker_url();
+        return alert.getUrl();
     }
 }
