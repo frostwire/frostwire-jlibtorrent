@@ -859,21 +859,22 @@ namespace libtorrent {
 
 static const int user_alert_id = 10000;
 
-#define TORRENT_DEFINE_ALERT_IMPL(name, seq, prio) \
-	static const int priority = prio; \
-	static const int alert_type = seq; \
+#define TORRENT_DEFINE_ALERT(name, at) \
+	static const int alert_type = at; \
 	virtual int type() const { return alert_type; } \
+	virtual std::auto_ptr<alert> clone() const \
+	{ return std::auto_ptr<alert>(new name(*this)); } \
 	virtual int category() const { return static_category; } \
 	virtual char const* what() const { return #name; }
 
     struct TORRENT_EXPORT dht_get_peers_reply_alert: alert
     {
         // internal
-        dht_get_peers_reply_alert(aux::stack_allocator& alloc, libtorrent::sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
+        dht_get_peers_reply_alert(libtorrent::sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
             : info_hash(ih), peers(v) {
         }
 
-        TORRENT_DEFINE_ALERT_IMPL(dht_get_peers_reply_alert, user_alert_id + 100, 0)
+        TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert, user_alert_id + 100)
 
         static const int static_category = alert::dht_notification;
         virtual std::string message() const;
@@ -884,13 +885,13 @@ static const int user_alert_id = 10000;
 
     struct set_piece_hashes_alert: alert {
 
-    	set_piece_hashes_alert(aux::stack_allocator& alloc, std::string const& id, int progress, int num_pieces)
+    	set_piece_hashes_alert(std::string const& id, int progress, int num_pieces)
     		: id(id),
     		  progress(progress),
     		  num_pieces(num_pieces){
     	}
 
-    	TORRENT_DEFINE_ALERT_IMPL(set_piece_hashes_alert, user_alert_id + 101, 0);
+    	TORRENT_DEFINE_ALERT(set_piece_hashes_alert, user_alert_id + 101);
 
     	static const int static_category = alert::progress_notification;
 
@@ -957,11 +958,6 @@ static const int user_alert_id = 10000;
         return r;
     }
 };
-
-namespace aux {
-class stack_allocator {
-};
-}
 
 %template(sha1_bloom_filter) bloom_filter<160>;
 
