@@ -65,7 +65,7 @@ public final class DhtPut {
         signal.await(10, TimeUnit.SECONDS);
 
         System.out.println("DHT with peers");
-        System.out.println("Peers: " + s.getStats().getDHTNodes());
+        System.out.println("Peers: " + s.getStatus().getDHTNodes());
 
         byte[] seed = new byte[Ed25519.SEED_SIZE];
         int r = Ed25519.createSeed(seed);

@@ -36,7 +36,7 @@ public final class DownloadTorrent {
             public void blockFinished(BlockFinishedAlert alert) {
                 int p = (int) (th.getStatus().getProgress() * 100);
                 System.out.println("Progress: " + p);
-                System.out.println(s.getStats().getTotalDownload());
+                System.out.println(s.getStatus().getTotalDownload());
             }
 
             @Override

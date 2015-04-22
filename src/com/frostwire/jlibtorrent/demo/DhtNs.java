@@ -279,27 +279,19 @@ public class DhtNs {
     }
 
     private static void stopDHT(Session s) {
-        SettingsPack pack = new SettingsPack();
-        pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), false);
-        s.applySettings(pack);
+        s.stopDHT();
     }
 
     private static void stopLSD(Session s) {
-        SettingsPack pack = new SettingsPack();
-        pack.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), false);
-        s.applySettings(pack);
+        s.stopLSD();
     }
 
     private static void stopNATPMP(Session s) {
-        SettingsPack pack = new SettingsPack();
-        pack.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), false);
-        s.applySettings(pack);
+        s.stopNATPMP();
     }
 
     private static void startUPnP(Session s) {
-        SettingsPack pack = new SettingsPack();
-        pack.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), true);
-        s.applySettings(pack);
+        s.startUPnP();
     }
 
     private static class KeyPair {

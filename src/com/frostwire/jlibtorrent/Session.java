@@ -30,16 +30,15 @@ public final class Session {
 
     private static final Logger LOG = Logger.getLogger(Session.class);
 
-    private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
+    private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
     private static final Map<Integer, CastAlertFunction> CAST_TABLE = buildCastAlertTable();
 
     private final session s;
 
-    private long lastStatsRequestTime;
-    private SessionStats lastStats;
-    private DHTStats lastDHTStats;
+    private long lastStatusRequestTime;
+    private SessionStatus lastStatus;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
@@ -51,9 +50,6 @@ public final class Session {
         int alert_mask = alert.category_t.all_categories.swigValue();
 
         this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
-
-        this.lastStats = new SessionStats();
-        this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -308,9 +304,9 @@ public final class Session {
      *
      * @param sp
      */
-    public void applySettings(SettingsPack sp) {
-        s.apply_settings(sp.getSwig());
-    }
+//    public void applySettings(SettingsPack sp) {
+//        s.apply_settings(sp.getSwig());
+//    }
 
     /**
      * In case you want to destruct the session asynchrounously, you can
@@ -384,6 +380,89 @@ public final class Session {
     }
 
     /**
+     * Returns session wide-statistics and status.
+     * <p/>
+     * It is important not to call this method for each field in the status
+     * for performance reasons.
+     *
+     * @return
+     */
+    public SessionStatus getStatus(boolean force) {
+        long now = System.currentTimeMillis();
+        if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
+            lastStatusRequestTime = now;
+            lastStatus = new SessionStatus(s.status());
+        }
+
+        return lastStatus;
+    }
+
+    /**
+     * Returns session wide-statistics and status.
+     *
+     * @return
+     */
+    public SessionStatus getStatus() {
+        return this.getStatus(false);
+    }
+
+    /**
+     * The session settings and the packet encryption settings
+     * respectively. See session_settings and pe_settings for more
+     * information on available options.
+     *
+     * @return
+     */
+    public SessionSettings getSettings() {
+        return new SessionSettings(s.settings());
+    }
+
+    /**
+     * Sets the session settings and the packet encryption settings
+     * respectively. See session_settings and pe_settings for more
+     * information on available options.
+     *
+     * @param settings
+     */
+    public void setSettings(SessionSettings settings) {
+        s.set_settings(settings.getSwig());
+    }
+
+    /**
+     * These functions sets and queries the proxy settings to be used for the
+     * session.
+     * <p/>
+     * For more information on what settings are available for proxies, see
+     * proxy_settings. If the session is not in anonymous mode, proxies that
+     * aren't working or fail, will automatically be disabled and packets
+     * will flow without using any proxy. If you want to enforce using a
+     * proxy, even when the proxy doesn't work, enable anonymous_mode in
+     * session_settings.
+     *
+     * @return
+     */
+    public ProxySettings getProxy() {
+        return new ProxySettings(s.proxy());
+    }
+
+    /**
+     * These functions sets and queries the proxy settings to be used for the
+     * session.
+     * <p/>
+     * For more information on what settings are available for proxies, see
+     * proxy_settings. If the session is not in anonymous mode, proxies that
+     * aren't working or fail, will automatically be disabled and packets
+     * will flow without using any proxy. If you want to enforce using a
+     * proxy, even when the proxy doesn't work, enable anonymous_mode in
+     * session_settings.
+     *
+     * @param settings
+     */
+    public void setProxy(ProxySettings settings) {
+        s.set_proxy(settings.getSwig());
+    }
+
+    /**
      * Loads and saves all session settings, including dht_settings,
      * encryption settings and proxy settings. ``save_state`` writes all keys
      * to the ``entry`` that's passed in, which needs to either not be
@@ -444,9 +523,9 @@ public final class Session {
      *
      * @param flags
      */
-    public void postTorrentUpdates(TorrentHandle.StatusFlags flags) {
-        s.post_torrent_updates(flags.getSwig());
-    }
+//    public void postTorrentUpdates(TorrentHandle.StatusFlags flags) {
+//        s.post_torrent_updates(flags.getSwig());
+//    }
 
     /**
      * This functions instructs the session to post the state_update_alert,
@@ -510,6 +589,52 @@ public final class Session {
         }
 
         return l;
+    }
+
+    // starts/stops UPnP, NATPMP or LSD port mappers they are stopped by
+    // default These functions are not available in case
+    // ``TORRENT_DISABLE_DHT`` is defined. ``start_dht`` starts the dht node
+    // and makes the trackerless service available to torrents. The startup
+    // state is optional and can contain nodes and the node id from the
+    // previous session. The dht node state is a bencoded dictionary with the
+    // following entries:
+    //
+    // nodes
+    // 	A list of strings, where each string is a node endpoint encoded in
+    // 	binary. If the string is 6 bytes long, it is an IPv4 address of 4
+    // 	bytes, encoded in network byte order (big endian), followed by a 2
+    // 	byte port number (also network byte order). If the string is 18
+    // 	bytes long, it is 16 bytes of IPv6 address followed by a 2 bytes
+    // 	port number (also network byte order).
+    //
+    // node-id
+    // 	The node id written as a readable string as a hexadecimal number.
+    //
+    // ``dht_state`` will return the current state of the dht node, this can
+    // be used to start up the node again, passing this entry to
+    // ``start_dht``. It is a good idea to save this to disk when the session
+    // is closed, and read it up again when starting.
+    //
+    // If the port the DHT is supposed to listen on is already in use, and
+    // exception is thrown, ``asio::error``.
+    //
+    // ``stop_dht`` stops the dht node.
+    //
+    // ``add_dht_node`` adds a node to the routing table. This can be used if
+    // your client has its own source of bootstrapping nodes.
+    //
+    // ``set_dht_settings`` sets some parameters availavle to the dht node.
+    // See dht_settings for more information.
+    //
+    // ``is_dht_running()`` returns true if the DHT support has been started
+    // and false
+    // otherwise.
+    public void startDHT() {
+        s.start_dht();
+    }
+
+    public void stopDHT() {
+        s.stop_dht();
     }
 
     // starts/stops UPnP, NATPMP or LSD port mappers they are stopped by
@@ -735,6 +860,46 @@ public final class Session {
     }
 
     /**
+     * Starts and stops Local Service Discovery. This service will broadcast
+     * the infohashes of all the non-private torrents on the local network to
+     * look for peers on the same swarm within multicast reach.
+     * <p/>
+     * It is turned off by default.
+     */
+    public void startLSD() {
+        s.start_lsd();
+    }
+
+    /**
+     * Starts and stops Local Service Discovery. This service will broadcast
+     * the infohashes of all the non-private torrents on the local network to
+     * look for peers on the same swarm within multicast reach.
+     * <p/>
+     * It is turned off by default.
+     */
+    public void stopLSD() {
+        s.stop_lsd();
+    }
+
+    /**
+     * Starts the UPnP service. When started, the listen port and
+     * the DHT port are attempted to be forwarded on local UPnP router
+     * devices.
+     */
+    public void startUPnP() {
+        s.start_upnp();
+    }
+
+    /**
+     * Stops the UPnP service. When started, the listen port and
+     * the DHT port are attempted to be forwarded on local UPnP router
+     * devices.
+     */
+    public void stopUPnP() {
+        s.stop_upnp();
+    }
+
+    /**
      * add_port_mapping adds a port forwarding on UPnP and/or NAT-PMP,
      * whichever is enabled. The return value is a handle referring to the
      * port mapping that was just created. Pass it to delete_port_mapping()
@@ -753,16 +918,22 @@ public final class Session {
         s.delete_port_mapping(handle);
     }
 
-    public SessionStats getStats() {
-        return lastStats;
+    /**
+     * Starts the NAT-PMP service. When started, the listen port
+     * and the DHT port are attempted to be forwarded on the router through
+     * NAT-PMP.
+     */
+    public void startNATPMP() {
+        s.start_natpmp();
     }
 
-    public DHTStats getDHTStats() {
-        return lastDHTStats;
-    }
-
-    public SessionSettings getSettings() {
-        return new SessionSettings(s.get_settings());
+    /**
+     * Stops the NAT-PMP service. When started, the listen port
+     * and the DHT port are attempted to be forwarded on the router through
+     * NAT-PMP.
+     */
+    public void stopNATPMP() {
+        s.stop_natpmp();
     }
 
     public void setPieceHashes(String id, create_torrent t, String p, error_code ec) {
@@ -865,16 +1036,6 @@ public final class Session {
 
                             Alert<?> alert = null;
 
-                            if (type == AlertType.SESSION_STATS.getSwig()) {
-                                alert = castAlert(swigAlert);
-                                lastStats = new SessionStats((SessionStatsAlert) alert);
-                            }
-
-                            if (type == AlertType.DHT_STATS.getSwig()) {
-                                alert = castAlert(swigAlert);
-                                lastDHTStats = new DHTStats(((DhtStatsAlert) alert).getRoutingTable());
-                            }
-
                             if (listeners.indexOfKey(type) >= 0) {
                                 if (alert == null) {
                                     alert = castAlert(swigAlert);
@@ -882,9 +1043,7 @@ public final class Session {
                                 fireAlert(alert, type);
                             }
 
-                            if (type != AlertType.SESSION_STATS.getSwig() &&
-                                    type != AlertType.DHT_STATS.getSwig() &&
-                                    listeners.indexOfKey(-1) >= 0) {
+                            if (listeners.indexOfKey(-1) >= 0) {
                                 if (alert == null) {
                                     alert = castAlert(swigAlert);
                                 }
@@ -892,13 +1051,6 @@ public final class Session {
                             }
                         }
                         vector.clear();
-                    }
-
-                    long now = System.currentTimeMillis();
-                    if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
-                        lastStatsRequestTime = now;
-                        postSessionStats();
-                        postDHTStats();
                     }
                 }
             }
@@ -950,18 +1102,6 @@ public final class Session {
         list.add(new Pair<String, Integer>("dht.transmissionbt.com", 6881));
 
         return list;
-    }
-
-    private static long countDHTNodes(DhtStatsAlert alert) {
-        DHTRoutingBucket[] buckets = alert.getRoutingTable();
-
-        long n = 0;
-
-        for (DHTRoutingBucket b : buckets) {
-            n += b.getNumNodes();
-        }
-
-        return n;
     }
 
     private static Map<Integer, CastAlertFunction> buildCastAlertTable() {
