@@ -421,9 +421,9 @@ public final class Session {
      */
     public void loadState(byte[] data) {
         char_vector buffer = Vectors.bytes2char_vector(data);
-        bdecode_node n = new bdecode_node();
+        lazy_entry n = new lazy_entry();
         error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(buffer, n, ec);
+        int ret = lazy_entry.bdecode(buffer, n, ec);
 
         if (ret == 0) {
             s.load_state(n);
@@ -466,16 +466,16 @@ public final class Session {
      * To interpret these counters, query the session via
      * session_stats_metrics().
      */
-    public void postSessionStats() {
-        s.post_session_stats();
-    }
+//    public void postSessionStats() {
+//        s.post_session_stats();
+//    }
 
     /**
      * This will cause a dht_stats_alert to be posted.
      */
-    public void postDHTStats() {
-        s.post_dht_stats();
-    }
+//    public void postDHTStats() {
+//        s.post_dht_stats();
+//    }
 
     /**
      * Looks for a torrent with the given info-hash. In

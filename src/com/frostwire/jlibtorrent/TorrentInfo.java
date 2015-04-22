@@ -440,9 +440,9 @@ public final class TorrentInfo {
     }
 
     public static TorrentInfo bdecode(byte[] data) {
-        bdecode_node n = new bdecode_node();
+        lazy_entry n = new lazy_entry();
         error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(Vectors.bytes2char_vector(data), n, ec);
+        int ret = lazy_entry.bdecode(Vectors.bytes2char_vector(data), n, ec);
 
         if (ret == 0) {
             return new TorrentInfo(new torrent_info(n));

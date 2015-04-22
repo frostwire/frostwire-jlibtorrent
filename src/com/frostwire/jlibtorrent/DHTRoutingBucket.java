@@ -43,7 +43,7 @@ public final class DHTRoutingBucket {
      *
      * @return
      */
-    public int getLastActive() {
-        return t.getLast_active();
-    }
+//    public int getLastActive() {
+//        return t.getLast_active();
+//    }
 }

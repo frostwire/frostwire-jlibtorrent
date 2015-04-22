@@ -1,7 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.libtorrent;
-import com.frostwire.jlibtorrent.swig.stats_metric_vector;
+//import com.frostwire.jlibtorrent.swig.stats_metric_vector;
 
 /**
  * @author gubatron
@@ -25,18 +25,18 @@ public final class LibTorrent {
      *
      * @return
      */
-    public static StatsMetric[] sessionStatsMetrics() {
-        stats_metric_vector v = libtorrent.session_stats_metrics();
-
-        int size = (int) v.size();
-        StatsMetric[] arr = new StatsMetric[size];
-
-        for (int i = 0; i < size; i++) {
-            arr[i] = new StatsMetric(v.get(i));
-        }
-
-        return arr;
-    }
+//    public static StatsMetric[] sessionStatsMetrics() {
+//        stats_metric_vector v = libtorrent.session_stats_metrics();
+//
+//        int size = (int) v.size();
+//        StatsMetric[] arr = new StatsMetric[size];
+//
+//        for (int i = 0; i < size; i++) {
+//            arr[i] = new StatsMetric(v.get(i));
+//        }
+//
+//        return arr;
+//    }
 
     /**
      * given a name of a metric, this function returns the counter index of it,
@@ -46,7 +46,7 @@ public final class LibTorrent {
      * @param name
      * @return
      */
-    public static int findMetricIdx(String name) {
-        return libtorrent.find_metric_idx(name);
-    }
+//    public static int findMetricIdx(String name) {
+//        return libtorrent.find_metric_idx(name);
+//    }
 }

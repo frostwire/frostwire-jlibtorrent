@@ -42,7 +42,7 @@ public final class WebSeedEntry {
      * @return
      */
     public Type getType() {
-        return Type.fromSwig(e.getType());
+        return Type.fromSwig(e.getType().swigValue());
     }
 
     /**

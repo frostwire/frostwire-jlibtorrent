@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
-import com.frostwire.jlibtorrent.Operation;
 import com.frostwire.jlibtorrent.swig.peer_disconnected_alert;
 
 /**

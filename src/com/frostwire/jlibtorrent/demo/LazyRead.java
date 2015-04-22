@@ -26,9 +26,9 @@ public final class LazyRead {
         byte[] data = Utils.readFileToByteArray(torrentFile);
 
         char_vector buffer = Vectors.bytes2char_vector(data);
-        bdecode_node e = new bdecode_node();
+        lazy_entry e = new lazy_entry();
         error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(buffer, e, ec);
+        int ret = lazy_entry.bdecode(buffer, e, ec);
 
         if (ret != 0) {
             System.out.println("failed to decode torrent: " + ec.message());
