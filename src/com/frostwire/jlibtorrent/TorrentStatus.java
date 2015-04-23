@@ -683,6 +683,7 @@ public final class TorrentStatus {
     public enum State {
 
         //UNUSED_ENUM_FOR_BACKWARDS_COMPATIBILITY(torrent_status.state_t.unused_enum_for_backwards_compatibility.swigValue()),
+        QUEUED_FOR_CHECKING(torrent_status.state_t.queued_for_checking.swigValue()),
 
         /**
          * The torrent has not started its download yet, and is
