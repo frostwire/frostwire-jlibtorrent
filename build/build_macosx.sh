@@ -6,9 +6,8 @@
 #$JDK_INCLUDE_2
 #$LIBTORRENT_LIBS
 
-# see actual export CXXFLAGS below
-#$BOOST_ROOT/b2 cxxflags="$CXXFLAGS" variant=release link=static --stagedir=macosx stage --without-context --without-coroutine --without-python --without-mpi --without-wave --without-test --without-graph --without-graph_parallel --without-iostreams
-#$BOOST_ROOT/bjam toolset=darwin variant=release link=static deprecated-functions=off logging=none boost=source
+#$BOOST_ROOT/b2 cxxflags="-O3 -flto" linkflags="-flto" variant=release link=static --stagedir=macosx stage --without-context --without-coroutine --without-python --without-mpi --without-wave --without-test --without-graph --without-graph_parallel --without-iostreams --without-math
+#$BOOST_ROOT/bjam toolset=darwin cxxflags="-O3 -flto" linkflags="-flto" variant=release link=static deprecated-functions=off logging=none boost=source
 
 CXX=clang++
 CXXFLAGS="-stdlib=libc++ -std=c++11 -O3 -flto"
