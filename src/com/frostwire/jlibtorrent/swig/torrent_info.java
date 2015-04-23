@@ -260,4 +260,9 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_get_creation_date(swigCPtr, this);
   }
 
+  public torrent_info copy() {
+    long cPtr = libtorrent_jni.torrent_info_copy(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_info(cPtr, true);
+  }
+
 }

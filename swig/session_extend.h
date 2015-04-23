@@ -55,7 +55,7 @@ struct dht_get_peers_reply_alert: alert {
 		: info_hash(ih), peers(v) {
 	}
 
-	TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert, user_alert_id);
+	TORRENT_DEFINE_ALERT(dht_get_peers_reply_alert, user_alert_id + 100);
 
 	const static int static_category = alert::dht_notification;
 

@@ -980,7 +980,7 @@ public final class Session {
 
         add_torrent_params p = add_torrent_params.create_instance();
 
-        p.setTi(ti.getSwig());
+        p.setTi(ti.getSwig().copy());
         if (savePath != null) {
             p.setSave_path(savePath);
         }
