@@ -735,7 +735,9 @@ public final class TorrentStatus {
         /**
          *
          */
-        UNKNOWN(-1);
+        UNKNOWN(-1),
+
+        QUEUED_FOR_CHECKING(torrent_status.state_t.unused_enum_for_backwards_compatibility.swigValue());
 
         private State(int swigValue) {
             this.swigValue = swigValue;

@@ -789,6 +789,11 @@ public final class Session {
         this.applySettings(s.toPack());
     }
 
+    @Deprecated
+    public SessionStatus getStatus() {
+        return new SessionStatus(lastStats);
+    }
+
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
