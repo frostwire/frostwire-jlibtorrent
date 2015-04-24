@@ -306,4 +306,12 @@ public final class SettingsPack {
     public void setAnonymousMode(boolean value) {
         sp.set_bool(settings_pack.bool_types.anonymous_mode.swigValue(), value);
     }
+
+    public boolean broadcastLSD() {
+        return sp.get_bool(settings_pack.bool_types.broadcast_lsd.swigValue());
+    }
+
+    public void broadcastLSD(boolean value) {
+        sp.set_bool(settings_pack.bool_types.broadcast_lsd.swigValue(), value);
+    }
 }

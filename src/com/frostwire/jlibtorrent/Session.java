@@ -761,6 +761,7 @@ public final class Session {
         return lastDHTStats;
     }
 
+    @Deprecated
     public SessionSettings getSettings() {
         return new SessionSettings(s.get_settings());
     }
@@ -781,6 +782,11 @@ public final class Session {
     @Deprecated
     public void setProxy(ProxySettings s) {
         this.s.apply_settings(s.getSwig());
+    }
+
+    @Deprecated
+    public void setSettings(SessionSettings s) {
+        this.applySettings(s.toPack());
     }
 
     @Override
