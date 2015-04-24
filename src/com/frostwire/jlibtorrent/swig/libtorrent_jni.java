@@ -2871,8 +2871,7 @@ public class libtorrent_jni {
   public final static native void peer_connection_on_disk(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_on_allocate_disk_buffer(long jarg1, peer_connection jarg1_, String jarg2, int jarg3);
   public final static native int peer_connection_num_reading_bytes(long jarg1, peer_connection jarg1_);
-  public final static native void peer_connection_setup_receive__SWIG_0(long jarg1, peer_connection jarg1_, int jarg2);
-  public final static native void peer_connection_setup_receive__SWIG_1(long jarg1, peer_connection jarg1_);
+  public final static native void peer_connection_setup_receive(long jarg1, peer_connection jarg1_);
   public final static native long peer_connection_self(long jarg1, peer_connection jarg1_);
   public final static native long peer_connection_stats_counters(long jarg1, peer_connection jarg1_);
   public final static native int peer_connection_get_priority(long jarg1, peer_connection jarg1_, int jarg2);

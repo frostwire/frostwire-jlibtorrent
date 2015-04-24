@@ -58029,30 +58029,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1setup_1receive_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
-  libtorrent::peer_connection::sync_t arg2 ;
-  boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  
-  smartarg1 = *(boost::shared_ptr<  libtorrent::peer_connection > **)&jarg1;
-  arg1 = (libtorrent::peer_connection *)(smartarg1 ? smartarg1->get() : 0); 
-  arg2 = (libtorrent::peer_connection::sync_t)jarg2; 
-  {
-    try {
-      (arg1)->setup_receive(arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1setup_1receive_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1setup_1receive(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   libtorrent::peer_connection *arg1 = (libtorrent::peer_connection *) 0 ;
   boost::shared_ptr< libtorrent::peer_connection > *smartarg1 = 0 ;
   

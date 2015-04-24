@@ -637,12 +637,8 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_num_reading_bytes(swigCPtr, this);
   }
 
-  public void setup_receive(peer_connection.sync_t sync) {
-    libtorrent_jni.peer_connection_setup_receive__SWIG_0(swigCPtr, this, sync.swigValue());
-  }
-
   public void setup_receive() {
-    libtorrent_jni.peer_connection_setup_receive__SWIG_1(swigCPtr, this);
+    libtorrent_jni.peer_connection_setup_receive(swigCPtr, this);
   }
 
   public peer_connection self() {
