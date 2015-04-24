@@ -773,6 +773,16 @@ public final class Session {
         return new UPnP(s.get_upnp());
     }
 
+    @Deprecated
+    public ProxySettings getProxy() {
+        return new ProxySettings(new settings_pack());
+    }
+
+    @Deprecated
+    public void setProxy(ProxySettings s) {
+        this.s.apply_settings(s.getSwig());
+    }
+
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
