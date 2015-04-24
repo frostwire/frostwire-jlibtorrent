@@ -1111,18 +1111,10 @@ SWIGINTERN bool libtorrent_sha1_hash_from_hex(char *hex,libtorrent::sha1_hash &h
 SWIGINTERN time_t libtorrent_torrent_info_get_creation_date(libtorrent::torrent_info *self){
         return self->creation_date().get_value_or(0);
     }
-SWIGINTERN boost::intrusive_ptr< libtorrent::torrent_info const > libtorrent_torrent_info_copy(libtorrent::torrent_info *self){
+SWIGINTERN boost::shared_ptr< libtorrent::torrent_info const > libtorrent_torrent_info_copy(libtorrent::torrent_info *self){
         // copy the torrent_info object
-        return boost::intrusive_ptr<torrent_info>(new torrent_info(*self));
+        return boost::shared_ptr<torrent_info>(new torrent_info(*self));
     }
-
-template<class T> struct SWIG_intrusive_deleter {
-    void operator()(T *p) {
-        if (p) 
-          intrusive_ptr_release(p);
-    }
-};
-
 SWIGINTERN long long libtorrent_add_torrent_params_getFlags(libtorrent::add_torrent_params *self){
         return (long long)self->flags;
     }
@@ -23510,7 +23502,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   jlong jresult = 0 ;
   libtorrent::torrent_info *arg1 = (libtorrent::torrent_info *) 0 ;
   boost::shared_ptr< libtorrent::torrent_info > *smartarg1 = 0 ;
-  boost::intrusive_ptr< libtorrent::torrent_info const > result;
+  boost::shared_ptr< libtorrent::torrent_info const > result;
   
   (void)jenv;
   (void)jcls;
@@ -23526,14 +23518,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
       return 0;
     }
   }
-  
-  if (result) {
-    intrusive_ptr_add_ref(result.get());
-    *(boost::shared_ptr< const libtorrent::torrent_info > **)&jresult = new boost::shared_ptr< const libtorrent::torrent_info >(result.get(), SWIG_intrusive_deleter< const libtorrent::torrent_info >());
-  } else {
-    *(boost::shared_ptr< const libtorrent::torrent_info > **)&jresult = 0; 
-  }
-  
+  *(boost::shared_ptr< libtorrent::torrent_info const > **)&jresult = result ? new boost::shared_ptr< libtorrent::torrent_info const >(result) : 0; 
   return jresult;
 }
 

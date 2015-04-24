@@ -861,9 +861,9 @@ namespace libtorrent {
         return $self->creation_date().get_value_or(0);
     }
 
-    boost::intrusive_ptr<torrent_info const> copy() {
+    boost::shared_ptr<torrent_info const> copy() {
         // copy the torrent_info object
-        return boost::intrusive_ptr<torrent_info>(new torrent_info(*$self));
+        return boost::shared_ptr<torrent_info>(new torrent_info(*$self));
     }
 };
 
