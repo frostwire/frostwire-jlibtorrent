@@ -860,6 +860,11 @@ namespace libtorrent {
     time_t get_creation_date() {
         return $self->creation_date().get_value_or(0);
     }
+
+    boost::intrusive_ptr<torrent_info const> copy() {
+        // copy the torrent_info object
+        return boost::intrusive_ptr<torrent_info>(new torrent_info(*$self));
+    }
 };
 
 %extend sha1_hash {
