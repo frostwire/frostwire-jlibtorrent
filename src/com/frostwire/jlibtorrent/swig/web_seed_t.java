@@ -69,10 +69,6 @@ public class web_seed_t extends web_seed_entry {
     return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
   }
 
-  public void setPeer_info(ipv4_peer value) {
-    libtorrent_jni.web_seed_t_peer_info_set(swigCPtr, this, ipv4_peer.getCPtr(value), value);
-  }
-
   public ipv4_peer getPeer_info() {
     long cPtr = libtorrent_jni.web_seed_t_peer_info_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ipv4_peer(cPtr, false);

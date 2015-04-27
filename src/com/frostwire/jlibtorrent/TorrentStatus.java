@@ -68,18 +68,8 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public PosixTimeDuration getNextAnnounce() {
-        return new PosixTimeDuration(ts.getNext_announce());
-    }
-
-    /**
-     * The time the tracker want us to wait until we announce our self
-     * again the next time.
-     *
-     * @return
-     */
-    public PosixTimeDuration getAnnounceInterval() {
-        return new PosixTimeDuration(ts.getAnnounce_interval());
+    public Duration nextAnnounce() {
+        return new Duration(ts.getNext_announce());
     }
 
     /**

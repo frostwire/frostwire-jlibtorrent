@@ -109,6 +109,14 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.sanitize_append_path_element(path, element, element_len);
   }
 
+  public static stats_metric_vector session_stats_metrics() {
+    return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
+  }
+
+  public static int find_metric_idx(String name) {
+    return libtorrent_jni.find_metric_idx(name);
+  }
+
   public static close_reason_t error_to_close_reason(error_code ec) {
     return close_reason_t.swigToEnum(libtorrent_jni.error_to_close_reason(error_code.getCPtr(ec), ec));
   }
@@ -152,14 +160,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static void high_performance_seed(settings_pack set) {
     libtorrent_jni.high_performance_seed(settings_pack.getCPtr(set), set);
-  }
-
-  public static int find_metric_idx(String name) {
-    return libtorrent_jni.find_metric_idx(name);
-  }
-
-  public static stats_metric_vector session_stats_metrics() {
-    return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
 
   public static int plus_one(int val) {

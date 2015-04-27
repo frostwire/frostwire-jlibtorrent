@@ -76,22 +76,22 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_name_get(swigCPtr, this);
   }
 
-  public void setNext_announce(posix_time_duration value) {
-    libtorrent_jni.torrent_status_next_announce_set(swigCPtr, this, posix_time_duration.getCPtr(value), value);
+  public void setNext_announce(high_resolution_clock.duration value) {
+    libtorrent_jni.torrent_status_next_announce_set(swigCPtr, this, high_resolution_clock.duration.getCPtr(value), value);
   }
 
-  public posix_time_duration getNext_announce() {
+  public high_resolution_clock.duration getNext_announce() {
     long cPtr = libtorrent_jni.torrent_status_next_announce_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new posix_time_duration(cPtr, false);
+    return (cPtr == 0) ? null : new high_resolution_clock.duration(cPtr, false);
   }
 
-  public void setAnnounce_interval(posix_time_duration value) {
-    libtorrent_jni.torrent_status_announce_interval_set(swigCPtr, this, posix_time_duration.getCPtr(value), value);
+  public void setDeprecated_announce_interval_(high_resolution_clock.duration value) {
+    libtorrent_jni.torrent_status_deprecated_announce_interval__set(swigCPtr, this, high_resolution_clock.duration.getCPtr(value), value);
   }
 
-  public posix_time_duration getAnnounce_interval() {
-    long cPtr = libtorrent_jni.torrent_status_announce_interval_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new posix_time_duration(cPtr, false);
+  public high_resolution_clock.duration getDeprecated_announce_interval_() {
+    long cPtr = libtorrent_jni.torrent_status_deprecated_announce_interval__get(swigCPtr, this);
+    return (cPtr == 0) ? null : new high_resolution_clock.duration(cPtr, false);
   }
 
   public void setCurrent_tracker(String value) {
