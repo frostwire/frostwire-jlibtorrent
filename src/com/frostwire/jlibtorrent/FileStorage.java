@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.file_slice_vector;
 import com.frostwire.jlibtorrent.swig.file_storage;
+import com.frostwire.jlibtorrent.swig.torrent_info;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,14 +17,40 @@ import java.util.ArrayList;
  */
 public final class FileStorage {
 
+    private final torrent_info ti;
     private final file_storage fs;
 
     public FileStorage(file_storage fs) {
+        this.ti = null;
+        this.fs = fs;
+    }
+
+    /**
+     * Used to keep the torrent info reference around.
+     *
+     * @param ti
+     * @param fs
+     */
+    FileStorage(torrent_info ti, file_storage fs) {
+        this.ti = ti;
         this.fs = fs;
     }
 
     public file_storage getSwig() {
         return fs;
+    }
+
+    /**
+     * This methods returns the internal torrent info or null
+     * if it was constructed without one.
+     * <p/>
+     * This also prevent premature garbage collection in case
+     * the storage was created from a torrent info.
+     *
+     * @return
+     */
+    public torrent_info getTi() {
+        return ti;
     }
 
     /**

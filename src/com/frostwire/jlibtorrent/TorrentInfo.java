@@ -48,7 +48,7 @@ public final class TorrentInfo {
      * @return
      */
     public FileStorage getFiles() {
-        return new FileStorage(ti.files());
+        return new FileStorage(ti, ti.files());
     }
 
     /**
@@ -59,7 +59,7 @@ public final class TorrentInfo {
      * @return
      */
     public FileStorage getOrigFiles() {
-        return new FileStorage(ti.orig_files());
+        return new FileStorage(ti, ti.orig_files());
     }
 
     /**
