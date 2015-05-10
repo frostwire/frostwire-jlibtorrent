@@ -12,7 +12,7 @@ public enum PortmapType {
 
     UNKNOWN(-1);
 
-    private PortmapType(int swigValue) {
+    PortmapType(int swigValue) {
         this.swigValue = swigValue;
     }
 

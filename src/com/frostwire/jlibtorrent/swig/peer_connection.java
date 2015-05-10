@@ -394,8 +394,12 @@ public class peer_connection extends bandwidth_socket {
     return libtorrent_jni.peer_connection_est_reciprocation_rate(swigCPtr, this);
   }
 
-  public void peer_log(String fmt) {
-    libtorrent_jni.peer_connection_peer_log(swigCPtr, this, fmt);
+  public void peer_log(peer_log_alert.direction_t direction, String event, String fmt) {
+    libtorrent_jni.peer_connection_peer_log__SWIG_0(swigCPtr, this, direction.swigValue(), event, fmt);
+  }
+
+  public void peer_log(peer_log_alert.direction_t direction, String event) {
+    libtorrent_jni.peer_connection_peer_log__SWIG_2(swigCPtr, this, direction.swigValue(), event);
   }
 
   public void setM_connect_time(high_resolution_clock.time_point value) {

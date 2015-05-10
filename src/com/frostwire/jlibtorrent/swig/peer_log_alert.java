@@ -35,10 +35,6 @@ public class peer_log_alert extends peer_alert {
     super.delete();
   }
 
-  public peer_log_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint i, sha1_hash pi, String log) {
-    this(libtorrent_jni.new_peer_log_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(i), i, sha1_hash.getCPtr(pi), pi, log), true);
-  }
-
   public int type() {
     return libtorrent_jni.peer_log_alert_type(swigCPtr, this);
   }
@@ -55,8 +51,69 @@ public class peer_log_alert extends peer_alert {
     return libtorrent_jni.peer_log_alert_message(swigCPtr, this);
   }
 
+  public void setEvent_type(String value) {
+    libtorrent_jni.peer_log_alert_event_type_set(swigCPtr, this, value);
+  }
+
+  public String getEvent_type() {
+    return libtorrent_jni.peer_log_alert_event_type_get(swigCPtr, this);
+  }
+
+  public void setDirection(peer_log_alert.direction_t value) {
+    libtorrent_jni.peer_log_alert_direction_set(swigCPtr, this, value.swigValue());
+  }
+
+  public peer_log_alert.direction_t getDirection() {
+    return peer_log_alert.direction_t.swigToEnum(libtorrent_jni.peer_log_alert_direction_get(swigCPtr, this));
+  }
+
   public String msg() {
     return libtorrent_jni.peer_log_alert_msg(swigCPtr, this);
+  }
+
+  public enum direction_t {
+    incoming_message,
+    outgoing_message,
+    incoming,
+    outgoing,
+    info;
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public static direction_t swigToEnum(int swigValue) {
+      direction_t[] swigValues = direction_t.class.getEnumConstants();
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (direction_t swigEnum : swigValues)
+        if (swigEnum.swigValue == swigValue)
+          return swigEnum;
+      throw new IllegalArgumentException("No enum " + direction_t.class + " with value " + swigValue);
+    }
+
+    @SuppressWarnings("unused")
+    private direction_t() {
+      this.swigValue = SwigNext.next++;
+    }
+
+    @SuppressWarnings("unused")
+    private direction_t(int swigValue) {
+      this.swigValue = swigValue;
+      SwigNext.next = swigValue+1;
+    }
+
+    @SuppressWarnings("unused")
+    private direction_t(direction_t swigEnum) {
+      this.swigValue = swigEnum.swigValue;
+      SwigNext.next = this.swigValue+1;
+    }
+
+    private final int swigValue;
+
+    private static class SwigNext {
+      private static int next = 0;
+    }
   }
 
   public final static int priority = libtorrent_jni.peer_log_alert_priority_get();

@@ -616,6 +616,10 @@ namespace std {
 %ignore libtorrent::upnp::get_mapping(int, int&, int&, int&) const;
 %ignore libtorrent::torrent_error_alert::filename;
 
+%ignore libtorrent::torrent_error_alert::torrent_error_alert;
+%ignore libtorrent::peer_log_alert::peer_log_alert;
+%ignore libtorrent::incoming_request_alert::incoming_request_alert;
+
 %ignore boost::throws;
 %ignore boost::detail::throws;
 %ignore boost::asio::ip::address_v4::to_bytes;
@@ -817,6 +821,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(peer_log_alert)
     CAST_ALERT_METHOD(lsd_error_alert)
     CAST_ALERT_METHOD(dht_stats_alert)
+    CAST_ALERT_METHOD(incoming_request_alert)
 
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)
     CAST_ALERT_METHOD(set_piece_hashes_alert)

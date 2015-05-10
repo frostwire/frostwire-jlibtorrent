@@ -215,6 +215,9 @@ public abstract class TorrentAlertAdapter implements AlertListener {
     public void peerLog(PeerLogAlert alert) {
     }
 
+    public void incomingRequest(IncomingRequestAlert alert) {
+    }
+
     public void torrentPrioritize(TorrentPrioritizeAlert alert) {
     }
 

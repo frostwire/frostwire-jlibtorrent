@@ -35,7 +35,7 @@ typename rob<Tag, p>::filler rob<Tag, p>::filler_obj;
 struct session_m_impl { typedef boost::shared_ptr<aux::session_impl> session::*type; };
 template class rob<session_m_impl, &session::m_impl>;
 
-struct dht_tracker_m_dht { typedef node_impl dht_tracker::*type; };
+struct dht_tracker_m_dht { typedef node dht_tracker::*type; };
 template class rob<dht_tracker_m_dht, &dht_tracker::m_dht>;
 // END PRIVATE HACK
 
@@ -127,7 +127,7 @@ void dht_get_peers(session* s, sha1_hash const& info_hash) {
 
     boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
     dht::dht_tracker* s_dht_tracker = s_impl->dht();
-    const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
+    const reference_wrapper<libtorrent::dht::node> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
 
 	bool privacy_lookups = node.get().settings().privacy_lookups;
 
@@ -150,7 +150,7 @@ void dht_announce(session* s, sha1_hash const& info_hash, int port, int flags) {
 
     boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
     dht::dht_tracker* s_dht_tracker = s_impl->dht();
-    const reference_wrapper<libtorrent::dht::node_impl> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
+    const reference_wrapper<libtorrent::dht::node> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
 
 	node.get().announce(info_hash, port, flags, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash));
 }

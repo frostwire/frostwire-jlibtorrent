@@ -465,6 +465,11 @@ public class alert {
     return (cPtr == 0) ? null : new dht_stats_alert(cPtr, false);
   }
 
+  public static incoming_request_alert cast_to_incoming_request_alert(alert alert) {
+    long cPtr = libtorrent_jni.alert_cast_to_incoming_request_alert(alert.getCPtr(alert), alert);
+    return (cPtr == 0) ? null : new incoming_request_alert(cPtr, false);
+  }
+
   public static dht_get_peers_reply_alert cast_to_dht_get_peers_reply_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_dht_get_peers_reply_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new dht_get_peers_reply_alert(cPtr, false);
@@ -491,6 +496,7 @@ public class alert {
     session_log_notification(libtorrent_jni.alert_session_log_notification_get()),
     torrent_log_notification(libtorrent_jni.alert_torrent_log_notification_get()),
     peer_log_notification(libtorrent_jni.alert_peer_log_notification_get()),
+    incoming_request_notification(libtorrent_jni.alert_incoming_request_notification_get()),
     all_categories(libtorrent_jni.alert_all_categories_get());
 
     public final int swigValue() {

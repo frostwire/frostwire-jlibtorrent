@@ -85,6 +85,7 @@ public enum AlertType {
     PEER_LOG(peer_log_alert.alert_type),
     LSD_ERROR(lsd_error_alert.alert_type),
     DHT_STATS(dht_stats_alert.alert_type),
+    INCOMING_REQUEST(incoming_request_alert.alert_type),
     DHT_GET_PEERS_REPLY_ALERT(dht_get_peers_reply_alert.alert_type),
     SET_PIECE_HASHES(set_piece_hashes_alert.alert_type),
     UNKNOWN(-1),

@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.swig.external_ip_alert;
  * Whenever libtorrent learns about the machines external IP, this alert is
  * generated. The external IP address can be acquired from the tracker (if it
  * supports that) or from peers that supports the extension protocol.
- * The address can be accessed through the ``external_address`` member.
+ * The address can be accessed through the {@link #getExternalAddress()} member.
  *
  * @author gubatron
  * @author aldenml
