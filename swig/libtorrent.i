@@ -119,8 +119,8 @@ public:
     static const int scalar_size = ed25519_scalar_size;
     static const int shared_secret_size = ed25519_shared_secret_size;
 
-    static int create_seed(std::vector<char>& seed) {
-        return ed25519_create_seed((unsigned char*)seed.data());
+    static void create_seed(std::vector<char>& seed) {
+        ed25519_create_seed((unsigned char*)seed.data());
     }
 
     static void create_keypair(std::vector<char>& public_key,
@@ -619,6 +619,7 @@ namespace std {
 %ignore libtorrent::torrent_error_alert::torrent_error_alert;
 %ignore libtorrent::peer_log_alert::peer_log_alert;
 %ignore libtorrent::incoming_request_alert::incoming_request_alert;
+%ignore libtorrent::dht_log_alert::dht_log_alert;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -1008,7 +1009,7 @@ public:
     static const int scalar_size = ed25519_scalar_size;
     static const int shared_secret_size = ed25519_shared_secret_size;
 
-    static int create_seed(std::vector<char>& seed);
+    static void create_seed(std::vector<char>& seed);
 
     static void create_keypair(std::vector<char>& public_key,
                                std::vector<char>& private_key,

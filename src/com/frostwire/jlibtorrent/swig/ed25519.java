@@ -35,8 +35,8 @@ public class ed25519 {
     }
   }
 
-  public static int create_seed(char_vector seed) {
-    return libtorrent_jni.ed25519_create_seed(char_vector.getCPtr(seed), seed);
+  public static void create_seed(char_vector seed) {
+    libtorrent_jni.ed25519_create_seed(char_vector.getCPtr(seed), seed);
   }
 
   public static void create_keypair(char_vector public_key, char_vector private_key, char_vector seed) {

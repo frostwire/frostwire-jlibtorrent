@@ -45,10 +45,17 @@ public final class Session {
     private final SparseArray<AlertListener[]> listenerSnapshots;
     private boolean running;
 
-    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers) {
+    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers, boolean logging) {
 
         int flags = session.session_flags_t.start_default_features.swigValue() | session.session_flags_t.add_default_plugins.swigValue();
         int alert_mask = alert.category_t.all_categories.swigValue();
+        if (!logging) {
+            int log_mask = alert.category_t.session_log_notification.swigValue() |
+                    alert.category_t.torrent_log_notification.swigValue() |
+                    alert.category_t.peer_log_notification.swigValue() |
+                    alert.category_t.dht_log_notification.swigValue();
+            alert_mask = alert_mask & ~log_mask;
+        }
 
         this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
 
@@ -64,6 +71,10 @@ public final class Session {
         for (Pair<String, Integer> router : routers) {
             s.add_dht_router(router.to_string_int_pair());
         }
+    }
+
+    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers) {
+        this(print, prange, iface, routers, false);
     }
 
     public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface) {

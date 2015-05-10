@@ -266,7 +266,47 @@ public class counters {
     socket_recv_size18,
     socket_recv_size19,
     socket_recv_size20,
-    num_stats_counters,
+    num_stats_counters;
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public static stats_counter_t swigToEnum(int swigValue) {
+      stats_counter_t[] swigValues = stats_counter_t.class.getEnumConstants();
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (stats_counter_t swigEnum : swigValues)
+        if (swigEnum.swigValue == swigValue)
+          return swigEnum;
+      throw new IllegalArgumentException("No enum " + stats_counter_t.class + " with value " + swigValue);
+    }
+
+    @SuppressWarnings("unused")
+    private stats_counter_t() {
+      this.swigValue = SwigNext.next++;
+    }
+
+    @SuppressWarnings("unused")
+    private stats_counter_t(int swigValue) {
+      this.swigValue = swigValue;
+      SwigNext.next = swigValue+1;
+    }
+
+    @SuppressWarnings("unused")
+    private stats_counter_t(stats_counter_t swigEnum) {
+      this.swigValue = swigEnum.swigValue;
+      SwigNext.next = this.swigValue+1;
+    }
+
+    private final int swigValue;
+
+    private static class SwigNext {
+      private static int next = 0;
+    }
+  }
+
+  public enum stats_gauge_t {
     num_checking_torrents(libtorrent_jni.counters_num_checking_torrents_get()),
     num_stopped_torrents,
     num_upload_only_torrents,
@@ -359,35 +399,35 @@ public class counters {
     num_utp_close_wait,
     num_utp_deleted,
     num_counters,
-    num_gauge_counters(libtorrent_jni.counters_num_gauge_counters_get());
+    num_gauges_counters(libtorrent_jni.counters_num_gauges_counters_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
-    public static stats_counter_t swigToEnum(int swigValue) {
-      stats_counter_t[] swigValues = stats_counter_t.class.getEnumConstants();
+    public static stats_gauge_t swigToEnum(int swigValue) {
+      stats_gauge_t[] swigValues = stats_gauge_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (stats_counter_t swigEnum : swigValues)
+      for (stats_gauge_t swigEnum : swigValues)
         if (swigEnum.swigValue == swigValue)
           return swigEnum;
-      throw new IllegalArgumentException("No enum " + stats_counter_t.class + " with value " + swigValue);
+      throw new IllegalArgumentException("No enum " + stats_gauge_t.class + " with value " + swigValue);
     }
 
     @SuppressWarnings("unused")
-    private stats_counter_t() {
+    private stats_gauge_t() {
       this.swigValue = SwigNext.next++;
     }
 
     @SuppressWarnings("unused")
-    private stats_counter_t(int swigValue) {
+    private stats_gauge_t(int swigValue) {
       this.swigValue = swigValue;
       SwigNext.next = swigValue+1;
     }
 
     @SuppressWarnings("unused")
-    private stats_counter_t(stats_counter_t swigEnum) {
+    private stats_gauge_t(stats_gauge_t swigEnum) {
       this.swigValue = swigEnum.swigValue;
       SwigNext.next = this.swigValue+1;
     }

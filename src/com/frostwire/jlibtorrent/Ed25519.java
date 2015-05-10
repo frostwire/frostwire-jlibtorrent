@@ -19,16 +19,14 @@ public final class Ed25519 {
     private Ed25519() {
     }
 
-    public static int createSeed(byte[] seed) {
+    public static void createSeed(byte[] seed) {
         if (seed == null || seed.length != SEED_SIZE) {
             throw new IllegalArgumentException("seed buffer must be not null and of size " + SEED_SIZE);
         }
         char_vector v = Vectors.new_char_vector(SEED_SIZE);
-        int r = ed25519.create_seed(v);
+        ed25519.create_seed(v);
 
         Vectors.char_vector2bytes(v, seed);
-
-        return r;
     }
 
     public static void createKeypair(byte[] publicKey, byte[] privateKey, byte[] seed) {

@@ -68,7 +68,7 @@ public final class DhtPut {
         System.out.println("Peers: " + s.getStats().getDHTNodes());
 
         byte[] seed = new byte[Ed25519.SEED_SIZE];
-        int r = Ed25519.createSeed(seed);
+        Ed25519.createSeed(seed);
 
         byte[] publicKey = new byte[Ed25519.PUBLIC_KEY_SIZE];
         byte[] privateKey = new byte[Ed25519.PRIVATE_KEY_SIZE];
