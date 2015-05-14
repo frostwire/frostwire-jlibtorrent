@@ -126,7 +126,7 @@ public final class TorrentHandle {
      */
     public TorrentInfo getTorrentInfo() {
         torrent_info ti = th.torrent_file();
-        return ti != null ? new TorrentInfo(th.torrent_file()) : null;
+        return ti != null ? new TorrentInfo(ti) : null;
     }
 
     /**
