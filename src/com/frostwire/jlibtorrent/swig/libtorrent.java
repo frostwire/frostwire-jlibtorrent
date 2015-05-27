@@ -109,6 +109,14 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.sanitize_append_path_element(path, element, element_len);
   }
 
+  public static boolean verify_encoding(String target, boolean fix_paths) {
+    return libtorrent_jni.verify_encoding__SWIG_0(target, fix_paths);
+  }
+
+  public static boolean verify_encoding(String target) {
+    return libtorrent_jni.verify_encoding__SWIG_1(target);
+  }
+
   public static stats_metric_vector session_stats_metrics() {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }

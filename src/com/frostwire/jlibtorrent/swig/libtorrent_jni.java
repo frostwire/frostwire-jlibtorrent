@@ -886,6 +886,8 @@ public class libtorrent_jni {
   public final static native String file_storage_file_name_ptr(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_file_name_len(long jarg1, file_storage jarg1_, int jarg2);
   public final static native void sanitize_append_path_element(String jarg1, String jarg2, int jarg3);
+  public final static native boolean verify_encoding__SWIG_0(String jarg1, boolean jarg2);
+  public final static native boolean verify_encoding__SWIG_1(String jarg1);
   public final static native int tracker_retry_delay_min_get();
   public final static native int tracker_retry_delay_max_get();
   public final static native long new_announce_entry__SWIG_0(String jarg1);
