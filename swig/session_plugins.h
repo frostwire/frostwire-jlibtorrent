@@ -19,8 +19,8 @@ struct swig_plugin : plugin {
     virtual void added() {
     }
 
-    virtual void on_alert(libtorrent::alert const*) {
-    }
+    //virtual void on_alert(libtorrent::alert const* a) {
+    //}
 
     virtual bool on_unknown_torrent(libtorrent::sha1_hash const& info_hash, libtorrent::peer_connection* pc, libtorrent::add_torrent_params& p) {
          return false;

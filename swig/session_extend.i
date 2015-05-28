@@ -71,9 +71,9 @@ class upnp;
 
 }
 
-%feature("director", assumeoverride=1) swig_plugin;
-%feature("director", assumeoverride=1) swig_torrent_plugin;
-%feature("director", assumeoverride=1) swig_peer_plugin;
+%feature("director") swig_plugin;
+%feature("director") swig_torrent_plugin;
+%feature("director") swig_peer_plugin;
 
 %typemap("javapackage") SwigPlugin, SwigPlugin *, SwigPlugin & "com.frostwire.jlibtorrent.plugins";
 
