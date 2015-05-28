@@ -57,6 +57,8 @@
 #include "libtorrent/disk_buffer_holder.hpp"
 #include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/bt_peer_connection.hpp"
+#include "libtorrent/web_peer_connection.hpp"
+#include "libtorrent/http_seed_connection.hpp"
 #include "libtorrent/file_pool.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/bdecode.hpp"
@@ -329,6 +331,7 @@ namespace std {
     %template(ipv4_peer_entry_vector) vector<libtorrent::ipv4_peer_entry>;
     %template(ipv6_peer_entry_vector) vector<libtorrent::ipv6_peer_entry>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
+    %template(torrent_peer_ptr_vector) vector<libtorrent::torrent_peer*>;
 
     %template(entry_list) list<libtorrent::entry>;
 
@@ -382,7 +385,6 @@ namespace std {
 %ignore libtorrent::torrent_plugin;
 %ignore libtorrent::crypto_plugin;
 %ignore libtorrent::bandwidth_channel;
-%ignore libtorrent::bt_peer_connection;
 %ignore libtorrent::disk_io_job;
 %ignore libtorrent::disk_job_fence;
 %ignore libtorrent::is_read_operation;
@@ -399,15 +401,14 @@ namespace std {
 %ignore libtorrent::tracker_request;
 %ignore libtorrent::type_error;
 %ignore libtorrent::buffer;
+%ignore libtorrent::buffer::const_interval;
 %ignore libtorrent::disk_buffer_pool;
-%ignore libtorrent::disk_buffer_holder;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::block_cache_reference;
 %ignore libtorrent::torrent_ref_holder;
 %ignore libtorrent::peer_connection_hot_members;
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
-%ignore libtorrent::peer_connection_args;
 %ignore libtorrent::peer_class_pool;
 %ignore libtorrent::ip_voter;
 %ignore libtorrent::external_ip;
@@ -490,15 +491,22 @@ namespace std {
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;
+%ignore libtorrent::bt_peer_connection::switch_send_crypto;
+%ignore libtorrent::bt_peer_connection::switch_recv_crypto;
+%ignore libtorrent::bt_peer_connection::write_piece;
+%ignore libtorrent::bt_peer_connection::hit_send_barrier;
 %ignore libtorrent::peer_connection_args::allocator;
 %ignore libtorrent::peer_connection_args::tor;
 %ignore libtorrent::peer_connection_args::disk_thread;
 %ignore libtorrent::peer_connection_args::ios;
 %ignore libtorrent::peer_connection_args::ses;
 %ignore libtorrent::peer_connection_args::sett;
+%ignore libtorrent::peer_connection_args::s;
 %ignore libtorrent::disk_io_job::callback;
 %ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
+%ignore libtorrent::disk_buffer_holder::reset(disk_io_job const&);
+%ignore libtorrent::disk_buffer_holder::ref;
 %ignore libtorrent::disk_buffer_pool::free_multiple_buffers;
 %ignore libtorrent::plugin::added;
 %ignore libtorrent::plugin::new_torrent;
@@ -716,6 +724,8 @@ namespace std {
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
 %include "libtorrent/bt_peer_connection.hpp"
+%include "libtorrent/web_peer_connection.hpp"
+%include "libtorrent/http_seed_connection.hpp"
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
 %javaconst(1);

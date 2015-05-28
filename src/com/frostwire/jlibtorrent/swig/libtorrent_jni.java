@@ -111,17 +111,34 @@ public class libtorrent_jni {
   public final static native long to_minutes(long jarg1);
   public final static native long to_hours(long jarg1);
   public final static native void delete_swig_plugin(long jarg1);
-  public final static native long swig_plugin_new_torrent2(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
-  public final static native long swig_plugin_new_torrent2SwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native long swig_plugin_new_torrent(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native void swig_plugin_added(long jarg1, swig_plugin jarg1_);
+  public final static native void swig_plugin_addedSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_);
+  public final static native void swig_plugin_on_alert(long jarg1, swig_plugin jarg1_, long jarg2, alert jarg2_);
+  public final static native void swig_plugin_on_alertSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, alert jarg2_);
+  public final static native boolean swig_plugin_on_unknown_torrent(long jarg1, swig_plugin jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, peer_connection jarg3_, long jarg4, add_torrent_params jarg4_);
+  public final static native boolean swig_plugin_on_unknown_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, peer_connection jarg3_, long jarg4, add_torrent_params jarg4_);
   public final static native void swig_plugin_on_tick(long jarg1, swig_plugin jarg1_);
   public final static native void swig_plugin_on_tickSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_);
+  public final static native boolean swig_plugin_on_optimistic_unchoke(long jarg1, swig_plugin jarg1_, long jarg2, torrent_peer_ptr_vector jarg2_);
+  public final static native boolean swig_plugin_on_optimistic_unchokeSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_peer_ptr_vector jarg2_);
+  public final static native void swig_plugin_save_state(long jarg1, swig_plugin jarg1_, long jarg2, entry jarg2_);
+  public final static native void swig_plugin_save_stateSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, entry jarg2_);
+  public final static native void swig_plugin_load_state(long jarg1, swig_plugin jarg1_, long jarg2, bdecode_node jarg2_);
+  public final static native void swig_plugin_load_stateSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, bdecode_node jarg2_);
   public final static native long new_swig_plugin();
   public final static native void swig_plugin_director_connect(swig_plugin obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void swig_plugin_change_ownership(swig_plugin obj, long cptr, boolean take_or_release);
-  public final static native long new_swig_torrent_plugin();
   public final static native void delete_swig_torrent_plugin(long jarg1);
-  public final static native long swig_torrent_plugin_new_connection2(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection jarg2_);
-  public final static native long swig_torrent_plugin_new_connection2SwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_peer_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_peer_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_bt_peer_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, bt_peer_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_bt_peer_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, bt_peer_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_web_peer_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, web_peer_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_web_peer_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, web_peer_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_http_seed_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, http_seed_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_http_seed_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, http_seed_connection jarg2_);
   public final static native void swig_torrent_plugin_on_piece_pass(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
   public final static native void swig_torrent_plugin_on_piece_passSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
   public final static native void swig_torrent_plugin_on_piece_failed(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
@@ -140,27 +157,71 @@ public class libtorrent_jni {
   public final static native void swig_torrent_plugin_on_unloadSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_);
   public final static native void swig_torrent_plugin_on_load(long jarg1, swig_torrent_plugin jarg1_);
   public final static native void swig_torrent_plugin_on_loadSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_on_add_peer(long jarg1, swig_torrent_plugin jarg1_, long jarg2, tcp_endpoint jarg2_, int jarg3, int jarg4);
+  public final static native void swig_torrent_plugin_on_add_peerSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, tcp_endpoint jarg2_, int jarg3, int jarg4);
+  public final static native long new_swig_torrent_plugin();
   public final static native void swig_torrent_plugin_director_connect(swig_torrent_plugin obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void swig_torrent_plugin_change_ownership(swig_torrent_plugin obj, long cptr, boolean take_or_release);
-  public final static native long new_swig_peer_plugin();
   public final static native void delete_swig_peer_plugin(long jarg1);
   public final static native String swig_peer_plugin_type(long jarg1, swig_peer_plugin jarg1_);
+  public final static native String swig_peer_plugin_typeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
+  public final static native void swig_peer_plugin_add_handshake(long jarg1, swig_peer_plugin jarg1_, long jarg2, entry jarg2_);
+  public final static native void swig_peer_plugin_add_handshakeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, entry jarg2_);
+  public final static native void swig_peer_plugin_on_disconnect(long jarg1, swig_peer_plugin jarg1_, long jarg2, error_code jarg2_);
+  public final static native void swig_peer_plugin_on_disconnectSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, error_code jarg2_);
   public final static native void swig_peer_plugin_on_connected(long jarg1, swig_peer_plugin jarg1_);
+  public final static native void swig_peer_plugin_on_connectedSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_handshake(long jarg1, swig_peer_plugin jarg1_, String jarg2);
+  public final static native boolean swig_peer_plugin_on_handshakeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, String jarg2);
+  public final static native boolean swig_peer_plugin_on_extension_handshake(long jarg1, swig_peer_plugin jarg1_, long jarg2, bdecode_node jarg2_);
+  public final static native boolean swig_peer_plugin_on_extension_handshakeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, bdecode_node jarg2_);
   public final static native boolean swig_peer_plugin_on_choke(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_chokeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
   public final static native boolean swig_peer_plugin_on_unchoke(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_unchokeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
   public final static native boolean swig_peer_plugin_on_interested(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_interestedSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
   public final static native boolean swig_peer_plugin_on_not_interested(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_not_interestedSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
   public final static native boolean swig_peer_plugin_on_have(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_haveSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
   public final static native boolean swig_peer_plugin_on_dont_have(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_dont_haveSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_bitfield(long jarg1, swig_peer_plugin jarg1_, long jarg2, bitfield jarg2_);
+  public final static native boolean swig_peer_plugin_on_bitfieldSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, bitfield jarg2_);
   public final static native boolean swig_peer_plugin_on_have_all(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_have_allSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
   public final static native boolean swig_peer_plugin_on_have_none(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_have_noneSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
   public final static native boolean swig_peer_plugin_on_allowed_fast(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_allowed_fastSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_request(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
+  public final static native boolean swig_peer_plugin_on_requestSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
+  public final static native boolean swig_peer_plugin_on_piece(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_, long jarg3, disk_buffer_holder jarg3_);
+  public final static native boolean swig_peer_plugin_on_pieceSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_, long jarg3, disk_buffer_holder jarg3_);
+  public final static native boolean swig_peer_plugin_on_cancel(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
+  public final static native boolean swig_peer_plugin_on_cancelSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
+  public final static native boolean swig_peer_plugin_on_reject(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
+  public final static native boolean swig_peer_plugin_on_rejectSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
   public final static native boolean swig_peer_plugin_on_suggest(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_suggestSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
   public final static native void swig_peer_plugin_sent_unchoke(long jarg1, swig_peer_plugin jarg1_);
+  public final static native void swig_peer_plugin_sent_unchokeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
   public final static native void swig_peer_plugin_sent_payload(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native void swig_peer_plugin_sent_payloadSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_can_disconnect(long jarg1, swig_peer_plugin jarg1_, long jarg2, error_code jarg2_);
+  public final static native boolean swig_peer_plugin_can_disconnectSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, error_code jarg2_);
   public final static native void swig_peer_plugin_on_piece_pass(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native void swig_peer_plugin_on_piece_passSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
   public final static native void swig_peer_plugin_on_piece_failed(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native void swig_peer_plugin_on_piece_failedSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
   public final static native void swig_peer_plugin_tick(long jarg1, swig_peer_plugin jarg1_);
+  public final static native void swig_peer_plugin_tickSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_write_request(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
+  public final static native boolean swig_peer_plugin_write_requestSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
+  public final static native long new_swig_peer_plugin();
+  public final static native void swig_peer_plugin_director_connect(swig_peer_plugin obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void swig_peer_plugin_change_ownership(swig_peer_plugin obj, long cptr, boolean take_or_release);
   public final static native long new_char_const_ptr_int_pair__SWIG_0();
   public final static native long new_char_const_ptr_int_pair__SWIG_1(String jarg1, int jarg2);
   public final static native long new_char_const_ptr_int_pair__SWIG_2(long jarg1, char_const_ptr_int_pair jarg1_);
@@ -510,6 +571,16 @@ public class libtorrent_jni {
   public final static native long tcp_endpoint_vector_get(long jarg1, tcp_endpoint_vector jarg1_, int jarg2);
   public final static native void tcp_endpoint_vector_set(long jarg1, tcp_endpoint_vector jarg1_, int jarg2, long jarg3, tcp_endpoint jarg3_);
   public final static native void delete_tcp_endpoint_vector(long jarg1);
+  public final static native long new_torrent_peer_ptr_vector();
+  public final static native long torrent_peer_ptr_vector_size(long jarg1, torrent_peer_ptr_vector jarg1_);
+  public final static native long torrent_peer_ptr_vector_capacity(long jarg1, torrent_peer_ptr_vector jarg1_);
+  public final static native void torrent_peer_ptr_vector_reserve(long jarg1, torrent_peer_ptr_vector jarg1_, long jarg2);
+  public final static native boolean torrent_peer_ptr_vector_isEmpty(long jarg1, torrent_peer_ptr_vector jarg1_);
+  public final static native void torrent_peer_ptr_vector_clear(long jarg1, torrent_peer_ptr_vector jarg1_);
+  public final static native void torrent_peer_ptr_vector_add(long jarg1, torrent_peer_ptr_vector jarg1_, long jarg2, torrent_peer jarg2_);
+  public final static native long torrent_peer_ptr_vector_get(long jarg1, torrent_peer_ptr_vector jarg1_, int jarg2);
+  public final static native void torrent_peer_ptr_vector_set(long jarg1, torrent_peer_ptr_vector jarg1_, int jarg2, long jarg3, torrent_peer jarg3_);
+  public final static native void delete_torrent_peer_ptr_vector(long jarg1);
   public final static native long new_entry_list();
   public final static native boolean entry_list_isEmpty(long jarg1, entry_list jarg1_);
   public final static native long entry_list_size(long jarg1, entry_list jarg1_);
@@ -2807,6 +2878,14 @@ public class libtorrent_jni {
   public final static native void delete_ipv6_peer(long jarg1);
   public final static native long new_peer_address_compare();
   public final static native void delete_peer_address_compare(long jarg1);
+  public final static native void peer_connection_args_stats_counters_set(long jarg1, peer_connection_args jarg1_, long jarg2, counters jarg2_);
+  public final static native long peer_connection_args_stats_counters_get(long jarg1, peer_connection_args jarg1_);
+  public final static native void peer_connection_args_endp_set(long jarg1, peer_connection_args jarg1_, long jarg2, tcp_endpoint jarg2_);
+  public final static native long peer_connection_args_endp_get(long jarg1, peer_connection_args jarg1_);
+  public final static native void peer_connection_args_peerinfo_set(long jarg1, peer_connection_args jarg1_, long jarg2, torrent_peer jarg2_);
+  public final static native long peer_connection_args_peerinfo_get(long jarg1, peer_connection_args jarg1_);
+  public final static native long new_peer_connection_args();
+  public final static native void delete_peer_connection_args(long jarg1);
   public final static native int peer_connection_bittorrent_connection_get();
   public final static native int peer_connection_url_seed_connection_get();
   public final static native int peer_connection_http_seed_connection_get();
@@ -3207,6 +3286,102 @@ public class libtorrent_jni {
   public final static native void session_set_piece_hashes(long jarg1, session jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
   public final static native long session_get_upnp(long jarg1, session jarg1_);
   public final static native void session_add_swig_extension(long jarg1, session jarg1_, long jarg2, swig_plugin jarg2_);
+  public final static native void delete_disk_buffer_holder(long jarg1);
+  public final static native String disk_buffer_holder_release(long jarg1, disk_buffer_holder jarg1_);
+  public final static native String disk_buffer_holder_get(long jarg1, disk_buffer_holder jarg1_);
+  public final static native void disk_buffer_holder_reset__SWIG_0(long jarg1, disk_buffer_holder jarg1_, String jarg2);
+  public final static native void disk_buffer_holder_reset__SWIG_1(long jarg1, disk_buffer_holder jarg1_);
+  public final static native void disk_buffer_holder_swap(long jarg1, disk_buffer_holder jarg1_, long jarg2, disk_buffer_holder jarg2_);
+  public final static native void bt_peer_connection_start(long jarg1, bt_peer_connection jarg1_);
+  public final static native int bt_peer_connection_upload_only_msg_get();
+  public final static native int bt_peer_connection_holepunch_msg_get();
+  public final static native int bt_peer_connection_dont_have_msg_get();
+  public final static native int bt_peer_connection_share_mode_msg_get();
+  public final static native void delete_bt_peer_connection(long jarg1);
+  public final static native boolean bt_peer_connection_supports_encryption(long jarg1, bt_peer_connection jarg1_);
+  public final static native boolean bt_peer_connection_rc4_encrypted(long jarg1, bt_peer_connection jarg1_);
+  public final static native int bt_peer_connection_type(long jarg1, bt_peer_connection jarg1_);
+  public final static native int bt_peer_connection_msg_choke_get();
+  public final static native int bt_peer_connection_msg_suggest_piece_get();
+  public final static native int bt_peer_connection_msg_extended_get();
+  public final static native int bt_peer_connection_hp_rendezvous_get();
+  public final static native int bt_peer_connection_hp_connect_get();
+  public final static native int bt_peer_connection_hp_failed_get();
+  public final static native int bt_peer_connection_hp_no_such_peer_get();
+  public final static native int bt_peer_connection_hp_not_connected_get();
+  public final static native int bt_peer_connection_hp_no_support_get();
+  public final static native int bt_peer_connection_hp_no_self_get();
+  public final static native void bt_peer_connection_on_sent(long jarg1, bt_peer_connection jarg1_, long jarg2, error_code jarg2_, long jarg3);
+  public final static native void bt_peer_connection_on_receive(long jarg1, bt_peer_connection jarg1_, long jarg2, error_code jarg2_, long jarg3);
+  public final static native void bt_peer_connection_on_receive_impl(long jarg1, bt_peer_connection jarg1_, long jarg2);
+  public final static native void bt_peer_connection_get_specific_peer_info(long jarg1, bt_peer_connection jarg1_, long jarg2, peer_info jarg2_);
+  public final static native boolean bt_peer_connection_in_handshake(long jarg1, bt_peer_connection jarg1_);
+  public final static native boolean bt_peer_connection_packet_finished(long jarg1, bt_peer_connection jarg1_);
+  public final static native boolean bt_peer_connection_supports_holepunch(long jarg1, bt_peer_connection jarg1_);
+  public final static native boolean bt_peer_connection_support_extensions(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_on_keepalive(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_on_choke(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_unchoke(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_interested(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_not_interested(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_have(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_bitfield(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_request(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_piece(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_cancel(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_dht_port(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_suggest_piece(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_have_all(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_have_none(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_reject_request(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_allowed_fast(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_holepunch(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_on_extended(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_extended_handshake(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_choke(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_unchoke(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_interested(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_not_interested(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_request(long jarg1, bt_peer_connection jarg1_, long jarg2, peer_request jarg2_);
+  public final static native void bt_peer_connection_write_cancel(long jarg1, bt_peer_connection jarg1_, long jarg2, peer_request jarg2_);
+  public final static native void bt_peer_connection_write_bitfield(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_have(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_write_dont_have(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_write_keepalive(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_handshake__SWIG_0(long jarg1, bt_peer_connection jarg1_, boolean jarg2);
+  public final static native void bt_peer_connection_write_handshake__SWIG_1(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_extensions(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_upload_only(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_share_mode(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_holepunch_msg(long jarg1, bt_peer_connection jarg1_, int jarg2, long jarg3, tcp_endpoint jarg3_, int jarg4);
+  public final static native void bt_peer_connection_write_dht_port(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_write_have_all(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_have_none(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_write_reject_request(long jarg1, bt_peer_connection jarg1_, long jarg2, peer_request jarg2_);
+  public final static native void bt_peer_connection_write_allow_fast(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_write_suggest(long jarg1, bt_peer_connection jarg1_, int jarg2);
+  public final static native void bt_peer_connection_on_connected(long jarg1, bt_peer_connection jarg1_);
+  public final static native void bt_peer_connection_on_metadata(long jarg1, bt_peer_connection jarg1_);
+  public final static native long new_web_peer_connection(long jarg1, peer_connection_args jarg1_, long jarg2, web_seed_t jarg2_);
+  public final static native void web_peer_connection_on_connected(long jarg1, web_peer_connection jarg1_);
+  public final static native int web_peer_connection_type(long jarg1, web_peer_connection jarg1_);
+  public final static native void web_peer_connection_on_receive(long jarg1, web_peer_connection jarg1_, long jarg2, error_code jarg2_, long jarg3);
+  public final static native String web_peer_connection_url(long jarg1, web_peer_connection jarg1_);
+  public final static native void web_peer_connection_get_specific_peer_info(long jarg1, web_peer_connection jarg1_, long jarg2, peer_info jarg2_);
+  public final static native void web_peer_connection_disconnect__SWIG_0(long jarg1, web_peer_connection jarg1_, long jarg2, error_code jarg2_, int jarg3, int jarg4);
+  public final static native void web_peer_connection_disconnect__SWIG_1(long jarg1, web_peer_connection jarg1_, long jarg2, error_code jarg2_, int jarg3);
+  public final static native void web_peer_connection_write_request(long jarg1, web_peer_connection jarg1_, long jarg2, peer_request jarg2_);
+  public final static native boolean web_peer_connection_received_invalid_data(long jarg1, web_peer_connection jarg1_, int jarg2, boolean jarg3);
+  public final static native void delete_web_peer_connection(long jarg1);
+  public final static native long new_http_seed_connection(long jarg1, peer_connection_args jarg1_, long jarg2, web_seed_t jarg2_);
+  public final static native int http_seed_connection_type(long jarg1, http_seed_connection jarg1_);
+  public final static native void http_seed_connection_on_receive(long jarg1, http_seed_connection jarg1_, long jarg2, error_code jarg2_, long jarg3);
+  public final static native String http_seed_connection_url(long jarg1, http_seed_connection jarg1_);
+  public final static native void http_seed_connection_get_specific_peer_info(long jarg1, http_seed_connection jarg1_, long jarg2, peer_info jarg2_);
+  public final static native void http_seed_connection_disconnect__SWIG_0(long jarg1, http_seed_connection jarg1_, long jarg2, error_code jarg2_, int jarg3, int jarg4);
+  public final static native void http_seed_connection_disconnect__SWIG_1(long jarg1, http_seed_connection jarg1_, long jarg2, error_code jarg2_, int jarg3);
+  public final static native void http_seed_connection_write_request(long jarg1, http_seed_connection jarg1_, long jarg2, peer_request jarg2_);
+  public final static native void delete_http_seed_connection(long jarg1);
   public final static native void pool_file_status_file_index_set(long jarg1, pool_file_status jarg1_, int jarg2);
   public final static native int pool_file_status_file_index_get(long jarg1, pool_file_status jarg1_);
   public final static native void pool_file_status_last_use_set(long jarg1, pool_file_status jarg1_, long jarg2, high_resolution_clock.time_point jarg2_);
@@ -3499,17 +3674,45 @@ public class libtorrent_jni {
   public final static native long ipv6_peer_SWIGUpcast(long jarg1);
   public final static native long peer_connection_SWIGSmartPtrUpcast(long jarg1);
   public final static native long web_seed_t_SWIGUpcast(long jarg1);
+  public final static native long bt_peer_connection_SWIGSmartPtrUpcast(long jarg1);
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
 
-  public static long SwigDirector_swig_plugin_new_torrent2(swig_plugin jself, long th) {
-    return swig_torrent_plugin.getCPtr(jself.new_torrent2(new torrent_handle(th, false)));
+  public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long th) {
+    return swig_torrent_plugin.getCPtr(jself.new_torrent(new torrent_handle(th, false)));
+  }
+  public static void SwigDirector_swig_plugin_added(swig_plugin jself) {
+    jself.added();
+  }
+  public static void SwigDirector_swig_plugin_on_alert(swig_plugin jself, long arg0) {
+    jself.on_alert((arg0 == 0) ? null : new alert(arg0, false));
+  }
+  public static boolean SwigDirector_swig_plugin_on_unknown_torrent(swig_plugin jself, long info_hash, long pc, long p) {
+    return jself.on_unknown_torrent(new sha1_hash(info_hash, false), (pc == 0) ? null : new peer_connection(pc, false), new add_torrent_params(p, false));
   }
   public static void SwigDirector_swig_plugin_on_tick(swig_plugin jself) {
     jself.on_tick();
   }
-  public static long SwigDirector_swig_torrent_plugin_new_connection2(swig_torrent_plugin jself, long pc) {
-    return swig_peer_plugin.getCPtr(jself.new_connection2((pc == 0) ? null : new peer_connection(pc, false)));
+  public static boolean SwigDirector_swig_plugin_on_optimistic_unchoke(swig_plugin jself, long peers) {
+    return jself.on_optimistic_unchoke(new torrent_peer_ptr_vector(peers, false));
+  }
+  public static void SwigDirector_swig_plugin_save_state(swig_plugin jself, long e) {
+    jself.save_state(new entry(e, false));
+  }
+  public static void SwigDirector_swig_plugin_load_state(swig_plugin jself, long n) {
+    jself.load_state(new bdecode_node(n, false));
+  }
+  public static long SwigDirector_swig_torrent_plugin_new_peer_connection(swig_torrent_plugin jself, long pc) {
+    return swig_peer_plugin.getCPtr(jself.new_peer_connection((pc == 0) ? null : new peer_connection(pc, false)));
+  }
+  public static long SwigDirector_swig_torrent_plugin_new_bt_peer_connection(swig_torrent_plugin jself, long pc) {
+    return swig_peer_plugin.getCPtr(jself.new_bt_peer_connection((pc == 0) ? null : new bt_peer_connection(pc, false)));
+  }
+  public static long SwigDirector_swig_torrent_plugin_new_web_peer_connection(swig_torrent_plugin jself, long pc) {
+    return swig_peer_plugin.getCPtr(jself.new_web_peer_connection((pc == 0) ? null : new web_peer_connection(pc, false)));
+  }
+  public static long SwigDirector_swig_torrent_plugin_new_http_seed_connection(swig_torrent_plugin jself, long pc) {
+    return swig_peer_plugin.getCPtr(jself.new_http_seed_connection((pc == 0) ? null : new http_seed_connection(pc, false)));
   }
   public static void SwigDirector_swig_torrent_plugin_on_piece_pass(swig_torrent_plugin jself, int index) {
     jself.on_piece_pass(index);
@@ -3537,6 +3740,93 @@ public class libtorrent_jni {
   }
   public static void SwigDirector_swig_torrent_plugin_on_load(swig_torrent_plugin jself) {
     jself.on_load();
+  }
+  public static void SwigDirector_swig_torrent_plugin_on_add_peer(swig_torrent_plugin jself, long endp, int src, int flags) {
+    jself.on_add_peer(new tcp_endpoint(endp, false), src, flags);
+  }
+  public static String SwigDirector_swig_peer_plugin_type(swig_peer_plugin jself) {
+    return jself.type();
+  }
+  public static void SwigDirector_swig_peer_plugin_add_handshake(swig_peer_plugin jself, long e) {
+    jself.add_handshake(new entry(e, false));
+  }
+  public static void SwigDirector_swig_peer_plugin_on_disconnect(swig_peer_plugin jself, long ec) {
+    jself.on_disconnect(new error_code(ec, false));
+  }
+  public static void SwigDirector_swig_peer_plugin_on_connected(swig_peer_plugin jself) {
+    jself.on_connected();
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_handshake(swig_peer_plugin jself, String reserved_bits) {
+    return jself.on_handshake(reserved_bits);
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_extension_handshake(swig_peer_plugin jself, long n) {
+    return jself.on_extension_handshake(new bdecode_node(n, false));
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_choke(swig_peer_plugin jself) {
+    return jself.on_choke();
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_unchoke(swig_peer_plugin jself) {
+    return jself.on_unchoke();
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_interested(swig_peer_plugin jself) {
+    return jself.on_interested();
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_not_interested(swig_peer_plugin jself) {
+    return jself.on_not_interested();
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_have(swig_peer_plugin jself, int index) {
+    return jself.on_have(index);
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_dont_have(swig_peer_plugin jself, int index) {
+    return jself.on_dont_have(index);
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_bitfield(swig_peer_plugin jself, long bitfield) {
+    return jself.on_bitfield(new bitfield(bitfield, false));
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_have_all(swig_peer_plugin jself) {
+    return jself.on_have_all();
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_have_none(swig_peer_plugin jself) {
+    return jself.on_have_none();
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_allowed_fast(swig_peer_plugin jself, int index) {
+    return jself.on_allowed_fast(index);
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_request(swig_peer_plugin jself, long r) {
+    return jself.on_request(new peer_request(r, false));
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_piece(swig_peer_plugin jself, long piece, long data) {
+    return jself.on_piece(new peer_request(piece, false), new disk_buffer_holder(data, false));
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_cancel(swig_peer_plugin jself, long r) {
+    return jself.on_cancel(new peer_request(r, false));
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_reject(swig_peer_plugin jself, long r) {
+    return jself.on_reject(new peer_request(r, false));
+  }
+  public static boolean SwigDirector_swig_peer_plugin_on_suggest(swig_peer_plugin jself, int index) {
+    return jself.on_suggest(index);
+  }
+  public static void SwigDirector_swig_peer_plugin_sent_unchoke(swig_peer_plugin jself) {
+    jself.sent_unchoke();
+  }
+  public static void SwigDirector_swig_peer_plugin_sent_payload(swig_peer_plugin jself, int bytes) {
+    jself.sent_payload(bytes);
+  }
+  public static boolean SwigDirector_swig_peer_plugin_can_disconnect(swig_peer_plugin jself, long ec) {
+    return jself.can_disconnect(new error_code(ec, false));
+  }
+  public static void SwigDirector_swig_peer_plugin_on_piece_pass(swig_peer_plugin jself, int index) {
+    jself.on_piece_pass(index);
+  }
+  public static void SwigDirector_swig_peer_plugin_on_piece_failed(swig_peer_plugin jself, int index) {
+    jself.on_piece_failed(index);
+  }
+  public static void SwigDirector_swig_peer_plugin_tick(swig_peer_plugin jself) {
+    jself.tick();
+  }
+  public static boolean SwigDirector_swig_peer_plugin_write_request(swig_peer_plugin jself, long r) {
+    return jself.write_request(new peer_request(r, false));
   }
 
   private final static native void swig_module_init();

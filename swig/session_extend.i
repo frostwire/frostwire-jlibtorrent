@@ -71,11 +71,18 @@ class upnp;
 
 }
 
-%feature("director") swig_plugin;
-%feature("director") swig_torrent_plugin;
+%feature("director", assumeoverride=1) swig_plugin;
+%feature("director", assumeoverride=1) swig_torrent_plugin;
+%feature("director", assumeoverride=1) swig_peer_plugin;
+
 %typemap("javapackage") SwigPlugin, SwigPlugin *, SwigPlugin & "com.frostwire.jlibtorrent.plugins";
 
-%ignore swig_plugin::new_torrent;
+%ignore swig_plugin::new_torrent(torrent*, void*);
+%ignore swig_plugin::added(aux::session_impl*);
+
 %ignore swig_torrent_plugin::new_connection;
+
+%ignore swig_peer_plugin::on_extended;
+%ignore swig_peer_plugin::on_unknown_message;
 
 %include "session_plugins.h"

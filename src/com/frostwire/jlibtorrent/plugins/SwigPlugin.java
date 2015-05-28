@@ -18,8 +18,8 @@ public final class SwigPlugin extends swig_plugin {
         p.onTick();
     }
 
-    @Override
-    public swig_torrent_plugin new_torrent2(torrent_handle th) {
-        return new SwigTorrentPlugin(p.newTorrent(new TorrentHandle(th)));
-    }
+//    @Override
+//    public swig_torrent_plugin new_torrent2(torrent_handle th) {
+//        return new SwigTorrentPlugin(p.newTorrent(new TorrentHandle(th)));
+//    }
 }
