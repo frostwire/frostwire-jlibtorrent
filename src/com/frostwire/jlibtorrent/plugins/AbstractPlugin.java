@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.swig.bdecode_node;
  * @author gubatron
  * @author aldenml
  */
-public class AbstractPlugin implements Plugin {
+public abstract class AbstractPlugin implements Plugin {
 
 
     @Override

@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.PeerConnection;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.alerts.Alert;
@@ -22,6 +23,17 @@ public final class PluginsTest {
             @Override
             public TorrentPlugin newTorrent(TorrentHandle th) {
                 return new AbstractTorrentPlugin() {
+
+                    @Override
+                    public PeerPlugin newPeerConnection(PeerConnection pc) {
+                        return new AbstractPeerPlugin() {
+                            @Override
+                            public void tick() {
+                                System.out.println("PeerPlugin: tick");
+                            }
+                        };
+                    }
+
                     @Override
                     public void tick() {
                         System.out.println("TorrentPlugin: tick");

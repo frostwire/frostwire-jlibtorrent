@@ -10,7 +10,7 @@ import com.frostwire.jlibtorrent.TcpEndpoint;
 public abstract class AbstractTorrentPlugin implements TorrentPlugin {
 
     @Override
-    public PeerPlugin newPeerConnection(PeerConnection peerConnection) {
+    public PeerPlugin newPeerConnection(PeerConnection pc) {
         return null;
     }
 
