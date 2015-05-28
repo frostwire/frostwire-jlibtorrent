@@ -110,6 +110,57 @@ public class libtorrent_jni {
   public final static native long to_microseconds(long jarg1);
   public final static native long to_minutes(long jarg1);
   public final static native long to_hours(long jarg1);
+  public final static native void delete_swig_plugin(long jarg1);
+  public final static native long swig_plugin_new_torrent2(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native long swig_plugin_new_torrent2SwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native void swig_plugin_on_tick(long jarg1, swig_plugin jarg1_);
+  public final static native void swig_plugin_on_tickSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_);
+  public final static native long new_swig_plugin();
+  public final static native void swig_plugin_director_connect(swig_plugin obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void swig_plugin_change_ownership(swig_plugin obj, long cptr, boolean take_or_release);
+  public final static native long new_swig_torrent_plugin();
+  public final static native void delete_swig_torrent_plugin(long jarg1);
+  public final static native long swig_torrent_plugin_new_connection2(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_connection2SwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection jarg2_);
+  public final static native void swig_torrent_plugin_on_piece_pass(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
+  public final static native void swig_torrent_plugin_on_piece_passSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
+  public final static native void swig_torrent_plugin_on_piece_failed(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
+  public final static native void swig_torrent_plugin_on_piece_failedSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
+  public final static native void swig_torrent_plugin_tick(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_tickSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native boolean swig_torrent_plugin_on_pause(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native boolean swig_torrent_plugin_on_pauseSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native boolean swig_torrent_plugin_on_resume(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native boolean swig_torrent_plugin_on_resumeSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_on_files_checked(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_on_files_checkedSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_on_state(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
+  public final static native void swig_torrent_plugin_on_stateSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
+  public final static native void swig_torrent_plugin_on_unload(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_on_unloadSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_on_load(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_on_loadSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_);
+  public final static native void swig_torrent_plugin_director_connect(swig_torrent_plugin obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void swig_torrent_plugin_change_ownership(swig_torrent_plugin obj, long cptr, boolean take_or_release);
+  public final static native long new_swig_peer_plugin();
+  public final static native void delete_swig_peer_plugin(long jarg1);
+  public final static native String swig_peer_plugin_type(long jarg1, swig_peer_plugin jarg1_);
+  public final static native void swig_peer_plugin_on_connected(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_choke(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_unchoke(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_interested(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_not_interested(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_have(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_dont_have(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_have_all(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_have_none(long jarg1, swig_peer_plugin jarg1_);
+  public final static native boolean swig_peer_plugin_on_allowed_fast(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native boolean swig_peer_plugin_on_suggest(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native void swig_peer_plugin_sent_unchoke(long jarg1, swig_peer_plugin jarg1_);
+  public final static native void swig_peer_plugin_sent_payload(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native void swig_peer_plugin_on_piece_pass(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native void swig_peer_plugin_on_piece_failed(long jarg1, swig_peer_plugin jarg1_, int jarg2);
+  public final static native void swig_peer_plugin_tick(long jarg1, swig_peer_plugin jarg1_);
   public final static native long new_char_const_ptr_int_pair__SWIG_0();
   public final static native long new_char_const_ptr_int_pair__SWIG_1(String jarg1, int jarg2);
   public final static native long new_char_const_ptr_int_pair__SWIG_2(long jarg1, char_const_ptr_int_pair jarg1_);
@@ -3155,7 +3206,7 @@ public class libtorrent_jni {
   public final static native void session_dht_announce__SWIG_1(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void session_set_piece_hashes(long jarg1, session jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
   public final static native long session_get_upnp(long jarg1, session jarg1_);
-  public final static native void session_add_swig_extension(long jarg1, session jarg1_);
+  public final static native void session_add_swig_extension(long jarg1, session jarg1_, long jarg2, swig_plugin jarg2_);
   public final static native void pool_file_status_file_index_set(long jarg1, pool_file_status jarg1_, int jarg2);
   public final static native int pool_file_status_file_index_get(long jarg1, pool_file_status jarg1_);
   public final static native void pool_file_status_last_use_set(long jarg1, pool_file_status jarg1_, long jarg2, high_resolution_clock.time_point jarg2_);
@@ -3450,4 +3501,46 @@ public class libtorrent_jni {
   public final static native long web_seed_t_SWIGUpcast(long jarg1);
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
+
+  public static long SwigDirector_swig_plugin_new_torrent2(swig_plugin jself, long th) {
+    return swig_torrent_plugin.getCPtr(jself.new_torrent2(new torrent_handle(th, false)));
+  }
+  public static void SwigDirector_swig_plugin_on_tick(swig_plugin jself) {
+    jself.on_tick();
+  }
+  public static long SwigDirector_swig_torrent_plugin_new_connection2(swig_torrent_plugin jself, long pc) {
+    return swig_peer_plugin.getCPtr(jself.new_connection2((pc == 0) ? null : new peer_connection(pc, false)));
+  }
+  public static void SwigDirector_swig_torrent_plugin_on_piece_pass(swig_torrent_plugin jself, int index) {
+    jself.on_piece_pass(index);
+  }
+  public static void SwigDirector_swig_torrent_plugin_on_piece_failed(swig_torrent_plugin jself, int index) {
+    jself.on_piece_failed(index);
+  }
+  public static void SwigDirector_swig_torrent_plugin_tick(swig_torrent_plugin jself) {
+    jself.tick();
+  }
+  public static boolean SwigDirector_swig_torrent_plugin_on_pause(swig_torrent_plugin jself) {
+    return jself.on_pause();
+  }
+  public static boolean SwigDirector_swig_torrent_plugin_on_resume(swig_torrent_plugin jself) {
+    return jself.on_resume();
+  }
+  public static void SwigDirector_swig_torrent_plugin_on_files_checked(swig_torrent_plugin jself) {
+    jself.on_files_checked();
+  }
+  public static void SwigDirector_swig_torrent_plugin_on_state(swig_torrent_plugin jself, int s) {
+    jself.on_state(s);
+  }
+  public static void SwigDirector_swig_torrent_plugin_on_unload(swig_torrent_plugin jself) {
+    jself.on_unload();
+  }
+  public static void SwigDirector_swig_torrent_plugin_on_load(swig_torrent_plugin jself) {
+    jself.on_load();
+  }
+
+  private final static native void swig_module_init();
+  static {
+    swig_module_init();
+  }
 }

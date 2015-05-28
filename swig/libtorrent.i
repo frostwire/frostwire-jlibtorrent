@@ -1,4 +1,4 @@
-%module (jniclassname="libtorrent_jni") libtorrent
+%module (jniclassname="libtorrent_jni", directors="1") libtorrent
 
 %pragma(java) jniclasscode=%{
     static {

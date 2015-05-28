@@ -317,8 +317,8 @@ public class session {
     return (cPtr == 0) ? null : new upnp(cPtr, false);
   }
 
-  public void add_swig_extension() {
-    libtorrent_jni.session_add_swig_extension(swigCPtr, this);
+  public void add_swig_extension(swig_plugin p) {
+    libtorrent_jni.session_add_swig_extension(swigCPtr, this, swig_plugin.getCPtr(p), p);
   }
 
   public enum save_state_flags_t {

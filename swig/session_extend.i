@@ -64,9 +64,18 @@ class upnp;
         return get_upnp($self);
     }
 
-    void add_swig_extension() {
-        $self->add_extension(boost::shared_ptr<plugin>(new swig_plugin()));
+    void add_swig_extension(swig_plugin *p) {
+        $self->add_extension(boost::shared_ptr<plugin>(p));
     }
 };
 
 }
+
+%feature("director") swig_plugin;
+%feature("director") swig_torrent_plugin;
+%typemap("javapackage") SwigPlugin, SwigPlugin *, SwigPlugin & "com.frostwire.jlibtorrent.plugins";
+
+%ignore swig_plugin::new_torrent;
+%ignore swig_torrent_plugin::new_connection;
+
+%include "session_plugins.h"
