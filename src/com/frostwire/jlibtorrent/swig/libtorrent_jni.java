@@ -3360,7 +3360,28 @@ public class libtorrent_jni {
   public final static native void bt_peer_connection_write_suggest(long jarg1, bt_peer_connection jarg1_, int jarg2);
   public final static native void bt_peer_connection_on_connected(long jarg1, bt_peer_connection jarg1_);
   public final static native void bt_peer_connection_on_metadata(long jarg1, bt_peer_connection jarg1_);
-  public final static native long new_web_peer_connection(long jarg1, peer_connection_args jarg1_, long jarg2, web_seed_t jarg2_);
+  public final static native int web_connection_base_timeout(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_start(long jarg1, web_connection_base jarg1_);
+  public final static native void delete_web_connection_base(long jarg1);
+  public final static native void web_connection_base_on_sent(long jarg1, web_connection_base jarg1_, long jarg2, error_code jarg2_, long jarg3);
+  public final static native String web_connection_base_url(long jarg1, web_connection_base jarg1_);
+  public final static native boolean web_connection_base_in_handshake(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_write_choke(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_write_unchoke(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_write_interested(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_write_not_interested(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_write_request(long jarg1, web_connection_base jarg1_, long jarg2, peer_request jarg2_);
+  public final static native void web_connection_base_write_cancel(long jarg1, web_connection_base jarg1_, long jarg2, peer_request jarg2_);
+  public final static native void web_connection_base_write_have(long jarg1, web_connection_base jarg1_, int jarg2);
+  public final static native void web_connection_base_write_dont_have(long jarg1, web_connection_base jarg1_, int jarg2);
+  public final static native void web_connection_base_write_piece(long jarg1, web_connection_base jarg1_, long jarg2, peer_request jarg2_, long jarg3, disk_buffer_holder jarg3_);
+  public final static native void web_connection_base_write_keepalive(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_on_connected(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_write_reject_request(long jarg1, web_connection_base jarg1_, long jarg2, peer_request jarg2_);
+  public final static native void web_connection_base_write_allow_fast(long jarg1, web_connection_base jarg1_, int jarg2);
+  public final static native void web_connection_base_write_suggest(long jarg1, web_connection_base jarg1_, int jarg2);
+  public final static native void web_connection_base_write_bitfield(long jarg1, web_connection_base jarg1_);
+  public final static native void web_connection_base_get_specific_peer_info(long jarg1, web_connection_base jarg1_, long jarg2, peer_info jarg2_);
   public final static native void web_peer_connection_on_connected(long jarg1, web_peer_connection jarg1_);
   public final static native int web_peer_connection_type(long jarg1, web_peer_connection jarg1_);
   public final static native void web_peer_connection_on_receive(long jarg1, web_peer_connection jarg1_, long jarg2, error_code jarg2_, long jarg3);
@@ -3371,7 +3392,6 @@ public class libtorrent_jni {
   public final static native void web_peer_connection_write_request(long jarg1, web_peer_connection jarg1_, long jarg2, peer_request jarg2_);
   public final static native boolean web_peer_connection_received_invalid_data(long jarg1, web_peer_connection jarg1_, int jarg2, boolean jarg3);
   public final static native void delete_web_peer_connection(long jarg1);
-  public final static native long new_http_seed_connection(long jarg1, peer_connection_args jarg1_, long jarg2, web_seed_t jarg2_);
   public final static native int http_seed_connection_type(long jarg1, http_seed_connection jarg1_);
   public final static native void http_seed_connection_on_receive(long jarg1, http_seed_connection jarg1_, long jarg2, error_code jarg2_, long jarg3);
   public final static native String http_seed_connection_url(long jarg1, http_seed_connection jarg1_);
@@ -3673,6 +3693,9 @@ public class libtorrent_jni {
   public final static native long peer_connection_SWIGSmartPtrUpcast(long jarg1);
   public final static native long web_seed_t_SWIGUpcast(long jarg1);
   public final static native long bt_peer_connection_SWIGSmartPtrUpcast(long jarg1);
+  public final static native long web_connection_base_SWIGSmartPtrUpcast(long jarg1);
+  public final static native long web_peer_connection_SWIGSmartPtrUpcast(long jarg1);
+  public final static native long http_seed_connection_SWIGSmartPtrUpcast(long jarg1);
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
 

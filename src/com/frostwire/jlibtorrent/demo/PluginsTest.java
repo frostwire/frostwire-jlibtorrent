@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.plugins.AbstractPlugin;
 import com.frostwire.jlibtorrent.plugins.Plugin;
 import com.frostwire.jlibtorrent.plugins.SwigPlugin;
 import com.frostwire.jlibtorrent.plugins.TorrentPlugin;
@@ -20,7 +21,7 @@ public final class PluginsTest {
 
         final Session s = new Session();
 
-        Plugin p = new Plugin() {
+        Plugin p = new AbstractPlugin() {
             @Override
             public TorrentPlugin newTorrent(TorrentHandle th) {
                 return new TorrentPlugin() {

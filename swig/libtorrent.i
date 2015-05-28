@@ -57,6 +57,7 @@
 #include "libtorrent/disk_buffer_holder.hpp"
 #include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/bt_peer_connection.hpp"
+#include "libtorrent/web_connection_base.hpp"
 #include "libtorrent/web_peer_connection.hpp"
 #include "libtorrent/http_seed_connection.hpp"
 #include "libtorrent/file_pool.hpp"
@@ -281,6 +282,9 @@ public:
 %shared_ptr(libtorrent::bandwidth_socket)
 %shared_ptr(libtorrent::peer_connection)
 %shared_ptr(libtorrent::bt_peer_connection)
+%shared_ptr(libtorrent::web_connection_base)
+%shared_ptr(libtorrent::web_peer_connection)
+%shared_ptr(libtorrent::http_seed_connection)
 %shared_ptr(libtorrent::torrent_info)
 
 %auto_ptr(libtorrent::alert)
@@ -724,6 +728,7 @@ namespace std {
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
 %include "libtorrent/bt_peer_connection.hpp"
+%include "libtorrent/web_connection_base.hpp"
 %include "libtorrent/web_peer_connection.hpp"
 %include "libtorrent/http_seed_connection.hpp"
 %include "libtorrent/file_pool.hpp"
