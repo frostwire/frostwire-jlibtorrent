@@ -1,11 +1,14 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.AddTorrentParams;
-import com.frostwire.jlibtorrent.PeerConnection;
-import com.frostwire.jlibtorrent.Sha1Hash;
-import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.swig.bdecode_node;
 
+/**
+ * @author gubatron
+ * @author aldenml
+ */
 public class AbstractPlugin implements Plugin {
+
 
     @Override
     public TorrentPlugin newTorrent(TorrentHandle th) {
@@ -24,6 +27,21 @@ public class AbstractPlugin implements Plugin {
 
     @Override
     public void onTick() {
+
+    }
+
+    @Override
+    public boolean onOptimisticUnchoke(TorrentPeer[] peers) {
+        return false;
+    }
+
+    @Override
+    public void saveState(Entry e) {
+
+    }
+
+    @Override
+    public void loadState(bdecode_node n) {
 
     }
 }

@@ -7,6 +7,9 @@ import com.frostwire.jlibtorrent.swig.bdecode_node;
  * this is the base class for a session plugin. One primary feature
  * // is that it is notified of all torrents that are added to the session,
  * // and can add its own torrent_plugins.
+ *
+ * @author gubatron
+ * @author aldenml
  */
 public interface Plugin {
 

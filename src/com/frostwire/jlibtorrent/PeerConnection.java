@@ -6,15 +6,15 @@ import com.frostwire.jlibtorrent.swig.peer_connection;
  * @author gubatron
  * @author aldenml
  */
-public class PeerConnection {
+public class PeerConnection<T extends peer_connection> {
 
-    private final peer_connection pc;
+    private final T pc;
 
-    public PeerConnection(peer_connection pc) {
+    public PeerConnection(T pc) {
         this.pc = pc;
     }
 
-    public peer_connection getSwig() {
+    public T getSwig() {
         return pc;
     }
 }

@@ -3,6 +3,10 @@ package com.frostwire.jlibtorrent.plugins;
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.swig.*;
 
+/**
+ * @author gubatron
+ * @author aldenml
+ */
 public final class SwigPlugin extends swig_plugin {
 
     private final Plugin p;
