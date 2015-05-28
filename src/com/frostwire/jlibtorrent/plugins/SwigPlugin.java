@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.AddTorrentParams;
-import com.frostwire.jlibtorrent.PeerConnection;
-import com.frostwire.jlibtorrent.Sha1Hash;
-import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.swig.*;
 
 public final class SwigPlugin extends swig_plugin {
@@ -33,5 +30,27 @@ public final class SwigPlugin extends swig_plugin {
     @Override
     public void on_tick() {
         p.onTick();
+    }
+
+    @Override
+    public boolean on_optimistic_unchoke(torrent_peer_ptr_vector peers) {
+        int size = (int) peers.size();
+        TorrentPeer[] arr = new TorrentPeer[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = new TorrentPeer(peers.get(i));
+        }
+
+        return p.onOptimisticUnchoke(arr);
+    }
+
+    @Override
+    public void save_state(entry e) {
+        p.saveState(new Entry(e));
+    }
+
+    @Override
+    public void load_state(bdecode_node n) {
+        p.loadState(n);
     }
 }

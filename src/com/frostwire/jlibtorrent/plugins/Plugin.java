@@ -1,9 +1,7 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.AddTorrentParams;
-import com.frostwire.jlibtorrent.PeerConnection;
-import com.frostwire.jlibtorrent.Sha1Hash;
-import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.swig.bdecode_node;
 
 /**
  * this is the base class for a session plugin. One primary feature
@@ -42,5 +40,35 @@ public interface Plugin {
      */
     boolean onUnknownTorrent(Sha1Hash infoHash, PeerConnection pc, AddTorrentParams p);
 
+    /**
+     * called once per second.
+     */
     void onTick();
+
+    /**
+     * called when choosing peers to optimisticly unchoke
+     * // peer's will be unchoked in the order they appear in the given
+     * // vector which is initiallity sorted by when they were last
+     * // optimistically unchoked.
+     * // if the plugin returns true then the ordering provided will be
+     * // used and no other plugin will be allowed to change it.
+     *
+     * @param peers
+     * @return
+     */
+    boolean onOptimisticUnchoke(TorrentPeer[] peers);
+
+    /**
+     * called when saving settings state.
+     *
+     * @param e
+     */
+    void saveState(Entry e);
+
+    /**
+     * called when loading settings state.
+     *
+     * @param n
+     */
+    void loadState(bdecode_node n);
 }
