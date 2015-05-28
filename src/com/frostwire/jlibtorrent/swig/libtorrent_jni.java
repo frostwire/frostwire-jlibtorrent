@@ -3155,6 +3155,7 @@ public class libtorrent_jni {
   public final static native void session_dht_announce__SWIG_1(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void session_set_piece_hashes(long jarg1, session jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
   public final static native long session_get_upnp(long jarg1, session jarg1_);
+  public final static native void session_add_swig_extension(long jarg1, session jarg1_);
   public final static native void pool_file_status_file_index_set(long jarg1, pool_file_status jarg1_, int jarg2);
   public final static native int pool_file_status_file_index_get(long jarg1, pool_file_status jarg1_);
   public final static native void pool_file_status_last_use_set(long jarg1, pool_file_status jarg1_, long jarg2, high_resolution_clock.time_point jarg2_);

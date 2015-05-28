@@ -1281,6 +1281,9 @@ SWIGINTERN void libtorrent_session_set_piece_hashes(libtorrent::session *self,st
 SWIGINTERN libtorrent::upnp *libtorrent_session_get_upnp(libtorrent::session *self){
         return get_upnp(self);
     }
+SWIGINTERN void libtorrent_session_add_swig_extension(libtorrent::session *self){
+        self->add_extension(boost::shared_ptr<plugin>(new swig_plugin()));
+    }
 SWIGINTERN int libtorrent_bdecode_node_bdecode(std::vector< char > &buffer,libtorrent::bdecode_node &ret,libtorrent::error_code &ec){
         return libtorrent::bdecode(&buffer[0], &buffer[0] + buffer.size(), ret, ec);
     }
@@ -63382,6 +63385,24 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   }
   *(libtorrent::upnp **)&jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1add_1swig_1extension(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  libtorrent::session *arg1 = (libtorrent::session *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::session **)&jarg1; 
+  {
+    try {
+      libtorrent_session_add_swig_extension(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
 }
 
 

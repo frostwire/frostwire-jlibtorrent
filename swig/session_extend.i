@@ -63,6 +63,10 @@ class upnp;
     upnp* get_upnp() {
         return get_upnp($self);
     }
+
+    void add_swig_extension() {
+        $self->add_extension(boost::shared_ptr<plugin>(new swig_plugin()));
+    }
 };
 
 }

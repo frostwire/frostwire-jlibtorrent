@@ -317,6 +317,10 @@ public class session {
     return (cPtr == 0) ? null : new upnp(cPtr, false);
   }
 
+  public void add_swig_extension() {
+    libtorrent_jni.session_add_swig_extension(swigCPtr, this);
+  }
+
   public enum save_state_flags_t {
     save_settings(libtorrent_jni.session_save_settings_get()),
     save_dht_settings(libtorrent_jni.session_save_dht_settings_get()),

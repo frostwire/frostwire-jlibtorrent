@@ -1,3 +1,5 @@
+#include "session_plugins.h"
+
 #include "libtorrent/kademlia/dht_tracker.hpp"
 #include "libtorrent/kademlia/node_entry.hpp"
 #include "libtorrent/kademlia/node.hpp"
