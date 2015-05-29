@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.plugins;
 
 import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.alerts.Alerts;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.Iterator;
@@ -55,6 +56,13 @@ public final class SwigPlugin extends swig_plugin {
 
     @Override
     public void on_alert(alert a) {
+        try {
+            if (p.handleOperation(Plugin.Operation.ON_ALERT)) {
+                p.onAlert(Alerts.cast(a));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_alert)", e);
+        }
     }
 
     @Override

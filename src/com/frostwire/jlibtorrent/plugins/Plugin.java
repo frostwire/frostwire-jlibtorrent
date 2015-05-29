@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.plugins;
 
 import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 
 /**
@@ -34,6 +35,13 @@ public interface Plugin {
      * called when plugin is added to a session
      */
     void added();
+
+    /**
+     * Called when an alert is posted alerts that are filtered are not posted.
+     *
+     * @param a
+     */
+    void onAlert(Alert a);
 
     /**
      * return true if the add_torrent_params should be added.
@@ -79,6 +87,7 @@ public interface Plugin {
 
     enum Operation {
         NEW_TORRENT,
+        ON_ALERT,
         ON_UNKNOWN_TORRENT,
         ON_OPTIMISTIC_UNCHOKE,
         SAVE_STATE,

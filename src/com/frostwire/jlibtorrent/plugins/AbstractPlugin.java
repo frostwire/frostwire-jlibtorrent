@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.plugins;
 
 import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 
 /**
@@ -21,7 +22,10 @@ public abstract class AbstractPlugin implements Plugin {
 
     @Override
     public void added() {
+    }
 
+    @Override
+    public void onAlert(Alert a) {
     }
 
     @Override

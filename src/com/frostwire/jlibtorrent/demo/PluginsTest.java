@@ -18,6 +18,12 @@ public final class PluginsTest {
         final Session s = new Session();
 
         Plugin p = new AbstractPlugin() {
+
+            @Override
+            public boolean handleOperation(Operation op) {
+                return true;
+            }
+
             @Override
             public TorrentPlugin newTorrent(Torrent t) {
                 return new AbstractTorrentPlugin() {
@@ -45,8 +51,8 @@ public final class PluginsTest {
             }
 
             @Override
-            public void onTick() {
-                System.out.println("Plugin: onTick");
+            public void onAlert(Alert a) {
+                //System.out.println(a);
             }
         };
 
