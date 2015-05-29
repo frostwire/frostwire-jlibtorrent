@@ -17,12 +17,14 @@ public final class SwigPlugin extends swig_plugin {
         this.p = p;
     }
 
-    /*
     @Override
-    public swig_torrent_plugin new_torrent(torrent_handle th) {
-        TorrentPlugin tp = p.newTorrent(new TorrentHandle(th));
-        return tp != null ? new SwigTorrentPlugin(tp) : new swig_torrent_plugin();
-    }*/
+    public swig_torrent_plugin new_torrent(torrent t) {
+        System.out.println("is_aborted = " + t.is_aborted());
+        System.out.println("queue_position = " + t.queue_position());
+        //TorrentPlugin tp = p.newTorrent(new TorrentHandle(th));
+        //return tp != null ? new SwigTorrentPlugin(tp) : new swig_torrent_plugin();
+        return super.new_torrent(t);
+    }
 
     @Override
     public void added() {
@@ -31,7 +33,7 @@ public final class SwigPlugin extends swig_plugin {
 
     @Override
     public void on_alert(alert a) {
-        System.out.println(a);
+        //System.out.println(a.message());
         //super.on_alert(a);
     }
 

@@ -17,7 +17,7 @@ public:
     void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
     SwigDirector_swig_plugin(JNIEnv *jenv);
     virtual ~SwigDirector_swig_plugin();
-    virtual swig_torrent_plugin *new_torrent(libtorrent::torrent_handle th);
+    virtual swig_torrent_plugin *new_torrent(libtorrent::torrent *t);
     virtual void added();
     virtual void on_alert(libtorrent::alert const *a);
     virtual bool on_unknown_torrent(libtorrent::sha1_hash const &info_hash, libtorrent::peer_connection *pc, libtorrent::add_torrent_params &p);

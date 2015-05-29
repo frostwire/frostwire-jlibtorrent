@@ -1,6 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.add_torrent_params;
+import com.frostwire.jlibtorrent.swig.torrent;
 
 /**
  * a torrent is a class that holds information
@@ -12,13 +12,21 @@ import com.frostwire.jlibtorrent.swig.add_torrent_params;
  */
 public final class Torrent {
 
-    private final add_torrent_params p;
+    private final torrent t;
 
-    public Torrent(add_torrent_params p) {
-        this.p = p;
+    public Torrent(torrent t) {
+        this.t = t;
     }
 
-    public add_torrent_params getSwig() {
-        return p;
+    public torrent getSwig() {
+        return t;
+    }
+
+    boolean isAborted() {
+        return t.is_aborted();
+    }
+
+    public int queuePosition() {
+        return t.queue_position();
     }
 }

@@ -10,7 +10,7 @@ struct swig_plugin : plugin {
 
     boost::shared_ptr<torrent_plugin> new_torrent(torrent*, void*);
 
-    virtual swig_torrent_plugin* new_torrent(libtorrent::torrent_handle th);
+    virtual swig_torrent_plugin* new_torrent(libtorrent::torrent *t);
 
     void added(aux::session_impl*) {
         added();
@@ -156,10 +156,10 @@ struct swig_peer_plugin : peer_plugin
 };
 
 boost::shared_ptr<torrent_plugin> swig_plugin::new_torrent(torrent* t, void*) {
-    return boost::shared_ptr<torrent_plugin>(new_torrent(t->get_handle()));
+    return boost::shared_ptr<torrent_plugin>(new_torrent(t));
 }
 
-swig_torrent_plugin* swig_plugin::new_torrent(torrent_handle th) {
+swig_torrent_plugin* swig_plugin::new_torrent(torrent *t) {
     return new swig_torrent_plugin();
 }
 

@@ -111,8 +111,8 @@ public class libtorrent_jni {
   public final static native long to_minutes(long jarg1);
   public final static native long to_hours(long jarg1);
   public final static native void delete_swig_plugin(long jarg1);
-  public final static native long swig_plugin_new_torrent(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
-  public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native long swig_plugin_new_torrent(long jarg1, swig_plugin jarg1_, long jarg2, torrent jarg2_);
+  public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent jarg2_);
   public final static native void swig_plugin_added(long jarg1, swig_plugin jarg1_);
   public final static native void swig_plugin_addedSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_);
   public final static native void swig_plugin_on_alert(long jarg1, swig_plugin jarg1_, long jarg2, alert jarg2_);
@@ -3550,6 +3550,8 @@ public class libtorrent_jni {
   public final static native void delete_set_piece_hashes_alert(long jarg1);
   public final static native long new_stack_allocator();
   public final static native void delete_stack_allocator(long jarg1);
+  public final static native boolean torrent_is_aborted(long jarg1, torrent jarg1_);
+  public final static native int torrent_queue_position(long jarg1, torrent jarg1_);
   public final static native void delete_torrent(long jarg1);
   public final static native boolean sha1_bloom_filter_find(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void sha1_bloom_filter_set(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
@@ -3674,8 +3676,8 @@ public class libtorrent_jni {
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
 
-  public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long th) {
-    return swig_torrent_plugin.getCPtr(jself.new_torrent(new torrent_handle(th, false)));
+  public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long t) {
+    return swig_torrent_plugin.getCPtr(jself.new_torrent((t == 0) ? null : new torrent(t, false)));
   }
   public static void SwigDirector_swig_plugin_added(swig_plugin jself) {
     jself.added();

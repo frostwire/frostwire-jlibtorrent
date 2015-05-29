@@ -35,4 +35,12 @@ public class torrent {
     }
   }
 
+  public boolean is_aborted() {
+    return libtorrent_jni.torrent_is_aborted(swigCPtr, this);
+  }
+
+  public int queue_position() {
+    return libtorrent_jni.torrent_queue_position(swigCPtr, this);
+  }
+
 }

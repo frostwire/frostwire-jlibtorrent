@@ -1005,6 +1005,8 @@ class stack_allocator {
 
 class torrent {
 public:
+    bool is_aborted();
+    int queue_position();
 };
 
 }
