@@ -4,14 +4,16 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 
 /**
- * this is the base class for a session plugin. One primary feature
- * // is that it is notified of all torrents that are added to the session,
- * // and can add its own torrent_plugins.
+ * This is the base class for a session plugin. One primary feature
+ * is that it is notified of all torrents that are added to the session,
+ * and can add its own torrent_plugins.
  *
  * @author gubatron
  * @author aldenml
  */
 public interface Plugin {
+
+    boolean handleOperation(Operation op);
 
     /**
      * this is called by the session every time a new torrent is added.
@@ -74,4 +76,12 @@ public interface Plugin {
      * @param n
      */
     void loadState(bdecode_node n);
+
+    enum Operation {
+        NEW_TORRENT,
+        ON_UNKNOWN_TORRENT,
+        ON_OPTIMISTIC_UNCHOKE,
+        SAVE_STATE,
+        LOAD_STATE
+    }
 }

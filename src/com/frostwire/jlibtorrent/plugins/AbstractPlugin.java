@@ -9,6 +9,10 @@ import com.frostwire.jlibtorrent.swig.bdecode_node;
  */
 public abstract class AbstractPlugin implements Plugin {
 
+    @Override
+    public boolean handleOperation(Operation op) {
+        return false;
+    }
 
     @Override
     public TorrentPlugin newTorrent(Torrent t) {
