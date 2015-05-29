@@ -383,7 +383,6 @@ namespace std {
 %ignore libtorrent::cork;
 %ignore libtorrent::detail::add_files_impl;
 %ignore libtorrent::generic_category;
-%ignore libtorrent::torrent;
 %ignore libtorrent::alert_manager;
 %ignore libtorrent::plugin;
 %ignore libtorrent::torrent_plugin;
@@ -721,7 +720,7 @@ namespace std {
 %include "libtorrent/settings_pack.hpp"
 %include "libtorrent/peer_class.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"
-%include "libtorrent/torrent.hpp"
+//%include "libtorrent/torrent.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/extensions.hpp"
 %include "libtorrent/disk_io_job.hpp"
@@ -1004,6 +1003,11 @@ static const int user_alert_id = 10000;
 namespace aux {
 class stack_allocator {
 };
+
+class torrent {
+public:
+};
+
 }
 
 %template(sha1_bloom_filter) bloom_filter<160>;
