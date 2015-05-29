@@ -74188,16 +74188,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1torrent(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   libtorrent::torrent *arg1 = (libtorrent::torrent *) 0 ;
-  boost::shared_ptr< libtorrent::torrent > *smartarg1 = 0 ;
   
   (void)jenv;
   (void)jcls;
-  
-  smartarg1 = *(boost::shared_ptr<  libtorrent::torrent > **)&jarg1;
-  arg1 = (libtorrent::torrent *)(smartarg1 ? smartarg1->get() : 0); 
+  arg1 = *(libtorrent::torrent **)&jarg1; 
   {
     try {
-      (void)arg1; delete smartarg1;
+      delete arg1;
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;

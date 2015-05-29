@@ -274,7 +274,6 @@ public:
 %intrusive_ptr(libtorrent::tracker_connection)
 %intrusive_ptr(libtorrent::peer_connection)
 
-%shared_ptr(libtorrent::torrent)
 %shared_ptr(libtorrent::entry)
 %shared_ptr(libtorrent::plugin)
 %shared_ptr(libtorrent::peer_plugin)
