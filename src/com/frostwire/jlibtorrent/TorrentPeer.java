@@ -17,4 +17,12 @@ public final class TorrentPeer {
     public torrent_peer getSwig() {
         return p;
     }
+
+    public long totalDownload() {
+        return p.total_download().longValue();
+    }
+
+    public long totalUpload() {
+        return p.total_upload().longValue();
+    }
 }

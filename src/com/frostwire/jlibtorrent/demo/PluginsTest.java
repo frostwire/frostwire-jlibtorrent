@@ -54,6 +54,21 @@ public final class PluginsTest {
             public void onAlert(Alert a) {
                 //System.out.println(a);
             }
+
+            @Override
+            public boolean onUnknownTorrent(Sha1Hash infoHash, PeerConnection pc, AddTorrentParams p) {
+                System.out.println(infoHash + ", pc: " + pc.preferContiguousBlocks());
+                return false;
+            }
+
+            @Override
+            public boolean onOptimisticUnchoke(TorrentPeer[] peers) {
+                System.out.println(peers.length);
+                if (peers.length > 0) {
+                    System.out.println("onOptimisticUnchoke" + peers[0].totalDownload());
+                }
+                return false;
+            }
         };
 
         SwigPlugin sp = new SwigPlugin(p);
