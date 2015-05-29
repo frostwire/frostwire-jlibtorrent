@@ -29,23 +29,33 @@ public final class PluginsTest {
                 return new AbstractTorrentPlugin() {
 
                     @Override
+                    public boolean handleOperation(Operation op) {
+                        return true;
+                    }
+
+                    @Override
                     public PeerPlugin newPeerConnection(PeerConnection pc) {
                         return new AbstractPeerPlugin() {
                             @Override
                             public void tick() {
-                                System.out.println("PeerPlugin: tick");
+                                //System.out.println("PeerPlugin: tick");
                             }
                         };
                     }
 
                     @Override
                     public void tick() {
-                        System.out.println("TorrentPlugin: tick");
+                        //System.out.println("TorrentPlugin: tick");
                     }
 
                     @Override
                     public void onPiecePass(int index) {
-                        System.out.println("TorrentPlugin: onPiecePass(" + index + ")");
+                        //System.out.println("TorrentPlugin: onPiecePass(" + index + ")");
+                    }
+
+                    @Override
+                    public void onAddPeer(TcpEndpoint endp, int src, TorrentPlugin.Flags flags) {
+                        System.out.println("onAddPeer: " + endp + " " + flags);
                     }
                 };
             }
@@ -63,7 +73,6 @@ public final class PluginsTest {
 
             @Override
             public boolean onOptimisticUnchoke(TorrentPeer[] peers) {
-                System.out.println(peers.length);
                 if (peers.length > 0) {
                     System.out.println("onOptimisticUnchoke" + peers[0].totalDownload());
                 }
@@ -74,18 +83,6 @@ public final class PluginsTest {
         SwigPlugin sp = new SwigPlugin(p);
 
         s.getSwig().add_swig_extension(sp);
-
-        s.addListener(new AlertListener() {
-            @Override
-            public int[] types() {
-                return null;
-            }
-
-            @Override
-            public void alert(Alert<?> alert) {
-                //System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
-            }
-        });
 
         File torrentFile = new File("/Users/aldenml/Downloads/test.torrent");
         final TorrentHandle th = s.addTorrent(torrentFile, torrentFile.getParentFile());

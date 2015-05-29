@@ -34,7 +34,7 @@ public final class SwigPlugin extends swig_plugin {
             if (p.handleOperation(Plugin.Operation.NEW_TORRENT)) {
                 TorrentPlugin tp = p.newTorrent(new Torrent(t));
 
-                if (p != null) {
+                if (tp != null) {
                     return pin(new SwigTorrentPlugin(tp, t));
                 }
             }

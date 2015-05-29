@@ -384,7 +384,6 @@ namespace std {
 %ignore libtorrent::generic_category;
 %ignore libtorrent::alert_manager;
 %ignore libtorrent::plugin;
-%ignore libtorrent::torrent_plugin;
 %ignore libtorrent::crypto_plugin;
 %ignore libtorrent::bandwidth_channel;
 %ignore libtorrent::disk_io_job;
@@ -392,7 +391,6 @@ namespace std {
 %ignore libtorrent::is_read_operation;
 %ignore libtorrent::operation_has_buffer;
 %ignore libtorrent::internal_file_entry;
-%ignore libtorrent::peer_plugin;
 %ignore libtorrent::libtorrent_exception;
 %ignore libtorrent::libtorrent_exception_error;
 %ignore libtorrent::libtorrent_exception_what;

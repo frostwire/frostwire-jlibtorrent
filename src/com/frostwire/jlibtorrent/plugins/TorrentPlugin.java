@@ -2,16 +2,20 @@ package com.frostwire.jlibtorrent.plugins;
 
 import com.frostwire.jlibtorrent.PeerConnection;
 import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.TorrentStatus;
+import com.frostwire.jlibtorrent.swig.torrent_plugin;
 
 /**
  * Torrent plugins are associated with a single torrent and have a number
- * // of functions called at certain events. Many of its functions have the
- * // ability to change or override the default libtorrent behavior.
+ * of functions called at certain events. Many of its functions have the
+ * ability to change or override the default libtorrent behavior.
  *
  * @author gubatron
  * @author aldenml
  */
 public interface TorrentPlugin {
+
+    boolean handleOperation(Operation op);
 
     /**
      * This function is called each time a new peer is connected to the torrent. You
@@ -111,7 +115,7 @@ public interface TorrentPlugin {
      *
      * @param s
      */
-    void onState(int s);
+    void onState(TorrentStatus.State s);
 
     /**
      * called when the torrent is unloaded from RAM
@@ -145,5 +149,55 @@ public interface TorrentPlugin {
      * @param src
      * @param flags
      */
-    void onAddPeer(TcpEndpoint endp, int src, int flags);
+    void onAddPeer(TcpEndpoint endp, int src, Flags flags);
+
+    /**
+     * Called every time policy::add_peer is called
+     * src is a bitmask of which sources this peer
+     * has been seen from. flags is a bitmask of:
+     */
+    enum Flags {
+
+        /**
+         * This is the first time we see this peer.
+         */
+        FIRST_TIME(torrent_plugin.flags_t.first_time.swigValue()),
+
+        /**
+         * This peer was not added because it was
+         * filtered by the IP filter
+         */
+        FILTERED(torrent_plugin.flags_t.filtered.swigValue()),
+
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        Flags(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        public int getSwig() {
+            return swigValue;
+        }
+
+        public static Flags fromSwig(int swigValue) {
+            Flags[] enumValues = Flags.class.getEnumConstants();
+            for (Flags ev : enumValues) {
+                if (ev.getSwig() == swigValue) {
+                    return ev;
+                }
+            }
+            return UNKNOWN;
+        }
+    }
+
+    enum Operation {
+        NEW_PEER_CONNECTION,
+        ON_STATE,
+        ON_ADD_PEER
+    }
 }
