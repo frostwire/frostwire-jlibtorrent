@@ -115,6 +115,8 @@ public class libtorrent_jni {
   public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native void swig_plugin_added(long jarg1, swig_plugin jarg1_);
   public final static native void swig_plugin_addedSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_);
+  public final static native void swig_plugin_on_alert(long jarg1, swig_plugin jarg1_, long jarg2, alert jarg2_);
+  public final static native void swig_plugin_on_alertSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, alert jarg2_);
   public final static native boolean swig_plugin_on_unknown_torrent(long jarg1, swig_plugin jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, peer_connection jarg3_, long jarg4, add_torrent_params jarg4_);
   public final static native boolean swig_plugin_on_unknown_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, peer_connection jarg3_, long jarg4, add_torrent_params jarg4_);
   public final static native void swig_plugin_on_tick(long jarg1, swig_plugin jarg1_);
@@ -3704,6 +3706,9 @@ public class libtorrent_jni {
   }
   public static void SwigDirector_swig_plugin_added(swig_plugin jself) {
     jself.added();
+  }
+  public static void SwigDirector_swig_plugin_on_alert(swig_plugin jself, long a) {
+    jself.on_alert((a == 0) ? null : new alert(a, false));
   }
   public static boolean SwigDirector_swig_plugin_on_unknown_torrent(swig_plugin jself, long info_hash, long pc, long p) {
     return jself.on_unknown_torrent(new sha1_hash(info_hash, false), (pc == 0) ? null : new peer_connection(pc, false), new add_torrent_params(p, false));

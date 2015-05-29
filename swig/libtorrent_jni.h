@@ -19,6 +19,7 @@ public:
     virtual ~SwigDirector_swig_plugin();
     virtual swig_torrent_plugin *new_torrent(libtorrent::torrent_handle th);
     virtual void added();
+    virtual void on_alert(libtorrent::alert const *a);
     virtual bool on_unknown_torrent(libtorrent::sha1_hash const &info_hash, libtorrent::peer_connection *pc, libtorrent::add_torrent_params &p);
     virtual void on_tick();
     virtual bool on_optimistic_unchoke(std::vector< libtorrent::torrent_peer * > &peers);
@@ -26,10 +27,10 @@ public:
     virtual void load_state(libtorrent::bdecode_node const &n);
 public:
     bool swig_overrides(int n) {
-      return (n < 7 ? swig_override[n] : false);
+      return (n < 8 ? swig_override[n] : false);
     }
 protected:
-    bool swig_override[7];
+    bool swig_override[8];
 };
 
 struct SwigDirector_swig_torrent_plugin : public swig_torrent_plugin, public Swig::Director {

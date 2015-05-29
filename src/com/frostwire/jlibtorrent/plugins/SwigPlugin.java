@@ -11,19 +11,28 @@ public final class SwigPlugin extends swig_plugin {
 
     private final Plugin p;
 
+    //private
+
     public SwigPlugin(Plugin p) {
         this.p = p;
     }
 
+    /*
     @Override
     public swig_torrent_plugin new_torrent(torrent_handle th) {
         TorrentPlugin tp = p.newTorrent(new TorrentHandle(th));
         return tp != null ? new SwigTorrentPlugin(tp) : new swig_torrent_plugin();
-    }
+    }*/
 
     @Override
     public void added() {
         p.added();
+    }
+
+    @Override
+    public void on_alert(alert a) {
+        System.out.println(a);
+        //super.on_alert(a);
     }
 
     @Override

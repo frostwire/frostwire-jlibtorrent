@@ -52,7 +52,9 @@ public final class PluginsTest {
             }
         };
 
-        s.getSwig().add_swig_extension(new SwigPlugin(p));
+        SwigPlugin sp = new SwigPlugin(p);
+
+        s.getSwig().add_swig_extension(sp);
 
         s.addListener(new AlertListener() {
             @Override
