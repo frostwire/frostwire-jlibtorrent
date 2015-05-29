@@ -1,10 +1,8 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.PeerConnection;
-import com.frostwire.jlibtorrent.Session;
-import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.plugins.*;
 
 import java.io.File;
@@ -21,7 +19,7 @@ public final class PluginsTest {
 
         Plugin p = new AbstractPlugin() {
             @Override
-            public TorrentPlugin newTorrent(TorrentHandle th) {
+            public TorrentPlugin newTorrent(Torrent t) {
                 return new AbstractTorrentPlugin() {
 
                     @Override
@@ -70,6 +68,14 @@ public final class PluginsTest {
 
         File torrentFile = new File("/Users/aldenml/Downloads/test.torrent");
         final TorrentHandle th = s.addTorrent(torrentFile, torrentFile.getParentFile());
+
+        s.addListener(new TorrentAlertAdapter(th) {
+            @Override
+            public void torrentFinished(TorrentFinishedAlert alert) {
+                System.out.print("Torrent finished");
+                s.removeTorrent(th);
+            }
+        });
 
         th.resume();
 

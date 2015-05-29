@@ -23,10 +23,10 @@ public interface Plugin {
      * // to the new torrent. Otherwise, return an empty shared_ptr to a
      * // torrent_plugin (the default).
      *
-     * @param th
+     * @param t
      * @return
      */
-    TorrentPlugin newTorrent(TorrentHandle th);
+    TorrentPlugin newTorrent(Torrent t);
 
     /**
      * called when plugin is added to a session

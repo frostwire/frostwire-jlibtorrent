@@ -1,7 +1,9 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.*;
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.swig.swig_torrent_plugin;
+import com.frostwire.jlibtorrent.swig.tcp_endpoint;
+import com.frostwire.jlibtorrent.swig.torrent;
 
 /**
  * @author gubatron
@@ -10,11 +12,14 @@ import com.frostwire.jlibtorrent.swig.*;
 public final class SwigTorrentPlugin extends swig_torrent_plugin {
 
     private final TorrentPlugin p;
+    final torrent t;
 
-    public SwigTorrentPlugin(TorrentPlugin p) {
+    public SwigTorrentPlugin(TorrentPlugin p, torrent t) {
         this.p = p;
+        this.t = t;
     }
 
+    /*
     @Override
     public swig_peer_plugin new_peer_connection(peer_connection pc) {
         PeerPlugin pp = p.newPeerConnection(new PeerConnection<peer_connection>(pc));
@@ -37,7 +42,7 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
     public swig_peer_plugin new_http_seed_connection(http_seed_connection pc) {
         PeerPlugin pp = p.newPeerConnection(new HttpSeedConnection(pc));
         return pp != null ? new SwigPeerPlugin(pp) : new swig_peer_plugin();
-    }
+    }*/
 
     @Override
     public void on_piece_pass(int index) {

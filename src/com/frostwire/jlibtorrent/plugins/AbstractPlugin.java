@@ -11,7 +11,7 @@ public abstract class AbstractPlugin implements Plugin {
 
 
     @Override
-    public TorrentPlugin newTorrent(TorrentHandle th) {
+    public TorrentPlugin newTorrent(Torrent t) {
         return null;
     }
 
