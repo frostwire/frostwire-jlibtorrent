@@ -155,6 +155,10 @@ public class session {
     return libtorrent_jni.session_is_dht_running(swigCPtr, this);
   }
 
+  public dht_settings get_dht_settings() {
+    return new dht_settings(libtorrent_jni.session_get_dht_settings(swigCPtr, this), true);
+  }
+
   public void add_dht_node(string_int_pair node) {
     libtorrent_jni.session_add_dht_node(swigCPtr, this, string_int_pair.getCPtr(node), node);
   }
@@ -364,6 +368,10 @@ public class session {
   public upnp get_upnp() {
     long cPtr = libtorrent_jni.session_get_upnp(swigCPtr, this);
     return (cPtr == 0) ? null : new upnp(cPtr, false);
+  }
+
+  public void add_swig_extension(swig_plugin p) {
+    libtorrent_jni.session_add_swig_extension(swigCPtr, this, swig_plugin.getCPtr(p), p);
   }
 
   public enum save_state_flags_t {
