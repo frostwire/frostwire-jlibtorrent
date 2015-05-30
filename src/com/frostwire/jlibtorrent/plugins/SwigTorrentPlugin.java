@@ -33,7 +33,7 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
                 PeerPlugin pp = p.newPeerConnection(new PeerConnection<peer_connection>(pc));
 
                 if (pp != null) {
-                    return pin(new SwigPeerPlugin(pp));
+                    return pin(new SwigPeerPlugin(pp, pc));
                 }
             }
         } catch (Throwable e) {
@@ -50,7 +50,7 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
                 PeerPlugin pp = p.newPeerConnection(new BtPeerConnection(pc));
 
                 if (pp != null) {
-                    return pin(new SwigPeerPlugin(pp));
+                    return pin(new SwigPeerPlugin(pp, pc));
                 }
             }
         } catch (Throwable e) {
@@ -67,7 +67,7 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
                 PeerPlugin pp = p.newPeerConnection(new WebPeerConnection(pc));
 
                 if (pp != null) {
-                    return pin(new SwigPeerPlugin(pp));
+                    return pin(new SwigPeerPlugin(pp, pc));
                 }
             }
         } catch (Throwable e) {
@@ -84,7 +84,7 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
                 PeerPlugin pp = p.newPeerConnection(new HttpSeedConnection(pc));
 
                 if (pp != null) {
-                    return pin(new SwigPeerPlugin(pp));
+                    return pin(new SwigPeerPlugin(pp, pc));
                 }
             }
         } catch (Throwable e) {

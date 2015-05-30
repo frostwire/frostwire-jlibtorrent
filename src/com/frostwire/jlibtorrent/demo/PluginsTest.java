@@ -34,8 +34,26 @@ public final class PluginsTest {
                     }
 
                     @Override
-                    public PeerPlugin newPeerConnection(PeerConnection pc) {
+                    public PeerPlugin newPeerConnection(final PeerConnection pc) {
                         return new AbstractPeerPlugin() {
+
+                            @Override
+                            public boolean handleOperation(Operation op) {
+                                return true;
+                            }
+
+                            @Override
+                            public boolean onRequest(PeerRequest r) {
+                                System.out.println("peer on request: " + pc.remote() + " " + r);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onPiece(PeerRequest piece, DiskBufferHolder data) {
+                                System.out.println("peer on piece: " + pc.peerInfo() + " " + piece);
+                                return false;
+                            }
+
                             @Override
                             public void tick() {
                                 //System.out.println("PeerPlugin: tick");
@@ -55,7 +73,7 @@ public final class PluginsTest {
 
                     @Override
                     public void onAddPeer(TcpEndpoint endp, int src, TorrentPlugin.Flags flags) {
-                        System.out.println("onAddPeer: " + endp + " " + flags);
+                        //System.out.println("onAddPeer: " + endp + " " + flags);
                     }
                 };
             }

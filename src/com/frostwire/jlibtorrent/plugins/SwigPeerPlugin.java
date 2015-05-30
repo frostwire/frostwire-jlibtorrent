@@ -4,22 +4,19 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.swig.*;
 
 /**
- * peer plugins are associated with a specific peer. A peer could be
- * // both a regular bittorrent peer (``bt_peer_connection``) or one of the
- * // web seed connections (``web_peer_connection`` or ``http_seed_connection``).
- * // In order to only attach to certain peers, make your
- * // torrent_plugin::new_connection only return a plugin for certain peer
- * // connection types
- *
  * @author gubatron
  * @author aldenml
  */
 public final class SwigPeerPlugin extends swig_peer_plugin {
 
-    private final PeerPlugin p;
+    private static final Logger LOG = Logger.getLogger(SwigPeerPlugin.class);
 
-    public SwigPeerPlugin(PeerPlugin p) {
+    private final PeerPlugin p;
+    final peer_connection pc;
+
+    public SwigPeerPlugin(PeerPlugin p, peer_connection pc) {
         this.p = p;
+        this.pc = pc;
     }
 
     @Override
@@ -29,137 +26,305 @@ public final class SwigPeerPlugin extends swig_peer_plugin {
 
     @Override
     public void add_handshake(entry e) {
-        p.addHandshake(new Entry(e));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ADD_HANDSHAKE)) {
+                p.addHandshake(new Entry(e));
+            }
+        } catch (Throwable t) {
+            LOG.error("Error in plugin (add_handshake)", t);
+        }
     }
 
     @Override
     public void on_disconnect(error_code ec) {
-        p.onDisconnect(new ErrorCode(ec));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ON_DISCONNECT)) {
+                p.onDisconnect(new ErrorCode(ec));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_disconnect)", e);
+        }
     }
 
     @Override
     public void on_connected() {
-        p.onConnected();
+        try {
+            p.onConnected();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_connected)", e);
+        }
     }
 
     @Override
     public boolean on_handshake(String reserved_bits) {
-        // TODO: handle the byte array from the native side
-        return p.onHandshake(null);
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ON_HANDSHAKE)) {
+                // TODO: handle the byte array from the native side
+                return p.onHandshake(null);
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_handshake)", e);
+        }
+
+        return true;
     }
 
     @Override
     public boolean on_extension_handshake(bdecode_node n) {
-        return p.onExtensionHandshake(n);
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ON_EXTENSION_HANDSHAKE)) {
+                return p.onExtensionHandshake(n);
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_extension_handshake)", e);
+        }
+
+        return true;
     }
 
     @Override
     public boolean on_choke() {
-        return p.onChoke();
+        try {
+            return p.onChoke();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_choke)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_unchoke() {
-        return p.onUnchoke();
+        try {
+            return p.onUnchoke();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_unchoke)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_interested() {
-        return p.onInterested();
+        try {
+            return p.onInterested();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_interested)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_not_interested() {
-        return p.onNotInterested();
+        try {
+            return p.onNotInterested();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_not_interested)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_have(int index) {
-        return p.onHave(index);
+        try {
+            return p.onHave(index);
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_have)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_dont_have(int index) {
-        return p.onDontHave(index);
+        try {
+            return p.onDontHave(index);
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_dont_have)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_bitfield(bitfield bitfield) {
-        return p.onBitfield(new Bitfield(bitfield));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ON_BITFIELD)) {
+                return p.onBitfield(new Bitfield(bitfield));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_bitfield)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_have_all() {
-        return p.onHaveAll();
+        try {
+            return p.onHaveAll();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_have_all)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_have_none() {
-        return p.onHaveNone();
+        try {
+            return p.onHaveNone();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_have_none)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_allowed_fast(int index) {
-        return p.onAllowedFast(index);
+        try {
+            return p.onAllowedFast(index);
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_allowed_fast)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_request(peer_request r) {
-        return p.onRequest(new PeerRequest(r));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ON_REQUEST)) {
+                return p.onRequest(new PeerRequest(r));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_request)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_piece(peer_request piece, disk_buffer_holder data) {
-        return p.onPiece(new PeerRequest(piece), new DiskBufferHolder(data));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ON_PIECE)) {
+                return p.onPiece(new PeerRequest(piece), new DiskBufferHolder(data));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_piece)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_cancel(peer_request r) {
-        return p.onCancel(new PeerRequest(r));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ON_CANCEL)) {
+                return p.onCancel(new PeerRequest(r));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_cancel)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_reject(peer_request r) {
-        return p.onReject(new PeerRequest(r));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.ON_REJECT)) {
+                return p.onReject(new PeerRequest(r));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_reject)", e);
+        }
+
+        return false;
     }
 
     @Override
     public boolean on_suggest(int index) {
-        return p.onSuggest(index);
+        try {
+            return p.onSuggest(index);
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_suggest)", e);
+        }
+
+        return false;
     }
 
     @Override
     public void sent_unchoke() {
-        p.sentUnchoke();
+        try {
+            p.sentUnchoke();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (sent_unchoke)", e);
+        }
     }
 
     @Override
     public void sent_payload(int bytes) {
-        p.sentPayload(bytes);
+        try {
+            p.sentPayload(bytes);
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (sent_payload)", e);
+        }
     }
 
     @Override
     public boolean can_disconnect(error_code ec) {
-        return p.canDisconnect(new ErrorCode(ec));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.CAN_DISCONNECT)) {
+                return p.canDisconnect(new ErrorCode(ec));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (can_disconnect)", e);
+        }
+
+        return true;
     }
 
     @Override
     public void on_piece_pass(int index) {
-        p.onPiecePass(index);
+        try {
+            p.onPiecePass(index);
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_piece_pass)", e);
+        }
     }
 
     @Override
     public void on_piece_failed(int index) {
-        p.onPieceFailed(index);
+        try {
+            p.onPieceFailed(index);
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (on_piece_failed)", e);
+        }
     }
 
     @Override
     public void tick() {
-        p.tick();
+        try {
+            p.tick();
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (tick)", e);
+        }
     }
 
     @Override
     public boolean write_request(peer_request r) {
-        return p.writeRequest(new PeerRequest(r));
+        try {
+            if (p.handleOperation(PeerPlugin.Operation.WRITE_REQUEST)) {
+                return p.writeRequest(new PeerRequest(r));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (write_request)", e);
+        }
+
+        return false;
     }
 }

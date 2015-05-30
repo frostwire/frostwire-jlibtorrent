@@ -47,4 +47,9 @@ public final class PeerRequest {
     public int getLength() {
         return r.getLength();
     }
+
+    @Override
+    public String toString() {
+        return "PeerRequest(piece: " + getPiece() + ", start:" + getStart() + ", length" + getLength() + ")";
+    }
 }

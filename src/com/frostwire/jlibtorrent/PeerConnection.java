@@ -18,6 +18,10 @@ public class PeerConnection<T extends peer_connection> {
         return pc;
     }
 
+    public TorrentPeer peerInfo() {
+        return new TorrentPeer(pc.peer_info_struct());
+    }
+
     public int preferContiguousBlocks() {
         return pc.prefer_contiguous_blocks();
     }
@@ -44,5 +48,17 @@ public class PeerConnection<T extends peer_connection> {
 
     public boolean ignoreStats() {
         return pc.ignore_stats();
+    }
+
+    public Sha1Hash pid() {
+        return new Sha1Hash(pc.pid());
+    }
+
+    public TcpEndpoint remote() {
+        return new TcpEndpoint(pc.remote());
+    }
+
+    public TcpEndpoint localEndpoint() {
+        return new TcpEndpoint(pc.local_endpoint());
     }
 }

@@ -16,6 +16,8 @@ import com.frostwire.jlibtorrent.swig.bdecode_node;
  */
 public interface PeerPlugin {
 
+    boolean handleOperation(Operation op);
+
     /**
      * This function is expected to return the name of
      * // the plugin.
@@ -161,4 +163,18 @@ public interface PeerPlugin {
      * @return
      */
     boolean writeRequest(PeerRequest r);
+
+    enum Operation {
+        ADD_HANDSHAKE,
+        ON_DISCONNECT,
+        ON_HANDSHAKE,
+        ON_EXTENSION_HANDSHAKE,
+        ON_BITFIELD,
+        ON_REQUEST,
+        ON_PIECE,
+        ON_CANCEL,
+        ON_REJECT,
+        CAN_DISCONNECT,
+        WRITE_REQUEST
+    }
 }

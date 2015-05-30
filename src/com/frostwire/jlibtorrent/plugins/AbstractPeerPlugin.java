@@ -10,6 +10,11 @@ import com.frostwire.jlibtorrent.swig.bdecode_node;
 public abstract class AbstractPeerPlugin implements PeerPlugin {
 
     @Override
+    public boolean handleOperation(Operation op) {
+        return false;
+    }
+
+    @Override
     public String type() {
         return "swig";
     }
