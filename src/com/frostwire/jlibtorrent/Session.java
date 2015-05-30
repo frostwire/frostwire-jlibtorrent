@@ -1,6 +1,8 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
+import com.frostwire.jlibtorrent.plugins.Plugin;
+import com.frostwire.jlibtorrent.plugins.SwigPlugin;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session.options_t;
 
@@ -42,6 +44,8 @@ public final class Session {
     private final SparseArray<AlertListener[]> listenerSnapshots;
     private boolean running;
 
+    private final LinkedList<SwigPlugin> plugins;
+
     public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers, boolean logging) {
 
         int flags = session.session_flags_t.start_default_features.swigValue() | session.session_flags_t.add_default_plugins.swigValue();
@@ -68,6 +72,8 @@ public final class Session {
         for (Pair<String, Integer> router : routers) {
             s.add_dht_router(router.to_string_int_pair());
         }
+
+        this.plugins = new LinkedList<SwigPlugin>();
     }
 
     public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers) {
@@ -740,6 +746,12 @@ public final class Session {
 
     public void dhtAnnounce(Sha1Hash infoHash) {
         s.dht_announce(infoHash.getSwig());
+    }
+
+    public void addExtension(Plugin p) {
+        SwigPlugin sp = new SwigPlugin(p);
+        s.add_swig_extension(sp);
+        plugins.add(sp);
     }
 
     /**

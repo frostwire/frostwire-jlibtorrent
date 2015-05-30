@@ -98,9 +98,7 @@ public final class PluginsTest {
             }
         };
 
-        SwigPlugin sp = new SwigPlugin(p);
-
-        s.getSwig().add_swig_extension(sp);
+        s.addExtension(p);
 
         File torrentFile = new File("/Users/aldenml/Downloads/test.torrent");
         final TorrentHandle th = s.addTorrent(torrentFile, torrentFile.getParentFile());
