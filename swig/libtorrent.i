@@ -994,14 +994,13 @@ static const int user_alert_id = 10000;
 namespace aux {
 class stack_allocator {
 };
+}
 
 class torrent {
 public:
     bool is_aborted();
     int queue_position();
 };
-
-}
 
 %template(sha1_bloom_filter) bloom_filter<160>;
 
