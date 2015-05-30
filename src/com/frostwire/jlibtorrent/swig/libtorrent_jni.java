@@ -3036,7 +3036,6 @@ public class libtorrent_jni {
   public final static native void peer_connection_on_allocate_disk_buffer(long jarg1, peer_connection jarg1_, String jarg2, int jarg3);
   public final static native int peer_connection_num_reading_bytes(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_setup_receive(long jarg1, peer_connection jarg1_);
-  public final static native long peer_connection_self(long jarg1, peer_connection jarg1_);
   public final static native long peer_connection_stats_counters(long jarg1, peer_connection jarg1_);
   public final static native int peer_connection_get_priority(long jarg1, peer_connection jarg1_, int jarg2);
   public final static native void proxy_settings_hostname_set(long jarg1, proxy_settings jarg1_, String jarg2);
@@ -3713,11 +3712,11 @@ public class libtorrent_jni {
   public final static native long dht_log_alert_SWIGUpcast(long jarg1);
   public final static native long ipv4_peer_SWIGUpcast(long jarg1);
   public final static native long ipv6_peer_SWIGUpcast(long jarg1);
-  public final static native long peer_connection_SWIGSmartPtrUpcast(long jarg1);
-  public final static native long bt_peer_connection_SWIGSmartPtrUpcast(long jarg1);
-  public final static native long web_connection_base_SWIGSmartPtrUpcast(long jarg1);
-  public final static native long web_peer_connection_SWIGSmartPtrUpcast(long jarg1);
-  public final static native long http_seed_connection_SWIGSmartPtrUpcast(long jarg1);
+  public final static native long peer_connection_SWIGUpcast(long jarg1);
+  public final static native long bt_peer_connection_SWIGUpcast(long jarg1);
+  public final static native long web_connection_base_SWIGUpcast(long jarg1);
+  public final static native long web_peer_connection_SWIGUpcast(long jarg1);
+  public final static native long http_seed_connection_SWIGUpcast(long jarg1);
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
 

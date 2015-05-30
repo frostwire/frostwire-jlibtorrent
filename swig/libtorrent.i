@@ -272,18 +272,11 @@ public:
 
 %intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)
-%intrusive_ptr(libtorrent::peer_connection)
 
 %shared_ptr(libtorrent::entry)
 %shared_ptr(libtorrent::plugin)
 %shared_ptr(libtorrent::peer_plugin)
 %shared_ptr(libtorrent::torrent_plugin)
-%shared_ptr(libtorrent::bandwidth_socket)
-%shared_ptr(libtorrent::peer_connection)
-%shared_ptr(libtorrent::bt_peer_connection)
-%shared_ptr(libtorrent::web_connection_base)
-%shared_ptr(libtorrent::web_peer_connection)
-%shared_ptr(libtorrent::http_seed_connection)
 %shared_ptr(libtorrent::torrent_info)
 
 %auto_ptr(libtorrent::alert)
@@ -488,6 +481,7 @@ namespace std {
 %ignore libtorrent::peer_connection::m_allocator;
 %ignore libtorrent::peer_connection::m_extensions;
 %ignore libtorrent::peer_connection::m_send_buffer;
+%ignore libtorrent::peer_connection::self;
 %ignore libtorrent::bt_peer_connection::send_buffer;
 %ignore libtorrent::bt_peer_connection::write_metadata;
 %ignore libtorrent::bt_peer_connection::write_metadata_request;

@@ -10,11 +10,9 @@ package com.frostwire.jlibtorrent.swig;
 
 public class web_connection_base extends peer_connection {
   private long swigCPtr;
-  private boolean swigCMemOwnDerived;
 
   protected web_connection_base(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.web_connection_base_SWIGSmartPtrUpcast(cPtr), true);
-    swigCMemOwnDerived = cMemoryOwn;
+    super(libtorrent_jni.web_connection_base_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -28,8 +26,8 @@ public class web_connection_base extends peer_connection {
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
-      if (swigCMemOwnDerived) {
-        swigCMemOwnDerived = false;
+      if (swigCMemOwn) {
+        swigCMemOwn = false;
         libtorrent_jni.delete_web_connection_base(swigCPtr);
       }
       swigCPtr = 0;
