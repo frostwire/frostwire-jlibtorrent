@@ -4,7 +4,7 @@ using gcc : arm : arm-linux-androideabi-g++ :
     <cxxflags>-mthumb
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-lstdc++
-    <cxxflags>-O3
+    <cxxflags>-Os
     <cxxflags>-march=armv7-a
     <cxxflags>-DNDEBUG
     <cxxflags>-D__GLIBC__

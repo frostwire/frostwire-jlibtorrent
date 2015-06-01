@@ -169,6 +169,10 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.source_rank(source_bitmask);
   }
 
+  public static long peer_priority(tcp_endpoint e1, tcp_endpoint e2) {
+    return libtorrent_jni.peer_priority(tcp_endpoint.getCPtr(e1), e1, tcp_endpoint.getCPtr(e2), e2);
+  }
+
   public static session_settings min_memory_usage() {
     return new session_settings(libtorrent_jni.min_memory_usage(), true);
   }

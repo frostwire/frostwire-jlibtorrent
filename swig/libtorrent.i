@@ -39,10 +39,13 @@
 #include "libtorrent/peer.hpp"
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/bandwidth_socket.hpp"
+#include "libtorrent/bandwidth_limit.hpp"
 #include "libtorrent/ip_voter.hpp"
 #include "libtorrent/peer_connection.hpp"
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
+#include "libtorrent/policy.hpp"
+#include "libtorrent/piece_picker.hpp"
 #include "libtorrent/torrent.hpp"
 #include "libtorrent/session.hpp"
 #include "libtorrent/extensions.hpp"
@@ -62,7 +65,6 @@
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/upnp.hpp"
 #include "libtorrent/bloom_filter.hpp"
-#include "libtorrent/policy.hpp"
 
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -290,6 +292,7 @@ namespace std {
     %template(string_vector) vector<std::string>;
     %template(char_vector) vector<char>;
     %template(bool_vector) vector<bool>;
+    %template(float_vector) vector<float>;
     %template(long_long_long_2_pair_vector) vector<std::pair<long long, long>>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
@@ -318,8 +321,11 @@ namespace std {
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
     %template(policy_peer_ptr_vector) vector<libtorrent::policy::peer*>;
+    %template(piece_block_vector) vector<libtorrent::piece_block>;
+    %template(downloading_piece_vector) vector<libtorrent::piece_picker::downloading_piece>;
 
     %template(entry_list) list<libtorrent::entry>;
+    %template(web_seed_entry_list) list<libtorrent::web_seed_entry>;
 
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
@@ -370,7 +376,6 @@ namespace std {
 %ignore libtorrent::alert_manager;
 %ignore libtorrent::plugin;
 %ignore libtorrent::crypto_plugin;
-%ignore libtorrent::bandwidth_channel;
 %ignore libtorrent::disk_io_job;
 %ignore libtorrent::disk_job_fence;
 %ignore libtorrent::is_read_operation;
@@ -383,7 +388,6 @@ namespace std {
 %ignore libtorrent::time_critical_piece;
 %ignore libtorrent::tracker_manager;
 %ignore libtorrent::tracker_connection;
-%ignore libtorrent::tracker_request;
 %ignore libtorrent::type_error;
 %ignore libtorrent::buffer;
 %ignore libtorrent::buffer::const_interval;
@@ -434,7 +438,6 @@ namespace std {
 %ignore libtorrent::add_torrent_params::storage;
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::flags;
-%ignore libtorrent::torrent::async_verify_piece;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert_manager::set_dispatch_function;
 %ignore libtorrent::session::set_alert_dispatch;
@@ -506,18 +509,26 @@ namespace std {
 %ignore libtorrent::torrent::tracker_response;
 %ignore libtorrent::torrent::begin;
 %ignore libtorrent::torrent::end;
-%ignore libtorrent::torrent::block_bytes_wanted;
-%ignore libtorrent::torrent::cancel_block;
-%ignore libtorrent::torrent::to_req;
+%ignore libtorrent::torrent::async_verify_piece;
 %ignore libtorrent::torrent::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)> const&, void*);
-%ignore libtorrent::torrent::connect_to_url_seed;
-%ignore libtorrent::torrent::connect_web_seed;
-%ignore libtorrent::torrent::remove_web_seed;
-%ignore libtorrent::torrent::web_seeds;
 %ignore libtorrent::torrent::on_peer_name_lookup;
 %ignore libtorrent::torrent::on_name_lookup;
 %ignore libtorrent::torrent::on_proxy_name_lookup;
 %ignore libtorrent::torrent::read_piece_struct::piece_data;
+%ignore libtorrent::torrent::resolve_peer_country;
+%ignore libtorrent::torrent::alerts;
+%ignore libtorrent::torrent::handle_disk_error;
+%ignore libtorrent::torrent::on_disk_cache_complete;
+%ignore libtorrent::torrent::on_disk_read_complete;
+%ignore libtorrent::torrent::on_disk_write_complete;
+%ignore libtorrent::torrent::on_force_recheck;
+%ignore libtorrent::torrent::on_piece_checked;
+%ignore libtorrent::torrent::on_resume_data_checked;
+%ignore libtorrent::torrent::get_storage;
+%ignore libtorrent::torrent::connect_to_url_seed;
+%ignore libtorrent::torrent::web_seeds;
+%ignore libtorrent::torrent::connect_web_seed;
+%ignore libtorrent::torrent::remove_web_seed;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;
@@ -614,6 +625,27 @@ namespace std {
 %ignore libtorrent::web_seed_entry::peer_info;
 %ignore libtorrent::rss_alert;
 %ignore libtorrent::rss_item_alert;
+%ignore libtorrent::policy::ipv6_peer::addr;
+%ignore libtorrent::policy::peer::rank;
+%ignore libtorrent::policy::begin_peer;
+%ignore libtorrent::policy::end_peer;
+%ignore libtorrent::policy::find_peers;
+%ignore libtorrent::policy::erase_peer;
+%ignore libtorrent::piece_picker::get_downloaders;
+%ignore libtorrent::piece_picker::get_downloader;
+%ignore libtorrent::piece_picker::abort_download;
+%ignore libtorrent::piece_picker::add_blocks;
+%ignore libtorrent::piece_picker::add_blocks_downloading;
+%ignore libtorrent::piece_picker::clear_peer;
+%ignore libtorrent::piece_picker::dec_refcount;
+%ignore libtorrent::piece_picker::dec_refcount_all;
+%ignore libtorrent::piece_picker::inc_refcount;
+%ignore libtorrent::piece_picker::inc_refcount_all;
+%ignore libtorrent::piece_picker::mark_as_downloading;
+%ignore libtorrent::piece_picker::mark_as_finished;
+%ignore libtorrent::piece_picker::mark_as_writing;
+%ignore libtorrent::piece_picker::pick_pieces;
+%ignore libtorrent::piece_picker::block_info::peer;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -692,11 +724,14 @@ namespace std {
 %include "libtorrent/peer.hpp"
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/bandwidth_socket.hpp"
+%include "libtorrent/bandwidth_limit.hpp"
 %include "libtorrent/ip_voter.hpp"
 %include "libtorrent/peer_connection.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
-//%include "libtorrent/torrent.hpp"
+%include "libtorrent/policy.hpp"
+%include "libtorrent/piece_picker.hpp"
+%include "libtorrent/torrent.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/extensions.hpp"
 %include "libtorrent/disk_buffer_holder.hpp"
@@ -967,31 +1002,7 @@ static const int user_alert_id = 10000;
     }
 };
 
-class torrent {
-public:
-    bool is_aborted();
-    int queue_position();
-};
-
-class policy {
-public:
-
-    policy(torrent* t);
-
-    struct peer {
-
-        peer(boost::uint16_t port, bool connectable, int src);
-
-        size_type total_download() const;
-        size_type total_upload() const;
-    };
-};
-
 %template(sha1_bloom_filter) bloom_filter<160>;
-
-//%template(total_seconds_long) libtorrent::total_seconds<long long>;
-//%template(total_milliseconds_long) libtorrent::total_milliseconds<long long>;
-//%template(total_microseconds_long) libtorrent::total_microseconds<long long>;
 
 }
 
