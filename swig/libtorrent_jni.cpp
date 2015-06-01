@@ -68239,28 +68239,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pol
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_policy_1peer_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::policy::peer *arg1 = (libtorrent::policy::peer *) 0 ;
-  libtorrent::address result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::policy::peer **)&jarg1; 
-  {
-    try {
-      result = ((libtorrent::policy::peer const *)arg1)->address();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(libtorrent::address **)&jresult = new libtorrent::address((const libtorrent::address &)result); 
-  return jresult;
-}
-
-
 SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_policy_1peer_1dest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   libtorrent::policy::peer *arg1 = (libtorrent::policy::peer *) 0 ;
@@ -68279,28 +68257,6 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_p
     }
   }
   if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_policy_1peer_1ip(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::policy::peer *arg1 = (libtorrent::policy::peer *) 0 ;
-  tcp::endpoint result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::policy::peer **)&jarg1; 
-  {
-    try {
-      result = ((libtorrent::policy::peer const *)arg1)->ip();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(tcp::endpoint **)&jresult = new tcp::endpoint((const tcp::endpoint &)result); 
   return jresult;
 }
 

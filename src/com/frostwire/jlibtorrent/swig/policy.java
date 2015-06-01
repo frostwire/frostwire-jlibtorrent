@@ -123,16 +123,8 @@ public class policy {
       return libtorrent_jni.policy_peer_total_upload(swigCPtr, this);
     }
   
-    public address address() {
-      return new address(libtorrent_jni.policy_peer_address(swigCPtr, this), true);
-    }
-  
     public String dest() {
       return libtorrent_jni.policy_peer_dest(swigCPtr, this);
-    }
-  
-    public tcp_endpoint ip() {
-      return new tcp_endpoint(libtorrent_jni.policy_peer_ip(swigCPtr, this), true);
     }
   
     public void setPrev_amount_upload(long value) {

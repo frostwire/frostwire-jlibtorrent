@@ -3425,9 +3425,7 @@ public class libtorrent_jni {
   public final static native long new_policy_peer(int jarg1, boolean jarg2, int jarg3);
   public final static native long policy_peer_total_download(long jarg1, policy.peer jarg1_);
   public final static native long policy_peer_total_upload(long jarg1, policy.peer jarg1_);
-  public final static native long policy_peer_address(long jarg1, policy.peer jarg1_);
   public final static native String policy_peer_dest(long jarg1, policy.peer jarg1_);
-  public final static native long policy_peer_ip(long jarg1, policy.peer jarg1_);
   public final static native void policy_peer_prev_amount_upload_set(long jarg1, policy.peer jarg1_, long jarg2);
   public final static native long policy_peer_prev_amount_upload_get(long jarg1, policy.peer jarg1_);
   public final static native void policy_peer_prev_amount_download_set(long jarg1, policy.peer jarg1_, long jarg2);

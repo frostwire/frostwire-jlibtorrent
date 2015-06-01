@@ -631,6 +631,8 @@ namespace std {
 %ignore libtorrent::policy::end_peer;
 %ignore libtorrent::policy::find_peers;
 %ignore libtorrent::policy::erase_peer;
+%ignore libtorrent::policy::peer::address;
+%ignore libtorrent::policy::peer::ip;
 %ignore libtorrent::piece_picker::get_downloaders;
 %ignore libtorrent::piece_picker::get_downloader;
 %ignore libtorrent::piece_picker::abort_download;
