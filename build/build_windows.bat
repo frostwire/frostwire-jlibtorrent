@@ -11,22 +11,22 @@ rem 1. Download boost_1_58 source code
 rem 2. Extract it in "c:\boost_1_58_0"
 rem 2. invoke bootstrap.bat to have bjam working, you will need it to build libtorrent
 rem To build (1.58)
-rem %BOOST_ROOT%\b2 cxxflags="/O2 /GL /DBOOST_ASIO_DISABLE_CONNECTEX=1" linkflags="/LTCG" variant=release link=static runtime-link=static --stagedir=windows stage --without-context --without-coroutine --without-python --without-mpi --without-wave --without-test --without-graph --without-graph_parallel --without-iostreams --without-math
+rem %BOOST_ROOT%\b2 cxxflags="/O2 /DBOOST_ASIO_DISABLE_CONNECTEX=1" variant=release link=static runtime-link=static --stagedir=windows stage --without-context --without-coroutine --without-python --without-mpi --without-wave --without-test --without-graph --without-graph_parallel --without-iostreams --without-math
 
 rem =====================================================================================================================================================
 rem BUILDING LIBTORRENT
 rem =====================================================================================================================================================
 rem Download a libtorrent subversion "braches/RC_1_0/" snapshot from http://sourceforge.net/p/libtorrent/code/HEAD/tree/trunk/
 rem set BOOST_ROOT=C:\boost_1_58_0
-rem %BOOST_ROOT%\bjam toolset=msvc cxxflags="/O2 /GL /DBOOST_ASIO_DISABLE_CONNECTEX=1" linkflags="/LTCG" variant=release link=static runtime-link=static deprecated-functions=off logging=none boost=source
+rem %BOOST_ROOT%\bjam toolset=msvc cxxflags="/O2 /DBOOST_ASIO_DISABLE_CONNECTEX=1" variant=release link=static runtime-link=static deprecated-functions=off logging=none encryption=openssl boost=source
 
 rem =====================================================================================================================================================
 rem BUILD OPTIONS AND VARIABLES (adjust paths depending on your build environment)
 rem =====================================================================================================================================================
 echo on
-set CXXFLAGS=/MT /O2 /fp:fast /nologo /DWIN32 /EHsc /c /GL /DBOOST_ASIO_DISABLE_CONNECTEX=1 /DNDEBUG=1 /DBOOST_ASIO_SEPARATE_COMPILATION=1 /DTORRENT_DISABLE_GEO_IP=1 /DTORRENT_NO_DEPRECATE=1
+set CXXFLAGS=/MT /O2 /fp:fast /nologo /DWIN32 /EHsc /c /DBOOST_ASIO_DISABLE_CONNECTEX=1 /DNDEBUG=1 /DBOOST_ASIO_SEPARATE_COMPILATION=1 /DTORRENT_DISABLE_GEO_IP=1 /DTORRENT_NO_DEPRECATE=1 /DTORRENT_USE_OPENSSL=1
 
-set BOOST_ROOT=C:\boost_1_58_0
+set BOOST_ROOT=C:\boost_1_55_0
 set LIBTORRENT_ROOT=C:\libtorrent-RC_1_0
 set JAVA_HOME=C:\Program Files (x86)\Java\jdk1.8.0_25
 set VS_VERSION=12
@@ -39,8 +39,8 @@ set LIBTORRENT_INCLUDE=/I"%LIBTORRENT_ROOT%\include"
 
 set INCLUDE_PATHS=%VS_INCLUDE% %BOOST_INCLUDE% %LIBTORRENT_INCLUDE% %JAVA_INCLUDES%
 
-set BOOST_LIBPATH=%BOOST_ROOT%\windows\lib
-set LIBTORRENT_LIBPATH=%LIBTORRENT_ROOT%\bin\msvc-%VS_VERSION%.0\release\boost-source\deprecated-functions-off\link-static\runtime-link-static\threading-multi
+set BOOST_LIBPATH=%BOOST_ROOT%\lib32-msvc-12.0
+set LIBTORRENT_LIBPATH=%LIBTORRENT_ROOT%\bin\msvc-%VS_VERSION%.0\release\boost-source\deprecated-functions-off\encryption-openssl\link-static\runtime-link-static\threading-multi
 set VS_LIBPATH=%VS_ROOT%\VC\lib
 
 @echo off
@@ -51,8 +51,8 @@ rem (If you have cygwin/bin on your PATH, you must remove it from the PATH,
 rem otherwise link.exe will be GNU's link and it's not compatible with the options passed below.
 echo on
 
-set LIBS=advapi32.lib libtorrent.lib
-set LOPT=/RELEASE /NOLOGO /MACHINE:X86 /ENTRY:_DllMainCRTStartup@12 /DLL /LTCG
+set LIBS=user32.lib gdi32.lib advapi32.lib libtorrent.lib libeay32MT.lib ssleay32MT.lib
+set LOPT=/RELEASE /NOLOGO /MACHINE:X86 /ENTRY:_DllMainCRTStartup@12 /DLL
 set LIB_PATHS=/LIBPATH:%BOOST_LIBPATH% /LIBPATH:%LIBTORRENT_LIBPATH% /LIBPATH:"%VS_LIBPATH%"
 
 cl %CXXFLAGS% %INCLUDE_PATHS% swig\libtorrent_jni.cpp
