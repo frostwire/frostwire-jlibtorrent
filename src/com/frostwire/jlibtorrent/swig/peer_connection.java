@@ -47,11 +47,6 @@ public class peer_connection extends bandwidth_socket {
     libtorrent_jni.peer_connection_set_peer_info(swigCPtr, this, torrent_peer.getCPtr(pi), pi);
   }
 
-  public torrent_peer peer_info_struct() {
-    long cPtr = libtorrent_jni.peer_connection_peer_info_struct(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent_peer(cPtr, false);
-  }
-
   public void peer_exceeds_limit() {
     libtorrent_jni.peer_connection_peer_exceeds_limit(swigCPtr, this);
   }

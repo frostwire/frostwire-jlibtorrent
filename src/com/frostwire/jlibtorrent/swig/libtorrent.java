@@ -147,7 +147,7 @@ public class libtorrent implements libtorrentConstants {
 
   public static settings_pack load_pack_from_dict(bdecode_node settings) {
     long cPtr = libtorrent_jni.load_pack_from_dict(bdecode_node.getCPtr(settings), settings);
-    return (cPtr == 0) ? null : new settings_pack(cPtr, false);
+    return (cPtr == 0) ? null : new settings_pack(cPtr, true);
   }
 
   public static void save_settings_to_dict(session_settings s, string_entry_map sett) {

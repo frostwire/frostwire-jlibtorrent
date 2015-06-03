@@ -43,38 +43,6 @@ public class session {
     this(libtorrent_jni.new_session__SWIG_1(settings_pack.getCPtr(pack), pack), true);
   }
 
-  public session(fingerprint print, int flags, long alert_mask) {
-    this(libtorrent_jni.new_session__SWIG_2(fingerprint.getCPtr(print), print, flags, alert_mask), true);
-  }
-
-  public session(fingerprint print, int flags) {
-    this(libtorrent_jni.new_session__SWIG_3(fingerprint.getCPtr(print), print, flags), true);
-  }
-
-  public session(fingerprint print) {
-    this(libtorrent_jni.new_session__SWIG_4(fingerprint.getCPtr(print), print), true);
-  }
-
-  public session() {
-    this(libtorrent_jni.new_session__SWIG_5(), true);
-  }
-
-  public session(fingerprint print, int_int_pair listen_port_range, String listen_interface, int flags, int alert_mask) {
-    this(libtorrent_jni.new_session__SWIG_6(fingerprint.getCPtr(print), print, int_int_pair.getCPtr(listen_port_range), listen_port_range, listen_interface, flags, alert_mask), true);
-  }
-
-  public session(fingerprint print, int_int_pair listen_port_range, String listen_interface, int flags) {
-    this(libtorrent_jni.new_session__SWIG_7(fingerprint.getCPtr(print), print, int_int_pair.getCPtr(listen_port_range), listen_port_range, listen_interface, flags), true);
-  }
-
-  public session(fingerprint print, int_int_pair listen_port_range, String listen_interface) {
-    this(libtorrent_jni.new_session__SWIG_8(fingerprint.getCPtr(print), print, int_int_pair.getCPtr(listen_port_range), listen_port_range, listen_interface), true);
-  }
-
-  public session(fingerprint print, int_int_pair listen_port_range) {
-    this(libtorrent_jni.new_session__SWIG_9(fingerprint.getCPtr(print), print, int_int_pair.getCPtr(listen_port_range), listen_port_range), true);
-  }
-
   public void save_state(entry e, long flags) {
     libtorrent_jni.session_save_state__SWIG_0(swigCPtr, this, entry.getCPtr(e), e, flags);
   }
@@ -165,6 +133,10 @@ public class session {
 
   public boolean is_dht_running() {
     return libtorrent_jni.session_is_dht_running(swigCPtr, this);
+  }
+
+  public dht_settings get_dht_settings() {
+    return new dht_settings(libtorrent_jni.session_get_dht_settings(swigCPtr, this), true);
   }
 
   public void add_dht_node(string_int_pair node) {

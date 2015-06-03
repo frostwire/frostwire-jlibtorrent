@@ -10,7 +10,7 @@ package com.frostwire.jlibtorrent.swig;
 
 public class ip_filter {
   private long swigCPtr;
-  protected boolean swigCMemOwn;
+  private boolean swigCMemOwn;
 
   protected ip_filter(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
