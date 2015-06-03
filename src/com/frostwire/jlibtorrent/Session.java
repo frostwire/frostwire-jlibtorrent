@@ -60,6 +60,8 @@ public final class Session {
 
         settings_pack sp = new settings_pack();
 
+        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
+
         // TODO: fix the parameters
         this.s = new session(sp, flags);
 
