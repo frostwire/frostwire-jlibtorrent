@@ -460,16 +460,6 @@ public class alert {
     return (cPtr == 0) ? null : new lsd_error_alert(cPtr, false);
   }
 
-  public static dht_lookup cast_to_dht_lookup(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_dht_lookup(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new dht_lookup(cPtr, false);
-  }
-
-  public static dht_routing_bucket cast_to_dht_routing_bucket(alert alert) {
-    long cPtr = libtorrent_jni.alert_cast_to_dht_routing_bucket(alert.getCPtr(alert), alert);
-    return (cPtr == 0) ? null : new dht_routing_bucket(cPtr, false);
-  }
-
   public static dht_stats_alert cast_to_dht_stats_alert(alert alert) {
     long cPtr = libtorrent_jni.alert_cast_to_dht_stats_alert(alert.getCPtr(alert), alert);
     return (cPtr == 0) ? null : new dht_stats_alert(cPtr, false);

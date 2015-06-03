@@ -465,7 +465,7 @@ public class piece_picker {
   }
 
   public piece_picker.block_info blocks_for_piece(piece_picker.downloading_piece dp) {
-    long cPtr = libtorrent_jni.piece_picker_blocks_for_piece__SWIG_0(swigCPtr, this, piece_picker.downloading_piece.getCPtr(dp), dp);
+    long cPtr = libtorrent_jni.piece_picker_blocks_for_piece(swigCPtr, this, piece_picker.downloading_piece.getCPtr(dp), dp);
     return (cPtr == 0) ? null : new piece_picker.block_info(cPtr, false);
   }
 

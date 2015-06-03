@@ -1664,8 +1664,6 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_torrent_log_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_peer_log_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_lsd_error_alert(long jarg1, alert jarg1_);
-  public final static native long alert_cast_to_dht_lookup(long jarg1, alert jarg1_);
-  public final static native long alert_cast_to_dht_routing_bucket(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_incoming_request_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_log_alert(long jarg1, alert jarg1_);
@@ -2979,6 +2977,7 @@ public class libtorrent_jni {
   public final static native void peer_connection_start(long jarg1, peer_connection jarg1_);
   public final static native void delete_peer_connection(long jarg1);
   public final static native void peer_connection_set_peer_info(long jarg1, peer_connection jarg1_, long jarg2, torrent_peer jarg2_);
+  public final static native long peer_connection_peer_info_struct(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_peer_exceeds_limit(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_peer_disconnected_other(long jarg1, peer_connection jarg1_);
   public final static native void peer_connection_send_allowed_set(long jarg1, peer_connection jarg1_);
@@ -3275,7 +3274,7 @@ public class libtorrent_jni {
   public final static native int piece_picker_blocks_in_last_piece(long jarg1, piece_picker jarg1_);
   public final static native long piece_picker_distributed_copies(long jarg1, piece_picker jarg1_);
   public final static native void piece_picker_set_num_pad_files(long jarg1, piece_picker jarg1_, int jarg2);
-  public final static native long piece_picker_blocks_for_piece__SWIG_0(long jarg1, piece_picker jarg1_, long jarg2, piece_picker.downloading_piece jarg2_);
+  public final static native long piece_picker_blocks_for_piece(long jarg1, piece_picker jarg1_, long jarg2, piece_picker.downloading_piece jarg2_);
   public final static native int piece_picker_max_pieces_get();
   public final static native void delete_piece_picker(long jarg1);
   public final static native void initialize_default_settings(long jarg1, session_settings jarg1_);

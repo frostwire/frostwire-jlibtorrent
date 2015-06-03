@@ -122,6 +122,9 @@ public final class Alerts {
         CAST_ALERT_METHOD(peer_log_alert.class, map);
         CAST_ALERT_METHOD(lsd_error_alert.class, map);
         CAST_ALERT_METHOD(dht_stats_alert.class, map);
+        CAST_ALERT_METHOD(incoming_request_alert.class, map);
+        CAST_ALERT_METHOD(dht_log_alert.class, map);
+        CAST_ALERT_METHOD(dht_pkt_alert.class, map);
 
         CAST_ALERT_METHOD(dht_get_peers_reply_alert.class, map);
         CAST_ALERT_METHOD(set_piece_hashes_alert.class, map);

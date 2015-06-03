@@ -58,7 +58,10 @@ public final class Session {
             alert_mask = alert_mask & ~log_mask;
         }
 
-        this.s = new session(print.getSwig(), prange.to_int_int_pair(), iface, flags, alert_mask);
+        settings_pack sp = new settings_pack();
+
+        // TODO: fix the parameters
+        this.s = new session(sp, flags);
 
         this.lastStats = new SessionStats();
         this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);

@@ -490,7 +490,6 @@ namespace std {
 %ignore libtorrent::peer_connection::m_extensions;
 %ignore libtorrent::peer_connection::m_send_buffer;
 %ignore libtorrent::peer_connection::self;
-%ignore libtorrent::peer_connection::peer_info_struct;
 %ignore libtorrent::peer_connection::bittyrant_unchoke_compare;
 %ignore libtorrent::peer_connection::unchoke_compare;
 %ignore libtorrent::bt_peer_connection::send_buffer;
@@ -666,6 +665,7 @@ namespace std {
 %ignore libtorrent::piece_picker::mark_as_canceled;
 %ignore libtorrent::piece_picker::get_download_queue_sizes;
 %ignore libtorrent::piece_picker::pick_pieces;
+%ignore libtorrent::piece_picker::blocks_for_piece(downloading_piece const&) const;
 %ignore libtorrent::piece_picker::block_info::peer;
 %ignore libtorrent::torrent_error_alert::torrent_error_alert;
 %ignore libtorrent::peer_log_alert::peer_log_alert;
@@ -877,8 +877,6 @@ namespace libtorrent {
     CAST_ALERT_METHOD(torrent_log_alert)
     CAST_ALERT_METHOD(peer_log_alert)
     CAST_ALERT_METHOD(lsd_error_alert)
-    CAST_ALERT_METHOD(dht_lookup)
-    CAST_ALERT_METHOD(dht_routing_bucket)
     CAST_ALERT_METHOD(dht_stats_alert)
     CAST_ALERT_METHOD(incoming_request_alert)
     CAST_ALERT_METHOD(dht_log_alert)

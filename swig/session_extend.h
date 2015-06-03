@@ -37,6 +37,9 @@ typename rob<Tag, p>::filler rob<Tag, p>::filler_obj;
 struct session_m_impl { typedef boost::shared_ptr<aux::session_impl> session::*type; };
 template class rob<session_m_impl, &session::m_impl>;
 
+struct session_impl_m_upnp { typedef boost::shared_ptr<upnp> session_impl::*type; };
+template class rob<session_impl_m_upnp, &session_impl::m_upnp>;
+
 struct dht_tracker_m_dht { typedef node dht_tracker::*type; };
 template class rob<dht_tracker_m_dht, &dht_tracker::m_dht>;
 // END PRIVATE HACK
@@ -118,8 +121,8 @@ void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq
 void dht_get_peers_fun(std::vector<tcp::endpoint> const& peers,
 						boost::shared_ptr<aux::session_impl> s, sha1_hash const& ih) {
 
-	if (s->m_alerts.should_post<dht_get_peers_reply_alert>()) {
-		s->m_alerts.emplace_alert<dht_get_peers_reply_alert>(ih, peers);
+	if (s->alerts().should_post<dht_get_peers_reply_alert>()) {
+		s->alerts().emplace_alert<dht_get_peers_reply_alert>(ih, peers);
 	}
 }
 
@@ -172,8 +175,8 @@ void dht_announce(session* s, sha1_hash const& info_hash) {
 }
 
 void set_piece_hashes_fun(int i, boost::shared_ptr<aux::session_impl> s, std::string& id, int num_pieces) {
-	if (s->m_alerts.should_post<set_piece_hashes_alert>()) {
-        s->m_alerts.emplace_alert<set_piece_hashes_alert>(id, i + 1, num_pieces);
+	if (s->alerts().should_post<set_piece_hashes_alert>()) {
+        s->alerts().emplace_alert<set_piece_hashes_alert>(id, i + 1, num_pieces);
     }
 }
 
@@ -187,7 +190,7 @@ void set_piece_hashes(session* s, std::string const& id, libtorrent::create_torr
 upnp* get_upnp(session* s) {
 
     boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
-    boost::shared_ptr<upnp> m_upnp = s_impl->m_upnp;
+    boost::shared_ptr<upnp> m_upnp = *s_impl.*result<session_impl_m_upnp>::ptr;
 
     return m_upnp ? m_upnp.get() : NULL;
 }
