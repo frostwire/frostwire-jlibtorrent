@@ -18,6 +18,9 @@ pushd $LIBTORRENT_ROOT/..
 svn checkout svn://svn.code.sf.net/p/libtorrent/code/branches/$LIBTORRENT_VERSION libtorrent-$LIBTORRENT_VERSION
 popd
 
+# Set up the libtorrent libs folder
+mkdir -p $LIBTORRENT_LIBS
+
 # Build BOOST and copy the .a files to LIBTORRENT_LIBS
 pushd $BOOST_ROOT
 sh ./bootstrap.sh
