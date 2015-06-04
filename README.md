@@ -6,7 +6,7 @@ Develop libtorrent based apps with the joy of coding in Java.
 
 Here's a simple example of how to create a .torrent downloader using **frostwire-jlibtorrent**.
 
-```
+```java
 public final class DownloadTorrent {
 
     public static void main(String[] args) throws Throwable {
@@ -37,7 +37,8 @@ public final class DownloadTorrent {
                 signal.countDown();
             }
         });
-
+        
+        th.resume();
         signal.await();
     }
 }
