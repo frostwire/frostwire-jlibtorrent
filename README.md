@@ -75,7 +75,7 @@ If you are building for Windows, we suggest you use boost 1.55, [boost 1.56 intr
 
 **Building the shared library**
 
-make libtorrent, and then, go to the [build/](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/build) folder of our project and execute the [run_swig.sh](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/build/run_swig.sh) script and then the `build_xxx.sh` script corresponding to the OS you want to build for. 
+make libtorrent, and then, from the root folder of our project and execute the `/build/build_xyz.sh` script corresponding to the OS you want to build for. 
 
 The result will be a `libjlibtorrent.dylib`, or `libjlibtorrent.so` or `jlibtorrent.dll` which you can then use on your Java project along with the [Java sources](https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/com/frostwire/jlibtorrent) of the frostwire-jlibtorrent api. Make sure the `.dylib`, `.so` or `.dll` is on your project's java lib path.
 
