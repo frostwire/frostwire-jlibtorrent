@@ -50,6 +50,19 @@ frostwire-jlibtorrent is currently compatible with libtorrent-rasterbar-1.0.2
 Building
 ========
 
+**Building in Linux (Ubuntu/Debian)**
+
+From the root folder of the project invoke the following command and follow the instructions:
+```
+./build/configure_linux.sh
+```
+This command downloads all the dependencies necessary to build frostwire-jlibtorrent, these include the tools required for building, as well as BOOST and the libtorrent sources compatible with frostwire-jlibtorrent. We always try to be on the latest stable version of libtorrent.
+
+```
+./build/build_linux.sh
+```
+This is the command you will use to build the `libjlibtorrent.so` file. If this command fails, make sure to sync your repo and run the `configure_linux.sh` script once again, you might have outdated sources.
+
 **Requirements**
 
 You will have to build libtorrent first on your system, we've included build scripts in the `build` folder.
