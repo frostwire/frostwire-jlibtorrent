@@ -3,15 +3,15 @@
 # environment_linux.sh: define variables, paths and common functions for configure_linux.sh and build_linux.sh
 ###############################################################################################################
 
-export GCC_VERSION="4.8"
+export GCC_VERSION=`gcc --version | sed -n 's/.*\([0-9].[0-9].[0-9]\)/\1/p'`
 
 # Boost Version
 export BOOST_VERSION_MAJOR="1"
 export BOOST_VERSION_MINOR="58"
 export BOOST_VERSION_BUILD="0"
 
-export BOOST_UNDERSCORED_VERSION="$BOOST_VERSION_MAJOR_$BOOST_VERSION_MINOR_$BOOST_VERSION_BUILD"
-export BOOST_DOTTED_VERSION="$BOOST_VERSION_MAJOR.$BOST_VERSION_MINOR.$BOOST_VERSION_BUILD"
+export BOOST_UNDERSCORED_VERSION="${BOOST_VERSION_MAJOR}_${BOOST_VERSION_MINOR}_${BOOST_VERSION_BUILD}"
+export BOOST_DOTTED_VERSION="${BOOST_VERSION_MAJOR}.${BOOST_VERSION_MINOR}.${BOOST_VERSION_BUILD}"
 
 # Libtorrent version
 export LIBTORRENT_VERSION="RC_1_0"
@@ -57,6 +57,7 @@ function enterToContinueOrAbort() {
 
 function sanityCheck() {
   printEnvironment
+  echo ""
   echo "Make sure the environment variables above are correct before proceeding forward."
   enterToContinueOrAbort
 }
