@@ -27,6 +27,7 @@ export LIBTORRENT_LIBS="$HOME/libs/LIBTORRENT_LIBS"
 export JDK_INCLUDE_1=$JAVA_HOME/include
 export JDK_INCLUDE_2=$JAVA_HOME/include/linux
 
+export CXXFLAGS="-std=c++11 -O3 -fPIC -I${BOOST_ROOT}"
 ###############################################################################################################
 
 function printEnvironment() {

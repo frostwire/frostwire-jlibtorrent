@@ -3,6 +3,8 @@ source ./build/environment_linux.sh
 sanityCheck
 
 # Some setup
+echo "About to ask you for sudo permission to perform: sudo apt-get install libbz2-dev libssl1.0.0 libcrypto++9 subversion"
+enterToContinueOrAbort
 sudo apt-get install libbz2-dev libssl1.0.0 libcrypto++9 subversion
 
 # Download BOOST to BOOST_ROOT folder.
