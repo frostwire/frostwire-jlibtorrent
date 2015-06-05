@@ -63,6 +63,8 @@ This command downloads all the dependencies necessary to build frostwire-jlibtor
 ```
 This is the command you will use to build the `libjlibtorrent.so` file. If this command fails, make sure to sync your repo and run the `configure_linux.sh` script once again, you might have outdated sources.
 
+>*Currently the script dependencies installation function is meant for Debian/Ubuntu only, patches are welcome to make the script work for other Linux distributions. Submit your Pull Request in a feature branch so we can work together.*
+
 **Requirements**
 
 You will have to build libtorrent first on your system, we've included build scripts in the `build` folder.
