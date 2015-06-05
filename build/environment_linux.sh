@@ -28,6 +28,8 @@ export JDK_INCLUDE_1=$JAVA_HOME/include
 export JDK_INCLUDE_2=$JAVA_HOME/include/linux
 
 export CXXFLAGS="-std=c++11 -O3 -fPIC -I${BOOST_ROOT}"
+export LDFLAGS="-L$BOOST_ROOT/stage/lib -L$LIBTORRENT_LIBS"
+export LD_LIBRARY_PATH=/usr/local/lib:$BOOST_ROOT/stage/lib:$LIBTORRENT_LIBS
 ###############################################################################################################
 
 function printEnvironment() {
@@ -48,12 +50,33 @@ function printEnvironment() {
   echo JDK_INCLUDE_2=$JAVA_HOME/include/linux
   echo ""
   echo CXXFLAGS=$CXXFLAGS
+  echo LDFLAGS=$LDFLAGS
+  echo LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 }
 
 function enterToContinueOrAbort() {
   echo "(Press [Enter] to continue or Ctrl-c to abort)"
   echo ""
   read
+}
+
+function confirm {
+  read -r -p "Are you sure? [Y/n] " response
+  if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+      return 0
+  else
+      return 1
+  fi
+}
+
+function confirmAndExecute() {
+    message=$1
+    commandToExecute=$2
+
+    echo $message
+    if confirm ; then
+      $commandToExecute
+    fi
 }
 
 function sanityCheck() {
