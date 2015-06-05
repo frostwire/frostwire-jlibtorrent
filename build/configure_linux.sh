@@ -11,6 +11,7 @@ function installDependencies() {
 }
 
 function downloadBOOST() {
+  rm -fr $BOOST_ROOT
   mkdir -p $BOOST_ROOT
   pushd $BOOST_ROOT/..
   wget -O boost_$BOOST_UNDERSCORED_VERSION.tar.bz2 http://sourceforge.net/projects/boost/files/boost/$BOOST_DOTTED_VERSION/boost_$BOOST_UNDERSCORED_VERSION.tar.bz2/download
@@ -19,6 +20,7 @@ function downloadBOOST() {
 }
 
 function downloadLibtorrent() {
+  rm -fr $LIBTORRENT_ROOT
   mkdir -p $LIBTORRENT_ROOT
   mkdir -p $LIBTORRENT_LIBS
   pushd $LIBTORRENT_ROOT/..
@@ -50,7 +52,6 @@ confirmAndExecute "Want to download BOOST $BOOST_DOTTED_VERSION?" downloadBOOST
 confirmAndExecute "Want to build BOOST $BOOST_DOTTED_VERSION?" buildBoost
 confirmAndExecute "Want to download libtorrent $LIBTORRENT_VERSION?" downloadLibtorrent
 confirmAndExecute "Want to build libtorrent $LIBTORRENT_VERSION?" buildLibtorrent
-confirmAndExecute "Want to build libtorrent?" buildLibtorrent
 
 # Run the build_linux script....
 echo ""
