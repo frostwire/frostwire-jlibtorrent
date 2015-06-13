@@ -18,9 +18,10 @@
 package com.frostwire.jlibtorrent;
 
 import java.io.*;
+import java.security.MessageDigest;
 
 public final class Utils {
-
+    final static Logger LOG = Logger.getLogger(Utils.class);
     private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
 
     private Utils() {
@@ -452,5 +453,29 @@ public final class Utils {
         }
 
         return new String(hexChars);
+    }
+
+    public static byte[] getSha1Bytes(File f)  {
+        try {
+            final MessageDigest sha1 = MessageDigest.getInstance("SHA1");
+            if (sha1 == null) {
+                LOG.error("No such algorithm: SHA1");
+                return null;
+            }
+            FileInputStream fis = new FileInputStream(f);
+            byte[] dataBytes = new byte[1024];
+            int read;
+            while ((read = fis.read(dataBytes)) != -1) {
+                sha1.update(dataBytes, 0, read);
+            }
+            return sha1.digest();
+        } catch (Throwable e) {
+            LOG.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public static String getSha1(File f) {
+        return toHex(getSha1Bytes(f));
     }
 }
