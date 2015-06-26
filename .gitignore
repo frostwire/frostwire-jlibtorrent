@@ -13,3 +13,4 @@ frostwire-jlibtorrent.iws
 /swig/bin
 /build
 /libjlibtorrent.dylib
+/libjlibtorrent.so
