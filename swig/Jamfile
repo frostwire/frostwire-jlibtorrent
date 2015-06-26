@@ -45,6 +45,13 @@ rule libtorrent_linking ( properties * )
     {
         result += <cxxflags>-O3 ;
     }
+
+    if <toolset>gcc in $(properties)
+    {
+        result += <cxxflags>-fPIC ;
+        result += <cflags>-fPIC ;
+    }
+
     result += <variant>release ;
     result += <deprecated-functions>off ;
     result += <logging>on ;
@@ -78,6 +85,13 @@ rule env_setup ( properties * )
     if <toolset>msvc in $(properties)
     {
         result += <include>$(JDK_ROOT)/include/win32 ;
+    }
+
+    if <toolset>gcc in $(properties)
+    {
+            result += <include>$(JDK_ROOT)/include/linux ;
+            result += <cxxflags>-fPIC ;
+            result += <cflags>-fPIC ;
     }
 
     if <toolset>msvc in $(properties)
