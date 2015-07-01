@@ -43,8 +43,8 @@ public class torrent {
     return libtorrent_jni.torrent_is_deleted(swigCPtr, this);
   }
 
-  public void start() {
-    libtorrent_jni.torrent_start(swigCPtr, this);
+  public void start(add_torrent_params p) {
+    libtorrent_jni.torrent_start(swigCPtr, this, add_torrent_params.getCPtr(p), p);
   }
 
   public void start_download_url() {

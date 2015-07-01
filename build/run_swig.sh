@@ -30,5 +30,6 @@ swig -c++ -java -o swig/libtorrent_jni.cpp \
     -DTORRENT_OVERRIDE="" \
     -DTORRENT_FINAL="" \
     -DTORRENT_DISABLE_LOGGING=1 \
+    -DTORRENT_DEBUG_REFCOUNTS=1 \
     -DNDEBUG=1 \
     swig/libtorrent.i

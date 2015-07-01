@@ -337,7 +337,6 @@ public class settings_pack {
     min_announce_interval,
     auto_manage_startup,
     seeding_piece_quota,
-    max_sparse_regions,
     max_rejects,
     recv_socket_buffer_size,
     send_socket_buffer_size,

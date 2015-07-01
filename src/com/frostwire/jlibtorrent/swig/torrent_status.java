@@ -496,14 +496,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_last_scrape_get(swigCPtr, this);
   }
 
-  public void setSparse_regions(int value) {
-    libtorrent_jni.torrent_status_sparse_regions_set(swigCPtr, this, value);
-  }
-
-  public int getSparse_regions() {
-    return libtorrent_jni.torrent_status_sparse_regions_get(swigCPtr, this);
-  }
-
   public void setPriority(int value) {
     libtorrent_jni.torrent_status_priority_set(swigCPtr, this, value);
   }

@@ -218,10 +218,6 @@ public class piece_picker {
     return libtorrent_jni.piece_picker_reverse_cursor(swigCPtr, this);
   }
 
-  public int sparse_regions() {
-    return libtorrent_jni.piece_picker_sparse_regions(swigCPtr, this);
-  }
-
   public void init(int blocks_per_piece, int blocks_in_last_piece, int total_num_pieces) {
     libtorrent_jni.piece_picker_init(swigCPtr, this, blocks_per_piece, blocks_in_last_piece, total_num_pieces);
   }

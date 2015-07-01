@@ -43,6 +43,10 @@ public class session {
     this(libtorrent_jni.new_session__SWIG_1(settings_pack.getCPtr(pack), pack), true);
   }
 
+  public session() {
+    this(libtorrent_jni.new_session__SWIG_2(), true);
+  }
+
   public void save_state(entry e, long flags) {
     libtorrent_jni.session_save_state__SWIG_0(swigCPtr, this, entry.getCPtr(e), e, flags);
   }
@@ -223,8 +227,8 @@ public class session {
     libtorrent_jni.session_apply_settings(swigCPtr, this, settings_pack.getCPtr(s), s);
   }
 
-  public session_settings get_settings() {
-    return new session_settings(libtorrent_jni.session_get_settings(swigCPtr, this), true);
+  public settings_pack get_settings() {
+    return new settings_pack(libtorrent_jni.session_get_settings(swigCPtr, this), true);
   }
 
   public void pop_alerts(alert_ptr_vector alerts) {

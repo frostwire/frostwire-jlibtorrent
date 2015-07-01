@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.session_settings;
 import com.frostwire.jlibtorrent.swig.settings_pack;
 
 /**
@@ -10,13 +9,13 @@ import com.frostwire.jlibtorrent.swig.settings_pack;
 @Deprecated
 public final class SessionSettings {
 
-    private final session_settings s;
+    private final settings_pack s;
 
-    public SessionSettings(session_settings s) {
+    public SessionSettings(settings_pack s) {
         this.s = s;
     }
 
-    public session_settings getSwig() {
+    public settings_pack getSwig() {
         return s;
     }
 

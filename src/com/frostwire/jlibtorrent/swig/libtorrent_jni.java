@@ -1436,8 +1436,6 @@ public class libtorrent_jni {
   public final static native int torrent_status_seed_rank_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_last_scrape_set(long jarg1, torrent_status jarg1_, int jarg2);
   public final static native int torrent_status_last_scrape_get(long jarg1, torrent_status jarg1_);
-  public final static native void torrent_status_sparse_regions_set(long jarg1, torrent_status jarg1_, int jarg2);
-  public final static native int torrent_status_sparse_regions_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_priority_set(long jarg1, torrent_status jarg1_, int jarg2);
   public final static native int torrent_status_priority_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_state_set(long jarg1, torrent_status jarg1_, int jarg2);
@@ -3225,7 +3223,6 @@ public class libtorrent_jni {
   public final static native void piece_picker_we_dont_have(long jarg1, piece_picker jarg1_, int jarg2);
   public final static native int piece_picker_cursor(long jarg1, piece_picker jarg1_);
   public final static native int piece_picker_reverse_cursor(long jarg1, piece_picker jarg1_);
-  public final static native int piece_picker_sparse_regions(long jarg1, piece_picker jarg1_);
   public final static native void piece_picker_init(long jarg1, piece_picker jarg1_, int jarg2, int jarg3, int jarg4);
   public final static native int piece_picker_num_pieces(long jarg1, piece_picker jarg1_);
   public final static native boolean piece_picker_have_piece(long jarg1, piece_picker jarg1_, int jarg2);
@@ -3390,7 +3387,7 @@ public class libtorrent_jni {
   public final static native void delete_torrent(long jarg1);
   public final static native long torrent_info_hash(long jarg1, torrent jarg1_);
   public final static native boolean torrent_is_deleted(long jarg1, torrent jarg1_);
-  public final static native void torrent_start(long jarg1, torrent jarg1_);
+  public final static native void torrent_start(long jarg1, torrent jarg1_, long jarg2, add_torrent_params jarg2_);
   public final static native void torrent_start_download_url(long jarg1, torrent jarg1_);
   public final static native int torrent_current_stats_state(long jarg1, torrent jarg1_);
   public final static native void torrent_add_extension(long jarg1, torrent jarg1_, long jarg2, torrent_plugin jarg2_);
@@ -3703,6 +3700,7 @@ public class libtorrent_jni {
   public final static native void delete_session_proxy(long jarg1);
   public final static native long new_session__SWIG_0(long jarg1, settings_pack jarg1_, int jarg2);
   public final static native long new_session__SWIG_1(long jarg1, settings_pack jarg1_);
+  public final static native long new_session__SWIG_2();
   public final static native void delete_session(long jarg1);
   public final static native int session_save_settings_get();
   public final static native int session_save_dht_settings_get();
