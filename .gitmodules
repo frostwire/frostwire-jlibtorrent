@@ -1,6 +1,0 @@
-[submodule "boost"]
-	path = boost
-	url = https://github.com/boostorg/boost
-[submodule "libtorrent"]
-	path = libtorrent
-	url = https://github.com/arvidn/libtorrent
