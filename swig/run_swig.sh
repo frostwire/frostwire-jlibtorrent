@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JAVA_SRC_OUTPUT=../src/com/frostwire/jlibtorrent/swig
+JAVA_SRC_OUTPUT=../src/main/java/com/frostwire/jlibtorrent/swig
 
 rm -rf ${JAVA_SRC_OUTPUT}
 mkdir -p ${JAVA_SRC_OUTPUT}
