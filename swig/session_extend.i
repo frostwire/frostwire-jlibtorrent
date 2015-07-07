@@ -48,12 +48,8 @@ class upnp;
         dht_get_peers($self, info_hash);
     }
 
-    void dht_announce(sha1_hash const& info_hash, int port, int flags) {
+    void dht_announce(sha1_hash const& info_hash, int port = 0, int flags = 0) {
         dht_announce($self, info_hash, port, flags);
-    }
-
-    void dht_announce(sha1_hash const& info_hash) {
-        dht_announce($self, info_hash);
     }
 
     void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {

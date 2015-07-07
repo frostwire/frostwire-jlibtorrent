@@ -40,8 +40,6 @@ template class rob<session_m_impl, &session::m_impl>;
 struct session_impl_m_upnp { typedef boost::shared_ptr<upnp> session_impl::*type; };
 template class rob<session_impl_m_upnp, &session_impl::m_upnp>;
 
-struct dht_tracker_m_dht { typedef node dht_tracker::*type; };
-template class rob<dht_tracker_m_dht, &dht_tracker::m_dht>;
 // END PRIVATE HACK
 
 #define TORRENT_DEFINE_ALERT_IMPL(name, seq, prio) \
@@ -52,28 +50,6 @@ template class rob<dht_tracker_m_dht, &dht_tracker::m_dht>;
 	virtual char const* what() const { return #name; }
 
 namespace libtorrent {
-
-struct dht_get_peers_reply_alert: alert {
-
-	dht_get_peers_reply_alert(aux::stack_allocator& alloc, sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
-		: info_hash(ih), peers(v) {
-	}
-
-	TORRENT_DEFINE_ALERT_IMPL(dht_get_peers_reply_alert, user_alert_id + 100, 0);
-
-	const static int static_category = alert::dht_notification;
-
-	std::string message() const {
-    	char ih_hex[41];
-    	to_hex((const char*)&info_hash[0], 20, ih_hex);
-    	char msg[200];
-    	snprintf(msg, sizeof(msg), "incoming dht get_peers reply: %s, peers %ld", ih_hex, peers.size());
-    	return msg;
-    }
-
-	sha1_hash info_hash;
-	std::vector<tcp::endpoint> peers;
-};
 
 struct set_piece_hashes_alert: alert {
 
@@ -118,60 +94,20 @@ void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq
         sig.data());
 }
 
-void dht_get_peers_fun(std::vector<tcp::endpoint> const& peers,
-						boost::shared_ptr<aux::session_impl> s, sha1_hash const& ih) {
-
-	if (s->alerts().should_post<dht_get_peers_reply_alert>()) {
-		s->alerts().emplace_alert<dht_get_peers_reply_alert>(ih, peers);
-	}
-}
-
 // search for nodes with ids close to id or with peers
 // for info-hash id
 void dht_get_peers(session* s, sha1_hash const& info_hash) {
 
     boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
-    dht::dht_tracker* s_dht_tracker = s_impl->dht();
-    const reference_wrapper<libtorrent::dht::node> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
 
-	bool privacy_lookups = node.get().settings().privacy_lookups;
-
-    boost::intrusive_ptr<get_peers> ta;
-	if (privacy_lookups)
-	{
-		ta.reset(new obfuscated_get_peers(node, info_hash,
-			boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash), NULL, 0));
-	}
-	else
-	{
-		ta.reset(new get_peers(node, info_hash,
-			boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash), NULL, 0));
-	}
-
-	ta->start();
+    s_impl->dht_get_peers(info_hash);
 }
 
 void dht_announce(session* s, sha1_hash const& info_hash, int port, int flags) {
 
     boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
-    dht::dht_tracker* s_dht_tracker = s_impl->dht();
-    const reference_wrapper<libtorrent::dht::node> node = boost::ref(*s_dht_tracker.*result<dht_tracker_m_dht>::ptr);
 
-	node.get().announce(info_hash, port, flags, boost::bind(&dht_get_peers_fun, _1, s_impl, info_hash));
-}
-
-void dht_announce(session* s, sha1_hash const& info_hash) {
-
-	int port = s->listen_port();
-
-	int flags = 0;
-    // if we allow incoming uTP connections, set the implied_port
-    // argument in the announce, this will make the DHT node use
-    // our source port in the packet as our listen port, which is
-    // likely more accurate when behind a NAT
-    if (s->get_settings().get_bool(settings_pack::enable_incoming_utp)) flags |= dht::dht_tracker::flag_implied_port;
-
-	dht_announce(s, info_hash, port, flags);
+    s_impl->dht_announce(info_hash, port, flags);
 }
 
 void set_piece_hashes_fun(int i, boost::shared_ptr<aux::session_impl> s, std::string& id, int num_pieces) {

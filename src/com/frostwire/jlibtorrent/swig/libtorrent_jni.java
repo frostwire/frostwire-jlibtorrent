@@ -1574,6 +1574,7 @@ public class libtorrent_jni {
   public final static native int alert_peer_log_notification_get();
   public final static native int alert_incoming_request_notification_get();
   public final static native int alert_dht_log_notification_get();
+  public final static native int alert_dht_operation_notification_get();
   public final static native int alert_all_categories_get();
   public final static native void delete_alert(long jarg1);
   public final static native long alert_timestamp(long jarg1, alert jarg1_);
@@ -2345,7 +2346,7 @@ public class libtorrent_jni {
   public final static native String stats_alert_message(long jarg1, stats_alert jarg1_);
   public final static native void stats_alert_interval_set(long jarg1, stats_alert jarg1_, int jarg2);
   public final static native int stats_alert_interval_get(long jarg1, stats_alert jarg1_);
-  public final static native long stats_alert_transferred_v(long jarg1, stats_alert jarg1_);
+  public final static native int stats_alert_get_transferred(long jarg1, stats_alert jarg1_, int jarg2);
   public final static native void delete_stats_alert(long jarg1);
   public final static native long new_cache_flushed_alert(long jarg1, stack_allocator jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native int cache_flushed_alert_priority_get();
@@ -2692,6 +2693,19 @@ public class libtorrent_jni {
   public final static native void dht_pkt_alert_node_set(long jarg1, dht_pkt_alert jarg1_, long jarg2, udp_endpoint jarg2_);
   public final static native long dht_pkt_alert_node_get(long jarg1, dht_pkt_alert jarg1_);
   public final static native void delete_dht_pkt_alert(long jarg1);
+  public final static native long new_dht_get_peers_reply_alert(long jarg1, stack_allocator jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, tcp_endpoint_vector jarg3_);
+  public final static native int dht_get_peers_reply_alert_static_category_get();
+  public final static native int dht_get_peers_reply_alert_priority_get();
+  public final static native int dht_get_peers_reply_alert_alert_type_get();
+  public final static native int dht_get_peers_reply_alert_type(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native int dht_get_peers_reply_alert_category(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native String dht_get_peers_reply_alert_what(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native String dht_get_peers_reply_alert_message(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native void dht_get_peers_reply_alert_info_hash_set(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long dht_get_peers_reply_alert_info_hash_get(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native int dht_get_peers_reply_alert_num_peers(long jarg1, dht_get_peers_reply_alert jarg1_);
+  public final static native void dht_get_peers_reply_alert_peers(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
+  public final static native void delete_dht_get_peers_reply_alert(long jarg1);
   public final static native int num_alert_types_get();
   public final static native int TORRENT_ALERT_MANAGER_MAX_ARITY_get();
   public final static native void cached_piece_info_blocks_set(long jarg1, cached_piece_info jarg1_, long jarg2, bool_vector jarg2_);
@@ -3774,7 +3788,8 @@ public class libtorrent_jni {
   public final static native void session_dht_put_item__SWIG_2(long jarg1, session jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_);
   public final static native void session_dht_get_peers(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void session_dht_announce__SWIG_0(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_, int jarg3, int jarg4);
-  public final static native void session_dht_announce__SWIG_1(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void session_dht_announce__SWIG_1(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_, int jarg3);
+  public final static native void session_dht_announce__SWIG_2(long jarg1, session jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void session_set_piece_hashes(long jarg1, session jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
   public final static native long session_get_upnp(long jarg1, session jarg1_);
   public final static native void session_add_swig_extension(long jarg1, session jarg1_, long jarg2, swig_plugin jarg2_);
@@ -4122,19 +4137,6 @@ public class libtorrent_jni {
   public final static native void upnp_close(long jarg1, upnp jarg1_);
   public final static native String upnp_router_model(long jarg1, upnp jarg1_);
   public final static native boolean upnp_get_mapping(long jarg1, upnp jarg1_, int jarg2, long jarg3, int_vector jarg3_);
-  public final static native long new_dht_get_peers_reply_alert(long jarg1, stack_allocator jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, tcp_endpoint_vector jarg3_);
-  public final static native int dht_get_peers_reply_alert_priority_get();
-  public final static native int dht_get_peers_reply_alert_alert_type_get();
-  public final static native int dht_get_peers_reply_alert_type(long jarg1, dht_get_peers_reply_alert jarg1_);
-  public final static native int dht_get_peers_reply_alert_category(long jarg1, dht_get_peers_reply_alert jarg1_);
-  public final static native String dht_get_peers_reply_alert_what(long jarg1, dht_get_peers_reply_alert jarg1_);
-  public final static native int dht_get_peers_reply_alert_static_category_get();
-  public final static native String dht_get_peers_reply_alert_message(long jarg1, dht_get_peers_reply_alert jarg1_);
-  public final static native void dht_get_peers_reply_alert_info_hash_set(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, sha1_hash jarg2_);
-  public final static native long dht_get_peers_reply_alert_info_hash_get(long jarg1, dht_get_peers_reply_alert jarg1_);
-  public final static native void dht_get_peers_reply_alert_peers_set(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
-  public final static native long dht_get_peers_reply_alert_peers_get(long jarg1, dht_get_peers_reply_alert jarg1_);
-  public final static native void delete_dht_get_peers_reply_alert(long jarg1);
   public final static native long new_set_piece_hashes_alert(long jarg1, stack_allocator jarg1_, String jarg2, int jarg3, int jarg4);
   public final static native int set_piece_hashes_alert_priority_get();
   public final static native int set_piece_hashes_alert_alert_type_get();
@@ -4266,6 +4268,7 @@ public class libtorrent_jni {
   public final static native long incoming_request_alert_SWIGUpcast(long jarg1);
   public final static native long dht_log_alert_SWIGUpcast(long jarg1);
   public final static native long dht_pkt_alert_SWIGUpcast(long jarg1);
+  public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long ipv4_peer_SWIGUpcast(long jarg1);
   public final static native long ipv6_peer_SWIGUpcast(long jarg1);
   public final static native long peer_connection_SWIGUpcast(long jarg1);
@@ -4274,7 +4277,6 @@ public class libtorrent_jni {
   public final static native long web_connection_base_SWIGUpcast(long jarg1);
   public final static native long web_peer_connection_SWIGUpcast(long jarg1);
   public final static native long http_seed_connection_SWIGUpcast(long jarg1);
-  public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
 
   public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long t) {

@@ -280,8 +280,12 @@ public class session {
     libtorrent_jni.session_dht_announce__SWIG_0(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, port, flags);
   }
 
+  public void dht_announce(sha1_hash info_hash, int port) {
+    libtorrent_jni.session_dht_announce__SWIG_1(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, port);
+  }
+
   public void dht_announce(sha1_hash info_hash) {
-    libtorrent_jni.session_dht_announce__SWIG_1(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash);
+    libtorrent_jni.session_dht_announce__SWIG_2(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash);
   }
 
   public void set_piece_hashes(String id, create_torrent t, String p, error_code ec) {

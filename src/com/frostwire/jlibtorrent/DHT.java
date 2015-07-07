@@ -138,8 +138,8 @@ public final class DHT {
             public void alert(Alert<?> alert) {
                 if (alert instanceof DhtGetPeersReplyAlert) {
                     DhtGetPeersReplyAlert replyAlert = (DhtGetPeersReplyAlert) alert;
-                    if (target.equals(replyAlert.getInfoHash())) {
-                        result[0] = replyAlert.getPeers();
+                    if (target.equals(replyAlert.infoHash())) {
+                        result[0] = replyAlert.peers();
                         signal.countDown();
                     }
                 }

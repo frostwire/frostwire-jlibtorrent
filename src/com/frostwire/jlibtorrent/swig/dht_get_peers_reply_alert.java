@@ -64,16 +64,15 @@ public class dht_get_peers_reply_alert extends alert {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
-  public void setPeers(tcp_endpoint_vector value) {
-    libtorrent_jni.dht_get_peers_reply_alert_peers_set(swigCPtr, this, tcp_endpoint_vector.getCPtr(value), value);
+  public int num_peers() {
+    return libtorrent_jni.dht_get_peers_reply_alert_num_peers(swigCPtr, this);
   }
 
-  public tcp_endpoint_vector getPeers() {
-    long cPtr = libtorrent_jni.dht_get_peers_reply_alert_peers_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
+  public void peers(tcp_endpoint_vector peers) {
+    libtorrent_jni.dht_get_peers_reply_alert_peers(swigCPtr, this, tcp_endpoint_vector.getCPtr(peers), peers);
   }
 
+  public final static int static_category = libtorrent_jni.dht_get_peers_reply_alert_static_category_get();
   public final static int priority = libtorrent_jni.dht_get_peers_reply_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_get_peers_reply_alert_alert_type_get();
-  public final static int static_category = libtorrent_jni.dht_get_peers_reply_alert_static_category_get();
 }

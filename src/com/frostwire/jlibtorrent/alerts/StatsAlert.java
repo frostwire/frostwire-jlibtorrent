@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.stats_alert;
 
 /**
@@ -17,14 +16,8 @@ public final class StatsAlert extends TorrentAlert<stats_alert> {
         super(alert);
     }
 
-    /**
-     * An array of samples. The enum describes what each sample is a
-     * measurement of. All of these are raw, and not smoothing is performed.
-     *
-     * @return
-     */
-    public int[] getTransferred() {
-        return Vectors.int_vector2ints(alert.transferred_v());
+    public int transferred(int index) {
+        return alert.get_transferred(index);
     }
 
     /**

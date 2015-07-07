@@ -1016,8 +1016,8 @@ static const int user_alert_id = 10000;
 };
 
 %extend stats_alert {
-    std::vector<int> transferred_v() {
-        return std::vector<int>($self->transferred, $self->transferred + stats_alert::stats_channel::num_channels);
+    int get_transferred(int index) {
+        return $self->transferred[index];
     }
 };
 

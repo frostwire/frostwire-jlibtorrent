@@ -44,7 +44,7 @@ public final class DhtTest {
                 }
 
                 if (alert instanceof DhtGetPeersReplyAlert) {
-                    ArrayList<TcpEndpoint> peers = ((DhtGetPeersReplyAlert) alert).getPeers();
+                    ArrayList<TcpEndpoint> peers = ((DhtGetPeersReplyAlert) alert).peers();
                     for (int i = 0; i < peers.size(); i++) {
                         System.out.println(peers.get(i));
                     }

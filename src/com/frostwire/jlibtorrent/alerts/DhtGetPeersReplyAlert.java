@@ -17,12 +17,17 @@ public final class DhtGetPeersReplyAlert extends AbstractAlert<dht_get_peers_rep
         super(alert);
     }
 
-    public Sha1Hash getInfoHash() {
+    public Sha1Hash infoHash() {
         return new Sha1Hash(alert.getInfo_hash());
     }
 
-    public ArrayList<TcpEndpoint> getPeers() {
-        tcp_endpoint_vector v = alert.getPeers();
+    public int numPeers() {
+        return alert.num_peers();
+    }
+
+    public ArrayList<TcpEndpoint> peers() {
+        tcp_endpoint_vector v = new tcp_endpoint_vector();
+        alert.peers(v);
         int size = (int) v.size();
         ArrayList<TcpEndpoint> peers = new ArrayList<TcpEndpoint>(size);
 
