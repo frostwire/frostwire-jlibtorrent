@@ -51,6 +51,13 @@ Building
 
 **Requirements**
 
+export BOOST_ROOT=/<path>/boost_1_58_0
+export LIBTORRENT_ROOT=/<path>/libtorrent
+export JDK_ROOT=<path>
+export NDK_ROOT=<path>
+Only for Windows and Android
+export OPENSSL_ROOT=<path>/openssl-1.0.2c
+
 OpenSSL
 
 For android, read this page https://wiki.openssl.org/index.php/Android and install it for arm, arm64, x86, x86_64
@@ -63,7 +70,7 @@ android-aarch64, android-x86 and android-x86_64. Use this folders (absolute path
 
 perl -pi -e 's/install: all install_docs install_sw/install: install_docs install_sw/g' Makefile.org
 
-./config -fPIC no-ssl2 no-ssl3 no-comp no-hw no-engine no-shared no-psk no-srp no-err --openssldir=`pwd`/android-arm
+./config no-ssl2 no-ssl3 no-comp no-hw no-engine no-shared no-psk no-srp no-err --openssldir=`pwd`/android-arm
 
 make depend
 $ make all

@@ -9,6 +9,8 @@
 
 #####################################################################
 
+ANDROID_NDK_ROOT=$NDK_ROOT
+
 # Set ANDROID_NDK_ROOT to you NDK location. For example,
 # /opt/android-ndk-r8e or /opt/android-ndk-r9. This can be done in a
 # login script. If ANDROID_NDK_ROOT is not specified, the script will
