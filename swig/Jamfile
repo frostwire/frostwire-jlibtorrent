@@ -1,0 +1,39 @@
+use-project /torrent : libtorrent ;
+
+rule libtorrent_linking ( properties * )
+{
+    local result ;
+
+    return $(result) ;
+}
+
+rule env_setup ( properties * )
+{
+    local result ;
+
+    if <toolset>darwin in $(properties)
+    {
+        result += <include>/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/include ;
+        result += <include>/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/include/darwin ;
+    }
+
+    return $(result) ;
+}
+
+lib jlibtorrent
+
+    : # sources
+	 libtorrent_jni.cpp
+
+    : # requirements
+    <conditional>@libtorrent_linking
+    <library>/torrent//torrent/<link>static
+    <include>.
+    <conditional>@env_setup
+
+    : # default build
+    <link>static
+
+    : # usage-requirements
+    <include>.
+;
