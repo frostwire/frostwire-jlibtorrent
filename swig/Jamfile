@@ -1,8 +1,38 @@
-use-project /torrent : libtorrent ;
+import os ;
+
+BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
+ECHO "BOOST_ROOT = "$(BOOST_ROOT) ;
+if ! $(BOOST_ROOT)
+{
+	EXIT "You need to define BOOST_ROOT" ;
+}
+
+LIBTORRENT_ROOT = [ os.environ LIBTORRENT_ROOT ] ;
+ECHO "LIBTORRENT_ROOT = "$(LIBTORRENT_ROOT) ;
+if ! $(LIBTORRENT_ROOT)
+{
+	EXIT "You need to define LIBTORRENT_ROOT" ;
+}
+
+JDK_ROOT = [ os.environ JDK_ROOT ] ;
+ECHO "JDK_ROOT = "$(JDK_ROOT) ;
+if ! $(JDK_ROOT)
+{
+	EXIT "You need to define JDK_ROOT" ;
+}
+
+use-project /torrent : $(LIBTORRENT_ROOT) ;
 
 rule libtorrent_linking ( properties * )
 {
     local result ;
+
+    result += <cxxflags>-O2 ;
+    result += <variant>release ;
+    result += <deprecated-functions>off ;
+    result += <logging>on ;
+    result += <crypto>openssl ;
+    result += <boost>source ;
 
     return $(result) ;
 }
@@ -13,8 +43,8 @@ rule env_setup ( properties * )
 
     if <toolset>darwin in $(properties)
     {
-        result += <include>/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/include ;
-        result += <include>/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/include/darwin ;
+        result += <include>$(JDK_ROOT)/include ;
+        result += <include>$(JDK_ROOT)/include/darwin ;
     }
 
     return $(result) ;
@@ -32,7 +62,7 @@ lib jlibtorrent
     <conditional>@env_setup
 
     : # default build
-    <link>static
+    <link>shared
 
     : # usage-requirements
     <include>.
