@@ -66,7 +66,7 @@ but make this changes:
 The setup in this project is to compile in Mac OS X. Use the file openssl-android-env.sh in this repo instead and
 source it (no execute it).
 Define an env variable OPENSSL_ROOT pointing to the extracted sources and create the folders android-arm,
-android-aarch64, android-x86 and android-x86_64. Use this folders (absolute path) in each --openssldir= during config.
+android-x86. Use this folders (absolute path) in each --openssldir= during config.
 
 perl -pi -e 's/install: all install_docs install_sw/install: install_docs install_sw/g' Makefile.org
 

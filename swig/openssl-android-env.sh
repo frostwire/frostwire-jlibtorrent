@@ -22,13 +22,12 @@ _ANDROID_NDK="android-ndk-r9"
 
 # Set _ANDROID_EABI to the EABI you want to use. You can find the
 # list in $ANDROID_NDK_ROOT/toolchains. This value is always used.
-# _ANDROID_EABI="x86-4.6"
-# _ANDROID_EABI="arm-linux-androideabi-4.6"
+#_ANDROID_EABI="x86-4.9"
 _ANDROID_EABI="arm-linux-androideabi-4.9"
 
 # Set _ANDROID_ARCH to the architecture you are building for.
 # This value is always used.
-# _ANDROID_ARCH=arch-x86
+#_ANDROID_ARCH=arch-x86
 _ANDROID_ARCH=arch-arm
 
 # Set _ANDROID_API to the API you want to use. You should set it
