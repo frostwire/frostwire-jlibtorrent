@@ -72,6 +72,11 @@ inside the `build/` folder just invoke
 
 you will find the resulting `frostwire-jlibtorrent.jar` at `build/build/libs/frostwire-jlibtorrent.jar`.
 
+**Strip shared libraries**
+
+Mac OS X
+`strip -S -x file.dylib`
+
 **Contributions are rewarded instantly with our Bitcoin donations fund**
 
 [![tip for next commit](https://tip4commit.com/projects/983.svg)](https://tip4commit.com/github/frostwire/frostwire-jlibtorrent)
