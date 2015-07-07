@@ -8,11 +8,21 @@ if ! $(NDK_ROOT)
 	EXIT "You need to define NDK_ROOT" ;
 }
 
-using gcc : android_arm : $(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-g++ :
+OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
+ECHO "OPENSSL_ROOT = "$(OPENSSL_ROOT) ;
+if ! $(OPENSSL_ROOT)
+{
+	EXIT "You need to define OPENSSL_ROOT" ;
+}
+
+using gcc : android.arm : $(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-g++ :
     <compileflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-arm
     <compileflags>-I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/include
     <compileflags>-I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include
+    <compileflags>-I$(OPENSSL_ROOT)/android-arm/include
+    <compileflags>-L$(OPENSSL_ROOT)/android-arm/lib
     <compileflags>-fpermissive
+    <compileflags>-fPIC
     <archiver>$(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ar
     <ranlib>$(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ranlib
     <cxxflags>-mthumb

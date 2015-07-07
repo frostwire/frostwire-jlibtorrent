@@ -51,6 +51,16 @@ Building
 
 **Requirements**
 
+OpenSSL
+
+For android, read this page https://wiki.openssl.org/index.php/Android and install it for arm, arm64, x86, x86_64
+but make this changes:
+
+The setup in this project is to compile in Mac OS X. Use the file openssl-android-env.sh in this repo instead and
+source it (no execute it).
+Define an env variable OPENSSL_ROOT pointing to the extracted sources and create the folders android-arm,
+android-aarch64, android-x86 and android-x86_64. Use this folders (absolute path) in each --openssldir= during config. 
+
 You will have to build libtorrent first on your system, we've included build scripts in the `build` folder.
 
 If you have not built libtorrent yet, you can get [libtorrent sources from sourceforge](https://sourceforge.net/p/libtorrent/code/HEAD/tree/trunk/).
