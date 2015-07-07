@@ -1,11 +1,11 @@
 #!/bin/bash
 
-JAVA_SRC_OUTPUT=src/com/frostwire/jlibtorrent/swig
+JAVA_SRC_OUTPUT=../src/com/frostwire/jlibtorrent/swig
 
 rm -rf ${JAVA_SRC_OUTPUT}
 mkdir -p ${JAVA_SRC_OUTPUT}
 
-swig -c++ -java -o swig/libtorrent_jni.cpp \
+swig -c++ -java -o libtorrent_jni.cpp \
     -outdir ${JAVA_SRC_OUTPUT} \
     -package com.frostwire.jlibtorrent.swig \
     -I${BOOST_ROOT} \
@@ -32,4 +32,4 @@ swig -c++ -java -o swig/libtorrent_jni.cpp \
     -DTORRENT_DISABLE_LOGGING=1 \
     -DTORRENT_DEBUG_REFCOUNTS=1 \
     -DNDEBUG=1 \
-    swig/libtorrent.i
+    libtorrent.i
