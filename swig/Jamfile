@@ -41,9 +41,10 @@ rule env_setup ( properties * )
 {
     local result ;
 
+    result += <include>$(JDK_ROOT)/include ;
+
     if <toolset>darwin in $(properties)
     {
-        result += <include>$(JDK_ROOT)/include ;
         result += <include>$(JDK_ROOT)/include/darwin ;
     }
 

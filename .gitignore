@@ -9,3 +9,5 @@
 /obj
 frostwire-jlibtorrent.iws
 /test-libtorrent
+/.gradle
+/swig/bin
