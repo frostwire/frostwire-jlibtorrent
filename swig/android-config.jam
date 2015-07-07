@@ -37,5 +37,28 @@ using gcc : android.arm : $(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebu
     <cxxflags>-D__arm__
     <cxxflags>-D_REENTRANT
     ;
+
+using gcc : android.x86 : $(NDK_ROOT)/toolchains/x86-4.9/prebuilt/darwin-x86_64/bin/i686-linux-android-g++ :
+    <cxxflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-x86/
+    <cflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-x86/
+    <linkflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-x86/
+    <compileflags>-I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/include
+    <compileflags>-I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/include
+    <compileflags>-I$(OPENSSL_ROOT)/android-x86/include
+    <linkflags>-L$(OPENSSL_ROOT)/android-x86/lib
+    <cxxflags>-fpermissive
+    <archiver>$(NDK_ROOT)/toolchains/x86-4.9/prebuilt/darwin-x86_64/bin/i686-linux-android-ar
+    <ranlib>$(NDK_ROOT)/toolchains/x86-4.9/prebuilt/darwin-x86_64/bin/i686-linux-android-ranlib
+    <cxxflags>-fno-strict-aliasing
+    <cxxflags>-lstdc++
+    <cxxflags>-O3
+    <cxxflags>-m32
+    <cxxflags>-DNDEBUG
+    <cxxflags>-D__GLIBC__
+    <cxxflags>-D_GLIBCXX__PTHREADS
+    <cxxflags>-D__i386__
+    <cxxflags>-D_REENTRANT
+    <cxxflags>-DBOOST_ASIO_DISABLE_SERIAL_PORT
+    ;
  
 option.set keep-going : false ;

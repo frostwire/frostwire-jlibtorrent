@@ -27,7 +27,7 @@ rule libtorrent_linking ( properties * )
 {
     local result ;
 
-    result += <cxxflags>-O2 ;
+    result += <cxxflags>-O3 ;
     result += <variant>release ;
     result += <deprecated-functions>off ;
     result += <logging>on ;
@@ -52,6 +52,14 @@ rule env_setup ( properties * )
     {
         result += <include>$(JDK_ROOT)/include/darwin ;
     }
+
+    if <toolset-gcc:version>android.x86 in $(properties)
+    {
+        result += <include>$(JDK_ROOT)/include/darwin ;
+    }
+
+    result += <cxxflags>-O3 ;
+    result += <variant>release ;
 
     return $(result) ;
 }
