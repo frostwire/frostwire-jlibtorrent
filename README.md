@@ -63,7 +63,7 @@ android-aarch64, android-x86 and android-x86_64. Use this folders (absolute path
 
 perl -pi -e 's/install: all install_docs install_sw/install: install_docs install_sw/g' Makefile.org
 
-./config no-ssl2 no-ssl3 no-comp no-hw no-engine no-shared no-psk no-srp no-err --openssldir=`pwd`/android-arm
+./config -fPIC no-ssl2 no-ssl3 no-comp no-hw no-engine no-shared no-psk no-srp no-err --openssldir=`pwd`/android-arm
 
 make depend
 $ make all

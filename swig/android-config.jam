@@ -19,24 +19,23 @@ using gcc : android.arm : $(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebu
     <compileflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-arm
     <compileflags>-I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/include
     <compileflags>-I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include
+    <linkflags>-L$(NDK_ROOT)/platforms/android-15/arch-arm/usr/lib
     <compileflags>-I$(OPENSSL_ROOT)/android-arm/include
-    <compileflags>-L$(OPENSSL_ROOT)/android-arm/lib
+    <linkflags>-L$(OPENSSL_ROOT)/android-arm/lib
     <compileflags>-fpermissive
     <archiver>$(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ar
     <ranlib>$(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ranlib
     <cxxflags>-mthumb
     <cxxflags>-fno-strict-aliasing
-    <cxxflags>-lstdc++
+    <cxxflags>-lgnustl_static
+    <cxxflags>-std=c++11
     <cxxflags>-O3
-    <cxxflags>-fPIC
     <cxxflags>-march=armv7-a
     <cxxflags>-DNDEBUG
     <cxxflags>-D__GLIBC__
     <cxxflags>-D_GLIBCXX__PTHREADS
     <cxxflags>-D__arm__
     <cxxflags>-D_REENTRANT
-    <cflags>-fPIC
-    <linkflags>-fPIC
     ;
  
 option.set keep-going : false ;

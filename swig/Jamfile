@@ -34,13 +34,6 @@ rule libtorrent_linking ( properties * )
     result += <crypto>openssl ;
     result += <boost>source ;
 
-    if <toolset-gcc:version>android.arm in $(properties)
-    {
-        result += <cxxflags>-fPIC ;
-        result += <cflags>-fPIC ;
-        result += <linkflags>-fPIC ;
-    }
-
     return $(result) ;
 }
 
