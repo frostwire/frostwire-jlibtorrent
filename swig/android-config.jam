@@ -22,19 +22,21 @@ using gcc : android.arm : $(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebu
     <compileflags>-I$(OPENSSL_ROOT)/android-arm/include
     <compileflags>-L$(OPENSSL_ROOT)/android-arm/lib
     <compileflags>-fpermissive
-    <compileflags>-fPIC
     <archiver>$(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ar
     <ranlib>$(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ranlib
     <cxxflags>-mthumb
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-lstdc++
     <cxxflags>-O3
+    <cxxflags>-fPIC
     <cxxflags>-march=armv7-a
     <cxxflags>-DNDEBUG
     <cxxflags>-D__GLIBC__
     <cxxflags>-D_GLIBCXX__PTHREADS
     <cxxflags>-D__arm__
     <cxxflags>-D_REENTRANT
+    <cflags>-fPIC
+    <linkflags>-fPIC
     ;
  
 option.set keep-going : false ;
