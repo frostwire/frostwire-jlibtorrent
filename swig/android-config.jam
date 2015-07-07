@@ -16,19 +16,19 @@ if ! $(OPENSSL_ROOT)
 }
 
 using gcc : android.arm : $(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-g++ :
-    <compileflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-arm
+    <cxxflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-arm/
+    <cflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-arm/
+    <linkflags>--sysroot=$(NDK_ROOT)/platforms/android-15/arch-arm/
     <compileflags>-I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/include
     <compileflags>-I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include
-    <linkflags>-L$(NDK_ROOT)/platforms/android-15/arch-arm/usr/lib
     <compileflags>-I$(OPENSSL_ROOT)/android-arm/include
     <linkflags>-L$(OPENSSL_ROOT)/android-arm/lib
-    <compileflags>-fpermissive
+    <cxxflags>-fpermissive
     <archiver>$(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ar
     <ranlib>$(NDK_ROOT)/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ranlib
     <cxxflags>-mthumb
     <cxxflags>-fno-strict-aliasing
-    <cxxflags>-lgnustl_static
-    <cxxflags>-std=c++11
+    <cxxflags>-lstdc++
     <cxxflags>-O3
     <cxxflags>-march=armv7-a
     <cxxflags>-DNDEBUG

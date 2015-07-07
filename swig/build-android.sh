@@ -27,4 +27,4 @@
 
 #rm -rf $LIBTORRENT_ROOT/bin
 #rm -rf bin
-$BOOST_ROOT/bjam --user-config=android-config.jam toolset=gcc-android.arm target-os=linux
+$BOOST_ROOT/bjam --user-config=android-config.jam toolset=gcc-android.arm target-os=android
