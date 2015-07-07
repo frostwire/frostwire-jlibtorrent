@@ -19,8 +19,10 @@ LIBS="-ltorrent -lboost_system -lboost_chrono -lboost_date_time -lboost_thread -
 LDFLAGS="-Wl,-Bsymbolic -march=armv7-a -L$LIBTORRENT_LIBS"
 TARGET="libjlibtorrent.so"
 
-$CXX $CXXFLAGS $DEFINES $INCLUDES -c swig/libtorrent_jni.cpp
-$CXX -shared -o $TARGET libtorrent_jni.o $LDFLAGS $LIBS
+#$CXX $CXXFLAGS $DEFINES $INCLUDES -c swig/libtorrent_jni.cpp
+#$CXX -shared -o $TARGET libtorrent_jni.o $LDFLAGS $LIBS
 
-arm-linux-androideabi-strip --strip-unneeded -x $TARGET
-rm -rf libtorrent_jni.o
+#arm-linux-androideabi-strip --strip-unneeded -x $TARGET
+#rm -rf libtorrent_jni.o
+
+$BOOST_ROOT/bjam --user-config=android-config.jam toolset=gcc-android_arm target-os=linux

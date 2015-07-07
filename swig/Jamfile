@@ -48,6 +48,11 @@ rule env_setup ( properties * )
         result += <include>$(JDK_ROOT)/include/darwin ;
     }
 
+    if <toolset-gcc:version>android_arm in $(properties)
+    {
+        result += <include>$(JDK_ROOT)/include/darwin ;
+    }
+
     return $(result) ;
 }
 
