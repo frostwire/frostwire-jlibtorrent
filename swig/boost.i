@@ -111,13 +111,13 @@ namespace boost {
                 bool is_v6();
 
                 address_v4 to_v4();
-                //address_v6 to_v6();
+                address_v6 to_v6();
 
                 std::string to_string();
                 std::string to_string(boost::system::error_code ec);
 
-                //static address from_string(std::string str);
-                //static address from_string(std::string str, boost::system::error_code ec);
+                static address from_string(std::string str);
+                static address from_string(std::string str, boost::system::error_code ec);
 
                 bool is_loopback();
                 bool is_unspecified();
@@ -164,8 +164,8 @@ namespace boost {
                 std::string to_string();
                 std::string to_string(boost::system::error_code ec);
 
-                //static address_v6 from_string(std::string str);
-                //static address_v6 from_string(std::string str, boost::system::error_code ec);
+                static address_v6 from_string(std::string str);
+                static address_v6 from_string(std::string str, boost::system::error_code ec);
 
                 address_v4 to_v4();
 
@@ -182,10 +182,10 @@ namespace boost {
                 bool is_multicast_org_local() const;
                 bool is_multicast_site_local() const;
 
-                //static address_v6 any();
-                //static address_v6 loopback();
-                //static address_v6 v4_mapped(address_v4 addr);
-                //static address_v6 v4_compatible(address_v4 addr);
+                static address_v6 any();
+                static address_v6 loopback();
+                static address_v6 v4_mapped(address_v4 addr);
+                static address_v6 v4_compatible(address_v4 addr);
             };
         }
     }

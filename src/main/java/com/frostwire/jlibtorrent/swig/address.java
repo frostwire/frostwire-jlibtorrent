@@ -63,12 +63,24 @@ public class address {
     return new address_v4(libtorrent_jni.address_to_v4(swigCPtr, this), true);
   }
 
+  public address_v6 to_v6() {
+    return new address_v6(libtorrent_jni.address_to_v6(swigCPtr, this), true);
+  }
+
   public String to_string() {
     return libtorrent_jni.address_to_string__SWIG_0(swigCPtr, this);
   }
 
   public String to_string(error_code ec) {
     return libtorrent_jni.address_to_string__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec);
+  }
+
+  public static address from_string(String str) {
+    return new address(libtorrent_jni.address_from_string__SWIG_0(str), true);
+  }
+
+  public static address from_string(String str, error_code ec) {
+    return new address(libtorrent_jni.address_from_string__SWIG_1(str, error_code.getCPtr(ec), ec), true);
   }
 
   public boolean is_loopback() {

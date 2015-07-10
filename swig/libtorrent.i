@@ -88,14 +88,6 @@ using namespace boost::system;
     
 using namespace libtorrent;
     
-// dummy implementation due to issues of SWIG with alert type pure virtual functions
-namespace libtorrent {
-    
-    int type() { return 0; }
-    int category() { return 0; }
-    char* what() { return NULL; }
-}
-    
 void translate_cpp_exception(JNIEnv *jenv) {
     try {
         throw;
@@ -362,7 +354,6 @@ namespace std {
 %ignore get_file_attributes;
 %ignore get_symlink_path;
 
-%ignore libtorrent::TORRENT_CFG;
 %ignore libtorrent::partial_hash;
 %ignore libtorrent::piece_manager;
 %ignore libtorrent::disk_io_thread;

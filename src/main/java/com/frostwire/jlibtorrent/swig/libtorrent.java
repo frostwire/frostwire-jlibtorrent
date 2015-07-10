@@ -170,6 +170,10 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.high_performance_seed(settings_pack.getCPtr(set), set);
   }
 
+  public static void TORRENT_CFG() {
+    libtorrent_jni.TORRENT_CFG();
+  }
+
   public static int plus_one(int val) {
     return libtorrent_jni.plus_one(val);
   }

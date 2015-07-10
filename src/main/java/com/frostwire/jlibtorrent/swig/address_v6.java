@@ -59,6 +59,14 @@ public class address_v6 {
     return libtorrent_jni.address_v6_to_string__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec);
   }
 
+  public static address_v6 from_string(String str) {
+    return new address_v6(libtorrent_jni.address_v6_from_string__SWIG_0(str), true);
+  }
+
+  public static address_v6 from_string(String str, error_code ec) {
+    return new address_v6(libtorrent_jni.address_v6_from_string__SWIG_1(str, error_code.getCPtr(ec), ec), true);
+  }
+
   public address_v4 to_v4() {
     return new address_v4(libtorrent_jni.address_v6_to_v4(swigCPtr, this), true);
   }
@@ -109,6 +117,22 @@ public class address_v6 {
 
   public boolean is_multicast_site_local() {
     return libtorrent_jni.address_v6_is_multicast_site_local(swigCPtr, this);
+  }
+
+  public static address_v6 any() {
+    return new address_v6(libtorrent_jni.address_v6_any(), true);
+  }
+
+  public static address_v6 loopback() {
+    return new address_v6(libtorrent_jni.address_v6_loopback(), true);
+  }
+
+  public static address_v6 v4_mapped(address_v4 addr) {
+    return new address_v6(libtorrent_jni.address_v6_v4_mapped(address_v4.getCPtr(addr), addr), true);
+  }
+
+  public static address_v6 v4_compatible(address_v4 addr) {
+    return new address_v6(libtorrent_jni.address_v6_v4_compatible(address_v4.getCPtr(addr), addr), true);
   }
 
 }

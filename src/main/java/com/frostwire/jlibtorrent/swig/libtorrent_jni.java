@@ -45,8 +45,11 @@ public class libtorrent_jni {
   public final static native boolean address_is_v4(long jarg1, address jarg1_);
   public final static native boolean address_is_v6(long jarg1, address jarg1_);
   public final static native long address_to_v4(long jarg1, address jarg1_);
+  public final static native long address_to_v6(long jarg1, address jarg1_);
   public final static native String address_to_string__SWIG_0(long jarg1, address jarg1_);
   public final static native String address_to_string__SWIG_1(long jarg1, address jarg1_, long jarg2, error_code jarg2_);
+  public final static native long address_from_string__SWIG_0(String jarg1);
+  public final static native long address_from_string__SWIG_1(String jarg1, long jarg2, error_code jarg2_);
   public final static native boolean address_is_loopback(long jarg1, address jarg1_);
   public final static native boolean address_is_unspecified(long jarg1, address jarg1_);
   public final static native boolean address_is_multicast(long jarg1, address jarg1_);
@@ -77,6 +80,8 @@ public class libtorrent_jni {
   public final static native void address_v6_scope_id__SWIG_1(long jarg1, address_v6 jarg1_, long jarg2);
   public final static native String address_v6_to_string__SWIG_0(long jarg1, address_v6 jarg1_);
   public final static native String address_v6_to_string__SWIG_1(long jarg1, address_v6 jarg1_, long jarg2, error_code jarg2_);
+  public final static native long address_v6_from_string__SWIG_0(String jarg1);
+  public final static native long address_v6_from_string__SWIG_1(String jarg1, long jarg2, error_code jarg2_);
   public final static native long address_v6_to_v4(long jarg1, address_v6 jarg1_);
   public final static native boolean address_v6_is_loopback(long jarg1, address_v6 jarg1_);
   public final static native boolean address_v6_is_unspecified(long jarg1, address_v6 jarg1_);
@@ -90,6 +95,10 @@ public class libtorrent_jni {
   public final static native boolean address_v6_is_multicast_node_local(long jarg1, address_v6 jarg1_);
   public final static native boolean address_v6_is_multicast_org_local(long jarg1, address_v6 jarg1_);
   public final static native boolean address_v6_is_multicast_site_local(long jarg1, address_v6 jarg1_);
+  public final static native long address_v6_any();
+  public final static native long address_v6_loopback();
+  public final static native long address_v6_v4_mapped(long jarg1, address_v4 jarg1_);
+  public final static native long address_v6_v4_compatible(long jarg1, address_v4 jarg1_);
   public final static native void delete_address_v6(long jarg1);
   public final static native long new_high_resolution_clock_time_point();
   public final static native void delete_high_resolution_clock_time_point(long jarg1);
@@ -3710,6 +3719,7 @@ public class libtorrent_jni {
   public final static native int torrent_num_time_critical_pieces(long jarg1, torrent jarg1_);
   public final static native void min_memory_usage(long jarg1, settings_pack jarg1_);
   public final static native void high_performance_seed(long jarg1, settings_pack jarg1_);
+  public final static native void TORRENT_CFG();
   public final static native long new_session_proxy();
   public final static native void delete_session_proxy(long jarg1);
   public final static native long new_session__SWIG_0(long jarg1, settings_pack jarg1_, int jarg2);
