@@ -21,6 +21,8 @@ task sourceJar(type: Jar) {
 publishing {
     publications {
         maven(MavenPublication) {
+            groupId project.group
+            artifactId 'jlibtorrent'
             version project.version
 
             from components.java
