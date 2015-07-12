@@ -7,7 +7,7 @@ namespace libtorrent {
 
 class upnp;
 
-%extend session {
+%extend session_handle {
 
     void add_lt_trackers_extension() {
         $self->add_extension(&libtorrent::create_lt_trackers_plugin);
@@ -42,14 +42,6 @@ class upnp;
 
         $self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
             public_key.data(), private_key.data(), data), salt);
-    }
-
-    void dht_get_peers(sha1_hash const& info_hash) {
-        dht_get_peers($self, info_hash);
-    }
-
-    void dht_announce(sha1_hash const& info_hash, int port = 0, int flags = 0) {
-        dht_announce($self, info_hash, port, flags);
     }
 
     void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {

@@ -2,7 +2,11 @@
 
 %pragma(java) jniclasscode=%{
     static {
-        System.loadLibrary("jlibtorrent");
+        try {
+            System.loadLibrary("jlibtorrent");
+        } catch (UnsatisfiedLinkError e) {
+            throw new UnsatisfiedLinkError("Look for your architecture binary at: https://github.com/frostwire/frostwire-jlibtorrent/tree/master/binaries");
+        }
     }
 %}
 
@@ -53,6 +57,7 @@
 #include "libtorrent/peer_class.hpp"
 #include "libtorrent/peer_class_type_filter.hpp"
 #include "libtorrent/torrent.hpp"
+#include "libtorrent/session_handle.hpp"
 #include "libtorrent/session.hpp"
 #include "libtorrent/extensions.hpp"
 #include "libtorrent/disk_io_job.hpp"
@@ -357,12 +362,10 @@ namespace std {
 %ignore libtorrent::partial_hash;
 %ignore libtorrent::piece_manager;
 %ignore libtorrent::disk_io_thread;
-%ignore libtorrent::feed;
 %ignore libtorrent::request_callback;
 %ignore libtorrent::has_block;
 %ignore libtorrent::pending_block;
 %ignore libtorrent::timeout_handler;
-%ignore libtorrent::connection_queue;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::file_pool;
 %ignore libtorrent::default_storage;
@@ -444,18 +447,20 @@ namespace std {
 %ignore libtorrent::alert_manager::set_dispatch_function;
 %ignore libtorrent::session::session(settings_pack const&, io_service&, int);
 %ignore libtorrent::session::session(settings_pack const&, io_service&);
-%ignore libtorrent::session::set_alert_dispatch;
-%ignore libtorrent::session::get_torrent_status;
-%ignore libtorrent::session::get_io_service;
-%ignore libtorrent::session::get_connection_queue;
-%ignore libtorrent::session::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)>);
-%ignore libtorrent::session::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>, std::string);
-%ignore libtorrent::session::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>);
-%ignore libtorrent::session::dht_get_item(boost::array<char, 32>, std::string);
-%ignore libtorrent::session::dht_get_item(boost::array<char, 32>);
-%ignore libtorrent::session::add_extension;
-%ignore libtorrent::session::set_load_function;
-%ignore libtorrent::session::set_alert_notify;
+%ignore libtorrent::session_handle::session_handle(aux::session_impl*);
+%ignore libtorrent::session_handle::set_alert_dispatch;
+%ignore libtorrent::session_handle::get_torrent_status;
+%ignore libtorrent::session_handle::get_io_service;
+%ignore libtorrent::session_handle::get_connection_queue;
+%ignore libtorrent::session_handle::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)>);
+%ignore libtorrent::session_handle::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>, std::string);
+%ignore libtorrent::session_handle::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>);
+%ignore libtorrent::session_handle::dht_get_item(boost::array<char, 32>, std::string);
+%ignore libtorrent::session_handle::dht_get_item(boost::array<char, 32>);
+%ignore libtorrent::session_handle::add_extension;
+%ignore libtorrent::session_handle::set_load_function;
+%ignore libtorrent::session_handle::set_alert_notify;
+%ignore libtorrent::session_handle::native_handle;
 %ignore libtorrent::session_stats_alert::values;
 %ignore libtorrent::peer_connection::peer_connection;
 %ignore libtorrent::peer_connection::incoming_piece;
@@ -617,7 +622,6 @@ namespace std {
 %ignore libtorrent::apply_pack;
 
 %ignore libtorrent::detail::nop;
-%ignore libtorrent::session::m_impl;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::cached_piece_info::storage;
 %ignore libtorrent::peer_class::priority;
@@ -754,6 +758,7 @@ namespace std {
 %include "libtorrent/peer_class.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"
 %include "libtorrent/torrent.hpp"
+%include "libtorrent/session_handle.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/extensions.hpp"
 %include "libtorrent/disk_io_job.hpp"
@@ -942,22 +947,6 @@ static const int user_alert_id = 10000;
 	virtual int type() const { return alert_type; } \
 	virtual int category() const { return static_category; } \
 	virtual char const* what() const { return #name; }
-
-    struct TORRENT_EXPORT dht_get_peers_reply_alert: alert
-    {
-        // internal
-        dht_get_peers_reply_alert(aux::stack_allocator& alloc, libtorrent::sha1_hash const& ih, std::vector<tcp::endpoint> const& v)
-            : info_hash(ih), peers(v) {
-        }
-
-        TORRENT_DEFINE_ALERT_IMPL(dht_get_peers_reply_alert, user_alert_id + 100, 0)
-
-        static const int static_category = alert::dht_notification;
-        virtual std::string message() const;
-
-        sha1_hash info_hash;
-        std::vector<tcp::endpoint> peers;
-    };
 
     struct set_piece_hashes_alert: alert {
 

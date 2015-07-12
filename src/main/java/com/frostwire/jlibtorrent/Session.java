@@ -4,7 +4,7 @@ import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.plugins.Plugin;
 import com.frostwire.jlibtorrent.plugins.SwigPlugin;
 import com.frostwire.jlibtorrent.swig.*;
-import com.frostwire.jlibtorrent.swig.session.options_t;
+import com.frostwire.jlibtorrent.swig.session_handle.options_t;
 
 import java.io.File;
 import java.util.ArrayList;

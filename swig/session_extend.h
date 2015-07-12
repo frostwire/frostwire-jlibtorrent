@@ -34,9 +34,6 @@ struct rob : result<Tag> {
 template<typename Tag, typename Tag::type p>
 typename rob<Tag, p>::filler rob<Tag, p>::filler_obj;
 
-struct session_m_impl { typedef boost::shared_ptr<aux::session_impl> session::*type; };
-template class rob<session_m_impl, &session::m_impl>;
-
 struct session_impl_m_upnp { typedef boost::shared_ptr<upnp> session_impl::*type; };
 template class rob<session_impl_m_upnp, &session_impl::m_upnp>;
 
@@ -94,38 +91,22 @@ void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq
         sig.data());
 }
 
-// search for nodes with ids close to id or with peers
-// for info-hash id
-void dht_get_peers(session* s, sha1_hash const& info_hash) {
-
-    boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
-
-    s_impl->dht_get_peers(info_hash);
-}
-
-void dht_announce(session* s, sha1_hash const& info_hash, int port, int flags) {
-
-    boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
-
-    s_impl->dht_announce(info_hash, port, flags);
-}
-
 void set_piece_hashes_fun(int i, boost::shared_ptr<aux::session_impl> s, std::string& id, int num_pieces) {
 	if (s->alerts().should_post<set_piece_hashes_alert>()) {
         s->alerts().emplace_alert<set_piece_hashes_alert>(id, i + 1, num_pieces);
     }
 }
 
-void set_piece_hashes(session* s, std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
+void set_piece_hashes(session_handle* s, std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
 
-    boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
+    boost::shared_ptr<aux::session_impl> s_impl(s->native_handle());
 
 	set_piece_hashes(t, p, boost::bind(&set_piece_hashes_fun, _1, s_impl, id, t.num_pieces()), ec);
 }
 
-upnp* get_upnp(session* s) {
+upnp* get_upnp(session_handle* s) {
 
-    boost::shared_ptr<aux::session_impl> s_impl = *s.*result<session_m_impl>::ptr;
+    boost::shared_ptr<aux::session_impl> s_impl(s->native_handle());
     boost::shared_ptr<upnp> m_upnp = *s_impl.*result<session_impl_m_upnp>::ptr;
 
     return m_upnp ? m_upnp.get() : NULL;
