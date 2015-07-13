@@ -4,7 +4,6 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.entry_list;
 import com.frostwire.jlibtorrent.swig.entry_vector;
 
 import java.io.File;

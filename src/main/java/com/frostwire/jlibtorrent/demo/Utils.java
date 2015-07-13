@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package com.frostwire.jlibtorrent;
+package com.frostwire.jlibtorrent.demo;
 
 import java.io.*;
 
-public final class Utils {
+final class Utils {
 
     private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
 

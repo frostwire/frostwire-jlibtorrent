@@ -1,7 +1,5 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.Utils;
-
 /**
  * @author gubatron
  * @author aldenml

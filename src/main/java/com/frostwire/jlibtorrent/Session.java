@@ -875,7 +875,7 @@ public final class Session {
 
         if (resumeFile != null) {
             try {
-                byte[] data = Utils.readFileToByteArray(resumeFile);
+                byte[] data = ReadFile.bytes(resumeFile);
                 p.setResume_data(Vectors.bytes2char_vector(data));
 
                 flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();

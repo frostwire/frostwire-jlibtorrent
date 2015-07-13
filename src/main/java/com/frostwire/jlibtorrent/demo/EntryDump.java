@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
-import com.frostwire.jlibtorrent.Utils;
 import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.entry;
 
