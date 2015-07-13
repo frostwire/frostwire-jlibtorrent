@@ -39,6 +39,10 @@ public class block_info {
     libtorrent_jni.block_info_set_peer(swigCPtr, this, tcp_endpoint.getCPtr(ep), ep);
   }
 
+  public tcp_endpoint peer() {
+    return new tcp_endpoint(libtorrent_jni.block_info_peer(swigCPtr, this), true);
+  }
+
   public void setBytes_progress(long value) {
     libtorrent_jni.block_info_bytes_progress_set(swigCPtr, this, value);
   }

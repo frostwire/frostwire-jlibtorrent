@@ -375,7 +375,6 @@ namespace std {
 %ignore libtorrent::url_has_argument;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
-%ignore libtorrent::cork;
 %ignore libtorrent::detail::add_files_impl;
 %ignore libtorrent::generic_category;
 %ignore libtorrent::alert_manager;
@@ -386,26 +385,18 @@ namespace std {
 %ignore libtorrent::is_read_operation;
 %ignore libtorrent::operation_has_buffer;
 %ignore libtorrent::internal_file_entry;
-%ignore libtorrent::libtorrent_exception;
-%ignore libtorrent::libtorrent_exception_error;
-%ignore libtorrent::libtorrent_exception_what;
 %ignore libtorrent::storage_interface;
 %ignore libtorrent::time_critical_piece;
 %ignore libtorrent::tracker_manager;
 %ignore libtorrent::tracker_connection;
-%ignore libtorrent::type_error;
 %ignore libtorrent::buffer;
 %ignore libtorrent::buffer::const_interval;
 %ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::block_cache_reference;
-%ignore libtorrent::torrent_ref_holder;
 %ignore libtorrent::peer_connection_hot_members;
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
-%ignore libtorrent::peer_class_pool;
-%ignore libtorrent::ip_voter;
-%ignore libtorrent::external_ip;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -414,9 +405,7 @@ namespace std {
 %ignore libtorrent::from_hex(char const*, int, char*);
 %ignore libtorrent::convert_to_native;
 %ignore libtorrent::convert_from_native;
-%ignore libtorrent::throw_type_error;
 %ignore libtorrent::trim_path_element;
-%ignore libtorrent::throw_invalid_handle;
 %ignore libtorrent::request_a_block;
 %ignore libtorrent::merkle_num_leafs;
 %ignore libtorrent::merkle_num_nodes;
@@ -604,10 +593,8 @@ namespace std {
 %ignore libtorrent::bdecode_node::dict_find(std::string const &);
 %ignore libtorrent::bdecode_node::dict_find(std::string const &) const;
 %ignore libtorrent::bdecode_node::dict_find_dict(char const *) const;
-%ignore libtorrent::block_info::peer;
-%ignore libtorrent::lazy_dict_entry;
+%ignore libtorrent::cork::m_pc;
 %ignore libtorrent::disabled_storage;
-%ignore libtorrent::invalid_encoding;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::upnp_errors::make_error_code;

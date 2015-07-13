@@ -105,6 +105,10 @@ public class libtorrent implements libtorrentConstants {
     return new high_resolution_clock.time_point(libtorrent_jni.max_time(), true);
   }
 
+  public static void throw_type_error() {
+    libtorrent_jni.throw_type_error();
+  }
+
   public static void sanitize_append_path_element(String path, String element, int element_len) {
     libtorrent_jni.sanitize_append_path_element(path, element, element_len);
   }
@@ -115,6 +119,10 @@ public class libtorrent implements libtorrentConstants {
 
   public static boolean verify_encoding(String target) {
     return libtorrent_jni.verify_encoding__SWIG_1(target);
+  }
+
+  public static void throw_invalid_handle() {
+    libtorrent_jni.throw_invalid_handle();
   }
 
   public static stats_metric_vector session_stats_metrics() {
