@@ -242,6 +242,7 @@ public:
     }
 };
 
+#include "libtorrent.h"
 %}
 
 %exception {
@@ -281,6 +282,7 @@ public:
 %shared_ptr(libtorrent::ip_filter)
 %shared_ptr(libtorrent::settings_pack)
 %shared_ptr(libtorrent::udp_tracker_connection)
+%shared_ptr(set_piece_hashes_listener)
 
 %auto_ptr(libtorrent::alert)
 
@@ -868,9 +870,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(incoming_request_alert)
     CAST_ALERT_METHOD(dht_log_alert)
     CAST_ALERT_METHOD(dht_pkt_alert)
-
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)
-    CAST_ALERT_METHOD(set_piece_hashes_alert)
 };
 
 %extend entry {
@@ -929,38 +929,6 @@ namespace libtorrent {
         return from_hex(hex, 40, (char*)&h[0]);
     }
 };
-
-static const int user_alert_id = 10000;
-
-#define TORRENT_DEFINE_ALERT_IMPL(name, seq, prio) \
-	static const int priority = prio; \
-	static const int alert_type = seq; \
-	virtual int type() const { return alert_type; } \
-	virtual int category() const { return static_category; } \
-	virtual char const* what() const { return #name; }
-
-    struct set_piece_hashes_alert: alert {
-
-    	set_piece_hashes_alert(aux::stack_allocator& alloc, std::string const& id, int progress, int num_pieces)
-    		: id(id),
-    		  progress(progress),
-    		  num_pieces(num_pieces){
-    	}
-
-    	TORRENT_DEFINE_ALERT_IMPL(set_piece_hashes_alert, user_alert_id + 101, 0);
-
-    	static const int static_category = alert::progress_notification;
-
-    	std::string message() const {
-        	char msg[200];
-        	snprintf(msg, sizeof(msg), "creating torrent %s, piece hash progress %d/%d", id.c_str(), progress, num_pieces);
-        	return msg;
-        }
-
-    	std::string id;
-    	int progress;
-    	int num_pieces;
-    };
 
 %extend dht_mutable_item_alert {
     std::vector<char> key_v() {
@@ -1071,3 +1039,9 @@ public:
 
     static void sign_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig);
 };
+
+%feature("director") set_piece_hashes_listener;
+
+%ignore set_piece_hashes_cb;
+
+%include "libtorrent.h"

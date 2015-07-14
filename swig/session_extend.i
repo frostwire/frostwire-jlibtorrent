@@ -44,10 +44,6 @@ class upnp;
             public_key.data(), private_key.data(), data), salt);
     }
 
-    void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std::string const& p, error_code& ec) {
-        set_piece_hashes($self, id, t, p, ec);
-    }
-
     upnp* get_upnp() {
         return get_upnp($self);
     }

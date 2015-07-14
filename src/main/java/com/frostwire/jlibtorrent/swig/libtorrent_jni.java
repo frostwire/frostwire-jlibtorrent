@@ -1691,7 +1691,6 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_dht_log_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_pkt_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_get_peers_reply_alert(long jarg1, alert jarg1_);
-  public final static native long alert_cast_to_set_piece_hashes_alert(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
   public final static native int user_alert_id_get();
   public final static native int torrent_alert_alert_type_get();
@@ -3828,7 +3827,6 @@ public class libtorrent_jni {
   public final static native void session_handle_dht_get_item__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, char_vector jarg2_);
   public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_, String jarg5);
   public final static native void session_handle_dht_put_item__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_);
-  public final static native void session_handle_set_piece_hashes(long jarg1, session_handle jarg1_, String jarg2, long jarg3, create_torrent jarg3_, String jarg4, long jarg5, error_code jarg5_);
   public final static native long session_handle_get_upnp(long jarg1, session_handle jarg1_);
   public final static native void session_handle_add_swig_extension(long jarg1, session_handle jarg1_, long jarg2, swig_plugin jarg2_);
   public final static native void delete_session_handle(long jarg1);
@@ -4214,21 +4212,6 @@ public class libtorrent_jni {
   public final static native void upnp_close(long jarg1, upnp jarg1_);
   public final static native String upnp_router_model(long jarg1, upnp jarg1_);
   public final static native boolean upnp_get_mapping(long jarg1, upnp jarg1_, int jarg2, long jarg3, int_vector jarg3_);
-  public final static native long new_set_piece_hashes_alert(long jarg1, stack_allocator jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native int set_piece_hashes_alert_priority_get();
-  public final static native int set_piece_hashes_alert_alert_type_get();
-  public final static native int set_piece_hashes_alert_type(long jarg1, set_piece_hashes_alert jarg1_);
-  public final static native int set_piece_hashes_alert_category(long jarg1, set_piece_hashes_alert jarg1_);
-  public final static native String set_piece_hashes_alert_what(long jarg1, set_piece_hashes_alert jarg1_);
-  public final static native int set_piece_hashes_alert_static_category_get();
-  public final static native String set_piece_hashes_alert_message(long jarg1, set_piece_hashes_alert jarg1_);
-  public final static native void set_piece_hashes_alert_id_set(long jarg1, set_piece_hashes_alert jarg1_, String jarg2);
-  public final static native String set_piece_hashes_alert_id_get(long jarg1, set_piece_hashes_alert jarg1_);
-  public final static native void set_piece_hashes_alert_progress_set(long jarg1, set_piece_hashes_alert jarg1_, int jarg2);
-  public final static native int set_piece_hashes_alert_progress_get(long jarg1, set_piece_hashes_alert jarg1_);
-  public final static native void set_piece_hashes_alert_num_pieces_set(long jarg1, set_piece_hashes_alert jarg1_, int jarg2);
-  public final static native int set_piece_hashes_alert_num_pieces_get(long jarg1, set_piece_hashes_alert jarg1_);
-  public final static native void delete_set_piece_hashes_alert(long jarg1);
   public final static native long new_stack_allocator();
   public final static native void delete_stack_allocator(long jarg1);
   public final static native boolean sha1_bloom_filter_find(long jarg1, sha1_bloom_filter jarg1_, long jarg2, sha1_hash jarg2_);
@@ -4260,6 +4243,13 @@ public class libtorrent_jni {
   public final static native void dht_item_sign_mutable_item(long jarg1, char_vector jarg1_, String jarg2, int jarg3, long jarg4, char_vector jarg4_, long jarg5, char_vector jarg5_, long jarg6, char_vector jarg6_);
   public final static native long new_dht_item();
   public final static native void delete_dht_item(long jarg1);
+  public final static native void delete_set_piece_hashes_listener(long jarg1);
+  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, String jarg2, int jarg3, int jarg4);
+  public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, String jarg2, int jarg3, int jarg4);
+  public final static native long new_set_piece_hashes_listener();
+  public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
+  public final static native void set_piece_hashes(String jarg1, long jarg2, create_torrent jarg2_, String jarg3, long jarg4, error_code jarg4_, long jarg5, set_piece_hashes_listener jarg5_);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
   public final static native long tracker_alert_SWIGUpcast(long jarg1);
@@ -4356,7 +4346,6 @@ public class libtorrent_jni {
   public final static native long web_peer_connection_SWIGUpcast(long jarg1);
   public final static native long http_seed_connection_SWIGUpcast(long jarg1);
   public final static native long udp_tracker_connection_SWIGSmartPtrUpcast(long jarg1);
-  public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
 
   public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long t) {
     return swig_torrent_plugin.getCPtr(jself.new_torrent((t == 0) ? null : new torrent(t, false)));
@@ -4507,6 +4496,9 @@ public class libtorrent_jni {
   }
   public static boolean SwigDirector_swig_peer_plugin_write_request(swig_peer_plugin jself, long r) {
     return jself.write_request(new peer_request(r, false));
+  }
+  public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, String id, int num_pieces, int i) {
+    jself.progress(id, num_pieces, i);
   }
 
   private final static native void swig_module_init();

@@ -242,4 +242,8 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_upnp_category(), false);
   }
 
+  public static void set_piece_hashes(String id, create_torrent t, String p, error_code ec, set_piece_hashes_listener listener) {
+    libtorrent_jni.set_piece_hashes(id, create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec, set_piece_hashes_listener.getCPtr(listener), listener);
+  }
+
 }

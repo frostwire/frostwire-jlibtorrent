@@ -272,10 +272,6 @@ public class session_handle {
     libtorrent_jni.session_handle_dht_put_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data);
   }
 
-  public void set_piece_hashes(String id, create_torrent t, String p, error_code ec) {
-    libtorrent_jni.session_handle_set_piece_hashes(swigCPtr, this, id, create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
-  }
-
   public upnp get_upnp() {
     long cPtr = libtorrent_jni.session_handle_get_upnp(swigCPtr, this);
     return (cPtr == 0) ? null : new upnp(cPtr, false);

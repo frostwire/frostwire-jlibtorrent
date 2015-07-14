@@ -791,10 +791,6 @@ public final class Session {
         return new SessionSettings(s.get_settings());
     }
 
-    public void setPieceHashes(String id, create_torrent t, String p, error_code ec) {
-        s.set_piece_hashes(id, t, p, ec);
-    }
-
     public UPnP getUPnP() {
         return new UPnP(s.get_upnp());
     }
