@@ -88467,7 +88467,8 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
   libtorrent::create_torrent *arg2 = 0 ;
   std::string *arg3 = 0 ;
   libtorrent::error_code *arg4 = 0 ;
-  set_piece_hashes_listener *arg5 = 0 ;
+  set_piece_hashes_listener *arg5 = (set_piece_hashes_listener *) 0 ;
+  boost::shared_ptr< set_piece_hashes_listener > *smartarg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -88503,14 +88504,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
     return ;
   } 
   
-  arg5 = (set_piece_hashes_listener *)((*(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg5) ? (*(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg5)->get() : 0);
-  if (!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "set_piece_hashes_listener & reference is null");
-    return ;
-  } 
+  smartarg5 = *(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg5;
+  arg5 = (set_piece_hashes_listener *)(smartarg5 ? smartarg5->get() : 0); 
   {
     try {
-      set_piece_hashes((std::string const &)*arg1,*arg2,(std::string const &)*arg3,*arg4,*arg5);
+      set_piece_hashes((std::string const &)*arg1,*arg2,(std::string const &)*arg3,*arg4,arg5);
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;
