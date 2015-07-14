@@ -833,6 +833,7 @@ public class libtorrent_jni {
   public final static native long get_http_category();
   public final static native long system_category();
   public final static native long get_posix_category();
+  public final static native long generic_category();
   public final static native long new_libtorrent_exception(long jarg1, error_code jarg1_);
   public final static native String libtorrent_exception_what(long jarg1, libtorrent_exception jarg1_);
   public final static native void delete_libtorrent_exception(long jarg1);
@@ -4137,6 +4138,34 @@ public class libtorrent_jni {
   public final static native void tracker_response_downloaded_set(long jarg1, tracker_response jarg1_, int jarg2);
   public final static native int tracker_response_downloaded_get(long jarg1, tracker_response jarg1_);
   public final static native void delete_tracker_response(long jarg1);
+  public final static native void delete_tracker_connection(long jarg1);
+  public final static native long tracker_connection_tracker_req(long jarg1, tracker_connection jarg1_);
+  public final static native void tracker_connection_fail__SWIG_0(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, int jarg3, String jarg4, int jarg5, int jarg6);
+  public final static native void tracker_connection_fail__SWIG_1(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, int jarg3, String jarg4, int jarg5);
+  public final static native void tracker_connection_fail__SWIG_2(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, int jarg3, String jarg4);
+  public final static native void tracker_connection_fail__SWIG_3(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, int jarg3);
+  public final static native void tracker_connection_fail__SWIG_4(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_);
+  public final static native void tracker_connection_start(long jarg1, tracker_connection jarg1_);
+  public final static native void tracker_connection_close(long jarg1, tracker_connection jarg1_);
+  public final static native long tracker_connection_bind_interface(long jarg1, tracker_connection jarg1_);
+  public final static native void tracker_connection_sent_bytes(long jarg1, tracker_connection jarg1_, int jarg2);
+  public final static native void tracker_connection_received_bytes(long jarg1, tracker_connection jarg1_, int jarg2);
+  public final static native boolean tracker_connection_on_receive_hostname(long jarg1, tracker_connection jarg1_, long jarg2, error_code jarg2_, String jarg3, String jarg4, int jarg5);
+  public final static native long tracker_connection_shared_from_this(long jarg1, tracker_connection jarg1_);
+  public final static native void delete_tracker_manager(long jarg1);
+  public final static native void tracker_manager_abort_all_requests__SWIG_0(long jarg1, tracker_manager jarg1_, boolean jarg2);
+  public final static native void tracker_manager_abort_all_requests__SWIG_1(long jarg1, tracker_manager jarg1_);
+  public final static native void tracker_manager_remove_request(long jarg1, tracker_manager jarg1_, long jarg2, tracker_connection jarg2_);
+  public final static native boolean tracker_manager_empty(long jarg1, tracker_manager jarg1_);
+  public final static native int tracker_manager_num_requests(long jarg1, tracker_manager jarg1_);
+  public final static native void tracker_manager_sent_bytes(long jarg1, tracker_manager jarg1_, int jarg2);
+  public final static native void tracker_manager_received_bytes(long jarg1, tracker_manager jarg1_, int jarg2);
+  public final static native void tracker_manager_update_transaction_id(long jarg1, tracker_manager jarg1_, long jarg2, udp_tracker_connection jarg2_, java.math.BigInteger jarg3);
+  public final static native long tracker_manager_settings(long jarg1, tracker_manager jarg1_);
+  public final static native void udp_tracker_connection_start(long jarg1, udp_tracker_connection jarg1_);
+  public final static native void udp_tracker_connection_close(long jarg1, udp_tracker_connection jarg1_);
+  public final static native long udp_tracker_connection_transaction_id(long jarg1, udp_tracker_connection jarg1_);
+  public final static native void delete_udp_tracker_connection(long jarg1);
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
   public final static native void parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
@@ -4326,6 +4355,7 @@ public class libtorrent_jni {
   public final static native long web_connection_base_SWIGUpcast(long jarg1);
   public final static native long web_peer_connection_SWIGUpcast(long jarg1);
   public final static native long http_seed_connection_SWIGUpcast(long jarg1);
+  public final static native long udp_tracker_connection_SWIGSmartPtrUpcast(long jarg1);
   public final static native long set_piece_hashes_alert_SWIGUpcast(long jarg1);
 
   public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long t) {

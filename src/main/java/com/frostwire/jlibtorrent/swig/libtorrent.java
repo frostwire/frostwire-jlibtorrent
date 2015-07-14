@@ -97,6 +97,10 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_posix_category(), false);
   }
 
+  public static error_category generic_category() {
+    return new error_category(libtorrent_jni.generic_category(), false);
+  }
+
   public static high_resolution_clock.time_point min_time() {
     return new high_resolution_clock.time_point(libtorrent_jni.min_time(), true);
   }

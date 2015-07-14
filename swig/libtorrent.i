@@ -72,6 +72,7 @@
 #include "libtorrent/bdecode.hpp"
 #include "libtorrent/buffer.hpp"
 #include "libtorrent/tracker_manager.hpp"
+#include "libtorrent/udp_tracker_connection.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
@@ -279,6 +280,7 @@ public:
 %shared_ptr(libtorrent::torrent_info)
 %shared_ptr(libtorrent::ip_filter)
 %shared_ptr(libtorrent::settings_pack)
+%shared_ptr(libtorrent::udp_tracker_connection)
 
 %auto_ptr(libtorrent::alert)
 
@@ -376,7 +378,6 @@ namespace std {
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
 %ignore libtorrent::detail::add_files_impl;
-%ignore libtorrent::generic_category;
 %ignore libtorrent::alert_manager;
 %ignore libtorrent::plugin;
 %ignore libtorrent::crypto_plugin;
@@ -387,8 +388,6 @@ namespace std {
 %ignore libtorrent::internal_file_entry;
 %ignore libtorrent::storage_interface;
 %ignore libtorrent::time_critical_piece;
-%ignore libtorrent::tracker_manager;
-%ignore libtorrent::tracker_connection;
 %ignore libtorrent::buffer;
 %ignore libtorrent::buffer::const_interval;
 %ignore libtorrent::disk_buffer_pool;
@@ -424,8 +423,12 @@ namespace std {
 %ignore libtorrent::tracker_manager::tracker_manager;
 %ignore libtorrent::tracker_manager::queue_request;
 %ignore libtorrent::tracker_manager::incoming_packet;
+%ignore libtorrent::tracker_manager::host_resolver;
+%ignore libtorrent::tracker_manager::get_udp_socket;
 %ignore libtorrent::tracker_connection::requester;
 %ignore libtorrent::tracker_connection::on_receive;
+%ignore libtorrent::tracker_connection::update_transaction_id;
+%ignore libtorrent::udp_tracker_connection::udp_tracker_connection;
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore libtorrent::add_torrent_params::extensions;
@@ -762,6 +765,7 @@ namespace std {
 %javaconst(0);
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/tracker_manager.hpp"
+%include "libtorrent/udp_tracker_connection.hpp"
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
