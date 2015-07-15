@@ -1040,6 +1040,7 @@ public:
     static void sign_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig);
 };
 
+%feature("director") add_files_listener;
 %feature("director") set_piece_hashes_listener;
 
 %ignore set_piece_hashes_cb;

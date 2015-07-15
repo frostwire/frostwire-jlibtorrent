@@ -1,6 +1,11 @@
 package com.frostwire.jlibtorrent.tools;
 
+import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.swig.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.UUID;
 
 /**
  * @author gubatron
@@ -8,53 +13,138 @@ import com.frostwire.jlibtorrent.swig.*;
  */
 public final class MkTorrent extends Tool {
 
+    private final String id;
+    private MkTorrentListener listener;
+
     public MkTorrent(String[] args) {
         super(args);
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public MkTorrentListener listener() {
+        return listener;
+    }
+
+    public void listener(MkTorrentListener listener) {
+        this.listener = listener;
     }
 
     public void run() {
-        file_storage fs = new file_storage();
-
-        libtorrent.add_files(fs, "/Users/aldenml/Downloads/commons");
-
-        create_torrent t = new create_torrent(fs);
-        t.add_tracker("http://my.tracker.com/announce");
-        t.set_creator("libtorrent example");
-
-        error_code ec = new error_code();
-        set_piece_hashes_listener l = new set_piece_hashes_listener() {
-            @Override
-            public void progress(String id, int num_pieces, int i) {
-                System.out.println(i + "/" + num_pieces);
-            }
-        };
-
-        libtorrent.set_piece_hashes("id", t, "/Users/aldenml/Downloads", ec, l);
-
-        if (ec.value() != 0) {
-            System.out.println(ec.message());
+        File f = new File(args.get("-i"));
+        if (!f.exists()) {
+            throw new IllegalStateException("File or directory " + f + " does not exists");
         }
 
-        entry e = t.generate();
+        file_storage fs = new file_storage();
 
-        System.out.println(e.to_string());
+        if (listener != null) {
+            add_files_listener l = new add_files_listener() {
+                @Override
+                public boolean pred(String id, String p) {
+                    if (MkTorrent.this.id.equals(id)) {
+                        return listener.pred(MkTorrent.this, p);
+                    } else {
+                        return false;
+                    }
+                }
+            };
+            libtorrent.add_files(id, fs, f.getAbsolutePath(), 0L, l);
+        } else {
+            libtorrent.add_files(fs, f.getAbsolutePath());
+        }
+
+        create_torrent ct = new create_torrent(fs);
+        ct.add_tracker(args.get("-t1"));
+
+        error_code ec = new error_code();
+        if (listener != null) {
+            set_piece_hashes_listener l = new set_piece_hashes_listener() {
+                @Override
+                public void progress(String id, int num_pieces, int i) {
+                    if (MkTorrent.this.id.equals(id)) {
+                        listener.progress(MkTorrent.this, num_pieces, i);
+                    }
+                }
+            };
+
+            libtorrent.set_piece_hashes(id, ct, f.getParent(), ec, l);
+        } else {
+            libtorrent.set_piece_hashes(ct, f.getParent(), ec);
+        }
+
+        if (ec.value() != 0) {
+            throw new IllegalStateException(ec.message());
+        }
+
+        entry e = ct.generate();
+
+        if (listener != null) {
+            listener.done(this, new Entry(e));
+        }
     }
 
     @Override
     protected String usage() {
-        return "usage: -i <file|dir>";
+        return "usage: -i <file|dir> [-t1 <tracker1>]";
     }
 
     @Override
-    protected ParseCmd parser() {
-        return new ParseCmd.Builder()
-                .help(usage())
-                .parm("-i", "<file|dir>")
+    protected ParseCmd parser(ParseCmd.Builder b) {
+        return b.help(usage())
+                .parm("-i", "<file|dir>").req().rex(".*")
+                .parm("-t1", "udp://tracker.openbittorrent.com:80")
                 .build();
+    }
+
+    public interface MkTorrentListener {
+
+        boolean pred(MkTorrent mkt, String p);
+
+        void progress(MkTorrent mkt, int numPieces, int i);
+
+        void done(MkTorrent mkt, Entry e);
     }
 
     public static void main(String[] args) {
         MkTorrent t = new MkTorrent(args);
+
+        t.listener(new MkTorrentListener() {
+            @Override
+            public boolean pred(MkTorrent mkt, String p) {
+                File f = new File(p);
+                if (f.isHidden()) {
+                    System.out.println("Skipping hidden file: " + f);
+                    return false;
+                }
+                if (f.isDirectory()) {
+                    System.out.println("Entering directory: " + f);
+                }
+                if (f.isFile()) {
+                    System.out.println("Adding file: " + f);
+                }
+                return true;
+            }
+
+            @Override
+            public void progress(MkTorrent mkt, int numPieces, int i) {
+                System.out.println("Calculated hash for piece: " + (i + 1) + " of " + numPieces);
+            }
+
+            @Override
+            public void done(MkTorrent mkt, Entry e) {
+                String torrent = mkt.arg("-i") + ".torrent";
+                try {
+                    FileOutputStream fos = new FileOutputStream(torrent);
+                    fos.write(e.bencode());
+                    fos.close();
+                    System.out.println("Torrent file created at: " + torrent);
+                } catch (Throwable t) {
+                    System.out.println("Error creating torrent file");
+                    t.printStackTrace();
+                }
+            }
+        });
+
         t.run();
     }
 }

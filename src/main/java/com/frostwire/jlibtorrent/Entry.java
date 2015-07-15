@@ -88,7 +88,7 @@ public final class Entry {
     }
 
     public static Entry bdecode(File file) throws IOException {
-        byte[] data = ReadFile.bytes(file);
+        byte[] data = Files.bytes(file);
         return bdecode(data);
     }
 

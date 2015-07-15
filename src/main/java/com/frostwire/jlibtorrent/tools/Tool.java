@@ -8,25 +8,26 @@ import java.util.Map;
  */
 public abstract class Tool {
 
-    protected final String[] args;
-    protected final Map<String, String> map;
+    protected final Map<String, String> args;
 
     public Tool(String[] args) {
-        this.args = args;
-
-        ParseCmd cmd = parser();
+        ParseCmd cmd = parser(new ParseCmd.Builder());
 
         String err = cmd.validate(args);
         if (err == null || err.length() == 0) {
-            map = cmd.parse(args);
+            this.args = cmd.parse(args);
         } else {
             throw new IllegalArgumentException(err);
         }
+    }
+
+    public String arg(String name) {
+        return args.get(name);
     }
 
     public abstract void run();
 
     protected abstract String usage();
 
-    protected abstract ParseCmd parser();
+    protected abstract ParseCmd parser(ParseCmd.Builder b);
 }

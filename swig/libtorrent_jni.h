@@ -103,6 +103,21 @@ protected:
     bool swig_override[28];
 };
 
+class SwigDirector_add_files_listener : public add_files_listener, public Swig::Director {
+
+public:
+    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
+    SwigDirector_add_files_listener(JNIEnv *jenv);
+    virtual ~SwigDirector_add_files_listener();
+    virtual bool pred(std::string const &id, std::string const &p);
+public:
+    bool swig_overrides(int n) {
+      return (n < 1 ? swig_override[n] : false);
+    }
+protected:
+    bool swig_override[1];
+};
+
 class SwigDirector_set_piece_hashes_listener : public set_piece_hashes_listener, public Swig::Director {
 
 public:

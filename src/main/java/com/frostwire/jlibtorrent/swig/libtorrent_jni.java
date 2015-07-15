@@ -4243,6 +4243,14 @@ public class libtorrent_jni {
   public final static native void dht_item_sign_mutable_item(long jarg1, char_vector jarg1_, String jarg2, int jarg3, long jarg4, char_vector jarg4_, long jarg5, char_vector jarg5_, long jarg6, char_vector jarg6_);
   public final static native long new_dht_item();
   public final static native void delete_dht_item(long jarg1);
+  public final static native void delete_add_files_listener(long jarg1);
+  public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2, String jarg3);
+  public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2, String jarg3);
+  public final static native long new_add_files_listener();
+  public final static native void add_files_listener_director_connect(add_files_listener obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void add_files_listener_change_ownership(add_files_listener obj, long cptr, boolean take_or_release);
+  public final static native boolean add_files_cb(String jarg1, long jarg2, add_files_listener jarg2_, String jarg3);
+  public final static native void add_files(String jarg1, long jarg2, file_storage jarg2_, String jarg3, long jarg4, long jarg5, add_files_listener jarg5_);
   public final static native void delete_set_piece_hashes_listener(long jarg1);
   public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, String jarg2, int jarg3, int jarg4);
   public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, String jarg2, int jarg3, int jarg4);
@@ -4496,6 +4504,9 @@ public class libtorrent_jni {
   }
   public static boolean SwigDirector_swig_peer_plugin_write_request(swig_peer_plugin jself, long r) {
     return jself.write_request(new peer_request(r, false));
+  }
+  public static boolean SwigDirector_add_files_listener_pred(add_files_listener jself, String id, String p) {
+    return jself.pred(id, p);
   }
   public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, String id, int num_pieces, int i) {
     jself.progress(id, num_pieces, i);
