@@ -6,12 +6,12 @@ import java.util.Map;
  * @author gubatron
  * @author aldenml
  */
-public abstract class Tool {
+public abstract class Tool<TOut> {
 
-    protected final Map<String, String> args;
+    private final Map<String, String> args;
 
     public Tool(String[] args) {
-        ParseCmd cmd = parser(new ParseCmd.Builder());
+        ParseCmd cmd = parser(new ParseCmd.Builder().help(usage()));
 
         String err = cmd.validate(args);
         if (err == null || err.length() == 0) {
@@ -25,9 +25,9 @@ public abstract class Tool {
         return args.get(name);
     }
 
-    public abstract void run();
-
     protected abstract String usage();
 
     protected abstract ParseCmd parser(ParseCmd.Builder b);
+
+    public abstract TOut run();
 }

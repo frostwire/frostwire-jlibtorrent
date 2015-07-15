@@ -11,7 +11,7 @@ import java.util.UUID;
  * @author gubatron
  * @author aldenml
  */
-public final class MkTorrent extends Tool {
+public final class MkTorrent extends Tool<Entry> {
 
     private final String id;
     private MkTorrentListener listener;
@@ -29,8 +29,21 @@ public final class MkTorrent extends Tool {
         this.listener = listener;
     }
 
-    public void run() {
-        File f = new File(args.get("-i"));
+    @Override
+    protected String usage() {
+        return "usage: -i <file|dir> [-t1 <tracker1>]";
+    }
+
+    @Override
+    protected ParseCmd parser(ParseCmd.Builder b) {
+        return b.parm("-i", "<file|dir>").req().rex(".*")
+                .parm("-t1", "udp://tracker.openbittorrent.com:80")
+                .build();
+    }
+
+    @Override
+    public Entry run() {
+        File f = new File(arg("-i"));
         if (!f.exists()) {
             throw new IllegalStateException("File or directory " + f + " does not exists");
         }
@@ -54,7 +67,7 @@ public final class MkTorrent extends Tool {
         }
 
         create_torrent ct = new create_torrent(fs);
-        ct.add_tracker(args.get("-t1"));
+        ct.add_tracker(arg("-t1"));
 
         error_code ec = new error_code();
         if (listener != null) {
@@ -76,24 +89,13 @@ public final class MkTorrent extends Tool {
             throw new IllegalStateException(ec.message());
         }
 
-        entry e = ct.generate();
+        Entry e = new Entry(ct.generate());
 
         if (listener != null) {
-            listener.done(this, new Entry(e));
+            listener.done(this, e);
         }
-    }
 
-    @Override
-    protected String usage() {
-        return "usage: -i <file|dir> [-t1 <tracker1>]";
-    }
-
-    @Override
-    protected ParseCmd parser(ParseCmd.Builder b) {
-        return b.help(usage())
-                .parm("-i", "<file|dir>").req().rex(".*")
-                .parm("-t1", "udp://tracker.openbittorrent.com:80")
-                .build();
+        return e;
     }
 
     public interface MkTorrentListener {

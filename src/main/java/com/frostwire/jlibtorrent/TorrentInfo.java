@@ -451,7 +451,7 @@ public final class TorrentInfo {
         if (ret == 0) {
             return new TorrentInfo(new torrent_info(n));
         } else {
-            throw new IllegalArgumentException("Can't decode data");
+            throw new IllegalArgumentException("Can't decode data: " + ec.message());
         }
     }
 }
