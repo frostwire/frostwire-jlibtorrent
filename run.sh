@@ -5,7 +5,7 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-TOOL_NAME=$1
+TOOL_NAME=`echo $1 | awk '{ print tolower($1) }'`
 shift
 TOOL_ARGS=$@
 
