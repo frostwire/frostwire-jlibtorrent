@@ -16,12 +16,12 @@ public final class ReadTorrent extends Tool<TorrentInfo> {
 
     @Override
     protected String usage() {
-        return "usage: -i torrent";
+        return "usage: -i <torrent>";
     }
 
     @Override
     protected ParseCmd parser(ParseCmd.Builder b) {
-        return b.parm("-i", "torrent").req().rex(".*")
+        return b.parm("-i", "<torrent>").req().rex(".*")
                 .build();
     }
 

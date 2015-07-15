@@ -37,7 +37,7 @@ public final class MkTorrent extends Tool<Entry> {
     @Override
     protected ParseCmd parser(ParseCmd.Builder b) {
         return b.parm("-i", "<file|dir>").req().rex(".*")
-                .parm("-t1", "udp://tracker.openbittorrent.com:80")
+                .parm("-t1", "udp://tracker.openbittorrent.com:80").rex(".*")
                 .build();
     }
 
