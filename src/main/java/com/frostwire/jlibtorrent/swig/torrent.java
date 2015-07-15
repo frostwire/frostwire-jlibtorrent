@@ -69,7 +69,7 @@ public class torrent {
 
   public peer_connection find_lowest_ranking_peer() {
     long cPtr = libtorrent_jni.torrent_find_lowest_ranking_peer(swigCPtr, this);
-    return (cPtr == 0) ? null : new peer_connection(cPtr, false);
+    return (cPtr == 0) ? null : new peer_connection(cPtr, true);
   }
 
   public void init() {
@@ -106,17 +106,17 @@ public class torrent {
 
   public bt_peer_connection find_introducer(tcp_endpoint ep) {
     long cPtr = libtorrent_jni.torrent_find_introducer(swigCPtr, this, tcp_endpoint.getCPtr(ep), ep);
-    return (cPtr == 0) ? null : new bt_peer_connection(cPtr, false);
+    return (cPtr == 0) ? null : new bt_peer_connection(cPtr, true);
   }
 
   public bt_peer_connection find_peer(tcp_endpoint ep) {
     long cPtr = libtorrent_jni.torrent_find_peer__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(ep), ep);
-    return (cPtr == 0) ? null : new bt_peer_connection(cPtr, false);
+    return (cPtr == 0) ? null : new bt_peer_connection(cPtr, true);
   }
 
   public peer_connection find_peer(sha1_hash pid) {
     long cPtr = libtorrent_jni.torrent_find_peer__SWIG_1(swigCPtr, this, sha1_hash.getCPtr(pid), pid);
-    return (cPtr == 0) ? null : new peer_connection(cPtr, false);
+    return (cPtr == 0) ? null : new peer_connection(cPtr, true);
   }
 
   public void files_checked() {

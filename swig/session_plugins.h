@@ -22,7 +22,7 @@ struct swig_plugin : plugin {
     virtual void on_alert(libtorrent::alert const* a) {
     }
 
-    virtual bool on_unknown_torrent(libtorrent::sha1_hash const& info_hash, libtorrent::peer_connection* pc, libtorrent::add_torrent_params& p) {
+    virtual bool on_unknown_torrent(libtorrent::sha1_hash const& info_hash, libtorrent::peer_connection_handle pc, libtorrent::add_torrent_params& p) {
          return false;
     }
 
@@ -45,7 +45,7 @@ struct swig_torrent_plugin: torrent_plugin
     virtual ~swig_torrent_plugin() {
     }
 
-    boost::shared_ptr<peer_plugin> new_connection(peer_connection* pc);
+    boost::shared_ptr<peer_plugin> new_connection(libtorrent::peer_connection_handle pc);
 
     virtual swig_peer_plugin* new_peer_connection(libtorrent::peer_connection *pc);
     virtual swig_peer_plugin* new_bt_peer_connection(libtorrent::bt_peer_connection *pc);
@@ -163,7 +163,9 @@ swig_torrent_plugin* swig_plugin::new_torrent(torrent *t) {
     return new swig_torrent_plugin();
 }
 
-boost::shared_ptr<peer_plugin> swig_torrent_plugin::new_connection(peer_connection* pc) {
+boost::shared_ptr<peer_plugin> swig_torrent_plugin::new_connection(libtorrent::peer_connection_handle h) {
+
+    peer_connection* pc = h.native_handle().get();
 
     bt_peer_connection *bt_pc = dynamic_cast<libtorrent::bt_peer_connection *>(pc);
     if (bt_pc != NULL) {

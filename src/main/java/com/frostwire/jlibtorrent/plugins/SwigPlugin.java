@@ -66,10 +66,10 @@ public final class SwigPlugin extends swig_plugin {
     }
 
     @Override
-    public boolean on_unknown_torrent(sha1_hash info_hash, peer_connection pc, add_torrent_params p) {
+    public boolean on_unknown_torrent(sha1_hash info_hash, peer_connection_handle pc, add_torrent_params p) {
         try {
             if (this.p.handleOperation(Plugin.Operation.ON_UNKNOWN_TORRENT)) {
-                return this.p.onUnknownTorrent(new Sha1Hash(info_hash), new PeerConnection(pc), new AddTorrentParams(p));
+                return this.p.onUnknownTorrent(new Sha1Hash(info_hash), new PeerConnection(pc.native_handle()), new AddTorrentParams(p));
             }
         } catch (Throwable e) {
             LOG.error("Error in plugin (on_unknown_torrent)", e);

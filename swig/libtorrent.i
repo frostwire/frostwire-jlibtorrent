@@ -59,7 +59,6 @@
 #include "libtorrent/torrent.hpp"
 #include "libtorrent/session_handle.hpp"
 #include "libtorrent/session.hpp"
-#include "libtorrent/extensions.hpp"
 #include "libtorrent/disk_io_job.hpp"
 #include "libtorrent/disk_buffer_holder.hpp"
 #include "libtorrent/disk_buffer_pool.hpp"
@@ -67,6 +66,8 @@
 #include "libtorrent/web_connection_base.hpp"
 #include "libtorrent/web_peer_connection.hpp"
 #include "libtorrent/http_seed_connection.hpp"
+#include "libtorrent/peer_connection_handle.hpp"
+#include "libtorrent/extensions.hpp"
 #include "libtorrent/file_pool.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/bdecode.hpp"
@@ -282,6 +283,12 @@ public:
 %shared_ptr(libtorrent::ip_filter)
 %shared_ptr(libtorrent::settings_pack)
 %shared_ptr(libtorrent::udp_tracker_connection)
+%shared_ptr(libtorrent::crypto_plugin)
+%shared_ptr(libtorrent::peer_connection)
+%shared_ptr(libtorrent::bt_peer_connection)
+%shared_ptr(libtorrent::web_connection_base)
+%shared_ptr(libtorrent::web_peer_connection)
+%shared_ptr(libtorrent::http_seed_connection)
 %shared_ptr(set_piece_hashes_listener)
 
 %auto_ptr(libtorrent::alert)
@@ -382,7 +389,6 @@ namespace std {
 %ignore libtorrent::detail::add_files_impl;
 %ignore libtorrent::alert_manager;
 %ignore libtorrent::plugin;
-%ignore libtorrent::crypto_plugin;
 %ignore libtorrent::disk_io_job;
 %ignore libtorrent::disk_job_fence;
 %ignore libtorrent::is_read_operation;
@@ -489,6 +495,8 @@ namespace std {
 %ignore libtorrent::bt_peer_connection::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection::write_piece;
 %ignore libtorrent::bt_peer_connection::hit_send_barrier;
+%ignore libtorrent::peer_connection_handle::peer_connection_handle;
+%ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_args::allocator;
 %ignore libtorrent::peer_connection_args::tor;
 %ignore libtorrent::peer_connection_args::disk_thread;
@@ -598,6 +606,10 @@ namespace std {
 %ignore libtorrent::bdecode_node::dict_find(std::string const &);
 %ignore libtorrent::bdecode_node::dict_find(std::string const &) const;
 %ignore libtorrent::bdecode_node::dict_find_dict(char const *) const;
+%ignore libtorrent::crypto_plugin::set_incoming_key;
+%ignore libtorrent::crypto_plugin::set_outgoing_key;
+%ignore libtorrent::crypto_plugin::encrypt;
+%ignore libtorrent::crypto_plugin::decrypt;
 %ignore libtorrent::cork::m_pc;
 %ignore libtorrent::disabled_storage;
 %ignore libtorrent::errors::make_error_code;
@@ -752,7 +764,6 @@ namespace std {
 %include "libtorrent/torrent.hpp"
 %include "libtorrent/session_handle.hpp"
 %include "libtorrent/session.hpp"
-%include "libtorrent/extensions.hpp"
 %include "libtorrent/disk_io_job.hpp"
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
@@ -760,6 +771,8 @@ namespace std {
 %include "libtorrent/web_connection_base.hpp"
 %include "libtorrent/web_peer_connection.hpp"
 %include "libtorrent/http_seed_connection.hpp"
+%include "libtorrent/peer_connection_handle.hpp"
+%include "libtorrent/extensions.hpp"
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
 %javaconst(1);

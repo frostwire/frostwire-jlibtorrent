@@ -63,8 +63,8 @@ public class swig_plugin {
     if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_on_alert(swigCPtr, this, alert.getCPtr(a), a); else libtorrent_jni.swig_plugin_on_alertSwigExplicitswig_plugin(swigCPtr, this, alert.getCPtr(a), a);
   }
 
-  public boolean on_unknown_torrent(sha1_hash info_hash, peer_connection pc, add_torrent_params p) {
-    return (getClass() == swig_plugin.class) ? libtorrent_jni.swig_plugin_on_unknown_torrent(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, peer_connection.getCPtr(pc), pc, add_torrent_params.getCPtr(p), p) : libtorrent_jni.swig_plugin_on_unknown_torrentSwigExplicitswig_plugin(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, peer_connection.getCPtr(pc), pc, add_torrent_params.getCPtr(p), p);
+  public boolean on_unknown_torrent(sha1_hash info_hash, peer_connection_handle pc, add_torrent_params p) {
+    return (getClass() == swig_plugin.class) ? libtorrent_jni.swig_plugin_on_unknown_torrent(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, peer_connection_handle.getCPtr(pc), pc, add_torrent_params.getCPtr(p), p) : libtorrent_jni.swig_plugin_on_unknown_torrentSwigExplicitswig_plugin(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, peer_connection_handle.getCPtr(pc), pc, add_torrent_params.getCPtr(p), p);
   }
 
   public void on_tick() {

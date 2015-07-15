@@ -35,8 +35,8 @@ public class torrent_plugin {
     }
   }
 
-  public peer_plugin new_connection(peer_connection arg0) {
-    long cPtr = libtorrent_jni.torrent_plugin_new_connection(swigCPtr, this, peer_connection.getCPtr(arg0), arg0);
+  public peer_plugin new_connection(peer_connection_handle arg0) {
+    long cPtr = libtorrent_jni.torrent_plugin_new_connection(swigCPtr, this, peer_connection_handle.getCPtr(arg0), arg0);
     return (cPtr == 0) ? null : new peer_plugin(cPtr, true);
   }
 
