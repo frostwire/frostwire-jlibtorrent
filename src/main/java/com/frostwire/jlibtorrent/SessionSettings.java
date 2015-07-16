@@ -5,6 +5,7 @@ import com.frostwire.jlibtorrent.swig.settings_pack;
 /**
  * @author gubatron
  * @author aldenml
+ * @deprecated from now on use {@link SettingsPack}, for now this will wrap SettingsPack for you.
  */
 @Deprecated
 public final class SessionSettings {
