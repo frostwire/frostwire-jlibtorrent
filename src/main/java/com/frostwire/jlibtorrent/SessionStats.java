@@ -14,11 +14,20 @@ public final class SessionStats {
 
     private static final StatsMetric[] STATS_METRICS = LibTorrent.sessionStatsMetrics();
 
-    private static final int DHT_NODES_IDX = LibTorrent.findMetricIdx("dht.dht_nodes");
-    private static final int RECV_PAYLOAD_BYTES_IDX = LibTorrent.findMetricIdx("net.recv_payload_bytes");
-    private static final int SENT_PAYLOAD_BYTES_IDX = LibTorrent.findMetricIdx("net.sent_payload_bytes");
-    private static final int RECV_BYTES_IDX = LibTorrent.findMetricIdx("net.recv_bytes");
-    private static final int SENT_BYTES_IDX = LibTorrent.findMetricIdx("net.sent_bytes");
+    public static final int DHT_NODES_IDX = LibTorrent.findMetricIdx("dht.dht_nodes");
+    public static final int RECV_PAYLOAD_BYTES_IDX = LibTorrent.findMetricIdx("net.recv_payload_bytes");
+    public static final int SENT_PAYLOAD_BYTES_IDX = LibTorrent.findMetricIdx("net.sent_payload_bytes");
+    public static final int RECV_BYTES_IDX = LibTorrent.findMetricIdx("net.recv_bytes");
+    public static final int SENT_BYTES_IDX = LibTorrent.findMetricIdx("net.sent_bytes");
+
+    public static final int TOTAL_DOWNLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.total_download_rate");
+    public static final int TOTAL_UPLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.total_upload_rate");
+    public static final int PAYLOAD_DOWNLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.payload_download_rate");
+    public static final int PAYLOAD_UPLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.payload_upload_rate");
+    public static final int IP_OVERHEAD_DOWNLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.ip_overhead_download_rate");
+    public static final int IP_OVERHEAD_UPLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.ip_overhead_upload_rate");
+
+    private final long[] values;
 
     SessionStats() {
         this.values = null;
@@ -39,7 +48,13 @@ public final class SessionStats {
         }
     }
 
-    public final long[] values;
+    public long value(int valueIdx) {
+        if (values == null) {
+            return 0;
+        }
+
+        return values[valueIdx];
+    }
 
     public Map<String, Long> nonZeroValues() {
         if (values == null) {
@@ -84,11 +99,11 @@ public final class SessionStats {
         return value(SENT_BYTES_IDX);
     }
 
-    private long value(int valueIdx) {
-        if (values == null) {
-            return 0;
-        }
+    public long totalDownloadRate() {
+        return value(TOTAL_DOWNLOAD_RATE_IDX);
+    }
 
-        return values[valueIdx];
+    public long totalUploadRate() {
+        return value(TOTAL_UPLOAD_RATE_IDX);
     }
 }

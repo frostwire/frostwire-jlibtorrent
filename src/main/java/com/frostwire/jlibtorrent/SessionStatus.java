@@ -14,11 +14,11 @@ public final class SessionStatus {
     }
 
     public long getDownloadRate() {
-        return 0;
+        return stats.totalDownloadRate();
     }
 
     public long getUploadRate() {
-        return 0;
+        return stats.totalUploadRate();
     }
 
     public long getTotalDownload() {
