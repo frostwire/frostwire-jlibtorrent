@@ -21,13 +21,30 @@ if ! $(JDK_ROOT)
 	EXIT "You need to define JDK_ROOT" ;
 }
 
+if [ os.name ] = "NT"
+{
+    OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
+    ECHO "OPENSSL_ROOT = "$(OPENSSL_ROOT) ;
+    if ! $(OPENSSL_ROOT)
+    {
+    	EXIT "You need to define OPENSSL_ROOT" ;
+    }
+}
+
 use-project /torrent : $(LIBTORRENT_ROOT) ;
 
 rule libtorrent_linking ( properties * )
 {
     local result ;
 
-    result += <cxxflags>-O3 ;
+    if <toolset>msvc in $(properties)
+    {
+        result += <cxxflags>/O2 ;
+    }
+    else
+    {
+        result += <cxxflags>-O3 ;
+    }
     result += <variant>release ;
     result += <deprecated-functions>off ;
     result += <logging>on ;
@@ -58,7 +75,23 @@ rule env_setup ( properties * )
         result += <include>$(JDK_ROOT)/include/darwin ;
     }
 
-    result += <cxxflags>-O3 ;
+    if <toolset>msvc in $(properties)
+    {
+        result += <include>$(JDK_ROOT)/include/win32 ;
+    }
+
+    if <toolset>msvc in $(properties)
+    {
+        result += <cxxflags>/O2 ;
+        result += <cxxflags>/DBOOST_ASIO_DISABLE_CONNECTEX ;
+        result += <cxxflags>/I$(OPENSSL_ROOT)/include ;
+        result += <linkflags>/LIBPATH:$(OPENSSL_ROOT)/lib ;
+    }
+    else
+    {
+        result += <cxxflags>-O3 ;
+    }
+
     result += <variant>release ;
 
     return $(result) ;
