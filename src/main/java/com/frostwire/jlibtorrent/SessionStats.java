@@ -20,13 +20,6 @@ public final class SessionStats {
     public static final int RECV_BYTES_IDX = LibTorrent.findMetricIdx("net.recv_bytes");
     public static final int SENT_BYTES_IDX = LibTorrent.findMetricIdx("net.sent_bytes");
 
-    public static final int TOTAL_DOWNLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.total_download_rate");
-    public static final int TOTAL_UPLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.total_upload_rate");
-    public static final int PAYLOAD_DOWNLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.payload_download_rate");
-    public static final int PAYLOAD_UPLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.payload_upload_rate");
-    public static final int IP_OVERHEAD_DOWNLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.ip_overhead_download_rate");
-    public static final int IP_OVERHEAD_UPLOAD_RATE_IDX = LibTorrent.findMetricIdx("net.ip_overhead_upload_rate");
-
     private final long[] values;
 
     SessionStats() {
@@ -100,10 +93,12 @@ public final class SessionStats {
     }
 
     public long totalDownloadRate() {
-        return value(TOTAL_DOWNLOAD_RATE_IDX);
+        // TODO:
+        return 0;
     }
 
     public long totalUploadRate() {
-        return value(TOTAL_UPLOAD_RATE_IDX);
+        // TODO:
+        return 0;
     }
 }
