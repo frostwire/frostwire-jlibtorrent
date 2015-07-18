@@ -47,6 +47,7 @@
 #include "libtorrent/bandwidth_socket.hpp"
 #include "libtorrent/bandwidth_limit.hpp"
 #include "libtorrent/ip_voter.hpp"
+#include "libtorrent/peer_connection_interface.hpp"
 #include "libtorrent/torrent_peer.hpp"
 #include "libtorrent/peer_connection.hpp"
 #include "libtorrent/session_status.hpp"
@@ -631,12 +632,9 @@ namespace std {
 %ignore libtorrent::peer_class::priority;
 %ignore libtorrent::peer_class::channel;
 %ignore libtorrent::peer_class_pool::at(libtorrent::peer_class_t) const;
-%ignore libtorrent::torrent_peer::connection;
 %ignore libtorrent::torrent_peer::rank;
-%ignore libtorrent::torrent_peer::address;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::announce_entry::failed;
-%ignore libtorrent::announce_entry::can_announce;
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::file_storage::apply_pointer_offset;
@@ -752,6 +750,7 @@ namespace std {
 %include "libtorrent/bandwidth_socket.hpp"
 %include "libtorrent/bandwidth_limit.hpp"
 %include "libtorrent/ip_voter.hpp"
+%include "libtorrent/peer_connection_interface.hpp"
 %include "libtorrent/torrent_peer.hpp"
 %include "libtorrent/peer_connection.hpp"
 %include "libtorrent/session_status.hpp"
