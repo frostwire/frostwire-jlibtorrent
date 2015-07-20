@@ -4,7 +4,7 @@ package com.frostwire.jlibtorrent;
  * @author gubatron
  * @author aldenml
  */
-final class StatChannel {
+final class JavaStatChannel {
 
     // total counters
     private long totalCounter;
@@ -15,40 +15,22 @@ final class StatChannel {
     // sliding average
     private long averageSec5;
 
-    public StatChannel() {
+    public JavaStatChannel() {
     }
 
-    public void add(StatChannel s) {
-        if (counter >= Long.MAX_VALUE - s.counter) {
-            throw new IllegalArgumentException("Counter overflow");
-        }
+    public void add(JavaStatChannel s) {
         counter += s.counter;
-        if (totalCounter >= Long.MAX_VALUE - s.counter) {
-            throw new IllegalArgumentException("Counter overflow");
-        }
         totalCounter += s.counter;
     }
 
     public void add(int count) {
-        if (count < 0) {
-            throw new IllegalArgumentException("Counter can't be negative");
-        }
-        if (counter >= Long.MAX_VALUE - count) {
-            throw new IllegalArgumentException("Counter overflow");
-        }
         counter += count;
-        if (totalCounter >= Long.MAX_VALUE - counter) {
-            throw new IllegalArgumentException("Counter overflow");
-        }
         totalCounter += count;
     }
 
     // should be called once every second
     public void secondTick(int tickIntervalMs) {
         long sample = (counter * 1000) / tickIntervalMs;
-        if (sample < 0) {
-            throw new IllegalStateException("sample can't be negative");
-        }
         averageSec5 = (averageSec5 * 4) / 5 + sample / 5;
         counter = 0;
     }
@@ -62,9 +44,6 @@ final class StatChannel {
     }
 
     void offset(long c) {
-        if (totalCounter >= Long.MAX_VALUE - c) {
-            throw new IllegalArgumentException("Counter overflow");
-        }
         totalCounter += c;
     }
 
