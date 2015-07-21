@@ -21,57 +21,20 @@ final class JavaStat {
         this.stat = new JavaStatChannel[NUM_CHANNELS];
     }
 
-    public void add(JavaStat s) {
-        for (int i = 0; i < NUM_CHANNELS; i++) {
-            stat[i].add(s.stat[i]);
-        }
+    public void sent(long payload, long protocol, long ip) {
+        stat[UPLOAD_PAYLOAD].add(payload);
+        stat[UPLOAD_PROTOCOL].add(protocol);
+        stat[UPLOAD_IP_PROTOCOL].add(ip);
     }
 
-    public void sentSyn(boolean ipv6) {
-        stat[UPLOAD_IP_PROTOCOL].add(ipv6 ? 60 : 40);
-    }
-
-    public void receivedSynack(boolean ipv6) {
-        // we received SYN-ACK and also sent ACK back
-        stat[DOWNLOAD_IP_PROTOCOL].add(ipv6 ? 60 : 40);
-        stat[UPLOAD_IP_PROTOCOL].add(ipv6 ? 60 : 40);
-    }
-
-    public void receivedBytes(int bytesPayload, int bytesProtocol) {
-        stat[DOWNLOAD_PAYLOAD].add(bytesPayload);
-        stat[DOWNLOAD_PROTOCOL].add(bytesProtocol);
-    }
-
-    public void sentBytes(int bytesPayload, int bytesProtocol) {
-        stat[UPLOAD_PAYLOAD].add(bytesPayload);
-        stat[UPLOAD_PROTOCOL].add(bytesProtocol);
-    }
-
-    // and IP packet was received or sent
-    // account for the overhead caused by it
-    public void trancieveIPPacket(int bytesTransferred, boolean ipv6) {
-        // one TCP/IP packet header for the packet
-        // sent or received, and one for the ACK
-        // The IPv4 header is 20 bytes
-        // and IPv6 header is 40 bytes
-        int header = (ipv6 ? 40 : 20) + 20;
-        int mtu = 1500;
-        int packetSize = mtu - header;
-        int overhead = Math.max(1, (bytesTransferred + packetSize - 1) / packetSize) * header;
-        stat[DOWNLOAD_IP_PROTOCOL].add(overhead);
-        stat[UPLOAD_IP_PROTOCOL].add(overhead);
-    }
-
-    public long uploadIPOverhead() {
-        return stat[UPLOAD_IP_PROTOCOL].counter();
-    }
-
-    public long downloadIPOverhead() {
-        return stat[DOWNLOAD_IP_PROTOCOL].counter();
+    public void received(long payload, long protocol, long ip) {
+        stat[DOWNLOAD_PAYLOAD].add(payload);
+        stat[DOWNLOAD_PROTOCOL].add(protocol);
+        stat[DOWNLOAD_IP_PROTOCOL].add(ip);
     }
 
     // should be called once every second
-    public void secondTick(int tickIntervalMs) {
+    public void secondTick(long tickIntervalMs) {
         for (int i = 0; i < NUM_CHANNELS; ++i)
             stat[i].secondTick(tickIntervalMs);
     }
@@ -120,8 +83,16 @@ final class JavaStat {
         return stat[UPLOAD_PROTOCOL].total();
     }
 
-    public long total_protocol_download() {
+    public long totalProtocolDownload() {
         return stat[DOWNLOAD_PROTOCOL].total();
+    }
+
+    public long totalIPProtocolUpload() {
+        return stat[UPLOAD_IP_PROTOCOL].total();
+    }
+
+    public long totalIPProtocolDownload() {
+        return stat[DOWNLOAD_IP_PROTOCOL].total();
     }
 
     public long totalTransfer(int channel) {
@@ -130,30 +101,6 @@ final class JavaStat {
 
     public long transferRate(int channel) {
         return stat[channel].rate();
-    }
-
-    // this is used to offset the statistics when a
-    // peer_connection is opened and have some previous
-    // transfers from earlier connections.
-    public void addStat(long downloaded, long uploaded) {
-        stat[DOWNLOAD_PAYLOAD].offset(downloaded);
-        stat[UPLOAD_PAYLOAD].offset(uploaded);
-    }
-
-    public long lastPayloadDownloaded() {
-        return stat[DOWNLOAD_PAYLOAD].counter();
-    }
-
-    public long lastPayloadUploaded() {
-        return stat[UPLOAD_PAYLOAD].counter();
-    }
-
-    public long lastProtocolDownloaded() {
-        return stat[DOWNLOAD_PROTOCOL].counter();
-    }
-
-    public long lastProtocolUploaded() {
-        return stat[UPLOAD_PROTOCOL].counter();
     }
 
     public void clear() {

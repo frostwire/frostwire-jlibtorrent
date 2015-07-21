@@ -35,8 +35,10 @@ public final class Session {
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
     private final session s;
+    private final JavaStat stat;
 
     private long lastStatsRequestTime;
+    private long lastStatSecondTick;
     private SessionStats lastStats;
     private DHTStats lastDHTStats;
 
@@ -64,6 +66,7 @@ public final class Session {
 
         // TODO: fix the parameters
         this.s = new session(sp, flags);
+        this.stat = new JavaStat();
 
         this.lastStats = new SessionStats();
         this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);
@@ -913,7 +916,7 @@ public final class Session {
 
                             if (type == AlertType.SESSION_STATS.getSwig()) {
                                 alert = Alerts.cast(swigAlert);
-                                lastStats = new SessionStats((SessionStatsAlert) alert);
+                                updateSessionStat((SessionStatsAlert) alert);
                             }
 
                             if (type == AlertType.DHT_STATS.getSwig()) {
@@ -1010,6 +1013,35 @@ public final class Session {
         return n;
     }
 
+    private void updateSessionStat(SessionStatsAlert alert) {
+        long now = System.currentTimeMillis();
+        long tickIntervalMs = now - lastStatSecondTick;
+        lastStatSecondTick = now;
+        long received = alert.value(counters.stats_counter_t.recv_bytes.swigValue());
+        long payload = alert.value(counters.stats_counter_t.recv_payload_bytes.swigValue());
+        long protocol = received - payload;
+        long ip = alert.value(counters.stats_counter_t.recv_ip_overhead_bytes.swigValue());
+
+        payload -= stat.totalPayloadUpload();
+        protocol -= stat.totalProtocolUpload();
+        ip -= stat.totalIPProtocolUpload();
+        stat.received(payload, protocol, ip);
+
+        long sent = alert.value(counters.stats_counter_t.sent_bytes.swigValue());
+        payload = alert.value(counters.stats_counter_t.sent_payload_bytes.swigValue());
+        protocol = sent - payload;
+        ip = alert.value(counters.stats_counter_t.sent_ip_overhead_bytes.swigValue());
+
+        payload -= stat.totalPayloadDownload();
+        protocol -= stat.totalProtocolDownload();
+        ip -= stat.totalIPProtocolDownload();
+        stat.sent(payload, protocol, ip);
+
+        stat.secondTick(tickIntervalMs);
+
+        lastStats = new SessionStats(alert);
+    }
+
     /**
      * Flags to be passed in to remove_torrent().
      */
@@ -1025,7 +1057,7 @@ public final class Session {
          */
         UNKNOWN(-1);
 
-        private Options(int swigValue) {
+        Options(int swigValue) {
             this.swigValue = swigValue;
         }
 
@@ -1045,7 +1077,7 @@ public final class Session {
 
         TCP(session.protocol_type.tcp);
 
-        private ProtocolType(session.protocol_type swigObj) {
+        ProtocolType(session.protocol_type swigObj) {
             this.swigObj = swigObj;
         }
 

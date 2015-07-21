@@ -18,18 +18,13 @@ final class JavaStatChannel {
     public JavaStatChannel() {
     }
 
-    public void add(JavaStatChannel s) {
-        counter += s.counter;
-        totalCounter += s.counter;
-    }
-
-    public void add(int count) {
+    public void add(long count) {
         counter += count;
         totalCounter += count;
     }
 
     // should be called once every second
-    public void secondTick(int tickIntervalMs) {
+    public void secondTick(long tickIntervalMs) {
         long sample = (counter * 1000) / tickIntervalMs;
         averageSec5 = (averageSec5 * 4) / 5 + sample / 5;
         counter = 0;
@@ -41,14 +36,6 @@ final class JavaStatChannel {
 
     public long total() {
         return totalCounter;
-    }
-
-    void offset(long c) {
-        totalCounter += c;
-    }
-
-    public long counter() {
-        return counter;
     }
 
     public void clear() {
