@@ -19,6 +19,9 @@ final class JavaStat {
 
     public JavaStat() {
         this.stat = new JavaStatChannel[NUM_CHANNELS];
+        for (int i = 0; i < stat.length; i++) {
+            stat[i] = new JavaStatChannel();
+        }
     }
 
     public void sent(long payload, long protocol, long ip) {
