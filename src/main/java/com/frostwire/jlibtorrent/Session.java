@@ -1022,9 +1022,9 @@ public final class Session {
         long protocol = received - payload;
         long ip = alert.value(counters.stats_counter_t.recv_ip_overhead_bytes.swigValue());
 
-        payload -= stat.uploadPayload();
-        protocol -= stat.uploadProtocol();
-        ip -= stat.uploadIPProtocol();
+        payload -= stat.downloadPayload();
+        protocol -= stat.downloadProtocol();
+        ip -= stat.downloadIPProtocol();
         stat.received(payload, protocol, ip);
 
         long sent = alert.value(counters.stats_counter_t.sent_bytes.swigValue());
@@ -1032,9 +1032,9 @@ public final class Session {
         protocol = sent - payload;
         ip = alert.value(counters.stats_counter_t.sent_ip_overhead_bytes.swigValue());
 
-        payload -= stat.downloadPayload();
-        protocol -= stat.downloadProtocol();
-        ip -= stat.downloadIPProtocol();
+        payload -= stat.uploadPayload();
+        protocol -= stat.uploadProtocol();
+        ip -= stat.uploadIPProtocol();
         stat.sent(payload, protocol, ip);
 
         stat.secondTick(tickIntervalMs);
