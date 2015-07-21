@@ -33,6 +33,6 @@ public final class SessionStats {
     }
 
     public long uploadRate() {
-        return uploadRate();
+        return stat.uploadRate();
     }
 }
