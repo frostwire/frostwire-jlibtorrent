@@ -14,18 +14,18 @@ public final class SessionStatus {
     }
 
     public long getDownloadRate() {
-        return stats.totalDownloadRate();
+        return stats.downloadRate();
     }
 
     public long getUploadRate() {
-        return stats.totalUploadRate();
+        return stats.uploadRate();
     }
 
     public long getTotalDownload() {
-        return stats.getTotalDownload();
+        return stats.download();
     }
 
     public long getTotalUpload() {
-        return stats.getTotalUpload();
+        return stats.upload();
     }
 }

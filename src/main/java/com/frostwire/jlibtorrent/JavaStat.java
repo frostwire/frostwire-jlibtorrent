@@ -51,13 +51,13 @@ final class JavaStat {
                 + stat[DOWNLOAD_IP_PROTOCOL].rate();
     }
 
-    public long totalUpload() {
+    public long upload() {
         return stat[UPLOAD_PAYLOAD].total()
                 + stat[UPLOAD_PROTOCOL].total()
                 + stat[UPLOAD_IP_PROTOCOL].total();
     }
 
-    public long totalDownload() {
+    public long download() {
         return stat[DOWNLOAD_PAYLOAD].total()
                 + stat[DOWNLOAD_PROTOCOL].total()
                 + stat[DOWNLOAD_IP_PROTOCOL].total();
@@ -71,45 +71,33 @@ final class JavaStat {
         return stat[DOWNLOAD_PAYLOAD].rate();
     }
 
-    public long totalPayloadUpload() {
+    public long uploadPayload() {
         return stat[UPLOAD_PAYLOAD].total();
     }
 
-    public long totalPayloadDownload() {
+    public long downloadPayload() {
         return stat[DOWNLOAD_PAYLOAD].total();
     }
 
-    public long totalProtocolUpload() {
+    public long uploadProtocol() {
         return stat[UPLOAD_PROTOCOL].total();
     }
 
-    public long totalProtocolDownload() {
+    public long downloadProtocol() {
         return stat[DOWNLOAD_PROTOCOL].total();
     }
 
-    public long totalIPProtocolUpload() {
+    public long uploadIPProtocol() {
         return stat[UPLOAD_IP_PROTOCOL].total();
     }
 
-    public long totalIPProtocolDownload() {
+    public long downloadIPProtocol() {
         return stat[DOWNLOAD_IP_PROTOCOL].total();
-    }
-
-    public long totalTransfer(int channel) {
-        return stat[channel].total();
-    }
-
-    public long transferRate(int channel) {
-        return stat[channel].rate();
     }
 
     public void clear() {
         for (int i = 0; i < NUM_CHANNELS; i++) {
             stat[i].clear();
         }
-    }
-
-    public JavaStatChannel channel(int i) {
-        return stat[i];
     }
 }

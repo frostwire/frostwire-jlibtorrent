@@ -36,10 +36,10 @@ public final class Session {
 
     private final session s;
     private final JavaStat stat;
+    private final SessionStats stats;
 
     private long lastStatsRequestTime;
     private long lastStatSecondTick;
-    private SessionStats lastStats;
     private DHTStats lastDHTStats;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
@@ -67,8 +67,8 @@ public final class Session {
         // TODO: fix the parameters
         this.s = new session(sp, flags);
         this.stat = new JavaStat();
+        this.stats = new SessionStats(stat);
 
-        this.lastStats = new SessionStats();
         this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
@@ -782,7 +782,7 @@ public final class Session {
     }
 
     public SessionStats getStats() {
-        return lastStats;
+        return stats;
     }
 
     public DHTStats getDHTStats() {
@@ -815,7 +815,7 @@ public final class Session {
 
     @Deprecated
     public SessionStatus getStatus() {
-        return new SessionStatus(lastStats);
+        return new SessionStatus(stats);
     }
 
     @Override
@@ -1022,9 +1022,9 @@ public final class Session {
         long protocol = received - payload;
         long ip = alert.value(counters.stats_counter_t.recv_ip_overhead_bytes.swigValue());
 
-        payload -= stat.totalPayloadUpload();
-        protocol -= stat.totalProtocolUpload();
-        ip -= stat.totalIPProtocolUpload();
+        payload -= stat.uploadPayload();
+        protocol -= stat.uploadProtocol();
+        ip -= stat.uploadIPProtocol();
         stat.received(payload, protocol, ip);
 
         long sent = alert.value(counters.stats_counter_t.sent_bytes.swigValue());
@@ -1032,14 +1032,12 @@ public final class Session {
         protocol = sent - payload;
         ip = alert.value(counters.stats_counter_t.sent_ip_overhead_bytes.swigValue());
 
-        payload -= stat.totalPayloadDownload();
-        protocol -= stat.totalProtocolDownload();
-        ip -= stat.totalIPProtocolDownload();
+        payload -= stat.downloadPayload();
+        protocol -= stat.downloadProtocol();
+        ip -= stat.downloadIPProtocol();
         stat.sent(payload, protocol, ip);
 
         stat.secondTick(tickIntervalMs);
-
-        lastStats = new SessionStats(alert);
     }
 
     /**
