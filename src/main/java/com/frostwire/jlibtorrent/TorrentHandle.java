@@ -172,7 +172,10 @@ public final class TorrentHandle {
     }
 
     /**
-     * returns the info-hash for the torrent.
+     * Returns the info-hash for the torrent.
+     * <p/>
+     * If this handle is to a torrent that hasn't loaded yet (for instance by being added)
+     * by a URL, the returned value is undefined.
      *
      * @return
      */
