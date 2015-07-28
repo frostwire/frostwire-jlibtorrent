@@ -453,7 +453,7 @@ namespace std {
 %ignore libtorrent::session_handle::get_torrent_status;
 %ignore libtorrent::session_handle::get_io_service;
 %ignore libtorrent::session_handle::get_connection_queue;
-%ignore libtorrent::session_handle::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)>);
+%ignore libtorrent::session_handle::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent_handle const&, void*)>);
 %ignore libtorrent::session_handle::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>, std::string);
 %ignore libtorrent::session_handle::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>);
 %ignore libtorrent::session_handle::dht_get_item(boost::array<char, 32>, std::string);
@@ -524,7 +524,7 @@ namespace std {
 %ignore libtorrent::torrent::block_bytes_wanted;
 %ignore libtorrent::torrent::cancel_block;
 %ignore libtorrent::torrent::to_req;
-%ignore libtorrent::torrent::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent*, void*)> const&, void*);
+%ignore libtorrent::torrent::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent_handle const&, void*)> const&, void*);
 %ignore libtorrent::torrent::on_peer_name_lookup;
 %ignore libtorrent::torrent::on_name_lookup;
 %ignore libtorrent::torrent::on_proxy_name_lookup;

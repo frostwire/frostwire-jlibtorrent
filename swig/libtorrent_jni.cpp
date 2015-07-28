@@ -84274,9 +84274,8 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1plugin_1new_1connection(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   libtorrent::torrent_plugin *arg1 = (libtorrent::torrent_plugin *) 0 ;
-  SwigValueWrapper< libtorrent::peer_connection_handle > arg2 ;
+  libtorrent::peer_connection_handle *arg2 = 0 ;
   boost::shared_ptr< libtorrent::torrent_plugin > *smartarg1 = 0 ;
-  libtorrent::peer_connection_handle *argp2 ;
   boost::shared_ptr< libtorrent::peer_plugin > result;
   
   (void)jenv;
@@ -84286,15 +84285,14 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   smartarg1 = *(boost::shared_ptr<  libtorrent::torrent_plugin > **)&jarg1;
   arg1 = (libtorrent::torrent_plugin *)(smartarg1 ? smartarg1->get() : 0); 
-  argp2 = *(libtorrent::peer_connection_handle **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null libtorrent::peer_connection_handle");
+  arg2 = *(libtorrent::peer_connection_handle **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::peer_connection_handle const & reference is null");
     return 0;
-  }
-  arg2 = *argp2; 
+  } 
   {
     try {
-      result = (arg1)->new_connection(arg2);
+      result = (arg1)->new_connection((libtorrent::peer_connection_handle const &)*arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;

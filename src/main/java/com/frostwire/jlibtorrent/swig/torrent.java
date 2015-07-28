@@ -1218,8 +1218,8 @@ public class torrent {
     return libtorrent_jni.torrent_seed_mode(swigCPtr, this);
   }
 
-  public void leave_seed_mode(boolean seed) {
-    libtorrent_jni.torrent_leave_seed_mode(swigCPtr, this, seed);
+  public void leave_seed_mode(boolean skip_checking) {
+    libtorrent_jni.torrent_leave_seed_mode(swigCPtr, this, skip_checking);
   }
 
   public boolean all_verified() {
