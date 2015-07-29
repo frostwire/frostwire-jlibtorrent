@@ -25,9 +25,11 @@ final class JavaStatChannel {
 
     // should be called once every second
     public void secondTick(long tickIntervalMs) {
-        long sample = (counter * 1000) / tickIntervalMs;
-        averageSec5 = (averageSec5 * 4) / 5 + sample / 5;
-        counter = 0;
+        if (tickIntervalMs >= 1) {
+            long sample = (counter * 1000) / tickIntervalMs;
+            averageSec5 = (averageSec5 * 4) / 5 + sample / 5;
+            counter = 0;
+        }
     }
 
     public long rate() {
