@@ -40,6 +40,8 @@ rule libtorrent_linking ( properties * )
     if <toolset>msvc in $(properties)
     {
         result += <cxxflags>/O2 ;
+        result += <cxxflags>/MT ;
+        result += <runtime-link>static ;
     }
     else
     {
@@ -97,6 +99,7 @@ rule env_setup ( properties * )
     if <toolset>msvc in $(properties)
     {
         result += <cxxflags>/O2 ;
+        result += <cxxflags>/MT ;
         result += <cxxflags>/DBOOST_ASIO_DISABLE_CONNECTEX ;
         result += <cxxflags>/I$(OPENSSL_ROOT)/include ;
         result += <linkflags>/LIBPATH:$(OPENSSL_ROOT)/lib ;
