@@ -1,5 +1,5 @@
 group 'com.frostwire'
-version '1.0'
+version '1.1.0.0'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
@@ -26,6 +26,18 @@ task sourceJar(type: Jar) {
     from sourceSets.main.allJava
 }
 
+task nativeAndroidJar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-android'
+    extension 'jar'
+    from fileTree(dir: 'binaries/android', include: '**/*.so')
+    into 'lib/'
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn(nativeAndroidJar)
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -38,6 +50,13 @@ publishing {
             artifact sourceJar {
                 classifier 'sources'
             }
+        }
+        nativeAndroid(MavenPublication) {
+            groupId project.group
+            artifactId 'jlibtorrent-android'
+            version project.version
+
+            artifact nativeAndroidJar
         }
     }
 
