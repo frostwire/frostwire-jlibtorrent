@@ -3,7 +3,6 @@ version '1.1.0.0'
 
 apply plugin: 'java'
 apply plugin: 'signing'
-apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 sourceCompatibility = '1.6'
@@ -47,16 +46,38 @@ task nativeAndroidJar(type: Zip) {
     into 'lib/'
 }
 
+// signature tasks
+task signJar(type: Sign) {
+    sign jar
+}
+
+def getJarSignature = {
+    return project.tasks.signJar.signatureFiles.collect { it }[0]
+}
+
+task signSourcesJar(type: Sign) {
+    sign sourcesJar
+}
+
+def getSourcesJarSignature = {
+    return project.tasks.signSourcesJar.signatureFiles.collect{it}[0]
+}
+
+task signJavadocJar(type: Sign) {
+    sign javadocJar
+}
+
+def getJavadocJarSignature = {
+    return project.tasks.signJavadocJar.signatureFiles.collect{it}[0]
+}
+// end signature tasks
+
 tasks.withType(JavaCompile) {
     compileTask -> compileTask.dependsOn(nativeAndroidJar)
 }
 
-artifacts {
-    archives sourcesJar, javadocJar, nativeAndroidJar
-}
-
-signing {
-    sign configurations.archives
+tasks.whenTaskAdded {
+    if (it.name.startsWith('publish')) it.dependsOn(['signJar', 'signSourcesJar', 'signJavadocJar'])
 }
 
 publishing {
@@ -69,6 +90,14 @@ publishing {
             from components.java
 
             artifacts = [sourcesJar, javadocJar]
+
+            artifact getJarSignature()
+            artifact(getSourcesJarSignature()) {
+                classifier 'sources'
+            }
+            artifact(getJavadocJarSignature()) {
+                classifier 'javadoc'
+            }
 
             pom.withXml {
                 asNode().children().last() + pomData()
