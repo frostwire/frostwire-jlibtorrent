@@ -22,8 +22,19 @@ jar {
     }
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.allJava
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadoc2(type: Javadoc) {
+    source = sourceSets.main.allJava
+    failOnError false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc2) {
+    classifier = 'javadoc'
+    from javadoc2.destinationDir
 }
 
 task nativeAndroidJar(type: Zip) {
@@ -46,10 +57,20 @@ publishing {
             version project.version
 
             from components.java
+        }
+        mavenSources(MavenPublication) {
+            groupId project.group
+            artifactId 'jlibtorrent'
+            version project.version
 
-            artifact sourceJar {
-                classifier 'sources'
-            }
+            artifact sourcesJar
+        }
+        mavenJavadoc(MavenPublication) {
+            groupId project.group
+            artifactId 'jlibtorrent'
+            version project.version
+
+            artifact javadocJar
         }
         nativeAndroid(MavenPublication) {
             groupId project.group
