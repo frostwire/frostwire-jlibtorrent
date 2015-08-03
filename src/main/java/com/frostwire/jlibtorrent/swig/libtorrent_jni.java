@@ -983,6 +983,7 @@ public class libtorrent_jni {
   public final static native long sha1_hash_min();
   public final static native long new_sha1_hash__SWIG_1(String jarg1);
   public final static native void sha1_hash_assign(long jarg1, sha1_hash jarg1_, String jarg2);
+  public final static native String sha1_hash_data__SWIG_0(long jarg1, sha1_hash jarg1_);
   public final static native void sha1_hash_clear(long jarg1, sha1_hash jarg1_);
   public final static native boolean sha1_hash_is_all_zeros(long jarg1, sha1_hash jarg1_);
   public final static native boolean sha1_hash_op_eq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
@@ -1006,6 +1007,21 @@ public class libtorrent_jni {
   public final static native void storage_params_info_set(long jarg1, storage_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long storage_params_info_get(long jarg1, storage_params jarg1_);
   public final static native void delete_storage_params(long jarg1);
+  public final static native long new_default_storage(long jarg1, storage_params jarg1_);
+  public final static native void delete_default_storage(long jarg1);
+  public final static native boolean default_storage_has_any_file(long jarg1, default_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void default_storage_set_file_priority(long jarg1, default_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
+  public final static native void default_storage_rename_file(long jarg1, default_storage jarg1_, int jarg2, String jarg3, long jarg4, storage_error jarg4_);
+  public final static native void default_storage_release_files(long jarg1, default_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void default_storage_delete_files(long jarg1, default_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void default_storage_initialize(long jarg1, default_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native int default_storage_move_storage(long jarg1, default_storage jarg1_, String jarg2, int jarg3, long jarg4, storage_error jarg4_);
+  public final static native boolean default_storage_verify_resume_data(long jarg1, default_storage jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, string_vector jarg3_, long jarg4, storage_error jarg4_);
+  public final static native void default_storage_write_resume_data(long jarg1, default_storage jarg1_, long jarg2, entry jarg2_, long jarg3, storage_error jarg3_);
+  public final static native boolean default_storage_tick(long jarg1, default_storage jarg1_);
+  public final static native long default_storage_files(long jarg1, default_storage jarg1_);
+  public final static native boolean default_storage_disk_write_access_log__SWIG_0();
+  public final static native void default_storage_disk_write_access_log__SWIG_1(boolean jarg1);
   public final static native void zero_storage_initialize(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native boolean zero_storage_has_any_file(long jarg1, zero_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native void zero_storage_set_file_priority(long jarg1, zero_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
@@ -3773,6 +3789,8 @@ public class libtorrent_jni {
   public final static native long torrent_ref_holder_m_torrent_get(long jarg1, torrent_ref_holder jarg1_);
   public final static native void torrent_ref_holder_m_purpose_set(long jarg1, torrent_ref_holder jarg1_, String jarg2);
   public final static native String torrent_ref_holder_m_purpose_get(long jarg1, torrent_ref_holder jarg1_);
+  public final static native long new_session_handle();
+  public final static native boolean session_handle_is_valid(long jarg1, session_handle jarg1_);
   public final static native int session_handle_save_settings_get();
   public final static native int session_handle_save_dht_settings_get();
   public final static native int session_handle_save_dht_state_get();

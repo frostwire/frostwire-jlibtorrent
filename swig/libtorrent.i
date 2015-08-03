@@ -380,7 +380,6 @@ namespace std {
 %ignore libtorrent::timeout_handler;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::file_pool;
-%ignore libtorrent::default_storage;
 %ignore libtorrent::default_storage_constructor;
 %ignore libtorrent::disabled_storage_constructor;
 %ignore libtorrent::bdecode;

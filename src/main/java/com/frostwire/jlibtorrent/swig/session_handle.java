@@ -35,6 +35,14 @@ public class session_handle {
     }
   }
 
+  public session_handle() {
+    this(libtorrent_jni.new_session_handle(), true);
+  }
+
+  public boolean is_valid() {
+    return libtorrent_jni.session_handle_is_valid(swigCPtr, this);
+  }
+
   public void save_state(entry e, long flags) {
     libtorrent_jni.session_handle_save_state__SWIG_0(swigCPtr, this, entry.getCPtr(e), e, flags);
   }

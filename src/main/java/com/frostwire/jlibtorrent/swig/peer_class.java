@@ -35,8 +35,8 @@ public class peer_class {
     }
   }
 
-  public peer_class(String label) {
-    this(libtorrent_jni.new_peer_class(label), true);
+  public peer_class(String l) {
+    this(libtorrent_jni.new_peer_class(l), true);
   }
 
   public void set_info(peer_class_info pci) {

@@ -55,6 +55,10 @@ public class sha1_hash {
     libtorrent_jni.sha1_hash_assign(swigCPtr, this, s);
   }
 
+  public String data() {
+    return libtorrent_jni.sha1_hash_data__SWIG_0(swigCPtr, this);
+  }
+
   public void clear() {
     libtorrent_jni.sha1_hash_clear(swigCPtr, this);
   }
