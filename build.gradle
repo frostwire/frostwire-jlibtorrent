@@ -71,14 +71,6 @@ def getJavadocJarSignature = {
     return project.tasks.signJavadocJar.signatureFiles.collect { it }[0]
 }
 
-task signJarPom(type: Sign) {
-    sign(new File("$buildDir/publications/maven/pom-default.xml"))
-}
-
-def getJarPomSignature = {
-    return project.tasks.signJarPom.signatureFiles.collect { it }[0]
-}
-
 task signNativeAndroidJar(type: Sign) {
     sign nativeAndroidJar
 }
@@ -87,16 +79,38 @@ def getNativeAndroidJarSignature = {
     return project.tasks.signNativeAndroidJar.signatureFiles.collect { it }[0]
 }
 
-task signNativeAndroidJarPom(type: Sign) {
-    sign(new File("$buildDir/publications/nativeAndroid/pom-default.xml"))
+task signJarPom(type: Sign) {
+    outputs.upToDateWhen { false }
+    def f = new File("$buildDir/publications/maven/pom-default.xml")
+    if (f.exists()) {
+        sign(f)
+    }
+}
+
+def getJarPomSignature = {
+    def f = new File("$buildDir/publications/maven/pom-default.xml.asc")
+    return f.exists() ? f : null
+}
+
+task signNativeAndroidPom(type: Sign) {
+    outputs.upToDateWhen { false }
+    def f = new File("$buildDir/publications/nativeAndroid/pom-default.xml")
+    if (f.exists()) {
+        sign(f)
+    }
 }
 
 def getNativeAndroidJarPomSignature = {
-    return project.tasks.signNativeAndroidJarPom.signatureFiles.collect { it }[0]
+    def f = new File("$buildDir/publications/nativeAndroid/pom-default.xml.asc")
+    return f.exists() ? f : null
 }
+
 // end signature tasks
 
 tasks.whenTaskAdded {
+    if (it.name.startsWith('generatePomFileForMavenPublication')) it.dependsOn(['signJarPom',
+                                                                                'signNativeAndroidPom'])
+
     if (it.name.startsWith('publish')) it.dependsOn(['jar', 'nativeAndroidJar',
                                                      'signJar', 'signSourcesJar', 'signJavadocJar',
                                                      'signNativeAndroidJar'])
@@ -125,10 +139,12 @@ publishing {
                 classifier 'javadoc'
                 extension 'jar.asc'
             }
-//            artifact(getJarPomSignature()) {
-//                classifier null
-//                extension 'pom.asc'
-//            }
+            if (getJarPomSignature() != null) {
+                artifact(getJarPomSignature()) {
+                    classifier null
+                    extension 'pom.asc'
+                }
+            }
 
             pom.withXml {
                 asNode().children().last() + pomData()
@@ -145,10 +161,12 @@ publishing {
                 classifier null
                 extension 'jar.asc'
             }
-//            artifact(getNativeAndroidJarPomSignature()) {
-//                classifier null
-//                extension 'pom.asc'
-//            }
+            if (getNativeAndroidJarPomSignature() != null) {
+                artifact(getNativeAndroidJarPomSignature()) {
+                    classifier null
+                    extension 'pom.asc'
+                }
+            }
 
             pom.withXml {
                 asNode().children().last() + pomData()
