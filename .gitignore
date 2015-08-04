@@ -12,3 +12,4 @@ frostwire-jlibtorrent.iws
 /.gradle
 /swig/bin
 /build
+/libjlibtorrent.dylib
