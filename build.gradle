@@ -2,6 +2,7 @@ group 'com.frostwire'
 version '1.1.0.0'
 
 apply plugin: 'java'
+apply plugin: 'signing'
 apply plugin: 'maven-publish'
 
 sourceCompatibility = '1.6'
@@ -22,8 +23,19 @@ jar {
     }
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.allJava
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadoc2(type: Javadoc) {
+    source = sourceSets.main.allJava
+    failOnError false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc2) {
+    classifier = 'javadoc'
+    from javadoc2.destinationDir
 }
 
 task nativeAndroidJar(type: Zip) {
@@ -34,8 +46,74 @@ task nativeAndroidJar(type: Zip) {
     into 'lib/'
 }
 
-tasks.withType(JavaCompile) {
-    compileTask -> compileTask.dependsOn(nativeAndroidJar)
+// signature tasks
+task signJar(type: Sign) {
+    sign jar
+}
+
+def getJarSignature = {
+    return project.tasks.signJar.signatureFiles.collect { it }[0]
+}
+
+task signSourcesJar(type: Sign) {
+    sign sourcesJar
+}
+
+def getSourcesJarSignature = {
+    return project.tasks.signSourcesJar.signatureFiles.collect { it }[0]
+}
+
+task signJavadocJar(type: Sign) {
+    sign javadocJar
+}
+
+def getJavadocJarSignature = {
+    return project.tasks.signJavadocJar.signatureFiles.collect { it }[0]
+}
+
+task signNativeAndroidJar(type: Sign) {
+    sign nativeAndroidJar
+}
+
+def getNativeAndroidJarSignature = {
+    return project.tasks.signNativeAndroidJar.signatureFiles.collect { it }[0]
+}
+
+task signJarPom(type: Sign) {
+    outputs.upToDateWhen { false }
+    def f = new File("$buildDir/publications/maven/pom-default.xml")
+    if (f.exists()) {
+        sign(f)
+    }
+}
+
+def getJarPomSignature = {
+    def f = new File("$buildDir/publications/maven/pom-default.xml.asc")
+    return f.exists() ? f : null
+}
+
+task signNativeAndroidPom(type: Sign) {
+    outputs.upToDateWhen { false }
+    def f = new File("$buildDir/publications/nativeAndroid/pom-default.xml")
+    if (f.exists()) {
+        sign(f)
+    }
+}
+
+def getNativeAndroidJarPomSignature = {
+    def f = new File("$buildDir/publications/nativeAndroid/pom-default.xml.asc")
+    return f.exists() ? f : null
+}
+
+// end signature tasks
+
+tasks.whenTaskAdded {
+    if (it.name.startsWith('generatePomFileForMavenPublication')) it.dependsOn(['signJarPom',
+                                                                                'signNativeAndroidPom'])
+
+    if (it.name.startsWith('publish')) it.dependsOn(['jar', 'nativeAndroidJar',
+                                                     'signJar', 'signSourcesJar', 'signJavadocJar',
+                                                     'signNativeAndroidJar'])
 }
 
 publishing {
@@ -47,8 +125,29 @@ publishing {
 
             from components.java
 
-            artifact sourceJar {
+            artifacts = [jar, sourcesJar, javadocJar]
+
+            artifact(getJarSignature()) {
+                classifier null
+                extension 'jar.asc'
+            }
+            artifact(getSourcesJarSignature()) {
                 classifier 'sources'
+                extension 'jar.asc'
+            }
+            artifact(getJavadocJarSignature()) {
+                classifier 'javadoc'
+                extension 'jar.asc'
+            }
+            if (getJarPomSignature() != null) {
+                artifact(getJarPomSignature()) {
+                    classifier null
+                    extension 'pom.asc'
+                }
+            }
+
+            pom.withXml {
+                asNode().children().last() + pomData()
             }
         }
         nativeAndroid(MavenPublication) {
@@ -57,12 +156,67 @@ publishing {
             version project.version
 
             artifact nativeAndroidJar
+
+            artifact(getNativeAndroidJarSignature()) {
+                classifier null
+                extension 'jar.asc'
+            }
+            if (getNativeAndroidJarPomSignature() != null) {
+                artifact(getNativeAndroidJarPomSignature()) {
+                    classifier null
+                    extension 'pom.asc'
+                }
+            }
+
+            pom.withXml {
+                asNode().children().last() + pomData()
+            }
         }
     }
 
     repositories {
         maven {
-            url 'repo'
+            if (new File("$buildDir/com/frostwire/jlibtorrent/${project.version}/jlibtorrent-${project.version}.pom.asc").exists()) {
+                url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            } else {
+                url "$buildDir"
+            }
+        }
+    }
+}
+
+def pomData() {
+    return {
+        resolveStrategy = Closure.DELEGATE_FIRST
+        name 'frostwire-jlibtorrent'
+        description 'A swig Java interface for libtorrent by the makers of FrostWire.'
+        url 'https://github.com/frostwire/frostwire-jlibtorrent'
+        scm {
+            connection 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git'
+            developerConnection 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git'
+            url 'https://github.com/frostwire/frostwire-jlibtorrent'
+        }
+        licenses {
+            license {
+                name 'The MIT License'
+                url 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md'
+            }
+        }
+        developers {
+            developer {
+                id 'gubatron'
+                name 'Angel Leon'
+                email 'gubatron@gmail.com'
+            }
+            developer {
+                id 'aldenml'
+                name 'Alden Torres'
+                email 'aldenml@gmail.com'
+            }
         }
     }
 }
