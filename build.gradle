@@ -176,7 +176,15 @@ publishing {
 
     repositories {
         maven {
-            url 'repo'
+            if (new File("$buildDir/com/frostwire/jlibtorrent/${project.version}/jlibtorrent-${project.version}.pom.asc").exists()) {
+                url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            } else {
+                url "$buildDir"
+            }
         }
     }
 }
