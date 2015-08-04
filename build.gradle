@@ -46,6 +46,14 @@ task nativeMacOSXJar(type: Zip) {
     into 'lib/'
 }
 
+task nativeWindowsJar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-windows'
+    extension 'jar'
+    from fileTree(dir: 'swig/bin/windows', include: '**/*jlibtorrent.dll')
+    into 'lib/'
+}
+
 task nativeLinuxJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-linux'
@@ -95,6 +103,14 @@ def getNativeMacOSXJarSignature = {
     return project.tasks.signNativeMacOSXJar.signatureFiles.collect { it }[0]
 }
 
+task signNativeWindowsJar(type: Sign) {
+    sign nativeWindowsJar
+}
+
+def getNativeWindowsJarSignature = {
+    return project.tasks.signNativeWindowsJar.signatureFiles.collect { it }[0]
+}
+
 task signNativeLinuxJar(type: Sign) {
     sign nativeLinuxJar
 }
@@ -132,8 +148,21 @@ task signNativeMacOSXPom(type: Sign) {
     }
 }
 
-def getNativeMacOSXJarPomSignature = {
+def getNativeMacOSXPomSignature = {
     def f = new File("$buildDir/publications/nativeMacOSX/pom-default.xml.asc")
+    return f.exists() ? f : null
+}
+
+task signNativeWindowsPom(type: Sign) {
+    outputs.upToDateWhen { false }
+    def f = new File("$buildDir/publications/nativeWindows/pom-default.xml")
+    if (f.exists()) {
+        sign(f)
+    }
+}
+
+def getNativeWindowsPomSignature = {
+    def f = new File("$buildDir/publications/nativeWindows/pom-default.xml.asc")
     return f.exists() ? f : null
 }
 
@@ -145,7 +174,7 @@ task signNativeLinuxPom(type: Sign) {
     }
 }
 
-def getNativeLinuxJarPomSignature = {
+def getNativeLinuxPomSignature = {
     def f = new File("$buildDir/publications/nativeLinux/pom-default.xml.asc")
     return f.exists() ? f : null
 }
@@ -158,7 +187,7 @@ task signNativeAndroidPom(type: Sign) {
     }
 }
 
-def getNativeAndroidJarPomSignature = {
+def getNativeAndroidPomSignature = {
     def f = new File("$buildDir/publications/nativeAndroid/pom-default.xml.asc")
     return f.exists() ? f : null
 }
@@ -168,12 +197,14 @@ def getNativeAndroidJarPomSignature = {
 tasks.whenTaskAdded {
     if (it.name.startsWith('generatePomFileForMavenPublication')) it.dependsOn(['signJarPom',
                                                                                 'signNativeMacOSXPom',
+                                                                                'signNativeWindowsPom',
                                                                                 'signNativeLinuxPom',
                                                                                 'signNativeAndroidPom'])
 
     if (it.name.startsWith('publish')) it.dependsOn(['jar', 'nativeAndroidJar',
                                                      'signJar', 'signSourcesJar', 'signJavadocJar',
                                                      'signNativeMacOSXJar',
+                                                     'signNativeWindowsJar',
                                                      'signNativeLinuxJar',
                                                      'signNativeAndroidJar'])
 }
@@ -223,8 +254,30 @@ publishing {
                 classifier null
                 extension 'jar.asc'
             }
-            if (getNativeMacOSXJarPomSignature() != null) {
-                artifact(getNativeMacOSXJarPomSignature()) {
+            if (getNativeMacOSXPomSignature() != null) {
+                artifact(getNativeMacOSXPomSignature()) {
+                    classifier null
+                    extension 'pom.asc'
+                }
+            }
+
+            pom.withXml {
+                asNode().children().last() + pomData()
+            }
+        }
+        nativeWindows(MavenPublication) {
+            groupId project.group
+            artifactId 'jlibtorrent-windows'
+            version project.version
+
+            artifact nativeWindowsJar
+
+            artifact(getNativeWindowsJarSignature()) {
+                classifier null
+                extension 'jar.asc'
+            }
+            if (getNativeWindowsPomSignature() != null) {
+                artifact(getNativeWindowsPomSignature()) {
                     classifier null
                     extension 'pom.asc'
                 }
@@ -245,8 +298,8 @@ publishing {
                 classifier null
                 extension 'jar.asc'
             }
-            if (getNativeLinuxJarPomSignature() != null) {
-                artifact(getNativeLinuxJarPomSignature()) {
+            if (getNativeLinuxPomSignature() != null) {
+                artifact(getNativeLinuxPomSignature()) {
                     classifier null
                     extension 'pom.asc'
                 }
@@ -267,8 +320,8 @@ publishing {
                 classifier null
                 extension 'jar.asc'
             }
-            if (getNativeAndroidJarPomSignature() != null) {
-                artifact(getNativeAndroidJarPomSignature()) {
+            if (getNativeAndroidPomSignature() != null) {
+                artifact(getNativeAndroidPomSignature()) {
                     classifier null
                     extension 'pom.asc'
                 }
