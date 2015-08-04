@@ -60,7 +60,7 @@ task signSourcesJar(type: Sign) {
 }
 
 def getSourcesJarSignature = {
-    return project.tasks.signSourcesJar.signatureFiles.collect{it}[0]
+    return project.tasks.signSourcesJar.signatureFiles.collect { it }[0]
 }
 
 task signJavadocJar(type: Sign) {
@@ -68,16 +68,38 @@ task signJavadocJar(type: Sign) {
 }
 
 def getJavadocJarSignature = {
-    return project.tasks.signJavadocJar.signatureFiles.collect{it}[0]
+    return project.tasks.signJavadocJar.signatureFiles.collect { it }[0]
+}
+
+task signJarPom(type: Sign) {
+    sign(new File("$buildDir/publications/maven/pom-default.xml"))
+}
+
+def getJarPomSignature = {
+    return project.tasks.signJarPom.signatureFiles.collect { it }[0]
+}
+
+task signNativeAndroidJar(type: Sign) {
+    sign nativeAndroidJar
+}
+
+def getNativeAndroidJarSignature = {
+    return project.tasks.signNativeAndroidJar.signatureFiles.collect { it }[0]
+}
+
+task signNativeAndroidJarPom(type: Sign) {
+    sign(new File("$buildDir/publications/nativeAndroid/pom-default.xml"))
+}
+
+def getNativeAndroidJarPomSignature = {
+    return project.tasks.signNativeAndroidJarPom.signatureFiles.collect { it }[0]
 }
 // end signature tasks
 
-tasks.withType(JavaCompile) {
-    compileTask -> compileTask.dependsOn(nativeAndroidJar)
-}
-
 tasks.whenTaskAdded {
-    if (it.name.startsWith('publish')) it.dependsOn(['signJar', 'signSourcesJar', 'signJavadocJar'])
+    if (it.name.startsWith('publish')) it.dependsOn(['jar', 'nativeAndroidJar',
+                                                     'signJar', 'signSourcesJar', 'signJavadocJar',
+                                                     'signNativeAndroidJar'])
 }
 
 publishing {
@@ -89,15 +111,24 @@ publishing {
 
             from components.java
 
-            artifacts = [sourcesJar, javadocJar]
+            artifacts = [jar, sourcesJar, javadocJar]
 
-            artifact getJarSignature()
+            artifact(getJarSignature()) {
+                classifier null
+                extension 'jar.asc'
+            }
             artifact(getSourcesJarSignature()) {
                 classifier 'sources'
+                extension 'jar.asc'
             }
             artifact(getJavadocJarSignature()) {
                 classifier 'javadoc'
+                extension 'jar.asc'
             }
+//            artifact(getJarPomSignature()) {
+//                classifier null
+//                extension 'pom.asc'
+//            }
 
             pom.withXml {
                 asNode().children().last() + pomData()
@@ -109,6 +140,15 @@ publishing {
             version project.version
 
             artifact nativeAndroidJar
+
+            artifact(getNativeAndroidJarSignature()) {
+                classifier null
+                extension 'jar.asc'
+            }
+//            artifact(getNativeAndroidJarPomSignature()) {
+//                classifier null
+//                extension 'pom.asc'
+//            }
 
             pom.withXml {
                 asNode().children().last() + pomData()
@@ -126,7 +166,7 @@ publishing {
 def pomData() {
     return {
         resolveStrategy = Closure.DELEGATE_FIRST
-        name 'frostwire-jlibtorrent android binary'
+        name 'frostwire-jlibtorrent'
         description 'A swig Java interface for libtorrent by the makers of FrostWire.'
         url 'https://github.com/frostwire/frostwire-jlibtorrent'
         scm {
