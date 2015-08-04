@@ -1,5 +1,5 @@
 group 'com.frostwire'
-version '1.1.0.0'
+version '1.1.0.1'
 
 apply plugin: 'java'
 apply plugin: 'signing'
@@ -38,6 +38,14 @@ task javadocJar(type: Jar, dependsOn: javadoc2) {
     from javadoc2.destinationDir
 }
 
+task nativeMacOSXJar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-macosx'
+    extension 'jar'
+    from fileTree(dir: 'swig/bin/macosx', include: '*.dylib')
+    into 'lib/'
+}
+
 task nativeAndroidJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android'
@@ -71,6 +79,14 @@ def getJavadocJarSignature = {
     return project.tasks.signJavadocJar.signatureFiles.collect { it }[0]
 }
 
+task signNativeMacOSXJar(type: Sign) {
+    sign nativeMacOSXJar
+}
+
+def getNativeMacOSXJarSignature = {
+    return project.tasks.signNativeMacOSXJar.signatureFiles.collect { it }[0]
+}
+
 task signNativeAndroidJar(type: Sign) {
     sign nativeAndroidJar
 }
@@ -92,6 +108,19 @@ def getJarPomSignature = {
     return f.exists() ? f : null
 }
 
+task signNativeMacOSXPom(type: Sign) {
+    outputs.upToDateWhen { false }
+    def f = new File("$buildDir/publications/nativeMacOSX/pom-default.xml")
+    if (f.exists()) {
+        sign(f)
+    }
+}
+
+def getNativeMacOSXJarPomSignature = {
+    def f = new File("$buildDir/publications/nativeMacOSX/pom-default.xml.asc")
+    return f.exists() ? f : null
+}
+
 task signNativeAndroidPom(type: Sign) {
     outputs.upToDateWhen { false }
     def f = new File("$buildDir/publications/nativeAndroid/pom-default.xml")
@@ -109,10 +138,12 @@ def getNativeAndroidJarPomSignature = {
 
 tasks.whenTaskAdded {
     if (it.name.startsWith('generatePomFileForMavenPublication')) it.dependsOn(['signJarPom',
+                                                                                'signNativeMacOSXPom',
                                                                                 'signNativeAndroidPom'])
 
     if (it.name.startsWith('publish')) it.dependsOn(['jar', 'nativeAndroidJar',
                                                      'signJar', 'signSourcesJar', 'signJavadocJar',
+                                                     'signNativeMacOSXJar',
                                                      'signNativeAndroidJar'])
 }
 
@@ -141,6 +172,28 @@ publishing {
             }
             if (getJarPomSignature() != null) {
                 artifact(getJarPomSignature()) {
+                    classifier null
+                    extension 'pom.asc'
+                }
+            }
+
+            pom.withXml {
+                asNode().children().last() + pomData()
+            }
+        }
+        nativeMacOSX(MavenPublication) {
+            groupId project.group
+            artifactId 'jlibtorrent-macosx'
+            version project.version
+
+            artifact nativeMacOSXJar
+
+            artifact(getNativeMacOSXJarSignature()) {
+                classifier null
+                extension 'jar.asc'
+            }
+            if (getNativeMacOSXJarPomSignature() != null) {
+                artifact(getNativeMacOSXJarPomSignature()) {
                     classifier null
                     extension 'pom.asc'
                 }

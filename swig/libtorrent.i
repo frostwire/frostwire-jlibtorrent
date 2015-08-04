@@ -5,7 +5,7 @@
         try {
             System.loadLibrary("jlibtorrent");
         } catch (UnsatisfiedLinkError e) {
-            throw new UnsatisfiedLinkError("Look for your architecture binary at: https://github.com/frostwire/frostwire-jlibtorrent/tree/master/binaries");
+            throw new UnsatisfiedLinkError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent");
         }
     }
 %}
