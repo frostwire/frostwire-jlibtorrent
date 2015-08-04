@@ -42,7 +42,7 @@ task nativeMacOSXJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-macosx'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/macosx', include: '*.dylib')
+    from fileTree(dir: 'swig/bin/macosx', include: '*jlibtorrent.dylib')
     into 'lib/'
 }
 
@@ -50,7 +50,7 @@ task nativeAndroidJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android'
     extension 'jar'
-    from fileTree(dir: 'binaries/android', include: '**/*.so')
+    from fileTree(dir: 'swig/bin/android', excludes: ['**/ed25519', '**/src'], include: '**/*jlibtorrent.so')
     into 'lib/'
 }
 
