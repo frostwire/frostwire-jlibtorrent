@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.alerts.Alert;
 
@@ -11,6 +12,8 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 public final class SessionTest {
 
     public static void main(String[] args) throws Throwable {
+
+        System.out.println("Using libtorrent version: " + LibTorrent.version() + "-rev-" + LibTorrent.revision());
 
         final Session s = new Session();
 

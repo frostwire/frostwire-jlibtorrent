@@ -57,7 +57,7 @@ import com.frostwire.jlibtorrent.swig.file_storage;
 import com.frostwire.jlibtorrent.swig.libtorrent;
 
 
-public class MillionTorrentTester {
+public class MillionTorrents {
 
 	public static void main(String[] args) throws IOException {
 		
@@ -117,9 +117,9 @@ public class MillionTorrentTester {
 
 
 		// Add trackers in tiers
-		for (URI announce : DataSources.ANNOUNCE_LIST()) {
-			t.add_tracker(announce.toASCIIString());
-		}
+//		for (URI announce : DataSources.ANNOUNCE_LIST()) {
+//			t.add_tracker(announce.toASCIIString());
+//		}
 
 
 		t.set_priv(false);

@@ -16,6 +16,10 @@ public final class LibTorrent {
         return libtorrent.LIBTORRENT_VERSION;
     }
 
+    public static String revision() {
+        return libtorrent.LIBTORRENT_REVISION_SHA1;
+    }
+
     /**
      * This free function returns the list of available metrics exposed by
      * libtorrent's statistics API. Each metric has a name and a *value index*.

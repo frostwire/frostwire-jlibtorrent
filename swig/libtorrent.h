@@ -1,3 +1,5 @@
+#define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
+
 class add_files_listener {
 public:
     virtual ~add_files_listener() {

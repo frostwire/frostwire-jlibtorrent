@@ -4323,6 +4323,7 @@ public class libtorrent_jni {
   public final static native void dht_item_sign_mutable_item(long jarg1, char_vector jarg1_, String jarg2, int jarg3, long jarg4, char_vector jarg4_, long jarg5, char_vector jarg5_, long jarg6, char_vector jarg6_);
   public final static native long new_dht_item();
   public final static native void delete_dht_item(long jarg1);
+  public final static native String LIBTORRENT_REVISION_SHA1_get();
   public final static native void delete_add_files_listener(long jarg1);
   public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2, String jarg3);
   public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2, String jarg3);
