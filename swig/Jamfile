@@ -42,6 +42,7 @@ rule libtorrent_linking ( properties * )
         result += <cxxflags>/O2 ;
         result += <cxxflags>/MT ;
         result += <runtime-link>static ;
+        result += <windows-version>xp ;
     }
     else
     {

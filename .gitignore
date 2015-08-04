@@ -14,3 +14,4 @@ frostwire-jlibtorrent.iws
 /build
 /libjlibtorrent.dylib
 /libjlibtorrent.so
+/jlibtorrent.dll

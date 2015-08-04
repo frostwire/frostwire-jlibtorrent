@@ -1,4 +1,3 @@
-%BOOST_ROOT%\bjam toolset=msvc
-set TARGET=bin\msvc-12.0\release\boost-source\crypto-openssl\deprecated-functions-off\runtime-link-static\jlibtorrent.dll
-copy %TARGET% ..\binaries\windows\x86\
+%BOOST_ROOT%\bjam toolset=msvc location=bin/windows/x86
+set TARGET=bin\windows\x86\jlibtorrent.dll
 copy %TARGET% ..\
