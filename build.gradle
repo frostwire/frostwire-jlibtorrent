@@ -46,6 +46,14 @@ task nativeMacOSXJar(type: Zip) {
     into 'lib/'
 }
 
+task nativeLinuxJar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-linux'
+    extension 'jar'
+    from fileTree(dir: 'swig/bin/linux/', include: '**/*jlibtorrent.so')
+    into 'lib/'
+}
+
 task nativeAndroidJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android'
@@ -87,6 +95,14 @@ def getNativeMacOSXJarSignature = {
     return project.tasks.signNativeMacOSXJar.signatureFiles.collect { it }[0]
 }
 
+task signNativeLinuxJar(type: Sign) {
+    sign nativeLinuxJar
+}
+
+def getNativeLinuxJarSignature = {
+    return project.tasks.signNativeLinuxJar.signatureFiles.collect { it }[0]
+}
+
 task signNativeAndroidJar(type: Sign) {
     sign nativeAndroidJar
 }
@@ -121,6 +137,19 @@ def getNativeMacOSXJarPomSignature = {
     return f.exists() ? f : null
 }
 
+task signNativeLinuxPom(type: Sign) {
+    outputs.upToDateWhen { false }
+    def f = new File("$buildDir/publications/nativeLinux/pom-default.xml")
+    if (f.exists()) {
+        sign(f)
+    }
+}
+
+def getNativeLinuxJarPomSignature = {
+    def f = new File("$buildDir/publications/nativeLinux/pom-default.xml.asc")
+    return f.exists() ? f : null
+}
+
 task signNativeAndroidPom(type: Sign) {
     outputs.upToDateWhen { false }
     def f = new File("$buildDir/publications/nativeAndroid/pom-default.xml")
@@ -139,11 +168,13 @@ def getNativeAndroidJarPomSignature = {
 tasks.whenTaskAdded {
     if (it.name.startsWith('generatePomFileForMavenPublication')) it.dependsOn(['signJarPom',
                                                                                 'signNativeMacOSXPom',
+                                                                                'signNativeLinuxPom',
                                                                                 'signNativeAndroidPom'])
 
     if (it.name.startsWith('publish')) it.dependsOn(['jar', 'nativeAndroidJar',
                                                      'signJar', 'signSourcesJar', 'signJavadocJar',
                                                      'signNativeMacOSXJar',
+                                                     'signNativeLinuxJar',
                                                      'signNativeAndroidJar'])
 }
 
@@ -194,6 +225,28 @@ publishing {
             }
             if (getNativeMacOSXJarPomSignature() != null) {
                 artifact(getNativeMacOSXJarPomSignature()) {
+                    classifier null
+                    extension 'pom.asc'
+                }
+            }
+
+            pom.withXml {
+                asNode().children().last() + pomData()
+            }
+        }
+        nativeLinux(MavenPublication) {
+            groupId project.group
+            artifactId 'jlibtorrent-linux'
+            version project.version
+
+            artifact nativeLinuxJar
+
+            artifact(getNativeLinuxJarSignature()) {
+                classifier null
+                extension 'jar.asc'
+            }
+            if (getNativeLinuxJarPomSignature() != null) {
+                artifact(getNativeLinuxJarPomSignature()) {
                     classifier null
                     extension 'pom.asc'
                 }
