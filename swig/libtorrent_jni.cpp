@@ -91124,6 +91124,18 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
 }
 
 
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_JLIBTORRENT_1REVISION_1SHA1_1get(JNIEnv *jenv, jclass jcls) {
+  jstring jresult = 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (char *)("dec2b17513e94257007692cf5447a7d01054ec90");
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1add_1files_1listener(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   add_files_listener *arg1 = (add_files_listener *) 0 ;
   

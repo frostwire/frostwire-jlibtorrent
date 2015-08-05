@@ -14,7 +14,7 @@ public class libtorrent_jni {
         try {
             System.loadLibrary("jlibtorrent");
         } catch (UnsatisfiedLinkError e) {
-            throw new UnsatisfiedLinkError("Look for your architecture binary at: https://github.com/frostwire/frostwire-jlibtorrent/tree/master/binaries");
+            throw new UnsatisfiedLinkError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent");
         }
     }
 
@@ -4324,6 +4324,7 @@ public class libtorrent_jni {
   public final static native long new_dht_item();
   public final static native void delete_dht_item(long jarg1);
   public final static native String LIBTORRENT_REVISION_SHA1_get();
+  public final static native String JLIBTORRENT_REVISION_SHA1_get();
   public final static native void delete_add_files_listener(long jarg1);
   public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2, String jarg3);
   public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2, String jarg3);

@@ -36,4 +36,5 @@ swig -c++ -java -o libtorrent_jni.cpp \
     -DTORRENT_DISK_STATS=1 \
     -DNDEBUG=1 \
     -D_LIBTORRENT_REVISION_SHA1_="\"$(git -C $LIBTORRENT_ROOT rev-list HEAD | head -1)\"" \
+    -D_JLIBTORRENT_REVISION_SHA1_="\"$(git rev-list HEAD | head -1)\"" \
     libtorrent.i

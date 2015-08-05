@@ -21,6 +21,19 @@ public final class LibTorrent {
     }
 
     /**
+     * This number is the previous revision of jlibtorrent, the one
+     * before the native JNI code is committed.
+     * <p/>
+     * It depends heavily in a good release workflow performed by the
+     * developers, so take it with care.
+     *
+     * @return
+     */
+    public static String jrevision() {
+        return libtorrent.JLIBTORRENT_REVISION_SHA1;
+    }
+
+    /**
      * This free function returns the list of available metrics exposed by
      * libtorrent's statistics API. Each metric has a name and a *value index*.
      * The value index is the index into the array in session_stats_alert where
