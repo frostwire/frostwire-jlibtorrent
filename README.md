@@ -4,6 +4,24 @@ A swig Java interface for libtorrent by the makers of FrostWire.
 
 Develop libtorrent based apps with the joy of coding in Java.
 
+Using
+========
+
+Download [the latest JAR](https://search.maven.org/remote_content?g=com.frostwire&a=jlibtorrent&v=LATEST) or get the dependency via Maven:
+```xml
+<dependency>
+  <groupId>com.frostwire</groupId>
+  <artifactId>jlibtorrent</artifactId>
+  <version>1.1.0.1</version>
+</dependency>
+```
+or Gradle:
+```groovy
+compile 'com.frostwire:jlibtorrent:1.1.0.1'
+```
+
+Note that there are multiple version of jlibtorrent for different platforms: `jlibtorrent`, `jlibtorrent-windows`, `jlibtorrent-linux`, `jlibtorrent-macosx` and `jlibtorrent-android`. These are all different artifacts.
+
 Here's a simple example of how to create a .torrent downloader using **frostwire-jlibtorrent**.
 
 ```
