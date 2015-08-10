@@ -818,6 +818,39 @@ public final class Session {
         return new SessionStatus(stats);
     }
 
+    // You add torrents through the add_torrent() function where you give an
+    // object with all the parameters. The add_torrent() overloads will block
+    // until the torrent has been added (or failed to be added) and returns
+    // an error code and a torrent_handle. In order to add torrents more
+    // efficiently, consider using async_add_torrent() which returns
+    // immediately, without waiting for the torrent to add. Notification of
+    // the torrent being added is sent as add_torrent_alert.
+    //
+    // The overload that does not take an error_code throws an exception on
+    // error and is not available when building without exception support.
+    // The torrent_handle returned by add_torrent() can be used to retrieve
+    // information about the torrent's progress, its peers etc. It is also
+    // used to abort a torrent.
+    //
+    // If the torrent you are trying to add already exists in the session (is
+    // either queued for checking, being checked or downloading)
+    // ``add_torrent()`` will throw libtorrent_exception which derives from
+    // ``std::exception`` unless duplicate_is_error is set to false. In that
+    // case, add_torrent() will return the handle to the existing torrent.
+    //
+    // all torrent_handles must be destructed before the session is destructed!
+    public TorrentHandle addTorrent(AddTorrentParams params) {
+        return new TorrentHandle(s.add_torrent(params.getSwig()));
+    }
+
+    public TorrentHandle addTorrent(AddTorrentParams params, ErrorCode ec) {
+        return new TorrentHandle(s.add_torrent(params.getSwig(), ec.getSwig()));
+    }
+
+    public void asyncAddTorrent(AddTorrentParams params) {
+        s.async_add_torrent(params.getSwig());
+    }
+
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
