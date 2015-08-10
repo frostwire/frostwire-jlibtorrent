@@ -13,6 +13,8 @@ public final class SessionTest {
 
     public static void main(String[] args) throws Throwable {
 
+        //System.setProperty("jlibtorrent.jni.path", <abosolute path>);
+
         System.out.println("Using libtorrent version: " + LibTorrent.version() + "-rev-" + LibTorrent.revision());
 
         final Session s = new Session();

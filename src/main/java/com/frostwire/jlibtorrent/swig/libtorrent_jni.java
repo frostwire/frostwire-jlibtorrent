@@ -12,7 +12,12 @@ public class libtorrent_jni {
 
     static {
         try {
-            System.loadLibrary("jlibtorrent");
+            String path = System.getProperty("jlibtorrent.jni.path", "");
+            if ("".equals(path)) {
+                System.loadLibrary("jlibtorrent");
+            } else {
+                System.load(path);
+            }
         } catch (UnsatisfiedLinkError e) {
             throw new UnsatisfiedLinkError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent");
         }
