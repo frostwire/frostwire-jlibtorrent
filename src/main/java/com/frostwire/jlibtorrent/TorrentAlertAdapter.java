@@ -125,9 +125,6 @@ public abstract class TorrentAlertAdapter implements AlertListener {
     public void stateChanged(StateChangedAlert alert) {
     }
 
-    public void sessionStats(SessionStatsAlert alert) {
-    }
-
     public void dhtReply(DhtReplyAlert alert) {
     }
 
