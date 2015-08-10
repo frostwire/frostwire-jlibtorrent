@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
@@ -254,6 +255,13 @@ public abstract class TorrentAlertAdapter implements AlertListener {
         public void invoke(TorrentAlertAdapter adapter, Alert<?> alert) {
             try {
                 method.invoke(adapter, alert);
+            } catch (InvocationTargetException e) {
+                Throwable c = e.getCause();
+                if (c != null) {
+                    LOG.error("Error invoking torrent alert adapter method: " + c.toString());
+                } else {
+                    LOG.warn(e.toString());
+                }
             } catch (Throwable e) {
                 LOG.warn(e.toString());
             }

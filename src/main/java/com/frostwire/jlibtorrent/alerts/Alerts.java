@@ -5,6 +5,7 @@ import com.frostwire.jlibtorrent.swig.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
@@ -165,6 +166,14 @@ public final class Alerts {
             try {
                 Object obj = method.invoke(null, a);
                 r = constructor.newInstance(obj);
+            } catch (InvocationTargetException e) {
+                Throwable c = e.getCause();
+                if (c != null) {
+                    LOG.error("Error invoking torrent alert adapter method: " + c.toString());
+                } else {
+                    LOG.warn(e.toString());
+                }
+                r = new GenericAlert(a);
             } catch (Throwable e) {
                 LOG.warn(e.toString());
                 r = new GenericAlert(a);
