@@ -19,6 +19,14 @@ public final class SettingsPack {
         this.sp = sp;
     }
 
+    /**
+     * Example, how to turn on the DHT using SettingsPack.
+     * <pre>{@code
+    SettingsPack pack = new SettingsPack();
+    pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), on);
+    s.applySettings(pack);
+    }</pre>
+     */
     public SettingsPack() {
         this(new settings_pack());
     }
