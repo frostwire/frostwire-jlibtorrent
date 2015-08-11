@@ -48,9 +48,48 @@ public final class Session {
 
     private final LinkedList<SwigPlugin> plugins;
 
+    /**
+     * The flag alert_mask is always set to all_categories.
+     *
+     * @param settings
+     * @param logging
+     */
+    public Session(SettingsPack settings, boolean logging) {
+        settings_pack sp = settings.getSwig();
+
+        int alert_mask = alert.category_t.all_categories.swigValue();
+        if (!logging) {
+            int log_mask = alert.category_t.session_log_notification.swigValue() |
+                    alert.category_t.torrent_log_notification.swigValue() |
+                    alert.category_t.peer_log_notification.swigValue() |
+                    alert.category_t.dht_log_notification.swigValue();
+            alert_mask = alert_mask & ~log_mask;
+        }
+
+        // we always override alert_mask since we use it for our internal operations
+        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
+
+        this.s = new session(sp);
+        this.stat = new JavaStat();
+        this.stats = new SessionStats(stat);
+
+        this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);
+
+        this.listeners = new SparseArray<ArrayList<AlertListener>>();
+        this.listenerSnapshots = new SparseArray<AlertListener[]>();
+        this.running = true;
+
+        alertsLoop();
+
+        for (Pair<String, Integer> router : defaultRouters()) {
+            s.add_dht_router(router.to_string_int_pair());
+        }
+
+        this.plugins = new LinkedList<SwigPlugin>();
+    }
+
     public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers, boolean logging) {
 
-        int flags = session.session_flags_t.start_default_features.swigValue() | session.session_flags_t.add_default_plugins.swigValue();
         int alert_mask = alert.category_t.all_categories.swigValue();
         if (!logging) {
             int log_mask = alert.category_t.session_log_notification.swigValue() |
@@ -63,9 +102,13 @@ public final class Session {
         settings_pack sp = new settings_pack();
 
         sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
+        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), prange.second - prange.first);
+        sp.set_str(settings_pack.string_types.peer_fingerprint.swigValue(), print.toString());
 
-        // TODO: fix the parameters
-        this.s = new session(sp, flags);
+        String if_string = String.format("%s:%d", iface, prange.first);
+        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), if_string);
+
+        this.s = new session(sp);
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
 
@@ -101,7 +144,7 @@ public final class Session {
     }
 
     public Session() {
-        this(new Fingerprint());
+        this(new SettingsPack(), false);
     }
 
     public session getSwig() {

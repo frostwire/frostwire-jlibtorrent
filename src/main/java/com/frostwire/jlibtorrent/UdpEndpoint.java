@@ -25,4 +25,9 @@ public final class UdpEndpoint {
     public int getPort() {
         return endp.port();
     }
+
+    @Override
+    public String toString() {
+        return "udp:" + endp.address() + ":" + endp.port();
+    }
 }
