@@ -1,4 +1,4 @@
-package com.frostwire.jlibtorrent.tools;
+package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.LibTorrent;
 
@@ -18,7 +18,7 @@ public final class LTVersion extends Tool<String> {
     }
 
     @Override
-    protected ParseCmd parser(ParseCmd.Builder b) {
+    protected ParseCmd parser(com.frostwire.jlibtorrent.demo.ParseCmd.Builder b) {
         return b.build();
     }
 

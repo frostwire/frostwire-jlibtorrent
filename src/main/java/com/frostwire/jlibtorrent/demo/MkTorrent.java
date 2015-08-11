@@ -1,4 +1,4 @@
-package com.frostwire.jlibtorrent.tools;
+package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.swig.*;
@@ -35,7 +35,7 @@ public final class MkTorrent extends Tool<Entry> {
     }
 
     @Override
-    protected ParseCmd parser(ParseCmd.Builder b) {
+    protected ParseCmd parser(com.frostwire.jlibtorrent.demo.ParseCmd.Builder b) {
         return b.parm("-i", "<file|dir>").req().rex(".*")
                 .parm("-t1", "udp://tracker.openbittorrent.com:80").rex(".*")
                 .build();

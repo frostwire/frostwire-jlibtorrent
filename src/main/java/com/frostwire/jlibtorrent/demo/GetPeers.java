@@ -1,4 +1,4 @@
-package com.frostwire.jlibtorrent.tools;
+package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Session;
@@ -56,7 +56,7 @@ public final class GetPeers extends Tool<Void> {
     }
 
     @Override
-    protected ParseCmd parser(ParseCmd.Builder b) {
+    protected ParseCmd parser(com.frostwire.jlibtorrent.demo.ParseCmd.Builder b) {
         return b.parm("-sha1", "<hash>").req().rex(".*")
                 .build();
     }

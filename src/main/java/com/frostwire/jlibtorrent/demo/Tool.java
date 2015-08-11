@@ -1,4 +1,4 @@
-package com.frostwire.jlibtorrent.tools;
+package com.frostwire.jlibtorrent.demo;
 
 import java.util.Map;
 
@@ -11,7 +11,7 @@ public abstract class Tool<TOut> {
     private final Map<String, String> args;
 
     public Tool(String[] args) {
-        ParseCmd cmd = parser(new ParseCmd.Builder().help(usage()));
+        ParseCmd cmd = parser(new com.frostwire.jlibtorrent.demo.ParseCmd.Builder().help(usage()));
 
         String err = cmd.validate(args);
         if (err == null || err.length() == 0) {
@@ -27,7 +27,7 @@ public abstract class Tool<TOut> {
 
     protected abstract String usage();
 
-    protected abstract ParseCmd parser(ParseCmd.Builder b);
+    protected abstract ParseCmd parser(com.frostwire.jlibtorrent.demo.ParseCmd.Builder b);
 
     public abstract TOut run();
 }

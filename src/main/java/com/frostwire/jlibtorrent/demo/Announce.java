@@ -1,4 +1,4 @@
-package com.frostwire.jlibtorrent.tools;
+package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Session;

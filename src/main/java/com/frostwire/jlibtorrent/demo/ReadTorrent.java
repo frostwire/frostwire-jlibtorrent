@@ -1,4 +1,4 @@
-package com.frostwire.jlibtorrent.tools;
+package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.TorrentInfo;
 
@@ -20,7 +20,7 @@ public final class ReadTorrent extends Tool<TorrentInfo> {
     }
 
     @Override
-    protected ParseCmd parser(ParseCmd.Builder b) {
+    protected ParseCmd parser(com.frostwire.jlibtorrent.demo.ParseCmd.Builder b) {
         return b.parm("-i", "<torrent>").req().rex(".*")
                 .build();
     }
