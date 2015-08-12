@@ -3,7 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.dht_routing_bucket;
 
 /**
- * holds dht routing table stats
+ * Hold information about a single DHT routing table bucket
  *
  * @author gubatron
  * @author aldenml
@@ -21,29 +21,29 @@ public final class DHTRoutingBucket {
     }
 
     /**
-     * the total number of nodes in the routing table.
+     * The total number of nodes in the routing table.
      *
      * @return
      */
-    public int getNumNodes() {
+    public int numNodes() {
         return t.getNum_nodes();
     }
 
     /**
-     * the total number of replacement nodes in the routing table.
+     * The total number of replacement nodes in the routing table.
      *
      * @return
      */
-    public int getNumReplacements() {
+    public int numReplacements() {
         return t.getNum_replacements();
     }
 
     /**
-     * number of seconds since last activity.
+     * Number of seconds since last activity.
      *
      * @return
      */
-    public int getLastActive() {
+    public int lastActive() {
         return t.getLast_active();
     }
 }

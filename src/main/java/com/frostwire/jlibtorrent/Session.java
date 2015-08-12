@@ -40,7 +40,6 @@ public final class Session {
 
     private long lastStatsRequestTime;
     private long lastStatSecondTick;
-    private DHTStats lastDHTStats;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
@@ -73,8 +72,6 @@ public final class Session {
         this.s = new session(sp);
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
-
-        this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -113,8 +110,6 @@ public final class Session {
         this.s = new session(sp);
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
-
-        this.lastDHTStats = new DHTStats(new DHTRoutingBucket[0]);
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -830,10 +825,6 @@ public final class Session {
         return stats;
     }
 
-    public DHTStats getDHTStats() {
-        return lastDHTStats;
-    }
-
     @Deprecated
     public SessionSettings getSettings() {
         return new SessionSettings(s.get_settings());
@@ -997,11 +988,6 @@ public final class Session {
                                 updateSessionStat((SessionStatsAlert) alert);
                             }
 
-                            if (type == AlertType.DHT_STATS.getSwig()) {
-                                alert = Alerts.cast(swigAlert);
-                                lastDHTStats = new DHTStats(((DhtStatsAlert) alert).getRoutingTable());
-                            }
-
                             if (listeners.indexOfKey(type) >= 0) {
                                 if (alert == null) {
                                     alert = Alerts.cast(swigAlert);
@@ -1010,7 +996,6 @@ public final class Session {
                             }
 
                             if (type != AlertType.SESSION_STATS.getSwig() &&
-                                    type != AlertType.DHT_STATS.getSwig() &&
                                     listeners.indexOfKey(-1) >= 0) {
                                 if (alert == null) {
                                     alert = Alerts.cast(swigAlert);
@@ -1025,7 +1010,6 @@ public final class Session {
                     if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
                         lastStatsRequestTime = now;
                         postSessionStats();
-                        postDHTStats();
                     }
                 }
             }
@@ -1077,18 +1061,6 @@ public final class Session {
         list.add(new Pair<String, Integer>("dht.transmissionbt.com", 6881));
 
         return list;
-    }
-
-    private static long countDHTNodes(DhtStatsAlert alert) {
-        DHTRoutingBucket[] buckets = alert.getRoutingTable();
-
-        long n = 0;
-
-        for (DHTRoutingBucket b : buckets) {
-            n += b.getNumNodes();
-        }
-
-        return n;
     }
 
     private void updateSessionStat(SessionStatsAlert alert) {

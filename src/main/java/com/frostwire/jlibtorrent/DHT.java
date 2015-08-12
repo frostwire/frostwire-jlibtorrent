@@ -44,33 +44,6 @@ public final class DHT {
         return s.isDHTRunning();
     }
 
-    public void waitNodes(int nodes) {
-        boolean ready = false;
-        while (!ready) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // ignore
-            }
-
-            ready = s.getDHTStats().totalNodes() > nodes;
-        }
-    }
-
-    /**
-     * Use totalNodes instead.
-     *
-     * @return
-     */
-    @Deprecated
-    public long nodes() {
-        return totalNodes();
-    }
-
-    public long totalNodes() {
-        return s.getDHTStats().totalNodes();
-    }
-
     public void get(String sha1) {
         s.dhtGetItem(new Sha1Hash(sha1));
     }

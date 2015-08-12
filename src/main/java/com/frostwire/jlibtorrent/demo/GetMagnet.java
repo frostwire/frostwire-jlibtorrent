@@ -24,7 +24,6 @@ public final class GetMagnet {
 
         System.out.println("Waiting for nodes in DHT");
         Thread.sleep(5000);
-        System.out.println("Nodes in DHT: " + dht.totalNodes());
 
         System.out.println("Fetching the magnet uri, please wait...");
         byte[] data = d.fetchMagnet(uri, 30000);
