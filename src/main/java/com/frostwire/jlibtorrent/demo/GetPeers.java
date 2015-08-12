@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public final class GetPeers extends Tool<Void> {
 
     private static final int[] ALERT_TYPES = new int[]{
-            AlertType.DHT_GET_PEERS_REPLY_ALERT.getSwig()
+            AlertType.DHT_GET_PEERS_REPLY.getSwig()
     };
 
     private final Session s;

@@ -62,7 +62,8 @@ public final class Session {
             int log_mask = alert.category_t.session_log_notification.swigValue() |
                     alert.category_t.torrent_log_notification.swigValue() |
                     alert.category_t.peer_log_notification.swigValue() |
-                    alert.category_t.dht_log_notification.swigValue();
+                    alert.category_t.dht_log_notification.swigValue() |
+                    alert.category_t.port_mapping_log_notification.swigValue();
             alert_mask = alert_mask & ~log_mask;
         }
 
@@ -95,7 +96,8 @@ public final class Session {
             int log_mask = alert.category_t.session_log_notification.swigValue() |
                     alert.category_t.torrent_log_notification.swigValue() |
                     alert.category_t.peer_log_notification.swigValue() |
-                    alert.category_t.dht_log_notification.swigValue();
+                    alert.category_t.dht_log_notification.swigValue() |
+                    alert.category_t.port_mapping_log_notification.swigValue();
             alert_mask = alert_mask & ~log_mask;
         }
 

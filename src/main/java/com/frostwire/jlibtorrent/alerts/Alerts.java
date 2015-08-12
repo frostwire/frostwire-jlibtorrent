@@ -127,6 +127,7 @@ public final class Alerts {
         CAST_ALERT_METHOD(dht_log_alert.class, map);
         CAST_ALERT_METHOD(dht_pkt_alert.class, map);
         CAST_ALERT_METHOD(dht_get_peers_reply_alert.class, map);
+        CAST_ALERT_METHOD(dht_direct_response_alert.class, map);
 
         return Collections.unmodifiableMap(map);
     }
