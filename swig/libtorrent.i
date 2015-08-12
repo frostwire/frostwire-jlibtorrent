@@ -462,6 +462,7 @@ namespace std {
 %ignore libtorrent::session_handle::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>);
 %ignore libtorrent::session_handle::dht_get_item(boost::array<char, 32>, std::string);
 %ignore libtorrent::session_handle::dht_get_item(boost::array<char, 32>);
+%ignore libtorrent::session_handle::dht_direct_request(udp::endpoint, entry const&, void*);
 %ignore libtorrent::session_handle::add_extension;
 %ignore libtorrent::session_handle::set_load_function;
 %ignore libtorrent::session_handle::set_alert_notify;
@@ -594,6 +595,8 @@ namespace std {
 %ignore libtorrent::dht_put_alert::dht_put_alert;
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
+%ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
+%ignore libtorrent::dht_direct_response_alert::userdata;
 %ignore libtorrent::torrent_info::torrent_info(char const *, int);
 %ignore libtorrent::torrent_info::torrent_info(char const *, int, int);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int);

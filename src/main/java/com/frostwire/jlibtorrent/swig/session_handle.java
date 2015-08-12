@@ -167,6 +167,10 @@ public class session_handle {
     libtorrent_jni.session_handle_dht_announce__SWIG_2(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash);
   }
 
+  public void dht_direct_request(udp_endpoint ep, entry e) {
+    libtorrent_jni.session_handle_dht_direct_request(swigCPtr, this, udp_endpoint.getCPtr(ep), ep, entry.getCPtr(e), e);
+  }
+
   public void set_ip_filter(ip_filter f) {
     libtorrent_jni.session_handle_set_ip_filter(swigCPtr, this, ip_filter.getCPtr(f), f);
   }

@@ -1620,6 +1620,7 @@ public class libtorrent_jni {
   public final static native int alert_incoming_request_notification_get();
   public final static native int alert_dht_log_notification_get();
   public final static native int alert_dht_operation_notification_get();
+  public final static native int alert_port_mapping_log_notification_get();
   public final static native int alert_all_categories_get();
   public final static native void delete_alert(long jarg1);
   public final static native long alert_timestamp(long jarg1, alert jarg1_);
@@ -2573,6 +2574,8 @@ public class libtorrent_jni {
   public final static native String dht_mutable_item_alert_salt_get(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void dht_mutable_item_alert_item_set(long jarg1, dht_mutable_item_alert jarg1_, long jarg2, entry jarg2_);
   public final static native long dht_mutable_item_alert_item_get(long jarg1, dht_mutable_item_alert jarg1_);
+  public final static native void dht_mutable_item_alert_authoritative_set(long jarg1, dht_mutable_item_alert jarg1_, boolean jarg2);
+  public final static native boolean dht_mutable_item_alert_authoritative_get(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native long dht_mutable_item_alert_key_v(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native long dht_mutable_item_alert_signature_v(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void delete_dht_mutable_item_alert(long jarg1);
@@ -2750,6 +2753,17 @@ public class libtorrent_jni {
   public final static native int dht_get_peers_reply_alert_num_peers(long jarg1, dht_get_peers_reply_alert jarg1_);
   public final static native void dht_get_peers_reply_alert_peers(long jarg1, dht_get_peers_reply_alert jarg1_, long jarg2, tcp_endpoint_vector jarg2_);
   public final static native void delete_dht_get_peers_reply_alert(long jarg1);
+  public final static native int dht_direct_response_alert_priority_get();
+  public final static native int dht_direct_response_alert_alert_type_get();
+  public final static native int dht_direct_response_alert_type(long jarg1, dht_direct_response_alert jarg1_);
+  public final static native int dht_direct_response_alert_category(long jarg1, dht_direct_response_alert jarg1_);
+  public final static native String dht_direct_response_alert_what(long jarg1, dht_direct_response_alert jarg1_);
+  public final static native int dht_direct_response_alert_static_category_get();
+  public final static native String dht_direct_response_alert_message(long jarg1, dht_direct_response_alert jarg1_);
+  public final static native void dht_direct_response_alert_addr_set(long jarg1, dht_direct_response_alert jarg1_, long jarg2, udp_endpoint jarg2_);
+  public final static native long dht_direct_response_alert_addr_get(long jarg1, dht_direct_response_alert jarg1_);
+  public final static native long dht_direct_response_alert_response(long jarg1, dht_direct_response_alert jarg1_);
+  public final static native void delete_dht_direct_response_alert(long jarg1);
   public final static native int num_alert_types_get();
   public final static native int TORRENT_ALERT_MANAGER_MAX_ARITY_get();
   public final static native void cached_piece_info_blocks_set(long jarg1, cached_piece_info jarg1_, long jarg2, bool_vector jarg2_);
@@ -3833,6 +3847,7 @@ public class libtorrent_jni {
   public final static native void session_handle_dht_announce__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_, int jarg3, int jarg4);
   public final static native void session_handle_dht_announce__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_, int jarg3);
   public final static native void session_handle_dht_announce__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void session_handle_dht_direct_request(long jarg1, session_handle jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, entry jarg3_);
   public final static native void session_handle_set_ip_filter(long jarg1, session_handle jarg1_, long jarg2, ip_filter jarg2_);
   public final static native long session_handle_get_ip_filter(long jarg1, session_handle jarg1_);
   public final static native void session_handle_set_port_filter(long jarg1, session_handle jarg1_, long jarg2, port_filter jarg2_);
@@ -4030,6 +4045,9 @@ public class libtorrent_jni {
   public final static native void peer_connection_handle_send_buffer__SWIG_1(long jarg1, peer_connection_handle jarg1_, String jarg2, int jarg3);
   public final static native int peer_connection_handle_last_seen_complete(long jarg1, peer_connection_handle jarg1_);
   public final static native long peer_connection_handle_time_of_last_unchoke(long jarg1, peer_connection_handle jarg1_);
+  public final static native boolean peer_connection_handle_op_eq(long jarg1, peer_connection_handle jarg1_, long jarg2, peer_connection_handle jarg2_);
+  public final static native boolean peer_connection_handle_op_neq(long jarg1, peer_connection_handle jarg1_, long jarg2, peer_connection_handle jarg2_);
+  public final static native boolean peer_connection_handle_op_lt(long jarg1, peer_connection_handle jarg1_, long jarg2, peer_connection_handle jarg2_);
   public final static native long peer_connection_handle_native_handle(long jarg1, peer_connection_handle jarg1_);
   public final static native void delete_peer_connection_handle(long jarg1);
   public final static native long new_bt_peer_connection_handle(long jarg1, peer_connection_handle jarg1_);
@@ -4431,6 +4449,7 @@ public class libtorrent_jni {
   public final static native long dht_log_alert_SWIGUpcast(long jarg1);
   public final static native long dht_pkt_alert_SWIGUpcast(long jarg1);
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
+  public final static native long dht_direct_response_alert_SWIGUpcast(long jarg1);
   public final static native long ipv4_peer_SWIGUpcast(long jarg1);
   public final static native long ipv6_peer_SWIGUpcast(long jarg1);
   public final static native long peer_connection_SWIGSmartPtrUpcast(long jarg1);

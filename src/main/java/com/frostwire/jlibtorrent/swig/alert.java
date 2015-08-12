@@ -504,6 +504,7 @@ public class alert {
     incoming_request_notification(libtorrent_jni.alert_incoming_request_notification_get()),
     dht_log_notification(libtorrent_jni.alert_dht_log_notification_get()),
     dht_operation_notification(libtorrent_jni.alert_dht_operation_notification_get()),
+    port_mapping_log_notification(libtorrent_jni.alert_port_mapping_log_notification_get()),
     all_categories(libtorrent_jni.alert_all_categories_get());
 
     public final int swigValue() {

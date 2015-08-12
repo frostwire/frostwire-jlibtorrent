@@ -59,7 +59,6 @@ rule libtorrent_linking ( properties * )
     result += <deprecated-functions>off ;
     result += <logging>on ;
     result += <crypto>openssl ;
-    result += <boost>source ;
     result += <disk-stats>on ;
 
     return $(result) ;
