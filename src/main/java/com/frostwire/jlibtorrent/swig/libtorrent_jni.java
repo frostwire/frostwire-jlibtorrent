@@ -1714,6 +1714,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_dht_log_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_pkt_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_get_peers_reply_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_dht_direct_response_alert(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
   public final static native int user_alert_id_get();
   public final static native int torrent_alert_alert_type_get();
