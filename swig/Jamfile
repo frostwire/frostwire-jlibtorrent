@@ -60,6 +60,7 @@ rule libtorrent_linking ( properties * )
     result += <logging>on ;
     result += <crypto>openssl ;
     result += <disk-stats>on ;
+    result += <utp-log>on ;
 
     return $(result) ;
 }

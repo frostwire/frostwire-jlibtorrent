@@ -7,6 +7,8 @@ import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.swig.default_storage;
+import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.utp_stream;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
@@ -20,6 +22,7 @@ public final class DownloadTorrent {
     public static void main(String[] args) throws Throwable {
 
         //default_storage.disk_write_access_log(true);
+        //libtorrent.set_utp_stream_logging(true);
 
         // comment this line for a real application
         args = new String[]{"/Users/aldenml/Downloads/Kellee_Maize_The_5th_Element_FrostClick_FrostWire_MP3_April_14_2014.torrent"};
@@ -54,5 +57,6 @@ public final class DownloadTorrent {
         signal.await();
 
         //default_storage.disk_write_access_log(false);
+        //libtorrent.set_utp_stream_logging(false);
     }
 }

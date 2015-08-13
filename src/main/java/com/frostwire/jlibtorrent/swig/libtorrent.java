@@ -242,6 +242,14 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_upnp_category(), false);
   }
 
+  public static boolean is_utp_stream_logging() {
+    return libtorrent_jni.is_utp_stream_logging();
+  }
+
+  public static void set_utp_stream_logging(boolean enable) {
+    libtorrent_jni.set_utp_stream_logging(enable);
+  }
+
   public static boolean add_files_cb(String p, add_files_listener listener, String id) {
     return libtorrent_jni.add_files_cb(p, add_files_listener.getCPtr(listener), listener, id);
   }
