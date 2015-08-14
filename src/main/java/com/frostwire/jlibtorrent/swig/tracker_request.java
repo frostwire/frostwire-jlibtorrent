@@ -233,8 +233,9 @@ public class tracker_request {
   }
 
   public enum kind_t {
-    announce_request,
-    scrape_request;
+    announce_request(libtorrent_jni.tracker_request_announce_request_get()),
+    scrape_request(libtorrent_jni.tracker_request_scrape_request_get()),
+    i2p(libtorrent_jni.tracker_request_i2p_get());
 
     public final int swigValue() {
       return swigValue;

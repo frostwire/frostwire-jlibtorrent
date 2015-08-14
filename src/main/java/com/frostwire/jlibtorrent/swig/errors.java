@@ -147,6 +147,7 @@ public enum errors {
   http_missing_location,
   http_failed_decompress,
   no_i2p_router(160),
+  no_i2p_endpoint(161),
   scrape_not_available(170),
   invalid_tracker_response,
   invalid_peer_dict,

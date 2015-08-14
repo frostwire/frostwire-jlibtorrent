@@ -87807,6 +87807,42 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 }
 
 
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1request_1announce_1request_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  libtorrent::tracker_request::kind_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (libtorrent::tracker_request::kind_t)libtorrent::tracker_request::announce_request;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1request_1scrape_1request_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  libtorrent::tracker_request::kind_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (libtorrent::tracker_request::kind_t)libtorrent::tracker_request::scrape_request;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1request_1i2p_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  libtorrent::tracker_request::kind_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (libtorrent::tracker_request::kind_t)libtorrent::tracker_request::i2p;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1request_1url_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   libtorrent::tracker_request *arg1 = (libtorrent::tracker_request *) 0 ;
   std::string *arg2 = 0 ;
@@ -92154,7 +92190,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("e0b1ce529a08ed72eaef516895c0112bdd5b7a2a");
+  result = (char *)("54e483647cec1452fa2ec9d243b350be8c576d3d");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -92166,7 +92202,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("3252df94e051715c64b2fe1e22c11991bebad745");
+  result = (char *)("712245767927325f4345c83ab94a151f21f84568");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

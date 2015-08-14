@@ -4175,6 +4175,9 @@ public class libtorrent_jni {
   public final static native String print_entry__SWIG_1(long jarg1, bdecode_node jarg1_, boolean jarg2);
   public final static native String print_entry__SWIG_2(long jarg1, bdecode_node jarg1_);
   public final static native long new_tracker_request();
+  public final static native int tracker_request_announce_request_get();
+  public final static native int tracker_request_scrape_request_get();
+  public final static native int tracker_request_i2p_get();
   public final static native void tracker_request_url_set(long jarg1, tracker_request jarg1_, String jarg2);
   public final static native String tracker_request_url_get(long jarg1, tracker_request jarg1_);
   public final static native void tracker_request_trackerid_set(long jarg1, tracker_request jarg1_, String jarg2);
