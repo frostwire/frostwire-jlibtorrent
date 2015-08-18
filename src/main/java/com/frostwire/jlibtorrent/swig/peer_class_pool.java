@@ -47,11 +47,6 @@ public class peer_class_pool {
     libtorrent_jni.peer_class_pool_incref(swigCPtr, this, c);
   }
 
-  public peer_class at(short c) {
-    long cPtr = libtorrent_jni.peer_class_pool_at__SWIG_0(swigCPtr, this, c);
-    return (cPtr == 0) ? null : new peer_class(cPtr, false);
-  }
-
   public peer_class_pool() {
     this(libtorrent_jni.new_peer_class_pool(), true);
   }

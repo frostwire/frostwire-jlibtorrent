@@ -352,6 +352,7 @@ namespace std {
     %template(downloading_piece_vector) vector<libtorrent::piece_picker::downloading_piece>;
     %template(suggest_piece_vector) vector<libtorrent::torrent::suggest_piece_t>;
 
+    %template(string_list) list<std::string>;
     %template(entry_list) list<libtorrent::entry>;
     %template(web_seed_entry_list) list<libtorrent::web_seed_entry>;
 
@@ -589,6 +590,7 @@ namespace std {
 %ignore libtorrent::sha1_hash::end;
 %ignore libtorrent::sha1_hash::operator[];
 %ignore libtorrent::sha1_hash::assign(char const *);
+%ignore libtorrent::sha1_hash::data() const;
 %ignore libtorrent::entry::integer() const;
 %ignore libtorrent::entry::string() const;
 %ignore libtorrent::entry::dict() const;
@@ -655,7 +657,7 @@ namespace std {
 %ignore libtorrent::cached_piece_info::storage;
 %ignore libtorrent::peer_class::priority;
 %ignore libtorrent::peer_class::channel;
-%ignore libtorrent::peer_class_pool::at(libtorrent::peer_class_t) const;
+%ignore libtorrent::peer_class_pool::at;
 %ignore libtorrent::torrent_peer::rank;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::announce_entry::failed;

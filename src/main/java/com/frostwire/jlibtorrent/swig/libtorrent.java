@@ -242,6 +242,10 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_upnp_category(), false);
   }
 
+  public static void find_control_url(int type, String string, parse_state state) {
+    libtorrent_jni.find_control_url(type, string, parse_state.getCPtr(state), state);
+  }
+
   public static boolean is_utp_stream_logging() {
     return libtorrent_jni.is_utp_stream_logging();
   }
