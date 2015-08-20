@@ -63998,7 +63998,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1ipv4_1peer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2, jint jarg3) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1ipv4_1peer_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2, jint jarg3) {
   jlong jresult = 0 ;
   tcp::endpoint *arg1 = 0 ;
   bool arg2 ;
@@ -64018,6 +64018,32 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       result = (libtorrent::ipv4_peer *)new libtorrent::ipv4_peer((tcp::endpoint const &)*arg1,arg2,arg3);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(libtorrent::ipv4_peer **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1ipv4_1peer_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::ipv4_peer *arg1 = 0 ;
+  libtorrent::ipv4_peer *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::ipv4_peer **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::ipv4_peer const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (libtorrent::ipv4_peer *)new libtorrent::ipv4_peer((libtorrent::ipv4_peer const &)*arg1);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -92777,7 +92803,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("26fecaf03750cb900163bf7d83cd6988dec86320");
+  result = (char *)("9ce1d64839ac16280d23d5fae8e1ee5162e9c274");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -92789,7 +92815,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("bc3cd957e8ca693e3da713e748d77277f0496762");
+  result = (char *)("4eccc3e863745fe5f28a9ed42b17fb9c1f0b3489");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

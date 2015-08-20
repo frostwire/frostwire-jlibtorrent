@@ -36,7 +36,11 @@ public class ipv4_peer extends torrent_peer {
   }
 
   public ipv4_peer(tcp_endpoint ip, boolean connectable, int src) {
-    this(libtorrent_jni.new_ipv4_peer(tcp_endpoint.getCPtr(ip), ip, connectable, src), true);
+    this(libtorrent_jni.new_ipv4_peer__SWIG_0(tcp_endpoint.getCPtr(ip), ip, connectable, src), true);
+  }
+
+  public ipv4_peer(ipv4_peer p) {
+    this(libtorrent_jni.new_ipv4_peer__SWIG_1(ipv4_peer.getCPtr(p), p), true);
   }
 
   public void setAddr(address_v4 value) {

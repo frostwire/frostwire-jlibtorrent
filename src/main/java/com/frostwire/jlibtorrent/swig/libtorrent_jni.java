@@ -3064,7 +3064,8 @@ public class libtorrent_jni {
   public final static native void torrent_peer_web_seed_set(long jarg1, torrent_peer jarg1_, boolean jarg2);
   public final static native boolean torrent_peer_web_seed_get(long jarg1, torrent_peer jarg1_);
   public final static native void delete_torrent_peer(long jarg1);
-  public final static native long new_ipv4_peer(long jarg1, tcp_endpoint jarg1_, boolean jarg2, int jarg3);
+  public final static native long new_ipv4_peer__SWIG_0(long jarg1, tcp_endpoint jarg1_, boolean jarg2, int jarg3);
+  public final static native long new_ipv4_peer__SWIG_1(long jarg1, ipv4_peer jarg1_);
   public final static native void ipv4_peer_addr_set(long jarg1, ipv4_peer jarg1_, long jarg2, address_v4 jarg2_);
   public final static native long ipv4_peer_addr_get(long jarg1, ipv4_peer jarg1_);
   public final static native void delete_ipv4_peer(long jarg1);
