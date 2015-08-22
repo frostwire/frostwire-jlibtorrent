@@ -210,7 +210,6 @@ public class settings_pack {
     no_recheck_incomplete_resume,
     anonymous_mode,
     report_web_seed_downloads,
-    utp_dynamic_sock_buf,
     deprecated2,
     announce_double_nat,
     seeding_outgoing_connections,

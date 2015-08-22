@@ -92,14 +92,6 @@ public final class SessionSettings {
         s.set_int(settings_pack.int_types.cache_size.swigValue(), value);
     }
 
-    public boolean getUtpDynamicSockBuf() {
-        return s.get_bool(settings_pack.bool_types.utp_dynamic_sock_buf.swigValue());
-    }
-
-    public void setUtpDynamicSockBuf(boolean value) {
-        s.set_bool(settings_pack.bool_types.utp_dynamic_sock_buf.swigValue(), value);
-    }
-
     public boolean getGuidedReadCache() {
         return s.get_bool(settings_pack.bool_types.guided_read_cache.swigValue());
     }
@@ -122,10 +114,6 @@ public final class SessionSettings {
 
     public void setInactivityTimeout(int value) {
         s.set_int(settings_pack.int_types.inactivity_timeout.swigValue(), value);
-    }
-
-    public void optimizeHashingForSpeed(boolean value) {
-        // TODO
     }
 
     public boolean getSeedingOutgoingConnections() {
@@ -156,7 +144,6 @@ public final class SessionSettings {
         p.setConnectionsLimit(this.getConnectionsLimit());
         p.setMaxPeerlistSize(this.getMaxPeerlistSize());
         p.setCacheSize(this.getCacheSize());
-        p.setUtpDynamicSockBuf(this.getUtpDynamicSockBuf());
         p.setGuidedReadCache(this.getGuidedReadCache());
         p.setTickInterval(this.getTickInterval());
         p.setInactivityTimeout(this.getInactivityTimeout());
