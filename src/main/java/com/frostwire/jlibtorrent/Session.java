@@ -796,6 +796,10 @@ public final class Session {
         s.dht_announce(infoHash.getSwig());
     }
 
+    public void dhtDirectRequest(UdpEndpoint endp, Entry entry) {
+        s.dht_direct_request(endp.getSwig(), entry.getSwig());
+    }
+
     public void addExtension(Plugin p) {
         SwigPlugin sp = new SwigPlugin(p);
         s.add_swig_extension(sp);
