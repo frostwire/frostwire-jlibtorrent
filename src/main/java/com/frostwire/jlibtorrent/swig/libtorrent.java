@@ -302,4 +302,8 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.set_piece_hashes(id, create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec, set_piece_hashes_listener.getCPtr(listener), listener);
   }
 
+  public static int get_boost_version() {
+    return libtorrent_jni.get_boost_version();
+  }
+
 }

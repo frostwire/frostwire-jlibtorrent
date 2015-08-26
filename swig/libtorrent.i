@@ -20,7 +20,6 @@
 #include <string>
 #include <ios>
 
-#include <boost/version.hpp>
 #include <boost/system/error_code.hpp>
     
 #include "libtorrent/version.hpp"
@@ -760,7 +759,6 @@ namespace std {
 %rename(value) libtorrent::storage_error::operator bool() const;
 %rename(is_none_t) libtorrent::bdecode_node::operator bool() const;
 
-%include <boost/version.hpp>
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"

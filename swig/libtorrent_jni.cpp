@@ -680,7 +680,6 @@ namespace Swig {
 #include <string>
 #include <ios>
 
-#include <boost/version.hpp>
 #include <boost/system/error_code.hpp>
     
 #include "libtorrent/version.hpp"
@@ -19979,30 +19978,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
       return ;
     }
   }
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_BOOST_1VERSION_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)(105900);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_BOOST_1LIB_1VERSION_1get(JNIEnv *jenv, jclass jcls) {
-  jstring jresult = 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (char *)("1_59");
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
 }
 
 
@@ -94002,7 +93977,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("88b1063f1351d14d732f81f8dbb3ccdc699163d6");
+  result = (char *)("bd5793807c8ce42b8ef878e059823def6963a3b1");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -94014,7 +93989,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("271e455adb529119a2ca72445d64185f7ba9299a");
+  result = (char *)("bea9e6866f167e736fe1641b99d5747486df4683");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -94434,6 +94409,25 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
       return ;
     }
   }
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_get_1boost_1version(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (int)get_boost_version();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jint)result; 
+  return jresult;
 }
 
 

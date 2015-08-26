@@ -1,3 +1,5 @@
+#include <boost/version.hpp>
+
 #define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
 #define JLIBTORRENT_REVISION_SHA1 _JLIBTORRENT_REVISION_SHA1_
 
@@ -34,4 +36,8 @@ void set_piece_hashes_cb(int i, set_piece_hashes_listener* listener, std::string
 
 void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std::string const& p, libtorrent::error_code& ec, set_piece_hashes_listener* listener) {
     set_piece_hashes(t, p, boost::bind(&set_piece_hashes_cb, _1, listener, id, t.num_pieces()), ec);
+}
+
+int get_boost_version() {
+    return BOOST_VERSION;
 }

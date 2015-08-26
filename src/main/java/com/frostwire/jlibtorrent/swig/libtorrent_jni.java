@@ -743,8 +743,6 @@ public class libtorrent_jni {
   public final static native long alert_ptr_vector_get(long jarg1, alert_ptr_vector jarg1_, int jarg2);
   public final static native void alert_ptr_vector_set(long jarg1, alert_ptr_vector jarg1_, int jarg2, long jarg3, alert jarg3_);
   public final static native void delete_alert_ptr_vector(long jarg1);
-  public final static native int BOOST_VERSION_get();
-  public final static native String BOOST_LIB_VERSION_get();
   public final static native int success_get();
   public final static native int address_family_not_supported_get();
   public final static native int address_in_use_get();
@@ -4484,6 +4482,7 @@ public class libtorrent_jni {
   public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
   public final static native void set_piece_hashes(String jarg1, long jarg2, create_torrent jarg2_, String jarg3, long jarg4, error_code jarg4_, long jarg5, set_piece_hashes_listener jarg5_);
+  public final static native int get_boost_version();
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
   public final static native long tracker_alert_SWIGUpcast(long jarg1);

@@ -34,11 +34,7 @@ public final class LibTorrent {
     }
 
     public static int boostVersion() {
-        return libtorrent.BOOST_VERSION;
-    }
-
-    public static String boostLibVersion() {
-        return libtorrent.BOOST_LIB_VERSION;
+        return libtorrent.get_boost_version();
     }
 
     public static String fullVersion() {
