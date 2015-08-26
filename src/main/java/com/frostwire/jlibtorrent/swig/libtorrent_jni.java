@@ -721,6 +721,8 @@ public class libtorrent_jni {
   public final static native long alert_ptr_vector_get(long jarg1, alert_ptr_vector jarg1_, int jarg2);
   public final static native void alert_ptr_vector_set(long jarg1, alert_ptr_vector jarg1_, int jarg2, long jarg3, alert jarg3_);
   public final static native void delete_alert_ptr_vector(long jarg1);
+  public final static native int BOOST_VERSION_get();
+  public final static native String BOOST_LIB_VERSION_get();
   public final static native int success_get();
   public final static native int address_family_not_supported_get();
   public final static native int address_in_use_get();

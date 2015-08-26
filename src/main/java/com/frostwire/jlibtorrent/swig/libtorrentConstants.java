@@ -9,6 +9,8 @@
 package com.frostwire.jlibtorrent.swig;
 
 public interface libtorrentConstants {
+  public final static int BOOST_VERSION = libtorrent_jni.BOOST_VERSION_get();
+  public final static String BOOST_LIB_VERSION = libtorrent_jni.BOOST_LIB_VERSION_get();
   public final static int LIBTORRENT_VERSION_MAJOR = libtorrent_jni.LIBTORRENT_VERSION_MAJOR_get();
   public final static int LIBTORRENT_VERSION_MINOR = libtorrent_jni.LIBTORRENT_VERSION_MINOR_get();
   public final static int LIBTORRENT_VERSION_TINY = libtorrent_jni.LIBTORRENT_VERSION_TINY_get();

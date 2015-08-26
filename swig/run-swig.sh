@@ -12,7 +12,6 @@ swig -c++ -java -o libtorrent_jni.cpp \
     -I${LIBTORRENT_ROOT}/include \
     -DBOOST_ASIO_DECL="" \
     -DBOOST_NO_TYPEID=1 \
-    -DBOOST_VERSION=105000 \
     -DBOOST_POSIX_API=1 \
     -DBOOST_SYSTEM_NOEXCEPT="" \
     -DBOOST_SYSTEM_DECL="" \

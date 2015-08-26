@@ -33,8 +33,16 @@ public final class LibTorrent {
         return libtorrent.JLIBTORRENT_REVISION_SHA1;
     }
 
+    public static int boostVersion() {
+        return libtorrent.BOOST_VERSION;
+    }
+
+    public static String boostLibVersion() {
+        return libtorrent.BOOST_LIB_VERSION;
+    }
+
     public static String fullVersion() {
-        return version() + "-rev-" + revision() + "-jrev-" + jrevision();
+        return version() + "-rev-" + revision() + "-jrev-" + jrevision() + "-boost-" + boostVersion();
     }
 
     /**
