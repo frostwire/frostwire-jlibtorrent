@@ -20,6 +20,7 @@
 #include <string>
 #include <ios>
 
+#include <boost/version.hpp>
 #include <boost/system/error_code.hpp>
     
 #include "libtorrent/version.hpp"
@@ -86,6 +87,7 @@
 #include "libtorrent/upnp.hpp"
 #include "libtorrent/bloom_filter.hpp"
 #include "libtorrent/utp_stream.hpp"
+#include "libtorrent/enum_net.hpp"
 
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -351,6 +353,8 @@ namespace std {
     %template(piece_block_vector) vector<libtorrent::piece_block>;
     %template(downloading_piece_vector) vector<libtorrent::piece_picker::downloading_piece>;
     %template(suggest_piece_vector) vector<libtorrent::torrent::suggest_piece_t>;
+    %template(ip_interface_vector) vector<libtorrent::ip_interface>;
+    %template(ip_route_vector) vector<libtorrent::ip_route>;
 
     %template(string_list) list<std::string>;
     %template(entry_list) list<libtorrent::entry>;
@@ -829,6 +833,7 @@ namespace std {
 %javaconst(0);
 %include "libtorrent/bloom_filter.hpp"
 %include "libtorrent/utp_stream.hpp"
+%include "libtorrent/enum_net.hpp"
 
 namespace libtorrent {
     

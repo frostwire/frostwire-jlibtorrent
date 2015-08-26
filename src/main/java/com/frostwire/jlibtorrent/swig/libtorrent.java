@@ -258,6 +258,38 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.compare_less_wrap(lhs, rhs, mask);
   }
 
+  public static ip_interface_vector enum_net_interfaces(io_service ios, error_code ec) {
+    return new ip_interface_vector(libtorrent_jni.enum_net_interfaces(io_service.getCPtr(ios), ios, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static ip_route_vector enum_routes(io_service ios, error_code ec) {
+    return new ip_route_vector(libtorrent_jni.enum_routes(io_service.getCPtr(ios), ios, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static boolean match_addr_mask(address a1, address a2, address mask) {
+    return libtorrent_jni.match_addr_mask(address.getCPtr(a1), a1, address.getCPtr(a2), a2, address.getCPtr(mask), mask);
+  }
+
+  public static boolean in_local_network(io_service ios, address addr, error_code ec) {
+    return libtorrent_jni.in_local_network__SWIG_0(io_service.getCPtr(ios), ios, address.getCPtr(addr), addr, error_code.getCPtr(ec), ec);
+  }
+
+  public static boolean in_local_network(ip_interface_vector net, address addr) {
+    return libtorrent_jni.in_local_network__SWIG_1(ip_interface_vector.getCPtr(net), net, address.getCPtr(addr), addr);
+  }
+
+  public static address get_default_gateway(io_service ios, error_code ec) {
+    return new address(libtorrent_jni.get_default_gateway(io_service.getCPtr(ios), ios, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static boolean has_interface(String name, io_service ios, error_code ec) {
+    return libtorrent_jni.has_interface(name, io_service.getCPtr(ios), ios, error_code.getCPtr(ec), ec);
+  }
+
+  public static String device_for_address(address addr, io_service ios, error_code ec) {
+    return libtorrent_jni.device_for_address(address.getCPtr(addr), addr, io_service.getCPtr(ios), ios, error_code.getCPtr(ec), ec);
+  }
+
   public static boolean add_files_cb(String p, add_files_listener listener, String id) {
     return libtorrent_jni.add_files_cb(p, add_files_listener.getCPtr(listener), listener, id);
   }
