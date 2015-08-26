@@ -93,16 +93,15 @@ rule env_setup ( properties * )
 
     if <toolset>gcc in $(properties)
     {
-            result += <include>$(JDK_ROOT)/include/linux ;
-            result += <cxxflags>-fPIC ;
-            result += <cflags>-fPIC ;
+        result += <include>$(JDK_ROOT)/include/linux ;
+        result += <cxxflags>-fPIC ;
+        result += <cflags>-fPIC ;
     }
 
     if <toolset>msvc in $(properties)
     {
         result += <cxxflags>/O2 ;
         result += <cxxflags>/MT ;
-        result += <cxxflags>/DBOOST_ASIO_DISABLE_CONNECTEX ;
         result += <cxxflags>/I$(OPENSSL_ROOT)/include ;
         result += <linkflags>/LIBPATH:$(OPENSSL_ROOT)/lib ;
     }
