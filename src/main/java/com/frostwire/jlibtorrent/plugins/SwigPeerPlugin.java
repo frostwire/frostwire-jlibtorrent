@@ -12,11 +12,11 @@ public final class SwigPeerPlugin extends swig_peer_plugin {
     private static final Logger LOG = Logger.getLogger(SwigPeerPlugin.class);
 
     private final PeerPlugin p;
-    final peer_connection_handle pc;
+    final peer_connection pc;
 
     public SwigPeerPlugin(PeerPlugin p, peer_connection_handle pc) {
         this.p = p;
-        this.pc = pc;
+        this.pc = pc.native_handle();
     }
 
     @Override

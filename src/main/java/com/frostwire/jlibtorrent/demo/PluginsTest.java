@@ -5,6 +5,7 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.plugins.*;
+import com.frostwire.jlibtorrent.swig.peer_connection;
 
 import java.io.File;
 
@@ -38,6 +39,8 @@ public final class PluginsTest {
                     public PeerPlugin newPeerConnection(final PeerConnectionHandle pc) {
                         return new AbstractPeerPlugin() {
 
+                            private peer_connection p = pc.getSwig().native_handle();
+
                             @Override
                             public boolean handleOperation(Operation op) {
                                 return true;
@@ -45,13 +48,13 @@ public final class PluginsTest {
 
                             @Override
                             public boolean onRequest(PeerRequest r) {
-                                System.out.println("peer on request: " + pc.getSwig().remote() + " " + r);
+                                System.out.println("peer on request: " + p.remote().address() + " " + r);
                                 return false;
                             }
 
                             @Override
                             public boolean onPiece(PeerRequest piece, DiskBufferHolder data) {
-                                System.out.println("peer on piece: " + pc.getSwig().remote() + " " + piece);
+                                System.out.println("peer on piece: " + p.remote().address() + " " + piece);
                                 return false;
                             }
 
