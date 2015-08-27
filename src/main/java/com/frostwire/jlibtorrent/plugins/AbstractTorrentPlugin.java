@@ -1,6 +1,6 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.PeerConnection;
+import com.frostwire.jlibtorrent.PeerConnectionHandle;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.TorrentStatus;
 
@@ -16,23 +16,20 @@ public abstract class AbstractTorrentPlugin implements TorrentPlugin {
     }
 
     @Override
-    public PeerPlugin newPeerConnection(PeerConnection pc) {
+    public PeerPlugin newPeerConnection(PeerConnectionHandle pc) {
         return null;
     }
 
     @Override
     public void onPiecePass(int index) {
-
     }
 
     @Override
     public void onPieceFailed(int index) {
-
     }
 
     @Override
     public void tick() {
-
     }
 
     @Override
@@ -47,26 +44,21 @@ public abstract class AbstractTorrentPlugin implements TorrentPlugin {
 
     @Override
     public void onFilesChecked() {
-
     }
 
     @Override
     public void onState(TorrentStatus.State s) {
-
     }
 
     @Override
     public void onUnload() {
-
     }
 
     @Override
     public void onLoad() {
-
     }
 
     @Override
     public void onAddPeer(TcpEndpoint endp, int src, TorrentPlugin.Flags flags) {
-
     }
 }

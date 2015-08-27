@@ -298,6 +298,7 @@ public:
 %shared_ptr(libtorrent::web_peer_connection)
 %shared_ptr(libtorrent::http_seed_connection)
 %shared_ptr(set_piece_hashes_listener)
+%shared_ptr(libtorrent::torrent)
 
 %auto_ptr(libtorrent::alert)
 
@@ -354,6 +355,7 @@ namespace std {
     %template(suggest_piece_vector) vector<libtorrent::torrent::suggest_piece_t>;
     %template(ip_interface_vector) vector<libtorrent::ip_interface>;
     %template(ip_route_vector) vector<libtorrent::ip_route>;
+    %template(peer_connection_handle_vector) vector<libtorrent::peer_connection_handle>;
 
     %template(string_list) list<std::string>;
     %template(entry_list) list<libtorrent::entry>;
@@ -364,6 +366,9 @@ namespace std {
     %template(int_sha1_hash_map) map<int, libtorrent::sha1_hash>;
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
+
+    %template(string_dht_extension_handler_listener_ptr_pair) pair<std::string, dht_extension_handler_listener*>;
+    %template(string_dht_extension_handler_listener_ptr_pair_vector) vector<std::pair<string, dht_extension_handler_listener*>>;
 };
 
 // this are ignore until we solve the specific type issues
@@ -584,7 +589,6 @@ namespace std {
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;
-%ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::torrent_handle::get_storage_impl;
 %ignore libtorrent::torrent_handle::file_status;
 %ignore libtorrent::torrent_handle::use_interface;

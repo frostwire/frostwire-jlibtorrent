@@ -45,7 +45,7 @@ public class torrent_ref_holder {
 
   public torrent getM_torrent() {
     long cPtr = libtorrent_jni.torrent_ref_holder_m_torrent_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent(cPtr, false);
+    return (cPtr == 0) ? null : new torrent(cPtr, true);
   }
 
   public void setM_purpose(String value) {

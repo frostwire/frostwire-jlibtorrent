@@ -50,23 +50,8 @@ public class swig_torrent_plugin {
     libtorrent_jni.swig_torrent_plugin_change_ownership(this, swigCPtr, true);
   }
 
-  public swig_peer_plugin new_peer_connection(peer_connection pc) {
-    long cPtr = (getClass() == swig_torrent_plugin.class) ? libtorrent_jni.swig_torrent_plugin_new_peer_connection(swigCPtr, this, peer_connection.getCPtr(pc), pc) : libtorrent_jni.swig_torrent_plugin_new_peer_connectionSwigExplicitswig_torrent_plugin(swigCPtr, this, peer_connection.getCPtr(pc), pc);
-    return (cPtr == 0) ? null : new swig_peer_plugin(cPtr, false);
-  }
-
-  public swig_peer_plugin new_bt_peer_connection(bt_peer_connection pc) {
-    long cPtr = (getClass() == swig_torrent_plugin.class) ? libtorrent_jni.swig_torrent_plugin_new_bt_peer_connection(swigCPtr, this, bt_peer_connection.getCPtr(pc), pc) : libtorrent_jni.swig_torrent_plugin_new_bt_peer_connectionSwigExplicitswig_torrent_plugin(swigCPtr, this, bt_peer_connection.getCPtr(pc), pc);
-    return (cPtr == 0) ? null : new swig_peer_plugin(cPtr, false);
-  }
-
-  public swig_peer_plugin new_web_peer_connection(web_peer_connection pc) {
-    long cPtr = (getClass() == swig_torrent_plugin.class) ? libtorrent_jni.swig_torrent_plugin_new_web_peer_connection(swigCPtr, this, web_peer_connection.getCPtr(pc), pc) : libtorrent_jni.swig_torrent_plugin_new_web_peer_connectionSwigExplicitswig_torrent_plugin(swigCPtr, this, web_peer_connection.getCPtr(pc), pc);
-    return (cPtr == 0) ? null : new swig_peer_plugin(cPtr, false);
-  }
-
-  public swig_peer_plugin new_http_seed_connection(http_seed_connection pc) {
-    long cPtr = (getClass() == swig_torrent_plugin.class) ? libtorrent_jni.swig_torrent_plugin_new_http_seed_connection(swigCPtr, this, http_seed_connection.getCPtr(pc), pc) : libtorrent_jni.swig_torrent_plugin_new_http_seed_connectionSwigExplicitswig_torrent_plugin(swigCPtr, this, http_seed_connection.getCPtr(pc), pc);
+  public swig_peer_plugin new_peer_connection(peer_connection_handle pc) {
+    long cPtr = (getClass() == swig_torrent_plugin.class) ? libtorrent_jni.swig_torrent_plugin_new_peer_connection(swigCPtr, this, peer_connection_handle.getCPtr(pc), pc) : libtorrent_jni.swig_torrent_plugin_new_peer_connectionSwigExplicitswig_torrent_plugin(swigCPtr, this, peer_connection_handle.getCPtr(pc), pc);
     return (cPtr == 0) ? null : new swig_peer_plugin(cPtr, false);
   }
 

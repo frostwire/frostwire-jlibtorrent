@@ -392,6 +392,11 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_id(swigCPtr, this);
   }
 
+  public torrent native_handle() {
+    long cPtr = libtorrent_jni.torrent_handle_native_handle(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent(cPtr, true);
+  }
+
   public enum flags_t {
     overwrite_existing(libtorrent_jni.torrent_handle_overwrite_existing_get());
 

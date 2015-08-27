@@ -29,26 +29,26 @@ public final class SwigPlugin extends swig_plugin {
     }
 
     @Override
-    public swig_torrent_plugin new_torrent(torrent t) {
-        try {
-            if (p.handleOperation(Plugin.Operation.NEW_TORRENT)) {
-                TorrentPlugin tp = p.newTorrent(new Torrent(t));
-
-                if (tp != null) {
-                    return pin(new SwigTorrentPlugin(tp, t));
-                }
-            }
-        } catch (Throwable e) {
-            LOG.error("Error in plugin (new_torrent)", e);
-        }
+    public swig_torrent_plugin new_torrent(torrent_handle t) {
+//        try {
+//            if (p.handleOperation(Plugin.Operation.NEW_TORRENT)) {
+//                TorrentPlugin tp = p.newTorrent(new TorrentHandle(t));
+//
+//                if (tp != null) {
+//                    return pin(new SwigTorrentPlugin(tp, t));
+//                }
+//            }
+//        } catch (Throwable e) {
+//            LOG.error("Error in plugin (new_torrent)", e);
+//        }
 
         return super.new_torrent(t);
     }
 
     @Override
-    public void added() {
+    public void added(session_handle s) {
         try {
-            p.added();
+            //p.added(new SessionHandle(s));
         } catch (Throwable e) {
             LOG.error("Error in plugin (added)", e);
         }
@@ -81,23 +81,23 @@ public final class SwigPlugin extends swig_plugin {
     @Override
     public void on_tick() {
         try {
-            p.onTick();
+            //p.onTick();
         } catch (Throwable e) {
             LOG.error("Error in plugin (on_tick)", e);
         }
 
-        cleanup();
+        //cleanup();
     }
 
     @Override
-    public boolean on_optimistic_unchoke(torrent_peer_ptr_vector peers) {
+    public boolean on_optimistic_unchoke(peer_connection_handle_vector peers) {
         try {
             if (this.p.handleOperation(Plugin.Operation.ON_OPTIMISTIC_UNCHOKE)) {
                 int size = (int) peers.size();
-                TorrentPeer[] arr = new TorrentPeer[size];
+                PeerConnectionHandle[] arr = new PeerConnectionHandle[size];
 
                 for (int i = 0; i < size; i++) {
-                    arr[i] = new TorrentPeer(peers.get(i));
+                    arr[i] = new PeerConnectionHandle(peers.get(i));
                 }
 
                 return p.onOptimisticUnchoke(arr);

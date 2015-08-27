@@ -1,6 +1,6 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.PeerConnection;
+import com.frostwire.jlibtorrent.PeerConnectionHandle;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.TorrentStatus;
 import com.frostwire.jlibtorrent.swig.torrent_plugin;
@@ -34,10 +34,10 @@ public interface TorrentPlugin {
      * //
      * // If this function throws an exception, the connection will be closed.
      *
-     * @param peerConnection
+     * @param pc
      * @return
      */
-    PeerPlugin newPeerConnection(PeerConnection peerConnection);
+    PeerPlugin newPeerConnection(PeerConnectionHandle pc);
 
     /**
      * These hooks are called when a piece passes the hash check or fails the hash

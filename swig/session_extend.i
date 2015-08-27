@@ -61,8 +61,8 @@ class upnp;
 
 %typemap("javapackage") SwigPlugin, SwigPlugin *, SwigPlugin & "com.frostwire.jlibtorrent.plugins";
 
-%ignore swig_plugin::new_torrent(torrent*, void*);
-%ignore swig_plugin::added(aux::session_impl*);
+%ignore swig_plugin::new_torrent(libtorrent::torrent_handle const&, void*);
+%ignore swig_plugin::register_dht_extensions(libtorrent::dht_extensions_t& dht_extensions);
 
 %ignore swig_torrent_plugin::new_connection;
 

@@ -1,6 +1,9 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.Logger;
+import com.frostwire.jlibtorrent.PeerConnectionHandle;
+import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.TorrentStatus;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.LinkedList;
@@ -19,77 +22,26 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
 
     private final List<SwigPeerPlugin> mem;
 
-    public SwigTorrentPlugin(TorrentPlugin p, torrent t) {
+    public SwigTorrentPlugin(TorrentPlugin p, torrent_handle t) {
         this.p = p;
-        this.t = t;
+        this.t = t.native_handle();
 
         this.mem = new LinkedList<SwigPeerPlugin>();
     }
 
     @Override
-    public swig_peer_plugin new_peer_connection(peer_connection pc) {
-        try {
-            if (p.handleOperation(TorrentPlugin.Operation.NEW_PEER_CONNECTION)) {
-                PeerPlugin pp = p.newPeerConnection(new PeerConnection<peer_connection>(pc));
-
-                if (pp != null) {
-                    return pin(new SwigPeerPlugin(pp, pc));
-                }
-            }
-        } catch (Throwable e) {
-            LOG.error("Error in plugin (new_peer_connection(peer_connection))", e);
-        }
-
-        return super.new_peer_connection(pc);
-    }
-
-    @Override
-    public swig_peer_plugin new_bt_peer_connection(bt_peer_connection pc) {
-        try {
-            if (p.handleOperation(TorrentPlugin.Operation.NEW_PEER_CONNECTION)) {
-                PeerPlugin pp = p.newPeerConnection(new BtPeerConnection(pc));
-
-                if (pp != null) {
-                    return pin(new SwigPeerPlugin(pp, pc));
-                }
-            }
-        } catch (Throwable e) {
-            LOG.error("Error in plugin (new_peer_connection(bt_peer_connection))", e);
-        }
-
-        return super.new_peer_connection(pc);
-    }
-
-    @Override
-    public swig_peer_plugin new_web_peer_connection(web_peer_connection pc) {
-        try {
-            if (p.handleOperation(TorrentPlugin.Operation.NEW_PEER_CONNECTION)) {
-                PeerPlugin pp = p.newPeerConnection(new WebPeerConnection(pc));
-
-                if (pp != null) {
-                    return pin(new SwigPeerPlugin(pp, pc));
-                }
-            }
-        } catch (Throwable e) {
-            LOG.error("Error in plugin (new_peer_connection(web_peer_connection))", e);
-        }
-
-        return super.new_peer_connection(pc);
-    }
-
-    @Override
-    public swig_peer_plugin new_http_seed_connection(http_seed_connection pc) {
-        try {
-            if (p.handleOperation(TorrentPlugin.Operation.NEW_PEER_CONNECTION)) {
-                PeerPlugin pp = p.newPeerConnection(new HttpSeedConnection(pc));
-
-                if (pp != null) {
-                    return pin(new SwigPeerPlugin(pp, pc));
-                }
-            }
-        } catch (Throwable e) {
-            LOG.error("Error in plugin (new_peer_connection(http_seed_connection))", e);
-        }
+    public swig_peer_plugin new_peer_connection(peer_connection_handle pc) {
+//        try {
+//            if (p.handleOperation(TorrentPlugin.Operation.NEW_PEER_CONNECTION)) {
+//                PeerPlugin pp = p.newPeerConnection(new PeerConnectionHandle(pc));
+//
+//                if (pp != null) {
+//                    return pin(new SwigPeerPlugin(pp, pc));
+//                }
+//            }
+//        } catch (Throwable e) {
+//            LOG.error("Error in plugin (new_peer_connection(peer_connection))", e);
+//        }
 
         return super.new_peer_connection(pc);
     }

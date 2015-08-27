@@ -131,18 +131,20 @@ public class libtorrent_jni {
   public final static native long new_io_service();
   public final static native void delete_io_service(long jarg1);
   public final static native void delete_swig_plugin(long jarg1);
-  public final static native long swig_plugin_new_torrent(long jarg1, swig_plugin jarg1_, long jarg2, torrent jarg2_);
-  public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent jarg2_);
-  public final static native void swig_plugin_added(long jarg1, swig_plugin jarg1_);
-  public final static native void swig_plugin_addedSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_);
+  public final static native long swig_plugin_new_torrent(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native void swig_plugin_added(long jarg1, swig_plugin jarg1_, long jarg2, session_handle jarg2_);
+  public final static native void swig_plugin_addedSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, session_handle jarg2_);
+  public final static native void swig_plugin_register_dht_extensions(long jarg1, swig_plugin jarg1_, long jarg2, string_dht_extension_handler_listener_ptr_pair_vector jarg2_);
+  public final static native void swig_plugin_register_dht_extensionsSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, string_dht_extension_handler_listener_ptr_pair_vector jarg2_);
   public final static native void swig_plugin_on_alert(long jarg1, swig_plugin jarg1_, long jarg2, alert jarg2_);
   public final static native void swig_plugin_on_alertSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, alert jarg2_);
   public final static native boolean swig_plugin_on_unknown_torrent(long jarg1, swig_plugin jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, peer_connection_handle jarg3_, long jarg4, add_torrent_params jarg4_);
   public final static native boolean swig_plugin_on_unknown_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, peer_connection_handle jarg3_, long jarg4, add_torrent_params jarg4_);
   public final static native void swig_plugin_on_tick(long jarg1, swig_plugin jarg1_);
   public final static native void swig_plugin_on_tickSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_);
-  public final static native boolean swig_plugin_on_optimistic_unchoke(long jarg1, swig_plugin jarg1_, long jarg2, torrent_peer_ptr_vector jarg2_);
-  public final static native boolean swig_plugin_on_optimistic_unchokeSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_peer_ptr_vector jarg2_);
+  public final static native boolean swig_plugin_on_optimistic_unchoke(long jarg1, swig_plugin jarg1_, long jarg2, peer_connection_handle_vector jarg2_);
+  public final static native boolean swig_plugin_on_optimistic_unchokeSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, peer_connection_handle_vector jarg2_);
   public final static native void swig_plugin_save_state(long jarg1, swig_plugin jarg1_, long jarg2, entry jarg2_);
   public final static native void swig_plugin_save_stateSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, entry jarg2_);
   public final static native void swig_plugin_load_state(long jarg1, swig_plugin jarg1_, long jarg2, bdecode_node jarg2_);
@@ -151,14 +153,8 @@ public class libtorrent_jni {
   public final static native void swig_plugin_director_connect(swig_plugin obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void swig_plugin_change_ownership(swig_plugin obj, long cptr, boolean take_or_release);
   public final static native void delete_swig_torrent_plugin(long jarg1);
-  public final static native long swig_torrent_plugin_new_peer_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection jarg2_);
-  public final static native long swig_torrent_plugin_new_peer_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection jarg2_);
-  public final static native long swig_torrent_plugin_new_bt_peer_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, bt_peer_connection jarg2_);
-  public final static native long swig_torrent_plugin_new_bt_peer_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, bt_peer_connection jarg2_);
-  public final static native long swig_torrent_plugin_new_web_peer_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, web_peer_connection jarg2_);
-  public final static native long swig_torrent_plugin_new_web_peer_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, web_peer_connection jarg2_);
-  public final static native long swig_torrent_plugin_new_http_seed_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, http_seed_connection jarg2_);
-  public final static native long swig_torrent_plugin_new_http_seed_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, http_seed_connection jarg2_);
+  public final static native long swig_torrent_plugin_new_peer_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection_handle jarg2_);
+  public final static native long swig_torrent_plugin_new_peer_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection_handle jarg2_);
   public final static native void swig_torrent_plugin_on_piece_pass(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
   public final static native void swig_torrent_plugin_on_piece_passSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
   public final static native void swig_torrent_plugin_on_piece_failed(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
@@ -661,6 +657,16 @@ public class libtorrent_jni {
   public final static native long ip_route_vector_get(long jarg1, ip_route_vector jarg1_, int jarg2);
   public final static native void ip_route_vector_set(long jarg1, ip_route_vector jarg1_, int jarg2, long jarg3, ip_route jarg3_);
   public final static native void delete_ip_route_vector(long jarg1);
+  public final static native long new_peer_connection_handle_vector();
+  public final static native long peer_connection_handle_vector_size(long jarg1, peer_connection_handle_vector jarg1_);
+  public final static native long peer_connection_handle_vector_capacity(long jarg1, peer_connection_handle_vector jarg1_);
+  public final static native void peer_connection_handle_vector_reserve(long jarg1, peer_connection_handle_vector jarg1_, long jarg2);
+  public final static native boolean peer_connection_handle_vector_isEmpty(long jarg1, peer_connection_handle_vector jarg1_);
+  public final static native void peer_connection_handle_vector_clear(long jarg1, peer_connection_handle_vector jarg1_);
+  public final static native void peer_connection_handle_vector_add(long jarg1, peer_connection_handle_vector jarg1_, long jarg2, peer_connection_handle jarg2_);
+  public final static native long peer_connection_handle_vector_get(long jarg1, peer_connection_handle_vector jarg1_, int jarg2);
+  public final static native void peer_connection_handle_vector_set(long jarg1, peer_connection_handle_vector jarg1_, int jarg2, long jarg3, peer_connection_handle jarg3_);
+  public final static native void delete_peer_connection_handle_vector(long jarg1);
   public final static native long new_string_list();
   public final static native boolean string_list_isEmpty(long jarg1, string_list jarg1_);
   public final static native long string_list_size(long jarg1, string_list jarg1_);
@@ -743,6 +749,24 @@ public class libtorrent_jni {
   public final static native long alert_ptr_vector_get(long jarg1, alert_ptr_vector jarg1_, int jarg2);
   public final static native void alert_ptr_vector_set(long jarg1, alert_ptr_vector jarg1_, int jarg2, long jarg3, alert jarg3_);
   public final static native void delete_alert_ptr_vector(long jarg1);
+  public final static native long new_string_dht_extension_handler_listener_ptr_pair__SWIG_0();
+  public final static native long new_string_dht_extension_handler_listener_ptr_pair__SWIG_1(String jarg1, long jarg2, dht_extension_handler_listener jarg2_);
+  public final static native long new_string_dht_extension_handler_listener_ptr_pair__SWIG_2(long jarg1, string_dht_extension_handler_listener_ptr_pair jarg1_);
+  public final static native void string_dht_extension_handler_listener_ptr_pair_first_set(long jarg1, string_dht_extension_handler_listener_ptr_pair jarg1_, String jarg2);
+  public final static native String string_dht_extension_handler_listener_ptr_pair_first_get(long jarg1, string_dht_extension_handler_listener_ptr_pair jarg1_);
+  public final static native void string_dht_extension_handler_listener_ptr_pair_second_set(long jarg1, string_dht_extension_handler_listener_ptr_pair jarg1_, long jarg2, dht_extension_handler_listener jarg2_);
+  public final static native long string_dht_extension_handler_listener_ptr_pair_second_get(long jarg1, string_dht_extension_handler_listener_ptr_pair jarg1_);
+  public final static native void delete_string_dht_extension_handler_listener_ptr_pair(long jarg1);
+  public final static native long new_string_dht_extension_handler_listener_ptr_pair_vector();
+  public final static native long string_dht_extension_handler_listener_ptr_pair_vector_size(long jarg1, string_dht_extension_handler_listener_ptr_pair_vector jarg1_);
+  public final static native long string_dht_extension_handler_listener_ptr_pair_vector_capacity(long jarg1, string_dht_extension_handler_listener_ptr_pair_vector jarg1_);
+  public final static native void string_dht_extension_handler_listener_ptr_pair_vector_reserve(long jarg1, string_dht_extension_handler_listener_ptr_pair_vector jarg1_, long jarg2);
+  public final static native boolean string_dht_extension_handler_listener_ptr_pair_vector_isEmpty(long jarg1, string_dht_extension_handler_listener_ptr_pair_vector jarg1_);
+  public final static native void string_dht_extension_handler_listener_ptr_pair_vector_clear(long jarg1, string_dht_extension_handler_listener_ptr_pair_vector jarg1_);
+  public final static native void string_dht_extension_handler_listener_ptr_pair_vector_add(long jarg1, string_dht_extension_handler_listener_ptr_pair_vector jarg1_, long jarg2, string_dht_extension_handler_listener_ptr_pair jarg2_);
+  public final static native long string_dht_extension_handler_listener_ptr_pair_vector_get(long jarg1, string_dht_extension_handler_listener_ptr_pair_vector jarg1_, int jarg2);
+  public final static native void string_dht_extension_handler_listener_ptr_pair_vector_set(long jarg1, string_dht_extension_handler_listener_ptr_pair_vector jarg1_, int jarg2, long jarg3, string_dht_extension_handler_listener_ptr_pair jarg3_);
+  public final static native void delete_string_dht_extension_handler_listener_ptr_pair_vector(long jarg1);
   public final static native int success_get();
   public final static native int address_family_not_supported_get();
   public final static native int address_in_use_get();
@@ -1400,6 +1424,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_handle_op_neq(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native boolean torrent_handle_op_lt(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_handle_id(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_native_handle(long jarg1, torrent_handle jarg1_);
   public final static native void delete_torrent_handle(long jarg1);
   public final static native long new_torrent_status();
   public final static native void delete_torrent_status(long jarg1);
@@ -4483,6 +4508,10 @@ public class libtorrent_jni {
   public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
   public final static native void set_piece_hashes(String jarg1, long jarg2, create_torrent jarg2_, String jarg3, long jarg4, error_code jarg4_, long jarg5, set_piece_hashes_listener jarg5_);
   public final static native int get_boost_version();
+  public final static native void delete_dht_extension_handler_listener(long jarg1);
+  public final static native boolean dht_extension_handler_listener_on_message(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
+  public final static native long new_dht_extension_handler_listener();
+  public final static native boolean dht_extension_handler_cb(long jarg1, udp_endpoint jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, entry jarg3_, long jarg4, dht_extension_handler_listener jarg4_);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
   public final static native long tracker_alert_SWIGUpcast(long jarg1);
@@ -4583,10 +4612,13 @@ public class libtorrent_jni {
   public final static native long udp_tracker_connection_SWIGSmartPtrUpcast(long jarg1);
 
   public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long t) {
-    return swig_torrent_plugin.getCPtr(jself.new_torrent((t == 0) ? null : new torrent(t, false)));
+    return swig_torrent_plugin.getCPtr(jself.new_torrent(new torrent_handle(t, false)));
   }
-  public static void SwigDirector_swig_plugin_added(swig_plugin jself) {
-    jself.added();
+  public static void SwigDirector_swig_plugin_added(swig_plugin jself, long s) {
+    jself.added(new session_handle(s, false));
+  }
+  public static void SwigDirector_swig_plugin_register_dht_extensions(swig_plugin jself, long dht_extensions) {
+    jself.register_dht_extensions(new string_dht_extension_handler_listener_ptr_pair_vector(dht_extensions, false));
   }
   public static void SwigDirector_swig_plugin_on_alert(swig_plugin jself, long a) {
     jself.on_alert((a == 0) ? null : new alert(a, false));
@@ -4598,7 +4630,7 @@ public class libtorrent_jni {
     jself.on_tick();
   }
   public static boolean SwigDirector_swig_plugin_on_optimistic_unchoke(swig_plugin jself, long peers) {
-    return jself.on_optimistic_unchoke(new torrent_peer_ptr_vector(peers, false));
+    return jself.on_optimistic_unchoke(new peer_connection_handle_vector(peers, false));
   }
   public static void SwigDirector_swig_plugin_save_state(swig_plugin jself, long e) {
     jself.save_state(new entry(e, false));
@@ -4607,16 +4639,7 @@ public class libtorrent_jni {
     jself.load_state(new bdecode_node(n, false));
   }
   public static long SwigDirector_swig_torrent_plugin_new_peer_connection(swig_torrent_plugin jself, long pc) {
-    return swig_peer_plugin.getCPtr(jself.new_peer_connection((pc == 0) ? null : new peer_connection(pc, false)));
-  }
-  public static long SwigDirector_swig_torrent_plugin_new_bt_peer_connection(swig_torrent_plugin jself, long pc) {
-    return swig_peer_plugin.getCPtr(jself.new_bt_peer_connection((pc == 0) ? null : new bt_peer_connection(pc, false)));
-  }
-  public static long SwigDirector_swig_torrent_plugin_new_web_peer_connection(swig_torrent_plugin jself, long pc) {
-    return swig_peer_plugin.getCPtr(jself.new_web_peer_connection((pc == 0) ? null : new web_peer_connection(pc, false)));
-  }
-  public static long SwigDirector_swig_torrent_plugin_new_http_seed_connection(swig_torrent_plugin jself, long pc) {
-    return swig_peer_plugin.getCPtr(jself.new_http_seed_connection((pc == 0) ? null : new http_seed_connection(pc, false)));
+    return swig_peer_plugin.getCPtr(jself.new_peer_connection(new peer_connection_handle(pc, false)));
   }
   public static void SwigDirector_swig_torrent_plugin_on_piece_pass(swig_torrent_plugin jself, int index) {
     jself.on_piece_pass(index);

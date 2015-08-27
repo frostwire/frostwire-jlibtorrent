@@ -16,12 +16,12 @@ public abstract class AbstractPlugin implements Plugin {
     }
 
     @Override
-    public TorrentPlugin newTorrent(Torrent t) {
+    public TorrentPlugin newTorrent(TorrentHandle t) {
         return null;
     }
 
     @Override
-    public void added() {
+    public void added(SessionHandle s) {
     }
 
     @Override
@@ -35,21 +35,18 @@ public abstract class AbstractPlugin implements Plugin {
 
     @Override
     public void onTick() {
-
     }
 
     @Override
-    public boolean onOptimisticUnchoke(TorrentPeer[] peers) {
+    public boolean onOptimisticUnchoke(PeerConnectionHandle[] peers) {
         return false;
     }
 
     @Override
     public void saveState(Entry e) {
-
     }
 
     @Override
     public void loadState(bdecode_node n) {
-
     }
 }

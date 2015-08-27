@@ -2,8 +2,10 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.plugins.*;
+import com.frostwire.jlibtorrent.swig.swig_plugin;
 
 import java.io.File;
 
@@ -21,11 +23,11 @@ public final class PluginsTest {
 
             @Override
             public boolean handleOperation(Operation op) {
-                return true;
+                return false;
             }
 
             @Override
-            public TorrentPlugin newTorrent(Torrent t) {
+            public TorrentPlugin newTorrent(TorrentHandle t) {
                 return new AbstractTorrentPlugin() {
 
                     @Override
@@ -34,7 +36,7 @@ public final class PluginsTest {
                     }
 
                     @Override
-                    public PeerPlugin newPeerConnection(final PeerConnection pc) {
+                    public PeerPlugin newPeerConnection(final PeerConnectionHandle pc) {
                         return new AbstractPeerPlugin() {
 
                             @Override
@@ -44,13 +46,13 @@ public final class PluginsTest {
 
                             @Override
                             public boolean onRequest(PeerRequest r) {
-                                System.out.println("peer on request: " + pc.remote() + " " + r);
+                                System.out.println("peer on request: " + pc.getSwig().remote() + " " + r);
                                 return false;
                             }
 
                             @Override
                             public boolean onPiece(PeerRequest piece, DiskBufferHolder data) {
-                                System.out.println("peer on piece: " + pc.remote() + " " + piece);
+                                System.out.println("peer on piece: " + pc.getSwig().remote() + " " + piece);
                                 return false;
                             }
 
@@ -80,7 +82,7 @@ public final class PluginsTest {
 
             @Override
             public void onAlert(Alert a) {
-                //System.out.println(a);
+                System.out.println(a);
             }
 
             @Override
@@ -90,9 +92,9 @@ public final class PluginsTest {
             }
 
             @Override
-            public boolean onOptimisticUnchoke(TorrentPeer[] peers) {
+            public boolean onOptimisticUnchoke(PeerConnectionHandle[] peers) {
                 if (peers.length > 0) {
-                    System.out.println("onOptimisticUnchoke" + peers[0].totalDownload());
+                    System.out.println("onOptimisticUnchoke");
                 }
                 return false;
             }
@@ -100,7 +102,7 @@ public final class PluginsTest {
 
         s.addExtension(p);
 
-        File torrentFile = new File("/Users/aldenml/Downloads/test.torrent");
+        File torrentFile = new File("/Users/aldenml/Downloads/Kellee_Maize_The_5th_Element_FrostClick_FrostWire_MP3_April_14_2014.torrent");
         final TorrentHandle th = s.addTorrent(torrentFile, torrentFile.getParentFile());
 
         s.addListener(new TorrentAlertAdapter(th) {
@@ -108,6 +110,11 @@ public final class PluginsTest {
             public void torrentFinished(TorrentFinishedAlert alert) {
                 System.out.print("Torrent finished");
                 s.removeTorrent(th);
+            }
+
+            @Override
+            public void pieceFinished(PieceFinishedAlert alert) {
+                System.out.println("Piece finished");
             }
         });
 

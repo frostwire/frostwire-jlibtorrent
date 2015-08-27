@@ -29,12 +29,12 @@ public interface Plugin {
      * @param t
      * @return
      */
-    TorrentPlugin newTorrent(Torrent t);
+    TorrentPlugin newTorrent(TorrentHandle t);
 
     /**
      * called when plugin is added to a session
      */
-    void added();
+    void added(SessionHandle s);
 
     /**
      * Called when an alert is posted alerts that are filtered are not posted.
@@ -69,7 +69,7 @@ public interface Plugin {
      * @param peers
      * @return
      */
-    boolean onOptimisticUnchoke(TorrentPeer[] peers);
+    boolean onOptimisticUnchoke(PeerConnectionHandle[] peers);
 
     /**
      * called when saving settings state.

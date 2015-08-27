@@ -41,3 +41,20 @@ void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std:
 int get_boost_version() {
     return BOOST_VERSION;
 }
+
+class dht_extension_handler_listener {
+public:
+    virtual ~dht_extension_handler_listener() {
+    }
+
+    virtual bool on_message(udp::endpoint const& source,
+                            libtorrent::bdecode_node const& request, libtorrent::entry& response) {
+        return false;
+    }
+};
+
+bool dht_extension_handler_cb(udp::endpoint const& source,
+                            libtorrent::bdecode_node const& request, libtorrent::entry& response,
+                            dht_extension_handler_listener* listener) {
+	return listener->on_message(source, request, response);
+}

@@ -50,13 +50,17 @@ public class swig_plugin {
     libtorrent_jni.swig_plugin_change_ownership(this, swigCPtr, true);
   }
 
-  public swig_torrent_plugin new_torrent(torrent t) {
-    long cPtr = (getClass() == swig_plugin.class) ? libtorrent_jni.swig_plugin_new_torrent(swigCPtr, this, torrent.getCPtr(t), t) : libtorrent_jni.swig_plugin_new_torrentSwigExplicitswig_plugin(swigCPtr, this, torrent.getCPtr(t), t);
+  public swig_torrent_plugin new_torrent(torrent_handle t) {
+    long cPtr = (getClass() == swig_plugin.class) ? libtorrent_jni.swig_plugin_new_torrent(swigCPtr, this, torrent_handle.getCPtr(t), t) : libtorrent_jni.swig_plugin_new_torrentSwigExplicitswig_plugin(swigCPtr, this, torrent_handle.getCPtr(t), t);
     return (cPtr == 0) ? null : new swig_torrent_plugin(cPtr, false);
   }
 
-  public void added() {
-    if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_added(swigCPtr, this); else libtorrent_jni.swig_plugin_addedSwigExplicitswig_plugin(swigCPtr, this);
+  public void added(session_handle s) {
+    if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_added(swigCPtr, this, session_handle.getCPtr(s), s); else libtorrent_jni.swig_plugin_addedSwigExplicitswig_plugin(swigCPtr, this, session_handle.getCPtr(s), s);
+  }
+
+  public void register_dht_extensions(string_dht_extension_handler_listener_ptr_pair_vector dht_extensions) {
+    if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_register_dht_extensions(swigCPtr, this, string_dht_extension_handler_listener_ptr_pair_vector.getCPtr(dht_extensions), dht_extensions); else libtorrent_jni.swig_plugin_register_dht_extensionsSwigExplicitswig_plugin(swigCPtr, this, string_dht_extension_handler_listener_ptr_pair_vector.getCPtr(dht_extensions), dht_extensions);
   }
 
   public void on_alert(alert a) {
@@ -71,8 +75,8 @@ public class swig_plugin {
     if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_on_tick(swigCPtr, this); else libtorrent_jni.swig_plugin_on_tickSwigExplicitswig_plugin(swigCPtr, this);
   }
 
-  public boolean on_optimistic_unchoke(torrent_peer_ptr_vector peers) {
-    return (getClass() == swig_plugin.class) ? libtorrent_jni.swig_plugin_on_optimistic_unchoke(swigCPtr, this, torrent_peer_ptr_vector.getCPtr(peers), peers) : libtorrent_jni.swig_plugin_on_optimistic_unchokeSwigExplicitswig_plugin(swigCPtr, this, torrent_peer_ptr_vector.getCPtr(peers), peers);
+  public boolean on_optimistic_unchoke(peer_connection_handle_vector peers) {
+    return (getClass() == swig_plugin.class) ? libtorrent_jni.swig_plugin_on_optimistic_unchoke(swigCPtr, this, peer_connection_handle_vector.getCPtr(peers), peers) : libtorrent_jni.swig_plugin_on_optimistic_unchokeSwigExplicitswig_plugin(swigCPtr, this, peer_connection_handle_vector.getCPtr(peers), peers);
   }
 
   public void save_state(entry e) {

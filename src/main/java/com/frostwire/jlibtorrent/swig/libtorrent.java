@@ -306,4 +306,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.get_boost_version();
   }
 
+  public static boolean dht_extension_handler_cb(udp_endpoint source, bdecode_node request, entry response, dht_extension_handler_listener listener) {
+    return libtorrent_jni.dht_extension_handler_cb(udp_endpoint.getCPtr(source), source, bdecode_node.getCPtr(request), request, entry.getCPtr(response), response, dht_extension_handler_listener.getCPtr(listener), listener);
+  }
+
 }
