@@ -5,9 +5,13 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.plugins.*;
+import com.frostwire.jlibtorrent.swig.bdecode_node;
+import com.frostwire.jlibtorrent.swig.entry;
 import com.frostwire.jlibtorrent.swig.peer_connection;
+import com.frostwire.jlibtorrent.swig.udp_endpoint;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * @author gubatron
@@ -83,8 +87,19 @@ public final class PluginsTest {
             }
 
             @Override
+            public void registerDhtPlugins(List<Pair<String, DhtPlugin>> plugins) {
+                plugins.add(new Pair<String, DhtPlugin>("get_peers", new DhtPlugin() {
+                    @Override
+                    public boolean onMessage(udp_endpoint source, bdecode_node request, entry response) {
+                        System.out.println("DHT get_peers from: " + source.address());
+                        return false;
+                    }
+                }));
+            }
+
+            @Override
             public void onAlert(Alert a) {
-                //System.out.println(a);
+                System.out.println(a);
             }
 
             @Override
@@ -116,7 +131,7 @@ public final class PluginsTest {
 
             @Override
             public void pieceFinished(PieceFinishedAlert alert) {
-                System.out.println("Piece finished");
+                //System.out.println("Piece finished");
             }
         });
 

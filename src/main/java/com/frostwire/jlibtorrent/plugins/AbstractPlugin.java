@@ -4,6 +4,8 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 
+import java.util.List;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -22,6 +24,10 @@ public abstract class AbstractPlugin implements Plugin {
 
     @Override
     public void added(SessionHandle s) {
+    }
+
+    @Override
+    public void registerDhtPlugins(List<Pair<String, DhtPlugin>> plugins) {
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 
+import java.util.List;
+
 /**
  * This is the base class for a session plugin. One primary feature
  * is that it is notified of all torrents that are added to the session,
@@ -35,6 +37,8 @@ public interface Plugin {
      * called when plugin is added to a session
      */
     void added(SessionHandle s);
+
+    void registerDhtPlugins(List<Pair<String, DhtPlugin>> plugins);
 
     /**
      * Called when an alert is posted alerts that are filtered are not posted.
@@ -87,6 +91,7 @@ public interface Plugin {
 
     enum Operation {
         NEW_TORRENT,
+        REGISTER_DHT_EXTENSIONS,
         ON_ALERT,
         ON_UNKNOWN_TORRENT,
         ON_OPTIMISTIC_UNCHOKE,
