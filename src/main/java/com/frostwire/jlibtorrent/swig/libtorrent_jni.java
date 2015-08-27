@@ -4510,7 +4510,10 @@ public class libtorrent_jni {
   public final static native int get_boost_version();
   public final static native void delete_dht_extension_handler_listener(long jarg1);
   public final static native boolean dht_extension_handler_listener_on_message(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
+  public final static native boolean dht_extension_handler_listener_on_messageSwigExplicitdht_extension_handler_listener(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
   public final static native long new_dht_extension_handler_listener();
+  public final static native void dht_extension_handler_listener_director_connect(dht_extension_handler_listener obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void dht_extension_handler_listener_change_ownership(dht_extension_handler_listener obj, long cptr, boolean take_or_release);
   public final static native boolean dht_extension_handler_cb(long jarg1, udp_endpoint jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, entry jarg3_, long jarg4, dht_extension_handler_listener jarg4_);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
@@ -4760,6 +4763,9 @@ public class libtorrent_jni {
   }
   public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, String id, int num_pieces, int i) {
     jself.progress(id, num_pieces, i);
+  }
+  public static boolean SwigDirector_dht_extension_handler_listener_on_message(dht_extension_handler_listener jself, long source, long request, long response) {
+    return jself.on_message(new udp_endpoint(source, false), new bdecode_node(request, false), new entry(response, false));
   }
 
   private final static native void swig_module_init();

@@ -19,7 +19,7 @@ public:
     virtual ~SwigDirector_swig_plugin();
     virtual swig_torrent_plugin *new_torrent(libtorrent::torrent_handle const &t);
     virtual void added(libtorrent::session_handle s);
-    virtual void register_dht_extensions(std::vector< std::pair< std::string,dht_extension_handler_listener * > > dht_extensions);
+    virtual void register_dht_extensions(std::vector< std::pair< std::string,dht_extension_handler_listener * > > &dht_extensions);
     virtual void on_alert(libtorrent::alert const *a);
     virtual bool on_unknown_torrent(libtorrent::sha1_hash const &info_hash, libtorrent::peer_connection_handle const &pc, libtorrent::add_torrent_params &p);
     virtual void on_tick();
@@ -123,6 +123,21 @@ public:
     SwigDirector_set_piece_hashes_listener(JNIEnv *jenv);
     virtual ~SwigDirector_set_piece_hashes_listener();
     virtual void progress(std::string const &id, int num_pieces, int i);
+public:
+    bool swig_overrides(int n) {
+      return (n < 1 ? swig_override[n] : false);
+    }
+protected:
+    Swig::BoolArray<1> swig_override;
+};
+
+class SwigDirector_dht_extension_handler_listener : public dht_extension_handler_listener, public Swig::Director {
+
+public:
+    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
+    SwigDirector_dht_extension_handler_listener(JNIEnv *jenv);
+    virtual ~SwigDirector_dht_extension_handler_listener();
+    virtual bool on_message(udp::endpoint const &source, libtorrent::bdecode_node const &request, libtorrent::entry &response);
 public:
     bool swig_overrides(int n) {
       return (n < 1 ? swig_override[n] : false);

@@ -26,7 +26,7 @@ struct swig_plugin : plugin {
         }
     }
 
-    virtual void register_dht_extensions(std::vector<std::pair<std::string, dht_extension_handler_listener*> > dht_extensions) {
+    virtual void register_dht_extensions(std::vector<std::pair<std::string, dht_extension_handler_listener*> >& dht_extensions) {
     }
 
     virtual void on_alert(libtorrent::alert const* a) {

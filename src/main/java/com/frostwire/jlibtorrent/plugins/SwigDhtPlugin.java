@@ -10,7 +10,7 @@ import com.frostwire.jlibtorrent.swig.udp_endpoint;
  * @author gubatron
  * @author aldenml
  */
-final class SwigDhtPlugin extends dht_extension_handler_listener {
+public final class SwigDhtPlugin extends dht_extension_handler_listener {
 
     private static final Logger LOG = Logger.getLogger(SwigDhtPlugin.class);
 

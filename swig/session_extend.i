@@ -58,8 +58,10 @@ class upnp;
 %feature("director") swig_plugin;
 %feature("director") swig_torrent_plugin;
 %feature("director") swig_peer_plugin;
+%feature("director") dht_extension_handler_listener;
 
 %typemap("javapackage") SwigPlugin, SwigPlugin *, SwigPlugin & "com.frostwire.jlibtorrent.plugins";
+%typemap("javapackage") SwigDhtPlugin, SwigDhtPlugin *, SwigDhtPlugin & "com.frostwire.jlibtorrent.plugins";
 
 %ignore swig_plugin::new_torrent(libtorrent::torrent_handle const&, void*);
 %ignore swig_plugin::register_dht_extensions(libtorrent::dht_extensions_t& dht_extensions);

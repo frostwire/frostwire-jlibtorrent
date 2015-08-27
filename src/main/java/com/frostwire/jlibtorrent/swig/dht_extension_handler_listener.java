@@ -35,12 +35,28 @@ public class dht_extension_handler_listener {
     }
   }
 
+  protected void swigDirectorDisconnect() {
+    swigCMemOwn = false;
+    delete();
+  }
+
+  public void swigReleaseOwnership() {
+    swigCMemOwn = false;
+    libtorrent_jni.dht_extension_handler_listener_change_ownership(this, swigCPtr, false);
+  }
+
+  public void swigTakeOwnership() {
+    swigCMemOwn = true;
+    libtorrent_jni.dht_extension_handler_listener_change_ownership(this, swigCPtr, true);
+  }
+
   public boolean on_message(udp_endpoint source, bdecode_node request, entry response) {
-    return libtorrent_jni.dht_extension_handler_listener_on_message(swigCPtr, this, udp_endpoint.getCPtr(source), source, bdecode_node.getCPtr(request), request, entry.getCPtr(response), response);
+    return (getClass() == dht_extension_handler_listener.class) ? libtorrent_jni.dht_extension_handler_listener_on_message(swigCPtr, this, udp_endpoint.getCPtr(source), source, bdecode_node.getCPtr(request), request, entry.getCPtr(response), response) : libtorrent_jni.dht_extension_handler_listener_on_messageSwigExplicitdht_extension_handler_listener(swigCPtr, this, udp_endpoint.getCPtr(source), source, bdecode_node.getCPtr(request), request, entry.getCPtr(response), response);
   }
 
   public dht_extension_handler_listener() {
     this(libtorrent_jni.new_dht_extension_handler_listener(), true);
+    libtorrent_jni.dht_extension_handler_listener_director_connect(this, swigCPtr, swigCMemOwn, true);
   }
 
 }
