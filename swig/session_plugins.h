@@ -171,7 +171,7 @@ swig_torrent_plugin* swig_plugin::new_torrent(libtorrent::torrent_handle const& 
 }
 
 boost::shared_ptr<peer_plugin> swig_torrent_plugin::new_connection(libtorrent::peer_connection_handle const& pc) {
-    return boost::shared_ptr<peer_plugin>(new_connection(pc));
+    return boost::shared_ptr<peer_plugin>(new_peer_connection(pc));
 }
 
 swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_connection_handle const& pc) {

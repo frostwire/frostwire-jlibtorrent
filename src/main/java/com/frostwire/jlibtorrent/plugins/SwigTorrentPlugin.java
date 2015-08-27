@@ -31,17 +31,17 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
 
     @Override
     public swig_peer_plugin new_peer_connection(peer_connection_handle pc) {
-//        try {
-//            if (p.handleOperation(TorrentPlugin.Operation.NEW_PEER_CONNECTION)) {
-//                PeerPlugin pp = p.newPeerConnection(new PeerConnectionHandle(pc));
-//
-//                if (pp != null) {
-//                    return pin(new SwigPeerPlugin(pp, pc));
-//                }
-//            }
-//        } catch (Throwable e) {
-//            LOG.error("Error in plugin (new_peer_connection(peer_connection))", e);
-//        }
+        try {
+            if (p.handleOperation(TorrentPlugin.Operation.NEW_PEER_CONNECTION)) {
+                PeerPlugin pp = p.newPeerConnection(new PeerConnectionHandle(pc));
+
+                if (pp != null) {
+                    return pin(new SwigPeerPlugin(pp, pc));
+                }
+            }
+        } catch (Throwable e) {
+            LOG.error("Error in plugin (new_peer_connection(peer_connection))", e);
+        }
 
         return super.new_peer_connection(pc);
     }

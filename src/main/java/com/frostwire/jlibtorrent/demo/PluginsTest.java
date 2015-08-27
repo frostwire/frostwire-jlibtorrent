@@ -5,7 +5,6 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.plugins.*;
-import com.frostwire.jlibtorrent.swig.swig_plugin;
 
 import java.io.File;
 
@@ -23,7 +22,7 @@ public final class PluginsTest {
 
             @Override
             public boolean handleOperation(Operation op) {
-                return false;
+                return true;
             }
 
             @Override
@@ -82,7 +81,7 @@ public final class PluginsTest {
 
             @Override
             public void onAlert(Alert a) {
-                System.out.println(a);
+                //System.out.println(a);
             }
 
             @Override
