@@ -87,6 +87,7 @@
 #include "libtorrent/bloom_filter.hpp"
 #include "libtorrent/utp_stream.hpp"
 #include "libtorrent/enum_net.hpp"
+#include "libtorrent/file.hpp"
 
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -378,8 +379,6 @@ namespace std {
 %ignore new_feed;
 %ignore parse_feed;
 %ignore ssl_ctx;
-%ignore readv;
-%ignore writev;
 %ignore default_pred;
 %ignore ignore_subdir;
 %ignore integer_to_str;
@@ -645,7 +644,6 @@ namespace std {
 %ignore libtorrent::crypto_plugin::encrypt;
 %ignore libtorrent::crypto_plugin::decrypt;
 %ignore libtorrent::cork::m_pc;
-%ignore libtorrent::disabled_storage;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::upnp_errors::make_error_code;
@@ -715,6 +713,14 @@ namespace std {
 %ignore libtorrent::utp_stream::on_connect;
 %ignore libtorrent::utp_stream::on_read;
 %ignore libtorrent::utp_stream::on_write;
+%ignore libtorrent::default_storage::readv;
+%ignore libtorrent::default_storage::writev;
+%ignore libtorrent::disabled_storage::readv;
+%ignore libtorrent::disabled_storage::writev;
+%ignore libtorrent::zero_storage::readv;
+%ignore libtorrent::zero_storage::writev;
+%ignore libtorrent::file::readv;
+%ignore libtorrent::file::writev;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -836,6 +842,7 @@ namespace std {
 %include "libtorrent/bloom_filter.hpp"
 %include "libtorrent/utp_stream.hpp"
 %include "libtorrent/enum_net.hpp"
+%include "libtorrent/file.hpp"
 
 namespace libtorrent {
     
@@ -968,6 +975,10 @@ namespace libtorrent {
 
     static add_torrent_params create_instance_no_storage() {
         return add_torrent_params(disabled_storage_constructor);
+    }
+
+    static add_torrent_params create_instance_swig_storage(swig_storage_constructor* sc) {
+        return add_torrent_params(boost::bind(&swig_storage_constructor_cb, _1, sc));
     }
 };
 
@@ -1106,5 +1117,17 @@ public:
 %feature("director") set_piece_hashes_listener;
 
 %ignore set_piece_hashes_cb;
+
+%ignore dht_extension_handler_cb;
+
+%ignore swig_storage::readv;
+%ignore swig_storage::writev;
+
+%feature("director") swig_storage;
+%feature("director") swig_storage_constructor;
+
+%typemap("javapackage") SwigStorage, SwigStorage *, SwigStorage & "com.frostwire.jlibtorrent.plugins";
+
+%ignore swig_storage_constructor_cb;
 
 %include "libtorrent.h"

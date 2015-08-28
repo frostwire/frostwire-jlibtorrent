@@ -210,6 +210,10 @@ public class add_torrent_params {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_no_storage(), true);
   }
 
+  public static add_torrent_params create_instance_swig_storage(swig_storage_constructor sc) {
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_swig_storage(swig_storage_constructor.getCPtr(sc), sc), true);
+  }
+
   public enum flags_t {
     flag_seed_mode(libtorrent_jni.add_torrent_params_flag_seed_mode_get()),
     flag_override_resume_data(libtorrent_jni.add_torrent_params_flag_override_resume_data_get()),

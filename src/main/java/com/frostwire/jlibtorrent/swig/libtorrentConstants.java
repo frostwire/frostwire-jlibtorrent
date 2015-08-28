@@ -35,6 +35,10 @@ public interface libtorrentConstants {
   public final static int TORRENT_INET_MIN_MTU = libtorrent_jni.TORRENT_INET_MIN_MTU_get();
   public final static int TORRENT_INET_MAX_MTU = libtorrent_jni.TORRENT_INET_MAX_MTU_get();
 
+  public final static int _FILE_OFFSET_BITS = libtorrent_jni._FILE_OFFSET_BITS_get();
+  public final static int _XOPEN_SOURCE = libtorrent_jni._XOPEN_SOURCE_get();
+  public final static int dont_follow_links = libtorrent_jni.dont_follow_links_get();
+
   public final static String LIBTORRENT_REVISION_SHA1 = libtorrent_jni.LIBTORRENT_REVISION_SHA1_get();
   public final static String JLIBTORRENT_REVISION_SHA1 = libtorrent_jni.JLIBTORRENT_REVISION_SHA1_get();
 }

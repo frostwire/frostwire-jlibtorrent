@@ -58,3 +58,95 @@ bool dht_extension_handler_cb(udp::endpoint const& source,
                             dht_extension_handler_listener* listener) {
 	return listener->on_message(source, request, response);
 }
+
+struct swig_storage : storage_interface
+{
+    virtual ~swig_storage() {
+    }
+
+    virtual void initialize(libtorrent::storage_error& ec) {
+    }
+
+    int readv(libtorrent::file::iovec_t const* bufs, int num_bufs
+        , int piece, int offset, int flags, libtorrent::storage_error& ec) {
+        int n = 0;
+        for (int i = 0; i < num_bufs; i++) {
+            n += read((boost::int64_t)bufs[i].iov_base, bufs[i].iov_len,
+                        piece, offset, flags, ec);
+            if (ec) {
+                return -1;
+            }
+        }
+        return n;
+    }
+
+    virtual int read(boost::int64_t iov_base, size_t iov_len
+            , int piece, int offset, int flags, libtorrent::storage_error& ec) {
+    }
+
+    int writev(libtorrent::file::iovec_t const* bufs, int num_bufs
+        , int piece, int offset, int flags, libtorrent::storage_error& ec) {
+        int n = 0;
+        for (int i = 0; i < num_bufs; i++) {
+            n += write((boost::int64_t)bufs[i].iov_base, bufs[i].iov_len,
+                        piece, offset, flags, ec);
+            if (ec) {
+                return -1;
+            }
+        }
+        return n;
+    }
+
+    virtual int write(boost::int64_t iov_base, size_t iov_len
+        , int piece, int offset, int flags, libtorrent::storage_error& ec) {
+        return 0;
+    }
+
+    virtual bool has_any_file(libtorrent::storage_error& ec) {
+        return 0;
+    }
+
+    virtual void set_file_priority(std::vector<boost::uint8_t> const& prio
+        , libtorrent::storage_error& ec) {
+    }
+
+    virtual int move_storage(std::string const& save_path, int flags
+        , libtorrent::storage_error& ec) {
+        return 0;
+    }
+
+    virtual bool verify_resume_data(libtorrent::bdecode_node const& rd
+        , std::vector<std::string> const* links
+        , libtorrent::storage_error& ec) {
+        return false;
+    }
+
+    virtual void write_resume_data(libtorrent::entry& rd, libtorrent::storage_error& ec) const {
+    }
+
+    virtual void release_files(libtorrent::storage_error& ec) {
+    }
+
+    virtual void rename_file(int index, std::string const& new_filename
+        , libtorrent::storage_error& ec) {
+    }
+
+    virtual void delete_files(libtorrent::storage_error& ec) {
+    }
+
+    virtual bool tick() { return false; }
+};
+
+class swig_storage_constructor {
+public:
+    virtual ~swig_storage_constructor() {
+    }
+
+    virtual swig_storage* create(libtorrent::storage_params const& params) {
+        return NULL;
+    }
+};
+
+storage_interface* swig_storage_constructor_cb(libtorrent::storage_params const& params, swig_storage_constructor* sc) {
+	return sc->create(params);
+}

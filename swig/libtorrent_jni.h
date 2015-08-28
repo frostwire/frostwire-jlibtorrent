@@ -146,5 +146,46 @@ protected:
     Swig::BoolArray<1> swig_override;
 };
 
+struct SwigDirector_swig_storage : public swig_storage, public Swig::Director {
+
+public:
+    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
+    SwigDirector_swig_storage(JNIEnv *jenv);
+    virtual ~SwigDirector_swig_storage();
+    virtual void initialize(libtorrent::storage_error &ec);
+    virtual int read(boost::int64_t iov_base, size_t iov_len, int piece, int offset, int flags, libtorrent::storage_error &ec);
+    virtual int write(boost::int64_t iov_base, size_t iov_len, int piece, int offset, int flags, libtorrent::storage_error &ec);
+    virtual bool has_any_file(libtorrent::storage_error &ec);
+    virtual void set_file_priority(std::vector< boost::uint8_t > const &prio, libtorrent::storage_error &ec);
+    virtual int move_storage(std::string const &save_path, int flags, libtorrent::storage_error &ec);
+    virtual bool verify_resume_data(libtorrent::bdecode_node const &rd, std::vector< std::string > const *links, libtorrent::storage_error &ec);
+    virtual void write_resume_data(libtorrent::entry &rd, libtorrent::storage_error &ec) const;
+    virtual void release_files(libtorrent::storage_error &ec);
+    virtual void rename_file(int index, std::string const &new_filename, libtorrent::storage_error &ec);
+    virtual void delete_files(libtorrent::storage_error &ec);
+    virtual bool tick();
+public:
+    bool swig_overrides(int n) {
+      return (n < 12 ? swig_override[n] : false);
+    }
+protected:
+    Swig::BoolArray<12> swig_override;
+};
+
+class SwigDirector_swig_storage_constructor : public swig_storage_constructor, public Swig::Director {
+
+public:
+    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
+    SwigDirector_swig_storage_constructor(JNIEnv *jenv);
+    virtual ~SwigDirector_swig_storage_constructor();
+    virtual swig_storage *create(libtorrent::storage_params const &params);
+public:
+    bool swig_overrides(int n) {
+      return (n < 1 ? swig_override[n] : false);
+    }
+protected:
+    Swig::BoolArray<1> swig_override;
+};
+
 
 #endif

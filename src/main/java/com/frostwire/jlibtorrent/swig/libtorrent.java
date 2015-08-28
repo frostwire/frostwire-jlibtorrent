@@ -290,6 +290,126 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.device_for_address(address.getCPtr(addr), addr, io_service.getCPtr(ios), ios, error_code.getCPtr(ec), ec);
   }
 
+  public static void stat_file(String f, file_status s, error_code ec, int flags) {
+    libtorrent_jni.stat_file__SWIG_0(f, file_status.getCPtr(s), s, error_code.getCPtr(ec), ec, flags);
+  }
+
+  public static void stat_file(String f, file_status s, error_code ec) {
+    libtorrent_jni.stat_file__SWIG_1(f, file_status.getCPtr(s), s, error_code.getCPtr(ec), ec);
+  }
+
+  public static void rename(String f, String newf, error_code ec) {
+    libtorrent_jni.rename(f, newf, error_code.getCPtr(ec), ec);
+  }
+
+  public static void create_directories(String f, error_code ec) {
+    libtorrent_jni.create_directories(f, error_code.getCPtr(ec), ec);
+  }
+
+  public static void create_directory(String f, error_code ec) {
+    libtorrent_jni.create_directory(f, error_code.getCPtr(ec), ec);
+  }
+
+  public static void remove_all(String f, error_code ec) {
+    libtorrent_jni.remove_all(f, error_code.getCPtr(ec), ec);
+  }
+
+  public static void remove(String f, error_code ec) {
+    libtorrent_jni.remove(f, error_code.getCPtr(ec), ec);
+  }
+
+  public static boolean exists(String f, error_code ec) {
+    return libtorrent_jni.exists__SWIG_0(f, error_code.getCPtr(ec), ec);
+  }
+
+  public static boolean exists(String f) {
+    return libtorrent_jni.exists__SWIG_1(f);
+  }
+
+  public static long file_size(String f) {
+    return libtorrent_jni.file_size(f);
+  }
+
+  public static boolean is_directory(String f, error_code ec) {
+    return libtorrent_jni.is_directory(f, error_code.getCPtr(ec), ec);
+  }
+
+  public static void recursive_copy(String old_path, String new_path, error_code ec) {
+    libtorrent_jni.recursive_copy(old_path, new_path, error_code.getCPtr(ec), ec);
+  }
+
+  public static void copy_file(String f, String newf, error_code ec) {
+    libtorrent_jni.copy_file(f, newf, error_code.getCPtr(ec), ec);
+  }
+
+  public static void hard_link(String file, String link, error_code ec) {
+    libtorrent_jni.hard_link(file, link, error_code.getCPtr(ec), ec);
+  }
+
+  public static String split_path(String f) {
+    return libtorrent_jni.split_path(f);
+  }
+
+  public static String next_path_element(String p) {
+    return libtorrent_jni.next_path_element(p);
+  }
+
+  public static String extension(String f) {
+    return libtorrent_jni.extension(f);
+  }
+
+  public static String remove_extension(String f) {
+    return libtorrent_jni.remove_extension(f);
+  }
+
+  public static void replace_extension(String f, String ext) {
+    libtorrent_jni.replace_extension(f, ext);
+  }
+
+  public static boolean is_root_path(String f) {
+    return libtorrent_jni.is_root_path(f);
+  }
+
+  public static String parent_path(String f) {
+    return libtorrent_jni.parent_path(f);
+  }
+
+  public static boolean has_parent_path(String f) {
+    return libtorrent_jni.has_parent_path(f);
+  }
+
+  public static String filename_cstr(String f) {
+    return libtorrent_jni.filename_cstr(f);
+  }
+
+  public static String filename(String f) {
+    return libtorrent_jni.filename(f);
+  }
+
+  public static String combine_path(String lhs, String rhs) {
+    return libtorrent_jni.combine_path(lhs, rhs);
+  }
+
+  public static void append_path(String branch, String leaf) {
+    libtorrent_jni.append_path__SWIG_0(branch, leaf);
+  }
+
+  public static void append_path(String branch, String str, int len) {
+    libtorrent_jni.append_path__SWIG_1(branch, str, len);
+  }
+
+  public static String complete(String f) {
+    return libtorrent_jni.complete(f);
+  }
+
+  public static boolean is_complete(String f) {
+    return libtorrent_jni.is_complete(f);
+  }
+
+  public static String current_working_directory() {
+    return libtorrent_jni.current_working_directory();
+  }
+
   public static boolean add_files_cb(String p, add_files_listener listener, String id) {
     return libtorrent_jni.add_files_cb(p, add_files_listener.getCPtr(listener), listener, id);
   }
@@ -304,10 +424,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static int get_boost_version() {
     return libtorrent_jni.get_boost_version();
-  }
-
-  public static boolean dht_extension_handler_cb(udp_endpoint source, bdecode_node request, entry response, dht_extension_handler_listener listener) {
-    return libtorrent_jni.dht_extension_handler_cb(udp_endpoint.getCPtr(source), source, bdecode_node.getCPtr(request), request, entry.getCPtr(response), response, dht_extension_handler_listener.getCPtr(listener), listener);
   }
 
 }
