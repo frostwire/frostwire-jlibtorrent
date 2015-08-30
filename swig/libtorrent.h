@@ -80,6 +80,8 @@ struct swig_storage : storage_interface
             if (ec) {
                 return -1;
             }
+
+            offset += bufs[i].iov_len;
         }
         return n;
     }
@@ -98,6 +100,8 @@ struct swig_storage : storage_interface
             if (ec) {
                 return -1;
             }
+
+            offset += bufs[i].iov_len;
         }
         return n;
     }
@@ -108,7 +112,7 @@ struct swig_storage : storage_interface
     }
 
     virtual bool has_any_file(libtorrent::storage_error& ec) {
-        return 0;
+        return false;
     }
 
     virtual void set_file_priority(std::vector<boost::uint8_t> const& prio

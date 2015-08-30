@@ -21,17 +21,14 @@ public abstract class AbstractPeerPlugin implements PeerPlugin {
 
     @Override
     public void addHandshake(Entry e) {
-
     }
 
     @Override
     public void onDisconnect(ErrorCode ec) {
-
     }
 
     @Override
     public void onConnected() {
-
     }
 
     @Override
@@ -121,12 +118,10 @@ public abstract class AbstractPeerPlugin implements PeerPlugin {
 
     @Override
     public void sentUnchoke() {
-
     }
 
     @Override
     public void sentPayload(int bytes) {
-
     }
 
     @Override
@@ -136,17 +131,14 @@ public abstract class AbstractPeerPlugin implements PeerPlugin {
 
     @Override
     public void onPiecePass(int index) {
-
     }
 
     @Override
     public void onPieceFailed(int index) {
-
     }
 
     @Override
     public void tick() {
-
     }
 
     @Override

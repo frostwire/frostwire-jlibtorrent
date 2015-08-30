@@ -3,11 +3,14 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
-import com.frostwire.jlibtorrent.plugins.StoragePlugin;
+import com.frostwire.jlibtorrent.plugins.AbstractStoragePlugin;
 import com.frostwire.jlibtorrent.plugins.SwigStoragePlugin;
 import com.frostwire.jlibtorrent.swig.*;
+import sun.misc.Unsafe;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -20,6 +23,7 @@ public final class CustomStorage {
 
         // comment this line for a real application
         args = new String[]{"/Users/aldenml/Downloads/Kellee_Maize_The_5th_Element_FrostClick_FrostWire_MP3_April_14_2014.torrent"};
+        //args = new String[]{"/Users/aldenml/Downloads/test.torrent"};
 
         File torrentFile = new File(args[0]);
 
@@ -27,13 +31,62 @@ public final class CustomStorage {
 
         final Session s = new Session();
 
-        final SwigStoragePlugin sp = new SwigStoragePlugin(new StoragePlugin() {
+        final HashMap<String, byte[]> memStorage = new HashMap<String, byte[]>();
+
+        final SwigStoragePlugin sp = new SwigStoragePlugin(new AbstractStoragePlugin() {
+            @Override
+            public int read(long iov_base, long iov_len, int piece, int offset, int flags, storage_error ec) {
+                String key = piece + ":" + offset;
+                if (!memStorage.containsKey(key)) {
+                    System.out.println("Read from non existent key: " + key);
+                    return -1;
+                }
+
+                byte[] data = memStorage.get(key);
+
+                Unsafe us = getUnsafe();
+
+                for (int i = 0; i < data.length; i++) {
+                    us.putByte(iov_base + i, data[i]);
+                }
+
+                System.out.println("Read from key: " + key + ", to read=" + data.length);
+
+                return data.length;
+            }
+
+            @Override
+            public int write(long iov_base, long iov_len, int piece, int offset, int flags, storage_error ec) {
+                String key = piece + ":" + offset;
+                if (!memStorage.containsKey(key)) {
+                    System.out.println("Write to a non existent key: " + key);
+                }
+
+                byte[] data = new byte[(int) iov_len];
+
+                Unsafe us = getUnsafe();
+
+                for (int i = 0; i < data.length; i++) {
+                    data[i] = us.getByte(iov_base + i);
+                }
+
+                memStorage.put(key, data);
+
+                System.out.println("Write to key: " + key + ", to write=" + data.length);
+
+                return data.length;
+            }
+
+            @Override
+            public boolean tick() {
+                System.out.println("Storage tick");
+                return true;
+            }
         });
 
         swig_storage_constructor sc = new swig_storage_constructor() {
             @Override
             public swig_storage create(storage_params params) {
-                System.out.println("About to create custom storage");
                 return sp;
             }
         };
@@ -46,14 +99,14 @@ public final class CustomStorage {
             @Override
             public void blockFinished(BlockFinishedAlert alert) {
                 int p = (int) (th.getStatus().getProgress() * 100);
-                System.out.println("Progress: " + p + " for torrent name: " + alert.torrentName());
-                System.out.println(s.getStats().download());
+                //System.out.println("Progress: " + p + " for torrent name: " + alert.torrentName());
+                //System.out.println(s.getStats().download());
             }
 
             @Override
             public void torrentFinished(TorrentFinishedAlert alert) {
                 System.out.print("Torrent finished");
-                signal.countDown();
+                //signal.countDown();
             }
         });
 
@@ -111,5 +164,15 @@ public final class CustomStorage {
             torrent_handle th = s.add_torrent(p);
             return new TorrentHandle(th);
         }
+    }
+
+    public static Unsafe getUnsafe() {
+        try {
+            Field f = Unsafe.class.getDeclaredField("theUnsafe");
+            f.setAccessible(true);
+            return (Unsafe) f.get(null);
+        } catch (Exception e) {
+        }
+        return null;
     }
 }
