@@ -50,8 +50,8 @@ public class set_piece_hashes_listener {
     libtorrent_jni.set_piece_hashes_listener_change_ownership(this, swigCPtr, true);
   }
 
-  public void progress(String id, int num_pieces, int i) {
-    if (getClass() == set_piece_hashes_listener.class) libtorrent_jni.set_piece_hashes_listener_progress(swigCPtr, this, id, num_pieces, i); else libtorrent_jni.set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(swigCPtr, this, id, num_pieces, i);
+  public void progress(int i) {
+    if (getClass() == set_piece_hashes_listener.class) libtorrent_jni.set_piece_hashes_listener_progress(swigCPtr, this, i); else libtorrent_jni.set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(swigCPtr, this, i);
   }
 
   public set_piece_hashes_listener() {

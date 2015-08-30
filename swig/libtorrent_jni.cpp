@@ -3477,25 +3477,22 @@ SwigDirector_add_files_listener::~SwigDirector_add_files_listener() {
 }
 
 
-bool SwigDirector_add_files_listener::pred(std::string const &id, std::string const &p) {
+bool SwigDirector_add_files_listener::pred(std::string const &p) {
   bool c_result = SwigValueInit< bool >() ;
   jboolean jresult = 0 ;
   JNIEnvWrapper swigjnienv(this) ;
   JNIEnv * jenv = swigjnienv.getJNIEnv() ;
   jobject swigjobj = (jobject) NULL ;
-  jstring jid = 0 ;
   jstring jp = 0 ;
   
   if (!swig_override[0]) {
-    return add_files_listener::pred(id,p);
+    return add_files_listener::pred(p);
   }
   swigjobj = swig_get_self(jenv);
   if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
-    jid = jenv->NewStringUTF((&id)->c_str());
-    Swig::LocalRefGuard id_refguard(jenv, jid); 
     jp = jenv->NewStringUTF((&p)->c_str());
     Swig::LocalRefGuard p_refguard(jenv, jp); 
-    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[48], swigjobj, jid, jp);
+    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[48], swigjobj, jp);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
       jenv->ExceptionClear();
@@ -3517,7 +3514,7 @@ void SwigDirector_add_files_listener::swig_connect_director(JNIEnv *jenv, jobjec
     jmethodID base_methid;
   } methods[] = {
     {
-      "pred", "(Ljava/lang/String;Ljava/lang/String;)Z", NULL 
+      "pred", "(Ljava/lang/String;)Z", NULL 
     }
   };
   
@@ -3554,25 +3551,20 @@ SwigDirector_set_piece_hashes_listener::~SwigDirector_set_piece_hashes_listener(
 }
 
 
-void SwigDirector_set_piece_hashes_listener::progress(std::string const &id, int num_pieces, int i) {
+void SwigDirector_set_piece_hashes_listener::progress(int i) {
   JNIEnvWrapper swigjnienv(this) ;
   JNIEnv * jenv = swigjnienv.getJNIEnv() ;
   jobject swigjobj = (jobject) NULL ;
-  jstring jid = 0 ;
-  jint jnum_pieces  ;
   jint ji  ;
   
   if (!swig_override[0]) {
-    set_piece_hashes_listener::progress(id,num_pieces,i);
+    set_piece_hashes_listener::progress(i);
     return;
   }
   swigjobj = swig_get_self(jenv);
   if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
-    jid = jenv->NewStringUTF((&id)->c_str());
-    Swig::LocalRefGuard id_refguard(jenv, jid); 
-    jnum_pieces = (jint) num_pieces;
     ji = (jint) i;
-    jenv->CallStaticVoidMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[49], swigjobj, jid, jnum_pieces, ji);
+    jenv->CallStaticVoidMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[49], swigjobj, ji);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
       jenv->ExceptionClear();
@@ -3592,7 +3584,7 @@ void SwigDirector_set_piece_hashes_listener::swig_connect_director(JNIEnv *jenv,
     jmethodID base_methid;
   } methods[] = {
     {
-      "progress", "(Ljava/lang/String;II)V", NULL 
+      "progress", "(I)V", NULL 
     }
   };
   
@@ -98153,7 +98145,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("331709629a676a9dd7e4df5b14e182d5e5421e7f");
+  result = (char *)("b2e06325dd0fe56ca118e7e49c409e8115767337");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -98176,11 +98168,10 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1listener_1pred(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3) {
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1listener_1pred(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jboolean jresult = 0 ;
   add_files_listener *arg1 = (add_files_listener *) 0 ;
   std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
   bool result;
   
   (void)jenv;
@@ -98196,18 +98187,9 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  if(!jarg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  }
-  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
-  if (!arg3_pstr) return 0;
-  std::string arg3_str(arg3_pstr);
-  arg3 = &arg3_str;
-  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   {
     try {
-      result = (bool)(arg1)->pred((std::string const &)*arg2,(std::string const &)*arg3);
+      result = (bool)(arg1)->pred((std::string const &)*arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -98218,11 +98200,10 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1listener_1predSwigExplicitadd_1files_1listener(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3) {
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1listener_1predSwigExplicitadd_1files_1listener(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jboolean jresult = 0 ;
   add_files_listener *arg1 = (add_files_listener *) 0 ;
   std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
   bool result;
   
   (void)jenv;
@@ -98238,18 +98219,9 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  if(!jarg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  }
-  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
-  if (!arg3_pstr) return 0;
-  std::string arg3_str(arg3_pstr);
-  arg3 = &arg3_str;
-  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   {
     try {
-      result = (bool)(arg1)->add_files_listener::pred((std::string const &)*arg2,(std::string const &)*arg3);
+      result = (bool)(arg1)->add_files_listener::pred((std::string const &)*arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -98299,11 +98271,10 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1cb(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_, jstring jarg3) {
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1cb(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_) {
   jboolean jresult = 0 ;
   std::string *arg1 = 0 ;
   add_files_listener *arg2 = (add_files_listener *) 0 ;
-  std::string *arg3 = 0 ;
   bool result;
   
   (void)jenv;
@@ -98319,18 +98290,9 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   arg1 = &arg1_str;
   jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
   arg2 = *(add_files_listener **)&jarg2; 
-  if(!jarg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  }
-  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
-  if (!arg3_pstr) return 0;
-  std::string arg3_str(arg3_pstr);
-  arg3 = &arg3_str;
-  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   {
     try {
-      result = (bool)add_files_cb((std::string const &)*arg1,arg2,*arg3);
+      result = (bool)add_files_cb((std::string const &)*arg1,arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -98341,45 +98303,35 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_, jstring jarg3, jlong jarg4, jlong jarg5, jobject jarg5_) {
-  std::string *arg1 = 0 ;
-  libtorrent::file_storage *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  boost::uint32_t arg4 ;
-  add_files_listener *arg5 = (add_files_listener *) 0 ;
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3, jlong jarg4, jobject jarg4_) {
+  libtorrent::file_storage *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  boost::uint32_t arg3 ;
+  add_files_listener *arg4 = (add_files_listener *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg2_;
-  (void)jarg5_;
-  if(!jarg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return ;
-  }
-  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
-  if (!arg1_pstr) return ;
-  std::string arg1_str(arg1_pstr);
-  arg1 = &arg1_str;
-  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  arg2 = *(libtorrent::file_storage **)&jarg2;
-  if (!arg2) {
+  (void)jarg1_;
+  (void)jarg4_;
+  arg1 = *(libtorrent::file_storage **)&jarg1;
+  if (!arg1) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::file_storage & reference is null");
     return ;
   } 
-  if(!jarg3) {
+  if(!jarg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
     return ;
   }
-  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
-  if (!arg3_pstr) return ;
-  std::string arg3_str(arg3_pstr);
-  arg3 = &arg3_str;
-  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
-  arg4 = (boost::uint32_t)jarg4; 
-  arg5 = *(add_files_listener **)&jarg5; 
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = (boost::uint32_t)jarg3; 
+  arg4 = *(add_files_listener **)&jarg4; 
   {
     try {
-      add_files((std::string const &)*arg1,*arg2,(std::string const &)*arg3,arg4,arg5);
+      add_files(*arg1,(std::string const &)*arg2,arg3,arg4);
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;
@@ -98408,11 +98360,9 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jint jarg4) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   set_piece_hashes_listener *arg1 = (set_piece_hashes_listener *) 0 ;
-  std::string *arg2 = 0 ;
-  int arg3 ;
-  int arg4 ;
+  int arg2 ;
   boost::shared_ptr< set_piece_hashes_listener > *smartarg1 = 0 ;
   
   (void)jenv;
@@ -98421,20 +98371,10 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
   
   smartarg1 = *(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg1;
   arg1 = (set_piece_hashes_listener *)(smartarg1 ? smartarg1->get() : 0); 
-  if(!jarg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return ;
-  }
-  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
-  if (!arg2_pstr) return ;
-  std::string arg2_str(arg2_pstr);
-  arg2 = &arg2_str;
-  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  arg3 = (int)jarg3; 
-  arg4 = (int)jarg4; 
+  arg2 = (int)jarg2; 
   {
     try {
-      (arg1)->progress((std::string const &)*arg2,arg3,arg4);
+      (arg1)->progress(arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;
@@ -98443,11 +98383,9 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progressSwigExplicitset_1piece_1hashes_1listener(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jint jarg4) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progressSwigExplicitset_1piece_1hashes_1listener(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   set_piece_hashes_listener *arg1 = (set_piece_hashes_listener *) 0 ;
-  std::string *arg2 = 0 ;
-  int arg3 ;
-  int arg4 ;
+  int arg2 ;
   boost::shared_ptr< set_piece_hashes_listener > *smartarg1 = 0 ;
   
   (void)jenv;
@@ -98456,20 +98394,10 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
   
   smartarg1 = *(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg1;
   arg1 = (set_piece_hashes_listener *)(smartarg1 ? smartarg1->get() : 0); 
-  if(!jarg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return ;
-  }
-  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
-  if (!arg2_pstr) return ;
-  std::string arg2_str(arg2_pstr);
-  arg2 = &arg2_str;
-  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  arg3 = (int)jarg3; 
-  arg4 = (int)jarg4; 
+  arg2 = (int)jarg2; 
   {
     try {
-      (arg1)->set_piece_hashes_listener::progress((std::string const &)*arg2,arg3,arg4);
+      (arg1)->set_piece_hashes_listener::progress(arg2);
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;
@@ -98576,7 +98504,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_get_1boost_1version(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_boost_1version(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -98584,13 +98512,32 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_get_
   (void)jcls;
   {
     try {
-      result = (int)get_boost_version();
+      result = (int)boost_version();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
     }
   }
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_boost_1lib_1version(JNIEnv *jenv, jclass jcls) {
+  jstring jresult = 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (char *)boost_lib_version();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
 
@@ -100629,10 +100576,10 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
       "SwigDirector_swig_peer_plugin_write_request", "(Lcom/frostwire/jlibtorrent/swig/swig_peer_plugin;J)Z" 
     },
     {
-      "SwigDirector_add_files_listener_pred", "(Lcom/frostwire/jlibtorrent/swig/add_files_listener;Ljava/lang/String;Ljava/lang/String;)Z" 
+      "SwigDirector_add_files_listener_pred", "(Lcom/frostwire/jlibtorrent/swig/add_files_listener;Ljava/lang/String;)Z" 
     },
     {
-      "SwigDirector_set_piece_hashes_listener_progress", "(Lcom/frostwire/jlibtorrent/swig/set_piece_hashes_listener;Ljava/lang/String;II)V" 
+      "SwigDirector_set_piece_hashes_listener_progress", "(Lcom/frostwire/jlibtorrent/swig/set_piece_hashes_listener;I)V" 
     },
     {
       "SwigDirector_dht_extension_handler_listener_on_message", "(Lcom/frostwire/jlibtorrent/swig/dht_extension_handler_listener;JJJ)Z" 

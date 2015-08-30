@@ -50,8 +50,8 @@ struct swig_plugin : plugin {
     }
 };
 
-struct swig_torrent_plugin: torrent_plugin
-{
+struct swig_torrent_plugin: torrent_plugin {
+
     virtual ~swig_torrent_plugin() {
     }
 
@@ -152,10 +152,14 @@ struct swig_peer_plugin : peer_plugin
         return false;
     }
 
-    virtual void on_piece_pass(int index) {}
-    virtual void on_piece_failed(int index) {}
+    virtual void on_piece_pass(int index) {
+    }
 
-    virtual void tick() {}
+    virtual void on_piece_failed(int index) {
+    }
+
+    virtual void tick() {
+    }
 
     virtual bool write_request(libtorrent::peer_request const& r) {
         return false;
@@ -163,17 +167,19 @@ struct swig_peer_plugin : peer_plugin
 };
 
 boost::shared_ptr<torrent_plugin> swig_plugin::new_torrent(libtorrent::torrent_handle const& t, void*) {
-    return boost::shared_ptr<torrent_plugin>(new_torrent(t));
+    swig_torrent_plugin* p = new_torrent(t);
+    return p != NULL ? boost::shared_ptr<torrent_plugin>(p) : boost::shared_ptr<torrent_plugin>();
 }
 
 swig_torrent_plugin* swig_plugin::new_torrent(libtorrent::torrent_handle const& t) {
-    return new swig_torrent_plugin();
+    return NULL;
 }
 
 boost::shared_ptr<peer_plugin> swig_torrent_plugin::new_connection(libtorrent::peer_connection_handle const& pc) {
-    return boost::shared_ptr<peer_plugin>(new_peer_connection(pc));
+    swig_peer_plugin* p = new_peer_connection(pc);
+    return p != NULL ? boost::shared_ptr<peer_plugin>(p) : boost::shared_ptr<peer_plugin>();
 }
 
 swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_connection_handle const& pc) {
-    return new swig_peer_plugin();
+    return NULL;
 }

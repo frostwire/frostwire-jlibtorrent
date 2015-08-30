@@ -4576,21 +4576,22 @@ public class libtorrent_jni {
   public final static native String LIBTORRENT_REVISION_SHA1_get();
   public final static native String JLIBTORRENT_REVISION_SHA1_get();
   public final static native void delete_add_files_listener(long jarg1);
-  public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2, String jarg3);
-  public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2, String jarg3);
+  public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
+  public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2);
   public final static native long new_add_files_listener();
   public final static native void add_files_listener_director_connect(add_files_listener obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void add_files_listener_change_ownership(add_files_listener obj, long cptr, boolean take_or_release);
-  public final static native boolean add_files_cb(String jarg1, long jarg2, add_files_listener jarg2_, String jarg3);
-  public final static native void add_files(String jarg1, long jarg2, file_storage jarg2_, String jarg3, long jarg4, long jarg5, add_files_listener jarg5_);
+  public final static native boolean add_files_cb(String jarg1, long jarg2, add_files_listener jarg2_);
+  public final static native void add_files(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, add_files_listener jarg4_);
   public final static native void delete_set_piece_hashes_listener(long jarg1);
-  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, String jarg2, int jarg3, int jarg4);
+  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
+  public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
   public final static native long new_set_piece_hashes_listener();
   public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
   public final static native void set_piece_hashes(String jarg1, long jarg2, create_torrent jarg2_, String jarg3, long jarg4, error_code jarg4_, long jarg5, set_piece_hashes_listener jarg5_);
-  public final static native int get_boost_version();
+  public final static native int boost_version();
+  public final static native String boost_lib_version();
   public final static native void delete_dht_extension_handler_listener(long jarg1);
   public final static native boolean dht_extension_handler_listener_on_message(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
   public final static native boolean dht_extension_handler_listener_on_messageSwigExplicitdht_extension_handler_listener(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
@@ -4874,11 +4875,11 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_peer_plugin_write_request(swig_peer_plugin jself, long r) {
     return jself.write_request(new peer_request(r, false));
   }
-  public static boolean SwigDirector_add_files_listener_pred(add_files_listener jself, String id, String p) {
-    return jself.pred(id, p);
+  public static boolean SwigDirector_add_files_listener_pred(add_files_listener jself, String p) {
+    return jself.pred(p);
   }
-  public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, String id, int num_pieces, int i) {
-    jself.progress(id, num_pieces, i);
+  public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, int i) {
+    jself.progress(i);
   }
   public static boolean SwigDirector_dht_extension_handler_listener_on_message(dht_extension_handler_listener jself, long source, long request, long response) {
     return jself.on_message(new udp_endpoint(source, false), new bdecode_node(request, false), new entry(response, false));

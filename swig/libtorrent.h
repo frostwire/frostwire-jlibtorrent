@@ -8,17 +8,17 @@ public:
     virtual ~add_files_listener() {
     }
 
-    virtual bool pred(std::string const& id, std::string const& p) {
+    virtual bool pred(std::string const& p) {
         return true;
     }
 };
 
-bool add_files_cb(std::string const& p, add_files_listener* listener, std::string& id) {
-	return listener->pred(id, p);
+bool add_files_cb(std::string const& p, add_files_listener* listener) {
+	return listener->pred(p);
 }
 
-void add_files(std::string const& id, libtorrent::file_storage& fs, std::string const& file, boost::uint32_t flags, add_files_listener* listener) {
-    add_files(fs, file, boost::bind(&add_files_cb, _1, listener, id), flags);
+void add_files(libtorrent::file_storage& fs, std::string const& file, boost::uint32_t flags, add_files_listener* listener) {
+    add_files(fs, file, boost::bind(&add_files_cb, _1, listener), flags);
 }
 
 class set_piece_hashes_listener {
@@ -26,20 +26,24 @@ public:
     virtual ~set_piece_hashes_listener() {
     }
 
-    virtual void progress(std::string const& id, int num_pieces, int i) {
+    virtual void progress(int i) {
     }
 };
 
-void set_piece_hashes_cb(int i, set_piece_hashes_listener* listener, std::string& id, int num_pieces) {
-	listener->progress(id, num_pieces, i);
+void set_piece_hashes_cb(int i, set_piece_hashes_listener* listener) {
+	listener->progress(i);
 }
 
 void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std::string const& p, libtorrent::error_code& ec, set_piece_hashes_listener* listener) {
-    set_piece_hashes(t, p, boost::bind(&set_piece_hashes_cb, _1, listener, id, t.num_pieces()), ec);
+    set_piece_hashes(t, p, boost::bind(&set_piece_hashes_cb, _1, listener), ec);
 }
 
-int get_boost_version() {
+int boost_version() {
     return BOOST_VERSION;
+}
+
+char* boost_lib_version() {
+    return BOOST_LIB_VERSION;
 }
 
 class dht_extension_handler_listener {
@@ -72,7 +76,7 @@ struct swig_storage : storage_interface
         int n = 0;
         for (int i = 0; i < num_bufs; i++) {
             n += read((boost::int64_t)bufs[i].iov_base, bufs[i].iov_len,
-                        piece, offset, flags, ec);
+                       piece, offset, flags, ec);
             if (ec) {
                 return -1;
             }
@@ -81,7 +85,8 @@ struct swig_storage : storage_interface
     }
 
     virtual int read(boost::int64_t iov_base, size_t iov_len
-            , int piece, int offset, int flags, libtorrent::storage_error& ec) {
+        , int piece, int offset, int flags, libtorrent::storage_error& ec) {
+        return 0;
     }
 
     int writev(libtorrent::file::iovec_t const* bufs, int num_bufs

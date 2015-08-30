@@ -53,7 +53,7 @@ public final class MkTorrent extends Tool<Entry> {
         if (listener != null) {
             add_files_listener l = new add_files_listener() {
                 @Override
-                public boolean pred(String id, String p) {
+                public boolean pred(String p) {
                     if (MkTorrent.this.id.equals(id)) {
                         return listener.pred(MkTorrent.this, p);
                     } else {
@@ -61,7 +61,7 @@ public final class MkTorrent extends Tool<Entry> {
                     }
                 }
             };
-            libtorrent.add_files(id, fs, f.getAbsolutePath(), 0L, l);
+            libtorrent.add_files(fs, f.getAbsolutePath(), 0L, l);
         } else {
             libtorrent.add_files(fs, f.getAbsolutePath());
         }
@@ -73,10 +73,8 @@ public final class MkTorrent extends Tool<Entry> {
         if (listener != null) {
             set_piece_hashes_listener l = new set_piece_hashes_listener() {
                 @Override
-                public void progress(String id, int num_pieces, int i) {
-                    if (MkTorrent.this.id.equals(id)) {
-                        listener.progress(MkTorrent.this, num_pieces, i);
-                    }
+                public void progress(int i) {
+                    listener.progress(MkTorrent.this, i);
                 }
             };
 
@@ -102,7 +100,7 @@ public final class MkTorrent extends Tool<Entry> {
 
         boolean pred(MkTorrent mkt, String p);
 
-        void progress(MkTorrent mkt, int numPieces, int i);
+        void progress(MkTorrent mkt, int i);
 
         void done(MkTorrent mkt, Entry e);
     }
@@ -128,8 +126,8 @@ public final class MkTorrent extends Tool<Entry> {
             }
 
             @Override
-            public void progress(MkTorrent mkt, int numPieces, int i) {
-                System.out.println("Calculated hash for piece: " + (i + 1) + " of " + numPieces);
+            public void progress(MkTorrent mkt, int i) {
+                System.out.println("Calculated hash for piece: " + (i + 1));
             }
 
             @Override

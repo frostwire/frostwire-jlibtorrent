@@ -50,8 +50,8 @@ public class add_files_listener {
     libtorrent_jni.add_files_listener_change_ownership(this, swigCPtr, true);
   }
 
-  public boolean pred(String id, String p) {
-    return (getClass() == add_files_listener.class) ? libtorrent_jni.add_files_listener_pred(swigCPtr, this, id, p) : libtorrent_jni.add_files_listener_predSwigExplicitadd_files_listener(swigCPtr, this, id, p);
+  public boolean pred(String p) {
+    return (getClass() == add_files_listener.class) ? libtorrent_jni.add_files_listener_pred(swigCPtr, this, p) : libtorrent_jni.add_files_listener_predSwigExplicitadd_files_listener(swigCPtr, this, p);
   }
 
   public add_files_listener() {
