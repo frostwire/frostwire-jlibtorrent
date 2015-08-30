@@ -305,8 +305,8 @@ public class torrent {
     libtorrent_jni.torrent_set_queue_position_impl(swigCPtr, this, p);
   }
 
-  public void second_tick(int tick_interval_ms, int residual) {
-    libtorrent_jni.torrent_second_tick(swigCPtr, this, tick_interval_ms, residual);
+  public void second_tick(int tick_interval_ms) {
+    libtorrent_jni.torrent_second_tick(swigCPtr, this, tick_interval_ms);
   }
 
   public void maybe_connect_web_seeds() {

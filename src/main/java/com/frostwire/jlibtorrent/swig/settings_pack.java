@@ -237,6 +237,7 @@ public class settings_pack {
     proxy_hostnames,
     proxy_peer_connections,
     auto_sequential,
+    proxy_tracker_connections,
     max_bool_setting_internal;
 
     public final int swigValue() {
