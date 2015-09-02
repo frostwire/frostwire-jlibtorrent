@@ -290,14 +290,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.device_for_address(address.getCPtr(addr), addr, io_service.getCPtr(ios), ios, error_code.getCPtr(ec), ec);
   }
 
-  public static void stat_file(String f, file_status s, error_code ec, int flags) {
-    libtorrent_jni.stat_file__SWIG_0(f, file_status.getCPtr(s), s, error_code.getCPtr(ec), ec, flags);
-  }
-
-  public static void stat_file(String f, file_status s, error_code ec) {
-    libtorrent_jni.stat_file__SWIG_1(f, file_status.getCPtr(s), s, error_code.getCPtr(ec), ec);
-  }
-
   public static void rename(String f, String newf, error_code ec) {
     libtorrent_jni.rename(f, newf, error_code.getCPtr(ec), ec);
   }

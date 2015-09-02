@@ -721,6 +721,8 @@ namespace std {
 %ignore libtorrent::zero_storage::writev;
 %ignore libtorrent::file::readv;
 %ignore libtorrent::file::writev;
+%ignore libtorrent::file_status;
+%ignore libtorrent::stat_file;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
