@@ -27,7 +27,7 @@ import java.util.List;
  * @author gubatron
  * @author aldenml
  */
-public final class Session {
+public final class Session extends SessionHandle {
 
     private static final Logger LOG = Logger.getLogger(Session.class);
 
@@ -54,22 +54,10 @@ public final class Session {
      * @param logging
      */
     public Session(SettingsPack settings, boolean logging) {
-        settings_pack sp = settings.getSwig();
+        super(createSession(settings, logging));
 
-        int alert_mask = alert.category_t.all_categories.swigValue();
-        if (!logging) {
-            int log_mask = alert.category_t.session_log_notification.swigValue() |
-                    alert.category_t.torrent_log_notification.swigValue() |
-                    alert.category_t.peer_log_notification.swigValue() |
-                    alert.category_t.dht_log_notification.swigValue() |
-                    alert.category_t.port_mapping_log_notification.swigValue();
-            alert_mask = alert_mask & ~log_mask;
-        }
+        this.s = (session) super.s;
 
-        // we always override alert_mask since we use it for our internal operations
-        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
-
-        this.s = new session(sp);
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
 
@@ -86,28 +74,12 @@ public final class Session {
         this.plugins = new LinkedList<SwigPlugin>();
     }
 
+    @Deprecated
     public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers, boolean logging) {
+        super(createSessionDeprecated(print, prange, iface, routers, logging));
 
-        int alert_mask = alert.category_t.all_categories.swigValue();
-        if (!logging) {
-            int log_mask = alert.category_t.session_log_notification.swigValue() |
-                    alert.category_t.torrent_log_notification.swigValue() |
-                    alert.category_t.peer_log_notification.swigValue() |
-                    alert.category_t.dht_log_notification.swigValue() |
-                    alert.category_t.port_mapping_log_notification.swigValue();
-            alert_mask = alert_mask & ~log_mask;
-        }
+        this.s = (session) super.s;
 
-        settings_pack sp = new settings_pack();
-
-        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
-        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), prange.second - prange.first);
-        sp.set_str(settings_pack.string_types.peer_fingerprint.swigValue(), print.toString());
-
-        String if_string = String.format("%s:%d", iface, prange.first);
-        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), if_string);
-
-        this.s = new session(sp);
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
 
@@ -1092,6 +1064,48 @@ public final class Session {
         stat.sent(payload, protocol, ip);
 
         stat.secondTick(tickIntervalMs);
+    }
+
+    private static session createSession(SettingsPack settings, boolean logging) {
+        settings_pack sp = settings.getSwig();
+
+        int alert_mask = alert.category_t.all_categories.swigValue();
+        if (!logging) {
+            int log_mask = alert.category_t.session_log_notification.swigValue() |
+                    alert.category_t.torrent_log_notification.swigValue() |
+                    alert.category_t.peer_log_notification.swigValue() |
+                    alert.category_t.dht_log_notification.swigValue() |
+                    alert.category_t.port_mapping_log_notification.swigValue();
+            alert_mask = alert_mask & ~log_mask;
+        }
+
+        // we always override alert_mask since we use it for our internal operations
+        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
+
+        return new session(sp);
+    }
+
+    private static session createSessionDeprecated(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers, boolean logging) {
+        int alert_mask = alert.category_t.all_categories.swigValue();
+        if (!logging) {
+            int log_mask = alert.category_t.session_log_notification.swigValue() |
+                    alert.category_t.torrent_log_notification.swigValue() |
+                    alert.category_t.peer_log_notification.swigValue() |
+                    alert.category_t.dht_log_notification.swigValue() |
+                    alert.category_t.port_mapping_log_notification.swigValue();
+            alert_mask = alert_mask & ~log_mask;
+        }
+
+        settings_pack sp = new settings_pack();
+
+        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
+        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), prange.second - prange.first);
+        sp.set_str(settings_pack.string_types.peer_fingerprint.swigValue(), print.toString());
+
+        String if_string = String.format("%s:%d", iface, prange.first);
+        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), if_string);
+
+        return new session(sp);
     }
 
     /**
