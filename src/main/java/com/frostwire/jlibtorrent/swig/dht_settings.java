@@ -159,4 +159,20 @@ public class dht_settings {
     return libtorrent_jni.dht_settings_block_ratelimit_get(swigCPtr, this);
   }
 
+  public void setRead_only(boolean value) {
+    libtorrent_jni.dht_settings_read_only_set(swigCPtr, this, value);
+  }
+
+  public boolean getRead_only() {
+    return libtorrent_jni.dht_settings_read_only_get(swigCPtr, this);
+  }
+
+  public void setItem_lifetime(int value) {
+    libtorrent_jni.dht_settings_item_lifetime_set(swigCPtr, this, value);
+  }
+
+  public int getItem_lifetime() {
+    return libtorrent_jni.dht_settings_item_lifetime_get(swigCPtr, this);
+  }
+
 }

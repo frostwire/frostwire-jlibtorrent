@@ -88,6 +88,8 @@
 #include "libtorrent/utp_stream.hpp"
 #include "libtorrent/enum_net.hpp"
 #include "libtorrent/file.hpp"
+#include "libtorrent/announce_entry.hpp"
+#include "libtorrent/torrent_status.hpp"
 
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -845,6 +847,8 @@ namespace std {
 %include "libtorrent/utp_stream.hpp"
 %include "libtorrent/enum_net.hpp"
 %include "libtorrent/file.hpp"
+%include "libtorrent/announce_entry.hpp"
+%include "libtorrent/torrent_status.hpp"
 
 namespace libtorrent {
     

@@ -632,6 +632,30 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_is_loaded_get(swigCPtr, this);
   }
 
+  public void setAnnouncing_to_trackers(boolean value) {
+    libtorrent_jni.torrent_status_announcing_to_trackers_set(swigCPtr, this, value);
+  }
+
+  public boolean getAnnouncing_to_trackers() {
+    return libtorrent_jni.torrent_status_announcing_to_trackers_get(swigCPtr, this);
+  }
+
+  public void setAnnouncing_to_lsd(boolean value) {
+    libtorrent_jni.torrent_status_announcing_to_lsd_set(swigCPtr, this, value);
+  }
+
+  public boolean getAnnouncing_to_lsd() {
+    return libtorrent_jni.torrent_status_announcing_to_lsd_get(swigCPtr, this);
+  }
+
+  public void setAnnouncing_to_dht(boolean value) {
+    libtorrent_jni.torrent_status_announcing_to_dht_set(swigCPtr, this, value);
+  }
+
+  public boolean getAnnouncing_to_dht() {
+    return libtorrent_jni.torrent_status_announcing_to_dht_get(swigCPtr, this);
+  }
+
   public void setInfo_hash(sha1_hash value) {
     libtorrent_jni.torrent_status_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
