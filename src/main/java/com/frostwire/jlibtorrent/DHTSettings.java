@@ -318,4 +318,96 @@ public final class DHTSettings {
     public void setIgnoreDarkInternet(boolean value) {
         s.setIgnore_dark_internet(value);
     }
+
+    /**
+     * The number of seconds a DHT node is banned if it exceeds the rate
+     * limit. The rate limit is averaged over 10 seconds to allow for bursts
+     * above the limit.
+     *
+     * @return
+     */
+    public int blockTimeout() {
+        return s.getBlock_timeout();
+    }
+
+    /**
+     * The number of seconds a DHT node is banned if it exceeds the rate
+     * limit. The rate limit is averaged over 10 seconds to allow for bursts
+     * above the limit.
+     *
+     * @param value
+     */
+    public void blockTimeout(int value) {
+        s.setBlock_timeout(value);
+    }
+
+    /**
+     * The max number of packets per second a DHT node is allowed to send
+     * without getting banned.
+     *
+     * @return
+     */
+    public int blockRatelimit() {
+        return s.getBlock_ratelimit();
+    }
+
+    /**
+     * The max number of packets per second a DHT node is allowed to send
+     * without getting banned.
+     *
+     * @param value
+     */
+    public void blockRatelimit(int value) {
+        s.setBlock_ratelimit(value);
+    }
+
+    /**
+     * When set, the other nodes won't keep this node in their routing
+     * tables, it's meant for low-power and/or ephemeral devices that
+     * cannot support the DHT, it is also useful for mobile devices which
+     * are sensitive to network traffic and battery life.
+     * this node no longer responds to 'query' messages, and will place a
+     * 'ro' key (value = 1) in the top-level message dictionary of outgoing
+     * query messages.
+     *
+     * @return
+     */
+    public boolean readOnly() {
+        return s.getRead_only();
+    }
+
+    /**
+     * When set, the other nodes won't keep this node in their routing
+     * tables, it's meant for low-power and/or ephemeral devices that
+     * cannot support the DHT, it is also useful for mobile devices which
+     * are sensitive to network traffic and battery life.
+     * this node no longer responds to 'query' messages, and will place a
+     * 'ro' key (value = 1) in the top-level message dictionary of outgoing
+     * query messages.
+     *
+     * @param value
+     */
+    public void readOnly(boolean value) {
+        s.setRead_only(value);
+    }
+
+    /**
+     * The number of seconds a immutable/mutable item will be expired.
+     * default is 0, means never expires.
+     *
+     * @return
+     */
+    public int itemLifetime() {
+        return s.getItem_lifetime();
+    }
+
+    /**
+     * The number of seconds a immutable/mutable item will be expired.
+     * default is 0, means never expires.
+     *
+     * @param value
+     */
+    public void itemLifetime(int value) {
+        s.setItem_lifetime(value);
+    }
 }

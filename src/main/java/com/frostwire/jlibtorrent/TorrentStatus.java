@@ -655,6 +655,53 @@ public final class TorrentStatus {
     }
 
     /**
+     * True if this torrent is loaded into RAM. A torrent can be started
+     * and still not loaded into RAM, in case it has not had any peers interested in it
+     * yet. Torrents are loaded on demand.
+     *
+     * @return
+     */
+    public boolean isLoaded() {
+        return ts.getIs_loaded();
+    }
+
+    /**
+     * These are set to true if this torrent is allowed to announce to the
+     * respective peer source. Whether they are true or false is determined by
+     * the queue logic/auto manager. Torrents that are not auto managed will
+     * always be allowed to announce to all peer sources.
+     *
+     * @return
+     */
+    public boolean announcingToTrackers() {
+        return ts.getAnnouncing_to_trackers();
+    }
+
+    /**
+     * These are set to true if this torrent is allowed to announce to the
+     * respective peer source. Whether they are true or false is determined by
+     * the queue logic/auto manager. Torrents that are not auto managed will
+     * always be allowed to announce to all peer sources.
+     *
+     * @return
+     */
+    public boolean announcingToLsd() {
+        return ts.getAnnouncing_to_lsd();
+    }
+
+    /**
+     * These are set to true if this torrent is allowed to announce to the
+     * respective peer source. Whether they are true or false is determined by
+     * the queue logic/auto manager. Torrents that are not auto managed will
+     * always be allowed to announce to all peer sources.
+     *
+     * @return
+     */
+    public boolean announcingToDht() {
+        return ts.getAnnouncing_to_dht();
+    }
+
+    /**
      * the info-hash for this torrent.
      *
      * @return

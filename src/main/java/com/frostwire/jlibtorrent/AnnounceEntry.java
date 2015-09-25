@@ -59,4 +59,14 @@ public final class AnnounceEntry {
     public String getMessage() {
         return e.getMessage();
     }
+
+    /**
+     * if this tracker failed the last time it was contacted
+     * this error code specifies what error occurred.
+     *
+     * @return
+     */
+    public ErrorCode lastError() {
+        return new ErrorCode(e.getLast_error());
+    }
 }
