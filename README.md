@@ -24,7 +24,7 @@ Note that there are multiple version of jlibtorrent for different platforms: `jl
 
 Here's a simple example of how to create a .torrent downloader using **frostwire-jlibtorrent**.
 
-```
+```java
 public final class DownloadTorrent {
 
     public static void main(String[] args) throws Throwable {
