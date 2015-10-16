@@ -79,7 +79,7 @@ export OPENSSL_ROOT=<path>/openssl-1.0.2c
 OpenSSL
 
 For android, read this page https://wiki.openssl.org/index.php/Android and install it for arm, arm64, x86, x86_64
-but make this changes:
+but make these changes:
 
 The setup in this project is to compile in Mac OS X. Use the file openssl-android-env.sh in this repo instead and
 source it (no execute it).
