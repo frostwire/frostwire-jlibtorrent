@@ -323,6 +323,7 @@ public class settings_pack {
     peer_tos,
     active_downloads,
     active_seeds,
+    active_checking,
     active_dht_limit,
     active_tracker_limit,
     active_lsd_limit,

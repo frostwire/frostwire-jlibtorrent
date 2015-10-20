@@ -494,6 +494,7 @@ namespace std {
 %ignore libtorrent::session_handle::set_load_function;
 %ignore libtorrent::session_handle::set_alert_notify;
 %ignore libtorrent::session_handle::native_handle;
+%ignore libtorrent::session_handle::set_dht_storage;
 %ignore libtorrent::session_stats_alert::values;
 %ignore libtorrent::peer_connection::peer_connection;
 %ignore libtorrent::peer_connection::incoming_piece;

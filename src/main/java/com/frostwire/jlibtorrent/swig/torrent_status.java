@@ -656,6 +656,14 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_announcing_to_dht_get(swigCPtr, this);
   }
 
+  public void setStop_when_ready(boolean value) {
+    libtorrent_jni.torrent_status_stop_when_ready_set(swigCPtr, this, value);
+  }
+
+  public boolean getStop_when_ready() {
+    return libtorrent_jni.torrent_status_stop_when_ready_get(swigCPtr, this);
+  }
+
   public void setInfo_hash(sha1_hash value) {
     libtorrent_jni.torrent_status_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }

@@ -702,6 +702,17 @@ public final class TorrentStatus {
     }
 
     /**
+     * This reflects whether the ``stop_when_ready`` flag is currently enabled
+     * on this torrent. For more information, see
+     * {@link TorrentHandle#stopWhenReady(boolean)}.
+     *
+     * @return
+     */
+    public boolean stopWhenReady() {
+        return ts.getStop_when_ready();
+    }
+
+    /**
      * the info-hash for this torrent.
      *
      * @return

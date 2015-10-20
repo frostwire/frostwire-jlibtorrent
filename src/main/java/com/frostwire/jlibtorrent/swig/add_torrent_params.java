@@ -229,6 +229,8 @@ public class add_torrent_params {
     flag_sequential_download(libtorrent_jni.add_torrent_params_flag_sequential_download_get()),
     flag_use_resume_save_path(libtorrent_jni.add_torrent_params_flag_use_resume_save_path_get()),
     flag_pinned(libtorrent_jni.add_torrent_params_flag_pinned_get()),
+    flag_merge_resume_http_seeds(libtorrent_jni.add_torrent_params_flag_merge_resume_http_seeds_get()),
+    flag_stop_when_ready(libtorrent_jni.add_torrent_params_flag_stop_when_ready_get()),
     default_flags(libtorrent_jni.add_torrent_params_default_flags_get());
 
     public final int swigValue() {

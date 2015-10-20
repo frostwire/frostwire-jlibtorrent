@@ -413,6 +413,10 @@ public class torrent {
     libtorrent_jni.torrent_set_announce_to_lsd(swigCPtr, this, b);
   }
 
+  public void stop_when_ready(boolean b) {
+    libtorrent_jni.torrent_stop_when_ready(swigCPtr, this, b);
+  }
+
   public int started() {
     return libtorrent_jni.torrent_started(swigCPtr, this);
   }

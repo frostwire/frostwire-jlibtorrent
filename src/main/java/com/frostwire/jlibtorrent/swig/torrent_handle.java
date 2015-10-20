@@ -159,6 +159,10 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_resume(swigCPtr, this);
   }
 
+  public void stop_when_ready(boolean b) {
+    libtorrent_jni.torrent_handle_stop_when_ready(swigCPtr, this, b);
+  }
+
   public void set_upload_mode(boolean b) {
     libtorrent_jni.torrent_handle_set_upload_mode(swigCPtr, this, b);
   }

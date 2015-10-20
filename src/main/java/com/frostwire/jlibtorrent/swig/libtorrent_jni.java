@@ -1323,6 +1323,7 @@ public class libtorrent_jni {
   public final static native void torrent_handle_pause__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native void torrent_handle_pause__SWIG_1(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_resume(long jarg1, torrent_handle jarg1_);
+  public final static native void torrent_handle_stop_when_ready(long jarg1, torrent_handle jarg1_, boolean jarg2);
   public final static native void torrent_handle_set_upload_mode(long jarg1, torrent_handle jarg1_, boolean jarg2);
   public final static native void torrent_handle_set_share_mode(long jarg1, torrent_handle jarg1_, boolean jarg2);
   public final static native void torrent_handle_flush_cache(long jarg1, torrent_handle jarg1_);
@@ -1400,6 +1401,8 @@ public class libtorrent_jni {
   public final static native int add_torrent_params_flag_sequential_download_get();
   public final static native int add_torrent_params_flag_use_resume_save_path_get();
   public final static native int add_torrent_params_flag_pinned_get();
+  public final static native int add_torrent_params_flag_merge_resume_http_seeds_get();
+  public final static native int add_torrent_params_flag_stop_when_ready_get();
   public final static native int add_torrent_params_default_flags_get();
   public final static native void add_torrent_params_version_set(long jarg1, add_torrent_params jarg1_, int jarg2);
   public final static native int add_torrent_params_version_get(long jarg1, add_torrent_params jarg1_);
@@ -3445,6 +3448,7 @@ public class libtorrent_jni {
   public final static native void torrent_set_announce_to_dht(long jarg1, torrent jarg1_, boolean jarg2);
   public final static native void torrent_set_announce_to_trackers(long jarg1, torrent jarg1_, boolean jarg2);
   public final static native void torrent_set_announce_to_lsd(long jarg1, torrent jarg1_, boolean jarg2);
+  public final static native void torrent_stop_when_ready(long jarg1, torrent jarg1_, boolean jarg2);
   public final static native int torrent_started(long jarg1, torrent jarg1_);
   public final static native void torrent_step_session_time(long jarg1, torrent jarg1_, int jarg2);
   public final static native void torrent_do_pause(long jarg1, torrent jarg1_);
@@ -4525,6 +4529,8 @@ public class libtorrent_jni {
   public final static native boolean torrent_status_announcing_to_lsd_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_announcing_to_dht_set(long jarg1, torrent_status jarg1_, boolean jarg2);
   public final static native boolean torrent_status_announcing_to_dht_get(long jarg1, torrent_status jarg1_);
+  public final static native void torrent_status_stop_when_ready_set(long jarg1, torrent_status jarg1_, boolean jarg2);
+  public final static native boolean torrent_status_stop_when_ready_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_info_hash_set(long jarg1, torrent_status jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long torrent_status_info_hash_get(long jarg1, torrent_status jarg1_);
   public final static native long new_stack_allocator();
