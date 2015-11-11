@@ -8,4 +8,5 @@ using darwin : x86_64 : $(TOOLCHAINS_ROOT)/macosx-x86_64/bin/x86_64-apple-darwin
       <cxxflags>-std=c++11
       <cxxflags>-stdlib=libc++
       <cxxflags>-mmacosx-version-min=10.8
+      <linkflags>-lc++
       ;
