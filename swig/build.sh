@@ -30,7 +30,14 @@ function buildWindowsX86()
 {
     $BOOST_ROOT/b2 --user-config=config/windows-x86-config.jam toolset=gcc-x86 target-os=windows location=bin/windows/x86
     $TOOLCHAINS_ROOT/windows-x86/bin/i686-w64-mingw32-strip --strip-unneeded -x bin/windows/x86/libjlibtorrent.dll
-    cp bin/windows/x86/libjlibtorrent.dll bin/windows/x86/jlibtorrent.dll
+    mv bin/windows/x86/libjlibtorrent.dll bin/windows/x86/jlibtorrent.dll
+}
+
+function buildWindowsX86_64()
+{
+    $BOOST_ROOT/b2 --user-config=config/windows-x86_64-config.jam toolset=gcc-x86_64 target-os=windows location=bin/windows/x86_64
+    $TOOLCHAINS_ROOT/windows-x86_64/bin/x86_64-w64-mingw32-strip --strip-unneeded -x bin/windows/x86_64/libjlibtorrent.dll
+    mv bin/windows/x86_64/libjlibtorrent.dll bin/windows/x86_64/jlibtorrent.dll
 }
 
 #buildMacOSX
@@ -40,9 +47,11 @@ function buildWindowsX86()
 #fixes for windows
 ORIGINAL_BOOST_ROOT=$BOOST_ROOT
 export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_55_0
-sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
 
-buildWindowsX86
+sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
+#buildWindowsX86
+sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
+
+buildWindowsX86_64
 
 export BOOST_ROOT=$ORIGINAL_BOOST_ROOT
-sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
