@@ -6,5 +6,6 @@ using darwin : x86_64 : $(TOOLCHAINS_ROOT)/macosx-x86_64/bin/x86_64-apple-darwin
       <archiver>$(TOOLCHAINS_ROOT)/macosx-x86_64/bin/x86_64-apple-darwin15-libtool
       <cflags>-std=c11
       <cxxflags>-std=c++11
+      <cxxflags>-stdlib=libc++
       <cxxflags>-mmacosx-version-min=10.8
       ;
