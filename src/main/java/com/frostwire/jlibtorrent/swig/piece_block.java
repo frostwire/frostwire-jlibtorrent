@@ -44,23 +44,23 @@ public class piece_block {
     this(libtorrent_jni.new_piece_block__SWIG_0(), true);
   }
 
-  public piece_block(long p_index, int b_index) {
+  public piece_block(int p_index, int b_index) {
     this(libtorrent_jni.new_piece_block__SWIG_1(p_index, b_index), true);
   }
 
-  public void setPiece_index(long value) {
+  public void setPiece_index(int value) {
     libtorrent_jni.piece_block_piece_index_set(swigCPtr, this, value);
   }
 
-  public long getPiece_index() {
+  public int getPiece_index() {
     return libtorrent_jni.piece_block_piece_index_get(swigCPtr, this);
   }
 
-  public void setBlock_index(long value) {
+  public void setBlock_index(int value) {
     libtorrent_jni.piece_block_block_index_set(swigCPtr, this, value);
   }
 
-  public long getBlock_index() {
+  public int getBlock_index() {
     return libtorrent_jni.piece_block_block_index_get(swigCPtr, this);
   }
 

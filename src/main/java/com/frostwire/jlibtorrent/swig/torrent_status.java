@@ -52,12 +52,29 @@ public class torrent_status {
     return (cPtr == 0) ? null : new torrent_handle(cPtr, false);
   }
 
-  public void setError(String value) {
-    libtorrent_jni.torrent_status_error_set(swigCPtr, this, value);
+  public void set_dummy_string_(String value) {
+    libtorrent_jni.torrent_status__dummy_string__set(swigCPtr, this, value);
   }
 
-  public String getError() {
-    return libtorrent_jni.torrent_status_error_get(swigCPtr, this);
+  public String get_dummy_string_() {
+    return libtorrent_jni.torrent_status__dummy_string__get(swigCPtr, this);
+  }
+
+  public void setErrc(error_code value) {
+    libtorrent_jni.torrent_status_errc_set(swigCPtr, this, error_code.getCPtr(value), value);
+  }
+
+  public error_code getErrc() {
+    long cPtr = libtorrent_jni.torrent_status_errc_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new error_code(cPtr, false);
+  }
+
+  public void setError_file(int value) {
+    libtorrent_jni.torrent_status_error_file_set(swigCPtr, this, value);
+  }
+
+  public int getError_file() {
+    return libtorrent_jni.torrent_status_error_file_get(swigCPtr, this);
   }
 
   public void setSave_path(String value) {
@@ -710,6 +727,50 @@ public class torrent_status {
 
     @SuppressWarnings("unused")
     private state_t(state_t swigEnum) {
+      this.swigValue = swigEnum.swigValue;
+      SwigNext.next = this.swigValue+1;
+    }
+
+    private final int swigValue;
+
+    private static class SwigNext {
+      private static int next = 0;
+    }
+  }
+
+  public enum error_file_t {
+    error_file_none(libtorrent_jni.torrent_status_error_file_none_get()),
+    error_file_url(libtorrent_jni.torrent_status_error_file_url_get()),
+    error_file_ssl_ctx(libtorrent_jni.torrent_status_error_file_ssl_ctx_get()),
+    error_file_metadata(libtorrent_jni.torrent_status_error_file_metadata_get());
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public static error_file_t swigToEnum(int swigValue) {
+      error_file_t[] swigValues = error_file_t.class.getEnumConstants();
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (error_file_t swigEnum : swigValues)
+        if (swigEnum.swigValue == swigValue)
+          return swigEnum;
+      throw new IllegalArgumentException("No enum " + error_file_t.class + " with value " + swigValue);
+    }
+
+    @SuppressWarnings("unused")
+    private error_file_t() {
+      this.swigValue = SwigNext.next++;
+    }
+
+    @SuppressWarnings("unused")
+    private error_file_t(int swigValue) {
+      this.swigValue = swigValue;
+      SwigNext.next = swigValue+1;
+    }
+
+    @SuppressWarnings("unused")
+    private error_file_t(error_file_t swigEnum) {
       this.swigValue = swigEnum.swigValue;
       SwigNext.next = this.swigValue+1;
     }

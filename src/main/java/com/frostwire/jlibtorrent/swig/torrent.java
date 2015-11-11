@@ -1355,11 +1355,6 @@ public class torrent {
     }
   }
 
-  public final static int error_file_none = libtorrent_jni.torrent_error_file_none_get();
-  public final static int error_file_url = libtorrent_jni.torrent_error_file_url_get();
-  public final static int error_file_ssl_ctx = libtorrent_jni.torrent_error_file_ssl_ctx_get();
-  public final static int error_file_metadata = libtorrent_jni.torrent_error_file_metadata_get();
-
   public enum wasted_reason_t {
     piece_timed_out,
     piece_cancelled,

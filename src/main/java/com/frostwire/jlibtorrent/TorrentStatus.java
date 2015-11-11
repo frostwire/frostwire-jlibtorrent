@@ -34,8 +34,8 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public String getError() {
-        return ts.getError();
+    public ErrorCode errorCode() {
+        return new ErrorCode(ts.getErrc());
     }
 
     /**
