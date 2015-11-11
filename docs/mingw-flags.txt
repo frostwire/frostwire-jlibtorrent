@@ -16,4 +16,4 @@ gcc:
 mingw-w64-crt:
 --host=i686-w64-mingw32 --with-sysroot=/home/user1/Development/toolchains/windows-x86/i686-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86/i686-w64-mingw32
 
---host=x86_64-w64-mingw32 -with-sysroot=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86_64/mingw-w64-headers/x86_64-w64-mingw32
+--host=x86_64-w64-mingw32 -with-sysroot=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32
