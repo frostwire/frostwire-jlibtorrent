@@ -30,6 +30,7 @@ function buildWindowsX86()
 {
     $BOOST_ROOT/b2 --user-config=config/windows-x86-config.jam toolset=gcc-x86 target-os=windows location=bin/windows/x86
     $TOOLCHAINS_ROOT/windows-x86/bin/i686-w64-mingw32-strip --strip-unneeded -x bin/windows/x86/libjlibtorrent.dll
+    cp bin/windows/x86/libjlibtorrent.dll bin/windows/x86/jlibtorrent.dll
 }
 
 #buildMacOSX
