@@ -3,6 +3,7 @@ import os ;
 TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
 
 using gcc : x86 : $(TOOLCHAINS_ROOT)/windows-x86/bin/i686-w64-mingw32-g++ :
+      <cflags>-std=c11
       <cxxflags>-std=c++11
       <linkflags>-static
       ;
