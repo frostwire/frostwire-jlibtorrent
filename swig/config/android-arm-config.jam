@@ -1,13 +1,11 @@
 import os ;
 
 TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
-OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 
 using gcc : arm : $(TOOLCHAINS_ROOT)/android-arm/bin/arm-linux-androideabi-g++ :
       <cxxflags>-march=armv7-a
       <cxxflags>-fpermissive
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
-      <cxxflags>-I"\"$(OPENSSL_ROOT)/android-arm/include\""
-      <linkflags>-L"\"$(OPENSSL_ROOT)/android-arm\""
+      <cxxflags>-static
       ;
