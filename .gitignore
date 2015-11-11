@@ -7,7 +7,7 @@
 *.o
 /jlibtorrent.xcodeproj/xcuserdata/
 /obj
-frostwire-jlibtorrent.iws
+frostwire-jlibtorrent.i*
 /test-libtorrent
 /.gradle
 /swig/bin
