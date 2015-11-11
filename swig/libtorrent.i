@@ -292,7 +292,6 @@ public:
 %shared_ptr(libtorrent::torrent_plugin)
 %shared_ptr(libtorrent::torrent_info)
 %shared_ptr(libtorrent::ip_filter)
-%shared_ptr(libtorrent::settings_pack)
 %shared_ptr(libtorrent::udp_tracker_connection)
 %shared_ptr(libtorrent::crypto_plugin)
 %shared_ptr(libtorrent::peer_connection)
@@ -659,6 +658,7 @@ namespace std {
 %ignore libtorrent::clear_bufs;
 %ignore libtorrent::copy_bufs;
 %ignore libtorrent::apply_pack;
+%ignore libtorrent::load_pack_from_dict;
 
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::storage_params::pool;

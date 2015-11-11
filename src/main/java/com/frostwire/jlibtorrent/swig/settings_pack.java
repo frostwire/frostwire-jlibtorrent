@@ -10,7 +10,7 @@ package com.frostwire.jlibtorrent.swig;
 
 public class settings_pack {
   private transient long swigCPtr;
-  private transient boolean swigCMemOwn;
+  protected transient boolean swigCMemOwn;
 
   protected settings_pack(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;

@@ -3249,7 +3249,6 @@ public class libtorrent_jni {
   public final static native boolean session_settings_get_bool(long jarg1, session_settings jarg1_, int jarg2);
   public final static native long new_session_settings();
   public final static native void delete_session_settings(long jarg1);
-  public final static native long load_pack_from_dict(long jarg1, bdecode_node jarg1_);
   public final static native void save_settings_to_dict(long jarg1, session_settings jarg1_, long jarg2, string_entry_map jarg2_);
   public final static native int setting_by_name(String jarg1);
   public final static native String name_for_setting(int jarg1);
