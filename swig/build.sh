@@ -40,7 +40,7 @@ function buildWindowsX86_64()
     mv bin/windows/x86_64/libjlibtorrent.dll bin/windows/x86_64/jlibtorrent.dll
 }
 
-#buildMacOSX
+buildMacOSX
 #buildAndroidArm
 #buildAndroidX86
 
@@ -52,6 +52,6 @@ sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent
 #buildWindowsX86
 sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
 
-buildWindowsX86_64
+#buildWindowsX86_64
 
 export BOOST_ROOT=$ORIGINAL_BOOST_ROOT
