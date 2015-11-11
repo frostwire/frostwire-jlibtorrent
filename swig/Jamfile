@@ -14,46 +14,11 @@ if ! $(LIBTORRENT_ROOT)
 	EXIT "You need to define LIBTORRENT_ROOT" ;
 }
 
-JDK_ROOT = [ os.environ JDK_ROOT ] ;
-ECHO "JDK_ROOT = "$(JDK_ROOT) ;
-if ! $(JDK_ROOT)
-{
-	EXIT "You need to define JDK_ROOT" ;
-}
-
-if [ os.name ] = "NT"
-{
-    OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
-    ECHO "OPENSSL_ROOT = "$(OPENSSL_ROOT) ;
-    if ! $(OPENSSL_ROOT)
-    {
-    	EXIT "You need to define OPENSSL_ROOT" ;
-    }
-}
-
 use-project /torrent : $(LIBTORRENT_ROOT) ;
 
 rule libtorrent_linking ( properties * )
 {
     local result ;
-
-    if <toolset>msvc in $(properties)
-    {
-        result += <cxxflags>/O2 ;
-        result += <cxxflags>/MT ;
-        result += <runtime-link>static ;
-        result += <windows-version>xp ;
-    }
-    else
-    {
-        result += <cxxflags>-O3 ;
-    }
-
-    if <toolset>gcc in $(properties)
-    {
-        result += <cxxflags>-fPIC ;
-        result += <cflags>-fPIC ;
-    }
 
     result += <variant>release ;
     result += <deprecated-functions>off ;
@@ -61,6 +26,8 @@ rule libtorrent_linking ( properties * )
     result += <crypto>openssl ;
     result += <disk-stats>on ;
     result += <utp-log>on ;
+    result += <windows-version>xp ;
+    result += <warnings>off ;
 
     return $(result) ;
 }
@@ -68,47 +35,6 @@ rule libtorrent_linking ( properties * )
 rule env_setup ( properties * )
 {
     local result ;
-
-    result += <include>$(JDK_ROOT)/include ;
-
-    if <toolset>darwin in $(properties)
-    {
-        result += <include>$(JDK_ROOT)/include/darwin ;
-    }
-
-    if <toolset-gcc:version>android.arm in $(properties)
-    {
-        result += <include>$(JDK_ROOT)/include/darwin ;
-    }
-
-    if <toolset-gcc:version>android.x86 in $(properties)
-    {
-        result += <include>$(JDK_ROOT)/include/darwin ;
-    }
-
-    if <toolset>msvc in $(properties)
-    {
-        result += <include>$(JDK_ROOT)/include/win32 ;
-    }
-
-    if <toolset>gcc in $(properties)
-    {
-        result += <include>$(JDK_ROOT)/include/linux ;
-        result += <cxxflags>-fPIC ;
-        result += <cflags>-fPIC ;
-    }
-
-    if <toolset>msvc in $(properties)
-    {
-        result += <cxxflags>/O2 ;
-        result += <cxxflags>/MT ;
-        result += <cxxflags>/I$(OPENSSL_ROOT)/include ;
-        result += <linkflags>/LIBPATH:$(OPENSSL_ROOT)/lib ;
-    }
-    else
-    {
-        result += <cxxflags>-O3 ;
-    }
 
     result += <variant>release ;
 
