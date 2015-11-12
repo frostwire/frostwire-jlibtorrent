@@ -1,0 +1,17 @@
+import os ;
+
+DEVELOPMENT_ROOT = [ os.environ DEVELOPMENT_ROOT ] ;
+TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
+
+using gcc : x86 : g++ :
+      <cflags>-fPIC
+      <cflags>-m32
+      <cflags>-std=c11
+      <cxxflags>-fPIC
+      <cxxflags>-m32
+      <cxxflags>-std=c++11
+      <cxxflags>-static
+      <cxxflags>-I$(DEVELOPMENT_ROOT)/openssl/x86/include
+      <linkflags>-L$(DEVELOPMENT_ROOT)/openssl/x86/lib
+      <linkflags>-m32
+      ;
