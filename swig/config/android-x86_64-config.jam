@@ -1,0 +1,13 @@
+import os ;
+
+TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
+
+using gcc : x86_64 : $(TOOLCHAINS_ROOT)/android-x86_64/bin/x86_64-linux-android-g++ :
+      <cflags>-fPIC
+      <cflags>-std=c11
+      <cxxflags>-fPIC
+      <cxxflags>-fpermissive
+      <cxxflags>-fno-strict-aliasing
+      <cxxflags>-std=c++11
+      <cxxflags>-static
+      ;

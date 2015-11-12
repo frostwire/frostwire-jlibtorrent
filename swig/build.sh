@@ -32,6 +32,12 @@ function buildAndroidArm64()
     $TOOLCHAINS_ROOT/android-arm64/bin/aarch64-linux-android-strip --strip-unneeded -x bin/android/arm64-v8a/libjlibtorrent.so
 }
 
+function buildAndroidX86_64()
+{
+    $BOOST_ROOT/b2 --user-config=config/android-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/android/x86_64
+    $TOOLCHAINS_ROOT/android-x86_64/bin/x86_64-linux-android-strip --strip-unneeded -x bin/android/x86_64/libjlibtorrent.so
+}
+
 function buildWindowsX86()
 {
     $BOOST_ROOT/b2 --user-config=config/windows-x86-config.jam toolset=gcc-x86 target-os=windows location=bin/windows/x86
@@ -51,7 +57,8 @@ function buildWindowsX86_64()
 #buildAndroidArm
 #buildAndroidX86
 
-buildAndroidArm64
+#buildAndroidArm64
+buildAndroidX86_64
 
 #fixes for windows
 ORIGINAL_BOOST_ROOT=$BOOST_ROOT
