@@ -29,7 +29,7 @@ function buildAndroidX86()
 function buildAndroidArm64()
 {
     $BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=gcc-arm64 target-os=linux location=bin/android/arm64-v8a
-    $TOOLCHAINS_ROOT/android-arm/bin/aarch64-linux-android-strip --strip-unneeded -x bin/android/arm64-v8a/libjlibtorrent.so
+    $TOOLCHAINS_ROOT/android-arm64/bin/aarch64-linux-android-strip --strip-unneeded -x bin/android/arm64-v8a/libjlibtorrent.so
 }
 
 function buildWindowsX86()
@@ -49,9 +49,9 @@ function buildWindowsX86_64()
 #buildMacOSX
 
 #buildAndroidArm
-buildAndroidX86
+#buildAndroidX86
 
-#buildAndroidArm64
+buildAndroidArm64
 
 #fixes for windows
 ORIGINAL_BOOST_ROOT=$BOOST_ROOT
