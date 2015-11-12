@@ -101,6 +101,9 @@ uploadArchives {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
+            addFilter('jlibtorrent') {artifact, file ->
+                artifact.name == 'jlibtorrent'
+            }
             addFilter('jlibtorrent-macosx') {artifact, file ->
                 artifact.name == 'jlibtorrent-macosx'
             }
