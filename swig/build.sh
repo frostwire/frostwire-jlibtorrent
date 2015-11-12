@@ -64,7 +64,7 @@ function buildWindowsX86_64()
     mv bin/windows/x86_64/libjlibtorrent.dll bin/windows/x86_64/jlibtorrent.dll
 }
 
-#buildMacOSX
+buildMacOSX
 
 #buildAndroidArm
 #buildAndroidX86
@@ -72,7 +72,7 @@ function buildWindowsX86_64()
 #buildAndroidArm64
 #buildAndroidX86_64
 
-buildLinuxX86
+#buildLinuxX86
 #buildLinuxX86_64
 
 #fixes for windows
