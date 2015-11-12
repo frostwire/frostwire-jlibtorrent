@@ -81,6 +81,10 @@ public class libtorrent implements libtorrentConstants {
     return new error_condition(libtorrent_jni.make_error_condition(e.swigValue()), true);
   }
 
+  public static String version() {
+    return libtorrent_jni.version();
+  }
+
   public static error_category get_libtorrent_category() {
     return new error_category(libtorrent_jni.get_libtorrent_category(), false);
   }

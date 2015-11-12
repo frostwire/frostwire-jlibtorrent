@@ -893,6 +893,7 @@ public class libtorrent_jni {
   public final static native int LIBTORRENT_VERSION_NUM_get();
   public final static native String LIBTORRENT_VERSION_get();
   public final static native String LIBTORRENT_REVISION_get();
+  public final static native String version();
   public final static native long get_libtorrent_category();
   public final static native long get_http_category();
   public final static native long system_category();
