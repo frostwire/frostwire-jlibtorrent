@@ -66,23 +66,23 @@ function buildWindowsX86_64()
 
 buildMacOSX
 
-#buildAndroidArm
-#buildAndroidX86
+buildAndroidArm
+buildAndroidX86
 
-#buildAndroidArm64
-#buildAndroidX86_64
+buildAndroidArm64
+buildAndroidX86_64
 
-#buildLinuxX86
-#buildLinuxX86_64
+buildLinuxX86
+buildLinuxX86_64
 
 #fixes for windows
 ORIGINAL_BOOST_ROOT=$BOOST_ROOT
 export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_55_0
 
 sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
-#buildWindowsX86
+buildWindowsX86
 sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
 
-#buildWindowsX86_64
+buildWindowsX86_64
 
 export BOOST_ROOT=$ORIGINAL_BOOST_ROOT
