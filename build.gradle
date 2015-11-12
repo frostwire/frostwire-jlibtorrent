@@ -134,38 +134,61 @@ uploadArchives {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
 
-            pom.project {
-                name 'frostwire-jlibtorrent'
-                packaging 'jar'
-                // optionally artifactId can be defined here
-                description 'A swig Java interface for libtorrent by the makers of FrostWire.'
-                url 'https://github.com/frostwire/frostwire-jlibtorrent'
+            pom('jlibtorrent').withXml {
+                asNode().children().last() + pomData()
+            }
+            pom('jlibtorrent-macosx').withXml {
+                asNode().children().last() + pomData()
+            }
+            pom('jlibtorrent-windows').withXml {
+                asNode().children().last() + pomData()
+            }
+            pom('jlibtorrent-linux').withXml {
+                asNode().children().last() + pomData()
+            }
+            pom('jlibtorrent-android-arm').withXml {
+                asNode().children().last() + pomData()
+            }
+            pom('jlibtorrent-android-x86').withXml {
+                asNode().children().last() + pomData()
+            }
+            pom('jlibtorrent-android-arm64').withXml {
+                asNode().children().last() + pomData()
+            }
+            pom('jlibtorrent-android-x86_64').withXml {
+                asNode().children().last() + pomData()
+            }
+        }
+    }
+}
 
-                scm {
-                    connection 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git'
-                    developerConnection 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git'
-                    url 'https://github.com/frostwire/frostwire-jlibtorrent'
-                }
-
-                licenses {
-                    license {
-                        name 'The MIT License'
-                        url 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'gubatron'
-                        name 'Angel Leon'
-                        email 'gubatron@gmail.com'
-                    }
-                    developer {
-                        id 'aldenml'
-                        name 'Alden Torres'
-                        email 'aldenml@gmail.com'
-                    }
-                }
+def pomData() {
+    return {
+        resolveStrategy = Closure.DELEGATE_FIRST
+        name 'frostwire-jlibtorrent'
+        description 'A swig Java interface for libtorrent by the makers of FrostWire.'
+        url 'https://github.com/frostwire/frostwire-jlibtorrent'
+        scm {
+            connection 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git'
+            developerConnection 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git'
+            url 'https://github.com/frostwire/frostwire-jlibtorrent'
+        }
+        licenses {
+            license {
+                name 'The MIT License'
+                url 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md'
+            }
+        }
+        developers {
+            developer {
+                id 'gubatron'
+                name 'Angel Leon'
+                email 'gubatron@gmail.com'
+            }
+            developer {
+                id 'aldenml'
+                name 'Alden Torres'
+                email 'aldenml@gmail.com'
             }
         }
     }
