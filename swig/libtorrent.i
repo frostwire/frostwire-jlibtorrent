@@ -78,8 +78,6 @@
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/bdecode.hpp"
 #include "libtorrent/buffer.hpp"
-#include "libtorrent/tracker_manager.hpp"
-#include "libtorrent/udp_tracker_connection.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
@@ -98,7 +96,7 @@
 #include "libtorrent/kademlia/item.hpp"
 #include "libtorrent/ed25519.hpp"
     
-// aditional includes
+// additional includes
 
 using namespace boost;
 using namespace boost::system;
@@ -287,8 +285,6 @@ public:
 %shared_ptr(libtorrent::peer_plugin)
 %shared_ptr(libtorrent::torrent_plugin)
 %shared_ptr(libtorrent::torrent_info)
-%shared_ptr(libtorrent::ip_filter)
-%shared_ptr(libtorrent::udp_tracker_connection)
 %shared_ptr(libtorrent::crypto_plugin)
 %shared_ptr(libtorrent::peer_connection)
 %shared_ptr(libtorrent::bt_peer_connection)
@@ -297,8 +293,6 @@ public:
 %shared_ptr(libtorrent::http_seed_connection)
 %shared_ptr(set_piece_hashes_listener)
 %shared_ptr(libtorrent::torrent)
-
-%auto_ptr(libtorrent::alert)
 
 %apply const std::string & {std::string &};
 %apply const boost::int64_t & {boost::int64_t &};
@@ -455,16 +449,6 @@ namespace std {
 %ignore libtorrent::utp_socket_drained;
 %ignore libtorrent::utp_writable;
 
-%ignore libtorrent::tracker_manager::tracker_manager;
-%ignore libtorrent::tracker_manager::queue_request;
-%ignore libtorrent::tracker_manager::incoming_packet;
-%ignore libtorrent::tracker_manager::host_resolver;
-%ignore libtorrent::tracker_manager::get_udp_socket;
-%ignore libtorrent::tracker_connection::requester;
-%ignore libtorrent::tracker_connection::on_receive;
-%ignore libtorrent::tracker_connection::update_transaction_id;
-%ignore libtorrent::tracker_connection::shared_from_this;
-%ignore libtorrent::udp_tracker_connection::udp_tracker_connection;
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore libtorrent::add_torrent_params::extensions;
@@ -547,7 +531,6 @@ namespace std {
 %ignore libtorrent::torrent::session;
 %ignore libtorrent::torrent::picker;
 %ignore libtorrent::torrent::on_torrent_download;
-%ignore libtorrent::torrent::tracker_response;
 %ignore libtorrent::torrent::begin;
 %ignore libtorrent::torrent::end;
 %ignore libtorrent::torrent::block_bytes_wanted;
@@ -584,6 +567,11 @@ namespace std {
 %ignore libtorrent::torrent::get_ip_filter;
 %ignore libtorrent::torrent::set_ip_filter;
 %ignore libtorrent::torrent::on_country_lookup;
+%ignore libtorrent::torrent::tracker_response;
+%ignore libtorrent::torrent::find_tracker;
+%ignore libtorrent::torrent::tracker_request_error;
+%ignore libtorrent::torrent::tracker_scrape_response;
+%ignore libtorrent::torrent::tracker_warning;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;
@@ -833,8 +821,6 @@ namespace std {
 %include "libtorrent/bdecode.hpp"
 %javaconst(0);
 %include "libtorrent/buffer.hpp"
-%include "libtorrent/tracker_manager.hpp"
-%include "libtorrent/udp_tracker_connection.hpp"
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"

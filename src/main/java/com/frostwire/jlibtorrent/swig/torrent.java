@@ -831,18 +831,6 @@ public class torrent {
     libtorrent_jni.torrent_do_refresh_suggest_pieces(swigCPtr, this);
   }
 
-  public void tracker_request_error(tracker_request r, int response_code, error_code ec, String msg, int retry_interval) {
-    libtorrent_jni.torrent_tracker_request_error(swigCPtr, this, tracker_request.getCPtr(r), r, response_code, error_code.getCPtr(ec), ec, msg, retry_interval);
-  }
-
-  public void tracker_warning(tracker_request req, String msg) {
-    libtorrent_jni.torrent_tracker_warning(swigCPtr, this, tracker_request.getCPtr(req), req, msg);
-  }
-
-  public void tracker_scrape_response(tracker_request req, int complete, int incomplete, int downloaded, int downloaders) {
-    libtorrent_jni.torrent_tracker_scrape_response(swigCPtr, this, tracker_request.getCPtr(req), req, complete, incomplete, downloaded, downloaders);
-  }
-
   public void update_scrape_state() {
     libtorrent_jni.torrent_update_scrape_state(swigCPtr, this);
   }
@@ -893,11 +881,6 @@ public class torrent {
 
   public void set_tracker_login(String name, String pw) {
     libtorrent_jni.torrent_set_tracker_login(swigCPtr, this, name, pw);
-  }
-
-  public announce_entry find_tracker(tracker_request r) {
-    long cPtr = libtorrent_jni.torrent_find_tracker(swigCPtr, this, tracker_request.getCPtr(r), r);
-    return (cPtr == 0) ? null : new announce_entry(cPtr, false);
   }
 
   public void recalc_share_mode() {
