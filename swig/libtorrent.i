@@ -63,7 +63,6 @@
 #include "libtorrent/torrent.hpp"
 #include "libtorrent/session_handle.hpp"
 #include "libtorrent/session.hpp"
-#include "libtorrent/disk_io_job.hpp"
 #include "libtorrent/disk_buffer_holder.hpp"
 #include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/bt_peer_connection.hpp"
@@ -388,7 +387,6 @@ namespace std {
 %ignore libtorrent::detail::add_files_impl;
 %ignore libtorrent::alert_manager;
 %ignore libtorrent::plugin;
-%ignore libtorrent::disk_io_job;
 %ignore libtorrent::disk_job_fence;
 %ignore libtorrent::is_read_operation;
 %ignore libtorrent::operation_has_buffer;
@@ -496,8 +494,6 @@ namespace std {
 %ignore libtorrent::peer_connection_args::ses;
 %ignore libtorrent::peer_connection_args::sett;
 %ignore libtorrent::peer_connection_args::s;
-%ignore libtorrent::disk_io_job::callback;
-%ignore libtorrent::disk_io_job::storage;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
 %ignore libtorrent::disk_buffer_holder::reset(disk_io_job const&);
 %ignore libtorrent::disk_buffer_holder::ref;
@@ -768,7 +764,6 @@ namespace std {
 %include "libtorrent/torrent.hpp"
 %include "libtorrent/session_handle.hpp"
 %include "libtorrent/session.hpp"
-%include "libtorrent/disk_io_job.hpp"
 %include "libtorrent/disk_buffer_holder.hpp"
 %include "libtorrent/disk_buffer_pool.hpp"
 %include "libtorrent/bt_peer_connection.hpp"
@@ -1012,6 +1007,9 @@ namespace aux {
 }
 
 %template(sha1_bloom_filter) bloom_filter<160>;
+
+bool is_utp_stream_logging();
+void set_utp_stream_logging(bool enable);
 
 }
 

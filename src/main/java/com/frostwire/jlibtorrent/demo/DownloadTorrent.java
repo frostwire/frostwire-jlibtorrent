@@ -8,7 +8,6 @@ import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.swig.default_storage;
 import com.frostwire.jlibtorrent.swig.libtorrent;
-import com.frostwire.jlibtorrent.swig.utp_stream;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;

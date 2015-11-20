@@ -4339,6 +4339,8 @@ public class libtorrent_jni {
   public final static native float sha1_bloom_filter_size(long jarg1, sha1_bloom_filter jarg1_);
   public final static native long new_sha1_bloom_filter();
   public final static native void delete_sha1_bloom_filter(long jarg1);
+  public final static native boolean is_utp_stream_logging();
+  public final static native void set_utp_stream_logging(boolean jarg1);
   public final static native int ed25519_seed_size_get();
   public final static native int ed25519_private_key_size_get();
   public final static native int ed25519_public_key_size_get();

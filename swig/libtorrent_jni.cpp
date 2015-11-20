@@ -723,7 +723,6 @@ namespace Swig {
 #include "libtorrent/torrent.hpp"
 #include "libtorrent/session_handle.hpp"
 #include "libtorrent/session.hpp"
-#include "libtorrent/disk_io_job.hpp"
 #include "libtorrent/disk_buffer_holder.hpp"
 #include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/bt_peer_connection.hpp"
@@ -92854,6 +92853,42 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_is_1utp_1stream_1logging(JNIEnv *jenv, jclass jcls) {
+  jboolean jresult = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (bool)libtorrent::is_utp_stream_logging();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1utp_1stream_1logging(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
+  bool arg1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = jarg1 ? true : false; 
+  {
+    try {
+      libtorrent::set_utp_stream_logging(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ed25519_1seed_1size_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
@@ -93440,7 +93475,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("c7b8798c30984bc6f6f734de89172e69f1e2b10a");
+  result = (char *)("2d31d2062c91031262e8c2f177f1825eddf067ab");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
