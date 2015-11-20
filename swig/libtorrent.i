@@ -283,7 +283,6 @@ public:
 
 %include "session_extend.i"
 
-%intrusive_ptr(libtorrent::torrent_info)
 %intrusive_ptr(libtorrent::tracker_connection)
 
 %shared_ptr(libtorrent::entry)
