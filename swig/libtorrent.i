@@ -87,7 +87,6 @@
 #include "libtorrent/bloom_filter.hpp"
 #include "libtorrent/utp_stream.hpp"
 #include "libtorrent/enum_net.hpp"
-#include "libtorrent/file.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
 
@@ -283,8 +282,6 @@ public:
 
 %include "session_extend.i"
 
-%intrusive_ptr(libtorrent::tracker_connection)
-
 %shared_ptr(libtorrent::entry)
 %shared_ptr(libtorrent::plugin)
 %shared_ptr(libtorrent::peer_plugin)
@@ -466,6 +463,7 @@ namespace std {
 %ignore libtorrent::tracker_connection::requester;
 %ignore libtorrent::tracker_connection::on_receive;
 %ignore libtorrent::tracker_connection::update_transaction_id;
+%ignore libtorrent::tracker_connection::shared_from_this;
 %ignore libtorrent::udp_tracker_connection::udp_tracker_connection;
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
@@ -721,10 +719,10 @@ namespace std {
 %ignore libtorrent::disabled_storage::writev;
 %ignore libtorrent::zero_storage::readv;
 %ignore libtorrent::zero_storage::writev;
-%ignore libtorrent::file::readv;
-%ignore libtorrent::file::writev;
 %ignore libtorrent::file_status;
 %ignore libtorrent::stat_file;
+%ignore libtorrent::fileop;
+%ignore libtorrent::readwritev;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -846,7 +844,6 @@ namespace std {
 %include "libtorrent/bloom_filter.hpp"
 %include "libtorrent/utp_stream.hpp"
 %include "libtorrent/enum_net.hpp"
-%include "libtorrent/file.hpp"
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
 
@@ -1063,8 +1060,8 @@ namespace libtorrent {
 };
 
 namespace aux {
-class stack_allocator {
-};
+    class stack_allocator {
+    };
 }
 
 %template(sha1_bloom_filter) bloom_filter<160>;

@@ -10,10 +10,10 @@ package com.frostwire.jlibtorrent.swig;
 
 public class tracker_connection {
   private transient long swigCPtr;
-  private boolean swigCMemOwnBase;
+  protected transient boolean swigCMemOwn;
 
   protected tracker_connection(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwnBase = cMemoryOwn;
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
@@ -26,11 +26,13 @@ public class tracker_connection {
   }
 
   public synchronized void delete() {
-    if(swigCPtr != 0 && swigCMemOwnBase) {
-      swigCMemOwnBase = false;
-      libtorrent_jni.delete_tracker_connection(swigCPtr);
+    if (swigCPtr != 0) {
+      if (swigCMemOwn) {
+        swigCMemOwn = false;
+        libtorrent_jni.delete_tracker_connection(swigCPtr);
+      }
+      swigCPtr = 0;
     }
-    swigCPtr = 0;
   }
 
   public tracker_request tracker_req() {
@@ -79,11 +81,6 @@ public class tracker_connection {
 
   public boolean on_receive_hostname(error_code arg0, String arg1, String arg2, int arg3) {
     return libtorrent_jni.tracker_connection_on_receive_hostname(swigCPtr, this, error_code.getCPtr(arg0), arg0, arg1, arg2, arg3);
-  }
-
-  public tracker_connection shared_from_this() {
-    long cPtr = libtorrent_jni.tracker_connection_shared_from_this(swigCPtr, this);
-    return (cPtr == 0) ? null : new tracker_connection(cPtr, true);
   }
 
 }
