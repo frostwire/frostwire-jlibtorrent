@@ -265,9 +265,7 @@ public:
 
 %include <stdint.i>
 %include <typemaps.i>
-%include <boost_intrusive_ptr.i>
 %include <boost_shared_ptr.i>
-%include <std_auto_ptr.i>
 %include <std_string.i>
 %include <std_pair.i>
 %include <std_deque.i>

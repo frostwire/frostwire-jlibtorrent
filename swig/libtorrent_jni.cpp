@@ -1353,6 +1353,8 @@ struct SWIG_null_deleter {
 };
 #define SWIG_NO_NULL_DELETER_0 , SWIG_null_deleter()
 #define SWIG_NO_NULL_DELETER_1
+#define SWIG_NO_NULL_DELETER_SWIG_POINTER_NEW
+#define SWIG_NO_NULL_DELETER_SWIG_POINTER_OWN
 
 SWIGINTERN void std_vector_Sl_libtorrent_entry_Sg__set(std::vector< libtorrent::entry > *self,int i,std::vector< libtorrent::entry >::value_type const &val){
                 int size = int(self->size());
@@ -94351,7 +94353,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("bec42424c425af3f4fd04ea3f1027fc5852db935");
+  result = (char *)("b7c9f7dd29aa2936c44d384110d7ae7e4720d67c");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
