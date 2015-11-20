@@ -245,18 +245,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.find_control_url(type, string, str_len, parse_state.getCPtr(state), state);
   }
 
-  public static boolean is_utp_stream_logging() {
-    return libtorrent_jni.is_utp_stream_logging();
-  }
-
-  public static void set_utp_stream_logging(boolean enable) {
-    libtorrent_jni.set_utp_stream_logging(enable);
-  }
-
-  public static boolean compare_less_wrap(long lhs, long rhs, long mask) {
-    return libtorrent_jni.compare_less_wrap(lhs, rhs, mask);
-  }
-
   public static ip_interface_vector enum_net_interfaces(io_service ios, error_code ec) {
     return new ip_interface_vector(libtorrent_jni.enum_net_interfaces(io_service.getCPtr(ios), ios, error_code.getCPtr(ec), ec), true);
   }

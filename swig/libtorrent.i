@@ -38,7 +38,6 @@
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
 #include "libtorrent/add_torrent_params.hpp"
-#include "libtorrent/rss.hpp"
 #include "libtorrent/operations.hpp"
 #include "libtorrent/session_stats.hpp"
 #include "libtorrent/performance_counters.hpp"
@@ -51,7 +50,6 @@
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/bandwidth_socket.hpp"
 #include "libtorrent/bandwidth_limit.hpp"
-#include "libtorrent/ip_voter.hpp"
 #include "libtorrent/peer_connection_interface.hpp"
 #include "libtorrent/torrent_peer.hpp"
 #include "libtorrent/peer_connection.hpp"
@@ -83,7 +81,6 @@
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/upnp.hpp"
 #include "libtorrent/bloom_filter.hpp"
-#include "libtorrent/utp_stream.hpp"
 #include "libtorrent/enum_net.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
@@ -406,8 +403,6 @@ namespace std {
 %ignore libtorrent::peer_connection_hot_members;
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
-%ignore libtorrent::utp_socket_impl;
-%ignore libtorrent::utp_header;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -431,20 +426,6 @@ namespace std {
 %ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>);
 %ignore libtorrent::initialize_file_progress;
 %ignore libtorrent::get_filesizes;
-%ignore libtorrent::construct_utp_impl;
-%ignore libtorrent::detach_utp_impl;
-%ignore libtorrent::delete_utp_impl;
-%ignore libtorrent::should_delete;
-%ignore libtorrent::tick_utp_impl;
-%ignore libtorrent::utp_init_mtu;
-%ignore libtorrent::utp_incoming_packet;
-%ignore libtorrent::utp_match;
-%ignore libtorrent::utp_remote_endpoint;
-%ignore libtorrent::utp_receive_id;
-%ignore libtorrent::utp_socket_state;
-%ignore libtorrent::utp_send_ack;
-%ignore libtorrent::utp_socket_drained;
-%ignore libtorrent::utp_writable;
 
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
@@ -684,20 +665,6 @@ namespace std {
 %ignore libtorrent::peer_log_alert::peer_log_alert;
 %ignore libtorrent::incoming_request_alert::incoming_request_alert;
 %ignore libtorrent::dht_log_alert::dht_log_alert;
-%ignore libtorrent::utp_stream::utp_stream;
-%ignore libtorrent::utp_stream::do_async_connect;
-%ignore libtorrent::utp_stream::get_io_service;
-%ignore libtorrent::utp_stream::get_impl;
-%ignore libtorrent::utp_stream::set_impl;
-%ignore libtorrent::utp_stream::bind;
-%ignore libtorrent::utp_stream::local_endpoint;
-%ignore libtorrent::utp_stream::remote_endpoint;
-%ignore libtorrent::utp_stream::add_read_buffer;
-%ignore libtorrent::utp_stream::add_write_buffer;
-%ignore libtorrent::utp_stream::on_close_reason;
-%ignore libtorrent::utp_stream::on_connect;
-%ignore libtorrent::utp_stream::on_read;
-%ignore libtorrent::utp_stream::on_write;
 %ignore libtorrent::default_storage::readv;
 %ignore libtorrent::default_storage::writev;
 %ignore libtorrent::disabled_storage::readv;
@@ -776,7 +743,6 @@ namespace std {
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/torrent_handle.hpp"
 %include "libtorrent/add_torrent_params.hpp"
-%include "libtorrent/rss.hpp"
 %include "libtorrent/operations.hpp"
 %include "libtorrent/session_stats.hpp"
 %include "libtorrent/performance_counters.hpp"
@@ -789,7 +755,6 @@ namespace std {
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/bandwidth_socket.hpp"
 %include "libtorrent/bandwidth_limit.hpp"
-%include "libtorrent/ip_voter.hpp"
 %include "libtorrent/peer_connection_interface.hpp"
 %include "libtorrent/torrent_peer.hpp"
 %include "libtorrent/peer_connection.hpp"
@@ -825,7 +790,6 @@ namespace std {
 %include "libtorrent/upnp.hpp"
 %javaconst(0);
 %include "libtorrent/bloom_filter.hpp"
-%include "libtorrent/utp_stream.hpp"
 %include "libtorrent/enum_net.hpp"
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"

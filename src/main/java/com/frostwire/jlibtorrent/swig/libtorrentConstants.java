@@ -20,18 +20,6 @@ public interface libtorrentConstants {
 
   public final static int TORRENT_ALERT_MANAGER_MAX_ARITY = libtorrent_jni.TORRENT_ALERT_MANAGER_MAX_ARITY_get();
   public final static int TORRENT_DEBUG_STREAMING = libtorrent_jni.TORRENT_DEBUG_STREAMING_get();
-  public final static int CCONTROL_TARGET = libtorrent_jni.CCONTROL_TARGET_get();
-  public final static int TORRENT_UTP_LOG = libtorrent_jni.TORRENT_UTP_LOG_get();
-  public final static int TORRENT_VERBOSE_UTP_LOG = libtorrent_jni.TORRENT_VERBOSE_UTP_LOG_get();
-  public final static int TORRENT_IPV4_HEADER = libtorrent_jni.TORRENT_IPV4_HEADER_get();
-  public final static int TORRENT_IPV6_HEADER = libtorrent_jni.TORRENT_IPV6_HEADER_get();
-  public final static int TORRENT_UDP_HEADER = libtorrent_jni.TORRENT_UDP_HEADER_get();
-  public final static int TORRENT_SOCKS5_HEADER = libtorrent_jni.TORRENT_SOCKS5_HEADER_get();
-  public final static int TORRENT_ETHERNET_MTU = libtorrent_jni.TORRENT_ETHERNET_MTU_get();
-  public final static int TORRENT_TEREDO_MTU = libtorrent_jni.TORRENT_TEREDO_MTU_get();
-  public final static int TORRENT_INET_MIN_MTU = libtorrent_jni.TORRENT_INET_MIN_MTU_get();
-  public final static int TORRENT_INET_MAX_MTU = libtorrent_jni.TORRENT_INET_MAX_MTU_get();
-
   public final static String LIBTORRENT_REVISION_SHA1 = libtorrent_jni.LIBTORRENT_REVISION_SHA1_get();
   public final static String JLIBTORRENT_REVISION_SHA1 = libtorrent_jni.JLIBTORRENT_REVISION_SHA1_get();
 }
