@@ -10,7 +10,7 @@ package com.frostwire.jlibtorrent.swig;
 
 public class set_piece_hashes_listener {
   private transient long swigCPtr;
-  private transient boolean swigCMemOwn;
+  protected transient boolean swigCMemOwn;
 
   protected set_piece_hashes_listener(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;

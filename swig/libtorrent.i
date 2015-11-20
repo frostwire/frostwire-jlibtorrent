@@ -289,7 +289,6 @@ public:
 %shared_ptr(libtorrent::web_connection_base)
 %shared_ptr(libtorrent::web_peer_connection)
 %shared_ptr(libtorrent::http_seed_connection)
-%shared_ptr(set_piece_hashes_listener)
 %shared_ptr(libtorrent::torrent)
 
 %apply const std::string & {std::string &};

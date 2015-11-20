@@ -67006,34 +67006,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cork_1m_1need_1uncork_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
-  libtorrent::cork *arg1 = (libtorrent::cork *) 0 ;
-  bool arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::cork **)&jarg1; 
-  arg2 = jarg2 ? true : false; 
-  if (arg1) (arg1)->m_need_uncork = arg2;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cork_1m_1need_1uncork_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  libtorrent::cork *arg1 = (libtorrent::cork *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::cork **)&jarg1; 
-  result = (bool) ((arg1)->m_need_uncork);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1dht_1settings(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   libtorrent::dht_settings *result = 0 ;
@@ -94341,7 +94313,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("a03b18f80378ecfd8952f844264d3c0fc60d19a6");
+  result = (char *)("2eabf99307ef62da5e35392765b6cb2e6cc14435");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -94353,7 +94325,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("b7c9f7dd29aa2936c44d384110d7ae7e4720d67c");
+  result = (char *)("4a82b08684448d59e292652732ac75f061508829");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -94550,16 +94522,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1set_1piece_1hashes_1listener(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   set_piece_hashes_listener *arg1 = (set_piece_hashes_listener *) 0 ;
-  boost::shared_ptr< set_piece_hashes_listener > *smartarg1 = 0 ;
   
   (void)jenv;
   (void)jcls;
-  
-  smartarg1 = *(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg1;
-  arg1 = (set_piece_hashes_listener *)(smartarg1 ? smartarg1->get() : 0); 
+  arg1 = *(set_piece_hashes_listener **)&jarg1; 
   {
     try {
-      (void)arg1; delete smartarg1;
+      delete arg1;
     } catch (...) {
       translate_cpp_exception(jenv);
       return ;
@@ -94571,14 +94540,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   set_piece_hashes_listener *arg1 = (set_piece_hashes_listener *) 0 ;
   int arg2 ;
-  boost::shared_ptr< set_piece_hashes_listener > *smartarg1 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  
-  smartarg1 = *(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg1;
-  arg1 = (set_piece_hashes_listener *)(smartarg1 ? smartarg1->get() : 0); 
+  arg1 = *(set_piece_hashes_listener **)&jarg1; 
   arg2 = (int)jarg2; 
   {
     try {
@@ -94594,14 +94560,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progressSwigExplicitset_1piece_1hashes_1listener(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   set_piece_hashes_listener *arg1 = (set_piece_hashes_listener *) 0 ;
   int arg2 ;
-  boost::shared_ptr< set_piece_hashes_listener > *smartarg1 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  
-  smartarg1 = *(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg1;
-  arg1 = (set_piece_hashes_listener *)(smartarg1 ? smartarg1->get() : 0); 
+  arg1 = *(set_piece_hashes_listener **)&jarg1; 
   arg2 = (int)jarg2; 
   {
     try {
@@ -94628,19 +94591,15 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
       return 0;
     }
   }
-  
-  *(boost::shared_ptr<  set_piece_hashes_listener > **)&jresult = result ? new boost::shared_ptr<  set_piece_hashes_listener >(result SWIG_NO_NULL_DELETER_1) : 0;
-  
+  *(set_piece_hashes_listener **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
-  boost::shared_ptr< set_piece_hashes_listener > *obj = *((boost::shared_ptr< set_piece_hashes_listener > **)&objarg);
+  set_piece_hashes_listener *obj = *((set_piece_hashes_listener **)&objarg);
   (void)jcls;
-  // Keep a local instance of the smart pointer around while we are using the raw pointer
-  // Avoids using smart pointer specific API.
-  SwigDirector_set_piece_hashes_listener *director = dynamic_cast<SwigDirector_set_piece_hashes_listener *>(obj->operator->());
+  SwigDirector_set_piece_hashes_listener *director = dynamic_cast<SwigDirector_set_piece_hashes_listener *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -94663,7 +94622,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
   std::string *arg3 = 0 ;
   libtorrent::error_code *arg4 = 0 ;
   set_piece_hashes_listener *arg5 = (set_piece_hashes_listener *) 0 ;
-  boost::shared_ptr< set_piece_hashes_listener > *smartarg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -94698,9 +94656,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::error_code & reference is null");
     return ;
   } 
-  
-  smartarg5 = *(boost::shared_ptr<  set_piece_hashes_listener > **)&jarg5;
-  arg5 = (set_piece_hashes_listener *)(smartarg5 ? smartarg5->get() : 0); 
+  arg5 = *(set_piece_hashes_listener **)&jarg5; 
   {
     try {
       set_piece_hashes((std::string const &)*arg1,*arg2,(std::string const &)*arg3,*arg4,arg5);

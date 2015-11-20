@@ -3096,8 +3096,6 @@ public class libtorrent_jni {
   public final static native int peer_connection_get_priority(long jarg1, peer_connection jarg1_, int jarg2);
   public final static native long new_cork(long jarg1, peer_connection jarg1_);
   public final static native void delete_cork(long jarg1);
-  public final static native void cork_m_need_uncork_set(long jarg1, cork jarg1_, boolean jarg2);
-  public final static native boolean cork_m_need_uncork_get(long jarg1, cork jarg1_);
   public final static native long new_dht_settings();
   public final static native void dht_settings_max_peers_reply_set(long jarg1, dht_settings jarg1_, int jarg2);
   public final static native int dht_settings_max_peers_reply_get(long jarg1, dht_settings jarg1_);

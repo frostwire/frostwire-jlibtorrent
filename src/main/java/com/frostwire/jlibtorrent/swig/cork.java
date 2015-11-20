@@ -39,12 +39,4 @@ public class cork {
     this(libtorrent_jni.new_cork(peer_connection.getCPtr(p), p), true);
   }
 
-  public void setM_need_uncork(boolean value) {
-    libtorrent_jni.cork_m_need_uncork_set(swigCPtr, this, value);
-  }
-
-  public boolean getM_need_uncork() {
-    return libtorrent_jni.cork_m_need_uncork_get(swigCPtr, this);
-  }
-
 }
