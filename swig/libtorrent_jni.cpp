@@ -5981,42 +5981,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1io_1service(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  io_service *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (io_service *)new io_service();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(io_service **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1io_1service(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  io_service *arg1 = (io_service *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(io_service **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1swig_1plugin(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   swig_plugin *arg1 = (swig_plugin *) 0 ;
   
@@ -90309,7 +90273,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("ee4b0c77a22a00c108e7cc51000421e5c6df3df7");
+  result = (char *)("cfe83dbee69446fe55c50fe01200686c5f4cde85");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

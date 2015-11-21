@@ -104,8 +104,6 @@ public class libtorrent_jni {
   public final static native long to_microseconds(long jarg1);
   public final static native long to_minutes(long jarg1);
   public final static native long to_hours(long jarg1);
-  public final static native long new_io_service();
-  public final static native void delete_io_service(long jarg1);
   public final static native void delete_swig_plugin(long jarg1);
   public final static native long swig_plugin_new_torrent(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);

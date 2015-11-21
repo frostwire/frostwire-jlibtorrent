@@ -178,6 +178,3 @@ boost::chrono::high_resolution_clock::duration to_milliseconds(long long);
 boost::chrono::high_resolution_clock::duration to_microseconds(long long);
 boost::chrono::high_resolution_clock::duration to_minutes(long long);
 boost::chrono::high_resolution_clock::duration to_hours(long long);
-
-class io_service {
-};
