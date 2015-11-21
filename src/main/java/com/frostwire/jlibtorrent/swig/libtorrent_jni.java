@@ -23,30 +23,6 @@ public class libtorrent_jni {
         }
     }
 
-  public final static native int hundredth_get();
-  public final static native long new_posix_time_duration__SWIG_0();
-  public final static native long new_posix_time_duration__SWIG_1(long jarg1, long jarg2, long jarg3, long jarg4);
-  public final static native long new_posix_time_duration__SWIG_2(long jarg1, posix_time_duration jarg1_);
-  public final static native long new_posix_time_duration__SWIG_3(int jarg1);
-  public final static native long posix_time_duration_unit();
-  public final static native long posix_time_duration_ticks_per_second();
-  public final static native int posix_time_duration_resolution();
-  public final static native long posix_time_duration_hours(long jarg1, posix_time_duration jarg1_);
-  public final static native long posix_time_duration_minutes(long jarg1, posix_time_duration jarg1_);
-  public final static native long posix_time_duration_seconds(long jarg1, posix_time_duration jarg1_);
-  public final static native long posix_time_duration_total_seconds(long jarg1, posix_time_duration jarg1_);
-  public final static native long posix_time_duration_total_milliseconds(long jarg1, posix_time_duration jarg1_);
-  public final static native long posix_time_duration_total_nanoseconds(long jarg1, posix_time_duration jarg1_);
-  public final static native long posix_time_duration_total_microseconds(long jarg1, posix_time_duration jarg1_);
-  public final static native long posix_time_duration_fractional_seconds(long jarg1, posix_time_duration jarg1_);
-  public final static native int posix_time_duration_num_fractional_digits();
-  public final static native boolean posix_time_duration_is_negative(long jarg1, posix_time_duration jarg1_);
-  public final static native long posix_time_duration_ticks(long jarg1, posix_time_duration jarg1_);
-  public final static native boolean posix_time_duration_is_special(long jarg1, posix_time_duration jarg1_);
-  public final static native boolean posix_time_duration_is_pos_infinity(long jarg1, posix_time_duration jarg1_);
-  public final static native boolean posix_time_duration_is_neg_infinity(long jarg1, posix_time_duration jarg1_);
-  public final static native boolean posix_time_duration_is_not_a_date_time(long jarg1, posix_time_duration jarg1_);
-  public final static native void delete_posix_time_duration(long jarg1);
   public final static native long new_address__SWIG_0();
   public final static native long new_address__SWIG_1(long jarg1, address_v4 jarg1_);
   public final static native long new_address__SWIG_2(long jarg1, address_v6 jarg1_);
