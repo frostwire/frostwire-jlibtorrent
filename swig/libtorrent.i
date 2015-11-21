@@ -21,7 +21,7 @@
 #include <ios>
 
 #include <boost/system/error_code.hpp>
-    
+
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/time.hpp"
@@ -46,10 +46,7 @@
 #include "libtorrent/alert_types.hpp"
 #include "libtorrent/alert_manager.hpp"
 #include "libtorrent/disk_io_thread.hpp"
-#include "libtorrent/peer.hpp"
 #include "libtorrent/peer_info.hpp"
-#include "libtorrent/bandwidth_socket.hpp"
-#include "libtorrent/bandwidth_limit.hpp"
 #include "libtorrent/peer_connection_interface.hpp"
 #include "libtorrent/torrent_peer.hpp"
 #include "libtorrent/peer_connection.hpp"
@@ -79,8 +76,6 @@
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/upnp.hpp"
-#include "libtorrent/bloom_filter.hpp"
-#include "libtorrent/enum_net.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
 
@@ -328,18 +323,13 @@ namespace std {
 
     %template(entry_vector) vector<libtorrent::entry>;
     %template(web_seed_entry_vector) vector<libtorrent::web_seed_entry>;
-    %template(peer_entry_vector) vector<libtorrent::peer_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
-    %template(ipv4_peer_entry_vector) vector<libtorrent::ipv4_peer_entry>;
-    %template(ipv6_peer_entry_vector) vector<libtorrent::ipv6_peer_entry>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
     %template(torrent_peer_ptr_vector) vector<libtorrent::torrent_peer*>;
     %template(piece_block_vector) vector<libtorrent::piece_block>;
     %template(downloading_piece_vector) vector<libtorrent::piece_picker::downloading_piece>;
     %template(suggest_piece_vector) vector<libtorrent::torrent::suggest_piece_t>;
-    %template(ip_interface_vector) vector<libtorrent::ip_interface>;
-    %template(ip_route_vector) vector<libtorrent::ip_route>;
     %template(peer_connection_handle_vector) vector<libtorrent::peer_connection_handle>;
 
     %template(string_list) list<std::string>;
@@ -632,8 +622,6 @@ namespace std {
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::all_path_hashes;
-%ignore libtorrent::ipv4_peer_entry::ip;
-%ignore libtorrent::ipv6_peer_entry::ip;
 %ignore libtorrent::upnp::upnp;
 %ignore libtorrent::upnp::start;
 %ignore libtorrent::upnp::drain_state;
@@ -747,10 +735,7 @@ namespace std {
 %include "libtorrent/alert_types.hpp"
 %include "libtorrent/alert_manager.hpp"
 %include "libtorrent/disk_io_thread.hpp"
-%include "libtorrent/peer.hpp"
 %include "libtorrent/peer_info.hpp"
-%include "libtorrent/bandwidth_socket.hpp"
-%include "libtorrent/bandwidth_limit.hpp"
 %include "libtorrent/peer_connection_interface.hpp"
 %include "libtorrent/torrent_peer.hpp"
 %include "libtorrent/peer_connection.hpp"
@@ -784,8 +769,6 @@ namespace std {
 %javaconst(1);
 %include "libtorrent/upnp.hpp"
 %javaconst(0);
-%include "libtorrent/bloom_filter.hpp"
-%include "libtorrent/enum_net.hpp"
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
 
@@ -1005,8 +988,6 @@ namespace aux {
     class stack_allocator {
     };
 }
-
-%template(sha1_bloom_filter) bloom_filter<160>;
 
 bool is_utp_stream_logging();
 void set_utp_stream_logging(bool enable);

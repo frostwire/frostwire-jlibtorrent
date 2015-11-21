@@ -76,6 +76,14 @@ public class dht_put_alert extends alert {
     return libtorrent_jni.dht_put_alert_seq_get(swigCPtr, this);
   }
 
+  public void setNum_success(int value) {
+    libtorrent_jni.dht_put_alert_num_success_set(swigCPtr, this, value);
+  }
+
+  public int getNum_success() {
+    return libtorrent_jni.dht_put_alert_num_success_get(swigCPtr, this);
+  }
+
   public char_vector public_key_v() {
     return new char_vector(libtorrent_jni.dht_put_alert_public_key_v(swigCPtr, this), true);
   }
