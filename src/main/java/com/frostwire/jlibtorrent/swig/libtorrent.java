@@ -9,26 +9,6 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent implements libtorrentConstants {
-  public static high_resolution_clock.duration to_seconds(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_seconds(arg0), true);
-  }
-
-  public static high_resolution_clock.duration to_milliseconds(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_milliseconds(arg0), true);
-  }
-
-  public static high_resolution_clock.duration to_microseconds(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_microseconds(arg0), true);
-  }
-
-  public static high_resolution_clock.duration to_minutes(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_minutes(arg0), true);
-  }
-
-  public static high_resolution_clock.duration to_hours(long arg0) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_hours(arg0), true);
-  }
-
   public static boolean op_eq(error_condition lhs, error_condition rhs) {
     return libtorrent_jni.op_eq__SWIG_0(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
   }
@@ -243,6 +223,26 @@ public class libtorrent implements libtorrentConstants {
 
   public static void set_utp_stream_logging(boolean enable) {
     libtorrent_jni.set_utp_stream_logging(enable);
+  }
+
+  public static high_resolution_clock.duration to_seconds(long n) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_seconds(n), true);
+  }
+
+  public static high_resolution_clock.duration to_milliseconds(long n) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_milliseconds(n), true);
+  }
+
+  public static high_resolution_clock.duration to_microseconds(long n) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_microseconds(n), true);
+  }
+
+  public static high_resolution_clock.duration to_minutes(long n) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_minutes(n), true);
+  }
+
+  public static high_resolution_clock.duration to_hours(long n) {
+    return new high_resolution_clock.duration(libtorrent_jni.to_hours(n), true);
   }
 
   public static boolean add_files_cb(String p, add_files_listener listener) {

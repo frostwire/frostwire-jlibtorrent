@@ -2,6 +2,13 @@
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
 
+#include <boost/asio/ip/address.hpp>
+#include <boost/asio/ip/address_v4.hpp>
+#include <boost/asio/ip/address_v6.hpp>
+
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/ip/udp.hpp>
+
 #include <libtorrent/buffer.hpp>
 #include <libtorrent/utp_stream.hpp>
 #include <libtorrent/kademlia/dht_tracker.hpp>
@@ -9,10 +16,30 @@
 #include <libtorrent/kademlia/node.hpp>
 #include <libtorrent/kademlia/get_peers.hpp>
 
-using namespace libtorrent::dht;
-
 #define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
 #define JLIBTORRENT_REVISION_SHA1 _JLIBTORRENT_REVISION_SHA1_
+
+using namespace libtorrent::dht;
+
+boost::chrono::high_resolution_clock::duration to_seconds(long long n) {
+    return boost::chrono::seconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_milliseconds(long long n) {
+    return boost::chrono::milliseconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_microseconds(long long n) {
+    return boost::chrono::microseconds(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_minutes(long long n) {
+    return boost::chrono::minutes(n);
+}
+
+boost::chrono::high_resolution_clock::duration to_hours(long long n) {
+    return boost::chrono::hours(n);
+}
 
 class add_files_listener {
 public:

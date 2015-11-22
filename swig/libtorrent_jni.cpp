@@ -969,41 +969,6 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 #include <list>
 #include <stdexcept>
 
-
-#include <boost/asio/ip/address.hpp>
-#include <boost/asio/ip/address_v4.hpp>
-#include <boost/asio/ip/address_v6.hpp>
-
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/ip/udp.hpp>
-
-boost::chrono::high_resolution_clock::duration to_seconds(long long n) {
-    return boost::chrono::seconds(n);
-}
-
-boost::chrono::high_resolution_clock::duration to_milliseconds(long long n) {
-    return boost::chrono::milliseconds(n);
-}
-
-boost::chrono::high_resolution_clock::duration to_microseconds(long long n) {
-    return boost::chrono::microseconds(n);
-}
-
-boost::chrono::high_resolution_clock::duration to_minutes(long long n) {
-    return boost::chrono::minutes(n);
-}
-
-boost::chrono::high_resolution_clock::duration to_hours(long long n) {
-    return boost::chrono::hours(n);
-}
-
-
-SWIGINTERN std::string tcp_endpoint_address(tcp::endpoint *self){
-                return self->address().to_string();
-            }
-SWIGINTERN std::string udp_endpoint_address(udp::endpoint *self){
-                return self->address().to_string();
-            }
 SWIGINTERN std::vector< std::string >::const_reference std_vector_Sl_std_string_Sg__get(std::vector< std::string > *self,int i){
                 int size = int(self->size());
                 if (i>=0 && i<size)
@@ -1782,6 +1747,12 @@ SWIGINTERN void libtorrent_session_handle_add_swig_extension(libtorrent::session
 SWIGINTERN int libtorrent_bdecode_node_bdecode(std::vector< char > &buffer,libtorrent::bdecode_node &ret,libtorrent::error_code &ec){
         return libtorrent::bdecode(&buffer[0], &buffer[0] + buffer.size(), ret, ec);
     }
+SWIGINTERN std::string tcp_endpoint_address(tcp::endpoint *self){
+                return self->address().to_string();
+            }
+SWIGINTERN std::string udp_endpoint_address(udp::endpoint *self){
+                return self->address().to_string();
+            }
 
 
 /* ---------------------------------------------------
@@ -4111,1854 +4082,6 @@ void SwigDirector_swig_peer_plugin::swig_connect_director(JNIEnv *jenv, jobject 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (boost::asio::ip::address *)new boost::asio::ip::address();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 arg1 ;
-  boost::asio::ip::address_v4 *argp1 ;
-  boost::asio::ip::address *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = (boost::asio::ip::address *)new boost::asio::ip::address(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v6 arg1 ;
-  boost::asio::ip::address_v6 *argp1 ;
-  boost::asio::ip::address *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v6");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = (boost::asio::ip::address *)new boost::asio::ip::address(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address arg1 ;
-  boost::asio::ip::address *argp1 ;
-  boost::asio::ip::address *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(boost::asio::ip::address **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = (boost::asio::ip::address *)new boost::asio::ip::address(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1v4(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_v4();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1v6(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_v6();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1v4(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      result = (arg1)->to_v4();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1v6(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  boost::asio::ip::address_v6 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      result = (arg1)->to_v6();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      result = (arg1)->to_string();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jstring jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  boost::system::error_code arg2 ;
-  boost::system::error_code *argp2 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  argp2 = *(boost::system::error_code **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
-    return 0;
-  }
-  arg2 = *argp2; 
-  {
-    try {
-      result = (arg1)->to_string(arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1from_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1) {
-  jlong jresult = 0 ;
-  std::string arg1 ;
-  boost::asio::ip::address result;
-  
-  (void)jenv;
-  (void)jcls;
-  if(!jarg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  } 
-  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
-  if (!arg1_pstr) return 0;
-  (&arg1)->assign(arg1_pstr);
-  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  {
-    try {
-      result = boost::asio::ip::address::from_string(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address **)&jresult = new boost::asio::ip::address((const boost::asio::ip::address &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1from_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  std::string arg1 ;
-  boost::system::error_code arg2 ;
-  boost::system::error_code *argp2 ;
-  boost::asio::ip::address result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  if(!jarg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  } 
-  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
-  if (!arg1_pstr) return 0;
-  (&arg1)->assign(arg1_pstr);
-  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  argp2 = *(boost::system::error_code **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
-    return 0;
-  }
-  arg2 = *argp2; 
-  {
-    try {
-      result = boost::asio::ip::address::from_string(arg1,arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address **)&jresult = new boost::asio::ip::address((const boost::asio::ip::address &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1loopback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_loopback();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1unspecified(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_unspecified();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1multicast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_multicast();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1address(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v4_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (boost::asio::ip::address_v4 *)new boost::asio::ip::address_v4();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v4_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  unsigned long arg1 ;
-  boost::asio::ip::address_v4 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (unsigned long)jarg1; 
-  {
-    try {
-      result = (boost::asio::ip::address_v4 *)new boost::asio::ip::address_v4(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v4_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 arg1 ;
-  boost::asio::ip::address_v4 *argp1 ;
-  boost::asio::ip::address_v4 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = (boost::asio::ip::address_v4 *)new boost::asio::ip::address_v4(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1to_1ulong(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  unsigned long result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      result = (unsigned long)(arg1)->to_ulong();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1to_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      result = (arg1)->to_string();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1to_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jstring jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  boost::system::error_code arg2 ;
-  boost::system::error_code *argp2 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  argp2 = *(boost::system::error_code **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
-    return 0;
-  }
-  arg2 = *argp2; 
-  {
-    try {
-      result = (arg1)->to_string(arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1from_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1) {
-  jlong jresult = 0 ;
-  std::string arg1 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  if(!jarg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  } 
-  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
-  if (!arg1_pstr) return 0;
-  (&arg1)->assign(arg1_pstr);
-  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  {
-    try {
-      result = boost::asio::ip::address_v4::from_string(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1from_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  std::string arg1 ;
-  boost::system::error_code arg2 ;
-  boost::system::error_code *argp2 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  if(!jarg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  } 
-  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
-  if (!arg1_pstr) return 0;
-  (&arg1)->assign(arg1_pstr);
-  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  argp2 = *(boost::system::error_code **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
-    return 0;
-  }
-  arg2 = *argp2; 
-  {
-    try {
-      result = boost::asio::ip::address_v4::from_string(arg1,arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1loopback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_loopback();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1unspecified(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_unspecified();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1class_1a(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_class_a();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1class_1b(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_class_b();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1class_1c(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_class_c();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1multicast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      result = (bool)(arg1)->is_multicast();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1any(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = boost::asio::ip::address_v4::any();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1loopback(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = boost::asio::ip::address_v4::loopback();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1broadcast_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = boost::asio::ip::address_v4::broadcast();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1broadcast_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 arg1 ;
-  boost::asio::ip::address_v4 arg2 ;
-  boost::asio::ip::address_v4 *argp1 ;
-  boost::asio::ip::address_v4 *argp2 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(boost::asio::ip::address_v4 **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
-    return 0;
-  }
-  arg2 = *argp2; 
-  {
-    try {
-      result = boost::asio::ip::address_v4::broadcast(arg1,arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1netmask(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 arg1 ;
-  boost::asio::ip::address_v4 *argp1 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = boost::asio::ip::address_v4::netmask(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1address_1v4(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v6_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v6 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (boost::asio::ip::address_v6 *)new boost::asio::ip::address_v6();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v6_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v6 arg1 ;
-  boost::asio::ip::address_v6 *argp1 ;
-  boost::asio::ip::address_v6 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v6");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = (boost::asio::ip::address_v6 *)new boost::asio::ip::address_v6(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1scope_1id_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  unsigned long result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (unsigned long)(arg1)->scope_id();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1scope_1id_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  unsigned long arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  arg2 = (unsigned long)jarg2; 
-  {
-    try {
-      (arg1)->scope_id(arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1to_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (arg1)->to_string();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1to_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jstring jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  boost::system::error_code arg2 ;
-  boost::system::error_code *argp2 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  argp2 = *(boost::system::error_code **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
-    return 0;
-  }
-  arg2 = *argp2; 
-  {
-    try {
-      result = (arg1)->to_string(arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1from_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1) {
-  jlong jresult = 0 ;
-  std::string arg1 ;
-  boost::asio::ip::address_v6 result;
-  
-  (void)jenv;
-  (void)jcls;
-  if(!jarg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  } 
-  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
-  if (!arg1_pstr) return 0;
-  (&arg1)->assign(arg1_pstr);
-  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  {
-    try {
-      result = boost::asio::ip::address_v6::from_string(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1from_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  std::string arg1 ;
-  boost::system::error_code arg2 ;
-  boost::system::error_code *argp2 ;
-  boost::asio::ip::address_v6 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  if(!jarg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  } 
-  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
-  if (!arg1_pstr) return 0;
-  (&arg1)->assign(arg1_pstr);
-  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  argp2 = *(boost::system::error_code **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
-    return 0;
-  }
-  arg2 = *argp2; 
-  {
-    try {
-      result = boost::asio::ip::address_v6::from_string(arg1,arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1to_1v4(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  boost::asio::ip::address_v4 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (arg1)->to_v4();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1loopback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_loopback();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1unspecified(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_unspecified();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1link_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_link_local();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1site_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_site_local();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1v4_1mapped(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_v4_mapped();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1v4_1compatible(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_v4_compatible();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1global(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_global();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1link_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_link_local();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1node_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_node_local();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1org_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_org_local();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1site_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_site_local();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1any(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v6 result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = boost::asio::ip::address_v6::any();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1loopback(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v6 result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = boost::asio::ip::address_v6::loopback();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1v4_1mapped(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 arg1 ;
-  boost::asio::ip::address_v4 *argp1 ;
-  boost::asio::ip::address_v6 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = boost::asio::ip::address_v6::v4_mapped(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1v4_1compatible(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  boost::asio::ip::address_v4 arg1 ;
-  boost::asio::ip::address_v4 *argp1 ;
-  boost::asio::ip::address_v6 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = boost::asio::ip::address_v6::v4_compatible(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1address_1v6(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1high_1resolution_1clock_1time_1point(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::chrono::high_resolution_clock::time_point *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (boost::chrono::high_resolution_clock::time_point *)new boost::chrono::high_resolution_clock::time_point();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::chrono::high_resolution_clock::time_point **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1high_1resolution_1clock_1time_1point(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  boost::chrono::high_resolution_clock::time_point *arg1 = (boost::chrono::high_resolution_clock::time_point *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(boost::chrono::high_resolution_clock::time_point **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1high_1resolution_1clock_1duration(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::chrono::high_resolution_clock::duration *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (boost::chrono::high_resolution_clock::duration *)new boost::chrono::high_resolution_clock::duration();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::chrono::high_resolution_clock::duration **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1high_1resolution_1clock_1duration(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  boost::chrono::high_resolution_clock::duration *arg1 = (boost::chrono::high_resolution_clock::duration *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(boost::chrono::high_resolution_clock::duration **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1high_1resolution_1clock(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  boost::chrono::high_resolution_clock *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (boost::chrono::high_resolution_clock *)new boost::chrono::high_resolution_clock();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::chrono::high_resolution_clock **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1high_1resolution_1clock(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  boost::chrono::high_resolution_clock *arg1 = (boost::chrono::high_resolution_clock *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(boost::chrono::high_resolution_clock **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_1endpoint_1port(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  tcp::endpoint *arg1 = (tcp::endpoint *) 0 ;
-  unsigned short result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(tcp::endpoint **)&jarg1; 
-  {
-    try {
-      result = (unsigned short)(arg1)->port();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_1endpoint_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  tcp::endpoint *arg1 = (tcp::endpoint *) 0 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(tcp::endpoint **)&jarg1; 
-  {
-    try {
-      result = tcp_endpoint_address(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1tcp_1endpoint(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  tcp::endpoint *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (tcp::endpoint *)new tcp::endpoint();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(tcp::endpoint **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1tcp_1endpoint(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  tcp::endpoint *arg1 = (tcp::endpoint *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(tcp::endpoint **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_1endpoint_1port(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  udp::endpoint *arg1 = (udp::endpoint *) 0 ;
-  unsigned short result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(udp::endpoint **)&jarg1; 
-  {
-    try {
-      result = (unsigned short)(arg1)->port();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_1endpoint_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  udp::endpoint *arg1 = (udp::endpoint *) 0 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(udp::endpoint **)&jarg1; 
-  {
-    try {
-      result = udp_endpoint_address(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1udp_1endpoint(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  udp::endpoint *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (udp::endpoint *)new udp::endpoint();
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(udp::endpoint **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1udp_1endpoint(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  udp::endpoint *arg1 = (udp::endpoint *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(udp::endpoint **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1seconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  long long arg1 ;
-  boost::chrono::high_resolution_clock::duration result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (long long)jarg1; 
-  {
-    try {
-      result = to_seconds(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1milliseconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  long long arg1 ;
-  boost::chrono::high_resolution_clock::duration result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (long long)jarg1; 
-  {
-    try {
-      result = to_milliseconds(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1microseconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  long long arg1 ;
-  boost::chrono::high_resolution_clock::duration result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (long long)jarg1; 
-  {
-    try {
-      result = to_microseconds(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1minutes(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  long long arg1 ;
-  boost::chrono::high_resolution_clock::duration result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (long long)jarg1; 
-  {
-    try {
-      result = to_minutes(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1hours(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  long long arg1 ;
-  boost::chrono::high_resolution_clock::duration result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (long long)jarg1; 
-  {
-    try {
-      result = to_hours(arg1);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return 0;
-    }
-  }
-  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
-  return jresult;
-}
-
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1char_1const_1ptr_1int_1pair_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
@@ -86609,6 +84732,1749 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
 }
 
 
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::asio::ip::address *)new boost::asio::ip::address();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 arg1 ;
+  boost::asio::ip::address_v4 *argp1 ;
+  boost::asio::ip::address *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = (boost::asio::ip::address *)new boost::asio::ip::address(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v6 arg1 ;
+  boost::asio::ip::address_v6 *argp1 ;
+  boost::asio::ip::address *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v6");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = (boost::asio::ip::address *)new boost::asio::ip::address(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address arg1 ;
+  boost::asio::ip::address *argp1 ;
+  boost::asio::ip::address *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(boost::asio::ip::address **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = (boost::asio::ip::address *)new boost::asio::ip::address(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1v4(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_v4();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1v6(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_v6();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1v4(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      result = (arg1)->to_v4();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1v6(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  boost::asio::ip::address_v6 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      result = (arg1)->to_v6();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      result = (arg1)->to_string();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jstring jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  boost::system::error_code arg2 ;
+  boost::system::error_code *argp2 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  argp2 = *(boost::system::error_code **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = (arg1)->to_string(arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1from_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  boost::asio::ip::address result;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  {
+    try {
+      result = boost::asio::ip::address::from_string(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address **)&jresult = new boost::asio::ip::address((const boost::asio::ip::address &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1from_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  boost::system::error_code arg2 ;
+  boost::system::error_code *argp2 ;
+  boost::asio::ip::address result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  argp2 = *(boost::system::error_code **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = boost::asio::ip::address::from_string(arg1,arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address **)&jresult = new boost::asio::ip::address((const boost::asio::ip::address &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1loopback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_loopback();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1unspecified(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_unspecified();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1is_1multicast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_multicast();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1address(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(boost::asio::ip::address **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v4_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::asio::ip::address_v4 *)new boost::asio::ip::address_v4();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v4_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  unsigned long arg1 ;
+  boost::asio::ip::address_v4 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (unsigned long)jarg1; 
+  {
+    try {
+      result = (boost::asio::ip::address_v4 *)new boost::asio::ip::address_v4(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v4_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 arg1 ;
+  boost::asio::ip::address_v4 *argp1 ;
+  boost::asio::ip::address_v4 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = (boost::asio::ip::address_v4 *)new boost::asio::ip::address_v4(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1to_1ulong(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  unsigned long result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      result = (unsigned long)(arg1)->to_ulong();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1to_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      result = (arg1)->to_string();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1to_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jstring jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  boost::system::error_code arg2 ;
+  boost::system::error_code *argp2 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  argp2 = *(boost::system::error_code **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = (arg1)->to_string(arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1from_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  {
+    try {
+      result = boost::asio::ip::address_v4::from_string(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1from_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  boost::system::error_code arg2 ;
+  boost::system::error_code *argp2 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  argp2 = *(boost::system::error_code **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = boost::asio::ip::address_v4::from_string(arg1,arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1loopback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_loopback();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1unspecified(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_unspecified();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1class_1a(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_class_a();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1class_1b(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_class_b();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1class_1c(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_class_c();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1is_1multicast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      result = (bool)(arg1)->is_multicast();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1any(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = boost::asio::ip::address_v4::any();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1loopback(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = boost::asio::ip::address_v4::loopback();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1broadcast_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = boost::asio::ip::address_v4::broadcast();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1broadcast_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 arg1 ;
+  boost::asio::ip::address_v4 arg2 ;
+  boost::asio::ip::address_v4 *argp1 ;
+  boost::asio::ip::address_v4 *argp2 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
+    return 0;
+  }
+  arg1 = *argp1; 
+  argp2 = *(boost::asio::ip::address_v4 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = boost::asio::ip::address_v4::broadcast(arg1,arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v4_1netmask(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 arg1 ;
+  boost::asio::ip::address_v4 *argp1 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = boost::asio::ip::address_v4::netmask(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1address_1v4(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  boost::asio::ip::address_v4 *arg1 = (boost::asio::ip::address_v4 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v6_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v6 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::asio::ip::address_v6 *)new boost::asio::ip::address_v6();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1address_1v6_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v6 arg1 ;
+  boost::asio::ip::address_v6 *argp1 ;
+  boost::asio::ip::address_v6 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v6");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = (boost::asio::ip::address_v6 *)new boost::asio::ip::address_v6(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1scope_1id_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  unsigned long result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (unsigned long)(arg1)->scope_id();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1scope_1id_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  unsigned long arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  arg2 = (unsigned long)jarg2; 
+  {
+    try {
+      (arg1)->scope_id(arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1to_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (arg1)->to_string();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1to_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jstring jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  boost::system::error_code arg2 ;
+  boost::system::error_code *argp2 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  argp2 = *(boost::system::error_code **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = (arg1)->to_string(arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1from_1string_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  boost::asio::ip::address_v6 result;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  {
+    try {
+      result = boost::asio::ip::address_v6::from_string(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1from_1string_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  boost::system::error_code arg2 ;
+  boost::system::error_code *argp2 ;
+  boost::asio::ip::address_v6 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  argp2 = *(boost::system::error_code **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = boost::asio::ip::address_v6::from_string(arg1,arg2);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1to_1v4(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  boost::asio::ip::address_v4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (arg1)->to_v4();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v4 **)&jresult = new boost::asio::ip::address_v4((const boost::asio::ip::address_v4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1loopback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_loopback();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1unspecified(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_unspecified();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1link_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_link_local();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1site_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_site_local();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1v4_1mapped(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_v4_mapped();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1v4_1compatible(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_v4_compatible();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1global(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_global();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1link_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_link_local();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1node_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_node_local();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1org_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_org_local();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1is_1multicast_1site_1local(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      result = (bool)((boost::asio::ip::address_v6 const *)arg1)->is_multicast_site_local();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1any(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v6 result;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = boost::asio::ip::address_v6::any();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1loopback(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v6 result;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = boost::asio::ip::address_v6::loopback();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1v4_1mapped(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 arg1 ;
+  boost::asio::ip::address_v4 *argp1 ;
+  boost::asio::ip::address_v6 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = boost::asio::ip::address_v6::v4_mapped(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1v6_1v4_1compatible(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  boost::asio::ip::address_v4 arg1 ;
+  boost::asio::ip::address_v4 *argp1 ;
+  boost::asio::ip::address_v6 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(boost::asio::ip::address_v4 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::asio::ip::address_v4");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = boost::asio::ip::address_v6::v4_compatible(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::asio::ip::address_v6 **)&jresult = new boost::asio::ip::address_v6((const boost::asio::ip::address_v6 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1address_1v6(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  boost::asio::ip::address_v6 *arg1 = (boost::asio::ip::address_v6 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(boost::asio::ip::address_v6 **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1high_1resolution_1clock_1time_1point(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::chrono::high_resolution_clock::time_point *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::chrono::high_resolution_clock::time_point *)new boost::chrono::high_resolution_clock::time_point();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock::time_point **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1high_1resolution_1clock_1time_1point(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  boost::chrono::high_resolution_clock::time_point *arg1 = (boost::chrono::high_resolution_clock::time_point *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(boost::chrono::high_resolution_clock::time_point **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1high_1resolution_1clock_1duration(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::chrono::high_resolution_clock::duration *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::chrono::high_resolution_clock::duration *)new boost::chrono::high_resolution_clock::duration();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock::duration **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1high_1resolution_1clock_1duration(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  boost::chrono::high_resolution_clock::duration *arg1 = (boost::chrono::high_resolution_clock::duration *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(boost::chrono::high_resolution_clock::duration **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1high_1resolution_1clock(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  boost::chrono::high_resolution_clock *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (boost::chrono::high_resolution_clock *)new boost::chrono::high_resolution_clock();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1high_1resolution_1clock(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  boost::chrono::high_resolution_clock *arg1 = (boost::chrono::high_resolution_clock *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(boost::chrono::high_resolution_clock **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_1endpoint_1port(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  tcp::endpoint *arg1 = (tcp::endpoint *) 0 ;
+  unsigned short result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(tcp::endpoint **)&jarg1; 
+  {
+    try {
+      result = (unsigned short)(arg1)->port();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_1endpoint_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  tcp::endpoint *arg1 = (tcp::endpoint *) 0 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(tcp::endpoint **)&jarg1; 
+  {
+    try {
+      result = tcp_endpoint_address(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1tcp_1endpoint(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  tcp::endpoint *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (tcp::endpoint *)new tcp::endpoint();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(tcp::endpoint **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1tcp_1endpoint(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  tcp::endpoint *arg1 = (tcp::endpoint *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(tcp::endpoint **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_1endpoint_1port(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  udp::endpoint *arg1 = (udp::endpoint *) 0 ;
+  unsigned short result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(udp::endpoint **)&jarg1; 
+  {
+    try {
+      result = (unsigned short)(arg1)->port();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_1endpoint_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  udp::endpoint *arg1 = (udp::endpoint *) 0 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(udp::endpoint **)&jarg1; 
+  {
+    try {
+      result = udp_endpoint_address(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1udp_1endpoint(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  udp::endpoint *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (udp::endpoint *)new udp::endpoint();
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(udp::endpoint **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1udp_1endpoint(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  udp::endpoint *arg1 = (udp::endpoint *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(udp::endpoint **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1stack_1allocator(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   libtorrent::aux::stack_allocator *result = 0 ;
@@ -87267,8 +87133,113 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("a8023c2bf3c58388d72defabfbcf225b5b0159cb");
+  result = (char *)("4ae5c5168d005fe51bd631f5ffb94db9a34a1480");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1seconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  long long arg1 ;
+  boost::chrono::high_resolution_clock::duration result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (long long)jarg1; 
+  {
+    try {
+      result = to_seconds(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1milliseconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  long long arg1 ;
+  boost::chrono::high_resolution_clock::duration result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (long long)jarg1; 
+  {
+    try {
+      result = to_milliseconds(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1microseconds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  long long arg1 ;
+  boost::chrono::high_resolution_clock::duration result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (long long)jarg1; 
+  {
+    try {
+      result = to_microseconds(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1minutes(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  long long arg1 ;
+  boost::chrono::high_resolution_clock::duration result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (long long)jarg1; 
+  {
+    try {
+      result = to_minutes(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_to_1hours(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  long long arg1 ;
+  boost::chrono::high_resolution_clock::duration result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (long long)jarg1; 
+  {
+    try {
+      result = to_hours(arg1);
+    } catch (...) {
+      translate_cpp_exception(jenv);
+      return 0;
+    }
+  }
+  *(boost::chrono::high_resolution_clock::duration **)&jresult = new boost::chrono::high_resolution_clock::duration((const boost::chrono::high_resolution_clock::duration &)result); 
   return jresult;
 }
 
