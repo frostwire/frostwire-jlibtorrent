@@ -681,6 +681,8 @@ namespace Swig {
 #include <ios>
 #include <list>
 #include <vector>
+#include <map>
+#include <algorithm>
 
 #include <boost/system/error_code.hpp>
 
@@ -956,11 +958,6 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 
 
 #include <deque>
-#include <stdexcept>
-
-
-#include <map>
-#include <algorithm>
 #include <stdexcept>
 
 SWIGINTERN std::vector< std::string >::const_reference std_vector_Sl_std_string_Sg__get(std::vector< std::string > *self,int i){
@@ -87127,7 +87124,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("b66c2b2b2568da6b10a78970fdd229ce0af02907");
+  result = (char *)("4891b2364d3de5b595b779dcbebc99b7f44dc4eb");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
