@@ -12,15 +12,15 @@ Download [the latest JAR](https://search.maven.org/remote_content?g=com.frostwir
 <dependency>
   <groupId>com.frostwire</groupId>
   <artifactId>jlibtorrent</artifactId>
-  <version>1.1.0.9</version>
+  <version>1.1.0.11</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.frostwire:jlibtorrent:1.1.0.9'
+compile 'com.frostwire:jlibtorrent:1.1.0.11'
 ```
 
-Note that there are multiple version of jlibtorrent for different platforms: `jlibtorrent`, `jlibtorrent-windows`, `jlibtorrent-linux`, `jlibtorrent-macosx` and `jlibtorrent-android`. These are all different artifacts.
+Note that there are multiple version of jlibtorrent for different platforms: `jlibtorrent`, `jlibtorrent-windows`, `jlibtorrent-linux`, `jlibtorrent-macosx` and `jlibtorrent-android-<arch>`. These are all different artifacts.
 
 Here's a simple example of how to create a .torrent downloader using **frostwire-jlibtorrent**.
 
@@ -66,6 +66,29 @@ frostwire-jlibtorrent is currently compatible with libtorrent-rasterbar-1.0.2
 
 Building
 ========
+
+** Mingw-w32 build flags **
+
+binutils:
+--target=i686-w64-mingw32 --disable-multilib --with-sysroot=/home/user1/Development/toolchains/windows-x86 --prefix=/home/user1/Development/toolchains/windows-x86
+
+--target=x86_64-w64-mingw32 --disable-multilib --with-sysroot=/home/user1/Development/toolchains/windows-x86_64 --prefix=/home/user1/Development/toolchains/windows-x86_64
+
+mingw-w64-headers:
+--build=i686-w64-mingw32 --host=i686-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86/i686-w64-mingw32
+
+--build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32
+
+gcc:
+--target=i686-w64-mingw32 --disable-multilib --with-sysroot=/home/user1/Development/toolchains/windows-x86 --prefix=/home/user1/Development/toolchains/windows-x86
+
+--target=x86_64-w64-mingw32 --disable-multilib --with-sysroot=/home/user1/Development/toolchains/windows-x86_64 --prefix=/home/user1/Development/toolchains/windows-x86_64
+
+mingw-w64-crt:
+--host=i686-w64-mingw32 --with-sysroot=/home/user1/Development/toolchains/windows-x86/i686-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86/i686-w64-mingw32
+
+--host=x86_64-w64-mingw32 -with-sysroot=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32
+
 
 **Requirements**
 
