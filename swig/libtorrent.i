@@ -19,6 +19,7 @@
 #include <stdexcept>
 #include <string>
 #include <ios>
+#include <list>
 
 #include <boost/system/error_code.hpp>
 
@@ -256,6 +257,7 @@ public:
 %include <stdint.i>
 %include <typemaps.i>
 %include <boost_shared_ptr.i>
+%include <std_common.i>
 %include <std_string.i>
 %include <std_pair.i>
 %include <std_deque.i>
@@ -263,7 +265,38 @@ public:
 
 %include "std_vector2.i"
 %include "std_map2.i"
-%include "std_list.i"
+
+namespace std {
+
+    template<class T> class list {
+        public:
+            typedef size_t size_type;
+            typedef T value_type;
+            typedef const value_type& const_reference;
+            list();
+
+            %rename(isEmpty) empty;
+            bool empty() const;
+            size_type size() const;
+            size_type max_size() const;
+
+            const_reference front();
+            const_reference back();
+
+            void push_front(const value_type& x);
+            void pop_front();
+            void push_back(const value_type& x);
+            void pop_back();
+            void clear();
+
+            %extend {
+                std::vector<T> to_vector() {
+                    std::vector<T> v(self->begin(), self->end());
+                    return v;
+                }
+            }
+    };
+}
 
 %shared_ptr(libtorrent::entry)
 %shared_ptr(libtorrent::plugin)

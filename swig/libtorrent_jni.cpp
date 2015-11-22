@@ -679,6 +679,7 @@ namespace Swig {
 #include <stdexcept>
 #include <string>
 #include <ios>
+#include <list>
 
 #include <boost/system/error_code.hpp>
 
@@ -907,10 +908,10 @@ public:
 #include <stdint.h>		// Use the C99 official header
 
 
-#include <string>
-
-
 #include <stdexcept>
+
+
+#include <string>
 
 
 SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
@@ -963,10 +964,6 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 
 #include <map>
 #include <algorithm>
-#include <stdexcept>
-
-
-#include <list>
 #include <stdexcept>
 
 SWIGINTERN std::vector< std::string >::const_reference std_vector_Sl_std_string_Sg__get(std::vector< std::string > *self,int i){
@@ -87133,7 +87130,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("4ae5c5168d005fe51bd631f5ffb94db9a34a1480");
+  result = (char *)("dee2092b445112d4e5df17a73623019f814758bb");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
