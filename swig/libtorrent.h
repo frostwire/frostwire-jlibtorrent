@@ -3,6 +3,12 @@
 #include <boost/bind.hpp>
 
 #include <libtorrent/utp_stream.hpp>
+#include <libtorrent/kademlia/dht_tracker.hpp>
+#include <libtorrent/kademlia/node_entry.hpp>
+#include <libtorrent/kademlia/node.hpp>
+#include <libtorrent/kademlia/get_peers.hpp>
+
+using namespace libtorrent::dht;
 
 #define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
 #define JLIBTORRENT_REVISION_SHA1 _JLIBTORRENT_REVISION_SHA1_
@@ -163,3 +169,23 @@ public:
 storage_interface* swig_storage_constructor_cb(libtorrent::storage_params const& params, swig_storage_constructor* sc) {
 	return sc->create(params);
 }
+
+void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
+    std::string const& salt, char const* public_key, char const* private_key,
+    entry& data)
+{
+	using libtorrent::dht::sign_mutable_item;
+
+	e = data;
+	std::vector<char> buf;
+	bencode(std::back_inserter(buf), e);
+	++seq;
+	sign_mutable_item(std::pair<char const*, int>(buf.data(), buf.size()),
+        std::pair<char const*, int>(salt.data(), salt.size()),
+        seq,
+        public_key,
+        private_key,
+        sig.data());
+}
+
+#include "session_plugins.h"
