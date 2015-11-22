@@ -1089,6 +1089,4 @@ public:
 %ignore swig_storage_constructor_cb;
 %ignore dht_put_item_cb;
 
-%include "session_plugins.h"
-
 %include "libtorrent.h"

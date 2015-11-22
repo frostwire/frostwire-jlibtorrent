@@ -4082,6 +4082,65 @@ public class libtorrent_jni {
   public final static native void dht_item_sign_mutable_item(long jarg1, char_vector jarg1_, String jarg2, int jarg3, long jarg4, char_vector jarg4_, long jarg5, char_vector jarg5_, long jarg6, char_vector jarg6_);
   public final static native long new_dht_item();
   public final static native void delete_dht_item(long jarg1);
+  public final static native String LIBTORRENT_REVISION_SHA1_get();
+  public final static native String JLIBTORRENT_REVISION_SHA1_get();
+  public final static native void delete_add_files_listener(long jarg1);
+  public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
+  public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2);
+  public final static native long new_add_files_listener();
+  public final static native void add_files_listener_director_connect(add_files_listener obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void add_files_listener_change_ownership(add_files_listener obj, long cptr, boolean take_or_release);
+  public final static native boolean add_files_cb(String jarg1, long jarg2, add_files_listener jarg2_);
+  public final static native void add_files(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, add_files_listener jarg4_);
+  public final static native void delete_set_piece_hashes_listener(long jarg1);
+  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
+  public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
+  public final static native long new_set_piece_hashes_listener();
+  public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
+  public final static native void set_piece_hashes(String jarg1, long jarg2, create_torrent jarg2_, String jarg3, long jarg4, error_code jarg4_, long jarg5, set_piece_hashes_listener jarg5_);
+  public final static native int boost_version();
+  public final static native String boost_lib_version();
+  public final static native void delete_dht_extension_handler_listener(long jarg1);
+  public final static native boolean dht_extension_handler_listener_on_message(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
+  public final static native boolean dht_extension_handler_listener_on_messageSwigExplicitdht_extension_handler_listener(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
+  public final static native long new_dht_extension_handler_listener();
+  public final static native void dht_extension_handler_listener_director_connect(dht_extension_handler_listener obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void dht_extension_handler_listener_change_ownership(dht_extension_handler_listener obj, long cptr, boolean take_or_release);
+  public final static native void delete_swig_storage(long jarg1);
+  public final static native void swig_storage_initialize(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void swig_storage_initializeSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native int swig_storage_read(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
+  public final static native int swig_storage_readSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
+  public final static native int swig_storage_write(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
+  public final static native int swig_storage_writeSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
+  public final static native boolean swig_storage_has_any_file(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native boolean swig_storage_has_any_fileSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void swig_storage_set_file_priority(long jarg1, swig_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
+  public final static native void swig_storage_set_file_prioritySwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
+  public final static native int swig_storage_move_storage(long jarg1, swig_storage jarg1_, String jarg2, int jarg3, long jarg4, storage_error jarg4_);
+  public final static native int swig_storage_move_storageSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, String jarg2, int jarg3, long jarg4, storage_error jarg4_);
+  public final static native boolean swig_storage_verify_resume_data(long jarg1, swig_storage jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, string_vector jarg3_, long jarg4, storage_error jarg4_);
+  public final static native boolean swig_storage_verify_resume_dataSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, string_vector jarg3_, long jarg4, storage_error jarg4_);
+  public final static native void swig_storage_write_resume_data(long jarg1, swig_storage jarg1_, long jarg2, entry jarg2_, long jarg3, storage_error jarg3_);
+  public final static native void swig_storage_write_resume_dataSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, entry jarg2_, long jarg3, storage_error jarg3_);
+  public final static native void swig_storage_release_files(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void swig_storage_release_filesSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void swig_storage_rename_file(long jarg1, swig_storage jarg1_, int jarg2, String jarg3, long jarg4, storage_error jarg4_);
+  public final static native void swig_storage_rename_fileSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, int jarg2, String jarg3, long jarg4, storage_error jarg4_);
+  public final static native void swig_storage_delete_files(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void swig_storage_delete_filesSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native boolean swig_storage_tick(long jarg1, swig_storage jarg1_);
+  public final static native boolean swig_storage_tickSwigExplicitswig_storage(long jarg1, swig_storage jarg1_);
+  public final static native long new_swig_storage();
+  public final static native void swig_storage_director_connect(swig_storage obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void swig_storage_change_ownership(swig_storage obj, long cptr, boolean take_or_release);
+  public final static native void delete_swig_storage_constructor(long jarg1);
+  public final static native long swig_storage_constructor_create(long jarg1, swig_storage_constructor jarg1_, long jarg2, storage_params jarg2_);
+  public final static native long swig_storage_constructor_createSwigExplicitswig_storage_constructor(long jarg1, swig_storage_constructor jarg1_, long jarg2, storage_params jarg2_);
+  public final static native long new_swig_storage_constructor();
+  public final static native void swig_storage_constructor_director_connect(swig_storage_constructor obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void swig_storage_constructor_change_ownership(swig_storage_constructor obj, long cptr, boolean take_or_release);
   public final static native void delete_swig_plugin(long jarg1);
   public final static native long swig_plugin_new_torrent(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
@@ -4190,65 +4249,6 @@ public class libtorrent_jni {
   public final static native long new_swig_peer_plugin();
   public final static native void swig_peer_plugin_director_connect(swig_peer_plugin obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void swig_peer_plugin_change_ownership(swig_peer_plugin obj, long cptr, boolean take_or_release);
-  public final static native String LIBTORRENT_REVISION_SHA1_get();
-  public final static native String JLIBTORRENT_REVISION_SHA1_get();
-  public final static native void delete_add_files_listener(long jarg1);
-  public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
-  public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2);
-  public final static native long new_add_files_listener();
-  public final static native void add_files_listener_director_connect(add_files_listener obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void add_files_listener_change_ownership(add_files_listener obj, long cptr, boolean take_or_release);
-  public final static native boolean add_files_cb(String jarg1, long jarg2, add_files_listener jarg2_);
-  public final static native void add_files(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, add_files_listener jarg4_);
-  public final static native void delete_set_piece_hashes_listener(long jarg1);
-  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
-  public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
-  public final static native long new_set_piece_hashes_listener();
-  public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
-  public final static native void set_piece_hashes(String jarg1, long jarg2, create_torrent jarg2_, String jarg3, long jarg4, error_code jarg4_, long jarg5, set_piece_hashes_listener jarg5_);
-  public final static native int boost_version();
-  public final static native String boost_lib_version();
-  public final static native void delete_dht_extension_handler_listener(long jarg1);
-  public final static native boolean dht_extension_handler_listener_on_message(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
-  public final static native boolean dht_extension_handler_listener_on_messageSwigExplicitdht_extension_handler_listener(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
-  public final static native long new_dht_extension_handler_listener();
-  public final static native void dht_extension_handler_listener_director_connect(dht_extension_handler_listener obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void dht_extension_handler_listener_change_ownership(dht_extension_handler_listener obj, long cptr, boolean take_or_release);
-  public final static native void delete_swig_storage(long jarg1);
-  public final static native void swig_storage_initialize(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native void swig_storage_initializeSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native int swig_storage_read(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
-  public final static native int swig_storage_readSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
-  public final static native int swig_storage_write(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
-  public final static native int swig_storage_writeSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
-  public final static native boolean swig_storage_has_any_file(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native boolean swig_storage_has_any_fileSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native void swig_storage_set_file_priority(long jarg1, swig_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
-  public final static native void swig_storage_set_file_prioritySwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
-  public final static native int swig_storage_move_storage(long jarg1, swig_storage jarg1_, String jarg2, int jarg3, long jarg4, storage_error jarg4_);
-  public final static native int swig_storage_move_storageSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, String jarg2, int jarg3, long jarg4, storage_error jarg4_);
-  public final static native boolean swig_storage_verify_resume_data(long jarg1, swig_storage jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, string_vector jarg3_, long jarg4, storage_error jarg4_);
-  public final static native boolean swig_storage_verify_resume_dataSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, string_vector jarg3_, long jarg4, storage_error jarg4_);
-  public final static native void swig_storage_write_resume_data(long jarg1, swig_storage jarg1_, long jarg2, entry jarg2_, long jarg3, storage_error jarg3_);
-  public final static native void swig_storage_write_resume_dataSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, entry jarg2_, long jarg3, storage_error jarg3_);
-  public final static native void swig_storage_release_files(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native void swig_storage_release_filesSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native void swig_storage_rename_file(long jarg1, swig_storage jarg1_, int jarg2, String jarg3, long jarg4, storage_error jarg4_);
-  public final static native void swig_storage_rename_fileSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, int jarg2, String jarg3, long jarg4, storage_error jarg4_);
-  public final static native void swig_storage_delete_files(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native void swig_storage_delete_filesSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native boolean swig_storage_tick(long jarg1, swig_storage jarg1_);
-  public final static native boolean swig_storage_tickSwigExplicitswig_storage(long jarg1, swig_storage jarg1_);
-  public final static native long new_swig_storage();
-  public final static native void swig_storage_director_connect(swig_storage obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void swig_storage_change_ownership(swig_storage obj, long cptr, boolean take_or_release);
-  public final static native void delete_swig_storage_constructor(long jarg1);
-  public final static native long swig_storage_constructor_create(long jarg1, swig_storage_constructor jarg1_, long jarg2, storage_params jarg2_);
-  public final static native long swig_storage_constructor_createSwigExplicitswig_storage_constructor(long jarg1, swig_storage_constructor jarg1_, long jarg2, storage_params jarg2_);
-  public final static native long new_swig_storage_constructor();
-  public final static native void swig_storage_constructor_director_connect(swig_storage_constructor obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void swig_storage_constructor_change_ownership(swig_storage_constructor obj, long cptr, boolean take_or_release);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
   public final static native long tracker_alert_SWIGUpcast(long jarg1);
@@ -4347,6 +4347,54 @@ public class libtorrent_jni {
   public final static native long http_seed_connection_SWIGSmartPtrUpcast(long jarg1);
   public final static native long bt_peer_connection_handle_SWIGUpcast(long jarg1);
 
+  public static boolean SwigDirector_add_files_listener_pred(add_files_listener jself, String p) {
+    return jself.pred(p);
+  }
+  public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, int i) {
+    jself.progress(i);
+  }
+  public static boolean SwigDirector_dht_extension_handler_listener_on_message(dht_extension_handler_listener jself, long source, long request, long response) {
+    return jself.on_message(new udp_endpoint(source, false), new bdecode_node(request, false), new entry(response, false));
+  }
+  public static void SwigDirector_swig_storage_initialize(swig_storage jself, long ec) {
+    jself.initialize(new storage_error(ec, false));
+  }
+  public static int SwigDirector_swig_storage_read(swig_storage jself, long iov_base, long iov_len, int piece, int offset, int flags, long ec) {
+    return jself.read(iov_base, iov_len, piece, offset, flags, new storage_error(ec, false));
+  }
+  public static int SwigDirector_swig_storage_write(swig_storage jself, long iov_base, long iov_len, int piece, int offset, int flags, long ec) {
+    return jself.write(iov_base, iov_len, piece, offset, flags, new storage_error(ec, false));
+  }
+  public static boolean SwigDirector_swig_storage_has_any_file(swig_storage jself, long ec) {
+    return jself.has_any_file(new storage_error(ec, false));
+  }
+  public static void SwigDirector_swig_storage_set_file_priority(swig_storage jself, long prio, long ec) {
+    jself.set_file_priority(new unsigned_char_vector(prio, false), new storage_error(ec, false));
+  }
+  public static int SwigDirector_swig_storage_move_storage(swig_storage jself, String save_path, int flags, long ec) {
+    return jself.move_storage(save_path, flags, new storage_error(ec, false));
+  }
+  public static boolean SwigDirector_swig_storage_verify_resume_data(swig_storage jself, long rd, long links, long ec) {
+    return jself.verify_resume_data(new bdecode_node(rd, false), (links == 0) ? null : new string_vector(links, false), new storage_error(ec, false));
+  }
+  public static void SwigDirector_swig_storage_write_resume_data(swig_storage jself, long rd, long ec) {
+    jself.write_resume_data(new entry(rd, false), new storage_error(ec, false));
+  }
+  public static void SwigDirector_swig_storage_release_files(swig_storage jself, long ec) {
+    jself.release_files(new storage_error(ec, false));
+  }
+  public static void SwigDirector_swig_storage_rename_file(swig_storage jself, int index, String new_filename, long ec) {
+    jself.rename_file(index, new_filename, new storage_error(ec, false));
+  }
+  public static void SwigDirector_swig_storage_delete_files(swig_storage jself, long ec) {
+    jself.delete_files(new storage_error(ec, false));
+  }
+  public static boolean SwigDirector_swig_storage_tick(swig_storage jself) {
+    return jself.tick();
+  }
+  public static long SwigDirector_swig_storage_constructor_create(swig_storage_constructor jself, long params) {
+    return swig_storage.getCPtr(jself.create(new storage_params(params, false)));
+  }
   public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long t) {
     return swig_torrent_plugin.getCPtr(jself.new_torrent(new torrent_handle(t, false)));
   }
@@ -4490,54 +4538,6 @@ public class libtorrent_jni {
   }
   public static boolean SwigDirector_swig_peer_plugin_write_request(swig_peer_plugin jself, long r) {
     return jself.write_request(new peer_request(r, false));
-  }
-  public static boolean SwigDirector_add_files_listener_pred(add_files_listener jself, String p) {
-    return jself.pred(p);
-  }
-  public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, int i) {
-    jself.progress(i);
-  }
-  public static boolean SwigDirector_dht_extension_handler_listener_on_message(dht_extension_handler_listener jself, long source, long request, long response) {
-    return jself.on_message(new udp_endpoint(source, false), new bdecode_node(request, false), new entry(response, false));
-  }
-  public static void SwigDirector_swig_storage_initialize(swig_storage jself, long ec) {
-    jself.initialize(new storage_error(ec, false));
-  }
-  public static int SwigDirector_swig_storage_read(swig_storage jself, long iov_base, long iov_len, int piece, int offset, int flags, long ec) {
-    return jself.read(iov_base, iov_len, piece, offset, flags, new storage_error(ec, false));
-  }
-  public static int SwigDirector_swig_storage_write(swig_storage jself, long iov_base, long iov_len, int piece, int offset, int flags, long ec) {
-    return jself.write(iov_base, iov_len, piece, offset, flags, new storage_error(ec, false));
-  }
-  public static boolean SwigDirector_swig_storage_has_any_file(swig_storage jself, long ec) {
-    return jself.has_any_file(new storage_error(ec, false));
-  }
-  public static void SwigDirector_swig_storage_set_file_priority(swig_storage jself, long prio, long ec) {
-    jself.set_file_priority(new unsigned_char_vector(prio, false), new storage_error(ec, false));
-  }
-  public static int SwigDirector_swig_storage_move_storage(swig_storage jself, String save_path, int flags, long ec) {
-    return jself.move_storage(save_path, flags, new storage_error(ec, false));
-  }
-  public static boolean SwigDirector_swig_storage_verify_resume_data(swig_storage jself, long rd, long links, long ec) {
-    return jself.verify_resume_data(new bdecode_node(rd, false), (links == 0) ? null : new string_vector(links, false), new storage_error(ec, false));
-  }
-  public static void SwigDirector_swig_storage_write_resume_data(swig_storage jself, long rd, long ec) {
-    jself.write_resume_data(new entry(rd, false), new storage_error(ec, false));
-  }
-  public static void SwigDirector_swig_storage_release_files(swig_storage jself, long ec) {
-    jself.release_files(new storage_error(ec, false));
-  }
-  public static void SwigDirector_swig_storage_rename_file(swig_storage jself, int index, String new_filename, long ec) {
-    jself.rename_file(index, new_filename, new storage_error(ec, false));
-  }
-  public static void SwigDirector_swig_storage_delete_files(swig_storage jself, long ec) {
-    jself.delete_files(new storage_error(ec, false));
-  }
-  public static boolean SwigDirector_swig_storage_tick(swig_storage jself) {
-    return jself.tick();
-  }
-  public static long SwigDirector_swig_storage_constructor_create(swig_storage_constructor jself, long params) {
-    return swig_storage.getCPtr(jself.create(new storage_params(params, false)));
   }
 
   private final static native void swig_module_init();
