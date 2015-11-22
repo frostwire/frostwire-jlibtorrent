@@ -5,8 +5,6 @@
 
 namespace libtorrent {
 
-class upnp;
-
 %extend session_handle {
 
     void add_lt_trackers_extension() {
@@ -42,10 +40,6 @@ class upnp;
 
         $self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
             public_key.data(), private_key.data(), data), salt);
-    }
-
-    upnp* get_upnp() {
-        return get_upnp($self);
     }
 
     void add_swig_extension(swig_plugin *p) {

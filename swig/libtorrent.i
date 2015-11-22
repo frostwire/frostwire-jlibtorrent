@@ -75,7 +75,6 @@
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
-#include "libtorrent/upnp.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
 
@@ -597,7 +596,6 @@ namespace std {
 %ignore libtorrent::cork::m_pc;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
-%ignore libtorrent::upnp_errors::make_error_code;
 %ignore libtorrent::set_bits;
 %ignore libtorrent::has_bits;
 %ignore libtorrent::count_zero_bits;
@@ -622,10 +620,6 @@ namespace std {
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::all_path_hashes;
-%ignore libtorrent::upnp::upnp;
-%ignore libtorrent::upnp::start;
-%ignore libtorrent::upnp::drain_state;
-%ignore libtorrent::upnp::get_mapping(int, int&, int&, int&) const;
 %ignore libtorrent::torrent_error_alert::filename;
 %ignore libtorrent::piece_picker::get_downloaders;
 %ignore libtorrent::piece_picker::get_downloader;
@@ -702,7 +696,6 @@ namespace std {
 
 %rename(errors) libtorrent::errors::error_code_enum;
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
-%rename(upnp_errors) libtorrent::upnp_errors::error_code_enum;
 
 %rename(value) libtorrent::storage_error::operator bool() const;
 %rename(is_none_t) libtorrent::bdecode_node::operator bool() const;
@@ -766,9 +759,6 @@ namespace std {
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
-%javaconst(1);
-%include "libtorrent/upnp.hpp"
-%javaconst(0);
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
 
@@ -964,23 +954,6 @@ namespace libtorrent {
 %extend session_stats_alert {
     long long get_value(int index) {
         return $self->values[index];
-    }
-};
-
-%extend upnp {
-    bool get_mapping(int mapping_index, std::vector<int>& res) {
-
-        int local_port = 0;
-        int external_port = 0;
-        int protocol = 0;
-
-        bool r = $self->get_mapping(mapping_index, local_port, external_port, protocol);
-
-        res[0] = local_port;
-        res[1] = external_port;
-        res[2] = protocol;
-
-        return r;
     }
 };
 

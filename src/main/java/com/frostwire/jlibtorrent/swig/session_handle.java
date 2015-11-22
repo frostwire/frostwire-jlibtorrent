@@ -284,11 +284,6 @@ public class session_handle {
     libtorrent_jni.session_handle_dht_put_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data);
   }
 
-  public upnp get_upnp() {
-    long cPtr = libtorrent_jni.session_handle_get_upnp(swigCPtr, this);
-    return (cPtr == 0) ? null : new upnp(cPtr, false);
-  }
-
   public void add_swig_extension(swig_plugin p) {
     libtorrent_jni.session_handle_add_swig_extension(swigCPtr, this, swig_plugin.getCPtr(p), p);
   }

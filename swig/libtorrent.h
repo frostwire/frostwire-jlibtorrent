@@ -1,4 +1,8 @@
 #include <boost/version.hpp>
+#include <boost/function.hpp>
+#include <boost/bind.hpp>
+
+#include <libtorrent/utp_stream.hpp>
 
 #define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
 #define JLIBTORRENT_REVISION_SHA1 _JLIBTORRENT_REVISION_SHA1_

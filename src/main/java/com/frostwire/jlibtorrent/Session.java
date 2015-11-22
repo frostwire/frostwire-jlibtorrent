@@ -806,10 +806,6 @@ public final class Session extends SessionHandle {
         return new SessionSettings(s.get_settings());
     }
 
-    public UPnP getUPnP() {
-        return new UPnP(s.get_upnp());
-    }
-
     @Deprecated
     public ProxySettings getProxy() {
         return new ProxySettings(new settings_pack());
