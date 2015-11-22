@@ -680,6 +680,7 @@ namespace Swig {
 #include <string>
 #include <ios>
 #include <list>
+#include <vector>
 
 #include <boost/system/error_code.hpp>
 
@@ -955,10 +956,6 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 
 
 #include <deque>
-#include <stdexcept>
-
-
-#include <vector>
 #include <stdexcept>
 
 
@@ -1439,17 +1436,17 @@ SWIGINTERN void std_vector_Sl_libtorrent_peer_connection_handle_Sg__set(std::vec
                     throw std::out_of_range("vector index out of range");
             }
 SWIGINTERN std::vector< std::string > std_list_Sl_std_string_Sg__to_vector(std::list< std::string > *self){
-                    std::vector<std::string> v(self->begin(), self->end());
-                    return v;
-                }
+                std::vector<std::string> v(self->begin(), self->end());
+                return v;
+            }
 SWIGINTERN std::vector< libtorrent::entry > std_list_Sl_libtorrent_entry_Sg__to_vector(std::list< libtorrent::entry > *self){
-                    std::vector<libtorrent::entry> v(self->begin(), self->end());
-                    return v;
-                }
+                std::vector<libtorrent::entry> v(self->begin(), self->end());
+                return v;
+            }
 SWIGINTERN std::vector< libtorrent::web_seed_entry > std_list_Sl_libtorrent_web_seed_entry_Sg__to_vector(std::list< libtorrent::web_seed_entry > *self){
-                    std::vector<libtorrent::web_seed_entry> v(self->begin(), self->end());
-                    return v;
-                }
+                std::vector<libtorrent::web_seed_entry> v(self->begin(), self->end());
+                return v;
+            }
 SWIGINTERN long const &std_map_Sl_std_string_Sc_long_Sg__get(std::map< std::string,long > *self,std::string const &key){
                 std::map<std::string,long >::iterator i = self->find(key);
                 if (i != self->end())
@@ -87130,7 +87127,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("dee2092b445112d4e5df17a73623019f814758bb");
+  result = (char *)("b66c2b2b2568da6b10a78970fdd229ce0af02907");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

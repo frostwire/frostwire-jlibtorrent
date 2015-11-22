@@ -20,6 +20,7 @@
 #include <string>
 #include <ios>
 #include <list>
+#include <vector>
 
 #include <boost/system/error_code.hpp>
 
@@ -263,38 +264,105 @@ public:
 %include <std_deque.i>
 %include <enums.swg>
 
-%include "std_vector2.i"
 %include "std_map2.i"
 
 namespace std {
 
     template<class T> class list {
-        public:
-            typedef size_t size_type;
-            typedef T value_type;
-            typedef const value_type& const_reference;
-            list();
+    public:
+        typedef size_t size_type;
+        typedef T value_type;
+        typedef const value_type& const_reference;
+        list();
 
-            %rename(isEmpty) empty;
-            bool empty() const;
-            size_type size() const;
-            size_type max_size() const;
+        %rename(isEmpty) empty;
+        bool empty() const;
+        size_type size() const;
+        size_type max_size() const;
 
-            const_reference front();
-            const_reference back();
+        const_reference front();
+        const_reference back();
 
-            void push_front(const value_type& x);
-            void pop_front();
-            void push_back(const value_type& x);
-            void pop_back();
-            void clear();
+        void push_front(const value_type& x);
+        void pop_front();
+        void push_back(const value_type& x);
+        void pop_back();
+        void clear();
 
-            %extend {
-                std::vector<T> to_vector() {
-                    std::vector<T> v(self->begin(), self->end());
-                    return v;
-                }
+        %extend {
+            std::vector<T> to_vector() {
+                std::vector<T> v(self->begin(), self->end());
+                return v;
             }
+        }
+    };
+
+    template<class T> class vector {
+    public:
+        typedef size_t size_type;
+        typedef T value_type;
+        typedef const value_type& const_reference;
+        vector();
+        // commented to avoid problems with some types without empty allocation constructor
+        //vector(size_type n);
+        size_type size() const;
+        size_type capacity() const;
+        void reserve(size_type n);
+        %rename(isEmpty) empty;
+        bool empty() const;
+        void clear();
+        %rename(add) push_back;
+        void push_back(const value_type& x);
+        %extend {
+            const_reference get(int i) throw (std::out_of_range) {
+                int size = int(self->size());
+                if (i>=0 && i<size)
+                    return (*self)[i];
+                else
+                    throw std::out_of_range("vector index out of range");
+            }
+            void set(int i, const value_type& val) throw (std::out_of_range) {
+                int size = int(self->size());
+                if (i>=0 && i<size)
+                    (*self)[i] = val;
+                else
+                    throw std::out_of_range("vector index out of range");
+            }
+        }
+    };
+
+    // bool specialization
+    template<> class vector<bool> {
+    public:
+        typedef size_t size_type;
+        typedef bool value_type;
+        typedef bool const_reference;
+        vector();
+        vector(size_type n);
+        size_type size() const;
+        size_type capacity() const;
+        void reserve(size_type n);
+        %rename(isEmpty) empty;
+        bool empty() const;
+        void clear();
+        %rename(add) push_back;
+        void push_back(const value_type& x);
+        %extend {
+            bool get(int i) throw (std::out_of_range) {
+                int size = int(self->size());
+                if (i>=0 && i<size)
+                    return (*self)[i];
+                else
+                    throw std::out_of_range("vector index out of range");
+            }
+            void set(int i, const value_type& val) throw (std::out_of_range) {
+                int size = int(self->size());
+                if (i>=0 && i<size)
+                    (*self)[i] = val;
+                else
+                    throw std::out_of_range("vector index out of range");
+            }
+        }
     };
 }
 
