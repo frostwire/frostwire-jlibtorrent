@@ -1056,7 +1056,11 @@ namespace libtorrent {
 %extend alert {
 #define CAST_ALERT_METHOD(name) \
     static libtorrent::##name *cast_to_##name(alert *alert) { \
-        return dynamic_cast<libtorrent::##name *>(alert); \
+        if (libtorrent::##name::alert_type == alert->type()) { \
+            return reinterpret_cast<libtorrent::##name *>(alert); \
+        } else { \
+            return NULL; \
+        } \
     }
 
     CAST_ALERT_METHOD(torrent_alert)
