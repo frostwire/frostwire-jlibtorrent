@@ -109,10 +109,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.user_alert_id_get();
   }
 
-  public static long peer_priority(tcp_endpoint e1, tcp_endpoint e2) {
-    return libtorrent_jni.peer_priority(tcp_endpoint.getCPtr(e1), e1, tcp_endpoint.getCPtr(e2), e2);
-  }
-
   public static void initialize_default_settings(session_settings s) {
     libtorrent_jni.initialize_default_settings(session_settings.getCPtr(s), s);
   }

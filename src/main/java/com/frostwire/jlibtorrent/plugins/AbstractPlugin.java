@@ -35,7 +35,7 @@ public abstract class AbstractPlugin implements Plugin {
     }
 
     @Override
-    public boolean onUnknownTorrent(Sha1Hash infoHash, PeerConnection pc, AddTorrentParams p) {
+    public boolean onUnknownTorrent(Sha1Hash infoHash, PeerConnectionHandle pc, AddTorrentParams p) {
         return false;
     }
 

@@ -95,6 +95,8 @@ public final class DHT {
         s.dhtGetPeers(new Sha1Hash(sha1));
     }
 
+    // commenting this method until a better API is created
+    /*
     public ArrayList<TcpEndpoint> getPeers(String sha1, long timeout, TimeUnit unit) {
         final Sha1Hash target = new Sha1Hash(sha1);
         final Object[] result = {new ArrayList<TcpEndpoint>()};
@@ -132,7 +134,7 @@ public final class DHT {
         s.removeListener(l);
 
         return (ArrayList<TcpEndpoint>) result[0];
-    }
+    }*/
 
     public void announce(String sha1, int port, int flags) {
         s.dhtAnnounce(new Sha1Hash(sha1), port, flags);

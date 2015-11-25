@@ -55,7 +55,7 @@ public interface Plugin {
      * @param p
      * @return
      */
-    boolean onUnknownTorrent(Sha1Hash infoHash, PeerConnection pc, AddTorrentParams p);
+    boolean onUnknownTorrent(Sha1Hash infoHash, PeerConnectionHandle pc, AddTorrentParams p);
 
     /**
      * called once per second.

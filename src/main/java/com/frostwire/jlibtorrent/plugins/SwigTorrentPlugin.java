@@ -18,13 +18,13 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
     private static final Logger LOG = Logger.getLogger(SwigTorrentPlugin.class);
 
     private final TorrentPlugin p;
-    final torrent t;
+    final torrent_handle t;
 
     private final List<SwigPeerPlugin> mem;
 
     public SwigTorrentPlugin(TorrentPlugin p, torrent_handle t) {
         this.p = p;
-        this.t = t.native_handle();
+        this.t = t;
 
         this.mem = new LinkedList<SwigPeerPlugin>();
     }

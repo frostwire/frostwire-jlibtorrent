@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.plugins.*;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.peer_connection;
+import com.frostwire.jlibtorrent.swig.peer_connection_handle;
 import com.frostwire.jlibtorrent.swig.udp_endpoint;
 
 import java.io.File;
@@ -43,7 +43,7 @@ public final class PluginsTest {
                     public PeerPlugin newPeerConnection(final PeerConnectionHandle pc) {
                         return new AbstractPeerPlugin() {
 
-                            private peer_connection p = pc.getSwig().native_handle();
+                            private peer_connection_handle p = pc.getSwig();
 
                             @Override
                             public boolean handleOperation(Operation op) {
@@ -103,8 +103,8 @@ public final class PluginsTest {
             }
 
             @Override
-            public boolean onUnknownTorrent(Sha1Hash infoHash, PeerConnection pc, AddTorrentParams p) {
-                System.out.println(infoHash + ", pc: " + pc.preferContiguousBlocks());
+            public boolean onUnknownTorrent(Sha1Hash infoHash, PeerConnectionHandle pc, AddTorrentParams p) {
+                System.out.println(infoHash);
                 return false;
             }
 
