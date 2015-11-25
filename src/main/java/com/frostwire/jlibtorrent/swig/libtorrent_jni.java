@@ -1699,7 +1699,6 @@ public class libtorrent_jni {
   public final static native void torrent_delete_failed_alert_info_hash_set(long jarg1, torrent_delete_failed_alert jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long torrent_delete_failed_alert_info_hash_get(long jarg1, torrent_delete_failed_alert jarg1_);
   public final static native void delete_torrent_delete_failed_alert(long jarg1);
-  public final static native long new_save_resume_data_alert(long jarg1, stack_allocator jarg1_, long jarg2, entry jarg2_, long jarg3, torrent_handle jarg3_);
   public final static native int save_resume_data_alert_priority_get();
   public final static native int save_resume_data_alert_alert_type_get();
   public final static native int save_resume_data_alert_type(long jarg1, save_resume_data_alert jarg1_);
@@ -1707,8 +1706,7 @@ public class libtorrent_jni {
   public final static native String save_resume_data_alert_what(long jarg1, save_resume_data_alert jarg1_);
   public final static native int save_resume_data_alert_static_category_get();
   public final static native String save_resume_data_alert_message(long jarg1, save_resume_data_alert jarg1_);
-  public final static native void save_resume_data_alert_resume_data_set(long jarg1, save_resume_data_alert jarg1_, long jarg2, entry jarg2_);
-  public final static native long save_resume_data_alert_resume_data_get(long jarg1, save_resume_data_alert jarg1_);
+  public final static native long save_resume_data_alert_get_resume_data(long jarg1, save_resume_data_alert jarg1_);
   public final static native void delete_save_resume_data_alert(long jarg1);
   public final static native long new_save_resume_data_failed_alert(long jarg1, stack_allocator jarg1_, long jarg2, torrent_handle jarg2_, long jarg3, error_code jarg3_);
   public final static native int save_resume_data_failed_alert_priority_get();

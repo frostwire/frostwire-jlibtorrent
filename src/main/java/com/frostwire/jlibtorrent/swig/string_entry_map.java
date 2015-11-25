@@ -56,7 +56,7 @@ public class string_entry_map {
   }
 
   public entry get(String key) {
-    return new entry(libtorrent_jni.string_entry_map_get(swigCPtr, this, key), true);
+    return new entry(libtorrent_jni.string_entry_map_get(swigCPtr, this, key), false);
   }
 
   public void set(String key, entry x) {

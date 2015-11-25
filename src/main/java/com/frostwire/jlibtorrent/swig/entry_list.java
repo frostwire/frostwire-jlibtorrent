@@ -52,11 +52,11 @@ public class entry_list {
   }
 
   public entry front() {
-    return new entry(libtorrent_jni.entry_list_front(swigCPtr, this), true);
+    return new entry(libtorrent_jni.entry_list_front(swigCPtr, this), false);
   }
 
   public entry back() {
-    return new entry(libtorrent_jni.entry_list_back(swigCPtr, this), true);
+    return new entry(libtorrent_jni.entry_list_back(swigCPtr, this), false);
   }
 
   public void push_front(entry x) {

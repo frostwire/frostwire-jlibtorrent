@@ -17,11 +17,13 @@ public final class SaveResumeDataAlert extends TorrentAlert<save_resume_data_ale
     }
 
     /**
-     * points to the resume data.
+     * Points to the resume data.
+     * <p/>
+     * Node: This method trigger an internal copy (in the native side) of the entry.
      *
      * @return
      */
-    public Entry getResumeData() {
-        return new Entry(alert.getResume_data());
+    public Entry resumeData() {
+        return new Entry(alert.get_resume_data());
     }
 }

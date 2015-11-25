@@ -402,7 +402,6 @@ namespace std {
     };
 }
 
-%shared_ptr(libtorrent::entry)
 %shared_ptr(libtorrent::torrent_info)
 
 typedef long time_t;
@@ -555,6 +554,8 @@ namespace std {
 %ignore libtorrent::session_handle::native_handle;
 %ignore libtorrent::session_handle::set_dht_storage;
 %ignore libtorrent::session_stats_alert::values;
+%ignore libtorrent::save_resume_data_alert::save_resume_data_alert;
+%ignore libtorrent::save_resume_data_alert::resume_data;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
@@ -1150,6 +1151,12 @@ namespace libtorrent {
 %extend session_stats_alert {
     long long get_value(int index) {
         return $self->values[index];
+    }
+};
+
+%extend save_resume_data_alert {
+    entry get_resume_data() {
+        return *($self->resume_data);
     }
 };
 

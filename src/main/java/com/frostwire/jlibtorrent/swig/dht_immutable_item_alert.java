@@ -69,7 +69,8 @@ public class dht_immutable_item_alert extends alert {
   }
 
   public entry getItem() {
-    return new entry(libtorrent_jni.dht_immutable_item_alert_item_get(swigCPtr, this), true);
+    long cPtr = libtorrent_jni.dht_immutable_item_alert_item_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new entry(cPtr, false);
   }
 
   public final static int priority = libtorrent_jni.dht_immutable_item_alert_priority_get();

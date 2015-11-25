@@ -64,7 +64,7 @@ public class entry_vector {
   }
 
   public entry get(int i) {
-    return new entry(libtorrent_jni.entry_vector_get(swigCPtr, this, i), true);
+    return new entry(libtorrent_jni.entry_vector_get(swigCPtr, this, i), false);
   }
 
   public void set(int i, entry val) {

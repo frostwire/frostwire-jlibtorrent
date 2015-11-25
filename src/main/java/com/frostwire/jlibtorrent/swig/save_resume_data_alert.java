@@ -35,10 +35,6 @@ public class save_resume_data_alert extends torrent_alert {
     super.delete();
   }
 
-  public save_resume_data_alert(stack_allocator alloc, entry rd, torrent_handle h) {
-    this(libtorrent_jni.new_save_resume_data_alert(stack_allocator.getCPtr(alloc), alloc, entry.getCPtr(rd), rd, torrent_handle.getCPtr(h), h), true);
-  }
-
   public int type() {
     return libtorrent_jni.save_resume_data_alert_type(swigCPtr, this);
   }
@@ -55,13 +51,8 @@ public class save_resume_data_alert extends torrent_alert {
     return libtorrent_jni.save_resume_data_alert_message(swigCPtr, this);
   }
 
-  public void setResume_data(entry value) {
-    libtorrent_jni.save_resume_data_alert_resume_data_set(swigCPtr, this, entry.getCPtr(value), value);
-  }
-
-  public entry getResume_data() {
-    long cPtr = libtorrent_jni.save_resume_data_alert_resume_data_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new entry(cPtr, true);
+  public entry get_resume_data() {
+    return new entry(libtorrent_jni.save_resume_data_alert_get_resume_data(swigCPtr, this), true);
   }
 
   public final static int priority = libtorrent_jni.save_resume_data_alert_priority_get();
