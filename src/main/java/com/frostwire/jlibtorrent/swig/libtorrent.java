@@ -73,18 +73,6 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_http_category(), false);
   }
 
-  public static error_category system_category() {
-    return new error_category(libtorrent_jni.system_category(), false);
-  }
-
-  public static error_category get_posix_category() {
-    return new error_category(libtorrent_jni.get_posix_category(), false);
-  }
-
-  public static error_category generic_category() {
-    return new error_category(libtorrent_jni.generic_category(), false);
-  }
-
   public static high_resolution_clock.time_point min_time() {
     return new high_resolution_clock.time_point(libtorrent_jni.min_time(), true);
   }
@@ -95,18 +83,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static void throw_type_error() {
     libtorrent_jni.throw_type_error();
-  }
-
-  public static void sanitize_append_path_element(String path, String element, int element_len) {
-    libtorrent_jni.sanitize_append_path_element(path, element, element_len);
-  }
-
-  public static boolean verify_encoding(String target, boolean fix_paths) {
-    return libtorrent_jni.verify_encoding__SWIG_0(target, fix_paths);
-  }
-
-  public static boolean verify_encoding(String target) {
-    return libtorrent_jni.verify_encoding__SWIG_1(target);
   }
 
   public static void throw_invalid_handle() {

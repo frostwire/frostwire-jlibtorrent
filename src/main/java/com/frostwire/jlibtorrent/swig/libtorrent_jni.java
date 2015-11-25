@@ -631,9 +631,6 @@ public class libtorrent_jni {
   public final static native String version();
   public final static native long get_libtorrent_category();
   public final static native long get_http_category();
-  public final static native long system_category();
-  public final static native long get_posix_category();
-  public final static native long generic_category();
   public final static native long new_libtorrent_exception(long jarg1, error_code jarg1_);
   public final static native String libtorrent_exception_what(long jarg1, libtorrent_exception jarg1_);
   public final static native void delete_libtorrent_exception(long jarg1);
@@ -908,9 +905,6 @@ public class libtorrent_jni {
   public final static native int file_storage_file_index_at_offset(long jarg1, file_storage jarg1_, long jarg2);
   public final static native String file_storage_file_name_ptr(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_file_name_len(long jarg1, file_storage jarg1_, int jarg2);
-  public final static native void sanitize_append_path_element(String jarg1, String jarg2, int jarg3);
-  public final static native boolean verify_encoding__SWIG_0(String jarg1, boolean jarg2);
-  public final static native boolean verify_encoding__SWIG_1(String jarg1);
   public final static native long new_web_seed_entry__SWIG_0(String jarg1, int jarg2, String jarg3, long jarg4, string_string_pair_vector jarg4_);
   public final static native long new_web_seed_entry__SWIG_1(String jarg1, int jarg2, String jarg3);
   public final static native long new_web_seed_entry__SWIG_2(String jarg1, int jarg2);

@@ -212,7 +212,7 @@ namespace dht {
 class dht_item {
 public:
 
-    static int canonical_string(std::vector<char>& v, long seq, std::string& salt, std::vector<char>& out) {
+    static int canonical_string(std::vector<char>& v, long seq, const std::string& salt, std::vector<char>& out) {
         return dht::canonical_string(std::pair<char const*, int>(v.data(), v.size()),
                                      seq,
                                      std::pair<char const*, int>(salt.data(), salt.size()),
@@ -227,7 +227,7 @@ public:
         return dht::item_target_id(std::pair<char const*, int>(salt.data(), salt.size()), pk.data());
     }
 
-    static bool verify_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig) {
+    static bool verify_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig) {
         return dht::verify_mutable_item(std::pair<char const*, int>(v.data(), v.size()),
                                         std::pair<char const*, int>(salt.data(), salt.size()),
                                         seq,
@@ -235,7 +235,7 @@ public:
                                         sig.data());
     }
 
-    static void sign_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig) {
+    static void sign_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig) {
         dht::sign_mutable_item(std::pair<char const*, int>(v.data(), v.size()),
                                std::pair<char const*, int>(salt.data(), salt.size()),
                                seq,
@@ -424,7 +424,6 @@ namespace std {
 %shared_ptr(libtorrent::http_seed_connection)
 %shared_ptr(libtorrent::torrent)
 
-%apply const std::string & {std::string &};
 %apply const boost::int64_t & {boost::int64_t &};
 
 typedef long time_t;
@@ -691,7 +690,7 @@ namespace std {
 %ignore libtorrent::sha1_hash::assign(char const *);
 %ignore libtorrent::sha1_hash::data() const;
 %ignore libtorrent::entry::integer() const;
-%ignore libtorrent::entry::string() const;
+%ignore libtorrent::entry::string();
 %ignore libtorrent::entry::dict() const;
 %ignore libtorrent::entry::list() const;
 %ignore libtorrent::entry::find_key(std::string const &) const;
@@ -723,6 +722,8 @@ namespace std {
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&, int);
 %ignore libtorrent::torrent_info::creation_date;
 %ignore libtorrent::torrent_info::metadata;
+%ignore libtorrent::sanitize_append_path_element;
+%ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
 %ignore libtorrent::read_piece_alert::buffer;
 %ignore libtorrent::peer_plugin::on_extended;
@@ -1338,15 +1339,15 @@ public:
 class dht_item {
 public:
 
-    static int canonical_string(std::vector<char>& v, long seq, std::string& salt, std::vector<char>& out);
+    static int canonical_string(std::vector<char>& v, long seq, const std::string& salt, std::vector<char>& out);
 
     static libtorrent::sha1_hash item_target_id(std::vector<char>& v);
 
     static libtorrent::sha1_hash item_target_id(std::vector<char>& salt, std::vector<char>& pk);
 
-    static bool verify_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig);
+    static bool verify_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig);
 
-    static void sign_mutable_item(std::vector<char>& v, std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig);
+    static void sign_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig);
 };
 
 %feature("director") add_files_listener;
