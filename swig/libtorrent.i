@@ -53,7 +53,6 @@
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
-#include "libtorrent/piece_picker.hpp"
 #include "libtorrent/aux_/session_settings.hpp"
 #include "libtorrent/settings_pack.hpp"
 #include "libtorrent/peer_class.hpp"
@@ -451,8 +450,6 @@ namespace std {
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
-    %template(piece_block_vector) vector<libtorrent::piece_block>;
-    %template(downloading_piece_vector) vector<libtorrent::piece_picker::downloading_piece>;
     %template(peer_connection_handle_vector) vector<libtorrent::peer_connection_handle>;
 
     %template(string_list) list<std::string>;
@@ -660,24 +657,6 @@ namespace std {
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::all_path_hashes;
 %ignore libtorrent::torrent_error_alert::filename;
-%ignore libtorrent::piece_picker::get_downloaders;
-%ignore libtorrent::piece_picker::get_downloader;
-%ignore libtorrent::piece_picker::abort_download;
-%ignore libtorrent::piece_picker::add_blocks;
-%ignore libtorrent::piece_picker::add_blocks_downloading;
-%ignore libtorrent::piece_picker::clear_peer;
-%ignore libtorrent::piece_picker::dec_refcount;
-%ignore libtorrent::piece_picker::dec_refcount_all;
-%ignore libtorrent::piece_picker::inc_refcount;
-%ignore libtorrent::piece_picker::inc_refcount_all;
-%ignore libtorrent::piece_picker::mark_as_downloading;
-%ignore libtorrent::piece_picker::mark_as_finished;
-%ignore libtorrent::piece_picker::mark_as_writing;
-%ignore libtorrent::piece_picker::mark_as_canceled;
-%ignore libtorrent::piece_picker::get_download_queue_sizes;
-%ignore libtorrent::piece_picker::pick_pieces;
-%ignore libtorrent::piece_picker::blocks_for_piece(downloading_piece const&) const;
-%ignore libtorrent::piece_picker::block_info::peer;
 %ignore libtorrent::torrent_error_alert::torrent_error_alert;
 %ignore libtorrent::peer_log_alert::peer_log_alert;
 %ignore libtorrent::incoming_request_alert::incoming_request_alert;
@@ -770,7 +749,6 @@ namespace std {
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
-%include "libtorrent/piece_picker.hpp"
 %include "libtorrent/aux_/session_settings.hpp"
 %include "libtorrent/settings_pack.hpp"
 %include "libtorrent/peer_class.hpp"
