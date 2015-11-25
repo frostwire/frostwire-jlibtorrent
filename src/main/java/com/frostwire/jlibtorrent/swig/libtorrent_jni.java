@@ -2760,8 +2760,6 @@ public class libtorrent_jni {
   public final static native boolean bt_peer_connection_handle_packet_finished(long jarg1, bt_peer_connection_handle jarg1_);
   public final static native boolean bt_peer_connection_handle_support_extensions(long jarg1, bt_peer_connection_handle jarg1_);
   public final static native boolean bt_peer_connection_handle_supports_encryption(long jarg1, bt_peer_connection_handle jarg1_);
-  public final static native void bt_peer_connection_handle_switch_send_crypto(long jarg1, bt_peer_connection_handle jarg1_, long jarg2, crypto_plugin jarg2_);
-  public final static native void bt_peer_connection_handle_switch_recv_crypto(long jarg1, bt_peer_connection_handle jarg1_, long jarg2, crypto_plugin jarg2_);
   public final static native void delete_bt_peer_connection_handle(long jarg1);
   public final static native void delete_torrent_plugin(long jarg1);
   public final static native long torrent_plugin_new_connection(long jarg1, torrent_plugin jarg1_, long jarg2, peer_connection_handle jarg2_);
@@ -2808,7 +2806,6 @@ public class libtorrent_jni {
   public final static native void peer_plugin_tick(long jarg1, peer_plugin jarg1_);
   public final static native boolean peer_plugin_write_request(long jarg1, peer_plugin jarg1_, long jarg2, peer_request jarg2_);
   public final static native long new_peer_plugin();
-  public final static native void delete_crypto_plugin(long jarg1);
   public final static native void pool_file_status_file_index_set(long jarg1, pool_file_status jarg1_, int jarg2);
   public final static native int pool_file_status_file_index_get(long jarg1, pool_file_status jarg1_);
   public final static native void pool_file_status_last_use_set(long jarg1, pool_file_status jarg1_, long jarg2, high_resolution_clock.time_point jarg2_);

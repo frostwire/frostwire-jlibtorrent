@@ -51,12 +51,4 @@ public class bt_peer_connection_handle extends peer_connection_handle {
     return libtorrent_jni.bt_peer_connection_handle_supports_encryption(swigCPtr, this);
   }
 
-  public void switch_send_crypto(crypto_plugin crypto) {
-    libtorrent_jni.bt_peer_connection_handle_switch_send_crypto(swigCPtr, this, crypto_plugin.getCPtr(crypto), crypto);
-  }
-
-  public void switch_recv_crypto(crypto_plugin crypto) {
-    libtorrent_jni.bt_peer_connection_handle_switch_recv_crypto(swigCPtr, this, crypto_plugin.getCPtr(crypto), crypto);
-  }
-
 }

@@ -407,7 +407,6 @@ namespace std {
 %shared_ptr(libtorrent::peer_plugin)
 %shared_ptr(libtorrent::torrent_plugin)
 %shared_ptr(libtorrent::torrent_info)
-%shared_ptr(libtorrent::crypto_plugin)
 
 typedef long time_t;
 
@@ -562,6 +561,8 @@ namespace std {
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
+%ignore libtorrent::bt_peer_connection_handle::switch_send_crypto;
+%ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection_handle::native_handle;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
 %ignore libtorrent::disk_buffer_holder::reset(disk_io_job const&);
@@ -569,6 +570,7 @@ namespace std {
 %ignore libtorrent::disk_buffer_pool::free_multiple_buffers;
 %ignore libtorrent::plugin::added;
 %ignore libtorrent::plugin::new_torrent;
+%ignore libtorrent::crypto_plugin;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;
@@ -626,11 +628,6 @@ namespace std {
 %ignore libtorrent::bdecode_node::dict_find(std::string const &);
 %ignore libtorrent::bdecode_node::dict_find(std::string const &) const;
 %ignore libtorrent::bdecode_node::dict_find_dict(char const *) const;
-%ignore libtorrent::crypto_plugin::set_incoming_key;
-%ignore libtorrent::crypto_plugin::set_outgoing_key;
-%ignore libtorrent::crypto_plugin::encrypt;
-%ignore libtorrent::crypto_plugin::decrypt;
-%ignore libtorrent::cork::m_pc;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::set_bits;

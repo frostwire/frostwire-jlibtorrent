@@ -58797,52 +58797,6 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bt_1peer_1connection_1handle_1switch_1send_1crypto(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  libtorrent::bt_peer_connection_handle *arg1 = (libtorrent::bt_peer_connection_handle *) 0 ;
-  boost::shared_ptr< libtorrent::crypto_plugin > arg2 ;
-  boost::shared_ptr< libtorrent::crypto_plugin > *argp2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(libtorrent::bt_peer_connection_handle **)&jarg1; 
-  argp2 = *(boost::shared_ptr< libtorrent::crypto_plugin > **)&jarg2; 
-  if (argp2) arg2 = *argp2; 
-  {
-    try {
-      (arg1)->switch_send_crypto(arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bt_1peer_1connection_1handle_1switch_1recv_1crypto(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  libtorrent::bt_peer_connection_handle *arg1 = (libtorrent::bt_peer_connection_handle *) 0 ;
-  boost::shared_ptr< libtorrent::crypto_plugin > arg2 ;
-  boost::shared_ptr< libtorrent::crypto_plugin > *argp2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(libtorrent::bt_peer_connection_handle **)&jarg1; 
-  argp2 = *(boost::shared_ptr< libtorrent::crypto_plugin > **)&jarg2; 
-  if (argp2) arg2 = *argp2; 
-  {
-    try {
-      (arg1)->switch_recv_crypto(arg2);
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1bt_1peer_1connection_1handle(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   libtorrent::bt_peer_connection_handle *arg1 = (libtorrent::bt_peer_connection_handle *) 0 ;
   
@@ -59997,26 +59951,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   *(boost::shared_ptr<  libtorrent::peer_plugin > **)&jresult = result ? new boost::shared_ptr<  libtorrent::peer_plugin >(result SWIG_NO_NULL_DELETER_1) : 0;
   
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1crypto_1plugin(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  libtorrent::crypto_plugin *arg1 = (libtorrent::crypto_plugin *) 0 ;
-  boost::shared_ptr< libtorrent::crypto_plugin > *smartarg1 = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  
-  smartarg1 = *(boost::shared_ptr<  libtorrent::crypto_plugin > **)&jarg1;
-  arg1 = (libtorrent::crypto_plugin *)(smartarg1 ? smartarg1->get() : 0); 
-  {
-    try {
-      (void)arg1; delete smartarg1;
-    } catch (...) {
-      translate_cpp_exception(jenv);
-      return ;
-    }
-  }
 }
 
 
@@ -68104,7 +68038,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("beac52e000fe5a834d5dbecfac5e7c31f6b7c323");
+  result = (char *)("2ccb6d5f7c17c7005f0bc1dae69246d579409a4b");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
