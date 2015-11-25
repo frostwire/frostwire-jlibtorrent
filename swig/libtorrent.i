@@ -404,7 +404,6 @@ namespace std {
 
 %shared_ptr(libtorrent::entry)
 %shared_ptr(libtorrent::plugin)
-%shared_ptr(libtorrent::peer_plugin)
 %shared_ptr(libtorrent::torrent_plugin)
 %shared_ptr(libtorrent::torrent_info)
 
@@ -561,6 +560,7 @@ namespace std {
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
+%ignore libtorrent::peer_connection_handle::add_extension;
 %ignore libtorrent::bt_peer_connection_handle::switch_send_crypto;
 %ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection_handle::native_handle;
@@ -571,6 +571,7 @@ namespace std {
 %ignore libtorrent::plugin::added;
 %ignore libtorrent::plugin::new_torrent;
 %ignore libtorrent::crypto_plugin;
+%ignore libtorrent::torrent_plugin::new_connection;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;

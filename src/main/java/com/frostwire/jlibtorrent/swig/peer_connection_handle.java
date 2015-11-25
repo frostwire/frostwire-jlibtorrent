@@ -39,13 +39,9 @@ public class peer_connection_handle {
     return libtorrent_jni.peer_connection_handle_type(swigCPtr, this);
   }
 
-  public void add_extension(peer_plugin arg0) {
-    libtorrent_jni.peer_connection_handle_add_extension(swigCPtr, this, peer_plugin.getCPtr(arg0), arg0);
-  }
-
   public peer_plugin find_plugin(String type) {
     long cPtr = libtorrent_jni.peer_connection_handle_find_plugin(swigCPtr, this, type);
-    return (cPtr == 0) ? null : new peer_plugin(cPtr, true);
+    return (cPtr == 0) ? null : new peer_plugin(cPtr, false);
   }
 
   public boolean is_seed() {

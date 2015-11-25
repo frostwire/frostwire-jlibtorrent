@@ -2721,7 +2721,6 @@ public class libtorrent_jni {
   public final static native void disk_buffer_holder_reset__SWIG_1(long jarg1, disk_buffer_holder jarg1_);
   public final static native void disk_buffer_holder_swap(long jarg1, disk_buffer_holder jarg1_, long jarg2, disk_buffer_holder jarg2_);
   public final static native int peer_connection_handle_type(long jarg1, peer_connection_handle jarg1_);
-  public final static native void peer_connection_handle_add_extension(long jarg1, peer_connection_handle jarg1_, long jarg2, peer_plugin jarg2_);
   public final static native long peer_connection_handle_find_plugin(long jarg1, peer_connection_handle jarg1_, String jarg2);
   public final static native boolean peer_connection_handle_is_seed(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_upload_only(long jarg1, peer_connection_handle jarg1_);
@@ -2762,7 +2761,6 @@ public class libtorrent_jni {
   public final static native boolean bt_peer_connection_handle_supports_encryption(long jarg1, bt_peer_connection_handle jarg1_);
   public final static native void delete_bt_peer_connection_handle(long jarg1);
   public final static native void delete_torrent_plugin(long jarg1);
-  public final static native long torrent_plugin_new_connection(long jarg1, torrent_plugin jarg1_, long jarg2, peer_connection_handle jarg2_);
   public final static native void torrent_plugin_on_piece_pass(long jarg1, torrent_plugin jarg1_, int jarg2);
   public final static native void torrent_plugin_on_piece_failed(long jarg1, torrent_plugin jarg1_, int jarg2);
   public final static native void torrent_plugin_tick(long jarg1, torrent_plugin jarg1_);
