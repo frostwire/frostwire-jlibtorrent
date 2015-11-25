@@ -424,8 +424,6 @@ namespace std {
 %shared_ptr(libtorrent::http_seed_connection)
 %shared_ptr(libtorrent::torrent)
 
-%apply const boost::int64_t & {boost::int64_t &};
-
 typedef long time_t;
 
 namespace std {
@@ -689,7 +687,7 @@ namespace std {
 %ignore libtorrent::sha1_hash::operator[];
 %ignore libtorrent::sha1_hash::assign(char const *);
 %ignore libtorrent::sha1_hash::data() const;
-%ignore libtorrent::entry::integer() const;
+%ignore libtorrent::entry::integer();
 %ignore libtorrent::entry::string();
 %ignore libtorrent::entry::dict() const;
 %ignore libtorrent::entry::list() const;

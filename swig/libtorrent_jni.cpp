@@ -20225,18 +20225,18 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1integer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::entry *arg1 = (libtorrent::entry *) 0 ;
-  boost::shared_ptr< libtorrent::entry > *smartarg1 = 0 ;
+  boost::shared_ptr< libtorrent::entry const > *smartarg1 = 0 ;
   libtorrent::entry::integer_type *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   
-  smartarg1 = *(boost::shared_ptr<  libtorrent::entry > **)&jarg1;
+  smartarg1 = *(boost::shared_ptr< const libtorrent::entry > **)&jarg1;
   arg1 = (libtorrent::entry *)(smartarg1 ? smartarg1->get() : 0); 
   {
     try {
-      result = (libtorrent::entry::integer_type *) &(arg1)->integer();
+      result = (libtorrent::entry::integer_type *) &((libtorrent::entry const *)arg1)->integer();
     } catch (...) {
       translate_cpp_exception(jenv);
       return 0;
@@ -86973,7 +86973,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("c515a4c913031013107cc519c51af19569359b38");
+  result = (char *)("bebecdbc112ee404d96aec331cce63645ada0575");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
