@@ -502,8 +502,6 @@ namespace std {
 %ignore libtorrent::piece_manager;
 %ignore libtorrent::disk_io_thread;
 %ignore libtorrent::request_callback;
-%ignore libtorrent::has_block;
-%ignore libtorrent::pending_block;
 %ignore libtorrent::timeout_handler;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::file_pool;
@@ -527,9 +525,15 @@ namespace std {
 %ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::block_cache_reference;
-%ignore libtorrent::peer_connection_hot_members;
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
+
+// peer_connection.hpp
+%ignore libtorrent::pending_block;
+%ignore libtorrent::has_block;
+%ignore libtorrent::peer_connection_args;
+%ignore libtorrent::peer_connection_hot_members;
+%ignore libtorrent::cork;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -616,13 +620,6 @@ namespace std {
 %ignore libtorrent::bt_peer_connection::hit_send_barrier;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::peer_log;
-%ignore libtorrent::peer_connection_args::allocator;
-%ignore libtorrent::peer_connection_args::tor;
-%ignore libtorrent::peer_connection_args::disk_thread;
-%ignore libtorrent::peer_connection_args::ios;
-%ignore libtorrent::peer_connection_args::ses;
-%ignore libtorrent::peer_connection_args::sett;
-%ignore libtorrent::peer_connection_args::s;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
 %ignore libtorrent::disk_buffer_holder::reset(disk_io_job const&);
 %ignore libtorrent::disk_buffer_holder::ref;

@@ -2622,14 +2622,6 @@ public class libtorrent_jni {
   public final static native void delete_ipv6_peer(long jarg1);
   public final static native long new_peer_address_compare();
   public final static native void delete_peer_address_compare(long jarg1);
-  public final static native void peer_connection_args_stats_counters_set(long jarg1, peer_connection_args jarg1_, long jarg2, counters jarg2_);
-  public final static native long peer_connection_args_stats_counters_get(long jarg1, peer_connection_args jarg1_);
-  public final static native void peer_connection_args_endp_set(long jarg1, peer_connection_args jarg1_, long jarg2, tcp_endpoint jarg2_);
-  public final static native long peer_connection_args_endp_get(long jarg1, peer_connection_args jarg1_);
-  public final static native void peer_connection_args_peerinfo_set(long jarg1, peer_connection_args jarg1_, long jarg2, torrent_peer jarg2_);
-  public final static native long peer_connection_args_peerinfo_get(long jarg1, peer_connection_args jarg1_);
-  public final static native long new_peer_connection_args();
-  public final static native void delete_peer_connection_args(long jarg1);
   public final static native int peer_connection_bittorrent_connection_get();
   public final static native int peer_connection_url_seed_connection_get();
   public final static native int peer_connection_http_seed_connection_get();
@@ -2782,8 +2774,6 @@ public class libtorrent_jni {
   public final static native void peer_connection_setup_receive(long jarg1, peer_connection jarg1_);
   public final static native long peer_connection_stats_counters(long jarg1, peer_connection jarg1_);
   public final static native int peer_connection_get_priority(long jarg1, peer_connection jarg1_, int jarg2);
-  public final static native long new_cork(long jarg1, peer_connection jarg1_);
-  public final static native void delete_cork(long jarg1);
   public final static native long new_dht_settings();
   public final static native void dht_settings_max_peers_reply_set(long jarg1, dht_settings jarg1_, int jarg2);
   public final static native int dht_settings_max_peers_reply_get(long jarg1, dht_settings jarg1_);
