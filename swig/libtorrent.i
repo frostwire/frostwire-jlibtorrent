@@ -403,8 +403,6 @@ namespace std {
 }
 
 %shared_ptr(libtorrent::entry)
-%shared_ptr(libtorrent::plugin)
-%shared_ptr(libtorrent::torrent_plugin)
 %shared_ptr(libtorrent::torrent_info)
 
 typedef long time_t;
