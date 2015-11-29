@@ -1183,6 +1183,7 @@ public class libtorrent_jni {
   public final static native int alert_dht_log_notification_get();
   public final static native int alert_dht_operation_notification_get();
   public final static native int alert_port_mapping_log_notification_get();
+  public final static native int alert_picker_log_notification_get();
   public final static native int alert_all_categories_get();
   public final static native void delete_alert(long jarg1);
   public final static native long alert_timestamp(long jarg1, alert jarg1_);
@@ -1277,6 +1278,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_dht_pkt_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_get_peers_reply_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_direct_response_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_picker_log_alert(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
   public final static native int user_alert_id_get();
   public final static native int torrent_alert_alert_type_get();
@@ -2327,6 +2329,32 @@ public class libtorrent_jni {
   public final static native long dht_direct_response_alert_addr_get(long jarg1, dht_direct_response_alert jarg1_);
   public final static native long dht_direct_response_alert_response(long jarg1, dht_direct_response_alert jarg1_);
   public final static native void delete_dht_direct_response_alert(long jarg1);
+  public final static native int picker_log_alert_priority_get();
+  public final static native int picker_log_alert_alert_type_get();
+  public final static native int picker_log_alert_type(long jarg1, picker_log_alert jarg1_);
+  public final static native int picker_log_alert_category(long jarg1, picker_log_alert jarg1_);
+  public final static native String picker_log_alert_what(long jarg1, picker_log_alert jarg1_);
+  public final static native int picker_log_alert_static_category_get();
+  public final static native String picker_log_alert_message(long jarg1, picker_log_alert jarg1_);
+  public final static native int picker_log_alert_partial_ratio_get();
+  public final static native int picker_log_alert_prioritize_partials_get();
+  public final static native int picker_log_alert_rarest_first_partials_get();
+  public final static native int picker_log_alert_rarest_first_get();
+  public final static native int picker_log_alert_reverse_rarest_first_get();
+  public final static native int picker_log_alert_suggested_pieces_get();
+  public final static native int picker_log_alert_prio_sequential_pieces_get();
+  public final static native int picker_log_alert_sequential_pieces_get();
+  public final static native int picker_log_alert_reverse_pieces_get();
+  public final static native int picker_log_alert_time_critical_get();
+  public final static native int picker_log_alert_random_pieces_get();
+  public final static native int picker_log_alert_prefer_contiguous_get();
+  public final static native int picker_log_alert_reverse_sequential_get();
+  public final static native int picker_log_alert_backup1_get();
+  public final static native int picker_log_alert_backup2_get();
+  public final static native int picker_log_alert_end_game_get();
+  public final static native void picker_log_alert_picker_flags_set(long jarg1, picker_log_alert jarg1_, long jarg2);
+  public final static native long picker_log_alert_picker_flags_get(long jarg1, picker_log_alert jarg1_);
+  public final static native void delete_picker_log_alert(long jarg1);
   public final static native int num_alert_types_get();
   public final static native int TORRENT_ALERT_MANAGER_MAX_ARITY_get();
   public final static native void cached_piece_info_blocks_set(long jarg1, cached_piece_info jarg1_, long jarg2, bool_vector jarg2_);
@@ -3487,6 +3515,7 @@ public class libtorrent_jni {
   public final static native long dht_pkt_alert_SWIGUpcast(long jarg1);
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long dht_direct_response_alert_SWIGUpcast(long jarg1);
+  public final static native long picker_log_alert_SWIGUpcast(long jarg1);
   public final static native long session_SWIGUpcast(long jarg1);
   public final static native long bt_peer_connection_handle_SWIGUpcast(long jarg1);
 

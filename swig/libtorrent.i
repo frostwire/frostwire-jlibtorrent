@@ -556,6 +556,8 @@ namespace std {
 %ignore libtorrent::session_stats_alert::values;
 %ignore libtorrent::save_resume_data_alert::save_resume_data_alert;
 %ignore libtorrent::save_resume_data_alert::resume_data;
+%ignore libtorrent::picker_log_alert::picker_log_alert;
+%ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
@@ -1013,6 +1015,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_pkt_alert)
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)
     CAST_ALERT_METHOD(dht_direct_response_alert)
+    CAST_ALERT_METHOD(picker_log_alert)
 };
 
 %extend session_handle {

@@ -90,6 +90,7 @@ public enum AlertType {
     DHT_PKT(dht_pkt_alert.alert_type),
     DHT_GET_PEERS_REPLY(dht_get_peers_reply_alert.alert_type),
     DHT_DIRECT_RESPONSE(dht_direct_response_alert.alert_type),
+    PICKER_LOG(picker_log_alert.alert_type),
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
 

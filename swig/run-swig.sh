@@ -29,7 +29,6 @@ swig -c++ -java -o libtorrent_jni.cpp \
     -DTORRENT_NO_RETURN="" \
     -DTORRENT_OVERRIDE="" \
     -DTORRENT_FINAL="" \
-    -DTORRENT_DISABLE_LOGGING=1 \
     -DTORRENT_DEBUG_REFCOUNTS=1 \
     -DTORRENT_FORMAT\(x,y\)="" \
     -DTORRENT_DISK_STATS=1 \

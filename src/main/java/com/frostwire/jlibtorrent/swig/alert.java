@@ -490,6 +490,11 @@ public class alert {
     return (cPtr == 0) ? null : new dht_direct_response_alert(cPtr, false);
   }
 
+  public static picker_log_alert cast_to_picker_log_alert(alert alert) {
+    long cPtr = libtorrent_jni.alert_cast_to_picker_log_alert(alert.getCPtr(alert), alert);
+    return (cPtr == 0) ? null : new picker_log_alert(cPtr, false);
+  }
+
   public enum category_t {
     error_notification(libtorrent_jni.alert_error_notification_get()),
     peer_notification(libtorrent_jni.alert_peer_notification_get()),
@@ -510,6 +515,7 @@ public class alert {
     dht_log_notification(libtorrent_jni.alert_dht_log_notification_get()),
     dht_operation_notification(libtorrent_jni.alert_dht_operation_notification_get()),
     port_mapping_log_notification(libtorrent_jni.alert_port_mapping_log_notification_get()),
+    picker_log_notification(libtorrent_jni.alert_picker_log_notification_get()),
     all_categories(libtorrent_jni.alert_all_categories_get());
 
     public final int swigValue() {
