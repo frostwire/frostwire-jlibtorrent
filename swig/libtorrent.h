@@ -19,8 +19,6 @@
 #define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
 #define JLIBTORRENT_REVISION_SHA1 _JLIBTORRENT_REVISION_SHA1_
 
-using namespace libtorrent::dht;
-
 boost::chrono::high_resolution_clock::duration to_seconds(long long n) {
     return boost::chrono::seconds(n);
 }
