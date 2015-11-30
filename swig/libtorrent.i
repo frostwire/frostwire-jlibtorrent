@@ -250,7 +250,6 @@ public:
 
 %include <stdint.i>
 %include <typemaps.i>
-%include <boost_shared_ptr.i>
 %include <std_common.i>
 %include <std_string.i>
 %include <std_pair.i>
