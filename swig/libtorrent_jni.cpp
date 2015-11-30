@@ -747,24 +747,6 @@ using namespace boost;
 using namespace boost::system;
     
 using namespace libtorrent;
-    
-void translate_cpp_exception(JNIEnv *jenv) {
-    try {
-        throw;
-    } catch (const std::out_of_range &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-    } catch (const std::invalid_argument &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, e.what());
-    } catch (const std::bad_alloc &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaOutOfMemoryError, e.what());
-    } catch (const std::ios_base::failure &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
-    } catch (const std::exception &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaUnknownError, e.what());
-    } catch (...) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaUnknownError, "Unknown exception type");
-    }
-}
 
 class ed25519 {
 public:
@@ -897,6 +879,25 @@ public:
 };
 
 #include "libtorrent.h"
+
+
+void translate_cpp_exception(JNIEnv *jenv) {
+    try {
+        throw;
+    } catch (const std::out_of_range &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
+    } catch (const std::invalid_argument &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, e.what());
+    } catch (const std::bad_alloc &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaOutOfMemoryError, e.what());
+    } catch (const std::ios_base::failure &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
+    } catch (const std::exception &e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaUnknownError, e.what());
+    } catch (...) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaUnknownError, "Unknown exception type");
+    }
+}
 
 
 #include <stdint.h>		// Use the C99 official header
@@ -68413,7 +68414,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("9e6d8a1e040abdb1e2eb5d1d1bbafc3fa2a24b78");
+  result = (char *)("acfe234e5c0534ec53ffa047e825b1e3729b9637");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
