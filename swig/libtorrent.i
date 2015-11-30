@@ -402,8 +402,6 @@ namespace std {
     };
 }
 
-%shared_ptr(libtorrent::torrent_info)
-
 typedef long time_t;
 
 namespace std {
@@ -581,6 +579,7 @@ namespace std {
 %ignore libtorrent::torrent_handle::file_status;
 %ignore libtorrent::torrent_handle::use_interface;
 %ignore libtorrent::torrent_handle::native_handle;
+%ignore libtorrent::torrent_handle::torrent_file;
 %ignore libtorrent::sha1_hash::sha1_hash(char const *);
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;
@@ -1109,10 +1108,12 @@ namespace libtorrent {
     time_t get_creation_date() {
         return $self->creation_date().get_value_or(0);
     }
+};
 
-    boost::shared_ptr<torrent_info const> copy() {
-        // copy the torrent_info object
-        return boost::shared_ptr<torrent_info>(new torrent_info(*$self));
+%extend torrent_handle {
+    const torrent_info* get_torrent_copy() {
+        boost::shared_ptr<const torrent_info> ti = $self->torrent_file();
+        return ti.get();
     }
 };
 

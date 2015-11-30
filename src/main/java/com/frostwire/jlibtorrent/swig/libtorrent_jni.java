@@ -940,7 +940,6 @@ public class libtorrent_jni {
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_parse_torrent_file(long jarg1, torrent_info jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_, int jarg4);
   public final static native int torrent_info_get_creation_date(long jarg1, torrent_info jarg1_);
-  public final static native long torrent_info_copy(long jarg1, torrent_info jarg1_);
   public final static native void throw_invalid_handle();
   public final static native void block_info_set_peer(long jarg1, block_info jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long block_info_peer(long jarg1, block_info jarg1_);
@@ -1036,7 +1035,6 @@ public class libtorrent_jni {
   public final static native void torrent_handle_set_ssl_certificate__SWIG_0(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4, String jarg5);
   public final static native void torrent_handle_set_ssl_certificate__SWIG_1(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4);
   public final static native void torrent_handle_set_ssl_certificate_buffer(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4);
-  public final static native long torrent_handle_torrent_file(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_piece_availability(long jarg1, torrent_handle jarg1_, long jarg2, int_vector jarg2_);
   public final static native void torrent_handle_piece_priority__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, int jarg3);
   public final static native int torrent_handle_piece_priority__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2);
@@ -1075,6 +1073,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_handle_op_neq(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native boolean torrent_handle_op_lt(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_handle_id(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_get_torrent_copy(long jarg1, torrent_handle jarg1_);
   public final static native void delete_torrent_handle(long jarg1);
   public final static native int add_torrent_params_flag_seed_mode_get();
   public final static native int add_torrent_params_flag_override_resume_data_get();

@@ -439,10 +439,6 @@ public final class TorrentInfo {
         return toEntry().bencode();
     }
 
-    public TorrentInfo copy() {
-        return new TorrentInfo(ti.copy());
-    }
-
     public static TorrentInfo bdecode(byte[] data) {
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();

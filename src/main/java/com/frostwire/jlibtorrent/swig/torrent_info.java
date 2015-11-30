@@ -10,7 +10,7 @@ package com.frostwire.jlibtorrent.swig;
 
 public class torrent_info {
   private transient long swigCPtr;
-  private transient boolean swigCMemOwn;
+  protected transient boolean swigCMemOwn;
 
   protected torrent_info(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
@@ -273,11 +273,6 @@ public class torrent_info {
 
   public int get_creation_date() {
     return libtorrent_jni.torrent_info_get_creation_date(swigCPtr, this);
-  }
-
-  public torrent_info copy() {
-    long cPtr = libtorrent_jni.torrent_info_copy(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent_info(cPtr, true);
   }
 
 }

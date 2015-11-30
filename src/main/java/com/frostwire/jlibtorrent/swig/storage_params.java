@@ -88,7 +88,7 @@ public class storage_params {
 
   public torrent_info getInfo() {
     long cPtr = libtorrent_jni.storage_params_info_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent_info(cPtr, true);
+    return (cPtr == 0) ? null : new torrent_info(cPtr, false);
   }
 
 }

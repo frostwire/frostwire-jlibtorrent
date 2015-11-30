@@ -239,11 +239,6 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_set_ssl_certificate_buffer(swigCPtr, this, certificate, private_key, dh_params);
   }
 
-  public torrent_info torrent_file() {
-    long cPtr = libtorrent_jni.torrent_handle_torrent_file(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent_info(cPtr, true);
-  }
-
   public void piece_availability(int_vector avail) {
     libtorrent_jni.torrent_handle_piece_availability(swigCPtr, this, int_vector.getCPtr(avail), avail);
   }
@@ -394,6 +389,11 @@ public class torrent_handle {
 
   public long id() {
     return libtorrent_jni.torrent_handle_id(swigCPtr, this);
+  }
+
+  public torrent_info get_torrent_copy() {
+    long cPtr = libtorrent_jni.torrent_handle_get_torrent_copy(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_info(cPtr, false);
   }
 
   public enum flags_t {

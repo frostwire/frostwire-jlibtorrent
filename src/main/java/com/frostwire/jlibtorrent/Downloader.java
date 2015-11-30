@@ -86,10 +86,10 @@ public final class Downloader {
 
         if (th != null && th.is_valid()) {
             // we have a download with the same info-hash, let's see if we have the torrent info
-            torrent_info ti = th.torrent_file();
+            torrent_info ti = th.get_torrent_copy();
             if (ti != null && ti.is_valid()) {
                 // ok. we have it, ready to return the data
-                return new TorrentInfo(th.torrent_file()).bencode();
+                return new TorrentInfo(th.get_torrent_copy()).bencode();
             } else {
                 add = false;
             }
@@ -141,10 +141,10 @@ public final class Downloader {
             th = s.getSwig().find_torrent(info_hash);
             if (th != null && th.is_valid()) {
                 // we have a download with the same info-hash, let's see if we have the torrent info
-                torrent_info ti = th.torrent_file();
+                torrent_info ti = th.get_torrent_copy();
                 if (ti != null && ti.is_valid()) {
                     // ok. we have it, ready to return the data
-                    return new TorrentInfo(th.torrent_file()).bencode();
+                    return new TorrentInfo(th.get_torrent_copy()).bencode();
                 }
             }
 
