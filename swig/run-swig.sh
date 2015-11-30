@@ -46,7 +46,7 @@ function runNode()
 {
     swig -c++ -javascript -node -o libtorrent_node.cpp \
         -DSWIG_NODE \
-        -DV8_VERSION=0x04685 \
+        -DV8_VERSION=0x040685 \
         -I${BOOST_ROOT} \
         -I${LIBTORRENT_ROOT}/include \
         -DBOOST_ASIO_DECL="" \
