@@ -533,6 +533,7 @@ namespace std {
 %ignore libtorrent::add_torrent_params::storage;
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::flags;
+%ignore libtorrent::add_torrent_params::ti;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert_manager::set_dispatch_function;
 %ignore libtorrent::session::session(settings_pack const&, io_service&, int);
@@ -1085,6 +1086,10 @@ namespace libtorrent {
 
     void setFlags(long long flags) {
         $self->flags = flags;
+    }
+
+    void set_ti(torrent_info const& ti) {
+        $self->ti = boost::make_shared<torrent_info>(ti);
     }
 
     static add_torrent_params create_instance() {

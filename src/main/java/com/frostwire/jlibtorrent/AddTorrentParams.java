@@ -49,21 +49,10 @@ public final class AddTorrentParams {
      * {@link TorrentInfo} object with the torrent to add. Unless the url or
      * {@link #infoHash()} is set, this is required to be initialized.
      *
-     * @return
-     */
-    public TorrentInfo torrentInfo() {
-        torrent_info ti = p.getTi();
-        return ti != null ? new TorrentInfo(ti) : null;
-    }
-
-    /**
-     * {@link TorrentInfo} object with the torrent to add. Unless the url or
-     * {@link #infoHash()} is set, this is required to be initialized.
-     *
      * @param ti
      */
     public void torrentInfo(TorrentInfo ti) {
-        p.setTi(ti.getSwig());
+        p.set_ti(ti.getSwig());
     }
 
     /*

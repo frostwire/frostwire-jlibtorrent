@@ -895,11 +895,7 @@ public final class Session extends SessionHandle {
 
         add_torrent_params p = add_torrent_params.create_instance();
 
-        // we used to pass here ti.getSwig(), however this is wrong, as the
-        // given TorrentInfo ti reference will be cleaned by the garbage collector
-        // higher in the stack. When it cleans, swig code deletes the native torrent_info
-        // object, then the torrent engine is in an inconsistent state which WILL cause it to crash.
-        p.setTi(ti.getSwig().copy());
+        p.set_ti(ti.getSwig());
         if (savePath != null) {
             p.setSave_path(savePath);
         }
