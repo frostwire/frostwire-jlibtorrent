@@ -63,380 +63,384 @@ public class counters {
     libtorrent_jni.counters_blend_stats_counter(swigCPtr, this, c, value, ratio);
   }
 
-  public enum stats_counter_t {
-    error_peers,
-    disconnected_peers,
-    eof_peers,
-    connreset_peers,
-    connrefused_peers,
-    connaborted_peers,
-    notconnected_peers,
-    perm_peers,
-    buffer_peers,
-    unreachable_peers,
-    broken_pipe_peers,
-    addrinuse_peers,
-    no_access_peers,
-    invalid_arg_peers,
-    aborted_peers,
-    piece_requests,
-    max_piece_requests,
-    invalid_piece_requests,
-    choked_piece_requests,
-    cancelled_piece_requests,
-    piece_rejects,
-    error_incoming_peers,
-    error_outgoing_peers,
-    error_rc4_peers,
-    error_encrypted_peers,
-    error_tcp_peers,
-    error_utp_peers,
-    reject_piece_picks,
-    unchoke_piece_picks,
-    incoming_redundant_piece_picks,
-    incoming_piece_picks,
-    end_game_piece_picks,
-    snubbed_piece_picks,
-    interesting_piece_picks,
-    hash_fail_piece_picks,
-    piece_picker_partial_loops,
-    piece_picker_suggest_loops,
-    piece_picker_sequential_loops,
-    piece_picker_reverse_rare_loops,
-    piece_picker_rare_loops,
-    piece_picker_rand_start_loops,
-    piece_picker_rand_loops,
-    piece_picker_busy_loops,
-    connect_timeouts,
-    uninteresting_peers,
-    timeout_peers,
-    no_memory_peers,
-    too_many_peers,
-    transport_timeout_peers,
-    num_banned_peers,
-    banned_for_hash_failure,
-    connection_attempts,
-    connection_attempt_loops,
-    incoming_connections,
-    on_read_counter,
-    on_write_counter,
-    on_tick_counter,
-    on_lsd_counter,
-    on_lsd_peer_counter,
-    on_udp_counter,
-    on_accept_counter,
-    on_disk_queue_counter,
-    on_disk_counter,
-    torrent_evicted_counter,
-    num_incoming_choke,
-    num_incoming_unchoke,
-    num_incoming_interested,
-    num_incoming_not_interested,
-    num_incoming_have,
-    num_incoming_bitfield,
-    num_incoming_request,
-    num_incoming_piece,
-    num_incoming_cancel,
-    num_incoming_dht_port,
-    num_incoming_suggest,
-    num_incoming_have_all,
-    num_incoming_have_none,
-    num_incoming_reject,
-    num_incoming_allowed_fast,
-    num_incoming_ext_handshake,
-    num_incoming_pex,
-    num_incoming_metadata,
-    num_incoming_extended,
-    num_outgoing_choke,
-    num_outgoing_unchoke,
-    num_outgoing_interested,
-    num_outgoing_not_interested,
-    num_outgoing_have,
-    num_outgoing_bitfield,
-    num_outgoing_request,
-    num_outgoing_piece,
-    num_outgoing_cancel,
-    num_outgoing_dht_port,
-    num_outgoing_suggest,
-    num_outgoing_have_all,
-    num_outgoing_have_none,
-    num_outgoing_reject,
-    num_outgoing_allowed_fast,
-    num_outgoing_ext_handshake,
-    num_outgoing_pex,
-    num_outgoing_metadata,
-    num_outgoing_extended,
-    num_piece_passed,
-    num_piece_failed,
-    num_have_pieces,
-    num_total_pieces_added,
-    num_blocks_written,
-    num_blocks_read,
-    num_blocks_hashed,
-    num_blocks_cache_hits,
-    num_write_ops,
-    num_read_ops,
-    num_read_back,
-    disk_read_time,
-    disk_write_time,
-    disk_hash_time,
-    disk_job_time,
-    waste_piece_timed_out,
-    waste_piece_cancelled,
-    waste_piece_unknown,
-    waste_piece_seed,
-    waste_piece_end_game,
-    waste_piece_closing,
-    sent_payload_bytes,
-    sent_bytes,
-    sent_ip_overhead_bytes,
-    sent_tracker_bytes,
-    recv_payload_bytes,
-    recv_bytes,
-    recv_ip_overhead_bytes,
-    recv_tracker_bytes,
-    recv_failed_bytes,
-    recv_redundant_bytes,
-    dht_messages_in,
-    dht_messages_out,
-    dht_messages_out_dropped,
-    dht_bytes_in,
-    dht_bytes_out,
-    dht_ping_in,
-    dht_ping_out,
-    dht_find_node_in,
-    dht_find_node_out,
-    dht_get_peers_in,
-    dht_get_peers_out,
-    dht_announce_peer_in,
-    dht_announce_peer_out,
-    dht_get_in,
-    dht_get_out,
-    dht_put_in,
-    dht_put_out,
-    dht_invalid_announce,
-    dht_invalid_get_peers,
-    dht_invalid_put,
-    dht_invalid_get,
-    utp_packet_loss,
-    utp_timeout,
-    utp_packets_in,
-    utp_packets_out,
-    utp_fast_retransmit,
-    utp_packet_resend,
-    utp_samples_above_target,
-    utp_samples_below_target,
-    utp_payload_pkts_in,
-    utp_payload_pkts_out,
-    utp_invalid_pkts_in,
-    utp_redundant_pkts_in,
-    socket_send_size3,
-    socket_send_size4,
-    socket_send_size5,
-    socket_send_size6,
-    socket_send_size7,
-    socket_send_size8,
-    socket_send_size9,
-    socket_send_size10,
-    socket_send_size11,
-    socket_send_size12,
-    socket_send_size13,
-    socket_send_size14,
-    socket_send_size15,
-    socket_send_size16,
-    socket_send_size17,
-    socket_send_size18,
-    socket_send_size19,
-    socket_send_size20,
-    socket_recv_size3,
-    socket_recv_size4,
-    socket_recv_size5,
-    socket_recv_size6,
-    socket_recv_size7,
-    socket_recv_size8,
-    socket_recv_size9,
-    socket_recv_size10,
-    socket_recv_size11,
-    socket_recv_size12,
-    socket_recv_size13,
-    socket_recv_size14,
-    socket_recv_size15,
-    socket_recv_size16,
-    socket_recv_size17,
-    socket_recv_size18,
-    socket_recv_size19,
-    socket_recv_size20,
-    num_stats_counters;
+  public final static class stats_counter_t {
+    public final static counters.stats_counter_t error_peers = new counters.stats_counter_t("error_peers");
+    public final static counters.stats_counter_t disconnected_peers = new counters.stats_counter_t("disconnected_peers");
+    public final static counters.stats_counter_t eof_peers = new counters.stats_counter_t("eof_peers");
+    public final static counters.stats_counter_t connreset_peers = new counters.stats_counter_t("connreset_peers");
+    public final static counters.stats_counter_t connrefused_peers = new counters.stats_counter_t("connrefused_peers");
+    public final static counters.stats_counter_t connaborted_peers = new counters.stats_counter_t("connaborted_peers");
+    public final static counters.stats_counter_t notconnected_peers = new counters.stats_counter_t("notconnected_peers");
+    public final static counters.stats_counter_t perm_peers = new counters.stats_counter_t("perm_peers");
+    public final static counters.stats_counter_t buffer_peers = new counters.stats_counter_t("buffer_peers");
+    public final static counters.stats_counter_t unreachable_peers = new counters.stats_counter_t("unreachable_peers");
+    public final static counters.stats_counter_t broken_pipe_peers = new counters.stats_counter_t("broken_pipe_peers");
+    public final static counters.stats_counter_t addrinuse_peers = new counters.stats_counter_t("addrinuse_peers");
+    public final static counters.stats_counter_t no_access_peers = new counters.stats_counter_t("no_access_peers");
+    public final static counters.stats_counter_t invalid_arg_peers = new counters.stats_counter_t("invalid_arg_peers");
+    public final static counters.stats_counter_t aborted_peers = new counters.stats_counter_t("aborted_peers");
+    public final static counters.stats_counter_t piece_requests = new counters.stats_counter_t("piece_requests");
+    public final static counters.stats_counter_t max_piece_requests = new counters.stats_counter_t("max_piece_requests");
+    public final static counters.stats_counter_t invalid_piece_requests = new counters.stats_counter_t("invalid_piece_requests");
+    public final static counters.stats_counter_t choked_piece_requests = new counters.stats_counter_t("choked_piece_requests");
+    public final static counters.stats_counter_t cancelled_piece_requests = new counters.stats_counter_t("cancelled_piece_requests");
+    public final static counters.stats_counter_t piece_rejects = new counters.stats_counter_t("piece_rejects");
+    public final static counters.stats_counter_t error_incoming_peers = new counters.stats_counter_t("error_incoming_peers");
+    public final static counters.stats_counter_t error_outgoing_peers = new counters.stats_counter_t("error_outgoing_peers");
+    public final static counters.stats_counter_t error_rc4_peers = new counters.stats_counter_t("error_rc4_peers");
+    public final static counters.stats_counter_t error_encrypted_peers = new counters.stats_counter_t("error_encrypted_peers");
+    public final static counters.stats_counter_t error_tcp_peers = new counters.stats_counter_t("error_tcp_peers");
+    public final static counters.stats_counter_t error_utp_peers = new counters.stats_counter_t("error_utp_peers");
+    public final static counters.stats_counter_t reject_piece_picks = new counters.stats_counter_t("reject_piece_picks");
+    public final static counters.stats_counter_t unchoke_piece_picks = new counters.stats_counter_t("unchoke_piece_picks");
+    public final static counters.stats_counter_t incoming_redundant_piece_picks = new counters.stats_counter_t("incoming_redundant_piece_picks");
+    public final static counters.stats_counter_t incoming_piece_picks = new counters.stats_counter_t("incoming_piece_picks");
+    public final static counters.stats_counter_t end_game_piece_picks = new counters.stats_counter_t("end_game_piece_picks");
+    public final static counters.stats_counter_t snubbed_piece_picks = new counters.stats_counter_t("snubbed_piece_picks");
+    public final static counters.stats_counter_t interesting_piece_picks = new counters.stats_counter_t("interesting_piece_picks");
+    public final static counters.stats_counter_t hash_fail_piece_picks = new counters.stats_counter_t("hash_fail_piece_picks");
+    public final static counters.stats_counter_t piece_picker_partial_loops = new counters.stats_counter_t("piece_picker_partial_loops");
+    public final static counters.stats_counter_t piece_picker_suggest_loops = new counters.stats_counter_t("piece_picker_suggest_loops");
+    public final static counters.stats_counter_t piece_picker_sequential_loops = new counters.stats_counter_t("piece_picker_sequential_loops");
+    public final static counters.stats_counter_t piece_picker_reverse_rare_loops = new counters.stats_counter_t("piece_picker_reverse_rare_loops");
+    public final static counters.stats_counter_t piece_picker_rare_loops = new counters.stats_counter_t("piece_picker_rare_loops");
+    public final static counters.stats_counter_t piece_picker_rand_start_loops = new counters.stats_counter_t("piece_picker_rand_start_loops");
+    public final static counters.stats_counter_t piece_picker_rand_loops = new counters.stats_counter_t("piece_picker_rand_loops");
+    public final static counters.stats_counter_t piece_picker_busy_loops = new counters.stats_counter_t("piece_picker_busy_loops");
+    public final static counters.stats_counter_t connect_timeouts = new counters.stats_counter_t("connect_timeouts");
+    public final static counters.stats_counter_t uninteresting_peers = new counters.stats_counter_t("uninteresting_peers");
+    public final static counters.stats_counter_t timeout_peers = new counters.stats_counter_t("timeout_peers");
+    public final static counters.stats_counter_t no_memory_peers = new counters.stats_counter_t("no_memory_peers");
+    public final static counters.stats_counter_t too_many_peers = new counters.stats_counter_t("too_many_peers");
+    public final static counters.stats_counter_t transport_timeout_peers = new counters.stats_counter_t("transport_timeout_peers");
+    public final static counters.stats_counter_t num_banned_peers = new counters.stats_counter_t("num_banned_peers");
+    public final static counters.stats_counter_t banned_for_hash_failure = new counters.stats_counter_t("banned_for_hash_failure");
+    public final static counters.stats_counter_t connection_attempts = new counters.stats_counter_t("connection_attempts");
+    public final static counters.stats_counter_t connection_attempt_loops = new counters.stats_counter_t("connection_attempt_loops");
+    public final static counters.stats_counter_t incoming_connections = new counters.stats_counter_t("incoming_connections");
+    public final static counters.stats_counter_t on_read_counter = new counters.stats_counter_t("on_read_counter");
+    public final static counters.stats_counter_t on_write_counter = new counters.stats_counter_t("on_write_counter");
+    public final static counters.stats_counter_t on_tick_counter = new counters.stats_counter_t("on_tick_counter");
+    public final static counters.stats_counter_t on_lsd_counter = new counters.stats_counter_t("on_lsd_counter");
+    public final static counters.stats_counter_t on_lsd_peer_counter = new counters.stats_counter_t("on_lsd_peer_counter");
+    public final static counters.stats_counter_t on_udp_counter = new counters.stats_counter_t("on_udp_counter");
+    public final static counters.stats_counter_t on_accept_counter = new counters.stats_counter_t("on_accept_counter");
+    public final static counters.stats_counter_t on_disk_queue_counter = new counters.stats_counter_t("on_disk_queue_counter");
+    public final static counters.stats_counter_t on_disk_counter = new counters.stats_counter_t("on_disk_counter");
+    public final static counters.stats_counter_t torrent_evicted_counter = new counters.stats_counter_t("torrent_evicted_counter");
+    public final static counters.stats_counter_t num_incoming_choke = new counters.stats_counter_t("num_incoming_choke");
+    public final static counters.stats_counter_t num_incoming_unchoke = new counters.stats_counter_t("num_incoming_unchoke");
+    public final static counters.stats_counter_t num_incoming_interested = new counters.stats_counter_t("num_incoming_interested");
+    public final static counters.stats_counter_t num_incoming_not_interested = new counters.stats_counter_t("num_incoming_not_interested");
+    public final static counters.stats_counter_t num_incoming_have = new counters.stats_counter_t("num_incoming_have");
+    public final static counters.stats_counter_t num_incoming_bitfield = new counters.stats_counter_t("num_incoming_bitfield");
+    public final static counters.stats_counter_t num_incoming_request = new counters.stats_counter_t("num_incoming_request");
+    public final static counters.stats_counter_t num_incoming_piece = new counters.stats_counter_t("num_incoming_piece");
+    public final static counters.stats_counter_t num_incoming_cancel = new counters.stats_counter_t("num_incoming_cancel");
+    public final static counters.stats_counter_t num_incoming_dht_port = new counters.stats_counter_t("num_incoming_dht_port");
+    public final static counters.stats_counter_t num_incoming_suggest = new counters.stats_counter_t("num_incoming_suggest");
+    public final static counters.stats_counter_t num_incoming_have_all = new counters.stats_counter_t("num_incoming_have_all");
+    public final static counters.stats_counter_t num_incoming_have_none = new counters.stats_counter_t("num_incoming_have_none");
+    public final static counters.stats_counter_t num_incoming_reject = new counters.stats_counter_t("num_incoming_reject");
+    public final static counters.stats_counter_t num_incoming_allowed_fast = new counters.stats_counter_t("num_incoming_allowed_fast");
+    public final static counters.stats_counter_t num_incoming_ext_handshake = new counters.stats_counter_t("num_incoming_ext_handshake");
+    public final static counters.stats_counter_t num_incoming_pex = new counters.stats_counter_t("num_incoming_pex");
+    public final static counters.stats_counter_t num_incoming_metadata = new counters.stats_counter_t("num_incoming_metadata");
+    public final static counters.stats_counter_t num_incoming_extended = new counters.stats_counter_t("num_incoming_extended");
+    public final static counters.stats_counter_t num_outgoing_choke = new counters.stats_counter_t("num_outgoing_choke");
+    public final static counters.stats_counter_t num_outgoing_unchoke = new counters.stats_counter_t("num_outgoing_unchoke");
+    public final static counters.stats_counter_t num_outgoing_interested = new counters.stats_counter_t("num_outgoing_interested");
+    public final static counters.stats_counter_t num_outgoing_not_interested = new counters.stats_counter_t("num_outgoing_not_interested");
+    public final static counters.stats_counter_t num_outgoing_have = new counters.stats_counter_t("num_outgoing_have");
+    public final static counters.stats_counter_t num_outgoing_bitfield = new counters.stats_counter_t("num_outgoing_bitfield");
+    public final static counters.stats_counter_t num_outgoing_request = new counters.stats_counter_t("num_outgoing_request");
+    public final static counters.stats_counter_t num_outgoing_piece = new counters.stats_counter_t("num_outgoing_piece");
+    public final static counters.stats_counter_t num_outgoing_cancel = new counters.stats_counter_t("num_outgoing_cancel");
+    public final static counters.stats_counter_t num_outgoing_dht_port = new counters.stats_counter_t("num_outgoing_dht_port");
+    public final static counters.stats_counter_t num_outgoing_suggest = new counters.stats_counter_t("num_outgoing_suggest");
+    public final static counters.stats_counter_t num_outgoing_have_all = new counters.stats_counter_t("num_outgoing_have_all");
+    public final static counters.stats_counter_t num_outgoing_have_none = new counters.stats_counter_t("num_outgoing_have_none");
+    public final static counters.stats_counter_t num_outgoing_reject = new counters.stats_counter_t("num_outgoing_reject");
+    public final static counters.stats_counter_t num_outgoing_allowed_fast = new counters.stats_counter_t("num_outgoing_allowed_fast");
+    public final static counters.stats_counter_t num_outgoing_ext_handshake = new counters.stats_counter_t("num_outgoing_ext_handshake");
+    public final static counters.stats_counter_t num_outgoing_pex = new counters.stats_counter_t("num_outgoing_pex");
+    public final static counters.stats_counter_t num_outgoing_metadata = new counters.stats_counter_t("num_outgoing_metadata");
+    public final static counters.stats_counter_t num_outgoing_extended = new counters.stats_counter_t("num_outgoing_extended");
+    public final static counters.stats_counter_t num_piece_passed = new counters.stats_counter_t("num_piece_passed");
+    public final static counters.stats_counter_t num_piece_failed = new counters.stats_counter_t("num_piece_failed");
+    public final static counters.stats_counter_t num_have_pieces = new counters.stats_counter_t("num_have_pieces");
+    public final static counters.stats_counter_t num_total_pieces_added = new counters.stats_counter_t("num_total_pieces_added");
+    public final static counters.stats_counter_t num_blocks_written = new counters.stats_counter_t("num_blocks_written");
+    public final static counters.stats_counter_t num_blocks_read = new counters.stats_counter_t("num_blocks_read");
+    public final static counters.stats_counter_t num_blocks_hashed = new counters.stats_counter_t("num_blocks_hashed");
+    public final static counters.stats_counter_t num_blocks_cache_hits = new counters.stats_counter_t("num_blocks_cache_hits");
+    public final static counters.stats_counter_t num_write_ops = new counters.stats_counter_t("num_write_ops");
+    public final static counters.stats_counter_t num_read_ops = new counters.stats_counter_t("num_read_ops");
+    public final static counters.stats_counter_t num_read_back = new counters.stats_counter_t("num_read_back");
+    public final static counters.stats_counter_t disk_read_time = new counters.stats_counter_t("disk_read_time");
+    public final static counters.stats_counter_t disk_write_time = new counters.stats_counter_t("disk_write_time");
+    public final static counters.stats_counter_t disk_hash_time = new counters.stats_counter_t("disk_hash_time");
+    public final static counters.stats_counter_t disk_job_time = new counters.stats_counter_t("disk_job_time");
+    public final static counters.stats_counter_t waste_piece_timed_out = new counters.stats_counter_t("waste_piece_timed_out");
+    public final static counters.stats_counter_t waste_piece_cancelled = new counters.stats_counter_t("waste_piece_cancelled");
+    public final static counters.stats_counter_t waste_piece_unknown = new counters.stats_counter_t("waste_piece_unknown");
+    public final static counters.stats_counter_t waste_piece_seed = new counters.stats_counter_t("waste_piece_seed");
+    public final static counters.stats_counter_t waste_piece_end_game = new counters.stats_counter_t("waste_piece_end_game");
+    public final static counters.stats_counter_t waste_piece_closing = new counters.stats_counter_t("waste_piece_closing");
+    public final static counters.stats_counter_t sent_payload_bytes = new counters.stats_counter_t("sent_payload_bytes");
+    public final static counters.stats_counter_t sent_bytes = new counters.stats_counter_t("sent_bytes");
+    public final static counters.stats_counter_t sent_ip_overhead_bytes = new counters.stats_counter_t("sent_ip_overhead_bytes");
+    public final static counters.stats_counter_t sent_tracker_bytes = new counters.stats_counter_t("sent_tracker_bytes");
+    public final static counters.stats_counter_t recv_payload_bytes = new counters.stats_counter_t("recv_payload_bytes");
+    public final static counters.stats_counter_t recv_bytes = new counters.stats_counter_t("recv_bytes");
+    public final static counters.stats_counter_t recv_ip_overhead_bytes = new counters.stats_counter_t("recv_ip_overhead_bytes");
+    public final static counters.stats_counter_t recv_tracker_bytes = new counters.stats_counter_t("recv_tracker_bytes");
+    public final static counters.stats_counter_t recv_failed_bytes = new counters.stats_counter_t("recv_failed_bytes");
+    public final static counters.stats_counter_t recv_redundant_bytes = new counters.stats_counter_t("recv_redundant_bytes");
+    public final static counters.stats_counter_t dht_messages_in = new counters.stats_counter_t("dht_messages_in");
+    public final static counters.stats_counter_t dht_messages_out = new counters.stats_counter_t("dht_messages_out");
+    public final static counters.stats_counter_t dht_messages_out_dropped = new counters.stats_counter_t("dht_messages_out_dropped");
+    public final static counters.stats_counter_t dht_bytes_in = new counters.stats_counter_t("dht_bytes_in");
+    public final static counters.stats_counter_t dht_bytes_out = new counters.stats_counter_t("dht_bytes_out");
+    public final static counters.stats_counter_t dht_ping_in = new counters.stats_counter_t("dht_ping_in");
+    public final static counters.stats_counter_t dht_ping_out = new counters.stats_counter_t("dht_ping_out");
+    public final static counters.stats_counter_t dht_find_node_in = new counters.stats_counter_t("dht_find_node_in");
+    public final static counters.stats_counter_t dht_find_node_out = new counters.stats_counter_t("dht_find_node_out");
+    public final static counters.stats_counter_t dht_get_peers_in = new counters.stats_counter_t("dht_get_peers_in");
+    public final static counters.stats_counter_t dht_get_peers_out = new counters.stats_counter_t("dht_get_peers_out");
+    public final static counters.stats_counter_t dht_announce_peer_in = new counters.stats_counter_t("dht_announce_peer_in");
+    public final static counters.stats_counter_t dht_announce_peer_out = new counters.stats_counter_t("dht_announce_peer_out");
+    public final static counters.stats_counter_t dht_get_in = new counters.stats_counter_t("dht_get_in");
+    public final static counters.stats_counter_t dht_get_out = new counters.stats_counter_t("dht_get_out");
+    public final static counters.stats_counter_t dht_put_in = new counters.stats_counter_t("dht_put_in");
+    public final static counters.stats_counter_t dht_put_out = new counters.stats_counter_t("dht_put_out");
+    public final static counters.stats_counter_t dht_invalid_announce = new counters.stats_counter_t("dht_invalid_announce");
+    public final static counters.stats_counter_t dht_invalid_get_peers = new counters.stats_counter_t("dht_invalid_get_peers");
+    public final static counters.stats_counter_t dht_invalid_put = new counters.stats_counter_t("dht_invalid_put");
+    public final static counters.stats_counter_t dht_invalid_get = new counters.stats_counter_t("dht_invalid_get");
+    public final static counters.stats_counter_t utp_packet_loss = new counters.stats_counter_t("utp_packet_loss");
+    public final static counters.stats_counter_t utp_timeout = new counters.stats_counter_t("utp_timeout");
+    public final static counters.stats_counter_t utp_packets_in = new counters.stats_counter_t("utp_packets_in");
+    public final static counters.stats_counter_t utp_packets_out = new counters.stats_counter_t("utp_packets_out");
+    public final static counters.stats_counter_t utp_fast_retransmit = new counters.stats_counter_t("utp_fast_retransmit");
+    public final static counters.stats_counter_t utp_packet_resend = new counters.stats_counter_t("utp_packet_resend");
+    public final static counters.stats_counter_t utp_samples_above_target = new counters.stats_counter_t("utp_samples_above_target");
+    public final static counters.stats_counter_t utp_samples_below_target = new counters.stats_counter_t("utp_samples_below_target");
+    public final static counters.stats_counter_t utp_payload_pkts_in = new counters.stats_counter_t("utp_payload_pkts_in");
+    public final static counters.stats_counter_t utp_payload_pkts_out = new counters.stats_counter_t("utp_payload_pkts_out");
+    public final static counters.stats_counter_t utp_invalid_pkts_in = new counters.stats_counter_t("utp_invalid_pkts_in");
+    public final static counters.stats_counter_t utp_redundant_pkts_in = new counters.stats_counter_t("utp_redundant_pkts_in");
+    public final static counters.stats_counter_t socket_send_size3 = new counters.stats_counter_t("socket_send_size3");
+    public final static counters.stats_counter_t socket_send_size4 = new counters.stats_counter_t("socket_send_size4");
+    public final static counters.stats_counter_t socket_send_size5 = new counters.stats_counter_t("socket_send_size5");
+    public final static counters.stats_counter_t socket_send_size6 = new counters.stats_counter_t("socket_send_size6");
+    public final static counters.stats_counter_t socket_send_size7 = new counters.stats_counter_t("socket_send_size7");
+    public final static counters.stats_counter_t socket_send_size8 = new counters.stats_counter_t("socket_send_size8");
+    public final static counters.stats_counter_t socket_send_size9 = new counters.stats_counter_t("socket_send_size9");
+    public final static counters.stats_counter_t socket_send_size10 = new counters.stats_counter_t("socket_send_size10");
+    public final static counters.stats_counter_t socket_send_size11 = new counters.stats_counter_t("socket_send_size11");
+    public final static counters.stats_counter_t socket_send_size12 = new counters.stats_counter_t("socket_send_size12");
+    public final static counters.stats_counter_t socket_send_size13 = new counters.stats_counter_t("socket_send_size13");
+    public final static counters.stats_counter_t socket_send_size14 = new counters.stats_counter_t("socket_send_size14");
+    public final static counters.stats_counter_t socket_send_size15 = new counters.stats_counter_t("socket_send_size15");
+    public final static counters.stats_counter_t socket_send_size16 = new counters.stats_counter_t("socket_send_size16");
+    public final static counters.stats_counter_t socket_send_size17 = new counters.stats_counter_t("socket_send_size17");
+    public final static counters.stats_counter_t socket_send_size18 = new counters.stats_counter_t("socket_send_size18");
+    public final static counters.stats_counter_t socket_send_size19 = new counters.stats_counter_t("socket_send_size19");
+    public final static counters.stats_counter_t socket_send_size20 = new counters.stats_counter_t("socket_send_size20");
+    public final static counters.stats_counter_t socket_recv_size3 = new counters.stats_counter_t("socket_recv_size3");
+    public final static counters.stats_counter_t socket_recv_size4 = new counters.stats_counter_t("socket_recv_size4");
+    public final static counters.stats_counter_t socket_recv_size5 = new counters.stats_counter_t("socket_recv_size5");
+    public final static counters.stats_counter_t socket_recv_size6 = new counters.stats_counter_t("socket_recv_size6");
+    public final static counters.stats_counter_t socket_recv_size7 = new counters.stats_counter_t("socket_recv_size7");
+    public final static counters.stats_counter_t socket_recv_size8 = new counters.stats_counter_t("socket_recv_size8");
+    public final static counters.stats_counter_t socket_recv_size9 = new counters.stats_counter_t("socket_recv_size9");
+    public final static counters.stats_counter_t socket_recv_size10 = new counters.stats_counter_t("socket_recv_size10");
+    public final static counters.stats_counter_t socket_recv_size11 = new counters.stats_counter_t("socket_recv_size11");
+    public final static counters.stats_counter_t socket_recv_size12 = new counters.stats_counter_t("socket_recv_size12");
+    public final static counters.stats_counter_t socket_recv_size13 = new counters.stats_counter_t("socket_recv_size13");
+    public final static counters.stats_counter_t socket_recv_size14 = new counters.stats_counter_t("socket_recv_size14");
+    public final static counters.stats_counter_t socket_recv_size15 = new counters.stats_counter_t("socket_recv_size15");
+    public final static counters.stats_counter_t socket_recv_size16 = new counters.stats_counter_t("socket_recv_size16");
+    public final static counters.stats_counter_t socket_recv_size17 = new counters.stats_counter_t("socket_recv_size17");
+    public final static counters.stats_counter_t socket_recv_size18 = new counters.stats_counter_t("socket_recv_size18");
+    public final static counters.stats_counter_t socket_recv_size19 = new counters.stats_counter_t("socket_recv_size19");
+    public final static counters.stats_counter_t socket_recv_size20 = new counters.stats_counter_t("socket_recv_size20");
+    public final static counters.stats_counter_t num_stats_counters = new counters.stats_counter_t("num_stats_counters");
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static stats_counter_t swigToEnum(int swigValue) {
-      stats_counter_t[] swigValues = stats_counter_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (stats_counter_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + stats_counter_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private stats_counter_t() {
-      this.swigValue = SwigNext.next++;
+    private stats_counter_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private stats_counter_t(int swigValue) {
+    private stats_counter_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private stats_counter_t(stats_counter_t swigEnum) {
+    private stats_counter_t(String swigName, stats_counter_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static stats_counter_t[] swigValues = { error_peers, disconnected_peers, eof_peers, connreset_peers, connrefused_peers, connaborted_peers, notconnected_peers, perm_peers, buffer_peers, unreachable_peers, broken_pipe_peers, addrinuse_peers, no_access_peers, invalid_arg_peers, aborted_peers, piece_requests, max_piece_requests, invalid_piece_requests, choked_piece_requests, cancelled_piece_requests, piece_rejects, error_incoming_peers, error_outgoing_peers, error_rc4_peers, error_encrypted_peers, error_tcp_peers, error_utp_peers, reject_piece_picks, unchoke_piece_picks, incoming_redundant_piece_picks, incoming_piece_picks, end_game_piece_picks, snubbed_piece_picks, interesting_piece_picks, hash_fail_piece_picks, piece_picker_partial_loops, piece_picker_suggest_loops, piece_picker_sequential_loops, piece_picker_reverse_rare_loops, piece_picker_rare_loops, piece_picker_rand_start_loops, piece_picker_rand_loops, piece_picker_busy_loops, connect_timeouts, uninteresting_peers, timeout_peers, no_memory_peers, too_many_peers, transport_timeout_peers, num_banned_peers, banned_for_hash_failure, connection_attempts, connection_attempt_loops, incoming_connections, on_read_counter, on_write_counter, on_tick_counter, on_lsd_counter, on_lsd_peer_counter, on_udp_counter, on_accept_counter, on_disk_queue_counter, on_disk_counter, torrent_evicted_counter, num_incoming_choke, num_incoming_unchoke, num_incoming_interested, num_incoming_not_interested, num_incoming_have, num_incoming_bitfield, num_incoming_request, num_incoming_piece, num_incoming_cancel, num_incoming_dht_port, num_incoming_suggest, num_incoming_have_all, num_incoming_have_none, num_incoming_reject, num_incoming_allowed_fast, num_incoming_ext_handshake, num_incoming_pex, num_incoming_metadata, num_incoming_extended, num_outgoing_choke, num_outgoing_unchoke, num_outgoing_interested, num_outgoing_not_interested, num_outgoing_have, num_outgoing_bitfield, num_outgoing_request, num_outgoing_piece, num_outgoing_cancel, num_outgoing_dht_port, num_outgoing_suggest, num_outgoing_have_all, num_outgoing_have_none, num_outgoing_reject, num_outgoing_allowed_fast, num_outgoing_ext_handshake, num_outgoing_pex, num_outgoing_metadata, num_outgoing_extended, num_piece_passed, num_piece_failed, num_have_pieces, num_total_pieces_added, num_blocks_written, num_blocks_read, num_blocks_hashed, num_blocks_cache_hits, num_write_ops, num_read_ops, num_read_back, disk_read_time, disk_write_time, disk_hash_time, disk_job_time, waste_piece_timed_out, waste_piece_cancelled, waste_piece_unknown, waste_piece_seed, waste_piece_end_game, waste_piece_closing, sent_payload_bytes, sent_bytes, sent_ip_overhead_bytes, sent_tracker_bytes, recv_payload_bytes, recv_bytes, recv_ip_overhead_bytes, recv_tracker_bytes, recv_failed_bytes, recv_redundant_bytes, dht_messages_in, dht_messages_out, dht_messages_out_dropped, dht_bytes_in, dht_bytes_out, dht_ping_in, dht_ping_out, dht_find_node_in, dht_find_node_out, dht_get_peers_in, dht_get_peers_out, dht_announce_peer_in, dht_announce_peer_out, dht_get_in, dht_get_out, dht_put_in, dht_put_out, dht_invalid_announce, dht_invalid_get_peers, dht_invalid_put, dht_invalid_get, utp_packet_loss, utp_timeout, utp_packets_in, utp_packets_out, utp_fast_retransmit, utp_packet_resend, utp_samples_above_target, utp_samples_below_target, utp_payload_pkts_in, utp_payload_pkts_out, utp_invalid_pkts_in, utp_redundant_pkts_in, socket_send_size3, socket_send_size4, socket_send_size5, socket_send_size6, socket_send_size7, socket_send_size8, socket_send_size9, socket_send_size10, socket_send_size11, socket_send_size12, socket_send_size13, socket_send_size14, socket_send_size15, socket_send_size16, socket_send_size17, socket_send_size18, socket_send_size19, socket_send_size20, socket_recv_size3, socket_recv_size4, socket_recv_size5, socket_recv_size6, socket_recv_size7, socket_recv_size8, socket_recv_size9, socket_recv_size10, socket_recv_size11, socket_recv_size12, socket_recv_size13, socket_recv_size14, socket_recv_size15, socket_recv_size16, socket_recv_size17, socket_recv_size18, socket_recv_size19, socket_recv_size20, num_stats_counters };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum stats_gauge_t {
-    num_checking_torrents(libtorrent_jni.counters_num_checking_torrents_get()),
-    num_stopped_torrents,
-    num_upload_only_torrents,
-    num_downloading_torrents,
-    num_seeding_torrents,
-    num_queued_seeding_torrents,
-    num_queued_download_torrents,
-    num_error_torrents,
-    non_filter_torrents,
-    num_loaded_torrents,
-    num_pinned_torrents,
-    num_tcp_peers,
-    num_socks5_peers,
-    num_http_proxy_peers,
-    num_utp_peers,
-    num_i2p_peers,
-    num_ssl_peers,
-    num_ssl_socks5_peers,
-    num_ssl_http_proxy_peers,
-    num_ssl_utp_peers,
-    num_peers_half_open,
-    num_peers_connected,
-    num_peers_up_interested,
-    num_peers_down_interested,
-    num_peers_up_unchoked_all,
-    num_peers_up_unchoked_optimistic,
-    num_peers_up_unchoked,
-    num_peers_down_unchoked,
-    num_peers_up_requests,
-    num_peers_down_requests,
-    num_peers_up_disk,
-    num_peers_down_disk,
-    num_peers_end_game,
-    write_cache_blocks,
-    read_cache_blocks,
-    request_latency,
-    pinned_blocks,
-    disk_blocks_in_use,
-    queued_disk_jobs,
-    num_running_disk_jobs,
-    num_read_jobs,
-    num_write_jobs,
-    num_jobs,
-    num_writing_threads,
-    num_running_threads,
-    blocked_disk_jobs,
-    queued_write_bytes,
-    num_unchoke_slots,
-    num_fenced_read,
-    num_fenced_write,
-    num_fenced_hash,
-    num_fenced_move_storage,
-    num_fenced_release_files,
-    num_fenced_delete_files,
-    num_fenced_check_fastresume,
-    num_fenced_save_resume_data,
-    num_fenced_rename_file,
-    num_fenced_stop_torrent,
-    num_fenced_cache_piece,
-    num_fenced_flush_piece,
-    num_fenced_flush_hashed,
-    num_fenced_flush_storage,
-    num_fenced_trim_cache,
-    num_fenced_file_priority,
-    num_fenced_load_torrent,
-    num_fenced_clear_piece,
-    num_fenced_tick_storage,
-    arc_mru_size,
-    arc_mru_ghost_size,
-    arc_mfu_size,
-    arc_mfu_ghost_size,
-    arc_write_size,
-    arc_volatile_size,
-    dht_nodes,
-    dht_node_cache,
-    dht_torrents,
-    dht_peers,
-    dht_immutable_data,
-    dht_mutable_data,
-    dht_allocated_observers,
-    has_incoming_connections,
-    limiter_up_queue,
-    limiter_down_queue,
-    limiter_up_bytes,
-    limiter_down_bytes,
-    num_utp_idle,
-    num_utp_syn_sent,
-    num_utp_connected,
-    num_utp_fin_sent,
-    num_utp_close_wait,
-    num_utp_deleted,
-    num_counters,
-    num_gauges_counters(libtorrent_jni.counters_num_gauges_counters_get());
+  public final static class stats_gauge_t {
+    public final static counters.stats_gauge_t num_checking_torrents = new counters.stats_gauge_t("num_checking_torrents", libtorrent_jni.counters_num_checking_torrents_get());
+    public final static counters.stats_gauge_t num_stopped_torrents = new counters.stats_gauge_t("num_stopped_torrents");
+    public final static counters.stats_gauge_t num_upload_only_torrents = new counters.stats_gauge_t("num_upload_only_torrents");
+    public final static counters.stats_gauge_t num_downloading_torrents = new counters.stats_gauge_t("num_downloading_torrents");
+    public final static counters.stats_gauge_t num_seeding_torrents = new counters.stats_gauge_t("num_seeding_torrents");
+    public final static counters.stats_gauge_t num_queued_seeding_torrents = new counters.stats_gauge_t("num_queued_seeding_torrents");
+    public final static counters.stats_gauge_t num_queued_download_torrents = new counters.stats_gauge_t("num_queued_download_torrents");
+    public final static counters.stats_gauge_t num_error_torrents = new counters.stats_gauge_t("num_error_torrents");
+    public final static counters.stats_gauge_t non_filter_torrents = new counters.stats_gauge_t("non_filter_torrents");
+    public final static counters.stats_gauge_t num_loaded_torrents = new counters.stats_gauge_t("num_loaded_torrents");
+    public final static counters.stats_gauge_t num_pinned_torrents = new counters.stats_gauge_t("num_pinned_torrents");
+    public final static counters.stats_gauge_t num_tcp_peers = new counters.stats_gauge_t("num_tcp_peers");
+    public final static counters.stats_gauge_t num_socks5_peers = new counters.stats_gauge_t("num_socks5_peers");
+    public final static counters.stats_gauge_t num_http_proxy_peers = new counters.stats_gauge_t("num_http_proxy_peers");
+    public final static counters.stats_gauge_t num_utp_peers = new counters.stats_gauge_t("num_utp_peers");
+    public final static counters.stats_gauge_t num_i2p_peers = new counters.stats_gauge_t("num_i2p_peers");
+    public final static counters.stats_gauge_t num_ssl_peers = new counters.stats_gauge_t("num_ssl_peers");
+    public final static counters.stats_gauge_t num_ssl_socks5_peers = new counters.stats_gauge_t("num_ssl_socks5_peers");
+    public final static counters.stats_gauge_t num_ssl_http_proxy_peers = new counters.stats_gauge_t("num_ssl_http_proxy_peers");
+    public final static counters.stats_gauge_t num_ssl_utp_peers = new counters.stats_gauge_t("num_ssl_utp_peers");
+    public final static counters.stats_gauge_t num_peers_half_open = new counters.stats_gauge_t("num_peers_half_open");
+    public final static counters.stats_gauge_t num_peers_connected = new counters.stats_gauge_t("num_peers_connected");
+    public final static counters.stats_gauge_t num_peers_up_interested = new counters.stats_gauge_t("num_peers_up_interested");
+    public final static counters.stats_gauge_t num_peers_down_interested = new counters.stats_gauge_t("num_peers_down_interested");
+    public final static counters.stats_gauge_t num_peers_up_unchoked_all = new counters.stats_gauge_t("num_peers_up_unchoked_all");
+    public final static counters.stats_gauge_t num_peers_up_unchoked_optimistic = new counters.stats_gauge_t("num_peers_up_unchoked_optimistic");
+    public final static counters.stats_gauge_t num_peers_up_unchoked = new counters.stats_gauge_t("num_peers_up_unchoked");
+    public final static counters.stats_gauge_t num_peers_down_unchoked = new counters.stats_gauge_t("num_peers_down_unchoked");
+    public final static counters.stats_gauge_t num_peers_up_requests = new counters.stats_gauge_t("num_peers_up_requests");
+    public final static counters.stats_gauge_t num_peers_down_requests = new counters.stats_gauge_t("num_peers_down_requests");
+    public final static counters.stats_gauge_t num_peers_up_disk = new counters.stats_gauge_t("num_peers_up_disk");
+    public final static counters.stats_gauge_t num_peers_down_disk = new counters.stats_gauge_t("num_peers_down_disk");
+    public final static counters.stats_gauge_t num_peers_end_game = new counters.stats_gauge_t("num_peers_end_game");
+    public final static counters.stats_gauge_t write_cache_blocks = new counters.stats_gauge_t("write_cache_blocks");
+    public final static counters.stats_gauge_t read_cache_blocks = new counters.stats_gauge_t("read_cache_blocks");
+    public final static counters.stats_gauge_t request_latency = new counters.stats_gauge_t("request_latency");
+    public final static counters.stats_gauge_t pinned_blocks = new counters.stats_gauge_t("pinned_blocks");
+    public final static counters.stats_gauge_t disk_blocks_in_use = new counters.stats_gauge_t("disk_blocks_in_use");
+    public final static counters.stats_gauge_t queued_disk_jobs = new counters.stats_gauge_t("queued_disk_jobs");
+    public final static counters.stats_gauge_t num_running_disk_jobs = new counters.stats_gauge_t("num_running_disk_jobs");
+    public final static counters.stats_gauge_t num_read_jobs = new counters.stats_gauge_t("num_read_jobs");
+    public final static counters.stats_gauge_t num_write_jobs = new counters.stats_gauge_t("num_write_jobs");
+    public final static counters.stats_gauge_t num_jobs = new counters.stats_gauge_t("num_jobs");
+    public final static counters.stats_gauge_t num_writing_threads = new counters.stats_gauge_t("num_writing_threads");
+    public final static counters.stats_gauge_t num_running_threads = new counters.stats_gauge_t("num_running_threads");
+    public final static counters.stats_gauge_t blocked_disk_jobs = new counters.stats_gauge_t("blocked_disk_jobs");
+    public final static counters.stats_gauge_t queued_write_bytes = new counters.stats_gauge_t("queued_write_bytes");
+    public final static counters.stats_gauge_t num_unchoke_slots = new counters.stats_gauge_t("num_unchoke_slots");
+    public final static counters.stats_gauge_t num_fenced_read = new counters.stats_gauge_t("num_fenced_read");
+    public final static counters.stats_gauge_t num_fenced_write = new counters.stats_gauge_t("num_fenced_write");
+    public final static counters.stats_gauge_t num_fenced_hash = new counters.stats_gauge_t("num_fenced_hash");
+    public final static counters.stats_gauge_t num_fenced_move_storage = new counters.stats_gauge_t("num_fenced_move_storage");
+    public final static counters.stats_gauge_t num_fenced_release_files = new counters.stats_gauge_t("num_fenced_release_files");
+    public final static counters.stats_gauge_t num_fenced_delete_files = new counters.stats_gauge_t("num_fenced_delete_files");
+    public final static counters.stats_gauge_t num_fenced_check_fastresume = new counters.stats_gauge_t("num_fenced_check_fastresume");
+    public final static counters.stats_gauge_t num_fenced_save_resume_data = new counters.stats_gauge_t("num_fenced_save_resume_data");
+    public final static counters.stats_gauge_t num_fenced_rename_file = new counters.stats_gauge_t("num_fenced_rename_file");
+    public final static counters.stats_gauge_t num_fenced_stop_torrent = new counters.stats_gauge_t("num_fenced_stop_torrent");
+    public final static counters.stats_gauge_t num_fenced_cache_piece = new counters.stats_gauge_t("num_fenced_cache_piece");
+    public final static counters.stats_gauge_t num_fenced_flush_piece = new counters.stats_gauge_t("num_fenced_flush_piece");
+    public final static counters.stats_gauge_t num_fenced_flush_hashed = new counters.stats_gauge_t("num_fenced_flush_hashed");
+    public final static counters.stats_gauge_t num_fenced_flush_storage = new counters.stats_gauge_t("num_fenced_flush_storage");
+    public final static counters.stats_gauge_t num_fenced_trim_cache = new counters.stats_gauge_t("num_fenced_trim_cache");
+    public final static counters.stats_gauge_t num_fenced_file_priority = new counters.stats_gauge_t("num_fenced_file_priority");
+    public final static counters.stats_gauge_t num_fenced_load_torrent = new counters.stats_gauge_t("num_fenced_load_torrent");
+    public final static counters.stats_gauge_t num_fenced_clear_piece = new counters.stats_gauge_t("num_fenced_clear_piece");
+    public final static counters.stats_gauge_t num_fenced_tick_storage = new counters.stats_gauge_t("num_fenced_tick_storage");
+    public final static counters.stats_gauge_t arc_mru_size = new counters.stats_gauge_t("arc_mru_size");
+    public final static counters.stats_gauge_t arc_mru_ghost_size = new counters.stats_gauge_t("arc_mru_ghost_size");
+    public final static counters.stats_gauge_t arc_mfu_size = new counters.stats_gauge_t("arc_mfu_size");
+    public final static counters.stats_gauge_t arc_mfu_ghost_size = new counters.stats_gauge_t("arc_mfu_ghost_size");
+    public final static counters.stats_gauge_t arc_write_size = new counters.stats_gauge_t("arc_write_size");
+    public final static counters.stats_gauge_t arc_volatile_size = new counters.stats_gauge_t("arc_volatile_size");
+    public final static counters.stats_gauge_t dht_nodes = new counters.stats_gauge_t("dht_nodes");
+    public final static counters.stats_gauge_t dht_node_cache = new counters.stats_gauge_t("dht_node_cache");
+    public final static counters.stats_gauge_t dht_torrents = new counters.stats_gauge_t("dht_torrents");
+    public final static counters.stats_gauge_t dht_peers = new counters.stats_gauge_t("dht_peers");
+    public final static counters.stats_gauge_t dht_immutable_data = new counters.stats_gauge_t("dht_immutable_data");
+    public final static counters.stats_gauge_t dht_mutable_data = new counters.stats_gauge_t("dht_mutable_data");
+    public final static counters.stats_gauge_t dht_allocated_observers = new counters.stats_gauge_t("dht_allocated_observers");
+    public final static counters.stats_gauge_t has_incoming_connections = new counters.stats_gauge_t("has_incoming_connections");
+    public final static counters.stats_gauge_t limiter_up_queue = new counters.stats_gauge_t("limiter_up_queue");
+    public final static counters.stats_gauge_t limiter_down_queue = new counters.stats_gauge_t("limiter_down_queue");
+    public final static counters.stats_gauge_t limiter_up_bytes = new counters.stats_gauge_t("limiter_up_bytes");
+    public final static counters.stats_gauge_t limiter_down_bytes = new counters.stats_gauge_t("limiter_down_bytes");
+    public final static counters.stats_gauge_t num_utp_idle = new counters.stats_gauge_t("num_utp_idle");
+    public final static counters.stats_gauge_t num_utp_syn_sent = new counters.stats_gauge_t("num_utp_syn_sent");
+    public final static counters.stats_gauge_t num_utp_connected = new counters.stats_gauge_t("num_utp_connected");
+    public final static counters.stats_gauge_t num_utp_fin_sent = new counters.stats_gauge_t("num_utp_fin_sent");
+    public final static counters.stats_gauge_t num_utp_close_wait = new counters.stats_gauge_t("num_utp_close_wait");
+    public final static counters.stats_gauge_t num_utp_deleted = new counters.stats_gauge_t("num_utp_deleted");
+    public final static counters.stats_gauge_t num_counters = new counters.stats_gauge_t("num_counters");
+    public final static counters.stats_gauge_t num_gauges_counters = new counters.stats_gauge_t("num_gauges_counters", libtorrent_jni.counters_num_gauges_counters_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static stats_gauge_t swigToEnum(int swigValue) {
-      stats_gauge_t[] swigValues = stats_gauge_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (stats_gauge_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + stats_gauge_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private stats_gauge_t() {
-      this.swigValue = SwigNext.next++;
+    private stats_gauge_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private stats_gauge_t(int swigValue) {
+    private stats_gauge_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private stats_gauge_t(stats_gauge_t swigEnum) {
+    private stats_gauge_t(String swigName, stats_gauge_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static stats_gauge_t[] swigValues = { num_checking_torrents, num_stopped_torrents, num_upload_only_torrents, num_downloading_torrents, num_seeding_torrents, num_queued_seeding_torrents, num_queued_download_torrents, num_error_torrents, non_filter_torrents, num_loaded_torrents, num_pinned_torrents, num_tcp_peers, num_socks5_peers, num_http_proxy_peers, num_utp_peers, num_i2p_peers, num_ssl_peers, num_ssl_socks5_peers, num_ssl_http_proxy_peers, num_ssl_utp_peers, num_peers_half_open, num_peers_connected, num_peers_up_interested, num_peers_down_interested, num_peers_up_unchoked_all, num_peers_up_unchoked_optimistic, num_peers_up_unchoked, num_peers_down_unchoked, num_peers_up_requests, num_peers_down_requests, num_peers_up_disk, num_peers_down_disk, num_peers_end_game, write_cache_blocks, read_cache_blocks, request_latency, pinned_blocks, disk_blocks_in_use, queued_disk_jobs, num_running_disk_jobs, num_read_jobs, num_write_jobs, num_jobs, num_writing_threads, num_running_threads, blocked_disk_jobs, queued_write_bytes, num_unchoke_slots, num_fenced_read, num_fenced_write, num_fenced_hash, num_fenced_move_storage, num_fenced_release_files, num_fenced_delete_files, num_fenced_check_fastresume, num_fenced_save_resume_data, num_fenced_rename_file, num_fenced_stop_torrent, num_fenced_cache_piece, num_fenced_flush_piece, num_fenced_flush_hashed, num_fenced_flush_storage, num_fenced_trim_cache, num_fenced_file_priority, num_fenced_load_torrent, num_fenced_clear_piece, num_fenced_tick_storage, arc_mru_size, arc_mru_ghost_size, arc_mfu_size, arc_mfu_ghost_size, arc_write_size, arc_volatile_size, dht_nodes, dht_node_cache, dht_torrents, dht_peers, dht_immutable_data, dht_mutable_data, dht_allocated_observers, has_incoming_connections, limiter_up_queue, limiter_down_queue, limiter_up_bytes, limiter_down_bytes, num_utp_idle, num_utp_syn_sent, num_utp_connected, num_utp_fin_sent, num_utp_close_wait, num_utp_deleted, num_counters, num_gauges_counters };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

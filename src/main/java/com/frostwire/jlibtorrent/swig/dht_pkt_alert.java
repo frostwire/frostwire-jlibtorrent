@@ -80,46 +80,48 @@ public class dht_pkt_alert extends alert {
     return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
   }
 
-  public enum direction_t {
-    incoming,
-    outgoing;
+  public final static class direction_t {
+    public final static dht_pkt_alert.direction_t incoming = new dht_pkt_alert.direction_t("incoming");
+    public final static dht_pkt_alert.direction_t outgoing = new dht_pkt_alert.direction_t("outgoing");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static direction_t swigToEnum(int swigValue) {
-      direction_t[] swigValues = direction_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (direction_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + direction_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private direction_t() {
-      this.swigValue = SwigNext.next++;
+    private direction_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private direction_t(int swigValue) {
+    private direction_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private direction_t(direction_t swigEnum) {
+    private direction_t(String swigName, direction_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static direction_t[] swigValues = { incoming, outgoing };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
   public final static int static_category = libtorrent_jni.dht_pkt_alert_static_category_get();

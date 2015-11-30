@@ -288,49 +288,51 @@ public class session_handle {
     libtorrent_jni.session_handle_add_swig_extension(swigCPtr, this, swig_plugin.getCPtr(p), p);
   }
 
-  public enum save_state_flags_t {
-    save_settings(libtorrent_jni.session_handle_save_settings_get()),
-    save_dht_settings(libtorrent_jni.session_handle_save_dht_settings_get()),
-    save_dht_state(libtorrent_jni.session_handle_save_dht_state_get()),
-    save_encryption_settings(libtorrent_jni.session_handle_save_encryption_settings_get()),
-    save_as_map(libtorrent_jni.session_handle_save_as_map_get());
+  public final static class save_state_flags_t {
+    public final static session_handle.save_state_flags_t save_settings = new session_handle.save_state_flags_t("save_settings", libtorrent_jni.session_handle_save_settings_get());
+    public final static session_handle.save_state_flags_t save_dht_settings = new session_handle.save_state_flags_t("save_dht_settings", libtorrent_jni.session_handle_save_dht_settings_get());
+    public final static session_handle.save_state_flags_t save_dht_state = new session_handle.save_state_flags_t("save_dht_state", libtorrent_jni.session_handle_save_dht_state_get());
+    public final static session_handle.save_state_flags_t save_encryption_settings = new session_handle.save_state_flags_t("save_encryption_settings", libtorrent_jni.session_handle_save_encryption_settings_get());
+    public final static session_handle.save_state_flags_t save_as_map = new session_handle.save_state_flags_t("save_as_map", libtorrent_jni.session_handle_save_as_map_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static save_state_flags_t swigToEnum(int swigValue) {
-      save_state_flags_t[] swigValues = save_state_flags_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (save_state_flags_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + save_state_flags_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private save_state_flags_t() {
-      this.swigValue = SwigNext.next++;
+    private save_state_flags_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private save_state_flags_t(int swigValue) {
+    private save_state_flags_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private save_state_flags_t(save_state_flags_t swigEnum) {
+    private save_state_flags_t(String swigName, save_state_flags_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static save_state_flags_t[] swigValues = { save_settings, save_dht_settings, save_dht_state, save_encryption_settings, save_as_map };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
   public final static int disk_cache_no_pieces = libtorrent_jni.session_handle_disk_cache_no_pieces_get();
@@ -339,129 +341,135 @@ public class session_handle {
   public final static int tcp_peer_class_id = libtorrent_jni.session_handle_tcp_peer_class_id_get();
   public final static int local_peer_class_id = libtorrent_jni.session_handle_local_peer_class_id_get();
 
-  public enum options_t {
-    delete_files(libtorrent_jni.session_handle_delete_files_get());
+  public final static class options_t {
+    public final static session_handle.options_t delete_files = new session_handle.options_t("delete_files", libtorrent_jni.session_handle_delete_files_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static options_t swigToEnum(int swigValue) {
-      options_t[] swigValues = options_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (options_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + options_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private options_t() {
-      this.swigValue = SwigNext.next++;
+    private options_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private options_t(int swigValue) {
+    private options_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private options_t(options_t swigEnum) {
+    private options_t(String swigName, options_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static options_t[] swigValues = { delete_files };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum session_flags_t {
-    add_default_plugins(libtorrent_jni.session_handle_add_default_plugins_get()),
-    start_default_features(libtorrent_jni.session_handle_start_default_features_get());
+  public final static class session_flags_t {
+    public final static session_handle.session_flags_t add_default_plugins = new session_handle.session_flags_t("add_default_plugins", libtorrent_jni.session_handle_add_default_plugins_get());
+    public final static session_handle.session_flags_t start_default_features = new session_handle.session_flags_t("start_default_features", libtorrent_jni.session_handle_start_default_features_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static session_flags_t swigToEnum(int swigValue) {
-      session_flags_t[] swigValues = session_flags_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (session_flags_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + session_flags_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private session_flags_t() {
-      this.swigValue = SwigNext.next++;
+    private session_flags_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private session_flags_t(int swigValue) {
+    private session_flags_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private session_flags_t(session_flags_t swigEnum) {
+    private session_flags_t(String swigName, session_flags_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static session_flags_t[] swigValues = { add_default_plugins, start_default_features };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum protocol_type {
-    udp(libtorrent_jni.session_handle_udp_get()),
-    tcp(libtorrent_jni.session_handle_tcp_get());
+  public final static class protocol_type {
+    public final static session_handle.protocol_type udp = new session_handle.protocol_type("udp", libtorrent_jni.session_handle_udp_get());
+    public final static session_handle.protocol_type tcp = new session_handle.protocol_type("tcp", libtorrent_jni.session_handle_tcp_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static protocol_type swigToEnum(int swigValue) {
-      protocol_type[] swigValues = protocol_type.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (protocol_type swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + protocol_type.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private protocol_type() {
-      this.swigValue = SwigNext.next++;
+    private protocol_type(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private protocol_type(int swigValue) {
+    private protocol_type(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private protocol_type(protocol_type swigEnum) {
+    private protocol_type(String swigName, protocol_type swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static protocol_type[] swigValues = { udp, tcp };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

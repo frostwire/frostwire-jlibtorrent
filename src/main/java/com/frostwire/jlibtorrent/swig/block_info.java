@@ -79,48 +79,50 @@ public class block_info {
     this(libtorrent_jni.new_block_info(), true);
   }
 
-  public enum block_state_t {
-    none,
-    requested,
-    writing,
-    finished;
+  public final static class block_state_t {
+    public final static block_info.block_state_t none = new block_info.block_state_t("none");
+    public final static block_info.block_state_t requested = new block_info.block_state_t("requested");
+    public final static block_info.block_state_t writing = new block_info.block_state_t("writing");
+    public final static block_info.block_state_t finished = new block_info.block_state_t("finished");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static block_state_t swigToEnum(int swigValue) {
-      block_state_t[] swigValues = block_state_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (block_state_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + block_state_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private block_state_t() {
-      this.swigValue = SwigNext.next++;
+    private block_state_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private block_state_t(int swigValue) {
+    private block_state_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private block_state_t(block_state_t swigEnum) {
+    private block_state_t(String swigName, block_state_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static block_state_t[] swigValues = { none, requested, writing, finished };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

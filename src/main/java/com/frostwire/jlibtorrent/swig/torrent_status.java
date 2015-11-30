@@ -690,96 +690,100 @@ public class torrent_status {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
-  public enum state_t {
-    unused_enum_for_backwards_compatibility,
-    checking_files,
-    downloading_metadata,
-    downloading,
-    finished,
-    seeding,
-    allocating,
-    checking_resume_data;
+  public final static class state_t {
+    public final static torrent_status.state_t unused_enum_for_backwards_compatibility = new torrent_status.state_t("unused_enum_for_backwards_compatibility");
+    public final static torrent_status.state_t checking_files = new torrent_status.state_t("checking_files");
+    public final static torrent_status.state_t downloading_metadata = new torrent_status.state_t("downloading_metadata");
+    public final static torrent_status.state_t downloading = new torrent_status.state_t("downloading");
+    public final static torrent_status.state_t finished = new torrent_status.state_t("finished");
+    public final static torrent_status.state_t seeding = new torrent_status.state_t("seeding");
+    public final static torrent_status.state_t allocating = new torrent_status.state_t("allocating");
+    public final static torrent_status.state_t checking_resume_data = new torrent_status.state_t("checking_resume_data");
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static state_t swigToEnum(int swigValue) {
-      state_t[] swigValues = state_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (state_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + state_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private state_t() {
-      this.swigValue = SwigNext.next++;
+    private state_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private state_t(int swigValue) {
+    private state_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private state_t(state_t swigEnum) {
+    private state_t(String swigName, state_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static state_t[] swigValues = { unused_enum_for_backwards_compatibility, checking_files, downloading_metadata, downloading, finished, seeding, allocating, checking_resume_data };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum error_file_t {
-    error_file_none(libtorrent_jni.torrent_status_error_file_none_get()),
-    error_file_url(libtorrent_jni.torrent_status_error_file_url_get()),
-    error_file_ssl_ctx(libtorrent_jni.torrent_status_error_file_ssl_ctx_get()),
-    error_file_metadata(libtorrent_jni.torrent_status_error_file_metadata_get());
+  public final static class error_file_t {
+    public final static torrent_status.error_file_t error_file_none = new torrent_status.error_file_t("error_file_none", libtorrent_jni.torrent_status_error_file_none_get());
+    public final static torrent_status.error_file_t error_file_url = new torrent_status.error_file_t("error_file_url", libtorrent_jni.torrent_status_error_file_url_get());
+    public final static torrent_status.error_file_t error_file_ssl_ctx = new torrent_status.error_file_t("error_file_ssl_ctx", libtorrent_jni.torrent_status_error_file_ssl_ctx_get());
+    public final static torrent_status.error_file_t error_file_metadata = new torrent_status.error_file_t("error_file_metadata", libtorrent_jni.torrent_status_error_file_metadata_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static error_file_t swigToEnum(int swigValue) {
-      error_file_t[] swigValues = error_file_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (error_file_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + error_file_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private error_file_t() {
-      this.swigValue = SwigNext.next++;
+    private error_file_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private error_file_t(int swigValue) {
+    private error_file_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private error_file_t(error_file_t swigEnum) {
+    private error_file_t(String swigName, error_file_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static error_file_t[] swigValues = { error_file_none, error_file_url, error_file_ssl_ctx, error_file_metadata };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

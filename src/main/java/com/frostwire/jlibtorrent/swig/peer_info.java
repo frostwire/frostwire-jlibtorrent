@@ -462,198 +462,206 @@ public class peer_info {
     this(libtorrent_jni.new_peer_info(), true);
   }
 
-  public enum peer_flags_t {
-    interesting(libtorrent_jni.peer_info_interesting_get()),
-    choked(libtorrent_jni.peer_info_choked_get()),
-    remote_interested(libtorrent_jni.peer_info_remote_interested_get()),
-    remote_choked(libtorrent_jni.peer_info_remote_choked_get()),
-    supports_extensions(libtorrent_jni.peer_info_supports_extensions_get()),
-    local_connection(libtorrent_jni.peer_info_local_connection_get()),
-    handshake(libtorrent_jni.peer_info_handshake_get()),
-    connecting(libtorrent_jni.peer_info_connecting_get()),
-    deprecated__(libtorrent_jni.peer_info_deprecated___get()),
-    on_parole(libtorrent_jni.peer_info_on_parole_get()),
-    seed(libtorrent_jni.peer_info_seed_get()),
-    optimistic_unchoke(libtorrent_jni.peer_info_optimistic_unchoke_get()),
-    snubbed(libtorrent_jni.peer_info_snubbed_get()),
-    upload_only(libtorrent_jni.peer_info_upload_only_get()),
-    endgame_mode(libtorrent_jni.peer_info_endgame_mode_get()),
-    holepunched(libtorrent_jni.peer_info_holepunched_get()),
-    i2p_socket(libtorrent_jni.peer_info_i2p_socket_get()),
-    utp_socket(libtorrent_jni.peer_info_utp_socket_get()),
-    ssl_socket(libtorrent_jni.peer_info_ssl_socket_get()),
-    rc4_encrypted(libtorrent_jni.peer_info_rc4_encrypted_get()),
-    plaintext_encrypted(libtorrent_jni.peer_info_plaintext_encrypted_get());
+  public final static class peer_flags_t {
+    public final static peer_info.peer_flags_t interesting = new peer_info.peer_flags_t("interesting", libtorrent_jni.peer_info_interesting_get());
+    public final static peer_info.peer_flags_t choked = new peer_info.peer_flags_t("choked", libtorrent_jni.peer_info_choked_get());
+    public final static peer_info.peer_flags_t remote_interested = new peer_info.peer_flags_t("remote_interested", libtorrent_jni.peer_info_remote_interested_get());
+    public final static peer_info.peer_flags_t remote_choked = new peer_info.peer_flags_t("remote_choked", libtorrent_jni.peer_info_remote_choked_get());
+    public final static peer_info.peer_flags_t supports_extensions = new peer_info.peer_flags_t("supports_extensions", libtorrent_jni.peer_info_supports_extensions_get());
+    public final static peer_info.peer_flags_t local_connection = new peer_info.peer_flags_t("local_connection", libtorrent_jni.peer_info_local_connection_get());
+    public final static peer_info.peer_flags_t handshake = new peer_info.peer_flags_t("handshake", libtorrent_jni.peer_info_handshake_get());
+    public final static peer_info.peer_flags_t connecting = new peer_info.peer_flags_t("connecting", libtorrent_jni.peer_info_connecting_get());
+    public final static peer_info.peer_flags_t deprecated__ = new peer_info.peer_flags_t("deprecated__", libtorrent_jni.peer_info_deprecated___get());
+    public final static peer_info.peer_flags_t on_parole = new peer_info.peer_flags_t("on_parole", libtorrent_jni.peer_info_on_parole_get());
+    public final static peer_info.peer_flags_t seed = new peer_info.peer_flags_t("seed", libtorrent_jni.peer_info_seed_get());
+    public final static peer_info.peer_flags_t optimistic_unchoke = new peer_info.peer_flags_t("optimistic_unchoke", libtorrent_jni.peer_info_optimistic_unchoke_get());
+    public final static peer_info.peer_flags_t snubbed = new peer_info.peer_flags_t("snubbed", libtorrent_jni.peer_info_snubbed_get());
+    public final static peer_info.peer_flags_t upload_only = new peer_info.peer_flags_t("upload_only", libtorrent_jni.peer_info_upload_only_get());
+    public final static peer_info.peer_flags_t endgame_mode = new peer_info.peer_flags_t("endgame_mode", libtorrent_jni.peer_info_endgame_mode_get());
+    public final static peer_info.peer_flags_t holepunched = new peer_info.peer_flags_t("holepunched", libtorrent_jni.peer_info_holepunched_get());
+    public final static peer_info.peer_flags_t i2p_socket = new peer_info.peer_flags_t("i2p_socket", libtorrent_jni.peer_info_i2p_socket_get());
+    public final static peer_info.peer_flags_t utp_socket = new peer_info.peer_flags_t("utp_socket", libtorrent_jni.peer_info_utp_socket_get());
+    public final static peer_info.peer_flags_t ssl_socket = new peer_info.peer_flags_t("ssl_socket", libtorrent_jni.peer_info_ssl_socket_get());
+    public final static peer_info.peer_flags_t rc4_encrypted = new peer_info.peer_flags_t("rc4_encrypted", libtorrent_jni.peer_info_rc4_encrypted_get());
+    public final static peer_info.peer_flags_t plaintext_encrypted = new peer_info.peer_flags_t("plaintext_encrypted", libtorrent_jni.peer_info_plaintext_encrypted_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static peer_flags_t swigToEnum(int swigValue) {
-      peer_flags_t[] swigValues = peer_flags_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (peer_flags_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + peer_flags_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private peer_flags_t() {
-      this.swigValue = SwigNext.next++;
+    private peer_flags_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private peer_flags_t(int swigValue) {
+    private peer_flags_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private peer_flags_t(peer_flags_t swigEnum) {
+    private peer_flags_t(String swigName, peer_flags_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static peer_flags_t[] swigValues = { interesting, choked, remote_interested, remote_choked, supports_extensions, local_connection, handshake, connecting, deprecated__, on_parole, seed, optimistic_unchoke, snubbed, upload_only, endgame_mode, holepunched, i2p_socket, utp_socket, ssl_socket, rc4_encrypted, plaintext_encrypted };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum peer_source_flags {
-    tracker(libtorrent_jni.peer_info_tracker_get()),
-    dht(libtorrent_jni.peer_info_dht_get()),
-    pex(libtorrent_jni.peer_info_pex_get()),
-    lsd(libtorrent_jni.peer_info_lsd_get()),
-    resume_data(libtorrent_jni.peer_info_resume_data_get()),
-    incoming(libtorrent_jni.peer_info_incoming_get());
+  public final static class peer_source_flags {
+    public final static peer_info.peer_source_flags tracker = new peer_info.peer_source_flags("tracker", libtorrent_jni.peer_info_tracker_get());
+    public final static peer_info.peer_source_flags dht = new peer_info.peer_source_flags("dht", libtorrent_jni.peer_info_dht_get());
+    public final static peer_info.peer_source_flags pex = new peer_info.peer_source_flags("pex", libtorrent_jni.peer_info_pex_get());
+    public final static peer_info.peer_source_flags lsd = new peer_info.peer_source_flags("lsd", libtorrent_jni.peer_info_lsd_get());
+    public final static peer_info.peer_source_flags resume_data = new peer_info.peer_source_flags("resume_data", libtorrent_jni.peer_info_resume_data_get());
+    public final static peer_info.peer_source_flags incoming = new peer_info.peer_source_flags("incoming", libtorrent_jni.peer_info_incoming_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static peer_source_flags swigToEnum(int swigValue) {
-      peer_source_flags[] swigValues = peer_source_flags.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (peer_source_flags swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + peer_source_flags.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private peer_source_flags() {
-      this.swigValue = SwigNext.next++;
+    private peer_source_flags(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private peer_source_flags(int swigValue) {
+    private peer_source_flags(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private peer_source_flags(peer_source_flags swigEnum) {
+    private peer_source_flags(String swigName, peer_source_flags swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static peer_source_flags[] swigValues = { tracker, dht, pex, lsd, resume_data, incoming };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum connection_type_t {
-    standard_bittorrent(libtorrent_jni.peer_info_standard_bittorrent_get()),
-    web_seed(libtorrent_jni.peer_info_web_seed_get()),
-    http_seed(libtorrent_jni.peer_info_http_seed_get());
+  public final static class connection_type_t {
+    public final static peer_info.connection_type_t standard_bittorrent = new peer_info.connection_type_t("standard_bittorrent", libtorrent_jni.peer_info_standard_bittorrent_get());
+    public final static peer_info.connection_type_t web_seed = new peer_info.connection_type_t("web_seed", libtorrent_jni.peer_info_web_seed_get());
+    public final static peer_info.connection_type_t http_seed = new peer_info.connection_type_t("http_seed", libtorrent_jni.peer_info_http_seed_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static connection_type_t swigToEnum(int swigValue) {
-      connection_type_t[] swigValues = connection_type_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (connection_type_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + connection_type_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private connection_type_t() {
-      this.swigValue = SwigNext.next++;
+    private connection_type_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private connection_type_t(int swigValue) {
+    private connection_type_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private connection_type_t(connection_type_t swigEnum) {
+    private connection_type_t(String swigName, connection_type_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static connection_type_t[] swigValues = { standard_bittorrent, web_seed, http_seed };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum bw_state {
-    bw_idle(libtorrent_jni.peer_info_bw_idle_get()),
-    bw_limit(libtorrent_jni.peer_info_bw_limit_get()),
-    bw_network(libtorrent_jni.peer_info_bw_network_get()),
-    bw_disk(libtorrent_jni.peer_info_bw_disk_get());
+  public final static class bw_state {
+    public final static peer_info.bw_state bw_idle = new peer_info.bw_state("bw_idle", libtorrent_jni.peer_info_bw_idle_get());
+    public final static peer_info.bw_state bw_limit = new peer_info.bw_state("bw_limit", libtorrent_jni.peer_info_bw_limit_get());
+    public final static peer_info.bw_state bw_network = new peer_info.bw_state("bw_network", libtorrent_jni.peer_info_bw_network_get());
+    public final static peer_info.bw_state bw_disk = new peer_info.bw_state("bw_disk", libtorrent_jni.peer_info_bw_disk_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static bw_state swigToEnum(int swigValue) {
-      bw_state[] swigValues = bw_state.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (bw_state swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + bw_state.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private bw_state() {
-      this.swigValue = SwigNext.next++;
+    private bw_state(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private bw_state(int swigValue) {
+    private bw_state(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private bw_state(bw_state swigEnum) {
+    private bw_state(String swigName, bw_state swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static bw_state[] swigValues = { bw_idle, bw_limit, bw_network, bw_disk };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

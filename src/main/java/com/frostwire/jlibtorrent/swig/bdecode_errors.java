@@ -8,52 +8,54 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum bdecode_errors {
-  no_error(0),
-  expected_digit,
-  expected_colon,
-  unexpected_eof,
-  expected_value,
-  depth_exceeded,
-  limit_exceeded,
-  overflow,
-  error_code_max;
+public final class bdecode_errors {
+  public final static bdecode_errors no_error = new bdecode_errors("no_error", 0);
+  public final static bdecode_errors expected_digit = new bdecode_errors("expected_digit");
+  public final static bdecode_errors expected_colon = new bdecode_errors("expected_colon");
+  public final static bdecode_errors unexpected_eof = new bdecode_errors("unexpected_eof");
+  public final static bdecode_errors expected_value = new bdecode_errors("expected_value");
+  public final static bdecode_errors depth_exceeded = new bdecode_errors("depth_exceeded");
+  public final static bdecode_errors limit_exceeded = new bdecode_errors("limit_exceeded");
+  public final static bdecode_errors overflow = new bdecode_errors("overflow");
+  public final static bdecode_errors error_code_max = new bdecode_errors("error_code_max");
 
   public final int swigValue() {
     return swigValue;
   }
 
+  public String toString() {
+    return swigName;
+  }
+
   public static bdecode_errors swigToEnum(int swigValue) {
-    bdecode_errors[] swigValues = bdecode_errors.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (bdecode_errors swigEnum : swigValues)
-      if (swigEnum.swigValue == swigValue)
-        return swigEnum;
+    for (int i = 0; i < swigValues.length; i++)
+      if (swigValues[i].swigValue == swigValue)
+        return swigValues[i];
     throw new IllegalArgumentException("No enum " + bdecode_errors.class + " with value " + swigValue);
   }
 
-  @SuppressWarnings("unused")
-  private bdecode_errors() {
-    this.swigValue = SwigNext.next++;
+  private bdecode_errors(String swigName) {
+    this.swigName = swigName;
+    this.swigValue = swigNext++;
   }
 
-  @SuppressWarnings("unused")
-  private bdecode_errors(int swigValue) {
+  private bdecode_errors(String swigName, int swigValue) {
+    this.swigName = swigName;
     this.swigValue = swigValue;
-    SwigNext.next = swigValue+1;
+    swigNext = swigValue+1;
   }
 
-  @SuppressWarnings("unused")
-  private bdecode_errors(bdecode_errors swigEnum) {
+  private bdecode_errors(String swigName, bdecode_errors swigEnum) {
+    this.swigName = swigName;
     this.swigValue = swigEnum.swigValue;
-    SwigNext.next = this.swigValue+1;
+    swigNext = this.swigValue+1;
   }
 
+  private static bdecode_errors[] swigValues = { no_error, expected_digit, expected_colon, unexpected_eof, expected_value, depth_exceeded, limit_exceeded, overflow, error_code_max };
+  private static int swigNext = 0;
   private final int swigValue;
-
-  private static class SwigNext {
-    private static int next = 0;
-  }
+  private final String swigName;
 }
 

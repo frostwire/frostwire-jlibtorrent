@@ -83,93 +83,97 @@ public class bdecode_token {
     return libtorrent_jni.bdecode_token_header_get(swigCPtr, this);
   }
 
-  public enum type_t {
-    none,
-    dict,
-    list,
-    string,
-    integer,
-    end;
+  public final static class type_t {
+    public final static bdecode_token.type_t none = new bdecode_token.type_t("none");
+    public final static bdecode_token.type_t dict = new bdecode_token.type_t("dict");
+    public final static bdecode_token.type_t list = new bdecode_token.type_t("list");
+    public final static bdecode_token.type_t string = new bdecode_token.type_t("string");
+    public final static bdecode_token.type_t integer = new bdecode_token.type_t("integer");
+    public final static bdecode_token.type_t end = new bdecode_token.type_t("end");
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static type_t swigToEnum(int swigValue) {
-      type_t[] swigValues = type_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (type_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + type_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private type_t() {
-      this.swigValue = SwigNext.next++;
+    private type_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private type_t(int swigValue) {
+    private type_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private type_t(type_t swigEnum) {
+    private type_t(String swigName, type_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static type_t[] swigValues = { none, dict, list, string, integer, end };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum limits_t {
-    max_offset((1 << 29) -1),
-    max_next_item((1 << 29) -1),
-    max_header((1 << 3) -1);
+  public final static class limits_t {
+    public final static bdecode_token.limits_t max_offset = new bdecode_token.limits_t("max_offset", (1 << 29) -1);
+    public final static bdecode_token.limits_t max_next_item = new bdecode_token.limits_t("max_next_item", (1 << 29) -1);
+    public final static bdecode_token.limits_t max_header = new bdecode_token.limits_t("max_header", (1 << 3) -1);
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static limits_t swigToEnum(int swigValue) {
-      limits_t[] swigValues = limits_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (limits_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + limits_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private limits_t() {
-      this.swigValue = SwigNext.next++;
+    private limits_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private limits_t(int swigValue) {
+    private limits_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private limits_t(limits_t swigEnum) {
+    private limits_t(String swigName, limits_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static limits_t[] swigValues = { max_offset, max_next_item, max_header };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

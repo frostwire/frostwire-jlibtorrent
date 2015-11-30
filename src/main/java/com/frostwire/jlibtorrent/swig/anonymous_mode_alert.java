@@ -74,45 +74,47 @@ public class anonymous_mode_alert extends torrent_alert {
   public final static int priority = libtorrent_jni.anonymous_mode_alert_priority_get();
   public final static int alert_type = libtorrent_jni.anonymous_mode_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.anonymous_mode_alert_static_category_get();
-  public enum kind_t {
-    tracker_not_anonymous(libtorrent_jni.anonymous_mode_alert_tracker_not_anonymous_get());
+  public final static class kind_t {
+    public final static anonymous_mode_alert.kind_t tracker_not_anonymous = new anonymous_mode_alert.kind_t("tracker_not_anonymous", libtorrent_jni.anonymous_mode_alert_tracker_not_anonymous_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static kind_t swigToEnum(int swigValue) {
-      kind_t[] swigValues = kind_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (kind_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + kind_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private kind_t() {
-      this.swigValue = SwigNext.next++;
+    private kind_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private kind_t(int swigValue) {
+    private kind_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private kind_t(kind_t swigEnum) {
+    private kind_t(String swigName, kind_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static kind_t[] swigValues = { tracker_not_anonymous };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

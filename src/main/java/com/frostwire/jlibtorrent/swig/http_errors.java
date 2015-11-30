@@ -8,60 +8,62 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum http_errors {
-  cont(100),
-  ok(200),
-  created(201),
-  accepted(202),
-  no_content(204),
-  multiple_choices(300),
-  moved_permanently(301),
-  moved_temporarily(302),
-  not_modified(304),
-  bad_request(400),
-  unauthorized(401),
-  forbidden(403),
-  not_found(404),
-  internal_server_error(500),
-  not_implemented(501),
-  bad_gateway(502),
-  service_unavailable(503);
+public final class http_errors {
+  public final static http_errors cont = new http_errors("cont", 100);
+  public final static http_errors ok = new http_errors("ok", 200);
+  public final static http_errors created = new http_errors("created", 201);
+  public final static http_errors accepted = new http_errors("accepted", 202);
+  public final static http_errors no_content = new http_errors("no_content", 204);
+  public final static http_errors multiple_choices = new http_errors("multiple_choices", 300);
+  public final static http_errors moved_permanently = new http_errors("moved_permanently", 301);
+  public final static http_errors moved_temporarily = new http_errors("moved_temporarily", 302);
+  public final static http_errors not_modified = new http_errors("not_modified", 304);
+  public final static http_errors bad_request = new http_errors("bad_request", 400);
+  public final static http_errors unauthorized = new http_errors("unauthorized", 401);
+  public final static http_errors forbidden = new http_errors("forbidden", 403);
+  public final static http_errors not_found = new http_errors("not_found", 404);
+  public final static http_errors internal_server_error = new http_errors("internal_server_error", 500);
+  public final static http_errors not_implemented = new http_errors("not_implemented", 501);
+  public final static http_errors bad_gateway = new http_errors("bad_gateway", 502);
+  public final static http_errors service_unavailable = new http_errors("service_unavailable", 503);
 
   public final int swigValue() {
     return swigValue;
   }
 
+  public String toString() {
+    return swigName;
+  }
+
   public static http_errors swigToEnum(int swigValue) {
-    http_errors[] swigValues = http_errors.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (http_errors swigEnum : swigValues)
-      if (swigEnum.swigValue == swigValue)
-        return swigEnum;
+    for (int i = 0; i < swigValues.length; i++)
+      if (swigValues[i].swigValue == swigValue)
+        return swigValues[i];
     throw new IllegalArgumentException("No enum " + http_errors.class + " with value " + swigValue);
   }
 
-  @SuppressWarnings("unused")
-  private http_errors() {
-    this.swigValue = SwigNext.next++;
+  private http_errors(String swigName) {
+    this.swigName = swigName;
+    this.swigValue = swigNext++;
   }
 
-  @SuppressWarnings("unused")
-  private http_errors(int swigValue) {
+  private http_errors(String swigName, int swigValue) {
+    this.swigName = swigName;
     this.swigValue = swigValue;
-    SwigNext.next = swigValue+1;
+    swigNext = swigValue+1;
   }
 
-  @SuppressWarnings("unused")
-  private http_errors(http_errors swigEnum) {
+  private http_errors(String swigName, http_errors swigEnum) {
+    this.swigName = swigName;
     this.swigValue = swigEnum.swigValue;
-    SwigNext.next = this.swigValue+1;
+    swigNext = this.swigValue+1;
   }
 
+  private static http_errors[] swigValues = { cont, ok, created, accepted, no_content, multiple_choices, moved_permanently, moved_temporarily, not_modified, bad_request, unauthorized, forbidden, not_found, internal_server_error, not_implemented, bad_gateway, service_unavailable };
+  private static int swigNext = 0;
   private final int swigValue;
-
-  private static class SwigNext {
-    private static int next = 0;
-  }
+  private final String swigName;
 }
 

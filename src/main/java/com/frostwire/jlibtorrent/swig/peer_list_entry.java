@@ -72,45 +72,47 @@ public class peer_list_entry {
     this(libtorrent_jni.new_peer_list_entry(), true);
   }
 
-  public enum flags_t {
-    banned(libtorrent_jni.peer_list_entry_banned_get());
+  public final static class flags_t {
+    public final static peer_list_entry.flags_t banned = new peer_list_entry.flags_t("banned", libtorrent_jni.peer_list_entry_banned_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static flags_t swigToEnum(int swigValue) {
-      flags_t[] swigValues = flags_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (flags_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + flags_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private flags_t() {
-      this.swigValue = SwigNext.next++;
+    private flags_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private flags_t(int swigValue) {
+    private flags_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private flags_t(flags_t swigEnum) {
+    private flags_t(String swigName, flags_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static flags_t[] swigValues = { banned };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

@@ -71,767 +71,793 @@ public class settings_pack {
     this(libtorrent_jni.new_settings_pack(), true);
   }
 
-  public enum type_bases {
-    string_type_base(libtorrent_jni.settings_pack_string_type_base_get()),
-    int_type_base(libtorrent_jni.settings_pack_int_type_base_get()),
-    bool_type_base(libtorrent_jni.settings_pack_bool_type_base_get()),
-    type_mask(libtorrent_jni.settings_pack_type_mask_get()),
-    index_mask(libtorrent_jni.settings_pack_index_mask_get());
+  public final static class type_bases {
+    public final static settings_pack.type_bases string_type_base = new settings_pack.type_bases("string_type_base", libtorrent_jni.settings_pack_string_type_base_get());
+    public final static settings_pack.type_bases int_type_base = new settings_pack.type_bases("int_type_base", libtorrent_jni.settings_pack_int_type_base_get());
+    public final static settings_pack.type_bases bool_type_base = new settings_pack.type_bases("bool_type_base", libtorrent_jni.settings_pack_bool_type_base_get());
+    public final static settings_pack.type_bases type_mask = new settings_pack.type_bases("type_mask", libtorrent_jni.settings_pack_type_mask_get());
+    public final static settings_pack.type_bases index_mask = new settings_pack.type_bases("index_mask", libtorrent_jni.settings_pack_index_mask_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static type_bases swigToEnum(int swigValue) {
-      type_bases[] swigValues = type_bases.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (type_bases swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + type_bases.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private type_bases() {
-      this.swigValue = SwigNext.next++;
+    private type_bases(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private type_bases(int swigValue) {
+    private type_bases(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private type_bases(type_bases swigEnum) {
+    private type_bases(String swigName, type_bases swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static type_bases[] swigValues = { string_type_base, int_type_base, bool_type_base, type_mask, index_mask };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum string_types {
-    user_agent(libtorrent_jni.settings_pack_user_agent_get()),
-    announce_ip,
-    mmap_cache,
-    handshake_client_version,
-    outgoing_interfaces,
-    listen_interfaces,
-    proxy_hostname,
-    proxy_username,
-    proxy_password,
-    i2p_hostname,
-    peer_fingerprint,
-    max_string_setting_internal;
+  public final static class string_types {
+    public final static settings_pack.string_types user_agent = new settings_pack.string_types("user_agent", libtorrent_jni.settings_pack_user_agent_get());
+    public final static settings_pack.string_types announce_ip = new settings_pack.string_types("announce_ip");
+    public final static settings_pack.string_types mmap_cache = new settings_pack.string_types("mmap_cache");
+    public final static settings_pack.string_types handshake_client_version = new settings_pack.string_types("handshake_client_version");
+    public final static settings_pack.string_types outgoing_interfaces = new settings_pack.string_types("outgoing_interfaces");
+    public final static settings_pack.string_types listen_interfaces = new settings_pack.string_types("listen_interfaces");
+    public final static settings_pack.string_types proxy_hostname = new settings_pack.string_types("proxy_hostname");
+    public final static settings_pack.string_types proxy_username = new settings_pack.string_types("proxy_username");
+    public final static settings_pack.string_types proxy_password = new settings_pack.string_types("proxy_password");
+    public final static settings_pack.string_types i2p_hostname = new settings_pack.string_types("i2p_hostname");
+    public final static settings_pack.string_types peer_fingerprint = new settings_pack.string_types("peer_fingerprint");
+    public final static settings_pack.string_types max_string_setting_internal = new settings_pack.string_types("max_string_setting_internal");
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static string_types swigToEnum(int swigValue) {
-      string_types[] swigValues = string_types.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (string_types swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + string_types.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private string_types() {
-      this.swigValue = SwigNext.next++;
+    private string_types(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private string_types(int swigValue) {
+    private string_types(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private string_types(string_types swigEnum) {
+    private string_types(String swigName, string_types swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static string_types[] swigValues = { user_agent, announce_ip, mmap_cache, handshake_client_version, outgoing_interfaces, listen_interfaces, proxy_hostname, proxy_username, proxy_password, i2p_hostname, peer_fingerprint, max_string_setting_internal };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum bool_types {
-    allow_multiple_connections_per_ip(libtorrent_jni.settings_pack_allow_multiple_connections_per_ip_get()),
-    deprecated1,
-    send_redundant_have,
-    lazy_bitfields,
-    use_dht_as_fallback,
-    upnp_ignore_nonrouters,
-    use_parole_mode,
-    use_read_cache,
-    use_write_cache,
-    dont_flush_write_cache,
-    explicit_read_cache,
-    coalesce_reads,
-    coalesce_writes,
-    auto_manage_prefer_seeds,
-    dont_count_slow_torrents,
-    close_redundant_connections,
-    prioritize_partial_pieces,
-    rate_limit_ip_overhead,
-    announce_to_all_tiers,
-    announce_to_all_trackers,
-    prefer_udp_trackers,
-    strict_super_seeding,
-    lock_disk_cache,
-    disable_hash_checks,
-    allow_i2p_mixed,
-    low_prio_disk,
-    volatile_read_cache,
-    guided_read_cache,
-    no_atime_storage,
-    incoming_starts_queued_torrents,
-    report_true_downloaded,
-    strict_end_game_mode,
-    broadcast_lsd,
-    enable_outgoing_utp,
-    enable_incoming_utp,
-    enable_outgoing_tcp,
-    enable_incoming_tcp,
-    ignore_resume_timestamps,
-    no_recheck_incomplete_resume,
-    anonymous_mode,
-    report_web_seed_downloads,
-    deprecated2,
-    announce_double_nat,
-    seeding_outgoing_connections,
-    no_connect_privileged_ports,
-    smooth_connects,
-    always_send_user_agent,
-    apply_ip_filter_to_trackers,
-    use_disk_read_ahead,
-    lock_files,
-    contiguous_recv_buffer,
-    ban_web_seeds,
-    allow_partial_disk_writes,
-    force_proxy,
-    support_share_mode,
-    support_merkle_torrents,
-    report_redundant_bytes,
-    listen_system_port_fallback,
-    use_disk_cache_pool,
-    announce_crypto_support,
-    enable_upnp,
-    enable_natpmp,
-    enable_lsd,
-    enable_dht,
-    prefer_rc4,
-    proxy_hostnames,
-    proxy_peer_connections,
-    auto_sequential,
-    proxy_tracker_connections,
-    max_bool_setting_internal;
+  public final static class bool_types {
+    public final static settings_pack.bool_types allow_multiple_connections_per_ip = new settings_pack.bool_types("allow_multiple_connections_per_ip", libtorrent_jni.settings_pack_allow_multiple_connections_per_ip_get());
+    public final static settings_pack.bool_types deprecated1 = new settings_pack.bool_types("deprecated1");
+    public final static settings_pack.bool_types send_redundant_have = new settings_pack.bool_types("send_redundant_have");
+    public final static settings_pack.bool_types lazy_bitfields = new settings_pack.bool_types("lazy_bitfields");
+    public final static settings_pack.bool_types use_dht_as_fallback = new settings_pack.bool_types("use_dht_as_fallback");
+    public final static settings_pack.bool_types upnp_ignore_nonrouters = new settings_pack.bool_types("upnp_ignore_nonrouters");
+    public final static settings_pack.bool_types use_parole_mode = new settings_pack.bool_types("use_parole_mode");
+    public final static settings_pack.bool_types use_read_cache = new settings_pack.bool_types("use_read_cache");
+    public final static settings_pack.bool_types use_write_cache = new settings_pack.bool_types("use_write_cache");
+    public final static settings_pack.bool_types dont_flush_write_cache = new settings_pack.bool_types("dont_flush_write_cache");
+    public final static settings_pack.bool_types explicit_read_cache = new settings_pack.bool_types("explicit_read_cache");
+    public final static settings_pack.bool_types coalesce_reads = new settings_pack.bool_types("coalesce_reads");
+    public final static settings_pack.bool_types coalesce_writes = new settings_pack.bool_types("coalesce_writes");
+    public final static settings_pack.bool_types auto_manage_prefer_seeds = new settings_pack.bool_types("auto_manage_prefer_seeds");
+    public final static settings_pack.bool_types dont_count_slow_torrents = new settings_pack.bool_types("dont_count_slow_torrents");
+    public final static settings_pack.bool_types close_redundant_connections = new settings_pack.bool_types("close_redundant_connections");
+    public final static settings_pack.bool_types prioritize_partial_pieces = new settings_pack.bool_types("prioritize_partial_pieces");
+    public final static settings_pack.bool_types rate_limit_ip_overhead = new settings_pack.bool_types("rate_limit_ip_overhead");
+    public final static settings_pack.bool_types announce_to_all_tiers = new settings_pack.bool_types("announce_to_all_tiers");
+    public final static settings_pack.bool_types announce_to_all_trackers = new settings_pack.bool_types("announce_to_all_trackers");
+    public final static settings_pack.bool_types prefer_udp_trackers = new settings_pack.bool_types("prefer_udp_trackers");
+    public final static settings_pack.bool_types strict_super_seeding = new settings_pack.bool_types("strict_super_seeding");
+    public final static settings_pack.bool_types lock_disk_cache = new settings_pack.bool_types("lock_disk_cache");
+    public final static settings_pack.bool_types disable_hash_checks = new settings_pack.bool_types("disable_hash_checks");
+    public final static settings_pack.bool_types allow_i2p_mixed = new settings_pack.bool_types("allow_i2p_mixed");
+    public final static settings_pack.bool_types low_prio_disk = new settings_pack.bool_types("low_prio_disk");
+    public final static settings_pack.bool_types volatile_read_cache = new settings_pack.bool_types("volatile_read_cache");
+    public final static settings_pack.bool_types guided_read_cache = new settings_pack.bool_types("guided_read_cache");
+    public final static settings_pack.bool_types no_atime_storage = new settings_pack.bool_types("no_atime_storage");
+    public final static settings_pack.bool_types incoming_starts_queued_torrents = new settings_pack.bool_types("incoming_starts_queued_torrents");
+    public final static settings_pack.bool_types report_true_downloaded = new settings_pack.bool_types("report_true_downloaded");
+    public final static settings_pack.bool_types strict_end_game_mode = new settings_pack.bool_types("strict_end_game_mode");
+    public final static settings_pack.bool_types broadcast_lsd = new settings_pack.bool_types("broadcast_lsd");
+    public final static settings_pack.bool_types enable_outgoing_utp = new settings_pack.bool_types("enable_outgoing_utp");
+    public final static settings_pack.bool_types enable_incoming_utp = new settings_pack.bool_types("enable_incoming_utp");
+    public final static settings_pack.bool_types enable_outgoing_tcp = new settings_pack.bool_types("enable_outgoing_tcp");
+    public final static settings_pack.bool_types enable_incoming_tcp = new settings_pack.bool_types("enable_incoming_tcp");
+    public final static settings_pack.bool_types ignore_resume_timestamps = new settings_pack.bool_types("ignore_resume_timestamps");
+    public final static settings_pack.bool_types no_recheck_incomplete_resume = new settings_pack.bool_types("no_recheck_incomplete_resume");
+    public final static settings_pack.bool_types anonymous_mode = new settings_pack.bool_types("anonymous_mode");
+    public final static settings_pack.bool_types report_web_seed_downloads = new settings_pack.bool_types("report_web_seed_downloads");
+    public final static settings_pack.bool_types deprecated2 = new settings_pack.bool_types("deprecated2");
+    public final static settings_pack.bool_types announce_double_nat = new settings_pack.bool_types("announce_double_nat");
+    public final static settings_pack.bool_types seeding_outgoing_connections = new settings_pack.bool_types("seeding_outgoing_connections");
+    public final static settings_pack.bool_types no_connect_privileged_ports = new settings_pack.bool_types("no_connect_privileged_ports");
+    public final static settings_pack.bool_types smooth_connects = new settings_pack.bool_types("smooth_connects");
+    public final static settings_pack.bool_types always_send_user_agent = new settings_pack.bool_types("always_send_user_agent");
+    public final static settings_pack.bool_types apply_ip_filter_to_trackers = new settings_pack.bool_types("apply_ip_filter_to_trackers");
+    public final static settings_pack.bool_types use_disk_read_ahead = new settings_pack.bool_types("use_disk_read_ahead");
+    public final static settings_pack.bool_types lock_files = new settings_pack.bool_types("lock_files");
+    public final static settings_pack.bool_types contiguous_recv_buffer = new settings_pack.bool_types("contiguous_recv_buffer");
+    public final static settings_pack.bool_types ban_web_seeds = new settings_pack.bool_types("ban_web_seeds");
+    public final static settings_pack.bool_types allow_partial_disk_writes = new settings_pack.bool_types("allow_partial_disk_writes");
+    public final static settings_pack.bool_types force_proxy = new settings_pack.bool_types("force_proxy");
+    public final static settings_pack.bool_types support_share_mode = new settings_pack.bool_types("support_share_mode");
+    public final static settings_pack.bool_types support_merkle_torrents = new settings_pack.bool_types("support_merkle_torrents");
+    public final static settings_pack.bool_types report_redundant_bytes = new settings_pack.bool_types("report_redundant_bytes");
+    public final static settings_pack.bool_types listen_system_port_fallback = new settings_pack.bool_types("listen_system_port_fallback");
+    public final static settings_pack.bool_types use_disk_cache_pool = new settings_pack.bool_types("use_disk_cache_pool");
+    public final static settings_pack.bool_types announce_crypto_support = new settings_pack.bool_types("announce_crypto_support");
+    public final static settings_pack.bool_types enable_upnp = new settings_pack.bool_types("enable_upnp");
+    public final static settings_pack.bool_types enable_natpmp = new settings_pack.bool_types("enable_natpmp");
+    public final static settings_pack.bool_types enable_lsd = new settings_pack.bool_types("enable_lsd");
+    public final static settings_pack.bool_types enable_dht = new settings_pack.bool_types("enable_dht");
+    public final static settings_pack.bool_types prefer_rc4 = new settings_pack.bool_types("prefer_rc4");
+    public final static settings_pack.bool_types proxy_hostnames = new settings_pack.bool_types("proxy_hostnames");
+    public final static settings_pack.bool_types proxy_peer_connections = new settings_pack.bool_types("proxy_peer_connections");
+    public final static settings_pack.bool_types auto_sequential = new settings_pack.bool_types("auto_sequential");
+    public final static settings_pack.bool_types proxy_tracker_connections = new settings_pack.bool_types("proxy_tracker_connections");
+    public final static settings_pack.bool_types max_bool_setting_internal = new settings_pack.bool_types("max_bool_setting_internal");
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static bool_types swigToEnum(int swigValue) {
-      bool_types[] swigValues = bool_types.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (bool_types swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + bool_types.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private bool_types() {
-      this.swigValue = SwigNext.next++;
+    private bool_types(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private bool_types(int swigValue) {
+    private bool_types(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private bool_types(bool_types swigEnum) {
+    private bool_types(String swigName, bool_types swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static bool_types[] swigValues = { allow_multiple_connections_per_ip, deprecated1, send_redundant_have, lazy_bitfields, use_dht_as_fallback, upnp_ignore_nonrouters, use_parole_mode, use_read_cache, use_write_cache, dont_flush_write_cache, explicit_read_cache, coalesce_reads, coalesce_writes, auto_manage_prefer_seeds, dont_count_slow_torrents, close_redundant_connections, prioritize_partial_pieces, rate_limit_ip_overhead, announce_to_all_tiers, announce_to_all_trackers, prefer_udp_trackers, strict_super_seeding, lock_disk_cache, disable_hash_checks, allow_i2p_mixed, low_prio_disk, volatile_read_cache, guided_read_cache, no_atime_storage, incoming_starts_queued_torrents, report_true_downloaded, strict_end_game_mode, broadcast_lsd, enable_outgoing_utp, enable_incoming_utp, enable_outgoing_tcp, enable_incoming_tcp, ignore_resume_timestamps, no_recheck_incomplete_resume, anonymous_mode, report_web_seed_downloads, deprecated2, announce_double_nat, seeding_outgoing_connections, no_connect_privileged_ports, smooth_connects, always_send_user_agent, apply_ip_filter_to_trackers, use_disk_read_ahead, lock_files, contiguous_recv_buffer, ban_web_seeds, allow_partial_disk_writes, force_proxy, support_share_mode, support_merkle_torrents, report_redundant_bytes, listen_system_port_fallback, use_disk_cache_pool, announce_crypto_support, enable_upnp, enable_natpmp, enable_lsd, enable_dht, prefer_rc4, proxy_hostnames, proxy_peer_connections, auto_sequential, proxy_tracker_connections, max_bool_setting_internal };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum int_types {
-    tracker_completion_timeout(libtorrent_jni.settings_pack_tracker_completion_timeout_get()),
-    tracker_receive_timeout,
-    stop_tracker_timeout,
-    tracker_maximum_response_length,
-    piece_timeout,
-    request_timeout,
-    request_queue_time,
-    max_allowed_in_request_queue,
-    max_out_request_queue,
-    whole_pieces_threshold,
-    peer_timeout,
-    urlseed_timeout,
-    urlseed_pipeline_size,
-    urlseed_wait_retry,
-    file_pool_size,
-    max_failcount,
-    min_reconnect_time,
-    peer_connect_timeout,
-    connection_speed,
-    inactivity_timeout,
-    unchoke_interval,
-    optimistic_unchoke_interval,
-    num_want,
-    initial_picker_threshold,
-    allowed_fast_set_size,
-    suggest_mode,
-    max_queued_disk_bytes,
-    handshake_timeout,
-    send_buffer_low_watermark,
-    send_buffer_watermark,
-    send_buffer_watermark_factor,
-    choking_algorithm,
-    seed_choking_algorithm,
-    cache_size,
-    cache_buffer_chunk_size,
-    cache_expiry,
-    explicit_cache_interval,
-    disk_io_write_mode,
-    disk_io_read_mode,
-    outgoing_port,
-    num_outgoing_ports,
-    peer_tos,
-    active_downloads,
-    active_seeds,
-    active_checking,
-    active_dht_limit,
-    active_tracker_limit,
-    active_lsd_limit,
-    active_limit,
-    active_loaded_limit,
-    auto_manage_interval,
-    seed_time_limit,
-    auto_scrape_interval,
-    auto_scrape_min_interval,
-    max_peerlist_size,
-    max_paused_peerlist_size,
-    min_announce_interval,
-    auto_manage_startup,
-    seeding_piece_quota,
-    max_rejects,
-    recv_socket_buffer_size,
-    send_socket_buffer_size,
-    file_checks_delay_per_block,
-    read_cache_line_size,
-    write_cache_line_size,
-    optimistic_disk_retry,
-    max_suggest_pieces,
-    local_service_announce_interval,
-    dht_announce_interval,
-    udp_tracker_token_expiry,
-    default_cache_min_age,
-    num_optimistic_unchoke_slots,
-    default_est_reciprocation_rate,
-    increase_est_reciprocation_rate,
-    decrease_est_reciprocation_rate,
-    max_pex_peers,
-    tick_interval,
-    share_mode_target,
-    upload_rate_limit,
-    download_rate_limit,
-    deprecated3,
-    deprecated4,
-    dht_upload_rate_limit,
-    unchoke_slots_limit,
-    deprecated5,
-    connections_limit,
-    connections_slack,
-    utp_target_delay,
-    utp_gain_factor,
-    utp_min_timeout,
-    utp_syn_resends,
-    utp_fin_resends,
-    utp_num_resends,
-    utp_connect_timeout,
-    deprecated6,
-    utp_loss_multiplier,
-    mixed_mode_algorithm,
-    listen_queue_size,
-    torrent_connect_boost,
-    alert_queue_size,
-    max_metadata_size,
-    hashing_threads,
-    checking_mem_usage,
-    predictive_piece_announce,
-    aio_threads,
-    aio_max,
-    network_threads,
-    ssl_listen,
-    tracker_backoff,
-    share_ratio_limit,
-    seed_time_ratio_limit,
-    peer_turnover,
-    peer_turnover_cutoff,
-    peer_turnover_interval,
-    connect_seed_every_n_download,
-    max_http_recv_buffer_size,
-    max_retry_port_bind,
-    alert_mask,
-    out_enc_policy,
-    in_enc_policy,
-    allowed_enc_level,
-    inactive_down_rate,
-    inactive_up_rate,
-    proxy_type,
-    proxy_port,
-    i2p_port,
-    max_int_setting_internal;
+  public final static class int_types {
+    public final static settings_pack.int_types tracker_completion_timeout = new settings_pack.int_types("tracker_completion_timeout", libtorrent_jni.settings_pack_tracker_completion_timeout_get());
+    public final static settings_pack.int_types tracker_receive_timeout = new settings_pack.int_types("tracker_receive_timeout");
+    public final static settings_pack.int_types stop_tracker_timeout = new settings_pack.int_types("stop_tracker_timeout");
+    public final static settings_pack.int_types tracker_maximum_response_length = new settings_pack.int_types("tracker_maximum_response_length");
+    public final static settings_pack.int_types piece_timeout = new settings_pack.int_types("piece_timeout");
+    public final static settings_pack.int_types request_timeout = new settings_pack.int_types("request_timeout");
+    public final static settings_pack.int_types request_queue_time = new settings_pack.int_types("request_queue_time");
+    public final static settings_pack.int_types max_allowed_in_request_queue = new settings_pack.int_types("max_allowed_in_request_queue");
+    public final static settings_pack.int_types max_out_request_queue = new settings_pack.int_types("max_out_request_queue");
+    public final static settings_pack.int_types whole_pieces_threshold = new settings_pack.int_types("whole_pieces_threshold");
+    public final static settings_pack.int_types peer_timeout = new settings_pack.int_types("peer_timeout");
+    public final static settings_pack.int_types urlseed_timeout = new settings_pack.int_types("urlseed_timeout");
+    public final static settings_pack.int_types urlseed_pipeline_size = new settings_pack.int_types("urlseed_pipeline_size");
+    public final static settings_pack.int_types urlseed_wait_retry = new settings_pack.int_types("urlseed_wait_retry");
+    public final static settings_pack.int_types file_pool_size = new settings_pack.int_types("file_pool_size");
+    public final static settings_pack.int_types max_failcount = new settings_pack.int_types("max_failcount");
+    public final static settings_pack.int_types min_reconnect_time = new settings_pack.int_types("min_reconnect_time");
+    public final static settings_pack.int_types peer_connect_timeout = new settings_pack.int_types("peer_connect_timeout");
+    public final static settings_pack.int_types connection_speed = new settings_pack.int_types("connection_speed");
+    public final static settings_pack.int_types inactivity_timeout = new settings_pack.int_types("inactivity_timeout");
+    public final static settings_pack.int_types unchoke_interval = new settings_pack.int_types("unchoke_interval");
+    public final static settings_pack.int_types optimistic_unchoke_interval = new settings_pack.int_types("optimistic_unchoke_interval");
+    public final static settings_pack.int_types num_want = new settings_pack.int_types("num_want");
+    public final static settings_pack.int_types initial_picker_threshold = new settings_pack.int_types("initial_picker_threshold");
+    public final static settings_pack.int_types allowed_fast_set_size = new settings_pack.int_types("allowed_fast_set_size");
+    public final static settings_pack.int_types suggest_mode = new settings_pack.int_types("suggest_mode");
+    public final static settings_pack.int_types max_queued_disk_bytes = new settings_pack.int_types("max_queued_disk_bytes");
+    public final static settings_pack.int_types handshake_timeout = new settings_pack.int_types("handshake_timeout");
+    public final static settings_pack.int_types send_buffer_low_watermark = new settings_pack.int_types("send_buffer_low_watermark");
+    public final static settings_pack.int_types send_buffer_watermark = new settings_pack.int_types("send_buffer_watermark");
+    public final static settings_pack.int_types send_buffer_watermark_factor = new settings_pack.int_types("send_buffer_watermark_factor");
+    public final static settings_pack.int_types choking_algorithm = new settings_pack.int_types("choking_algorithm");
+    public final static settings_pack.int_types seed_choking_algorithm = new settings_pack.int_types("seed_choking_algorithm");
+    public final static settings_pack.int_types cache_size = new settings_pack.int_types("cache_size");
+    public final static settings_pack.int_types cache_buffer_chunk_size = new settings_pack.int_types("cache_buffer_chunk_size");
+    public final static settings_pack.int_types cache_expiry = new settings_pack.int_types("cache_expiry");
+    public final static settings_pack.int_types explicit_cache_interval = new settings_pack.int_types("explicit_cache_interval");
+    public final static settings_pack.int_types disk_io_write_mode = new settings_pack.int_types("disk_io_write_mode");
+    public final static settings_pack.int_types disk_io_read_mode = new settings_pack.int_types("disk_io_read_mode");
+    public final static settings_pack.int_types outgoing_port = new settings_pack.int_types("outgoing_port");
+    public final static settings_pack.int_types num_outgoing_ports = new settings_pack.int_types("num_outgoing_ports");
+    public final static settings_pack.int_types peer_tos = new settings_pack.int_types("peer_tos");
+    public final static settings_pack.int_types active_downloads = new settings_pack.int_types("active_downloads");
+    public final static settings_pack.int_types active_seeds = new settings_pack.int_types("active_seeds");
+    public final static settings_pack.int_types active_checking = new settings_pack.int_types("active_checking");
+    public final static settings_pack.int_types active_dht_limit = new settings_pack.int_types("active_dht_limit");
+    public final static settings_pack.int_types active_tracker_limit = new settings_pack.int_types("active_tracker_limit");
+    public final static settings_pack.int_types active_lsd_limit = new settings_pack.int_types("active_lsd_limit");
+    public final static settings_pack.int_types active_limit = new settings_pack.int_types("active_limit");
+    public final static settings_pack.int_types active_loaded_limit = new settings_pack.int_types("active_loaded_limit");
+    public final static settings_pack.int_types auto_manage_interval = new settings_pack.int_types("auto_manage_interval");
+    public final static settings_pack.int_types seed_time_limit = new settings_pack.int_types("seed_time_limit");
+    public final static settings_pack.int_types auto_scrape_interval = new settings_pack.int_types("auto_scrape_interval");
+    public final static settings_pack.int_types auto_scrape_min_interval = new settings_pack.int_types("auto_scrape_min_interval");
+    public final static settings_pack.int_types max_peerlist_size = new settings_pack.int_types("max_peerlist_size");
+    public final static settings_pack.int_types max_paused_peerlist_size = new settings_pack.int_types("max_paused_peerlist_size");
+    public final static settings_pack.int_types min_announce_interval = new settings_pack.int_types("min_announce_interval");
+    public final static settings_pack.int_types auto_manage_startup = new settings_pack.int_types("auto_manage_startup");
+    public final static settings_pack.int_types seeding_piece_quota = new settings_pack.int_types("seeding_piece_quota");
+    public final static settings_pack.int_types max_rejects = new settings_pack.int_types("max_rejects");
+    public final static settings_pack.int_types recv_socket_buffer_size = new settings_pack.int_types("recv_socket_buffer_size");
+    public final static settings_pack.int_types send_socket_buffer_size = new settings_pack.int_types("send_socket_buffer_size");
+    public final static settings_pack.int_types file_checks_delay_per_block = new settings_pack.int_types("file_checks_delay_per_block");
+    public final static settings_pack.int_types read_cache_line_size = new settings_pack.int_types("read_cache_line_size");
+    public final static settings_pack.int_types write_cache_line_size = new settings_pack.int_types("write_cache_line_size");
+    public final static settings_pack.int_types optimistic_disk_retry = new settings_pack.int_types("optimistic_disk_retry");
+    public final static settings_pack.int_types max_suggest_pieces = new settings_pack.int_types("max_suggest_pieces");
+    public final static settings_pack.int_types local_service_announce_interval = new settings_pack.int_types("local_service_announce_interval");
+    public final static settings_pack.int_types dht_announce_interval = new settings_pack.int_types("dht_announce_interval");
+    public final static settings_pack.int_types udp_tracker_token_expiry = new settings_pack.int_types("udp_tracker_token_expiry");
+    public final static settings_pack.int_types default_cache_min_age = new settings_pack.int_types("default_cache_min_age");
+    public final static settings_pack.int_types num_optimistic_unchoke_slots = new settings_pack.int_types("num_optimistic_unchoke_slots");
+    public final static settings_pack.int_types default_est_reciprocation_rate = new settings_pack.int_types("default_est_reciprocation_rate");
+    public final static settings_pack.int_types increase_est_reciprocation_rate = new settings_pack.int_types("increase_est_reciprocation_rate");
+    public final static settings_pack.int_types decrease_est_reciprocation_rate = new settings_pack.int_types("decrease_est_reciprocation_rate");
+    public final static settings_pack.int_types max_pex_peers = new settings_pack.int_types("max_pex_peers");
+    public final static settings_pack.int_types tick_interval = new settings_pack.int_types("tick_interval");
+    public final static settings_pack.int_types share_mode_target = new settings_pack.int_types("share_mode_target");
+    public final static settings_pack.int_types upload_rate_limit = new settings_pack.int_types("upload_rate_limit");
+    public final static settings_pack.int_types download_rate_limit = new settings_pack.int_types("download_rate_limit");
+    public final static settings_pack.int_types deprecated3 = new settings_pack.int_types("deprecated3");
+    public final static settings_pack.int_types deprecated4 = new settings_pack.int_types("deprecated4");
+    public final static settings_pack.int_types dht_upload_rate_limit = new settings_pack.int_types("dht_upload_rate_limit");
+    public final static settings_pack.int_types unchoke_slots_limit = new settings_pack.int_types("unchoke_slots_limit");
+    public final static settings_pack.int_types deprecated5 = new settings_pack.int_types("deprecated5");
+    public final static settings_pack.int_types connections_limit = new settings_pack.int_types("connections_limit");
+    public final static settings_pack.int_types connections_slack = new settings_pack.int_types("connections_slack");
+    public final static settings_pack.int_types utp_target_delay = new settings_pack.int_types("utp_target_delay");
+    public final static settings_pack.int_types utp_gain_factor = new settings_pack.int_types("utp_gain_factor");
+    public final static settings_pack.int_types utp_min_timeout = new settings_pack.int_types("utp_min_timeout");
+    public final static settings_pack.int_types utp_syn_resends = new settings_pack.int_types("utp_syn_resends");
+    public final static settings_pack.int_types utp_fin_resends = new settings_pack.int_types("utp_fin_resends");
+    public final static settings_pack.int_types utp_num_resends = new settings_pack.int_types("utp_num_resends");
+    public final static settings_pack.int_types utp_connect_timeout = new settings_pack.int_types("utp_connect_timeout");
+    public final static settings_pack.int_types deprecated6 = new settings_pack.int_types("deprecated6");
+    public final static settings_pack.int_types utp_loss_multiplier = new settings_pack.int_types("utp_loss_multiplier");
+    public final static settings_pack.int_types mixed_mode_algorithm = new settings_pack.int_types("mixed_mode_algorithm");
+    public final static settings_pack.int_types listen_queue_size = new settings_pack.int_types("listen_queue_size");
+    public final static settings_pack.int_types torrent_connect_boost = new settings_pack.int_types("torrent_connect_boost");
+    public final static settings_pack.int_types alert_queue_size = new settings_pack.int_types("alert_queue_size");
+    public final static settings_pack.int_types max_metadata_size = new settings_pack.int_types("max_metadata_size");
+    public final static settings_pack.int_types hashing_threads = new settings_pack.int_types("hashing_threads");
+    public final static settings_pack.int_types checking_mem_usage = new settings_pack.int_types("checking_mem_usage");
+    public final static settings_pack.int_types predictive_piece_announce = new settings_pack.int_types("predictive_piece_announce");
+    public final static settings_pack.int_types aio_threads = new settings_pack.int_types("aio_threads");
+    public final static settings_pack.int_types aio_max = new settings_pack.int_types("aio_max");
+    public final static settings_pack.int_types network_threads = new settings_pack.int_types("network_threads");
+    public final static settings_pack.int_types ssl_listen = new settings_pack.int_types("ssl_listen");
+    public final static settings_pack.int_types tracker_backoff = new settings_pack.int_types("tracker_backoff");
+    public final static settings_pack.int_types share_ratio_limit = new settings_pack.int_types("share_ratio_limit");
+    public final static settings_pack.int_types seed_time_ratio_limit = new settings_pack.int_types("seed_time_ratio_limit");
+    public final static settings_pack.int_types peer_turnover = new settings_pack.int_types("peer_turnover");
+    public final static settings_pack.int_types peer_turnover_cutoff = new settings_pack.int_types("peer_turnover_cutoff");
+    public final static settings_pack.int_types peer_turnover_interval = new settings_pack.int_types("peer_turnover_interval");
+    public final static settings_pack.int_types connect_seed_every_n_download = new settings_pack.int_types("connect_seed_every_n_download");
+    public final static settings_pack.int_types max_http_recv_buffer_size = new settings_pack.int_types("max_http_recv_buffer_size");
+    public final static settings_pack.int_types max_retry_port_bind = new settings_pack.int_types("max_retry_port_bind");
+    public final static settings_pack.int_types alert_mask = new settings_pack.int_types("alert_mask");
+    public final static settings_pack.int_types out_enc_policy = new settings_pack.int_types("out_enc_policy");
+    public final static settings_pack.int_types in_enc_policy = new settings_pack.int_types("in_enc_policy");
+    public final static settings_pack.int_types allowed_enc_level = new settings_pack.int_types("allowed_enc_level");
+    public final static settings_pack.int_types inactive_down_rate = new settings_pack.int_types("inactive_down_rate");
+    public final static settings_pack.int_types inactive_up_rate = new settings_pack.int_types("inactive_up_rate");
+    public final static settings_pack.int_types proxy_type = new settings_pack.int_types("proxy_type");
+    public final static settings_pack.int_types proxy_port = new settings_pack.int_types("proxy_port");
+    public final static settings_pack.int_types i2p_port = new settings_pack.int_types("i2p_port");
+    public final static settings_pack.int_types max_int_setting_internal = new settings_pack.int_types("max_int_setting_internal");
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static int_types swigToEnum(int swigValue) {
-      int_types[] swigValues = int_types.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (int_types swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + int_types.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private int_types() {
-      this.swigValue = SwigNext.next++;
+    private int_types(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private int_types(int swigValue) {
+    private int_types(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private int_types(int_types swigEnum) {
+    private int_types(String swigName, int_types swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static int_types[] swigValues = { tracker_completion_timeout, tracker_receive_timeout, stop_tracker_timeout, tracker_maximum_response_length, piece_timeout, request_timeout, request_queue_time, max_allowed_in_request_queue, max_out_request_queue, whole_pieces_threshold, peer_timeout, urlseed_timeout, urlseed_pipeline_size, urlseed_wait_retry, file_pool_size, max_failcount, min_reconnect_time, peer_connect_timeout, connection_speed, inactivity_timeout, unchoke_interval, optimistic_unchoke_interval, num_want, initial_picker_threshold, allowed_fast_set_size, suggest_mode, max_queued_disk_bytes, handshake_timeout, send_buffer_low_watermark, send_buffer_watermark, send_buffer_watermark_factor, choking_algorithm, seed_choking_algorithm, cache_size, cache_buffer_chunk_size, cache_expiry, explicit_cache_interval, disk_io_write_mode, disk_io_read_mode, outgoing_port, num_outgoing_ports, peer_tos, active_downloads, active_seeds, active_checking, active_dht_limit, active_tracker_limit, active_lsd_limit, active_limit, active_loaded_limit, auto_manage_interval, seed_time_limit, auto_scrape_interval, auto_scrape_min_interval, max_peerlist_size, max_paused_peerlist_size, min_announce_interval, auto_manage_startup, seeding_piece_quota, max_rejects, recv_socket_buffer_size, send_socket_buffer_size, file_checks_delay_per_block, read_cache_line_size, write_cache_line_size, optimistic_disk_retry, max_suggest_pieces, local_service_announce_interval, dht_announce_interval, udp_tracker_token_expiry, default_cache_min_age, num_optimistic_unchoke_slots, default_est_reciprocation_rate, increase_est_reciprocation_rate, decrease_est_reciprocation_rate, max_pex_peers, tick_interval, share_mode_target, upload_rate_limit, download_rate_limit, deprecated3, deprecated4, dht_upload_rate_limit, unchoke_slots_limit, deprecated5, connections_limit, connections_slack, utp_target_delay, utp_gain_factor, utp_min_timeout, utp_syn_resends, utp_fin_resends, utp_num_resends, utp_connect_timeout, deprecated6, utp_loss_multiplier, mixed_mode_algorithm, listen_queue_size, torrent_connect_boost, alert_queue_size, max_metadata_size, hashing_threads, checking_mem_usage, predictive_piece_announce, aio_threads, aio_max, network_threads, ssl_listen, tracker_backoff, share_ratio_limit, seed_time_ratio_limit, peer_turnover, peer_turnover_cutoff, peer_turnover_interval, connect_seed_every_n_download, max_http_recv_buffer_size, max_retry_port_bind, alert_mask, out_enc_policy, in_enc_policy, allowed_enc_level, inactive_down_rate, inactive_up_rate, proxy_type, proxy_port, i2p_port, max_int_setting_internal };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum settings_counts_t {
-    num_string_settings(libtorrent_jni.settings_pack_num_string_settings_get()),
-    num_bool_settings(libtorrent_jni.settings_pack_num_bool_settings_get()),
-    num_int_settings(libtorrent_jni.settings_pack_num_int_settings_get());
+  public final static class settings_counts_t {
+    public final static settings_pack.settings_counts_t num_string_settings = new settings_pack.settings_counts_t("num_string_settings", libtorrent_jni.settings_pack_num_string_settings_get());
+    public final static settings_pack.settings_counts_t num_bool_settings = new settings_pack.settings_counts_t("num_bool_settings", libtorrent_jni.settings_pack_num_bool_settings_get());
+    public final static settings_pack.settings_counts_t num_int_settings = new settings_pack.settings_counts_t("num_int_settings", libtorrent_jni.settings_pack_num_int_settings_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static settings_counts_t swigToEnum(int swigValue) {
-      settings_counts_t[] swigValues = settings_counts_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (settings_counts_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + settings_counts_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private settings_counts_t() {
-      this.swigValue = SwigNext.next++;
+    private settings_counts_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private settings_counts_t(int swigValue) {
+    private settings_counts_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private settings_counts_t(settings_counts_t swigEnum) {
+    private settings_counts_t(String swigName, settings_counts_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static settings_counts_t[] swigValues = { num_string_settings, num_bool_settings, num_int_settings };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum suggest_mode_t {
-    no_piece_suggestions(libtorrent_jni.settings_pack_no_piece_suggestions_get()),
-    suggest_read_cache(libtorrent_jni.settings_pack_suggest_read_cache_get());
+  public final static class suggest_mode_t {
+    public final static settings_pack.suggest_mode_t no_piece_suggestions = new settings_pack.suggest_mode_t("no_piece_suggestions", libtorrent_jni.settings_pack_no_piece_suggestions_get());
+    public final static settings_pack.suggest_mode_t suggest_read_cache = new settings_pack.suggest_mode_t("suggest_read_cache", libtorrent_jni.settings_pack_suggest_read_cache_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static suggest_mode_t swigToEnum(int swigValue) {
-      suggest_mode_t[] swigValues = suggest_mode_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (suggest_mode_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + suggest_mode_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private suggest_mode_t() {
-      this.swigValue = SwigNext.next++;
+    private suggest_mode_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private suggest_mode_t(int swigValue) {
+    private suggest_mode_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private suggest_mode_t(suggest_mode_t swigEnum) {
+    private suggest_mode_t(String swigName, suggest_mode_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static suggest_mode_t[] swigValues = { no_piece_suggestions, suggest_read_cache };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum choking_algorithm_t {
-    fixed_slots_choker(libtorrent_jni.settings_pack_fixed_slots_choker_get()),
-    rate_based_choker(libtorrent_jni.settings_pack_rate_based_choker_get()),
-    bittyrant_choker(libtorrent_jni.settings_pack_bittyrant_choker_get());
+  public final static class choking_algorithm_t {
+    public final static settings_pack.choking_algorithm_t fixed_slots_choker = new settings_pack.choking_algorithm_t("fixed_slots_choker", libtorrent_jni.settings_pack_fixed_slots_choker_get());
+    public final static settings_pack.choking_algorithm_t rate_based_choker = new settings_pack.choking_algorithm_t("rate_based_choker", libtorrent_jni.settings_pack_rate_based_choker_get());
+    public final static settings_pack.choking_algorithm_t bittyrant_choker = new settings_pack.choking_algorithm_t("bittyrant_choker", libtorrent_jni.settings_pack_bittyrant_choker_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static choking_algorithm_t swigToEnum(int swigValue) {
-      choking_algorithm_t[] swigValues = choking_algorithm_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (choking_algorithm_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + choking_algorithm_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private choking_algorithm_t() {
-      this.swigValue = SwigNext.next++;
+    private choking_algorithm_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private choking_algorithm_t(int swigValue) {
+    private choking_algorithm_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private choking_algorithm_t(choking_algorithm_t swigEnum) {
+    private choking_algorithm_t(String swigName, choking_algorithm_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static choking_algorithm_t[] swigValues = { fixed_slots_choker, rate_based_choker, bittyrant_choker };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum seed_choking_algorithm_t {
-    round_robin,
-    fastest_upload,
-    anti_leech;
+  public final static class seed_choking_algorithm_t {
+    public final static settings_pack.seed_choking_algorithm_t round_robin = new settings_pack.seed_choking_algorithm_t("round_robin");
+    public final static settings_pack.seed_choking_algorithm_t fastest_upload = new settings_pack.seed_choking_algorithm_t("fastest_upload");
+    public final static settings_pack.seed_choking_algorithm_t anti_leech = new settings_pack.seed_choking_algorithm_t("anti_leech");
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static seed_choking_algorithm_t swigToEnum(int swigValue) {
-      seed_choking_algorithm_t[] swigValues = seed_choking_algorithm_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (seed_choking_algorithm_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + seed_choking_algorithm_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private seed_choking_algorithm_t() {
-      this.swigValue = SwigNext.next++;
+    private seed_choking_algorithm_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private seed_choking_algorithm_t(int swigValue) {
+    private seed_choking_algorithm_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private seed_choking_algorithm_t(seed_choking_algorithm_t swigEnum) {
+    private seed_choking_algorithm_t(String swigName, seed_choking_algorithm_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static seed_choking_algorithm_t[] swigValues = { round_robin, fastest_upload, anti_leech };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum io_buffer_mode_t {
-    enable_os_cache(libtorrent_jni.settings_pack_enable_os_cache_get()),
-    deprecated(libtorrent_jni.settings_pack_deprecated_get()),
-    disable_os_cache(libtorrent_jni.settings_pack_disable_os_cache_get());
+  public final static class io_buffer_mode_t {
+    public final static settings_pack.io_buffer_mode_t enable_os_cache = new settings_pack.io_buffer_mode_t("enable_os_cache", libtorrent_jni.settings_pack_enable_os_cache_get());
+    public final static settings_pack.io_buffer_mode_t deprecated = new settings_pack.io_buffer_mode_t("deprecated", libtorrent_jni.settings_pack_deprecated_get());
+    public final static settings_pack.io_buffer_mode_t disable_os_cache = new settings_pack.io_buffer_mode_t("disable_os_cache", libtorrent_jni.settings_pack_disable_os_cache_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static io_buffer_mode_t swigToEnum(int swigValue) {
-      io_buffer_mode_t[] swigValues = io_buffer_mode_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (io_buffer_mode_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + io_buffer_mode_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private io_buffer_mode_t() {
-      this.swigValue = SwigNext.next++;
+    private io_buffer_mode_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private io_buffer_mode_t(int swigValue) {
+    private io_buffer_mode_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private io_buffer_mode_t(io_buffer_mode_t swigEnum) {
+    private io_buffer_mode_t(String swigName, io_buffer_mode_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static io_buffer_mode_t[] swigValues = { enable_os_cache, deprecated, disable_os_cache };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum bandwidth_mixed_algo_t {
-    prefer_tcp(libtorrent_jni.settings_pack_prefer_tcp_get()),
-    peer_proportional(libtorrent_jni.settings_pack_peer_proportional_get());
+  public final static class bandwidth_mixed_algo_t {
+    public final static settings_pack.bandwidth_mixed_algo_t prefer_tcp = new settings_pack.bandwidth_mixed_algo_t("prefer_tcp", libtorrent_jni.settings_pack_prefer_tcp_get());
+    public final static settings_pack.bandwidth_mixed_algo_t peer_proportional = new settings_pack.bandwidth_mixed_algo_t("peer_proportional", libtorrent_jni.settings_pack_peer_proportional_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static bandwidth_mixed_algo_t swigToEnum(int swigValue) {
-      bandwidth_mixed_algo_t[] swigValues = bandwidth_mixed_algo_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (bandwidth_mixed_algo_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + bandwidth_mixed_algo_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private bandwidth_mixed_algo_t() {
-      this.swigValue = SwigNext.next++;
+    private bandwidth_mixed_algo_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private bandwidth_mixed_algo_t(int swigValue) {
+    private bandwidth_mixed_algo_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private bandwidth_mixed_algo_t(bandwidth_mixed_algo_t swigEnum) {
+    private bandwidth_mixed_algo_t(String swigName, bandwidth_mixed_algo_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static bandwidth_mixed_algo_t[] swigValues = { prefer_tcp, peer_proportional };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum enc_policy {
-    pe_forced,
-    pe_enabled,
-    pe_disabled;
+  public final static class enc_policy {
+    public final static settings_pack.enc_policy pe_forced = new settings_pack.enc_policy("pe_forced");
+    public final static settings_pack.enc_policy pe_enabled = new settings_pack.enc_policy("pe_enabled");
+    public final static settings_pack.enc_policy pe_disabled = new settings_pack.enc_policy("pe_disabled");
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static enc_policy swigToEnum(int swigValue) {
-      enc_policy[] swigValues = enc_policy.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (enc_policy swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + enc_policy.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private enc_policy() {
-      this.swigValue = SwigNext.next++;
+    private enc_policy(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private enc_policy(int swigValue) {
+    private enc_policy(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private enc_policy(enc_policy swigEnum) {
+    private enc_policy(String swigName, enc_policy swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static enc_policy[] swigValues = { pe_forced, pe_enabled, pe_disabled };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum enc_level {
-    pe_plaintext(libtorrent_jni.settings_pack_pe_plaintext_get()),
-    pe_rc4(libtorrent_jni.settings_pack_pe_rc4_get()),
-    pe_both(libtorrent_jni.settings_pack_pe_both_get());
+  public final static class enc_level {
+    public final static settings_pack.enc_level pe_plaintext = new settings_pack.enc_level("pe_plaintext", libtorrent_jni.settings_pack_pe_plaintext_get());
+    public final static settings_pack.enc_level pe_rc4 = new settings_pack.enc_level("pe_rc4", libtorrent_jni.settings_pack_pe_rc4_get());
+    public final static settings_pack.enc_level pe_both = new settings_pack.enc_level("pe_both", libtorrent_jni.settings_pack_pe_both_get());
 
     public final int swigValue() {
       return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
     }
 
     public static enc_level swigToEnum(int swigValue) {
-      enc_level[] swigValues = enc_level.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (enc_level swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + enc_level.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private enc_level() {
-      this.swigValue = SwigNext.next++;
+    private enc_level(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private enc_level(int swigValue) {
+    private enc_level(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private enc_level(enc_level swigEnum) {
+    private enc_level(String swigName, enc_level swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static enc_level[] swigValues = { pe_plaintext, pe_rc4, pe_both };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
-  public enum proxy_type_t {
-    none,
-    socks4,
-    socks5,
-    socks5_pw,
-    http,
-    http_pw,
-    i2p_proxy;
+  public final static class proxy_type_t {
+    public final static settings_pack.proxy_type_t none = new settings_pack.proxy_type_t("none");
+    public final static settings_pack.proxy_type_t socks4 = new settings_pack.proxy_type_t("socks4");
+    public final static settings_pack.proxy_type_t socks5 = new settings_pack.proxy_type_t("socks5");
+    public final static settings_pack.proxy_type_t socks5_pw = new settings_pack.proxy_type_t("socks5_pw");
+    public final static settings_pack.proxy_type_t http = new settings_pack.proxy_type_t("http");
+    public final static settings_pack.proxy_type_t http_pw = new settings_pack.proxy_type_t("http_pw");
+    public final static settings_pack.proxy_type_t i2p_proxy = new settings_pack.proxy_type_t("i2p_proxy");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static proxy_type_t swigToEnum(int swigValue) {
-      proxy_type_t[] swigValues = proxy_type_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (proxy_type_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + proxy_type_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private proxy_type_t() {
-      this.swigValue = SwigNext.next++;
+    private proxy_type_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private proxy_type_t(int swigValue) {
+    private proxy_type_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private proxy_type_t(proxy_type_t swigEnum) {
+    private proxy_type_t(String swigName, proxy_type_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static proxy_type_t[] swigValues = { none, socks4, socks5, socks5_pw, http, http_pw, i2p_proxy };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

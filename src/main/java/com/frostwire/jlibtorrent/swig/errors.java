@@ -8,193 +8,195 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum errors {
-  no_error(0),
-  file_collision,
-  failed_hash_check,
-  torrent_is_no_dict,
-  torrent_missing_info,
-  torrent_info_no_dict,
-  torrent_missing_piece_length,
-  torrent_missing_name,
-  torrent_invalid_name,
-  torrent_invalid_length,
-  torrent_file_parse_failed,
-  torrent_missing_pieces,
-  torrent_invalid_hashes,
-  too_many_pieces_in_torrent,
-  invalid_swarm_metadata,
-  invalid_bencoding,
-  no_files_in_torrent,
-  invalid_escaped_string,
-  session_is_closing,
-  duplicate_torrent,
-  invalid_torrent_handle,
-  invalid_entry_type,
-  missing_info_hash_in_uri,
-  file_too_short,
-  unsupported_url_protocol,
-  url_parse_error,
-  peer_sent_empty_piece,
-  parse_failed,
-  invalid_file_tag,
-  missing_info_hash,
-  mismatching_info_hash,
-  invalid_hostname,
-  invalid_port,
-  port_blocked,
-  expected_close_bracket_in_address,
-  destructing_torrent,
-  timed_out,
-  upload_upload_connection,
-  uninteresting_upload_peer,
-  invalid_info_hash,
-  torrent_paused,
-  invalid_have,
-  invalid_bitfield_size,
-  too_many_requests_when_choked,
-  invalid_piece,
-  no_memory,
-  torrent_aborted,
-  self_connection,
-  invalid_piece_size,
-  timed_out_no_interest,
-  timed_out_inactivity,
-  timed_out_no_handshake,
-  timed_out_no_request,
-  invalid_choke,
-  invalid_unchoke,
-  invalid_interested,
-  invalid_not_interested,
-  invalid_request,
-  invalid_hash_list,
-  invalid_hash_piece,
-  invalid_cancel,
-  invalid_dht_port,
-  invalid_suggest,
-  invalid_have_all,
-  invalid_have_none,
-  invalid_reject,
-  invalid_allow_fast,
-  invalid_extended,
-  invalid_message,
-  sync_hash_not_found,
-  invalid_encryption_constant,
-  no_plaintext_mode,
-  no_rc4_mode,
-  unsupported_encryption_mode,
-  unsupported_encryption_mode_selected,
-  invalid_pad_size,
-  invalid_encrypt_handshake,
-  no_incoming_encrypted,
-  no_incoming_regular,
-  duplicate_peer_id,
-  torrent_removed,
-  packet_too_large,
-  reserved,
-  http_error,
-  missing_location,
-  invalid_redirection,
-  redirecting,
-  invalid_range,
-  no_content_length,
-  banned_by_ip_filter,
-  too_many_connections,
-  peer_banned,
-  stopping_torrent,
-  too_many_corrupt_pieces,
-  torrent_not_ready,
-  peer_not_constructed,
-  session_closing,
-  optimistic_disconnect,
-  torrent_finished,
-  no_router,
-  metadata_too_large,
-  invalid_metadata_request,
-  invalid_metadata_size,
-  invalid_metadata_offset,
-  invalid_metadata_message,
-  pex_message_too_large,
-  invalid_pex_message,
-  invalid_lt_tracker_message,
-  too_frequent_pex,
-  no_metadata,
-  invalid_dont_have,
-  requires_ssl_connection,
-  invalid_ssl_cert,
-  not_an_ssl_torrent,
-  banned_by_port_filter,
-  unsupported_protocol_version(120),
-  natpmp_not_authorized,
-  network_failure,
-  no_resources,
-  unsupported_opcode,
-  missing_file_sizes(130),
-  no_files_in_resume_data,
-  missing_pieces,
-  mismatching_number_of_files,
-  mismatching_file_size,
-  mismatching_file_timestamp,
-  not_a_dictionary,
-  invalid_blocks_per_piece,
-  missing_slots,
-  too_many_slots,
-  invalid_slot_list,
-  invalid_piece_index,
-  pieces_need_reorder,
-  resume_data_not_modified,
-  http_parse_error(150),
-  http_missing_location,
-  http_failed_decompress,
-  no_i2p_router(160),
-  no_i2p_endpoint(161),
-  scrape_not_available(170),
-  invalid_tracker_response,
-  invalid_peer_dict,
-  tracker_failure,
-  invalid_files_entry,
-  invalid_hash_entry,
-  invalid_peers_entry,
-  invalid_tracker_response_length,
-  invalid_tracker_transaction_id,
-  invalid_tracker_action,
-  error_code_max;
+public final class errors {
+  public final static errors no_error = new errors("no_error", 0);
+  public final static errors file_collision = new errors("file_collision");
+  public final static errors failed_hash_check = new errors("failed_hash_check");
+  public final static errors torrent_is_no_dict = new errors("torrent_is_no_dict");
+  public final static errors torrent_missing_info = new errors("torrent_missing_info");
+  public final static errors torrent_info_no_dict = new errors("torrent_info_no_dict");
+  public final static errors torrent_missing_piece_length = new errors("torrent_missing_piece_length");
+  public final static errors torrent_missing_name = new errors("torrent_missing_name");
+  public final static errors torrent_invalid_name = new errors("torrent_invalid_name");
+  public final static errors torrent_invalid_length = new errors("torrent_invalid_length");
+  public final static errors torrent_file_parse_failed = new errors("torrent_file_parse_failed");
+  public final static errors torrent_missing_pieces = new errors("torrent_missing_pieces");
+  public final static errors torrent_invalid_hashes = new errors("torrent_invalid_hashes");
+  public final static errors too_many_pieces_in_torrent = new errors("too_many_pieces_in_torrent");
+  public final static errors invalid_swarm_metadata = new errors("invalid_swarm_metadata");
+  public final static errors invalid_bencoding = new errors("invalid_bencoding");
+  public final static errors no_files_in_torrent = new errors("no_files_in_torrent");
+  public final static errors invalid_escaped_string = new errors("invalid_escaped_string");
+  public final static errors session_is_closing = new errors("session_is_closing");
+  public final static errors duplicate_torrent = new errors("duplicate_torrent");
+  public final static errors invalid_torrent_handle = new errors("invalid_torrent_handle");
+  public final static errors invalid_entry_type = new errors("invalid_entry_type");
+  public final static errors missing_info_hash_in_uri = new errors("missing_info_hash_in_uri");
+  public final static errors file_too_short = new errors("file_too_short");
+  public final static errors unsupported_url_protocol = new errors("unsupported_url_protocol");
+  public final static errors url_parse_error = new errors("url_parse_error");
+  public final static errors peer_sent_empty_piece = new errors("peer_sent_empty_piece");
+  public final static errors parse_failed = new errors("parse_failed");
+  public final static errors invalid_file_tag = new errors("invalid_file_tag");
+  public final static errors missing_info_hash = new errors("missing_info_hash");
+  public final static errors mismatching_info_hash = new errors("mismatching_info_hash");
+  public final static errors invalid_hostname = new errors("invalid_hostname");
+  public final static errors invalid_port = new errors("invalid_port");
+  public final static errors port_blocked = new errors("port_blocked");
+  public final static errors expected_close_bracket_in_address = new errors("expected_close_bracket_in_address");
+  public final static errors destructing_torrent = new errors("destructing_torrent");
+  public final static errors timed_out = new errors("timed_out");
+  public final static errors upload_upload_connection = new errors("upload_upload_connection");
+  public final static errors uninteresting_upload_peer = new errors("uninteresting_upload_peer");
+  public final static errors invalid_info_hash = new errors("invalid_info_hash");
+  public final static errors torrent_paused = new errors("torrent_paused");
+  public final static errors invalid_have = new errors("invalid_have");
+  public final static errors invalid_bitfield_size = new errors("invalid_bitfield_size");
+  public final static errors too_many_requests_when_choked = new errors("too_many_requests_when_choked");
+  public final static errors invalid_piece = new errors("invalid_piece");
+  public final static errors no_memory = new errors("no_memory");
+  public final static errors torrent_aborted = new errors("torrent_aborted");
+  public final static errors self_connection = new errors("self_connection");
+  public final static errors invalid_piece_size = new errors("invalid_piece_size");
+  public final static errors timed_out_no_interest = new errors("timed_out_no_interest");
+  public final static errors timed_out_inactivity = new errors("timed_out_inactivity");
+  public final static errors timed_out_no_handshake = new errors("timed_out_no_handshake");
+  public final static errors timed_out_no_request = new errors("timed_out_no_request");
+  public final static errors invalid_choke = new errors("invalid_choke");
+  public final static errors invalid_unchoke = new errors("invalid_unchoke");
+  public final static errors invalid_interested = new errors("invalid_interested");
+  public final static errors invalid_not_interested = new errors("invalid_not_interested");
+  public final static errors invalid_request = new errors("invalid_request");
+  public final static errors invalid_hash_list = new errors("invalid_hash_list");
+  public final static errors invalid_hash_piece = new errors("invalid_hash_piece");
+  public final static errors invalid_cancel = new errors("invalid_cancel");
+  public final static errors invalid_dht_port = new errors("invalid_dht_port");
+  public final static errors invalid_suggest = new errors("invalid_suggest");
+  public final static errors invalid_have_all = new errors("invalid_have_all");
+  public final static errors invalid_have_none = new errors("invalid_have_none");
+  public final static errors invalid_reject = new errors("invalid_reject");
+  public final static errors invalid_allow_fast = new errors("invalid_allow_fast");
+  public final static errors invalid_extended = new errors("invalid_extended");
+  public final static errors invalid_message = new errors("invalid_message");
+  public final static errors sync_hash_not_found = new errors("sync_hash_not_found");
+  public final static errors invalid_encryption_constant = new errors("invalid_encryption_constant");
+  public final static errors no_plaintext_mode = new errors("no_plaintext_mode");
+  public final static errors no_rc4_mode = new errors("no_rc4_mode");
+  public final static errors unsupported_encryption_mode = new errors("unsupported_encryption_mode");
+  public final static errors unsupported_encryption_mode_selected = new errors("unsupported_encryption_mode_selected");
+  public final static errors invalid_pad_size = new errors("invalid_pad_size");
+  public final static errors invalid_encrypt_handshake = new errors("invalid_encrypt_handshake");
+  public final static errors no_incoming_encrypted = new errors("no_incoming_encrypted");
+  public final static errors no_incoming_regular = new errors("no_incoming_regular");
+  public final static errors duplicate_peer_id = new errors("duplicate_peer_id");
+  public final static errors torrent_removed = new errors("torrent_removed");
+  public final static errors packet_too_large = new errors("packet_too_large");
+  public final static errors reserved = new errors("reserved");
+  public final static errors http_error = new errors("http_error");
+  public final static errors missing_location = new errors("missing_location");
+  public final static errors invalid_redirection = new errors("invalid_redirection");
+  public final static errors redirecting = new errors("redirecting");
+  public final static errors invalid_range = new errors("invalid_range");
+  public final static errors no_content_length = new errors("no_content_length");
+  public final static errors banned_by_ip_filter = new errors("banned_by_ip_filter");
+  public final static errors too_many_connections = new errors("too_many_connections");
+  public final static errors peer_banned = new errors("peer_banned");
+  public final static errors stopping_torrent = new errors("stopping_torrent");
+  public final static errors too_many_corrupt_pieces = new errors("too_many_corrupt_pieces");
+  public final static errors torrent_not_ready = new errors("torrent_not_ready");
+  public final static errors peer_not_constructed = new errors("peer_not_constructed");
+  public final static errors session_closing = new errors("session_closing");
+  public final static errors optimistic_disconnect = new errors("optimistic_disconnect");
+  public final static errors torrent_finished = new errors("torrent_finished");
+  public final static errors no_router = new errors("no_router");
+  public final static errors metadata_too_large = new errors("metadata_too_large");
+  public final static errors invalid_metadata_request = new errors("invalid_metadata_request");
+  public final static errors invalid_metadata_size = new errors("invalid_metadata_size");
+  public final static errors invalid_metadata_offset = new errors("invalid_metadata_offset");
+  public final static errors invalid_metadata_message = new errors("invalid_metadata_message");
+  public final static errors pex_message_too_large = new errors("pex_message_too_large");
+  public final static errors invalid_pex_message = new errors("invalid_pex_message");
+  public final static errors invalid_lt_tracker_message = new errors("invalid_lt_tracker_message");
+  public final static errors too_frequent_pex = new errors("too_frequent_pex");
+  public final static errors no_metadata = new errors("no_metadata");
+  public final static errors invalid_dont_have = new errors("invalid_dont_have");
+  public final static errors requires_ssl_connection = new errors("requires_ssl_connection");
+  public final static errors invalid_ssl_cert = new errors("invalid_ssl_cert");
+  public final static errors not_an_ssl_torrent = new errors("not_an_ssl_torrent");
+  public final static errors banned_by_port_filter = new errors("banned_by_port_filter");
+  public final static errors unsupported_protocol_version = new errors("unsupported_protocol_version", 120);
+  public final static errors natpmp_not_authorized = new errors("natpmp_not_authorized");
+  public final static errors network_failure = new errors("network_failure");
+  public final static errors no_resources = new errors("no_resources");
+  public final static errors unsupported_opcode = new errors("unsupported_opcode");
+  public final static errors missing_file_sizes = new errors("missing_file_sizes", 130);
+  public final static errors no_files_in_resume_data = new errors("no_files_in_resume_data");
+  public final static errors missing_pieces = new errors("missing_pieces");
+  public final static errors mismatching_number_of_files = new errors("mismatching_number_of_files");
+  public final static errors mismatching_file_size = new errors("mismatching_file_size");
+  public final static errors mismatching_file_timestamp = new errors("mismatching_file_timestamp");
+  public final static errors not_a_dictionary = new errors("not_a_dictionary");
+  public final static errors invalid_blocks_per_piece = new errors("invalid_blocks_per_piece");
+  public final static errors missing_slots = new errors("missing_slots");
+  public final static errors too_many_slots = new errors("too_many_slots");
+  public final static errors invalid_slot_list = new errors("invalid_slot_list");
+  public final static errors invalid_piece_index = new errors("invalid_piece_index");
+  public final static errors pieces_need_reorder = new errors("pieces_need_reorder");
+  public final static errors resume_data_not_modified = new errors("resume_data_not_modified");
+  public final static errors http_parse_error = new errors("http_parse_error", 150);
+  public final static errors http_missing_location = new errors("http_missing_location");
+  public final static errors http_failed_decompress = new errors("http_failed_decompress");
+  public final static errors no_i2p_router = new errors("no_i2p_router", 160);
+  public final static errors no_i2p_endpoint = new errors("no_i2p_endpoint", 161);
+  public final static errors scrape_not_available = new errors("scrape_not_available", 170);
+  public final static errors invalid_tracker_response = new errors("invalid_tracker_response");
+  public final static errors invalid_peer_dict = new errors("invalid_peer_dict");
+  public final static errors tracker_failure = new errors("tracker_failure");
+  public final static errors invalid_files_entry = new errors("invalid_files_entry");
+  public final static errors invalid_hash_entry = new errors("invalid_hash_entry");
+  public final static errors invalid_peers_entry = new errors("invalid_peers_entry");
+  public final static errors invalid_tracker_response_length = new errors("invalid_tracker_response_length");
+  public final static errors invalid_tracker_transaction_id = new errors("invalid_tracker_transaction_id");
+  public final static errors invalid_tracker_action = new errors("invalid_tracker_action");
+  public final static errors error_code_max = new errors("error_code_max");
 
   public final int swigValue() {
     return swigValue;
   }
 
+  public String toString() {
+    return swigName;
+  }
+
   public static errors swigToEnum(int swigValue) {
-    errors[] swigValues = errors.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (errors swigEnum : swigValues)
-      if (swigEnum.swigValue == swigValue)
-        return swigEnum;
+    for (int i = 0; i < swigValues.length; i++)
+      if (swigValues[i].swigValue == swigValue)
+        return swigValues[i];
     throw new IllegalArgumentException("No enum " + errors.class + " with value " + swigValue);
   }
 
-  @SuppressWarnings("unused")
-  private errors() {
-    this.swigValue = SwigNext.next++;
+  private errors(String swigName) {
+    this.swigName = swigName;
+    this.swigValue = swigNext++;
   }
 
-  @SuppressWarnings("unused")
-  private errors(int swigValue) {
+  private errors(String swigName, int swigValue) {
+    this.swigName = swigName;
     this.swigValue = swigValue;
-    SwigNext.next = swigValue+1;
+    swigNext = swigValue+1;
   }
 
-  @SuppressWarnings("unused")
-  private errors(errors swigEnum) {
+  private errors(String swigName, errors swigEnum) {
+    this.swigName = swigName;
     this.swigValue = swigEnum.swigValue;
-    SwigNext.next = this.swigValue+1;
+    swigNext = this.swigValue+1;
   }
 
+  private static errors[] swigValues = { no_error, file_collision, failed_hash_check, torrent_is_no_dict, torrent_missing_info, torrent_info_no_dict, torrent_missing_piece_length, torrent_missing_name, torrent_invalid_name, torrent_invalid_length, torrent_file_parse_failed, torrent_missing_pieces, torrent_invalid_hashes, too_many_pieces_in_torrent, invalid_swarm_metadata, invalid_bencoding, no_files_in_torrent, invalid_escaped_string, session_is_closing, duplicate_torrent, invalid_torrent_handle, invalid_entry_type, missing_info_hash_in_uri, file_too_short, unsupported_url_protocol, url_parse_error, peer_sent_empty_piece, parse_failed, invalid_file_tag, missing_info_hash, mismatching_info_hash, invalid_hostname, invalid_port, port_blocked, expected_close_bracket_in_address, destructing_torrent, timed_out, upload_upload_connection, uninteresting_upload_peer, invalid_info_hash, torrent_paused, invalid_have, invalid_bitfield_size, too_many_requests_when_choked, invalid_piece, no_memory, torrent_aborted, self_connection, invalid_piece_size, timed_out_no_interest, timed_out_inactivity, timed_out_no_handshake, timed_out_no_request, invalid_choke, invalid_unchoke, invalid_interested, invalid_not_interested, invalid_request, invalid_hash_list, invalid_hash_piece, invalid_cancel, invalid_dht_port, invalid_suggest, invalid_have_all, invalid_have_none, invalid_reject, invalid_allow_fast, invalid_extended, invalid_message, sync_hash_not_found, invalid_encryption_constant, no_plaintext_mode, no_rc4_mode, unsupported_encryption_mode, unsupported_encryption_mode_selected, invalid_pad_size, invalid_encrypt_handshake, no_incoming_encrypted, no_incoming_regular, duplicate_peer_id, torrent_removed, packet_too_large, reserved, http_error, missing_location, invalid_redirection, redirecting, invalid_range, no_content_length, banned_by_ip_filter, too_many_connections, peer_banned, stopping_torrent, too_many_corrupt_pieces, torrent_not_ready, peer_not_constructed, session_closing, optimistic_disconnect, torrent_finished, no_router, metadata_too_large, invalid_metadata_request, invalid_metadata_size, invalid_metadata_offset, invalid_metadata_message, pex_message_too_large, invalid_pex_message, invalid_lt_tracker_message, too_frequent_pex, no_metadata, invalid_dont_have, requires_ssl_connection, invalid_ssl_cert, not_an_ssl_torrent, banned_by_port_filter, unsupported_protocol_version, natpmp_not_authorized, network_failure, no_resources, unsupported_opcode, missing_file_sizes, no_files_in_resume_data, missing_pieces, mismatching_number_of_files, mismatching_file_size, mismatching_file_timestamp, not_a_dictionary, invalid_blocks_per_piece, missing_slots, too_many_slots, invalid_slot_list, invalid_piece_index, pieces_need_reorder, resume_data_not_modified, http_parse_error, http_missing_location, http_failed_decompress, no_i2p_router, no_i2p_endpoint, scrape_not_available, invalid_tracker_response, invalid_peer_dict, tracker_failure, invalid_files_entry, invalid_hash_entry, invalid_peers_entry, invalid_tracker_response_length, invalid_tracker_transaction_id, invalid_tracker_action, error_code_max };
+  private static int swigNext = 0;
   private final int swigValue;
-
-  private static class SwigNext {
-    private static int next = 0;
-  }
+  private final String swigName;
 }
 

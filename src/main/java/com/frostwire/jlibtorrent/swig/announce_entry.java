@@ -214,48 +214,50 @@ public class announce_entry {
     libtorrent_jni.announce_entry_trim(swigCPtr, this);
   }
 
-  public enum tracker_source {
-    source_torrent(libtorrent_jni.announce_entry_source_torrent_get()),
-    source_client(libtorrent_jni.announce_entry_source_client_get()),
-    source_magnet_link(libtorrent_jni.announce_entry_source_magnet_link_get()),
-    source_tex(libtorrent_jni.announce_entry_source_tex_get());
+  public final static class tracker_source {
+    public final static announce_entry.tracker_source source_torrent = new announce_entry.tracker_source("source_torrent", libtorrent_jni.announce_entry_source_torrent_get());
+    public final static announce_entry.tracker_source source_client = new announce_entry.tracker_source("source_client", libtorrent_jni.announce_entry_source_client_get());
+    public final static announce_entry.tracker_source source_magnet_link = new announce_entry.tracker_source("source_magnet_link", libtorrent_jni.announce_entry_source_magnet_link_get());
+    public final static announce_entry.tracker_source source_tex = new announce_entry.tracker_source("source_tex", libtorrent_jni.announce_entry_source_tex_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static tracker_source swigToEnum(int swigValue) {
-      tracker_source[] swigValues = tracker_source.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (tracker_source swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + tracker_source.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private tracker_source() {
-      this.swigValue = SwigNext.next++;
+    private tracker_source(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private tracker_source(int swigValue) {
+    private tracker_source(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private tracker_source(tracker_source swigEnum) {
+    private tracker_source(String swigName, tracker_source swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static tracker_source[] swigValues = { source_torrent, source_client, source_magnet_link, source_tex };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

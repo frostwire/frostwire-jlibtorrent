@@ -209,61 +209,63 @@ public class add_torrent_params {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_swig_storage(swig_storage_constructor.getCPtr(sc), sc), true);
   }
 
-  public enum flags_t {
-    flag_seed_mode(libtorrent_jni.add_torrent_params_flag_seed_mode_get()),
-    flag_override_resume_data(libtorrent_jni.add_torrent_params_flag_override_resume_data_get()),
-    flag_upload_mode(libtorrent_jni.add_torrent_params_flag_upload_mode_get()),
-    flag_share_mode(libtorrent_jni.add_torrent_params_flag_share_mode_get()),
-    flag_apply_ip_filter(libtorrent_jni.add_torrent_params_flag_apply_ip_filter_get()),
-    flag_paused(libtorrent_jni.add_torrent_params_flag_paused_get()),
-    flag_auto_managed(libtorrent_jni.add_torrent_params_flag_auto_managed_get()),
-    flag_duplicate_is_error(libtorrent_jni.add_torrent_params_flag_duplicate_is_error_get()),
-    flag_merge_resume_trackers(libtorrent_jni.add_torrent_params_flag_merge_resume_trackers_get()),
-    flag_update_subscribe(libtorrent_jni.add_torrent_params_flag_update_subscribe_get()),
-    flag_super_seeding(libtorrent_jni.add_torrent_params_flag_super_seeding_get()),
-    flag_sequential_download(libtorrent_jni.add_torrent_params_flag_sequential_download_get()),
-    flag_use_resume_save_path(libtorrent_jni.add_torrent_params_flag_use_resume_save_path_get()),
-    flag_pinned(libtorrent_jni.add_torrent_params_flag_pinned_get()),
-    flag_merge_resume_http_seeds(libtorrent_jni.add_torrent_params_flag_merge_resume_http_seeds_get()),
-    flag_stop_when_ready(libtorrent_jni.add_torrent_params_flag_stop_when_ready_get()),
-    default_flags(libtorrent_jni.add_torrent_params_default_flags_get());
+  public final static class flags_t {
+    public final static add_torrent_params.flags_t flag_seed_mode = new add_torrent_params.flags_t("flag_seed_mode", libtorrent_jni.add_torrent_params_flag_seed_mode_get());
+    public final static add_torrent_params.flags_t flag_override_resume_data = new add_torrent_params.flags_t("flag_override_resume_data", libtorrent_jni.add_torrent_params_flag_override_resume_data_get());
+    public final static add_torrent_params.flags_t flag_upload_mode = new add_torrent_params.flags_t("flag_upload_mode", libtorrent_jni.add_torrent_params_flag_upload_mode_get());
+    public final static add_torrent_params.flags_t flag_share_mode = new add_torrent_params.flags_t("flag_share_mode", libtorrent_jni.add_torrent_params_flag_share_mode_get());
+    public final static add_torrent_params.flags_t flag_apply_ip_filter = new add_torrent_params.flags_t("flag_apply_ip_filter", libtorrent_jni.add_torrent_params_flag_apply_ip_filter_get());
+    public final static add_torrent_params.flags_t flag_paused = new add_torrent_params.flags_t("flag_paused", libtorrent_jni.add_torrent_params_flag_paused_get());
+    public final static add_torrent_params.flags_t flag_auto_managed = new add_torrent_params.flags_t("flag_auto_managed", libtorrent_jni.add_torrent_params_flag_auto_managed_get());
+    public final static add_torrent_params.flags_t flag_duplicate_is_error = new add_torrent_params.flags_t("flag_duplicate_is_error", libtorrent_jni.add_torrent_params_flag_duplicate_is_error_get());
+    public final static add_torrent_params.flags_t flag_merge_resume_trackers = new add_torrent_params.flags_t("flag_merge_resume_trackers", libtorrent_jni.add_torrent_params_flag_merge_resume_trackers_get());
+    public final static add_torrent_params.flags_t flag_update_subscribe = new add_torrent_params.flags_t("flag_update_subscribe", libtorrent_jni.add_torrent_params_flag_update_subscribe_get());
+    public final static add_torrent_params.flags_t flag_super_seeding = new add_torrent_params.flags_t("flag_super_seeding", libtorrent_jni.add_torrent_params_flag_super_seeding_get());
+    public final static add_torrent_params.flags_t flag_sequential_download = new add_torrent_params.flags_t("flag_sequential_download", libtorrent_jni.add_torrent_params_flag_sequential_download_get());
+    public final static add_torrent_params.flags_t flag_use_resume_save_path = new add_torrent_params.flags_t("flag_use_resume_save_path", libtorrent_jni.add_torrent_params_flag_use_resume_save_path_get());
+    public final static add_torrent_params.flags_t flag_pinned = new add_torrent_params.flags_t("flag_pinned", libtorrent_jni.add_torrent_params_flag_pinned_get());
+    public final static add_torrent_params.flags_t flag_merge_resume_http_seeds = new add_torrent_params.flags_t("flag_merge_resume_http_seeds", libtorrent_jni.add_torrent_params_flag_merge_resume_http_seeds_get());
+    public final static add_torrent_params.flags_t flag_stop_when_ready = new add_torrent_params.flags_t("flag_stop_when_ready", libtorrent_jni.add_torrent_params_flag_stop_when_ready_get());
+    public final static add_torrent_params.flags_t default_flags = new add_torrent_params.flags_t("default_flags", libtorrent_jni.add_torrent_params_default_flags_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static flags_t swigToEnum(int swigValue) {
-      flags_t[] swigValues = flags_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (flags_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + flags_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private flags_t() {
-      this.swigValue = SwigNext.next++;
+    private flags_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private flags_t(int swigValue) {
+    private flags_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private flags_t(flags_t swigEnum) {
+    private flags_t(String swigName, flags_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static flags_t[] swigValues = { flag_seed_mode, flag_override_resume_data, flag_upload_mode, flag_share_mode, flag_apply_ip_filter, flag_paused, flag_auto_managed, flag_duplicate_is_error, flag_merge_resume_trackers, flag_update_subscribe, flag_super_seeding, flag_sequential_download, flag_use_resume_save_path, flag_pinned, flag_merge_resume_http_seeds, flag_stop_when_ready, default_flags };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

@@ -8,93 +8,95 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum close_reason_t {
-  close_no_reason(libtorrent_jni.close_no_reason_get()),
-  close_duplicate_peer_id,
-  close_torrent_removed,
-  close_no_memory,
-  close_port_blocked,
-  close_blocked,
-  close_upload_to_upload,
-  close_not_interested_upload_only,
-  close_timeout,
-  close_timed_out_interest,
-  close_timed_out_activity,
-  close_timed_out_handshake,
-  close_timed_out_request,
-  close_protocol_blocked,
-  close_peer_churn,
-  close_too_many_connections,
-  close_too_many_files,
-  close_encryption_error(libtorrent_jni.close_encryption_error_get()),
-  close_invalid_info_hash,
-  close_self_connection,
-  close_invalid_metadata,
-  close_metadata_too_big,
-  close_message_too_big,
-  close_invalid_message_id,
-  close_invalid_message,
-  close_invalid_piece_message,
-  close_invalid_have_message,
-  close_invalid_bitfield_message,
-  close_invalid_choke_message,
-  close_invalid_unchoke_message,
-  close_invalid_interested_message,
-  close_invalid_not_interested_message,
-  close_invalid_request_message,
-  close_invalid_reject_message,
-  close_invalid_allow_fast_message,
-  close_invalid_extended_message,
-  close_invalid_cancel_message,
-  close_invalid_dht_port_message,
-  close_invalid_suggest_message,
-  close_invalid_have_all_message,
-  close_invalid_dont_have_message,
-  close_invalid_have_none_message,
-  close_invalid_pex_message,
-  close_invalid_metadata_request_message,
-  close_invalid_metadata_message,
-  close_invalid_metadata_offset,
-  close_request_when_choked,
-  close_corrupt_pieces,
-  close_pex_message_too_big,
-  close_pex_too_frequent;
+public final class close_reason_t {
+  public final static close_reason_t close_no_reason = new close_reason_t("close_no_reason", libtorrent_jni.close_no_reason_get());
+  public final static close_reason_t close_duplicate_peer_id = new close_reason_t("close_duplicate_peer_id");
+  public final static close_reason_t close_torrent_removed = new close_reason_t("close_torrent_removed");
+  public final static close_reason_t close_no_memory = new close_reason_t("close_no_memory");
+  public final static close_reason_t close_port_blocked = new close_reason_t("close_port_blocked");
+  public final static close_reason_t close_blocked = new close_reason_t("close_blocked");
+  public final static close_reason_t close_upload_to_upload = new close_reason_t("close_upload_to_upload");
+  public final static close_reason_t close_not_interested_upload_only = new close_reason_t("close_not_interested_upload_only");
+  public final static close_reason_t close_timeout = new close_reason_t("close_timeout");
+  public final static close_reason_t close_timed_out_interest = new close_reason_t("close_timed_out_interest");
+  public final static close_reason_t close_timed_out_activity = new close_reason_t("close_timed_out_activity");
+  public final static close_reason_t close_timed_out_handshake = new close_reason_t("close_timed_out_handshake");
+  public final static close_reason_t close_timed_out_request = new close_reason_t("close_timed_out_request");
+  public final static close_reason_t close_protocol_blocked = new close_reason_t("close_protocol_blocked");
+  public final static close_reason_t close_peer_churn = new close_reason_t("close_peer_churn");
+  public final static close_reason_t close_too_many_connections = new close_reason_t("close_too_many_connections");
+  public final static close_reason_t close_too_many_files = new close_reason_t("close_too_many_files");
+  public final static close_reason_t close_encryption_error = new close_reason_t("close_encryption_error", libtorrent_jni.close_encryption_error_get());
+  public final static close_reason_t close_invalid_info_hash = new close_reason_t("close_invalid_info_hash");
+  public final static close_reason_t close_self_connection = new close_reason_t("close_self_connection");
+  public final static close_reason_t close_invalid_metadata = new close_reason_t("close_invalid_metadata");
+  public final static close_reason_t close_metadata_too_big = new close_reason_t("close_metadata_too_big");
+  public final static close_reason_t close_message_too_big = new close_reason_t("close_message_too_big");
+  public final static close_reason_t close_invalid_message_id = new close_reason_t("close_invalid_message_id");
+  public final static close_reason_t close_invalid_message = new close_reason_t("close_invalid_message");
+  public final static close_reason_t close_invalid_piece_message = new close_reason_t("close_invalid_piece_message");
+  public final static close_reason_t close_invalid_have_message = new close_reason_t("close_invalid_have_message");
+  public final static close_reason_t close_invalid_bitfield_message = new close_reason_t("close_invalid_bitfield_message");
+  public final static close_reason_t close_invalid_choke_message = new close_reason_t("close_invalid_choke_message");
+  public final static close_reason_t close_invalid_unchoke_message = new close_reason_t("close_invalid_unchoke_message");
+  public final static close_reason_t close_invalid_interested_message = new close_reason_t("close_invalid_interested_message");
+  public final static close_reason_t close_invalid_not_interested_message = new close_reason_t("close_invalid_not_interested_message");
+  public final static close_reason_t close_invalid_request_message = new close_reason_t("close_invalid_request_message");
+  public final static close_reason_t close_invalid_reject_message = new close_reason_t("close_invalid_reject_message");
+  public final static close_reason_t close_invalid_allow_fast_message = new close_reason_t("close_invalid_allow_fast_message");
+  public final static close_reason_t close_invalid_extended_message = new close_reason_t("close_invalid_extended_message");
+  public final static close_reason_t close_invalid_cancel_message = new close_reason_t("close_invalid_cancel_message");
+  public final static close_reason_t close_invalid_dht_port_message = new close_reason_t("close_invalid_dht_port_message");
+  public final static close_reason_t close_invalid_suggest_message = new close_reason_t("close_invalid_suggest_message");
+  public final static close_reason_t close_invalid_have_all_message = new close_reason_t("close_invalid_have_all_message");
+  public final static close_reason_t close_invalid_dont_have_message = new close_reason_t("close_invalid_dont_have_message");
+  public final static close_reason_t close_invalid_have_none_message = new close_reason_t("close_invalid_have_none_message");
+  public final static close_reason_t close_invalid_pex_message = new close_reason_t("close_invalid_pex_message");
+  public final static close_reason_t close_invalid_metadata_request_message = new close_reason_t("close_invalid_metadata_request_message");
+  public final static close_reason_t close_invalid_metadata_message = new close_reason_t("close_invalid_metadata_message");
+  public final static close_reason_t close_invalid_metadata_offset = new close_reason_t("close_invalid_metadata_offset");
+  public final static close_reason_t close_request_when_choked = new close_reason_t("close_request_when_choked");
+  public final static close_reason_t close_corrupt_pieces = new close_reason_t("close_corrupt_pieces");
+  public final static close_reason_t close_pex_message_too_big = new close_reason_t("close_pex_message_too_big");
+  public final static close_reason_t close_pex_too_frequent = new close_reason_t("close_pex_too_frequent");
 
   public final int swigValue() {
     return swigValue;
   }
 
+  public String toString() {
+    return swigName;
+  }
+
   public static close_reason_t swigToEnum(int swigValue) {
-    close_reason_t[] swigValues = close_reason_t.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (close_reason_t swigEnum : swigValues)
-      if (swigEnum.swigValue == swigValue)
-        return swigEnum;
+    for (int i = 0; i < swigValues.length; i++)
+      if (swigValues[i].swigValue == swigValue)
+        return swigValues[i];
     throw new IllegalArgumentException("No enum " + close_reason_t.class + " with value " + swigValue);
   }
 
-  @SuppressWarnings("unused")
-  private close_reason_t() {
-    this.swigValue = SwigNext.next++;
+  private close_reason_t(String swigName) {
+    this.swigName = swigName;
+    this.swigValue = swigNext++;
   }
 
-  @SuppressWarnings("unused")
-  private close_reason_t(int swigValue) {
+  private close_reason_t(String swigName, int swigValue) {
+    this.swigName = swigName;
     this.swigValue = swigValue;
-    SwigNext.next = swigValue+1;
+    swigNext = swigValue+1;
   }
 
-  @SuppressWarnings("unused")
-  private close_reason_t(close_reason_t swigEnum) {
+  private close_reason_t(String swigName, close_reason_t swigEnum) {
+    this.swigName = swigName;
     this.swigValue = swigEnum.swigValue;
-    SwigNext.next = this.swigValue+1;
+    swigNext = this.swigValue+1;
   }
 
+  private static close_reason_t[] swigValues = { close_no_reason, close_duplicate_peer_id, close_torrent_removed, close_no_memory, close_port_blocked, close_blocked, close_upload_to_upload, close_not_interested_upload_only, close_timeout, close_timed_out_interest, close_timed_out_activity, close_timed_out_handshake, close_timed_out_request, close_protocol_blocked, close_peer_churn, close_too_many_connections, close_too_many_files, close_encryption_error, close_invalid_info_hash, close_self_connection, close_invalid_metadata, close_metadata_too_big, close_message_too_big, close_invalid_message_id, close_invalid_message, close_invalid_piece_message, close_invalid_have_message, close_invalid_bitfield_message, close_invalid_choke_message, close_invalid_unchoke_message, close_invalid_interested_message, close_invalid_not_interested_message, close_invalid_request_message, close_invalid_reject_message, close_invalid_allow_fast_message, close_invalid_extended_message, close_invalid_cancel_message, close_invalid_dht_port_message, close_invalid_suggest_message, close_invalid_have_all_message, close_invalid_dont_have_message, close_invalid_have_none_message, close_invalid_pex_message, close_invalid_metadata_request_message, close_invalid_metadata_message, close_invalid_metadata_offset, close_request_when_choked, close_corrupt_pieces, close_pex_message_too_big, close_pex_too_frequent };
+  private static int swigNext = 0;
   private final int swigValue;
-
-  private static class SwigNext {
-    private static int next = 0;
-  }
+  private final String swigName;
 }
 

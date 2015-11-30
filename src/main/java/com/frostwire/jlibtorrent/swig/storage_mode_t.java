@@ -8,46 +8,48 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum storage_mode_t {
-  storage_mode_allocate,
-  storage_mode_sparse,
-  internal_storage_mode_compact_deprecated;
+public final class storage_mode_t {
+  public final static storage_mode_t storage_mode_allocate = new storage_mode_t("storage_mode_allocate");
+  public final static storage_mode_t storage_mode_sparse = new storage_mode_t("storage_mode_sparse");
+  public final static storage_mode_t internal_storage_mode_compact_deprecated = new storage_mode_t("internal_storage_mode_compact_deprecated");
 
   public final int swigValue() {
     return swigValue;
   }
 
+  public String toString() {
+    return swigName;
+  }
+
   public static storage_mode_t swigToEnum(int swigValue) {
-    storage_mode_t[] swigValues = storage_mode_t.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (storage_mode_t swigEnum : swigValues)
-      if (swigEnum.swigValue == swigValue)
-        return swigEnum;
+    for (int i = 0; i < swigValues.length; i++)
+      if (swigValues[i].swigValue == swigValue)
+        return swigValues[i];
     throw new IllegalArgumentException("No enum " + storage_mode_t.class + " with value " + swigValue);
   }
 
-  @SuppressWarnings("unused")
-  private storage_mode_t() {
-    this.swigValue = SwigNext.next++;
+  private storage_mode_t(String swigName) {
+    this.swigName = swigName;
+    this.swigValue = swigNext++;
   }
 
-  @SuppressWarnings("unused")
-  private storage_mode_t(int swigValue) {
+  private storage_mode_t(String swigName, int swigValue) {
+    this.swigName = swigName;
     this.swigValue = swigValue;
-    SwigNext.next = swigValue+1;
+    swigNext = swigValue+1;
   }
 
-  @SuppressWarnings("unused")
-  private storage_mode_t(storage_mode_t swigEnum) {
+  private storage_mode_t(String swigName, storage_mode_t swigEnum) {
+    this.swigName = swigName;
     this.swigValue = swigEnum.swigValue;
-    SwigNext.next = this.swigValue+1;
+    swigNext = this.swigValue+1;
   }
 
+  private static storage_mode_t[] swigValues = { storage_mode_allocate, storage_mode_sparse, internal_storage_mode_compact_deprecated };
+  private static int swigNext = 0;
   private final int swigValue;
-
-  private static class SwigNext {
-    private static int next = 0;
-  }
+  private final String swigName;
 }
 

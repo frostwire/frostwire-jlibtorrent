@@ -63,56 +63,58 @@ public class performance_alert extends torrent_alert {
     return performance_alert.performance_warning_t.swigToEnum(libtorrent_jni.performance_alert_warning_code_get(swigCPtr, this));
   }
 
-  public enum performance_warning_t {
-    outstanding_disk_buffer_limit_reached,
-    outstanding_request_limit_reached,
-    upload_limit_too_low,
-    download_limit_too_low,
-    send_buffer_watermark_too_low,
-    too_many_optimistic_unchoke_slots,
-    too_high_disk_queue_limit,
-    aio_limit_reached,
-    bittyrant_with_no_uplimit,
-    too_few_outgoing_ports,
-    too_few_file_descriptors,
-    num_warnings;
+  public final static class performance_warning_t {
+    public final static performance_alert.performance_warning_t outstanding_disk_buffer_limit_reached = new performance_alert.performance_warning_t("outstanding_disk_buffer_limit_reached");
+    public final static performance_alert.performance_warning_t outstanding_request_limit_reached = new performance_alert.performance_warning_t("outstanding_request_limit_reached");
+    public final static performance_alert.performance_warning_t upload_limit_too_low = new performance_alert.performance_warning_t("upload_limit_too_low");
+    public final static performance_alert.performance_warning_t download_limit_too_low = new performance_alert.performance_warning_t("download_limit_too_low");
+    public final static performance_alert.performance_warning_t send_buffer_watermark_too_low = new performance_alert.performance_warning_t("send_buffer_watermark_too_low");
+    public final static performance_alert.performance_warning_t too_many_optimistic_unchoke_slots = new performance_alert.performance_warning_t("too_many_optimistic_unchoke_slots");
+    public final static performance_alert.performance_warning_t too_high_disk_queue_limit = new performance_alert.performance_warning_t("too_high_disk_queue_limit");
+    public final static performance_alert.performance_warning_t aio_limit_reached = new performance_alert.performance_warning_t("aio_limit_reached");
+    public final static performance_alert.performance_warning_t bittyrant_with_no_uplimit = new performance_alert.performance_warning_t("bittyrant_with_no_uplimit");
+    public final static performance_alert.performance_warning_t too_few_outgoing_ports = new performance_alert.performance_warning_t("too_few_outgoing_ports");
+    public final static performance_alert.performance_warning_t too_few_file_descriptors = new performance_alert.performance_warning_t("too_few_file_descriptors");
+    public final static performance_alert.performance_warning_t num_warnings = new performance_alert.performance_warning_t("num_warnings");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static performance_warning_t swigToEnum(int swigValue) {
-      performance_warning_t[] swigValues = performance_warning_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (performance_warning_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + performance_warning_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private performance_warning_t() {
-      this.swigValue = SwigNext.next++;
+    private performance_warning_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private performance_warning_t(int swigValue) {
+    private performance_warning_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private performance_warning_t(performance_warning_t swigEnum) {
+    private performance_warning_t(String swigName, performance_warning_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static performance_warning_t[] swigValues = { outstanding_disk_buffer_limit_reached, outstanding_request_limit_reached, upload_limit_too_low, download_limit_too_low, send_buffer_watermark_too_low, too_many_optimistic_unchoke_slots, too_high_disk_queue_limit, aio_limit_reached, bittyrant_with_no_uplimit, too_few_outgoing_ports, too_few_file_descriptors, num_warnings };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
   public final static int priority = libtorrent_jni.performance_alert_priority_get();

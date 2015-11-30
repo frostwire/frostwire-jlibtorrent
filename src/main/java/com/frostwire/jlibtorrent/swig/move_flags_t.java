@@ -8,46 +8,48 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum move_flags_t {
-  always_replace_files,
-  fail_if_exist,
-  dont_replace;
+public final class move_flags_t {
+  public final static move_flags_t always_replace_files = new move_flags_t("always_replace_files");
+  public final static move_flags_t fail_if_exist = new move_flags_t("fail_if_exist");
+  public final static move_flags_t dont_replace = new move_flags_t("dont_replace");
 
   public final int swigValue() {
     return swigValue;
   }
 
+  public String toString() {
+    return swigName;
+  }
+
   public static move_flags_t swigToEnum(int swigValue) {
-    move_flags_t[] swigValues = move_flags_t.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (move_flags_t swigEnum : swigValues)
-      if (swigEnum.swigValue == swigValue)
-        return swigEnum;
+    for (int i = 0; i < swigValues.length; i++)
+      if (swigValues[i].swigValue == swigValue)
+        return swigValues[i];
     throw new IllegalArgumentException("No enum " + move_flags_t.class + " with value " + swigValue);
   }
 
-  @SuppressWarnings("unused")
-  private move_flags_t() {
-    this.swigValue = SwigNext.next++;
+  private move_flags_t(String swigName) {
+    this.swigName = swigName;
+    this.swigValue = swigNext++;
   }
 
-  @SuppressWarnings("unused")
-  private move_flags_t(int swigValue) {
+  private move_flags_t(String swigName, int swigValue) {
+    this.swigName = swigName;
     this.swigValue = swigValue;
-    SwigNext.next = swigValue+1;
+    swigNext = swigValue+1;
   }
 
-  @SuppressWarnings("unused")
-  private move_flags_t(move_flags_t swigEnum) {
+  private move_flags_t(String swigName, move_flags_t swigEnum) {
+    this.swigName = swigName;
     this.swigValue = swigEnum.swigValue;
-    SwigNext.next = this.swigValue+1;
+    swigNext = this.swigValue+1;
   }
 
+  private static move_flags_t[] swigValues = { always_replace_files, fail_if_exist, dont_replace };
+  private static int swigNext = 0;
   private final int swigValue;
-
-  private static class SwigNext {
-    private static int next = 0;
-  }
+  private final String swigName;
 }
 

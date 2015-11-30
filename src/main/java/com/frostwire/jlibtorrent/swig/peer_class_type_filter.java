@@ -59,50 +59,52 @@ public class peer_class_type_filter {
     return libtorrent_jni.peer_class_type_filter_apply(swigCPtr, this, st, peer_class_mask);
   }
 
-  public enum socket_type_t {
-    tcp_socket(libtorrent_jni.peer_class_type_filter_tcp_socket_get()),
-    utp_socket,
-    ssl_tcp_socket,
-    ssl_utp_socket,
-    i2p_socket,
-    num_socket_types;
+  public final static class socket_type_t {
+    public final static peer_class_type_filter.socket_type_t tcp_socket = new peer_class_type_filter.socket_type_t("tcp_socket", libtorrent_jni.peer_class_type_filter_tcp_socket_get());
+    public final static peer_class_type_filter.socket_type_t utp_socket = new peer_class_type_filter.socket_type_t("utp_socket");
+    public final static peer_class_type_filter.socket_type_t ssl_tcp_socket = new peer_class_type_filter.socket_type_t("ssl_tcp_socket");
+    public final static peer_class_type_filter.socket_type_t ssl_utp_socket = new peer_class_type_filter.socket_type_t("ssl_utp_socket");
+    public final static peer_class_type_filter.socket_type_t i2p_socket = new peer_class_type_filter.socket_type_t("i2p_socket");
+    public final static peer_class_type_filter.socket_type_t num_socket_types = new peer_class_type_filter.socket_type_t("num_socket_types");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static socket_type_t swigToEnum(int swigValue) {
-      socket_type_t[] swigValues = socket_type_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (socket_type_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + socket_type_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private socket_type_t() {
-      this.swigValue = SwigNext.next++;
+    private socket_type_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private socket_type_t(int swigValue) {
+    private socket_type_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private socket_type_t(socket_type_t swigEnum) {
+    private socket_type_t(String swigName, socket_type_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static socket_type_t[] swigValues = { tcp_socket, utp_socket, ssl_tcp_socket, ssl_utp_socket, i2p_socket, num_socket_types };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

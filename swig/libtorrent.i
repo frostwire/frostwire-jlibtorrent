@@ -254,7 +254,6 @@ public:
 %include <std_string.i>
 %include <std_pair.i>
 %include <std_deque.i>
-%include <enums.swg>
 
 namespace std {
 

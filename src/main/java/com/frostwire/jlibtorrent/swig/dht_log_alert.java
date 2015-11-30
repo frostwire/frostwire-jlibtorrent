@@ -63,49 +63,51 @@ public class dht_log_alert extends alert {
     return dht_log_alert.dht_module_t.swigToEnum(libtorrent_jni.dht_log_alert_module_get(swigCPtr, this));
   }
 
-  public enum dht_module_t {
-    tracker,
-    node,
-    routing_table,
-    rpc_manager,
-    traversal;
+  public final static class dht_module_t {
+    public final static dht_log_alert.dht_module_t tracker = new dht_log_alert.dht_module_t("tracker");
+    public final static dht_log_alert.dht_module_t node = new dht_log_alert.dht_module_t("node");
+    public final static dht_log_alert.dht_module_t routing_table = new dht_log_alert.dht_module_t("routing_table");
+    public final static dht_log_alert.dht_module_t rpc_manager = new dht_log_alert.dht_module_t("rpc_manager");
+    public final static dht_log_alert.dht_module_t traversal = new dht_log_alert.dht_module_t("traversal");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static dht_module_t swigToEnum(int swigValue) {
-      dht_module_t[] swigValues = dht_module_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (dht_module_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + dht_module_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private dht_module_t() {
-      this.swigValue = SwigNext.next++;
+    private dht_module_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private dht_module_t(int swigValue) {
+    private dht_module_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private dht_module_t(dht_module_t swigEnum) {
+    private dht_module_t(String swigName, dht_module_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static dht_module_t[] swigValues = { tracker, node, routing_table, rpc_manager, traversal };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
   public final static int static_category = libtorrent_jni.dht_log_alert_static_category_get();

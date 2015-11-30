@@ -139,50 +139,52 @@ public class create_torrent {
     libtorrent_jni.create_torrent_add_collection(swigCPtr, this, c);
   }
 
-  public enum flags_t {
-    optimize_alignment(libtorrent_jni.create_torrent_optimize_alignment_get()),
-    optimize(libtorrent_jni.create_torrent_optimize_get()),
-    merkle(libtorrent_jni.create_torrent_merkle_get()),
-    modification_time(libtorrent_jni.create_torrent_modification_time_get()),
-    symlinks(libtorrent_jni.create_torrent_symlinks_get()),
-    mutable_torrent_support(libtorrent_jni.create_torrent_mutable_torrent_support_get());
+  public final static class flags_t {
+    public final static create_torrent.flags_t optimize_alignment = new create_torrent.flags_t("optimize_alignment", libtorrent_jni.create_torrent_optimize_alignment_get());
+    public final static create_torrent.flags_t optimize = new create_torrent.flags_t("optimize", libtorrent_jni.create_torrent_optimize_get());
+    public final static create_torrent.flags_t merkle = new create_torrent.flags_t("merkle", libtorrent_jni.create_torrent_merkle_get());
+    public final static create_torrent.flags_t modification_time = new create_torrent.flags_t("modification_time", libtorrent_jni.create_torrent_modification_time_get());
+    public final static create_torrent.flags_t symlinks = new create_torrent.flags_t("symlinks", libtorrent_jni.create_torrent_symlinks_get());
+    public final static create_torrent.flags_t mutable_torrent_support = new create_torrent.flags_t("mutable_torrent_support", libtorrent_jni.create_torrent_mutable_torrent_support_get());
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static flags_t swigToEnum(int swigValue) {
-      flags_t[] swigValues = flags_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (flags_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + flags_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private flags_t() {
-      this.swigValue = SwigNext.next++;
+    private flags_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private flags_t(int swigValue) {
+    private flags_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private flags_t(flags_t swigEnum) {
+    private flags_t(String swigName, flags_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static flags_t[] swigValues = { optimize_alignment, optimize, merkle, modification_time, symlinks, mutable_torrent_support };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

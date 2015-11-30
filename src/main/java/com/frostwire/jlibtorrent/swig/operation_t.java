@@ -8,61 +8,63 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public enum operation_t {
-  op_bittorrent(libtorrent_jni.op_bittorrent_get()),
-  op_iocontrol,
-  op_getpeername,
-  op_getname,
-  op_alloc_recvbuf,
-  op_alloc_sndbuf,
-  op_file_write,
-  op_file_read,
-  op_file,
-  op_sock_write,
-  op_sock_read,
-  op_sock_open,
-  op_sock_bind,
-  op_available,
-  op_encryption,
-  op_connect,
-  op_ssl_handshake,
-  op_get_interface;
+public final class operation_t {
+  public final static operation_t op_bittorrent = new operation_t("op_bittorrent", libtorrent_jni.op_bittorrent_get());
+  public final static operation_t op_iocontrol = new operation_t("op_iocontrol");
+  public final static operation_t op_getpeername = new operation_t("op_getpeername");
+  public final static operation_t op_getname = new operation_t("op_getname");
+  public final static operation_t op_alloc_recvbuf = new operation_t("op_alloc_recvbuf");
+  public final static operation_t op_alloc_sndbuf = new operation_t("op_alloc_sndbuf");
+  public final static operation_t op_file_write = new operation_t("op_file_write");
+  public final static operation_t op_file_read = new operation_t("op_file_read");
+  public final static operation_t op_file = new operation_t("op_file");
+  public final static operation_t op_sock_write = new operation_t("op_sock_write");
+  public final static operation_t op_sock_read = new operation_t("op_sock_read");
+  public final static operation_t op_sock_open = new operation_t("op_sock_open");
+  public final static operation_t op_sock_bind = new operation_t("op_sock_bind");
+  public final static operation_t op_available = new operation_t("op_available");
+  public final static operation_t op_encryption = new operation_t("op_encryption");
+  public final static operation_t op_connect = new operation_t("op_connect");
+  public final static operation_t op_ssl_handshake = new operation_t("op_ssl_handshake");
+  public final static operation_t op_get_interface = new operation_t("op_get_interface");
 
   public final int swigValue() {
     return swigValue;
   }
 
+  public String toString() {
+    return swigName;
+  }
+
   public static operation_t swigToEnum(int swigValue) {
-    operation_t[] swigValues = operation_t.class.getEnumConstants();
     if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
       return swigValues[swigValue];
-    for (operation_t swigEnum : swigValues)
-      if (swigEnum.swigValue == swigValue)
-        return swigEnum;
+    for (int i = 0; i < swigValues.length; i++)
+      if (swigValues[i].swigValue == swigValue)
+        return swigValues[i];
     throw new IllegalArgumentException("No enum " + operation_t.class + " with value " + swigValue);
   }
 
-  @SuppressWarnings("unused")
-  private operation_t() {
-    this.swigValue = SwigNext.next++;
+  private operation_t(String swigName) {
+    this.swigName = swigName;
+    this.swigValue = swigNext++;
   }
 
-  @SuppressWarnings("unused")
-  private operation_t(int swigValue) {
+  private operation_t(String swigName, int swigValue) {
+    this.swigName = swigName;
     this.swigValue = swigValue;
-    SwigNext.next = swigValue+1;
+    swigNext = swigValue+1;
   }
 
-  @SuppressWarnings("unused")
-  private operation_t(operation_t swigEnum) {
+  private operation_t(String swigName, operation_t swigEnum) {
+    this.swigName = swigName;
     this.swigValue = swigEnum.swigValue;
-    SwigNext.next = this.swigValue+1;
+    swigNext = this.swigValue+1;
   }
 
+  private static operation_t[] swigValues = { op_bittorrent, op_iocontrol, op_getpeername, op_getname, op_alloc_recvbuf, op_alloc_sndbuf, op_file_write, op_file_read, op_file, op_sock_write, op_sock_read, op_sock_open, op_sock_bind, op_available, op_encryption, op_connect, op_ssl_handshake, op_get_interface };
+  private static int swigNext = 0;
   private final int swigValue;
-
-  private static class SwigNext {
-    private static int next = 0;
-  }
+  private final String swigName;
 }
 

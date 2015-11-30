@@ -75,51 +75,53 @@ public class peer_blocked_alert extends torrent_alert {
   public final static int priority = libtorrent_jni.peer_blocked_alert_priority_get();
   public final static int alert_type = libtorrent_jni.peer_blocked_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.peer_blocked_alert_static_category_get();
-  public enum reason_t {
-    ip_filter,
-    port_filter,
-    i2p_mixed,
-    privileged_ports,
-    utp_disabled,
-    tcp_disabled,
-    invalid_local_interface;
+  public final static class reason_t {
+    public final static peer_blocked_alert.reason_t ip_filter = new peer_blocked_alert.reason_t("ip_filter");
+    public final static peer_blocked_alert.reason_t port_filter = new peer_blocked_alert.reason_t("port_filter");
+    public final static peer_blocked_alert.reason_t i2p_mixed = new peer_blocked_alert.reason_t("i2p_mixed");
+    public final static peer_blocked_alert.reason_t privileged_ports = new peer_blocked_alert.reason_t("privileged_ports");
+    public final static peer_blocked_alert.reason_t utp_disabled = new peer_blocked_alert.reason_t("utp_disabled");
+    public final static peer_blocked_alert.reason_t tcp_disabled = new peer_blocked_alert.reason_t("tcp_disabled");
+    public final static peer_blocked_alert.reason_t invalid_local_interface = new peer_blocked_alert.reason_t("invalid_local_interface");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static reason_t swigToEnum(int swigValue) {
-      reason_t[] swigValues = reason_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (reason_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + reason_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private reason_t() {
-      this.swigValue = SwigNext.next++;
+    private reason_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private reason_t(int swigValue) {
+    private reason_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private reason_t(reason_t swigEnum) {
+    private reason_t(String swigName, reason_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static reason_t[] swigValues = { ip_filter, port_filter, i2p_mixed, privileged_ports, utp_disabled, tcp_disabled, invalid_local_interface };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

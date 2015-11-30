@@ -96,48 +96,50 @@ public class partial_piece_info {
     this(libtorrent_jni.new_partial_piece_info(), true);
   }
 
-  public enum state_t {
-    none,
-    slow,
-    medium,
-    fast;
+  public final static class state_t {
+    public final static partial_piece_info.state_t none = new partial_piece_info.state_t("none");
+    public final static partial_piece_info.state_t slow = new partial_piece_info.state_t("slow");
+    public final static partial_piece_info.state_t medium = new partial_piece_info.state_t("medium");
+    public final static partial_piece_info.state_t fast = new partial_piece_info.state_t("fast");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static state_t swigToEnum(int swigValue) {
-      state_t[] swigValues = state_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (state_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + state_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private state_t() {
-      this.swigValue = SwigNext.next++;
+    private state_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private state_t(int swigValue) {
+    private state_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private state_t(state_t swigEnum) {
+    private state_t(String swigName, state_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static state_t[] swigValues = { none, slow, medium, fast };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

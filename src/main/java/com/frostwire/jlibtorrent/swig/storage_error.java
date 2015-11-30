@@ -76,60 +76,62 @@ public class storage_error {
     return libtorrent_jni.storage_error_operation_str(swigCPtr, this);
   }
 
-  public enum file_operation_t {
-    none,
-    stat,
-    mkdir,
-    open,
-    rename,
-    remove,
-    copy,
-    read,
-    write,
-    fallocate,
-    alloc_cache_piece,
-    partfile_move,
-    partfile_read,
-    partfile_write,
-    check_resume,
-    hard_link;
+  public final static class file_operation_t {
+    public final static storage_error.file_operation_t none = new storage_error.file_operation_t("none");
+    public final static storage_error.file_operation_t stat = new storage_error.file_operation_t("stat");
+    public final static storage_error.file_operation_t mkdir = new storage_error.file_operation_t("mkdir");
+    public final static storage_error.file_operation_t open = new storage_error.file_operation_t("open");
+    public final static storage_error.file_operation_t rename = new storage_error.file_operation_t("rename");
+    public final static storage_error.file_operation_t remove = new storage_error.file_operation_t("remove");
+    public final static storage_error.file_operation_t copy = new storage_error.file_operation_t("copy");
+    public final static storage_error.file_operation_t read = new storage_error.file_operation_t("read");
+    public final static storage_error.file_operation_t write = new storage_error.file_operation_t("write");
+    public final static storage_error.file_operation_t fallocate = new storage_error.file_operation_t("fallocate");
+    public final static storage_error.file_operation_t alloc_cache_piece = new storage_error.file_operation_t("alloc_cache_piece");
+    public final static storage_error.file_operation_t partfile_move = new storage_error.file_operation_t("partfile_move");
+    public final static storage_error.file_operation_t partfile_read = new storage_error.file_operation_t("partfile_read");
+    public final static storage_error.file_operation_t partfile_write = new storage_error.file_operation_t("partfile_write");
+    public final static storage_error.file_operation_t check_resume = new storage_error.file_operation_t("check_resume");
+    public final static storage_error.file_operation_t hard_link = new storage_error.file_operation_t("hard_link");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static file_operation_t swigToEnum(int swigValue) {
-      file_operation_t[] swigValues = file_operation_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (file_operation_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + file_operation_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private file_operation_t() {
-      this.swigValue = SwigNext.next++;
+    private file_operation_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private file_operation_t(int swigValue) {
+    private file_operation_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private file_operation_t(file_operation_t swigEnum) {
+    private file_operation_t(String swigName, file_operation_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static file_operation_t[] swigValues = { none, stat, mkdir, open, rename, remove, copy, read, write, fallocate, alloc_cache_piece, partfile_move, partfile_read, partfile_write, check_resume, hard_link };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

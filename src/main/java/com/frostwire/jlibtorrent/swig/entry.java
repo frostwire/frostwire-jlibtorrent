@@ -124,49 +124,51 @@ public class entry {
     return new entry(libtorrent_jni.entry_bdecode(char_vector.getCPtr(buffer), buffer), true);
   }
 
-  public enum data_type {
-    int_t,
-    string_t,
-    list_t,
-    dictionary_t,
-    undefined_t;
+  public final static class data_type {
+    public final static entry.data_type int_t = new entry.data_type("int_t");
+    public final static entry.data_type string_t = new entry.data_type("string_t");
+    public final static entry.data_type list_t = new entry.data_type("list_t");
+    public final static entry.data_type dictionary_t = new entry.data_type("dictionary_t");
+    public final static entry.data_type undefined_t = new entry.data_type("undefined_t");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static data_type swigToEnum(int swigValue) {
-      data_type[] swigValues = data_type.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (data_type swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + data_type.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private data_type() {
-      this.swigValue = SwigNext.next++;
+    private data_type(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private data_type(int swigValue) {
+    private data_type(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private data_type(data_type swigEnum) {
+    private data_type(String swigName, data_type swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static data_type[] swigValues = { int_t, string_t, list_t, dictionary_t, undefined_t };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

@@ -70,55 +70,57 @@ public class stats_alert extends torrent_alert {
   public final static int priority = libtorrent_jni.stats_alert_priority_get();
   public final static int alert_type = libtorrent_jni.stats_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.stats_alert_static_category_get();
-  public enum stats_channel {
-    upload_payload,
-    upload_protocol,
-    download_payload,
-    download_protocol,
-    upload_ip_protocol,
-    deprecated1,
-    deprecated2,
-    download_ip_protocol,
-    deprecated3,
-    deprecated4,
-    num_channels;
+  public final static class stats_channel {
+    public final static stats_alert.stats_channel upload_payload = new stats_alert.stats_channel("upload_payload");
+    public final static stats_alert.stats_channel upload_protocol = new stats_alert.stats_channel("upload_protocol");
+    public final static stats_alert.stats_channel download_payload = new stats_alert.stats_channel("download_payload");
+    public final static stats_alert.stats_channel download_protocol = new stats_alert.stats_channel("download_protocol");
+    public final static stats_alert.stats_channel upload_ip_protocol = new stats_alert.stats_channel("upload_ip_protocol");
+    public final static stats_alert.stats_channel deprecated1 = new stats_alert.stats_channel("deprecated1");
+    public final static stats_alert.stats_channel deprecated2 = new stats_alert.stats_channel("deprecated2");
+    public final static stats_alert.stats_channel download_ip_protocol = new stats_alert.stats_channel("download_ip_protocol");
+    public final static stats_alert.stats_channel deprecated3 = new stats_alert.stats_channel("deprecated3");
+    public final static stats_alert.stats_channel deprecated4 = new stats_alert.stats_channel("deprecated4");
+    public final static stats_alert.stats_channel num_channels = new stats_alert.stats_channel("num_channels");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static stats_channel swigToEnum(int swigValue) {
-      stats_channel[] swigValues = stats_channel.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (stats_channel swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + stats_channel.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private stats_channel() {
-      this.swigValue = SwigNext.next++;
+    private stats_channel(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private stats_channel(int swigValue) {
+    private stats_channel(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private stats_channel(stats_channel swigEnum) {
+    private stats_channel(String swigName, stats_channel swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static stats_channel[] swigValues = { upload_payload, upload_protocol, download_payload, download_protocol, upload_ip_protocol, deprecated1, deprecated2, download_ip_protocol, deprecated3, deprecated4, num_channels };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }

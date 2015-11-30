@@ -72,48 +72,50 @@ public class listen_succeeded_alert extends alert {
     return listen_succeeded_alert.socket_type_t.swigToEnum(libtorrent_jni.listen_succeeded_alert_sock_type_get(swigCPtr, this));
   }
 
-  public enum socket_type_t {
-    tcp,
-    tcp_ssl,
-    udp,
-    utp_ssl;
+  public final static class socket_type_t {
+    public final static listen_succeeded_alert.socket_type_t tcp = new listen_succeeded_alert.socket_type_t("tcp");
+    public final static listen_succeeded_alert.socket_type_t tcp_ssl = new listen_succeeded_alert.socket_type_t("tcp_ssl");
+    public final static listen_succeeded_alert.socket_type_t udp = new listen_succeeded_alert.socket_type_t("udp");
+    public final static listen_succeeded_alert.socket_type_t utp_ssl = new listen_succeeded_alert.socket_type_t("utp_ssl");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static socket_type_t swigToEnum(int swigValue) {
-      socket_type_t[] swigValues = socket_type_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (socket_type_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + socket_type_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private socket_type_t() {
-      this.swigValue = SwigNext.next++;
+    private socket_type_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private socket_type_t(int swigValue) {
+    private socket_type_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private socket_type_t(socket_type_t swigEnum) {
+    private socket_type_t(String swigName, socket_type_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static socket_type_t[] swigValues = { tcp, tcp_ssl, udp, utp_ssl };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
   public final static int priority = libtorrent_jni.listen_succeeded_alert_priority_get();

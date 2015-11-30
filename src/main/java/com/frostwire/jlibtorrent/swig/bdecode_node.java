@@ -159,49 +159,51 @@ public class bdecode_node {
     return libtorrent_jni.bdecode_node_bdecode(char_vector.getCPtr(buffer), buffer, bdecode_node.getCPtr(ret), ret, error_code.getCPtr(ec), ec);
   }
 
-  public enum type_t {
-    none_t,
-    dict_t,
-    list_t,
-    string_t,
-    int_t;
+  public final static class type_t {
+    public final static bdecode_node.type_t none_t = new bdecode_node.type_t("none_t");
+    public final static bdecode_node.type_t dict_t = new bdecode_node.type_t("dict_t");
+    public final static bdecode_node.type_t list_t = new bdecode_node.type_t("list_t");
+    public final static bdecode_node.type_t string_t = new bdecode_node.type_t("string_t");
+    public final static bdecode_node.type_t int_t = new bdecode_node.type_t("int_t");
 
     public final int swigValue() {
       return swigValue;
     }
 
+    public String toString() {
+      return swigName;
+    }
+
     public static type_t swigToEnum(int swigValue) {
-      type_t[] swigValues = type_t.class.getEnumConstants();
       if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
         return swigValues[swigValue];
-      for (type_t swigEnum : swigValues)
-        if (swigEnum.swigValue == swigValue)
-          return swigEnum;
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
       throw new IllegalArgumentException("No enum " + type_t.class + " with value " + swigValue);
     }
 
-    @SuppressWarnings("unused")
-    private type_t() {
-      this.swigValue = SwigNext.next++;
+    private type_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
     }
 
-    @SuppressWarnings("unused")
-    private type_t(int swigValue) {
+    private type_t(String swigName, int swigValue) {
+      this.swigName = swigName;
       this.swigValue = swigValue;
-      SwigNext.next = swigValue+1;
+      swigNext = swigValue+1;
     }
 
-    @SuppressWarnings("unused")
-    private type_t(type_t swigEnum) {
+    private type_t(String swigName, type_t swigEnum) {
+      this.swigName = swigName;
       this.swigValue = swigEnum.swigValue;
-      SwigNext.next = this.swigValue+1;
+      swigNext = this.swigValue+1;
     }
 
+    private static type_t[] swigValues = { none_t, dict_t, list_t, string_t, int_t };
+    private static int swigNext = 0;
     private final int swigValue;
-
-    private static class SwigNext {
-      private static int next = 0;
-    }
+    private final String swigName;
   }
 
 }
