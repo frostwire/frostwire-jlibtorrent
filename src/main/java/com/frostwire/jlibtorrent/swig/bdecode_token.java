@@ -132,9 +132,9 @@ public class bdecode_token {
   }
 
   public final static class limits_t {
-    public final static bdecode_token.limits_t max_offset = new bdecode_token.limits_t("max_offset", (1 << 29) -1);
-    public final static bdecode_token.limits_t max_next_item = new bdecode_token.limits_t("max_next_item", (1 << 29) -1);
-    public final static bdecode_token.limits_t max_header = new bdecode_token.limits_t("max_header", (1 << 3) -1);
+    public final static bdecode_token.limits_t max_offset = new bdecode_token.limits_t("max_offset", libtorrent_jni.bdecode_token_max_offset_get());
+    public final static bdecode_token.limits_t max_next_item = new bdecode_token.limits_t("max_next_item", libtorrent_jni.bdecode_token_max_next_item_get());
+    public final static bdecode_token.limits_t max_header = new bdecode_token.limits_t("max_header", libtorrent_jni.bdecode_token_max_header_get());
 
     public final int swigValue() {
       return swigValue;

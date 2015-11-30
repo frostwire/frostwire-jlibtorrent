@@ -9,23 +9,23 @@
 package com.frostwire.jlibtorrent.swig;
 
 public final class http_errors {
-  public final static http_errors cont = new http_errors("cont", 100);
-  public final static http_errors ok = new http_errors("ok", 200);
-  public final static http_errors created = new http_errors("created", 201);
-  public final static http_errors accepted = new http_errors("accepted", 202);
-  public final static http_errors no_content = new http_errors("no_content", 204);
-  public final static http_errors multiple_choices = new http_errors("multiple_choices", 300);
-  public final static http_errors moved_permanently = new http_errors("moved_permanently", 301);
-  public final static http_errors moved_temporarily = new http_errors("moved_temporarily", 302);
-  public final static http_errors not_modified = new http_errors("not_modified", 304);
-  public final static http_errors bad_request = new http_errors("bad_request", 400);
-  public final static http_errors unauthorized = new http_errors("unauthorized", 401);
-  public final static http_errors forbidden = new http_errors("forbidden", 403);
-  public final static http_errors not_found = new http_errors("not_found", 404);
-  public final static http_errors internal_server_error = new http_errors("internal_server_error", 500);
-  public final static http_errors not_implemented = new http_errors("not_implemented", 501);
-  public final static http_errors bad_gateway = new http_errors("bad_gateway", 502);
-  public final static http_errors service_unavailable = new http_errors("service_unavailable", 503);
+  public final static http_errors cont = new http_errors("cont", libtorrent_jni.cont_get());
+  public final static http_errors ok = new http_errors("ok", libtorrent_jni.ok_get());
+  public final static http_errors created = new http_errors("created", libtorrent_jni.created_get());
+  public final static http_errors accepted = new http_errors("accepted", libtorrent_jni.accepted_get());
+  public final static http_errors no_content = new http_errors("no_content", libtorrent_jni.no_content_get());
+  public final static http_errors multiple_choices = new http_errors("multiple_choices", libtorrent_jni.multiple_choices_get());
+  public final static http_errors moved_permanently = new http_errors("moved_permanently", libtorrent_jni.moved_permanently_get());
+  public final static http_errors moved_temporarily = new http_errors("moved_temporarily", libtorrent_jni.moved_temporarily_get());
+  public final static http_errors not_modified = new http_errors("not_modified", libtorrent_jni.not_modified_get());
+  public final static http_errors bad_request = new http_errors("bad_request", libtorrent_jni.bad_request_get());
+  public final static http_errors unauthorized = new http_errors("unauthorized", libtorrent_jni.unauthorized_get());
+  public final static http_errors forbidden = new http_errors("forbidden", libtorrent_jni.forbidden_get());
+  public final static http_errors not_found = new http_errors("not_found", libtorrent_jni.not_found_get());
+  public final static http_errors internal_server_error = new http_errors("internal_server_error", libtorrent_jni.internal_server_error_get());
+  public final static http_errors not_implemented = new http_errors("not_implemented", libtorrent_jni.not_implemented_get());
+  public final static http_errors bad_gateway = new http_errors("bad_gateway", libtorrent_jni.bad_gateway_get());
+  public final static http_errors service_unavailable = new http_errors("service_unavailable", libtorrent_jni.service_unavailable_get());
 
   public final int swigValue() {
     return swigValue;

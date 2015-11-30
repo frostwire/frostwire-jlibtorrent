@@ -9,7 +9,7 @@
 package com.frostwire.jlibtorrent.swig;
 
 public final class bdecode_errors {
-  public final static bdecode_errors no_error = new bdecode_errors("no_error", 0);
+  public final static bdecode_errors bdecode_no_error = new bdecode_errors("bdecode_no_error", libtorrent_jni.bdecode_no_error_get());
   public final static bdecode_errors expected_digit = new bdecode_errors("expected_digit");
   public final static bdecode_errors expected_colon = new bdecode_errors("expected_colon");
   public final static bdecode_errors unexpected_eof = new bdecode_errors("unexpected_eof");
@@ -53,7 +53,7 @@ public final class bdecode_errors {
     swigNext = this.swigValue+1;
   }
 
-  private static bdecode_errors[] swigValues = { no_error, expected_digit, expected_colon, unexpected_eof, expected_value, depth_exceeded, limit_exceeded, overflow, error_code_max };
+  private static bdecode_errors[] swigValues = { bdecode_no_error, expected_digit, expected_colon, unexpected_eof, expected_value, depth_exceeded, limit_exceeded, overflow, error_code_max };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

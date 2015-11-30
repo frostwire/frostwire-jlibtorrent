@@ -709,7 +709,9 @@ namespace std {
 %rename(op_gt) operator>;
 %rename(op_get_at) operator[];
 
-%rename(errors) libtorrent::errors::error_code_enum;
+%rename(libtorrent_no_error) libtorrent::errors::no_error;
+%rename(libtorrent_errors) libtorrent::errors::error_code_enum;
+%rename(bdecode_no_error) libtorrent::bdecode_errors::no_error;
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
 
 %rename(value) libtorrent::storage_error::operator bool() const;
@@ -718,9 +720,7 @@ namespace std {
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
-%javaconst(1);
 %include "libtorrent/error_code.hpp"
-%javaconst(0);
 %include "libtorrent/time.hpp"
 %include "libtorrent/fingerprint.hpp"
 %include "libtorrent/bitfield.hpp"
@@ -758,9 +758,7 @@ namespace std {
 %include "libtorrent/extensions.hpp"
 %include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
-%javaconst(1);
 %include "libtorrent/bdecode.hpp"
-%javaconst(0);
 %include "libtorrent/buffer.hpp"
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
