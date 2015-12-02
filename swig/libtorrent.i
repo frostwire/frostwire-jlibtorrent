@@ -221,37 +221,6 @@ public:
 #include "libtorrent.h"
 %}
 
-#ifdef SWIG_JNI
-%{
-void translate_cpp_exception(JNIEnv *jenv) {
-    try {
-        throw;
-    } catch (const std::out_of_range &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, e.what());
-    } catch (const std::invalid_argument &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, e.what());
-    } catch (const std::bad_alloc &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaOutOfMemoryError, e.what());
-    } catch (const std::ios_base::failure &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIOException, e.what());
-    } catch (const std::exception &e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaUnknownError, e.what());
-    } catch (...) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaUnknownError, "Unknown exception type");
-    }
-}
-%}
-
-%exception {
-    try {
-        $action
-    } catch (...) {
-        translate_cpp_exception(jenv);
-        return $null;
-    }
-}
-#endif
-
 %include <stdint.i>
 %include <typemaps.i>
 %include <std_common.i>

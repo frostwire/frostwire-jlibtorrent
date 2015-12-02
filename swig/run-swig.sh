@@ -10,7 +10,7 @@ function runJni()
     swig -c++ -java -o libtorrent_jni.cpp \
         -outdir ${JAVA_SRC_OUTPUT} \
         -package com.frostwire.jlibtorrent.swig \
-        -DSWIG_JNI \
+        -DLIBTORRENT_SWIG_JNI \
         -I${BOOST_ROOT} \
         -I${LIBTORRENT_ROOT}/include \
         -DBOOST_ASIO_DECL="" \
@@ -41,17 +41,17 @@ function runJni()
         -D_JLIBTORRENT_REVISION_SHA1_="\"$(git rev-list HEAD | head -1)\"" \
         libtorrent.i
 
-    // at first sigh, this could look like a very dangerous thing to
-    // do, but in practice, these director types are controlled by us
-    // and we know we can do it. The main reason is to be able to
-    // compile with -fno-rtti.
+    # at first sigh, this could look like a very dangerous thing to
+    # do, but in practice, these director types are controlled by us
+    # and we know we can do it. The main reason is to be able to
+    # compile with -fno-rtti.
     sed -i '' 's/dynamic_cast<SwigDirector_/reinterpret_cast<SwigDirector_/g' libtorrent_jni.cpp
 }
 
 function runNode()
 {
     swig -c++ -javascript -node -o libtorrent_node.cpp \
-        -DSWIG_NODE \
+        -DLIBTORRENT_SWIG_NODE \
         -DV8_VERSION=0x040685 \
         -I${BOOST_ROOT} \
         -I${LIBTORRENT_ROOT}/include \
