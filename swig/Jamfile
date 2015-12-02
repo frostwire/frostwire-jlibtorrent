@@ -37,6 +37,8 @@ rule env_setup ( properties * )
     local result ;
 
     result += <variant>release ;
+    result += <exception-handling>off ;
+    result += <rtti>off ;
 
     return $(result) ;
 }
