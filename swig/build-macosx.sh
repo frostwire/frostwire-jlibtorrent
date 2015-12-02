@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# to compile under Xcode 7 and openssl being deprecated
-CXXFLAGS="-std=c++11 -stdlib=libc++ -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-migrator/sdk/MacOSX.sdk/usr/include -Wno-deprecated-declarations -Wno-reserved-id-macro -mmacosx-version-min=10.8"
-
-$BOOST_ROOT/bjam toolset=darwin location=bin/macosx cxxflags="$CXXFLAGS"
-TARGET=bin/macosx/libjlibtorrent.dylib
+$BOOST_ROOT/b2 --user-config=config/macosx-native-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64
+TARGET=bin/macosx/x86_64/libjlibtorrent.dylib
 strip -S -x $TARGET
 cp $TARGET ../
