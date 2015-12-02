@@ -431,7 +431,6 @@ namespace std {
     %template(torrent_status_vector) vector<libtorrent::torrent_status>;
     %template(torrent_handle_vector) vector<libtorrent::torrent_handle>;
     %template(file_slice_vector) vector<libtorrent::file_slice>;
-    %template(peer_request_vector) vector<libtorrent::peer_request>;
     %template(dht_routing_bucket_vector) vector<libtorrent::dht_routing_bucket>;
     %template(dht_lookup_vector) vector<libtorrent::dht_lookup>;
 
@@ -449,7 +448,6 @@ namespace std {
 
     %template(string_list) list<std::string>;
     %template(entry_list) list<libtorrent::entry>;
-    %template(web_seed_entry_list) list<libtorrent::web_seed_entry>;
 
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
