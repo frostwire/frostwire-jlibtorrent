@@ -89,7 +89,23 @@ mingw-w64-crt:
 
 --host=x86_64-w64-mingw32 -with-sysroot=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32
 
+NodeJs
+======
 
+```
+MBP:swig aldenml$ node
+> var jlib = require("./build/Release/jlibtorrent");
+undefined
+> var s = new jlib.session()
+undefined
+> var ti = new jlib.torrent_info("/Users/aldenml/Downloads/Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015.torrent");
+undefined
+> ti
+torrent_info {}
+> ti.name()
+'Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015'
+>
+```
 **Requirements**
 
 export BOOST_ROOT=/<path>/boost_1_58_0

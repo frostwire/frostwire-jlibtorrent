@@ -11,6 +11,7 @@ frostwire-jlibtorrent.i*
 /test-libtorrent
 /.gradle
 /swig/bin
+/swig/build
 /build
 /libjlibtorrent.dylib
 /libjlibtorrent.so
