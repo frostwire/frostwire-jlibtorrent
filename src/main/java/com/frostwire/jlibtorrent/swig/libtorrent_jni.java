@@ -640,13 +640,6 @@ public class libtorrent_jni {
   public final static native boolean bitfield_empty(long jarg1, bitfield jarg1_);
   public final static native String bitfield_data(long jarg1, bitfield jarg1_);
   public final static native int bitfield_count(long jarg1, bitfield jarg1_);
-  public final static native boolean bitfield_const_iterator___ref__(long jarg1, bitfield.const_iterator jarg1_);
-  public final static native long new_bitfield_const_iterator();
-  public final static native boolean bitfield_const_iterator_op_eq(long jarg1, bitfield.const_iterator jarg1_, long jarg2, bitfield.const_iterator jarg2_);
-  public final static native boolean bitfield_const_iterator_op_neq(long jarg1, bitfield.const_iterator jarg1_, long jarg2, bitfield.const_iterator jarg2_);
-  public final static native void delete_bitfield_const_iterator(long jarg1);
-  public final static native long bitfield_begin(long jarg1, bitfield jarg1_);
-  public final static native long bitfield_end(long jarg1, bitfield jarg1_);
   public final static native void bitfield_resize__SWIG_0(long jarg1, bitfield jarg1_, int jarg2, boolean jarg3);
   public final static native void bitfield_resize__SWIG_1(long jarg1, bitfield jarg1_, int jarg2);
   public final static native void bitfield_set_all(long jarg1, bitfield jarg1_);

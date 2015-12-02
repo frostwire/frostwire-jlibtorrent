@@ -639,6 +639,9 @@ namespace std {
 %ignore libtorrent::stat_file;
 %ignore libtorrent::fileop;
 %ignore libtorrent::readwritev;
+%ignore libtorrent::bitfield::const_iterator;
+%ignore libtorrent::bitfield::begin;
+%ignore libtorrent::bitfield::end;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -680,6 +683,7 @@ namespace std {
 %rename(op_gt) operator>;
 %rename(op_get_at) operator[];
 
+%rename(libtorrent_no_error) libtorrent::errors::no_error;
 %rename(libtorrent_no_error) libtorrent::errors::no_error;
 %rename(libtorrent_errors) libtorrent::errors::error_code_enum;
 %rename(bdecode_no_error) libtorrent::bdecode_errors::no_error;

@@ -103,59 +103,6 @@ public class bitfield {
     return libtorrent_jni.bitfield_count(swigCPtr, this);
   }
 
-  static public class const_iterator {
-    private transient long swigCPtr;
-    protected transient boolean swigCMemOwn;
-  
-    protected const_iterator(long cPtr, boolean cMemoryOwn) {
-      swigCMemOwn = cMemoryOwn;
-      swigCPtr = cPtr;
-    }
-  
-    protected static long getCPtr(const_iterator obj) {
-      return (obj == null) ? 0 : obj.swigCPtr;
-    }
-  
-    protected void finalize() {
-      delete();
-    }
-  
-    public synchronized void delete() {
-      if (swigCPtr != 0) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          libtorrent_jni.delete_bitfield_const_iterator(swigCPtr);
-        }
-        swigCPtr = 0;
-      }
-    }
-  
-    public boolean __ref__() {
-      return libtorrent_jni.bitfield_const_iterator___ref__(swigCPtr, this);
-    }
-  
-    public const_iterator() {
-      this(libtorrent_jni.new_bitfield_const_iterator(), true);
-    }
-  
-    public boolean op_eq(bitfield.const_iterator rhs) {
-      return libtorrent_jni.bitfield_const_iterator_op_eq(swigCPtr, this, bitfield.const_iterator.getCPtr(rhs), rhs);
-    }
-  
-    public boolean op_neq(bitfield.const_iterator rhs) {
-      return libtorrent_jni.bitfield_const_iterator_op_neq(swigCPtr, this, bitfield.const_iterator.getCPtr(rhs), rhs);
-    }
-  
-  }
-
-  public bitfield.const_iterator begin() {
-    return new bitfield.const_iterator(libtorrent_jni.bitfield_begin(swigCPtr, this), true);
-  }
-
-  public bitfield.const_iterator end() {
-    return new bitfield.const_iterator(libtorrent_jni.bitfield_end(swigCPtr, this), true);
-  }
-
   public void resize(int bits, boolean val) {
     libtorrent_jni.bitfield_resize__SWIG_0(swigCPtr, this, bits, val);
   }

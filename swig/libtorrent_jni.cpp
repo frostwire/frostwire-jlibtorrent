@@ -13482,117 +13482,6 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitf
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitfield_1const_1iterator_1_1_1ref_1_1(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  libtorrent::bitfield::const_iterator *arg1 = (libtorrent::bitfield::const_iterator *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::bitfield::const_iterator **)&jarg1; 
-  result = (bool)(arg1)->operator *();
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1bitfield_1const_1iterator(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  libtorrent::bitfield::const_iterator *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (libtorrent::bitfield::const_iterator *)new libtorrent::bitfield::const_iterator();
-  *(libtorrent::bitfield::const_iterator **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitfield_1const_1iterator_1op_1eq(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jboolean jresult = 0 ;
-  libtorrent::bitfield::const_iterator *arg1 = (libtorrent::bitfield::const_iterator *) 0 ;
-  libtorrent::bitfield::const_iterator *arg2 = 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(libtorrent::bitfield::const_iterator **)&jarg1; 
-  arg2 = *(libtorrent::bitfield::const_iterator **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::bitfield::const_iterator const & reference is null");
-    return 0;
-  } 
-  result = (bool)((libtorrent::bitfield::const_iterator const *)arg1)->operator ==((libtorrent::bitfield::const_iterator const &)*arg2);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitfield_1const_1iterator_1op_1neq(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jboolean jresult = 0 ;
-  libtorrent::bitfield::const_iterator *arg1 = (libtorrent::bitfield::const_iterator *) 0 ;
-  libtorrent::bitfield::const_iterator *arg2 = 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(libtorrent::bitfield::const_iterator **)&jarg1; 
-  arg2 = *(libtorrent::bitfield::const_iterator **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::bitfield::const_iterator const & reference is null");
-    return 0;
-  } 
-  result = (bool)((libtorrent::bitfield::const_iterator const *)arg1)->operator !=((libtorrent::bitfield::const_iterator const &)*arg2);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1bitfield_1const_1iterator(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  libtorrent::bitfield::const_iterator *arg1 = (libtorrent::bitfield::const_iterator *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(libtorrent::bitfield::const_iterator **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitfield_1begin(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::bitfield *arg1 = (libtorrent::bitfield *) 0 ;
-  libtorrent::bitfield::const_iterator result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::bitfield **)&jarg1; 
-  result = ((libtorrent::bitfield const *)arg1)->begin();
-  *(libtorrent::bitfield::const_iterator **)&jresult = new libtorrent::bitfield::const_iterator((const libtorrent::bitfield::const_iterator &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitfield_1end(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::bitfield *arg1 = (libtorrent::bitfield *) 0 ;
-  libtorrent::bitfield::const_iterator result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::bitfield **)&jarg1; 
-  result = ((libtorrent::bitfield const *)arg1)->end();
-  *(libtorrent::bitfield::const_iterator **)&jresult = new libtorrent::bitfield::const_iterator((const libtorrent::bitfield::const_iterator &)result); 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitfield_1resize_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jboolean jarg3) {
   libtorrent::bitfield *arg1 = (libtorrent::bitfield *) 0 ;
   int arg2 ;
@@ -53959,7 +53848,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("4a7ff33156fc33950fc621fa5530a4a26a17e3c9");
+  result = (char *)("17ebbd904c97c26069564ebc48dc533eee648bad");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
