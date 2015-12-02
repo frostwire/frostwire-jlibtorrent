@@ -33,15 +33,6 @@ rule libtorrent_linking ( properties * )
     return $(result) ;
 }
 
-rule env_setup ( properties * )
-{
-    local result ;
-
-    result += <variant>release ;
-
-    return $(result) ;
-}
-
 lib jlibtorrent
 
     : # sources
@@ -51,7 +42,6 @@ lib jlibtorrent
     <conditional>@libtorrent_linking
     <library>/torrent//torrent/<link>static
     <include>.
-    <conditional>@env_setup
 
     : # default build
     <link>shared
