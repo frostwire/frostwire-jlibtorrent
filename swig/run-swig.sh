@@ -40,6 +40,12 @@ function runJni()
         -D_LIBTORRENT_REVISION_SHA1_="\"$(git -C $LIBTORRENT_ROOT rev-list HEAD | head -1)\"" \
         -D_JLIBTORRENT_REVISION_SHA1_="\"$(git rev-list HEAD | head -1)\"" \
         libtorrent.i
+
+    // at first sigh, this could look like a very dangerous thing to
+    // do, but in practice, these director types are controlled by us
+    // and we know we can do it. The main reason is to be able to
+    // compile with -fno-rtti.
+    sed -i '' 's/dynamic_cast<SwigDirector_/reinterpret_cast<SwigDirector_/g' libtorrent_jni.cpp
 }
 
 function runNode()

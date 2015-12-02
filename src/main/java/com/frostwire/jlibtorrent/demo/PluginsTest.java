@@ -52,31 +52,31 @@ public final class PluginsTest {
 
                             @Override
                             public boolean onRequest(PeerRequest r) {
-                                System.out.println("peer on request: " + p.remote().address() + " " + r);
+                                //System.out.println("peer on request: " + p.remote().address() + " " + r);
                                 return false;
                             }
 
                             @Override
                             public boolean onPiece(PeerRequest piece, DiskBufferHolder data) {
-                                System.out.println("peer on piece: " + p.remote().address() + " " + piece);
+                                //System.out.println("peer on piece: " + p.remote().address() + " " + piece);
                                 return false;
                             }
 
                             @Override
                             public void tick() {
-                                //System.out.println("PeerPlugin: tick");
+                                System.out.println("PeerPlugin: tick");
                             }
                         };
                     }
 
                     @Override
                     public void tick() {
-                        //System.out.println("TorrentPlugin: tick");
+                        System.out.println("TorrentPlugin: tick");
                     }
 
                     @Override
                     public void onPiecePass(int index) {
-                        //System.out.println("TorrentPlugin: onPiecePass(" + index + ")");
+                        System.out.println("TorrentPlugin: onPiecePass(" + index + ")");
                     }
 
                     @Override
@@ -99,7 +99,7 @@ public final class PluginsTest {
 
             @Override
             public void onAlert(Alert a) {
-                System.out.println(a);
+                //System.out.println(a);
             }
 
             @Override
@@ -119,7 +119,7 @@ public final class PluginsTest {
 
         s.addExtension(p);
 
-        File torrentFile = new File("/Users/aldenml/Downloads/Kellee_Maize_The_5th_Element_FrostClick_FrostWire_MP3_April_14_2014.torrent");
+        File torrentFile = new File("/Users/aldenml/Downloads/Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015.torrent");
         final TorrentHandle th = s.addTorrent(torrentFile, torrentFile.getParentFile());
 
         s.addListener(new TorrentAlertAdapter(th) {
