@@ -45,7 +45,7 @@ function runJni()
     # do, but in practice, these director types are controlled by us
     # and we know we can do it. The main reason is to be able to
     # compile with -fno-rtti.
-    sed -i '' 's/dynamic_cast<SwigDirector_/reinterpret_cast<SwigDirector_/g' libtorrent_jni.cpp
+    sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
 }
 
 function runNode()

@@ -1484,94 +1484,94 @@ SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_create_i
 SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_create_instance_swig_storage(swig_storage_constructor *sc){
         return add_torrent_params(boost::bind(&swig_storage_constructor_cb, _1, sc));
     }
-SWIGINTERN libtorrent::torrent_alert *libtorrent_alert_cast_to_torrent_alert(libtorrent::alert *alert){          if (libtorrent::torrent_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_alert *libtorrent_alert_cast_to_peer_alert(libtorrent::alert *alert){          if (libtorrent::peer_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::tracker_alert *libtorrent_alert_cast_to_tracker_alert(libtorrent::alert *alert){          if (libtorrent::tracker_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::tracker_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_added_alert *libtorrent_alert_cast_to_torrent_added_alert(libtorrent::alert *alert){          if (libtorrent::torrent_added_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_added_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_removed_alert *libtorrent_alert_cast_to_torrent_removed_alert(libtorrent::alert *alert){          if (libtorrent::torrent_removed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_removed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::read_piece_alert *libtorrent_alert_cast_to_read_piece_alert(libtorrent::alert *alert){          if (libtorrent::read_piece_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::read_piece_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::file_completed_alert *libtorrent_alert_cast_to_file_completed_alert(libtorrent::alert *alert){          if (libtorrent::file_completed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::file_completed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::file_renamed_alert *libtorrent_alert_cast_to_file_renamed_alert(libtorrent::alert *alert){          if (libtorrent::file_renamed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::file_renamed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::file_rename_failed_alert *libtorrent_alert_cast_to_file_rename_failed_alert(libtorrent::alert *alert){          if (libtorrent::file_rename_failed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::file_rename_failed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::performance_alert *libtorrent_alert_cast_to_performance_alert(libtorrent::alert *alert){          if (libtorrent::performance_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::performance_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::state_changed_alert *libtorrent_alert_cast_to_state_changed_alert(libtorrent::alert *alert){          if (libtorrent::state_changed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::state_changed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::tracker_error_alert *libtorrent_alert_cast_to_tracker_error_alert(libtorrent::alert *alert){          if (libtorrent::tracker_error_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::tracker_error_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::tracker_warning_alert *libtorrent_alert_cast_to_tracker_warning_alert(libtorrent::alert *alert){          if (libtorrent::tracker_warning_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::tracker_warning_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::scrape_reply_alert *libtorrent_alert_cast_to_scrape_reply_alert(libtorrent::alert *alert){          if (libtorrent::scrape_reply_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::scrape_reply_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::scrape_failed_alert *libtorrent_alert_cast_to_scrape_failed_alert(libtorrent::alert *alert){          if (libtorrent::scrape_failed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::scrape_failed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::tracker_reply_alert *libtorrent_alert_cast_to_tracker_reply_alert(libtorrent::alert *alert){          if (libtorrent::tracker_reply_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::tracker_reply_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_reply_alert *libtorrent_alert_cast_to_dht_reply_alert(libtorrent::alert *alert){          if (libtorrent::dht_reply_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_reply_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::tracker_announce_alert *libtorrent_alert_cast_to_tracker_announce_alert(libtorrent::alert *alert){          if (libtorrent::tracker_announce_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::tracker_announce_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::hash_failed_alert *libtorrent_alert_cast_to_hash_failed_alert(libtorrent::alert *alert){          if (libtorrent::hash_failed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::hash_failed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_ban_alert *libtorrent_alert_cast_to_peer_ban_alert(libtorrent::alert *alert){          if (libtorrent::peer_ban_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_ban_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_unsnubbed_alert *libtorrent_alert_cast_to_peer_unsnubbed_alert(libtorrent::alert *alert){          if (libtorrent::peer_unsnubbed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_unsnubbed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_snubbed_alert *libtorrent_alert_cast_to_peer_snubbed_alert(libtorrent::alert *alert){          if (libtorrent::peer_snubbed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_snubbed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_error_alert *libtorrent_alert_cast_to_peer_error_alert(libtorrent::alert *alert){          if (libtorrent::peer_error_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_error_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_connect_alert *libtorrent_alert_cast_to_peer_connect_alert(libtorrent::alert *alert){          if (libtorrent::peer_connect_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_connect_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_disconnected_alert *libtorrent_alert_cast_to_peer_disconnected_alert(libtorrent::alert *alert){          if (libtorrent::peer_disconnected_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_disconnected_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::invalid_request_alert *libtorrent_alert_cast_to_invalid_request_alert(libtorrent::alert *alert){          if (libtorrent::invalid_request_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::invalid_request_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_finished_alert *libtorrent_alert_cast_to_torrent_finished_alert(libtorrent::alert *alert){          if (libtorrent::torrent_finished_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_finished_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::piece_finished_alert *libtorrent_alert_cast_to_piece_finished_alert(libtorrent::alert *alert){          if (libtorrent::piece_finished_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::piece_finished_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::request_dropped_alert *libtorrent_alert_cast_to_request_dropped_alert(libtorrent::alert *alert){          if (libtorrent::request_dropped_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::request_dropped_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::block_timeout_alert *libtorrent_alert_cast_to_block_timeout_alert(libtorrent::alert *alert){          if (libtorrent::block_timeout_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::block_timeout_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::block_finished_alert *libtorrent_alert_cast_to_block_finished_alert(libtorrent::alert *alert){          if (libtorrent::block_finished_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::block_finished_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::block_downloading_alert *libtorrent_alert_cast_to_block_downloading_alert(libtorrent::alert *alert){          if (libtorrent::block_downloading_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::block_downloading_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::unwanted_block_alert *libtorrent_alert_cast_to_unwanted_block_alert(libtorrent::alert *alert){          if (libtorrent::unwanted_block_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::unwanted_block_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::storage_moved_alert *libtorrent_alert_cast_to_storage_moved_alert(libtorrent::alert *alert){          if (libtorrent::storage_moved_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::storage_moved_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::storage_moved_failed_alert *libtorrent_alert_cast_to_storage_moved_failed_alert(libtorrent::alert *alert){          if (libtorrent::storage_moved_failed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::storage_moved_failed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_deleted_alert *libtorrent_alert_cast_to_torrent_deleted_alert(libtorrent::alert *alert){          if (libtorrent::torrent_deleted_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_deleted_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_delete_failed_alert *libtorrent_alert_cast_to_torrent_delete_failed_alert(libtorrent::alert *alert){          if (libtorrent::torrent_delete_failed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_delete_failed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::save_resume_data_alert *libtorrent_alert_cast_to_save_resume_data_alert(libtorrent::alert *alert){          if (libtorrent::save_resume_data_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::save_resume_data_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::save_resume_data_failed_alert *libtorrent_alert_cast_to_save_resume_data_failed_alert(libtorrent::alert *alert){          if (libtorrent::save_resume_data_failed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::save_resume_data_failed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_paused_alert *libtorrent_alert_cast_to_torrent_paused_alert(libtorrent::alert *alert){          if (libtorrent::torrent_paused_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_paused_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_resumed_alert *libtorrent_alert_cast_to_torrent_resumed_alert(libtorrent::alert *alert){          if (libtorrent::torrent_resumed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_resumed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_checked_alert *libtorrent_alert_cast_to_torrent_checked_alert(libtorrent::alert *alert){          if (libtorrent::torrent_checked_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_checked_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::url_seed_alert *libtorrent_alert_cast_to_url_seed_alert(libtorrent::alert *alert){          if (libtorrent::url_seed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::url_seed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::file_error_alert *libtorrent_alert_cast_to_file_error_alert(libtorrent::alert *alert){          if (libtorrent::file_error_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::file_error_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::metadata_failed_alert *libtorrent_alert_cast_to_metadata_failed_alert(libtorrent::alert *alert){          if (libtorrent::metadata_failed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::metadata_failed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::metadata_received_alert *libtorrent_alert_cast_to_metadata_received_alert(libtorrent::alert *alert){          if (libtorrent::metadata_received_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::metadata_received_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::udp_error_alert *libtorrent_alert_cast_to_udp_error_alert(libtorrent::alert *alert){          if (libtorrent::udp_error_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::udp_error_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::external_ip_alert *libtorrent_alert_cast_to_external_ip_alert(libtorrent::alert *alert){          if (libtorrent::external_ip_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::external_ip_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::listen_failed_alert *libtorrent_alert_cast_to_listen_failed_alert(libtorrent::alert *alert){          if (libtorrent::listen_failed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::listen_failed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::listen_succeeded_alert *libtorrent_alert_cast_to_listen_succeeded_alert(libtorrent::alert *alert){          if (libtorrent::listen_succeeded_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::listen_succeeded_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::portmap_error_alert *libtorrent_alert_cast_to_portmap_error_alert(libtorrent::alert *alert){          if (libtorrent::portmap_error_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::portmap_error_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::portmap_alert *libtorrent_alert_cast_to_portmap_alert(libtorrent::alert *alert){          if (libtorrent::portmap_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::portmap_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::portmap_log_alert *libtorrent_alert_cast_to_portmap_log_alert(libtorrent::alert *alert){          if (libtorrent::portmap_log_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::portmap_log_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::fastresume_rejected_alert *libtorrent_alert_cast_to_fastresume_rejected_alert(libtorrent::alert *alert){          if (libtorrent::fastresume_rejected_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::fastresume_rejected_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_blocked_alert *libtorrent_alert_cast_to_peer_blocked_alert(libtorrent::alert *alert){          if (libtorrent::peer_blocked_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_blocked_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_announce_alert *libtorrent_alert_cast_to_dht_announce_alert(libtorrent::alert *alert){          if (libtorrent::dht_announce_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_announce_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_get_peers_alert *libtorrent_alert_cast_to_dht_get_peers_alert(libtorrent::alert *alert){          if (libtorrent::dht_get_peers_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_get_peers_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::stats_alert *libtorrent_alert_cast_to_stats_alert(libtorrent::alert *alert){          if (libtorrent::stats_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::stats_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::cache_flushed_alert *libtorrent_alert_cast_to_cache_flushed_alert(libtorrent::alert *alert){          if (libtorrent::cache_flushed_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::cache_flushed_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::anonymous_mode_alert *libtorrent_alert_cast_to_anonymous_mode_alert(libtorrent::alert *alert){          if (libtorrent::anonymous_mode_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::anonymous_mode_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::lsd_peer_alert *libtorrent_alert_cast_to_lsd_peer_alert(libtorrent::alert *alert){          if (libtorrent::lsd_peer_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::lsd_peer_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::trackerid_alert *libtorrent_alert_cast_to_trackerid_alert(libtorrent::alert *alert){          if (libtorrent::trackerid_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::trackerid_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_bootstrap_alert *libtorrent_alert_cast_to_dht_bootstrap_alert(libtorrent::alert *alert){          if (libtorrent::dht_bootstrap_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_bootstrap_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_error_alert *libtorrent_alert_cast_to_torrent_error_alert(libtorrent::alert *alert){          if (libtorrent::torrent_error_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_error_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_need_cert_alert *libtorrent_alert_cast_to_torrent_need_cert_alert(libtorrent::alert *alert){          if (libtorrent::torrent_need_cert_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_need_cert_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::incoming_connection_alert *libtorrent_alert_cast_to_incoming_connection_alert(libtorrent::alert *alert){          if (libtorrent::incoming_connection_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::incoming_connection_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::add_torrent_alert *libtorrent_alert_cast_to_add_torrent_alert(libtorrent::alert *alert){          if (libtorrent::add_torrent_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::add_torrent_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::state_update_alert *libtorrent_alert_cast_to_state_update_alert(libtorrent::alert *alert){          if (libtorrent::state_update_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::state_update_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::mmap_cache_alert *libtorrent_alert_cast_to_mmap_cache_alert(libtorrent::alert *alert){          if (libtorrent::mmap_cache_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::mmap_cache_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::session_stats_alert *libtorrent_alert_cast_to_session_stats_alert(libtorrent::alert *alert){          if (libtorrent::session_stats_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::session_stats_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_update_alert *libtorrent_alert_cast_to_torrent_update_alert(libtorrent::alert *alert){          if (libtorrent::torrent_update_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_update_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_error_alert *libtorrent_alert_cast_to_dht_error_alert(libtorrent::alert *alert){          if (libtorrent::dht_error_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_error_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_immutable_item_alert *libtorrent_alert_cast_to_dht_immutable_item_alert(libtorrent::alert *alert){          if (libtorrent::dht_immutable_item_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_immutable_item_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_mutable_item_alert *libtorrent_alert_cast_to_dht_mutable_item_alert(libtorrent::alert *alert){          if (libtorrent::dht_mutable_item_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_mutable_item_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_put_alert *libtorrent_alert_cast_to_dht_put_alert(libtorrent::alert *alert){          if (libtorrent::dht_put_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_put_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::i2p_alert *libtorrent_alert_cast_to_i2p_alert(libtorrent::alert *alert){          if (libtorrent::i2p_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::i2p_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_outgoing_get_peers_alert *libtorrent_alert_cast_to_dht_outgoing_get_peers_alert(libtorrent::alert *alert){          if (libtorrent::dht_outgoing_get_peers_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_outgoing_get_peers_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::log_alert *libtorrent_alert_cast_to_log_alert(libtorrent::alert *alert){          if (libtorrent::log_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::log_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::torrent_log_alert *libtorrent_alert_cast_to_torrent_log_alert(libtorrent::alert *alert){          if (libtorrent::torrent_log_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::torrent_log_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::peer_log_alert *libtorrent_alert_cast_to_peer_log_alert(libtorrent::alert *alert){          if (libtorrent::peer_log_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::peer_log_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::lsd_error_alert *libtorrent_alert_cast_to_lsd_error_alert(libtorrent::alert *alert){          if (libtorrent::lsd_error_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::lsd_error_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_stats_alert *libtorrent_alert_cast_to_dht_stats_alert(libtorrent::alert *alert){          if (libtorrent::dht_stats_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_stats_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::incoming_request_alert *libtorrent_alert_cast_to_incoming_request_alert(libtorrent::alert *alert){          if (libtorrent::incoming_request_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::incoming_request_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_log_alert *libtorrent_alert_cast_to_dht_log_alert(libtorrent::alert *alert){          if (libtorrent::dht_log_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_log_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_pkt_alert *libtorrent_alert_cast_to_dht_pkt_alert(libtorrent::alert *alert){          if (libtorrent::dht_pkt_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_pkt_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_get_peers_reply_alert *libtorrent_alert_cast_to_dht_get_peers_reply_alert(libtorrent::alert *alert){          if (libtorrent::dht_get_peers_reply_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_get_peers_reply_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::dht_direct_response_alert *libtorrent_alert_cast_to_dht_direct_response_alert(libtorrent::alert *alert){          if (libtorrent::dht_direct_response_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::dht_direct_response_alert *>(alert);          } else {              return NULL;          }      }
-SWIGINTERN libtorrent::picker_log_alert *libtorrent_alert_cast_to_picker_log_alert(libtorrent::alert *alert){          if (libtorrent::picker_log_alert::alert_type == alert->type()) {              return reinterpret_cast<libtorrent::picker_log_alert *>(alert);          } else {              return NULL;          }      }
+SWIGINTERN libtorrent::torrent_alert const *libtorrent_alert_cast_to_torrent_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_alert>(alert);      }
+SWIGINTERN libtorrent::peer_alert const *libtorrent_alert_cast_to_peer_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_alert>(alert);      }
+SWIGINTERN libtorrent::tracker_alert const *libtorrent_alert_cast_to_tracker_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::tracker_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_added_alert const *libtorrent_alert_cast_to_torrent_added_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_added_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_removed_alert const *libtorrent_alert_cast_to_torrent_removed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_removed_alert>(alert);      }
+SWIGINTERN libtorrent::read_piece_alert const *libtorrent_alert_cast_to_read_piece_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::read_piece_alert>(alert);      }
+SWIGINTERN libtorrent::file_completed_alert const *libtorrent_alert_cast_to_file_completed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::file_completed_alert>(alert);      }
+SWIGINTERN libtorrent::file_renamed_alert const *libtorrent_alert_cast_to_file_renamed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::file_renamed_alert>(alert);      }
+SWIGINTERN libtorrent::file_rename_failed_alert const *libtorrent_alert_cast_to_file_rename_failed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::file_rename_failed_alert>(alert);      }
+SWIGINTERN libtorrent::performance_alert const *libtorrent_alert_cast_to_performance_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::performance_alert>(alert);      }
+SWIGINTERN libtorrent::state_changed_alert const *libtorrent_alert_cast_to_state_changed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::state_changed_alert>(alert);      }
+SWIGINTERN libtorrent::tracker_error_alert const *libtorrent_alert_cast_to_tracker_error_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::tracker_error_alert>(alert);      }
+SWIGINTERN libtorrent::tracker_warning_alert const *libtorrent_alert_cast_to_tracker_warning_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::tracker_warning_alert>(alert);      }
+SWIGINTERN libtorrent::scrape_reply_alert const *libtorrent_alert_cast_to_scrape_reply_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::scrape_reply_alert>(alert);      }
+SWIGINTERN libtorrent::scrape_failed_alert const *libtorrent_alert_cast_to_scrape_failed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::scrape_failed_alert>(alert);      }
+SWIGINTERN libtorrent::tracker_reply_alert const *libtorrent_alert_cast_to_tracker_reply_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::tracker_reply_alert>(alert);      }
+SWIGINTERN libtorrent::dht_reply_alert const *libtorrent_alert_cast_to_dht_reply_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_reply_alert>(alert);      }
+SWIGINTERN libtorrent::tracker_announce_alert const *libtorrent_alert_cast_to_tracker_announce_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::tracker_announce_alert>(alert);      }
+SWIGINTERN libtorrent::hash_failed_alert const *libtorrent_alert_cast_to_hash_failed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::hash_failed_alert>(alert);      }
+SWIGINTERN libtorrent::peer_ban_alert const *libtorrent_alert_cast_to_peer_ban_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_ban_alert>(alert);      }
+SWIGINTERN libtorrent::peer_unsnubbed_alert const *libtorrent_alert_cast_to_peer_unsnubbed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_unsnubbed_alert>(alert);      }
+SWIGINTERN libtorrent::peer_snubbed_alert const *libtorrent_alert_cast_to_peer_snubbed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_snubbed_alert>(alert);      }
+SWIGINTERN libtorrent::peer_error_alert const *libtorrent_alert_cast_to_peer_error_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_error_alert>(alert);      }
+SWIGINTERN libtorrent::peer_connect_alert const *libtorrent_alert_cast_to_peer_connect_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_connect_alert>(alert);      }
+SWIGINTERN libtorrent::peer_disconnected_alert const *libtorrent_alert_cast_to_peer_disconnected_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_disconnected_alert>(alert);      }
+SWIGINTERN libtorrent::invalid_request_alert const *libtorrent_alert_cast_to_invalid_request_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::invalid_request_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_finished_alert const *libtorrent_alert_cast_to_torrent_finished_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_finished_alert>(alert);      }
+SWIGINTERN libtorrent::piece_finished_alert const *libtorrent_alert_cast_to_piece_finished_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::piece_finished_alert>(alert);      }
+SWIGINTERN libtorrent::request_dropped_alert const *libtorrent_alert_cast_to_request_dropped_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::request_dropped_alert>(alert);      }
+SWIGINTERN libtorrent::block_timeout_alert const *libtorrent_alert_cast_to_block_timeout_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::block_timeout_alert>(alert);      }
+SWIGINTERN libtorrent::block_finished_alert const *libtorrent_alert_cast_to_block_finished_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::block_finished_alert>(alert);      }
+SWIGINTERN libtorrent::block_downloading_alert const *libtorrent_alert_cast_to_block_downloading_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::block_downloading_alert>(alert);      }
+SWIGINTERN libtorrent::unwanted_block_alert const *libtorrent_alert_cast_to_unwanted_block_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::unwanted_block_alert>(alert);      }
+SWIGINTERN libtorrent::storage_moved_alert const *libtorrent_alert_cast_to_storage_moved_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::storage_moved_alert>(alert);      }
+SWIGINTERN libtorrent::storage_moved_failed_alert const *libtorrent_alert_cast_to_storage_moved_failed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::storage_moved_failed_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_deleted_alert const *libtorrent_alert_cast_to_torrent_deleted_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_deleted_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_delete_failed_alert const *libtorrent_alert_cast_to_torrent_delete_failed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_delete_failed_alert>(alert);      }
+SWIGINTERN libtorrent::save_resume_data_alert const *libtorrent_alert_cast_to_save_resume_data_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::save_resume_data_alert>(alert);      }
+SWIGINTERN libtorrent::save_resume_data_failed_alert const *libtorrent_alert_cast_to_save_resume_data_failed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::save_resume_data_failed_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_paused_alert const *libtorrent_alert_cast_to_torrent_paused_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_paused_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_resumed_alert const *libtorrent_alert_cast_to_torrent_resumed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_resumed_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_checked_alert const *libtorrent_alert_cast_to_torrent_checked_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_checked_alert>(alert);      }
+SWIGINTERN libtorrent::url_seed_alert const *libtorrent_alert_cast_to_url_seed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::url_seed_alert>(alert);      }
+SWIGINTERN libtorrent::file_error_alert const *libtorrent_alert_cast_to_file_error_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::file_error_alert>(alert);      }
+SWIGINTERN libtorrent::metadata_failed_alert const *libtorrent_alert_cast_to_metadata_failed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::metadata_failed_alert>(alert);      }
+SWIGINTERN libtorrent::metadata_received_alert const *libtorrent_alert_cast_to_metadata_received_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::metadata_received_alert>(alert);      }
+SWIGINTERN libtorrent::udp_error_alert const *libtorrent_alert_cast_to_udp_error_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::udp_error_alert>(alert);      }
+SWIGINTERN libtorrent::external_ip_alert const *libtorrent_alert_cast_to_external_ip_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::external_ip_alert>(alert);      }
+SWIGINTERN libtorrent::listen_failed_alert const *libtorrent_alert_cast_to_listen_failed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::listen_failed_alert>(alert);      }
+SWIGINTERN libtorrent::listen_succeeded_alert const *libtorrent_alert_cast_to_listen_succeeded_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::listen_succeeded_alert>(alert);      }
+SWIGINTERN libtorrent::portmap_error_alert const *libtorrent_alert_cast_to_portmap_error_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::portmap_error_alert>(alert);      }
+SWIGINTERN libtorrent::portmap_alert const *libtorrent_alert_cast_to_portmap_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::portmap_alert>(alert);      }
+SWIGINTERN libtorrent::portmap_log_alert const *libtorrent_alert_cast_to_portmap_log_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::portmap_log_alert>(alert);      }
+SWIGINTERN libtorrent::fastresume_rejected_alert const *libtorrent_alert_cast_to_fastresume_rejected_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::fastresume_rejected_alert>(alert);      }
+SWIGINTERN libtorrent::peer_blocked_alert const *libtorrent_alert_cast_to_peer_blocked_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_blocked_alert>(alert);      }
+SWIGINTERN libtorrent::dht_announce_alert const *libtorrent_alert_cast_to_dht_announce_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_announce_alert>(alert);      }
+SWIGINTERN libtorrent::dht_get_peers_alert const *libtorrent_alert_cast_to_dht_get_peers_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_get_peers_alert>(alert);      }
+SWIGINTERN libtorrent::stats_alert const *libtorrent_alert_cast_to_stats_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::stats_alert>(alert);      }
+SWIGINTERN libtorrent::cache_flushed_alert const *libtorrent_alert_cast_to_cache_flushed_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::cache_flushed_alert>(alert);      }
+SWIGINTERN libtorrent::anonymous_mode_alert const *libtorrent_alert_cast_to_anonymous_mode_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::anonymous_mode_alert>(alert);      }
+SWIGINTERN libtorrent::lsd_peer_alert const *libtorrent_alert_cast_to_lsd_peer_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::lsd_peer_alert>(alert);      }
+SWIGINTERN libtorrent::trackerid_alert const *libtorrent_alert_cast_to_trackerid_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::trackerid_alert>(alert);      }
+SWIGINTERN libtorrent::dht_bootstrap_alert const *libtorrent_alert_cast_to_dht_bootstrap_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_bootstrap_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_error_alert const *libtorrent_alert_cast_to_torrent_error_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_error_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_need_cert_alert const *libtorrent_alert_cast_to_torrent_need_cert_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_need_cert_alert>(alert);      }
+SWIGINTERN libtorrent::incoming_connection_alert const *libtorrent_alert_cast_to_incoming_connection_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::incoming_connection_alert>(alert);      }
+SWIGINTERN libtorrent::add_torrent_alert const *libtorrent_alert_cast_to_add_torrent_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::add_torrent_alert>(alert);      }
+SWIGINTERN libtorrent::state_update_alert const *libtorrent_alert_cast_to_state_update_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::state_update_alert>(alert);      }
+SWIGINTERN libtorrent::mmap_cache_alert const *libtorrent_alert_cast_to_mmap_cache_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::mmap_cache_alert>(alert);      }
+SWIGINTERN libtorrent::session_stats_alert const *libtorrent_alert_cast_to_session_stats_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::session_stats_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_update_alert const *libtorrent_alert_cast_to_torrent_update_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_update_alert>(alert);      }
+SWIGINTERN libtorrent::dht_error_alert const *libtorrent_alert_cast_to_dht_error_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_error_alert>(alert);      }
+SWIGINTERN libtorrent::dht_immutable_item_alert const *libtorrent_alert_cast_to_dht_immutable_item_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_immutable_item_alert>(alert);      }
+SWIGINTERN libtorrent::dht_mutable_item_alert const *libtorrent_alert_cast_to_dht_mutable_item_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_mutable_item_alert>(alert);      }
+SWIGINTERN libtorrent::dht_put_alert const *libtorrent_alert_cast_to_dht_put_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_put_alert>(alert);      }
+SWIGINTERN libtorrent::i2p_alert const *libtorrent_alert_cast_to_i2p_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::i2p_alert>(alert);      }
+SWIGINTERN libtorrent::dht_outgoing_get_peers_alert const *libtorrent_alert_cast_to_dht_outgoing_get_peers_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_outgoing_get_peers_alert>(alert);      }
+SWIGINTERN libtorrent::log_alert const *libtorrent_alert_cast_to_log_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::log_alert>(alert);      }
+SWIGINTERN libtorrent::torrent_log_alert const *libtorrent_alert_cast_to_torrent_log_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::torrent_log_alert>(alert);      }
+SWIGINTERN libtorrent::peer_log_alert const *libtorrent_alert_cast_to_peer_log_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::peer_log_alert>(alert);      }
+SWIGINTERN libtorrent::lsd_error_alert const *libtorrent_alert_cast_to_lsd_error_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::lsd_error_alert>(alert);      }
+SWIGINTERN libtorrent::dht_stats_alert const *libtorrent_alert_cast_to_dht_stats_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_stats_alert>(alert);      }
+SWIGINTERN libtorrent::incoming_request_alert const *libtorrent_alert_cast_to_incoming_request_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::incoming_request_alert>(alert);      }
+SWIGINTERN libtorrent::dht_log_alert const *libtorrent_alert_cast_to_dht_log_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_log_alert>(alert);      }
+SWIGINTERN libtorrent::dht_pkt_alert const *libtorrent_alert_cast_to_dht_pkt_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_pkt_alert>(alert);      }
+SWIGINTERN libtorrent::dht_get_peers_reply_alert const *libtorrent_alert_cast_to_dht_get_peers_reply_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_get_peers_reply_alert>(alert);      }
+SWIGINTERN libtorrent::dht_direct_response_alert const *libtorrent_alert_cast_to_dht_direct_response_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::dht_direct_response_alert>(alert);      }
+SWIGINTERN libtorrent::picker_log_alert const *libtorrent_alert_cast_to_picker_log_alert(libtorrent::alert const *alert){          return alert_cast<libtorrent::picker_log_alert>(alert);      }
 SWIGINTERN libtorrent::entry libtorrent_save_resume_data_alert_get_resume_data(libtorrent::save_resume_data_alert *self){
         return *(self->resume_data);
     }
@@ -22362,7 +22362,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_alert *)libtorrent_alert_cast_to_torrent_alert(arg1);
+  result = (libtorrent::torrent_alert *)libtorrent_alert_cast_to_torrent_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_alert **)&jresult = result; 
   return jresult;
 }
@@ -22377,7 +22377,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_alert *)libtorrent_alert_cast_to_peer_alert(arg1);
+  result = (libtorrent::peer_alert *)libtorrent_alert_cast_to_peer_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_alert **)&jresult = result; 
   return jresult;
 }
@@ -22392,7 +22392,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::tracker_alert *)libtorrent_alert_cast_to_tracker_alert(arg1);
+  result = (libtorrent::tracker_alert *)libtorrent_alert_cast_to_tracker_alert((libtorrent::alert const *)arg1);
   *(libtorrent::tracker_alert **)&jresult = result; 
   return jresult;
 }
@@ -22407,7 +22407,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_added_alert *)libtorrent_alert_cast_to_torrent_added_alert(arg1);
+  result = (libtorrent::torrent_added_alert *)libtorrent_alert_cast_to_torrent_added_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_added_alert **)&jresult = result; 
   return jresult;
 }
@@ -22422,7 +22422,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_removed_alert *)libtorrent_alert_cast_to_torrent_removed_alert(arg1);
+  result = (libtorrent::torrent_removed_alert *)libtorrent_alert_cast_to_torrent_removed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_removed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22437,7 +22437,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::read_piece_alert *)libtorrent_alert_cast_to_read_piece_alert(arg1);
+  result = (libtorrent::read_piece_alert *)libtorrent_alert_cast_to_read_piece_alert((libtorrent::alert const *)arg1);
   *(libtorrent::read_piece_alert **)&jresult = result; 
   return jresult;
 }
@@ -22452,7 +22452,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::file_completed_alert *)libtorrent_alert_cast_to_file_completed_alert(arg1);
+  result = (libtorrent::file_completed_alert *)libtorrent_alert_cast_to_file_completed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::file_completed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22467,7 +22467,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::file_renamed_alert *)libtorrent_alert_cast_to_file_renamed_alert(arg1);
+  result = (libtorrent::file_renamed_alert *)libtorrent_alert_cast_to_file_renamed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::file_renamed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22482,7 +22482,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::file_rename_failed_alert *)libtorrent_alert_cast_to_file_rename_failed_alert(arg1);
+  result = (libtorrent::file_rename_failed_alert *)libtorrent_alert_cast_to_file_rename_failed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::file_rename_failed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22497,7 +22497,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::performance_alert *)libtorrent_alert_cast_to_performance_alert(arg1);
+  result = (libtorrent::performance_alert *)libtorrent_alert_cast_to_performance_alert((libtorrent::alert const *)arg1);
   *(libtorrent::performance_alert **)&jresult = result; 
   return jresult;
 }
@@ -22512,7 +22512,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::state_changed_alert *)libtorrent_alert_cast_to_state_changed_alert(arg1);
+  result = (libtorrent::state_changed_alert *)libtorrent_alert_cast_to_state_changed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::state_changed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22527,7 +22527,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::tracker_error_alert *)libtorrent_alert_cast_to_tracker_error_alert(arg1);
+  result = (libtorrent::tracker_error_alert *)libtorrent_alert_cast_to_tracker_error_alert((libtorrent::alert const *)arg1);
   *(libtorrent::tracker_error_alert **)&jresult = result; 
   return jresult;
 }
@@ -22542,7 +22542,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::tracker_warning_alert *)libtorrent_alert_cast_to_tracker_warning_alert(arg1);
+  result = (libtorrent::tracker_warning_alert *)libtorrent_alert_cast_to_tracker_warning_alert((libtorrent::alert const *)arg1);
   *(libtorrent::tracker_warning_alert **)&jresult = result; 
   return jresult;
 }
@@ -22557,7 +22557,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::scrape_reply_alert *)libtorrent_alert_cast_to_scrape_reply_alert(arg1);
+  result = (libtorrent::scrape_reply_alert *)libtorrent_alert_cast_to_scrape_reply_alert((libtorrent::alert const *)arg1);
   *(libtorrent::scrape_reply_alert **)&jresult = result; 
   return jresult;
 }
@@ -22572,7 +22572,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::scrape_failed_alert *)libtorrent_alert_cast_to_scrape_failed_alert(arg1);
+  result = (libtorrent::scrape_failed_alert *)libtorrent_alert_cast_to_scrape_failed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::scrape_failed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22587,7 +22587,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::tracker_reply_alert *)libtorrent_alert_cast_to_tracker_reply_alert(arg1);
+  result = (libtorrent::tracker_reply_alert *)libtorrent_alert_cast_to_tracker_reply_alert((libtorrent::alert const *)arg1);
   *(libtorrent::tracker_reply_alert **)&jresult = result; 
   return jresult;
 }
@@ -22602,7 +22602,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_reply_alert *)libtorrent_alert_cast_to_dht_reply_alert(arg1);
+  result = (libtorrent::dht_reply_alert *)libtorrent_alert_cast_to_dht_reply_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_reply_alert **)&jresult = result; 
   return jresult;
 }
@@ -22617,7 +22617,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::tracker_announce_alert *)libtorrent_alert_cast_to_tracker_announce_alert(arg1);
+  result = (libtorrent::tracker_announce_alert *)libtorrent_alert_cast_to_tracker_announce_alert((libtorrent::alert const *)arg1);
   *(libtorrent::tracker_announce_alert **)&jresult = result; 
   return jresult;
 }
@@ -22632,7 +22632,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::hash_failed_alert *)libtorrent_alert_cast_to_hash_failed_alert(arg1);
+  result = (libtorrent::hash_failed_alert *)libtorrent_alert_cast_to_hash_failed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::hash_failed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22647,7 +22647,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_ban_alert *)libtorrent_alert_cast_to_peer_ban_alert(arg1);
+  result = (libtorrent::peer_ban_alert *)libtorrent_alert_cast_to_peer_ban_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_ban_alert **)&jresult = result; 
   return jresult;
 }
@@ -22662,7 +22662,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_unsnubbed_alert *)libtorrent_alert_cast_to_peer_unsnubbed_alert(arg1);
+  result = (libtorrent::peer_unsnubbed_alert *)libtorrent_alert_cast_to_peer_unsnubbed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_unsnubbed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22677,7 +22677,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_snubbed_alert *)libtorrent_alert_cast_to_peer_snubbed_alert(arg1);
+  result = (libtorrent::peer_snubbed_alert *)libtorrent_alert_cast_to_peer_snubbed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_snubbed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22692,7 +22692,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_error_alert *)libtorrent_alert_cast_to_peer_error_alert(arg1);
+  result = (libtorrent::peer_error_alert *)libtorrent_alert_cast_to_peer_error_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_error_alert **)&jresult = result; 
   return jresult;
 }
@@ -22707,7 +22707,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_connect_alert *)libtorrent_alert_cast_to_peer_connect_alert(arg1);
+  result = (libtorrent::peer_connect_alert *)libtorrent_alert_cast_to_peer_connect_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_connect_alert **)&jresult = result; 
   return jresult;
 }
@@ -22722,7 +22722,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_disconnected_alert *)libtorrent_alert_cast_to_peer_disconnected_alert(arg1);
+  result = (libtorrent::peer_disconnected_alert *)libtorrent_alert_cast_to_peer_disconnected_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_disconnected_alert **)&jresult = result; 
   return jresult;
 }
@@ -22737,7 +22737,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::invalid_request_alert *)libtorrent_alert_cast_to_invalid_request_alert(arg1);
+  result = (libtorrent::invalid_request_alert *)libtorrent_alert_cast_to_invalid_request_alert((libtorrent::alert const *)arg1);
   *(libtorrent::invalid_request_alert **)&jresult = result; 
   return jresult;
 }
@@ -22752,7 +22752,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_finished_alert *)libtorrent_alert_cast_to_torrent_finished_alert(arg1);
+  result = (libtorrent::torrent_finished_alert *)libtorrent_alert_cast_to_torrent_finished_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_finished_alert **)&jresult = result; 
   return jresult;
 }
@@ -22767,7 +22767,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::piece_finished_alert *)libtorrent_alert_cast_to_piece_finished_alert(arg1);
+  result = (libtorrent::piece_finished_alert *)libtorrent_alert_cast_to_piece_finished_alert((libtorrent::alert const *)arg1);
   *(libtorrent::piece_finished_alert **)&jresult = result; 
   return jresult;
 }
@@ -22782,7 +22782,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::request_dropped_alert *)libtorrent_alert_cast_to_request_dropped_alert(arg1);
+  result = (libtorrent::request_dropped_alert *)libtorrent_alert_cast_to_request_dropped_alert((libtorrent::alert const *)arg1);
   *(libtorrent::request_dropped_alert **)&jresult = result; 
   return jresult;
 }
@@ -22797,7 +22797,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::block_timeout_alert *)libtorrent_alert_cast_to_block_timeout_alert(arg1);
+  result = (libtorrent::block_timeout_alert *)libtorrent_alert_cast_to_block_timeout_alert((libtorrent::alert const *)arg1);
   *(libtorrent::block_timeout_alert **)&jresult = result; 
   return jresult;
 }
@@ -22812,7 +22812,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::block_finished_alert *)libtorrent_alert_cast_to_block_finished_alert(arg1);
+  result = (libtorrent::block_finished_alert *)libtorrent_alert_cast_to_block_finished_alert((libtorrent::alert const *)arg1);
   *(libtorrent::block_finished_alert **)&jresult = result; 
   return jresult;
 }
@@ -22827,7 +22827,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::block_downloading_alert *)libtorrent_alert_cast_to_block_downloading_alert(arg1);
+  result = (libtorrent::block_downloading_alert *)libtorrent_alert_cast_to_block_downloading_alert((libtorrent::alert const *)arg1);
   *(libtorrent::block_downloading_alert **)&jresult = result; 
   return jresult;
 }
@@ -22842,7 +22842,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::unwanted_block_alert *)libtorrent_alert_cast_to_unwanted_block_alert(arg1);
+  result = (libtorrent::unwanted_block_alert *)libtorrent_alert_cast_to_unwanted_block_alert((libtorrent::alert const *)arg1);
   *(libtorrent::unwanted_block_alert **)&jresult = result; 
   return jresult;
 }
@@ -22857,7 +22857,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::storage_moved_alert *)libtorrent_alert_cast_to_storage_moved_alert(arg1);
+  result = (libtorrent::storage_moved_alert *)libtorrent_alert_cast_to_storage_moved_alert((libtorrent::alert const *)arg1);
   *(libtorrent::storage_moved_alert **)&jresult = result; 
   return jresult;
 }
@@ -22872,7 +22872,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::storage_moved_failed_alert *)libtorrent_alert_cast_to_storage_moved_failed_alert(arg1);
+  result = (libtorrent::storage_moved_failed_alert *)libtorrent_alert_cast_to_storage_moved_failed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::storage_moved_failed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22887,7 +22887,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_deleted_alert *)libtorrent_alert_cast_to_torrent_deleted_alert(arg1);
+  result = (libtorrent::torrent_deleted_alert *)libtorrent_alert_cast_to_torrent_deleted_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_deleted_alert **)&jresult = result; 
   return jresult;
 }
@@ -22902,7 +22902,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_delete_failed_alert *)libtorrent_alert_cast_to_torrent_delete_failed_alert(arg1);
+  result = (libtorrent::torrent_delete_failed_alert *)libtorrent_alert_cast_to_torrent_delete_failed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_delete_failed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22917,7 +22917,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::save_resume_data_alert *)libtorrent_alert_cast_to_save_resume_data_alert(arg1);
+  result = (libtorrent::save_resume_data_alert *)libtorrent_alert_cast_to_save_resume_data_alert((libtorrent::alert const *)arg1);
   *(libtorrent::save_resume_data_alert **)&jresult = result; 
   return jresult;
 }
@@ -22932,7 +22932,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::save_resume_data_failed_alert *)libtorrent_alert_cast_to_save_resume_data_failed_alert(arg1);
+  result = (libtorrent::save_resume_data_failed_alert *)libtorrent_alert_cast_to_save_resume_data_failed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::save_resume_data_failed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22947,7 +22947,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_paused_alert *)libtorrent_alert_cast_to_torrent_paused_alert(arg1);
+  result = (libtorrent::torrent_paused_alert *)libtorrent_alert_cast_to_torrent_paused_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_paused_alert **)&jresult = result; 
   return jresult;
 }
@@ -22962,7 +22962,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_resumed_alert *)libtorrent_alert_cast_to_torrent_resumed_alert(arg1);
+  result = (libtorrent::torrent_resumed_alert *)libtorrent_alert_cast_to_torrent_resumed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_resumed_alert **)&jresult = result; 
   return jresult;
 }
@@ -22977,7 +22977,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_checked_alert *)libtorrent_alert_cast_to_torrent_checked_alert(arg1);
+  result = (libtorrent::torrent_checked_alert *)libtorrent_alert_cast_to_torrent_checked_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_checked_alert **)&jresult = result; 
   return jresult;
 }
@@ -22992,7 +22992,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::url_seed_alert *)libtorrent_alert_cast_to_url_seed_alert(arg1);
+  result = (libtorrent::url_seed_alert *)libtorrent_alert_cast_to_url_seed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::url_seed_alert **)&jresult = result; 
   return jresult;
 }
@@ -23007,7 +23007,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::file_error_alert *)libtorrent_alert_cast_to_file_error_alert(arg1);
+  result = (libtorrent::file_error_alert *)libtorrent_alert_cast_to_file_error_alert((libtorrent::alert const *)arg1);
   *(libtorrent::file_error_alert **)&jresult = result; 
   return jresult;
 }
@@ -23022,7 +23022,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::metadata_failed_alert *)libtorrent_alert_cast_to_metadata_failed_alert(arg1);
+  result = (libtorrent::metadata_failed_alert *)libtorrent_alert_cast_to_metadata_failed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::metadata_failed_alert **)&jresult = result; 
   return jresult;
 }
@@ -23037,7 +23037,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::metadata_received_alert *)libtorrent_alert_cast_to_metadata_received_alert(arg1);
+  result = (libtorrent::metadata_received_alert *)libtorrent_alert_cast_to_metadata_received_alert((libtorrent::alert const *)arg1);
   *(libtorrent::metadata_received_alert **)&jresult = result; 
   return jresult;
 }
@@ -23052,7 +23052,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::udp_error_alert *)libtorrent_alert_cast_to_udp_error_alert(arg1);
+  result = (libtorrent::udp_error_alert *)libtorrent_alert_cast_to_udp_error_alert((libtorrent::alert const *)arg1);
   *(libtorrent::udp_error_alert **)&jresult = result; 
   return jresult;
 }
@@ -23067,7 +23067,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::external_ip_alert *)libtorrent_alert_cast_to_external_ip_alert(arg1);
+  result = (libtorrent::external_ip_alert *)libtorrent_alert_cast_to_external_ip_alert((libtorrent::alert const *)arg1);
   *(libtorrent::external_ip_alert **)&jresult = result; 
   return jresult;
 }
@@ -23082,7 +23082,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::listen_failed_alert *)libtorrent_alert_cast_to_listen_failed_alert(arg1);
+  result = (libtorrent::listen_failed_alert *)libtorrent_alert_cast_to_listen_failed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::listen_failed_alert **)&jresult = result; 
   return jresult;
 }
@@ -23097,7 +23097,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::listen_succeeded_alert *)libtorrent_alert_cast_to_listen_succeeded_alert(arg1);
+  result = (libtorrent::listen_succeeded_alert *)libtorrent_alert_cast_to_listen_succeeded_alert((libtorrent::alert const *)arg1);
   *(libtorrent::listen_succeeded_alert **)&jresult = result; 
   return jresult;
 }
@@ -23112,7 +23112,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::portmap_error_alert *)libtorrent_alert_cast_to_portmap_error_alert(arg1);
+  result = (libtorrent::portmap_error_alert *)libtorrent_alert_cast_to_portmap_error_alert((libtorrent::alert const *)arg1);
   *(libtorrent::portmap_error_alert **)&jresult = result; 
   return jresult;
 }
@@ -23127,7 +23127,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::portmap_alert *)libtorrent_alert_cast_to_portmap_alert(arg1);
+  result = (libtorrent::portmap_alert *)libtorrent_alert_cast_to_portmap_alert((libtorrent::alert const *)arg1);
   *(libtorrent::portmap_alert **)&jresult = result; 
   return jresult;
 }
@@ -23142,7 +23142,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::portmap_log_alert *)libtorrent_alert_cast_to_portmap_log_alert(arg1);
+  result = (libtorrent::portmap_log_alert *)libtorrent_alert_cast_to_portmap_log_alert((libtorrent::alert const *)arg1);
   *(libtorrent::portmap_log_alert **)&jresult = result; 
   return jresult;
 }
@@ -23157,7 +23157,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::fastresume_rejected_alert *)libtorrent_alert_cast_to_fastresume_rejected_alert(arg1);
+  result = (libtorrent::fastresume_rejected_alert *)libtorrent_alert_cast_to_fastresume_rejected_alert((libtorrent::alert const *)arg1);
   *(libtorrent::fastresume_rejected_alert **)&jresult = result; 
   return jresult;
 }
@@ -23172,7 +23172,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_blocked_alert *)libtorrent_alert_cast_to_peer_blocked_alert(arg1);
+  result = (libtorrent::peer_blocked_alert *)libtorrent_alert_cast_to_peer_blocked_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_blocked_alert **)&jresult = result; 
   return jresult;
 }
@@ -23187,7 +23187,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_announce_alert *)libtorrent_alert_cast_to_dht_announce_alert(arg1);
+  result = (libtorrent::dht_announce_alert *)libtorrent_alert_cast_to_dht_announce_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_announce_alert **)&jresult = result; 
   return jresult;
 }
@@ -23202,7 +23202,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_get_peers_alert *)libtorrent_alert_cast_to_dht_get_peers_alert(arg1);
+  result = (libtorrent::dht_get_peers_alert *)libtorrent_alert_cast_to_dht_get_peers_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_get_peers_alert **)&jresult = result; 
   return jresult;
 }
@@ -23217,7 +23217,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::stats_alert *)libtorrent_alert_cast_to_stats_alert(arg1);
+  result = (libtorrent::stats_alert *)libtorrent_alert_cast_to_stats_alert((libtorrent::alert const *)arg1);
   *(libtorrent::stats_alert **)&jresult = result; 
   return jresult;
 }
@@ -23232,7 +23232,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::cache_flushed_alert *)libtorrent_alert_cast_to_cache_flushed_alert(arg1);
+  result = (libtorrent::cache_flushed_alert *)libtorrent_alert_cast_to_cache_flushed_alert((libtorrent::alert const *)arg1);
   *(libtorrent::cache_flushed_alert **)&jresult = result; 
   return jresult;
 }
@@ -23247,7 +23247,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::anonymous_mode_alert *)libtorrent_alert_cast_to_anonymous_mode_alert(arg1);
+  result = (libtorrent::anonymous_mode_alert *)libtorrent_alert_cast_to_anonymous_mode_alert((libtorrent::alert const *)arg1);
   *(libtorrent::anonymous_mode_alert **)&jresult = result; 
   return jresult;
 }
@@ -23262,7 +23262,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::lsd_peer_alert *)libtorrent_alert_cast_to_lsd_peer_alert(arg1);
+  result = (libtorrent::lsd_peer_alert *)libtorrent_alert_cast_to_lsd_peer_alert((libtorrent::alert const *)arg1);
   *(libtorrent::lsd_peer_alert **)&jresult = result; 
   return jresult;
 }
@@ -23277,7 +23277,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::trackerid_alert *)libtorrent_alert_cast_to_trackerid_alert(arg1);
+  result = (libtorrent::trackerid_alert *)libtorrent_alert_cast_to_trackerid_alert((libtorrent::alert const *)arg1);
   *(libtorrent::trackerid_alert **)&jresult = result; 
   return jresult;
 }
@@ -23292,7 +23292,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_bootstrap_alert *)libtorrent_alert_cast_to_dht_bootstrap_alert(arg1);
+  result = (libtorrent::dht_bootstrap_alert *)libtorrent_alert_cast_to_dht_bootstrap_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_bootstrap_alert **)&jresult = result; 
   return jresult;
 }
@@ -23307,7 +23307,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_error_alert *)libtorrent_alert_cast_to_torrent_error_alert(arg1);
+  result = (libtorrent::torrent_error_alert *)libtorrent_alert_cast_to_torrent_error_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_error_alert **)&jresult = result; 
   return jresult;
 }
@@ -23322,7 +23322,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_need_cert_alert *)libtorrent_alert_cast_to_torrent_need_cert_alert(arg1);
+  result = (libtorrent::torrent_need_cert_alert *)libtorrent_alert_cast_to_torrent_need_cert_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_need_cert_alert **)&jresult = result; 
   return jresult;
 }
@@ -23337,7 +23337,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::incoming_connection_alert *)libtorrent_alert_cast_to_incoming_connection_alert(arg1);
+  result = (libtorrent::incoming_connection_alert *)libtorrent_alert_cast_to_incoming_connection_alert((libtorrent::alert const *)arg1);
   *(libtorrent::incoming_connection_alert **)&jresult = result; 
   return jresult;
 }
@@ -23352,7 +23352,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::add_torrent_alert *)libtorrent_alert_cast_to_add_torrent_alert(arg1);
+  result = (libtorrent::add_torrent_alert *)libtorrent_alert_cast_to_add_torrent_alert((libtorrent::alert const *)arg1);
   *(libtorrent::add_torrent_alert **)&jresult = result; 
   return jresult;
 }
@@ -23367,7 +23367,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::state_update_alert *)libtorrent_alert_cast_to_state_update_alert(arg1);
+  result = (libtorrent::state_update_alert *)libtorrent_alert_cast_to_state_update_alert((libtorrent::alert const *)arg1);
   *(libtorrent::state_update_alert **)&jresult = result; 
   return jresult;
 }
@@ -23382,7 +23382,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::mmap_cache_alert *)libtorrent_alert_cast_to_mmap_cache_alert(arg1);
+  result = (libtorrent::mmap_cache_alert *)libtorrent_alert_cast_to_mmap_cache_alert((libtorrent::alert const *)arg1);
   *(libtorrent::mmap_cache_alert **)&jresult = result; 
   return jresult;
 }
@@ -23397,7 +23397,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::session_stats_alert *)libtorrent_alert_cast_to_session_stats_alert(arg1);
+  result = (libtorrent::session_stats_alert *)libtorrent_alert_cast_to_session_stats_alert((libtorrent::alert const *)arg1);
   *(libtorrent::session_stats_alert **)&jresult = result; 
   return jresult;
 }
@@ -23412,7 +23412,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_update_alert *)libtorrent_alert_cast_to_torrent_update_alert(arg1);
+  result = (libtorrent::torrent_update_alert *)libtorrent_alert_cast_to_torrent_update_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_update_alert **)&jresult = result; 
   return jresult;
 }
@@ -23427,7 +23427,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_error_alert *)libtorrent_alert_cast_to_dht_error_alert(arg1);
+  result = (libtorrent::dht_error_alert *)libtorrent_alert_cast_to_dht_error_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_error_alert **)&jresult = result; 
   return jresult;
 }
@@ -23442,7 +23442,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_immutable_item_alert *)libtorrent_alert_cast_to_dht_immutable_item_alert(arg1);
+  result = (libtorrent::dht_immutable_item_alert *)libtorrent_alert_cast_to_dht_immutable_item_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_immutable_item_alert **)&jresult = result; 
   return jresult;
 }
@@ -23457,7 +23457,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_mutable_item_alert *)libtorrent_alert_cast_to_dht_mutable_item_alert(arg1);
+  result = (libtorrent::dht_mutable_item_alert *)libtorrent_alert_cast_to_dht_mutable_item_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_mutable_item_alert **)&jresult = result; 
   return jresult;
 }
@@ -23472,7 +23472,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_put_alert *)libtorrent_alert_cast_to_dht_put_alert(arg1);
+  result = (libtorrent::dht_put_alert *)libtorrent_alert_cast_to_dht_put_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_put_alert **)&jresult = result; 
   return jresult;
 }
@@ -23487,7 +23487,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::i2p_alert *)libtorrent_alert_cast_to_i2p_alert(arg1);
+  result = (libtorrent::i2p_alert *)libtorrent_alert_cast_to_i2p_alert((libtorrent::alert const *)arg1);
   *(libtorrent::i2p_alert **)&jresult = result; 
   return jresult;
 }
@@ -23502,7 +23502,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_outgoing_get_peers_alert *)libtorrent_alert_cast_to_dht_outgoing_get_peers_alert(arg1);
+  result = (libtorrent::dht_outgoing_get_peers_alert *)libtorrent_alert_cast_to_dht_outgoing_get_peers_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_outgoing_get_peers_alert **)&jresult = result; 
   return jresult;
 }
@@ -23517,7 +23517,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::log_alert *)libtorrent_alert_cast_to_log_alert(arg1);
+  result = (libtorrent::log_alert *)libtorrent_alert_cast_to_log_alert((libtorrent::alert const *)arg1);
   *(libtorrent::log_alert **)&jresult = result; 
   return jresult;
 }
@@ -23532,7 +23532,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::torrent_log_alert *)libtorrent_alert_cast_to_torrent_log_alert(arg1);
+  result = (libtorrent::torrent_log_alert *)libtorrent_alert_cast_to_torrent_log_alert((libtorrent::alert const *)arg1);
   *(libtorrent::torrent_log_alert **)&jresult = result; 
   return jresult;
 }
@@ -23547,7 +23547,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::peer_log_alert *)libtorrent_alert_cast_to_peer_log_alert(arg1);
+  result = (libtorrent::peer_log_alert *)libtorrent_alert_cast_to_peer_log_alert((libtorrent::alert const *)arg1);
   *(libtorrent::peer_log_alert **)&jresult = result; 
   return jresult;
 }
@@ -23562,7 +23562,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::lsd_error_alert *)libtorrent_alert_cast_to_lsd_error_alert(arg1);
+  result = (libtorrent::lsd_error_alert *)libtorrent_alert_cast_to_lsd_error_alert((libtorrent::alert const *)arg1);
   *(libtorrent::lsd_error_alert **)&jresult = result; 
   return jresult;
 }
@@ -23577,7 +23577,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_stats_alert *)libtorrent_alert_cast_to_dht_stats_alert(arg1);
+  result = (libtorrent::dht_stats_alert *)libtorrent_alert_cast_to_dht_stats_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_stats_alert **)&jresult = result; 
   return jresult;
 }
@@ -23592,7 +23592,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::incoming_request_alert *)libtorrent_alert_cast_to_incoming_request_alert(arg1);
+  result = (libtorrent::incoming_request_alert *)libtorrent_alert_cast_to_incoming_request_alert((libtorrent::alert const *)arg1);
   *(libtorrent::incoming_request_alert **)&jresult = result; 
   return jresult;
 }
@@ -23607,7 +23607,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_log_alert *)libtorrent_alert_cast_to_dht_log_alert(arg1);
+  result = (libtorrent::dht_log_alert *)libtorrent_alert_cast_to_dht_log_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_log_alert **)&jresult = result; 
   return jresult;
 }
@@ -23622,7 +23622,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_pkt_alert *)libtorrent_alert_cast_to_dht_pkt_alert(arg1);
+  result = (libtorrent::dht_pkt_alert *)libtorrent_alert_cast_to_dht_pkt_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_pkt_alert **)&jresult = result; 
   return jresult;
 }
@@ -23637,7 +23637,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_get_peers_reply_alert *)libtorrent_alert_cast_to_dht_get_peers_reply_alert(arg1);
+  result = (libtorrent::dht_get_peers_reply_alert *)libtorrent_alert_cast_to_dht_get_peers_reply_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_get_peers_reply_alert **)&jresult = result; 
   return jresult;
 }
@@ -23652,7 +23652,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::dht_direct_response_alert *)libtorrent_alert_cast_to_dht_direct_response_alert(arg1);
+  result = (libtorrent::dht_direct_response_alert *)libtorrent_alert_cast_to_dht_direct_response_alert((libtorrent::alert const *)arg1);
   *(libtorrent::dht_direct_response_alert **)&jresult = result; 
   return jresult;
 }
@@ -23667,7 +23667,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::alert **)&jarg1; 
-  result = (libtorrent::picker_log_alert *)libtorrent_alert_cast_to_picker_log_alert(arg1);
+  result = (libtorrent::picker_log_alert *)libtorrent_alert_cast_to_picker_log_alert((libtorrent::alert const *)arg1);
   *(libtorrent::picker_log_alert **)&jresult = result; 
   return jresult;
 }
@@ -51070,7 +51070,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("2dc99dd3efeacd1a149e1161cf9faa52cf75611b");
+  result = (char *)("3330e6454139a472baa121dadb22f1d807e0e152");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -51221,7 +51221,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1listener_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
   add_files_listener *obj = *((add_files_listener **)&objarg);
   (void)jcls;
-  SwigDirector_add_files_listener *director = reinterpret_cast<SwigDirector_add_files_listener *>(obj);
+  SwigDirector_add_files_listener *director = static_cast<SwigDirector_add_files_listener *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -51230,7 +51230,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1listener_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   add_files_listener *obj = *((add_files_listener **)&objarg);
-  SwigDirector_add_files_listener *director = reinterpret_cast<SwigDirector_add_files_listener *>(obj);
+  SwigDirector_add_files_listener *director = static_cast<SwigDirector_add_files_listener *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -51344,7 +51344,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
   set_piece_hashes_listener *obj = *((set_piece_hashes_listener **)&objarg);
   (void)jcls;
-  SwigDirector_set_piece_hashes_listener *director = reinterpret_cast<SwigDirector_set_piece_hashes_listener *>(obj);
+  SwigDirector_set_piece_hashes_listener *director = static_cast<SwigDirector_set_piece_hashes_listener *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -51353,7 +51353,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   set_piece_hashes_listener *obj = *((set_piece_hashes_listener **)&objarg);
-  SwigDirector_set_piece_hashes_listener *director = reinterpret_cast<SwigDirector_set_piece_hashes_listener *>(obj);
+  SwigDirector_set_piece_hashes_listener *director = static_cast<SwigDirector_set_piece_hashes_listener *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -51527,7 +51527,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1extension_1handler_1listener_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
   dht_extension_handler_listener *obj = *((dht_extension_handler_listener **)&objarg);
   (void)jcls;
-  SwigDirector_dht_extension_handler_listener *director = reinterpret_cast<SwigDirector_dht_extension_handler_listener *>(obj);
+  SwigDirector_dht_extension_handler_listener *director = static_cast<SwigDirector_dht_extension_handler_listener *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -51536,7 +51536,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1extension_1handler_1listener_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   dht_extension_handler_listener *obj = *((dht_extension_handler_listener **)&objarg);
-  SwigDirector_dht_extension_handler_listener *director = reinterpret_cast<SwigDirector_dht_extension_handler_listener *>(obj);
+  SwigDirector_dht_extension_handler_listener *director = static_cast<SwigDirector_dht_extension_handler_listener *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -52171,7 +52171,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1storage_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
   swig_storage *obj = *((swig_storage **)&objarg);
   (void)jcls;
-  SwigDirector_swig_storage *director = reinterpret_cast<SwigDirector_swig_storage *>(obj);
+  SwigDirector_swig_storage *director = static_cast<SwigDirector_swig_storage *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -52180,7 +52180,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1storage_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   swig_storage *obj = *((swig_storage **)&objarg);
-  SwigDirector_swig_storage *director = reinterpret_cast<SwigDirector_swig_storage *>(obj);
+  SwigDirector_swig_storage *director = static_cast<SwigDirector_swig_storage *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -52257,7 +52257,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1storage_1constructor_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
   swig_storage_constructor *obj = *((swig_storage_constructor **)&objarg);
   (void)jcls;
-  SwigDirector_swig_storage_constructor *director = reinterpret_cast<SwigDirector_swig_storage_constructor *>(obj);
+  SwigDirector_swig_storage_constructor *director = static_cast<SwigDirector_swig_storage_constructor *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -52266,7 +52266,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1storage_1constructor_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   swig_storage_constructor *obj = *((swig_storage_constructor **)&objarg);
-  SwigDirector_swig_storage_constructor *director = reinterpret_cast<SwigDirector_swig_storage_constructor *>(obj);
+  SwigDirector_swig_storage_constructor *director = static_cast<SwigDirector_swig_storage_constructor *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -52657,7 +52657,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1plugin_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
   swig_plugin *obj = *((swig_plugin **)&objarg);
   (void)jcls;
-  SwigDirector_swig_plugin *director = reinterpret_cast<SwigDirector_swig_plugin *>(obj);
+  SwigDirector_swig_plugin *director = static_cast<SwigDirector_swig_plugin *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -52666,7 +52666,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1plugin_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   swig_plugin *obj = *((swig_plugin **)&objarg);
-  SwigDirector_swig_plugin *director = reinterpret_cast<SwigDirector_swig_plugin *>(obj);
+  SwigDirector_swig_plugin *director = static_cast<SwigDirector_swig_plugin *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -53013,7 +53013,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1torrent_1plugin_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
   swig_torrent_plugin *obj = *((swig_torrent_plugin **)&objarg);
   (void)jcls;
-  SwigDirector_swig_torrent_plugin *director = reinterpret_cast<SwigDirector_swig_torrent_plugin *>(obj);
+  SwigDirector_swig_torrent_plugin *director = static_cast<SwigDirector_swig_torrent_plugin *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -53022,7 +53022,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1torrent_1plugin_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   swig_torrent_plugin *obj = *((swig_torrent_plugin **)&objarg);
-  SwigDirector_swig_torrent_plugin *director = reinterpret_cast<SwigDirector_swig_torrent_plugin *>(obj);
+  SwigDirector_swig_torrent_plugin *director = static_cast<SwigDirector_swig_torrent_plugin *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -54027,7 +54027,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1peer_1plugin_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
   swig_peer_plugin *obj = *((swig_peer_plugin **)&objarg);
   (void)jcls;
-  SwigDirector_swig_peer_plugin *director = reinterpret_cast<SwigDirector_swig_peer_plugin *>(obj);
+  SwigDirector_swig_peer_plugin *director = static_cast<SwigDirector_swig_peer_plugin *>(obj);
   if (director) {
     director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
   }
@@ -54036,7 +54036,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1peer_1plugin_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   swig_peer_plugin *obj = *((swig_peer_plugin **)&objarg);
-  SwigDirector_swig_peer_plugin *director = reinterpret_cast<SwigDirector_swig_peer_plugin *>(obj);
+  SwigDirector_swig_peer_plugin *director = static_cast<SwigDirector_swig_peer_plugin *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
