@@ -35,6 +35,10 @@ public class picker_log_alert extends peer_alert {
     super.delete();
   }
 
+  public String message() {
+    return libtorrent_jni.picker_log_alert_message(swigCPtr, this);
+  }
+
   public int type() {
     return libtorrent_jni.picker_log_alert_type(swigCPtr, this);
   }
@@ -47,10 +51,6 @@ public class picker_log_alert extends peer_alert {
     return libtorrent_jni.picker_log_alert_what(swigCPtr, this);
   }
 
-  public String message() {
-    return libtorrent_jni.picker_log_alert_message(swigCPtr, this);
-  }
-
   public void setPicker_flags(long value) {
     libtorrent_jni.picker_log_alert_picker_flags_set(swigCPtr, this, value);
   }
@@ -59,9 +59,6 @@ public class picker_log_alert extends peer_alert {
     return libtorrent_jni.picker_log_alert_picker_flags_get(swigCPtr, this);
   }
 
-  public final static int priority = libtorrent_jni.picker_log_alert_priority_get();
-  public final static int alert_type = libtorrent_jni.picker_log_alert_alert_type_get();
-  public final static int static_category = libtorrent_jni.picker_log_alert_static_category_get();
   public final static class picker_flags_t {
     public final static picker_log_alert.picker_flags_t partial_ratio = new picker_log_alert.picker_flags_t("partial_ratio", libtorrent_jni.picker_log_alert_partial_ratio_get());
     public final static picker_log_alert.picker_flags_t prioritize_partials = new picker_log_alert.picker_flags_t("prioritize_partials", libtorrent_jni.picker_log_alert_prioritize_partials_get());
@@ -120,4 +117,7 @@ public class picker_log_alert extends peer_alert {
     private final String swigName;
   }
 
+  public final static int priority = libtorrent_jni.picker_log_alert_priority_get();
+  public final static int alert_type = libtorrent_jni.picker_log_alert_alert_type_get();
+  public final static int static_category = libtorrent_jni.picker_log_alert_static_category_get();
 }

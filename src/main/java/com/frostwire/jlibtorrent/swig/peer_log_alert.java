@@ -35,6 +35,10 @@ public class peer_log_alert extends peer_alert {
     super.delete();
   }
 
+  public String message() {
+    return libtorrent_jni.peer_log_alert_message(swigCPtr, this);
+  }
+
   public int type() {
     return libtorrent_jni.peer_log_alert_type(swigCPtr, this);
   }
@@ -45,10 +49,6 @@ public class peer_log_alert extends peer_alert {
 
   public String what() {
     return libtorrent_jni.peer_log_alert_what(swigCPtr, this);
-  }
-
-  public String message() {
-    return libtorrent_jni.peer_log_alert_message(swigCPtr, this);
   }
 
   public void setEvent_type(String value) {

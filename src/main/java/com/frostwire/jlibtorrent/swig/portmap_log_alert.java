@@ -35,6 +35,10 @@ public class portmap_log_alert extends alert {
     super.delete();
   }
 
+  public String message() {
+    return libtorrent_jni.portmap_log_alert_message(swigCPtr, this);
+  }
+
   public int type() {
     return libtorrent_jni.portmap_log_alert_type(swigCPtr, this);
   }
@@ -45,10 +49,6 @@ public class portmap_log_alert extends alert {
 
   public String what() {
     return libtorrent_jni.portmap_log_alert_what(swigCPtr, this);
-  }
-
-  public String message() {
-    return libtorrent_jni.portmap_log_alert_message(swigCPtr, this);
   }
 
   public void setMap_type(int value) {
