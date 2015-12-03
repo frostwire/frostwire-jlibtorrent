@@ -893,8 +893,8 @@ namespace libtorrent {
 // alert types conversion due to lack of polymorphic return type
 %extend alert {
 #define CAST_ALERT_METHOD(name) \
-    static libtorrent::##name const* cast_to_##name(alert const* alert) { \
-        return alert_cast<libtorrent::##name>(alert); \
+    static libtorrent::##name const* cast_to_##name(alert const* a) { \
+        return alert_cast<libtorrent::##name>(a); \
     }
 
     CAST_ALERT_METHOD(torrent_alert)
