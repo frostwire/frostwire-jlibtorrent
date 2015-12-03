@@ -35,10 +35,6 @@ public class torrent_delete_failed_alert extends torrent_alert {
     super.delete();
   }
 
-  public torrent_delete_failed_alert(stack_allocator alloc, torrent_handle h, error_code e, sha1_hash ih) {
-    this(libtorrent_jni.new_torrent_delete_failed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e, sha1_hash.getCPtr(ih), ih), true);
-  }
-
   public int type() {
     return libtorrent_jni.torrent_delete_failed_alert_type(swigCPtr, this);
   }

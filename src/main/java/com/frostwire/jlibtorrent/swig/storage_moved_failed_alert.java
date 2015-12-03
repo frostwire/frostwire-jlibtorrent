@@ -35,10 +35,6 @@ public class storage_moved_failed_alert extends torrent_alert {
     super.delete();
   }
 
-  public storage_moved_failed_alert(stack_allocator alloc, torrent_handle h, error_code e, String file, String op) {
-    this(libtorrent_jni.new_storage_moved_failed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e, file, op), true);
-  }
-
   public int type() {
     return libtorrent_jni.storage_moved_failed_alert_type(swigCPtr, this);
   }

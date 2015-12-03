@@ -35,10 +35,6 @@ public class session_stats_alert extends alert {
     super.delete();
   }
 
-  public session_stats_alert(stack_allocator alloc, counters cnt) {
-    this(libtorrent_jni.new_session_stats_alert(stack_allocator.getCPtr(alloc), alloc, counters.getCPtr(cnt), cnt), true);
-  }
-
   public int type() {
     return libtorrent_jni.session_stats_alert_type(swigCPtr, this);
   }

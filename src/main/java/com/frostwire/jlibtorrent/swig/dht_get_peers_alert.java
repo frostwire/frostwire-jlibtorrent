@@ -35,10 +35,6 @@ public class dht_get_peers_alert extends alert {
     super.delete();
   }
 
-  public dht_get_peers_alert(stack_allocator alloc, sha1_hash ih) {
-    this(libtorrent_jni.new_dht_get_peers_alert(stack_allocator.getCPtr(alloc), alloc, sha1_hash.getCPtr(ih), ih), true);
-  }
-
   public int type() {
     return libtorrent_jni.dht_get_peers_alert_type(swigCPtr, this);
   }

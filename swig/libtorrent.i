@@ -692,6 +692,8 @@ namespace std {
 %rename(value) libtorrent::storage_error::operator bool() const;
 %rename(is_none_t) libtorrent::bdecode_node::operator bool() const;
 
+%rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
+
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
@@ -1139,11 +1141,6 @@ namespace libtorrent {
         return *($self->resume_data);
     }
 };
-
-namespace aux {
-    class stack_allocator {
-    };
-}
 
 bool is_utp_stream_logging();
 void set_utp_stream_logging(bool enable);

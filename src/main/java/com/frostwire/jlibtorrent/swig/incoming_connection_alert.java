@@ -35,10 +35,6 @@ public class incoming_connection_alert extends alert {
     super.delete();
   }
 
-  public incoming_connection_alert(stack_allocator alloc, int t, tcp_endpoint i) {
-    this(libtorrent_jni.new_incoming_connection_alert(stack_allocator.getCPtr(alloc), alloc, t, tcp_endpoint.getCPtr(i), i), true);
-  }
-
   public int type() {
     return libtorrent_jni.incoming_connection_alert_type(swigCPtr, this);
   }

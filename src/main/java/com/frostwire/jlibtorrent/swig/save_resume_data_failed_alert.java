@@ -35,10 +35,6 @@ public class save_resume_data_failed_alert extends torrent_alert {
     super.delete();
   }
 
-  public save_resume_data_failed_alert(stack_allocator alloc, torrent_handle h, error_code e) {
-    this(libtorrent_jni.new_save_resume_data_failed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, error_code.getCPtr(e), e), true);
-  }
-
   public int type() {
     return libtorrent_jni.save_resume_data_failed_alert_type(swigCPtr, this);
   }

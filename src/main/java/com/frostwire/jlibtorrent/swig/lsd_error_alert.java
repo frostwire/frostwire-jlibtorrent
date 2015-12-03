@@ -35,10 +35,6 @@ public class lsd_error_alert extends alert {
     super.delete();
   }
 
-  public lsd_error_alert(stack_allocator alloc, error_code ec) {
-    this(libtorrent_jni.new_lsd_error_alert(stack_allocator.getCPtr(alloc), alloc, error_code.getCPtr(ec), ec), true);
-  }
-
   public int type() {
     return libtorrent_jni.lsd_error_alert_type(swigCPtr, this);
   }

@@ -35,10 +35,6 @@ public class file_completed_alert extends torrent_alert {
     super.delete();
   }
 
-  public file_completed_alert(stack_allocator alloc, torrent_handle h, int idx) {
-    this(libtorrent_jni.new_file_completed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, idx), true);
-  }
-
   public int type() {
     return libtorrent_jni.file_completed_alert_type(swigCPtr, this);
   }

@@ -35,10 +35,6 @@ public class stats_alert extends torrent_alert {
     super.delete();
   }
 
-  public stats_alert(stack_allocator alloc, torrent_handle h, int interval, stat s) {
-    this(libtorrent_jni.new_stats_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, interval, stat.getCPtr(s), s), true);
-  }
-
   public int type() {
     return libtorrent_jni.stats_alert_type(swigCPtr, this);
   }

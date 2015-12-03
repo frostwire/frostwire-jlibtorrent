@@ -35,10 +35,6 @@ public class torrent_deleted_alert extends torrent_alert {
     super.delete();
   }
 
-  public torrent_deleted_alert(stack_allocator alloc, torrent_handle h, sha1_hash ih) {
-    this(libtorrent_jni.new_torrent_deleted_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, sha1_hash.getCPtr(ih), ih), true);
-  }
-
   public int type() {
     return libtorrent_jni.torrent_deleted_alert_type(swigCPtr, this);
   }

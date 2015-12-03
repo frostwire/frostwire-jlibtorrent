@@ -35,10 +35,6 @@ public class state_update_alert extends alert {
     super.delete();
   }
 
-  public state_update_alert(stack_allocator alloc, torrent_status_vector st) {
-    this(libtorrent_jni.new_state_update_alert(stack_allocator.getCPtr(alloc), alloc, torrent_status_vector.getCPtr(st), st), true);
-  }
-
   public int type() {
     return libtorrent_jni.state_update_alert_type(swigCPtr, this);
   }

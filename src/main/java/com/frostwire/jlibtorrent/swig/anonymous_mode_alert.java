@@ -35,10 +35,6 @@ public class anonymous_mode_alert extends torrent_alert {
     super.delete();
   }
 
-  public anonymous_mode_alert(stack_allocator alloc, torrent_handle h, int k, String s) {
-    this(libtorrent_jni.new_anonymous_mode_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, k, s), true);
-  }
-
   public int type() {
     return libtorrent_jni.anonymous_mode_alert_type(swigCPtr, this);
   }

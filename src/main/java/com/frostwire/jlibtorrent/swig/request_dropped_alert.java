@@ -35,10 +35,6 @@ public class request_dropped_alert extends peer_alert {
     super.delete();
   }
 
-  public request_dropped_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, int block_num, int piece_num) {
-    this(libtorrent_jni.new_request_dropped_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, block_num, piece_num), true);
-  }
-
   public int type() {
     return libtorrent_jni.request_dropped_alert_type(swigCPtr, this);
   }

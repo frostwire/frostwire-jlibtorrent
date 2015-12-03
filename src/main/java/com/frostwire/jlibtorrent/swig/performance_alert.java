@@ -35,10 +35,6 @@ public class performance_alert extends torrent_alert {
     super.delete();
   }
 
-  public performance_alert(stack_allocator alloc, torrent_handle h, performance_alert.performance_warning_t w) {
-    this(libtorrent_jni.new_performance_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, w.swigValue()), true);
-  }
-
   public int type() {
     return libtorrent_jni.performance_alert_type(swigCPtr, this);
   }

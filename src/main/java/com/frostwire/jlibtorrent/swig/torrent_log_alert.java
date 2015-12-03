@@ -35,10 +35,6 @@ public class torrent_log_alert extends torrent_alert {
     super.delete();
   }
 
-  public torrent_log_alert(stack_allocator alloc, torrent_handle h, String log) {
-    this(libtorrent_jni.new_torrent_log_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, log), true);
-  }
-
   public int type() {
     return libtorrent_jni.torrent_log_alert_type(swigCPtr, this);
   }

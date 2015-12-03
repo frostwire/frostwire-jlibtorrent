@@ -35,10 +35,6 @@ public class portmap_log_alert extends alert {
     super.delete();
   }
 
-  public portmap_log_alert(stack_allocator alloc, int t, String m) {
-    this(libtorrent_jni.new_portmap_log_alert(stack_allocator.getCPtr(alloc), alloc, t, m), true);
-  }
-
   public int type() {
     return libtorrent_jni.portmap_log_alert_type(swigCPtr, this);
   }

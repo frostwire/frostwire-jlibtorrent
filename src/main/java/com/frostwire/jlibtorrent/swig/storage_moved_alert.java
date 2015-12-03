@@ -35,10 +35,6 @@ public class storage_moved_alert extends torrent_alert {
     super.delete();
   }
 
-  public storage_moved_alert(stack_allocator alloc, torrent_handle h, String p) {
-    this(libtorrent_jni.new_storage_moved_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, p), true);
-  }
-
   public int type() {
     return libtorrent_jni.storage_moved_alert_type(swigCPtr, this);
   }

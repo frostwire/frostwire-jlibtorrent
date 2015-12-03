@@ -35,10 +35,6 @@ public class mmap_cache_alert extends alert {
     super.delete();
   }
 
-  public mmap_cache_alert(stack_allocator alloc, error_code ec) {
-    this(libtorrent_jni.new_mmap_cache_alert(stack_allocator.getCPtr(alloc), alloc, error_code.getCPtr(ec), ec), true);
-  }
-
   public int type() {
     return libtorrent_jni.mmap_cache_alert_type(swigCPtr, this);
   }

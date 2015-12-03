@@ -35,10 +35,6 @@ public class metadata_received_alert extends torrent_alert {
     super.delete();
   }
 
-  public metadata_received_alert(stack_allocator alloc, torrent_handle h) {
-    this(libtorrent_jni.new_metadata_received_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h), true);
-  }
-
   public int type() {
     return libtorrent_jni.metadata_received_alert_type(swigCPtr, this);
   }

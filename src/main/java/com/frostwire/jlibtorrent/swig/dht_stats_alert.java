@@ -35,10 +35,6 @@ public class dht_stats_alert extends alert {
     super.delete();
   }
 
-  public dht_stats_alert(stack_allocator alloc, dht_routing_bucket_vector table, dht_lookup_vector requests) {
-    this(libtorrent_jni.new_dht_stats_alert(stack_allocator.getCPtr(alloc), alloc, dht_routing_bucket_vector.getCPtr(table), table, dht_lookup_vector.getCPtr(requests), requests), true);
-  }
-
   public int type() {
     return libtorrent_jni.dht_stats_alert_type(swigCPtr, this);
   }

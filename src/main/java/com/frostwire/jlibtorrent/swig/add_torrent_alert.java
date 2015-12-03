@@ -35,10 +35,6 @@ public class add_torrent_alert extends torrent_alert {
     super.delete();
   }
 
-  public add_torrent_alert(stack_allocator alloc, torrent_handle h, add_torrent_params p, error_code ec) {
-    this(libtorrent_jni.new_add_torrent_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec), true);
-  }
-
   public int type() {
     return libtorrent_jni.add_torrent_alert_type(swigCPtr, this);
   }

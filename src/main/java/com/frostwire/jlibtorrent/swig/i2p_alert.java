@@ -35,10 +35,6 @@ public class i2p_alert extends alert {
     super.delete();
   }
 
-  public i2p_alert(stack_allocator alloc, error_code ec) {
-    this(libtorrent_jni.new_i2p_alert(stack_allocator.getCPtr(alloc), alloc, error_code.getCPtr(ec), ec), true);
-  }
-
   public int type() {
     return libtorrent_jni.i2p_alert_type(swigCPtr, this);
   }

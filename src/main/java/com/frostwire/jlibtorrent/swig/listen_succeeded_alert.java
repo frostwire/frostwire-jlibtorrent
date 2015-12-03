@@ -35,10 +35,6 @@ public class listen_succeeded_alert extends alert {
     super.delete();
   }
 
-  public listen_succeeded_alert(stack_allocator alloc, tcp_endpoint ep, listen_succeeded_alert.socket_type_t t) {
-    this(libtorrent_jni.new_listen_succeeded_alert(stack_allocator.getCPtr(alloc), alloc, tcp_endpoint.getCPtr(ep), ep, t.swigValue()), true);
-  }
-
   public int type() {
     return libtorrent_jni.listen_succeeded_alert_type(swigCPtr, this);
   }

@@ -35,10 +35,6 @@ public class tracker_error_alert extends tracker_alert {
     super.delete();
   }
 
-  public tracker_error_alert(stack_allocator alloc, torrent_handle h, int times, int status, String u, error_code e, String m) {
-    this(libtorrent_jni.new_tracker_error_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, times, status, u, error_code.getCPtr(e), e, m), true);
-  }
-
   public int type() {
     return libtorrent_jni.tracker_error_alert_type(swigCPtr, this);
   }

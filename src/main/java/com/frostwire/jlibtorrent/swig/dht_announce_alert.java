@@ -35,10 +35,6 @@ public class dht_announce_alert extends alert {
     super.delete();
   }
 
-  public dht_announce_alert(stack_allocator alloc, address i, int p, sha1_hash ih) {
-    this(libtorrent_jni.new_dht_announce_alert(stack_allocator.getCPtr(alloc), alloc, address.getCPtr(i), i, p, sha1_hash.getCPtr(ih), ih), true);
-  }
-
   public int type() {
     return libtorrent_jni.dht_announce_alert_type(swigCPtr, this);
   }

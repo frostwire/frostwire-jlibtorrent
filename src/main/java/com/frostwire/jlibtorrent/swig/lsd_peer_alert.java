@@ -35,10 +35,6 @@ public class lsd_peer_alert extends peer_alert {
     super.delete();
   }
 
-  public lsd_peer_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint i) {
-    this(libtorrent_jni.new_lsd_peer_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(i), i), true);
-  }
-
   public int type() {
     return libtorrent_jni.lsd_peer_alert_type(swigCPtr, this);
   }

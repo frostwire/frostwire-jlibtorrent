@@ -35,10 +35,6 @@ public class external_ip_alert extends alert {
     super.delete();
   }
 
-  public external_ip_alert(stack_allocator alloc, address ip) {
-    this(libtorrent_jni.new_external_ip_alert(stack_allocator.getCPtr(alloc), alloc, address.getCPtr(ip), ip), true);
-  }
-
   public int type() {
     return libtorrent_jni.external_ip_alert_type(swigCPtr, this);
   }

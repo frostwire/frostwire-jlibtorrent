@@ -35,10 +35,6 @@ public class listen_failed_alert extends alert {
     super.delete();
   }
 
-  public listen_failed_alert(stack_allocator alloc, String iface, int op, error_code ec, listen_failed_alert.socket_type_t t) {
-    this(libtorrent_jni.new_listen_failed_alert(stack_allocator.getCPtr(alloc), alloc, iface, op, error_code.getCPtr(ec), ec, t.swigValue()), true);
-  }
-
   public int type() {
     return libtorrent_jni.listen_failed_alert_type(swigCPtr, this);
   }

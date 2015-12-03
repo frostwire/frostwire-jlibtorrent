@@ -35,10 +35,6 @@ public class dht_bootstrap_alert extends alert {
     super.delete();
   }
 
-  public dht_bootstrap_alert(stack_allocator alloc) {
-    this(libtorrent_jni.new_dht_bootstrap_alert(stack_allocator.getCPtr(alloc), alloc), true);
-  }
-
   public int type() {
     return libtorrent_jni.dht_bootstrap_alert_type(swigCPtr, this);
   }

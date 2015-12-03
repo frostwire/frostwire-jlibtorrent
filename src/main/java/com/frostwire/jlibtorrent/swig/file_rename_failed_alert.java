@@ -35,10 +35,6 @@ public class file_rename_failed_alert extends torrent_alert {
     super.delete();
   }
 
-  public file_rename_failed_alert(stack_allocator alloc, torrent_handle h, int idx, error_code ec) {
-    this(libtorrent_jni.new_file_rename_failed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, idx, error_code.getCPtr(ec), ec), true);
-  }
-
   public int type() {
     return libtorrent_jni.file_rename_failed_alert_type(swigCPtr, this);
   }

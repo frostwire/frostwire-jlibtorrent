@@ -35,10 +35,6 @@ public class piece_finished_alert extends torrent_alert {
     super.delete();
   }
 
-  public piece_finished_alert(stack_allocator alloc, torrent_handle h, int piece_num) {
-    this(libtorrent_jni.new_piece_finished_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, piece_num), true);
-  }
-
   public int type() {
     return libtorrent_jni.piece_finished_alert_type(swigCPtr, this);
   }

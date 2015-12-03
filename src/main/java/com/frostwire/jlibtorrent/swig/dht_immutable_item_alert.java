@@ -35,10 +35,6 @@ public class dht_immutable_item_alert extends alert {
     super.delete();
   }
 
-  public dht_immutable_item_alert(stack_allocator alloc, sha1_hash t, entry i) {
-    this(libtorrent_jni.new_dht_immutable_item_alert(stack_allocator.getCPtr(alloc), alloc, sha1_hash.getCPtr(t), t, entry.getCPtr(i), i), true);
-  }
-
   public int type() {
     return libtorrent_jni.dht_immutable_item_alert_type(swigCPtr, this);
   }

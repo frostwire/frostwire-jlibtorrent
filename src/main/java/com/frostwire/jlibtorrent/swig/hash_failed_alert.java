@@ -35,10 +35,6 @@ public class hash_failed_alert extends torrent_alert {
     super.delete();
   }
 
-  public hash_failed_alert(stack_allocator alloc, torrent_handle h, int index) {
-    this(libtorrent_jni.new_hash_failed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, index), true);
-  }
-
   public int type() {
     return libtorrent_jni.hash_failed_alert_type(swigCPtr, this);
   }

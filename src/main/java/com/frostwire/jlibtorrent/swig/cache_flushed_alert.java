@@ -35,10 +35,6 @@ public class cache_flushed_alert extends torrent_alert {
     super.delete();
   }
 
-  public cache_flushed_alert(stack_allocator alloc, torrent_handle h) {
-    this(libtorrent_jni.new_cache_flushed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h), true);
-  }
-
   public int type() {
     return libtorrent_jni.cache_flushed_alert_type(swigCPtr, this);
   }

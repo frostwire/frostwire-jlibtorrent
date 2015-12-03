@@ -35,10 +35,6 @@ public class fastresume_rejected_alert extends torrent_alert {
     super.delete();
   }
 
-  public fastresume_rejected_alert(stack_allocator alloc, torrent_handle h, error_code ec, String file, String op) {
-    this(libtorrent_jni.new_fastresume_rejected_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, error_code.getCPtr(ec), ec, file, op), true);
-  }
-
   public int type() {
     return libtorrent_jni.fastresume_rejected_alert_type(swigCPtr, this);
   }

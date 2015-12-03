@@ -35,10 +35,6 @@ public class invalid_request_alert extends peer_alert {
     super.delete();
   }
 
-  public invalid_request_alert(stack_allocator alloc, torrent_handle h, tcp_endpoint ep, sha1_hash peer_id, peer_request r, boolean we_have, boolean peer_interested, boolean withheld) {
-    this(libtorrent_jni.new_invalid_request_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, tcp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(peer_id), peer_id, peer_request.getCPtr(r), r, we_have, peer_interested, withheld), true);
-  }
-
   public int type() {
     return libtorrent_jni.invalid_request_alert_type(swigCPtr, this);
   }

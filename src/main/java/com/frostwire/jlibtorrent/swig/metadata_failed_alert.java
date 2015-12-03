@@ -35,10 +35,6 @@ public class metadata_failed_alert extends torrent_alert {
     super.delete();
   }
 
-  public metadata_failed_alert(stack_allocator alloc, torrent_handle h, error_code ec) {
-    this(libtorrent_jni.new_metadata_failed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, error_code.getCPtr(ec), ec), true);
-  }
-
   public int type() {
     return libtorrent_jni.metadata_failed_alert_type(swigCPtr, this);
   }

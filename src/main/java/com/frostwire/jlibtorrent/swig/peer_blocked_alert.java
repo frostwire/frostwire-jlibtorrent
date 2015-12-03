@@ -35,10 +35,6 @@ public class peer_blocked_alert extends torrent_alert {
     super.delete();
   }
 
-  public peer_blocked_alert(stack_allocator alloc, torrent_handle h, address i, int r) {
-    this(libtorrent_jni.new_peer_blocked_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, address.getCPtr(i), i, r), true);
-  }
-
   public int type() {
     return libtorrent_jni.peer_blocked_alert_type(swigCPtr, this);
   }

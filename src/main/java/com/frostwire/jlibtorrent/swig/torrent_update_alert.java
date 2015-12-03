@@ -35,10 +35,6 @@ public class torrent_update_alert extends torrent_alert {
     super.delete();
   }
 
-  public torrent_update_alert(stack_allocator alloc, torrent_handle h, sha1_hash old_hash, sha1_hash new_hash) {
-    this(libtorrent_jni.new_torrent_update_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, sha1_hash.getCPtr(old_hash), old_hash, sha1_hash.getCPtr(new_hash), new_hash), true);
-  }
-
   public int type() {
     return libtorrent_jni.torrent_update_alert_type(swigCPtr, this);
   }

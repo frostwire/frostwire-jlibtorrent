@@ -35,10 +35,6 @@ public class dht_reply_alert extends tracker_alert {
     super.delete();
   }
 
-  public dht_reply_alert(stack_allocator alloc, torrent_handle h, int np) {
-    this(libtorrent_jni.new_dht_reply_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, np), true);
-  }
-
   public int type() {
     return libtorrent_jni.dht_reply_alert_type(swigCPtr, this);
   }

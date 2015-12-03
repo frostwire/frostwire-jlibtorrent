@@ -35,10 +35,6 @@ public class tracker_announce_alert extends tracker_alert {
     super.delete();
   }
 
-  public tracker_announce_alert(stack_allocator alloc, torrent_handle h, String u, int e) {
-    this(libtorrent_jni.new_tracker_announce_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, u, e), true);
-  }
-
   public int type() {
     return libtorrent_jni.tracker_announce_alert_type(swigCPtr, this);
   }

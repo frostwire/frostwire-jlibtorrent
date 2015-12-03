@@ -35,10 +35,6 @@ public class file_renamed_alert extends torrent_alert {
     super.delete();
   }
 
-  public file_renamed_alert(stack_allocator alloc, torrent_handle h, String n, int idx) {
-    this(libtorrent_jni.new_file_renamed_alert(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, n, idx), true);
-  }
-
   public int type() {
     return libtorrent_jni.file_renamed_alert_type(swigCPtr, this);
   }

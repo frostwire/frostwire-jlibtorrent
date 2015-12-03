@@ -35,10 +35,6 @@ public class dht_pkt_alert extends alert {
     super.delete();
   }
 
-  public dht_pkt_alert(stack_allocator alloc, String buf, int size, dht_pkt_alert.direction_t d, udp_endpoint ep) {
-    this(libtorrent_jni.new_dht_pkt_alert(stack_allocator.getCPtr(alloc), alloc, buf, size, d.swigValue(), udp_endpoint.getCPtr(ep), ep), true);
-  }
-
   public int type() {
     return libtorrent_jni.dht_pkt_alert_type(swigCPtr, this);
   }

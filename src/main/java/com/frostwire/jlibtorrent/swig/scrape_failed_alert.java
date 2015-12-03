@@ -35,14 +35,6 @@ public class scrape_failed_alert extends tracker_alert {
     super.delete();
   }
 
-  public scrape_failed_alert(stack_allocator alloc, torrent_handle h, String u, error_code e) {
-    this(libtorrent_jni.new_scrape_failed_alert__SWIG_0(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, u, error_code.getCPtr(e), e), true);
-  }
-
-  public scrape_failed_alert(stack_allocator alloc, torrent_handle h, String u, String m) {
-    this(libtorrent_jni.new_scrape_failed_alert__SWIG_1(stack_allocator.getCPtr(alloc), alloc, torrent_handle.getCPtr(h), h, u, m), true);
-  }
-
   public int type() {
     return libtorrent_jni.scrape_failed_alert_type(swigCPtr, this);
   }
