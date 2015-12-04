@@ -16,6 +16,7 @@
         ],
       },
       'defines': [
+        'LIBTORRENT_SWIG_NODE',
         'BOOST_ALL_NO_LIB',
         'BOOST_ASIO_ENABLE_CANCELIO',
         'BOOST_ASIO_HASH_MAP_BUCKETS=1021',
