@@ -21,26 +21,12 @@ public final class AlertsSwitch {
         printForAlerts();
         System.out.println("=============================");
         printForTorrentAlertsAdapter();
+        System.out.println("=============================");
+        printForAlertType();
     }
 
     private static void printForAlerts() throws Exception {
-        int n = 0;
-        Class[] arr = new Class[libtorrent.num_alert_types];
-        for (Class c : getClasses("com.frostwire.jlibtorrent.swig")) {
-            if (c.getName().endsWith("_alert")) {
-                Field f = c.getDeclaredField("alert_type");
-                int type = f.getInt(null);
-
-                arr[type] = c;
-                n++;
-            }
-        }
-
-        n++; // 63 - rss_alert
-        n++; // 72 - rss_item_alert
-        if (n != arr.length) {
-            throw new Exception("mismatch in number of alerts and types");
-        }
+        Class[] arr = getSwigAlerts();
 
         for (int i = 0; i < arr.length; i++) {
             String s = "case " + i + ": return new ";
@@ -56,23 +42,7 @@ public final class AlertsSwitch {
     }
 
     private static void printForTorrentAlertsAdapter() throws Exception {
-        int n = 0;
-        Class[] arr = new Class[libtorrent.num_alert_types];
-        for (Class c : getClasses("com.frostwire.jlibtorrent.swig")) {
-            if (c.getName().endsWith("_alert")) {
-                Field f = c.getDeclaredField("alert_type");
-                int type = f.getInt(null);
-
-                arr[type] = c;
-                n++;
-            }
-        }
-
-        n++; // 63 - rss_alert
-        n++; // 72 - rss_item_alert
-        if (n != arr.length) {
-            throw new Exception("mismatch in number of alerts and types");
-        }
+        Class[] arr = getSwigAlerts();
 
         for (int i = 0; i < arr.length; i++) {
             String s = "case " + i + ": ";
@@ -92,6 +62,45 @@ public final class AlertsSwitch {
 
             System.out.println(s);
         }
+    }
+
+    private static void printForAlertType() throws Exception {
+        Class[] arr = getSwigAlerts();
+
+        for (int i = 0; i < arr.length; i++) {
+            String s = "case " + i + ": return ";
+            if (arr[i] != null) {
+                String c = arr[i].getSimpleName().toUpperCase();
+                c = c.replace("_ALERT", "");
+                s += c + ";";
+            } else {
+                s += "UNKNOWN;";
+            }
+
+            System.out.println(s);
+        }
+    }
+
+    private static Class[] getSwigAlerts() throws Exception {
+        int n = 0;
+        Class[] arr = new Class[libtorrent.num_alert_types];
+        for (Class c : getClasses("com.frostwire.jlibtorrent.swig")) {
+            if (c.getName().endsWith("_alert")) {
+                Field f = c.getDeclaredField("alert_type");
+                int type = f.getInt(null);
+
+                arr[type] = c;
+                n++;
+            }
+        }
+
+        n++; // 63 - rss_alert
+        n++; // 72 - rss_item_alert
+        if (n != arr.length) {
+            throw new Exception("mismatch in number of alerts and types");
+        }
+
+        return arr;
     }
 
     private static Class[] getClasses(String packageName) throws Exception {
