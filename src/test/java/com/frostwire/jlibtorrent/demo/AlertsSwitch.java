@@ -1,5 +1,7 @@
 package com.frostwire.jlibtorrent.demo;
 
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.TorrentAlert;
 import com.frostwire.jlibtorrent.swig.libtorrent;
 
 import java.io.File;
@@ -17,6 +19,8 @@ public final class AlertsSwitch {
 
     public static void main(String[] args) throws Exception {
         printForAlerts();
+        System.out.println("=============================");
+        printForTorrentAlertsAdapter();
     }
 
     private static void printForAlerts() throws Exception {
@@ -45,6 +49,45 @@ public final class AlertsSwitch {
                 s += c + "(cast_to_" + arr[i].getSimpleName() + "(a));";
             } else {
                 s += "GenericAlert(a);";
+            }
+
+            System.out.println(s);
+        }
+    }
+
+    private static void printForTorrentAlertsAdapter() throws Exception {
+        int n = 0;
+        Class[] arr = new Class[libtorrent.num_alert_types];
+        for (Class c : getClasses("com.frostwire.jlibtorrent.swig")) {
+            if (c.getName().endsWith("_alert")) {
+                Field f = c.getDeclaredField("alert_type");
+                int type = f.getInt(null);
+
+                arr[type] = c;
+                n++;
+            }
+        }
+
+        n++; // 63 - rss_alert
+        n++; // 72 - rss_item_alert
+        if (n != arr.length) {
+            throw new Exception("mismatch in number of alerts and types");
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            String s = "case " + i + ": ";
+            if (arr[i] != null) {
+                String c = capitalizeAlertTypeName(arr[i].getSimpleName());
+                Class<?> alertClass = Class.forName("com.frostwire.jlibtorrent.alerts." + c);
+                if (TorrentAlert.class.isAssignableFrom(alertClass)) {
+                    String cc = Character.toLowerCase(c.charAt(0)) + c.substring(1);
+                    cc = cc.replace("Alert", "");
+                    s += cc + "((" + c + ")a); break;";
+                } else {
+                    s += "invokeVoid(a); break;";
+                }
+            } else {
+                s += "invokeVoid(a); break;";
             }
 
             System.out.println(s);
