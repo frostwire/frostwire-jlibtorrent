@@ -221,12 +221,12 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.add_files_cb(p, add_files_listener.getCPtr(listener), listener);
   }
 
-  public static void add_files(file_storage fs, String file, long flags, add_files_listener listener) {
-    libtorrent_jni.add_files(file_storage.getCPtr(fs), fs, file, flags, add_files_listener.getCPtr(listener), listener);
+  public static void add_files_ex(file_storage fs, String file, long flags, add_files_listener listener) {
+    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, file, flags, add_files_listener.getCPtr(listener), listener);
   }
 
-  public static void set_piece_hashes(String id, create_torrent t, String p, error_code ec, set_piece_hashes_listener listener) {
-    libtorrent_jni.set_piece_hashes(id, create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec, set_piece_hashes_listener.getCPtr(listener), listener);
+  public static void set_piece_hashes_ex(String id, create_torrent t, String p, error_code ec, set_piece_hashes_listener listener) {
+    libtorrent_jni.set_piece_hashes_ex(id, create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec, set_piece_hashes_listener.getCPtr(listener), listener);
   }
 
   public static int boost_version() {

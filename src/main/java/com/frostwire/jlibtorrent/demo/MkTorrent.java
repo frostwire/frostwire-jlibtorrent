@@ -61,7 +61,7 @@ public final class MkTorrent extends Tool<Entry> {
                     }
                 }
             };
-            libtorrent.add_files(fs, f.getAbsolutePath(), 0L, l);
+            libtorrent.add_files_ex(fs, f.getAbsolutePath(), 0L, l);
         } else {
             libtorrent.add_files(fs, f.getAbsolutePath());
         }
@@ -78,7 +78,7 @@ public final class MkTorrent extends Tool<Entry> {
                 }
             };
 
-            libtorrent.set_piece_hashes(id, ct, f.getParent(), ec, l);
+            libtorrent.set_piece_hashes_ex(id, ct, f.getParent(), ec, l);
         } else {
             libtorrent.set_piece_hashes(ct, f.getParent(), ec);
         }

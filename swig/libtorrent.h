@@ -53,7 +53,7 @@ bool add_files_cb(std::string const& p, add_files_listener* listener) {
 	return listener->pred(p);
 }
 
-void add_files(libtorrent::file_storage& fs, std::string const& file, boost::uint32_t flags, add_files_listener* listener) {
+void add_files_ex(libtorrent::file_storage& fs, std::string const& file, boost::uint32_t flags, add_files_listener* listener) {
     add_files(fs, file, boost::bind(&add_files_cb, _1, listener), flags);
 }
 
@@ -70,7 +70,7 @@ void set_piece_hashes_cb(int i, set_piece_hashes_listener* listener) {
 	listener->progress(i);
 }
 
-void set_piece_hashes(std::string const& id, libtorrent::create_torrent& t, std::string const& p, libtorrent::error_code& ec, set_piece_hashes_listener* listener) {
+void set_piece_hashes_ex(std::string const& id, libtorrent::create_torrent& t, std::string const& p, libtorrent::error_code& ec, set_piece_hashes_listener* listener) {
     set_piece_hashes(t, p, boost::bind(&set_piece_hashes_cb, _1, listener), ec);
 }
 
