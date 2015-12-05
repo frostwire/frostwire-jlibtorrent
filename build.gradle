@@ -133,6 +133,7 @@ uploadArchives {
                 artifact.name == 'jlibtorrent-android-x86_64'
             }
 
+/*
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
@@ -140,6 +141,7 @@ uploadArchives {
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
+*/
 
             pom('jlibtorrent').withXml {
                 asNode().children().last() + pomData()
