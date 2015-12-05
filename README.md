@@ -89,10 +89,15 @@ mingw-w64-crt:
 
 --host=x86_64-w64-mingw32 -with-sysroot=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32
 
-NodeJs
+NodeJs (alpha)
 ======
+We have recently added support for a NodeJS binary module so you can now have all the power of libtorrent in Javascript/Node.
 
-```
+*Help Wanted:* At the moment we can do only simple things like creating torrents and opening torrents, but nothing related to an actual torrenting session is still available as we need to figure out how to add a thread to process libtorrent alerts and then invoke the necessary callbacks for these alerts.
+
+For now it builds, it can be imported in node and you can do simple things.
+
+```bash
 MBP:swig aldenml$ node
 > var jlib = require("./build/Release/jlibtorrent");
 undefined
@@ -106,7 +111,27 @@ torrent_info {}
 'Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015'
 >
 ```
-**Requirements**
+
+[Here is an example of how to create a simple .torrent](https://gist.github.com/gubatron/afc811c5d3c9ff99a860) using the low level libtorrent API already available in Javascript/Node.
+
+If you want to build the NodeJS module, you will need to install [node-gyp](https://github.com/nodejs/node-gyp)
+```
+npm install -g node-gyp
+```
+
+then from the `swig/` folder you can build the NodeJS jlibtorrent module with
+```
+node-gyp
+```
+
+after the build is done, you can test by going to the `swig/build/Release` folder and issuing:
+```bash
+$ node -e "var jlibtorrent = require('./jlibtorrent'); console.log(jlibtorrent.LIBTORRENT_VERSION);"
+1.1.0.0
+```
+
+
+**JLibTorrent Build Requirements**
 
 export BOOST_ROOT=/<path>/boost_1_58_0
 export LIBTORRENT_ROOT=/<path>/libtorrent
