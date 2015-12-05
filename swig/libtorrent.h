@@ -397,3 +397,36 @@ boost::shared_ptr<peer_plugin> swig_torrent_plugin::new_connection(libtorrent::p
 swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_connection_handle const& pc) {
     return NULL;
 }
+
+#ifdef LIBTORRENT_SWIG_NODE
+
+#include <uv.h>
+
+void session_alerts_loop_fn(void *arg) {
+    libtorrent::session& s = *((libtorrent::session*) arg);
+
+    libtorrent::time_duration max_wait = std::chrono::milliseconds(500);
+
+    std::vector<alert*> v;
+    while (true) {
+        alert* ptr = s.wait_for_alert(max_wait);
+
+        if (ptr != NULL) {
+            s.pop_alerts(&v);
+            printf("alerts (%d)\n", v.size());
+            long size = v.size();
+            for (int i = 0; i < size; i++) {
+                alert* a = v[i];
+                printf("%d - %s - %s\n", a->type(), a->what(), a->message().c_str());
+            }
+        }
+    }
+}
+
+void session_alerts_loop(libtorrent::session& s) {
+
+    uv_thread_t t;
+    uv_thread_create(&t, session_alerts_loop_fn, &s);
+}
+
+#endif

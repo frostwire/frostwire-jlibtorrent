@@ -1225,4 +1225,10 @@ public:
 %ignore swig_storage_constructor_cb;
 %ignore dht_put_item_cb;
 
+#ifdef LIBTORRENT_SWIG_NODE
+
+%ignore session_alerts_loop_fn;
+
+#endif
+
 %include "libtorrent.h"
