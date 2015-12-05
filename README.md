@@ -89,7 +89,7 @@ mingw-w64-crt:
 
 --host=x86_64-w64-mingw32 -with-sysroot=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32 --prefix=/home/user1/Development/toolchains/windows-x86_64/x86_64-w64-mingw32
 
-NodeJs (alpha)
+NodeJs JLibTorrent Module (alpha)
 ======
 We have recently added support for a NodeJS binary module so you can now have all the power of libtorrent in Javascript/Node.
 
@@ -121,7 +121,7 @@ npm install -g node-gyp
 
 then from the `swig/` folder you can build the NodeJS jlibtorrent module with
 ```
-node-gyp
+node-gyp build
 ```
 
 after the build is done, you can test by going to the `swig/build/Release` folder and issuing:
