@@ -1,4 +1,4 @@
-var lt = require('../../../swig/build/Release/jlibtorrent');
+var lt = require('build/Release/jlibtorrent');
 
 var alert_mask = lt.alert.all_categories;
 var sp = new lt.settings_pack();
