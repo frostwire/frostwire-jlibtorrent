@@ -99,6 +99,98 @@ public enum AlertType {
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
 
+    private static AlertType[] ALERT_TYPES = {
+                       TORRENT,
+                       PEER,
+                       TRACKER,
+                       TORRENT_ADDED,
+                       TORRENT_REMOVED,
+                       READ_PIECE,
+                       FILE_COMPLETED,
+                       FILE_RENAMED,
+                       FILE_RENAME_FAILED,
+                       PERFORMANCE,
+                       STATE_CHANGED,
+                       TRACKER_ERROR,
+                       TRACKER_WARNING,
+                       SCRAPE_REPLY,
+                       SCRAPE_FAILED,
+                       TRACKER_REPLY,
+                       DHT_REPLY,
+                       TRACKER_ANNOUNCE,
+                       HASH_FAILED,
+                       PEER_BAN,
+                       PEER_UNSNUBBED,
+                       PEER_SNUBBED,
+                       PEER_ERROR,
+                       PEER_CONNECT,
+                       PEER_DISCONNECTED,
+                       INVALID_REQUEST,
+                       TORRENT_FINISHED,
+                       PIECE_FINISHED,
+                       REQUEST_DROPPED,
+                       BLOCK_TIMEOUT,
+                       BLOCK_FINISHED,
+                       BLOCK_DOWNLOADING,
+                       UNWANTED_BLOCK,
+                       STORAGE_MOVED,
+                       STORAGE_MOVED_FAILED,
+                       TORRENT_DELETED,
+                       TORRENT_DELETE_FAILED,
+                       SAVE_RESUME_DATA,
+                       SAVE_RESUME_DATA_FAILED,
+                       TORRENT_PAUSED,
+                       TORRENT_RESUMED,
+                       TORRENT_CHECKED,
+                       URL_SEED,
+                       FILE_ERROR,
+                       METADATA_FAILED,
+                       METADATA_RECEIVED,
+                       UDP_ERROR,
+                       EXTERNAL_IP,
+                       LISTEN_FAILED,
+                       LISTEN_SUCCEEDED,
+                       PORTMAP_ERROR,
+                       PORTMAP,
+                       PORTMAP_LOG,
+                       FASTRESUME_REJECTED,
+                       PEER_BLOCKED,
+                       DHT_ANNOUNCE,
+                       DHT_GET_PEERS,
+                       STATS,
+                       CACHE_FLUSHED,
+                       ANONYMOUS_MODE,
+                       LSD_PEER,
+                       TRACKERID,
+                       DHT_BOOTSTRAP,
+                       UNKNOWN,
+                       TORRENT_ERROR,
+                       TORRENT_NEED_CERT,
+                       INCOMING_CONNECTION,
+                       ADD_TORRENT,
+                       STATE_UPDATE,
+                       MMAP_CACHE,
+                       SESSION_STATS,
+                       TORRENT_UPDATE,
+                       UNKNOWN,
+                       DHT_ERROR,
+                       DHT_IMMUTABLE_ITEM,
+                       DHT_MUTABLE_ITEM,
+                       DHT_PUT,
+                       I2P,
+                       DHT_OUTGOING_GET_PEERS,
+                       LOG,
+                       TORRENT_LOG,
+                       PEER_LOG,
+                       LSD_ERROR,
+                       DHT_STATS,
+                       INCOMING_REQUEST,
+                       DHT_LOG,
+                       DHT_PKT,
+                       DHT_GET_PEERS_REPLY,
+                       DHT_DIRECT_RESPONSE,
+                       PICKER_LOG };
+
     AlertType(int swigValue) {
         this.swigValue = swigValue;
     }
@@ -110,189 +202,10 @@ public enum AlertType {
     }
 
     public static AlertType fromSwig(int swigValue) {
-        switch (swigValue) {
-            case 0:
-                return TORRENT;
-            case 1:
-                return PEER;
-            case 2:
-                return TRACKER;
-            case 3:
-                return TORRENT_ADDED;
-            case 4:
-                return TORRENT_REMOVED;
-            case 5:
-                return READ_PIECE;
-            case 6:
-                return FILE_COMPLETED;
-            case 7:
-                return FILE_RENAMED;
-            case 8:
-                return FILE_RENAME_FAILED;
-            case 9:
-                return PERFORMANCE;
-            case 10:
-                return STATE_CHANGED;
-            case 11:
-                return TRACKER_ERROR;
-            case 12:
-                return TRACKER_WARNING;
-            case 13:
-                return SCRAPE_REPLY;
-            case 14:
-                return SCRAPE_FAILED;
-            case 15:
-                return TRACKER_REPLY;
-            case 16:
-                return DHT_REPLY;
-            case 17:
-                return TRACKER_ANNOUNCE;
-            case 18:
-                return HASH_FAILED;
-            case 19:
-                return PEER_BAN;
-            case 20:
-                return PEER_UNSNUBBED;
-            case 21:
-                return PEER_SNUBBED;
-            case 22:
-                return PEER_ERROR;
-            case 23:
-                return PEER_CONNECT;
-            case 24:
-                return PEER_DISCONNECTED;
-            case 25:
-                return INVALID_REQUEST;
-            case 26:
-                return TORRENT_FINISHED;
-            case 27:
-                return PIECE_FINISHED;
-            case 28:
-                return REQUEST_DROPPED;
-            case 29:
-                return BLOCK_TIMEOUT;
-            case 30:
-                return BLOCK_FINISHED;
-            case 31:
-                return BLOCK_DOWNLOADING;
-            case 32:
-                return UNWANTED_BLOCK;
-            case 33:
-                return STORAGE_MOVED;
-            case 34:
-                return STORAGE_MOVED_FAILED;
-            case 35:
-                return TORRENT_DELETED;
-            case 36:
-                return TORRENT_DELETE_FAILED;
-            case 37:
-                return SAVE_RESUME_DATA;
-            case 38:
-                return SAVE_RESUME_DATA_FAILED;
-            case 39:
-                return TORRENT_PAUSED;
-            case 40:
-                return TORRENT_RESUMED;
-            case 41:
-                return TORRENT_CHECKED;
-            case 42:
-                return URL_SEED;
-            case 43:
-                return FILE_ERROR;
-            case 44:
-                return METADATA_FAILED;
-            case 45:
-                return METADATA_RECEIVED;
-            case 46:
-                return UDP_ERROR;
-            case 47:
-                return EXTERNAL_IP;
-            case 48:
-                return LISTEN_FAILED;
-            case 49:
-                return LISTEN_SUCCEEDED;
-            case 50:
-                return PORTMAP_ERROR;
-            case 51:
-                return PORTMAP;
-            case 52:
-                return PORTMAP_LOG;
-            case 53:
-                return FASTRESUME_REJECTED;
-            case 54:
-                return PEER_BLOCKED;
-            case 55:
-                return DHT_ANNOUNCE;
-            case 56:
-                return DHT_GET_PEERS;
-            case 57:
-                return STATS;
-            case 58:
-                return CACHE_FLUSHED;
-            case 59:
-                return ANONYMOUS_MODE;
-            case 60:
-                return LSD_PEER;
-            case 61:
-                return TRACKERID;
-            case 62:
-                return DHT_BOOTSTRAP;
-            case 63:
-                return UNKNOWN;
-            case 64:
-                return TORRENT_ERROR;
-            case 65:
-                return TORRENT_NEED_CERT;
-            case 66:
-                return INCOMING_CONNECTION;
-            case 67:
-                return ADD_TORRENT;
-            case 68:
-                return STATE_UPDATE;
-            case 69:
-                return MMAP_CACHE;
-            case 70:
-                return SESSION_STATS;
-            case 71:
-                return TORRENT_UPDATE;
-            case 72:
-                return UNKNOWN;
-            case 73:
-                return DHT_ERROR;
-            case 74:
-                return DHT_IMMUTABLE_ITEM;
-            case 75:
-                return DHT_MUTABLE_ITEM;
-            case 76:
-                return DHT_PUT;
-            case 77:
-                return I2P;
-            case 78:
-                return DHT_OUTGOING_GET_PEERS;
-            case 79:
-                return LOG;
-            case 80:
-                return TORRENT_LOG;
-            case 81:
-                return PEER_LOG;
-            case 82:
-                return LSD_ERROR;
-            case 83:
-                return DHT_STATS;
-            case 84:
-                return INCOMING_REQUEST;
-            case 85:
-                return DHT_LOG;
-            case 86:
-                return DHT_PKT;
-            case 87:
-                return DHT_GET_PEERS_REPLY;
-            case 88:
-                return DHT_DIRECT_RESPONSE;
-            case 89:
-                return PICKER_LOG;
-            default:
-                return UNKNOWN;
-        }
+        try {
+            return ALERT_TYPES[swigValue];
+        } catch (RuntimeException e) {
+	    return UNKNOWN;
+	}
     }
 }
