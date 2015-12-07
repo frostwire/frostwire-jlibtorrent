@@ -21,23 +21,13 @@ import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_IMMUTABLE_ITEM;
  */
 public final class DHT {
 
-    private static final int[] ALERT_TYPES = {AlertType.SESSION_STATS.getSwig()};
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.getSwig()};
     private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {DHT_GET_PEERS_REPLY.getSwig()};
 
     private final Session s;
-    private final SessionListener listener;
 
     public DHT(Session s) {
         this.s = s;
-        this.listener = new SessionListener();
-
-        s.addListener(listener);
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        s.removeListener(listener);
     }
 
     public void start() {
@@ -226,23 +216,5 @@ public final class DHT {
         Vectors.char_vector2bytes(out_v, out);
 
         return r;
-    }
-
-    private class SessionListener implements AlertListener {
-
-        @Override
-        public int[] types() {
-            return ALERT_TYPES;
-        }
-
-        @Override
-        public void alert(Alert<?> alert) {
-
-            int type = alert.getType().getSwig();
-
-            if (type == AlertType.SESSION_STATS.getSwig()) {
-                SessionStatsAlert stats = (SessionStatsAlert) alert;
-            }
-        }
     }
 }
