@@ -16,6 +16,8 @@ public final class StatsAlert extends TorrentAlert<stats_alert> {
         super(alert);
     }
 
+    // All of these are raw, and not smoothing is performed.
+    // See {@link StatsChannel} for possible values of index.
     public int transferred(int index) {
         return alert.get_transferred(index);
     }
@@ -44,7 +46,7 @@ public final class StatsAlert extends TorrentAlert<stats_alert> {
         DEPRECATED4(stats_alert.stats_channel.deprecated4.swigValue()),
         NUM_CHANNELS(stats_alert.stats_channel.num_channels.swigValue());
 
-        private StatsChannel(int swigValue) {
+        StatsChannel(int swigValue) {
             this.swigValue = swigValue;
         }
 
