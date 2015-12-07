@@ -18,7 +18,12 @@ public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
         super(alert);
     }
 
-    public DHTLookup[] getActiveRequests() {
+    /**
+     * An array with the currently running DHT lookups.
+     *
+     * @return
+     */
+    public DHTLookup[] activeRequests() {
         dht_lookup_vector v = alert.getActive_requests();
 
         int size = (int) v.size();
@@ -31,7 +36,13 @@ public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
         return arr;
     }
 
-    public DHTRoutingBucket[] getRoutingTable() {
+    /**
+     * Contains information about every bucket in the DHT routing
+     * table.
+     *
+     * @return
+     */
+    public DHTRoutingBucket[] routingTable() {
         dht_routing_bucket_vector v = alert.getRouting_table();
 
         int size = (int) v.size();
@@ -42,5 +53,9 @@ public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
         }
 
         return arr;
+    }
+
+    public int totalNodes() {
+        return alert.totalNodes();
     }
 }

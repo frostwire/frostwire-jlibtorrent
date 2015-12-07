@@ -69,6 +69,10 @@ public class dht_stats_alert extends alert {
     return (cPtr == 0) ? null : new dht_routing_bucket_vector(cPtr, false);
   }
 
+  public int totalNodes() {
+    return libtorrent_jni.dht_stats_alert_totalNodes(swigCPtr, this);
+  }
+
   public final static int priority = libtorrent_jni.dht_stats_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_stats_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_stats_alert_static_category_get();

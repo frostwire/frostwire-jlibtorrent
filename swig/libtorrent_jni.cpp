@@ -1597,6 +1597,14 @@ SWIGINTERN std::vector< char > libtorrent_dht_put_alert_signature_v(libtorrent::
         boost::array<char, 64> arr = self->signature;
         return std::vector<char>(arr.begin(), arr.end());
     }
+SWIGINTERN int libtorrent_dht_stats_alert_totalNodes(libtorrent::dht_stats_alert *self){
+        int total = 0;
+        for(std::vector<dht_routing_bucket>::const_iterator it = self->routing_table.begin(),
+            end(self->routing_table.end()); it != end; ++it) {
+            total += it->num_nodes;
+        }
+        return total;
+    }
 SWIGINTERN void libtorrent_session_handle_add_lt_trackers_extension(libtorrent::session_handle *self){
         self->add_extension(&libtorrent::create_lt_trackers_plugin);
     }
@@ -36223,6 +36231,21 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
 }
 
 
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1stats_1alert_1totalNodes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  libtorrent::dht_stats_alert *arg1 = (libtorrent::dht_stats_alert *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::dht_stats_alert **)&jarg1; 
+  result = (int)libtorrent_dht_stats_alert_totalNodes(arg1);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1dht_1stats_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   libtorrent::dht_stats_alert *arg1 = (libtorrent::dht_stats_alert *) 0 ;
   
@@ -51058,7 +51081,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("523bc7576d9e57d11bf1c59a206fe7c266c6ff5a");
+  result = (char *)("c1cb1393fbad32003404039a7a830020a5fef434");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -51070,7 +51093,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("d8acc461c8859ddd78d8cf082f72237bf5010f77");
+  result = (char *)("00031ec7b6a9f0efb86aaa8cf7e7127fe1eb60a6");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

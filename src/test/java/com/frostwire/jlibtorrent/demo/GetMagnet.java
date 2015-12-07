@@ -38,24 +38,13 @@ public final class GetMagnet {
 
                 if (alert.getType().equals(AlertType.DHT_STATS)) {
 
-                    long nodes = countNodes((DhtStatsAlert) alert);
+                    long nodes = ((DhtStatsAlert) alert).totalNodes();
                     // wait for at least 10 nodes in the DHT.
                     if (nodes >= 10) {
                         System.out.println("DHT contains " + nodes + " nodes");
                         signal.countDown();
                     }
                 }
-            }
-
-            private int countNodes(DhtStatsAlert a) {
-                DHTRoutingBucket[] t = a.getRoutingTable();
-
-                int total = 0;
-                for (int i = 0; i < t.length; i++) {
-                    total += t[i].numNodes();
-                }
-
-                return total;
             }
         };
 
