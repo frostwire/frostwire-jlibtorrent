@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.swig.alert;
+import com.frostwire.jlibtorrent.swig.libtorrent;
 
 import static com.frostwire.jlibtorrent.swig.alert.*;
 
@@ -10,193 +11,563 @@ import static com.frostwire.jlibtorrent.swig.alert.*;
  */
 public final class Alerts {
 
+    private static CastLambda[] TABLE = buildTable();
+
     private Alerts() {
     }
 
     public static Alert cast(alert a) {
-        switch (a.type()) {
-            case 0:
+        return TABLE[a.type()].cast(a);
+    }
+
+    private static CastLambda[] buildTable() {
+        CastLambda[] arr = new CastLambda[libtorrent.num_alert_types];
+
+        arr[0] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentAlert(cast_to_torrent_alert(a));
-            case 1:
+            }
+        };
+        arr[1] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerAlert(cast_to_peer_alert(a));
-            case 2:
+            }
+        };
+        arr[2] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TrackerAlert(cast_to_tracker_alert(a));
-            case 3:
+            }
+        };
+        arr[3] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentAddedAlert(cast_to_torrent_added_alert(a));
-            case 4:
+            }
+        };
+        arr[4] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentRemovedAlert(cast_to_torrent_removed_alert(a));
-            case 5:
+            }
+        };
+        arr[5] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new ReadPieceAlert(cast_to_read_piece_alert(a));
-            case 6:
+            }
+        };
+        arr[6] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new FileCompletedAlert(cast_to_file_completed_alert(a));
-            case 7:
+            }
+        };
+        arr[7] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new FileRenamedAlert(cast_to_file_renamed_alert(a));
-            case 8:
+            }
+        };
+        arr[8] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new FileRenameFailedAlert(cast_to_file_rename_failed_alert(a));
-            case 9:
+            }
+        };
+        arr[9] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PerformanceAlert(cast_to_performance_alert(a));
-            case 10:
+            }
+        };
+        arr[10] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new StateChangedAlert(cast_to_state_changed_alert(a));
-            case 11:
+            }
+        };
+        arr[11] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TrackerErrorAlert(cast_to_tracker_error_alert(a));
-            case 12:
+            }
+        };
+        arr[12] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TrackerWarningAlert(cast_to_tracker_warning_alert(a));
-            case 13:
+            }
+        };
+        arr[13] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new ScrapeReplyAlert(cast_to_scrape_reply_alert(a));
-            case 14:
+            }
+        };
+        arr[14] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new ScrapeFailedAlert(cast_to_scrape_failed_alert(a));
-            case 15:
+            }
+        };
+        arr[15] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TrackerReplyAlert(cast_to_tracker_reply_alert(a));
-            case 16:
+            }
+        };
+        arr[16] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtReplyAlert(cast_to_dht_reply_alert(a));
-            case 17:
+            }
+        };
+        arr[17] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TrackerAnnounceAlert(cast_to_tracker_announce_alert(a));
-            case 18:
+            }
+        };
+        arr[18] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new HashFailedAlert(cast_to_hash_failed_alert(a));
-            case 19:
+            }
+        };
+        arr[19] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerBanAlert(cast_to_peer_ban_alert(a));
-            case 20:
+            }
+        };
+        arr[20] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerUnsnubbedAlert(cast_to_peer_unsnubbed_alert(a));
-            case 21:
+            }
+        };
+        arr[21] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerSnubbedAlert(cast_to_peer_snubbed_alert(a));
-            case 22:
+            }
+        };
+        arr[22] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerErrorAlert(cast_to_peer_error_alert(a));
-            case 23:
+            }
+        };
+        arr[23] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerConnectAlert(cast_to_peer_connect_alert(a));
-            case 24:
+            }
+        };
+        arr[24] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerDisconnectedAlert(cast_to_peer_disconnected_alert(a));
-            case 25:
+            }
+        };
+        arr[25] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new InvalidRequestAlert(cast_to_invalid_request_alert(a));
-            case 26:
+            }
+        };
+        arr[26] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentFinishedAlert(cast_to_torrent_finished_alert(a));
-            case 27:
+            }
+        };
+        arr[27] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PieceFinishedAlert(cast_to_piece_finished_alert(a));
-            case 28:
+            }
+        };
+        arr[28] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new RequestDroppedAlert(cast_to_request_dropped_alert(a));
-            case 29:
+            }
+        };
+        arr[29] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new BlockTimeoutAlert(cast_to_block_timeout_alert(a));
-            case 30:
+            }
+        };
+        arr[30] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new BlockFinishedAlert(cast_to_block_finished_alert(a));
-            case 31:
+            }
+        };
+        arr[31] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new BlockDownloadingAlert(cast_to_block_downloading_alert(a));
-            case 32:
+            }
+        };
+        arr[32] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new UnwantedBlockAlert(cast_to_unwanted_block_alert(a));
-            case 33:
+            }
+        };
+        arr[33] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new StorageMovedAlert(cast_to_storage_moved_alert(a));
-            case 34:
+            }
+        };
+        arr[34] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new StorageMovedFailedAlert(cast_to_storage_moved_failed_alert(a));
-            case 35:
+            }
+        };
+        arr[35] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentDeletedAlert(cast_to_torrent_deleted_alert(a));
-            case 36:
+            }
+        };
+        arr[36] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentDeleteFailedAlert(cast_to_torrent_delete_failed_alert(a));
-            case 37:
+            }
+        };
+        arr[37] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new SaveResumeDataAlert(cast_to_save_resume_data_alert(a));
-            case 38:
+            }
+        };
+        arr[38] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new SaveResumeDataFailedAlert(cast_to_save_resume_data_failed_alert(a));
-            case 39:
+            }
+        };
+        arr[39] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentPausedAlert(cast_to_torrent_paused_alert(a));
-            case 40:
+            }
+        };
+        arr[40] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentResumedAlert(cast_to_torrent_resumed_alert(a));
-            case 41:
+            }
+        };
+        arr[41] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentCheckedAlert(cast_to_torrent_checked_alert(a));
-            case 42:
+            }
+        };
+        arr[42] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new UrlSeedAlert(cast_to_url_seed_alert(a));
-            case 43:
+            }
+        };
+        arr[43] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new FileErrorAlert(cast_to_file_error_alert(a));
-            case 44:
+            }
+        };
+        arr[44] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new MetadataFailedAlert(cast_to_metadata_failed_alert(a));
-            case 45:
+            }
+        };
+        arr[45] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new MetadataReceivedAlert(cast_to_metadata_received_alert(a));
-            case 46:
+            }
+        };
+        arr[46] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new UdpErrorAlert(cast_to_udp_error_alert(a));
-            case 47:
+            }
+        };
+        arr[47] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new ExternalIpAlert(cast_to_external_ip_alert(a));
-            case 48:
+            }
+        };
+        arr[48] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new ListenFailedAlert(cast_to_listen_failed_alert(a));
-            case 49:
+            }
+        };
+        arr[49] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new ListenSucceededAlert(cast_to_listen_succeeded_alert(a));
-            case 50:
+            }
+        };
+        arr[50] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PortmapErrorAlert(cast_to_portmap_error_alert(a));
-            case 51:
+            }
+        };
+        arr[51] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PortmapAlert(cast_to_portmap_alert(a));
-            case 52:
+            }
+        };
+        arr[52] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PortmapLogAlert(cast_to_portmap_log_alert(a));
-            case 53:
+            }
+        };
+        arr[53] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new FastresumeRejectedAlert(cast_to_fastresume_rejected_alert(a));
-            case 54:
+            }
+        };
+        arr[54] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerBlockedAlert(cast_to_peer_blocked_alert(a));
-            case 55:
+            }
+        };
+        arr[55] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtAnnounceAlert(cast_to_dht_announce_alert(a));
-            case 56:
+            }
+        };
+        arr[56] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtGetPeersAlert(cast_to_dht_get_peers_alert(a));
-            case 57:
+            }
+        };
+        arr[57] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new StatsAlert(cast_to_stats_alert(a));
-            case 58:
+            }
+        };
+        arr[58] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new CacheFlushedAlert(cast_to_cache_flushed_alert(a));
-            case 59:
+            }
+        };
+        arr[59] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new AnonymousModeAlert(cast_to_anonymous_mode_alert(a));
-            case 60:
+            }
+        };
+        arr[60] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new LsdPeerAlert(cast_to_lsd_peer_alert(a));
-            case 61:
+            }
+        };
+        arr[61] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TrackeridAlert(cast_to_trackerid_alert(a));
-            case 62:
+            }
+        };
+        arr[62] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtBootstrapAlert(cast_to_dht_bootstrap_alert(a));
-            case 63:
+            }
+        };
+        arr[63] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new GenericAlert(a);
-            case 64:
+            }
+        };
+        arr[64] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentErrorAlert(cast_to_torrent_error_alert(a));
-            case 65:
+            }
+        };
+        arr[65] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentNeedCertAlert(cast_to_torrent_need_cert_alert(a));
-            case 66:
+            }
+        };
+        arr[66] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new IncomingConnectionAlert(cast_to_incoming_connection_alert(a));
-            case 67:
+            }
+        };
+        arr[67] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new AddTorrentAlert(cast_to_add_torrent_alert(a));
-            case 68:
+            }
+        };
+        arr[68] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new StateUpdateAlert(cast_to_state_update_alert(a));
-            case 69:
+            }
+        };
+        arr[69] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new MmapCacheAlert(cast_to_mmap_cache_alert(a));
-            case 70:
+            }
+        };
+        arr[70] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new SessionStatsAlert(cast_to_session_stats_alert(a));
-            case 71:
+            }
+        };
+        arr[71] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentUpdateAlert(cast_to_torrent_update_alert(a));
-            case 72:
+            }
+        };
+        arr[72] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new GenericAlert(a);
-            case 73:
+            }
+        };
+        arr[73] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtErrorAlert(cast_to_dht_error_alert(a));
-            case 74:
+            }
+        };
+        arr[74] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtImmutableItemAlert(cast_to_dht_immutable_item_alert(a));
-            case 75:
+            }
+        };
+        arr[75] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtMutableItemAlert(cast_to_dht_mutable_item_alert(a));
-            case 76:
+            }
+        };
+        arr[76] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtPutAlert(cast_to_dht_put_alert(a));
-            case 77:
+            }
+        };
+        arr[77] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new I2pAlert(cast_to_i2p_alert(a));
-            case 78:
+            }
+        };
+        arr[78] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtOutgoingGetPeersAlert(cast_to_dht_outgoing_get_peers_alert(a));
-            case 79:
+            }
+        };
+        arr[79] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new LogAlert(cast_to_log_alert(a));
-            case 80:
+            }
+        };
+        arr[80] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new TorrentLogAlert(cast_to_torrent_log_alert(a));
-            case 81:
+            }
+        };
+        arr[81] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PeerLogAlert(cast_to_peer_log_alert(a));
-            case 82:
+            }
+        };
+        arr[82] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new LsdErrorAlert(cast_to_lsd_error_alert(a));
-            case 83:
+            }
+        };
+        arr[83] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtStatsAlert(cast_to_dht_stats_alert(a));
-            case 84:
+            }
+        };
+        arr[84] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new IncomingRequestAlert(cast_to_incoming_request_alert(a));
-            case 85:
+            }
+        };
+        arr[85] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtLogAlert(cast_to_dht_log_alert(a));
-            case 86:
+            }
+        };
+        arr[86] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtPktAlert(cast_to_dht_pkt_alert(a));
-            case 87:
+            }
+        };
+        arr[87] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtGetPeersReplyAlert(cast_to_dht_get_peers_reply_alert(a));
-            case 88:
+            }
+        };
+        arr[88] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new DhtDirectResponseAlert(cast_to_dht_direct_response_alert(a));
-            case 89:
+            }
+        };
+        arr[89] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
                 return new PickerLogAlert(cast_to_picker_log_alert(a));
-            default:
-                return new GenericAlert(a);
-        }
+            }
+        };
+
+        return arr;
+    }
+
+    private interface CastLambda {
+        Alert cast(alert a);
     }
 }

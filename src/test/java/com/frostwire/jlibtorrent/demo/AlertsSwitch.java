@@ -29,13 +29,15 @@ public final class AlertsSwitch {
         Class[] arr = getSwigAlerts();
 
         for (int i = 0; i < arr.length; i++) {
-            String s = "case " + i + ": return new ";
+            String s = "arr[" + i + "] = new CastLambda() { @Override public Alert cast(alert a) { return new ";
             if (arr[i] != null) {
                 String c = capitalizeAlertTypeName(arr[i].getSimpleName());
                 s += c + "(cast_to_" + arr[i].getSimpleName() + "(a));";
             } else {
                 s += "GenericAlert(a);";
             }
+
+            s += "}};";
 
             System.out.println(s);
         }
@@ -45,19 +47,20 @@ public final class AlertsSwitch {
         Class[] arr = getSwigAlerts();
 
         for (int i = 0; i < arr.length; i++) {
-            String s = "case " + i + ": ";
+            String s = "arr[" + i + "] = new InvokeLambda() { @Override public void invoke(TorrentAlertAdapter l, Alert a) { ";
             if (arr[i] != null) {
                 String c = capitalizeAlertTypeName(arr[i].getSimpleName());
                 Class<?> alertClass = Class.forName("com.frostwire.jlibtorrent.alerts." + c);
                 if (TorrentAlert.class.isAssignableFrom(alertClass)) {
                     String cc = Character.toLowerCase(c.charAt(0)) + c.substring(1);
                     cc = cc.replace("Alert", "");
-                    s += cc + "((" + c + ")a); break;";
+                    s += "l." + cc + "((" + c + ")a);";
+                    s += "}};";
                 } else {
-                    s += "invokeVoid(a); break;";
+                    s = "arr[" + i + "] = null;";
                 }
             } else {
-                s += "invokeVoid(a); break;";
+                s = "arr[" + i + "] = null;";
             }
 
             System.out.println(s);
@@ -68,7 +71,7 @@ public final class AlertsSwitch {
         Class[] arr = getSwigAlerts();
 
         for (int i = 0; i < arr.length; i++) {
-            String s = "case " + i + ": return ";
+            String s = "arr[" + i + "] = ";
             if (arr[i] != null) {
                 String c = arr[i].getSimpleName().toUpperCase();
                 c = c.replace("_ALERT", "");

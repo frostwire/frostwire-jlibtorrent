@@ -1,12 +1,15 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
+import com.frostwire.jlibtorrent.swig.libtorrent;
 
 /**
  * @author gubatron
  * @author aldenml
  */
 public abstract class TorrentAlertAdapter implements AlertListener {
+
+    private static InvokeLambda[] TABLE = buildTable();
 
     protected final TorrentHandle th;
 
@@ -29,283 +32,10 @@ public abstract class TorrentAlertAdapter implements AlertListener {
             return;
         }
 
-        switch (a.getSwig().type()) {
-            case 0:
-                torrent((TorrentAlert) a);
-                break;
-            case 1:
-                peer((PeerAlert) a);
-                break;
-            case 2:
-                tracker((TrackerAlert) a);
-                break;
-            case 3:
-                torrentAdded((TorrentAddedAlert) a);
-                break;
-            case 4:
-                torrentRemoved((TorrentRemovedAlert) a);
-                break;
-            case 5:
-                readPiece((ReadPieceAlert) a);
-                break;
-            case 6:
-                fileCompleted((FileCompletedAlert) a);
-                break;
-            case 7:
-                fileRenamed((FileRenamedAlert) a);
-                break;
-            case 8:
-                fileRenameFailed((FileRenameFailedAlert) a);
-                break;
-            case 9:
-                performance((PerformanceAlert) a);
-                break;
-            case 10:
-                stateChanged((StateChangedAlert) a);
-                break;
-            case 11:
-                trackerError((TrackerErrorAlert) a);
-                break;
-            case 12:
-                trackerWarning((TrackerWarningAlert) a);
-                break;
-            case 13:
-                scrapeReply((ScrapeReplyAlert) a);
-                break;
-            case 14:
-                scrapeFailed((ScrapeFailedAlert) a);
-                break;
-            case 15:
-                trackerReply((TrackerReplyAlert) a);
-                break;
-            case 16:
-                dhtReply((DhtReplyAlert) a);
-                break;
-            case 17:
-                trackerAnnounce((TrackerAnnounceAlert) a);
-                break;
-            case 18:
-                hashFailed((HashFailedAlert) a);
-                break;
-            case 19:
-                peerBan((PeerBanAlert) a);
-                break;
-            case 20:
-                peerUnsnubbed((PeerUnsnubbedAlert) a);
-                break;
-            case 21:
-                peerSnubbed((PeerSnubbedAlert) a);
-                break;
-            case 22:
-                peerError((PeerErrorAlert) a);
-                break;
-            case 23:
-                peerConnect((PeerConnectAlert) a);
-                break;
-            case 24:
-                peerDisconnected((PeerDisconnectedAlert) a);
-                break;
-            case 25:
-                invalidRequest((InvalidRequestAlert) a);
-                break;
-            case 26:
-                torrentFinished((TorrentFinishedAlert) a);
-                break;
-            case 27:
-                pieceFinished((PieceFinishedAlert) a);
-                break;
-            case 28:
-                requestDropped((RequestDroppedAlert) a);
-                break;
-            case 29:
-                blockTimeout((BlockTimeoutAlert) a);
-                break;
-            case 30:
-                blockFinished((BlockFinishedAlert) a);
-                break;
-            case 31:
-                blockDownloading((BlockDownloadingAlert) a);
-                break;
-            case 32:
-                unwantedBlock((UnwantedBlockAlert) a);
-                break;
-            case 33:
-                storageMoved((StorageMovedAlert) a);
-                break;
-            case 34:
-                storageMovedFailed((StorageMovedFailedAlert) a);
-                break;
-            case 35:
-                torrentDeleted((TorrentDeletedAlert) a);
-                break;
-            case 36:
-                torrentDeleteFailed((TorrentDeleteFailedAlert) a);
-                break;
-            case 37:
-                saveResumeData((SaveResumeDataAlert) a);
-                break;
-            case 38:
-                saveResumeDataFailed((SaveResumeDataFailedAlert) a);
-                break;
-            case 39:
-                torrentPaused((TorrentPausedAlert) a);
-                break;
-            case 40:
-                torrentResumed((TorrentResumedAlert) a);
-                break;
-            case 41:
-                torrentChecked((TorrentCheckedAlert) a);
-                break;
-            case 42:
-                urlSeed((UrlSeedAlert) a);
-                break;
-            case 43:
-                fileError((FileErrorAlert) a);
-                break;
-            case 44:
-                metadataFailed((MetadataFailedAlert) a);
-                break;
-            case 45:
-                metadataReceived((MetadataReceivedAlert) a);
-                break;
-            case 46:
-                invokeVoid(a);
-                break;
-            case 47:
-                invokeVoid(a);
-                break;
-            case 48:
-                invokeVoid(a);
-                break;
-            case 49:
-                invokeVoid(a);
-                break;
-            case 50:
-                invokeVoid(a);
-                break;
-            case 51:
-                invokeVoid(a);
-                break;
-            case 52:
-                invokeVoid(a);
-                break;
-            case 53:
-                fastresumeRejected((FastresumeRejectedAlert) a);
-                break;
-            case 54:
-                peerBlocked((PeerBlockedAlert) a);
-                break;
-            case 55:
-                invokeVoid(a);
-                break;
-            case 56:
-                invokeVoid(a);
-                break;
-            case 57:
-                stats((StatsAlert) a);
-                break;
-            case 58:
-                cacheFlushed((CacheFlushedAlert) a);
-                break;
-            case 59:
-                anonymousMode((AnonymousModeAlert) a);
-                break;
-            case 60:
-                lsdPeer((LsdPeerAlert) a);
-                break;
-            case 61:
-                trackerid((TrackeridAlert) a);
-                break;
-            case 62:
-                invokeVoid(a);
-                break;
-            case 63:
-                invokeVoid(a);
-                break;
-            case 64:
-                torrentError((TorrentErrorAlert) a);
-                break;
-            case 65:
-                torrentNeedCert((TorrentNeedCertAlert) a);
-                break;
-            case 66:
-                invokeVoid(a);
-                break;
-            case 67:
-                addTorrent((AddTorrentAlert) a);
-                break;
-            case 68:
-                invokeVoid(a);
-                break;
-            case 69:
-                invokeVoid(a);
-                break;
-            case 70:
-                invokeVoid(a);
-                break;
-            case 71:
-                torrentUpdate((TorrentUpdateAlert) a);
-                break;
-            case 72:
-                invokeVoid(a);
-                break;
-            case 73:
-                invokeVoid(a);
-                break;
-            case 74:
-                invokeVoid(a);
-                break;
-            case 75:
-                invokeVoid(a);
-                break;
-            case 76:
-                invokeVoid(a);
-                break;
-            case 77:
-                invokeVoid(a);
-                break;
-            case 78:
-                invokeVoid(a);
-                break;
-            case 79:
-                invokeVoid(a);
-                break;
-            case 80:
-                torrentLog((TorrentLogAlert) a);
-                break;
-            case 81:
-                peerLog((PeerLogAlert) a);
-                break;
-            case 82:
-                invokeVoid(a);
-                break;
-            case 83:
-                invokeVoid(a);
-                break;
-            case 84:
-                incomingRequest((IncomingRequestAlert) a);
-                break;
-            case 85:
-                invokeVoid(a);
-                break;
-            case 86:
-                invokeVoid(a);
-                break;
-            case 87:
-                invokeVoid(a);
-                break;
-            case 88:
-                invokeVoid(a);
-                break;
-            case 89:
-                pickerLog((PickerLogAlert) a);
-                break;
-            default:
-                invokeVoid(a);
+        InvokeLambda l = TABLE[a.getType().getSwig()];
+        if (l != null) {
+            l.invoke(this, a);
         }
-    }
-
-    private void invokeVoid(Alert alert) {
     }
 
     private void torrent(TorrentAlert alert) {
@@ -495,5 +225,411 @@ public abstract class TorrentAlertAdapter implements AlertListener {
     }
 
     public void torrentPrioritize(TorrentPrioritizeAlert alert) {
+    }
+
+    private static InvokeLambda[] buildTable() {
+        InvokeLambda[] arr = new InvokeLambda[libtorrent.num_alert_types];
+
+        arr[0] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrent((TorrentAlert) a);
+            }
+        };
+        arr[1] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peer((PeerAlert) a);
+            }
+        };
+        arr[2] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.tracker((TrackerAlert) a);
+            }
+        };
+        arr[3] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentAdded((TorrentAddedAlert) a);
+            }
+        };
+        arr[4] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentRemoved((TorrentRemovedAlert) a);
+            }
+        };
+        arr[5] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.readPiece((ReadPieceAlert) a);
+            }
+        };
+        arr[6] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.fileCompleted((FileCompletedAlert) a);
+            }
+        };
+        arr[7] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.fileRenamed((FileRenamedAlert) a);
+            }
+        };
+        arr[8] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.fileRenameFailed((FileRenameFailedAlert) a);
+            }
+        };
+        arr[9] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.performance((PerformanceAlert) a);
+            }
+        };
+        arr[10] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.stateChanged((StateChangedAlert) a);
+            }
+        };
+        arr[11] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.trackerError((TrackerErrorAlert) a);
+            }
+        };
+        arr[12] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.trackerWarning((TrackerWarningAlert) a);
+            }
+        };
+        arr[13] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.scrapeReply((ScrapeReplyAlert) a);
+            }
+        };
+        arr[14] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.scrapeFailed((ScrapeFailedAlert) a);
+            }
+        };
+        arr[15] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.trackerReply((TrackerReplyAlert) a);
+            }
+        };
+        arr[16] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.dhtReply((DhtReplyAlert) a);
+            }
+        };
+        arr[17] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.trackerAnnounce((TrackerAnnounceAlert) a);
+            }
+        };
+        arr[18] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.hashFailed((HashFailedAlert) a);
+            }
+        };
+        arr[19] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peerBan((PeerBanAlert) a);
+            }
+        };
+        arr[20] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peerUnsnubbed((PeerUnsnubbedAlert) a);
+            }
+        };
+        arr[21] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peerSnubbed((PeerSnubbedAlert) a);
+            }
+        };
+        arr[22] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peerError((PeerErrorAlert) a);
+            }
+        };
+        arr[23] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peerConnect((PeerConnectAlert) a);
+            }
+        };
+        arr[24] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peerDisconnected((PeerDisconnectedAlert) a);
+            }
+        };
+        arr[25] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.invalidRequest((InvalidRequestAlert) a);
+            }
+        };
+        arr[26] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentFinished((TorrentFinishedAlert) a);
+            }
+        };
+        arr[27] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.pieceFinished((PieceFinishedAlert) a);
+            }
+        };
+        arr[28] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.requestDropped((RequestDroppedAlert) a);
+            }
+        };
+        arr[29] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.blockTimeout((BlockTimeoutAlert) a);
+            }
+        };
+        arr[30] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.blockFinished((BlockFinishedAlert) a);
+            }
+        };
+        arr[31] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.blockDownloading((BlockDownloadingAlert) a);
+            }
+        };
+        arr[32] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.unwantedBlock((UnwantedBlockAlert) a);
+            }
+        };
+        arr[33] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.storageMoved((StorageMovedAlert) a);
+            }
+        };
+        arr[34] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.storageMovedFailed((StorageMovedFailedAlert) a);
+            }
+        };
+        arr[35] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentDeleted((TorrentDeletedAlert) a);
+            }
+        };
+        arr[36] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentDeleteFailed((TorrentDeleteFailedAlert) a);
+            }
+        };
+        arr[37] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.saveResumeData((SaveResumeDataAlert) a);
+            }
+        };
+        arr[38] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.saveResumeDataFailed((SaveResumeDataFailedAlert) a);
+            }
+        };
+        arr[39] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentPaused((TorrentPausedAlert) a);
+            }
+        };
+        arr[40] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentResumed((TorrentResumedAlert) a);
+            }
+        };
+        arr[41] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentChecked((TorrentCheckedAlert) a);
+            }
+        };
+        arr[42] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.urlSeed((UrlSeedAlert) a);
+            }
+        };
+        arr[43] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.fileError((FileErrorAlert) a);
+            }
+        };
+        arr[44] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.metadataFailed((MetadataFailedAlert) a);
+            }
+        };
+        arr[45] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.metadataReceived((MetadataReceivedAlert) a);
+            }
+        };
+        arr[46] = null;
+        arr[47] = null;
+        arr[48] = null;
+        arr[49] = null;
+        arr[50] = null;
+        arr[51] = null;
+        arr[52] = null;
+        arr[53] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.fastresumeRejected((FastresumeRejectedAlert) a);
+            }
+        };
+        arr[54] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peerBlocked((PeerBlockedAlert) a);
+            }
+        };
+        arr[55] = null;
+        arr[56] = null;
+        arr[57] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.stats((StatsAlert) a);
+            }
+        };
+        arr[58] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.cacheFlushed((CacheFlushedAlert) a);
+            }
+        };
+        arr[59] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.anonymousMode((AnonymousModeAlert) a);
+            }
+        };
+        arr[60] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.lsdPeer((LsdPeerAlert) a);
+            }
+        };
+        arr[61] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.trackerid((TrackeridAlert) a);
+            }
+        };
+        arr[62] = null;
+        arr[63] = null;
+        arr[64] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentError((TorrentErrorAlert) a);
+            }
+        };
+        arr[65] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentNeedCert((TorrentNeedCertAlert) a);
+            }
+        };
+        arr[66] = null;
+        arr[67] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.addTorrent((AddTorrentAlert) a);
+            }
+        };
+        arr[68] = null;
+        arr[69] = null;
+        arr[70] = null;
+        arr[71] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentUpdate((TorrentUpdateAlert) a);
+            }
+        };
+        arr[72] = null;
+        arr[73] = null;
+        arr[74] = null;
+        arr[75] = null;
+        arr[76] = null;
+        arr[77] = null;
+        arr[78] = null;
+        arr[79] = null;
+        arr[80] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.torrentLog((TorrentLogAlert) a);
+            }
+        };
+        arr[81] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.peerLog((PeerLogAlert) a);
+            }
+        };
+        arr[82] = null;
+        arr[83] = null;
+        arr[84] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.incomingRequest((IncomingRequestAlert) a);
+            }
+        };
+        arr[85] = null;
+        arr[86] = null;
+        arr[87] = null;
+        arr[88] = null;
+        arr[89] = new InvokeLambda() {
+            @Override
+            public void invoke(TorrentAlertAdapter l, Alert a) {
+                l.pickerLog((PickerLogAlert) a);
+            }
+        };
+
+        return arr;
+    }
+
+    private interface InvokeLambda {
+        void invoke(TorrentAlertAdapter l, Alert a);
     }
 }

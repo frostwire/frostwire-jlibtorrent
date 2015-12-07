@@ -99,97 +99,7 @@ public enum AlertType {
     UNKNOWN(-1),
     TORRENT_PRIORITIZE(-2);
 
-    private static AlertType[] ALERT_TYPES = {
-                       TORRENT,
-                       PEER,
-                       TRACKER,
-                       TORRENT_ADDED,
-                       TORRENT_REMOVED,
-                       READ_PIECE,
-                       FILE_COMPLETED,
-                       FILE_RENAMED,
-                       FILE_RENAME_FAILED,
-                       PERFORMANCE,
-                       STATE_CHANGED,
-                       TRACKER_ERROR,
-                       TRACKER_WARNING,
-                       SCRAPE_REPLY,
-                       SCRAPE_FAILED,
-                       TRACKER_REPLY,
-                       DHT_REPLY,
-                       TRACKER_ANNOUNCE,
-                       HASH_FAILED,
-                       PEER_BAN,
-                       PEER_UNSNUBBED,
-                       PEER_SNUBBED,
-                       PEER_ERROR,
-                       PEER_CONNECT,
-                       PEER_DISCONNECTED,
-                       INVALID_REQUEST,
-                       TORRENT_FINISHED,
-                       PIECE_FINISHED,
-                       REQUEST_DROPPED,
-                       BLOCK_TIMEOUT,
-                       BLOCK_FINISHED,
-                       BLOCK_DOWNLOADING,
-                       UNWANTED_BLOCK,
-                       STORAGE_MOVED,
-                       STORAGE_MOVED_FAILED,
-                       TORRENT_DELETED,
-                       TORRENT_DELETE_FAILED,
-                       SAVE_RESUME_DATA,
-                       SAVE_RESUME_DATA_FAILED,
-                       TORRENT_PAUSED,
-                       TORRENT_RESUMED,
-                       TORRENT_CHECKED,
-                       URL_SEED,
-                       FILE_ERROR,
-                       METADATA_FAILED,
-                       METADATA_RECEIVED,
-                       UDP_ERROR,
-                       EXTERNAL_IP,
-                       LISTEN_FAILED,
-                       LISTEN_SUCCEEDED,
-                       PORTMAP_ERROR,
-                       PORTMAP,
-                       PORTMAP_LOG,
-                       FASTRESUME_REJECTED,
-                       PEER_BLOCKED,
-                       DHT_ANNOUNCE,
-                       DHT_GET_PEERS,
-                       STATS,
-                       CACHE_FLUSHED,
-                       ANONYMOUS_MODE,
-                       LSD_PEER,
-                       TRACKERID,
-                       DHT_BOOTSTRAP,
-                       UNKNOWN,
-                       TORRENT_ERROR,
-                       TORRENT_NEED_CERT,
-                       INCOMING_CONNECTION,
-                       ADD_TORRENT,
-                       STATE_UPDATE,
-                       MMAP_CACHE,
-                       SESSION_STATS,
-                       TORRENT_UPDATE,
-                       UNKNOWN,
-                       DHT_ERROR,
-                       DHT_IMMUTABLE_ITEM,
-                       DHT_MUTABLE_ITEM,
-                       DHT_PUT,
-                       I2P,
-                       DHT_OUTGOING_GET_PEERS,
-                       LOG,
-                       TORRENT_LOG,
-                       PEER_LOG,
-                       LSD_ERROR,
-                       DHT_STATS,
-                       INCOMING_REQUEST,
-                       DHT_LOG,
-                       DHT_PKT,
-                       DHT_GET_PEERS_REPLY,
-                       DHT_DIRECT_RESPONSE,
-                       PICKER_LOG };
+    private static AlertType[] TABLE = buildTable();
 
     AlertType(int swigValue) {
         this.swigValue = swigValue;
@@ -202,10 +112,103 @@ public enum AlertType {
     }
 
     public static AlertType fromSwig(int swigValue) {
-        try {
-            return ALERT_TYPES[swigValue];
-        } catch (RuntimeException e) {
-	    return UNKNOWN;
-	}
+        return TABLE[swigValue];
+    }
+
+    private static AlertType[] buildTable() {
+        AlertType[] arr = new AlertType[libtorrent.num_alert_types];
+
+        arr[0] = TORRENT;
+        arr[1] = PEER;
+        arr[2] = TRACKER;
+        arr[3] = TORRENT_ADDED;
+        arr[4] = TORRENT_REMOVED;
+        arr[5] = READ_PIECE;
+        arr[6] = FILE_COMPLETED;
+        arr[7] = FILE_RENAMED;
+        arr[8] = FILE_RENAME_FAILED;
+        arr[9] = PERFORMANCE;
+        arr[10] = STATE_CHANGED;
+        arr[11] = TRACKER_ERROR;
+        arr[12] = TRACKER_WARNING;
+        arr[13] = SCRAPE_REPLY;
+        arr[14] = SCRAPE_FAILED;
+        arr[15] = TRACKER_REPLY;
+        arr[16] = DHT_REPLY;
+        arr[17] = TRACKER_ANNOUNCE;
+        arr[18] = HASH_FAILED;
+        arr[19] = PEER_BAN;
+        arr[20] = PEER_UNSNUBBED;
+        arr[21] = PEER_SNUBBED;
+        arr[22] = PEER_ERROR;
+        arr[23] = PEER_CONNECT;
+        arr[24] = PEER_DISCONNECTED;
+        arr[25] = INVALID_REQUEST;
+        arr[26] = TORRENT_FINISHED;
+        arr[27] = PIECE_FINISHED;
+        arr[28] = REQUEST_DROPPED;
+        arr[29] = BLOCK_TIMEOUT;
+        arr[30] = BLOCK_FINISHED;
+        arr[31] = BLOCK_DOWNLOADING;
+        arr[32] = UNWANTED_BLOCK;
+        arr[33] = STORAGE_MOVED;
+        arr[34] = STORAGE_MOVED_FAILED;
+        arr[35] = TORRENT_DELETED;
+        arr[36] = TORRENT_DELETE_FAILED;
+        arr[37] = SAVE_RESUME_DATA;
+        arr[38] = SAVE_RESUME_DATA_FAILED;
+        arr[39] = TORRENT_PAUSED;
+        arr[40] = TORRENT_RESUMED;
+        arr[41] = TORRENT_CHECKED;
+        arr[42] = URL_SEED;
+        arr[43] = FILE_ERROR;
+        arr[44] = METADATA_FAILED;
+        arr[45] = METADATA_RECEIVED;
+        arr[46] = UDP_ERROR;
+        arr[47] = EXTERNAL_IP;
+        arr[48] = LISTEN_FAILED;
+        arr[49] = LISTEN_SUCCEEDED;
+        arr[50] = PORTMAP_ERROR;
+        arr[51] = PORTMAP;
+        arr[52] = PORTMAP_LOG;
+        arr[53] = FASTRESUME_REJECTED;
+        arr[54] = PEER_BLOCKED;
+        arr[55] = DHT_ANNOUNCE;
+        arr[56] = DHT_GET_PEERS;
+        arr[57] = STATS;
+        arr[58] = CACHE_FLUSHED;
+        arr[59] = ANONYMOUS_MODE;
+        arr[60] = LSD_PEER;
+        arr[61] = TRACKERID;
+        arr[62] = DHT_BOOTSTRAP;
+        arr[63] = UNKNOWN;
+        arr[64] = TORRENT_ERROR;
+        arr[65] = TORRENT_NEED_CERT;
+        arr[66] = INCOMING_CONNECTION;
+        arr[67] = ADD_TORRENT;
+        arr[68] = STATE_UPDATE;
+        arr[69] = MMAP_CACHE;
+        arr[70] = SESSION_STATS;
+        arr[71] = TORRENT_UPDATE;
+        arr[72] = UNKNOWN;
+        arr[73] = DHT_ERROR;
+        arr[74] = DHT_IMMUTABLE_ITEM;
+        arr[75] = DHT_MUTABLE_ITEM;
+        arr[76] = DHT_PUT;
+        arr[77] = I2P;
+        arr[78] = DHT_OUTGOING_GET_PEERS;
+        arr[79] = LOG;
+        arr[80] = TORRENT_LOG;
+        arr[81] = PEER_LOG;
+        arr[82] = LSD_ERROR;
+        arr[83] = DHT_STATS;
+        arr[84] = INCOMING_REQUEST;
+        arr[85] = DHT_LOG;
+        arr[86] = DHT_PKT;
+        arr[87] = DHT_GET_PEERS_REPLY;
+        arr[88] = DHT_DIRECT_RESPONSE;
+        arr[89] = PICKER_LOG;
+        
+        return arr;
     }
 }
