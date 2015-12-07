@@ -1,12 +1,12 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.alerts.*;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.dht_item;
 import com.frostwire.jlibtorrent.swig.settings_pack;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 
-import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
