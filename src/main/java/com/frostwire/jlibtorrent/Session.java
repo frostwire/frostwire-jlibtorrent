@@ -7,7 +7,9 @@ import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session_handle.options_t;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,8 +43,8 @@ public final class Session extends SessionHandle {
     private long lastStatsRequestTime;
     private long lastStatSecondTick;
 
-    private final SparseArray<ArrayList<AlertListener>> listeners;
-    private final SparseArray<AlertListener[]> listenerSnapshots;
+    private final SparseArray<ArrayList<WeakReference<AlertListener>>> listeners;
+    private final SparseArray<WeakReference<AlertListener>[]> listenerSnapshots;
     private boolean running;
 
     private final LinkedList<SwigPlugin> plugins;
@@ -61,8 +63,8 @@ public final class Session extends SessionHandle {
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
 
-        this.listeners = new SparseArray<ArrayList<AlertListener>>();
-        this.listenerSnapshots = new SparseArray<AlertListener[]>();
+        this.listeners = new SparseArray<ArrayList<WeakReference<AlertListener>>>();
+        this.listenerSnapshots = new SparseArray<WeakReference<AlertListener>[]>();
         this.running = true;
 
         alertsLoop();
@@ -83,8 +85,8 @@ public final class Session extends SessionHandle {
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
 
-        this.listeners = new SparseArray<ArrayList<AlertListener>>();
-        this.listenerSnapshots = new SparseArray<AlertListener[]>();
+        this.listeners = new SparseArray<ArrayList<WeakReference<AlertListener>>>();
+        this.listenerSnapshots = new SparseArray<WeakReference<AlertListener>[]>();
         this.running = true;
 
         alertsLoop();
@@ -872,11 +874,14 @@ public final class Session extends SessionHandle {
     }
 
     private void fireAlert(Alert<?> a, int type) {
-        AlertListener[] listeners = listenerSnapshots.get(type);
+        WeakReference<AlertListener>[] listeners = listenerSnapshots.get(type);
         if (listeners != null) {
             for (int i = 0; i < listeners.length; i++) {
                 try {
-                    listeners[i].alert(a);
+                    AlertListener l = listeners[i].get();
+                    if (l != null) {
+                        l.alert(a);
+                    }
                 } catch (Throwable e) {
                     LOG.warn("Error calling alert listener", e);
                 }
@@ -1006,20 +1011,27 @@ public final class Session extends SessionHandle {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void modifyListeners(boolean adding, int type, AlertListener listener) {
-        ArrayList<AlertListener> l = listeners.get(type);
+        ArrayList<WeakReference<AlertListener>> l = listeners.get(type);
         if (l == null) {
-            l = new ArrayList<AlertListener>();
+            l = new ArrayList<WeakReference<AlertListener>>();
             listeners.append(type, l);
         }
 
         if (adding) {
-            l.add(listener);
+            l.add(new WeakReference<AlertListener>(listener));
         } else {
-            l.remove(listener);
+            Iterator<WeakReference<AlertListener>> iterator = l.iterator();
+            while (iterator.hasNext()) {
+                WeakReference<AlertListener> ref = iterator.next();
+                if (ref.get() == listener) {
+                    iterator.remove();
+                }
+            }
         }
 
-        listenerSnapshots.append(type, l.toArray(new AlertListener[0]));
+        listenerSnapshots.append(type, l.toArray(new WeakReference[0]));
     }
 
     private static List<Pair<String, Integer>> defaultRouters() {

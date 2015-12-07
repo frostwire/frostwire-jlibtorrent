@@ -20,6 +20,7 @@ public final class Alerts {
         return TABLE[a.type()].cast(a);
     }
 
+    @SuppressWarnings("unchecked")
     private static CastLambda[] buildTable() {
         CastLambda[] arr = new CastLambda[libtorrent.num_alert_types];
 
