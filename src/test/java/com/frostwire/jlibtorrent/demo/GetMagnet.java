@@ -38,7 +38,7 @@ public final class GetMagnet {
                     SessionStatsAlert stats = (SessionStatsAlert) alert;
 
                     System.out.println(stats.value(counters.stats_gauge_t.dht_immutable_data.swigValue()));
-                    long dhtPeers = stats.dhtPeers();
+                    long dhtPeers = 0;//stats.dhtPeers();
                     System.out.println("Num peers: " + dhtPeers);
                     // wait for at least 10 peers in our DHT storage.
                     if (dhtPeers >= 10) {
