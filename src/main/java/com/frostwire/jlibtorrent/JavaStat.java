@@ -7,13 +7,13 @@ package com.frostwire.jlibtorrent;
 final class JavaStat {
 
     // these are the channels we keep stats for
-    public final static int UPLOAD_PAYLOAD = Stat.UPLOAD_PAYLOAD;
-    public final static int UPLOAD_PROTOCOL = Stat.UPLOAD_PROTOCOL;
-    public final static int DOWNLOAD_PAYLOAD = Stat.DOWNLOAD_PAYLOAD;
-    public final static int DOWNLOAD_PROTOCOL = Stat.DOWNLOAD_PROTOCOL;
-    public final static int UPLOAD_IP_PROTOCOL = Stat.UPLOAD_IP_PROTOCOL;
-    public final static int DOWNLOAD_IP_PROTOCOL = Stat.DOWNLOAD_IP_PROTOCOL;
-    public final static int NUM_CHANNELS = Stat.NUM_CHANNELS;
+    public final static int UPLOAD_PAYLOAD = com.frostwire.jlibtorrent.swig.stat.upload_payload;
+    public final static int UPLOAD_PROTOCOL = com.frostwire.jlibtorrent.swig.stat.upload_protocol;
+    public final static int DOWNLOAD_PAYLOAD = com.frostwire.jlibtorrent.swig.stat.download_payload;
+    public final static int DOWNLOAD_PROTOCOL = com.frostwire.jlibtorrent.swig.stat.download_protocol;
+    public final static int UPLOAD_IP_PROTOCOL = com.frostwire.jlibtorrent.swig.stat.upload_ip_protocol;
+    public final static int DOWNLOAD_IP_PROTOCOL = com.frostwire.jlibtorrent.swig.stat.download_ip_protocol;
+    public final static int NUM_CHANNELS = com.frostwire.jlibtorrent.swig.stat.num_channels;
 
     private final JavaStatChannel[] stat;
 

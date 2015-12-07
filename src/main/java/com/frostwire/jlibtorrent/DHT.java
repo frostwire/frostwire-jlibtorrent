@@ -238,6 +238,11 @@ public final class DHT {
         @Override
         public void alert(Alert<?> alert) {
 
+            int type = alert.getType().getSwig();
+
+            if (type == AlertType.SESSION_STATS.getSwig()) {
+                SessionStatsAlert stats = (SessionStatsAlert) alert;
+            }
         }
     }
 }

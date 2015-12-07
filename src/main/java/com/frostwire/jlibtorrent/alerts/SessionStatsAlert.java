@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.swig.counters;
 import com.frostwire.jlibtorrent.swig.session_stats_alert;
 
 /**
@@ -30,5 +31,9 @@ public final class SessionStatsAlert extends AbstractAlert<session_stats_alert> 
      */
     public long value(int index) {
         return alert.get_value(index);
+    }
+
+    public long dhtPeers() {
+        return alert.get_value(counters.stats_gauge_t.dht_peers.swigValue());
     }
 }
