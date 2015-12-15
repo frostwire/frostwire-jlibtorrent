@@ -35,14 +35,6 @@ public class peer_info {
     }
   }
 
-  public void setInet_as_name(String value) {
-    libtorrent_jni.peer_info_inet_as_name_set(swigCPtr, this, value);
-  }
-
-  public String getInet_as_name() {
-    return libtorrent_jni.peer_info_inet_as_name_get(swigCPtr, this);
-  }
-
   public void setClient(String value) {
     libtorrent_jni.peer_info_client_set(swigCPtr, this, value);
   }
@@ -214,14 +206,6 @@ public class peer_info {
 
   public int getNum_hashfails() {
     return libtorrent_jni.peer_info_num_hashfails_get(swigCPtr, this);
-  }
-
-  public void setInet_as(int value) {
-    libtorrent_jni.peer_info_inet_as_set(swigCPtr, this, value);
-  }
-
-  public int getInet_as() {
-    return libtorrent_jni.peer_info_inet_as_get(swigCPtr, this);
   }
 
   public void setDownload_queue_length(int value) {
@@ -448,14 +432,6 @@ public class peer_info {
 
   public char getWrite_state() {
     return libtorrent_jni.peer_info_write_state_get(swigCPtr, this);
-  }
-
-  public void setCountry(String value) {
-    libtorrent_jni.peer_info_country_set(swigCPtr, this, value);
-  }
-
-  public String getCountry() {
-    return libtorrent_jni.peer_info_country_get(swigCPtr, this);
   }
 
   public peer_info() {

@@ -901,6 +901,7 @@ public class libtorrent_jni {
   public final static native void torrent_info_add_http_seed__SWIG_1(long jarg1, torrent_info jarg1_, String jarg2, String jarg3);
   public final static native void torrent_info_add_http_seed__SWIG_2(long jarg1, torrent_info jarg1_, String jarg2);
   public final static native long torrent_info_web_seeds(long jarg1, torrent_info jarg1_);
+  public final static native void torrent_info_set_web_seeds(long jarg1, torrent_info jarg1_, long jarg2, web_seed_entry_vector jarg2_);
   public final static native long torrent_info_total_size(long jarg1, torrent_info jarg1_);
   public final static native int torrent_info_piece_length(long jarg1, torrent_info jarg1_);
   public final static native int torrent_info_num_pieces(long jarg1, torrent_info jarg1_);
@@ -1024,8 +1025,6 @@ public class libtorrent_jni {
   public final static native void torrent_handle_queue_position_down(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_queue_position_top(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_queue_position_bottom(long jarg1, torrent_handle jarg1_);
-  public final static native void torrent_handle_resolve_countries__SWIG_0(long jarg1, torrent_handle jarg1_, boolean jarg2);
-  public final static native boolean torrent_handle_resolve_countries__SWIG_1(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_set_ssl_certificate__SWIG_0(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4, String jarg5);
   public final static native void torrent_handle_set_ssl_certificate__SWIG_1(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4);
   public final static native void torrent_handle_set_ssl_certificate_buffer(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4);
@@ -1057,7 +1056,6 @@ public class libtorrent_jni {
   public final static native int torrent_handle_max_uploads(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_set_max_connections(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native int torrent_handle_max_connections(long jarg1, torrent_handle jarg1_);
-  public final static native void torrent_handle_set_tracker_login(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3);
   public final static native void torrent_handle_move_storage__SWIG_0(long jarg1, torrent_handle jarg1_, String jarg2, int jarg3);
   public final static native void torrent_handle_move_storage__SWIG_1(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native void torrent_handle_rename_file(long jarg1, torrent_handle jarg1_, int jarg2, String jarg3);
@@ -2294,8 +2292,6 @@ public class libtorrent_jni {
   public final static native void cache_status_pieces_set(long jarg1, cache_status jarg1_, long jarg2, cached_piece_info_vector jarg2_);
   public final static native long cache_status_pieces_get(long jarg1, cache_status jarg1_);
   public final static native void delete_cache_status(long jarg1);
-  public final static native void peer_info_inet_as_name_set(long jarg1, peer_info jarg1_, String jarg2);
-  public final static native String peer_info_inet_as_name_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_client_set(long jarg1, peer_info jarg1_, String jarg2);
   public final static native String peer_info_client_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_pieces_set(long jarg1, peer_info jarg1_, long jarg2, bitfield jarg2_);
@@ -2365,8 +2361,6 @@ public class libtorrent_jni {
   public final static native int peer_info_used_receive_buffer_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_num_hashfails_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_num_hashfails_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_inet_as_set(long jarg1, peer_info jarg1_, int jarg2);
-  public final static native int peer_info_inet_as_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_download_queue_length_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_download_queue_length_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_timed_out_requests_set(long jarg1, peer_info jarg1_, int jarg2);
@@ -2430,8 +2424,6 @@ public class libtorrent_jni {
   public final static native char peer_info_read_state_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_write_state_set(long jarg1, peer_info jarg1_, char jarg2);
   public final static native char peer_info_write_state_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_country_set(long jarg1, peer_info jarg1_, String jarg2);
-  public final static native String peer_info_country_get(long jarg1, peer_info jarg1_);
   public final static native long new_peer_info();
   public final static native void delete_peer_info(long jarg1);
   public final static native int peer_list_entry_banned_get();

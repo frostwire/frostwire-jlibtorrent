@@ -219,14 +219,6 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_queue_position_bottom(swigCPtr, this);
   }
 
-  public void resolve_countries(boolean r) {
-    libtorrent_jni.torrent_handle_resolve_countries__SWIG_0(swigCPtr, this, r);
-  }
-
-  public boolean resolve_countries() {
-    return libtorrent_jni.torrent_handle_resolve_countries__SWIG_1(swigCPtr, this);
-  }
-
   public void set_ssl_certificate(String certificate, String private_key, String dh_params, String passphrase) {
     libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_0(swigCPtr, this, certificate, private_key, dh_params, passphrase);
   }
@@ -349,10 +341,6 @@ public class torrent_handle {
 
   public int max_connections() {
     return libtorrent_jni.torrent_handle_max_connections(swigCPtr, this);
-  }
-
-  public void set_tracker_login(String name, String password) {
-    libtorrent_jni.torrent_handle_set_tracker_login(swigCPtr, this, name, password);
   }
 
   public void move_storage(String save_path, int flags) {
