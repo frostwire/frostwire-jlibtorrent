@@ -24,7 +24,7 @@ public final class DownloadTorrent {
         //libtorrent.set_utp_stream_logging(true);
 
         // comment this line for a real application
-        args = new String[]{"/Users/aldenml/Downloads/Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015.torrent"};
+        args = new String[]{"/home/user1/Downloads/Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015.torrent"};
 
         File torrentFile = new File(args[0]);
 

@@ -693,6 +693,8 @@ namespace std {
 %rename(is_none_t) libtorrent::bdecode_node::operator bool() const;
 
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
+%rename("$ignore", regextarget=1, %$isfunction) "^__real_.*";
+%rename("$ignore", regextarget=1, %$isfunction) "^__wrap_.*";
 
 %include <boost/system/error_code.hpp>
 
@@ -1235,6 +1237,9 @@ public:
 
 %ignore swig_storage_constructor_cb;
 %ignore dht_put_item_cb;
+
+%feature("director") swig_posix_wrapper;
+%ignore g_posix_wrapper;
 
 #ifdef LIBTORRENT_SWIG_NODE
 

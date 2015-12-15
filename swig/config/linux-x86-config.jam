@@ -14,4 +14,13 @@ using gcc : x86 : g++ :
       <cxxflags>-I$(DEVELOPMENT_ROOT)/openssl/x86/include
       <linkflags>-L$(DEVELOPMENT_ROOT)/openssl/x86/lib
       <linkflags>-m32
+      <linkflags>-Wl,-wrap,open
+      <linkflags>-Wl,-wrap,open64
+      <linkflags>-Wl,-wrap,openat
+      <linkflags>-Wl,-wrap,creat
+      <linkflags>-Wl,-wrap,mkdir
+      <linkflags>-Wl,-wrap,rename
+      <linkflags>-Wl,-wrap,remove
+      <linkflags>-Wl,-wrap,lstat
+      <linkflags>-Wl,-wrap,stat
       ;

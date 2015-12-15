@@ -10,4 +10,13 @@ using gcc : arm64 : $(TOOLCHAINS_ROOT)/android-arm64/bin/aarch64-linux-android-g
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-static
+      <linkflags>-Wl,-wrap,open
+      <linkflags>-Wl,-wrap,open64
+      <linkflags>-Wl,-wrap,openat
+      <linkflags>-Wl,-wrap,creat
+      <linkflags>-Wl,-wrap,mkdir
+      <linkflags>-Wl,-wrap,rename
+      <linkflags>-Wl,-wrap,remove
+      <linkflags>-Wl,-wrap,lstat
+      <linkflags>-Wl,-wrap,stat
       ;

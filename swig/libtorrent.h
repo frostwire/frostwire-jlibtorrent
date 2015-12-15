@@ -398,6 +398,247 @@ swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_conn
     return NULL;
 }
 
+// handling system call wraps
+
+extern "C" {
+
+int __real_open(const char* pathname, int flags, ...);
+int __real_open64(const char* pathname, int flags, ...);
+int	__real_openat(int dirfd, const char* pathname, int flags, ...);
+int	__real_creat(const char* pathname, mode_t mode);
+int	__real_mkdir(const char* pathname, mode_t mode);
+int __real_rename(const char *oldpath, const char *newpath);
+int __real_remove(const char *pathname);
+int	__real_lstat(const char* path, struct ::stat* buf);
+int	__real_stat(const char* path, struct ::stat* buf);
+
+}
+
+struct swig_posix_stat {
+    int     mode;
+    long    size;
+    long    atime;
+    long    mtime;
+    long    ctime;
+};
+
+class swig_posix_wrapper {
+public:
+    virtual ~swig_posix_wrapper() {
+    }
+
+    virtual int open(const char* pathname, int flags, int mode) {
+#ifdef __linux || __ANDROID__
+        return __real_open(pathname, flags, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int open64(const char* pathname, int flags, int mode) {
+#ifdef __linux || __ANDROID__
+        return __real_open64(pathname, flags, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int openat(int dirfd, const char* pathname, int flags, int mode) {
+#ifdef __linux || __ANDROID__
+        return __real_openat(dirfd, pathname, flags, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int creat(const char* pathname, int mode) {
+#ifdef __linux || __ANDROID__
+        return __real_creat(pathname, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int mkdir(const char* pathname, int mode) {
+#ifdef __linux || __ANDROID__
+        return __real_mkdir(pathname, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int rename(const char *oldpath, const char *newpath) {
+#ifdef __linux || __ANDROID__
+        return __real_rename(oldpath, newpath);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int remove(const char *pathname) {
+#ifdef __linux || __ANDROID__
+        return __real_remove(pathname);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int lstat(const char* path, swig_posix_stat* buf) {
+#ifdef __linux || __ANDROID__
+        struct ::stat ret;
+        int r = __real_lstat(path, &ret);
+        buf->mode = ret.st_mode;
+        buf->size = ret.st_size;
+        buf->atime = ret.st_atime;
+        buf->mtime = ret.st_mtime;
+        buf->ctime = ret.st_ctime;
+        return r;
+#else
+        return -1;
+#endif
+    }
+
+    virtual int stat(const char* path, swig_posix_stat* buf) {
+#ifdef __linux || __ANDROID__
+        struct ::stat ret;
+        int r = __real_stat(path, &ret);
+        buf->mode = ret.st_mode;
+        buf->size = ret.st_size;
+        buf->atime = ret.st_atime;
+        buf->mtime = ret.st_mtime;
+        buf->ctime = ret.st_ctime;
+        return r;
+#else
+        return -1;
+#endif
+    }
+};
+
+swig_posix_wrapper* g_posix_wrapper = NULL;
+
+void set_global_posix_wrapper(swig_posix_wrapper* ctx) {
+    g_posix_wrapper = ctx;
+}
+
+extern "C" {
+
+int __wrap_open(const char* pathname, int flags, ...) {
+#ifdef __linux || __ANDROID__
+    int mode = 0;
+    if (flags & O_CREAT) {
+        va_list arg;
+        va_start(arg, flags);
+        mode = va_arg(arg, int);
+        va_end(arg);
+    }
+    return g_posix_wrapper != NULL ? g_posix_wrapper->open(pathname, flags, mode) : __real_open(pathname, flags, mode);
+#else
+    return -1;
+#endif
+}
+
+int __wrap_open64(const char* pathname, int flags, ...) {
+#ifdef __linux || __ANDROID__
+    int mode = 0;
+    if (flags & O_CREAT) {
+        va_list arg;
+        va_start(arg, flags);
+        mode = va_arg(arg, int);
+        va_end(arg);
+    }
+    return g_posix_wrapper != NULL ? g_posix_wrapper->open64(pathname, flags, mode) : __real_open64(pathname, flags, mode);
+#else
+    return -1;
+#endif
+}
+
+int __wrap_openat(int dirfd, const char* pathname, int flags, ...) {
+#ifdef __linux || __ANDROID__
+    int mode = 0;
+    if (flags & O_CREAT) {
+        va_list arg;
+        va_start(arg, flags);
+        mode = va_arg(arg, int);
+        va_end(arg);
+    }
+    return g_posix_wrapper != NULL ? g_posix_wrapper->openat(dirfd, pathname, flags, mode) : __real_openat(dirfd, pathname, flags, mode);
+#else
+    return -1;
+#endif
+}
+
+int __wrap_creat(const char* pathname, mode_t mode) {
+#ifdef __linux || __ANDROID__
+    return g_posix_wrapper != NULL ? g_posix_wrapper->creat(pathname, mode) : __real_creat(pathname, mode);
+#else
+    return -1;
+#endif
+}
+
+int	__wrap_mkdir(const char* pathname, mode_t mode) {
+#ifdef __linux || __ANDROID__
+    return g_posix_wrapper != NULL ? g_posix_wrapper->mkdir(pathname, mode) : __real_mkdir(pathname, mode);
+#else
+    return -1;
+#endif
+}
+
+int __wrap_rename(const char *oldpath, const char *newpath) {
+#ifdef __linux || __ANDROID__
+    return g_posix_wrapper != NULL ? g_posix_wrapper->rename(oldpath, newpath) : __real_rename(oldpath, newpath);
+#else
+    return -1;
+#endif
+}
+
+int __wrap_remove(const char *pathname) {
+#ifdef __linux || __ANDROID__
+    return g_posix_wrapper != NULL ? g_posix_wrapper->remove(pathname) : __real_remove(pathname);
+#else
+    return -1;
+#endif
+}
+
+int	__wrap_lstat(const char* path, struct ::stat* buf) {
+#ifdef __linux || __ANDROID__
+    if (g_posix_wrapper != NULL) {
+        swig_posix_stat ret;
+        int r = g_posix_wrapper->lstat(path, &ret);
+        buf->st_mode = ret.mode;
+        buf->st_size = ret.size;
+        buf->st_atime = ret.atime;
+        buf->st_mtime = ret.mtime;
+        buf->st_ctime = ret.ctime;
+        return r;
+    } else {
+        return __real_lstat(path, buf);
+    }
+#else
+    return -1;
+#endif
+}
+
+int	__wrap_stat(const char* path, struct ::stat* buf) {
+#ifdef __linux || __ANDROID__
+    if (g_posix_wrapper != NULL) {
+        swig_posix_stat ret;
+        int r = g_posix_wrapper->stat(path, &ret);
+        buf->st_mode = ret.mode;
+        buf->st_size = ret.size;
+        buf->st_atime = ret.atime;
+        buf->st_mtime = ret.mtime;
+        buf->st_ctime = ret.ctime;
+        return r;
+    } else {
+        return __real_stat(path, buf);
+    }
+#else
+    return -1;
+#endif
+}
+
+}
+
 #ifdef LIBTORRENT_SWIG_NODE
 
 #include <uv.h>
