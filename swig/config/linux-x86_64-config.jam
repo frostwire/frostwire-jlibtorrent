@@ -9,15 +9,7 @@ using gcc : x86_64 : g++ :
       <cxxflags>-fPIC
       <cxxflags>-std=c++11
       <cxxflags>-static
+      <cxxflags>-DREPLACE_POSIX_FILE_FUNCTIONS
       <cxxflags>-I$(DEVELOPMENT_ROOT)/openssl/x86_64/include
       <linkflags>-L$(DEVELOPMENT_ROOT)/openssl/x86_64/lib
-      <linkflags>-Wl,-wrap,open
-      <linkflags>-Wl,-wrap,open64
-      <linkflags>-Wl,-wrap,openat
-      <linkflags>-Wl,-wrap,creat
-      <linkflags>-Wl,-wrap,mkdir
-      <linkflags>-Wl,-wrap,rename
-      <linkflags>-Wl,-wrap,remove
-      <linkflags>-Wl,-wrap,lstat
-      <linkflags>-Wl,-wrap,stat
       ;
