@@ -1,4 +1,6 @@
+#ifndef _WIN32
 #include <dlfcn.h>
+#endif
 
 #include <boost/version.hpp>
 #include <boost/function.hpp>
