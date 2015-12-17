@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.swig.swig_posix_stat;
-import com.frostwire.jlibtorrent.swig.swig_posix_wrapper;
+import com.frostwire.jlibtorrent.swig.swig_posix_file_functions;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
@@ -25,17 +25,11 @@ public final class FsContext {
 
         File torrentFile = new File(args[0]);
 
-        LibTorrent.setPosixWrapper(new swig_posix_wrapper() {
+        LibTorrent.setPosixFileFunctions(new swig_posix_file_functions() {
             @Override
             public int open(String pathname, int flags, int mode) {
                 System.out.println("OPEN: " + pathname);
                 return super.open(pathname, flags, mode);
-            }
-
-            @Override
-            public int open64(String pathname, int flags, int mode) {
-                System.out.println("OPEN64: " + pathname);
-                return super.open64(pathname, flags, mode);
             }
 
             @Override

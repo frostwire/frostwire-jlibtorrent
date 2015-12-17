@@ -3350,25 +3350,23 @@ public class libtorrent_jni {
   public final static native int swig_posix_stat_ctime_get(long jarg1, swig_posix_stat jarg1_);
   public final static native long new_swig_posix_stat();
   public final static native void delete_swig_posix_stat(long jarg1);
-  public final static native void delete_swig_posix_wrapper(long jarg1);
-  public final static native int swig_posix_wrapper_open(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native int swig_posix_wrapper_openSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native int swig_posix_wrapper_open64(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native int swig_posix_wrapper_open64SwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native int swig_posix_wrapper_mkdir(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3);
-  public final static native int swig_posix_wrapper_mkdirSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3);
-  public final static native int swig_posix_wrapper_rename(long jarg1, swig_posix_wrapper jarg1_, String jarg2, String jarg3);
-  public final static native int swig_posix_wrapper_renameSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, String jarg3);
-  public final static native int swig_posix_wrapper_remove(long jarg1, swig_posix_wrapper jarg1_, String jarg2);
-  public final static native int swig_posix_wrapper_removeSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2);
-  public final static native int swig_posix_wrapper_lstat(long jarg1, swig_posix_wrapper jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
-  public final static native int swig_posix_wrapper_lstatSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
-  public final static native int swig_posix_wrapper_stat(long jarg1, swig_posix_wrapper jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
-  public final static native int swig_posix_wrapper_statSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
-  public final static native long new_swig_posix_wrapper();
-  public final static native void swig_posix_wrapper_director_connect(swig_posix_wrapper obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void swig_posix_wrapper_change_ownership(swig_posix_wrapper obj, long cptr, boolean take_or_release);
-  public final static native void set_global_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_);
+  public final static native void delete_swig_posix_file_functions(long jarg1);
+  public final static native int swig_posix_file_functions_open(long jarg1, swig_posix_file_functions jarg1_, String jarg2, int jarg3, int jarg4);
+  public final static native int swig_posix_file_functions_openSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2, int jarg3, int jarg4);
+  public final static native int swig_posix_file_functions_mkdir(long jarg1, swig_posix_file_functions jarg1_, String jarg2, int jarg3);
+  public final static native int swig_posix_file_functions_mkdirSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2, int jarg3);
+  public final static native int swig_posix_file_functions_rename(long jarg1, swig_posix_file_functions jarg1_, String jarg2, String jarg3);
+  public final static native int swig_posix_file_functions_renameSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2, String jarg3);
+  public final static native int swig_posix_file_functions_remove(long jarg1, swig_posix_file_functions jarg1_, String jarg2);
+  public final static native int swig_posix_file_functions_removeSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2);
+  public final static native int swig_posix_file_functions_lstat(long jarg1, swig_posix_file_functions jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
+  public final static native int swig_posix_file_functions_lstatSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
+  public final static native int swig_posix_file_functions_stat(long jarg1, swig_posix_file_functions jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
+  public final static native int swig_posix_file_functions_statSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
+  public final static native long new_swig_posix_file_functions();
+  public final static native void swig_posix_file_functions_director_connect(swig_posix_file_functions obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void swig_posix_file_functions_change_ownership(swig_posix_file_functions obj, long cptr, boolean take_or_release);
+  public final static native void set_global_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
   public final static native long tracker_alert_SWIGUpcast(long jarg1);
@@ -3652,25 +3650,22 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_peer_plugin_write_request(swig_peer_plugin jself, long r) {
     return jself.write_request(new peer_request(r, false));
   }
-  public static int SwigDirector_swig_posix_wrapper_open(swig_posix_wrapper jself, String pathname, int flags, int mode) {
+  public static int SwigDirector_swig_posix_file_functions_open(swig_posix_file_functions jself, String pathname, int flags, int mode) {
     return jself.open(pathname, flags, mode);
   }
-  public static int SwigDirector_swig_posix_wrapper_open64(swig_posix_wrapper jself, String pathname, int flags, int mode) {
-    return jself.open64(pathname, flags, mode);
-  }
-  public static int SwigDirector_swig_posix_wrapper_mkdir(swig_posix_wrapper jself, String pathname, int mode) {
+  public static int SwigDirector_swig_posix_file_functions_mkdir(swig_posix_file_functions jself, String pathname, int mode) {
     return jself.mkdir(pathname, mode);
   }
-  public static int SwigDirector_swig_posix_wrapper_rename(swig_posix_wrapper jself, String oldpath, String newpath) {
+  public static int SwigDirector_swig_posix_file_functions_rename(swig_posix_file_functions jself, String oldpath, String newpath) {
     return jself.rename(oldpath, newpath);
   }
-  public static int SwigDirector_swig_posix_wrapper_remove(swig_posix_wrapper jself, String pathname) {
+  public static int SwigDirector_swig_posix_file_functions_remove(swig_posix_file_functions jself, String pathname) {
     return jself.remove(pathname);
   }
-  public static int SwigDirector_swig_posix_wrapper_lstat(swig_posix_wrapper jself, String path, long buf) {
+  public static int SwigDirector_swig_posix_file_functions_lstat(swig_posix_file_functions jself, String path, long buf) {
     return jself.lstat(path, (buf == 0) ? null : new swig_posix_stat(buf, false));
   }
-  public static int SwigDirector_swig_posix_wrapper_stat(swig_posix_wrapper jself, String path, long buf) {
+  public static int SwigDirector_swig_posix_file_functions_stat(swig_posix_file_functions jself, String path, long buf) {
     return jself.stat(path, (buf == 0) ? null : new swig_posix_stat(buf, false));
   }
 

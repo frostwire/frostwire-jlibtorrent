@@ -404,15 +404,14 @@ swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_conn
 
 extern "C" {
 
-int __real_open(const char* pathname, int flags, int mode);
-int __real_open64(const char* pathname, int flags, int mode);
-int	__real_mkdir(const char* pathname, mode_t mode);
-int __real_rename(const char *oldpath, const char *newpath);
-int __real_remove(const char *pathname);
-int	__real_lstat(const char* path, struct ::stat* buf);
-int	__real_stat(const char* path, struct ::stat* buf);
+int posix_open(const char* pathname, int flags, ...);
+int	posix_mkdir(const char* pathname, mode_t mode);
+int posix_rename(const char *oldpath, const char *newpath);
+int posix_remove(const char *pathname);
+int	posix_lstat(const char* path, struct ::stat* buf);
+int	posix_stat(const char* path, struct ::stat* buf);
 
-}
+} // extern "C"
 
 struct swig_posix_stat {
     int     mode;
@@ -422,100 +421,59 @@ struct swig_posix_stat {
     long    ctime;
 };
 
-class swig_posix_wrapper {
+class swig_posix_file_functions {
 public:
-    virtual ~swig_posix_wrapper() {
+    virtual ~swig_posix_file_functions() {
     }
 
     virtual int open(const char* pathname, int flags, int mode) {
-#ifndef _WIN32
-        return __real_open(pathname, flags, mode);
-#else
-        return -1;
-#endif
-    }
-
-    virtual int open64(const char* pathname, int flags, int mode) {
-#ifndef _WIN32
-        return __real_open64(pathname, flags, mode);
-#else
-        return -1;
-#endif
+        return ::open(pathname, flags, mode);
     }
 
     virtual int mkdir(const char* pathname, int mode) {
-#ifndef _WIN32
-        return __real_mkdir(pathname, mode);
-#else
-        return -1;
-#endif
+        return ::mkdir(pathname, mode);
     }
 
     virtual int rename(const char *oldpath, const char *newpath) {
-#ifndef _WIN32
-        return __real_rename(oldpath, newpath);
-#else
-        return -1;
-#endif
+        return ::rename(oldpath, newpath);
     }
 
     virtual int remove(const char *pathname) {
-#ifndef _WIN32
-        return __real_remove(pathname);
-#else
-        return -1;
-#endif
+        return ::remove(pathname);
     }
 
     virtual int lstat(const char* path, swig_posix_stat* buf) {
-#ifndef _WIN32
         struct ::stat ret;
-        int r = __real_lstat(path, &ret);
+        int r = ::lstat(path, &ret);
         buf->mode = ret.st_mode;
         buf->size = ret.st_size;
         buf->atime = ret.st_atime;
         buf->mtime = ret.st_mtime;
         buf->ctime = ret.st_ctime;
         return r;
-#else
-        return -1;
-#endif
     }
 
     virtual int stat(const char* path, swig_posix_stat* buf) {
-#ifndef _WIN32
         struct ::stat ret;
-        int r = __real_stat(path, &ret);
+        int r = ::stat(path, &ret);
         buf->mode = ret.st_mode;
         buf->size = ret.st_size;
         buf->atime = ret.st_atime;
         buf->mtime = ret.st_mtime;
         buf->ctime = ret.st_ctime;
         return r;
-#else
-        return -1;
-#endif
     }
 };
 
-swig_posix_wrapper* g_posix_wrapper = NULL;
+swig_posix_file_functions* g_posix_file_functions = NULL;
 
-void set_global_posix_wrapper(swig_posix_wrapper* ctx) {
-    g_posix_wrapper = ctx;
+void set_global_posix_file_functions(swig_posix_file_functions* fns) {
+    g_posix_file_functions = fns;
 }
 
 extern "C" {
 
-int __real_open(const char* pathname, int flags, int mode) {
-#ifndef _WIN32
-    int (*f)(const char*, int, ...) = (int(*)(const char*, int, ...))(dlsym(RTLD_NEXT, "open"));
-    return f(pathname, flags, mode);
-#else
-    return -1;
-#endif
-}
-
-int open(const char* pathname, int flags, ...) {
+int posix_open(const char* pathname, int flags, ...) {
 #ifndef _WIN32
     int mode = 0;
     if (flags & O_CREAT) {
@@ -524,101 +482,41 @@ int open(const char* pathname, int flags, ...) {
         mode = va_arg(arg, int);
         va_end(arg);
     }
-    return g_posix_wrapper != NULL ? g_posix_wrapper->open(pathname, flags, mode) : __real_open(pathname, flags, mode);
+    return g_posix_file_functions != NULL ? g_posix_file_functions->open(pathname, flags, mode) : ::open(pathname, flags, mode);
 #else
     return -1;
 #endif
 }
 
-int __real_open64(const char* pathname, int flags, int mode) {
+int	posix_mkdir(const char* pathname, mode_t mode) {
 #ifndef _WIN32
-    int (*f)(const char*, int, ...) = (int(*)(const char*, int, ...))(dlsym(RTLD_NEXT, "open64"));
-    return f(pathname, flags, mode);
+    return g_posix_file_functions != NULL ? g_posix_file_functions->mkdir(pathname, mode) : ::mkdir(pathname, mode);
 #else
     return -1;
 #endif
 }
 
-int open64(const char* pathname, int flags, ...) {
+int posix_rename(const char *oldpath, const char *newpath) {
 #ifndef _WIN32
-    int mode = 0;
-    if (flags & O_CREAT) {
-        va_list arg;
-        va_start(arg, flags);
-        mode = va_arg(arg, int);
-        va_end(arg);
-    }
-    return g_posix_wrapper != NULL ? g_posix_wrapper->open64(pathname, flags, mode) : __real_open64(pathname, flags, mode);
+    return g_posix_file_functions != NULL ? g_posix_file_functions->rename(oldpath, newpath) : ::rename(oldpath, newpath);
 #else
     return -1;
 #endif
 }
 
-int __real_mkdir(const char* pathname, mode_t mode) {
+int posix_remove(const char *pathname) {
 #ifndef _WIN32
-    int (*f)(const char*, mode_t) = (int(*)(const char*, mode_t))(dlsym(RTLD_NEXT, "mkdir"));
-    return f(pathname, mode);
+    return g_posix_file_functions != NULL ? g_posix_file_functions->remove(pathname) : ::remove(pathname);
 #else
     return -1;
 #endif
 }
 
-int	mkdir(const char* pathname, mode_t mode) {
+int	posix_lstat(const char* path, struct ::stat* buf) {
 #ifndef _WIN32
-    return g_posix_wrapper != NULL ? g_posix_wrapper->mkdir(pathname, mode) : __real_mkdir(pathname, mode);
-#else
-    return -1;
-#endif
-}
-
-int __real_rename(const char *oldpath, const char *newpath) {
-#ifndef _WIN32
-    int (*f)(const char*, const char*) = (int(*)(const char*, const char*))(dlsym(RTLD_NEXT, "rename"));
-    return f(oldpath, newpath);
-#else
-    return -1;
-#endif
-}
-
-int rename(const char *oldpath, const char *newpath) {
-#ifndef _WIN32
-    return g_posix_wrapper != NULL ? g_posix_wrapper->rename(oldpath, newpath) : __real_rename(oldpath, newpath);
-#else
-    return -1;
-#endif
-}
-
-int __real_remove(const char *pathname) {
-#ifndef _WIN32
-    int (*f)(const char*) = (int(*)(const char*))(dlsym(RTLD_NEXT, "remove"));
-    return f(pathname);
-#else
-    return -1;
-#endif
-}
-
-int remove(const char *pathname) {
-#ifndef _WIN32
-    return g_posix_wrapper != NULL ? g_posix_wrapper->remove(pathname) : __real_remove(pathname);
-#else
-    return -1;
-#endif
-}
-
-int __real_lstat(const char* path, struct ::stat* buf) {
-#ifndef _WIN32
-    int (*f)(const char*, struct ::stat*) = (int(*)(const char*, struct ::stat*))(dlsym(RTLD_NEXT, "lstat"));
-    return f(path, buf);
-#else
-    return -1;
-#endif
-}
-
-int	lstat(const char* path, struct ::stat* buf) {
-#ifndef _WIN32
-    if (g_posix_wrapper != NULL) {
+    if (g_posix_file_functions != NULL) {
         swig_posix_stat ret;
-        int r = g_posix_wrapper->lstat(path, &ret);
+        int r = g_posix_file_functions->lstat(path, &ret);
         buf->st_mode = ret.mode;
         buf->st_size = ret.size;
         buf->st_atime = ret.atime;
@@ -626,27 +524,18 @@ int	lstat(const char* path, struct ::stat* buf) {
         buf->st_ctime = ret.ctime;
         return r;
     } else {
-        return __real_lstat(path, buf);
+        return ::lstat(path, buf);
     }
 #else
     return -1;
 #endif
 }
 
-int __real_stat(const char* path, struct ::stat* buf) {
+int	posix_stat(const char* path, struct ::stat* buf) {
 #ifndef _WIN32
-    int (*f)(const char*, struct ::stat*) = (int(*)(const char*, struct ::stat*))(dlsym(RTLD_NEXT, "stat"));
-    return f(path, buf);
-#else
-    return -1;
-#endif
-}
-
-int	stat(const char* path, struct ::stat* buf) {
-#ifndef _WIN32
-    if (g_posix_wrapper != NULL) {
+    if (g_posix_file_functions != NULL) {
         swig_posix_stat ret;
-        int r = g_posix_wrapper->stat(path, &ret);
+        int r = g_posix_file_functions->stat(path, &ret);
         buf->st_mode = ret.mode;
         buf->st_size = ret.size;
         buf->st_atime = ret.atime;
@@ -654,14 +543,14 @@ int	stat(const char* path, struct ::stat* buf) {
         buf->st_ctime = ret.ctime;
         return r;
     } else {
-        return __real_stat(path, buf);
+        return ::stat(path, buf);
     }
 #else
     return -1;
 #endif
 }
 
-}
+} // extern "C"
 
 #ifdef LIBTORRENT_SWIG_NODE
 

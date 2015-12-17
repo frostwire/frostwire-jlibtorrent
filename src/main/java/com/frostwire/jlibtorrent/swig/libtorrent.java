@@ -237,8 +237,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.boost_lib_version();
   }
 
-  public static void set_global_posix_wrapper(swig_posix_wrapper ctx) {
-    libtorrent_jni.set_global_posix_wrapper(swig_posix_wrapper.getCPtr(ctx), ctx);
+  public static void set_global_posix_file_functions(swig_posix_file_functions fns) {
+    libtorrent_jni.set_global_posix_file_functions(swig_posix_file_functions.getCPtr(fns), fns);
   }
 
 }
