@@ -696,6 +696,14 @@ namespace std {
 %rename("$ignore", regextarget=1, %$isfunction) "^__real_.*";
 %rename("$ignore", regextarget=1, %$isfunction) "^__wrap_.*";
 
+%ignore ::open;
+%ignore ::open64;
+%ignore ::mkdir;
+%ignore ::rename;
+%ignore ::remove;
+%ignore ::lstat;
+%ignore ::stat;
+
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"

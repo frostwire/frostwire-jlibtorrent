@@ -672,7 +672,7 @@ namespace Swig {
 namespace Swig {
   namespace {
     jclass jclass_libtorrent_jni = NULL;
-    jmethodID director_method_ids[73];
+    jmethodID director_method_ids[71];
   }
 }
 
@@ -4059,84 +4059,6 @@ int SwigDirector_swig_posix_wrapper::open64(char const *pathname, int flags, int
   return c_result;
 }
 
-int SwigDirector_swig_posix_wrapper::openat(int dirfd, char const *pathname, int flags, int mode) {
-  int c_result = SwigValueInit< int >() ;
-  jint jresult = 0 ;
-  JNIEnvWrapper swigjnienv(this) ;
-  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
-  jobject swigjobj = (jobject) NULL ;
-  jint jdirfd  ;
-  jstring jpathname = 0 ;
-  jint jflags  ;
-  jint jmode  ;
-  
-  if (!swig_override[2]) {
-    return swig_posix_wrapper::openat(dirfd,pathname,flags,mode);
-  }
-  swigjobj = swig_get_self(jenv);
-  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
-    jdirfd = (jint) dirfd;
-    jpathname = 0;
-    if (pathname) {
-      jpathname = jenv->NewStringUTF((const char *)pathname);
-      if (!jpathname) return c_result;
-    }
-    Swig::LocalRefGuard pathname_refguard(jenv, jpathname);
-    // boohoo
-    jflags = (jint) flags;
-    jmode = (jint) mode;
-    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[66], swigjobj, jdirfd, jpathname, jflags, jmode);
-    jthrowable swigerror = jenv->ExceptionOccurred();
-    if (swigerror) {
-      jenv->ExceptionClear();
-      throw Swig::DirectorException(jenv, swigerror);
-    }
-    
-    c_result = (int)jresult; 
-  } else {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object in swig_posix_wrapper::openat ");
-  }
-  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
-  return c_result;
-}
-
-int SwigDirector_swig_posix_wrapper::creat(char const *pathname, int mode) {
-  int c_result = SwigValueInit< int >() ;
-  jint jresult = 0 ;
-  JNIEnvWrapper swigjnienv(this) ;
-  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
-  jobject swigjobj = (jobject) NULL ;
-  jstring jpathname = 0 ;
-  jint jmode  ;
-  
-  if (!swig_override[3]) {
-    return swig_posix_wrapper::creat(pathname,mode);
-  }
-  swigjobj = swig_get_self(jenv);
-  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
-    jpathname = 0;
-    if (pathname) {
-      jpathname = jenv->NewStringUTF((const char *)pathname);
-      if (!jpathname) return c_result;
-    }
-    Swig::LocalRefGuard pathname_refguard(jenv, jpathname);
-    // boohoo
-    jmode = (jint) mode;
-    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[67], swigjobj, jpathname, jmode);
-    jthrowable swigerror = jenv->ExceptionOccurred();
-    if (swigerror) {
-      jenv->ExceptionClear();
-      throw Swig::DirectorException(jenv, swigerror);
-    }
-    
-    c_result = (int)jresult; 
-  } else {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object in swig_posix_wrapper::creat ");
-  }
-  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
-  return c_result;
-}
-
 int SwigDirector_swig_posix_wrapper::mkdir(char const *pathname, int mode) {
   int c_result = SwigValueInit< int >() ;
   jint jresult = 0 ;
@@ -4146,7 +4068,7 @@ int SwigDirector_swig_posix_wrapper::mkdir(char const *pathname, int mode) {
   jstring jpathname = 0 ;
   jint jmode  ;
   
-  if (!swig_override[4]) {
+  if (!swig_override[2]) {
     return swig_posix_wrapper::mkdir(pathname,mode);
   }
   swigjobj = swig_get_self(jenv);
@@ -4159,7 +4081,7 @@ int SwigDirector_swig_posix_wrapper::mkdir(char const *pathname, int mode) {
     Swig::LocalRefGuard pathname_refguard(jenv, jpathname);
     // boohoo
     jmode = (jint) mode;
-    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[68], swigjobj, jpathname, jmode);
+    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[66], swigjobj, jpathname, jmode);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
       jenv->ExceptionClear();
@@ -4183,7 +4105,7 @@ int SwigDirector_swig_posix_wrapper::rename(char const *oldpath, char const *new
   jstring joldpath = 0 ;
   jstring jnewpath = 0 ;
   
-  if (!swig_override[5]) {
+  if (!swig_override[3]) {
     return swig_posix_wrapper::rename(oldpath,newpath);
   }
   swigjobj = swig_get_self(jenv);
@@ -4202,7 +4124,7 @@ int SwigDirector_swig_posix_wrapper::rename(char const *oldpath, char const *new
     }
     Swig::LocalRefGuard newpath_refguard(jenv, jnewpath);
     // boohoo
-    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[69], swigjobj, joldpath, jnewpath);
+    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[67], swigjobj, joldpath, jnewpath);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
       jenv->ExceptionClear();
@@ -4225,7 +4147,7 @@ int SwigDirector_swig_posix_wrapper::remove(char const *pathname) {
   jobject swigjobj = (jobject) NULL ;
   jstring jpathname = 0 ;
   
-  if (!swig_override[6]) {
+  if (!swig_override[4]) {
     return swig_posix_wrapper::remove(pathname);
   }
   swigjobj = swig_get_self(jenv);
@@ -4237,7 +4159,7 @@ int SwigDirector_swig_posix_wrapper::remove(char const *pathname) {
     }
     Swig::LocalRefGuard pathname_refguard(jenv, jpathname);
     // boohoo
-    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[70], swigjobj, jpathname);
+    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[68], swigjobj, jpathname);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
       jenv->ExceptionClear();
@@ -4261,7 +4183,7 @@ int SwigDirector_swig_posix_wrapper::lstat(char const *path, swig_posix_stat *bu
   jstring jpath = 0 ;
   jlong jbuf = 0 ;
   
-  if (!swig_override[7]) {
+  if (!swig_override[5]) {
     return swig_posix_wrapper::lstat(path,buf);
   }
   swigjobj = swig_get_self(jenv);
@@ -4274,7 +4196,7 @@ int SwigDirector_swig_posix_wrapper::lstat(char const *path, swig_posix_stat *bu
     Swig::LocalRefGuard path_refguard(jenv, jpath);
     // boohoo
     *((swig_posix_stat **)&jbuf) = (swig_posix_stat *) buf; 
-    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[71], swigjobj, jpath, jbuf);
+    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[69], swigjobj, jpath, jbuf);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
       jenv->ExceptionClear();
@@ -4298,7 +4220,7 @@ int SwigDirector_swig_posix_wrapper::stat(char const *path, swig_posix_stat *buf
   jstring jpath = 0 ;
   jlong jbuf = 0 ;
   
-  if (!swig_override[8]) {
+  if (!swig_override[6]) {
     return swig_posix_wrapper::stat(path,buf);
   }
   swigjobj = swig_get_self(jenv);
@@ -4311,7 +4233,7 @@ int SwigDirector_swig_posix_wrapper::stat(char const *path, swig_posix_stat *buf
     Swig::LocalRefGuard path_refguard(jenv, jpath);
     // boohoo
     *((swig_posix_stat **)&jbuf) = (swig_posix_stat *) buf; 
-    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[72], swigjobj, jpath, jbuf);
+    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[70], swigjobj, jpath, jbuf);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
       jenv->ExceptionClear();
@@ -4339,12 +4261,6 @@ void SwigDirector_swig_posix_wrapper::swig_connect_director(JNIEnv *jenv, jobjec
       "open64", "(Ljava/lang/String;II)I", NULL 
     },
     {
-      "openat", "(ILjava/lang/String;II)I", NULL 
-    },
-    {
-      "creat", "(Ljava/lang/String;I)I", NULL 
-    },
-    {
       "mkdir", "(Ljava/lang/String;I)I", NULL 
     },
     {
@@ -4370,7 +4286,7 @@ void SwigDirector_swig_posix_wrapper::swig_connect_director(JNIEnv *jenv, jobjec
       baseclass = (jclass) jenv->NewGlobalRef(baseclass);
     }
     bool derived = (jenv->IsSameObject(baseclass, jcls) ? false : true);
-    for (int i = 0; i < 9; ++i) {
+    for (int i = 0; i < 7; ++i) {
       if (!methods[i].base_methid) {
         methods[i].base_methid = jenv->GetMethodID(baseclass, methods[i].mname, methods[i].mdesc);
         if (!methods[i].base_methid) return;
@@ -51362,7 +51278,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("c8555a6b3ef067ebf046736ae952556f29cea676");
+  result = (char *)("730d6c63e3296ed3671995f964736e977587b09d");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -54612,110 +54528,6 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1posix_1wrapper_1openat(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jstring jarg3, jint jarg4, jint jarg5) {
-  jint jresult = 0 ;
-  swig_posix_wrapper *arg1 = (swig_posix_wrapper *) 0 ;
-  int arg2 ;
-  char *arg3 = (char *) 0 ;
-  int arg4 ;
-  int arg5 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(swig_posix_wrapper **)&jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
-  }
-  arg4 = (int)jarg4; 
-  arg5 = (int)jarg5; 
-  result = (int)(arg1)->openat(arg2,(char const *)arg3,arg4,arg5);
-  jresult = (jint)result; 
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1posix_1wrapper_1openatSwigExplicitswig_1posix_1wrapper(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jstring jarg3, jint jarg4, jint jarg5) {
-  jint jresult = 0 ;
-  swig_posix_wrapper *arg1 = (swig_posix_wrapper *) 0 ;
-  int arg2 ;
-  char *arg3 = (char *) 0 ;
-  int arg4 ;
-  int arg5 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(swig_posix_wrapper **)&jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
-  }
-  arg4 = (int)jarg4; 
-  arg5 = (int)jarg5; 
-  result = (int)(arg1)->swig_posix_wrapper::openat(arg2,(char const *)arg3,arg4,arg5);
-  jresult = (jint)result; 
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1posix_1wrapper_1creat(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
-  jint jresult = 0 ;
-  swig_posix_wrapper *arg1 = (swig_posix_wrapper *) 0 ;
-  char *arg2 = (char *) 0 ;
-  int arg3 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(swig_posix_wrapper **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
-  }
-  arg3 = (int)jarg3; 
-  result = (int)(arg1)->creat((char const *)arg2,arg3);
-  jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1posix_1wrapper_1creatSwigExplicitswig_1posix_1wrapper(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
-  jint jresult = 0 ;
-  swig_posix_wrapper *arg1 = (swig_posix_wrapper *) 0 ;
-  char *arg2 = (char *) 0 ;
-  int arg3 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(swig_posix_wrapper **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
-  }
-  arg3 = (int)jarg3; 
-  result = (int)(arg1)->swig_posix_wrapper::creat((char const *)arg2,arg3);
-  jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-  return jresult;
-}
-
-
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1posix_1wrapper_1mkdir(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
   jint jresult = 0 ;
   swig_posix_wrapper *arg1 = (swig_posix_wrapper *) 0 ;
@@ -55735,7 +55547,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
   static struct {
     const char *method;
     const char *signature;
-  } methods[73] = {
+  } methods[71] = {
     {
       "SwigDirector_add_files_listener_pred", "(Lcom/frostwire/jlibtorrent/swig/add_files_listener;Ljava/lang/String;)Z" 
     },
@@ -55933,12 +55745,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
     },
     {
       "SwigDirector_swig_posix_wrapper_open64", "(Lcom/frostwire/jlibtorrent/swig/swig_posix_wrapper;Ljava/lang/String;II)I" 
-    },
-    {
-      "SwigDirector_swig_posix_wrapper_openat", "(Lcom/frostwire/jlibtorrent/swig/swig_posix_wrapper;ILjava/lang/String;II)I" 
-    },
-    {
-      "SwigDirector_swig_posix_wrapper_creat", "(Lcom/frostwire/jlibtorrent/swig/swig_posix_wrapper;Ljava/lang/String;I)I" 
     },
     {
       "SwigDirector_swig_posix_wrapper_mkdir", "(Lcom/frostwire/jlibtorrent/swig/swig_posix_wrapper;Ljava/lang/String;I)I" 

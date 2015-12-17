@@ -1,3 +1,5 @@
+#include <dlfcn.h>
+
 #include <boost/version.hpp>
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
@@ -402,10 +404,8 @@ swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_conn
 
 extern "C" {
 
-int __real_open(const char* pathname, int flags, ...);
-int __real_open64(const char* pathname, int flags, ...);
-int	__real_openat(int dirfd, const char* pathname, int flags, ...);
-int	__real_creat(const char* pathname, mode_t mode);
+int __real_open(const char* pathname, int flags, int mode);
+int __real_open64(const char* pathname, int flags, int mode);
 int	__real_mkdir(const char* pathname, mode_t mode);
 int __real_rename(const char *oldpath, const char *newpath);
 int __real_remove(const char *pathname);
@@ -428,7 +428,7 @@ public:
     }
 
     virtual int open(const char* pathname, int flags, int mode) {
-#ifdef __linux || __ANDROID__
+#ifndef _WIN32
         return __real_open(pathname, flags, mode);
 #else
         return -1;
@@ -436,31 +436,15 @@ public:
     }
 
     virtual int open64(const char* pathname, int flags, int mode) {
-#ifdef __linux || __ANDROID__
+#ifndef _WIN32
         return __real_open64(pathname, flags, mode);
 #else
         return -1;
 #endif
     }
 
-    virtual int openat(int dirfd, const char* pathname, int flags, int mode) {
-#ifdef __linux || __ANDROID__
-        return __real_openat(dirfd, pathname, flags, mode);
-#else
-        return -1;
-#endif
-    }
-
-    virtual int creat(const char* pathname, int mode) {
-#ifdef __linux || __ANDROID__
-        return __real_creat(pathname, mode);
-#else
-        return -1;
-#endif
-    }
-
     virtual int mkdir(const char* pathname, int mode) {
-#ifdef __linux || __ANDROID__
+#ifndef _WIN32
         return __real_mkdir(pathname, mode);
 #else
         return -1;
@@ -468,7 +452,7 @@ public:
     }
 
     virtual int rename(const char *oldpath, const char *newpath) {
-#ifdef __linux || __ANDROID__
+#ifndef _WIN32
         return __real_rename(oldpath, newpath);
 #else
         return -1;
@@ -476,7 +460,7 @@ public:
     }
 
     virtual int remove(const char *pathname) {
-#ifdef __linux || __ANDROID__
+#ifndef _WIN32
         return __real_remove(pathname);
 #else
         return -1;
@@ -484,7 +468,7 @@ public:
     }
 
     virtual int lstat(const char* path, swig_posix_stat* buf) {
-#ifdef __linux || __ANDROID__
+#ifndef _WIN32
         struct ::stat ret;
         int r = __real_lstat(path, &ret);
         buf->mode = ret.st_mode;
@@ -499,7 +483,7 @@ public:
     }
 
     virtual int stat(const char* path, swig_posix_stat* buf) {
-#ifdef __linux || __ANDROID__
+#ifndef _WIN32
         struct ::stat ret;
         int r = __real_stat(path, &ret);
         buf->mode = ret.st_mode;
@@ -522,8 +506,17 @@ void set_global_posix_wrapper(swig_posix_wrapper* ctx) {
 
 extern "C" {
 
-int __wrap_open(const char* pathname, int flags, ...) {
-#ifdef __linux || __ANDROID__
+int __real_open(const char* pathname, int flags, int mode) {
+#ifndef _WIN32
+    int (*f)(const char*, int, ...) = (int(*)(const char*, int, ...))(dlsym(RTLD_NEXT, "open"));
+    return f(pathname, flags, mode);
+#else
+    return -1;
+#endif
+}
+
+int open(const char* pathname, int flags, ...) {
+#ifndef _WIN32
     int mode = 0;
     if (flags & O_CREAT) {
         va_list arg;
@@ -537,8 +530,17 @@ int __wrap_open(const char* pathname, int flags, ...) {
 #endif
 }
 
-int __wrap_open64(const char* pathname, int flags, ...) {
-#ifdef __linux || __ANDROID__
+int __real_open64(const char* pathname, int flags, int mode) {
+#ifndef _WIN32
+    int (*f)(const char*, int, ...) = (int(*)(const char*, int, ...))(dlsym(RTLD_NEXT, "open64"));
+    return f(pathname, flags, mode);
+#else
+    return -1;
+#endif
+}
+
+int open64(const char* pathname, int flags, ...) {
+#ifndef _WIN32
     int mode = 0;
     if (flags & O_CREAT) {
         va_list arg;
@@ -552,55 +554,68 @@ int __wrap_open64(const char* pathname, int flags, ...) {
 #endif
 }
 
-int __wrap_openat(int dirfd, const char* pathname, int flags, ...) {
-#ifdef __linux || __ANDROID__
-    int mode = 0;
-    if (flags & O_CREAT) {
-        va_list arg;
-        va_start(arg, flags);
-        mode = va_arg(arg, int);
-        va_end(arg);
-    }
-    return g_posix_wrapper != NULL ? g_posix_wrapper->openat(dirfd, pathname, flags, mode) : __real_openat(dirfd, pathname, flags, mode);
+int __real_mkdir(const char* pathname, mode_t mode) {
+#ifndef _WIN32
+    int (*f)(const char*, mode_t) = (int(*)(const char*, mode_t))(dlsym(RTLD_NEXT, "mkdir"));
+    return f(pathname, mode);
 #else
     return -1;
 #endif
 }
 
-int __wrap_creat(const char* pathname, mode_t mode) {
-#ifdef __linux || __ANDROID__
-    return g_posix_wrapper != NULL ? g_posix_wrapper->creat(pathname, mode) : __real_creat(pathname, mode);
-#else
-    return -1;
-#endif
-}
-
-int	__wrap_mkdir(const char* pathname, mode_t mode) {
-#ifdef __linux || __ANDROID__
+int	mkdir(const char* pathname, mode_t mode) {
+#ifndef _WIN32
     return g_posix_wrapper != NULL ? g_posix_wrapper->mkdir(pathname, mode) : __real_mkdir(pathname, mode);
 #else
     return -1;
 #endif
 }
 
-int __wrap_rename(const char *oldpath, const char *newpath) {
-#ifdef __linux || __ANDROID__
+int __real_rename(const char *oldpath, const char *newpath) {
+#ifndef _WIN32
+    int (*f)(const char*, const char*) = (int(*)(const char*, const char*))(dlsym(RTLD_NEXT, "rename"));
+    return f(oldpath, newpath);
+#else
+    return -1;
+#endif
+}
+
+int rename(const char *oldpath, const char *newpath) {
+#ifndef _WIN32
     return g_posix_wrapper != NULL ? g_posix_wrapper->rename(oldpath, newpath) : __real_rename(oldpath, newpath);
 #else
     return -1;
 #endif
 }
 
-int __wrap_remove(const char *pathname) {
-#ifdef __linux || __ANDROID__
+int __real_remove(const char *pathname) {
+#ifndef _WIN32
+    int (*f)(const char*) = (int(*)(const char*))(dlsym(RTLD_NEXT, "remove"));
+    return f(pathname);
+#else
+    return -1;
+#endif
+}
+
+int remove(const char *pathname) {
+#ifndef _WIN32
     return g_posix_wrapper != NULL ? g_posix_wrapper->remove(pathname) : __real_remove(pathname);
 #else
     return -1;
 #endif
 }
 
-int	__wrap_lstat(const char* path, struct ::stat* buf) {
-#ifdef __linux || __ANDROID__
+int __real_lstat(const char* path, struct ::stat* buf) {
+#ifndef _WIN32
+    int (*f)(const char*, struct ::stat*) = (int(*)(const char*, struct ::stat*))(dlsym(RTLD_NEXT, "lstat"));
+    return f(path, buf);
+#else
+    return -1;
+#endif
+}
+
+int	lstat(const char* path, struct ::stat* buf) {
+#ifndef _WIN32
     if (g_posix_wrapper != NULL) {
         swig_posix_stat ret;
         int r = g_posix_wrapper->lstat(path, &ret);
@@ -618,8 +633,17 @@ int	__wrap_lstat(const char* path, struct ::stat* buf) {
 #endif
 }
 
-int	__wrap_stat(const char* path, struct ::stat* buf) {
-#ifdef __linux || __ANDROID__
+int __real_stat(const char* path, struct ::stat* buf) {
+#ifndef _WIN32
+    int (*f)(const char*, struct ::stat*) = (int(*)(const char*, struct ::stat*))(dlsym(RTLD_NEXT, "stat"));
+    return f(path, buf);
+#else
+    return -1;
+#endif
+}
+
+int	stat(const char* path, struct ::stat* buf) {
+#ifndef _WIN32
     if (g_posix_wrapper != NULL) {
         swig_posix_stat ret;
         int r = g_posix_wrapper->stat(path, &ret);

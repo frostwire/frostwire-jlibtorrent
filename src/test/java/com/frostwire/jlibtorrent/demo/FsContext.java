@@ -21,7 +21,7 @@ public final class FsContext {
     public static void main(String[] args) throws Throwable {
 
         // comment this line for a real application
-        args = new String[]{"/home/user1/Downloads/Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015.torrent"};
+        args = new String[]{"/Users/aldenml/Downloads/Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015.torrent"};
 
         File torrentFile = new File(args[0]);
 
@@ -36,18 +36,6 @@ public final class FsContext {
             public int open64(String pathname, int flags, int mode) {
                 System.out.println("OPEN64: " + pathname);
                 return super.open64(pathname, flags, mode);
-            }
-
-            @Override
-            public int openat(int dirfd, String pathname, int flags, int mode) {
-                System.out.println("OPENAT: " + pathname);
-                return super.openat(dirfd, pathname, flags, mode);
-            }
-
-            @Override
-            public int creat(String pathname, int mode) {
-                System.out.println("CREAT: " + pathname);
-                return super.creat(pathname, mode);
             }
 
             @Override

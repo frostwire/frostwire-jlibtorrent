@@ -58,14 +58,6 @@ public class swig_posix_wrapper {
     return (getClass() == swig_posix_wrapper.class) ? libtorrent_jni.swig_posix_wrapper_open64(swigCPtr, this, pathname, flags, mode) : libtorrent_jni.swig_posix_wrapper_open64SwigExplicitswig_posix_wrapper(swigCPtr, this, pathname, flags, mode);
   }
 
-  public int openat(int dirfd, String pathname, int flags, int mode) {
-    return (getClass() == swig_posix_wrapper.class) ? libtorrent_jni.swig_posix_wrapper_openat(swigCPtr, this, dirfd, pathname, flags, mode) : libtorrent_jni.swig_posix_wrapper_openatSwigExplicitswig_posix_wrapper(swigCPtr, this, dirfd, pathname, flags, mode);
-  }
-
-  public int creat(String pathname, int mode) {
-    return (getClass() == swig_posix_wrapper.class) ? libtorrent_jni.swig_posix_wrapper_creat(swigCPtr, this, pathname, mode) : libtorrent_jni.swig_posix_wrapper_creatSwigExplicitswig_posix_wrapper(swigCPtr, this, pathname, mode);
-  }
-
   public int mkdir(String pathname, int mode) {
     return (getClass() == swig_posix_wrapper.class) ? libtorrent_jni.swig_posix_wrapper_mkdir(swigCPtr, this, pathname, mode) : libtorrent_jni.swig_posix_wrapper_mkdirSwigExplicitswig_posix_wrapper(swigCPtr, this, pathname, mode);
   }

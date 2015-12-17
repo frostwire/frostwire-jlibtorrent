@@ -195,8 +195,6 @@ public:
     virtual ~SwigDirector_swig_posix_wrapper();
     virtual int open(char const *pathname, int flags, int mode);
     virtual int open64(char const *pathname, int flags, int mode);
-    virtual int openat(int dirfd, char const *pathname, int flags, int mode);
-    virtual int creat(char const *pathname, int mode);
     virtual int mkdir(char const *pathname, int mode);
     virtual int rename(char const *oldpath, char const *newpath);
     virtual int remove(char const *pathname);
@@ -204,10 +202,10 @@ public:
     virtual int stat(char const *path, swig_posix_stat *buf);
 public:
     bool swig_overrides(int n) {
-      return (n < 9 ? swig_override[n] : false);
+      return (n < 7 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<9> swig_override;
+    Swig::BoolArray<7> swig_override;
 };
 
 

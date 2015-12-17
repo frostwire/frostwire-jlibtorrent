@@ -3355,10 +3355,6 @@ public class libtorrent_jni {
   public final static native int swig_posix_wrapper_openSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3, int jarg4);
   public final static native int swig_posix_wrapper_open64(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3, int jarg4);
   public final static native int swig_posix_wrapper_open64SwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3, int jarg4);
-  public final static native int swig_posix_wrapper_openat(long jarg1, swig_posix_wrapper jarg1_, int jarg2, String jarg3, int jarg4, int jarg5);
-  public final static native int swig_posix_wrapper_openatSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, int jarg2, String jarg3, int jarg4, int jarg5);
-  public final static native int swig_posix_wrapper_creat(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3);
-  public final static native int swig_posix_wrapper_creatSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3);
   public final static native int swig_posix_wrapper_mkdir(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3);
   public final static native int swig_posix_wrapper_mkdirSwigExplicitswig_posix_wrapper(long jarg1, swig_posix_wrapper jarg1_, String jarg2, int jarg3);
   public final static native int swig_posix_wrapper_rename(long jarg1, swig_posix_wrapper jarg1_, String jarg2, String jarg3);
@@ -3661,12 +3657,6 @@ public class libtorrent_jni {
   }
   public static int SwigDirector_swig_posix_wrapper_open64(swig_posix_wrapper jself, String pathname, int flags, int mode) {
     return jself.open64(pathname, flags, mode);
-  }
-  public static int SwigDirector_swig_posix_wrapper_openat(swig_posix_wrapper jself, int dirfd, String pathname, int flags, int mode) {
-    return jself.openat(dirfd, pathname, flags, mode);
-  }
-  public static int SwigDirector_swig_posix_wrapper_creat(swig_posix_wrapper jself, String pathname, int mode) {
-    return jself.creat(pathname, mode);
   }
   public static int SwigDirector_swig_posix_wrapper_mkdir(swig_posix_wrapper jself, String pathname, int mode) {
     return jself.mkdir(pathname, mode);
