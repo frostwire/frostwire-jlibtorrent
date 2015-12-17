@@ -66,10 +66,6 @@ public class swig_posix_file_functions {
     return (getClass() == swig_posix_file_functions.class) ? libtorrent_jni.swig_posix_file_functions_remove(swigCPtr, this, pathname) : libtorrent_jni.swig_posix_file_functions_removeSwigExplicitswig_posix_file_functions(swigCPtr, this, pathname);
   }
 
-  public int lstat(String path, swig_posix_stat buf) {
-    return (getClass() == swig_posix_file_functions.class) ? libtorrent_jni.swig_posix_file_functions_lstat(swigCPtr, this, path, swig_posix_stat.getCPtr(buf), buf) : libtorrent_jni.swig_posix_file_functions_lstatSwigExplicitswig_posix_file_functions(swigCPtr, this, path, swig_posix_stat.getCPtr(buf), buf);
-  }
-
   public int stat(String path, swig_posix_stat buf) {
     return (getClass() == swig_posix_file_functions.class) ? libtorrent_jni.swig_posix_file_functions_stat(swigCPtr, this, path, swig_posix_stat.getCPtr(buf), buf) : libtorrent_jni.swig_posix_file_functions_statSwigExplicitswig_posix_file_functions(swigCPtr, this, path, swig_posix_stat.getCPtr(buf), buf);
   }

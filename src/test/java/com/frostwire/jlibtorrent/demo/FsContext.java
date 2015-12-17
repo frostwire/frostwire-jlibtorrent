@@ -51,12 +51,6 @@ public final class FsContext {
             }
 
             @Override
-            public int lstat(String path, swig_posix_stat buf) {
-                System.out.println("LSTAT: " + path);
-                return super.lstat(path, buf);
-            }
-
-            @Override
             public int stat(String path, swig_posix_stat buf) {
                 System.out.println("STAT: " + path);
                 return super.stat(path, buf);

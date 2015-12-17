@@ -3359,8 +3359,6 @@ public class libtorrent_jni {
   public final static native int swig_posix_file_functions_renameSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2, String jarg3);
   public final static native int swig_posix_file_functions_remove(long jarg1, swig_posix_file_functions jarg1_, String jarg2);
   public final static native int swig_posix_file_functions_removeSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2);
-  public final static native int swig_posix_file_functions_lstat(long jarg1, swig_posix_file_functions jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
-  public final static native int swig_posix_file_functions_lstatSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
   public final static native int swig_posix_file_functions_stat(long jarg1, swig_posix_file_functions jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
   public final static native int swig_posix_file_functions_statSwigExplicitswig_posix_file_functions(long jarg1, swig_posix_file_functions jarg1_, String jarg2, long jarg3, swig_posix_stat jarg3_);
   public final static native long new_swig_posix_file_functions();
@@ -3661,9 +3659,6 @@ public class libtorrent_jni {
   }
   public static int SwigDirector_swig_posix_file_functions_remove(swig_posix_file_functions jself, String pathname) {
     return jself.remove(pathname);
-  }
-  public static int SwigDirector_swig_posix_file_functions_lstat(swig_posix_file_functions jself, String path, long buf) {
-    return jself.lstat(path, (buf == 0) ? null : new swig_posix_stat(buf, false));
   }
   public static int SwigDirector_swig_posix_file_functions_stat(swig_posix_file_functions jself, String path, long buf) {
     return jself.stat(path, (buf == 0) ? null : new swig_posix_stat(buf, false));

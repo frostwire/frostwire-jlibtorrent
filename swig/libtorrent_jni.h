@@ -197,14 +197,13 @@ public:
     virtual int mkdir(char const *pathname, int mode);
     virtual int rename(char const *oldpath, char const *newpath);
     virtual int remove(char const *pathname);
-    virtual int lstat(char const *path, swig_posix_stat *buf);
     virtual int stat(char const *path, swig_posix_stat *buf);
 public:
     bool swig_overrides(int n) {
-      return (n < 6 ? swig_override[n] : false);
+      return (n < 5 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<6> swig_override;
+    Swig::BoolArray<5> swig_override;
 };
 
 

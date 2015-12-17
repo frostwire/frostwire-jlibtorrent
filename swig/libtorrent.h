@@ -427,33 +427,39 @@ public:
     }
 
     virtual int open(const char* pathname, int flags, int mode) {
+#ifndef _WIN32
         return ::open(pathname, flags, mode);
+#else
+    return -1;
+#endif
     }
 
     virtual int mkdir(const char* pathname, int mode) {
+#ifndef _WIN32
         return ::mkdir(pathname, mode);
+#else
+    return -1;
+#endif
     }
 
     virtual int rename(const char *oldpath, const char *newpath) {
+#ifndef _WIN32
         return ::rename(oldpath, newpath);
+#else
+    return -1;
+#endif
     }
 
     virtual int remove(const char *pathname) {
+#ifndef _WIN32
         return ::remove(pathname);
-    }
-
-    virtual int lstat(const char* path, swig_posix_stat* buf) {
-        struct ::stat ret;
-        int r = ::lstat(path, &ret);
-        buf->mode = ret.st_mode;
-        buf->size = ret.st_size;
-        buf->atime = ret.st_atime;
-        buf->mtime = ret.st_mtime;
-        buf->ctime = ret.st_ctime;
-        return r;
+#else
+    return -1;
+#endif
     }
 
     virtual int stat(const char* path, swig_posix_stat* buf) {
+#ifndef _WIN32
         struct ::stat ret;
         int r = ::stat(path, &ret);
         buf->mode = ret.st_mode;
@@ -462,6 +468,9 @@ public:
         buf->mtime = ret.st_mtime;
         buf->ctime = ret.st_ctime;
         return r;
+#else
+    return -1;
+#endif
     }
 };
 
@@ -516,7 +525,7 @@ int	posix_lstat(const char* path, struct ::stat* buf) {
 #ifndef _WIN32
     if (g_posix_file_functions != NULL) {
         swig_posix_stat ret;
-        int r = g_posix_file_functions->lstat(path, &ret);
+        int r = g_posix_file_functions->stat(path, &ret);
         buf->st_mode = ret.mode;
         buf->st_size = ret.size;
         buf->st_atime = ret.atime;
