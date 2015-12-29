@@ -39,6 +39,7 @@ public final class Session extends SessionHandle {
     private final session s;
     private final JavaStat stat;
     private final SessionStats stats;
+    private final SettingsPack settingsPack;
 
     private long lastStatsRequestTime;
     private long lastStatSecondTick;
@@ -62,6 +63,7 @@ public final class Session extends SessionHandle {
 
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
+        this.settingsPack = settings;
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -84,6 +86,7 @@ public final class Session extends SessionHandle {
 
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
+        this.settingsPack = new SettingsPack(s.get_settings());
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -801,6 +804,10 @@ public final class Session extends SessionHandle {
 
     public SessionStats getStats() {
         return stats;
+    }
+
+    public SettingsPack getSettingsPack() {
+        return settingsPack;
     }
 
     @Deprecated
