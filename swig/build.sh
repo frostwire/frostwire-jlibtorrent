@@ -64,25 +64,142 @@ function buildWindowsX86_64()
     mv bin/windows/x86_64/libjlibtorrent.dll bin/windows/x86_64/jlibtorrent.dll
 }
 
-buildMacOSX
+function usage() {
+  echo "jlibtorrent's build script exclusive options. (can only use one at the time)"
+  echo ""
+  echo "--h,-h           Shows this help."
+  echo ""
+  echo "--osx            Build MacOSX x86_64 library only."
+  echo ""
+  echo "--android        Build Android library for arm32, arm64, x86, x86_64."
+  echo "--androidarm     Build Android library for arm32, arm64 only."
+  echo "--androidarm32   Build Android library for arm32 only."
+  echo "--androidarm64   Build Android library for arm64 only."
+  echo "--androidintel   Build Android library for x86, x86_64 only."
+  echo "--androidintel32 Build Android library for x86 only." 
+  echo "--androidintel64 Build Android library for x86_64 only." 
+  echo ""
+  echo "--linux          Build Linux library for x86, x86_64."
+  echo "--linux32        Build Linux library for x86 only."
+  echo "--linux64        Build Linux library for x86_64 only."
+  echo ""
+  echo "--win            Build Windows library for x86, x86_64."
+  echo "--win32          Build Windows library for x86 only."
+  echo "--win64          Build Windows library for x86_64 only."
+  echo ""
+  echo "If no options are passed, you will be prompted to make sure you want to build all architectures in one go."
+  echo ""
+  echo ""
+  echo "AUTHORS"
+  echo "jlibtorrent was written by Alden Torres and Angel Leon."
+  echo "libtorrent was written by Arvid Norberg and multiple contributors."
+  echo ""
+  echo "Submit issues, feedback and contributions to"
+  echo "https://github.com/frostwire/jlibtorrent"
+  echo ""
+}
 
-buildAndroidArm
-buildAndroidX86
 
-buildAndroidArm64
-buildAndroidX86_64
+if [ "$1" == "--help" -o "$1" == "-h" ]; then
+  usage;
+  exit 1;
+elif [ "$1" == "--osx" ]; then
+  buildMacOSX
+  exit 1;
+elif [ "$1" == "--android" ]; then
+  buildAndroidArm
+  buildAndroidX86
+  buildAndroidArm64
+  buildAndroidX86_64
+  exit 1;
+elif [ "$1" == "--androidarm" ]; then
+  buildAndroidArm
+  buildAndroidArm64
+  exit 1;
+elif [ "$1" == "--androidarm32" ]; then
+  buildAndroidArm
+  exit 1;
+elif [ "$1" == "--androidarm64" ]; then
+  buildAndroidArm64
+  exit 1;
+elif [ "$1" == "--androidintel" ]; then
+  buildAndroidX86
+  buildAndroidX86_64
+  exit 1;
+elif [ "$1" == "--androidintel32" ]; then
+  buildAndroidX86
+  exit 1;
+elif [ "$1" == "--androidintel64" ]; then
+  buildAndroidX86_64
+  exit 1;
+elif [ "$1" == "--linux" ]; then
+  buildLinuxX86
+  buildLinuxX86_64
+  exit 1;
+elif [ "$1" == "--linux32" ]; then
+  buildLinuxX86
+  exit 1;
+elif [ "$1" == "--linux64" ]; then
+  buildLinuxX86_64
+  exit 1;
+elif [ "$1" == "--win" -o "$1" == "--win32" -o "$1" == "--win64" ]; then 
+  #fixes for windows
+  ORIGINAL_BOOST_ROOT=$BOOST_ROOT
+  export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_55_0
 
-buildLinuxX86
-buildLinuxX86_64
+  sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
+  if [ "$1" == "--win" ]; then
+    buildWindowsX86
+    sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
+    buildWindowsX86_64
+  elif [ "$1" == "--win32" ]; then
+    buildWindowsX86
+  elif [ "$1" == "--win64" ]; then
+    buildWindowsX86_64
+  fi
+  export BOOST_ROOT=$ORIGINAL_BOOST_ROOT
+  exit 1;
+else
 
-#fixes for windows
-ORIGINAL_BOOST_ROOT=$BOOST_ROOT
-export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_55_0
+   echo "Are you sure you want to build jlibtorrent for"
+   echo "    OSX"
+   echo "    Android (arm32)"
+   echo "    Android (arm64)"
+   echo "    Android (x86)"
+   echo "    Android (x64_64)"
+   echo "    Linux (x86)"
+   echo "    Linux (x86_64)?"
+   echo ""
+   echo "(Press 'y' to continue, or any other key to abort)" 
 
-sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
-buildWindowsX86
-sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
+  read buildAll
 
-buildWindowsX86_64
+  if echo $buildAll | grep -q "^[Yy]" ; then
+    buildMacOSX
 
-export BOOST_ROOT=$ORIGINAL_BOOST_ROOT
+    buildAndroidArm
+    buildAndroidX86
+
+    buildAndroidArm64
+    buildAndroidX86_64
+
+    buildLinuxX86
+    buildLinuxX86_64
+
+    #fixes for windows
+    ORIGINAL_BOOST_ROOT=$BOOST_ROOT
+    export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_55_0
+
+    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
+    buildWindowsX86
+
+    sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
+    buildWindowsX86_64
+
+    export BOOST_ROOT=$ORIGINAL_BOOST_ROOT
+    exit 1;
+  else 
+    echo "Aborted."
+    exit 0;
+  fi
+fi
