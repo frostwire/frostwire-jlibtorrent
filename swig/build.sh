@@ -95,7 +95,7 @@ function usage() {
   echo "libtorrent was written by Arvid Norberg and multiple contributors."
   echo ""
   echo "Submit issues, feedback and contributions to"
-  echo "https://github.com/frostwire/jlibtorrent"
+  echo "https://github.com/frostwire/frostwire-jlibtorrent"
   echo ""
 }
 
