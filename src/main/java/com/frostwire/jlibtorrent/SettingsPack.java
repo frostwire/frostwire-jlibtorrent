@@ -72,6 +72,13 @@ public final class SettingsPack {
     }
 
     /**
+     * @return the session-global download rate limit in bytes per second. (0 for unlimited)
+     */
+    public int getDownloadRateLimit() {
+        return sp.get_int(settings_pack.int_types.download_rate_limit.swigValue());
+    }
+
+    /**
      * Sets the session-global limits of upload rate limit, in
      * bytes per second.
      * <p/>
@@ -81,6 +88,13 @@ public final class SettingsPack {
      */
     public void setUploadRateLimit(int value) {
         sp.set_int(settings_pack.int_types.upload_rate_limit.swigValue(), value);
+    }
+
+    /**
+     * @return the session-global upload rate limit in bytes per second. (0 for unlimited)
+     */
+    public int uploadRateLimit() {
+        return sp.get_int(settings_pack.int_types.upload_rate_limit.swigValue());
     }
 
     /**
@@ -118,6 +132,10 @@ public final class SettingsPack {
         sp.set_int(settings_pack.int_types.active_downloads.swigValue(), value);
     }
 
+    public int activeDownloads() {
+        return sp.get_int(settings_pack.int_types.active_downloads.swigValue());
+    }
+
     /**
      * ``active_seeds`` controls how many active seeding
      * torrents the queuing mechanism allows.
@@ -153,6 +171,10 @@ public final class SettingsPack {
         sp.set_int(settings_pack.int_types.active_seeds.swigValue(), value);
     }
 
+    public int activeSeeds() {
+        return sp.get_int(settings_pack.int_types.active_seeds.swigValue());
+    }
+
     /**
      * Sets a global limit on the number of connections opened. The number of
      * connections is set to a hard minimum of at least two per torrent, so
@@ -163,6 +185,13 @@ public final class SettingsPack {
      */
     public void setConnectionsLimit(int value) {
         sp.set_int(settings_pack.int_types.connections_limit.swigValue(), value);
+    }
+
+    /**
+     * @return global limit on the number of connections opened.
+     */
+    public int connectionsLimit() {
+        return sp.get_int(settings_pack.int_types.connections_limit.swigValue());
     }
 
     /**
@@ -178,6 +207,14 @@ public final class SettingsPack {
      */
     public void setMaxPeerlistSize(int value) {
         sp.set_int(settings_pack.int_types.max_peerlist_size.swigValue(), value);
+    }
+
+    /**
+     *
+     * @return the maximum number of peers in the list of known peers. (0 for unlimited)
+     */
+    public int maxPeerlistSize() {
+        return sp.get_int(settings_pack.int_types.max_peerlist_size.swigValue());
     }
 
     /**
