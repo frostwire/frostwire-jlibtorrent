@@ -74,7 +74,7 @@ public final class SettingsPack {
     /**
      * @return the session-global download rate limit in bytes per second. (0 for unlimited)
      */
-    public int getDownloadRateLimit() {
+    public int downloadRateLimit() {
         return sp.get_int(settings_pack.int_types.download_rate_limit.swigValue());
     }
 
@@ -210,7 +210,6 @@ public final class SettingsPack {
     }
 
     /**
-     *
      * @return the maximum number of peers in the list of known peers. (0 for unlimited)
      */
     public int maxPeerlistSize() {
@@ -236,6 +235,14 @@ public final class SettingsPack {
     }
 
     /**
+     * @return the maximum number of bytes a connection may have pending in the disk
+     * write queue before its download rate is being throttled.
+     */
+    public int maxQueuedDiskBytes() {
+        return sp.get_int(settings_pack.int_types.max_queued_disk_bytes.swigValue());
+    }
+
+    /**
      * Sets the upper limit of the send buffer low-watermark.
      * <p/>
      * if the send buffer has fewer bytes than this, we'll read another 16kB
@@ -247,6 +254,13 @@ public final class SettingsPack {
      */
     public void setSendBufferWatermark(int value) {
         sp.set_int(settings_pack.int_types.send_buffer_watermark.swigValue(), value);
+    }
+
+    /**
+     * @return the upper limit of the send buffer low-watermark.
+     */
+    public int sendBufferWatermark() {
+        return sp.get_int(settings_pack.int_types.send_buffer_watermark.swigValue());
     }
 
     /**
