@@ -7,9 +7,7 @@ import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session_handle.options_t;
 
 import java.io.File;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,7 +37,6 @@ public final class Session extends SessionHandle {
     private final session s;
     private final JavaStat stat;
     private final SessionStats stats;
-    private final SettingsPack settingsPack;
 
     private long lastStatsRequestTime;
     private long lastStatSecondTick;
@@ -63,7 +60,6 @@ public final class Session extends SessionHandle {
 
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
-        this.settingsPack = settings;
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -86,7 +82,6 @@ public final class Session extends SessionHandle {
 
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
-        this.settingsPack = new SettingsPack(s.get_settings());
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
@@ -807,7 +802,7 @@ public final class Session extends SessionHandle {
     }
 
     public SettingsPack getSettingsPack() {
-        return settingsPack;
+        return new SettingsPack(getSwig().get_settings());
     }
 
     @Deprecated
