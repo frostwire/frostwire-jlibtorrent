@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 export DEVELOPMENT_ROOT=~/Development
 export TOOLCHAINS_ROOT=$DEVELOPMENT_ROOT/toolchains
@@ -170,7 +170,7 @@ else
    echo "    Linux (x86)"
    echo "    Linux (x86_64)?"
    echo ""
-   echo "(Press 'y' to continue, or any other key to abort)" 
+   echo "(Press [y] to continue, or any other key to abort. Press [^C] and './build.sh -h' for help)" 
 
   read buildAll
 
