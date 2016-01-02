@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 export DEVELOPMENT_ROOT=~/Development
 export TOOLCHAINS_ROOT=$DEVELOPMENT_ROOT/toolchains
