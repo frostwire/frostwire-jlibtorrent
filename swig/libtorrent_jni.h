@@ -187,24 +187,5 @@ protected:
     Swig::BoolArray<28> swig_override;
 };
 
-class SwigDirector_swig_posix_file_functions : public swig_posix_file_functions, public Swig::Director {
-
-public:
-    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
-    SwigDirector_swig_posix_file_functions(JNIEnv *jenv);
-    virtual ~SwigDirector_swig_posix_file_functions();
-    virtual int open(char const *pathname, int flags, int mode);
-    virtual int mkdir(char const *pathname, int mode);
-    virtual int rename(char const *oldpath, char const *newpath);
-    virtual int remove(char const *pathname);
-    virtual int stat(char const *path, swig_posix_stat *buf);
-public:
-    bool swig_overrides(int n) {
-      return (n < 5 ? swig_override[n] : false);
-    }
-protected:
-    Swig::BoolArray<5> swig_override;
-};
-
 
 #endif
