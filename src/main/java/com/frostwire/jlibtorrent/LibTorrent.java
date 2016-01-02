@@ -2,15 +2,12 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.stats_metric_vector;
-import com.frostwire.jlibtorrent.swig.swig_posix_file_functions;
 
 /**
  * @author gubatron
  * @author aldenml
  */
 public final class LibTorrent {
-
-    private static swig_posix_file_functions posix_file_functions;
 
     private LibTorrent() {
     }
@@ -80,10 +77,5 @@ public final class LibTorrent {
      */
     public static int findMetricIdx(String name) {
         return libtorrent.find_metric_idx(name);
-    }
-
-    public static void setPosixFileFunctions(swig_posix_file_functions fns) {
-        LibTorrent.posix_file_functions = fns;
-        libtorrent.set_global_posix_file_functions(fns);
     }
 }
