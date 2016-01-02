@@ -19,7 +19,9 @@ public class libtorrent_jni {
                 System.load(path);
             }
         } catch (LinkageError e) {
-            throw new LinkageError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent", e);
+            LinkageError le = new LinkageError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent");
+            le.initCause(e);
+            throw le;
         }
     }
 
