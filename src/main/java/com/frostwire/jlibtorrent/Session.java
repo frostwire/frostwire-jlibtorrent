@@ -802,7 +802,7 @@ public final class Session extends SessionHandle {
     }
 
     public SettingsPack getSettingsPack() {
-        return new SettingsPack(getSwig().get_settings());
+        return new SettingsPack(s.get_settings());
     }
 
     @Deprecated
