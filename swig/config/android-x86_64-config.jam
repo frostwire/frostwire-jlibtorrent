@@ -10,5 +10,4 @@ using gcc : x86_64 : $(TOOLCHAINS_ROOT)/android-x86_64/bin/x86_64-linux-android-
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-static
-      <cxxflags>-DREPLACE_POSIX_FILE_FUNCTIONS
       ;
