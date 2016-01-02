@@ -565,32 +565,50 @@ int	posix_stat(const char* path, struct ::stat* buf) {
 
 #ifdef LIBTORRENT_SWIG_NODE
 
+#include <node.h>
+#include <v8.h>
 #include <uv.h>
 
 void session_alerts_loop_fn(void *arg) {
+    v8::Isolate *isolate = v8::Isolate::GetCurrent();
+
+    if (isolate != NULL) {
+      printf("We had an isolate!\n");
+    } else {
+      printf("No current isolate found.\n");
+    }
+
+    printf("Handle scope was here %d\n", &scope);
+
     libtorrent::session& s = *((libtorrent::session*) arg);
-
     libtorrent::time_duration max_wait = std::chrono::milliseconds(500);
-
     std::vector<alert*> v;
+    printf("session_alerts_loop_fn started...\n");
     while (true) {
         alert* ptr = s.wait_for_alert(max_wait);
 
         if (ptr != NULL) {
+	    printf("\n");
             s.pop_alerts(&v);
             printf("alerts (%d)\n", v.size());
             long size = v.size();
             for (int i = 0; i < size; i++) {
                 alert* a = v[i];
-                printf("%d - %s - %s\n", a->type(), a->what(), a->message().c_str());
+                printf("type:%d - what:%s - message:%s\n", a->type(), a->what(), a->message().c_str());
             }
-        }
+	    // TODO: use uv_async_send() with a Request whose data is a callback function to the v8 loop.
+	    // or something along those lines, to see how our worker thread can communicate back to the
+	    // main v8/node loop.
+        } else {
+            printf(".");
+	}
     }
+    printf("session_alerts_loop_fn finished.\n");
 }
 
 void session_alerts_loop(libtorrent::session& s) {
-
     uv_thread_t t;
+    printf("session_alerts_loop:: about to create thread.");
     uv_thread_create(&t, session_alerts_loop_fn, &s);
 }
 
