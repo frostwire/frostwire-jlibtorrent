@@ -578,8 +578,6 @@ void session_alerts_loop_fn(void *arg) {
       printf("No current isolate found.\n");
     }
 
-    printf("Handle scope was here %d\n", &scope);
-
     libtorrent::session& s = *((libtorrent::session*) arg);
     libtorrent::time_duration max_wait = std::chrono::milliseconds(500);
     std::vector<alert*> v;
