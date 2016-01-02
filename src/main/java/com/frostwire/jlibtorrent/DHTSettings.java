@@ -132,6 +132,24 @@ public final class DHTSettings {
     }
 
     /**
+     * The max number of peers to store per torrent (for the DHT).
+     *
+     * @return
+     */
+    public int maxPeers() {
+        return s.getMax_peers();
+    }
+
+    /**
+     * The max number of peers to store per torrent (for the DHT).
+     *
+     * @param value
+     */
+    public void maxPeers(int value) {
+        s.setMax_peers(value);
+    }
+
+    /**
      * the max number of torrents to return in a torrent search query to the
      * DHT.
      *

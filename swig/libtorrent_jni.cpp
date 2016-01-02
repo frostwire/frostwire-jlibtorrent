@@ -40004,6 +40004,34 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
 }
 
 
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1settings_1max_1peers_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  libtorrent::dht_settings *arg1 = (libtorrent::dht_settings *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::dht_settings **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->max_peers = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1settings_1max_1peers_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  libtorrent::dht_settings *arg1 = (libtorrent::dht_settings *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::dht_settings **)&jarg1; 
+  result = (int) ((arg1)->max_peers);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1settings_1max_1torrent_1search_1reply_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::dht_settings *arg1 = (libtorrent::dht_settings *) 0 ;
   int arg2 ;
@@ -51184,7 +51212,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("65756f88f8b4ec6b8b920dfa9559dd784255e0b5");
+  result = (char *)("d97e2003257f1c2581981b7556763a4c03761e30");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -51196,7 +51224,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("e9dcfcb70e80891a85b2beb2623db834454e1246");
+  result = (char *)("ba4e59e39f1d38980585488d70cdf9f70a490569");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

@@ -2450,6 +2450,8 @@ public class libtorrent_jni {
   public final static native int dht_settings_max_torrents_get(long jarg1, dht_settings jarg1_);
   public final static native void dht_settings_max_dht_items_set(long jarg1, dht_settings jarg1_, int jarg2);
   public final static native int dht_settings_max_dht_items_get(long jarg1, dht_settings jarg1_);
+  public final static native void dht_settings_max_peers_set(long jarg1, dht_settings jarg1_, int jarg2);
+  public final static native int dht_settings_max_peers_get(long jarg1, dht_settings jarg1_);
   public final static native void dht_settings_max_torrent_search_reply_set(long jarg1, dht_settings jarg1_, int jarg2);
   public final static native int dht_settings_max_torrent_search_reply_get(long jarg1, dht_settings jarg1_);
   public final static native void dht_settings_restrict_routing_ips_set(long jarg1, dht_settings jarg1_, boolean jarg2);

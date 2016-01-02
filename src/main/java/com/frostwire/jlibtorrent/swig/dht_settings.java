@@ -79,6 +79,14 @@ public class dht_settings {
     return libtorrent_jni.dht_settings_max_dht_items_get(swigCPtr, this);
   }
 
+  public void setMax_peers(int value) {
+    libtorrent_jni.dht_settings_max_peers_set(swigCPtr, this, value);
+  }
+
+  public int getMax_peers() {
+    return libtorrent_jni.dht_settings_max_peers_get(swigCPtr, this);
+  }
+
   public void setMax_torrent_search_reply(int value) {
     libtorrent_jni.dht_settings_max_torrent_search_reply_set(swigCPtr, this, value);
   }
