@@ -168,7 +168,9 @@ else
    echo "    Android (x86)"
    echo "    Android (x64_64)"
    echo "    Linux (x86)"
-   echo "    Linux (x86_64)?"
+   echo "    Linux (x86_64)"
+   echo "    Windows (x86)"
+   echo "    Windows (x86_64)?"
    echo ""
    echo "(Press [y] to continue, or any other key to abort. Press [^C] and './build.sh -h' for help)" 
 
