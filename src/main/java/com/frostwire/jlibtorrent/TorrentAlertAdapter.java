@@ -224,9 +224,6 @@ public abstract class TorrentAlertAdapter implements AlertListener {
     public void pickerLog(PickerLogAlert alert) {
     }
 
-    public void torrentPrioritize(TorrentPrioritizeAlert alert) {
-    }
-
     private static InvokeLambda[] buildTable() {
         InvokeLambda[] arr = new InvokeLambda[libtorrent.num_alert_types];
 

@@ -42,7 +42,6 @@ import com.frostwire.jlibtorrent.alerts.TorrentDeletedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentErrorAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentPausedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentPrioritizeAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentRemovedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentResumedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentUpdateAlert;
@@ -381,11 +380,6 @@ public class MillionTorrents {
 
 					@Override
 					public void scrapeReply(ScrapeReplyAlert alert) {
-						System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
-					}
-
-					@Override
-					public void torrentPrioritize(TorrentPrioritizeAlert alert) {
 						System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
 					}
 

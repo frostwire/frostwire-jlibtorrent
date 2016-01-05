@@ -3,7 +3,6 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentPrioritizeAlert;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
@@ -18,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 public final class Downloader {
 
-    private static final int[] LISTENER_TYPES = new int[] { AlertType.METADATA_RECEIVED.getSwig() };
+    private static final int[] LISTENER_TYPES = new int[]{AlertType.METADATA_RECEIVED.getSwig()};
 
     private final Session s;
 
@@ -46,12 +45,10 @@ public final class Downloader {
                 }
 
                 th.prioritizeFiles(priorities);
-                s.fireAlert(new TorrentPrioritizeAlert(th));
             } else {
                 // did they just add the entire torrent (therefore not selecting any priorities)
                 final Priority[] wholeTorrentPriorities = Priority.array(Priority.NORMAL, ti.getNumFiles());
                 th.prioritizeFiles(wholeTorrentPriorities);
-                s.fireAlert(new TorrentPrioritizeAlert(th));
             }
         } else { // new download
             s.asyncAddTorrent(ti, saveDir, priorities, resumeFile);
