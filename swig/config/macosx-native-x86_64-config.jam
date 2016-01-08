@@ -6,4 +6,5 @@ using darwin : x86_64 : clang++ :
       <cxxflags>-Wno-deprecated-declarations
       <cxxflags>-Wno-reserved-id-macro
       <cxxflags>-mmacosx-version-min=10.8
+      <cxxflags>-DBOOST_NO_EXCEPTIONS
       ;

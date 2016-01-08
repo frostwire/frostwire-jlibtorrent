@@ -851,10 +851,6 @@ public final class Session extends SessionHandle {
     // case, add_torrent() will return the handle to the existing torrent.
     //
     // all torrent_handles must be destructed before the session is destructed!
-    public TorrentHandle addTorrent(AddTorrentParams params) {
-        return new TorrentHandle(s.add_torrent(params.getSwig()));
-    }
-
     public TorrentHandle addTorrent(AddTorrentParams params, ErrorCode ec) {
         return new TorrentHandle(s.add_torrent(params.getSwig(), ec.getSwig()));
     }
@@ -933,7 +929,8 @@ public final class Session extends SessionHandle {
             s.async_add_torrent(p);
             return null;
         } else {
-            torrent_handle th = s.add_torrent(p);
+            error_code ec = new error_code();
+            torrent_handle th = s.add_torrent(p, ec);
             return new TorrentHandle(th);
         }
     }

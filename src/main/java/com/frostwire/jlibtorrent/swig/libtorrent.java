@@ -81,14 +81,6 @@ public class libtorrent implements libtorrentConstants {
     return new high_resolution_clock.time_point(libtorrent_jni.max_time(), true);
   }
 
-  public static void throw_type_error() {
-    libtorrent_jni.throw_type_error();
-  }
-
-  public static void throw_invalid_handle() {
-    libtorrent_jni.throw_invalid_handle();
-  }
-
   public static stats_metric_vector session_stats_metrics() {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
@@ -182,11 +174,7 @@ public class libtorrent implements libtorrentConstants {
   }
 
   public static void set_piece_hashes(create_torrent t, String p, error_code ec) {
-    libtorrent_jni.set_piece_hashes__SWIG_0(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
-  }
-
-  public static void set_piece_hashes(create_torrent t, String p) {
-    libtorrent_jni.set_piece_hashes__SWIG_1(create_torrent.getCPtr(t), t, p);
+    libtorrent_jni.set_piece_hashes(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
   public static boolean is_utp_stream_logging() {

@@ -157,7 +157,8 @@ public final class CustomStorage {
             s.async_add_torrent(p);
             return null;
         } else {
-            torrent_handle th = s.add_torrent(p);
+            error_code ec = new error_code();
+            torrent_handle th = s.add_torrent(p, ec);
             return new TorrentHandle(th);
         }
     }

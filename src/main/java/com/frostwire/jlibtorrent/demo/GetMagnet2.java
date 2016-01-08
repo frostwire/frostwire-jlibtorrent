@@ -52,7 +52,8 @@ public final class GetMagnet2 {
         flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
         p.setFlags(flags);
 
-        torrent_handle th = s.getSwig().add_torrent(p);
+        ec.clear();
+        torrent_handle th = s.getSwig().add_torrent(p, ec);
         th.resume();
 
         System.in.read();

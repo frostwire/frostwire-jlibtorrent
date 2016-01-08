@@ -123,7 +123,8 @@ public final class Downloader {
             flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
             p.setFlags(flags);
 
-            th = s.getSwig().add_torrent(p);
+            ec.clear();
+            th = s.getSwig().add_torrent(p, ec);
             th.resume();
         }
 

@@ -35,48 +35,32 @@ public class torrent_info {
     }
   }
 
-  public torrent_info(bdecode_node torrent_file, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_0(bdecode_node.getCPtr(torrent_file), torrent_file, flags), true);
-  }
-
-  public torrent_info(bdecode_node torrent_file) {
-    this(libtorrent_jni.new_torrent_info__SWIG_1(bdecode_node.getCPtr(torrent_file), torrent_file), true);
-  }
-
-  public torrent_info(String filename, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_2(filename, flags), true);
-  }
-
-  public torrent_info(String filename) {
-    this(libtorrent_jni.new_torrent_info__SWIG_3(filename), true);
-  }
-
   public torrent_info(torrent_info t) {
-    this(libtorrent_jni.new_torrent_info__SWIG_4(torrent_info.getCPtr(t), t), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_0(torrent_info.getCPtr(t), t), true);
   }
 
   public torrent_info(sha1_hash info_hash, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_5(sha1_hash.getCPtr(info_hash), info_hash, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_1(sha1_hash.getCPtr(info_hash), info_hash, flags), true);
   }
 
   public torrent_info(sha1_hash info_hash) {
-    this(libtorrent_jni.new_torrent_info__SWIG_6(sha1_hash.getCPtr(info_hash), info_hash), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_2(sha1_hash.getCPtr(info_hash), info_hash), true);
   }
 
   public torrent_info(bdecode_node torrent_file, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_7(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_3(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec, flags), true);
   }
 
   public torrent_info(bdecode_node torrent_file, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_8(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_4(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec), true);
   }
 
   public torrent_info(String filename, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_9(filename, error_code.getCPtr(ec), ec, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_5(filename, error_code.getCPtr(ec), ec, flags), true);
   }
 
   public torrent_info(String filename, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_10(filename, error_code.getCPtr(ec), ec), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_6(filename, error_code.getCPtr(ec), ec), true);
   }
 
   public file_storage files() {

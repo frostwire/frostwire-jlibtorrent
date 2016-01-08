@@ -87,12 +87,8 @@ public class session_handle {
     return new torrent_handle_vector(libtorrent_jni.session_handle_get_torrents(swigCPtr, this), true);
   }
 
-  public torrent_handle add_torrent(add_torrent_params params) {
-    return new torrent_handle(libtorrent_jni.session_handle_add_torrent__SWIG_0(swigCPtr, this, add_torrent_params.getCPtr(params), params), true);
-  }
-
   public torrent_handle add_torrent(add_torrent_params params, error_code ec) {
-    return new torrent_handle(libtorrent_jni.session_handle_add_torrent__SWIG_1(swigCPtr, this, add_torrent_params.getCPtr(params), params, error_code.getCPtr(ec), ec), true);
+    return new torrent_handle(libtorrent_jni.session_handle_add_torrent(swigCPtr, this, add_torrent_params.getCPtr(params), params, error_code.getCPtr(ec), ec), true);
   }
 
   public void async_add_torrent(add_torrent_params params) {

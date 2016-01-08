@@ -34,7 +34,8 @@ public final class LazyRead {
             return;
         }
 
-        torrent_info ti = new torrent_info(e);
+        ec.clear();
+        torrent_info ti = new torrent_info(e, ec);
 
         System.out.println(new Sha1Hash(ti.info_hash()));
         System.out.println(libtorrent.print_entry(e));

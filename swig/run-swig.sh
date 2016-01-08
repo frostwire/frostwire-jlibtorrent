@@ -15,6 +15,7 @@ function runJni()
         -I${LIBTORRENT_ROOT}/include \
         -DBOOST_ASIO_DECL="" \
         -DBOOST_NO_TYPEID=1 \
+        -DBOOST_NO_EXCEPTIONS \
         -DBOOST_POSIX_API=1 \
         -DBOOST_SYSTEM_NOEXCEPT="" \
         -DBOOST_SYSTEM_DECL="" \
@@ -57,6 +58,7 @@ function runNode()
         -I${LIBTORRENT_ROOT}/include \
         -DBOOST_ASIO_DECL="" \
         -DBOOST_NO_TYPEID=1 \
+        -DBOOST_NO_EXCEPTIONS \
         -DBOOST_POSIX_API=1 \
         -DBOOST_SYSTEM_NOEXCEPT="" \
         -DBOOST_SYSTEM_DECL="" \

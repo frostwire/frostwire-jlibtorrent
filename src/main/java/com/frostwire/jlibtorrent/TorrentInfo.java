@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public final class TorrentInfo {
      * @param torrent
      */
     public TorrentInfo(File torrent) {
-        this(new torrent_info(torrent.getAbsolutePath()));
+        this(bdecode0(torrent));
     }
 
     public torrent_info getSwig() {
@@ -440,12 +441,30 @@ public final class TorrentInfo {
     }
 
     public static TorrentInfo bdecode(byte[] data) {
+        return new TorrentInfo(bdecode0(data));
+    }
+
+    private static torrent_info bdecode0(File file) {
+        try {
+            byte[] data = Files.bytes(file);
+            return bdecode0(data);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Can't decode data from file: " + file, e);
+        }
+    }
+
+    private static torrent_info bdecode0(byte[] data) {
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
         int ret = bdecode_node.bdecode(Vectors.bytes2char_vector(data), n, ec);
 
         if (ret == 0) {
-            return new TorrentInfo(new torrent_info(n));
+            ec.clear();
+            torrent_info ti = new torrent_info(n, ec);
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException("Can't decode data: " + ec.message());
+            }
+            return ti;
         } else {
             throw new IllegalArgumentException("Can't decode data: " + ec.message());
         }
