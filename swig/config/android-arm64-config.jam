@@ -10,5 +10,4 @@ using gcc : arm64 : $(TOOLCHAINS_ROOT)/android-arm64/bin/aarch64-linux-android-g
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-static
-      <cxxflags>-DBOOST_NO_EXCEPTIONS
       ;
