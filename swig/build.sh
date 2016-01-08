@@ -3,7 +3,7 @@
 export DEVELOPMENT_ROOT=~/Development
 export TOOLCHAINS_ROOT=$DEVELOPMENT_ROOT/toolchains
 
-export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_59_0
+export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_60_0
 export LIBTORRENT_ROOT=$DEVELOPMENT_ROOT/libtorrent
 
 export OSXCROSS_NO_INCLUDE_PATH_WARNINGS=1
@@ -145,15 +145,17 @@ elif [ "$1" == "--linux64" ]; then
 elif [ "$1" == "--win" -o "$1" == "--win32" -o "$1" == "--win64" ]; then 
   #fixes for windows
   ORIGINAL_BOOST_ROOT=$BOOST_ROOT
-  export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_55_0
+  export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_60_0
 
-  sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
   if [ "$1" == "--win" ]; then
+    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
     buildWindowsX86
     sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
     buildWindowsX86_64
   elif [ "$1" == "--win32" ]; then
+    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
     buildWindowsX86
+    sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
   elif [ "$1" == "--win64" ]; then
     buildWindowsX86_64
   fi
@@ -190,11 +192,10 @@ else
 
     #fixes for windows
     ORIGINAL_BOOST_ROOT=$BOOST_ROOT
-    export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_55_0
+    export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_60_0
 
     sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp
     buildWindowsX86
-
     sed -i 's/ JNICALL _Java_com_frostwire/ JNICALL Java_com_frostwire/g' libtorrent_jni.cpp
     buildWindowsX86_64
 
