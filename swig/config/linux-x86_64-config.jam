@@ -9,6 +9,7 @@ using gcc : x86_64 : g++ :
       <cxxflags>-fPIC
       <cxxflags>-std=c++11
       <cxxflags>-static
+      <cxxflags>-DBOOST_NO_EXCEPTIONS
       <cxxflags>-I$(DEVELOPMENT_ROOT)/openssl/x86_64/include
       <linkflags>-L$(DEVELOPMENT_ROOT)/openssl/x86_64/lib
       ;

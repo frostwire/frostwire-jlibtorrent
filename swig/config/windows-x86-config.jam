@@ -5,5 +5,8 @@ TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
 using gcc : x86 : $(TOOLCHAINS_ROOT)/windows-x86/bin/i686-w64-mingw32-g++ :
       <cflags>-std=c11
       <cxxflags>-std=c++11
+      <cxxflags>-DBOOST_NO_EXCEPTIONS
+      <cxxflags>-DBOOST_ASIO_DISABLE_CONNECTEX
+      <cxxflags>-DBOOST_USE_WINAPI_VERSION=0x0501
       <linkflags>-static
       ;

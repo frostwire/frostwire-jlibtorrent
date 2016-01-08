@@ -2,9 +2,9 @@ using darwin : x86_64 : clang++ :
       <cflags>-std=c11
       <cxxflags>-std=c++11
       <cxxflags>-stdlib=libc++
+      <cxxflags>-DBOOST_NO_EXCEPTIONS
       <cxxflags>-I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-migrator/sdk/MacOSX.sdk/usr/include
       <cxxflags>-Wno-deprecated-declarations
       <cxxflags>-Wno-reserved-id-macro
       <cxxflags>-mmacosx-version-min=10.8
-      <cxxflags>-DBOOST_NO_EXCEPTIONS
       ;

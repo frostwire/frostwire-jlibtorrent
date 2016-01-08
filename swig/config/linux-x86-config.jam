@@ -11,6 +11,7 @@ using gcc : x86 : g++ :
       <cxxflags>-m32
       <cxxflags>-std=c++11
       <cxxflags>-static
+      <cxxflags>-DBOOST_NO_EXCEPTIONS
       <cxxflags>-I$(DEVELOPMENT_ROOT)/openssl/x86/include
       <linkflags>-L$(DEVELOPMENT_ROOT)/openssl/x86/lib
       <linkflags>-m32
