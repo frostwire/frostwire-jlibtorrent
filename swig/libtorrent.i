@@ -223,6 +223,18 @@ public:
 #include "libtorrent.h"
 %}
 
+#ifdef LIBTORRENT_SWIG_JNI
+%exception {
+    try {
+        $action
+    } catch (std::exception& e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+}
+#endif // LIBTORRENT_SWIG_JNI
+
 %include <stdint.i>
 %include <typemaps.i>
 %include <std_common.i>
