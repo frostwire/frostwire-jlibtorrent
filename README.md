@@ -95,7 +95,7 @@ NodeJs JLibTorrent Module (alpha)
 ======
 We have recently added support for a NodeJS binary module so you can now have all the power of libtorrent in Javascript/Node.
 
-*Help Wanted:* At the moment we can do only simple things like creating torrents and opening torrents, but nothing related to an actual torrenting session is still available as we need to figure out how to add a thread to process libtorrent alerts and then invoke the necessary callbacks for these alerts.
+*Help Wanted:* At the moment we can only do simple things, like creating torrents and opening torrents, but nothing related to an actual torrenting session is still available, we need to figure out how to add a thread to process libtorrent alerts and then invoke the necessary callbacks for these alerts.
 
 For now it builds, it can be imported in node and you can do simple things.
 
