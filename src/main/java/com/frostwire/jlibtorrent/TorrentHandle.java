@@ -147,6 +147,9 @@ public final class TorrentHandle {
      * @return
      */
     public TorrentStatus getStatus(boolean force) {
+        if (!th.is_valid()) {
+            throw new IllegalStateException("The torrent handle is invalid");
+        }
         long now = System.currentTimeMillis();
         if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
             lastStatusRequestTime = now;
