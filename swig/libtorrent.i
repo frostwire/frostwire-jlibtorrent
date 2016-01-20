@@ -636,6 +636,7 @@ namespace std {
 %ignore libtorrent::announce_entry::failed;
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_file;
+%ignore libtorrent::torrent_status::_dummy_string_;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::all_path_hashes;
 %ignore libtorrent::torrent_error_alert::filename;
