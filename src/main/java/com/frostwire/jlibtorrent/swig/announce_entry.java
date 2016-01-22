@@ -198,6 +198,14 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_send_stats_get(swigCPtr, this);
   }
 
+  public void setTriggered_manually(boolean value) {
+    libtorrent_jni.announce_entry_triggered_manually_set(swigCPtr, this, value);
+  }
+
+  public boolean getTriggered_manually() {
+    return libtorrent_jni.announce_entry_triggered_manually_get(swigCPtr, this);
+  }
+
   public void reset() {
     libtorrent_jni.announce_entry_reset(swigCPtr, this);
   }

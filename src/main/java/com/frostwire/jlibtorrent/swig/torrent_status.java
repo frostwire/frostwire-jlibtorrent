@@ -52,14 +52,6 @@ public class torrent_status {
     return (cPtr == 0) ? null : new torrent_handle(cPtr, false);
   }
 
-  public void set_dummy_string_(String value) {
-    libtorrent_jni.torrent_status__dummy_string__set(swigCPtr, this, value);
-  }
-
-  public String get_dummy_string_() {
-    return libtorrent_jni.torrent_status__dummy_string__get(swigCPtr, this);
-  }
-
   public void setErrc(error_code value) {
     libtorrent_jni.torrent_status_errc_set(swigCPtr, this, error_code.getCPtr(value), value);
   }

@@ -2888,6 +2888,8 @@ public class libtorrent_jni {
   public final static native boolean announce_entry_complete_sent_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_send_stats_set(long jarg1, announce_entry jarg1_, boolean jarg2);
   public final static native boolean announce_entry_send_stats_get(long jarg1, announce_entry jarg1_);
+  public final static native void announce_entry_triggered_manually_set(long jarg1, announce_entry jarg1_, boolean jarg2);
+  public final static native boolean announce_entry_triggered_manually_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_reset(long jarg1, announce_entry jarg1_);
   public final static native boolean announce_entry_can_announce(long jarg1, announce_entry jarg1_, long jarg2, high_resolution_clock.time_point jarg2_, boolean jarg3);
   public final static native boolean announce_entry_is_working(long jarg1, announce_entry jarg1_);
@@ -2897,8 +2899,6 @@ public class libtorrent_jni {
   public final static native boolean torrent_status_op_eq(long jarg1, torrent_status jarg1_, long jarg2, torrent_status jarg2_);
   public final static native void torrent_status_handle_set(long jarg1, torrent_status jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_status_handle_get(long jarg1, torrent_status jarg1_);
-  public final static native void torrent_status__dummy_string__set(long jarg1, torrent_status jarg1_, String jarg2);
-  public final static native String torrent_status__dummy_string__get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_errc_set(long jarg1, torrent_status jarg1_, long jarg2, error_code jarg2_);
   public final static native long torrent_status_errc_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_error_file_set(long jarg1, torrent_status jarg1_, int jarg2);
