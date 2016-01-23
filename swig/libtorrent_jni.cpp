@@ -66126,7 +66126,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("833c8b8b8980e95fb3f8d1dfa1e4c0a2c32f85f3");
+  result = (char *)("821bf5b14c6590ba93db31ca9d9fb77be5ae486b");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -70332,7 +70332,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   posix_stat *arg1 = (posix_stat *) 0 ;
   boost::int64_t arg2 ;
   
@@ -70341,11 +70341,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posi
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
   arg2 = (boost::int64_t)jarg2; 
-  if (arg1) (arg1)->st_size = arg2;
+  if (arg1) (arg1)->size = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   posix_stat *arg1 = (posix_stat *) 0 ;
   boost::int64_t result;
@@ -70354,13 +70354,13 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pos
   (void)jcls;
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
-  result = (boost::int64_t) ((arg1)->st_size);
+  result = (boost::int64_t) ((arg1)->size);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1atime_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1atime_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   posix_stat *arg1 = (posix_stat *) 0 ;
   boost::int64_t arg2 ;
   
@@ -70369,11 +70369,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posi
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
   arg2 = (boost::int64_t)jarg2; 
-  if (arg1) (arg1)->st_atime = arg2;
+  if (arg1) (arg1)->atime = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1atime_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1atime_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   posix_stat *arg1 = (posix_stat *) 0 ;
   boost::int64_t result;
@@ -70382,13 +70382,13 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pos
   (void)jcls;
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
-  result = (boost::int64_t) ((arg1)->st_atime);
+  result = (boost::int64_t) ((arg1)->atime);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1mtime_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1mtime_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   posix_stat *arg1 = (posix_stat *) 0 ;
   boost::int64_t arg2 ;
   
@@ -70397,11 +70397,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posi
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
   arg2 = (boost::int64_t)jarg2; 
-  if (arg1) (arg1)->st_mtime = arg2;
+  if (arg1) (arg1)->mtime = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1mtime_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1mtime_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   posix_stat *arg1 = (posix_stat *) 0 ;
   boost::int64_t result;
@@ -70410,13 +70410,13 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pos
   (void)jcls;
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
-  result = (boost::int64_t) ((arg1)->st_mtime);
+  result = (boost::int64_t) ((arg1)->mtime);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1ctime_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1ctime_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   posix_stat *arg1 = (posix_stat *) 0 ;
   boost::int64_t arg2 ;
   
@@ -70425,11 +70425,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posi
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
   arg2 = (boost::int64_t)jarg2; 
-  if (arg1) (arg1)->st_ctime = arg2;
+  if (arg1) (arg1)->ctime = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1ctime_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1ctime_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   posix_stat *arg1 = (posix_stat *) 0 ;
   boost::int64_t result;
@@ -70438,7 +70438,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pos
   (void)jcls;
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
-  result = (boost::int64_t) ((arg1)->st_ctime);
+  result = (boost::int64_t) ((arg1)->ctime);
   jresult = (jlong)result; 
   return jresult;
 }

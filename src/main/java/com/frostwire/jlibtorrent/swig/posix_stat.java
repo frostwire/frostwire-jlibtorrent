@@ -35,36 +35,36 @@ public class posix_stat {
     }
   }
 
-  public void setSt_size(long value) {
-    libtorrent_jni.posix_stat_st_size_set(swigCPtr, this, value);
+  public void setSize(long value) {
+    libtorrent_jni.posix_stat_size_set(swigCPtr, this, value);
   }
 
-  public long getSt_size() {
-    return libtorrent_jni.posix_stat_st_size_get(swigCPtr, this);
+  public long getSize() {
+    return libtorrent_jni.posix_stat_size_get(swigCPtr, this);
   }
 
-  public void setSt_atime(long value) {
-    libtorrent_jni.posix_stat_st_atime_set(swigCPtr, this, value);
+  public void setAtime(long value) {
+    libtorrent_jni.posix_stat_atime_set(swigCPtr, this, value);
   }
 
-  public long getSt_atime() {
-    return libtorrent_jni.posix_stat_st_atime_get(swigCPtr, this);
+  public long getAtime() {
+    return libtorrent_jni.posix_stat_atime_get(swigCPtr, this);
   }
 
-  public void setSt_mtime(long value) {
-    libtorrent_jni.posix_stat_st_mtime_set(swigCPtr, this, value);
+  public void setMtime(long value) {
+    libtorrent_jni.posix_stat_mtime_set(swigCPtr, this, value);
   }
 
-  public long getSt_mtime() {
-    return libtorrent_jni.posix_stat_st_mtime_get(swigCPtr, this);
+  public long getMtime() {
+    return libtorrent_jni.posix_stat_mtime_get(swigCPtr, this);
   }
 
-  public void setSt_ctime(long value) {
-    libtorrent_jni.posix_stat_st_ctime_set(swigCPtr, this, value);
+  public void setCtime(long value) {
+    libtorrent_jni.posix_stat_ctime_set(swigCPtr, this, value);
   }
 
-  public long getSt_ctime() {
-    return libtorrent_jni.posix_stat_st_ctime_get(swigCPtr, this);
+  public long getCtime() {
+    return libtorrent_jni.posix_stat_ctime_get(swigCPtr, this);
   }
 
   public void setSt_mode(int value) {

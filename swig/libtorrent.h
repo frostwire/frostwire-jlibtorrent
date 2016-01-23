@@ -403,10 +403,10 @@ swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_conn
 }
 
 struct posix_stat {
-    boost::int64_t st_size;
-	boost::int64_t st_atime;
-	boost::int64_t st_mtime;
-	boost::int64_t st_ctime;
+    boost::int64_t size;
+	boost::int64_t atime;
+	boost::int64_t mtime;
+	boost::int64_t ctime;
     int st_mode;
 };
 
@@ -437,11 +437,11 @@ public:
 #ifdef WRAP_POSIX
         struct stat t;
         int r = __real_stat(path, &t);
-        buf->st_size = t.st_size;
-        buf->st_atime = t.st_atime;
-        buf->st_mtime = t.st_mtime;
-        buf->st_ctime = t.st_ctime;
-        buf->st_mode = t.st_mode;
+        buf->size = t.st_size;
+        buf->atime = t.st_atime;
+        buf->mtime = t.st_mtime;
+        buf->ctime = t.st_ctime;
+        buf->mode = t.st_mode;
         return r;
 #else
         return -1;
@@ -501,11 +501,11 @@ int __wrap_stat(const char *path, struct stat *buf) {
     if (g_posix_wrapper != NULL) {
         posix_stat t;
         int r = g_posix_wrapper->stat(path, &t);
-        buf->st_size = t.st_size;
-        buf->st_atime = t.st_atime;
-        buf->st_mtime = t.st_mtime;
-        buf->st_ctime = t.st_ctime;
-        buf->st_mode = t.st_mode;
+        buf->st_size = t.size;
+        buf->st_atime = t.atime;
+        buf->st_mtime = t.mtime;
+        buf->st_ctime = t.ctime;
+        buf->st_mode = t.mode;
         return r;
     } else {
         return __real_stat(path, buf);
