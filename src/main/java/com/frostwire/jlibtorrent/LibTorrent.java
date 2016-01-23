@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.posix_wrapper;
 import com.frostwire.jlibtorrent.swig.stats_metric_vector;
 
 /**
@@ -8,6 +9,8 @@ import com.frostwire.jlibtorrent.swig.stats_metric_vector;
  * @author aldenml
  */
 public final class LibTorrent {
+
+    private static posix_wrapper g_posix_wrapper;
 
     private LibTorrent() {
     }
@@ -77,5 +80,10 @@ public final class LibTorrent {
      */
     public static int findMetricIdx(String name) {
         return libtorrent.find_metric_idx(name);
+    }
+
+    public static void setPosixWrapper(posix_wrapper obj) {
+        g_posix_wrapper = obj;
+        libtorrent.set_posix_wrapper(obj);
     }
 }
