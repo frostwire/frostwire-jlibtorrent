@@ -1251,6 +1251,9 @@ public:
 %ignore swig_storage_constructor_cb;
 %ignore dht_put_item_cb;
 
+%feature("director") posix_wrapper;
+%ignore g_posix_wrapper;
+
 #ifdef LIBTORRENT_SWIG_NODE
 
 %ignore session_alerts_loop_fn;

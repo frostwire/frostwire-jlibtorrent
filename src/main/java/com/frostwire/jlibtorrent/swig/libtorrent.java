@@ -225,4 +225,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.boost_lib_version();
   }
 
+  public static void set_posix_wrapper(posix_wrapper obj) {
+    libtorrent_jni.set_posix_wrapper(posix_wrapper.getCPtr(obj), obj);
+  }
+
 }

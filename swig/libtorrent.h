@@ -404,11 +404,11 @@ swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_conn
 
 struct posix_stat {
     boost::int64_t st_size;
-	boost::uint64_t st_atime;
-	boost::uint64_t st_mtime;
-	boost::uint64_t st_ctime;
+	boost::int64_t st_atime;
+	boost::int64_t st_mtime;
+	boost::int64_t st_ctime;
     int st_mode;
-}
+};
 
 #ifdef WRAP_POSIX
 extern "C" {
