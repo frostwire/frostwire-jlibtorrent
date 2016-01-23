@@ -413,7 +413,7 @@ struct posix_stat {
 #ifdef WRAP_POSIX
 extern "C" {
 int __real_open(const char *path, int flags, ...);
-int __real_stat(const char *path, struct stat *buf);
+int __real_stat(const char *path, struct ::stat *buf);
 int __real_mkdir(const char *path, mode_t mode);
 int __real_rename(const char *oldpath, const char *newpath);
 int __real_remove(const char *path);
@@ -435,7 +435,7 @@ public:
 
     virtual int stat(const char *path, posix_stat *buf) {
 #ifdef WRAP_POSIX
-        struct stat t;
+        struct ::stat t;
         int r = __real_stat(path, &t);
         buf->size = t.st_size;
         buf->atime = t.st_atime;
@@ -497,7 +497,7 @@ int __wrap_open(const char *path, int flags, ...) {
         __real_open(path, flags, mode);
 }
 
-int __wrap_stat(const char *path, struct stat *buf) {
+int __wrap_stat(const char *path, struct ::stat *buf) {
     if (g_posix_wrapper != NULL) {
         posix_stat t;
         int r = g_posix_wrapper->stat(path, &t);
