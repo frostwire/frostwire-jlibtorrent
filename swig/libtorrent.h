@@ -402,6 +402,135 @@ swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_conn
     return NULL;
 }
 
+struct posix_stat {
+    boost::int64_t st_size;
+	boost::uint64_t st_atime;
+	boost::uint64_t st_mtime;
+	boost::uint64_t st_ctime;
+    int st_mode;
+}
+
+#ifdef WRAP_POSIX
+extern "C" {
+int __real_open(const char *path, int flags, ...);
+int __real_stat(const char *path, struct stat *buf);
+int __real_mkdir(const char *path, mode_t mode);
+int __real_rename(const char *oldpath, const char *newpath);
+int __real_remove(const char *path);
+}
+#endif
+
+class posix_wrapper {
+public:
+    virtual ~posix_wrapper() {
+    }
+
+    virtual int open(const char* path, int flags, int mode) {
+#ifdef WRAP_POSIX
+        return __real_open(path, flags, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int stat(const char *path, posix_stat *buf) {
+#ifdef WRAP_POSIX
+        struct stat t;
+        int r = __real_stat(path, &t);
+        buf->st_size = t.st_size;
+        buf->st_atime = t.st_atime;
+        buf->st_mtime = t.st_mtime;
+        buf->st_ctime = t.st_ctime;
+        buf->st_mode = t.st_mode;
+        return r;
+#else
+        return -1;
+#endif
+    }
+
+    virtual int mkdir(const char *path, int mode) {
+#ifdef WRAP_POSIX
+        return __real_mkdir(path, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int rename(const char *oldpath, const char *newpath) {
+#ifdef WRAP_POSIX
+        return __real_rename(oldpath, newpath);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int remove(const char *path) {
+#ifdef WRAP_POSIX
+        return __real_remove(path);
+#else
+        return -1;
+#endif
+    }
+};
+
+posix_wrapper* g_posix_wrapper = NULL;
+
+void set_posix_wrapper(posix_wrapper *obj) {
+    g_posix_wrapper = obj;
+}
+
+#ifdef WRAP_POSIX
+extern "C" {
+
+int __wrap_open(const char *path, int flags, ...) {
+    mode_t mode = 0;
+    flags |= O_LARGEFILE;
+    if (flags & O_CREAT)
+    {
+        va_list  args;
+        va_start(args, flags);
+        mode = (mode_t) va_arg(args, int);
+        va_end(args);
+    }
+    return g_posix_wrapper != NULL ?
+        g_posix_wrapper->open(path, flags, mode) :
+        __real_open(path, flags, mode);
+}
+
+int __wrap_stat(const char *path, struct stat *buf) {
+    if (g_posix_wrapper != NULL) {
+        posix_stat t;
+        int r = g_posix_wrapper->stat(path, &t);
+        buf->st_size = t.st_size;
+        buf->st_atime = t.st_atime;
+        buf->st_mtime = t.st_mtime;
+        buf->st_ctime = t.st_ctime;
+        buf->st_mode = t.st_mode;
+        return r;
+    } else {
+        return __real_stat(path, buf);
+    }
+}
+
+int __wrap_mkdir(const char *path, mode_t mode) {
+    return g_posix_wrapper != NULL ?
+           g_posix_wrapper->mkdir(path, mode) :
+           __real_mkdir(path, mode);
+}
+int __wrap_rename(const char *oldpath, const char *newpath) {
+    return g_posix_wrapper != NULL ?
+           g_posix_wrapper->rename(oldpath, newpath) :
+           __real_rename(oldpath, newpath);
+}
+int __wrap_remove(const char *path) {
+    return g_posix_wrapper != NULL ?
+           g_posix_wrapper->remove(path) :
+           __real_remove(path);
+}
+
+}
+#endif
+
 #ifdef LIBTORRENT_SWIG_NODE
 
 #include <node.h>
