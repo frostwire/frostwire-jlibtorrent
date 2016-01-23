@@ -3338,8 +3338,8 @@ public class libtorrent_jni {
   public final static native long posix_stat_mtime_get(long jarg1, posix_stat jarg1_);
   public final static native void posix_stat_ctime_set(long jarg1, posix_stat jarg1_, long jarg2);
   public final static native long posix_stat_ctime_get(long jarg1, posix_stat jarg1_);
-  public final static native void posix_stat_st_mode_set(long jarg1, posix_stat jarg1_, int jarg2);
-  public final static native int posix_stat_st_mode_get(long jarg1, posix_stat jarg1_);
+  public final static native void posix_stat_mode_set(long jarg1, posix_stat jarg1_, int jarg2);
+  public final static native int posix_stat_mode_get(long jarg1, posix_stat jarg1_);
   public final static native long new_posix_stat();
   public final static native void delete_posix_stat(long jarg1);
   public final static native void delete_posix_wrapper(long jarg1);

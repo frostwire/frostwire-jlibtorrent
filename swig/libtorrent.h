@@ -407,7 +407,7 @@ struct posix_stat {
 	boost::int64_t atime;
 	boost::int64_t mtime;
 	boost::int64_t ctime;
-    int st_mode;
+    int mode;
 };
 
 #ifdef WRAP_POSIX

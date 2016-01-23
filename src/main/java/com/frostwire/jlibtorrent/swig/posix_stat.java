@@ -67,12 +67,12 @@ public class posix_stat {
     return libtorrent_jni.posix_stat_ctime_get(swigCPtr, this);
   }
 
-  public void setSt_mode(int value) {
-    libtorrent_jni.posix_stat_st_mode_set(swigCPtr, this, value);
+  public void setMode(int value) {
+    libtorrent_jni.posix_stat_mode_set(swigCPtr, this, value);
   }
 
-  public int getSt_mode() {
-    return libtorrent_jni.posix_stat_st_mode_get(swigCPtr, this);
+  public int getMode() {
+    return libtorrent_jni.posix_stat_mode_get(swigCPtr, this);
   }
 
   public posix_stat() {

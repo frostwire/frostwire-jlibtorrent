@@ -66126,7 +66126,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("821bf5b14c6590ba93db31ca9d9fb77be5ae486b");
+  result = (char *)("384e59804783ad35adcc619aec3aa021eea35106");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -70444,7 +70444,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pos
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1mode_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1mode_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   posix_stat *arg1 = (posix_stat *) 0 ;
   int arg2 ;
   
@@ -70453,11 +70453,11 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posi
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (arg1) (arg1)->st_mode = arg2;
+  if (arg1) (arg1)->mode = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1st_1mode_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1stat_1mode_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   posix_stat *arg1 = (posix_stat *) 0 ;
   int result;
@@ -70466,7 +70466,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posi
   (void)jcls;
   (void)jarg1_;
   arg1 = *(posix_stat **)&jarg1; 
-  result = (int) ((arg1)->st_mode);
+  result = (int) ((arg1)->mode);
   jresult = (jint)result; 
   return jresult;
 }
