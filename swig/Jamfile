@@ -1,4 +1,5 @@
 import os ;
+import feature : feature ;
 
 BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
 ECHO "BOOST_ROOT = "$(BOOST_ROOT) ;
