@@ -11,5 +11,4 @@ using gcc : arm : $(TOOLCHAINS_ROOT)/android-arm/bin/arm-linux-androideabi-g++ :
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-static
-      <wrap-prosix>on
       ;
