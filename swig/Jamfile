@@ -33,6 +33,16 @@ rule libtorrent_linking ( properties * )
     return $(result) ;
 }
 
+feature wrap-posix : off on : composite propagated link-incompatible ;
+feature.compose <wrap-posix>on :
+    <define>WRAP_POSIX
+    <cxxflags>-Wl,-wrap,open
+    <cxxflags>-Wl,-wrap,stat
+    <cxxflags>-Wl,-wrap,mkdir
+    <cxxflags>-Wl,-wrap,rename
+    <cxxflags>-Wl,-wrap,remove
+    ;
+
 lib jlibtorrent
 
     : # sources
