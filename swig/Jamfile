@@ -37,11 +37,11 @@ rule libtorrent_linking ( properties * )
 feature wrap-posix : off on : composite propagated link-incompatible ;
 feature.compose <wrap-posix>on :
     <define>WRAP_POSIX
-    <cxxflags>-Wl,-wrap,open
-    <cxxflags>-Wl,-wrap,stat
-    <cxxflags>-Wl,-wrap,mkdir
-    <cxxflags>-Wl,-wrap,rename
-    <cxxflags>-Wl,-wrap,remove
+    <linkflags>-Wl,--wrap=open
+    <linkflags>-Wl,--wrap=stat
+    <linkflags>-Wl,--wrap=mkdir
+    <linkflags>-Wl,--wrap=rename
+    <linkflags>-Wl,--wrap=remove
     ;
 
 lib jlibtorrent
