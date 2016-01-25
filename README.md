@@ -19,7 +19,7 @@ Download [the latest JAR](https://search.maven.org/remote_content?g=com.frostwir
 ```
 or Gradle:
 ```groovy
-compile 'com.frostwire:jlibtorrent:1.1.0.19'
+compile 'com.frostwire:jlibtorrent:1.1.0.20'
 ```
 
 Note that there are multiple version of jlibtorrent for different platforms: `jlibtorrent`, `jlibtorrent-windows`, `jlibtorrent-linux`, `jlibtorrent-macosx` and `jlibtorrent-android-<arch>`. These are all different artifacts.
