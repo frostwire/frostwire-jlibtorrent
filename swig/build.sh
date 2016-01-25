@@ -22,19 +22,19 @@ function buildAndroidArm()
 
 function buildAndroidX86()
 {
-    $BOOST_ROOT/b2 --user-config=config/android-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/android/x86
+    $BOOST_ROOT/b2 --user-config=config/android-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/android/x86 wrap-posix=on
     $TOOLCHAINS_ROOT/android-x86/bin/i686-linux-android-strip --strip-unneeded -x bin/android/x86/libjlibtorrent.so
 }
 
 function buildAndroidArm64()
 {
-    $BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=gcc-arm64 target-os=linux location=bin/android/arm64-v8a
+    $BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=gcc-arm64 target-os=linux location=bin/android/arm64-v8a wrap-posix=on
     $TOOLCHAINS_ROOT/android-arm64/bin/aarch64-linux-android-strip --strip-unneeded -x bin/android/arm64-v8a/libjlibtorrent.so
 }
 
 function buildAndroidX86_64()
 {
-    $BOOST_ROOT/b2 --user-config=config/android-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/android/x86_64
+    $BOOST_ROOT/b2 --user-config=config/android-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/android/x86_64 wrap-posix=on
     $TOOLCHAINS_ROOT/android-x86_64/bin/x86_64-linux-android-strip --strip-unneeded -x bin/android/x86_64/libjlibtorrent.so
 }
 
