@@ -33,35 +33,57 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
      * @return
      */
     public SocketType getSocketType() {
-        return SocketType.fromSwig(alert.getSock_type());
+        return SocketType.fromSwig(alert.getSock_type().swigValue());
     }
 
+    /**
+     *
+     */
     public enum SocketType {
 
-        TCP(listen_succeeded_alert.socket_type_t.tcp),
+        /**
+         *
+         */
+        TCP(listen_succeeded_alert.socket_type_t.tcp.swigValue()),
 
-        TCP_SSL(listen_succeeded_alert.socket_type_t.tcp_ssl),
+        /**
+         *
+         */
+        TCP_SSL(listen_succeeded_alert.socket_type_t.tcp_ssl.swigValue()),
 
-        UDP(listen_succeeded_alert.socket_type_t.udp);
+        /**
+         *
+         */
+        UDP(listen_succeeded_alert.socket_type_t.udp.swigValue()),
 
-        private SocketType(listen_succeeded_alert.socket_type_t swigObj) {
-            this.swigObj = swigObj;
+        /**
+         *
+         */
+        UTP_SSL(listen_succeeded_alert.socket_type_t.utp_ssl.swigValue()),
+
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        SocketType(int swigValue) {
+            this.swigValue = swigValue;
         }
 
-        private final listen_succeeded_alert.socket_type_t swigObj;
+        private final int swigValue;
 
-        public listen_succeeded_alert.socket_type_t getSwig() {
-            return swigObj;
+        public int getSwig() {
+            return swigValue;
         }
 
-        public static SocketType fromSwig(listen_succeeded_alert.socket_type_t swigObj) {
+        public static SocketType fromSwig(int swigValue) {
             SocketType[] enumValues = SocketType.class.getEnumConstants();
             for (SocketType ev : enumValues) {
-                if (ev.getSwig() == swigObj) {
+                if (ev.getSwig() == swigValue) {
                     return ev;
                 }
             }
-            throw new IllegalArgumentException("No enum " + SocketType.class + " with swig value " + swigObj);
+            return UNKNOWN;
         }
     }
 }
