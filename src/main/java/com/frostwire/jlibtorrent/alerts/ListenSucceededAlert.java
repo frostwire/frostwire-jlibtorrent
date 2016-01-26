@@ -32,7 +32,7 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
      *
      * @return
      */
-    public SocketType getSockType() {
+    public SocketType getSocketType() {
         return SocketType.fromSwig(alert.getSock_type());
     }
 
