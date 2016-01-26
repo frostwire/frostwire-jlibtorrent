@@ -22,7 +22,6 @@ import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_IMMUTABLE_ITEM;
 public final class DHT {
 
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.getSwig()};
-    private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {DHT_GET_PEERS_REPLY.getSwig()};
 
     private final Session s;
 
