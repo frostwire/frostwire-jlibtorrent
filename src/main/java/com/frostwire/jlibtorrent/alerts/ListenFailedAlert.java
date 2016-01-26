@@ -96,7 +96,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
         PARSE_ADDR(listen_failed_alert.op_t.parse_addr.swigValue()),
         OPEN(listen_failed_alert.op_t.open.swigValue()),
         BIND(listen_failed_alert.op_t.bind.swigValue()),
-        LISTNE(listen_failed_alert.op_t.listen.swigValue()),
+        LISTEN(listen_failed_alert.op_t.listen.swigValue()),
         GET_PEER_NAME(listen_failed_alert.op_t.get_peer_name.swigValue()),
         ACCEPT(listen_failed_alert.op_t.accept.swigValue()),
         UNKNOWN(-1);
