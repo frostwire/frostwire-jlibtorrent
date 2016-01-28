@@ -394,12 +394,10 @@ namespace std {
     %template(int_int_pair) pair<int, int>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
-    %template(long_long_long_2_pair) pair<long long, long>;
     %template(string_bdecode_node_pair) pair<std::string, libtorrent::bdecode_node>;
 
     %template(string_vector) vector<std::string>;
     %template(char_vector) vector<char>;
-    %template(long_long_long_2_pair_vector) vector<std::pair<long long, long>>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
     %template(int_int_pair_vector) vector<std::pair<int, int>>;
@@ -407,7 +405,6 @@ namespace std {
     %template(unsigned_char_vector) vector<unsigned char>;
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<long long>;
-    %template(uint64_vector) vector<unsigned long long>;
     %template(sha1_hash_vector) vector<libtorrent::sha1_hash>;
     %template(torrent_status_vector) vector<libtorrent::torrent_status>;
     %template(torrent_handle_vector) vector<libtorrent::torrent_handle>;

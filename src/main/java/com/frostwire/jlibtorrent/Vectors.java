@@ -1,6 +1,9 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.char_vector;
+import com.frostwire.jlibtorrent.swig.int64_vector;
+import com.frostwire.jlibtorrent.swig.int_vector;
+import com.frostwire.jlibtorrent.swig.unsigned_char_vector;
 
 /**
  * @author gubatron
@@ -107,17 +110,6 @@ public final class Vectors {
 
         for (int i = 0; i < size; i++) {
             arr[i] = v.get(i);
-        }
-
-        return arr;
-    }
-
-    public static long[] uint64_vector2longs(uint64_vector v) {
-        int size = (int) v.size();
-        long[] arr = new long[size];
-
-        for (int i = 0; i < size; i++) {
-            arr[i] = v.get(i).longValue();
         }
 
         return arr;
