@@ -396,11 +396,9 @@ namespace std {
     %template(string_string_pair) pair<std::string, std::string>;
     %template(long_long_long_2_pair) pair<long long, long>;
     %template(string_bdecode_node_pair) pair<std::string, libtorrent::bdecode_node>;
-    
+
     %template(string_vector) vector<std::string>;
     %template(char_vector) vector<char>;
-    %template(bool_vector) vector<bool>;
-    %template(float_vector) vector<float>;
     %template(long_long_long_2_pair_vector) vector<std::pair<long long, long>>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
@@ -418,7 +416,6 @@ namespace std {
     %template(dht_lookup_vector) vector<libtorrent::dht_lookup>;
 
     %template(partial_piece_info_vector) vector<libtorrent::partial_piece_info>;
-    %template(cached_piece_info_vector) vector<libtorrent::cached_piece_info>;
     %template(peer_info_vector) vector<libtorrent::peer_info>;
     %template(stats_metric_vector) vector<libtorrent::stats_metric>;
 
@@ -458,6 +455,8 @@ namespace std {
 %ignore libtorrent::partial_hash;
 %ignore libtorrent::piece_manager;
 %ignore libtorrent::disk_io_thread;
+%ignore libtorrent::cached_piece_info;
+%ignore libtorrent::cache_status;
 %ignore libtorrent::request_callback;
 %ignore libtorrent::timeout_handler;
 %ignore libtorrent::parse_int;
@@ -535,6 +534,7 @@ namespace std {
 %ignore libtorrent::session_handle::set_alert_notify;
 %ignore libtorrent::session_handle::native_handle;
 %ignore libtorrent::session_handle::set_dht_storage;
+%ignore libtorrent::session_handle::get_cache_info;
 %ignore libtorrent::session_stats_alert::values;
 %ignore libtorrent::save_resume_data_alert::save_resume_data_alert;
 %ignore libtorrent::save_resume_data_alert::resume_data;

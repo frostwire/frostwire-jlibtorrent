@@ -107,18 +107,6 @@ public class session_handle {
     return libtorrent_jni.session_handle_is_paused(swigCPtr, this);
   }
 
-  public void get_cache_info(cache_status ret, torrent_handle h, int flags) {
-    libtorrent_jni.session_handle_get_cache_info__SWIG_0(swigCPtr, this, cache_status.getCPtr(ret), ret, torrent_handle.getCPtr(h), h, flags);
-  }
-
-  public void get_cache_info(cache_status ret, torrent_handle h) {
-    libtorrent_jni.session_handle_get_cache_info__SWIG_1(swigCPtr, this, cache_status.getCPtr(ret), ret, torrent_handle.getCPtr(h), h);
-  }
-
-  public void get_cache_info(cache_status ret) {
-    libtorrent_jni.session_handle_get_cache_info__SWIG_2(swigCPtr, this, cache_status.getCPtr(ret), ret);
-  }
-
   public void set_dht_settings(dht_settings settings) {
     libtorrent_jni.session_handle_set_dht_settings(swigCPtr, this, dht_settings.getCPtr(settings), settings);
   }

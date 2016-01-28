@@ -287,8 +287,12 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_force_dht_announce(swigCPtr, this);
   }
 
+  public void scrape_tracker(int idx) {
+    libtorrent_jni.torrent_handle_scrape_tracker__SWIG_0(swigCPtr, this, idx);
+  }
+
   public void scrape_tracker() {
-    libtorrent_jni.torrent_handle_scrape_tracker(swigCPtr, this);
+    libtorrent_jni.torrent_handle_scrape_tracker__SWIG_1(swigCPtr, this);
   }
 
   public void set_upload_limit(int limit) {

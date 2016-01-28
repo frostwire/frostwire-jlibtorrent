@@ -123,17 +123,6 @@ public final class Vectors {
         return arr;
     }
 
-    public static boolean[] bool_vector2booleans(bool_vector v) {
-        int size = (int) v.size();
-        boolean[] arr = new boolean[size];
-
-        for (int i = 0; i < size; i++) {
-            arr[i] = v.get(i);
-        }
-
-        return arr;
-    }
-
     public static unsigned_char_vector new_unsigned_char_vector(int size) {
         unsigned_char_vector v = new unsigned_char_vector();
         for (int i = 0; i < size; i++) {
