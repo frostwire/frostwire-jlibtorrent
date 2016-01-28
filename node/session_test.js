@@ -28,6 +28,11 @@ var jlibtorrent = require('./jlibtorrent.js');
 
 console.log("Using libtorrent version: " + jlibtorrent.LibTorrent.fullVersion());
 
+var sp = new jlibtorrent.SettingsPack();
+var name = jlibtorrent.swig.settings_pack.peer_fingerprint;
+sp.string(name, "test");
+console.log(sp.string(name));
+
 process.stdout.write('Press ENTER to exit...');
 process.stdin.once('data', function (data) {
     process.exit(0);

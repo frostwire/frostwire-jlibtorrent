@@ -3,9 +3,7 @@ var swig = require('./jlibtorrent.node');
 // swig
 (function () {
 
-    exports.swig = {
-        swig: swig
-    }
+    exports.swig = swig;
 
 }());
 
@@ -44,5 +42,50 @@ var swig = require('./jlibtorrent.node');
         boostLibVersion: boostLibVersion,
         fullVersion: fullVersion
     };
+
+}());
+
+// SettingsPack
+(function () {
+
+    function SettingsPack(sp) {
+        this.sp = sp || new swig.settings_pack();
+    }
+
+    SettingsPack.prototype.swig = function () {
+        return this.sp;
+    }
+
+    SettingsPack.prototype.boolean = function (name, value) {
+        if (value) {
+            this.sp.set_bool(name, value);
+        } else {
+            value = this.sp.get_bool(name);
+        }
+
+        return value;
+    }
+
+    SettingsPack.prototype.integer = function (name, value) {
+        if (value) {
+            this.sp.set_int(name, value);
+        } else {
+            value = this.sp.get_int(name);
+        }
+
+        return value;
+    }
+
+    SettingsPack.prototype.string = function (name, value) {
+        if (value) {
+            this.sp.set_str(name, value);
+        } else {
+            value = this.sp.get_str(name);
+        }
+
+        return value;
+    }
+
+    exports.SettingsPack = SettingsPack;
 
 }());
