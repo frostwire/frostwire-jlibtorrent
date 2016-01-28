@@ -16,3 +16,4 @@ frostwire-jlibtorrent.i*
 /libjlibtorrent.dylib
 /libjlibtorrent.so
 /jlibtorrent.dll
+/node/jlibtorrent.node
