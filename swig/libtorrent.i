@@ -1251,10 +1251,4 @@ public:
 %feature("director") posix_wrapper;
 %ignore g_posix_wrapper;
 
-#ifdef LIBTORRENT_SWIG_NODE
-
-%ignore session_alerts_loop_fn;
-
-#endif
-
 %include "libtorrent.h"
