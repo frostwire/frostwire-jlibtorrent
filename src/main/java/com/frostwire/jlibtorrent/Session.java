@@ -74,44 +74,6 @@ public final class Session extends SessionHandle {
         this.plugins = new LinkedList<SwigPlugin>();
     }
 
-    @Deprecated
-    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers, boolean logging) {
-        super(createSessionDeprecated(print, prange, iface, routers, logging));
-
-        this.s = (session) super.s;
-
-        this.stat = new JavaStat();
-        this.stats = new SessionStats(stat);
-
-        this.listeners = new SparseArray<ArrayList<AlertListener>>();
-        this.listenerSnapshots = new SparseArray<AlertListener[]>();
-        this.running = true;
-
-        alertsLoop();
-
-        for (Pair<String, Integer> router : routers) {
-            s.add_dht_router(router.to_string_int_pair());
-        }
-
-        this.plugins = new LinkedList<SwigPlugin>();
-    }
-
-    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers) {
-        this(print, prange, iface, routers, false);
-    }
-
-    public Session(Fingerprint print, Pair<Integer, Integer> prange, String iface) {
-        this(print, prange, iface, defaultRouters());
-    }
-
-    public Session(Fingerprint print) {
-        this(print, new Pair<Integer, Integer>(0, 0), "0.0.0.0");
-    }
-
-    public Session(Pair<Integer, Integer> prange, String iface) {
-        this(new Fingerprint(), prange, iface);
-    }
-
     public Session() {
         this(new SettingsPack(), false);
     }
@@ -805,31 +767,6 @@ public final class Session extends SessionHandle {
         return new SettingsPack(s.get_settings());
     }
 
-    @Deprecated
-    public SessionSettings getSettings() {
-        return new SessionSettings(s.get_settings());
-    }
-
-    @Deprecated
-    public ProxySettings getProxy() {
-        return new ProxySettings(new settings_pack());
-    }
-
-    @Deprecated
-    public void setProxy(ProxySettings s) {
-        this.s.apply_settings(s.getSwig());
-    }
-
-    @Deprecated
-    public void setSettings(SessionSettings s) {
-        this.applySettings(s.toPack());
-    }
-
-    @Deprecated
-    public SessionStatus getStatus() {
-        return new SessionStatus(stats);
-    }
-
     // You add torrents through the add_torrent() function where you give an
     // object with all the parameters. The add_torrent() overloads will block
     // until the torrent has been added (or failed to be added) and returns
@@ -1081,6 +1018,7 @@ public final class Session extends SessionHandle {
         return new session(sp);
     }
 
+    /* for reference
     private static session createSessionDeprecated(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers, boolean logging) {
         int alert_mask = alert.category_t.all_categories.swigValue();
         if (!logging) {
@@ -1102,7 +1040,7 @@ public final class Session extends SessionHandle {
         sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), if_string);
 
         return new session(sp);
-    }
+    }*/
 
     /**
      * Flags to be passed in to remove_torrent().
