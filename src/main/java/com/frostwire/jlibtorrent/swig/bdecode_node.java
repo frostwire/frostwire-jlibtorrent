@@ -47,8 +47,8 @@ public class bdecode_node {
     return bdecode_node.type_t.swigToEnum(libtorrent_jni.bdecode_node_type(swigCPtr, this));
   }
 
-  public boolean is_none_t() {
-    return libtorrent_jni.bdecode_node_is_none_t(swigCPtr, this);
+  public boolean op_bool() {
+    return libtorrent_jni.bdecode_node_op_bool(swigCPtr, this);
   }
 
   public bdecode_node non_owning() {

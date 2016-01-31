@@ -119,9 +119,9 @@ public final class Downloader {
         if (add) {
             p.setName("fetchMagnet - " + uri);
 
-            long flags = p.getFlags();
+            long flags = p.get_flags();
             flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-            p.setFlags(flags);
+            p.set_flags(flags);
 
             ec.clear();
             th = s.getSwig().add_torrent(p, ec);

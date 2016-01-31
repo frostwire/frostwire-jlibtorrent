@@ -185,12 +185,12 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_download_limit_get(swigCPtr, this);
   }
 
-  public long getFlags() {
-    return libtorrent_jni.add_torrent_params_getFlags(swigCPtr, this);
+  public long get_flags() {
+    return libtorrent_jni.add_torrent_params_get_flags(swigCPtr, this);
   }
 
-  public void setFlags(long flags) {
-    libtorrent_jni.add_torrent_params_setFlags(swigCPtr, this, flags);
+  public void set_flags(long flags) {
+    libtorrent_jni.add_torrent_params_set_flags(swigCPtr, this, flags);
   }
 
   public void set_ti(torrent_info ti) {

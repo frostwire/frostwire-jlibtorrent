@@ -537,7 +537,7 @@ public class libtorrent_jni {
   public final static native long get_http_category();
   public final static native long new_storage_error__SWIG_0();
   public final static native long new_storage_error__SWIG_1(long jarg1, error_code jarg1_);
-  public final static native boolean storage_error_value(long jarg1, storage_error jarg1_);
+  public final static native boolean storage_error_op_bool(long jarg1, storage_error jarg1_);
   public final static native void storage_error_ec_set(long jarg1, storage_error jarg1_, long jarg2, error_code jarg2_);
   public final static native long storage_error_ec_get(long jarg1, storage_error jarg1_);
   public final static native void storage_error_file_set(long jarg1, storage_error jarg1_, int jarg2);
@@ -1054,8 +1054,8 @@ public class libtorrent_jni {
   public final static native int add_torrent_params_upload_limit_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_download_limit_set(long jarg1, add_torrent_params jarg1_, int jarg2);
   public final static native int add_torrent_params_download_limit_get(long jarg1, add_torrent_params jarg1_);
-  public final static native long add_torrent_params_getFlags(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_setFlags(long jarg1, add_torrent_params jarg1_, long jarg2);
+  public final static native long add_torrent_params_get_flags(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_set_flags(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native void add_torrent_params_set_ti(long jarg1, add_torrent_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_create_instance_no_storage();
@@ -1711,6 +1711,8 @@ public class libtorrent_jni {
   public final static native long listen_failed_alert_error_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void listen_failed_alert_operation_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
   public final static native int listen_failed_alert_operation_get(long jarg1, listen_failed_alert jarg1_);
+  public final static native void listen_failed_alert_port_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
+  public final static native int listen_failed_alert_port_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void listen_failed_alert_sock_type_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
   public final static native int listen_failed_alert_sock_type_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void delete_listen_failed_alert(long jarg1);
@@ -2117,7 +2119,7 @@ public class libtorrent_jni {
   public final static native long dht_stats_alert_active_requests_get(long jarg1, dht_stats_alert jarg1_);
   public final static native void dht_stats_alert_routing_table_set(long jarg1, dht_stats_alert jarg1_, long jarg2, dht_routing_bucket_vector jarg2_);
   public final static native long dht_stats_alert_routing_table_get(long jarg1, dht_stats_alert jarg1_);
-  public final static native int dht_stats_alert_totalNodes(long jarg1, dht_stats_alert jarg1_);
+  public final static native int dht_stats_alert_total_nodes(long jarg1, dht_stats_alert jarg1_);
   public final static native void delete_dht_stats_alert(long jarg1);
   public final static native int incoming_request_alert_static_category_get();
   public final static native int incoming_request_alert_priority_get();
@@ -2690,7 +2692,7 @@ public class libtorrent_jni {
   public final static native long new_bdecode_node__SWIG_0();
   public final static native long new_bdecode_node__SWIG_1(long jarg1, bdecode_node jarg1_);
   public final static native int bdecode_node_type(long jarg1, bdecode_node jarg1_);
-  public final static native boolean bdecode_node_is_none_t(long jarg1, bdecode_node jarg1_);
+  public final static native boolean bdecode_node_op_bool(long jarg1, bdecode_node jarg1_);
   public final static native long bdecode_node_non_owning(long jarg1, bdecode_node jarg1_);
   public final static native long bdecode_node_data_section(long jarg1, bdecode_node jarg1_);
   public final static native String bdecode_node_list_string_value_at__SWIG_0(long jarg1, bdecode_node jarg1_, int jarg2, String jarg3);

@@ -56,6 +56,6 @@ public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
     }
 
     public int totalNodes() {
-        return alert.totalNodes();
+        return alert.total_nodes();
     }
 }

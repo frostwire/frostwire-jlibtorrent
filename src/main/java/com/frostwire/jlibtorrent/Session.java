@@ -845,7 +845,7 @@ public final class Session extends SessionHandle {
         }
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 
-        long flags = p.getFlags();
+        long flags = p.get_flags();
 
         flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
 
@@ -860,7 +860,7 @@ public final class Session extends SessionHandle {
             }
         }
 
-        p.setFlags(flags);
+        p.set_flags(flags);
 
         if (async) {
             s.async_add_torrent(p);

@@ -23,7 +23,9 @@ public final class Sha1Hash {
 
     public Sha1Hash(String hex) {
         this();
-        sha1_hash.from_hex(hex, h);
+        if (!sha1_hash.from_hex(hex, h)) {
+            throw new IllegalArgumentException("Invalid sha1 hex string");
+        }
     }
 
     /**
