@@ -102,7 +102,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
 
     public enum Operation {
 
-        PARSE_ADDR(listen_failed_alert.op_t.parse_addr.swigValue()),
+        PARSE_ADDRESS(listen_failed_alert.op_t.parse_addr.swigValue()),
         OPEN(listen_failed_alert.op_t.open.swigValue()),
         BIND(listen_failed_alert.op_t.bind.swigValue()),
         LISTEN(listen_failed_alert.op_t.listen.swigValue()),
