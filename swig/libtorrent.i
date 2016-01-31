@@ -588,6 +588,7 @@ namespace std {
 %ignore libtorrent::copy_bufs;
 %ignore libtorrent::apply_pack;
 %ignore libtorrent::load_pack_from_dict;
+%ignore libtorrent::error_code;
 
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::storage_params::pool;
