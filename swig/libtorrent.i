@@ -696,7 +696,6 @@ namespace std {
 %rename(op_get_at) operator[];
 
 %rename(libtorrent_no_error) libtorrent::errors::no_error;
-%rename(libtorrent_no_error) libtorrent::errors::no_error;
 %rename(libtorrent_errors) libtorrent::errors::error_code_enum;
 %rename(bdecode_no_error) libtorrent::bdecode_errors::no_error;
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
