@@ -1057,7 +1057,8 @@ public class libtorrent_jni {
   public final static native void add_torrent_params_set_flags(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native void add_torrent_params_set_ti(long jarg1, add_torrent_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long add_torrent_params_create_instance();
-  public final static native long add_torrent_params_create_instance_no_storage();
+  public final static native long add_torrent_params_create_instance_disabled_storage();
+  public final static native long add_torrent_params_create_instance_zero_storage();
   public final static native long add_torrent_params_create_instance_swig_storage(long jarg1, swig_storage_constructor jarg1_);
   public final static native void delete_add_torrent_params(long jarg1);
   public final static native int op_bittorrent_get();

@@ -201,8 +201,12 @@ public class add_torrent_params {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance(), true);
   }
 
-  public static add_torrent_params create_instance_no_storage() {
-    return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_no_storage(), true);
+  public static add_torrent_params create_instance_disabled_storage() {
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_disabled_storage(), true);
+  }
+
+  public static add_torrent_params create_instance_zero_storage() {
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_zero_storage(), true);
   }
 
   public static add_torrent_params create_instance_swig_storage(swig_storage_constructor sc) {

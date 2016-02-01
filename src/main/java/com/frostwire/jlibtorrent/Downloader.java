@@ -67,7 +67,7 @@ public final class Downloader {
      * @return
      */
     public byte[] fetchMagnet(String uri, long timeout) {
-        add_torrent_params p = add_torrent_params.create_instance_no_storage();
+        add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
         error_code ec = new error_code();
         libtorrent.parse_magnet_uri(uri, p, ec);
 

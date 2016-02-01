@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
-import com.frostwire.jlibtorrent.swig.torrent_info;
 
 /**
  * The {@link AddTorrentParams} is a parameter pack for adding torrents to a
@@ -327,7 +326,11 @@ public final class AddTorrentParams {
         return new AddTorrentParams(add_torrent_params.create_instance());
     }
 
-    public static AddTorrentParams createInstanceNoStorage() {
-        return new AddTorrentParams(add_torrent_params.create_instance_no_storage());
+    public static AddTorrentParams createInstanceDisabledStorage() {
+        return new AddTorrentParams(add_torrent_params.create_instance_disabled_storage());
+    }
+
+    public static AddTorrentParams createInstanceZeroStorage() {
+        return new AddTorrentParams(add_torrent_params.create_instance_zero_storage());
     }
 }

@@ -1044,8 +1044,12 @@ namespace libtorrent {
         return add_torrent_params();
     }
 
-    static add_torrent_params create_instance_no_storage() {
+    static add_torrent_params create_instance_disabled_storage() {
         return add_torrent_params(disabled_storage_constructor);
+    }
+
+    static add_torrent_params create_instance_zero_storage() {
+        return add_torrent_params(zero_storage_constructor);
     }
 
     static add_torrent_params create_instance_swig_storage(swig_storage_constructor* sc) {

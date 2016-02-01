@@ -42,7 +42,7 @@ public final class GetMagnet2 {
         System.out.println("Waiting for nodes in DHT");
         Thread.sleep(5000);
 
-        add_torrent_params p = add_torrent_params.create_instance_no_storage();
+        add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
         error_code ec = new error_code();
         libtorrent.parse_magnet_uri(uri, p, ec);
 
