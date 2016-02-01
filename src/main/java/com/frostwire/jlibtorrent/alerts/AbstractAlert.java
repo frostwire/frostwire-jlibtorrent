@@ -12,7 +12,7 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     protected final T alert;
     private final AlertType type;
 
-    public AbstractAlert(T alert) {
+    AbstractAlert(T alert) {
         this.alert = alert;
         this.type = AlertType.fromSwig(alert.type());
     }
