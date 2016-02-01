@@ -67,8 +67,4 @@ public class error_code {
     return libtorrent_jni.error_code_message(swigCPtr, this);
   }
 
-  public static void unspecified_bool_true() {
-    libtorrent_jni.error_code_unspecified_bool_true();
-  }
-
 }

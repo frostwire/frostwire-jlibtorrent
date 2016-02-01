@@ -628,6 +628,7 @@ namespace std {
 %ignore boost::asio::ip::address_v6::to_bytes;
 %ignore boost::system::generic_category;
 %ignore boost::system::system_category;
+%ignore boost::system::error_code::unspecified_bool_true;
 %ignore boost::asio::error::get_netdb_category;
 %ignore boost::asio::error::get_addrinfo_category;
 %ignore boost::asio::error::get_misc_category;

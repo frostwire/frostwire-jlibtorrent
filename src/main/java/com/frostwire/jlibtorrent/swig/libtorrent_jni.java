@@ -489,7 +489,6 @@ public class libtorrent_jni {
   public final static native long error_code_category(long jarg1, error_code jarg1_);
   public final static native long error_code_default_error_condition(long jarg1, error_code jarg1_);
   public final static native String error_code_message(long jarg1, error_code jarg1_);
-  public final static native void error_code_unspecified_bool_true();
   public final static native boolean op_eq__SWIG_1(long jarg1, error_code jarg1_, long jarg2, error_code jarg2_);
   public final static native boolean op_lt__SWIG_1(long jarg1, error_code jarg1_, long jarg2, error_code jarg2_);
   public final static native void delete_error_code(long jarg1);

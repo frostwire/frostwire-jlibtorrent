@@ -14834,21 +14834,6 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_e
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_error_1code_1unspecified_1bool_1true(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      boost::system::error_code::unspecified_bool_true();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_op_1eq_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jboolean jresult = 0 ;
   boost::system::error_code *arg1 = 0 ;
@@ -64290,7 +64275,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("07d7d72a585c5a31fc36023b0e52a61afcfdce6d");
+  result = (char *)("1c4175102e4846b3cf3f1f3f882a787a6967595c");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -64302,7 +64287,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("86aff55f5641a9d6836da4a1be97bf3737ccc91c");
+  result = (char *)("63a4f477dfb0fd4235acbd5d71c2cc52a2da6c50");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
