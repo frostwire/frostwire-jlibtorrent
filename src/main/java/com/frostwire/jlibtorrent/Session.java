@@ -802,12 +802,6 @@ public final class Session extends SessionHandle {
         super.finalize();
     }
 
-    void fireAlert(Alert<?> a) {
-        int type = a.getSwig() != null ? a.getSwig().type() : a.getType().getSwig();
-        fireAlert(a, type);
-        fireAlert(a, -1);
-    }
-
     private void fireAlert(Alert<?> a, int type) {
         AlertListener[] listeners = listenerSnapshots.get(type);
         if (listeners != null) {
