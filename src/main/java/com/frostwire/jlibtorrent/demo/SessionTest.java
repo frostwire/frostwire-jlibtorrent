@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.SettingsPack;
 import com.frostwire.jlibtorrent.alerts.Alert;
 
 /**
@@ -17,9 +18,7 @@ public final class SessionTest {
 
         System.out.println("Using libtorrent version: " + LibTorrent.fullVersion());
 
-        final Session s = new Session();
-
-        s.addListener(new AlertListener() {
+        AlertListener l = new AlertListener() {
             @Override
             public int[] types() {
                 return null;
@@ -29,9 +28,13 @@ public final class SessionTest {
             public void alert(Alert<?> alert) {
                 System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
             }
-        });
+        };
+
+        Session s = new Session(new SettingsPack(), false, l);
 
         System.out.println("Press ENTER to exit");
         System.in.read();
+
+        s.abort();
     }
 }

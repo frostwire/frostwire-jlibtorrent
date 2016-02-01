@@ -53,7 +53,7 @@ public final class Session extends SessionHandle {
      * @param settings
      * @param logging
      */
-    public Session(SettingsPack settings, boolean logging) {
+    public Session(SettingsPack settings, boolean logging, AlertListener listener) {
         super(createSession(settings, logging));
 
         this.s = (session) super.s;
@@ -63,8 +63,11 @@ public final class Session extends SessionHandle {
 
         this.listeners = new SparseArray<ArrayList<AlertListener>>();
         this.listenerSnapshots = new SparseArray<AlertListener[]>();
-        this.running = true;
+        if (listener != null) {
+            addListener(listener);
+        }
 
+        this.running = true;
         alertsLoop();
 
         for (Pair<String, Integer> router : defaultRouters()) {
@@ -75,7 +78,7 @@ public final class Session extends SessionHandle {
     }
 
     public Session() {
-        this(new SettingsPack(), false);
+        this(new SettingsPack(), false, null);
     }
 
     public session getSwig() {
