@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
  */
 public final class Downloader {
 
+    private static final Logger LOG = Logger.getLogger(Downloader.class);
+
     private static final int[] LISTENER_TYPES = new int[]{AlertType.METADATA_RECEIVED.getSwig()};
 
     private final Session s;
@@ -60,8 +62,6 @@ public final class Downloader {
     }
 
     /**
-     * This method is not thread safe.
-     *
      * @param uri
      * @param timeout in milliseconds
      * @return
@@ -77,11 +77,10 @@ public final class Downloader {
 
         final sha1_hash info_hash = p.getInfo_hash();
 
-        torrent_handle th = s.getSwig().find_torrent(info_hash);
-
         boolean add = true;
 
-        if (th != null && th.is_valid()) {
+        torrent_handle th = null;//s.getSwig().find_torrent(info_hash);
+        /*if (th != null && th.is_valid()) {
             // we have a download with the same info-hash, let's see if we have the torrent info
             torrent_info ti = th.get_torrent_copy();
             if (ti != null && ti.is_valid()) {
@@ -90,9 +89,10 @@ public final class Downloader {
             } else {
                 add = false;
             }
-        }
+        }*/
 
         final CountDownLatch signal = new CountDownLatch(1);
+        final byte[][] data = new byte[1][];
 
         AlertListener l = new AlertListener() {
             @Override
@@ -102,13 +102,24 @@ public final class Downloader {
 
             @Override
             public void alert(Alert<?> alert) {
-                if (!(alert instanceof MetadataReceivedAlert)) {
-                    return;
-                }
+                try {
+                    if (!(alert instanceof MetadataReceivedAlert)) {
+                        return;
+                    }
 
-                MetadataReceivedAlert mr = (MetadataReceivedAlert) alert;
+                    MetadataReceivedAlert mr = (MetadataReceivedAlert) alert;
+                    torrent_handle th = mr.getHandle().getSwig();
 
-                if (mr.getSwig().getHandle().info_hash().op_eq(info_hash)) {
+                    if (th.info_hash().op_eq(info_hash)) {
+                        try {
+                            data[0] = new TorrentInfo(th.get_torrent_copy()).bencode();
+                        } catch (Throwable e) {
+                            LOG.error("Error encoding torrent info", e);
+                        }
+                        signal.countDown();
+                    }
+                } catch (Throwable e) {
+                    LOG.error("Error in fetch magnet internal listener", e);
                     signal.countDown();
                 }
             }
@@ -117,7 +128,8 @@ public final class Downloader {
         s.addListener(l);
 
         if (add) {
-            p.setName("fetchMagnet - " + uri);
+            p.setName("fetch_magnet:" + uri);
+            p.setSave_path("fetch_magnet/" + uri);
 
             long flags = p.get_flags();
             flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
@@ -135,21 +147,10 @@ public final class Downloader {
 
         s.removeListener(l);
 
-        try {
-            th = s.getSwig().find_torrent(info_hash);
-            if (th != null && th.is_valid()) {
-                // we have a download with the same info-hash, let's see if we have the torrent info
-                torrent_info ti = th.get_torrent_copy();
-                if (ti != null && ti.is_valid()) {
-                    // ok. we have it, ready to return the data
-                    return new TorrentInfo(th.get_torrent_copy()).bencode();
-                }
-            }
-
-        } finally {
+        if (add && th != null && th.is_valid()) {
             s.getSwig().remove_torrent(th);
         }
 
-        return null;
+        return data[0];
     }
 }
