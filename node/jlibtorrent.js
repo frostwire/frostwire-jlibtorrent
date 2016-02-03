@@ -134,6 +134,15 @@ const swig = require('./jlibtorrent.node');
         setInterval(session_alerts_loop, 1000);
     }
 
+    function defaultRouters() {
+        var list = [];
+
+        list.push(new swig.string_int_pair("router.bittorrent.com", 6881));
+        list.push(new swig.string_int_pair("dht.transmissionbt.com", 6881));
+
+        return list;
+    }
+
     function Session(settings, logging, listener) {
         EventEmitter.call(this);
 
@@ -147,6 +156,12 @@ const swig = require('./jlibtorrent.node');
         }
 
         alertsLoop(this, this.s);
+
+        var arr = defaultRouters();
+        var size = arr.length;
+        for (var i = 0; i < size; i++) {
+            this.s.add_dht_router(arr[i]);
+        }
     }
 
     util.inherits(Session, EventEmitter);
