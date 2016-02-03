@@ -532,6 +532,7 @@ namespace std {
 %ignore libtorrent::sha1_hash::operator[];
 %ignore libtorrent::sha1_hash::assign(char const *);
 %ignore libtorrent::sha1_hash::data() const;
+%ignore libtorrent::sha1_hash::to_string;
 %ignore libtorrent::entry::integer();
 %ignore libtorrent::entry::string();
 %ignore libtorrent::entry::dict() const;

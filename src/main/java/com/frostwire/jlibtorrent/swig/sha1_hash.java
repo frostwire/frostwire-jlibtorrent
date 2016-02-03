@@ -79,10 +79,6 @@ public class sha1_hash {
     return libtorrent_jni.sha1_hash_op_lt(swigCPtr, this, sha1_hash.getCPtr(n), n);
   }
 
-  public String to_string() {
-    return libtorrent_jni.sha1_hash_to_string(swigCPtr, this);
-  }
-
   public String to_hex() {
     return libtorrent_jni.sha1_hash_to_hex(swigCPtr, this);
   }
