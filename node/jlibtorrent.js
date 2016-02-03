@@ -134,13 +134,17 @@ const swig = require('./jlibtorrent.node');
         setInterval(session_alerts_loop, 1000);
     }
 
-    function Session(settings, logging) {
+    function Session(settings, logging, listener) {
         EventEmitter.call(this);
 
         settings = settings || new exports.SettingsPack();
         logging = logging || false;
 
         this.s = createSession(settings, logging);
+
+        if (listener) {
+            this.on('alert', listener);
+        }
 
         alertsLoop(this, this.s);
     }
