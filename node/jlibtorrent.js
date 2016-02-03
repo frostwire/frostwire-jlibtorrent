@@ -170,6 +170,10 @@ const swig = require('./jlibtorrent.node');
         return this.sp;
     }
 
+    Session.prototype.postDHTStats = function () {
+        this.s.post_dht_stats();
+    }
+
     Session.prototype.fetchMagnet = function (uri) {
         var p = swig.add_torrent_params.create_instance_disabled_storage();
         var ec = new swig.error_code();
