@@ -20,6 +20,7 @@ function runJni()
         -DBOOST_SYSTEM_NOEXCEPT="" \
         -DBOOST_SYSTEM_DECL="" \
         -DBOOST_SYSTEM_NO_DEPRECATED=1 \
+        -DBOOST_NO_IOSTREAM \
         -DTORRENT_CFG="TORRENT_CFG" \
         -DTORRENT_NO_DEPRECATE=1 \
         -DTORRENT_DEPRECATED_EXPORT="" \
@@ -63,6 +64,7 @@ function runNode()
         -DBOOST_SYSTEM_NOEXCEPT="" \
         -DBOOST_SYSTEM_DECL="" \
         -DBOOST_SYSTEM_NO_DEPRECATED=1 \
+        -DBOOST_NO_IOSTREAM \
         -DTORRENT_CFG="TORRENT_CFG" \
         -DTORRENT_NO_DEPRECATE=1 \
         -DTORRENT_DEPRECATED_EXPORT="" \

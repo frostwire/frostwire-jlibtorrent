@@ -1388,10 +1388,10 @@ SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< char > &buffe
         return bdecode(buffer.begin(), buffer.end());
     }
 SWIGINTERN std::string libtorrent_sha1_hash_to_hex(libtorrent::sha1_hash *self){
-        return to_hex(self->to_string());
+        return libtorrent::to_hex(self->to_string());
     }
 SWIGINTERN bool libtorrent_sha1_hash_from_hex(char *hex,libtorrent::sha1_hash &h){
-        return from_hex(hex, 40, (char*)&h[0]);
+        return libtorrent::from_hex(hex, 40, (char*)&h[0]);
     }
 SWIGINTERN time_t libtorrent_torrent_info_get_creation_date(libtorrent::torrent_info *self){
         return self->creation_date().get_value_or(0);
@@ -64275,7 +64275,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("38c1b1d93280a8e865977fc9a176ec32896a053b");
+  result = (char *)("930a33b59c49965a8a2caa13517b21e3142078af");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -64287,7 +64287,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("9fdad5c9f78883032c4c1b1d7bb6c3aacdf94ff3");
+  result = (char *)("864305be12ea95f6f32ffd7621db705e967a26f2");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

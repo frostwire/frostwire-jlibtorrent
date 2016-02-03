@@ -1073,11 +1073,11 @@ namespace libtorrent {
 
 %extend sha1_hash {
     std::string to_hex() {
-        return to_hex($self->to_string());
+        return libtorrent::to_hex($self->to_string());
     }
 
     static bool from_hex(char *hex, sha1_hash& h) {
-        return from_hex(hex, 40, (char*)&h[0]);
+        return libtorrent::from_hex(hex, 40, (char*)&h[0]);
     }
 };
 

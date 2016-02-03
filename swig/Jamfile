@@ -44,6 +44,9 @@ feature.compose <wrap-posix>on :
     <linkflags>-Wl,--wrap=remove
     ;
 
+feature iostream : off on : composite propagated link-incompatible ;
+feature.compose <iostream>off : <define>BOOST_NO_IOSTREAM ;
+
 lib jlibtorrent
 
     : # sources
