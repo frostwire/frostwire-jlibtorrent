@@ -170,6 +170,35 @@ const swig = require('./jlibtorrent.node');
         return this.sp;
     }
 
+    Session.prototype.fetchMagnet = function (uri) {
+        var p = swig.add_torrent_params.create_instance_disabled_storage();
+        var ec = new swig.error_code();
+        swig.parse_magnet_uri(uri, p, ec);
+
+        if (ec.value() != 0) {
+            throw ec.message();
+        }
+
+        var info_hash = p.info_hash;
+
+        var th = this.s.find_torrent(info_hash);
+        if (th && th.is_valid()) {
+            // we have a download with the same info-hash, improve this
+            return;
+        }
+
+        p.name = "fetch_magnet:" + uri;
+        p.save_path = "fetch_magnet/" + uri;
+
+        var flags = p.flags;
+        flags &= ~swig.add_torrent_params.flag_auto_managed;
+        p.flags = flags;
+
+        ec.clear();
+        th = this.s.add_torrent(p, ec);
+        th.resume();
+    }
+
     exports.Session = Session;
 
 }());
