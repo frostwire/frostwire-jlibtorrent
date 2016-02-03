@@ -1,4 +1,7 @@
-var swig = require('./jlibtorrent.node');
+const EventEmitter = require('events');
+const util = require('util');
+
+const swig = require('./jlibtorrent.node');
 
 // swig
 (function () {
@@ -111,7 +114,7 @@ var swig = require('./jlibtorrent.node');
         return new swig.session(sp);
     }
 
-    function alertsLoop(s) {
+    function alertsLoop(emitter, s) {
         var session_alerts_loop = function () {
             var max_wait = swig.to_milliseconds(100);
             var alert = s.wait_for_alert(max_wait);
@@ -122,7 +125,7 @@ var swig = require('./jlibtorrent.node');
                 var size = vector.size();
                 for (var i = 0; i < size; i++) {
                     var a = vector.get(i);
-                    console.log(a.type() + " - " + a.what() + " - " + a.message());
+                    emitter.emit('alert', a);
                 }
                 vector.clear();
             }
@@ -132,13 +135,17 @@ var swig = require('./jlibtorrent.node');
     }
 
     function Session(settings, logging) {
+        EventEmitter.call(this);
+
         settings = settings || new exports.SettingsPack();
         logging = logging || false;
 
         this.s = createSession(settings, logging);
 
-        alertsLoop(this.s);
+        alertsLoop(this, this.s);
     }
+
+    util.inherits(Session, EventEmitter);
 
     Session.prototype.swig = function () {
         return this.sp;
