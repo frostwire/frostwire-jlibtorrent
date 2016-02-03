@@ -2,7 +2,6 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Downloader;
-import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
@@ -69,12 +68,12 @@ public final class GetMagnet2 {
         System.out.println("Fetching the magnet uri (multi thread), please wait...");
 
         final AtomicInteger counter = new AtomicInteger(0);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 50; i++) {
             final int index = i;
             Thread t = new Thread() {
                 @Override
                 public void run() {
-                    byte[] data = d.fetchMagnet(uri, 30000);
+                    byte[] data = d.fetchMagnet(uri, 30);
 
                     int count = counter.incrementAndGet();
                     if (data != null) {
