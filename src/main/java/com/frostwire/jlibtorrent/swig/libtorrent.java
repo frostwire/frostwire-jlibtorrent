@@ -141,18 +141,6 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_bdecode_category(), false);
   }
 
-  public static String print_entry(bdecode_node e, boolean single_line, int indent) {
-    return libtorrent_jni.print_entry__SWIG_0(bdecode_node.getCPtr(e), e, single_line, indent);
-  }
-
-  public static String print_entry(bdecode_node e, boolean single_line) {
-    return libtorrent_jni.print_entry__SWIG_1(bdecode_node.getCPtr(e), e, single_line);
-  }
-
-  public static String print_entry(bdecode_node e) {
-    return libtorrent_jni.print_entry__SWIG_2(bdecode_node.getCPtr(e), e);
-  }
-
   public static String make_magnet_uri(torrent_handle handle) {
     return libtorrent_jni.make_magnet_uri__SWIG_0(torrent_handle.getCPtr(handle), handle);
   }

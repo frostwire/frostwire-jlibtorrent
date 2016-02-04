@@ -356,7 +356,6 @@ namespace std {
 typedef long time_t;
 
 namespace std {
-    %template(char_const_ptr_int_pair) pair<const char *, int>;
     %template(int_int_pair) pair<int, int>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
@@ -446,6 +445,7 @@ namespace std {
 %ignore libtorrent::block_cache_reference;
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
+%ignore libtorrent::print_entry;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -573,10 +573,14 @@ namespace std {
 %ignore libtorrent::peer_plugin::on_extended;
 %ignore libtorrent::peer_plugin::on_unknown_message;
 %ignore libtorrent::bdecode_node::dict_find(char const *) const;
-%ignore libtorrent::bdecode_node::list_at(int) const;
-%ignore libtorrent::bdecode_node::dict_find(std::string const &);
-%ignore libtorrent::bdecode_node::dict_find(std::string const &) const;
 %ignore libtorrent::bdecode_node::dict_find_dict(char const *) const;
+%ignore libtorrent::bdecode_node::non_owning;
+%ignore libtorrent::bdecode_node::data_section;
+%ignore libtorrent::bdecode_node::string_ptr;
+%ignore libtorrent::bdecode_node::clear;
+%ignore libtorrent::bdecode_node::swap;
+%ignore libtorrent::bdecode_node::reserve;
+%ignore libtorrent::bdecode_node::switch_underlying_buffer;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::set_bits;
@@ -1023,6 +1027,10 @@ namespace libtorrent {
 };
 
 %extend bdecode_node {
+    static std::string to_string(bdecode_node const& e, bool single_line, int indent) {
+        return libtorrent::print_entry(e, single_line, indent);
+    }
+
     static int bdecode(std::vector<char>& buffer, bdecode_node& ret, error_code& ec) {
         return libtorrent::bdecode(&buffer[0], &buffer[0] + buffer.size(), ret, ec);
     }

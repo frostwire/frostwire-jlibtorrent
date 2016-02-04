@@ -25,14 +25,6 @@ public class libtorrent_jni {
         }
     }
 
-  public final static native long new_char_const_ptr_int_pair__SWIG_0();
-  public final static native long new_char_const_ptr_int_pair__SWIG_1(String jarg1, int jarg2);
-  public final static native long new_char_const_ptr_int_pair__SWIG_2(long jarg1, char_const_ptr_int_pair jarg1_);
-  public final static native void char_const_ptr_int_pair_first_set(long jarg1, char_const_ptr_int_pair jarg1_, String jarg2);
-  public final static native String char_const_ptr_int_pair_first_get(long jarg1, char_const_ptr_int_pair jarg1_);
-  public final static native void char_const_ptr_int_pair_second_set(long jarg1, char_const_ptr_int_pair jarg1_, int jarg2);
-  public final static native int char_const_ptr_int_pair_second_get(long jarg1, char_const_ptr_int_pair jarg1_);
-  public final static native void delete_char_const_ptr_int_pair(long jarg1);
   public final static native long new_int_int_pair__SWIG_0();
   public final static native long new_int_int_pair__SWIG_1(int jarg1, int jarg2);
   public final static native long new_int_int_pair__SWIG_2(long jarg1, int_int_pair jarg1_);
@@ -2692,8 +2684,7 @@ public class libtorrent_jni {
   public final static native long new_bdecode_node__SWIG_1(long jarg1, bdecode_node jarg1_);
   public final static native int bdecode_node_type(long jarg1, bdecode_node jarg1_);
   public final static native boolean bdecode_node_op_bool(long jarg1, bdecode_node jarg1_);
-  public final static native long bdecode_node_non_owning(long jarg1, bdecode_node jarg1_);
-  public final static native long bdecode_node_data_section(long jarg1, bdecode_node jarg1_);
+  public final static native long bdecode_node_list_at(long jarg1, bdecode_node jarg1_, int jarg2);
   public final static native String bdecode_node_list_string_value_at__SWIG_0(long jarg1, bdecode_node jarg1_, int jarg2, String jarg3);
   public final static native String bdecode_node_list_string_value_at__SWIG_1(long jarg1, bdecode_node jarg1_, int jarg2);
   public final static native long bdecode_node_list_int_value_at__SWIG_0(long jarg1, bdecode_node jarg1_, int jarg2, long jarg3);
@@ -2712,17 +2703,10 @@ public class libtorrent_jni {
   public final static native int bdecode_node_dict_size(long jarg1, bdecode_node jarg1_);
   public final static native long bdecode_node_int_value(long jarg1, bdecode_node jarg1_);
   public final static native String bdecode_node_string_value(long jarg1, bdecode_node jarg1_);
-  public final static native String bdecode_node_string_ptr(long jarg1, bdecode_node jarg1_);
   public final static native int bdecode_node_string_length(long jarg1, bdecode_node jarg1_);
-  public final static native void bdecode_node_clear(long jarg1, bdecode_node jarg1_);
-  public final static native void bdecode_node_swap(long jarg1, bdecode_node jarg1_, long jarg2, bdecode_node jarg2_);
-  public final static native void bdecode_node_reserve(long jarg1, bdecode_node jarg1_, int jarg2);
-  public final static native void bdecode_node_switch_underlying_buffer(long jarg1, bdecode_node jarg1_, String jarg2);
+  public final static native String bdecode_node_to_string(long jarg1, bdecode_node jarg1_, boolean jarg2, int jarg3);
   public final static native int bdecode_node_bdecode(long jarg1, char_vector jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_);
   public final static native void delete_bdecode_node(long jarg1);
-  public final static native String print_entry__SWIG_0(long jarg1, bdecode_node jarg1_, boolean jarg2, int jarg3);
-  public final static native String print_entry__SWIG_1(long jarg1, bdecode_node jarg1_, boolean jarg2);
-  public final static native String print_entry__SWIG_2(long jarg1, bdecode_node jarg1_);
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
   public final static native void parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);

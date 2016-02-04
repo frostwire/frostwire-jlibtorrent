@@ -51,12 +51,8 @@ public class bdecode_node {
     return libtorrent_jni.bdecode_node_op_bool(swigCPtr, this);
   }
 
-  public bdecode_node non_owning() {
-    return new bdecode_node(libtorrent_jni.bdecode_node_non_owning(swigCPtr, this), true);
-  }
-
-  public char_const_ptr_int_pair data_section() {
-    return new char_const_ptr_int_pair(libtorrent_jni.bdecode_node_data_section(swigCPtr, this), true);
+  public bdecode_node list_at(int i) {
+    return new bdecode_node(libtorrent_jni.bdecode_node_list_at(swigCPtr, this, i), true);
   }
 
   public String list_string_value_at(int i, String default_val) {
@@ -131,28 +127,12 @@ public class bdecode_node {
     return libtorrent_jni.bdecode_node_string_value(swigCPtr, this);
   }
 
-  public String string_ptr() {
-    return libtorrent_jni.bdecode_node_string_ptr(swigCPtr, this);
-  }
-
   public int string_length() {
     return libtorrent_jni.bdecode_node_string_length(swigCPtr, this);
   }
 
-  public void clear() {
-    libtorrent_jni.bdecode_node_clear(swigCPtr, this);
-  }
-
-  public void swap(bdecode_node n) {
-    libtorrent_jni.bdecode_node_swap(swigCPtr, this, bdecode_node.getCPtr(n), n);
-  }
-
-  public void reserve(int tokens) {
-    libtorrent_jni.bdecode_node_reserve(swigCPtr, this, tokens);
-  }
-
-  public void switch_underlying_buffer(String buf) {
-    libtorrent_jni.bdecode_node_switch_underlying_buffer(swigCPtr, this, buf);
+  public static String to_string(bdecode_node e, boolean single_line, int indent) {
+    return libtorrent_jni.bdecode_node_to_string(bdecode_node.getCPtr(e), e, single_line, indent);
   }
 
   public static int bdecode(char_vector buffer, bdecode_node ret, error_code ec) {
