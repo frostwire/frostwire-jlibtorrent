@@ -4,7 +4,7 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.*;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -69,6 +69,10 @@ public final class DhtShell {
                 put(dht, line);
             } else if (is_get(line)) {
                 get(dht, line);
+            } else if (is_get_peers(line)) {
+                get_peers(dht, line);
+            } else if (is_announce(line)) {
+                announce(dht, line);
             } else if (is_invalid(line)) {
                 invalid(line);
             }
@@ -115,8 +119,8 @@ public final class DhtShell {
 
     private static void put(DHT dht, String s) {
         String data = s.split(" ")[1];
-        String key = dht.put(new Entry(data));
-        print("Wait for completion of put for key: " + key);
+        String sha1 = dht.put(new Entry(data));
+        print("Wait for completion of put for key: " + sha1);
     }
 
     private static boolean is_get(String s) {
@@ -125,9 +129,30 @@ public final class DhtShell {
 
     private static void get(DHT dht, String s) {
         String sha1 = s.split(" ")[1];
-        Entry data = dht.get(sha1, 20000);
         print("Waiting a max of 20 seconds to get data for key: " + sha1);
+        Entry data = dht.get(sha1, 20000);
         print(data.toString());
+    }
+
+    private static boolean is_get_peers(String s) {
+        return s.startsWith("get_peers ");
+    }
+
+    private static void get_peers(DHT dht, String s) {
+        String sha1 = s.split(" ")[1];
+        print("Waiting a max of 20 seconds to get peers for key: " + sha1);
+        ArrayList<TcpEndpoint> peers = dht.getPeers(sha1, 20000);
+        print(peers.toString());
+    }
+
+    private static boolean is_announce(String s) {
+        return s.startsWith("announce ");
+    }
+
+    private static void announce(DHT dht, String s) {
+        String sha1 = s.split(" ")[1];
+        dht.announce(sha1, 9000, 0);
+        print("Wait for completion of announce for key: " + sha1);
     }
 
     private static boolean is_invalid(String s) {

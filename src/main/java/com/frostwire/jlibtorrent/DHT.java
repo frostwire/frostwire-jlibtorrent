@@ -1,14 +1,17 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
 import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
 import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.settings_pack;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_GET_PEERS_REPLY;
 import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_IMMUTABLE_ITEM;
 
 /**
@@ -18,6 +21,7 @@ import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_IMMUTABLE_ITEM;
 public final class DHT {
 
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.getSwig()};
+    private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {DHT_GET_PEERS_REPLY.getSwig()};
 
     private final Session s;
 
@@ -80,13 +84,7 @@ public final class DHT {
         return s.dhtPutItem(entry).toString();
     }
 
-    public void getPeers(String sha1) {
-        s.dhtGetPeers(new Sha1Hash(sha1));
-    }
-
-    // commenting this method until a better API is created
-    /*
-    public ArrayList<TcpEndpoint> getPeers(String sha1, long timeout, TimeUnit unit) {
+    public ArrayList<TcpEndpoint> getPeers(String sha1, long timeout) {
         final Sha1Hash target = new Sha1Hash(sha1);
         final Object[] result = {new ArrayList<TcpEndpoint>()};
         final CountDownLatch signal = new CountDownLatch(1);
@@ -115,7 +113,7 @@ public final class DHT {
         s.dhtGetPeers(target);
 
         try {
-            signal.await(timeout, unit);
+            signal.await(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             // ignore
         }
@@ -123,7 +121,7 @@ public final class DHT {
         s.removeListener(l);
 
         return (ArrayList<TcpEndpoint>) result[0];
-    }*/
+    }
 
     public void announce(String sha1, int port, int flags) {
         s.dhtAnnounce(new Sha1Hash(sha1), port, flags);
@@ -131,11 +129,6 @@ public final class DHT {
 
     public void announce(String sha1) {
         s.dhtAnnounce(new Sha1Hash(sha1));
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
     }
 
     private void toggleDHT(boolean on) {
