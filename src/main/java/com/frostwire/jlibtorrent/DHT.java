@@ -41,8 +41,8 @@ public final class DHT {
         return s.isDHTRunning();
     }
 
-    public Entry get(String sha1, long timeout) {
-        final Sha1Hash target = new Sha1Hash(sha1);
+    public Entry get(Sha1Hash sha1, long timeout) {
+        final Sha1Hash target = sha1;
         final Entry[] result = {null};
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -80,12 +80,12 @@ public final class DHT {
         return result[0];
     }
 
-    public String put(Entry entry) {
-        return s.dhtPutItem(entry).toString();
+    public Sha1Hash put(Entry entry) {
+        return s.dhtPutItem(entry);
     }
 
-    public ArrayList<TcpEndpoint> getPeers(String sha1, long timeout) {
-        final Sha1Hash target = new Sha1Hash(sha1);
+    public ArrayList<TcpEndpoint> getPeers(Sha1Hash sha1, long timeout) {
+        final Sha1Hash target = sha1;
         final Object[] result = {new ArrayList<TcpEndpoint>()};
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -123,12 +123,28 @@ public final class DHT {
         return (ArrayList<TcpEndpoint>) result[0];
     }
 
-    public void announce(String sha1, int port, int flags) {
-        s.dhtAnnounce(new Sha1Hash(sha1), port, flags);
+    public void announce(Sha1Hash sha1, int port, int flags) {
+        s.dhtAnnounce(sha1, port, flags);
     }
 
-    public void announce(String sha1) {
-        s.dhtAnnounce(new Sha1Hash(sha1));
+    public void announce(Sha1Hash sha1) {
+        s.dhtAnnounce(sha1);
+    }
+
+    public static byte[][] createKeypair() {
+        byte[] seed = new byte[Ed25519.SEED_SIZE];
+        Ed25519.createSeed(seed);
+
+        byte[] publicKey = new byte[Ed25519.PUBLIC_KEY_SIZE];
+        byte[] privateKey = new byte[Ed25519.PRIVATE_KEY_SIZE];
+
+        Ed25519.createKeypair(publicKey, privateKey, seed);
+
+        byte[][] keys = new byte[2][];
+        keys[0] = publicKey;
+        keys[1] = privateKey;
+
+        return keys;
     }
 
     private void toggleDHT(boolean on) {

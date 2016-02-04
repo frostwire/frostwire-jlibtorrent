@@ -73,6 +73,8 @@ public final class DhtShell {
                 get_peers(dht, line);
             } else if (is_announce(line)) {
                 announce(dht, line);
+            } else if (is_mkeys(line)) {
+                mkeys(line);
             } else if (is_invalid(line)) {
                 invalid(line);
             }
@@ -119,7 +121,7 @@ public final class DhtShell {
 
     private static void put(DHT dht, String s) {
         String data = s.split(" ")[1];
-        String sha1 = dht.put(new Entry(data));
+        String sha1 = dht.put(new Entry(data)).toString();
         print("Wait for completion of put for key: " + sha1);
     }
 
@@ -130,7 +132,7 @@ public final class DhtShell {
     private static void get(DHT dht, String s) {
         String sha1 = s.split(" ")[1];
         print("Waiting a max of 20 seconds to get data for key: " + sha1);
-        Entry data = dht.get(sha1, 20000);
+        Entry data = dht.get(new Sha1Hash(sha1), 20000);
         print(data.toString());
     }
 
@@ -141,7 +143,7 @@ public final class DhtShell {
     private static void get_peers(DHT dht, String s) {
         String sha1 = s.split(" ")[1];
         print("Waiting a max of 20 seconds to get peers for key: " + sha1);
-        ArrayList<TcpEndpoint> peers = dht.getPeers(sha1, 20000);
+        ArrayList<TcpEndpoint> peers = dht.getPeers(new Sha1Hash(sha1), 20000);
         print(peers.toString());
     }
 
@@ -151,8 +153,20 @@ public final class DhtShell {
 
     private static void announce(DHT dht, String s) {
         String sha1 = s.split(" ")[1];
-        dht.announce(sha1, 9000, 0);
+        dht.announce(new Sha1Hash(sha1), 9000, 0);
         print("Wait for completion of announce for key: " + sha1);
+    }
+
+    private static boolean is_mkeys(String s) {
+        return s.startsWith("mkeys");
+    }
+
+    private static void mkeys(String s) {
+        byte[][] keys = DHT.createKeypair();
+        String msg = "Save this key pair\n";
+        msg += "Public:" + Utils.toHex(keys[0]) + "\n";
+        msg += "Private:" + Utils.toHex(keys[1]) + "\n";
+        print(msg);
     }
 
     private static boolean is_invalid(String s) {
