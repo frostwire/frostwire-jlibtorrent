@@ -57,6 +57,16 @@ public class libtorrent_jni {
   public final static native void string_bdecode_node_pair_second_set(long jarg1, string_bdecode_node_pair jarg1_, long jarg2, bdecode_node jarg2_);
   public final static native long string_bdecode_node_pair_second_get(long jarg1, string_bdecode_node_pair jarg1_);
   public final static native void delete_string_bdecode_node_pair(long jarg1);
+  public final static native long new_byte_vector();
+  public final static native long byte_vector_size(long jarg1, byte_vector jarg1_);
+  public final static native long byte_vector_capacity(long jarg1, byte_vector jarg1_);
+  public final static native void byte_vector_reserve(long jarg1, byte_vector jarg1_, long jarg2);
+  public final static native boolean byte_vector_isEmpty(long jarg1, byte_vector jarg1_);
+  public final static native void byte_vector_clear(long jarg1, byte_vector jarg1_);
+  public final static native void byte_vector_add(long jarg1, byte_vector jarg1_, byte jarg2);
+  public final static native byte byte_vector_get(long jarg1, byte_vector jarg1_, int jarg2);
+  public final static native void byte_vector_set(long jarg1, byte_vector jarg1_, int jarg2, byte jarg3);
+  public final static native void delete_byte_vector(long jarg1);
   public final static native long new_string_vector();
   public final static native long string_vector_size(long jarg1, string_vector jarg1_);
   public final static native long string_vector_capacity(long jarg1, string_vector jarg1_);

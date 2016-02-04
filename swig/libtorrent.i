@@ -361,6 +361,7 @@ namespace std {
     %template(string_string_pair) pair<std::string, std::string>;
     %template(string_bdecode_node_pair) pair<std::string, libtorrent::bdecode_node>;
 
+    %template(byte_vector) vector<int8_t>;
     %template(string_vector) vector<std::string>;
     %template(char_vector) vector<char>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
