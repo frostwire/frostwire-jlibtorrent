@@ -167,7 +167,7 @@ const swig = require('./jlibtorrent.node');
     util.inherits(Session, EventEmitter);
 
     Session.prototype.swig = function () {
-        return this.sp;
+        return this.s;
     }
 
     Session.prototype.postDHTStats = function () {
