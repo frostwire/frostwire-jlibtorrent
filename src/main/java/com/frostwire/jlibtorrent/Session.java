@@ -599,23 +599,21 @@ public final class Session extends SessionHandle {
     }
 
     /**
-     * Query the DHT for a mutable item under the public key ``key``.
-     * this is an ed25519 key. ``salt`` is optional and may be left
-     * as an empty string if no salt is to be used.
-     * if the item is found in the DHT, a dht_mutable_item_alert is
-     * posted.
+     * Query the DHT for a mutable item under the public key {@code key}.
      *
      * @param key
+     * @see #dhtGetItem(byte[], String)
      */
     public void dhtGetItem(byte[] key) {
         s.dht_get_item(Vectors.bytes2byte_vector(key));
     }
 
     /**
-     * Query the DHT for a mutable item under the public key ``key``.
-     * this is an ed25519 key. ``salt`` is optional and may be left
+     * Query the DHT for a mutable item under the public key {@code key}.
+     * this is an ed25519 key. The {@code salt} argument is optional and may be left
      * as an empty string if no salt is to be used.
-     * if the item is found in the DHT, a dht_mutable_item_alert is
+     * <p/>
+     * if the item is found in the DHT, a {@link DhtMutableItemAlert} is
      * posted.
      *
      * @param key
@@ -802,6 +800,11 @@ public final class Session extends SessionHandle {
         s.async_add_torrent(params.getSwig());
     }
 
+    /**
+     * @param uri
+     * @param timeout in seconds
+     * @return
+     */
     public byte[] fetchMagnet(String uri, int timeout) {
         add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
         error_code ec = new error_code();

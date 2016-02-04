@@ -9,12 +9,9 @@ import com.frostwire.jlibtorrent.swig.sha1_hash;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_GET_PEERS_REPLY;
 import static com.frostwire.jlibtorrent.alerts.AlertType.DHT_IMMUTABLE_ITEM;
 
 /**
- * This class provides a lens only functionality.
- *
  * @author gubatron
  * @author aldenml
  */
@@ -36,15 +33,11 @@ public final class DHT {
         toggleDHT(false);
     }
 
-    public boolean isRunning() {
+    public boolean running() {
         return s.isDHTRunning();
     }
 
-    public void get(String sha1) {
-        s.dhtGetItem(new Sha1Hash(sha1));
-    }
-
-    public Entry get(String sha1, long timeout, TimeUnit unit) {
+    public Entry get(String sha1, long timeout) {
         final Sha1Hash target = new Sha1Hash(sha1);
         final Entry[] result = {null};
         final CountDownLatch signal = new CountDownLatch(1);
@@ -73,7 +66,7 @@ public final class DHT {
         s.dhtGetItem(target);
 
         try {
-            signal.await(timeout, unit);
+            signal.await(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             // ignore
         }
@@ -138,6 +131,11 @@ public final class DHT {
 
     public void announce(String sha1) {
         s.dhtAnnounce(new Sha1Hash(sha1));
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
     }
 
     private void toggleDHT(boolean on) {
