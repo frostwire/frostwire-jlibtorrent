@@ -46,6 +46,7 @@ public final class DhtShell {
 
         Session s = new Session("0.0.0.0", 33123, 10, false, mainListener);
         DHT dht = new DHT(s);
+        Downloader downloader = new Downloader(s);
 
         try {
             File f = new File("dht_shell.dat");
@@ -79,6 +80,8 @@ public final class DhtShell {
                 mput(dht, line);
             } else if (is_mget(line)) {
                 mget(dht, line);
+            } else if (is_magnet(line)) {
+                magnet(downloader, line);
             } else if (is_invalid(line)) {
                 invalid(line);
             }
@@ -196,6 +199,18 @@ public final class DhtShell {
         print("Waiting a max of 20 seconds to get mutable data for public key: " + arr[1]);
         DHT.MutableItem data = dht.mget(publicKey, 20000);
         print(data.item.toString());
+    }
+
+    private static boolean is_magnet(String s) {
+        return s.startsWith("magnet ");
+    }
+
+    private static void magnet(Downloader downloader, String s) {
+        String sha1 = s.split(" ")[1];
+        String uri = "magnet:?xt=urn:btih:" + sha1;
+        print("Waiting a max of 20 seconds to fetch magnet for sha1: " + sha1);
+        byte[] data = downloader.fetchMagnet(uri, 20000);
+        print(Entry.bdecode(data).toString());
     }
 
     private static boolean is_invalid(String s) {
