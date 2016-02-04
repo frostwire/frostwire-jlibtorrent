@@ -43,6 +43,54 @@ boost::chrono::high_resolution_clock::duration to_hours(long long n) {
     return boost::chrono::hours(n);
 }
 
+void ed25519_create_seed(std::vector<int8_t>& seed) {
+    ed25519_create_seed((unsigned char*)seed.data());
+}
+
+void ed25519_create_keypair(std::vector<int8_t>& public_key,
+                            std::vector<int8_t>& private_key,
+                            std::vector<int8_t>& seed) {
+    ed25519_create_keypair((unsigned char*)public_key.data(),
+                        (unsigned char*)private_key.data(),
+                        (unsigned char*)seed.data());
+}
+
+void ed25519_sign(std::vector<int8_t>& signature,
+                std::vector<int8_t>& message,
+                std::vector<int8_t>& public_key,
+                std::vector<int8_t>& private_key) {
+    ed25519_sign((unsigned char*)signature.data(),
+                (unsigned char*)message.data(),
+                message.size(),
+                (unsigned char*)public_key.data(),
+                (unsigned char*)private_key.data());
+}
+
+int ed25519_verify(std::vector<int8_t>& signature,
+                std::vector<int8_t>& message,
+                std::vector<int8_t>& private_key) {
+    return ed25519_verify((unsigned char*)signature.data(),
+                        (unsigned char*)message.data(),
+                        message.size(),
+                        (unsigned char*)private_key.data());
+}
+
+void ed25519_add_scalar(std::vector<int8_t>& public_key,
+                       std::vector<int8_t>& private_key,
+                       std::vector<int8_t>& scalar) {
+    ed25519_add_scalar((unsigned char*)public_key.data(),
+                    (unsigned char*)private_key.data(),
+                    (unsigned char*)scalar.data());
+}
+
+void ed25519_key_exchange(std::vector<int8_t>& shared_secret,
+                         std::vector<int8_t>& public_key,
+                         std::vector<int8_t>& private_key) {
+    ed25519_key_exchange((unsigned char*)shared_secret.data(),
+                        (unsigned char*)public_key.data(),
+                        (unsigned char*)private_key.data());
+}
+
 class add_files_listener {
 public:
     virtual ~add_files_listener() {

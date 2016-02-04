@@ -74,6 +74,7 @@
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
+#include "libtorrent/ed25519.hpp"
 
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -81,73 +82,13 @@
 #include "libtorrent/extensions/smart_ban.hpp"
 
 #include "libtorrent/kademlia/item.hpp"
-#include "libtorrent/ed25519.hpp"
-    
+
 // additional includes
 
 using namespace boost;
 using namespace boost::system;
     
 using namespace libtorrent;
-
-class ed25519 {
-public:
-
-    static const int seed_size = ed25519_seed_size;
-    static const int private_key_size = ed25519_private_key_size;
-    static const int public_key_size = ed25519_public_key_size;
-    static const int signature_size = ed25519_signature_size;
-    static const int scalar_size = ed25519_scalar_size;
-    static const int shared_secret_size = ed25519_shared_secret_size;
-
-    static void create_seed(std::vector<char>& seed) {
-        ed25519_create_seed((unsigned char*)seed.data());
-    }
-
-    static void create_keypair(std::vector<char>& public_key,
-                               std::vector<char>& private_key,
-                               std::vector<char>& seed) {
-        ed25519_create_keypair((unsigned char*)public_key.data(),
-                               (unsigned char*)private_key.data(),
-                               (unsigned char*)seed.data());
-    }
-
-    static void sign(std::vector<char>& signature,
-                     std::vector<char>& message,
-                     std::vector<char>& public_key,
-                     std::vector<char>& private_key) {
-        ed25519_sign((unsigned char*)signature.data(),
-                     (unsigned char*)message.data(),
-                     message.size(),
-                     (unsigned char*)public_key.data(),
-                     (unsigned char*)private_key.data());
-    }
-
-    static int verify(std::vector<char>& signature,
-                      std::vector<char>& message,
-                      std::vector<char>& private_key) {
-        return ed25519_verify((unsigned char*)signature.data(),
-                              (unsigned char*)message.data(),
-                              message.size(),
-                              (unsigned char*)private_key.data());
-    }
-
-    static void add_scalar(std::vector<char>& public_key,
-                           std::vector<char>& private_key,
-                           std::vector<char>& scalar) {
-        ed25519_add_scalar((unsigned char*)public_key.data(),
-                           (unsigned char*)private_key.data(),
-                           (unsigned char*)scalar.data());
-    }
-
-    static void key_exchange(std::vector<char>& shared_secret,
-                             std::vector<char>& public_key,
-                             std::vector<char>& private_key) {
-        ed25519_key_exchange((unsigned char*)shared_secret.data(),
-                             (unsigned char*)public_key.data(),
-                             (unsigned char*)private_key.data());
-    }
-};
 
 namespace libtorrent {
 namespace dht {
@@ -640,6 +581,14 @@ namespace std {
 %ignore boost::asio::error::get_misc_category;
 %ignore boost::asio::detail::posix_tss_ptr_create;
 
+%ignore ed25519_create_seed(unsigned char *);
+%ignore ed25519_create_keypair(unsigned char *, unsigned char *, const unsigned char *);
+%ignore ed25519_sign(unsigned char *, const unsigned char *, size_t , const unsigned char *, const unsigned char *);
+%ignore ed25519_verify(const unsigned char *, const unsigned char *, size_t , const unsigned char *);
+%ignore ed25519_add_scalar(unsigned char *, unsigned char *, const unsigned char *);
+%ignore ed25519_key_exchange(unsigned char *, const unsigned char *, const unsigned char *);
+
+
 %ignore operator=;
 %ignore operator!;
 %ignore operator<=;
@@ -725,6 +674,7 @@ namespace std {
 %include "libtorrent/create_torrent.hpp"
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
+%include "libtorrent/ed25519.hpp"
 
 namespace boost {
 
@@ -1147,40 +1097,6 @@ bool is_utp_stream_logging();
 void set_utp_stream_logging(bool enable);
 
 }
-
-class ed25519 {
-public:
-
-    static const int seed_size = ed25519_seed_size;
-    static const int private_key_size = ed25519_private_key_size;
-    static const int public_key_size = ed25519_public_key_size;
-    static const int signature_size = ed25519_signature_size;
-    static const int scalar_size = ed25519_scalar_size;
-    static const int shared_secret_size = ed25519_shared_secret_size;
-
-    static void create_seed(std::vector<char>& seed);
-
-    static void create_keypair(std::vector<char>& public_key,
-                               std::vector<char>& private_key,
-                               std::vector<char>& seed);
-
-    static void sign(std::vector<char>& signature,
-                     std::vector<char>& message,
-                     std::vector<char>& public_key,
-                     std::vector<char>& private_key);
-
-    static int verify(std::vector<char>& signature,
-                      std::vector<char>& message,
-                      std::vector<char>& private_key);
-
-    static void add_scalar(std::vector<char>& public_key,
-                           std::vector<char>& private_key,
-                           std::vector<char>& scalar);
-
-    static void key_exchange(std::vector<char>& shared_secret,
-                             std::vector<char>& public_key,
-                             std::vector<char>& private_key);
-};
 
 class dht_item {
 public:

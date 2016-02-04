@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.char_vector;
-import com.frostwire.jlibtorrent.swig.int64_vector;
-import com.frostwire.jlibtorrent.swig.int_vector;
-import com.frostwire.jlibtorrent.swig.unsigned_char_vector;
+import com.frostwire.jlibtorrent.swig.*;
 
 /**
  * @author gubatron
@@ -23,6 +20,14 @@ public final class Vectors {
         }
 
         return arr;
+    }
+
+    public static void byte_vector2bytes(byte_vector v, byte[] arr) {
+        int size = (int) v.size();
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = v.get(i);
+        }
     }
 
     public static void char_vector2bytes(char_vector v, byte[] arr) {
@@ -63,18 +68,8 @@ public final class Vectors {
         return v;
     }
 
-    public static unsigned_char_vector bytes2unsigned_char_vector(byte[] arr) {
-        unsigned_char_vector v = new unsigned_char_vector();
-
-        for (int i = 0; i < arr.length; i++) {
-            v.add((short) arr[i]);
-        }
-
-        return v;
-    }
-
-    public static int_vector bytes2int_vector(byte[] arr) {
-        int_vector v = new int_vector();
+    public static byte_vector bytes2byte_vector(byte[] arr) {
+        byte_vector v = new byte_vector();
 
         for (int i = 0; i < arr.length; i++) {
             v.add(arr[i]);
@@ -128,6 +123,16 @@ public final class Vectors {
         char_vector v = new char_vector();
         for (int i = 0; i < size; i++) {
             v.add((char) 0);
+        }
+
+        return v;
+    }
+
+    public static byte_vector new_byte_vector(int size) {
+        byte_vector v = new byte_vector();
+        byte z = (byte) 0;
+        for (int i = 0; i < size; i++) {
+            v.add(z);
         }
 
         return v;
