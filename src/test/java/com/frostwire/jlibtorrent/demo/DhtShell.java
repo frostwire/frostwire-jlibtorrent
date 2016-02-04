@@ -41,6 +41,12 @@ public final class DhtShell {
                     DhtPutAlert a = (DhtPutAlert) alert;
                     log(a.getMessage());
                 }
+
+                if (alert.getType().equals(AlertType.DHT_STATS)) {
+                    DhtStatsAlert a = (DhtStatsAlert) alert;
+                    long nodes = a.totalNodes();
+                    log("DHT contains " + nodes + " nodes");
+                }
             }
         };
 
@@ -82,6 +88,8 @@ public final class DhtShell {
                 mget(dht, line);
             } else if (is_magnet(line)) {
                 magnet(downloader, line);
+            } else if (is_count_nodes(line)) {
+                count_nodes(s);
             } else if (is_invalid(line)) {
                 invalid(line);
             }
@@ -211,6 +219,14 @@ public final class DhtShell {
         print("Waiting a max of 20 seconds to fetch magnet for sha1: " + sha1);
         byte[] data = downloader.fetchMagnet(uri, 20000);
         print(Entry.bdecode(data).toString());
+    }
+
+    private static boolean is_count_nodes(String s) {
+        return s.startsWith("count_nodes");
+    }
+
+    private static void count_nodes(Session s) {
+        s.postDHTStats();
     }
 
     private static boolean is_invalid(String s) {
