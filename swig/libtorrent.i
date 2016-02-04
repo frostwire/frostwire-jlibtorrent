@@ -930,7 +930,7 @@ namespace libtorrent {
          $self->add_extension(&libtorrent::create_smart_ban_plugin);
     }
 
-    void dht_get_item(std::vector<char>& key_v, std::string salt = std::string()) {
+    void dht_get_item(std::vector<int8_t>& key_v, std::string salt = std::string()) {
         if (key_v.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
         }
@@ -943,7 +943,7 @@ namespace libtorrent {
         $self->dht_get_item(key, salt);
     }
 
-    void dht_put_item(std::vector<char>& public_key, std::vector<char>& private_key, entry& data, std::string salt = std::string()) {
+    void dht_put_item(std::vector<int8_t>& public_key, std::vector<int8_t>& private_key, entry& data, std::string salt = std::string()) {
         if (public_key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
         }
@@ -957,7 +957,7 @@ namespace libtorrent {
     	}
 
         $self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
-            public_key.data(), private_key.data(), data), salt);
+            (const char *)public_key.data(), (const char *)private_key.data(), data), salt);
     }
 
     void add_swig_extension(swig_plugin *p) {

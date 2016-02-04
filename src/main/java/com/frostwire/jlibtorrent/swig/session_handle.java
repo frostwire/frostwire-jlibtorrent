@@ -252,20 +252,20 @@ public class session_handle {
     libtorrent_jni.session_handle_add_smart_ban_extension(swigCPtr, this);
   }
 
-  public void dht_get_item(char_vector key_v, String salt) {
-    libtorrent_jni.session_handle_dht_get_item__SWIG_1(swigCPtr, this, char_vector.getCPtr(key_v), key_v, salt);
+  public void dht_get_item(byte_vector key_v, String salt) {
+    libtorrent_jni.session_handle_dht_get_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(key_v), key_v, salt);
   }
 
-  public void dht_get_item(char_vector key_v) {
-    libtorrent_jni.session_handle_dht_get_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(key_v), key_v);
+  public void dht_get_item(byte_vector key_v) {
+    libtorrent_jni.session_handle_dht_get_item__SWIG_2(swigCPtr, this, byte_vector.getCPtr(key_v), key_v);
   }
 
-  public void dht_put_item(char_vector public_key, char_vector private_key, entry data, String salt) {
-    libtorrent_jni.session_handle_dht_put_item__SWIG_1(swigCPtr, this, char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data, salt);
+  public void dht_put_item(byte_vector public_key, byte_vector private_key, entry data, String salt) {
+    libtorrent_jni.session_handle_dht_put_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data, salt);
   }
 
-  public void dht_put_item(char_vector public_key, char_vector private_key, entry data) {
-    libtorrent_jni.session_handle_dht_put_item__SWIG_2(swigCPtr, this, char_vector.getCPtr(public_key), public_key, char_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data);
+  public void dht_put_item(byte_vector public_key, byte_vector private_key, entry data) {
+    libtorrent_jni.session_handle_dht_put_item__SWIG_2(swigCPtr, this, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data);
   }
 
   public void add_swig_extension(swig_plugin p) {

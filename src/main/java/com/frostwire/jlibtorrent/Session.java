@@ -608,7 +608,7 @@ public final class Session extends SessionHandle {
      * @param key
      */
     public void dhtGetItem(byte[] key) {
-        s.dht_get_item(Vectors.bytes2char_vector(key));
+        s.dht_get_item(Vectors.bytes2byte_vector(key));
     }
 
     /**
@@ -622,7 +622,7 @@ public final class Session extends SessionHandle {
      * @param salt
      */
     public void dhtGetItem(byte[] key, String salt) {
-        s.dht_get_item(Vectors.bytes2char_vector(key), salt);
+        s.dht_get_item(Vectors.bytes2byte_vector(key), salt);
     }
 
     /**
@@ -678,7 +678,7 @@ public final class Session extends SessionHandle {
     // the DHT works, it is natural to always do a lookup before storing and
     // calling the callback in between is convenient.
     public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry) {
-        s.dht_put_item(Vectors.bytes2char_vector(publicKey), Vectors.bytes2char_vector(privateKey), entry.getSwig());
+        s.dht_put_item(Vectors.bytes2byte_vector(publicKey), Vectors.bytes2byte_vector(privateKey), entry.getSwig());
     }
 
     // store an immutable item. The ``key`` is the public key the blob is
@@ -721,7 +721,7 @@ public final class Session extends SessionHandle {
     // the DHT works, it is natural to always do a lookup before storing and
     // calling the callback in between is convenient.
     public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, String salt) {
-        s.dht_put_item(Vectors.bytes2char_vector(publicKey), Vectors.bytes2char_vector(privateKey), entry.getSwig(), salt);
+        s.dht_put_item(Vectors.bytes2byte_vector(publicKey), Vectors.bytes2byte_vector(privateKey), entry.getSwig(), salt);
     }
 
     public void dhtGetPeers(Sha1Hash infoHash) {

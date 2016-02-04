@@ -2546,10 +2546,10 @@ public class libtorrent_jni {
   public final static native void session_handle_delete_port_mapping(long jarg1, session_handle jarg1_, int jarg2);
   public final static native void session_handle_add_lt_trackers_extension(long jarg1, session_handle jarg1_);
   public final static native void session_handle_add_smart_ban_extension(long jarg1, session_handle jarg1_);
-  public final static native void session_handle_dht_get_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, char_vector jarg2_, String jarg3);
-  public final static native void session_handle_dht_get_item__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, char_vector jarg2_);
-  public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_, String jarg5);
-  public final static native void session_handle_dht_put_item__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, char_vector jarg2_, long jarg3, char_vector jarg3_, long jarg4, entry jarg4_);
+  public final static native void session_handle_dht_get_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, String jarg3);
+  public final static native void session_handle_dht_get_item__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_, String jarg5);
+  public final static native void session_handle_dht_put_item__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_);
   public final static native void session_handle_add_swig_extension(long jarg1, session_handle jarg1_, long jarg2, swig_plugin jarg2_);
   public final static native void delete_session_handle(long jarg1);
   public final static native void min_memory_usage(long jarg1, settings_pack jarg1_);
