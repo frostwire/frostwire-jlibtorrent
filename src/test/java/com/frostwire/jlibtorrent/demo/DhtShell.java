@@ -3,6 +3,8 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -15,7 +17,7 @@ public final class DhtShell {
 
         System.out.println("Using libtorrent version: " + LibTorrent.fullVersion());
 
-        AlertListener l = new AlertListener() {
+        AlertListener mainListener = new AlertListener() {
             @Override
             public int[] types() {
                 return null;
@@ -43,8 +45,18 @@ public final class DhtShell {
             }
         };
 
-        Session s = new Session("0.0.0.0", 33123, 10, false, l);
+        Session s = new Session("0.0.0.0", 33123, 10, false, mainListener);
         DHT dht = new DHT(s);
+
+        try {
+            File f = new File("dht_shell.dat");
+            if (f.exists()) {
+                byte[] data = Utils.readFileToByteArray(f);
+                s.loadState(data);
+            }
+        } catch (Throwable e) {
+            log(e.getMessage());
+        }
 
         Scanner in = new Scanner(System.in);
         while (true) {
@@ -85,6 +97,13 @@ public final class DhtShell {
 
     private static void quit(Session s) {
         print("Exiting...");
+        s.saveState();
+        byte[] data = s.saveState();
+        try {
+            Utils.writeByteArrayToFile(new File("dht_shell.dat"), data, false);
+        } catch (Throwable e) {
+            print(e.getMessage());
+        }
         s.abort();
         System.exit(0);
     }
