@@ -28,4 +28,5 @@ public interface libtorrentConstants {
 
   public final static String LIBTORRENT_REVISION_SHA1 = libtorrent_jni.LIBTORRENT_REVISION_SHA1_get();
   public final static String JLIBTORRENT_REVISION_SHA1 = libtorrent_jni.JLIBTORRENT_REVISION_SHA1_get();
+
 }

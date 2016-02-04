@@ -743,8 +743,6 @@ namespace Swig {
 #include "libtorrent/extensions/lt_trackers.hpp"
 #include "libtorrent/extensions/smart_ban.hpp"
 
-#include "libtorrent/kademlia/item.hpp"
-
 // additional includes
 
 using namespace boost;
@@ -752,76 +750,6 @@ using namespace boost::system;
     
 using namespace libtorrent;
 
-namespace libtorrent {
-namespace dht {
-    // code copied from item.cpp
-    enum { canonical_length = 1200 };
-    int canonical_string(std::pair<char const*, int> v, boost::uint64_t seq
-        , std::pair<char const*, int> salt, char out[canonical_length])
-    {
-        // v must be valid bencoding!
-#ifdef TORRENT_DEBUG
-        bdecode_node e;
-        error_code ec;
-        TORRENT_ASSERT(bdecode(v.first, v.first + v.second, e, ec) == 0);
-#endif
-        char* ptr = out;
-
-        int left = canonical_length - (ptr - out);
-        if (salt.second > 0)
-        {
-            ptr += snprintf(ptr, left, "4:salt%d:", salt.second);
-            left = canonical_length - (ptr - out);
-            memcpy(ptr, salt.first, (std::min)(salt.second, left));
-            ptr += (std::min)(salt.second, left);
-            left = canonical_length - (ptr - out);
-        }
-        ptr += snprintf(ptr, canonical_length - (ptr - out)
-            , "3:seqi%" PRId64 "e1:v", seq);
-        left = canonical_length - (ptr - out);
-        memcpy(ptr, v.first, (std::min)(v.second, left));
-        ptr += (std::min)(v.second, left);
-        TORRENT_ASSERT((ptr - out) <= canonical_length);
-        return ptr - out;
-    }
-}
-}
-
-class dht_item {
-public:
-
-    static int canonical_string(std::vector<char>& v, long seq, const std::string& salt, std::vector<char>& out) {
-        return dht::canonical_string(std::pair<char const*, int>(v.data(), v.size()),
-                                     seq,
-                                     std::pair<char const*, int>(salt.data(), salt.size()),
-                                     out.data());
-    }
-
-    static sha1_hash item_target_id(std::vector<char>& v) {
-        return dht::item_target_id(std::pair<char const*, int>(v.data(), v.size()));
-    }
-
-    static sha1_hash item_target_id(std::vector<char>& salt, std::vector<char>& pk) {
-        return dht::item_target_id(std::pair<char const*, int>(salt.data(), salt.size()), pk.data());
-    }
-
-    static bool verify_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig) {
-        return dht::verify_mutable_item(std::pair<char const*, int>(v.data(), v.size()),
-                                        std::pair<char const*, int>(salt.data(), salt.size()),
-                                        seq,
-                                        pk.data(),
-                                        sig.data());
-    }
-
-    static void sign_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig) {
-        dht::sign_mutable_item(std::pair<char const*, int>(v.data(), v.size()),
-                               std::pair<char const*, int>(salt.data(), salt.size()),
-                               seq,
-                               pk.data(),
-                               sk.data(),
-                               sig.data());
-    }
-};
 
 #include "libtorrent.h"
 
@@ -63644,260 +63572,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1canonical_1string(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jstring jarg3, jlong jarg4, jobject jarg4_) {
-  jint jresult = 0 ;
-  std::vector< char > *arg1 = 0 ;
-  long arg2 ;
-  std::string *arg3 = 0 ;
-  std::vector< char > *arg4 = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg4_;
-  arg1 = *(std::vector< char > **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return 0;
-  } 
-  arg2 = (long)jarg2; 
-  if(!jarg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  }
-  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
-  if (!arg3_pstr) return 0;
-  std::string arg3_str(arg3_pstr);
-  arg3 = &arg3_str;
-  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
-  arg4 = *(std::vector< char > **)&jarg4;
-  if (!arg4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return 0;
-  } 
-  {
-    try {
-      result = (int)dht_item::canonical_string(*arg1,arg2,(std::string const &)*arg3,*arg4);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1item_1target_1id_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  std::vector< char > *arg1 = 0 ;
-  libtorrent::sha1_hash result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< char > **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return 0;
-  } 
-  {
-    try {
-      result = dht_item::item_target_id(*arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  *(libtorrent::sha1_hash **)&jresult = new libtorrent::sha1_hash((const libtorrent::sha1_hash &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1item_1target_1id_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  std::vector< char > *arg1 = 0 ;
-  std::vector< char > *arg2 = 0 ;
-  libtorrent::sha1_hash result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(std::vector< char > **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return 0;
-  } 
-  arg2 = *(std::vector< char > **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return 0;
-  } 
-  {
-    try {
-      result = dht_item::item_target_id(*arg1,*arg2);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  *(libtorrent::sha1_hash **)&jresult = new libtorrent::sha1_hash((const libtorrent::sha1_hash &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1verify_1mutable_1item(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
-  jboolean jresult = 0 ;
-  std::vector< char > *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  long arg3 ;
-  std::vector< char > *arg4 = 0 ;
-  std::vector< char > *arg5 = 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg4_;
-  (void)jarg5_;
-  arg1 = *(std::vector< char > **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return 0;
-  } 
-  if(!jarg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return 0;
-  }
-  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
-  if (!arg2_pstr) return 0;
-  std::string arg2_str(arg2_pstr);
-  arg2 = &arg2_str;
-  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  arg3 = (long)jarg3; 
-  arg4 = *(std::vector< char > **)&jarg4;
-  if (!arg4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return 0;
-  } 
-  arg5 = *(std::vector< char > **)&jarg5;
-  if (!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return 0;
-  } 
-  {
-    try {
-      result = (bool)dht_item::verify_mutable_item(*arg1,(std::string const &)*arg2,arg3,*arg4,*arg5);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1sign_1mutable_1item(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_, jlong jarg6, jobject jarg6_) {
-  std::vector< char > *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  long arg3 ;
-  std::vector< char > *arg4 = 0 ;
-  std::vector< char > *arg5 = 0 ;
-  std::vector< char > *arg6 = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg4_;
-  (void)jarg5_;
-  (void)jarg6_;
-  arg1 = *(std::vector< char > **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return ;
-  } 
-  if(!jarg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-    return ;
-  }
-  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
-  if (!arg2_pstr) return ;
-  std::string arg2_str(arg2_pstr);
-  arg2 = &arg2_str;
-  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  arg3 = (long)jarg3; 
-  arg4 = *(std::vector< char > **)&jarg4;
-  if (!arg4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return ;
-  } 
-  arg5 = *(std::vector< char > **)&jarg5;
-  if (!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return ;
-  } 
-  arg6 = *(std::vector< char > **)&jarg6;
-  if (!arg6) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< char > & reference is null");
-    return ;
-  } 
-  {
-    try {
-      dht_item::sign_mutable_item(*arg1,(std::string const &)*arg2,arg3,*arg4,*arg5,*arg6);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1dht_1item(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  dht_item *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (dht_item *)new dht_item();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  *(dht_item **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1dht_1item(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  dht_item *arg1 = (dht_item *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(dht_item **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-}
-
-
 SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_LIBTORRENT_1REVISION_1SHA1_1get(JNIEnv *jenv, jclass jcls) {
   jstring jresult = 0 ;
   char *result = 0 ;
@@ -63916,7 +63590,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("afb3b48478e833090aef65be0d160cd0d97bc31c");
+  result = (char *)("f2156c24fe5320842a428f67c40f21e0092ca988");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -64242,6 +63916,222 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ed25
   {
     try {
       ed25519_key_exchange(*arg1,*arg2,*arg3);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1canonical_1string(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jstring jarg3, jlong jarg4, jobject jarg4_) {
+  jint jresult = 0 ;
+  std::vector< int8_t > *arg1 = 0 ;
+  long arg2 ;
+  std::string *arg3 = 0 ;
+  std::vector< int8_t > *arg4 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg4_;
+  arg1 = *(std::vector< int8_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  arg2 = (long)jarg2; 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  arg4 = *(std::vector< int8_t > **)&jarg4;
+  if (!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (int)dht_item_canonical_string(*arg1,arg2,(std::string const &)*arg3,*arg4);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1target_1id_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< int8_t > *arg1 = 0 ;
+  libtorrent::sha1_hash result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< int8_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = dht_item_target_id(*arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  *(libtorrent::sha1_hash **)&jresult = new libtorrent::sha1_hash((const libtorrent::sha1_hash &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1item_1target_1id_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  std::vector< int8_t > *arg1 = 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  libtorrent::sha1_hash result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(std::vector< int8_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  arg2 = *(std::vector< int8_t > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = dht_item_target_id(*arg1,*arg2);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  *(libtorrent::sha1_hash **)&jresult = new libtorrent::sha1_hash((const libtorrent::sha1_hash &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1verify_1mutable_1item(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
+  jboolean jresult = 0 ;
+  std::vector< int8_t > *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  long arg3 ;
+  std::vector< int8_t > *arg4 = 0 ;
+  std::vector< int8_t > *arg5 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg4_;
+  (void)jarg5_;
+  arg1 = *(std::vector< int8_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = (long)jarg3; 
+  arg4 = *(std::vector< int8_t > **)&jarg4;
+  if (!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  arg5 = *(std::vector< int8_t > **)&jarg5;
+  if (!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (bool)dht_verify_mutable_item(*arg1,(std::string const &)*arg2,arg3,*arg4,*arg5);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1sign_1mutable_1item(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_, jlong jarg6, jobject jarg6_) {
+  std::vector< int8_t > *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  long arg3 ;
+  std::vector< int8_t > *arg4 = 0 ;
+  std::vector< int8_t > *arg5 = 0 ;
+  std::vector< int8_t > *arg6 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg4_;
+  (void)jarg5_;
+  (void)jarg6_;
+  arg1 = *(std::vector< int8_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return ;
+  } 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = (long)jarg3; 
+  arg4 = *(std::vector< int8_t > **)&jarg4;
+  if (!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return ;
+  } 
+  arg5 = *(std::vector< int8_t > **)&jarg5;
+  if (!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return ;
+  } 
+  arg6 = *(std::vector< int8_t > **)&jarg6;
+  if (!arg6) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return ;
+  } 
+  {
+    try {
+      dht_sign_mutable_item(*arg1,(std::string const &)*arg2,arg3,*arg4,*arg5,*arg6);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {

@@ -217,6 +217,26 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.ed25519_key_exchange(byte_vector.getCPtr(shared_secret), shared_secret, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key);
   }
 
+  public static int dht_item_canonical_string(byte_vector v, int seq, String salt, byte_vector out) {
+    return libtorrent_jni.dht_item_canonical_string(byte_vector.getCPtr(v), v, seq, salt, byte_vector.getCPtr(out), out);
+  }
+
+  public static sha1_hash dht_item_target_id(byte_vector v) {
+    return new sha1_hash(libtorrent_jni.dht_item_target_id__SWIG_0(byte_vector.getCPtr(v), v), true);
+  }
+
+  public static sha1_hash dht_item_target_id(byte_vector salt, byte_vector pk) {
+    return new sha1_hash(libtorrent_jni.dht_item_target_id__SWIG_1(byte_vector.getCPtr(salt), salt, byte_vector.getCPtr(pk), pk), true);
+  }
+
+  public static boolean dht_verify_mutable_item(byte_vector v, String salt, int seq, byte_vector pk, byte_vector sig) {
+    return libtorrent_jni.dht_verify_mutable_item(byte_vector.getCPtr(v), v, salt, seq, byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sig), sig);
+  }
+
+  public static void dht_sign_mutable_item(byte_vector v, String salt, int seq, byte_vector pk, byte_vector sk, byte_vector sig) {
+    libtorrent_jni.dht_sign_mutable_item(byte_vector.getCPtr(v), v, salt, seq, byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk, byte_vector.getCPtr(sig), sig);
+  }
+
   public static boolean add_files_cb(String p, add_files_listener listener) {
     return libtorrent_jni.add_files_cb(p, add_files_listener.getCPtr(listener), listener);
   }

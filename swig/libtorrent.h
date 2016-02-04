@@ -19,6 +19,7 @@
 #include <libtorrent/kademlia/node_entry.hpp>
 #include <libtorrent/kademlia/node.hpp>
 #include <libtorrent/kademlia/get_peers.hpp>
+#include <libtorrent/kademlia/item.hpp>
 
 #define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
 #define JLIBTORRENT_REVISION_SHA1 _JLIBTORRENT_REVISION_SHA1_
@@ -89,6 +90,67 @@ void ed25519_key_exchange(std::vector<int8_t>& shared_secret,
     ed25519_key_exchange((unsigned char*)shared_secret.data(),
                         (unsigned char*)public_key.data(),
                         (unsigned char*)private_key.data());
+}
+
+// code copied from item.cpp
+enum { dht_item_canonical_length = 1200 };
+int dht_item_canonical_string0(std::pair<char const*, int> v, boost::uint64_t seq
+    , std::pair<char const*, int> salt, char out[dht_item_canonical_length])
+{
+    int canonical_length = dht_item_canonical_length;
+    char* ptr = out;
+
+    int left = canonical_length - (ptr - out);
+    if (salt.second > 0)
+    {
+        ptr += snprintf(ptr, left, "4:salt%d:", salt.second);
+        left = canonical_length - (ptr - out);
+        memcpy(ptr, salt.first, (std::min)(salt.second, left));
+        ptr += (std::min)(salt.second, left);
+        left = canonical_length - (ptr - out);
+    }
+    ptr += snprintf(ptr, canonical_length - (ptr - out)
+        , "3:seqi%" PRId64 "e1:v", seq);
+    left = canonical_length - (ptr - out);
+    memcpy(ptr, v.first, (std::min)(v.second, left));
+    ptr += (std::min)(v.second, left);
+    TORRENT_ASSERT((ptr - out) <= canonical_length);
+    return ptr - out;
+}
+
+int dht_item_canonical_string(std::vector<int8_t>& v, long seq,
+                            const std::string& salt, std::vector<int8_t>& out) {
+    return dht_item_canonical_string0(std::pair<char const*, int>((const char *)v.data(), v.size()),
+                                seq,
+                                std::pair<char const*, int>((const char *)salt.data(), salt.size()),
+                                (char *)out.data());
+}
+
+libtorrent::sha1_hash dht_item_target_id(std::vector<int8_t>& v) {
+    return dht::item_target_id(std::pair<char const*, int>((const char *)v.data(), v.size()));
+}
+
+libtorrent::sha1_hash dht_item_target_id(std::vector<int8_t>& salt, std::vector<int8_t>& pk) {
+    return dht::item_target_id(std::pair<char const*, int>((const char *)salt.data(), salt.size()), (char *)pk.data());
+}
+
+bool dht_verify_mutable_item(std::vector<int8_t>& v, const std::string& salt, long seq,
+                            std::vector<int8_t>& pk, std::vector<int8_t>& sig) {
+    return dht::verify_mutable_item(std::pair<char const*, int>((const char *)v.data(), v.size()),
+                                    std::pair<char const*, int>((const char *)salt.data(), salt.size()),
+                                    seq,
+                                    (char *)pk.data(),
+                                    (char *)sig.data());
+}
+
+void dht_sign_mutable_item(std::vector<int8_t>& v, const std::string& salt, long seq,
+                        std::vector<int8_t>& pk, std::vector<int8_t>& sk, std::vector<int8_t>& sig) {
+    dht::sign_mutable_item(std::pair<char const*, int>((const char *)v.data(), v.size()),
+                        std::pair<char const*, int>((const char *)salt.data(), salt.size()),
+                        seq,
+                        (char *)pk.data(),
+                        (char *)sk.data(),
+                        (char *)sig.data());
 }
 
 class add_files_listener {

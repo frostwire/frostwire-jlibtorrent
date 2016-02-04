@@ -3056,13 +3056,6 @@ public class libtorrent_jni {
   public final static native void delete_udp_endpoint(long jarg1);
   public final static native boolean is_utp_stream_logging();
   public final static native void set_utp_stream_logging(boolean jarg1);
-  public final static native int dht_item_canonical_string(long jarg1, char_vector jarg1_, int jarg2, String jarg3, long jarg4, char_vector jarg4_);
-  public final static native long dht_item_item_target_id__SWIG_0(long jarg1, char_vector jarg1_);
-  public final static native long dht_item_item_target_id__SWIG_1(long jarg1, char_vector jarg1_, long jarg2, char_vector jarg2_);
-  public final static native boolean dht_item_verify_mutable_item(long jarg1, char_vector jarg1_, String jarg2, int jarg3, long jarg4, char_vector jarg4_, long jarg5, char_vector jarg5_);
-  public final static native void dht_item_sign_mutable_item(long jarg1, char_vector jarg1_, String jarg2, int jarg3, long jarg4, char_vector jarg4_, long jarg5, char_vector jarg5_, long jarg6, char_vector jarg6_);
-  public final static native long new_dht_item();
-  public final static native void delete_dht_item(long jarg1);
   public final static native String LIBTORRENT_REVISION_SHA1_get();
   public final static native String JLIBTORRENT_REVISION_SHA1_get();
   public final static native long to_seconds(long jarg1);
@@ -3076,6 +3069,11 @@ public class libtorrent_jni {
   public final static native int ed25519_verify(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
   public final static native void ed25519_add_scalar(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
   public final static native void ed25519_key_exchange(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
+  public final static native int dht_item_canonical_string(long jarg1, byte_vector jarg1_, int jarg2, String jarg3, long jarg4, byte_vector jarg4_);
+  public final static native long dht_item_target_id__SWIG_0(long jarg1, byte_vector jarg1_);
+  public final static native long dht_item_target_id__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native boolean dht_verify_mutable_item(long jarg1, byte_vector jarg1_, String jarg2, int jarg3, long jarg4, byte_vector jarg4_, long jarg5, byte_vector jarg5_);
+  public final static native void dht_sign_mutable_item(long jarg1, byte_vector jarg1_, String jarg2, int jarg3, long jarg4, byte_vector jarg4_, long jarg5, byte_vector jarg5_, long jarg6, byte_vector jarg6_);
   public final static native void delete_add_files_listener(long jarg1);
   public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
   public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2);

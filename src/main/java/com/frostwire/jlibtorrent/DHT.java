@@ -2,8 +2,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
-import com.frostwire.jlibtorrent.swig.char_vector;
-import com.frostwire.jlibtorrent.swig.dht_item;
+import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.settings_pack;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 
@@ -164,8 +163,8 @@ public final class DHT {
      * @param pk
      * @return
      */
-    public static Sha1Hash itemTargetId(String salt, byte[] pk) {
-        sha1_hash h = dht_item.item_target_id(Vectors.string2char_vector(salt), Vectors.bytes2char_vector(pk));
+    public static Sha1Hash itemTargetId(byte[] salt, byte[] pk) {
+        sha1_hash h = libtorrent.dht_item_target_id(Vectors.bytes2byte_vector(salt), Vectors.bytes2byte_vector(pk));
         return new Sha1Hash(h);
     }
 

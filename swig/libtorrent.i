@@ -81,8 +81,6 @@
 #include "libtorrent/extensions/lt_trackers.hpp"
 #include "libtorrent/extensions/smart_ban.hpp"
 
-#include "libtorrent/kademlia/item.hpp"
-
 // additional includes
 
 using namespace boost;
@@ -90,76 +88,6 @@ using namespace boost::system;
     
 using namespace libtorrent;
 
-namespace libtorrent {
-namespace dht {
-    // code copied from item.cpp
-    enum { canonical_length = 1200 };
-    int canonical_string(std::pair<char const*, int> v, boost::uint64_t seq
-        , std::pair<char const*, int> salt, char out[canonical_length])
-    {
-        // v must be valid bencoding!
-#ifdef TORRENT_DEBUG
-        bdecode_node e;
-        error_code ec;
-        TORRENT_ASSERT(bdecode(v.first, v.first + v.second, e, ec) == 0);
-#endif
-        char* ptr = out;
-
-        int left = canonical_length - (ptr - out);
-        if (salt.second > 0)
-        {
-            ptr += snprintf(ptr, left, "4:salt%d:", salt.second);
-            left = canonical_length - (ptr - out);
-            memcpy(ptr, salt.first, (std::min)(salt.second, left));
-            ptr += (std::min)(salt.second, left);
-            left = canonical_length - (ptr - out);
-        }
-        ptr += snprintf(ptr, canonical_length - (ptr - out)
-            , "3:seqi%" PRId64 "e1:v", seq);
-        left = canonical_length - (ptr - out);
-        memcpy(ptr, v.first, (std::min)(v.second, left));
-        ptr += (std::min)(v.second, left);
-        TORRENT_ASSERT((ptr - out) <= canonical_length);
-        return ptr - out;
-    }
-}
-}
-
-class dht_item {
-public:
-
-    static int canonical_string(std::vector<char>& v, long seq, const std::string& salt, std::vector<char>& out) {
-        return dht::canonical_string(std::pair<char const*, int>(v.data(), v.size()),
-                                     seq,
-                                     std::pair<char const*, int>(salt.data(), salt.size()),
-                                     out.data());
-    }
-
-    static sha1_hash item_target_id(std::vector<char>& v) {
-        return dht::item_target_id(std::pair<char const*, int>(v.data(), v.size()));
-    }
-
-    static sha1_hash item_target_id(std::vector<char>& salt, std::vector<char>& pk) {
-        return dht::item_target_id(std::pair<char const*, int>(salt.data(), salt.size()), pk.data());
-    }
-
-    static bool verify_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig) {
-        return dht::verify_mutable_item(std::pair<char const*, int>(v.data(), v.size()),
-                                        std::pair<char const*, int>(salt.data(), salt.size()),
-                                        seq,
-                                        pk.data(),
-                                        sig.data());
-    }
-
-    static void sign_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig) {
-        dht::sign_mutable_item(std::pair<char const*, int>(v.data(), v.size()),
-                               std::pair<char const*, int>(salt.data(), salt.size()),
-                               seq,
-                               pk.data(),
-                               sk.data(),
-                               sig.data());
-    }
-};
 
 #include "libtorrent.h"
 %}
@@ -588,6 +516,8 @@ namespace std {
 %ignore ed25519_add_scalar(unsigned char *, unsigned char *, const unsigned char *);
 %ignore ed25519_key_exchange(unsigned char *, const unsigned char *, const unsigned char *);
 
+%ignore dht_item_canonical_length;
+%ignore dht_item_canonical_string0;
 
 %ignore operator=;
 %ignore operator!;
@@ -1097,20 +1027,6 @@ bool is_utp_stream_logging();
 void set_utp_stream_logging(bool enable);
 
 }
-
-class dht_item {
-public:
-
-    static int canonical_string(std::vector<char>& v, long seq, const std::string& salt, std::vector<char>& out);
-
-    static libtorrent::sha1_hash item_target_id(std::vector<char>& v);
-
-    static libtorrent::sha1_hash item_target_id(std::vector<char>& salt, std::vector<char>& pk);
-
-    static bool verify_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sig);
-
-    static void sign_mutable_item(std::vector<char>& v, const std::string& salt, long seq, std::vector<char>& pk, std::vector<char>& sk, std::vector<char>& sig);
-};
 
 %feature("director") add_files_listener;
 %feature("director") set_piece_hashes_listener;
