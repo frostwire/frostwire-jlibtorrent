@@ -77,16 +77,6 @@ public class libtorrent_jni {
   public final static native String string_vector_get(long jarg1, string_vector jarg1_, int jarg2);
   public final static native void string_vector_set(long jarg1, string_vector jarg1_, int jarg2, String jarg3);
   public final static native void delete_string_vector(long jarg1);
-  public final static native long new_char_vector();
-  public final static native long char_vector_size(long jarg1, char_vector jarg1_);
-  public final static native long char_vector_capacity(long jarg1, char_vector jarg1_);
-  public final static native void char_vector_reserve(long jarg1, char_vector jarg1_, long jarg2);
-  public final static native boolean char_vector_isEmpty(long jarg1, char_vector jarg1_);
-  public final static native void char_vector_clear(long jarg1, char_vector jarg1_);
-  public final static native void char_vector_add(long jarg1, char_vector jarg1_, char jarg2);
-  public final static native char char_vector_get(long jarg1, char_vector jarg1_, int jarg2);
-  public final static native void char_vector_set(long jarg1, char_vector jarg1_, int jarg2, char jarg3);
-  public final static native void delete_char_vector(long jarg1);
   public final static native long new_string_int_pair_vector();
   public final static native long string_int_pair_vector_size(long jarg1, string_int_pair_vector jarg1_);
   public final static native long string_int_pair_vector_capacity(long jarg1, string_int_pair_vector jarg1_);

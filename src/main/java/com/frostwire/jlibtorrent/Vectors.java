@@ -1,6 +1,9 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.byte_vector;
+import com.frostwire.jlibtorrent.swig.int64_vector;
+import com.frostwire.jlibtorrent.swig.int_vector;
+import com.frostwire.jlibtorrent.swig.unsigned_char_vector;
 
 /**
  * @author gubatron
@@ -9,17 +12,6 @@ import com.frostwire.jlibtorrent.swig.*;
 public final class Vectors {
 
     private Vectors() {
-    }
-
-    public static byte[] char_vector2bytes(char_vector v) {
-        int size = (int) v.size();
-        byte[] arr = new byte[size];
-
-        for (int i = 0; i < size; i++) {
-            arr[i] = (byte) v.get(i);
-        }
-
-        return arr;
     }
 
     public static byte[] byte_vector2bytes(byte_vector v) {
@@ -39,34 +31,6 @@ public final class Vectors {
         for (int i = 0; i < size; i++) {
             arr[i] = v.get(i);
         }
-    }
-
-    public static void char_vector2bytes(char_vector v, byte[] arr) {
-        int size = (int) v.size();
-
-        for (int i = 0; i < size; i++) {
-            arr[i] = (byte) v.get(i);
-        }
-    }
-
-    public static char_vector string2char_vector(String s) {
-        char_vector v = new char_vector();
-
-        for (int i = 0; i < s.length(); i++) {
-            v.add(s.charAt(i));
-        }
-
-        return v;
-    }
-
-    public static char_vector bytes2char_vector(byte[] arr) {
-        char_vector v = new char_vector();
-
-        for (int i = 0; i < arr.length; i++) {
-            v.add((char) arr[i]);
-        }
-
-        return v;
     }
 
     public static byte_vector bytes2byte_vector(byte[] arr) {
@@ -109,24 +73,6 @@ public final class Vectors {
         }
 
         return arr;
-    }
-
-    public static unsigned_char_vector new_unsigned_char_vector(int size) {
-        unsigned_char_vector v = new unsigned_char_vector();
-        for (int i = 0; i < size; i++) {
-            v.add((short) 0);
-        }
-
-        return v;
-    }
-
-    public static char_vector new_char_vector(int size) {
-        char_vector v = new char_vector();
-        for (int i = 0; i < size; i++) {
-            v.add((char) 0);
-        }
-
-        return v;
     }
 
     public static byte_vector new_byte_vector(int size) {

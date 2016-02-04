@@ -81,11 +81,9 @@
 #include "libtorrent/extensions/lt_trackers.hpp"
 #include "libtorrent/extensions/smart_ban.hpp"
 
-// additional includes
-
 using namespace boost;
 using namespace boost::system;
-    
+
 using namespace libtorrent;
 
 
@@ -232,7 +230,6 @@ namespace std {
 
     %template(byte_vector) vector<int8_t>;
     %template(string_vector) vector<std::string>;
-    %template(char_vector) vector<char>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
     %template(int_int_pair_vector) vector<std::pair<int, int>>;
@@ -270,8 +267,6 @@ namespace std {
     %template(string_dht_extension_handler_listener_ptr_pair) pair<std::string, dht_extension_handler_listener*>;
     %template(string_dht_extension_handler_listener_ptr_pair_vector) vector<std::pair<string, dht_extension_handler_listener*>>;
 };
-
-// this are ignore until we solve the specific type issues
 
 %ignore match_filesizes;
 %ignore clone;
