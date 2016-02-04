@@ -966,14 +966,14 @@ namespace libtorrent {
 };
 
 %extend entry {
-    std::vector<char> bencode() {
-        std::vector<char> buffer;
+    std::vector<int8_t> bencode() {
+        std::vector<int8_t> buffer;
         libtorrent::bencode(std::back_inserter(buffer), *$self);
         return buffer;
     }
 
-    static entry bdecode(std::vector<char>& buffer) {
-        return bdecode(buffer.begin(), buffer.end());
+    static entry bdecode(std::vector<int8_t>& buffer) {
+        return libtorrent::bdecode(buffer.begin(), buffer.end());
     }
 };
 
@@ -982,8 +982,8 @@ namespace libtorrent {
         return libtorrent::print_entry(e, single_line, indent);
     }
 
-    static int bdecode(std::vector<char>& buffer, bdecode_node& ret, error_code& ec) {
-        return libtorrent::bdecode(&buffer[0], &buffer[0] + buffer.size(), ret, ec);
+    static int bdecode(std::vector<int8_t>& buffer, bdecode_node& ret, error_code& ec) {
+        return libtorrent::bdecode((char const*)&buffer[0], (char const*)&buffer[0] + buffer.size(), ret, ec);
     }
 };
 

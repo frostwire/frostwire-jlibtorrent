@@ -154,7 +154,7 @@ public final class DHT {
      * @return
      */
     public static Sha1Hash itemTargetId(Entry e) {
-        return new Sha1Hash(dht_item.item_target_id(e.getSwig().bencode()));
+        return null;//new Sha1Hash(dht_item.item_target_id(e.getSwig().bencode()));
     }
 
     /**
@@ -185,6 +185,7 @@ public final class DHT {
      * @param sig
      */
     public static void signMutableItem(Entry e, String salt, int seq, byte[] pk, byte[] sk, byte[] sig) {
+        /*
         if (sig == null || sig.length != Ed25519.SIGNATURE_SIZE) {
             throw new IllegalArgumentException("The signature array must be a valid one with length " + Ed25519.SIGNATURE_SIZE);
         }
@@ -195,16 +196,17 @@ public final class DHT {
                 Vectors.bytes2char_vector(pk), Vectors.bytes2char_vector(sk), sig_v);
 
         Vectors.char_vector2bytes(sig_v, sig);
+        */
     }
 
     public static boolean verifyMutableItem(Entry e, String salt, int seq, byte[] pk, byte[] sig) {
-        return dht_item.verify_mutable_item(e.getSwig().bencode(), salt, seq,
+        return false;/*dht_item.verify_mutable_item(e.getSwig().bencode(), salt, seq,
                 Vectors.bytes2char_vector(pk),
-                Vectors.bytes2char_vector(sig));
+                Vectors.bytes2char_vector(sig));*/
     }
 
     public static int canonicalString(Entry e, int seq, String salt, byte[] out) {
-        if (out == null || out.length != 1200) {
+       /* if (out == null || out.length != 1200) {
             throw new IllegalArgumentException("The out array must be a valid one with length 1200");
         }
 
@@ -214,6 +216,7 @@ public final class DHT {
 
         Vectors.char_vector2bytes(out_v, out);
 
-        return r;
+        return r;*/
+        return 0;
     }
 }

@@ -25,7 +25,7 @@ public final class PartialDownload {
         System.out.println("Using libtorrent version: " + LibTorrent.version());
 
         byte[] data = Utils.readFileToByteArray(torrentFile);
-        entry e = entry.bdecode(Vectors.bytes2char_vector(data));
+        entry e = entry.bdecode(Vectors.bytes2byte_vector(data));
 
         entry_vector files = e.find_key("info").find_key("files").list().to_vector();
 

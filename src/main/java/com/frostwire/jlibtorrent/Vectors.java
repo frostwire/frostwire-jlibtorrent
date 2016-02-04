@@ -22,6 +22,17 @@ public final class Vectors {
         return arr;
     }
 
+    public static byte[] byte_vector2bytes(byte_vector v) {
+        int size = (int) v.size();
+        byte[] arr = new byte[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = v.get(i);
+        }
+
+        return arr;
+    }
+
     public static void byte_vector2bytes(byte_vector v, byte[] arr) {
         int size = (int) v.size();
 
@@ -36,16 +47,6 @@ public final class Vectors {
         for (int i = 0; i < size; i++) {
             arr[i] = (byte) v.get(i);
         }
-    }
-
-    public static String char_vector2string(char_vector v, int size) {
-        StringBuilder sb = new StringBuilder(size);
-
-        for (int i = 0; i < size; i++) {
-            sb.append(v.get(i));
-        }
-
-        return sb.toString();
     }
 
     public static char_vector string2char_vector(String s) {

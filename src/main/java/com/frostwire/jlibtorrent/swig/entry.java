@@ -116,12 +116,12 @@ public class entry {
     return libtorrent_jni.entry_m_type_queried_get(swigCPtr, this);
   }
 
-  public char_vector bencode() {
-    return new char_vector(libtorrent_jni.entry_bencode(swigCPtr, this), true);
+  public byte_vector bencode() {
+    return new byte_vector(libtorrent_jni.entry_bencode(swigCPtr, this), true);
   }
 
-  public static entry bdecode(char_vector buffer) {
-    return new entry(libtorrent_jni.entry_bdecode(char_vector.getCPtr(buffer), buffer), true);
+  public static entry bdecode(byte_vector buffer) {
+    return new entry(libtorrent_jni.entry_bdecode(byte_vector.getCPtr(buffer), buffer), true);
   }
 
   public final static class data_type {

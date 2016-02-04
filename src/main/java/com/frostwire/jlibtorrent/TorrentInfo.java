@@ -456,7 +456,7 @@ public final class TorrentInfo {
     private static torrent_info bdecode0(byte[] data) {
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(Vectors.bytes2char_vector(data), n, ec);
+        int ret = bdecode_node.bdecode(Vectors.bytes2byte_vector(data), n, ec);
 
         if (ret == 0) {
             ec.clear();

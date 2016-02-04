@@ -135,8 +135,8 @@ public class bdecode_node {
     return libtorrent_jni.bdecode_node_to_string(bdecode_node.getCPtr(e), e, single_line, indent);
   }
 
-  public static int bdecode(char_vector buffer, bdecode_node ret, error_code ec) {
-    return libtorrent_jni.bdecode_node_bdecode(char_vector.getCPtr(buffer), buffer, bdecode_node.getCPtr(ret), ret, error_code.getCPtr(ec), ec);
+  public static int bdecode(byte_vector buffer, bdecode_node ret, error_code ec) {
+    return libtorrent_jni.bdecode_node_bdecode(byte_vector.getCPtr(buffer), buffer, bdecode_node.getCPtr(ret), ret, error_code.getCPtr(ec), ec);
   }
 
   public final static class type_t {

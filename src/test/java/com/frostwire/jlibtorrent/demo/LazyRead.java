@@ -24,7 +24,7 @@ public final class LazyRead {
 
         byte[] data = Utils.readFileToByteArray(torrentFile);
 
-        char_vector buffer = Vectors.bytes2char_vector(data);
+        byte_vector buffer = Vectors.bytes2byte_vector(data);
         bdecode_node e = new bdecode_node();
         error_code ec = new error_code();
         int ret = bdecode_node.bdecode(buffer, e, ec);

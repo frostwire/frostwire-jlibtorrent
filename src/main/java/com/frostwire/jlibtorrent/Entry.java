@@ -38,7 +38,7 @@ public final class Entry {
     }
 
     public byte[] bencode() {
-        return Vectors.char_vector2bytes(e.bencode());
+        return Vectors.byte_vector2bytes(e.bencode());
     }
 
     public String string() {
@@ -84,7 +84,7 @@ public final class Entry {
     }
 
     public static Entry bdecode(byte[] data) {
-        return new Entry(entry.bdecode(Vectors.bytes2char_vector(data)));
+        return new Entry(entry.bdecode(Vectors.bytes2byte_vector(data)));
     }
 
     public static Entry bdecode(File file) throws IOException {

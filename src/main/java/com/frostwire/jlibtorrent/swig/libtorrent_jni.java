@@ -666,7 +666,7 @@ public class libtorrent_jni {
   public final static native void entry_m_type_queried_set(long jarg1, entry jarg1_, short jarg2);
   public final static native short entry_m_type_queried_get(long jarg1, entry jarg1_);
   public final static native long entry_bencode(long jarg1, entry jarg1_);
-  public final static native long entry_bdecode(long jarg1, char_vector jarg1_);
+  public final static native long entry_bdecode(long jarg1, byte_vector jarg1_);
   public final static native int sha1_hash_size_get();
   public final static native long new_sha1_hash__SWIG_0();
   public final static native long sha1_hash_max();
@@ -2715,7 +2715,7 @@ public class libtorrent_jni {
   public final static native String bdecode_node_string_value(long jarg1, bdecode_node jarg1_);
   public final static native int bdecode_node_string_length(long jarg1, bdecode_node jarg1_);
   public final static native String bdecode_node_to_string(long jarg1, bdecode_node jarg1_, boolean jarg2, int jarg3);
-  public final static native int bdecode_node_bdecode(long jarg1, char_vector jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_);
+  public final static native int bdecode_node_bdecode(long jarg1, byte_vector jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_);
   public final static native void delete_bdecode_node(long jarg1);
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
