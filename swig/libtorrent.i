@@ -347,6 +347,7 @@ namespace std {
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::flags;
 %ignore libtorrent::add_torrent_params::ti;
+%ignore libtorrent::add_torrent_params::resume_data;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert_manager::set_dispatch_function;
 %ignore libtorrent::session::session(settings_pack const&, io_service&, int);
@@ -928,6 +929,10 @@ namespace libtorrent {
 
     void set_ti(torrent_info const& ti) {
         $self->ti = boost::make_shared<torrent_info>(ti);
+    }
+
+    void set_resume_data(std::vector<int8_t> data) {
+        $self->resume_data = std::vector<char>(data.begin(), data.end());
     }
 
     static add_torrent_params create_instance() {

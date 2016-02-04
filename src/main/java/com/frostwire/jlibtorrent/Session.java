@@ -920,7 +920,7 @@ public final class Session extends SessionHandle {
         if (resumeFile != null) {
             try {
                 byte[] data = Files.bytes(resumeFile);
-                p.setResume_data(Vectors.bytes2char_vector(data));
+                p.set_resume_data(Vectors.bytes2byte_vector(data));
 
                 flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
             } catch (Throwable e) {
