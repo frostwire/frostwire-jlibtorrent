@@ -3,7 +3,6 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.int64_vector;
 import com.frostwire.jlibtorrent.swig.int_vector;
-import com.frostwire.jlibtorrent.swig.unsigned_char_vector;
 
 /**
  * @author gubatron
@@ -80,16 +79,6 @@ public final class Vectors {
         byte z = (byte) 0;
         for (int i = 0; i < size; i++) {
             v.add(z);
-        }
-
-        return v;
-    }
-
-    public static unsigned_char_vector priorities2unsigned_char_vector(Priority[] arr) {
-        unsigned_char_vector v = new unsigned_char_vector();
-
-        for (int i = 0; i < arr.length; i++) {
-            v.add((short) arr[i].getSwig());
         }
 
         return v;
