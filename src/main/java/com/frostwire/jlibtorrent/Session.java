@@ -84,6 +84,10 @@ public final class Session extends SessionHandle {
         this(new SettingsPack(), false, null);
     }
 
+    public Session(String iface, int port, int retries) {
+        this(addSettings(new SettingsPack(), iface, port, retries), false, null);
+    }
+
     public session getSwig() {
         return s;
     }
@@ -1111,29 +1115,15 @@ public final class Session extends SessionHandle {
         return new session(sp);
     }
 
-    /* for reference
-    private static session createSessionDeprecated(Fingerprint print, Pair<Integer, Integer> prange, String iface, List<Pair<String, Integer>> routers, boolean logging) {
-        int alert_mask = alert.category_t.all_categories.swigValue();
-        if (!logging) {
-            int log_mask = alert.category_t.session_log_notification.swigValue() |
-                    alert.category_t.torrent_log_notification.swigValue() |
-                    alert.category_t.peer_log_notification.swigValue() |
-                    alert.category_t.dht_log_notification.swigValue() |
-                    alert.category_t.port_mapping_log_notification.swigValue();
-            alert_mask = alert_mask & ~log_mask;
-        }
+    private static SettingsPack addSettings(SettingsPack settings, String iface, int port, int retries) {
+        settings_pack sp = settings.getSwig();
 
-        settings_pack sp = new settings_pack();
+        String listen_iface = String.format("%s:%d", iface, port);
+        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), listen_iface);
+        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
 
-        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
-        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), prange.second - prange.first);
-        sp.set_str(settings_pack.string_types.peer_fingerprint.swigValue(), print.toString());
-
-        String if_string = String.format("%s:%d", iface, prange.first);
-        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), if_string);
-
-        return new session(sp);
-    }*/
+        return settings;
+    }
 
     /**
      * Flags to be passed in to remove_torrent().
