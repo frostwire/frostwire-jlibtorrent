@@ -17,3 +17,4 @@ frostwire-jlibtorrent.i*
 /libjlibtorrent.so
 /jlibtorrent.dll
 /node/jlibtorrent.node
+/dht_shell.dat

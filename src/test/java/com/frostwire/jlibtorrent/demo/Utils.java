@@ -18,6 +18,7 @@
 package com.frostwire.jlibtorrent.demo;
 
 import java.io.*;
+import java.util.Locale;
 
 final class Utils {
 
@@ -349,6 +350,16 @@ final class Utils {
         }
 
         return new String(hexChars);
+    }
+
+    public static byte[] fromHex(String str) {
+        str = str.toLowerCase(Locale.US);
+        int len = str.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(str.charAt(i), 16) << 4) + Character.digit(str.charAt(i + 1), 16));
+        }
+        return data;
     }
 
     public static FileOutputStream openOutputStream(File file, boolean append) throws IOException {

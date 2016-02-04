@@ -75,6 +75,10 @@ public final class DhtShell {
                 announce(dht, line);
             } else if (is_mkeys(line)) {
                 mkeys(line);
+            } else if (is_mput(line)) {
+                mput(dht, line);
+            } else if (is_mget(line)) {
+                mget(dht, line);
             } else if (is_invalid(line)) {
                 invalid(line);
             }
@@ -164,9 +168,34 @@ public final class DhtShell {
     private static void mkeys(String s) {
         byte[][] keys = DHT.createKeypair();
         String msg = "Save this key pair\n";
-        msg += "Public:" + Utils.toHex(keys[0]) + "\n";
-        msg += "Private:" + Utils.toHex(keys[1]) + "\n";
+        msg += "Public: " + Utils.toHex(keys[0]) + "\n";
+        msg += "Private: " + Utils.toHex(keys[1]) + "\n";
         print(msg);
+    }
+
+    private static boolean is_mput(String s) {
+        return s.startsWith("mput ");
+    }
+
+    private static void mput(DHT dht, String s) {
+        String[] arr = s.split(" ");
+        byte[] publicKey = Utils.fromHex(arr[1]);
+        byte[] privateKey = Utils.fromHex(arr[2]);
+        String data = arr[3];
+        dht.mput(publicKey, privateKey, new Entry(data));
+        print("Wait for completion of mput for public key: " + arr[1]);
+    }
+
+    private static boolean is_mget(String s) {
+        return s.startsWith("mget ");
+    }
+
+    private static void mget(DHT dht, String s) {
+        String[] arr = s.split(" ");
+        byte[] publicKey = Utils.fromHex(arr[1]);
+        print("Waiting a max of 20 seconds to get mutable data for public key: " + arr[1]);
+        DHT.MutableItem data = dht.mget(publicKey, 20000);
+        print(data.item.toString());
     }
 
     private static boolean is_invalid(String s) {

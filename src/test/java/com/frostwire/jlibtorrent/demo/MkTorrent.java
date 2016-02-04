@@ -11,13 +11,12 @@ import java.util.UUID;
  * @author gubatron
  * @author aldenml
  */
-public final class MkTorrent extends Tool<Entry> {
+public final class MkTorrent {
 
     private final String id;
     private MkTorrentListener listener;
 
     public MkTorrent(String[] args) {
-        super(args);
         this.id = UUID.randomUUID().toString();
     }
 
@@ -29,21 +28,8 @@ public final class MkTorrent extends Tool<Entry> {
         this.listener = listener;
     }
 
-    @Override
-    protected String usage() {
-        return "usage: -i <file|dir> [-t1 <tracker1>]";
-    }
-
-    @Override
-    protected ParseCmd parser(com.frostwire.jlibtorrent.demo.ParseCmd.Builder b) {
-        return b.parm("-i", "<file|dir>").req().rex(".*")
-                .parm("-t1", "udp://tracker.openbittorrent.com:80").rex(".*")
-                .build();
-    }
-
-    @Override
     public Entry run() {
-        File f = new File(arg("-i"));
+        File f = new File("-i");
         if (!f.exists()) {
             throw new IllegalStateException("File or directory " + f + " does not exists");
         }
@@ -67,7 +53,7 @@ public final class MkTorrent extends Tool<Entry> {
         }
 
         create_torrent ct = new create_torrent(fs);
-        ct.add_tracker(arg("-t1"));
+        //ct.add_tracker(arg("-t1"));
 
         error_code ec = new error_code();
         if (listener != null) {
@@ -132,7 +118,7 @@ public final class MkTorrent extends Tool<Entry> {
 
             @Override
             public void done(MkTorrent mkt, Entry e) {
-                String torrent = mkt.arg("-i") + ".torrent";
+                String torrent = null;//mkt.arg("-i") + ".torrent";
                 try {
                     FileOutputStream fos = new FileOutputStream(torrent);
                     fos.write(e.bencode());
