@@ -107,16 +107,6 @@ public class libtorrent_jni {
   public final static native long int_int_pair_vector_get(long jarg1, int_int_pair_vector jarg1_, int jarg2);
   public final static native void int_int_pair_vector_set(long jarg1, int_int_pair_vector jarg1_, int jarg2, long jarg3, int_int_pair jarg3_);
   public final static native void delete_int_int_pair_vector(long jarg1);
-  public final static native long new_unsigned_char_vector();
-  public final static native long unsigned_char_vector_size(long jarg1, unsigned_char_vector jarg1_);
-  public final static native long unsigned_char_vector_capacity(long jarg1, unsigned_char_vector jarg1_);
-  public final static native void unsigned_char_vector_reserve(long jarg1, unsigned_char_vector jarg1_, long jarg2);
-  public final static native boolean unsigned_char_vector_isEmpty(long jarg1, unsigned_char_vector jarg1_);
-  public final static native void unsigned_char_vector_clear(long jarg1, unsigned_char_vector jarg1_);
-  public final static native void unsigned_char_vector_add(long jarg1, unsigned_char_vector jarg1_, short jarg2);
-  public final static native short unsigned_char_vector_get(long jarg1, unsigned_char_vector jarg1_, int jarg2);
-  public final static native void unsigned_char_vector_set(long jarg1, unsigned_char_vector jarg1_, int jarg2, short jarg3);
-  public final static native void delete_unsigned_char_vector(long jarg1);
   public final static native long new_int_vector();
   public final static native long int_vector_size(long jarg1, int_vector jarg1_);
   public final static native long int_vector_capacity(long jarg1, int_vector jarg1_);

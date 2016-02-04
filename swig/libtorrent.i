@@ -234,7 +234,6 @@ namespace std {
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
     %template(int_int_pair_vector) vector<std::pair<int, int>>;
 
-    %template(unsigned_char_vector) vector<unsigned char>;
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<long long>;
     %template(sha1_hash_vector) vector<libtorrent::sha1_hash>;
