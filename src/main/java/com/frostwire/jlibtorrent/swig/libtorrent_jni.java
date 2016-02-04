@@ -681,8 +681,6 @@ public class libtorrent_jni {
   public final static native String storage_params_path_get(long jarg1, storage_params jarg1_);
   public final static native void storage_params_mode_set(long jarg1, storage_params jarg1_, int jarg2);
   public final static native int storage_params_mode_get(long jarg1, storage_params jarg1_);
-  public final static native void storage_params_priorities_set(long jarg1, storage_params jarg1_, long jarg2, unsigned_char_vector jarg2_);
-  public final static native long storage_params_priorities_get(long jarg1, storage_params jarg1_);
   public final static native void storage_params_info_set(long jarg1, storage_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long storage_params_info_get(long jarg1, storage_params jarg1_);
   public final static native void delete_storage_params(long jarg1);
@@ -3059,8 +3057,6 @@ public class libtorrent_jni {
   public final static native int swig_storage_writeSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
   public final static native boolean swig_storage_has_any_file(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native boolean swig_storage_has_any_fileSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native void swig_storage_set_file_priority(long jarg1, swig_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
-  public final static native void swig_storage_set_file_prioritySwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, unsigned_char_vector jarg2_, long jarg3, storage_error jarg3_);
   public final static native int swig_storage_move_storage(long jarg1, swig_storage jarg1_, String jarg2, int jarg3, long jarg4, storage_error jarg4_);
   public final static native int swig_storage_move_storageSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, String jarg2, int jarg3, long jarg4, storage_error jarg4_);
   public final static native boolean swig_storage_verify_resume_data(long jarg1, swig_storage jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, string_vector jarg3_, long jarg4, storage_error jarg4_);
@@ -3330,9 +3326,6 @@ public class libtorrent_jni {
   }
   public static boolean SwigDirector_swig_storage_has_any_file(swig_storage jself, long ec) {
     return jself.has_any_file(new storage_error(ec, false));
-  }
-  public static void SwigDirector_swig_storage_set_file_priority(swig_storage jself, long prio, long ec) {
-    jself.set_file_priority(new unsigned_char_vector(prio, false), new storage_error(ec, false));
   }
   public static int SwigDirector_swig_storage_move_storage(swig_storage jself, String save_path, int flags, long ec) {
     return jself.move_storage(save_path, flags, new storage_error(ec, false));

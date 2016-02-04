@@ -76,10 +76,10 @@ public:
     virtual bool tick();
 public:
     bool swig_overrides(int n) {
-      return (n < 12 ? swig_override[n] : false);
+      return (n < 11 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<12> swig_override;
+    Swig::BoolArray<11> swig_override;
 };
 
 class SwigDirector_swig_storage_constructor : public swig_storage_constructor, public Swig::Director {

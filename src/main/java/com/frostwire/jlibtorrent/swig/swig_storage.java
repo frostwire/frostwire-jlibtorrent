@@ -66,10 +66,6 @@ public class swig_storage {
     return (getClass() == swig_storage.class) ? libtorrent_jni.swig_storage_has_any_file(swigCPtr, this, storage_error.getCPtr(ec), ec) : libtorrent_jni.swig_storage_has_any_fileSwigExplicitswig_storage(swigCPtr, this, storage_error.getCPtr(ec), ec);
   }
 
-  public void set_file_priority(unsigned_char_vector prio, storage_error ec) {
-    if (getClass() == swig_storage.class) libtorrent_jni.swig_storage_set_file_priority(swigCPtr, this, unsigned_char_vector.getCPtr(prio), prio, storage_error.getCPtr(ec), ec); else libtorrent_jni.swig_storage_set_file_prioritySwigExplicitswig_storage(swigCPtr, this, unsigned_char_vector.getCPtr(prio), prio, storage_error.getCPtr(ec), ec);
-  }
-
   public int move_storage(String save_path, int flags, storage_error ec) {
     return (getClass() == swig_storage.class) ? libtorrent_jni.swig_storage_move_storage(swigCPtr, this, save_path, flags, storage_error.getCPtr(ec), ec) : libtorrent_jni.swig_storage_move_storageSwigExplicitswig_storage(swigCPtr, this, save_path, flags, storage_error.getCPtr(ec), ec);
   }

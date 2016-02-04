@@ -60,15 +60,6 @@ public final class SwigStoragePlugin extends swig_storage {
     }
 
     @Override
-    public void set_file_priority(unsigned_char_vector prio, storage_error ec) {
-        try {
-            p.setFilePriority(prio, ec);
-        } catch (Throwable e) {
-            LOG.error("Error in plugin (set_file_priority)", e);
-        }
-    }
-
-    @Override
     public int move_storage(String save_path, int flags, storage_error ec) {
         try {
             p.moveStorage(save_path, flags, ec);

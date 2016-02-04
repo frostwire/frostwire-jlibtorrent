@@ -464,6 +464,7 @@ namespace std {
 
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::storage_params::pool;
+%ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::cached_piece_info::storage;
 %ignore libtorrent::peer_class::priority;
 %ignore libtorrent::peer_class::channel;
@@ -1037,6 +1038,7 @@ void set_utp_stream_logging(bool enable);
 
 %ignore dht_extension_handler_cb;
 
+%ignore swig_storage::set_file_priority;
 %ignore swig_storage::readv;
 %ignore swig_storage::writev;
 

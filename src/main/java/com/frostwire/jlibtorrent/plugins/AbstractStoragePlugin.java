@@ -1,6 +1,9 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.bdecode_node;
+import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.storage_error;
+import com.frostwire.jlibtorrent.swig.string_vector;
 
 /**
  * @author gubatron
@@ -21,10 +24,6 @@ public abstract class AbstractStoragePlugin implements StoragePlugin {
     @Override
     public boolean hasAnyFile(storage_error ec) {
         return false;
-    }
-
-    @Override
-    public void setFilePriority(unsigned_char_vector prio, storage_error ec) {
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.bdecode_node;
+import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.storage_error;
+import com.frostwire.jlibtorrent.swig.string_vector;
 
 /**
  * @author gubatron
@@ -15,8 +18,6 @@ public interface StoragePlugin {
     int write(long iov_base, long iov_len, int piece, int offset, int flags, storage_error ec);
 
     boolean hasAnyFile(storage_error ec);
-
-    void setFilePriority(unsigned_char_vector prio, storage_error ec);
 
     int moveStorage(String save_path, int flags, storage_error ec);
 

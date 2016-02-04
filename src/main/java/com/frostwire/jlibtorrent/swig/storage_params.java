@@ -73,15 +73,6 @@ public class storage_params {
     return storage_mode_t.swigToEnum(libtorrent_jni.storage_params_mode_get(swigCPtr, this));
   }
 
-  public void setPriorities(unsigned_char_vector value) {
-    libtorrent_jni.storage_params_priorities_set(swigCPtr, this, unsigned_char_vector.getCPtr(value), value);
-  }
-
-  public unsigned_char_vector getPriorities() {
-    long cPtr = libtorrent_jni.storage_params_priorities_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new unsigned_char_vector(cPtr, false);
-  }
-
   public void setInfo(torrent_info value) {
     libtorrent_jni.storage_params_info_set(swigCPtr, this, torrent_info.getCPtr(value), value);
   }
