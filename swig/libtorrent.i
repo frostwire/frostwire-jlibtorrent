@@ -976,26 +976,26 @@ namespace libtorrent {
 };
 
 %extend dht_mutable_item_alert {
-    std::vector<char> key_v() {
+    std::vector<int8_t> key_v() {
         boost::array<char, 32> arr = $self->key;
-        return std::vector<char>(arr.begin(), arr.end());
+        return std::vector<int8_t>(arr.begin(), arr.end());
     }
 
-    std::vector<char> signature_v() {
+    std::vector<int8_t> signature_v() {
         boost::array<char, 64> arr = $self->signature;
-        return std::vector<char>(arr.begin(), arr.end());
+        return std::vector<int8_t>(arr.begin(), arr.end());
     }
 };
 
 %extend dht_put_alert {
-    std::vector<char> public_key_v() {
+    std::vector<int8_t> public_key_v() {
         boost::array<char, 32> arr = $self->public_key;
-        return std::vector<char>(arr.begin(), arr.end());
+        return std::vector<int8_t>(arr.begin(), arr.end());
     }
 
-    std::vector<char> signature_v() {
+    std::vector<int8_t> signature_v() {
         boost::array<char, 64> arr = $self->signature;
-        return std::vector<char>(arr.begin(), arr.end());
+        return std::vector<int8_t>(arr.begin(), arr.end());
     }
 };
 

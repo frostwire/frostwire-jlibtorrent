@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.*;
+import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.char_vector;
 import com.frostwire.jlibtorrent.swig.entry;
 import com.frostwire.jlibtorrent.swig.settings_pack;
@@ -179,9 +180,9 @@ public class DhtNs {
                     if (alert instanceof DhtMutableItemAlert) {
                         DhtMutableItemAlert mutableAlert = (DhtMutableItemAlert) alert;
                         Entry item = mutableAlert.getItem();
-                        char_vector key_char_vector = mutableAlert.getSwig().key_v();
+                        byte_vector key_char_vector = mutableAlert.getSwig().key_v();
                         byte[] keyInBytes = new byte[(int) key_char_vector.size()];
-                        Vectors.char_vector2bytes(key_char_vector, keyInBytes);
+                        Vectors.byte_vector2bytes(key_char_vector, keyInBytes);
                         System.out.println("DHT Mutable Item Alert (" + toHex(keyInBytes) + ") => ");
                         System.out.println("\t\t\t\t" + item);
                         System.out.println("Seq: " + mutableAlert.getSeq());

@@ -84,12 +84,12 @@ public class dht_put_alert extends alert {
     return libtorrent_jni.dht_put_alert_num_success_get(swigCPtr, this);
   }
 
-  public char_vector public_key_v() {
-    return new char_vector(libtorrent_jni.dht_put_alert_public_key_v(swigCPtr, this), true);
+  public byte_vector public_key_v() {
+    return new byte_vector(libtorrent_jni.dht_put_alert_public_key_v(swigCPtr, this), true);
   }
 
-  public char_vector signature_v() {
-    return new char_vector(libtorrent_jni.dht_put_alert_signature_v(swigCPtr, this), true);
+  public byte_vector signature_v() {
+    return new byte_vector(libtorrent_jni.dht_put_alert_signature_v(swigCPtr, this), true);
   }
 
   public final static int priority = libtorrent_jni.dht_put_alert_priority_get();

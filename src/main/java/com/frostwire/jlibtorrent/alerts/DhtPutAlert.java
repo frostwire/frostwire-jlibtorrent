@@ -34,7 +34,7 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      * @return
      */
     public byte[] getPublicKey() {
-        return Vectors.char_vector2bytes(alert.public_key_v());
+        return Vectors.byte_vector2bytes(alert.public_key_v());
     }
 
     /**
@@ -44,7 +44,7 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      * @return
      */
     public byte[] getSignature() {
-        return Vectors.char_vector2bytes(alert.signature_v());
+        return Vectors.byte_vector2bytes(alert.signature_v());
     }
 
     /**
