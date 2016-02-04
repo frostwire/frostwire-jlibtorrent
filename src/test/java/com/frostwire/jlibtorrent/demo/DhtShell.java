@@ -26,7 +26,6 @@ public final class DhtShell {
             @Override
             public void alert(Alert<?> alert) {
                 AlertType type = alert.getType();
-                log(alert.getMessage());
 
                 if (type == AlertType.LISTEN_SUCCEEDED) {
                     ListenSucceededAlert a = (ListenSucceededAlert) alert;
@@ -68,6 +67,8 @@ public final class DhtShell {
                 quit(s);
             } else if (is_put(line)) {
                 put(dht, line);
+            } else if (is_get(line)) {
+                get(dht, line);
             } else if (is_invalid(line)) {
                 invalid(line);
             }
@@ -116,6 +117,17 @@ public final class DhtShell {
         String data = s.split(" ")[1];
         String key = dht.put(new Entry(data));
         print("Wait for completion of put for key: " + key);
+    }
+
+    private static boolean is_get(String s) {
+        return s.startsWith("get ");
+    }
+
+    private static void get(DHT dht, String s) {
+        String sha1 = s.split(" ")[1];
+        Entry data = dht.get(sha1, 20000);
+        print("Waiting a max of 20 seconds to get data for key: " + sha1);
+        print(data.toString());
     }
 
     private static boolean is_invalid(String s) {
