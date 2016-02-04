@@ -84,8 +84,8 @@ public final class Session extends SessionHandle {
         this(new SettingsPack(), false, null);
     }
 
-    public Session(String iface, int port, int retries) {
-        this(addSettings(new SettingsPack(), iface, port, retries), false, null);
+    public Session(String iface, int port, int retries, boolean logging, AlertListener listener) {
+        this(addSettings(new SettingsPack(), iface, port, retries), logging, listener);
     }
 
     public session getSwig() {
