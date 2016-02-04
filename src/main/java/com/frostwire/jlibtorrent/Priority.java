@@ -54,7 +54,7 @@ public enum Priority {
      */
     UNKNOWN(-1);
 
-    private Priority(int swigValue) {
+    Priority(int swigValue) {
         this.swigValue = swigValue;
     }
 

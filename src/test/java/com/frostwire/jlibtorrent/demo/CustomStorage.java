@@ -132,7 +132,7 @@ public final class CustomStorage {
         }
 
         if (priorities != null) {
-            p.setFile_priorities(Vectors.priorities2unsigned_char_vector(priorities));
+            //p.set_file_priorities(Vectors.priorities2unsigned_char_vector(priorities));
         }
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 

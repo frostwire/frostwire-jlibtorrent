@@ -909,7 +909,11 @@ public final class Session extends SessionHandle {
         }
 
         if (priorities != null) {
-            p.setFile_priorities(Vectors.priorities2unsigned_char_vector(priorities));
+            byte_vector v = new byte_vector();
+            for (int i = 0; i < priorities.length; i++) {
+                v.add((byte) priorities[i].getSwig());
+            }
+            p.set_file_priorities(v);
         }
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 

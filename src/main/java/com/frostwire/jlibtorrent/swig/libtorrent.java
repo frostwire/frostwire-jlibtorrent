@@ -237,6 +237,14 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.dht_sign_mutable_item(byte_vector.getCPtr(v), v, salt, seq, byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk, byte_vector.getCPtr(sig), sig);
   }
 
+  public static boolean default_storage_disk_write_access_log() {
+    return libtorrent_jni.default_storage_disk_write_access_log__SWIG_0();
+  }
+
+  public static void default_storage_disk_write_access_log(boolean enable) {
+    libtorrent_jni.default_storage_disk_write_access_log__SWIG_1(enable);
+  }
+
   public static boolean add_files_cb(String p, add_files_listener listener) {
     return libtorrent_jni.add_files_cb(p, add_files_listener.getCPtr(listener), listener);
   }

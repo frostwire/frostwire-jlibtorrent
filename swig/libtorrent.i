@@ -343,6 +343,7 @@ namespace std {
 %ignore libtorrent::add_torrent_params::flags;
 %ignore libtorrent::add_torrent_params::ti;
 %ignore libtorrent::add_torrent_params::resume_data;
+%ignore libtorrent::add_torrent_params::file_priorities;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert_manager::set_dispatch_function;
 %ignore libtorrent::session::session(settings_pack const&, io_service&, int);
@@ -479,12 +480,9 @@ namespace std {
 %ignore libtorrent::peer_log_alert::peer_log_alert;
 %ignore libtorrent::incoming_request_alert::incoming_request_alert;
 %ignore libtorrent::dht_log_alert::dht_log_alert;
-%ignore libtorrent::default_storage::readv;
-%ignore libtorrent::default_storage::writev;
-%ignore libtorrent::disabled_storage::readv;
-%ignore libtorrent::disabled_storage::writev;
-%ignore libtorrent::zero_storage::readv;
-%ignore libtorrent::zero_storage::writev;
+%ignore libtorrent::default_storage;
+%ignore libtorrent::disabled_storage;
+%ignore libtorrent::zero_storage;
 %ignore libtorrent::file_status;
 %ignore libtorrent::stat_file;
 %ignore libtorrent::fileop;
@@ -928,6 +926,10 @@ namespace libtorrent {
 
     void set_resume_data(std::vector<int8_t> data) {
         $self->resume_data = std::vector<char>(data.begin(), data.end());
+    }
+
+    void set_file_priorities(std::vector<int8_t> priorities) {
+        $self->file_priorities = std::vector<boost::uint8_t>(priorities.begin(), priorities.end());
     }
 
     static add_torrent_params create_instance() {

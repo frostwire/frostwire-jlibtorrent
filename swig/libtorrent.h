@@ -153,6 +153,14 @@ void dht_sign_mutable_item(std::vector<int8_t>& v, const std::string& salt, long
                         (char *)sig.data());
 }
 
+bool default_storage_disk_write_access_log() {
+    return default_storage::disk_write_access_log();
+}
+
+void default_storage_disk_write_access_log(bool enable) {
+    return default_storage::disk_write_access_log(enable);
+}
+
 class add_files_listener {
 public:
     virtual ~add_files_listener() {

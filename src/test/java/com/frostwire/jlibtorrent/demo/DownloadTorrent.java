@@ -6,7 +6,6 @@ import com.frostwire.jlibtorrent.TorrentAlertAdapter;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
-import com.frostwire.jlibtorrent.swig.default_storage;
 import com.frostwire.jlibtorrent.swig.libtorrent;
 
 import java.io.File;
@@ -55,7 +54,7 @@ public final class DownloadTorrent {
 
         signal.await();
 
-        //default_storage.disk_write_access_log(false);
+        libtorrent.default_storage_disk_write_access_log(false);
         //libtorrent.set_utp_stream_logging(false);
     }
 }
