@@ -119,7 +119,6 @@ public final class DhtShell {
 
     private static void quit(Session s) {
         print("Exiting...");
-        s.saveState();
         byte[] data = s.saveState();
         try {
             Utils.writeByteArrayToFile(new File("dht_shell.dat"), data, false);
