@@ -3,8 +3,13 @@
 export DEVELOPMENT_ROOT=~/Development
 export TOOLCHAINS_ROOT=$DEVELOPMENT_ROOT/toolchains
 
-export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_60_0
-export LIBTORRENT_ROOT=$DEVELOPMENT_ROOT/libtorrent
+if [ -z ${BOOST_ROOT+x} ]; then
+    export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_60_0
+fi
+
+if [ -z ${LIBTORRENT_ROOT+x} ]; then
+    export LIBTORRENT_ROOT=$DEVELOPMENT_ROOT/libtorrent
+fi
 
 export OSXCROSS_NO_INCLUDE_PATH_WARNINGS=1
 
@@ -12,6 +17,16 @@ function buildMacOSX()
 {
     $BOOST_ROOT/b2 --user-config=config/macosx-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64
     $TOOLCHAINS_ROOT/macosx-x86_64/bin/x86_64-apple-darwin15-strip -S -x bin/macosx/x86_64/libjlibtorrent.dylib
+}
+
+function buildMacOSXNative() {
+    $BOOST_ROOT/b2 --user-config=config/macosx-native-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64
+    TARGET=bin/macosx/x86_64/libjlibtorrent.dylib
+    strip -S -x $TARGET
+    cp $TARGET ../
+
+    node-gyp configure build
+    cp build/Release/jlibtorrent.node ../node
 }
 
 function buildAndroidArm()
@@ -69,7 +84,8 @@ function usage() {
   echo ""
   echo "--h,-h           Shows this help."
   echo ""
-  echo "--osx            Build MacOSX x86_64 library only."
+  echo "--osx            Build MacOSX x86_64 library only. (must be used on Linux)"
+  echo "--osx-native     Build MaxOSX x86_64 library only. (must be used on Mac)"
   echo ""
   echo "--android        Build Android library for arm32, arm64, x86, x86_64."
   echo "--androidarm     Build Android library for arm32, arm64 only."
@@ -105,6 +121,9 @@ if [ "$1" == "--help" -o "$1" == "-h" ]; then
   exit 1;
 elif [ "$1" == "--osx" ]; then
   buildMacOSX
+  exit 1;
+elif [ "$1" == "--osx-native" ]; then
+  buildMacOSXNative
   exit 1;
 elif [ "$1" == "--android" ]; then
   buildAndroidArm
