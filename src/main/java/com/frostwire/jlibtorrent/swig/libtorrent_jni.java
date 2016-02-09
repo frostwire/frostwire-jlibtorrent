@@ -1655,6 +1655,8 @@ public class libtorrent_jni {
   public final static native int listen_failed_alert_port_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void listen_failed_alert_sock_type_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
   public final static native int listen_failed_alert_sock_type_get(long jarg1, listen_failed_alert jarg1_);
+  public final static native void listen_failed_alert_endpoint_set(long jarg1, listen_failed_alert jarg1_, long jarg2, tcp_endpoint jarg2_);
+  public final static native long listen_failed_alert_endpoint_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void delete_listen_failed_alert(long jarg1);
   public final static native int listen_succeeded_alert_priority_get();
   public final static native int listen_succeeded_alert_alert_type_get();
@@ -2089,12 +2091,12 @@ public class libtorrent_jni {
   public final static native int dht_pkt_alert_category(long jarg1, dht_pkt_alert jarg1_);
   public final static native String dht_pkt_alert_what(long jarg1, dht_pkt_alert jarg1_);
   public final static native String dht_pkt_alert_message(long jarg1, dht_pkt_alert jarg1_);
-  public final static native String dht_pkt_alert_pkt_buf(long jarg1, dht_pkt_alert jarg1_);
   public final static native int dht_pkt_alert_pkt_size(long jarg1, dht_pkt_alert jarg1_);
   public final static native void dht_pkt_alert_dir_set(long jarg1, dht_pkt_alert jarg1_, int jarg2);
   public final static native int dht_pkt_alert_dir_get(long jarg1, dht_pkt_alert jarg1_);
   public final static native void dht_pkt_alert_node_set(long jarg1, dht_pkt_alert jarg1_, long jarg2, udp_endpoint jarg2_);
   public final static native long dht_pkt_alert_node_get(long jarg1, dht_pkt_alert jarg1_);
+  public final static native long dht_pkt_alert_pkt_buf_v(long jarg1, dht_pkt_alert jarg1_);
   public final static native void delete_dht_pkt_alert(long jarg1);
   public final static native int dht_get_peers_reply_alert_static_category_get();
   public final static native int dht_get_peers_reply_alert_priority_get();

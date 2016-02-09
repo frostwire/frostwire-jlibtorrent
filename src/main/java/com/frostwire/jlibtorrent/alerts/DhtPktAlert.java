@@ -1,9 +1,14 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.UdpEndpoint;
+import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.dht_pkt_alert;
 
 /**
+ * This alert is posted every time a DHT message is sent or received. It is
+ * only posted if the ``alert::dht_log_notification`` alert category is
+ * enabled. It contains a verbatim copy of the message.
+ *
  * @author gubatron
  * @author aldenml
  */
@@ -14,7 +19,7 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
     }
 
     /**
-     * Returns a pointer to the packet buffer and size of the packet,
+     * Returns a copy of the packet buffer and size of the packet,
      * respectively. This buffer is only valid for as long as the alert itself
      * is valid, which is owned by libtorrent and reclaimed whenever
      * pop_alerts() is called on the session.
@@ -22,7 +27,7 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      * @return
      */
     public byte[] pktBuf() {
-        throw new UnsupportedOperationException("Pending implementation.");
+        return Vectors.byte_vector2bytes(alert.pkt_buf_v());
     }
 
     /**

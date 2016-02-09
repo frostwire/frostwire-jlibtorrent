@@ -51,10 +51,6 @@ public class dht_pkt_alert extends alert {
     return libtorrent_jni.dht_pkt_alert_message(swigCPtr, this);
   }
 
-  public String pkt_buf() {
-    return libtorrent_jni.dht_pkt_alert_pkt_buf(swigCPtr, this);
-  }
-
   public int pkt_size() {
     return libtorrent_jni.dht_pkt_alert_pkt_size(swigCPtr, this);
   }
@@ -74,6 +70,10 @@ public class dht_pkt_alert extends alert {
   public udp_endpoint getNode() {
     long cPtr = libtorrent_jni.dht_pkt_alert_node_get(swigCPtr, this);
     return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
+  }
+
+  public byte_vector pkt_buf_v() {
+    return new byte_vector(libtorrent_jni.dht_pkt_alert_pkt_buf_v(swigCPtr, this), true);
   }
 
   public final static class direction_t {

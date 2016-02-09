@@ -1,17 +1,18 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
+import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.listen_failed_alert;
 
 /**
  * This alert is generated when none of the ports, given in the port range, to
- * session can be opened for listening. The {@link #listenInterface()} member is the
+ * session can be opened for listening. The {@link #endpoint()} member is the
  * interface and port that failed, {@link #getError()} is the error code describing
  * the failure.
  * <p/>
  * libtorrent may sometimes try to listen on port 0, if all other ports failed.
  * Port 0 asks the operating system to pick a port that's free). If that fails
- * you may see a {@link com.frostwire.jlibtorrent.alerts.ListenFailedAlert} with port 0 even if you didn't ask to
+ * you may see a {@link ListenFailedAlert} with port 0 even if you didn't ask to
  * listen on it.
  *
  * @author gubatron
@@ -68,6 +69,15 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      */
     public SocketType getSocketType() {
         return SocketType.fromSwig(alert.getSock_type().swigValue());
+    }
+
+    /**
+     * The address and port libtorrent attempted to listen on.
+     *
+     * @return
+     */
+    public TcpEndpoint endpoint() {
+        return new TcpEndpoint(alert.getEndpoint());
     }
 
     public enum SocketType {
