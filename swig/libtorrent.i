@@ -75,6 +75,8 @@
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/ed25519.hpp"
 
+#include "libtorrent/kademlia/dht_storage.hpp"
+
 #include "libtorrent/extensions/ut_pex.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
 #include "libtorrent/extensions/lt_trackers.hpp"
@@ -492,6 +494,8 @@ namespace std {
 %ignore libtorrent::bitfield::begin;
 %ignore libtorrent::bitfield::end;
 
+%ignore libtorrent::dht::dht_storage_interface::get_mutable_item_seq;
+
 %ignore boost::throws;
 %ignore boost::detail::throws;
 %ignore boost::asio::ip::address_v4::to_bytes;
@@ -599,6 +603,8 @@ namespace std {
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
 %include "libtorrent/ed25519.hpp"
+
+%include "libtorrent/kademlia/dht_storage.hpp"
 
 namespace boost {
 
