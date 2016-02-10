@@ -308,7 +308,7 @@ public final class Session extends SessionHandle {
     }
 
     /**
-     * Applies the settings specified by the settings_pack ``sp``. This is an
+     * Applies the settings specified by the settings pack {@code sp}. This is an
      * asynchronous operation that will return immediately and actually apply
      * the settings to the main thread of libtorrent some time later.
      *
@@ -319,7 +319,7 @@ public final class Session extends SessionHandle {
     }
 
     /**
-     * In case you want to destruct the session asynchrounously, you can
+     * In case you want to destruct the session asynchronously, you can
      * request a session destruction proxy. If you don't do this, the
      * destructor of the session object will block while the trackers are
      * contacted. If you keep one ``session_proxy`` to the session when

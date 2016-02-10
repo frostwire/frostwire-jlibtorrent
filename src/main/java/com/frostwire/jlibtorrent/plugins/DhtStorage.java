@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent.plugins;
 
 import com.frostwire.jlibtorrent.Address;
-import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.entry;

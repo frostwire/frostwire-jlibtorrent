@@ -22,10 +22,10 @@ public final class SettingsPack {
     /**
      * Example, how to turn on the DHT using SettingsPack.
      * <pre>{@code
-    SettingsPack pack = new SettingsPack();
-    pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), on);
-    s.applySettings(pack);
-    }</pre>
+     * SettingsPack pack = new SettingsPack();
+     * pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), on);
+     * s.applySettings(pack);
+     * }</pre>
      */
     public SettingsPack() {
         this(new settings_pack());
@@ -357,5 +357,22 @@ public final class SettingsPack {
 
     public void broadcastLSD(boolean value) {
         sp.set_bool(settings_pack.bool_types.broadcast_lsd.swigValue(), value);
+    }
+
+    /**
+     * @return
+     */
+    public boolean enableDht() {
+        return sp.get_bool(settings_pack.bool_types.enable_dht.swigValue());
+    }
+
+    /**
+     * Starts the dht node and makes the trackerless service available to
+     * torrents.
+     *
+     * @param value
+     */
+    public void enableDht(boolean value) {
+        sp.set_bool(settings_pack.bool_types.enable_dht.swigValue(), value);
     }
 }
