@@ -97,6 +97,32 @@ protected:
     Swig::BoolArray<1> swig_override;
 };
 
+struct SwigDirector_swig_dht_storage : public swig_dht_storage, public Swig::Director {
+
+public:
+    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
+    SwigDirector_swig_dht_storage(JNIEnv *jenv);
+    virtual bool get_peers(libtorrent::sha1_hash const &info_hash, bool noseed, bool scrape, libtorrent::entry &peers) const;
+    virtual void announce_peer(libtorrent::sha1_hash const &info_hash, tcp::endpoint const &endp, std::string const &name, bool seed);
+    virtual bool get_immutable_item(libtorrent::sha1_hash const &target, libtorrent::entry &item) const;
+    virtual void put_immutable_item(libtorrent::sha1_hash const &target, char const *buf, int size, libtorrent::address const &addr);
+    virtual boost::int64_t get_mutable_item_seq_num(libtorrent::sha1_hash const &target) const;
+    virtual bool get_mutable_item(libtorrent::sha1_hash const &target, boost::int64_t seq, bool force_fill, libtorrent::entry &item) const;
+    virtual void put_mutable_item(libtorrent::sha1_hash const &target, char const *buf, int size, char const *sig, boost::int64_t seq, char const *pk, char const *salt, int salt_size, libtorrent::address const &addr);
+    virtual void tick();
+    virtual size_t num_torrents() const;
+    virtual size_t num_peers() const;
+    virtual size_t num_immutable_data() const;
+    virtual size_t num_mutable_data() const;
+    virtual ~SwigDirector_swig_dht_storage();
+public:
+    bool swig_overrides(int n) {
+      return (n < 12 ? swig_override[n] : false);
+    }
+protected:
+    Swig::BoolArray<12> swig_override;
+};
+
 struct SwigDirector_swig_plugin : public swig_plugin, public Swig::Director {
 
 public:

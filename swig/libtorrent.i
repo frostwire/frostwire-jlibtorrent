@@ -1039,6 +1039,13 @@ void set_utp_stream_logging(bool enable);
 
 %typemap("javapackage") SwigStorage, SwigStorage *, SwigStorage & "com.frostwire.jlibtorrent.plugins";
 
+// DHT storage
+%ignore swig_dht_storage::get_mutable_item_seq;
+%ignore swig_dht_storage::counters;
+
+%feature("director") swig_dht_storage;
+
+// libtorrent plugins
 %feature("director") swig_plugin;
 %feature("director") swig_torrent_plugin;
 %feature("director") swig_peer_plugin;

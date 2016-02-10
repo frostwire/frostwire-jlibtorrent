@@ -318,6 +318,89 @@ storage_interface* swig_storage_constructor_cb(libtorrent::storage_params const&
 	return sc->create(params);
 }
 
+//------ DHT storage extension -----------------------------
+
+struct swig_dht_storage : dht::dht_storage_interface
+{
+	virtual bool get_peers(libtorrent::sha1_hash const& info_hash
+		, bool noseed, bool scrape
+		, libtorrent::entry& peers) const {
+		return false;
+	}
+
+	virtual void announce_peer(libtorrent::sha1_hash const& info_hash
+		, tcp::endpoint const& endp
+		, std::string const& name, bool seed) {
+	}
+
+	virtual bool get_immutable_item(libtorrent::sha1_hash const& target
+		, libtorrent::entry& item) const {
+		return false;
+	}
+
+	virtual void put_immutable_item(libtorrent::sha1_hash const& target
+		, char const* buf, int size
+		, libtorrent::address const& addr) {
+	}
+
+	bool get_mutable_item_seq(libtorrent::sha1_hash const& target
+		, boost::int64_t& seq) const {
+		seq = get_mutable_item_seq_num(target);
+		return seq >= 0;
+	}
+
+	virtual boost::int64_t get_mutable_item_seq_num(libtorrent::sha1_hash const& target) const {
+    	return -1;
+    }
+
+	virtual bool get_mutable_item(libtorrent::sha1_hash const& target
+		, boost::int64_t seq, bool force_fill
+		, libtorrent::entry& item) const {
+		return false;
+	}
+
+	virtual void put_mutable_item(libtorrent::sha1_hash const& target
+		, char const* buf, int size
+		, char const* sig
+		, boost::int64_t seq
+		, char const* pk
+		, char const* salt, int salt_size
+		, libtorrent::address const& addr) {
+	}
+
+	virtual void tick() {
+	}
+
+	dht::dht_storage_counters counters() const {
+	    dht::dht_storage_counters c;
+	    c.torrents = num_torrents();
+	    c.peers = num_peers();
+	    c.immutable_data = num_immutable_data();
+	    c.mutable_data = num_mutable_data();
+	    return c;
+	}
+
+	virtual size_t num_torrents() const {
+	    return 0;
+	}
+
+    virtual size_t num_peers() const {
+        return 0;
+    }
+
+    virtual size_t num_immutable_data() const {
+        return 0;
+    }
+
+    virtual size_t num_mutable_data() const {
+        return 0;
+    }
+
+	virtual ~swig_dht_storage() {}
+};
+
+//------------------------------------------------------
+
 void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
     std::string const& salt, char const* public_key, char const* private_key,
     entry& data)
