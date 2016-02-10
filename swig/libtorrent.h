@@ -338,10 +338,17 @@ struct swig_dht_storage : dht::dht_storage_interface
 		return false;
 	}
 
-	virtual void put_immutable_item(libtorrent::sha1_hash const& target
+	void put_immutable_item(libtorrent::sha1_hash const& target
 		, char const* buf, int size
 		, libtorrent::address const& addr) {
+		std::vector<int8_t> buf_v(buf, buf + size);
+		put_immutable_item(target, buf_v, addr);
 	}
+
+	virtual void put_immutable_item(libtorrent::sha1_hash const& target
+    	, std::vector<int8_t> const& buf
+    	, libtorrent::address const& addr) {
+    }
 
 	bool get_mutable_item_seq(libtorrent::sha1_hash const& target
 		, boost::int64_t& seq) const {
@@ -359,14 +366,28 @@ struct swig_dht_storage : dht::dht_storage_interface
 		return false;
 	}
 
-	virtual void put_mutable_item(libtorrent::sha1_hash const& target
+	void put_mutable_item(libtorrent::sha1_hash const& target
 		, char const* buf, int size
 		, char const* sig
 		, boost::int64_t seq
 		, char const* pk
 		, char const* salt, int salt_size
 		, libtorrent::address const& addr) {
+		std::vector<int8_t> buf_v(buf, buf + size);
+		std::vector<int8_t> sig_v(sig, sig + 64);
+		std::vector<int8_t> pk_v(pk, pk + 32);
+		std::vector<int8_t> salt_v(salt, salt + salt_size);
+		put_mutable_item(target, buf_v, sig_v, seq, pk_v, salt_v, addr);
 	}
+
+	virtual void put_mutable_item(libtorrent::sha1_hash const& target
+    	, std::vector<int8_t> const& buf
+    	, std::vector<int8_t> const& sig
+    	, boost::int64_t seq
+    	, std::vector<int8_t> const& pk
+    	, std::vector<int8_t> const& salt
+    	, libtorrent::address const& addr) {
+    }
 
 	virtual void tick() {
 	}

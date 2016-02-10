@@ -62,8 +62,8 @@ public class swig_dht_storage {
     return (getClass() == swig_dht_storage.class) ? libtorrent_jni.swig_dht_storage_get_immutable_item(swigCPtr, this, sha1_hash.getCPtr(target), target, entry.getCPtr(item), item) : libtorrent_jni.swig_dht_storage_get_immutable_itemSwigExplicitswig_dht_storage(swigCPtr, this, sha1_hash.getCPtr(target), target, entry.getCPtr(item), item);
   }
 
-  public void put_immutable_item(sha1_hash target, String buf, int size, address addr) {
-    if (getClass() == swig_dht_storage.class) libtorrent_jni.swig_dht_storage_put_immutable_item(swigCPtr, this, sha1_hash.getCPtr(target), target, buf, size, address.getCPtr(addr), addr); else libtorrent_jni.swig_dht_storage_put_immutable_itemSwigExplicitswig_dht_storage(swigCPtr, this, sha1_hash.getCPtr(target), target, buf, size, address.getCPtr(addr), addr);
+  public void put_immutable_item(sha1_hash target, byte_vector buf, address addr) {
+    if (getClass() == swig_dht_storage.class) libtorrent_jni.swig_dht_storage_put_immutable_item(swigCPtr, this, sha1_hash.getCPtr(target), target, byte_vector.getCPtr(buf), buf, address.getCPtr(addr), addr); else libtorrent_jni.swig_dht_storage_put_immutable_itemSwigExplicitswig_dht_storage(swigCPtr, this, sha1_hash.getCPtr(target), target, byte_vector.getCPtr(buf), buf, address.getCPtr(addr), addr);
   }
 
   public long get_mutable_item_seq_num(sha1_hash target) {
@@ -74,8 +74,8 @@ public class swig_dht_storage {
     return (getClass() == swig_dht_storage.class) ? libtorrent_jni.swig_dht_storage_get_mutable_item(swigCPtr, this, sha1_hash.getCPtr(target), target, seq, force_fill, entry.getCPtr(item), item) : libtorrent_jni.swig_dht_storage_get_mutable_itemSwigExplicitswig_dht_storage(swigCPtr, this, sha1_hash.getCPtr(target), target, seq, force_fill, entry.getCPtr(item), item);
   }
 
-  public void put_mutable_item(sha1_hash target, String buf, int size, String sig, long seq, String pk, String salt, int salt_size, address addr) {
-    if (getClass() == swig_dht_storage.class) libtorrent_jni.swig_dht_storage_put_mutable_item(swigCPtr, this, sha1_hash.getCPtr(target), target, buf, size, sig, seq, pk, salt, salt_size, address.getCPtr(addr), addr); else libtorrent_jni.swig_dht_storage_put_mutable_itemSwigExplicitswig_dht_storage(swigCPtr, this, sha1_hash.getCPtr(target), target, buf, size, sig, seq, pk, salt, salt_size, address.getCPtr(addr), addr);
+  public void put_mutable_item(sha1_hash target, byte_vector buf, byte_vector sig, long seq, byte_vector pk, byte_vector salt, address addr) {
+    if (getClass() == swig_dht_storage.class) libtorrent_jni.swig_dht_storage_put_mutable_item(swigCPtr, this, sha1_hash.getCPtr(target), target, byte_vector.getCPtr(buf), buf, byte_vector.getCPtr(sig), sig, seq, byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(salt), salt, address.getCPtr(addr), addr); else libtorrent_jni.swig_dht_storage_put_mutable_itemSwigExplicitswig_dht_storage(swigCPtr, this, sha1_hash.getCPtr(target), target, byte_vector.getCPtr(buf), buf, byte_vector.getCPtr(sig), sig, seq, byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(salt), salt, address.getCPtr(addr), addr);
   }
 
   public void tick() {

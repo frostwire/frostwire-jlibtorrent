@@ -3066,14 +3066,14 @@ public class libtorrent_jni {
   public final static native void swig_dht_storage_announce_peerSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, tcp_endpoint jarg3_, String jarg4, boolean jarg5);
   public final static native boolean swig_dht_storage_get_immutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, entry jarg3_);
   public final static native boolean swig_dht_storage_get_immutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, entry jarg3_);
-  public final static native void swig_dht_storage_put_immutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, String jarg3, int jarg4, long jarg5, address jarg5_);
-  public final static native void swig_dht_storage_put_immutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, String jarg3, int jarg4, long jarg5, address jarg5_);
+  public final static native void swig_dht_storage_put_immutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, address jarg4_);
+  public final static native void swig_dht_storage_put_immutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, address jarg4_);
   public final static native long swig_dht_storage_get_mutable_item_seq_num(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long swig_dht_storage_get_mutable_item_seq_numSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean swig_dht_storage_get_mutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, boolean jarg4, long jarg5, entry jarg5_);
   public final static native boolean swig_dht_storage_get_mutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, boolean jarg4, long jarg5, entry jarg5_);
-  public final static native void swig_dht_storage_put_mutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, String jarg3, int jarg4, String jarg5, long jarg6, String jarg7, String jarg8, int jarg9, long jarg10, address jarg10_);
-  public final static native void swig_dht_storage_put_mutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, String jarg3, int jarg4, String jarg5, long jarg6, String jarg7, String jarg8, int jarg9, long jarg10, address jarg10_);
+  public final static native void swig_dht_storage_put_mutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_, long jarg5, long jarg6, byte_vector jarg6_, long jarg7, byte_vector jarg7_, long jarg8, address jarg8_);
+  public final static native void swig_dht_storage_put_mutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_, long jarg5, long jarg6, byte_vector jarg6_, long jarg7, byte_vector jarg7_, long jarg8, address jarg8_);
   public final static native void swig_dht_storage_tick(long jarg1, swig_dht_storage jarg1_);
   public final static native void swig_dht_storage_tickSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_);
   public final static native long swig_dht_storage_num_torrents(long jarg1, swig_dht_storage jarg1_);
@@ -3368,8 +3368,8 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_dht_storage_get_immutable_item(swig_dht_storage jself, long target, long item) {
     return jself.get_immutable_item(new sha1_hash(target, false), new entry(item, false));
   }
-  public static void SwigDirector_swig_dht_storage_put_immutable_item(swig_dht_storage jself, long target, String buf, int size, long addr) {
-    jself.put_immutable_item(new sha1_hash(target, false), buf, size, new address(addr, false));
+  public static void SwigDirector_swig_dht_storage_put_immutable_item(swig_dht_storage jself, long target, long buf, long addr) {
+    jself.put_immutable_item(new sha1_hash(target, false), new byte_vector(buf, false), new address(addr, false));
   }
   public static long SwigDirector_swig_dht_storage_get_mutable_item_seq_num(swig_dht_storage jself, long target) {
     return jself.get_mutable_item_seq_num(new sha1_hash(target, false));
@@ -3377,8 +3377,8 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_dht_storage_get_mutable_item(swig_dht_storage jself, long target, long seq, boolean force_fill, long item) {
     return jself.get_mutable_item(new sha1_hash(target, false), seq, force_fill, new entry(item, false));
   }
-  public static void SwigDirector_swig_dht_storage_put_mutable_item(swig_dht_storage jself, long target, String buf, int size, String sig, long seq, String pk, String salt, int salt_size, long addr) {
-    jself.put_mutable_item(new sha1_hash(target, false), buf, size, sig, seq, pk, salt, salt_size, new address(addr, false));
+  public static void SwigDirector_swig_dht_storage_put_mutable_item(swig_dht_storage jself, long target, long buf, long sig, long seq, long pk, long salt, long addr) {
+    jself.put_mutable_item(new sha1_hash(target, false), new byte_vector(buf, false), new byte_vector(sig, false), seq, new byte_vector(pk, false), new byte_vector(salt, false), new address(addr, false));
   }
   public static void SwigDirector_swig_dht_storage_tick(swig_dht_storage jself) {
     jself.tick();
