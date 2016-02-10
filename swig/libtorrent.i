@@ -55,7 +55,6 @@
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
-#include "libtorrent/aux_/session_settings.hpp"
 #include "libtorrent/settings_pack.hpp"
 #include "libtorrent/peer_class.hpp"
 #include "libtorrent/peer_class_type_filter.hpp"
@@ -460,6 +459,7 @@ namespace std {
 %ignore libtorrent::copy_bufs;
 %ignore libtorrent::apply_pack;
 %ignore libtorrent::load_pack_from_dict;
+%ignore libtorrent::save_settings_to_dict;
 %ignore libtorrent::error_code;
 
 %ignore libtorrent::detail::nop;
@@ -580,7 +580,6 @@ namespace std {
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
-%include "libtorrent/aux_/session_settings.hpp"
 %include "libtorrent/settings_pack.hpp"
 %include "libtorrent/peer_class.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"

@@ -2332,16 +2332,6 @@ public class libtorrent_jni {
   public final static native void dht_settings_item_lifetime_set(long jarg1, dht_settings jarg1_, int jarg2);
   public final static native int dht_settings_item_lifetime_get(long jarg1, dht_settings jarg1_);
   public final static native void delete_dht_settings(long jarg1);
-  public final static native void initialize_default_settings(long jarg1, session_settings jarg1_);
-  public final static native void session_settings_set_str(long jarg1, session_settings jarg1_, int jarg2, String jarg3);
-  public final static native String session_settings_get_str(long jarg1, session_settings jarg1_, int jarg2);
-  public final static native void session_settings_set_int(long jarg1, session_settings jarg1_, int jarg2, int jarg3);
-  public final static native int session_settings_get_int(long jarg1, session_settings jarg1_, int jarg2);
-  public final static native void session_settings_set_bool(long jarg1, session_settings jarg1_, int jarg2, boolean jarg3);
-  public final static native boolean session_settings_get_bool(long jarg1, session_settings jarg1_, int jarg2);
-  public final static native long new_session_settings();
-  public final static native void delete_session_settings(long jarg1);
-  public final static native void save_settings_to_dict(long jarg1, session_settings jarg1_, long jarg2, string_entry_map jarg2_);
   public final static native int setting_by_name(String jarg1);
   public final static native String name_for_setting(int jarg1);
   public final static native void settings_pack_set_str(long jarg1, settings_pack jarg1_, int jarg2, String jarg3);

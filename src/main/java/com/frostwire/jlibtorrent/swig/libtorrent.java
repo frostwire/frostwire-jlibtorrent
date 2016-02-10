@@ -101,14 +101,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.user_alert_id_get();
   }
 
-  public static void initialize_default_settings(session_settings s) {
-    libtorrent_jni.initialize_default_settings(session_settings.getCPtr(s), s);
-  }
-
-  public static void save_settings_to_dict(session_settings s, string_entry_map sett) {
-    libtorrent_jni.save_settings_to_dict(session_settings.getCPtr(s), s, string_entry_map.getCPtr(sett), sett);
-  }
-
   public static int setting_by_name(String name) {
     return libtorrent_jni.setting_by_name(name);
   }
