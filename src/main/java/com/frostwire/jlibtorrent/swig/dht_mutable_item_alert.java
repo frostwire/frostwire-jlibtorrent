@@ -59,14 +59,6 @@ public class dht_mutable_item_alert extends alert {
     return libtorrent_jni.dht_mutable_item_alert_seq_get(swigCPtr, this);
   }
 
-  public void setSalt(String value) {
-    libtorrent_jni.dht_mutable_item_alert_salt_set(swigCPtr, this, value);
-  }
-
-  public String getSalt() {
-    return libtorrent_jni.dht_mutable_item_alert_salt_get(swigCPtr, this);
-  }
-
   public void setItem(entry value) {
     libtorrent_jni.dht_mutable_item_alert_item_set(swigCPtr, this, entry.getCPtr(value), value);
   }
@@ -90,6 +82,10 @@ public class dht_mutable_item_alert extends alert {
 
   public byte_vector signature_v() {
     return new byte_vector(libtorrent_jni.dht_mutable_item_alert_signature_v(swigCPtr, this), true);
+  }
+
+  public byte_vector salt_v() {
+    return new byte_vector(libtorrent_jni.dht_mutable_item_alert_salt_v(swigCPtr, this), true);
   }
 
   public final static int priority = libtorrent_jni.dht_mutable_item_alert_priority_get();

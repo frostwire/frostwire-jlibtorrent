@@ -131,11 +131,7 @@ public final class DHT {
         s.dhtAnnounce(sha1);
     }
 
-    public MutableItem mget(byte[] key, long timeout) {
-        return mget(key, "", timeout);
-    }
-
-    public MutableItem mget(final byte[] key, final String salt, long timeout) {
+    public MutableItem mget(final byte[] key, final byte[] salt, long timeout) {
         final MutableItem[] result = {null};
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -151,7 +147,7 @@ public final class DHT {
                 if (alert instanceof DhtMutableItemAlert) {
                     DhtMutableItemAlert itemAlert = (DhtMutableItemAlert) alert;
                     boolean sameKey = Arrays.equals(key, itemAlert.getKey());
-                    boolean sameSalt = salt.equals(itemAlert.getSalt());
+                    boolean sameSalt = Arrays.equals(salt, itemAlert.getSalt());
                     if (sameKey && sameSalt) {
                         MutableItem item = new MutableItem(itemAlert.getItem(),
                                 itemAlert.getSignature(), itemAlert.getSeq());
@@ -177,11 +173,7 @@ public final class DHT {
         return result[0];
     }
 
-    public void mput(byte[] publicKey, byte[] privateKey, Entry entry) {
-        s.dhtPutItem(publicKey, privateKey, entry);
-    }
-
-    public void mput(byte[] publicKey, byte[] privateKey, Entry entry, String salt) {
+    public void mput(byte[] publicKey, byte[] privateKey, Entry entry, byte[] salt) {
         s.dhtPutItem(publicKey, privateKey, entry, salt);
     }
 

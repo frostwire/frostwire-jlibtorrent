@@ -192,7 +192,7 @@ public final class DhtShell {
         byte[] publicKey = Utils.fromHex(arr[1]);
         byte[] privateKey = Utils.fromHex(arr[2]);
         String data = arr[3];
-        dht.mput(publicKey, privateKey, new Entry(data));
+        dht.mput(publicKey, privateKey, new Entry(data), new byte[0]);
         print("Wait for completion of mput for public key: " + arr[1]);
     }
 
@@ -204,7 +204,7 @@ public final class DhtShell {
         String[] arr = s.split(" ");
         byte[] publicKey = Utils.fromHex(arr[1]);
         print("Waiting a max of 20 seconds to get mutable data for public key: " + arr[1]);
-        DHT.MutableItem data = dht.mget(publicKey, 20000);
+        DHT.MutableItem data = dht.mget(publicKey, new byte[0], 20000);
         print(data.item.toString());
     }
 

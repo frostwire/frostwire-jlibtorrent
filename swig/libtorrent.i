@@ -414,6 +414,7 @@ namespace std {
 %ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
 %ignore libtorrent::dht_mutable_item_alert::key;
 %ignore libtorrent::dht_mutable_item_alert::signature;
+%ignore libtorrent::dht_mutable_item_alert::salt;
 %ignore libtorrent::dht_put_alert::dht_put_alert;
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
@@ -841,20 +842,20 @@ namespace libtorrent {
 
 %extend session_handle {
 
-    void dht_get_item(std::vector<int8_t>& key_v, std::string salt = std::string()) {
-        if (key_v.size() != 32) {
+    void dht_get_item(std::vector<int8_t>& public_key, std::vector<int8_t>& salt) {
+        if (public_key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
         }
         boost::array<char, 32> key;
 
         for (int i = 0; i < 32; i++) {
-            key[i] = key_v[i];
+            key[i] = public_key[i];
         }
 
-        $self->dht_get_item(key, salt);
+        $self->dht_get_item(key, std::string(salt.begin(), salt.end()));
     }
 
-    void dht_put_item(std::vector<int8_t>& public_key, std::vector<int8_t>& private_key, entry& data, std::string salt = std::string()) {
+    void dht_put_item(std::vector<int8_t>& public_key, std::vector<int8_t>& private_key, entry& data, std::vector<int8_t>& salt) {
         if (public_key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
         }
@@ -868,7 +869,8 @@ namespace libtorrent {
     	}
 
         $self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
-            (const char *)public_key.data(), (const char *)private_key.data(), data), salt);
+            (const char *)public_key.data(), (const char *)private_key.data(), data),
+             std::string(salt.begin(), salt.end()));
     }
 
     void add_swig_extension(swig_plugin *p) {
@@ -968,6 +970,11 @@ namespace libtorrent {
     std::vector<int8_t> signature_v() {
         boost::array<char, 64> arr = $self->signature;
         return std::vector<int8_t>(arr.begin(), arr.end());
+    }
+
+    std::vector<int8_t> salt_v() {
+        std::string s = $self->salt;
+        return std::vector<int8_t>(s.begin(), s.end());
     }
 };
 

@@ -49,13 +49,13 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
     }
 
     /**
-     * The salf, if any, used to lookup and store this item. If no
+     * The salt, if any, used to lookup and store this item. If no
      * salt was used, this is an empty string.
      *
      * @return
      */
-    public String getSalt() {
-        return alert.getSalt();
+    public byte[] getSalt() {
+        return Vectors.byte_vector2bytes(alert.salt_v());
     }
 
     /**

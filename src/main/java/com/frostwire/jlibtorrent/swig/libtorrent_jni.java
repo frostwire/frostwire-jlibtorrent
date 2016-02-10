@@ -1932,14 +1932,13 @@ public class libtorrent_jni {
   public final static native String dht_mutable_item_alert_message(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void dht_mutable_item_alert_seq_set(long jarg1, dht_mutable_item_alert jarg1_, java.math.BigInteger jarg2);
   public final static native java.math.BigInteger dht_mutable_item_alert_seq_get(long jarg1, dht_mutable_item_alert jarg1_);
-  public final static native void dht_mutable_item_alert_salt_set(long jarg1, dht_mutable_item_alert jarg1_, String jarg2);
-  public final static native String dht_mutable_item_alert_salt_get(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void dht_mutable_item_alert_item_set(long jarg1, dht_mutable_item_alert jarg1_, long jarg2, entry jarg2_);
   public final static native long dht_mutable_item_alert_item_get(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void dht_mutable_item_alert_authoritative_set(long jarg1, dht_mutable_item_alert jarg1_, boolean jarg2);
   public final static native boolean dht_mutable_item_alert_authoritative_get(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native long dht_mutable_item_alert_key_v(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native long dht_mutable_item_alert_signature_v(long jarg1, dht_mutable_item_alert jarg1_);
+  public final static native long dht_mutable_item_alert_salt_v(long jarg1, dht_mutable_item_alert jarg1_);
   public final static native void delete_dht_mutable_item_alert(long jarg1);
   public final static native int dht_put_alert_priority_get();
   public final static native int dht_put_alert_alert_type_get();
@@ -2475,10 +2474,8 @@ public class libtorrent_jni {
   public final static native int session_handle_tcp_get();
   public final static native int session_handle_add_port_mapping(long jarg1, session_handle jarg1_, int jarg2, int jarg3, int jarg4);
   public final static native void session_handle_delete_port_mapping(long jarg1, session_handle jarg1_, int jarg2);
-  public final static native void session_handle_dht_get_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, String jarg3);
-  public final static native void session_handle_dht_get_item__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_);
-  public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_, String jarg5);
-  public final static native void session_handle_dht_put_item__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_);
+  public final static native void session_handle_dht_get_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
+  public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_, long jarg5, byte_vector jarg5_);
   public final static native void session_handle_add_swig_extension(long jarg1, session_handle jarg1_, long jarg2, swig_plugin jarg2_);
   public final static native void delete_session_handle(long jarg1);
   public final static native void min_memory_usage(long jarg1, settings_pack jarg1_);
