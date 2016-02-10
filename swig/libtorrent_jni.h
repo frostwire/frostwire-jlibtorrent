@@ -110,17 +110,14 @@ public:
     virtual bool get_mutable_item(libtorrent::sha1_hash const &target, boost::int64_t seq, bool force_fill, libtorrent::entry &item) const;
     virtual void put_mutable_item(libtorrent::sha1_hash const &target, std::vector< int8_t > const &buf, std::vector< int8_t > const &sig, boost::int64_t seq, std::vector< int8_t > const &pk, std::vector< int8_t > const &salt, libtorrent::address const &addr);
     virtual void tick();
-    virtual size_t num_torrents() const;
-    virtual size_t num_peers() const;
-    virtual size_t num_immutable_data() const;
-    virtual size_t num_mutable_data() const;
+    virtual swig_dht_storage_counters swig_counters() const;
     virtual ~SwigDirector_swig_dht_storage();
 public:
     bool swig_overrides(int n) {
-      return (n < 12 ? swig_override[n] : false);
+      return (n < 9 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<12> swig_override;
+    Swig::BoolArray<9> swig_override;
 };
 
 class SwigDirector_swig_dht_storage_constructor : public swig_dht_storage_constructor, public Swig::Director {

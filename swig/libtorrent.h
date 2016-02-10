@@ -320,6 +320,14 @@ storage_interface* swig_storage_constructor_cb(libtorrent::storage_params const&
 
 //------ DHT storage extension -----------------------------
 
+struct swig_dht_storage_counters
+{
+	boost::int32_t torrents;
+	boost::int32_t peers;
+	boost::int32_t immutable_data;
+	boost::int32_t mutable_data;
+};
+
 struct swig_dht_storage : dht::dht_storage_interface
 {
 	virtual bool get_peers(libtorrent::sha1_hash const& info_hash
@@ -394,28 +402,17 @@ struct swig_dht_storage : dht::dht_storage_interface
 
 	dht::dht_storage_counters counters() const {
 	    dht::dht_storage_counters c;
-	    c.torrents = num_torrents();
-	    c.peers = num_peers();
-	    c.immutable_data = num_immutable_data();
-	    c.mutable_data = num_mutable_data();
+	    swig_dht_storage_counters sc = swig_counters();
+	    c.torrents = sc.torrents;
+	    c.peers = sc.peers;
+	    c.immutable_data = sc.immutable_data;
+	    c.mutable_data = sc.mutable_data;
 	    return c;
 	}
 
-	virtual size_t num_torrents() const {
-	    return 0;
+	virtual swig_dht_storage_counters swig_counters() const {
+	    return swig_dht_storage_counters();
 	}
-
-    virtual size_t num_peers() const {
-        return 0;
-    }
-
-    virtual size_t num_immutable_data() const {
-        return 0;
-    }
-
-    virtual size_t num_mutable_data() const {
-        return 0;
-    }
 
 	virtual ~swig_dht_storage() {}
 };

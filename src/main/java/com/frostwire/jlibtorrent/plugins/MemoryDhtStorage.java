@@ -14,10 +14,12 @@ public final class MemoryDhtStorage implements DhtStorage {
 
     private final Sha1Hash id;
     private final DhtSettings settings;
+    private final Counters counters;
 
     public MemoryDhtStorage(Sha1Hash id, DhtSettings settings) {
         this.id = id;
         this.settings = settings;
+        this.counters = new Counters();
     }
 
     @Override
@@ -61,22 +63,7 @@ public final class MemoryDhtStorage implements DhtStorage {
     }
 
     @Override
-    public long numTorrents() {
-        return 0;
-    }
-
-    @Override
-    public long numPeers() {
-        return 0;
-    }
-
-    @Override
-    public long numImmutableData() {
-        return 0;
-    }
-
-    @Override
-    public long numMutableData() {
-        return 0;
+    public Counters counters() {
+        return counters;
     }
 }

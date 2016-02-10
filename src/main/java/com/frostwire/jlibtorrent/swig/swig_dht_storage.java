@@ -82,20 +82,8 @@ public class swig_dht_storage {
     if (getClass() == swig_dht_storage.class) libtorrent_jni.swig_dht_storage_tick(swigCPtr, this); else libtorrent_jni.swig_dht_storage_tickSwigExplicitswig_dht_storage(swigCPtr, this);
   }
 
-  public long num_torrents() {
-    return (getClass() == swig_dht_storage.class) ? libtorrent_jni.swig_dht_storage_num_torrents(swigCPtr, this) : libtorrent_jni.swig_dht_storage_num_torrentsSwigExplicitswig_dht_storage(swigCPtr, this);
-  }
-
-  public long num_peers() {
-    return (getClass() == swig_dht_storage.class) ? libtorrent_jni.swig_dht_storage_num_peers(swigCPtr, this) : libtorrent_jni.swig_dht_storage_num_peersSwigExplicitswig_dht_storage(swigCPtr, this);
-  }
-
-  public long num_immutable_data() {
-    return (getClass() == swig_dht_storage.class) ? libtorrent_jni.swig_dht_storage_num_immutable_data(swigCPtr, this) : libtorrent_jni.swig_dht_storage_num_immutable_dataSwigExplicitswig_dht_storage(swigCPtr, this);
-  }
-
-  public long num_mutable_data() {
-    return (getClass() == swig_dht_storage.class) ? libtorrent_jni.swig_dht_storage_num_mutable_data(swigCPtr, this) : libtorrent_jni.swig_dht_storage_num_mutable_dataSwigExplicitswig_dht_storage(swigCPtr, this);
+  public swig_dht_storage_counters swig_counters() {
+    return new swig_dht_storage_counters((getClass() == swig_dht_storage.class) ? libtorrent_jni.swig_dht_storage_swig_counters(swigCPtr, this) : libtorrent_jni.swig_dht_storage_swig_countersSwigExplicitswig_dht_storage(swigCPtr, this), true);
   }
 
   public swig_dht_storage() {

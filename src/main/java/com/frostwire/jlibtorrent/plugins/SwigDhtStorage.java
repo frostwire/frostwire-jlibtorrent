@@ -66,22 +66,13 @@ final class SwigDhtStorage extends swig_dht_storage {
     }
 
     @Override
-    public long num_torrents() {
-        return s.numTorrents();
-    }
-
-    @Override
-    public long num_peers() {
-        return s.numPeers();
-    }
-
-    @Override
-    public long num_immutable_data() {
-        return s.numImmutableData();
-    }
-
-    @Override
-    public long num_mutable_data() {
-        return s.numMutableData();
+    public swig_dht_storage_counters swig_counters() {
+        DhtStorage.Counters counters = s.counters();
+        swig_dht_storage_counters c = new swig_dht_storage_counters();
+        c.setTorrents(counters.torrents);
+        c.setPeers(counters.peers);
+        c.setImmutable_data(counters.immutable_data);
+        c.setMutable_data(counters.mutable_data);
+        return c;
     }
 }

@@ -27,11 +27,12 @@ public interface DhtStorage {
 
     void tick();
 
-    long numTorrents();
+    Counters counters();
 
-    long numPeers();
-
-    long numImmutableData();
-
-    long numMutableData();
+    final class Counters {
+        int torrents;
+        int peers;
+        int immutable_data;
+        int mutable_data;
+    }
 }

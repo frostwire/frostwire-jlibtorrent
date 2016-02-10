@@ -3058,6 +3058,16 @@ public class libtorrent_jni {
   public final static native long new_swig_storage_constructor();
   public final static native void swig_storage_constructor_director_connect(swig_storage_constructor obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void swig_storage_constructor_change_ownership(swig_storage_constructor obj, long cptr, boolean take_or_release);
+  public final static native void swig_dht_storage_counters_torrents_set(long jarg1, swig_dht_storage_counters jarg1_, int jarg2);
+  public final static native int swig_dht_storage_counters_torrents_get(long jarg1, swig_dht_storage_counters jarg1_);
+  public final static native void swig_dht_storage_counters_peers_set(long jarg1, swig_dht_storage_counters jarg1_, int jarg2);
+  public final static native int swig_dht_storage_counters_peers_get(long jarg1, swig_dht_storage_counters jarg1_);
+  public final static native void swig_dht_storage_counters_immutable_data_set(long jarg1, swig_dht_storage_counters jarg1_, int jarg2);
+  public final static native int swig_dht_storage_counters_immutable_data_get(long jarg1, swig_dht_storage_counters jarg1_);
+  public final static native void swig_dht_storage_counters_mutable_data_set(long jarg1, swig_dht_storage_counters jarg1_, int jarg2);
+  public final static native int swig_dht_storage_counters_mutable_data_get(long jarg1, swig_dht_storage_counters jarg1_);
+  public final static native long new_swig_dht_storage_counters();
+  public final static native void delete_swig_dht_storage_counters(long jarg1);
   public final static native boolean swig_dht_storage_get_peers(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, boolean jarg3, boolean jarg4, long jarg5, entry jarg5_);
   public final static native boolean swig_dht_storage_get_peersSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, boolean jarg3, boolean jarg4, long jarg5, entry jarg5_);
   public final static native void swig_dht_storage_announce_peer(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, tcp_endpoint jarg3_, String jarg4, boolean jarg5);
@@ -3074,14 +3084,8 @@ public class libtorrent_jni {
   public final static native void swig_dht_storage_put_mutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_, long jarg5, long jarg6, byte_vector jarg6_, long jarg7, byte_vector jarg7_, long jarg8, address jarg8_);
   public final static native void swig_dht_storage_tick(long jarg1, swig_dht_storage jarg1_);
   public final static native void swig_dht_storage_tickSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_);
-  public final static native long swig_dht_storage_num_torrents(long jarg1, swig_dht_storage jarg1_);
-  public final static native long swig_dht_storage_num_torrentsSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_);
-  public final static native long swig_dht_storage_num_peers(long jarg1, swig_dht_storage jarg1_);
-  public final static native long swig_dht_storage_num_peersSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_);
-  public final static native long swig_dht_storage_num_immutable_data(long jarg1, swig_dht_storage jarg1_);
-  public final static native long swig_dht_storage_num_immutable_dataSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_);
-  public final static native long swig_dht_storage_num_mutable_data(long jarg1, swig_dht_storage jarg1_);
-  public final static native long swig_dht_storage_num_mutable_dataSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_);
+  public final static native long swig_dht_storage_swig_counters(long jarg1, swig_dht_storage jarg1_);
+  public final static native long swig_dht_storage_swig_countersSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_);
   public final static native void delete_swig_dht_storage(long jarg1);
   public final static native long new_swig_dht_storage();
   public final static native void swig_dht_storage_director_connect(swig_dht_storage obj, long cptr, boolean mem_own, boolean weak_global);
@@ -3387,17 +3391,8 @@ public class libtorrent_jni {
   public static void SwigDirector_swig_dht_storage_tick(swig_dht_storage jself) {
     jself.tick();
   }
-  public static long SwigDirector_swig_dht_storage_num_torrents(swig_dht_storage jself) {
-    return jself.num_torrents();
-  }
-  public static long SwigDirector_swig_dht_storage_num_peers(swig_dht_storage jself) {
-    return jself.num_peers();
-  }
-  public static long SwigDirector_swig_dht_storage_num_immutable_data(swig_dht_storage jself) {
-    return jself.num_immutable_data();
-  }
-  public static long SwigDirector_swig_dht_storage_num_mutable_data(swig_dht_storage jself) {
-    return jself.num_mutable_data();
+  public static long SwigDirector_swig_dht_storage_swig_counters(swig_dht_storage jself) {
+    return swig_dht_storage_counters.getCPtr(jself.swig_counters());
   }
   public static long SwigDirector_swig_dht_storage_constructor_create(swig_dht_storage_constructor jself, long id, long settings) {
     return swig_dht_storage.getCPtr(jself.create(new sha1_hash(id, false), new dht_settings(settings, false)));
