@@ -11,16 +11,16 @@ final class SwigDhtStorage extends swig_dht_storage {
 
     private static final Logger LOG = Logger.getLogger(SwigDhtStorage.class);
 
-    private final DhtStorage p;
+    private final DhtStorage s;
 
-    public SwigDhtStorage(DhtStorage p) {
-        this.p = p;
+    public SwigDhtStorage(DhtStorage s) {
+        this.s = s;
     }
 
     @Override
     public void tick() {
         try {
-            p.tick();
+            s.tick();
         } catch (Throwable e) {
             LOG.error("Error in plugin (tick)", e);
         }
