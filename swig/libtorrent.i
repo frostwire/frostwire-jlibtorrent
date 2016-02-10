@@ -75,13 +75,6 @@
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/ed25519.hpp"
 
-#include "libtorrent/kademlia/dht_storage.hpp"
-
-#include "libtorrent/extensions/ut_pex.hpp"
-#include "libtorrent/extensions/ut_metadata.hpp"
-#include "libtorrent/extensions/lt_trackers.hpp"
-#include "libtorrent/extensions/smart_ban.hpp"
-
 using namespace boost;
 using namespace boost::system;
 
@@ -494,8 +487,6 @@ namespace std {
 %ignore libtorrent::bitfield::begin;
 %ignore libtorrent::bitfield::end;
 
-%ignore libtorrent::dht::dht_storage_interface::get_mutable_item_seq;
-
 %ignore boost::throws;
 %ignore boost::detail::throws;
 %ignore boost::asio::ip::address_v4::to_bytes;
@@ -603,8 +594,6 @@ namespace std {
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
 %include "libtorrent/ed25519.hpp"
-
-%include "libtorrent/kademlia/dht_storage.hpp"
 
 namespace boost {
 
@@ -851,14 +840,6 @@ namespace libtorrent {
 };
 
 %extend session_handle {
-
-    void add_lt_trackers_extension() {
-        $self->add_extension(&libtorrent::create_lt_trackers_plugin);
-    }
-
-    void add_smart_ban_extension() {
-         $self->add_extension(&libtorrent::create_smart_ban_plugin);
-    }
 
     void dht_get_item(std::vector<int8_t>& key_v, std::string salt = std::string()) {
         if (key_v.size() != 32) {

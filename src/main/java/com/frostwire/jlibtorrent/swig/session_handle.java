@@ -244,14 +244,6 @@ public class session_handle {
     libtorrent_jni.session_handle_delete_port_mapping(swigCPtr, this, handle);
   }
 
-  public void add_lt_trackers_extension() {
-    libtorrent_jni.session_handle_add_lt_trackers_extension(swigCPtr, this);
-  }
-
-  public void add_smart_ban_extension() {
-    libtorrent_jni.session_handle_add_smart_ban_extension(swigCPtr, this);
-  }
-
   public void dht_get_item(byte_vector key_v, String salt) {
     libtorrent_jni.session_handle_dht_get_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(key_v), key_v, salt);
   }

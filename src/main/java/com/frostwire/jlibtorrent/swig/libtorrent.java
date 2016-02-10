@@ -157,11 +157,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.set_piece_hashes(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
-  public static dht_storage_interface dht_default_storage_constructor(sha1_hash id, dht_settings settings) {
-    long cPtr = libtorrent_jni.dht_default_storage_constructor(sha1_hash.getCPtr(id), id, dht_settings.getCPtr(settings), settings);
-    return (cPtr == 0) ? null : new dht_storage_interface(cPtr, false);
-  }
-
   public static boolean is_utp_stream_logging() {
     return libtorrent_jni.is_utp_stream_logging();
   }
