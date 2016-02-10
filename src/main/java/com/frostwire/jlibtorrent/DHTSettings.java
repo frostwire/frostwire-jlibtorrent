@@ -13,11 +13,11 @@ import com.frostwire.jlibtorrent.swig.dht_settings;
  * @author gubatron
  * @author aldenml
  */
-public final class DHTSettings {
+public final class DhtSettings {
 
     private final dht_settings s;
 
-    public DHTSettings(dht_settings s) {
+    public DhtSettings(dht_settings s) {
         this.s = s;
     }
 

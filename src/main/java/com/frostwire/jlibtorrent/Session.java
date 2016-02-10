@@ -567,7 +567,7 @@ public final class Session extends SessionHandle {
     // and false
     // otherwise.
 
-    void setDHTSettings(DHTSettings settings) {
+    void setDHTSettings(DhtSettings settings) {
         s.set_dht_settings(settings.getSwig());
     }
 

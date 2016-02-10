@@ -62154,7 +62154,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("38876d032107d06d7a80dbba4580b3d3b8403012");
+  result = (char *)("2e34fbc9fc9837db5fe2540d92c39bd9201c96df");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
