@@ -123,6 +123,21 @@ protected:
     Swig::BoolArray<12> swig_override;
 };
 
+class SwigDirector_swig_dht_storage_constructor : public swig_dht_storage_constructor, public Swig::Director {
+
+public:
+    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
+    SwigDirector_swig_dht_storage_constructor(JNIEnv *jenv);
+    virtual ~SwigDirector_swig_dht_storage_constructor();
+    virtual swig_dht_storage *create(libtorrent::sha1_hash const &id, libtorrent::dht_settings const &settings);
+public:
+    bool swig_overrides(int n) {
+      return (n < 1 ? swig_override[n] : false);
+    }
+protected:
+    Swig::BoolArray<1> swig_override;
+};
+
 struct SwigDirector_swig_plugin : public swig_plugin, public Swig::Director {
 
 public:

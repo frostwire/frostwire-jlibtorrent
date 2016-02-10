@@ -876,6 +876,10 @@ namespace libtorrent {
     void add_swig_extension(swig_plugin *p) {
         $self->add_extension(boost::shared_ptr<plugin>(p));
     }
+
+    void set_swig_dht_storage(swig_dht_storage_constructor *sc) {
+        $self->set_dht_storage(boost::bind(&swig_dht_storage_constructor_cb, _1, _2, sc));
+    }
 };
 
 %extend entry {
@@ -1040,6 +1044,7 @@ void set_utp_stream_logging(bool enable);
 %ignore swig_storage::set_file_priority;
 %ignore swig_storage::readv;
 %ignore swig_storage::writev;
+%ignore swig_storage_constructor_cb;
 
 %feature("director") swig_storage;
 %feature("director") swig_storage_constructor;
@@ -1051,8 +1056,12 @@ void set_utp_stream_logging(bool enable);
 %ignore swig_dht_storage::get_mutable_item_seq;
 %ignore swig_dht_storage::put_mutable_item(libtorrent::sha1_hash const&, char const*, int, char const*, boost::int64_t, char const*, char const*, int, libtorrent::address const&);
 %ignore swig_dht_storage::counters;
+%ignore swig_dht_storage_constructor_cb;
 
 %feature("director") swig_dht_storage;
+%feature("director") swig_dht_storage_constructor;
+
+%typemap("javapackage") SwigDhtStorage, SwigDhtStorage *, SwigDhtStorage & "com.frostwire.jlibtorrent.plugins";
 
 // libtorrent plugins
 %feature("director") swig_plugin;
@@ -1071,7 +1080,6 @@ void set_utp_stream_logging(bool enable);
 %ignore swig_peer_plugin::on_extended;
 %ignore swig_peer_plugin::on_unknown_message;
 
-%ignore swig_storage_constructor_cb;
 %ignore dht_put_item_cb;
 
 %feature("director") posix_wrapper;

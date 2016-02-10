@@ -420,6 +420,22 @@ struct swig_dht_storage : dht::dht_storage_interface
 	virtual ~swig_dht_storage() {}
 };
 
+class swig_dht_storage_constructor {
+public:
+    virtual ~swig_dht_storage_constructor() {
+    }
+
+    virtual swig_dht_storage* create(libtorrent::sha1_hash const& id, libtorrent::dht_settings const& settings) {
+        return NULL;
+    }
+};
+
+dht::dht_storage_interface* swig_dht_storage_constructor_cb(libtorrent::sha1_hash const& id
+                                                        , libtorrent::dht_settings const& settings
+                                                        , swig_dht_storage_constructor* sc) {
+	return sc->create(id, settings);
+}
+
 //------------------------------------------------------
 
 void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
