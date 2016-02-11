@@ -4,8 +4,7 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.plugins.DhtStorage;
 import com.frostwire.jlibtorrent.plugins.DhtStorageConstructor;
-import com.frostwire.jlibtorrent.plugins.MemoryDhtStorage;
-import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.plugins.DhtStorageBase;
 
 /**
  * @author gubatron
@@ -35,7 +34,7 @@ public final class DhtStorageTest {
         s.setDhtStorage(new DhtStorageConstructor() {
             @Override
             public DhtStorage create(Sha1Hash id, DhtSettings settings) {
-                return new MemoryDhtStorage(id, settings);
+                return new DhtStorageBase(id, settings);
             }
         });
 

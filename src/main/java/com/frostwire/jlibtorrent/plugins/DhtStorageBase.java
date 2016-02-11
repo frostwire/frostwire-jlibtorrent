@@ -10,13 +10,13 @@ import com.frostwire.jlibtorrent.swig.entry;
  * @author gubatron
  * @author aldenml
  */
-public final class MemoryDhtStorage implements DhtStorage {
+public final class DhtStorageBase implements DhtStorage {
 
     private final Sha1Hash id;
     private final DhtSettings settings;
     private final Counters counters;
 
-    public MemoryDhtStorage(Sha1Hash id, DhtSettings settings) {
+    public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
         this.id = id;
         this.settings = settings;
         this.counters = new Counters();
