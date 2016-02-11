@@ -147,10 +147,6 @@ public class stat {
     libtorrent_jni.stat_clear(swigCPtr, this);
   }
 
-  public stat_channel op_get_at(int i) {
-    return new stat_channel(libtorrent_jni.stat_op_get_at(swigCPtr, this, i), false);
-  }
-
   public stat() {
     this(libtorrent_jni.new_stat(), true);
   }

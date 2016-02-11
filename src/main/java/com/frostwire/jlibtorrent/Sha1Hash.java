@@ -66,6 +66,12 @@ public final class Sha1Hash {
         return h.to_hex();
     }
 
+    /**
+     * Returns an hex representation of this hash. Internally it
+     * calls {@link #toHex()}.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return toHex();
@@ -77,7 +83,7 @@ public final class Sha1Hash {
             return false;
         }
 
-        return h.op_eq(((Sha1Hash) obj).getSwig());
+        return h.op_eq(((Sha1Hash) obj).h);
     }
 
     /**

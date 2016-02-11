@@ -549,7 +549,6 @@ public class libtorrent_jni {
   public final static native long new_bitfield__SWIG_4(long jarg1, bitfield jarg1_);
   public final static native void delete_bitfield(long jarg1);
   public final static native void bitfield_assign(long jarg1, bitfield jarg1_, String jarg2, int jarg3);
-  public final static native boolean bitfield_op_get_at(long jarg1, bitfield jarg1_, int jarg2);
   public final static native boolean bitfield_get_bit(long jarg1, bitfield jarg1_, int jarg2);
   public final static native void bitfield_clear_bit(long jarg1, bitfield jarg1_, int jarg2);
   public final static native void bitfield_set_bit(long jarg1, bitfield jarg1_, int jarg2);
@@ -610,7 +609,6 @@ public class libtorrent_jni {
   public final static native int stat_download_ip_protocol_get();
   public final static native int stat_num_channels_get();
   public final static native void stat_clear(long jarg1, stat jarg1_);
-  public final static native long stat_op_get_at(long jarg1, stat jarg1_, int jarg2);
   public final static native long new_stat();
   public final static native void delete_stat(long jarg1);
   public final static native void peer_request_piece_set(long jarg1, peer_request jarg1_, int jarg2);
@@ -640,7 +638,6 @@ public class libtorrent_jni {
   public final static native long entry_list(long jarg1, entry jarg1_);
   public final static native long entry_dict(long jarg1, entry jarg1_);
   public final static native void entry_swap(long jarg1, entry jarg1_, long jarg2, entry jarg2_);
-  public final static native long entry_op_get_at(long jarg1, entry jarg1_, String jarg2);
   public final static native long entry_find_key(long jarg1, entry jarg1_, String jarg2);
   public final static native String entry_to_string(long jarg1, entry jarg1_);
   public final static native void entry_m_type_queried_set(long jarg1, entry jarg1_, short jarg2);
@@ -1017,7 +1014,6 @@ public class libtorrent_jni {
   public final static native long new_counters__SWIG_1(long jarg1, counters jarg1_);
   public final static native long counters_inc_stats_counter__SWIG_0(long jarg1, counters jarg1_, int jarg2, long jarg3);
   public final static native long counters_inc_stats_counter__SWIG_1(long jarg1, counters jarg1_, int jarg2);
-  public final static native long counters_op_get_at(long jarg1, counters jarg1_, int jarg2);
   public final static native void counters_set_value(long jarg1, counters jarg1_, int jarg2, long jarg3);
   public final static native void counters_blend_stats_counter(long jarg1, counters jarg1_, int jarg2, long jarg3, int jarg4);
   public final static native void delete_counters(long jarg1);

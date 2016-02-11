@@ -59,10 +59,6 @@ public class bitfield {
     libtorrent_jni.bitfield_assign(swigCPtr, this, b, bits);
   }
 
-  public boolean op_get_at(int index) {
-    return libtorrent_jni.bitfield_op_get_at(swigCPtr, this, index);
-  }
-
   public boolean get_bit(int index) {
     return libtorrent_jni.bitfield_get_bit(swigCPtr, this, index);
   }

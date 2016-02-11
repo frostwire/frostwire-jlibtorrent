@@ -531,15 +531,13 @@ namespace std {
 %ignore operator();
 %ignore operator<<;
 %ignore operator>>;
+%ignore operator[];
 %ignore operator unspecified_bool_type;
-%ignore operator udp::endpoint;
-%ignore operator tcp::endpoint;
 
 %rename(op_eq) operator==;
 %rename(op_neq) operator!=;
 %rename(op_lt) operator<;
 %rename(op_gt) operator>;
-%rename(op_get_at) operator[];
 %rename(op_bool) operator bool;
 
 %rename(libtorrent_no_error) libtorrent::errors::no_error;

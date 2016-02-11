@@ -51,10 +51,6 @@ public class counters {
     return libtorrent_jni.counters_inc_stats_counter__SWIG_1(swigCPtr, this, c);
   }
 
-  public long op_get_at(int i) {
-    return libtorrent_jni.counters_op_get_at(swigCPtr, this, i);
-  }
-
   public void set_value(int c, long value) {
     libtorrent_jni.counters_set_value(swigCPtr, this, c, value);
   }
