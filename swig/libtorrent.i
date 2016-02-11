@@ -387,12 +387,14 @@ namespace std {
 %ignore libtorrent::torrent_handle::use_interface;
 %ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::torrent_handle::torrent_file;
-%ignore libtorrent::sha1_hash::sha1_hash(char const *);
+%ignore libtorrent::sha1_hash::sha1_hash(char const*);
+%ignore libtorrent::sha1_hash::sha1_hash(std::string const&);
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;
 %ignore libtorrent::sha1_hash::operator[];
-%ignore libtorrent::sha1_hash::assign(char const *);
-%ignore libtorrent::sha1_hash::data() const;
+%ignore libtorrent::sha1_hash::assign(char const*);
+%ignore libtorrent::sha1_hash::assign(std::string const&);
+%ignore libtorrent::sha1_hash::data;
 %ignore libtorrent::sha1_hash::to_string;
 %ignore libtorrent::entry::integer();
 %ignore libtorrent::entry::string();

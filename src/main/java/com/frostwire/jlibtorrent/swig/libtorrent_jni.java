@@ -648,12 +648,9 @@ public class libtorrent_jni {
   public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long entry_bdecode(long jarg1, byte_vector jarg1_);
   public final static native int sha1_hash_size_get();
-  public final static native long new_sha1_hash__SWIG_0();
+  public final static native long new_sha1_hash();
   public final static native long sha1_hash_max();
   public final static native long sha1_hash_min();
-  public final static native long new_sha1_hash__SWIG_1(String jarg1);
-  public final static native void sha1_hash_assign(long jarg1, sha1_hash jarg1_, String jarg2);
-  public final static native String sha1_hash_data(long jarg1, sha1_hash jarg1_);
   public final static native void sha1_hash_clear(long jarg1, sha1_hash jarg1_);
   public final static native boolean sha1_hash_is_all_zeros(long jarg1, sha1_hash jarg1_);
   public final static native boolean sha1_hash_op_eq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);

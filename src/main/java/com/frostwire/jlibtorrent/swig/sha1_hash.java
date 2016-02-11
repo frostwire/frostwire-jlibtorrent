@@ -36,7 +36,7 @@ public class sha1_hash {
   }
 
   public sha1_hash() {
-    this(libtorrent_jni.new_sha1_hash__SWIG_0(), true);
+    this(libtorrent_jni.new_sha1_hash(), true);
   }
 
   public static sha1_hash max() {
@@ -45,18 +45,6 @@ public class sha1_hash {
 
   public static sha1_hash min() {
     return new sha1_hash(libtorrent_jni.sha1_hash_min(), true);
-  }
-
-  public sha1_hash(String s) {
-    this(libtorrent_jni.new_sha1_hash__SWIG_1(s), true);
-  }
-
-  public void assign(String s) {
-    libtorrent_jni.sha1_hash_assign(swigCPtr, this, s);
-  }
-
-  public String data() {
-    return libtorrent_jni.sha1_hash_data(swigCPtr, this);
   }
 
   public void clear() {
