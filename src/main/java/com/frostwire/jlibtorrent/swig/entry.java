@@ -112,6 +112,18 @@ public class entry {
     return libtorrent_jni.entry_m_type_queried_get(swigCPtr, this);
   }
 
+  public entry get(String key) {
+    return new entry(libtorrent_jni.entry_get(swigCPtr, this, key), false);
+  }
+
+  public void set(String key, String value) {
+    libtorrent_jni.entry_set__SWIG_0(swigCPtr, this, key, value);
+  }
+
+  public void set(String key, int value) {
+    libtorrent_jni.entry_set__SWIG_1(swigCPtr, this, key, value);
+  }
+
   public byte_vector bencode() {
     return new byte_vector(libtorrent_jni.entry_bencode(swigCPtr, this), true);
   }
