@@ -14,7 +14,7 @@ public final class Address {
         this.addr = addr;
     }
 
-    public address getSwig() {
+    public address swig() {
         return addr;
     }
 

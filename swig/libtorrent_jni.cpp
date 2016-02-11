@@ -1446,12 +1446,6 @@ SWIGINTERN int libtorrent_bdecode_node_bdecode(std::vector< int8_t > &buffer,lib
 SWIGINTERN bool boost_asio_ip_address_op_lt(boost::asio::ip::address *self,boost::asio::ip::address const &a2){
                         return *self < a2;
                     }
-SWIGINTERN std::string tcp_endpoint_address(tcp::endpoint *self){
-                return self->address().to_string();
-            }
-SWIGINTERN std::string udp_endpoint_address(udp::endpoint *self){
-                return self->address().to_string();
-            }
 
 
 /* ---------------------------------------------------
@@ -61874,10 +61868,10 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_
 }
 
 
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_1endpoint_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_1endpoint_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
   tcp::endpoint *arg1 = (tcp::endpoint *) 0 ;
-  std::string result;
+  boost::asio::ip::address result;
   
   (void)jenv;
   (void)jcls;
@@ -61885,14 +61879,14 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_t
   arg1 = *(tcp::endpoint **)&jarg1; 
   {
     try {
-      result = tcp_endpoint_address(arg1);
+      result = (arg1)->address();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }
   }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  *(boost::asio::ip::address **)&jresult = new boost::asio::ip::address((const boost::asio::ip::address &)result); 
   return jresult;
 }
 
@@ -61958,10 +61952,10 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_
 }
 
 
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_1endpoint_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_1endpoint_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
   udp::endpoint *arg1 = (udp::endpoint *) 0 ;
-  std::string result;
+  boost::asio::ip::address result;
   
   (void)jenv;
   (void)jcls;
@@ -61969,14 +61963,14 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_u
   arg1 = *(udp::endpoint **)&jarg1; 
   {
     try {
-      result = udp_endpoint_address(arg1);
+      result = (arg1)->address();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }
   }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  *(boost::asio::ip::address **)&jresult = new boost::asio::ip::address((const boost::asio::ip::address &)result); 
   return jresult;
 }
 
@@ -62075,7 +62069,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("ae2cc5a5d663633a4810008b287b6f556d0b78ad");
+  result = (char *)("8ffde582636a75acc1932c9814a7d00429fbe8f8");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

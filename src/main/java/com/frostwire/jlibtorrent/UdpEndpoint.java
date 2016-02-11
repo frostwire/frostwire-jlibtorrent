@@ -14,15 +14,15 @@ public final class UdpEndpoint {
         this.endp = endp;
     }
 
-    public udp_endpoint getSwig() {
+    public udp_endpoint swig() {
         return endp;
     }
 
-    public String getAddress() {
-        return endp.address();
+    public Address address() {
+        return new Address(endp.address());
     }
 
-    public int getPort() {
+    public int port() {
         return endp.port();
     }
 

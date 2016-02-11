@@ -39,8 +39,8 @@ public class udp_endpoint {
     return libtorrent_jni.udp_endpoint_port(swigCPtr, this);
   }
 
-  public String address() {
-    return libtorrent_jni.udp_endpoint_address(swigCPtr, this);
+  public address address() {
+    return new address(libtorrent_jni.udp_endpoint_address(swigCPtr, this), true);
   }
 
   public udp_endpoint() {

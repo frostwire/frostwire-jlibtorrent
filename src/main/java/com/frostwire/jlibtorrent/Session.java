@@ -699,7 +699,7 @@ public final class Session extends SessionHandle {
     }
 
     public void dhtDirectRequest(UdpEndpoint endp, Entry entry) {
-        s.dht_direct_request(endp.getSwig(), entry.getSwig());
+        s.dht_direct_request(endp.swig(), entry.getSwig());
     }
 
     public void addExtension(Plugin p) {

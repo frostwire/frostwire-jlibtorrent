@@ -726,11 +726,7 @@ namespace tcp {
     class endpoint {
     public:
         unsigned short port();
-        %extend {
-            std::string address() {
-                return $self->address().to_string();
-            }
-        }
+        boost::asio::ip::address address();
     };
 }
 
@@ -739,11 +735,7 @@ namespace udp {
     class endpoint {
     public:
         unsigned short port();
-        %extend {
-            std::string address() {
-                return $self->address().to_string();
-            }
-        }
+        boost::asio::ip::address address();
     };
 }
 
