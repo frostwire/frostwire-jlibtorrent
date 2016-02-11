@@ -628,6 +628,12 @@ namespace boost {
                 bool is_loopback();
                 bool is_unspecified();
                 bool is_multicast();
+
+                %extend {
+                    bool op_lt(const address& a2) {
+                        return *$self < a2;
+                    }
+                }
             };
 
             class address_v4 {

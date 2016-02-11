@@ -6,6 +6,8 @@ import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.entry;
 
+import java.util.Comparator;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -65,5 +67,22 @@ public final class DhtStorageBase implements DhtStorage {
     @Override
     public Counters counters() {
         return counters;
+    }
+
+    static final class PeerEntry {
+        public long added;
+        public TcpEndpoint addr;
+        public boolean seed;
+
+        public static final class Comparator implements java.util.Comparator<PeerEntry> {
+
+            @Override
+            public int compare(PeerEntry lhs, PeerEntry rhs) {
+//                return lhs.addr.address() == rhs.addr.address()
+//                        ? lhs.addr.port() < rhs.addr.port()
+//                        : lhs.addr.address() < rhs.addr.address();
+                return 0;
+            }
+        }
     }
 }

@@ -1651,8 +1651,6 @@ public class libtorrent_jni {
   public final static native long listen_failed_alert_error_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void listen_failed_alert_operation_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
   public final static native int listen_failed_alert_operation_get(long jarg1, listen_failed_alert jarg1_);
-  public final static native void listen_failed_alert_port_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
-  public final static native int listen_failed_alert_port_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void listen_failed_alert_sock_type_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
   public final static native int listen_failed_alert_sock_type_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void listen_failed_alert_endpoint_set(long jarg1, listen_failed_alert jarg1_, long jarg2, tcp_endpoint jarg2_);
@@ -2920,6 +2918,7 @@ public class libtorrent_jni {
   public final static native boolean address_is_loopback(long jarg1, address jarg1_);
   public final static native boolean address_is_unspecified(long jarg1, address jarg1_);
   public final static native boolean address_is_multicast(long jarg1, address jarg1_);
+  public final static native boolean address_op_lt(long jarg1, address jarg1_, long jarg2, address jarg2_);
   public final static native void delete_address(long jarg1);
   public final static native long new_address_v4__SWIG_0();
   public final static native long new_address_v4__SWIG_1(long jarg1);

@@ -72,14 +72,6 @@ public class listen_failed_alert extends alert {
     return libtorrent_jni.listen_failed_alert_operation_get(swigCPtr, this);
   }
 
-  public void setPort(int value) {
-    libtorrent_jni.listen_failed_alert_port_set(swigCPtr, this, value);
-  }
-
-  public int getPort() {
-    return libtorrent_jni.listen_failed_alert_port_get(swigCPtr, this);
-  }
-
   public void setSock_type(listen_failed_alert.socket_type_t value) {
     libtorrent_jni.listen_failed_alert_sock_type_set(swigCPtr, this, value.swigValue());
   }

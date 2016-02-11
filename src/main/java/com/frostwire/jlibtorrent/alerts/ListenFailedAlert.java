@@ -53,15 +53,6 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
     }
 
     /**
-     * The port attempted to be opened for listening.
-     *
-     * @return
-     */
-    public int port() {
-        return alert.getPort();
-    }
-
-    /**
      * The type of listen socket this alert refers to.
      *
      * @return

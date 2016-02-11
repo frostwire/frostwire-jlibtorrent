@@ -95,4 +95,8 @@ public class address {
     return libtorrent_jni.address_is_multicast(swigCPtr, this);
   }
 
+  public boolean op_lt(address a2) {
+    return libtorrent_jni.address_op_lt(swigCPtr, this, address.getCPtr(a2), a2);
+  }
+
 }
