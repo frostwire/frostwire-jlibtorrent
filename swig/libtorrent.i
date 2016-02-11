@@ -489,6 +489,8 @@ namespace std {
 %ignore libtorrent::bitfield::const_iterator;
 %ignore libtorrent::bitfield::begin;
 %ignore libtorrent::bitfield::end;
+%ignore libtorrent::stat::stat;
+%ignore libtorrent::stat_channel;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -546,6 +548,7 @@ namespace std {
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
 
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
+%rename("$ignore", regextarget=1, fullname=1, %$isfunction) "libtorrent::stat::.*";
 
 %include <boost/system/error_code.hpp>
 
