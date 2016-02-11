@@ -6,6 +6,9 @@ import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.entry;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -16,14 +19,29 @@ public final class DhtStorageBase implements DhtStorage {
     private final DhtSettings settings;
     private final Counters counters;
 
+    private final HashMap<String, TorrentEntry> map;
+
     public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
         this.id = id;
         this.settings = settings;
         this.counters = new Counters();
+
+        this.map = new HashMap<String, TorrentEntry>();
     }
 
     @Override
     public boolean getPeers(Sha1Hash infoHash, boolean noseed, boolean scrape, entry peers) {
+        String hex = infoHash.toHex();
+        TorrentEntry v = map.get(hex);
+
+        if (v == null) {
+            return false;
+        }
+
+        if (!v.name.isEmpty()) {
+            peers.set("n", v.name);
+        }
+
         return false;
     }
 
@@ -90,5 +108,10 @@ public final class DhtStorageBase implements DhtStorage {
                 return r == 0 ? Integer.compare(a1.port(), a2.port()) : r;
             }
         }
+    }
+
+    static final class TorrentEntry {
+        public String name;
+        public HashSet<PeerEntry> peers;
     }
 }
