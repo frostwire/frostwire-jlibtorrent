@@ -8,6 +8,8 @@ import com.frostwire.jlibtorrent.swig.address;
  */
 public final class Address {
 
+    public static final Comparator COMPARATOR = new Comparator();
+
     private final address addr;
 
     public Address(address addr) {
@@ -23,7 +25,17 @@ public final class Address {
         return addr.to_string();
     }
 
+    public static int compare(Address a1, Address a2) {
+        return COMPARATOR.compare(a1, a2);
+    }
+
+    /**
+     *
+     */
     public static final class Comparator implements java.util.Comparator<Address> {
+
+        private Comparator() {
+        }
 
         @Override
         public int compare(Address o1, Address o2) {
