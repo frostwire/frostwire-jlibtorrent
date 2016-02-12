@@ -2937,6 +2937,14 @@ public class libtorrent_jni {
   public final static native long udp_endpoint_address(long jarg1, udp_endpoint jarg1_);
   public final static native long new_udp_endpoint();
   public final static native void delete_udp_endpoint(long jarg1);
+  public final static native boolean bloom_filter_256_find(long jarg1, bloom_filter_256 jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void bloom_filter_256_set(long jarg1, bloom_filter_256 jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void bloom_filter_256_clear(long jarg1, bloom_filter_256 jarg1_);
+  public final static native float bloom_filter_256_size(long jarg1, bloom_filter_256 jarg1_);
+  public final static native long new_bloom_filter_256();
+  public final static native long bloom_filter_256_to_bytes(long jarg1, bloom_filter_256 jarg1_);
+  public final static native void bloom_filter_256_from_bytes(long jarg1, bloom_filter_256 jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native void delete_bloom_filter_256(long jarg1);
   public final static native boolean is_utp_stream_logging();
   public final static native void set_utp_stream_logging(boolean jarg1);
   public final static native String LIBTORRENT_REVISION_SHA1_get();

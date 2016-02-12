@@ -1037,6 +1037,32 @@ namespace libtorrent {
     }
 };
 
+template <int N>
+struct bloom_filter {
+
+    bool find(sha1_hash const& k) const;
+    void set(sha1_hash const& k);
+
+    void clear();
+
+    float size() const;
+
+    bloom_filter();
+
+    %extend {
+        std::vector<int8_t> to_bytes() const {
+            std::string s = $self->to_string();
+            return std::vector<int8_t>(s.begin(), s.end());
+        }
+
+        void from_bytes(std::vector<int8_t> v) {
+            $self->from_string(reinterpret_cast<char const*>(&v[0]));
+        }
+    }
+};
+
+%template(bloom_filter_256) bloom_filter<256>;
+
 bool is_utp_stream_logging();
 void set_utp_stream_logging(bool enable);
 
