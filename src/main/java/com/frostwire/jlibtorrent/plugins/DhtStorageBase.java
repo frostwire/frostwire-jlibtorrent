@@ -12,6 +12,7 @@ import com.frostwire.jlibtorrent.swig.sha1_hash;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.TreeMap;
 
 /**
  * @author gubatron
@@ -23,14 +24,14 @@ public final class DhtStorageBase implements DhtStorage {
     private final DhtSettings settings;
     private final Counters counters;
 
-    private final HashMap<String, TorrentEntry> map;
+    private final TreeMap<String, TorrentEntry> map;
 
     public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
         this.id = id;
         this.settings = settings;
         this.counters = new Counters();
 
-        this.map = new HashMap<String, TorrentEntry>();
+        this.map = new TreeMap<String, TorrentEntry>();
     }
 
     @Override

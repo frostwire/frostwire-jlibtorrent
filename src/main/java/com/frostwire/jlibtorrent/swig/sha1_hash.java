@@ -75,5 +75,9 @@ public class sha1_hash {
     return libtorrent_jni.sha1_hash_from_hex(hex, sha1_hash.getCPtr(h), h);
   }
 
+  public static int compare(sha1_hash h1, sha1_hash h2) {
+    return libtorrent_jni.sha1_hash_compare(sha1_hash.getCPtr(h1), h1, sha1_hash.getCPtr(h2), h2);
+  }
+
   public final static int size = libtorrent_jni.sha1_hash_size_get();
 }

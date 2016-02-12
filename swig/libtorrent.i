@@ -995,6 +995,10 @@ namespace libtorrent {
     static bool from_hex(char *hex, sha1_hash& h) {
         return libtorrent::from_hex(hex, 40, (char*)&h[0]);
     }
+
+    static int compare(const sha1_hash& h1, const sha1_hash& h2) {
+        return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
+    }
 };
 
 %extend dht_mutable_item_alert {

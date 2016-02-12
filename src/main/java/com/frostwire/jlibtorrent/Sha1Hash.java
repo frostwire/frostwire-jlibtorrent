@@ -2,6 +2,8 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 
+import java.util.Comparator;
+
 /**
  * This type holds a SHA-1 digest or any other kind of 20 byte
  * sequence. It implements a number of convenience functions, such
@@ -107,4 +109,11 @@ public final class Sha1Hash {
     public static Sha1Hash min() {
         return new Sha1Hash(sha1_hash.min());
     }
+
+    public static final Comparator<Sha1Hash> COMPARATOR = new Comparator<Sha1Hash>() {
+        @Override
+        public int compare(Sha1Hash o1, Sha1Hash o2) {
+            return sha1_hash.compare(o1.h, o2.h);
+        }
+    };
 }

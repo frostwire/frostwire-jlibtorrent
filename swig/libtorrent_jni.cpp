@@ -1256,6 +1256,9 @@ SWIGINTERN std::string libtorrent_sha1_hash_to_hex(libtorrent::sha1_hash *self){
 SWIGINTERN bool libtorrent_sha1_hash_from_hex(char *hex,libtorrent::sha1_hash &h){
         return libtorrent::from_hex(hex, 40, (char*)&h[0]);
     }
+SWIGINTERN int libtorrent_sha1_hash_compare(libtorrent::sha1_hash const &h1,libtorrent::sha1_hash const &h2){
+        return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
+    }
 SWIGINTERN time_t libtorrent_torrent_info_get_creation_date(libtorrent::torrent_info *self){
         return self->creation_date().get_value_or(0);
     }
@@ -17830,6 +17833,40 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   }
   jresult = (jboolean)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha1_1hash_1compare(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  libtorrent::sha1_hash *arg1 = 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(libtorrent::sha1_hash **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::sha1_hash const & reference is null");
+    return 0;
+  } 
+  arg2 = *(libtorrent::sha1_hash **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::sha1_hash const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (int)libtorrent_sha1_hash_compare((libtorrent::sha1_hash const &)*arg1,(libtorrent::sha1_hash const &)*arg2);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  jresult = (jint)result; 
   return jresult;
 }
 
@@ -61617,7 +61654,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("ab024a9b3bbec47836f2bc733c855706e789afe6");
+  result = (char *)("8bc38bfd5c6b2db415447aa051ca875c8f6d4e13");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
