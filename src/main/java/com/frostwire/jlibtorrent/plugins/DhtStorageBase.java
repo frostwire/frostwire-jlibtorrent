@@ -70,11 +70,10 @@ public final class DhtStorageBase implements DhtStorage {
                 PeerEntry e = iter.next();
                 if ((Math.random() / (Integer.MAX_VALUE + 1.f)) * (num - t) >= num - m) continue;
                 if (noseed && e.seed) continue;
-                /*endpoint.resize(18);
-                std::string::iterator out = endpoint.begin();
-                write_endpoint(iter->addr, out);
-                endpoint.resize(out - endpoint.begin());
-                pe.push_back(entry(endpoint));*/
+                endpoint.resize(18);
+                int n = libtorrent.write_tcp_endpoint(e.addr.swig(), endpoint);
+                endpoint.resize(n);
+                pe.push_back(new entry(endpoint));
 
                 ++m;
             }
