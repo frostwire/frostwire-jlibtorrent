@@ -2,13 +2,13 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.address;
 
+import java.util.Comparator;
+
 /**
  * @author gubatron
  * @author aldenml
  */
 public final class Address {
-
-    public static final Comparator COMPARATOR = new Comparator();
 
     private final address addr;
 
@@ -29,26 +29,10 @@ public final class Address {
         return COMPARATOR.compare(a1, a2);
     }
 
-    /**
-     *
-     */
-    public static final class Comparator implements java.util.Comparator<Address> {
-
-        private Comparator() {
-        }
-
+    public static final Comparator<Address> COMPARATOR = new Comparator<Address>() {
         @Override
         public int compare(Address o1, Address o2) {
-            address a1 = o1.addr;
-            address a2 = o2.addr;
-            if (a1.op_lt(a2)) {
-                return -1;
-            }
-            if (a2.op_lt(a1)) {
-                return 1;
-            }
-
-            return 0;
+            return address.compare(o1.addr, o2.addr);
         }
-    }
+    };
 }

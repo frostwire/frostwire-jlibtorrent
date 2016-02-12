@@ -30,7 +30,7 @@ public final class DhtSettings {
      *
      * @return
      */
-    public int getMaxPeersReply() {
+    public int maxPeersReply() {
         return s.getMax_peers_reply();
     }
 
@@ -39,7 +39,7 @@ public final class DhtSettings {
      *
      * @param value
      */
-    public void setMaxPeersReply(int value) {
+    public void maxPeersReply(int value) {
         s.setMax_peers_reply(value);
     }
 

@@ -99,4 +99,12 @@ public class address {
     return libtorrent_jni.address_op_lt(swigCPtr, this, address.getCPtr(a2), a2);
   }
 
+  public void hash(sha1_hash h) {
+    libtorrent_jni.address_hash(swigCPtr, this, sha1_hash.getCPtr(h), h);
+  }
+
+  public static int compare(address a1, address a2) {
+    return libtorrent_jni.address_compare(address.getCPtr(a1), a1, address.getCPtr(a2), a2);
+  }
+
 }

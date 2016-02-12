@@ -9,6 +9,7 @@ import com.frostwire.jlibtorrent.swig.bloom_filter_256;
 import com.frostwire.jlibtorrent.swig.entry;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -125,8 +126,7 @@ public final class DhtStorageBase implements DhtStorage {
         return counters;
     }
 
-    private static void hash_address(address ip, sha1_hash h)
-    {/*
+    private static void hash_address(address ip, sha1_hash h) {/*
         if (ip.is_v6())
         {
             address_v6::bytes_type b = ip.to_v6().to_bytes();
@@ -141,17 +141,11 @@ public final class DhtStorageBase implements DhtStorage {
 
     static final class PeerEntry {
 
-        public static final Comparator COMPARATOR = new Comparator();
-
         public long added;
         public TcpEndpoint addr;
         public boolean seed;
 
-        public static final class Comparator implements java.util.Comparator<PeerEntry> {
-
-            private Comparator() {
-            }
-
+        public static final Comparator<PeerEntry> COMPARATOR = new Comparator<PeerEntry>() {
             @Override
             public int compare(PeerEntry o1, PeerEntry o2) {
                 TcpEndpoint a1 = o1.addr;
@@ -161,7 +155,7 @@ public final class DhtStorageBase implements DhtStorage {
 
                 return r == 0 ? Integer.compare(a1.port(), a2.port()) : r;
             }
-        }
+        };
     }
 
     static final class TorrentEntry {

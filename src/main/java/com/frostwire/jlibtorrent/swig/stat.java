@@ -35,6 +35,10 @@ public class stat {
     }
   }
 
+  public stat() {
+    this(libtorrent_jni.new_stat(), true);
+  }
+
   public final static int upload_payload = libtorrent_jni.stat_upload_payload_get();
   public final static int upload_protocol = libtorrent_jni.stat_upload_protocol_get();
   public final static int download_payload = libtorrent_jni.stat_download_payload_get();

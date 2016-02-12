@@ -33,7 +33,6 @@
 #include "libtorrent/time.hpp"
 #include "libtorrent/fingerprint.hpp"
 #include "libtorrent/bitfield.hpp"
-#include "libtorrent/stat.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/address.hpp"
 #include "libtorrent/entry.hpp"
@@ -73,6 +72,7 @@
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
+#include "libtorrent/hasher.hpp"
 #include "libtorrent/ed25519.hpp"
 
 using namespace boost;
@@ -484,8 +484,9 @@ namespace std {
 %ignore libtorrent::bitfield::const_iterator;
 %ignore libtorrent::bitfield::begin;
 %ignore libtorrent::bitfield::end;
-%ignore libtorrent::stat::stat;
-%ignore libtorrent::stat_channel;
+%ignore libtorrent::hasher::hasher(const char*, int);
+%ignore libtorrent::hasher::update(std::string const&);
+%ignore libtorrent::hasher::update(const char*, int);
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -541,9 +542,9 @@ namespace std {
 %rename(libtorrent_errors) libtorrent::errors::error_code_enum;
 %rename(bdecode_no_error) libtorrent::bdecode_errors::no_error;
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
+%rename(final_hash) libtorrent::hasher::final;
 
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
-%rename("$ignore", regextarget=1, fullname=1, %$isfunction) "libtorrent::stat::.*";
 
 %include <boost/system/error_code.hpp>
 
@@ -552,7 +553,6 @@ namespace std {
 %include "libtorrent/time.hpp"
 %include "libtorrent/fingerprint.hpp"
 %include "libtorrent/bitfield.hpp"
-%include "libtorrent/stat.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/address.hpp"
 %include "libtorrent/entry.hpp"
@@ -592,6 +592,7 @@ namespace std {
 %include "libtorrent/create_torrent.hpp"
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
+%include "libtorrent/hasher.hpp"
 %include "libtorrent/ed25519.hpp"
 
 namespace boost {
@@ -630,6 +631,20 @@ namespace boost {
                 %extend {
                     bool op_lt(const address& a2) {
                         return *$self < a2;
+                    }
+
+                    void hash(libtorrent::sha1_hash& h) {
+                        if ($self->is_v6()) {
+                            address_v6::bytes_type b = $self->to_v6().to_bytes();
+                            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
+                        } else {
+                            address_v4::bytes_type b = $self->to_v4().to_bytes();
+                            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
+                        }
+                    }
+
+                    static int compare(const address& a1, const address& a2) {
+                        return a1 == a2 ? 0 : (a1 < a2 ? -1 : 1);
                     }
                 }
             };
@@ -1046,6 +1061,31 @@ namespace libtorrent {
     }
 };
 
+%extend hasher {
+    hasher(std::vector<int8_t> const& data) {
+        return new hasher(reinterpret_cast<char const*>(&data[0]), data.size());
+    }
+
+    hasher& update(std::vector<int8_t> const& data) {
+        $self->update(reinterpret_cast<char const*>(&data[0]), data.size());
+        return *$self;
+    }
+};
+
+class stat {
+public:
+    enum
+    {
+        upload_payload,
+        upload_protocol,
+        download_payload,
+        download_protocol,
+        upload_ip_protocol,
+        download_ip_protocol,
+        num_channels
+    };
+};
+
 template <int N>
 struct bloom_filter {
 
@@ -1064,7 +1104,7 @@ struct bloom_filter {
             return std::vector<int8_t>(s.begin(), s.end());
         }
 
-        void from_bytes(std::vector<int8_t> v) {
+        void from_bytes(std::vector<int8_t> const& v) {
             $self->from_string(reinterpret_cast<char const*>(&v[0]));
         }
     }
