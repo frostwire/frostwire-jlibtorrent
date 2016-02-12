@@ -63,6 +63,10 @@ public class byte_vector {
     libtorrent_jni.byte_vector_push_back(swigCPtr, this, x);
   }
 
+  public void resize(long count) {
+    libtorrent_jni.byte_vector_resize(swigCPtr, this, count);
+  }
+
   public byte get(int i) {
     return libtorrent_jni.byte_vector_get(swigCPtr, this, i);
   }

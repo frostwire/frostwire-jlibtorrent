@@ -64,7 +64,7 @@ public final class DhtStorageBase implements DhtStorage {
             int num = Math.min(v.peers.size(), settings.maxPeersReply());
             Iterator<PeerEntry> iter = v.peers.iterator();
             entry_list pe = peers.get("values").list();
-            String endpoint;
+            byte_vector endpoint = new byte_vector();
 
             for (int t = 0, m = 0; m < num && iter.hasNext(); ++t) {
                 PeerEntry e = iter.next();

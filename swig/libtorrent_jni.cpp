@@ -798,7 +798,7 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 #include <deque>
 #include <stdexcept>
 
-SWIGINTERN std::vector< signed char >::const_reference std_vector_Sl_int8_t_Sg__get(std::vector< int8_t > *self,int i){
+SWIGINTERN int8_t std_vector_Sl_int8_t_Sg__get(std::vector< int8_t > *self,int i){
                 int size = int(self->size());
                 if (i>=0 && i<size)
                     return (*self)[i];
@@ -5266,11 +5266,32 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
 }
 
 
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte_1vector_1resize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  std::vector< int8_t > *arg1 = (std::vector< int8_t > *) 0 ;
+  std::vector< signed char >::size_type arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< int8_t > **)&jarg1; 
+  arg2 = (std::vector< signed char >::size_type)jarg2; 
+  {
+    try {
+      (arg1)->resize(arg2);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+}
+
+
 SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte_1vector_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   jbyte jresult = 0 ;
   std::vector< int8_t > *arg1 = (std::vector< int8_t > *) 0 ;
   int arg2 ;
-  std::vector< signed char >::value_type *result = 0 ;
+  int8_t result;
   
   (void)jenv;
   (void)jcls;
@@ -5280,7 +5301,7 @@ SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   {
     try {
       try {
-        result = (std::vector< signed char >::value_type *) &std_vector_Sl_int8_t_Sg__get(arg1,arg2);
+        result = (int8_t)std_vector_Sl_int8_t_Sg__get(arg1,arg2);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -5293,7 +5314,7 @@ SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }
   }
-  jresult = (jbyte)*result; 
+  jresult = (jbyte)result; 
   return jresult;
 }
 
@@ -61649,7 +61670,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("c487e9a3e3d3dc5b324a6199b93e2efeb7a72060");
+  result = (char *)("46fc1db2f904a678d45a0535c2c86104cc210efe");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
