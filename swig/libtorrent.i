@@ -112,7 +112,6 @@ namespace std {
         typedef const value_type& const_reference;
         list();
 
-        %rename(isEmpty) empty;
         bool empty() const;
         size_type size() const;
         size_type max_size() const;
@@ -140,15 +139,11 @@ namespace std {
         typedef T value_type;
         typedef const value_type& const_reference;
         vector();
-        // commented to avoid problems with some types without empty allocation constructor
-        //vector(size_type n);
         size_type size() const;
         size_type capacity() const;
         void reserve(size_type n);
-        %rename(isEmpty) empty;
         bool empty() const;
         void clear();
-        %rename(add) push_back;
         void push_back(const value_type& x);
         %extend {
             const_reference get(int i) throw (std::out_of_range) {

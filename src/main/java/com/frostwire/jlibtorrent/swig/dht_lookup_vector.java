@@ -51,16 +51,16 @@ public class dht_lookup_vector {
     libtorrent_jni.dht_lookup_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.dht_lookup_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.dht_lookup_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.dht_lookup_vector_clear(swigCPtr, this);
   }
 
-  public void add(dht_lookup x) {
-    libtorrent_jni.dht_lookup_vector_add(swigCPtr, this, dht_lookup.getCPtr(x), x);
+  public void push_back(dht_lookup x) {
+    libtorrent_jni.dht_lookup_vector_push_back(swigCPtr, this, dht_lookup.getCPtr(x), x);
   }
 
   public dht_lookup get(int i) {

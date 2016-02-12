@@ -39,8 +39,8 @@ public class string_list {
     this(libtorrent_jni.new_string_list(), true);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.string_list_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.string_list_empty(swigCPtr, this);
   }
 
   public long size() {

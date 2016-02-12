@@ -692,7 +692,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public List<AnnounceEntry> getTrackers() {
+    public List<AnnounceEntry> trackers() {
         announce_entry_vector v = th.trackers();
         int size = (int) v.size();
         List<AnnounceEntry> list = new ArrayList<AnnounceEntry>(size);
@@ -718,21 +718,24 @@ public final class TorrentHandle {
         th.scrape_tracker();
     }
 
-    // If you want
-    // libtorrent to use another list of trackers for this torrent, you can
-    // use ``replace_trackers()`` which takes a list of the same form as the
-    // one returned from ``trackers()`` and will replace it. If you want an
-    // immediate effect, you have to call force_reannounce(). See
-    // announce_entry.
-    //
-    // The updated set of trackers will be saved in the resume data, and when
-    // a torrent is started with resume data, the trackers from the resume
-    // data will replace the original ones.
+    /**
+     * If you want libtorrent to use another list of trackers for this torrent,
+     * you can use {@link #replaceTrackers(List)} which takes a list of the same
+     * form as the one returned from {@link #trackers()} and will replace it.
+     * If you want an immediate effect, you have to call {@link #forceReannounce()}.
+     * <p/>
+     * The updated set of trackers will be saved in the resume data, and when
+     * a torrent is started with resume data, the trackers from the resume
+     * data will replace the original ones.
+     *
+     * @param trackers
+     * @see AnnounceEntry
+     */
     public void replaceTrackers(List<AnnounceEntry> trackers) {
         announce_entry_vector v = new announce_entry_vector();
 
         for (AnnounceEntry e : trackers) {
-            v.add(e.getSwig());
+            v.push_back(e.getSwig());
         }
 
         th.replace_trackers(v);
@@ -800,7 +803,7 @@ public final class TorrentHandle {
     // string containing one or more, comma separated, ip-address (either an
     // IPv4 or IPv6 address). When specifying multiple interfaces, the
     // torrent will round-robin which interface to use for each outgoing
-    // conneciton. This is useful for clients that are multi-homed.
+    // connection. This is useful for clients that are multi-homed.
 //    public void useInterface(String netInterface) {
 //        th.use_interface(netInterface);
 //    }
@@ -811,7 +814,7 @@ public final class TorrentHandle {
     // for all pieces is reported as 0.
     //
     // The piece availability is the number of peers that we are connected
-    // that has advertized having a particular piece. This is the information
+    // that has advertised having a particular piece. This is the information
     // that libtorrent uses in order to prefer picking rare pieces.
     public int[] getPieceAvailability() {
         int_vector v = new int_vector();

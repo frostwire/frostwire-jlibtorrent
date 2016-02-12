@@ -51,16 +51,16 @@ public class sha1_hash_vector {
     libtorrent_jni.sha1_hash_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.sha1_hash_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.sha1_hash_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.sha1_hash_vector_clear(swigCPtr, this);
   }
 
-  public void add(sha1_hash x) {
-    libtorrent_jni.sha1_hash_vector_add(swigCPtr, this, sha1_hash.getCPtr(x), x);
+  public void push_back(sha1_hash x) {
+    libtorrent_jni.sha1_hash_vector_push_back(swigCPtr, this, sha1_hash.getCPtr(x), x);
   }
 
   public sha1_hash get(int i) {

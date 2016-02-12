@@ -51,16 +51,16 @@ public class byte_vector {
     libtorrent_jni.byte_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.byte_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.byte_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.byte_vector_clear(swigCPtr, this);
   }
 
-  public void add(byte x) {
-    libtorrent_jni.byte_vector_add(swigCPtr, this, x);
+  public void push_back(byte x) {
+    libtorrent_jni.byte_vector_push_back(swigCPtr, this, x);
   }
 
   public byte get(int i) {

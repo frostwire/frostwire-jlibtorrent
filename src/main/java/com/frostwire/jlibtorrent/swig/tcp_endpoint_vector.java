@@ -51,16 +51,16 @@ public class tcp_endpoint_vector {
     libtorrent_jni.tcp_endpoint_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.tcp_endpoint_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.tcp_endpoint_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.tcp_endpoint_vector_clear(swigCPtr, this);
   }
 
-  public void add(tcp_endpoint x) {
-    libtorrent_jni.tcp_endpoint_vector_add(swigCPtr, this, tcp_endpoint.getCPtr(x), x);
+  public void push_back(tcp_endpoint x) {
+    libtorrent_jni.tcp_endpoint_vector_push_back(swigCPtr, this, tcp_endpoint.getCPtr(x), x);
   }
 
   public tcp_endpoint get(int i) {

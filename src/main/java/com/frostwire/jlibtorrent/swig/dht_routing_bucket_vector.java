@@ -51,16 +51,16 @@ public class dht_routing_bucket_vector {
     libtorrent_jni.dht_routing_bucket_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.dht_routing_bucket_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.dht_routing_bucket_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.dht_routing_bucket_vector_clear(swigCPtr, this);
   }
 
-  public void add(dht_routing_bucket x) {
-    libtorrent_jni.dht_routing_bucket_vector_add(swigCPtr, this, dht_routing_bucket.getCPtr(x), x);
+  public void push_back(dht_routing_bucket x) {
+    libtorrent_jni.dht_routing_bucket_vector_push_back(swigCPtr, this, dht_routing_bucket.getCPtr(x), x);
   }
 
   public dht_routing_bucket get(int i) {

@@ -69,7 +69,7 @@ public final class SwigPlugin extends swig_plugin {
                     String q = pp.first;
                     SwigDhtPlugin h = pin(new SwigDhtPlugin(pp.second));
                     string_dht_extension_handler_listener_ptr_pair pair = new string_dht_extension_handler_listener_ptr_pair(q, h);
-                    dht_extensions.add(pair);
+                    dht_extensions.push_back(pair);
                 }
             }
         } catch (Throwable e) {

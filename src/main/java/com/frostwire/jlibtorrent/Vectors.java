@@ -36,7 +36,7 @@ public final class Vectors {
         byte_vector v = new byte_vector();
 
         for (int i = 0; i < arr.length; i++) {
-            v.add(arr[i]);
+            v.push_back(arr[i]);
         }
 
         return v;
@@ -46,7 +46,7 @@ public final class Vectors {
         int_vector v = new int_vector();
 
         for (int i = 0; i < arr.length; i++) {
-            v.add(arr[i]);
+            v.push_back(arr[i]);
         }
 
         return v;
@@ -78,7 +78,7 @@ public final class Vectors {
         byte_vector v = new byte_vector();
         byte z = (byte) 0;
         for (int i = 0; i < size; i++) {
-            v.add(z);
+            v.push_back(z);
         }
 
         return v;

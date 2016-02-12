@@ -51,16 +51,16 @@ public class int_int_pair_vector {
     libtorrent_jni.int_int_pair_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.int_int_pair_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.int_int_pair_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.int_int_pair_vector_clear(swigCPtr, this);
   }
 
-  public void add(int_int_pair x) {
-    libtorrent_jni.int_int_pair_vector_add(swigCPtr, this, int_int_pair.getCPtr(x), x);
+  public void push_back(int_int_pair x) {
+    libtorrent_jni.int_int_pair_vector_push_back(swigCPtr, this, int_int_pair.getCPtr(x), x);
   }
 
   public int_int_pair get(int i) {

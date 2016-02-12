@@ -39,8 +39,8 @@ public class entry_list {
     this(libtorrent_jni.new_entry_list(), true);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.entry_list_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.entry_list_empty(swigCPtr, this);
   }
 
   public long size() {

@@ -51,16 +51,16 @@ public class string_vector {
     libtorrent_jni.string_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.string_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.string_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.string_vector_clear(swigCPtr, this);
   }
 
-  public void add(String x) {
-    libtorrent_jni.string_vector_add(swigCPtr, this, x);
+  public void push_back(String x) {
+    libtorrent_jni.string_vector_push_back(swigCPtr, this, x);
   }
 
   public String get(int i) {

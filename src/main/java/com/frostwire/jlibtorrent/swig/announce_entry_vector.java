@@ -51,16 +51,16 @@ public class announce_entry_vector {
     libtorrent_jni.announce_entry_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.announce_entry_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.announce_entry_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.announce_entry_vector_clear(swigCPtr, this);
   }
 
-  public void add(announce_entry x) {
-    libtorrent_jni.announce_entry_vector_add(swigCPtr, this, announce_entry.getCPtr(x), x);
+  public void push_back(announce_entry x) {
+    libtorrent_jni.announce_entry_vector_push_back(swigCPtr, this, announce_entry.getCPtr(x), x);
   }
 
   public announce_entry get(int i) {

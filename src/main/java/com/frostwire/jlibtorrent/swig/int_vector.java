@@ -51,16 +51,16 @@ public class int_vector {
     libtorrent_jni.int_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.int_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.int_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.int_vector_clear(swigCPtr, this);
   }
 
-  public void add(int x) {
-    libtorrent_jni.int_vector_add(swigCPtr, this, x);
+  public void push_back(int x) {
+    libtorrent_jni.int_vector_push_back(swigCPtr, this, x);
   }
 
   public int get(int i) {

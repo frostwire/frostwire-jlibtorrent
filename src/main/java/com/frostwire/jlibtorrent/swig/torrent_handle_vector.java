@@ -51,16 +51,16 @@ public class torrent_handle_vector {
     libtorrent_jni.torrent_handle_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.torrent_handle_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.torrent_handle_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.torrent_handle_vector_clear(swigCPtr, this);
   }
 
-  public void add(torrent_handle x) {
-    libtorrent_jni.torrent_handle_vector_add(swigCPtr, this, torrent_handle.getCPtr(x), x);
+  public void push_back(torrent_handle x) {
+    libtorrent_jni.torrent_handle_vector_push_back(swigCPtr, this, torrent_handle.getCPtr(x), x);
   }
 
   public torrent_handle get(int i) {

@@ -51,16 +51,16 @@ public class file_slice_vector {
     libtorrent_jni.file_slice_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.file_slice_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.file_slice_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.file_slice_vector_clear(swigCPtr, this);
   }
 
-  public void add(file_slice x) {
-    libtorrent_jni.file_slice_vector_add(swigCPtr, this, file_slice.getCPtr(x), x);
+  public void push_back(file_slice x) {
+    libtorrent_jni.file_slice_vector_push_back(swigCPtr, this, file_slice.getCPtr(x), x);
   }
 
   public file_slice get(int i) {

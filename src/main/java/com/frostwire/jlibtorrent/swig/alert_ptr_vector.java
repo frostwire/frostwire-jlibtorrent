@@ -51,16 +51,16 @@ public class alert_ptr_vector {
     libtorrent_jni.alert_ptr_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.alert_ptr_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.alert_ptr_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.alert_ptr_vector_clear(swigCPtr, this);
   }
 
-  public void add(alert x) {
-    libtorrent_jni.alert_ptr_vector_add(swigCPtr, this, alert.getCPtr(x), x);
+  public void push_back(alert x) {
+    libtorrent_jni.alert_ptr_vector_push_back(swigCPtr, this, alert.getCPtr(x), x);
   }
 
   public alert get(int i) {

@@ -51,16 +51,16 @@ public class string_dht_extension_handler_listener_ptr_pair_vector {
     libtorrent_jni.string_dht_extension_handler_listener_ptr_pair_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.string_dht_extension_handler_listener_ptr_pair_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.string_dht_extension_handler_listener_ptr_pair_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.string_dht_extension_handler_listener_ptr_pair_vector_clear(swigCPtr, this);
   }
 
-  public void add(string_dht_extension_handler_listener_ptr_pair x) {
-    libtorrent_jni.string_dht_extension_handler_listener_ptr_pair_vector_add(swigCPtr, this, string_dht_extension_handler_listener_ptr_pair.getCPtr(x), x);
+  public void push_back(string_dht_extension_handler_listener_ptr_pair x) {
+    libtorrent_jni.string_dht_extension_handler_listener_ptr_pair_vector_push_back(swigCPtr, this, string_dht_extension_handler_listener_ptr_pair.getCPtr(x), x);
   }
 
   public string_dht_extension_handler_listener_ptr_pair get(int i) {

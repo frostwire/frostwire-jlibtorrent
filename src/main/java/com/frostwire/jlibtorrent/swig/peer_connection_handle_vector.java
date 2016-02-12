@@ -51,16 +51,16 @@ public class peer_connection_handle_vector {
     libtorrent_jni.peer_connection_handle_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.peer_connection_handle_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.peer_connection_handle_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.peer_connection_handle_vector_clear(swigCPtr, this);
   }
 
-  public void add(peer_connection_handle x) {
-    libtorrent_jni.peer_connection_handle_vector_add(swigCPtr, this, peer_connection_handle.getCPtr(x), x);
+  public void push_back(peer_connection_handle x) {
+    libtorrent_jni.peer_connection_handle_vector_push_back(swigCPtr, this, peer_connection_handle.getCPtr(x), x);
   }
 
   public peer_connection_handle get(int i) {

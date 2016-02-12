@@ -51,16 +51,16 @@ public class partial_piece_info_vector {
     libtorrent_jni.partial_piece_info_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.partial_piece_info_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.partial_piece_info_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.partial_piece_info_vector_clear(swigCPtr, this);
   }
 
-  public void add(partial_piece_info x) {
-    libtorrent_jni.partial_piece_info_vector_add(swigCPtr, this, partial_piece_info.getCPtr(x), x);
+  public void push_back(partial_piece_info x) {
+    libtorrent_jni.partial_piece_info_vector_push_back(swigCPtr, this, partial_piece_info.getCPtr(x), x);
   }
 
   public partial_piece_info get(int i) {

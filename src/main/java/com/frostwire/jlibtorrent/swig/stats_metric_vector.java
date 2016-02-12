@@ -51,16 +51,16 @@ public class stats_metric_vector {
     libtorrent_jni.stats_metric_vector_reserve(swigCPtr, this, n);
   }
 
-  public boolean isEmpty() {
-    return libtorrent_jni.stats_metric_vector_isEmpty(swigCPtr, this);
+  public boolean empty() {
+    return libtorrent_jni.stats_metric_vector_empty(swigCPtr, this);
   }
 
   public void clear() {
     libtorrent_jni.stats_metric_vector_clear(swigCPtr, this);
   }
 
-  public void add(stats_metric x) {
-    libtorrent_jni.stats_metric_vector_add(swigCPtr, this, stats_metric.getCPtr(x), x);
+  public void push_back(stats_metric x) {
+    libtorrent_jni.stats_metric_vector_push_back(swigCPtr, this, stats_metric.getCPtr(x), x);
   }
 
   public stats_metric get(int i) {
