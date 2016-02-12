@@ -237,6 +237,14 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.default_storage_disk_write_access_log__SWIG_1(enable);
   }
 
+  public static void sha1_hash_address(address ip, sha1_hash h) {
+    libtorrent_jni.sha1_hash_address(address.getCPtr(ip), ip, sha1_hash.getCPtr(h), h);
+  }
+
+  public static int write_tcp_endpoint(tcp_endpoint endp, byte_vector out) {
+    return libtorrent_jni.write_tcp_endpoint(tcp_endpoint.getCPtr(endp), endp, byte_vector.getCPtr(out), out);
+  }
+
   public static boolean add_files_cb(String p, add_files_listener listener) {
     return libtorrent_jni.add_files_cb(p, add_files_listener.getCPtr(listener), listener);
   }

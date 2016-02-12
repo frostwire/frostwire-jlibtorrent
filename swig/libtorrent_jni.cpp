@@ -1226,6 +1226,9 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_std_string_Sc_dht_extension_handler_li
                 else
                     throw std::out_of_range("vector index out of range");
             }
+SWIGINTERN libtorrent::entry *new_libtorrent_entry__SWIG_7(std::vector< int8_t > const &string_bytes){
+        return new entry(std::string(string_bytes.begin(), string_bytes.end()));
+    }
 SWIGINTERN libtorrent::entry &libtorrent_entry_get(libtorrent::entry *self,std::string const &key){
         return self->operator[](key);
     }
@@ -1471,15 +1474,6 @@ SWIGINTERN libtorrent::hasher &libtorrent_hasher_update(libtorrent::hasher *self
     }
 SWIGINTERN bool boost_asio_ip_address_op_lt(boost::asio::ip::address *self,boost::asio::ip::address const &a2){
                         return *self < a2;
-                    }
-SWIGINTERN void boost_asio_ip_address_hash(boost::asio::ip::address *self,libtorrent::sha1_hash &h){
-                        if (self->is_v6()) {
-                            address_v6::bytes_type b = self->to_v6().to_bytes();
-                            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
-                        } else {
-                            address_v4::bytes_type b = self->to_v4().to_bytes();
-                            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
-                        }
                     }
 SWIGINTERN int boost_asio_ip_address_compare(boost::asio::ip::address const &a1,boost::asio::ip::address const &a2){
                         return a1 == a2 ? 0 : (a1 < a2 ? -1 : 1);
@@ -17358,6 +17352,33 @@ SWIGEXPORT jshort JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_en
   arg1 = *(libtorrent::entry **)&jarg1; 
   result = (boost::uint8_t) ((arg1)->m_type_queried);
   jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_17(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< int8_t > *arg1 = 0 ;
+  libtorrent::entry *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< int8_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (libtorrent::entry *)new_libtorrent_entry__SWIG_7((std::vector< signed char > const &)*arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  *(libtorrent::entry **)&jresult = result; 
   return jresult;
 }
 
@@ -59802,32 +59823,6 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1hash(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  boost::asio::ip::address *arg1 = (boost::asio::ip::address *) 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(boost::asio::ip::address **)&jarg1; 
-  arg2 = *(libtorrent::sha1_hash **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::sha1_hash & reference is null");
-    return ;
-  } 
-  {
-    try {
-      boost_asio_ip_address_hash(arg1,*arg2);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-}
-
-
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1compare(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jint jresult = 0 ;
   boost::asio::ip::address *arg1 = 0 ;
@@ -61654,7 +61649,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("8bc38bfd5c6b2db415447aa051ca875c8f6d4e13");
+  result = (char *)("c487e9a3e3d3dc5b324a6199b93e2efeb7a72060");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -62240,6 +62235,70 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_defa
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }
   }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha1_1hash_1address(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  boost::asio::ip::address *arg1 = 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(boost::asio::ip::address **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "boost::asio::ip::address const & reference is null");
+    return ;
+  } 
+  arg2 = *(libtorrent::sha1_hash **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::sha1_hash & reference is null");
+    return ;
+  } 
+  {
+    try {
+      sha1_hash_address((boost::asio::ip::address const &)*arg1,*arg2);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_write_1tcp_1endpoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  tcp::endpoint *arg1 = 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(tcp::endpoint **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "tcp::endpoint const & reference is null");
+    return 0;
+  } 
+  arg2 = *(std::vector< int8_t > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (int)write_tcp_endpoint((tcp::endpoint const &)*arg1,*arg2);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  jresult = (jint)result; 
+  return jresult;
 }
 
 

@@ -633,16 +633,6 @@ namespace boost {
                         return *$self < a2;
                     }
 
-                    void hash(libtorrent::sha1_hash& h) {
-                        if ($self->is_v6()) {
-                            address_v6::bytes_type b = $self->to_v6().to_bytes();
-                            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
-                        } else {
-                            address_v4::bytes_type b = $self->to_v4().to_bytes();
-                            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
-                        }
-                    }
-
                     static int compare(const address& a1, const address& a2) {
                         return a1 == a2 ? 0 : (a1 < a2 ? -1 : 1);
                     }
@@ -894,6 +884,10 @@ namespace libtorrent {
 };
 
 %extend entry {
+    entry(std::vector<int8_t> const& string_bytes) {
+        return new entry(std::string(string_bytes.begin(), string_bytes.end()));
+    }
+
     entry& get(std::string const& key) {
         return $self->operator[](key);
     }

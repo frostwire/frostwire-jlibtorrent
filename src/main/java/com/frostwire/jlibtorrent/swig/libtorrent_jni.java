@@ -595,6 +595,7 @@ public class libtorrent_jni {
   public final static native String entry_to_string(long jarg1, entry jarg1_);
   public final static native void entry_m_type_queried_set(long jarg1, entry jarg1_, short jarg2);
   public final static native short entry_m_type_queried_get(long jarg1, entry jarg1_);
+  public final static native long new_entry__SWIG_7(long jarg1, byte_vector jarg1_);
   public final static native long entry_get(long jarg1, entry jarg1_, String jarg2);
   public final static native void entry_set__SWIG_0(long jarg1, entry jarg1_, String jarg2, String jarg3);
   public final static native void entry_set__SWIG_1(long jarg1, entry jarg1_, String jarg2, long jarg3, byte_vector jarg3_);
@@ -2877,7 +2878,6 @@ public class libtorrent_jni {
   public final static native boolean address_is_unspecified(long jarg1, address jarg1_);
   public final static native boolean address_is_multicast(long jarg1, address jarg1_);
   public final static native boolean address_op_lt(long jarg1, address jarg1_, long jarg2, address jarg2_);
-  public final static native void address_hash(long jarg1, address jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native int address_compare(long jarg1, address jarg1_, long jarg2, address jarg2_);
   public final static native void delete_address(long jarg1);
   public final static native long new_address_v4__SWIG_0();
@@ -2979,6 +2979,8 @@ public class libtorrent_jni {
   public final static native void dht_sign_mutable_item(long jarg1, byte_vector jarg1_, String jarg2, int jarg3, long jarg4, byte_vector jarg4_, long jarg5, byte_vector jarg5_, long jarg6, byte_vector jarg6_);
   public final static native boolean default_storage_disk_write_access_log__SWIG_0();
   public final static native void default_storage_disk_write_access_log__SWIG_1(boolean jarg1);
+  public final static native void sha1_hash_address(long jarg1, address jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native int write_tcp_endpoint(long jarg1, tcp_endpoint jarg1_, long jarg2, byte_vector jarg2_);
   public final static native void delete_add_files_listener(long jarg1);
   public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
   public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2);

@@ -15,6 +15,8 @@
 
 #include <libtorrent/buffer.hpp>
 #include <libtorrent/utp_stream.hpp>
+#include <libtorrent/socket_io.hpp>
+
 #include <libtorrent/kademlia/dht_tracker.hpp>
 #include <libtorrent/kademlia/node_entry.hpp>
 #include <libtorrent/kademlia/node.hpp>
@@ -159,6 +161,26 @@ bool default_storage_disk_write_access_log() {
 
 void default_storage_disk_write_access_log(bool enable) {
     return default_storage::disk_write_access_log(enable);
+}
+
+void sha1_hash_address(boost::asio::ip::address const& ip, libtorrent::sha1_hash& h)
+{
+    if (ip.is_v6())
+    {
+        address_v6::bytes_type b = ip.to_v6().to_bytes();
+        h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
+    }
+    else
+    {
+        address_v4::bytes_type b = ip.to_v4().to_bytes();
+        h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
+    }
+}
+
+int write_tcp_endpoint(tcp::endpoint const& endp, std::vector<int8_t>& out) {
+    std::vector<int8_t>::iterator it = out.begin();
+	libtorrent::detail::write_endpoint(endp, it);
+	return it - out.begin();
 }
 
 class add_files_listener {

@@ -112,6 +112,10 @@ public class entry {
     return libtorrent_jni.entry_m_type_queried_get(swigCPtr, this);
   }
 
+  public entry(byte_vector string_bytes) {
+    this(libtorrent_jni.new_entry__SWIG_7(byte_vector.getCPtr(string_bytes), string_bytes), true);
+  }
+
   public entry get(String key) {
     return new entry(libtorrent_jni.entry_get(swigCPtr, this, key), false);
   }

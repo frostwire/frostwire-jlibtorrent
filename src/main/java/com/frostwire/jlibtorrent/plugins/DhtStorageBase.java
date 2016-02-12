@@ -4,10 +4,7 @@ import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.DhtSettings;
 import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TcpEndpoint;
-import com.frostwire.jlibtorrent.swig.bloom_filter_256;
-import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.entry_list;
-import com.frostwire.jlibtorrent.swig.sha1_hash;
+import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -53,7 +50,7 @@ public final class DhtStorageBase implements DhtStorage {
 
             for (PeerEntry peer : v.peers) {
                 sha1_hash iphash = new sha1_hash();
-                peer.addr.address().swig().hash(iphash);
+                libtorrent.sha1_hash_address(peer.addr.address().swig(), iphash);
                 if (peer.seed) {
                     seeds.set(iphash);
                 } else {
