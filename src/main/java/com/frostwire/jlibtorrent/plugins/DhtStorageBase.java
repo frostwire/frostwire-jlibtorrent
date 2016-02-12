@@ -4,15 +4,15 @@ import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.DhtSettings;
 import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TcpEndpoint;
-import com.frostwire.jlibtorrent.swig.address;
 import com.frostwire.jlibtorrent.swig.bloom_filter_256;
 import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.entry_list;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.TreeMap;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 /**
  * @author gubatron
@@ -24,14 +24,14 @@ public final class DhtStorageBase implements DhtStorage {
     private final DhtSettings settings;
     private final Counters counters;
 
-    private final TreeMap<String, TorrentEntry> map;
+    private final HashMap<String, TorrentEntry> map;
 
     public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
         this.id = id;
         this.settings = settings;
         this.counters = new Counters();
 
-        this.map = new TreeMap<String, TorrentEntry>();
+        this.map = new HashMap<String, TorrentEntry>();
     }
 
     @Override
@@ -50,38 +50,37 @@ public final class DhtStorageBase implements DhtStorage {
         if (scrape) {
             bloom_filter_256 downloaders = new bloom_filter_256();
             bloom_filter_256 seeds = new bloom_filter_256();
-/*
+
             for (PeerEntry peer : v.peers) {
-                sha1_hash iphash;
-                hash_address(peer_it -> addr.address(), iphash);
+                sha1_hash iphash = new sha1_hash();
+                peer.addr.address().swig().hash(iphash);
                 if (peer.seed) {
                     seeds.set(iphash);
                 } else {
                     downloaders.set(iphash);
                 }
-            }*/
+            }
 
             peers.set("BFpe", downloaders.to_bytes());
             peers.set("BFsd", seeds.to_bytes());
         } else {
-            /*
             int num = Math.min(v.peers.size(), settings.maxPeersReply());
-            std::set<peer_entry>::const_iterator iter = v.peers.begin();
-            entry::list_type& pe = peers["values"].list();
-            std::string endpoint;
+            Iterator<PeerEntry> iter = v.peers.iterator();
+            entry_list pe = peers.get("values").list();
+            String endpoint;
 
-            for (int t = 0, m = 0; m < num && iter != v.peers.end(); ++iter, ++t)
-            {
-                if ((random() / float(UINT_MAX + 1.f)) * (num - t) >= num - m) continue;
-                if (noseed && iter->seed) continue;
-                endpoint.resize(18);
+            for (int t = 0, m = 0; m < num && iter.hasNext(); ++t) {
+                PeerEntry e = iter.next();
+                if ((Math.random() / (Integer.MAX_VALUE + 1.f)) * (num - t) >= num - m) continue;
+                if (noseed && e.seed) continue;
+                /*endpoint.resize(18);
                 std::string::iterator out = endpoint.begin();
                 write_endpoint(iter->addr, out);
                 endpoint.resize(out - endpoint.begin());
-                pe.push_back(entry(endpoint));
+                pe.push_back(entry(endpoint));*/
 
                 ++m;
-            }*/
+            }
         }
 
         return true;
@@ -127,19 +126,6 @@ public final class DhtStorageBase implements DhtStorage {
         return counters;
     }
 
-    private static void hash_address(address ip, sha1_hash h) {/*
-        if (ip.is_v6())
-        {
-            address_v6::bytes_type b = ip.to_v6().to_bytes();
-            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
-        }
-        else
-        {
-            address_v4::bytes_type b = ip.to_v4().to_bytes();
-            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
-        }*/
-    }
-
     static final class PeerEntry {
 
         public long added;
@@ -161,6 +147,6 @@ public final class DhtStorageBase implements DhtStorage {
 
     static final class TorrentEntry {
         public String name;
-        public HashSet<PeerEntry> peers;
+        public TreeSet<PeerEntry> peers;
     }
 }
