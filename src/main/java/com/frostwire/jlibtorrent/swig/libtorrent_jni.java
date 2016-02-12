@@ -605,7 +605,9 @@ public class libtorrent_jni {
   public final static native short entry_m_type_queried_get(long jarg1, entry jarg1_);
   public final static native long entry_get(long jarg1, entry jarg1_, String jarg2);
   public final static native void entry_set__SWIG_0(long jarg1, entry jarg1_, String jarg2, String jarg3);
-  public final static native void entry_set__SWIG_1(long jarg1, entry jarg1_, String jarg2, int jarg3);
+  public final static native void entry_set__SWIG_1(long jarg1, entry jarg1_, String jarg2, long jarg3, byte_vector jarg3_);
+  public final static native void entry_set__SWIG_2(long jarg1, entry jarg1_, String jarg2, int jarg3);
+  public final static native long entry_string_bytes(long jarg1, entry jarg1_);
   public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long entry_bdecode(long jarg1, byte_vector jarg1_);
   public final static native int sha1_hash_size_get();

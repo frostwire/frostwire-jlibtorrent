@@ -887,8 +887,17 @@ namespace libtorrent {
         $self->operator[](key) = value;
     }
 
+    void set(std::string const& key, std::vector<int8_t> const& value) {
+         $self->operator[](key) = std::string(value.begin(), value.end());
+    }
+
     void set(std::string const& key, long const& value) {
         $self->operator[](key) = value;
+    }
+
+    std::vector<int8_t> string_bytes() {
+        std::string s = $self->string();
+        return std::vector<int8_t>(s.begin(), s.end());
     }
 
     std::vector<int8_t> bencode() {
