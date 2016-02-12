@@ -4,8 +4,10 @@ import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.DhtSettings;
 import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.swig.address;
 import com.frostwire.jlibtorrent.swig.bloom_filter_256;
 import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.sha1_hash;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,27 +44,26 @@ public final class DhtStorageBase implements DhtStorage {
         if (!v.name.isEmpty()) {
             peers.set("n", v.name);
         }
-/*
-        if (scrape)
-        {
+
+        if (scrape) {
             bloom_filter_256 downloaders = new bloom_filter_256();
             bloom_filter_256 seeds = new bloom_filter_256();
-
-            for (std::set<peer_entry>::const_iterator peer_it = v.peers.begin()
-            , end(v.peers.end()); peer_it != end; ++peer_it)
-            {
+/*
+            for (PeerEntry peer : v.peers) {
                 sha1_hash iphash;
-                hash_address(peer_it->addr.address(), iphash);
-                if (peer_it->seed) seeds.set(iphash);
-                else downloaders.set(iphash);
-            }
+                hash_address(peer_it -> addr.address(), iphash);
+                if (peer.seed) {
+                    seeds.set(iphash);
+                } else {
+                    downloaders.set(iphash);
+                }
+            }*/
 
-            peers.set["BFpe"] = downloaders.to_string();
-            peers["BFsd"] = seeds.to_string();
-        }
-        else
-        {
-            int num = (std::min)(int(v.peers.size()), m_settings.max_peers_reply);
+            peers.set("BFpe", downloaders.to_bytes());
+            peers.set("BFsd", seeds.to_bytes());
+        } else {
+            /*
+            int num = Math.min(v.peers.size(), settings.maxPeersReply());
             std::set<peer_entry>::const_iterator iter = v.peers.begin();
             entry::list_type& pe = peers["values"].list();
             std::string endpoint;
@@ -78,8 +79,8 @@ public final class DhtStorageBase implements DhtStorage {
                 pe.push_back(entry(endpoint));
 
                 ++m;
-            }
-        }*/
+            }*/
+        }
 
         return true;
     }
@@ -122,6 +123,20 @@ public final class DhtStorageBase implements DhtStorage {
     @Override
     public Counters counters() {
         return counters;
+    }
+
+    private static void hash_address(address ip, sha1_hash h)
+    {/*
+        if (ip.is_v6())
+        {
+            address_v6::bytes_type b = ip.to_v6().to_bytes();
+            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
+        }
+        else
+        {
+            address_v4::bytes_type b = ip.to_v4().to_bytes();
+            h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
+        }*/
     }
 
     static final class PeerEntry {
