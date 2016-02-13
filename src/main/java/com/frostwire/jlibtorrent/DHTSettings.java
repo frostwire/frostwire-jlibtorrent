@@ -98,7 +98,7 @@ public final class DhtSettings {
      *
      * @return
      */
-    public int getMaxTorrents() {
+    public int maxTorrents() {
         return s.getMax_torrents();
     }
 
@@ -109,7 +109,7 @@ public final class DhtSettings {
      *
      * @param value
      */
-    public void setMaxTorrents(int value) {
+    public void maxTorrents(int value) {
         s.setMax_torrents(value);
     }
 
