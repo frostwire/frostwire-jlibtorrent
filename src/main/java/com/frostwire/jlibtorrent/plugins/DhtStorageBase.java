@@ -6,10 +6,7 @@ import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.*;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * @author gubatron
@@ -84,7 +81,69 @@ public final class DhtStorageBase implements DhtStorage {
 
     @Override
     public void announcePeer(Sha1Hash infoHash, TcpEndpoint endp, String name, boolean seed) {
+        String hex = infoHash.toHex();
+        TorrentEntry v = map.get(hex);
+        if (v == null) {
+            // we don't have this torrent, add it
+            // do we need to remove another one first?
+            if (!map.isEmpty() && map.size() >= settings.maxTorrents()) {
+                // we need to remove some. Remove the ones with the
+                // fewest peers
+                int num_peers = Integer.MAX_VALUE;
+                String candidateKey = null;
+                for (Map.Entry<String, TorrentEntry> kv : map.entrySet()) {
 
+                    if (kv.getValue().peers.size() > num_peers) {
+                        continue;
+                    }
+                    if (hex.equals(kv.getKey())) {
+                        continue;
+                    }
+                    num_peers = kv.getValue().peers.size();
+                    candidateKey = kv.getKey();
+                }
+                map.remove(candidateKey);
+                counters.peers -= num_peers;
+                counters.torrents -= 1;
+            }
+            counters.torrents += 1;
+            v = new TorrentEntry();
+            map.put(hex, v);
+        }
+
+        // the peer announces a torrent name, and we don't have a name
+        // for this torrent. Store it.
+        if (!name.isEmpty() && v.name.isEmpty()) {
+            String tname = name;
+            if (tname.length() > 100) {
+                tname = tname.substring(0, 99);
+            }
+            v.name = tname;
+        }
+
+        PeerEntry peer = new PeerEntry();
+        peer.addr = endp;
+        peer.added = System.currentTimeMillis();
+        peer.seed = seed;
+
+        if (v.peers.contains(peer)) {
+            v.peers.remove(peer);
+            counters.peers -= 1;
+        } else if (v.peers.size() >= settings.maxPeers()) {
+            // when we're at capacity, there's a 50/50 chance of dropping the
+            // announcing peer or an existing peer
+            if (Math.random() > 0.5) {
+                return;
+            }
+            PeerEntry t = v.peers.lower(peer);
+            if (t == null) {
+                t = v.peers.first();
+            }
+            v.peers.remove(t);
+            counters.peers -= 1;
+        }
+        v.peers.add(peer);
+        counters.peers += 1;
     }
 
     @Override
@@ -99,7 +158,7 @@ public final class DhtStorageBase implements DhtStorage {
 
     @Override
     public long getMutableItemSeq(Sha1Hash target) {
-        return 0;
+        return -1;
     }
 
     @Override
@@ -142,6 +201,12 @@ public final class DhtStorageBase implements DhtStorage {
     }
 
     static final class TorrentEntry {
+
+        public TorrentEntry() {
+            this.name = "";
+            this.peers = new TreeSet<PeerEntry>(PeerEntry.COMPARATOR);
+        }
+
         public String name;
         public TreeSet<PeerEntry> peers;
     }
