@@ -17,6 +17,14 @@ if (!hasProperty('ossrhPassword')) {
     ext.ossrhPassword = ''
 }
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
