@@ -153,6 +153,10 @@ public class DhtStorageBase implements DhtStorage {
         }
         v.peers.add(peer);
         counters.peers += 1;
+
+        if (print) {
+            print("announce_peer", "Name: " + name);
+        }
     }
 
     @Override
@@ -192,6 +196,10 @@ public class DhtStorageBase implements DhtStorage {
         }
 
         touchItem(i, addr.swig());
+
+        if (print) {
+            print("put_immutable_item", "From: " + addr);
+        }
     }
 
     @Override
@@ -260,6 +268,10 @@ public class DhtStorageBase implements DhtStorage {
         }
 
         touchItem(i, addr.swig());
+
+        if (print) {
+            print("put_mutable_item", "From: " + addr);
+        }
     }
 
     @Override
@@ -331,6 +343,11 @@ public class DhtStorageBase implements DhtStorage {
     private static void print(String operation, entry entry) {
         System.out.println("DHT OP: " + operation);
         System.out.println(entry.to_string());
+    }
+
+    private static void print(String operation, String msg) {
+        System.out.println("DHT OP: " + operation);
+        System.out.println(msg);
     }
 
     private static void touchItem(DhtImmutableItem f, address address) {
