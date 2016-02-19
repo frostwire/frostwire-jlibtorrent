@@ -18,19 +18,21 @@ public class DhtStorageBase implements DhtStorage {
     private final DhtSettings settings;
     private final Counters counters;
 
-    private final HashMap<Sha1Hash, TorrentEntry> map;
+    private final HashMap<Sha1Hash, TorrentEntry> torrents;
+    private final TreeMap<Sha1Hash, DhtImmutableItem> immutables;
 
     public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
         this.id = id;
         this.settings = settings;
         this.counters = new Counters();
 
-        this.map = new HashMap<Sha1Hash, TorrentEntry>();
+        this.torrents = new HashMap<Sha1Hash, TorrentEntry>();
+        this.immutables = new TreeMap<Sha1Hash, DhtImmutableItem>();
     }
 
     @Override
     public boolean getPeers(Sha1Hash infoHash, boolean noseed, boolean scrape, entry peers) {
-        TorrentEntry v = map.get(infoHash);
+        TorrentEntry v = torrents.get(infoHash);
 
         if (v == null) {
             return false;
@@ -80,16 +82,16 @@ public class DhtStorageBase implements DhtStorage {
 
     @Override
     public void announcePeer(Sha1Hash infoHash, TcpEndpoint endp, String name, boolean seed) {
-        TorrentEntry v = map.get(infoHash);
+        TorrentEntry v = torrents.get(infoHash);
         if (v == null) {
             // we don't have this torrent, add it
             // do we need to remove another one first?
-            if (!map.isEmpty() && map.size() >= settings.maxTorrents()) {
+            if (!torrents.isEmpty() && torrents.size() >= settings.maxTorrents()) {
                 // we need to remove some. Remove the ones with the
                 // fewest peers
                 int num_peers = Integer.MAX_VALUE;
                 Sha1Hash candidateKey = null;
-                for (Map.Entry<Sha1Hash, TorrentEntry> kv : map.entrySet()) {
+                for (Map.Entry<Sha1Hash, TorrentEntry> kv : torrents.entrySet()) {
 
                     if (kv.getValue().peers.size() > num_peers) {
                         continue;
@@ -100,13 +102,13 @@ public class DhtStorageBase implements DhtStorage {
                     num_peers = kv.getValue().peers.size();
                     candidateKey = kv.getKey();
                 }
-                map.remove(candidateKey);
+                torrents.remove(candidateKey);
                 counters.peers -= num_peers;
                 counters.torrents -= 1;
             }
             counters.torrents += 1;
             v = new TorrentEntry();
-            map.put(infoHash, v);
+            torrents.put(infoHash, v);
         }
 
         // the peer announces a torrent name, and we don't have a name
@@ -146,7 +148,13 @@ public class DhtStorageBase implements DhtStorage {
 
     @Override
     public boolean getImmutableItem(Sha1Hash target, entry item) {
-        return false;
+        DhtImmutableItem i = immutables.get(target);
+        if (i == null) {
+            return false;
+        }
+
+        //item.set("v", = bdecode(i->second.value, i->second.value + i->second.size);
+        return true;
     }
 
     @Override

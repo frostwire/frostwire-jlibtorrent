@@ -124,6 +124,10 @@ public class entry {
     libtorrent_jni.entry_set__SWIG_2(swigCPtr, this, key, value);
   }
 
+  public void set(String key, entry value) {
+    libtorrent_jni.entry_set__SWIG_3(swigCPtr, this, key, entry.getCPtr(value), value);
+  }
+
   public byte_vector string_bytes() {
     return new byte_vector(libtorrent_jni.entry_string_bytes(swigCPtr, this), true);
   }

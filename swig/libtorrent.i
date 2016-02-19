@@ -940,6 +940,10 @@ namespace libtorrent {
         $self->operator[](key) = value;
     }
 
+    void set(std::string const& key, libtorrent::entry const& value) {
+        $self->operator[](key) = value;
+    }
+
     std::vector<int8_t> string_bytes() {
         std::string s = $self->string();
         return std::vector<int8_t>(s.begin(), s.end());
