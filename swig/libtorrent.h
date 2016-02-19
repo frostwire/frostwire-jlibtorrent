@@ -20,6 +20,7 @@
 #include <libtorrent/kademlia/dht_tracker.hpp>
 #include <libtorrent/kademlia/node_entry.hpp>
 #include <libtorrent/kademlia/node.hpp>
+#include <libtorrent/kademlia/node_id.hpp>
 #include <libtorrent/kademlia/get_peers.hpp>
 #include <libtorrent/kademlia/item.hpp>
 
@@ -153,6 +154,18 @@ void dht_sign_mutable_item(std::vector<int8_t>& v, const std::string& salt, long
                         (char *)pk.data(),
                         (char *)sk.data(),
                         (char *)sig.data());
+}
+
+int dht_distance_exp(libtorrent::sha1_hash const& n1, libtorrent::sha1_hash const& n2) {
+    return dht::distance_exp(n1, n2);
+}
+
+libtorrent::sha1_hash dht_generate_id(boost::asio::ip::address const& external_ip) {
+    return dht::generate_id(external_ip);
+}
+
+libtorrent::sha1_hash dht_generate_random_id() {
+    return dht::generate_random_id();
 }
 
 bool default_storage_disk_write_access_log() {

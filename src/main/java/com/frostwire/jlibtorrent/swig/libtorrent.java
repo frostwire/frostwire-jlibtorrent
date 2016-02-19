@@ -229,6 +229,18 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.dht_sign_mutable_item(byte_vector.getCPtr(v), v, salt, seq, byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk, byte_vector.getCPtr(sig), sig);
   }
 
+  public static int dht_distance_exp(sha1_hash n1, sha1_hash n2) {
+    return libtorrent_jni.dht_distance_exp(sha1_hash.getCPtr(n1), n1, sha1_hash.getCPtr(n2), n2);
+  }
+
+  public static sha1_hash dht_generate_id(address external_ip) {
+    return new sha1_hash(libtorrent_jni.dht_generate_id(address.getCPtr(external_ip), external_ip), true);
+  }
+
+  public static sha1_hash dht_generate_random_id() {
+    return new sha1_hash(libtorrent_jni.dht_generate_random_id(), true);
+  }
+
   public static boolean default_storage_disk_write_access_log() {
     return libtorrent_jni.default_storage_disk_write_access_log__SWIG_0();
   }

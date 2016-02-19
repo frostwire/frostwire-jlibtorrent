@@ -2990,6 +2990,9 @@ public class libtorrent_jni {
   public final static native long dht_item_target_id__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_);
   public final static native boolean dht_verify_mutable_item(long jarg1, byte_vector jarg1_, String jarg2, int jarg3, long jarg4, byte_vector jarg4_, long jarg5, byte_vector jarg5_);
   public final static native void dht_sign_mutable_item(long jarg1, byte_vector jarg1_, String jarg2, int jarg3, long jarg4, byte_vector jarg4_, long jarg5, byte_vector jarg5_, long jarg6, byte_vector jarg6_);
+  public final static native int dht_distance_exp(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long dht_generate_id(long jarg1, address jarg1_);
+  public final static native long dht_generate_random_id();
   public final static native boolean default_storage_disk_write_access_log__SWIG_0();
   public final static native void default_storage_disk_write_access_log__SWIG_1(boolean jarg1);
   public final static native void sha1_hash_address(long jarg1, address jarg1_, long jarg2, sha1_hash jarg2_);
