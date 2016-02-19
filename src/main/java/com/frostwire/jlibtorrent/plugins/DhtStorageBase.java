@@ -17,6 +17,7 @@ public class DhtStorageBase implements DhtStorage {
 
     private final HashMap<Sha1Hash, TorrentEntry> torrents;
     private final HashMap<Sha1Hash, DhtImmutableItem> immutables;
+    private final HashMap<Sha1Hash, DhtMutableItem> mutables;
 
     public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
         this.id = id;
@@ -25,6 +26,7 @@ public class DhtStorageBase implements DhtStorage {
 
         this.torrents = new HashMap<Sha1Hash, TorrentEntry>();
         this.immutables = new HashMap<Sha1Hash, DhtImmutableItem>();
+        this.mutables = new HashMap<Sha1Hash, DhtMutableItem>();
     }
 
     @Override
@@ -179,7 +181,8 @@ public class DhtStorageBase implements DhtStorage {
 
     @Override
     public long getMutableItemSeq(Sha1Hash target) {
-        return -1;
+        DhtMutableItem i = mutables.get(target);
+        return i != null ? i.seq : -1;
     }
 
     @Override
@@ -244,7 +247,7 @@ public class DhtStorageBase implements DhtStorage {
         public TreeSet<PeerEntry> peers;
     }
 
-    private static final class DhtImmutableItem {
+    private static class DhtImmutableItem {
         // malloced space for the actual value
         public byte[] value;
         // this counts the number of IPs we have seen
@@ -255,6 +258,13 @@ public class DhtStorageBase implements DhtStorage {
         public long last_seen;
         // number of IPs in the bloom filter
         public int num_announcers;
+    }
+
+    private static final class DhtMutableItem extends DhtImmutableItem {
+        public byte[] sig = new byte[64];
+        public long seq;
+        public byte[] key = new byte[32];
+        public byte[] salt;
     }
 
     private static final class ImmutableItemComparator implements Comparator<Map.Entry<Sha1Hash, DhtImmutableItem>> {
