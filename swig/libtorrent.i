@@ -758,6 +758,9 @@ namespace tcp {
 
     class endpoint {
     public:
+        endpoint();
+        endpoint(boost::asio::ip::address address, unsigned short port);
+
         unsigned short port();
         boost::asio::ip::address address();
     };
@@ -767,6 +770,9 @@ namespace udp {
 
     class endpoint {
     public:
+        endpoint();
+        endpoint(boost::asio::ip::address address, unsigned short port);
+
         unsigned short port();
         boost::asio::ip::address address();
     };

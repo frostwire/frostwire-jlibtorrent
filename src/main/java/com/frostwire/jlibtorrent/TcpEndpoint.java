@@ -1,5 +1,7 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.address;
+import com.frostwire.jlibtorrent.swig.error_code;
 import com.frostwire.jlibtorrent.swig.tcp_endpoint;
 
 /**
@@ -12,6 +14,23 @@ public final class TcpEndpoint {
 
     public TcpEndpoint(tcp_endpoint endp) {
         this.endp = endp;
+    }
+
+    public TcpEndpoint() {
+        this(new tcp_endpoint());
+    }
+
+    public TcpEndpoint(Address address, int port) {
+        this(new tcp_endpoint(address.swig(), port));
+    }
+
+    public TcpEndpoint(String ip, int port) {
+        error_code ec = new error_code();
+        address addr = address.from_string(ip, ec);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
+        this.endp = new tcp_endpoint(addr, port);
     }
 
     public tcp_endpoint swig() {

@@ -35,16 +35,20 @@ public class tcp_endpoint {
     }
   }
 
+  public tcp_endpoint() {
+    this(libtorrent_jni.new_tcp_endpoint__SWIG_0(), true);
+  }
+
+  public tcp_endpoint(address address, int port) {
+    this(libtorrent_jni.new_tcp_endpoint__SWIG_1(address.getCPtr(address), address, port), true);
+  }
+
   public int port() {
     return libtorrent_jni.tcp_endpoint_port(swigCPtr, this);
   }
 
   public address address() {
     return new address(libtorrent_jni.tcp_endpoint_address(swigCPtr, this), true);
-  }
-
-  public tcp_endpoint() {
-    this(libtorrent_jni.new_tcp_endpoint(), true);
   }
 
 }

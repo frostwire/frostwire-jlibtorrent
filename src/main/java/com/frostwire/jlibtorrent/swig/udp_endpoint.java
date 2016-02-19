@@ -35,16 +35,20 @@ public class udp_endpoint {
     }
   }
 
+  public udp_endpoint() {
+    this(libtorrent_jni.new_udp_endpoint__SWIG_0(), true);
+  }
+
+  public udp_endpoint(address address, int port) {
+    this(libtorrent_jni.new_udp_endpoint__SWIG_1(address.getCPtr(address), address, port), true);
+  }
+
   public int port() {
     return libtorrent_jni.udp_endpoint_port(swigCPtr, this);
   }
 
   public address address() {
     return new address(libtorrent_jni.udp_endpoint_address(swigCPtr, this), true);
-  }
-
-  public udp_endpoint() {
-    this(libtorrent_jni.new_udp_endpoint(), true);
   }
 
 }

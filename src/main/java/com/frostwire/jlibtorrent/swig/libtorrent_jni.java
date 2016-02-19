@@ -2934,13 +2934,15 @@ public class libtorrent_jni {
   public final static native void delete_high_resolution_clock_duration(long jarg1);
   public final static native long new_high_resolution_clock();
   public final static native void delete_high_resolution_clock(long jarg1);
+  public final static native long new_tcp_endpoint__SWIG_0();
+  public final static native long new_tcp_endpoint__SWIG_1(long jarg1, address jarg1_, int jarg2);
   public final static native int tcp_endpoint_port(long jarg1, tcp_endpoint jarg1_);
   public final static native long tcp_endpoint_address(long jarg1, tcp_endpoint jarg1_);
-  public final static native long new_tcp_endpoint();
   public final static native void delete_tcp_endpoint(long jarg1);
+  public final static native long new_udp_endpoint__SWIG_0();
+  public final static native long new_udp_endpoint__SWIG_1(long jarg1, address jarg1_, int jarg2);
   public final static native int udp_endpoint_port(long jarg1, udp_endpoint jarg1_);
   public final static native long udp_endpoint_address(long jarg1, udp_endpoint jarg1_);
-  public final static native long new_udp_endpoint();
   public final static native void delete_udp_endpoint(long jarg1);
   public final static native int stat_upload_payload_get();
   public final static native int stat_upload_protocol_get();
