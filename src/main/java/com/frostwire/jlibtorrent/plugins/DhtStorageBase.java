@@ -221,6 +221,7 @@ public class DhtStorageBase implements DhtStorage {
             }
             i = new DhtMutableItem();
             i.value = buf;
+            i.ips = new bloom_filter_128();
             i.seq = seq;
             i.salt = salt;
             i.sig = sig;

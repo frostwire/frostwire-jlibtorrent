@@ -68,6 +68,26 @@ public class DhtStorageBaseTest {
         assertFalse(r);
     }
 
+    @Test
+    public void testMutableItem() {
+        DhtSettings sett = testSettings();
+        DhtStorageBase s = new DhtStorageBase(new Sha1Hash(), sett);
+
+        entry item = new entry();
+        boolean r = s.getMutableItem(n4, 0, false, item);
+        assertFalse(r);
+
+        byte[] data = new byte[]{1, 2, 3};
+        Address addr = new Address("124.31.75.21");
+
+        byte[] public_key = new byte[Ed25519.PUBLIC_KEY_SIZE];
+        byte[] signature = new byte[Ed25519.SIGNATURE_SIZE];
+        byte[] salt = new byte[]{1, 2, 3, 4};
+        s.putMutableItem(n4, data, signature, 1, public_key, salt, addr);
+        r = s.getMutableItem(n4, 0, false, item);
+        assertTrue(r);
+    }
+
     private static DhtSettings testSettings() {
         DhtSettings sett = new DhtSettings();
         sett.maxTorrents(2);
