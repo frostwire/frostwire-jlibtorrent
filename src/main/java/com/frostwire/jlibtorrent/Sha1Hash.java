@@ -21,6 +21,14 @@ public final class Sha1Hash {
         this.h = h;
     }
 
+    public Sha1Hash(byte[] bytes) {
+        if (bytes.length != 20) {
+            throw new IllegalArgumentException("bytes array must be of length 20");
+        }
+
+        this.h = new sha1_hash(Vectors.bytes2byte_vector(bytes));
+    }
+
     public Sha1Hash(String hex) {
         this();
         if (!sha1_hash.from_hex(hex, h)) {
@@ -29,13 +37,13 @@ public final class Sha1Hash {
     }
 
     /**
-     * Constructs an all-sero sha1-hash
+     * Constructs an all-zero sha1-hash
      */
     public Sha1Hash() {
         this(new sha1_hash());
     }
 
-    public sha1_hash getSwig() {
+    public sha1_hash swig() {
         return h;
     }
 
@@ -53,6 +61,10 @@ public final class Sha1Hash {
      */
     public boolean isAllZeros() {
         return h.is_all_zeros();
+    }
+
+    public byte[] toBytes() {
+        return Vectors.byte_vector2bytes(h.to_bytes());
     }
 
     /**
@@ -84,6 +96,11 @@ public final class Sha1Hash {
         }
 
         return h.op_eq(((Sha1Hash) obj).h);
+    }
+
+    @Override
+    public int hashCode() {
+        return h.hash_code();
     }
 
     /**

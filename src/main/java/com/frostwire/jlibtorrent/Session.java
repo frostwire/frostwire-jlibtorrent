@@ -504,7 +504,7 @@ public final class Session extends SessionHandle {
      * @return
      */
     public TorrentHandle findTorrent(Sha1Hash infoHash) {
-        torrent_handle th = s.find_torrent(infoHash.getSwig());
+        torrent_handle th = s.find_torrent(infoHash.swig());
 
         return th != null && th.is_valid() ? new TorrentHandle(th) : null;
     }
@@ -609,7 +609,7 @@ public final class Session extends SessionHandle {
      * @param target
      */
     public void dhtGetItem(Sha1Hash target) {
-        s.dht_get_item(target.getSwig());
+        s.dht_get_item(target.swig());
     }
 
     /**
@@ -687,15 +687,15 @@ public final class Session extends SessionHandle {
     }
 
     public void dhtGetPeers(Sha1Hash infoHash) {
-        s.dht_get_peers(infoHash.getSwig());
+        s.dht_get_peers(infoHash.swig());
     }
 
     public void dhtAnnounce(Sha1Hash infoHash, int port, int flags) {
-        s.dht_announce(infoHash.getSwig(), port, flags);
+        s.dht_announce(infoHash.swig(), port, flags);
     }
 
     public void dhtAnnounce(Sha1Hash infoHash) {
-        s.dht_announce(infoHash.getSwig());
+        s.dht_announce(infoHash.swig());
     }
 
     public void dhtDirectRequest(UdpEndpoint endp, Entry entry) {

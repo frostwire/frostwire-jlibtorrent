@@ -1013,6 +1013,24 @@ namespace libtorrent {
 };
 
 %extend sha1_hash {
+    sha1_hash(std::vector<int8_t> const& s) {
+        return new sha1_hash(std::string(s.begin(), s.end()));
+    }
+
+    int hash_code() {
+        char const* data = $self->data();
+        int result = 1;
+        for (int i = 0; i < 20; i++) {
+            result = 31 * result + data[i];
+        }
+        return result;
+    }
+
+    std::vector<int8_t> to_bytes() {
+        std::string s = $self->to_string();
+        return std::vector<int8_t>(s.begin(), s.end());
+    }
+
     std::string to_hex() {
         return libtorrent::to_hex($self->to_string());
     }

@@ -605,7 +605,7 @@ public class libtorrent_jni {
   public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long entry_bdecode(long jarg1, byte_vector jarg1_);
   public final static native int sha1_hash_size_get();
-  public final static native long new_sha1_hash();
+  public final static native long new_sha1_hash__SWIG_0();
   public final static native long sha1_hash_max();
   public final static native long sha1_hash_min();
   public final static native void sha1_hash_clear(long jarg1, sha1_hash jarg1_);
@@ -613,6 +613,9 @@ public class libtorrent_jni {
   public final static native boolean sha1_hash_op_eq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean sha1_hash_op_neq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean sha1_hash_op_lt(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long new_sha1_hash__SWIG_1(long jarg1, byte_vector jarg1_);
+  public final static native int sha1_hash_hash_code(long jarg1, sha1_hash jarg1_);
+  public final static native long sha1_hash_to_bytes(long jarg1, sha1_hash jarg1_);
   public final static native String sha1_hash_to_hex(long jarg1, sha1_hash jarg1_);
   public final static native boolean sha1_hash_from_hex(String jarg1, long jarg2, sha1_hash jarg2_);
   public final static native int sha1_hash_compare(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);

@@ -278,7 +278,7 @@ public final class AddTorrentParams {
      * @param value
      */
     public void infoHash(Sha1Hash value) {
-        p.setInfo_hash(value.getSwig());
+        p.setInfo_hash(value.swig());
     }
 
     /*

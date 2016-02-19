@@ -36,7 +36,7 @@ public class sha1_hash {
   }
 
   public sha1_hash() {
-    this(libtorrent_jni.new_sha1_hash(), true);
+    this(libtorrent_jni.new_sha1_hash__SWIG_0(), true);
   }
 
   public static sha1_hash max() {
@@ -65,6 +65,18 @@ public class sha1_hash {
 
   public boolean op_lt(sha1_hash n) {
     return libtorrent_jni.sha1_hash_op_lt(swigCPtr, this, sha1_hash.getCPtr(n), n);
+  }
+
+  public sha1_hash(byte_vector s) {
+    this(libtorrent_jni.new_sha1_hash__SWIG_1(byte_vector.getCPtr(s), s), true);
+  }
+
+  public int hash_code() {
+    return libtorrent_jni.sha1_hash_hash_code(swigCPtr, this);
+  }
+
+  public byte_vector to_bytes() {
+    return new byte_vector(libtorrent_jni.sha1_hash_to_bytes(swigCPtr, this), true);
   }
 
   public String to_hex() {
