@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.address;
+import com.frostwire.jlibtorrent.swig.error_code;
 
 /**
  * @author gubatron
@@ -12,6 +13,14 @@ public final class Address {
 
     public Address(address addr) {
         this.addr = addr;
+    }
+
+    public Address(String ip) {
+        error_code ec = new error_code();
+        this.addr = address.from_string(ip, ec);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     public address swig() {

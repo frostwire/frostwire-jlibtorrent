@@ -4,8 +4,7 @@ import com.frostwire.jlibtorrent.plugins.DhtStorageBase;
 import com.frostwire.jlibtorrent.swig.entry;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 /**
  * @author gubatron
@@ -43,6 +42,29 @@ public class DhtStorageBaseTest {
         s.announcePeer(n2, p3, "torrent_name1", false);
         s.announcePeer(n3, p4, "torrent_name2", false);
         boolean r = s.getPeers(n1, false, false, peers);
+        assertFalse(r);
+    }
+
+    @Test
+    public void testPutImmutableItem() {
+        DhtSettings sett = testSettings();
+        DhtStorageBase s = new DhtStorageBase(new Sha1Hash(), sett);
+
+        entry item = new entry();
+        boolean r = s.getImmutableItem(n4, item);
+        assertFalse(r);
+
+        byte[] data = new byte[]{1, 2, 3};
+        Address addr = new Address("124.31.75.21");
+
+        s.putImmutableItem(n4, data, addr);
+        r = s.getImmutableItem(n4, item);
+        assertTrue(r);
+
+        s.putImmutableItem(n1, data, addr);
+        s.putImmutableItem(n2, data, addr);
+        s.putImmutableItem(n3, data, addr);
+        r = s.getImmutableItem(n1, item);
         assertFalse(r);
     }
 
