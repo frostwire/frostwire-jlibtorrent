@@ -16,7 +16,7 @@ public class DhtStorageBase implements DhtStorage {
     private final Counters counters;
 
     private final HashMap<Sha1Hash, TorrentEntry> torrents;
-    private final TreeMap<Sha1Hash, DhtImmutableItem> immutables;
+    private final HashMap<Sha1Hash, DhtImmutableItem> immutables;
 
     public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
         this.id = id;
@@ -24,7 +24,7 @@ public class DhtStorageBase implements DhtStorage {
         this.counters = new Counters();
 
         this.torrents = new HashMap<Sha1Hash, TorrentEntry>();
-        this.immutables = new TreeMap<Sha1Hash, DhtImmutableItem>();
+        this.immutables = new HashMap<Sha1Hash, DhtImmutableItem>();
     }
 
     @Override
@@ -156,7 +156,25 @@ public class DhtStorageBase implements DhtStorage {
 
     @Override
     public void putImmutableItem(Sha1Hash target, byte[] buf, Address addr) {
+        DhtImmutableItem i = immutables.get(target);
+        if (i == null) {
+            // make sure we don't add too many items
+            if (immutables.size() >= settings.maxDhtItems()) {
+                // delete the least important one (i.e. the one
+                // the fewest peers are announcing, and farthest
+                // from our node ID)
+                Map.Entry<Sha1Hash, DhtImmutableItem> j = Collections.min(immutables.entrySet(), IMMUTABLE_ITEM_COMPARATOR);
+                immutables.remove(j.getKey());
+                counters.immutable_data -= 1;
+            }
+            i = new DhtImmutableItem();
+            i.value = buf;
+            i.ips = new bloom_filter_128();
+            immutables.put(target, i);
+            counters.immutable_data += 1;
+        }
 
+        touchItem(i, addr.swig());
     }
 
     @Override
@@ -182,6 +200,37 @@ public class DhtStorageBase implements DhtStorage {
     @Override
     public Counters counters() {
         return counters;
+    }
+
+    private static final Comparator<Map.Entry<Sha1Hash, DhtImmutableItem>> IMMUTABLE_ITEM_COMPARATOR = new Comparator<Map.Entry<Sha1Hash, DhtImmutableItem>>() {
+        @Override
+        public int compare(Map.Entry<Sha1Hash, DhtImmutableItem> o1, Map.Entry<Sha1Hash, DhtImmutableItem> o2) {
+            /*
+            int l_distance = distance_exp(lhs.first, m_our_id);
+            int r_distance = distance_exp(rhs.first, m_our_id);
+
+            // this is a score taking the popularity (number of announcers) and the
+            // fit, in terms of distance from ideal storing node, into account.
+            // each additional 5 announcers is worth one extra bit in the distance.
+            // that is, an item with 10 announcers is allowed to be twice as far
+            // from another item with 5 announcers, from our node ID. Twice as far
+            // because it gets one more bit.
+            return lhs.second.num_announcers / 5 - l_distance < rhs.second.num_announcers / 5 - r_distance;
+            */
+            return 0;
+        }
+    };
+
+    private static void touchItem(DhtImmutableItem f, address address) {
+        f.last_seen = System.currentTimeMillis();
+
+        // maybe increase num_announcers if we haven't seen this IP before
+        sha1_hash iphash = new sha1_hash();
+        libtorrent.sha1_hash_address(address, iphash);
+        if (!f.ips.find(iphash)) {
+            f.ips.set(iphash);
+            f.num_announcers++;
+        }
     }
 
     private static final class PeerEntry {
@@ -225,7 +274,5 @@ public class DhtStorageBase implements DhtStorage {
         public long last_seen;
         // number of IPs in the bloom filter
         public int num_announcers;
-        // size of malloced space pointed to by value
-        public int size;
     }
 }

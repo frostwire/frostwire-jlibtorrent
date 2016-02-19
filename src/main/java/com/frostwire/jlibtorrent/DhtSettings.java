@@ -117,7 +117,7 @@ public final class DhtSettings {
      *
      * @return
      */
-    public int getMaxDhtItems() {
+    public int maxDhtItems() {
         return s.getMax_dht_items();
     }
 
@@ -126,7 +126,7 @@ public final class DhtSettings {
      *
      * @param value
      */
-    public void setMaxDhtItems(int value) {
+    public void maxDhtItems(int value) {
         s.setMax_dht_items(value);
     }
 
