@@ -244,12 +244,68 @@ public class DhtStorageBase implements DhtStorage {
 
     @Override
     public void tick() {
+        long now = System.currentTimeMillis();
 
+        // look through all peers and see if any have timed out
+        Iterator<TorrentEntry> torrentsIt = torrents.values().iterator();
+        while (torrentsIt.hasNext()) {
+            TorrentEntry t = torrentsIt.next();
+            purgePeers(t.peers);
+
+            if (!t.peers.isEmpty()) {
+                continue;
+            }
+
+            // if there are no more peers, remove the entry altogether
+            torrentsIt.remove();
+            counters.torrents -= 1;// peers is decreased by purge_peers
+        }
+
+        if (0 == settings.itemLifetime()) {
+            return;
+        }
+
+        int lifetime = settings.itemLifetime();
+        // item lifetime must >= 120 minutes.
+        if (lifetime < 120 * 60) lifetime = 120 * 60;
+
+        Iterator<DhtImmutableItem> immutablesIt = immutables.values().iterator();
+        while (immutablesIt.hasNext()) {
+            DhtImmutableItem i = immutablesIt.next();
+            if (i.last_seen + lifetime * 1000 > now) {
+                continue;
+            }
+            immutablesIt.remove();
+            counters.immutable_data -= 1;
+        }
+
+        Iterator<DhtMutableItem> mutablesIt = mutables.values().iterator();
+        while (mutablesIt.hasNext()) {
+            DhtMutableItem i = mutablesIt.next();
+            if (i.last_seen + lifetime * 1000 > now) {
+                continue;
+            }
+            mutablesIt.remove();
+            counters.mutable_data -= 1;
+        }
     }
 
     @Override
     public Counters counters() {
         return counters;
+    }
+
+    private void purgePeers(Set<PeerEntry> peers) {
+        int announce_interval = 30;
+        Iterator<PeerEntry> it = peers.iterator();
+        while (it.hasNext()) {
+            PeerEntry i = it.next();
+            // the peer has timed out
+            if (i.added + (announce_interval * 1.5f * 60 * 1000) < System.currentTimeMillis()) {
+                it.remove();
+                counters.peers -= 1;
+            }
+        }
     }
 
     private static void touchItem(DhtImmutableItem f, address address) {
