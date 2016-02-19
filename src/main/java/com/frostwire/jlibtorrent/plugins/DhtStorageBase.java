@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.Address;
-import com.frostwire.jlibtorrent.DhtSettings;
-import com.frostwire.jlibtorrent.Sha1Hash;
-import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.*;
@@ -153,7 +150,7 @@ public class DhtStorageBase implements DhtStorage {
             return false;
         }
 
-        //item.set("v", = bdecode(i->second.value, i->second.value + i->second.size);
+        item.set("v", entry.bdecode(Vectors.bytes2byte_vector(i.value)));
         return true;
     }
 
