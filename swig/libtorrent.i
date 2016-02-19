@@ -1162,6 +1162,7 @@ struct bloom_filter {
     }
 };
 
+%template(bloom_filter_128) bloom_filter<128>;
 %template(bloom_filter_256) bloom_filter<256>;
 
 bool is_utp_stream_logging();

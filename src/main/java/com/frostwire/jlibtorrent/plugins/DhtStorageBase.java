@@ -179,7 +179,7 @@ public class DhtStorageBase implements DhtStorage {
         return counters;
     }
 
-    static final class PeerEntry {
+    private static final class PeerEntry {
 
         public long added;
         public tcp_endpoint addr;
@@ -198,7 +198,7 @@ public class DhtStorageBase implements DhtStorage {
         };
     }
 
-    static final class TorrentEntry {
+    private static final class TorrentEntry {
 
         public TorrentEntry() {
             this.name = "";
@@ -207,5 +207,20 @@ public class DhtStorageBase implements DhtStorage {
 
         public String name;
         public TreeSet<PeerEntry> peers;
+    }
+
+    private static final class DhtImmutableItem {
+        // malloced space for the actual value
+        public byte[] value;
+        // this counts the number of IPs we have seen
+        // announcing this item, this is used to determine
+        // popularity if we reach the limit of items to store
+        public bloom_filter_128 ips;
+        // the last time we heard about this
+        public long last_seen;
+        // number of IPs in the bloom filter
+        public int num_announcers;
+        // size of malloced space pointed to by value
+        public int size;
     }
 }

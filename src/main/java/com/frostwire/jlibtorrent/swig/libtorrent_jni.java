@@ -2953,6 +2953,14 @@ public class libtorrent_jni {
   public final static native int stat_num_channels_get();
   public final static native long new_stat();
   public final static native void delete_stat(long jarg1);
+  public final static native boolean bloom_filter_128_find(long jarg1, bloom_filter_128 jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void bloom_filter_128_set(long jarg1, bloom_filter_128 jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void bloom_filter_128_clear(long jarg1, bloom_filter_128 jarg1_);
+  public final static native float bloom_filter_128_size(long jarg1, bloom_filter_128 jarg1_);
+  public final static native long new_bloom_filter_128();
+  public final static native long bloom_filter_128_to_bytes(long jarg1, bloom_filter_128 jarg1_);
+  public final static native void bloom_filter_128_from_bytes(long jarg1, bloom_filter_128 jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native void delete_bloom_filter_128(long jarg1);
   public final static native boolean bloom_filter_256_find(long jarg1, bloom_filter_256 jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void bloom_filter_256_set(long jarg1, bloom_filter_256 jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void bloom_filter_256_clear(long jarg1, bloom_filter_256 jarg1_);
