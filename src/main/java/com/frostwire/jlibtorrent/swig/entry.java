@@ -104,14 +104,6 @@ public class entry {
     return libtorrent_jni.entry_to_string(swigCPtr, this);
   }
 
-  public void setM_type_queried(short value) {
-    libtorrent_jni.entry_m_type_queried_set(swigCPtr, this, value);
-  }
-
-  public short getM_type_queried() {
-    return libtorrent_jni.entry_m_type_queried_get(swigCPtr, this);
-  }
-
   public entry(byte_vector string_bytes) {
     this(libtorrent_jni.new_entry__SWIG_7(byte_vector.getCPtr(string_bytes), string_bytes), true);
   }
@@ -128,7 +120,7 @@ public class entry {
     libtorrent_jni.entry_set__SWIG_1(swigCPtr, this, key, byte_vector.getCPtr(value), value);
   }
 
-  public void set(String key, int value) {
+  public void set(String key, long value) {
     libtorrent_jni.entry_set__SWIG_2(swigCPtr, this, key, value);
   }
 

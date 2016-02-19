@@ -568,7 +568,7 @@ public final class Session extends SessionHandle {
     // otherwise.
 
     void setDHTSettings(DhtSettings settings) {
-        s.set_dht_settings(settings.getSwig());
+        s.set_dht_settings(settings.swig());
     }
 
     public boolean isDHTRunning() {

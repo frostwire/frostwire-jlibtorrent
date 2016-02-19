@@ -12,26 +12,25 @@ import java.util.*;
  * @author gubatron
  * @author aldenml
  */
-public final class DhtStorageBase implements DhtStorage {
+public class DhtStorageBase implements DhtStorage {
 
     private final Sha1Hash id;
     private final DhtSettings settings;
     private final Counters counters;
 
-    private final HashMap<String, TorrentEntry> map;
+    private final HashMap<Sha1Hash, TorrentEntry> map;
 
     public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
         this.id = id;
         this.settings = settings;
         this.counters = new Counters();
 
-        this.map = new HashMap<String, TorrentEntry>();
+        this.map = new HashMap<Sha1Hash, TorrentEntry>();
     }
 
     @Override
     public boolean getPeers(Sha1Hash infoHash, boolean noseed, boolean scrape, entry peers) {
-        String hex = infoHash.toHex();
-        TorrentEntry v = map.get(hex);
+        TorrentEntry v = map.get(infoHash);
 
         if (v == null) {
             return false;
@@ -47,7 +46,7 @@ public final class DhtStorageBase implements DhtStorage {
 
             for (PeerEntry peer : v.peers) {
                 sha1_hash iphash = new sha1_hash();
-                libtorrent.sha1_hash_address(peer.addr.address().swig(), iphash);
+                libtorrent.sha1_hash_address(peer.addr.address(), iphash);
                 if (peer.seed) {
                     seeds.set(iphash);
                 } else {
@@ -68,7 +67,7 @@ public final class DhtStorageBase implements DhtStorage {
                 if ((Math.random() / (Integer.MAX_VALUE + 1.f)) * (num - t) >= num - m) continue;
                 if (noseed && e.seed) continue;
                 endpoint.resize(18);
-                int n = libtorrent.write_tcp_endpoint(e.addr.swig(), endpoint);
+                int n = libtorrent.write_tcp_endpoint(e.addr, endpoint);
                 endpoint.resize(n);
                 pe.push_back(new entry(endpoint));
 
@@ -81,8 +80,7 @@ public final class DhtStorageBase implements DhtStorage {
 
     @Override
     public void announcePeer(Sha1Hash infoHash, TcpEndpoint endp, String name, boolean seed) {
-        String hex = infoHash.toHex();
-        TorrentEntry v = map.get(hex);
+        TorrentEntry v = map.get(infoHash);
         if (v == null) {
             // we don't have this torrent, add it
             // do we need to remove another one first?
@@ -90,13 +88,13 @@ public final class DhtStorageBase implements DhtStorage {
                 // we need to remove some. Remove the ones with the
                 // fewest peers
                 int num_peers = Integer.MAX_VALUE;
-                String candidateKey = null;
-                for (Map.Entry<String, TorrentEntry> kv : map.entrySet()) {
+                Sha1Hash candidateKey = null;
+                for (Map.Entry<Sha1Hash, TorrentEntry> kv : map.entrySet()) {
 
                     if (kv.getValue().peers.size() > num_peers) {
                         continue;
                     }
-                    if (hex.equals(kv.getKey())) {
+                    if (infoHash.equals(kv.getKey())) {
                         continue;
                     }
                     num_peers = kv.getValue().peers.size();
@@ -108,7 +106,7 @@ public final class DhtStorageBase implements DhtStorage {
             }
             counters.torrents += 1;
             v = new TorrentEntry();
-            map.put(hex, v);
+            map.put(infoHash, v);
         }
 
         // the peer announces a torrent name, and we don't have a name
@@ -122,7 +120,7 @@ public final class DhtStorageBase implements DhtStorage {
         }
 
         PeerEntry peer = new PeerEntry();
-        peer.addr = endp;
+        peer.addr = endp.swig();
         peer.added = System.currentTimeMillis();
         peer.seed = seed;
 
@@ -184,16 +182,16 @@ public final class DhtStorageBase implements DhtStorage {
     static final class PeerEntry {
 
         public long added;
-        public TcpEndpoint addr;
+        public tcp_endpoint addr;
         public boolean seed;
 
         public static final Comparator<PeerEntry> COMPARATOR = new Comparator<PeerEntry>() {
             @Override
             public int compare(PeerEntry o1, PeerEntry o2) {
-                TcpEndpoint a1 = o1.addr;
-                TcpEndpoint a2 = o2.addr;
+                tcp_endpoint a1 = o1.addr;
+                tcp_endpoint a2 = o2.addr;
 
-                int r = Address.compare(a1.address(), a2.address());
+                int r = address.compare(a1.address(), a2.address());
 
                 return r == 0 ? Integer.compare(a1.port(), a2.port()) : r;
             }

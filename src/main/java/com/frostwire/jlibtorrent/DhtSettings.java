@@ -3,12 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.dht_settings;
 
 /**
- * structure used to hold configuration options for the DHT
- * <p/>
- * The ``dht_settings`` struct used to contain a ``service_port`` member to
- * control which port the DHT would listen on and send messages from. This
- * field is deprecated and ignored. libtorrent always tries to open the UDP
- * socket on the same port as the TCP socket.
+ * Structure used to hold configuration options for the DHT.
  *
  * @author gubatron
  * @author aldenml
@@ -21,7 +16,11 @@ public final class DhtSettings {
         this.s = s;
     }
 
-    public dht_settings getSwig() {
+    public DhtSettings() {
+        this(new dht_settings());
+    }
+
+    public dht_settings swig() {
         return s;
     }
 
@@ -118,7 +117,7 @@ public final class DhtSettings {
      *
      * @return
      */
-    public int getMaxDHTItems() {
+    public int getMaxDhtItems() {
         return s.getMax_dht_items();
     }
 
@@ -127,7 +126,7 @@ public final class DhtSettings {
      *
      * @param value
      */
-    public void setMaxDHTItems(int value) {
+    public void setMaxDhtItems(int value) {
         s.setMax_dht_items(value);
     }
 

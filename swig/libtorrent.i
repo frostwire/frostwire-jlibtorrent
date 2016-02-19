@@ -429,9 +429,8 @@ namespace std {
 %ignore libtorrent::entry::find_key(std::string const &) const;
 %ignore libtorrent::entry::find_key(char const *);
 %ignore libtorrent::entry::find_key(char const *) const;
-%ignore libtorrent::entry::operator [](char const *);
-%ignore libtorrent::entry::operator [](char const *) const;
-%ignore libtorrent::entry::operator [](std::string const &) const;
+%ignore libtorrent::entry::operator [];
+%ignore libtorrent::entry::m_type_queried;
 %ignore libtorrent::buffer::data() const;
 %ignore libtorrent::buffer::begin() const;
 %ignore libtorrent::buffer::end() const;
@@ -931,7 +930,7 @@ namespace libtorrent {
          $self->operator[](key) = std::string(value.begin(), value.end());
     }
 
-    void set(std::string const& key, long const& value) {
+    void set(std::string const& key, long long const& value) {
         $self->operator[](key) = value;
     }
 
