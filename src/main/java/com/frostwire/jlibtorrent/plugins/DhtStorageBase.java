@@ -14,19 +14,25 @@ public class DhtStorageBase implements DhtStorage {
     private final Sha1Hash id;
     private final DhtSettings settings;
     private final Counters counters;
+    private final boolean print;
 
     private final HashMap<Sha1Hash, TorrentEntry> torrents;
     private final HashMap<Sha1Hash, DhtImmutableItem> immutables;
     private final HashMap<Sha1Hash, DhtMutableItem> mutables;
 
-    public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
+    public DhtStorageBase(Sha1Hash id, DhtSettings settings, boolean print) {
         this.id = id;
         this.settings = settings;
         this.counters = new Counters();
+        this.print = print;
 
         this.torrents = new HashMap<Sha1Hash, TorrentEntry>();
         this.immutables = new HashMap<Sha1Hash, DhtImmutableItem>();
         this.mutables = new HashMap<Sha1Hash, DhtMutableItem>();
+    }
+
+    public DhtStorageBase(Sha1Hash id, DhtSettings settings) {
+        this(id, settings, false);
     }
 
     @Override
@@ -74,6 +80,10 @@ public class DhtStorageBase implements DhtStorage {
 
                 ++m;
             }
+        }
+
+        if (print) {
+            print("get_peers", peers);
         }
 
         return true;
@@ -153,6 +163,11 @@ public class DhtStorageBase implements DhtStorage {
         }
 
         item.set("v", entry.bdecode(Vectors.bytes2byte_vector(i.value)));
+
+        if (print) {
+            print("get_immutable_item", item);
+        }
+
         return true;
     }
 
@@ -198,6 +213,11 @@ public class DhtStorageBase implements DhtStorage {
             item.set("sig", Vectors.bytes2byte_vector(f.sig));
             item.set("k", Vectors.bytes2byte_vector(f.key));
         }
+
+        if (print) {
+            print("get_mutable_item", item);
+        }
+
         return true;
     }
 
@@ -306,6 +326,11 @@ public class DhtStorageBase implements DhtStorage {
                 counters.peers -= 1;
             }
         }
+    }
+
+    private static void print(String operation, entry entry) {
+        System.out.println("DHT OP: " + operation);
+        System.out.println(entry.to_string());
     }
 
     private static void touchItem(DhtImmutableItem f, address address) {
