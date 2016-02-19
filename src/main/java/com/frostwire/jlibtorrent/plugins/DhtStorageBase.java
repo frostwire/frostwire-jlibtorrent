@@ -187,7 +187,18 @@ public class DhtStorageBase implements DhtStorage {
 
     @Override
     public boolean getMutableItem(Sha1Hash target, long seq, boolean forceFill, entry item) {
-        return false;
+        DhtMutableItem f = mutables.get(target);
+        if (f == null) {
+            return false;
+        }
+
+        item.set("seq", f.seq);
+        if (forceFill || (0 <= seq && seq < f.seq)) {
+            item.set("v", entry.bdecode(Vectors.bytes2byte_vector(f.value)));
+            item.set("sig", Vectors.bytes2byte_vector(f.sig));
+            item.set("k", Vectors.bytes2byte_vector(f.key));
+        }
+        return true;
     }
 
     @Override
