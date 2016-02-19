@@ -203,7 +203,42 @@ public class DhtStorageBase implements DhtStorage {
 
     @Override
     public void putMutableItem(Sha1Hash target, byte[] buf, byte[] sig, long seq, byte[] pk, byte[] salt, Address addr) {
+        DhtMutableItem i = mutables.get(target);
+        if (i == null) {
+            // this is the case where we don't have an item in this slot
+            // make sure we don't add too many items
+            if (mutables.size() >= settings.maxDhtItems()) {
+                // delete the least important one (i.e. the one
+                // the fewest peers are announcing)
+                Map.Entry<Sha1Hash, DhtMutableItem> j = Collections.min(mutables.entrySet(), new Comparator<Map.Entry<Sha1Hash, DhtMutableItem>>() {
+                    @Override
+                    public int compare(Map.Entry<Sha1Hash, DhtMutableItem> o1, Map.Entry<Sha1Hash, DhtMutableItem> o2) {
+                        return Integer.compare(o1.getValue().num_announcers, o2.getValue().num_announcers);
+                    }
+                });
+                mutables.remove(j.getKey());
+                counters.mutable_data -= 1;
+            }
+            i = new DhtMutableItem();
+            i.value = buf;
+            i.seq = seq;
+            i.salt = salt;
+            i.sig = sig;
+            i.key = pk;
 
+            mutables.put(target, i);
+            counters.mutable_data += 1;
+        } else {
+            // this is the case where we already
+            DhtMutableItem item = i;
+
+            if (item.seq < seq) {
+                item.seq = seq;
+                item.value = buf;
+            }
+        }
+
+        touchItem(i, addr.swig());
     }
 
     @Override
@@ -272,9 +307,9 @@ public class DhtStorageBase implements DhtStorage {
     }
 
     private static final class DhtMutableItem extends DhtImmutableItem {
-        public byte[] sig = new byte[64];
+        public byte[] sig;
         public long seq;
-        public byte[] key = new byte[32];
+        public byte[] key;
         public byte[] salt;
     }
 
