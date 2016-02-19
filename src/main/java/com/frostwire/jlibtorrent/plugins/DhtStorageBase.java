@@ -163,7 +163,7 @@ public class DhtStorageBase implements DhtStorage {
                 // delete the least important one (i.e. the one
                 // the fewest peers are announcing, and farthest
                 // from our node ID)
-                Map.Entry<Sha1Hash, DhtImmutableItem> j = Collections.min(immutables.entrySet(), IMMUTABLE_ITEM_COMPARATOR);
+                Map.Entry<Sha1Hash, DhtImmutableItem> j = Collections.min(immutables.entrySet(), new ImmutableItemComparator(id));
                 immutables.remove(j.getKey());
                 counters.immutable_data -= 1;
             }
@@ -201,25 +201,6 @@ public class DhtStorageBase implements DhtStorage {
     public Counters counters() {
         return counters;
     }
-
-    private static final Comparator<Map.Entry<Sha1Hash, DhtImmutableItem>> IMMUTABLE_ITEM_COMPARATOR = new Comparator<Map.Entry<Sha1Hash, DhtImmutableItem>>() {
-        @Override
-        public int compare(Map.Entry<Sha1Hash, DhtImmutableItem> o1, Map.Entry<Sha1Hash, DhtImmutableItem> o2) {
-            /*
-            int l_distance = distance_exp(lhs.first, m_our_id);
-            int r_distance = distance_exp(rhs.first, m_our_id);
-
-            // this is a score taking the popularity (number of announcers) and the
-            // fit, in terms of distance from ideal storing node, into account.
-            // each additional 5 announcers is worth one extra bit in the distance.
-            // that is, an item with 10 announcers is allowed to be twice as far
-            // from another item with 5 announcers, from our node ID. Twice as far
-            // because it gets one more bit.
-            return lhs.second.num_announcers / 5 - l_distance < rhs.second.num_announcers / 5 - r_distance;
-            */
-            return 0;
-        }
-    };
 
     private static void touchItem(DhtImmutableItem f, address address) {
         f.last_seen = System.currentTimeMillis();
@@ -274,5 +255,30 @@ public class DhtStorageBase implements DhtStorage {
         public long last_seen;
         // number of IPs in the bloom filter
         public int num_announcers;
+    }
+
+    private static final class ImmutableItemComparator implements Comparator<Map.Entry<Sha1Hash, DhtImmutableItem>> {
+
+        private final Sha1Hash ourId;
+
+        public ImmutableItemComparator(Sha1Hash ourId) {
+            this.ourId = ourId;
+        }
+
+        @Override
+        public int compare(Map.Entry<Sha1Hash, DhtImmutableItem> lhs, Map.Entry<Sha1Hash, DhtImmutableItem> rhs) {
+            int l_distance = libtorrent.dht_distance_exp(lhs.getKey().swig(), ourId.swig());
+            int r_distance = libtorrent.dht_distance_exp(rhs.getKey().swig(), ourId.swig());
+
+            // this is a score taking the popularity (number of announcers) and the
+            // fit, in terms of distance from ideal storing node, into account.
+            // each additional 5 announcers is worth one extra bit in the distance.
+            // that is, an item with 10 announcers is allowed to be twice as far
+            // from another item with 5 announcers, from our node ID. Twice as far
+            // because it gets one more bit.
+            int a = lhs.getValue().num_announcers / 5 - l_distance;
+            int b = rhs.getValue().num_announcers / 5 - r_distance;
+            return Integer.compare(a, b);
+        }
     }
 }

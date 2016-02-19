@@ -49,7 +49,7 @@ public class DhtStorageBaseTest {
     private static DhtSettings testSettings() {
         DhtSettings sett = new DhtSettings();
         sett.maxTorrents(2);
-        sett.setMaxDhtItems(2);
+        sett.maxDhtItems(2);
         sett.itemLifetime(120 * 60);
         return sett;
     }
