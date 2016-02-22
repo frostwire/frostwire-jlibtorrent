@@ -31,7 +31,7 @@ public final class DhtStorageTest {
         sp.setString(settings_pack.string_types.listen_interfaces.swigValue(), "0.0.0.0:0");
         sp.enableDht(false);
 
-        Session s = new Session("0.0.0.0", 0, false, l);
+        Session s = new Session(sp, false, l);
 
         s.setDhtStorage(new DhtStorageConstructor() {
             @Override
