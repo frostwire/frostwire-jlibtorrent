@@ -84,8 +84,8 @@ public final class Session extends SessionHandle {
         this(new SettingsPack(), false, null);
     }
 
-    public Session(String iface, int port, int retries, boolean logging, AlertListener listener) {
-        this(addSettings(new SettingsPack(), iface, port, retries), logging, listener);
+    public Session(String ip, int port, boolean logging, AlertListener listener) {
+        this(createSettings(ip, port), logging, listener);
     }
 
     public session getSwig() {
@@ -1075,14 +1075,13 @@ public final class Session extends SessionHandle {
         return new session(sp);
     }
 
-    private static SettingsPack addSettings(SettingsPack settings, String iface, int port, int retries) {
-        settings_pack sp = settings.getSwig();
+    private static SettingsPack createSettings(String ip, int port) {
+        settings_pack sp = new settings_pack();
 
-        String listen_iface = String.format("%s:%d", iface, port);
-        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), listen_iface);
-        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
+        String iface = String.format("%s:%d", ip, port);
+        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), iface);
 
-        return settings;
+        return new SettingsPack(sp);
     }
 
     /**

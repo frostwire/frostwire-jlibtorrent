@@ -50,7 +50,7 @@ public final class DhtShell {
             }
         };
 
-        Session s = new Session("0.0.0.0", 33123, 10, false, mainListener);
+        Session s = new Session("0.0.0.0", 0, false, mainListener);
         DHT dht = new DHT(s);
         Downloader downloader = new Downloader(s);
 
@@ -146,7 +146,7 @@ public final class DhtShell {
     private static void get(DHT dht, String s) {
         String sha1 = s.split(" ")[1];
         print("Waiting a max of 20 seconds to get data for key: " + sha1);
-        Entry data = dht.get(new Sha1Hash(sha1), 20000);
+        Entry data = dht.get(new Sha1Hash(sha1), 20);
         print(data.toString());
     }
 
@@ -157,7 +157,7 @@ public final class DhtShell {
     private static void get_peers(DHT dht, String s) {
         String sha1 = s.split(" ")[1];
         print("Waiting a max of 20 seconds to get peers for key: " + sha1);
-        ArrayList<TcpEndpoint> peers = dht.getPeers(new Sha1Hash(sha1), 20000);
+        ArrayList<TcpEndpoint> peers = dht.getPeers(new Sha1Hash(sha1), 20);
         print(peers.toString());
     }
 
@@ -204,7 +204,7 @@ public final class DhtShell {
         String[] arr = s.split(" ");
         byte[] publicKey = Utils.fromHex(arr[1]);
         print("Waiting a max of 20 seconds to get mutable data for public key: " + arr[1]);
-        DHT.MutableItem data = dht.mget(publicKey, new byte[0], 20000);
+        DHT.MutableItem data = dht.mget(publicKey, new byte[0], 20);
         print(data.item.toString());
     }
 
@@ -216,7 +216,7 @@ public final class DhtShell {
         String sha1 = s.split(" ")[1];
         String uri = "magnet:?xt=urn:btih:" + sha1;
         print("Waiting a max of 20 seconds to fetch magnet for sha1: " + sha1);
-        byte[] data = downloader.fetchMagnet(uri, 20000);
+        byte[] data = downloader.fetchMagnet(uri, 20);
         print(Entry.bdecode(data).toString());
     }
 

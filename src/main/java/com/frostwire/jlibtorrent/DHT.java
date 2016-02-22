@@ -41,7 +41,12 @@ public final class DHT {
         return s.isDHTRunning();
     }
 
-    public Entry get(Sha1Hash sha1, long timeout) {
+    /**
+     * @param sha1
+     * @param timeout in seconds
+     * @return
+     */
+    public Entry get(Sha1Hash sha1, int timeout) {
         final Sha1Hash target = sha1;
         final Entry[] result = {null};
         final CountDownLatch signal = new CountDownLatch(1);
@@ -70,7 +75,7 @@ public final class DHT {
         s.dhtGetItem(target);
 
         try {
-            signal.await(timeout, TimeUnit.MILLISECONDS);
+            signal.await(timeout, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             // ignore
         }
@@ -84,7 +89,12 @@ public final class DHT {
         return s.dhtPutItem(entry);
     }
 
-    public ArrayList<TcpEndpoint> getPeers(Sha1Hash sha1, long timeout) {
+    /**
+     * @param sha1
+     * @param timeout in seconds
+     * @return
+     */
+    public ArrayList<TcpEndpoint> getPeers(Sha1Hash sha1, int timeout) {
         final Sha1Hash target = sha1;
         final Object[] result = {new ArrayList<TcpEndpoint>()};
         final CountDownLatch signal = new CountDownLatch(1);
@@ -113,7 +123,7 @@ public final class DHT {
         s.dhtGetPeers(target);
 
         try {
-            signal.await(timeout, TimeUnit.MILLISECONDS);
+            signal.await(timeout, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             // ignore
         }
@@ -131,7 +141,7 @@ public final class DHT {
         s.dhtAnnounce(sha1);
     }
 
-    public MutableItem mget(final byte[] key, final byte[] salt, long timeout) {
+    public MutableItem mget(final byte[] key, final byte[] salt, int timeout) {
         final MutableItem[] result = {null};
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -163,7 +173,7 @@ public final class DHT {
         s.dhtGetItem(key, salt);
 
         try {
-            signal.await(timeout, TimeUnit.MILLISECONDS);
+            signal.await(timeout, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             // ignore
         }
