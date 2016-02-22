@@ -40,6 +40,9 @@ public class DhtStorageBase implements DhtStorage {
         TorrentEntry v = torrents.get(infoHash);
 
         if (v == null) {
+            if (print) {
+                print("get_peers", "no peers for: " + infoHash);
+            }
             return false;
         }
 
