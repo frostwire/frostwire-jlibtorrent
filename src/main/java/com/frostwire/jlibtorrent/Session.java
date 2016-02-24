@@ -84,8 +84,17 @@ public final class Session extends SessionHandle {
         this(new SettingsPack(), false, null);
     }
 
-    public Session(String ip, int port, boolean logging, AlertListener listener) {
-        this(createSettings(ip, port), logging, listener);
+    /**
+     * This constructor allow you to specify the listen interfaces in the
+     * same format libtorrent accepts. Like for example, IPv4+IPv6 in the
+     * first available port: "0.0.0.0:0,[::]:0"
+     *
+     * @param interfaces
+     * @param logging
+     * @param listener
+     */
+    public Session(String interfaces, boolean logging, AlertListener listener) {
+        this(createSettings(interfaces), logging, listener);
     }
 
     public session getSwig() {
@@ -1075,11 +1084,10 @@ public final class Session extends SessionHandle {
         return new session(sp);
     }
 
-    private static SettingsPack createSettings(String ip, int port) {
+    private static SettingsPack createSettings(String interfaces) {
         settings_pack sp = new settings_pack();
 
-        String iface = String.format("%s:%d", ip, port);
-        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), iface);
+        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), interfaces);
 
         return new SettingsPack(sp);
     }
