@@ -839,7 +839,7 @@ public final class Session extends SessionHandle {
             data = MAGNET_CACHE.get(sha1);
 
             n++;
-        } while (data != null || n < timeout);
+        } while (n < timeout && data == null);
 
         synchronized (MAGNET_LOCK) {
             if (add && th != null && th.is_valid()) {
