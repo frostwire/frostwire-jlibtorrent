@@ -1651,6 +1651,8 @@ public class libtorrent_jni {
   public final static native int portmap_alert_external_port_get(long jarg1, portmap_alert jarg1_);
   public final static native void portmap_alert_map_type_set(long jarg1, portmap_alert jarg1_, int jarg2);
   public final static native int portmap_alert_map_type_get(long jarg1, portmap_alert jarg1_);
+  public final static native void portmap_alert_protocol_set(long jarg1, portmap_alert jarg1_, int jarg2);
+  public final static native int portmap_alert_protocol_get(long jarg1, portmap_alert jarg1_);
   public final static native void delete_portmap_alert(long jarg1);
   public final static native int portmap_log_alert_priority_get();
   public final static native int portmap_log_alert_alert_type_get();

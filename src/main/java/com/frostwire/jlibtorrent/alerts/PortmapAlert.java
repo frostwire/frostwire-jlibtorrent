@@ -23,7 +23,7 @@ public final class PortmapAlert extends AbstractAlert<portmap_alert> {
      *
      * @return
      */
-    public int getMapping() {
+    public int mapping() {
         return alert.getMapping();
     }
 
@@ -32,11 +32,61 @@ public final class PortmapAlert extends AbstractAlert<portmap_alert> {
      *
      * @return
      */
-    public int getExternalPort() {
+    public int externalPort() {
         return alert.getExternal_port();
     }
 
-    public PortmapType getMapType() {
+    public PortmapType mapType() {
         return PortmapType.fromSwig(alert.getMap_type());
+    }
+
+    /**
+     * The protocol this mapping was for.
+     *
+     * @return
+     */
+    public Protocol protocol() {
+        return Protocol.fromSwig(alert.getProtocol());
+    }
+
+    /**
+     *
+     */
+    public enum Protocol {
+
+        /**
+         *
+         */
+        TCP(portmap_alert.protocol_t.tcp.swigValue()),
+
+        /**
+         *
+         */
+        UDP(portmap_alert.protocol_t.udp.swigValue()),
+
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        Protocol(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        public int swig() {
+            return swigValue;
+        }
+
+        public static Protocol fromSwig(int swigValue) {
+            Protocol[] enumValues = Protocol.class.getEnumConstants();
+            for (Protocol ev : enumValues) {
+                if (ev.swig() == swigValue) {
+                    return ev;
+                }
+            }
+            return UNKNOWN;
+        }
     }
 }

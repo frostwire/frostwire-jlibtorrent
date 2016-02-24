@@ -37981,6 +37981,34 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port
 }
 
 
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1alert_1protocol_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  libtorrent::portmap_alert *arg1 = (libtorrent::portmap_alert *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::portmap_alert **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->protocol = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1alert_1protocol_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  libtorrent::portmap_alert *arg1 = (libtorrent::portmap_alert *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::portmap_alert **)&jarg1; 
+  result = (int) ((arg1)->protocol);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1portmap_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   libtorrent::portmap_alert *arg1 = (libtorrent::portmap_alert *) 0 ;
   
@@ -62011,7 +62039,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("a675a749e00ef9636d73f334a96e0b3ec34c8fd6");
+  result = (char *)("dcd6af64739fdf3bc4837262383e53bcf924e46d");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -62023,7 +62051,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("2263f2e3c7e5b73a8d7e5cdd2df3208ea1695768");
+  result = (char *)("4df7c76c6c06e485dfca0cc7a0e9f2c78e1f661c");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
