@@ -837,12 +837,9 @@ public final class Session extends SessionHandle {
             }
 
             data = MAGNET_CACHE.get(sha1);
-            if (data != null) {
-                break; // aldenml: this in one of those cases in which "break" is more clear to me
-            }
 
             n++;
-        } while (n < timeout);
+        } while (data != null || n < timeout);
 
         synchronized (MAGNET_LOCK) {
             if (add && th != null && th.is_valid()) {
