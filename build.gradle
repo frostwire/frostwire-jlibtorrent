@@ -4,7 +4,7 @@ apply plugin: 'maven'
 
 group 'com.frostwire'
 archivesBaseName = 'jlibtorrent'
-version '1.1.0.21'
+version '1.1.0.22'
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
