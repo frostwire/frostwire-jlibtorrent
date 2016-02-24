@@ -87,14 +87,21 @@ public final class Session extends SessionHandle {
     /**
      * This constructor allow you to specify the listen interfaces in the
      * same format libtorrent accepts. Like for example, IPv4+IPv6 in the
-     * first available port: "0.0.0.0:0,[::]:0"
+     * first available port: "0.0.0.0:0,[::]:0".
+     * <p/>
+     * The {@code retries} parameter correspond to the internal libtorrent
+     * setting of {@code max_retry_port_bind}. That is: if binding to a
+     * specific port fails, should the port be incremented by one and tried
+     * again. This setting specifies how many times to retry a failed port
+     * bind.
      *
+     * @param retries
      * @param interfaces
      * @param logging
      * @param listener
      */
-    public Session(String interfaces, boolean logging, AlertListener listener) {
-        this(createSettings(interfaces), logging, listener);
+    public Session(String interfaces, int retries, boolean logging, AlertListener listener) {
+        this(createSettings(interfaces, retries), logging, listener);
     }
 
     public session getSwig() {
@@ -1084,10 +1091,11 @@ public final class Session extends SessionHandle {
         return new session(sp);
     }
 
-    private static SettingsPack createSettings(String interfaces) {
+    private static SettingsPack createSettings(String interfaces, int retries) {
         settings_pack sp = new settings_pack();
 
         sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), interfaces);
+        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
 
         return new SettingsPack(sp);
     }

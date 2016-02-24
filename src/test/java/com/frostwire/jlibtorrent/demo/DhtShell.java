@@ -50,7 +50,7 @@ public final class DhtShell {
             }
         };
 
-        Session s = new Session("0.0.0.0:0,[::]:0", false, mainListener);
+        Session s = new Session("0.0.0.0:0,[::]:0", 0, false, mainListener);
         DHT dht = new DHT(s);
         Downloader downloader = new Downloader(s);
 
