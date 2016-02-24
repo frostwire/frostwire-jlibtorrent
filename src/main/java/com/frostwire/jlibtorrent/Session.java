@@ -822,7 +822,7 @@ public final class Session extends SessionHandle {
 
             data = MAGNET_CACHE.get(sha1);
             if (data != null) {
-                return data;
+                break; // aldenml: this in one of those cases in which "break" is more clear to me
             }
 
             n++;
@@ -834,7 +834,7 @@ public final class Session extends SessionHandle {
             }
         }
 
-        return null;
+        return data;
     }
 
     @Override
