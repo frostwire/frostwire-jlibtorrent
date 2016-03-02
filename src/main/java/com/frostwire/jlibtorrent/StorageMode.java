@@ -3,7 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.storage_mode_t;
 
 /**
- * types of storage allocation used for add_torrent_params::storage_mode.
+ * Types of storage allocation used for {@link AddTorrentParams#storageMode(StorageMode)}.
  *
  * @author gubatron
  * @author aldenml
@@ -13,33 +13,50 @@ public enum StorageMode {
     /**
      * All pieces will be written to their final position, all files will be
      * allocated in full when the torrent is first started. This is done with
-     * ``fallocate()`` and similar calls. This mode minimizes fragmentation.
+     * {@code fallocate()} and similar calls. This mode minimizes fragmentation.
      */
-    STORAGE_MODE_ALLOCATE(storage_mode_t.storage_mode_allocate),
+    STORAGE_MODE_ALLOCATE(storage_mode_t.storage_mode_allocate.swigValue()),
 
     /**
      * All pieces will be written to the place where they belong and sparse files
      * will be used. This is the recommended, and default mode.
      */
-    STORAGE_MODE_SPARSE(storage_mode_t.storage_mode_sparse);
+    STORAGE_MODE_SPARSE(storage_mode_t.storage_mode_sparse.swigValue()),
 
-    private StorageMode(storage_mode_t swigObj) {
-        this.swigObj = swigObj;
+    /**
+     * internal
+     */
+    INTERNAL_STORAGE_MODE_COMPACT_DEPRECATED(storage_mode_t.internal_storage_mode_compact_deprecated.swigValue()),
+
+    /**
+     *
+     */
+    UNKNOWN(-1);
+
+    StorageMode(int swigValue) {
+        this.swigValue = swigValue;
     }
 
-    private final storage_mode_t swigObj;
+    private final int swigValue;
 
-    public storage_mode_t getSwig() {
-        return swigObj;
+    /**
+     * @return
+     */
+    public int swig() {
+        return swigValue;
     }
 
-    public static StorageMode fromSwig(storage_mode_t swigObj) {
+    /**
+     * @param swigValue
+     * @return
+     */
+    public static StorageMode fromSwig(int swigValue) {
         StorageMode[] enumValues = StorageMode.class.getEnumConstants();
         for (StorageMode ev : enumValues) {
-            if (ev.getSwig() == swigObj) {
+            if (ev.swig() == swigValue) {
                 return ev;
             }
         }
-        throw new IllegalArgumentException("No enum " + StorageMode.class + " with swig value " + swigObj);
+        return UNKNOWN;
     }
 }

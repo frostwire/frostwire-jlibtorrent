@@ -4,7 +4,7 @@ import com.frostwire.jlibtorrent.swig.torrent_status;
 
 /**
  * Holds a snapshot of the status of a torrent, as queried by
- * torrent_handle::status().
+ * {@link TorrentHandle#getStatus()}
  *
  * @author gubatron
  * @author aldenml
@@ -236,11 +236,12 @@ public final class TorrentStatus {
     }
 
     /**
-     * The allocation mode for the torrent. See storage_mode_t for the options.
-     * For more information, see storage allocation.
+     * The allocation mode for the torrent.
+     *
+     * @see StorageMode
      */
-    public final StorageMode getStorageMode() {
-        return StorageMode.fromSwig(ts.getStorage_mode());
+    public final StorageMode storageMode() {
+        return StorageMode.fromSwig(ts.getStorage_mode().swigValue());
     }
 
     /**

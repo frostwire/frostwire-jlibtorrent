@@ -18,14 +18,14 @@ public enum PortmapType {
 
     private final int swigValue;
 
-    public int getSwig() {
+    public int swig() {
         return swigValue;
     }
 
     public static PortmapType fromSwig(int swigValue) {
         PortmapType[] enumValues = PortmapType.class.getEnumConstants();
         for (PortmapType ev : enumValues) {
-            if (ev.getSwig() == swigValue) {
+            if (ev.swig() == swigValue) {
                 return ev;
             }
         }

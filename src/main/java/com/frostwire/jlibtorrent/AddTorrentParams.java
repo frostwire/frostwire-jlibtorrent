@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
+import com.frostwire.jlibtorrent.swig.storage_mode_t;
 
 /**
  * The {@link AddTorrentParams} is a parameter pack for adding torrents to a
@@ -121,7 +122,8 @@ public final class AddTorrentParams {
     public void savePath(String value) {
         p.setSave_path(value);
     }
-/*
+
+    /*
     public void setResume_data(char_vector value) {
         libtorrent_jni.add_torrent_params_resume_data_set(swigCPtr, this, char_vector.getCPtr(value), value);
     }
@@ -130,15 +132,25 @@ public final class AddTorrentParams {
         long cPtr = libtorrent_jni.add_torrent_params_resume_data_get(swigCPtr, this);
         return (cPtr == 0) ? null : new char_vector(cPtr, false);
     }
+    */
 
-    public void setStorage_mode(storage_mode_t value) {
-        libtorrent_jni.add_torrent_params_storage_mode_set(swigCPtr, this, value.swigValue());
+    /**
+     * @return
+     * @see StorageMode
+     */
+    public StorageMode storageMode() {
+        return StorageMode.fromSwig(p.getStorage_mode().swigValue());
     }
 
-    public storage_mode_t getStorage_mode() {
-        return storage_mode_t.swigToEnum(libtorrent_jni.add_torrent_params_storage_mode_get(swigCPtr, this));
+    /**
+     * @param value
+     * @see StorageMode
+     */
+    public void storageMode(StorageMode value) {
+        p.setStorage_mode(storage_mode_t.swigToEnum(value.swig()));
     }
 
+/*
     public void setFile_priorities(unsigned_char_vector value) {
         libtorrent_jni.add_torrent_params_file_priorities_set(swigCPtr, this, unsigned_char_vector.getCPtr(value), value);
     }

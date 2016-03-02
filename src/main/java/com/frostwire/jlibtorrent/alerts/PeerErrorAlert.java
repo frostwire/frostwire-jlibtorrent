@@ -17,11 +17,18 @@ public final class PeerErrorAlert extends PeerAlert<peer_error_alert> {
     }
 
     /**
-     * tells you what error caused this alert.
+     * @return
+     */
+    public int operation() {
+        return alert.getOperation();
+    }
+
+    /**
+     * Tells you what error caused this alert.
      *
      * @return
      */
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
     }
 }
