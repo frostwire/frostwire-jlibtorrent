@@ -406,65 +406,6 @@ public final class Session extends SessionHandle {
     }
 
     /**
-     * Loads and saves all session settings, including dht settings,
-     * encryption settings and proxy settings. {@link #saveState()}
-     * internally writes all keys to an {@link entry} that's passed in,
-     * which needs to either not be initialized, or initialized as a dictionary.
-     * <p/>
-     * The {@code flags} arguments passed in to this method can be used to
-     * filter which parts of the session state to save. By default, all state
-     * is saved (except for the individual torrents).
-     * See {@link com.frostwire.jlibtorrent.swig.session_handle.save_state_flags_t}
-     *
-     * @return
-     */
-    public byte[] saveState(long flags) {
-        entry e = new entry();
-        s.save_state(e);
-        return Vectors.byte_vector2bytes(e.bencode());
-    }
-
-    /**
-     * Same as calling {@link #saveState(long)} with all save state flags.
-     *
-     * @return
-     * @see #saveState(long)
-     */
-    public byte[] saveState() {
-        entry e = new entry();
-        s.save_state(e);
-        return Vectors.byte_vector2bytes(e.bencode());
-    }
-
-    /**
-     * Loads and saves all session settings, including dht_settings,
-     * encryption settings and proxy settings. ``save_state`` writes all keys
-     * to the ``entry`` that's passed in, which needs to either not be
-     * initialized, or initialized as a dictionary.
-     * <p/>
-     * ``load_state`` expects a lazy_entry which can be built from a bencoded
-     * buffer with lazy_bdecode().
-     * <p/>
-     * The ``flags`` arguments passed in to ``save_state`` can be used to
-     * filter which parts of the session state to save. By default, all state
-     * is saved (except for the individual torrents). see save_state_flags_t
-     *
-     * @param data
-     */
-    public void loadState(byte[] data) {
-        byte_vector buffer = Vectors.bytes2byte_vector(data);
-        bdecode_node n = new bdecode_node();
-        error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(buffer, n, ec);
-
-        if (ret == 0) {
-            s.load_state(n);
-        } else {
-            LOG.error("failed to decode torrent: " + ec.message());
-        }
-    }
-
-    /**
      * This functions instructs the session to post the state_update_alert,
      * containing the status of all torrents whose state changed since the
      * last time this function was called.

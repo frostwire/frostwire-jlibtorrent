@@ -51,8 +51,12 @@ public class session_handle {
     libtorrent_jni.session_handle_save_state__SWIG_1(swigCPtr, this, entry.getCPtr(e), e);
   }
 
+  public void load_state(bdecode_node e, long flags) {
+    libtorrent_jni.session_handle_load_state__SWIG_0(swigCPtr, this, bdecode_node.getCPtr(e), e, flags);
+  }
+
   public void load_state(bdecode_node e) {
-    libtorrent_jni.session_handle_load_state(swigCPtr, this, bdecode_node.getCPtr(e), e);
+    libtorrent_jni.session_handle_load_state__SWIG_1(swigCPtr, this, bdecode_node.getCPtr(e), e);
   }
 
   public void refresh_torrent_status(torrent_status_vector ret, long flags) {
@@ -265,7 +269,6 @@ public class session_handle {
     public final static session_handle.save_state_flags_t save_dht_settings = new session_handle.save_state_flags_t("save_dht_settings", libtorrent_jni.session_handle_save_dht_settings_get());
     public final static session_handle.save_state_flags_t save_dht_state = new session_handle.save_state_flags_t("save_dht_state", libtorrent_jni.session_handle_save_dht_state_get());
     public final static session_handle.save_state_flags_t save_encryption_settings = new session_handle.save_state_flags_t("save_encryption_settings", libtorrent_jni.session_handle_save_encryption_settings_get());
-    public final static session_handle.save_state_flags_t save_as_map = new session_handle.save_state_flags_t("save_as_map", libtorrent_jni.session_handle_save_as_map_get());
 
     public final int swigValue() {
       return swigValue;
@@ -301,7 +304,7 @@ public class session_handle {
       swigNext = this.swigValue+1;
     }
 
-    private static save_state_flags_t[] swigValues = { save_settings, save_dht_settings, save_dht_state, save_encryption_settings, save_as_map };
+    private static save_state_flags_t[] swigValues = { save_settings, save_dht_settings, save_dht_state, save_encryption_settings };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

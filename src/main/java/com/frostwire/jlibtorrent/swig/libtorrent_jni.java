@@ -2369,10 +2369,10 @@ public class libtorrent_jni {
   public final static native int session_handle_save_dht_settings_get();
   public final static native int session_handle_save_dht_state_get();
   public final static native int session_handle_save_encryption_settings_get();
-  public final static native int session_handle_save_as_map_get();
   public final static native void session_handle_save_state__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, entry jarg2_, long jarg3);
   public final static native void session_handle_save_state__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, entry jarg2_);
-  public final static native void session_handle_load_state(long jarg1, session_handle jarg1_, long jarg2, bdecode_node jarg2_);
+  public final static native void session_handle_load_state__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, bdecode_node jarg2_, long jarg3);
+  public final static native void session_handle_load_state__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, bdecode_node jarg2_);
   public final static native void session_handle_refresh_torrent_status__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, torrent_status_vector jarg2_, long jarg3);
   public final static native void session_handle_refresh_torrent_status__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, torrent_status_vector jarg2_);
   public final static native void session_handle_post_torrent_updates__SWIG_0(long jarg1, session_handle jarg1_, long jarg2);
