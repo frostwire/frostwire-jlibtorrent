@@ -93,4 +93,27 @@ public class ChangeTrackersTest {
         assertEquals(trackers.get(0).getUrl(), "http://a:6969/announce");
         assertEquals(trackers.get(1).getUrl(), "http://b:6969/announce");
     }
+
+    @Test
+    public void testChangeTrackersWithTorrentInfo() throws IOException {
+        byte[] torrentBytes = Utils.getResourceBytes("test4.torrent");
+        TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
+
+        // do we have any tracker
+        assertTrue(ti.trackers().size() > 0);
+
+        ti.getSwig().trackers().clear();
+
+        // did we remove all trackers
+        assertEquals(ti.trackers().size(), 0);
+
+        ti.addTracker("http://a:6969/announce", 0);
+        ti.addTracker("http://b:6969/announce", 1);
+
+        List<AnnounceEntry> trackers = ti.trackers();
+        // do we have exactly the two added trackers
+        assertEquals(trackers.size(), 2);
+        assertEquals(trackers.get(0).getUrl(), "http://a:6969/announce");
+        assertEquals(trackers.get(1).getUrl(), "http://b:6969/announce");
+    }
 }
