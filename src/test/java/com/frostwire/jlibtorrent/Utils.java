@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package com.frostwire.jlibtorrent.demo;
+package com.frostwire.jlibtorrent;
 
 import java.io.*;
 import java.util.Locale;
 
-final class Utils {
+public final class Utils {
 
     private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
 
@@ -389,6 +389,23 @@ final class Utils {
             out.close(); // don't swallow close Exception if copy completes normally
         } finally {
             closeQuietly(out);
+        }
+    }
+
+    public static byte[] getResourceBytes(String path) throws IOException {
+        ClassLoader classLoader = Utils.class.getClassLoader();
+        InputStream input = classLoader.getResourceAsStream(path);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            int n = 0;
+            byte[] buffer = new byte[1024 * 4];
+            while (EOF != (n = input.read(buffer))) {
+                output.write(buffer, 0, n);
+            }
+            return output.toByteArray();
+        } finally {
+            closeQuietly(input);
+            closeQuietly(output);
         }
     }
 }
