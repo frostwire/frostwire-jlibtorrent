@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.create_torrent;
 import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.entry_list;
 import com.frostwire.jlibtorrent.swig.string_entry_map;
 import org.junit.Test;
 
@@ -44,6 +45,47 @@ public class ChangeTrackersTest {
         c.add_tracker("http://b:6969/announce", 1);
 
         e = c.generate();
+        ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));
+        List<AnnounceEntry> trackers = ti.trackers();
+        // do we have exactly the two added trackers
+        assertEquals(trackers.size(), 2);
+        assertEquals(trackers.get(0).getUrl(), "http://a:6969/announce");
+        assertEquals(trackers.get(1).getUrl(), "http://b:6969/announce");
+    }
+
+    @Test
+    public void testChangeTrackersLowLevel() throws IOException {
+        byte[] torrentBytes = Utils.getResourceBytes("test4.torrent");
+        TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
+
+        // do we have any tracker
+        assertTrue(ti.trackers().size() > 0);
+
+        entry e = entry.bdecode(Vectors.bytes2byte_vector(torrentBytes));
+        string_entry_map m = e.dict();
+
+        // remove trackers
+        if (m.has_key("announce")) {
+            m.del("announce");
+        }
+        if (m.has_key("announce-list")) {
+            m.del("announce-list");
+        }
+
+        // add trackers
+        String[] tks = new String[]{"http://a:6969/announce", "http://b:6969/announce"};
+        entry_list l = new entry_list();
+        l.push_back(new entry(tks[0]));
+        m.set("announce", new entry(l));
+
+        entry_list tl = new entry_list();
+        for (int i = 0; i < tks.length; i++) {
+            l.clear();
+            l.push_back(new entry(tks[i]));
+            tl.push_back(new entry(l));
+        }
+        m.set("announce-list", new entry(tl));
+
         ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));
         List<AnnounceEntry> trackers = ti.trackers();
         // do we have exactly the two added trackers
