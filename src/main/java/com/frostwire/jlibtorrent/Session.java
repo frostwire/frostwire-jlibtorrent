@@ -300,14 +300,14 @@ public final class Session extends SessionHandle {
      * <p/>
      * The optional second argument options can be used to delete all the files downloaded
      * by this torrent. To do so, pass in the value session::delete_files. The removal of
-     * the torrent is asyncronous, there is no guarantee that adding the same torrent immediately
+     * the torrent is asynchronous, there is no guarantee that adding the same torrent immediately
      * after it was removed will not throw a libtorrent_exception exception. Once the torrent
      * is deleted, a torrent_deleted_alert is posted.
      *
      * @param th
      */
     public void removeTorrent(TorrentHandle th, Options options) {
-        s.remove_torrent(th.getSwig(), options.getSwig());
+        s.remove_torrent(th.getSwig(), options.swig());
     }
 
     /**
@@ -1039,19 +1039,20 @@ public final class Session extends SessionHandle {
     }
 
     /**
-     * Flags to be passed in to remove_torrent().
+     * Flags to be passed in to {@link #removeTorrent(TorrentHandle, Options)}.
      */
     public enum Options {
 
         /**
-         * Delete the files belonging to the torrent from disk.
+         * Delete the files belonging to the torrent from disk,
+         * including the part-file, if there is one.
          */
         DELETE_FILES(options_t.delete_files.swigValue()),
 
         /**
-         *
+         * Delete just the part-file associated with this torrent.
          */
-        UNKNOWN(-1);
+        DELETE_PARTFILE(options_t.delete_partfile.swigValue());
 
         Options(int swigValue) {
             this.swigValue = swigValue;
@@ -1059,7 +1060,7 @@ public final class Session extends SessionHandle {
 
         private final int swigValue;
 
-        public int getSwig() {
+        public int swig() {
             return swigValue;
         }
     }

@@ -318,6 +318,7 @@ public class session_handle {
 
   public final static class options_t {
     public final static session_handle.options_t delete_files = new session_handle.options_t("delete_files", libtorrent_jni.session_handle_delete_files_get());
+    public final static session_handle.options_t delete_partfile = new session_handle.options_t("delete_partfile", libtorrent_jni.session_handle_delete_partfile_get());
 
     public final int swigValue() {
       return swigValue;
@@ -353,7 +354,7 @@ public class session_handle {
       swigNext = this.swigValue+1;
     }
 
-    private static options_t[] swigValues = { delete_files };
+    private static options_t[] swigValues = { delete_files, delete_partfile };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
