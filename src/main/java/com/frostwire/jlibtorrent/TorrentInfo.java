@@ -99,7 +99,7 @@ public final class TorrentInfo {
     /**
      * Clear the internal list of trackers.
      */
-    public void clearTrackers() {
+    public void removeTrackers() {
         ti.trackers().clear();
     }
 
