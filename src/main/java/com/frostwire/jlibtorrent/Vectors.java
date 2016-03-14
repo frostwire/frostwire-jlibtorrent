@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.announce_entry_vector;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.int64_vector;
 import com.frostwire.jlibtorrent.swig.int_vector;
@@ -82,5 +83,16 @@ public final class Vectors {
         }
 
         return v;
+    }
+
+    static AnnounceEntry[] convert(announce_entry_vector v) {
+        int size = (int) v.size();
+        AnnounceEntry[] arr = new AnnounceEntry[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = new AnnounceEntry(v.get(i));
+        }
+
+        return arr;
     }
 }

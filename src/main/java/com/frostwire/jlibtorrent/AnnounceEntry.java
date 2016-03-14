@@ -18,7 +18,7 @@ public final class AnnounceEntry {
     }
 
     /**
-     * Constructs a tracker announce entry with ``u`` as the URL.
+     * Constructs a tracker announce entry with {@code u} as the URL.
      *
      * @param url
      */
@@ -26,7 +26,7 @@ public final class AnnounceEntry {
         this(new announce_entry(url));
     }
 
-    public announce_entry getSwig() {
+    public announce_entry swig() {
         return e;
     }
 
@@ -35,7 +35,7 @@ public final class AnnounceEntry {
      *
      * @return
      */
-    public String getUrl() {
+    public String url() {
         return e.getUrl();
     }
 
@@ -46,7 +46,7 @@ public final class AnnounceEntry {
      *
      * @return
      */
-    public String getTrackerId() {
+    public String trackerId() {
         return e.getTrackerid();
     }
 
@@ -56,7 +56,7 @@ public final class AnnounceEntry {
      *
      * @return
      */
-    public String getMessage() {
+    public String message() {
         return e.getMessage();
     }
 
@@ -68,5 +68,14 @@ public final class AnnounceEntry {
      */
     public ErrorCode lastError() {
         return new ErrorCode(e.getLast_error());
+    }
+
+    /**
+     * The tier this tracker belongs to.
+     *
+     * @return
+     */
+    public short tier() {
+        return e.getTier();
     }
 }

@@ -685,23 +685,16 @@ public final class TorrentHandle {
     }
 
     /**
-     * Will return the list of trackers for this torrent. The
-     * announce entry contains both a string ``url`` which specify the
-     * announce url for the tracker as well as an int ``tier``, which is
+     * Will return an array with the trackers for this torrent.
+     * <p/>
+     * The announce entry contains both a string {@code url} which specify the
+     * announce url for the tracker as well as an int {@code tier}, which
      * specifies the order in which this tracker is tried.
      *
      * @return
      */
-    public List<AnnounceEntry> trackers() {
-        announce_entry_vector v = th.trackers();
-        int size = (int) v.size();
-        List<AnnounceEntry> list = new ArrayList<AnnounceEntry>(size);
-
-        for (int i = 0; i < size; i++) {
-            list.add(new AnnounceEntry(v.get(i)));
-        }
-
-        return list;
+    public AnnounceEntry[] trackers() {
+        return Vectors.convert(th.trackers());
     }
 
     /**
@@ -720,7 +713,7 @@ public final class TorrentHandle {
 
     /**
      * If you want libtorrent to use another list of trackers for this torrent,
-     * you can use {@link #replaceTrackers(List)} which takes a list of the same
+     * you can use {@link #replaceTrackers(AnnounceEntry[])} which takes a list of the same
      * form as the one returned from {@link #trackers()} and will replace it.
      * If you want an immediate effect, you have to call {@link #forceReannounce()}.
      * <p/>
@@ -731,26 +724,28 @@ public final class TorrentHandle {
      * @param trackers
      * @see AnnounceEntry
      */
-    public void replaceTrackers(List<AnnounceEntry> trackers) {
+    public void replaceTrackers(AnnounceEntry[] trackers) {
         announce_entry_vector v = new announce_entry_vector();
 
-        for (AnnounceEntry e : trackers) {
-            v.push_back(e.getSwig());
+        for (int i = 0; i < trackers.length; i++) {
+            v.push_back(trackers[i].swig());
         }
 
         th.replace_trackers(v);
     }
 
-    // ``add_tracker()`` will look if the specified tracker is already in the
-    // set. If it is, it doesn't do anything. If it's not in the current set
-    // of trackers, it will insert it in the tier specified in the
-    // announce_entry.
-    //
-    // The updated set of trackers will be saved in the resume data, and when
-    // a torrent is started with resume data, the trackers from the resume
-    // data will replace the original ones.
+    /**
+     * This method will look if the specified tracker is already in the
+     * set. If it is, it doesn't do anything. If it's not in the current set
+     * of trackers, it will insert it in the tier specified in the
+     * {@link AnnounceEntry}.
+     * <p/>
+     * The updated set of trackers will be saved in the resume data, and when
+     * a torrent is started with resume data, the trackers from the resume
+     * data will replace the original ones.
+     */
     public void addTracker(AnnounceEntry tracker) {
-        th.add_tracker(tracker.getSwig());
+        th.add_tracker(tracker.swig());
     }
 
     // ``add_url_seed()`` adds another url to the torrent's list of url
