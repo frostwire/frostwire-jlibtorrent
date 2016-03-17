@@ -83,7 +83,7 @@ public final class PartialDownload2 {
 
         TorrentInfo ti = new TorrentInfo(torrentFile);
         File saveDir = torrentFile.getParentFile();
-        Priority[] priorities = Priority.array(Priority.IGNORE, ti.getNumFiles());
+        Priority[] priorities = Priority.array(Priority.IGNORE, ti.numFiles());
 
         System.out.println("About to download first file.");
 

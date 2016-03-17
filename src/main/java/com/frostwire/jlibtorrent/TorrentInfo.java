@@ -267,12 +267,12 @@ public final class TorrentInfo {
     }
 
     /**
-     * If you need index-access to files you can use the ``num_files()`` and ``file_at()``
+     * If you need index-access to files you can use this method
      * to access files using indices.
      *
      * @return
      */
-    public int getNumFiles() {
+    public int numFiles() {
         return ti.num_files();
     }
 

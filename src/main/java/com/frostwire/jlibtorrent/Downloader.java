@@ -37,14 +37,14 @@ public final class Downloader {
         if (th != null) {
             // found a download with the same hash, just adjust the priorities if needed
             if (priorities != null) {
-                if (ti.getNumFiles() != priorities.length) {
+                if (ti.numFiles() != priorities.length) {
                     throw new IllegalArgumentException("The priorities length should be equals to the number of files");
                 }
 
                 th.prioritizeFiles(priorities);
             } else {
                 // did they just add the entire torrent (therefore not selecting any priorities)
-                final Priority[] wholeTorrentPriorities = Priority.array(Priority.NORMAL, ti.getNumFiles());
+                final Priority[] wholeTorrentPriorities = Priority.array(Priority.NORMAL, ti.numFiles());
                 th.prioritizeFiles(wholeTorrentPriorities);
             }
         } else { // new download

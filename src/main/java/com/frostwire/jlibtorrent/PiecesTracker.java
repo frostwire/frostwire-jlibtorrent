@@ -16,7 +16,7 @@ public final class PiecesTracker {
     private final boolean[] complete;
 
     public PiecesTracker(TorrentInfo ti) {
-        this.numFiles = ti.getNumFiles();
+        this.numFiles = ti.numFiles();
         this.numPieces = ti.getNumPieces();
 
         this.files = new int[numFiles][];
