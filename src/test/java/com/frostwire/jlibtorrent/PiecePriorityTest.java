@@ -31,7 +31,8 @@ public class PiecePriorityTest {
     public void testGeneralCase() throws IOException, InterruptedException {
         final CountDownLatch exit = new CountDownLatch(1);
 
-        final AtomicInteger pieceIndex = new AtomicInteger(0);
+        final AtomicInteger firstP = new AtomicInteger(0);
+        final AtomicInteger lastP = new AtomicInteger(0);
 
         Session s = new Session();
         s.addListener(new AlertListener() {
@@ -42,17 +43,18 @@ public class PiecePriorityTest {
 
             @Override
             public void alert(Alert<?> alert) {
-                System.out.println(alert);
                 if (alert instanceof PieceFinishedAlert) {
+                    System.out.println(alert);
                     PieceFinishedAlert a = (PieceFinishedAlert) alert;
 
-                    // first piece, set the second piece to SEVEN
-                    if (a.pieceIndex() == pieceIndex.get()) {
-                        a.getHandle().piecePriority(a.pieceIndex() + 1, Priority.SEVEN);
+                    // on piece, set the next piece to SEVEN
+                    int indx = a.pieceIndex();
+                    if (firstP.get() <= indx && indx < lastP.get()) {
+                        a.getHandle().piecePriority(indx + 1, Priority.SEVEN);
                     }
 
-                    // second piece, exit
-                    if (a.pieceIndex() == pieceIndex.get() + 1) {
+                    // last piece, exit
+                    if (indx == lastP.get() + 1) {
                         exit.countDown();
                     }
                 }
@@ -88,7 +90,9 @@ public class PiecePriorityTest {
         int firstPiece = ti.mapFile(1, 0, 1).getPiece();
         int lastPiece = ti.mapFile(1, size - 1, 1).getPiece();
         assertTrue(firstPiece < lastPiece);
-        pieceIndex.set(firstPiece);
+        firstP.set(firstPiece);
+        // use the commented line if you want to download the entire file
+        lastP.set(firstPiece + 1);//lastP.set(lastPiece);
 
         // now set the priority of all pieces of selected file to IGNORE
         for (int i = firstPiece; i <= lastPiece; i++) {
@@ -104,6 +108,6 @@ public class PiecePriorityTest {
         // change priority of other pieces of that file to SEVEN in alert listener
         // see above in session construction
 
-        assertTrue(exit.await(10, TimeUnit.MINUTES));
+        assertTrue(exit.await(20, TimeUnit.MINUTES));
     }
 }

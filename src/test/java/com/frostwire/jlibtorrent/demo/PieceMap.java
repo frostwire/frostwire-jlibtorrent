@@ -22,7 +22,7 @@ public final class PieceMap {
         TorrentInfo ti = new TorrentInfo(torrentFile);
 
         int numFiles = ti.numFiles();
-        int numPieces = ti.getNumPieces();
+        int numPieces = ti.numPieces();
 
         System.out.println("Num Pieces: " + numPieces);
 
