@@ -324,17 +324,6 @@ public final class Session extends SessionHandle {
     }
 
     /**
-     * Applies the settings specified by the settings pack {@code sp}. This is an
-     * asynchronous operation that will return immediately and actually apply
-     * the settings to the main thread of libtorrent some time later.
-     *
-     * @param sp
-     */
-    public void applySettings(SettingsPack sp) {
-        s.apply_settings(sp.getSwig());
-    }
-
-    /**
      * In case you want to destruct the session asynchronously, you can
      * request a session destruction proxy. If you don't do this, the
      * destructor of the session object will block while the trackers are
@@ -690,35 +679,6 @@ public final class Session extends SessionHandle {
 
     public SettingsPack getSettingsPack() {
         return new SettingsPack(s.get_settings());
-    }
-
-    // You add torrents through the add_torrent() function where you give an
-    // object with all the parameters. The add_torrent() overloads will block
-    // until the torrent has been added (or failed to be added) and returns
-    // an error code and a torrent_handle. In order to add torrents more
-    // efficiently, consider using async_add_torrent() which returns
-    // immediately, without waiting for the torrent to add. Notification of
-    // the torrent being added is sent as add_torrent_alert.
-    //
-    // The overload that does not take an error_code throws an exception on
-    // error and is not available when building without exception support.
-    // The torrent_handle returned by add_torrent() can be used to retrieve
-    // information about the torrent's progress, its peers etc. It is also
-    // used to abort a torrent.
-    //
-    // If the torrent you are trying to add already exists in the session (is
-    // either queued for checking, being checked or downloading)
-    // ``add_torrent()`` will throw libtorrent_exception which derives from
-    // ``std::exception`` unless duplicate_is_error is set to false. In that
-    // case, add_torrent() will return the handle to the existing torrent.
-    //
-    // all torrent_handles must be destructed before the session is destructed!
-    public TorrentHandle addTorrent(AddTorrentParams params, ErrorCode ec) {
-        return new TorrentHandle(s.add_torrent(params.getSwig(), ec.getSwig()));
-    }
-
-    public void asyncAddTorrent(AddTorrentParams params) {
-        s.async_add_torrent(params.getSwig());
     }
 
     /**
