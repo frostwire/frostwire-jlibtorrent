@@ -60,14 +60,14 @@ public enum Priority {
 
     private final int swigValue;
 
-    public int getSwig() {
+    public int swig() {
         return swigValue;
     }
 
     public static Priority fromSwig(int swigValue) {
         Priority[] enumValues = Priority.class.getEnumConstants();
         for (Priority ev : enumValues) {
-            if (ev.getSwig() == swigValue) {
+            if (ev.swig() == swigValue) {
                 return ev;
             }
         }

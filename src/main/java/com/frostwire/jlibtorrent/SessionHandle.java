@@ -134,11 +134,11 @@ public class SessionHandle {
      * @return
      */
     public TorrentHandle addTorrent(AddTorrentParams params, ErrorCode ec) {
-        return new TorrentHandle(s.add_torrent(params.getSwig(), ec.getSwig()));
+        return new TorrentHandle(s.add_torrent(params.swig(), ec.swig()));
     }
 
     public void asyncAddTorrent(AddTorrentParams params) {
-        s.async_add_torrent(params.getSwig());
+        s.async_add_torrent(params.swig());
     }
 
     /**

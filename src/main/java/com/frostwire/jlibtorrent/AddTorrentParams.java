@@ -32,7 +32,11 @@ public final class AddTorrentParams {
         this.p = p;
     }
 
-    public add_torrent_params getSwig() {
+    public AddTorrentParams() {
+        this(add_torrent_params.create_instance());
+    }
+
+    public add_torrent_params swig() {
         return p;
     }
 

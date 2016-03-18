@@ -41,26 +41,65 @@ public final class TorrentInfo {
      * The {@link com.frostwire.jlibtorrent.FileStorage} object contains the information on
      * how to map the pieces to files.
      * <p/>
-     * It is separated from the torrent_info object because when creating torrents
+     * It is separated from the {@link TorrentInfo} object because when creating torrents
      * a storage object needs to be created without having a torrent file. When renaming files
-     * in a storage, the storage needs to make its own copy of the file_storage in order
+     * in a storage, the storage needs to make its own copy of the {@link FileStorage} in order
      * to make its mapping differ from the one in the torrent file.
      *
      * @return
      */
-    public FileStorage getFiles() {
+    public FileStorage files() {
         return new FileStorage(ti, ti.files());
     }
 
     /**
-     * returns the original (unmodified) file storage for this torrent. This
+     * Returns the original (unmodified) file storage for this torrent. This
      * is used by the web server connection, which needs to request files with the original
-     * names. Filename may be chaged using ``torrent_info::rename_file()``.
+     * names. Filename may be changed using {@link #renameFile(int, String)}.
      *
      * @return
      */
-    public FileStorage getOrigFiles() {
+    public FileStorage origFiles() {
         return new FileStorage(ti, ti.orig_files());
+    }
+
+    /**
+     * Renames a the file with the specified index to the new name. The new
+     * filename is reflected by the {@link FileStorage} returned by {@link #files()}
+     * but not by the one returned by {@link #origFiles()}.
+     * <p>
+     * If you want to rename the base name of the torrent (for a multifile
+     * torrent), you can copy the {@code FileStorage} (see {@link #files()} and
+     * {@link #origFiles()} ), change the name, and then use
+     * {@link #remapFiles(FileStorage)}.
+     * <p>
+     * The {@code newFilename} can both be a relative path, in which case the
+     * file name is relative to the {@code savePath} of the torrent. If the
+     * {@code newFilename} is an absolute path (i.e. "is_complete(newFilename)
+     * == true"), then the file is detached from the {@code savePath} of the
+     * torrent. In this case the file is not moved when
+     * {@link TorrentHandle#moveStorage(String, int)} is invoked.
+     *
+     * @param index
+     * @param newFilename
+     */
+    public void renameFile(int index, String newFilename) {
+        ti.rename_file(index, newFilename);
+    }
+
+    /**
+     * Remaps the file storage to a new file layout. This can be used to, for
+     * instance, download all data in a torrent to a single file, or to a
+     * number of fixed size sector aligned files, regardless of the number
+     * and sizes of the files in the torrent.
+     * <p>
+     * The new specified {@link FileStorage} must have the exact same size as
+     * the current one.
+     *
+     * @param f
+     */
+    public void remapFiles(FileStorage f) {
+        ti.remap_files(f.swig());
     }
 
     /**
@@ -253,7 +292,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public int getNumPieces() {
+    public int numPieces() {
         return ti.num_pieces();
     }
 
@@ -306,7 +345,7 @@ public final class TorrentInfo {
      * <p/>
      * The input range is assumed to be valid within the torrent. {@code offset + size}
      * is not allowed to be greater than the file size. {@code index}
-     * must refer to a valid file, i.e. it cannot be {@code >= getNumFiles()}.
+     * must refer to a valid file, i.e. it cannot be {@code >= numFiles()}.
      *
      * @param file
      * @param offset

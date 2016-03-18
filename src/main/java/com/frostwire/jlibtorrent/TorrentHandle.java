@@ -184,16 +184,16 @@ public final class TorrentHandle {
     }
 
     /**
-     * ``pause()`` will disconnect all peers.
+     * This method will disconnect all peers.
      * <p/>
      * When a torrent is paused, it will however
      * remember all share ratios to all peers and remember all potential (not
      * connected) peers. Torrents may be paused automatically if there is a
      * file error (e.g. disk full) or something similar. See
-     * file_error_alert.
+     * {@link com.frostwire.jlibtorrent.alerts.FileErrorAlert}.
      * <p/>
      * To know if a torrent is paused or not, call
-     * ``torrent_handle::status()`` and inspect ``torrent_status::paused``.
+     * {@link #getStatus()} and inspect {@link TorrentStatus#isPaused()} .
      * <p/>
      * The ``flags`` argument to pause can be set to
      * ``torrent_handle::graceful_pause`` which will delay the disconnect of
@@ -848,18 +848,18 @@ public final class TorrentHandle {
     //
     // ``piece_priorities`` returns a vector with one element for each piece
     // in the torrent. Each element is the current priority of that piece.
-    public void setPiecePriority(int index, Priority priority) {
-        th.piece_priority(index, priority.getSwig());
+    public void piecePriority(int index, Priority priority) {
+        th.piece_priority(index, priority.swig());
     }
 
-    public Priority getPiecePriority(int index) {
+    public Priority piecePriority(int index) {
         return Priority.fromSwig(th.piece_priority(index));
     }
 
     public void prioritizePieces(Priority[] priorities) {
         int[] arr = new int[priorities.length];
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = priorities[i] != Priority.UNKNOWN ? priorities[i].getSwig() : Priority.IGNORE.getSwig();
+            arr[i] = priorities[i] != Priority.UNKNOWN ? priorities[i].swig() : Priority.IGNORE.swig();
         }
         th.prioritize_pieces(Vectors.ints2int_vector(arr));
     }
@@ -892,7 +892,7 @@ public final class TorrentHandle {
      * @param priority
      */
     public void setFilePriority(int index, Priority priority) {
-        th.file_priority(index, priority.getSwig());
+        th.file_priority(index, priority.swig());
     }
 
     /**
@@ -918,7 +918,8 @@ public final class TorrentHandle {
     public void prioritizeFiles(Priority[] priorities) {
         int[] arr = new int[priorities.length];
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = priorities[i] != Priority.UNKNOWN ? priorities[i].getSwig() : Priority.IGNORE.getSwig();
+            Priority p = priorities[i];
+            arr[i] = p != Priority.UNKNOWN ? p.swig() : Priority.IGNORE.swig();
         }
         th.prioritize_files(Vectors.ints2int_vector(arr));
     }

@@ -36,7 +36,7 @@ public final class FileStorage {
         this.fs = fs;
     }
 
-    public file_storage getSwig() {
+    public file_storage swig() {
         return fs;
     }
 
@@ -203,9 +203,14 @@ public final class FileStorage {
     }
 
     /**
-     * Returns a {@link com.frostwire.jlibtorrent.PeerRequest} representing the piece index, byte offset
-     * and size the specified file range overlaps. This is the inverse
-     * mapping ove {@link #mapBlock(int, long, int)}.
+     * Returns a {@link com.frostwire.jlibtorrent.PeerRequest} representing the
+     * piece index, byte offset and size the specified file range overlaps.
+     * This is the inverse mapping of {@link #mapBlock(int, long, int)}.
+     * <p>
+     * Note that the {@link PeerRequest} return type
+     * is meant to hold bittorrent block requests, which may not be larger
+     * than 16 kiB. Mapping a range larger than that may return an overflown
+     * integer.
      *
      * @param file
      * @param offset
@@ -221,7 +226,7 @@ public final class FileStorage {
      *
      * @return
      */
-    public int getNumFiles() {
+    public int numFiles() {
         return fs.num_files();
     }
 
@@ -230,8 +235,57 @@ public final class FileStorage {
      *
      * @return
      */
-    public long getTotalSize() {
+    public long totalSize() {
         return fs.total_size();
+    }
+
+    /**
+     * Get the number of pieces in the torrent.
+     *
+     * @return
+     */
+    public int numPieces() {
+        return fs.num_pieces();
+    }
+
+    /**
+     * Set the number of pieces in the torrent.
+     *
+     * @param n
+     */
+    public void numPieces(int n) {
+        fs.set_num_pieces(n);
+    }
+
+    /**
+     * Get the size of each piece in this torrent. This size is typically an even power
+     * of 2. It doesn't have to be though. It should be divisible by 16kiB however.
+     *
+     * @return
+     */
+    public int pieceLength() {
+        return fs.piece_length();
+    }
+
+    /**
+     * Set the size of each piece in this torrent. This size is typically an even power
+     * of 2. It doesn't have to be though. It should be divisible by 16kiB however.
+     *
+     * @param l
+     */
+    public void pieceLength(int l) {
+        fs.set_piece_length(l);
+    }
+
+    /**
+     * Returns the piece size of {@code index}. This will be the same as {@link #pieceLength()},
+     * except for the last piece, which may be shorter.
+     *
+     * @param index
+     * @return
+     */
+    public int pieceSize(int index) {
+        return fs.piece_size(index);
     }
 
     /**
@@ -240,7 +294,7 @@ public final class FileStorage {
      *
      * @return
      */
-    public String getName() {
+    public String name() {
         return fs.name();
     }
 
@@ -250,7 +304,7 @@ public final class FileStorage {
      *
      * @param name
      */
-    public void setName(String name) {
+    public void name(String name) {
         fs.set_name(name);
     }
 
@@ -308,7 +362,7 @@ public final class FileStorage {
      * @param index
      * @return
      */
-    public long getFileSize(int index) {
+    public long fileSize(int index) {
         return fs.file_size(index);
     }
 

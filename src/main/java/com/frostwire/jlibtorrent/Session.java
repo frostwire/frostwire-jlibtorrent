@@ -792,7 +792,7 @@ public final class Session extends SessionHandle {
         if (priorities != null) {
             byte_vector v = new byte_vector();
             for (int i = 0; i < priorities.length; i++) {
-                v.push_back((byte) priorities[i].getSwig());
+                v.push_back((byte) priorities[i].swig());
             }
             p.set_file_priorities(v);
         }

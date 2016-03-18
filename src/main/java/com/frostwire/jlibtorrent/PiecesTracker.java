@@ -17,16 +17,16 @@ public final class PiecesTracker {
 
     public PiecesTracker(TorrentInfo ti) {
         this.numFiles = ti.numFiles();
-        this.numPieces = ti.getNumPieces();
+        this.numPieces = ti.numPieces();
 
         this.files = new int[numFiles][];
         this.sizes = new long[numFiles][];
         this.complete = new boolean[numPieces];
 
-        FileStorage fs = ti.getFiles();
+        FileStorage fs = ti.files();
 
         for (int fileIndex = 0; fileIndex < numFiles; fileIndex++) {
-            long size = fs.getFileSize(fileIndex);
+            long size = fs.fileSize(fileIndex);
             int firstPiece = ti.mapFile(fileIndex, 0, 1).getPiece();
             int lastPiece = ti.mapFile(fileIndex, size - 1, 1).getPiece();
 

@@ -14,7 +14,11 @@ public final class ErrorCode {
         this.ec = ec;
     }
 
-    public error_code getSwig() {
+    public ErrorCode() {
+        this(new error_code());
+    }
+
+    public error_code swig() {
         return ec;
     }
 
