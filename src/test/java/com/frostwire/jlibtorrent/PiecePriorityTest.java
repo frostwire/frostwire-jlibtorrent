@@ -54,7 +54,7 @@ public class PiecePriorityTest {
                     }
 
                     // last piece, exit
-                    if (indx == lastP.get() + 1) {
+                    if (indx == lastP.get()) {
                         exit.countDown();
                     }
                 }
