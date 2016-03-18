@@ -13,7 +13,8 @@ import com.frostwire.jlibtorrent.swig.storage_mode_t;
  * </ul>
  * One of those fields need to be set. Another mandatory field is
  * {@link #savePath()}. The {@link AddTorrentParams} object is passed into one of the
- * {@link Session#addTorrent(AddTorrentParams)} overloads or {@link Session#asyncAddTorrent(AddTorrentParams)}.
+ * {@link SessionHandle#addTorrent(AddTorrentParams, ErrorCode)} overloads or
+ * {@link SessionHandle#asyncAddTorrent(AddTorrentParams)}.
  * <p/>
  * If you only specify the info-hash, the torrent file will be downloaded
  * from peers, which requires them to support the metadata extension. It also
@@ -47,16 +48,6 @@ public final class AddTorrentParams {
      */
     public int version() {
         return p.getVersion();
-    }
-
-    /**
-     * {@link TorrentInfo} object with the torrent to add. Unless the url or
-     * {@link #infoHash()} is set, this is required to be initialized.
-     *
-     * @param ti
-     */
-    public void torrentInfo(TorrentInfo ti) {
-        p.set_ti(ti.getSwig());
     }
 
     /*
@@ -329,15 +320,60 @@ public final class AddTorrentParams {
         public int getDownload_limit() {
             return libtorrent_jni.add_torrent_params_download_limit_get(swigCPtr, this);
         }
-
-        public long getFlags() {
-            return libtorrent_jni.add_torrent_params_getFlags(swigCPtr, this);
-        }
-
-        public void setFlags(long flags) {
-            libtorrent_jni.add_torrent_params_setFlags(swigCPtr, this, flags);
-        }
     */
+
+    /**
+     * Flags controlling aspects of this torrent and how it's added. See
+     * {@link com.frostwire.jlibtorrent.swig.add_torrent_params.flags_t} for details.
+     *
+     * @return
+     */
+    public long flags() {
+        return p.get_flags();
+    }
+
+    /**
+     * Flags controlling aspects of this torrent and how it's added. See
+     * {@link com.frostwire.jlibtorrent.swig.add_torrent_params.flags_t} for details.
+     *
+     * @param flags
+     */
+    public void flags(long flags) {
+        p.set_flags(flags);
+    }
+
+    /**
+     * {@link TorrentInfo} object with the torrent to add. Unless the url or
+     * {@link #infoHash()} is set, this is required to be initialized.
+     *
+     * @param ti
+     */
+    public void torrentInfo(TorrentInfo ti) {
+        p.set_ti(ti.getSwig());
+    }
+
+    /**
+     * This optional parameter can be given if up to date
+     * fast-resume data is available. The fast-resume data can be acquired
+     * from a running torrent by calling {@link TorrentHandle#saveResumeData()}
+     *
+     * @param data
+     */
+    public void resumeData(byte[] data) {
+        p.set_resume_data(Vectors.bytes2byte_vector(data));
+    }
+
+    /**
+     * Can be set to control the initial file priorities when adding a
+     * torrent. The semantics are the same as for
+     * {@link TorrentHandle#prioritizeFiles(Priority[])}.
+     *
+     * @param priorities
+     */
+    public void filePriorities(Priority[] priorities) {
+        p.set_file_priorities(Priority.array2byte_vector(priorities));
+    }
+
     public static AddTorrentParams createInstance() {
         return new AddTorrentParams(add_torrent_params.create_instance());
     }

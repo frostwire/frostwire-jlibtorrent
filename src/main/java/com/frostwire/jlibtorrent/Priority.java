@@ -1,5 +1,8 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.byte_vector;
+import com.frostwire.jlibtorrent.swig.int_vector;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -82,5 +85,27 @@ public enum Priority {
         }
 
         return arr;
+    }
+
+    static int_vector array2int_vector(Priority[] arr) {
+        int_vector v = new int_vector();
+
+        for (int i = 0; i < arr.length; i++) {
+            Priority p = arr[i];
+            v.push_back(p != Priority.UNKNOWN ? p.swig() : Priority.IGNORE.swig());
+        }
+
+        return v;
+    }
+
+    static byte_vector array2byte_vector(Priority[] arr) {
+        byte_vector v = new byte_vector();
+
+        for (int i = 0; i < arr.length; i++) {
+            Priority p = arr[i];
+            v.push_back((byte) (p != Priority.UNKNOWN ? p.swig() : Priority.IGNORE.swig()));
+        }
+
+        return v;
     }
 }
