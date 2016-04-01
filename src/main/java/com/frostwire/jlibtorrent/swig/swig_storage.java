@@ -86,8 +86,8 @@ public class swig_storage {
     if (getClass() == swig_storage.class) libtorrent_jni.swig_storage_rename_file(swigCPtr, this, index, new_filename, storage_error.getCPtr(ec), ec); else libtorrent_jni.swig_storage_rename_fileSwigExplicitswig_storage(swigCPtr, this, index, new_filename, storage_error.getCPtr(ec), ec);
   }
 
-  public void delete_files(storage_error ec) {
-    if (getClass() == swig_storage.class) libtorrent_jni.swig_storage_delete_files(swigCPtr, this, storage_error.getCPtr(ec), ec); else libtorrent_jni.swig_storage_delete_filesSwigExplicitswig_storage(swigCPtr, this, storage_error.getCPtr(ec), ec);
+  public void delete_files(int options, storage_error ec) {
+    if (getClass() == swig_storage.class) libtorrent_jni.swig_storage_delete_files(swigCPtr, this, options, storage_error.getCPtr(ec), ec); else libtorrent_jni.swig_storage_delete_filesSwigExplicitswig_storage(swigCPtr, this, options, storage_error.getCPtr(ec), ec);
   }
 
   public boolean tick() {

@@ -2036,20 +2036,22 @@ void SwigDirector_swig_storage::rename_file(int index, std::string const &new_fi
   if (swigjobj) jenv->DeleteLocalRef(swigjobj);
 }
 
-void SwigDirector_swig_storage::delete_files(libtorrent::storage_error &ec) {
+void SwigDirector_swig_storage::delete_files(int options, libtorrent::storage_error &ec) {
   JNIEnvWrapper swigjnienv(this) ;
   JNIEnv * jenv = swigjnienv.getJNIEnv() ;
   jobject swigjobj = (jobject) NULL ;
+  jint joptions  ;
   jlong jec = 0 ;
   
   if (!swig_override[9]) {
-    swig_storage::delete_files(ec);
+    swig_storage::delete_files(options,ec);
     return;
   }
   swigjobj = swig_get_self(jenv);
   if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
+    joptions = (jint) options;
     *(libtorrent::storage_error **)&jec = (libtorrent::storage_error *) &ec; 
-    jenv->CallStaticVoidMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[12], swigjobj, jec);
+    jenv->CallStaticVoidMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[12], swigjobj, joptions, jec);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
       jenv->ExceptionClear();
@@ -2123,7 +2125,7 @@ void SwigDirector_swig_storage::swig_connect_director(JNIEnv *jenv, jobject jsel
       "rename_file", "(ILjava/lang/String;Lcom/frostwire/jlibtorrent/swig/storage_error;)V", NULL 
     },
     {
-      "delete_files", "(Lcom/frostwire/jlibtorrent/swig/storage_error;)V", NULL 
+      "delete_files", "(ILcom/frostwire/jlibtorrent/swig/storage_error;)V", NULL 
     },
     {
       "tick", "()Z", NULL 
@@ -62055,7 +62057,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("5d2d1bd8929e2aa7269517321ac366b75fb0dfdf");
+  result = (char *)("f77e9de44827fb6e860e88c14dfc30f7dc702e2c");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -63971,23 +63973,25 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1storage_1delete_1files(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1storage_1delete_1files(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
   swig_storage *arg1 = (swig_storage *) 0 ;
-  libtorrent::storage_error *arg2 = 0 ;
+  int arg2 ;
+  libtorrent::storage_error *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(swig_storage **)&jarg1; 
-  arg2 = *(libtorrent::storage_error **)&jarg2;
-  if (!arg2) {
+  arg2 = (int)jarg2; 
+  arg3 = *(libtorrent::storage_error **)&jarg3;
+  if (!arg3) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::storage_error & reference is null");
     return ;
   } 
   {
     try {
-      (arg1)->delete_files(*arg2);
+      (arg1)->delete_files(arg2,*arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {
@@ -63997,23 +64001,25 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1storage_1delete_1filesSwigExplicitswig_1storage(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1storage_1delete_1filesSwigExplicitswig_1storage(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
   swig_storage *arg1 = (swig_storage *) 0 ;
-  libtorrent::storage_error *arg2 = 0 ;
+  int arg2 ;
+  libtorrent::storage_error *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(swig_storage **)&jarg1; 
-  arg2 = *(libtorrent::storage_error **)&jarg2;
-  if (!arg2) {
+  arg2 = (int)jarg2; 
+  arg3 = *(libtorrent::storage_error **)&jarg3;
+  if (!arg3) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::storage_error & reference is null");
     return ;
   } 
   {
     try {
-      (arg1)->swig_storage::delete_files(*arg2);
+      (arg1)->swig_storage::delete_files(arg2,*arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {
@@ -69182,7 +69188,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
       "SwigDirector_swig_storage_rename_file", "(Lcom/frostwire/jlibtorrent/swig/swig_storage;ILjava/lang/String;J)V" 
     },
     {
-      "SwigDirector_swig_storage_delete_files", "(Lcom/frostwire/jlibtorrent/swig/swig_storage;J)V" 
+      "SwigDirector_swig_storage_delete_files", "(Lcom/frostwire/jlibtorrent/swig/swig_storage;IJ)V" 
     },
     {
       "SwigDirector_swig_storage_tick", "(Lcom/frostwire/jlibtorrent/swig/swig_storage;)Z" 

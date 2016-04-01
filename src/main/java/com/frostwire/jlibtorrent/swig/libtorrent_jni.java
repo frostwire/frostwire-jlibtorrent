@@ -3040,8 +3040,8 @@ public class libtorrent_jni {
   public final static native void swig_storage_release_filesSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native void swig_storage_rename_file(long jarg1, swig_storage jarg1_, int jarg2, String jarg3, long jarg4, storage_error jarg4_);
   public final static native void swig_storage_rename_fileSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, int jarg2, String jarg3, long jarg4, storage_error jarg4_);
-  public final static native void swig_storage_delete_files(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
-  public final static native void swig_storage_delete_filesSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
+  public final static native void swig_storage_delete_files(long jarg1, swig_storage jarg1_, int jarg2, long jarg3, storage_error jarg3_);
+  public final static native void swig_storage_delete_filesSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, int jarg2, long jarg3, storage_error jarg3_);
   public final static native boolean swig_storage_tick(long jarg1, swig_storage jarg1_);
   public final static native boolean swig_storage_tickSwigExplicitswig_storage(long jarg1, swig_storage jarg1_);
   public final static native long new_swig_storage();
@@ -3353,8 +3353,8 @@ public class libtorrent_jni {
   public static void SwigDirector_swig_storage_rename_file(swig_storage jself, int index, String new_filename, long ec) {
     jself.rename_file(index, new_filename, new storage_error(ec, false));
   }
-  public static void SwigDirector_swig_storage_delete_files(swig_storage jself, long ec) {
-    jself.delete_files(new storage_error(ec, false));
+  public static void SwigDirector_swig_storage_delete_files(swig_storage jself, int options, long ec) {
+    jself.delete_files(options, new storage_error(ec, false));
   }
   public static boolean SwigDirector_swig_storage_tick(swig_storage jself) {
     return jself.tick();

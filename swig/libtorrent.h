@@ -333,7 +333,7 @@ struct swig_storage : storage_interface
         , libtorrent::storage_error& ec) {
     }
 
-    virtual void delete_files(libtorrent::storage_error& ec) {
+    virtual void delete_files(int options, libtorrent::storage_error& ec) {
     }
 
     virtual bool tick() { return false; }

@@ -72,7 +72,7 @@ public:
     virtual void write_resume_data(libtorrent::entry &rd, libtorrent::storage_error &ec) const;
     virtual void release_files(libtorrent::storage_error &ec);
     virtual void rename_file(int index, std::string const &new_filename, libtorrent::storage_error &ec);
-    virtual void delete_files(libtorrent::storage_error &ec);
+    virtual void delete_files(int options, libtorrent::storage_error &ec);
     virtual bool tick();
 public:
     bool swig_overrides(int n) {
