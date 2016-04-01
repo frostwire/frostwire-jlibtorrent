@@ -141,7 +141,6 @@ public class create_torrent {
 
   public final static class flags_t {
     public final static create_torrent.flags_t optimize_alignment = new create_torrent.flags_t("optimize_alignment", libtorrent_jni.create_torrent_optimize_alignment_get());
-    public final static create_torrent.flags_t optimize = new create_torrent.flags_t("optimize", libtorrent_jni.create_torrent_optimize_get());
     public final static create_torrent.flags_t merkle = new create_torrent.flags_t("merkle", libtorrent_jni.create_torrent_merkle_get());
     public final static create_torrent.flags_t modification_time = new create_torrent.flags_t("modification_time", libtorrent_jni.create_torrent_modification_time_get());
     public final static create_torrent.flags_t symlinks = new create_torrent.flags_t("symlinks", libtorrent_jni.create_torrent_symlinks_get());
@@ -181,7 +180,7 @@ public class create_torrent {
       swigNext = this.swigValue+1;
     }
 
-    private static flags_t[] swigValues = { optimize_alignment, optimize, merkle, modification_time, symlinks, mutable_torrent_support };
+    private static flags_t[] swigValues = { optimize_alignment, merkle, modification_time, symlinks, mutable_torrent_support };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

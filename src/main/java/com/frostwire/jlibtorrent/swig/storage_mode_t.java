@@ -11,7 +11,6 @@ package com.frostwire.jlibtorrent.swig;
 public final class storage_mode_t {
   public final static storage_mode_t storage_mode_allocate = new storage_mode_t("storage_mode_allocate");
   public final static storage_mode_t storage_mode_sparse = new storage_mode_t("storage_mode_sparse");
-  public final static storage_mode_t internal_storage_mode_compact_deprecated = new storage_mode_t("internal_storage_mode_compact_deprecated");
 
   public final int swigValue() {
     return swigValue;
@@ -47,7 +46,7 @@ public final class storage_mode_t {
     swigNext = this.swigValue+1;
   }
 
-  private static storage_mode_t[] swigValues = { storage_mode_allocate, storage_mode_sparse, internal_storage_mode_compact_deprecated };
+  private static storage_mode_t[] swigValues = { storage_mode_allocate, storage_mode_sparse };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

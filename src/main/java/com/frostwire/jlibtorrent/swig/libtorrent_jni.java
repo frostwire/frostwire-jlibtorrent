@@ -2604,7 +2604,6 @@ public class libtorrent_jni {
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
   public final static native void parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
   public final static native int create_torrent_optimize_alignment_get();
-  public final static native int create_torrent_optimize_get();
   public final static native int create_torrent_merkle_get();
   public final static native int create_torrent_modification_time_get();
   public final static native int create_torrent_symlinks_get();
