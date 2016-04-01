@@ -123,7 +123,7 @@ public final class TorrentInfo {
     }
 
     /**
-     * Will return an array with the trackers of this torrent info.
+     * Will return a sorted list with the trackers of this torrent info.
      * <p/>
      * Each announce entry contains a string, which is the tracker url, and a tier index. The
      * tier index is the high-level priority. No matter which trackers that works or not, the
@@ -131,14 +131,14 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public AnnounceEntry[] trackers() {
-        return Vectors.convert(ti.trackers());
+    public ArrayList<AnnounceEntry> trackers() {
+        return trackers(ti.trackers());
     }
 
     /**
      * Clear the internal list of trackers.
      */
-    public void removeTrackers() {
+    public void clearTrackers() {
         ti.trackers().clear();
     }
 
@@ -484,6 +484,18 @@ public final class TorrentInfo {
 
     public static TorrentInfo bdecode(byte[] data) {
         return new TorrentInfo(bdecode0(data));
+    }
+
+    // helper function
+    static ArrayList<AnnounceEntry> trackers(announce_entry_vector v) {
+        int size = (int) v.size();
+        ArrayList<AnnounceEntry> l = new ArrayList<>(size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(new AnnounceEntry(v.get(i)));
+        }
+
+        return l;
     }
 
     private static torrent_info bdecode0(File file) {

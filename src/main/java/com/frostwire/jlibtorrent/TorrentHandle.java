@@ -685,7 +685,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * Will return an array with the trackers for this torrent.
+     * Will return a sorted list with the trackers of this torrent.
      * <p/>
      * The announce entry contains both a string {@code url} which specify the
      * announce url for the tracker as well as an int {@code tier}, which
@@ -693,8 +693,8 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public AnnounceEntry[] trackers() {
-        return Vectors.convert(th.trackers());
+    public List<AnnounceEntry> trackers() {
+        return TorrentInfo.trackers(th.trackers());
     }
 
     /**

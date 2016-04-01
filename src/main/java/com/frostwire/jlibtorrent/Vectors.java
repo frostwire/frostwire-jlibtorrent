@@ -84,15 +84,4 @@ public final class Vectors {
 
         return v;
     }
-
-    static AnnounceEntry[] convert(announce_entry_vector v) {
-        int size = (int) v.size();
-        AnnounceEntry[] arr = new AnnounceEntry[size];
-
-        for (int i = 0; i < size; i++) {
-            arr[i] = new AnnounceEntry(v.get(i));
-        }
-
-        return arr;
-    }
 }
