@@ -85,7 +85,7 @@ public final class FileStorage {
      * <p/>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #setName(String)}.
+     * can be changed by calling {@link #name(String)}.
      * <p/>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
@@ -98,7 +98,7 @@ public final class FileStorage {
      * @see com.frostwire.jlibtorrent.FileStorage.Flags
      */
     public void addFile(String path, long fileSize, Flags fileFlags, int mtime, String symlinkPath) {
-        fs.add_file(path, fileSize, fileFlags.getSwig(), mtime, symlinkPath);
+        fs.add_file(path, fileSize, fileFlags.swig(), mtime, symlinkPath);
     }
 
     /**
@@ -110,7 +110,7 @@ public final class FileStorage {
      * <p/>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #setName(String)}.
+     * can be changed by calling {@link #name(String)}.
      * <p/>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
@@ -122,7 +122,7 @@ public final class FileStorage {
      * @see com.frostwire.jlibtorrent.FileStorage.Flags
      */
     public void addFile(String p, long size, Flags flags, int mtime) {
-        fs.add_file(p, size, flags.getSwig(), mtime);
+        fs.add_file(p, size, flags.swig(), mtime);
     }
 
     /**
@@ -134,7 +134,7 @@ public final class FileStorage {
      * <p/>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #setName(String)}.
+     * can be changed by calling {@link #name(String)}.
      * <p/>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
@@ -145,7 +145,7 @@ public final class FileStorage {
      * @see com.frostwire.jlibtorrent.FileStorage.Flags
      */
     public void addFile(String p, long size, Flags flags) {
-        fs.add_file(p, size, flags.getSwig());
+        fs.add_file(p, size, flags.swig());
     }
 
     /**
@@ -156,7 +156,7 @@ public final class FileStorage {
      * <p/>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #setName(String)}.
+     * can be changed by calling {@link #name(String)}.
      * <p/>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
@@ -191,15 +191,7 @@ public final class FileStorage {
      * @return
      */
     public ArrayList<FileSlice> mapBlock(int piece, long offset, int size) {
-        file_slice_vector v = fs.map_block(piece, offset, size);
-        int vSize = (int) v.size();
-
-        ArrayList<FileSlice> l = new ArrayList<FileSlice>(vSize);
-        for (int i = 0; i < vSize; i++) {
-            l.add(new FileSlice(v.get(i)));
-        }
-
-        return l;
+        return mapBlock(fs.map_block(piece, offset, size));
     }
 
     /**
@@ -316,7 +308,7 @@ public final class FileStorage {
      * @param index
      * @return
      */
-    public Sha1Hash getHash(int index) {
+    public Sha1Hash hash(int index) {
         return new Sha1Hash(fs.hash(index));
     }
 
@@ -327,7 +319,7 @@ public final class FileStorage {
      * @param savePath
      * @return
      */
-    public String getFilePath(int index, String savePath) {
+    public String filePath(int index, String savePath) {
         // not calling the corresponding swig function because internally,
         // the use of the function GetStringUTFChars does not consider the case of
         // a copy not made
@@ -340,7 +332,7 @@ public final class FileStorage {
      * @param index
      * @return
      */
-    public String getFilePath(int index) {
+    public String filePath(int index) {
         return fs.file_path(index);
     }
 
@@ -352,7 +344,7 @@ public final class FileStorage {
      * @param index
      * @return
      */
-    public String getFileName(int index) {
+    public String fileName(int index) {
         return fs.file_name(index);
     }
 
@@ -373,7 +365,7 @@ public final class FileStorage {
      * @param index
      * @return
      */
-    public boolean isPadFileAt(int index) {
+    public boolean padFileAt(int index) {
         return fs.pad_file_at(index);
     }
 
@@ -385,8 +377,19 @@ public final class FileStorage {
      * @param index
      * @return
      */
-    public long getFileOffset(int index) {
+    public long fileOffset(int index) {
         return fs.file_offset(index);
+    }
+
+    static ArrayList<FileSlice> mapBlock(file_slice_vector v) {
+        int size = (int) v.size();
+
+        ArrayList<FileSlice> l = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            l.add(new FileSlice(v.get(i)));
+        }
+
+        return l;
     }
 
     /**
@@ -416,16 +419,31 @@ public final class FileStorage {
          * This file is a symbolic link. It should have a link
          * target string associated with it.
          */
-        ATTRIBUTE_SYMLINK(file_storage.flags_t.attribute_symlink.swigValue());
+        ATTRIBUTE_SYMLINK(file_storage.flags_t.attribute_symlink.swigValue()),
 
-        private Flags(int swigValue) {
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        Flags(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        public int swig() {
             return swigValue;
+        }
+
+        public static Flags fromSwig(int swigValue) {
+            Flags[] enumValues = Flags.class.getEnumConstants();
+            for (Flags ev : enumValues) {
+                if (ev.swig() == swigValue) {
+                    return ev;
+                }
+            }
+            return UNKNOWN;
         }
     }
 }

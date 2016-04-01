@@ -136,6 +136,50 @@ public final class TorrentInfo {
     }
 
     /**
+     * This function is related to BEP38_ (mutable torrents). The
+     * vector returned from this correspond to the "similar" in the
+     * .torrent file. The info-hashes from within the info-dict
+     * and from outside of it are included.
+     * <p>
+     * BEP38: http://www.bittorrent.org/beps/bep_0038.html
+     *
+     * @return
+     */
+    public ArrayList<Sha1Hash> similarTorrents() {
+        sha1_hash_vector v = ti.similar_torrents();
+        int size = (int) v.size();
+
+        ArrayList<Sha1Hash> l = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            l.add(new Sha1Hash(v.get(i)));
+        }
+
+        return l;
+    }
+
+    /**
+     * This function is related to BEP38_ (mutable torrents). The
+     * vector returned from this correspond to the "collections" keys
+     * in the .torrent file. The collections from within the info-dict
+     * and from outside of it are included.
+     * <p>
+     * BEP38: http://www.bittorrent.org/beps/bep_0038.html
+     *
+     * @return
+     */
+    public ArrayList<String> collections() {
+        string_vector v = ti.collections();
+        int size = (int) v.size();
+
+        ArrayList<String> l = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            l.add(v.get(i));
+        }
+
+        return l;
+    }
+
+    /**
      * Clear the internal list of trackers.
      */
     public void clearTrackers() {
@@ -247,16 +291,16 @@ public final class TorrentInfo {
     }
 
     /**
-     * returns all url seeds and http seeds in the torrent. Each entry
-     * is a ``web_seed_entry`` and may refer to either a url seed or http seed.
+     * Returns all url seeds and http seeds in the torrent. Each entry
+     * is a {@link WebSeedEntry} and may refer to either a url seed or http seed.
      *
      * @return
      */
-    public List<WebSeedEntry> getWebSeeds() {
+    public ArrayList<WebSeedEntry> webSeeds() {
         web_seed_entry_vector v = ti.web_seeds();
         int size = (int) v.size();
 
-        List<WebSeedEntry> l = new ArrayList<WebSeedEntry>(size);
+        ArrayList<WebSeedEntry> l = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             l.add(new WebSeedEntry(v.get(i)));
         }
@@ -327,15 +371,7 @@ public final class TorrentInfo {
      * @see com.frostwire.jlibtorrent.FileSlice
      */
     public ArrayList<FileSlice> mapBlock(int piece, long offset, int size) {
-        file_slice_vector v = ti.map_block(piece, offset, size);
-        int vSize = (int) v.size();
-
-        ArrayList<FileSlice> l = new ArrayList<FileSlice>(vSize);
-        for (int i = 0; i < vSize; i++) {
-            l.add(new FileSlice(v.get(i)));
-        }
-
-        return l;
+        return FileStorage.mapBlock(ti.map_block(piece, offset, size));
     }
 
     /**

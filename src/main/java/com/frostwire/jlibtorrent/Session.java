@@ -439,41 +439,6 @@ public final class Session extends SessionHandle {
         s.post_dht_stats();
     }
 
-    /**
-     * Looks for a torrent with the given info-hash. In
-     * case there is such a torrent in the session, a torrent_handle to that
-     * torrent is returned.
-     * <p/>
-     * In case the torrent cannot be found, a null is returned.
-     *
-     * @param infoHash
-     * @return
-     */
-    public TorrentHandle findTorrent(Sha1Hash infoHash) {
-        torrent_handle th = s.find_torrent(infoHash.swig());
-
-        return th != null && th.is_valid() ? new TorrentHandle(th) : null;
-    }
-
-    /**
-     * Returns a list of torrent handles to all the
-     * torrents currently in the session.
-     *
-     * @return
-     */
-    public List<TorrentHandle> getTorrents() {
-        torrent_handle_vector v = s.get_torrents();
-        long size = v.size();
-
-        List<TorrentHandle> l = new ArrayList<TorrentHandle>((int) size);
-
-        for (int i = 0; i < size; i++) {
-            l.add(new TorrentHandle(v.get(i)));
-        }
-
-        return l;
-    }
-
     // starts/stops UPnP, NATPMP or LSD port mappers they are stopped by
     // default These functions are not available in case
     // ``TORRENT_DISABLE_DHT`` is defined. ``start_dht`` starts the dht node

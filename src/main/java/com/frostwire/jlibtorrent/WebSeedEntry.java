@@ -23,7 +23,7 @@ public final class WebSeedEntry {
         this.e = e;
     }
 
-    public web_seed_entry getSwig() {
+    public web_seed_entry swig() {
         return e;
     }
 
@@ -32,17 +32,8 @@ public final class WebSeedEntry {
      *
      * @return
      */
-    public String getUrl() {
+    public String url() {
         return e.getUrl();
-    }
-
-    /**
-     * The type of web seed (see type_t).
-     *
-     * @return
-     */
-    public Type getType() {
-        return Type.fromSwig(e.getType());
     }
 
     /**
@@ -52,7 +43,7 @@ public final class WebSeedEntry {
      *
      * @return
      */
-    public String getAuth() {
+    public String auth() {
         return e.getAuth();
     }
 
@@ -61,21 +52,33 @@ public final class WebSeedEntry {
      *
      * @return
      */
-    public List<Pair<String, String>> getExtraHeaders() {
+    public ArrayList<Pair<String, String>> extraHeaders() {
         string_string_pair_vector v = e.getExtra_headers();
         int size = (int) v.size();
 
-        List<Pair<String, String>> l = new ArrayList<Pair<String, String>>(size);
+        ArrayList<Pair<String, String>> l = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             string_string_pair p = v.get(i);
-            l.add(new Pair<String, String>(p.getFirst(), p.getSecond()));
+            l.add(new Pair<>(p.getFirst(), p.getSecond()));
         }
 
         return l;
     }
 
     /**
+     * The type of web seed.
      *
+     * @return
+     * @see Type
+     */
+    public Type type() {
+        return Type.fromSwig(e.getType());
+    }
+
+    /**
+     * Http seeds are different from url seeds in the
+     * protocol they use. http seeds follows the original
+     * http seed spec. by John Hoffman
      */
     public enum Type {
 
@@ -94,20 +97,20 @@ public final class WebSeedEntry {
          */
         UNKNOWN(-1);
 
-        private Type(int swigValue) {
+        Type(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        public int swig() {
             return swigValue;
         }
 
         public static Type fromSwig(int swigValue) {
             Type[] enumValues = Type.class.getEnumConstants();
             for (Type ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

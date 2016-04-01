@@ -4,6 +4,8 @@ import com.frostwire.jlibtorrent.plugins.DhtStorageConstructor;
 import com.frostwire.jlibtorrent.plugins.SwigDhtStorageConstructor;
 import com.frostwire.jlibtorrent.swig.*;
 
+import java.util.ArrayList;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -103,6 +105,41 @@ public class SessionHandle {
         } else {
             LOG.error("failed to decode bencoded data: " + ec.message());
         }
+    }
+
+    /**
+     * Looks for a torrent with the given info-hash. In case there is such
+     * a torrent in the session, a {@link TorrentHandle} to that torrent
+     * is returned.
+     * <p/>
+     * In case the torrent cannot be found, a null is returned.
+     *
+     * @param infoHash
+     * @return
+     */
+    public TorrentHandle findTorrent(Sha1Hash infoHash) {
+        torrent_handle th = s.find_torrent(infoHash.swig());
+
+        return th != null && th.is_valid() ? new TorrentHandle(th) : null;
+    }
+
+    /**
+     * Returns a list of torrent handles to all the
+     * torrents currently in the session.
+     *
+     * @return
+     */
+    public ArrayList<TorrentHandle> getTorrents() {
+        torrent_handle_vector v = s.get_torrents();
+        int size = (int) v.size();
+
+        ArrayList<TorrentHandle> l = new ArrayList<>(size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(new TorrentHandle(v.get(i)));
+        }
+
+        return l;
     }
 
     /**
