@@ -235,7 +235,7 @@ int boost_version() {
     return BOOST_VERSION;
 }
 
-char* boost_lib_version() {
+const char* boost_lib_version() {
     return BOOST_LIB_VERSION;
 }
 
@@ -506,7 +506,7 @@ struct swig_plugin : plugin {
     void register_dht_extensions(libtorrent::dht_extensions_t& dht_extensions) {
         std::vector<std::pair<std::string, dht_extension_handler_listener*> > swig_dht_extensions;
         register_dht_extensions(swig_dht_extensions);
-        for (int i = 0; i < swig_dht_extensions.size(); i++) {
+        for (int i = 0; i < int(swig_dht_extensions.size()); i++) {
             std::pair<std::string, dht_extension_handler_listener*> ext = swig_dht_extensions[i];
             dht_extensions.push_back(std::pair<std::string, dht_extension_handler_t>(
                 ext.first,
