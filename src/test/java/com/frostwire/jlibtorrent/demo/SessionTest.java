@@ -16,8 +16,6 @@ public final class SessionTest {
 
         //System.setProperty("jlibtorrent.jni.path", <abosolute path>);
 
-        System.out.println("Using libtorrent version: " + LibTorrent.fullVersion());
-
         AlertListener l = new AlertListener() {
             @Override
             public int[] types() {

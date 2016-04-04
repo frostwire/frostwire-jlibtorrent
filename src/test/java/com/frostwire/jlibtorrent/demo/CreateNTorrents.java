@@ -13,8 +13,6 @@ import java.nio.file.Paths;
 public final class CreateNTorrents {
 
     public static void main(String[] args) throws Throwable {
-        System.out.println("Version: " + LibTorrent.fullVersion());
-
         Path torrentsPath = Paths.get(System.getProperty("user.home"), "Downloads", "ntorrents");
         if (Files.notExists(torrentsPath)) {
             Files.createDirectory(torrentsPath);

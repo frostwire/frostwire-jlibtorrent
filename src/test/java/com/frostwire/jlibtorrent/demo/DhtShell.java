@@ -15,8 +15,6 @@ public final class DhtShell {
 
     public static void main(String[] args) throws Throwable {
 
-        System.out.println("Using libtorrent version: " + LibTorrent.fullVersion());
-
         AlertListener mainListener = new AlertListener() {
             @Override
             public int[] types() {

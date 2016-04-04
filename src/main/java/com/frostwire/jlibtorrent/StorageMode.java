@@ -24,11 +24,6 @@ public enum StorageMode {
     STORAGE_MODE_SPARSE(storage_mode_t.storage_mode_sparse.swigValue()),
 
     /**
-     * internal
-     */
-    INTERNAL_STORAGE_MODE_COMPACT_DEPRECATED(storage_mode_t.internal_storage_mode_compact_deprecated.swigValue()),
-
-    /**
      *
      */
     UNKNOWN(-1);

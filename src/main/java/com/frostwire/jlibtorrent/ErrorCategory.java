@@ -14,7 +14,7 @@ public final class ErrorCategory {
         this.ec = ec;
     }
 
-    public error_category getSwig() {
+    public error_category swig() {
         return ec;
     }
 
@@ -31,10 +31,10 @@ public final class ErrorCategory {
     }
 
     public boolean equivalent(int code, ErrorCondition condition) {
-        return ec.equivalent(code, condition.getSwig());
+        return ec.equivalent(code, condition.swig());
     }
 
     public boolean equivalent(ErrorCode code, int condition) {
-        return ec.equivalent(code.getSwig(), condition);
+        return ec.equivalent(code.swig(), condition);
     }
 }

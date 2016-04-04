@@ -107,7 +107,7 @@ public final class SwigStoragePlugin extends swig_storage {
     }
 
     @Override
-    public void delete_files(storage_error ec) {
+    public void delete_files(int options, storage_error ec) {
         try {
             p.deleteFiles(ec);
         } catch (Throwable e) {

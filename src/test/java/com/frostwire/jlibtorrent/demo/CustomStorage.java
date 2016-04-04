@@ -27,8 +27,6 @@ public final class CustomStorage {
 
         File torrentFile = new File(args[0]);
 
-        System.out.println("Using libtorrent version: " + LibTorrent.fullVersion());
-
         final Session s = new Session();
 
         final HashMap<String, byte[]> memStorage = new HashMap<String, byte[]>();

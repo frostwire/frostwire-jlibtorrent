@@ -14,7 +14,7 @@ public final class ErrorCondition {
         this.ec = ec;
     }
 
-    public error_condition getSwig() {
+    public error_condition swig() {
         return ec;
     }
 
