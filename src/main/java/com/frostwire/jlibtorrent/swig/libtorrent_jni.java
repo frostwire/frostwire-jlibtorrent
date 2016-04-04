@@ -3015,6 +3015,8 @@ public class libtorrent_jni {
   public final static native void set_piece_hashes_ex(String jarg1, long jarg2, create_torrent jarg2_, String jarg3, long jarg4, error_code jarg4_, long jarg5, set_piece_hashes_listener jarg5_);
   public final static native int boost_version();
   public final static native String boost_lib_version();
+  public final static native int openssl_version_number();
+  public final static native String openssl_version_text();
   public final static native void delete_dht_extension_handler_listener(long jarg1);
   public final static native boolean dht_extension_handler_listener_on_message(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);
   public final static native boolean dht_extension_handler_listener_on_messageSwigExplicitdht_extension_handler_listener(long jarg1, dht_extension_handler_listener jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, bdecode_node jarg3_, long jarg4, entry jarg4_);

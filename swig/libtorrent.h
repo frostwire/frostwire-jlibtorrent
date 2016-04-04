@@ -13,6 +13,8 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ip/udp.hpp>
 
+#include <openssl/opensslv.h>
+
 #include <libtorrent/buffer.hpp>
 #include <libtorrent/utp_stream.hpp>
 #include <libtorrent/socket_io.hpp>
@@ -237,6 +239,14 @@ int boost_version() {
 
 const char* boost_lib_version() {
     return BOOST_LIB_VERSION;
+}
+
+int openssl_version_number() {
+    return OPENSSL_VERSION_NUMBER;
+}
+
+const char* openssl_version_text() {
+    return OPENSSL_VERSION_TEXT;
 }
 
 class dht_extension_handler_listener {
