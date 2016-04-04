@@ -713,7 +713,7 @@ public final class TorrentHandle {
 
     /**
      * If you want libtorrent to use another list of trackers for this torrent,
-     * you can use {@link #replaceTrackers(AnnounceEntry[])} which takes a list of the same
+     * you can use {@link #replaceTrackers(List<AnnounceEntry>)} which takes a list of the same
      * form as the one returned from {@link #trackers()} and will replace it.
      * If you want an immediate effect, you have to call {@link #forceReannounce()}.
      * <p/>
@@ -724,11 +724,11 @@ public final class TorrentHandle {
      * @param trackers
      * @see AnnounceEntry
      */
-    public void replaceTrackers(AnnounceEntry[] trackers) {
+    public void replaceTrackers(List<AnnounceEntry> trackers) {
         announce_entry_vector v = new announce_entry_vector();
 
-        for (int i = 0; i < trackers.length; i++) {
-            v.push_back(trackers[i].swig());
+        for (AnnounceEntry t : trackers) {
+            v.push_back(t.swig());
         }
 
         th.replace_trackers(v);
