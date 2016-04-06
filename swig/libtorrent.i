@@ -330,6 +330,7 @@ namespace std {
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
 %ignore libtorrent::print_entry;
+%ignore libtorrent::type_error;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;

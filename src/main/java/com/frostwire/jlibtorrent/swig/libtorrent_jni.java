@@ -574,8 +574,6 @@ public class libtorrent_jni {
   public final static native boolean peer_request_op_eq(long jarg1, peer_request jarg1_, long jarg2, peer_request jarg2_);
   public final static native long new_peer_request();
   public final static native void delete_peer_request(long jarg1);
-  public final static native long new_type_error(String jarg1);
-  public final static native void delete_type_error(long jarg1);
   public final static native int entry_type(long jarg1, entry jarg1_);
   public final static native long new_entry__SWIG_0(long jarg1, string_entry_map jarg1_);
   public final static native long new_entry__SWIG_1(String jarg1);
