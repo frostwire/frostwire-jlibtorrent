@@ -35,7 +35,7 @@ public class disk_buffer_holder {
     }
   }
 
-  public int get_ptr() {
+  public long get_ptr() {
     return libtorrent_jni.disk_buffer_holder_get_ptr(swigCPtr, this);
   }
 

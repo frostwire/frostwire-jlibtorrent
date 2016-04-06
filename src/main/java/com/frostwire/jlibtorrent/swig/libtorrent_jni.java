@@ -1150,6 +1150,7 @@ public class libtorrent_jni {
   public final static native int read_piece_alert_piece_get(long jarg1, read_piece_alert jarg1_);
   public final static native void read_piece_alert_size_set(long jarg1, read_piece_alert jarg1_, int jarg2);
   public final static native int read_piece_alert_size_get(long jarg1, read_piece_alert jarg1_);
+  public final static native long read_piece_alert_buffer_ptr(long jarg1, read_piece_alert jarg1_);
   public final static native void delete_read_piece_alert(long jarg1);
   public final static native int file_completed_alert_priority_get();
   public final static native int file_completed_alert_alert_type_get();
@@ -2444,7 +2445,7 @@ public class libtorrent_jni {
   public final static native void delete_session(long jarg1);
   public final static native long session_abort(long jarg1, session jarg1_);
   public final static native void delete_disk_buffer_holder(long jarg1);
-  public final static native int disk_buffer_holder_get_ptr(long jarg1, disk_buffer_holder jarg1_);
+  public final static native long disk_buffer_holder_get_ptr(long jarg1, disk_buffer_holder jarg1_);
   public final static native int peer_connection_handle_type(long jarg1, peer_connection_handle jarg1_);
   public final static native long peer_connection_handle_find_plugin(long jarg1, peer_connection_handle jarg1_, String jarg2);
   public final static native boolean peer_connection_handle_is_seed(long jarg1, peer_connection_handle jarg1_);

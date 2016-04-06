@@ -1133,8 +1133,14 @@ namespace libtorrent {
 };
 
 %extend disk_buffer_holder {
-    int get_ptr() {
-        return $self->get();
+    int64_t get_ptr() {
+        return reinterpret_cast<int64_t>($self->get());
+    }
+}
+
+%extend read_piece_alert {
+    int64_t buffer_ptr() {
+        return reinterpret_cast<int64_t>($self->buffer.get());
     }
 }
 

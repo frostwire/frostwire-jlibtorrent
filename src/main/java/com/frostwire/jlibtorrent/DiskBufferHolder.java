@@ -23,7 +23,7 @@ public final class DiskBufferHolder {
      *
      * @return
      */
-    public int getPtr() {
+    public long getPtr() {
         return b.get_ptr();
     }
 }
