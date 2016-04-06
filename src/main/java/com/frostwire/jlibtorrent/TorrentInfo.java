@@ -234,9 +234,11 @@ public final class TorrentInfo {
      */
     public void addUrlSeed(String url, String externAuth, List<Pair<String, String>> extraHeaders) {
         string_string_pair_vector v = new string_string_pair_vector();
-        for (int i = 0; i < extraHeaders.size(); i++) {
-            v.push_back(extraHeaders.get(i).to_string_string_pair());
+
+        for (Pair<String, String> p : extraHeaders) {
+            v.push_back(p.to_string_string_pair());
         }
+
         ti.add_url_seed(url, externAuth, v);
     }
 
@@ -254,7 +256,7 @@ public final class TorrentInfo {
      * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
      * is http.
      * <p/>
-     * The ``extern_auth`` argument can be used for other athorization schemese than
+     * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
@@ -267,15 +269,15 @@ public final class TorrentInfo {
     }
 
     /**
-     * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
-     * is http.
+     * Adds one url to the list of http seeds. Currently, the only transport protocol supported
+     * for the url is http.
      * <p/>
-     * he ``extern_auth`` argument can be used for other authorization schemes than
+     * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
      * <p/>
-     * The ``extra_headers`` argument defaults to an empty list, but can be used to
+     * The {@code extraHeaders} argument defaults to an empty list, but can be used to
      * insert custom HTTP headers in the requests to a specific web seed.
      *
      * @param url
@@ -284,9 +286,11 @@ public final class TorrentInfo {
      */
     public void addHttpSeed(String url, String externAuth, List<Pair<String, String>> extraHeaders) {
         string_string_pair_vector v = new string_string_pair_vector();
-        for (int i = 0; i < extraHeaders.size(); i++) {
-            v.push_back(extraHeaders.get(i).to_string_string_pair());
+
+        for (Pair<String, String> p : extraHeaders) {
+            v.push_back(p.to_string_string_pair());
         }
+
         ti.add_url_seed(url, externAuth, v);
     }
 
@@ -306,6 +310,22 @@ public final class TorrentInfo {
         }
 
         return l;
+    }
+
+    /**
+     * Replaces all web seeds with the ones specified in the
+     * {@code seeds} list.
+     *
+     * @param seeds
+     */
+    public void setWebSeeds(List<WebSeedEntry> seeds) {
+        web_seed_entry_vector v = new web_seed_entry_vector();
+
+        for (WebSeedEntry e : seeds) {
+            v.push_back(e.swig());
+        }
+
+        ti.set_web_seeds(v);
     }
 
     /**
