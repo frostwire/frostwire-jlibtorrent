@@ -399,7 +399,10 @@ namespace std {
 %ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection_handle::native_handle;
 %ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
-%ignore libtorrent::disk_buffer_holder::reset(disk_io_job const&);
+%ignore libtorrent::disk_buffer_holder::release;
+%ignore libtorrent::disk_buffer_holder::get;
+%ignore libtorrent::disk_buffer_holder::reset;
+%ignore libtorrent::disk_buffer_holder::swap;
 %ignore libtorrent::disk_buffer_holder::ref;
 %ignore libtorrent::disk_buffer_pool::free_multiple_buffers;
 %ignore libtorrent::plugin::added;
@@ -1128,6 +1131,12 @@ namespace libtorrent {
         return *$self;
     }
 };
+
+%extend disk_buffer_holder {
+    int get_ptr() {
+        return $self->get();
+    }
+}
 
 class stat {
 public:

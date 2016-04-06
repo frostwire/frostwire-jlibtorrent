@@ -29,7 +29,7 @@ public final class DhtGetPeersReplyAlert extends AbstractAlert<dht_get_peers_rep
         tcp_endpoint_vector v = new tcp_endpoint_vector();
         alert.peers(v);
         int size = (int) v.size();
-        ArrayList<TcpEndpoint> peers = new ArrayList<TcpEndpoint>(size);
+        ArrayList<TcpEndpoint> peers = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++) {
             peers.add(new TcpEndpoint(v.get(i)));

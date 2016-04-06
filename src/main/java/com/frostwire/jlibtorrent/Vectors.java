@@ -43,16 +43,6 @@ public final class Vectors {
         return v;
     }
 
-    public static int_vector ints2int_vector(int[] arr) {
-        int_vector v = new int_vector();
-
-        for (int i = 0; i < arr.length; i++) {
-            v.push_back(arr[i]);
-        }
-
-        return v;
-    }
-
     public static int[] int_vector2ints(int_vector v) {
         int size = (int) v.size();
         int[] arr = new int[size];

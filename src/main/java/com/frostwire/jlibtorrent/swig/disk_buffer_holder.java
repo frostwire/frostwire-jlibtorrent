@@ -35,24 +35,8 @@ public class disk_buffer_holder {
     }
   }
 
-  public String release() {
-    return libtorrent_jni.disk_buffer_holder_release(swigCPtr, this);
-  }
-
-  public String get() {
-    return libtorrent_jni.disk_buffer_holder_get(swigCPtr, this);
-  }
-
-  public void reset(String buf) {
-    libtorrent_jni.disk_buffer_holder_reset__SWIG_0(swigCPtr, this, buf);
-  }
-
-  public void reset() {
-    libtorrent_jni.disk_buffer_holder_reset__SWIG_1(swigCPtr, this);
-  }
-
-  public void swap(disk_buffer_holder h) {
-    libtorrent_jni.disk_buffer_holder_swap(swigCPtr, this, disk_buffer_holder.getCPtr(h), h);
+  public int get_ptr() {
+    return libtorrent_jni.disk_buffer_holder_get_ptr(swigCPtr, this);
   }
 
 }

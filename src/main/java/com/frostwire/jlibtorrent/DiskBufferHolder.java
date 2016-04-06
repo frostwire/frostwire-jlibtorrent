@@ -3,15 +3,6 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.disk_buffer_holder;
 
 /**
- * The disk buffer holder acts like a ``scoped_ptr`` that frees a disk buffer
- * when it's destructed, unless it's released. ``release`` returns the disk
- * buffer and transferres ownership and responsibility to free it to the caller.
- * <p/>
- * A disk buffer is freed by passing it to ``session_impl::free_disk_buffer()``.
- * <p/>
- * ``buffer()`` returns the pointer without transferring responsibility. If
- * this buffer has been released, ``buffer()`` will return 0.
- *
  * @author gubatron
  * @author aldenml
  */
@@ -23,7 +14,16 @@ public final class DiskBufferHolder {
         this.b = b;
     }
 
-    public disk_buffer_holder getSwig() {
+    public disk_buffer_holder swig() {
         return b;
+    }
+
+    /**
+     * Return a pointer to the held buffer (native memory).
+     *
+     * @return
+     */
+    public int getPtr() {
+        return b.get_ptr();
     }
 }

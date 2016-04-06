@@ -2444,11 +2444,7 @@ public class libtorrent_jni {
   public final static native void delete_session(long jarg1);
   public final static native long session_abort(long jarg1, session jarg1_);
   public final static native void delete_disk_buffer_holder(long jarg1);
-  public final static native String disk_buffer_holder_release(long jarg1, disk_buffer_holder jarg1_);
-  public final static native String disk_buffer_holder_get(long jarg1, disk_buffer_holder jarg1_);
-  public final static native void disk_buffer_holder_reset__SWIG_0(long jarg1, disk_buffer_holder jarg1_, String jarg2);
-  public final static native void disk_buffer_holder_reset__SWIG_1(long jarg1, disk_buffer_holder jarg1_);
-  public final static native void disk_buffer_holder_swap(long jarg1, disk_buffer_holder jarg1_, long jarg2, disk_buffer_holder jarg2_);
+  public final static native int disk_buffer_holder_get_ptr(long jarg1, disk_buffer_holder jarg1_);
   public final static native int peer_connection_handle_type(long jarg1, peer_connection_handle jarg1_);
   public final static native long peer_connection_handle_find_plugin(long jarg1, peer_connection_handle jarg1_, String jarg2);
   public final static native boolean peer_connection_handle_is_seed(long jarg1, peer_connection_handle jarg1_);
