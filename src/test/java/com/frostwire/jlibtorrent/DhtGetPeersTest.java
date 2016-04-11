@@ -21,7 +21,7 @@ public class DhtGetPeersTest {
     @Test
     public void testGetPeers() {
 
-        String sha1 = "1f8cf8c452b3c9c7499def03308134c4774f0d18";
+        Sha1Hash sha1 = new Sha1Hash("1f8cf8c452b3c9c7499def03308134c4774f0d18");
 
         final Session s = new Session();
 
@@ -32,12 +32,11 @@ public class DhtGetPeersTest {
         AlertListener l = new AlertListener() {
             @Override
             public int[] types() {
-                return new int[]{AlertType.SESSION_STATS.swig(), AlertType.DHT_STATS.swig()};
+                return new int[]{AlertType.SESSION_STATS.swig(), AlertType.DHT_STATS.swig(), AlertType.DHT_GET_PEERS_REPLY.swig()};
             }
 
             @Override
             public void alert(Alert<?> alert) {
-                System.out.println(alert);
                 AlertType type = alert.type();
 
                 if (type == AlertType.SESSION_STATS) {
@@ -46,7 +45,6 @@ public class DhtGetPeersTest {
 
                 if (type == AlertType.DHT_STATS) {
                     long nodes = ((DhtStatsAlert) alert).totalNodes();
-                    System.out.println(nodes);
                     // wait for at least 10 nodes in the DHT.
                     if (nodes >= 10) {
                         s1.countDown();
@@ -58,6 +56,7 @@ public class DhtGetPeersTest {
                     for (TcpEndpoint endp : peers) {
                         System.out.println(endp);
                     }
+                    s2.countDown();
                 }
             }
         };
@@ -74,7 +73,7 @@ public class DhtGetPeersTest {
         }
         assertTrue("DHT bootstrap timeout", r);
 
-        s.dhtGetPeers(new Sha1Hash(sha1));
+        s.dhtGetPeers(sha1);
 
         try {
             r = s2.await(1, TimeUnit.MINUTES);
