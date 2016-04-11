@@ -89,7 +89,7 @@ public final class CustomStorage {
             }
         };
 
-        final TorrentHandle th = addTorrentSupport(s.getSwig(), new TorrentInfo(torrentFile), torrentFile.getParentFile(), null, null, false, sc);
+        final TorrentHandle th = addTorrentSupport(s.swig(), new TorrentInfo(torrentFile), torrentFile.getParentFile(), null, null, false, sc);
 
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -113,7 +113,7 @@ public final class CustomStorage {
         signal.await();
     }
 
-    private static TorrentHandle addTorrentSupport(session s, TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile, boolean async, swig_storage_constructor sc) {
+    private static TorrentHandle addTorrentSupport(session_handle s, TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile, boolean async, swig_storage_constructor sc) {
 
         String savePath = null;
         if (saveDir != null) {

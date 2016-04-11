@@ -64,8 +64,8 @@ public final class Session extends SessionHandle {
         this.stat = new JavaStat();
         this.stats = new SessionStats(stat);
 
-        this.listeners = new SparseArray<ArrayList<AlertListener>>();
-        this.listenerSnapshots = new SparseArray<AlertListener[]>();
+        this.listeners = new SparseArray<>();
+        this.listenerSnapshots = new SparseArray<>();
         if (listener != null) {
             addListener(listener);
         }
@@ -102,10 +102,6 @@ public final class Session extends SessionHandle {
      */
     public Session(String interfaces, int retries, boolean logging, AlertListener listener) {
         this(createSettings(interfaces, retries), logging, listener);
-    }
-
-    public session getSwig() {
-        return s;
     }
 
     public void addListener(AlertListener listener) {

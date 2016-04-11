@@ -46,7 +46,7 @@ public class SessionGetTorrentsTest {
 
                     count.countDown();
 
-                    torrent_handle_vector torrents = s.getSwig().get_torrents();
+                    torrent_handle_vector torrents = s.swig().get_torrents();
                 }
             }
         });
