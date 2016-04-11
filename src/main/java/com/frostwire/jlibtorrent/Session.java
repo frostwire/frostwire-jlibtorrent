@@ -77,7 +77,7 @@ public final class Session extends SessionHandle {
             s.add_dht_router(router.to_string_int_pair());
         }
 
-        this.plugins = new LinkedList<SwigPlugin>();
+        this.plugins = new LinkedList<>();
     }
 
     public Session() {
@@ -885,8 +885,8 @@ public final class Session extends SessionHandle {
     private static List<Pair<String, Integer>> defaultRouters() {
         List<Pair<String, Integer>> list = new LinkedList<Pair<String, Integer>>();
 
-        list.add(new Pair<String, Integer>("router.bittorrent.com", 6881));
-        list.add(new Pair<String, Integer>("dht.transmissionbt.com", 6881));
+        list.add(new Pair<>("router.bittorrent.com", 6881));
+        list.add(new Pair<>("dht.transmissionbt.com", 6881));
 
         return list;
     }
