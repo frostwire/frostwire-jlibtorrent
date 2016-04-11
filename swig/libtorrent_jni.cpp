@@ -15223,7 +15223,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("7f05551");
+  result = (char *)("044ee0f");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -61935,7 +61935,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("387498e54f0b4d5ffab12bf2d4b7fa9dc8f0c829");
+  result = (char *)("2921caf95e851a7918026dc159b1717ef5045f30");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -61947,7 +61947,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("039f5beac9e5030f0b6abc98813c94f0eadc331b");
+  result = (char *)("1b92d3e841ae88e518d9a8a1d4703ff918fddacb");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
