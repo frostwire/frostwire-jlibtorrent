@@ -106,7 +106,7 @@ public enum AlertType {
 
     private final int swigValue;
 
-    public int getSwig() {
+    public int swig() {
         return swigValue;
     }
 

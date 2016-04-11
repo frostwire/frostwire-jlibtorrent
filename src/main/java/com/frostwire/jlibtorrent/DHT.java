@@ -19,9 +19,9 @@ import static com.frostwire.jlibtorrent.alerts.AlertType.*;
  */
 public final class DHT {
 
-    private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.getSwig()};
-    private static final int[] DHT_MUTABLE_ITEM_TYPES = {DHT_MUTABLE_ITEM.getSwig()};
-    private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {DHT_GET_PEERS_REPLY.getSwig()};
+    private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.swig()};
+    private static final int[] DHT_MUTABLE_ITEM_TYPES = {DHT_MUTABLE_ITEM.swig()};
+    private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {DHT_GET_PEERS_REPLY.swig()};
 
     private final Session s;
 

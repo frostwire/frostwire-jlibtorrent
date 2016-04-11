@@ -24,7 +24,7 @@ public final class SessionTest {
 
             @Override
             public void alert(Alert<?> alert) {
-                System.out.println(alert.getType() + " - " + alert.getSwig().what() + " - " + alert.getSwig().message());
+                System.out.println(alert);
             }
         };
 

@@ -18,7 +18,7 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     }
 
     @Override
-    public final T getSwig() {
+    public final T swig() {
         return alert;
     }
 
@@ -28,7 +28,7 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
      * @return
      */
     @Override
-    public TimePoint getTimestamp() {
+    public TimePoint timestamp() {
         return new TimePoint(alert.timestamp());
     }
 
@@ -63,7 +63,7 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     //		}
     //	}
     @Override
-    public AlertType getType() {
+    public AlertType type() {
         return type;
     }
 
@@ -74,7 +74,7 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
      * @return
      */
     @Override
-    public String getWhat() {
+    public String what() {
         return alert.what();
     }
 
@@ -88,7 +88,7 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
      * @return
      */
     @Override
-    public String getMessage() {
+    public String message() {
         return alert.message();
     }
 
@@ -98,12 +98,12 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
      * @return
      */
     @Override
-    public int getCategory() {
+    public int category() {
         return alert.category();
     }
 
     @Override
     public String toString() {
-        return getType() + " - " + getWhat() + " - " + alert.message();
+        return type() + " - " + what() + " - " + message();
     }
 }

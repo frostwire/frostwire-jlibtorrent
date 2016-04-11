@@ -27,16 +27,16 @@ public final class GetMagnet {
         AlertListener l = new AlertListener() {
             @Override
             public int[] types() {
-                return new int[]{AlertType.SESSION_STATS.getSwig(), AlertType.DHT_STATS.getSwig()};
+                return new int[]{AlertType.SESSION_STATS.swig(), AlertType.DHT_STATS.swig()};
             }
 
             @Override
             public void alert(Alert<?> alert) {
-                if (alert.getType().equals(AlertType.SESSION_STATS)) {
+                if (alert.type().equals(AlertType.SESSION_STATS)) {
                     s.postDHTStats();
                 }
 
-                if (alert.getType().equals(AlertType.DHT_STATS)) {
+                if (alert.type().equals(AlertType.DHT_STATS)) {
 
                     long nodes = ((DhtStatsAlert) alert).totalNodes();
                     // wait for at least 10 nodes in the DHT.

@@ -43,7 +43,7 @@ public final class PartialDownload2 {
                 TorrentAlert<?> ta = (TorrentAlert<?>) alert;
                 TorrentHandle th = ta.getHandle();
 
-                switch (alert.getType()) {
+                switch (alert.type()) {
                     case TORRENT_ADDED:
                         th.resume();
                         break;

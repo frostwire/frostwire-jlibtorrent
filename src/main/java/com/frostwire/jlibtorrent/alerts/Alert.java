@@ -9,14 +9,14 @@ import com.frostwire.jlibtorrent.swig.alert;
  */
 public interface Alert<T extends alert> {
 
-    T getSwig();
+    T swig();
 
     /**
      * A timestamp is automatically created in the constructor.
      *
      * @return
      */
-    TimePoint getTimestamp();
+    TimePoint timestamp();
 
     // returns an integer that is unique to this alert type. It can be
     // compared against a specific alert by querying a static constant called ``alert_type``
@@ -48,7 +48,7 @@ public interface Alert<T extends alert> {
     //			}
     //		}
     //	}
-    AlertType getType();
+    AlertType type();
 
     /**
      * Returns a string literal describing the type of the alert. It does
@@ -56,7 +56,7 @@ public interface Alert<T extends alert> {
      *
      * @return
      */
-    String getWhat();
+    String what();
 
     /**
      * Generate a string describing the alert and the information bundled
@@ -67,12 +67,12 @@ public interface Alert<T extends alert> {
      *
      * @return
      */
-    String getMessage();
+    String message();
 
     /**
      * Returns a bitmask specifying which categories this alert belong to.
      *
      * @return
      */
-    int getCategory();
+    int category();
 }

@@ -32,7 +32,7 @@ public abstract class TorrentAlertAdapter implements AlertListener {
             return;
         }
 
-        InvokeLambda l = TABLE[a.getType().getSwig()];
+        InvokeLambda l = TABLE[a.type().swig()];
         if (l != null) {
             l.invoke(this, a);
         }

@@ -14,7 +14,7 @@ public final class Downloader {
 
     private static final Logger LOG = Logger.getLogger(Downloader.class);
 
-    private static final int[] LISTENER_TYPES = new int[]{AlertType.METADATA_RECEIVED.getSwig()};
+    private static final int[] LISTENER_TYPES = new int[]{AlertType.METADATA_RECEIVED.swig()};
 
     private final Session s;
 

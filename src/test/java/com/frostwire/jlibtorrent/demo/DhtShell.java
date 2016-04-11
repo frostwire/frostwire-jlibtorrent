@@ -23,24 +23,24 @@ public final class DhtShell {
 
             @Override
             public void alert(Alert<?> alert) {
-                AlertType type = alert.getType();
+                AlertType type = alert.type();
 
                 if (type == AlertType.LISTEN_SUCCEEDED) {
                     ListenSucceededAlert a = (ListenSucceededAlert) alert;
-                    log(a.getMessage());
+                    log(a.message());
                 }
 
                 if (type == AlertType.LISTEN_FAILED) {
                     ListenFailedAlert a = (ListenFailedAlert) alert;
-                    log(a.getMessage());
+                    log(a.message());
                 }
 
                 if (type == AlertType.DHT_PUT) {
                     DhtPutAlert a = (DhtPutAlert) alert;
-                    log(a.getMessage());
+                    log(a.message());
                 }
 
-                if (alert.getType().equals(AlertType.DHT_STATS)) {
+                if (type == AlertType.DHT_STATS) {
                     DhtStatsAlert a = (DhtStatsAlert) alert;
                     long nodes = a.totalNodes();
                     log("DHT contains " + nodes + " nodes");

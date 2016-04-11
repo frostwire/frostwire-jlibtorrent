@@ -810,12 +810,12 @@ public final class Session extends SessionHandle {
 
                             Alert<?> alert = null;
 
-                            if (type == AlertType.SESSION_STATS.getSwig()) {
+                            if (type == AlertType.SESSION_STATS.swig()) {
                                 alert = Alerts.cast(swigAlert);
                                 updateSessionStat((SessionStatsAlert) alert);
                             }
 
-                            if (type == AlertType.METADATA_RECEIVED.getSwig()) {
+                            if (type == AlertType.METADATA_RECEIVED.swig()) {
                                 alert = Alerts.cast(swigAlert);
                                 saveMagnetData((MetadataReceivedAlert) alert);
                             }
@@ -827,7 +827,7 @@ public final class Session extends SessionHandle {
                                 fireAlert(alert, type);
                             }
 
-                            if (type != AlertType.SESSION_STATS.getSwig() &&
+                            if (type != AlertType.SESSION_STATS.swig() &&
                                     listeners.indexOfKey(-1) >= 0) {
                                 if (alert == null) {
                                     alert = Alerts.cast(swigAlert);
