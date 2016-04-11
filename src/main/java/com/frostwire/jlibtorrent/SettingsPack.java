@@ -98,12 +98,12 @@ public final class SettingsPack {
     }
 
     /**
-     * `active_downloads`` controls how many active
+     * {@code active_downloads} controls how many active
      * downloading torrents the queuing mechanism allows.
      * <p/>
-     * The target number of active torrents is ``min(active_downloads +
-     * active_seeds, active_limit)``. ``active_downloads`` and
-     * ``active_seeds`` are upper limits on the number of downloading
+     * The target number of active torrents is {@code min(active_downloads +
+     * active_seeds, active_limit)}. {@code active_downloads} and
+     * {@code active_seeds} are upper limits on the number of downloading
      * torrents and seeding torrents respectively. Setting the value to -1
      * means unlimited.
      * <p/>
@@ -126,53 +126,160 @@ public final class SettingsPack {
      * limits. If there are non-auto managed torrents that use up all the
      * slots, no auto managed torrent will be activated.
      *
-     * @param value
+     * @return
      */
-    public void setActiveDownloads(int value) {
-        sp.set_int(settings_pack.int_types.active_downloads.swigValue(), value);
-    }
-
     public int activeDownloads() {
         return sp.get_int(settings_pack.int_types.active_downloads.swigValue());
     }
 
     /**
-     * ``active_seeds`` controls how many active seeding
-     * torrents the queuing mechanism allows.
-     * <p/>
-     * The target number of active torrents is ``min(active_downloads +
-     * active_seeds, active_limit)``. ``active_downloads`` and
-     * ``active_seeds`` are upper limits on the number of downloading
-     * torrents and seeding torrents respectively. Setting the value to -1
-     * means unlimited.
-     * <p/>
-     * For auto managed torrents, these are the limits they are subject to.
-     * If there are too many torrents some of the auto managed ones will be
-     * paused until some slots free up.
-     * <p/>
-     * You can have more torrents *active*, even though they are not
-     * announced to the DHT, lsd or their tracker. If some peer knows about
-     * you for any reason and tries to connect, it will still be accepted,
-     * unless the torrent is paused, which means it won't accept any
-     * connections.
-     * <p/>
-     * For example if there are 10 seeding torrents and 10 downloading
-     * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
-     * there will be 4 seeds active and 4 downloading torrents. If the
-     * settings are ``active_downloads`` = 2 and ``active_seeds`` = 4, then
-     * there will be 2 downloading torrents and 4 seeding torrents active.
-     * Torrents that are not auto managed are also counted against these
-     * limits. If there are non-auto managed torrents that use up all the
-     * slots, no auto managed torrent will be activated.
-     *
      * @param value
+     * @see #activeDownloads()
      */
-    public void setActiveSeeds(int value) {
+    public void activeDownloads(int value) {
+        sp.set_int(settings_pack.int_types.active_downloads.swigValue(), value);
+    }
+
+    /**
+     * {@code active_seeds} controls how many active seeding
+     * torrents the queuing mechanism allows.
+     *
+     * @return
+     * @see #activeDownloads()
+     */
+    public int activeSeeds() {
+        return sp.get_int(settings_pack.int_types.active_seeds.swigValue());
+    }
+
+    /**
+     * @param value
+     * @see #activeSeeds()
+     */
+    public void activeSeeds(int value) {
         sp.set_int(settings_pack.int_types.active_seeds.swigValue(), value);
     }
 
-    public int activeSeeds() {
-        return sp.get_int(settings_pack.int_types.active_seeds.swigValue());
+    /**
+     * {@code active_checking} is the limit of number of simultaneous checking
+     * torrents.
+     *
+     * @return
+     * @see #activeDownloads()
+     */
+    public int activeChecking() {
+        return sp.get_int(settings_pack.int_types.active_checking.swigValue());
+    }
+
+    /**
+     * @param value
+     * @see #activeChecking()
+     */
+    public void activeChecking(int value) {
+        sp.set_int(settings_pack.int_types.active_checking.swigValue(), value);
+    }
+
+    /**
+     * {@code active_dht_limit} is the max number of torrents to announce to
+     * the DHT. By default this is set to 88, which is no more than one
+     * DHT announce every 10 seconds.
+     *
+     * @return
+     * @see #activeDownloads()
+     */
+    public int activeDhtLimit() {
+        return sp.get_int(settings_pack.int_types.active_dht_limit.swigValue());
+    }
+
+    /**
+     * @param value
+     * @see #activeDhtLimit()
+     */
+    public void activeDhtLimit(int value) {
+        sp.set_int(settings_pack.int_types.active_checking.swigValue(), value);
+    }
+
+    /**
+     * {@code active_tracker_limit} is the max number of torrents to announce
+     * to their trackers. By default this is 360, which is no more than
+     * one announce every 5 seconds.
+     *
+     * @return
+     * @see #activeDownloads()
+     */
+    public int activeTrackerLimit() {
+        return sp.get_int(settings_pack.int_types.active_tracker_limit.swigValue());
+    }
+
+    /**
+     * @param value
+     * @see #activeTrackerLimit()
+     */
+    public void activeTrackerLimit(int value) {
+        sp.set_int(settings_pack.int_types.active_tracker_limit.swigValue(), value);
+    }
+
+    /**
+     * {@code active_lsd_limit} is the max number of torrents to announce to
+     * the local network over the local service discovery protocol. By
+     * default this is 80, which is no more than one announce every 5
+     * seconds (assuming the default announce interval of 5 minutes).
+     *
+     * @return
+     * @see #activeDownloads()
+     */
+    public int activeLsdLimit() {
+        return sp.get_int(settings_pack.int_types.active_lsd_limit.swigValue());
+    }
+
+    /**
+     * @param value
+     * @see #activeLsdLimit()
+     */
+    public void activeLsdLimit(int value) {
+        sp.set_int(settings_pack.int_types.active_lsd_limit.swigValue(), value);
+    }
+
+    /**
+     * {@code active_limit} is a hard limit on the number of active (auto
+     * managed) torrents. This limit also applies to slow torrents.
+     *
+     * @return
+     * @see #activeDownloads()
+     */
+    public int activeLimit() {
+        return sp.get_int(settings_pack.int_types.active_limit.swigValue());
+    }
+
+    /**
+     * @param value
+     * @see #activeLimit()
+     */
+    public void activeLimit(int value) {
+        sp.set_int(settings_pack.int_types.active_limit.swigValue(), value);
+    }
+
+    /**
+     * {@code active_loaded_limit} is the number of torrents that are allowed
+     * to be *loaded* at any given time. Note that a torrent can be active
+     * even though it's not loaded. If an unloaded torrents finds a peer
+     * that wants to access it, the torrent will be loaded on demand,
+     * using a user-supplied callback function. If the feature of
+     * unloading torrents is not enabled, this setting have no effect. If
+     * this limit is set to 0, it means unlimited.
+     *
+     * @return
+     * @see #activeDownloads()
+     */
+    public int activeLoadedLimit() {
+        return sp.get_int(settings_pack.int_types.active_loaded_limit.swigValue());
+    }
+
+    /**
+     * @param value
+     * @see #activeLoadedLimit()
+     */
+    public void activeLoadedLimit(int value) {
+        sp.set_int(settings_pack.int_types.active_loaded_limit.swigValue(), value);
     }
 
     /**
