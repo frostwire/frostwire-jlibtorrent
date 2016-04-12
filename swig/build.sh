@@ -34,7 +34,7 @@ function buildMacOSXNative() {
 
 function buildAndroidArm()
 {
-    $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=gcc target-os=linux location=bin/android/armeabi-v7a wrap-posix=on
+    $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=gcc-arm target-os=linux location=bin/android/armeabi-v7a wrap-posix=on
     $ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so
 }
 

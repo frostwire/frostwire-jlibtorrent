@@ -1,8 +1,9 @@
 import os ;
 
-TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
+OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
+ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
 
-using gcc : x86 : $(TOOLCHAINS_ROOT)/android-x86/bin/i686-linux-android-g++ :
+using gcc : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-g++ :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC
@@ -10,4 +11,6 @@ using gcc : x86 : $(TOOLCHAINS_ROOT)/android-x86/bin/i686-linux-android-g++ :
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-static
+      <cxxflags>-I$(OPENSSL_ROOT)/include
+      <linkflags>-L$(OPENSSL_ROOT)/lib
       ;

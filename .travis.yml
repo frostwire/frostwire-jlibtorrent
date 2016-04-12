@@ -1,26 +1,22 @@
 sudo: required
 dist: trusty
+language: java
 
 matrix:
   include:
     - language: android
-      env: os_build=android android_arch=arm android_target=android-16 android_abi=armeabi-v7a
+      env: os_build=android os_arch=arm android_target=android-16 android_abi=armeabi-v7a
     - language: android
-      env: os_build=android android_arch=arm64 android_target=android-16 android_abi=arm64-v8a
+      env: os_build=android os_arch=arm64 android_target=android-21 android_abi=arm64-v8a
     - language: android
-      env: os_build=android android_arch=x86 android_target=android-16 android_abi=x86
+      env: os_build=android os_arch=x86 android_target=android-16 android_abi=x86
     - language: android
-      env: os_build=android android_arch=x86_64 android_target=android-16 android_abi=x86_64
-    - language: java
-      env: os_build=linux os_arch=x86
-    - language: java
-      env: os_build=linux os_arch=x86_64
-    - language: java
-      env: os_build=windows os_arch=x86
-    - language: java
-      env: os_build=windows os_arch=x86_64
-    - language: java
-      os: osx
+      env: os_build=android os_arch=x86_64 android_target=android-21 android_abi=x86_64
+    - env: os_build=linux os_arch=x86
+    - env: os_build=linux os_arch=x86_64
+    - env: os_build=windows os_arch=x86
+    - env: os_build=windows os_arch=x86_64
+    - os: osx
       env: os_build=macosx
 
 cache:
@@ -36,41 +32,160 @@ android:
     - android-23
 
 before_install:
+# gradle: download and setup path
   - wget -O gradle-bin.zip https://services.gradle.org/distributions/gradle-2.12-bin.zip
   - unzip -qq gradle-bin.zip
   - export GRADLE_HOME=$PWD/gradle-2.12
   - export PATH=$GRADLE_HOME/bin:$PATH
 
-  - wget -O boost.zip https://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.zip/download
+# boost: download and bootstrap
+  #- wget -O boost.zip https://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.zip/download
+  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.zip
   - unzip -qq boost.zip
   - cd boost_1_60_0
   - ./bootstrap.sh
   - cd ..
   - export BOOST_ROOT=$PWD/boost_1_60_0
 
+# openssl: download
   - wget -O openssl.tar.gz http://openssl.org/source/openssl-1.0.2g.tar.gz
   - tar -xzf openssl.tar.gz
-  - export OPENSSL_ROOT=$PWD/openssl-1.0.2g
+  - export OPENSSL_SOURCE=$PWD/openssl-1.0.2g
+  # fix rand_win.c
+  - if [[ $os_build == "windows" ]]; then
+    sed -i 's/if !defined(OPENSSL_SYS_WINCE) && !defined(OPENSSL_SYS_WIN32_CYGWIN)/if 0/g' $OPENSSL_SOURCE/crypto/rand/rand_win.c;
+    fi
 
-  - git clone https://github.com/arvidn/libtorrent
+# libtorrent: download and checkout revision
+  #- git clone https://github.com/arvidn/libtorrent
+  #- cd libtorrent
+  #- git checkout 2921caf95e851a7918026dc159b1717ef5045f30
+  - git clone https://github.com/aldenml/libtorrent.git
   - cd libtorrent
-  - git checkout 2921caf95e851a7918026dc159b1717ef5045f30
+  - git checkout android-64-no-preadv
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
+# android ndk: download and create toolchain
   - if [[ $os_build == "android" ]]; then
     wget -O android-ndk.zip http://dl.google.com/android/repository/android-ndk-r11c-linux-x86_64.zip;
     echo "Extracting NDK...wait";
     unzip -qq android-ndk.zip;
     export NDK=$PWD/android-ndk-r11c;
-    $NDK/build/tools/make-standalone-toolchain.sh --arch=$android_arch --platform=$android_target --install-dir=android-toolchain;
+    $NDK/build/tools/make-standalone-toolchain.sh --arch=$os_arch --platform=$android_target --install-dir=android-toolchain;
     export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
 
-before_script:
+# linux multilib packages for 32 bit development
+  - if [[ $os_build == "linux" && $os_arch = "x86" ]]; then
+    sudo apt-get install -qq gcc-multilib g++-multilib;
+    fi
+
+# linux cross compilation tools for windows development
+  - if [[ $os_build == "windows" ]]; then
+    sudo apt-get install -qq mingw-w64;
+    fi
+
+# openssl build
+  - cd $OPENSSL_SOURCE
+  # android-arm
+  - if [[ $os_build == "android" && $os_arch = "arm" ]]; then
+    export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-gcc;
+    ./Configure android-armv7 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+    fi
+  # android-arm64
+  - if [[ $os_build == "android" && $os_arch = "arm64" ]]; then
+    export CC=$ANDROID_TOOLCHAIN/bin/aarch64-linux-android-gcc;
+    ./Configure android -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+    fi
+  # android-x86
+  - if [[ $os_build == "android" && $os_arch = "x86" ]]; then
+    export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android-gcc;
+    ./Configure android-x86 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+    fi
+  # android-x86_64
+  - if [[ $os_build == "android" && $os_arch = "x86_64" ]]; then
+    export CC=$ANDROID_TOOLCHAIN/bin/x86_64-linux-android-gcc;
+    ./Configure android no-rc4 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+    touch $OPENSSL_SOURCE/include/openssl/rc4.h;
+    fi
+  # linux-x86
+  - if [[ $os_build == "linux" && $os_arch = "x86" ]]; then
+    ./Configure linux-elf -fPIC -m32 --prefix=$OPENSSL_SOURCE/../openssl;
+    fi
+  # linux-x86_64
+  - if [[ $os_build == "linux" && $os_arch = "x86_64" ]]; then
+    ./Configure linux-x86_64 -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
+    fi
+  # windows-x86
+  - if [[ $os_build == "windows" && $os_arch = "x86" ]]; then
+    export CC=i686-w64-mingw32-gcc;
+    ./Configure mingw --prefix=$OPENSSL_SOURCE/../openssl;
+    fi
+  # windows-x86_64
+  - if [[ $os_build == "windows" && $os_arch = "x86_64" ]]; then
+    export CC=x86_64-w64-mingw32-gcc;
+    ./Configure mingw64 --prefix=$OPENSSL_SOURCE/../openssl;
+    fi
+  # macosx
+  - if [[ $os_build == "macosx" ]]; then
+    ./Configure darwin64-x86_64-cc --prefix=$OPENSSL_SOURCE/../openssl;
+    fi
+  - make;
+  - make install;
+  - cd ..
+  - export OPENSSL_ROOT=$PWD/openssl
+
+# jlibtorrent native build
   - cd swig
-  - if [[ $os_build == "android" && $android_arch = "arm" ]]; then ./build.sh --androidarm32; fi
+  # android-arm
+  - if [[ $os_build == "android" && $os_arch = "arm" ]]; then
+    $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=gcc-arm target-os=linux location=bin/android/armeabi-v7a wrap-posix=on;
+    $ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so;
+    fi
+  # android-arm64
+  - if [[ $os_build == "android" && $os_arch = "arm64" ]]; then
+    $BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=gcc-arm64 target-os=linux location=bin/android/arm64-v8a wrap-posix=on;
+    $ANDROID_TOOLCHAIN/bin/aarch64-linux-android-strip --strip-unneeded -x bin/android/arm64-v8a/libjlibtorrent.so;
+    fi
+  # android-x86
+  - if [[ $os_build == "android" && $os_arch = "x86" ]]; then
+    $BOOST_ROOT/b2 --user-config=config/android-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/android/x86 wrap-posix=on;
+    $ANDROID_TOOLCHAIN/bin/i686-linux-android-strip --strip-unneeded -x bin/android/x86/libjlibtorrent.so;
+    fi
+  # android-x86_64
+  - if [[ $os_build == "android" && $os_arch = "x86_64" ]]; then
+    $BOOST_ROOT/b2 --user-config=config/android-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/android/x86_64 wrap-posix=on;
+    $ANDROID_TOOLCHAIN/bin/x86_64-linux-android-strip --strip-unneeded -x bin/android/x86_64/libjlibtorrent.so;
+    fi
+  # linux-x86
+  - if [[ $os_build == "linux" && $os_arch = "x86" ]]; then
+    $BOOST_ROOT/b2 --user-config=config/linux-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/linux/x86;
+    strip --strip-unneeded -x bin/linux/x86/libjlibtorrent.so;
+    fi
+  # linux-x86_64
+  - if [[ $os_build == "linux" && $os_arch = "x86_64" ]]; then
+    $BOOST_ROOT/b2 --user-config=config/linux-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/linux/x86_64;
+    strip --strip-unneeded -x bin/linux/x86_64/libjlibtorrent.so;
+    fi
+  # windows-x86
+  - if [[ $os_build == "windows" && $os_arch = "x86" ]]; then
+    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp;
+    $BOOST_ROOT/b2 --user-config=config/windows-x86-config.jam toolset=gcc-x86 target-os=windows location=bin/windows/x86;
+    i686-w64-mingw32-strip --strip-unneeded -x bin/windows/x86/libjlibtorrent.dll;
+    mv bin/windows/x86/libjlibtorrent.dll bin/windows/x86/jlibtorrent.dll;
+    fi
+  # windows-x86_64
+  - if [[ $os_build == "windows" && $os_arch = "x86_64" ]]; then
+    $BOOST_ROOT/b2 --user-config=config/windows-x86_64-config.jam toolset=gcc-x86_64 target-os=windows location=bin/windows/x86_64;
+    x86_64-w64-mingw32-strip --strip-unneeded -x bin/windows/x86_64/libjlibtorrent.dll;
+    mv bin/windows/x86_64/libjlibtorrent.dll bin/windows/x86_64/jlibtorrent.dll;
+    fi
+  # macosx
+  - if [[ $os_build == "macosx" ]]; then
+    $BOOST_ROOT/b2 --user-config=config/macosx-native-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64;
+    strip -S -x bin/macosx/x86_64/libjlibtorrent.dylib;
+    fi
 
 script: true
-
 #  - if [[ $os_build == "android" ]]; then cd android; ./travis_script.sh; fi

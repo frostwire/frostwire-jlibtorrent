@@ -1,7 +1,6 @@
 import os ;
 
-DEVELOPMENT_ROOT = [ os.environ DEVELOPMENT_ROOT ] ;
-TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
+OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 
 using gcc : x86 : g++ :
       <cflags>-fPIC
@@ -11,7 +10,7 @@ using gcc : x86 : g++ :
       <cxxflags>-m32
       <cxxflags>-std=c++11
       <cxxflags>-static
-      <cxxflags>-I$(DEVELOPMENT_ROOT)/openssl/x86/include
-      <linkflags>-L$(DEVELOPMENT_ROOT)/openssl/x86/lib
+      <cxxflags>-I$(OPENSSL_ROOT)/include
+      <linkflags>-L$(OPENSSL_ROOT)/lib
       <linkflags>-m32
       ;
