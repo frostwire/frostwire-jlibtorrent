@@ -1,6 +1,8 @@
 matrix:
   include:
     - language: android
+      sudo: required
+      dist: trusty
       os: linux
       env: os_build=android android_target=android-16 android_abi=armeabi-v7a
     - language: java
@@ -20,17 +22,21 @@ cache:
 
 android:
   components:
-    - platform-tools
     - tools
+    - platform-tools
     - build-tools-23.0.1
     - android-23
     - sys-img-armeabi-v7a-android-16
 
 before_install:
-  - wget https://services.gradle.org/distributions/gradle-2.12-bin.zip
-  - unzip gradle-2.12-bin.zip
+  - wget -O gradle-bin.zip https://services.gradle.org/distributions/gradle-2.12-bin.zip
+  - unzip -qq gradle-bin.zip
   - export GRADLE_HOME=$PWD/gradle-2.12
   - export PATH=$GRADLE_HOME/bin:$PATH
+
+  - wget -O boost.zip https://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.zip/download
+  - unzip -qq boost.zip
+  - export BOOST_ROOT=$PWD/boost_1_60_0
 
 script:
   - if [[ $os_build == "android" ]]; then cd android; ./travis_script.sh; fi
