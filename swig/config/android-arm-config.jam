@@ -1,8 +1,6 @@
 import os ;
 
-TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
-
-using gcc : arm : $(TOOLCHAINS_ROOT)/android-arm/bin/arm-linux-androideabi-g++ :
+using gcc : : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-g++ :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC

@@ -1,7 +1,10 @@
 #!/bin/bash
 
 export DEVELOPMENT_ROOT=~/Development
-export TOOLCHAINS_ROOT=$DEVELOPMENT_ROOT/toolchains
+
+if [ -z ${TOOLCHAINS_ROOT+x} ]; then
+    export TOOLCHAINS_ROOT=$DEVELOPMENT_ROOT/toolchains
+fi
 
 if [ -z ${BOOST_ROOT+x} ]; then
     export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_60_0
@@ -31,8 +34,8 @@ function buildMacOSXNative() {
 
 function buildAndroidArm()
 {
-    $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=gcc-arm target-os=linux location=bin/android/armeabi-v7a wrap-posix=on
-    $TOOLCHAINS_ROOT/android-arm/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so
+    $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=gcc target-os=linux location=bin/android/armeabi-v7a wrap-posix=on
+    $ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so
 }
 
 function buildAndroidX86()
