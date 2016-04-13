@@ -19,6 +19,10 @@ matrix:
     - os: osx
       env: os_build=macosx
 
+branches:
+  only:
+    - travis-build
+
 cache:
   directories:
     - $HOME/.gradle/caches/
@@ -193,8 +197,8 @@ script: true
 
 before_deploy:
   - cd swig/bin
-  - find . -type f -not -name '*so|*dll|*dylib' | xargs rm
-  - find . -empty -type d | xargs rm -rf
+  - find . -type f -not -name '*so' -not -name '*dll' -not -name '*dylib' | xargs rm
+  - find . -empty -type d | xargs rm -r
   - cd ../..
 
 deploy:
