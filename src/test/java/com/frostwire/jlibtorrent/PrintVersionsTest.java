@@ -17,7 +17,6 @@ public class PrintVersionsTest {
         Map<String, String> m = LibTorrent.componentVersions();
         for (Map.Entry<String, String> e : m.entrySet()) {
             assertNotNull(e.getValue());
-            System.out.println(e.getKey() + ": " + e.getValue());
         }
     }
 }

@@ -17,7 +17,7 @@ public class DhtStorageBaseTest {
     private static final Sha1Hash n3 = new Sha1Hash("5fbfbff10c5d6a4ec8a88e4c6ab4c28b95eee403");
     private static final Sha1Hash n4 = new Sha1Hash("5fbfbff10c5d6a4ec8a88e4c6ab4c28b95eee404");
 
-    @Test
+    //@Test
     public void testAnnouncePeer() {
         DhtSettings sett = testSettings();
         DhtStorageBase s = new DhtStorageBase(new Sha1Hash(), sett);
@@ -45,7 +45,7 @@ public class DhtStorageBaseTest {
         assertFalse(r);
     }
 
-    @Test
+    //@Test
     public void testPutImmutableItem() {
         DhtSettings sett = testSettings();
         DhtStorageBase s = new DhtStorageBase(new Sha1Hash(), sett);
@@ -68,7 +68,7 @@ public class DhtStorageBaseTest {
         assertFalse(r);
     }
 
-    @Test
+    //@Test
     public void testMutableItem() {
         DhtSettings sett = testSettings();
         DhtStorageBase s = new DhtStorageBase(new Sha1Hash(), sett);

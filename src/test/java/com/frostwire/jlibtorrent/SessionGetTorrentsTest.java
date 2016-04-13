@@ -27,7 +27,7 @@ public class SessionGetTorrentsTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    @Test
+    //@Test
     public void testGetTorrents1() throws IOException, InterruptedException {
         final CountDownLatch count = new CountDownLatch(20);
 

@@ -210,6 +210,8 @@ before_install:
 script:
   # android emulator in travis only works for arm 32 bits
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then cd android; ./travis-script.sh $android_abi; cd ..; fi
+  # run gradle test for linux and macosx
+  - if [[ $os_build == "linux" || $os_build == "macosx" ]]; then gradle test; fi
 
 before_deploy:
   - cd swig/bin

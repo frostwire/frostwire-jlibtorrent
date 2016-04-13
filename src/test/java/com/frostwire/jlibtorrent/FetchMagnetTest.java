@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  */
 public class FetchMagnetTest {
 
-    @Test
+    //@Test
     public void testRemoveAfterFetch() {
 
         String sha1 = "a83cc13bf4a07e85b938dcf06aa707955687ca7c";

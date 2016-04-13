@@ -27,7 +27,7 @@ public class PiecePriorityTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    @Test
+    //@Test
     public void testGeneralCase() throws IOException, InterruptedException {
         final CountDownLatch exit = new CountDownLatch(1);
 

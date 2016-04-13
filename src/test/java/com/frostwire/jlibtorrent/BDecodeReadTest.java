@@ -33,7 +33,6 @@ public class BDecodeReadTest {
         ec.clear();
         torrent_info ti = new torrent_info(e, ec);
 
-        System.out.println(new Sha1Hash(ti.info_hash()));
-        System.out.println(bdecode_node.to_string(e, false, 0));
+        assertEquals("failed to create torrent info: " + ec.message(), ret, 0);
     }
 }

@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class DhtGetPeersTest {
 
-    @Test
+    //@Test
     public void testGetPeers() {
 
         Sha1Hash sha1 = new Sha1Hash("1f8cf8c452b3c9c7499def03308134c4774f0d18");
