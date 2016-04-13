@@ -6,6 +6,7 @@
 .gradle
 /build
 /android/build
+/android/src/main/jniLibs
 /java/out/
 *.o
 /jlibtorrent.xcodeproj/xcuserdata/
@@ -14,7 +15,6 @@ frostwire-jlibtorrent.i*
 /test-libtorrent
 /swig/bin
 /swig/build
-
 /libjlibtorrent.dylib
 /libjlibtorrent.so
 /jlibtorrent.dll

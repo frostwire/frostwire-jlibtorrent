@@ -34,6 +34,7 @@ android:
     - platform-tools
     - build-tools-23.0.1
     - android-23
+    - sys-img-armeabi-v7a-android-23
 
 before_install:
 # gradle: download and setup path
@@ -105,12 +106,12 @@ before_install:
   # android-x86
   - if [[ $os_build == "android" && $os_arch = "x86" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android-gcc;
-    ./Configure android-x86 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure android-x86 no-asm -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch = "x86_64" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/x86_64-linux-android-gcc;
-    ./Configure android no-rc4 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure android no-asm no-rc4 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
     touch $OPENSSL_SOURCE/include/openssl/rc4.h;
     fi
   # linux-x86
@@ -192,8 +193,24 @@ before_install:
     fi
   - cd ..
 
-script: true
-#  - if [[ $os_build == "android" ]]; then cd android; ./travis_script.sh; fi
+# copy binaries for testing
+  # android
+  - if [[ $os_build == "android" ]]; then
+    mkdir -p android/src/main/jniLibs;
+    cp -R swig/bin/android/$android_abi android/src/main/jniLibs;
+    fi
+  # linux
+  - if [[ $os_build == "linux" ]]; then
+    cp swig/bin/linux/$os_arch/*.so .;
+    fi
+  # macosx
+  - if [[ $os_build == "macosx" ]]; then
+    cp swig/bin/macosx/$os_arch/*.dylib .;
+    fi
+
+script:
+  # android emulator in travis only works for arm 32 bits
+  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then cd android; ./travis_script.sh; cd ..; fi
 
 before_deploy:
   - cd swig/bin
