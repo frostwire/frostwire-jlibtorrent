@@ -1,11 +1,9 @@
-import os ;
-
-TOOLCHAINS_ROOT = [ os.environ TOOLCHAINS_ROOT ] ;
-
-using darwin : x86_64 : $(TOOLCHAINS_ROOT)/macosx-x86_64/bin/x86_64-apple-darwin15-clang++-libc++ :
-      <archiver>$(TOOLCHAINS_ROOT)/macosx-x86_64/bin/x86_64-apple-darwin15-libtool
+using darwin : x86_64 : clang++ :
       <cflags>-std=c11
+      <cflags>-mmacosx-version-min=10.9
       <cxxflags>-std=c++11
       <cxxflags>-stdlib=libc++
+      <cxxflags>-Wno-deprecated-declarations
+      <cxxflags>-Wno-reserved-id-macro
       <cxxflags>-mmacosx-version-min=10.9
       ;

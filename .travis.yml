@@ -57,12 +57,12 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  #- git clone https://github.com/arvidn/libtorrent
-  #- cd libtorrent
-  #- git checkout 2921caf95e851a7918026dc159b1717ef5045f30
-  - git clone https://github.com/aldenml/libtorrent.git
+  - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout android-64-no-preadv
+  - git checkout 68c221186fdef72887e9c0a4ea86772c428a274b
+  #- git clone https://github.com/aldenml/libtorrent.git
+  #- cd libtorrent
+  #- git checkout android-no-preadv
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -183,9 +183,26 @@ before_install:
     fi
   # macosx
   - if [[ $os_build == "macosx" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/macosx-native-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64;
+    $BOOST_ROOT/b2 --user-config=config/macosx-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64;
     strip -S -x bin/macosx/x86_64/libjlibtorrent.dylib;
     fi
+  - cd ..
 
 script: true
 #  - if [[ $os_build == "android" ]]; then cd android; ./travis_script.sh; fi
+
+before_deploy:
+  - cd swig/bin
+  - find . -type f -not -name '*so|*dll|*dylib' | xargs rm
+  - find . -empty -type d | xargs rm -rf
+  - cd ../..
+
+deploy:
+  provider: s3
+  access_key_id: $S3_ACCESS_KEY
+  secret_access_key: $S3_SECRET_KEY
+  bucket: $S3_BUCKET
+  skip_cleanup: true
+  local_dir: swig/bin
+  on:
+    all_branches: true
