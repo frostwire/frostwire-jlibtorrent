@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo no | android create avd --force --name test --target android-23 --abi $android_abi
+echo no | android create avd --force --name test --target android-23 --abi $1
 emulator -avd test -no-skin -no-audio -no-window &
 
 gradle check -PdisablePreDex --continue --stacktrace

@@ -17,7 +17,7 @@ matrix:
     - env: os_build=windows os_arch=x86
     - env: os_build=windows os_arch=x86_64
     - os: osx
-      env: os_build=macosx
+      env: os_build=macosx os_arch=x86_64
 
 branches:
   only:
@@ -209,7 +209,7 @@ before_install:
 
 script:
   # android emulator in travis only works for arm 32 bits
-  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then cd android; ./travis_script.sh; cd ..; fi
+  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then cd android; ./travis_script.sh $android_abi; cd ..; fi
 
 before_deploy:
   - cd swig/bin
