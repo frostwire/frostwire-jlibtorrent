@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo no | android create avd --force --name test --target android-23 --abi $1
-emulator -avd test -no-skin -no-audio -no-window &
+emulator -avd test -no-skin -no-window &
 
 gradle check -PdisablePreDex --continue --stacktrace
 android-wait-for-emulator

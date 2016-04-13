@@ -209,11 +209,11 @@ before_install:
 
 script:
   # android emulator in travis only works for arm 32 bits
-  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then cd android; ./travis_script.sh $android_abi; cd ..; fi
+  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then cd android; ./travis-script.sh $android_abi; cd ..; fi
 
 before_deploy:
   - cd swig/bin
-  - find . -type f | egrep -v '.*so|.*dll|.*dylib' | xargs rm
+  - find . -type f | egrep -v '.*\.so|.*\.dll|.*\.dylib' | xargs rm
   - find . -empty -type d | xargs rm -r
   - cd ../..
 
