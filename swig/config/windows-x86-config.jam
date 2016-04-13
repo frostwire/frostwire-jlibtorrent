@@ -9,5 +9,6 @@ using gcc : x86 : i686-w64-mingw32-g++ :
       <cxxflags>-DBOOST_USE_WINAPI_VERSION=0x0501
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
-      <linkflags>-static
+      <linkflags>-Wl,-Bstatic -lstdc++ -Wl,-Bdynamic
+      <linkflags>-static-libgcc
       ;

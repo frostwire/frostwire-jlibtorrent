@@ -89,6 +89,11 @@ before_install:
 # linux cross compilation tools for windows development
   - if [[ $os_build == "windows" ]]; then
     sudo apt-get install -qq mingw-w64;
+    # remove files related to libwinpthread dll
+    sudo rm /usr/i686-w64-mingw32/lib/libwinpthread.dll.a;
+    sudo rm /usr/i686-w64-mingw32/lib/libwinpthread-1.dll;
+    sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread.dll.a;
+    sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll;
     fi
 
 # openssl build
@@ -210,12 +215,12 @@ before_install:
 script:
   # android emulator in travis only works for arm 32 bits
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then cd android; ./travis-script.sh $android_abi; cd ..; fi
-  # run gradle test for linux and macosx
-  - if [[ $os_build == "linux" || $os_build == "macosx" ]]; then gradle test; fi
+  # run gradle test for linux and macosx in 64 bits
+  - if [[ $os_build == "linux" || $os_build == "macosx" ]] && [[ $os_arch == "x86_64" ]]; then gradle test; fi
 
 before_deploy:
   - cd swig/bin
-  - find . -type f | egrep -v '.*\.so|.*\.dll|.*\.dylib' | xargs rm
+  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$' | xargs rm
   - find . -empty -type d | xargs rm -r
   - cd ../..
 

@@ -29,6 +29,8 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+
+    environment "LD_LIBRARY_PATH" : new File('.').absolutePath
 }
 
 task sourcesJar(type: Jar) {
