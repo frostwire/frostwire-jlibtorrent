@@ -111,8 +111,7 @@ before_install:
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch = "x86_64" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/x86_64-linux-android-gcc;
-    ./Configure android no-asm no-rc4 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
-    touch $OPENSSL_SOURCE/include/openssl/rc4.h;
+    ./Configure android no-asm -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch = "x86" ]]; then
@@ -214,7 +213,7 @@ script:
 
 before_deploy:
   - cd swig/bin
-  - find . -type f -not -name '*so' -not -name '*dll' -not -name '*dylib' | xargs rm
+  - find . -type f | egrep -v '.*so|.*dll|.*dylib' | xargs rm
   - find . -empty -type d | xargs rm -r
   - cd ../..
 
