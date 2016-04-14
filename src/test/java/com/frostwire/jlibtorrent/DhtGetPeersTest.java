@@ -6,11 +6,12 @@ import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
 import com.frostwire.jlibtorrent.alerts.DhtStatsAlert;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.*;
+import static com.frostwire.jlibtorrent.Utils.awaitMinutes;
+import static com.frostwire.jlibtorrent.Utils.awaitSeconds;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author gubatron
@@ -18,15 +19,17 @@ import static org.junit.Assert.*;
  */
 public class DhtGetPeersTest {
 
-    //@Test
+    @Test
     public void testGetPeers() {
 
-        Sha1Hash sha1 = new Sha1Hash("1f8cf8c452b3c9c7499def03308134c4774f0d18");
+        Sha1Hash sha1 = new Sha1Hash("33395DA120C9A4758E896DED4DEC5F2495C9973F");
 
-        final Session s = new Session();
+        final Session s = SessionTest.session();
 
         final CountDownLatch s1 = new CountDownLatch(1);
         final CountDownLatch s2 = new CountDownLatch(1);
+
+        final LinkedList<TcpEndpoint> peers = new LinkedList<>();
 
         // the session stats are posted about once per second.
         AlertListener l = new AlertListener() {
@@ -52,10 +55,7 @@ public class DhtGetPeersTest {
                 }
 
                 if (type == AlertType.DHT_GET_PEERS_REPLY) {
-                    ArrayList<TcpEndpoint> peers = ((DhtGetPeersReplyAlert) alert).peers();
-                    for (TcpEndpoint endp : peers) {
-                        System.out.println(endp);
-                    }
+                    peers.addAll(((DhtGetPeersReplyAlert) alert).peers());
                     s2.countDown();
                 }
             }
@@ -64,24 +64,15 @@ public class DhtGetPeersTest {
         s.addListener(l);
         s.postDHTStats();
 
-        // waiting for nodes in DHT (10 seconds)
-        boolean r = false;
-        try {
-            r = s1.await(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            // ignore
-        }
-        assertTrue("DHT bootstrap timeout", r);
+        // waiting for nodes in DHT
+        awaitSeconds(s1, "DHT bootstrap timeout", 10);
 
         s.dhtGetPeers(sha1);
 
-        try {
-            r = s2.await(1, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
-            // ignore
-        }
-        assertTrue("DHT get_peers timeout", r);
+        awaitMinutes(s2, "DHT get_peers timeout", 1);
 
-        s.abort();
+        assertTrue("No peers for info hash: " + sha1, peers.size() > 0);
+
+        s.removeListener(l);
     }
 }
