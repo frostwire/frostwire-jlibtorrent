@@ -17,7 +17,7 @@ public final class Bitfield {
         this.bf = bf;
     }
 
-    public bitfield getSwig() {
+    public bitfield swig() {
         return bf;
     }
 }
