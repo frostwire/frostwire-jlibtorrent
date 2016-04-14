@@ -162,7 +162,7 @@ final class Files {
      *
      * @param input the InputStream to close, may be null or already closed
      */
-    private static void closeQuietly(InputStream input) {
+    static void closeQuietly(InputStream input) {
         closeQuietly((Closeable) input);
     }
 
@@ -189,7 +189,7 @@ final class Files {
      * @param closeable the object to close, may be null or already closed
      * @since 2.0
      */
-    private static void closeQuietly(Closeable closeable) {
+    static void closeQuietly(Closeable closeable) {
         try {
             if (closeable != null) {
                 closeable.close();

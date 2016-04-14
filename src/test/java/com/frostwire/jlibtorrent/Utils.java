@@ -228,66 +228,6 @@ public final class Utils {
         return toByteArray(input, (int) size);
     }
 
-    /**
-     * Unconditionally close a <code>Closeable</code>.
-     * <p/>
-     * Equivalent to {@link java.io.Closeable#close()}, except any exceptions will be ignored.
-     * This is typically used in finally blocks.
-     * <p/>
-     * Example code:
-     * <pre>
-     *   Closeable closeable = null;
-     *   try {
-     *       closeable = new FileReader("foo.txt");
-     *       // process closeable
-     *       closeable.close();
-     *   } catch (Exception e) {
-     *       // error handling
-     *   } finally {
-     *       IOUtils.closeQuietly(closeable);
-     *   }
-     * </pre>
-     *
-     * @param closeable the object to close, may be null or already closed
-     * @since 2.0
-     */
-    public static void closeQuietly(Closeable closeable) {
-        try {
-            if (closeable != null) {
-                closeable.close();
-            }
-        } catch (IOException ioe) {
-            // ignore
-        }
-    }
-
-    /**
-     * Unconditionally close an <code>InputStream</code>.
-     * <p/>
-     * Equivalent to {@link InputStream#close()}, except any exceptions will be ignored.
-     * This is typically used in finally blocks.
-     * <p/>
-     * Example code:
-     * <pre>
-     *   byte[] data = new byte[1024];
-     *   InputStream in = null;
-     *   try {
-     *       in = new FileInputStream("foo.txt");
-     *       in.read(data);
-     *       in.close(); //close errors are handled
-     *   } catch (Exception e) {
-     *       // error handling
-     *   } finally {
-     *       IOUtils.closeQuietly(in);
-     *   }
-     * </pre>
-     *
-     * @param input the InputStream to close, may be null or already closed
-     */
-    public static void closeQuietly(InputStream input) {
-        closeQuietly((Closeable) input);
-    }
-
     //-----------------------------------------------------------------------
 
     /**
@@ -332,13 +272,7 @@ public final class Utils {
      * @since 1.1
      */
     public static byte[] readFileToByteArray(File file) throws IOException {
-        InputStream in = null;
-        try {
-            in = openInputStream(file);
-            return toByteArray(in, file.length());
-        } finally {
-            closeQuietly(in);
-        }
+        return Files.bytes(file);
     }
 
     public static String toHex(byte[] bytes) {
@@ -388,7 +322,7 @@ public final class Utils {
             out.write(data);
             out.close(); // don't swallow close Exception if copy completes normally
         } finally {
-            closeQuietly(out);
+            Files.closeQuietly(out);
         }
     }
 
@@ -404,8 +338,8 @@ public final class Utils {
             }
             return output.toByteArray();
         } finally {
-            closeQuietly(input);
-            closeQuietly(output);
+            Files.closeQuietly(input);
+            Files.closeQuietly(output);
         }
     }
 }
