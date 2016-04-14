@@ -23,10 +23,25 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     sourceSets {
         main.java.srcDirs += '../src/main/java'
+
+        androidTest {
+            java {
+                srcDir '../src/test/java'
+
+                // no DHT in emulator
+                exclude '**/DhtGetPeersTest.java'
+            }
+
+            resources {
+                srcDir '../src/test/resources'
+            }
+        }
     }
 
     lintOptions {
@@ -35,6 +50,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'junit:junit:4.12'
 }

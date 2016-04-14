@@ -23,9 +23,4 @@ public class SessionTest {
     public void testIsValid() {
         assertTrue(session().isValid());
     }
-
-    @Test
-    public void testIsListening() {
-        assertTrue(session().isListening());
-    }
 }
