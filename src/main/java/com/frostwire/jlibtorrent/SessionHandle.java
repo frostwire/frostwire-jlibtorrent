@@ -83,6 +83,7 @@ public class SessionHandle {
 
         if (ret == 0) {
             s.load_state(n, flags);
+            buffer.clear(); // prevents GC
         } else {
             LOG.error("failed to decode bencoded data: " + ec.message());
         }
@@ -102,6 +103,7 @@ public class SessionHandle {
 
         if (ret == 0) {
             s.load_state(n);
+            buffer.clear(); // prevents GC
         } else {
             LOG.error("failed to decode bencoded data: " + ec.message());
         }

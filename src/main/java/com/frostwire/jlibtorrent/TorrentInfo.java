@@ -564,13 +564,15 @@ public final class TorrentInfo {
     }
 
     private static torrent_info bdecode0(byte[] data) {
+        byte_vector buffer = Vectors.bytes2byte_vector(data);
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(Vectors.bytes2byte_vector(data), n, ec);
+        int ret = bdecode_node.bdecode(buffer, n, ec);
 
         if (ret == 0) {
             ec.clear();
             torrent_info ti = new torrent_info(n, ec);
+            buffer.clear(); // prevents GC
             if (ec.value() != 0) {
                 throw new IllegalArgumentException("Can't decode data: " + ec.message());
             }

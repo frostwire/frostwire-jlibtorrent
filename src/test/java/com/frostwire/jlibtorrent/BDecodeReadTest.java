@@ -32,6 +32,7 @@ public class BDecodeReadTest {
 
         ec.clear();
         torrent_info ti = new torrent_info(e, ec);
+        buffer.clear(); // prevents GC
 
         assertEquals("failed to create torrent info: " + ec.message(), ret, 0);
     }
