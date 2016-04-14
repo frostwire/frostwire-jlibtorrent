@@ -87,9 +87,9 @@ before_install:
     fi
 
 # linux cross compilation tools for windows development
+# remove files related to libwinpthread dll
   - if [[ $os_build == "windows" ]]; then
     sudo apt-get install -qq mingw-w64;
-    # remove files related to libwinpthread dll
     sudo rm /usr/i686-w64-mingw32/lib/libwinpthread.dll.a;
     sudo rm /usr/i686-w64-mingw32/lib/libwinpthread-1.dll;
     sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread.dll.a;
