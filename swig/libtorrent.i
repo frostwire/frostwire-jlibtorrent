@@ -62,7 +62,6 @@
 #include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/peer_connection_handle.hpp"
 #include "libtorrent/extensions.hpp"
-#include "libtorrent/file_pool.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/bdecode.hpp"
 #include "libtorrent/buffer.hpp"
@@ -305,7 +304,6 @@ namespace std {
 %ignore libtorrent::request_callback;
 %ignore libtorrent::timeout_handler;
 %ignore libtorrent::parse_int;
-%ignore libtorrent::file_pool;
 %ignore libtorrent::default_storage_constructor;
 %ignore libtorrent::disabled_storage_constructor;
 %ignore libtorrent::bdecode;
@@ -330,6 +328,9 @@ namespace std {
 %ignore libtorrent::storage_piece_set;
 %ignore libtorrent::print_entry;
 %ignore libtorrent::type_error;
+%ignore libtorrent::peer_class;
+%ignore libtorrent::peer_class_pool;
+%ignore libtorrent::detail::bdecode_token;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -492,9 +493,6 @@ namespace std {
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::cached_piece_info::storage;
-%ignore libtorrent::peer_class::priority;
-%ignore libtorrent::peer_class::channel;
-%ignore libtorrent::peer_class_pool::at;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::announce_entry::failed;
 %ignore libtorrent::proxy_settings::proxy_settings;
@@ -615,7 +613,6 @@ namespace std {
 %include "libtorrent/disk_buffer_pool.hpp"
 %include "libtorrent/peer_connection_handle.hpp"
 %include "libtorrent/extensions.hpp"
-%include "libtorrent/file_pool.hpp"
 %include "libtorrent/ip_filter.hpp"
 %include "libtorrent/bdecode.hpp"
 %include "libtorrent/buffer.hpp"
