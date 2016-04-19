@@ -21,7 +21,7 @@ public final class SessionProxy {
         this.sp = sp;
     }
 
-    public session_proxy getSwig() {
+    public session_proxy swig() {
         return sp;
     }
 }

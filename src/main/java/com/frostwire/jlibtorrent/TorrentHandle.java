@@ -4,7 +4,6 @@ import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.torrent_handle.status_flags_t;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -85,25 +84,25 @@ public final class TorrentHandle {
     }
 
     /**
-     * takes a reference to a vector that will be cleared and filled with one
-     * entry for each peer connected to this torrent, given the handle is
-     * valid. If the torrent_handle is invalid, it will return an empty list.
+     * Returns a list filled with one entry for each peer connected to this
+     * torrent, given the handle is valid. If the handle is invalid, it will
+     * return an empty list.
      * <p/>
-     * Each entry in the vector contains
-     * information about that particular peer. See peer_info.
+     * Each entry in the vector contains information about that particular peer.
      *
      * @return
+     * @see PeerInfo
      */
-    public List<PeerInfo> getPeerInfo() {
+    public ArrayList<PeerInfo> peerInfo() {
         if (!th.is_valid()) {
-            return Collections.emptyList();
+            return new ArrayList<>();
         }
 
         peer_info_vector v = new peer_info_vector();
         th.get_peer_info(v);
 
         int size = (int) v.size();
-        List<PeerInfo> l = new ArrayList<PeerInfo>(size);
+        ArrayList<PeerInfo> l = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             l.add(new PeerInfo(v.get(i)));
         }

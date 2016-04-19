@@ -13,7 +13,7 @@ import com.frostwire.jlibtorrent.swig.sha1_hash;
  * @author gubatron
  * @author aldenml
  */
-public final class Sha1Hash {
+public final class Sha1Hash implements Comparable<Sha1Hash> {
 
     private final sha1_hash h;
 
@@ -76,6 +76,11 @@ public final class Sha1Hash {
      */
     public String toHex() {
         return h.to_hex();
+    }
+
+    @Override
+    public int compareTo(Sha1Hash o) {
+        return compare(this, o);
     }
 
     /**

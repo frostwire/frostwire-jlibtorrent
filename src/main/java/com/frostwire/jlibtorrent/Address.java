@@ -1,12 +1,15 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.address;
+import com.frostwire.jlibtorrent.swig.address_v4;
+import com.frostwire.jlibtorrent.swig.address_v6;
+import com.frostwire.jlibtorrent.swig.error_code;
 
 /**
  * @author gubatron
  * @author aldenml
  */
-public final class Address {
+public final class Address implements Comparable<Address> {
 
     private final address addr;
 
@@ -52,6 +55,11 @@ public final class Address {
 
     public boolean isMulticast() {
         return addr.is_multicast();
+    }
+
+    @Override
+    public int compareTo(Address o) {
+        return compare(this, o);
     }
 
     @Override

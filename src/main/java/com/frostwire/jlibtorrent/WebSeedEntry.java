@@ -5,7 +5,6 @@ import com.frostwire.jlibtorrent.swig.string_string_pair_vector;
 import com.frostwire.jlibtorrent.swig.web_seed_entry;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The web_seed_entry holds information about a web seed (also known

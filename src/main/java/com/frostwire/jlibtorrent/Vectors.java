@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.announce_entry_vector;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.int64_vector;
 import com.frostwire.jlibtorrent.swig.int_vector;
