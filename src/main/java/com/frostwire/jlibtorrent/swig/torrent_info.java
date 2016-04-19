@@ -159,14 +159,6 @@ public class torrent_info {
     return new peer_request(libtorrent_jni.torrent_info_map_file(swigCPtr, this, file, offset, size), true);
   }
 
-  public void load(String buffer, int size, error_code ec) {
-    libtorrent_jni.torrent_info_load(swigCPtr, this, buffer, size, error_code.getCPtr(ec), ec);
-  }
-
-  public void unload() {
-    libtorrent_jni.torrent_info_unload(swigCPtr, this);
-  }
-
   public String ssl_cert() {
     return libtorrent_jni.torrent_info_ssl_cert(swigCPtr, this);
   }
@@ -189,10 +181,6 @@ public class torrent_info {
 
   public sha1_hash hash_for_piece(int index) {
     return new sha1_hash(libtorrent_jni.torrent_info_hash_for_piece(swigCPtr, this, index), true);
-  }
-
-  public String hash_for_piece_ptr(int index) {
-    return libtorrent_jni.torrent_info_hash_for_piece_ptr(swigCPtr, this, index);
   }
 
   public boolean is_loaded() {
@@ -227,28 +215,8 @@ public class torrent_info {
     libtorrent_jni.torrent_info_add_node(swigCPtr, this, string_int_pair.getCPtr(node), node);
   }
 
-  public boolean parse_info_section(bdecode_node e, error_code ec, int flags) {
-    return libtorrent_jni.torrent_info_parse_info_section(swigCPtr, this, bdecode_node.getCPtr(e), e, error_code.getCPtr(ec), ec, flags);
-  }
-
   public bdecode_node info(String key) {
     return new bdecode_node(libtorrent_jni.torrent_info_info(swigCPtr, this, key), true);
-  }
-
-  public void swap(torrent_info ti) {
-    libtorrent_jni.torrent_info_swap(swigCPtr, this, torrent_info.getCPtr(ti), ti);
-  }
-
-  public int metadata_size() {
-    return libtorrent_jni.torrent_info_metadata_size(swigCPtr, this);
-  }
-
-  public boolean add_merkle_nodes(int_sha1_hash_map subtree, int piece) {
-    return libtorrent_jni.torrent_info_add_merkle_nodes(swigCPtr, this, int_sha1_hash_map.getCPtr(subtree), subtree, piece);
-  }
-
-  public int_sha1_hash_map build_merkle_list(int piece) {
-    return new int_sha1_hash_map(libtorrent_jni.torrent_info_build_merkle_list(swigCPtr, this, piece), true);
   }
 
   public boolean is_merkle_torrent() {

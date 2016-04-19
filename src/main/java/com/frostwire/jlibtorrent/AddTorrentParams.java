@@ -349,7 +349,7 @@ public final class AddTorrentParams {
      * @param ti
      */
     public void torrentInfo(TorrentInfo ti) {
-        p.set_ti(ti.getSwig());
+        p.set_ti(ti.swig());
     }
 
     /**

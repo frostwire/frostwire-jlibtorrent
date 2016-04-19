@@ -39,7 +39,7 @@ public class ChangeTrackersTest {
         // did we remove all trackers
         assertEquals(ti.trackers().size(), 0);
 
-        create_torrent c = new create_torrent(ti.getSwig());
+        create_torrent c = new create_torrent(ti.swig());
 
         c.add_tracker("http://a:6969/announce", 0);
         c.add_tracker("http://b:6969/announce", 1);

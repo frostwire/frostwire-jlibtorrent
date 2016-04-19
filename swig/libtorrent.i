@@ -277,7 +277,6 @@ namespace std {
 
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
-    %template(int_sha1_hash_map) map<int, libtorrent::sha1_hash>;
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
 
@@ -458,7 +457,15 @@ namespace std {
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&, int);
 %ignore libtorrent::torrent_info::creation_date;
+%ignore libtorrent::torrent_info::metadata_size;
 %ignore libtorrent::torrent_info::metadata;
+%ignore libtorrent::torrent_info::load;
+%ignore libtorrent::torrent_info::unload;
+%ignore libtorrent::torrent_info::hash_for_piece_ptr;
+%ignore libtorrent::torrent_info::parse_info_section;
+%ignore libtorrent::torrent_info::swap;
+%ignore libtorrent::torrent_info::add_merkle_nodes;
+%ignore libtorrent::torrent_info::build_merkle_list;
 %ignore libtorrent::sanitize_append_path_element;
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;

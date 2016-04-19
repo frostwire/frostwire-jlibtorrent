@@ -39,7 +39,7 @@ public final class PiecesTracker {
 
                 files[fileIndex][index] = pieceIndex;
 
-                ArrayList<FileSlice> slices = ti.mapBlock(pieceIndex, 0, ti.getPieceSize(pieceIndex));
+                ArrayList<FileSlice> slices = ti.mapBlock(pieceIndex, 0, ti.pieceSize(pieceIndex));
                 for (FileSlice slice : slices) {
                     if (slice.getFileIndex() == fileIndex) {
                         sizes[fileIndex][index] = slice.getSize();

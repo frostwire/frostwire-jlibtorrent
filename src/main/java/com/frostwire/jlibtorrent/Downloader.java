@@ -32,7 +32,7 @@ public final class Downloader {
 
     public void download(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile) {
 
-        TorrentHandle th = s.findTorrent(ti.getInfoHash());
+        TorrentHandle th = s.findTorrent(ti.infoHash());
 
         if (th != null) {
             // found a download with the same hash, just adjust the priorities if needed

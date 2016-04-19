@@ -33,7 +33,7 @@ public final class TorrentInfo {
         this(bdecode0(torrent));
     }
 
-    public torrent_info getSwig() {
+    public torrent_info swig() {
         return this.ti;
     }
 
@@ -333,7 +333,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public long getTotalSize() {
+    public long totalSize() {
         return ti.total_size();
     }
 
@@ -347,7 +347,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public int getPieceLength() {
+    public int pieceLength() {
         return ti.piece_length();
     }
 
@@ -365,7 +365,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public Sha1Hash getInfoHash() {
+    public Sha1Hash infoHash() {
         return new Sha1Hash(ti.info_hash());
     }
 
@@ -420,7 +420,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public String getSslCert() {
+    public String sslCert() {
         return ti.ssl_cert();
     }
 
@@ -437,7 +437,7 @@ public final class TorrentInfo {
     }
 
     /**
-     * returns true if this torrent is private. i.e., it should not be
+     * Returns true if this torrent is private. i.e., it should not be
      * distributed on the trackerless network (the kademlia DHT).
      *
      * @return
@@ -447,18 +447,18 @@ public final class TorrentInfo {
     }
 
     /**
-     * returns true if this is an i2p torrent. This is determined by whether
+     * Returns true if this is an i2p torrent. This is determined by whether
      * or not it has a tracker whose URL domain name ends with ".i2p". i2p
      * torrents disable the DHT and local peer discovery as well as talking
      * to peers over anything other than the i2p network.
      *
      * @return
      */
-    public boolean isI2P() {
+    public boolean isI2p() {
         return ti.is_i2p();
     }
 
-    public int getPieceSize(int index) {
+    public int pieceSize(int index) {
         return ti.piece_size(index);
     }
 
@@ -470,8 +470,52 @@ public final class TorrentInfo {
      * @param index
      * @return
      */
-    public Sha1Hash getHashForPiece(int index) {
+    public Sha1Hash hashForPiece(int index) {
         return new Sha1Hash(ti.hash_for_piece(index));
+    }
+
+    public boolean isLoaded() {
+        return ti.is_loaded();
+    }
+
+    /**
+     * Returns a copy to the merkle tree for this
+     * torrent, if any.
+     *
+     * @return
+     */
+    public ArrayList<Sha1Hash> merkleTree() {
+        sha1_hash_vector v = ti.merkle_tree();
+        int size = (int) v.size();
+
+        ArrayList<Sha1Hash> l = new ArrayList<>(size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(new Sha1Hash(v.get(i)));
+        }
+
+        return l;
+    }
+
+    /**
+     * Copies the passed in merkle tree into the torrent info object.
+     * <p>
+     * You need to set the merkle tree for a torrent that you've just created
+     * (as a merkle torrent). The merkle tree is retrieved from the
+     * {@link #merkleTree()} function, and need to be saved
+     * separately from the torrent file itself. Once it's added to
+     * libtorrent, the merkle tree will be persisted in the resume data.
+     *
+     * @param tree
+     */
+    public void merkleTree(List<Sha1Hash> tree) {
+        sha1_hash_vector v = new sha1_hash_vector();
+
+        for (Sha1Hash h : tree) {
+            v.push_back(h.swig());
+        }
+
+        ti.set_merkle_tree(v);
     }
 
     /**
@@ -481,7 +525,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public String getName() {
+    public String name() {
         return ti.name();
     }
 
@@ -492,7 +536,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public int getCreationDate() {
+    public int creationDate() {
         return ti.get_creation_date();
     }
 
@@ -502,7 +546,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public String getCreator() {
+    public String creator() {
         return ti.creator();
     }
 
@@ -514,8 +558,61 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public String getComment() {
+    public String comment() {
         return ti.comment();
+    }
+
+    /**
+     * If this torrent contains any DHT nodes, they are returned in
+     * their original form (host name and port number).
+     *
+     * @return
+     */
+    public ArrayList<Pair<String, Integer>> nodes() {
+        string_int_pair_vector v = ti.nodes();
+        int size = (int) v.size();
+
+        ArrayList<Pair<String, Integer>> l = new ArrayList<>(size);
+
+        for (int i = 0; i < size; i++) {
+            string_int_pair p = v.get(i);
+            l.add(new Pair<>(p.getFirst(), p.getSecond()));
+        }
+
+        return l;
+    }
+
+    /**
+     * This is used when creating torrent. Use this to add a known DHT node.
+     * It may be used, by the client, to bootstrap into the DHT network.
+     *
+     * @param host
+     * @param port
+     */
+    public void addNode(String host, int port) {
+        ti.add_node(new string_int_pair(host, port));
+    }
+
+    /**
+     * This function looks up keys from the info-dictionary of the loaded
+     * torrent file. It can be used to access extension values put in the
+     * .torrent file. If the specified key cannot be found, it returns NULL.
+     *
+     * @param key
+     * @return
+     */
+    public bdecode_node info(String key) {
+        return ti.info(key);
+    }
+
+    /**
+     * Returns whether or not this is a merkle torrent.
+     * See BEP30: http://bittorrent.org/beps/bep_0030.html
+     *
+     * @return
+     */
+    public boolean isMerkleTorrent() {
+        return ti.is_merkle_torrent();
     }
 
     /**

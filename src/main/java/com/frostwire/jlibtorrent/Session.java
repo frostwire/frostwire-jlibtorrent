@@ -745,7 +745,7 @@ public final class Session extends SessionHandle {
 
         add_torrent_params p = add_torrent_params.create_instance();
 
-        p.set_ti(ti.getSwig());
+        p.set_ti(ti.swig());
         if (savePath != null) {
             p.setSave_path(savePath);
         }
@@ -922,7 +922,7 @@ public final class Session extends SessionHandle {
         try {
             torrent_handle th = alert.getHandle().getSwig();
             TorrentInfo ti = new TorrentInfo(th.get_torrent_copy());
-            String sha1 = ti.getInfoHash().toHex();
+            String sha1 = ti.infoHash().toHex();
             byte[] data = ti.bencode();
 
             MAGNET_CACHE.put(sha1, data);

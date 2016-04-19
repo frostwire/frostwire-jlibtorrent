@@ -16,7 +16,7 @@ public final class ReadTorrent {
         File torrentFile = new File(args[0]);
 
         TorrentInfo ti = new TorrentInfo(torrentFile);
-        System.out.println("info-hash: " + ti.getInfoHash());
+        System.out.println("info-hash: " + ti.infoHash());
         System.out.println(ti.toEntry());
     }
 }
