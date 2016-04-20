@@ -235,11 +235,6 @@ public class session_handle {
     libtorrent_jni.session_handle_pop_alerts(swigCPtr, this, alert_ptr_vector.getCPtr(alerts), alerts);
   }
 
-  public alert wait_for_alert(high_resolution_clock.duration max_wait) {
-    long cPtr = libtorrent_jni.session_handle_wait_for_alert(swigCPtr, this, high_resolution_clock.duration.getCPtr(max_wait), max_wait);
-    return (cPtr == 0) ? null : new alert(cPtr, false);
-  }
-
   public int add_port_mapping(session_handle.protocol_type t, int external_port, int local_port) {
     return libtorrent_jni.session_handle_add_port_mapping(swigCPtr, this, t.swigValue(), external_port, local_port);
   }
@@ -262,6 +257,11 @@ public class session_handle {
 
   public void set_swig_dht_storage(swig_dht_storage_constructor sc) {
     libtorrent_jni.session_handle_set_swig_dht_storage(swigCPtr, this, swig_dht_storage_constructor.getCPtr(sc), sc);
+  }
+
+  public alert wait_for_alert_ms(long max_wait) {
+    long cPtr = libtorrent_jni.session_handle_wait_for_alert_ms(swigCPtr, this, max_wait);
+    return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 
   public final static class save_state_flags_t {

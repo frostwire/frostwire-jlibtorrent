@@ -35,10 +35,6 @@ public class alert {
     }
   }
 
-  public high_resolution_clock.time_point timestamp() {
-    return new high_resolution_clock.time_point(libtorrent_jni.alert_timestamp(swigCPtr, this), true);
-  }
-
   public int type() {
     return libtorrent_jni.alert_type(swigCPtr, this);
   }
@@ -493,6 +489,10 @@ public class alert {
   public static picker_log_alert cast_to_picker_log_alert(alert a) {
     long cPtr = libtorrent_jni.alert_cast_to_picker_log_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new picker_log_alert(cPtr, false);
+  }
+
+  public long get_timestamp() {
+    return libtorrent_jni.alert_get_timestamp(swigCPtr, this);
   }
 
   public final static class category_t {

@@ -18,16 +18,16 @@ public final class TorrentStatus {
     }
 
     /**
-     * a handle to the torrent whose status the object represents.
+     * Returns a handle to the torrent whose status the object represents.
      *
      * @return
      */
-    public TorrentHandle getHandle() {
+    public TorrentHandle handle() {
         return new TorrentHandle(ts.getHandle());
     }
 
     /**
-     * may be set to an error message describing why the torrent
+     * May be set to an error message describing why the torrent
      * was paused, in case it was paused by an error. If the torrent
      * is not paused or if it's paused but not because of an error,
      * this string is empty.
@@ -39,7 +39,7 @@ public final class TorrentStatus {
     }
 
     /**
-     * the name of the torrent. Typically this is derived from the
+     * Returns the name of the torrent. Typically this is derived from the
      * .torrent file. In case the torrent was started without metadata,
      * and hasn't completely received it yet, it returns the name given
      * to it when added to the session. See ``session::add_torrent``.
@@ -48,7 +48,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public String getName() {
+    public String name() {
         return ts.getName();
     }
 
@@ -64,12 +64,12 @@ public final class TorrentStatus {
 //    }
 
     /**
-     * The time until the torrent will announce itself to the tracker.
+     * The time until the torrent will announce itself to the tracker (in milliseconds).
      *
      * @return
      */
-    public Duration nextAnnounce() {
-        return new Duration(ts.getNext_announce());
+    public long nextAnnounce() {
+        return ts.get_next_announce();
     }
 
     /**
@@ -78,7 +78,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public String getCurrentTracker() {
+    public String currentTracker() {
         return ts.getCurrent_tracker();
     }
 
@@ -88,7 +88,7 @@ public final class TorrentStatus {
      * again. When a torrent is paused, these counters are reset to 0. If you want complete,
      * persistent, stats, see allTimeUpload and allTimeDownload.
      */
-    public long getTotalDownload() {
+    public long totalDownload() {
         return ts.getTotal_download();
     }
 
@@ -98,7 +98,7 @@ public final class TorrentStatus {
      * again. When a torrent is paused, these counters are reset to 0. If you want complete,
      * persistent, stats, see allTimeUpload and allTimeDownload.
      */
-    public long getTotalUpload() {
+    public long totalUpload() {
         return ts.getTotal_upload();
     }
 
@@ -109,7 +109,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public long getTotalPayloadDownload() {
+    public long totalPayloadDownload() {
         return ts.getTotal_payload_download();
     }
 
@@ -120,7 +120,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public long getTotalPayloadUpload() {
+    public long totalPayloadUpload() {
         return ts.getTotal_payload_upload();
     }
 
@@ -131,7 +131,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public long getTotalFailedBytes() {
+    public long totalFailedBytes() {
         return ts.getTotal_failed_bytes();
     }
 
@@ -148,7 +148,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public long getTotalRedundantBytes() {
+    public long totalRedundantBytes() {
         return ts.getTotal_redundant_bytes();
     }
 
@@ -159,7 +159,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public Bitfield getPieces() {
+    public Bitfield pieces() {
         return new Bitfield(ts.getPieces());
     }
 

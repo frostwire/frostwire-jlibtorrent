@@ -68,33 +68,6 @@ public class peer_info {
     return libtorrent_jni.peer_info_total_upload_get(swigCPtr, this);
   }
 
-  public void setLast_request(high_resolution_clock.duration value) {
-    libtorrent_jni.peer_info_last_request_set(swigCPtr, this, high_resolution_clock.duration.getCPtr(value), value);
-  }
-
-  public high_resolution_clock.duration getLast_request() {
-    long cPtr = libtorrent_jni.peer_info_last_request_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.duration(cPtr, false);
-  }
-
-  public void setLast_active(high_resolution_clock.duration value) {
-    libtorrent_jni.peer_info_last_active_set(swigCPtr, this, high_resolution_clock.duration.getCPtr(value), value);
-  }
-
-  public high_resolution_clock.duration getLast_active() {
-    long cPtr = libtorrent_jni.peer_info_last_active_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.duration(cPtr, false);
-  }
-
-  public void setDownload_queue_time(high_resolution_clock.duration value) {
-    libtorrent_jni.peer_info_download_queue_time_set(swigCPtr, this, high_resolution_clock.duration.getCPtr(value), value);
-  }
-
-  public high_resolution_clock.duration getDownload_queue_time() {
-    long cPtr = libtorrent_jni.peer_info_download_queue_time_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.duration(cPtr, false);
-  }
-
   public void setFlags(long value) {
     libtorrent_jni.peer_info_flags_set(swigCPtr, this, value);
   }
@@ -432,6 +405,18 @@ public class peer_info {
 
   public char getWrite_state() {
     return libtorrent_jni.peer_info_write_state_get(swigCPtr, this);
+  }
+
+  public long get_last_request() {
+    return libtorrent_jni.peer_info_get_last_request(swigCPtr, this);
+  }
+
+  public long get_last_active() {
+    return libtorrent_jni.peer_info_get_last_active(swigCPtr, this);
+  }
+
+  public long get_download_queue_time() {
+    return libtorrent_jni.peer_info_get_download_queue_time(swigCPtr, this);
   }
 
   public peer_info() {

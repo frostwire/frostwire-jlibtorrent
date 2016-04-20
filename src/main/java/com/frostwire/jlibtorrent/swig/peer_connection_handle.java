@@ -156,10 +156,6 @@ public class peer_connection_handle {
     return libtorrent_jni.peer_connection_handle_last_seen_complete(swigCPtr, this);
   }
 
-  public high_resolution_clock.time_point time_of_last_unchoke() {
-    return new high_resolution_clock.time_point(libtorrent_jni.peer_connection_handle_time_of_last_unchoke(swigCPtr, this), true);
-  }
-
   public boolean op_eq(peer_connection_handle o) {
     return libtorrent_jni.peer_connection_handle_op_eq(swigCPtr, this, peer_connection_handle.getCPtr(o), o);
   }
@@ -170,6 +166,10 @@ public class peer_connection_handle {
 
   public boolean op_lt(peer_connection_handle o) {
     return libtorrent_jni.peer_connection_handle_op_lt(swigCPtr, this, peer_connection_handle.getCPtr(o), o);
+  }
+
+  public long get_time_of_last_unchoke() {
+    return libtorrent_jni.peer_connection_handle_get_time_of_last_unchoke(swigCPtr, this);
   }
 
 }

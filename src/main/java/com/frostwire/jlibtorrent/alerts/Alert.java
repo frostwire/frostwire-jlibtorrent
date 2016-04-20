@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.TimePoint;
 import com.frostwire.jlibtorrent.swig.alert;
 
 /**
@@ -12,11 +11,11 @@ public interface Alert<T extends alert> {
     T swig();
 
     /**
-     * A timestamp is automatically created in the constructor.
+     * A timestamp is automatically created in the constructor (in milliseconds).
      *
      * @return
      */
-    TimePoint timestamp();
+    long timestamp();
 
     // returns an integer that is unique to this alert type. It can be
     // compared against a specific alert by querying a static constant called ``alert_type``

@@ -73,14 +73,6 @@ public class libtorrent implements libtorrentConstants {
     return new error_category(libtorrent_jni.get_http_category(), false);
   }
 
-  public static high_resolution_clock.time_point min_time() {
-    return new high_resolution_clock.time_point(libtorrent_jni.min_time(), true);
-  }
-
-  public static high_resolution_clock.time_point max_time() {
-    return new high_resolution_clock.time_point(libtorrent_jni.max_time(), true);
-  }
-
   public static stats_metric_vector session_stats_metrics() {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
@@ -163,26 +155,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static void set_utp_stream_logging(boolean enable) {
     libtorrent_jni.set_utp_stream_logging(enable);
-  }
-
-  public static high_resolution_clock.duration to_seconds(long n) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_seconds(n), true);
-  }
-
-  public static high_resolution_clock.duration to_milliseconds(long n) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_milliseconds(n), true);
-  }
-
-  public static high_resolution_clock.duration to_microseconds(long n) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_microseconds(n), true);
-  }
-
-  public static high_resolution_clock.duration to_minutes(long n) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_minutes(n), true);
-  }
-
-  public static high_resolution_clock.duration to_hours(long n) {
-    return new high_resolution_clock.duration(libtorrent_jni.to_hours(n), true);
   }
 
   public static void ed25519_create_seed(byte_vector seed) {

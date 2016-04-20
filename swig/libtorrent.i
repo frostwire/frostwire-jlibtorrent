@@ -30,7 +30,6 @@
 
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
-#include "libtorrent/time.hpp"
 #include "libtorrent/bitfield.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/address.hpp"
@@ -384,6 +383,7 @@ namespace std {
 %ignore libtorrent::session_handle::native_handle;
 %ignore libtorrent::session_handle::set_dht_storage;
 %ignore libtorrent::session_handle::get_cache_info;
+%ignore libtorrent::session_handle::wait_for_alert;
 %ignore libtorrent::session_stats_alert::values;
 %ignore libtorrent::save_resume_data_alert::save_resume_data_alert;
 %ignore libtorrent::save_resume_data_alert::resume_data;
@@ -394,6 +394,7 @@ namespace std {
 %ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
 %ignore libtorrent::peer_connection_handle::add_extension;
+%ignore libtorrent::peer_connection_handle::time_of_last_unchoke;
 %ignore libtorrent::bt_peer_connection_handle::switch_send_crypto;
 %ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection_handle::native_handle;
@@ -502,9 +503,14 @@ namespace std {
 %ignore libtorrent::cached_piece_info::storage;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::announce_entry::failed;
+%ignore libtorrent::announce_entry::next_announce;
+%ignore libtorrent::announce_entry::min_announce;
+%ignore libtorrent::announce_entry::can_announce;
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::torrent_status::_dummy_string_;
+%ignore libtorrent::torrent_status::next_announce;
+%ignore libtorrent::torrent_status::deprecated_announce_interval_;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::all_path_hashes;
 %ignore libtorrent::torrent_error_alert::filename;
@@ -525,6 +531,9 @@ namespace std {
 %ignore libtorrent::hasher::hasher(const char*, int);
 %ignore libtorrent::hasher::update(std::string const&);
 %ignore libtorrent::hasher::update(const char*, int);
+%ignore libtorrent::peer_info::last_request;
+%ignore libtorrent::peer_info::last_active;
+%ignore libtorrent::peer_info::download_queue_time;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -582,13 +591,13 @@ namespace std {
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
 %rename(final_hash) libtorrent::hasher::final;
 
+%ignore libtorrent::alert::timestamp;
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
 
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/error_code.hpp"
-%include "libtorrent/time.hpp"
 %include "libtorrent/bitfield.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/address.hpp"
@@ -740,21 +749,6 @@ namespace boost {
             };
         }
     }
-
-    namespace chrono {
-
-        class high_resolution_clock {
-        public:
-
-            class time_point {
-            public:
-            };
-
-            class duration {
-            public:
-            };
-        };
-    }
 }
 
 %rename(tcp_endpoint) tcp::endpoint;
@@ -883,8 +877,13 @@ namespace libtorrent {
     CAST_ALERT_METHOD(picker_log_alert)
 };
 
-%extend session_handle {
+%extend alert {
+    int64_t get_timestamp() {
+        return total_milliseconds($self->timestamp() - clock_type::now());
+    }
+}
 
+%extend session_handle {
     void dht_get_item(std::vector<int8_t>& public_key, std::vector<int8_t>& salt) {
         if (public_key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
@@ -922,6 +921,10 @@ namespace libtorrent {
 
     void set_swig_dht_storage(swig_dht_storage_constructor *sc) {
         $self->set_dht_storage(boost::bind(&swig_dht_storage_constructor_cb, _1, _2, sc));
+    }
+
+    alert* wait_for_alert_ms(int64_t max_wait) {
+        return $self->wait_for_alert(milliseconds(max_wait));
     }
 };
 
@@ -1143,6 +1146,32 @@ namespace libtorrent {
 %extend read_piece_alert {
     int64_t buffer_ptr() {
         return reinterpret_cast<int64_t>($self->buffer.get());
+    }
+}
+
+%extend peer_connection_handle {
+    int64_t get_time_of_last_unchoke() {
+        return total_milliseconds($self->time_of_last_unchoke() - clock_type::now());
+    }
+}
+
+%extend peer_info {
+    int64_t get_last_request() {
+        return total_milliseconds($self->last_request);
+    }
+
+    int64_t get_last_active() {
+        return total_milliseconds($self->last_active);
+    }
+
+    int64_t get_download_queue_time() {
+        return total_milliseconds($self->download_queue_time);
+    }
+}
+
+%extend torrent_status {
+    int64_t get_next_announce() {
+        return total_milliseconds($self->next_announce);
     }
 }
 

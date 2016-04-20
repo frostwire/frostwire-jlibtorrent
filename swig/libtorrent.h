@@ -15,6 +15,7 @@
 
 #include <openssl/opensslv.h>
 
+#include <libtorrent/time.hpp>
 #include <libtorrent/buffer.hpp>
 #include <libtorrent/utp_stream.hpp>
 #include <libtorrent/socket_io.hpp>
@@ -28,26 +29,6 @@
 
 #define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
 #define JLIBTORRENT_REVISION_SHA1 _JLIBTORRENT_REVISION_SHA1_
-
-boost::chrono::high_resolution_clock::duration to_seconds(long long n) {
-    return boost::chrono::seconds(n);
-}
-
-boost::chrono::high_resolution_clock::duration to_milliseconds(long long n) {
-    return boost::chrono::milliseconds(n);
-}
-
-boost::chrono::high_resolution_clock::duration to_microseconds(long long n) {
-    return boost::chrono::microseconds(n);
-}
-
-boost::chrono::high_resolution_clock::duration to_minutes(long long n) {
-    return boost::chrono::minutes(n);
-}
-
-boost::chrono::high_resolution_clock::duration to_hours(long long n) {
-    return boost::chrono::hours(n);
-}
 
 void ed25519_create_seed(std::vector<int8_t>& seed) {
     ed25519_create_seed((unsigned char*)seed.data());

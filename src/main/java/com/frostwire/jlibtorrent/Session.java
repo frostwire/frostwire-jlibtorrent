@@ -303,7 +303,7 @@ public final class Session extends SessionHandle {
      * @param th
      */
     public void removeTorrent(TorrentHandle th, Options options) {
-        s.remove_torrent(th.getSwig(), options.swig());
+        s.remove_torrent(th.swig(), options.swig());
     }
 
     /**
@@ -315,7 +315,7 @@ public final class Session extends SessionHandle {
      */
     public void removeTorrent(TorrentHandle th) {
         if (th.isValid()) {
-            s.remove_torrent(th.getSwig());
+            s.remove_torrent(th.swig());
         }
     }
 
@@ -792,10 +792,8 @@ public final class Session extends SessionHandle {
             public void run() {
                 alert_ptr_vector vector = new alert_ptr_vector();
 
-                high_resolution_clock.duration max_wait = libtorrent.to_milliseconds(ALERTS_LOOP_WAIT_MILLIS);
-
                 while (running) {
-                    alert ptr = s.wait_for_alert(max_wait);
+                    alert ptr = s.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
 
                     if (ptr != null) {
                         s.pop_alerts(vector);
@@ -920,7 +918,7 @@ public final class Session extends SessionHandle {
 
     private void saveMagnetData(MetadataReceivedAlert alert) {
         try {
-            torrent_handle th = alert.getHandle().getSwig();
+            torrent_handle th = alert.getHandle().swig();
             TorrentInfo ti = new TorrentInfo(th.get_torrent_copy());
             String sha1 = ti.infoHash().toHex();
             byte[] data = ti.bencode();

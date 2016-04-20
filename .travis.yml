@@ -64,10 +64,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 68c221186fdef72887e9c0a4ea86772c428a274b
-  #- git clone https://github.com/aldenml/libtorrent.git
-  #- cd libtorrent
-  #- git checkout android-no-preadv
+  - git checkout 0fddd403b28b1e0bee1e4caffd1004e148a5d830
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -144,6 +141,11 @@ before_install:
   - make install;
   - cd ..
   - export OPENSSL_ROOT=$PWD/openssl
+  # copy to this special location until I figure out a better solution
+  # in libtorrent build
+  - if [[ $os_build == "macosx" ]]; then
+    sudo cp -R $OPENSSL_SOURCE/../openssl/* /opt/local;
+    fi
 
 # jlibtorrent native build
   - cd swig

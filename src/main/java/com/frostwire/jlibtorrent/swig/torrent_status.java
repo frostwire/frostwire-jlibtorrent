@@ -85,24 +85,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_name_get(swigCPtr, this);
   }
 
-  public void setNext_announce(high_resolution_clock.duration value) {
-    libtorrent_jni.torrent_status_next_announce_set(swigCPtr, this, high_resolution_clock.duration.getCPtr(value), value);
-  }
-
-  public high_resolution_clock.duration getNext_announce() {
-    long cPtr = libtorrent_jni.torrent_status_next_announce_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.duration(cPtr, false);
-  }
-
-  public void setDeprecated_announce_interval_(high_resolution_clock.duration value) {
-    libtorrent_jni.torrent_status_deprecated_announce_interval__set(swigCPtr, this, high_resolution_clock.duration.getCPtr(value), value);
-  }
-
-  public high_resolution_clock.duration getDeprecated_announce_interval_() {
-    long cPtr = libtorrent_jni.torrent_status_deprecated_announce_interval__get(swigCPtr, this);
-    return (cPtr == 0) ? null : new high_resolution_clock.duration(cPtr, false);
-  }
-
   public void setCurrent_tracker(String value) {
     libtorrent_jni.torrent_status_current_tracker_set(swigCPtr, this, value);
   }
@@ -680,6 +662,10 @@ public class torrent_status {
   public sha1_hash getInfo_hash() {
     long cPtr = libtorrent_jni.torrent_status_info_hash_get(swigCPtr, this);
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
+  }
+
+  public long get_next_announce() {
+    return libtorrent_jni.torrent_status_get_next_announce(swigCPtr, this);
   }
 
   public final static class state_t {

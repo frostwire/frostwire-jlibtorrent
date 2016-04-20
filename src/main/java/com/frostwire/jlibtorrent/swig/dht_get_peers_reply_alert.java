@@ -64,8 +64,8 @@ public class dht_get_peers_reply_alert extends alert {
     return libtorrent_jni.dht_get_peers_reply_alert_num_peers(swigCPtr, this);
   }
 
-  public void peers(tcp_endpoint_vector peers) {
-    libtorrent_jni.dht_get_peers_reply_alert_peers(swigCPtr, this, tcp_endpoint_vector.getCPtr(peers), peers);
+  public tcp_endpoint_vector peers() {
+    return new tcp_endpoint_vector(libtorrent_jni.dht_get_peers_reply_alert_peers(swigCPtr, this), true);
   }
 
   public final static int static_category = libtorrent_jni.dht_get_peers_reply_alert_static_category_get();

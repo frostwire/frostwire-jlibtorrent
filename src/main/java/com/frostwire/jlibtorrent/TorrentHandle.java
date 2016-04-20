@@ -49,7 +49,7 @@ public final class TorrentHandle {
         this.th = th;
     }
 
-    public torrent_handle getSwig() {
+    public torrent_handle swig() {
         return th;
     }
 
