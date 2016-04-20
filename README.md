@@ -26,6 +26,13 @@ Note that there are multiple version of jlibtorrent for different platforms: `jl
 
 For examples look at https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/test/java/com/frostwire/jlibtorrent/demo
 
+Architectures supported:
+
+- Android (armeabi-v7a, arm64-v8a)
+- Linux (x86, x86_64, armhf, arm64)
+- Windows (x86, x86_64)
+- Mac OS X (x86_64)
+
 Building
 ========
 
