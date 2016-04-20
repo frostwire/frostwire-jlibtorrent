@@ -144,6 +144,7 @@ before_install:
   # copy to this special location until I figure out a better solution
   # in libtorrent build
   - if [[ $os_build == "macosx" ]]; then
+    sudo mkdir -p /opt/local;
     sudo cp -R $OPENSSL_SOURCE/../openssl/* /opt/local;
     fi
 
