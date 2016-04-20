@@ -11,16 +11,25 @@ import com.frostwire.jlibtorrent.swig.torrent_error_alert;
  */
 public final class TorrentErrorAlert extends TorrentAlert<torrent_error_alert> {
 
-    public TorrentErrorAlert(torrent_error_alert alert) {
+    TorrentErrorAlert(torrent_error_alert alert) {
         super(alert);
     }
 
     /**
-     * specifies which error the torrent encountered.
+     * Specifies which error the torrent encountered.
      *
      * @return
      */
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
+    }
+
+    /**
+     * Returns the filename (or object) the error occurred on.
+     *
+     * @return
+     */
+    public String filename() {
+        return alert.filename();
     }
 }

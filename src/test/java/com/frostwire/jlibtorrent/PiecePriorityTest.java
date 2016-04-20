@@ -50,7 +50,7 @@ public class PiecePriorityTest {
                     // on piece, set the next piece to SEVEN
                     int indx = a.pieceIndex();
                     if (firstP.get() <= indx && indx < lastP.get()) {
-                        a.getHandle().piecePriority(indx + 1, Priority.SEVEN);
+                        a.handle().piecePriority(indx + 1, Priority.SEVEN);
                     }
 
                     // last piece, exit

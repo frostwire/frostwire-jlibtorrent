@@ -12,7 +12,7 @@ import com.frostwire.jlibtorrent.swig.torrent_alert;
  */
 public class TorrentAlert<T extends torrent_alert> extends AbstractAlert<T> {
 
-    public TorrentAlert(T alert) {
+    TorrentAlert(T alert) {
         super(alert);
     }
 
@@ -22,7 +22,7 @@ public class TorrentAlert<T extends torrent_alert> extends AbstractAlert<T> {
      *
      * @return
      */
-    public TorrentHandle getHandle() {
+    public TorrentHandle handle() {
         return new TorrentHandle(alert.getHandle());
     }
 

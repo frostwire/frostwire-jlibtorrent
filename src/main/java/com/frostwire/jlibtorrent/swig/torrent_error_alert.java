@@ -60,6 +60,10 @@ public class torrent_error_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
+  public String filename() {
+    return libtorrent_jni.torrent_error_alert_filename(swigCPtr, this);
+  }
+
   public final static int priority = libtorrent_jni.torrent_error_alert_priority_get();
   public final static int alert_type = libtorrent_jni.torrent_error_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.torrent_error_alert_static_category_get();

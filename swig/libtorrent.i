@@ -513,11 +513,6 @@ namespace std {
 %ignore libtorrent::torrent_status::deprecated_announce_interval_;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::all_path_hashes;
-%ignore libtorrent::torrent_error_alert::filename;
-%ignore libtorrent::torrent_error_alert::torrent_error_alert;
-%ignore libtorrent::peer_log_alert::peer_log_alert;
-%ignore libtorrent::incoming_request_alert::incoming_request_alert;
-%ignore libtorrent::dht_log_alert::dht_log_alert;
 %ignore libtorrent::default_storage;
 %ignore libtorrent::disabled_storage;
 %ignore libtorrent::zero_storage;

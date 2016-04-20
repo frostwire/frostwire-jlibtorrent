@@ -28,7 +28,7 @@ public abstract class TorrentAlertAdapter implements AlertListener {
             return;
         }
 
-        if (!((TorrentAlert<?>) a).getHandle().swig().op_eq(th.swig())) {
+        if (!((TorrentAlert<?>) a).handle().swig().op_eq(th.swig())) {
             return;
         }
 

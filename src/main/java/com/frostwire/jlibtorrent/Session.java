@@ -918,7 +918,7 @@ public final class Session extends SessionHandle {
 
     private void saveMagnetData(MetadataReceivedAlert alert) {
         try {
-            torrent_handle th = alert.getHandle().swig();
+            torrent_handle th = alert.handle().swig();
             TorrentInfo ti = new TorrentInfo(th.get_torrent_copy());
             String sha1 = ti.infoHash().toHex();
             byte[] data = ti.bencode();
