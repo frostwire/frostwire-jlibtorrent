@@ -2553,9 +2553,6 @@ public class libtorrent_jni {
   public final static native long create_torrent_merkle_tree(long jarg1, create_torrent jarg1_);
   public final static native void create_torrent_add_similar_torrent(long jarg1, create_torrent jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void create_torrent_add_collection(long jarg1, create_torrent jarg1_, String jarg2);
-  public final static native void add_files__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
-  public final static native void add_files__SWIG_1(long jarg1, file_storage jarg1_, String jarg2);
-  public final static native void set_piece_hashes(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
   public final static native long new_announce_entry__SWIG_0(String jarg1);
   public final static native long new_announce_entry__SWIG_1();
   public final static native void delete_announce_entry(long jarg1);
@@ -2903,15 +2900,14 @@ public class libtorrent_jni {
   public final static native long new_add_files_listener();
   public final static native void add_files_listener_director_connect(add_files_listener obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void add_files_listener_change_ownership(add_files_listener obj, long cptr, boolean take_or_release);
-  public final static native boolean add_files_cb(String jarg1, long jarg2, add_files_listener jarg2_);
-  public final static native void add_files_ex(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, add_files_listener jarg4_);
+  public final static native void add_files_ex(long jarg1, file_storage jarg1_, String jarg2, long jarg3, add_files_listener jarg3_, long jarg4);
   public final static native void delete_set_piece_hashes_listener(long jarg1);
   public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
   public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
   public final static native long new_set_piece_hashes_listener();
   public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
-  public final static native void set_piece_hashes_ex(String jarg1, long jarg2, create_torrent jarg2_, String jarg3, long jarg4, error_code jarg4_, long jarg5, set_piece_hashes_listener jarg5_);
+  public final static native void set_piece_hashes_ex(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, set_piece_hashes_listener jarg3_, long jarg4, error_code jarg4_);
   public final static native int boost_version();
   public final static native String boost_lib_version();
   public final static native int openssl_version_number();

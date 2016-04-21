@@ -137,18 +137,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.parse_magnet_uri(uri, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec);
   }
 
-  public static void add_files(file_storage fs, String file, long flags) {
-    libtorrent_jni.add_files__SWIG_0(file_storage.getCPtr(fs), fs, file, flags);
-  }
-
-  public static void add_files(file_storage fs, String file) {
-    libtorrent_jni.add_files__SWIG_1(file_storage.getCPtr(fs), fs, file);
-  }
-
-  public static void set_piece_hashes(create_torrent t, String p, error_code ec) {
-    libtorrent_jni.set_piece_hashes(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
-  }
-
   public static boolean is_utp_stream_logging() {
     return libtorrent_jni.is_utp_stream_logging();
   }
@@ -229,16 +217,12 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.write_tcp_endpoint(tcp_endpoint.getCPtr(endp), endp, byte_vector.getCPtr(out), out);
   }
 
-  public static boolean add_files_cb(String p, add_files_listener listener) {
-    return libtorrent_jni.add_files_cb(p, add_files_listener.getCPtr(listener), listener);
+  public static void add_files_ex(file_storage fs, String file, add_files_listener listener, long flags) {
+    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, file, add_files_listener.getCPtr(listener), listener, flags);
   }
 
-  public static void add_files_ex(file_storage fs, String file, long flags, add_files_listener listener) {
-    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, file, flags, add_files_listener.getCPtr(listener), listener);
-  }
-
-  public static void set_piece_hashes_ex(String id, create_torrent t, String p, error_code ec, set_piece_hashes_listener listener) {
-    libtorrent_jni.set_piece_hashes_ex(id, create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec, set_piece_hashes_listener.getCPtr(listener), listener);
+  public static void set_piece_hashes_ex(create_torrent t, String p, set_piece_hashes_listener listener, error_code ec) {
+    libtorrent_jni.set_piece_hashes_ex(create_torrent.getCPtr(t), t, p, set_piece_hashes_listener.getCPtr(listener), listener, error_code.getCPtr(ec), ec);
   }
 
   public static int boost_version() {
