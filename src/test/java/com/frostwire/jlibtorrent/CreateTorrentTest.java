@@ -41,7 +41,6 @@ public class CreateTorrentTest {
             @Override
             public void progress(int i) {
                 assertTrue(i >= 0);
-                assertTrue(i <= 100);
             }
         };
         error_code ec = new error_code();
@@ -50,6 +49,38 @@ public class CreateTorrentTest {
         entry e = ct.generate();
         byte_vector buffer = e.bencode();
         TorrentInfo ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(buffer));
-        assertEquals(ti.numFiles(), 1);
+        assertEquals(1, ti.numFiles());
+    }
+
+    @Test
+    public void testFromDir() throws IOException {
+        File dir = folder.newFolder();
+        File f1 = new File(dir, "test.txt");
+        Utils.writeByteArrayToFile(f1, new byte[]{0}, false);
+        File f2 = new File(dir, "test1.txt");
+        Utils.writeByteArrayToFile(f2, new byte[]{0}, false);
+
+        file_storage fs = new file_storage();
+        add_files_listener l1 = new add_files_listener() {
+            @Override
+            public boolean pred(String p) {
+                return true;
+            }
+        };
+        add_files_ex(fs, dir.getAbsolutePath(), l1, 0L);
+        create_torrent ct = new create_torrent(fs);
+        set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
+            @Override
+            public void progress(int i) {
+                assertTrue(i >= 0);
+            }
+        };
+        error_code ec = new error_code();
+        set_piece_hashes_ex(ct, dir.getParent(), l2, ec);
+        assertEquals(ec.value(), 0);
+        entry e = ct.generate();
+        byte_vector buffer = e.bencode();
+        TorrentInfo ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(buffer));
+        assertEquals(2, ti.numFiles());
     }
 }
