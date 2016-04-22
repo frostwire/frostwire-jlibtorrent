@@ -63,19 +63,6 @@ public interface Plugin {
     void onTick();
 
     /**
-     * called when choosing peers to optimisticly unchoke
-     * // peer's will be unchoked in the order they appear in the given
-     * // vector which is initiallity sorted by when they were last
-     * // optimistically unchoked.
-     * // if the plugin returns true then the ordering provided will be
-     * // used and no other plugin will be allowed to change it.
-     *
-     * @param peers
-     * @return
-     */
-    boolean onOptimisticUnchoke(PeerConnectionHandle[] peers);
-
-    /**
      * called when saving settings state.
      *
      * @param e
@@ -94,7 +81,6 @@ public interface Plugin {
         REGISTER_DHT_EXTENSIONS,
         ON_ALERT,
         ON_UNKNOWN_TORRENT,
-        ON_OPTIMISTIC_UNCHOKE,
         SAVE_STATE,
         LOAD_STATE
     }

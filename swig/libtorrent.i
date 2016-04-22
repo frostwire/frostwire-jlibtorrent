@@ -2,6 +2,8 @@
 
 // suppress Warning 319: No access specifier given for base class 'boost::noncopyable' (ignored).
 #pragma SWIG nowarn=319
+// suppress Warning 401: Nothing known about base class '<name>'. Ignored.
+#pragma SWIG nowarn=401
 
 %pragma(java) jniclasscode=%{
     static {
@@ -72,7 +74,6 @@
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
-#include "libtorrent/hasher.hpp"
 #include "libtorrent/ed25519.hpp"
 
 using namespace boost;
@@ -273,7 +274,6 @@ namespace std {
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
-    %template(peer_connection_handle_vector) vector<libtorrent::peer_connection_handle>;
 
     %template(string_list) list<std::string>;
     %template(entry_list) list<libtorrent::entry>;
@@ -529,9 +529,6 @@ namespace std {
 %ignore libtorrent::bitfield::const_iterator;
 %ignore libtorrent::bitfield::begin;
 %ignore libtorrent::bitfield::end;
-%ignore libtorrent::hasher::hasher(const char*, int);
-%ignore libtorrent::hasher::update(std::string const&);
-%ignore libtorrent::hasher::update(const char*, int);
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
@@ -591,7 +588,6 @@ namespace std {
 %rename(libtorrent_errors) libtorrent::errors::error_code_enum;
 %rename(bdecode_no_error) libtorrent::bdecode_errors::no_error;
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
-%rename(final_hash) libtorrent::hasher::final;
 
 %ignore libtorrent::alert::timestamp;
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
@@ -639,7 +635,6 @@ namespace std {
 %include "libtorrent/create_torrent.hpp"
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
-%include "libtorrent/hasher.hpp"
 %include "libtorrent/ed25519.hpp"
 
 namespace boost {
@@ -1130,17 +1125,6 @@ namespace libtorrent {
 %extend dht_pkt_alert {
     std::vector<int8_t> pkt_buf_v() {
         return std::vector<int8_t>($self->pkt_buf(), $self->pkt_buf() + $self->pkt_size());
-    }
-};
-
-%extend hasher {
-    hasher(std::vector<int8_t> const& data) {
-        return new hasher(reinterpret_cast<char const*>(&data[0]), data.size());
-    }
-
-    hasher& update(std::vector<int8_t> const& data) {
-        $self->update(reinterpret_cast<char const*>(&data[0]), data.size());
-        return *$self;
     }
 };
 

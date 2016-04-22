@@ -510,10 +510,6 @@ struct swig_plugin : plugin {
     virtual void on_tick() {
     }
 
-    virtual bool on_optimistic_unchoke(std::vector<libtorrent::peer_connection_handle>& peers) {
-        return false;
-    }
-
     virtual void save_state(libtorrent::entry& e) const {
     }
 

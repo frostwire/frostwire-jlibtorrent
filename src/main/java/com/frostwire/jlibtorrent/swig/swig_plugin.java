@@ -75,10 +75,6 @@ public class swig_plugin {
     if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_on_tick(swigCPtr, this); else libtorrent_jni.swig_plugin_on_tickSwigExplicitswig_plugin(swigCPtr, this);
   }
 
-  public boolean on_optimistic_unchoke(peer_connection_handle_vector peers) {
-    return (getClass() == swig_plugin.class) ? libtorrent_jni.swig_plugin_on_optimistic_unchoke(swigCPtr, this, peer_connection_handle_vector.getCPtr(peers), peers) : libtorrent_jni.swig_plugin_on_optimistic_unchokeSwigExplicitswig_plugin(swigCPtr, this, peer_connection_handle_vector.getCPtr(peers), peers);
-  }
-
   public void save_state(entry e) {
     if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_save_state(swigCPtr, this, entry.getCPtr(e), e); else libtorrent_jni.swig_plugin_save_stateSwigExplicitswig_plugin(swigCPtr, this, entry.getCPtr(e), e);
   }

@@ -113,26 +113,6 @@ public final class SwigPlugin extends swig_plugin {
     }
 
     @Override
-    public boolean on_optimistic_unchoke(peer_connection_handle_vector peers) {
-        try {
-            if (this.p.handleOperation(Plugin.Operation.ON_OPTIMISTIC_UNCHOKE)) {
-                int size = (int) peers.size();
-                PeerConnectionHandle[] arr = new PeerConnectionHandle[size];
-
-                for (int i = 0; i < size; i++) {
-                    arr[i] = new PeerConnectionHandle(peers.get(i));
-                }
-
-                return p.onOptimisticUnchoke(arr);
-            }
-        } catch (Throwable e) {
-            LOG.error("Error in plugin (on_optimistic_unchoke)", e);
-        }
-
-        return false;
-    }
-
-    @Override
     public void save_state(entry e) {
         try {
             if (p.handleOperation(Plugin.Operation.SAVE_STATE)) {

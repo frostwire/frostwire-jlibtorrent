@@ -107,14 +107,6 @@ public final class PluginsTest {
                 System.out.println(infoHash);
                 return false;
             }
-
-            @Override
-            public boolean onOptimisticUnchoke(PeerConnectionHandle[] peers) {
-                if (peers.length > 0) {
-                    System.out.println("onOptimisticUnchoke");
-                }
-                return false;
-            }
         };
 
         s.addExtension(p);

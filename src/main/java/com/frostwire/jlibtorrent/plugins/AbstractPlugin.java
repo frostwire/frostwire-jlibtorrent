@@ -44,11 +44,6 @@ public abstract class AbstractPlugin implements Plugin {
     }
 
     @Override
-    public boolean onOptimisticUnchoke(PeerConnectionHandle[] peers) {
-        return false;
-    }
-
-    @Override
     public void saveState(Entry e) {
     }
 
