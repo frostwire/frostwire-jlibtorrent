@@ -466,6 +466,7 @@ namespace std {
 %ignore libtorrent::torrent_info::swap;
 %ignore libtorrent::torrent_info::add_merkle_nodes;
 %ignore libtorrent::torrent_info::build_merkle_list;
+%ignore libtorrent::torrent_info::ssl_cert;
 %ignore libtorrent::sanitize_append_path_element;
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
@@ -528,6 +529,7 @@ namespace std {
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
+%ignore libtorrent::create_torrent::set_root_cert;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -1015,6 +1017,11 @@ namespace libtorrent {
     time_t get_creation_date() {
         return $self->creation_date().get_value_or(0);
     }
+
+    std::vector<int8_t> ssl_cert_bytes() {
+        std::string s = $self->ssl_cert();
+        return std::vector<int8_t>(s.begin(), s.end());
+    }
 };
 
 %extend torrent_handle {
@@ -1166,6 +1173,12 @@ namespace libtorrent {
 %extend torrent_status {
     int64_t get_next_announce() {
         return total_milliseconds($self->next_announce);
+    }
+}
+
+%extend create_torrent {
+    void set_root_cert_bytes(std::vector<int8_t> const& pem) {
+        $self->set_root_cert(std::string(pem.begin(), pem.end()));
     }
 }
 

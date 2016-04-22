@@ -146,15 +146,7 @@ public final class TorrentInfo {
      * @return
      */
     public ArrayList<Sha1Hash> similarTorrents() {
-        sha1_hash_vector v = ti.similar_torrents();
-        int size = (int) v.size();
-
-        ArrayList<Sha1Hash> l = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            l.add(new Sha1Hash(v.get(i)));
-        }
-
-        return l;
+        return Sha1Hash.convert(ti.similar_torrents());
     }
 
     /**
@@ -340,9 +332,9 @@ public final class TorrentInfo {
     /**
      * The number of byte for each piece.
      * <p/>
-     * The difference between {@link #getPieceSize(int)} and {@link #getPieceLength()} is that
-     * {@link #getPieceSize(int)} takes the piece index as argument and gives you the exact size
-     * of that piece. It will always be the same as {@link #getPieceLength()} except in the case
+     * The difference between {@link #pieceSize(int)} and {@link #pieceLength()} is that
+     * {@link #pieceSize(int)} takes the piece index as argument and gives you the exact size
+     * of that piece. It will always be the same as {@link #pieceLength()} except in the case
      * of the last piece, which may be smaller.
      *
      * @return
@@ -420,8 +412,8 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public String sslCert() {
-        return ti.ssl_cert();
+    public byte[] sslCert() {
+        return Vectors.byte_vector2bytes(ti.ssl_cert_bytes());
     }
 
     /**
@@ -485,16 +477,7 @@ public final class TorrentInfo {
      * @return
      */
     public ArrayList<Sha1Hash> merkleTree() {
-        sha1_hash_vector v = ti.merkle_tree();
-        int size = (int) v.size();
-
-        ArrayList<Sha1Hash> l = new ArrayList<>(size);
-
-        for (int i = 0; i < size; i++) {
-            l.add(new Sha1Hash(v.get(i)));
-        }
-
-        return l;
+        return Sha1Hash.convert(ti.merkle_tree());
     }
 
     /**

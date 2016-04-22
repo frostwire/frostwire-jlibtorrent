@@ -103,10 +103,6 @@ public class create_torrent {
     libtorrent_jni.create_torrent_add_tracker__SWIG_1(swigCPtr, this, url);
   }
 
-  public void set_root_cert(String pem) {
-    libtorrent_jni.create_torrent_set_root_cert(swigCPtr, this, pem);
-  }
-
   public void set_priv(boolean p) {
     libtorrent_jni.create_torrent_set_priv(swigCPtr, this, p);
   }
@@ -137,6 +133,10 @@ public class create_torrent {
 
   public void add_collection(String c) {
     libtorrent_jni.create_torrent_add_collection(swigCPtr, this, c);
+  }
+
+  public void set_root_cert_bytes(byte_vector pem) {
+    libtorrent_jni.create_torrent_set_root_cert_bytes(swigCPtr, this, byte_vector.getCPtr(pem), pem);
   }
 
   public final static class flags_t {

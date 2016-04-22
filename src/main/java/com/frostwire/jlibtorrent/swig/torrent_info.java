@@ -159,10 +159,6 @@ public class torrent_info {
     return new peer_request(libtorrent_jni.torrent_info_map_file(swigCPtr, this, file, offset, size), true);
   }
 
-  public String ssl_cert() {
-    return libtorrent_jni.torrent_info_ssl_cert(swigCPtr, this);
-  }
-
   public boolean is_valid() {
     return libtorrent_jni.torrent_info_is_valid(swigCPtr, this);
   }
@@ -229,6 +225,10 @@ public class torrent_info {
 
   public int get_creation_date() {
     return libtorrent_jni.torrent_info_get_creation_date(swigCPtr, this);
+  }
+
+  public byte_vector ssl_cert_bytes() {
+    return new byte_vector(libtorrent_jni.torrent_info_ssl_cert_bytes(swigCPtr, this), true);
   }
 
 }

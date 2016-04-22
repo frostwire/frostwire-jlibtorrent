@@ -1,6 +1,9 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.sha1_hash;
+import com.frostwire.jlibtorrent.swig.sha1_hash_vector;
+
+import java.util.ArrayList;
 
 /**
  * This type holds a SHA-1 digest or any other kind of 20 byte
@@ -132,5 +135,16 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
 
     public static int compare(Sha1Hash h1, Sha1Hash h2) {
         return sha1_hash.compare(h1.h, h2.h);
+    }
+
+    static ArrayList<Sha1Hash> convert(sha1_hash_vector v) {
+        int size = (int) v.size();
+        ArrayList<Sha1Hash> l = new ArrayList<>(size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(new Sha1Hash(v.get(i)));
+        }
+
+        return l;
     }
 }

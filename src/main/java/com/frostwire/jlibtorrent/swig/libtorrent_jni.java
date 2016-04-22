@@ -713,7 +713,6 @@ public class libtorrent_jni {
   public final static native int torrent_info_num_files(long jarg1, torrent_info jarg1_);
   public final static native long torrent_info_map_block(long jarg1, torrent_info jarg1_, int jarg2, long jarg3, int jarg4);
   public final static native long torrent_info_map_file(long jarg1, torrent_info jarg1_, int jarg2, long jarg3, int jarg4);
-  public final static native String torrent_info_ssl_cert(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_valid(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_priv(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_i2p(long jarg1, torrent_info jarg1_);
@@ -731,6 +730,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_parse_torrent_file(long jarg1, torrent_info jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_, int jarg4);
   public final static native int torrent_info_get_creation_date(long jarg1, torrent_info jarg1_);
+  public final static native long torrent_info_ssl_cert_bytes(long jarg1, torrent_info jarg1_);
   public final static native void block_info_set_peer(long jarg1, block_info jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long block_info_peer(long jarg1, block_info jarg1_);
   public final static native void block_info_bytes_progress_set(long jarg1, block_info jarg1_, long jarg2);
@@ -2544,7 +2544,6 @@ public class libtorrent_jni {
   public final static native void create_torrent_add_node(long jarg1, create_torrent jarg1_, long jarg2, string_int_pair jarg2_);
   public final static native void create_torrent_add_tracker__SWIG_0(long jarg1, create_torrent jarg1_, String jarg2, int jarg3);
   public final static native void create_torrent_add_tracker__SWIG_1(long jarg1, create_torrent jarg1_, String jarg2);
-  public final static native void create_torrent_set_root_cert(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native void create_torrent_set_priv(long jarg1, create_torrent jarg1_, boolean jarg2);
   public final static native boolean create_torrent_priv(long jarg1, create_torrent jarg1_);
   public final static native int create_torrent_num_pieces(long jarg1, create_torrent jarg1_);
@@ -2553,6 +2552,7 @@ public class libtorrent_jni {
   public final static native long create_torrent_merkle_tree(long jarg1, create_torrent jarg1_);
   public final static native void create_torrent_add_similar_torrent(long jarg1, create_torrent jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void create_torrent_add_collection(long jarg1, create_torrent jarg1_, String jarg2);
+  public final static native void create_torrent_set_root_cert_bytes(long jarg1, create_torrent jarg1_, long jarg2, byte_vector jarg2_);
   public final static native long new_announce_entry__SWIG_0(String jarg1);
   public final static native long new_announce_entry__SWIG_1();
   public final static native void delete_announce_entry(long jarg1);

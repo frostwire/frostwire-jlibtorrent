@@ -27,7 +27,7 @@ public final class Pair<T1, T2> {
     /**
      * @return
      */
-    public string_string_pair to_string_string_pair() {
+    string_string_pair to_string_string_pair() {
         if (!String.class.equals(first.getClass()) || !String.class.equals(second.getClass())) {
             throw new IllegalArgumentException("Incompatible types");
         }
@@ -38,7 +38,7 @@ public final class Pair<T1, T2> {
     /**
      * @return
      */
-    public string_int_pair to_string_int_pair() {
+    string_int_pair to_string_int_pair() {
         if (!String.class.equals(first.getClass()) || !Integer.class.equals(second.getClass())) {
             throw new IllegalArgumentException("Incompatible types");
         }
