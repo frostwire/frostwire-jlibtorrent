@@ -35,10 +35,6 @@ public class block_info {
     }
   }
 
-  public void set_peer(tcp_endpoint ep) {
-    libtorrent_jni.block_info_set_peer(swigCPtr, this, tcp_endpoint.getCPtr(ep), ep);
-  }
-
   public tcp_endpoint peer() {
     return new tcp_endpoint(libtorrent_jni.block_info_peer(swigCPtr, this), true);
   }

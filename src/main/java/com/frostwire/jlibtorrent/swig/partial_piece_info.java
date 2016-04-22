@@ -75,21 +75,16 @@ public class partial_piece_info {
     return libtorrent_jni.partial_piece_info_requested_get(swigCPtr, this);
   }
 
-  public void setBlocks(block_info value) {
-    libtorrent_jni.partial_piece_info_blocks_set(swigCPtr, this, block_info.getCPtr(value), value);
-  }
-
-  public block_info getBlocks() {
-    long cPtr = libtorrent_jni.partial_piece_info_blocks_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new block_info(cPtr, false);
-  }
-
   public void setPiece_state(partial_piece_info.state_t value) {
     libtorrent_jni.partial_piece_info_piece_state_set(swigCPtr, this, value.swigValue());
   }
 
   public partial_piece_info.state_t getPiece_state() {
     return partial_piece_info.state_t.swigToEnum(libtorrent_jni.partial_piece_info_piece_state_get(swigCPtr, this));
+  }
+
+  public block_info_vector get_blocks() {
+    return new block_info_vector(libtorrent_jni.partial_piece_info_get_blocks(swigCPtr, this), true);
   }
 
   public partial_piece_info() {

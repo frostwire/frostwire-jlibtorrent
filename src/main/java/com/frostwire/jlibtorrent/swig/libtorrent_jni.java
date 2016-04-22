@@ -188,6 +188,16 @@ public class libtorrent_jni {
   public final static native long dht_lookup_vector_get(long jarg1, dht_lookup_vector jarg1_, int jarg2);
   public final static native void dht_lookup_vector_set(long jarg1, dht_lookup_vector jarg1_, int jarg2, long jarg3, dht_lookup jarg3_);
   public final static native void delete_dht_lookup_vector(long jarg1);
+  public final static native long new_block_info_vector();
+  public final static native long block_info_vector_size(long jarg1, block_info_vector jarg1_);
+  public final static native long block_info_vector_capacity(long jarg1, block_info_vector jarg1_);
+  public final static native void block_info_vector_reserve(long jarg1, block_info_vector jarg1_, long jarg2);
+  public final static native boolean block_info_vector_empty(long jarg1, block_info_vector jarg1_);
+  public final static native void block_info_vector_clear(long jarg1, block_info_vector jarg1_);
+  public final static native void block_info_vector_push_back(long jarg1, block_info_vector jarg1_, long jarg2, block_info jarg2_);
+  public final static native long block_info_vector_get(long jarg1, block_info_vector jarg1_, int jarg2);
+  public final static native void block_info_vector_set(long jarg1, block_info_vector jarg1_, int jarg2, long jarg3, block_info jarg3_);
+  public final static native void delete_block_info_vector(long jarg1);
   public final static native long new_partial_piece_info_vector();
   public final static native long partial_piece_info_vector_size(long jarg1, partial_piece_info_vector jarg1_);
   public final static native long partial_piece_info_vector_capacity(long jarg1, partial_piece_info_vector jarg1_);
@@ -731,7 +741,6 @@ public class libtorrent_jni {
   public final static native boolean torrent_info_parse_torrent_file(long jarg1, torrent_info jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_, int jarg4);
   public final static native int torrent_info_get_creation_date(long jarg1, torrent_info jarg1_);
   public final static native long torrent_info_ssl_cert_bytes(long jarg1, torrent_info jarg1_);
-  public final static native void block_info_set_peer(long jarg1, block_info jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native long block_info_peer(long jarg1, block_info jarg1_);
   public final static native void block_info_bytes_progress_set(long jarg1, block_info jarg1_, long jarg2);
   public final static native long block_info_bytes_progress_get(long jarg1, block_info jarg1_);
@@ -753,10 +762,9 @@ public class libtorrent_jni {
   public final static native int partial_piece_info_writing_get(long jarg1, partial_piece_info jarg1_);
   public final static native void partial_piece_info_requested_set(long jarg1, partial_piece_info jarg1_, int jarg2);
   public final static native int partial_piece_info_requested_get(long jarg1, partial_piece_info jarg1_);
-  public final static native void partial_piece_info_blocks_set(long jarg1, partial_piece_info jarg1_, long jarg2, block_info jarg2_);
-  public final static native long partial_piece_info_blocks_get(long jarg1, partial_piece_info jarg1_);
   public final static native void partial_piece_info_piece_state_set(long jarg1, partial_piece_info jarg1_, int jarg2);
   public final static native int partial_piece_info_piece_state_get(long jarg1, partial_piece_info jarg1_);
+  public final static native long partial_piece_info_get_blocks(long jarg1, partial_piece_info jarg1_);
   public final static native long new_partial_piece_info();
   public final static native void delete_partial_piece_info(long jarg1);
   public final static native long new_torrent_handle__SWIG_0();

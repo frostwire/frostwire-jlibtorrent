@@ -102,10 +102,17 @@ public final class WebSeedEntry {
 
         private final int swigValue;
 
+        /**
+         * @return
+         */
         public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static Type fromSwig(int swigValue) {
             Type[] enumValues = Type.class.getEnumConstants();
             for (Type ev : enumValues) {

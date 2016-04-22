@@ -1,5 +1,8 @@
 %module (jniclassname="libtorrent_jni", directors="1") libtorrent
 
+// suppress Warning 319: No access specifier given for base class 'boost::noncopyable' (ignored).
+#pragma SWIG nowarn=319
+
 %pragma(java) jniclasscode=%{
     static {
         try {
@@ -260,6 +263,7 @@ namespace std {
     %template(dht_routing_bucket_vector) vector<libtorrent::dht_routing_bucket>;
     %template(dht_lookup_vector) vector<libtorrent::dht_lookup>;
 
+    %template(block_info_vector) vector<libtorrent::block_info>;
     %template(partial_piece_info_vector) vector<libtorrent::partial_piece_info>;
     %template(peer_info_vector) vector<libtorrent::peer_info>;
     %template(stats_metric_vector) vector<libtorrent::stats_metric>;
@@ -416,6 +420,8 @@ namespace std {
 %ignore libtorrent::torrent_handle::use_interface;
 %ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::torrent_handle::torrent_file;
+%ignore libtorrent::block_info::set_peer;
+%ignore libtorrent::partial_piece_info::blocks;
 %ignore libtorrent::sha1_hash::sha1_hash(char const*);
 %ignore libtorrent::sha1_hash::sha1_hash(std::string const&);
 %ignore libtorrent::sha1_hash::begin;
@@ -1179,6 +1185,12 @@ namespace libtorrent {
 %extend create_torrent {
     void set_root_cert_bytes(std::vector<int8_t> const& pem) {
         $self->set_root_cert(std::string(pem.begin(), pem.end()));
+    }
+}
+
+%extend partial_piece_info {
+    std::vector<libtorrent::block_info> get_blocks() {
+        return std::vector<libtorrent::block_info>($self->blocks, $self->blocks + $self->blocks_in_piece);
     }
 }
 
