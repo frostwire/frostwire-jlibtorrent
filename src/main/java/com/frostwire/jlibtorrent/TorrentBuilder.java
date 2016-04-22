@@ -134,6 +134,22 @@ public final class TorrentBuilder {
     /**
      * @return
      */
+    public boolean merkle() {
+        return (flags & Flags.MERKLE.swig()) != 0;
+    }
+
+    public TorrentBuilder merkle(boolean value) {
+        if (value) {
+            this.flags |= Flags.MERKLE.swig();
+        } else {
+            this.flags &= ~Flags.MERKLE.swig();
+        }
+        return this;
+    }
+
+    /**
+     * @return
+     */
     public int alignment() {
         return alignment;
     }
@@ -504,6 +520,9 @@ public final class TorrentBuilder {
             }
         };
         add_files_ex(fs, path.getAbsolutePath(), l1, flags);
+        if (fs.total_size() == 0) {
+            throw new IOException("content total size can't be 0");
+        }
         create_torrent t = new create_torrent(fs, pieceSize, padFileLimit, flags, alignment);
         final int numPieces = t.num_pieces();
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
