@@ -43,14 +43,6 @@ public class torrent_handle {
     this(libtorrent_jni.new_torrent_handle__SWIG_1(torrent_handle.getCPtr(t), t), true);
   }
 
-  public void add_piece(int piece, String data, int flags) {
-    libtorrent_jni.torrent_handle_add_piece__SWIG_0(swigCPtr, this, piece, data, flags);
-  }
-
-  public void add_piece(int piece, String data) {
-    libtorrent_jni.torrent_handle_add_piece__SWIG_1(swigCPtr, this, piece, data);
-  }
-
   public void read_piece(int piece) {
     libtorrent_jni.torrent_handle_read_piece(swigCPtr, this, piece);
   }
@@ -381,6 +373,14 @@ public class torrent_handle {
 
   public long id() {
     return libtorrent_jni.torrent_handle_id(swigCPtr, this);
+  }
+
+  public void add_piece_v(int piece, byte_vector data, int flags) {
+    libtorrent_jni.torrent_handle_add_piece_v__SWIG_0(swigCPtr, this, piece, byte_vector.getCPtr(data), data, flags);
+  }
+
+  public void add_piece_v(int piece, byte_vector data) {
+    libtorrent_jni.torrent_handle_add_piece_v__SWIG_1(swigCPtr, this, piece, byte_vector.getCPtr(data), data);
   }
 
   public torrent_info get_torrent_copy() {

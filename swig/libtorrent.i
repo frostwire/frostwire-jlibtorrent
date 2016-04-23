@@ -413,6 +413,7 @@ namespace std {
 %ignore libtorrent::crypto_plugin;
 %ignore libtorrent::torrent_plugin::new_connection;
 %ignore libtorrent::torrent_handle::add_extension;
+%ignore libtorrent::torrent_handle::add_piece;
 %ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::url_seeds;
 %ignore libtorrent::torrent_handle::get_storage_impl;
@@ -1026,6 +1027,10 @@ namespace libtorrent {
 };
 
 %extend torrent_handle {
+    void add_piece_v(int piece, std::vector<int8_t> const& data, int flags = 0) {
+        $self->add_piece(piece, (char const*)&data[0], flags);
+    }
+
     const torrent_info* get_torrent_copy() {
         boost::shared_ptr<const torrent_info> ti = $self->torrent_file();
         return ti.get();

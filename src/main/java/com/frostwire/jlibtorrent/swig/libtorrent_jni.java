@@ -760,8 +760,6 @@ public class libtorrent_jni {
   public final static native long new_torrent_handle__SWIG_0();
   public final static native long new_torrent_handle__SWIG_1(long jarg1, torrent_handle jarg1_);
   public final static native int torrent_handle_overwrite_existing_get();
-  public final static native void torrent_handle_add_piece__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, String jarg3, int jarg4);
-  public final static native void torrent_handle_add_piece__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, String jarg3);
   public final static native void torrent_handle_read_piece(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native boolean torrent_handle_have_piece(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native void torrent_handle_get_full_peer_list(long jarg1, torrent_handle jarg1_, long jarg2, peer_list_entry_vector jarg2_);
@@ -859,6 +857,8 @@ public class libtorrent_jni {
   public final static native boolean torrent_handle_op_neq(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native boolean torrent_handle_op_lt(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_handle_id(long jarg1, torrent_handle jarg1_);
+  public final static native void torrent_handle_add_piece_v__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_, int jarg4);
+  public final static native void torrent_handle_add_piece_v__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_);
   public final static native long torrent_handle_get_torrent_copy(long jarg1, torrent_handle jarg1_);
   public final static native void delete_torrent_handle(long jarg1);
   public final static native int add_torrent_params_flag_seed_mode_get();

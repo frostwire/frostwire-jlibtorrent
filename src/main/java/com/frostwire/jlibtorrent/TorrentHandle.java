@@ -54,6 +54,43 @@ public final class TorrentHandle {
     }
 
     /**
+     * This function will write {@code data} to the storage as piece {@code piece},
+     * as if it had been downloaded from a peer. {@code data} is expected to
+     * point to a buffer of as many bytes as the size of the specified piece.
+     * The data in the buffer is copied and passed on to the disk IO thread
+     * to be written at a later point.
+     * <p>
+     * By default, data that's already been downloaded is not overwritten by
+     * this buffer. If you trust this data to be correct (and pass the piece
+     * hash check) you may pass the overwrite_existing flag. This will
+     * instruct libtorrent to overwrite any data that may already have been
+     * downloaded with this data.
+     * <p>
+     * Since the data is written asynchronously, you may know that is passed
+     * or failed the hash check by waiting for
+     * {@link com.frostwire.jlibtorrent.alerts.PieceFinishedAlert} or
+     * {@link com.frostwire.jlibtorrent.alerts.HashFailedAlert}.
+     *
+     * @param piece
+     * @param data
+     * @param flags
+     */
+    public void addPiece(int piece, byte[] data, int flags) {
+        th.add_piece_v(piece, Vectors.bytes2byte_vector(data), flags);
+    }
+
+    /**
+     * Same as calling {@link #addPiece(int, byte[], int)} with
+     * {@code flags} with value 0.
+     *
+     * @param piece
+     * @param data
+     */
+    public void addPiece(int piece, byte[] data) {
+        th.add_piece_v(piece, Vectors.bytes2byte_vector(data));
+    }
+
+    /**
      * This function starts an asynchronous read operation of the specified
      * piece from this torrent. You must have completed the download of the
      * specified piece before calling this function.
@@ -1189,6 +1226,49 @@ public final class TorrentHandle {
      */
     public void renameFile(int index, String newName) {
         th.rename_file(index, newName);
+    }
+
+    /**
+     * Flags for {@link #addPiece(int, byte[], int)}.
+     */
+    public enum Flags {
+
+        /**
+         *
+         */
+        OVERWRITE_EXISTING(torrent_handle.flags_t.overwrite_existing.swigValue()),
+
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        Flags(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        /**
+         * @return
+         */
+        public int swig() {
+            return swigValue;
+        }
+
+        /**
+         * @param swigValue
+         * @return
+         */
+        public static Flags fromSwig(int swigValue) {
+            Flags[] enumValues = Flags.class.getEnumConstants();
+            for (Flags ev : enumValues) {
+                if (ev.swig() == swigValue) {
+                    return ev;
+                }
+            }
+            return UNKNOWN;
+        }
     }
 
     /**
