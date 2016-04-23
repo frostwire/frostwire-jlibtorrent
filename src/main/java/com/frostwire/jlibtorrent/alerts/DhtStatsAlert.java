@@ -48,7 +48,7 @@ public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
     public ArrayList<DhtRoutingBucket> routingTable() {
         dht_routing_bucket_vector v = alert.getRouting_table();
         int size = (int) v.size();
-        ArrayList<DhtRoutingBucket> l = new ArrayList<>();
+        ArrayList<DhtRoutingBucket> l = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++) {
             l.add(new DhtRoutingBucket(v.get(i)));

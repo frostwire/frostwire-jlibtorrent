@@ -171,6 +171,26 @@ public final class TorrentHandle {
     }
 
     /**
+     * Returns an array (list) with information about pieces that are partially
+     * downloaded or not downloaded at all but partially requested. See
+     * {@link PartialPieceInfo} for the fields in the returned vector.
+     *
+     * @return
+     */
+    public ArrayList<PartialPieceInfo> getDownloadQueue() {
+        partial_piece_info_vector v = new partial_piece_info_vector();
+        th.get_download_queue(v);
+        int size = (int) v.size();
+        ArrayList<PartialPieceInfo> l = new ArrayList<>(size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(new PartialPieceInfo(v.get(i)));
+        }
+
+        return l;
+    }
+
+    /**
      * Returns the info-hash for the torrent.
      * <p/>
      * If this handle is to a torrent that hasn't loaded yet (for instance by being added)
