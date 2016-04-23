@@ -10,15 +10,15 @@ import com.frostwire.jlibtorrent.swig.block_downloading_alert;
  */
 public final class BlockDownloadingAlert extends PeerAlert<block_downloading_alert> {
 
-    public BlockDownloadingAlert(block_downloading_alert alert) {
+    BlockDownloadingAlert(block_downloading_alert alert) {
         super(alert);
     }
 
-    public int getBlockIndex() {
+    public int blockIndex() {
         return alert.getBlock_index();
     }
 
-    public int getPieceIndex() {
+    public int pieceIndex() {
         return alert.getPiece_index();
     }
 }

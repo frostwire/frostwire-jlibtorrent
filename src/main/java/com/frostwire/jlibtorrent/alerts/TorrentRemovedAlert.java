@@ -22,11 +22,11 @@ import com.frostwire.jlibtorrent.swig.torrent_removed_alert;
  */
 public final class TorrentRemovedAlert extends TorrentAlert<torrent_removed_alert> {
 
-    public TorrentRemovedAlert(torrent_removed_alert alert) {
+    TorrentRemovedAlert(torrent_removed_alert alert) {
         super(alert);
     }
 
-    public Sha1Hash getInfoHash() {
+    public Sha1Hash infoHash() {
         return new Sha1Hash(alert.getInfo_hash());
     }
 }
