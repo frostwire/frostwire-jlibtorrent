@@ -11,15 +11,15 @@ import com.frostwire.jlibtorrent.swig.dht_lookup;
  * @author gubatron
  * @author aldenml
  */
-public final class DHTLookup {
+public final class DhtLookup {
 
     private final dht_lookup l;
 
-    public DHTLookup(dht_lookup l) {
+    public DhtLookup(dht_lookup l) {
         this.l = l;
     }
 
-    public dht_lookup getSwig() {
+    public dht_lookup swig() {
         return l;
     }
 
@@ -28,7 +28,7 @@ public final class DHTLookup {
      *
      * @return
      */
-    public String getType() {
+    public String type() {
         return l.getType();
     }
 
@@ -38,7 +38,7 @@ public final class DHTLookup {
      *
      * @return
      */
-    public int getOutstandingRequests() {
+    public int outstandingRequests() {
         return l.getOutstanding_requests();
     }
 
@@ -48,7 +48,7 @@ public final class DHTLookup {
      *
      * @return
      */
-    public int getTimeouts() {
+    public int timeouts() {
         return l.getTimeouts();
     }
 
@@ -58,7 +58,7 @@ public final class DHTLookup {
      *
      * @return
      */
-    public int getResponses() {
+    public int responses() {
         return l.getResponses();
     }
 
@@ -69,7 +69,7 @@ public final class DHTLookup {
      *
      * @return
      */
-    public int getBranchFactor() {
+    public int branchFactor() {
         return l.getBranch_factor();
     }
 
@@ -81,7 +81,7 @@ public final class DHTLookup {
      *
      * @return
      */
-    public int getNodesLeft() {
+    public int nodesLeft() {
         return l.getNodes_left();
     }
 
@@ -92,7 +92,7 @@ public final class DHTLookup {
      *
      * @return
      */
-    public int getLastSent() {
+    public int lastSent() {
         return l.getLast_sent();
     }
 
@@ -105,7 +105,7 @@ public final class DHTLookup {
      *
      * @return
      */
-    public int getFirstTimeout() {
+    public int firstTimeout() {
         return l.getFirst_timeout();
     }
 }

@@ -8,15 +8,15 @@ import com.frostwire.jlibtorrent.swig.dht_routing_bucket;
  * @author gubatron
  * @author aldenml
  */
-public final class DHTRoutingBucket {
+public final class DhtRoutingBucket {
 
     private final dht_routing_bucket t;
 
-    public DHTRoutingBucket(dht_routing_bucket t) {
+    public DhtRoutingBucket(dht_routing_bucket t) {
         this.t = t;
     }
 
-    public dht_routing_bucket getSwig() {
+    public dht_routing_bucket swig() {
         return t;
     }
 

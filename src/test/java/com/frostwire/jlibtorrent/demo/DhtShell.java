@@ -49,7 +49,7 @@ public final class DhtShell {
         };
 
         Session s = new Session("0.0.0.0:0,[::]:0", 0, false, mainListener);
-        DHT dht = new DHT(s);
+        Dht dht = new Dht(s);
         Downloader downloader = new Downloader(s);
 
         try {
@@ -131,7 +131,7 @@ public final class DhtShell {
         return s.startsWith("put ");
     }
 
-    private static void put(DHT dht, String s) {
+    private static void put(Dht dht, String s) {
         String data = s.split(" ")[1];
         String sha1 = dht.put(new Entry(data)).toString();
         print("Wait for completion of put for key: " + sha1);
@@ -141,7 +141,7 @@ public final class DhtShell {
         return s.startsWith("get ");
     }
 
-    private static void get(DHT dht, String s) {
+    private static void get(Dht dht, String s) {
         String sha1 = s.split(" ")[1];
         print("Waiting a max of 20 seconds to get data for key: " + sha1);
         Entry data = dht.get(new Sha1Hash(sha1), 20);
@@ -152,7 +152,7 @@ public final class DhtShell {
         return s.startsWith("get_peers ");
     }
 
-    private static void get_peers(DHT dht, String s) {
+    private static void get_peers(Dht dht, String s) {
         String sha1 = s.split(" ")[1];
         print("Waiting a max of 20 seconds to get peers for key: " + sha1);
         ArrayList<TcpEndpoint> peers = dht.getPeers(new Sha1Hash(sha1), 20);
@@ -163,7 +163,7 @@ public final class DhtShell {
         return s.startsWith("announce ");
     }
 
-    private static void announce(DHT dht, String s) {
+    private static void announce(Dht dht, String s) {
         String sha1 = s.split(" ")[1];
         dht.announce(new Sha1Hash(sha1), 9000, 0);
         print("Wait for completion of announce for key: " + sha1);
@@ -174,7 +174,7 @@ public final class DhtShell {
     }
 
     private static void mkeys(String s) {
-        byte[][] keys = DHT.createKeypair();
+        byte[][] keys = Dht.createKeypair();
         String msg = "Save this key pair\n";
         msg += "Public: " + Utils.toHex(keys[0]) + "\n";
         msg += "Private: " + Utils.toHex(keys[1]) + "\n";
@@ -185,7 +185,7 @@ public final class DhtShell {
         return s.startsWith("mput ");
     }
 
-    private static void mput(DHT dht, String s) {
+    private static void mput(Dht dht, String s) {
         String[] arr = s.split(" ");
         byte[] publicKey = Utils.fromHex(arr[1]);
         byte[] privateKey = Utils.fromHex(arr[2]);
@@ -198,11 +198,11 @@ public final class DhtShell {
         return s.startsWith("mget ");
     }
 
-    private static void mget(DHT dht, String s) {
+    private static void mget(Dht dht, String s) {
         String[] arr = s.split(" ");
         byte[] publicKey = Utils.fromHex(arr[1]);
         print("Waiting a max of 20 seconds to get mutable data for public key: " + arr[1]);
-        DHT.MutableItem data = dht.mget(publicKey, new byte[0], 20);
+        Dht.MutableItem data = dht.mget(publicKey, new byte[0], 20);
         print(data.item.toString());
     }
 

@@ -17,7 +17,7 @@ import static com.frostwire.jlibtorrent.alerts.AlertType.*;
  * @author gubatron
  * @author aldenml
  */
-public final class DHT {
+public final class Dht {
 
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.swig()};
     private static final int[] DHT_MUTABLE_ITEM_TYPES = {DHT_MUTABLE_ITEM.swig()};
@@ -25,7 +25,7 @@ public final class DHT {
 
     private final Session s;
 
-    public DHT(Session s) {
+    public Dht(Session s) {
         this.s = s;
     }
 
