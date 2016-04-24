@@ -1,21 +1,55 @@
-package com.frostwire.jlibtorrent.demo;
+package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.Entry;
-import com.frostwire.jlibtorrent.Vectors;
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.string_entry_map;
+import com.frostwire.jlibtorrent.swig.string_vector;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * @author gubatron
  * @author aldenml
  */
-public final class EntryTest2 {
+public class EntryTest {
 
-    public static void main(String[] args) throws Throwable {
+    @Test
+    public void testSimpleCreation() {
+        Map<String, Object> m = new HashMap<>();
+
+        m.put("a", 1);
+        m.put("b", "b");
+        m.put("c", new Entry("es"));
+
+        Entry e = Entry.fromMap(m);
+
+        List<Object> l = new ArrayList<Object>();
+
+        l.add("l1");
+        l.add("l2");
+
+        m.put("m", e);
+        m.put("l", l);
+
+        e = Entry.fromMap(m);
+        assertNotNull(e);
+
+        string_entry_map dict = e.swig().dict();
+        string_vector keys = dict.keys();
+        for (int i = 0; i < keys.size(); i++) {
+            String k = keys.get(i);
+            assertNotNull(dict.get(k).to_string());
+        }
+    }
+
+    @Test
+    public void testCreation1() {
         //old school using libtorrent's (tedious if i may say) entry api
         final entry url_list = new entry();
         url_list.list().push_back(new entry("http://server1.com"));
@@ -29,16 +63,13 @@ public final class EntryTest2 {
         final List<String> urlList = new ArrayList<String>();
         urlList.add("http://server1.com");
         urlList.add("http://server2.com");
-        final Map<String,Object> urlListMap = new HashMap<String, Object>();
+        final Map<String, Object> urlListMap = new HashMap<String, Object>();
         urlListMap.put("url-list", urlList);
         final String javaAPIBencodedMapString = new String(Entry.fromMap(urlListMap).bencode());
 
         final String expectedBencodedList = "d8:url-listl18:http://server1.com18:http://server2.comee";
-        assert(expectedBencodedList.equals(oldSchoolBencodedMapString));
-        assert(expectedBencodedList.equals(javaAPIBencodedMapString));
-        System.out.println("expected          : " + expectedBencodedList);
-        System.out.println("actual old school : " + oldSchoolBencodedMapString);
-        System.out.println("actual java api   : " + javaAPIBencodedMapString);
+        assertEquals(expectedBencodedList, oldSchoolBencodedMapString);
+        assertEquals(expectedBencodedList, javaAPIBencodedMapString);
 
         final Map<String, entry> torrentMap = new HashMap<String, entry>();
         torrentMap.put("Comment", new entry("Torrent created with FrostWire"));
@@ -55,14 +86,10 @@ public final class EntryTest2 {
         openSourceMap.put("open-source", ccMap);
 
         final Map<String, entry> licenseMap = new HashMap<String, entry>();
-        licenseMap.put("license", Entry.fromMap(openSourceMap).getSwig());
+        licenseMap.put("license", Entry.fromMap(openSourceMap).swig());
 
         final String expectedLicenseBencoded = "d7:licensed11:open-sourced17:attributionAuthor13:FrostWire LLC16:attributionTitle15:FrostWire 5.7.714:attributionUrl24:http://www.frostwire.com10:licenseUrl37:https://www.gnu.org/licenses/gpl.htmleee";
         final String bencodedLicenseMap = new String(Entry.fromMap(licenseMap).bencode());
-        assert(expectedLicenseBencoded.equals(bencodedLicenseMap));
-
-        System.out.println("expected: " + expectedLicenseBencoded);
-        System.out.println("computed: " + bencodedLicenseMap);
-        System.out.println();
+        assertEquals(expectedLicenseBencoded, bencodedLicenseMap);
     }
 }

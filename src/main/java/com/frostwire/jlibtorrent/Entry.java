@@ -33,7 +33,7 @@ public final class Entry {
         this(new entry(n));
     }
 
-    public entry getSwig() {
+    public entry swig() {
         return e;
     }
 
@@ -102,13 +102,13 @@ public final class Entry {
             } else if (v instanceof Integer) {
                 d.push_back(new entry((Integer) v));
             } else if (v instanceof Entry) {
-                d.push_back(((Entry) v).getSwig());
+                d.push_back(((Entry) v).swig());
             } else if (v instanceof entry) {
                 d.push_back((entry) v);
             } else if (v instanceof List) {
-                d.push_back(fromList((List<?>) v).getSwig());
+                d.push_back(fromList((List<?>) v).swig());
             } else if (v instanceof Map) {
-                d.push_back(fromMap((Map<?, ?>) v).getSwig());
+                d.push_back(fromMap((Map<?, ?>) v).swig());
             } else {
                 d.push_back(new entry(v.toString()));
             }
@@ -130,13 +130,13 @@ public final class Entry {
             } else if (v instanceof Integer) {
                 d.set(k, new entry((Integer) v));
             } else if (v instanceof Entry) {
-                d.set(k, ((Entry) v).getSwig());
+                d.set(k, ((Entry) v).swig());
             } else if (v instanceof entry) {
                 d.set(k, (entry) v);
             } else if (v instanceof List) {
-                d.set(k, fromList((List<?>) v).getSwig());
+                d.set(k, fromList((List<?>) v).swig());
             } else if (v instanceof Map) {
-                d.set(k, fromMap((Map<?, ?>) v).getSwig());
+                d.set(k, fromMap((Map<?, ?>) v).swig());
             } else {
                 d.set(k, new entry(v.toString()));
             }

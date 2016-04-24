@@ -544,7 +544,7 @@ public final class Session extends SessionHandle {
      * @return
      */
     public Sha1Hash dhtPutItem(Entry entry) {
-        return new Sha1Hash(s.dht_put_item(entry.getSwig()));
+        return new Sha1Hash(s.dht_put_item(entry.swig()));
     }
 
     // store an immutable item. The ``key`` is the public key the blob is
@@ -589,7 +589,7 @@ public final class Session extends SessionHandle {
     public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, byte[] salt) {
         s.dht_put_item(Vectors.bytes2byte_vector(publicKey),
                 Vectors.bytes2byte_vector(privateKey),
-                entry.getSwig(),
+                entry.swig(),
                 Vectors.bytes2byte_vector(salt));
     }
 
@@ -606,7 +606,7 @@ public final class Session extends SessionHandle {
     }
 
     public void dhtDirectRequest(UdpEndpoint endp, Entry entry) {
-        s.dht_direct_request(endp.swig(), entry.getSwig());
+        s.dht_direct_request(endp.swig(), entry.swig());
     }
 
     public void addExtension(Plugin p) {
