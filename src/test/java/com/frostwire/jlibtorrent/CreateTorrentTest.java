@@ -184,20 +184,6 @@ public class CreateTorrentTest {
     }
 
     @Test
-    public void testBuilderSimple() throws IOException {
-        File dir = folder.newFolder();
-        File f1 = new File(dir, "test.txt");
-        Utils.writeByteArrayToFile(f1, new byte[]{0, 0, 0, 0}, false);
-        File f2 = new File(dir, "test1.txt");
-        Utils.writeByteArrayToFile(f2, new byte[]{0, 0, 0, 0}, false);
-
-        byte[] torrent = TorrentBuilder.torrent(dir);
-
-        TorrentInfo ti = TorrentInfo.bdecode(torrent);
-        assertEquals(2, ti.numFiles());
-    }
-
-    @Test
     public void testMerkleFlag() throws IOException {
         TorrentBuilder b = new TorrentBuilder();
 

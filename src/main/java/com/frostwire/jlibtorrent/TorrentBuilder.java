@@ -534,7 +534,7 @@ public final class TorrentBuilder {
             }
         };
         error_code ec = new error_code();
-        set_piece_hashes_ex(t, path.getParent(), l2, ec);
+        set_piece_hashes_ex(t, path.getParentFile().getAbsolutePath(), l2, ec);
         if (ec.value() != 0) {
             throw new IOException(ec.message());
         }
@@ -584,16 +584,6 @@ public final class TorrentBuilder {
         }
 
         return new Result(t);
-    }
-
-    /**
-     * @param path
-     * @return
-     * @throws IOException
-     */
-    public static byte[] torrent(File path) throws IOException {
-        TorrentBuilder b = new TorrentBuilder();
-        return b.path(path).generate().entry().bencode();
     }
 
     /**
