@@ -1,7 +1,9 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.add_torrent_params;
-import com.frostwire.jlibtorrent.swig.storage_mode_t;
+import com.frostwire.jlibtorrent.swig.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The {@link AddTorrentParams} is a parameter pack for adding torrents to a
@@ -50,34 +52,107 @@ public final class AddTorrentParams {
         return p.getVersion();
     }
 
-    /*
-        public void setTrackers(string_vector value) {
-            libtorrent_jni.add_torrent_params_trackers_set(swigCPtr, this, string_vector.getCPtr(value), value);
+    /**
+     * If the torrent doesn't have a tracker, but relies on the DHT to find
+     * peers, the ``trackers`` can specify tracker URLs for the torrent.
+     *
+     * @return
+     */
+    public ArrayList<String> trackers() {
+        string_vector v = p.getTrackers();
+        int size = (int) v.size();
+        ArrayList<String> l = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            l.add(v.get(i));
         }
 
-        public string_vector getTrackers() {
-            long cPtr = libtorrent_jni.add_torrent_params_trackers_get(swigCPtr, this);
-            return (cPtr == 0) ? null : new string_vector(cPtr, false);
+        return l;
+    }
+
+    /**
+     * If the torrent doesn't have a tracker, but relies on the DHT to find
+     * peers, the ``trackers`` can specify tracker URLs for the torrent.
+     *
+     * @param value
+     */
+    public void trackers(List<String> value) {
+        string_vector v = new string_vector();
+
+        for (String s : value) {
+            v.push_back(s);
         }
 
-        public void setUrl_seeds(string_vector value) {
-            libtorrent_jni.add_torrent_params_url_seeds_set(swigCPtr, this, string_vector.getCPtr(value), value);
+        p.setTrackers(v);
+    }
+
+    /**
+     * Url seeds to be added to the torrent (`BEP 17`_).
+     *
+     * @return
+     */
+    public ArrayList<String> urlSeeds() {
+        string_vector v = p.getUrl_seeds();
+        int size = (int) v.size();
+        ArrayList<String> l = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            l.add(v.get(i));
         }
 
-        public string_vector getUrl_seeds() {
-            long cPtr = libtorrent_jni.add_torrent_params_url_seeds_get(swigCPtr, this);
-            return (cPtr == 0) ? null : new string_vector(cPtr, false);
+        return l;
+    }
+
+    /**
+     * Url seeds to be added to the torrent (`BEP 17`_).
+     *
+     * @param value
+     */
+    public void urlSeeds(List<String> value) {
+        string_vector v = new string_vector();
+
+        for (String s : value) {
+            v.push_back(s);
         }
 
-        public void setDht_nodes(string_int_pair_vector value) {
-            libtorrent_jni.add_torrent_params_dht_nodes_set(swigCPtr, this, string_int_pair_vector.getCPtr(value), value);
+        p.setUrl_seeds(v);
+    }
+
+    /**
+     * A list of hostname and port pairs, representing DHT nodes to be added
+     * to the session (if DHT is enabled). The hostname may be an IP address.
+     *
+     * @return
+     */
+    public ArrayList<Pair<String, Integer>> dhtNodes() {
+        string_int_pair_vector v = p.getDht_nodes();
+        int size = (int) v.size();
+        ArrayList<Pair<String, Integer>> l = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            string_int_pair n = v.get(i);
+            l.add(new Pair<>(n.getFirst(), n.getSecond()));
         }
 
-        public string_int_pair_vector getDht_nodes() {
-            long cPtr = libtorrent_jni.add_torrent_params_dht_nodes_get(swigCPtr, this);
-            return (cPtr == 0) ? null : new string_int_pair_vector(cPtr, false);
+        return l;
+    }
+
+    /**
+     * A list of hostname and port pairs, representing DHT nodes to be added
+     * to the session (if DHT is enabled). The hostname may be an IP address.
+     *
+     * @param value
+     */
+    public void dhtNodes(List<Pair<String, Integer>> value) {
+        string_int_pair_vector v = new string_int_pair_vector();
+
+        for (Pair<String, Integer> p : value) {
+            v.push_back(p.to_string_int_pair());
         }
-    */
+
+        p.setDht_nodes(v);
+    }
+
     public String name() {
         return p.getName();
     }
