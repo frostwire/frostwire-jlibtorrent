@@ -512,6 +512,8 @@ public final class TorrentBuilder {
             throw new IOException("path can't be null");
         }
 
+        File absPath = path.getAbsoluteFile();
+
         file_storage fs = new file_storage();
         add_files_listener l1 = new add_files_listener() {
             @Override
@@ -519,7 +521,7 @@ public final class TorrentBuilder {
                 return listener != null ? listener.accept(p) : true;
             }
         };
-        add_files(fs, path.getAbsolutePath(), l1, flags);
+        add_files(fs, absPath.getPath(), l1, flags);
         if (fs.total_size() == 0) {
             throw new IOException("content total size can't be 0");
         }
@@ -533,8 +535,12 @@ public final class TorrentBuilder {
                 }
             }
         };
+        File parent = absPath.getParentFile();
+        if (parent == null) {
+            throw new IOException("path's parent can't be null");
+        }
         error_code ec = new error_code();
-        set_piece_hashes_ex(t, path.getParentFile().getAbsolutePath(), l2, ec);
+        set_piece_hashes_ex(t, parent.getAbsolutePath(), l2, ec);
         if (ec.value() != 0) {
             throw new IOException(ec.message());
         }
