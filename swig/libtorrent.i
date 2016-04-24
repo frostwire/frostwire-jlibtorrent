@@ -310,7 +310,7 @@ namespace std {
 %ignore libtorrent::disabled_storage_constructor;
 %ignore libtorrent::bdecode;
 %ignore libtorrent::url_has_argument;
-%ignore libtorrent::set_piece_hashes;
+%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
 %ignore libtorrent::detail::add_files_impl;
 %ignore libtorrent::alert_manager;
@@ -352,7 +352,8 @@ namespace std {
 %ignore libtorrent::hex_to_int;
 %ignore libtorrent::nop;
 %ignore libtorrent::to_string;
-%ignore libtorrent::add_files;
+%ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>, boost::uint32_t);
+%ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>);
 %ignore libtorrent::initialize_file_progress;
 %ignore libtorrent::get_filesizes;
 

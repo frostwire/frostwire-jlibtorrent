@@ -2551,6 +2551,9 @@ public class libtorrent_jni {
   public final static native void create_torrent_add_similar_torrent(long jarg1, create_torrent jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void create_torrent_add_collection(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native void create_torrent_set_root_cert_bytes(long jarg1, create_torrent jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native void add_files__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
+  public final static native void add_files__SWIG_1(long jarg1, file_storage jarg1_, String jarg2);
+  public final static native void set_piece_hashes(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
   public final static native long new_announce_entry__SWIG_0(String jarg1);
   public final static native long new_announce_entry__SWIG_1();
   public final static native void delete_announce_entry(long jarg1);
@@ -2892,7 +2895,7 @@ public class libtorrent_jni {
   public final static native long new_add_files_listener();
   public final static native void add_files_listener_director_connect(add_files_listener obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void add_files_listener_change_ownership(add_files_listener obj, long cptr, boolean take_or_release);
-  public final static native void add_files_ex(long jarg1, file_storage jarg1_, String jarg2, long jarg3, add_files_listener jarg3_, long jarg4);
+  public final static native void add_files(long jarg1, file_storage jarg1_, String jarg2, long jarg3, add_files_listener jarg3_, long jarg4);
   public final static native void delete_set_piece_hashes_listener(long jarg1);
   public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
   public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);

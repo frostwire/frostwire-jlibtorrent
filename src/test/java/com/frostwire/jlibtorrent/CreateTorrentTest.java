@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.frostwire.jlibtorrent.swig.libtorrent.add_files_ex;
+import static com.frostwire.jlibtorrent.swig.libtorrent.add_files;
 import static com.frostwire.jlibtorrent.swig.libtorrent.set_piece_hashes_ex;
 import static org.junit.Assert.*;
 
@@ -36,7 +36,7 @@ public class CreateTorrentTest {
                 return true;
             }
         };
-        add_files_ex(fs, f.getAbsolutePath(), l1, 0L);
+        add_files(fs, f.getAbsolutePath(), l1, 0L);
         create_torrent ct = new create_torrent(fs);
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override
@@ -68,7 +68,7 @@ public class CreateTorrentTest {
                 return true;
             }
         };
-        add_files_ex(fs, dir.getAbsolutePath(), l1, 0L);
+        add_files(fs, dir.getAbsolutePath(), l1, 0L);
         create_torrent ct = new create_torrent(fs);
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override

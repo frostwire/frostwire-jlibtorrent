@@ -189,7 +189,7 @@ public:
     }
 };
 
-void add_files_ex(libtorrent::file_storage& fs, std::string const& file, add_files_listener* listener, boost::uint32_t flags) {
+void add_files(libtorrent::file_storage& fs, std::string const& file, add_files_listener* listener, boost::uint32_t flags) {
     add_files(fs, file, boost::bind(&add_files_listener::pred, listener, _1), flags);
 }
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.frostwire.jlibtorrent.swig.libtorrent.add_files_ex;
+import static com.frostwire.jlibtorrent.swig.libtorrent.add_files;
 import static com.frostwire.jlibtorrent.swig.libtorrent.set_piece_hashes_ex;
 
 /**
@@ -519,7 +519,7 @@ public final class TorrentBuilder {
                 return listener != null ? listener.accept(p) : true;
             }
         };
-        add_files_ex(fs, path.getAbsolutePath(), l1, flags);
+        add_files(fs, path.getAbsolutePath(), l1, flags);
         if (fs.total_size() == 0) {
             throw new IOException("content total size can't be 0");
         }
@@ -731,6 +731,15 @@ public final class TorrentBuilder {
         }
 
         /**
+         * This function returns the merkle hash tree, if the torrent was created
+         * as a merkle torrent. The tree is created by {@link #generate()} and won't
+         * be valid until that function has been called.
+         * <p>
+         * When creating a merkle tree torrent, the actual tree itself has to
+         * be saved off separately and fed into libtorrent the first time you start
+         * seeding it, through the {@link TorrentInfo#merkleTree(List)} function.
+         * From that point onwards, the tree will be saved in the resume data.
+         *
          * @return
          */
         public ArrayList<Sha1Hash> merkleTree() {
