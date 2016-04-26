@@ -199,8 +199,8 @@ public class add_torrent_params {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_zero_storage(), true);
   }
 
-  public static add_torrent_params create_instance_swig_storage(swig_storage_constructor sc) {
-    return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_swig_storage(swig_storage_constructor.getCPtr(sc), sc), true);
+  public static add_torrent_params create_instance_swig_storage(swig_storage s) {
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_swig_storage(swig_storage.getCPtr(s), s), true);
   }
 
   public final static class flags_t {

@@ -918,7 +918,7 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_create_instance_disabled_storage();
   public final static native long add_torrent_params_create_instance_zero_storage();
-  public final static native long add_torrent_params_create_instance_swig_storage(long jarg1, swig_storage_constructor jarg1_);
+  public final static native long add_torrent_params_create_instance_swig_storage(long jarg1, swig_storage jarg1_);
   public final static native void delete_add_torrent_params(long jarg1);
   public final static native int op_bittorrent_get();
   public final static native void stats_metric_value_index_set(long jarg1, stats_metric jarg1_, int jarg2);
@@ -2367,7 +2367,7 @@ public class libtorrent_jni {
   public final static native void session_handle_dht_get_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
   public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_, long jarg5, byte_vector jarg5_);
   public final static native void session_handle_add_swig_extension(long jarg1, session_handle jarg1_, long jarg2, swig_plugin jarg2_);
-  public final static native void session_handle_set_swig_dht_storage(long jarg1, session_handle jarg1_, long jarg2, swig_dht_storage_constructor jarg2_);
+  public final static native void session_handle_set_swig_dht_storage(long jarg1, session_handle jarg1_, long jarg2, swig_dht_storage jarg2_);
   public final static native long session_handle_wait_for_alert_ms(long jarg1, session_handle jarg1_, long jarg2);
   public final static native void delete_session_handle(long jarg1);
   public final static native void min_memory_usage(long jarg1, settings_pack jarg1_);
@@ -2895,6 +2895,8 @@ public class libtorrent_jni {
   public final static native void dht_extension_handler_listener_director_connect(dht_extension_handler_listener obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void dht_extension_handler_listener_change_ownership(dht_extension_handler_listener obj, long cptr, boolean take_or_release);
   public final static native void delete_swig_storage(long jarg1);
+  public final static native void swig_storage_set_params(long jarg1, swig_storage jarg1_, long jarg2, storage_params jarg2_);
+  public final static native void swig_storage_set_paramsSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_params jarg2_);
   public final static native void swig_storage_initialize(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native void swig_storage_initializeSwigExplicitswig_storage(long jarg1, swig_storage jarg1_, long jarg2, storage_error jarg2_);
   public final static native int swig_storage_read(long jarg1, swig_storage jarg1_, long jarg2, long jarg3, int jarg4, int jarg5, int jarg6, long jarg7, storage_error jarg7_);
@@ -2920,12 +2922,6 @@ public class libtorrent_jni {
   public final static native long new_swig_storage();
   public final static native void swig_storage_director_connect(swig_storage obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void swig_storage_change_ownership(swig_storage obj, long cptr, boolean take_or_release);
-  public final static native void delete_swig_storage_constructor(long jarg1);
-  public final static native long swig_storage_constructor_create(long jarg1, swig_storage_constructor jarg1_, long jarg2, storage_params jarg2_);
-  public final static native long swig_storage_constructor_createSwigExplicitswig_storage_constructor(long jarg1, swig_storage_constructor jarg1_, long jarg2, storage_params jarg2_);
-  public final static native long new_swig_storage_constructor();
-  public final static native void swig_storage_constructor_director_connect(swig_storage_constructor obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void swig_storage_constructor_change_ownership(swig_storage_constructor obj, long cptr, boolean take_or_release);
   public final static native void swig_dht_storage_counters_torrents_set(long jarg1, swig_dht_storage_counters jarg1_, int jarg2);
   public final static native int swig_dht_storage_counters_torrents_get(long jarg1, swig_dht_storage_counters jarg1_);
   public final static native void swig_dht_storage_counters_peers_set(long jarg1, swig_dht_storage_counters jarg1_, int jarg2);
@@ -2936,6 +2932,8 @@ public class libtorrent_jni {
   public final static native int swig_dht_storage_counters_mutable_data_get(long jarg1, swig_dht_storage_counters jarg1_);
   public final static native long new_swig_dht_storage_counters();
   public final static native void delete_swig_dht_storage_counters(long jarg1);
+  public final static native void swig_dht_storage_set_params(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, dht_settings jarg3_);
+  public final static native void swig_dht_storage_set_paramsSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, dht_settings jarg3_);
   public final static native boolean swig_dht_storage_get_peers(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, boolean jarg3, boolean jarg4, long jarg5, entry jarg5_);
   public final static native boolean swig_dht_storage_get_peersSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, boolean jarg3, boolean jarg4, long jarg5, entry jarg5_);
   public final static native void swig_dht_storage_announce_peer(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, tcp_endpoint jarg3_, String jarg4, boolean jarg5);
@@ -2958,15 +2956,7 @@ public class libtorrent_jni {
   public final static native long new_swig_dht_storage();
   public final static native void swig_dht_storage_director_connect(swig_dht_storage obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void swig_dht_storage_change_ownership(swig_dht_storage obj, long cptr, boolean take_or_release);
-  public final static native void delete_swig_dht_storage_constructor(long jarg1);
-  public final static native long swig_dht_storage_constructor_create(long jarg1, swig_dht_storage_constructor jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, dht_settings jarg3_);
-  public final static native long swig_dht_storage_constructor_createSwigExplicitswig_dht_storage_constructor(long jarg1, swig_dht_storage_constructor jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, dht_settings jarg3_);
-  public final static native long new_swig_dht_storage_constructor();
-  public final static native void swig_dht_storage_constructor_director_connect(swig_dht_storage_constructor obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void swig_dht_storage_constructor_change_ownership(swig_dht_storage_constructor obj, long cptr, boolean take_or_release);
   public final static native void delete_swig_plugin(long jarg1);
-  public final static native long swig_plugin_new_torrent(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
-  public final static native long swig_plugin_new_torrentSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native void swig_plugin_added(long jarg1, swig_plugin jarg1_, long jarg2, session_handle jarg2_);
   public final static native void swig_plugin_addedSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, session_handle jarg2_);
   public final static native void swig_plugin_register_dht_extensions(long jarg1, swig_plugin jarg1_, long jarg2, string_dht_extension_handler_listener_ptr_pair_vector jarg2_);
@@ -2985,8 +2975,6 @@ public class libtorrent_jni {
   public final static native void swig_plugin_director_connect(swig_plugin obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void swig_plugin_change_ownership(swig_plugin obj, long cptr, boolean take_or_release);
   public final static native void delete_swig_torrent_plugin(long jarg1);
-  public final static native long swig_torrent_plugin_new_peer_connection(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection_handle jarg2_);
-  public final static native long swig_torrent_plugin_new_peer_connectionSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, long jarg2, peer_connection_handle jarg2_);
   public final static native void swig_torrent_plugin_on_piece_pass(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
   public final static native void swig_torrent_plugin_on_piece_passSwigExplicitswig_torrent_plugin(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
   public final static native void swig_torrent_plugin_on_piece_failed(long jarg1, swig_torrent_plugin jarg1_, int jarg2);
@@ -3012,7 +3000,6 @@ public class libtorrent_jni {
   public final static native void swig_torrent_plugin_change_ownership(swig_torrent_plugin obj, long cptr, boolean take_or_release);
   public final static native void delete_swig_peer_plugin(long jarg1);
   public final static native String swig_peer_plugin_type(long jarg1, swig_peer_plugin jarg1_);
-  public final static native String swig_peer_plugin_typeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_);
   public final static native void swig_peer_plugin_add_handshake(long jarg1, swig_peer_plugin jarg1_, long jarg2, entry jarg2_);
   public final static native void swig_peer_plugin_add_handshakeSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, entry jarg2_);
   public final static native void swig_peer_plugin_on_disconnect(long jarg1, swig_peer_plugin jarg1_, long jarg2, error_code jarg2_);
@@ -3197,6 +3184,9 @@ public class libtorrent_jni {
   public static boolean SwigDirector_dht_extension_handler_listener_on_message(dht_extension_handler_listener jself, long source, long request, long response) {
     return jself.on_message(new udp_endpoint(source, false), new bdecode_node(request, false), new entry(response, false));
   }
+  public static void SwigDirector_swig_storage_set_params(swig_storage jself, long params) {
+    jself.set_params(new storage_params(params, false));
+  }
   public static void SwigDirector_swig_storage_initialize(swig_storage jself, long ec) {
     jself.initialize(new storage_error(ec, false));
   }
@@ -3230,8 +3220,8 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_storage_tick(swig_storage jself) {
     return jself.tick();
   }
-  public static long SwigDirector_swig_storage_constructor_create(swig_storage_constructor jself, long params) {
-    return swig_storage.getCPtr(jself.create(new storage_params(params, false)));
+  public static void SwigDirector_swig_dht_storage_set_params(swig_dht_storage jself, long id, long settings) {
+    jself.set_params(new sha1_hash(id, false), new dht_settings(settings, false));
   }
   public static boolean SwigDirector_swig_dht_storage_get_peers(swig_dht_storage jself, long info_hash, boolean noseed, boolean scrape, long peers) {
     return jself.get_peers(new sha1_hash(info_hash, false), noseed, scrape, new entry(peers, false));
@@ -3260,12 +3250,6 @@ public class libtorrent_jni {
   public static long SwigDirector_swig_dht_storage_swig_counters(swig_dht_storage jself) {
     return swig_dht_storage_counters.getCPtr(jself.swig_counters());
   }
-  public static long SwigDirector_swig_dht_storage_constructor_create(swig_dht_storage_constructor jself, long id, long settings) {
-    return swig_dht_storage.getCPtr(jself.create(new sha1_hash(id, false), new dht_settings(settings, false)));
-  }
-  public static long SwigDirector_swig_plugin_new_torrent(swig_plugin jself, long t) {
-    return swig_torrent_plugin.getCPtr(jself.new_torrent(new torrent_handle(t, false)));
-  }
   public static void SwigDirector_swig_plugin_added(swig_plugin jself, long s) {
     jself.added(new session_handle(s, false));
   }
@@ -3286,9 +3270,6 @@ public class libtorrent_jni {
   }
   public static void SwigDirector_swig_plugin_load_state(swig_plugin jself, long n) {
     jself.load_state(new bdecode_node(n, false));
-  }
-  public static long SwigDirector_swig_torrent_plugin_new_peer_connection(swig_torrent_plugin jself, long pc) {
-    return swig_peer_plugin.getCPtr(jself.new_peer_connection(new peer_connection_handle(pc, false)));
   }
   public static void SwigDirector_swig_torrent_plugin_on_piece_pass(swig_torrent_plugin jself, int index) {
     jself.on_piece_pass(index);
@@ -3319,9 +3300,6 @@ public class libtorrent_jni {
   }
   public static void SwigDirector_swig_torrent_plugin_on_add_peer(swig_torrent_plugin jself, long endp, int src, int flags) {
     jself.on_add_peer(new tcp_endpoint(endp, false), src, flags);
-  }
-  public static String SwigDirector_swig_peer_plugin_type(swig_peer_plugin jself) {
-    return jself.type();
   }
   public static void SwigDirector_swig_peer_plugin_add_handshake(swig_peer_plugin jself, long e) {
     jself.add_handshake(new entry(e, false));

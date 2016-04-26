@@ -255,8 +255,8 @@ public class session_handle {
     libtorrent_jni.session_handle_add_swig_extension(swigCPtr, this, swig_plugin.getCPtr(p), p);
   }
 
-  public void set_swig_dht_storage(swig_dht_storage_constructor sc) {
-    libtorrent_jni.session_handle_set_swig_dht_storage(swigCPtr, this, swig_dht_storage_constructor.getCPtr(sc), sc);
+  public void set_swig_dht_storage(swig_dht_storage s) {
+    libtorrent_jni.session_handle_set_swig_dht_storage(swigCPtr, this, swig_dht_storage.getCPtr(s), s);
   }
 
   public alert wait_for_alert_ms(long max_wait) {

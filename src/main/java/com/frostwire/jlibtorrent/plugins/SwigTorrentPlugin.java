@@ -29,6 +29,7 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
         this.mem = new LinkedList<SwigPeerPlugin>();
     }
 
+    /*
     @Override
     public swig_peer_plugin new_peer_connection(peer_connection_handle pc) {
         try {
@@ -44,7 +45,7 @@ public final class SwigTorrentPlugin extends swig_torrent_plugin {
         }
 
         return super.new_peer_connection(pc);
-    }
+    }*/
 
     @Override
     public void on_piece_pass(int index) {

@@ -50,6 +50,10 @@ public class swig_storage {
     libtorrent_jni.swig_storage_change_ownership(this, swigCPtr, true);
   }
 
+  public void set_params(storage_params params) {
+    if (getClass() == swig_storage.class) libtorrent_jni.swig_storage_set_params(swigCPtr, this, storage_params.getCPtr(params), params); else libtorrent_jni.swig_storage_set_paramsSwigExplicitswig_storage(swigCPtr, this, storage_params.getCPtr(params), params);
+  }
+
   public void initialize(storage_error ec) {
     if (getClass() == swig_storage.class) libtorrent_jni.swig_storage_initialize(swigCPtr, this, storage_error.getCPtr(ec), ec); else libtorrent_jni.swig_storage_initializeSwigExplicitswig_storage(swigCPtr, this, storage_error.getCPtr(ec), ec);
   }

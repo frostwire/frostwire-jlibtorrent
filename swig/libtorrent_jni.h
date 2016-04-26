@@ -62,6 +62,7 @@ public:
     void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
     SwigDirector_swig_storage(JNIEnv *jenv);
     virtual ~SwigDirector_swig_storage();
+    virtual void set_params(libtorrent::storage_params const &params);
     virtual void initialize(libtorrent::storage_error &ec);
     virtual int read(boost::int64_t iov_base, size_t iov_len, int piece, int offset, int flags, libtorrent::storage_error &ec);
     virtual int write(boost::int64_t iov_base, size_t iov_len, int piece, int offset, int flags, libtorrent::storage_error &ec);
@@ -76,25 +77,10 @@ public:
     virtual bool tick();
 public:
     bool swig_overrides(int n) {
-      return (n < 11 ? swig_override[n] : false);
+      return (n < 12 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<11> swig_override;
-};
-
-class SwigDirector_swig_storage_constructor : public swig_storage_constructor, public Swig::Director {
-
-public:
-    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
-    SwigDirector_swig_storage_constructor(JNIEnv *jenv);
-    virtual ~SwigDirector_swig_storage_constructor();
-    virtual swig_storage *create(libtorrent::storage_params const &params);
-public:
-    bool swig_overrides(int n) {
-      return (n < 1 ? swig_override[n] : false);
-    }
-protected:
-    Swig::BoolArray<1> swig_override;
+    Swig::BoolArray<12> swig_override;
 };
 
 struct SwigDirector_swig_dht_storage : public swig_dht_storage, public Swig::Director {
@@ -102,6 +88,7 @@ struct SwigDirector_swig_dht_storage : public swig_dht_storage, public Swig::Dir
 public:
     void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
     SwigDirector_swig_dht_storage(JNIEnv *jenv);
+    virtual void set_params(libtorrent::sha1_hash const &id, libtorrent::dht_settings const &settings);
     virtual bool get_peers(libtorrent::sha1_hash const &info_hash, bool noseed, bool scrape, libtorrent::entry &peers) const;
     virtual void announce_peer(libtorrent::sha1_hash const &info_hash, tcp::endpoint const &endp, std::string const &name, bool seed);
     virtual bool get_immutable_item(libtorrent::sha1_hash const &target, libtorrent::entry &item) const;
@@ -114,25 +101,10 @@ public:
     virtual ~SwigDirector_swig_dht_storage();
 public:
     bool swig_overrides(int n) {
-      return (n < 9 ? swig_override[n] : false);
+      return (n < 10 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<9> swig_override;
-};
-
-class SwigDirector_swig_dht_storage_constructor : public swig_dht_storage_constructor, public Swig::Director {
-
-public:
-    void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
-    SwigDirector_swig_dht_storage_constructor(JNIEnv *jenv);
-    virtual ~SwigDirector_swig_dht_storage_constructor();
-    virtual swig_dht_storage *create(libtorrent::sha1_hash const &id, libtorrent::dht_settings const &settings);
-public:
-    bool swig_overrides(int n) {
-      return (n < 1 ? swig_override[n] : false);
-    }
-protected:
-    Swig::BoolArray<1> swig_override;
+    Swig::BoolArray<10> swig_override;
 };
 
 struct SwigDirector_swig_plugin : public swig_plugin, public Swig::Director {
@@ -141,7 +113,6 @@ public:
     void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
     SwigDirector_swig_plugin(JNIEnv *jenv);
     virtual ~SwigDirector_swig_plugin();
-    virtual swig_torrent_plugin *new_torrent(libtorrent::torrent_handle const &t);
     virtual void added(libtorrent::session_handle s);
     virtual void register_dht_extensions(std::vector< std::pair< std::string,dht_extension_handler_listener * > > &dht_extensions);
     virtual void on_alert(libtorrent::alert const *a);
@@ -151,10 +122,10 @@ public:
     virtual void load_state(libtorrent::bdecode_node const &n);
 public:
     bool swig_overrides(int n) {
-      return (n < 8 ? swig_override[n] : false);
+      return (n < 7 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<8> swig_override;
+    Swig::BoolArray<7> swig_override;
 };
 
 struct SwigDirector_swig_torrent_plugin : public swig_torrent_plugin, public Swig::Director {
@@ -163,7 +134,6 @@ public:
     void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
     SwigDirector_swig_torrent_plugin(JNIEnv *jenv);
     virtual ~SwigDirector_swig_torrent_plugin();
-    virtual swig_peer_plugin *new_peer_connection(libtorrent::peer_connection_handle const &pc);
     virtual void on_piece_pass(int index);
     virtual void on_piece_failed(int index);
     virtual void tick();
@@ -176,10 +146,10 @@ public:
     virtual void on_add_peer(tcp::endpoint const &endp, int src, int flags);
 public:
     bool swig_overrides(int n) {
-      return (n < 11 ? swig_override[n] : false);
+      return (n < 10 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<11> swig_override;
+    Swig::BoolArray<10> swig_override;
 };
 
 struct SwigDirector_swig_peer_plugin : public swig_peer_plugin, public Swig::Director {
@@ -188,7 +158,6 @@ public:
     void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
     SwigDirector_swig_peer_plugin(JNIEnv *jenv);
     virtual ~SwigDirector_swig_peer_plugin();
-    virtual char const *type() const;
     virtual void add_handshake(libtorrent::entry &e);
     virtual void on_disconnect(boost::system::error_code const &ec);
     virtual void on_connected();
@@ -218,10 +187,10 @@ public:
     virtual bool write_request(libtorrent::peer_request const &r);
 public:
     bool swig_overrides(int n) {
-      return (n < 28 ? swig_override[n] : false);
+      return (n < 27 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<28> swig_override;
+    Swig::BoolArray<27> swig_override;
 };
 
 class SwigDirector_posix_wrapper : public posix_wrapper, public Swig::Director {

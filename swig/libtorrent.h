@@ -151,6 +151,9 @@ struct swig_storage : storage_interface
     virtual ~swig_storage() {
     }
 
+    virtual void set_params(libtorrent::storage_params const& params) {
+    }
+
     virtual void initialize(libtorrent::storage_error& ec) {
     }
 
@@ -229,18 +232,9 @@ struct swig_storage : storage_interface
     virtual bool tick() { return false; }
 };
 
-class swig_storage_constructor {
-public:
-    virtual ~swig_storage_constructor() {
-    }
-
-    virtual swig_storage* create(libtorrent::storage_params const& params) {
-        return NULL;
-    }
-};
-
-storage_interface* swig_storage_constructor_cb(libtorrent::storage_params const& params, swig_storage_constructor* sc) {
-	return sc->create(params);
+storage_interface* swig_storage_constructor(swig_storage* s, libtorrent::storage_params const& params) {
+    s->set_params(params);
+	return s;
 }
 
 //------ DHT storage extension -----------------------------
@@ -255,6 +249,9 @@ struct swig_dht_storage_counters
 
 struct swig_dht_storage : dht::dht_storage_interface
 {
+    virtual void set_params(libtorrent::sha1_hash const& id, libtorrent::dht_settings const& settings) {
+    }
+
 	virtual bool get_peers(libtorrent::sha1_hash const& info_hash
 		, bool noseed, bool scrape
 		, libtorrent::entry& peers) const {
@@ -342,20 +339,11 @@ struct swig_dht_storage : dht::dht_storage_interface
 	virtual ~swig_dht_storage() {}
 };
 
-class swig_dht_storage_constructor {
-public:
-    virtual ~swig_dht_storage_constructor() {
-    }
-
-    virtual swig_dht_storage* create(libtorrent::sha1_hash const& id, libtorrent::dht_settings const& settings) {
-        return NULL;
-    }
-};
-
-dht::dht_storage_interface* swig_dht_storage_constructor_cb(libtorrent::sha1_hash const& id
-                                                        , libtorrent::dht_settings const& settings
-                                                        , swig_dht_storage_constructor* sc) {
-	return sc->create(id, settings);
+dht::dht_storage_interface* swig_dht_storage_constructor(swig_dht_storage *s
+                                                        ,libtorrent::sha1_hash const& id
+                                                        , libtorrent::dht_settings const& settings) {
+	s->set_params(id, settings);
+	return s;
 }
 
 //------------------------------------------------------
@@ -388,7 +376,7 @@ struct swig_plugin : plugin {
 
     boost::shared_ptr<torrent_plugin> new_torrent(libtorrent::torrent_handle const&, void*);
 
-    virtual swig_torrent_plugin* new_torrent(libtorrent::torrent_handle const& t);
+    //virtual swig_torrent_plugin* new_torrent(libtorrent::torrent_handle const& t);
 
     virtual void added(libtorrent::session_handle s) {
     }
@@ -431,7 +419,7 @@ struct swig_torrent_plugin: torrent_plugin {
 
     boost::shared_ptr<peer_plugin> new_connection(libtorrent::peer_connection_handle const& pc);
 
-    virtual swig_peer_plugin* new_peer_connection(libtorrent::peer_connection_handle const& pc);
+    //virtual swig_peer_plugin* new_peer_connection(libtorrent::peer_connection_handle const& pc);
 
     virtual void on_piece_pass(int index) {
     }
@@ -471,8 +459,8 @@ struct swig_peer_plugin : peer_plugin
     virtual ~swig_peer_plugin() {
     }
 
-    virtual char const* type() const {
-        return "swig";
+    char const* type() const {
+        return "swig"; // TODO: pass name at constructor
     }
 
     virtual void add_handshake(libtorrent::entry& e) {
@@ -541,22 +529,22 @@ struct swig_peer_plugin : peer_plugin
 };
 
 boost::shared_ptr<torrent_plugin> swig_plugin::new_torrent(libtorrent::torrent_handle const& t, void*) {
-    swig_torrent_plugin* p = new_torrent(t);
+    swig_torrent_plugin* p = NULL;//new_torrent(t);
     return p != NULL ? boost::shared_ptr<torrent_plugin>(p) : boost::shared_ptr<torrent_plugin>();
 }
 
-swig_torrent_plugin* swig_plugin::new_torrent(libtorrent::torrent_handle const& t) {
-    return NULL;
-}
+//swig_torrent_plugin* swig_plugin::new_torrent(libtorrent::torrent_handle const& t) {
+//    return NULL;
+//}
 
 boost::shared_ptr<peer_plugin> swig_torrent_plugin::new_connection(libtorrent::peer_connection_handle const& pc) {
-    swig_peer_plugin* p = new_peer_connection(pc);
+    swig_peer_plugin* p = NULL;//new_peer_connection(pc);
     return p != NULL ? boost::shared_ptr<peer_plugin>(p) : boost::shared_ptr<peer_plugin>();
 }
 
-swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_connection_handle const& pc) {
-    return NULL;
-}
+//swig_peer_plugin* swig_torrent_plugin::new_peer_connection(libtorrent::peer_connection_handle const& pc) {
+//    return NULL;
+//}
 
 struct posix_stat {
     boost::int64_t size;

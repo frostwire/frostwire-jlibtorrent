@@ -50,6 +50,10 @@ public class swig_dht_storage {
     libtorrent_jni.swig_dht_storage_change_ownership(this, swigCPtr, true);
   }
 
+  public void set_params(sha1_hash id, dht_settings settings) {
+    if (getClass() == swig_dht_storage.class) libtorrent_jni.swig_dht_storage_set_params(swigCPtr, this, sha1_hash.getCPtr(id), id, dht_settings.getCPtr(settings), settings); else libtorrent_jni.swig_dht_storage_set_paramsSwigExplicitswig_dht_storage(swigCPtr, this, sha1_hash.getCPtr(id), id, dht_settings.getCPtr(settings), settings);
+  }
+
   public boolean get_peers(sha1_hash info_hash, boolean noseed, boolean scrape, entry peers) {
     return (getClass() == swig_dht_storage.class) ? libtorrent_jni.swig_dht_storage_get_peers(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, noseed, scrape, entry.getCPtr(peers), peers) : libtorrent_jni.swig_dht_storage_get_peersSwigExplicitswig_dht_storage(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, noseed, scrape, entry.getCPtr(peers), peers);
   }

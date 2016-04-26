@@ -914,8 +914,8 @@ namespace libtorrent {
         $self->add_extension(boost::shared_ptr<plugin>(p));
     }
 
-    void set_swig_dht_storage(swig_dht_storage_constructor *sc) {
-        $self->set_dht_storage(boost::bind(&swig_dht_storage_constructor_cb, _1, _2, sc));
+    void set_swig_dht_storage(swig_dht_storage *s) {
+        $self->set_dht_storage(boost::bind(&swig_dht_storage_constructor, s, _1, _2));
     }
 
     alert* wait_for_alert_ms(int64_t max_wait) {
@@ -1007,8 +1007,8 @@ namespace libtorrent {
         return add_torrent_params(zero_storage_constructor);
     }
 
-    static add_torrent_params create_instance_swig_storage(swig_storage_constructor* sc) {
-        return add_torrent_params(boost::bind(&swig_storage_constructor_cb, _1, sc));
+    static add_torrent_params create_instance_swig_storage(swig_storage* s) {
+        return add_torrent_params(boost::bind(&swig_storage_constructor, s, _1));
     }
 }
 
@@ -1283,10 +1283,9 @@ void set_utp_stream_logging(bool enable);
 %ignore swig_storage::set_file_priority;
 %ignore swig_storage::readv;
 %ignore swig_storage::writev;
-%ignore swig_storage_constructor_cb;
+%ignore swig_storage_constructor;
 
 %feature("director") swig_storage;
-%feature("director") swig_storage_constructor;
 
 %typemap("javapackage") SwigStorage, SwigStorage *, SwigStorage & "com.frostwire.jlibtorrent.plugins";
 
@@ -1295,10 +1294,9 @@ void set_utp_stream_logging(bool enable);
 %ignore swig_dht_storage::get_mutable_item_seq;
 %ignore swig_dht_storage::put_mutable_item(libtorrent::sha1_hash const&, char const*, int, char const*, boost::int64_t, char const*, char const*, int, libtorrent::address const&);
 %ignore swig_dht_storage::counters;
-%ignore swig_dht_storage_constructor_cb;
+%ignore swig_dht_storage_constructor;
 
 %feature("director") swig_dht_storage;
-%feature("director") swig_dht_storage_constructor;
 
 // libtorrent plugins
 %feature("director") swig_plugin;

@@ -32,6 +32,7 @@ public final class SwigPlugin extends swig_plugin {
         this.memDht = new LinkedList<SwigDhtPlugin>();
     }
 
+    /*
     @Override
     public swig_torrent_plugin new_torrent(torrent_handle t) {
         try {
@@ -47,7 +48,7 @@ public final class SwigPlugin extends swig_plugin {
         }
 
         return super.new_torrent(t);
-    }
+    }*/
 
     @Override
     public void added(session_handle s) {

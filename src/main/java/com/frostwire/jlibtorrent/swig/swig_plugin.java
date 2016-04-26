@@ -50,11 +50,6 @@ public class swig_plugin {
     libtorrent_jni.swig_plugin_change_ownership(this, swigCPtr, true);
   }
 
-  public swig_torrent_plugin new_torrent(torrent_handle t) {
-    long cPtr = (getClass() == swig_plugin.class) ? libtorrent_jni.swig_plugin_new_torrent(swigCPtr, this, torrent_handle.getCPtr(t), t) : libtorrent_jni.swig_plugin_new_torrentSwigExplicitswig_plugin(swigCPtr, this, torrent_handle.getCPtr(t), t);
-    return (cPtr == 0) ? null : new swig_torrent_plugin(cPtr, false);
-  }
-
   public void added(session_handle s) {
     if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_added(swigCPtr, this, session_handle.getCPtr(s), s); else libtorrent_jni.swig_plugin_addedSwigExplicitswig_plugin(swigCPtr, this, session_handle.getCPtr(s), s);
   }

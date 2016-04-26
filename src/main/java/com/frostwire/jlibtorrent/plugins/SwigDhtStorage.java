@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.swig.*;
  * @author gubatron
  * @author aldenml
  */
-final class SwigDhtStorage extends swig_dht_storage {
+public final class SwigDhtStorage extends swig_dht_storage {
 
     private static final Logger LOG = Logger.getLogger(SwigDhtStorage.class);
 

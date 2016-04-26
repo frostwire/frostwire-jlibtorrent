@@ -1,7 +1,7 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.plugins.DhtStorageConstructor;
-import com.frostwire.jlibtorrent.plugins.SwigDhtStorageConstructor;
+import com.frostwire.jlibtorrent.plugins.DhtStorage;
+import com.frostwire.jlibtorrent.plugins.SwigDhtStorage;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class SessionHandle {
 
     protected final session_handle s;
 
-    private SwigDhtStorageConstructor dhtSC;
+    private SwigDhtStorage dhtStorage;
 
     public SessionHandle(session_handle s) {
         this.s = s;
@@ -197,11 +197,11 @@ public class SessionHandle {
      * {@link com.frostwire.jlibtorrent.swig.settings_pack.bool_types#enable_dht}
      * to true.
      *
-     * @param sc
+     * @param storage
      */
-    public void setDhtStorage(DhtStorageConstructor sc) {
-        dhtSC = new SwigDhtStorageConstructor(sc);
-        s.set_swig_dht_storage(dhtSC);
+    public void setDhtStorage(DhtStorage storage) {
+        dhtStorage = new SwigDhtStorage(storage);
+        s.set_swig_dht_storage(dhtStorage);
     }
 
     /**

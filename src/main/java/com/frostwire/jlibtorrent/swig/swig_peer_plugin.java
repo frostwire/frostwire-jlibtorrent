@@ -51,7 +51,7 @@ public class swig_peer_plugin {
   }
 
   public String type() {
-    return (getClass() == swig_peer_plugin.class) ? libtorrent_jni.swig_peer_plugin_type(swigCPtr, this) : libtorrent_jni.swig_peer_plugin_typeSwigExplicitswig_peer_plugin(swigCPtr, this);
+    return libtorrent_jni.swig_peer_plugin_type(swigCPtr, this);
   }
 
   public void add_handshake(entry e) {
