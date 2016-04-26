@@ -15,6 +15,11 @@ public final class DhtLookup {
 
     private final dht_lookup l;
 
+    /**
+     * internal use
+     *
+     * @param l
+     */
     public DhtLookup(dht_lookup l) {
         this.l = l;
     }
@@ -29,7 +34,7 @@ public final class DhtLookup {
      * @return
      */
     public String type() {
-        return l.getType();
+        return l.get_type();
     }
 
     /**

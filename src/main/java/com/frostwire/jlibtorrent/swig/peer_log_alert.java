@@ -51,14 +51,6 @@ public class peer_log_alert extends peer_alert {
     return libtorrent_jni.peer_log_alert_message(swigCPtr, this);
   }
 
-  public void setEvent_type(String value) {
-    libtorrent_jni.peer_log_alert_event_type_set(swigCPtr, this, value);
-  }
-
-  public String getEvent_type() {
-    return libtorrent_jni.peer_log_alert_event_type_get(swigCPtr, this);
-  }
-
   public void setDirection(peer_log_alert.direction_t value) {
     libtorrent_jni.peer_log_alert_direction_set(swigCPtr, this, value.swigValue());
   }
@@ -69,6 +61,10 @@ public class peer_log_alert extends peer_alert {
 
   public String msg() {
     return libtorrent_jni.peer_log_alert_msg(swigCPtr, this);
+  }
+
+  public String get_event_type() {
+    return libtorrent_jni.peer_log_alert_get_event_type(swigCPtr, this);
   }
 
   public final static class direction_t {

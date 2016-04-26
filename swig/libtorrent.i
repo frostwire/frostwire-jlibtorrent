@@ -539,6 +539,11 @@ namespace std {
 %ignore libtorrent::peer_info::download_queue_time;
 %ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::stats_metric::name;
+%ignore libtorrent::storage_moved_failed_alert::operation;
+%ignore libtorrent::file_error_alert::operation;
+%ignore libtorrent::fastresume_rejected_alert::operation;
+%ignore libtorrent::peer_log_alert::event_type;
+%ignore libtorrent::dht_lookup::type;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -875,7 +880,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)
     CAST_ALERT_METHOD(dht_direct_response_alert)
     CAST_ALERT_METHOD(picker_log_alert)
-};
+}
 
 %extend alert {
     int64_t get_timestamp() {
@@ -926,7 +931,7 @@ namespace libtorrent {
     alert* wait_for_alert_ms(int64_t max_wait) {
         return $self->wait_for_alert(milliseconds(max_wait));
     }
-};
+}
 
 %extend entry {
     entry(std::vector<int8_t> const& string_bytes) {
@@ -967,7 +972,7 @@ namespace libtorrent {
     static entry bdecode(std::vector<int8_t>& buffer) {
         return libtorrent::bdecode(buffer.begin(), buffer.end());
     }
-};
+}
 
 %extend bdecode_node {
     static std::string to_string(bdecode_node const& e, bool single_line, int indent) {
@@ -977,7 +982,7 @@ namespace libtorrent {
     static int bdecode(std::vector<int8_t>& buffer, bdecode_node& ret, error_code& ec) {
         return libtorrent::bdecode((char const*)&buffer[0], (char const*)&buffer[0] + buffer.size(), ret, ec);
     }
-};
+}
 
 %extend add_torrent_params {
     int64_t get_flags() {
@@ -1015,7 +1020,7 @@ namespace libtorrent {
     static add_torrent_params create_instance_swig_storage(swig_storage_constructor* sc) {
         return add_torrent_params(boost::bind(&swig_storage_constructor_cb, _1, sc));
     }
-};
+}
 
 %extend torrent_info {
     time_t get_creation_date() {
@@ -1037,7 +1042,7 @@ namespace libtorrent {
         boost::shared_ptr<const torrent_info> ti = $self->torrent_file();
         return ti.get();
     }
-};
+}
 
 %extend sha1_hash {
     sha1_hash(std::vector<int8_t> const& s) {
@@ -1069,7 +1074,7 @@ namespace libtorrent {
     static int compare(const sha1_hash& h1, const sha1_hash& h2) {
         return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
     }
-};
+}
 
 %extend dht_mutable_item_alert {
     std::vector<int8_t> get_key() {
@@ -1090,7 +1095,7 @@ namespace libtorrent {
         std::string s = $self->salt;
         return std::vector<int8_t>(s.begin(), s.end());
     }
-};
+}
 
 %extend dht_put_alert {
     std::vector<int8_t> get_public_key() {
@@ -1111,19 +1116,19 @@ namespace libtorrent {
     int64_t get_seq() {
         return int64_t($self->seq);
     }
-};
+}
 
 %extend stats_alert {
     int get_transferred(int index) {
         return $self->transferred[index];
     }
-};
+}
 
 %extend session_stats_alert {
     long long get_value(int index) {
         return $self->values[index];
     }
-};
+}
 
 %extend dht_stats_alert {
     int total_nodes() {
@@ -1134,25 +1139,19 @@ namespace libtorrent {
         }
         return total;
     }
-};
+}
 
 %extend save_resume_data_alert {
     entry get_resume_data() {
         return *($self->resume_data);
     }
-};
-
-%extend stats_metric {
-    std::string get_name() {
-        return std::string($self->name);
-    }
-};
+}
 
 %extend dht_pkt_alert {
     std::vector<int8_t> get_pkt_buf() {
         return std::vector<int8_t>($self->pkt_buf(), $self->pkt_buf() + $self->pkt_size());
     }
-};
+}
 
 %extend disk_buffer_holder {
     int64_t get_ptr() {
@@ -1170,7 +1169,7 @@ namespace libtorrent {
     int64_t get_time_of_last_unchoke() {
         return total_milliseconds($self->time_of_last_unchoke() - clock_type::now());
     }
-}
+};
 
 %extend peer_info {
     int64_t get_last_request() {
@@ -1201,6 +1200,42 @@ namespace libtorrent {
 %extend partial_piece_info {
     std::vector<libtorrent::block_info> get_blocks() {
         return std::vector<libtorrent::block_info>($self->blocks, $self->blocks + $self->blocks_in_piece);
+    }
+}
+
+%extend stats_metric {
+    std::string get_name() {
+        return std::string($self->name);
+    }
+}
+
+%extend storage_moved_failed_alert {
+    std::string get_operation() {
+        return std::string($self->operation);
+    }
+}
+
+%extend file_error_alert {
+    std::string get_operation() {
+        return std::string($self->operation);
+    }
+}
+
+%extend fastresume_rejected_alert {
+    std::string get_operation() {
+        return std::string($self->operation);
+    }
+}
+
+%extend peer_log_alert {
+    std::string get_event_type() {
+        return std::string($self->event_type);
+    }
+}
+
+%extend dht_lookup {
+    std::string get_type() {
+        return std::string($self->type);
     }
 }
 

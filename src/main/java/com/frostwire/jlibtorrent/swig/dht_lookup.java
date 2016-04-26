@@ -35,14 +35,6 @@ public class dht_lookup {
     }
   }
 
-  public void setType(String value) {
-    libtorrent_jni.dht_lookup_type_set(swigCPtr, this, value);
-  }
-
-  public String getType() {
-    return libtorrent_jni.dht_lookup_type_get(swigCPtr, this);
-  }
-
   public void setOutstanding_requests(int value) {
     libtorrent_jni.dht_lookup_outstanding_requests_set(swigCPtr, this, value);
   }
@@ -97,6 +89,10 @@ public class dht_lookup {
 
   public int getFirst_timeout() {
     return libtorrent_jni.dht_lookup_first_timeout_get(swigCPtr, this);
+  }
+
+  public String get_type() {
+    return libtorrent_jni.dht_lookup_get_type(swigCPtr, this);
   }
 
   public dht_lookup() {

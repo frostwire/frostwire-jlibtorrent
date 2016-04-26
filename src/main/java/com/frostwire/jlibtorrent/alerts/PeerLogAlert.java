@@ -15,7 +15,7 @@ import com.frostwire.jlibtorrent.swig.peer_log_alert;
  */
 public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
 
-    public PeerLogAlert(peer_log_alert alert) {
+    PeerLogAlert(peer_log_alert alert) {
         super(alert);
     }
 
@@ -26,7 +26,7 @@ public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
      * @return
      */
     public String eventType() {
-        return alert.getEvent_type();
+        return alert.get_event_type();
     }
 
     public Direction direction() {
@@ -42,13 +42,40 @@ public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
         return alert.msg();
     }
 
+    /**
+     * Describes whether this log refers to in-flow or out-flow of the
+     * peer. The exception is {@link #INFO} which is neither incoming or outgoing.
+     */
     public enum Direction {
 
+        /**
+         *
+         */
         INCOMING_MESSAGE(peer_log_alert.direction_t.incoming_message.swigValue()),
+
+        /**
+         *
+         */
         OUTGOING_MESSAGE(peer_log_alert.direction_t.outgoing_message.swigValue()),
+
+        /**
+         *
+         */
         INCOMING(peer_log_alert.direction_t.incoming.swigValue()),
+
+        /**
+         *
+         */
         OUTGOING(peer_log_alert.direction_t.outgoing.swigValue()),
+
+        /**
+         *
+         */
         INFO(peer_log_alert.direction_t.info.swigValue()),
+
+        /**
+         *
+         */
         UNKNOWN(-1);
 
         Direction(int swigValue) {
@@ -57,14 +84,21 @@ public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static Direction fromSwig(int swigValue) {
             Direction[] enumValues = Direction.class.getEnumConstants();
             for (Direction ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

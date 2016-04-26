@@ -12,7 +12,7 @@ import com.frostwire.jlibtorrent.swig.file_error_alert;
  */
 public final class FileErrorAlert extends TorrentAlert<file_error_alert> {
 
-    public FileErrorAlert(file_error_alert alert) {
+    FileErrorAlert(file_error_alert alert) {
         super(alert);
     }
 
@@ -25,8 +25,11 @@ public final class FileErrorAlert extends TorrentAlert<file_error_alert> {
         return new ErrorCode(alert.getError());
     }
 
+    /**
+     * @return
+     */
     public String operation() {
-        return alert.getOperation();
+        return alert.get_operation();
     }
 
     /**

@@ -13,7 +13,7 @@ import com.frostwire.jlibtorrent.swig.fastresume_rejected_alert;
  */
 public final class FastresumeRejectedAlert extends TorrentAlert<fastresume_rejected_alert> {
 
-    public FastresumeRejectedAlert(fastresume_rejected_alert alert) {
+    FastresumeRejectedAlert(fastresume_rejected_alert alert) {
         super(alert);
     }
 
@@ -37,6 +37,6 @@ public final class FastresumeRejectedAlert extends TorrentAlert<fastresume_rejec
      * @return
      */
     public String operation() {
-        return alert.getOperation();
+        return alert.get_operation();
     }
 }
