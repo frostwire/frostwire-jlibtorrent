@@ -13,7 +13,7 @@ import com.frostwire.jlibtorrent.swig.dht_outgoing_get_peers_alert;
  */
 public final class DhtOutgoingGetPeersAlert extends AbstractAlert<dht_outgoing_get_peers_alert> {
 
-    public DhtOutgoingGetPeersAlert(dht_outgoing_get_peers_alert alert) {
+    DhtOutgoingGetPeersAlert(dht_outgoing_get_peers_alert alert) {
         super(alert);
     }
 
@@ -22,7 +22,7 @@ public final class DhtOutgoingGetPeersAlert extends AbstractAlert<dht_outgoing_g
      *
      * @return
      */
-    public Sha1Hash getInfoHash() {
+    public Sha1Hash infoHash() {
         return new Sha1Hash(alert.getInfo_hash());
     }
 
@@ -32,7 +32,7 @@ public final class DhtOutgoingGetPeersAlert extends AbstractAlert<dht_outgoing_g
      *
      * @return
      */
-    public Sha1Hash getObfuscatedInfoHash() {
+    public Sha1Hash obfuscatedInfoHash() {
         return new Sha1Hash(alert.getObfuscated_info_hash());
     }
 
@@ -41,7 +41,7 @@ public final class DhtOutgoingGetPeersAlert extends AbstractAlert<dht_outgoing_g
      *
      * @return
      */
-    public UdpEndpoint getIp() {
+    public UdpEndpoint ip() {
         return new UdpEndpoint(alert.getIp());
     }
 }

@@ -413,7 +413,7 @@ public final class TorrentInfo {
      * @return
      */
     public byte[] sslCert() {
-        return Vectors.byte_vector2bytes(ti.ssl_cert_bytes());
+        return Vectors.byte_vector2bytes(ti.get_ssl_cert());
     }
 
     /**

@@ -13,7 +13,7 @@ import com.frostwire.jlibtorrent.swig.dht_mutable_item_alert;
  */
 public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_alert> {
 
-    public DhtMutableItemAlert(dht_mutable_item_alert alert) {
+    DhtMutableItemAlert(dht_mutable_item_alert alert) {
         super(alert);
     }
 
@@ -22,8 +22,8 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
      *
      * @return
      */
-    public byte[] getKey() {
-        return Vectors.byte_vector2bytes(alert.key_v());
+    public byte[] key() {
+        return Vectors.byte_vector2bytes(alert.get_key());
     }
 
     /**
@@ -35,8 +35,8 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
      *
      * @return
      */
-    public byte[] getSignature() {
-        return Vectors.byte_vector2bytes(alert.signature_v());
+    public byte[] signature() {
+        return Vectors.byte_vector2bytes(alert.get_signature());
     }
 
     /**
@@ -44,8 +44,8 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
      *
      * @return
      */
-    public long getSeq() {
-        return alert.getSeq().longValue();
+    public long seq() {
+        return alert.get_seq();
     }
 
     /**
@@ -54,8 +54,8 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
      *
      * @return
      */
-    public byte[] getSalt() {
-        return Vectors.byte_vector2bytes(alert.salt_v());
+    public byte[] salt() {
+        return Vectors.byte_vector2bytes(alert.get_salt());
     }
 
     /**
@@ -63,7 +63,7 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
      *
      * @return
      */
-    public Entry getItem() {
+    public Entry item() {
         return new Entry(alert.getItem());
     }
 }

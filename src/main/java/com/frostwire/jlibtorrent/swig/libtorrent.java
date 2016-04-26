@@ -181,52 +181,12 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.ed25519_key_exchange(byte_vector.getCPtr(shared_secret), shared_secret, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key);
   }
 
-  public static int dht_item_canonical_string(byte_vector v, int seq, String salt, byte_vector out) {
-    return libtorrent_jni.dht_item_canonical_string(byte_vector.getCPtr(v), v, seq, salt, byte_vector.getCPtr(out), out);
-  }
-
-  public static sha1_hash dht_item_target_id(byte_vector v) {
-    return new sha1_hash(libtorrent_jni.dht_item_target_id__SWIG_0(byte_vector.getCPtr(v), v), true);
-  }
-
-  public static sha1_hash dht_item_target_id(byte_vector salt, byte_vector pk) {
-    return new sha1_hash(libtorrent_jni.dht_item_target_id__SWIG_1(byte_vector.getCPtr(salt), salt, byte_vector.getCPtr(pk), pk), true);
-  }
-
-  public static boolean dht_verify_mutable_item(byte_vector v, String salt, int seq, byte_vector pk, byte_vector sig) {
-    return libtorrent_jni.dht_verify_mutable_item(byte_vector.getCPtr(v), v, salt, seq, byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sig), sig);
-  }
-
-  public static void dht_sign_mutable_item(byte_vector v, String salt, int seq, byte_vector pk, byte_vector sk, byte_vector sig) {
-    libtorrent_jni.dht_sign_mutable_item(byte_vector.getCPtr(v), v, salt, seq, byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk, byte_vector.getCPtr(sig), sig);
-  }
-
-  public static int dht_distance_exp(sha1_hash n1, sha1_hash n2) {
-    return libtorrent_jni.dht_distance_exp(sha1_hash.getCPtr(n1), n1, sha1_hash.getCPtr(n2), n2);
-  }
-
-  public static sha1_hash dht_generate_id(address external_ip) {
-    return new sha1_hash(libtorrent_jni.dht_generate_id(address.getCPtr(external_ip), external_ip), true);
-  }
-
-  public static sha1_hash dht_generate_random_id() {
-    return new sha1_hash(libtorrent_jni.dht_generate_random_id(), true);
-  }
-
   public static boolean default_storage_disk_write_access_log() {
     return libtorrent_jni.default_storage_disk_write_access_log__SWIG_0();
   }
 
   public static void default_storage_disk_write_access_log(boolean enable) {
     libtorrent_jni.default_storage_disk_write_access_log__SWIG_1(enable);
-  }
-
-  public static void sha1_hash_address(address ip, sha1_hash h) {
-    libtorrent_jni.sha1_hash_address(address.getCPtr(ip), ip, sha1_hash.getCPtr(h), h);
-  }
-
-  public static int write_tcp_endpoint(tcp_endpoint endp, byte_vector out) {
-    return libtorrent_jni.write_tcp_endpoint(tcp_endpoint.getCPtr(endp), endp, byte_vector.getCPtr(out), out);
   }
 
   public static void add_files(file_storage fs, String file, add_files_listener listener, long flags) {

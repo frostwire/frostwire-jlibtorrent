@@ -96,7 +96,7 @@ public final class Dht {
      */
     public ArrayList<TcpEndpoint> getPeers(Sha1Hash sha1, int timeout) {
         final Sha1Hash target = sha1;
-        final Object[] result = {new ArrayList<TcpEndpoint>()};
+        final ArrayList<TcpEndpoint> result = new ArrayList<>();
         final CountDownLatch signal = new CountDownLatch(1);
 
         AlertListener l = new AlertListener() {
@@ -111,7 +111,7 @@ public final class Dht {
                 if (alert instanceof DhtGetPeersReplyAlert) {
                     DhtGetPeersReplyAlert replyAlert = (DhtGetPeersReplyAlert) alert;
                     if (target.equals(replyAlert.infoHash())) {
-                        result[0] = replyAlert.peers();
+                        result.addAll(replyAlert.peers());
                         signal.countDown();
                     }
                 }
@@ -130,7 +130,7 @@ public final class Dht {
 
         s.removeListener(l);
 
-        return (ArrayList<TcpEndpoint>) result[0];
+        return result;
     }
 
     public void announce(Sha1Hash sha1, int port, int flags) {
@@ -156,11 +156,11 @@ public final class Dht {
             public void alert(Alert<?> alert) {
                 if (alert instanceof DhtMutableItemAlert) {
                     DhtMutableItemAlert itemAlert = (DhtMutableItemAlert) alert;
-                    boolean sameKey = Arrays.equals(key, itemAlert.getKey());
-                    boolean sameSalt = Arrays.equals(salt, itemAlert.getSalt());
+                    boolean sameKey = Arrays.equals(key, itemAlert.key());
+                    boolean sameSalt = Arrays.equals(salt, itemAlert.salt());
                     if (sameKey && sameSalt) {
-                        MutableItem item = new MutableItem(itemAlert.getItem(),
-                                itemAlert.getSignature(), itemAlert.getSeq());
+                        MutableItem item = new MutableItem(itemAlert.item(),
+                                itemAlert.signature(), itemAlert.seq());
                         result[0] = item;
                         signal.countDown();
                     }

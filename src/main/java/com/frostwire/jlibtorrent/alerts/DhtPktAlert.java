@@ -14,7 +14,7 @@ import com.frostwire.jlibtorrent.swig.dht_pkt_alert;
  */
 public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
 
-    public DhtPktAlert(dht_pkt_alert alert) {
+    DhtPktAlert(dht_pkt_alert alert) {
         super(alert);
     }
 
@@ -27,7 +27,7 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      * @return
      */
     public byte[] pktBuf() {
-        return Vectors.byte_vector2bytes(alert.pkt_buf_v());
+        return Vectors.byte_vector2bytes(alert.get_pkt_buf());
     }
 
     /**
@@ -56,6 +56,9 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
         return new UdpEndpoint(alert.getNode());
     }
 
+    /**
+     *
+     */
     public enum Direction {
 
         INCOMING(dht_pkt_alert.direction_t.incoming.swigValue()),
@@ -68,14 +71,21 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static Direction fromSwig(int swigValue) {
             Direction[] enumValues = Direction.class.getEnumConstants();
             for (Direction ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

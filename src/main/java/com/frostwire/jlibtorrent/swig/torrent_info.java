@@ -227,8 +227,8 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_get_creation_date(swigCPtr, this);
   }
 
-  public byte_vector ssl_cert_bytes() {
-    return new byte_vector(libtorrent_jni.torrent_info_ssl_cert_bytes(swigCPtr, this), true);
+  public byte_vector get_ssl_cert() {
+    return new byte_vector(libtorrent_jni.torrent_info_get_ssl_cert(swigCPtr, this), true);
   }
 
 }

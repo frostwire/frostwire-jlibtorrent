@@ -13,7 +13,7 @@ import com.frostwire.jlibtorrent.swig.dht_put_alert;
  */
 public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
 
-    public DhtPutAlert(dht_put_alert alert) {
+    DhtPutAlert(dht_put_alert alert) {
         super(alert);
     }
 
@@ -23,7 +23,7 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      *
      * @return
      */
-    public Sha1Hash getTarget() {
+    public Sha1Hash target() {
         return new Sha1Hash(alert.getTarget());
     }
 
@@ -33,8 +33,8 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      *
      * @return
      */
-    public byte[] getPublicKey() {
-        return Vectors.byte_vector2bytes(alert.public_key_v());
+    public byte[] publicKey() {
+        return Vectors.byte_vector2bytes(alert.get_public_key());
     }
 
     /**
@@ -43,8 +43,8 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      *
      * @return
      */
-    public byte[] getSignature() {
-        return Vectors.byte_vector2bytes(alert.signature_v());
+    public byte[] signature() {
+        return Vectors.byte_vector2bytes(alert.get_signature());
     }
 
     /**
@@ -53,8 +53,8 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      *
      * @return
      */
-    public String getSalt() {
-        return alert.getSalt();
+    public byte[] salt() {
+        return Vectors.byte_vector2bytes(alert.get_salt());
     }
 
     /**
@@ -63,7 +63,7 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      *
      * @return
      */
-    public long getSeq() {
-        return alert.getSeq().longValue();
+    public long seq() {
+        return alert.get_seq();
     }
 }

@@ -375,12 +375,12 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_id(swigCPtr, this);
   }
 
-  public void add_piece_v(int piece, byte_vector data, int flags) {
-    libtorrent_jni.torrent_handle_add_piece_v__SWIG_0(swigCPtr, this, piece, byte_vector.getCPtr(data), data, flags);
+  public void add_piece_bytes(int piece, byte_vector data, int flags) {
+    libtorrent_jni.torrent_handle_add_piece_bytes__SWIG_0(swigCPtr, this, piece, byte_vector.getCPtr(data), data, flags);
   }
 
-  public void add_piece_v(int piece, byte_vector data) {
-    libtorrent_jni.torrent_handle_add_piece_v__SWIG_1(swigCPtr, this, piece, byte_vector.getCPtr(data), data);
+  public void add_piece_bytes(int piece, byte_vector data) {
+    libtorrent_jni.torrent_handle_add_piece_bytes__SWIG_1(swigCPtr, this, piece, byte_vector.getCPtr(data), data);
   }
 
   public torrent_info get_torrent_copy() {

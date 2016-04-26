@@ -72,8 +72,8 @@ public class dht_pkt_alert extends alert {
     return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
   }
 
-  public byte_vector pkt_buf_v() {
-    return new byte_vector(libtorrent_jni.dht_pkt_alert_pkt_buf_v(swigCPtr, this), true);
+  public byte_vector get_pkt_buf() {
+    return new byte_vector(libtorrent_jni.dht_pkt_alert_get_pkt_buf(swigCPtr, this), true);
   }
 
   public final static class direction_t {

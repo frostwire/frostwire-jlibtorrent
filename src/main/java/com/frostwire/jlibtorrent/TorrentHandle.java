@@ -76,7 +76,7 @@ public final class TorrentHandle {
      * @param flags
      */
     public void addPiece(int piece, byte[] data, int flags) {
-        th.add_piece_v(piece, Vectors.bytes2byte_vector(data), flags);
+        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags);
     }
 
     /**
@@ -87,7 +87,7 @@ public final class TorrentHandle {
      * @param data
      */
     public void addPiece(int piece, byte[] data) {
-        th.add_piece_v(piece, Vectors.bytes2byte_vector(data));
+        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data));
     }
 
     /**

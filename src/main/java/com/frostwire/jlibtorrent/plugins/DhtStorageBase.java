@@ -37,6 +37,8 @@ public class DhtStorageBase implements DhtStorage {
 
     @Override
     public boolean getPeers(Sha1Hash infoHash, boolean noseed, boolean scrape, entry peers) {
+        throw new UnsupportedOperationException();
+        /*
         TorrentEntry v = torrents.get(infoHash);
 
         if (v == null) {
@@ -89,7 +91,7 @@ public class DhtStorageBase implements DhtStorage {
             print("get_peers", peers);
         }
 
-        return true;
+        return true;*/
     }
 
     @Override
@@ -354,6 +356,8 @@ public class DhtStorageBase implements DhtStorage {
     }
 
     private static void touchItem(DhtImmutableItem f, address address) {
+        throw new UnsupportedOperationException();
+        /*
         f.last_seen = System.currentTimeMillis();
 
         // maybe increase num_announcers if we haven't seen this IP before
@@ -362,7 +366,7 @@ public class DhtStorageBase implements DhtStorage {
         if (!f.ips.find(iphash)) {
             f.ips.set(iphash);
             f.num_announcers++;
-        }
+        }*/
     }
 
     private static final class PeerEntry {
@@ -425,6 +429,8 @@ public class DhtStorageBase implements DhtStorage {
 
         @Override
         public int compare(Map.Entry<Sha1Hash, DhtImmutableItem> lhs, Map.Entry<Sha1Hash, DhtImmutableItem> rhs) {
+            throw new UnsupportedOperationException();
+            /*
             int l_distance = libtorrent.dht_distance_exp(lhs.getKey().swig(), ourId.swig());
             int r_distance = libtorrent.dht_distance_exp(rhs.getKey().swig(), ourId.swig());
 
@@ -436,7 +442,7 @@ public class DhtStorageBase implements DhtStorage {
             // because it gets one more bit.
             int a = lhs.getValue().num_announcers / 5 - l_distance;
             int b = rhs.getValue().num_announcers / 5 - r_distance;
-            return Integer.compare(a, b);
+            return Integer.compare(a, b);*/
         }
     }
 }

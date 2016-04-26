@@ -78,105 +78,12 @@ void ed25519_key_exchange(std::vector<int8_t>& shared_secret,
                         (unsigned char*)private_key.data());
 }
 
-// code copied from item.cpp
-enum { dht_item_canonical_length = 1200 };
-int dht_item_canonical_string0(std::pair<char const*, int> v, boost::uint64_t seq
-    , std::pair<char const*, int> salt, char out[dht_item_canonical_length])
-{
-    int canonical_length = dht_item_canonical_length;
-    char* ptr = out;
-
-    int left = canonical_length - (ptr - out);
-    if (salt.second > 0)
-    {
-        ptr += snprintf(ptr, left, "4:salt%d:", salt.second);
-        left = canonical_length - (ptr - out);
-        memcpy(ptr, salt.first, (std::min)(salt.second, left));
-        ptr += (std::min)(salt.second, left);
-        left = canonical_length - (ptr - out);
-    }
-    ptr += snprintf(ptr, canonical_length - (ptr - out)
-        , "3:seqi%" PRId64 "e1:v", seq);
-    left = canonical_length - (ptr - out);
-    memcpy(ptr, v.first, (std::min)(v.second, left));
-    ptr += (std::min)(v.second, left);
-    TORRENT_ASSERT((ptr - out) <= canonical_length);
-    return ptr - out;
-}
-
-int dht_item_canonical_string(std::vector<int8_t>& v, long seq,
-                            const std::string& salt, std::vector<int8_t>& out) {
-    return dht_item_canonical_string0(std::pair<char const*, int>((const char *)v.data(), v.size()),
-                                seq,
-                                std::pair<char const*, int>((const char *)salt.data(), salt.size()),
-                                (char *)out.data());
-}
-
-libtorrent::sha1_hash dht_item_target_id(std::vector<int8_t>& v) {
-    return dht::item_target_id(std::pair<char const*, int>((const char *)v.data(), v.size()));
-}
-
-libtorrent::sha1_hash dht_item_target_id(std::vector<int8_t>& salt, std::vector<int8_t>& pk) {
-    return dht::item_target_id(std::pair<char const*, int>((const char *)salt.data(), salt.size()), (char *)pk.data());
-}
-
-bool dht_verify_mutable_item(std::vector<int8_t>& v, const std::string& salt, long seq,
-                            std::vector<int8_t>& pk, std::vector<int8_t>& sig) {
-    return dht::verify_mutable_item(std::pair<char const*, int>((const char *)v.data(), v.size()),
-                                    std::pair<char const*, int>((const char *)salt.data(), salt.size()),
-                                    seq,
-                                    (char *)pk.data(),
-                                    (char *)sig.data());
-}
-
-void dht_sign_mutable_item(std::vector<int8_t>& v, const std::string& salt, long seq,
-                        std::vector<int8_t>& pk, std::vector<int8_t>& sk, std::vector<int8_t>& sig) {
-    dht::sign_mutable_item(std::pair<char const*, int>((const char *)v.data(), v.size()),
-                        std::pair<char const*, int>((const char *)salt.data(), salt.size()),
-                        seq,
-                        (char *)pk.data(),
-                        (char *)sk.data(),
-                        (char *)sig.data());
-}
-
-int dht_distance_exp(libtorrent::sha1_hash const& n1, libtorrent::sha1_hash const& n2) {
-    return dht::distance_exp(n1, n2);
-}
-
-libtorrent::sha1_hash dht_generate_id(boost::asio::ip::address const& external_ip) {
-    return dht::generate_id(external_ip);
-}
-
-libtorrent::sha1_hash dht_generate_random_id() {
-    return dht::generate_random_id();
-}
-
 bool default_storage_disk_write_access_log() {
     return default_storage::disk_write_access_log();
 }
 
 void default_storage_disk_write_access_log(bool enable) {
     return default_storage::disk_write_access_log(enable);
-}
-
-void sha1_hash_address(boost::asio::ip::address const& ip, libtorrent::sha1_hash& h)
-{
-    if (ip.is_v6())
-    {
-        address_v6::bytes_type b = ip.to_v6().to_bytes();
-        h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
-    }
-    else
-    {
-        address_v4::bytes_type b = ip.to_v4().to_bytes();
-        h = hasher(reinterpret_cast<char*>(&b[0]), b.size()).final();
-    }
-}
-
-int write_tcp_endpoint(tcp::endpoint const& endp, std::vector<int8_t>& out) {
-    std::vector<int8_t>::iterator it = out.begin();
-	libtorrent::detail::write_endpoint(endp, it);
-	return it - out.begin();
 }
 
 class add_files_listener {

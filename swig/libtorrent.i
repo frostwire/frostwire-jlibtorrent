@@ -452,10 +452,13 @@ namespace std {
 %ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
 %ignore libtorrent::dht_mutable_item_alert::key;
 %ignore libtorrent::dht_mutable_item_alert::signature;
+%ignore libtorrent::dht_mutable_item_alert::seq;
 %ignore libtorrent::dht_mutable_item_alert::salt;
 %ignore libtorrent::dht_put_alert::dht_put_alert;
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
+%ignore libtorrent::dht_put_alert::salt;
+%ignore libtorrent::dht_put_alert::seq;
 %ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
 %ignore libtorrent::dht_direct_response_alert::userdata;
 %ignore libtorrent::torrent_info::torrent_info(char const *, int);
@@ -554,9 +557,6 @@ namespace std {
 %ignore ed25519_verify(const unsigned char *, const unsigned char *, size_t , const unsigned char *);
 %ignore ed25519_add_scalar(unsigned char *, unsigned char *, const unsigned char *);
 %ignore ed25519_key_exchange(unsigned char *, const unsigned char *, const unsigned char *);
-
-%ignore dht_item_canonical_length;
-%ignore dht_item_canonical_string0;
 
 %ignore operator=;
 %ignore operator!;
@@ -979,11 +979,11 @@ namespace libtorrent {
 };
 
 %extend add_torrent_params {
-    long long get_flags() {
-        return (long long)$self->flags;
+    int64_t get_flags() {
+        return int64_t($self->flags);
     }
 
-    void set_flags(long long flags) {
+    void set_flags(int64_t flags) {
         $self->flags = flags;
     }
 
@@ -1021,14 +1021,14 @@ namespace libtorrent {
         return $self->creation_date().get_value_or(0);
     }
 
-    std::vector<int8_t> ssl_cert_bytes() {
+    std::vector<int8_t> get_ssl_cert() {
         std::string s = $self->ssl_cert();
         return std::vector<int8_t>(s.begin(), s.end());
     }
 };
 
 %extend torrent_handle {
-    void add_piece_v(int piece, std::vector<int8_t> const& data, int flags = 0) {
+    void add_piece_bytes(int piece, std::vector<int8_t> const& data, int flags = 0) {
         $self->add_piece(piece, (char const*)&data[0], flags);
     }
 
@@ -1071,31 +1071,44 @@ namespace libtorrent {
 };
 
 %extend dht_mutable_item_alert {
-    std::vector<int8_t> key_v() {
+    std::vector<int8_t> get_key() {
         boost::array<char, 32> arr = $self->key;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 
-    std::vector<int8_t> signature_v() {
+    std::vector<int8_t> get_signature() {
         boost::array<char, 64> arr = $self->signature;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 
-    std::vector<int8_t> salt_v() {
+    int64_t get_seq() {
+        return int64_t($self->seq);
+    }
+
+    std::vector<int8_t> get_salt() {
         std::string s = $self->salt;
         return std::vector<int8_t>(s.begin(), s.end());
     }
 };
 
 %extend dht_put_alert {
-    std::vector<int8_t> public_key_v() {
+    std::vector<int8_t> get_public_key() {
         boost::array<char, 32> arr = $self->public_key;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 
-    std::vector<int8_t> signature_v() {
+    std::vector<int8_t> get_signature() {
         boost::array<char, 64> arr = $self->signature;
         return std::vector<int8_t>(arr.begin(), arr.end());
+    }
+
+    std::vector<int8_t> get_salt() {
+        std::string s = $self->salt;
+        return std::vector<int8_t>(s.begin(), s.end());
+    }
+
+    int64_t get_seq() {
+        return int64_t($self->seq);
     }
 };
 
@@ -1129,7 +1142,7 @@ namespace libtorrent {
 };
 
 %extend dht_pkt_alert {
-    std::vector<int8_t> pkt_buf_v() {
+    std::vector<int8_t> get_pkt_buf() {
         return std::vector<int8_t>($self->pkt_buf(), $self->pkt_buf() + $self->pkt_size());
     }
 };
