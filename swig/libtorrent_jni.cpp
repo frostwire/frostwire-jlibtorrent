@@ -725,7 +725,6 @@ namespace Swig {
 #include "libtorrent/extensions.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/bdecode.hpp"
-#include "libtorrent/buffer.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
@@ -59823,7 +59822,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("c7c178a86252a7f34a97d335a0a078f55e5da11e");
+  result = (char *)("7d94f4c4f7afa5366750f427741eb4221adebd2c");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

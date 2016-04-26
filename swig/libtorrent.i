@@ -68,7 +68,6 @@
 #include "libtorrent/extensions.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/bdecode.hpp"
-#include "libtorrent/buffer.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
@@ -321,8 +320,6 @@ namespace std {
 %ignore libtorrent::internal_file_entry;
 %ignore libtorrent::storage_interface;
 %ignore libtorrent::time_critical_piece;
-%ignore libtorrent::buffer;
-%ignore libtorrent::buffer::const_interval;
 %ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::block_cache_reference;
@@ -442,12 +439,6 @@ namespace std {
 %ignore libtorrent::entry::find_key(char const *) const;
 %ignore libtorrent::entry::operator [];
 %ignore libtorrent::entry::m_type_queried;
-%ignore libtorrent::buffer::data() const;
-%ignore libtorrent::buffer::begin() const;
-%ignore libtorrent::buffer::end() const;
-%ignore libtorrent::buffer::operator[];
-%ignore libtorrent::buffer::const_interval::begin;
-%ignore libtorrent::buffer::const_interval::end;
 %ignore libtorrent::stats_alert::transferred;
 %ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
 %ignore libtorrent::dht_mutable_item_alert::key;
@@ -637,7 +628,6 @@ namespace std {
 %include "libtorrent/extensions.hpp"
 %include "libtorrent/ip_filter.hpp"
 %include "libtorrent/bdecode.hpp"
-%include "libtorrent/buffer.hpp"
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
