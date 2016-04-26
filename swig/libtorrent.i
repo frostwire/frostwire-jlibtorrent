@@ -538,6 +538,7 @@ namespace std {
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
 %ignore libtorrent::create_torrent::set_root_cert;
+%ignore libtorrent::stats_metric::name;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -1138,6 +1139,12 @@ namespace libtorrent {
 %extend save_resume_data_alert {
     entry get_resume_data() {
         return *($self->resume_data);
+    }
+};
+
+%extend stats_metric {
+    std::string get_name() {
+        return std::string($self->name);
     }
 };
 

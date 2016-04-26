@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.posix_wrapper;
 import com.frostwire.jlibtorrent.swig.stats_metric_vector;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,17 +79,17 @@ public final class LibTorrent {
      *
      * @return
      */
-    public static StatsMetric[] sessionStatsMetrics() {
+    public static ArrayList<StatsMetric> sessionStatsMetrics() {
         stats_metric_vector v = libtorrent.session_stats_metrics();
-
         int size = (int) v.size();
-        StatsMetric[] arr = new StatsMetric[size];
+
+        ArrayList<StatsMetric> l = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++) {
-            arr[i] = new StatsMetric(v.get(i));
+            l.add(new StatsMetric(v.get(i)));
         }
 
-        return arr;
+        return l;
     }
 
     /**

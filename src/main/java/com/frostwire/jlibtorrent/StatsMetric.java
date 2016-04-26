@@ -13,8 +13,8 @@ public final class StatsMetric {
     public static final int TYPE_COUNTER = stats_metric.type_counter;
     public static final int TYPE_GAUGE = stats_metric.type_gauge;
 
-    public StatsMetric(stats_metric sm) {
-        this.name = sm.getName();
+    StatsMetric(stats_metric sm) {
+        this.name = sm.get_name();
         this.valueIndex = sm.getValue_index();
         this.type = sm.getType();
     }

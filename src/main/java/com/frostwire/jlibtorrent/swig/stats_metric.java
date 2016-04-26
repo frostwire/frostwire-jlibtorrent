@@ -35,14 +35,6 @@ public class stats_metric {
     }
   }
 
-  public void setName(String value) {
-    libtorrent_jni.stats_metric_name_set(swigCPtr, this, value);
-  }
-
-  public String getName() {
-    return libtorrent_jni.stats_metric_name_get(swigCPtr, this);
-  }
-
   public void setValue_index(int value) {
     libtorrent_jni.stats_metric_value_index_set(swigCPtr, this, value);
   }
@@ -57,6 +49,10 @@ public class stats_metric {
 
   public int getType() {
     return libtorrent_jni.stats_metric_type_get(swigCPtr, this);
+  }
+
+  public String get_name() {
+    return libtorrent_jni.stats_metric_get_name(swigCPtr, this);
   }
 
   public stats_metric() {
