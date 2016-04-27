@@ -405,7 +405,7 @@ public final class Alerts {
         arr[63] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleInvalidAlert(a);
+                return handleUnknownAlert(a);
             }
         };
         arr[64] = new CastLambda() {
@@ -453,13 +453,13 @@ public final class Alerts {
         arr[71] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleInvalidAlert(a);
+                return handleUnknownAlert(a);
             }
         };
         arr[72] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleInvalidAlert(a);
+                return handleUnknownAlert(a);
             }
         };
         arr[73] = new CastLambda() {
@@ -568,7 +568,7 @@ public final class Alerts {
         return arr;
     }
 
-    private static Alert handleInvalidAlert(alert a) {
+    private static Alert handleUnknownAlert(alert a) {
         throw new IllegalArgumentException("alert not know: " + a.type() + " - " + a.message());
     }
 

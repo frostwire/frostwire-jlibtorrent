@@ -240,7 +240,7 @@ namespace std {
     };
 }
 
-typedef long time_t; // TODO: remove this
+typedef long time_t;
 
 namespace std {
     %template(int_int_pair) pair<int, int>;
@@ -256,7 +256,6 @@ namespace std {
 
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<long long>;
-    %template(ubyte_vector) vector<uint8_t>; // TODO: remove this
     %template(sha1_hash_vector) vector<libtorrent::sha1_hash>;
     %template(torrent_status_vector) vector<libtorrent::torrent_status>;
     %template(torrent_handle_vector) vector<libtorrent::torrent_handle>;
@@ -364,6 +363,8 @@ namespace std {
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::flags;
 %ignore libtorrent::add_torrent_params::ti;
+%ignore libtorrent::add_torrent_params::file_priorities;
+%ignore libtorrent::add_torrent_params::piece_priorities;
 %ignore libtorrent::add_torrent_params::deprecated1;
 %ignore libtorrent::add_torrent_params::deprecated2;
 %ignore libtorrent::add_torrent_params::deprecated3;
@@ -518,8 +519,11 @@ namespace std {
 %ignore libtorrent::torrent_status::_dummy_string_;
 %ignore libtorrent::torrent_status::next_announce;
 %ignore libtorrent::torrent_status::deprecated_announce_interval_;
-%ignore libtorrent::file_storage::apply_pointer_offset;
+%ignore libtorrent::file_storage::file_path_hash;
 %ignore libtorrent::file_storage::all_path_hashes;
+%ignore libtorrent::file_storage::file_name_ptr;
+%ignore libtorrent::file_storage::file_name_len;
+%ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::default_storage;
 %ignore libtorrent::disabled_storage;
 %ignore libtorrent::zero_storage;
@@ -992,8 +996,12 @@ namespace libtorrent {
         $self->ti = boost::make_shared<torrent_info>(ti);
     }
 
-    void set_file_priorities(std::vector<int8_t> priorities) {
+    void set_file_priorities(std::vector<int8_t> const& priorities) {
         $self->file_priorities = std::vector<boost::uint8_t>(priorities.begin(), priorities.end());
+    }
+
+    void set_piece_priorities(std::vector<int8_t> const& priorities) {
+        $self->piece_priorities = std::vector<boost::uint8_t>(priorities.begin(), priorities.end());
     }
 
     static add_torrent_params create_instance() {
@@ -1010,6 +1018,14 @@ namespace libtorrent {
 
     static add_torrent_params create_instance_swig_storage(swig_storage* s) {
         return add_torrent_params(boost::bind(&swig_storage_constructor, s, _1));
+    }
+
+    static add_torrent_params read_resume_data(bdecode_node const& rd, error_code& ec) {
+        return libtorrent::read_resume_data(rd, ec);
+    }
+
+    static add_torrent_params read_resume_data(std::vector<int8_t> const& buffer, error_code& ec) {
+        return libtorrent::read_resume_data((char const*)&buffer[0], buffer.size(), ec);
     }
 }
 

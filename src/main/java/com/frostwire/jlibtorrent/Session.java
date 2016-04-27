@@ -21,8 +21,8 @@ import java.util.List;
  * This class belongs to a middle logical layer of abstraction. It's a wrapper
  * of the underlying swig session object (from libtorrent), but it does not
  * expose all the raw features, not expose a very high level interface
- * like {@link com.frostwire.jlibtorrent.DHT DHT} or
- * {@link com.frostwire.jlibtorrent.Downloader Downloader}.
+ * like {@link com.frostwire.jlibtorrent.Dht} or
+ * {@link com.frostwire.jlibtorrent.Downloader}.
  *
  * @author gubatron
  * @author aldenml
@@ -735,6 +735,9 @@ public final class Session extends SessionHandle {
     }
 
     private TorrentHandle addTorrentSupport(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile, boolean async) {
+        if (true) {
+            throw new UnsupportedOperationException("need review");
+        }
 
         String savePath = null;
         if (saveDir != null) {
@@ -763,17 +766,14 @@ public final class Session extends SessionHandle {
 
         flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
 
-        if (true) {
-            throw new UnsupportedOperationException();
+        if (resumeFile != null) {
+            try {
+                byte[] data = Files.bytes(resumeFile);
+                //p.set_resume_data(Vectors.bytes2byte_vector(data));
+            } catch (Throwable e) {
+                LOG.warn("Unable to set resume data", e);
+            }
         }
-//        if (resumeFile != null) {
-//            try {
-//                byte[] data = Files.bytes(resumeFile);
-//                p.set_resume_data(Vectors.bytes2byte_vector(data));
-//            } catch (Throwable e) {
-//                LOG.warn("Unable to set resume data", e);
-//            }
-//        }
 
         p.set_flags(flags);
 

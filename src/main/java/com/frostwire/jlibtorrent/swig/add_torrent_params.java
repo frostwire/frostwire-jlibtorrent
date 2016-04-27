@@ -94,15 +94,6 @@ public class add_torrent_params {
     return storage_mode_t.swigToEnum(libtorrent_jni.add_torrent_params_storage_mode_get(swigCPtr, this));
   }
 
-  public void setFile_priorities(ubyte_vector value) {
-    libtorrent_jni.add_torrent_params_file_priorities_set(swigCPtr, this, ubyte_vector.getCPtr(value), value);
-  }
-
-  public ubyte_vector getFile_priorities() {
-    long cPtr = libtorrent_jni.add_torrent_params_file_priorities_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ubyte_vector(cPtr, false);
-  }
-
   public void setTrackerid(String value) {
     libtorrent_jni.add_torrent_params_trackerid_set(swigCPtr, this, value);
   }
@@ -311,15 +302,6 @@ public class add_torrent_params {
     return (cPtr == 0) ? null : new bitfield(cPtr, false);
   }
 
-  public void setPiece_priorities(ubyte_vector value) {
-    libtorrent_jni.add_torrent_params_piece_priorities_set(swigCPtr, this, ubyte_vector.getCPtr(value), value);
-  }
-
-  public ubyte_vector getPiece_priorities() {
-    long cPtr = libtorrent_jni.add_torrent_params_piece_priorities_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ubyte_vector(cPtr, false);
-  }
-
   public void setMerkle_tree(sha1_hash_vector value) {
     libtorrent_jni.add_torrent_params_merkle_tree_set(swigCPtr, this, sha1_hash_vector.getCPtr(value), value);
   }
@@ -354,6 +336,10 @@ public class add_torrent_params {
     libtorrent_jni.add_torrent_params_set_file_priorities(swigCPtr, this, byte_vector.getCPtr(priorities), priorities);
   }
 
+  public void set_piece_priorities(byte_vector priorities) {
+    libtorrent_jni.add_torrent_params_set_piece_priorities(swigCPtr, this, byte_vector.getCPtr(priorities), priorities);
+  }
+
   public static add_torrent_params create_instance() {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance(), true);
   }
@@ -368,6 +354,14 @@ public class add_torrent_params {
 
   public static add_torrent_params create_instance_swig_storage(swig_storage s) {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_swig_storage(swig_storage.getCPtr(s), s), true);
+  }
+
+  public static add_torrent_params read_resume_data(bdecode_node rd, error_code ec) {
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_read_resume_data__SWIG_0(bdecode_node.getCPtr(rd), rd, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static add_torrent_params read_resume_data(byte_vector buffer, error_code ec) {
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_read_resume_data__SWIG_1(byte_vector.getCPtr(buffer), buffer, error_code.getCPtr(ec), ec), true);
   }
 
   public final static class flags_t {

@@ -380,18 +380,6 @@ public final class AddTorrentParams {
     }
 
     /**
-     * This optional parameter can be given if up to date
-     * fast-resume data is available. The fast-resume data can be acquired
-     * from a running torrent by calling {@link TorrentHandle#saveResumeData()}
-     *
-     * @param data
-     */
-    public void resumeData(byte[] data) {
-        throw new UnsupportedOperationException();
-        //p.set_resume_data(Vectors.bytes2byte_vector(data));
-    }
-
-    /**
      * Can be set to control the initial file priorities when adding a
      * torrent. The semantics are the same as for
      * {@link TorrentHandle#prioritizeFiles(Priority[])}.
@@ -400,6 +388,18 @@ public final class AddTorrentParams {
      */
     public void filePriorities(Priority[] priorities) {
         p.set_file_priorities(Priority.array2byte_vector(priorities));
+    }
+
+    /**
+     * This sets the priorities for each individual piece in the torrent. Each
+     * element in the vector represent the piece with the same index. If you
+     * set both file- and piece priorities, file priorities will take
+     * precedence.
+     *
+     * @param priorities
+     */
+    public void piecePriorities(Priority[] priorities) {
+        p.set_piece_priorities(Priority.array2byte_vector(priorities));
     }
 
     public static AddTorrentParams createInstance() {

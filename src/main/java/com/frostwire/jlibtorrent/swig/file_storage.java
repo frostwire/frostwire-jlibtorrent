@@ -199,10 +199,6 @@ public class file_storage {
     return libtorrent_jni.file_storage_file_offset(swigCPtr, this, index);
   }
 
-  public long file_path_hash(int index, String save_path) {
-    return libtorrent_jni.file_storage_file_path_hash(swigCPtr, this, index, save_path);
-  }
-
   public string_vector paths() {
     return new string_vector(libtorrent_jni.file_storage_paths(swigCPtr, this), false);
   }
@@ -213,14 +209,6 @@ public class file_storage {
 
   public int file_index_at_offset(long offset) {
     return libtorrent_jni.file_storage_file_index_at_offset(swigCPtr, this, offset);
-  }
-
-  public String file_name_ptr(int index) {
-    return libtorrent_jni.file_storage_file_name_ptr(swigCPtr, this, index);
-  }
-
-  public int file_name_len(int index) {
-    return libtorrent_jni.file_storage_file_name_len(swigCPtr, this, index);
   }
 
   public final static class flags_t {

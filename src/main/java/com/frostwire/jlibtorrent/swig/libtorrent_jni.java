@@ -128,16 +128,6 @@ public class libtorrent_jni {
   public final static native long int64_vector_get(long jarg1, int64_vector jarg1_, int jarg2);
   public final static native void int64_vector_set(long jarg1, int64_vector jarg1_, int jarg2, long jarg3);
   public final static native void delete_int64_vector(long jarg1);
-  public final static native long new_ubyte_vector();
-  public final static native long ubyte_vector_size(long jarg1, ubyte_vector jarg1_);
-  public final static native long ubyte_vector_capacity(long jarg1, ubyte_vector jarg1_);
-  public final static native void ubyte_vector_reserve(long jarg1, ubyte_vector jarg1_, long jarg2);
-  public final static native boolean ubyte_vector_empty(long jarg1, ubyte_vector jarg1_);
-  public final static native void ubyte_vector_clear(long jarg1, ubyte_vector jarg1_);
-  public final static native void ubyte_vector_push_back(long jarg1, ubyte_vector jarg1_, short jarg2);
-  public final static native short ubyte_vector_get(long jarg1, ubyte_vector jarg1_, int jarg2);
-  public final static native void ubyte_vector_set(long jarg1, ubyte_vector jarg1_, int jarg2, short jarg3);
-  public final static native void delete_ubyte_vector(long jarg1);
   public final static native long new_sha1_hash_vector();
   public final static native long sha1_hash_vector_size(long jarg1, sha1_hash_vector jarg1_);
   public final static native long sha1_hash_vector_capacity(long jarg1, sha1_hash_vector jarg1_);
@@ -689,7 +679,6 @@ public class libtorrent_jni {
   public final static native long file_storage_file_size(long jarg1, file_storage jarg1_, int jarg2);
   public final static native boolean file_storage_pad_file_at(long jarg1, file_storage jarg1_, int jarg2);
   public final static native long file_storage_file_offset(long jarg1, file_storage jarg1_, int jarg2);
-  public final static native long file_storage_file_path_hash(long jarg1, file_storage jarg1_, int jarg2, String jarg3);
   public final static native int file_storage_flag_pad_file_get();
   public final static native int file_storage_flag_hidden_get();
   public final static native int file_storage_flag_executable_get();
@@ -697,8 +686,6 @@ public class libtorrent_jni {
   public final static native long file_storage_paths(long jarg1, file_storage jarg1_);
   public final static native int file_storage_file_flags(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_file_index_at_offset(long jarg1, file_storage jarg1_, long jarg2);
-  public final static native String file_storage_file_name_ptr(long jarg1, file_storage jarg1_, int jarg2);
-  public final static native int file_storage_file_name_len(long jarg1, file_storage jarg1_, int jarg2);
   public final static native long new_web_seed_entry__SWIG_0(String jarg1, int jarg2, String jarg3, long jarg4, string_string_pair_vector jarg4_);
   public final static native long new_web_seed_entry__SWIG_1(String jarg1, int jarg2, String jarg3);
   public final static native long new_web_seed_entry__SWIG_2(String jarg1, int jarg2);
@@ -923,8 +910,6 @@ public class libtorrent_jni {
   public final static native String add_torrent_params_save_path_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_storage_mode_set(long jarg1, add_torrent_params jarg1_, int jarg2);
   public final static native int add_torrent_params_storage_mode_get(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_file_priorities_set(long jarg1, add_torrent_params jarg1_, long jarg2, ubyte_vector jarg2_);
-  public final static native long add_torrent_params_file_priorities_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_trackerid_set(long jarg1, add_torrent_params jarg1_, String jarg2);
   public final static native String add_torrent_params_trackerid_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_url_set(long jarg1, add_torrent_params jarg1_, String jarg2);
@@ -975,8 +960,6 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_have_pieces_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_verified_pieces_set(long jarg1, add_torrent_params jarg1_, long jarg2, bitfield jarg2_);
   public final static native long add_torrent_params_verified_pieces_get(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_piece_priorities_set(long jarg1, add_torrent_params jarg1_, long jarg2, ubyte_vector jarg2_);
-  public final static native long add_torrent_params_piece_priorities_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_merkle_tree_set(long jarg1, add_torrent_params jarg1_, long jarg2, sha1_hash_vector jarg2_);
   public final static native long add_torrent_params_merkle_tree_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_renamed_files_set(long jarg1, add_torrent_params jarg1_, long jarg2, int_string_map jarg2_);
@@ -985,10 +968,13 @@ public class libtorrent_jni {
   public final static native void add_torrent_params_set_flags(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native void add_torrent_params_set_ti(long jarg1, add_torrent_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native void add_torrent_params_set_file_priorities(long jarg1, add_torrent_params jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native void add_torrent_params_set_piece_priorities(long jarg1, add_torrent_params jarg1_, long jarg2, byte_vector jarg2_);
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_create_instance_disabled_storage();
   public final static native long add_torrent_params_create_instance_zero_storage();
   public final static native long add_torrent_params_create_instance_swig_storage(long jarg1, swig_storage jarg1_);
+  public final static native long add_torrent_params_read_resume_data__SWIG_0(long jarg1, bdecode_node jarg1_, long jarg2, error_code jarg2_);
+  public final static native long add_torrent_params_read_resume_data__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, error_code jarg2_);
   public final static native void delete_add_torrent_params(long jarg1);
   public final static native int op_bittorrent_get();
   public final static native void stats_metric_value_index_set(long jarg1, stats_metric jarg1_, int jarg2);
