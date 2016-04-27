@@ -569,7 +569,7 @@ public final class Alerts {
     }
 
     private static Alert handleUnknownAlert(alert a) {
-        throw new IllegalArgumentException("alert not know: " + a.type() + " - " + a.message());
+        throw new IllegalArgumentException("alert not known: " + a.type() + " - " + a.message());
     }
 
     private interface CastLambda {
