@@ -67,7 +67,7 @@ public final class Entry {
         string_vector keys = dict.keys();
         int size = (int) keys.size();
 
-        Map<String, Entry> map = new HashMap<String, Entry>(size);
+        Map<String, Entry> map = new HashMap<>(size);
 
         for (int i = 0; i < size; i++) {
             String key = keys.get(i);
