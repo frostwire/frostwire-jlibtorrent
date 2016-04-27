@@ -11,11 +11,11 @@ import com.frostwire.jlibtorrent.swig.hash_failed_alert;
  */
 public final class HashFailedAlert extends TorrentAlert<hash_failed_alert> {
 
-    public HashFailedAlert(hash_failed_alert alert) {
+    HashFailedAlert(hash_failed_alert alert) {
         super(alert);
     }
 
-    public int getPieceIndex() {
+    public int pieceIndex() {
         return alert.getPiece_index();
     }
 }

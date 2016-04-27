@@ -70,7 +70,7 @@ public final class SwigStoragePlugin extends swig_storage {
     }
 
     @Override
-    public boolean verify_resume_data(bdecode_node rd, string_vector links, storage_error ec) {
+    public boolean verify_resume_data(add_torrent_params rd, string_vector links, storage_error ec) {
         try {
             p.verifyResumeData(rd, links, ec);
         } catch (Throwable e) {

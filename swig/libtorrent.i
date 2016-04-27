@@ -240,7 +240,7 @@ namespace std {
     };
 }
 
-typedef long time_t;
+typedef long time_t; // TODO: remove this
 
 namespace std {
     %template(int_int_pair) pair<int, int>;
@@ -256,6 +256,7 @@ namespace std {
 
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<long long>;
+    %template(ubyte_vector) vector<uint8_t>; // TODO: remove this
     %template(sha1_hash_vector) vector<libtorrent::sha1_hash>;
     %template(torrent_status_vector) vector<libtorrent::torrent_status>;
     %template(torrent_handle_vector) vector<libtorrent::torrent_handle>;
@@ -277,8 +278,10 @@ namespace std {
     %template(string_list) list<std::string>;
     %template(entry_list) list<libtorrent::entry>;
 
+    %template(int_string_map) map<int, std::string>;
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
+    %template(int_bitfield_map) map<int, libtorrent::bitfield>;
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
 
@@ -361,8 +364,10 @@ namespace std {
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::flags;
 %ignore libtorrent::add_torrent_params::ti;
-%ignore libtorrent::add_torrent_params::resume_data;
-%ignore libtorrent::add_torrent_params::file_priorities;
+%ignore libtorrent::add_torrent_params::deprecated1;
+%ignore libtorrent::add_torrent_params::deprecated2;
+%ignore libtorrent::add_torrent_params::deprecated3;
+%ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert_manager::set_dispatch_function;
 %ignore libtorrent::session::session(settings_pack const&, io_service&, int);
@@ -525,6 +530,7 @@ namespace std {
 %ignore libtorrent::bitfield::const_iterator;
 %ignore libtorrent::bitfield::begin;
 %ignore libtorrent::bitfield::end;
+%ignore libtorrent::bitfield::swap;
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
@@ -852,7 +858,6 @@ namespace libtorrent {
     CAST_ALERT_METHOD(state_update_alert)
     CAST_ALERT_METHOD(mmap_cache_alert)
     CAST_ALERT_METHOD(session_stats_alert)
-    CAST_ALERT_METHOD(torrent_update_alert)
     CAST_ALERT_METHOD(dht_error_alert)
     CAST_ALERT_METHOD(dht_immutable_item_alert)
     CAST_ALERT_METHOD(dht_mutable_item_alert)
@@ -985,10 +990,6 @@ namespace libtorrent {
 
     void set_ti(torrent_info const& ti) {
         $self->ti = boost::make_shared<torrent_info>(ti);
-    }
-
-    void set_resume_data(std::vector<int8_t> data) {
-        $self->resume_data = std::vector<char>(data.begin(), data.end());
     }
 
     void set_file_priorities(std::vector<int8_t> priorities) {

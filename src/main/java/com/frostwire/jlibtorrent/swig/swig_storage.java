@@ -74,8 +74,8 @@ public class swig_storage {
     return (getClass() == swig_storage.class) ? libtorrent_jni.swig_storage_move_storage(swigCPtr, this, save_path, flags, storage_error.getCPtr(ec), ec) : libtorrent_jni.swig_storage_move_storageSwigExplicitswig_storage(swigCPtr, this, save_path, flags, storage_error.getCPtr(ec), ec);
   }
 
-  public boolean verify_resume_data(bdecode_node rd, string_vector links, storage_error ec) {
-    return (getClass() == swig_storage.class) ? libtorrent_jni.swig_storage_verify_resume_data(swigCPtr, this, bdecode_node.getCPtr(rd), rd, string_vector.getCPtr(links), links, storage_error.getCPtr(ec), ec) : libtorrent_jni.swig_storage_verify_resume_dataSwigExplicitswig_storage(swigCPtr, this, bdecode_node.getCPtr(rd), rd, string_vector.getCPtr(links), links, storage_error.getCPtr(ec), ec);
+  public boolean verify_resume_data(add_torrent_params rd, string_vector links, storage_error ec) {
+    return (getClass() == swig_storage.class) ? libtorrent_jni.swig_storage_verify_resume_data(swigCPtr, this, add_torrent_params.getCPtr(rd), rd, string_vector.getCPtr(links), links, storage_error.getCPtr(ec), ec) : libtorrent_jni.swig_storage_verify_resume_dataSwigExplicitswig_storage(swigCPtr, this, add_torrent_params.getCPtr(rd), rd, string_vector.getCPtr(links), links, storage_error.getCPtr(ec), ec);
   }
 
   public void write_resume_data(entry rd, storage_error ec) {

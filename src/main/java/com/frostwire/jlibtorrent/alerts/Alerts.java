@@ -405,7 +405,7 @@ public final class Alerts {
         arr[63] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new GenericAlert(a);
+                return handleInvalidAlert(a);
             }
         };
         arr[64] = new CastLambda() {
@@ -453,13 +453,13 @@ public final class Alerts {
         arr[71] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new TorrentUpdateAlert(cast_to_torrent_update_alert(a));
+                return handleInvalidAlert(a);
             }
         };
         arr[72] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new GenericAlert(a);
+                return handleInvalidAlert(a);
             }
         };
         arr[73] = new CastLambda() {
@@ -566,6 +566,10 @@ public final class Alerts {
         };
 
         return arr;
+    }
+
+    private static Alert handleInvalidAlert(alert a) {
+        throw new IllegalArgumentException("alert not know: " + a.type() + " - " + a.message());
     }
 
     private interface CastLambda {

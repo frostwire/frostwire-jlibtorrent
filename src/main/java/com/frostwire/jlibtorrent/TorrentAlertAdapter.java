@@ -24,7 +24,7 @@ public abstract class TorrentAlertAdapter implements AlertListener {
 
     @Override
     public final void alert(Alert<?> a) {
-        if (!(a instanceof TorrentAlert<?>)) {
+        if (!(a instanceof TorrentAlert)) {
             return;
         }
 
@@ -54,9 +54,6 @@ public abstract class TorrentAlertAdapter implements AlertListener {
     }
 
     public void torrentRemoved(TorrentRemovedAlert alert) {
-    }
-
-    public void torrentUpdate(TorrentUpdateAlert alert) {
     }
 
     public void torrentDeleted(TorrentDeletedAlert alert) {
@@ -578,12 +575,7 @@ public abstract class TorrentAlertAdapter implements AlertListener {
         arr[68] = null;
         arr[69] = null;
         arr[70] = null;
-        arr[71] = new InvokeLambda() {
-            @Override
-            public void invoke(TorrentAlertAdapter l, Alert a) {
-                l.torrentUpdate((TorrentUpdateAlert) a);
-            }
-        };
+        arr[71] = null;
         arr[72] = null;
         arr[73] = null;
         arr[74] = null;

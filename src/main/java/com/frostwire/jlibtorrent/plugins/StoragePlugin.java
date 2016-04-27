@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent.plugins;
 
-import com.frostwire.jlibtorrent.swig.bdecode_node;
-import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.storage_error;
-import com.frostwire.jlibtorrent.swig.string_vector;
+import com.frostwire.jlibtorrent.swig.*;
 
 /**
  * @author gubatron
@@ -21,7 +18,7 @@ public interface StoragePlugin {
 
     int moveStorage(String save_path, int flags, storage_error ec);
 
-    boolean verifyResumeData(bdecode_node rd, string_vector links, storage_error ec);
+    boolean verifyResumeData(add_torrent_params rd, string_vector links, storage_error ec);
 
     void writeResumeData(entry rd, storage_error ec);
 

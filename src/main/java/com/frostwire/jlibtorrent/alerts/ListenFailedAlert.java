@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.swig.listen_failed_alert;
 /**
  * This alert is generated when none of the ports, given in the port range, to
  * session can be opened for listening. The {@link #endpoint()} member is the
- * interface and port that failed, {@link #getError()} is the error code describing
+ * interface and port that failed, {@link #error()} is the error code describing
  * the failure.
  * <p/>
  * libtorrent may sometimes try to listen on port 0, if all other ports failed.
@@ -20,7 +20,7 @@ import com.frostwire.jlibtorrent.swig.listen_failed_alert;
  */
 public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> {
 
-    public ListenFailedAlert(listen_failed_alert alert) {
+    ListenFailedAlert(listen_failed_alert alert) {
         super(alert);
     }
 
@@ -38,7 +38,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      *
      * @return
      */
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
     }
 
@@ -48,7 +48,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return
      * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.Operation
      */
-    public Operation getOperation() {
+    public Operation operation() {
         return Operation.fromSwig(alert.getOperation());
     }
 
@@ -58,7 +58,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return
      * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.SocketType
      */
-    public SocketType getSocketType() {
+    public SocketType socketType() {
         return SocketType.fromSwig(alert.getSock_type().swigValue());
     }
 
@@ -71,13 +71,44 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
         return new TcpEndpoint(alert.getEndpoint());
     }
 
+    /**
+     *
+     */
     public enum SocketType {
 
+        /**
+         *
+         */
         TCP(listen_failed_alert.socket_type_t.tcp.swigValue()),
+
+        /**
+         *
+         */
         TCP_SSL(listen_failed_alert.socket_type_t.tcp_ssl.swigValue()),
+
+        /**
+         *
+         */
         UDP(listen_failed_alert.socket_type_t.udp.swigValue()),
+
+        /**
+         *
+         */
         I2P(listen_failed_alert.socket_type_t.i2p.swigValue()),
+
+        /**
+         *
+         */
         SOCKS5(listen_failed_alert.socket_type_t.socks5.swigValue()),
+
+        /**
+         *
+         */
+        UTP_SSL(listen_failed_alert.socket_type_t.utp_ssl.swigValue()),
+
+        /**
+         *
+         */
         UNKNOWN(-1);
 
         SocketType(int swigValue) {
@@ -86,14 +117,21 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static SocketType fromSwig(int swigValue) {
             SocketType[] enumValues = SocketType.class.getEnumConstants();
             for (SocketType ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }
@@ -101,14 +139,54 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
         }
     }
 
+    /**
+     *
+     */
     public enum Operation {
 
+        /**
+         *
+         */
         PARSE_ADDRESS(listen_failed_alert.op_t.parse_addr.swigValue()),
+
+        /**
+         *
+         */
         OPEN(listen_failed_alert.op_t.open.swigValue()),
+
+        /**
+         *
+         */
         BIND(listen_failed_alert.op_t.bind.swigValue()),
+
+        /**
+         *
+         */
         LISTEN(listen_failed_alert.op_t.listen.swigValue()),
-        GET_PEER_NAME(listen_failed_alert.op_t.get_peer_name.swigValue()),
+
+        /**
+         *
+         */
+        GET_SOCKET_NAME(listen_failed_alert.op_t.get_socket_name.swigValue()),
+
+        /**
+         *
+         */
         ACCEPT(listen_failed_alert.op_t.accept.swigValue()),
+
+        /**
+         *
+         */
+        ENUM_IF(listen_failed_alert.op_t.enum_if.swigValue()),
+
+        /**
+         *
+         */
+        BIND_TO_DEVICE(listen_failed_alert.op_t.bind_to_device.swigValue()),
+
+        /**
+         *
+         */
         UNKNOWN(-1);
 
         Operation(int swigValue) {
@@ -117,14 +195,21 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static Operation fromSwig(int swigValue) {
             Operation[] enumValues = Operation.class.getEnumConstants();
             for (Operation ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

@@ -267,8 +267,6 @@ public final class AddTorrentParams {
      * not be the true info-hash of the .torrent. Instead a placeholder,
      * unique, info-hash is used which is later updated once the .torrent
      * file has been downloaded.
-     * <p/>
-     * Once the info-hash change happens, a {@link com.frostwire.jlibtorrent.alerts.TorrentUpdateAlert} is posted.
      *
      * @return
      */
@@ -288,57 +286,11 @@ public final class AddTorrentParams {
      * not be the true info-hash of the .torrent. Instead a placeholder,
      * unique, info-hash is used which is later updated once the .torrent
      * file has been downloaded.
-     * <p/>
-     * Once the info-hash change happens, a {@link com.frostwire.jlibtorrent.alerts.TorrentUpdateAlert} is posted.
      *
      * @param value
      */
     public void url(String value) {
         p.setUrl(value);
-    }
-
-    /**
-     * If ``uuid`` is specified, it is used to find duplicates. If another
-     * torrent is already running with the same UUID as the one being added,
-     * it will be considered a duplicate. This is mainly useful for RSS feed
-     * items which has UUIDs specified.
-     *
-     * @return
-     */
-    public String uuid() {
-        return p.getUuid();
-    }
-
-    /**
-     * If ``uuid`` is specified, it is used to find duplicates. If another
-     * torrent is already running with the same UUID as the one being added,
-     * it will be considered a duplicate. This is mainly useful for RSS feed
-     * items which has UUIDs specified.
-     *
-     * @param value
-     */
-    public void uuid(String value) {
-        p.setUuid(value);
-    }
-
-    /**
-     * Should point to the URL of the RSS feed this torrent comes from, if it
-     * comes from an RSS feed.
-     *
-     * @return
-     */
-    public String sourceFeedUrl() {
-        return p.getSource_feed_url();
-    }
-
-    /**
-     * Should point to the URL of the RSS feed this torrent comes from, if it
-     * comes from an RSS feed.
-     *
-     * @param value
-     */
-    public void sourceFeedUrl(String value) {
-        p.setSource_feed_url(value);
     }
 
     /**
@@ -435,7 +387,8 @@ public final class AddTorrentParams {
      * @param data
      */
     public void resumeData(byte[] data) {
-        p.set_resume_data(Vectors.bytes2byte_vector(data));
+        throw new UnsupportedOperationException();
+        //p.set_resume_data(Vectors.bytes2byte_vector(data));
     }
 
     /**

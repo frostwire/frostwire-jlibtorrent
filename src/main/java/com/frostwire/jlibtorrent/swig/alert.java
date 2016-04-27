@@ -401,11 +401,6 @@ public class alert {
     return (cPtr == 0) ? null : new session_stats_alert(cPtr, false);
   }
 
-  public static torrent_update_alert cast_to_torrent_update_alert(alert a) {
-    long cPtr = libtorrent_jni.alert_cast_to_torrent_update_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new torrent_update_alert(cPtr, false);
-  }
-
   public static dht_error_alert cast_to_dht_error_alert(alert a) {
     long cPtr = libtorrent_jni.alert_cast_to_dht_error_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new dht_error_alert(cPtr, false);

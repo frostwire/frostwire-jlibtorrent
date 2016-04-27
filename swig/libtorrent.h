@@ -210,7 +210,7 @@ struct swig_storage : storage_interface
         return 0;
     }
 
-    virtual bool verify_resume_data(libtorrent::bdecode_node const& rd
+    virtual bool verify_resume_data(libtorrent::add_torrent_params const& rd
         , std::vector<std::string> const* links
         , libtorrent::storage_error& ec) {
         return false;

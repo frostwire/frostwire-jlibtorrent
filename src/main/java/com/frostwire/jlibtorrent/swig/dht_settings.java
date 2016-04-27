@@ -183,4 +183,12 @@ public class dht_settings {
     return libtorrent_jni.dht_settings_item_lifetime_get(swigCPtr, this);
   }
 
+  public void setUpload_rate_limit(int value) {
+    libtorrent_jni.dht_settings_upload_rate_limit_set(swigCPtr, this, value);
+  }
+
+  public int getUpload_rate_limit() {
+    return libtorrent_jni.dht_settings_upload_rate_limit_get(swigCPtr, this);
+  }
+
 }

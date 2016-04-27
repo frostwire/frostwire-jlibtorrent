@@ -763,16 +763,17 @@ public final class Session extends SessionHandle {
 
         flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
 
-        if (resumeFile != null) {
-            try {
-                byte[] data = Files.bytes(resumeFile);
-                p.set_resume_data(Vectors.bytes2byte_vector(data));
-
-                flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
-            } catch (Throwable e) {
-                LOG.warn("Unable to set resume data", e);
-            }
+        if (true) {
+            throw new UnsupportedOperationException();
         }
+//        if (resumeFile != null) {
+//            try {
+//                byte[] data = Files.bytes(resumeFile);
+//                p.set_resume_data(Vectors.bytes2byte_vector(data));
+//            } catch (Throwable e) {
+//                LOG.warn("Unable to set resume data", e);
+//            }
+//        }
 
         p.set_flags(flags);
 

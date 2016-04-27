@@ -14,7 +14,6 @@ public enum AlertType {
     TORRENT_ADDED(torrent_added_alert.alert_type),
     TORRENT_FINISHED(torrent_finished_alert.alert_type),
     TORRENT_REMOVED(torrent_removed_alert.alert_type),
-    TORRENT_UPDATE(torrent_update_alert.alert_type),
     TORRENT_DELETED(torrent_deleted_alert.alert_type),
     TORRENT_PAUSED(torrent_paused_alert.alert_type),
     TORRENT_RESUMED(torrent_resumed_alert.alert_type),
@@ -188,7 +187,7 @@ public enum AlertType {
         arr[68] = STATE_UPDATE;
         arr[69] = MMAP_CACHE;
         arr[70] = SESSION_STATS;
-        arr[71] = TORRENT_UPDATE;
+        arr[71] = UNKNOWN;
         arr[72] = UNKNOWN;
         arr[73] = DHT_ERROR;
         arr[74] = DHT_IMMUTABLE_ITEM;

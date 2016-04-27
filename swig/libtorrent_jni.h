@@ -69,7 +69,7 @@ public:
     virtual bool has_any_file(libtorrent::storage_error &ec);
     virtual void set_file_priority(std::vector< boost::uint8_t > const &prio, libtorrent::storage_error &ec);
     virtual int move_storage(std::string const &save_path, int flags, libtorrent::storage_error &ec);
-    virtual bool verify_resume_data(libtorrent::bdecode_node const &rd, std::vector< std::string > const *links, libtorrent::storage_error &ec);
+    virtual bool verify_resume_data(libtorrent::add_torrent_params const &rd, std::vector< std::string > const *links, libtorrent::storage_error &ec);
     virtual void write_resume_data(libtorrent::entry &rd, libtorrent::storage_error &ec) const;
     virtual void release_files(libtorrent::storage_error &ec);
     virtual void rename_file(int index, std::string const &new_filename, libtorrent::storage_error &ec);

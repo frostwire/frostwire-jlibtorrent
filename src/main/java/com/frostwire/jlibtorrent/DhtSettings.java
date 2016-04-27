@@ -427,4 +427,26 @@ public final class DhtSettings {
     public void itemLifetime(int value) {
         s.setItem_lifetime(value);
     }
+
+    /**
+     * The number of bytes per second (on average) the DHT is allowed to send.
+     * If the incoming requests causes to many bytes to be sent in responses,
+     * incoming requests will be dropped until the quota has been replenished.
+     *
+     * @return
+     */
+    public int uploadRateLimit() {
+        return s.getUpload_rate_limit();
+    }
+
+    /**
+     * The number of bytes per second (on average) the DHT is allowed to send.
+     * If the incoming requests causes to many bytes to be sent in responses,
+     * incoming requests will be dropped until the quota has been replenished.
+     *
+     * @param value
+     */
+    public void uploadRateLimit(int value) {
+        s.setUpload_rate_limit(value);
+    }
 }

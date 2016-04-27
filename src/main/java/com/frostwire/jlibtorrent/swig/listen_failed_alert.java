@@ -145,8 +145,10 @@ public class listen_failed_alert extends alert {
     public final static listen_failed_alert.op_t open = new listen_failed_alert.op_t("open");
     public final static listen_failed_alert.op_t bind = new listen_failed_alert.op_t("bind");
     public final static listen_failed_alert.op_t listen = new listen_failed_alert.op_t("listen");
-    public final static listen_failed_alert.op_t get_peer_name = new listen_failed_alert.op_t("get_peer_name");
+    public final static listen_failed_alert.op_t get_socket_name = new listen_failed_alert.op_t("get_socket_name");
     public final static listen_failed_alert.op_t accept = new listen_failed_alert.op_t("accept");
+    public final static listen_failed_alert.op_t enum_if = new listen_failed_alert.op_t("enum_if");
+    public final static listen_failed_alert.op_t bind_to_device = new listen_failed_alert.op_t("bind_to_device");
 
     public final int swigValue() {
       return swigValue;
@@ -182,7 +184,7 @@ public class listen_failed_alert extends alert {
       swigNext = this.swigValue+1;
     }
 
-    private static op_t[] swigValues = { parse_addr, open, bind, listen, get_peer_name, accept };
+    private static op_t[] swigValues = { parse_addr, open, bind, listen, get_socket_name, accept, enum_if, bind_to_device };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
