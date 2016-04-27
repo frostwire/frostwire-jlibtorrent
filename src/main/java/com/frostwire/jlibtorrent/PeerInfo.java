@@ -13,11 +13,11 @@ public final class PeerInfo {
 
     private final peer_info p;
 
-    public PeerInfo(peer_info p) {
+    PeerInfo(peer_info p) {
         this.p = p;
     }
 
-    public peer_info getSwig() {
+    public peer_info swig() {
         return p;
     }
 
@@ -26,25 +26,38 @@ public final class PeerInfo {
      * have come from. A peer may have been seen from
      * multiple sources.
      */
-    enum PeerSourceFlags {
+    public enum PeerSourceFlags {
 
         /**
-         * This is the first time we see this peer.
+         * The peer was received from the tracker.
          */
         TRACKER(peer_info.peer_source_flags.tracker.swigValue()),
 
         /**
-         * This peer was not added because it was
-         * filtered by the IP filter
+         * The peer was received from the kademlia DHT.
          */
         DHT(peer_info.peer_source_flags.dht.swigValue()),
 
+        /**
+         * The peer was received from the peer exchange
+         * extension.
+         */
         PEX(peer_info.peer_source_flags.pex.swigValue()),
 
+        /**
+         * The peer was received from the local service
+         * discovery (The peer is on the local network).
+         */
         LSD(peer_info.peer_source_flags.lsd.swigValue()),
 
+        /**
+         * The peer was added from the fast resume data.
+         */
         RESUME_DATA(peer_info.peer_source_flags.resume_data.swigValue()),
 
+        /**
+         * We received an incoming connection from this peer.
+         */
         INCOMING(peer_info.peer_source_flags.incoming.swigValue()),
 
         /**
@@ -58,14 +71,21 @@ public final class PeerInfo {
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static PeerSourceFlags fromSwig(int swigValue) {
             PeerSourceFlags[] enumValues = PeerSourceFlags.class.getEnumConstants();
             for (PeerSourceFlags ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

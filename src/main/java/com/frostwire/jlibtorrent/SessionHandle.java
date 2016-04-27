@@ -214,4 +214,64 @@ public class SessionHandle {
     public void applySettings(SettingsPack sp) {
         s.apply_settings(sp.getSwig());
     }
+
+    /**
+     * Flags that determines which aspects of the session should be
+     * saved when calling {@link #saveState(long)}
+     */
+    public enum SaveStateFlags {
+
+        /**
+         * Saves settings (i.e. the {@link SettingsPack}).
+         */
+        SAVE_SETTINGS(session_handle.save_state_flags_t.save_settings.swigValue()),
+
+        /**
+         * Saves {@link DhtSettings}.
+         */
+        SAVE_DHT_SETTINGS(session_handle.save_state_flags_t.save_dht_settings.swigValue()),
+
+        /**
+         * Saves dht state such as nodes and node-id, possibly accelerating
+         * joining the DHT if provided at next session startup.
+         */
+        SAVE_DHT_STATE(session_handle.save_state_flags_t.save_dht_state.swigValue()),
+
+        /**
+         * Save pe_settings.
+         */
+        SAVE_ENCRYPTION_SETTINGS(session_handle.save_state_flags_t.save_encryption_settings.swigValue()),
+
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        SaveStateFlags(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        /**
+         * @return
+         */
+        public int swig() {
+            return swigValue;
+        }
+
+        /**
+         * @param swigValue
+         * @return
+         */
+        public static SaveStateFlags fromSwig(int swigValue) {
+            SaveStateFlags[] enumValues = SaveStateFlags.class.getEnumConstants();
+            for (SaveStateFlags ev : enumValues) {
+                if (ev.swig() == swigValue) {
+                    return ev;
+                }
+            }
+            return UNKNOWN;
+        }
+    }
 }
