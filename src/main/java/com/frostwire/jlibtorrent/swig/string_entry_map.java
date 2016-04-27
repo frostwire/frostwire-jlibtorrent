@@ -63,8 +63,8 @@ public class string_entry_map {
     libtorrent_jni.string_entry_map_set(swigCPtr, this, key, entry.getCPtr(x), x);
   }
 
-  public void del(String key) {
-    libtorrent_jni.string_entry_map_del(swigCPtr, this, key);
+  public void erase(String key) {
+    libtorrent_jni.string_entry_map_erase(swigCPtr, this, key);
   }
 
   public boolean has_key(String key) {

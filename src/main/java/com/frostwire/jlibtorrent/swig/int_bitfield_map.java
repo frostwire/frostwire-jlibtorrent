@@ -63,8 +63,8 @@ public class int_bitfield_map {
     libtorrent_jni.int_bitfield_map_set(swigCPtr, this, key, bitfield.getCPtr(x), x);
   }
 
-  public void del(int key) {
-    libtorrent_jni.int_bitfield_map_del(swigCPtr, this, key);
+  public void erase(int key) {
+    libtorrent_jni.int_bitfield_map_erase(swigCPtr, this, key);
   }
 
   public boolean has_key(int key) {

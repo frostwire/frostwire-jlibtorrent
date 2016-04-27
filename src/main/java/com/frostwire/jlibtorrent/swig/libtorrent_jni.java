@@ -311,7 +311,7 @@ public class libtorrent_jni {
   public final static native void int_string_map_clear(long jarg1, int_string_map jarg1_);
   public final static native String int_string_map_get(long jarg1, int_string_map jarg1_, int jarg2);
   public final static native void int_string_map_set(long jarg1, int_string_map jarg1_, int jarg2, String jarg3);
-  public final static native void int_string_map_del(long jarg1, int_string_map jarg1_, int jarg2);
+  public final static native void int_string_map_erase(long jarg1, int_string_map jarg1_, int jarg2);
   public final static native boolean int_string_map_has_key(long jarg1, int_string_map jarg1_, int jarg2);
   public final static native long int_string_map_keys(long jarg1, int_string_map jarg1_);
   public final static native void delete_int_string_map(long jarg1);
@@ -322,7 +322,7 @@ public class libtorrent_jni {
   public final static native void string_long_map_clear(long jarg1, string_long_map jarg1_);
   public final static native int string_long_map_get(long jarg1, string_long_map jarg1_, String jarg2);
   public final static native void string_long_map_set(long jarg1, string_long_map jarg1_, String jarg2, int jarg3);
-  public final static native void string_long_map_del(long jarg1, string_long_map jarg1_, String jarg2);
+  public final static native void string_long_map_erase(long jarg1, string_long_map jarg1_, String jarg2);
   public final static native boolean string_long_map_has_key(long jarg1, string_long_map jarg1_, String jarg2);
   public final static native long string_long_map_keys(long jarg1, string_long_map jarg1_);
   public final static native void delete_string_long_map(long jarg1);
@@ -333,7 +333,7 @@ public class libtorrent_jni {
   public final static native void string_entry_map_clear(long jarg1, string_entry_map jarg1_);
   public final static native long string_entry_map_get(long jarg1, string_entry_map jarg1_, String jarg2);
   public final static native void string_entry_map_set(long jarg1, string_entry_map jarg1_, String jarg2, long jarg3, entry jarg3_);
-  public final static native void string_entry_map_del(long jarg1, string_entry_map jarg1_, String jarg2);
+  public final static native void string_entry_map_erase(long jarg1, string_entry_map jarg1_, String jarg2);
   public final static native boolean string_entry_map_has_key(long jarg1, string_entry_map jarg1_, String jarg2);
   public final static native long string_entry_map_keys(long jarg1, string_entry_map jarg1_);
   public final static native void delete_string_entry_map(long jarg1);
@@ -344,7 +344,7 @@ public class libtorrent_jni {
   public final static native void int_bitfield_map_clear(long jarg1, int_bitfield_map jarg1_);
   public final static native long int_bitfield_map_get(long jarg1, int_bitfield_map jarg1_, int jarg2);
   public final static native void int_bitfield_map_set(long jarg1, int_bitfield_map jarg1_, int jarg2, long jarg3, bitfield jarg3_);
-  public final static native void int_bitfield_map_del(long jarg1, int_bitfield_map jarg1_, int jarg2);
+  public final static native void int_bitfield_map_erase(long jarg1, int_bitfield_map jarg1_, int jarg2);
   public final static native boolean int_bitfield_map_has_key(long jarg1, int_bitfield_map jarg1_, int jarg2);
   public final static native long int_bitfield_map_keys(long jarg1, int_bitfield_map jarg1_);
   public final static native void delete_int_bitfield_map(long jarg1);

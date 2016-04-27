@@ -127,8 +127,7 @@ namespace std {
 
         %extend {
             std::vector<T> to_vector() {
-                std::vector<T> v(self->begin(), self->end());
-                return v;
+                return std::vector<T>(self->begin(), self->end());
             }
         }
     };
@@ -218,7 +217,7 @@ namespace std {
             void set(const K& key, const T& x) {
                 (*self)[key] = x;
             }
-            void del(const K& key) throw (std::out_of_range) {
+            void erase(const K& key) throw (std::out_of_range) {
                 std::map<K,T >::iterator i = self->find(key);
                 if (i != self->end())
                     self->erase(i);
@@ -231,7 +230,8 @@ namespace std {
             }
             std::vector<K> keys() {
                 std::vector<K> v;
-                for(std::map<K, T>::iterator it = self->begin(); it != self->end(); ++it) {
+                for(std::map<K, T>::iterator it = self->begin(),
+                    end(self->end()); it != end; ++it) {
                     v.push_back(it->first);
                 }
                 return v;

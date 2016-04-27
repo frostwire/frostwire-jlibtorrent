@@ -48,6 +48,5 @@ public class SessionTest {
         e = entry.bdecode(Vectors.bytes2byte_vector(data));
         m = e.dict();
         assertEquals(1234, m.get("dht").dict().get("max_dht_items").integer());
-
     }
 }

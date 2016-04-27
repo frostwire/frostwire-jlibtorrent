@@ -1102,12 +1102,10 @@ SWIGINTERN void std_vector_Sl_tcp_endpoint_Sg__set(std::vector< tcp::endpoint > 
                     throw std::out_of_range("vector index out of range");
             }
 SWIGINTERN std::vector< std::string > std_list_Sl_std_string_Sg__to_vector(std::list< std::string > *self){
-                std::vector<std::string> v(self->begin(), self->end());
-                return v;
+                return std::vector<std::string>(self->begin(), self->end());
             }
 SWIGINTERN std::vector< libtorrent::entry > std_list_Sl_libtorrent_entry_Sg__to_vector(std::list< libtorrent::entry > *self){
-                std::vector<libtorrent::entry> v(self->begin(), self->end());
-                return v;
+                return std::vector<libtorrent::entry>(self->begin(), self->end());
             }
 SWIGINTERN std::string const &std_map_Sl_int_Sc_std_string_Sg__get(std::map< int,std::string > *self,int const &key){
                 std::map<int,std::string >::iterator i = self->find(key);
@@ -1119,7 +1117,7 @@ SWIGINTERN std::string const &std_map_Sl_int_Sc_std_string_Sg__get(std::map< int
 SWIGINTERN void std_map_Sl_int_Sc_std_string_Sg__set(std::map< int,std::string > *self,int const &key,std::string const &x){
                 (*self)[key] = x;
             }
-SWIGINTERN void std_map_Sl_int_Sc_std_string_Sg__del(std::map< int,std::string > *self,int const &key){
+SWIGINTERN void std_map_Sl_int_Sc_std_string_Sg__erase(std::map< int,std::string > *self,int const &key){
                 std::map<int,std::string >::iterator i = self->find(key);
                 if (i != self->end())
                     self->erase(i);
@@ -1132,7 +1130,8 @@ SWIGINTERN bool std_map_Sl_int_Sc_std_string_Sg__has_key(std::map< int,std::stri
             }
 SWIGINTERN std::vector< int > std_map_Sl_int_Sc_std_string_Sg__keys(std::map< int,std::string > *self){
                 std::vector<int> v;
-                for(std::map<int, std::string>::iterator it = self->begin(); it != self->end(); ++it) {
+                for(std::map<int, std::string>::iterator it = self->begin(),
+                    end(self->end()); it != end; ++it) {
                     v.push_back(it->first);
                 }
                 return v;
@@ -1147,7 +1146,7 @@ SWIGINTERN long const &std_map_Sl_std_string_Sc_long_Sg__get(std::map< std::stri
 SWIGINTERN void std_map_Sl_std_string_Sc_long_Sg__set(std::map< std::string,long > *self,std::string const &key,long const &x){
                 (*self)[key] = x;
             }
-SWIGINTERN void std_map_Sl_std_string_Sc_long_Sg__del(std::map< std::string,long > *self,std::string const &key){
+SWIGINTERN void std_map_Sl_std_string_Sc_long_Sg__erase(std::map< std::string,long > *self,std::string const &key){
                 std::map<std::string,long >::iterator i = self->find(key);
                 if (i != self->end())
                     self->erase(i);
@@ -1160,7 +1159,8 @@ SWIGINTERN bool std_map_Sl_std_string_Sc_long_Sg__has_key(std::map< std::string,
             }
 SWIGINTERN std::vector< std::string > std_map_Sl_std_string_Sc_long_Sg__keys(std::map< std::string,long > *self){
                 std::vector<std::string> v;
-                for(std::map<std::string, long>::iterator it = self->begin(); it != self->end(); ++it) {
+                for(std::map<std::string, long>::iterator it = self->begin(),
+                    end(self->end()); it != end; ++it) {
                     v.push_back(it->first);
                 }
                 return v;
@@ -1175,7 +1175,7 @@ SWIGINTERN libtorrent::entry const &std_map_Sl_std_string_Sc_libtorrent_entry_Sg
 SWIGINTERN void std_map_Sl_std_string_Sc_libtorrent_entry_Sg__set(std::map< std::string,libtorrent::entry > *self,std::string const &key,libtorrent::entry const &x){
                 (*self)[key] = x;
             }
-SWIGINTERN void std_map_Sl_std_string_Sc_libtorrent_entry_Sg__del(std::map< std::string,libtorrent::entry > *self,std::string const &key){
+SWIGINTERN void std_map_Sl_std_string_Sc_libtorrent_entry_Sg__erase(std::map< std::string,libtorrent::entry > *self,std::string const &key){
                 std::map<std::string,libtorrent::entry >::iterator i = self->find(key);
                 if (i != self->end())
                     self->erase(i);
@@ -1188,7 +1188,8 @@ SWIGINTERN bool std_map_Sl_std_string_Sc_libtorrent_entry_Sg__has_key(std::map< 
             }
 SWIGINTERN std::vector< std::string > std_map_Sl_std_string_Sc_libtorrent_entry_Sg__keys(std::map< std::string,libtorrent::entry > *self){
                 std::vector<std::string> v;
-                for(std::map<std::string, libtorrent::entry>::iterator it = self->begin(); it != self->end(); ++it) {
+                for(std::map<std::string, libtorrent::entry>::iterator it = self->begin(),
+                    end(self->end()); it != end; ++it) {
                     v.push_back(it->first);
                 }
                 return v;
@@ -1203,7 +1204,7 @@ SWIGINTERN libtorrent::bitfield const &std_map_Sl_int_Sc_libtorrent_bitfield_Sg_
 SWIGINTERN void std_map_Sl_int_Sc_libtorrent_bitfield_Sg__set(std::map< int,libtorrent::bitfield > *self,int const &key,libtorrent::bitfield const &x){
                 (*self)[key] = x;
             }
-SWIGINTERN void std_map_Sl_int_Sc_libtorrent_bitfield_Sg__del(std::map< int,libtorrent::bitfield > *self,int const &key){
+SWIGINTERN void std_map_Sl_int_Sc_libtorrent_bitfield_Sg__erase(std::map< int,libtorrent::bitfield > *self,int const &key){
                 std::map<int,libtorrent::bitfield >::iterator i = self->find(key);
                 if (i != self->end())
                     self->erase(i);
@@ -1216,7 +1217,8 @@ SWIGINTERN bool std_map_Sl_int_Sc_libtorrent_bitfield_Sg__has_key(std::map< int,
             }
 SWIGINTERN std::vector< int > std_map_Sl_int_Sc_libtorrent_bitfield_Sg__keys(std::map< int,libtorrent::bitfield > *self){
                 std::vector<int> v;
-                for(std::map<int, libtorrent::bitfield>::iterator it = self->begin(); it != self->end(); ++it) {
+                for(std::map<int, libtorrent::bitfield>::iterator it = self->begin(),
+                    end(self->end()); it != end; ++it) {
                     v.push_back(it->first);
                 }
                 return v;
@@ -11056,7 +11058,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_1string_1map_1del(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_1string_1map_1erase(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   std::map< int,std::string > *arg1 = (std::map< int,std::string > *) 0 ;
   int *arg2 = 0 ;
   int temp2 ;
@@ -11070,7 +11072,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        std_map_Sl_int_Sc_std_string_Sg__del(arg1,(int const &)*arg2);
+        std_map_Sl_int_Sc_std_string_Sg__erase(arg1,(int const &)*arg2);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -11339,7 +11341,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_string_1long_1map_1del(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_string_1long_1map_1erase(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   std::map< std::string,long > *arg1 = (std::map< std::string,long > *) 0 ;
   std::string *arg2 = 0 ;
   
@@ -11359,7 +11361,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_map_Sl_std_string_Sc_long_Sg__del(arg1,(std::string const &)*arg2);
+        std_map_Sl_std_string_Sc_long_Sg__erase(arg1,(std::string const &)*arg2);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -11637,7 +11639,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_string_1entry_1map_1del(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_string_1entry_1map_1erase(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   std::map< std::string,libtorrent::entry > *arg1 = (std::map< std::string,libtorrent::entry > *) 0 ;
   std::string *arg2 = 0 ;
   
@@ -11657,7 +11659,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_map_Sl_std_string_Sc_libtorrent_entry_Sg__del(arg1,(std::string const &)*arg2);
+        std_map_Sl_std_string_Sc_libtorrent_entry_Sg__erase(arg1,(std::string const &)*arg2);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -11923,7 +11925,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_1bitfield_1map_1del(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_1bitfield_1map_1erase(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   std::map< int,libtorrent::bitfield > *arg1 = (std::map< int,libtorrent::bitfield > *) 0 ;
   int *arg2 = 0 ;
   int temp2 ;
@@ -11937,7 +11939,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        std_map_Sl_int_Sc_libtorrent_bitfield_Sg__del(arg1,(int const &)*arg2);
+        std_map_Sl_int_Sc_libtorrent_bitfield_Sg__erase(arg1,(int const &)*arg2);
       }
       catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
@@ -60513,7 +60515,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("619ca1cf3ab07c007e58dd66f3dba081b0bcd4a3");
+  result = (char *)("7b6a33e3c6498c3cb5a2c4e36cd22728f8bf320b");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

@@ -29,10 +29,10 @@ public class ChangeTrackersTest {
         entry e = entry.bdecode(Vectors.bytes2byte_vector(torrentBytes));
         string_entry_map m = e.dict();
         if (m.has_key("announce")) {
-            m.del("announce");
+            m.erase("announce");
         }
         if (m.has_key("announce-list")) {
-            m.del("announce-list");
+            m.erase("announce-list");
         }
 
         ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));
@@ -66,10 +66,10 @@ public class ChangeTrackersTest {
 
         // remove trackers
         if (m.has_key("announce")) {
-            m.del("announce");
+            m.erase("announce");
         }
         if (m.has_key("announce-list")) {
-            m.del("announce-list");
+            m.erase("announce-list");
         }
 
         // add trackers
