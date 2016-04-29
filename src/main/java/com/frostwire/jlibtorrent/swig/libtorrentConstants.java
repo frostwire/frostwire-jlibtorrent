@@ -17,7 +17,6 @@ public interface libtorrentConstants {
   public final static String LIBTORRENT_REVISION = libtorrent_jni.LIBTORRENT_REVISION_get();
   public final static int num_alert_types = libtorrent_jni.num_alert_types_get();
 
-  public final static int TORRENT_ALERT_MANAGER_MAX_ARITY = libtorrent_jni.TORRENT_ALERT_MANAGER_MAX_ARITY_get();
   public final static int ed25519_seed_size = libtorrent_jni.ed25519_seed_size_get();
   public final static int ed25519_private_key_size = libtorrent_jni.ed25519_private_key_size_get();
   public final static int ed25519_public_key_size = libtorrent_jni.ed25519_public_key_size_get();

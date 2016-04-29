@@ -2100,7 +2100,6 @@ public class libtorrent_jni {
   public final static native long picker_log_alert_picker_flags_get(long jarg1, picker_log_alert jarg1_);
   public final static native void delete_picker_log_alert(long jarg1);
   public final static native int num_alert_types_get();
-  public final static native int TORRENT_ALERT_MANAGER_MAX_ARITY_get();
   public final static native void peer_info_client_set(long jarg1, peer_info jarg1_, String jarg2);
   public final static native String peer_info_client_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_pieces_set(long jarg1, peer_info jarg1_, long jarg2, bitfield jarg2_);
