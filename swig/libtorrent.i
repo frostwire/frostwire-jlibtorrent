@@ -53,7 +53,6 @@
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
 #include "libtorrent/alert_manager.hpp"
-#include "libtorrent/disk_io_thread.hpp"
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
@@ -299,11 +298,7 @@ namespace std {
 %ignore get_file_attributes;
 %ignore get_symlink_path;
 
-%ignore libtorrent::partial_hash;
 %ignore libtorrent::piece_manager;
-%ignore libtorrent::disk_io_thread;
-%ignore libtorrent::cached_piece_info;
-%ignore libtorrent::cache_status;
 %ignore libtorrent::request_callback;
 %ignore libtorrent::timeout_handler;
 %ignore libtorrent::parse_int;
@@ -324,7 +319,6 @@ namespace std {
 %ignore libtorrent::time_critical_piece;
 %ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::buffer_allocator_interface;
-%ignore libtorrent::block_cache_reference;
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
 %ignore libtorrent::print_entry;
@@ -508,7 +502,6 @@ namespace std {
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
-%ignore libtorrent::cached_piece_info::storage;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::announce_entry::failed;
 %ignore libtorrent::announce_entry::next_announce;
@@ -623,7 +616,6 @@ namespace std {
 %include "libtorrent/alert.hpp"
 %include "libtorrent/alert_types.hpp"
 %include "libtorrent/alert_manager.hpp"
-%include "libtorrent/disk_io_thread.hpp"
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
