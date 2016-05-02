@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.file_slice_vector;
 import com.frostwire.jlibtorrent.swig.file_storage;
+import com.frostwire.jlibtorrent.swig.string_vector;
 import com.frostwire.jlibtorrent.swig.torrent_info;
 
 import java.io.File;
@@ -381,6 +382,54 @@ public final class FileStorage {
         return fs.file_offset(index);
     }
 
+    /**
+     * @return
+     */
+    public ArrayList<String> paths() {
+        string_vector v = fs.paths();
+        int size = (int) v.size();
+        ArrayList<String> l = new ArrayList(size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(v.get(i));
+        }
+
+        return l;
+    }
+
+    /**
+     * Returns a bitmask of flags from {@link FileFlags} that apply
+     * to file at {@code index}.
+     *
+     * @param index
+     * @return
+     */
+    public int fileFlags(int index) {
+        return fs.file_flags(index);
+    }
+
+    /**
+     * Returns true if the file at the specified index has been renamed to
+     * have an absolute path, i.e. is not anchored in the save path of the
+     * torrent.
+     *
+     * @param index
+     * @return
+     */
+    public boolean fileAbsolutePath(int index) {
+        return fs.file_absolute_path(index);
+    }
+
+    /**
+     * Returns the index of the file at the given offset in the torrent.
+     *
+     * @param offset
+     * @return
+     */
+    public int fileIndexAtOffset(long offset) {
+        return fs.file_index_at_offset(offset);
+    }
+
     static ArrayList<FileSlice> mapBlock(file_slice_vector v) {
         int size = (int) v.size();
 
@@ -432,13 +481,86 @@ public final class FileStorage {
 
         private final int swigValue;
 
+        /**
+         * @return
+         */
         public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static Flags fromSwig(int swigValue) {
             Flags[] enumValues = Flags.class.getEnumConstants();
             for (Flags ev : enumValues) {
+                if (ev.swig() == swigValue) {
+                    return ev;
+                }
+            }
+            return UNKNOWN;
+        }
+    }
+
+    /**
+     * Flags indicating various attributes for files in
+     * a {@link FileStorage}.
+     */
+    public enum FileFlags {
+
+        /**
+         * This file is a pad file. The creator of the
+         * torrent promises the file is entirely filled with
+         * zeroes and does not need to be downloaded. The
+         * purpose is just to align the next file to either
+         * a block or piece boundary.
+         */
+        FLAG_PAD_FILE(file_storage.file_flags_t.flag_pad_file.swigValue()),
+
+        /**
+         * This file is hidden (sets the hidden attribute
+         * on windows).
+         */
+        FLAG_ATTRIBUTE(file_storage.file_flags_t.flag_hidden.swigValue()),
+
+        /**
+         * This file is executable (sets the executable bit
+         * on posix like systems).
+         */
+        FLAG_EXECUTABLE(file_storage.file_flags_t.flag_executable.swigValue()),
+
+        /**
+         * This file is a symlink. The symlink target is
+         * specified in a separate field
+         */
+        FLAG_SYMLINK(file_storage.file_flags_t.flag_symlink.swigValue()),
+
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        FileFlags(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        /**
+         * @return
+         */
+        public int swig() {
+            return swigValue;
+        }
+
+        /**
+         * @param swigValue
+         * @return
+         */
+        public static FileFlags fromSwig(int swigValue) {
+            FileFlags[] enumValues = FileFlags.class.getEnumConstants();
+            for (FileFlags ev : enumValues) {
                 if (ev.swig() == swigValue) {
                     return ev;
                 }

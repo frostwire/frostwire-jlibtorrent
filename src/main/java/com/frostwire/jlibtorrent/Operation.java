@@ -112,10 +112,17 @@ public enum Operation {
 
     private final int swigValue;
 
+    /**
+     * @return
+     */
     public int swig() {
         return swigValue;
     }
 
+    /**
+     * @param swigValue
+     * @return
+     */
     public static Operation fromSwig(int swigValue) {
         Operation[] enumValues = Operation.class.getEnumConstants();
         for (Operation ev : enumValues) {

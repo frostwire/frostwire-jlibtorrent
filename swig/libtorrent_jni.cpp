@@ -685,6 +685,7 @@ namespace Swig {
 #include <ios>
 #include <list>
 #include <vector>
+#include <array>
 #include <map>
 #include <algorithm>
 
@@ -1469,11 +1470,11 @@ SWIGINTERN long long libtorrent_session_stats_alert_get_value(libtorrent::sessio
         return self->values[index];
     }
 SWIGINTERN std::vector< int8_t > libtorrent_dht_mutable_item_alert_get_key(libtorrent::dht_mutable_item_alert *self){
-        boost::array<char, 32> arr = self->key;
+        std::array<char, 32> arr = self->key;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 SWIGINTERN std::vector< int8_t > libtorrent_dht_mutable_item_alert_get_signature(libtorrent::dht_mutable_item_alert *self){
-        boost::array<char, 64> arr = self->signature;
+        std::array<char, 64> arr = self->signature;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 SWIGINTERN int64_t libtorrent_dht_mutable_item_alert_get_seq(libtorrent::dht_mutable_item_alert *self){
@@ -1484,11 +1485,11 @@ SWIGINTERN std::vector< int8_t > libtorrent_dht_mutable_item_alert_get_salt(libt
         return std::vector<int8_t>(s.begin(), s.end());
     }
 SWIGINTERN std::vector< int8_t > libtorrent_dht_put_alert_get_public_key(libtorrent::dht_put_alert *self){
-        boost::array<char, 32> arr = self->public_key;
+        std::array<char, 32> arr = self->public_key;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 SWIGINTERN std::vector< int8_t > libtorrent_dht_put_alert_get_signature(libtorrent::dht_put_alert *self){
-        boost::array<char, 64> arr = self->signature;
+        std::array<char, 64> arr = self->signature;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 SWIGINTERN std::vector< int8_t > libtorrent_dht_put_alert_get_salt(libtorrent::dht_put_alert *self){
@@ -1528,7 +1529,7 @@ SWIGINTERN void libtorrent_session_handle_dht_get_item__SWIG_1(libtorrent::sessi
         if (public_key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
         }
-        boost::array<char, 32> key;
+        std::array<char, 32> key;
 
         for (int i = 0; i < 32; i++) {
             key[i] = public_key[i];
@@ -1543,7 +1544,7 @@ SWIGINTERN void libtorrent_session_handle_dht_put_item__SWIG_1(libtorrent::sessi
         if (private_key.size() != 64) {
             throw std::invalid_argument("Private key must be of size 64");
         }
-        boost::array<char, 32> key;
+        std::array<char, 32> key;
 
     	for (int i = 0; i < 32; i++) {
     	    key[i] = public_key[i];
@@ -19512,6 +19513,31 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
     }
   }
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_1storage_1file_1absolute_1path(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  libtorrent::file_storage *arg1 = (libtorrent::file_storage *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::file_storage **)&jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      result = (bool)((libtorrent::file_storage const *)arg1)->file_absolute_path(arg2);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  jresult = (jboolean)result; 
   return jresult;
 }
 
@@ -60490,7 +60516,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("7f4ba2db264eb6ea9f4ee91935adda4e85805fe3");
+  result = (char *)("0d2c04cb2efd40173f50a5a3372f9f038fcacb74");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -60502,7 +60528,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("6b6fa8142786e5d5778fe4a3855e54c84413e099");
+  result = (char *)("6e113d15744c9c484a0a9d16b9a4e8a9f3c01f28");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

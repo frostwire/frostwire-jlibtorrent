@@ -10,11 +10,11 @@ import com.frostwire.jlibtorrent.swig.peer_connect_alert;
  */
 public final class PeerConnectAlert extends PeerAlert<peer_connect_alert> {
 
-    public PeerConnectAlert(peer_connect_alert alert) {
+    PeerConnectAlert(peer_connect_alert alert) {
         super(alert);
     }
 
-    public int getSocketType() {
+    public int socketType() {
         return alert.getSocket_type();
     }
 }

@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
+import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.peer_error_alert;
 
 /**
@@ -12,7 +13,7 @@ import com.frostwire.jlibtorrent.swig.peer_error_alert;
  */
 public final class PeerErrorAlert extends PeerAlert<peer_error_alert> {
 
-    public PeerErrorAlert(peer_error_alert alert) {
+    PeerErrorAlert(peer_error_alert alert) {
         super(alert);
     }
 
@@ -21,6 +22,13 @@ public final class PeerErrorAlert extends PeerAlert<peer_error_alert> {
      */
     public int operation() {
         return alert.getOperation();
+    }
+
+    /**
+     * @return
+     */
+    public String operationName() {
+        return libtorrent.operation_name(alert.getOperation());
     }
 
     /**

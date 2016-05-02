@@ -349,7 +349,7 @@ dht::dht_storage_interface* swig_dht_storage_constructor(swig_dht_storage *s
 
 //------------------------------------------------------
 
-void dht_put_item_cb(entry& e, boost::array<char, 64>& sig, boost::uint64_t& seq,
+void dht_put_item_cb(entry& e, std::array<char, 64>& sig, boost::uint64_t& seq,
     std::string const& salt, char const* public_key, char const* private_key,
     entry& data)
 {

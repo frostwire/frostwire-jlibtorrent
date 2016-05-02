@@ -1,5 +1,7 @@
 %module (jniclassname="libtorrent_jni", directors="1") libtorrent
 
+// suppress Warning 317: Specialization of non-template '<name>'.
+#pragma SWIG nowarn=317
 // suppress Warning 319: No access specifier given for base class 'boost::noncopyable' (ignored).
 #pragma SWIG nowarn=319
 // suppress Warning 401: Nothing known about base class '<name>'. Ignored.
@@ -28,6 +30,7 @@
 #include <ios>
 #include <list>
 #include <vector>
+#include <array>
 #include <map>
 #include <algorithm>
 
@@ -373,10 +376,10 @@ namespace std {
 %ignore libtorrent::session_handle::get_io_service;
 %ignore libtorrent::session_handle::get_connection_queue;
 %ignore libtorrent::session_handle::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent_handle const&, void*)>);
-%ignore libtorrent::session_handle::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>, std::string);
-%ignore libtorrent::session_handle::dht_put_item(boost::array<char, 32>, boost::function<void(entry&, boost::array<char,64>&, boost::uint64_t&, std::string const&)>);
-%ignore libtorrent::session_handle::dht_get_item(boost::array<char, 32>, std::string);
-%ignore libtorrent::session_handle::dht_get_item(boost::array<char, 32>);
+%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, boost::function<void(entry&, std::array<char,64>&, boost::uint64_t&, std::string const&)>, std::string);
+%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, boost::function<void(entry&, std::array<char,64>&, boost::uint64_t&, std::string const&)>);
+%ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>, std::string);
+%ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libtorrent::session_handle::dht_direct_request(udp::endpoint, entry const&, void*);
 %ignore libtorrent::session_handle::add_extension;
 %ignore libtorrent::session_handle::set_load_function;
@@ -430,6 +433,7 @@ namespace std {
 %ignore libtorrent::sha1_hash::assign(std::string const&);
 %ignore libtorrent::sha1_hash::data;
 %ignore libtorrent::sha1_hash::to_string;
+%ignore libtorrent::entry::entry(entry&&);
 %ignore libtorrent::entry::integer();
 %ignore libtorrent::entry::string();
 %ignore libtorrent::entry::dict() const;
@@ -518,8 +522,6 @@ namespace std {
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::default_storage;
-%ignore libtorrent::disabled_storage;
-%ignore libtorrent::zero_storage;
 %ignore libtorrent::file_status;
 %ignore libtorrent::stat_file;
 %ignore libtorrent::fileop;
@@ -884,7 +886,7 @@ namespace libtorrent {
         if (public_key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
         }
-        boost::array<char, 32> key;
+        std::array<char, 32> key;
 
         for (int i = 0; i < 32; i++) {
             key[i] = public_key[i];
@@ -900,7 +902,7 @@ namespace libtorrent {
         if (private_key.size() != 64) {
             throw std::invalid_argument("Private key must be of size 64");
         }
-        boost::array<char, 32> key;
+        std::array<char, 32> key;
 
     	for (int i = 0; i < 32; i++) {
     	    key[i] = public_key[i];
@@ -1077,12 +1079,12 @@ namespace libtorrent {
 
 %extend dht_mutable_item_alert {
     std::vector<int8_t> get_key() {
-        boost::array<char, 32> arr = $self->key;
+        std::array<char, 32> arr = $self->key;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 
     std::vector<int8_t> get_signature() {
-        boost::array<char, 64> arr = $self->signature;
+        std::array<char, 64> arr = $self->signature;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 
@@ -1098,12 +1100,12 @@ namespace libtorrent {
 
 %extend dht_put_alert {
     std::vector<int8_t> get_public_key() {
-        boost::array<char, 32> arr = $self->public_key;
+        std::array<char, 32> arr = $self->public_key;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 
     std::vector<int8_t> get_signature() {
-        boost::array<char, 64> arr = $self->signature;
+        std::array<char, 64> arr = $self->signature;
         return std::vector<int8_t>(arr.begin(), arr.end());
     }
 

@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
 import com.frostwire.jlibtorrent.Operation;
+import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.peer_disconnected_alert;
 
 /**
@@ -13,7 +14,7 @@ import com.frostwire.jlibtorrent.swig.peer_disconnected_alert;
  */
 public final class PeerDisconnectedAlert extends PeerAlert<peer_disconnected_alert> {
 
-    public PeerDisconnectedAlert(peer_disconnected_alert alert) {
+    PeerDisconnectedAlert(peer_disconnected_alert alert) {
         super(alert);
     }
 
@@ -34,6 +35,13 @@ public final class PeerDisconnectedAlert extends PeerAlert<peer_disconnected_ale
      */
     public Operation operation() {
         return Operation.fromSwig(alert.getOperation().swigValue());
+    }
+
+    /**
+     * @return
+     */
+    public String operationName() {
+        return libtorrent.operation_name(alert.getOperation().swigValue());
     }
 
     /**

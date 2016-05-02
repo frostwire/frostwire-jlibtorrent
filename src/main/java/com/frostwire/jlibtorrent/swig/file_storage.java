@@ -207,6 +207,10 @@ public class file_storage {
     return libtorrent_jni.file_storage_file_flags(swigCPtr, this, index);
   }
 
+  public boolean file_absolute_path(int index) {
+    return libtorrent_jni.file_storage_file_absolute_path(swigCPtr, this, index);
+  }
+
   public int file_index_at_offset(long offset) {
     return libtorrent_jni.file_storage_file_index_at_offset(swigCPtr, this, offset);
   }
