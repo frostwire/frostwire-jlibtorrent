@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Remove this when the issue in swig is fixed
+# https://github.com/swig/swig/issues/672
+function fixAlertFinal() {
+    sed -i '' 's/alert final : /alert  : /g' ${LIBTORRENT_ROOT}/include/libtorrent/alert_types.hpp
+}
+function refixAlertFinal() {
+    sed -i '' 's/alert  : /alert final : /g' ${LIBTORRENT_ROOT}/include/libtorrent/alert_types.hpp
+}
+
 function runJni()
 {
     JAVA_SRC_OUTPUT=../src/main/java/com/frostwire/jlibtorrent/swig
@@ -32,8 +41,6 @@ function runJni()
         -DTORRENT_USE_OPENSSL=1 \
         -DTORRENT_EXCEPTION_THROW_SPECIFIER=noexcept \
         -DTORRENT_NO_RETURN="" \
-        -DTORRENT_OVERRIDE="" \
-        -DTORRENT_FINAL="" \
         -DTORRENT_DEBUG_REFCOUNTS=1 \
         -DTORRENT_FORMAT\(x,y\)="" \
         -DTORRENT_DISK_STATS=1 \
@@ -79,8 +86,6 @@ function runNode()
         -DTORRENT_USE_OPENSSL=1 \
         -DTORRENT_EXCEPTION_THROW_SPECIFIER=noexcept \
         -DTORRENT_NO_RETURN="" \
-        -DTORRENT_OVERRIDE="" \
-        -DTORRENT_FINAL="" \
         -DTORRENT_DEBUG_REFCOUNTS=1 \
         -DTORRENT_FORMAT\(x,y\)="" \
         -DTORRENT_DISK_STATS=1 \
@@ -125,8 +130,10 @@ else
     read buildAll
 
     if echo $buildAll | grep -q "^[Yy]" ; then
+        fixAlertFinal
         runJni
         runNode
+        refixAlertFinal
     fi
 fi
 
