@@ -66,6 +66,13 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
         return h.is_all_zeros();
     }
 
+    /**
+     * @return
+     */
+    public int countLeadingZeroes() {
+        return h.count_leading_zeroes();
+    }
+
     public byte[] toBytes() {
         return Vectors.byte_vector2bytes(h.to_bytes());
     }

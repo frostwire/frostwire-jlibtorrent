@@ -388,7 +388,7 @@ public final class FileStorage {
     public ArrayList<String> paths() {
         string_vector v = fs.paths();
         int size = (int) v.size();
-        ArrayList<String> l = new ArrayList(size);
+        ArrayList<String> l = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++) {
             l.add(v.get(i));

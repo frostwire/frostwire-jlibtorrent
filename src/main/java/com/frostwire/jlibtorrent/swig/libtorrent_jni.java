@@ -607,6 +607,7 @@ public class libtorrent_jni {
   public final static native boolean sha1_hash_op_eq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean sha1_hash_op_neq(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean sha1_hash_op_lt(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native int sha1_hash_count_leading_zeroes(long jarg1, sha1_hash jarg1_);
   public final static native long new_sha1_hash__SWIG_1(long jarg1, byte_vector jarg1_);
   public final static native int sha1_hash_hash_code(long jarg1, sha1_hash jarg1_);
   public final static native long sha1_hash_to_bytes(long jarg1, sha1_hash jarg1_);

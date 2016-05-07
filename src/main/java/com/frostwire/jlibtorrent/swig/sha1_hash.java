@@ -67,6 +67,10 @@ public class sha1_hash {
     return libtorrent_jni.sha1_hash_op_lt(swigCPtr, this, sha1_hash.getCPtr(n), n);
   }
 
+  public int count_leading_zeroes() {
+    return libtorrent_jni.sha1_hash_count_leading_zeroes(swigCPtr, this);
+  }
+
   public sha1_hash(byte_vector s) {
     this(libtorrent_jni.new_sha1_hash__SWIG_1(byte_vector.getCPtr(s), s), true);
   }
