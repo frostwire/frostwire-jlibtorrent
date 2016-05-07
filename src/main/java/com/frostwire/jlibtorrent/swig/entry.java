@@ -104,10 +104,6 @@ public class entry {
     return libtorrent_jni.entry_to_string(swigCPtr, this);
   }
 
-  public entry(byte_vector string_bytes) {
-    this(libtorrent_jni.new_entry__SWIG_7(byte_vector.getCPtr(string_bytes), string_bytes), true);
-  }
-
   public entry get(String key) {
     return new entry(libtorrent_jni.entry_get(swigCPtr, this, key), false);
   }
@@ -136,6 +132,14 @@ public class entry {
     return new byte_vector(libtorrent_jni.entry_bencode(swigCPtr, this), true);
   }
 
+  public static entry from_string_bytes(byte_vector string_bytes) {
+    return new entry(libtorrent_jni.entry_from_string_bytes(byte_vector.getCPtr(string_bytes), string_bytes), true);
+  }
+
+  public static entry from_preformatted_bytes(byte_vector preformatted_bytes) {
+    return new entry(libtorrent_jni.entry_from_preformatted_bytes(byte_vector.getCPtr(preformatted_bytes), preformatted_bytes), true);
+  }
+
   public static entry bdecode(byte_vector buffer) {
     return new entry(libtorrent_jni.entry_bdecode(byte_vector.getCPtr(buffer), buffer), true);
   }
@@ -146,6 +150,7 @@ public class entry {
     public final static entry.data_type list_t = new entry.data_type("list_t");
     public final static entry.data_type dictionary_t = new entry.data_type("dictionary_t");
     public final static entry.data_type undefined_t = new entry.data_type("undefined_t");
+    public final static entry.data_type preformatted_t = new entry.data_type("preformatted_t");
 
     public final int swigValue() {
       return swigValue;
@@ -181,7 +186,7 @@ public class entry {
       swigNext = this.swigValue+1;
     }
 
-    private static data_type[] swigValues = { int_t, string_t, list_t, dictionary_t, undefined_t };
+    private static data_type[] swigValues = { int_t, string_t, list_t, dictionary_t, undefined_t, preformatted_t };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

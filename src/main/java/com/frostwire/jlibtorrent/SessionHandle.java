@@ -45,7 +45,7 @@ public class SessionHandle {
      */
     public byte[] saveState(long flags) {
         entry e = new entry();
-        s.save_state(e);
+        s.save_state(e, flags);
         return Vectors.byte_vector2bytes(e.bencode());
     }
 
