@@ -1251,9 +1251,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_std_string_Sc_dht_extension_handler_li
                 else
                     throw std::out_of_range("vector index out of range");
             }
-SWIGINTERN libtorrent::entry *new_libtorrent_entry__SWIG_7(std::vector< int8_t > const &string_bytes){
-        return new entry(std::string(string_bytes.begin(), string_bytes.end()));
-    }
 SWIGINTERN libtorrent::entry &libtorrent_entry_get(libtorrent::entry *self,std::string const &key){
         return self->operator[](key);
     }
@@ -1277,6 +1274,12 @@ SWIGINTERN std::vector< int8_t > libtorrent_entry_bencode(libtorrent::entry *sel
         std::vector<int8_t> buffer;
         libtorrent::bencode(std::back_inserter(buffer), *self);
         return buffer;
+    }
+SWIGINTERN libtorrent::entry libtorrent_entry_from_string_bytes(std::vector< int8_t > const &string_bytes){
+        return entry(std::string(string_bytes.begin(), string_bytes.end()));
+    }
+SWIGINTERN libtorrent::entry libtorrent_entry_from_preformatted_bytes(std::vector< int8_t > const &preformatted_bytes){
+        return entry(std::vector<char>(preformatted_bytes.begin(), preformatted_bytes.end()));
     }
 SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< int8_t > &buffer){
         return libtorrent::bdecode(buffer.begin(), buffer.end());
@@ -17212,33 +17215,6 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_e
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1entry_1_1SWIG_17(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  std::vector< int8_t > *arg1 = 0 ;
-  libtorrent::entry *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< int8_t > **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > const & reference is null");
-    return 0;
-  } 
-  {
-    try {
-      result = (libtorrent::entry *)new_libtorrent_entry__SWIG_7((std::vector< signed char > const &)*arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  *(libtorrent::entry **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jlong jresult = 0 ;
   libtorrent::entry *arg1 = (libtorrent::entry *) 0 ;
@@ -17458,6 +17434,60 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ent
     }
   }
   *(std::vector< int8_t > **)&jresult = new std::vector< int8_t >((const std::vector< int8_t > &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1from_1string_1bytes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< int8_t > *arg1 = 0 ;
+  libtorrent::entry result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< int8_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = libtorrent_entry_from_string_bytes((std::vector< signed char > const &)*arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  *(libtorrent::entry **)&jresult = new libtorrent::entry((const libtorrent::entry &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entry_1from_1preformatted_1bytes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< int8_t > *arg1 = 0 ;
+  libtorrent::entry result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< int8_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int8_t > const & reference is null");
+    return 0;
+  } 
+  {
+    try {
+      result = libtorrent_entry_from_preformatted_bytes((std::vector< signed char > const &)*arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  *(libtorrent::entry **)&jresult = new libtorrent::entry((const libtorrent::entry &)result); 
   return jresult;
 }
 
@@ -60516,7 +60546,11 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
+<<<<<<< HEAD
   result = (char *)("0d2c04cb2efd40173f50a5a3372f9f038fcacb74");
+=======
+  result = (char *)("6d49d9d0618e7308d0705329c02989c8a079c652");
+>>>>>>> libtorrent-RC_1_1
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -60528,7 +60562,11 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
+<<<<<<< HEAD
   result = (char *)("6e113d15744c9c484a0a9d16b9a4e8a9f3c01f28");
+=======
+  result = (char *)("5bb6b10e142bd76fddb7a66aa040a846d22ec706");
+>>>>>>> libtorrent-RC_1_1
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

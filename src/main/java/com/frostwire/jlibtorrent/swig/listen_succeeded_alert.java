@@ -72,6 +72,8 @@ public class listen_succeeded_alert extends alert {
     public final static listen_succeeded_alert.socket_type_t tcp = new listen_succeeded_alert.socket_type_t("tcp");
     public final static listen_succeeded_alert.socket_type_t tcp_ssl = new listen_succeeded_alert.socket_type_t("tcp_ssl");
     public final static listen_succeeded_alert.socket_type_t udp = new listen_succeeded_alert.socket_type_t("udp");
+    public final static listen_succeeded_alert.socket_type_t i2p = new listen_succeeded_alert.socket_type_t("i2p");
+    public final static listen_succeeded_alert.socket_type_t socks5 = new listen_succeeded_alert.socket_type_t("socks5");
     public final static listen_succeeded_alert.socket_type_t utp_ssl = new listen_succeeded_alert.socket_type_t("utp_ssl");
 
     public final int swigValue() {
@@ -108,7 +110,7 @@ public class listen_succeeded_alert extends alert {
       swigNext = this.swigValue+1;
     }
 
-    private static socket_type_t[] swigValues = { tcp, tcp_ssl, udp, utp_ssl };
+    private static socket_type_t[] swigValues = { tcp, tcp_ssl, udp, i2p, socks5, utp_ssl };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

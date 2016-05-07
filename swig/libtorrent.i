@@ -434,10 +434,12 @@ namespace std {
 %ignore libtorrent::sha1_hash::data;
 %ignore libtorrent::sha1_hash::to_string;
 %ignore libtorrent::entry::entry(entry&&);
+%ignore libtorrent::entry::entry(preformatted_type const&);
 %ignore libtorrent::entry::integer();
 %ignore libtorrent::entry::string();
 %ignore libtorrent::entry::dict() const;
 %ignore libtorrent::entry::list() const;
+%ignore libtorrent::entry::preformatted;
 %ignore libtorrent::entry::find_key(std::string const &) const;
 %ignore libtorrent::entry::find_key(char const *);
 %ignore libtorrent::entry::find_key(char const *) const;
@@ -927,9 +929,6 @@ namespace libtorrent {
 }
 
 %extend entry {
-    entry(std::vector<int8_t> const& string_bytes) {
-        return new entry(std::string(string_bytes.begin(), string_bytes.end()));
-    }
 
     entry& get(std::string const& key) {
         return $self->operator[](key);
@@ -956,10 +955,23 @@ namespace libtorrent {
         return std::vector<int8_t>(s.begin(), s.end());
     }
 
+    std::vector<int8_t> preformatted() {
+        std::vector<char> v = $self->preformatted();
+        return std::vector<int8_t>(v.begin(), v.end());
+    }
+
     std::vector<int8_t> bencode() {
         std::vector<int8_t> buffer;
         libtorrent::bencode(std::back_inserter(buffer), *$self);
         return buffer;
+    }
+
+    static entry from_string_bytes(std::vector<int8_t> const& string_bytes) {
+        return entry(std::string(string_bytes.begin(), string_bytes.end()));
+    }
+
+    static entry from_preformatted_bytes(std::vector<int8_t> const& preformatted_bytes) {
+        return entry(std::vector<char>(preformatted_bytes.begin(), preformatted_bytes.end()));
     }
 
     static entry bdecode(std::vector<int8_t>& buffer) {

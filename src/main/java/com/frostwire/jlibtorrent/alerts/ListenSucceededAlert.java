@@ -59,6 +59,16 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
         /**
          *
          */
+        I2P(listen_succeeded_alert.socket_type_t.i2p.swigValue()),
+
+        /**
+         *
+         */
+        SOCKS5(listen_succeeded_alert.socket_type_t.socks5.swigValue()),
+
+        /**
+         *
+         */
         UTP_SSL(listen_succeeded_alert.socket_type_t.utp_ssl.swigValue()),
 
         /**
