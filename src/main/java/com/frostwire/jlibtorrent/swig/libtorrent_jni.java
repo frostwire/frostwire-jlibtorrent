@@ -1972,7 +1972,6 @@ public class libtorrent_jni {
   public final static native long dht_stats_alert_active_requests_get(long jarg1, dht_stats_alert jarg1_);
   public final static native void dht_stats_alert_routing_table_set(long jarg1, dht_stats_alert jarg1_, long jarg2, dht_routing_bucket_vector jarg2_);
   public final static native long dht_stats_alert_routing_table_get(long jarg1, dht_stats_alert jarg1_);
-  public final static native int dht_stats_alert_total_nodes(long jarg1, dht_stats_alert jarg1_);
   public final static native void delete_dht_stats_alert(long jarg1);
   public final static native int incoming_request_alert_static_category_get();
   public final static native int incoming_request_alert_priority_get();

@@ -8,6 +8,8 @@ public final class SessionStats {
 
     private final JavaStat stat;
 
+    private long dhtNodes;
+
     SessionStats(JavaStat stat) {
         this.stat = stat;
     }
@@ -34,5 +36,13 @@ public final class SessionStats {
 
     public long uploadRate() {
         return stat.uploadRate();
+    }
+
+    public long dhtNodes() {
+        return dhtNodes;
+    }
+
+    void dhtNodes(long value) {
+        dhtNodes = value;
     }
 }

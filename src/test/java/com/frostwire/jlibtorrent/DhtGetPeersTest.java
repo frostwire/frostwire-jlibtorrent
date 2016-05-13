@@ -3,7 +3,8 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
-import com.frostwire.jlibtorrent.alerts.DhtStatsAlert;
+import com.frostwire.jlibtorrent.alerts.SessionStatsAlert;
+import com.frostwire.jlibtorrent.swig.counters;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class DhtGetPeersTest {
         AlertListener l = new AlertListener() {
             @Override
             public int[] types() {
-                return new int[]{AlertType.SESSION_STATS.swig(), AlertType.DHT_STATS.swig(), AlertType.DHT_GET_PEERS_REPLY.swig()};
+                return new int[]{AlertType.SESSION_STATS.swig(), AlertType.DHT_GET_PEERS_REPLY.swig()};
             }
 
             @Override
@@ -43,11 +44,7 @@ public class DhtGetPeersTest {
                 AlertType type = alert.type();
 
                 if (type == AlertType.SESSION_STATS) {
-                    s.postDHTStats();
-                }
-
-                if (type == AlertType.DHT_STATS) {
-                    long nodes = ((DhtStatsAlert) alert).totalNodes();
+                    long nodes = s.getStats().dhtNodes();
                     // wait for at least 10 nodes in the DHT.
                     if (nodes >= 10) {
                         s1.countDown();
@@ -62,7 +59,6 @@ public class DhtGetPeersTest {
         };
 
         s.addListener(l);
-        s.postDHTStats();
 
         // waiting for nodes in DHT
         awaitSeconds(s1, "DHT bootstrap timeout", 10);

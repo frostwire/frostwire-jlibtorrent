@@ -1449,14 +1449,6 @@ SWIGINTERN std::string libtorrent_peer_log_alert_get_event_type(libtorrent::peer
 SWIGINTERN std::string libtorrent_dht_lookup_get_type(libtorrent::dht_lookup *self){
         return std::string(self->type);
     }
-SWIGINTERN int libtorrent_dht_stats_alert_total_nodes(libtorrent::dht_stats_alert *self){
-        int total = 0;
-        for(std::vector<dht_routing_bucket>::const_iterator it = self->routing_table.begin(),
-            end(self->routing_table.end()); it != end; ++it) {
-            total += it->num_nodes;
-        }
-        return total;
-    }
 SWIGINTERN std::vector< int8_t > libtorrent_dht_pkt_alert_get_pkt_buf(libtorrent::dht_pkt_alert *self){
         return std::vector<int8_t>(self->pkt_buf(), self->pkt_buf() + self->pkt_size());
     }
@@ -43253,29 +43245,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1stats_1alert_1total_1nodes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  libtorrent::dht_stats_alert *arg1 = (libtorrent::dht_stats_alert *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::dht_stats_alert **)&jarg1; 
-  {
-    try {
-      result = (int)libtorrent_dht_stats_alert_total_nodes(arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1dht_1stats_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   libtorrent::dht_stats_alert *arg1 = (libtorrent::dht_stats_alert *) 0 ;
   
@@ -59693,7 +59662,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("52a2926925add89b7a11b572616e4c9828451e2f");
+  result = (char *)("7616cea87e7c88175bc85c8f5bcba96d385c84d9");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

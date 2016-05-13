@@ -1132,17 +1132,6 @@ namespace libtorrent {
     }
 }
 
-%extend dht_stats_alert {
-    int total_nodes() {
-        int total = 0;
-        for(std::vector<dht_routing_bucket>::const_iterator it = $self->routing_table.begin(),
-            end($self->routing_table.end()); it != end; ++it) {
-            total += it->num_nodes;
-        }
-        return total;
-    }
-}
-
 %extend save_resume_data_alert {
     entry get_resume_data() {
         return *($self->resume_data);

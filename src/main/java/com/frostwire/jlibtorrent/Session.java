@@ -914,6 +914,8 @@ public final class Session extends SessionHandle {
         stat.sent(payload, protocol, ip);
 
         stat.secondTick(tickIntervalMs);
+
+        stats.dhtNodes(alert.value(counters.stats_gauge_t.dht_nodes.swigValue()));
     }
 
     private void saveMagnetData(MetadataReceivedAlert alert) {
