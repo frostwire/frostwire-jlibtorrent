@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
 
-    public DhtStatsAlert(dht_stats_alert alert) {
+    DhtStatsAlert(dht_stats_alert alert) {
         super(alert);
     }
 
@@ -55,9 +55,5 @@ public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
         }
 
         return l;
-    }
-
-    public int totalNodes() {
-        return alert.total_nodes();
     }
 }

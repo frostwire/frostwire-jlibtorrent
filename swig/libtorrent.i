@@ -955,7 +955,7 @@ namespace libtorrent {
         return std::vector<int8_t>(s.begin(), s.end());
     }
 
-    std::vector<int8_t> preformatted() {
+    std::vector<int8_t> preformatted_bytes() {
         std::vector<char> v = $self->preformatted();
         return std::vector<int8_t>(v.begin(), v.end());
     }
@@ -1140,17 +1140,6 @@ namespace libtorrent {
 %extend session_stats_alert {
     long long get_value(int index) {
         return $self->values[index];
-    }
-}
-
-%extend dht_stats_alert {
-    int total_nodes() {
-        int total = 0;
-        for(std::vector<dht_routing_bucket>::const_iterator it = $self->routing_table.begin(),
-            end($self->routing_table.end()); it != end; ++it) {
-            total += it->num_nodes;
-        }
-        return total;
     }
 }
 

@@ -42,7 +42,7 @@ public final class DhtShell {
 
                 if (type == AlertType.DHT_STATS) {
                     DhtStatsAlert a = (DhtStatsAlert) alert;
-                    long nodes = a.totalNodes();
+                    long nodes = 0;// TODO: restore this
                     log("DHT contains " + nodes + " nodes");
                 }
             }

@@ -40,7 +40,7 @@ public final class GetMagnet2 {
 
                 if (alert.type().equals(AlertType.DHT_STATS)) {
 
-                    long nodes = ((DhtStatsAlert) alert).totalNodes();
+                    long nodes = s.getStats().dhtNodes();
                     // wait for at least 10 nodes in the DHT.
                     if (nodes >= 10) {
                         System.out.println("DHT contains " + nodes + " nodes");

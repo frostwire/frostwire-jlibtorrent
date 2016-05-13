@@ -594,6 +594,7 @@ public class libtorrent_jni {
   public final static native void entry_set__SWIG_2(long jarg1, entry jarg1_, String jarg2, long jarg3);
   public final static native void entry_set__SWIG_3(long jarg1, entry jarg1_, String jarg2, long jarg3, entry jarg3_);
   public final static native long entry_string_bytes(long jarg1, entry jarg1_);
+  public final static native long entry_preformatted_bytes(long jarg1, entry jarg1_);
   public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long entry_from_string_bytes(long jarg1, byte_vector jarg1_);
   public final static native long entry_from_preformatted_bytes(long jarg1, byte_vector jarg1_);
@@ -2016,7 +2017,6 @@ public class libtorrent_jni {
   public final static native long dht_stats_alert_active_requests_get(long jarg1, dht_stats_alert jarg1_);
   public final static native void dht_stats_alert_routing_table_set(long jarg1, dht_stats_alert jarg1_, long jarg2, dht_routing_bucket_vector jarg2_);
   public final static native long dht_stats_alert_routing_table_get(long jarg1, dht_stats_alert jarg1_);
-  public final static native int dht_stats_alert_total_nodes(long jarg1, dht_stats_alert jarg1_);
   public final static native void delete_dht_stats_alert(long jarg1);
   public final static native int incoming_request_alert_static_category_get();
   public final static native int incoming_request_alert_priority_get();

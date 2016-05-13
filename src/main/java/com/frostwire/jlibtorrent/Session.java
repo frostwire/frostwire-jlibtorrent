@@ -339,6 +339,11 @@ public final class Session extends SessionHandle {
         return new SessionProxy(s.abort());
     }
 
+    public void destroy() {
+        running = false;
+        s.delete();
+    }
+
     /**
      * Pausing the session has the same effect as pausing every torrent in
      * it, except that torrents will not be resumed by the auto-manage
@@ -915,6 +920,8 @@ public final class Session extends SessionHandle {
         stat.sent(payload, protocol, ip);
 
         stat.secondTick(tickIntervalMs);
+
+        stats.dhtNodes(alert.value(counters.stats_gauge_t.dht_nodes.swigValue()));
     }
 
     private void saveMagnetData(MetadataReceivedAlert alert) {

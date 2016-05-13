@@ -128,6 +128,10 @@ public class entry {
     return new byte_vector(libtorrent_jni.entry_string_bytes(swigCPtr, this), true);
   }
 
+  public byte_vector preformatted_bytes() {
+    return new byte_vector(libtorrent_jni.entry_preformatted_bytes(swigCPtr, this), true);
+  }
+
   public byte_vector bencode() {
     return new byte_vector(libtorrent_jni.entry_bencode(swigCPtr, this), true);
   }
