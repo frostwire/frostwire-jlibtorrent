@@ -952,7 +952,7 @@ namespace libtorrent {
         return std::vector<int8_t>(s.begin(), s.end());
     }
 
-    std::vector<int8_t> preformatted() {
+    std::vector<int8_t> preformatted_bytes() {
         std::vector<char> v = $self->preformatted();
         return std::vector<int8_t>(v.begin(), v.end());
     }

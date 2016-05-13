@@ -572,6 +572,7 @@ public class libtorrent_jni {
   public final static native void entry_set__SWIG_2(long jarg1, entry jarg1_, String jarg2, long jarg3);
   public final static native void entry_set__SWIG_3(long jarg1, entry jarg1_, String jarg2, long jarg3, entry jarg3_);
   public final static native long entry_string_bytes(long jarg1, entry jarg1_);
+  public final static native long entry_preformatted_bytes(long jarg1, entry jarg1_);
   public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long entry_from_string_bytes(long jarg1, byte_vector jarg1_);
   public final static native long entry_from_preformatted_bytes(long jarg1, byte_vector jarg1_);
