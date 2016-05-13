@@ -21,7 +21,7 @@ import java.util.List;
  * This class belongs to a middle logical layer of abstraction. It's a wrapper
  * of the underlying swig session object (from libtorrent), but it does not
  * expose all the raw features, not expose a very high level interface
- * like {@link com.frostwire.jlibtorrent.DHT DHT} or
+ * like {@link com.frostwire.jlibtorrent.Dht Dht} or
  * {@link com.frostwire.jlibtorrent.Downloader Downloader}.
  *
  * @author gubatron
@@ -337,6 +337,11 @@ public final class Session extends SessionHandle {
     public SessionProxy abort() {
         running = false;
         return new SessionProxy(s.abort());
+    }
+
+    public void destroy() {
+        running = false;
+        s.delete();
     }
 
     /**
