@@ -2807,69 +2807,17 @@ public class libtorrent_jni {
   public final static native int ed25519_scalar_size_get();
   public final static native int ed25519_shared_secret_size_get();
   public final static native long new_address__SWIG_0();
-  public final static native long new_address__SWIG_1(long jarg1, address_v4 jarg1_);
-  public final static native long new_address__SWIG_2(long jarg1, address_v6 jarg1_);
-  public final static native long new_address__SWIG_3(long jarg1, address jarg1_);
+  public final static native long new_address__SWIG_1(long jarg1, address jarg1_);
   public final static native boolean address_is_v4(long jarg1, address jarg1_);
   public final static native boolean address_is_v6(long jarg1, address jarg1_);
-  public final static native long address_to_v4(long jarg1, address jarg1_);
-  public final static native long address_to_v6(long jarg1, address jarg1_);
-  public final static native String address_to_string__SWIG_0(long jarg1, address jarg1_);
-  public final static native String address_to_string__SWIG_1(long jarg1, address jarg1_, long jarg2, error_code jarg2_);
-  public final static native long address_from_string__SWIG_0(String jarg1);
-  public final static native long address_from_string__SWIG_1(String jarg1, long jarg2, error_code jarg2_);
+  public final static native String address_to_string(long jarg1, address jarg1_, long jarg2, error_code jarg2_);
+  public final static native long address_from_string(String jarg1, long jarg2, error_code jarg2_);
   public final static native boolean address_is_loopback(long jarg1, address jarg1_);
   public final static native boolean address_is_unspecified(long jarg1, address jarg1_);
   public final static native boolean address_is_multicast(long jarg1, address jarg1_);
   public final static native boolean address_op_lt(long jarg1, address jarg1_, long jarg2, address jarg2_);
   public final static native int address_compare(long jarg1, address jarg1_, long jarg2, address jarg2_);
   public final static native void delete_address(long jarg1);
-  public final static native long new_address_v4__SWIG_0();
-  public final static native long new_address_v4__SWIG_1(long jarg1);
-  public final static native long new_address_v4__SWIG_2(long jarg1, address_v4 jarg1_);
-  public final static native long address_v4_to_ulong(long jarg1, address_v4 jarg1_);
-  public final static native String address_v4_to_string__SWIG_0(long jarg1, address_v4 jarg1_);
-  public final static native String address_v4_to_string__SWIG_1(long jarg1, address_v4 jarg1_, long jarg2, error_code jarg2_);
-  public final static native long address_v4_from_string__SWIG_0(String jarg1);
-  public final static native long address_v4_from_string__SWIG_1(String jarg1, long jarg2, error_code jarg2_);
-  public final static native boolean address_v4_is_loopback(long jarg1, address_v4 jarg1_);
-  public final static native boolean address_v4_is_unspecified(long jarg1, address_v4 jarg1_);
-  public final static native boolean address_v4_is_class_a(long jarg1, address_v4 jarg1_);
-  public final static native boolean address_v4_is_class_b(long jarg1, address_v4 jarg1_);
-  public final static native boolean address_v4_is_class_c(long jarg1, address_v4 jarg1_);
-  public final static native boolean address_v4_is_multicast(long jarg1, address_v4 jarg1_);
-  public final static native long address_v4_any();
-  public final static native long address_v4_loopback();
-  public final static native long address_v4_broadcast__SWIG_0();
-  public final static native long address_v4_broadcast__SWIG_1(long jarg1, address_v4 jarg1_, long jarg2, address_v4 jarg2_);
-  public final static native long address_v4_netmask(long jarg1, address_v4 jarg1_);
-  public final static native void delete_address_v4(long jarg1);
-  public final static native long new_address_v6__SWIG_0();
-  public final static native long new_address_v6__SWIG_1(long jarg1, address_v6 jarg1_);
-  public final static native long address_v6_scope_id__SWIG_0(long jarg1, address_v6 jarg1_);
-  public final static native void address_v6_scope_id__SWIG_1(long jarg1, address_v6 jarg1_, long jarg2);
-  public final static native String address_v6_to_string__SWIG_0(long jarg1, address_v6 jarg1_);
-  public final static native String address_v6_to_string__SWIG_1(long jarg1, address_v6 jarg1_, long jarg2, error_code jarg2_);
-  public final static native long address_v6_from_string__SWIG_0(String jarg1);
-  public final static native long address_v6_from_string__SWIG_1(String jarg1, long jarg2, error_code jarg2_);
-  public final static native long address_v6_to_v4(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_loopback(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_unspecified(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_link_local(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_site_local(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_v4_mapped(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_v4_compatible(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_multicast(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_multicast_global(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_multicast_link_local(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_multicast_node_local(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_multicast_org_local(long jarg1, address_v6 jarg1_);
-  public final static native boolean address_v6_is_multicast_site_local(long jarg1, address_v6 jarg1_);
-  public final static native long address_v6_any();
-  public final static native long address_v6_loopback();
-  public final static native long address_v6_v4_mapped(long jarg1, address_v4 jarg1_);
-  public final static native long address_v6_v4_compatible(long jarg1, address_v4 jarg1_);
-  public final static native void delete_address_v6(long jarg1);
   public final static native long new_tcp_endpoint__SWIG_0();
   public final static native long new_tcp_endpoint__SWIG_1(long jarg1, address jarg1_, int jarg2);
   public final static native int tcp_endpoint_port(long jarg1, tcp_endpoint jarg1_);
@@ -2987,14 +2935,16 @@ public class libtorrent_jni {
   public final static native void swig_dht_storage_announce_peerSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, tcp_endpoint jarg3_, String jarg4, boolean jarg5);
   public final static native boolean swig_dht_storage_get_immutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, entry jarg3_);
   public final static native boolean swig_dht_storage_get_immutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, entry jarg3_);
-  public final static native void swig_dht_storage_put_immutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, address jarg4_);
-  public final static native void swig_dht_storage_put_immutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, address jarg4_);
+  public final static native void swig_dht_storage_put_immutable_item__SWIG_0(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, String jarg3, int jarg4, long jarg5, address jarg5_);
+  public final static native void swig_dht_storage_put_immutable_item__SWIG_1(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, address jarg4_);
+  public final static native void swig_dht_storage_put_immutable_itemSwigExplicitswig_dht_storage__SWIG_1(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, address jarg4_);
   public final static native long swig_dht_storage_get_mutable_item_seq_num(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long swig_dht_storage_get_mutable_item_seq_numSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean swig_dht_storage_get_mutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, boolean jarg4, long jarg5, entry jarg5_);
   public final static native boolean swig_dht_storage_get_mutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, boolean jarg4, long jarg5, entry jarg5_);
-  public final static native void swig_dht_storage_put_mutable_item(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_, long jarg5, long jarg6, byte_vector jarg6_, long jarg7, byte_vector jarg7_, long jarg8, address jarg8_);
-  public final static native void swig_dht_storage_put_mutable_itemSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_, long jarg5, long jarg6, byte_vector jarg6_, long jarg7, byte_vector jarg7_, long jarg8, address jarg8_);
+  public final static native void swig_dht_storage_put_mutable_item__SWIG_0(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, String jarg3, int jarg4, String jarg5, long jarg6, String jarg7, String jarg8, int jarg9, long jarg10, address jarg10_);
+  public final static native void swig_dht_storage_put_mutable_item__SWIG_1(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_, long jarg5, long jarg6, byte_vector jarg6_, long jarg7, byte_vector jarg7_, long jarg8, address jarg8_);
+  public final static native void swig_dht_storage_put_mutable_itemSwigExplicitswig_dht_storage__SWIG_1(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_, long jarg5, long jarg6, byte_vector jarg6_, long jarg7, byte_vector jarg7_, long jarg8, address jarg8_);
   public final static native void swig_dht_storage_tick(long jarg1, swig_dht_storage jarg1_);
   public final static native void swig_dht_storage_tickSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_);
   public final static native long swig_dht_storage_swig_counters(long jarg1, swig_dht_storage jarg1_);
@@ -3278,7 +3228,7 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_dht_storage_get_immutable_item(swig_dht_storage jself, long target, long item) {
     return jself.get_immutable_item(new sha1_hash(target, false), new entry(item, false));
   }
-  public static void SwigDirector_swig_dht_storage_put_immutable_item(swig_dht_storage jself, long target, long buf, long addr) {
+  public static void SwigDirector_swig_dht_storage_put_immutable_item__SWIG_1(swig_dht_storage jself, long target, long buf, long addr) {
     jself.put_immutable_item(new sha1_hash(target, false), new byte_vector(buf, false), new address(addr, false));
   }
   public static long SwigDirector_swig_dht_storage_get_mutable_item_seq_num(swig_dht_storage jself, long target) {
@@ -3287,7 +3237,7 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_dht_storage_get_mutable_item(swig_dht_storage jself, long target, long seq, boolean force_fill, long item) {
     return jself.get_mutable_item(new sha1_hash(target, false), seq, force_fill, new entry(item, false));
   }
-  public static void SwigDirector_swig_dht_storage_put_mutable_item(swig_dht_storage jself, long target, long buf, long sig, long seq, long pk, long salt, long addr) {
+  public static void SwigDirector_swig_dht_storage_put_mutable_item__SWIG_1(swig_dht_storage jself, long target, long buf, long sig, long seq, long pk, long salt, long addr) {
     jself.put_mutable_item(new sha1_hash(target, false), new byte_vector(buf, false), new byte_vector(sig, false), seq, new byte_vector(pk, false), new byte_vector(salt, false), new address(addr, false));
   }
   public static void SwigDirector_swig_dht_storage_tick(swig_dht_storage jself) {

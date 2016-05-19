@@ -10,8 +10,6 @@
       'link_settings': {
         'libraries': [
           '-ltorrent',
-          '-lboost_chrono',
-          '-lboost_random',
           '-lboost_system',
         ],
       },

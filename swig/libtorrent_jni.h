@@ -92,10 +92,10 @@ public:
     virtual bool get_peers(libtorrent::sha1_hash const &info_hash, bool noseed, bool scrape, libtorrent::entry &peers) const;
     virtual void announce_peer(libtorrent::sha1_hash const &info_hash, tcp::endpoint const &endp, std::string const &name, bool seed);
     virtual bool get_immutable_item(libtorrent::sha1_hash const &target, libtorrent::entry &item) const;
-    virtual void put_immutable_item(libtorrent::sha1_hash const &target, std::vector< int8_t > const &buf, libtorrent::address const &addr);
+    virtual void put_immutable_item(libtorrent::sha1_hash const &target, std::vector< int8_t > const &buf, address const &addr);
     virtual boost::int64_t get_mutable_item_seq_num(libtorrent::sha1_hash const &target) const;
     virtual bool get_mutable_item(libtorrent::sha1_hash const &target, boost::int64_t seq, bool force_fill, libtorrent::entry &item) const;
-    virtual void put_mutable_item(libtorrent::sha1_hash const &target, std::vector< int8_t > const &buf, std::vector< int8_t > const &sig, boost::int64_t seq, std::vector< int8_t > const &pk, std::vector< int8_t > const &salt, libtorrent::address const &addr);
+    virtual void put_mutable_item(libtorrent::sha1_hash const &target, std::vector< int8_t > const &buf, std::vector< int8_t > const &sig, boost::int64_t seq, std::vector< int8_t > const &pk, std::vector< int8_t > const &salt, address const &addr);
     virtual void tick();
     virtual swig_dht_storage_counters swig_counters() const;
     virtual ~SwigDirector_swig_dht_storage();

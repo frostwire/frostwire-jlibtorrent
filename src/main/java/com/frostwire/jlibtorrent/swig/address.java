@@ -39,16 +39,8 @@ public class address {
     this(libtorrent_jni.new_address__SWIG_0(), true);
   }
 
-  public address(address_v4 ipv4_address) {
-    this(libtorrent_jni.new_address__SWIG_1(address_v4.getCPtr(ipv4_address), ipv4_address), true);
-  }
-
-  public address(address_v6 ipv6_address) {
-    this(libtorrent_jni.new_address__SWIG_2(address_v6.getCPtr(ipv6_address), ipv6_address), true);
-  }
-
   public address(address other) {
-    this(libtorrent_jni.new_address__SWIG_3(address.getCPtr(other), other), true);
+    this(libtorrent_jni.new_address__SWIG_1(address.getCPtr(other), other), true);
   }
 
   public boolean is_v4() {
@@ -59,28 +51,12 @@ public class address {
     return libtorrent_jni.address_is_v6(swigCPtr, this);
   }
 
-  public address_v4 to_v4() {
-    return new address_v4(libtorrent_jni.address_to_v4(swigCPtr, this), true);
-  }
-
-  public address_v6 to_v6() {
-    return new address_v6(libtorrent_jni.address_to_v6(swigCPtr, this), true);
-  }
-
-  public String to_string() {
-    return libtorrent_jni.address_to_string__SWIG_0(swigCPtr, this);
-  }
-
   public String to_string(error_code ec) {
-    return libtorrent_jni.address_to_string__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec);
-  }
-
-  public static address from_string(String str) {
-    return new address(libtorrent_jni.address_from_string__SWIG_0(str), true);
+    return libtorrent_jni.address_to_string(swigCPtr, this, error_code.getCPtr(ec), ec);
   }
 
   public static address from_string(String str, error_code ec) {
-    return new address(libtorrent_jni.address_from_string__SWIG_1(str, error_code.getCPtr(ec), ec), true);
+    return new address(libtorrent_jni.address_from_string(str, error_code.getCPtr(ec), ec), true);
   }
 
   public boolean is_loopback() {

@@ -1,8 +1,6 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.address;
-import com.frostwire.jlibtorrent.swig.address_v4;
-import com.frostwire.jlibtorrent.swig.address_v6;
 import com.frostwire.jlibtorrent.swig.error_code;
 
 /**
@@ -64,24 +62,6 @@ public final class Address implements Comparable<Address> {
      */
     public boolean isV6() {
         return addr.is_v6();
-    }
-
-    /**
-     * Get the address as an IP version 4 address.
-     *
-     * @return
-     */
-    public address_v4 toV4() {
-        return addr.to_v4();
-    }
-
-    /**
-     * Get the address as an IP version 6 address.
-     *
-     * @return
-     */
-    public address_v6 toV6() {
-        return addr.to_v6();
     }
 
     /**
