@@ -1921,7 +1921,7 @@ struct JNIInvokeInterface_ {
 
     jint (JNICALL *DestroyJavaVM)(JavaVM *vm);
 
-    jint (JNICALL *AttachCurrentThread)(JavaVM *vm, void **penv, void *args);
+    jint (JNICALL *AttachCurrentThread)(JavaVM *vm, JNIEnv **penv, void *args);
 
     jint (JNICALL *DetachCurrentThread)(JavaVM *vm);
 
@@ -1937,7 +1937,7 @@ struct JavaVM_ {
     jint DestroyJavaVM() {
         return functions->DestroyJavaVM(this);
     }
-    jint AttachCurrentThread(void **penv, void *args) {
+    jint AttachCurrentThread(JNIEnv **penv, void *args) {
         return functions->AttachCurrentThread(this, penv, args);
     }
     jint DetachCurrentThread() {

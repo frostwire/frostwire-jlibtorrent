@@ -20,6 +20,7 @@
 #include <libtorrent/utp_stream.hpp>
 #include <libtorrent/socket_io.hpp>
 #include <libtorrent/read_resume_data.hpp>
+#include <libtorrent/hex.hpp>
 
 #include <libtorrent/kademlia/dht_tracker.hpp>
 #include <libtorrent/kademlia/node_entry.hpp>

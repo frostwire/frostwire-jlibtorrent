@@ -3,7 +3,7 @@ import os ;
 OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
 
-using gcc : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-g++ :
+using clang : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++ :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC
@@ -12,6 +12,7 @@ using gcc : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-g++ :
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-static
+      <cxxflags>-D__STDC_FORMAT_MACROS
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
       ;
