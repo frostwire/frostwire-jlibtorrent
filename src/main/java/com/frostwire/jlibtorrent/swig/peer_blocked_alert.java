@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class peer_blocked_alert extends torrent_alert {
+public class peer_blocked_alert extends peer_alert {
   private transient long swigCPtr;
 
   protected peer_blocked_alert(long cPtr, boolean cMemoryOwn) {
@@ -49,15 +49,6 @@ public class peer_blocked_alert extends torrent_alert {
 
   public String message() {
     return libtorrent_jni.peer_blocked_alert_message(swigCPtr, this);
-  }
-
-  public void setIp(address value) {
-    libtorrent_jni.peer_blocked_alert_ip_set(swigCPtr, this, address.getCPtr(value), value);
-  }
-
-  public address getIp() {
-    long cPtr = libtorrent_jni.peer_blocked_alert_ip_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
   }
 
   public void setReason(int value) {

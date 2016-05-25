@@ -38652,35 +38652,6 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_p
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1blocked_1alert_1ip_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  libtorrent::peer_blocked_alert *arg1 = (libtorrent::peer_blocked_alert *) 0 ;
-  address *arg2 = (address *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(libtorrent::peer_blocked_alert **)&jarg1; 
-  arg2 = *(address **)&jarg2; 
-  if (arg1) (arg1)->ip = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1blocked_1alert_1ip_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::peer_blocked_alert *arg1 = (libtorrent::peer_blocked_alert *) 0 ;
-  address *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::peer_blocked_alert **)&jarg1; 
-  result = (address *)& ((arg1)->ip);
-  *(address **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1blocked_1alert_1reason_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::peer_blocked_alert *arg1 = (libtorrent::peer_blocked_alert *) 0 ;
   int arg2 ;
@@ -59279,7 +59250,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("aa0d29b67dd9c18bc744825efe8a996a1af90562");
+  result = (char *)("96999ad67f47aa2f6c595d3520dd64ce6c48882f");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -59291,7 +59262,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("2948f1f4ed1f608f8670447f26ffcca34b57e594");
+  result = (char *)("be348afa013f4436bc4a2f915f77988d79b404d2");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -65394,7 +65365,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
     jlong baseptr = 0;
     (void)jenv;
     (void)jcls;
-    *(libtorrent::torrent_alert **)&baseptr = *(libtorrent::peer_blocked_alert **)&jarg1;
+    *(libtorrent::peer_alert **)&baseptr = *(libtorrent::peer_blocked_alert **)&jarg1;
     return baseptr;
 }
 

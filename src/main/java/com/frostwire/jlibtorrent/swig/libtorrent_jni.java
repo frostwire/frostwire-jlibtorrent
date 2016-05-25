@@ -1702,8 +1702,6 @@ public class libtorrent_jni {
   public final static native String peer_blocked_alert_what(long jarg1, peer_blocked_alert jarg1_);
   public final static native int peer_blocked_alert_static_category_get();
   public final static native String peer_blocked_alert_message(long jarg1, peer_blocked_alert jarg1_);
-  public final static native void peer_blocked_alert_ip_set(long jarg1, peer_blocked_alert jarg1_, long jarg2, address jarg2_);
-  public final static native long peer_blocked_alert_ip_get(long jarg1, peer_blocked_alert jarg1_);
   public final static native void peer_blocked_alert_reason_set(long jarg1, peer_blocked_alert jarg1_, int jarg2);
   public final static native int peer_blocked_alert_reason_get(long jarg1, peer_blocked_alert jarg1_);
   public final static native void delete_peer_blocked_alert(long jarg1);

@@ -4,6 +4,8 @@
 #pragma SWIG nowarn=317
 // suppress Warning 319: No access specifier given for base class 'boost::noncopyable' (ignored).
 #pragma SWIG nowarn=319
+// suppress Warning 341: The 'using' keyword in type aliasing is not fully supported yet.
+#pragma SWIG nowarn=341
 // suppress Warning 401: Nothing known about base class '<name>'. Ignored.
 #pragma SWIG nowarn=401
 
@@ -331,9 +333,6 @@ namespace std {
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
-%ignore libtorrent::is_hex;
-%ignore libtorrent::to_hex;
-%ignore libtorrent::from_hex(char const*, int, char*);
 %ignore libtorrent::convert_to_native;
 %ignore libtorrent::convert_from_native;
 %ignore libtorrent::trim_path_element;

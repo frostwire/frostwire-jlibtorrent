@@ -1921,7 +1921,11 @@ struct JNIInvokeInterface_ {
 
     jint (JNICALL *DestroyJavaVM)(JavaVM *vm);
 
+#if defined(__ANDROID__)
     jint (JNICALL *AttachCurrentThread)(JavaVM *vm, JNIEnv **penv, void *args);
+#else
+    jint (JNICALL *AttachCurrentThread)(JavaVM *vm, void **penv, void *args);
+#endif
 
     jint (JNICALL *DetachCurrentThread)(JavaVM *vm);
 
@@ -1937,7 +1941,11 @@ struct JavaVM_ {
     jint DestroyJavaVM() {
         return functions->DestroyJavaVM(this);
     }
+#if defined(__ANDROID__)
     jint AttachCurrentThread(JNIEnv **penv, void *args) {
+#else
+    jint AttachCurrentThread(void **penv, void *args) {
+#endif
         return functions->AttachCurrentThread(this, penv, args);
     }
     jint DetachCurrentThread() {

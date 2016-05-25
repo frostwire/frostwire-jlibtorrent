@@ -17,38 +17,85 @@ import com.frostwire.jlibtorrent.swig.peer_blocked_alert;
  */
 public final class PeerBlockedAlert extends TorrentAlert<peer_blocked_alert> {
 
-    public PeerBlockedAlert(peer_blocked_alert alert) {
+    PeerBlockedAlert(peer_blocked_alert alert) {
         super(alert);
     }
 
-    public Reason getReason() {
+    /**
+     * The reason for the peer being blocked.
+     *
+     * @return
+     */
+    public Reason reason() {
         return Reason.fromSwig(alert.getReason());
     }
 
+    /**
+     *
+     */
     public enum Reason {
 
+        /**
+         *
+         */
         IP_FILTER(peer_blocked_alert.reason_t.ip_filter.swigValue()),
+
+        /**
+         *
+         */
         PORT_FILTER(peer_blocked_alert.reason_t.port_filter.swigValue()),
+
+        /**
+         *
+         */
         I2P_MIXED(peer_blocked_alert.reason_t.i2p_mixed.swigValue()),
+
+        /**
+         *
+         */
         PRIVILEGED_PORTS(peer_blocked_alert.reason_t.privileged_ports.swigValue()),
+
+        /**
+         *
+         */
         UTP_DISABLED(peer_blocked_alert.reason_t.utp_disabled.swigValue()),
+
+        /**
+         *
+         */
         TCP_DISABLED(peer_blocked_alert.reason_t.tcp_disabled.swigValue()),
+
+        /**
+         *
+         */
+        INVALID_LOCAL_INTERFACE(peer_blocked_alert.reason_t.invalid_local_interface.swigValue()),
+
+        /**
+         *
+         */
         UNKNOWN(-1);
 
-        private Reason(int swigValue) {
+        Reason(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static Reason fromSwig(int swigValue) {
             Reason[] enumValues = Reason.class.getEnumConstants();
             for (Reason ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }
