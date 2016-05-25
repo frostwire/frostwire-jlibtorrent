@@ -67,27 +67,31 @@ before_install:
   - if [[ $os_build == "windows" ]]; then
     sed -i 's/if !defined(OPENSSL_SYS_WINCE) && !defined(OPENSSL_SYS_WIN32_CYGWIN)/if 0/g' $OPENSSL_SOURCE/crypto/rand/rand_win.c;
     fi
+  # fix assembler for android arm 32 bits
+  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
+    sed -i 's/ armv4-gf2m.o//g' $OPENSSL_SOURCE/Configure;
+    sed -i 's/ sha256-armv4.o / /g' $OPENSSL_SOURCE/Configure;
+    fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/aldenml/libtorrent
+  - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout e49a8f4bcea7389e20f6af075b6ad7667b53530e
+  - git checkout 50d93a73f1bafe0fef2bdc00ce896772aa14909b
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
 # android ndk: download and create toolchain
   - if [[ $os_build == "android" ]]; then
-    wget -O android-ndk.zip http://dl.google.com/android/repository/android-ndk-r11c-linux-x86_64.zip;
+    wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r12-beta2-linux-x86_64.zip;
     echo "Extracting NDK...wait";
     unzip -qq android-ndk.zip;
-    export NDK=$PWD/android-ndk-r11c;
+    export NDK=$PWD/android-ndk-r12-beta2;
     $NDK/build/tools/make-standalone-toolchain.sh --arch=$os_arch --use-llvm --stl=libc++ --platform=$android_target --install-dir=android-toolchain;
     export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
 
 # linux package update
   - if [[ $os_build != "macosx" ]]; then
-    sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y;
     sudo apt-get update;
     fi
 
@@ -126,7 +130,7 @@ before_install:
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
-    ./Configure android-armv7 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure linux-armv4 -fPIC -fno-strict-aliasing -march=armv7-a --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
