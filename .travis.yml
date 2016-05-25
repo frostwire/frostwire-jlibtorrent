@@ -69,9 +69,9 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/arvidn/libtorrent
+  - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
-  - git checkout 53bd03558cc7ed7b3980df90134c742664bc3dd4
+  - git checkout e49a8f4bcea7389e20f6af075b6ad7667b53530e
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -87,12 +87,18 @@ before_install:
 
 # linux package update
   - if [[ $os_build != "macosx" ]]; then
+    sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y;
     sudo apt-get update;
     fi
 
 # linux multilib packages for 32 bit development
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-    sudo apt-get install -qq gcc-multilib g++-multilib;
+    sudo apt-get install -qq gcc-5-multilib g++-5-multilib;
+    fi
+
+# linux packages for 64 bit
+  - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
+    sudo apt-get install -qq gcc-5 g++-5;
     fi
 
 # linux arm packages
@@ -119,12 +125,12 @@ before_install:
   - cd $OPENSSL_SOURCE
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-    export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-gcc;
+    export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
     ./Configure android-armv7 -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
-    export CC=$ANDROID_TOOLCHAIN/bin/aarch64-linux-android-gcc;
+    export CC=$ANDROID_TOOLCHAIN/bin/aarch64-linux-android-clang;
     ./Configure android -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-x86

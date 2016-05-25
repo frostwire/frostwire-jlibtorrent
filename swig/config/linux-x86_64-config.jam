@@ -2,7 +2,7 @@ import os ;
 
 OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 
-using gcc : x86_64 : g++ :
+using gcc : x86_64 : g++-5 :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC
