@@ -51,10 +51,6 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_have_piece(swigCPtr, this, piece);
   }
 
-  public void get_full_peer_list(peer_list_entry_vector v) {
-    libtorrent_jni.torrent_handle_get_full_peer_list(swigCPtr, this, peer_list_entry_vector.getCPtr(v), v);
-  }
-
   public void get_peer_info(peer_info_vector v) {
     libtorrent_jni.torrent_handle_get_peer_info(swigCPtr, this, peer_info_vector.getCPtr(v), v);
   }
