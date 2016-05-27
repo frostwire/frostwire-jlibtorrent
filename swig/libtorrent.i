@@ -353,6 +353,7 @@ namespace std {
 %ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>);
 %ignore libtorrent::initialize_file_progress;
 %ignore libtorrent::get_filesizes;
+%ignore libtorrent::parse_magnet_uri_peers;
 
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
@@ -419,6 +420,7 @@ namespace std {
 %ignore libtorrent::torrent_handle::use_interface;
 %ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::torrent_handle::torrent_file;
+%ignore libtorrent::torrent_handle::get_full_peer_list;
 %ignore libtorrent::block_info::set_peer;
 %ignore libtorrent::partial_piece_info::blocks;
 %ignore libtorrent::sha1_hash::sha1_hash(char const*);

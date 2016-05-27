@@ -764,7 +764,6 @@ public class libtorrent_jni {
   public final static native int torrent_handle_overwrite_existing_get();
   public final static native void torrent_handle_read_piece(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native boolean torrent_handle_have_piece(long jarg1, torrent_handle jarg1_, int jarg2);
-  public final static native void torrent_handle_get_full_peer_list(long jarg1, torrent_handle jarg1_, long jarg2, peer_list_entry_vector jarg2_);
   public final static native void torrent_handle_get_peer_info(long jarg1, torrent_handle jarg1_, long jarg2, peer_info_vector jarg2_);
   public final static native int torrent_handle_query_distributed_copies_get();
   public final static native int torrent_handle_query_accurate_download_counters_get();
