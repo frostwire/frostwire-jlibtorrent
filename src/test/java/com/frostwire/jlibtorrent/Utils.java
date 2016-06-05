@@ -26,8 +26,6 @@ import static org.junit.Assert.assertTrue;
 
 public final class Utils {
 
-    private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
-
     private Utils() {
     }
 
@@ -280,24 +278,11 @@ public final class Utils {
     }
 
     public static String toHex(byte[] bytes) {
-        char[] hexChars = new char[bytes.length * 2];
-        for (int j = 0; j < bytes.length; j++) {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = HEX_CHARS[v >>> 4];
-            hexChars[j * 2 + 1] = HEX_CHARS[v & 0x0F];
-        }
-
-        return new String(hexChars);
+        return Hex.convert(bytes);
     }
 
     public static byte[] fromHex(String str) {
-        str = str.toLowerCase(Locale.US);
-        int len = str.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(str.charAt(i), 16) << 4) + Character.digit(str.charAt(i + 1), 16));
-        }
-        return data;
+        return Hex.convert(str);
     }
 
     public static FileOutputStream openOutputStream(File file, boolean append) throws IOException {

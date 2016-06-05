@@ -1,30 +1,39 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.swig.listen_succeeded_alert;
 
 /**
  * This alert is posted when the listen port succeeds to be opened on a
- * particular interface. ``endpoint`` is the endpoint that successfully
- * was opened for listening.
+ * particular interface. {@link #address()} and {@link #port()} is the
+ * endpoint that successfully was opened for listening.
  *
  * @author gubatron
  * @author aldenml
  */
 public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_alert> {
 
-    public ListenSucceededAlert(listen_succeeded_alert alert) {
+    ListenSucceededAlert(listen_succeeded_alert alert) {
         super(alert);
     }
 
     /**
-     * the endpoint libtorrent ended up listening on. The address
-     * refers to the local interface and the port is the listen port.
+     * The address libtorrent ended up listening on. This address
+     * refers to the local interface.
      *
      * @return
      */
-    public TcpEndpoint getEndpoint() {
-        return new TcpEndpoint(alert.getEndpoint());
+    public Address address() {
+        return new Address(alert.getAddress());
+    }
+
+    /**
+     * The port libtorrent ended up listening on.
+     *
+     * @return
+     */
+    public int port() {
+        return alert.getPort();
     }
 
     /**
@@ -32,7 +41,7 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
      *
      * @return
      */
-    public SocketType getSocketType() {
+    public SocketType socketType() {
         return SocketType.fromSwig(alert.getSock_type().swigValue());
     }
 
@@ -82,14 +91,21 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static SocketType fromSwig(int swigValue) {
             SocketType[] enumValues = SocketType.class.getEnumConstants();
             for (SocketType ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

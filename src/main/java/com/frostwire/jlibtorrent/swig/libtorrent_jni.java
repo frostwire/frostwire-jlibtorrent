@@ -612,8 +612,6 @@ public class libtorrent_jni {
   public final static native long new_sha1_hash__SWIG_1(long jarg1, byte_vector jarg1_);
   public final static native int sha1_hash_hash_code(long jarg1, sha1_hash jarg1_);
   public final static native long sha1_hash_to_bytes(long jarg1, sha1_hash jarg1_);
-  public final static native String sha1_hash_to_hex(long jarg1, sha1_hash jarg1_);
-  public final static native boolean sha1_hash_from_hex(String jarg1, long jarg2, sha1_hash jarg2_);
   public final static native int sha1_hash_compare(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void delete_sha1_hash(long jarg1);
   public final static native long new_storage_params();
@@ -1626,8 +1624,10 @@ public class libtorrent_jni {
   public final static native int listen_failed_alert_operation_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void listen_failed_alert_sock_type_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
   public final static native int listen_failed_alert_sock_type_get(long jarg1, listen_failed_alert jarg1_);
-  public final static native void listen_failed_alert_endpoint_set(long jarg1, listen_failed_alert jarg1_, long jarg2, tcp_endpoint jarg2_);
-  public final static native long listen_failed_alert_endpoint_get(long jarg1, listen_failed_alert jarg1_);
+  public final static native void listen_failed_alert_address_set(long jarg1, listen_failed_alert jarg1_, long jarg2, address jarg2_);
+  public final static native long listen_failed_alert_address_get(long jarg1, listen_failed_alert jarg1_);
+  public final static native void listen_failed_alert_port_set(long jarg1, listen_failed_alert jarg1_, int jarg2);
+  public final static native int listen_failed_alert_port_get(long jarg1, listen_failed_alert jarg1_);
   public final static native void delete_listen_failed_alert(long jarg1);
   public final static native int listen_succeeded_alert_priority_get();
   public final static native int listen_succeeded_alert_alert_type_get();
@@ -1636,8 +1636,10 @@ public class libtorrent_jni {
   public final static native String listen_succeeded_alert_what(long jarg1, listen_succeeded_alert jarg1_);
   public final static native int listen_succeeded_alert_static_category_get();
   public final static native String listen_succeeded_alert_message(long jarg1, listen_succeeded_alert jarg1_);
-  public final static native void listen_succeeded_alert_endpoint_set(long jarg1, listen_succeeded_alert jarg1_, long jarg2, tcp_endpoint jarg2_);
-  public final static native long listen_succeeded_alert_endpoint_get(long jarg1, listen_succeeded_alert jarg1_);
+  public final static native void listen_succeeded_alert_address_set(long jarg1, listen_succeeded_alert jarg1_, long jarg2, address jarg2_);
+  public final static native long listen_succeeded_alert_address_get(long jarg1, listen_succeeded_alert jarg1_);
+  public final static native void listen_succeeded_alert_port_set(long jarg1, listen_succeeded_alert jarg1_, int jarg2);
+  public final static native int listen_succeeded_alert_port_get(long jarg1, listen_succeeded_alert jarg1_);
   public final static native void listen_succeeded_alert_sock_type_set(long jarg1, listen_succeeded_alert jarg1_, int jarg2);
   public final static native int listen_succeeded_alert_sock_type_get(long jarg1, listen_succeeded_alert jarg1_);
   public final static native void delete_listen_succeeded_alert(long jarg1);
@@ -2924,8 +2926,10 @@ public class libtorrent_jni {
   public final static native int swig_dht_storage_counters_mutable_data_get(long jarg1, swig_dht_storage_counters jarg1_);
   public final static native long new_swig_dht_storage_counters();
   public final static native void delete_swig_dht_storage_counters(long jarg1);
-  public final static native void swig_dht_storage_set_params(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, dht_settings jarg3_);
-  public final static native void swig_dht_storage_set_paramsSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, dht_settings jarg3_);
+  public final static native void swig_dht_storage_set_settings(long jarg1, swig_dht_storage jarg1_, long jarg2, dht_settings jarg2_);
+  public final static native void swig_dht_storage_set_settingsSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, dht_settings jarg2_);
+  public final static native void swig_dht_storage_update_node_ids(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash_vector jarg2_);
+  public final static native void swig_dht_storage_update_node_idsSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash_vector jarg2_);
   public final static native boolean swig_dht_storage_get_peers(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, boolean jarg3, boolean jarg4, long jarg5, entry jarg5_);
   public final static native boolean swig_dht_storage_get_peersSwigExplicitswig_dht_storage(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, boolean jarg3, boolean jarg4, long jarg5, entry jarg5_);
   public final static native void swig_dht_storage_announce_peer(long jarg1, swig_dht_storage jarg1_, long jarg2, sha1_hash jarg2_, long jarg3, tcp_endpoint jarg3_, String jarg4, boolean jarg5);
@@ -3213,8 +3217,11 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_storage_tick(swig_storage jself) {
     return jself.tick();
   }
-  public static void SwigDirector_swig_dht_storage_set_params(swig_dht_storage jself, long id, long settings) {
-    jself.set_params(new sha1_hash(id, false), new dht_settings(settings, false));
+  public static void SwigDirector_swig_dht_storage_set_settings(swig_dht_storage jself, long settings) {
+    jself.set_settings(new dht_settings(settings, false));
+  }
+  public static void SwigDirector_swig_dht_storage_update_node_ids(swig_dht_storage jself, long ids) {
+    jself.update_node_ids(new sha1_hash_vector(ids, false));
   }
   public static boolean SwigDirector_swig_dht_storage_get_peers(swig_dht_storage jself, long info_hash, boolean noseed, boolean scrape, long peers) {
     return jself.get_peers(new sha1_hash(info_hash, false), noseed, scrape, new entry(peers, false));

@@ -834,7 +834,7 @@ namespace libtorrent {
     }
 
     void set_swig_dht_storage(swig_dht_storage *s) {
-        $self->set_dht_storage(boost::bind(&swig_dht_storage_constructor, s, _1, _2));
+        $self->set_dht_storage(boost::bind(&swig_dht_storage_constructor, s, _1));
     }
 
     alert* wait_for_alert_ms(int64_t max_wait) {
@@ -988,14 +988,6 @@ namespace libtorrent {
     std::vector<int8_t> to_bytes() {
         std::string s = $self->to_string();
         return std::vector<int8_t>(s.begin(), s.end());
-    }
-
-    std::string to_hex() {
-        return libtorrent::to_hex($self->to_string());
-    }
-
-    static bool from_hex(char *hex, sha1_hash& h) {
-        return libtorrent::from_hex(hex, 40, (char*)&h[0]);
     }
 
     static int compare(const sha1_hash& h1, const sha1_hash& h2) {

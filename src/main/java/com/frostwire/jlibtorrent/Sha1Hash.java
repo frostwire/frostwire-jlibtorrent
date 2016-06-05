@@ -33,10 +33,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
     }
 
     public Sha1Hash(String hex) {
-        this();
-        if (!sha1_hash.from_hex(hex, h)) {
-            throw new IllegalArgumentException("Invalid sha1 hex string");
-        }
+        this(Hex.convert(hex));
     }
 
     /**
@@ -85,7 +82,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
      * @return
      */
     public String toHex() {
-        return h.to_hex();
+        return Hex.convert(toBytes());
     }
 
     @Override

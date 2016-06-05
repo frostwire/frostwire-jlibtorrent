@@ -88,7 +88,8 @@ struct SwigDirector_swig_dht_storage : public swig_dht_storage, public Swig::Dir
 public:
     void swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global);
     SwigDirector_swig_dht_storage(JNIEnv *jenv);
-    virtual void set_params(libtorrent::sha1_hash const &id, libtorrent::dht_settings const &settings);
+    virtual void set_settings(libtorrent::dht_settings const &settings);
+    virtual void update_node_ids(std::vector< libtorrent::sha1_hash > const &ids);
     virtual bool get_peers(libtorrent::sha1_hash const &info_hash, bool noseed, bool scrape, libtorrent::entry &peers) const;
     virtual void announce_peer(libtorrent::sha1_hash const &info_hash, tcp::endpoint const &endp, std::string const &name, bool seed);
     virtual bool get_immutable_item(libtorrent::sha1_hash const &target, libtorrent::entry &item) const;
@@ -101,10 +102,10 @@ public:
     virtual ~SwigDirector_swig_dht_storage();
 public:
     bool swig_overrides(int n) {
-      return (n < 10 ? swig_override[n] : false);
+      return (n < 11 ? swig_override[n] : false);
     }
 protected:
-    Swig::BoolArray<10> swig_override;
+    Swig::BoolArray<11> swig_override;
 };
 
 struct SwigDirector_swig_plugin : public swig_plugin, public Swig::Director {

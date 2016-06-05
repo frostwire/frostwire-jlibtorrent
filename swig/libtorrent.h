@@ -251,7 +251,10 @@ struct swig_dht_storage_counters
 
 struct swig_dht_storage : dht::dht_storage_interface
 {
-    virtual void set_params(libtorrent::sha1_hash const& id, libtorrent::dht_settings const& settings) {
+    virtual void set_settings(libtorrent::dht_settings const& settings) {
+    }
+
+    virtual void update_node_ids(std::vector<libtorrent::sha1_hash> const& ids) {
     }
 
 	virtual bool get_peers(libtorrent::sha1_hash const& info_hash
@@ -341,11 +344,10 @@ struct swig_dht_storage : dht::dht_storage_interface
 	virtual ~swig_dht_storage() {}
 };
 
-dht::dht_storage_interface* swig_dht_storage_constructor(swig_dht_storage *s
-                                                        ,libtorrent::sha1_hash const& id
-                                                        , libtorrent::dht_settings const& settings) {
-	s->set_params(id, settings);
-	return s;
+std::unique_ptr<dht::dht_storage_interface> swig_dht_storage_constructor(swig_dht_storage *s,
+    libtorrent::dht_settings const& settings) {
+	s->set_settings(settings);
+	return std::unique_ptr<dht::dht_storage_interface>(s);
 }
 
 //------------------------------------------------------

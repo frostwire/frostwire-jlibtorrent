@@ -80,13 +80,21 @@ public class listen_failed_alert extends alert {
     return listen_failed_alert.socket_type_t.swigToEnum(libtorrent_jni.listen_failed_alert_sock_type_get(swigCPtr, this));
   }
 
-  public void setEndpoint(tcp_endpoint value) {
-    libtorrent_jni.listen_failed_alert_endpoint_set(swigCPtr, this, tcp_endpoint.getCPtr(value), value);
+  public void setAddress(address value) {
+    libtorrent_jni.listen_failed_alert_address_set(swigCPtr, this, address.getCPtr(value), value);
   }
 
-  public tcp_endpoint getEndpoint() {
-    long cPtr = libtorrent_jni.listen_failed_alert_endpoint_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
+  public address getAddress() {
+    long cPtr = libtorrent_jni.listen_failed_alert_address_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new address(cPtr, false);
+  }
+
+  public void setPort(int value) {
+    libtorrent_jni.listen_failed_alert_port_set(swigCPtr, this, value);
+  }
+
+  public int getPort() {
+    return libtorrent_jni.listen_failed_alert_port_get(swigCPtr, this);
   }
 
   public final static class socket_type_t {
