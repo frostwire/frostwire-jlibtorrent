@@ -662,7 +662,7 @@ public final class Session extends SessionHandle {
         }
 
         final sha1_hash info_hash = p.getInfo_hash();
-        String sha1 = Hex.convert(Vectors.byte_vector2bytes(info_hash.to_bytes()));
+        String sha1 = Hex.encode(Vectors.byte_vector2bytes(info_hash.to_bytes()));
 
         byte[] data = MAGNET_CACHE.get(sha1);
         if (data != null) {

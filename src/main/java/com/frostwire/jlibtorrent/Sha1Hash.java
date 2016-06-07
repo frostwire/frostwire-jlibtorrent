@@ -33,7 +33,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
     }
 
     public Sha1Hash(String hex) {
-        this(Hex.convert(hex));
+        this(Hex.decode(hex));
     }
 
     /**
@@ -82,7 +82,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
      * @return
      */
     public String toHex() {
-        return Hex.convert(toBytes());
+        return Hex.encode(toBytes());
     }
 
     @Override

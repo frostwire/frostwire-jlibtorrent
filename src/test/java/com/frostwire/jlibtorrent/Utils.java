@@ -278,11 +278,11 @@ public final class Utils {
     }
 
     public static String toHex(byte[] bytes) {
-        return Hex.convert(bytes);
+        return Hex.encode(bytes);
     }
 
     public static byte[] fromHex(String str) {
-        return Hex.convert(str);
+        return Hex.decode(str);
     }
 
     public static FileOutputStream openOutputStream(File file, boolean append) throws IOException {
