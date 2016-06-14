@@ -71,7 +71,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 830a79dbcfdba9d56c1956a437032e1c213ba1e5
+  - git checkout 38f4765ebc5e12000ef71451681ed5ffa1027198
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
