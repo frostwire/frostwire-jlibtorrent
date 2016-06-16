@@ -35,6 +35,10 @@ public class disk_buffer_holder {
     }
   }
 
+  public boolean op_bool() {
+    return libtorrent_jni.disk_buffer_holder_op_bool(swigCPtr, this);
+  }
+
   public long get_ptr() {
     return libtorrent_jni.disk_buffer_holder_get_ptr(swigCPtr, this);
   }

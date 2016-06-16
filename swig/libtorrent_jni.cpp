@@ -50951,6 +50951,29 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_disk_1buffer_1holder_1op_1bool(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  libtorrent::disk_buffer_holder *arg1 = (libtorrent::disk_buffer_holder *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::disk_buffer_holder **)&jarg1; 
+  {
+    try {
+      result = (bool)((libtorrent::disk_buffer_holder const *)arg1)->operator bool();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_disk_1buffer_1holder_1get_1ptr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::disk_buffer_holder *arg1 = (libtorrent::disk_buffer_holder *) 0 ;
@@ -59244,11 +59267,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-<<<<<<< HEAD
-  result = (char *)("9d3cf5e68beff7b78248a2bce87ab9b939055d92");
-=======
-  result = (char *)("38f4765ebc5e12000ef71451681ed5ffa1027198");
->>>>>>> libtorrent-RC_1_1
+  result = (char *)("4d927f4029fa489aa9a08454edc5a97b58b0c9f0");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -59260,11 +59279,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-<<<<<<< HEAD
-  result = (char *)("c79cca990ef57bcec9c9bf9c733f0285514f6a50");
-=======
-  result = (char *)("3f00f22710be93e07b8cba5a2254134d848b1f76");
->>>>>>> libtorrent-RC_1_1
+  result = (char *)("66ffe99b233cc20dc6d8197398c4e1d3d8b220f4");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
