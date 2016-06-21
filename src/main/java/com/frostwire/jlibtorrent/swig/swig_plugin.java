@@ -54,10 +54,6 @@ public class swig_plugin {
     if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_added(swigCPtr, this, session_handle.getCPtr(s), s); else libtorrent_jni.swig_plugin_addedSwigExplicitswig_plugin(swigCPtr, this, session_handle.getCPtr(s), s);
   }
 
-  public void register_dht_extensions(string_dht_extension_handler_listener_ptr_pair_vector dht_extensions) {
-    if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_register_dht_extensions(swigCPtr, this, string_dht_extension_handler_listener_ptr_pair_vector.getCPtr(dht_extensions), dht_extensions); else libtorrent_jni.swig_plugin_register_dht_extensionsSwigExplicitswig_plugin(swigCPtr, this, string_dht_extension_handler_listener_ptr_pair_vector.getCPtr(dht_extensions), dht_extensions);
-  }
-
   public void on_alert(alert a) {
     if (getClass() == swig_plugin.class) libtorrent_jni.swig_plugin_on_alert(swigCPtr, this, alert.getCPtr(a), a); else libtorrent_jni.swig_plugin_on_alertSwigExplicitswig_plugin(swigCPtr, this, alert.getCPtr(a), a);
   }

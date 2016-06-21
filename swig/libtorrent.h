@@ -131,23 +131,6 @@ const char* openssl_version_text() {
     return OPENSSL_VERSION_TEXT;
 }
 
-class dht_extension_handler_listener {
-public:
-    virtual ~dht_extension_handler_listener() {
-    }
-
-    virtual bool on_message(udp::endpoint const& source,
-                            libtorrent::bdecode_node const& request, libtorrent::entry& response) {
-        return false;
-    }
-};
-
-bool dht_extension_handler_cb(udp::endpoint const& source,
-                            libtorrent::bdecode_node const& request, libtorrent::entry& response,
-                            dht_extension_handler_listener* listener) {
-	return listener->on_message(source, request, response);
-}
-
 struct swig_storage : storage_interface
 {
     virtual ~swig_storage() {
@@ -383,20 +366,6 @@ struct swig_plugin : plugin {
     //virtual swig_torrent_plugin* new_torrent(libtorrent::torrent_handle const& t);
 
     virtual void added(libtorrent::session_handle s) {
-    }
-
-    void register_dht_extensions(libtorrent::dht_extensions_t& dht_extensions) {
-        std::vector<std::pair<std::string, dht_extension_handler_listener*> > swig_dht_extensions;
-        register_dht_extensions(swig_dht_extensions);
-        for (int i = 0; i < int(swig_dht_extensions.size()); i++) {
-            std::pair<std::string, dht_extension_handler_listener*> ext = swig_dht_extensions[i];
-            dht_extensions.push_back(std::pair<std::string, dht_extension_handler_t>(
-                ext.first,
-                boost::bind(&dht_extension_handler_cb, _1, _2, _3, ext.second)));
-        }
-    }
-
-    virtual void register_dht_extensions(std::vector<std::pair<std::string, dht_extension_handler_listener*> >& dht_extensions) {
     }
 
     virtual void on_alert(libtorrent::alert const* a) {

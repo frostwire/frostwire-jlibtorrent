@@ -241,6 +241,8 @@ namespace std {
             }
         }
     };
+
+    typedef int8_t uint8_t;
 }
 
 typedef long time_t;
@@ -286,9 +288,6 @@ namespace std {
     %template(int_bitfield_map) map<int, libtorrent::bitfield>;
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
-
-    %template(string_dht_extension_handler_listener_ptr_pair) pair<std::string, dht_extension_handler_listener*>;
-    %template(string_dht_extension_handler_listener_ptr_pair_vector) vector<std::pair<string, dht_extension_handler_listener*>>;
 };
 
 %ignore clone;
@@ -354,7 +353,6 @@ namespace std {
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::flags;
 %ignore libtorrent::add_torrent_params::ti;
-%ignore libtorrent::add_torrent_params::file_priorities;
 %ignore libtorrent::add_torrent_params::piece_priorities;
 %ignore libtorrent::add_torrent_params::deprecated1;
 %ignore libtorrent::add_torrent_params::deprecated2;
@@ -1194,8 +1192,6 @@ void set_utp_stream_logging(bool enable);
 %feature("director") add_files_listener;
 %feature("director") set_piece_hashes_listener;
 
-%ignore dht_extension_handler_cb;
-
 %ignore swig_storage::set_file_priority;
 %ignore swig_storage::readv;
 %ignore swig_storage::writev;
@@ -1218,7 +1214,6 @@ void set_utp_stream_logging(bool enable);
 %feature("director") swig_plugin;
 %feature("director") swig_torrent_plugin;
 %feature("director") swig_peer_plugin;
-%feature("director") dht_extension_handler_listener;
 
 %typemap("javapackage") SwigPlugin, SwigPlugin *, SwigPlugin & "com.frostwire.jlibtorrent.plugins";
 %typemap("javapackage") SwigDhtPlugin, SwigDhtPlugin *, SwigDhtPlugin & "com.frostwire.jlibtorrent.plugins";

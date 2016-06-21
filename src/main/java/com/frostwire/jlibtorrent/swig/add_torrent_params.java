@@ -94,6 +94,15 @@ public class add_torrent_params {
     return storage_mode_t.swigToEnum(libtorrent_jni.add_torrent_params_storage_mode_get(swigCPtr, this));
   }
 
+  public void setFile_priorities(byte_vector value) {
+    libtorrent_jni.add_torrent_params_file_priorities_set(swigCPtr, this, byte_vector.getCPtr(value), value);
+  }
+
+  public byte_vector getFile_priorities() {
+    long cPtr = libtorrent_jni.add_torrent_params_file_priorities_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new byte_vector(cPtr, false);
+  }
+
   public void setTrackerid(String value) {
     libtorrent_jni.add_torrent_params_trackerid_set(swigCPtr, this, value);
   }
