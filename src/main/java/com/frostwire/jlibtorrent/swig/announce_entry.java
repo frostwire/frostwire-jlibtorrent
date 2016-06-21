@@ -108,27 +108,27 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_scrape_downloaded_get(swigCPtr, this);
   }
 
-  public void setTier(short value) {
+  public void setTier(byte value) {
     libtorrent_jni.announce_entry_tier_set(swigCPtr, this, value);
   }
 
-  public short getTier() {
+  public byte getTier() {
     return libtorrent_jni.announce_entry_tier_get(swigCPtr, this);
   }
 
-  public void setFail_limit(short value) {
+  public void setFail_limit(byte value) {
     libtorrent_jni.announce_entry_fail_limit_set(swigCPtr, this, value);
   }
 
-  public short getFail_limit() {
+  public byte getFail_limit() {
     return libtorrent_jni.announce_entry_fail_limit_get(swigCPtr, this);
   }
 
-  public void setFails(short value) {
+  public void setFails(byte value) {
     libtorrent_jni.announce_entry_fails_set(swigCPtr, this, value);
   }
 
-  public short getFails() {
+  public byte getFails() {
     return libtorrent_jni.announce_entry_fails_get(swigCPtr, this);
   }
 
@@ -140,11 +140,11 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_updating_get(swigCPtr, this);
   }
 
-  public void setSource(short value) {
+  public void setSource(byte value) {
     libtorrent_jni.announce_entry_source_set(swigCPtr, this, value);
   }
 
-  public short getSource() {
+  public byte getSource() {
     return libtorrent_jni.announce_entry_source_get(swigCPtr, this);
   }
 

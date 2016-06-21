@@ -52,19 +52,19 @@ public class peer_list_entry {
     return libtorrent_jni.peer_list_entry_flags_get(swigCPtr, this);
   }
 
-  public void setFailcount(short value) {
+  public void setFailcount(byte value) {
     libtorrent_jni.peer_list_entry_failcount_set(swigCPtr, this, value);
   }
 
-  public short getFailcount() {
+  public byte getFailcount() {
     return libtorrent_jni.peer_list_entry_failcount_get(swigCPtr, this);
   }
 
-  public void setSource(short value) {
+  public void setSource(byte value) {
     libtorrent_jni.peer_list_entry_source_set(swigCPtr, this, value);
   }
 
-  public short getSource() {
+  public byte getSource() {
     return libtorrent_jni.peer_list_entry_source_get(swigCPtr, this);
   }
 

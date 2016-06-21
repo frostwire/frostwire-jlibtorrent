@@ -75,7 +75,7 @@ public final class AnnounceEntry {
      *
      * @return
      */
-    public short tier() {
+    public int tier() {
         return e.getTier();
     }
 }

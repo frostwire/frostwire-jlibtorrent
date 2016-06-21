@@ -104,6 +104,8 @@ using namespace libtorrent;
 %include <std_pair.i>
 %include <std_deque.i>
 
+%apply int8_t { unsigned char };
+
 namespace std {
 
     template<class T> class list {

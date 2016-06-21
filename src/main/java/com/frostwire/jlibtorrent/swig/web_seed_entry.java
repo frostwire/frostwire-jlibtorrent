@@ -80,11 +80,11 @@ public class web_seed_entry {
     return (cPtr == 0) ? null : new string_string_pair_vector(cPtr, false);
   }
 
-  public void setType(short value) {
+  public void setType(byte value) {
     libtorrent_jni.web_seed_entry_type_set(swigCPtr, this, value);
   }
 
-  public short getType() {
+  public byte getType() {
     return libtorrent_jni.web_seed_entry_type_get(swigCPtr, this);
   }
 
