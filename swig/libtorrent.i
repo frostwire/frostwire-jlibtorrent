@@ -353,7 +353,6 @@ namespace std {
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::flags;
 %ignore libtorrent::add_torrent_params::ti;
-%ignore libtorrent::add_torrent_params::piece_priorities;
 %ignore libtorrent::add_torrent_params::deprecated1;
 %ignore libtorrent::add_torrent_params::deprecated2;
 %ignore libtorrent::add_torrent_params::deprecated3;
@@ -916,14 +915,6 @@ namespace libtorrent {
 
     void set_ti(torrent_info const& ti) {
         $self->ti = boost::make_shared<torrent_info>(ti);
-    }
-
-    void set_file_priorities(std::vector<int8_t> const& priorities) {
-        $self->file_priorities = std::vector<boost::uint8_t>(priorities.begin(), priorities.end());
-    }
-
-    void set_piece_priorities(std::vector<int8_t> const& priorities) {
-        $self->piece_priorities = std::vector<boost::uint8_t>(priorities.begin(), priorities.end());
     }
 
     static add_torrent_params create_instance() {

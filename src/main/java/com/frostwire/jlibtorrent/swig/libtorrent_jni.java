@@ -945,6 +945,8 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_have_pieces_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_verified_pieces_set(long jarg1, add_torrent_params jarg1_, long jarg2, bitfield jarg2_);
   public final static native long add_torrent_params_verified_pieces_get(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_piece_priorities_set(long jarg1, add_torrent_params jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native long add_torrent_params_piece_priorities_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_merkle_tree_set(long jarg1, add_torrent_params jarg1_, long jarg2, sha1_hash_vector jarg2_);
   public final static native long add_torrent_params_merkle_tree_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_renamed_files_set(long jarg1, add_torrent_params jarg1_, long jarg2, int_string_map jarg2_);
@@ -952,8 +954,6 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_get_flags(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_set_flags(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native void add_torrent_params_set_ti(long jarg1, add_torrent_params jarg1_, long jarg2, torrent_info jarg2_);
-  public final static native void add_torrent_params_set_file_priorities(long jarg1, add_torrent_params jarg1_, long jarg2, byte_vector jarg2_);
-  public final static native void add_torrent_params_set_piece_priorities(long jarg1, add_torrent_params jarg1_, long jarg2, byte_vector jarg2_);
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_create_instance_disabled_storage();
   public final static native long add_torrent_params_create_instance_zero_storage();

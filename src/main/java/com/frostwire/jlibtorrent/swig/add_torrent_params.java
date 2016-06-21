@@ -311,6 +311,15 @@ public class add_torrent_params {
     return (cPtr == 0) ? null : new bitfield(cPtr, false);
   }
 
+  public void setPiece_priorities(byte_vector value) {
+    libtorrent_jni.add_torrent_params_piece_priorities_set(swigCPtr, this, byte_vector.getCPtr(value), value);
+  }
+
+  public byte_vector getPiece_priorities() {
+    long cPtr = libtorrent_jni.add_torrent_params_piece_priorities_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new byte_vector(cPtr, false);
+  }
+
   public void setMerkle_tree(sha1_hash_vector value) {
     libtorrent_jni.add_torrent_params_merkle_tree_set(swigCPtr, this, sha1_hash_vector.getCPtr(value), value);
   }
@@ -339,14 +348,6 @@ public class add_torrent_params {
 
   public void set_ti(torrent_info ti) {
     libtorrent_jni.add_torrent_params_set_ti(swigCPtr, this, torrent_info.getCPtr(ti), ti);
-  }
-
-  public void set_file_priorities(byte_vector priorities) {
-    libtorrent_jni.add_torrent_params_set_file_priorities(swigCPtr, this, byte_vector.getCPtr(priorities), priorities);
-  }
-
-  public void set_piece_priorities(byte_vector priorities) {
-    libtorrent_jni.add_torrent_params_set_piece_priorities(swigCPtr, this, byte_vector.getCPtr(priorities), priorities);
   }
 
   public static add_torrent_params create_instance() {

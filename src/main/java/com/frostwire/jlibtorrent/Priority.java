@@ -63,10 +63,17 @@ public enum Priority {
 
     private final int swigValue;
 
+    /**
+     * @return
+     */
     public int swig() {
         return swigValue;
     }
 
+    /**
+     * @param swigValue
+     * @return
+     */
     public static Priority fromSwig(int swigValue) {
         Priority[] enumValues = Priority.class.getEnumConstants();
         for (Priority ev : enumValues) {

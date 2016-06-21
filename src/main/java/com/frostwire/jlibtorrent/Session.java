@@ -763,7 +763,7 @@ public final class Session extends SessionHandle {
             for (int i = 0; i < priorities.length; i++) {
                 v.push_back((byte) priorities[i].swig());
             }
-            p.set_file_priorities(v);
+            p.setFile_priorities(v);
         }
         p.setStorage_mode(storage_mode_t.storage_mode_sparse);
 
