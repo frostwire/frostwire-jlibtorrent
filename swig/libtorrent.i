@@ -289,10 +289,7 @@ namespace std {
     %template(string_dht_extension_handler_listener_ptr_pair_vector) vector<std::pair<string, dht_extension_handler_listener*>>;
 };
 
-%ignore match_filesizes;
 %ignore clone;
-%ignore new_feed;
-%ignore parse_feed;
 %ignore ssl_ctx;
 %ignore default_pred;
 %ignore ignore_subdir;
@@ -433,6 +430,10 @@ namespace std {
 %ignore libtorrent::entry::operator [];
 %ignore libtorrent::entry::m_type_queried;
 %ignore libtorrent::stats_alert::transferred;
+%ignore libtorrent::stats_alert::deprecated1;
+%ignore libtorrent::stats_alert::deprecated2;
+%ignore libtorrent::stats_alert::deprecated3;
+%ignore libtorrent::stats_alert::deprecated4;
 %ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
 %ignore libtorrent::dht_mutable_item_alert::key;
 %ignore libtorrent::dht_mutable_item_alert::signature;
@@ -491,7 +492,22 @@ namespace std {
 %ignore libtorrent::load_pack_from_dict;
 %ignore libtorrent::save_settings_to_dict;
 %ignore libtorrent::error_code;
-
+%ignore libtorrent::settings_pack::deprecated1;
+%ignore libtorrent::settings_pack::deprecated2;
+%ignore libtorrent::settings_pack::deprecated3;
+%ignore libtorrent::settings_pack::deprecated4;
+%ignore libtorrent::settings_pack::deprecated5;
+%ignore libtorrent::settings_pack::deprecated6;
+%ignore libtorrent::settings_pack::deprecated7;
+%ignore libtorrent::settings_pack::deprecated8;
+%ignore libtorrent::settings_pack::deprecated9;
+%ignore libtorrent::settings_pack::deprecated10;
+%ignore libtorrent::settings_pack::deprecated11;
+%ignore libtorrent::settings_pack::deprecated12;
+%ignore libtorrent::settings_pack::deprecated13;
+%ignore libtorrent::settings_pack::deprecated14;
+%ignore libtorrent::settings_pack::deprecated15;
+%ignore libtorrent::settings_pack::deprecated;
 %ignore libtorrent::detail::nop;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
@@ -522,6 +538,7 @@ namespace std {
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
+%ignore libtorrent::peer_info::deprecated__;
 %ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::stats_metric::name;
 %ignore libtorrent::storage_moved_failed_alert::operation;

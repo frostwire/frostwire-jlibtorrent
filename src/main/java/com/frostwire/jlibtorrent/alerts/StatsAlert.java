@@ -12,7 +12,7 @@ import com.frostwire.jlibtorrent.swig.stats_alert;
  */
 public final class StatsAlert extends TorrentAlert<stats_alert> {
 
-    public StatsAlert(stats_alert alert) {
+    StatsAlert(stats_alert alert) {
         super(alert);
     }
 
@@ -29,21 +29,48 @@ public final class StatsAlert extends TorrentAlert<stats_alert> {
      *
      * @return
      */
-    public int getInterval() {
+    public int interval() {
         return alert.getInterval();
     }
 
+    /**
+     *
+     */
     public enum StatsChannel {
+
+        /**
+         *
+         */
         UPLOAD_PAYLOAD(stats_alert.stats_channel.upload_payload.swigValue()),
+
+        /**
+         *
+         */
         UPlOAD_PROTOCOL(stats_alert.stats_channel.upload_protocol.swigValue()),
+
+        /**
+         *
+         */
         DOWNLOAD_PAYLOAD(stats_alert.stats_channel.download_payload.swigValue()),
+
+        /**
+         *
+         */
         DOWNLOAD_PROTOCOL(stats_alert.stats_channel.download_protocol.swigValue()),
+
+        /**
+         *
+         */
         UPLOAD_IP_PROTOCOL(stats_alert.stats_channel.upload_ip_protocol.swigValue()),
-        DEPRECATED1(stats_alert.stats_channel.deprecated1.swigValue()),
-        DEPRECATED2(stats_alert.stats_channel.deprecated2.swigValue()),
+
+        /**
+         *
+         */
         DOWNLOAD_IP_PROTOCOL(stats_alert.stats_channel.download_ip_protocol.swigValue()),
-        DEPRECATED3(stats_alert.stats_channel.deprecated3.swigValue()),
-        DEPRECATED4(stats_alert.stats_channel.deprecated4.swigValue()),
+
+        /**
+         *
+         */
         NUM_CHANNELS(stats_alert.stats_channel.num_channels.swigValue());
 
         StatsChannel(int swigValue) {
@@ -52,10 +79,18 @@ public final class StatsAlert extends TorrentAlert<stats_alert> {
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         *
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         *
+         * @return
+         */
         public int getIndex() {
             return swigValue;
         }

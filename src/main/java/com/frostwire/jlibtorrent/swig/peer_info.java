@@ -432,7 +432,6 @@ public class peer_info {
     public final static peer_info.peer_flags_t local_connection = new peer_info.peer_flags_t("local_connection", libtorrent_jni.peer_info_local_connection_get());
     public final static peer_info.peer_flags_t handshake = new peer_info.peer_flags_t("handshake", libtorrent_jni.peer_info_handshake_get());
     public final static peer_info.peer_flags_t connecting = new peer_info.peer_flags_t("connecting", libtorrent_jni.peer_info_connecting_get());
-    public final static peer_info.peer_flags_t deprecated__ = new peer_info.peer_flags_t("deprecated__", libtorrent_jni.peer_info_deprecated___get());
     public final static peer_info.peer_flags_t on_parole = new peer_info.peer_flags_t("on_parole", libtorrent_jni.peer_info_on_parole_get());
     public final static peer_info.peer_flags_t seed = new peer_info.peer_flags_t("seed", libtorrent_jni.peer_info_seed_get());
     public final static peer_info.peer_flags_t optimistic_unchoke = new peer_info.peer_flags_t("optimistic_unchoke", libtorrent_jni.peer_info_optimistic_unchoke_get());
@@ -480,7 +479,7 @@ public class peer_info {
       swigNext = this.swigValue+1;
     }
 
-    private static peer_flags_t[] swigValues = { interesting, choked, remote_interested, remote_choked, supports_extensions, local_connection, handshake, connecting, deprecated__, on_parole, seed, optimistic_unchoke, snubbed, upload_only, endgame_mode, holepunched, i2p_socket, utp_socket, ssl_socket, rc4_encrypted, plaintext_encrypted };
+    private static peer_flags_t[] swigValues = { interesting, choked, remote_interested, remote_choked, supports_extensions, local_connection, handshake, connecting, on_parole, seed, optimistic_unchoke, snubbed, upload_only, endgame_mode, holepunched, i2p_socket, utp_socket, ssl_socket, rc4_encrypted, plaintext_encrypted };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

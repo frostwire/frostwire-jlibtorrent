@@ -1737,6 +1737,8 @@ public class libtorrent_jni {
   public final static native String stats_alert_what(long jarg1, stats_alert jarg1_);
   public final static native int stats_alert_static_category_get();
   public final static native String stats_alert_message(long jarg1, stats_alert jarg1_);
+  public final static native int stats_alert_download_ip_protocol_get();
+  public final static native int stats_alert_num_channels_get();
   public final static native void stats_alert_interval_set(long jarg1, stats_alert jarg1_, int jarg2);
   public final static native int stats_alert_interval_get(long jarg1, stats_alert jarg1_);
   public final static native int stats_alert_get_transferred(long jarg1, stats_alert jarg1_, int jarg2);
@@ -2118,7 +2120,6 @@ public class libtorrent_jni {
   public final static native int peer_info_local_connection_get();
   public final static native int peer_info_handshake_get();
   public final static native int peer_info_connecting_get();
-  public final static native int peer_info_deprecated___get();
   public final static native int peer_info_on_parole_get();
   public final static native int peer_info_seed_get();
   public final static native int peer_info_optimistic_unchoke_get();
@@ -2301,7 +2302,19 @@ public class libtorrent_jni {
   public final static native int settings_pack_index_mask_get();
   public final static native int settings_pack_user_agent_get();
   public final static native int settings_pack_allow_multiple_connections_per_ip_get();
+  public final static native int settings_pack_send_redundant_have_get();
+  public final static native int settings_pack_use_dht_as_fallback_get();
+  public final static native int settings_pack_dont_flush_write_cache_get();
+  public final static native int settings_pack_disable_hash_checks_get();
+  public final static native int settings_pack_no_recheck_incomplete_resume_get();
+  public final static native int settings_pack_announce_double_nat_get();
+  public final static native int settings_pack_ban_web_seeds_get();
   public final static native int settings_pack_tracker_completion_timeout_get();
+  public final static native int settings_pack_unchoke_slots_limit_get();
+  public final static native int settings_pack_connections_limit_get();
+  public final static native int settings_pack_utp_loss_multiplier_get();
+  public final static native int settings_pack_checking_mem_usage_get();
+  public final static native int settings_pack_tracker_backoff_get();
   public final static native int settings_pack_num_string_settings_get();
   public final static native int settings_pack_num_bool_settings_get();
   public final static native int settings_pack_num_int_settings_get();
@@ -2311,7 +2324,6 @@ public class libtorrent_jni {
   public final static native int settings_pack_rate_based_choker_get();
   public final static native int settings_pack_bittyrant_choker_get();
   public final static native int settings_pack_enable_os_cache_get();
-  public final static native int settings_pack_deprecated_get();
   public final static native int settings_pack_disable_os_cache_get();
   public final static native int settings_pack_prefer_tcp_get();
   public final static native int settings_pack_peer_proportional_get();

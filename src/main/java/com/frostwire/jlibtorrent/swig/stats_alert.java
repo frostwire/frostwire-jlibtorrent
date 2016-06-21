@@ -72,12 +72,8 @@ public class stats_alert extends torrent_alert {
     public final static stats_alert.stats_channel download_payload = new stats_alert.stats_channel("download_payload");
     public final static stats_alert.stats_channel download_protocol = new stats_alert.stats_channel("download_protocol");
     public final static stats_alert.stats_channel upload_ip_protocol = new stats_alert.stats_channel("upload_ip_protocol");
-    public final static stats_alert.stats_channel deprecated1 = new stats_alert.stats_channel("deprecated1");
-    public final static stats_alert.stats_channel deprecated2 = new stats_alert.stats_channel("deprecated2");
-    public final static stats_alert.stats_channel download_ip_protocol = new stats_alert.stats_channel("download_ip_protocol");
-    public final static stats_alert.stats_channel deprecated3 = new stats_alert.stats_channel("deprecated3");
-    public final static stats_alert.stats_channel deprecated4 = new stats_alert.stats_channel("deprecated4");
-    public final static stats_alert.stats_channel num_channels = new stats_alert.stats_channel("num_channels");
+    public final static stats_alert.stats_channel download_ip_protocol = new stats_alert.stats_channel("download_ip_protocol", libtorrent_jni.stats_alert_download_ip_protocol_get());
+    public final static stats_alert.stats_channel num_channels = new stats_alert.stats_channel("num_channels", libtorrent_jni.stats_alert_num_channels_get());
 
     public final int swigValue() {
       return swigValue;
@@ -113,7 +109,7 @@ public class stats_alert extends torrent_alert {
       swigNext = this.swigValue+1;
     }
 
-    private static stats_channel[] swigValues = { upload_payload, upload_protocol, download_payload, download_protocol, upload_ip_protocol, deprecated1, deprecated2, download_ip_protocol, deprecated3, deprecated4, num_channels };
+    private static stats_channel[] swigValues = { upload_payload, upload_protocol, download_payload, download_protocol, upload_ip_protocol, download_ip_protocol, num_channels };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

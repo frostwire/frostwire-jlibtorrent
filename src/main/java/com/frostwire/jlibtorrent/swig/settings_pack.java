@@ -174,15 +174,12 @@ public class settings_pack {
 
   public final static class bool_types {
     public final static settings_pack.bool_types allow_multiple_connections_per_ip = new settings_pack.bool_types("allow_multiple_connections_per_ip", libtorrent_jni.settings_pack_allow_multiple_connections_per_ip_get());
-    public final static settings_pack.bool_types deprecated1 = new settings_pack.bool_types("deprecated1");
-    public final static settings_pack.bool_types send_redundant_have = new settings_pack.bool_types("send_redundant_have");
-    public final static settings_pack.bool_types deprecated12 = new settings_pack.bool_types("deprecated12");
-    public final static settings_pack.bool_types use_dht_as_fallback = new settings_pack.bool_types("use_dht_as_fallback");
+    public final static settings_pack.bool_types send_redundant_have = new settings_pack.bool_types("send_redundant_have", libtorrent_jni.settings_pack_send_redundant_have_get());
+    public final static settings_pack.bool_types use_dht_as_fallback = new settings_pack.bool_types("use_dht_as_fallback", libtorrent_jni.settings_pack_use_dht_as_fallback_get());
     public final static settings_pack.bool_types upnp_ignore_nonrouters = new settings_pack.bool_types("upnp_ignore_nonrouters");
     public final static settings_pack.bool_types use_parole_mode = new settings_pack.bool_types("use_parole_mode");
     public final static settings_pack.bool_types use_read_cache = new settings_pack.bool_types("use_read_cache");
-    public final static settings_pack.bool_types deprecated11 = new settings_pack.bool_types("deprecated11");
-    public final static settings_pack.bool_types dont_flush_write_cache = new settings_pack.bool_types("dont_flush_write_cache");
+    public final static settings_pack.bool_types dont_flush_write_cache = new settings_pack.bool_types("dont_flush_write_cache", libtorrent_jni.settings_pack_dont_flush_write_cache_get());
     public final static settings_pack.bool_types coalesce_reads = new settings_pack.bool_types("coalesce_reads");
     public final static settings_pack.bool_types coalesce_writes = new settings_pack.bool_types("coalesce_writes");
     public final static settings_pack.bool_types auto_manage_prefer_seeds = new settings_pack.bool_types("auto_manage_prefer_seeds");
@@ -194,8 +191,7 @@ public class settings_pack {
     public final static settings_pack.bool_types announce_to_all_trackers = new settings_pack.bool_types("announce_to_all_trackers");
     public final static settings_pack.bool_types prefer_udp_trackers = new settings_pack.bool_types("prefer_udp_trackers");
     public final static settings_pack.bool_types strict_super_seeding = new settings_pack.bool_types("strict_super_seeding");
-    public final static settings_pack.bool_types deprecated10 = new settings_pack.bool_types("deprecated10");
-    public final static settings_pack.bool_types disable_hash_checks = new settings_pack.bool_types("disable_hash_checks");
+    public final static settings_pack.bool_types disable_hash_checks = new settings_pack.bool_types("disable_hash_checks", libtorrent_jni.settings_pack_disable_hash_checks_get());
     public final static settings_pack.bool_types allow_i2p_mixed = new settings_pack.bool_types("allow_i2p_mixed");
     public final static settings_pack.bool_types low_prio_disk = new settings_pack.bool_types("low_prio_disk");
     public final static settings_pack.bool_types volatile_read_cache = new settings_pack.bool_types("volatile_read_cache");
@@ -209,12 +205,10 @@ public class settings_pack {
     public final static settings_pack.bool_types enable_incoming_utp = new settings_pack.bool_types("enable_incoming_utp");
     public final static settings_pack.bool_types enable_outgoing_tcp = new settings_pack.bool_types("enable_outgoing_tcp");
     public final static settings_pack.bool_types enable_incoming_tcp = new settings_pack.bool_types("enable_incoming_tcp");
-    public final static settings_pack.bool_types deprecated8 = new settings_pack.bool_types("deprecated8");
-    public final static settings_pack.bool_types no_recheck_incomplete_resume = new settings_pack.bool_types("no_recheck_incomplete_resume");
+    public final static settings_pack.bool_types no_recheck_incomplete_resume = new settings_pack.bool_types("no_recheck_incomplete_resume", libtorrent_jni.settings_pack_no_recheck_incomplete_resume_get());
     public final static settings_pack.bool_types anonymous_mode = new settings_pack.bool_types("anonymous_mode");
     public final static settings_pack.bool_types report_web_seed_downloads = new settings_pack.bool_types("report_web_seed_downloads");
-    public final static settings_pack.bool_types deprecated2 = new settings_pack.bool_types("deprecated2");
-    public final static settings_pack.bool_types announce_double_nat = new settings_pack.bool_types("announce_double_nat");
+    public final static settings_pack.bool_types announce_double_nat = new settings_pack.bool_types("announce_double_nat", libtorrent_jni.settings_pack_announce_double_nat_get());
     public final static settings_pack.bool_types seeding_outgoing_connections = new settings_pack.bool_types("seeding_outgoing_connections");
     public final static settings_pack.bool_types no_connect_privileged_ports = new settings_pack.bool_types("no_connect_privileged_ports");
     public final static settings_pack.bool_types smooth_connects = new settings_pack.bool_types("smooth_connects");
@@ -222,8 +216,7 @@ public class settings_pack {
     public final static settings_pack.bool_types apply_ip_filter_to_trackers = new settings_pack.bool_types("apply_ip_filter_to_trackers");
     public final static settings_pack.bool_types use_disk_read_ahead = new settings_pack.bool_types("use_disk_read_ahead");
     public final static settings_pack.bool_types lock_files = new settings_pack.bool_types("lock_files");
-    public final static settings_pack.bool_types deprecated15 = new settings_pack.bool_types("deprecated15");
-    public final static settings_pack.bool_types ban_web_seeds = new settings_pack.bool_types("ban_web_seeds");
+    public final static settings_pack.bool_types ban_web_seeds = new settings_pack.bool_types("ban_web_seeds", libtorrent_jni.settings_pack_ban_web_seeds_get());
     public final static settings_pack.bool_types allow_partial_disk_writes = new settings_pack.bool_types("allow_partial_disk_writes");
     public final static settings_pack.bool_types force_proxy = new settings_pack.bool_types("force_proxy");
     public final static settings_pack.bool_types support_share_mode = new settings_pack.bool_types("support_share_mode");
@@ -277,7 +270,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static bool_types[] swigValues = { allow_multiple_connections_per_ip, deprecated1, send_redundant_have, deprecated12, use_dht_as_fallback, upnp_ignore_nonrouters, use_parole_mode, use_read_cache, deprecated11, dont_flush_write_cache, coalesce_reads, coalesce_writes, auto_manage_prefer_seeds, dont_count_slow_torrents, close_redundant_connections, prioritize_partial_pieces, rate_limit_ip_overhead, announce_to_all_tiers, announce_to_all_trackers, prefer_udp_trackers, strict_super_seeding, deprecated10, disable_hash_checks, allow_i2p_mixed, low_prio_disk, volatile_read_cache, guided_read_cache, no_atime_storage, incoming_starts_queued_torrents, report_true_downloaded, strict_end_game_mode, broadcast_lsd, enable_outgoing_utp, enable_incoming_utp, enable_outgoing_tcp, enable_incoming_tcp, deprecated8, no_recheck_incomplete_resume, anonymous_mode, report_web_seed_downloads, deprecated2, announce_double_nat, seeding_outgoing_connections, no_connect_privileged_ports, smooth_connects, always_send_user_agent, apply_ip_filter_to_trackers, use_disk_read_ahead, lock_files, deprecated15, ban_web_seeds, allow_partial_disk_writes, force_proxy, support_share_mode, support_merkle_torrents, report_redundant_bytes, listen_system_port_fallback, use_disk_cache_pool, announce_crypto_support, enable_upnp, enable_natpmp, enable_lsd, enable_dht, prefer_rc4, proxy_hostnames, proxy_peer_connections, auto_sequential, proxy_tracker_connections, max_bool_setting_internal };
+    private static bool_types[] swigValues = { allow_multiple_connections_per_ip, send_redundant_have, use_dht_as_fallback, upnp_ignore_nonrouters, use_parole_mode, use_read_cache, dont_flush_write_cache, coalesce_reads, coalesce_writes, auto_manage_prefer_seeds, dont_count_slow_torrents, close_redundant_connections, prioritize_partial_pieces, rate_limit_ip_overhead, announce_to_all_tiers, announce_to_all_trackers, prefer_udp_trackers, strict_super_seeding, disable_hash_checks, allow_i2p_mixed, low_prio_disk, volatile_read_cache, guided_read_cache, no_atime_storage, incoming_starts_queued_torrents, report_true_downloaded, strict_end_game_mode, broadcast_lsd, enable_outgoing_utp, enable_incoming_utp, enable_outgoing_tcp, enable_incoming_tcp, no_recheck_incomplete_resume, anonymous_mode, report_web_seed_downloads, announce_double_nat, seeding_outgoing_connections, no_connect_privileged_ports, smooth_connects, always_send_user_agent, apply_ip_filter_to_trackers, use_disk_read_ahead, lock_files, ban_web_seeds, allow_partial_disk_writes, force_proxy, support_share_mode, support_merkle_torrents, report_redundant_bytes, listen_system_port_fallback, use_disk_cache_pool, announce_crypto_support, enable_upnp, enable_natpmp, enable_lsd, enable_dht, prefer_rc4, proxy_hostnames, proxy_peer_connections, auto_sequential, proxy_tracker_connections, max_bool_setting_internal };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
@@ -363,12 +356,8 @@ public class settings_pack {
     public final static settings_pack.int_types share_mode_target = new settings_pack.int_types("share_mode_target");
     public final static settings_pack.int_types upload_rate_limit = new settings_pack.int_types("upload_rate_limit");
     public final static settings_pack.int_types download_rate_limit = new settings_pack.int_types("download_rate_limit");
-    public final static settings_pack.int_types deprecated3 = new settings_pack.int_types("deprecated3");
-    public final static settings_pack.int_types deprecated4 = new settings_pack.int_types("deprecated4");
-    public final static settings_pack.int_types deprecated7 = new settings_pack.int_types("deprecated7");
-    public final static settings_pack.int_types unchoke_slots_limit = new settings_pack.int_types("unchoke_slots_limit");
-    public final static settings_pack.int_types deprecated5 = new settings_pack.int_types("deprecated5");
-    public final static settings_pack.int_types connections_limit = new settings_pack.int_types("connections_limit");
+    public final static settings_pack.int_types unchoke_slots_limit = new settings_pack.int_types("unchoke_slots_limit", libtorrent_jni.settings_pack_unchoke_slots_limit_get());
+    public final static settings_pack.int_types connections_limit = new settings_pack.int_types("connections_limit", libtorrent_jni.settings_pack_connections_limit_get());
     public final static settings_pack.int_types connections_slack = new settings_pack.int_types("connections_slack");
     public final static settings_pack.int_types utp_target_delay = new settings_pack.int_types("utp_target_delay");
     public final static settings_pack.int_types utp_gain_factor = new settings_pack.int_types("utp_gain_factor");
@@ -377,21 +366,18 @@ public class settings_pack {
     public final static settings_pack.int_types utp_fin_resends = new settings_pack.int_types("utp_fin_resends");
     public final static settings_pack.int_types utp_num_resends = new settings_pack.int_types("utp_num_resends");
     public final static settings_pack.int_types utp_connect_timeout = new settings_pack.int_types("utp_connect_timeout");
-    public final static settings_pack.int_types deprecated6 = new settings_pack.int_types("deprecated6");
-    public final static settings_pack.int_types utp_loss_multiplier = new settings_pack.int_types("utp_loss_multiplier");
+    public final static settings_pack.int_types utp_loss_multiplier = new settings_pack.int_types("utp_loss_multiplier", libtorrent_jni.settings_pack_utp_loss_multiplier_get());
     public final static settings_pack.int_types mixed_mode_algorithm = new settings_pack.int_types("mixed_mode_algorithm");
     public final static settings_pack.int_types listen_queue_size = new settings_pack.int_types("listen_queue_size");
     public final static settings_pack.int_types torrent_connect_boost = new settings_pack.int_types("torrent_connect_boost");
     public final static settings_pack.int_types alert_queue_size = new settings_pack.int_types("alert_queue_size");
     public final static settings_pack.int_types max_metadata_size = new settings_pack.int_types("max_metadata_size");
-    public final static settings_pack.int_types deprecated14 = new settings_pack.int_types("deprecated14");
-    public final static settings_pack.int_types checking_mem_usage = new settings_pack.int_types("checking_mem_usage");
+    public final static settings_pack.int_types checking_mem_usage = new settings_pack.int_types("checking_mem_usage", libtorrent_jni.settings_pack_checking_mem_usage_get());
     public final static settings_pack.int_types predictive_piece_announce = new settings_pack.int_types("predictive_piece_announce");
     public final static settings_pack.int_types aio_threads = new settings_pack.int_types("aio_threads");
     public final static settings_pack.int_types aio_max = new settings_pack.int_types("aio_max");
     public final static settings_pack.int_types network_threads = new settings_pack.int_types("network_threads");
-    public final static settings_pack.int_types deprecated9 = new settings_pack.int_types("deprecated9");
-    public final static settings_pack.int_types tracker_backoff = new settings_pack.int_types("tracker_backoff");
+    public final static settings_pack.int_types tracker_backoff = new settings_pack.int_types("tracker_backoff", libtorrent_jni.settings_pack_tracker_backoff_get());
     public final static settings_pack.int_types share_ratio_limit = new settings_pack.int_types("share_ratio_limit");
     public final static settings_pack.int_types seed_time_ratio_limit = new settings_pack.int_types("seed_time_ratio_limit");
     public final static settings_pack.int_types peer_turnover = new settings_pack.int_types("peer_turnover");
@@ -446,7 +432,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static int_types[] swigValues = { tracker_completion_timeout, tracker_receive_timeout, stop_tracker_timeout, tracker_maximum_response_length, piece_timeout, request_timeout, request_queue_time, max_allowed_in_request_queue, max_out_request_queue, whole_pieces_threshold, peer_timeout, urlseed_timeout, urlseed_pipeline_size, urlseed_wait_retry, file_pool_size, max_failcount, min_reconnect_time, peer_connect_timeout, connection_speed, inactivity_timeout, unchoke_interval, optimistic_unchoke_interval, num_want, initial_picker_threshold, allowed_fast_set_size, suggest_mode, max_queued_disk_bytes, handshake_timeout, send_buffer_low_watermark, send_buffer_watermark, send_buffer_watermark_factor, choking_algorithm, seed_choking_algorithm, cache_size, cache_buffer_chunk_size, cache_expiry, disk_io_write_mode, disk_io_read_mode, outgoing_port, num_outgoing_ports, peer_tos, active_downloads, active_seeds, active_checking, active_dht_limit, active_tracker_limit, active_lsd_limit, active_limit, active_loaded_limit, auto_manage_interval, seed_time_limit, auto_scrape_interval, auto_scrape_min_interval, max_peerlist_size, max_paused_peerlist_size, min_announce_interval, auto_manage_startup, seeding_piece_quota, max_rejects, recv_socket_buffer_size, send_socket_buffer_size, file_checks_delay_per_block, read_cache_line_size, write_cache_line_size, optimistic_disk_retry, max_suggest_pieces, local_service_announce_interval, dht_announce_interval, udp_tracker_token_expiry, default_cache_min_age, num_optimistic_unchoke_slots, default_est_reciprocation_rate, increase_est_reciprocation_rate, decrease_est_reciprocation_rate, max_pex_peers, tick_interval, share_mode_target, upload_rate_limit, download_rate_limit, deprecated3, deprecated4, deprecated7, unchoke_slots_limit, deprecated5, connections_limit, connections_slack, utp_target_delay, utp_gain_factor, utp_min_timeout, utp_syn_resends, utp_fin_resends, utp_num_resends, utp_connect_timeout, deprecated6, utp_loss_multiplier, mixed_mode_algorithm, listen_queue_size, torrent_connect_boost, alert_queue_size, max_metadata_size, deprecated14, checking_mem_usage, predictive_piece_announce, aio_threads, aio_max, network_threads, deprecated9, tracker_backoff, share_ratio_limit, seed_time_ratio_limit, peer_turnover, peer_turnover_cutoff, peer_turnover_interval, connect_seed_every_n_download, max_http_recv_buffer_size, max_retry_port_bind, alert_mask, out_enc_policy, in_enc_policy, allowed_enc_level, inactive_down_rate, inactive_up_rate, proxy_type, proxy_port, i2p_port, cache_size_volatile, max_int_setting_internal };
+    private static int_types[] swigValues = { tracker_completion_timeout, tracker_receive_timeout, stop_tracker_timeout, tracker_maximum_response_length, piece_timeout, request_timeout, request_queue_time, max_allowed_in_request_queue, max_out_request_queue, whole_pieces_threshold, peer_timeout, urlseed_timeout, urlseed_pipeline_size, urlseed_wait_retry, file_pool_size, max_failcount, min_reconnect_time, peer_connect_timeout, connection_speed, inactivity_timeout, unchoke_interval, optimistic_unchoke_interval, num_want, initial_picker_threshold, allowed_fast_set_size, suggest_mode, max_queued_disk_bytes, handshake_timeout, send_buffer_low_watermark, send_buffer_watermark, send_buffer_watermark_factor, choking_algorithm, seed_choking_algorithm, cache_size, cache_buffer_chunk_size, cache_expiry, disk_io_write_mode, disk_io_read_mode, outgoing_port, num_outgoing_ports, peer_tos, active_downloads, active_seeds, active_checking, active_dht_limit, active_tracker_limit, active_lsd_limit, active_limit, active_loaded_limit, auto_manage_interval, seed_time_limit, auto_scrape_interval, auto_scrape_min_interval, max_peerlist_size, max_paused_peerlist_size, min_announce_interval, auto_manage_startup, seeding_piece_quota, max_rejects, recv_socket_buffer_size, send_socket_buffer_size, file_checks_delay_per_block, read_cache_line_size, write_cache_line_size, optimistic_disk_retry, max_suggest_pieces, local_service_announce_interval, dht_announce_interval, udp_tracker_token_expiry, default_cache_min_age, num_optimistic_unchoke_slots, default_est_reciprocation_rate, increase_est_reciprocation_rate, decrease_est_reciprocation_rate, max_pex_peers, tick_interval, share_mode_target, upload_rate_limit, download_rate_limit, unchoke_slots_limit, connections_limit, connections_slack, utp_target_delay, utp_gain_factor, utp_min_timeout, utp_syn_resends, utp_fin_resends, utp_num_resends, utp_connect_timeout, utp_loss_multiplier, mixed_mode_algorithm, listen_queue_size, torrent_connect_boost, alert_queue_size, max_metadata_size, checking_mem_usage, predictive_piece_announce, aio_threads, aio_max, network_threads, tracker_backoff, share_ratio_limit, seed_time_ratio_limit, peer_turnover, peer_turnover_cutoff, peer_turnover_interval, connect_seed_every_n_download, max_http_recv_buffer_size, max_retry_port_bind, alert_mask, out_enc_policy, in_enc_policy, allowed_enc_level, inactive_down_rate, inactive_up_rate, proxy_type, proxy_port, i2p_port, cache_size_volatile, max_int_setting_internal };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
@@ -633,7 +619,6 @@ public class settings_pack {
 
   public final static class io_buffer_mode_t {
     public final static settings_pack.io_buffer_mode_t enable_os_cache = new settings_pack.io_buffer_mode_t("enable_os_cache", libtorrent_jni.settings_pack_enable_os_cache_get());
-    public final static settings_pack.io_buffer_mode_t deprecated = new settings_pack.io_buffer_mode_t("deprecated", libtorrent_jni.settings_pack_deprecated_get());
     public final static settings_pack.io_buffer_mode_t disable_os_cache = new settings_pack.io_buffer_mode_t("disable_os_cache", libtorrent_jni.settings_pack_disable_os_cache_get());
 
     public final int swigValue() {
@@ -670,7 +655,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static io_buffer_mode_t[] swigValues = { enable_os_cache, deprecated, disable_os_cache };
+    private static io_buffer_mode_t[] swigValues = { enable_os_cache, disable_os_cache };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
