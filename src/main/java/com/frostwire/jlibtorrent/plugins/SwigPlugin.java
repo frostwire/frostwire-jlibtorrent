@@ -21,15 +21,11 @@ public final class SwigPlugin extends swig_plugin {
     private final List<SwigTorrentPlugin> mem;
     private final Object memLock;
 
-    private final List<SwigDhtPlugin> memDht;
-
     public SwigPlugin(Plugin p) {
         this.p = p;
 
-        this.mem = new LinkedList<SwigTorrentPlugin>();
+        this.mem = new LinkedList<>();
         this.memLock = new Object();
-
-        this.memDht = new LinkedList<SwigDhtPlugin>();
     }
 
     /*
@@ -56,25 +52,6 @@ public final class SwigPlugin extends swig_plugin {
             p.added(new SessionHandle(s));
         } catch (Throwable e) {
             LOG.error("Error in plugin (added)", e);
-        }
-    }
-
-    @Override
-    public void register_dht_extensions(string_dht_extension_handler_listener_ptr_pair_vector dht_extensions) {
-        try {
-            if (p.handleOperation(Plugin.Operation.REGISTER_DHT_EXTENSIONS)) {
-                List<Pair<String, DhtPlugin>> plugins = new LinkedList<Pair<String, DhtPlugin>>();
-                p.registerDhtPlugins(plugins);
-
-                for (Pair<String, DhtPlugin> pp : plugins) {
-                    String q = pp.first;
-                    SwigDhtPlugin h = pin(new SwigDhtPlugin(pp.second));
-                    string_dht_extension_handler_listener_ptr_pair pair = new string_dht_extension_handler_listener_ptr_pair(q, h);
-                    dht_extensions.push_back(pair);
-                }
-            }
-        } catch (Throwable e) {
-            LOG.error("Error in plugin (register_dht_extensions)", e);
         }
     }
 
@@ -137,11 +114,6 @@ public final class SwigPlugin extends swig_plugin {
 
     private SwigTorrentPlugin pin(SwigTorrentPlugin p) {
         mem.add(p);
-        return p;
-    }
-
-    private SwigDhtPlugin pin(SwigDhtPlugin p) {
-        memDht.add(p);
         return p;
     }
 
