@@ -175,7 +175,7 @@ public:
     virtual bool on_have_none();
     virtual bool on_allowed_fast(int index);
     virtual bool on_request(libtorrent::peer_request const &r);
-    virtual bool on_piece(libtorrent::peer_request const &piece, libtorrent::disk_buffer_holder &data);
+    virtual bool on_piece(libtorrent::peer_request const &piece, char const *buf);
     virtual bool on_cancel(libtorrent::peer_request const &r);
     virtual bool on_reject(libtorrent::peer_request const &r);
     virtual bool on_suggest(int index);

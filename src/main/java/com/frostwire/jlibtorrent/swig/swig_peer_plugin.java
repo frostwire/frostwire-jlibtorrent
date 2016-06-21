@@ -118,8 +118,8 @@ public class swig_peer_plugin {
     return (getClass() == swig_peer_plugin.class) ? libtorrent_jni.swig_peer_plugin_on_request(swigCPtr, this, peer_request.getCPtr(r), r) : libtorrent_jni.swig_peer_plugin_on_requestSwigExplicitswig_peer_plugin(swigCPtr, this, peer_request.getCPtr(r), r);
   }
 
-  public boolean on_piece(peer_request piece, disk_buffer_holder data) {
-    return (getClass() == swig_peer_plugin.class) ? libtorrent_jni.swig_peer_plugin_on_piece(swigCPtr, this, peer_request.getCPtr(piece), piece, disk_buffer_holder.getCPtr(data), data) : libtorrent_jni.swig_peer_plugin_on_pieceSwigExplicitswig_peer_plugin(swigCPtr, this, peer_request.getCPtr(piece), piece, disk_buffer_holder.getCPtr(data), data);
+  public boolean on_piece(peer_request piece, String buf) {
+    return (getClass() == swig_peer_plugin.class) ? libtorrent_jni.swig_peer_plugin_on_piece(swigCPtr, this, peer_request.getCPtr(piece), piece, buf) : libtorrent_jni.swig_peer_plugin_on_pieceSwigExplicitswig_peer_plugin(swigCPtr, this, peer_request.getCPtr(piece), piece, buf);
   }
 
   public boolean on_cancel(peer_request r) {

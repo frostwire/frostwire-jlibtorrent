@@ -495,7 +495,7 @@ struct swig_peer_plugin : peer_plugin
     virtual bool on_have_none() { return false; }
     virtual bool on_allowed_fast(int index) { return false; }
     virtual bool on_request(libtorrent::peer_request const& r) { return false; }
-    virtual bool on_piece(libtorrent::peer_request const& piece, libtorrent::disk_buffer_holder& data) { return false; }
+    virtual bool on_piece(libtorrent::peer_request const& piece, char const* buf) { return false; }
     virtual bool on_cancel(libtorrent::peer_request const& r) { return false; }
     virtual bool on_reject(libtorrent::peer_request const& r) { return false; }
     virtual bool on_suggest(int index) { return false; }

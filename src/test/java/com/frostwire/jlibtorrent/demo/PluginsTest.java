@@ -57,7 +57,7 @@ public final class PluginsTest {
                             }
 
                             @Override
-                            public boolean onPiece(PeerRequest piece, DiskBufferHolder data) {
+                            public boolean onPiece(PeerRequest piece, byte[] data) {
                                 //System.out.println("peer on piece: " + p.remote().address() + " " + piece);
                                 return false;
                             }

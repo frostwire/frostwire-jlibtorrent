@@ -97,7 +97,7 @@ public abstract class AbstractPeerPlugin implements PeerPlugin {
     }
 
     @Override
-    public boolean onPiece(PeerRequest piece, DiskBufferHolder data) {
+    public boolean onPiece(PeerRequest piece, byte[] data) {
         return false;
     }
 

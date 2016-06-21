@@ -2426,9 +2426,6 @@ public class libtorrent_jni {
   public final static native long new_session__SWIG_2();
   public final static native void delete_session(long jarg1);
   public final static native long session_abort(long jarg1, session jarg1_);
-  public final static native void delete_disk_buffer_holder(long jarg1);
-  public final static native boolean disk_buffer_holder_op_bool(long jarg1, disk_buffer_holder jarg1_);
-  public final static native long disk_buffer_holder_get_ptr(long jarg1, disk_buffer_holder jarg1_);
   public final static native int peer_connection_handle_type(long jarg1, peer_connection_handle jarg1_);
   public final static native long peer_connection_handle_find_plugin(long jarg1, peer_connection_handle jarg1_, String jarg2);
   public final static native boolean peer_connection_handle_is_seed(long jarg1, peer_connection_handle jarg1_);
@@ -2501,7 +2498,7 @@ public class libtorrent_jni {
   public final static native boolean peer_plugin_on_have_none(long jarg1, peer_plugin jarg1_);
   public final static native boolean peer_plugin_on_allowed_fast(long jarg1, peer_plugin jarg1_, int jarg2);
   public final static native boolean peer_plugin_on_request(long jarg1, peer_plugin jarg1_, long jarg2, peer_request jarg2_);
-  public final static native boolean peer_plugin_on_piece(long jarg1, peer_plugin jarg1_, long jarg2, peer_request jarg2_, long jarg3, disk_buffer_holder jarg3_);
+  public final static native boolean peer_plugin_on_piece(long jarg1, peer_plugin jarg1_, long jarg2, peer_request jarg2_, String jarg3);
   public final static native boolean peer_plugin_on_cancel(long jarg1, peer_plugin jarg1_, long jarg2, peer_request jarg2_);
   public final static native boolean peer_plugin_on_reject(long jarg1, peer_plugin jarg1_, long jarg2, peer_request jarg2_);
   public final static native boolean peer_plugin_on_suggest(long jarg1, peer_plugin jarg1_, int jarg2);
@@ -3031,8 +3028,8 @@ public class libtorrent_jni {
   public final static native boolean swig_peer_plugin_on_allowed_fastSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
   public final static native boolean swig_peer_plugin_on_request(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
   public final static native boolean swig_peer_plugin_on_requestSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
-  public final static native boolean swig_peer_plugin_on_piece(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_, long jarg3, disk_buffer_holder jarg3_);
-  public final static native boolean swig_peer_plugin_on_pieceSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_, long jarg3, disk_buffer_holder jarg3_);
+  public final static native boolean swig_peer_plugin_on_piece(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_, String jarg3);
+  public final static native boolean swig_peer_plugin_on_pieceSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_, String jarg3);
   public final static native boolean swig_peer_plugin_on_cancel(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
   public final static native boolean swig_peer_plugin_on_cancelSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
   public final static native boolean swig_peer_plugin_on_reject(long jarg1, swig_peer_plugin jarg1_, long jarg2, peer_request jarg2_);
@@ -3350,8 +3347,8 @@ public class libtorrent_jni {
   public static boolean SwigDirector_swig_peer_plugin_on_request(swig_peer_plugin jself, long r) {
     return jself.on_request(new peer_request(r, false));
   }
-  public static boolean SwigDirector_swig_peer_plugin_on_piece(swig_peer_plugin jself, long piece, long data) {
-    return jself.on_piece(new peer_request(piece, false), new disk_buffer_holder(data, false));
+  public static boolean SwigDirector_swig_peer_plugin_on_piece(swig_peer_plugin jself, long piece, String buf) {
+    return jself.on_piece(new peer_request(piece, false), buf);
   }
   public static boolean SwigDirector_swig_peer_plugin_on_cancel(swig_peer_plugin jself, long r) {
     return jself.on_cancel(new peer_request(r, false));

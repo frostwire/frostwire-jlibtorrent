@@ -103,8 +103,8 @@ public class peer_plugin {
     return libtorrent_jni.peer_plugin_on_request(swigCPtr, this, peer_request.getCPtr(arg0), arg0);
   }
 
-  public boolean on_piece(peer_request arg0, disk_buffer_holder arg1) {
-    return libtorrent_jni.peer_plugin_on_piece(swigCPtr, this, peer_request.getCPtr(arg0), arg0, disk_buffer_holder.getCPtr(arg1), arg1);
+  public boolean on_piece(peer_request arg0, String arg1) {
+    return libtorrent_jni.peer_plugin_on_piece(swigCPtr, this, peer_request.getCPtr(arg0), arg0, arg1);
   }
 
   public boolean on_cancel(peer_request arg0) {

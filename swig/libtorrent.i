@@ -65,8 +65,6 @@
 #include "libtorrent/peer_class_type_filter.hpp"
 #include "libtorrent/session_handle.hpp"
 #include "libtorrent/session.hpp"
-#include "libtorrent/disk_buffer_holder.hpp"
-#include "libtorrent/disk_buffer_pool.hpp"
 #include "libtorrent/peer_connection_handle.hpp"
 #include "libtorrent/extensions.hpp"
 #include "libtorrent/ip_filter.hpp"
@@ -312,7 +310,6 @@ namespace std {
 %ignore libtorrent::url_has_argument;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
-%ignore libtorrent::detail::add_files_impl;
 %ignore libtorrent::alert_manager;
 %ignore libtorrent::plugin;
 %ignore libtorrent::disk_job_fence;
@@ -321,7 +318,6 @@ namespace std {
 %ignore libtorrent::internal_file_entry;
 %ignore libtorrent::storage_interface;
 %ignore libtorrent::time_critical_piece;
-%ignore libtorrent::disk_buffer_pool;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::storage_piece_set;
@@ -346,7 +342,7 @@ namespace std {
 %ignore libtorrent::hex_to_int;
 %ignore libtorrent::nop;
 %ignore libtorrent::to_string;
-%ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>, boost::uint32_t);
+%ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>, std::uint32_t);
 %ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>);
 %ignore libtorrent::initialize_file_progress;
 %ignore libtorrent::get_filesizes;
@@ -375,8 +371,8 @@ namespace std {
 %ignore libtorrent::session_handle::get_io_service;
 %ignore libtorrent::session_handle::get_connection_queue;
 %ignore libtorrent::session_handle::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent_handle const&, void*)>);
-%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, boost::function<void(entry&, std::array<char,64>&, boost::uint64_t&, std::string const&)>, std::string);
-%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, boost::function<void(entry&, std::array<char,64>&, boost::uint64_t&, std::string const&)>);
+%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, boost::function<void(entry&, std::array<char,64>&, std::uint64_t&, std::string const&)>, std::string);
+%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, boost::function<void(entry&, std::array<char,64>&, std::uint64_t&, std::string const&)>);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libtorrent::session_handle::dht_direct_request(udp::endpoint, entry const&, void*);
@@ -388,9 +384,7 @@ namespace std {
 %ignore libtorrent::session_handle::get_cache_info;
 %ignore libtorrent::session_handle::wait_for_alert;
 %ignore libtorrent::session_stats_alert::values;
-%ignore libtorrent::save_resume_data_alert::save_resume_data_alert;
 %ignore libtorrent::save_resume_data_alert::resume_data;
-%ignore libtorrent::picker_log_alert::picker_log_alert;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::dht_pkt_alert::pkt_buf;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
@@ -401,13 +395,6 @@ namespace std {
 %ignore libtorrent::bt_peer_connection_handle::switch_send_crypto;
 %ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection_handle::native_handle;
-%ignore libtorrent::disk_buffer_holder::disk_buffer_holder;
-%ignore libtorrent::disk_buffer_holder::release;
-%ignore libtorrent::disk_buffer_holder::get;
-%ignore libtorrent::disk_buffer_holder::reset;
-%ignore libtorrent::disk_buffer_holder::swap;
-%ignore libtorrent::disk_buffer_holder::ref;
-%ignore libtorrent::disk_buffer_pool::free_multiple_buffers;
 %ignore libtorrent::plugin::added;
 %ignore libtorrent::plugin::new_torrent;
 %ignore libtorrent::crypto_plugin;
@@ -625,8 +612,6 @@ namespace std {
 %include "libtorrent/peer_class_type_filter.hpp"
 %include "libtorrent/session_handle.hpp"
 %include "libtorrent/session.hpp"
-%include "libtorrent/disk_buffer_holder.hpp"
-%include "libtorrent/disk_buffer_pool.hpp"
 %include "libtorrent/peer_connection_handle.hpp"
 %include "libtorrent/extensions.hpp"
 %include "libtorrent/ip_filter.hpp"
@@ -1058,12 +1043,6 @@ namespace libtorrent {
 %extend dht_pkt_alert {
     std::vector<int8_t> get_pkt_buf() {
         return std::vector<int8_t>($self->pkt_buf(), $self->pkt_buf() + $self->pkt_size());
-    }
-}
-
-%extend disk_buffer_holder {
-    int64_t get_ptr() {
-        return reinterpret_cast<int64_t>($self->get());
     }
 }
 

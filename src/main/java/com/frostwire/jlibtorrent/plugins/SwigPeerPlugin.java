@@ -208,10 +208,11 @@ public final class SwigPeerPlugin extends swig_peer_plugin {
     }
 
     @Override
-    public boolean on_piece(peer_request piece, disk_buffer_holder data) {
+    public boolean on_piece(peer_request piece, String buf) {
         try {
             if (p.handleOperation(PeerPlugin.Operation.ON_PIECE)) {
-                return p.onPiece(new PeerRequest(piece), new DiskBufferHolder(data));
+                // TODO: change String for byte[]
+                return p.onPiece(new PeerRequest(piece), null);
             }
         } catch (Throwable e) {
             LOG.error("Error in plugin (on_piece)", e);

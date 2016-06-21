@@ -103,7 +103,7 @@ public interface PeerPlugin {
 
     boolean onRequest(PeerRequest r);
 
-    boolean onPiece(PeerRequest piece, DiskBufferHolder data);
+    boolean onPiece(PeerRequest piece, byte[] data);
 
     boolean onCancel(PeerRequest r);
 
