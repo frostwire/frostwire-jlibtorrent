@@ -38,7 +38,7 @@ function runJni()
         -DTORRENT_USE_IPV6=1 \
         -DTORRENT_DISABLE_GEO_IP=1 \
         -DTORRENT_USE_BOOST_DATE_TIME=1 \
-        -DTORRENT_USE_OPENSSL=1 \
+        -DTORRENT_USE_OPENSSL_SHA1=1 \
         -DTORRENT_EXCEPTION_THROW_SPECIFIER=noexcept \
         -DTORRENT_NO_RETURN="" \
         -DTORRENT_DEBUG_REFCOUNTS=1 \
@@ -83,7 +83,7 @@ function runNode()
         -DTORRENT_USE_IPV6=1 \
         -DTORRENT_DISABLE_GEO_IP=1 \
         -DTORRENT_USE_BOOST_DATE_TIME=1 \
-        -DTORRENT_USE_OPENSSL=1 \
+        -DTORRENT_USE_OPENSSL_SHA1=1 \
         -DTORRENT_EXCEPTION_THROW_SPECIFIER=noexcept \
         -DTORRENT_NO_RETURN="" \
         -DTORRENT_DEBUG_REFCOUNTS=1 \
@@ -96,44 +96,7 @@ function runNode()
         libtorrent.i
 }
 
-function usage() {
-    echo "run-swig.sh Create the swig wrappers on the native code based on the instructions of libtorrent.i"
-    echo ""
-    echo "Usage: ./run-swigh.sh [-jni -node]"
-    echo ""
-    echo ""
-    echo "Options:"
-    echo ""
-    echo "-h,--help    Show this help."
-    echo "--jni        Only create JNI wrappers .cpp sources."
-    echo "--node       Only create NodeJS wrappers .cpp sources."
-    echo ""
-}
-
-if [ "$1" == "--help" -o "$1" == "-h" ]; then
-    usage;
-    exit 1;
-elif [ "$1" == "--jni" ]; then
-    runJni;
-    exit 1;
-elif [ "$1" == "--node" ]; then
-    runNode;
-    exit 1;
-else
-
-    echo "Are you sure you want to create wrappers for"
-    echo "    JNI (Java)"
-    echo "    Node (Javascript)"
-    echo ""
-    echo "(Press [y] to continue, or any other key to abort. Press [^C] and './run-swig.sh -h' for help)"
-
-    read buildAll
-
-    if echo $buildAll | grep -q "^[Yy]" ; then
-        fixAlertFinal
-        runJni
-        runNode
-        refixAlertFinal
-    fi
-fi
-
+fixAlertFinal
+runJni
+runNode
+refixAlertFinal
