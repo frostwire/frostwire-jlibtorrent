@@ -24,7 +24,8 @@ rule libtorrent_linking ( properties * )
     result += <variant>release ;
     result += <deprecated-functions>off ;
     result += <logging>on ;
-    result += <crypto>openssl-sha1 ;
+    result += <crypto>libcrypto ;
+    result += <ssl>off ;
     result += <disk-stats>on ;
     result += <utp-log>on ;
     result += <windows-version>xp ;

@@ -29,7 +29,6 @@
         'TORRENT_DISK_STATS',
         'TORRENT_NO_DEPRECATE',
         'TORRENT_USE_I2P=1',
-        'TORRENT_USE_OPENSSL',
         'TORRENT_UTP_LOG_ENABLE',
         'UNICODE',
         '_FILE_OFFSET_BITS=64',
