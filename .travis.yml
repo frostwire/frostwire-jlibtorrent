@@ -69,8 +69,7 @@ before_install:
     fi
   # fix assembler for android arm 32 bits
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-    sed -i 's/ armv4-gf2m.o//g' $OPENSSL_SOURCE/Configure;
-    sed -i 's/ sha256-armv4.o / /g' $OPENSSL_SOURCE/Configure;
+    sed -i 's/-mandroid //g' $OPENSSL_SOURCE/Configure;
     fi
 
 # libtorrent: download and checkout revision
@@ -127,6 +126,8 @@ before_install:
 
 # openssl build
   - cd $OPENSSL_SOURCE
+  - export OPENSSL_NO_OTS="no-afalgeng no-asan no-async no-autoalginit no-autoerrinit no-bf no-blake2 no-camellia no-capieng no-cast no-chacha no-cmac no-cms no-comp no-crypto-mdebug no-crypto-mdebug-backtrace no-ct no-deprecated no-des no-dgram no-dh no-dsa no-dso no-dtls no-dynamic-engine no-ec no-ec2m no-ecdh no-ecdsa no-ec_nistp_64_gcc_128 no-egd no-engine no-err no-filenames no-fuzz-libfuzzer no-fuzz-afl no-gost no-heartbeats no-hw no-idea no-makedepend no-md2 no-md4 no-mdc2 no-multiblock no-nextprotoneg no-ocb no-ocsp no-pic no-poly1305 no-posix-io no-psk no-rc2 no-rc4 no-rc5 no-rdrand no-rfc3779 no-rmd160 no-scrypt no-sctp no-seed no-shared no-sock no-srp no-srtp no-ssl no-ssl-trace no-static-engine no-stdio no-threads no-tls no-ts no-ubsan no-ui no-unit-test no-whirlpool no-weak-ssl-ciphers no-zlib no-zlib-dynamic"
+  - export CROSS_SYSROOT=$ANDROID_TOOLCHAIN/sysroot/
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
@@ -135,7 +136,8 @@ before_install:
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/aarch64-linux-android-clang;
-    ./Configure android -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure android64-aarch64 $OPENSSL_NO_OTS -fno-strict-aliasing -march=armv8-a+crypto --prefix=$OPENSSL_SOURCE/../openssl;
+    sed -i 's/.arch  armv8-a+crypto//g' $OPENSSL_SOURCE/Configure;
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then

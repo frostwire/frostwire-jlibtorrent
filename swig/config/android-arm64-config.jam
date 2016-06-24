@@ -3,10 +3,11 @@ import os ;
 OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
 
-using gcc : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android-clang++ :
+using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android-clang++ :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC
+      <cxxflags>-march=armv8-a+crypto
       <cxxflags>-fpermissive
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
