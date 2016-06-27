@@ -173,6 +173,14 @@ public class peer_info {
     return libtorrent_jni.peer_info_used_receive_buffer_get(swigCPtr, this);
   }
 
+  public void setReceive_buffer_watermark(int value) {
+    libtorrent_jni.peer_info_receive_buffer_watermark_set(swigCPtr, this, value);
+  }
+
+  public int getReceive_buffer_watermark() {
+    return libtorrent_jni.peer_info_receive_buffer_watermark_get(swigCPtr, this);
+  }
+
   public void setNum_hashfails(int value) {
     libtorrent_jni.peer_info_num_hashfails_set(swigCPtr, this, value);
   }

@@ -3,7 +3,7 @@ language: java
 matrix:
   include:
     - language: android
-      env: os_build=android os_arch=arm android_target=android-16 android_abi=armeabi-v7a
+      env: os_build=android os_arch=arm android_api=16 android_abi=armeabi-v7a
 #    - language: android
 #      env: os_build=android os_arch=arm64 android_target=android-21 android_abi=arm64-v8a
 #    - language: android
@@ -71,9 +71,9 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/arvidn/libtorrent
+  - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
-  - git checkout 7809863035ea3b55e489a913e9621b901b874056
+  - git checkout 7b8bb71b472f6e98b0dc5e59e5fcc6745810aa2b
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -83,7 +83,7 @@ before_install:
     echo "Extracting NDK...wait";
     unzip -qq android-ndk.zip;
     export NDK=$PWD/android-ndk-r12;
-    $NDK/build/tools/make_standalone_toolchain.py --arch arm --api 16 --stl libc++ --install-dir android-toolchain;
+    $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_target --stl libc++ --install-dir android-toolchain;
     export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
 

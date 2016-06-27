@@ -2148,6 +2148,8 @@ public class libtorrent_jni {
   public final static native int peer_info_receive_buffer_size_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_used_receive_buffer_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_used_receive_buffer_get(long jarg1, peer_info jarg1_);
+  public final static native void peer_info_receive_buffer_watermark_set(long jarg1, peer_info jarg1_, int jarg2);
+  public final static native int peer_info_receive_buffer_watermark_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_num_hashfails_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_num_hashfails_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_download_queue_length_set(long jarg1, peer_info jarg1_, int jarg2);

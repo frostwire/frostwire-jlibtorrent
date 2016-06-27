@@ -11,18 +11,18 @@ export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-osx
 #cp bin/macosx/x86_64/libjlibtorrent.dylib ../
 
 # android arm
-#export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-android-arm
-#export ANDROID_TOOLCHAIN=$DEVELOPMENT_ROOT/ndk-arm-toolchain
+export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-android-arm
+export ANDROID_TOOLCHAIN=$DEVELOPMENT_ROOT/android-toolchain-arm
 
-#$BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=clang-arm target-os=android location=bin/android/armeabi-v7a wrap-posix=on;
-#cp bin/android/armeabi-v7a/libjlibtorrent.so ../android/src/main/jniLibs/armeabi-v7a
+$BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=clang-arm target-os=android location=bin/android/armeabi-v7a
+cp bin/android/armeabi-v7a/libjlibtorrent.so ../android/src/main/jniLibs/armeabi-v7a
 
 # android arm64
-export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-android-arm64
-export ANDROID_TOOLCHAIN=$DEVELOPMENT_ROOT/android-toolchain-arm64
+#export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-android-arm64
+#export ANDROID_TOOLCHAIN=$DEVELOPMENT_ROOT/android-toolchain-arm64
 
-$BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=clang-arm64 target-os=android location=bin/android/arm64-v8a wrap-posix=on;
-cp bin/android/arm64-v8a/libjlibtorrent.so ../android/src/main/jniLibs/arm64-v8a
+#$BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=clang-arm64 target-os=android location=bin/android/arm64-v8a wrap-posix=on;
+#cp bin/android/arm64-v8a/libjlibtorrent.so ../android/src/main/jniLibs/arm64-v8a
 
 # android x86
 #export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-android-x86
