@@ -4,26 +4,26 @@ matrix:
   include:
     - language: android
       env: os_build=android os_arch=arm android_target=android-16 android_abi=armeabi-v7a
-    - language: android
-      env: os_build=android os_arch=arm64 android_target=android-21 android_abi=arm64-v8a
-    - language: android
-      env: os_build=android os_arch=x86 android_target=android-16 android_abi=x86
-    - language: android
-      env: os_build=android os_arch=x86_64 android_target=android-21 android_abi=x86_64
-    - dist: trusty
-      env: os_build=linux os_arch=x86
-    - dist: trusty
-      env: os_build=linux os_arch=x86_64
-    - dist: trusty
-      env: os_build=linux os_arch=arm
-    - dist: trusty
-      env: os_build=linux os_arch=arm64
-    - dist: trusty
-      env: os_build=windows os_arch=x86
-    - dist: trusty
-      env: os_build=windows os_arch=x86_64
-    - os: osx
-      env: os_build=macosx os_arch=x86_64
+#    - language: android
+#      env: os_build=android os_arch=arm64 android_target=android-21 android_abi=arm64-v8a
+#    - language: android
+#      env: os_build=android os_arch=x86 android_target=android-16 android_abi=x86
+#    - language: android
+#      env: os_build=android os_arch=x86_64 android_target=android-21 android_abi=x86_64
+#    - dist: trusty
+#      env: os_build=linux os_arch=x86
+#    - dist: trusty
+#      env: os_build=linux os_arch=x86_64
+#    - dist: trusty
+#      env: os_build=linux os_arch=arm
+#    - dist: trusty
+#      env: os_build=linux os_arch=arm64
+#    - dist: trusty
+#      env: os_build=windows os_arch=x86
+#    - dist: trusty
+#      env: os_build=windows os_arch=x86_64
+#    - os: osx
+#      env: os_build=macosx os_arch=x86_64
 
 branches:
   only:
@@ -60,16 +60,14 @@ before_install:
   - export BOOST_ROOT=$PWD/boost_1_60_0
 
 # openssl: download
-  - wget -O openssl.tar.gz http://openssl.org/source/openssl-1.0.2h.tar.gz
-  - tar -xzf openssl.tar.gz
-  - export OPENSSL_SOURCE=$PWD/openssl-1.0.2h
+  - git clone https://github.com/openssl/openssl openssl-src
+  - cd openssl-src
+  - git checkout 57ade5711b8b80c19f3d33f46d0e0acd48e68e0a
+  - cd ..
+  - export OPENSSL_SOURCE=$PWD/openssl-src
   # fix rand_win.c
   - if [[ $os_build == "windows" ]]; then
     sed -i 's/if !defined(OPENSSL_SYS_WINCE) && !defined(OPENSSL_SYS_WIN32_CYGWIN)/if 0/g' $OPENSSL_SOURCE/crypto/rand/rand_win.c;
-    fi
-  # fix assembler for android arm 32 bits
-  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-    sed -i 's/-mandroid //g' $OPENSSL_SOURCE/Configure;
     fi
 
 # libtorrent: download and checkout revision
@@ -81,11 +79,11 @@ before_install:
 
 # android ndk: download and create toolchain
   - if [[ $os_build == "android" ]]; then
-    wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r12-beta2-linux-x86_64.zip;
+    wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r12-linux-x86_64.zip;
     echo "Extracting NDK...wait";
     unzip -qq android-ndk.zip;
-    export NDK=$PWD/android-ndk-r12-beta2;
-    $NDK/build/tools/make-standalone-toolchain.sh --arch=$os_arch --use-llvm --stl=libc++ --platform=$android_target --install-dir=android-toolchain;
+    export NDK=$PWD/android-ndk-r12;
+    $NDK/build/tools/make_standalone_toolchain.py --arch arm --api 16 --stl libc++ --install-dir android-toolchain;
     export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
 
@@ -127,17 +125,15 @@ before_install:
 # openssl build
   - cd $OPENSSL_SOURCE
   - export OPENSSL_NO_OTS="no-afalgeng no-asan no-async no-autoalginit no-autoerrinit no-bf no-blake2 no-camellia no-capieng no-cast no-chacha no-cmac no-cms no-comp no-crypto-mdebug no-crypto-mdebug-backtrace no-ct no-deprecated no-des no-dgram no-dh no-dsa no-dso no-dtls no-dynamic-engine no-ec no-ec2m no-ecdh no-ecdsa no-ec_nistp_64_gcc_128 no-egd no-engine no-err no-filenames no-fuzz-libfuzzer no-fuzz-afl no-gost no-heartbeats no-hw no-idea no-makedepend no-md2 no-md4 no-mdc2 no-multiblock no-nextprotoneg no-ocb no-ocsp no-pic no-poly1305 no-posix-io no-psk no-rc2 no-rc4 no-rc5 no-rdrand no-rfc3779 no-rmd160 no-scrypt no-sctp no-seed no-shared no-sock no-srp no-srtp no-ssl no-ssl-trace no-static-engine no-stdio no-threads no-tls no-ts no-ubsan no-ui no-unit-test no-whirlpool no-weak-ssl-ciphers no-zlib no-zlib-dynamic"
-  - export CROSS_SYSROOT=$ANDROID_TOOLCHAIN/sysroot/
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
-    ./Configure linux-armv4 -fPIC -fno-strict-aliasing -march=armv7-a --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure linux-armv4 $OPENSSL_NO_OTS -fno-strict-aliasing -march=armv7-a --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/aarch64-linux-android-clang;
-    ./Configure android64-aarch64 $OPENSSL_NO_OTS -fno-strict-aliasing -march=armv8-a+crypto --prefix=$OPENSSL_SOURCE/../openssl;
-    sed -i 's/.arch  armv8-a+crypto//g' $OPENSSL_SOURCE/Configure;
+    ./Configure linux-aarch64 $OPENSSL_NO_OTS -march=armv8-a+crypto --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
@@ -181,23 +177,23 @@ before_install:
   - if [[ $os_build == "macosx" ]]; then
     ./Configure darwin64-x86_64-cc --prefix=$OPENSSL_SOURCE/../openssl;
     fi
-  - make;
-  - make install;
+  - make
+  - make install
   - cd ..
   - export OPENSSL_ROOT=$PWD/openssl
   # copy to this special location until I figure out a better solution
   # in libtorrent build
-  - if [[ $os_build == "macosx" ]]; then
-    sudo mkdir -p /opt/local;
-    sudo cp -R $OPENSSL_SOURCE/../openssl/* /opt/local;
-    fi
+#  - if [[ $os_build == "macosx" ]]; then
+#    sudo mkdir -p /opt/local;
+#    sudo cp -R $OPENSSL_SOURCE/../openssl/* /opt/local;
+#    fi
 
 # jlibtorrent native build
   - cd swig
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=clang-arm target-os=android location=bin/android/armeabi-v7a wrap-posix=on;
-    $ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so;
+      $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=clang-arm target-os=android location=bin/android/armeabi-v7a;
+      $ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
