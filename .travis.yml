@@ -128,7 +128,7 @@ before_install:
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
     export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
-    ./Configure linux-armv4 $OPENSSL_NO_OTS -fno-strict-aliasing -march=armv7-a --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure linux-armv4 $OPENSSL_NO_OTS -fPIC -fno-strict-aliasing -march=armv7-a --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
