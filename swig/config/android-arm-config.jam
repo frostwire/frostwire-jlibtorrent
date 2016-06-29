@@ -11,8 +11,8 @@ using clang : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++ :
       <cxxflags>-fpermissive
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
-      <cxxflags>-static
       <cxxflags>-D__STDC_FORMAT_MACROS
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
+      <linkflags>-static-libstdc++
       ;

@@ -36,6 +36,7 @@ android {
 
                 // no DHT in emulator
                 exclude '**/DhtGetPeersTest.java'
+                exclude '**/PartialPieceInfoTest.java'
             }
 
             resources {

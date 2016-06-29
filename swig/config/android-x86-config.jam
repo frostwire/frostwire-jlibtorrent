@@ -3,14 +3,15 @@ import os ;
 OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
 
-using gcc : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-g++ :
+using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-clang++ :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC
       <cxxflags>-fpermissive
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-std=c++11
-      <cxxflags>-static
+      <cxxflags>-D__STDC_FORMAT_MACROS
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
+      <linkflags>-static-libstdc++
       ;
