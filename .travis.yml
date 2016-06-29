@@ -27,7 +27,7 @@ matrix:
 
 branches:
   only:
-    - travis-build
+    - master
 
 cache:
   directories:
@@ -65,10 +65,11 @@ before_install:
   - git checkout 57ade5711b8b80c19f3d33f46d0e0acd48e68e0a
   - cd ..
   - export OPENSSL_SOURCE=$PWD/openssl-src
-  # fix rand_win.c
-  - if [[ $os_build == "windows" ]]; then
-    sed -i 's/if !defined(OPENSSL_SYS_WINCE) && !defined(OPENSSL_SYS_WIN32_CYGWIN)/if 0/g' $OPENSSL_SOURCE/crypto/rand/rand_win.c;
-    fi
+  # fix source code
+  - sed -i 's/.comm	OPENSSL_armcap_P,4,4/.comm	OPENSSL_armcap_P,4,4\n.hidden OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha1-armv4-large.pl
+  - sed -i 's/.comm	OPENSSL_armcap_P,4,4/.comm	OPENSSL_armcap_P,4,4\n.hidden OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha256-armv4.pl
+  - sed -i 's/.comm	OPENSSL_armcap_P,4,4/.comm	OPENSSL_armcap_P,4,4\n.hidden OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha512-armv4.pl
+  - sed -i 's/if !defined(OPENSSL_SYS_WINCE) && !defined(OPENSSL_SYS_WIN32_CYGWIN)/if 0/g' $OPENSSL_SOURCE/crypto/rand/rand_win.c
 
 # libtorrent: download and checkout revision
   - git clone https://github.com/aldenml/libtorrent
@@ -79,10 +80,10 @@ before_install:
 
 # android ndk: download and create toolchain
   - if [[ $os_build == "android" ]]; then
-    wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r12-linux-x86_64.zip;
+    wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r12b-linux-x86_64.zip;
     echo "Extracting NDK...wait";
     unzip -qq android-ndk.zip;
-    export NDK=$PWD/android-ndk-r12;
+    export NDK=$PWD/android-ndk-r12b;
     $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
     export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
@@ -125,11 +126,10 @@ before_install:
 # openssl build
   - cd $OPENSSL_SOURCE
   - export OPENSSL_NO_OTS="no-afalgeng no-asan no-async no-autoalginit no-autoerrinit no-bf no-blake2 no-camellia no-capieng no-cast no-chacha no-cmac no-cms no-comp no-crypto-mdebug no-crypto-mdebug-backtrace no-ct no-deprecated no-des no-dgram no-dh no-dsa no-dso no-dtls no-dynamic-engine no-ec no-ec2m no-ecdh no-ecdsa no-ec_nistp_64_gcc_128 no-egd no-engine no-err no-filenames no-fuzz-libfuzzer no-fuzz-afl no-gost no-heartbeats no-hw no-idea no-makedepend no-md2 no-md4 no-mdc2 no-multiblock no-nextprotoneg no-ocb no-ocsp no-pic no-poly1305 no-posix-io no-psk no-rc2 no-rc4 no-rc5 no-rdrand no-rfc3779 no-rmd160 no-scrypt no-sctp no-seed no-shared no-sock no-srp no-srtp no-ssl no-ssl-trace no-static-engine no-stdio no-threads no-tls no-ts no-ubsan no-ui no-unit-test no-whirlpool no-weak-ssl-ciphers no-zlib no-zlib-dynamic"
-  - export ASFLAGS="-fPIC"
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-    export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
-    ./Configure linux-armv4 $OPENSSL_NO_OTS -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+      export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
+      ./Configure linux-armv4 $OPENSSL_NO_OTS -march=armv7-a -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
