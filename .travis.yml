@@ -1,4 +1,4 @@
-language: java
+language: cpp
 
 matrix:
   include:
@@ -234,11 +234,6 @@ before_install:
   - cd ..
 
 # copy binaries for testing
-  # android
-  - if [[ $os_build == "android" ]]; then
-      mkdir -p android/src/main/jniLibs;
-      cp -R swig/bin/android/$android_abi android/src/main/jniLibs;
-    fi
   # linux
   - if [[ $os_build == "linux" ]]; then
       cp swig/bin/linux/$os_arch/*.so .;

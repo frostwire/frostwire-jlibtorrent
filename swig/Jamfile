@@ -35,16 +35,6 @@ rule libtorrent_linking ( properties * )
     return $(result) ;
 }
 
-feature wrap-posix : off on : composite propagated link-incompatible ;
-feature.compose <wrap-posix>on :
-    <define>WRAP_POSIX
-    <linkflags>-Wl,--wrap=open
-    <linkflags>-Wl,--wrap=stat
-    <linkflags>-Wl,--wrap=mkdir
-    <linkflags>-Wl,--wrap=rename
-    <linkflags>-Wl,--wrap=remove
-    ;
-
 feature iostream : off on : composite propagated link-incompatible ;
 feature.compose <iostream>off : <define>BOOST_NO_IOSTREAM ;
 
