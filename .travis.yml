@@ -6,7 +6,7 @@ matrix:
     - env: os_build=android os_arch=arm64 android_api=21
     - env: os_build=android os_arch=x86 android_api=16
     - env: os_build=android os_arch=x86_64 android_api=21
-#    - env: os_build=linux os_arch=x86
+    - env: os_build=linux os_arch=x86
     - env: os_build=linux os_arch=x86_64
 #    - dist: trusty
 #      env: os_build=linux os_arch=arm
@@ -79,7 +79,11 @@ before_install:
     fi
 
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-      sudo apt-get install -qq libc6-dev-i386 g++-multilib;
+      sudo apt-get install -qq libc6-dev-i386;
+      wget http://mirrors.kernel.org/ubuntu/pool/main/g/gcc-5/lib32gcc-5-dev_5.2.1-22ubuntu2_amd64.deb;
+      sudo dpkg --force-all -i lib32gcc-5-dev_5.2.1-22ubuntu2_amd64.deb;
+      wget http://mirrors.kernel.org/ubuntu/pool/main/g/gcc-5/lib32stdc++-5-dev_5.2.1-22ubuntu2_amd64.deb;
+      sudo dpkg --force-all -i lib32stdc++-5-dev_5.2.1-22ubuntu2_amd64.deb;
     fi
 
 # linux arm packages
