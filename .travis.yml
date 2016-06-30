@@ -6,10 +6,10 @@ matrix:
     - env: os_build=android os_arch=arm64 android_api=21 android_abi=arm64-v8a
     - env: os_build=android os_arch=x86 android_api=16 android_abi=x86
     - env: os_build=android os_arch=x86_64 android_api=21 android_abi=x86_64
-#    - dist: trusty
-#      env: os_build=linux os_arch=x86
-#    - dist: trusty
-#      env: os_build=linux os_arch=x86_64
+    - dist: trusty
+      env: os_build=linux os_arch=x86
+    - dist: trusty
+      env: os_build=linux os_arch=x86_64
 #    - dist: trusty
 #      env: os_build=linux os_arch=arm
 #    - dist: trusty
@@ -18,8 +18,8 @@ matrix:
 #      env: os_build=windows os_arch=x86
 #    - dist: trusty
 #      env: os_build=windows os_arch=x86_64
-#    - os: osx
-#      env: os_build=macosx os_arch=x86_64
+    - os: osx
+      env: os_build=macosx os_arch=x86_64
 
 branches:
   only:
@@ -79,12 +79,13 @@ before_install:
 
 # linux multilib packages for 32 bit development
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-    sudo apt-get install -qq gcc-5-multilib g++-5-multilib;
+      sudo apt-get install -qq gcc-5-multilib g++-5-multilib;
     fi
 
 # linux packages for 64 bit
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-    sudo apt-get install -qq gcc-5 g++-5;
+      sudo apt-get install -qq gcc-5 g++-5;
+      sudo apt-get install openjdk-7-jdk;
     fi
 
 # linux arm packages
@@ -123,7 +124,7 @@ before_install:
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android-clang;
-      ./Configure linux-elf $OPENSSL_NO_OTS -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+      ./Configure linux-elf $OPENSSL_NO_OTS no-asm -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
@@ -132,11 +133,11 @@ before_install:
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-    ./Configure linux-elf -fPIC -m32 --prefix=$OPENSSL_SOURCE/../openssl;
+      ./Configure linux-elf -fPIC -m32 --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-    ./Configure linux-x86_64 -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
+      ./Configure linux-x86_64 -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # linux-arm
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
@@ -160,7 +161,7 @@ before_install:
     fi
   # macosx
   - if [[ $os_build == "macosx" ]]; then
-    ./Configure darwin64-x86_64-cc --prefix=$OPENSSL_SOURCE/../openssl;
+      ./Configure darwin64-x86_64-cc --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   - make
   - make install > /dev/null
@@ -195,13 +196,13 @@ before_install:
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/linux-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/linux/x86;
-    strip --strip-unneeded -x bin/linux/x86/libjlibtorrent.so;
+      $BOOST_ROOT/b2 --user-config=config/linux-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/linux/x86;
+      strip --strip-unneeded -x bin/linux/x86/libjlibtorrent.so;
     fi
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/linux-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/linux/x86_64;
-    strip --strip-unneeded -x bin/linux/x86_64/libjlibtorrent.so;
+      $BOOST_ROOT/b2 --user-config=config/linux-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/linux/x86_64;
+      strip --strip-unneeded -x bin/linux/x86_64/libjlibtorrent.so;
     fi
   # linux-arm
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
@@ -228,8 +229,8 @@ before_install:
     fi
   # macosx
   - if [[ $os_build == "macosx" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/macosx-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64;
-    strip -S -x bin/macosx/x86_64/libjlibtorrent.dylib;
+      $BOOST_ROOT/b2 --user-config=config/macosx-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64;
+      strip -S -x bin/macosx/x86_64/libjlibtorrent.dylib;
     fi
   - cd ..
 
