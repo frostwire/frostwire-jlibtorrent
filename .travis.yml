@@ -19,6 +19,7 @@ matrix:
 #    - dist: trusty
 #      env: os_build=windows os_arch=x86_64
     - os: osx
+      osx_image: xcode6.4
       env: os_build=macosx os_arch=x86_64
 
 branches:
@@ -63,7 +64,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
-  - git checkout 0c293cf032a3bb543a41b82dfd66afdeae219074
+  - git checkout ab5db33bb727b53224057d60c8f61d501aa84dcf
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -77,6 +78,11 @@ before_install:
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
 
+# linux package update
+  - if [[ $os_build == "linux" ]]; then
+      sudo apt-get update;
+    fi
+
 # linux multilib packages for 32 bit development
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
       sudo apt-get install -qq gcc-5-multilib g++-5-multilib;
@@ -85,7 +91,7 @@ before_install:
 # linux packages for 64 bit
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
       sudo apt-get install -qq gcc-5 g++-5;
-      sudo apt-get install openjdk-7-jdk;
+      sudo apt-get install -qq openjdk-7-jdk;
     fi
 
 # linux arm packages
