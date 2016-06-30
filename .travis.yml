@@ -52,9 +52,9 @@ before_install:
   - cd ..
   - export OPENSSL_SOURCE=$PWD/openssl-src
   # fix source code
-  - sed -i 's/.comm	OPENSSL_armcap_P,4,4/.comm	OPENSSL_armcap_P,4,4\n.hidden OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha1-armv4-large.pl
-  - sed -i 's/.comm	OPENSSL_armcap_P,4,4/.comm	OPENSSL_armcap_P,4,4\n.hidden OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha256-armv4.pl
-  - sed -i 's/.comm	OPENSSL_armcap_P,4,4/.comm	OPENSSL_armcap_P,4,4\n.hidden OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha512-armv4.pl
+  - sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha1-armv4-large.pl
+  - sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha256-armv4.pl
+  - sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g' $OPENSSL_SOURCE/crypto/sha/asm/sha512-armv4.pl
   - sed -i 's/\$code.*//g' $OPENSSL_SOURCE/crypto/aes/asm/aesv8-armx.pl
   - sed -i 's/.arch.*crypto//g' $OPENSSL_SOURCE/crypto/arm64cpuid.pl
   - sed -i 's/.arch.*crypto//g' $OPENSSL_SOURCE/crypto/modes/asm/ghashv8-armx.pl
