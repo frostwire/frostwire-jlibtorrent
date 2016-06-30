@@ -2,14 +2,12 @@ language: cpp
 
 matrix:
   include:
-    - env: os_build=android os_arch=arm android_api=16 android_abi=armeabi-v7a
-    - env: os_build=android os_arch=arm64 android_api=21 android_abi=arm64-v8a
-    - env: os_build=android os_arch=x86 android_api=16 android_abi=x86
-    - env: os_build=android os_arch=x86_64 android_api=21 android_abi=x86_64
-    - dist: trusty
-      env: os_build=linux os_arch=x86
-    - dist: trusty
-      env: os_build=linux os_arch=x86_64
+#    - env: os_build=android os_arch=arm android_api=16 android_abi=armeabi-v7a
+#    - env: os_build=android os_arch=arm64 android_api=21 android_abi=arm64-v8a
+#    - env: os_build=android os_arch=x86 android_api=16 android_abi=x86
+#    - env: os_build=android os_arch=x86_64 android_api=21 android_abi=x86_64
+    - env: os_build=linux os_arch=x86
+    - env: os_build=linux os_arch=x86_64
 #    - dist: trusty
 #      env: os_build=linux os_arch=arm
 #    - dist: trusty
@@ -30,6 +28,13 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-5
 
 before_install:
 # gradle: download and setup path
@@ -76,19 +81,8 @@ before_install:
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
 
-# linux package update
-  - if [[ $os_build == "linux" ]]; then
-      sudo apt-get update;
-    fi
-
-# linux multilib packages for 32 bit development
-  - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-      sudo apt-get install -qq gcc-5-multilib g++-5-multilib;
-    fi
-
 # linux packages for 64 bit
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-      sudo apt-get install -qq gcc-5 g++-5;
       sudo apt-get install -qq openjdk-7-jdk;
     fi
 
