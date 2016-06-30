@@ -2,10 +2,10 @@ language: cpp
 
 matrix:
   include:
-    - env: os_build=android os_arch=arm
-    - env: os_build=android os_arch=arm64
-    - env: os_build=android os_arch=x86
-    - env: os_build=android os_arch=x86_64
+    - env: os_build=android os_arch=arm android_api=16
+    - env: os_build=android os_arch=arm64 android_api=21
+    - env: os_build=android os_arch=x86 android_api=16
+    - env: os_build=android os_arch=x86_64 android_api=21
 #    - env: os_build=linux os_arch=x86
     - env: os_build=linux os_arch=x86_64
 #    - dist: trusty
@@ -16,9 +16,9 @@ matrix:
 #      env: os_build=windows os_arch=x86
 #    - dist: trusty
 #      env: os_build=windows os_arch=x86_64
-#    - os: osx
-#      osx_image: xcode6.4
-#      env: os_build=macosx os_arch=x86_64
+    - os: osx
+      osx_image: xcode6.4
+      env: os_build=macosx os_arch=x86_64
 
 branches:
   only:
@@ -52,15 +52,17 @@ before_install:
   - cd ..
   - export OPENSSL_SOURCE=$PWD/openssl-src
   # fix source code
-  - find $OPENSSL_SOURCE/crypto/sha/asm/ | egrep "armv4.*.pl" | xargs sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g'
-  - sed -i 's/\$code.*//g' $OPENSSL_SOURCE/crypto/aes/asm/aesv8-armx.pl
-  - find $OPENSSL_SOURCE/crypto | egrep "arm64cpuid.pl|ghashv8-armx.pl" | xargs sed -i 's/.arch.*crypto//g'
-  - sed -i 's/if !defined(OPENSSL_SYS_WINCE) && !defined(OPENSSL_SYS_WIN32_CYGWIN)/if 0/g' $OPENSSL_SOURCE/crypto/rand/rand_win.c
+  - if [ $os_build != "macosx" ]; then
+      find $OPENSSL_SOURCE/crypto/sha/asm/ | egrep "armv4.*.pl" | xargs sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g';
+      sed -i 's/\$code.*//g' $OPENSSL_SOURCE/crypto/aes/asm/aesv8-armx.pl;
+      find $OPENSSL_SOURCE/crypto | egrep "arm64cpuid.pl|ghashv8-armx.pl" | xargs sed -i 's/.arch.*crypto//g';
+      sed -i 's/if !defined(OPENSSL_SYS_WINCE) && !defined(OPENSSL_SYS_WIN32_CYGWIN)/if 0/g' $OPENSSL_SOURCE/crypto/rand/rand_win.c;
+    fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/aldenml/libtorrent
+  - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 8edf1607519feca88b0f9fa67bbd79d79f38a3b0
+  - git checkout 39e971c2ce85e1f6f8d85580f9131b88f322a5b8
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -70,8 +72,11 @@ before_install:
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
       export NDK=$PWD/android-ndk-r12b;
-      $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api 21 --stl libc++ --install-dir android-toolchain;
+      $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
+    fi
+  - if [[ $os_build == "android" && $os_arch == "arm" && $android_api == "16" ]]; then
+      echo "unsigned long int getauxval(unsigned long int type) __attribute__((weak));" > $PWD/android-toolchain/sysroot/usr/include/sys/auxv.h;
     fi
 
 # linux arm packages

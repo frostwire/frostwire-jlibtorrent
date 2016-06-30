@@ -649,23 +649,22 @@ int __wrap_remove(const char *path) {
 }
 #endif
 
-#if 0
-#include <dlfcn.h>
+#if TORRENT_ANDROID && TORRENT_HAS_ARM && __ANDROID_API__ < 21
+#include <stdio.h>
 unsigned long getauxval(unsigned long type)  {
     typedef unsigned long getauxval_func_t(unsigned long);
 
     dlerror();
     void* libc_handle = dlopen("libc.so", RTLD_NOW);
     if (!libc_handle) {
-        //D("Could not dlopen() C library: %s\n", dlerror());
+        printf("Could not dlopen() C library: %s\n", dlerror());
         return 0;
     }
 
     unsigned long ret = 0;
-    getauxval_func_t* func = (getauxval_func_t*)
-            dlsym(libc_handle, "getauxval");
+    getauxval_func_t* func = (getauxval_func_t*) dlsym(libc_handle, "getauxval");
     if (!func) {
-        //D("Could not find getauxval() in C library\n");
+        printf("Could not find getauxval() in C library\n");
     } else {
         // Note: getauxval() returns 0 on failure. Doesn't touch errno.
         ret = (*func)(type);
