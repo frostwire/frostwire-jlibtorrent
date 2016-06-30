@@ -2,11 +2,11 @@ language: cpp
 
 matrix:
   include:
-#    - env: os_build=android os_arch=arm android_api=16 android_abi=armeabi-v7a
-#    - env: os_build=android os_arch=arm64 android_api=21 android_abi=arm64-v8a
-#    - env: os_build=android os_arch=x86 android_api=16 android_abi=x86
-#    - env: os_build=android os_arch=x86_64 android_api=21 android_abi=x86_64
-    - env: os_build=linux os_arch=x86
+    - env: os_build=android os_arch=arm android_api=16 android_abi=armeabi-v7a
+    - env: os_build=android os_arch=arm64 android_api=21 android_abi=arm64-v8a
+    - env: os_build=android os_arch=x86 android_api=16 android_abi=x86
+    - env: os_build=android os_arch=x86_64 android_api=21 android_abi=x86_64
+#    - env: os_build=linux os_arch=x86
     - env: os_build=linux os_arch=x86_64
 #    - dist: trusty
 #      env: os_build=linux os_arch=arm
@@ -16,9 +16,9 @@ matrix:
 #      env: os_build=windows os_arch=x86
 #    - dist: trusty
 #      env: os_build=windows os_arch=x86_64
-    - os: osx
-      osx_image: xcode6.4
-      env: os_build=macosx os_arch=x86_64
+#    - os: osx
+#      osx_image: xcode6.4
+#      env: os_build=macosx os_arch=x86_64
 
 branches:
   only:
@@ -37,12 +37,6 @@ addons:
       - g++-5
 
 before_install:
-# gradle: download and setup path
-  - wget -O gradle-bin.zip https://services.gradle.org/distributions/gradle-2.14-bin.zip
-  - unzip -qq gradle-bin.zip
-  - export GRADLE_HOME=$PWD/gradle-2.14
-  - export PATH=$GRADLE_HOME/bin:$PATH
-
 # boost: download and bootstrap
   - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.zip
   - unzip -qq boost.zip
@@ -78,11 +72,6 @@ before_install:
       export NDK=$PWD/android-ndk-r12b;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
-    fi
-
-# linux packages for 64 bit
-  - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-      sudo apt-get install -qq openjdk-7-jdk;
     fi
 
 # linux arm packages
@@ -195,11 +184,13 @@ before_install:
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
       $BOOST_ROOT/b2 --user-config=config/linux-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/linux/x86;
       strip --strip-unneeded -x bin/linux/x86/libjlibtorrent.so;
+      readelf -d bin/linux/x86/libjlibtorrent.so;
     fi
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
       $BOOST_ROOT/b2 --user-config=config/linux-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/linux/x86_64;
       strip --strip-unneeded -x bin/linux/x86_64/libjlibtorrent.so;
+      readelf -d bin/linux/x86_64/libjlibtorrent.so;
     fi
   # linux-arm
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
@@ -242,8 +233,6 @@ before_install:
     fi
 
 script:
-  # run gradle test for linux
-  - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then gradle test; fi
   # run gradle test for macosx
   - if [[ $os_build == "macosx" ]]; then gradle test; fi
 
