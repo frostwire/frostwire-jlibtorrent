@@ -15,6 +15,7 @@
 
 #include <openssl/opensslv.h>
 
+#include <libtorrent/config.hpp>
 #include <libtorrent/time.hpp>
 #include <libtorrent/buffer.hpp>
 #include <libtorrent/utp_stream.hpp>
@@ -645,5 +646,31 @@ int __wrap_remove(const char *path) {
            __real_remove(path);
 }
 
+}
+#endif
+
+#if TORRENT_HAS_ARM && TORRENT_ANDROID
+#include <dlfcn.h>
+unsigned long getauxval(unsigned long type)  {
+    typedef unsigned long getauxval_func_t(unsigned long);
+
+    dlerror();
+    void* libc_handle = dlopen("libc.so", RTLD_NOW);
+    if (!libc_handle) {
+        //D("Could not dlopen() C library: %s\n", dlerror());
+        return 0;
+    }
+
+    unsigned long ret = 0;
+    getauxval_func_t* func = (getauxval_func_t*)
+            dlsym(libc_handle, "getauxval");
+    if (!func) {
+        //D("Could not find getauxval() in C library\n");
+    } else {
+        // Note: getauxval() returns 0 on failure. Doesn't touch errno.
+        ret = (*func)(type);
+    }
+    dlclose(libc_handle);
+    return ret;
 }
 #endif

@@ -2801,6 +2801,14 @@ public class libtorrent_jni {
   public final static native int ed25519_signature_size_get();
   public final static native int ed25519_scalar_size_get();
   public final static native int ed25519_shared_secret_size_get();
+  public final static native void sse42_support_set(boolean jarg1);
+  public final static native boolean sse42_support_get();
+  public final static native void mmx_support_set(boolean jarg1);
+  public final static native boolean mmx_support_get();
+  public final static native void arm_neon_support_set(boolean jarg1);
+  public final static native boolean arm_neon_support_get();
+  public final static native void arm_crc32c_support_set(boolean jarg1);
+  public final static native boolean arm_crc32c_support_get();
   public final static native long new_address__SWIG_0();
   public final static native long new_address__SWIG_1(long jarg1, address jarg1_);
   public final static native boolean address_is_v4(long jarg1, address jarg1_);

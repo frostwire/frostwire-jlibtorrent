@@ -76,6 +76,8 @@
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/ed25519.hpp"
 
+#include "libtorrent/aux_/cpuid.hpp"
+
 using namespace boost;
 using namespace boost::system;
 
@@ -638,6 +640,8 @@ namespace std {
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
 %include "libtorrent/ed25519.hpp"
+
+%include "libtorrent/aux_/cpuid.hpp"
 
 class address {
 public:

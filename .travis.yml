@@ -64,7 +64,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
-  - git checkout ab5db33bb727b53224057d60c8f61d501aa84dcf
+  - git checkout 0c293cf032a3bb543a41b82dfd66afdeae219074
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -120,7 +120,7 @@ before_install:
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
-      ./Configure linux-armv4 $OPENSSL_NO_OTS -march=armv7-a -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+      ./Configure linux-armv4 $OPENSSL_NO_OTS -march=armv7-a -mfpu=neon -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
