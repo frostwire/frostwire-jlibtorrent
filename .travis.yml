@@ -2,10 +2,10 @@ language: cpp
 
 matrix:
   include:
-    - env: os_build=android os_arch=arm android_api=16 android_abi=armeabi-v7a
-    - env: os_build=android os_arch=arm64 android_api=21 android_abi=arm64-v8a
-    - env: os_build=android os_arch=x86 android_api=16 android_abi=x86
-    - env: os_build=android os_arch=x86_64 android_api=21 android_abi=x86_64
+    - env: os_build=android os_arch=arm
+    - env: os_build=android os_arch=arm64
+    - env: os_build=android os_arch=x86
+    - env: os_build=android os_arch=x86_64
 #    - env: os_build=linux os_arch=x86
     - env: os_build=linux os_arch=x86_64
 #    - dist: trusty
@@ -60,17 +60,17 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
-  - git checkout 0c293cf032a3bb543a41b82dfd66afdeae219074
+  - git checkout 8edf1607519feca88b0f9fa67bbd79d79f38a3b0
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
 # android ndk: download and create toolchain
-  - if [[ $os_build == "android" ]]; then
+  - if [ $os_build == "android" ]; then
       wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r12b-linux-x86_64.zip;
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
       export NDK=$PWD/android-ndk-r12b;
-      $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
+      $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api 21 --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
 
@@ -94,103 +94,99 @@ before_install:
     sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll;
     fi
 
-# openssl build
-  - cd $OPENSSL_SOURCE
-  - export OPENSSL_NO_OTS="no-afalgeng no-asan no-async no-autoalginit no-autoerrinit no-bf no-blake2 no-camellia no-capieng no-cast no-chacha no-cmac no-cms no-comp no-crypto-mdebug no-crypto-mdebug-backtrace no-ct no-deprecated no-des no-dgram no-dh no-dsa no-dso no-dtls no-dynamic-engine no-ec no-ec2m no-ecdh no-ecdsa no-ec_nistp_64_gcc_128 no-egd no-engine no-err no-filenames no-fuzz-libfuzzer no-fuzz-afl no-gost no-heartbeats no-hw no-idea no-makedepend no-md2 no-md4 no-mdc2 no-multiblock no-nextprotoneg no-ocb no-ocsp no-pic no-poly1305 no-posix-io no-psk no-rc2 no-rc4 no-rc5 no-rdrand no-rfc3779 no-rmd160 no-scrypt no-sctp no-seed no-shared no-sock no-srp no-srtp no-ssl no-ssl-trace no-static-engine no-stdio no-threads no-tls no-ts no-ubsan no-ui no-unit-test no-whirlpool no-weak-ssl-ciphers no-zlib no-zlib-dynamic"
+  - if [ $os_build == "macosx" ]; then brew update > /dev/null && brew install --quiet gradle; fi
+
+# openssl
+  - export OPENSSL_NO_OPTS="no-afalgeng no-asan no-async no-autoalginit no-autoerrinit no-bf no-blake2 no-camellia no-capieng no-cast no-chacha no-cmac no-cms no-comp no-crypto-mdebug no-crypto-mdebug-backtrace no-ct no-deprecated no-des no-dgram no-dh no-dsa no-dso no-dtls no-dynamic-engine no-ec no-ec2m no-ecdh no-ecdsa no-ec_nistp_64_gcc_128 no-egd no-engine no-err no-filenames no-fuzz-libfuzzer no-fuzz-afl no-gost no-heartbeats no-hw no-idea no-makedepend no-md2 no-md4 no-mdc2 no-multiblock no-nextprotoneg no-ocb no-ocsp no-pic no-poly1305 no-posix-io no-psk no-rc2 no-rc4 no-rc5 no-rdrand no-rfc3779 no-rmd160 no-scrypt no-sctp no-seed no-shared no-sock no-srp no-srtp no-ssl no-ssl-trace no-static-engine no-stdio no-threads no-tls no-ts no-ubsan no-ui no-unit-test no-whirlpool no-weak-ssl-ciphers no-zlib no-zlib-dynamic"
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
-      ./Configure linux-armv4 $OPENSSL_NO_OTS -march=armv7-a -mfpu=neon -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+      export run_openssl_configure="./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/aarch64-linux-android-clang;
-      ./Configure linux-aarch64 $OPENSSL_NO_OTS -march=armv8-a+crypto -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+      export run_openssl_configure="./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android-clang;
-      ./Configure linux-elf $OPENSSL_NO_OTS no-asm -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+      export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} no-asm -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/x86_64-linux-android-clang;
-      ./Configure linux-x86_64 $OPENSSL_NO_OTS -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl;
+      export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-      ./Configure linux-elf -fPIC -m32 --prefix=$OPENSSL_SOURCE/../openssl;
+      export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -m32 --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-      ./Configure linux-x86_64 -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
+      export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # linux-arm
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
     export CC=arm-linux-gnueabihf-gcc;
-    ./Configure linux-armv4 -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure linux-armv4 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # linux-arm64
   - if [[ $os_build == "linux" && $os_arch == "arm64" ]]; then
     export CC=aarch64-linux-gnu-gcc;
-    ./Configure linux-aarch64 -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
     export CC=i686-w64-mingw32-gcc;
-    ./Configure mingw --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure mingw ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # windows-x86_64
   - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
     export CC=x86_64-w64-mingw32-gcc;
-    ./Configure mingw64 --prefix=$OPENSSL_SOURCE/../openssl;
+    ./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl;
     fi
   # macosx
-  - if [[ $os_build == "macosx" ]]; then
-      ./Configure darwin64-x86_64-cc --prefix=$OPENSSL_SOURCE/../openssl;
+  - if [ $os_build == "macosx" ]; then
+      export run_openssl_configure="./Configure darwin64-x86_64-cc ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl";
     fi
-  - make
-  - make install > /dev/null
-  - cd ..
-  - export OPENSSL_ROOT=$PWD/openssl
 
-# jlibtorrent native build
-  - cd swig
+# jlibtorrent
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-      $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=clang-arm target-os=android location=bin/android/armeabi-v7a;
-      $ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so;
-      $ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-readelf -d bin/android/armeabi-v7a/libjlibtorrent.so;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam toolset=clang-arm target-os=android location=bin/android/armeabi-v7a";
+      export run_strip="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so";
+      export run_readelf="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-readelf -d bin/android/armeabi-v7a/libjlibtorrent.so";
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
-      $BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=clang-arm64 target-os=linux location=bin/android/arm64-v8a;
-      $ANDROID_TOOLCHAIN/bin/aarch64-linux-android-strip --strip-unneeded -x bin/android/arm64-v8a/libjlibtorrent.so;
-      $ANDROID_TOOLCHAIN/bin/aarch64-linux-android-readelf -d bin/android/arm64-v8a/libjlibtorrent.so;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm64-config.jam toolset=clang-arm64 target-os=linux location=bin/android/arm64-v8a";
+      export run_strip="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-strip --strip-unneeded -x bin/android/arm64-v8a/libjlibtorrent.so";
+      export run_readelf="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-readelf -d bin/android/arm64-v8a/libjlibtorrent.so";
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
-      $BOOST_ROOT/b2 --user-config=config/android-x86-config.jam toolset=clang-x86 target-os=linux location=bin/android/x86;
-      $ANDROID_TOOLCHAIN/bin/i686-linux-android-strip --strip-unneeded -x bin/android/x86/libjlibtorrent.so;
-      $ANDROID_TOOLCHAIN/bin/i686-linux-android-readelf -d bin/android/x86/libjlibtorrent.so;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86-config.jam toolset=clang-x86 target-os=linux location=bin/android/x86";
+      export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x bin/android/x86/libjlibtorrent.so";
+      export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/android/x86/libjlibtorrent.so";
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
-      $BOOST_ROOT/b2 --user-config=config/android-x86_64-config.jam toolset=clang-x86_64 target-os=linux location=bin/android/x86_64;
-      $ANDROID_TOOLCHAIN/bin/x86_64-linux-android-strip --strip-unneeded -x bin/android/x86_64/libjlibtorrent.so;
-      $ANDROID_TOOLCHAIN/bin/x86_64-linux-android-readelf -d bin/android/x86_64/libjlibtorrent.so;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86_64-config.jam toolset=clang-x86_64 target-os=linux location=bin/android/x86_64";
+      export run_strip="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-strip --strip-unneeded -x bin/android/x86_64/libjlibtorrent.so";
+      export run_readelf="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-readelf -d bin/android/x86_64/libjlibtorrent.so";
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-      $BOOST_ROOT/b2 --user-config=config/linux-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/linux/x86;
-      strip --strip-unneeded -x bin/linux/x86/libjlibtorrent.so;
-      readelf -d bin/linux/x86/libjlibtorrent.so;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/linux/x86";
+      export run_strip="strip --strip-unneeded -x bin/linux/x86/libjlibtorrent.so";
+      export run_readelf="readelf -d bin/linux/x86/libjlibtorrent.so";
     fi
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-      $BOOST_ROOT/b2 --user-config=config/linux-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/linux/x86_64;
-      strip --strip-unneeded -x bin/linux/x86_64/libjlibtorrent.so;
-      readelf -d bin/linux/x86_64/libjlibtorrent.so;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/linux/x86_64";
+      export run_strip="strip --strip-unneeded -x bin/linux/x86_64/libjlibtorrent.so";
+      export run_readelf="readelf -d bin/linux/x86_64/libjlibtorrent.so";
     fi
   # linux-arm
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
@@ -216,25 +212,30 @@ before_install:
     mv bin/windows/x86_64/libjlibtorrent.dll bin/windows/x86_64/jlibtorrent.dll;
     fi
   # macosx
-  - if [[ $os_build == "macosx" ]]; then
-      $BOOST_ROOT/b2 --user-config=config/macosx-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64;
-      strip -S -x bin/macosx/x86_64/libjlibtorrent.dylib;
-    fi
-  - cd ..
-
-# copy binaries for testing
-  # linux
-  - if [[ $os_build == "linux" ]]; then
-      cp swig/bin/linux/$os_arch/*.so .;
-    fi
-  # macosx
-  - if [[ $os_build == "macosx" ]]; then
-      cp swig/bin/macosx/$os_arch/*.dylib .;
+  - if [ $os_build == "macosx" ]; then
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64";
+      export run_strip="strip -S -x bin/macosx/x86_64/libjlibtorrent.dylib";
+      export run_readelf="otool -L bin/macosx/x86_64/libjlibtorrent.dylib";
     fi
 
 script:
+
+  - cd $OPENSSL_SOURCE
+  - $run_openssl_configure
+  - make
+  - make install &> /dev/null
+  - cd ..
+  - export OPENSSL_ROOT=$PWD/openssl
+
+  - cd swig
+  - $run_bjam
+  - $run_strip
+  - $run_readelf
+  - cd ..
+
   # run gradle test for macosx
-  - if [[ $os_build == "macosx" ]]; then gradle test; fi
+  - if [ $os_build == "macosx" ]; then cp swig/bin/macosx/$os_arch/*.dylib .; fi
+  - if [ $os_build == "macosx" ]; then gradle test; fi
 
 before_deploy:
   - cd swig/bin

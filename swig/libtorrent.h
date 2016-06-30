@@ -649,7 +649,7 @@ int __wrap_remove(const char *path) {
 }
 #endif
 
-#if TORRENT_HAS_ARM && TORRENT_ANDROID
+#if 0
 #include <dlfcn.h>
 unsigned long getauxval(unsigned long type)  {
     typedef unsigned long getauxval_func_t(unsigned long);
