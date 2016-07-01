@@ -2,7 +2,7 @@ import os ;
 
 OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 
-using gcc : x86 : i686-w64-mingw32-g++ :
+using gcc : x86 : i686-w64-mingw32-g++-5 :
       <cflags>-std=c11
       <cxxflags>-std=c++11
       <cxxflags>-DBOOST_ASIO_DISABLE_CONNECTEX

@@ -8,14 +8,12 @@ matrix:
     - env: os_build=android os_arch=x86_64 android_api=21
     - env: os_build=linux os_arch=x86
     - env: os_build=linux os_arch=x86_64
-#    - dist: trusty
-#      env: os_build=linux os_arch=arm
-#    - dist: trusty
-#      env: os_build=linux os_arch=arm64
-#    - dist: trusty
-#      env: os_build=windows os_arch=x86
-#    - dist: trusty
-#      env: os_build=windows os_arch=x86_64
+    - env: os_build=linux os_arch=arm
+    - env: os_build=linux os_arch=arm64
+    - dist: trusty
+      env: os_build=windows os_arch=x86
+    - dist: trusty
+      env: os_build=windows os_arch=x86_64
     - os: osx
       osx_image: xcode6.4
       env: os_build=macosx os_arch=x86_64
@@ -49,13 +47,14 @@ before_install:
       find $OPENSSL_SOURCE/crypto/sha/asm/ | egrep "armv4.*.pl" | xargs sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g';
       sed -i 's/\$code.*//g' $OPENSSL_SOURCE/crypto/aes/asm/aesv8-armx.pl;
       find $OPENSSL_SOURCE/crypto | egrep "arm64cpuid.pl|ghashv8-armx.pl" | xargs sed -i 's/.arch.*crypto//g';
-      sed -i 's/if !defined(OPENSSL_SYS_WINCE) && !defined(OPENSSL_SYS_WIN32_CYGWIN)/if 0/g' $OPENSSL_SOURCE/crypto/rand/rand_win.c;
+      sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' $OPENSSL_SOURCE/crypto/cryptlib.c;
+      sed -i 's/MessageBox.*//g' $OPENSSL_SOURCE/crypto/cryptlib.c;
     fi
 
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 39e971c2ce85e1f6f8d85580f9131b88f322a5b8
+  - git checkout afed2a8f409d35ab31c78bf7d034a6caf751f667
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -72,8 +71,8 @@ before_install:
       echo "unsigned long int getauxval(unsigned long int type) __attribute__((weak));" > $PWD/android-toolchain/sysroot/usr/include/sys/auxv.h;
     fi
 
-  - if [ $os_build == "linux" ]; then
-      sudo sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y;
+  - if [[ $os_build == "linux" || $os_build == "windows" ]]; then
+      sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y;
       sudo apt-get update -qq;
       sudo apt-get install -qq g++-5;
     fi
@@ -88,22 +87,29 @@ before_install:
 
 # linux arm packages
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
-    sudo apt-get install -qq gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf;
+      wget https://releases.linaro.org/components/toolchain/binaries/5.3-2016.02/arm-linux-gnueabihf/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf.tar.xz;
+      tar xf gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf.tar.xz;
+      export PATH=${PWD}/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/bin:${PATH};
     fi
 
 # linux arm64 packages
   - if [[ $os_build == "linux" && $os_arch == "arm64" ]]; then
-    sudo apt-get install -qq gcc-aarch64-linux-gnu g++-aarch64-linux-gnu;
+      wget https://releases.linaro.org/components/toolchain/binaries/5.3-2016.02/aarch64-linux-gnu/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu.tar.xz;
+      tar xf gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu.tar.xz;
+      export PATH=${PWD}/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu/bin:${PATH};
     fi
 
 # linux cross compilation tools for windows development
 # remove files related to libwinpthread dll
   - if [[ $os_build == "windows" ]]; then
-    sudo apt-get install -qq mingw-w64;
-    sudo rm /usr/i686-w64-mingw32/lib/libwinpthread.dll.a;
-    sudo rm /usr/i686-w64-mingw32/lib/libwinpthread-1.dll;
-    sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread.dll.a;
-    sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll;
+      sudo apt-get install -qq mingw-w64;
+      sudo add-apt-repository ppa:adrozdoff/mingw -y;
+      sudo apt-get update -qq;
+      sudo apt-get install -qq gcc-5-mingw-w64 g++-5-mingw-w64;
+      sudo rm /usr/i686-w64-mingw32/lib/libwinpthread.dll.a;
+      sudo rm /usr/i686-w64-mingw32/lib/libwinpthread-1.dll;
+      sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread.dll.a;
+      sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll;
     fi
 
   - if [ $os_build == "macosx" ]; then brew update > /dev/null && brew install --quiet gradle; fi
@@ -140,23 +146,23 @@ before_install:
     fi
   # linux-arm
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
-    export CC=arm-linux-gnueabihf-gcc;
-    ./Configure linux-armv4 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
+      export CC=arm-linux-gnueabihf-gcc;
+      export run_openssl_configure="./Configure linux-armv4 ${OPENSSL_NO_OPTS} -fsigned-char -march=armv7-a -mfpu=neon -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # linux-arm64
   - if [[ $os_build == "linux" && $os_arch == "arm64" ]]; then
-    export CC=aarch64-linux-gnu-gcc;
-    ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl;
+      export CC=aarch64-linux-gnu-gcc;
+      export run_openssl_configure="./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -fsigned-char -march=armv8-a+crypto -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
-    export CC=i686-w64-mingw32-gcc;
-    ./Configure mingw ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl;
+      export CC=i686-w64-mingw32-gcc-5;
+      export run_openssl_configure="./Configure mingw ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # windows-x86_64
   - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
-    export CC=x86_64-w64-mingw32-gcc;
-    ./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl;
+      export CC=x86_64-w64-mingw32-gcc-5;
+      export run_openssl_configure="./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # macosx
   - if [ $os_build == "macosx" ]; then
@@ -202,26 +208,28 @@ before_install:
     fi
   # linux-arm
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/linux-arm-config.jam toolset=gcc-arm target-os=linux location=bin/linux/arm;
-    arm-linux-gnueabihf-strip --strip-unneeded -x bin/linux/arm/libjlibtorrent.so;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-arm-config.jam toolset=gcc-arm target-os=linux location=bin/linux/arm";
+      export run_strip="arm-linux-gnueabihf-strip --strip-unneeded -x bin/linux/arm/libjlibtorrent.so";
+      export run_readelf="arm-linux-gnueabihf-readelf -d bin/linux/arm/libjlibtorrent.so";
     fi
   # linux-arm64
   - if [[ $os_build == "linux" && $os_arch == "arm64" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/linux-arm64-config.jam toolset=gcc-arm64 target-os=linux location=bin/linux/arm64;
-    aarch64-linux-gnu-strip --strip-unneeded -x bin/linux/arm64/libjlibtorrent.so;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-arm64-config.jam toolset=gcc-arm64 target-os=linux location=bin/linux/arm64";
+      export run_strip="aarch64-linux-gnu-strip --strip-unneeded -x bin/linux/arm64/libjlibtorrent.so";
+      export run_readelf="aarch64-linux-gnu-readelf -d bin/linux/arm64/libjlibtorrent.so";
     fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
-    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp;
-    $BOOST_ROOT/b2 --user-config=config/windows-x86-config.jam toolset=gcc-x86 target-os=windows location=bin/windows/x86;
-    i686-w64-mingw32-strip --strip-unneeded -x bin/windows/x86/libjlibtorrent.dll;
-    mv bin/windows/x86/libjlibtorrent.dll bin/windows/x86/jlibtorrent.dll;
+      sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/windows-x86-config.jam toolset=gcc-x86 target-os=windows location=bin/windows/x86";
+      export run_strip="i686-w64-mingw32-strip --strip-unneeded -x bin/windows/x86/libjlibtorrent.dll";
+      export run_readelf="eval objdump -p bin/windows/x86/jlibtorrent.dll | grep DLL";
     fi
   # windows-x86_64
   - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/windows-x86_64-config.jam toolset=gcc-x86_64 target-os=windows location=bin/windows/x86_64;
-    x86_64-w64-mingw32-strip --strip-unneeded -x bin/windows/x86_64/libjlibtorrent.dll;
-    mv bin/windows/x86_64/libjlibtorrent.dll bin/windows/x86_64/jlibtorrent.dll;
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/windows-x86_64-config.jam toolset=gcc-x86_64 target-os=windows location=bin/windows/x86_64";
+      export run_strip="x86_64-w64-mingw32-strip --strip-unneeded -x bin/windows/x86_64/libjlibtorrent.dll";
+      export run_readelf="eval objdump -p bin/windows/x86_64/jlibtorrent.dll | grep DLL";
     fi
   # macosx
   - if [ $os_build == "macosx" ]; then
@@ -242,12 +250,20 @@ script:
   - cd swig
   - $run_bjam
   - $run_strip
+  - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
+      mv bin/windows/x86/libjlibtorrent.dll bin/windows/x86/jlibtorrent.dll;
+    fi
+  - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
+      mv bin/windows/x86_64/libjlibtorrent.dll bin/windows/x86_64/jlibtorrent.dll;
+    fi
+  - if [ $os_build == "macosx" ]; then
+      cd ..;
+      cp swig/bin/macosx/$os_arch/*.dylib .;
+      gradle test;
+    fi
+  - if [ $os_build == "macosx" ]; then cd swig; fi
   - $run_readelf
   - cd ..
-
-  # run gradle test for macosx
-  - if [ $os_build == "macosx" ]; then cp swig/bin/macosx/$os_arch/*.dylib .; fi
-  - if [ $os_build == "macosx" ]; then gradle test; fi
 
 before_deploy:
   - cd swig/bin

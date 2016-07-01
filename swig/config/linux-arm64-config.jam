@@ -6,8 +6,11 @@ using gcc : arm64 : aarch64-linux-gnu-g++ :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC
+      <cxxflags>-fsigned-char
+      <cxxflags>-march=armv8-a+crc
       <cxxflags>-std=c++11
-      <cxxflags>-static
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
+      <linkflags>-static-libstdc++
+      <linkflags>-static-libgcc
       ;
