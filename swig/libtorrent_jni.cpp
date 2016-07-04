@@ -57774,35 +57774,15 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ed25
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sse42_1support_1set(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
-  bool arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = jarg1 ? true : false; 
-  libtorrent::aux::sse42_support = arg1;
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sse42_1support_1get(JNIEnv *jenv, jclass jcls) {
   jboolean jresult = 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
-  result = (bool)libtorrent::aux::sse42_support;
+  result = (bool)(bool)libtorrent::aux::sse42_support;
   jresult = (jboolean)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmx_1support_1set(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
-  bool arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = jarg1 ? true : false; 
-  libtorrent::aux::mmx_support = arg1;
 }
 
 
@@ -57812,19 +57792,9 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   (void)jenv;
   (void)jcls;
-  result = (bool)libtorrent::aux::mmx_support;
+  result = (bool)(bool)libtorrent::aux::mmx_support;
   jresult = (jboolean)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_arm_1neon_1support_1set(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
-  bool arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = jarg1 ? true : false; 
-  libtorrent::aux::arm_neon_support = arg1;
 }
 
 
@@ -57834,19 +57804,9 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   (void)jenv;
   (void)jcls;
-  result = (bool)libtorrent::aux::arm_neon_support;
+  result = (bool)(bool)libtorrent::aux::arm_neon_support;
   jresult = (jboolean)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_arm_1crc32c_1support_1set(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
-  bool arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = jarg1 ? true : false; 
-  libtorrent::aux::arm_crc32c_support = arg1;
 }
 
 
@@ -57856,7 +57816,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   (void)jenv;
   (void)jcls;
-  result = (bool)libtorrent::aux::arm_crc32c_support;
+  result = (bool)(bool)libtorrent::aux::arm_crc32c_support;
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -58944,7 +58904,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("0c293cf032a3bb543a41b82dfd66afdeae219074");
+  result = (char *)("e0c0b14e6ca97c9868b1aa787499bef70e783e74");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -58956,7 +58916,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("65419c7e9ad1db2f576177081a042a25afad09be");
+  result = (char *)("aa66e3fe6f9239adc01a568fcbad5158ddc2aa6b");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

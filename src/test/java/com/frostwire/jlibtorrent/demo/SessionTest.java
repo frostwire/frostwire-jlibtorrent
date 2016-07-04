@@ -6,6 +6,8 @@ import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.SettingsPack;
 import com.frostwire.jlibtorrent.alerts.Alert;
 
+import java.util.Map;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -14,7 +16,9 @@ public final class SessionTest {
 
     public static void main(String[] args) throws Throwable {
 
-        //System.setProperty("jlibtorrent.jni.path", <abosolute path>);
+        for (Map.Entry<String, Object> e : LibTorrent.properties().entrySet()) {
+            System.out.println(e.getKey() + ": " + e.getValue());
+        }
 
         AlertListener l = new AlertListener() {
             @Override

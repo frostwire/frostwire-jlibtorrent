@@ -14,8 +14,8 @@ public class PrintVersionsTest {
 
     @Test
     public void testComponentVersions() {
-        Map<String, String> m = LibTorrent.componentVersions();
-        for (Map.Entry<String, String> e : m.entrySet()) {
+        Map<String, Object> m = LibTorrent.properties();
+        for (Map.Entry<String, Object> e : m.entrySet()) {
             assertNotNull(e.getValue());
         }
     }
