@@ -59,9 +59,9 @@ public final class TorrentStatus {
      *
      * @return
      */
-//    public TorrentInfo getTorrentFile() {
-//        return new TorrentInfo(ts.getTorrent_file());
-//    }
+    //    public TorrentInfo getTorrentFile() {
+    //        return new TorrentInfo(ts.getTorrent_file());
+    //    }
 
     /**
      * The time until the torrent will announce itself to the tracker (in milliseconds).
@@ -480,19 +480,136 @@ public final class TorrentStatus {
         return ts.getNum_connections();
     }
 
-//    public final int uploadsLimit;
-//    public final int connectionsLimit;
-//    public final int upBandwidthQueue;
-//    public final int downBandwidthQueue;
-//    public final int timeSinceUpload;
-//    public final int timeSinceDownload;
-//    public final int activeTime;
-//    public final int finishedTime;
-//    public final int seedingTime;
-//    public final int seedRank;
-//    public final int lastScrape;
-//    public final int sparseRegions;
-//    public final int priority;
+    /**
+     * get limit of upload slots (unchoked peers) for this torrent.
+     *
+     * @return
+     */
+    public int getUploadsLimit() {
+        return ts.getUploads_limit();
+    }
+
+    /**
+     * get limit of number of connections for this torrent.
+     *
+     * @return
+     */
+    public int getConnectionsLimit() {
+        return ts.getConnections_limit();
+    }
+
+    /**
+     * the number of peers in this torrent that are waiting for more bandwidth quota from the torrent rate limiter.
+     * This can determine if the rate you get from this torrent is bound by the torrents limit or not.
+     * If there is no limit set on this torrent, the peers might still be waiting for bandwidth quota from the global limiter,
+     * but then they are counted in the ``session_status`` object.
+     *
+     * @return
+     */
+    public int getUpBandwidthQueue() {
+        return ts.getUp_bandwidth_queue();
+    }
+
+    /**
+     * the number of peers in this torrent that are waiting for more bandwidth quota from the torrent rate limiter.
+     * This can determine if the rate you get from this torrent is bound by the torrents limit or not.
+     * If there is no limit set on this torrent, the peers might still be waiting for bandwidth quota from the global limiter,
+     * but then they are counted in the ``session_status`` object.
+     *
+     * @return
+     */
+    public int getDownBandwidthQueue() {
+        return ts.getDown_bandwidth_queue();
+    }
+
+    /**
+     * the number of seconds since any peer last uploaded from this torrent and the last time a downloaded piece passed the hash check, respectively.
+     * Note, when starting up a torrent that needs its files checked,
+     * piece may pass and that will be considered downloading for the purpose of this counter.
+     * -1 means there either hasn't been any uploading/downloading,
+     * or it was too long ago for libtorrent to remember (currently forgetting happens after about 18 hours).
+     *
+     * @return
+     */
+    public int getTimeSinceUpload() {
+        return ts.getTime_since_upload();
+    }
+
+    /**
+     * the number of seconds since any peer last uploaded from this torrent and the last time a downloaded piece passed the hash check, respectively.
+     * Note, when starting up a torrent that needs its files checked,
+     * piece may pass and that will be considered downloading for the purpose of this counter.
+     * -1 means there either hasn't been any uploading/downloading,
+     * or it was too long ago for libtorrent to remember (currently forgetting happens after about 18 hours).
+     *
+     * @return
+     */
+    public int getTimeSinceDownload() {
+        return ts.getTime_since_download();
+    }
+
+    /**
+     * get the number of seconds this torrent has been active (not paused).
+     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
+     * It's saved in and restored from resume data, to keep totals across sessions.
+     *
+     * @return
+     */
+    public int getActiveTime() {
+        return ts.getActive_time();
+    }
+
+    /**
+     * get the number of seconds this torrent has been active while being finished.
+     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
+     * It's saved in and restored from resume data, to keep totals across sessions.
+     *
+     * @return
+     */
+    public int getFinishedTime() {
+        return ts.getFinished_time();
+    }
+
+    /**
+     * get the number of seconds this torrent has been active while being a seed.
+     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
+     * It's saved in and restored from resume data, to keep totals across sessions.
+     *
+     * @return
+     */
+    public int getSeedingTime() {
+        return ts.getSeeding_time();
+    }
+
+    /**
+     * A rank of how important it is to seed the torrent, it is used to determine which torrents to seed and which to queue.
+     * It is based on the peer to seed ratio from the tracker scrape. Higher value means more important to seed.
+     *
+     * @return
+     */
+    public int getSeedRank() {
+        return ts.getSeed_rank();
+    }
+
+    /**
+     * the number of seconds since this torrent acquired scrape data. If it has never done that, this value is -1.
+     *
+     * @return
+     */
+    public int getLastScrape() {
+        return ts.getLast_scrape();
+    }
+
+    /**
+     * get priority of this torrent.
+     *
+     * @return
+     */
+    public Priority getPriority() {
+        return Priority.fromSwig(ts.getPriority());
+    }
+
+    //    public final int sparseRegions;
 
     /**
      * The main state the torrent is in. See torrent_status::state_t.
