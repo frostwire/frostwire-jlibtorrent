@@ -233,7 +233,7 @@ struct swig_dht_storage_counters
 	boost::int32_t mutable_data;
 };
 
-struct swig_dht_storage : dht::dht_storage_interface
+struct swig_dht_storage /*: dht::dht_storage_interface*/
 {
     virtual void set_settings(libtorrent::dht_settings const& settings) {
     }
@@ -331,7 +331,7 @@ struct swig_dht_storage : dht::dht_storage_interface
 std::unique_ptr<dht::dht_storage_interface> swig_dht_storage_constructor(swig_dht_storage *s,
     libtorrent::dht_settings const& settings) {
 	s->set_settings(settings);
-	return std::unique_ptr<dht::dht_storage_interface>(s);
+	return std::unique_ptr<dht::dht_storage_interface>();//(s);
 }
 
 //------------------------------------------------------
@@ -340,7 +340,7 @@ void dht_put_item_cb(entry& e, std::array<char, 64>& sig, boost::uint64_t& seq,
     std::string const& salt, char const* public_key, char const* private_key,
     entry& data)
 {
-	using libtorrent::dht::sign_mutable_item;
+	/*using libtorrent::dht::sign_mutable_item;
 
 	e = data;
 	std::vector<char> buf;
@@ -351,7 +351,7 @@ void dht_put_item_cb(entry& e, std::array<char, 64>& sig, boost::uint64_t& seq,
         seq,
         public_key,
         private_key,
-        sig.data());
+        sig.data());*/
 }
 
 struct swig_torrent_plugin;
@@ -366,8 +366,8 @@ struct swig_plugin : plugin {
 
     //virtual swig_torrent_plugin* new_torrent(libtorrent::torrent_handle const& t);
 
-    virtual void added(libtorrent::session_handle s) {
-    }
+    //virtual void added(libtorrent::session_handle s) {
+    //}
 
     virtual void on_alert(libtorrent::alert const* a) {
     }

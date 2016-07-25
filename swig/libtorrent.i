@@ -40,6 +40,7 @@
 
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
+#include "libtorrent/span.hpp"
 #include "libtorrent/bitfield.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/entry.hpp"
@@ -605,6 +606,7 @@ namespace std {
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/error_code.hpp"
+%include "libtorrent/span.hpp"
 %include "libtorrent/bitfield.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/entry.hpp"
