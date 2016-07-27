@@ -78,4 +78,23 @@ public final class AnnounceEntry {
     public short tier() {
         return e.getTier();
     }
+    
+    public Status status() {
+        if (e.getVerified() && e.is_working()) {
+            return Status.WORKING;
+        } else if ((e.getFails() == 0) && e.getUpdating()) {
+            return Status.UPDATING;
+        } else if (e.getFails() == 0) {
+            return Status.NOT_CONTACTED;
+        } else {
+            return Status.NOT_WORKING;
+        }
+    }
+    
+    public enum Status {
+        NOT_CONTACTED,
+        WORKING,
+        UPDATING,
+        NOT_WORKING
+    }
 }
