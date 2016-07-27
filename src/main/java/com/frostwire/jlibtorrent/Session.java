@@ -740,6 +740,10 @@ public final class Session extends SessionHandle {
     }
 
     private TorrentHandle addTorrentSupport(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile, boolean async) {
+        return addTorrentSupport(ti, saveDir, priorities, resumeFile, async, true);
+    }
+
+    public TorrentHandle addTorrentSupport(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile, boolean async, boolean useResumeSavePath) {
 
         String savePath = null;
         if (saveDir != null) {
@@ -773,7 +777,9 @@ public final class Session extends SessionHandle {
                 byte[] data = Files.bytes(resumeFile);
                 p.set_resume_data(Vectors.bytes2byte_vector(data));
 
-                flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
+                if (useResumeSavePath) {
+                    flags |= add_torrent_params.flags_t.flag_use_resume_save_path.swigValue();
+                }
             } catch (Throwable e) {
                 LOG.warn("Unable to set resume data", e);
             }

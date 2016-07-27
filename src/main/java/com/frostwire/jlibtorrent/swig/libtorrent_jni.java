@@ -666,6 +666,7 @@ public class libtorrent_jni {
   public final static native int file_storage_flag_symlink_get();
   public final static native long file_storage_paths(long jarg1, file_storage jarg1_);
   public final static native int file_storage_file_flags(long jarg1, file_storage jarg1_, int jarg2);
+  public final static native boolean file_storage_file_absolute_path(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_file_index_at_offset(long jarg1, file_storage jarg1_, long jarg2);
   public final static native String file_storage_file_name_ptr(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_file_name_len(long jarg1, file_storage jarg1_, int jarg2);
