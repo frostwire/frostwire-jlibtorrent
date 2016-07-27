@@ -36,7 +36,11 @@ public class torrent_status {
   }
 
   public torrent_status() {
-    this(libtorrent_jni.new_torrent_status(), true);
+    this(libtorrent_jni.new_torrent_status__SWIG_0(), true);
+  }
+
+  public torrent_status(torrent_status arg0) {
+    this(libtorrent_jni.new_torrent_status__SWIG_1(torrent_status.getCPtr(arg0), arg0), true);
   }
 
   public boolean op_eq(torrent_status st) {

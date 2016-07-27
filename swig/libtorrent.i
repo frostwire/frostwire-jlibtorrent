@@ -40,7 +40,6 @@
 
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
-#include "libtorrent/span.hpp"
 #include "libtorrent/bitfield.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/entry.hpp"
@@ -107,9 +106,9 @@ using namespace libtorrent;
 %include <std_pair.i>
 %include <std_deque.i>
 
-%apply int8_t { unsigned char };
-
 namespace std {
+
+    typedef int8_t uint8_t;
 
     template<class T> class list {
     public:
@@ -245,12 +244,6 @@ namespace std {
         }
     };
 
-    typedef int8_t uint8_t;
-}
-
-typedef long time_t;
-
-namespace std {
     %template(int_int_pair) pair<int, int>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
@@ -292,6 +285,99 @@ namespace std {
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
 };
+
+namespace libtorrent {
+
+    class sha1_hash;
+
+    template <int N>
+    struct bloom_filter {
+
+        bool find(sha1_hash const& k) const;
+        void set(sha1_hash const& k);
+
+        void clear();
+
+        float size() const;
+
+        bloom_filter();
+
+        %extend {
+            std::vector<int8_t> to_bytes() const {
+                std::string s = $self->to_string();
+                return std::vector<int8_t>(s.begin(), s.end());
+            }
+
+            void from_bytes(std::vector<int8_t> const& v) {
+                $self->from_string(reinterpret_cast<char const*>(&v[0]));
+            }
+        }
+    };
+
+    %template(bloom_filter_128) bloom_filter<128>;
+    %template(bloom_filter_256) bloom_filter<256>;
+
+    template <typename T>
+    struct span {
+
+        span();
+        span(T p);
+        span(std::vector<T> const& v);
+
+        size_t size() const;
+        bool empty() const;
+
+        T front() const;
+        T back() const;
+
+        span<T> first(size_t const n) const;
+        span<T> last(size_t const n) const;
+
+        span<T> subspan(size_t const offset) const;
+        span<T> subspan(size_t const offset, size_t const count) const;
+
+        %extend {
+            T get(size_t const idx) {
+                return (*self)[idx];
+            }
+        }
+    };
+
+    template <>
+    struct span<char const> {
+
+        span();
+        span(int8_t p);
+
+        size_t size() const;
+        bool empty() const;
+
+        int8_t front() const;
+        int8_t back() const;
+
+        span<char const> first(size_t const n) const;
+        span<char const> last(size_t const n) const;
+
+        span<char const> subspan(size_t const offset) const;
+        span<char const> subspan(size_t const offset, size_t const count) const;
+
+        %extend {
+            span(std::vector<int8_t> const& v) {
+                std::vector<char const> temp(v.begin(), v.end());
+                return new span<char const>(temp);
+            }
+
+            int8_t get(size_t const idx) {
+                return (*self)[idx];
+            }
+        }
+    };
+
+    %template(byte_span) span<char const>;
+
+};
+
+typedef long time_t;
 
 %ignore clone;
 %ignore ssl_ctx;
@@ -420,7 +506,7 @@ namespace std {
 %ignore libtorrent::sha1_hash::data;
 %ignore libtorrent::sha1_hash::to_string;
 %ignore libtorrent::entry::entry(entry&&);
-%ignore libtorrent::entry::entry(preformatted_type const&);
+%ignore libtorrent::entry::entry(preformatted_type);
 %ignore libtorrent::entry::integer();
 %ignore libtorrent::entry::string();
 %ignore libtorrent::entry::dict() const;
@@ -606,7 +692,6 @@ namespace std {
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/error_code.hpp"
-%include "libtorrent/span.hpp"
 %include "libtorrent/bitfield.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/entry.hpp"
@@ -850,6 +935,10 @@ namespace libtorrent {
 }
 
 %extend entry {
+
+    entry(std::string const& s) {
+        return new entry(s);
+    }
 
     entry& get(std::string const& key) {
         return $self->operator[](key);
@@ -1153,33 +1242,6 @@ public:
         num_channels
     };
 };
-
-template <int N>
-struct bloom_filter {
-
-    bool find(sha1_hash const& k) const;
-    void set(sha1_hash const& k);
-
-    void clear();
-
-    float size() const;
-
-    bloom_filter();
-
-    %extend {
-        std::vector<int8_t> to_bytes() const {
-            std::string s = $self->to_string();
-            return std::vector<int8_t>(s.begin(), s.end());
-        }
-
-        void from_bytes(std::vector<int8_t> const& v) {
-            $self->from_string(reinterpret_cast<char const*>(&v[0]));
-        }
-    }
-};
-
-%template(bloom_filter_128) bloom_filter<128>;
-%template(bloom_filter_256) bloom_filter<256>;
 
 bool is_utp_stream_logging();
 void set_utp_stream_logging(bool enable);

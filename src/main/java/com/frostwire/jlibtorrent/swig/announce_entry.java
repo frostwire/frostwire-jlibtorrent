@@ -43,6 +43,10 @@ public class announce_entry {
     this(libtorrent_jni.new_announce_entry__SWIG_1(), true);
   }
 
+  public announce_entry(announce_entry arg0) {
+    this(libtorrent_jni.new_announce_entry__SWIG_2(announce_entry.getCPtr(arg0), arg0), true);
+  }
+
   public void setUrl(String value) {
     libtorrent_jni.announce_entry_url_set(swigCPtr, this, value);
   }
