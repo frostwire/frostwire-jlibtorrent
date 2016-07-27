@@ -46,7 +46,7 @@ public final class SwigPlugin extends swig_plugin {
         return super.new_torrent(t);
     }*/
 
-    @Override
+    //@Override
     public void added(session_handle s) {
         try {
             p.added(new SessionHandle(s));
