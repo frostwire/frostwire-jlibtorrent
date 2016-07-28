@@ -480,11 +480,11 @@ struct swig_peer_plugin : peer_plugin
         return true;
     }
 
-    bool on_extended(int length, int msg, libtorrent::buffer::const_interval body) {
+    bool on_extended(int length, int msg, libtorrent::span<char const> body) {
         return false;
     }
 
-    bool on_unknown_message(int length, int msg, libtorrent::buffer::const_interval body) {
+    bool on_unknown_message(int length, int msg, libtorrent::span<char const> body) {
         return false;
     }
 

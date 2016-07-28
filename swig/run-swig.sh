@@ -19,7 +19,6 @@ function runJni()
     swig -c++ -java -o libtorrent_jni.cpp \
         -outdir ${JAVA_SRC_OUTPUT} \
         -package com.frostwire.jlibtorrent.swig \
-        -DLIBTORRENT_SWIG_JNI \
         -I${BOOST_ROOT} \
         -I${LIBTORRENT_ROOT}/include \
         -DBOOST_ASIO_DECL="" \
@@ -62,7 +61,6 @@ function runJni()
 function runNode()
 {
     swig -c++ -javascript -node -o libtorrent_node.cpp \
-        -DLIBTORRENT_SWIG_NODE \
         -DV8_VERSION=0x040685 \
         -I${BOOST_ROOT} \
         -I${LIBTORRENT_ROOT}/include \

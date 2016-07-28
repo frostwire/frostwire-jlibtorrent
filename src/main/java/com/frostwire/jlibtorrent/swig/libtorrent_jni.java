@@ -375,7 +375,6 @@ public class libtorrent_jni {
   public final static native void bloom_filter_256_from_bytes(long jarg1, bloom_filter_256 jarg1_, long jarg2, byte_vector jarg2_);
   public final static native void delete_bloom_filter_256(long jarg1);
   public final static native long new_byte_span__SWIG_0();
-  public final static native long new_byte_span__SWIG_1(byte jarg1);
   public final static native long byte_span_size(long jarg1, byte_span jarg1_);
   public final static native boolean byte_span_empty(long jarg1, byte_span jarg1_);
   public final static native byte byte_span_front(long jarg1, byte_span jarg1_);
@@ -384,9 +383,21 @@ public class libtorrent_jni {
   public final static native long byte_span_last(long jarg1, byte_span jarg1_, long jarg2);
   public final static native long byte_span_subspan__SWIG_0(long jarg1, byte_span jarg1_, long jarg2);
   public final static native long byte_span_subspan__SWIG_1(long jarg1, byte_span jarg1_, long jarg2, long jarg3);
-  public final static native long new_byte_span__SWIG_2(long jarg1, byte_vector jarg1_);
+  public final static native long new_byte_span__SWIG_1(long jarg1, byte_vector jarg1_);
   public final static native byte byte_span_get(long jarg1, byte_span jarg1_, long jarg2);
   public final static native void delete_byte_span(long jarg1);
+  public final static native long new_byte_const_span__SWIG_0();
+  public final static native long byte_const_span_size(long jarg1, byte_const_span jarg1_);
+  public final static native boolean byte_const_span_empty(long jarg1, byte_const_span jarg1_);
+  public final static native byte byte_const_span_front(long jarg1, byte_const_span jarg1_);
+  public final static native byte byte_const_span_back(long jarg1, byte_const_span jarg1_);
+  public final static native long byte_const_span_first(long jarg1, byte_const_span jarg1_, long jarg2);
+  public final static native long byte_const_span_last(long jarg1, byte_const_span jarg1_, long jarg2);
+  public final static native long byte_const_span_subspan__SWIG_0(long jarg1, byte_const_span jarg1_, long jarg2);
+  public final static native long byte_const_span_subspan__SWIG_1(long jarg1, byte_const_span jarg1_, long jarg2, long jarg3);
+  public final static native long new_byte_const_span__SWIG_1(long jarg1, byte_vector jarg1_);
+  public final static native byte byte_const_span_get(long jarg1, byte_const_span jarg1_, long jarg2);
+  public final static native void delete_byte_const_span(long jarg1);
   public final static native int success_get();
   public final static native int address_family_not_supported_get();
   public final static native int address_in_use_get();
@@ -583,7 +594,7 @@ public class libtorrent_jni {
   public final static native void delete_peer_request(long jarg1);
   public final static native int entry_type(long jarg1, entry jarg1_);
   public final static native long new_entry__SWIG_0(long jarg1, string_entry_map jarg1_);
-  public final static native long new_entry__SWIG_1(long jarg1, byte_span jarg1_);
+  public final static native long new_entry__SWIG_1(long jarg1, byte_const_span jarg1_);
   public final static native long new_entry__SWIG_3(long jarg1, entry_list jarg1_);
   public final static native long new_entry__SWIG_4(long jarg1);
   public final static native long new_entry__SWIG_5(int jarg1);
@@ -2537,6 +2548,8 @@ public class libtorrent_jni {
   public final static native void peer_plugin_sent_unchoke(long jarg1, peer_plugin jarg1_);
   public final static native void peer_plugin_sent_payload(long jarg1, peer_plugin jarg1_, int jarg2);
   public final static native boolean peer_plugin_can_disconnect(long jarg1, peer_plugin jarg1_, long jarg2, error_code jarg2_);
+  public final static native boolean peer_plugin_on_extended(long jarg1, peer_plugin jarg1_, int jarg2, int jarg3, long jarg4, byte_const_span jarg4_);
+  public final static native boolean peer_plugin_on_unknown_message(long jarg1, peer_plugin jarg1_, int jarg2, int jarg3, long jarg4, byte_const_span jarg4_);
   public final static native void peer_plugin_on_piece_pass(long jarg1, peer_plugin jarg1_, int jarg2);
   public final static native void peer_plugin_on_piece_failed(long jarg1, peer_plugin jarg1_, int jarg2);
   public final static native void peer_plugin_tick(long jarg1, peer_plugin jarg1_);
@@ -3054,6 +3067,8 @@ public class libtorrent_jni {
   public final static native void swig_peer_plugin_sent_payloadSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
   public final static native boolean swig_peer_plugin_can_disconnect(long jarg1, swig_peer_plugin jarg1_, long jarg2, error_code jarg2_);
   public final static native boolean swig_peer_plugin_can_disconnectSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, long jarg2, error_code jarg2_);
+  public final static native boolean swig_peer_plugin_on_extended(long jarg1, swig_peer_plugin jarg1_, int jarg2, int jarg3, long jarg4, byte_const_span jarg4_);
+  public final static native boolean swig_peer_plugin_on_unknown_message(long jarg1, swig_peer_plugin jarg1_, int jarg2, int jarg3, long jarg4, byte_const_span jarg4_);
   public final static native void swig_peer_plugin_on_piece_pass(long jarg1, swig_peer_plugin jarg1_, int jarg2);
   public final static native void swig_peer_plugin_on_piece_passSwigExplicitswig_peer_plugin(long jarg1, swig_peer_plugin jarg1_, int jarg2);
   public final static native void swig_peer_plugin_on_piece_failed(long jarg1, swig_peer_plugin jarg1_, int jarg2);

@@ -39,10 +39,6 @@ public class byte_span {
     this(libtorrent_jni.new_byte_span__SWIG_0(), true);
   }
 
-  public byte_span(byte p) {
-    this(libtorrent_jni.new_byte_span__SWIG_1(p), true);
-  }
-
   public long size() {
     return libtorrent_jni.byte_span_size(swigCPtr, this);
   }
@@ -76,7 +72,7 @@ public class byte_span {
   }
 
   public byte_span(byte_vector v) {
-    this(libtorrent_jni.new_byte_span__SWIG_2(byte_vector.getCPtr(v), v), true);
+    this(libtorrent_jni.new_byte_span__SWIG_1(byte_vector.getCPtr(v), v), true);
   }
 
   public byte get(long idx) {

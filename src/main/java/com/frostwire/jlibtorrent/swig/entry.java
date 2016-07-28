@@ -43,8 +43,8 @@ public class entry {
     this(libtorrent_jni.new_entry__SWIG_0(string_entry_map.getCPtr(arg0), arg0), true);
   }
 
-  public entry(byte_span arg0) {
-    this(libtorrent_jni.new_entry__SWIG_1(byte_span.getCPtr(arg0), arg0), true);
+  public entry(byte_const_span arg0) {
+    this(libtorrent_jni.new_entry__SWIG_1(byte_const_span.getCPtr(arg0), arg0), true);
   }
 
   public entry(entry_list arg0) {

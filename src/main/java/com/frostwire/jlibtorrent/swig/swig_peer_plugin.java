@@ -146,6 +146,14 @@ public class swig_peer_plugin {
     return (getClass() == swig_peer_plugin.class) ? libtorrent_jni.swig_peer_plugin_can_disconnect(swigCPtr, this, error_code.getCPtr(ec), ec) : libtorrent_jni.swig_peer_plugin_can_disconnectSwigExplicitswig_peer_plugin(swigCPtr, this, error_code.getCPtr(ec), ec);
   }
 
+  public boolean on_extended(int length, int msg, byte_const_span body) {
+    return libtorrent_jni.swig_peer_plugin_on_extended(swigCPtr, this, length, msg, byte_const_span.getCPtr(body), body);
+  }
+
+  public boolean on_unknown_message(int length, int msg, byte_const_span body) {
+    return libtorrent_jni.swig_peer_plugin_on_unknown_message(swigCPtr, this, length, msg, byte_const_span.getCPtr(body), body);
+  }
+
   public void on_piece_pass(int index) {
     if (getClass() == swig_peer_plugin.class) libtorrent_jni.swig_peer_plugin_on_piece_pass(swigCPtr, this, index); else libtorrent_jni.swig_peer_plugin_on_piece_passSwigExplicitswig_peer_plugin(swigCPtr, this, index);
   }

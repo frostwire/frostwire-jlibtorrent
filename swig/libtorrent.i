@@ -87,7 +87,7 @@ using namespace libtorrent;
 #include "libtorrent.h"
 %}
 
-#ifdef LIBTORRENT_SWIG_JNI
+#ifdef SWIGJAVA
 %exception {
     try {
         $action
@@ -97,7 +97,7 @@ using namespace libtorrent;
         SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }
 }
-#endif // LIBTORRENT_SWIG_JNI
+#endif // SWIGJAVA
 
 %include <stdint.i>
 %include <typemaps.i>
@@ -321,7 +321,6 @@ namespace libtorrent {
     struct span {
 
         span();
-        span(T p);
         span(std::vector<T> const& v);
 
         size_t size() const;
@@ -344,10 +343,38 @@ namespace libtorrent {
     };
 
     template <>
+    struct span<char> {
+
+        span();
+
+        size_t size() const;
+        bool empty() const;
+
+        int8_t front() const;
+        int8_t back() const;
+
+        span<char> first(size_t const n) const;
+        span<char> last(size_t const n) const;
+
+        span<char> subspan(size_t const offset) const;
+        span<char> subspan(size_t const offset, size_t const count) const;
+
+        %extend {
+            span(std::vector<int8_t> const& v) {
+                std::vector<char> temp(v.begin(), v.end());
+                return new span<char>(temp);
+            }
+
+            int8_t get(size_t const idx) {
+                return (*self)[idx];
+            }
+        }
+    };
+
+    template <>
     struct span<char const> {
 
         span();
-        span(int8_t p);
 
         size_t size() const;
         bool empty() const;
@@ -373,7 +400,8 @@ namespace libtorrent {
         }
     };
 
-    %template(byte_span) span<char const>;
+    %template(byte_span) span<char>;
+    %template(byte_const_span) span<char const>;
 
 };
 
@@ -555,8 +583,6 @@ typedef long time_t;
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
 %ignore libtorrent::read_piece_alert::buffer;
-%ignore libtorrent::peer_plugin::on_extended;
-%ignore libtorrent::peer_plugin::on_unknown_message;
 %ignore libtorrent::bdecode_node::dict_find(char const *) const;
 %ignore libtorrent::bdecode_node::dict_find_dict(char const *) const;
 %ignore libtorrent::bdecode_node::non_owning;
@@ -1281,9 +1307,6 @@ void set_utp_stream_logging(bool enable);
 %ignore swig_plugin::register_dht_extensions(libtorrent::dht_extensions_t& dht_extensions);
 
 %ignore swig_torrent_plugin::new_connection;
-
-%ignore swig_peer_plugin::on_extended;
-%ignore swig_peer_plugin::on_unknown_message;
 
 %ignore dht_put_item_cb;
 
