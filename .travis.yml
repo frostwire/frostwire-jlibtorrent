@@ -45,8 +45,7 @@ before_install:
   # fix source code
   - if [ $os_build != "macosx" ]; then
       find $OPENSSL_SOURCE/crypto/sha/asm/ | egrep "armv4.*.pl" | xargs sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g';
-      sed -i 's/\$code.*//g' $OPENSSL_SOURCE/crypto/aes/asm/aesv8-armx.pl;
-      find $OPENSSL_SOURCE/crypto | egrep "arm64cpuid.pl|ghashv8-armx.pl" | xargs sed -i 's/.arch.*crypto//g';
+      find $OPENSSL_SOURCE/crypto | egrep "arm64cpuid.pl|ghashv8-armx.pl|aesv8-armx.pl" | xargs sed -i 's/.arch.*crypto//g';
       sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' $OPENSSL_SOURCE/crypto/cryptlib.c;
       sed -i 's/MessageBox.*//g' $OPENSSL_SOURCE/crypto/cryptlib.c;
     fi
