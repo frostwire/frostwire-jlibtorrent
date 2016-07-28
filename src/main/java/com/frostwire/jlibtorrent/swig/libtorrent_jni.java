@@ -374,7 +374,7 @@ public class libtorrent_jni {
   public final static native long bloom_filter_256_to_bytes(long jarg1, bloom_filter_256 jarg1_);
   public final static native void bloom_filter_256_from_bytes(long jarg1, bloom_filter_256 jarg1_, long jarg2, byte_vector jarg2_);
   public final static native void delete_bloom_filter_256(long jarg1);
-  public final static native long new_byte_span__SWIG_0();
+  public final static native long new_byte_span();
   public final static native long byte_span_size(long jarg1, byte_span jarg1_);
   public final static native boolean byte_span_empty(long jarg1, byte_span jarg1_);
   public final static native byte byte_span_front(long jarg1, byte_span jarg1_);
@@ -383,10 +383,9 @@ public class libtorrent_jni {
   public final static native long byte_span_last(long jarg1, byte_span jarg1_, long jarg2);
   public final static native long byte_span_subspan__SWIG_0(long jarg1, byte_span jarg1_, long jarg2);
   public final static native long byte_span_subspan__SWIG_1(long jarg1, byte_span jarg1_, long jarg2, long jarg3);
-  public final static native long new_byte_span__SWIG_1(long jarg1, byte_vector jarg1_);
   public final static native byte byte_span_get(long jarg1, byte_span jarg1_, long jarg2);
   public final static native void delete_byte_span(long jarg1);
-  public final static native long new_byte_const_span__SWIG_0();
+  public final static native long new_byte_const_span();
   public final static native long byte_const_span_size(long jarg1, byte_const_span jarg1_);
   public final static native boolean byte_const_span_empty(long jarg1, byte_const_span jarg1_);
   public final static native byte byte_const_span_front(long jarg1, byte_const_span jarg1_);
@@ -395,7 +394,6 @@ public class libtorrent_jni {
   public final static native long byte_const_span_last(long jarg1, byte_const_span jarg1_, long jarg2);
   public final static native long byte_const_span_subspan__SWIG_0(long jarg1, byte_const_span jarg1_, long jarg2);
   public final static native long byte_const_span_subspan__SWIG_1(long jarg1, byte_const_span jarg1_, long jarg2, long jarg3);
-  public final static native long new_byte_const_span__SWIG_1(long jarg1, byte_vector jarg1_);
   public final static native byte byte_const_span_get(long jarg1, byte_const_span jarg1_, long jarg2);
   public final static native void delete_byte_const_span(long jarg1);
   public final static native int success_get();

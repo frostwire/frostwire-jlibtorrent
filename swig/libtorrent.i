@@ -321,7 +321,6 @@ namespace libtorrent {
     struct span {
 
         span();
-        span(std::vector<T> const& v);
 
         size_t size() const;
         bool empty() const;
@@ -360,11 +359,6 @@ namespace libtorrent {
         span<char> subspan(size_t const offset, size_t const count) const;
 
         %extend {
-            span(std::vector<int8_t> const& v) {
-                std::vector<char> temp(v.begin(), v.end());
-                return new span<char>(temp);
-            }
-
             int8_t get(size_t const idx) {
                 return (*self)[idx];
             }
@@ -389,11 +383,6 @@ namespace libtorrent {
         span<char const> subspan(size_t const offset, size_t const count) const;
 
         %extend {
-            span(std::vector<int8_t> const& v) {
-                std::vector<char const> temp(v.begin(), v.end());
-                return new span<char const>(temp);
-            }
-
             int8_t get(size_t const idx) {
                 return (*self)[idx];
             }

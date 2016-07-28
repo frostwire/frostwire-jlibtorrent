@@ -36,7 +36,7 @@ public class byte_const_span {
   }
 
   public byte_const_span() {
-    this(libtorrent_jni.new_byte_const_span__SWIG_0(), true);
+    this(libtorrent_jni.new_byte_const_span(), true);
   }
 
   public long size() {
@@ -69,10 +69,6 @@ public class byte_const_span {
 
   public byte_const_span subspan(long offset, long count) {
     return new byte_const_span(libtorrent_jni.byte_const_span_subspan__SWIG_1(swigCPtr, this, offset, count), true);
-  }
-
-  public byte_const_span(byte_vector v) {
-    this(libtorrent_jni.new_byte_const_span__SWIG_1(byte_vector.getCPtr(v), v), true);
   }
 
   public byte get(long idx) {
