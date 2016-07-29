@@ -99,7 +99,8 @@ public:
     }
 };
 
-void add_files(libtorrent::file_storage& fs, std::string const& file, add_files_listener* listener, boost::uint32_t flags) {
+void add_files(libtorrent::file_storage& fs, std::string const& file,
+                add_files_listener* listener, boost::uint32_t flags) {
     add_files(fs, file, boost::bind(&add_files_listener::pred, listener, _1), flags);
 }
 
@@ -112,7 +113,8 @@ public:
     }
 };
 
-void set_piece_hashes_ex(libtorrent::create_torrent& t, std::string const& p, set_piece_hashes_listener* listener, libtorrent::error_code& ec) {
+void set_piece_hashes_ex(libtorrent::create_torrent& t, std::string const& p,
+                        set_piece_hashes_listener* listener, libtorrent::error_code& ec) {
     set_piece_hashes(t, p, boost::bind(&set_piece_hashes_listener::progress, listener, _1), ec);
 }
 
@@ -158,7 +160,7 @@ struct swig_storage : storage_interface
         return n;
     }
 
-    virtual int read(boost::int64_t iov_base, size_t iov_len
+    virtual int read(int64_t iov_base, size_t iov_len
         , int piece, int offset, int flags, libtorrent::storage_error& ec) {
         return 0;
     }
@@ -178,7 +180,7 @@ struct swig_storage : storage_interface
         return n;
     }
 
-    virtual int write(boost::int64_t iov_base, size_t iov_len
+    virtual int write(int64_t iov_base, size_t iov_len
         , int piece, int offset, int flags, libtorrent::storage_error& ec) {
         return 0;
     }
@@ -187,8 +189,14 @@ struct swig_storage : storage_interface
         return false;
     }
 
-    virtual void set_file_priority(std::vector<boost::uint8_t> const& prio
+    void set_file_priority(std::vector<boost::uint8_t> const& prio
         , libtorrent::storage_error& ec) {
+    }
+
+    virtual void set_file_priority_vector(std::vector<int8_t> const& prio
+        , libtorrent::storage_error& ec) {
+        std::vector<boost::uint8_t> v(prio.begin(), prio.end());
+        set_file_priority(v, ec);
     }
 
     virtual int move_storage(std::string const& save_path, int flags
@@ -202,14 +210,11 @@ struct swig_storage : storage_interface
         return false;
     }
 
-    virtual void write_resume_data(libtorrent::entry& rd, libtorrent::storage_error& ec) const {
-    }
-
     virtual void release_files(libtorrent::storage_error& ec) {
     }
 
     virtual void rename_file(int index, std::string const& new_filename
-        , libtorrent::storage_error& ec) {
+            , libtorrent::storage_error& ec) {
     }
 
     virtual void delete_files(int options, libtorrent::storage_error& ec) {

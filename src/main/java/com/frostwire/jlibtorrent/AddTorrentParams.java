@@ -1,5 +1,7 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.plugins.StoragePlugin;
+import com.frostwire.jlibtorrent.plugins.SwigStoragePlugin;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.ArrayList;
@@ -412,5 +414,9 @@ public final class AddTorrentParams {
 
     public static AddTorrentParams createInstanceZeroStorage() {
         return new AddTorrentParams(add_torrent_params.create_instance_zero_storage());
+    }
+
+    public static AddTorrentParams createInstanceZeroStorage(StoragePlugin p) {
+        return new AddTorrentParams(add_torrent_params.create_instance_swig_storage(new SwigStoragePlugin(p)));
     }
 }

@@ -42,6 +42,12 @@ public final class Vectors {
         return v;
     }
 
+    public static void bytes2byte_vector(byte[] arr, byte_vector v) {
+        for (int i = 0; i < arr.length; i++) {
+            v.set(i, arr[i]);
+        }
+    }
+
     public static int[] int_vector2ints(int_vector v) {
         int size = (int) v.size();
         int[] arr = new int[size];

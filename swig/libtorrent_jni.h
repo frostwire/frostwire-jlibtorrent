@@ -49,13 +49,12 @@ public:
     virtual ~SwigDirector_swig_storage();
     virtual void set_params(libtorrent::storage_params const &params);
     virtual void initialize(libtorrent::storage_error &ec);
-    virtual int read(boost::int64_t iov_base, size_t iov_len, int piece, int offset, int flags, libtorrent::storage_error &ec);
-    virtual int write(boost::int64_t iov_base, size_t iov_len, int piece, int offset, int flags, libtorrent::storage_error &ec);
+    virtual int read(int64_t iov_base, size_t iov_len, int piece, int offset, int flags, libtorrent::storage_error &ec);
+    virtual int write(int64_t iov_base, size_t iov_len, int piece, int offset, int flags, libtorrent::storage_error &ec);
     virtual bool has_any_file(libtorrent::storage_error &ec);
-    virtual void set_file_priority(std::vector< boost::uint8_t > const &prio, libtorrent::storage_error &ec);
+    virtual void set_file_priority_vector(std::vector< int8_t > const &prio, libtorrent::storage_error &ec);
     virtual int move_storage(std::string const &save_path, int flags, libtorrent::storage_error &ec);
     virtual bool verify_resume_data(libtorrent::add_torrent_params const &rd, std::vector< std::string > const *links, libtorrent::storage_error &ec);
-    virtual void write_resume_data(libtorrent::entry &rd, libtorrent::storage_error &ec) const;
     virtual void release_files(libtorrent::storage_error &ec);
     virtual void rename_file(int index, std::string const &new_filename, libtorrent::storage_error &ec);
     virtual void delete_files(int options, libtorrent::storage_error &ec);
