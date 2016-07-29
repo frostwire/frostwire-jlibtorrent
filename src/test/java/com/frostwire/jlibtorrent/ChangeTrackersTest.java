@@ -20,7 +20,7 @@ public class ChangeTrackersTest {
 
     @Test
     public void testChangeTrackersUsingCreateTorrent() throws IOException {
-        byte[] torrentBytes = Utils.getResourceBytes("test4.torrent");
+        byte[] torrentBytes = Utils.resourceBytes("test4.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
 
         // do we have any tracker
@@ -55,7 +55,7 @@ public class ChangeTrackersTest {
 
     @Test
     public void testChangeTrackersLowLevel() throws IOException {
-        byte[] torrentBytes = Utils.getResourceBytes("test4.torrent");
+        byte[] torrentBytes = Utils.resourceBytes("test4.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
 
         // do we have any tracker
@@ -96,7 +96,7 @@ public class ChangeTrackersTest {
 
     @Test
     public void testChangeTrackersWithTorrentInfo() throws IOException {
-        byte[] torrentBytes = Utils.getResourceBytes("test4.torrent");
+        byte[] torrentBytes = Utils.resourceBytes("test4.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
 
         // do we have any tracker

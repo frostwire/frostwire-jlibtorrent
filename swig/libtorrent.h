@@ -384,7 +384,7 @@ struct swig_plugin : plugin {
     virtual void on_tick() {
     }
 
-    virtual void save_state(libtorrent::entry& e) const {
+    virtual void save_state(libtorrent::entry& e) {
     }
 
     virtual void load_state(libtorrent::bdecode_node const& n) {

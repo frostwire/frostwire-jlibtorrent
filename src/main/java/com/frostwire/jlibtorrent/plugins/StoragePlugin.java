@@ -3,7 +3,6 @@ package com.frostwire.jlibtorrent.plugins;
 import com.frostwire.jlibtorrent.AddTorrentParams;
 import com.frostwire.jlibtorrent.StorageError;
 import com.frostwire.jlibtorrent.StorageParams;
-import com.frostwire.jlibtorrent.swig.storage_error;
 
 import java.util.ArrayList;
 
@@ -15,11 +14,11 @@ public interface StoragePlugin {
 
     void setParams(StorageParams params);
 
-    void initialize(storage_error ec);
+    void initialize(StorageError ec);
 
-    int read(long iov_base, long iov_len, int piece, int offset, int flags, storage_error ec);
+    int read(long iov_base, long iov_len, int piece, int offset, int flags, StorageError ec);
 
-    int write(long iov_base, long iov_len, int piece, int offset, int flags, storage_error ec);
+    int write(long iov_base, long iov_len, int piece, int offset, int flags, StorageError ec);
 
     boolean hasAnyFile(StorageError ec);
 

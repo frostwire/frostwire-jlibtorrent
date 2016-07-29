@@ -5,7 +5,6 @@ import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.torrent_handle_vector;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
@@ -51,7 +50,7 @@ public class SessionGetTorrentsTest {
             }
         });
 
-        byte[] tb = Utils.getResourceBytes("test1.torrent");
+        byte[] tb = Utils.resourceBytes("test1.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(tb);
 
         AddTorrentParams params = new AddTorrentParams();

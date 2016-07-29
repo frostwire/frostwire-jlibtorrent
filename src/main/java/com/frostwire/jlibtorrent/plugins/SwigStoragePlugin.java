@@ -7,15 +7,12 @@ import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.ArrayList;
-import java.util.WeakHashMap;
 
 /**
  * @author gubatron
  * @author aldenml
  */
 public final class SwigStoragePlugin extends swig_storage {
-
-    private static final WeakHashMap
 
     private final StoragePlugin p;
 
@@ -30,17 +27,17 @@ public final class SwigStoragePlugin extends swig_storage {
 
     @Override
     public void initialize(storage_error ec) {
-        p.initialize(ec);
+        p.initialize(new StorageError(ec));
     }
 
     @Override
     public int read(long iov_base, long iov_len, int piece, int offset, int flags, storage_error ec) {
-        return p.read(iov_base, iov_len, piece, offset, flags, ec);
+        return p.read(iov_base, iov_len, piece, offset, flags, new StorageError(ec));
     }
 
     @Override
     public int write(long iov_base, long iov_len, int piece, int offset, int flags, storage_error ec) {
-        return p.write(iov_base, iov_len, piece, offset, flags, ec);
+        return p.write(iov_base, iov_len, piece, offset, flags, new StorageError(ec));
     }
 
     @Override

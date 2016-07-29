@@ -2,11 +2,10 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.Alerts;
-import com.frostwire.jlibtorrent.swig.alert;
-import com.frostwire.jlibtorrent.swig.alert_ptr_vector;
-import com.frostwire.jlibtorrent.swig.session;
-import com.frostwire.jlibtorrent.swig.settings_pack;
+import com.frostwire.jlibtorrent.plugins.SwigStoragePlugin;
+import com.frostwire.jlibtorrent.swig.*;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -58,6 +57,32 @@ public final class SessionManager {
         } finally {
             sync.unlock();
         }
+    }
+
+    public static TorrentHandle download(Session s, TorrentInfo ti, File saveDir,
+                                         SwigStoragePlugin storage) {
+        if (saveDir == null) {
+            throw new IllegalArgumentException("saveDir can't be null");
+        }
+
+        add_torrent_params p = storage == null ? add_torrent_params.create_instance() :
+                add_torrent_params.create_instance_swig_storage(storage);
+
+        p.set_ti(ti.swig());
+        p.setSave_path(saveDir.getAbsolutePath());
+
+        long flags = p.get_flags();
+
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+
+        p.set_flags(flags);
+
+        error_code ec = new error_code();
+        torrent_handle th = s.swig().add_torrent(p, ec);
+        if (ec.value() != 0) {
+            throw new RuntimeException(ec.message());
+        }
+        return new TorrentHandle(th);
     }
 
     private void startAlertsLoop() {

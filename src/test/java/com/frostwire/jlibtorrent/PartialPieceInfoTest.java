@@ -27,7 +27,7 @@ public class PartialPieceInfoTest {
 
     @Test
     public void testGetInfoFromFirstPiece() throws IOException, InterruptedException {
-        byte[] tb = Utils.getResourceBytes("Shinobi_Ninja_FrostWire_Mixtape__MP3_128K_Oct_02_2015.torrent");
+        byte[] tb = Utils.resourceBytes("Shinobi_Ninja_FrostWire_Mixtape__MP3_128K_Oct_02_2015.torrent");
         final TorrentInfo ti = TorrentInfo.bdecode(tb);
 
         final CountDownLatch s1 = new CountDownLatch(1);

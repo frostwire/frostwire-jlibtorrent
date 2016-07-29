@@ -4,7 +4,6 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
@@ -61,7 +60,7 @@ public class PiecePriorityTest {
             }
         });
 
-        byte[] torrentBytes = Utils.getResourceBytes("test1.torrent");
+        byte[] torrentBytes = Utils.resourceBytes("test1.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
 
         assertTrue(ti.numFiles() > 1);

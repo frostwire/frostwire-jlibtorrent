@@ -315,7 +315,7 @@ public final class Utils {
         }
     }
 
-    public static byte[] getResourceBytes(String path) throws IOException {
+    public static byte[] resourceBytes(String path) throws IOException {
         ClassLoader classLoader = Utils.class.getClassLoader();
         InputStream input = classLoader.getResourceAsStream(path);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -330,6 +330,10 @@ public final class Utils {
             Files.closeQuietly(input);
             Files.closeQuietly(output);
         }
+    }
+
+    public static File home(String path) {
+        return new File(System.getProperty("user.home"), path);
     }
 
     static void await(CountDownLatch s, String message, long timeout, TimeUnit unit) {
