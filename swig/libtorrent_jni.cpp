@@ -2681,7 +2681,7 @@ void SwigDirector_swig_plugin::on_tick() {
   if (swigjobj) jenv->DeleteLocalRef(swigjobj);
 }
 
-void SwigDirector_swig_plugin::save_state(libtorrent::entry &e) const {
+void SwigDirector_swig_plugin::save_state(libtorrent::entry &e) {
   JNIEnvWrapper swigjnienv(this) ;
   JNIEnv * jenv = swigjnienv.getJNIEnv() ;
   jobject swigjobj = (jobject) NULL ;
@@ -59657,7 +59657,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("2ef336ab98861f83b72ea1578ff962c5321b84b7");
+  result = (char *)("749dfe0daf3ca357a12850a763497e667d78fe67");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -62450,7 +62450,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
   } 
   {
     try {
-      ((swig_plugin const *)arg1)->save_state(*arg2);
+      (arg1)->save_state(*arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {
@@ -62476,7 +62476,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig
   } 
   {
     try {
-      ((swig_plugin const *)arg1)->swig_plugin::save_state(*arg2);
+      (arg1)->swig_plugin::save_state(*arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {

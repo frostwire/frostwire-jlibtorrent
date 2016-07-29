@@ -101,7 +101,7 @@ public:
     virtual void on_alert(libtorrent::alert const *a);
     virtual bool on_unknown_torrent(libtorrent::sha1_hash const &info_hash, libtorrent::peer_connection_handle const &pc, libtorrent::add_torrent_params &p);
     virtual void on_tick();
-    virtual void save_state(libtorrent::entry &e) const;
+    virtual void save_state(libtorrent::entry &e);
     virtual void load_state(libtorrent::bdecode_node const &n);
 public:
     bool swig_overrides(int n) {
