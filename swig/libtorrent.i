@@ -66,7 +66,6 @@
 #include "libtorrent/session_handle.hpp"
 #include "libtorrent/session.hpp"
 #include "libtorrent/peer_connection_handle.hpp"
-#include "libtorrent/extensions.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/bdecode.hpp"
 #include "libtorrent/bencode.hpp"
@@ -493,6 +492,7 @@ typedef long time_t;
 %ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
 %ignore libtorrent::peer_connection_handle::add_extension;
+%ignore libtorrent::peer_connection_handle::find_plugin;
 %ignore libtorrent::peer_connection_handle::time_of_last_unchoke;
 %ignore libtorrent::bt_peer_connection_handle::switch_send_crypto;
 %ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
@@ -733,7 +733,6 @@ typedef long time_t;
 %include "libtorrent/session_handle.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/peer_connection_handle.hpp"
-%include "libtorrent/extensions.hpp"
 %include "libtorrent/ip_filter.hpp"
 %include "libtorrent/bdecode.hpp"
 %include "libtorrent/bencode.hpp"
@@ -936,14 +935,6 @@ namespace libtorrent {
              std::string(salt.begin(), salt.end()));
     }
 
-    void add_swig_extension(swig_plugin *p) {
-        $self->add_extension(boost::shared_ptr<plugin>(p));
-    }
-
-    void set_swig_dht_storage(swig_dht_storage *s) {
-        $self->set_dht_storage(boost::bind(&swig_dht_storage_constructor, s, _1));
-    }
-
     alert* wait_for_alert_ms(int64_t max_wait) {
         return $self->wait_for_alert(milliseconds(max_wait));
     }
@@ -1037,10 +1028,6 @@ namespace libtorrent {
 
     static add_torrent_params create_instance_zero_storage() {
         return add_torrent_params(zero_storage_constructor);
-    }
-
-    static add_torrent_params create_instance_swig_storage(swig_storage* s) {
-        return add_torrent_params(boost::bind(&swig_storage_constructor, s, _1));
     }
 
     static add_torrent_params read_resume_data(bdecode_node const& rd, error_code& ec) {
@@ -1266,40 +1253,6 @@ void set_utp_stream_logging(bool enable);
 %feature("director") add_files_listener;
 %feature("director") set_piece_hashes_listener;
 
-%ignore swig_storage::set_file_priority;
-%ignore swig_storage::readv;
-%ignore swig_storage::writev;
-%ignore swig_storage_constructor;
-
-%feature("director") swig_storage;
-
-%typemap("javapackage") SwigStorage, SwigStorage *, SwigStorage & "com.frostwire.jlibtorrent.plugins";
-
-// DHT storage
-%ignore swig_dht_storage::put_immutable_item(libtorrent::sha1_hash const&, char const*, int, libtorrent::address const&);
-%ignore swig_dht_storage::get_mutable_item_seq;
-%ignore swig_dht_storage::put_mutable_item(libtorrent::sha1_hash const&, char const*, int, char const*, boost::int64_t, char const*, char const*, int, libtorrent::address const&);
-%ignore swig_dht_storage::counters;
-%ignore swig_dht_storage_constructor;
-
-%feature("director") swig_dht_storage;
-
-// libtorrent plugins
-%feature("director") swig_plugin;
-%feature("director") swig_torrent_plugin;
-%feature("director") swig_peer_plugin;
-
-%typemap("javapackage") SwigPlugin, SwigPlugin *, SwigPlugin & "com.frostwire.jlibtorrent.plugins";
-%typemap("javapackage") SwigDhtPlugin, SwigDhtPlugin *, SwigDhtPlugin & "com.frostwire.jlibtorrent.plugins";
-
-%ignore swig_plugin::new_torrent(libtorrent::torrent_handle const&, void*);
-%ignore swig_plugin::register_dht_extensions(libtorrent::dht_extensions_t& dht_extensions);
-
-%ignore swig_torrent_plugin::new_connection;
-
 %ignore dht_put_item_cb;
-
-%feature("director") posix_wrapper;
-%ignore g_posix_wrapper;
 
 %include "libtorrent.h"

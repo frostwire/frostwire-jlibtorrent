@@ -39,11 +39,6 @@ public class peer_connection_handle {
     return libtorrent_jni.peer_connection_handle_type(swigCPtr, this);
   }
 
-  public peer_plugin find_plugin(String type) {
-    long cPtr = libtorrent_jni.peer_connection_handle_find_plugin(swigCPtr, this, type);
-    return (cPtr == 0) ? null : new peer_plugin(cPtr, false);
-  }
-
   public boolean is_seed() {
     return libtorrent_jni.peer_connection_handle_is_seed(swigCPtr, this);
   }

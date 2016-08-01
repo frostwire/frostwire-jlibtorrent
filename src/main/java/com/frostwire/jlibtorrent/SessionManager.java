@@ -2,7 +2,6 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.Alerts;
-import com.frostwire.jlibtorrent.plugins.SwigStoragePlugin;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
@@ -59,14 +58,12 @@ public final class SessionManager {
         }
     }
 
-    public static TorrentHandle download(Session s, TorrentInfo ti, File saveDir,
-                                         SwigStoragePlugin storage) {
+    public static TorrentHandle download(Session s, TorrentInfo ti, File saveDir) {
         if (saveDir == null) {
             throw new IllegalArgumentException("saveDir can't be null");
         }
 
-        add_torrent_params p = storage == null ? add_torrent_params.create_instance() :
-                add_torrent_params.create_instance_swig_storage(storage);
+        add_torrent_params p = add_torrent_params.create_instance();
 
         p.set_ti(ti.swig());
         p.setSave_path(saveDir.getAbsolutePath());

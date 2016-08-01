@@ -1,8 +1,6 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
-import com.frostwire.jlibtorrent.plugins.Plugin;
-import com.frostwire.jlibtorrent.plugins.SwigPlugin;
 import com.frostwire.jlibtorrent.swig.*;
 import com.frostwire.jlibtorrent.swig.session_handle.options_t;
 
@@ -48,8 +46,6 @@ public final class Session extends SessionHandle {
     private final SparseArray<AlertListener[]> listenerSnapshots;
     private boolean running;
 
-    private final LinkedList<SwigPlugin> plugins;
-
     /**
      * The flag alert_mask is always set to all_categories.
      *
@@ -76,8 +72,6 @@ public final class Session extends SessionHandle {
         for (Pair<String, Integer> router : defaultRouters()) {
             s.add_dht_router(router.to_string_int_pair());
         }
-
-        this.plugins = new LinkedList<>();
     }
 
     public Session() {
@@ -612,12 +606,6 @@ public final class Session extends SessionHandle {
 
     public void dhtDirectRequest(UdpEndpoint endp, Entry entry) {
         s.dht_direct_request(endp.swig(), entry.swig());
-    }
-
-    public void addExtension(Plugin p) {
-        SwigPlugin sp = new SwigPlugin(p);
-        s.add_swig_extension(sp);
-        plugins.add(sp);
     }
 
     /**

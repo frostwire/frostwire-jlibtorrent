@@ -362,10 +362,6 @@ public class add_torrent_params {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_zero_storage(), true);
   }
 
-  public static add_torrent_params create_instance_swig_storage(swig_storage s) {
-    return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_swig_storage(swig_storage.getCPtr(s), s), true);
-  }
-
   public static add_torrent_params read_resume_data(bdecode_node rd, error_code ec) {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_read_resume_data__SWIG_0(bdecode_node.getCPtr(rd), rd, error_code.getCPtr(ec), ec), true);
   }

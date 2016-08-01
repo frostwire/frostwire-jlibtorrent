@@ -255,14 +255,6 @@ public class session_handle {
     libtorrent_jni.session_handle_dht_put_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data, byte_vector.getCPtr(salt), salt);
   }
 
-  public void add_swig_extension(swig_plugin p) {
-    libtorrent_jni.session_handle_add_swig_extension(swigCPtr, this, swig_plugin.getCPtr(p), p);
-  }
-
-  public void set_swig_dht_storage(swig_dht_storage s) {
-    libtorrent_jni.session_handle_set_swig_dht_storage(swigCPtr, this, swig_dht_storage.getCPtr(s), s);
-  }
-
   public alert wait_for_alert_ms(long max_wait) {
     long cPtr = libtorrent_jni.session_handle_wait_for_alert_ms(swigCPtr, this, max_wait);
     return (cPtr == 0) ? null : new alert(cPtr, false);

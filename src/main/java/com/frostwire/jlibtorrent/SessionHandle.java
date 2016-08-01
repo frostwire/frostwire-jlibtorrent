@@ -1,7 +1,5 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.plugins.DhtStorage;
-import com.frostwire.jlibtorrent.plugins.SwigDhtStorage;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.ArrayList;
@@ -15,8 +13,6 @@ public class SessionHandle {
     private static final Logger LOG = Logger.getLogger(SessionHandle.class);
 
     protected final session_handle s;
-
-    private SwigDhtStorage dhtStorage;
 
     public SessionHandle(session_handle s) {
         this.s = s;
@@ -178,30 +174,6 @@ public class SessionHandle {
 
     public void asyncAddTorrent(AddTorrentParams params) {
         s.async_add_torrent(params.swig());
-    }
-
-    /**
-     * Set a dht custom storage constructor function
-     * to be used internally when the dht is created.
-     * <p>
-     * Since the dht storage is a critical component for the dht behavior,
-     * this function will only be effective the next time the dht is started.
-     * If you never touch this feature, a default map-memory based storage
-     * is used.
-     * <p>
-     * If you want to make sure the dht is initially created with your
-     * custom storage, create a session with the setting
-     * {@link com.frostwire.jlibtorrent.swig.settings_pack.bool_types#enable_dht}
-     * to false, set your constructor function
-     * and call {@link #applySettings(SettingsPack)} with
-     * {@link com.frostwire.jlibtorrent.swig.settings_pack.bool_types#enable_dht}
-     * to true.
-     *
-     * @param storage
-     */
-    public void setDhtStorage(DhtStorage storage) {
-        dhtStorage = new SwigDhtStorage(storage);
-        s.set_swig_dht_storage(dhtStorage);
     }
 
     /**
