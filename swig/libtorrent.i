@@ -45,7 +45,6 @@
 #include "libtorrent/entry.hpp"
 #include "libtorrent/sha1_hash.hpp"
 #include "libtorrent/storage_defs.hpp"
-#include "libtorrent/storage.hpp"
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
@@ -395,20 +394,14 @@ namespace libtorrent {
 
 typedef long time_t;
 
-%ignore clone;
-%ignore ssl_ctx;
-%ignore default_pred;
-%ignore ignore_subdir;
-%ignore integer_to_str;
-%ignore get_file_attributes;
-%ignore get_symlink_path;
+%ignore libtorrent::detail;
 
-%ignore libtorrent::piece_manager;
 %ignore libtorrent::request_callback;
 %ignore libtorrent::timeout_handler;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::default_storage_constructor;
 %ignore libtorrent::disabled_storage_constructor;
+%ignore libtorrent::zero_storage_constructor;
 %ignore libtorrent::bdecode;
 %ignore libtorrent::url_has_argument;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
@@ -419,16 +412,13 @@ typedef long time_t;
 %ignore libtorrent::is_read_operation;
 %ignore libtorrent::operation_has_buffer;
 %ignore libtorrent::internal_file_entry;
-%ignore libtorrent::storage_interface;
 %ignore libtorrent::time_critical_piece;
 %ignore libtorrent::buffer_allocator_interface;
 %ignore libtorrent::torrent_hot_members;
-%ignore libtorrent::storage_piece_set;
 %ignore libtorrent::print_entry;
 %ignore libtorrent::type_error;
 %ignore libtorrent::peer_class;
 %ignore libtorrent::peer_class_pool;
-%ignore libtorrent::detail::bdecode_token;
 
 %ignore libtorrent::to_string(size_type);
 %ignore libtorrent::read_until;
@@ -463,7 +453,7 @@ typedef long time_t;
 %ignore libtorrent::add_torrent_params::deprecated3;
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::connection_queue::enqueue;
-%ignore libtorrent::alert_manager::set_dispatch_function;
+%ignore libtorrent::alert::timestamp;
 %ignore libtorrent::session::session(settings_pack const&, io_service&, int);
 %ignore libtorrent::session::session(settings_pack const&, io_service&);
 %ignore libtorrent::session_handle::session_handle(aux::session_impl*);
@@ -583,14 +573,6 @@ typedef long time_t;
 %ignore libtorrent::bdecode_node::switch_underlying_buffer;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
-%ignore libtorrent::set_bits;
-%ignore libtorrent::has_bits;
-%ignore libtorrent::count_zero_bits;
-%ignore libtorrent::zero_storage_constructor;
-%ignore libtorrent::advance_bufs;
-%ignore libtorrent::bufs_size;
-%ignore libtorrent::clear_bufs;
-%ignore libtorrent::copy_bufs;
 %ignore libtorrent::apply_pack;
 %ignore libtorrent::load_pack_from_dict;
 %ignore libtorrent::save_settings_to_dict;
@@ -611,7 +593,6 @@ typedef long time_t;
 %ignore libtorrent::settings_pack::deprecated14;
 %ignore libtorrent::settings_pack::deprecated15;
 %ignore libtorrent::settings_pack::deprecated;
-%ignore libtorrent::detail::nop;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
@@ -629,7 +610,6 @@ typedef long time_t;
 %ignore libtorrent::file_storage::file_name_ptr;
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
-%ignore libtorrent::default_storage;
 %ignore libtorrent::file_status;
 %ignore libtorrent::stat_file;
 %ignore libtorrent::fileop;
@@ -700,7 +680,6 @@ typedef long time_t;
 %rename(bdecode_no_error) libtorrent::bdecode_errors::no_error;
 %rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
 
-%ignore libtorrent::alert::timestamp;
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
 
 %include <boost/system/error_code.hpp>
@@ -712,7 +691,6 @@ typedef long time_t;
 %include "libtorrent/entry.hpp"
 %include "libtorrent/sha1_hash.hpp"
 %include "libtorrent/storage_defs.hpp"
-%include "libtorrent/storage.hpp"
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/torrent_handle.hpp"

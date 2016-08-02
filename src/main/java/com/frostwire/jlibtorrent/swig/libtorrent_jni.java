@@ -2503,8 +2503,6 @@ public class libtorrent_jni {
   public final static native boolean bt_peer_connection_handle_support_extensions(long jarg1, bt_peer_connection_handle jarg1_);
   public final static native boolean bt_peer_connection_handle_supports_encryption(long jarg1, bt_peer_connection_handle jarg1_);
   public final static native void delete_bt_peer_connection_handle(long jarg1);
-  public final static native int plus_one(int jarg1);
-  public final static native int minus_one(int jarg1);
   public final static native int ip_filter_blocked_get();
   public final static native void ip_filter_add_rule(long jarg1, ip_filter jarg1_, long jarg2, address jarg2_, long jarg3, address jarg3_, long jarg4);
   public final static native int ip_filter_access(long jarg1, ip_filter jarg1_, long jarg2, address jarg2_);

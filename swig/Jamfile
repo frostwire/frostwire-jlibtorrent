@@ -28,8 +28,6 @@ rule libtorrent_linking ( properties * )
     result += <ssl>off ;
     result += <disk-stats>on ;
     result += <utp-log>on ;
-    result += <windows-version>xp ;
-    result += <warnings>off ;
     result += <rtti>off ;
 
     return $(result) ;

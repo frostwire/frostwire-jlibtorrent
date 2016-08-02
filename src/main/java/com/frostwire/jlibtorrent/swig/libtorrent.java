@@ -113,14 +113,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.TORRENT_CFG();
   }
 
-  public static int plus_one(int val) {
-    return libtorrent_jni.plus_one(val);
-  }
-
-  public static int minus_one(int val) {
-    return libtorrent_jni.minus_one(val);
-  }
-
   public static error_category get_bdecode_category() {
     return new error_category(libtorrent_jni.get_bdecode_category(), false);
   }
