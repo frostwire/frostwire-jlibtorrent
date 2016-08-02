@@ -2247,10 +2247,10 @@ public class libtorrent_jni {
   public final static native int peer_info_bw_limit_get();
   public final static native int peer_info_bw_network_get();
   public final static native int peer_info_bw_disk_get();
-  public final static native void peer_info_read_state_set(long jarg1, peer_info jarg1_, char jarg2);
-  public final static native char peer_info_read_state_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_write_state_set(long jarg1, peer_info jarg1_, char jarg2);
-  public final static native char peer_info_write_state_get(long jarg1, peer_info jarg1_);
+  public final static native void peer_info_read_state_set(long jarg1, peer_info jarg1_, byte jarg2);
+  public final static native byte peer_info_read_state_get(long jarg1, peer_info jarg1_);
+  public final static native void peer_info_write_state_set(long jarg1, peer_info jarg1_, byte jarg2);
+  public final static native byte peer_info_write_state_get(long jarg1, peer_info jarg1_);
   public final static native long peer_info_get_last_request(long jarg1, peer_info jarg1_);
   public final static native long peer_info_get_last_active(long jarg1, peer_info jarg1_);
   public final static native long peer_info_get_download_queue_time(long jarg1, peer_info jarg1_);

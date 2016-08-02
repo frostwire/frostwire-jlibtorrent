@@ -399,19 +399,19 @@ public class peer_info {
     return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 
-  public void setRead_state(char value) {
+  public void setRead_state(byte value) {
     libtorrent_jni.peer_info_read_state_set(swigCPtr, this, value);
   }
 
-  public char getRead_state() {
+  public byte getRead_state() {
     return libtorrent_jni.peer_info_read_state_get(swigCPtr, this);
   }
 
-  public void setWrite_state(char value) {
+  public void setWrite_state(byte value) {
     libtorrent_jni.peer_info_write_state_set(swigCPtr, this, value);
   }
 
-  public char getWrite_state() {
+  public byte getWrite_state() {
     return libtorrent_jni.peer_info_write_state_get(swigCPtr, this);
   }
 

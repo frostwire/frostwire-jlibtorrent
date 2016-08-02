@@ -9,6 +9,8 @@ using gcc : arm64 : aarch64-linux-gnu-g++ :
       <cxxflags>-fsigned-char
       <cxxflags>-march=armv8-a+crc
       <cxxflags>-std=c++11
+      <cxxflags>-Wno-strict-aliasing
+      <cxxflags>-Wno-Wmaybe-uninitialized
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
       <linkflags>-static-libstdc++

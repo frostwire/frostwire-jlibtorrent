@@ -8,6 +8,8 @@ using gcc : x86_64 : x86_64-w64-mingw32-g++-5 :
       <cxxflags>-std=c++11
       <cxxflags>-DBOOST_ASIO_DISABLE_CONNECTEX
       <cxxflags>-DBOOST_USE_WINAPI_VERSION=0x0600
+      <cxxflags>-Wno-strict-aliasing
+      <cxxflags>-Wno-Wmaybe-uninitialized
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
       <linkflags>-Wl,-Bstatic -lstdc++ -Wl,-Bdynamic

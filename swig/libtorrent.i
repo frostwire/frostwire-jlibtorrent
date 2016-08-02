@@ -100,6 +100,8 @@ using namespace libtorrent;
 %include <std_string.i>
 %include <std_pair.i>
 
+%apply int8_t { char };
+
 namespace std {
 
     typedef int8_t uint8_t;

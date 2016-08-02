@@ -10,6 +10,8 @@ using gcc : arm : arm-linux-gnueabihf-g++ :
       <cxxflags>-march=armv7-a
       <cxxflags>-mfpu=neon
       <cxxflags>-std=c++11
+      <cxxflags>-Wno-strict-aliasing
+      <cxxflags>-Wno-Wmaybe-uninitialized
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
       <linkflags>-static-libstdc++
