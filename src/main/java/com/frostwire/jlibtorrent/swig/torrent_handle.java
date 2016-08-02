@@ -35,14 +35,6 @@ public class torrent_handle {
     }
   }
 
-  public torrent_handle() {
-    this(libtorrent_jni.new_torrent_handle__SWIG_0(), true);
-  }
-
-  public torrent_handle(torrent_handle t) {
-    this(libtorrent_jni.new_torrent_handle__SWIG_1(torrent_handle.getCPtr(t), t), true);
-  }
-
   public void read_piece(int piece) {
     libtorrent_jni.torrent_handle_read_piece(swigCPtr, this, piece);
   }

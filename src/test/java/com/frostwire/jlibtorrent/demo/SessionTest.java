@@ -16,10 +16,6 @@ public final class SessionTest {
 
     public static void main(String[] args) throws Throwable {
 
-        for (Map.Entry<String, Object> e : LibTorrent.properties().entrySet()) {
-            System.out.println(e.getKey() + ": " + e.getValue());
-        }
-
         AlertListener l = new AlertListener() {
             @Override
             public int[] types() {

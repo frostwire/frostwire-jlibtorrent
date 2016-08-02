@@ -573,7 +573,7 @@ public class libtorrent_jni {
   public final static native int bitfield_size(long jarg1, bitfield jarg1_);
   public final static native int bitfield_num_words(long jarg1, bitfield jarg1_);
   public final static native boolean bitfield_empty(long jarg1, bitfield jarg1_);
-  public final static native String bitfield_data__SWIG_0(long jarg1, bitfield jarg1_);
+  public final static native String bitfield_data(long jarg1, bitfield jarg1_);
   public final static native int bitfield_count(long jarg1, bitfield jarg1_);
   public final static native void bitfield_resize__SWIG_0(long jarg1, bitfield jarg1_, int jarg2, boolean jarg3);
   public final static native void bitfield_resize__SWIG_1(long jarg1, bitfield jarg1_, int jarg2);
@@ -799,8 +799,6 @@ public class libtorrent_jni {
   public final static native long partial_piece_info_get_blocks(long jarg1, partial_piece_info jarg1_);
   public final static native long new_partial_piece_info();
   public final static native void delete_partial_piece_info(long jarg1);
-  public final static native long new_torrent_handle__SWIG_0();
-  public final static native long new_torrent_handle__SWIG_1(long jarg1, torrent_handle jarg1_);
   public final static native int torrent_handle_overwrite_existing_get();
   public final static native void torrent_handle_read_piece(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native boolean torrent_handle_have_piece(long jarg1, torrent_handle jarg1_, int jarg2);
@@ -2796,10 +2794,6 @@ public class libtorrent_jni {
   public final static native int ed25519_signature_size_get();
   public final static native int ed25519_scalar_size_get();
   public final static native int ed25519_shared_secret_size_get();
-  public final static native boolean sse42_support_get();
-  public final static native boolean mmx_support_get();
-  public final static native boolean arm_neon_support_get();
-  public final static native boolean arm_crc32c_support_get();
   public final static native long new_address__SWIG_0();
   public final static native long new_address__SWIG_1(long jarg1, address jarg1_);
   public final static native boolean address_is_v4(long jarg1, address jarg1_);

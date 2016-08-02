@@ -55,7 +55,6 @@
 #include "libtorrent/close_reason.hpp"
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
-#include "libtorrent/alert_manager.hpp"
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
@@ -73,8 +72,6 @@
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/ed25519.hpp"
-
-#include "libtorrent/aux_/cpuid.hpp"
 
 using namespace boost;
 using namespace boost::system;
@@ -102,7 +99,6 @@ using namespace libtorrent;
 %include <std_common.i>
 %include <std_string.i>
 %include <std_pair.i>
-%include <std_deque.i>
 
 namespace std {
 
@@ -396,42 +392,28 @@ typedef long time_t;
 
 %ignore libtorrent::detail;
 
-%ignore libtorrent::request_callback;
-%ignore libtorrent::timeout_handler;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::default_storage_constructor;
 %ignore libtorrent::disabled_storage_constructor;
 %ignore libtorrent::zero_storage_constructor;
 %ignore libtorrent::bdecode;
-%ignore libtorrent::url_has_argument;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
-%ignore libtorrent::alert_manager;
-%ignore libtorrent::plugin;
-%ignore libtorrent::disk_job_fence;
 %ignore libtorrent::is_read_operation;
 %ignore libtorrent::operation_has_buffer;
 %ignore libtorrent::internal_file_entry;
 %ignore libtorrent::time_critical_piece;
-%ignore libtorrent::buffer_allocator_interface;
-%ignore libtorrent::torrent_hot_members;
 %ignore libtorrent::print_entry;
 %ignore libtorrent::type_error;
 %ignore libtorrent::peer_class;
 %ignore libtorrent::peer_class_pool;
 
 %ignore libtorrent::to_string(size_type);
-%ignore libtorrent::read_until;
-%ignore libtorrent::convert_to_native;
-%ignore libtorrent::convert_from_native;
-%ignore libtorrent::trim_path_element;
 %ignore libtorrent::request_a_block;
 %ignore libtorrent::merkle_num_leafs;
 %ignore libtorrent::merkle_num_nodes;
 %ignore libtorrent::merkle_get_parent;
 %ignore libtorrent::merkle_get_sibling;
-%ignore libtorrent::gzip_header;
-%ignore libtorrent::convert_path_to_posix;
 %ignore libtorrent::hex_to_int;
 %ignore libtorrent::nop;
 %ignore libtorrent::to_string;
@@ -487,10 +469,7 @@ typedef long time_t;
 %ignore libtorrent::bt_peer_connection_handle::switch_send_crypto;
 %ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection_handle::native_handle;
-%ignore libtorrent::plugin::added;
-%ignore libtorrent::plugin::new_torrent;
-%ignore libtorrent::crypto_plugin;
-%ignore libtorrent::torrent_plugin::new_connection;
+%ignore libtorrent::torrent_handle::torrent_handle;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::add_piece;
 %ignore libtorrent::torrent_handle::http_seeds;
@@ -614,6 +593,8 @@ typedef long time_t;
 %ignore libtorrent::stat_file;
 %ignore libtorrent::fileop;
 %ignore libtorrent::readwritev;
+%ignore libtorrent::bitfield::bitfield(bitfield const&);
+%ignore libtorrent::bitfield::data();
 %ignore libtorrent::bitfield::const_iterator;
 %ignore libtorrent::bitfield::begin;
 %ignore libtorrent::bitfield::end;
@@ -701,7 +682,6 @@ typedef long time_t;
 %include "libtorrent/close_reason.hpp"
 %include "libtorrent/alert.hpp"
 %include "libtorrent/alert_types.hpp"
-%include "libtorrent/alert_manager.hpp"
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
@@ -719,8 +699,6 @@ typedef long time_t;
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
 %include "libtorrent/ed25519.hpp"
-
-%include "libtorrent/aux_/cpuid.hpp"
 
 class address {
 public:

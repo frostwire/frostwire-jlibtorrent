@@ -4,9 +4,6 @@ import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.stats_metric_vector;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author gubatron
@@ -56,19 +53,6 @@ public final class LibTorrent {
 
     public static String opensslVersion() {
         return libtorrent.openssl_version_text();
-    }
-
-    public static Map<String, Object> properties() {
-        HashMap<String, Object> m = new HashMap<>();
-        m.put("jlibtorrent", jrevision());
-        m.put("libtorrent", version() + "/" + revision());
-        m.put("boost", boostVersion());
-        m.put("openssl", opensslVersion());
-        m.put("sse42", libtorrent.getSse42_support());
-        m.put("mmx", libtorrent.getMmx_support());
-        m.put("arm_neon", libtorrent.getArm_neon_support());
-        m.put("arm_crc32c", libtorrent.getArm_crc32c_support());
-        return Collections.unmodifiableMap(m);
     }
 
     /**

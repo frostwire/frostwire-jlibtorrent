@@ -92,7 +92,7 @@ public class bitfield {
   }
 
   public String data() {
-    return libtorrent_jni.bitfield_data__SWIG_0(swigCPtr, this);
+    return libtorrent_jni.bitfield_data(swigCPtr, this);
   }
 
   public int count() {

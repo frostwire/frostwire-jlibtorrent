@@ -141,22 +141,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.set_piece_hashes(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
-  public static boolean getSse42_support() {
-    return libtorrent_jni.sse42_support_get();
-  }
-
-  public static boolean getMmx_support() {
-    return libtorrent_jni.mmx_support_get();
-  }
-
-  public static boolean getArm_neon_support() {
-    return libtorrent_jni.arm_neon_support_get();
-  }
-
-  public static boolean getArm_crc32c_support() {
-    return libtorrent_jni.arm_crc32c_support_get();
-  }
-
   public static boolean is_utp_stream_logging() {
     return libtorrent_jni.is_utp_stream_logging();
   }
