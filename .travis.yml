@@ -242,7 +242,7 @@ before_install:
     fi
   # macosx
   - if [ $os_build == "macosx" ]; then
-      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam toolset=darwin-x86_64 target-os=darwin location=bin/macosx/x86_64";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam toolset=clang-x86_64 target-os=darwin location=bin/macosx/x86_64";
       export run_strip="strip -S -x bin/macosx/x86_64/libjlibtorrent.dylib";
       export run_readelf="otool -L bin/macosx/x86_64/libjlibtorrent.dylib";
     fi

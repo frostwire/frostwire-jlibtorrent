@@ -2,7 +2,7 @@ import os ;
 
 OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 
-using darwin : x86_64 : clang++ :
+using clang : x86_64 : clang++ :
       <cflags>-std=c11
       <cflags>-mmacosx-version-min=10.9
       <cxxflags>-std=c++11
