@@ -60,10 +60,10 @@ before_install:
 
 # android ndk: download and create toolchain
   - if [ $os_build == "android" ]; then
-      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r12b-linux-x86_64.zip;
+      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r13-beta1-linux-x86_64.zip;
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
-      export NDK=$PWD/android-ndk-r12b;
+      export NDK=$PWD/android-ndk-r13-beta1;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi

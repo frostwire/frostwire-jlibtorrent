@@ -9,6 +9,7 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-clang++ :
       <cxxflags>-fPIC
       <cxxflags>-Wno-reserved-id-macro
       <cxxflags>-Wno-strict-aliasing
+      <cxxflags>-Wno-over-aligned
       <cxxflags>-std=c++11
       <cxxflags>-D__STDC_FORMAT_MACROS
       <cxxflags>-I$(OPENSSL_ROOT)/include
