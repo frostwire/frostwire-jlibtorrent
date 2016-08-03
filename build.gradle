@@ -164,7 +164,7 @@ uploadArchives {
             }
             pom('jlibtorrent-macosx').withXml {
                 asNode().children().last() + pomData()
-                asNode().dependencies.last() + dependencyData()
+                asNode().getAt("dependencies")[0].appendNode(dependencyData())
             }
             pom('jlibtorrent-windows').withXml {
                 asNode().children().last() + pomData()
@@ -226,7 +226,7 @@ def pomData() {
     }
 }
 
-def dependencyData(node) {
+def dependencyData() {
     return {
         dependency {
             'groupId' group
