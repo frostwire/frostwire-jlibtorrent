@@ -22,7 +22,6 @@ rule libtorrent_linking ( properties * )
     local result ;
 
     result += <variant>release ;
-    result += <optimization>space ;
     result += <deprecated-functions>off ;
     result += <logging>on ;
     result += <crypto>libcrypto ;
