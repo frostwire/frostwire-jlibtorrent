@@ -4,7 +4,7 @@ apply plugin: 'maven'
 
 group 'com.frostwire'
 archivesBaseName = 'jlibtorrent'
-version '1.2.0.0'
+version '1.2.0.0-alpha'
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
@@ -30,7 +30,7 @@ test {
         events "passed", "skipped", "failed"
     }
 
-    environment "LD_LIBRARY_PATH" : new File('.').absolutePath
+    environment "LD_LIBRARY_PATH": new File('.').absolutePath
 }
 
 task sourcesJar(type: Jar) {
@@ -49,7 +49,6 @@ task javadocJar(type: Jar, dependsOn: javadoc2) {
 }
 
 task nativeMacOSXJar(type: Zip) {
-    name = 'jlibtorrent-macosx'
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-macosx'
     extension 'jar'
@@ -58,7 +57,6 @@ task nativeMacOSXJar(type: Zip) {
 }
 
 task nativeWindowsJar(type: Zip) {
-    name = 'jlibtorrent-windows'
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-windows'
     extension 'jar'
@@ -67,7 +65,6 @@ task nativeWindowsJar(type: Zip) {
 }
 
 task nativeLinuxJar(type: Zip) {
-    name = 'jlibtorrent-linux'
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-linux'
     extension 'jar'
@@ -76,7 +73,6 @@ task nativeLinuxJar(type: Zip) {
 }
 
 task nativeAndroidArmJar(type: Zip) {
-    name = 'jlibtorrent-android-arm'
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-arm'
     extension 'jar'
@@ -85,7 +81,6 @@ task nativeAndroidArmJar(type: Zip) {
 }
 
 task nativeAndroidX86Jar(type: Zip) {
-    name = 'jlibtorrent-android-x86'
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-x86'
     extension 'jar'
@@ -94,7 +89,6 @@ task nativeAndroidX86Jar(type: Zip) {
 }
 
 task nativeAndroidArm64Jar(type: Zip) {
-    name = 'jlibtorrent-android-arm64'
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-arm64'
     extension 'jar'
@@ -103,7 +97,6 @@ task nativeAndroidArm64Jar(type: Zip) {
 }
 
 task nativeAndroidX64Jar(type: Zip) {
-    name = 'jlibtorrent-android-x86_64'
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-x86_64'
     extension 'jar'
@@ -171,24 +164,31 @@ uploadArchives {
             }
             pom('jlibtorrent-macosx').withXml {
                 asNode().children().last() + pomData()
+                asNode().dependencies.last() + dependencyData()
             }
             pom('jlibtorrent-windows').withXml {
                 asNode().children().last() + pomData()
+                asNode().dependencies.last() + dependencyData()
             }
             pom('jlibtorrent-linux').withXml {
                 asNode().children().last() + pomData()
+                asNode().dependencies.last() + dependencyData()
             }
             pom('jlibtorrent-android-arm').withXml {
                 asNode().children().last() + pomData()
+                asNode().dependencies.last() + dependencyData()
             }
             pom('jlibtorrent-android-x86').withXml {
                 asNode().children().last() + pomData()
+                asNode().dependencies.last() + dependencyData()
             }
             pom('jlibtorrent-android-arm64').withXml {
                 asNode().children().last() + pomData()
+                asNode().dependencies.last() + dependencyData()
             }
             pom('jlibtorrent-android-x86_64').withXml {
                 asNode().children().last() + pomData()
+                asNode().dependencies.last() + dependencyData()
             }
         }
     }
@@ -226,3 +226,12 @@ def pomData() {
     }
 }
 
+def dependencyData(node) {
+    return {
+        dependency {
+            'groupId' group
+            'artifactId' archivesBaseName
+            'version' version
+        }
+    }
+}
