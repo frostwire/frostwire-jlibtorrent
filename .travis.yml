@@ -32,13 +32,13 @@ before_install:
   - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.zip
   - unzip -qq boost.zip
   - cd boost_1_61_0
-  # remove when upgrade to boost 1.62
-  - if [ $os_build != "macosx" ]; then
-      sed -i 's/explicit operator void()const {}//g' boost/multiprecision/detail/number_base.hpp;
-    fi
   - ./bootstrap.sh
   - cd ..
   - export BOOST_ROOT=$PWD/boost_1_61_0
+  # remove when upgrade to boost 1.62
+  - if [ $os_build != "macosx" ]; then
+      sed -i 's/explicit operator void()const {}//g' $BOOST_ROOT/boost/multiprecision/detail/number_base.hpp;
+    fi
 
 # openssl: download and checkout revision
   - git clone https://github.com/openssl/openssl openssl-src

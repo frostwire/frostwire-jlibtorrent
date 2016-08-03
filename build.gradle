@@ -164,31 +164,32 @@ uploadArchives {
             }
             pom('jlibtorrent-macosx').withXml {
                 asNode().children().last() + pomData()
-                asNode().getAt("dependencies")[0].appendNode(dependencyData())
+                addDependency(asNode())
+
             }
             pom('jlibtorrent-windows').withXml {
                 asNode().children().last() + pomData()
-                asNode().dependencies.last() + dependencyData()
+                addDependency(asNode())
             }
             pom('jlibtorrent-linux').withXml {
                 asNode().children().last() + pomData()
-                asNode().dependencies.last() + dependencyData()
+                addDependency(asNode())
             }
             pom('jlibtorrent-android-arm').withXml {
                 asNode().children().last() + pomData()
-                asNode().dependencies.last() + dependencyData()
+                addDependency(asNode())
             }
             pom('jlibtorrent-android-x86').withXml {
                 asNode().children().last() + pomData()
-                asNode().dependencies.last() + dependencyData()
+                addDependency(asNode())
             }
             pom('jlibtorrent-android-arm64').withXml {
                 asNode().children().last() + pomData()
-                asNode().dependencies.last() + dependencyData()
+                addDependency(asNode())
             }
             pom('jlibtorrent-android-x86_64').withXml {
                 asNode().children().last() + pomData()
-                asNode().dependencies.last() + dependencyData()
+                addDependency(asNode())
             }
         }
     }
@@ -226,12 +227,13 @@ def pomData() {
     }
 }
 
-def dependencyData() {
-    return {
-        dependency {
-            'groupId' group
-            'artifactId' archivesBaseName
-            'version' version
-        }
+def addDependency(root) {
+    def dependenciesNode = root.dependencies[0]
+    if (!dependenciesNode) {
+        dependenciesNode = root.appendNode('dependencies')
     }
+    def depNode = dependenciesNode.appendNode('dependency')
+    depNode.appendNode('groupId', group)
+    depNode.appendNode('artifactId', archivesBaseName)
+    depNode.appendNode('version', version)
 }
