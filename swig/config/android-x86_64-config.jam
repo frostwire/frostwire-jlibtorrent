@@ -8,7 +8,7 @@ using clang : x86_64 : $(ANDROID_TOOLCHAIN)/bin/x86_64-linux-android-clang++ :
       <cflags>-std=c11
       <cxxflags>-fPIC
       <cxxflags>-Wno-reserved-id-macro
-      <cxxflags>-fno-strict-aliasing
+      <cxxflags>-Wno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib

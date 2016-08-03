@@ -9,7 +9,7 @@ using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android-clang++ :
       <cxxflags>-fPIC
       <cxxflags>-march=armv8-a+crc
       <cxxflags>-Wno-reserved-id-macro
-      <cxxflags>-fno-strict-aliasing
+      <cxxflags>-Wno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
