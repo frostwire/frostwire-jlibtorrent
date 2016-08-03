@@ -10,6 +10,7 @@ using gcc : x86_64 : x86_64-w64-mingw32-g++-5 :
       <cxxflags>-DBOOST_USE_WINAPI_VERSION=0x0600
       <cxxflags>-fno-strict-aliasing
       <cxxflags>-Wno-maybe-uninitialized
+      <cxxflags>-Wno-unused-variable
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
       <linkflags>-Wl,-Bstatic -lstdc++ -Wl,-Bdynamic
