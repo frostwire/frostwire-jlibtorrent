@@ -53,7 +53,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
-  - git checkout 79a779bda0d5a549bd70efc0e32b64db19ff40cf
+  - git checkout 06fe5263a64175c5f553e38916c197701c2d3f4c
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
