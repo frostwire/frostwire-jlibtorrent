@@ -29,12 +29,12 @@ cache:
 
 before_install:
 # boost: download and bootstrap
-  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.zip
+  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_60_0
+  - cd boost_1_61_0
   - ./bootstrap.sh
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_60_0
+  - export BOOST_ROOT=$PWD/boost_1_61_0
 
 # openssl: download and checkout revision
   - git clone https://github.com/openssl/openssl openssl-src
