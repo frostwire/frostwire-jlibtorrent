@@ -71,7 +71,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout f05fad0d41d1987bd74e4a53814611295dd901db
+  - git checkout 1229491e5e9cd5df4fc7c2b7664a2983392bc3c8
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -184,22 +184,22 @@ before_install:
   - cd swig
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=gcc-arm target-os=linux location=bin/android/armeabi-v7a wrap-posix=on;
+    $BOOST_ROOT/b2 --user-config=config/android-arm-config.jam toolset=gcc-arm target-os=linux location=bin/android/armeabi-v7a wrap-posix=off;
     $ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/android/armeabi-v7a/libjlibtorrent.so;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=gcc-arm64 target-os=linux location=bin/android/arm64-v8a wrap-posix=on;
+    $BOOST_ROOT/b2 --user-config=config/android-arm64-config.jam toolset=gcc-arm64 target-os=linux location=bin/android/arm64-v8a wrap-posix=off;
     $ANDROID_TOOLCHAIN/bin/aarch64-linux-android-strip --strip-unneeded -x bin/android/arm64-v8a/libjlibtorrent.so;
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/android-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/android/x86 wrap-posix=on;
+    $BOOST_ROOT/b2 --user-config=config/android-x86-config.jam toolset=gcc-x86 target-os=linux location=bin/android/x86 wrap-posix=off;
     $ANDROID_TOOLCHAIN/bin/i686-linux-android-strip --strip-unneeded -x bin/android/x86/libjlibtorrent.so;
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
-    $BOOST_ROOT/b2 --user-config=config/android-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/android/x86_64 wrap-posix=on;
+    $BOOST_ROOT/b2 --user-config=config/android-x86_64-config.jam toolset=gcc-x86_64 target-os=linux location=bin/android/x86_64 wrap-posix=off;
     $ANDROID_TOOLCHAIN/bin/x86_64-linux-android-strip --strip-unneeded -x bin/android/x86_64/libjlibtorrent.so;
     fi
   # linux-x86

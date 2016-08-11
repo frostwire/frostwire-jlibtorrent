@@ -106,9 +106,11 @@ template <typename T> T SwigValueInit() {
 #endif
 
 /* exporting methods */
-#if (__GNUC__ >= 4) || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
-#  ifndef GCC_HASCLASSVISIBILITY
-#    define GCC_HASCLASSVISIBILITY
+#if defined(__GNUC__)
+#  if (__GNUC__ >= 4) || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
+#    ifndef GCC_HASCLASSVISIBILITY
+#      define GCC_HASCLASSVISIBILITY
+#    endif
 #  endif
 #endif
 
@@ -2621,7 +2623,7 @@ void SwigDirector_swig_plugin::added(libtorrent::session_handle s) {
   swigjobj = swig_get_self(jenv);
   if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
     js = 0;
-    *((libtorrent::session_handle **)&js) = &s; 
+    *((libtorrent::session_handle **)&js) = new libtorrent::session_handle((const libtorrent::session_handle &)s); 
     jenv->CallStaticVoidMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[25], swigjobj, js);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
@@ -3282,7 +3284,6 @@ bool SwigDirector_swig_peer_plugin::on_handshake(char const *reserved_bits) {
       if (!jreserved_bits) return c_result;
     }
     Swig::LocalRefGuard reserved_bits_refguard(jenv, jreserved_bits);
-    // boohoo
     jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[45], swigjobj, jreserved_bits);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
@@ -4079,7 +4080,6 @@ int SwigDirector_posix_wrapper::open(char const *path, int flags, int mode) {
       if (!jpath) return c_result;
     }
     Swig::LocalRefGuard path_refguard(jenv, jpath);
-    // boohoo
     jflags = (jint) flags;
     jmode = (jint) mode;
     jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[69], swigjobj, jpath, jflags, jmode);
@@ -4117,7 +4117,6 @@ int SwigDirector_posix_wrapper::stat(char const *path, posix_stat *buf) {
       if (!jpath) return c_result;
     }
     Swig::LocalRefGuard path_refguard(jenv, jpath);
-    // boohoo
     *((posix_stat **)&jbuf) = (posix_stat *) buf; 
     jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[70], swigjobj, jpath, jbuf);
     jthrowable swigerror = jenv->ExceptionOccurred();
@@ -4154,7 +4153,6 @@ int SwigDirector_posix_wrapper::mkdir(char const *path, int mode) {
       if (!jpath) return c_result;
     }
     Swig::LocalRefGuard path_refguard(jenv, jpath);
-    // boohoo
     jmode = (jint) mode;
     jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[71], swigjobj, jpath, jmode);
     jthrowable swigerror = jenv->ExceptionOccurred();
@@ -4191,14 +4189,12 @@ int SwigDirector_posix_wrapper::rename(char const *oldpath, char const *newpath)
       if (!joldpath) return c_result;
     }
     Swig::LocalRefGuard oldpath_refguard(jenv, joldpath);
-    // boohoo
     jnewpath = 0;
     if (newpath) {
       jnewpath = jenv->NewStringUTF((const char *)newpath);
       if (!jnewpath) return c_result;
     }
     Swig::LocalRefGuard newpath_refguard(jenv, jnewpath);
-    // boohoo
     jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[72], swigjobj, joldpath, jnewpath);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
@@ -4233,7 +4229,6 @@ int SwigDirector_posix_wrapper::remove(char const *path) {
       if (!jpath) return c_result;
     }
     Swig::LocalRefGuard path_refguard(jenv, jpath);
-    // boohoo
     jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[73], swigjobj, jpath);
     jthrowable swigerror = jenv->ExceptionOccurred();
     if (swigerror) {
@@ -59649,7 +59644,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("f05fad0d41d1987bd74e4a53814611295dd901db");
+  result = (char *)("1229491e5e9cd5df4fc7c2b7664a2983392bc3c8");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -59661,7 +59656,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("c1320ea5868d21bf47c72b7d54722330d49232bf");
+  result = (char *)("c563fea248c21454f37a954b263b074ac098e327");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

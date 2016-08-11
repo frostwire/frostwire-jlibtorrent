@@ -3252,7 +3252,7 @@ public class libtorrent_jni {
     return swig_dht_storage_counters.getCPtr(jself.swig_counters());
   }
   public static void SwigDirector_swig_plugin_added(swig_plugin jself, long s) {
-    jself.added(new session_handle(s, false));
+    jself.added(new session_handle(s, true));
   }
   public static void SwigDirector_swig_plugin_register_dht_extensions(swig_plugin jself, long dht_extensions) {
     jself.register_dht_extensions(new string_dht_extension_handler_listener_ptr_pair_vector(dht_extensions, false));

@@ -41,6 +41,7 @@ function runJni()
         -DNDEBUG=1 \
         -D_LIBTORRENT_REVISION_SHA1_="\"$(git -C $LIBTORRENT_ROOT rev-list HEAD | head -1)\"" \
         -D_JLIBTORRENT_REVISION_SHA1_="\"$(git rev-list HEAD | head -1)\"" \
+        -fakeversion 3.0.8 \
         libtorrent.i
 
     # at first sigh, this could look like a very dangerous thing to
