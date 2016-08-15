@@ -30,7 +30,6 @@
 #include <stdexcept>
 #include <string>
 #include <ios>
-#include <list>
 #include <vector>
 #include <array>
 #include <map>
@@ -105,33 +104,6 @@ using namespace libtorrent;
 namespace std {
 
     typedef int8_t uint8_t;
-
-    template<class T> class list {
-    public:
-        typedef size_t size_type;
-        typedef T value_type;
-        typedef const value_type& const_reference;
-        list();
-
-        bool empty() const;
-        size_type size() const;
-        size_type max_size() const;
-
-        const_reference front();
-        const_reference back();
-
-        void push_front(const value_type& x);
-        void pop_front();
-        void push_back(const value_type& x);
-        void pop_back();
-        void clear();
-
-        %extend {
-            std::vector<T> to_vector() {
-                return std::vector<T>(self->begin(), self->end());
-            }
-        }
-    };
 
     template<class T> class vector {
     public:
@@ -243,7 +215,7 @@ namespace std {
     %template(int_int_pair) pair<int, int>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
-    %template(string_bdecode_node_pair) pair<std::string, libtorrent::bdecode_node>;
+    %template(string_view_bdecode_node_pair) pair<libtorrent::string_view, libtorrent::bdecode_node>;
 
     %template(byte_vector) vector<int8_t>;
     %template(string_vector) vector<std::string>;
@@ -270,9 +242,6 @@ namespace std {
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
     %template(tcp_endpoint_vector) vector<tcp::endpoint>;
-
-    %template(string_list) list<std::string>;
-    %template(entry_list) list<libtorrent::entry>;
 
     %template(int_string_map) map<int, std::string>;
     %template(string_long_map) map<std::string, long>;
@@ -388,6 +357,13 @@ namespace libtorrent {
     %template(byte_span) span<char>;
     %template(byte_const_span) span<char const>;
 
+    typedef std::vector<std::pair<std::string, int>> nodes_t;
+
+    class string_view {
+    public:
+        string_view(std::string s);
+        std::string to_string();
+    };
 };
 
 typedef long time_t;
@@ -399,7 +375,7 @@ typedef long time_t;
 %ignore libtorrent::disabled_storage_constructor;
 %ignore libtorrent::zero_storage_constructor;
 %ignore libtorrent::bdecode;
-%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, boost::function<void(int)> const&, error_code&);
+%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
 %ignore libtorrent::is_read_operation;
 %ignore libtorrent::operation_has_buffer;
@@ -419,8 +395,8 @@ typedef long time_t;
 %ignore libtorrent::hex_to_int;
 %ignore libtorrent::nop;
 %ignore libtorrent::to_string;
-%ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>, std::uint32_t);
-%ignore libtorrent::add_files(file_storage&, std::string const&, boost::function<bool(std::string)>);
+%ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>, std::uint32_t);
+%ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>);
 %ignore libtorrent::initialize_file_progress;
 %ignore libtorrent::get_filesizes;
 %ignore libtorrent::parse_magnet_uri_peers;
@@ -438,16 +414,21 @@ typedef long time_t;
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert::timestamp;
-%ignore libtorrent::session::session(settings_pack const&, io_service&, int);
-%ignore libtorrent::session::session(settings_pack const&, io_service&);
+%ignore libtorrent::session_params::session_params(settings_pack, std::vector<boost::shared_ptr<plugin>>);
+%ignore libtorrent::session_params::extensions;
+%ignore libtorrent::session_params::dht_storage_constructor;
+%ignore libtorrent::session::session(session_params, io_service&, int);
+%ignore libtorrent::session::session(session_params, io_service&);
+%ignore libtorrent::session::session(settings_pack, io_service&, int);
+%ignore libtorrent::session::session(settings_pack, io_service&);
 %ignore libtorrent::session_handle::session_handle(aux::session_impl*);
 %ignore libtorrent::session_handle::set_alert_dispatch;
 %ignore libtorrent::session_handle::get_torrent_status;
 %ignore libtorrent::session_handle::get_io_service;
 %ignore libtorrent::session_handle::get_connection_queue;
 %ignore libtorrent::session_handle::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent_handle const&, void*)>);
-%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, boost::function<void(entry&, std::array<char,64>&, std::uint64_t&, std::string const&)>, std::string);
-%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, boost::function<void(entry&, std::array<char,64>&, std::uint64_t&, std::string const&)>);
+%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::uint64_t&, std::string const&)>, std::string);
+%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::uint64_t&, std::string const&)>);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libtorrent::session_handle::dht_direct_request(udp::endpoint, entry const&, void*);

@@ -27,11 +27,11 @@ public final class PartialDownload {
         byte[] data = Utils.readFileToByteArray(torrentFile);
         entry e = entry.bdecode(Vectors.bytes2byte_vector(data));
 
-        entry_vector files = e.find_key("info").find_key("files").list().to_vector();
+        entry_vector files = e.find_key("info").find_key("files").list();
 
         System.out.println("Files inside the torrent");
         for (int i = 0; i < files.size(); i++) {
-            System.out.println(files.get(i).find_key("path").list().front().to_string());
+            System.out.println(files.get(i).find_key("path").list().get(0).to_string());
         }
 
         // Download only the first file

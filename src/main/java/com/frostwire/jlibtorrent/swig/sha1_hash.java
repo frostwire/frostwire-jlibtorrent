@@ -51,6 +51,14 @@ public class sha1_hash {
     return new sha1_hash(libtorrent_jni.sha1_hash_min(), true);
   }
 
+  public sha1_hash(byte_const_span s) {
+    this(libtorrent_jni.new_sha1_hash__SWIG_1(byte_const_span.getCPtr(s), s), true);
+  }
+
+  public void assign(byte_const_span s) {
+    libtorrent_jni.sha1_hash_assign(swigCPtr, this, byte_const_span.getCPtr(s), s);
+  }
+
   public void clear() {
     libtorrent_jni.sha1_hash_clear(swigCPtr, this);
   }
@@ -76,7 +84,7 @@ public class sha1_hash {
   }
 
   public sha1_hash(byte_vector s) {
-    this(libtorrent_jni.new_sha1_hash__SWIG_1(byte_vector.getCPtr(s), s), true);
+    this(libtorrent_jni.new_sha1_hash__SWIG_2(byte_vector.getCPtr(s), s), true);
   }
 
   public int hash_code() {

@@ -50,7 +50,7 @@ public final class Entry {
     }
 
     public ArrayList<Entry> list() {
-        entry_vector v = e.list().to_vector();
+        entry_vector v = e.list();
         int size = (int) v.size();
 
         ArrayList<Entry> list = new ArrayList<Entry>(size);
@@ -95,7 +95,7 @@ public final class Entry {
     public static Entry fromList(List<?> list) {
         entry e = new entry(entry.data_type.list_t);
 
-        entry_list d = e.list();
+        entry_vector d = e.list();
         for (Object v : list) {
             if (v instanceof String) {
                 d.push_back(new entry((String) v));

@@ -2,7 +2,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.create_torrent;
 import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.entry_list;
+import com.frostwire.jlibtorrent.swig.entry_vector;
 import com.frostwire.jlibtorrent.swig.string_entry_map;
 import org.junit.Test;
 
@@ -74,11 +74,11 @@ public class ChangeTrackersTest {
 
         // add trackers
         String[] tks = new String[]{"http://a:6969/announce", "http://b:6969/announce"};
-        entry_list l = new entry_list();
+        entry_vector l = new entry_vector();
         l.push_back(new entry(tks[0]));
         m.set("announce", new entry(l));
 
-        entry_list tl = new entry_list();
+        entry_vector tl = new entry_vector();
         for (int i = 0; i < tks.length; i++) {
             l.clear();
             l.push_back(new entry(tks[i]));

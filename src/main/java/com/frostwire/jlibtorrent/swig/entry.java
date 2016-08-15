@@ -47,8 +47,8 @@ public class entry {
     this(libtorrent_jni.new_entry__SWIG_1(byte_const_span.getCPtr(arg0), arg0), true);
   }
 
-  public entry(entry_list arg0) {
-    this(libtorrent_jni.new_entry__SWIG_3(entry_list.getCPtr(arg0), arg0), true);
+  public entry(entry_vector arg0) {
+    this(libtorrent_jni.new_entry__SWIG_3(entry_vector.getCPtr(arg0), arg0), true);
   }
 
   public entry(long arg0) {
@@ -83,8 +83,8 @@ public class entry {
     return libtorrent_jni.entry_string(swigCPtr, this);
   }
 
-  public entry_list list() {
-    return new entry_list(libtorrent_jni.entry_list(swigCPtr, this), false);
+  public entry_vector list() {
+    return new entry_vector(libtorrent_jni.entry_list(swigCPtr, this), false);
   }
 
   public string_entry_map dict() {

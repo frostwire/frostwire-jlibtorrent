@@ -55,12 +55,12 @@ public class bdecode_node {
     return new bdecode_node(libtorrent_jni.bdecode_node_list_at(swigCPtr, this, i), true);
   }
 
-  public String list_string_value_at(int i, String default_val) {
-    return libtorrent_jni.bdecode_node_list_string_value_at__SWIG_0(swigCPtr, this, i, default_val);
+  public string_view list_string_value_at(int i, string_view default_val) {
+    return new string_view(libtorrent_jni.bdecode_node_list_string_value_at__SWIG_0(swigCPtr, this, i, string_view.getCPtr(default_val), default_val), true);
   }
 
-  public String list_string_value_at(int i) {
-    return libtorrent_jni.bdecode_node_list_string_value_at__SWIG_1(swigCPtr, this, i);
+  public string_view list_string_value_at(int i) {
+    return new string_view(libtorrent_jni.bdecode_node_list_string_value_at__SWIG_1(swigCPtr, this, i), true);
   }
 
   public long list_int_value_at(int i, long default_val) {
@@ -75,44 +75,44 @@ public class bdecode_node {
     return libtorrent_jni.bdecode_node_list_size(swigCPtr, this);
   }
 
-  public bdecode_node dict_find(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find(swigCPtr, this, key), true);
+  public bdecode_node dict_find(string_view key) {
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find(swigCPtr, this, string_view.getCPtr(key), key), true);
   }
 
-  public string_bdecode_node_pair dict_at(int i) {
-    return new string_bdecode_node_pair(libtorrent_jni.bdecode_node_dict_at(swigCPtr, this, i), true);
+  public string_view_bdecode_node_pair dict_at(int i) {
+    return new string_view_bdecode_node_pair(libtorrent_jni.bdecode_node_dict_at(swigCPtr, this, i), true);
   }
 
-  public bdecode_node dict_find_dict(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_dict(swigCPtr, this, key), true);
+  public bdecode_node dict_find_dict(string_view key) {
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_dict(swigCPtr, this, string_view.getCPtr(key), key), true);
   }
 
-  public bdecode_node dict_find_list(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_list(swigCPtr, this, key), true);
+  public bdecode_node dict_find_list(string_view key) {
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_list(swigCPtr, this, string_view.getCPtr(key), key), true);
   }
 
-  public bdecode_node dict_find_string(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_string(swigCPtr, this, key), true);
+  public bdecode_node dict_find_string(string_view key) {
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_string(swigCPtr, this, string_view.getCPtr(key), key), true);
   }
 
-  public bdecode_node dict_find_int(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_int(swigCPtr, this, key), true);
+  public bdecode_node dict_find_int(string_view key) {
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_int(swigCPtr, this, string_view.getCPtr(key), key), true);
   }
 
-  public String dict_find_string_value(String key, String default_value) {
-    return libtorrent_jni.bdecode_node_dict_find_string_value__SWIG_0(swigCPtr, this, key, default_value);
+  public string_view dict_find_string_value(string_view key, string_view default_value) {
+    return new string_view(libtorrent_jni.bdecode_node_dict_find_string_value__SWIG_0(swigCPtr, this, string_view.getCPtr(key), key, string_view.getCPtr(default_value), default_value), true);
   }
 
-  public String dict_find_string_value(String key) {
-    return libtorrent_jni.bdecode_node_dict_find_string_value__SWIG_1(swigCPtr, this, key);
+  public string_view dict_find_string_value(string_view key) {
+    return new string_view(libtorrent_jni.bdecode_node_dict_find_string_value__SWIG_1(swigCPtr, this, string_view.getCPtr(key), key), true);
   }
 
-  public long dict_find_int_value(String key, long default_val) {
-    return libtorrent_jni.bdecode_node_dict_find_int_value__SWIG_0(swigCPtr, this, key, default_val);
+  public long dict_find_int_value(string_view key, long default_val) {
+    return libtorrent_jni.bdecode_node_dict_find_int_value__SWIG_0(swigCPtr, this, string_view.getCPtr(key), key, default_val);
   }
 
-  public long dict_find_int_value(String key) {
-    return libtorrent_jni.bdecode_node_dict_find_int_value__SWIG_1(swigCPtr, this, key);
+  public long dict_find_int_value(string_view key) {
+    return libtorrent_jni.bdecode_node_dict_find_int_value__SWIG_1(swigCPtr, this, string_view.getCPtr(key), key);
   }
 
   public int dict_size() {
@@ -123,8 +123,8 @@ public class bdecode_node {
     return libtorrent_jni.bdecode_node_int_value(swigCPtr, this);
   }
 
-  public String string_value() {
-    return libtorrent_jni.bdecode_node_string_value(swigCPtr, this);
+  public string_view string_value() {
+    return new string_view(libtorrent_jni.bdecode_node_string_value(swigCPtr, this), true);
   }
 
   public int string_length() {

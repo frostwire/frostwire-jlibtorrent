@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.file_slice_vector;
-import com.frostwire.jlibtorrent.swig.file_storage;
-import com.frostwire.jlibtorrent.swig.string_vector;
-import com.frostwire.jlibtorrent.swig.torrent_info;
+import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -99,7 +96,7 @@ public final class FileStorage {
      * @see com.frostwire.jlibtorrent.FileStorage.Flags
      */
     public void addFile(String path, long fileSize, Flags fileFlags, int mtime, String symlinkPath) {
-        fs.add_file(path, fileSize, fileFlags.swig(), mtime, symlinkPath);
+        fs.add_file(path, fileSize, fileFlags.swig(), mtime, new string_view(symlinkPath));
     }
 
     /**
@@ -346,7 +343,7 @@ public final class FileStorage {
      * @return
      */
     public String fileName(int index) {
-        return fs.file_name(index);
+        return fs.file_name(index).to_string();
     }
 
     /**

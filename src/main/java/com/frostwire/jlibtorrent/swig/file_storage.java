@@ -39,8 +39,8 @@ public class file_storage {
     this(libtorrent_jni.new_file_storage__SWIG_0(), true);
   }
 
-  public file_storage(file_storage f) {
-    this(libtorrent_jni.new_file_storage__SWIG_1(file_storage.getCPtr(f), f), true);
+  public file_storage(file_storage arg0) {
+    this(libtorrent_jni.new_file_storage__SWIG_1(file_storage.getCPtr(arg0), arg0), true);
   }
 
   public boolean is_valid() {
@@ -51,8 +51,8 @@ public class file_storage {
     libtorrent_jni.file_storage_reserve(swigCPtr, this, num_files);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, long file_flags, String filehash, long mtime, String symlink_path) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_0(swigCPtr, this, filename, filename_len, path, file_size, file_flags, filehash, mtime, symlink_path);
+  public void add_file_borrow(String filename, int filename_len, String path, long file_size, long file_flags, String filehash, long mtime, string_view symlink_path) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_0(swigCPtr, this, filename, filename_len, path, file_size, file_flags, filehash, mtime, string_view.getCPtr(symlink_path), symlink_path);
   }
 
   public void add_file_borrow(String filename, int filename_len, String path, long file_size, long file_flags, String filehash, long mtime) {
@@ -71,8 +71,8 @@ public class file_storage {
     libtorrent_jni.file_storage_add_file_borrow__SWIG_4(swigCPtr, this, filename, filename_len, path, file_size);
   }
 
-  public void add_file(String path, long file_size, int file_flags, int mtime, String symlink_path) {
-    libtorrent_jni.file_storage_add_file__SWIG_0(swigCPtr, this, path, file_size, file_flags, mtime, symlink_path);
+  public void add_file(String path, long file_size, int file_flags, int mtime, string_view symlink_path) {
+    libtorrent_jni.file_storage_add_file__SWIG_0(swigCPtr, this, path, file_size, file_flags, mtime, string_view.getCPtr(symlink_path), symlink_path);
   }
 
   public void add_file(String path, long file_size, int file_flags, int mtime) {
@@ -183,8 +183,8 @@ public class file_storage {
     return libtorrent_jni.file_storage_file_path__SWIG_1(swigCPtr, this, index);
   }
 
-  public String file_name(int index) {
-    return libtorrent_jni.file_storage_file_name(swigCPtr, this, index);
+  public string_view file_name(int index) {
+    return new string_view(libtorrent_jni.file_storage_file_name(swigCPtr, this, index), true);
   }
 
   public long file_size(int index) {

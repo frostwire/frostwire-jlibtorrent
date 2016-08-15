@@ -35,20 +35,24 @@ public class session extends session_handle {
     super.delete();
   }
 
-  public session(settings_pack pack, int flags) {
-    this(libtorrent_jni.new_session__SWIG_0(settings_pack.getCPtr(pack), pack, flags), true);
-  }
-
-  public session(settings_pack pack) {
-    this(libtorrent_jni.new_session__SWIG_1(settings_pack.getCPtr(pack), pack), true);
+  public session(session_params params) {
+    this(libtorrent_jni.new_session__SWIG_0(session_params.getCPtr(params), params), true);
   }
 
   public session() {
-    this(libtorrent_jni.new_session__SWIG_2(), true);
+    this(libtorrent_jni.new_session__SWIG_1(), true);
+  }
+
+  public session(settings_pack pack, int flags) {
+    this(libtorrent_jni.new_session__SWIG_2(settings_pack.getCPtr(pack), pack, flags), true);
+  }
+
+  public session(settings_pack pack) {
+    this(libtorrent_jni.new_session__SWIG_3(settings_pack.getCPtr(pack), pack), true);
   }
 
   public session(session arg0) {
-    this(libtorrent_jni.new_session__SWIG_3(session.getCPtr(arg0), arg0), true);
+    this(libtorrent_jni.new_session__SWIG_4(session.getCPtr(arg0), arg0), true);
   }
 
   public session_proxy abort() {

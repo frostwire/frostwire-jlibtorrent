@@ -35,6 +35,14 @@ public class settings_pack {
     }
   }
 
+  public settings_pack() {
+    this(libtorrent_jni.new_settings_pack__SWIG_0(), true);
+  }
+
+  public settings_pack(settings_pack arg0) {
+    this(libtorrent_jni.new_settings_pack__SWIG_1(settings_pack.getCPtr(arg0), arg0), true);
+  }
+
   public void set_str(int name, String val) {
     libtorrent_jni.settings_pack_set_str(swigCPtr, this, name, val);
   }
@@ -65,10 +73,6 @@ public class settings_pack {
 
   public boolean get_bool(int name) {
     return libtorrent_jni.settings_pack_get_bool(swigCPtr, this, name);
-  }
-
-  public settings_pack() {
-    this(libtorrent_jni.new_settings_pack(), true);
   }
 
   public final static class type_bases {

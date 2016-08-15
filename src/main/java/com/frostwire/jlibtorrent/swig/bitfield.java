@@ -99,6 +99,14 @@ public class bitfield {
     return libtorrent_jni.bitfield_count(swigCPtr, this);
   }
 
+  public int find_first_set() {
+    return libtorrent_jni.bitfield_find_first_set(swigCPtr, this);
+  }
+
+  public int find_last_clear() {
+    return libtorrent_jni.bitfield_find_last_clear(swigCPtr, this);
+  }
+
   public void resize(int bits, boolean val) {
     libtorrent_jni.bitfield_resize__SWIG_0(swigCPtr, this, bits, val);
   }
