@@ -71,8 +71,8 @@ public class sha1_hash {
     return libtorrent_jni.sha1_hash_op_eq(swigCPtr, this, sha1_hash.getCPtr(n), n);
   }
 
-  public boolean op_neq(sha1_hash n) {
-    return libtorrent_jni.sha1_hash_op_neq(swigCPtr, this, sha1_hash.getCPtr(n), n);
+  public boolean op_ne(sha1_hash n) {
+    return libtorrent_jni.sha1_hash_op_ne(swigCPtr, this, sha1_hash.getCPtr(n), n);
   }
 
   public boolean op_lt(sha1_hash n) {

@@ -44,6 +44,7 @@
 #include "libtorrent/entry.hpp"
 #include "libtorrent/sha1_hash.hpp"
 #include "libtorrent/storage_defs.hpp"
+#include "libtorrent/storage.hpp"
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
@@ -255,6 +256,13 @@ namespace libtorrent {
 
     class sha1_hash;
 
+    namespace file {
+        struct iovec_t {
+            std::int64_t iov_base;
+            std::int64_t iov_len;
+        };
+    };
+
     template <int N>
     struct bloom_filter {
 
@@ -356,6 +364,7 @@ namespace libtorrent {
 
     %template(byte_span) span<char>;
     %template(byte_const_span) span<char const>;
+    %template(iovec_span) span<file::iovec_t const>;
 
     typedef std::vector<std::pair<std::string, int>> nodes_t;
 
@@ -377,12 +386,8 @@ typedef long time_t;
 %ignore libtorrent::bdecode;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
-%ignore libtorrent::is_read_operation;
-%ignore libtorrent::operation_has_buffer;
 %ignore libtorrent::internal_file_entry;
-%ignore libtorrent::time_critical_piece;
 %ignore libtorrent::print_entry;
-%ignore libtorrent::type_error;
 %ignore libtorrent::peer_class;
 %ignore libtorrent::peer_class_pool;
 
@@ -401,6 +406,15 @@ typedef long time_t;
 %ignore libtorrent::get_filesizes;
 %ignore libtorrent::parse_magnet_uri_peers;
 
+%ignore libtorrent::copy_bufs;
+%ignore libtorrent::advance_bufs;
+%ignore libtorrent::clear_bufs;
+%ignore libtorrent::storage_interface::settings;
+%ignore libtorrent::storage_interface::m_settings;
+%ignore libtorrent::default_storage;
+%ignore libtorrent::piece_manager;
+%ignore libtorrent::disk_job_fence;
+%ignore libtorrent::storage_piece_set;
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore libtorrent::add_torrent_params::extensions;
@@ -414,7 +428,7 @@ typedef long time_t;
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert::timestamp;
-%ignore libtorrent::session_params::session_params(settings_pack, std::vector<boost::shared_ptr<plugin>>);
+%ignore libtorrent::session_params::session_params(settings_pack, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(session_params&&);
 %ignore libtorrent::session_params::extensions;
 %ignore libtorrent::session_params::dht_storage_constructor;
@@ -616,8 +630,6 @@ typedef long time_t;
 
 %ignore operator=;
 %ignore operator!;
-%ignore operator<=;
-%ignore operator>=;
 %ignore operator++;
 %ignore operator--;
 %ignore operator+=;
@@ -637,9 +649,11 @@ typedef long time_t;
 %ignore operator unspecified_bool_type;
 
 %rename(op_eq) operator==;
-%rename(op_neq) operator!=;
+%rename(op_ne) operator!=;
 %rename(op_lt) operator<;
 %rename(op_gt) operator>;
+%rename(op_lte) operator<=;
+%rename(op_gte) operator>=;
 %rename(op_bool) operator bool;
 
 %rename(libtorrent_no_error) libtorrent::errors::no_error;
@@ -658,6 +672,7 @@ typedef long time_t;
 %include "libtorrent/entry.hpp"
 %include "libtorrent/sha1_hash.hpp"
 %include "libtorrent/storage_defs.hpp"
+%include "libtorrent/storage.hpp"
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/torrent_handle.hpp"

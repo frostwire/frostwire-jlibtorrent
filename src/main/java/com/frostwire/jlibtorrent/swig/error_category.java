@@ -59,8 +59,8 @@ public class error_category {
     return libtorrent_jni.error_category_op_eq(swigCPtr, this, error_category.getCPtr(rhs), rhs);
   }
 
-  public boolean op_neq(error_category rhs) {
-    return libtorrent_jni.error_category_op_neq(swigCPtr, this, error_category.getCPtr(rhs), rhs);
+  public boolean op_ne(error_category rhs) {
+    return libtorrent_jni.error_category_op_ne(swigCPtr, this, error_category.getCPtr(rhs), rhs);
   }
 
   public boolean op_lt(error_category rhs) {

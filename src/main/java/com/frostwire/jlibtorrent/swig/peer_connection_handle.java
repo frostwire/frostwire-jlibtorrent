@@ -155,8 +155,8 @@ public class peer_connection_handle {
     return libtorrent_jni.peer_connection_handle_op_eq(swigCPtr, this, peer_connection_handle.getCPtr(o), o);
   }
 
-  public boolean op_neq(peer_connection_handle o) {
-    return libtorrent_jni.peer_connection_handle_op_neq(swigCPtr, this, peer_connection_handle.getCPtr(o), o);
+  public boolean op_ne(peer_connection_handle o) {
+    return libtorrent_jni.peer_connection_handle_op_ne(swigCPtr, this, peer_connection_handle.getCPtr(o), o);
   }
 
   public boolean op_lt(peer_connection_handle o) {

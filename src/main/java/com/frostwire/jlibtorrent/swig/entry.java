@@ -71,8 +71,8 @@ public class entry {
     return libtorrent_jni.entry_op_eq(swigCPtr, this, entry.getCPtr(e), e);
   }
 
-  public boolean op_neq(entry e) {
-    return libtorrent_jni.entry_op_neq(swigCPtr, this, entry.getCPtr(e), e);
+  public boolean op_ne(entry e) {
+    return libtorrent_jni.entry_op_ne(swigCPtr, this, entry.getCPtr(e), e);
   }
 
   public long integer() {

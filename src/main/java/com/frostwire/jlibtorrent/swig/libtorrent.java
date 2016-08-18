@@ -25,28 +25,28 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.op_lt__SWIG_1(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
   }
 
-  public static boolean op_neq(error_code lhs, error_code rhs) {
-    return libtorrent_jni.op_neq__SWIG_0(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
+  public static boolean op_ne(error_code lhs, error_code rhs) {
+    return libtorrent_jni.op_ne__SWIG_0(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
   }
 
-  public static boolean op_neq(error_condition lhs, error_condition rhs) {
-    return libtorrent_jni.op_neq__SWIG_1(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
+  public static boolean op_ne(error_condition lhs, error_condition rhs) {
+    return libtorrent_jni.op_ne__SWIG_1(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
   }
 
   public static boolean op_eq(error_code code, error_condition condition) {
     return libtorrent_jni.op_eq__SWIG_2(error_code.getCPtr(code), code, error_condition.getCPtr(condition), condition);
   }
 
-  public static boolean op_neq(error_code lhs, error_condition rhs) {
-    return libtorrent_jni.op_neq__SWIG_2(error_code.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
+  public static boolean op_ne(error_code lhs, error_condition rhs) {
+    return libtorrent_jni.op_ne__SWIG_2(error_code.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
   }
 
   public static boolean op_eq(error_condition condition, error_code code) {
     return libtorrent_jni.op_eq__SWIG_3(error_condition.getCPtr(condition), condition, error_code.getCPtr(code), code);
   }
 
-  public static boolean op_neq(error_condition lhs, error_code rhs) {
-    return libtorrent_jni.op_neq__SWIG_3(error_condition.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
+  public static boolean op_ne(error_condition lhs, error_code rhs) {
+    return libtorrent_jni.op_ne__SWIG_3(error_condition.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
   }
 
   public static long hash_value(error_code ec) {
@@ -111,6 +111,10 @@ public class libtorrent implements libtorrentConstants {
 
   public static void TORRENT_CFG() {
     libtorrent_jni.TORRENT_CFG();
+  }
+
+  public static boolean op_lte(address lhs, address rhs) {
+    return libtorrent_jni.op_lte(address.getCPtr(lhs), lhs, address.getCPtr(rhs), rhs);
   }
 
   public static error_category get_bdecode_category() {

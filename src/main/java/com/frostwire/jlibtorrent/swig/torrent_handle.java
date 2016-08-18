@@ -351,8 +351,8 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_op_eq(swigCPtr, this, torrent_handle.getCPtr(h), h);
   }
 
-  public boolean op_neq(torrent_handle h) {
-    return libtorrent_jni.torrent_handle_op_neq(swigCPtr, this, torrent_handle.getCPtr(h), h);
+  public boolean op_ne(torrent_handle h) {
+    return libtorrent_jni.torrent_handle_op_ne(swigCPtr, this, torrent_handle.getCPtr(h), h);
   }
 
   public boolean op_lt(torrent_handle h) {
