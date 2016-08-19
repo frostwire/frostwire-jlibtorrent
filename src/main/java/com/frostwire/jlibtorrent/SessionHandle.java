@@ -31,7 +31,7 @@ public class SessionHandle {
      * encryption settings and proxy settings. {@link #saveState(long)}
      * internally writes all keys to an {@link entry} that's passed in,
      * which needs to either not be initialized, or initialized as a dictionary.
-     * <p/>
+     * <p>
      * The {@code flags} argument passed in to this method can be used to
      * filter which parts of the session state to save. By default, all state
      * is saved (except for the individual torrents).
@@ -60,10 +60,10 @@ public class SessionHandle {
     /**
      * Loads all session settings, including DHT settings,
      * encryption settings and proxy settings.
-     * <p/>
+     * <p>
      * {@link #loadState(byte[], long)} expects a byte array that it is a
      * bencoded buffer.
-     * <p/>
+     * <p>
      * The {@code flags} argument passed in to this method can be used to
      * filter which parts of the session state to load. By default, all state
      * is restored (except for the individual torrents).
@@ -109,7 +109,7 @@ public class SessionHandle {
      * Looks for a torrent with the given info-hash. In case there is such
      * a torrent in the session, a {@link TorrentHandle} to that torrent
      * is returned.
-     * <p/>
+     * <p>
      * In case the torrent cannot be found, a null is returned.
      *
      * @param infoHash

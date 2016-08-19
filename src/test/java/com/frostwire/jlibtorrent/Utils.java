@@ -50,7 +50,7 @@ public final class Utils {
 
     /**
      * Gets the name minus the path from a full filename.
-     * <p/>
+     * <p>
      * This method will handle a file in either Unix or Windows format.
      * The text after the last forward or backslash is returned.
      * <pre>
@@ -59,7 +59,7 @@ public final class Utils {
      * a/b/c     --> c
      * a/b/c/    --> ""
      * </pre>
-     * <p/>
+     * <p>
      * The output will be the same irrespective of the machine that the code is running on.
      *
      * @param filename the filename to query, null returns null
@@ -75,7 +75,7 @@ public final class Utils {
 
     /**
      * Gets the base name, minus the full path and extension, from a full filename.
-     * <p/>
+     * <p>
      * This method will handle a file in either Unix or Windows format.
      * The text after the last forward or backslash and before the last dot is returned.
      * <pre>
@@ -84,7 +84,7 @@ public final class Utils {
      * a/b/c     --> c
      * a/b/c/    --> ""
      * </pre>
-     * <p/>
+     * <p>
      * The output will be the same irrespective of the machine that the code is running on.
      *
      * @param filename the filename to query, null returns null
@@ -98,7 +98,7 @@ public final class Utils {
 
     /**
      * Removes the extension from a filename.
-     * <p/>
+     * <p>
      * This method returns the textual part of the filename before the last dot.
      * There must be no directory separator after the dot.
      * <pre>
@@ -107,7 +107,7 @@ public final class Utils {
      * a\b\c      --> a\b\c
      * a.b\c      --> a.b\c
      * </pre>
-     * <p/>
+     * <p>
      * The output will be the same irrespective of the machine that the code is running on.
      *
      * @param filename the filename to query, null returns null
@@ -127,11 +127,11 @@ public final class Utils {
 
     /**
      * Returns the index of the last extension separator character, which is a dot.
-     * <p/>
+     * <p>
      * This method also checks that there is no directory separator after the last dot.
      * To do this it uses {@link #indexOfLastSeparator(String)} which will
      * handle a file in either Unix or Windows format.
-     * <p/>
+     * <p>
      * The output will be the same irrespective of the machine that the code is running on.
      *
      * @param filename the filename to find the last path separator in, null returns -1
@@ -149,10 +149,10 @@ public final class Utils {
 
     /**
      * Returns the index of the last directory separator character.
-     * <p/>
+     * <p>
      * This method will handle a file in either Unix or Windows format.
      * The position of the last forward or backslash is returned.
-     * <p/>
+     * <p>
      * The output will be the same irrespective of the machine that the code is running on.
      *
      * @param filename the filename to find the last path separator in, null returns -1
@@ -235,10 +235,10 @@ public final class Utils {
     /**
      * Opens a {@link java.io.FileInputStream} for the specified file, providing better
      * error messages than simply calling <code>new FileInputStream(file)</code>.
-     * <p/>
+     * <p>
      * At the end of the method either the stream will be successfully opened,
      * or an exception will have been thrown.
-     * <p/>
+     * <p>
      * An exception is thrown if the file does not exist.
      * An exception is thrown if the file object exists but is a directory.
      * An exception is thrown if the file exists but cannot be read.

@@ -11,7 +11,7 @@ import com.frostwire.jlibtorrent.swig.read_piece_alert;
  * is 0. If successful, {@link #bufferPtr()} points to a buffer containing all the data
  * of the piece. {@link #piece()} is the piece index that was read. {@link #size()}
  * is the number of bytes that was read.
- * <p/>
+ * <p>
  * If the operation fails, {@link #ec()} will indicate what went wrong.
  *
  * @author gubatron

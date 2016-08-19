@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * This type holds a SHA-1 digest or any other kind of 20 byte
  * sequence. It implements a number of convenience functions, such
  * as bit operations, comparison operators etc.
- * <p/>
+ * <p>
  * In libtorrent it is primarily used to hold info-hashes, piece-hashes,
  * peer IDs, node IDs etc.
  *
@@ -70,19 +70,15 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
         return h.count_leading_zeroes();
     }
 
-    public byte[] toBytes() {
-        return Vectors.byte_vector2bytes(h.to_bytes());
-    }
-
     /**
      * Returns the hex representation of this has.
-     * <p/>
+     * <p>
      * This method uses internally the libtorrent to_hex function.
      *
      * @return
      */
     public String toHex() {
-        return Hex.encode(toBytes());
+        return h.to_hex();
     }
 
     @Override

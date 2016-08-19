@@ -62,7 +62,7 @@ public final class SettingsPack {
     /**
      * Sets the session-global limits of download rate limit, in
      * bytes per second.
-     * <p/>
+     * <p>
      * A value of 0 means unlimited.
      *
      * @param value
@@ -81,7 +81,7 @@ public final class SettingsPack {
     /**
      * Sets the session-global limits of upload rate limit, in
      * bytes per second.
-     * <p/>
+     * <p>
      * A value of 0 means unlimited.
      *
      * @param value
@@ -100,23 +100,23 @@ public final class SettingsPack {
     /**
      * {@code active_downloads} controls how many active
      * downloading torrents the queuing mechanism allows.
-     * <p/>
+     * <p>
      * The target number of active torrents is {@code min(active_downloads +
      * active_seeds, active_limit)}. {@code active_downloads} and
      * {@code active_seeds} are upper limits on the number of downloading
      * torrents and seeding torrents respectively. Setting the value to -1
      * means unlimited.
-     * <p/>
+     * <p>
      * For auto managed torrents, these are the limits they are subject to.
      * If there are too many torrents some of the auto managed ones will be
      * paused until some slots free up.
-     * <p/>
+     * <p>
      * You can have more torrents *active*, even though they are not
      * announced to the DHT, lsd or their tracker. If some peer knows about
      * you for any reason and tries to connect, it will still be accepted,
      * unless the torrent is paused, which means it won't accept any
      * connections.
-     * <p/>
+     * <p>
      * For example if there are 10 seeding torrents and 10 downloading
      * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
      * there will be 4 seeds active and 4 downloading torrents. If the
@@ -330,7 +330,7 @@ public final class SettingsPack {
      * This should be set to at least 16 kB to not completely disrupt normal
      * downloads. If it's set to 0, you will be starving the disk thread and
      * nothing will be written to disk. this is a per session setting.
-     * <p/>
+     * <p>
      * When this limit is reached, the peer connections will stop reading
      * data from their sockets, until the disk thread catches up. Setting
      * this too low will severly limit your download rate.
@@ -351,7 +351,7 @@ public final class SettingsPack {
 
     /**
      * Sets the upper limit of the send buffer low-watermark.
-     * <p/>
+     * <p>
      * if the send buffer has fewer bytes than this, we'll read another 16kB
      * block onto it. If set too small, upload rate capacity will suffer. If
      * set too high, memory will be wasted. The actual watermark may be lower
@@ -379,7 +379,7 @@ public final class SettingsPack {
      * automatically set to the amount of physical RAM available in the
      * machine divided by 8. If the amount of physical RAM cannot be
      * determined, it's set to 1024 (= 16 MiB).
-     * <p/>
+     * <p>
      * Disk buffers are allocated using a pool allocator, the number of
      * blocks that are allocated at a time when the pool needs to grow can be
      * specified in ``cache_buffer_chunk_size``. This defaults to 16 blocks.
@@ -435,7 +435,7 @@ public final class SettingsPack {
      * client's fingerprint. The user-agent will be reset to an empty string.
      * It will also try to not leak other identifying information, such as
      * your local listen port, your IP etc.
-     * <p/>
+     * <p>
      * If you're using I2P, a VPN or a proxy, it might make sense to enable
      * anonymous mode.
      *

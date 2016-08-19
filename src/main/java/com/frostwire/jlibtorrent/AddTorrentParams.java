@@ -17,7 +17,7 @@ import java.util.List;
  * {@link #savePath()}. The {@link AddTorrentParams} object is passed into one of the
  * {@link SessionHandle#addTorrent(AddTorrentParams, ErrorCode)} overloads or
  * {@link SessionHandle#asyncAddTorrent(AddTorrentParams)}.
- * <p/>
+ * <p>
  * If you only specify the info-hash, the torrent file will be downloaded
  * from peers, which requires them to support the metadata extension. It also
  * takes an optional {@link #name()} argument. This may be left empty in case no
@@ -166,7 +166,7 @@ public final class AddTorrentParams {
      * also be stored in resume data. If you want the save path saved in
      * the resume data to be used, you need to set the
      * flag_use_resume_save_path flag.
-     * <p/>
+     * <p>
      * .. note::
      * On windows this path (and other paths) are interpreted as UNC
      * paths. This means they must use backslashes as directory separators
@@ -182,7 +182,7 @@ public final class AddTorrentParams {
      * also be stored in resume data. If you want the save path saved in
      * the resume data to be used, you need to set the
      * flag_use_resume_save_path flag.
-     * <p/>
+     * <p>
      * .. note::
      * On windows this path (and other paths) are interpreted as UNC
      * paths. This means they must use backslashes as directory separators
@@ -262,7 +262,7 @@ public final class AddTorrentParams {
      * be stopped and the torrent error state (``torrent_status::error``)
      * will indicate what went wrong. The ``url`` may refer to a magnet link
      * or a regular http URL.
-     * <p/>
+     * <p>
      * If it refers to an HTTP URL, the info-hash for the added torrent will
      * not be the true info-hash of the .torrent. Instead a placeholder,
      * unique, info-hash is used which is later updated once the .torrent
@@ -281,7 +281,7 @@ public final class AddTorrentParams {
      * be stopped and the torrent error state (``torrent_status::error``)
      * will indicate what went wrong. The ``url`` may refer to a magnet link
      * or a regular http URL.
-     * <p/>
+     * <p>
      * If it refers to an HTTP URL, the info-hash for the added torrent will
      * not be the true info-hash of the .torrent. Instead a placeholder,
      * unique, info-hash is used which is later updated once the .torrent

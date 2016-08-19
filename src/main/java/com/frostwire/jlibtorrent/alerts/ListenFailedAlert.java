@@ -10,7 +10,7 @@ import com.frostwire.jlibtorrent.swig.listen_failed_alert;
  * session can be opened for listening. The {@link #listenInterface()} member is the
  * interface and port that failed, {@link #error()} is the error code describing
  * the failure.
- * <p/>
+ * <p>
  * In the case an endpoint was created before generating the alert, it is
  * represented by ``address`` and ``port``. The combinations of socket type
  * and operation in which such address and port are not valid are:

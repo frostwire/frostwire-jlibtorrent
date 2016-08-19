@@ -23,7 +23,7 @@ public final class TorrentInfo {
 
     /**
      * Load the torrent file and decode it inside the constructor, for convenience.
-     * <p/>
+     * <p>
      * This might not be the most suitable for applications that
      * want to be able to report detailed errors on what might go wrong.
      *
@@ -40,7 +40,7 @@ public final class TorrentInfo {
     /**
      * The {@link com.frostwire.jlibtorrent.FileStorage} object contains the information on
      * how to map the pieces to files.
-     * <p/>
+     * <p>
      * It is separated from the {@link TorrentInfo} object because when creating torrents
      * a storage object needs to be created without having a torrent file. When renaming files
      * in a storage, the storage needs to make its own copy of the {@link FileStorage} in order
@@ -124,7 +124,7 @@ public final class TorrentInfo {
 
     /**
      * Will return a sorted list with the trackers of this torrent info.
-     * <p/>
+     * <p>
      * Each announce entry contains a string, which is the tracker url, and a tier index. The
      * tier index is the high-level priority. No matter which trackers that works or not, the
      * ones with lower tier will always be tried before the one with higher tier number.
@@ -192,12 +192,12 @@ public final class TorrentInfo {
     /**
      * Adds one url to the list of url seeds. Currently, the only transport protocol
      * supported for the url is http.
-     * <p/>
+     * <p>
      * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
-     * <p/>
+     * <p>
      * This is the same as calling {@link #addUrlSeed(String, String, List)} with an
      * empty list.
      *
@@ -211,12 +211,12 @@ public final class TorrentInfo {
     /**
      * Adds one url to the list of url seeds. Currently, the only transport protocol
      * supported for the url is http.
-     * <p/>
+     * <p>
      * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
-     * <p/>
+     * <p>
      * The {@code extraHeaders} argument can be used to insert custom HTTP headers
      * in the requests to a specific web seed.
      *
@@ -247,7 +247,7 @@ public final class TorrentInfo {
     /**
      * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
      * is http.
-     * <p/>
+     * <p>
      * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
@@ -263,12 +263,12 @@ public final class TorrentInfo {
     /**
      * Adds one url to the list of http seeds. Currently, the only transport protocol supported
      * for the url is http.
-     * <p/>
+     * <p>
      * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
-     * <p/>
+     * <p>
      * The {@code extraHeaders} argument defaults to an empty list, but can be used to
      * insert custom HTTP headers in the requests to a specific web seed.
      *
@@ -331,7 +331,7 @@ public final class TorrentInfo {
 
     /**
      * The number of byte for each piece.
-     * <p/>
+     * <p>
      * The difference between {@link #pieceSize(int)} and {@link #pieceLength()} is that
      * {@link #pieceSize(int)} takes the piece index as argument and gives you the exact size
      * of that piece. It will always be the same as {@link #pieceLength()} except in the case
@@ -390,7 +390,7 @@ public final class TorrentInfo {
      * This function will map a range in a specific file into a range in the torrent.
      * The {@code offset} parameter is the offset in the file, given in bytes, where
      * 0 is the start of the file.
-     * <p/>
+     * <p>
      * The input range is assumed to be valid within the torrent. {@code offset + size}
      * is not allowed to be greater than the file size. {@code index}
      * must refer to a valid file, i.e. it cannot be {@code >= numFiles()}.
@@ -418,7 +418,7 @@ public final class TorrentInfo {
 
     /**
      * Returns true if this torrent_info object has a torrent loaded.
-     * <p/>
+     * <p>
      * This is primarily used to determine if a magnet link has had its
      * metadata resolved yet or not.
      *
@@ -503,7 +503,7 @@ public final class TorrentInfo {
 
     /**
      * returns the name of the torrent.
-     * <p/>
+     * <p>
      * the name is an UTF-8 encoded strings.
      *
      * @return
@@ -536,7 +536,7 @@ public final class TorrentInfo {
     /**
      * returns the comment associated with the torrent. If there's no comment,
      * it will return an empty string.
-     * <p/>
+     * <p>
      * the comment is an UTF-8 encoded strings.
      *
      * @return
@@ -601,7 +601,7 @@ public final class TorrentInfo {
     /**
      * Generates a magnet URI from the specified torrent. If the torrent
      * is invalid, null is returned.
-     * <p/>
+     * <p>
      * For more information about magnet links, see magnet-links_.
      *
      * @return

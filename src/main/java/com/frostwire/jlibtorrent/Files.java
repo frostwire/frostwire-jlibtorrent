@@ -48,10 +48,10 @@ final class Files {
     /**
      * Opens a {@link java.io.FileInputStream} for the specified file, providing better
      * error messages than simply calling <code>new FileInputStream(file)</code>.
-     * <p/>
+     * <p>
      * At the end of the method either the stream will be successfully opened,
      * or an exception will have been thrown.
-     * <p/>
+     * <p>
      * An exception is thrown if the file does not exist.
      * An exception is thrown if the file object exists but is a directory.
      * An exception is thrown if the file exists but cannot be read.
@@ -141,10 +141,10 @@ final class Files {
 
     /**
      * Unconditionally close an <code>InputStream</code>.
-     * <p/>
+     * <p>
      * Equivalent to {@link InputStream#close()}, except any exceptions will be ignored.
      * This is typically used in finally blocks.
-     * <p/>
+     * <p>
      * Example code:
      * <pre>
      *   byte[] data = new byte[1024];
@@ -168,10 +168,10 @@ final class Files {
 
     /**
      * Unconditionally close a <code>Closeable</code>.
-     * <p/>
+     * <p>
      * Equivalent to {@link java.io.Closeable#close()}, except any exceptions will be ignored.
      * This is typically used in finally blocks.
-     * <p/>
+     * <p>
      * Example code:
      * <pre>
      *   Closeable closeable = null;

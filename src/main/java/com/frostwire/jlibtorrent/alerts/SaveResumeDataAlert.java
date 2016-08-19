@@ -18,7 +18,7 @@ public final class SaveResumeDataAlert extends TorrentAlert<save_resume_data_ale
 
     /**
      * Points to the resume data.
-     * <p/>
+     * <p>
      * Node: This method trigger an internal copy (in the native side) of the entry.
      *
      * @return

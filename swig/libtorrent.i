@@ -453,11 +453,11 @@ typedef long time_t;
 %ignore libtorrent::partial_piece_info::blocks;
 %ignore libtorrent::sha1_hash::sha1_hash(char const*);
 %ignore libtorrent::sha1_hash::sha1_hash(std::string const&);
+%ignore libtorrent::sha1_hash::sha1_hash(span<char const>);
 %ignore libtorrent::sha1_hash::begin;
 %ignore libtorrent::sha1_hash::end;
 %ignore libtorrent::sha1_hash::operator[];
-%ignore libtorrent::sha1_hash::assign(char const*);
-%ignore libtorrent::sha1_hash::assign(std::string const&);
+%ignore libtorrent::sha1_hash::assign;
 %ignore libtorrent::sha1_hash::data;
 %ignore libtorrent::sha1_hash::to_string;
 %ignore libtorrent::entry::entry(entry&&);
@@ -980,8 +980,9 @@ namespace libtorrent {
 }
 
 %extend sha1_hash {
-    sha1_hash(std::vector<int8_t> const& s) {
-        return new sha1_hash(std::string(s.begin(), s.end()));
+
+    sha1_hash(std::vector<int8_t> const& v) {
+        return new sha1_hash(v);
     }
 
     int hash_code() {
@@ -993,9 +994,8 @@ namespace libtorrent {
         return result;
     }
 
-    std::vector<int8_t> to_bytes() {
-        std::string s = $self->to_string();
-        return std::vector<int8_t>(s.begin(), s.end());
+    std::string to_hex() {
+        return aux::to_hex(*$self);
     }
 
     static int compare(const sha1_hash& h1, const sha1_hash& h2) {

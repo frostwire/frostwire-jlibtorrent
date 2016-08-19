@@ -22,7 +22,7 @@ public final class SessionStatsAlert extends AbstractAlert<session_stats_alert> 
      * The internal values are a mix of counters and gauges, which
      * meanings can be queries via the
      * {@link com.frostwire.jlibtorrent.LibTorrent#sessionStatsMetrics()} function.
-     * <p/>
+     * <p>
      * The mapping from a specific metric to an index into this array is constant for a
      * specific version of libtorrent, but may differ for other versions. The intended
      * usage is to request the mapping, i.e. call

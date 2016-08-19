@@ -15,7 +15,7 @@ import java.util.List;
  * created, the session object will spawn the main thread that will do all
  * the work. The main thread will be idle as long it doesn't have any
  * torrents to participate in.
- * <p/>
+ * <p>
  * This class belongs to a middle logical layer of abstraction. It's a wrapper
  * of the underlying swig session object (from libtorrent), but it does not
  * expose all the raw features, not expose a very high level interface
@@ -82,7 +82,7 @@ public final class Session extends SessionHandle {
      * This constructor allow you to specify the listen interfaces in the
      * same format libtorrent accepts. Like for example, IPv4+IPv6 in the
      * first available port: "0.0.0.0:0,[::]:0".
-     * <p/>
+     * <p>
      * The {@code retries} parameter correspond to the internal libtorrent
      * setting of {@code max_retry_port_bind}. That is: if binding to a
      * specific port fails, should the port be incremented by one and tried
@@ -114,19 +114,19 @@ public final class Session extends SessionHandle {
      * efficiently, consider using async_add_torrent() which returns
      * immediately, without waiting for the torrent to add. Notification of
      * the torrent being added is sent as add_torrent_alert.
-     * <p/>
+     * <p>
      * The overload that does not take an error_code throws an exception on
      * error and is not available when building without exception support.
      * The torrent_handle returned by add_torrent() can be used to retrieve
      * information about the torrent's progress, its peers etc. It is also
      * used to abort a torrent.
-     * <p/>
+     * <p>
      * If the torrent you are trying to add already exists in the session (is
      * either queued for checking, being checked or downloading)
      * ``add_torrent()`` will throw libtorrent_exception which derives from
      * ``std::exception`` unless duplicate_is_error is set to false. In that
      * case, add_torrent() will return the handle to the existing torrent.
-     * <p/>
+     * <p>
      * all torrent_handles must be destructed before the session is destructed!
      *
      * @param ti
@@ -147,19 +147,19 @@ public final class Session extends SessionHandle {
      * efficiently, consider using async_add_torrent() which returns
      * immediately, without waiting for the torrent to add. Notification of
      * the torrent being added is sent as add_torrent_alert.
-     * <p/>
+     * <p>
      * The overload that does not take an error_code throws an exception on
      * error and is not available when building without exception support.
      * The torrent_handle returned by add_torrent() can be used to retrieve
      * information about the torrent's progress, its peers etc. It is also
      * used to abort a torrent.
-     * <p/>
+     * <p>
      * If the torrent you are trying to add already exists in the session (is
      * either queued for checking, being checked or downloading)
      * ``add_torrent()`` will throw libtorrent_exception which derives from
      * ``std::exception`` unless duplicate_is_error is set to false. In that
      * case, add_torrent() will return the handle to the existing torrent.
-     * <p/>
+     * <p>
      * all torrent_handles must be destructed before the session is destructed!
      *
      * @param torrent
@@ -179,19 +179,19 @@ public final class Session extends SessionHandle {
      * efficiently, consider using async_add_torrent() which returns
      * immediately, without waiting for the torrent to add. Notification of
      * the torrent being added is sent as add_torrent_alert.
-     * <p/>
+     * <p>
      * The overload that does not take an error_code throws an exception on
      * error and is not available when building without exception support.
      * The torrent_handle returned by add_torrent() can be used to retrieve
      * information about the torrent's progress, its peers etc. It is also
      * used to abort a torrent.
-     * <p/>
+     * <p>
      * If the torrent you are trying to add already exists in the session (is
      * either queued for checking, being checked or downloading)
      * ``add_torrent()`` will throw libtorrent_exception which derives from
      * ``std::exception`` unless duplicate_is_error is set to false. In that
      * case, add_torrent() will return the handle to the existing torrent.
-     * <p/>
+     * <p>
      * all torrent_handles must be destructed before the session is destructed!
      *
      * @param torrent
@@ -206,7 +206,7 @@ public final class Session extends SessionHandle {
      * In order to add torrents more efficiently, consider using this which returns
      * immediately, without waiting for the torrent to add. Notification of
      * the torrent being added is sent as {@link com.frostwire.jlibtorrent.alerts.AddTorrentAlert}.
-     * <p/>
+     * <p>
      * If the torrent you are trying to add already exists in the session (is
      * either queued for checking, being checked or downloading)
      * ``add_torrent()`` will throw libtorrent_exception which derives from
@@ -230,19 +230,19 @@ public final class Session extends SessionHandle {
      * efficiently, consider using async_add_torrent() which returns
      * immediately, without waiting for the torrent to add. Notification of
      * the torrent being added is sent as add_torrent_alert.
-     * <p/>
+     * <p>
      * The overload that does not take an error_code throws an exception on
      * error and is not available when building without exception support.
      * The torrent_handle returned by add_torrent() can be used to retrieve
      * information about the torrent's progress, its peers etc. It is also
      * used to abort a torrent.
-     * <p/>
+     * <p>
      * If the torrent you are trying to add already exists in the session (is
      * either queued for checking, being checked or downloading)
      * ``add_torrent()`` will throw libtorrent_exception which derives from
      * ``std::exception`` unless duplicate_is_error is set to false. In that
      * case, add_torrent() will return the handle to the existing torrent.
-     * <p/>
+     * <p>
      * all torrent_handles must be destructed before the session is destructed!
      *
      * @param torrent
@@ -261,19 +261,19 @@ public final class Session extends SessionHandle {
      * efficiently, consider using async_add_torrent() which returns
      * immediately, without waiting for the torrent to add. Notification of
      * the torrent being added is sent as add_torrent_alert.
-     * <p/>
+     * <p>
      * The overload that does not take an error_code throws an exception on
      * error and is not available when building without exception support.
      * The torrent_handle returned by add_torrent() can be used to retrieve
      * information about the torrent's progress, its peers etc. It is also
      * used to abort a torrent.
-     * <p/>
+     * <p>
      * If the torrent you are trying to add already exists in the session (is
      * either queued for checking, being checked or downloading)
      * ``add_torrent()`` will throw libtorrent_exception which derives from
      * ``std::exception`` unless duplicate_is_error is set to false. In that
      * case, add_torrent() will return the handle to the existing torrent.
-     * <p/>
+     * <p>
      * all torrent_handles must be destructed before the session is destructed!
      *
      * @param torrent
@@ -287,7 +287,7 @@ public final class Session extends SessionHandle {
      * This method will close all peer connections associated with the torrent and tell the
      * tracker that we've stopped participating in the swarm. This operation cannot fail.
      * When it completes, you will receive a torrent_removed_alert.
-     * <p/>
+     * <p>
      * The optional second argument options can be used to delete all the files downloaded
      * by this torrent. To do so, pass in the value session::delete_files. The removal of
      * the torrent is asynchronous, there is no guarantee that adding the same torrent immediately
@@ -393,7 +393,7 @@ public final class Session extends SessionHandle {
      * This functions instructs the session to post the state_update_alert,
      * containing the status of all torrents whose state changed since the
      * last time this function was called.
-     * <p/>
+     * <p>
      * Only torrents who has the state subscription flag set will be
      * included. This flag is on by default. See add_torrent_params.
      * the ``flags`` argument is the same as for torrent_handle::status().
@@ -409,7 +409,7 @@ public final class Session extends SessionHandle {
      * This functions instructs the session to post the state_update_alert,
      * containing the status of all torrents whose state changed since the
      * last time this function was called.
-     * <p/>
+     * <p>
      * Only torrents who has the state subscription flag set will be
      * included.
      */
@@ -498,7 +498,7 @@ public final class Session extends SessionHandle {
      * be used as backups. Nodes in the router node list will also never be added
      * to the regular routing table, which effectively means they are only used
      * for bootstrapping, to keep the load off them.
-     * <p/>
+     * <p>
      * An example routing node that you could typically add is
      * ``router.bittorrent.com``.
      *
@@ -522,7 +522,7 @@ public final class Session extends SessionHandle {
      * Query the DHT for a mutable item under the public key {@code key}.
      * this is an ed25519 key. The {@code salt} argument is optional and may be left
      * as an empty string if no salt is to be used.
-     * <p/>
+     * <p>
      * if the item is found in the DHT, a {@link DhtMutableItemAlert} is
      * posted.
      *
@@ -650,7 +650,7 @@ public final class Session extends SessionHandle {
         }
 
         final sha1_hash info_hash = p.getInfo_hash();
-        String sha1 = Hex.encode(Vectors.byte_vector2bytes(info_hash.to_bytes()));
+        String sha1 = info_hash.to_hex();
 
         byte[] data = MAGNET_CACHE.get(sha1);
         if (data != null) {

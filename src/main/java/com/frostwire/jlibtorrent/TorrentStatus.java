@@ -257,7 +257,7 @@ public final class TorrentStatus {
     /**
      * progress parts per million (progress * 1000000) when disabling
      * floating point operations, this is the only option to query progress
-     * <p/>
+     * <p>
      * reflects the same value as ``progress``, but instead in a range [0,
      * 1000000] (ppm = parts per million). When floating point operations are
      * disabled, this is the only alternative to the floating point value in.
@@ -434,10 +434,10 @@ public final class TorrentStatus {
      * the number of distributed copies of the file. note that one copy may
      * be spread out among many peers. This is a floating point
      * representation of the distributed copies.
-     * <p/>
+     * <p>
      * the integer part tells how many copies
      * there are of the rarest piece(s)
-     * <p/>
+     * <p>
      * the fractional part tells the fraction of pieces that
      * have more copies than the rarest piece(s).
      *

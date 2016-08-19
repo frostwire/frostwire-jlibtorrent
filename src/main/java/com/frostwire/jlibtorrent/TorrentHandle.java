@@ -10,7 +10,7 @@ import java.util.List;
  * You will usually have to store your torrent handles somewhere, since it's
  * the object through which you retrieve information about the torrent and
  * aborts the torrent.
- * <p/>
+ * <p>
  * .. warning::
  * Any member function that returns a value or fills in a value has to be
  * made synchronously. This means it has to wait for the main thread to
@@ -20,12 +20,12 @@ import java.util.List;
  * try to do it in as few calls as possible. You can get most of the
  * interesting information about a torrent from the
  * torrent_handle::status() call.
- * <p/>
+ * <p>
  * The default constructor will initialize the handle to an invalid state.
  * Which means you cannot perform any operation on it, unless you first
  * assign it a valid handle. If you try to perform any operation on an
  * uninitialized handle, it will throw ``invalid_handle``.
- * <p/>
+ * <p>
  * .. warning::
  * All operations on a torrent_handle may throw libtorrent_exception
  * exception, in case the handle is no longer refering to a torrent.
@@ -94,12 +94,12 @@ public final class TorrentHandle {
      * This function starts an asynchronous read operation of the specified
      * piece from this torrent. You must have completed the download of the
      * specified piece before calling this function.
-     * <p/>
+     * <p>
      * When the read operation is completed, it is passed back through an
      * alert, {@link com.frostwire.jlibtorrent.alerts.ReadPieceAlert}.
      * Since this alert is a response to an explicit
      * call, it will always be posted, regardless of the alert mask.
-     * <p/>
+     * <p>
      * Note that if you read multiple pieces, the read operations are not
      * guaranteed to finish in the same order as you initiated them.
      *
@@ -124,7 +124,7 @@ public final class TorrentHandle {
      * Returns a list filled with one entry for each peer connected to this
      * torrent, given the handle is valid. If the handle is invalid, it will
      * return an empty list.
-     * <p/>
+     * <p>
      * Each entry in the vector contains information about that particular peer.
      *
      * @return
@@ -151,7 +151,7 @@ public final class TorrentHandle {
      * Returns a pointer to the torrent_info object associated with this
      * torrent. The {@link com.frostwire.jlibtorrent.TorrentInfo} object
      * may be a copy of the internal object.
-     * <p/>
+     * <p>
      * If the torrent doesn't have metadata, the pointer will not be
      * initialized (i.e. a NULL pointer). The torrent may be in a state
      * without metadata only if it was started without a .torrent file, e.g.
@@ -173,10 +173,10 @@ public final class TorrentHandle {
      * Some information in there is relatively expensive to calculate, and if
      * you're not interested in it (and see performance issues), you can
      * filter them out.
-     * <p/>
+     * <p>
      * By default everything is included. The flags you can use to decide
      * what to *include* are defined in the status_flags_t enum.
-     * <p/>
+     * <p>
      * It is important not to call this method for each field in the status
      * for performance reasons.
      *
@@ -229,7 +229,7 @@ public final class TorrentHandle {
 
     /**
      * Returns the info-hash for the torrent.
-     * <p/>
+     * <p>
      * If this handle is to a torrent that hasn't loaded yet (for instance by being added)
      * by a URL, the returned value is undefined.
      *
@@ -241,16 +241,16 @@ public final class TorrentHandle {
 
     /**
      * This method will disconnect all peers.
-     * <p/>
+     * <p>
      * When a torrent is paused, it will however
      * remember all share ratios to all peers and remember all potential (not
      * connected) peers. Torrents may be paused automatically if there is a
      * file error (e.g. disk full) or something similar. See
      * {@link com.frostwire.jlibtorrent.alerts.FileErrorAlert}.
-     * <p/>
+     * <p>
      * To know if a torrent is paused or not, call
      * {@link #getStatus()} and inspect {@link TorrentStatus#isPaused()} .
-     * <p/>
+     * <p>
      * The ``flags`` argument to pause can be set to
      * ``torrent_handle::graceful_pause`` which will delay the disconnect of
      * peers that we're still downloading outstanding requests from. The
@@ -258,11 +258,11 @@ public final class TorrentHandle {
      * peers. As soon as a peer is done transferring the blocks that were
      * requested from it, it is disconnected. This is a graceful shut down of
      * the torrent in the sense that no downloaded bytes are wasted.
-     * <p/>
+     * <p>
      * torrents that are auto-managed may be automatically resumed again. It
      * does not make sense to pause an auto-managed torrent without making it
      * not automanaged first.
-     * <p/>
+     * <p>
      * The current {@link Session} add torrent implementations add the torrent
      * in no-auto-managed mode.
      */
@@ -272,7 +272,7 @@ public final class TorrentHandle {
 
     /**
      * Will reconnect all peers.
-     * <p/>
+     * <p>
      * Torrents that are auto-managed may be automatically resumed again.
      */
     public void resume() {
@@ -288,7 +288,7 @@ public final class TorrentHandle {
      * to do so. A torrent may need to have its files checked for instance, so
      * it needs to be started and possibly queued for checking (auto-managed
      * and started) but as soon as it's done, it should be stopped.
-     * <p/>
+     * <p>
      * *Force stopped* means auto-managed is set to false and it's paused. As
      * if auto_manage(false) and pause() were called on the torrent.
      *
@@ -305,9 +305,9 @@ public final class TorrentHandle {
      * ``session_settings::optimistic_disk_retry``). Torrents are
      * automatically put in upload mode whenever they encounter a disk write
      * error.
-     * <p/>
+     * <p>
      * {@code value} should be true to enter upload mode, and false to leave it.
-     * <p/>
+     * <p>
      * To test if a torrent is in upload mode, call
      * ``torrent_handle::status()`` and inspect
      * ``torrent_status::upload_mode``.
@@ -335,7 +335,7 @@ public final class TorrentHandle {
      * Instructs libtorrent to flush all the disk caches for this torrent and
      * close all file handles. This is done asynchronously and you will be
      * notified that it's complete through {@link com.frostwire.jlibtorrent.alerts.CacheFlushedAlert}.
-     * <p/>
+     * <p>
      * Note that by the time you get the alert, libtorrent may have cached
      * more data for the torrent, but you are guaranteed that whatever cached
      * data libtorrent had by the time you called
@@ -351,7 +351,7 @@ public final class TorrentHandle {
      * data was saved. When saving resume data periodically, it makes sense
      * to skip any torrent which hasn't downloaded anything since the last
      * time.
-     * <p/>
+     * <p>
      * .. note::
      * A torrent's resume data is considered saved as soon as the alert is
      * posted. It is important to make sure this alert is received and
@@ -378,16 +378,16 @@ public final class TorrentHandle {
      * greater than the greatest queue position of all existing torrents.
      * Torrents that are being seeded have -1 as their queue position, since
      * they're no longer in line to be downloaded.
-     * <p/>
+     * <p>
      * When a torrent is removed or turns into a seed, all torrents with
      * greater queue positions have their positions decreased to fill in the
      * space in the sequence.
-     * <p/>
+     * <p>
      * This function returns the torrent's position in the download
      * queue. The torrents with the smallest numbers are the ones that are
      * being downloaded. The smaller number, the closer the torrent is to the
      * front of the line to be started.
-     * <p/>
+     * <p>
      * The queue position is also available in the torrent_status.
      *
      * @return
@@ -440,34 +440,34 @@ public final class TorrentHandle {
      * ``save_resume_data()`` generates fast-resume data and returns it as an
      * entry. This entry is suitable for being bencoded. For more information
      * about how fast-resume works, see fast-resume_.
-     * <p/>
+     * <p>
      * The ``flags`` argument is a bitmask of flags ORed together. see
      * save_resume_flags_t
-     * <p/>
+     * <p>
      * This operation is asynchronous, ``save_resume_data`` will return
      * immediately. The resume data is delivered when it's done through an
      * save_resume_data_alert.
-     * <p/>
+     * <p>
      * The fast resume data will be empty in the following cases:
-     * <p/>
+     * <p>
      * 1. The torrent handle is invalid.
      * 2. The torrent is checking (or is queued for checking) its storage, it
      * will obviously not be ready to write resume data.
      * 3. The torrent hasn't received valid metadata and was started without
      * metadata (see libtorrent's metadata-from-peers_ extension)
-     * <p/>
+     * <p>
      * Note that by the time you receive the fast resume data, it may already
      * be invalid if the torrent is still downloading! The recommended
      * practice is to first pause the session, then generate the fast resume
      * data, and then close it down. Make sure to not remove_torrent() before
      * you receive the save_resume_data_alert though. There's no need to
      * pause when saving intermittent resume data.
-     * <p/>
+     * <p>
      * .. warning::
      * If you pause every torrent individually instead of pausing the
      * session, every torrent will have its paused state saved in the
      * resume data!
-     * <p/>
+     * <p>
      * .. warning::
      * The resume data contains the modification timestamps for all files.
      * If one file has been modified when the torrent is added again, the
@@ -476,7 +476,7 @@ public final class TorrentHandle {
      * file timestamps are up to date and won't be modified after saving
      * the resume data. The recommended way to do this is to pause the
      * torrent, which will flush the cache and disconnect all peers.
-     * <p/>
+     * <p>
      * .. note::
      * It is typically a good idea to save resume data whenever a torrent
      * is completed or paused. In those cases you don't need to pause the
@@ -486,26 +486,26 @@ public final class TorrentHandle {
      * data again for paused torrents. Completed torrents should have their
      * resume data saved when they complete and on exit, since their
      * statistics might be updated.
-     * <p/>
+     * <p>
      * In full allocation mode the reume data is never invalidated by
      * subsequent writes to the files, since pieces won't move around. This
      * means that you don't need to pause before writing resume data in full
      * or sparse mode. If you don't, however, any data written to disk after
      * you saved resume data and before the session closed is lost.
-     * <p/>
+     * <p>
      * It also means that if the resume data is out dated, libtorrent will
      * not re-check the files, but assume that it is fairly recent. The
      * assumption is that it's better to loose a little bit than to re-check
      * the entire file.
-     * <p/>
+     * <p>
      * It is still a good idea to save resume data periodically during
      * download as well as when closing down.
-     * <p/>
+     * <p>
      * Example code to pause and save resume data for all torrents and wait
      * for the alerts:
-     * <p/>
+     * <p>
      * .. code:: c++
-     * <p/>
+     * <p>
      * extern int outstanding_resume_data; // global counter of outstanding resume data
      * std::vector<torrent_handle> handles = ses.get_torrents();
      * ses.pause();
@@ -517,34 +517,34 @@ public final class TorrentHandle {
      * torrent_status s = h.status();
      * if (!s.has_metadata) continue;
      * if (!s.need_save_resume_data()) continue;
-     * <p/>
+     * <p>
      * h.save_resume_data();
      * ++outstanding_resume_data;
      * }
-     * <p/>
+     * <p>
      * while (outstanding_resume_data > 0)
      * {
      * alert const* a = ses.wait_for_alert(seconds(10));
-     * <p/>
+     * <p>
      * // if we don't get an alert within 10 seconds, abort
      * if (a == 0) break;
-     * <p/>
+     * <p>
      * std::auto_ptr<alert> holder = ses.pop_alert();
-     * <p/>
+     * <p>
      * if (alert_cast<save_resume_data_failed_alert>(a))
      * {
      * process_alert(a);
      * --outstanding_resume_data;
      * continue;
      * }
-     * <p/>
+     * <p>
      * save_resume_data_alert const* rd = alert_cast<save_resume_data_alert>(a);
      * if (rd == 0)
      * {
      * process_alert(a);
      * continue;
      * }
-     * <p/>
+     * <p>
      * torrent_handle h = rd->handle;
      * torrent_status st = h.status(torrent_handle::query_save_path | torrent_handle::query_name);
      * std::ofstream out((st.save_path
@@ -554,7 +554,7 @@ public final class TorrentHandle {
      * bencode(std::ostream_iterator<char>(out), *rd->resume_data);
      * --outstanding_resume_data;
      * }
-     * <p/>
+     * <p>
      * .. note::
      * Note how ``outstanding_resume_data`` is a global counter in this
      * example. This is deliberate, otherwise there is a race condition for
@@ -659,12 +659,12 @@ public final class TorrentHandle {
 
     /**
      * Enables or disables *sequential download*.
-     * <p/>
+     * <p>
      * When enabled, the piece picker will pick pieces in sequence
      * instead of rarest first. In this mode, piece priorities are ignored,
      * with the exception of priority 7, which are still preferred over the
      * sequential piece order.
-     * <p/>
+     * <p>
      * Enabling sequential download will affect the piece distribution
      * negatively in the swarm. It should be used sparingly.
      *
@@ -720,12 +720,12 @@ public final class TorrentHandle {
      * Force this torrent to do another tracker
      * request, to receive new peers. The ``seconds`` argument specifies how
      * many seconds from now to issue the tracker announces.
-     * <p/>
+     * <p>
      * If the tracker's ``min_interval`` has not passed since the last
      * announce, the forced announce will be scheduled to happen immediately
      * as the ``min_interval`` expires. This is to honor trackers minimum
      * re-announce interval settings.
-     * <p/>
+     * <p>
      * The ``tracker_index`` argument specifies which tracker to re-announce.
      * If set to -1 (which is the default), all trackers are re-announce.
      */
@@ -742,7 +742,7 @@ public final class TorrentHandle {
 
     /**
      * Will return a sorted list with the trackers of this torrent.
-     * <p/>
+     * <p>
      * The announce entry contains both a string {@code url} which specify the
      * announce url for the tracker as well as an int {@code tier}, which
      * specifies the order in which this tracker is tried.
@@ -757,7 +757,7 @@ public final class TorrentHandle {
      * Will send a scrape request to the tracker. A
      * scrape request queries the tracker for statistics such as total number
      * of incomplete peers, complete peers, number of downloads etc.
-     * <p/>
+     * <p>
      * This request will specifically update the ``num_complete`` and
      * ``num_incomplete`` fields in the torrent_status struct once it
      * completes. When it completes, it will generate a scrape_reply_alert.
@@ -772,7 +772,7 @@ public final class TorrentHandle {
      * you can use {@link #replaceTrackers(List<AnnounceEntry>)} which takes a list of the same
      * form as the one returned from {@link #trackers()} and will replace it.
      * If you want an immediate effect, you have to call {@link #forceReannounce()}.
-     * <p/>
+     * <p>
      * The updated set of trackers will be saved in the resume data, and when
      * a torrent is started with resume data, the trackers from the resume
      * data will replace the original ones.
@@ -795,7 +795,7 @@ public final class TorrentHandle {
      * set. If it is, it doesn't do anything. If it's not in the current set
      * of trackers, it will insert it in the tier specified in the
      * {@link AnnounceEntry}.
-     * <p/>
+     * <p>
      * The updated set of trackers will be saved in the resume data, and when
      * a torrent is started with resume data, the trackers from the resume
      * data will replace the original ones.
@@ -928,14 +928,14 @@ public final class TorrentHandle {
 
     /**
      * index must be in the range [0, number_of_files).
-     * <p/>
+     * <p>
      * The priority values are the same as for piece_priority().
-     * <p/>
+     * <p>
      * Whenever a file priority is changed, all other piece priorities are
      * reset to match the file priorities. In order to maintain sepcial
      * priorities for particular pieces, piece_priority() has to be called
      * again for those pieces.
-     * <p/>
+     * <p>
      * You cannot set the file priorities on a torrent that does not yet have
      * metadata or a torrent that is a seed. ``file_priority(int, int)`` and
      * prioritize_files() are both no-ops for such torrents.
@@ -949,7 +949,7 @@ public final class TorrentHandle {
 
     /**
      * index must be in the range [0, number_of_files).
-     * <p/>
+     * <p>
      * queries or sets the priority of file index.
      *
      * @param index
@@ -994,7 +994,7 @@ public final class TorrentHandle {
      * prioritized over pieces with a deadline further ahead in time. The
      * deadline (and flags) of a piece can be changed by calling this
      * function again.
-     * <p/>
+     * <p>
      * If the piece is already downloaded when this call is made, nothing
      * happens, unless the alert_when_available flag is set, in which case it
      * will do the same thing as calling read_piece() for ``index``.
@@ -1014,12 +1014,12 @@ public final class TorrentHandle {
      * prioritized over pieces with a deadline further ahead in time. The
      * deadline (and flags) of a piece can be changed by calling this
      * function again.
-     * <p/>
+     * <p>
      * The ``flags`` parameter can be used to ask libtorrent to send an alert
      * once the piece has been downloaded, by passing alert_when_available.
      * When set, the read_piece_alert alert will be delivered, with the piece
      * data, when it's downloaded.
-     * <p/>
+     * <p>
      * If the piece is already downloaded when this call is made, nothing
      * happens, unless the alert_when_available flag is set, in which case it
      * will do the same thing as calling read_piece() for ``index``.
@@ -1056,18 +1056,18 @@ public final class TorrentHandle {
      * torrent determines how much bandwidth its peers are assigned when
      * distributing upload and download rate quotas. A high number gives more
      * bandwidth. The priority must be within the range [0, 255].
-     * <p/>
+     * <p>
      * The default priority is 0, which is the lowest priority.
-     * <p/>
+     * <p>
      * To query the priority of a torrent, use the
      * ``torrent_handle::status()`` call.
-     * <p/>
+     * <p>
      * Torrents with higher priority will not nececcarily get as much
      * bandwidth as they can consume, even if there's is more quota. Other
      * peers will still be weighed in when bandwidth is being distributed.
      * With other words, bandwidth is not distributed strictly in order of
      * priority, but the priority is used as a weight.
-     * <p/>
+     * <p>
      * Peers whose Torrent has a higher priority will take precedence when
      * distributing unchoke slots. This is a strict prioritization where
      * every interested peer on a high priority torrent will be unchoked
@@ -1090,7 +1090,7 @@ public final class TorrentHandle {
      * not very cheap. Its complexity is *O(n + mj)*. Where *n* is the number
      * of files, *m* is the number of downloading pieces and *j* is the
      * number of blocks in a piece.
-     * <p/>
+     * <p>
      * The ``flags`` parameter can be used to specify the granularity of the
      * file progress. If left at the default value of 0, the progress will be
      * as accurate as possible, but also more expensive to calculate. If
@@ -1157,24 +1157,24 @@ public final class TorrentHandle {
      * drive and removed from their original location. This will block all
      * other disk IO, and other torrents download and upload rates may drop
      * while copying the file.
-     * <p/>
+     * <p>
      * Since disk IO is performed in a separate thread, this operation is
      * also asynchronous. Once the operation completes, the
      * {@link com.frostwire.jlibtorrent.alerts.StorageMovedAlert} is generated,
      * with the new path as the message. If the move fails for some reason,
      * {@link com.frostwire.jlibtorrent.alerts.StorageMovedFailedAlert}
      * generated instead, containing the error message.
-     * <p/>
+     * <p>
      * The {@code flags} argument determines the behavior of the copying/moving
      * of the files in the torrent. see move_flags_t.
-     * <p/>
+     * <p>
      * * always_replace_files = 0
      * * fail_if_exist = 1
      * * dont_replace = 2
-     * <p/>
+     * <p>
      * ``always_replace_files`` is the default and replaces any file that
      * exist in both the source directory and the target directory.
-     * <p/>
+     * <p>
      * ``fail_if_exist`` first check to see that none of the copy operations
      * would cause an overwrite. If it would, it will fail. Otherwise it will
      * proceed as if it was in ``always_replace_files`` mode. Note that there
@@ -1184,15 +1184,15 @@ public final class TorrentHandle {
      * already existing in the target path, the ``error`` of
      * ``move_storage_failed_alert`` is set to
      * ``boost::system::errc::file_exists``.
-     * <p/>
+     * <p>
      * The intention is that a client may use this as a probe, and if it
      * fails, ask the user which mode to use. The client may then re-issue
      * the ``move_storage`` call with one of the other modes.
-     * <p/>
+     * <p>
      * ``dont_replace`` always takes the existing file in the target
      * directory, if there is one. The source files will still be removed in
      * that case.
-     * <p/>
+     * <p>
      * Files that have been renamed to have absolute pahts are not moved by
      * this function. Keep in mind that files that don't belong to the
      * torrent but are stored in the torrent's directory may be moved as

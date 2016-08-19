@@ -41,7 +41,7 @@ public final class FileStorage {
     /**
      * This methods returns the internal torrent info or null
      * if it was constructed without one.
-     * <p/>
+     * <p>
      * This also prevent premature garbage collection in case
      * the storage was created from a torrent info.
      *
@@ -77,14 +77,14 @@ public final class FileStorage {
     /**
      * Adds a file to the file storage. The {@code flags} argument sets attributes on the file.
      * The file attributes is an extension and may not work in all bittorrent clients.
-     * <p/>
+     * <p>
      * If more files than one are added, certain restrictions to their paths apply.
      * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
+     * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
      * can be changed by calling {@link #name(String)}.
-     * <p/>
+     * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
@@ -102,14 +102,14 @@ public final class FileStorage {
     /**
      * Adds a file to the file storage. The {@code flags} argument sets attributes on the file.
      * The file attributes is an extension and may not work in all bittorrent clients.
-     * <p/>
+     * <p>
      * If more files than one are added, certain restrictions to their paths apply.
      * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
+     * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
      * can be changed by calling {@link #name(String)}.
-     * <p/>
+     * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
@@ -126,14 +126,14 @@ public final class FileStorage {
     /**
      * Adds a file to the file storage. The {@code flags} argument sets attributes on the file.
      * The file attributes is an extension and may not work in all bittorrent clients.
-     * <p/>
+     * <p>
      * If more files than one are added, certain restrictions to their paths apply.
      * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
+     * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
      * can be changed by calling {@link #name(String)}.
-     * <p/>
+     * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
@@ -148,14 +148,14 @@ public final class FileStorage {
 
     /**
      * Adds a file to the file storage.
-     * <p/>
+     * <p>
      * If more files than one are added, certain restrictions to their paths apply.
      * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
+     * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
      * can be changed by calling {@link #name(String)}.
-     * <p/>
+     * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
@@ -180,7 +180,7 @@ public final class FileStorage {
     /**
      * Returns a list of {@link com.frostwire.jlibtorrent.FileSlice} objects representing the portions of
      * files the specified piece index, byte offset and size range overlaps.
-     * <p/>
+     * <p>
      * This is the inverse mapping of {@link #mapFile(int, long, int)}.
      *
      * @param piece

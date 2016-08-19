@@ -173,7 +173,7 @@ public final class DhtSettings {
      * per IP. This defaults to true, which helps mitigate some attacks on
      * the DHT. It prevents adding multiple nodes with IPs with a very close
      * CIDR distance.
-     * <p/>
+     * <p>
      * when set, nodes whose IP address that's in the same /24 (or /64 for
      * IPv6) range in the same routing table bucket. This is an attempt to
      * mitigate node ID spoofing attacks also restrict any IP to only have a
@@ -190,7 +190,7 @@ public final class DhtSettings {
      * per IP. This defaults to true, which helps mitigate some attacks on
      * the DHT. It prevents adding multiple nodes with IPs with a very close
      * CIDR distance.
-     * <p/>
+     * <p>
      * when set, nodes whose IP address that's in the same /24 (or /64 for
      * IPv6) range in the same routing table bucket. This is an attempt to
      * mitigate node ID spoofing attacks also restrict any IP to only have a

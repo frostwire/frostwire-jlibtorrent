@@ -4,7 +4,7 @@ import com.frostwire.jlibtorrent.swig.tracker_announce_alert;
 
 /**
  * This alert is generated each time a tracker announce is sent (or attempted to be sent).
- * <p/>
+ * <p>
  * There are no extra data members in this alert. The url can be found in the base class
  * however.
  *

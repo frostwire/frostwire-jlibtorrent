@@ -17,7 +17,7 @@ public final class LibTorrent {
     /**
      * This number is the previous revision of jlibtorrent, the one
      * before the native JNI code is committed.
-     * <p/>
+     * <p>
      * It depends heavily in a good release workflow performed by the
      * developers, so take it with care.
      *

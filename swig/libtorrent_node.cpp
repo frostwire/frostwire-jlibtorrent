@@ -2669,8 +2669,8 @@ SWIGINTERN libtorrent::entry libtorrent_entry_from_preformatted_bytes(std::vecto
 SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< int8_t > &buffer){
         return libtorrent::bdecode(buffer.begin(), buffer.end());
     }
-SWIGINTERN libtorrent::sha1_hash *new_libtorrent_sha1_hash__SWIG_2(std::vector< int8_t > const &s){
-        return new sha1_hash(std::string(s.begin(), s.end()));
+SWIGINTERN libtorrent::sha1_hash *new_libtorrent_sha1_hash__SWIG_1(std::vector< int8_t > const &v){
+        return new sha1_hash(v);
     }
 SWIGINTERN int libtorrent_sha1_hash_hash_code(libtorrent::sha1_hash *self){
         char const* data = self->data();
@@ -2680,9 +2680,8 @@ SWIGINTERN int libtorrent_sha1_hash_hash_code(libtorrent::sha1_hash *self){
         }
         return result;
     }
-SWIGINTERN std::vector< int8_t > libtorrent_sha1_hash_to_bytes(libtorrent::sha1_hash *self){
-        std::string s = self->to_string();
-        return std::vector<int8_t>(s.begin(), s.end());
+SWIGINTERN std::string libtorrent_sha1_hash_to_hex(libtorrent::sha1_hash *self){
+        return aux::to_hex(*self);
     }
 SWIGINTERN int libtorrent_sha1_hash_compare(libtorrent::sha1_hash const &h1,libtorrent::sha1_hash const &h2){
         return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
@@ -24642,80 +24641,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  libtorrent::span< char const > arg1 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  libtorrent::sha1_hash *result;
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_sha1_hash__SWIG_1.");
-  {
-    res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_libtorrent__spanT_char_const_t,  0 );
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_sha1_hash" "', argument " "1"" of type '" "libtorrent::span< char const >""'"); 
-    }  
-    if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_sha1_hash" "', argument " "1"" of type '" "libtorrent::span< char const >""'");
-    } else {
-      arg1 = *((libtorrent::span< char const > *)(argp1));
-    }
-  }
-  result = (libtorrent::sha1_hash *)new libtorrent::sha1_hash(arg1);
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_assign(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  libtorrent::span< char const > arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_assign.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_assign" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  {
-    res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__spanT_char_const_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_assign" "', argument " "2"" of type '" "libtorrent::span< char const >""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_assign" "', argument " "2"" of type '" "libtorrent::span< char const >""'");
-    } else {
-      arg2 = *((libtorrent::span< char const > *)(argp2));
-    }
-  }
-  (arg1)->assign(arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_sha1_hash_clear(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -24919,7 +24844,7 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_2(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Object> self = args.Holder();
@@ -24927,7 +24852,7 @@ static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_2(const SwigV8Arguments &args
   void *argp1 ;
   int res1 = 0 ;
   libtorrent::sha1_hash *result;
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_sha1_hash__SWIG_2.");
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_sha1_hash__SWIG_1.");
   res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_sha1_hash" "', argument " "1"" of type '" "std::vector< int8_t > const &""'"); 
@@ -24936,7 +24861,7 @@ static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_2(const SwigV8Arguments &args
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_sha1_hash" "', argument " "1"" of type '" "std::vector< int8_t > const &""'"); 
   }
   arg1 = (std::vector< int8_t > *)(argp1);
-  result = (libtorrent::sha1_hash *)new_libtorrent_sha1_hash__SWIG_2((std::vector< signed char > const &)*arg1);
+  result = (libtorrent::sha1_hash *)new_libtorrent_sha1_hash__SWIG_1((std::vector< signed char > const &)*arg1);
   
   
   
@@ -24988,21 +24913,6 @@ static SwigV8ReturnValue _wrap_new_sha1_hash(const SwigV8Arguments &args) {
 #endif
   }
   
-  if(args.Length() == 1) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_sha1_hash__SWIG_2(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_sha1_hash__SWIG_2(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
   
   // default:
   SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_sha1_hash");
@@ -25040,24 +24950,24 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_sha1_hash_to_bytes(const SwigV8Arguments &args) {
+static SwigV8ReturnValue _wrap_sha1_hash_to_hex(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
   libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  std::vector< int8_t > result;
+  std::string result;
   
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_to_bytes.");
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_to_hex.");
   
   res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_to_bytes" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_to_hex" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
   }
   arg1 = (libtorrent::sha1_hash *)(argp1);
-  result = libtorrent_sha1_hash_to_bytes(arg1);
-  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  result = libtorrent_sha1_hash_to_hex(arg1);
+  jsresult = SWIG_From_std_string((std::string)(result));
   
   
   SWIGV8_RETURN(jsresult);
@@ -94152,7 +94062,7 @@ static SwigV8ReturnValue _wrap_LIBTORRENT_REVISION_SHA1(v8::Local<v8::String> pr
   
   v8::Handle<v8::Value> jsresult;
   
-  jsresult = SWIG_FromCharPtr((const char *)"6f23539ef32048b0d8b12bfb71e219515ad63361");
+  jsresult = SWIG_FromCharPtr((const char *)"9fd83aaa10c1bca0d36b783004af89897bf3e618");
   
   SWIGV8_RETURN_INFO(jsresult, info);
   
@@ -94167,7 +94077,7 @@ static SwigV8ReturnValue _wrap_JLIBTORRENT_REVISION_SHA1(v8::Local<v8::String> p
   
   v8::Handle<v8::Value> jsresult;
   
-  jsresult = SWIG_FromCharPtr((const char *)"1c826216a33af7b5dfa268e63326de938bd1f9cc");
+  jsresult = SWIG_FromCharPtr((const char *)"e4e9afe800b57daab9932898094f752a3136f4ce");
   
   SWIGV8_RETURN_INFO(jsresult, info);
   
@@ -98330,7 +98240,6 @@ SWIGV8_AddMemberFunction(_exports_entry_class, "string_bytes", _wrap_entry_strin
 SWIGV8_AddMemberFunction(_exports_entry_class, "preformatted_bytes", _wrap_entry_preformatted_bytes);
 SWIGV8_AddMemberFunction(_exports_entry_class, "bencode", _wrap_entry_bencode);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "size", _wrap_sha1_hash_size);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "assign", _wrap_sha1_hash_assign);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "clear", _wrap_sha1_hash_clear);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "is_all_zeros", _wrap_sha1_hash_is_all_zeros);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_eq", _wrap_sha1_hash_op_eq);
@@ -98338,7 +98247,7 @@ SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_ne", _wrap_sha1_hash_op_n
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_lt", _wrap_sha1_hash_op_lt);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "count_leading_zeroes", _wrap_sha1_hash_count_leading_zeroes);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "hash_code", _wrap_sha1_hash_hash_code);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "to_bytes", _wrap_sha1_hash_to_bytes);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "to_hex", _wrap_sha1_hash_to_hex);
 SWIGV8_AddMemberVariable(_exports_file_slice_class, "file_index", _wrap_file_slice_file_index_get, _wrap_file_slice_file_index_set);
 SWIGV8_AddMemberVariable(_exports_file_slice_class, "offset", _wrap_file_slice_offset_get, _wrap_file_slice_offset_set);
 SWIGV8_AddMemberVariable(_exports_file_slice_class, "size", _wrap_file_slice_size_get, _wrap_file_slice_size_set);
