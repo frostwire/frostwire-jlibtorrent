@@ -141,14 +141,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.set_piece_hashes(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
-  public static boolean is_utp_stream_logging() {
-    return libtorrent_jni.is_utp_stream_logging();
-  }
-
-  public static void set_utp_stream_logging(boolean enable) {
-    libtorrent_jni.set_utp_stream_logging(enable);
-  }
-
   public static void ed25519_create_seed(byte_vector seed) {
     libtorrent_jni.ed25519_create_seed(byte_vector.getCPtr(seed), seed);
   }
@@ -203,6 +195,14 @@ public class libtorrent implements libtorrentConstants {
 
   public static String openssl_version_text() {
     return libtorrent_jni.openssl_version_text();
+  }
+
+  public static boolean is_utp_stream_logging() {
+    return libtorrent_jni.is_utp_stream_logging();
+  }
+
+  public static void set_utp_stream_logging(boolean enable) {
+    libtorrent_jni.set_utp_stream_logging(enable);
   }
 
 }

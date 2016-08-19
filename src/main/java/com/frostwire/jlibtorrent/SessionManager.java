@@ -93,8 +93,15 @@ public final class SessionManager {
 
         sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), interfaces);
         sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
+        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
 
-        int alert_mask = alert.category_t.all_categories.swigValue();
+        session s = new session(sp);
+
+        return s;
+    }
+
+    private static int alertMask(boolean logging) {
+        int mask = alert.category_t.all_categories.swigValue();
         if (!logging) {
             int log_mask = alert.category_t.session_log_notification.swigValue() |
                     alert.category_t.torrent_log_notification.swigValue() |
@@ -102,12 +109,9 @@ public final class SessionManager {
                     alert.category_t.dht_log_notification.swigValue() |
                     alert.category_t.port_mapping_log_notification.swigValue() |
                     alert.category_t.picker_log_notification.swigValue();
-            alert_mask = alert_mask & ~log_mask;
+            mask = mask & ~log_mask;
         }
-
-        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
-
-        return new session(sp);
+        return mask;
     }
 
     private static LinkedList<Pair> defaultDhtRouters() {

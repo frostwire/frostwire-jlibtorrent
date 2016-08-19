@@ -390,6 +390,28 @@ public class libtorrent_jni {
   public final static native long new_string_view(String jarg1);
   public final static native String string_view_to_string(long jarg1, string_view jarg1_);
   public final static native void delete_string_view(long jarg1);
+  public final static native long new_address__SWIG_0();
+  public final static native long new_address__SWIG_1(long jarg1, address jarg1_);
+  public final static native boolean address_is_v4(long jarg1, address jarg1_);
+  public final static native boolean address_is_v6(long jarg1, address jarg1_);
+  public final static native String address_to_string(long jarg1, address jarg1_, long jarg2, error_code jarg2_);
+  public final static native long address_from_string(String jarg1, long jarg2, error_code jarg2_);
+  public final static native boolean address_is_loopback(long jarg1, address jarg1_);
+  public final static native boolean address_is_unspecified(long jarg1, address jarg1_);
+  public final static native boolean address_is_multicast(long jarg1, address jarg1_);
+  public final static native boolean address_op_lt(long jarg1, address jarg1_, long jarg2, address jarg2_);
+  public final static native int address_compare(long jarg1, address jarg1_, long jarg2, address jarg2_);
+  public final static native void delete_address(long jarg1);
+  public final static native long new_tcp_endpoint__SWIG_0();
+  public final static native long new_tcp_endpoint__SWIG_1(long jarg1, address jarg1_, int jarg2);
+  public final static native int tcp_endpoint_port(long jarg1, tcp_endpoint jarg1_);
+  public final static native long tcp_endpoint_address(long jarg1, tcp_endpoint jarg1_);
+  public final static native void delete_tcp_endpoint(long jarg1);
+  public final static native long new_udp_endpoint__SWIG_0();
+  public final static native long new_udp_endpoint__SWIG_1(long jarg1, address jarg1_, int jarg2);
+  public final static native int udp_endpoint_port(long jarg1, udp_endpoint jarg1_);
+  public final static native long udp_endpoint_address(long jarg1, udp_endpoint jarg1_);
+  public final static native void delete_udp_endpoint(long jarg1);
   public final static native int success_get();
   public final static native int address_family_not_supported_get();
   public final static native int address_in_use_get();
@@ -2779,28 +2801,26 @@ public class libtorrent_jni {
   public final static native int ed25519_signature_size_get();
   public final static native int ed25519_scalar_size_get();
   public final static native int ed25519_shared_secret_size_get();
-  public final static native long new_address__SWIG_0();
-  public final static native long new_address__SWIG_1(long jarg1, address jarg1_);
-  public final static native boolean address_is_v4(long jarg1, address jarg1_);
-  public final static native boolean address_is_v6(long jarg1, address jarg1_);
-  public final static native String address_to_string(long jarg1, address jarg1_, long jarg2, error_code jarg2_);
-  public final static native long address_from_string(String jarg1, long jarg2, error_code jarg2_);
-  public final static native boolean address_is_loopback(long jarg1, address jarg1_);
-  public final static native boolean address_is_unspecified(long jarg1, address jarg1_);
-  public final static native boolean address_is_multicast(long jarg1, address jarg1_);
-  public final static native boolean address_op_lt(long jarg1, address jarg1_, long jarg2, address jarg2_);
-  public final static native int address_compare(long jarg1, address jarg1_, long jarg2, address jarg2_);
-  public final static native void delete_address(long jarg1);
-  public final static native long new_tcp_endpoint__SWIG_0();
-  public final static native long new_tcp_endpoint__SWIG_1(long jarg1, address jarg1_, int jarg2);
-  public final static native int tcp_endpoint_port(long jarg1, tcp_endpoint jarg1_);
-  public final static native long tcp_endpoint_address(long jarg1, tcp_endpoint jarg1_);
-  public final static native void delete_tcp_endpoint(long jarg1);
-  public final static native long new_udp_endpoint__SWIG_0();
-  public final static native long new_udp_endpoint__SWIG_1(long jarg1, address jarg1_, int jarg2);
-  public final static native int udp_endpoint_port(long jarg1, udp_endpoint jarg1_);
-  public final static native long udp_endpoint_address(long jarg1, udp_endpoint jarg1_);
-  public final static native void delete_udp_endpoint(long jarg1);
+  public final static native void ed25519_create_seed(long jarg1, byte_vector jarg1_);
+  public final static native void ed25519_create_keypair(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
+  public final static native void ed25519_sign(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_);
+  public final static native int ed25519_verify(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
+  public final static native void ed25519_add_scalar(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
+  public final static native void ed25519_key_exchange(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
+  public final static native boolean default_storage_disk_write_access_log__SWIG_0();
+  public final static native void default_storage_disk_write_access_log__SWIG_1(boolean jarg1);
+  public final static native void delete_add_files_listener(long jarg1);
+  public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
+  public final static native long new_add_files_listener();
+  public final static native void add_files(long jarg1, file_storage jarg1_, String jarg2, long jarg3, add_files_listener jarg3_, long jarg4);
+  public final static native void delete_set_piece_hashes_listener(long jarg1);
+  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
+  public final static native long new_set_piece_hashes_listener();
+  public final static native void set_piece_hashes_ex(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, set_piece_hashes_listener jarg3_, long jarg4, error_code jarg4_);
+  public final static native int boost_version();
+  public final static native String boost_lib_version();
+  public final static native int openssl_version_number();
+  public final static native String openssl_version_text();
   public final static native int stat_upload_payload_get();
   public final static native int stat_upload_protocol_get();
   public final static native int stat_download_payload_get();
@@ -2812,34 +2832,6 @@ public class libtorrent_jni {
   public final static native void delete_stat(long jarg1);
   public final static native boolean is_utp_stream_logging();
   public final static native void set_utp_stream_logging(boolean jarg1);
-  public final static native String LIBTORRENT_REVISION_SHA1_get();
-  public final static native String JLIBTORRENT_REVISION_SHA1_get();
-  public final static native void ed25519_create_seed(long jarg1, byte_vector jarg1_);
-  public final static native void ed25519_create_keypair(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
-  public final static native void ed25519_sign(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_);
-  public final static native int ed25519_verify(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
-  public final static native void ed25519_add_scalar(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
-  public final static native void ed25519_key_exchange(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
-  public final static native boolean default_storage_disk_write_access_log__SWIG_0();
-  public final static native void default_storage_disk_write_access_log__SWIG_1(boolean jarg1);
-  public final static native void delete_add_files_listener(long jarg1);
-  public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
-  public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2);
-  public final static native long new_add_files_listener();
-  public final static native void add_files_listener_director_connect(add_files_listener obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void add_files_listener_change_ownership(add_files_listener obj, long cptr, boolean take_or_release);
-  public final static native void add_files(long jarg1, file_storage jarg1_, String jarg2, long jarg3, add_files_listener jarg3_, long jarg4);
-  public final static native void delete_set_piece_hashes_listener(long jarg1);
-  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
-  public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
-  public final static native long new_set_piece_hashes_listener();
-  public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
-  public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
-  public final static native void set_piece_hashes_ex(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, set_piece_hashes_listener jarg3_, long jarg4, error_code jarg4_);
-  public final static native int boost_version();
-  public final static native String boost_lib_version();
-  public final static native int openssl_version_number();
-  public final static native String openssl_version_text();
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
   public final static native long tracker_alert_SWIGUpcast(long jarg1);
@@ -2929,16 +2921,4 @@ public class libtorrent_jni {
   public final static native long picker_log_alert_SWIGUpcast(long jarg1);
   public final static native long session_SWIGUpcast(long jarg1);
   public final static native long bt_peer_connection_handle_SWIGUpcast(long jarg1);
-
-  public static boolean SwigDirector_add_files_listener_pred(add_files_listener jself, String p) {
-    return jself.pred(p);
-  }
-  public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, int i) {
-    jself.progress(i);
-  }
-
-  private final static native void swig_module_init();
-  static {
-    swig_module_init();
-  }
 }

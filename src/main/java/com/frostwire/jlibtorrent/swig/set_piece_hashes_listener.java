@@ -35,28 +35,12 @@ public class set_piece_hashes_listener {
     }
   }
 
-  protected void swigDirectorDisconnect() {
-    swigCMemOwn = false;
-    delete();
-  }
-
-  public void swigReleaseOwnership() {
-    swigCMemOwn = false;
-    libtorrent_jni.set_piece_hashes_listener_change_ownership(this, swigCPtr, false);
-  }
-
-  public void swigTakeOwnership() {
-    swigCMemOwn = true;
-    libtorrent_jni.set_piece_hashes_listener_change_ownership(this, swigCPtr, true);
-  }
-
   public void progress(int i) {
-    if (getClass() == set_piece_hashes_listener.class) libtorrent_jni.set_piece_hashes_listener_progress(swigCPtr, this, i); else libtorrent_jni.set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(swigCPtr, this, i);
+    libtorrent_jni.set_piece_hashes_listener_progress(swigCPtr, this, i);
   }
 
   public set_piece_hashes_listener() {
     this(libtorrent_jni.new_set_piece_hashes_listener(), true);
-    libtorrent_jni.set_piece_hashes_listener_director_connect(this, swigCPtr, swigCMemOwn, true);
   }
 
 }

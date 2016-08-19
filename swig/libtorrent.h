@@ -2,6 +2,14 @@
 #include <dlfcn.h>
 #endif
 
+#include <stdexcept>
+#include <string>
+#include <ios>
+#include <vector>
+#include <array>
+#include <map>
+#include <algorithm>
+
 #include <boost/version.hpp>
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
@@ -29,9 +37,6 @@
 #include <libtorrent/kademlia/node_id.hpp>
 #include <libtorrent/kademlia/get_peers.hpp>
 #include <libtorrent/kademlia/item.hpp>
-
-#define LIBTORRENT_REVISION_SHA1 _LIBTORRENT_REVISION_SHA1_
-#define JLIBTORRENT_REVISION_SHA1 _JLIBTORRENT_REVISION_SHA1_
 
 void ed25519_create_seed(std::vector<int8_t>& seed) {
     ed25519_create_seed((unsigned char*)seed.data());
@@ -82,11 +87,11 @@ void ed25519_key_exchange(std::vector<int8_t>& shared_secret,
 }
 
 bool default_storage_disk_write_access_log() {
-    return default_storage::disk_write_access_log();
+    return libtorrent::default_storage::disk_write_access_log();
 }
 
 void default_storage_disk_write_access_log(bool enable) {
-    return default_storage::disk_write_access_log(enable);
+    return libtorrent::default_storage::disk_write_access_log(enable);
 }
 
 class add_files_listener {
@@ -134,9 +139,9 @@ const char* openssl_version_text() {
     return OPENSSL_VERSION_TEXT;
 }
 
-void dht_put_item_cb(entry& e, std::array<char, 64>& sig, boost::uint64_t& seq,
+void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, boost::uint64_t& seq,
     std::string const& salt, char const* public_key, char const* private_key,
-    entry& data)
+    libtorrent::entry& data)
 {
 	/*using libtorrent::dht::sign_mutable_item;
 

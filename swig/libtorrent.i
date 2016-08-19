@@ -25,13 +25,7 @@
 %}
 
 %{
-#include <stdexcept>
-#include <string>
-#include <ios>
-#include <vector>
-#include <array>
-#include <map>
-#include <algorithm>
+// BEGIN common set include ------------------------------------------------------
 
 #include <boost/system/error_code.hpp>
 
@@ -67,13 +61,9 @@
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/ed25519.hpp"
 
-using namespace boost;
-using namespace boost::system;
-
-using namespace libtorrent;
-
-
 #include "libtorrent.h"
+
+// END common set include ------------------------------------------------------
 %}
 
 #ifdef SWIGJAVA
@@ -237,7 +227,7 @@ namespace std {
     %template(web_seed_entry_vector) vector<libtorrent::web_seed_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
-    %template(tcp_endpoint_vector) vector<tcp::endpoint>;
+    %template(tcp_endpoint_vector) vector<libtorrent::tcp::endpoint>;
 
     %template(int_string_map) map<int, std::string>;
     %template(string_long_map) map<std::string, long>;
@@ -371,6 +361,61 @@ namespace libtorrent {
         string_view(std::string s);
         std::string to_string();
     };
+
+    class address {
+    public:
+
+        address();
+        address(address other);
+
+        bool is_v4();
+        bool is_v6();
+
+        std::string to_string(boost::system::error_code ec);
+
+        static address from_string(std::string str, boost::system::error_code ec);
+
+        bool is_loopback();
+        bool is_unspecified();
+        bool is_multicast();
+
+        %extend {
+            bool op_lt(const address& a2) {
+                return *$self < a2;
+            }
+
+            static int compare(const address& a1, const address& a2) {
+                return a1 == a2 ? 0 : (a1 < a2 ? -1 : 1);
+            }
+        }
+    };
+
+    %rename(tcp_endpoint) tcp::endpoint;
+    %rename(udp_endpoint) udp::endpoint;
+
+    namespace tcp {
+
+        class endpoint {
+        public:
+            endpoint();
+            endpoint(address address, unsigned short port);
+
+            unsigned short port();
+            address address();
+        };
+    }
+
+    namespace udp {
+
+        class endpoint {
+        public:
+            endpoint();
+            endpoint(address address, unsigned short port);
+
+            unsigned short port();
+            address address();
+        };
+    }
 };
 
 typedef long time_t;
@@ -407,7 +452,6 @@ typedef long time_t;
 %ignore libtorrent::session::session(settings_pack, io_service&, int);
 %ignore libtorrent::session::session(settings_pack, io_service&);
 %ignore libtorrent::session_handle::session_handle(aux::session_impl*);
-%ignore libtorrent::session_handle::set_alert_dispatch;
 %ignore libtorrent::session_handle::get_torrent_status;
 %ignore libtorrent::session_handle::get_io_service;
 %ignore libtorrent::session_handle::get_connection_queue;
@@ -627,6 +671,10 @@ typedef long time_t;
 
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
 
+%ignore dht_put_item_cb;
+
+// BEGIN common set include ------------------------------------------------------
+
 %include <boost/system/error_code.hpp>
 
 %include "libtorrent/version.hpp"
@@ -661,60 +709,9 @@ typedef long time_t;
 %include "libtorrent/torrent_status.hpp"
 %include "libtorrent/ed25519.hpp"
 
-class address {
-public:
+%include "libtorrent.h"
 
-    address();
-    address(address other);
-
-    bool is_v4();
-    bool is_v6();
-
-    std::string to_string(boost::system::error_code ec);
-
-    static address from_string(std::string str, boost::system::error_code ec);
-
-    bool is_loopback();
-    bool is_unspecified();
-    bool is_multicast();
-
-    %extend {
-        bool op_lt(const address& a2) {
-            return *$self < a2;
-        }
-
-        static int compare(const address& a1, const address& a2) {
-            return a1 == a2 ? 0 : (a1 < a2 ? -1 : 1);
-        }
-    }
-};
-
-%rename(tcp_endpoint) tcp::endpoint;
-%rename(udp_endpoint) udp::endpoint;
-
-namespace tcp {
-
-    class endpoint {
-    public:
-        endpoint();
-        endpoint(address address, unsigned short port);
-
-        unsigned short port();
-        address address();
-    };
-}
-
-namespace udp {
-
-    class endpoint {
-    public:
-        endpoint();
-        endpoint(address address, unsigned short port);
-
-        unsigned short port();
-        address address();
-    };
-}
+// END common set include ------------------------------------------------------
 
 namespace libtorrent {
     
@@ -722,7 +719,7 @@ namespace libtorrent {
 %extend alert {
 #define CAST_ALERT_METHOD(name) \
     static libtorrent::##name const* cast_to_##name(alert const* a) { \
-        return alert_cast<libtorrent::##name>(a); \
+        return libtorrent::alert_cast<libtorrent::##name>(a); \
     }
 
     CAST_ALERT_METHOD(torrent_alert)
@@ -815,12 +812,14 @@ namespace libtorrent {
 }
 
 %extend alert {
+
     int64_t get_timestamp() {
-        return total_milliseconds($self->timestamp() - clock_type::now());
+        return libtorrent::total_milliseconds($self->timestamp() - libtorrent::clock_type::now());
     }
 }
 
 %extend session_handle {
+
     void dht_get_item(std::vector<int8_t>& public_key, std::vector<int8_t>& salt) {
         if (public_key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
@@ -847,20 +846,20 @@ namespace libtorrent {
     	    key[i] = public_key[i];
     	}
 
-        $self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
-            (const char *)public_key.data(), (const char *)private_key.data(), data),
-             std::string(salt.begin(), salt.end()));
+        //$self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
+        //    (const char *)public_key.data(), (const char *)private_key.data(), data),
+        //    std::string(salt.begin(), salt.end()));
     }
 
     alert* wait_for_alert_ms(int64_t max_wait) {
-        return $self->wait_for_alert(milliseconds(max_wait));
+        return $self->wait_for_alert(libtorrent::milliseconds(max_wait));
     }
 }
 
 %extend entry {
 
     entry(std::string const& s) {
-        return new entry(s);
+        return new libtorrent::entry(s);
     }
 
     entry& get(std::string const& key) {
@@ -900,11 +899,11 @@ namespace libtorrent {
     }
 
     static entry from_string_bytes(std::vector<int8_t> const& string_bytes) {
-        return entry(std::string(string_bytes.begin(), string_bytes.end()));
+        return libtorrent::entry(std::string(string_bytes.begin(), string_bytes.end()));
     }
 
     static entry from_preformatted_bytes(std::vector<int8_t> const& preformatted_bytes) {
-        return entry(std::vector<char>(preformatted_bytes.begin(), preformatted_bytes.end()));
+        return libtorrent::entry(std::vector<char>(preformatted_bytes.begin(), preformatted_bytes.end()));
     }
 
     static entry bdecode(std::vector<int8_t>& buffer) {
@@ -913,6 +912,7 @@ namespace libtorrent {
 }
 
 %extend bdecode_node {
+
     static std::string to_string(bdecode_node const& e, bool single_line, int indent) {
         return libtorrent::print_entry(e, single_line, indent);
     }
@@ -923,6 +923,7 @@ namespace libtorrent {
 }
 
 %extend add_torrent_params {
+
     int64_t get_flags() {
         return int64_t($self->flags);
     }
@@ -931,32 +932,33 @@ namespace libtorrent {
         $self->flags = flags;
     }
 
-    void set_ti(torrent_info const& ti) {
-        $self->ti = std::make_shared<torrent_info>(ti);
+    void set_ti(libtorrent::torrent_info const& ti) {
+        $self->ti = std::make_shared<libtorrent::torrent_info>(ti);
     }
 
-    static add_torrent_params create_instance() {
-        return add_torrent_params();
+    static libtorrent::add_torrent_params create_instance() {
+        return libtorrent::add_torrent_params();
     }
 
-    static add_torrent_params create_instance_disabled_storage() {
-        return add_torrent_params(disabled_storage_constructor);
+    static libtorrent::add_torrent_params create_instance_disabled_storage() {
+        return libtorrent::add_torrent_params(libtorrent::disabled_storage_constructor);
     }
 
-    static add_torrent_params create_instance_zero_storage() {
-        return add_torrent_params(zero_storage_constructor);
+    static libtorrent::add_torrent_params create_instance_zero_storage() {
+        return libtorrent::add_torrent_params(libtorrent::zero_storage_constructor);
     }
 
-    static add_torrent_params read_resume_data(bdecode_node const& rd, error_code& ec) {
+    static libtorrent::add_torrent_params read_resume_data(libtorrent::bdecode_node const& rd, error_code& ec) {
         return libtorrent::read_resume_data(rd, ec);
     }
 
-    static add_torrent_params read_resume_data(std::vector<int8_t> const& buffer, error_code& ec) {
+    static libtorrent::add_torrent_params read_resume_data(std::vector<int8_t> const& buffer, error_code& ec) {
         return libtorrent::read_resume_data((char const*)&buffer[0], buffer.size(), ec);
     }
 }
 
 %extend torrent_info {
+
     time_t get_creation_date() {
         return $self->creation_date().get_value_or(0);
     }
@@ -973,8 +975,8 @@ namespace libtorrent {
         $self->add_piece(piece, (char const*)&data[0], flags);
     }
 
-    const torrent_info* get_torrent_ptr() {
-        std::shared_ptr<const torrent_info> ti = $self->torrent_file();
+    const libtorrent::torrent_info* get_torrent_ptr() {
+        std::shared_ptr<const libtorrent::torrent_info> ti = $self->torrent_file();
         return ti.get();
     }
 }
@@ -982,7 +984,7 @@ namespace libtorrent {
 %extend sha1_hash {
 
     sha1_hash(std::vector<int8_t> const& v) {
-        return new sha1_hash(reinterpret_cast<const char*>(v.data()));
+        return new libtorrent::sha1_hash(reinterpret_cast<const char*>(v.data()));
     }
 
     int hash_code() {
@@ -995,15 +997,16 @@ namespace libtorrent {
     }
 
     std::string to_hex() {
-        return aux::to_hex(*$self);
+        return libtorrent::aux::to_hex(*$self);
     }
 
-    static int compare(const sha1_hash& h1, const sha1_hash& h2) {
+    static int compare(const libtorrent::sha1_hash& h1, const libtorrent::sha1_hash& h2) {
         return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
     }
 }
 
 %extend dht_mutable_item_alert {
+
     std::vector<int8_t> get_key() {
         std::array<char, 32> arr = $self->key;
         return std::vector<int8_t>(arr.begin(), arr.end());
@@ -1077,27 +1080,27 @@ namespace libtorrent {
 
 %extend peer_connection_handle {
     int64_t get_time_of_last_unchoke() {
-        return total_milliseconds($self->time_of_last_unchoke() - clock_type::now());
+        return libtorrent::total_milliseconds($self->time_of_last_unchoke() - libtorrent::clock_type::now());
     }
 };
 
 %extend peer_info {
     int64_t get_last_request() {
-        return total_milliseconds($self->last_request);
+        return libtorrent::total_milliseconds($self->last_request);
     }
 
     int64_t get_last_active() {
-        return total_milliseconds($self->last_active);
+        return libtorrent::total_milliseconds($self->last_active);
     }
 
     int64_t get_download_queue_time() {
-        return total_milliseconds($self->download_queue_time);
+        return libtorrent::total_milliseconds($self->download_queue_time);
     }
 }
 
 %extend torrent_status {
     int64_t get_next_announce() {
-        return total_milliseconds($self->next_announce);
+        return libtorrent::total_milliseconds($self->next_announce);
     }
 }
 
@@ -1170,7 +1173,3 @@ void set_utp_stream_logging(bool enable);
 
 %feature("director") add_files_listener;
 %feature("director") set_piece_hashes_listener;
-
-%ignore dht_put_item_cb;
-
-%include "libtorrent.h"

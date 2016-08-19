@@ -24,6 +24,4 @@ public interface libtorrentConstants {
   public final static int ed25519_scalar_size = libtorrent_jni.ed25519_scalar_size_get();
   public final static int ed25519_shared_secret_size = libtorrent_jni.ed25519_shared_secret_size_get();
 
-  public final static String LIBTORRENT_REVISION_SHA1 = libtorrent_jni.LIBTORRENT_REVISION_SHA1_get();
-  public final static String JLIBTORRENT_REVISION_SHA1 = libtorrent_jni.JLIBTORRENT_REVISION_SHA1_get();
 }

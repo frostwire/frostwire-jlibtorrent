@@ -14,29 +14,12 @@ public final class LibTorrent {
     private LibTorrent() {
     }
 
-    /**
-     * This number is the previous revision of jlibtorrent, the one
-     * before the native JNI code is committed.
-     * <p>
-     * It depends heavily in a good release workflow performed by the
-     * developers, so take it with care.
-     *
-     * @return
-     */
-    public static String jrevision() {
-        return libtorrent.JLIBTORRENT_REVISION_SHA1;
-    }
-
     public static int versionNum() {
         return libtorrent.LIBTORRENT_VERSION_NUM;
     }
 
     public static String version() {
         return libtorrent.version();
-    }
-
-    public static String revision() {
-        return libtorrent.LIBTORRENT_REVISION_SHA1;
     }
 
     public static int boostVersionNum() {
