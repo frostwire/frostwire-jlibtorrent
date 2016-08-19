@@ -73,7 +73,7 @@ public final class SessionManager {
                 return;
             }
 
-            session.delete();
+            session.abort().delete();
             session = null;
 
         } finally {
