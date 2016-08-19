@@ -81,10 +81,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.find_metric_idx(name);
   }
 
-  public static close_reason_t error_to_close_reason(error_code ec) {
-    return close_reason_t.swigToEnum(libtorrent_jni.error_to_close_reason(error_code.getCPtr(ec), ec));
-  }
-
   public static String operation_name(int op) {
     return libtorrent_jni.operation_name(op);
   }

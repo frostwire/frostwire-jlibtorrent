@@ -3,8 +3,6 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.DhtGetPeersReplyAlert;
-import com.frostwire.jlibtorrent.alerts.SessionStatsAlert;
-import com.frostwire.jlibtorrent.swig.counters;
 import org.junit.Test;
 
 import java.util.LinkedList;

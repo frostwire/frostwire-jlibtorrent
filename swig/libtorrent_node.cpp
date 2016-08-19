@@ -1718,7 +1718,6 @@ static swig_module_info swig_module = {swig_types, 192, 0, 0, 0, 0};
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
 #include "libtorrent/peer_info.hpp"
-#include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
 #include "libtorrent/settings_pack.hpp"
 #include "libtorrent/peer_class.hpp"
@@ -39534,37 +39533,6 @@ static SwigV8ReturnValue _wrap_libtorrent_close_pex_too_frequent(v8::Local<v8::S
   goto fail;
 fail:
   SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_error_to_close_reason(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::error_code *arg1 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  libtorrent::close_reason_t result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_to_close_reason.");
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_code,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_to_close_reason" "', argument " "1"" of type '" "libtorrent::error_code const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "error_to_close_reason" "', argument " "1"" of type '" "libtorrent::error_code const &""'"); 
-  }
-  arg1 = (libtorrent::error_code *)(argp1);
-  result = (libtorrent::close_reason_t)libtorrent::error_to_close_reason((boost::system::error_code const &)*arg1);
-  jsresult = SWIG_From_int((int)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
 
 
@@ -94199,7 +94167,7 @@ static SwigV8ReturnValue _wrap_JLIBTORRENT_REVISION_SHA1(v8::Local<v8::String> p
   
   v8::Handle<v8::Value> jsresult;
   
-  jsresult = SWIG_FromCharPtr((const char *)"89ba1dfcfee9bccaf1260712e419c430ba0e9701");
+  jsresult = SWIG_FromCharPtr((const char *)"6acc2a1d29d5869c161617d2020ab298ba11333d");
   
   SWIGV8_RETURN_INFO(jsresult, info);
   
@@ -102397,7 +102365,6 @@ SWIGV8_AddStaticVariable(_exports_stats_metric_obj, "type_counter", _wrap_libtor
 SWIGV8_AddStaticVariable(_exports_stats_metric_obj, "type_gauge", _wrap_libtorrent_stats_metric_type_gauge, JS_veto_set_variable);
 SWIGV8_AddStaticFunction(exports_obj, "session_stats_metrics", _wrap_session_stats_metrics);
 SWIGV8_AddStaticFunction(exports_obj, "find_metric_idx", _wrap_find_metric_idx);
-SWIGV8_AddStaticFunction(exports_obj, "error_to_close_reason", _wrap_error_to_close_reason);
 SWIGV8_AddStaticVariable(_exports_alert_obj, "error_notification", _wrap_libtorrent_alert_error_notification, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_alert_obj, "peer_notification", _wrap_libtorrent_alert_peer_notification, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_alert_obj, "port_mapping_notification", _wrap_libtorrent_alert_port_mapping_notification, JS_veto_set_variable);

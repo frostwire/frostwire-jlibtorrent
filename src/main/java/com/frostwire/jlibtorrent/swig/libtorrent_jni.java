@@ -997,7 +997,6 @@ public class libtorrent_jni {
   public final static native int find_metric_idx(String jarg1);
   public final static native int close_no_reason_get();
   public final static native int close_encryption_error_get();
-  public final static native int error_to_close_reason(long jarg1, error_code jarg1_);
   public final static native int alert_error_notification_get();
   public final static native int alert_peer_notification_get();
   public final static native int alert_port_mapping_notification_get();

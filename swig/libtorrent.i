@@ -53,7 +53,6 @@
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
 #include "libtorrent/peer_info.hpp"
-#include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
 #include "libtorrent/settings_pack.hpp"
 #include "libtorrent/peer_class.hpp"
@@ -595,6 +594,7 @@ typedef long time_t;
 %ignore libtorrent::fastresume_rejected_alert::operation;
 %ignore libtorrent::peer_log_alert::event_type;
 %ignore libtorrent::dht_lookup::type;
+%ignore libtorrent::error_to_close_reason;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -666,7 +666,6 @@ typedef long time_t;
 %include "libtorrent/alert.hpp"
 %include "libtorrent/alert_types.hpp"
 %include "libtorrent/peer_info.hpp"
-%include "libtorrent/session_status.hpp"
 %include "libtorrent/session_settings.hpp"
 %include "libtorrent/settings_pack.hpp"
 %include "libtorrent/peer_class.hpp"

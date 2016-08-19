@@ -708,7 +708,6 @@ namespace Swig {
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
 #include "libtorrent/peer_info.hpp"
-#include "libtorrent/session_status.hpp"
 #include "libtorrent/session_settings.hpp"
 #include "libtorrent/settings_pack.hpp"
 #include "libtorrent/peer_class.hpp"
@@ -23304,33 +23303,6 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_clos
   {
     try {
       result = (libtorrent::close_reason_t)libtorrent::close_encryption_error;
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_error_1to_1close_1reason(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  libtorrent::error_code *arg1 = 0 ;
-  libtorrent::close_reason_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::error_code **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::error_code const & reference is null");
-    return 0;
-  } 
-  {
-    try {
-      result = (libtorrent::close_reason_t)libtorrent::error_to_close_reason((boost::system::error_code const &)*arg1);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {
@@ -55634,7 +55606,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("89ba1dfcfee9bccaf1260712e419c430ba0e9701");
+  result = (char *)("6acc2a1d29d5869c161617d2020ab298ba11333d");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
