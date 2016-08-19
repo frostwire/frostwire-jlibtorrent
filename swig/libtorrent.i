@@ -95,6 +95,7 @@ using namespace libtorrent;
 %include <std_pair.i>
 
 %apply int8_t { char };
+%apply int64_t { void* };
 
 namespace std {
 
@@ -252,7 +253,7 @@ namespace libtorrent {
 
     namespace file {
         struct iovec_t {
-            std::int64_t iov_base;
+            void* iov_base;
             std::int64_t iov_len;
         };
     };
@@ -364,8 +365,6 @@ namespace libtorrent {
     %template(byte_span) span<char>;
     %template(byte_const_span) span<char const>;
     %template(iovec_span) span<file::iovec_t const>;
-
-    typedef std::vector<std::pair<std::string, int>> nodes_t;
 
     class string_view {
     public:
@@ -933,7 +932,7 @@ namespace libtorrent {
     }
 
     void set_ti(torrent_info const& ti) {
-        $self->ti = boost::make_shared<torrent_info>(ti);
+        $self->ti = std::make_shared<torrent_info>(ti);
     }
 
     static add_torrent_params create_instance() {
@@ -969,12 +968,13 @@ namespace libtorrent {
 };
 
 %extend torrent_handle {
+
     void add_piece_bytes(int piece, std::vector<int8_t> const& data, int flags = 0) {
         $self->add_piece(piece, (char const*)&data[0], flags);
     }
 
-    const torrent_info* get_torrent_copy() {
-        boost::shared_ptr<const torrent_info> ti = $self->torrent_file();
+    const torrent_info* get_torrent_ptr() {
+        std::shared_ptr<const torrent_info> ti = $self->torrent_file();
         return ti.get();
     }
 }
@@ -982,7 +982,7 @@ namespace libtorrent {
 %extend sha1_hash {
 
     sha1_hash(std::vector<int8_t> const& v) {
-        return new sha1_hash(v);
+        return new sha1_hash(reinterpret_cast<const char*>(v.data()));
     }
 
     int hash_code() {

@@ -1283,7 +1283,7 @@ SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< int8_t > &buf
         return libtorrent::bdecode(buffer.begin(), buffer.end());
     }
 SWIGINTERN libtorrent::sha1_hash *new_libtorrent_sha1_hash__SWIG_1(std::vector< int8_t > const &v){
-        return new sha1_hash(v);
+        return new sha1_hash(reinterpret_cast<const char*>(v.data()));
     }
 SWIGINTERN int libtorrent_sha1_hash_hash_code(libtorrent::sha1_hash *self){
         char const* data = self->data();
@@ -1312,8 +1312,8 @@ SWIGINTERN std::vector< libtorrent::block_info > libtorrent_partial_piece_info_g
 SWIGINTERN void libtorrent_torrent_handle_add_piece_bytes__SWIG_0(libtorrent::torrent_handle *self,int piece,std::vector< int8_t > const &data,int flags=0){
         self->add_piece(piece, (char const*)&data[0], flags);
     }
-SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_handle_get_torrent_copy(libtorrent::torrent_handle *self){
-        boost::shared_ptr<const torrent_info> ti = self->torrent_file();
+SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_handle_get_torrent_ptr(libtorrent::torrent_handle *self){
+        std::shared_ptr<const torrent_info> ti = self->torrent_file();
         return ti.get();
     }
 SWIGINTERN int64_t libtorrent_add_torrent_params_get_flags(libtorrent::add_torrent_params *self){
@@ -1323,7 +1323,7 @@ SWIGINTERN void libtorrent_add_torrent_params_set_flags(libtorrent::add_torrent_
         self->flags = flags;
     }
 SWIGINTERN void libtorrent_add_torrent_params_set_ti(libtorrent::add_torrent_params *self,libtorrent::torrent_info const &ti){
-        self->ti = boost::make_shared<torrent_info>(ti);
+        self->ti = std::make_shared<torrent_info>(ti);
     }
 SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_create_instance(){
         return add_torrent_params();
@@ -9024,13 +9024,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_iovec_1t_1iov_1base_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   libtorrent::file::iovec_t *arg1 = (libtorrent::file::iovec_t *) 0 ;
-  std::int64_t arg2 ;
+  void *arg2 = (void *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::file::iovec_t **)&jarg1; 
-  arg2 = (std::int64_t)jarg2; 
+  arg2 = (void *)jarg2; 
   if (arg1) (arg1)->iov_base = arg2;
 }
 
@@ -9038,13 +9038,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_iove
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_iovec_1t_1iov_1base_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::file::iovec_t *arg1 = (libtorrent::file::iovec_t *) 0 ;
-  std::int64_t result;
+  void *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::file::iovec_t **)&jarg1; 
-  result = (std::int64_t) ((arg1)->iov_base);
+  result = (void *) ((arg1)->iov_base);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -18667,7 +18667,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_t
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1info_1nodes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::torrent_info *arg1 = (libtorrent::torrent_info *) 0 ;
-  libtorrent::nodes_t *result = 0 ;
+  std::vector< std::pair< std::string,int > > *result = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -18675,14 +18675,14 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   arg1 = *(libtorrent::torrent_info **)&jarg1; 
   {
     try {
-      result = (libtorrent::nodes_t *) &((libtorrent::torrent_info const *)arg1)->nodes();
+      result = (std::vector< std::pair< std::string,int > > *) &((libtorrent::torrent_info const *)arg1)->nodes();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }
   }
-  *(libtorrent::nodes_t **)&jresult = result; 
+  *(std::vector< std::pair< std::string,int > > **)&jresult = result; 
   return jresult;
 }
 
@@ -21504,7 +21504,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1get_1torrent_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1get_1torrent_1ptr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
   libtorrent::torrent_info *result = 0 ;
@@ -21515,7 +21515,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   arg1 = *(libtorrent::torrent_handle **)&jarg1; 
   {
     try {
-      result = (libtorrent::torrent_info *)libtorrent_torrent_handle_get_torrent_copy(arg1);
+      result = (libtorrent::torrent_info *)libtorrent_torrent_handle_get_torrent_ptr(arg1);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
     } catch (...) {
@@ -55536,7 +55536,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("9fd83aaa10c1bca0d36b783004af89897bf3e618");
+  result = (char *)("02e706fb1e9e0a9967fbbbc8c2bd59583bd24adc");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -55548,7 +55548,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("e4e9afe800b57daab9932898094f752a3136f4ce");
+  result = (char *)("44b18e9cb867e81d90d3bee9ee08e55d3934473a");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

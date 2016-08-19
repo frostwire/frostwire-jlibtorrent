@@ -2670,7 +2670,7 @@ SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< int8_t > &buf
         return libtorrent::bdecode(buffer.begin(), buffer.end());
     }
 SWIGINTERN libtorrent::sha1_hash *new_libtorrent_sha1_hash__SWIG_1(std::vector< int8_t > const &v){
-        return new sha1_hash(v);
+        return new sha1_hash(reinterpret_cast<const char*>(v.data()));
     }
 SWIGINTERN int libtorrent_sha1_hash_hash_code(libtorrent::sha1_hash *self){
         char const* data = self->data();
@@ -2699,8 +2699,8 @@ SWIGINTERN std::vector< libtorrent::block_info > libtorrent_partial_piece_info_g
 SWIGINTERN void libtorrent_torrent_handle_add_piece_bytes__SWIG_0(libtorrent::torrent_handle *self,int piece,std::vector< int8_t > const &data,int flags=0){
         self->add_piece(piece, (char const*)&data[0], flags);
     }
-SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_handle_get_torrent_copy(libtorrent::torrent_handle *self){
-        boost::shared_ptr<const torrent_info> ti = self->torrent_file();
+SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_handle_get_torrent_ptr(libtorrent::torrent_handle *self){
+        std::shared_ptr<const torrent_info> ti = self->torrent_file();
         return ti.get();
     }
 SWIGINTERN int64_t libtorrent_add_torrent_params_get_flags(libtorrent::add_torrent_params *self){
@@ -2710,7 +2710,7 @@ SWIGINTERN void libtorrent_add_torrent_params_set_flags(libtorrent::add_torrent_
         self->flags = flags;
     }
 SWIGINTERN void libtorrent_add_torrent_params_set_ti(libtorrent::add_torrent_params *self,libtorrent::torrent_info const &ti){
-        self->ti = boost::make_shared<torrent_info>(ti);
+        self->ti = std::make_shared<torrent_info>(ti);
     }
 SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_create_instance(){
         return add_torrent_params();
@@ -13869,7 +13869,7 @@ static void _wrap_iovec_t_iov_base_set(v8::Local<v8::String> property, v8::Local
   SWIGV8_HANDLESCOPE();
   
   libtorrent::file::iovec_t *arg1 = (libtorrent::file::iovec_t *) 0 ;
-  std::int64_t arg2 ;
+  void *arg2 = (void *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long long val2 ;
@@ -13882,9 +13882,9 @@ static void _wrap_iovec_t_iov_base_set(v8::Local<v8::String> property, v8::Local
   arg1 = (libtorrent::file::iovec_t *)(argp1);
   ecode2 = SWIG_AsVal_long_SS_long(value, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "iovec_t_iov_base_set" "', argument " "2"" of type '" "std::int64_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "iovec_t_iov_base_set" "', argument " "2"" of type '" "void *""'");
   } 
-  arg2 = (std::int64_t)(val2);
+  arg2 = (void *)(val2);
   if (arg1) (arg1)->iov_base = arg2;
   
   
@@ -13902,14 +13902,14 @@ static SwigV8ReturnValue _wrap_iovec_t_iov_base_get(v8::Local<v8::String> proper
   libtorrent::file::iovec_t *arg1 = (libtorrent::file::iovec_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  std::int64_t result;
+  void *result = 0 ;
   
   res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__file__iovec_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "iovec_t_iov_base_get" "', argument " "1"" of type '" "libtorrent::file::iovec_t *""'"); 
   }
   arg1 = (libtorrent::file::iovec_t *)(argp1);
-  result = (std::int64_t) ((arg1)->iov_base);
+  result = (void *) ((arg1)->iov_base);
   jsresult = SWIG_From_long_SS_long((long long)(result));
   
   
@@ -30309,7 +30309,7 @@ static SwigV8ReturnValue _wrap_torrent_info_nodes(const SwigV8Arguments &args) {
   libtorrent::torrent_info *arg1 = (libtorrent::torrent_info *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  libtorrent::nodes_t *result = 0 ;
+  std::vector< std::pair< std::string,int > > *result = 0 ;
   
   if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_info_nodes.");
   
@@ -30318,7 +30318,7 @@ static SwigV8ReturnValue _wrap_torrent_info_nodes(const SwigV8Arguments &args) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_info_nodes" "', argument " "1"" of type '" "libtorrent::torrent_info const *""'"); 
   }
   arg1 = (libtorrent::torrent_info *)(argp1);
-  result = (libtorrent::nodes_t *) &((libtorrent::torrent_info const *)arg1)->nodes();
+  result = (std::vector< std::pair< std::string,int > > *) &((libtorrent::torrent_info const *)arg1)->nodes();
   jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_std__pairT_std__string_int_t_t, 0 |  0 );
   
   
@@ -35438,7 +35438,7 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_torrent_handle_get_torrent_copy(const SwigV8Arguments &args) {
+static SwigV8ReturnValue _wrap_torrent_handle_get_torrent_ptr(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
@@ -35447,14 +35447,14 @@ static SwigV8ReturnValue _wrap_torrent_handle_get_torrent_copy(const SwigV8Argum
   int res1 = 0 ;
   libtorrent::torrent_info *result = 0 ;
   
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_handle_get_torrent_copy.");
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_handle_get_torrent_ptr.");
   
   res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_handle, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_handle_get_torrent_copy" "', argument " "1"" of type '" "libtorrent::torrent_handle *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_handle_get_torrent_ptr" "', argument " "1"" of type '" "libtorrent::torrent_handle *""'"); 
   }
   arg1 = (libtorrent::torrent_handle *)(argp1);
-  result = (libtorrent::torrent_info *)libtorrent_torrent_handle_get_torrent_copy(arg1);
+  result = (libtorrent::torrent_info *)libtorrent_torrent_handle_get_torrent_ptr(arg1);
   jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_libtorrent__torrent_info, 0 |  0 );
   
   
@@ -94062,7 +94062,7 @@ static SwigV8ReturnValue _wrap_LIBTORRENT_REVISION_SHA1(v8::Local<v8::String> pr
   
   v8::Handle<v8::Value> jsresult;
   
-  jsresult = SWIG_FromCharPtr((const char *)"9fd83aaa10c1bca0d36b783004af89897bf3e618");
+  jsresult = SWIG_FromCharPtr((const char *)"02e706fb1e9e0a9967fbbbc8c2bd59583bd24adc");
   
   SWIGV8_RETURN_INFO(jsresult, info);
   
@@ -94077,7 +94077,7 @@ static SwigV8ReturnValue _wrap_JLIBTORRENT_REVISION_SHA1(v8::Local<v8::String> p
   
   v8::Handle<v8::Value> jsresult;
   
-  jsresult = SWIG_FromCharPtr((const char *)"e4e9afe800b57daab9932898094f752a3136f4ce");
+  jsresult = SWIG_FromCharPtr((const char *)"44b18e9cb867e81d90d3bee9ee08e55d3934473a");
   
   SWIGV8_RETURN_INFO(jsresult, info);
   
@@ -95579,7 +95579,7 @@ static swig_type_info _swigt__p_std__vectorT_libtorrent__web_seed_entry_t = {"_p
 static swig_type_info _swigt__p_std__vectorT_long_long_t = {"_p_std__vectorT_long_long_t", "std::vector< long long > *|std::vector< std::int64_t > *|p_std__vectorT_long_long_t", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_signed_char_t = {"_p_std__vectorT_signed_char_t", "std::vector< signed char > *|p_std__vectorT_signed_char_t|std::vector< int8_t > *|std::vector< std::uint8_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__pairT_int_int_t_t = {"_p_std__vectorT_std__pairT_int_int_t_t", "std::vector< std::pair< int,int > > *|p_std__vectorT_std__pairT_int_int_t_t", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_std__pairT_std__string_int_t_t = {"_p_std__vectorT_std__pairT_std__string_int_t_t", "std::vector< std::pair< std::string,int > > *|libtorrent::nodes_t *|p_std__vectorT_std__pairT_std__string_int_t_t", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_std__pairT_std__string_int_t_t = {"_p_std__vectorT_std__pairT_std__string_int_t_t", "std::vector< std::pair< std::string,int > > *|p_std__vectorT_std__pairT_std__string_int_t_t", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__pairT_std__string_std__string_t_t = {"_p_std__vectorT_std__pairT_std__string_std__string_t_t", "std::vector< std::pair< std::string,std::string > > *|p_std__vectorT_std__pairT_std__string_std__string_t_t|libtorrent::web_seed_entry::headers_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__string_t = {"_p_std__vectorT_std__string_t", "p_std__vectorT_std__string_t|std::vector< std::string > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_tcp__endpoint_t = {"_p_std__vectorT_tcp__endpoint_t", "p_std__vectorT_tcp__endpoint_t|std::vector< tcp::endpoint > *", 0, 0, (void*)0, 0};
@@ -98406,7 +98406,7 @@ SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "op_ne", _wrap_torrent_h
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "op_lt", _wrap_torrent_handle_op_lt);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "id", _wrap_torrent_handle_id);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "add_piece_bytes", _wrap_torrent_handle__wrap_torrent_handle_add_piece_bytes);
-SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "get_torrent_copy", _wrap_torrent_handle_get_torrent_copy);
+SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "get_torrent_ptr", _wrap_torrent_handle_get_torrent_ptr);
 SWIGV8_AddMemberVariable(_exports_add_torrent_params_class, "version", _wrap_add_torrent_params_version_get, _wrap_add_torrent_params_version_set);
 SWIGV8_AddMemberVariable(_exports_add_torrent_params_class, "trackers", _wrap_add_torrent_params_trackers_get, _wrap_add_torrent_params_trackers_set);
 SWIGV8_AddMemberVariable(_exports_add_torrent_params_class, "tracker_tiers", _wrap_add_torrent_params_tracker_tiers_get, _wrap_add_torrent_params_tracker_tiers_set);

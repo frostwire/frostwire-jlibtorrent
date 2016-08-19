@@ -915,6 +915,7 @@ public final class Session extends SessionHandle {
     }
 
     private void saveMagnetData(MetadataReceivedAlert alert) {
+        /*
         try {
             torrent_handle th = alert.handle().swig();
             TorrentInfo ti = new TorrentInfo(th.get_torrent_copy());
@@ -924,7 +925,7 @@ public final class Session extends SessionHandle {
             MAGNET_CACHE.put(sha1, data);
         } catch (Throwable e) {
             LOG.error("Error in saving magnet in internal cache", e);
-        }
+        }*/
     }
 
     private static session createSession(SettingsPack settings, boolean logging) {

@@ -882,7 +882,7 @@ public class libtorrent_jni {
   public final static native long torrent_handle_id(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_add_piece_bytes__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_, int jarg4);
   public final static native void torrent_handle_add_piece_bytes__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_);
-  public final static native long torrent_handle_get_torrent_copy(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_get_torrent_ptr(long jarg1, torrent_handle jarg1_);
   public final static native void delete_torrent_handle(long jarg1);
   public final static native int add_torrent_params_flag_seed_mode_get();
   public final static native int add_torrent_params_flag_upload_mode_get();
