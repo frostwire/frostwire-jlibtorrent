@@ -675,6 +675,12 @@ namespace Swig {
   }
 }
 
+namespace Swig {
+  namespace {
+    jclass jclass_libtorrent_jni = NULL;
+    jmethodID director_method_ids[1];
+  }
+}
 
 // BEGIN common set include ------------------------------------------------------
 
@@ -1524,6 +1530,9 @@ SWIGINTERN void libtorrent_session_handle_dht_put_item__SWIG_1(libtorrent::sessi
 SWIGINTERN libtorrent::alert *libtorrent_session_handle_wait_for_alert_ms(libtorrent::session_handle *self,int64_t max_wait){
         return self->wait_for_alert(libtorrent::milliseconds(max_wait));
     }
+SWIGINTERN void libtorrent_session_handle_set_alert_notify_callback(libtorrent::session_handle *self,alert_notify_callback *cb){
+        self->set_alert_notify(std::bind(&alert_notify_callback::on_alert, cb));
+    }
 SWIGINTERN int64_t libtorrent_peer_connection_handle_get_time_of_last_unchoke(libtorrent::peer_connection_handle *self){
         return libtorrent::total_milliseconds(self->time_of_last_unchoke() - libtorrent::clock_type::now());
     }
@@ -1546,6 +1555,74 @@ SWIGINTERN int64_t libtorrent_torrent_status_get_next_announce(libtorrent::torre
  * --------------------------------------------------- */
 
 #include "libtorrent_jni.h"
+
+SwigDirector_alert_notify_callback::SwigDirector_alert_notify_callback(JNIEnv *jenv) : alert_notify_callback(), Swig::Director(jenv) {
+}
+
+SwigDirector_alert_notify_callback::~SwigDirector_alert_notify_callback() {
+  swig_disconnect_director_self("swigDirectorDisconnect");
+}
+
+
+void SwigDirector_alert_notify_callback::on_alert() {
+  JNIEnvWrapper swigjnienv(this) ;
+  JNIEnv * jenv = swigjnienv.getJNIEnv() ;
+  jobject swigjobj = (jobject) NULL ;
+  
+  if (!swig_override[0]) {
+    alert_notify_callback::on_alert();
+    return;
+  }
+  swigjobj = swig_get_self(jenv);
+  if (swigjobj && jenv->IsSameObject(swigjobj, NULL) == JNI_FALSE) {
+    jenv->CallStaticVoidMethod(Swig::jclass_libtorrent_jni, Swig::director_method_ids[0], swigjobj);
+    jthrowable swigerror = jenv->ExceptionOccurred();
+    if (swigerror) {
+      jenv->ExceptionClear();
+      throw Swig::DirectorException(jenv, swigerror);
+    }
+    
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object in alert_notify_callback::on_alert ");
+  }
+  if (swigjobj) jenv->DeleteLocalRef(swigjobj);
+}
+
+void SwigDirector_alert_notify_callback::swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global) {
+  static struct {
+    const char *mname;
+    const char *mdesc;
+    jmethodID base_methid;
+  } methods[] = {
+    {
+      "on_alert", "()V", NULL 
+    }
+  };
+  
+  static jclass baseclass = 0 ;
+  
+  if (swig_set_self(jenv, jself, swig_mem_own, weak_global)) {
+    if (!baseclass) {
+      baseclass = jenv->FindClass("com/frostwire/jlibtorrent/swig/alert_notify_callback");
+      if (!baseclass) return;
+      baseclass = (jclass) jenv->NewGlobalRef(baseclass);
+    }
+    bool derived = (jenv->IsSameObject(baseclass, jcls) ? false : true);
+    for (int i = 0; i < 1; ++i) {
+      if (!methods[i].base_methid) {
+        methods[i].base_methid = jenv->GetMethodID(baseclass, methods[i].mname, methods[i].mdesc);
+        if (!methods[i].base_methid) return;
+      }
+      swig_override[i] = false;
+      if (derived) {
+        jmethodID methid = jenv->GetMethodID(jcls, methods[i].mname, methods[i].mdesc);
+        swig_override[i] = (methid != methods[i].base_methid);
+        jenv->ExceptionClear();
+      }
+    }
+  }
+}
+
 
 
 #ifdef __cplusplus
@@ -48542,6 +48619,28 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
 }
 
 
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1set_1alert_1notify_1callback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  libtorrent::session_handle *arg1 = (libtorrent::session_handle *) 0 ;
+  alert_notify_callback *arg2 = (alert_notify_callback *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(libtorrent::session_handle **)&jarg1; 
+  arg2 = *(alert_notify_callback **)&jarg2; 
+  {
+    try {
+      libtorrent_session_handle_set_alert_notify_callback(arg1,arg2);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1session_1handle(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   libtorrent::session_handle *arg1 = (libtorrent::session_handle *) 0 ;
   
@@ -55467,6 +55566,102 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_defa
 }
 
 
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1alert_1notify_1callback(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  alert_notify_callback *arg1 = (alert_notify_callback *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(alert_notify_callback **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1notify_1callback_1on_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  alert_notify_callback *arg1 = (alert_notify_callback *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(alert_notify_callback **)&jarg1; 
+  {
+    try {
+      (arg1)->on_alert();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1notify_1callback_1on_1alertSwigExplicitalert_1notify_1callback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  alert_notify_callback *arg1 = (alert_notify_callback *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(alert_notify_callback **)&jarg1; 
+  {
+    try {
+      (arg1)->alert_notify_callback::on_alert();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1alert_1notify_1callback(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  alert_notify_callback *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (alert_notify_callback *)new SwigDirector_alert_notify_callback(jenv);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+  }
+  *(alert_notify_callback **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1notify_1callback_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
+  alert_notify_callback *obj = *((alert_notify_callback **)&objarg);
+  (void)jcls;
+  SwigDirector_alert_notify_callback *director = static_cast<SwigDirector_alert_notify_callback *>(obj);
+  if (director) {
+    director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1notify_1callback_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
+  alert_notify_callback *obj = *((alert_notify_callback **)&objarg);
+  SwigDirector_alert_notify_callback *director = static_cast<SwigDirector_alert_notify_callback *>(obj);
+  (void)jcls;
+  if (director) {
+    director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
+  }
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1add_1files_1listener(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   add_files_listener *arg1 = (add_files_listener *) 0 ;
   
@@ -56629,6 +56824,26 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bt_
     *(libtorrent::peer_connection_handle **)&baseptr = *(libtorrent::bt_peer_connection_handle **)&jarg1;
     return baseptr;
 }
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_swig_1module_1init(JNIEnv *jenv, jclass jcls) {
+  int i;
+  
+  static struct {
+    const char *method;
+    const char *signature;
+  } methods[1] = {
+    {
+      "SwigDirector_alert_notify_callback_on_alert", "(Lcom/frostwire/jlibtorrent/swig/alert_notify_callback;)V" 
+    }
+  };
+  Swig::jclass_libtorrent_jni = (jclass) jenv->NewGlobalRef(jcls);
+  if (!Swig::jclass_libtorrent_jni) return;
+  for (i = 0; i < (int) (sizeof(methods)/sizeof(methods[0])); ++i) {
+    Swig::director_method_ids[i] = jenv->GetStaticMethodID(jcls, methods[i].method, methods[i].signature);
+    if (!Swig::director_method_ids[i]) return;
+  }
+}
+
 
 #ifdef __cplusplus
 }

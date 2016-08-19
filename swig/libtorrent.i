@@ -673,6 +673,8 @@ typedef long time_t;
 
 %ignore dht_put_item_cb;
 
+%feature("director") alert_notify_callback;
+
 // BEGIN common set include ------------------------------------------------------
 
 %include <boost/system/error_code.hpp>
@@ -853,6 +855,10 @@ namespace libtorrent {
 
     alert* wait_for_alert_ms(int64_t max_wait) {
         return $self->wait_for_alert(libtorrent::milliseconds(max_wait));
+    }
+
+    void set_alert_notify_callback(alert_notify_callback* cb) {
+        $self->set_alert_notify(std::bind(&alert_notify_callback::on_alert, cb));
     }
 }
 

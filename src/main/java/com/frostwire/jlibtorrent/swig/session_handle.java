@@ -260,6 +260,10 @@ public class session_handle {
     return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 
+  public void set_alert_notify_callback(alert_notify_callback cb) {
+    libtorrent_jni.session_handle_set_alert_notify_callback(swigCPtr, this, alert_notify_callback.getCPtr(cb), cb);
+  }
+
   public final static class save_state_flags_t {
     public final static session_handle.save_state_flags_t save_settings = new session_handle.save_state_flags_t("save_settings", libtorrent_jni.session_handle_save_settings_get());
     public final static session_handle.save_state_flags_t save_dht_settings = new session_handle.save_state_flags_t("save_dht_settings", libtorrent_jni.session_handle_save_dht_settings_get());

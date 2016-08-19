@@ -23,7 +23,10 @@ public final class SessionManager {
     private final ReentrantLock sync;
 
     private session session;
+
     private Thread alertsLoop;
+    private final Object alertsLock = new Object();
+    private final AlertsCallback alertsCallback = new AlertsCallback();
 
     public SessionManager(String interfaces, int retries, boolean logging) {
         this.interfaces = interfaces;
@@ -46,8 +49,6 @@ public final class SessionManager {
             }
 
             session = createSession(interfaces, retries, logging);
-
-            startAlertsLoop();
 
             for (Pair p : defaultDhtRouters()) {
                 session.add_dht_router(p.to_string_int_pair());
@@ -97,6 +98,9 @@ public final class SessionManager {
 
         session s = new session(sp);
 
+        startAlertsLoop();
+        s.set_alert_notify_callback(alertsCallback);
+
         return s;
     }
 
@@ -133,9 +137,18 @@ public final class SessionManager {
             alert_ptr_vector v = new alert_ptr_vector();
 
             while (session != null) {
-                alert ptr = session.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
 
-                if (ptr != null && session != null) {
+                //synchronized (alertsCallback) {
+                    try {
+                        alertsCallback.wait();
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+
+                    if (session == null) {
+                        return;
+                    }
+
                     session.pop_alerts(v);
                     int size = (int) v.size();
                     for (int i = 0; i < size; i++) {
@@ -144,7 +157,18 @@ public final class SessionManager {
                         Alert alert = Alerts.cast(a);
                         System.out.println(alert);
                     }
-                }
+                    v.clear();
+                //}
+            }
+        }
+    }
+
+    public final class AlertsCallback extends alert_notify_callback {
+
+        @Override
+        public void on_alert() {
+            synchronized (this) {
+                notify();
             }
         }
     }

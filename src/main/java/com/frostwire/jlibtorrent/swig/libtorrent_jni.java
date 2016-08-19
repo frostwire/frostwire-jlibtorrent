@@ -2446,6 +2446,7 @@ public class libtorrent_jni {
   public final static native void session_handle_dht_get_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
   public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_, long jarg5, byte_vector jarg5_);
   public final static native long session_handle_wait_for_alert_ms(long jarg1, session_handle jarg1_, long jarg2);
+  public final static native void session_handle_set_alert_notify_callback(long jarg1, session_handle jarg1_, long jarg2, alert_notify_callback jarg2_);
   public final static native void delete_session_handle(long jarg1);
   public final static native void min_memory_usage(long jarg1, settings_pack jarg1_);
   public final static native void high_performance_seed(long jarg1, settings_pack jarg1_);
@@ -2809,6 +2810,12 @@ public class libtorrent_jni {
   public final static native void ed25519_key_exchange(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
   public final static native boolean default_storage_disk_write_access_log__SWIG_0();
   public final static native void default_storage_disk_write_access_log__SWIG_1(boolean jarg1);
+  public final static native void delete_alert_notify_callback(long jarg1);
+  public final static native void alert_notify_callback_on_alert(long jarg1, alert_notify_callback jarg1_);
+  public final static native void alert_notify_callback_on_alertSwigExplicitalert_notify_callback(long jarg1, alert_notify_callback jarg1_);
+  public final static native long new_alert_notify_callback();
+  public final static native void alert_notify_callback_director_connect(alert_notify_callback obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void alert_notify_callback_change_ownership(alert_notify_callback obj, long cptr, boolean take_or_release);
   public final static native void delete_add_files_listener(long jarg1);
   public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
   public final static native long new_add_files_listener();
@@ -2921,4 +2928,13 @@ public class libtorrent_jni {
   public final static native long picker_log_alert_SWIGUpcast(long jarg1);
   public final static native long session_SWIGUpcast(long jarg1);
   public final static native long bt_peer_connection_handle_SWIGUpcast(long jarg1);
+
+  public static void SwigDirector_alert_notify_callback_on_alert(alert_notify_callback jself) {
+    jself.on_alert();
+  }
+
+  private final static native void swig_module_init();
+  static {
+    swig_module_init();
+  }
 }

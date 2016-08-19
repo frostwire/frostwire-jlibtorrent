@@ -94,6 +94,15 @@ void default_storage_disk_write_access_log(bool enable) {
     return libtorrent::default_storage::disk_write_access_log(enable);
 }
 
+class alert_notify_callback {
+public:
+    virtual ~alert_notify_callback() {
+    }
+
+    virtual void on_alert() {
+    }
+};
+
 class add_files_listener {
 public:
     virtual ~add_files_listener() {
