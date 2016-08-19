@@ -43,8 +43,6 @@
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/sha1_hash.hpp"
-#include "libtorrent/storage_defs.hpp"
-#include "libtorrent/storage.hpp"
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
@@ -263,6 +261,11 @@ namespace libtorrent {
         };
     };
 
+    enum storage_mode_t {
+        storage_mode_allocate,
+        storage_mode_sparse
+    };
+
     template <int N>
     struct bloom_filter {
 
@@ -380,9 +383,6 @@ typedef long time_t;
 %ignore libtorrent::detail;
 
 %ignore libtorrent::parse_int;
-%ignore libtorrent::default_storage_constructor;
-%ignore libtorrent::disabled_storage_constructor;
-%ignore libtorrent::zero_storage_constructor;
 %ignore libtorrent::bdecode;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
@@ -406,15 +406,6 @@ typedef long time_t;
 %ignore libtorrent::get_filesizes;
 %ignore libtorrent::parse_magnet_uri_peers;
 
-%ignore libtorrent::copy_bufs;
-%ignore libtorrent::advance_bufs;
-%ignore libtorrent::clear_bufs;
-%ignore libtorrent::storage_interface::settings;
-%ignore libtorrent::storage_interface::m_settings;
-%ignore libtorrent::default_storage;
-%ignore libtorrent::piece_manager;
-%ignore libtorrent::disk_job_fence;
-%ignore libtorrent::storage_piece_set;
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore libtorrent::add_torrent_params::extensions;
@@ -426,7 +417,6 @@ typedef long time_t;
 %ignore libtorrent::add_torrent_params::deprecated2;
 %ignore libtorrent::add_torrent_params::deprecated3;
 %ignore libtorrent::add_torrent_params::deprecated4;
-%ignore libtorrent::connection_queue::enqueue;
 %ignore libtorrent::alert::timestamp;
 %ignore libtorrent::session_params::session_params(settings_pack, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(session_params&&);
@@ -589,10 +579,6 @@ typedef long time_t;
 %ignore libtorrent::file_storage::file_name_ptr;
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
-%ignore libtorrent::file_status;
-%ignore libtorrent::stat_file;
-%ignore libtorrent::fileop;
-%ignore libtorrent::readwritev;
 %ignore libtorrent::bitfield::bitfield(bitfield const&);
 %ignore libtorrent::bitfield::data();
 %ignore libtorrent::bitfield::const_iterator;
@@ -671,8 +657,6 @@ typedef long time_t;
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/entry.hpp"
 %include "libtorrent/sha1_hash.hpp"
-%include "libtorrent/storage_defs.hpp"
-%include "libtorrent/storage.hpp"
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/torrent_handle.hpp"
