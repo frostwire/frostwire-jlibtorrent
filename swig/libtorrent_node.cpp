@@ -94167,7 +94167,7 @@ static SwigV8ReturnValue _wrap_JLIBTORRENT_REVISION_SHA1(v8::Local<v8::String> p
   
   v8::Handle<v8::Value> jsresult;
   
-  jsresult = SWIG_FromCharPtr((const char *)"6acc2a1d29d5869c161617d2020ab298ba11333d");
+  jsresult = SWIG_FromCharPtr((const char *)"1c826216a33af7b5dfa268e63326de938bd1f9cc");
   
   SWIGV8_RETURN_INFO(jsresult, info);
   

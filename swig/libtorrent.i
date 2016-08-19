@@ -2,8 +2,6 @@
 
 // suppress Warning 317: Specialization of non-template '<name>'.
 #pragma SWIG nowarn=317
-// suppress Warning 319: No access specifier given for base class 'boost::noncopyable' (ignored).
-#pragma SWIG nowarn=319
 // suppress Warning 341: The 'using' keyword in type aliasing is not fully supported yet.
 #pragma SWIG nowarn=341
 // suppress Warning 401: Nothing known about base class '<name>'. Ignored.
@@ -379,7 +377,6 @@ namespace libtorrent {
 typedef long time_t;
 
 %ignore libtorrent::detail;
-
 %ignore libtorrent::parse_int;
 %ignore libtorrent::bdecode;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(int)> const&, error_code&);
@@ -388,22 +385,8 @@ typedef long time_t;
 %ignore libtorrent::print_entry;
 %ignore libtorrent::peer_class;
 %ignore libtorrent::peer_class_pool;
-
-%ignore libtorrent::to_string(size_type);
-%ignore libtorrent::request_a_block;
-%ignore libtorrent::merkle_num_leafs;
-%ignore libtorrent::merkle_num_nodes;
-%ignore libtorrent::merkle_get_parent;
-%ignore libtorrent::merkle_get_sibling;
-%ignore libtorrent::hex_to_int;
-%ignore libtorrent::nop;
-%ignore libtorrent::to_string;
 %ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>, std::uint32_t);
 %ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>);
-%ignore libtorrent::initialize_file_progress;
-%ignore libtorrent::get_filesizes;
-%ignore libtorrent::parse_magnet_uri_peers;
-
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore libtorrent::add_torrent_params::extensions;
@@ -596,22 +579,19 @@ typedef long time_t;
 %ignore libtorrent::dht_lookup::type;
 %ignore libtorrent::error_to_close_reason;
 
-%ignore boost::throws;
-%ignore boost::detail::throws;
-%ignore boost::system::generic_category;
-%ignore boost::system::system_category;
-%ignore boost::system::error_code::unspecified_bool_true;
-%ignore boost::asio::error::get_netdb_category;
-%ignore boost::asio::error::get_addrinfo_category;
-%ignore boost::asio::error::get_misc_category;
-%ignore boost::asio::detail::posix_tss_ptr_create;
-
 %ignore ed25519_create_seed(unsigned char *);
 %ignore ed25519_create_keypair(unsigned char *, unsigned char *, const unsigned char *);
 %ignore ed25519_sign(unsigned char *, const unsigned char *, size_t , const unsigned char *, const unsigned char *);
 %ignore ed25519_verify(const unsigned char *, const unsigned char *, size_t , const unsigned char *);
 %ignore ed25519_add_scalar(unsigned char *, unsigned char *, const unsigned char *);
 %ignore ed25519_key_exchange(unsigned char *, const unsigned char *, const unsigned char *);
+
+%ignore boost::throws;
+%ignore boost::detail::throws;
+%ignore boost::system::generic_category;
+%ignore boost::system::system_category;
+%ignore boost::system::error_code::unspecified_bool_true;
+%ignore boost::asio;
 
 %ignore operator=;
 %ignore operator!;
