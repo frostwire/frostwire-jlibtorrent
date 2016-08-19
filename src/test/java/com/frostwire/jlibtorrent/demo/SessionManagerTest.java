@@ -15,5 +15,7 @@ public final class SessionManagerTest {
 
         System.out.println("Press ENTER to exit");
         System.in.read();
+
+        s.stop();
     }
 }

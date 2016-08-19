@@ -4,8 +4,10 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.Alerts;
 import com.frostwire.jlibtorrent.swig.*;
 
-import java.io.File;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -14,24 +16,26 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public final class SessionManager {
 
-    private static final long ALERTS_LOOP_WAIT_MILLIS = 1000;
-
     private final String interfaces;
     private final int retries;
     private final boolean logging;
+
+    private final ExecutorService alertsPool;
+    private final AlertsCallback alertsCallback;
+    private final alert_ptr_vector alerts;
 
     private final ReentrantLock sync;
 
     private session session;
 
-    private Thread alertsLoop;
-    private final Object alertsLock = new Object();
-    private final AlertsCallback alertsCallback = new AlertsCallback();
-
     public SessionManager(String interfaces, int retries, boolean logging) {
         this.interfaces = interfaces;
         this.retries = retries;
         this.logging = logging;
+
+        this.alertsPool = Executors.newSingleThreadExecutor(new AlertsThreadFactory());
+        this.alertsCallback = new AlertsCallback();
+        this.alerts = new alert_ptr_vector();
 
         this.sync = new ReentrantLock();
     }
@@ -49,7 +53,9 @@ public final class SessionManager {
             }
 
             session = createSession(interfaces, retries, logging);
+            session.set_alert_notify_callback(alertsCallback);
 
+            // TODO: this will change once the new settings is merged in master
             for (Pair p : defaultDhtRouters()) {
                 session.add_dht_router(p.to_string_int_pair());
             }
@@ -59,34 +65,20 @@ public final class SessionManager {
         }
     }
 
-    public static TorrentHandle download(Session s, TorrentInfo ti, File saveDir) {
-        if (saveDir == null) {
-            throw new IllegalArgumentException("saveDir can't be null");
+    public void stop() {
+        sync.lock();
+
+        try {
+            if (session == null) {
+                return;
+            }
+
+            session.delete();
+            session = null;
+
+        } finally {
+            sync.unlock();
         }
-
-        add_torrent_params p = add_torrent_params.create_instance();
-
-        p.set_ti(ti.swig());
-        p.setSave_path(saveDir.getAbsolutePath());
-
-        long flags = p.get_flags();
-
-        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-
-        p.set_flags(flags);
-
-        error_code ec = new error_code();
-        torrent_handle th = s.swig().add_torrent(p, ec);
-        if (ec.value() != 0) {
-            throw new RuntimeException(ec.message());
-        }
-        return new TorrentHandle(th);
-    }
-
-    private void startAlertsLoop() {
-        alertsLoop = new Thread(new AlertsLoop(), "SessionManager-alertsLoop");
-        alertsLoop.setDaemon(true);
-        alertsLoop.start();
     }
 
     private session createSession(String interfaces, int retries, boolean logging) {
@@ -96,12 +88,7 @@ public final class SessionManager {
         sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
         sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
 
-        session s = new session(sp);
-
-        startAlertsLoop();
-        s.set_alert_notify_callback(alertsCallback);
-
-        return s;
+        return new session(sp);
     }
 
     private static int alertMask(boolean logging) {
@@ -134,42 +121,39 @@ public final class SessionManager {
 
         @Override
         public void run() {
-            alert_ptr_vector v = new alert_ptr_vector();
 
-            while (session != null) {
-
-                //synchronized (alertsCallback) {
-                    try {
-                        alertsCallback.wait();
-                    } catch (InterruptedException e) {
-                        return;
-                    }
-
-                    if (session == null) {
-                        return;
-                    }
-
-                    session.pop_alerts(v);
-                    int size = (int) v.size();
-                    for (int i = 0; i < size; i++) {
-                        alert a = v.get(i);
-
-                        Alert alert = Alerts.cast(a);
-                        System.out.println(alert);
-                    }
-                    v.clear();
-                //}
+            if (session == null) {
+                return;
             }
+
+            session.pop_alerts(alerts);
+            int size = (int) alerts.size();
+            for (int i = 0; i < size; i++) {
+                alert a = alerts.get(i);
+
+                Alert alert = Alerts.cast(a);
+                System.out.println(alert);
+            }
+            alerts.clear();
         }
     }
 
-    public final class AlertsCallback extends alert_notify_callback {
+    private final class AlertsCallback extends alert_notify_callback {
 
         @Override
         public void on_alert() {
-            synchronized (this) {
-                notify();
-            }
+            alertsPool.execute(new AlertsLoop());
+        }
+    }
+
+    private static final class AlertsThreadFactory implements ThreadFactory {
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread t = new Thread(r);
+            t.setName("SessionManager-alerts");
+            t.setDaemon(true);
+            return t;
         }
     }
 }
