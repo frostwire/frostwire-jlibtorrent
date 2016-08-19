@@ -995,15 +995,6 @@ public class libtorrent_jni {
   public final static native void delete_stats_metric(long jarg1);
   public final static native long session_stats_metrics();
   public final static native int find_metric_idx(String jarg1);
-  public final static native int counters_num_checking_torrents_get();
-  public final static native int counters_num_gauges_counters_get();
-  public final static native long new_counters__SWIG_0();
-  public final static native long new_counters__SWIG_1(long jarg1, counters jarg1_);
-  public final static native long counters_inc_stats_counter__SWIG_0(long jarg1, counters jarg1_, int jarg2, long jarg3);
-  public final static native long counters_inc_stats_counter__SWIG_1(long jarg1, counters jarg1_, int jarg2);
-  public final static native void counters_set_value(long jarg1, counters jarg1_, int jarg2, long jarg3);
-  public final static native void counters_blend_stats_counter(long jarg1, counters jarg1_, int jarg2, long jarg3, int jarg4);
-  public final static native void delete_counters(long jarg1);
   public final static native int close_no_reason_get();
   public final static native int close_encryption_error_get();
   public final static native int error_to_close_reason(long jarg1, error_code jarg1_);

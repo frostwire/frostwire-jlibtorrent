@@ -704,7 +704,6 @@ namespace Swig {
 #include "libtorrent/add_torrent_params.hpp"
 #include "libtorrent/operations.hpp"
 #include "libtorrent/session_stats.hpp"
-#include "libtorrent/performance_counters.hpp"
 #include "libtorrent/close_reason.hpp"
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
@@ -23273,195 +23272,6 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_find
   jresult = (jint)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_counters_1num_1checking_1torrents_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  libtorrent::counters::stats_gauge_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (libtorrent::counters::stats_gauge_t)libtorrent::counters::num_checking_torrents;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_counters_1num_1gauges_1counters_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  libtorrent::counters::stats_gauge_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (libtorrent::counters::stats_gauge_t)libtorrent::counters::num_gauges_counters;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1counters_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  libtorrent::counters *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (libtorrent::counters *)new libtorrent::counters();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  *(libtorrent::counters **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1counters_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::counters *arg1 = 0 ;
-  libtorrent::counters *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::counters **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::counters const & reference is null");
-    return 0;
-  } 
-  {
-    try {
-      result = (libtorrent::counters *)new libtorrent::counters((libtorrent::counters const &)*arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  *(libtorrent::counters **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_counters_1inc_1stats_1counter_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
-  jlong jresult = 0 ;
-  libtorrent::counters *arg1 = (libtorrent::counters *) 0 ;
-  int arg2 ;
-  std::int64_t arg3 ;
-  std::int64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::counters **)&jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (std::int64_t)jarg3; 
-  {
-    try {
-      result = (std::int64_t)(arg1)->inc_stats_counter(arg2,arg3);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_counters_1inc_1stats_1counter_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  jlong jresult = 0 ;
-  libtorrent::counters *arg1 = (libtorrent::counters *) 0 ;
-  int arg2 ;
-  std::int64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::counters **)&jarg1; 
-  arg2 = (int)jarg2; 
-  {
-    try {
-      result = (std::int64_t)(arg1)->inc_stats_counter(arg2);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_counters_1set_1value(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
-  libtorrent::counters *arg1 = (libtorrent::counters *) 0 ;
-  int arg2 ;
-  std::int64_t arg3 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::counters **)&jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (std::int64_t)jarg3; 
-  {
-    try {
-      (arg1)->set_value(arg2,arg3);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_counters_1blend_1stats_1counter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jint jarg4) {
-  libtorrent::counters *arg1 = (libtorrent::counters *) 0 ;
-  int arg2 ;
-  std::int64_t arg3 ;
-  int arg4 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::counters **)&jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (std::int64_t)jarg3; 
-  arg4 = (int)jarg4; 
-  {
-    try {
-      (arg1)->blend_stats_counter(arg2,arg3,arg4);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1counters(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  libtorrent::counters *arg1 = (libtorrent::counters *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(libtorrent::counters **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
 }
 
 
@@ -55824,7 +55634,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_J
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("bcdad8a960e49c3a0b0b7ae2bc0777ea6cf913ce");
+  result = (char *)("89ba1dfcfee9bccaf1260712e419c430ba0e9701");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
