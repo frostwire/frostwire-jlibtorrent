@@ -10,6 +10,9 @@ import com.frostwire.jlibtorrent.swig.stats_metric;
  */
 public final class StatsMetric {
 
+    public static final String DHT_NODES_GAUGE_NAME = "dht.dht_nodes";
+    public static final int DHT_NODES_GAUGE_INDEX = LibTorrent.findMetricIdx(DHT_NODES_GAUGE_NAME);
+
     public static final int TYPE_COUNTER = stats_metric.type_counter;
     public static final int TYPE_GAUGE = stats_metric.type_gauge;
 
@@ -27,10 +30,10 @@ public final class StatsMetric {
 
     @Override
     public String toString() {
-        return name + ":" + valueIndex + ":" + typeString();
+        return name + ":" + valueIndex + ":" + typeStr();
     }
 
-    private String typeString() {
+    private String typeStr() {
         String str = "unknown";
 
         if (type == TYPE_COUNTER) {

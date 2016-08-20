@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.stats_metric_vector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author gubatron
@@ -47,7 +48,7 @@ public final class LibTorrent {
      *
      * @return
      */
-    public static ArrayList<StatsMetric> sessionStatsMetrics() {
+    public static List<StatsMetric> sessionStatsMetrics() {
         stats_metric_vector v = libtorrent.session_stats_metrics();
         int size = (int) v.size();
 

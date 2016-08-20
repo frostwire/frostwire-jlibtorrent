@@ -1,10 +1,14 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.alerts.SessionStatsAlert;
+
 /**
  * @author gubatron
  * @author aldenml
  */
 public final class SessionStats {
+
+    private final int DHT_NODES_GAUGE = LibTorrent.findMetricIdx("dht.dht_nodes");
 
     private final JavaStat stat;
 
@@ -42,7 +46,7 @@ public final class SessionStats {
         return dhtNodes;
     }
 
-    void dhtNodes(long value) {
-        dhtNodes = value;
+    void update(SessionStatsAlert alert) {
+        dhtNodes = alert.value(DHT_NODES_GAUGE);
     }
 }

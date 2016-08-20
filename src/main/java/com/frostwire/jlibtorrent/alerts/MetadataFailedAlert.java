@@ -14,7 +14,7 @@ import com.frostwire.jlibtorrent.swig.metadata_failed_alert;
  */
 public final class MetadataFailedAlert extends TorrentAlert<metadata_failed_alert> {
 
-    public MetadataFailedAlert(metadata_failed_alert alert) {
+    MetadataFailedAlert(metadata_failed_alert alert) {
         super(alert);
     }
 

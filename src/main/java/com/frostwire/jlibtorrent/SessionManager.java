@@ -15,8 +15,6 @@ public final class SessionManager {
 
     private static final Logger LOG = Logger.getLogger(SessionManager.class);
 
-    private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
-
     private static final int[] METADATA_ALERT_TYPES = new int[]
             {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
 
@@ -29,9 +27,6 @@ public final class SessionManager {
     private final AlertsCallback alertsCallback;
 
     private final AlertListener[] listeners;
-
-    private final SessionStats stats;
-    private long lastStatsRequestTime;
 
     private final ReentrantLock sync;
     private final ReentrantLock syncMagnet;
@@ -49,8 +44,6 @@ public final class SessionManager {
 
         this.listeners = new AlertListener[libtorrent.num_alert_types + 1];
 
-        this.stats = new SessionStats(null);
-
         this.sync = new ReentrantLock();
         this.syncMagnet = new ReentrantLock();
     }
@@ -65,10 +58,6 @@ public final class SessionManager {
 
     public void removeListener(AlertListener listener) {
         modifyListeners(false, listener);
-    }
-
-    public SessionStats getStats() {
-        return stats;
     }
 
     public void start() {
@@ -121,22 +110,8 @@ public final class SessionManager {
      * snapshot of the performance counters from the internals of libtorrent.
      */
     public void postSessionStats() {
-        if (session == null) {
-            return;
-        }
-
-        sync.lock();
-
-        try {
-            if (session == null) {
-                return;
-            }
-
+        if (session != null) {
             session.post_session_stats();
-            session = null;
-
-        } finally {
-            sync.unlock();
         }
     }
 
@@ -144,22 +119,8 @@ public final class SessionManager {
      * This will cause a {@link DhtStatsAlert} to be posted.
      */
     public void postDHTStats() {
-        if (session == null) {
-            return;
-        }
-
-        sync.lock();
-
-        try {
-            if (session == null) {
-                return;
-            }
-
+        if (session != null) {
             session.post_dht_stats();
-            session = null;
-
-        } finally {
-            sync.unlock();
         }
     }
 
@@ -311,36 +272,6 @@ public final class SessionManager {
         }
     }
 
-    private void updateSessionStat(SessionStatsAlert alert) {
-        /*
-        long now = System.currentTimeMillis();
-        long tickIntervalMs = now - lastStatSecondTick;
-        lastStatSecondTick = now;
-        long received = alert.value(counters.stats_counter_t.recv_bytes.swigValue());
-        long payload = alert.value(counters.stats_counter_t.recv_payload_bytes.swigValue());
-        long protocol = received - payload;
-        long ip = alert.value(counters.stats_counter_t.recv_ip_overhead_bytes.swigValue());
-
-        payload -= stat.downloadPayload();
-        protocol -= stat.downloadProtocol();
-        ip -= stat.downloadIPProtocol();
-        stat.received(payload, protocol, ip);
-
-        long sent = alert.value(counters.stats_counter_t.sent_bytes.swigValue());
-        payload = alert.value(counters.stats_counter_t.sent_payload_bytes.swigValue());
-        protocol = sent - payload;
-        ip = alert.value(counters.stats_counter_t.sent_ip_overhead_bytes.swigValue());
-
-        payload -= stat.uploadPayload();
-        protocol -= stat.uploadProtocol();
-        ip -= stat.uploadIPProtocol();
-        stat.sent(payload, protocol, ip);
-
-        stat.secondTick(tickIntervalMs);
-*/
-        //stats.dhtNodes(alert.value(counters.stats_gauge_t.dht_nodes.swigValue()));
-    }
-
     private static session createSession(String interfaces, int retries, boolean logging) {
         settings_pack sp = new settings_pack();
 
@@ -400,11 +331,6 @@ public final class SessionManager {
 
                 Alert<?> alert = null;
 
-                if (type == AlertType.SESSION_STATS.swig()) {
-                    alert = Alerts.cast(a);
-                    updateSessionStat((SessionStatsAlert) alert);
-                }
-
                 if (listeners[type] != null) {
                     if (alert == null) {
                         alert = Alerts.cast(a);
@@ -412,8 +338,7 @@ public final class SessionManager {
                     fireAlert(alert, type);
                 }
 
-                if (type != AlertType.SESSION_STATS.swig() &&
-                        listeners[libtorrent.num_alert_types] != null) {
+                if (listeners[libtorrent.num_alert_types] != null) {
                     if (alert == null) {
                         alert = Alerts.cast(a);
                     }
@@ -421,14 +346,6 @@ public final class SessionManager {
                 }
             }
             v.clear();
-
-            long now = System.currentTimeMillis();
-            if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
-                lastStatsRequestTime = now;
-                if (session != null) {
-                    session.post_dht_stats();
-                }
-            }
         }
     }
 

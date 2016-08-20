@@ -1,10 +1,15 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.Entry;
+import com.frostwire.jlibtorrent.SessionManager;
+import com.frostwire.jlibtorrent.StatsMetric;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
-import com.frostwire.jlibtorrent.alerts.DhtStatsAlert;
+import com.frostwire.jlibtorrent.alerts.SessionStatsAlert;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -23,35 +28,36 @@ public final class GetMagnet {
 
         final CountDownLatch signal = new CountDownLatch(1);
 
-        // the session stats are posted about once per second.
         AlertListener l = new AlertListener() {
             @Override
             public int[] types() {
-                return new int[]{AlertType.SESSION_STATS.swig(), AlertType.DHT_STATS.swig()};
+                return new int[]{AlertType.SESSION_STATS.swig()};
             }
 
             @Override
             public void alert(Alert<?> alert) {
-                if (alert.type().equals(AlertType.SESSION_STATS)) {
-                    s.postDHTStats();
-                }
+                SessionStatsAlert a = (SessionStatsAlert) alert;
 
-                if (alert.type().equals(AlertType.DHT_STATS)) {
-
-                    long nodes = s.getStats().dhtNodes();
-                    // wait for at least 10 nodes in the DHT.
-                    if (nodes >= 10) {
-                        System.out.println("DHT contains " + nodes + " nodes");
-                        signal.countDown();
-                    }
+                long nodes = a.value(StatsMetric.DHT_NODES_GAUGE_INDEX);
+                // wait for at least 10 nodes in the DHT.
+                if (nodes >= 10) {
+                    System.out.println("DHT contains " + nodes + " nodes");
+                    signal.countDown();
                 }
             }
         };
 
         s.addListener(l);
-        s.postDHTStats();
 
-        Downloader d = new Downloader(null);
+        s.start();
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                s.postSessionStats();
+            }
+        }, 0, 1000);
 
         System.out.println("Waiting for nodes in DHT (10 seconds)...");
         boolean r = signal.await(10, TimeUnit.SECONDS);
@@ -63,14 +69,16 @@ public final class GetMagnet {
         // no more trigger of DHT stats
         s.removeListener(l);
 
-
         System.out.println("Fetching the magnet uri, please wait...");
-        byte[] data = d.fetchMagnet(uri, 30000);
+        byte[] data = s.fetchMagnet(uri, 30000);
 
         if (data != null) {
             System.out.println(Entry.bdecode(data));
         } else {
             System.out.println("Failed to retrieve the magnet");
         }
+
+        timer.cancel();
+        s.stop();
     }
 }
