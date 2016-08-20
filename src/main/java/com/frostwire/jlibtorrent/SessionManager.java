@@ -3,12 +3,11 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.Alerts;
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.LinkedList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -18,6 +17,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public final class SessionManager {
 
     private static final Logger LOG = Logger.getLogger(SessionManager.class);
+
+    private static final int[] METADATA_ALERT_TYPES = new int[]
+            {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
 
     private final String interfaces;
     private final int retries;
@@ -96,6 +98,89 @@ public final class SessionManager {
         }
     }
 
+    /**
+     * @param uri
+     * @param timeout in seconds
+     * @return
+     */
+    public byte[] fetchMagnet(String uri, int timeout) {
+        sync.lock();
+
+        try {
+            add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
+            error_code ec = new error_code();
+            libtorrent.parse_magnet_uri(uri, p, ec);
+
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException(ec.message());
+            }
+
+            boolean add = false;
+            torrent_handle th = null;
+
+            final CountDownLatch signal = new CountDownLatch(1);
+
+            AlertListener listener = new AlertListener() {
+                @Override
+                public int[] types() {
+                    return METADATA_ALERT_TYPES;
+                }
+
+                @Override
+                public void alert(Alert<?> alert) {
+                    AlertType type = alert.type();
+
+                    switch (type) {
+                        case METADATA_RECEIVED:
+                            // save metadata
+                            break;
+                    }
+
+                    signal.countDown();
+                }
+            };
+
+            addListener(listener);
+
+            try {
+
+                th = session.find_torrent(p.getInfo_hash());
+                if (th != null && th.is_valid()) {
+                    // we have a download with the same info-hash, let's wait
+                    add = false;
+                } else {
+                    add = true;
+                }
+
+                if (add) {
+                    p.setName("fetch_magnet" + uri);
+                    p.setSave_path("fetch_magnet" + uri);
+
+                    long flags = p.get_flags();
+                    flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+                    p.set_flags(flags);
+
+                    ec.clear();
+                    th = session.add_torrent(p, ec);
+                    th.resume();
+                }
+
+                signal.await(timeout, TimeUnit.SECONDS);
+            } catch (Throwable e) {
+
+            } finally {
+                removeListener(listener);
+                if (add && th != null && th.is_valid()) {
+                    session.remove_torrent(th);
+                }
+            }
+
+            return null;
+        } finally {
+            sync.unlock();
+        }
+    }
+
     @Override
     protected void finalize() throws Throwable {
         stop();
@@ -136,6 +221,22 @@ public final class SessionManager {
                 LOG.warn("Error calling alert listener", e);
             }
         }
+    }
+
+    private byte[] saveMagnetData(MetadataReceivedAlert alert) {
+        byte[] data = null;
+
+        try {
+            torrent_handle th = alert.handle().swig();
+            torrent_info ti = th.get_torrent_ptr();
+            create_torrent ct = new create_torrent(ti);
+            entry e = ct.generate();
+            data = Vectors.byte_vector2bytes(e.bencode());
+        } catch (Throwable e) {
+            LOG.error("Error in saving magnet in internal cache", e);
+        }
+
+        return data;
     }
 
     private static session createSession(String interfaces, int retries, boolean logging) {

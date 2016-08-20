@@ -105,10 +105,17 @@ public enum AlertType {
 
     private final int swigValue;
 
+    /**
+     * @return
+     */
     public int swig() {
         return swigValue;
     }
 
+    /**
+     * @param swigValue
+     * @return
+     */
     public static AlertType fromSwig(int swigValue) {
         return TABLE[swigValue];
     }

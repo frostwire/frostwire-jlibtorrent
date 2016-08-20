@@ -17,6 +17,9 @@ import com.frostwire.jlibtorrent.swig.metadata_received_alert;
  */
 public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_alert> {
 
+    /**
+     * @param alert
+     */
     MetadataReceivedAlert(metadata_received_alert alert) {
         super(alert);
     }
