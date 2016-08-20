@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.AlertType;
-import com.frostwire.jlibtorrent.alerts.Alerts;
-import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
+import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.LinkedList;
@@ -18,6 +15,8 @@ public final class SessionManager {
 
     private static final Logger LOG = Logger.getLogger(SessionManager.class);
 
+    private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
+
     private static final int[] METADATA_ALERT_TYPES = new int[]
             {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
 
@@ -31,7 +30,11 @@ public final class SessionManager {
 
     private final AlertListener[] listeners;
 
+    private final SessionStats stats;
+    private long lastStatsRequestTime;
+
     private final ReentrantLock sync;
+    private final ReentrantLock syncMagnet;
 
     private session session;
 
@@ -46,7 +49,10 @@ public final class SessionManager {
 
         this.listeners = new AlertListener[libtorrent.num_alert_types + 1];
 
+        this.stats = new SessionStats(null);
+
         this.sync = new ReentrantLock();
+        this.syncMagnet = new ReentrantLock();
     }
 
     public SessionManager() {
@@ -61,7 +67,15 @@ public final class SessionManager {
         modifyListeners(false, listener);
     }
 
+    public SessionStats getStats() {
+        return stats;
+    }
+
     public void start() {
+        if (session != null) {
+            return;
+        }
+
         sync.lock();
 
         try {
@@ -83,6 +97,10 @@ public final class SessionManager {
     }
 
     public void stop() {
+        if (session == null) {
+            return;
+        }
+
         sync.lock();
 
         try {
@@ -99,52 +117,109 @@ public final class SessionManager {
     }
 
     /**
-     * @param uri
-     * @param timeout in seconds
-     * @return
+     * This function will post a {@link SessionStatsAlert} object, containing a
+     * snapshot of the performance counters from the internals of libtorrent.
      */
-    public byte[] fetchMagnet(String uri, int timeout) {
+    public void postSessionStats() {
+        if (session == null) {
+            return;
+        }
+
         sync.lock();
 
         try {
-            add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
-            error_code ec = new error_code();
-            libtorrent.parse_magnet_uri(uri, p, ec);
-
-            if (ec.value() != 0) {
-                throw new IllegalArgumentException(ec.message());
+            if (session == null) {
+                return;
             }
 
-            boolean add = false;
-            torrent_handle th = null;
+            session.post_session_stats();
+            session = null;
 
-            final CountDownLatch signal = new CountDownLatch(1);
+        } finally {
+            sync.unlock();
+        }
+    }
 
-            AlertListener listener = new AlertListener() {
-                @Override
-                public int[] types() {
-                    return METADATA_ALERT_TYPES;
+    /**
+     * This will cause a {@link DhtStatsAlert} to be posted.
+     */
+    public void postDHTStats() {
+        if (session == null) {
+            return;
+        }
+
+        sync.lock();
+
+        try {
+            if (session == null) {
+                return;
+            }
+
+            session.post_dht_stats();
+            session = null;
+
+        } finally {
+            sync.unlock();
+        }
+    }
+
+    /**
+     * @param uri
+     * @param timeout in seconds
+     * @param maxSize in bytes
+     * @return
+     */
+    public byte[] fetchMagnet(String uri, int timeout, final int maxSize) {
+        add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
+        error_code ec = new error_code();
+        libtorrent.parse_magnet_uri(uri, p, ec);
+
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
+
+        final sha1_hash info_hash = p.getInfo_hash();
+        final byte[][] data = new byte[1][];
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener listener = new AlertListener() {
+            @Override
+            public int[] types() {
+                return METADATA_ALERT_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                torrent_handle th = ((TorrentAlert<?>) alert).swig().getHandle();
+                if (th == null || !th.is_valid() || th.info_hash().op_ne(info_hash)) {
+                    return;
                 }
 
-                @Override
-                public void alert(Alert<?> alert) {
-                    AlertType type = alert.type();
+                AlertType type = alert.type();
 
-                    switch (type) {
-                        case METADATA_RECEIVED:
-                            // save metadata
-                            break;
+                if (type.equals(AlertType.METADATA_RECEIVED)) {
+                    MetadataReceivedAlert a = ((MetadataReceivedAlert) alert);
+                    int size = a.metadataSize();
+                    if (size <= maxSize) {
+                        data[0] = a.torrentData();
                     }
-
-                    signal.countDown();
                 }
-            };
 
-            addListener(listener);
+                signal.countDown();
+            }
+        };
+
+        addListener(listener);
+
+        boolean add = false;
+        torrent_handle th = null;
+
+        try {
+
+            syncMagnet.lock();
 
             try {
-
-                th = session.find_torrent(p.getInfo_hash());
+                th = session.find_torrent(info_hash);
                 if (th != null && th.is_valid()) {
                     // we have a download with the same info-hash, let's wait
                     add = false;
@@ -164,21 +239,34 @@ public final class SessionManager {
                     th = session.add_torrent(p, ec);
                     th.resume();
                 }
-
-                signal.await(timeout, TimeUnit.SECONDS);
-            } catch (Throwable e) {
-
             } finally {
-                removeListener(listener);
-                if (add && th != null && th.is_valid()) {
-                    session.remove_torrent(th);
-                }
+                syncMagnet.unlock();
             }
 
-            return null;
+            signal.await(timeout, TimeUnit.SECONDS);
+
+        } catch (Throwable e) {
+            LOG.error("Error fetching magnet", e);
         } finally {
-            sync.unlock();
+            removeListener(listener);
+            if (add && th != null && th.is_valid()) {
+                session.remove_torrent(th);
+            }
         }
+
+        return data[0];
+    }
+
+    /**
+     * Similar to call {@link #fetchMagnet(String, int, int)} with
+     * a maximum size of 2MB.
+     *
+     * @param uri
+     * @param timeout in seconds
+     * @return
+     */
+    public byte[] fetchMagnet(String uri, int timeout) {
+        return fetchMagnet(uri, timeout, 2 * 1024 * 1024);
     }
 
     @Override
@@ -223,20 +311,34 @@ public final class SessionManager {
         }
     }
 
-    private byte[] saveMagnetData(MetadataReceivedAlert alert) {
-        byte[] data = null;
+    private void updateSessionStat(SessionStatsAlert alert) {
+        /*
+        long now = System.currentTimeMillis();
+        long tickIntervalMs = now - lastStatSecondTick;
+        lastStatSecondTick = now;
+        long received = alert.value(counters.stats_counter_t.recv_bytes.swigValue());
+        long payload = alert.value(counters.stats_counter_t.recv_payload_bytes.swigValue());
+        long protocol = received - payload;
+        long ip = alert.value(counters.stats_counter_t.recv_ip_overhead_bytes.swigValue());
 
-        try {
-            torrent_handle th = alert.handle().swig();
-            torrent_info ti = th.get_torrent_ptr();
-            create_torrent ct = new create_torrent(ti);
-            entry e = ct.generate();
-            data = Vectors.byte_vector2bytes(e.bencode());
-        } catch (Throwable e) {
-            LOG.error("Error in saving magnet in internal cache", e);
-        }
+        payload -= stat.downloadPayload();
+        protocol -= stat.downloadProtocol();
+        ip -= stat.downloadIPProtocol();
+        stat.received(payload, protocol, ip);
 
-        return data;
+        long sent = alert.value(counters.stats_counter_t.sent_bytes.swigValue());
+        payload = alert.value(counters.stats_counter_t.sent_payload_bytes.swigValue());
+        protocol = sent - payload;
+        ip = alert.value(counters.stats_counter_t.sent_ip_overhead_bytes.swigValue());
+
+        payload -= stat.uploadPayload();
+        protocol -= stat.uploadProtocol();
+        ip -= stat.uploadIPProtocol();
+        stat.sent(payload, protocol, ip);
+
+        stat.secondTick(tickIntervalMs);
+*/
+        //stats.dhtNodes(alert.value(counters.stats_gauge_t.dht_nodes.swigValue()));
     }
 
     private static session createSession(String interfaces, int retries, boolean logging) {
@@ -300,12 +402,7 @@ public final class SessionManager {
 
                 if (type == AlertType.SESSION_STATS.swig()) {
                     alert = Alerts.cast(a);
-                    //updateSessionStat((SessionStatsAlert) alert);
-                }
-
-                if (type == AlertType.METADATA_RECEIVED.swig()) {
-                    alert = Alerts.cast(a);
-                    //saveMagnetData((MetadataReceivedAlert) alert);
+                    updateSessionStat((SessionStatsAlert) alert);
                 }
 
                 if (listeners[type] != null) {
@@ -324,6 +421,14 @@ public final class SessionManager {
                 }
             }
             v.clear();
+
+            long now = System.currentTimeMillis();
+            if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
+                lastStatsRequestTime = now;
+                if (session != null) {
+                    session.post_dht_stats();
+                }
+            }
         }
     }
 

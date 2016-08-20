@@ -19,7 +19,7 @@ public final class GetMagnet {
         //String uri = "magnet:?xt=urn:btih:86d0502ead28e495c9e67665340f72aa72fe304e&dn=Frostwire.5.3.6.+%5BWindows%5D&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337";
         String uri = "magnet:?xt=urn:btih:a83cc13bf4a07e85b938dcf06aa707955687ca7c";
 
-        final Session s = new Session();
+        final SessionManager s = new SessionManager();
 
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -51,7 +51,7 @@ public final class GetMagnet {
         s.addListener(l);
         s.postDHTStats();
 
-        Downloader d = new Downloader(s);
+        Downloader d = new Downloader(null);
 
         System.out.println("Waiting for nodes in DHT (10 seconds)...");
         boolean r = signal.await(10, TimeUnit.SECONDS);

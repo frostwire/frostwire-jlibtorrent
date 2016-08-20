@@ -31240,6 +31240,34 @@ fail:
 }
 
 
+static SwigV8ReturnValue _wrap_torrent_info_metadata_size(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::torrent_info *arg1 = (libtorrent::torrent_info *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_info_metadata_size.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_info, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_info_metadata_size" "', argument " "1"" of type '" "libtorrent::torrent_info const *""'"); 
+  }
+  arg1 = (libtorrent::torrent_info *)(argp1);
+  result = (int)((libtorrent::torrent_info const *)arg1)->metadata_size();
+  jsresult = SWIG_From_int((int)(result));
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
 static SwigV8ReturnValue _wrap_torrent_info_is_merkle_torrent(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -98425,6 +98453,7 @@ SWIGV8_AddMemberFunction(_exports_torrent_info_class, "comment", _wrap_torrent_i
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "nodes", _wrap_torrent_info_nodes);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "add_node", _wrap_torrent_info_add_node);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "info", _wrap_torrent_info_info);
+SWIGV8_AddMemberFunction(_exports_torrent_info_class, "metadata_size", _wrap_torrent_info_metadata_size);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "is_merkle_torrent", _wrap_torrent_info_is_merkle_torrent);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "parse_torrent_file", _wrap_torrent_info_parse_torrent_file);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "get_creation_date", _wrap_torrent_info_get_creation_date);

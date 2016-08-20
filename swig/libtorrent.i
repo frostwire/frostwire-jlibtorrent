@@ -539,7 +539,6 @@ typedef long time_t;
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&, int);
 %ignore libtorrent::torrent_info::creation_date;
-%ignore libtorrent::torrent_info::metadata_size;
 %ignore libtorrent::torrent_info::metadata;
 %ignore libtorrent::torrent_info::load;
 %ignore libtorrent::torrent_info::unload;
