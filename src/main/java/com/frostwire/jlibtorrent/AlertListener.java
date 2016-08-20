@@ -11,9 +11,8 @@ public interface AlertListener {
     /**
      * List of alert types filtered by this listener.
      * Return `null` if you intend to listen to all alerts.
-     * TODO: Change to optional return type when Android supports Java 8.
      */
-    public int[] types();
+    int[] types();
 
-    public void alert(Alert<?> alert);
+    void alert(Alert<?> alert);
 }

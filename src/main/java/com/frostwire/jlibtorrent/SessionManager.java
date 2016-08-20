@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.Alerts;
 import com.frostwire.jlibtorrent.swig.*;
 
@@ -16,13 +17,17 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public final class SessionManager {
 
+    private static final Logger LOG = Logger.getLogger(SessionManager.class);
+
     private final String interfaces;
     private final int retries;
     private final boolean logging;
 
     private final ExecutorService alertsPool;
+    private final AlertsLoop alertsLoop;
     private final AlertsCallback alertsCallback;
-    private final alert_ptr_vector alerts;
+
+    private final AlertListener[] listeners;
 
     private final ReentrantLock sync;
 
@@ -34,14 +39,24 @@ public final class SessionManager {
         this.logging = logging;
 
         this.alertsPool = Executors.newSingleThreadExecutor(new AlertsThreadFactory());
+        this.alertsLoop = new AlertsLoop();
         this.alertsCallback = new AlertsCallback();
-        this.alerts = new alert_ptr_vector();
+
+        this.listeners = new AlertListener[libtorrent.num_alert_types + 1];
 
         this.sync = new ReentrantLock();
     }
 
     public SessionManager() {
         this("0.0.0.0:6881,[::]:6881", 10, false);
+    }
+
+    public void addListener(AlertListener listener) {
+        modifyListeners(true, listener);
+    }
+
+    public void removeListener(AlertListener listener) {
+        modifyListeners(false, listener);
     }
 
     public void start() {
@@ -81,7 +96,49 @@ public final class SessionManager {
         }
     }
 
-    private session createSession(String interfaces, int retries, boolean logging) {
+    @Override
+    protected void finalize() throws Throwable {
+        stop();
+        super.finalize();
+    }
+
+    private void modifyListeners(boolean add, AlertListener listener) {
+        if (listener == null) {
+            return;
+        }
+
+        int[] types = listener.types();
+
+        // all alert-type including listener
+        if (types == null) {
+            modifyListeners(add, libtorrent.num_alert_types, listener);
+        } else {
+            for (int i = 0; i < types.length; i++) {
+                modifyListeners(add, types[i], listener);
+            }
+        }
+    }
+
+    private void modifyListeners(boolean add, int type, AlertListener listener) {
+        if (add) {
+            listeners[type] = AlertMulticaster.add(listeners[type], listener);
+        } else {
+            listeners[type] = AlertMulticaster.remove(listeners[type], listener);
+        }
+    }
+
+    private void fireAlert(Alert<?> a, int type) {
+        AlertListener listener = listeners[type];
+        if (listener != null) {
+            try {
+                listener.alert(a);
+            } catch (Throwable e) {
+                LOG.warn("Error calling alert listener", e);
+            }
+        }
+    }
+
+    private static session createSession(String interfaces, int retries, boolean logging) {
         settings_pack sp = new settings_pack();
 
         sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), interfaces);
@@ -119,6 +176,12 @@ public final class SessionManager {
 
     private final class AlertsLoop implements Runnable {
 
+        private final alert_ptr_vector v;
+
+        public AlertsLoop() {
+            v = new alert_ptr_vector();
+        }
+
         @Override
         public void run() {
 
@@ -126,15 +189,40 @@ public final class SessionManager {
                 return;
             }
 
-            session.pop_alerts(alerts);
-            int size = (int) alerts.size();
+            session.pop_alerts(v);
+            int size = (int) v.size();
             for (int i = 0; i < size; i++) {
-                alert a = alerts.get(i);
+                alert a = v.get(i);
+                int type = a.type();
 
-                Alert alert = Alerts.cast(a);
-                System.out.println(alert);
+                Alert<?> alert = null;
+
+                if (type == AlertType.SESSION_STATS.swig()) {
+                    alert = Alerts.cast(a);
+                    //updateSessionStat((SessionStatsAlert) alert);
+                }
+
+                if (type == AlertType.METADATA_RECEIVED.swig()) {
+                    alert = Alerts.cast(a);
+                    //saveMagnetData((MetadataReceivedAlert) alert);
+                }
+
+                if (listeners[type] != null) {
+                    if (alert == null) {
+                        alert = Alerts.cast(a);
+                    }
+                    fireAlert(alert, type);
+                }
+
+                if (type != AlertType.SESSION_STATS.swig() &&
+                        listeners[libtorrent.num_alert_types] != null) {
+                    if (alert == null) {
+                        alert = Alerts.cast(a);
+                    }
+                    fireAlert(alert, libtorrent.num_alert_types);
+                }
             }
-            alerts.clear();
+            v.clear();
         }
     }
 
@@ -142,7 +230,7 @@ public final class SessionManager {
 
         @Override
         public void on_alert() {
-            alertsPool.execute(new AlertsLoop());
+            alertsPool.execute(alertsLoop);
         }
     }
 
