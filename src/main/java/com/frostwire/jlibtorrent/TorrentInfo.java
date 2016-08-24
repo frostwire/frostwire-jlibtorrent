@@ -520,7 +520,7 @@ public final class TorrentInfo {
      * @return
      */
     public int creationDate() {
-        return ti.get_creation_date();
+        return ti.creation_date();
     }
 
     /**

@@ -1,12 +1,7 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.SessionManager;
-import com.frostwire.jlibtorrent.StatsMetric;
-import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.AlertType;
-import com.frostwire.jlibtorrent.alerts.SessionStatsAlert;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,36 +21,21 @@ public final class GetMagnet {
 
         final SessionManager s = new SessionManager();
 
+        s.start();
+
         final CountDownLatch signal = new CountDownLatch(1);
 
-        AlertListener l = new AlertListener() {
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
-            public int[] types() {
-                return new int[]{AlertType.SESSION_STATS.swig()};
-            }
-
-            @Override
-            public void alert(Alert<?> alert) {
-                SessionStatsAlert a = (SessionStatsAlert) alert;
-
-                long nodes = a.value(StatsMetric.DHT_NODES_GAUGE_INDEX);
+            public void run() {
+                long nodes = s.stats().dhtNodes();
                 // wait for at least 10 nodes in the DHT.
                 if (nodes >= 10) {
                     System.out.println("DHT contains " + nodes + " nodes");
                     signal.countDown();
+                    timer.cancel();
                 }
-            }
-        };
-
-        s.addListener(l);
-
-        s.start();
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                s.postSessionStats();
             }
         }, 0, 1000);
 
@@ -66,9 +46,6 @@ public final class GetMagnet {
             System.exit(0);
         }
 
-        // no more trigger of DHT stats
-        s.removeListener(l);
-
         System.out.println("Fetching the magnet uri, please wait...");
         byte[] data = s.fetchMagnet(uri, 30000);
 
@@ -78,7 +55,6 @@ public final class GetMagnet {
             System.out.println("Failed to retrieve the magnet");
         }
 
-        timer.cancel();
         s.stop();
     }
 }

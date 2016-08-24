@@ -770,6 +770,7 @@ public class libtorrent_jni {
   public final static native long torrent_info_merkle_tree(long jarg1, torrent_info jarg1_);
   public final static native void torrent_info_set_merkle_tree(long jarg1, torrent_info jarg1_, long jarg2, sha1_hash_vector jarg2_);
   public final static native String torrent_info_name(long jarg1, torrent_info jarg1_);
+  public final static native int torrent_info_creation_date(long jarg1, torrent_info jarg1_);
   public final static native String torrent_info_creator(long jarg1, torrent_info jarg1_);
   public final static native String torrent_info_comment(long jarg1, torrent_info jarg1_);
   public final static native long torrent_info_nodes(long jarg1, torrent_info jarg1_);
@@ -778,7 +779,6 @@ public class libtorrent_jni {
   public final static native int torrent_info_metadata_size(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_parse_torrent_file(long jarg1, torrent_info jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_, int jarg4);
-  public final static native int torrent_info_get_creation_date(long jarg1, torrent_info jarg1_);
   public final static native long torrent_info_get_ssl_cert(long jarg1, torrent_info jarg1_);
   public final static native long block_info_peer(long jarg1, block_info jarg1_);
   public final static native void block_info_bytes_progress_set(long jarg1, block_info jarg1_, long jarg2);
@@ -838,7 +838,7 @@ public class libtorrent_jni {
   public final static native void torrent_handle_remove_url_seed(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native void torrent_handle_add_http_seed(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native void torrent_handle_remove_http_seed(long jarg1, torrent_handle jarg1_, String jarg2);
-  public final static native boolean torrent_handle_set_metadata(long jarg1, torrent_handle jarg1_, String jarg2, int jarg3);
+  public final static native boolean torrent_handle_set_metadata(long jarg1, torrent_handle jarg1_, long jarg2, byte_const_span jarg2_);
   public final static native boolean torrent_handle_is_valid(long jarg1, torrent_handle jarg1_);
   public final static native int torrent_handle_graceful_pause_get();
   public final static native void torrent_handle_pause__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2);

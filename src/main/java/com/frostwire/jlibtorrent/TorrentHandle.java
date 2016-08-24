@@ -16,7 +16,7 @@ import java.util.List;
  * made synchronously. This means it has to wait for the main thread to
  * complete the query before it can return. This might potentially be
  * expensive if done from within a GUI thread that needs to stay
- * responsive. Try to avoid quering for information you don't need, and
+ * responsive. Try to avoid querying for information you don't need, and
  * try to do it in as few calls as possible. You can get most of the
  * interesting information about a torrent from the
  * torrent_handle::status() call.
@@ -28,7 +28,7 @@ import java.util.List;
  * <p>
  * .. warning::
  * All operations on a torrent_handle may throw libtorrent_exception
- * exception, in case the handle is no longer refering to a torrent.
+ * exception, in case the handle is no longer referring to a torrent.
  * There is one exception is_valid() will never throw. Since the torrents
  * are processed by a background thread, there is no guarantee that a
  * handle will remain valid between two calls.

@@ -538,7 +538,6 @@ typedef long time_t;
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, int);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&, int);
-%ignore libtorrent::torrent_info::creation_date;
 %ignore libtorrent::torrent_info::metadata;
 %ignore libtorrent::torrent_info::load;
 %ignore libtorrent::torrent_info::unload;
@@ -815,7 +814,7 @@ namespace libtorrent {
 %extend alert {
 
     int64_t get_timestamp() {
-        return libtorrent::total_milliseconds($self->timestamp() - libtorrent::clock_type::now());
+        return libtorrent::total_milliseconds($self->timestamp().time_since_epoch());
     }
 }
 
@@ -963,10 +962,6 @@ namespace libtorrent {
 }
 
 %extend torrent_info {
-
-    time_t get_creation_date() {
-        return $self->creation_date().get_value_or(0);
-    }
 
     std::vector<int8_t> get_ssl_cert() {
         std::string s = $self->ssl_cert();

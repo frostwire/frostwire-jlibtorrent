@@ -134,6 +134,7 @@ public class settings_pack {
     public final static settings_pack.string_types proxy_password = new settings_pack.string_types("proxy_password");
     public final static settings_pack.string_types i2p_hostname = new settings_pack.string_types("i2p_hostname");
     public final static settings_pack.string_types peer_fingerprint = new settings_pack.string_types("peer_fingerprint");
+    public final static settings_pack.string_types dht_bootstrap_nodes = new settings_pack.string_types("dht_bootstrap_nodes");
     public final static settings_pack.string_types max_string_setting_internal = new settings_pack.string_types("max_string_setting_internal");
 
     public final int swigValue() {
@@ -170,7 +171,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static string_types[] swigValues = { user_agent, announce_ip, mmap_cache, handshake_client_version, outgoing_interfaces, listen_interfaces, proxy_hostname, proxy_username, proxy_password, i2p_hostname, peer_fingerprint, max_string_setting_internal };
+    private static string_types[] swigValues = { user_agent, announce_ip, mmap_cache, handshake_client_version, outgoing_interfaces, listen_interfaces, proxy_hostname, proxy_username, proxy_password, i2p_hostname, peer_fingerprint, dht_bootstrap_nodes, max_string_setting_internal };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

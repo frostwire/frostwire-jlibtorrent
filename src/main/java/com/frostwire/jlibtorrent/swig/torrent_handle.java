@@ -119,8 +119,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_remove_http_seed(swigCPtr, this, url);
   }
 
-  public boolean set_metadata(String metadata, int size) {
-    return libtorrent_jni.torrent_handle_set_metadata(swigCPtr, this, metadata, size);
+  public boolean set_metadata(byte_const_span metadata) {
+    return libtorrent_jni.torrent_handle_set_metadata(swigCPtr, this, byte_const_span.getCPtr(metadata), metadata);
   }
 
   public boolean is_valid() {

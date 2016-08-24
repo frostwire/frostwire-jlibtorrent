@@ -8,8 +8,6 @@ import com.frostwire.jlibtorrent.alerts.SessionStatsAlert;
  */
 public final class SessionStats {
 
-    private final int DHT_NODES_GAUGE = LibTorrent.findMetricIdx("dht.dht_nodes");
-
     private final JavaStat stat;
 
     private long dhtNodes;
@@ -47,6 +45,6 @@ public final class SessionStats {
     }
 
     void update(SessionStatsAlert alert) {
-        dhtNodes = alert.value(DHT_NODES_GAUGE);
+        dhtNodes = alert.value(StatsMetric.DHT_NODES_GAUGE_INDEX);
     }
 }

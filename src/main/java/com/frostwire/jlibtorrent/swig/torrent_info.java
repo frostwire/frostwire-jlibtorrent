@@ -195,6 +195,10 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_name(swigCPtr, this);
   }
 
+  public int creation_date() {
+    return libtorrent_jni.torrent_info_creation_date(swigCPtr, this);
+  }
+
   public String creator() {
     return libtorrent_jni.torrent_info_creator(swigCPtr, this);
   }
@@ -225,10 +229,6 @@ public class torrent_info {
 
   public boolean parse_torrent_file(bdecode_node libtorrent, error_code ec, int flags) {
     return libtorrent_jni.torrent_info_parse_torrent_file(swigCPtr, this, bdecode_node.getCPtr(libtorrent), libtorrent, error_code.getCPtr(ec), ec, flags);
-  }
-
-  public int get_creation_date() {
-    return libtorrent_jni.torrent_info_get_creation_date(swigCPtr, this);
   }
 
   public byte_vector get_ssl_cert() {
