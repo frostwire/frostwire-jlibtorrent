@@ -223,7 +223,7 @@ public final class SessionManager {
             LOG.error("Error fetching magnet", e);
         } finally {
             removeListener(listener);
-            if (add && th != null && th.is_valid()) {
+            if (session != null && add && th != null && th.is_valid()) {
                 session.remove_torrent(th);
             }
         }
@@ -274,7 +274,7 @@ public final class SessionManager {
         }
     }
 
-    private void modifyListeners(boolean add, int type, AlertListener listener) {
+    private synchronized void modifyListeners(boolean add, int type, AlertListener listener) {
         if (add) {
             listeners[type] = AlertMulticaster.add(listeners[type], listener);
         } else {
