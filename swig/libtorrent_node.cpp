@@ -1590,91 +1590,90 @@ SWIGRUNTIME void JS_veto_set_variable(v8::Local<v8::String> property, v8::Local<
 #define SWIGTYPE_p_libtorrent__spanT_char_const_t swig_types[107]
 #define SWIGTYPE_p_libtorrent__spanT_char_t swig_types[108]
 #define SWIGTYPE_p_libtorrent__spanT_libtorrent__file__iovec_t_const_t swig_types[109]
-#define SWIGTYPE_p_libtorrent__stat swig_types[110]
-#define SWIGTYPE_p_libtorrent__state_changed_alert swig_types[111]
-#define SWIGTYPE_p_libtorrent__state_update_alert swig_types[112]
-#define SWIGTYPE_p_libtorrent__stats_alert swig_types[113]
-#define SWIGTYPE_p_libtorrent__stats_metric swig_types[114]
-#define SWIGTYPE_p_libtorrent__storage_error swig_types[115]
-#define SWIGTYPE_p_libtorrent__storage_moved_alert swig_types[116]
-#define SWIGTYPE_p_libtorrent__storage_moved_failed_alert swig_types[117]
-#define SWIGTYPE_p_libtorrent__string_view swig_types[118]
-#define SWIGTYPE_p_libtorrent__tcp__endpoint swig_types[119]
-#define SWIGTYPE_p_libtorrent__torrent_added_alert swig_types[120]
-#define SWIGTYPE_p_libtorrent__torrent_alert swig_types[121]
-#define SWIGTYPE_p_libtorrent__torrent_checked_alert swig_types[122]
-#define SWIGTYPE_p_libtorrent__torrent_delete_failed_alert swig_types[123]
-#define SWIGTYPE_p_libtorrent__torrent_deleted_alert swig_types[124]
-#define SWIGTYPE_p_libtorrent__torrent_error_alert swig_types[125]
-#define SWIGTYPE_p_libtorrent__torrent_finished_alert swig_types[126]
-#define SWIGTYPE_p_libtorrent__torrent_handle swig_types[127]
-#define SWIGTYPE_p_libtorrent__torrent_info swig_types[128]
-#define SWIGTYPE_p_libtorrent__torrent_log_alert swig_types[129]
-#define SWIGTYPE_p_libtorrent__torrent_need_cert_alert swig_types[130]
-#define SWIGTYPE_p_libtorrent__torrent_paused_alert swig_types[131]
-#define SWIGTYPE_p_libtorrent__torrent_removed_alert swig_types[132]
-#define SWIGTYPE_p_libtorrent__torrent_resumed_alert swig_types[133]
-#define SWIGTYPE_p_libtorrent__torrent_status swig_types[134]
-#define SWIGTYPE_p_libtorrent__tracker_alert swig_types[135]
-#define SWIGTYPE_p_libtorrent__tracker_announce_alert swig_types[136]
-#define SWIGTYPE_p_libtorrent__tracker_error_alert swig_types[137]
-#define SWIGTYPE_p_libtorrent__tracker_reply_alert swig_types[138]
-#define SWIGTYPE_p_libtorrent__tracker_warning_alert swig_types[139]
-#define SWIGTYPE_p_libtorrent__trackerid_alert swig_types[140]
-#define SWIGTYPE_p_libtorrent__udp__endpoint swig_types[141]
-#define SWIGTYPE_p_libtorrent__udp_error_alert swig_types[142]
-#define SWIGTYPE_p_libtorrent__unwanted_block_alert swig_types[143]
-#define SWIGTYPE_p_libtorrent__url_seed_alert swig_types[144]
-#define SWIGTYPE_p_libtorrent__web_seed_entry swig_types[145]
-#define SWIGTYPE_p_list_type swig_types[146]
-#define SWIGTYPE_p_long swig_types[147]
-#define SWIGTYPE_p_long_long swig_types[148]
-#define SWIGTYPE_p_mapped_type swig_types[149]
-#define SWIGTYPE_p_preformatted_type swig_types[150]
-#define SWIGTYPE_p_set_piece_hashes_listener swig_types[151]
-#define SWIGTYPE_p_short swig_types[152]
-#define SWIGTYPE_p_signed_char swig_types[153]
-#define SWIGTYPE_p_size_type swig_types[154]
-#define SWIGTYPE_p_std__functionT_void_flibtorrent__sha1_hash_const_R_std__vectorT_char_t_R_boost__system__error_code_RF_t swig_types[155]
-#define SWIGTYPE_p_std__mapT_int_libtorrent__bitfield_t swig_types[156]
-#define SWIGTYPE_p_std__mapT_int_std__string_t swig_types[157]
-#define SWIGTYPE_p_std__mapT_std__string_libtorrent__entry_t swig_types[158]
-#define SWIGTYPE_p_std__mapT_std__string_long_t swig_types[159]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[160]
-#define SWIGTYPE_p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t swig_types[161]
-#define SWIGTYPE_p_std__pairT_std__string_int_t swig_types[162]
-#define SWIGTYPE_p_std__pairT_std__string_std__string_t swig_types[163]
-#define SWIGTYPE_p_std__vectorT_int_t swig_types[164]
-#define SWIGTYPE_p_std__vectorT_libtorrent__alert_p_t swig_types[165]
-#define SWIGTYPE_p_std__vectorT_libtorrent__announce_entry_t swig_types[166]
-#define SWIGTYPE_p_std__vectorT_libtorrent__block_info_t swig_types[167]
-#define SWIGTYPE_p_std__vectorT_libtorrent__dht_lookup_t swig_types[168]
-#define SWIGTYPE_p_std__vectorT_libtorrent__dht_routing_bucket_t swig_types[169]
-#define SWIGTYPE_p_std__vectorT_libtorrent__entry_t swig_types[170]
-#define SWIGTYPE_p_std__vectorT_libtorrent__file_slice_t swig_types[171]
-#define SWIGTYPE_p_std__vectorT_libtorrent__partial_piece_info_t swig_types[172]
-#define SWIGTYPE_p_std__vectorT_libtorrent__peer_info_t swig_types[173]
-#define SWIGTYPE_p_std__vectorT_libtorrent__peer_list_entry_t swig_types[174]
-#define SWIGTYPE_p_std__vectorT_libtorrent__sha1_hash_t swig_types[175]
-#define SWIGTYPE_p_std__vectorT_libtorrent__stats_metric_t swig_types[176]
-#define SWIGTYPE_p_std__vectorT_libtorrent__tcp__endpoint_t swig_types[177]
-#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_handle_t swig_types[178]
-#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_status_t swig_types[179]
-#define SWIGTYPE_p_std__vectorT_libtorrent__web_seed_entry_t swig_types[180]
-#define SWIGTYPE_p_std__vectorT_long_long_t swig_types[181]
-#define SWIGTYPE_p_std__vectorT_signed_char_t swig_types[182]
-#define SWIGTYPE_p_std__vectorT_std__pairT_int_int_t_t swig_types[183]
-#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_int_t_t swig_types[184]
-#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_std__string_t_t swig_types[185]
-#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[186]
-#define SWIGTYPE_p_string_type swig_types[187]
-#define SWIGTYPE_p_unsigned_char swig_types[188]
-#define SWIGTYPE_p_unsigned_int swig_types[189]
-#define SWIGTYPE_p_unsigned_long_long swig_types[190]
-#define SWIGTYPE_p_unsigned_short swig_types[191]
-#define SWIGTYPE_p_value_type swig_types[192]
-static swig_type_info *swig_types[194];
-static swig_module_info swig_module = {swig_types, 193, 0, 0, 0, 0};
+#define SWIGTYPE_p_libtorrent__state_changed_alert swig_types[110]
+#define SWIGTYPE_p_libtorrent__state_update_alert swig_types[111]
+#define SWIGTYPE_p_libtorrent__stats_alert swig_types[112]
+#define SWIGTYPE_p_libtorrent__stats_metric swig_types[113]
+#define SWIGTYPE_p_libtorrent__storage_error swig_types[114]
+#define SWIGTYPE_p_libtorrent__storage_moved_alert swig_types[115]
+#define SWIGTYPE_p_libtorrent__storage_moved_failed_alert swig_types[116]
+#define SWIGTYPE_p_libtorrent__string_view swig_types[117]
+#define SWIGTYPE_p_libtorrent__tcp__endpoint swig_types[118]
+#define SWIGTYPE_p_libtorrent__torrent_added_alert swig_types[119]
+#define SWIGTYPE_p_libtorrent__torrent_alert swig_types[120]
+#define SWIGTYPE_p_libtorrent__torrent_checked_alert swig_types[121]
+#define SWIGTYPE_p_libtorrent__torrent_delete_failed_alert swig_types[122]
+#define SWIGTYPE_p_libtorrent__torrent_deleted_alert swig_types[123]
+#define SWIGTYPE_p_libtorrent__torrent_error_alert swig_types[124]
+#define SWIGTYPE_p_libtorrent__torrent_finished_alert swig_types[125]
+#define SWIGTYPE_p_libtorrent__torrent_handle swig_types[126]
+#define SWIGTYPE_p_libtorrent__torrent_info swig_types[127]
+#define SWIGTYPE_p_libtorrent__torrent_log_alert swig_types[128]
+#define SWIGTYPE_p_libtorrent__torrent_need_cert_alert swig_types[129]
+#define SWIGTYPE_p_libtorrent__torrent_paused_alert swig_types[130]
+#define SWIGTYPE_p_libtorrent__torrent_removed_alert swig_types[131]
+#define SWIGTYPE_p_libtorrent__torrent_resumed_alert swig_types[132]
+#define SWIGTYPE_p_libtorrent__torrent_status swig_types[133]
+#define SWIGTYPE_p_libtorrent__tracker_alert swig_types[134]
+#define SWIGTYPE_p_libtorrent__tracker_announce_alert swig_types[135]
+#define SWIGTYPE_p_libtorrent__tracker_error_alert swig_types[136]
+#define SWIGTYPE_p_libtorrent__tracker_reply_alert swig_types[137]
+#define SWIGTYPE_p_libtorrent__tracker_warning_alert swig_types[138]
+#define SWIGTYPE_p_libtorrent__trackerid_alert swig_types[139]
+#define SWIGTYPE_p_libtorrent__udp__endpoint swig_types[140]
+#define SWIGTYPE_p_libtorrent__udp_error_alert swig_types[141]
+#define SWIGTYPE_p_libtorrent__unwanted_block_alert swig_types[142]
+#define SWIGTYPE_p_libtorrent__url_seed_alert swig_types[143]
+#define SWIGTYPE_p_libtorrent__web_seed_entry swig_types[144]
+#define SWIGTYPE_p_list_type swig_types[145]
+#define SWIGTYPE_p_long swig_types[146]
+#define SWIGTYPE_p_long_long swig_types[147]
+#define SWIGTYPE_p_mapped_type swig_types[148]
+#define SWIGTYPE_p_preformatted_type swig_types[149]
+#define SWIGTYPE_p_set_piece_hashes_listener swig_types[150]
+#define SWIGTYPE_p_short swig_types[151]
+#define SWIGTYPE_p_signed_char swig_types[152]
+#define SWIGTYPE_p_size_type swig_types[153]
+#define SWIGTYPE_p_std__functionT_void_flibtorrent__sha1_hash_const_R_std__vectorT_char_t_R_boost__system__error_code_RF_t swig_types[154]
+#define SWIGTYPE_p_std__mapT_int_libtorrent__bitfield_t swig_types[155]
+#define SWIGTYPE_p_std__mapT_int_std__string_t swig_types[156]
+#define SWIGTYPE_p_std__mapT_std__string_libtorrent__entry_t swig_types[157]
+#define SWIGTYPE_p_std__mapT_std__string_long_t swig_types[158]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[159]
+#define SWIGTYPE_p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t swig_types[160]
+#define SWIGTYPE_p_std__pairT_std__string_int_t swig_types[161]
+#define SWIGTYPE_p_std__pairT_std__string_std__string_t swig_types[162]
+#define SWIGTYPE_p_std__vectorT_int_t swig_types[163]
+#define SWIGTYPE_p_std__vectorT_libtorrent__alert_p_t swig_types[164]
+#define SWIGTYPE_p_std__vectorT_libtorrent__announce_entry_t swig_types[165]
+#define SWIGTYPE_p_std__vectorT_libtorrent__block_info_t swig_types[166]
+#define SWIGTYPE_p_std__vectorT_libtorrent__dht_lookup_t swig_types[167]
+#define SWIGTYPE_p_std__vectorT_libtorrent__dht_routing_bucket_t swig_types[168]
+#define SWIGTYPE_p_std__vectorT_libtorrent__entry_t swig_types[169]
+#define SWIGTYPE_p_std__vectorT_libtorrent__file_slice_t swig_types[170]
+#define SWIGTYPE_p_std__vectorT_libtorrent__partial_piece_info_t swig_types[171]
+#define SWIGTYPE_p_std__vectorT_libtorrent__peer_info_t swig_types[172]
+#define SWIGTYPE_p_std__vectorT_libtorrent__peer_list_entry_t swig_types[173]
+#define SWIGTYPE_p_std__vectorT_libtorrent__sha1_hash_t swig_types[174]
+#define SWIGTYPE_p_std__vectorT_libtorrent__stats_metric_t swig_types[175]
+#define SWIGTYPE_p_std__vectorT_libtorrent__tcp__endpoint_t swig_types[176]
+#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_handle_t swig_types[177]
+#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_status_t swig_types[178]
+#define SWIGTYPE_p_std__vectorT_libtorrent__web_seed_entry_t swig_types[179]
+#define SWIGTYPE_p_std__vectorT_long_long_t swig_types[180]
+#define SWIGTYPE_p_std__vectorT_signed_char_t swig_types[181]
+#define SWIGTYPE_p_std__vectorT_std__pairT_int_int_t_t swig_types[182]
+#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_int_t_t swig_types[183]
+#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_std__string_t_t swig_types[184]
+#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[185]
+#define SWIGTYPE_p_string_type swig_types[186]
+#define SWIGTYPE_p_unsigned_char swig_types[187]
+#define SWIGTYPE_p_unsigned_int swig_types[188]
+#define SWIGTYPE_p_unsigned_long_long swig_types[189]
+#define SWIGTYPE_p_unsigned_short swig_types[190]
+#define SWIGTYPE_p_value_type swig_types[191]
+static swig_type_info *swig_types[193];
+static swig_module_info swig_module = {swig_types, 192, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3169,7 +3168,6 @@ SWIGV8_ClientData _exports_torrent_status_clientData;
 SWIGV8_ClientData _exports_alert_notify_callback_clientData;
 SWIGV8_ClientData _exports_add_files_listener_clientData;
 SWIGV8_ClientData _exports_set_piece_hashes_listener_clientData;
-SWIGV8_ClientData _exports_stat_clientData;
 
 
 static SwigV8ReturnValue _wrap_new_int_int_pair__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
@@ -94790,164 +94788,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_stat_upload_payload(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::stat::upload_payload));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_stat_upload_protocol(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::stat::upload_protocol));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_stat_download_payload(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::stat::download_payload));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_stat_download_protocol(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::stat::download_protocol));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_stat_upload_ip_protocol(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::stat::upload_ip_protocol));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_stat_download_ip_protocol(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::stat::download_ip_protocol));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_stat_num_channels(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::stat::num_channels));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_new_stat(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  libtorrent::stat *result;
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_stat.");
-  result = (libtorrent::stat *)new libtorrent::stat();
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__stat, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-static void _wrap_delete_stat(v8::Persistent<v8::Value> object, void *parameter) {
-  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-  static void _wrap_delete_stat(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
-    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-    static void _wrap_delete_stat(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
-#else
-      static void _wrap_delete_stat(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
-        v8::Local<v8::Object> object = data.GetValue();
-        SWIGV8_Proxy *proxy = data.GetParameter();
-#endif
-        
-        if(proxy->swigCMemOwn && proxy->swigCObject) {
-          libtorrent::stat * arg1 = (libtorrent::stat *)proxy->swigCObject;
-          delete arg1;
-        }
-        delete proxy;
-        
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-        object.Dispose();
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-        object.Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
-        object->Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-        object->Dispose();
-#else
-        object.Clear();
-#endif
-      }
-
-
 static SwigV8ReturnValue _wrap_is_utp_stream_logging(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -95625,7 +95465,6 @@ static swig_type_info _swigt__p_libtorrent__sha1_hash = {"_p_libtorrent__sha1_ha
 static swig_type_info _swigt__p_libtorrent__spanT_char_const_t = {"_p_libtorrent__spanT_char_const_t", "libtorrent::span< char const > *|p_libtorrent__spanT_char_const_t", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_libtorrent__spanT_char_t = {"_p_libtorrent__spanT_char_t", "libtorrent::span< char > *|p_libtorrent__spanT_char_t", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_libtorrent__spanT_libtorrent__file__iovec_t_const_t = {"_p_libtorrent__spanT_libtorrent__file__iovec_t_const_t", "p_libtorrent__spanT_libtorrent__file__iovec_t_const_t|libtorrent::span< libtorrent::file::iovec_t const > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_libtorrent__stat = {"_p_libtorrent__stat", "p_libtorrent__stat", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_libtorrent__state_changed_alert = {"_p_libtorrent__state_changed_alert", "p_libtorrent__state_changed_alert|libtorrent::state_changed_alert *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_libtorrent__state_update_alert = {"_p_libtorrent__state_update_alert", "p_libtorrent__state_update_alert|libtorrent::state_update_alert *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_libtorrent__stats_alert = {"_p_libtorrent__stats_alert", "p_libtorrent__stats_alert|libtorrent::stats_alert *", 0, 0, (void*)0, 0};
@@ -95820,7 +95659,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_libtorrent__spanT_char_const_t,
   &_swigt__p_libtorrent__spanT_char_t,
   &_swigt__p_libtorrent__spanT_libtorrent__file__iovec_t_const_t,
-  &_swigt__p_libtorrent__stat,
   &_swigt__p_libtorrent__state_changed_alert,
   &_swigt__p_libtorrent__state_update_alert,
   &_swigt__p_libtorrent__stats_alert,
@@ -96015,7 +95853,6 @@ static swig_cast_info _swigc__p_libtorrent__sha1_hash[] = {  {&_swigt__p_libtorr
 static swig_cast_info _swigc__p_libtorrent__spanT_char_const_t[] = {  {&_swigt__p_libtorrent__spanT_char_const_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_libtorrent__spanT_char_t[] = {  {&_swigt__p_libtorrent__spanT_char_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_libtorrent__spanT_libtorrent__file__iovec_t_const_t[] = {  {&_swigt__p_libtorrent__spanT_libtorrent__file__iovec_t_const_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_libtorrent__stat[] = {  {&_swigt__p_libtorrent__stat, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_libtorrent__state_changed_alert[] = {  {&_swigt__p_libtorrent__state_changed_alert, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_libtorrent__state_update_alert[] = {  {&_swigt__p_libtorrent__state_update_alert, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_libtorrent__stats_alert[] = {  {&_swigt__p_libtorrent__stats_alert, 0, 0, 0},{0, 0, 0, 0}};
@@ -96210,7 +96047,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_libtorrent__spanT_char_const_t,
   _swigc__p_libtorrent__spanT_char_t,
   _swigc__p_libtorrent__spanT_libtorrent__file__iovec_t_const_t,
-  _swigc__p_libtorrent__stat,
   _swigc__p_libtorrent__state_changed_alert,
   _swigc__p_libtorrent__state_update_alert,
   _swigc__p_libtorrent__stats_alert,
@@ -97778,13 +97614,6 @@ SWIGV8_SET_CLASS_TEMPL(_exports_set_piece_hashes_listener_clientData.class_templ
 _exports_set_piece_hashes_listener_clientData.dtor = _wrap_delete_set_piece_hashes_listener;
 if (SWIGTYPE_p_set_piece_hashes_listener->clientdata == 0) {
   SWIGTYPE_p_set_piece_hashes_listener->clientdata = &_exports_set_piece_hashes_listener_clientData;
-}
-/* Name: _exports_stat, Type: p_libtorrent__stat, Dtor: _wrap_delete_stat */
-v8::Handle<v8::FunctionTemplate> _exports_stat_class = SWIGV8_CreateClassTemplate("_exports_stat");
-SWIGV8_SET_CLASS_TEMPL(_exports_stat_clientData.class_templ, _exports_stat_class);
-_exports_stat_clientData.dtor = _wrap_delete_stat;
-if (SWIGTYPE_p_libtorrent__stat->clientdata == 0) {
-  SWIGTYPE_p_libtorrent__stat->clientdata = &_exports_stat_clientData;
 }
 
 
@@ -102304,12 +102133,6 @@ _exports_set_piece_hashes_listener_class_0->SetCallHandler(_wrap_new_set_piece_h
 _exports_set_piece_hashes_listener_class_0->Inherit(_exports_set_piece_hashes_listener_class);
 _exports_set_piece_hashes_listener_class_0->SetHiddenPrototype(true);
 v8::Handle<v8::Object> _exports_set_piece_hashes_listener_obj = _exports_set_piece_hashes_listener_class_0->GetFunction();
-/* Class: stat (_exports_stat) */
-v8::Handle<v8::FunctionTemplate> _exports_stat_class_0 = SWIGV8_CreateClassTemplate("stat");
-_exports_stat_class_0->SetCallHandler(_wrap_new_stat);
-_exports_stat_class_0->Inherit(_exports_stat_class);
-_exports_stat_class_0->SetHiddenPrototype(true);
-v8::Handle<v8::Object> _exports_stat_obj = _exports_stat_class_0->GetFunction();
 
 
   /* add static class functions and variables */
@@ -103430,13 +103253,6 @@ SWIGV8_AddStaticFunction(exports_obj, "boost_version", _wrap_boost_version);
 SWIGV8_AddStaticFunction(exports_obj, "boost_lib_version", _wrap_boost_lib_version);
 SWIGV8_AddStaticFunction(exports_obj, "openssl_version_number", _wrap_openssl_version_number);
 SWIGV8_AddStaticFunction(exports_obj, "openssl_version_text", _wrap_openssl_version_text);
-SWIGV8_AddStaticVariable(_exports_stat_obj, "upload_payload", _wrap_libtorrent_stat_upload_payload, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_stat_obj, "upload_protocol", _wrap_libtorrent_stat_upload_protocol, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_stat_obj, "download_payload", _wrap_libtorrent_stat_download_payload, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_stat_obj, "download_protocol", _wrap_libtorrent_stat_download_protocol, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_stat_obj, "upload_ip_protocol", _wrap_libtorrent_stat_upload_ip_protocol, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_stat_obj, "download_ip_protocol", _wrap_libtorrent_stat_download_ip_protocol, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_stat_obj, "num_channels", _wrap_libtorrent_stat_num_channels, JS_veto_set_variable);
 SWIGV8_AddStaticFunction(exports_obj, "is_utp_stream_logging", _wrap_is_utp_stream_logging);
 SWIGV8_AddStaticFunction(exports_obj, "set_utp_stream_logging", _wrap_set_utp_stream_logging);
 
@@ -103611,7 +103427,6 @@ exports_obj->Set(SWIGV8_SYMBOL_NEW("torrent_status"), _exports_torrent_status_ob
 exports_obj->Set(SWIGV8_SYMBOL_NEW("alert_notify_callback"), _exports_alert_notify_callback_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("add_files_listener"), _exports_add_files_listener_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("set_piece_hashes_listener"), _exports_set_piece_hashes_listener_obj);
-exports_obj->Set(SWIGV8_SYMBOL_NEW("stat"), _exports_stat_obj);
 
 
   /* create and register namespace objects */

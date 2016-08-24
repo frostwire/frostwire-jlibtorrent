@@ -36,7 +36,6 @@ public final class Session extends SessionHandle {
     private static final Object MAGNET_LOCK = new Object();
 
     private final session s;
-    private final JavaStat stat;
     private final SessionStats stats;
 
     private long lastStatsRequestTime;
@@ -57,8 +56,7 @@ public final class Session extends SessionHandle {
 
         this.s = (session) super.s;
 
-        this.stat = new JavaStat();
-        this.stats = new SessionStats(stat);
+        this.stats = new SessionStats();
 
         this.listeners = new SparseArray<>();
         this.listenerSnapshots = new SparseArray<>();

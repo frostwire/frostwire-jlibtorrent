@@ -45,7 +45,7 @@ public final class SessionManager {
         this.sync = new ReentrantLock();
         this.syncMagnet = new ReentrantLock();
 
-        this.stats = new SessionStats(null);
+        this.stats = new SessionStats();
     }
 
     public SessionManager() {
@@ -94,6 +94,7 @@ public final class SessionManager {
 
             session s = session;
             session = null; // stop alerts loop and session methods
+            stats.clear();
             s.abort().delete();
 
         } finally {

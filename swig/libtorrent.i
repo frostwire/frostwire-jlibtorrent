@@ -1152,20 +1152,6 @@ namespace libtorrent {
     }
 }
 
-class stat {
-public:
-    enum
-    {
-        upload_payload,
-        upload_protocol,
-        download_payload,
-        download_protocol,
-        upload_ip_protocol,
-        download_ip_protocol,
-        num_channels
-    };
-};
-
 bool is_utp_stream_logging();
 void set_utp_stream_logging(bool enable);
 

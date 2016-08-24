@@ -2829,15 +2829,6 @@ public class libtorrent_jni {
   public final static native String boost_lib_version();
   public final static native int openssl_version_number();
   public final static native String openssl_version_text();
-  public final static native int stat_upload_payload_get();
-  public final static native int stat_upload_protocol_get();
-  public final static native int stat_download_payload_get();
-  public final static native int stat_download_protocol_get();
-  public final static native int stat_upload_ip_protocol_get();
-  public final static native int stat_download_ip_protocol_get();
-  public final static native int stat_num_channels_get();
-  public final static native long new_stat();
-  public final static native void delete_stat(long jarg1);
   public final static native boolean is_utp_stream_logging();
   public final static native void set_utp_stream_logging(boolean jarg1);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
