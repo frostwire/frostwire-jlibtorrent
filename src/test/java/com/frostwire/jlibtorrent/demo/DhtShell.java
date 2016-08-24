@@ -39,18 +39,13 @@ public final class DhtShell {
                     DhtPutAlert a = (DhtPutAlert) alert;
                     log(a.message());
                 }
-
-                if (type == AlertType.DHT_STATS) {
-                    DhtStatsAlert a = (DhtStatsAlert) alert;
-                    long nodes = 0;// TODO: restore this
-                    log("DHT contains " + nodes + " nodes");
-                }
             }
         };
 
-        Session s = new Session("0.0.0.0:0,[::]:0", 0, false, mainListener);
-        Dht dht = new Dht(s);
-        Downloader downloader = new Downloader(s);
+        SessionManager s = new SessionManager();
+        s.addListener(mainListener);
+
+        Dht dht = new Dht(null);
 
         try {
             File f = new File("dht_shell.dat");
@@ -85,7 +80,7 @@ public final class DhtShell {
             } else if (is_mget(line)) {
                 mget(dht, line);
             } else if (is_magnet(line)) {
-                magnet(downloader, line);
+                magnet(s, line);
             } else if (is_count_nodes(line)) {
                 count_nodes(s);
             } else if (is_invalid(line)) {
@@ -115,7 +110,7 @@ public final class DhtShell {
         return s.equals("quit") || s.equals("exit") || s.equals("stop");
     }
 
-    private static void quit(Session s) {
+    private static void quit(SessionManager s) {
         print("Exiting...");
         byte[] data = s.saveState();
         try {
@@ -123,7 +118,7 @@ public final class DhtShell {
         } catch (Throwable e) {
             print(e.getMessage());
         }
-        s.abort();
+        s.stop();
         System.exit(0);
     }
 
@@ -210,11 +205,11 @@ public final class DhtShell {
         return s.startsWith("magnet ");
     }
 
-    private static void magnet(Downloader downloader, String s) {
+    private static void magnet(SessionManager session, String s) {
         String sha1 = s.split(" ")[1];
         String uri = "magnet:?xt=urn:btih:" + sha1;
         print("Waiting a max of 20 seconds to fetch magnet for sha1: " + sha1);
-        byte[] data = downloader.fetchMagnet(uri, 20);
+        byte[] data = session.fetchMagnet(uri, 20);
         print(Entry.bdecode(data).toString());
     }
 
@@ -222,8 +217,8 @@ public final class DhtShell {
         return s.startsWith("count_nodes");
     }
 
-    private static void count_nodes(Session s) {
-        s.postDHTStats();
+    private static void count_nodes(SessionManager s) {
+        log("DHT contains " + s.stats().dhtNodes() + " nodes");
     }
 
     private static boolean is_invalid(String s) {

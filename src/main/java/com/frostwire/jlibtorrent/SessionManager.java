@@ -52,6 +52,10 @@ public final class SessionManager {
         this("0.0.0.0:6881,[::]:6881", 10, false);
     }
 
+    public session swig() {
+        return session;
+    }
+
     public void addListener(AlertListener listener) {
         modifyListeners(true, listener);
     }
@@ -102,6 +106,10 @@ public final class SessionManager {
         }
     }
 
+    public boolean running() {
+        return session != null;
+    }
+
     public SessionStats stats() {
         return stats;
     }
@@ -132,6 +140,10 @@ public final class SessionManager {
      * @return
      */
     public byte[] fetchMagnet(String uri, int timeout, final int maxSize) {
+        if (session == null) {
+            return null;
+        }
+
         add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
         error_code ec = new error_code();
         libtorrent.parse_magnet_uri(uri, p, ec);
@@ -229,6 +241,14 @@ public final class SessionManager {
      */
     public byte[] fetchMagnet(String uri, int timeout) {
         return fetchMagnet(uri, timeout, 2 * 1024 * 1024);
+    }
+
+    public byte[] saveState() {
+        return new SessionHandle(session).saveState();
+    }
+
+    public void loadState(byte[] data) {
+        new SessionHandle(session).loadState(data);
     }
 
     @Override

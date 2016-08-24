@@ -32,14 +32,10 @@ public final class Session extends SessionHandle {
     private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
-    private static final LruCache<String, byte[]> MAGNET_CACHE = new LruCache<String, byte[]>(50);
-    private static final Object MAGNET_LOCK = new Object();
-
     private final session s;
     private final SessionStats stats;
 
     private long lastStatsRequestTime;
-    private long lastStatSecondTick;
 
     private final SparseArray<ArrayList<AlertListener>> listeners;
     private final SparseArray<AlertListener[]> listenerSnapshots;
@@ -633,76 +629,6 @@ public final class Session extends SessionHandle {
         return new SettingsPack(s.get_settings());
     }
 
-    /**
-     * @param uri
-     * @param timeout in seconds
-     * @return
-     */
-    public byte[] fetchMagnet(String uri, int timeout) {
-        add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
-        error_code ec = new error_code();
-        libtorrent.parse_magnet_uri(uri, p, ec);
-
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
-        }
-
-        final sha1_hash info_hash = p.getInfo_hash();
-        String sha1 = info_hash.to_hex();
-
-        byte[] data = MAGNET_CACHE.get(sha1);
-        if (data != null) {
-            return data;
-        }
-
-        boolean add;
-        torrent_handle th;
-
-        synchronized (MAGNET_LOCK) {
-            th = s.find_torrent(info_hash);
-            if (th != null && th.is_valid()) {
-                // we have a download with the same info-hash, let's wait
-                add = false;
-            } else {
-                add = true;
-            }
-
-            if (add) {
-                p.setName("fetch_magnet:" + uri);
-                p.setSave_path("fetch_magnet/" + uri);
-
-                long flags = p.get_flags();
-                flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-                p.set_flags(flags);
-
-                ec.clear();
-                th = s.add_torrent(p, ec);
-                th.resume();
-            }
-        }
-
-        int n = 0;
-        do {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // ignore
-            }
-
-            data = MAGNET_CACHE.get(sha1);
-
-            n++;
-        } while (n < timeout && data == null);
-
-        synchronized (MAGNET_LOCK) {
-            if (add && th != null && th.is_valid()) {
-                s.remove_torrent(th);
-            }
-        }
-
-        return data;
-    }
-
     @Override
     protected void finalize() throws Throwable {
         this.running = false;
@@ -796,16 +722,6 @@ public final class Session extends SessionHandle {
 
                             Alert<?> alert = null;
 
-                            if (type == AlertType.SESSION_STATS.swig()) {
-                                alert = Alerts.cast(swigAlert);
-                                updateSessionStat((SessionStatsAlert) alert);
-                            }
-
-                            if (type == AlertType.METADATA_RECEIVED.swig()) {
-                                alert = Alerts.cast(swigAlert);
-                                saveMagnetData((MetadataReceivedAlert) alert);
-                            }
-
                             if (listeners.indexOfKey(type) >= 0) {
                                 if (alert == null) {
                                     alert = Alerts.cast(swigAlert);
@@ -879,51 +795,6 @@ public final class Session extends SessionHandle {
         list.add(new Pair<>("dht.transmissionbt.com", 6881));
 
         return list;
-    }
-
-    private void updateSessionStat(SessionStatsAlert alert) {
-        /*
-        long now = System.currentTimeMillis();
-        long tickIntervalMs = now - lastStatSecondTick;
-        lastStatSecondTick = now;
-        long received = alert.value(counters.stats_counter_t.recv_bytes.swigValue());
-        long payload = alert.value(counters.stats_counter_t.recv_payload_bytes.swigValue());
-        long protocol = received - payload;
-        long ip = alert.value(counters.stats_counter_t.recv_ip_overhead_bytes.swigValue());
-
-        payload -= stat.downloadPayload();
-        protocol -= stat.downloadProtocol();
-        ip -= stat.downloadIPProtocol();
-        stat.received(payload, protocol, ip);
-
-        long sent = alert.value(counters.stats_counter_t.sent_bytes.swigValue());
-        payload = alert.value(counters.stats_counter_t.sent_payload_bytes.swigValue());
-        protocol = sent - payload;
-        ip = alert.value(counters.stats_counter_t.sent_ip_overhead_bytes.swigValue());
-
-        payload -= stat.uploadPayload();
-        protocol -= stat.uploadProtocol();
-        ip -= stat.uploadIPProtocol();
-        stat.sent(payload, protocol, ip);
-
-        stat.secondTick(tickIntervalMs);
-
-        stats.dhtNodes(alert.value(counters.stats_gauge_t.dht_nodes.swigValue()));
-        */
-    }
-
-    private void saveMagnetData(MetadataReceivedAlert alert) {
-        /*
-        try {
-            torrent_handle th = alert.handle().swig();
-            TorrentInfo ti = new TorrentInfo(th.get_torrent_copy());
-            String sha1 = ti.infoHash().toHex();
-            byte[] data = ti.bencode();
-
-            MAGNET_CACHE.put(sha1, data);
-        } catch (Throwable e) {
-            LOG.error("Error in saving magnet in internal cache", e);
-        }*/
     }
 
     private static session createSession(SettingsPack settings, boolean logging) {

@@ -22,7 +22,7 @@ public class FetchMagnetTest {
         String sha1 = "a83cc13bf4a07e85b938dcf06aa707955687ca7c";
         String uri = "magnet:?xt=urn:btih:" + sha1;
 
-        final Session s = new Session();
+        final SessionManager s = new SessionManager();
 
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -41,7 +41,7 @@ public class FetchMagnetTest {
 
                 if (alert.type().equals(AlertType.DHT_STATS)) {
 
-                    long nodes = s.getStats().dhtNodes();
+                    long nodes = s.stats().dhtNodes();
                     // wait for at least 10 nodes in the DHT.
                     if (nodes >= 10) {
                         signal.countDown();
@@ -51,9 +51,8 @@ public class FetchMagnetTest {
         };
 
         s.addListener(l);
+        s.start();
         s.postDHTStats();
-
-        Downloader d = new Downloader(s);
 
         // waiting for nodes in DHT (10 seconds)
         boolean r = false;
@@ -69,12 +68,12 @@ public class FetchMagnetTest {
 
 
         // Fetching the magnet uri, waiting 30 seconds max
-        byte[] data = d.fetchMagnet(uri, 30);
+        byte[] data = s.fetchMagnet(uri, 30);
         assertNotNull("Failed to retrieve the magnet", data);
 
-        TorrentHandle th = s.findTorrent(new Sha1Hash(sha1));
-        assertNull(th);
+        //TorrentHandle th = s.findTorrent(new Sha1Hash(sha1));
+        //assertNull(th);
 
-        s.abort();
+        s.stop();
     }
 }

@@ -56,12 +56,4 @@ public final class Downloader {
         download(ti, saveDir, null, null);
     }
 
-    /**
-     * @param uri
-     * @param timeout in seconds
-     * @return
-     */
-    public byte[] fetchMagnet(String uri, int timeout) {
-        return s.fetchMagnet(uri, timeout);
-    }
 }
