@@ -68,7 +68,7 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
                 return -1;
             }
 
-            torrent_info ti = th.get_torrent_ptr();
+            torrent_info ti = th.torrent_file_ptr();
             if (ti == null || !ti.is_valid()) {
                 invalid = true;
                 return -1;
@@ -120,7 +120,7 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
                 return null;
             }
 
-            torrent_info ti = th.get_torrent_ptr();
+            torrent_info ti = th.torrent_file_ptr();
             if (ti == null || !ti.is_valid()) {
                 invalid = true;
                 return null;

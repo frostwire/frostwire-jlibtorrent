@@ -346,8 +346,8 @@ public class add_torrent_params {
     libtorrent_jni.add_torrent_params_set_flags(swigCPtr, this, flags);
   }
 
-  public torrent_info get_ti_ptr() {
-    long cPtr = libtorrent_jni.add_torrent_params_get_ti_ptr(swigCPtr, this);
+  public torrent_info ti_ptr() {
+    long cPtr = libtorrent_jni.add_torrent_params_ti_ptr(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent_info(cPtr, false);
   }
 

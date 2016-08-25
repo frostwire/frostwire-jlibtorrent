@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.*;
 
+import java.io.File;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
@@ -136,6 +137,59 @@ public final class SessionManager {
         if (session != null) {
             session.post_dht_stats();
         }
+    }
+
+    public void download(TorrentInfo ti, File saveDir, File resumeFile, Priority[] priorities) {
+        if (session == null) {
+            return;
+        }
+
+        if (!ti.isValid()) {
+            throw new IllegalArgumentException("torrent info not valid");
+        }
+
+        add_torrent_params p = null;
+
+        if (resumeFile != null) {
+            try {
+                byte[] data = Files.bytes(resumeFile);
+                error_code ec = new error_code();
+                p = add_torrent_params.read_resume_data(Vectors.bytes2byte_vector(data), ec);
+                if (ec.value() != 0) {
+                    throw new IllegalArgumentException("Unable to read the resume data: " + ec.message());
+                }
+            } catch (Throwable e) {
+                LOG.warn("Unable to set resume data", e);
+            }
+        }
+
+        if (p == null) {
+            p = add_torrent_params.create_instance();
+        }
+
+        p.set_ti(ti.swig());
+        if (saveDir != null) {
+            p.setSave_path(saveDir.getAbsolutePath());
+        }
+
+        if (priorities != null) {
+            if (ti.files().numFiles() != priorities.length) {
+                throw new IllegalArgumentException("priorities must be the same number of elements as files in torrent info");
+            }
+            byte_vector v = new byte_vector();
+            for (int i = 0; i < priorities.length; i++) {
+                v.push_back((byte) priorities[i].swig());
+            }
+            p.setFile_priorities(v);
+        }
+
+        long flags = p.get_flags();
+
+        flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+
+        p.set_flags(flags);
+
+        session.async_add_torrent(p);
     }
 
     /**

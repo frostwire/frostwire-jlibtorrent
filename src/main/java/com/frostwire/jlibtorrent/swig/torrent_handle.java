@@ -371,8 +371,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_add_piece_bytes__SWIG_1(swigCPtr, this, piece, byte_vector.getCPtr(data), data);
   }
 
-  public torrent_info get_torrent_ptr() {
-    long cPtr = libtorrent_jni.torrent_handle_get_torrent_ptr(swigCPtr, this);
+  public torrent_info torrent_file_ptr() {
+    long cPtr = libtorrent_jni.torrent_handle_torrent_file_ptr(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent_info(cPtr, false);
   }
 

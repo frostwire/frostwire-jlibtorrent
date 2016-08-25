@@ -47,6 +47,15 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_op_eq(swigCPtr, this, torrent_status.getCPtr(st), st);
   }
 
+  public void setHandle(torrent_handle value) {
+    libtorrent_jni.torrent_status_handle_set(swigCPtr, this, torrent_handle.getCPtr(value), value);
+  }
+
+  public torrent_handle getHandle() {
+    long cPtr = libtorrent_jni.torrent_status_handle_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_handle(cPtr, false);
+  }
+
   public void setErrc(error_code value) {
     libtorrent_jni.torrent_status_errc_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
@@ -657,6 +666,11 @@ public class torrent_status {
   public sha1_hash getInfo_hash() {
     long cPtr = libtorrent_jni.torrent_status_info_hash_get(swigCPtr, this);
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
+  }
+
+  public torrent_info torrent_file_ptr() {
+    long cPtr = libtorrent_jni.torrent_status_torrent_file_ptr(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_info(cPtr, false);
   }
 
   public long get_next_announce() {

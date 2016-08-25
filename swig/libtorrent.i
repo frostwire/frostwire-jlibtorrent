@@ -627,7 +627,6 @@ typedef long time_t;
 %ignore libtorrent::announce_entry::min_announce;
 %ignore libtorrent::announce_entry::can_announce;
 %ignore libtorrent::proxy_settings::proxy_settings;
-%ignore libtorrent::torrent_status::handle;
 %ignore libtorrent::torrent_status::_dummy_string_;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::torrent_status::next_announce;
@@ -973,7 +972,7 @@ namespace libtorrent {
         $self->flags = flags;
     }
 
-    libtorrent::torrent_info const* get_ti_ptr() {
+    libtorrent::torrent_info const* ti_ptr() {
         return $self->ti.get();
     }
 
@@ -1015,9 +1014,8 @@ namespace libtorrent {
         $self->add_piece(piece, (char const*)&data[0], flags);
     }
 
-    const libtorrent::torrent_info* get_torrent_ptr() {
-        std::shared_ptr<const libtorrent::torrent_info> ti = $self->torrent_file();
-        return ti.get();
+    libtorrent::torrent_info const* torrent_file_ptr() {
+        return $self->torrent_file().get();
     }
 }
 
@@ -1113,6 +1111,7 @@ namespace libtorrent {
 }
 
 %extend read_piece_alert {
+
     int64_t buffer_ptr() {
         return reinterpret_cast<int64_t>($self->buffer.get());
     }
@@ -1139,6 +1138,10 @@ namespace libtorrent {
 }
 
 %extend torrent_status {
+
+    torrent_info const* torrent_file_ptr() {
+        return $self->torrent_file.lock().get();
+    }
 
     int64_t get_next_announce() {
         return libtorrent::total_milliseconds($self->next_announce);

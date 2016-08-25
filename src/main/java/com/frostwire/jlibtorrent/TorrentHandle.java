@@ -160,8 +160,8 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public TorrentInfo getTorrentInfo() {
-        torrent_info ti = th.get_torrent_ptr();
+    public TorrentInfo torrentFile() {
+        torrent_info ti = th.torrent_file_ptr();
         return ti != null ? new TorrentInfo(ti) : null;
     }
 

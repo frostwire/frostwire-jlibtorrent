@@ -146,28 +146,6 @@ public final class TorrentStatus {
     }
 
     /**
-     * A bitmask that represents which pieces we have (set to true) and the
-     * pieces we don't have. It's a pointer and may be set to 0 if the
-     * torrent isn't downloading or seeding.
-     *
-     * @return
-     */
-    public Bitfield pieces() {
-        return new Bitfield(ts.getPieces());
-    }
-
-    /**
-     * A bitmask representing which pieces has had their hash checked. This
-     * only applies to torrents in *seed mode*. If the torrent is not in seed
-     * mode, this bitmask may be empty.
-     *
-     * @return
-     */
-    public Bitfield getVerifiedPieces() {
-        return new Bitfield(ts.getVerified_pieces());
-    }
-
-    /**
      * The total number of bytes of the file(s) that we have. All this does not necessarily
      * has to be downloaded during this session (that's total_payload_download).
      */

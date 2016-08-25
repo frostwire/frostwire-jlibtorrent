@@ -59,8 +59,8 @@ public final class AddTorrentParams {
      * @return
      */
     public TorrentInfo torrentInfo() {
-        torrent_info ti = p.get_ti_ptr();
-        return ti != null && ti.is_valid() ? new TorrentInfo(p.get_ti_ptr()) : null;
+        torrent_info ti = p.ti_ptr();
+        return ti != null && ti.is_valid() ? new TorrentInfo(ti) : null;
     }
 
     /**

@@ -909,7 +909,7 @@ public class libtorrent_jni {
   public final static native long torrent_handle_id(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_add_piece_bytes__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_, int jarg4);
   public final static native void torrent_handle_add_piece_bytes__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_);
-  public final static native long torrent_handle_get_torrent_ptr(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_torrent_file_ptr(long jarg1, torrent_handle jarg1_);
   public final static native void delete_torrent_handle(long jarg1);
   public final static native int add_torrent_params_flag_seed_mode_get();
   public final static native int add_torrent_params_flag_upload_mode_get();
@@ -1001,7 +1001,7 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_renamed_files_get(long jarg1, add_torrent_params jarg1_);
   public final static native long add_torrent_params_get_flags(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_set_flags(long jarg1, add_torrent_params jarg1_, long jarg2);
-  public final static native long add_torrent_params_get_ti_ptr(long jarg1, add_torrent_params jarg1_);
+  public final static native long add_torrent_params_ti_ptr(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_set_ti(long jarg1, add_torrent_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_create_instance_disabled_storage();
@@ -2642,6 +2642,8 @@ public class libtorrent_jni {
   public final static native void delete_torrent_status(long jarg1);
   public final static native long new_torrent_status__SWIG_1(long jarg1, torrent_status jarg1_);
   public final static native boolean torrent_status_op_eq(long jarg1, torrent_status jarg1_, long jarg2, torrent_status jarg2_);
+  public final static native void torrent_status_handle_set(long jarg1, torrent_status jarg1_, long jarg2, torrent_handle jarg2_);
+  public final static native long torrent_status_handle_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_errc_set(long jarg1, torrent_status jarg1_, long jarg2, error_code jarg2_);
   public final static native long torrent_status_errc_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_error_file_set(long jarg1, torrent_status jarg1_, int jarg2);
@@ -2798,6 +2800,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_status_stop_when_ready_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_info_hash_set(long jarg1, torrent_status jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long torrent_status_info_hash_get(long jarg1, torrent_status jarg1_);
+  public final static native long torrent_status_torrent_file_ptr(long jarg1, torrent_status jarg1_);
   public final static native long torrent_status_get_next_announce(long jarg1, torrent_status jarg1_);
   public final static native int ed25519_seed_size_get();
   public final static native int ed25519_private_key_size_get();
