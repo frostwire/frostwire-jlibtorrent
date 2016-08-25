@@ -15,10 +15,18 @@ public class SessionHandle {
 
     protected final session_handle s;
 
+    /**
+     *
+     * @param s
+     */
     public SessionHandle(session_handle s) {
         this.s = s;
     }
 
+    /**
+     *
+     * @return
+     */
     public session_handle swig() {
         return s;
     }

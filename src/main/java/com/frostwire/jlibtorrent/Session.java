@@ -1,13 +1,8 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.alerts.*;
-import com.frostwire.jlibtorrent.swig.*;
-import com.frostwire.jlibtorrent.swig.session_handle.options_t;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import com.frostwire.jlibtorrent.alerts.DhtImmutableItemAlert;
+import com.frostwire.jlibtorrent.alerts.DhtMutableItemAlert;
+import com.frostwire.jlibtorrent.swig.session;
 
 /**
  * The session holds all state that spans multiple torrents. Among other
@@ -27,99 +22,18 @@ import java.util.List;
  */
 public final class Session extends SessionHandle {
 
-    private static final Logger LOG = Logger.getLogger(Session.class);
-
-    private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
-    private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
-
     private final session s;
-    private final SessionStats stats;
 
-    private long lastStatsRequestTime;
-
-    private boolean running;
-
-    /**
-     * The flag alert_mask is always set to all_categories.
-     *
-     * @param settings
-     * @param logging
-     */
-    public Session(SettingsPack settings, boolean logging, AlertListener listener) {
-        super(createSession(settings, logging));
-
-        this.s = (session) super.s;
-
-        this.stats = new SessionStats();
-
-        if (listener != null) {
-            addListener(listener);
-        }
-
-        this.running = true;
-        alertsLoop();
-
-        for (Pair<String, Integer> router : defaultRouters()) {
-            s.add_dht_router(router.to_string_int_pair());
-        }
-    }
-
-    public Session() {
-        this(new SettingsPack(), false, null);
+    public Session(session s) {
+        super(s);
+        this.s = s;
     }
 
     /**
-     * This constructor allow you to specify the listen interfaces in the
-     * same format libtorrent accepts. Like for example, IPv4+IPv6 in the
-     * first available port: "0.0.0.0:0,[::]:0".
-     * <p>
-     * The {@code retries} parameter correspond to the internal libtorrent
-     * setting of {@code max_retry_port_bind}. That is: if binding to a
-     * specific port fails, should the port be incremented by one and tried
-     * again. This setting specifies how many times to retry a failed port
-     * bind.
-     *
-     * @param retries
-     * @param interfaces
-     * @param logging
-     * @param listener
-     */
-    public Session(String interfaces, int retries, boolean logging, AlertListener listener) {
-        this(createSettings(interfaces, retries), logging, listener);
-    }
-
-    public void addListener(AlertListener listener) {
-        modifyListeners(true, listener);
-    }
-
-    public void removeListener(AlertListener listener) {
-        modifyListeners(false, listener);
-    }
-
-
-    /**
-     * In case you want to destruct the session asynchronously, you can
-     * request a session destruction proxy. If you don't do this, the
-     * destructor of the session object will block while the trackers are
-     * contacted. If you keep one ``session_proxy`` to the session when
-     * destructing it, the destructor will not block, but start to close down
-     * the session, the destructor of the proxy will then synchronize the
-     * threads. So, the destruction of the session is performed from the
-     * ``session`` destructor call until the ``session_proxy`` destructor
-     * call. The ``session_proxy`` does not have any operations on it (since
-     * the session is being closed down, no operations are allowed on it).
-     * The only valid operation is calling the destructor::
-     *
      * @return
      */
-    public SessionProxy abort() {
-        running = false;
-        return new SessionProxy(s.abort());
-    }
-
-    public void destroy() {
-        running = false;
-        s.delete();
+    public session swig() {
+        return s;
     }
 
     /**
@@ -345,107 +259,7 @@ public final class Session extends SessionHandle {
         s.dht_direct_request(endp.swig(), entry.swig());
     }
 
-    public SessionStats getStats() {
-        return stats;
-    }
-
     public SettingsPack getSettingsPack() {
         return new SettingsPack(s.get_settings());
-    }
-
-
-    private void alertsLoop() {
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                alert_ptr_vector vector = new alert_ptr_vector();
-
-                while (running) {
-                    alert ptr = s.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
-
-                    if (ptr != null) {
-                        s.pop_alerts(vector);
-                        long size = vector.size();
-                        for (int i = 0; i < size; i++) {
-                            alert swigAlert = vector.get(i);
-                            int type = swigAlert.type();
-
-                            Alert<?> alert = null;
-
-
-                        }
-                        vector.clear();
-                    }
-
-                    long now = System.currentTimeMillis();
-                    if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
-                        lastStatsRequestTime = now;
-                        postSessionStats();
-                    }
-                }
-            }
-        };
-
-        Thread t = new Thread(r, "Session-alertsLoop");
-        t.setDaemon(true);
-        t.start();
-    }
-
-    private void modifyListeners(boolean adding, AlertListener listener) {
-        if (listener != null) {
-            int[] types = listener.types();
-
-            //all alert-type including listener
-            if (types == null) {
-                modifyListeners(adding, -1, listener);
-            } else {
-                for (int i = 0; i < types.length; i++) {
-                    if (types[i] == -1) {
-                        throw new IllegalArgumentException("Type can't be the key of all (-1)");
-                    }
-                    modifyListeners(adding, types[i], listener);
-                }
-            }
-        }
-    }
-
-    private void modifyListeners(boolean adding, int type, AlertListener listener) {
-    }
-
-    private static List<Pair<String, Integer>> defaultRouters() {
-        List<Pair<String, Integer>> list = new LinkedList<Pair<String, Integer>>();
-
-        list.add(new Pair<>("router.bittorrent.com", 6881));
-        list.add(new Pair<>("dht.transmissionbt.com", 6881));
-
-        return list;
-    }
-
-    private static session createSession(SettingsPack settings, boolean logging) {
-        settings_pack sp = settings.swig();
-
-        int alert_mask = alert.category_t.all_categories.swigValue();
-        if (!logging) {
-            int log_mask = alert.category_t.session_log_notification.swigValue() |
-                    alert.category_t.torrent_log_notification.swigValue() |
-                    alert.category_t.peer_log_notification.swigValue() |
-                    alert.category_t.dht_log_notification.swigValue() |
-                    alert.category_t.port_mapping_log_notification.swigValue();
-            alert_mask = alert_mask & ~log_mask;
-        }
-
-        // we always override alert_mask since we use it for our internal operations
-        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alert_mask);
-
-        return new session(sp);
-    }
-
-    private static SettingsPack createSettings(String interfaces, int retries) {
-        settings_pack sp = new settings_pack();
-
-        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), interfaces);
-        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
-
-        return new SettingsPack(sp);
     }
 }

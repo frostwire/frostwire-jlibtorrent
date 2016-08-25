@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author gubatron
  * @author aldenml
  */
-public final class SessionManager {
+public class SessionManager {
 
     private static final Logger LOG = Logger.getLogger(SessionManager.class);
 

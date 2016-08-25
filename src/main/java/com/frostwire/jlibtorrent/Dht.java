@@ -70,7 +70,7 @@ public final class Dht {
             }
         };
 
-        s.addListener(l);
+        //s.addListener(l);
 
         s.dhtGetItem(target);
 
@@ -80,7 +80,7 @@ public final class Dht {
             // ignore
         }
 
-        s.removeListener(l);
+        //s.removeListener(l);
 
         return result[0];
     }
@@ -118,7 +118,7 @@ public final class Dht {
             }
         };
 
-        s.addListener(l);
+        //s.addListener(l);
 
         s.dhtGetPeers(target);
 
@@ -128,7 +128,7 @@ public final class Dht {
             // ignore
         }
 
-        s.removeListener(l);
+        //s.removeListener(l);
 
         return result;
     }
@@ -168,7 +168,7 @@ public final class Dht {
             }
         };
 
-        s.addListener(l);
+        //s.addListener(l);
 
         s.dhtGetItem(key, salt);
 
@@ -178,7 +178,7 @@ public final class Dht {
             // ignore
         }
 
-        s.removeListener(l);
+        //s.removeListener(l);
 
         return result[0];
     }
