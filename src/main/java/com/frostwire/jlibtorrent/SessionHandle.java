@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author gubatron
@@ -127,7 +128,7 @@ public class SessionHandle {
      *
      * @return
      */
-    public ArrayList<TorrentHandle> getTorrents() {
+    public List<TorrentHandle> torrents() {
         torrent_handle_vector v = s.get_torrents();
         int size = (int) v.size();
 
@@ -177,6 +178,38 @@ public class SessionHandle {
     }
 
     /**
+     * This method will close all peer connections associated with the torrent and tell the
+     * tracker that we've stopped participating in the swarm. This operation cannot fail.
+     * When it completes, you will receive a torrent_removed_alert.
+     * <p>
+     * The optional second argument options can be used to delete all the files downloaded
+     * by this torrent. To do so, pass in the value session::delete_files. The removal of
+     * the torrent is asynchronous, there is no guarantee that adding the same torrent immediately
+     * after it was removed will not throw a libtorrent_exception exception. Once the torrent
+     * is deleted, a torrent_deleted_alert is posted.
+     *
+     * @param th
+     */
+    public void removeTorrent(TorrentHandle th, Options options) {
+        if (th.isValid()) {
+            s.remove_torrent(th.swig(), options.swig());
+        }
+    }
+
+    /**
+     * This method will close all peer connections associated with the torrent and tell the
+     * tracker that we've stopped participating in the swarm. This operation cannot fail.
+     * When it completes, you will receive a torrent_removed_alert.
+     *
+     * @param th
+     */
+    public void removeTorrent(TorrentHandle th) {
+        if (th.isValid()) {
+            s.remove_torrent(th.swig());
+        }
+    }
+
+    /**
      * Applies the settings specified by the settings pack {@code sp}. This is an
      * asynchronous operation that will return immediately and actually apply
      * the settings to the main thread of libtorrent some time later.
@@ -185,6 +218,25 @@ public class SessionHandle {
      */
     public void applySettings(SettingsPack sp) {
         s.apply_settings(sp.swig());
+    }
+
+    /**
+     * add_port_mapping adds a port forwarding on UPnP and/or NAT-PMP,
+     * whichever is enabled. The return value is a handle referring to the
+     * port mapping that was just created. Pass it to delete_port_mapping()
+     * to remove it.
+     *
+     * @param t
+     * @param externalPort
+     * @param localPort
+     * @return
+     */
+    public int addPortMapping(ProtocolType t, int externalPort, int localPort) {
+        return s.add_port_mapping(session_handle.protocol_type.swigToEnum(t.swig()), externalPort, localPort);
+    }
+
+    public void deletePortMapping(int handle) {
+        s.delete_port_mapping(handle);
     }
 
     /**
@@ -239,6 +291,84 @@ public class SessionHandle {
         public static SaveStateFlags fromSwig(int swigValue) {
             SaveStateFlags[] enumValues = SaveStateFlags.class.getEnumConstants();
             for (SaveStateFlags ev : enumValues) {
+                if (ev.swig() == swigValue) {
+                    return ev;
+                }
+            }
+            return UNKNOWN;
+        }
+    }
+
+    /**
+     * Flags to be passed in to {@link #removeTorrent(TorrentHandle, Options)}.
+     */
+    public enum Options {
+
+        /**
+         * Delete the files belonging to the torrent from disk,
+         * including the part-file, if there is one.
+         */
+        DELETE_FILES(session_handle.options_t.delete_files.swigValue()),
+
+        /**
+         * Delete just the part-file associated with this torrent.
+         */
+        DELETE_PARTFILE(session_handle.options_t.delete_partfile.swigValue());
+
+        Options(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        /**
+         * @return
+         */
+        public int swig() {
+            return swigValue;
+        }
+    }
+
+    /**
+     * protocols used by add_port_mapping().
+     */
+    public enum ProtocolType {
+
+        /**
+         *
+         */
+        UDP(session_handle.protocol_type.udp.swigValue()),
+
+        /**
+         *
+         */
+        TCP(session_handle.protocol_type.tcp.swigValue()),
+
+        /**
+         *
+         */
+        UNKNOWN(-1);
+
+        ProtocolType(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        /**
+         * @return
+         */
+        public int swig() {
+            return swigValue;
+        }
+
+        /**
+         * @param swigValue
+         * @return
+         */
+        public static ProtocolType fromSwig(int swigValue) {
+            ProtocolType[] enumValues = ProtocolType.class.getEnumConstants();
+            for (ProtocolType ev : enumValues) {
                 if (ev.swig() == swigValue) {
                     return ev;
                 }

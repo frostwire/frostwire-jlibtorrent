@@ -273,35 +273,7 @@ public final class Session extends SessionHandle {
         asyncAddTorrent(torrent, saveDir, null);
     }
 
-    /**
-     * This method will close all peer connections associated with the torrent and tell the
-     * tracker that we've stopped participating in the swarm. This operation cannot fail.
-     * When it completes, you will receive a torrent_removed_alert.
-     * <p>
-     * The optional second argument options can be used to delete all the files downloaded
-     * by this torrent. To do so, pass in the value session::delete_files. The removal of
-     * the torrent is asynchronous, there is no guarantee that adding the same torrent immediately
-     * after it was removed will not throw a libtorrent_exception exception. Once the torrent
-     * is deleted, a torrent_deleted_alert is posted.
-     *
-     * @param th
-     */
-    public void removeTorrent(TorrentHandle th, Options options) {
-        s.remove_torrent(th.swig(), options.swig());
-    }
 
-    /**
-     * This method will close all peer connections associated with the torrent and tell the
-     * tracker that we've stopped participating in the swarm. This operation cannot fail.
-     * When it completes, you will receive a torrent_removed_alert.
-     *
-     * @param th
-     */
-    public void removeTorrent(TorrentHandle th) {
-        if (th.isValid()) {
-            s.remove_torrent(th.swig());
-        }
-    }
 
     /**
      * In case you want to destruct the session asynchronously, you can
@@ -598,25 +570,6 @@ public final class Session extends SessionHandle {
         s.dht_direct_request(endp.swig(), entry.swig());
     }
 
-    /**
-     * add_port_mapping adds a port forwarding on UPnP and/or NAT-PMP,
-     * whichever is enabled. The return value is a handle referring to the
-     * port mapping that was just created. Pass it to delete_port_mapping()
-     * to remove it.
-     *
-     * @param t
-     * @param externalPort
-     * @param localPort
-     * @return
-     */
-    public int addPortMapping(ProtocolType t, int externalPort, int localPort) {
-        return s.add_port_mapping(t.getSwig(), externalPort, localPort);
-    }
-
-    public void deletePortMapping(int handle) {
-        s.delete_port_mapping(handle);
-    }
-
     public SessionStats getStats() {
         return stats;
     }
@@ -781,52 +734,5 @@ public final class Session extends SessionHandle {
         sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
 
         return new SettingsPack(sp);
-    }
-
-    /**
-     * Flags to be passed in to {@link #removeTorrent(TorrentHandle, Options)}.
-     */
-    public enum Options {
-
-        /**
-         * Delete the files belonging to the torrent from disk,
-         * including the part-file, if there is one.
-         */
-        DELETE_FILES(options_t.delete_files.swigValue()),
-
-        /**
-         * Delete just the part-file associated with this torrent.
-         */
-        DELETE_PARTFILE(options_t.delete_partfile.swigValue());
-
-        Options(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        public int swig() {
-            return swigValue;
-        }
-    }
-
-    /**
-     * protocols used by add_port_mapping().
-     */
-    public enum ProtocolType {
-
-        UDP(session.protocol_type.udp),
-
-        TCP(session.protocol_type.tcp);
-
-        ProtocolType(session.protocol_type swigObj) {
-            this.swigObj = swigObj;
-        }
-
-        private final session.protocol_type swigObj;
-
-        public session.protocol_type getSwig() {
-            return swigObj;
-        }
     }
 }
