@@ -79,6 +79,7 @@ public final class PartialDownload2 {
             }
         });
 
+        /*
         Downloader d = new Downloader(s);
 
         TorrentInfo ti = new TorrentInfo(torrentFile);
@@ -97,6 +98,6 @@ public final class PartialDownload2 {
         priorities[1] = Priority.NORMAL;
         d.download(ti, saveDir, priorities, null);
 
-        s2.await();
+        s2.await();*/
     }
 }

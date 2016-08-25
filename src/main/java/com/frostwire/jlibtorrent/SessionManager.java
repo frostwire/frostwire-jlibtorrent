@@ -139,8 +139,32 @@ public final class SessionManager {
         }
     }
 
+    /**
+     * @param ti
+     * @param saveDir
+     * @param resumeFile
+     * @param priorities
+     */
     public void download(TorrentInfo ti, File saveDir, File resumeFile, Priority[] priorities) {
         if (session == null) {
+            return;
+        }
+
+        torrent_handle th = session.find_torrent(ti.swig().info_hash());
+
+        if (th != null && th.is_valid()) {
+            // found a download with the same hash, just adjust the priorities if needed
+            if (priorities != null) {
+                if (ti.numFiles() != priorities.length) {
+                    throw new IllegalArgumentException("priorities count should be equals to the number of files");
+                }
+                th.prioritize_files(Priority.array2int_vector(priorities));
+            } else {
+                // did they just add the entire torrent (therefore not selecting any priorities)
+                priorities = Priority.array(Priority.NORMAL, ti.numFiles());
+                th.prioritize_files(Priority.array2int_vector(priorities));
+            }
+
             return;
         }
 
@@ -174,7 +198,7 @@ public final class SessionManager {
 
         if (priorities != null) {
             if (ti.files().numFiles() != priorities.length) {
-                throw new IllegalArgumentException("priorities must be the same number of elements as files in torrent info");
+                throw new IllegalArgumentException("priorities count should be equals to the number of files");
             }
             byte_vector v = new byte_vector();
             for (int i = 0; i < priorities.length; i++) {
@@ -190,6 +214,14 @@ public final class SessionManager {
         p.set_flags(flags);
 
         session.async_add_torrent(p);
+    }
+
+    /**
+     * @param ti
+     * @param saveDir
+     */
+    public void download(TorrentInfo ti, File saveDir) {
+        download(ti, saveDir, null, null);
     }
 
     /**

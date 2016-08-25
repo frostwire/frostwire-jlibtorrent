@@ -40,7 +40,7 @@ public final class PartialDownload {
 
         final Session s = new Session();
 
-        final TorrentHandle th = s.addTorrent(new TorrentInfo(torrentFile), torrentFile.getParentFile(), priorities, null);
+        final TorrentHandle th = null;// s.addTorrent(new TorrentInfo(torrentFile), torrentFile.getParentFile(), priorities, null);
 
         th.resume();
 
