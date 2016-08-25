@@ -48,7 +48,7 @@ public final class PartialDownload2 {
                         th.resume();
                         break;
                     case BLOCK_FINISHED:
-                        int p = (int) (th.getStatus().getProgress() * 100);
+                        int p = (int) (th.status().progress() * 100);
                         System.out.println("Progress: " + p);
                         break;
                     case FILE_COMPLETED:

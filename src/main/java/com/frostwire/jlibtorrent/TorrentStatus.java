@@ -13,17 +13,21 @@ public final class TorrentStatus {
 
     private final torrent_status ts;
 
+    /**
+     * Internal, don't use it in your code.
+     *
+     * @param ts
+     */
+    // this is public to make it available to StateUpdateAlert
     public TorrentStatus(torrent_status ts) {
         this.ts = ts;
     }
 
     /**
-     * Returns a handle to the torrent whose status the object represents.
-     *
      * @return
      */
-    public TorrentHandle handle() {
-        return new TorrentHandle(ts.getHandle());
+    public torrent_status swig() {
+        return ts;
     }
 
     /**
@@ -51,17 +55,6 @@ public final class TorrentStatus {
     public String name() {
         return ts.getName();
     }
-
-    /**
-     * set to point to the ``torrent_info`` object for this torrent. It's
-     * only included if the torrent status is queried with
-     * ``torrent_handle::query_torrent_file``.
-     *
-     * @return
-     */
-    //    public TorrentInfo getTorrentFile() {
-    //        return new TorrentInfo(ts.getTorrent_file());
-    //    }
 
     /**
      * The time until the torrent will announce itself to the tracker (in milliseconds).
@@ -210,21 +203,21 @@ public final class TorrentStatus {
      * This is the accumulated download payload byte counters. They are saved in and restored
      * from resume data to keep totals across sessions.
      */
-    public long getAllTimeDownload() {
+    public long allTimeDownload() {
         return ts.getAll_time_download();
     }
 
     /**
      * The posix-time (in milliseconds) when this torrent was added. i.e. what time(NULL) returned at the time.
      */
-    public long getAddedTime() {
+    public long addedTime() {
         return time2millis(ts.getAdded_time());
     }
 
     /**
      * The posix-time (in milliseconds) when this torrent was finished. If the torrent is not yet finished, this is 0.
      */
-    public long getCompletedTime() {
+    public long completedTime() {
         return time2millis(ts.getCompleted_time());
     }
 
@@ -250,7 +243,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public float getProgress() {
+    public float progress() {
         return ts.getProgress();
     }
 
@@ -416,7 +409,7 @@ public final class TorrentStatus {
      * // piece(s). Divide this number by 1000 to get the fraction.
      * //
      * // For example, if ``distributed_full_copies`` is 2 and
-     * // ``distrbuted_fraction`` is 500, it means that the rarest pieces have
+     * // ``distributed_fraction`` is 500, it means that the rarest pieces have
      * // only 2 copies among the peers this torrent is connected to, and that
      * // 50% of all the pieces have more than two copies.
      * //
@@ -835,7 +828,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public Sha1Hash getInfoHash() {
+    public Sha1Hash infoHash() {
         return new Sha1Hash(ts.getInfo_hash());
     }
 
@@ -848,6 +841,9 @@ public final class TorrentStatus {
      */
     public enum State {
 
+        /**
+         *
+         */
         UNUSED_ENUM_FOR_BACKWARDS_COMPATIBILITY(torrent_status.state_t.unused_enum_for_backwards_compatibility.swigValue()),
 
         /**
@@ -901,24 +897,29 @@ public final class TorrentStatus {
         /**
          *
          */
-        UNKNOWN(-1),
+        UNKNOWN(-1);
 
-        QUEUED_FOR_CHECKING(torrent_status.state_t.unused_enum_for_backwards_compatibility.swigValue());
-
-        private State(int swigValue) {
+        State(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static State fromSwig(int swigValue) {
             State[] enumValues = State.class.getEnumConstants();
             for (State ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

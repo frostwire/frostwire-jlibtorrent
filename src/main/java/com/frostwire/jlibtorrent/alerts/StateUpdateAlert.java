@@ -18,7 +18,10 @@ import java.util.List;
  */
 public final class StateUpdateAlert extends AbstractAlert<state_update_alert> {
 
-    public StateUpdateAlert(state_update_alert alert) {
+    /**
+     * @param alert
+     */
+    StateUpdateAlert(state_update_alert alert) {
         super(alert);
     }
 
@@ -30,11 +33,11 @@ public final class StateUpdateAlert extends AbstractAlert<state_update_alert> {
      *
      * @return
      */
-    public List<TorrentStatus> getStatus() {
+    public List<TorrentStatus> status() {
         torrent_status_vector v = alert.getStatus();
         int size = (int) v.size();
 
-        List<TorrentStatus> l = new ArrayList<TorrentStatus>(size);
+        List<TorrentStatus> l = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             l.add(new TorrentStatus(v.get(i)));
         }

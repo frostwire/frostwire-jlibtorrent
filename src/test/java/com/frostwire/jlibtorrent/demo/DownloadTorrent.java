@@ -38,7 +38,7 @@ public final class DownloadTorrent {
         s.addListener(new TorrentAlertAdapter(th) {
             @Override
             public void blockFinished(BlockFinishedAlert alert) {
-                int p = (int) (th.getStatus().getProgress() * 100);
+                int p = (int) (th.status().progress() * 100);
                 System.out.println("Progress: " + p + " for torrent name: " + alert.torrentName());
                 System.out.println(s.getStats().download());
             }

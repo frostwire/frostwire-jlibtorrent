@@ -182,7 +182,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public TorrentStatus getStatus(boolean force) {
+    public TorrentStatus status(boolean force) {
         long now = System.currentTimeMillis();
         if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
             lastStatusRequestTime = now;
@@ -203,8 +203,8 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public TorrentStatus getStatus() {
-        return this.getStatus(false);
+    public TorrentStatus status() {
+        return status(false);
     }
 
     /**
@@ -249,7 +249,7 @@ public final class TorrentHandle {
      * {@link com.frostwire.jlibtorrent.alerts.FileErrorAlert}.
      * <p>
      * To know if a torrent is paused or not, call
-     * {@link #getStatus()} and inspect {@link TorrentStatus#isPaused()} .
+     * {@link #status()} and inspect {@link TorrentStatus#isPaused()} .
      * <p>
      * The ``flags`` argument to pause can be set to
      * ``torrent_handle::graceful_pause`` which will delay the disconnect of
@@ -976,7 +976,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public Priority[] getFilePriorities() {
+    public Priority[] filePriorities() {
         int_vector v = th.file_priorities();
         int size = (int) v.size();
         Priority[] arr = new Priority[size];

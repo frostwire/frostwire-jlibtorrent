@@ -627,8 +627,9 @@ typedef long time_t;
 %ignore libtorrent::announce_entry::min_announce;
 %ignore libtorrent::announce_entry::can_announce;
 %ignore libtorrent::proxy_settings::proxy_settings;
-%ignore libtorrent::torrent_status::torrent_file;
+%ignore libtorrent::torrent_status::handle;
 %ignore libtorrent::torrent_status::_dummy_string_;
+%ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::torrent_status::next_announce;
 %ignore libtorrent::torrent_status::deprecated_announce_interval_;
 %ignore libtorrent::file_storage::file_storage(file_storage&&);
@@ -1138,6 +1139,7 @@ namespace libtorrent {
 }
 
 %extend torrent_status {
+
     int64_t get_next_announce() {
         return libtorrent::total_milliseconds($self->next_announce);
     }
