@@ -21,8 +21,6 @@ public final class SessionManager {
     private static final int[] METADATA_ALERT_TYPES = new int[]
             {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
 
-    private final String interfaces;
-    private final int retries;
     private final boolean logging;
 
     private final AlertListener[] listeners;
@@ -35,9 +33,7 @@ public final class SessionManager {
     private final SessionStats stats;
     private long lastStatsRequestTime;
 
-    public SessionManager(String interfaces, int retries, boolean logging) {
-        this.interfaces = interfaces;
-        this.retries = retries;
+    public SessionManager(boolean logging) {
         this.logging = logging;
 
         this.listeners = new AlertListener[libtorrent.num_alert_types + 1];
@@ -49,7 +45,7 @@ public final class SessionManager {
     }
 
     public SessionManager() {
-        this("0.0.0.0:6881,[::]:6881", 10, false);
+        this(false);
     }
 
     public session swig() {
@@ -64,7 +60,7 @@ public final class SessionManager {
         modifyListeners(false, listener);
     }
 
-    public void start() {
+    public void start(SettingsPack sp) {
         if (session != null) {
             return;
         }
@@ -76,12 +72,21 @@ public final class SessionManager {
                 return;
             }
 
-            session = createSession(interfaces, retries, logging);
+            sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
+            session = new session(sp.swig());
             alertsLoop();
 
         } finally {
             sync.unlock();
         }
+    }
+
+    public void start() {
+        settings_pack sp = new settings_pack();
+
+        sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
+
+        start(new SettingsPack(sp));
     }
 
     public void stop() {
@@ -291,18 +296,6 @@ public final class SessionManager {
                 LOG.warn("Error calling alert listener", e);
             }
         }
-    }
-
-    private static session createSession(String interfaces, int retries, boolean logging) {
-        settings_pack sp = new settings_pack();
-
-        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), interfaces);
-        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
-        sp.set_int(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
-
-        sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
-
-        return new session(sp);
     }
 
     private static int alertMask(boolean logging) {

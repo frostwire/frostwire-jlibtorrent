@@ -31,30 +31,57 @@ public final class SettingsPack {
         this(new settings_pack());
     }
 
-    public settings_pack getSwig() {
+    /**
+     * @return
+     */
+    public settings_pack swig() {
         return sp;
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public boolean getBoolean(int name) {
         return sp.get_bool(name);
     }
 
+    /**
+     * @param name
+     * @param value
+     */
     public void setBoolean(int name, boolean value) {
         sp.set_bool(name, value);
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public int getInteger(int name) {
         return sp.get_int(name);
     }
 
+    /**
+     * @param name
+     * @param value
+     */
     public void setInteger(int name, int value) {
         sp.set_int(name, value);
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public String getString(int name) {
         return sp.get_str(name);
     }
 
+    /**
+     * @param name
+     * @param value
+     */
     public void setString(int name, String value) {
         sp.set_str(name, value);
     }

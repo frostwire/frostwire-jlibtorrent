@@ -37,8 +37,6 @@ public final class Session extends SessionHandle {
 
     private long lastStatsRequestTime;
 
-    private final SparseArray<ArrayList<AlertListener>> listeners;
-    private final SparseArray<AlertListener[]> listenerSnapshots;
     private boolean running;
 
     /**
@@ -54,8 +52,6 @@ public final class Session extends SessionHandle {
 
         this.stats = new SessionStats();
 
-        this.listeners = new SparseArray<>();
-        this.listenerSnapshots = new SparseArray<>();
         if (listener != null) {
             addListener(listener);
         }
@@ -636,19 +632,7 @@ public final class Session extends SessionHandle {
     }
 
     private void fireAlert(Alert<?> a, int type) {
-        AlertListener[] listeners = listenerSnapshots.get(type);
-        if (listeners != null) {
-            for (int i = 0; i < listeners.length; i++) {
-                try {
-                    AlertListener l = listeners[i];
-                    if (l != null) {
-                        l.alert(a);
-                    }
-                } catch (Throwable e) {
-                    LOG.warn("Error calling alert listener", e);
-                }
-            }
-        }
+
     }
 
     private TorrentHandle addTorrentSupport(TorrentInfo ti, File saveDir, Priority[] priorities, File resumeFile, boolean async) {
@@ -722,20 +706,7 @@ public final class Session extends SessionHandle {
 
                             Alert<?> alert = null;
 
-                            if (listeners.indexOfKey(type) >= 0) {
-                                if (alert == null) {
-                                    alert = Alerts.cast(swigAlert);
-                                }
-                                fireAlert(alert, type);
-                            }
 
-                            if (type != AlertType.SESSION_STATS.swig() &&
-                                    listeners.indexOfKey(-1) >= 0) {
-                                if (alert == null) {
-                                    alert = Alerts.cast(swigAlert);
-                                }
-                                fireAlert(alert, -1);
-                            }
                         }
                         vector.clear();
                     }
@@ -773,19 +744,6 @@ public final class Session extends SessionHandle {
     }
 
     private void modifyListeners(boolean adding, int type, AlertListener listener) {
-        ArrayList<AlertListener> l = listeners.get(type);
-        if (l == null) {
-            l = new ArrayList<AlertListener>();
-            listeners.append(type, l);
-        }
-
-        if (adding) {
-            l.add(listener);
-        } else {
-            l.remove(listener);
-        }
-
-        listenerSnapshots.append(type, l.toArray(new AlertListener[0]));
     }
 
     private static List<Pair<String, Integer>> defaultRouters() {
@@ -798,7 +756,7 @@ public final class Session extends SessionHandle {
     }
 
     private static session createSession(SettingsPack settings, boolean logging) {
-        settings_pack sp = settings.getSwig();
+        settings_pack sp = settings.swig();
 
         int alert_mask = alert.category_t.all_categories.swigValue();
         if (!logging) {

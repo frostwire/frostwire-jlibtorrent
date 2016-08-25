@@ -184,7 +184,7 @@ public class SessionHandle {
      * @param sp
      */
     public void applySettings(SettingsPack sp) {
-        s.apply_settings(sp.getSwig());
+        s.apply_settings(sp.swig());
     }
 
     /**
