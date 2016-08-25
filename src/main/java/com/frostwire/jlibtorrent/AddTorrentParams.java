@@ -53,6 +53,27 @@ public final class AddTorrentParams {
     }
 
     /**
+     * {@link TorrentInfo} object with the torrent to add. Unless the {@link #url()}
+     * or {@link #infoHash()} is set, this is required to be initialized.
+     *
+     * @return
+     */
+    public TorrentInfo torrentInfo() {
+        torrent_info ti = p.get_ti_ptr();
+        return ti != null && ti.is_valid() ? new TorrentInfo(p.get_ti_ptr()) : null;
+    }
+
+    /**
+     * {@link TorrentInfo} object with the torrent to add. Unless the {@link #url()}
+     * or {@link #infoHash()} is set, this is required to be initialized.
+     *
+     * @param ti
+     */
+    public void torrentInfo(TorrentInfo ti) {
+        p.set_ti(ti.swig());
+    }
+
+    /**
      * If the torrent doesn't have a tracker, but relies on the DHT to find
      * peers, the ``trackers`` can specify tracker URLs for the torrent.
      *
@@ -87,14 +108,18 @@ public final class AddTorrentParams {
     }
 
     /**
-     * Url seeds to be added to the torrent (`BEP 17`_).
+     * The tiers the URLs in {@link #trackers()} belong to. Trackers belonging to
+     * different tiers may be treated differently, as defined by the multi
+     * tracker extension. This is optional, if not specified trackers are
+     * assumed to be part of tier 0, or whichever the last tier was as
+     * iterating over the trackers.
      *
      * @return
      */
-    public ArrayList<String> urlSeeds() {
-        string_vector v = p.getUrl_seeds();
+    public ArrayList<Integer> trackerTiers() {
+        int_vector v = p.getTracker_tiers();
         int size = (int) v.size();
-        ArrayList<String> l = new ArrayList<>();
+        ArrayList<Integer> l = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
             l.add(v.get(i));
@@ -104,18 +129,22 @@ public final class AddTorrentParams {
     }
 
     /**
-     * Url seeds to be added to the torrent (`BEP 17`_).
+     * The tiers the URLs in {@link #trackers()} belong to. Trackers belonging to
+     * different tiers may be treated differently, as defined by the multi
+     * tracker extension. This is optional, if not specified trackers are
+     * assumed to be part of tier 0, or whichever the last tier was as
+     * iterating over the trackers.
      *
      * @param value
      */
-    public void urlSeeds(List<String> value) {
-        string_vector v = new string_vector();
+    public void trackerTiers(List<Integer> value) {
+        int_vector v = new int_vector();
 
-        for (String s : value) {
-            v.push_back(s);
+        for (Integer t : value) {
+            v.push_back(t);
         }
 
-        p.setUrl_seeds(v);
+        p.setTracker_tiers(v);
     }
 
     /**
@@ -370,13 +399,35 @@ public final class AddTorrentParams {
     }
 
     /**
-     * {@link TorrentInfo} object with the torrent to add. Unless the url or
-     * {@link #infoHash()} is set, this is required to be initialized.
+     * Url seeds to be added to the torrent (`BEP 17`_).
      *
-     * @param ti
+     * @return
      */
-    public void torrentInfo(TorrentInfo ti) {
-        p.set_ti(ti.swig());
+    public ArrayList<String> urlSeeds() {
+        string_vector v = p.getUrl_seeds();
+        int size = (int) v.size();
+        ArrayList<String> l = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            l.add(v.get(i));
+        }
+
+        return l;
+    }
+
+    /**
+     * Url seeds to be added to the torrent (`BEP 17`_).
+     *
+     * @param value
+     */
+    public void urlSeeds(List<String> value) {
+        string_vector v = new string_vector();
+
+        for (String s : value) {
+            v.push_back(s);
+        }
+
+        p.setUrl_seeds(v);
     }
 
     /**

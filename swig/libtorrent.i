@@ -936,6 +936,10 @@ namespace libtorrent {
         $self->flags = flags;
     }
 
+    libtorrent::torrent_info const* get_ti_ptr() {
+        return $self->ti.get();
+    }
+
     void set_ti(libtorrent::torrent_info const& ti) {
         $self->ti = std::make_shared<libtorrent::torrent_info>(ti);
     }

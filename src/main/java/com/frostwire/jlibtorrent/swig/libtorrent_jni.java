@@ -997,6 +997,7 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_renamed_files_get(long jarg1, add_torrent_params jarg1_);
   public final static native long add_torrent_params_get_flags(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_set_flags(long jarg1, add_torrent_params jarg1_, long jarg2);
+  public final static native long add_torrent_params_get_ti_ptr(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_set_ti(long jarg1, add_torrent_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_create_instance_disabled_storage();
