@@ -7,23 +7,6 @@
 // suppress Warning 401: Nothing known about base class '<name>'. Ignored.
 #pragma SWIG nowarn=401
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            String path = System.getProperty("jlibtorrent.jni.path", "");
-            if ("".equals(path)) {
-                System.loadLibrary("jlibtorrent");
-            } else {
-                System.load(path);
-            }
-        } catch (LinkageError e) {
-            LinkageError le = new LinkageError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent");
-            le.initCause(e);
-            throw le;
-        }
-    }
-%}
-
 %{
 // BEGIN common set include ------------------------------------------------------
 
@@ -67,6 +50,27 @@
 %}
 
 #ifdef SWIGJAVA
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            String path = System.getProperty("jlibtorrent.jni.path", "");
+            if ("".equals(path)) {
+                System.loadLibrary("jlibtorrent");
+            } else {
+                System.load(path);
+            }
+        } catch (LinkageError e) {
+            LinkageError le = new LinkageError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent");
+            le.initCause(e);
+            throw le;
+        }
+    }
+
+    public static final native long directBufferAddress(java.nio.Buffer buffer);
+    public static final native long directBufferCapacity(java.nio.Buffer buffer);
+%}
+
 %exception {
     try {
         $action
@@ -76,6 +80,41 @@
         SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }
 }
+
+%{
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_directBufferAddress(JNIEnv *jenv, jclass jcls, jobject jbuf) {
+    try {
+        return reinterpret_cast<jlong>(jenv->GetDirectBufferAddress(jbuf));
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+
+    return 0;
+}
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_directBufferCapacity(JNIEnv *jenv, jclass jcls, jobject jbuf) {
+    try {
+        return reinterpret_cast<jlong>(jenv->GetDirectBufferCapacity(jbuf));
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+    }
+
+    return 0;
+}
+
+#ifdef __cplusplus
+}
+#endif
+%}
+
 #endif // SWIGJAVA
 
 %include <stdint.i>
@@ -420,6 +459,7 @@ namespace libtorrent {
 
 typedef long time_t;
 
+%ignore libtorrent::TORRENT_CFG;
 %ignore libtorrent::detail;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::bdecode;
@@ -532,10 +572,6 @@ typedef long time_t;
 %ignore libtorrent::dht_put_alert::seq;
 %ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
 %ignore libtorrent::dht_direct_response_alert::userdata;
-%ignore libtorrent::torrent_info::torrent_info(char const *, int);
-%ignore libtorrent::torrent_info::torrent_info(char const *, int, int);
-%ignore libtorrent::torrent_info::torrent_info(char const*, int);
-%ignore libtorrent::torrent_info::torrent_info(char const*, int, int);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&, int);
 %ignore libtorrent::torrent_info::metadata;
@@ -967,9 +1003,8 @@ namespace libtorrent {
 
 %extend torrent_info {
 
-    std::vector<int8_t> get_ssl_cert() {
-        std::string s = $self->ssl_cert();
-        return std::vector<int8_t>(s.begin(), s.end());
+    torrent_info(int64_t buffer_ptr, int size, error_code& ec, int flags = 0) {
+        return new libtorrent::torrent_info(reinterpret_cast<char const*>(buffer_ptr), size, ec, flags);
     }
 };
 

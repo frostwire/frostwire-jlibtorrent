@@ -25,6 +25,9 @@ public class libtorrent_jni {
         }
     }
 
+    public static final native long directBufferAddress(java.nio.Buffer buffer);
+    public static final native long directBufferCapacity(java.nio.Buffer buffer);
+
   public final static native long new_int_int_pair__SWIG_0();
   public final static native long new_int_int_pair__SWIG_1(int jarg1, int jarg2);
   public final static native long new_int_int_pair__SWIG_2(long jarg1, int_int_pair jarg1_);
@@ -779,7 +782,8 @@ public class libtorrent_jni {
   public final static native int torrent_info_metadata_size(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_parse_torrent_file(long jarg1, torrent_info jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_, int jarg4);
-  public final static native long torrent_info_get_ssl_cert(long jarg1, torrent_info jarg1_);
+  public final static native long new_torrent_info__SWIG_7(long jarg1, int jarg2, long jarg3, error_code jarg3_, int jarg4);
+  public final static native long new_torrent_info__SWIG_8(long jarg1, int jarg2, long jarg3, error_code jarg3_);
   public final static native long block_info_peer(long jarg1, block_info jarg1_);
   public final static native void block_info_bytes_progress_set(long jarg1, block_info jarg1_, long jarg2);
   public final static native long block_info_bytes_progress_get(long jarg1, block_info jarg1_);
@@ -2452,7 +2456,6 @@ public class libtorrent_jni {
   public final static native void delete_session_handle(long jarg1);
   public final static native void min_memory_usage(long jarg1, settings_pack jarg1_);
   public final static native void high_performance_seed(long jarg1, settings_pack jarg1_);
-  public final static native void TORRENT_CFG();
   public final static native long new_session_proxy__SWIG_0();
   public final static native void delete_session_proxy(long jarg1);
   public final static native long new_session_proxy__SWIG_1(long jarg1, session_proxy jarg1_);

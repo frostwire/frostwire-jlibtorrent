@@ -231,8 +231,12 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_parse_torrent_file(swigCPtr, this, bdecode_node.getCPtr(libtorrent), libtorrent, error_code.getCPtr(ec), ec, flags);
   }
 
-  public byte_vector get_ssl_cert() {
-    return new byte_vector(libtorrent_jni.torrent_info_get_ssl_cert(swigCPtr, this), true);
+  public torrent_info(long buffer_ptr, int size, error_code ec, int flags) {
+    this(libtorrent_jni.new_torrent_info__SWIG_7(buffer_ptr, size, error_code.getCPtr(ec), ec, flags), true);
+  }
+
+  public torrent_info(long buffer_ptr, int size, error_code ec) {
+    this(libtorrent_jni.new_torrent_info__SWIG_8(buffer_ptr, size, error_code.getCPtr(ec), ec), true);
   }
 
 }

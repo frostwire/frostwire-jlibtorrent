@@ -2705,9 +2705,8 @@ SWIGINTERN std::string libtorrent_sha1_hash_to_hex(libtorrent::sha1_hash *self){
 SWIGINTERN int libtorrent_sha1_hash_compare(libtorrent::sha1_hash const &h1,libtorrent::sha1_hash const &h2){
         return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
     }
-SWIGINTERN std::vector< int8_t > libtorrent_torrent_info_get_ssl_cert(libtorrent::torrent_info *self){
-        std::string s = self->ssl_cert();
-        return std::vector<int8_t>(s.begin(), s.end());
+SWIGINTERN libtorrent::torrent_info *new_libtorrent_torrent_info__SWIG_7(int64_t buffer_ptr,int size,libtorrent::error_code &ec,int flags=0){
+        return new libtorrent::torrent_info(reinterpret_cast<char const*>(buffer_ptr), size, ec, flags);
     }
 SWIGINTERN std::vector< libtorrent::block_info > libtorrent_partial_piece_info_get_blocks(libtorrent::partial_piece_info *self){
         return std::vector<libtorrent::block_info>(self->blocks, self->blocks + self->blocks_in_piece);
@@ -29510,128 +29509,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_new_torrent_info(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  OverloadErrorHandler errorHandler;
-  v8::Handle<v8::Value> self;
-  
-  // switch all cases by means of series of if-returns.
-  
-  if(args.Length() == 1) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_torrent_info__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_torrent_info__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_torrent_info__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_torrent_info__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 1) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_torrent_info__SWIG_2(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_torrent_info__SWIG_2(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 3) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_torrent_info__SWIG_3(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_torrent_info__SWIG_3(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_torrent_info__SWIG_4(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_torrent_info__SWIG_4(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 3) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_torrent_info__SWIG_5(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_torrent_info__SWIG_5(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_torrent_info__SWIG_6(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_torrent_info__SWIG_6(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  // default:
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_torrent_info");
-  
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 #if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
 static void _wrap_delete_torrent_info(v8::Persistent<v8::Value> object, void *parameter) {
   SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
@@ -31383,29 +31260,260 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_torrent_info_get_ssl_cert(const SwigV8Arguments &args) {
+static SwigV8ReturnValue _wrap_new_torrent_info__SWIG_7(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
   SWIGV8_HANDLESCOPE();
   
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_info *arg1 = (libtorrent::torrent_info *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::vector< int8_t > result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_info_get_ssl_cert.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_info, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_info_get_ssl_cert" "', argument " "1"" of type '" "libtorrent::torrent_info *""'"); 
+  v8::Handle<v8::Object> self = args.Holder();
+  int64_t arg1 ;
+  int arg2 ;
+  libtorrent::error_code *arg3 = 0 ;
+  int arg4 ;
+  long long val1 ;
+  int ecode1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  libtorrent::torrent_info *result;
+  if(args.Length() != 4) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_torrent_info__SWIG_7.");
+  ecode1 = SWIG_AsVal_long_SS_long(args[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_torrent_info" "', argument " "1"" of type '" "int64_t""'");
+  } 
+  arg1 = (int64_t)(val1);
+  ecode2 = SWIG_AsVal_int(args[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_torrent_info" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  res3 = SWIG_ConvertPtr(args[2], &argp3, SWIGTYPE_p_boost__system__error_code,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_torrent_info" "', argument " "3"" of type '" "libtorrent::error_code &""'"); 
   }
-  arg1 = (libtorrent::torrent_info *)(argp1);
-  result = libtorrent_torrent_info_get_ssl_cert(arg1);
-  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_torrent_info" "', argument " "3"" of type '" "libtorrent::error_code &""'"); 
+  }
+  arg3 = (libtorrent::error_code *)(argp3);
+  ecode4 = SWIG_AsVal_int(args[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_torrent_info" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = (int)(val4);
+  result = (libtorrent::torrent_info *)new_libtorrent_torrent_info__SWIG_7(arg1,arg2,*arg3,arg4);
   
   
-  SWIGV8_RETURN(jsresult);
+  
+  
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__torrent_info, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
   
   goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_torrent_info__SWIG_8(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  int64_t arg1 ;
+  int arg2 ;
+  libtorrent::error_code *arg3 = 0 ;
+  long long val1 ;
+  int ecode1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  libtorrent::torrent_info *result;
+  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_torrent_info__SWIG_8.");
+  ecode1 = SWIG_AsVal_long_SS_long(args[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_torrent_info" "', argument " "1"" of type '" "int64_t""'");
+  } 
+  arg1 = (int64_t)(val1);
+  ecode2 = SWIG_AsVal_int(args[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_torrent_info" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  res3 = SWIG_ConvertPtr(args[2], &argp3, SWIGTYPE_p_boost__system__error_code,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_torrent_info" "', argument " "3"" of type '" "libtorrent::error_code &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_torrent_info" "', argument " "3"" of type '" "libtorrent::error_code &""'"); 
+  }
+  arg3 = (libtorrent::error_code *)(argp3);
+  result = (libtorrent::torrent_info *)new_libtorrent_torrent_info__SWIG_7(arg1,arg2,*arg3);
+  
+  
+  
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__torrent_info, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_torrent_info(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  OverloadErrorHandler errorHandler;
+  v8::Handle<v8::Value> self;
+  
+  // switch all cases by means of series of if-returns.
+  
+  if(args.Length() == 1) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 2) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 1) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_2(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_2(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 3) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_3(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_3(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 2) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_4(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_4(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 3) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_5(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_5(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 2) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_6(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_6(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 4) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_7(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_7(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 3) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_torrent_info__SWIG_8(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_torrent_info__SWIG_8(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  
+  // default:
+  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_torrent_info");
+  
 fail:
   SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
@@ -82094,24 +82202,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_TORRENT_CFG(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_TORRENT_CFG.");
-  
-  libtorrent::TORRENT_CFG();
-  jsresult = SWIGV8_UNDEFINED();
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_new_session_proxy__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
   SWIGV8_HANDLESCOPE();
   
@@ -98324,7 +98414,6 @@ SWIGV8_AddMemberFunction(_exports_torrent_info_class, "info", _wrap_torrent_info
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "metadata_size", _wrap_torrent_info_metadata_size);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "is_merkle_torrent", _wrap_torrent_info_is_merkle_torrent);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "parse_torrent_file", _wrap_torrent_info_parse_torrent_file);
-SWIGV8_AddMemberFunction(_exports_torrent_info_class, "get_ssl_cert", _wrap_torrent_info_get_ssl_cert);
 SWIGV8_AddMemberFunction(_exports_block_info_class, "peer", _wrap_block_info_peer);
 SWIGV8_AddMemberVariable(_exports_block_info_class, "bytes_progress", _wrap_block_info_bytes_progress_get, _wrap_block_info_bytes_progress_set);
 SWIGV8_AddMemberVariable(_exports_block_info_class, "block_size", _wrap_block_info_block_size_get, _wrap_block_info_block_size_set);
@@ -103235,7 +103324,6 @@ SWIGV8_AddStaticVariable(_exports_session_handle_obj, "udp", _wrap_libtorrent_se
 SWIGV8_AddStaticVariable(_exports_session_handle_obj, "tcp", _wrap_libtorrent_session_handle_tcp, JS_veto_set_variable);
 SWIGV8_AddStaticFunction(exports_obj, "min_memory_usage", _wrap_min_memory_usage);
 SWIGV8_AddStaticFunction(exports_obj, "high_performance_seed", _wrap_high_performance_seed);
-SWIGV8_AddStaticFunction(exports_obj, "TORRENT_CFG", _wrap_TORRENT_CFG);
 SWIGV8_AddStaticFunction(exports_obj, "op_lte", _wrap_op_lte);
 SWIGV8_AddStaticVariable(_exports_ip_filter_obj, "blocked", _wrap_libtorrent_ip_filter_blocked, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_port_filter_obj, "blocked", _wrap_libtorrent_port_filter_blocked, JS_veto_set_variable);

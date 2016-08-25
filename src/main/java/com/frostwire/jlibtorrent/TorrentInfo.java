@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,22 @@ public final class TorrentInfo {
      */
     public TorrentInfo(File torrent) {
         this(bdecode0(torrent));
+    }
+
+    public TorrentInfo(MappedByteBuffer buffer) {
+        try {
+            long ptr = libtorrent_jni.directBufferAddress(buffer);
+            long size = libtorrent_jni.directBufferCapacity(buffer);
+
+            error_code ec = new error_code();
+            this.ti = new torrent_info(ptr, (int) size, ec);
+
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException("Can't decode data: " + ec.message());
+            }
+        } catch (Throwable e) {
+            throw new IllegalArgumentException("Can't decode data mapped buffer: " + e.getMessage(), e);
+        }
     }
 
     public torrent_info swig() {
@@ -403,17 +420,6 @@ public final class TorrentInfo {
      */
     public PeerRequest mapFile(int file, long offset, int size) {
         return new PeerRequest(ti.map_file(file, offset, size));
-    }
-
-    /**
-     * Returns the SSL root certificate for the torrent, if it is an SSL
-     * torrent. Otherwise returns an empty string. The certificate is
-     * the public certificate in x509 format.
-     *
-     * @return
-     */
-    public byte[] sslCert() {
-        return Vectors.byte_vector2bytes(ti.get_ssl_cert());
     }
 
     /**
