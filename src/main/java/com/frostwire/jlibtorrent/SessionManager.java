@@ -139,6 +139,10 @@ public final class SessionManager {
         }
     }
 
+    public boolean isDHTRunning() {
+        return session != null ? session.is_dht_running() : false;
+    }
+
     /**
      * @param ti
      * @param saveDir

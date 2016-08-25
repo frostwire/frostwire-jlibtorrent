@@ -209,6 +209,53 @@ public class SessionHandle {
         }
     }
 
+    // starts/stops UPnP, NATPMP or LSD port mappers they are stopped by
+    // default These functions are not available in case
+    // ``TORRENT_DISABLE_DHT`` is defined. ``start_dht`` starts the dht node
+    // and makes the trackerless service available to torrents. The startup
+    // state is optional and can contain nodes and the node id from the
+    // previous session. The dht node state is a bencoded dictionary with the
+    // following entries:
+    //
+    // nodes
+    // 	A list of strings, where each string is a node endpoint encoded in
+    // 	binary. If the string is 6 bytes long, it is an IPv4 address of 4
+    // 	bytes, encoded in network byte order (big endian), followed by a 2
+    // 	byte port number (also network byte order). If the string is 18
+    // 	bytes long, it is 16 bytes of IPv6 address followed by a 2 bytes
+    // 	port number (also network byte order).
+    //
+    // node-id
+    // 	The node id written as a readable string as a hexadecimal number.
+    //
+    // ``dht_state`` will return the current state of the dht node, this can
+    // be used to start up the node again, passing this entry to
+    // ``start_dht``. It is a good idea to save this to disk when the session
+    // is closed, and read it up again when starting.
+    //
+    // If the port the DHT is supposed to listen on is already in use, and
+    // exception is thrown, ``asio::error``.
+    //
+    // ``stop_dht`` stops the dht node.
+    //
+    // ``add_dht_node`` adds a node to the routing table. This can be used if
+    // your client has its own source of bootstrapping nodes.
+    //
+    // ``set_dht_settings`` sets some parameters availavle to the dht node.
+    // See dht_settings for more information.
+    //
+    // ``is_dht_running()`` returns true if the DHT support has been started
+    // and false
+    // otherwise.
+
+    void setDHTSettings(DhtSettings settings) {
+        s.set_dht_settings(settings.swig());
+    }
+
+    public boolean isDHTRunning() {
+        return s.is_dht_running();
+    }
+
     /**
      * Applies the settings specified by the settings pack {@code sp}. This is an
      * asynchronous operation that will return immediately and actually apply

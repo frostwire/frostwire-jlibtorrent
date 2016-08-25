@@ -24,6 +24,9 @@ public final class DhtLookup {
         this.l = l;
     }
 
+    /**
+     * @return
+     */
     public dht_lookup swig() {
         return l;
     }
