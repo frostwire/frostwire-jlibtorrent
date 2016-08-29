@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
@@ -178,7 +179,7 @@ public class SessionManager {
      * @param resumeFile
      * @param priorities
      */
-    public void download(TorrentInfo ti, File saveDir, File resumeFile, Priority[] priorities) {
+    public void download(TorrentInfo ti, File saveDir, File resumeFile, Priority[] priorities, List<TcpEndpoint> peers) {
         if (session == null) {
             return;
         }
@@ -240,6 +241,14 @@ public class SessionManager {
             p.setFile_priorities(v);
         }
 
+        if (peers != null && !peers.isEmpty()) {
+            tcp_endpoint_vector v = new tcp_endpoint_vector();
+            for (TcpEndpoint endp : peers) {
+                v.push_back(endp.swig());
+            }
+            p.setPeers(v);
+        }
+
         long flags = p.get_flags();
 
         flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
@@ -254,7 +263,7 @@ public class SessionManager {
      * @param saveDir
      */
     public void download(TorrentInfo ti, File saveDir) {
-        download(ti, saveDir, null, null);
+        download(ti, saveDir, null, null, null);
     }
 
     /**
