@@ -87,6 +87,13 @@ public final class SettingsPack {
     }
 
     /**
+     * @return the session-global download rate limit in bytes per second. (0 for unlimited)
+     */
+    public int downloadRateLimit() {
+        return sp.get_int(settings_pack.int_types.download_rate_limit.swigValue());
+    }
+
+    /**
      * Sets the session-global limits of download rate limit, in
      * bytes per second.
      * <p>
@@ -94,15 +101,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setDownloadRateLimit(int value) {
+    public SettingsPack downloadRateLimit(int value) {
         sp.set_int(settings_pack.int_types.download_rate_limit.swigValue(), value);
+        return this;
     }
 
     /**
-     * @return the session-global download rate limit in bytes per second. (0 for unlimited)
+     * @return the session-global upload rate limit in bytes per second. (0 for unlimited)
      */
-    public int downloadRateLimit() {
-        return sp.get_int(settings_pack.int_types.download_rate_limit.swigValue());
+    public int uploadRateLimit() {
+        return sp.get_int(settings_pack.int_types.upload_rate_limit.swigValue());
     }
 
     /**
@@ -113,15 +121,9 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setUploadRateLimit(int value) {
+    public SettingsPack uploadRateLimit(int value) {
         sp.set_int(settings_pack.int_types.upload_rate_limit.swigValue(), value);
-    }
-
-    /**
-     * @return the session-global upload rate limit in bytes per second. (0 for unlimited)
-     */
-    public int uploadRateLimit() {
-        return sp.get_int(settings_pack.int_types.upload_rate_limit.swigValue());
+        return this;
     }
 
     /**
@@ -163,8 +165,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeDownloads()
      */
-    public void activeDownloads(int value) {
+    public SettingsPack activeDownloads(int value) {
         sp.set_int(settings_pack.int_types.active_downloads.swigValue(), value);
+        return this;
     }
 
     /**
@@ -182,8 +185,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeSeeds()
      */
-    public void activeSeeds(int value) {
+    public SettingsPack activeSeeds(int value) {
         sp.set_int(settings_pack.int_types.active_seeds.swigValue(), value);
+        return this;
     }
 
     /**
@@ -310,6 +314,13 @@ public final class SettingsPack {
     }
 
     /**
+     * @return global limit on the number of connections opened.
+     */
+    public int connectionsLimit() {
+        return sp.get_int(settings_pack.int_types.connections_limit.swigValue());
+    }
+
+    /**
      * Sets a global limit on the number of connections opened. The number of
      * connections is set to a hard minimum of at least two per torrent, so
      * if you set a too low connections limit, and open too many torrents,
@@ -317,15 +328,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setConnectionsLimit(int value) {
+    public SettingsPack connectionsLimit(int value) {
         sp.set_int(settings_pack.int_types.connections_limit.swigValue(), value);
+        return this;
     }
 
     /**
-     * @return global limit on the number of connections opened.
+     * @return the maximum number of peers in the list of known peers. (0 for unlimited)
      */
-    public int connectionsLimit() {
-        return sp.get_int(settings_pack.int_types.connections_limit.swigValue());
+    public int maxPeerlistSize() {
+        return sp.get_int(settings_pack.int_types.max_peerlist_size.swigValue());
     }
 
     /**
@@ -339,15 +351,9 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setMaxPeerlistSize(int value) {
+    public SettingsPack maxPeerlistSize(int value) {
         sp.set_int(settings_pack.int_types.max_peerlist_size.swigValue(), value);
-    }
-
-    /**
-     * @return the maximum number of peers in the list of known peers. (0 for unlimited)
-     */
-    public int maxPeerlistSize() {
-        return sp.get_int(settings_pack.int_types.max_peerlist_size.swigValue());
+        return this;
     }
 
     /**
@@ -495,5 +501,20 @@ public final class SettingsPack {
      */
     public void enableDht(boolean value) {
         sp.set_bool(settings_pack.bool_types.enable_dht.swigValue(), value);
+    }
+
+    /**
+     * @return
+     */
+    public String listenInterfaces() {
+        return sp.get_str(settings_pack.string_types.listen_interfaces.swigValue());
+    }
+
+    /**
+     * @param value
+     */
+    public SettingsPack listenInterfaces(String value) {
+        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), value);
+        return this;
     }
 }

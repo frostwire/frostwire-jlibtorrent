@@ -53,7 +53,7 @@ public final class DownloadTorrent {
                         BlockFinishedAlert a = (BlockFinishedAlert) alert;
                         int p = (int) (a.handle().status().progress() * 100);
                         System.out.println("Progress: " + p + " for torrent name: " + a.torrentName());
-                        System.out.println(s.stats().download());
+                        System.out.println(s.stats().totalDownload());
                         break;
                     case TORRENT_FINISHED:
                         System.out.print("Torrent finished");

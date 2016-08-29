@@ -29,13 +29,13 @@ public final class SessionStats {
         }
     }
 
-    public long download() {
+    public long totalDownload() {
         return stat[DOWNLOAD_PAYLOAD].total() +
                 stat[DOWNLOAD_PROTOCOL].total() +
                 stat[DOWNLOAD_IP_PROTOCOL].total();
     }
 
-    public long upload() {
+    public long totalUpload() {
         return stat[UPLOAD_PAYLOAD].total() +
                 stat[UPLOAD_PROTOCOL].total() +
                 stat[UPLOAD_IP_PROTOCOL].total();

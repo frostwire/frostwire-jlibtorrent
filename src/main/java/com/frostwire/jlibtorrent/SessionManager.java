@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +35,9 @@ public class SessionManager {
 
     private final SessionStats stats;
     private long lastStatsRequestTime;
+    private boolean firewalled;
+    private List<TcpEndpoint> listenEndpoints;
+    private Address externalAddress;
 
     public SessionManager(boolean logging) {
         this.logging = logging;
@@ -44,6 +48,7 @@ public class SessionManager {
         this.syncMagnet = new ReentrantLock();
 
         this.stats = new SessionStats();
+        this.listenEndpoints = new LinkedList<>();
     }
 
     public SessionManager() {
@@ -73,6 +78,11 @@ public class SessionManager {
             if (session != null) {
                 return;
             }
+
+            stats.clear();
+            firewalled = true;
+            listenEndpoints.clear();
+            externalAddress = null;
 
             sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
             session = new session(sp.swig());
@@ -105,9 +115,30 @@ public class SessionManager {
 
             session s = session;
             session = null; // stop alerts loop and session methods
+
             stats.clear();
+            firewalled = true;
+            listenEndpoints.clear();
+            externalAddress = null;
+
             s.abort().delete();
 
+        } finally {
+            sync.unlock();
+        }
+    }
+
+    public void restart() {
+        sync.lock();
+
+        try {
+
+            stop();
+            Thread.sleep(1000); // allow some time to release native resources
+            start();
+
+        } catch (InterruptedException e) {
+            // ignore
         } finally {
             sync.unlock();
         }
@@ -137,6 +168,42 @@ public class SessionManager {
         return stats;
     }
 
+    public long downloadRate() {
+        return stats.downloadRate();
+    }
+
+    public long uploadRate() {
+        return stats.uploadRate();
+    }
+
+    public long totalDownload() {
+        return stats.totalDownload();
+    }
+
+    public long totalUpload() {
+        return stats.totalUpload();
+    }
+
+    public long dhtNodes() {
+        return stats.dhtNodes();
+    }
+
+    public boolean isFirewalled() {
+        return firewalled;
+    }
+
+    public Address externalAddress() {
+        return externalAddress;
+    }
+
+    public List<TcpEndpoint> listenEndpoints() {
+        return new LinkedList<>(listenEndpoints);
+    }
+
+    //--------------------------------------------------
+    // Settings methods
+    //--------------------------------------------------
+
     /**
      * Returns a setting pack with all the settings
      * the current session is working with.
@@ -149,6 +216,114 @@ public class SessionManager {
     public SettingsPack settings() {
         return session != null ? new SettingsPack(session.get_settings()) : null;
     }
+
+    public void applySettings(SettingsPack sp) {
+        if (session != null) {
+            session.apply_settings(sp.swig());
+        }
+    }
+
+    public int downloadSpeedLimit() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().downloadRateLimit();
+    }
+
+    public void downloadSpeedLimit(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().downloadRateLimit(limit));
+    }
+
+    public int uploadSpeedLimit() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().uploadRateLimit();
+    }
+
+    public void uploadSpeedLimit(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().uploadRateLimit(limit));
+    }
+
+    public int maxActiveDownloads() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().activeDownloads();
+    }
+
+    public void maxActiveDownloads(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().activeDownloads(limit));
+    }
+
+    public int maxActiveSeeds() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().activeSeeds();
+    }
+
+    public void maxActiveSeeds(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().activeSeeds(limit));
+    }
+
+    public int maxConnections() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().connectionsLimit();
+    }
+
+    public void maxConnections(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().connectionsLimit(limit));
+    }
+
+    public int maxPeers() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().maxPeerlistSize();
+    }
+
+    public void maxPeers(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().maxPeerlistSize(limit));
+    }
+
+    public String listenInterfaces() {
+        if (session == null) {
+            return null;
+        }
+        return settings().listenInterfaces();
+    }
+
+    public void listenInterfaces(String value) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().listenInterfaces(value));
+    }
+
+    //--------------------------------------------------
+    // more methods
+    //--------------------------------------------------
 
     /**
      * This function will post a {@link SessionStatsAlert} object, containing a
@@ -376,6 +551,29 @@ public class SessionManager {
         return fetchMagnet(uri, timeout, 2 * 1024 * 1024);
     }
 
+    public void moveStorage(File dir) {
+        if (session == null) {
+            return;
+        }
+
+        try {
+            torrent_handle_vector v = session.get_torrents();
+            int size = (int) v.size();
+
+            String path = dir.getAbsolutePath();
+            for (int i = 0; i < size; i++) {
+                torrent_handle th = v.get(i);
+                torrent_status ts = th.status();
+                boolean incomplete = !ts.getIs_seeding() && !ts.getIs_finished();
+                if (th.is_valid() && incomplete) {
+                    th.move_storage(path);
+                }
+            }
+        } catch (Throwable e) {
+            LOG.error("Error changing save path for session", e);
+        }
+    }
+
     public byte[] saveState() {
         return new SessionHandle(session).saveState();
     }
@@ -423,6 +621,29 @@ public class SessionManager {
             } catch (Throwable e) {
                 LOG.warn("Error calling alert listener", e);
             }
+        }
+    }
+
+    private void onListenSucceeded(ListenSucceededAlert alert) {
+        try {
+            if (alert.socketType() == ListenSucceededAlert.SocketType.TCP) {
+                String address = alert.address().toString(); // clone
+                int port = alert.port();
+                listenEndpoints.add(new TcpEndpoint(address, port));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error adding listen endpoint to internal list", e);
+        }
+    }
+
+    private void onExternalIpAlert(ExternalIpAlert alert) {
+        try {
+            // libtorrent perform all kind of tests
+            // to avoid non usable addresses
+            String address = alert.getExternalAddress().toString(); // clone
+            externalAddress = new Address(address);
+        } catch (Throwable e) {
+            LOG.error("Error saving reported external ip", e);
         }
     }
 
@@ -474,9 +695,25 @@ public class SessionManager {
 
                             Alert<?> alert = null;
 
-                            if (type == AlertType.SESSION_STATS.swig()) {
-                                alert = Alerts.cast(a);
-                                stats.update((SessionStatsAlert) alert);
+                            switch (AlertType.fromSwig(type)) {
+                                case SESSION_STATS:
+                                    alert = Alerts.cast(a);
+                                    stats.update((SessionStatsAlert) alert);
+                                    break;
+                                case PORTMAP:
+                                    firewalled = false;
+                                    break;
+                                case PORTMAP_ERROR:
+                                    firewalled = true;
+                                    break;
+                                case LISTEN_SUCCEEDED:
+                                    alert = Alerts.cast(a);
+                                    onListenSucceeded((ListenSucceededAlert) alert);
+                                    break;
+                                case EXTERNAL_IP:
+                                    alert = Alerts.cast(a);
+                                    onExternalIpAlert((ExternalIpAlert) alert);
+                                    break;
                             }
 
                             if (listeners[type] != null) {
