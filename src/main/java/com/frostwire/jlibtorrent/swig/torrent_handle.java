@@ -75,10 +75,6 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_clear_piece_deadlines(swigCPtr, this);
   }
 
-  public void set_priority(int prio) {
-    libtorrent_jni.torrent_handle_set_priority(swigCPtr, this, prio);
-  }
-
   public void file_progress(int64_vector progress, int flags) {
     libtorrent_jni.torrent_handle_file_progress__SWIG_0(swigCPtr, this, int64_vector.getCPtr(progress), progress, flags);
   }

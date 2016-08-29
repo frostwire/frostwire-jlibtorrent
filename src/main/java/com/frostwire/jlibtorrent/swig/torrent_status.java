@@ -491,14 +491,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_last_scrape_get(swigCPtr, this);
   }
 
-  public void setPriority(int value) {
-    libtorrent_jni.torrent_status_priority_set(swigCPtr, this, value);
-  }
-
-  public int getPriority() {
-    return libtorrent_jni.torrent_status_priority_get(swigCPtr, this);
-  }
-
   public void setState(torrent_status.state_t value) {
     libtorrent_jni.torrent_status_state_set(swigCPtr, this, value.swigValue());
   }
@@ -678,8 +670,7 @@ public class torrent_status {
   }
 
   public final static class state_t {
-    public final static torrent_status.state_t unused_enum_for_backwards_compatibility = new torrent_status.state_t("unused_enum_for_backwards_compatibility");
-    public final static torrent_status.state_t checking_files = new torrent_status.state_t("checking_files");
+    public final static torrent_status.state_t checking_files = new torrent_status.state_t("checking_files", libtorrent_jni.torrent_status_checking_files_get());
     public final static torrent_status.state_t downloading_metadata = new torrent_status.state_t("downloading_metadata");
     public final static torrent_status.state_t downloading = new torrent_status.state_t("downloading");
     public final static torrent_status.state_t finished = new torrent_status.state_t("finished");
@@ -721,7 +712,7 @@ public class torrent_status {
       swigNext = this.swigValue+1;
     }
 
-    private static state_t[] swigValues = { unused_enum_for_backwards_compatibility, checking_files, downloading_metadata, downloading, finished, seeding, allocating, checking_resume_data };
+    private static state_t[] swigValues = { checking_files, downloading_metadata, downloading, finished, seeding, allocating, checking_resume_data };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

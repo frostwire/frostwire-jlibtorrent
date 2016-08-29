@@ -1701,7 +1701,6 @@ static swig_module_info swig_module = {swig_types, 192, 0, 0, 0, 0};
 #include "libtorrent/bitfield.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/entry.hpp"
-#include "libtorrent/sha1_hash.hpp"
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
@@ -2544,6 +2543,51 @@ SWIGINTERN void std_vector_Sl_libtorrent_alert_Sm__Sg__set(std::vector< libtorre
                 else
                     throw std::out_of_range("vector index out of range");
             }
+SWIGINTERN int8_t libtorrent_span_Sl_char_Sg__get(libtorrent::span< char > *self,size_t const idx){
+                return (*self)[idx];
+            }
+SWIGINTERN int8_t libtorrent_span_Sl_char_SS_const_Sg__get(libtorrent::span< char const > *self,size_t const idx){
+                return (*self)[idx];
+            }
+SWIGINTERN libtorrent::file::iovec_t const libtorrent_span_Sl_libtorrent_file_iovec_t_SS_const_Sg__get(libtorrent::span< libtorrent::file::iovec_t const > *self,size_t const idx){
+                return (*self)[idx];
+            }
+SWIGINTERN libtorrent::sha1_hash *new_libtorrent_sha1_hash__SWIG_2(std::vector< int8_t > const &s){
+                return new libtorrent::sha1_hash({reinterpret_cast<char const*>(s.data()), s.size()});
+            }
+SWIGINTERN void libtorrent_sha1_hash_assign(libtorrent::sha1_hash *self,std::vector< int8_t > const &s){
+                self->assign({reinterpret_cast<char const*>(s.data()), s.size()});
+            }
+SWIGINTERN int8_t libtorrent_sha1_hash_get(libtorrent::sha1_hash *self,size_t const idx){
+                return (int8_t)(*self)[idx];
+            }
+SWIGINTERN int libtorrent_sha1_hash_hash_code(libtorrent::sha1_hash *self){
+                char const* data = self->data();
+                int result = 1;
+                for (int i = 0; i < int(self->size()); i++) {
+                    result = 31 * result + data[i];
+                }
+                return result;
+            }
+SWIGINTERN std::vector< int8_t > libtorrent_sha1_hash_to_bytes(libtorrent::sha1_hash *self){
+                std::string s = self->to_string();
+                return std::vector<int8_t>(s.begin(), s.end());
+            }
+SWIGINTERN std::string libtorrent_sha1_hash_to_hex(libtorrent::sha1_hash *self){
+                return libtorrent::aux::to_hex(*self);
+            }
+SWIGINTERN bool libtorrent_sha1_hash_op_eq(libtorrent::sha1_hash const *self,libtorrent::sha1_hash const &n){
+                return *self == n;
+            }
+SWIGINTERN bool libtorrent_sha1_hash_op_ne(libtorrent::sha1_hash const *self,libtorrent::sha1_hash const &n){
+                return *self != n;
+            }
+SWIGINTERN bool libtorrent_sha1_hash_op_lt(libtorrent::sha1_hash const *self,libtorrent::sha1_hash const &n){
+                return *self < n;
+            }
+SWIGINTERN int libtorrent_sha1_hash_compare(libtorrent::sha1_hash const *self,libtorrent::sha1_hash const &n){
+                return *self == n ? 0 : (*self < n ? -1 : 1);
+            }
 
 SWIGINTERN
 v8::Handle<v8::Value> SWIG_From_double   (double val)
@@ -2571,15 +2615,6 @@ SWIGINTERN std::vector< int8_t > libtorrent_bloom_filter_Sl_256_Sg__to_bytes(lib
             }
 SWIGINTERN void libtorrent_bloom_filter_Sl_256_Sg__from_bytes(libtorrent::bloom_filter< 256 > *self,std::vector< int8_t > const &v){
                 self->from_string(reinterpret_cast<char const*>(&v[0]));
-            }
-SWIGINTERN int8_t libtorrent_span_Sl_char_Sg__get(libtorrent::span< char > *self,size_t const idx){
-                return (*self)[idx];
-            }
-SWIGINTERN int8_t libtorrent_span_Sl_char_SS_const_Sg__get(libtorrent::span< char const > *self,size_t const idx){
-                return (*self)[idx];
-            }
-SWIGINTERN libtorrent::file::iovec_t const libtorrent_span_Sl_libtorrent_file_iovec_t_SS_const_Sg__get(libtorrent::span< libtorrent::file::iovec_t const > *self,size_t const idx){
-                return (*self)[idx];
             }
 SWIGINTERN bool libtorrent_address_op_lt(libtorrent::address *self,libtorrent::address const &a2){
                 return *self < a2;
@@ -2687,23 +2722,6 @@ SWIGINTERN libtorrent::entry libtorrent_entry_from_preformatted_bytes(std::vecto
     }
 SWIGINTERN libtorrent::entry libtorrent_entry_bdecode(std::vector< int8_t > &buffer){
         return libtorrent::bdecode(buffer.begin(), buffer.end());
-    }
-SWIGINTERN libtorrent::sha1_hash *new_libtorrent_sha1_hash__SWIG_1(std::vector< int8_t > const &v){
-        return new libtorrent::sha1_hash(reinterpret_cast<const char*>(v.data()));
-    }
-SWIGINTERN int libtorrent_sha1_hash_hash_code(libtorrent::sha1_hash *self){
-        char const* data = self->data();
-        int result = 1;
-        for (int i = 0; i < 20; i++) {
-            result = 31 * result + data[i];
-        }
-        return result;
-    }
-SWIGINTERN std::string libtorrent_sha1_hash_to_hex(libtorrent::sha1_hash *self){
-        return libtorrent::aux::to_hex(*self);
-    }
-SWIGINTERN int libtorrent_sha1_hash_compare(libtorrent::sha1_hash const &h1,libtorrent::sha1_hash const &h2){
-        return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
     }
 SWIGINTERN libtorrent::torrent_info *new_libtorrent_torrent_info__SWIG_7(int64_t buffer_ptr,int size,libtorrent::error_code &ec,int flags=0){
         return new libtorrent::torrent_info(reinterpret_cast<char const*>(buffer_ptr), size, ec, flags);
@@ -3035,11 +3053,12 @@ SWIGV8_ClientData _exports_string_entry_map_clientData;
 SWIGV8_ClientData _exports_int_bitfield_map_clientData;
 SWIGV8_ClientData _exports_alert_ptr_vector_clientData;
 SWIGV8_ClientData _exports_iovec_t_clientData;
-SWIGV8_ClientData _exports_bloom_filter_128_clientData;
-SWIGV8_ClientData _exports_bloom_filter_256_clientData;
 SWIGV8_ClientData _exports_byte_span_clientData;
 SWIGV8_ClientData _exports_byte_const_span_clientData;
 SWIGV8_ClientData _exports_iovec_span_clientData;
+SWIGV8_ClientData _exports_sha1_hash_clientData;
+SWIGV8_ClientData _exports_bloom_filter_128_clientData;
+SWIGV8_ClientData _exports_bloom_filter_256_clientData;
 SWIGV8_ClientData _exports_string_view_clientData;
 SWIGV8_ClientData _exports_address_clientData;
 SWIGV8_ClientData _exports_tcp_endpoint_clientData;
@@ -3051,7 +3070,6 @@ SWIGV8_ClientData _exports_storage_error_clientData;
 SWIGV8_ClientData _exports_bitfield_clientData;
 SWIGV8_ClientData _exports_peer_request_clientData;
 SWIGV8_ClientData _exports_entry_clientData;
-SWIGV8_ClientData _exports_sha1_hash_clientData;
 SWIGV8_ClientData _exports_file_slice_clientData;
 SWIGV8_ClientData _exports_file_storage_clientData;
 SWIGV8_ClientData _exports_web_seed_entry_clientData;
@@ -14055,514 +14073,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_bloom_filter_128_find(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_find.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_find" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > const *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_128_find" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_128_find" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  result = (bool)((libtorrent::bloom_filter< 128 > const *)arg1)->find((libtorrent::sha1_hash const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_128_set(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_set.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_set" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_128_set" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_128_set" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  (arg1)->set((libtorrent::sha1_hash const &)*arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_128_clear(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_clear.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_clear" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
-  (arg1)->clear();
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_128_size(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  float result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_size.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_size" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > const *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
-  result = (float)((libtorrent::bloom_filter< 128 > const *)arg1)->size();
-  jsresult = SWIG_From_float((float)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_bloom_filter_128(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  libtorrent::bloom_filter< 128 > *result;
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_bloom_filter_128.");
-  result = (libtorrent::bloom_filter< 128 > *)new libtorrent::bloom_filter< 128 >();
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__bloom_filterT_128_t, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_128_to_bytes(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::vector< int8_t > result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_to_bytes.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_to_bytes" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > const *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
-  result = libtorrent_bloom_filter_Sl_128_Sg__to_bytes((libtorrent::bloom_filter< 128 > const *)arg1);
-  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_128_from_bytes(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
-  std::vector< int8_t > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_from_bytes.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_from_bytes" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_128_from_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_128_from_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  arg2 = (std::vector< int8_t > *)(argp2);
-  libtorrent_bloom_filter_Sl_128_Sg__from_bytes(arg1,(std::vector< signed char > const &)*arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-static void _wrap_delete_bloom_filter_128(v8::Persistent<v8::Value> object, void *parameter) {
-  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-  static void _wrap_delete_bloom_filter_128(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
-    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-    static void _wrap_delete_bloom_filter_128(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
-#else
-      static void _wrap_delete_bloom_filter_128(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
-        v8::Local<v8::Object> object = data.GetValue();
-        SWIGV8_Proxy *proxy = data.GetParameter();
-#endif
-        
-        if(proxy->swigCMemOwn && proxy->swigCObject) {
-          libtorrent::bloom_filter< 128 > * arg1 = (libtorrent::bloom_filter< 128 > *)proxy->swigCObject;
-          delete arg1;
-        }
-        delete proxy;
-        
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-        object.Dispose();
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-        object.Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
-        object->Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-        object->Dispose();
-#else
-        object.Clear();
-#endif
-      }
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_256_find(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_find.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_find" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > const *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_256_find" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_256_find" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  result = (bool)((libtorrent::bloom_filter< 256 > const *)arg1)->find((libtorrent::sha1_hash const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_256_set(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_set.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_set" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_256_set" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_256_set" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  (arg1)->set((libtorrent::sha1_hash const &)*arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_256_clear(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_clear.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_clear" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
-  (arg1)->clear();
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_256_size(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  float result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_size.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_size" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > const *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
-  result = (float)((libtorrent::bloom_filter< 256 > const *)arg1)->size();
-  jsresult = SWIG_From_float((float)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_bloom_filter_256(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  libtorrent::bloom_filter< 256 > *result;
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_bloom_filter_256.");
-  result = (libtorrent::bloom_filter< 256 > *)new libtorrent::bloom_filter< 256 >();
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__bloom_filterT_256_t, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_256_to_bytes(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::vector< int8_t > result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_to_bytes.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_to_bytes" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > const *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
-  result = libtorrent_bloom_filter_Sl_256_Sg__to_bytes((libtorrent::bloom_filter< 256 > const *)arg1);
-  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_bloom_filter_256_from_bytes(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
-  std::vector< int8_t > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_from_bytes.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_from_bytes" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > *""'"); 
-  }
-  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_256_from_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_256_from_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  arg2 = (std::vector< int8_t > *)(argp2);
-  libtorrent_bloom_filter_Sl_256_Sg__from_bytes(arg1,(std::vector< signed char > const &)*arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-static void _wrap_delete_bloom_filter_256(v8::Persistent<v8::Value> object, void *parameter) {
-  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-  static void _wrap_delete_bloom_filter_256(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
-    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-    static void _wrap_delete_bloom_filter_256(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
-#else
-      static void _wrap_delete_bloom_filter_256(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
-        v8::Local<v8::Object> object = data.GetValue();
-        SWIGV8_Proxy *proxy = data.GetParameter();
-#endif
-        
-        if(proxy->swigCMemOwn && proxy->swigCObject) {
-          libtorrent::bloom_filter< 256 > * arg1 = (libtorrent::bloom_filter< 256 > *)proxy->swigCObject;
-          delete arg1;
-        }
-        delete proxy;
-        
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-        object.Dispose();
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-        object.Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
-        object->Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-        object->Dispose();
-#else
-        object.Clear();
-#endif
-      }
-
-
 static SwigV8ReturnValue _wrap_new_byte_span(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -15757,6 +15267,1151 @@ static void _wrap_delete_iovec_span(v8::Persistent<v8::Value> object, void *para
         
         if(proxy->swigCMemOwn && proxy->swigCObject) {
           libtorrent::span< libtorrent::file::iovec_t const > * arg1 = (libtorrent::span< libtorrent::file::iovec_t const > *)proxy->swigCObject;
+          delete arg1;
+        }
+        delete proxy;
+        
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
+        object.Dispose();
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
+        object.Dispose(isolate);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
+        object->Dispose(isolate);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
+        object->Dispose();
+#else
+        object.Clear();
+#endif
+      }
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_size(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  size_t result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_size.");
+  
+  result = libtorrent::sha1_hash::size();
+  jsresult = SWIG_From_size_t((size_t)(result));
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  libtorrent::sha1_hash *result;
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_sha1_hash__SWIG_0.");
+  result = (libtorrent::sha1_hash *)new libtorrent::sha1_hash();
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  libtorrent::sha1_hash *arg1 = 0 ;
+  void *argp1 ;
+  int res1 = 0 ;
+  libtorrent::sha1_hash *result;
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_sha1_hash__SWIG_1.");
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_sha1_hash" "', argument " "1"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_sha1_hash" "', argument " "1"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  result = (libtorrent::sha1_hash *)new libtorrent::sha1_hash((libtorrent::sha1_hash const &)*arg1);
+  
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_max(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_max.");
+  
+  result = libtorrent::sha1_hash::max();
+  jsresult = SWIG_NewPointerObj((new libtorrent::sha1_hash((const libtorrent::sha1_hash&)(result))), SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN |  0 );
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_min(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_min.");
+  
+  result = libtorrent::sha1_hash::min();
+  jsresult = SWIG_NewPointerObj((new libtorrent::sha1_hash((const libtorrent::sha1_hash&)(result))), SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN |  0 );
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_clear(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_clear.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_clear" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  (arg1)->clear();
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_is_all_zeros(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_is_all_zeros.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_is_all_zeros" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  result = (bool)(arg1)->is_all_zeros();
+  jsresult = SWIG_From_bool((bool)(result));
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_count_leading_zeroes(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_count_leading_zeroes.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_count_leading_zeroes" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  result = (int)(arg1)->count_leading_zeroes();
+  jsresult = SWIG_From_int((int)(result));
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_2(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  std::vector< int8_t > *arg1 = 0 ;
+  void *argp1 ;
+  int res1 = 0 ;
+  libtorrent::sha1_hash *result;
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_sha1_hash__SWIG_2.");
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_sha1_hash" "', argument " "1"" of type '" "std::vector< int8_t > const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_sha1_hash" "', argument " "1"" of type '" "std::vector< int8_t > const &""'"); 
+  }
+  arg1 = (std::vector< int8_t > *)(argp1);
+  result = (libtorrent::sha1_hash *)new_libtorrent_sha1_hash__SWIG_2((std::vector< signed char > const &)*arg1);
+  
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_sha1_hash(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  OverloadErrorHandler errorHandler;
+  v8::Handle<v8::Value> self;
+  
+  // switch all cases by means of series of if-returns.
+  
+  if(args.Length() == 0) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_sha1_hash__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_sha1_hash__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 1) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_sha1_hash__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_sha1_hash__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 1) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_sha1_hash__SWIG_2(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_sha1_hash__SWIG_2(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  
+  // default:
+  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_sha1_hash");
+  
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_assign(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_assign.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_assign" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_assign" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_assign" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  libtorrent_sha1_hash_assign(arg1,(std::vector< signed char > const &)*arg2);
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_get(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  int8_t result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_get.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_get" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  ecode2 = SWIG_AsVal_size_t(args[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "sha1_hash_get" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = (size_t)(val2);
+  result = (int8_t)libtorrent_sha1_hash_get(arg1,arg2);
+  jsresult = SWIG_From_signed_SS_char((signed char)(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_hash_code(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_hash_code.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_hash_code" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  result = (int)libtorrent_sha1_hash_hash_code(arg1);
+  jsresult = SWIG_From_int((int)(result));
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_to_bytes(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< int8_t > result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_to_bytes.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_to_bytes" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  result = libtorrent_sha1_hash_to_bytes(arg1);
+  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_to_hex(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::string result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_to_hex.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_to_hex" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  result = libtorrent_sha1_hash_to_hex(arg1);
+  jsresult = SWIG_From_std_string((std::string)(result));
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_op_eq(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  bool result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_op_eq.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_op_eq" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_op_eq" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_op_eq" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  result = (bool)libtorrent_sha1_hash_op_eq((libtorrent::sha1_hash const *)arg1,(libtorrent::sha1_hash const &)*arg2);
+  jsresult = SWIG_From_bool((bool)(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_op_ne(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  bool result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_op_ne.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_op_ne" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_op_ne" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_op_ne" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  result = (bool)libtorrent_sha1_hash_op_ne((libtorrent::sha1_hash const *)arg1,(libtorrent::sha1_hash const &)*arg2);
+  jsresult = SWIG_From_bool((bool)(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_op_lt(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  bool result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_op_lt.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_op_lt" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_op_lt" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_op_lt" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  result = (bool)libtorrent_sha1_hash_op_lt((libtorrent::sha1_hash const *)arg1,(libtorrent::sha1_hash const &)*arg2);
+  jsresult = SWIG_From_bool((bool)(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_sha1_hash_compare(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  int result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_compare.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_compare" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
+  }
+  arg1 = (libtorrent::sha1_hash *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_compare" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_compare" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  result = (int)libtorrent_sha1_hash_compare((libtorrent::sha1_hash const *)arg1,(libtorrent::sha1_hash const &)*arg2);
+  jsresult = SWIG_From_int((int)(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
+static void _wrap_delete_sha1_hash(v8::Persistent<v8::Value> object, void *parameter) {
+  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
+  static void _wrap_delete_sha1_hash(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
+    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
+    static void _wrap_delete_sha1_hash(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
+#else
+      static void _wrap_delete_sha1_hash(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
+        v8::Local<v8::Object> object = data.GetValue();
+        SWIGV8_Proxy *proxy = data.GetParameter();
+#endif
+        
+        if(proxy->swigCMemOwn && proxy->swigCObject) {
+          libtorrent::sha1_hash * arg1 = (libtorrent::sha1_hash *)proxy->swigCObject;
+          delete arg1;
+        }
+        delete proxy;
+        
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
+        object.Dispose();
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
+        object.Dispose(isolate);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
+        object->Dispose(isolate);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
+        object->Dispose();
+#else
+        object.Clear();
+#endif
+      }
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_128_find(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  bool result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_find.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_find" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > const *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_128_find" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_128_find" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  result = (bool)((libtorrent::bloom_filter< 128 > const *)arg1)->find((libtorrent::sha1_hash const &)*arg2);
+  jsresult = SWIG_From_bool((bool)(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_128_set(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_set.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_set" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_128_set" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_128_set" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  (arg1)->set((libtorrent::sha1_hash const &)*arg2);
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_128_clear(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_clear.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_clear" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
+  (arg1)->clear();
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_128_size(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_size.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_size" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > const *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
+  result = (float)((libtorrent::bloom_filter< 128 > const *)arg1)->size();
+  jsresult = SWIG_From_float((float)(result));
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_bloom_filter_128(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  libtorrent::bloom_filter< 128 > *result;
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_bloom_filter_128.");
+  result = (libtorrent::bloom_filter< 128 > *)new libtorrent::bloom_filter< 128 >();
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__bloom_filterT_128_t, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_128_to_bytes(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< int8_t > result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_to_bytes.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_to_bytes" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > const *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
+  result = libtorrent_bloom_filter_Sl_128_Sg__to_bytes((libtorrent::bloom_filter< 128 > const *)arg1);
+  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_128_from_bytes(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 128 > *arg1 = (libtorrent::bloom_filter< 128 > *) 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_128_from_bytes.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_128_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_128_from_bytes" "', argument " "1"" of type '" "libtorrent::bloom_filter< 128 > *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 128 > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_128_from_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_128_from_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  libtorrent_bloom_filter_Sl_128_Sg__from_bytes(arg1,(std::vector< signed char > const &)*arg2);
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
+static void _wrap_delete_bloom_filter_128(v8::Persistent<v8::Value> object, void *parameter) {
+  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
+  static void _wrap_delete_bloom_filter_128(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
+    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
+    static void _wrap_delete_bloom_filter_128(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
+#else
+      static void _wrap_delete_bloom_filter_128(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
+        v8::Local<v8::Object> object = data.GetValue();
+        SWIGV8_Proxy *proxy = data.GetParameter();
+#endif
+        
+        if(proxy->swigCMemOwn && proxy->swigCObject) {
+          libtorrent::bloom_filter< 128 > * arg1 = (libtorrent::bloom_filter< 128 > *)proxy->swigCObject;
+          delete arg1;
+        }
+        delete proxy;
+        
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
+        object.Dispose();
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
+        object.Dispose(isolate);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
+        object->Dispose(isolate);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
+        object->Dispose();
+#else
+        object.Clear();
+#endif
+      }
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_256_find(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  bool result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_find.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_find" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > const *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_256_find" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_256_find" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  result = (bool)((libtorrent::bloom_filter< 256 > const *)arg1)->find((libtorrent::sha1_hash const &)*arg2);
+  jsresult = SWIG_From_bool((bool)(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_256_set(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
+  libtorrent::sha1_hash *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_set.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_set" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_256_set" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_256_set" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  (arg1)->set((libtorrent::sha1_hash const &)*arg2);
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_256_clear(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_clear.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_clear" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
+  (arg1)->clear();
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_256_size(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_size.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_size" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > const *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
+  result = (float)((libtorrent::bloom_filter< 256 > const *)arg1)->size();
+  jsresult = SWIG_From_float((float)(result));
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_bloom_filter_256(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  libtorrent::bloom_filter< 256 > *result;
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_bloom_filter_256.");
+  result = (libtorrent::bloom_filter< 256 > *)new libtorrent::bloom_filter< 256 >();
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__bloom_filterT_256_t, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_256_to_bytes(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< int8_t > result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_to_bytes.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_to_bytes" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > const *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
+  result = libtorrent_bloom_filter_Sl_256_Sg__to_bytes((libtorrent::bloom_filter< 256 > const *)arg1);
+  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_bloom_filter_256_from_bytes(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::bloom_filter< 256 > *arg1 = (libtorrent::bloom_filter< 256 > *) 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bloom_filter_256_from_bytes.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__bloom_filterT_256_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "bloom_filter_256_from_bytes" "', argument " "1"" of type '" "libtorrent::bloom_filter< 256 > *""'"); 
+  }
+  arg1 = (libtorrent::bloom_filter< 256 > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "bloom_filter_256_from_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "bloom_filter_256_from_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  libtorrent_bloom_filter_Sl_256_Sg__from_bytes(arg1,(std::vector< signed char > const &)*arg2);
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
+static void _wrap_delete_bloom_filter_256(v8::Persistent<v8::Value> object, void *parameter) {
+  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
+  static void _wrap_delete_bloom_filter_256(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
+    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
+    static void _wrap_delete_bloom_filter_256(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
+#else
+      static void _wrap_delete_bloom_filter_256(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
+        v8::Local<v8::Object> object = data.GetValue();
+        SWIGV8_Proxy *proxy = data.GetParameter();
+#endif
+        
+        if(proxy->swigCMemOwn && proxy->swigCObject) {
+          libtorrent::bloom_filter< 256 > * arg1 = (libtorrent::bloom_filter< 256 > *)proxy->swigCObject;
           delete arg1;
         }
         delete proxy;
@@ -25397,496 +26052,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_sha1_hash_size(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  size_t result;
-  
-  if(args.Length() != -1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_size.");
-  
-  result = libtorrent::sha1_hash::size();
-  jsresult = SWIG_From_size_t((size_t)(result));
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  libtorrent::sha1_hash *result;
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_sha1_hash__SWIG_0.");
-  result = (libtorrent::sha1_hash *)new libtorrent::sha1_hash();
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_max(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_max.");
-  
-  result = libtorrent::sha1_hash::max();
-  jsresult = SWIG_NewPointerObj((new libtorrent::sha1_hash((const libtorrent::sha1_hash&)(result))), SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN |  0 );
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_min(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_min.");
-  
-  result = libtorrent::sha1_hash::min();
-  jsresult = SWIG_NewPointerObj((new libtorrent::sha1_hash((const libtorrent::sha1_hash&)(result))), SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN |  0 );
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_clear(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_clear.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_clear" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  (arg1)->clear();
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_is_all_zeros(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_is_all_zeros.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_is_all_zeros" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  result = (bool)((libtorrent::sha1_hash const *)arg1)->is_all_zeros();
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_op_eq(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_op_eq.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_op_eq" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_op_eq" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_op_eq" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  result = (bool)((libtorrent::sha1_hash const *)arg1)->operator ==((libtorrent::sha1_hash const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_op_ne(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_op_ne.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_op_ne" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_op_ne" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_op_ne" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  result = (bool)((libtorrent::sha1_hash const *)arg1)->operator !=((libtorrent::sha1_hash const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_op_lt(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_op_lt.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_op_lt" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_op_lt" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_op_lt" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  result = (bool)((libtorrent::sha1_hash const *)arg1)->operator <((libtorrent::sha1_hash const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_count_leading_zeroes(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_count_leading_zeroes.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_count_leading_zeroes" "', argument " "1"" of type '" "libtorrent::sha1_hash const *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  result = (int)((libtorrent::sha1_hash const *)arg1)->count_leading_zeroes();
-  jsresult = SWIG_From_int((int)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_sha1_hash__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  std::vector< int8_t > *arg1 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  libtorrent::sha1_hash *result;
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_sha1_hash__SWIG_1.");
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_sha1_hash" "', argument " "1"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_sha1_hash" "', argument " "1"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  arg1 = (std::vector< int8_t > *)(argp1);
-  result = (libtorrent::sha1_hash *)new_libtorrent_sha1_hash__SWIG_1((std::vector< signed char > const &)*arg1);
-  
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__sha1_hash, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_sha1_hash(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  OverloadErrorHandler errorHandler;
-  v8::Handle<v8::Value> self;
-  
-  // switch all cases by means of series of if-returns.
-  
-  if(args.Length() == 0) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_sha1_hash__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_sha1_hash__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 1) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_sha1_hash__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_sha1_hash__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  // default:
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_sha1_hash");
-  
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_hash_code(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_hash_code.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_hash_code" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  result = (int)libtorrent_sha1_hash_hash_code(arg1);
-  jsresult = SWIG_From_int((int)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_to_hex(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_to_hex.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_to_hex" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  result = libtorrent_sha1_hash_to_hex(arg1);
-  jsresult = SWIG_From_std_string((std::string)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_compare(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = 0 ;
-  libtorrent::sha1_hash *arg2 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  int result;
-  
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_compare.");
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_compare" "', argument " "1"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_compare" "', argument " "1"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_libtorrent__sha1_hash,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_compare" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_compare" "', argument " "2"" of type '" "libtorrent::sha1_hash const &""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  result = (int)libtorrent_sha1_hash_compare((libtorrent::sha1_hash const &)*arg1,(libtorrent::sha1_hash const &)*arg2);
-  jsresult = SWIG_From_int((int)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-static void _wrap_delete_sha1_hash(v8::Persistent<v8::Value> object, void *parameter) {
-  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-  static void _wrap_delete_sha1_hash(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
-    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-    static void _wrap_delete_sha1_hash(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
-#else
-      static void _wrap_delete_sha1_hash(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
-        v8::Local<v8::Object> object = data.GetValue();
-        SWIGV8_Proxy *proxy = data.GetParameter();
-#endif
-        
-        if(proxy->swigCMemOwn && proxy->swigCObject) {
-          libtorrent::sha1_hash * arg1 = (libtorrent::sha1_hash *)proxy->swigCObject;
-          delete arg1;
-        }
-        delete proxy;
-        
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-        object.Dispose();
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-        object.Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
-        object->Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-        object->Dispose();
-#else
-        object.Clear();
-#endif
-      }
-
-
 static void _wrap_file_slice_file_index_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
@@ -32981,42 +33146,6 @@ static SwigV8ReturnValue _wrap_torrent_handle_clear_piece_deadlines(const SwigV8
   arg1 = (libtorrent::torrent_handle *)(argp1);
   ((libtorrent::torrent_handle const *)arg1)->clear_piece_deadlines();
   jsresult = SWIGV8_UNDEFINED();
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_torrent_handle_set_priority(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_handle_set_priority.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_handle, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_handle_set_priority" "', argument " "1"" of type '" "libtorrent::torrent_handle const *""'"); 
-  }
-  arg1 = (libtorrent::torrent_handle *)(argp1);
-  ecode2 = SWIG_AsVal_int(args[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "torrent_handle_set_priority" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  ((libtorrent::torrent_handle const *)arg1)->set_priority(arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
   
   
   SWIGV8_RETURN(jsresult);
@@ -89395,21 +89524,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_torrent_status_unused_enum_for_backwards_compatibility(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::torrent_status::unused_enum_for_backwards_compatibility));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
 static SwigV8ReturnValue _wrap_libtorrent_torrent_status_checking_files(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -92657,63 +92771,6 @@ static SwigV8ReturnValue _wrap_torrent_status_last_scrape_get(v8::Local<v8::Stri
   }
   arg1 = (libtorrent::torrent_status *)(argp1);
   result = (int) ((arg1)->last_scrape);
-  jsresult = SWIG_From_int((int)(result));
-  
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static void _wrap_torrent_status_priority_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::torrent_status *arg1 = (libtorrent::torrent_status *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_status, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_status_priority_set" "', argument " "1"" of type '" "libtorrent::torrent_status *""'"); 
-  }
-  arg1 = (libtorrent::torrent_status *)(argp1);
-  ecode2 = SWIG_AsVal_int(value, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "torrent_status_priority_set" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  if (arg1) (arg1)->priority = arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
-static SwigV8ReturnValue _wrap_torrent_status_priority_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_status *arg1 = (libtorrent::torrent_status *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_status, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_status_priority_get" "', argument " "1"" of type '" "libtorrent::torrent_status *""'"); 
-  }
-  arg1 = (libtorrent::torrent_status *)(argp1);
-  result = (int) ((arg1)->priority);
   jsresult = SWIG_From_int((int)(result));
   
   
@@ -96807,20 +96864,6 @@ _exports_iovec_t_clientData.dtor = _wrap_delete_iovec_t;
 if (SWIGTYPE_p_libtorrent__file__iovec_t->clientdata == 0) {
   SWIGTYPE_p_libtorrent__file__iovec_t->clientdata = &_exports_iovec_t_clientData;
 }
-/* Name: _exports_bloom_filter_128, Type: p_libtorrent__bloom_filterT_128_t, Dtor: _wrap_delete_bloom_filter_128 */
-v8::Handle<v8::FunctionTemplate> _exports_bloom_filter_128_class = SWIGV8_CreateClassTemplate("_exports_bloom_filter_128");
-SWIGV8_SET_CLASS_TEMPL(_exports_bloom_filter_128_clientData.class_templ, _exports_bloom_filter_128_class);
-_exports_bloom_filter_128_clientData.dtor = _wrap_delete_bloom_filter_128;
-if (SWIGTYPE_p_libtorrent__bloom_filterT_128_t->clientdata == 0) {
-  SWIGTYPE_p_libtorrent__bloom_filterT_128_t->clientdata = &_exports_bloom_filter_128_clientData;
-}
-/* Name: _exports_bloom_filter_256, Type: p_libtorrent__bloom_filterT_256_t, Dtor: _wrap_delete_bloom_filter_256 */
-v8::Handle<v8::FunctionTemplate> _exports_bloom_filter_256_class = SWIGV8_CreateClassTemplate("_exports_bloom_filter_256");
-SWIGV8_SET_CLASS_TEMPL(_exports_bloom_filter_256_clientData.class_templ, _exports_bloom_filter_256_class);
-_exports_bloom_filter_256_clientData.dtor = _wrap_delete_bloom_filter_256;
-if (SWIGTYPE_p_libtorrent__bloom_filterT_256_t->clientdata == 0) {
-  SWIGTYPE_p_libtorrent__bloom_filterT_256_t->clientdata = &_exports_bloom_filter_256_clientData;
-}
 /* Name: _exports_byte_span, Type: p_libtorrent__spanT_char_t, Dtor: _wrap_delete_byte_span */
 v8::Handle<v8::FunctionTemplate> _exports_byte_span_class = SWIGV8_CreateClassTemplate("_exports_byte_span");
 SWIGV8_SET_CLASS_TEMPL(_exports_byte_span_clientData.class_templ, _exports_byte_span_class);
@@ -96841,6 +96884,27 @@ SWIGV8_SET_CLASS_TEMPL(_exports_iovec_span_clientData.class_templ, _exports_iove
 _exports_iovec_span_clientData.dtor = _wrap_delete_iovec_span;
 if (SWIGTYPE_p_libtorrent__spanT_libtorrent__file__iovec_t_const_t->clientdata == 0) {
   SWIGTYPE_p_libtorrent__spanT_libtorrent__file__iovec_t_const_t->clientdata = &_exports_iovec_span_clientData;
+}
+/* Name: _exports_sha1_hash, Type: p_libtorrent__sha1_hash, Dtor: _wrap_delete_sha1_hash */
+v8::Handle<v8::FunctionTemplate> _exports_sha1_hash_class = SWIGV8_CreateClassTemplate("_exports_sha1_hash");
+SWIGV8_SET_CLASS_TEMPL(_exports_sha1_hash_clientData.class_templ, _exports_sha1_hash_class);
+_exports_sha1_hash_clientData.dtor = _wrap_delete_sha1_hash;
+if (SWIGTYPE_p_libtorrent__sha1_hash->clientdata == 0) {
+  SWIGTYPE_p_libtorrent__sha1_hash->clientdata = &_exports_sha1_hash_clientData;
+}
+/* Name: _exports_bloom_filter_128, Type: p_libtorrent__bloom_filterT_128_t, Dtor: _wrap_delete_bloom_filter_128 */
+v8::Handle<v8::FunctionTemplate> _exports_bloom_filter_128_class = SWIGV8_CreateClassTemplate("_exports_bloom_filter_128");
+SWIGV8_SET_CLASS_TEMPL(_exports_bloom_filter_128_clientData.class_templ, _exports_bloom_filter_128_class);
+_exports_bloom_filter_128_clientData.dtor = _wrap_delete_bloom_filter_128;
+if (SWIGTYPE_p_libtorrent__bloom_filterT_128_t->clientdata == 0) {
+  SWIGTYPE_p_libtorrent__bloom_filterT_128_t->clientdata = &_exports_bloom_filter_128_clientData;
+}
+/* Name: _exports_bloom_filter_256, Type: p_libtorrent__bloom_filterT_256_t, Dtor: _wrap_delete_bloom_filter_256 */
+v8::Handle<v8::FunctionTemplate> _exports_bloom_filter_256_class = SWIGV8_CreateClassTemplate("_exports_bloom_filter_256");
+SWIGV8_SET_CLASS_TEMPL(_exports_bloom_filter_256_clientData.class_templ, _exports_bloom_filter_256_class);
+_exports_bloom_filter_256_clientData.dtor = _wrap_delete_bloom_filter_256;
+if (SWIGTYPE_p_libtorrent__bloom_filterT_256_t->clientdata == 0) {
+  SWIGTYPE_p_libtorrent__bloom_filterT_256_t->clientdata = &_exports_bloom_filter_256_clientData;
 }
 /* Name: _exports_string_view, Type: p_libtorrent__string_view, Dtor: _wrap_delete_string_view */
 v8::Handle<v8::FunctionTemplate> _exports_string_view_class = SWIGV8_CreateClassTemplate("_exports_string_view");
@@ -96918,13 +96982,6 @@ SWIGV8_SET_CLASS_TEMPL(_exports_entry_clientData.class_templ, _exports_entry_cla
 _exports_entry_clientData.dtor = _wrap_delete_entry;
 if (SWIGTYPE_p_libtorrent__entry->clientdata == 0) {
   SWIGTYPE_p_libtorrent__entry->clientdata = &_exports_entry_clientData;
-}
-/* Name: _exports_sha1_hash, Type: p_libtorrent__sha1_hash, Dtor: _wrap_delete_sha1_hash */
-v8::Handle<v8::FunctionTemplate> _exports_sha1_hash_class = SWIGV8_CreateClassTemplate("_exports_sha1_hash");
-SWIGV8_SET_CLASS_TEMPL(_exports_sha1_hash_clientData.class_templ, _exports_sha1_hash_class);
-_exports_sha1_hash_clientData.dtor = _wrap_delete_sha1_hash;
-if (SWIGTYPE_p_libtorrent__sha1_hash->clientdata == 0) {
-  SWIGTYPE_p_libtorrent__sha1_hash->clientdata = &_exports_sha1_hash_clientData;
 }
 /* Name: _exports_file_slice, Type: p_libtorrent__file_slice, Dtor: _wrap_delete_file_slice */
 v8::Handle<v8::FunctionTemplate> _exports_file_slice_class = SWIGV8_CreateClassTemplate("_exports_file_slice");
@@ -97998,18 +98055,6 @@ SWIGV8_AddMemberVariable(_exports_iovec_t_class, "iov_base", _wrap_iovec_t_iov_b
 SWIGV8_AddMemberVariable(_exports_iovec_t_class, "iov_len", _wrap_iovec_t_iov_len_get, _wrap_iovec_t_iov_len_set);
 SWIGV8_AddStaticVariable(exports_obj, "storage_mode_allocate", _wrap_libtorrent_storage_mode_allocate, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "storage_mode_sparse", _wrap_libtorrent_storage_mode_sparse, JS_veto_set_variable);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "find", _wrap_bloom_filter_128_find);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "set", _wrap_bloom_filter_128_set);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "clear", _wrap_bloom_filter_128_clear);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "size", _wrap_bloom_filter_128_size);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "to_bytes", _wrap_bloom_filter_128_to_bytes);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "from_bytes", _wrap_bloom_filter_128_from_bytes);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "find", _wrap_bloom_filter_256_find);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "set", _wrap_bloom_filter_256_set);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "clear", _wrap_bloom_filter_256_clear);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "size", _wrap_bloom_filter_256_size);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "to_bytes", _wrap_bloom_filter_256_to_bytes);
-SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "from_bytes", _wrap_bloom_filter_256_from_bytes);
 SWIGV8_AddMemberFunction(_exports_byte_span_class, "size", _wrap_byte_span_size);
 SWIGV8_AddMemberFunction(_exports_byte_span_class, "empty", _wrap_byte_span_empty);
 SWIGV8_AddMemberFunction(_exports_byte_span_class, "front", _wrap_byte_span_front);
@@ -98034,6 +98079,30 @@ SWIGV8_AddMemberFunction(_exports_iovec_span_class, "first", _wrap_iovec_span_fi
 SWIGV8_AddMemberFunction(_exports_iovec_span_class, "last", _wrap_iovec_span_last);
 SWIGV8_AddMemberFunction(_exports_iovec_span_class, "subspan", _wrap_iovec_span__wrap_iovec_span_subspan);
 SWIGV8_AddMemberFunction(_exports_iovec_span_class, "get", _wrap_iovec_span_get);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "clear", _wrap_sha1_hash_clear);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "is_all_zeros", _wrap_sha1_hash_is_all_zeros);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "count_leading_zeroes", _wrap_sha1_hash_count_leading_zeroes);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "assign", _wrap_sha1_hash_assign);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "get", _wrap_sha1_hash_get);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "hash_code", _wrap_sha1_hash_hash_code);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "to_bytes", _wrap_sha1_hash_to_bytes);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "to_hex", _wrap_sha1_hash_to_hex);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_eq", _wrap_sha1_hash_op_eq);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_ne", _wrap_sha1_hash_op_ne);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_lt", _wrap_sha1_hash_op_lt);
+SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "compare", _wrap_sha1_hash_compare);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "find", _wrap_bloom_filter_128_find);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "set", _wrap_bloom_filter_128_set);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "clear", _wrap_bloom_filter_128_clear);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "size", _wrap_bloom_filter_128_size);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "to_bytes", _wrap_bloom_filter_128_to_bytes);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_128_class, "from_bytes", _wrap_bloom_filter_128_from_bytes);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "find", _wrap_bloom_filter_256_find);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "set", _wrap_bloom_filter_256_set);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "clear", _wrap_bloom_filter_256_clear);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "size", _wrap_bloom_filter_256_size);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "to_bytes", _wrap_bloom_filter_256_to_bytes);
+SWIGV8_AddMemberFunction(_exports_bloom_filter_256_class, "from_bytes", _wrap_bloom_filter_256_from_bytes);
 SWIGV8_AddMemberFunction(_exports_string_view_class, "to_string", _wrap_string_view_to_string);
 SWIGV8_AddMemberFunction(_exports_address_class, "is_v4", _wrap_address_is_v4);
 SWIGV8_AddMemberFunction(_exports_address_class, "is_v6", _wrap_address_is_v6);
@@ -98357,15 +98426,6 @@ SWIGV8_AddMemberFunction(_exports_entry_class, "set", _wrap_entry__wrap_entry_se
 SWIGV8_AddMemberFunction(_exports_entry_class, "string_bytes", _wrap_entry_string_bytes);
 SWIGV8_AddMemberFunction(_exports_entry_class, "preformatted_bytes", _wrap_entry_preformatted_bytes);
 SWIGV8_AddMemberFunction(_exports_entry_class, "bencode", _wrap_entry_bencode);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "size", _wrap_sha1_hash_size);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "clear", _wrap_sha1_hash_clear);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "is_all_zeros", _wrap_sha1_hash_is_all_zeros);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_eq", _wrap_sha1_hash_op_eq);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_ne", _wrap_sha1_hash_op_ne);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "op_lt", _wrap_sha1_hash_op_lt);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "count_leading_zeroes", _wrap_sha1_hash_count_leading_zeroes);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "hash_code", _wrap_sha1_hash_hash_code);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "to_hex", _wrap_sha1_hash_to_hex);
 SWIGV8_AddMemberVariable(_exports_file_slice_class, "file_index", _wrap_file_slice_file_index_get, _wrap_file_slice_file_index_set);
 SWIGV8_AddMemberVariable(_exports_file_slice_class, "offset", _wrap_file_slice_offset_get, _wrap_file_slice_offset_set);
 SWIGV8_AddMemberVariable(_exports_file_slice_class, "size", _wrap_file_slice_size_get, _wrap_file_slice_size_set);
@@ -98464,7 +98524,6 @@ SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "get_download_queue", _w
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_piece_deadline", _wrap_torrent_handle__wrap_torrent_handle_set_piece_deadline);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "reset_piece_deadline", _wrap_torrent_handle_reset_piece_deadline);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "clear_piece_deadlines", _wrap_torrent_handle_clear_piece_deadlines);
-SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_priority", _wrap_torrent_handle_set_priority);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "file_progress", _wrap_torrent_handle__wrap_torrent_handle_file_progress);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "clear_error", _wrap_torrent_handle_clear_error);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "trackers", _wrap_torrent_handle_trackers);
@@ -99452,7 +99511,6 @@ SWIGV8_AddMemberVariable(_exports_torrent_status_class, "finished_time", _wrap_t
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "seeding_time", _wrap_torrent_status_seeding_time_get, _wrap_torrent_status_seeding_time_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "seed_rank", _wrap_torrent_status_seed_rank_get, _wrap_torrent_status_seed_rank_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "last_scrape", _wrap_torrent_status_last_scrape_get, _wrap_torrent_status_last_scrape_set);
-SWIGV8_AddMemberVariable(_exports_torrent_status_class, "priority", _wrap_torrent_status_priority_get, _wrap_torrent_status_priority_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "state", _wrap_torrent_status_state_get, _wrap_torrent_status_state_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "need_save_resume", _wrap_torrent_status_need_save_resume_get, _wrap_torrent_status_need_save_resume_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "ip_filter_applies", _wrap_torrent_status_ip_filter_applies_get, _wrap_torrent_status_ip_filter_applies_set);
@@ -101463,18 +101521,6 @@ _exports_iovec_t_class_0->SetCallHandler(_wrap_new_iovec_t);
 _exports_iovec_t_class_0->Inherit(_exports_iovec_t_class);
 _exports_iovec_t_class_0->SetHiddenPrototype(true);
 v8::Handle<v8::Object> _exports_iovec_t_obj = _exports_iovec_t_class_0->GetFunction();
-/* Class: bloom_filter_128 (_exports_bloom_filter_128) */
-v8::Handle<v8::FunctionTemplate> _exports_bloom_filter_128_class_0 = SWIGV8_CreateClassTemplate("bloom_filter_128");
-_exports_bloom_filter_128_class_0->SetCallHandler(_wrap_new_bloom_filter_128);
-_exports_bloom_filter_128_class_0->Inherit(_exports_bloom_filter_128_class);
-_exports_bloom_filter_128_class_0->SetHiddenPrototype(true);
-v8::Handle<v8::Object> _exports_bloom_filter_128_obj = _exports_bloom_filter_128_class_0->GetFunction();
-/* Class: bloom_filter_256 (_exports_bloom_filter_256) */
-v8::Handle<v8::FunctionTemplate> _exports_bloom_filter_256_class_0 = SWIGV8_CreateClassTemplate("bloom_filter_256");
-_exports_bloom_filter_256_class_0->SetCallHandler(_wrap_new_bloom_filter_256);
-_exports_bloom_filter_256_class_0->Inherit(_exports_bloom_filter_256_class);
-_exports_bloom_filter_256_class_0->SetHiddenPrototype(true);
-v8::Handle<v8::Object> _exports_bloom_filter_256_obj = _exports_bloom_filter_256_class_0->GetFunction();
 /* Class: byte_span (_exports_byte_span) */
 v8::Handle<v8::FunctionTemplate> _exports_byte_span_class_0 = SWIGV8_CreateClassTemplate("byte_span");
 _exports_byte_span_class_0->SetCallHandler(_wrap_new_byte_span);
@@ -101493,6 +101539,24 @@ _exports_iovec_span_class_0->SetCallHandler(_wrap_new_iovec_span);
 _exports_iovec_span_class_0->Inherit(_exports_iovec_span_class);
 _exports_iovec_span_class_0->SetHiddenPrototype(true);
 v8::Handle<v8::Object> _exports_iovec_span_obj = _exports_iovec_span_class_0->GetFunction();
+/* Class: sha1_hash (_exports_sha1_hash) */
+v8::Handle<v8::FunctionTemplate> _exports_sha1_hash_class_0 = SWIGV8_CreateClassTemplate("sha1_hash");
+_exports_sha1_hash_class_0->SetCallHandler(_wrap_new_sha1_hash);
+_exports_sha1_hash_class_0->Inherit(_exports_sha1_hash_class);
+_exports_sha1_hash_class_0->SetHiddenPrototype(true);
+v8::Handle<v8::Object> _exports_sha1_hash_obj = _exports_sha1_hash_class_0->GetFunction();
+/* Class: bloom_filter_128 (_exports_bloom_filter_128) */
+v8::Handle<v8::FunctionTemplate> _exports_bloom_filter_128_class_0 = SWIGV8_CreateClassTemplate("bloom_filter_128");
+_exports_bloom_filter_128_class_0->SetCallHandler(_wrap_new_bloom_filter_128);
+_exports_bloom_filter_128_class_0->Inherit(_exports_bloom_filter_128_class);
+_exports_bloom_filter_128_class_0->SetHiddenPrototype(true);
+v8::Handle<v8::Object> _exports_bloom_filter_128_obj = _exports_bloom_filter_128_class_0->GetFunction();
+/* Class: bloom_filter_256 (_exports_bloom_filter_256) */
+v8::Handle<v8::FunctionTemplate> _exports_bloom_filter_256_class_0 = SWIGV8_CreateClassTemplate("bloom_filter_256");
+_exports_bloom_filter_256_class_0->SetCallHandler(_wrap_new_bloom_filter_256);
+_exports_bloom_filter_256_class_0->Inherit(_exports_bloom_filter_256_class);
+_exports_bloom_filter_256_class_0->SetHiddenPrototype(true);
+v8::Handle<v8::Object> _exports_bloom_filter_256_obj = _exports_bloom_filter_256_class_0->GetFunction();
 /* Class: string_view (_exports_string_view) */
 v8::Handle<v8::FunctionTemplate> _exports_string_view_class_0 = SWIGV8_CreateClassTemplate("string_view");
 _exports_string_view_class_0->SetCallHandler(_wrap_new_string_view);
@@ -101559,12 +101623,6 @@ _exports_entry_class_0->SetCallHandler(_wrap_new_entry);
 _exports_entry_class_0->Inherit(_exports_entry_class);
 _exports_entry_class_0->SetHiddenPrototype(true);
 v8::Handle<v8::Object> _exports_entry_obj = _exports_entry_class_0->GetFunction();
-/* Class: sha1_hash (_exports_sha1_hash) */
-v8::Handle<v8::FunctionTemplate> _exports_sha1_hash_class_0 = SWIGV8_CreateClassTemplate("sha1_hash");
-_exports_sha1_hash_class_0->SetCallHandler(_wrap_new_sha1_hash);
-_exports_sha1_hash_class_0->Inherit(_exports_sha1_hash_class);
-_exports_sha1_hash_class_0->SetHiddenPrototype(true);
-v8::Handle<v8::Object> _exports_sha1_hash_obj = _exports_sha1_hash_class_0->GetFunction();
 /* Class: file_slice (_exports_file_slice) */
 v8::Handle<v8::FunctionTemplate> _exports_file_slice_class_0 = SWIGV8_CreateClassTemplate("file_slice");
 _exports_file_slice_class_0->SetCallHandler(_wrap_new_file_slice);
@@ -102288,7 +102346,10 @@ v8::Handle<v8::Object> _exports_set_piece_hashes_listener_obj = _exports_set_pie
 
 
   /* add static class functions and variables */
-  SWIGV8_AddStaticFunction(_exports_address_obj, "from_string", _wrap_address_from_string);
+  SWIGV8_AddStaticFunction(_exports_sha1_hash_obj, "size", _wrap_sha1_hash_size);
+SWIGV8_AddStaticFunction(_exports_sha1_hash_obj, "max", _wrap_sha1_hash_max);
+SWIGV8_AddStaticFunction(_exports_sha1_hash_obj, "min", _wrap_sha1_hash_min);
+SWIGV8_AddStaticFunction(_exports_address_obj, "from_string", _wrap_address_from_string);
 SWIGV8_AddStaticFunction(_exports_address_obj, "compare", _wrap_address_compare);
 SWIGV8_AddStaticFunction(_exports_error_condition_obj, "unspecified_bool_true", _wrap_error_condition_unspecified_bool_true);
 SWIGV8_AddStaticFunction(exports_obj, "op_lt", _wrap_error_code__wrap_op_lt);
@@ -102325,9 +102386,6 @@ SWIGV8_AddStaticVariable(_exports_entry_obj, "preformatted_t", _wrap_libtorrent_
 SWIGV8_AddStaticFunction(_exports_entry_obj, "from_string_bytes", _wrap_entry_from_string_bytes);
 SWIGV8_AddStaticFunction(_exports_entry_obj, "from_preformatted_bytes", _wrap_entry_from_preformatted_bytes);
 SWIGV8_AddStaticFunction(_exports_entry_obj, "bdecode", _wrap_entry_bdecode);
-SWIGV8_AddStaticFunction(_exports_sha1_hash_obj, "max", _wrap_sha1_hash_max);
-SWIGV8_AddStaticFunction(_exports_sha1_hash_obj, "min", _wrap_sha1_hash_min);
-SWIGV8_AddStaticFunction(_exports_sha1_hash_obj, "compare", _wrap_sha1_hash_compare);
 SWIGV8_AddStaticVariable(_exports_file_storage_obj, "pad_file", _wrap_libtorrent_file_storage_pad_file, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_file_storage_obj, "attribute_hidden", _wrap_libtorrent_file_storage_attribute_hidden, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_file_storage_obj, "attribute_executable", _wrap_libtorrent_file_storage_attribute_executable, JS_veto_set_variable);
@@ -103379,7 +103437,6 @@ SWIGV8_AddStaticVariable(_exports_announce_entry_obj, "source_torrent", _wrap_li
 SWIGV8_AddStaticVariable(_exports_announce_entry_obj, "source_client", _wrap_libtorrent_announce_entry_source_client, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_announce_entry_obj, "source_magnet_link", _wrap_libtorrent_announce_entry_source_magnet_link, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_announce_entry_obj, "source_tex", _wrap_libtorrent_announce_entry_source_tex, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_torrent_status_obj, "unused_enum_for_backwards_compatibility", _wrap_libtorrent_torrent_status_unused_enum_for_backwards_compatibility, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_torrent_status_obj, "checking_files", _wrap_libtorrent_torrent_status_checking_files, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_torrent_status_obj, "downloading_metadata", _wrap_libtorrent_torrent_status_downloading_metadata, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_torrent_status_obj, "downloading", _wrap_libtorrent_torrent_status_downloading, JS_veto_set_variable);
@@ -103441,11 +103498,12 @@ exports_obj->Set(SWIGV8_SYMBOL_NEW("string_entry_map"), _exports_string_entry_ma
 exports_obj->Set(SWIGV8_SYMBOL_NEW("int_bitfield_map"), _exports_int_bitfield_map_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("alert_ptr_vector"), _exports_alert_ptr_vector_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("iovec_t"), _exports_iovec_t_obj);
-exports_obj->Set(SWIGV8_SYMBOL_NEW("bloom_filter_128"), _exports_bloom_filter_128_obj);
-exports_obj->Set(SWIGV8_SYMBOL_NEW("bloom_filter_256"), _exports_bloom_filter_256_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("byte_span"), _exports_byte_span_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("byte_const_span"), _exports_byte_const_span_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("iovec_span"), _exports_iovec_span_obj);
+exports_obj->Set(SWIGV8_SYMBOL_NEW("sha1_hash"), _exports_sha1_hash_obj);
+exports_obj->Set(SWIGV8_SYMBOL_NEW("bloom_filter_128"), _exports_bloom_filter_128_obj);
+exports_obj->Set(SWIGV8_SYMBOL_NEW("bloom_filter_256"), _exports_bloom_filter_256_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("string_view"), _exports_string_view_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("address"), _exports_address_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("tcp_endpoint"), _exports_tcp_endpoint_obj);
@@ -103457,7 +103515,6 @@ exports_obj->Set(SWIGV8_SYMBOL_NEW("storage_error"), _exports_storage_error_obj)
 exports_obj->Set(SWIGV8_SYMBOL_NEW("bitfield"), _exports_bitfield_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("peer_request"), _exports_peer_request_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("entry"), _exports_entry_obj);
-exports_obj->Set(SWIGV8_SYMBOL_NEW("sha1_hash"), _exports_sha1_hash_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("file_slice"), _exports_file_slice_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("file_storage"), _exports_file_storage_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("web_seed_entry"), _exports_web_seed_entry_obj);

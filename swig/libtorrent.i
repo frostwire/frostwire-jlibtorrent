@@ -17,7 +17,6 @@
 #include "libtorrent/bitfield.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/entry.hpp"
-#include "libtorrent/sha1_hash.hpp"
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
@@ -278,7 +277,7 @@ namespace std {
 
 namespace libtorrent {
 
-    class sha1_hash;
+    typedef sha1_hash peer_id;
 
     namespace file {
         struct iovec_t {
@@ -291,33 +290,6 @@ namespace libtorrent {
         storage_mode_allocate,
         storage_mode_sparse
     };
-
-    template <int N>
-    struct bloom_filter {
-
-        bool find(sha1_hash const& k) const;
-        void set(sha1_hash const& k);
-
-        void clear();
-
-        float size() const;
-
-        bloom_filter();
-
-        %extend {
-            std::vector<int8_t> to_bytes() const {
-                std::string s = $self->to_string();
-                return std::vector<int8_t>(s.begin(), s.end());
-            }
-
-            void from_bytes(std::vector<int8_t> const& v) {
-                $self->from_string(reinterpret_cast<char const*>(&v[0]));
-            }
-        }
-    };
-
-    %template(bloom_filter_128) bloom_filter<128>;
-    %template(bloom_filter_256) bloom_filter<256>;
 
     template <typename T>
     struct span {
@@ -394,6 +366,98 @@ namespace libtorrent {
     %template(byte_span) span<char>;
     %template(byte_const_span) span<char const>;
     %template(iovec_span) span<file::iovec_t const>;
+
+    class sha1_hash {
+    public:
+
+        static size_t size();
+
+        sha1_hash();
+        sha1_hash(sha1_hash const&);
+
+        static sha1_hash max();
+        static sha1_hash min();
+
+        void clear();
+        bool is_all_zeros();
+        int count_leading_zeroes();
+
+        %extend {
+
+            sha1_hash(std::vector<int8_t> const& s) {
+                return new libtorrent::sha1_hash({reinterpret_cast<char const*>(s.data()), s.size()});
+            }
+
+            void assign(std::vector<int8_t> const& s) {
+                $self->assign({reinterpret_cast<char const*>(s.data()), s.size()});
+            }
+
+            int8_t get(size_t const idx) {
+                return (int8_t)(*self)[idx];
+            }
+
+            int hash_code() {
+                char const* data = $self->data();
+                int result = 1;
+                for (int i = 0; i < int($self->size()); i++) {
+                    result = 31 * result + data[i];
+                }
+                return result;
+            }
+
+            std::vector<int8_t> to_bytes() {
+                std::string s = $self->to_string();
+                return std::vector<int8_t>(s.begin(), s.end());
+            }
+
+            std::string to_hex() {
+                return libtorrent::aux::to_hex(*$self);
+            }
+
+            bool op_eq(sha1_hash const& n) const {
+                return *$self == n;
+            }
+
+            bool op_ne(sha1_hash const& n) const {
+                return *$self != n;
+            }
+
+            bool op_lt(sha1_hash const& n) const {
+                return *$self < n;
+            }
+
+            int compare(sha1_hash const& n) const {
+                return *$self == n ? 0 : (*$self < n ? -1 : 1);
+            }
+        }
+    };
+
+    template <int N>
+    struct bloom_filter {
+
+        bool find(sha1_hash const& k) const;
+        void set(sha1_hash const& k);
+
+        void clear();
+
+        float size() const;
+
+        bloom_filter();
+
+        %extend {
+            std::vector<int8_t> to_bytes() const {
+                std::string s = $self->to_string();
+                return std::vector<int8_t>(s.begin(), s.end());
+            }
+
+            void from_bytes(std::vector<int8_t> const& v) {
+                $self->from_string(reinterpret_cast<char const*>(&v[0]));
+            }
+        }
+    };
+
+    %template(bloom_filter_128) bloom_filter<128>;
+    %template(bloom_filter_256) bloom_filter<256>;
 
     class string_view {
     public:
@@ -534,15 +598,6 @@ typedef long time_t;
 %ignore libtorrent::torrent_handle::get_full_peer_list;
 %ignore libtorrent::block_info::set_peer;
 %ignore libtorrent::partial_piece_info::blocks;
-%ignore libtorrent::sha1_hash::sha1_hash(char const*);
-%ignore libtorrent::sha1_hash::sha1_hash(std::string const&);
-%ignore libtorrent::sha1_hash::sha1_hash(span<char const>);
-%ignore libtorrent::sha1_hash::begin;
-%ignore libtorrent::sha1_hash::end;
-%ignore libtorrent::sha1_hash::operator[];
-%ignore libtorrent::sha1_hash::assign;
-%ignore libtorrent::sha1_hash::data;
-%ignore libtorrent::sha1_hash::to_string;
 %ignore libtorrent::entry::entry(entry&&);
 %ignore libtorrent::entry::entry(preformatted_type);
 %ignore libtorrent::entry::integer();
@@ -631,6 +686,8 @@ typedef long time_t;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::torrent_status::next_announce;
 %ignore libtorrent::torrent_status::deprecated_announce_interval_;
+%ignore libtorrent::torrent_status::deprecated_priority;
+%ignore libtorrent::torrent_status::unused_enum_for_backwards_compatibility;
 %ignore libtorrent::file_storage::file_storage(file_storage&&);
 %ignore libtorrent::file_storage::file_path_hash;
 %ignore libtorrent::file_storage::all_path_hashes;
@@ -718,7 +775,6 @@ typedef long time_t;
 %include "libtorrent/bitfield.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/entry.hpp"
-%include "libtorrent/sha1_hash.hpp"
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/torrent_handle.hpp"
@@ -1016,30 +1072,6 @@ namespace libtorrent {
 
     libtorrent::torrent_info const* torrent_file_ptr() {
         return $self->torrent_file().get();
-    }
-}
-
-%extend sha1_hash {
-
-    sha1_hash(std::vector<int8_t> const& v) {
-        return new libtorrent::sha1_hash(reinterpret_cast<const char*>(v.data()));
-    }
-
-    int hash_code() {
-        char const* data = $self->data();
-        int result = 1;
-        for (int i = 0; i < 20; i++) {
-            result = 31 * result + data[i];
-        }
-        return result;
-    }
-
-    std::string to_hex() {
-        return libtorrent::aux::to_hex(*$self);
-    }
-
-    static int compare(const libtorrent::sha1_hash& h1, const libtorrent::sha1_hash& h2) {
-        return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
     }
 }
 

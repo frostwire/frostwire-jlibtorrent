@@ -1052,38 +1052,6 @@ public final class TorrentHandle {
     }
 
     /**
-     * This sets the bandwidth priority of this torrent. The priority of a
-     * torrent determines how much bandwidth its peers are assigned when
-     * distributing upload and download rate quotas. A high number gives more
-     * bandwidth. The priority must be within the range [0, 255].
-     * <p>
-     * The default priority is 0, which is the lowest priority.
-     * <p>
-     * To query the priority of a torrent, use the
-     * ``torrent_handle::status()`` call.
-     * <p>
-     * Torrents with higher priority will not nececcarily get as much
-     * bandwidth as they can consume, even if there's is more quota. Other
-     * peers will still be weighed in when bandwidth is being distributed.
-     * With other words, bandwidth is not distributed strictly in order of
-     * priority, but the priority is used as a weight.
-     * <p>
-     * Peers whose Torrent has a higher priority will take precedence when
-     * distributing unchoke slots. This is a strict prioritization where
-     * every interested peer on a high priority torrent will be unchoked
-     * before any other, lower priority, torrents have any peers unchoked.
-     *
-     * @param priority
-     */
-    public void setPriority(int priority) {
-        if (priority < 0 || 255 < priority) {
-            throw new IllegalArgumentException("The priority must be within the range [0, 255]");
-        }
-
-        th.set_priority(priority);
-    }
-
-    /**
      * This function fills in the supplied vector with the number of
      * bytes downloaded of each file in this torrent. The progress values are
      * ordered the same as the files in the torrent_info. This operation is
