@@ -121,6 +121,19 @@ public class SessionManager {
     }
 
     /**
+     * Returns a setting pack with all the settings
+     * the current session is working with.
+     * <p>
+     * If the current internal session is null, returns
+     * null.
+     *
+     * @return
+     */
+    public SettingsPack settings() {
+        return session != null ? new SettingsPack(session.get_settings()) : null;
+    }
+
+    /**
      * This function will post a {@link SessionStatsAlert} object, containing a
      * snapshot of the performance counters from the internals of libtorrent.
      */
