@@ -112,8 +112,24 @@ public class SessionManager {
         }
     }
 
-    public boolean running() {
+    public boolean isRunning() {
         return session != null;
+    }
+
+    public void pause() {
+        if (session != null) {
+            session.pause();
+        }
+    }
+
+    public void resume() {
+        if (session != null) {
+            session.resume();
+        }
+    }
+
+    public boolean isPaused() {
+        return session != null ? session.is_paused() : false;
     }
 
     public SessionStats stats() {
