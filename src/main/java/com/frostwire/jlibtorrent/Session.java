@@ -34,29 +34,6 @@ public final class Session extends SessionHandle {
     }
 
     /**
-     * Pausing the session has the same effect as pausing every torrent in
-     * it, except that torrents will not be resumed by the auto-manage
-     * mechanism.
-     */
-    public void pause() {
-        s.pause();
-    }
-
-    /**
-     * Resuming will restore the torrents to their previous paused
-     * state. i.e. the session pause state is separate from the torrent pause
-     * state. A torrent is inactive if it is paused or if the session is
-     * paused.
-     */
-    public void resume() {
-        s.resume();
-    }
-
-    public boolean isPaused() {
-        return s.is_paused();
-    }
-
-    /**
      * returns the port we ended up listening on. Since you
      * just pass a port-range to the constructor and to ``listen_on()``, to
      * know which port it ended up using, you have to ask the session using

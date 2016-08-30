@@ -152,7 +152,7 @@ public class SessionManager {
     }
 
     public void pause() {
-        if (session != null) {
+        if (session != null && !session.is_paused()) {
             session.pause();
         }
     }
