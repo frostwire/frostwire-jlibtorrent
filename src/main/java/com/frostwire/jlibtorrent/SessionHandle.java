@@ -404,6 +404,15 @@ public class SessionHandle {
     /**
      * @param endp
      * @param entry
+     * @param userdata
+     */
+    public void dhtDirectRequest(UdpEndpoint endp, Entry entry, long userdata) {
+        s.dht_direct_request(endp.swig(), entry.swig(), userdata);
+    }
+
+    /**
+     * @param endp
+     * @param entry
      */
     public void dhtDirectRequest(UdpEndpoint endp, Entry entry) {
         s.dht_direct_request(endp.swig(), entry.swig());

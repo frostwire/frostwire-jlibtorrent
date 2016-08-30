@@ -2916,6 +2916,9 @@ SWIGINTERN std::string libtorrent_dht_lookup_get_type(libtorrent::dht_lookup *se
 SWIGINTERN std::vector< int8_t > libtorrent_dht_pkt_alert_get_pkt_buf(libtorrent::dht_pkt_alert *self){
         return std::vector<int8_t>(self->pkt_buf(), self->pkt_buf() + self->pkt_size());
     }
+SWIGINTERN int64_t libtorrent_dht_direct_response_alert_get_userdata(libtorrent::dht_direct_response_alert *self){
+        return (int64_t)self->userdata;
+    }
 
 /* Getting isfinite working pre C99 across multiple platforms is non-trivial. Users can provide SWIG_isfinite on older platforms. */
 #ifndef SWIG_isfinite
@@ -2990,6 +2993,9 @@ SWIGINTERN void libtorrent_session_handle_dht_put_item__SWIG_1(libtorrent::sessi
         self->dht_put_item(pk, std::bind(&dht_put_item_cb, _1, _2, _3, _4,
             public_key((char*)key.data()), secret_key((char*)sk.data()), data),
             std::string(salt.begin(), salt.end()));
+    }
+SWIGINTERN void libtorrent_session_handle_dht_direct_request__SWIG_1(libtorrent::session_handle *self,libtorrent::udp::endpoint ep,libtorrent::entry const &e,int64_t userdata){
+        self->dht_direct_request(ep, e, (void*)userdata);
     }
 SWIGINTERN libtorrent::alert *libtorrent_session_handle_wait_for_alert_ms(libtorrent::session_handle *self,int64_t max_wait){
         return self->wait_for_alert(libtorrent::milliseconds(max_wait));
@@ -69715,6 +69721,34 @@ fail:
 }
 
 
+static SwigV8ReturnValue _wrap_dht_direct_response_alert_get_userdata(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::dht_direct_response_alert *arg1 = (libtorrent::dht_direct_response_alert *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int64_t result;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_dht_direct_response_alert_get_userdata.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_direct_response_alert, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_direct_response_alert_get_userdata" "', argument " "1"" of type '" "libtorrent::dht_direct_response_alert *""'"); 
+  }
+  arg1 = (libtorrent::dht_direct_response_alert *)(argp1);
+  result = (int64_t)libtorrent_dht_direct_response_alert_get_userdata(arg1);
+  jsresult = SWIG_From_long_SS_long((long long)(result));
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
 #if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
 static void _wrap_delete_dht_direct_response_alert(v8::Persistent<v8::Value> object, void *parameter) {
   SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
@@ -81254,7 +81288,8 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_session_handle_dht_direct_request(const SwigV8Arguments &args) {
+static SwigV8ReturnValue _wrap_session_handle_dht_direct_request__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
+{
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
@@ -81267,8 +81302,6 @@ static SwigV8ReturnValue _wrap_session_handle_dht_direct_request(const SwigV8Arg
   int res2 = 0 ;
   void *argp3 ;
   int res3 = 0 ;
-  
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_session_handle_dht_direct_request.");
   
   res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__session_handle, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
@@ -82472,6 +82505,114 @@ static SwigV8ReturnValue _wrap_session_handle__wrap_session_handle_dht_put_item(
   
   
   SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for function dht_put_item.");
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_session_handle_dht_direct_request__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
+{
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::session_handle *arg1 = (libtorrent::session_handle *) 0 ;
+  libtorrent::udp::endpoint arg2 ;
+  libtorrent::entry *arg3 = 0 ;
+  int64_t arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  void *argp3 ;
+  int res3 = 0 ;
+  long long val4 ;
+  int ecode4 = 0 ;
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__session_handle, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "session_handle_dht_direct_request" "', argument " "1"" of type '" "libtorrent::session_handle *""'"); 
+  }
+  arg1 = (libtorrent::session_handle *)(argp1);
+  {
+    res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__udp__endpoint,  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "session_handle_dht_direct_request" "', argument " "2"" of type '" "libtorrent::udp::endpoint""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "session_handle_dht_direct_request" "', argument " "2"" of type '" "libtorrent::udp::endpoint""'");
+    } else {
+      arg2 = *((libtorrent::udp::endpoint *)(argp2));
+    }
+  }
+  res3 = SWIG_ConvertPtr(args[1], &argp3, SWIGTYPE_p_libtorrent__entry,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "session_handle_dht_direct_request" "', argument " "3"" of type '" "libtorrent::entry const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "session_handle_dht_direct_request" "', argument " "3"" of type '" "libtorrent::entry const &""'"); 
+  }
+  arg3 = (libtorrent::entry *)(argp3);
+  ecode4 = SWIG_AsVal_long_SS_long(args[2], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "session_handle_dht_direct_request" "', argument " "4"" of type '" "int64_t""'");
+  } 
+  arg4 = (int64_t)(val4);
+  libtorrent_session_handle_dht_direct_request__SWIG_1(arg1,arg2,(libtorrent::entry const &)*arg3,arg4);
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_session_handle__wrap_session_handle_dht_direct_request(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  OverloadErrorHandler errorHandler;
+  
+  
+  if(args.Length() == 2) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    jsresult = _wrap_session_handle_dht_direct_request__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(jsresult);
+    }
+#else
+    _wrap_session_handle_dht_direct_request__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  
+  if(args.Length() == 3) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    jsresult = _wrap_session_handle_dht_direct_request__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(jsresult);
+    }
+#else
+    _wrap_session_handle_dht_direct_request__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  
+  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for function dht_direct_request.");
   
   goto fail;
 fail:
@@ -99590,6 +99731,7 @@ SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "what", _wrap
 SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "message", _wrap_dht_direct_response_alert_message);
 SWIGV8_AddMemberVariable(_exports_dht_direct_response_alert_class, "addr", _wrap_dht_direct_response_alert_addr_get, _wrap_dht_direct_response_alert_addr_set);
 SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "response", _wrap_dht_direct_response_alert_response);
+SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "get_userdata", _wrap_dht_direct_response_alert_get_userdata);
 SWIGV8_AddMemberFunction(_exports_picker_log_alert_class, "type", _wrap_picker_log_alert_type);
 SWIGV8_AddMemberFunction(_exports_picker_log_alert_class, "category", _wrap_picker_log_alert_category);
 SWIGV8_AddMemberFunction(_exports_picker_log_alert_class, "what", _wrap_picker_log_alert_what);
@@ -99710,7 +99852,6 @@ SWIGV8_AddMemberFunction(_exports_session_handle_class, "add_dht_node", _wrap_se
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "add_dht_router", _wrap_session_handle_add_dht_router);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "dht_get_peers", _wrap_session_handle_dht_get_peers);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "dht_announce", _wrap_session_handle__wrap_session_handle_dht_announce);
-SWIGV8_AddMemberFunction(_exports_session_handle_class, "dht_direct_request", _wrap_session_handle_dht_direct_request);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "set_ip_filter", _wrap_session_handle_set_ip_filter);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "get_ip_filter", _wrap_session_handle_get_ip_filter);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "set_port_filter", _wrap_session_handle_set_port_filter);
@@ -99733,6 +99874,7 @@ SWIGV8_AddMemberFunction(_exports_session_handle_class, "add_port_mapping", _wra
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "delete_port_mapping", _wrap_session_handle_delete_port_mapping);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "dht_get_item", _wrap_session_handle__wrap_session_handle_dht_get_item);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "dht_put_item", _wrap_session_handle__wrap_session_handle_dht_put_item);
+SWIGV8_AddMemberFunction(_exports_session_handle_class, "dht_direct_request", _wrap_session_handle__wrap_session_handle_dht_direct_request);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "wait_for_alert_ms", _wrap_session_handle_wait_for_alert_ms);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "set_alert_notify_callback", _wrap_session_handle_set_alert_notify_callback);
 SWIGV8_AddMemberFunction(_exports_session_handle_class, "add_extension", _wrap_session_handle_add_extension);

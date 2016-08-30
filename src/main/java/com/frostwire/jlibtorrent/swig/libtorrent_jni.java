@@ -2109,6 +2109,7 @@ public class libtorrent_jni {
   public final static native void dht_direct_response_alert_addr_set(long jarg1, dht_direct_response_alert jarg1_, long jarg2, udp_endpoint jarg2_);
   public final static native long dht_direct_response_alert_addr_get(long jarg1, dht_direct_response_alert jarg1_);
   public final static native long dht_direct_response_alert_response(long jarg1, dht_direct_response_alert jarg1_);
+  public final static native long dht_direct_response_alert_get_userdata(long jarg1, dht_direct_response_alert jarg1_);
   public final static native void delete_dht_direct_response_alert(long jarg1);
   public final static native int picker_log_alert_priority_get();
   public final static native int picker_log_alert_alert_type_get();
@@ -2429,7 +2430,7 @@ public class libtorrent_jni {
   public final static native void session_handle_dht_announce__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_, int jarg3, int jarg4);
   public final static native void session_handle_dht_announce__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_, int jarg3);
   public final static native void session_handle_dht_announce__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_);
-  public final static native void session_handle_dht_direct_request(long jarg1, session_handle jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, entry jarg3_);
+  public final static native void session_handle_dht_direct_request__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, entry jarg3_);
   public final static native void session_handle_set_ip_filter(long jarg1, session_handle jarg1_, long jarg2, ip_filter jarg2_);
   public final static native long session_handle_get_ip_filter(long jarg1, session_handle jarg1_);
   public final static native void session_handle_set_port_filter(long jarg1, session_handle jarg1_, long jarg2, port_filter jarg2_);
@@ -2462,6 +2463,7 @@ public class libtorrent_jni {
   public final static native void session_handle_delete_port_mapping(long jarg1, session_handle jarg1_, int jarg2);
   public final static native void session_handle_dht_get_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
   public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_, long jarg5, byte_vector jarg5_);
+  public final static native void session_handle_dht_direct_request__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, entry jarg3_, long jarg4);
   public final static native long session_handle_wait_for_alert_ms(long jarg1, session_handle jarg1_, long jarg2);
   public final static native void session_handle_set_alert_notify_callback(long jarg1, session_handle jarg1_, long jarg2, alert_notify_callback jarg2_);
   public final static native void session_handle_add_extension(long jarg1, session_handle jarg1_, long jarg2, swig_plugin jarg2_);

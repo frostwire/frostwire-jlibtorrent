@@ -64,6 +64,10 @@ public class dht_direct_response_alert extends alert {
     return new bdecode_node(libtorrent_jni.dht_direct_response_alert_response(swigCPtr, this), true);
   }
 
+  public long get_userdata() {
+    return libtorrent_jni.dht_direct_response_alert_get_userdata(swigCPtr, this);
+  }
+
   public final static int priority = libtorrent_jni.dht_direct_response_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_direct_response_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_direct_response_alert_static_category_get();

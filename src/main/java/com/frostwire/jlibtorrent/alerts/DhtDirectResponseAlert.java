@@ -1,28 +1,43 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.BDecodeNode;
+import com.frostwire.jlibtorrent.Entry;
 import com.frostwire.jlibtorrent.UdpEndpoint;
-import com.frostwire.jlibtorrent.swig.bdecode_node;
 import com.frostwire.jlibtorrent.swig.dht_direct_response_alert;
 
 /**
- * This is posted exactly once for every call to session_handle::dht_direct_request.
- * If the request failed, response() will return a default constructed bdecode_node.
+ * This is posted exactly once for every call to
+ * {@link com.frostwire.jlibtorrent.SessionHandle#dhtDirectRequest(UdpEndpoint, Entry, long)}.
+ * <p>
+ * If the request failed, {@link #response()} will return a default constructed {@link BDecodeNode}.
  *
  * @author gubatron
  * @author aldenml
  */
 public final class DhtDirectResponseAlert extends AbstractAlert<dht_direct_response_alert> {
 
-    public DhtDirectResponseAlert(dht_direct_response_alert alert) {
+    DhtDirectResponseAlert(dht_direct_response_alert alert) {
         super(alert);
     }
 
+    /**
+     * @return
+     */
+    public long userdata() {
+        return alert.get_userdata();
+    }
+
+    /**
+     * @return
+     */
     public UdpEndpoint address() {
         return new UdpEndpoint(alert.getAddr());
     }
 
-    // TODO: Build the wrapper
-    public bdecode_node response() {
-        return alert.response();
+    /**
+     * @return
+     */
+    public BDecodeNode response() {
+        return new BDecodeNode(alert.response());
     }
 }

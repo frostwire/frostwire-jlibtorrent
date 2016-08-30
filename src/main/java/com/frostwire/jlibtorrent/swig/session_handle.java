@@ -160,7 +160,7 @@ public class session_handle {
   }
 
   public void dht_direct_request(udp_endpoint ep, entry e) {
-    libtorrent_jni.session_handle_dht_direct_request(swigCPtr, this, udp_endpoint.getCPtr(ep), ep, entry.getCPtr(e), e);
+    libtorrent_jni.session_handle_dht_direct_request__SWIG_0(swigCPtr, this, udp_endpoint.getCPtr(ep), ep, entry.getCPtr(e), e);
   }
 
   public void set_ip_filter(ip_filter f) {
@@ -253,6 +253,10 @@ public class session_handle {
 
   public void dht_put_item(byte_vector key, byte_vector sk, entry data, byte_vector salt) {
     libtorrent_jni.session_handle_dht_put_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(key), key, byte_vector.getCPtr(sk), sk, entry.getCPtr(data), data, byte_vector.getCPtr(salt), salt);
+  }
+
+  public void dht_direct_request(udp_endpoint ep, entry e, long userdata) {
+    libtorrent_jni.session_handle_dht_direct_request__SWIG_1(swigCPtr, this, udp_endpoint.getCPtr(ep), ep, entry.getCPtr(e), e, userdata);
   }
 
   public alert wait_for_alert_ms(long max_wait) {

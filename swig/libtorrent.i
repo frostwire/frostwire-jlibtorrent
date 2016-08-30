@@ -937,6 +937,10 @@ namespace libtorrent {
             std::string(salt.begin(), salt.end()));
     }
 
+    void dht_direct_request(udp::endpoint ep, entry const& e, int64_t userdata) {
+        $self->dht_direct_request(ep, e, (void*)userdata);
+    }
+
     alert* wait_for_alert_ms(int64_t max_wait) {
         return $self->wait_for_alert(libtorrent::milliseconds(max_wait));
     }
@@ -1221,8 +1225,16 @@ namespace libtorrent {
 }
 
 %extend dht_lookup {
+
     std::string get_type() {
         return std::string($self->type);
+    }
+}
+
+%extend dht_direct_response_alert {
+
+    int64_t get_userdata() {
+        return (int64_t)$self->userdata;
     }
 }
 
