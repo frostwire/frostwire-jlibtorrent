@@ -222,17 +222,6 @@ public final class AddTorrentParams {
         p.setSave_path(value);
     }
 
-    /*
-    public void setResume_data(char_vector value) {
-        libtorrent_jni.add_torrent_params_resume_data_set(swigCPtr, this, char_vector.getCPtr(value), value);
-    }
-
-    public char_vector getResume_data() {
-        long cPtr = libtorrent_jni.add_torrent_params_resume_data_get(swigCPtr, this);
-        return (cPtr == 0) ? null : new char_vector(cPtr, false);
-    }
-    */
-
     /**
      * @return
      * @see StorageMode
@@ -248,17 +237,6 @@ public final class AddTorrentParams {
     public void storageMode(StorageMode value) {
         p.setStorage_mode(storage_mode_t.swigToEnum(value.swig()));
     }
-
-/*
-    public void setFile_priorities(unsigned_char_vector value) {
-        libtorrent_jni.add_torrent_params_file_priorities_set(swigCPtr, this, unsigned_char_vector.getCPtr(value), value);
-    }
-
-    public unsigned_char_vector getFile_priorities() {
-        long cPtr = libtorrent_jni.add_torrent_params_file_priorities_get(swigCPtr, this);
-        return (cPtr == 0) ? null : new unsigned_char_vector(cPtr, false);
-    }
-*/
 
     /**
      * The default tracker id to be used when announcing to trackers. By
