@@ -640,6 +640,7 @@ typedef long time_t;
 %ignore libtorrent::torrent_info::add_merkle_nodes;
 %ignore libtorrent::torrent_info::build_merkle_list;
 %ignore libtorrent::torrent_info::ssl_cert;
+%ignore libtorrent::torrent_info::parse_torrent_file;
 %ignore libtorrent::sanitize_append_path_element;
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;

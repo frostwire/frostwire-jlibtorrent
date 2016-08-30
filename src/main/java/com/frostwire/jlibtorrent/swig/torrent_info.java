@@ -227,10 +227,6 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_is_merkle_torrent(swigCPtr, this);
   }
 
-  public boolean parse_torrent_file(bdecode_node libtorrent, error_code ec, int flags) {
-    return libtorrent_jni.torrent_info_parse_torrent_file(swigCPtr, this, bdecode_node.getCPtr(libtorrent), libtorrent, error_code.getCPtr(ec), ec, flags);
-  }
-
   public torrent_info(long buffer_ptr, int size, error_code ec, int flags) {
     this(libtorrent_jni.new_torrent_info__SWIG_7(buffer_ptr, size, error_code.getCPtr(ec), ec, flags), true);
   }

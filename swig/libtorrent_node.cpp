@@ -31685,67 +31685,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_torrent_info_parse_torrent_file(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_info *arg1 = (libtorrent::torrent_info *) 0 ;
-  libtorrent::bdecode_node *arg2 = 0 ;
-  libtorrent::error_code *arg3 = 0 ;
-  int arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  int val4 ;
-  int ecode4 = 0 ;
-  bool result;
-  
-  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_info_parse_torrent_file.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_info, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_info_parse_torrent_file" "', argument " "1"" of type '" "libtorrent::torrent_info *""'"); 
-  }
-  arg1 = (libtorrent::torrent_info *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__bdecode_node,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "torrent_info_parse_torrent_file" "', argument " "2"" of type '" "libtorrent::bdecode_node const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_info_parse_torrent_file" "', argument " "2"" of type '" "libtorrent::bdecode_node const &""'"); 
-  }
-  arg2 = (libtorrent::bdecode_node *)(argp2);
-  res3 = SWIG_ConvertPtr(args[1], &argp3, SWIGTYPE_p_boost__system__error_code,  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "torrent_info_parse_torrent_file" "', argument " "3"" of type '" "libtorrent::error_code &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_info_parse_torrent_file" "', argument " "3"" of type '" "libtorrent::error_code &""'"); 
-  }
-  arg3 = (libtorrent::error_code *)(argp3);
-  ecode4 = SWIG_AsVal_int(args[2], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "torrent_info_parse_torrent_file" "', argument " "4"" of type '" "int""'");
-  } 
-  arg4 = (int)(val4);
-  result = (bool)(arg1)->parse_torrent_file((libtorrent::bdecode_node const &)*arg2,*arg3,arg4);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_new_torrent_info__SWIG_7(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
   SWIGV8_HANDLESCOPE();
   
@@ -99033,7 +98972,6 @@ SWIGV8_AddMemberFunction(_exports_torrent_info_class, "add_node", _wrap_torrent_
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "info", _wrap_torrent_info_info);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "metadata_size", _wrap_torrent_info_metadata_size);
 SWIGV8_AddMemberFunction(_exports_torrent_info_class, "is_merkle_torrent", _wrap_torrent_info_is_merkle_torrent);
-SWIGV8_AddMemberFunction(_exports_torrent_info_class, "parse_torrent_file", _wrap_torrent_info_parse_torrent_file);
 SWIGV8_AddMemberFunction(_exports_block_info_class, "peer", _wrap_block_info_peer);
 SWIGV8_AddMemberVariable(_exports_block_info_class, "bytes_progress", _wrap_block_info_bytes_progress_get, _wrap_block_info_bytes_progress_set);
 SWIGV8_AddMemberVariable(_exports_block_info_class, "block_size", _wrap_block_info_block_size_get, _wrap_block_info_block_size_set);

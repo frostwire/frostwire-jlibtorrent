@@ -793,7 +793,6 @@ public class libtorrent_jni {
   public final static native long torrent_info_info(long jarg1, torrent_info jarg1_, String jarg2);
   public final static native int torrent_info_metadata_size(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
-  public final static native boolean torrent_info_parse_torrent_file(long jarg1, torrent_info jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_, int jarg4);
   public final static native long new_torrent_info__SWIG_7(long jarg1, int jarg2, long jarg3, error_code jarg3_, int jarg4);
   public final static native long new_torrent_info__SWIG_8(long jarg1, int jarg2, long jarg3, error_code jarg3_);
   public final static native long block_info_peer(long jarg1, block_info jarg1_);
