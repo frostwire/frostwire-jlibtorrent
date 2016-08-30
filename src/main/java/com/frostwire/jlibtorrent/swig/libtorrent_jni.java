@@ -2810,12 +2810,6 @@ public class libtorrent_jni {
   public final static native int ed25519_signature_size_get();
   public final static native int ed25519_scalar_size_get();
   public final static native int ed25519_shared_secret_size_get();
-  public final static native void ed25519_create_seed(long jarg1, byte_vector jarg1_);
-  public final static native void ed25519_create_keypair(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
-  public final static native void ed25519_sign(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_);
-  public final static native int ed25519_verify(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
-  public final static native void ed25519_add_scalar(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
-  public final static native void ed25519_key_exchange(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
   public final static native boolean default_storage_disk_write_access_log__SWIG_0();
   public final static native void default_storage_disk_write_access_log__SWIG_1(boolean jarg1);
   public final static native void delete_alert_notify_callback(long jarg1);

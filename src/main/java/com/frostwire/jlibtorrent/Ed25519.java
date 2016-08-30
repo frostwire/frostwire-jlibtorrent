@@ -25,7 +25,7 @@ public final class Ed25519 {
             throw new IllegalArgumentException("seed buffer must be not null and of size " + SEED_SIZE);
         }
         byte_vector v = Vectors.new_byte_vector(SEED_SIZE);
-        ed25519_create_seed(v);
+        //ed25519_create_seed(v);
 
         Vectors.byte_vector2bytes(v, seed);
     }
@@ -41,7 +41,7 @@ public final class Ed25519 {
         byte_vector v1 = Vectors.new_byte_vector(PUBLIC_KEY_SIZE);
         byte_vector v2 = Vectors.new_byte_vector(PRIVATE_KEY_SIZE);
 
-        ed25519_create_keypair(v1, v2, Vectors.bytes2byte_vector(seed));
+        //ed25519_create_keypair(v1, v2, Vectors.bytes2byte_vector(seed));
 
         Vectors.byte_vector2bytes(v1, publicKey);
         Vectors.byte_vector2bytes(v2, privateKey);
@@ -54,13 +54,13 @@ public final class Ed25519 {
 
         byte_vector v1 = Vectors.new_byte_vector(SIGNATURE_SIZE);
 
-        ed25519_sign(v1, Vectors.bytes2byte_vector(message), Vectors.bytes2byte_vector(publicKey), Vectors.bytes2byte_vector(privateKey));
+        //ed25519_sign(v1, Vectors.bytes2byte_vector(message), Vectors.bytes2byte_vector(publicKey), Vectors.bytes2byte_vector(privateKey));
 
         Vectors.byte_vector2bytes(v1, signature);
     }
 
     public static int verify(byte[] signature, byte[] message, byte[] privateKey) {
-        return ed25519_verify(Vectors.bytes2byte_vector(signature), Vectors.bytes2byte_vector(message), Vectors.bytes2byte_vector(privateKey));
+        return 0;//ed25519_verify(Vectors.bytes2byte_vector(signature), Vectors.bytes2byte_vector(message), Vectors.bytes2byte_vector(privateKey));
     }
 
     public static void addScalar(byte[] publicKey, byte[] privateKey, byte[] scalar) {
@@ -78,7 +78,7 @@ public final class Ed25519 {
         byte_vector v2 = Vectors.bytes2byte_vector(privateKey);
         byte_vector v3 = Vectors.bytes2byte_vector(scalar);
 
-        ed25519_add_scalar(v1, v2, v3);
+        //ed25519_add_scalar(v1, v2, v3);
 
         Vectors.byte_vector2bytes(v1, publicKey);
         Vectors.byte_vector2bytes(v2, privateKey);
@@ -91,7 +91,7 @@ public final class Ed25519 {
 
         byte_vector v1 = Vectors.new_byte_vector(SHARED_SECRET_SIZE);
 
-        ed25519_key_exchange(v1, Vectors.bytes2byte_vector(publicKey), Vectors.bytes2byte_vector(privateKey));
+        //ed25519_key_exchange(v1, Vectors.bytes2byte_vector(publicKey), Vectors.bytes2byte_vector(privateKey));
 
         Vectors.byte_vector2bytes(v1, sharedSecret);
     }

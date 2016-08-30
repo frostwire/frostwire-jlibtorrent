@@ -103,8 +103,8 @@ public class sha1_hash {
     return libtorrent_jni.sha1_hash_op_lt(swigCPtr, this, sha1_hash.getCPtr(n), n);
   }
 
-  public int compare(sha1_hash n) {
-    return libtorrent_jni.sha1_hash_compare(swigCPtr, this, sha1_hash.getCPtr(n), n);
+  public static int compare(sha1_hash h1, sha1_hash h2) {
+    return libtorrent_jni.sha1_hash_compare(sha1_hash.getCPtr(h1), h1, sha1_hash.getCPtr(h2), h2);
   }
 
 }

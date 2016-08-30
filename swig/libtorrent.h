@@ -11,13 +11,10 @@
 #include <algorithm>
 
 #include <boost/version.hpp>
-#include <boost/function.hpp>
-#include <boost/bind.hpp>
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/address_v4.hpp>
 #include <boost/asio/ip/address_v6.hpp>
-
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ip/udp.hpp>
 
@@ -38,6 +35,7 @@
 #include <libtorrent/kademlia/get_peers.hpp>
 #include <libtorrent/kademlia/item.hpp>
 
+/*
 void ed25519_create_seed(std::vector<int8_t>& seed) {
     ed25519_create_seed((unsigned char*)seed.data());
 }
@@ -84,7 +82,7 @@ void ed25519_key_exchange(std::vector<int8_t>& shared_secret,
     ed25519_key_exchange((unsigned char*)shared_secret.data(),
                         (unsigned char*)public_key.data(),
                         (unsigned char*)private_key.data());
-}
+}*/
 
 bool default_storage_disk_write_access_log() {
     return libtorrent::default_storage::disk_write_access_log();
@@ -114,8 +112,9 @@ public:
 };
 
 void add_files(libtorrent::file_storage& fs, std::string const& file,
-                add_files_listener* listener, boost::uint32_t flags) {
-    add_files(fs, file, boost::bind(&add_files_listener::pred, listener, _1), flags);
+                add_files_listener* listener, std::uint32_t flags) {
+    using namespace std::placeholders;
+    add_files(fs, file, std::bind(&add_files_listener::pred, listener, _1), flags);
 }
 
 class set_piece_hashes_listener {
@@ -129,7 +128,8 @@ public:
 
 void set_piece_hashes_ex(libtorrent::create_torrent& t, std::string const& p,
                         set_piece_hashes_listener* listener, libtorrent::error_code& ec) {
-    set_piece_hashes(t, p, boost::bind(&set_piece_hashes_listener::progress, listener, _1), ec);
+    using namespace std::placeholders;
+    set_piece_hashes(t, p, std::bind(&set_piece_hashes_listener::progress, listener, _1), ec);
 }
 
 int boost_version() {
@@ -148,28 +148,24 @@ const char* openssl_version_text() {
     return OPENSSL_VERSION_TEXT;
 }
 
-void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, boost::uint64_t& seq,
-    std::string const& salt, char const* public_key, char const* private_key,
-    libtorrent::entry& data)
-{
-	/*using libtorrent::dht::sign_mutable_item;
+void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::uint64_t& seq,
+    std::string salt, libtorrent::dht::public_key pk, libtorrent::dht::secret_key sk,
+    libtorrent::entry data) {
+
+    using namespace libtorrent::dht;
 
 	e = data;
 	std::vector<char> buf;
 	bencode(std::back_inserter(buf), e);
+	signature sign;
 	++seq;
-	sign_mutable_item(std::pair<char const*, int>(buf.data(), buf.size()),
-        std::pair<char const*, int>(salt.data(), salt.size()),
-        seq,
-        public_key,
-        private_key,
-        sig.data());*/
+	sign = sign_mutable_item(buf, salt, sequence_number(seq), pk, sk);
+    sig = sign.bytes;
 }
-
 
 #if TORRENT_ANDROID && TORRENT_HAS_ARM && __ANDROID_API__ < 21
 #include <stdio.h>
-unsigned long getauxval(unsigned long type)  {
+unsigned long getauxval(unsigned long type) {
     typedef unsigned long getauxval_func_t(unsigned long);
 
     dlerror();

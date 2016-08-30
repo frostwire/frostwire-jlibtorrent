@@ -134,7 +134,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
     }
 
     public static int compare(Sha1Hash h1, Sha1Hash h2) {
-        return h1.h.compare(h2.h);
+        return sha1_hash.compare(h1.h, h2.h);
     }
 
     static ArrayList<Sha1Hash> convert(sha1_hash_vector v) {

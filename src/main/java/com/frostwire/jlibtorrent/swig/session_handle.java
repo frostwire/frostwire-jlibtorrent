@@ -247,12 +247,12 @@ public class session_handle {
     libtorrent_jni.session_handle_delete_port_mapping(swigCPtr, this, handle);
   }
 
-  public void dht_get_item(byte_vector public_key, byte_vector salt) {
-    libtorrent_jni.session_handle_dht_get_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(salt), salt);
+  public void dht_get_item(byte_vector key, byte_vector salt) {
+    libtorrent_jni.session_handle_dht_get_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(key), key, byte_vector.getCPtr(salt), salt);
   }
 
-  public void dht_put_item(byte_vector public_key, byte_vector private_key, entry data, byte_vector salt) {
-    libtorrent_jni.session_handle_dht_put_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key, entry.getCPtr(data), data, byte_vector.getCPtr(salt), salt);
+  public void dht_put_item(byte_vector key, byte_vector sk, entry data, byte_vector salt) {
+    libtorrent_jni.session_handle_dht_put_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(key), key, byte_vector.getCPtr(sk), sk, entry.getCPtr(data), data, byte_vector.getCPtr(salt), salt);
   }
 
   public alert wait_for_alert_ms(long max_wait) {

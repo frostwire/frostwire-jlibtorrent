@@ -426,8 +426,8 @@ namespace libtorrent {
                 return *$self < n;
             }
 
-            int compare(sha1_hash const& n) const {
-                return *$self == n ? 0 : (*$self < n ? -1 : 1);
+            static int compare(sha1_hash const& h1, sha1_hash const& h2) const {
+                return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
             }
         }
     };
@@ -912,35 +912,32 @@ namespace libtorrent {
 
 %extend session_handle {
 
-    void dht_get_item(std::vector<int8_t>& public_key, std::vector<int8_t>& salt) {
-        if (public_key.size() != 32) {
+    void dht_get_item(std::vector<int8_t>& key, std::vector<int8_t>& salt) {
+        if (key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
         }
-        std::array<char, 32> key;
+        std::array<char, 32> pk;
+        std::copy_n(key.begin(), 32, pk.begin());
 
-        for (int i = 0; i < 32; i++) {
-            key[i] = public_key[i];
-        }
-
-        $self->dht_get_item(key, std::string(salt.begin(), salt.end()));
+        $self->dht_get_item(pk, std::string(salt.begin(), salt.end()));
     }
 
-    void dht_put_item(std::vector<int8_t>& public_key, std::vector<int8_t>& private_key, entry& data, std::vector<int8_t>& salt) {
-        if (public_key.size() != 32) {
+    void dht_put_item(std::vector<int8_t>& key, std::vector<int8_t>& sk, entry& data, std::vector<int8_t>& salt) {
+        if (key.size() != 32) {
             throw std::invalid_argument("Public key must be of size 32");
         }
-        if (private_key.size() != 64) {
+        if (sk.size() != 64) {
             throw std::invalid_argument("Private key must be of size 64");
         }
-        std::array<char, 32> key;
+        std::array<char, 32> pk;
+        std::copy_n(key.begin(), 32, pk.begin());
 
-    	for (int i = 0; i < 32; i++) {
-    	    key[i] = public_key[i];
-    	}
+        using namespace std::placeholders;
+        using namespace libtorrent::dht;
 
-        //$self->dht_put_item(key, boost::bind(&dht_put_item_cb, _1, _2, _3, _4,
-        //    (const char *)public_key.data(), (const char *)private_key.data(), data),
-        //    std::string(salt.begin(), salt.end()));
+        $self->dht_put_item(pk, std::bind(&dht_put_item_cb, _1, _2, _3, _4,
+            public_key((char*)key.data()), secret_key((char*)sk.data()), data),
+            std::string(salt.begin(), salt.end()));
     }
 
     alert* wait_for_alert_ms(int64_t max_wait) {

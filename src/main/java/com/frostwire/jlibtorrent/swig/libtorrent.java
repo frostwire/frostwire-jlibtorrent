@@ -137,30 +137,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.set_piece_hashes(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
-  public static void ed25519_create_seed(byte_vector seed) {
-    libtorrent_jni.ed25519_create_seed(byte_vector.getCPtr(seed), seed);
-  }
-
-  public static void ed25519_create_keypair(byte_vector public_key, byte_vector private_key, byte_vector seed) {
-    libtorrent_jni.ed25519_create_keypair(byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key, byte_vector.getCPtr(seed), seed);
-  }
-
-  public static void ed25519_sign(byte_vector signature, byte_vector message, byte_vector public_key, byte_vector private_key) {
-    libtorrent_jni.ed25519_sign(byte_vector.getCPtr(signature), signature, byte_vector.getCPtr(message), message, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key);
-  }
-
-  public static int ed25519_verify(byte_vector signature, byte_vector message, byte_vector private_key) {
-    return libtorrent_jni.ed25519_verify(byte_vector.getCPtr(signature), signature, byte_vector.getCPtr(message), message, byte_vector.getCPtr(private_key), private_key);
-  }
-
-  public static void ed25519_add_scalar(byte_vector public_key, byte_vector private_key, byte_vector scalar) {
-    libtorrent_jni.ed25519_add_scalar(byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key, byte_vector.getCPtr(scalar), scalar);
-  }
-
-  public static void ed25519_key_exchange(byte_vector shared_secret, byte_vector public_key, byte_vector private_key) {
-    libtorrent_jni.ed25519_key_exchange(byte_vector.getCPtr(shared_secret), shared_secret, byte_vector.getCPtr(public_key), public_key, byte_vector.getCPtr(private_key), private_key);
-  }
-
   public static boolean default_storage_disk_write_access_log() {
     return libtorrent_jni.default_storage_disk_write_access_log__SWIG_0();
   }
