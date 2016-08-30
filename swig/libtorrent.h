@@ -26,6 +26,7 @@
 #include <libtorrent/socket_io.hpp>
 #include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/hex.hpp>
+#include <libtorrent/extensions.hpp>
 
 #include <libtorrent/kademlia/dht_tracker.hpp>
 #include <libtorrent/kademlia/node_entry.hpp>
@@ -124,8 +125,8 @@ void default_storage_disk_write_access_log(bool enable) {
     return libtorrent::default_storage::disk_write_access_log(enable);
 }
 
-class alert_notify_callback {
-public:
+struct alert_notify_callback {
+
     virtual ~alert_notify_callback() {
     }
 
@@ -133,8 +134,8 @@ public:
     }
 };
 
-class add_files_listener {
-public:
+struct add_files_listener {
+
     virtual ~add_files_listener() {
     }
 
@@ -149,8 +150,8 @@ void add_files(libtorrent::file_storage& fs, std::string const& file,
     add_files(fs, file, std::bind(&add_files_listener::pred, listener, _1), flags);
 }
 
-class set_piece_hashes_listener {
-public:
+struct set_piece_hashes_listener {
+
     virtual ~set_piece_hashes_listener() {
     }
 
@@ -193,6 +194,22 @@ void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::uint6
 	sign = sign_mutable_item(buf, salt, sequence_number(seq), pk, sk);
     sig = sign.bytes;
 }
+
+struct swig_plugin : libtorrent::plugin {
+
+    virtual ~swig_plugin() {
+    }
+
+    std::uint32_t implemented_features() {
+        return libtorrent::plugin::dht_request_feature;
+    }
+
+    virtual bool on_dht_request(libtorrent::string_view query,
+        libtorrent::udp::endpoint const& source,
+        libtorrent::bdecode_node const& message, libtorrent::entry& response) {
+        return false;
+    }
+};
 
 #if TORRENT_ANDROID && TORRENT_HAS_ARM && __ANDROID_API__ < 21
 #include <stdio.h>

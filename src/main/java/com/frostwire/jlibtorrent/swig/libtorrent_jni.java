@@ -2464,6 +2464,7 @@ public class libtorrent_jni {
   public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_, long jarg5, byte_vector jarg5_);
   public final static native long session_handle_wait_for_alert_ms(long jarg1, session_handle jarg1_, long jarg2);
   public final static native void session_handle_set_alert_notify_callback(long jarg1, session_handle jarg1_, long jarg2, alert_notify_callback jarg2_);
+  public final static native void session_handle_add_extension(long jarg1, session_handle jarg1_, long jarg2, swig_plugin jarg2_);
   public final static native void delete_session_handle(long jarg1);
   public final static native void min_memory_usage(long jarg1, settings_pack jarg1_);
   public final static native void high_performance_seed(long jarg1, settings_pack jarg1_);
@@ -2839,6 +2840,12 @@ public class libtorrent_jni {
   public final static native String boost_lib_version();
   public final static native int openssl_version_number();
   public final static native String openssl_version_text();
+  public final static native void delete_swig_plugin(long jarg1);
+  public final static native boolean swig_plugin_on_dht_request(long jarg1, swig_plugin jarg1_, long jarg2, string_view jarg2_, long jarg3, udp_endpoint jarg3_, long jarg4, bdecode_node jarg4_, long jarg5, entry jarg5_);
+  public final static native boolean swig_plugin_on_dht_requestSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, string_view jarg2_, long jarg3, udp_endpoint jarg3_, long jarg4, bdecode_node jarg4_, long jarg5, entry jarg5_);
+  public final static native long new_swig_plugin();
+  public final static native void swig_plugin_director_connect(swig_plugin obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void swig_plugin_change_ownership(swig_plugin obj, long cptr, boolean take_or_release);
   public final static native boolean is_utp_stream_logging();
   public final static native void set_utp_stream_logging(boolean jarg1);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
@@ -2933,6 +2940,9 @@ public class libtorrent_jni {
 
   public static void SwigDirector_alert_notify_callback_on_alert(alert_notify_callback jself) {
     jself.on_alert();
+  }
+  public static boolean SwigDirector_swig_plugin_on_dht_request(swig_plugin jself, long query, long source, long message, long response) {
+    return jself.on_dht_request(new string_view(query, true), new udp_endpoint(source, false), new bdecode_node(message, false), new entry(response, false));
   }
 
   private final static native void swig_module_init();

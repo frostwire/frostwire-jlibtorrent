@@ -378,20 +378,44 @@ public class SessionHandle {
                 Vectors.bytes2byte_vector(salt));
     }
 
+    /**
+     * @param infoHash
+     */
     public void dhtGetPeers(Sha1Hash infoHash) {
         s.dht_get_peers(infoHash.swig());
     }
 
+    /**
+     * @param infoHash
+     * @param port
+     * @param flags
+     */
     public void dhtAnnounce(Sha1Hash infoHash, int port, int flags) {
         s.dht_announce(infoHash.swig(), port, flags);
     }
 
+    /**
+     * @param infoHash
+     */
     public void dhtAnnounce(Sha1Hash infoHash) {
         s.dht_announce(infoHash.swig());
     }
 
+    /**
+     * @param endp
+     * @param entry
+     */
     public void dhtDirectRequest(UdpEndpoint endp, Entry entry) {
         s.dht_direct_request(endp.swig(), entry.swig());
+    }
+
+    /**
+     *
+     */
+    public void addExtension(Plugin plugin) {
+        SwigPlugin p = new SwigPlugin(plugin);
+        s.add_extension(p);
+        p.swigReleaseOwnership();
     }
 
 

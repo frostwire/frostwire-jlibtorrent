@@ -264,6 +264,10 @@ public class session_handle {
     libtorrent_jni.session_handle_set_alert_notify_callback(swigCPtr, this, alert_notify_callback.getCPtr(cb), cb);
   }
 
+  public void add_extension(swig_plugin ext) {
+    libtorrent_jni.session_handle_add_extension(swigCPtr, this, swig_plugin.getCPtr(ext), ext);
+  }
+
   public final static class save_state_flags_t {
     public final static session_handle.save_state_flags_t save_settings = new session_handle.save_state_flags_t("save_settings", libtorrent_jni.session_handle_save_settings_get());
     public final static session_handle.save_state_flags_t save_dht_settings = new session_handle.save_state_flags_t("save_dht_settings", libtorrent_jni.session_handle_save_dht_settings_get());

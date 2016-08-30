@@ -6,6 +6,8 @@
 #pragma SWIG nowarn=341
 // suppress Warning 401: Nothing known about base class '<name>'. Ignored.
 #pragma SWIG nowarn=401
+// supress Warning 402: Base class '<name>' is incomplete.
+#pragma SWIG nowarn=402
 
 %{
 // BEGIN common set include ------------------------------------------------------
@@ -559,13 +561,13 @@ typedef long time_t;
 %ignore libtorrent::session_handle::get_torrent_status;
 %ignore libtorrent::session_handle::get_io_service;
 %ignore libtorrent::session_handle::get_connection_queue;
-%ignore libtorrent::session_handle::add_extension(boost::function<boost::shared_ptr<torrent_plugin>(torrent_handle const&, void*)>);
+%ignore libtorrent::session_handle::add_extension(std::function<std::shared_ptr<torrent_plugin>(torrent_handle const&, void*)>);
+%ignore libtorrent::session_handle::add_extension(std::shared_ptr<plugin>);
 %ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::uint64_t&, std::string const&)>, std::string);
 %ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::uint64_t&, std::string const&)>);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libtorrent::session_handle::dht_direct_request(udp::endpoint, entry const&, void*);
-%ignore libtorrent::session_handle::add_extension;
 %ignore libtorrent::session_handle::set_load_function;
 %ignore libtorrent::session_handle::set_alert_notify;
 %ignore libtorrent::session_handle::native_handle;
@@ -758,6 +760,9 @@ typedef long time_t;
 %ignore dht_put_item_cb;
 
 %feature("director") alert_notify_callback;
+%feature("director") swig_plugin;
+
+%ignore swig_plugin::implemented_features;
 
 // BEGIN common set include ------------------------------------------------------
 
@@ -938,6 +943,10 @@ namespace libtorrent {
 
     void set_alert_notify_callback(alert_notify_callback* cb) {
         $self->set_alert_notify(std::bind(&alert_notify_callback::on_alert, cb));
+    }
+
+    void add_extension(swig_plugin* ext) {
+        $self->add_extension(std::shared_ptr<libtorrent::plugin>(ext));
     }
 }
 

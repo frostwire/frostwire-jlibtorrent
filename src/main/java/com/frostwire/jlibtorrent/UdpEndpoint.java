@@ -47,6 +47,6 @@ public final class UdpEndpoint {
 
     @Override
     public String toString() {
-        return "udp:" + endp.address() + ":" + endp.port();
+        return "udp:" + Address.toString(endp.address()) + ":" + endp.port();
     }
 }

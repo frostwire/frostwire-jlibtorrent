@@ -36,7 +36,7 @@ public class SessionManager {
     private final SessionStats stats;
     private long lastStatsRequestTime;
     private boolean firewalled;
-    private List<TcpEndpoint> listenEndpoints;
+    private final List<TcpEndpoint> listenEndpoints;
     private Address externalAddress;
 
     public SessionManager(boolean logging) {
@@ -128,6 +128,9 @@ public class SessionManager {
         }
     }
 
+    /**
+     * This method blocks for at least a second, don't call it from the UI thread.
+     */
     public void restart() {
         sync.lock();
 
@@ -219,6 +222,11 @@ public class SessionManager {
 
     public void applySettings(SettingsPack sp) {
         if (session != null) {
+
+            if (sp == null) {
+                throw new IllegalArgumentException("settings pack can't be null");
+            }
+
             session.apply_settings(sp.swig());
         }
     }
