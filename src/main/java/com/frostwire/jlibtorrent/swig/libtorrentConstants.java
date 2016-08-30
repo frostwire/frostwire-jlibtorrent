@@ -17,11 +17,4 @@ public interface libtorrentConstants {
   public final static String LIBTORRENT_REVISION = libtorrent_jni.LIBTORRENT_REVISION_get();
   public final static int num_alert_types = libtorrent_jni.num_alert_types_get();
 
-  public final static int ed25519_seed_size = libtorrent_jni.ed25519_seed_size_get();
-  public final static int ed25519_private_key_size = libtorrent_jni.ed25519_private_key_size_get();
-  public final static int ed25519_public_key_size = libtorrent_jni.ed25519_public_key_size_get();
-  public final static int ed25519_signature_size = libtorrent_jni.ed25519_signature_size_get();
-  public final static int ed25519_scalar_size = libtorrent_jni.ed25519_scalar_size_get();
-  public final static int ed25519_shared_secret_size = libtorrent_jni.ed25519_shared_secret_size_get();
-
 }

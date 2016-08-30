@@ -1643,37 +1643,38 @@ SWIGRUNTIME void JS_veto_set_variable(v8::Local<v8::String> property, v8::Local<
 #define SWIGTYPE_p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t swig_types[160]
 #define SWIGTYPE_p_std__pairT_std__string_int_t swig_types[161]
 #define SWIGTYPE_p_std__pairT_std__string_std__string_t swig_types[162]
-#define SWIGTYPE_p_std__vectorT_int_t swig_types[163]
-#define SWIGTYPE_p_std__vectorT_libtorrent__alert_p_t swig_types[164]
-#define SWIGTYPE_p_std__vectorT_libtorrent__announce_entry_t swig_types[165]
-#define SWIGTYPE_p_std__vectorT_libtorrent__block_info_t swig_types[166]
-#define SWIGTYPE_p_std__vectorT_libtorrent__dht_lookup_t swig_types[167]
-#define SWIGTYPE_p_std__vectorT_libtorrent__dht_routing_bucket_t swig_types[168]
-#define SWIGTYPE_p_std__vectorT_libtorrent__entry_t swig_types[169]
-#define SWIGTYPE_p_std__vectorT_libtorrent__file_slice_t swig_types[170]
-#define SWIGTYPE_p_std__vectorT_libtorrent__partial_piece_info_t swig_types[171]
-#define SWIGTYPE_p_std__vectorT_libtorrent__peer_info_t swig_types[172]
-#define SWIGTYPE_p_std__vectorT_libtorrent__peer_list_entry_t swig_types[173]
-#define SWIGTYPE_p_std__vectorT_libtorrent__sha1_hash_t swig_types[174]
-#define SWIGTYPE_p_std__vectorT_libtorrent__stats_metric_t swig_types[175]
-#define SWIGTYPE_p_std__vectorT_libtorrent__tcp__endpoint_t swig_types[176]
-#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_handle_t swig_types[177]
-#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_status_t swig_types[178]
-#define SWIGTYPE_p_std__vectorT_libtorrent__web_seed_entry_t swig_types[179]
-#define SWIGTYPE_p_std__vectorT_long_long_t swig_types[180]
-#define SWIGTYPE_p_std__vectorT_signed_char_t swig_types[181]
-#define SWIGTYPE_p_std__vectorT_std__pairT_int_int_t_t swig_types[182]
-#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_int_t_t swig_types[183]
-#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_std__string_t_t swig_types[184]
-#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[185]
-#define SWIGTYPE_p_string_type swig_types[186]
-#define SWIGTYPE_p_unsigned_char swig_types[187]
-#define SWIGTYPE_p_unsigned_int swig_types[188]
-#define SWIGTYPE_p_unsigned_long_long swig_types[189]
-#define SWIGTYPE_p_unsigned_short swig_types[190]
-#define SWIGTYPE_p_value_type swig_types[191]
-static swig_type_info *swig_types[193];
-static swig_module_info swig_module = {swig_types, 192, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t swig_types[163]
+#define SWIGTYPE_p_std__vectorT_int_t swig_types[164]
+#define SWIGTYPE_p_std__vectorT_libtorrent__alert_p_t swig_types[165]
+#define SWIGTYPE_p_std__vectorT_libtorrent__announce_entry_t swig_types[166]
+#define SWIGTYPE_p_std__vectorT_libtorrent__block_info_t swig_types[167]
+#define SWIGTYPE_p_std__vectorT_libtorrent__dht_lookup_t swig_types[168]
+#define SWIGTYPE_p_std__vectorT_libtorrent__dht_routing_bucket_t swig_types[169]
+#define SWIGTYPE_p_std__vectorT_libtorrent__entry_t swig_types[170]
+#define SWIGTYPE_p_std__vectorT_libtorrent__file_slice_t swig_types[171]
+#define SWIGTYPE_p_std__vectorT_libtorrent__partial_piece_info_t swig_types[172]
+#define SWIGTYPE_p_std__vectorT_libtorrent__peer_info_t swig_types[173]
+#define SWIGTYPE_p_std__vectorT_libtorrent__peer_list_entry_t swig_types[174]
+#define SWIGTYPE_p_std__vectorT_libtorrent__sha1_hash_t swig_types[175]
+#define SWIGTYPE_p_std__vectorT_libtorrent__stats_metric_t swig_types[176]
+#define SWIGTYPE_p_std__vectorT_libtorrent__tcp__endpoint_t swig_types[177]
+#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_handle_t swig_types[178]
+#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_status_t swig_types[179]
+#define SWIGTYPE_p_std__vectorT_libtorrent__web_seed_entry_t swig_types[180]
+#define SWIGTYPE_p_std__vectorT_long_long_t swig_types[181]
+#define SWIGTYPE_p_std__vectorT_signed_char_t swig_types[182]
+#define SWIGTYPE_p_std__vectorT_std__pairT_int_int_t_t swig_types[183]
+#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_int_t_t swig_types[184]
+#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_std__string_t_t swig_types[185]
+#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[186]
+#define SWIGTYPE_p_string_type swig_types[187]
+#define SWIGTYPE_p_unsigned_char swig_types[188]
+#define SWIGTYPE_p_unsigned_int swig_types[189]
+#define SWIGTYPE_p_unsigned_long_long swig_types[190]
+#define SWIGTYPE_p_unsigned_short swig_types[191]
+#define SWIGTYPE_p_value_type swig_types[192]
+static swig_type_info *swig_types[194];
+static swig_module_info swig_module = {swig_types, 193, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -1725,7 +1726,6 @@ static swig_module_info swig_module = {swig_types, 192, 0, 0, 0, 0};
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
-#include "libtorrent/ed25519.hpp"
 
 #include "libtorrent.h"
 
@@ -3022,6 +3022,7 @@ SWIGV8_ClientData _exports_int_int_pair_clientData;
 SWIGV8_ClientData _exports_string_int_pair_clientData;
 SWIGV8_ClientData _exports_string_string_pair_clientData;
 SWIGV8_ClientData _exports_string_view_bdecode_node_pair_clientData;
+SWIGV8_ClientData _exports_byte_vectors_pair_clientData;
 SWIGV8_ClientData _exports_byte_vector_clientData;
 SWIGV8_ClientData _exports_string_vector_clientData;
 SWIGV8_ClientData _exports_string_int_pair_vector_clientData;
@@ -4390,6 +4391,313 @@ static void _wrap_delete_string_view_bdecode_node_pair(v8::Persistent<v8::Value>
         
         if(proxy->swigCMemOwn && proxy->swigCObject) {
           std::pair< libtorrent::string_view,libtorrent::bdecode_node > * arg1 = (std::pair< libtorrent::string_view,libtorrent::bdecode_node > *)proxy->swigCObject;
+          delete arg1;
+        }
+        delete proxy;
+        
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
+        object.Dispose();
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
+        object.Dispose(isolate);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
+        object->Dispose(isolate);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
+        object->Dispose();
+#else
+        object.Clear();
+#endif
+      }
+
+
+static SwigV8ReturnValue _wrap_new_byte_vectors_pair__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > *result;
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_byte_vectors_pair__SWIG_0.");
+  result = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)new std::pair< std::vector< int8_t >,std::vector< int8_t > >();
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_byte_vectors_pair__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  std::vector< int8_t > arg1 ;
+  std::vector< int8_t > arg2 ;
+  void *argp1 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > *result;
+  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_byte_vectors_pair__SWIG_1.");
+  {
+    res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_byte_vectors_pair" "', argument " "1"" of type '" "std::vector< int8_t >""'"); 
+    }  
+    if (!argp1) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_byte_vectors_pair" "', argument " "1"" of type '" "std::vector< int8_t >""'");
+    } else {
+      arg1 = *((std::vector< int8_t > *)(argp1));
+    }
+  }
+  {
+    res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_byte_vectors_pair" "', argument " "2"" of type '" "std::vector< int8_t >""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_byte_vectors_pair" "', argument " "2"" of type '" "std::vector< int8_t >""'");
+    } else {
+      arg2 = *((std::vector< int8_t > *)(argp2));
+    }
+  }
+  result = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)new std::pair< std::vector< int8_t >,std::vector< int8_t > >(arg1,arg2);
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_byte_vectors_pair__SWIG_2(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > *arg1 = 0 ;
+  void *argp1 ;
+  int res1 = 0 ;
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > *result;
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_byte_vectors_pair__SWIG_2.");
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_byte_vectors_pair" "', argument " "1"" of type '" "std::pair< std::vector< int8_t >,std::vector< int8_t > > const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_byte_vectors_pair" "', argument " "1"" of type '" "std::pair< std::vector< int8_t >,std::vector< int8_t > > const &""'"); 
+  }
+  arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)(argp1);
+  result = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)new std::pair< std::vector< int8_t >,std::vector< int8_t > >((std::pair< std::vector< int8_t >,std::vector< int8_t > > const &)*arg1);
+  
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_byte_vectors_pair(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  OverloadErrorHandler errorHandler;
+  v8::Handle<v8::Value> self;
+  
+  // switch all cases by means of series of if-returns.
+  
+  if(args.Length() == 0) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_byte_vectors_pair__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_byte_vectors_pair__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 2) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_byte_vectors_pair__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_byte_vectors_pair__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  if(args.Length() == 1) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    self = _wrap_new_byte_vectors_pair__SWIG_2(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(self);
+    }
+#else
+    _wrap_new_byte_vectors_pair__SWIG_2(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  
+  // default:
+  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_byte_vectors_pair");
+  
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static void _wrap_byte_vectors_pair_first_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+  const SwigV8PropertyCallbackInfoVoid &info) {
+  SWIGV8_HANDLESCOPE();
+  
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > *arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *) 0 ;
+  std::vector< int8_t > *arg2 = (std::vector< int8_t > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "byte_vectors_pair_first_set" "', argument " "1"" of type '" "std::pair< std::vector< int8_t >,std::vector< int8_t > > *""'"); 
+  }
+  arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)(argp1);
+  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_std__vectorT_signed_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "byte_vectors_pair_first_set" "', argument " "2"" of type '" "std::vector< int8_t > *""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  if (arg1) (arg1)->first = *arg2;
+  
+  
+  
+  goto fail;
+fail:
+  return;
+}
+
+
+static SwigV8ReturnValue _wrap_byte_vectors_pair_first_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > *arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< int8_t > *result = 0 ;
+  
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "byte_vectors_pair_first_get" "', argument " "1"" of type '" "std::pair< std::vector< int8_t >,std::vector< int8_t > > *""'"); 
+  }
+  arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)(argp1);
+  result = (std::vector< int8_t > *)& ((arg1)->first);
+  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_signed_char_t, 0 |  0 );
+  
+  
+  SWIGV8_RETURN_INFO(jsresult, info);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+}
+
+
+static void _wrap_byte_vectors_pair_second_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+  const SwigV8PropertyCallbackInfoVoid &info) {
+  SWIGV8_HANDLESCOPE();
+  
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > *arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *) 0 ;
+  std::vector< int8_t > *arg2 = (std::vector< int8_t > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "byte_vectors_pair_second_set" "', argument " "1"" of type '" "std::pair< std::vector< int8_t >,std::vector< int8_t > > *""'"); 
+  }
+  arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)(argp1);
+  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_std__vectorT_signed_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "byte_vectors_pair_second_set" "', argument " "2"" of type '" "std::vector< int8_t > *""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  if (arg1) (arg1)->second = *arg2;
+  
+  
+  
+  goto fail;
+fail:
+  return;
+}
+
+
+static SwigV8ReturnValue _wrap_byte_vectors_pair_second_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > *arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< int8_t > *result = 0 ;
+  
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "byte_vectors_pair_second_get" "', argument " "1"" of type '" "std::pair< std::vector< int8_t >,std::vector< int8_t > > *""'"); 
+  }
+  arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)(argp1);
+  result = (std::vector< int8_t > *)& ((arg1)->second);
+  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_signed_char_t, 0 |  0 );
+  
+  
+  SWIGV8_RETURN_INFO(jsresult, info);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+}
+
+
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
+static void _wrap_delete_byte_vectors_pair(v8::Persistent<v8::Value> object, void *parameter) {
+  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
+  static void _wrap_delete_byte_vectors_pair(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
+    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
+#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
+    static void _wrap_delete_byte_vectors_pair(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
+#else
+      static void _wrap_delete_byte_vectors_pair(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
+        v8::Local<v8::Object> object = data.GetValue();
+        SWIGV8_Proxy *proxy = data.GetParameter();
+#endif
+        
+        if(proxy->swigCMemOwn && proxy->swigCObject) {
+          std::pair< std::vector< int8_t >,std::vector< int8_t > > * arg1 = (std::pair< std::vector< int8_t >,std::vector< int8_t > > *)proxy->swigCObject;
           delete arg1;
         }
         delete proxy;
@@ -94035,93 +94343,292 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_ed25519_seed_size(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_ed25519_create_seed(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
+  std::vector< int8_t > result;
   
-  jsresult = SWIG_From_int((int)(libtorrent::ed25519_seed_size));
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_ed25519_create_seed.");
   
-  SWIGV8_RETURN_INFO(jsresult, info);
+  result = ed25519_create_seed();
+  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  
+  SWIGV8_RETURN(jsresult);
   
   goto fail;
 fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_ed25519_private_key_size(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_ed25519_create_keypair(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
+  std::vector< int8_t > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::pair< std::vector< int8_t >,std::vector< int8_t > > result;
   
-  jsresult = SWIG_From_int((int)(libtorrent::ed25519_private_key_size));
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_ed25519_create_keypair.");
   
-  SWIGV8_RETURN_INFO(jsresult, info);
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ed25519_create_keypair" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_create_keypair" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg1 = (std::vector< int8_t > *)(argp1);
+  result = ed25519_create_keypair(*arg1);
+  jsresult = SWIG_NewPointerObj((new std::pair< std::vector< int8_t >,std::vector< int8_t > >((const std::pair< std::vector< int8_t >,std::vector< int8_t > >&)(result))), SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, SWIG_POINTER_OWN |  0 );
+  
+  
+  SWIGV8_RETURN(jsresult);
   
   goto fail;
 fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_ed25519_public_key_size(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_ed25519_sign(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
+  std::vector< int8_t > *arg1 = 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  std::vector< int8_t > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  std::vector< int8_t > result;
   
-  jsresult = SWIG_From_int((int)(libtorrent::ed25519_public_key_size));
+  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_ed25519_sign.");
   
-  SWIGV8_RETURN_INFO(jsresult, info);
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ed25519_sign" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_sign" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg1 = (std::vector< int8_t > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ed25519_sign" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_sign" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  res3 = SWIG_ConvertPtr(args[2], &argp3, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ed25519_sign" "', argument " "3"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_sign" "', argument " "3"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg3 = (std::vector< int8_t > *)(argp3);
+  result = ed25519_sign(*arg1,*arg2,*arg3);
+  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
   
   goto fail;
 fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_ed25519_signature_size(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_ed25519_verify(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
+  std::vector< int8_t > *arg1 = 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  std::vector< int8_t > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  bool result;
   
-  jsresult = SWIG_From_int((int)(libtorrent::ed25519_signature_size));
+  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_ed25519_verify.");
   
-  SWIGV8_RETURN_INFO(jsresult, info);
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ed25519_verify" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_verify" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg1 = (std::vector< int8_t > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ed25519_verify" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_verify" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  res3 = SWIG_ConvertPtr(args[2], &argp3, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ed25519_verify" "', argument " "3"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_verify" "', argument " "3"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg3 = (std::vector< int8_t > *)(argp3);
+  result = (bool)ed25519_verify(*arg1,*arg2,*arg3);
+  jsresult = SWIG_From_bool((bool)(result));
+  
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
   
   goto fail;
 fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_ed25519_scalar_size(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_ed25519_add_scalar_public(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
+  std::vector< int8_t > *arg1 = 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  std::vector< int8_t > result;
   
-  jsresult = SWIG_From_int((int)(libtorrent::ed25519_scalar_size));
+  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_ed25519_add_scalar_public.");
   
-  SWIGV8_RETURN_INFO(jsresult, info);
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ed25519_add_scalar_public" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_add_scalar_public" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg1 = (std::vector< int8_t > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ed25519_add_scalar_public" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_add_scalar_public" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  result = ed25519_add_scalar_public(*arg1,*arg2);
+  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
   
   goto fail;
 fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_ed25519_shared_secret_size(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_ed25519_add_scalar_secret(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
+  std::vector< int8_t > *arg1 = 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  std::vector< int8_t > result;
   
-  jsresult = SWIG_From_int((int)(libtorrent::ed25519_shared_secret_size));
+  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_ed25519_add_scalar_secret.");
   
-  SWIGV8_RETURN_INFO(jsresult, info);
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ed25519_add_scalar_secret" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_add_scalar_secret" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg1 = (std::vector< int8_t > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ed25519_add_scalar_secret" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_add_scalar_secret" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  result = ed25519_add_scalar_secret(*arg1,*arg2);
+  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
   
   goto fail;
 fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_ed25519_key_exchange(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  std::vector< int8_t > *arg1 = 0 ;
+  std::vector< int8_t > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  std::vector< int8_t > result;
+  
+  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_ed25519_key_exchange.");
+  
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ed25519_key_exchange" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_key_exchange" "', argument " "1"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg1 = (std::vector< int8_t > *)(argp1);
+  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ed25519_key_exchange" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ed25519_key_exchange" "', argument " "2"" of type '" "std::vector< int8_t > &""'"); 
+  }
+  arg2 = (std::vector< int8_t > *)(argp2);
+  result = ed25519_key_exchange(*arg1,*arg2);
+  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
 
 
@@ -95413,6 +95920,7 @@ static swig_type_info _swigt__p_std__pairT_int_int_t = {"_p_std__pairT_int_int_t
 static swig_type_info _swigt__p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t = {"_p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t", "p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t|std::pair< libtorrent::string_view,libtorrent::bdecode_node > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_std__string_int_t = {"_p_std__pairT_std__string_int_t", "std::vector< std::pair< std::string,int > >::value_type *|p_std__pairT_std__string_int_t|std::pair< std::string,int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_std__string_std__string_t = {"_p_std__pairT_std__string_std__string_t", "p_std__pairT_std__string_std__string_t|std::pair< std::string,std::string > *|std::vector< std::pair< std::string,std::string > >::value_type *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t = {"_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t", "std::pair< std::vector< signed char >,std::vector< signed char > > *|std::pair< std::vector< int8_t >,std::vector< int8_t > > *|p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_t = {"_p_std__vectorT_int_t", "p_std__vectorT_int_t|std::vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_libtorrent__alert_p_t = {"_p_std__vectorT_libtorrent__alert_p_t", "std::vector< libtorrent::alert * > *|p_std__vectorT_libtorrent__alert_p_t", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_libtorrent__announce_entry_t = {"_p_std__vectorT_libtorrent__announce_entry_t", "p_std__vectorT_libtorrent__announce_entry_t|std::vector< libtorrent::announce_entry > *", 0, 0, (void*)0, 0};
@@ -95607,6 +96115,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t,
   &_swigt__p_std__pairT_std__string_int_t,
   &_swigt__p_std__pairT_std__string_std__string_t,
+  &_swigt__p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t,
   &_swigt__p_std__vectorT_int_t,
   &_swigt__p_std__vectorT_libtorrent__alert_p_t,
   &_swigt__p_std__vectorT_libtorrent__announce_entry_t,
@@ -95801,6 +96310,7 @@ static swig_cast_info _swigc__p_std__pairT_int_int_t[] = {  {&_swigt__p_std__pai
 static swig_cast_info _swigc__p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t[] = {  {&_swigt__p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_std__string_int_t[] = {  {&_swigt__p_std__pairT_std__string_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_std__string_std__string_t[] = {  {&_swigt__p_std__pairT_std__string_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t[] = {  {&_swigt__p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_int_t[] = {  {&_swigt__p_std__vectorT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_libtorrent__alert_p_t[] = {  {&_swigt__p_std__vectorT_libtorrent__alert_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_libtorrent__announce_entry_t[] = {  {&_swigt__p_std__vectorT_libtorrent__announce_entry_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -95995,6 +96505,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t,
   _swigc__p_std__pairT_std__string_int_t,
   _swigc__p_std__pairT_std__string_std__string_t,
+  _swigc__p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t,
   _swigc__p_std__vectorT_int_t,
   _swigc__p_std__vectorT_libtorrent__alert_p_t,
   _swigc__p_std__vectorT_libtorrent__announce_entry_t,
@@ -96354,6 +96865,13 @@ SWIGV8_SET_CLASS_TEMPL(_exports_string_view_bdecode_node_pair_clientData.class_t
 _exports_string_view_bdecode_node_pair_clientData.dtor = _wrap_delete_string_view_bdecode_node_pair;
 if (SWIGTYPE_p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t->clientdata == 0) {
   SWIGTYPE_p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t->clientdata = &_exports_string_view_bdecode_node_pair_clientData;
+}
+/* Name: _exports_byte_vectors_pair, Type: p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t, Dtor: _wrap_delete_byte_vectors_pair */
+v8::Handle<v8::FunctionTemplate> _exports_byte_vectors_pair_class = SWIGV8_CreateClassTemplate("_exports_byte_vectors_pair");
+SWIGV8_SET_CLASS_TEMPL(_exports_byte_vectors_pair_clientData.class_templ, _exports_byte_vectors_pair_class);
+_exports_byte_vectors_pair_clientData.dtor = _wrap_delete_byte_vectors_pair;
+if (SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t->clientdata == 0) {
+  SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t->clientdata = &_exports_byte_vectors_pair_clientData;
 }
 /* Name: _exports_byte_vector, Type: p_std__vectorT_signed_char_t, Dtor: _wrap_delete_byte_vector */
 v8::Handle<v8::FunctionTemplate> _exports_byte_vector_class = SWIGV8_CreateClassTemplate("_exports_byte_vector");
@@ -97521,6 +98039,8 @@ SWIGV8_AddMemberVariable(_exports_string_string_pair_class, "first", _wrap_strin
 SWIGV8_AddMemberVariable(_exports_string_string_pair_class, "second", _wrap_string_string_pair_second_get, _wrap_string_string_pair_second_set);
 SWIGV8_AddMemberVariable(_exports_string_view_bdecode_node_pair_class, "first", _wrap_string_view_bdecode_node_pair_first_get, _wrap_string_view_bdecode_node_pair_first_set);
 SWIGV8_AddMemberVariable(_exports_string_view_bdecode_node_pair_class, "second", _wrap_string_view_bdecode_node_pair_second_get, _wrap_string_view_bdecode_node_pair_second_set);
+SWIGV8_AddMemberVariable(_exports_byte_vectors_pair_class, "first", _wrap_byte_vectors_pair_first_get, _wrap_byte_vectors_pair_first_set);
+SWIGV8_AddMemberVariable(_exports_byte_vectors_pair_class, "second", _wrap_byte_vectors_pair_second_get, _wrap_byte_vectors_pair_second_set);
 SWIGV8_AddMemberFunction(_exports_byte_vector_class, "size", _wrap_byte_vector_size);
 SWIGV8_AddMemberFunction(_exports_byte_vector_class, "capacity", _wrap_byte_vector_capacity);
 SWIGV8_AddMemberFunction(_exports_byte_vector_class, "reserve", _wrap_byte_vector_reserve);
@@ -99220,12 +99740,6 @@ SWIGV8_AddMemberVariable(_exports_torrent_status_class, "stop_when_ready", _wrap
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "info_hash", _wrap_torrent_status_info_hash_get, _wrap_torrent_status_info_hash_set);
 SWIGV8_AddMemberFunction(_exports_torrent_status_class, "torrent_file_ptr", _wrap_torrent_status_torrent_file_ptr);
 SWIGV8_AddMemberFunction(_exports_torrent_status_class, "get_next_announce", _wrap_torrent_status_get_next_announce);
-SWIGV8_AddStaticVariable(exports_obj, "ed25519_seed_size", _wrap_libtorrent_ed25519_seed_size, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(exports_obj, "ed25519_private_key_size", _wrap_libtorrent_ed25519_private_key_size, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(exports_obj, "ed25519_public_key_size", _wrap_libtorrent_ed25519_public_key_size, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(exports_obj, "ed25519_signature_size", _wrap_libtorrent_ed25519_signature_size, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(exports_obj, "ed25519_scalar_size", _wrap_libtorrent_ed25519_scalar_size, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(exports_obj, "ed25519_shared_secret_size", _wrap_libtorrent_ed25519_shared_secret_size, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_alert_notify_callback_class, "on_alert", _wrap_alert_notify_callback_on_alert);
 SWIGV8_AddMemberFunction(_exports_add_files_listener_class, "pred", _wrap_add_files_listener_pred);
 SWIGV8_AddMemberFunction(_exports_set_piece_hashes_listener_class, "progress", _wrap_set_piece_hashes_listener_progress);
@@ -101039,6 +101553,12 @@ _exports_string_view_bdecode_node_pair_class_0->SetCallHandler(_wrap_new_string_
 _exports_string_view_bdecode_node_pair_class_0->Inherit(_exports_string_view_bdecode_node_pair_class);
 _exports_string_view_bdecode_node_pair_class_0->SetHiddenPrototype(true);
 v8::Handle<v8::Object> _exports_string_view_bdecode_node_pair_obj = _exports_string_view_bdecode_node_pair_class_0->GetFunction();
+/* Class: byte_vectors_pair (_exports_byte_vectors_pair) */
+v8::Handle<v8::FunctionTemplate> _exports_byte_vectors_pair_class_0 = SWIGV8_CreateClassTemplate("byte_vectors_pair");
+_exports_byte_vectors_pair_class_0->SetCallHandler(_wrap_new_byte_vectors_pair);
+_exports_byte_vectors_pair_class_0->Inherit(_exports_byte_vectors_pair_class);
+_exports_byte_vectors_pair_class_0->SetHiddenPrototype(true);
+v8::Handle<v8::Object> _exports_byte_vectors_pair_obj = _exports_byte_vectors_pair_class_0->GetFunction();
 /* Class: byte_vector (_exports_byte_vector) */
 v8::Handle<v8::FunctionTemplate> _exports_byte_vector_class_0 = SWIGV8_CreateClassTemplate("byte_vector");
 _exports_byte_vector_class_0->SetCallHandler(_wrap_new_byte_vector);
@@ -103135,6 +103655,13 @@ SWIGV8_AddStaticVariable(_exports_torrent_status_obj, "error_file_none", _wrap_l
 SWIGV8_AddStaticVariable(_exports_torrent_status_obj, "error_file_url", _wrap_libtorrent_torrent_status_error_file_url, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_torrent_status_obj, "error_file_ssl_ctx", _wrap_libtorrent_torrent_status_error_file_ssl_ctx, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_torrent_status_obj, "error_file_metadata", _wrap_libtorrent_torrent_status_error_file_metadata, JS_veto_set_variable);
+SWIGV8_AddStaticFunction(exports_obj, "ed25519_create_seed", _wrap_ed25519_create_seed);
+SWIGV8_AddStaticFunction(exports_obj, "ed25519_create_keypair", _wrap_ed25519_create_keypair);
+SWIGV8_AddStaticFunction(exports_obj, "ed25519_sign", _wrap_ed25519_sign);
+SWIGV8_AddStaticFunction(exports_obj, "ed25519_verify", _wrap_ed25519_verify);
+SWIGV8_AddStaticFunction(exports_obj, "ed25519_add_scalar_public", _wrap_ed25519_add_scalar_public);
+SWIGV8_AddStaticFunction(exports_obj, "ed25519_add_scalar_secret", _wrap_ed25519_add_scalar_secret);
+SWIGV8_AddStaticFunction(exports_obj, "ed25519_key_exchange", _wrap_ed25519_key_exchange);
 SWIGV8_AddStaticFunction(exports_obj, "default_storage_disk_write_access_log", _wrap___wrap_default_storage_disk_write_access_log);
 SWIGV8_AddStaticFunction(exports_obj, "add_files", _wrap_add_files);
 SWIGV8_AddStaticFunction(exports_obj, "set_piece_hashes_ex", _wrap_set_piece_hashes_ex);
@@ -103151,6 +103678,7 @@ SWIGV8_AddStaticFunction(exports_obj, "set_utp_stream_logging", _wrap_set_utp_st
 exports_obj->Set(SWIGV8_SYMBOL_NEW("string_int_pair"), _exports_string_int_pair_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("string_string_pair"), _exports_string_string_pair_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("string_view_bdecode_node_pair"), _exports_string_view_bdecode_node_pair_obj);
+exports_obj->Set(SWIGV8_SYMBOL_NEW("byte_vectors_pair"), _exports_byte_vectors_pair_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("byte_vector"), _exports_byte_vector_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("string_vector"), _exports_string_vector_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("string_int_pair_vector"), _exports_string_int_pair_vector_obj);

@@ -4,7 +4,6 @@
 
 #include <stdexcept>
 #include <string>
-#include <ios>
 #include <vector>
 #include <array>
 #include <map>
@@ -34,55 +33,88 @@
 #include <libtorrent/kademlia/node_id.hpp>
 #include <libtorrent/kademlia/get_peers.hpp>
 #include <libtorrent/kademlia/item.hpp>
+#include <libtorrent/kademlia/ed25519.hpp>
 
-/*
-void ed25519_create_seed(std::vector<int8_t>& seed) {
-    ed25519_create_seed((unsigned char*)seed.data());
+std::vector<int8_t> ed25519_create_seed() {
+    std::array<char, 32> seed = libtorrent::dht::ed25519_create_seed();
+    return std::vector<int8_t>(seed.data(), seed.end());
 }
 
-void ed25519_create_keypair(std::vector<int8_t>& public_key,
-                            std::vector<int8_t>& private_key,
-                            std::vector<int8_t>& seed) {
-    ed25519_create_keypair((unsigned char*)public_key.data(),
-                        (unsigned char*)private_key.data(),
-                        (unsigned char*)seed.data());
+std::pair<std::vector<int8_t>, std::vector<int8_t>> ed25519_create_keypair(
+    std::vector<int8_t>& seed) {
+    using namespace libtorrent::dht;
+
+    public_key pk;
+    secret_key sk;
+
+    std::array<char, 32> s;
+    std::copy_n(seed.begin(), 32, s.begin());
+
+    std::tie(pk, sk) = ed25519_create_keypair(s);
+
+    return std::make_pair(std::vector<int8_t>(pk.bytes.begin(), pk.bytes.end()),
+        std::vector<int8_t>(sk.bytes.begin(), sk.bytes.end()));
 }
 
-void ed25519_sign(std::vector<int8_t>& signature,
-                std::vector<int8_t>& message,
-                std::vector<int8_t>& public_key,
-                std::vector<int8_t>& private_key) {
-    ed25519_sign((unsigned char*)signature.data(),
-                (unsigned char*)message.data(),
-                message.size(),
-                (unsigned char*)public_key.data(),
-                (unsigned char*)private_key.data());
+std::vector<int8_t> ed25519_sign(std::vector<int8_t>& msg,
+    std::vector<int8_t>& pk, std::vector<int8_t>& sk) {
+    using namespace libtorrent::dht;
+
+    public_key pk1((char*)pk.data());
+    secret_key sk1((char*)sk.data());
+
+    signature sig = ed25519_sign({reinterpret_cast<char const*>(msg.data()), msg.size()},
+        pk1, sk1);
+    return std::vector<int8_t>(sig.bytes.begin(), sig.bytes.end());
 }
 
-int ed25519_verify(std::vector<int8_t>& signature,
-                std::vector<int8_t>& message,
-                std::vector<int8_t>& private_key) {
-    return ed25519_verify((unsigned char*)signature.data(),
-                        (unsigned char*)message.data(),
-                        message.size(),
-                        (unsigned char*)private_key.data());
+bool ed25519_verify(std::vector<int8_t>& sig,
+    std::vector<int8_t>& msg,
+    std::vector<int8_t>& pk) {
+    using namespace libtorrent::dht;
+
+    signature sig1((char*)sig.data());
+    public_key pk1((char*)pk.data());
+
+    return ed25519_verify(sig1, {reinterpret_cast<char const*>(msg.data()), msg.size()}, pk1);
 }
 
-void ed25519_add_scalar(std::vector<int8_t>& public_key,
-                       std::vector<int8_t>& private_key,
-                       std::vector<int8_t>& scalar) {
-    ed25519_add_scalar((unsigned char*)public_key.data(),
-                    (unsigned char*)private_key.data(),
-                    (unsigned char*)scalar.data());
+std::vector<int8_t> ed25519_add_scalar_public(std::vector<int8_t>& pk,
+    std::vector<int8_t>& scalar) {
+    using namespace libtorrent::dht;
+
+    public_key pk1((char*)pk.data());
+
+    std::array<char, 32> s;
+    std::copy_n(scalar.begin(), 32, s.begin());
+
+    public_key ret = ed25519_add_scalar(pk1, s);
+    return std::vector<int8_t>(ret.bytes.begin(), ret.bytes.end());
 }
 
-void ed25519_key_exchange(std::vector<int8_t>& shared_secret,
-                         std::vector<int8_t>& public_key,
-                         std::vector<int8_t>& private_key) {
-    ed25519_key_exchange((unsigned char*)shared_secret.data(),
-                        (unsigned char*)public_key.data(),
-                        (unsigned char*)private_key.data());
-}*/
+std::vector<int8_t> ed25519_add_scalar_secret(std::vector<int8_t>& sk,
+    std::vector<int8_t>& scalar) {
+    using namespace libtorrent::dht;
+
+    secret_key sk1((char*)sk.data());
+
+    std::array<char, 32> s;
+    std::copy_n(scalar.begin(), 32, s.begin());
+
+    secret_key ret = ed25519_add_scalar(sk1, s);
+    return std::vector<int8_t>(ret.bytes.begin(), ret.bytes.end());
+}
+
+std::vector<int8_t> ed25519_key_exchange(std::vector<int8_t>& pk,
+    std::vector<int8_t>& sk) {
+    using namespace libtorrent::dht;
+
+    public_key pk1((char*)pk.data());
+    secret_key sk1((char*)sk.data());
+
+    std::array<char, 32> secret = ed25519_key_exchange(pk1, sk1);
+    return std::vector<int8_t>(secret.begin(), secret.end());
+}
 
 bool default_storage_disk_write_access_log() {
     return libtorrent::default_storage::disk_write_access_log();
@@ -151,7 +183,6 @@ const char* openssl_version_text() {
 void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::uint64_t& seq,
     std::string salt, libtorrent::dht::public_key pk, libtorrent::dht::secret_key sk,
     libtorrent::entry data) {
-
     using namespace libtorrent::dht;
 
 	e = data;

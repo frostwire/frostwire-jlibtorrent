@@ -188,13 +188,12 @@ public final class Dht {
     }
 
     public static byte[][] createKeypair() {
-        byte[] seed = new byte[Ed25519.SEED_SIZE];
-        Ed25519.createSeed(seed);
+        byte[] seed = Ed25519.createSeed();
 
-        byte[] publicKey = new byte[Ed25519.PUBLIC_KEY_SIZE];
-        byte[] privateKey = new byte[Ed25519.PRIVATE_KEY_SIZE];
+        Pair<byte[], byte[]> keypair = Ed25519.createKeypair(seed);
+        byte[] publicKey = keypair.first;
+        byte[] privateKey = keypair.second;
 
-        Ed25519.createKeypair(publicKey, privateKey, seed);
 
         byte[][] keys = new byte[2][];
         keys[0] = publicKey;

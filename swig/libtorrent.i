@@ -41,7 +41,6 @@
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
-#include "libtorrent/ed25519.hpp"
 
 #include "libtorrent.h"
 
@@ -240,6 +239,7 @@ namespace std {
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
     %template(string_view_bdecode_node_pair) pair<libtorrent::string_view, libtorrent::bdecode_node>;
+    %template(byte_vectors_pair) pair<vector<int8_t>, vector<int8_t>>;
 
     %template(byte_vector) vector<int8_t>;
     %template(string_vector) vector<std::string>;
@@ -713,13 +713,6 @@ typedef long time_t;
 %ignore libtorrent::dht_lookup::type;
 %ignore libtorrent::error_to_close_reason;
 
-%ignore ed25519_create_seed(unsigned char *);
-%ignore ed25519_create_keypair(unsigned char *, unsigned char *, const unsigned char *);
-%ignore ed25519_sign(unsigned char *, const unsigned char *, size_t , const unsigned char *, const unsigned char *);
-%ignore ed25519_verify(const unsigned char *, const unsigned char *, size_t , const unsigned char *);
-%ignore ed25519_add_scalar(unsigned char *, unsigned char *, const unsigned char *);
-%ignore ed25519_key_exchange(unsigned char *, const unsigned char *, const unsigned char *);
-
 %ignore boost::throws;
 %ignore boost::detail::throws;
 %ignore boost::system::generic_category;
@@ -799,7 +792,6 @@ typedef long time_t;
 %include "libtorrent/create_torrent.hpp"
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
-%include "libtorrent/ed25519.hpp"
 
 %include "libtorrent.h"
 
