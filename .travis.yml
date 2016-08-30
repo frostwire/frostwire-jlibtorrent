@@ -43,7 +43,7 @@ before_install:
 # openssl: download and checkout revision
   - git clone https://github.com/openssl/openssl openssl-src
   - cd openssl-src
-  - git checkout 68072bcfe1cea2c8026a76b01cdc4db3c1172d9c
+  - git checkout abd30777cc72029e8a44e4b67201cae8ed3d19c1
   - cd ..
   - export OPENSSL_SOURCE=$PWD/openssl-src
   # fix source code
