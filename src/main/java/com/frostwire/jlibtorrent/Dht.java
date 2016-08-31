@@ -23,9 +23,9 @@ public final class Dht {
     private static final int[] DHT_MUTABLE_ITEM_TYPES = {DHT_MUTABLE_ITEM.swig()};
     private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {DHT_GET_PEERS_REPLY.swig()};
 
-    private final Session s;
+    private final SessionManager s;
 
-    public Dht(Session s) {
+    public Dht(SessionManager s) {
         this.s = s;
     }
 
@@ -72,7 +72,7 @@ public final class Dht {
 
         //s.addListener(l);
 
-        s.dhtGetItem(target);
+        //s.dhtGetItem(target);
 
         try {
             signal.await(timeout, TimeUnit.SECONDS);
@@ -86,7 +86,7 @@ public final class Dht {
     }
 
     public Sha1Hash put(Entry entry) {
-        return s.dhtPutItem(entry);
+        return null;//s.dhtPutItem(entry);
     }
 
     /**
@@ -120,7 +120,7 @@ public final class Dht {
 
         //s.addListener(l);
 
-        s.dhtGetPeers(target);
+        //s.dhtGetPeers(target);
 
         try {
             signal.await(timeout, TimeUnit.SECONDS);
@@ -134,11 +134,11 @@ public final class Dht {
     }
 
     public void announce(Sha1Hash sha1, int port, int flags) {
-        s.dhtAnnounce(sha1, port, flags);
+        //s.dhtAnnounce(sha1, port, flags);
     }
 
     public void announce(Sha1Hash sha1) {
-        s.dhtAnnounce(sha1);
+        //s.dhtAnnounce(sha1);
     }
 
     public MutableItem mget(final byte[] key, final byte[] salt, int timeout) {
@@ -170,7 +170,7 @@ public final class Dht {
 
         //s.addListener(l);
 
-        s.dhtGetItem(key, salt);
+        //s.dhtGetItem(key, salt);
 
         try {
             signal.await(timeout, TimeUnit.SECONDS);
@@ -184,7 +184,7 @@ public final class Dht {
     }
 
     public void mput(byte[] publicKey, byte[] privateKey, Entry entry, byte[] salt) {
-        s.dhtPutItem(publicKey, privateKey, entry, salt);
+        //s.dhtPutItem(publicKey, privateKey, entry, salt);
     }
 
     public static byte[][] createKeypair() {
