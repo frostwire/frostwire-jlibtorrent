@@ -197,6 +197,23 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.openssl_version_text();
   }
 
+  public static void setG_posix_wrapper(posix_wrapper value) {
+    libtorrent_jni.g_posix_wrapper_set(posix_wrapper.getCPtr(value), value);
+  }
+
+  public static posix_wrapper getG_posix_wrapper() {
+    long cPtr = libtorrent_jni.g_posix_wrapper_get();
+    return (cPtr == 0) ? null : new posix_wrapper(cPtr, false);
+  }
+
+  public static void set_posix_wrapper(posix_wrapper obj) {
+    libtorrent_jni.set_posix_wrapper(posix_wrapper.getCPtr(obj), obj);
+  }
+
+  public static int open(String path, int flags, int mode) {
+    return libtorrent_jni.open(path, flags, mode);
+  }
+
   public static boolean is_utp_stream_logging() {
     return libtorrent_jni.is_utp_stream_logging();
   }

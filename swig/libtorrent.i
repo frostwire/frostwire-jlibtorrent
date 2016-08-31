@@ -762,8 +762,11 @@ typedef long time_t;
 
 %feature("director") alert_notify_callback;
 %feature("director") swig_plugin;
+%feature("director") posix_wrapper;
 
 %ignore swig_plugin::implemented_features;
+
+%ignore real_open;
 
 // BEGIN common set include ------------------------------------------------------
 

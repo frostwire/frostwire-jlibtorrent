@@ -235,3 +235,135 @@ unsigned long getauxval(unsigned long type) {
     return ret;
 }
 #endif
+
+#define WRAP_POSIX __clang__
+
+struct posix_stat {
+    int64_t size;
+    int64_t atime;
+    int64_t mtime;
+    int64_t ctime;
+    int mode;
+};
+
+int real_open(const char* path, int flags, int mode) {
+    typedef int func_t(const char*, int, int);
+
+    dlerror();
+    void* h = dlopen("libc.so", RTLD_NOW);
+    func_t* f = (func_t*) dlsym(h, "open");
+    int ret = (*f)(path, flags, mode);
+    dlclose(h);
+    return ret;
+}
+
+struct posix_wrapper {
+
+    virtual ~posix_wrapper() {
+    }
+
+    virtual int open(const char* path, int flags, int mode) {
+#if WRAP_POSIX
+        return real_open(path, flags, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int stat(const char *path, posix_stat *buf) {
+#if 0 //WRAP_POSIX
+        struct ::stat t;
+        int r = ::stat(path, &t);
+        buf->size = t.st_size;
+        buf->atime = t.st_atime;
+        buf->mtime = t.st_mtime;
+        buf->ctime = t.st_ctime;
+        buf->mode = t.st_mode;
+        return r;
+#else
+        return -1;
+#endif
+    }
+
+    virtual int mkdir(const char *path, int mode) {
+#if 0 //WRAP_POSIX
+        return ::mkdir(path, mode);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int rename(const char *oldpath, const char *newpath) {
+#if 0 //WRAP_POSIX
+        return ::rename(oldpath, newpath);
+#else
+        return -1;
+#endif
+    }
+
+    virtual int remove(const char *path) {
+#if 0 //WRAP_POSIX
+        return ::remove(path);
+#else
+        return -1;
+#endif
+    }
+};
+
+posix_wrapper* g_posix_wrapper = NULL;
+
+void set_posix_wrapper(posix_wrapper *obj) {
+    g_posix_wrapper = obj;
+}
+
+#ifdef WRAP_POSIX
+extern "C" {
+
+int open(const char *path, int flags, ...) {
+    mode_t mode = 0;
+    //flags |= O_LARGEFILE;
+    if (flags & O_CREAT)
+    {
+        va_list  args;
+        va_start(args, flags);
+        mode = (mode_t) va_arg(args, int);
+        va_end(args);
+    }
+    return g_posix_wrapper != NULL ?
+        g_posix_wrapper->open(path, flags, mode) :
+        real_open(path, flags, mode);
+}
+/*
+int __wrap_stat(const char *path, struct ::stat *buf) {
+    if (g_posix_wrapper != NULL) {
+        posix_stat t;
+        int r = g_posix_wrapper->stat(path, &t);
+        buf->st_size = t.size;
+        buf->st_atime = t.atime;
+        buf->st_mtime = t.mtime;
+        buf->st_ctime = t.ctime;
+        buf->st_mode = t.mode;
+        return r;
+    } else {
+        return __real_stat(path, buf);
+    }
+}
+
+int __wrap_mkdir(const char *path, mode_t mode) {
+    return g_posix_wrapper != NULL ?
+           g_posix_wrapper->mkdir(path, mode) :
+           __real_mkdir(path, mode);
+}
+int __wrap_rename(const char *oldpath, const char *newpath) {
+    return g_posix_wrapper != NULL ?
+           g_posix_wrapper->rename(oldpath, newpath) :
+           __real_rename(oldpath, newpath);
+}
+int __wrap_remove(const char *path) {
+    return g_posix_wrapper != NULL ?
+           g_posix_wrapper->remove(path) :
+           __real_remove(path);
+}*/
+
+}
+#endif
