@@ -17,6 +17,9 @@ public final class PeerInfo {
         this.p = p;
     }
 
+    /**
+     * @return
+     */
     public peer_info swig() {
         return p;
     }

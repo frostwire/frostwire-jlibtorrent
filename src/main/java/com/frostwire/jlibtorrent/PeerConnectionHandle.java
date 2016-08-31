@@ -10,11 +10,14 @@ public final class PeerConnectionHandle {
 
     private final peer_connection_handle pc;
 
-    public PeerConnectionHandle(peer_connection_handle pc) {
+    PeerConnectionHandle(peer_connection_handle pc) {
         this.pc = pc;
     }
 
-    public peer_connection_handle getSwig() {
+    /**
+     * @return
+     */
+    public peer_connection_handle swig() {
         return pc;
     }
 }

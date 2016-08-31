@@ -81,11 +81,15 @@ public class SessionManager {
                 return;
             }
 
+            onBeforeStart();
+
             resetState();
 
             sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
             session = new session(sp.swig());
             alertsLoop();
+
+            onAfterStart();
 
         } finally {
             sync.unlock();
@@ -112,12 +116,16 @@ public class SessionManager {
                 return;
             }
 
+            onBeforeStop();
+
             session s = session;
             session = null; // stop alerts loop and session methods
 
             resetState();
 
             s.abort().delete();
+
+            onAfterStop();
 
         } finally {
             sync.unlock();
@@ -584,6 +592,18 @@ public class SessionManager {
 
     public void loadState(byte[] data) {
         new SessionHandle(session).loadState(data);
+    }
+
+    protected void onBeforeStart() {
+    }
+
+    protected void onAfterStart() {
+    }
+
+    protected void onBeforeStop() {
+    }
+
+    protected void onAfterStop() {
     }
 
     @Override
