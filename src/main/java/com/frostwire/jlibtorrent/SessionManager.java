@@ -49,6 +49,8 @@ public class SessionManager {
 
         this.stats = new SessionStats();
         this.listenEndpoints = new LinkedList<>();
+
+        resetState();
     }
 
     public SessionManager() {
@@ -79,10 +81,7 @@ public class SessionManager {
                 return;
             }
 
-            stats.clear();
-            firewalled = true;
-            listenEndpoints.clear();
-            externalAddress = null;
+            resetState();
 
             sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
             session = new session(sp.swig());
@@ -116,10 +115,7 @@ public class SessionManager {
             session s = session;
             session = null; // stop alerts loop and session methods
 
-            stats.clear();
-            firewalled = true;
-            listenEndpoints.clear();
-            externalAddress = null;
+            resetState();
 
             s.abort().delete();
 
@@ -594,6 +590,13 @@ public class SessionManager {
     protected void finalize() throws Throwable {
         stop();
         super.finalize();
+    }
+
+    private void resetState() {
+        stats.clear();
+        firewalled = true;
+        listenEndpoints.clear();
+        externalAddress = null;
     }
 
     private void modifyListeners(boolean add, AlertListener listener) {
