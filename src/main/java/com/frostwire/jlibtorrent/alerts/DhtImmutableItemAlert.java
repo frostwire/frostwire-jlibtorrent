@@ -1,12 +1,12 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.Entry;
-import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.SessionHandle;
 import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.swig.dht_immutable_item_alert;
 
 /**
- * This alert is posted as a response to a call to {@link Session#dhtGetItem(Sha1Hash)},
+ * This alert is posted as a response to a call to {@link SessionHandle#dhtGetItem(Sha1Hash)},
  * looking up immutable items in the DHT.
  *
  * @author gubatron
@@ -14,7 +14,7 @@ import com.frostwire.jlibtorrent.swig.dht_immutable_item_alert;
  */
 public final class DhtImmutableItemAlert extends AbstractAlert<dht_immutable_item_alert> {
 
-    public DhtImmutableItemAlert(dht_immutable_item_alert alert) {
+    DhtImmutableItemAlert(dht_immutable_item_alert alert) {
         super(alert);
     }
 
@@ -24,7 +24,7 @@ public final class DhtImmutableItemAlert extends AbstractAlert<dht_immutable_ite
      *
      * @return
      */
-    public Sha1Hash getTarget() {
+    public Sha1Hash target() {
         return new Sha1Hash(alert.getTarget());
     }
 
@@ -33,7 +33,7 @@ public final class DhtImmutableItemAlert extends AbstractAlert<dht_immutable_ite
      *
      * @return
      */
-    public Entry getItem() {
+    public Entry item() {
         return new Entry(alert.getItem());
     }
 }

@@ -62,8 +62,8 @@ public final class Dht {
             public void alert(Alert<?> alert) {
                 if (alert instanceof DhtImmutableItemAlert) {
                     DhtImmutableItemAlert itemAlert = (DhtImmutableItemAlert) alert;
-                    if (target.equals(itemAlert.getTarget())) {
-                        result[0] = itemAlert.getItem();
+                    if (target.equals(itemAlert.target())) {
+                        result[0] = itemAlert.item();
                         signal.countDown();
                     }
                 }

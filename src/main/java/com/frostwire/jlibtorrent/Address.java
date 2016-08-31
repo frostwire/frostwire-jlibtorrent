@@ -40,7 +40,7 @@ public final class Address implements Comparable<Address> {
     }
 
     /**
-     * @return
+     * @return native object
      */
     public address swig() {
         return addr;
@@ -49,7 +49,7 @@ public final class Address implements Comparable<Address> {
     /**
      * Get whether the address is an IP version 4 address.
      *
-     * @return
+     * @return if it's an IPv4 address
      */
     public boolean isV4() {
         return addr.is_v4();
@@ -58,7 +58,7 @@ public final class Address implements Comparable<Address> {
     /**
      * Get whether the address is an IP version 6 address.
      *
-     * @return
+     * @return if it's an IPv6 address
      */
     public boolean isV6() {
         return addr.is_v6();
@@ -67,7 +67,7 @@ public final class Address implements Comparable<Address> {
     /**
      * Determine whether the address is a loopback address.
      *
-     * @return
+     * @return if it's a loopback address
      */
     public boolean isLoopback() {
         return addr.is_loopback();
@@ -76,7 +76,7 @@ public final class Address implements Comparable<Address> {
     /**
      * Determine whether the address is unspecified.
      *
-     * @return
+     * @return if it's an unspecified address
      */
     public boolean isUnspecified() {
         return addr.is_unspecified();
@@ -85,7 +85,7 @@ public final class Address implements Comparable<Address> {
     /**
      * Determine whether the address is a multicast address.
      *
-     * @return
+     * @return if it's an multicast address
      */
     public boolean isMulticast() {
         return addr.is_multicast();
@@ -95,32 +95,21 @@ public final class Address implements Comparable<Address> {
      * Compare addresses for ordering.
      *
      * @param o
-     * @return
+     * @return -1, 0 or 1
      */
     @Override
     public int compareTo(Address o) {
-        return compare(this, o);
+        return address.compare(this.addr, o.addr);
     }
 
     /**
      * Get the address as a string in dotted decimal format.
      *
-     * @return
+     * @return string representation
      */
     @Override
     public String toString() {
         return toString(addr);
-    }
-
-    /**
-     * Compare addresses for ordering.
-     *
-     * @param a1
-     * @param a2
-     * @return
-     */
-    public static int compare(Address a1, Address a2) {
-        return address.compare(a1.addr, a2.addr);
     }
 
     static String toString(address a) {
