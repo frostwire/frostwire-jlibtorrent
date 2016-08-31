@@ -232,6 +232,7 @@ public class SessionManager {
             }
 
             session.apply_settings(sp.swig());
+            onApplySettings(sp);
         }
     }
 
@@ -604,6 +605,9 @@ public class SessionManager {
     }
 
     protected void onAfterStop() {
+    }
+
+    protected void onApplySettings(SettingsPack sp) {
     }
 
     @Override
