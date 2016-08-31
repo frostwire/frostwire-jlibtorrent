@@ -83,7 +83,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
 
     @Override
     public int compareTo(Sha1Hash o) {
-        return compare(this, o);
+        return sha1_hash.compare(this.h, o.h);
     }
 
     /**
@@ -131,10 +131,6 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
      */
     public static Sha1Hash min() {
         return new Sha1Hash(sha1_hash.min());
-    }
-
-    public static int compare(Sha1Hash h1, Sha1Hash h2) {
-        return sha1_hash.compare(h1.h, h2.h);
     }
 
     static ArrayList<Sha1Hash> convert(sha1_hash_vector v) {
