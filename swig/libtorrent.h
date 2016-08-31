@@ -250,7 +250,12 @@ int real_open(const char* path, int flags, int mode) {
     typedef int func_t(const char*, int, int);
 
     dlerror();
-    void* h = dlopen("libc.so", RTLD_NOW);
+    void* h = nullptr;
+#if defined TORRENT_ANDROID
+    h = dlopen("libc.so", RTLD_NOW);
+#elif defined TORRENT_BSD
+    h = dlopen("libc.dylib", RTLD_NOW);
+#endif
     func_t* f = (func_t*) dlsym(h, "open");
     int ret = (*f)(path, flags, mode);
     dlclose(h);
