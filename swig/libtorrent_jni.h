@@ -48,7 +48,7 @@ public:
     SwigDirector_posix_wrapper(JNIEnv *jenv);
     virtual ~SwigDirector_posix_wrapper();
     virtual int open(char const *path, int flags, int mode);
-    virtual int stat(char const *path, posix_stat *buf);
+    virtual int stat(char const *path, posix_stat_t *buf);
     virtual int mkdir(char const *path, int mode);
     virtual int rename(char const *oldpath, char const *newpath);
     virtual int remove(char const *path);

@@ -1629,7 +1629,7 @@ SWIGRUNTIME void JS_veto_set_variable(v8::Local<v8::String> property, v8::Local<
 #define SWIGTYPE_p_long swig_types[146]
 #define SWIGTYPE_p_long_long swig_types[147]
 #define SWIGTYPE_p_mapped_type swig_types[148]
-#define SWIGTYPE_p_posix_stat swig_types[149]
+#define SWIGTYPE_p_posix_stat_t swig_types[149]
 #define SWIGTYPE_p_posix_wrapper swig_types[150]
 #define SWIGTYPE_p_preformatted_type swig_types[151]
 #define SWIGTYPE_p_set_piece_hashes_listener swig_types[152]
@@ -3201,7 +3201,7 @@ SWIGV8_ClientData _exports_alert_notify_callback_clientData;
 SWIGV8_ClientData _exports_add_files_listener_clientData;
 SWIGV8_ClientData _exports_set_piece_hashes_listener_clientData;
 SWIGV8_ClientData _exports_swig_plugin_clientData;
-SWIGV8_ClientData _exports_posix_stat_clientData;
+SWIGV8_ClientData _exports_posix_stat_t_clientData;
 SWIGV8_ClientData _exports_posix_wrapper_clientData;
 
 
@@ -95446,25 +95446,25 @@ fail:
 }
 
 
-static void _wrap_posix_stat_size_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+static void _wrap_posix_stat_t_size_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
   
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   int64_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long long val2 ;
   int ecode2 = 0 ;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_size_set" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_size_set" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   ecode2 = SWIG_AsVal_long_SS_long(value, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_size_set" "', argument " "2"" of type '" "int64_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_t_size_set" "', argument " "2"" of type '" "int64_t""'");
   } 
   arg2 = (int64_t)(val2);
   if (arg1) (arg1)->size = arg2;
@@ -95477,20 +95477,20 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_posix_stat_size_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_posix_stat_t_size_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int64_t result;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_size_get" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_size_get" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   result = (int64_t) ((arg1)->size);
   jsresult = SWIG_From_long_SS_long((long long)(result));
   
@@ -95503,25 +95503,25 @@ fail:
 }
 
 
-static void _wrap_posix_stat_atime_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+static void _wrap_posix_stat_t_atime_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
   
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   int64_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long long val2 ;
   int ecode2 = 0 ;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_atime_set" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_atime_set" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   ecode2 = SWIG_AsVal_long_SS_long(value, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_atime_set" "', argument " "2"" of type '" "int64_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_t_atime_set" "', argument " "2"" of type '" "int64_t""'");
   } 
   arg2 = (int64_t)(val2);
   if (arg1) (arg1)->atime = arg2;
@@ -95534,20 +95534,20 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_posix_stat_atime_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_posix_stat_t_atime_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int64_t result;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_atime_get" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_atime_get" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   result = (int64_t) ((arg1)->atime);
   jsresult = SWIG_From_long_SS_long((long long)(result));
   
@@ -95560,25 +95560,25 @@ fail:
 }
 
 
-static void _wrap_posix_stat_mtime_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+static void _wrap_posix_stat_t_mtime_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
   
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   int64_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long long val2 ;
   int ecode2 = 0 ;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_mtime_set" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_mtime_set" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   ecode2 = SWIG_AsVal_long_SS_long(value, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_mtime_set" "', argument " "2"" of type '" "int64_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_t_mtime_set" "', argument " "2"" of type '" "int64_t""'");
   } 
   arg2 = (int64_t)(val2);
   if (arg1) (arg1)->mtime = arg2;
@@ -95591,20 +95591,20 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_posix_stat_mtime_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_posix_stat_t_mtime_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int64_t result;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_mtime_get" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_mtime_get" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   result = (int64_t) ((arg1)->mtime);
   jsresult = SWIG_From_long_SS_long((long long)(result));
   
@@ -95617,25 +95617,25 @@ fail:
 }
 
 
-static void _wrap_posix_stat_ctime_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+static void _wrap_posix_stat_t_ctime_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
   
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   int64_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   long long val2 ;
   int ecode2 = 0 ;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_ctime_set" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_ctime_set" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   ecode2 = SWIG_AsVal_long_SS_long(value, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_ctime_set" "', argument " "2"" of type '" "int64_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_t_ctime_set" "', argument " "2"" of type '" "int64_t""'");
   } 
   arg2 = (int64_t)(val2);
   if (arg1) (arg1)->ctime = arg2;
@@ -95648,20 +95648,20 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_posix_stat_ctime_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_posix_stat_t_ctime_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int64_t result;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_ctime_get" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_ctime_get" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   result = (int64_t) ((arg1)->ctime);
   jsresult = SWIG_From_long_SS_long((long long)(result));
   
@@ -95674,25 +95674,25 @@ fail:
 }
 
 
-static void _wrap_posix_stat_mode_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+static void _wrap_posix_stat_t_mode_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
   
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   int arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_mode_set" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_mode_set" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   ecode2 = SWIG_AsVal_int(value, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_mode_set" "', argument " "2"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "posix_stat_t_mode_set" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = (int)(val2);
   if (arg1) (arg1)->mode = arg2;
@@ -95705,20 +95705,20 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_posix_stat_mode_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_posix_stat_t_mode_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
-  posix_stat *arg1 = (posix_stat *) 0 ;
+  posix_stat_t *arg1 = (posix_stat_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int result;
   
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_mode_get" "', argument " "1"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "posix_stat_t_mode_get" "', argument " "1"" of type '" "posix_stat_t *""'"); 
   }
-  arg1 = (posix_stat *)(argp1);
+  arg1 = (posix_stat_t *)(argp1);
   result = (int) ((arg1)->mode);
   jsresult = SWIG_From_int((int)(result));
   
@@ -95731,17 +95731,17 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_new_posix_stat(const SwigV8Arguments &args) {
+static SwigV8ReturnValue _wrap_new_posix_stat_t(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Object> self = args.Holder();
-  posix_stat *result;
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_posix_stat.");
-  result = (posix_stat *)new posix_stat();
+  posix_stat_t *result;
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_posix_stat_t.");
+  result = (posix_stat_t *)new posix_stat_t();
   
   
   
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_posix_stat, SWIG_POINTER_OWN);
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_posix_stat_t, SWIG_POINTER_OWN);
   SWIGV8_RETURN(self);
   
   goto fail;
@@ -95751,21 +95751,21 @@ fail:
 
 
 #if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-static void _wrap_delete_posix_stat(v8::Persistent<v8::Value> object, void *parameter) {
+static void _wrap_delete_posix_stat_t(v8::Persistent<v8::Value> object, void *parameter) {
   SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
 #elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-  static void _wrap_delete_posix_stat(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
+  static void _wrap_delete_posix_stat_t(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
     SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
 #elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-    static void _wrap_delete_posix_stat(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
+    static void _wrap_delete_posix_stat_t(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
 #else
-      static void _wrap_delete_posix_stat(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
+      static void _wrap_delete_posix_stat_t(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
         v8::Local<v8::Object> object = data.GetValue();
         SWIGV8_Proxy *proxy = data.GetParameter();
 #endif
         
         if(proxy->swigCMemOwn && proxy->swigCObject) {
-          posix_stat * arg1 = (posix_stat *)proxy->swigCObject;
+          posix_stat_t * arg1 = (posix_stat_t *)proxy->swigCObject;
           delete arg1;
         }
         delete proxy;
@@ -95880,7 +95880,7 @@ static SwigV8ReturnValue _wrap_posix_wrapper_stat(const SwigV8Arguments &args) {
   v8::Handle<v8::Value> jsresult;
   posix_wrapper *arg1 = (posix_wrapper *) 0 ;
   char *arg2 = (char *) 0 ;
-  posix_stat *arg3 = (posix_stat *) 0 ;
+  posix_stat_t *arg3 = (posix_stat_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 ;
@@ -95902,11 +95902,11 @@ static SwigV8ReturnValue _wrap_posix_wrapper_stat(const SwigV8Arguments &args) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "posix_wrapper_stat" "', argument " "2"" of type '" "char const *""'");
   }
   arg2 = (char *)(buf2);
-  res3 = SWIG_ConvertPtr(args[1], &argp3,SWIGTYPE_p_posix_stat, 0 |  0 );
+  res3 = SWIG_ConvertPtr(args[1], &argp3,SWIGTYPE_p_posix_stat_t, 0 |  0 );
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "posix_wrapper_stat" "', argument " "3"" of type '" "posix_stat *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "posix_wrapper_stat" "', argument " "3"" of type '" "posix_stat_t *""'"); 
   }
-  arg3 = (posix_stat *)(argp3);
+  arg3 = (posix_stat_t *)(argp3);
   result = (int)(arg1)->stat((char const *)arg2,arg3);
   jsresult = SWIG_From_int((int)(result));
   
@@ -96129,53 +96129,6 @@ static SwigV8ReturnValue _wrap_set_posix_wrapper(const SwigV8Arguments &args) {
   arg1 = (posix_wrapper *)(argp1);
   set_posix_wrapper(arg1);
   jsresult = SWIGV8_UNDEFINED();
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_open(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  char *arg1 = (char *) 0 ;
-  int arg2 ;
-  int arg3 ;
-  int res1 ;
-  char *buf1 = 0 ;
-  int alloc1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  int result;
-  
-  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_open.");
-  
-  res1 = SWIG_AsCharPtrAndSize(args[0], &buf1, NULL, &alloc1);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "open" "', argument " "1"" of type '" "char const *""'");
-  }
-  arg1 = (char *)(buf1);
-  ecode2 = SWIG_AsVal_int(args[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "open" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  ecode3 = SWIG_AsVal_int(args[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "open" "', argument " "3"" of type '" "int""'");
-  } 
-  arg3 = (int)(val3);
-  result = (int)open((char const *)arg1,arg2,arg3);
-  jsresult = SWIG_From_int((int)(result));
-  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
-  
   
   
   SWIGV8_RETURN(jsresult);
@@ -96902,7 +96855,7 @@ static swig_type_info _swigt__p_list_type = {"_p_list_type", "list_type *", 0, 0
 static swig_type_info _swigt__p_long = {"_p_long", "long *|time_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long_long = {"_p_long_long", "int_least64_t *|int_fast64_t *|int64_t *|long long *|intmax_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_mapped_type = {"_p_mapped_type", "mapped_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_posix_stat = {"_p_posix_stat", "posix_stat *|p_posix_stat", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_posix_stat_t = {"_p_posix_stat_t", "p_posix_stat_t|posix_stat_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_posix_wrapper = {"_p_posix_wrapper", "p_posix_wrapper|posix_wrapper *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_preformatted_type = {"_p_preformatted_type", "preformatted_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_set_piece_hashes_listener = {"_p_set_piece_hashes_listener", "p_set_piece_hashes_listener|set_piece_hashes_listener *", 0, 0, (void*)0, 0};
@@ -97100,7 +97053,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_long,
   &_swigt__p_long_long,
   &_swigt__p_mapped_type,
-  &_swigt__p_posix_stat,
+  &_swigt__p_posix_stat_t,
   &_swigt__p_posix_wrapper,
   &_swigt__p_preformatted_type,
   &_swigt__p_set_piece_hashes_listener,
@@ -97298,7 +97251,7 @@ static swig_cast_info _swigc__p_list_type[] = {  {&_swigt__p_list_type, 0, 0, 0}
 static swig_cast_info _swigc__p_long[] = {  {&_swigt__p_long, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_mapped_type[] = {  {&_swigt__p_mapped_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_posix_stat[] = {  {&_swigt__p_posix_stat, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_posix_stat_t[] = {  {&_swigt__p_posix_stat_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_posix_wrapper[] = {  {&_swigt__p_posix_wrapper, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_preformatted_type[] = {  {&_swigt__p_preformatted_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_set_piece_hashes_listener[] = {  {&_swigt__p_set_piece_hashes_listener, 0, 0, 0},{0, 0, 0, 0}};
@@ -97496,7 +97449,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_long,
   _swigc__p_long_long,
   _swigc__p_mapped_type,
-  _swigc__p_posix_stat,
+  _swigc__p_posix_stat_t,
   _swigc__p_posix_wrapper,
   _swigc__p_preformatted_type,
   _swigc__p_set_piece_hashes_listener,
@@ -99043,12 +98996,12 @@ _exports_swig_plugin_clientData.dtor = _wrap_delete_swig_plugin;
 if (SWIGTYPE_p_swig_plugin->clientdata == 0) {
   SWIGTYPE_p_swig_plugin->clientdata = &_exports_swig_plugin_clientData;
 }
-/* Name: _exports_posix_stat, Type: p_posix_stat, Dtor: _wrap_delete_posix_stat */
-v8::Handle<v8::FunctionTemplate> _exports_posix_stat_class = SWIGV8_CreateClassTemplate("_exports_posix_stat");
-SWIGV8_SET_CLASS_TEMPL(_exports_posix_stat_clientData.class_templ, _exports_posix_stat_class);
-_exports_posix_stat_clientData.dtor = _wrap_delete_posix_stat;
-if (SWIGTYPE_p_posix_stat->clientdata == 0) {
-  SWIGTYPE_p_posix_stat->clientdata = &_exports_posix_stat_clientData;
+/* Name: _exports_posix_stat_t, Type: p_posix_stat_t, Dtor: _wrap_delete_posix_stat_t */
+v8::Handle<v8::FunctionTemplate> _exports_posix_stat_t_class = SWIGV8_CreateClassTemplate("_exports_posix_stat_t");
+SWIGV8_SET_CLASS_TEMPL(_exports_posix_stat_t_clientData.class_templ, _exports_posix_stat_t_class);
+_exports_posix_stat_t_clientData.dtor = _wrap_delete_posix_stat_t;
+if (SWIGTYPE_p_posix_stat_t->clientdata == 0) {
+  SWIGTYPE_p_posix_stat_t->clientdata = &_exports_posix_stat_t_clientData;
 }
 /* Name: _exports_posix_wrapper, Type: p_posix_wrapper, Dtor: _wrap_delete_posix_wrapper */
 v8::Handle<v8::FunctionTemplate> _exports_posix_wrapper_class = SWIGV8_CreateClassTemplate("_exports_posix_wrapper");
@@ -100774,11 +100727,11 @@ SWIGV8_AddMemberFunction(_exports_alert_notify_callback_class, "on_alert", _wrap
 SWIGV8_AddMemberFunction(_exports_add_files_listener_class, "pred", _wrap_add_files_listener_pred);
 SWIGV8_AddMemberFunction(_exports_set_piece_hashes_listener_class, "progress", _wrap_set_piece_hashes_listener_progress);
 SWIGV8_AddMemberFunction(_exports_swig_plugin_class, "on_dht_request", _wrap_swig_plugin_on_dht_request);
-SWIGV8_AddMemberVariable(_exports_posix_stat_class, "size", _wrap_posix_stat_size_get, _wrap_posix_stat_size_set);
-SWIGV8_AddMemberVariable(_exports_posix_stat_class, "atime", _wrap_posix_stat_atime_get, _wrap_posix_stat_atime_set);
-SWIGV8_AddMemberVariable(_exports_posix_stat_class, "mtime", _wrap_posix_stat_mtime_get, _wrap_posix_stat_mtime_set);
-SWIGV8_AddMemberVariable(_exports_posix_stat_class, "ctime", _wrap_posix_stat_ctime_get, _wrap_posix_stat_ctime_set);
-SWIGV8_AddMemberVariable(_exports_posix_stat_class, "mode", _wrap_posix_stat_mode_get, _wrap_posix_stat_mode_set);
+SWIGV8_AddMemberVariable(_exports_posix_stat_t_class, "size", _wrap_posix_stat_t_size_get, _wrap_posix_stat_t_size_set);
+SWIGV8_AddMemberVariable(_exports_posix_stat_t_class, "atime", _wrap_posix_stat_t_atime_get, _wrap_posix_stat_t_atime_set);
+SWIGV8_AddMemberVariable(_exports_posix_stat_t_class, "mtime", _wrap_posix_stat_t_mtime_get, _wrap_posix_stat_t_mtime_set);
+SWIGV8_AddMemberVariable(_exports_posix_stat_t_class, "ctime", _wrap_posix_stat_t_ctime_get, _wrap_posix_stat_t_ctime_set);
+SWIGV8_AddMemberVariable(_exports_posix_stat_t_class, "mode", _wrap_posix_stat_t_mode_get, _wrap_posix_stat_t_mode_set);
 SWIGV8_AddMemberFunction(_exports_posix_wrapper_class, "open", _wrap_posix_wrapper_open);
 SWIGV8_AddMemberFunction(_exports_posix_wrapper_class, "stat", _wrap_posix_wrapper_stat);
 SWIGV8_AddMemberFunction(_exports_posix_wrapper_class, "mkdir", _wrap_posix_wrapper_mkdir);
@@ -103597,12 +103550,12 @@ _exports_swig_plugin_class_0->SetCallHandler(_wrap_new_swig_plugin);
 _exports_swig_plugin_class_0->Inherit(_exports_swig_plugin_class);
 _exports_swig_plugin_class_0->SetHiddenPrototype(true);
 v8::Handle<v8::Object> _exports_swig_plugin_obj = _exports_swig_plugin_class_0->GetFunction();
-/* Class: posix_stat (_exports_posix_stat) */
-v8::Handle<v8::FunctionTemplate> _exports_posix_stat_class_0 = SWIGV8_CreateClassTemplate("posix_stat");
-_exports_posix_stat_class_0->SetCallHandler(_wrap_new_posix_stat);
-_exports_posix_stat_class_0->Inherit(_exports_posix_stat_class);
-_exports_posix_stat_class_0->SetHiddenPrototype(true);
-v8::Handle<v8::Object> _exports_posix_stat_obj = _exports_posix_stat_class_0->GetFunction();
+/* Class: posix_stat_t (_exports_posix_stat_t) */
+v8::Handle<v8::FunctionTemplate> _exports_posix_stat_t_class_0 = SWIGV8_CreateClassTemplate("posix_stat_t");
+_exports_posix_stat_t_class_0->SetCallHandler(_wrap_new_posix_stat_t);
+_exports_posix_stat_t_class_0->Inherit(_exports_posix_stat_t_class);
+_exports_posix_stat_t_class_0->SetHiddenPrototype(true);
+v8::Handle<v8::Object> _exports_posix_stat_t_obj = _exports_posix_stat_t_class_0->GetFunction();
 /* Class: posix_wrapper (_exports_posix_wrapper) */
 v8::Handle<v8::FunctionTemplate> _exports_posix_wrapper_class_0 = SWIGV8_CreateClassTemplate("posix_wrapper");
 _exports_posix_wrapper_class_0->SetCallHandler(_wrap_new_posix_wrapper);
@@ -104730,7 +104683,6 @@ SWIGV8_AddStaticFunction(exports_obj, "boost_lib_version", _wrap_boost_lib_versi
 SWIGV8_AddStaticFunction(exports_obj, "openssl_version_number", _wrap_openssl_version_number);
 SWIGV8_AddStaticFunction(exports_obj, "openssl_version_text", _wrap_openssl_version_text);
 SWIGV8_AddStaticFunction(exports_obj, "set_posix_wrapper", _wrap_set_posix_wrapper);
-SWIGV8_AddStaticFunction(exports_obj, "open", _wrap_open);
 SWIGV8_AddStaticFunction(exports_obj, "is_utp_stream_logging", _wrap_is_utp_stream_logging);
 SWIGV8_AddStaticFunction(exports_obj, "set_utp_stream_logging", _wrap_set_utp_stream_logging);
 
@@ -104907,7 +104859,7 @@ exports_obj->Set(SWIGV8_SYMBOL_NEW("alert_notify_callback"), _exports_alert_noti
 exports_obj->Set(SWIGV8_SYMBOL_NEW("add_files_listener"), _exports_add_files_listener_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("set_piece_hashes_listener"), _exports_set_piece_hashes_listener_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("swig_plugin"), _exports_swig_plugin_obj);
-exports_obj->Set(SWIGV8_SYMBOL_NEW("posix_stat"), _exports_posix_stat_obj);
+exports_obj->Set(SWIGV8_SYMBOL_NEW("posix_stat_t"), _exports_posix_stat_t_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("posix_wrapper"), _exports_posix_wrapper_obj);
 
 

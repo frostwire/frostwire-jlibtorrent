@@ -210,10 +210,6 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.set_posix_wrapper(posix_wrapper.getCPtr(obj), obj);
   }
 
-  public static int open(String path, int flags, int mode) {
-    return libtorrent_jni.open(path, flags, mode);
-  }
-
   public static boolean is_utp_stream_logging() {
     return libtorrent_jni.is_utp_stream_logging();
   }

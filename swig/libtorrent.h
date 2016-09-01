@@ -236,9 +236,13 @@ unsigned long getauxval(unsigned long type) {
 }
 #endif
 
-#define WRAP_POSIX __clang__
+#if defined TORRENT_ANDROID || defined TORRENT_BSD
+#define WRAP_POSIX 1
+#else
+#define WRAP_POSIX 0
+#endif
 
-struct posix_stat {
+struct posix_stat_t {
     int64_t size;
     int64_t atime;
     int64_t mtime;
@@ -246,18 +250,60 @@ struct posix_stat {
     int mode;
 };
 
-int real_open(const char* path, int flags, int mode) {
-    typedef int func_t(const char*, int, int);
-
-    dlerror();
+void* open_libc() {
     void* h = nullptr;
 #if defined TORRENT_ANDROID
     h = dlopen("libc.so", RTLD_NOW);
 #elif defined TORRENT_BSD
     h = dlopen("libc.dylib", RTLD_NOW);
 #endif
+    return h;
+}
+
+int posix_open(const char* path, int flags, int mode) {
+    typedef int func_t(const char*, int, int);
+    dlerror();
+    void* h = open_libc();
     func_t* f = (func_t*) dlsym(h, "open");
     int ret = (*f)(path, flags, mode);
+    dlclose(h);
+    return ret;
+}
+
+int posix_stat(const char *path, struct ::stat *buf) {
+    typedef int func_t(const char*, struct ::stat*);
+    dlerror();
+    void* h = open_libc();
+    func_t* f = (func_t*) dlsym(h, "stat");
+    int ret = (*f)(path, buf);
+    dlclose(h);
+    return ret;
+}
+
+int posix_mkdir(const char *path, mode_t mode) {
+    typedef int func_t(const char*, mode_t);
+    dlerror();
+    void* h = open_libc();
+    func_t* f = (func_t*) dlsym(h, "mkdir");
+    int ret = (*f)(path, mode);
+    dlclose(h);
+    return ret;
+}
+int posix_rename(const char *oldpath, const char *newpath) {
+    typedef int func_t(const char*, const char*);
+    dlerror();
+    void* h = open_libc();
+    func_t* f = (func_t*) dlsym(h, "rename");
+    int ret = (*f)(oldpath, newpath);
+    dlclose(h);
+    return ret;
+}
+int posix_remove(const char *path) {
+    typedef int func_t(const char*);
+    dlerror();
+    void* h = open_libc();
+    func_t* f = (func_t*) dlsym(h, "remove");
+    int ret = (*f)(path);
     dlclose(h);
     return ret;
 }
@@ -269,16 +315,16 @@ struct posix_wrapper {
 
     virtual int open(const char* path, int flags, int mode) {
 #if WRAP_POSIX
-        return real_open(path, flags, mode);
+        return posix_open(path, flags, mode);
 #else
         return -1;
 #endif
     }
 
-    virtual int stat(const char *path, posix_stat *buf) {
-#if 0 //WRAP_POSIX
+    virtual int stat(const char *path, posix_stat_t *buf) {
+#if WRAP_POSIX
         struct ::stat t;
-        int r = ::stat(path, &t);
+        int r = posix_stat(path, &t);
         buf->size = t.st_size;
         buf->atime = t.st_atime;
         buf->mtime = t.st_mtime;
@@ -291,24 +337,24 @@ struct posix_wrapper {
     }
 
     virtual int mkdir(const char *path, int mode) {
-#if 0 //WRAP_POSIX
-        return ::mkdir(path, mode);
+#if WRAP_POSIX
+        return posix_mkdir(path, mode);
 #else
         return -1;
 #endif
     }
 
     virtual int rename(const char *oldpath, const char *newpath) {
-#if 0 //WRAP_POSIX
-        return ::rename(oldpath, newpath);
+#if WRAP_POSIX
+        return posix_rename(oldpath, newpath);
 #else
         return -1;
 #endif
     }
 
     virtual int remove(const char *path) {
-#if 0 //WRAP_POSIX
-        return ::remove(path);
+#if WRAP_POSIX
+        return posix_remove(path);
 #else
         return -1;
 #endif
@@ -326,7 +372,9 @@ extern "C" {
 
 int open(const char *path, int flags, ...) {
     mode_t mode = 0;
-    //flags |= O_LARGEFILE;
+#if defined TORRENT_ANDROID
+    flags |= O_LARGEFILE;
+#endif
     if (flags & O_CREAT)
     {
         va_list  args;
@@ -336,12 +384,12 @@ int open(const char *path, int flags, ...) {
     }
     return g_posix_wrapper != NULL ?
         g_posix_wrapper->open(path, flags, mode) :
-        real_open(path, flags, mode);
+        posix_open(path, flags, mode);
 }
-/*
-int __wrap_stat(const char *path, struct ::stat *buf) {
+
+int stat(const char *path, struct ::stat *buf) {
     if (g_posix_wrapper != NULL) {
-        posix_stat t;
+        posix_stat_t t;
         int r = g_posix_wrapper->stat(path, &t);
         buf->st_size = t.size;
         buf->st_atime = t.atime;
@@ -350,25 +398,25 @@ int __wrap_stat(const char *path, struct ::stat *buf) {
         buf->st_mode = t.mode;
         return r;
     } else {
-        return __real_stat(path, buf);
+        return posix_stat(path, buf);
     }
 }
 
-int __wrap_mkdir(const char *path, mode_t mode) {
+int mkdir(const char *path, mode_t mode) {
     return g_posix_wrapper != NULL ?
            g_posix_wrapper->mkdir(path, mode) :
-           __real_mkdir(path, mode);
+           posix_mkdir(path, mode);
 }
-int __wrap_rename(const char *oldpath, const char *newpath) {
+int rename(const char *oldpath, const char *newpath) {
     return g_posix_wrapper != NULL ?
            g_posix_wrapper->rename(oldpath, newpath) :
-           __real_rename(oldpath, newpath);
+           posix_rename(oldpath, newpath);
 }
-int __wrap_remove(const char *path) {
+int remove(const char *path) {
     return g_posix_wrapper != NULL ?
            g_posix_wrapper->remove(path) :
-           __real_remove(path);
-}*/
+           posix_remove(path);
+}
 
 }
 #endif

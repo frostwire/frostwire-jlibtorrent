@@ -766,7 +766,18 @@ typedef long time_t;
 
 %ignore swig_plugin::implemented_features;
 
-%ignore real_open;
+%ignore WRAP_POSIX;
+%ignore open_libc;
+%ignore posix_open;
+%ignore posix_stat;
+%ignore posix_mkdir;
+%ignore posix_rename;
+%ignore posix_remove;
+%ignore ::open;
+%ignore ::stat;
+%ignore ::mkdir;
+%ignore ::rename;
+%ignore ::remove;
 
 // BEGIN common set include ------------------------------------------------------
 
