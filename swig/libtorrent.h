@@ -260,6 +260,7 @@ void* open_libc() {
     return h;
 }
 
+#if WRAP_POSIX
 int posix_open(const char* path, int flags, int mode) {
     typedef int func_t(const char*, int, int);
     dlerror();
@@ -289,6 +290,7 @@ int posix_mkdir(const char *path, mode_t mode) {
     dlclose(h);
     return ret;
 }
+
 int posix_rename(const char *oldpath, const char *newpath) {
     typedef int func_t(const char*, const char*);
     dlerror();
@@ -298,6 +300,7 @@ int posix_rename(const char *oldpath, const char *newpath) {
     dlclose(h);
     return ret;
 }
+
 int posix_remove(const char *path) {
     typedef int func_t(const char*);
     dlerror();
@@ -307,6 +310,7 @@ int posix_remove(const char *path) {
     dlclose(h);
     return ret;
 }
+#endif
 
 struct posix_wrapper {
 
@@ -407,11 +411,13 @@ int mkdir(const char *path, mode_t mode) {
            g_posix_wrapper->mkdir(path, mode) :
            posix_mkdir(path, mode);
 }
+
 int rename(const char *oldpath, const char *newpath) {
     return g_posix_wrapper != NULL ?
            g_posix_wrapper->rename(oldpath, newpath) :
            posix_rename(oldpath, newpath);
 }
+
 int remove(const char *path) {
     return g_posix_wrapper != NULL ?
            g_posix_wrapper->remove(path) :
