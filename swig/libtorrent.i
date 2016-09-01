@@ -661,6 +661,7 @@ typedef long time_t;
 %ignore libtorrent::save_settings_to_dict;
 %ignore libtorrent::error_code;
 %ignore libtorrent::settings_pack::settings_pack(settings_pack&&);
+%ignore libtorrent::settings_pack::deprecated;
 %ignore libtorrent::settings_pack::deprecated1;
 %ignore libtorrent::settings_pack::deprecated2;
 %ignore libtorrent::settings_pack::deprecated3;
@@ -676,7 +677,9 @@ typedef long time_t;
 %ignore libtorrent::settings_pack::deprecated13;
 %ignore libtorrent::settings_pack::deprecated14;
 %ignore libtorrent::settings_pack::deprecated15;
-%ignore libtorrent::settings_pack::deprecated;
+%ignore libtorrent::settings_pack::deprecated16;
+%ignore libtorrent::settings_pack::deprecated17;
+%ignore libtorrent::settings_pack::deprecated18;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
@@ -707,6 +710,7 @@ typedef long time_t;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
 %ignore libtorrent::peer_info::deprecated__;
+%ignore libtorrent::peer_info::deprecated_remote_dl_rate;
 %ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::stats_metric::name;
 %ignore libtorrent::storage_moved_failed_alert::operation;
@@ -1167,12 +1171,14 @@ namespace libtorrent {
 }
 
 %extend peer_connection_handle {
+
     int64_t get_time_of_last_unchoke() {
         return libtorrent::total_milliseconds($self->time_of_last_unchoke() - libtorrent::clock_type::now());
     }
 };
 
 %extend peer_info {
+
     int64_t get_last_request() {
         return libtorrent::total_milliseconds($self->last_request);
     }

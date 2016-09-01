@@ -212,7 +212,7 @@ public final class TorrentHandle {
      * downloaded or not downloaded at all but partially requested. See
      * {@link PartialPieceInfo} for the fields in the returned vector.
      *
-     * @return
+     * @return a list with partial piece info
      */
     public ArrayList<PartialPieceInfo> getDownloadQueue() {
         partial_piece_info_vector v = new partial_piece_info_vector();

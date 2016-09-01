@@ -2228,8 +2228,6 @@ public class libtorrent_jni {
   public final static native int peer_info_http_seed_get();
   public final static native void peer_info_connection_type_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_connection_type_get(long jarg1, peer_info jarg1_);
-  public final static native void peer_info_remote_dl_rate_set(long jarg1, peer_info jarg1_, int jarg2);
-  public final static native int peer_info_remote_dl_rate_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_pending_disk_bytes_set(long jarg1, peer_info jarg1_, int jarg2);
   public final static native int peer_info_pending_disk_bytes_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_pending_disk_read_bytes_set(long jarg1, peer_info jarg1_, int jarg2);
@@ -2343,11 +2341,13 @@ public class libtorrent_jni {
   public final static native int settings_pack_use_dht_as_fallback_get();
   public final static native int settings_pack_dont_flush_write_cache_get();
   public final static native int settings_pack_disable_hash_checks_get();
+  public final static native int settings_pack_volatile_read_cache_get();
   public final static native int settings_pack_no_atime_storage_get();
   public final static native int settings_pack_no_recheck_incomplete_resume_get();
-  public final static native int settings_pack_announce_double_nat_get();
+  public final static native int settings_pack_seeding_outgoing_connections_get();
   public final static native int settings_pack_ban_web_seeds_get();
   public final static native int settings_pack_tracker_completion_timeout_get();
+  public final static native int settings_pack_num_optimistic_unchoke_slots_get();
   public final static native int settings_pack_unchoke_slots_limit_get();
   public final static native int settings_pack_connections_limit_get();
   public final static native int settings_pack_utp_loss_multiplier_get();

@@ -42,13 +42,13 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      *
      * @return
      */
-    public Direction dir() {
+    public Direction direction() {
         return Direction.fromSwig(alert.getDir().swigValue());
     }
 
     /**
      * The DHT node we received this packet from, or sent this packet to
-     * (depending on {@link #dir()}).
+     * (depending on {@link #direction()}).
      *
      * @return
      */
@@ -61,8 +61,19 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      */
     public enum Direction {
 
+        /**
+         *
+         */
         INCOMING(dht_pkt_alert.direction_t.incoming.swigValue()),
+
+        /**
+         *
+         */
         OUTGOING(dht_pkt_alert.direction_t.outgoing.swigValue()),
+
+        /**
+         *
+         */
         UNKNOWN(-1);
 
         Direction(int swigValue) {

@@ -8,6 +8,7 @@ import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAddedAlert;
 import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.posix_stat_t;
 import com.frostwire.jlibtorrent.swig.posix_wrapper;
 
 import java.io.File;
@@ -27,6 +28,30 @@ public final class PosixTest {
             public int open(String path, int flags, int mode) {
                 System.out.println("open: " + path);
                 return super.open(path, flags, mode);
+            }
+
+            @Override
+            public int stat(String path, posix_stat_t buf) {
+                System.out.println("stat: " + path);
+                return super.stat(path, buf);
+            }
+
+            @Override
+            public int mkdir(String path, int mode) {
+                System.out.println("mkdir: " + path);
+                return super.mkdir(path, mode);
+            }
+
+            @Override
+            public int rename(String oldpath, String newpath) {
+                System.out.println("rename: " + newpath);
+                return super.rename(oldpath, newpath);
+            }
+
+            @Override
+            public int remove(String path) {
+                System.out.println("remove: " + path);
+                return super.remove(path);
             }
         };
 

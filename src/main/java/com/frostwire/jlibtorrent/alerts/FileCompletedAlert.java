@@ -11,7 +11,7 @@ import com.frostwire.jlibtorrent.swig.file_completed_alert;
  */
 public final class FileCompletedAlert extends TorrentAlert<file_completed_alert> {
 
-    public FileCompletedAlert(file_completed_alert alert) {
+    FileCompletedAlert(file_completed_alert alert) {
         super(alert);
     }
 
@@ -20,7 +20,7 @@ public final class FileCompletedAlert extends TorrentAlert<file_completed_alert>
      *
      * @return
      */
-    public int getIndex() {
+    public int index() {
         return alert.getIndex();
     }
 }

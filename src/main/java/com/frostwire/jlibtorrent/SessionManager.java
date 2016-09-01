@@ -675,7 +675,7 @@ public class SessionManager {
         try {
             // libtorrent perform all kind of tests
             // to avoid non usable addresses
-            String address = alert.getExternalAddress().toString(); // clone
+            String address = alert.externalAddress().toString(); // clone
             externalAddress = new Address(address);
         } catch (Throwable e) {
             LOG.error("Error saving reported external ip", e);

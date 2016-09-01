@@ -285,14 +285,6 @@ public class peer_info {
     return libtorrent_jni.peer_info_connection_type_get(swigCPtr, this);
   }
 
-  public void setRemote_dl_rate(int value) {
-    libtorrent_jni.peer_info_remote_dl_rate_set(swigCPtr, this, value);
-  }
-
-  public int getRemote_dl_rate() {
-    return libtorrent_jni.peer_info_remote_dl_rate_get(swigCPtr, this);
-  }
-
   public void setPending_disk_bytes(int value) {
     libtorrent_jni.peer_info_pending_disk_bytes_set(swigCPtr, this, value);
   }
