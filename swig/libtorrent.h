@@ -250,6 +250,7 @@ struct posix_stat_t {
     int mode;
 };
 
+#if WRAP_POSIX
 void* open_libc() {
     void* h = nullptr;
 #if defined TORRENT_ANDROID
@@ -260,7 +261,6 @@ void* open_libc() {
     return h;
 }
 
-#if WRAP_POSIX
 int posix_open(const char* path, int flags, int mode) {
     typedef int func_t(const char*, int, int);
     dlerror();
@@ -371,7 +371,7 @@ void set_posix_wrapper(posix_wrapper *obj) {
     g_posix_wrapper = obj;
 }
 
-#ifdef WRAP_POSIX
+#if WRAP_POSIX
 extern "C" {
 
 int open(const char *path, int flags, ...) {
