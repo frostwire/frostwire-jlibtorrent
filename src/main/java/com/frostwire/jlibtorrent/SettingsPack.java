@@ -498,9 +498,11 @@ public final class SettingsPack {
      * torrents.
      *
      * @param value
+     * @return this
      */
-    public void enableDht(boolean value) {
+    public SettingsPack enableDht(boolean value) {
         sp.set_bool(settings_pack.bool_types.enable_dht.swigValue(), value);
+        return this;
     }
 
     /**
@@ -512,6 +514,7 @@ public final class SettingsPack {
 
     /**
      * @param value
+     * @return this
      */
     public SettingsPack listenInterfaces(String value) {
         sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), value);

@@ -353,14 +353,22 @@ public class SessionManager {
     /**
      * This will cause a {@link DhtStatsAlert} to be posted.
      */
-    public void postDHTStats() {
+    public void postDhtStats() {
         if (session != null) {
             session.post_dht_stats();
         }
     }
 
-    public boolean isDHTRunning() {
+    public boolean isDhtRunning() {
         return session != null ? session.is_dht_running() : false;
+    }
+
+    public void startDht() {
+        toggleDht(true);
+    }
+
+    public void stopDht() {
+        toggleDht(false);
     }
 
     /**
@@ -590,11 +598,13 @@ public class SessionManager {
     }
 
     public byte[] saveState() {
-        return new SessionHandle(session).saveState();
+        return session != null ? new SessionHandle(session).saveState() : null;
     }
 
     public void loadState(byte[] data) {
-        new SessionHandle(session).loadState(data);
+        if (session != null) {
+            new SessionHandle(session).loadState(data);
+        }
     }
 
     public String magnetPeers() {
@@ -706,6 +716,13 @@ public class SessionManager {
         } catch (Throwable e) {
             LOG.error("Error adding listen endpoint to internal list", e);
         }
+    }
+
+    private void toggleDht(boolean on) {
+        if (session == null || isDhtRunning() == on) {
+            return;
+        }
+        applySettings(new SettingsPack().enableDht(on));
     }
 
     private void onExternalIpAlert(ExternalIpAlert alert) {

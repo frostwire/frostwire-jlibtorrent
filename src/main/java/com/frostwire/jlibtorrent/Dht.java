@@ -30,15 +30,15 @@ public final class Dht {
     }
 
     public void start() {
-        toggleDHT(true);
+        s.startDht();
     }
 
     public void stop() {
-        toggleDHT(false);
+        s.stopDht();
     }
 
     public boolean running() {
-        return s.isDHTRunning();
+        return s.isDhtRunning();
     }
 
     /**

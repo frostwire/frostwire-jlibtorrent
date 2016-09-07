@@ -36,7 +36,7 @@ public class FetchMagnetTest {
             @Override
             public void alert(Alert<?> alert) {
                 if (alert.type().equals(AlertType.SESSION_STATS)) {
-                    s.postDHTStats();
+                    s.postDhtStats();
                 }
 
                 if (alert.type().equals(AlertType.DHT_STATS)) {
@@ -52,7 +52,7 @@ public class FetchMagnetTest {
 
         s.addListener(l);
         s.start();
-        s.postDHTStats();
+        s.postDhtStats();
 
         // waiting for nodes in DHT (10 seconds)
         boolean r = false;
