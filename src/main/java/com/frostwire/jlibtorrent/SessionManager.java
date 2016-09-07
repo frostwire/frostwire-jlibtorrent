@@ -25,6 +25,7 @@ public class SessionManager {
 
     private static final int[] METADATA_ALERT_TYPES = new int[]
             {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
+    private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {AlertType.DHT_IMMUTABLE_ITEM.swig()};
 
     private final boolean logging;
 
@@ -465,10 +466,10 @@ public class SessionManager {
     }
 
     /**
-     * @param uri
+     * @param uri     magnet uri
      * @param timeout in seconds
      * @param maxSize in bytes
-     * @return
+     * @return the bencoded info or null
      */
     public byte[] fetchMagnet(String uri, int timeout, final int maxSize) {
         if (session == null) {
@@ -484,7 +485,7 @@ public class SessionManager {
         }
 
         final sha1_hash info_hash = p.getInfo_hash();
-        final byte[][] data = new byte[1][];
+        final byte[][] data = {null};
         final CountDownLatch signal = new CountDownLatch(1);
 
         AlertListener listener = new AlertListener() {
@@ -566,12 +567,60 @@ public class SessionManager {
      * Similar to call {@link #fetchMagnet(String, int, int)} with
      * a maximum size of 2MB.
      *
-     * @param uri
+     * @param uri     magnet uri
      * @param timeout in seconds
-     * @return
+     * @return the bencoded info or null
      */
     public byte[] fetchMagnet(String uri, int timeout) {
         return fetchMagnet(uri, timeout, 2 * 1024 * 1024);
+    }
+
+    /**
+     * @param sha1
+     * @param timeout in seconds
+     * @return the item
+     */
+    public Entry dhtGetItem(Sha1Hash sha1, int timeout) {
+        if (session == null) {
+            return null;
+        }
+
+        final sha1_hash target = sha1.swig();
+        final Entry[] result = {null};
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener listener = new AlertListener() {
+
+            @Override
+            public int[] types() {
+                return DHT_IMMUTABLE_ITEM_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                DhtImmutableItemAlert a = (DhtImmutableItemAlert) alert;
+                if (target.op_eq(a.swig().getTarget())) {
+                    result[0] = new Entry(new entry(a.swig().getItem()));
+                    signal.countDown();
+                }
+            }
+        };
+
+        addListener(listener);
+
+        try {
+
+            session.dht_get_item(target);
+
+            signal.await(timeout, TimeUnit.SECONDS);
+
+        } catch (Throwable e) {
+            LOG.error("Error getting immutable item", e);
+        } finally {
+            removeListener(listener);
+        }
+
+        return result[0];
     }
 
     public void moveStorage(File dir) {

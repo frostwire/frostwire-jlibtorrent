@@ -22,7 +22,7 @@ public final class DhtImmutableItemAlert extends AbstractAlert<dht_immutable_ite
      * The target hash of the immutable item. This must
      * match the sha-1 hash of the bencoded form of the item.
      *
-     * @return
+     * @return the target of the original query
      */
     public Sha1Hash target() {
         return new Sha1Hash(alert.getTarget());
@@ -31,7 +31,7 @@ public final class DhtImmutableItemAlert extends AbstractAlert<dht_immutable_ite
     /**
      * the data for this item
      *
-     * @return
+     * @return the entry returned by the DHT
      */
     public Entry item() {
         return new Entry(alert.getItem());

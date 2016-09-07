@@ -19,7 +19,6 @@ import static com.frostwire.jlibtorrent.alerts.AlertType.*;
  */
 public final class Dht {
 
-    private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {DHT_IMMUTABLE_ITEM.swig()};
     private static final int[] DHT_MUTABLE_ITEM_TYPES = {DHT_MUTABLE_ITEM.swig()};
     private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {DHT_GET_PEERS_REPLY.swig()};
 
@@ -39,50 +38,6 @@ public final class Dht {
 
     public boolean running() {
         return s.isDhtRunning();
-    }
-
-    /**
-     * @param sha1
-     * @param timeout in seconds
-     * @return
-     */
-    public Entry get(Sha1Hash sha1, int timeout) {
-        final Sha1Hash target = sha1;
-        final Entry[] result = {null};
-        final CountDownLatch signal = new CountDownLatch(1);
-
-        AlertListener l = new AlertListener() {
-
-            @Override
-            public int[] types() {
-                return DHT_IMMUTABLE_ITEM_TYPES;
-            }
-
-            @Override
-            public void alert(Alert<?> alert) {
-                if (alert instanceof DhtImmutableItemAlert) {
-                    DhtImmutableItemAlert itemAlert = (DhtImmutableItemAlert) alert;
-                    if (target.equals(itemAlert.target())) {
-                        result[0] = itemAlert.item();
-                        signal.countDown();
-                    }
-                }
-            }
-        };
-
-        //s.addListener(l);
-
-        //s.dhtGetItem(target);
-
-        try {
-            signal.await(timeout, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            // ignore
-        }
-
-        //s.removeListener(l);
-
-        return result[0];
     }
 
     public Sha1Hash put(Entry entry) {
@@ -200,12 +155,6 @@ public final class Dht {
         keys[1] = privateKey;
 
         return keys;
-    }
-
-    private void toggleDHT(boolean on) {
-        SettingsPack pack = new SettingsPack();
-        pack.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), on);
-        s.applySettings(pack);
     }
 
     public static final class MutableItem {

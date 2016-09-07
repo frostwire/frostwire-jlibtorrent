@@ -68,7 +68,7 @@ public final class DhtShell {
             } else if (is_put(line)) {
                 put(dht, line);
             } else if (is_get(line)) {
-                get(dht, line);
+                get(s, line);
             } else if (is_get_peers(line)) {
                 get_peers(dht, line);
             } else if (is_announce(line)) {
@@ -136,10 +136,10 @@ public final class DhtShell {
         return s.startsWith("get ");
     }
 
-    private static void get(Dht dht, String s) {
+    private static void get(SessionManager sm, String s) {
         String sha1 = s.split(" ")[1];
         print("Waiting a max of 20 seconds to get data for key: " + sha1);
-        Entry data = dht.get(new Sha1Hash(sha1), 20);
+        Entry data = sm.dhtGetItem(new Sha1Hash(sha1), 20);
         print(data.toString());
     }
 
