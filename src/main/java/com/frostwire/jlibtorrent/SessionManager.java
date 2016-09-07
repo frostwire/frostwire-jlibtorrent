@@ -5,6 +5,7 @@ import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class SessionManager {
     private static final int[] METADATA_ALERT_TYPES = new int[]
             {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {AlertType.DHT_IMMUTABLE_ITEM.swig()};
+    private static final int[] DHT_MUTABLE_ITEM_TYPES = {AlertType.DHT_MUTABLE_ITEM.swig()};
+    private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {AlertType.DHT_GET_PEERS_REPLY.swig()};
 
     private final boolean logging;
 
@@ -623,6 +626,77 @@ public class SessionManager {
         return result[0];
     }
 
+    /**
+     * @param entry the data
+     * @return the target key
+     */
+    public Sha1Hash dhtPutItem(Entry entry) {
+        return session != null ? new SessionHandle(session).dhtPutItem(entry) : null;
+    }
+
+    /**
+     * @param sha1
+     * @param timeout in seconds
+     * @return the peer list or an empty list
+     */
+    public ArrayList<TcpEndpoint> dhtGetPeers(Sha1Hash sha1, int timeout) {
+        final ArrayList<TcpEndpoint> result = new ArrayList<>();
+        if (session == null) {
+            return result;
+        }
+
+        final sha1_hash target = sha1.swig();
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener listener = new AlertListener() {
+
+            @Override
+            public int[] types() {
+                return DHT_GET_PEERS_REPLY_ALERT_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                DhtGetPeersReplyAlert a = (DhtGetPeersReplyAlert) alert;
+                if (target.op_eq(a.swig().getInfo_hash())) {
+                    result.addAll(a.peers());
+                    signal.countDown();
+                }
+            }
+        };
+
+        addListener(listener);
+
+        try {
+
+            session.dht_get_peers(target);
+
+            signal.await(timeout, TimeUnit.SECONDS);
+
+        } catch (Throwable e) {
+            LOG.error("Error getting peers from the dht", e);
+        } finally {
+            removeListener(listener);
+        }
+
+        return result;
+    }
+
+    public void dhtAnnounce(Sha1Hash sha1, int port, int flags) {
+        if (session != null) {
+            session.dht_announce(sha1.swig(), port, flags);
+        }
+    }
+
+    public void dhtAnnounce(Sha1Hash sha1) {
+        if (session != null) {
+            session.dht_announce(sha1.swig());
+        }
+    }
+
+    /**
+     * @param dir
+     */
     public void moveStorage(File dir) {
         if (session == null) {
             return;
