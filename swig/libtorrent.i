@@ -598,6 +598,9 @@ typedef long time_t;
 %ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::torrent_handle::torrent_file;
 %ignore libtorrent::torrent_handle::get_full_peer_list;
+%ignore libtorrent::torrent_handle::set_metadata;
+%ignore libtorrent::torrent_handle::set_ssl_certificate;
+%ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
 %ignore libtorrent::block_info::set_peer;
 %ignore libtorrent::partial_piece_info::blocks;
 %ignore libtorrent::entry::entry(entry&&);
@@ -727,8 +730,8 @@ typedef long time_t;
 %ignore boost::system::generic_category;
 %ignore boost::system::system_category;
 %ignore boost::system::error_code::unspecified_bool_true;
+%ignore boost::system::hash_value;
 %ignore boost::asio;
-%ignore boost::hash_value;
 
 %ignore operator=;
 %ignore operator!;
@@ -1204,12 +1207,6 @@ namespace libtorrent {
 
     int64_t get_next_announce() {
         return libtorrent::total_milliseconds($self->next_announce);
-    }
-}
-
-%extend create_torrent {
-    void set_root_cert_bytes(std::vector<int8_t> const& pem) {
-        $self->set_root_cert(std::string(pem.begin(), pem.end()));
     }
 }
 

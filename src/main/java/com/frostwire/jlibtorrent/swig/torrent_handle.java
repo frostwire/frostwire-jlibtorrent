@@ -115,10 +115,6 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_remove_http_seed(swigCPtr, this, url);
   }
 
-  public boolean set_metadata(byte_const_span metadata) {
-    return libtorrent_jni.torrent_handle_set_metadata(swigCPtr, this, byte_const_span.getCPtr(metadata), metadata);
-  }
-
   public boolean is_valid() {
     return libtorrent_jni.torrent_handle_is_valid(swigCPtr, this);
   }
@@ -193,18 +189,6 @@ public class torrent_handle {
 
   public void queue_position_bottom() {
     libtorrent_jni.torrent_handle_queue_position_bottom(swigCPtr, this);
-  }
-
-  public void set_ssl_certificate(String certificate, String private_key, String dh_params, String passphrase) {
-    libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_0(swigCPtr, this, certificate, private_key, dh_params, passphrase);
-  }
-
-  public void set_ssl_certificate(String certificate, String private_key, String dh_params) {
-    libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_1(swigCPtr, this, certificate, private_key, dh_params);
-  }
-
-  public void set_ssl_certificate_buffer(String certificate, String private_key, String dh_params) {
-    libtorrent_jni.torrent_handle_set_ssl_certificate_buffer(swigCPtr, this, certificate, private_key, dh_params);
   }
 
   public void piece_availability(int_vector avail) {

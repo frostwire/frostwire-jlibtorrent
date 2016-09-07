@@ -49,10 +49,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.op_ne__SWIG_3(error_condition.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
   }
 
-  public static long hash_value(error_code ec) {
-    return libtorrent_jni.hash_value(error_code.getCPtr(ec), ec);
-  }
-
   public static error_code make_error_code(errc_t e) {
     return new error_code(libtorrent_jni.make_error_code(e.swigValue()), true);
   }

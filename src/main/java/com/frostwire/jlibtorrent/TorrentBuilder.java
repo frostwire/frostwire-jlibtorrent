@@ -29,7 +29,6 @@ public final class TorrentBuilder {
     private List<String> httpSeeds;
     private List<Pair<String, Integer>> nodes;
     private List<Pair<String, Integer>> trackers;
-    private byte[] rootCert;
     private boolean priv;
 
     private List<Sha1Hash> similarTorrents;
@@ -367,27 +366,6 @@ public final class TorrentBuilder {
     /**
      * @return
      */
-    public byte[] rootCert() {
-        return rootCert;
-    }
-
-    /**
-     * This function sets an X.509 certificate in PEM format to the torrent. This makes the
-     * torrent an *SSL torrent*. An SSL torrent requires that each peer has a valid certificate
-     * signed by this root certificate. For SSL torrents, all peers are connecting over SSL
-     * connections.
-     *
-     * @param value
-     * @return
-     */
-    public TorrentBuilder rootCert(byte[] value) {
-        this.rootCert = value;
-        return this;
-    }
-
-    /**
-     * @return
-     */
     public boolean isPrivate() {
         return priv;
     }
@@ -570,9 +548,6 @@ public final class TorrentBuilder {
             for (Pair<String, Integer> tr : trackers) {
                 t.add_tracker(tr.first, tr.second);
             }
-        }
-        if (rootCert != null) {
-            t.set_root_cert_bytes(Vectors.bytes2byte_vector(rootCert));
         }
         if (priv) {
             t.set_priv(priv);

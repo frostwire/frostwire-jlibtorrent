@@ -21,21 +21,21 @@ public final class DhtDirectResponseAlert extends AbstractAlert<dht_direct_respo
     }
 
     /**
-     * @return
+     * @return the user data
      */
     public long userdata() {
         return alert.get_userdata();
     }
 
     /**
-     * @return
+     * @return the address
      */
     public UdpEndpoint address() {
         return new UdpEndpoint(alert.getAddr());
     }
 
     /**
-     * @return
+     * @return the response
      */
     public BDecodeNode response() {
         return new BDecodeNode(alert.response());

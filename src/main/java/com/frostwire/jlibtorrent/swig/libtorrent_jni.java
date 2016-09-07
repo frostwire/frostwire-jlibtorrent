@@ -558,7 +558,6 @@ public class libtorrent_jni {
   public final static native boolean op_ne__SWIG_2(long jarg1, error_code jarg1_, long jarg2, error_condition jarg2_);
   public final static native boolean op_eq__SWIG_3(long jarg1, error_condition jarg1_, long jarg2, error_code jarg2_);
   public final static native boolean op_ne__SWIG_3(long jarg1, error_condition jarg1_, long jarg2, error_code jarg2_);
-  public final static native long hash_value(long jarg1, error_code jarg1_);
   public final static native long make_error_code(int jarg1);
   public final static native long make_error_condition(int jarg1);
   public final static native int LIBTORRENT_VERSION_MAJOR_get();
@@ -841,7 +840,6 @@ public class libtorrent_jni {
   public final static native void torrent_handle_remove_url_seed(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native void torrent_handle_add_http_seed(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native void torrent_handle_remove_http_seed(long jarg1, torrent_handle jarg1_, String jarg2);
-  public final static native boolean torrent_handle_set_metadata(long jarg1, torrent_handle jarg1_, long jarg2, byte_const_span jarg2_);
   public final static native boolean torrent_handle_is_valid(long jarg1, torrent_handle jarg1_);
   public final static native int torrent_handle_graceful_pause_get();
   public final static native void torrent_handle_pause__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2);
@@ -865,9 +863,6 @@ public class libtorrent_jni {
   public final static native void torrent_handle_queue_position_down(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_queue_position_top(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_queue_position_bottom(long jarg1, torrent_handle jarg1_);
-  public final static native void torrent_handle_set_ssl_certificate__SWIG_0(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4, String jarg5);
-  public final static native void torrent_handle_set_ssl_certificate__SWIG_1(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4);
-  public final static native void torrent_handle_set_ssl_certificate_buffer(long jarg1, torrent_handle jarg1_, String jarg2, String jarg3, String jarg4);
   public final static native void torrent_handle_piece_availability(long jarg1, torrent_handle jarg1_, long jarg2, int_vector jarg2_);
   public final static native void torrent_handle_piece_priority__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, int jarg3);
   public final static native int torrent_handle_piece_priority__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2);
@@ -2588,7 +2583,6 @@ public class libtorrent_jni {
   public final static native long create_torrent_merkle_tree(long jarg1, create_torrent jarg1_);
   public final static native void create_torrent_add_similar_torrent(long jarg1, create_torrent jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void create_torrent_add_collection(long jarg1, create_torrent jarg1_, String jarg2);
-  public final static native void create_torrent_set_root_cert_bytes(long jarg1, create_torrent jarg1_, long jarg2, byte_vector jarg2_);
   public final static native void add_files__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
   public final static native void add_files__SWIG_1(long jarg1, file_storage jarg1_, String jarg2);
   public final static native void set_piece_hashes(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);

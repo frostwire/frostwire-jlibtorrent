@@ -3016,9 +3016,6 @@ SWIGINTERN std::string libtorrent_bdecode_node_to_string(libtorrent::bdecode_nod
 SWIGINTERN int libtorrent_bdecode_node_bdecode(std::vector< int8_t > &buffer,libtorrent::bdecode_node &ret,libtorrent::error_code &ec){
         return libtorrent::bdecode((char const*)&buffer[0], (char const*)&buffer[0] + buffer.size(), ret, ec);
     }
-SWIGINTERN void libtorrent_create_torrent_set_root_cert_bytes(libtorrent::create_torrent *self,std::vector< int8_t > const &pem){
-        self->set_root_cert(std::string(pem.begin(), pem.end()));
-    }
 SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_status_torrent_file_ptr(libtorrent::torrent_status *self){
         return self->torrent_file.lock().get();
     }
@@ -20542,37 +20539,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_hash_value(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_code *arg1 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  std::size_t result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_hash_value.");
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_code,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "hash_value" "', argument " "1"" of type '" "boost::system::error_code const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "hash_value" "', argument " "1"" of type '" "boost::system::error_code const &""'"); 
-  }
-  arg1 = (boost::system::error_code *)(argp1);
-  result = boost::system::hash_value((boost::system::error_code const &)*arg1);
-  jsresult = SWIG_From_size_t((size_t)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_make_error_code(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -33260,48 +33226,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_torrent_handle_set_metadata(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
-  libtorrent::span< char const > arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_handle_set_metadata.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_handle, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_handle_set_metadata" "', argument " "1"" of type '" "libtorrent::torrent_handle const *""'"); 
-  }
-  arg1 = (libtorrent::torrent_handle *)(argp1);
-  {
-    res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__spanT_char_const_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "torrent_handle_set_metadata" "', argument " "2"" of type '" "libtorrent::span< char const >""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_metadata" "', argument " "2"" of type '" "libtorrent::span< char const >""'");
-    } else {
-      arg2 = *((libtorrent::span< char const > *)(argp2));
-    }
-  }
-  result = (bool)((libtorrent::torrent_handle const *)arg1)->set_metadata(arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_torrent_handle_is_valid(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -34022,272 +33946,6 @@ static SwigV8ReturnValue _wrap_torrent_handle_queue_position_bottom(const SwigV8
   ((libtorrent::torrent_handle const *)arg1)->queue_position_bottom();
   jsresult = SWIGV8_UNDEFINED();
   
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_torrent_handle_set_ssl_certificate__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  std::string *arg4 = 0 ;
-  std::string *arg5 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  int res4 = SWIG_OLDOBJ ;
-  int res5 = SWIG_OLDOBJ ;
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_handle, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "1"" of type '" "libtorrent::torrent_handle *""'"); 
-  }
-  arg1 = (libtorrent::torrent_handle *)(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(args[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(args[1], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res4 = SWIG_AsPtr_std_string(args[2], &ptr);
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "4"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate" "', argument " "4"" of type '" "std::string const &""'"); 
-    }
-    arg4 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res5 = SWIG_AsPtr_std_string(args[3], &ptr);
-    if (!SWIG_IsOK(res5)) {
-      SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "5"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate" "', argument " "5"" of type '" "std::string const &""'"); 
-    }
-    arg5 = ptr;
-  }
-  (arg1)->set_ssl_certificate((std::string const &)*arg2,(std::string const &)*arg3,(std::string const &)*arg4,(std::string const &)*arg5);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  if (SWIG_IsNewObj(res4)) delete arg4;
-  if (SWIG_IsNewObj(res5)) delete arg5;
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_torrent_handle_set_ssl_certificate__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  std::string *arg4 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  int res4 = SWIG_OLDOBJ ;
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_handle, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "1"" of type '" "libtorrent::torrent_handle *""'"); 
-  }
-  arg1 = (libtorrent::torrent_handle *)(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(args[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(args[1], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res4 = SWIG_AsPtr_std_string(args[2], &ptr);
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "torrent_handle_set_ssl_certificate" "', argument " "4"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate" "', argument " "4"" of type '" "std::string const &""'"); 
-    }
-    arg4 = ptr;
-  }
-  (arg1)->set_ssl_certificate((std::string const &)*arg2,(std::string const &)*arg3,(std::string const &)*arg4);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  if (SWIG_IsNewObj(res4)) delete arg4;
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_torrent_handle__wrap_torrent_handle_set_ssl_certificate(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  OverloadErrorHandler errorHandler;
-  
-  
-  if(args.Length() == 4) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_torrent_handle_set_ssl_certificate__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_torrent_handle_set_ssl_certificate__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  if(args.Length() == 3) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_torrent_handle_set_ssl_certificate__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_torrent_handle_set_ssl_certificate__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for function set_ssl_certificate.");
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_torrent_handle_set_ssl_certificate_buffer(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  std::string *arg4 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  int res4 = SWIG_OLDOBJ ;
-  
-  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_handle_set_ssl_certificate_buffer.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_handle, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_handle_set_ssl_certificate_buffer" "', argument " "1"" of type '" "libtorrent::torrent_handle *""'"); 
-  }
-  arg1 = (libtorrent::torrent_handle *)(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(args[0], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "torrent_handle_set_ssl_certificate_buffer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate_buffer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(args[1], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "torrent_handle_set_ssl_certificate_buffer" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate_buffer" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res4 = SWIG_AsPtr_std_string(args[2], &ptr);
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "torrent_handle_set_ssl_certificate_buffer" "', argument " "4"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "torrent_handle_set_ssl_certificate_buffer" "', argument " "4"" of type '" "std::string const &""'"); 
-    }
-    arg4 = ptr;
-  }
-  (arg1)->set_ssl_certificate_buffer((std::string const &)*arg2,(std::string const &)*arg3,(std::string const &)*arg4);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  if (SWIG_IsNewObj(res4)) delete arg4;
   
   SWIGV8_RETURN(jsresult);
   
@@ -87410,45 +87068,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_create_torrent_set_root_cert_bytes(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::create_torrent *arg1 = (libtorrent::create_torrent *) 0 ;
-  std::vector< int8_t > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_create_torrent_set_root_cert_bytes.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__create_torrent, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create_torrent_set_root_cert_bytes" "', argument " "1"" of type '" "libtorrent::create_torrent *""'"); 
-  }
-  arg1 = (libtorrent::create_torrent *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_set_root_cert_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_set_root_cert_bytes" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  arg2 = (std::vector< int8_t > *)(argp2);
-  libtorrent_create_torrent_set_root_cert_bytes(arg1,(std::vector< signed char > const &)*arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_add_files__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
 {
   SWIGV8_HANDLESCOPE();
@@ -98944,7 +98563,6 @@ SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "add_url_seed", _wrap_to
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "remove_url_seed", _wrap_torrent_handle_remove_url_seed);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "add_http_seed", _wrap_torrent_handle_add_http_seed);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "remove_http_seed", _wrap_torrent_handle_remove_http_seed);
-SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_metadata", _wrap_torrent_handle_set_metadata);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "is_valid", _wrap_torrent_handle_is_valid);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "pause", _wrap_torrent_handle__wrap_torrent_handle_pause);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "resume", _wrap_torrent_handle_resume);
@@ -98962,8 +98580,6 @@ SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "queue_position_up", _wr
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "queue_position_down", _wrap_torrent_handle_queue_position_down);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "queue_position_top", _wrap_torrent_handle_queue_position_top);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "queue_position_bottom", _wrap_torrent_handle_queue_position_bottom);
-SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_ssl_certificate", _wrap_torrent_handle__wrap_torrent_handle_set_ssl_certificate);
-SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_ssl_certificate_buffer", _wrap_torrent_handle_set_ssl_certificate_buffer);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "piece_availability", _wrap_torrent_handle_piece_availability);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "piece_priority", _wrap_torrent_handle__wrap_torrent_handle_piece_priority);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "prioritize_pieces", _wrap_torrent_handle__wrap_torrent_handle_prioritize_pieces);
@@ -99843,7 +99459,6 @@ SWIGV8_AddMemberFunction(_exports_create_torrent_class, "piece_size", _wrap_crea
 SWIGV8_AddMemberFunction(_exports_create_torrent_class, "merkle_tree", _wrap_create_torrent_merkle_tree);
 SWIGV8_AddMemberFunction(_exports_create_torrent_class, "add_similar_torrent", _wrap_create_torrent_add_similar_torrent);
 SWIGV8_AddMemberFunction(_exports_create_torrent_class, "add_collection", _wrap_create_torrent_add_collection);
-SWIGV8_AddMemberFunction(_exports_create_torrent_class, "set_root_cert_bytes", _wrap_create_torrent_set_root_cert_bytes);
 SWIGV8_AddMemberVariable(_exports_announce_entry_class, "url", _wrap_announce_entry_url_get, _wrap_announce_entry_url_set);
 SWIGV8_AddMemberVariable(_exports_announce_entry_class, "trackerid", _wrap_announce_entry_trackerid_get, _wrap_announce_entry_trackerid_set);
 SWIGV8_AddMemberVariable(_exports_announce_entry_class, "message", _wrap_announce_entry_message_get, _wrap_announce_entry_message_set);
@@ -102790,7 +102405,6 @@ SWIGV8_AddStaticFunction(_exports_error_condition_obj, "unspecified_bool_true", 
 SWIGV8_AddStaticFunction(exports_obj, "op_lt", _wrap_error_code__wrap_op_lt);
 SWIGV8_AddStaticFunction(exports_obj, "op_eq", _wrap_system__wrap_op_eq);
 SWIGV8_AddStaticFunction(exports_obj, "op_ne", _wrap_system__wrap_op_ne);
-SWIGV8_AddStaticFunction(exports_obj, "hash_value", _wrap_hash_value);
 SWIGV8_AddStaticFunction(exports_obj, "make_error_code", _wrap_make_error_code);
 SWIGV8_AddStaticFunction(exports_obj, "make_error_condition", _wrap_make_error_condition);
 SWIGV8_AddStaticFunction(exports_obj, "version", _wrap_version);
