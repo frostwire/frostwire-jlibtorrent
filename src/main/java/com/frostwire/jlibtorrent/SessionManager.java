@@ -5,10 +5,7 @@ import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
@@ -634,6 +631,58 @@ public class SessionManager {
         return session != null ? new SessionHandle(session).dhtPutItem(entry) : null;
     }
 
+    public MutableItem dhtGetItem(final byte[] key, final byte[] salt, int timeout) {
+        if (session == null) {
+            return null;
+        }
+
+        final MutableItem[] result = {null};
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener listener = new AlertListener() {
+
+            @Override
+            public int[] types() {
+                return DHT_MUTABLE_ITEM_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                DhtMutableItemAlert a = (DhtMutableItemAlert) alert;
+                boolean sameKey = Arrays.equals(key, a.key());
+                boolean sameSalt = Arrays.equals(salt, a.salt());
+                if (sameKey && sameSalt) {
+                    Entry e = new Entry(new entry(a.swig().getItem()));
+                    MutableItem item = new MutableItem(e, a.signature(), a.seq());
+                    result[0] = item;
+                    signal.countDown();
+                }
+            }
+        };
+
+        addListener(listener);
+
+        try {
+
+            new SessionHandle(session).dhtGetItem(key, salt);
+
+            signal.await(timeout, TimeUnit.SECONDS);
+
+        } catch (Throwable e) {
+            LOG.error("Error getting mutable item", e);
+        } finally {
+            removeListener(listener);
+        }
+
+        return result[0];
+    }
+
+    public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, byte[] salt) {
+        if (session != null) {
+            new SessionHandle(session).dhtPutItem(publicKey, privateKey, entry, salt);
+        }
+    }
+
     /**
      * @param sha1
      * @param timeout in seconds
@@ -1006,5 +1055,18 @@ public class SessionManager {
         Thread t = new Thread(r, "SessionManager-alertsLoop");
         t.setDaemon(true);
         t.start();
+    }
+
+    public static final class MutableItem {
+
+        private MutableItem(Entry item, byte[] signature, long seq) {
+            this.item = item;
+            this.signature = signature;
+            this.seq = seq;
+        }
+
+        public final Entry item;
+        public final byte[] signature;
+        public final long seq;
     }
 }
