@@ -719,6 +719,8 @@ typedef long time_t;
 %ignore libtorrent::peer_log_alert::event_type;
 %ignore libtorrent::dht_lookup::type;
 %ignore libtorrent::error_to_close_reason;
+%ignore libtorrent::storage_error;
+%ignore libtorrent::user_alert_id;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -726,6 +728,7 @@ typedef long time_t;
 %ignore boost::system::system_category;
 %ignore boost::system::error_code::unspecified_bool_true;
 %ignore boost::asio;
+%ignore boost::hash_value;
 
 %ignore operator=;
 %ignore operator!;
@@ -782,6 +785,7 @@ typedef long time_t;
 %ignore ::mkdir;
 %ignore ::rename;
 %ignore ::remove;
+%ignore g_posix_wrapper;
 
 // BEGIN common set include ------------------------------------------------------
 

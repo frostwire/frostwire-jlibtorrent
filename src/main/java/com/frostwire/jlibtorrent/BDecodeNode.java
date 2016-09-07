@@ -11,14 +11,14 @@ public final class BDecodeNode {
     private final bdecode_node n;
 
     /**
-     * @param n
+     * @param n the native object
      */
     public BDecodeNode(bdecode_node n) {
         this.n = n;
     }
 
     /**
-     * @return
+     * @return the native object
      */
     public bdecode_node swig() {
         return n;

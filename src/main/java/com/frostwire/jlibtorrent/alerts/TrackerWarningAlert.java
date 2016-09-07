@@ -12,14 +12,14 @@ import com.frostwire.jlibtorrent.swig.tracker_warning_alert;
  */
 public final class TrackerWarningAlert extends TrackerAlert<tracker_warning_alert> {
 
-    public TrackerWarningAlert(tracker_warning_alert alert) {
+    TrackerWarningAlert(tracker_warning_alert alert) {
         super(alert);
     }
 
     /**
      * The message associated with this warning.
      *
-     * @return
+     * @return the warning
      */
     public String warningMessage() {
         return alert.warning_message();

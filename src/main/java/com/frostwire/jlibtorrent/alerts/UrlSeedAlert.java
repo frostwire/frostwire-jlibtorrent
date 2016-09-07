@@ -11,7 +11,7 @@ import com.frostwire.jlibtorrent.swig.url_seed_alert;
  */
 public final class UrlSeedAlert extends TorrentAlert<url_seed_alert> {
 
-    public UrlSeedAlert(url_seed_alert alert) {
+    UrlSeedAlert(url_seed_alert alert) {
         super(alert);
     }
 
@@ -19,7 +19,7 @@ public final class UrlSeedAlert extends TorrentAlert<url_seed_alert> {
      * The error the web seed encountered. If this is not set, the server
      * sent an error message, call {@link #errorMessage()}.
      *
-     * @return
+     * @return error code
      */
     public ErrorCode error() {
         return new ErrorCode(alert.getError());
@@ -28,7 +28,7 @@ public final class UrlSeedAlert extends TorrentAlert<url_seed_alert> {
     /**
      * The URL the error is associated with.
      *
-     * @return
+     * @return server url
      */
     public String serverUrl() {
         return alert.server_url();
@@ -38,7 +38,7 @@ public final class UrlSeedAlert extends TorrentAlert<url_seed_alert> {
      * In case the web server sent an error message, this function returns
      * it.
      *
-     * @return
+     * @return error message
      */
     public String errorMessage() {
         return alert.error_message();

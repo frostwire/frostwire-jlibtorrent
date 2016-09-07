@@ -12,7 +12,7 @@ public final class Address implements Comparable<Address> {
     private final address addr;
 
     /**
-     * @param addr
+     * @param addr the native object
      */
     public Address(address addr) {
         this.addr = addr;
@@ -22,7 +22,7 @@ public final class Address implements Comparable<Address> {
      * Create an address from an IPv4 address string in dotted decimal form,
      * or from an IPv6 address in hexadecimal notation.
      *
-     * @param ip
+     * @param ip the ip string representation
      */
     public Address(String ip) {
         error_code ec = new error_code();

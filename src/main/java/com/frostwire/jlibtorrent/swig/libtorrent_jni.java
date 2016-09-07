@@ -594,17 +594,6 @@ public class libtorrent_jni {
   public final static native int service_unavailable_get();
   public final static native long get_libtorrent_category();
   public final static native long get_http_category();
-  public final static native long new_storage_error__SWIG_0();
-  public final static native long new_storage_error__SWIG_1(long jarg1, error_code jarg1_);
-  public final static native boolean storage_error_op_bool(long jarg1, storage_error jarg1_);
-  public final static native void storage_error_ec_set(long jarg1, storage_error jarg1_, long jarg2, error_code jarg2_);
-  public final static native long storage_error_ec_get(long jarg1, storage_error jarg1_);
-  public final static native void storage_error_file_set(long jarg1, storage_error jarg1_, int jarg2);
-  public final static native int storage_error_file_get(long jarg1, storage_error jarg1_);
-  public final static native void storage_error_operation_set(long jarg1, storage_error jarg1_, long jarg2);
-  public final static native long storage_error_operation_get(long jarg1, storage_error jarg1_);
-  public final static native String storage_error_operation_str(long jarg1, storage_error jarg1_);
-  public final static native void delete_storage_error(long jarg1);
   public final static native long new_bitfield__SWIG_0();
   public final static native long new_bitfield__SWIG_1(int jarg1);
   public final static native long new_bitfield__SWIG_2(int jarg1, boolean jarg2);
@@ -1148,7 +1137,6 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_picker_log_alert(long jarg1, alert jarg1_);
   public final static native long alert_get_timestamp(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
-  public final static native int user_alert_id_get();
   public final static native int torrent_alert_alert_type_get();
   public final static native String torrent_alert_message(long jarg1, torrent_alert jarg1_);
   public final static native void torrent_alert_handle_set(long jarg1, torrent_alert jarg1_, long jarg2, torrent_handle jarg2_);
@@ -2873,8 +2861,6 @@ public class libtorrent_jni {
   public final static native long new_posix_wrapper();
   public final static native void posix_wrapper_director_connect(posix_wrapper obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void posix_wrapper_change_ownership(posix_wrapper obj, long cptr, boolean take_or_release);
-  public final static native void g_posix_wrapper_set(long jarg1, posix_wrapper jarg1_);
-  public final static native long g_posix_wrapper_get();
   public final static native void set_posix_wrapper(long jarg1, posix_wrapper jarg1_);
   public final static native boolean is_utp_stream_logging();
   public final static native void set_utp_stream_logging(boolean jarg1);

@@ -85,10 +85,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.operation_name(op);
   }
 
-  public static int getUser_alert_id() {
-    return libtorrent_jni.user_alert_id_get();
-  }
-
   public static int setting_by_name(String name) {
     return libtorrent_jni.setting_by_name(name);
   }
@@ -195,15 +191,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static String openssl_version_text() {
     return libtorrent_jni.openssl_version_text();
-  }
-
-  public static void setG_posix_wrapper(posix_wrapper value) {
-    libtorrent_jni.g_posix_wrapper_set(posix_wrapper.getCPtr(value), value);
-  }
-
-  public static posix_wrapper getG_posix_wrapper() {
-    long cPtr = libtorrent_jni.g_posix_wrapper_get();
-    return (cPtr == 0) ? null : new posix_wrapper(cPtr, false);
   }
 
   public static void set_posix_wrapper(posix_wrapper obj) {
