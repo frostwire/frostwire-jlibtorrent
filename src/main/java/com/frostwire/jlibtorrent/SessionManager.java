@@ -239,28 +239,28 @@ public class SessionManager {
         }
     }
 
-    public int downloadSpeedLimit() {
+    public int downloadRateLimit() {
         if (session == null) {
             return 0;
         }
         return settings().downloadRateLimit();
     }
 
-    public void downloadSpeedLimit(int limit) {
+    public void downloadRateLimit(int limit) {
         if (session == null) {
             return;
         }
         applySettings(new SettingsPack().downloadRateLimit(limit));
     }
 
-    public int uploadSpeedLimit() {
+    public int uploadRateLimit() {
         if (session == null) {
             return 0;
         }
         return settings().uploadRateLimit();
     }
 
-    public void uploadSpeedLimit(int limit) {
+    public void uploadRateLimit(int limit) {
         if (session == null) {
             return;
         }
@@ -370,6 +370,15 @@ public class SessionManager {
 
     public void stopDht() {
         toggleDht(false);
+    }
+
+    public TorrentHandle find(Sha1Hash sha1) {
+        if (session == null) {
+            return null;
+        }
+
+        torrent_handle th = session.find_torrent(sha1.swig());
+        return th != null && th.is_valid() ? new TorrentHandle(th) : null;
     }
 
     /**
