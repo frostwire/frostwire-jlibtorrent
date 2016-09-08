@@ -465,6 +465,18 @@ public class SessionManager {
         download(ti, saveDir, null, null, null);
     }
 
+    public void remove(TorrentHandle th, SessionHandle.Options options) {
+        if (session != null && th.isValid()) {
+            session.remove_torrent(th.swig(), options.swig());
+        }
+    }
+
+    public void remove(TorrentHandle th) {
+        if (session != null && th.isValid()) {
+            session.remove_torrent(th.swig());
+        }
+    }
+
     /**
      * @param uri     magnet uri
      * @param timeout in seconds

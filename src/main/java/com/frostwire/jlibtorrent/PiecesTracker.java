@@ -49,11 +49,11 @@ public final class PiecesTracker {
         }
     }
 
-    public int getNumFiles() {
+    public int numFiles() {
         return numFiles;
     }
 
-    public int getNumPieces() {
+    public int numPieces() {
         return numPieces;
     }
 
