@@ -10,15 +10,21 @@ import com.frostwire.jlibtorrent.swig.block_timeout_alert;
  */
 public final class BlockTimeoutAlert extends PeerAlert<block_timeout_alert> {
 
-    public BlockTimeoutAlert(block_timeout_alert alert) {
+    BlockTimeoutAlert(block_timeout_alert alert) {
         super(alert);
     }
 
-    public int getBlockIndex() {
+    /**
+     * @return the block index
+     */
+    public int blockIndex() {
         return alert.getBlock_index();
     }
 
-    public int getPieceIndex() {
+    /**
+     * @return the piece index
+     */
+    public int pieceIndex() {
         return alert.getPiece_index();
     }
 }

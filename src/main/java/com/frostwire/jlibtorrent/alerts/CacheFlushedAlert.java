@@ -15,7 +15,7 @@ import com.frostwire.jlibtorrent.swig.cache_flushed_alert;
  */
 public final class CacheFlushedAlert extends TorrentAlert<cache_flushed_alert> {
 
-    public CacheFlushedAlert(cache_flushed_alert alert) {
+    CacheFlushedAlert(cache_flushed_alert alert) {
         super(alert);
     }
 }

@@ -14,10 +14,16 @@ public final class BlockDownloadingAlert extends PeerAlert<block_downloading_ale
         super(alert);
     }
 
+    /**
+     * @return the block index
+     */
     public int blockIndex() {
         return alert.getBlock_index();
     }
 
+    /**
+     * @return the piece index
+     */
     public int pieceIndex() {
         return alert.getPiece_index();
     }
