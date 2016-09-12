@@ -13,7 +13,7 @@ import com.frostwire.jlibtorrent.swig.anonymous_mode_alert;
  */
 public final class AnonymousModeAlert extends TorrentAlert<anonymous_mode_alert> {
 
-    public AnonymousModeAlert(anonymous_mode_alert alert) {
+    AnonymousModeAlert(anonymous_mode_alert alert) {
         super(alert);
     }
 
@@ -22,14 +22,20 @@ public final class AnonymousModeAlert extends TorrentAlert<anonymous_mode_alert>
      *
      * @return
      */
-    public Kind getKind() {
+    public Kind kind() {
         return Kind.fromSwig(alert.getKind());
     }
 
-    public String getStr() {
+    /**
+     * @return
+     */
+    public String str() {
         return alert.getStr();
     }
 
+    /**
+     *
+     */
     public enum Kind {
 
         /**
@@ -44,20 +50,27 @@ public final class AnonymousModeAlert extends TorrentAlert<anonymous_mode_alert>
          */
         UNKNOWN(-1);
 
-        private Kind(int swigValue) {
+        Kind(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static Kind fromSwig(int swigValue) {
             Kind[] enumValues = Kind.class.getEnumConstants();
             for (Kind ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }
