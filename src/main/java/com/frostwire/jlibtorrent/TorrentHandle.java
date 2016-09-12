@@ -235,7 +235,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public Sha1Hash getInfoHash() {
+    public Sha1Hash infoHash() {
         return new Sha1Hash(th.info_hash());
     }
 
@@ -262,9 +262,6 @@ public final class TorrentHandle {
      * torrents that are auto-managed may be automatically resumed again. It
      * does not make sense to pause an auto-managed torrent without making it
      * not automanaged first.
-     * <p>
-     * The current {@link Session} add torrent implementations add the torrent
-     * in no-auto-managed mode.
      */
     public void pause() {
         th.pause();

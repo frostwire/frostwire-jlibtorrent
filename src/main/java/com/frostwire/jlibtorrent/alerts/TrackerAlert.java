@@ -12,7 +12,7 @@ import com.frostwire.jlibtorrent.swig.tracker_alert;
  */
 public class TrackerAlert<T extends tracker_alert> extends TorrentAlert<T> {
 
-    public TrackerAlert(T alert) {
+    TrackerAlert(T alert) {
         super(alert);
     }
 

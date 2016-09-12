@@ -34,6 +34,9 @@ public final class FileStorage {
         this.fs = fs;
     }
 
+    /**
+     * @return the native object
+     */
     public file_storage swig() {
         return fs;
     }

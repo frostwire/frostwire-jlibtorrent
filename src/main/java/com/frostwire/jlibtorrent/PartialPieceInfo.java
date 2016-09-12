@@ -20,6 +20,9 @@ public final class PartialPieceInfo {
         this.p = p;
     }
 
+    /**
+     * @return the native object
+     */
     public partial_piece_info swig() {
         return p;
     }
@@ -30,7 +33,7 @@ public final class PartialPieceInfo {
      * be the same for most pieces, but the last piece may have fewer
      * blocks than the standard pieces.
      *
-     * @return
+     * @return the piece index
      */
     public int pieceIndex() {
         return p.getPiece_index();
@@ -39,7 +42,7 @@ public final class PartialPieceInfo {
     /**
      * The number of blocks in this piece.
      *
-     * @return
+     * @return the number of blocks
      */
     public int blocksInPiece() {
         return p.getBlocks_in_piece();
@@ -48,7 +51,7 @@ public final class PartialPieceInfo {
     /**
      * The number of blocks that are in the finished state.
      *
-     * @return
+     * @return the number of finished blocks
      */
     public int finished() {
         return p.getFinished();
@@ -57,7 +60,7 @@ public final class PartialPieceInfo {
     /**
      * The number of blocks that are in the writing state.
      *
-     * @return
+     * @return the number of blocks in writing state
      */
     public int writing() {
         return p.getWriting();
@@ -66,7 +69,7 @@ public final class PartialPieceInfo {
     /**
      * The number of blocks that are in the requested state.
      *
-     * @return
+     * @return the number of blocks in requested state
      */
     public int requested() {
         return p.getRequested();
@@ -76,7 +79,7 @@ public final class PartialPieceInfo {
      * This is an array (list) of ``blocks_in_piece`` number of
      * items. One for each block in the piece.
      *
-     * @return
+     * @return all blocks information
      */
     public ArrayList<BlockInfo> blocks() {
         block_info_vector v = p.get_blocks();
@@ -104,7 +107,7 @@ public final class PartialPieceInfo {
      * any of ``fast``, ``medium`` or ``slow`` as soon as a peer want to
      * download from it.
      *
-     * @return
+     * @return the piece state
      */
     public State pieceState() {
         return State.fromSwig(p.getPiece_state().swigValue());
@@ -148,15 +151,15 @@ public final class PartialPieceInfo {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
         }
 
         /**
-         * @param swigValue
-         * @return
+         * @param swigValue the native value
+         * @return the managed value
          */
         public static State fromSwig(int swigValue) {
             State[] enumValues = State.class.getEnumConstants();
