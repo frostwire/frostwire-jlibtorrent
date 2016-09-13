@@ -527,7 +527,7 @@ public class SessionManager {
                 if (type.equals(AlertType.METADATA_RECEIVED)) {
                     MetadataReceivedAlert a = ((MetadataReceivedAlert) alert);
                     int size = a.metadataSize();
-                    if (size <= maxSize) {
+                    if (0 < size && size <= maxSize) {
                         data[0] = a.torrentData();
                     }
                 }
