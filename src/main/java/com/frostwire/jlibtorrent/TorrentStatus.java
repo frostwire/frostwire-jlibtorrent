@@ -24,7 +24,7 @@ public final class TorrentStatus {
     }
 
     /**
-     * @return
+     * @return the native object
      */
     public torrent_status swig() {
         return ts;
@@ -397,7 +397,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getDistributedFraction() {
+    public int distributedFraction() {
         return ts.getDistributed_fraction();
     }
 
@@ -414,7 +414,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public float getDistributedCopies() {
+    public float distributedCopies() {
         return ts.getDistributed_copies();
     }
 
@@ -427,7 +427,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getBlockSize() {
+    public int blockSize() {
         return ts.getBlock_size();
     }
 
@@ -436,7 +436,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumUploads() {
+    public int numUploads() {
         return ts.getNum_uploads();
     }
 
@@ -447,7 +447,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumConnections() {
+    public int numConnections() {
         return ts.getNum_connections();
     }
 
@@ -456,7 +456,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getUploadsLimit() {
+    public int uploadsLimit() {
         return ts.getUploads_limit();
     }
 
@@ -465,7 +465,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getConnectionsLimit() {
+    public int connectionsLimit() {
         return ts.getConnections_limit();
     }
 
@@ -477,7 +477,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getUpBandwidthQueue() {
+    public int upBandwidthQueue() {
         return ts.getUp_bandwidth_queue();
     }
 
@@ -489,7 +489,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getDownBandwidthQueue() {
+    public int downBandwidthQueue() {
         return ts.getDown_bandwidth_queue();
     }
 
@@ -502,7 +502,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getTimeSinceUpload() {
+    public int timeSinceUpload() {
         return ts.getTime_since_upload();
     }
 
@@ -515,7 +515,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getTimeSinceDownload() {
+    public int timeSinceDownload() {
         return ts.getTime_since_download();
     }
 
@@ -526,7 +526,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getActiveTime() {
+    public int activeTime() {
         return ts.getActive_time();
     }
 
@@ -537,7 +537,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getFinishedTime() {
+    public int finishedTime() {
         return ts.getFinished_time();
     }
 
@@ -548,7 +548,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getSeedingTime() {
+    public int seedingTime() {
         return ts.getSeeding_time();
     }
 
@@ -556,9 +556,9 @@ public final class TorrentStatus {
      * A rank of how important it is to seed the torrent, it is used to determine which torrents to seed and which to queue.
      * It is based on the peer to seed ratio from the tracker scrape. Higher value means more important to seed.
      *
-     * @return
+     * @return the seed rank
      */
-    public int getSeedRank() {
+    public int seedRank() {
         return ts.getSeed_rank();
     }
 
@@ -573,8 +573,10 @@ public final class TorrentStatus {
 
     /**
      * The main state the torrent is in. See torrent_status::state_t.
+     *
+     * @return the state
      */
-    public State getState() {
+    public State state() {
         return State.fromSwig(ts.getState().swigValue());
     }
 
@@ -868,7 +870,7 @@ public final class TorrentStatus {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
