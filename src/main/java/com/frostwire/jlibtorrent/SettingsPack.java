@@ -31,7 +31,7 @@ public final class SettingsPack {
         this(new settings_pack());
     }
 
-    public settings_pack getSwig() {
+    public settings_pack swig() {
         return sp;
     }
 
@@ -67,7 +67,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setDownloadRateLimit(int value) {
+    public void downloadRateLimit(int value) {
         sp.set_int(settings_pack.int_types.download_rate_limit.swigValue(), value);
     }
 
@@ -86,7 +86,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setUploadRateLimit(int value) {
+    public void uploadRateLimit(int value) {
         sp.set_int(settings_pack.int_types.upload_rate_limit.swigValue(), value);
     }
 
@@ -290,7 +290,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setConnectionsLimit(int value) {
+    public void connectionsLimit(int value) {
         sp.set_int(settings_pack.int_types.connections_limit.swigValue(), value);
     }
 
@@ -312,7 +312,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setMaxPeerlistSize(int value) {
+    public void maxPeerlistSize(int value) {
         sp.set_int(settings_pack.int_types.max_peerlist_size.swigValue(), value);
     }
 
@@ -337,7 +337,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setMaxQueuedDiskBytes(int value) {
+    public void maxQueuedDiskBytes(int value) {
         sp.set_int(settings_pack.int_types.max_queued_disk_bytes.swigValue(), value);
     }
 
@@ -359,7 +359,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setSendBufferWatermark(int value) {
+    public void sendBufferWatermark(int value) {
         sp.set_int(settings_pack.int_types.send_buffer_watermark.swigValue(), value);
     }
 
@@ -388,7 +388,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setCacheSize(int value) {
+    public void cacheSize(int value) {
         sp.set_int(settings_pack.int_types.cache_size.swigValue(), value);
     }
 
@@ -401,7 +401,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setGuidedReadCache(boolean value) {
+    public void guidedReadCache(boolean value) {
         sp.set_bool(settings_pack.bool_types.guided_read_cache.swigValue(), value);
     }
 
@@ -414,7 +414,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setTickInterval(int value) {
+    public void tickInterval(int value) {
         sp.set_int(settings_pack.int_types.tick_interval.swigValue(), value);
     }
 
@@ -424,7 +424,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setInactivityTimeout(int value) {
+    public void inactivityTimeout(int value) {
         sp.set_int(settings_pack.int_types.inactivity_timeout.swigValue(), value);
     }
 
@@ -438,7 +438,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setSeedingOutgoingConnections(boolean value) {
+    public void seedingOutgoingConnections(boolean value) {
         sp.set_bool(settings_pack.bool_types.seeding_outgoing_connections.swigValue(), value);
     }
 
@@ -454,7 +454,7 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setAnonymousMode(boolean value) {
+    public void anonymousMode(boolean value) {
         sp.set_bool(settings_pack.bool_types.anonymous_mode.swigValue(), value);
     }
 

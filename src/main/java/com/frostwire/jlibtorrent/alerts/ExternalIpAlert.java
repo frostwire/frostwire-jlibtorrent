@@ -23,7 +23,7 @@ public final class ExternalIpAlert extends AbstractAlert<external_ip_alert> {
      *
      * @return
      */
-    public Address getExternalAddress() {
+    public Address externalAddress() {
         return new Address(alert.getExternal_address());
     }
 }

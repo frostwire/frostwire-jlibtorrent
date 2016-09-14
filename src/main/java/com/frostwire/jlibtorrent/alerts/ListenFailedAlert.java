@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.ErrorCode;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.listen_failed_alert;
@@ -38,7 +39,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      *
      * @return
      */
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
     }
 
@@ -48,7 +49,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return
      * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.Operation
      */
-    public Operation getOperation() {
+    public Operation operation() {
         return Operation.fromSwig(alert.getOperation());
     }
 
@@ -58,7 +59,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return
      * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.SocketType
      */
-    public SocketType getSocketType() {
+    public SocketType socketType() {
         return SocketType.fromSwig(alert.getSock_type().swigValue());
     }
 
@@ -69,6 +70,14 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      */
     public TcpEndpoint endpoint() {
         return new TcpEndpoint(alert.getEndpoint());
+    }
+
+    public Address address() {
+        return endpoint().address();
+    }
+
+    public int port() {
+        return endpoint().port();
     }
 
     public enum SocketType {

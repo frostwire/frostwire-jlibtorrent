@@ -632,7 +632,7 @@ public final class Session extends SessionHandle {
      * @return
      */
     public int addPortMapping(ProtocolType t, int externalPort, int localPort) {
-        return s.add_port_mapping(t.getSwig(), externalPort, localPort);
+        return s.add_port_mapping(t.swig(), externalPort, localPort);
     }
 
     public void deletePortMapping(int handle) {
@@ -943,7 +943,7 @@ public final class Session extends SessionHandle {
     }
 
     private static session createSession(SettingsPack settings, boolean logging) {
-        settings_pack sp = settings.getSwig();
+        settings_pack sp = settings.swig();
 
         int alert_mask = alert.category_t.all_categories.swigValue();
         if (!logging) {
@@ -968,52 +968,5 @@ public final class Session extends SessionHandle {
         sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), retries);
 
         return new SettingsPack(sp);
-    }
-
-    /**
-     * Flags to be passed in to {@link #removeTorrent(TorrentHandle, Options)}.
-     */
-    public enum Options {
-
-        /**
-         * Delete the files belonging to the torrent from disk,
-         * including the part-file, if there is one.
-         */
-        DELETE_FILES(options_t.delete_files.swigValue()),
-
-        /**
-         * Delete just the part-file associated with this torrent.
-         */
-        DELETE_PARTFILE(options_t.delete_partfile.swigValue());
-
-        Options(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        public int swig() {
-            return swigValue;
-        }
-    }
-
-    /**
-     * protocols used by add_port_mapping().
-     */
-    public enum ProtocolType {
-
-        UDP(session.protocol_type.udp),
-
-        TCP(session.protocol_type.tcp);
-
-        ProtocolType(session.protocol_type swigObj) {
-            this.swigObj = swigObj;
-        }
-
-        private final session.protocol_type swigObj;
-
-        public session.protocol_type getSwig() {
-            return swigObj;
-        }
     }
 }

@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.listen_succeeded_alert;
 
@@ -27,12 +28,20 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
         return new TcpEndpoint(alert.getEndpoint());
     }
 
+    public Address address() {
+        return getEndpoint().address();
+    }
+
+    public int port() {
+        return getEndpoint().port();
+    }
+
     /**
      * the type of listen socket this alert refers to.
      *
      * @return
      */
-    public SocketType getSocketType() {
+    public SocketType socketType() {
         return SocketType.fromSwig(alert.getSock_type().swigValue());
     }
 

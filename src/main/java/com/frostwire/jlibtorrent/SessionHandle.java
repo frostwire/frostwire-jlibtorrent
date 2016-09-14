@@ -212,6 +212,53 @@ public class SessionHandle {
      * @param sp
      */
     public void applySettings(SettingsPack sp) {
-        s.apply_settings(sp.getSwig());
+        s.apply_settings(sp.swig());
+    }
+
+    /**
+     * Flags to be passed in to {@link #removeTorrent(TorrentHandle, Options)}.
+     */
+    public enum Options {
+
+        /**
+         * Delete the files belonging to the torrent from disk,
+         * including the part-file, if there is one.
+         */
+        DELETE_FILES(session_handle.options_t.delete_files.swigValue()),
+
+        /**
+         * Delete just the part-file associated with this torrent.
+         */
+        DELETE_PARTFILE(session_handle.options_t.delete_partfile.swigValue());
+
+        Options(int swigValue) {
+            this.swigValue = swigValue;
+        }
+
+        private final int swigValue;
+
+        public int swig() {
+            return swigValue;
+        }
+    }
+
+    /**
+     * protocols used by add_port_mapping().
+     */
+    public enum ProtocolType {
+
+        UDP(session_handle.protocol_type.udp),
+
+        TCP(session_handle.protocol_type.tcp);
+
+        ProtocolType(session_handle.protocol_type swigObj) {
+            this.swigObj = swigObj;
+        }
+
+        private final session_handle.protocol_type swigObj;
+
+        public session_handle.protocol_type swig() {
+            return swigObj;
+        }
     }
 }

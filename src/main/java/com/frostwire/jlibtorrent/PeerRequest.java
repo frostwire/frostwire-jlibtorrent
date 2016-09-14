@@ -26,7 +26,7 @@ public final class PeerRequest {
      *
      * @return
      */
-    public int getPiece() {
+    public int piece() {
         return r.getPiece();
     }
 
@@ -35,7 +35,7 @@ public final class PeerRequest {
      *
      * @return
      */
-    public int getStart() {
+    public int start() {
         return r.getStart();
     }
 
@@ -44,12 +44,12 @@ public final class PeerRequest {
      *
      * @return
      */
-    public int getLength() {
+    public int length() {
         return r.getLength();
     }
 
     @Override
     public String toString() {
-        return "PeerRequest(piece: " + getPiece() + ", start:" + getStart() + ", length" + getLength() + ")";
+        return "PeerRequest(piece: " + piece() + ", start:" + start() + ", length" + length() + ")";
     }
 }

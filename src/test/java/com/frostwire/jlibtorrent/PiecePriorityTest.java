@@ -87,8 +87,8 @@ public class PiecePriorityTest {
 
         FileStorage fs = ti.files();
         long size = fs.fileSize(1);
-        int firstPiece = ti.mapFile(1, 0, 1).getPiece();
-        int lastPiece = ti.mapFile(1, size - 1, 1).getPiece();
+        int firstPiece = ti.mapFile(1, 0, 1).piece();
+        int lastPiece = ti.mapFile(1, size - 1, 1).piece();
         assertTrue(firstPiece < lastPiece);
         firstP.set(firstPiece);
         // use the commented line if you want to download the entire file
