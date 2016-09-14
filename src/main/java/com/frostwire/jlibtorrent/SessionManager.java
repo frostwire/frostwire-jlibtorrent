@@ -59,7 +59,7 @@ public class SessionManager {
         this(false);
     }
 
-    public com.frostwire.jlibtorrent.swig.session swig() {
+    public session swig() {
         return session;
     }
 
