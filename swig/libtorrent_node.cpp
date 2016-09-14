@@ -83195,6 +83195,43 @@ fail:
 }
 
 
+static SwigV8ReturnValue _wrap_peer_connection_handle_should_log(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::peer_connection_handle *arg1 = (libtorrent::peer_connection_handle *) 0 ;
+  libtorrent::peer_log_alert::direction_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  bool result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_peer_connection_handle_should_log.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__peer_connection_handle, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "peer_connection_handle_should_log" "', argument " "1"" of type '" "libtorrent::peer_connection_handle const *""'"); 
+  }
+  arg1 = (libtorrent::peer_connection_handle *)(argp1);
+  ecode2 = SWIG_AsVal_int(args[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "peer_connection_handle_should_log" "', argument " "2"" of type '" "libtorrent::peer_log_alert::direction_t""'");
+  } 
+  arg2 = (libtorrent::peer_log_alert::direction_t)(val2);
+  result = (bool)((libtorrent::peer_connection_handle const *)arg1)->should_log(arg2);
+  jsresult = SWIG_From_bool((bool)(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
 static SwigV8ReturnValue _wrap_peer_connection_handle_can_disconnect(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -99398,6 +99435,7 @@ SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "is_outgoing", _
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "on_local_network", _wrap_peer_connection_handle_on_local_network);
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "ignore_unchoke_slots", _wrap_peer_connection_handle_ignore_unchoke_slots);
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "failed", _wrap_peer_connection_handle_failed);
+SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "should_log", _wrap_peer_connection_handle_should_log);
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "can_disconnect", _wrap_peer_connection_handle_can_disconnect);
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "has_metadata", _wrap_peer_connection_handle_has_metadata);
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "in_handshake", _wrap_peer_connection_handle_in_handshake);

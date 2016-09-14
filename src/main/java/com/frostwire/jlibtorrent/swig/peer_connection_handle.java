@@ -127,6 +127,10 @@ public class peer_connection_handle {
     return libtorrent_jni.peer_connection_handle_failed(swigCPtr, this);
   }
 
+  public boolean should_log(peer_log_alert.direction_t direction) {
+    return libtorrent_jni.peer_connection_handle_should_log(swigCPtr, this, direction.swigValue());
+  }
+
   public boolean can_disconnect(error_code ec) {
     return libtorrent_jni.peer_connection_handle_can_disconnect(swigCPtr, this, error_code.getCPtr(ec), ec);
   }
