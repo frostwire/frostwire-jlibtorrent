@@ -160,7 +160,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public TorrentInfo getTorrentInfo() {
+    public TorrentInfo torrentFile() {
         torrent_info ti = th.get_torrent_copy();
         return ti != null ? new TorrentInfo(ti) : null;
     }
@@ -182,7 +182,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public TorrentStatus getStatus(boolean force) {
+    public TorrentStatus status(boolean force) {
         long now = System.currentTimeMillis();
         if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
             lastStatusRequestTime = now;
@@ -203,8 +203,8 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public TorrentStatus getStatus() {
-        return this.getStatus(false);
+    public TorrentStatus status() {
+        return this.status(false);
     }
 
     /**
@@ -976,7 +976,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public Priority[] getFilePriorities() {
+    public Priority[] filePriorities() {
         int_vector v = th.file_priorities();
         int size = (int) v.size();
         Priority[] arr = new Priority[size];

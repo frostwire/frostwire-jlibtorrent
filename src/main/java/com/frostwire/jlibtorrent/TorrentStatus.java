@@ -170,7 +170,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public Bitfield getVerifiedPieces() {
+    public Bitfield verifiedPieces() {
         return new Bitfield(ts.getVerified_pieces());
     }
 
@@ -178,7 +178,7 @@ public final class TorrentStatus {
      * The total number of bytes of the file(s) that we have. All this does not necessarily
      * has to be downloaded during this session (that's total_payload_download).
      */
-    public long getTotalDone() {
+    public long totalDone() {
         return ts.getTotal_done();
     }
 
@@ -186,7 +186,7 @@ public final class TorrentStatus {
      * The number of bytes we have downloaded, only counting the pieces that we actually want
      * to download. i.e. excluding any pieces that we have but have priority 0 (i.e. not wanted).
      */
-    public long getTotalWantedDone() {
+    public long totalWantedDone() {
         return ts.getTotal_wanted_done();
     }
 
@@ -194,7 +194,7 @@ public final class TorrentStatus {
      * The total number of bytes we want to download. This may be smaller than the total
      * torrent size in case any pieces are prioritized to 0, i.e. not wanted.
      */
-    public long getTotalWanted() {
+    public long totalWanted() {
         return ts.getTotal_wanted();
     }
 
@@ -202,7 +202,7 @@ public final class TorrentStatus {
      * This is the accumulated upload payload byte counter. They are saved in and restored
      * from resume data to keep totals across sessions.
      */
-    public long getAllTimeUpload() {
+    public long allTimeUpload() {
         return ts.getAll_time_upload();
     }
 
@@ -210,21 +210,21 @@ public final class TorrentStatus {
      * This is the accumulated download payload byte counters. They are saved in and restored
      * from resume data to keep totals across sessions.
      */
-    public long getAllTimeDownload() {
+    public long allTimeDownload() {
         return ts.getAll_time_download();
     }
 
     /**
      * The posix-time (in milliseconds) when this torrent was added. i.e. what time(NULL) returned at the time.
      */
-    public long getAddedTime() {
+    public long addedTime() {
         return time2millis(ts.getAdded_time());
     }
 
     /**
      * The posix-time (in milliseconds) when this torrent was finished. If the torrent is not yet finished, this is 0.
      */
-    public long getCompletedTime() {
+    public long completedTime() {
         return time2millis(ts.getCompleted_time());
     }
 
@@ -250,7 +250,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public float getProgress() {
+    public float progress() {
         return ts.getProgress();
     }
 
@@ -264,7 +264,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getProgressPpm() {
+    public int progressPpm() {
         return ts.getProgress_ppm();
     }
 
@@ -274,7 +274,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getQueuePosition() {
+    public int queuePosition() {
         return ts.getQueue_position();
     }
 
@@ -283,7 +283,7 @@ public final class TorrentStatus {
      * precision than summing the rates from all peers. The rates are given as the
      * number of bytes per second.
      */
-    public int getDownloadRate() {
+    public int downloadRate() {
         return ts.getDownload_rate();
     }
 
@@ -292,7 +292,7 @@ public final class TorrentStatus {
      * precision than summing the rates from all peers. The rates are given as the
      * number of bytes per second.
      */
-    public int getUploadRate() {
+    public int uploadRate() {
         return ts.getUpload_rate();
     }
 
@@ -301,7 +301,7 @@ public final class TorrentStatus {
      * This might be slightly smaller than the other rates, but if projected over
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
      */
-    public int getDownloadPayloadRate() {
+    public int downloadPayloadRate() {
         return ts.getDownload_payload_rate();
     }
 
@@ -310,14 +310,14 @@ public final class TorrentStatus {
      * This might be slightly smaller than the other rates, but if projected over
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
      */
-    public int getUploadPayloadRate() {
+    public int uploadPayloadRate() {
         return ts.getUpload_payload_rate();
     }
 
     /**
      * The number of peers that are seeding that this client is currently connected to.
      */
-    public int getNumSeeds() {
+    public int numSeeds() {
         return ts.getNum_seeds();
     }
 
@@ -327,7 +327,7 @@ public final class TorrentStatus {
      * connection attempt do not count. Although they are visible in the peer list when
      * you call get_peer_info().
      */
-    public int getNumPeers() {
+    public int numPeers() {
         return ts.getNum_peers();
     }
 
@@ -339,7 +339,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumComplete() {
+    public int numComplete() {
         return ts.getNum_complete();
     }
 
@@ -351,7 +351,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumIncomplete() {
+    public int numIncomplete() {
         return ts.getNum_incomplete();
     }
 
@@ -361,7 +361,7 @@ public final class TorrentStatus {
      * of peers we know of in total, including banned peers and peers that we have failed to
      * connect to.
      */
-    public int getListSeeds() {
+    public int listSeeds() {
         return ts.getList_seeds();
     }
 
@@ -371,7 +371,7 @@ public final class TorrentStatus {
      * of peers we know of in total, including banned peers and peers that we have failed to
      * connect to.
      */
-    public int getListPeers() {
+    public int listPeers() {
         return ts.getList_peers();
     }
 
@@ -383,7 +383,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getConnectCandidates() {
+    public int connectCandidates() {
         return ts.getConnect_candidates();
     }
 
@@ -395,7 +395,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumPieces() {
+    public int numPieces() {
         return ts.getNum_pieces();
     }
 
@@ -407,7 +407,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getDistributedFullCopies() {
+    public int distributedFullCopies() {
         return ts.getDistributed_full_copies();
     }
 
@@ -426,7 +426,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getDistributedFraction() {
+    public int distributedFraction() {
         return ts.getDistributed_fraction();
     }
 
@@ -443,7 +443,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public float getDistributedCopies() {
+    public float distributedCopies() {
         return ts.getDistributed_copies();
     }
 
@@ -456,7 +456,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getBlockSize() {
+    public int blockSize() {
         return ts.getBlock_size();
     }
 
@@ -465,7 +465,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumUploads() {
+    public int numUploads() {
         return ts.getNum_uploads();
     }
 
@@ -476,7 +476,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumConnections() {
+    public int numConnections() {
         return ts.getNum_connections();
     }
 
@@ -485,7 +485,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getUploadsLimit() {
+    public int uploadsLimit() {
         return ts.getUploads_limit();
     }
 
@@ -494,7 +494,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getConnectionsLimit() {
+    public int connectionsLimit() {
         return ts.getConnections_limit();
     }
 
@@ -506,7 +506,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getUpBandwidthQueue() {
+    public int upBandwidthQueue() {
         return ts.getUp_bandwidth_queue();
     }
 
@@ -518,7 +518,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getDownBandwidthQueue() {
+    public int downBandwidthQueue() {
         return ts.getDown_bandwidth_queue();
     }
 
@@ -531,7 +531,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getTimeSinceUpload() {
+    public int timeSinceUpload() {
         return ts.getTime_since_upload();
     }
 
@@ -544,7 +544,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getTimeSinceDownload() {
+    public int timeSinceDownload() {
         return ts.getTime_since_download();
     }
 
@@ -555,7 +555,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getActiveTime() {
+    public int activeTime() {
         return ts.getActive_time();
     }
 
@@ -566,7 +566,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getFinishedTime() {
+    public int finishedTime() {
         return ts.getFinished_time();
     }
 
@@ -577,7 +577,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getSeedingTime() {
+    public int seedingTime() {
         return ts.getSeeding_time();
     }
 
@@ -587,7 +587,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getSeedRank() {
+    public int seedRank() {
         return ts.getSeed_rank();
     }
 
@@ -596,7 +596,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getLastScrape() {
+    public int lastScrape() {
         return ts.getLast_scrape();
     }
 
@@ -605,7 +605,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public Priority getPriority() {
+    public Priority priority() {
         return Priority.fromSwig(ts.getPriority());
     }
 
@@ -614,7 +614,7 @@ public final class TorrentStatus {
     /**
      * The main state the torrent is in. See torrent_status::state_t.
      */
-    public State getState() {
+    public State state() {
         return State.fromSwig(ts.getState().swigValue());
     }
 
@@ -835,7 +835,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public Sha1Hash getInfoHash() {
+    public Sha1Hash infoHash() {
         return new Sha1Hash(ts.getInfo_hash());
     }
 
@@ -911,14 +911,14 @@ public final class TorrentStatus {
 
         private final int swigValue;
 
-        public int getSwig() {
+        public int swig() {
             return swigValue;
         }
 
         public static State fromSwig(int swigValue) {
             State[] enumValues = State.class.getEnumConstants();
             for (State ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

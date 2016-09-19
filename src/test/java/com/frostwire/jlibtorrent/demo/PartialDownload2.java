@@ -48,12 +48,12 @@ public final class PartialDownload2 {
                         th.resume();
                         break;
                     case BLOCK_FINISHED:
-                        int p = (int) (th.getStatus().getProgress() * 100);
+                        int p = (int) (th.status().progress() * 100);
                         System.out.println("Progress: " + p);
                         break;
                     case FILE_COMPLETED:
                         FileCompletedAlert fca = (FileCompletedAlert) ta;
-                        System.out.println("File finished: " + th.getTorrentInfo().files().filePath(fca.getIndex()));
+                        System.out.println("File finished: " + th.torrentFile().files().filePath(fca.getIndex()));
 
                         if (fca.getIndex() == 0) {
                             s1.countDown();
