@@ -357,6 +357,14 @@ public final class SettingsPack {
     }
 
     /**
+     * @return the maximum number of bytes a connection may have pending in the disk
+     * write queue before its download rate is being throttled.
+     */
+    public int maxQueuedDiskBytes() {
+        return sp.get_int(settings_pack.int_types.max_queued_disk_bytes.swigValue());
+    }
+
+    /**
      * Sets the maximum number of bytes a connection may have pending in the disk
      * write queue before its download rate is being throttled. This prevents
      * fast downloads to slow medias to allocate more memory indefinitely.
@@ -366,20 +374,20 @@ public final class SettingsPack {
      * <p>
      * When this limit is reached, the peer connections will stop reading
      * data from their sockets, until the disk thread catches up. Setting
-     * this too low will severly limit your download rate.
+     * this too low will severely limit your download rate.
      *
      * @param value
      */
-    public void setMaxQueuedDiskBytes(int value) {
+    public SettingsPack maxQueuedDiskBytes(int value) {
         sp.set_int(settings_pack.int_types.max_queued_disk_bytes.swigValue(), value);
+        return this;
     }
 
     /**
-     * @return the maximum number of bytes a connection may have pending in the disk
-     * write queue before its download rate is being throttled.
+     * @return the upper limit of the send buffer low-watermark.
      */
-    public int maxQueuedDiskBytes() {
-        return sp.get_int(settings_pack.int_types.max_queued_disk_bytes.swigValue());
+    public int sendBufferWatermark() {
+        return sp.get_int(settings_pack.int_types.send_buffer_watermark.swigValue());
     }
 
     /**
@@ -392,15 +400,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setSendBufferWatermark(int value) {
+    public SettingsPack sendBufferWatermark(int value) {
         sp.set_int(settings_pack.int_types.send_buffer_watermark.swigValue(), value);
+        return this;
     }
 
     /**
-     * @return the upper limit of the send buffer low-watermark.
+     * @return
      */
-    public int sendBufferWatermark() {
-        return sp.get_int(settings_pack.int_types.send_buffer_watermark.swigValue());
+    public int cacheSize() {
+        return sp.get_int(settings_pack.int_types.cache_size.swigValue());
     }
 
     /**
@@ -421,8 +430,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setCacheSize(int value) {
+    public SettingsPack cacheSize(int value) {
         sp.set_int(settings_pack.int_types.cache_size.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+    public int tickInterval() {
+        return sp.get_int(settings_pack.int_types.tick_interval.swigValue());
     }
 
     /**
@@ -434,8 +451,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setTickInterval(int value) {
+    public SettingsPack tickInterval(int value) {
         sp.set_int(settings_pack.int_types.tick_interval.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+    public int inactivityTimeout() {
+        return sp.get_int(settings_pack.int_types.inactivity_timeout.swigValue());
     }
 
     /**
@@ -444,8 +469,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setInactivityTimeout(int value) {
+    public SettingsPack inactivityTimeout(int value) {
         sp.set_int(settings_pack.int_types.inactivity_timeout.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+    public boolean seedingOutgoingConnections() {
+        return sp.get_bool(settings_pack.bool_types.seeding_outgoing_connections.swigValue());
     }
 
     /**
@@ -458,8 +491,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setSeedingOutgoingConnections(boolean value) {
+    public SettingsPack seedingOutgoingConnections(boolean value) {
         sp.set_bool(settings_pack.bool_types.seeding_outgoing_connections.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+    public boolean anonymousMode() {
+        return sp.get_bool(settings_pack.bool_types.anonymous_mode.swigValue());
     }
 
     /**
@@ -474,8 +515,9 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setAnonymousMode(boolean value) {
+    public SettingsPack anonymousMode(boolean value) {
         sp.set_bool(settings_pack.bool_types.anonymous_mode.swigValue(), value);
+        return this;
     }
 
     public boolean broadcastLSD() {
