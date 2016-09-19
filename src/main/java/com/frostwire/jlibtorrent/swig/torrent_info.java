@@ -215,6 +215,10 @@ public class torrent_info {
     return new bdecode_node(libtorrent_jni.torrent_info_info(swigCPtr, this, key), true);
   }
 
+  public int metadata_size() {
+    return libtorrent_jni.torrent_info_metadata_size(swigCPtr, this);
+  }
+
   public boolean is_merkle_torrent() {
     return libtorrent_jni.torrent_info_is_merkle_torrent(swigCPtr, this);
   }

@@ -235,7 +235,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public Sha1Hash getInfoHash() {
+    public Sha1Hash infoHash() {
         return new Sha1Hash(th.info_hash());
     }
 

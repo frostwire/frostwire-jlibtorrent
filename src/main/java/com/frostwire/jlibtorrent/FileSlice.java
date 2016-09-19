@@ -35,7 +35,7 @@ public final class FileSlice {
      *
      * @return
      */
-    public int getFileIndex() {
+    public int fileIndex() {
         return fileIndex;
     }
 
@@ -44,7 +44,7 @@ public final class FileSlice {
      *
      * @return
      */
-    public long getOffset() {
+    public long offset() {
         return offset;
     }
 
@@ -53,7 +53,7 @@ public final class FileSlice {
      *
      * @return
      */
-    public long getSize() {
+    public long size() {
         return size;
     }
 
