@@ -89,12 +89,28 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.name_for_setting(s);
   }
 
+  public static dht_state read_dht_state(bdecode_node e) {
+    return new dht_state(libtorrent_jni.read_dht_state(bdecode_node.getCPtr(e), e), true);
+  }
+
+  public static entry save_dht_state(dht_state state) {
+    return new entry(libtorrent_jni.save_dht_state(dht_state.getCPtr(state), state), true);
+  }
+
   public static void min_memory_usage(settings_pack set) {
     libtorrent_jni.min_memory_usage(settings_pack.getCPtr(set), set);
   }
 
   public static void high_performance_seed(settings_pack set) {
     libtorrent_jni.high_performance_seed(settings_pack.getCPtr(set), set);
+  }
+
+  public static session_params read_session_params(bdecode_node e, long flags) {
+    return new session_params(libtorrent_jni.read_session_params__SWIG_0(bdecode_node.getCPtr(e), e, flags), true);
+  }
+
+  public static session_params read_session_params(bdecode_node e) {
+    return new session_params(libtorrent_jni.read_session_params__SWIG_1(bdecode_node.getCPtr(e), e), true);
   }
 
   public static boolean op_lte(address lhs, address rhs) {

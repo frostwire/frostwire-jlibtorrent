@@ -34,6 +34,7 @@
 #include "libtorrent/peer_class.hpp"
 #include "libtorrent/peer_class_type_filter.hpp"
 #include "libtorrent/session_handle.hpp"
+#include "libtorrent/kademlia/dht_state.hpp"
 #include "libtorrent/session.hpp"
 #include "libtorrent/peer_connection_handle.hpp"
 #include "libtorrent/ip_filter.hpp"
@@ -268,6 +269,7 @@ namespace std {
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
     %template(tcp_endpoint_vector) vector<libtorrent::tcp::endpoint>;
+    %template(udp_endpoint_vector) vector<libtorrent::udp::endpoint>;
 
     %template(int_string_map) map<int, std::string>;
     %template(string_long_map) map<std::string, long>;
@@ -287,6 +289,10 @@ namespace libtorrent {
             std::int64_t iov_len;
         };
     };
+
+    namespace dht {
+        typedef sha1_hash node_id;
+    }
 
     enum storage_mode_t {
         storage_mode_allocate,
@@ -814,6 +820,7 @@ typedef long time_t;
 %include "libtorrent/peer_class.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"
 %include "libtorrent/session_handle.hpp"
+%include "libtorrent/kademlia/dht_state.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/peer_connection_handle.hpp"
 %include "libtorrent/ip_filter.hpp"

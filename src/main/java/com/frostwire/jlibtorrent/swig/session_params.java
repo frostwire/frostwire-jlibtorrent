@@ -65,4 +65,13 @@ public class session_params {
     return (cPtr == 0) ? null : new dht_settings(cPtr, false);
   }
 
+  public void setDht_state(dht_state value) {
+    libtorrent_jni.session_params_dht_state_set(swigCPtr, this, dht_state.getCPtr(value), value);
+  }
+
+  public dht_state getDht_state() {
+    long cPtr = libtorrent_jni.session_params_dht_state_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new dht_state(cPtr, false);
+  }
+
 }
