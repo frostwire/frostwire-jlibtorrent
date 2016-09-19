@@ -951,6 +951,8 @@ public class libtorrent_jni {
   public final static native String add_torrent_params_trackerid_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_url_set(long jarg1, add_torrent_params jarg1_, String jarg2);
   public final static native String add_torrent_params_url_get(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_flags_set(long jarg1, add_torrent_params jarg1_, long jarg2);
+  public final static native long add_torrent_params_flags_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_info_hash_set(long jarg1, add_torrent_params jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long add_torrent_params_info_hash_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_max_uploads_set(long jarg1, add_torrent_params jarg1_, int jarg2);
@@ -1003,8 +1005,6 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_merkle_tree_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_renamed_files_set(long jarg1, add_torrent_params jarg1_, long jarg2, int_string_map jarg2_);
   public final static native long add_torrent_params_renamed_files_get(long jarg1, add_torrent_params jarg1_);
-  public final static native long add_torrent_params_get_flags(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_set_flags(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native long add_torrent_params_ti_ptr(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_set_ti(long jarg1, add_torrent_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native long add_torrent_params_create_instance();

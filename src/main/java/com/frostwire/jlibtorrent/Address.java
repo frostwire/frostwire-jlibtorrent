@@ -94,7 +94,7 @@ public final class Address implements Comparable<Address> {
     /**
      * Compare addresses for ordering.
      *
-     * @param o
+     * @param o the other address
      * @return -1, 0 or 1
      */
     @Override

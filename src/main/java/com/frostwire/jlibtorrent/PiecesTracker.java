@@ -57,11 +57,11 @@ public final class PiecesTracker {
         return numPieces;
     }
 
-    public boolean isComplete(int pieceIndex) throws IllegalArgumentException {
+    public boolean isComplete(int pieceIndex) {
         return complete[pieceIndex];
     }
 
-    public void setComplete(int pieceIndex, boolean complete) throws IllegalArgumentException {
+    public void setComplete(int pieceIndex, boolean complete) {
         this.complete[pieceIndex] = complete;
     }
 

@@ -31,14 +31,25 @@ public final class AddTorrentParams {
 
     private final add_torrent_params p;
 
+    /**
+     * The native object
+     *
+     * @param p
+     */
     public AddTorrentParams(add_torrent_params p) {
         this.p = p;
     }
 
+    /**
+     * Creates an empty parameters object with the default storage.
+     */
     public AddTorrentParams() {
         this(add_torrent_params.create_instance());
     }
 
+    /**
+     * @return the native object
+     */
     public add_torrent_params swig() {
         return p;
     }
@@ -46,7 +57,7 @@ public final class AddTorrentParams {
     /**
      * Filled in by the constructor. It is used for forward binary compatibility.
      *
-     * @return
+     * @return the version
      */
     public int version() {
         return p.getVersion();
@@ -56,7 +67,7 @@ public final class AddTorrentParams {
      * {@link TorrentInfo} object with the torrent to add. Unless the {@link #url()}
      * or {@link #infoHash()} is set, this is required to be initialized.
      *
-     * @return
+     * @return the torrent info or null if not set
      */
     public TorrentInfo torrentInfo() {
         torrent_info ti = p.ti_ptr();
@@ -67,7 +78,7 @@ public final class AddTorrentParams {
      * {@link TorrentInfo} object with the torrent to add. Unless the {@link #url()}
      * or {@link #infoHash()} is set, this is required to be initialized.
      *
-     * @param ti
+     * @param ti the torrent info
      */
     public void torrentInfo(TorrentInfo ti) {
         p.set_ti(ti.swig());
@@ -75,9 +86,9 @@ public final class AddTorrentParams {
 
     /**
      * If the torrent doesn't have a tracker, but relies on the DHT to find
-     * peers, the ``trackers`` can specify tracker URLs for the torrent.
+     * peers, the {@link #trackers(List)} can specify tracker URLs for the torrent.
      *
-     * @return
+     * @return the list of trackers
      */
     public ArrayList<String> trackers() {
         string_vector v = p.getTrackers();
@@ -93,9 +104,9 @@ public final class AddTorrentParams {
 
     /**
      * If the torrent doesn't have a tracker, but relies on the DHT to find
-     * peers, the ``trackers`` can specify tracker URLs for the torrent.
+     * peers, this method can specify tracker URLs for the torrent.
      *
-     * @param value
+     * @param value the list of trackers
      */
     public void trackers(List<String> value) {
         string_vector v = new string_vector();
@@ -114,7 +125,7 @@ public final class AddTorrentParams {
      * assumed to be part of tier 0, or whichever the last tier was as
      * iterating over the trackers.
      *
-     * @return
+     * @return the list of trackers tiers
      */
     public ArrayList<Integer> trackerTiers() {
         int_vector v = p.getTracker_tiers();
@@ -135,7 +146,7 @@ public final class AddTorrentParams {
      * assumed to be part of tier 0, or whichever the last tier was as
      * iterating over the trackers.
      *
-     * @param value
+     * @param value the list of trackers tiers
      */
     public void trackerTiers(List<Integer> value) {
         int_vector v = new int_vector();
@@ -151,7 +162,7 @@ public final class AddTorrentParams {
      * A list of hostname and port pairs, representing DHT nodes to be added
      * to the session (if DHT is enabled). The hostname may be an IP address.
      *
-     * @return
+     * @return the list of DHT nodes
      */
     public ArrayList<Pair<String, Integer>> dhtNodes() {
         string_int_pair_vector v = p.getDht_nodes();
@@ -170,7 +181,7 @@ public final class AddTorrentParams {
      * A list of hostname and port pairs, representing DHT nodes to be added
      * to the session (if DHT is enabled). The hostname may be an IP address.
      *
-     * @param value
+     * @param value the list of DHT nodes
      */
     public void dhtNodes(List<Pair<String, Integer>> value) {
         string_int_pair_vector v = new string_int_pair_vector();
@@ -182,10 +193,16 @@ public final class AddTorrentParams {
         p.setDht_nodes(v);
     }
 
+    /**
+     * @return the name
+     */
     public String name() {
         return p.getName();
     }
 
+    /**
+     * @param value the name
+     */
     public void name(String value) {
         p.setName(value);
     }
@@ -322,15 +339,22 @@ public final class AddTorrentParams {
         p.setInfo_hash(value.swig());
     }
 
-    /*
-        public void setMax_uploads(int value) {
-            libtorrent_jni.add_torrent_params_max_uploads_set(swigCPtr, this, value);
-        }
+    /**
+     * @return
+     */
+    public int getMax_uploads() {
+        return p.getMax_uploads();
+    }
 
-        public int getMax_uploads() {
-            return libtorrent_jni.add_torrent_params_max_uploads_get(swigCPtr, this);
-        }
+    /**
+     * @param value
+     */
+    public void maxUploads(int value) {
+        p.setMax_uploads(value);
+    }
 
+
+/*
         public void setMax_connections(int value) {
             libtorrent_jni.add_torrent_params_max_connections_set(swigCPtr, this, value);
         }
@@ -363,7 +387,7 @@ public final class AddTorrentParams {
      * @return
      */
     public long flags() {
-        return p.get_flags();
+        return p.getFlags();
     }
 
     /**
@@ -373,7 +397,7 @@ public final class AddTorrentParams {
      * @param flags
      */
     public void flags(long flags) {
-        p.set_flags(flags);
+        p.setFlags(flags);
     }
 
     /**

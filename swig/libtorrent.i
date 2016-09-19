@@ -130,6 +130,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 namespace std {
 
     typedef int8_t uint8_t;
+    typedef int64_t uint64_t;
 
     template<class T> class vector {
     public:
@@ -548,7 +549,6 @@ typedef long time_t;
 %ignore libtorrent::add_torrent_params::extensions;
 %ignore libtorrent::add_torrent_params::storage;
 %ignore libtorrent::add_torrent_params::userdata;
-%ignore libtorrent::add_torrent_params::flags;
 %ignore libtorrent::add_torrent_params::ti;
 %ignore libtorrent::add_torrent_params::deprecated1;
 %ignore libtorrent::add_torrent_params::deprecated2;
@@ -1054,14 +1054,6 @@ namespace libtorrent {
 }
 
 %extend add_torrent_params {
-
-    int64_t get_flags() {
-        return int64_t($self->flags);
-    }
-
-    void set_flags(int64_t flags) {
-        $self->flags = flags;
-    }
 
     libtorrent::torrent_info const* ti_ptr() {
         return $self->ti.get();

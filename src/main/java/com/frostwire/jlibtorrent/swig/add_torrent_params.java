@@ -119,6 +119,14 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_url_get(swigCPtr, this);
   }
 
+  public void setFlags(long value) {
+    libtorrent_jni.add_torrent_params_flags_set(swigCPtr, this, value);
+  }
+
+  public long getFlags() {
+    return libtorrent_jni.add_torrent_params_flags_get(swigCPtr, this);
+  }
+
   public void setInfo_hash(sha1_hash value) {
     libtorrent_jni.add_torrent_params_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
@@ -336,14 +344,6 @@ public class add_torrent_params {
   public int_string_map getRenamed_files() {
     long cPtr = libtorrent_jni.add_torrent_params_renamed_files_get(swigCPtr, this);
     return (cPtr == 0) ? null : new int_string_map(cPtr, false);
-  }
-
-  public long get_flags() {
-    return libtorrent_jni.add_torrent_params_get_flags(swigCPtr, this);
-  }
-
-  public void set_flags(long flags) {
-    libtorrent_jni.add_torrent_params_set_flags(swigCPtr, this, flags);
   }
 
   public torrent_info ti_ptr() {

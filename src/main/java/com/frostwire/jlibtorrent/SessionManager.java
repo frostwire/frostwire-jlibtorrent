@@ -23,6 +23,8 @@ public class SessionManager {
 
     private static final int[] METADATA_ALERT_TYPES = new int[]
             {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
+    private static final String FETCH_MAGNET_DOWNLOAD_KEY = "fetch_magnet___";
+
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {AlertType.DHT_IMMUTABLE_ITEM.swig()};
     private static final int[] DHT_MUTABLE_ITEM_TYPES = {AlertType.DHT_MUTABLE_ITEM.swig()};
     private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {AlertType.DHT_GET_PEERS_REPLY.swig()};
@@ -457,11 +459,11 @@ public class SessionManager {
             p.setPeers(v);
         }
 
-        long flags = p.get_flags();
+        long flags = p.getFlags();
 
         flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
 
-        p.set_flags(flags);
+        p.setFlags(flags);
 
         session.async_add_torrent(p);
     }
@@ -555,12 +557,12 @@ public class SessionManager {
                 }
 
                 if (add) {
-                    p.setName("fetch_magnet" + uri);
-                    p.setSave_path("fetch_magnet" + uri);
+                    p.setName(FETCH_MAGNET_DOWNLOAD_KEY + uri);
+                    p.setSave_path(FETCH_MAGNET_DOWNLOAD_KEY + uri);
 
-                    long flags = p.get_flags();
+                    long flags = p.getFlags();
                     flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-                    p.set_flags(flags);
+                    p.setFlags(flags);
 
                     ec.clear();
                     th = session.add_torrent(p, ec);
@@ -929,6 +931,11 @@ public class SessionManager {
         }
     }
 
+    private boolean isFetchMangetDownload(TorrentAddedAlert alert) {
+        String name = alert.torrentName();
+        return name != null && name.contains(FETCH_MAGNET_DOWNLOAD_KEY);
+    }
+
     private static int alertMask(boolean logging) {
         int mask = alert.category_t.all_categories.swigValue();
         if (!logging) {
@@ -1043,6 +1050,12 @@ public class SessionManager {
                                 case EXTERNAL_IP:
                                     alert = Alerts.cast(a);
                                     onExternalIpAlert((ExternalIpAlert) alert);
+                                    break;
+                                case TORRENT_ADDED:
+                                    alert = Alerts.cast(a);
+                                    if (isFetchMangetDownload((TorrentAddedAlert) alert)) {
+                                        continue;
+                                    }
                                     break;
                             }
 
