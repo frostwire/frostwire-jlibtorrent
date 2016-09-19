@@ -50,8 +50,9 @@ public final class SettingsPack {
      * @param name
      * @param value
      */
-    public void setBoolean(int name, boolean value) {
+    public SettingsPack setBoolean(int name, boolean value) {
         sp.set_bool(name, value);
+        return this;
     }
 
     /**
@@ -66,8 +67,9 @@ public final class SettingsPack {
      * @param name
      * @param value
      */
-    public void setInteger(int name, int value) {
+    public SettingsPack setInteger(int name, int value) {
         sp.set_int(name, value);
+        return this;
     }
 
     /**
@@ -82,8 +84,9 @@ public final class SettingsPack {
      * @param name
      * @param value
      */
-    public void setString(int name, String value) {
+    public SettingsPack setString(int name, String value) {
         sp.set_str(name, value);
+        return this;
     }
 
     /**
@@ -205,8 +208,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeChecking()
      */
-    public void activeChecking(int value) {
+    public SettingsPack activeChecking(int value) {
         sp.set_int(settings_pack.int_types.active_checking.swigValue(), value);
+        return this;
     }
 
     /**
@@ -225,8 +229,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeDhtLimit()
      */
-    public void activeDhtLimit(int value) {
+    public SettingsPack activeDhtLimit(int value) {
         sp.set_int(settings_pack.int_types.active_checking.swigValue(), value);
+        return this;
     }
 
     /**
@@ -245,8 +250,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeTrackerLimit()
      */
-    public void activeTrackerLimit(int value) {
+    public SettingsPack activeTrackerLimit(int value) {
         sp.set_int(settings_pack.int_types.active_tracker_limit.swigValue(), value);
+        return this;
     }
 
     /**
@@ -266,8 +272,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeLsdLimit()
      */
-    public void activeLsdLimit(int value) {
+    public SettingsPack activeLsdLimit(int value) {
         sp.set_int(settings_pack.int_types.active_lsd_limit.swigValue(), value);
+        return this;
     }
 
     /**
@@ -285,8 +292,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeLimit()
      */
-    public void activeLimit(int value) {
+    public SettingsPack activeLimit(int value) {
         sp.set_int(settings_pack.int_types.active_limit.swigValue(), value);
+        return this;
     }
 
     /**
@@ -309,8 +317,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeLoadedLimit()
      */
-    public void activeLoadedLimit(int value) {
+    public SettingsPack activeLoadedLimit(int value) {
         sp.set_int(settings_pack.int_types.active_loaded_limit.swigValue(), value);
+        return this;
     }
 
     /**
@@ -524,8 +533,9 @@ public final class SettingsPack {
         return sp.get_bool(settings_pack.bool_types.broadcast_lsd.swigValue());
     }
 
-    public void broadcastLSD(boolean value) {
+    public SettingsPack broadcastLSD(boolean value) {
         sp.set_bool(settings_pack.bool_types.broadcast_lsd.swigValue(), value);
+        return this;
     }
 
     /**

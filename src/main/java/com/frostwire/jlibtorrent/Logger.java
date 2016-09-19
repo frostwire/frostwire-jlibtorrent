@@ -8,7 +8,7 @@ import static java.util.logging.Level.INFO;
  * @author gubatron
  * @author aldenml
  */
-public final class Logger {
+final class Logger {
 
     private final java.util.logging.Logger jul;
     private final String name;

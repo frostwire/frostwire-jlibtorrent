@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.Logger;
 import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.*;
 
@@ -18,8 +17,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author aldenml
  */
 public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_alert> {
-
-    private static final Logger LOG = Logger.getLogger(MetadataReceivedAlert.class);
 
     private final ReentrantLock sync;
 
@@ -77,7 +74,6 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
             size = ti.metadata_size();
 
         } catch (Throwable e) {
-            LOG.error("Error getting metadata size", e);
             invalid = true;
         } finally {
             sync.unlock();
@@ -133,7 +129,6 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
             data = Vectors.byte_vector2bytes(e.bencode());
 
         } catch (Throwable e) {
-            LOG.error("Error building torrent data from metadata", e);
             invalid = true;
         } finally {
             sync.unlock();
