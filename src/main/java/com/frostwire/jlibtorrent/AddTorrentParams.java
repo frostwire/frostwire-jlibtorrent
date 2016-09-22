@@ -34,7 +34,7 @@ public final class AddTorrentParams {
     /**
      * The native object
      *
-     * @param p
+     * @param p the native object
      */
     public AddTorrentParams(add_torrent_params p) {
         this.p = p;
@@ -217,7 +217,7 @@ public final class AddTorrentParams {
      * On windows this path (and other paths) are interpreted as UNC
      * paths. This means they must use backslashes as directory separators
      *
-     * @return
+     * @return the save path
      */
     public String savePath() {
         return p.getSave_path();
@@ -233,14 +233,14 @@ public final class AddTorrentParams {
      * On windows this path (and other paths) are interpreted as UNC
      * paths. This means they must use backslashes as directory separators
      *
-     * @param value
+     * @param value the save path
      */
     public void savePath(String value) {
         p.setSave_path(value);
     }
 
     /**
-     * @return
+     * @return the storage mode
      * @see StorageMode
      */
     public StorageMode storageMode() {
@@ -248,7 +248,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * @param value
+     * @param value the storage mode
      * @see StorageMode
      */
     public void storageMode(StorageMode value) {
@@ -261,7 +261,7 @@ public final class AddTorrentParams {
      * optional argument. If a tracker returns a tracker ID, that ID is used
      * instead of this.
      *
-     * @return
+     * @return the trackerid url parameter
      */
     public String trackerId() {
         return p.getTrackerid();
@@ -273,7 +273,7 @@ public final class AddTorrentParams {
      * optional argument. If a tracker returns a tracker ID, that ID is used
      * instead of this.
      *
-     * @param value
+     * @param value the trackerid url parameter
      */
     public void trackerId(String value) {
         p.setTrackerid(value);
@@ -292,7 +292,7 @@ public final class AddTorrentParams {
      * unique, info-hash is used which is later updated once the .torrent
      * file has been downloaded.
      *
-     * @return
+     * @return the url
      */
     public String url() {
         return p.getUrl();
@@ -311,7 +311,7 @@ public final class AddTorrentParams {
      * unique, info-hash is used which is later updated once the .torrent
      * file has been downloaded.
      *
-     * @param value
+     * @param value the url
      */
     public void url(String value) {
         p.setUrl(value);
@@ -322,7 +322,7 @@ public final class AddTorrentParams {
      * is the only known property of the torrent. i.e. you don't have a
      * .torrent file nor a magnet link.
      *
-     * @return
+     * @return the info-hash
      */
     public Sha1Hash infoHash() {
         return new Sha1Hash(p.getInfo_hash());
@@ -333,7 +333,7 @@ public final class AddTorrentParams {
      * is the only known property of the torrent. i.e. you don't have a
      * .torrent file nor a magnet link.
      *
-     * @param value
+     * @param value the info-hash
      */
     public void infoHash(Sha1Hash value) {
         p.setInfo_hash(value.swig());
@@ -342,7 +342,7 @@ public final class AddTorrentParams {
     /**
      * @return
      */
-    public int getMax_uploads() {
+    public int maxUploads() {
         return p.getMax_uploads();
     }
 
@@ -403,7 +403,7 @@ public final class AddTorrentParams {
     /**
      * Url seeds to be added to the torrent (`BEP 17`_).
      *
-     * @return
+     * @return the url seeds
      */
     public ArrayList<String> urlSeeds() {
         string_vector v = p.getUrl_seeds();
@@ -420,7 +420,7 @@ public final class AddTorrentParams {
     /**
      * Url seeds to be added to the torrent (`BEP 17`_).
      *
-     * @param value
+     * @param value the url seeds
      */
     public void urlSeeds(List<String> value) {
         string_vector v = new string_vector();

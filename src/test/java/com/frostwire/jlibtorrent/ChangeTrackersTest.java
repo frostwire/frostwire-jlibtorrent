@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.create_torrent;
-import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.entry_vector;
-import com.frostwire.jlibtorrent.swig.string_entry_map;
+import com.frostwire.jlibtorrent.swig.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -41,8 +38,8 @@ public class ChangeTrackersTest {
 
         create_torrent c = new create_torrent(ti.swig());
 
-        c.add_tracker("http://a:6969/announce", 0);
-        c.add_tracker("http://b:6969/announce", 1);
+        c.add_tracker(new string_view("http://a:6969/announce"), 0);
+        c.add_tracker(new string_view("http://b:6969/announce"), 1);
 
         e = c.generate();
         ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));

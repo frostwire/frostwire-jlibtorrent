@@ -83,24 +83,24 @@ public class create_torrent {
     libtorrent_jni.create_torrent_set_file_hash(swigCPtr, this, index, sha1_hash.getCPtr(h), h);
   }
 
-  public void add_url_seed(String url) {
-    libtorrent_jni.create_torrent_add_url_seed(swigCPtr, this, url);
+  public void add_url_seed(string_view url) {
+    libtorrent_jni.create_torrent_add_url_seed(swigCPtr, this, string_view.getCPtr(url), url);
   }
 
-  public void add_http_seed(String url) {
-    libtorrent_jni.create_torrent_add_http_seed(swigCPtr, this, url);
+  public void add_http_seed(string_view url) {
+    libtorrent_jni.create_torrent_add_http_seed(swigCPtr, this, string_view.getCPtr(url), url);
   }
 
   public void add_node(string_int_pair node) {
     libtorrent_jni.create_torrent_add_node(swigCPtr, this, string_int_pair.getCPtr(node), node);
   }
 
-  public void add_tracker(String url, int tier) {
-    libtorrent_jni.create_torrent_add_tracker__SWIG_0(swigCPtr, this, url, tier);
+  public void add_tracker(string_view url, int tier) {
+    libtorrent_jni.create_torrent_add_tracker__SWIG_0(swigCPtr, this, string_view.getCPtr(url), url, tier);
   }
 
-  public void add_tracker(String url) {
-    libtorrent_jni.create_torrent_add_tracker__SWIG_1(swigCPtr, this, url);
+  public void add_tracker(string_view url) {
+    libtorrent_jni.create_torrent_add_tracker__SWIG_1(swigCPtr, this, string_view.getCPtr(url), url);
   }
 
   public void set_priv(boolean p) {
@@ -131,8 +131,8 @@ public class create_torrent {
     libtorrent_jni.create_torrent_add_similar_torrent(swigCPtr, this, sha1_hash.getCPtr(ih), ih);
   }
 
-  public void add_collection(String c) {
-    libtorrent_jni.create_torrent_add_collection(swigCPtr, this, c);
+  public void add_collection(string_view c) {
+    libtorrent_jni.create_torrent_add_collection(swigCPtr, this, string_view.getCPtr(c), c);
   }
 
   public final static class flags_t {

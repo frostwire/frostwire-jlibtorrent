@@ -531,12 +531,12 @@ public final class TorrentBuilder {
         }
         if (!urlSeeds.isEmpty()) {
             for (String s : urlSeeds) {
-                t.add_url_seed(s);
+                t.add_url_seed(new string_view(s));
             }
         }
         if (!httpSeeds.isEmpty()) {
             for (String s : httpSeeds) {
-                t.add_http_seed(s);
+                t.add_http_seed(new string_view(s));
             }
         }
         if (!nodes.isEmpty()) {
@@ -546,7 +546,7 @@ public final class TorrentBuilder {
         }
         if (!trackers.isEmpty()) {
             for (Pair<String, Integer> tr : trackers) {
-                t.add_tracker(tr.first, tr.second);
+                t.add_tracker(new string_view(tr.first), tr.second);
             }
         }
         if (priv) {
@@ -560,7 +560,7 @@ public final class TorrentBuilder {
         }
         if (!collections.isEmpty()) {
             for (String s : collections) {
-                t.add_collection(s);
+                t.add_collection(new string_view(s));
             }
         }
 

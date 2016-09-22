@@ -87447,10 +87447,11 @@ static SwigV8ReturnValue _wrap_create_torrent_add_url_seed(const SwigV8Arguments
   
   v8::Handle<v8::Value> jsresult;
   libtorrent::create_torrent *arg1 = (libtorrent::create_torrent *) 0 ;
-  std::string *arg2 = 0 ;
+  SwigValueWrapper< libtorrent::string_view > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
+  void *argp2 ;
+  int res2 = 0 ;
   
   if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_create_torrent_add_url_seed.");
   
@@ -87460,20 +87461,19 @@ static SwigV8ReturnValue _wrap_create_torrent_add_url_seed(const SwigV8Arguments
   }
   arg1 = (libtorrent::create_torrent *)(argp1);
   {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(args[0], &ptr);
+    res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__string_view,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_url_seed" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_url_seed" "', argument " "2"" of type '" "libtorrent::string_view""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_url_seed" "', argument " "2"" of type '" "libtorrent::string_view""'");
+    } else {
+      arg2 = *((libtorrent::string_view *)(argp2));
     }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_url_seed" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
   }
-  (arg1)->add_url_seed((std::string const &)*arg2);
+  (arg1)->add_url_seed(arg2);
   jsresult = SWIGV8_UNDEFINED();
   
-  if (SWIG_IsNewObj(res2)) delete arg2;
   
   SWIGV8_RETURN(jsresult);
   
@@ -87488,10 +87488,11 @@ static SwigV8ReturnValue _wrap_create_torrent_add_http_seed(const SwigV8Argument
   
   v8::Handle<v8::Value> jsresult;
   libtorrent::create_torrent *arg1 = (libtorrent::create_torrent *) 0 ;
-  std::string *arg2 = 0 ;
+  SwigValueWrapper< libtorrent::string_view > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
+  void *argp2 ;
+  int res2 = 0 ;
   
   if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_create_torrent_add_http_seed.");
   
@@ -87501,20 +87502,19 @@ static SwigV8ReturnValue _wrap_create_torrent_add_http_seed(const SwigV8Argument
   }
   arg1 = (libtorrent::create_torrent *)(argp1);
   {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(args[0], &ptr);
+    res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__string_view,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_http_seed" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_http_seed" "', argument " "2"" of type '" "libtorrent::string_view""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_http_seed" "', argument " "2"" of type '" "libtorrent::string_view""'");
+    } else {
+      arg2 = *((libtorrent::string_view *)(argp2));
     }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_http_seed" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
   }
-  (arg1)->add_http_seed((std::string const &)*arg2);
+  (arg1)->add_http_seed(arg2);
   jsresult = SWIGV8_UNDEFINED();
   
-  if (SWIG_IsNewObj(res2)) delete arg2;
   
   SWIGV8_RETURN(jsresult);
   
@@ -87569,11 +87569,12 @@ static SwigV8ReturnValue _wrap_create_torrent_add_tracker__SWIG_0(const SwigV8Ar
   
   v8::Handle<v8::Value> jsresult;
   libtorrent::create_torrent *arg1 = (libtorrent::create_torrent *) 0 ;
-  std::string *arg2 = 0 ;
+  SwigValueWrapper< libtorrent::string_view > arg2 ;
   int arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
+  void *argp2 ;
+  int res2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
   
@@ -87583,25 +87584,24 @@ static SwigV8ReturnValue _wrap_create_torrent_add_tracker__SWIG_0(const SwigV8Ar
   }
   arg1 = (libtorrent::create_torrent *)(argp1);
   {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(args[0], &ptr);
+    res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__string_view,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_tracker" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_tracker" "', argument " "2"" of type '" "libtorrent::string_view""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_tracker" "', argument " "2"" of type '" "libtorrent::string_view""'");
+    } else {
+      arg2 = *((libtorrent::string_view *)(argp2));
     }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_tracker" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
   }
   ecode3 = SWIG_AsVal_int(args[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "create_torrent_add_tracker" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = (int)(val3);
-  (arg1)->add_tracker((std::string const &)*arg2,arg3);
+  (arg1)->add_tracker(arg2,arg3);
   jsresult = SWIGV8_UNDEFINED();
   
-  if (SWIG_IsNewObj(res2)) delete arg2;
   
   
   SWIGV8_RETURN(jsresult);
@@ -87618,10 +87618,11 @@ static SwigV8ReturnValue _wrap_create_torrent_add_tracker__SWIG_1(const SwigV8Ar
   
   v8::Handle<v8::Value> jsresult;
   libtorrent::create_torrent *arg1 = (libtorrent::create_torrent *) 0 ;
-  std::string *arg2 = 0 ;
+  SwigValueWrapper< libtorrent::string_view > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
+  void *argp2 ;
+  int res2 = 0 ;
   
   res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__create_torrent, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
@@ -87629,20 +87630,19 @@ static SwigV8ReturnValue _wrap_create_torrent_add_tracker__SWIG_1(const SwigV8Ar
   }
   arg1 = (libtorrent::create_torrent *)(argp1);
   {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(args[0], &ptr);
+    res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__string_view,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_tracker" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_tracker" "', argument " "2"" of type '" "libtorrent::string_view""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_tracker" "', argument " "2"" of type '" "libtorrent::string_view""'");
+    } else {
+      arg2 = *((libtorrent::string_view *)(argp2));
     }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_tracker" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
   }
-  (arg1)->add_tracker((std::string const &)*arg2);
+  (arg1)->add_tracker(arg2);
   jsresult = SWIGV8_UNDEFINED();
   
-  if (SWIG_IsNewObj(res2)) delete arg2;
   
   SWIGV8_RETURN(jsresult);
   
@@ -87930,9 +87930,11 @@ static SwigV8ReturnValue _wrap_create_torrent_add_collection(const SwigV8Argumen
   
   v8::Handle<v8::Value> jsresult;
   libtorrent::create_torrent *arg1 = (libtorrent::create_torrent *) 0 ;
-  std::string arg2 ;
+  SwigValueWrapper< libtorrent::string_view > arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
   
   if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_create_torrent_add_collection.");
   
@@ -87942,17 +87944,18 @@ static SwigV8ReturnValue _wrap_create_torrent_add_collection(const SwigV8Argumen
   }
   arg1 = (libtorrent::create_torrent *)(argp1);
   {
-    std::string *ptr = (std::string *)0;
-    int res = SWIG_AsPtr_std_string(args[0], &ptr);
-    if (!SWIG_IsOK(res) || !ptr) {
-      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "create_torrent_add_collection" "', argument " "2"" of type '" "std::string""'"); 
+    res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__string_view,  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_torrent_add_collection" "', argument " "2"" of type '" "libtorrent::string_view""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create_torrent_add_collection" "', argument " "2"" of type '" "libtorrent::string_view""'");
+    } else {
+      arg2 = *((libtorrent::string_view *)(argp2));
     }
-    arg2 = *ptr;
-    if (SWIG_IsNewObj(res)) delete ptr;
   }
   (arg1)->add_collection(arg2);
   jsresult = SWIGV8_UNDEFINED();
-  
   
   
   SWIGV8_RETURN(jsresult);
