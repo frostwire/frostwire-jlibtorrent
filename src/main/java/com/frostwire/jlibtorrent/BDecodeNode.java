@@ -23,4 +23,14 @@ public final class BDecodeNode {
     public bdecode_node swig() {
         return n;
     }
+
+    /**
+     * A JSON style string representation
+     *
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return bdecode_node.to_string(n, false, 2);
+    }
 }
