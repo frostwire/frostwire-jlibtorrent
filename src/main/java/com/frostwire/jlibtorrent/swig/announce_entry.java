@@ -176,14 +176,6 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_complete_sent_get(swigCPtr, this);
   }
 
-  public void setSend_stats(boolean value) {
-    libtorrent_jni.announce_entry_send_stats_set(swigCPtr, this, value);
-  }
-
-  public boolean getSend_stats() {
-    return libtorrent_jni.announce_entry_send_stats_get(swigCPtr, this);
-  }
-
   public void setTriggered_manually(boolean value) {
     libtorrent_jni.announce_entry_triggered_manually_set(swigCPtr, this, value);
   }

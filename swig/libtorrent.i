@@ -696,6 +696,7 @@ typedef long time_t;
 %ignore libtorrent::announce_entry::next_announce;
 %ignore libtorrent::announce_entry::min_announce;
 %ignore libtorrent::announce_entry::can_announce;
+%ignore libtorrent::announce_entry::deprecated_send_stats;
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::_dummy_string_;
 %ignore libtorrent::torrent_status::torrent_file;

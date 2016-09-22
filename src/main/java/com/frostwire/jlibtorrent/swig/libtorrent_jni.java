@@ -2653,8 +2653,6 @@ public class libtorrent_jni {
   public final static native boolean announce_entry_start_sent_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_complete_sent_set(long jarg1, announce_entry jarg1_, boolean jarg2);
   public final static native boolean announce_entry_complete_sent_get(long jarg1, announce_entry jarg1_);
-  public final static native void announce_entry_send_stats_set(long jarg1, announce_entry jarg1_, boolean jarg2);
-  public final static native boolean announce_entry_send_stats_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_triggered_manually_set(long jarg1, announce_entry jarg1_, boolean jarg2);
   public final static native boolean announce_entry_triggered_manually_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_reset(long jarg1, announce_entry jarg1_);

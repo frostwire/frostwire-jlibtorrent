@@ -13,6 +13,9 @@ public final class AnnounceEntry {
 
     private final announce_entry e;
 
+    /**
+     * @param e the native object
+     */
     public AnnounceEntry(announce_entry e) {
         this.e = e;
     }
@@ -20,12 +23,15 @@ public final class AnnounceEntry {
     /**
      * Constructs a tracker announce entry with {@code u} as the URL.
      *
-     * @param url
+     * @param url the tracker url
      */
     public AnnounceEntry(String url) {
         this(new announce_entry(url));
     }
 
+    /**
+     * @return the native object
+     */
     public announce_entry swig() {
         return e;
     }
@@ -33,7 +39,7 @@ public final class AnnounceEntry {
     /**
      * Tracker URL as it appeared in the torrent file.
      *
-     * @return
+     * @return the tracker url
      */
     public String url() {
         return e.getUrl();
@@ -44,7 +50,7 @@ public final class AnnounceEntry {
      * this is optional and is normally empty (in which case no
      * trackerid is sent).
      *
-     * @return
+     * @return the trackerid url argument
      */
     public String trackerId() {
         return e.getTrackerid();
@@ -54,17 +60,17 @@ public final class AnnounceEntry {
      * If this tracker has returned an error or warning message
      * that message is stored here.
      *
-     * @return
+     * @return the error message
      */
     public String message() {
         return e.getMessage();
     }
 
     /**
-     * if this tracker failed the last time it was contacted
+     * If this tracker failed the last time it was contacted
      * this error code specifies what error occurred.
      *
-     * @return
+     * @return the error
      */
     public ErrorCode lastError() {
         return new ErrorCode(e.getLast_error());
@@ -73,7 +79,7 @@ public final class AnnounceEntry {
     /**
      * The tier this tracker belongs to.
      *
-     * @return
+     * @return the tier number
      */
     public int tier() {
         return e.getTier();

@@ -774,7 +774,7 @@ public final class TorrentHandle {
      * a torrent is started with resume data, the trackers from the resume
      * data will replace the original ones.
      *
-     * @param trackers
+     * @param trackers the list of trackers
      * @see AnnounceEntry
      */
     public void replaceTrackers(List<AnnounceEntry> trackers) {

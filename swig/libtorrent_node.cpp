@@ -89326,63 +89326,6 @@ fail:
 }
 
 
-static void _wrap_announce_entry_send_stats_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::announce_entry *arg1 = (libtorrent::announce_entry *) 0 ;
-  bool arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool val2 ;
-  int ecode2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__announce_entry, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "announce_entry_send_stats_set" "', argument " "1"" of type '" "libtorrent::announce_entry *""'"); 
-  }
-  arg1 = (libtorrent::announce_entry *)(argp1);
-  ecode2 = SWIG_AsVal_bool(value, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "announce_entry_send_stats_set" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = (bool)(val2);
-  if (arg1) (arg1)->send_stats = arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
-static SwigV8ReturnValue _wrap_announce_entry_send_stats_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::announce_entry *arg1 = (libtorrent::announce_entry *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__announce_entry, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "announce_entry_send_stats_get" "', argument " "1"" of type '" "libtorrent::announce_entry *""'"); 
-  }
-  arg1 = (libtorrent::announce_entry *)(argp1);
-  result = (bool) ((arg1)->send_stats);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
 static void _wrap_announce_entry_triggered_manually_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
@@ -100406,7 +100349,6 @@ SWIGV8_AddMemberVariable(_exports_announce_entry_class, "source", _wrap_announce
 SWIGV8_AddMemberVariable(_exports_announce_entry_class, "verified", _wrap_announce_entry_verified_get, _wrap_announce_entry_verified_set);
 SWIGV8_AddMemberVariable(_exports_announce_entry_class, "start_sent", _wrap_announce_entry_start_sent_get, _wrap_announce_entry_start_sent_set);
 SWIGV8_AddMemberVariable(_exports_announce_entry_class, "complete_sent", _wrap_announce_entry_complete_sent_get, _wrap_announce_entry_complete_sent_set);
-SWIGV8_AddMemberVariable(_exports_announce_entry_class, "send_stats", _wrap_announce_entry_send_stats_get, _wrap_announce_entry_send_stats_set);
 SWIGV8_AddMemberVariable(_exports_announce_entry_class, "triggered_manually", _wrap_announce_entry_triggered_manually_get, _wrap_announce_entry_triggered_manually_set);
 SWIGV8_AddMemberFunction(_exports_announce_entry_class, "reset", _wrap_announce_entry_reset);
 SWIGV8_AddMemberFunction(_exports_announce_entry_class, "is_working", _wrap_announce_entry_is_working);
