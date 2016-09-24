@@ -27,6 +27,7 @@
 #include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/hex.hpp>
 #include <libtorrent/extensions.hpp>
+#include <libtorrent/peer_connection.hpp>
 
 #include <libtorrent/kademlia/dht_tracker.hpp>
 #include <libtorrent/kademlia/node_entry.hpp>
