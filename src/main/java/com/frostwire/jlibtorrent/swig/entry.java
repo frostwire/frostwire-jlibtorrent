@@ -95,8 +95,8 @@ public class entry {
     libtorrent_jni.entry_swap(swigCPtr, this, entry.getCPtr(e), e);
   }
 
-  public entry find_key(String key) {
-    long cPtr = libtorrent_jni.entry_find_key(swigCPtr, this, key);
+  public entry find_key(string_view key) {
+    long cPtr = libtorrent_jni.entry_find_key(swigCPtr, this, string_view.getCPtr(key), key);
     return (cPtr == 0) ? null : new entry(cPtr, false);
   }
 

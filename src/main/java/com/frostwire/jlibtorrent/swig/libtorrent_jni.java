@@ -652,7 +652,7 @@ public class libtorrent_jni {
   public final static native long entry_list(long jarg1, entry jarg1_);
   public final static native long entry_dict(long jarg1, entry jarg1_);
   public final static native void entry_swap(long jarg1, entry jarg1_, long jarg2, entry jarg2_);
-  public final static native long entry_find_key(long jarg1, entry jarg1_, String jarg2);
+  public final static native long entry_find_key(long jarg1, entry jarg1_, long jarg2, string_view jarg2_);
   public final static native String entry_to_string(long jarg1, entry jarg1_);
   public final static native long new_entry__SWIG_8(String jarg1);
   public final static native long entry_get(long jarg1, entry jarg1_, String jarg2);
