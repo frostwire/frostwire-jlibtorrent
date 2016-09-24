@@ -300,6 +300,12 @@ namespace libtorrent {
         storage_mode_sparse
     };
 
+    enum class connection_type : std::uint8_t {
+        bittorrent,
+        url_seed,
+        http_seed
+    };
+
     template <typename T>
     struct span {
 
@@ -782,7 +788,7 @@ typedef long time_t;
 %ignore swig_plugin::implemented_features;
 
 %ignore WRAP_POSIX;
-%ignore open_libc;
+%ignore get_libc;
 %ignore posix_open;
 %ignore posix_stat;
 %ignore posix_mkdir;

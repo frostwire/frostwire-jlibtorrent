@@ -35,8 +35,8 @@ public class peer_connection_handle {
     }
   }
 
-  public int type() {
-    return libtorrent_jni.peer_connection_handle_type(swigCPtr, this);
+  public connection_type type() {
+    return connection_type.swigToEnum(libtorrent_jni.peer_connection_handle_type(swigCPtr, this));
   }
 
   public boolean is_seed() {
