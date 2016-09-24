@@ -300,12 +300,6 @@ namespace libtorrent {
         storage_mode_sparse
     };
 
-    enum class connection_type : std::uint8_t {
-        bittorrent,
-        url_seed,
-        http_seed
-    };
-
     template <typename T>
     struct span {
 
@@ -591,6 +585,7 @@ typedef long time_t;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::dht_pkt_alert::pkt_buf;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
+%ignore libtorrent::peer_connection_handle::type;
 %ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
 %ignore libtorrent::peer_connection_handle::add_extension;

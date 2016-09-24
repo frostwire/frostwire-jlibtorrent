@@ -14737,51 +14737,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_connection_type_bittorrent(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::connection_type::bittorrent));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_connection_type_url_seed(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::connection_type::url_seed));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_connection_type_http_seed(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::connection_type::http_seed));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
 static SwigV8ReturnValue _wrap_new_byte_span(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -83342,34 +83297,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_peer_connection_handle_type(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::peer_connection_handle *arg1 = (libtorrent::peer_connection_handle *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  libtorrent::connection_type result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_peer_connection_handle_type.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__peer_connection_handle, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "peer_connection_handle_type" "', argument " "1"" of type '" "libtorrent::peer_connection_handle const *""'"); 
-  }
-  arg1 = (libtorrent::peer_connection_handle *)(argp1);
-  result = (libtorrent::connection_type)((libtorrent::peer_connection_handle const *)arg1)->type();
-  jsresult = SWIG_From_int((int)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_peer_connection_handle_is_seed(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -99007,9 +98934,6 @@ SWIGV8_AddMemberVariable(_exports_iovec_t_class, "iov_base", _wrap_iovec_t_iov_b
 SWIGV8_AddMemberVariable(_exports_iovec_t_class, "iov_len", _wrap_iovec_t_iov_len_get, _wrap_iovec_t_iov_len_set);
 SWIGV8_AddStaticVariable(exports_obj, "storage_mode_allocate", _wrap_libtorrent_storage_mode_allocate, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "storage_mode_sparse", _wrap_libtorrent_storage_mode_sparse, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(exports_obj, "connection_type_bittorrent", _wrap_libtorrent_connection_type_bittorrent, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(exports_obj, "connection_type_url_seed", _wrap_libtorrent_connection_type_url_seed, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(exports_obj, "connection_type_http_seed", _wrap_libtorrent_connection_type_http_seed, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_byte_span_class, "size", _wrap_byte_span_size);
 SWIGV8_AddMemberFunction(_exports_byte_span_class, "empty", _wrap_byte_span_empty);
 SWIGV8_AddMemberFunction(_exports_byte_span_class, "front", _wrap_byte_span_front);
@@ -100298,7 +100222,6 @@ SWIGV8_AddMemberVariable(_exports_session_params_class, "settings", _wrap_sessio
 SWIGV8_AddMemberVariable(_exports_session_params_class, "dht_settings", _wrap_session_params_dht_settings_get, _wrap_session_params_dht_settings_set);
 SWIGV8_AddMemberVariable(_exports_session_params_class, "dht_state", _wrap_session_params_dht_state_get, _wrap_session_params_dht_state_set);
 SWIGV8_AddMemberFunction(_exports_session_class, "abort", _wrap_session_abort);
-SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "type", _wrap_peer_connection_handle_type);
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "is_seed", _wrap_peer_connection_handle_is_seed);
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "upload_only", _wrap_peer_connection_handle_upload_only);
 SWIGV8_AddMemberFunction(_exports_peer_connection_handle_class, "pid", _wrap_peer_connection_handle_pid);

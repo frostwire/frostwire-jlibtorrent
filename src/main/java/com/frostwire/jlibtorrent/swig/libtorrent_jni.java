@@ -2496,7 +2496,6 @@ public class libtorrent_jni {
   public final static native long new_session__SWIG_4(long jarg1, session jarg1_);
   public final static native void delete_session(long jarg1);
   public final static native long session_abort(long jarg1, session jarg1_);
-  public final static native int peer_connection_handle_type(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_is_seed(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_upload_only(long jarg1, peer_connection_handle jarg1_);
   public final static native long peer_connection_handle_pid(long jarg1, peer_connection_handle jarg1_);
