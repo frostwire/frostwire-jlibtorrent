@@ -74,7 +74,7 @@ public class SessionManager {
         modifyListeners(false, listener);
     }
 
-    public void start(SettingsPack sp) {
+    public void start(SessionParams params) {
         if (session != null) {
             return;
         }
@@ -90,8 +90,8 @@ public class SessionManager {
 
             resetState();
 
-            sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
-            session = new session(sp.swig());
+            params.settings().setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
+            session = new session(params.swig());
             alertsLoop();
 
             onAfterStart();
@@ -106,7 +106,7 @@ public class SessionManager {
 
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
 
-        start(new SettingsPack(sp));
+        start(new SessionParams(new session_params(sp)));
     }
 
     public void stop() {
