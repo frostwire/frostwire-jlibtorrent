@@ -35,10 +35,6 @@ public class dht_state {
     }
   }
 
-  public dht_state() {
-    this(libtorrent_jni.new_dht_state(), true);
-  }
-
   public void setNid(sha1_hash value) {
     libtorrent_jni.dht_state_nid_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
@@ -73,6 +69,14 @@ public class dht_state {
   public udp_endpoint_vector getNodes6() {
     long cPtr = libtorrent_jni.dht_state_nodes6_get(swigCPtr, this);
     return (cPtr == 0) ? null : new udp_endpoint_vector(cPtr, false);
+  }
+
+  public void clear() {
+    libtorrent_jni.dht_state_clear(swigCPtr, this);
+  }
+
+  public dht_state() {
+    this(libtorrent_jni.new_dht_state(), true);
   }
 
 }

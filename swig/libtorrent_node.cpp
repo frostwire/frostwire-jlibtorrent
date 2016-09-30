@@ -2925,9 +2925,6 @@ SWIGINTERN std::string libtorrent_peer_log_alert_get_event_type(libtorrent::peer
 SWIGINTERN std::string libtorrent_dht_lookup_get_type(libtorrent::dht_lookup *self){
         return std::string(self->type);
     }
-SWIGINTERN std::vector< int8_t > libtorrent_dht_pkt_alert_get_pkt_buf(libtorrent::dht_pkt_alert *self){
-        return std::vector<int8_t>(self->pkt_buf(), self->pkt_buf() + self->pkt_size());
-    }
 SWIGINTERN int64_t libtorrent_dht_direct_response_alert_get_userdata(libtorrent::dht_direct_response_alert *self){
         return (int64_t)self->userdata;
     }
@@ -39249,6 +39246,21 @@ fail:
 }
 
 
+static SwigV8ReturnValue _wrap_libtorrent_op_unknown(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  
+  jsresult = SWIG_From_int((int)(libtorrent::op_unknown));
+  
+  SWIGV8_RETURN_INFO(jsresult, info);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+}
+
+
 static void _wrap_stats_metric_value_index_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
@@ -68324,24 +68336,24 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_dht_pkt_alert_pkt_size(const SwigV8Arguments &args) {
+static SwigV8ReturnValue _wrap_dht_pkt_alert_pkt_buf(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
   libtorrent::dht_pkt_alert *arg1 = (libtorrent::dht_pkt_alert *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int result;
+  libtorrent::span< char const > result;
   
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_dht_pkt_alert_pkt_size.");
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_dht_pkt_alert_pkt_buf.");
   
   res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_pkt_alert, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_pkt_alert_pkt_size" "', argument " "1"" of type '" "libtorrent::dht_pkt_alert const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_pkt_alert_pkt_buf" "', argument " "1"" of type '" "libtorrent::dht_pkt_alert const *""'"); 
   }
   arg1 = (libtorrent::dht_pkt_alert *)(argp1);
-  result = (int)((libtorrent::dht_pkt_alert const *)arg1)->pkt_size();
-  jsresult = SWIG_From_int((int)(result));
+  result = ((libtorrent::dht_pkt_alert const *)arg1)->pkt_buf();
+  jsresult = SWIG_NewPointerObj((new libtorrent::span< char const >((const libtorrent::span< char const >&)(result))), SWIGTYPE_p_libtorrent__spanT_char_const_t, SWIG_POINTER_OWN |  0 );
   
   
   SWIGV8_RETURN(jsresult);
@@ -68349,37 +68361,6 @@ static SwigV8ReturnValue _wrap_dht_pkt_alert_pkt_size(const SwigV8Arguments &arg
   goto fail;
 fail:
   SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static void _wrap_dht_pkt_alert_dir_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::dht_pkt_alert *arg1 = (libtorrent::dht_pkt_alert *) 0 ;
-  libtorrent::dht_pkt_alert::direction_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_pkt_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_pkt_alert_dir_set" "', argument " "1"" of type '" "libtorrent::dht_pkt_alert *""'"); 
-  }
-  arg1 = (libtorrent::dht_pkt_alert *)(argp1);
-  ecode2 = SWIG_AsVal_int(value, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "dht_pkt_alert_dir_set" "', argument " "2"" of type '" "libtorrent::dht_pkt_alert::direction_t""'");
-  } 
-  arg2 = (libtorrent::dht_pkt_alert::direction_t)(val2);
-  if (arg1) (arg1)->dir = arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
 }
 
 
@@ -68397,7 +68378,7 @@ static SwigV8ReturnValue _wrap_dht_pkt_alert_dir_get(v8::Local<v8::String> prope
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_pkt_alert_dir_get" "', argument " "1"" of type '" "libtorrent::dht_pkt_alert *""'"); 
   }
   arg1 = (libtorrent::dht_pkt_alert *)(argp1);
-  result = (libtorrent::dht_pkt_alert::direction_t) ((arg1)->dir);
+  result = (libtorrent::dht_pkt_alert::direction_t)(libtorrent::dht_pkt_alert::direction_t) ((arg1)->dir);
   jsresult = SWIG_From_int((int)(result));
   
   
@@ -68406,37 +68387,6 @@ static SwigV8ReturnValue _wrap_dht_pkt_alert_dir_get(v8::Local<v8::String> prope
   goto fail;
 fail:
   SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static void _wrap_dht_pkt_alert_node_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::dht_pkt_alert *arg1 = (libtorrent::dht_pkt_alert *) 0 ;
-  libtorrent::udp::endpoint *arg2 = (libtorrent::udp::endpoint *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_pkt_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_pkt_alert_node_set" "', argument " "1"" of type '" "libtorrent::dht_pkt_alert *""'"); 
-  }
-  arg1 = (libtorrent::dht_pkt_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_libtorrent__udp__endpoint, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "dht_pkt_alert_node_set" "', argument " "2"" of type '" "libtorrent::udp::endpoint *""'"); 
-  }
-  arg2 = (libtorrent::udp::endpoint *)(argp2);
-  if (arg1) (arg1)->node = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
 }
 
 
@@ -68463,34 +68413,6 @@ static SwigV8ReturnValue _wrap_dht_pkt_alert_node_get(v8::Local<v8::String> prop
   goto fail;
 fail:
   SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_dht_pkt_alert_get_pkt_buf(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::dht_pkt_alert *arg1 = (libtorrent::dht_pkt_alert *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::vector< int8_t > result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_dht_pkt_alert_get_pkt_buf.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_pkt_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_pkt_alert_get_pkt_buf" "', argument " "1"" of type '" "libtorrent::dht_pkt_alert *""'"); 
-  }
-  arg1 = (libtorrent::dht_pkt_alert *)(argp1);
-  result = libtorrent_dht_pkt_alert_get_pkt_buf(arg1);
-  jsresult = SWIG_NewPointerObj((new std::vector< int8_t >((const std::vector< int8_t >&)(result))), SWIGTYPE_p_std__vectorT_signed_char_t, SWIG_POINTER_OWN |  0 );
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
 
 
@@ -69002,37 +68924,6 @@ static SwigV8ReturnValue _wrap_dht_direct_response_alert_message(const SwigV8Arg
   goto fail;
 fail:
   SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static void _wrap_dht_direct_response_alert_addr_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::dht_direct_response_alert *arg1 = (libtorrent::dht_direct_response_alert *) 0 ;
-  libtorrent::udp::endpoint *arg2 = (libtorrent::udp::endpoint *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_direct_response_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_direct_response_alert_addr_set" "', argument " "1"" of type '" "libtorrent::dht_direct_response_alert *""'"); 
-  }
-  arg1 = (libtorrent::dht_direct_response_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_libtorrent__udp__endpoint, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "dht_direct_response_alert_addr_set" "', argument " "2"" of type '" "libtorrent::udp::endpoint *""'"); 
-  }
-  arg2 = (libtorrent::udp::endpoint *)(argp2);
-  if (arg1) (arg1)->addr = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
 }
 
 
@@ -69557,37 +69448,6 @@ fail:
 }
 
 
-static void _wrap_picker_log_alert_picker_flags_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::picker_log_alert *arg1 = (libtorrent::picker_log_alert *) 0 ;
-  std::uint32_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  unsigned int val2 ;
-  int ecode2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__picker_log_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "picker_log_alert_picker_flags_set" "', argument " "1"" of type '" "libtorrent::picker_log_alert *""'"); 
-  }
-  arg1 = (libtorrent::picker_log_alert *)(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_int(value, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "picker_log_alert_picker_flags_set" "', argument " "2"" of type '" "std::uint32_t""'");
-  } 
-  arg2 = (std::uint32_t)(val2);
-  if (arg1) (arg1)->picker_flags = arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
 static SwigV8ReturnValue _wrap_picker_log_alert_picker_flags_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -69602,7 +69462,7 @@ static SwigV8ReturnValue _wrap_picker_log_alert_picker_flags_get(v8::Local<v8::S
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "picker_log_alert_picker_flags_get" "', argument " "1"" of type '" "libtorrent::picker_log_alert *""'"); 
   }
   arg1 = (libtorrent::picker_log_alert *)(argp1);
-  result = (std::uint32_t) ((arg1)->picker_flags);
+  result = (std::uint32_t)(std::uint32_t) ((arg1)->picker_flags);
   jsresult = SWIG_From_unsigned_SS_int((unsigned int)(result));
   
   
@@ -82030,25 +81890,6 @@ static void _wrap_delete_session_handle(v8::Persistent<v8::Value> object, void *
       }
 
 
-static SwigV8ReturnValue _wrap_new_dht_state(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  libtorrent::dht::dht_state *result;
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_dht_state.");
-  result = (libtorrent::dht::dht_state *)new libtorrent::dht::dht_state();
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__dht__dht_state, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static void _wrap_dht_state_nid_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
@@ -82277,6 +82118,52 @@ fail:
 }
 
 
+static SwigV8ReturnValue _wrap_dht_state_clear(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::dht::dht_state *arg1 = (libtorrent::dht::dht_state *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_dht_state_clear.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht__dht_state, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_state_clear" "', argument " "1"" of type '" "libtorrent::dht::dht_state *""'"); 
+  }
+  arg1 = (libtorrent::dht::dht_state *)(argp1);
+  (arg1)->clear();
+  jsresult = SWIGV8_UNDEFINED();
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_dht_state(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Object> self = args.Holder();
+  libtorrent::dht::dht_state *result;
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_dht_state.");
+  result = (libtorrent::dht::dht_state *)new libtorrent::dht::dht_state();
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_libtorrent__dht__dht_state, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
 #if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
 static void _wrap_delete_dht_state(v8::Persistent<v8::Value> object, void *parameter) {
   SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
@@ -82377,23 +82264,12 @@ static SwigV8ReturnValue _wrap_min_memory_usage(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
-  libtorrent::settings_pack *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  libtorrent::settings_pack result;
   
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_min_memory_usage.");
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_min_memory_usage.");
   
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_libtorrent__settings_pack,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "min_memory_usage" "', argument " "1"" of type '" "libtorrent::settings_pack &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "min_memory_usage" "', argument " "1"" of type '" "libtorrent::settings_pack &""'"); 
-  }
-  arg1 = (libtorrent::settings_pack *)(argp1);
-  libtorrent::min_memory_usage(*arg1);
-  jsresult = SWIGV8_UNDEFINED();
-  
+  result = libtorrent::min_memory_usage();
+  jsresult = SWIG_NewPointerObj((new libtorrent::settings_pack((const libtorrent::settings_pack&)(result))), SWIGTYPE_p_libtorrent__settings_pack, SWIG_POINTER_OWN |  0 );
   
   SWIGV8_RETURN(jsresult);
   
@@ -82407,23 +82283,12 @@ static SwigV8ReturnValue _wrap_high_performance_seed(const SwigV8Arguments &args
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
-  libtorrent::settings_pack *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  libtorrent::settings_pack result;
   
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_high_performance_seed.");
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_high_performance_seed.");
   
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_libtorrent__settings_pack,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "high_performance_seed" "', argument " "1"" of type '" "libtorrent::settings_pack &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "high_performance_seed" "', argument " "1"" of type '" "libtorrent::settings_pack &""'"); 
-  }
-  arg1 = (libtorrent::settings_pack *)(argp1);
-  libtorrent::high_performance_seed(*arg1);
-  jsresult = SWIGV8_UNDEFINED();
-  
+  result = libtorrent::high_performance_seed();
+  jsresult = SWIG_NewPointerObj((new libtorrent::settings_pack((const libtorrent::settings_pack&)(result))), SWIGTYPE_p_libtorrent__settings_pack, SWIG_POINTER_OWN |  0 );
   
   SWIGV8_RETURN(jsresult);
   
@@ -99586,6 +99451,7 @@ SWIGV8_AddStaticVariable(exports_obj, "op_encryption", _wrap_libtorrent_op_encry
 SWIGV8_AddStaticVariable(exports_obj, "op_connect", _wrap_libtorrent_op_connect, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "op_ssl_handshake", _wrap_libtorrent_op_ssl_handshake, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "op_get_interface", _wrap_libtorrent_op_get_interface, JS_veto_set_variable);
+SWIGV8_AddStaticVariable(exports_obj, "op_unknown", _wrap_libtorrent_op_unknown, JS_veto_set_variable);
 SWIGV8_AddMemberVariable(_exports_stats_metric_class, "value_index", _wrap_stats_metric_value_index_get, _wrap_stats_metric_value_index_set);
 SWIGV8_AddMemberVariable(_exports_stats_metric_class, "type", _wrap_stats_metric_type_get, _wrap_stats_metric_type_set);
 SWIGV8_AddMemberFunction(_exports_stats_metric_class, "get_name", _wrap_stats_metric_get_name);
@@ -100127,10 +99993,9 @@ SWIGV8_AddMemberFunction(_exports_dht_pkt_alert_class, "type", _wrap_dht_pkt_ale
 SWIGV8_AddMemberFunction(_exports_dht_pkt_alert_class, "category", _wrap_dht_pkt_alert_category);
 SWIGV8_AddMemberFunction(_exports_dht_pkt_alert_class, "what", _wrap_dht_pkt_alert_what);
 SWIGV8_AddMemberFunction(_exports_dht_pkt_alert_class, "message", _wrap_dht_pkt_alert_message);
-SWIGV8_AddMemberFunction(_exports_dht_pkt_alert_class, "pkt_size", _wrap_dht_pkt_alert_pkt_size);
-SWIGV8_AddMemberVariable(_exports_dht_pkt_alert_class, "dir", _wrap_dht_pkt_alert_dir_get, _wrap_dht_pkt_alert_dir_set);
-SWIGV8_AddMemberVariable(_exports_dht_pkt_alert_class, "node", _wrap_dht_pkt_alert_node_get, _wrap_dht_pkt_alert_node_set);
-SWIGV8_AddMemberFunction(_exports_dht_pkt_alert_class, "get_pkt_buf", _wrap_dht_pkt_alert_get_pkt_buf);
+SWIGV8_AddMemberFunction(_exports_dht_pkt_alert_class, "pkt_buf", _wrap_dht_pkt_alert_pkt_buf);
+SWIGV8_AddMemberVariable(_exports_dht_pkt_alert_class, "dir", _wrap_dht_pkt_alert_dir_get, JS_veto_set_variable);
+SWIGV8_AddMemberVariable(_exports_dht_pkt_alert_class, "node", _wrap_dht_pkt_alert_node_get, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "type", _wrap_dht_get_peers_reply_alert_type);
 SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "category", _wrap_dht_get_peers_reply_alert_category);
 SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "what", _wrap_dht_get_peers_reply_alert_what);
@@ -100142,14 +100007,14 @@ SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "type", _wrap
 SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "category", _wrap_dht_direct_response_alert_category);
 SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "what", _wrap_dht_direct_response_alert_what);
 SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "message", _wrap_dht_direct_response_alert_message);
-SWIGV8_AddMemberVariable(_exports_dht_direct_response_alert_class, "addr", _wrap_dht_direct_response_alert_addr_get, _wrap_dht_direct_response_alert_addr_set);
+SWIGV8_AddMemberVariable(_exports_dht_direct_response_alert_class, "addr", _wrap_dht_direct_response_alert_addr_get, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "response", _wrap_dht_direct_response_alert_response);
 SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "get_userdata", _wrap_dht_direct_response_alert_get_userdata);
 SWIGV8_AddMemberFunction(_exports_picker_log_alert_class, "type", _wrap_picker_log_alert_type);
 SWIGV8_AddMemberFunction(_exports_picker_log_alert_class, "category", _wrap_picker_log_alert_category);
 SWIGV8_AddMemberFunction(_exports_picker_log_alert_class, "what", _wrap_picker_log_alert_what);
 SWIGV8_AddMemberFunction(_exports_picker_log_alert_class, "message", _wrap_picker_log_alert_message);
-SWIGV8_AddMemberVariable(_exports_picker_log_alert_class, "picker_flags", _wrap_picker_log_alert_picker_flags_get, _wrap_picker_log_alert_picker_flags_set);
+SWIGV8_AddMemberVariable(_exports_picker_log_alert_class, "picker_flags", _wrap_picker_log_alert_picker_flags_get, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "num_alert_types", _wrap_libtorrent_num_alert_types, JS_veto_set_variable);
 SWIGV8_AddMemberVariable(_exports_peer_info_class, "client", _wrap_peer_info_client_get, _wrap_peer_info_client_set);
 SWIGV8_AddMemberVariable(_exports_peer_info_class, "pieces", _wrap_peer_info_pieces_get, _wrap_peer_info_pieces_set);
@@ -100294,6 +100159,7 @@ SWIGV8_AddMemberVariable(_exports_dht_state_class, "nid", _wrap_dht_state_nid_ge
 SWIGV8_AddMemberVariable(_exports_dht_state_class, "nid6", _wrap_dht_state_nid6_get, _wrap_dht_state_nid6_set);
 SWIGV8_AddMemberVariable(_exports_dht_state_class, "nodes", _wrap_dht_state_nodes_get, _wrap_dht_state_nodes_set);
 SWIGV8_AddMemberVariable(_exports_dht_state_class, "nodes6", _wrap_dht_state_nodes6_get, _wrap_dht_state_nodes6_set);
+SWIGV8_AddMemberFunction(_exports_dht_state_class, "clear", _wrap_dht_state_clear);
 SWIGV8_AddMemberVariable(_exports_session_params_class, "settings", _wrap_session_params_settings_get, _wrap_session_params_settings_set);
 SWIGV8_AddMemberVariable(_exports_session_params_class, "dht_settings", _wrap_session_params_dht_settings_get, _wrap_session_params_dht_settings_set);
 SWIGV8_AddMemberVariable(_exports_session_params_class, "dht_state", _wrap_session_params_dht_state_get, _wrap_session_params_dht_state_set);

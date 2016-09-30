@@ -51,10 +51,6 @@ public class picker_log_alert extends peer_alert {
     return libtorrent_jni.picker_log_alert_message(swigCPtr, this);
   }
 
-  public void setPicker_flags(long value) {
-    libtorrent_jni.picker_log_alert_picker_flags_set(swigCPtr, this, value);
-  }
-
   public long getPicker_flags() {
     return libtorrent_jni.picker_log_alert_picker_flags_get(swigCPtr, this);
   }

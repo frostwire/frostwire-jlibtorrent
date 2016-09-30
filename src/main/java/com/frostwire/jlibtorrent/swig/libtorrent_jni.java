@@ -2072,12 +2072,9 @@ public class libtorrent_jni {
   public final static native int dht_pkt_alert_category(long jarg1, dht_pkt_alert jarg1_);
   public final static native String dht_pkt_alert_what(long jarg1, dht_pkt_alert jarg1_);
   public final static native String dht_pkt_alert_message(long jarg1, dht_pkt_alert jarg1_);
-  public final static native int dht_pkt_alert_pkt_size(long jarg1, dht_pkt_alert jarg1_);
-  public final static native void dht_pkt_alert_dir_set(long jarg1, dht_pkt_alert jarg1_, int jarg2);
+  public final static native long dht_pkt_alert_pkt_buf(long jarg1, dht_pkt_alert jarg1_);
   public final static native int dht_pkt_alert_dir_get(long jarg1, dht_pkt_alert jarg1_);
-  public final static native void dht_pkt_alert_node_set(long jarg1, dht_pkt_alert jarg1_, long jarg2, udp_endpoint jarg2_);
   public final static native long dht_pkt_alert_node_get(long jarg1, dht_pkt_alert jarg1_);
-  public final static native long dht_pkt_alert_get_pkt_buf(long jarg1, dht_pkt_alert jarg1_);
   public final static native void delete_dht_pkt_alert(long jarg1);
   public final static native int dht_get_peers_reply_alert_static_category_get();
   public final static native int dht_get_peers_reply_alert_priority_get();
@@ -2098,7 +2095,6 @@ public class libtorrent_jni {
   public final static native String dht_direct_response_alert_what(long jarg1, dht_direct_response_alert jarg1_);
   public final static native int dht_direct_response_alert_static_category_get();
   public final static native String dht_direct_response_alert_message(long jarg1, dht_direct_response_alert jarg1_);
-  public final static native void dht_direct_response_alert_addr_set(long jarg1, dht_direct_response_alert jarg1_, long jarg2, udp_endpoint jarg2_);
   public final static native long dht_direct_response_alert_addr_get(long jarg1, dht_direct_response_alert jarg1_);
   public final static native long dht_direct_response_alert_response(long jarg1, dht_direct_response_alert jarg1_);
   public final static native long dht_direct_response_alert_get_userdata(long jarg1, dht_direct_response_alert jarg1_);
@@ -2126,7 +2122,6 @@ public class libtorrent_jni {
   public final static native int picker_log_alert_backup1_get();
   public final static native int picker_log_alert_backup2_get();
   public final static native int picker_log_alert_end_game_get();
-  public final static native void picker_log_alert_picker_flags_set(long jarg1, picker_log_alert jarg1_, long jarg2);
   public final static native long picker_log_alert_picker_flags_get(long jarg1, picker_log_alert jarg1_);
   public final static native void delete_picker_log_alert(long jarg1);
   public final static native int num_alert_types_get();
@@ -2460,7 +2455,6 @@ public class libtorrent_jni {
   public final static native void session_handle_set_alert_notify_callback(long jarg1, session_handle jarg1_, long jarg2, alert_notify_callback jarg2_);
   public final static native void session_handle_add_extension(long jarg1, session_handle jarg1_, long jarg2, swig_plugin jarg2_);
   public final static native void delete_session_handle(long jarg1);
-  public final static native long new_dht_state();
   public final static native void dht_state_nid_set(long jarg1, dht_state jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long dht_state_nid_get(long jarg1, dht_state jarg1_);
   public final static native void dht_state_nid6_set(long jarg1, dht_state jarg1_, long jarg2, sha1_hash jarg2_);
@@ -2469,11 +2463,13 @@ public class libtorrent_jni {
   public final static native long dht_state_nodes_get(long jarg1, dht_state jarg1_);
   public final static native void dht_state_nodes6_set(long jarg1, dht_state jarg1_, long jarg2, udp_endpoint_vector jarg2_);
   public final static native long dht_state_nodes6_get(long jarg1, dht_state jarg1_);
+  public final static native void dht_state_clear(long jarg1, dht_state jarg1_);
+  public final static native long new_dht_state();
   public final static native void delete_dht_state(long jarg1);
   public final static native long read_dht_state(long jarg1, bdecode_node jarg1_);
   public final static native long save_dht_state(long jarg1, dht_state jarg1_);
-  public final static native void min_memory_usage(long jarg1, settings_pack jarg1_);
-  public final static native void high_performance_seed(long jarg1, settings_pack jarg1_);
+  public final static native long min_memory_usage();
+  public final static native long high_performance_seed();
   public final static native long new_session_proxy__SWIG_0();
   public final static native void delete_session_proxy(long jarg1);
   public final static native long new_session_proxy__SWIG_1(long jarg1, session_proxy jarg1_);

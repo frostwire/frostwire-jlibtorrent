@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.byte_const_span;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.int64_vector;
 import com.frostwire.jlibtorrent.swig.int_vector;
@@ -62,6 +63,17 @@ public final class Vectors {
     public static long[] int64_vector2longs(int64_vector v) {
         int size = (int) v.size();
         long[] arr = new long[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = v.get(i);
+        }
+
+        return arr;
+    }
+
+    public static byte[] byte_span2bytes(byte_const_span v) {
+        int size = (int) v.size();
+        byte[] arr = new byte[size];
 
         for (int i = 0; i < size; i++) {
             arr[i] = v.get(i);

@@ -51,29 +51,17 @@ public class dht_pkt_alert extends alert {
     return libtorrent_jni.dht_pkt_alert_message(swigCPtr, this);
   }
 
-  public int pkt_size() {
-    return libtorrent_jni.dht_pkt_alert_pkt_size(swigCPtr, this);
-  }
-
-  public void setDir(dht_pkt_alert.direction_t value) {
-    libtorrent_jni.dht_pkt_alert_dir_set(swigCPtr, this, value.swigValue());
+  public byte_const_span pkt_buf() {
+    return new byte_const_span(libtorrent_jni.dht_pkt_alert_pkt_buf(swigCPtr, this), true);
   }
 
   public dht_pkt_alert.direction_t getDir() {
     return dht_pkt_alert.direction_t.swigToEnum(libtorrent_jni.dht_pkt_alert_dir_get(swigCPtr, this));
   }
 
-  public void setNode(udp_endpoint value) {
-    libtorrent_jni.dht_pkt_alert_node_set(swigCPtr, this, udp_endpoint.getCPtr(value), value);
-  }
-
   public udp_endpoint getNode() {
     long cPtr = libtorrent_jni.dht_pkt_alert_node_get(swigCPtr, this);
     return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
-  }
-
-  public byte_vector get_pkt_buf() {
-    return new byte_vector(libtorrent_jni.dht_pkt_alert_get_pkt_buf(swigCPtr, this), true);
   }
 
   public final static class direction_t {

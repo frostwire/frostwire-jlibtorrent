@@ -27,6 +27,7 @@ public final class operation_t {
   public final static operation_t op_connect = new operation_t("op_connect");
   public final static operation_t op_ssl_handshake = new operation_t("op_ssl_handshake");
   public final static operation_t op_get_interface = new operation_t("op_get_interface");
+  public final static operation_t op_unknown = new operation_t("op_unknown");
 
   public final int swigValue() {
     return swigValue;
@@ -62,7 +63,7 @@ public final class operation_t {
     swigNext = this.swigValue+1;
   }
 
-  private static operation_t[] swigValues = { op_bittorrent, op_iocontrol, op_getpeername, op_getname, op_alloc_recvbuf, op_alloc_sndbuf, op_file_write, op_file_read, op_file, op_sock_write, op_sock_read, op_sock_open, op_sock_bind, op_available, op_encryption, op_connect, op_ssl_handshake, op_get_interface };
+  private static operation_t[] swigValues = { op_bittorrent, op_iocontrol, op_getpeername, op_getname, op_alloc_recvbuf, op_alloc_sndbuf, op_file_write, op_file_read, op_file, op_sock_write, op_sock_read, op_sock_open, op_sock_bind, op_available, op_encryption, op_connect, op_ssl_handshake, op_get_interface, op_unknown };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

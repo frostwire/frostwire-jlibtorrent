@@ -27,14 +27,7 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      * @return
      */
     public byte[] pktBuf() {
-        return Vectors.byte_vector2bytes(alert.get_pkt_buf());
-    }
-
-    /**
-     * @return
-     */
-    public int pktSize() {
-        return alert.pkt_size();
+        return Vectors.byte_span2bytes(alert.pkt_buf());
     }
 
     /**

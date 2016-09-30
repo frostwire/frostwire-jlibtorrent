@@ -589,7 +589,6 @@ typedef long time_t;
 %ignore libtorrent::session_stats_alert::values;
 %ignore libtorrent::save_resume_data_alert::resume_data;
 %ignore libtorrent::picker_log_alert::blocks;
-%ignore libtorrent::dht_pkt_alert::pkt_buf;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
@@ -1165,12 +1164,6 @@ namespace libtorrent {
 %extend save_resume_data_alert {
     entry get_resume_data() {
         return *($self->resume_data);
-    }
-}
-
-%extend dht_pkt_alert {
-    std::vector<int8_t> get_pkt_buf() {
-        return std::vector<int8_t>($self->pkt_buf(), $self->pkt_buf() + $self->pkt_size());
     }
 }
 
