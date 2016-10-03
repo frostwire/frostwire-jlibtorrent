@@ -61,12 +61,12 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.version();
   }
 
-  public static error_category get_libtorrent_category() {
-    return new error_category(libtorrent_jni.get_libtorrent_category(), false);
+  public static error_category libtorrent_category() {
+    return new error_category(libtorrent_jni.libtorrent_category(), false);
   }
 
-  public static error_category get_http_category() {
-    return new error_category(libtorrent_jni.get_http_category(), false);
+  public static error_category http_category() {
+    return new error_category(libtorrent_jni.http_category(), false);
   }
 
   public static stats_metric_vector session_stats_metrics() {
@@ -117,8 +117,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.op_lte(address.getCPtr(lhs), lhs, address.getCPtr(rhs), rhs);
   }
 
-  public static error_category get_bdecode_category() {
-    return new error_category(libtorrent_jni.get_bdecode_category(), false);
+  public static error_category bdecode_category() {
+    return new error_category(libtorrent_jni.bdecode_category(), false);
   }
 
   public static String make_magnet_uri(torrent_handle handle) {

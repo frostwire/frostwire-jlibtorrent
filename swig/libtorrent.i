@@ -268,7 +268,6 @@ namespace std {
     %template(entry_vector) vector<libtorrent::entry>;
     %template(web_seed_entry_vector) vector<libtorrent::web_seed_entry>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
-    %template(peer_list_entry_vector) vector<libtorrent::peer_list_entry>;
     %template(tcp_endpoint_vector) vector<libtorrent::tcp::endpoint>;
     %template(udp_endpoint_vector) vector<libtorrent::udp::endpoint>;
 
@@ -540,8 +539,10 @@ typedef long time_t;
 
 %ignore libtorrent::TORRENT_CFG;
 %ignore libtorrent::detail;
+%ignore libtorrent::aux;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::bdecode;
+%ignore libtorrent::get_bdecode_category;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(int)> const&, error_code&);
 %ignore libtorrent::hash_value;
 %ignore libtorrent::internal_file_entry;
@@ -724,6 +725,7 @@ typedef long time_t;
 %ignore libtorrent::peer_info::download_queue_time;
 %ignore libtorrent::peer_info::deprecated__;
 %ignore libtorrent::peer_info::deprecated_remote_dl_rate;
+%ignore libtorrent::peer_list_entry;
 %ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::stats_metric::name;
 %ignore libtorrent::storage_moved_failed_alert::operation;
