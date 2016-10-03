@@ -8,7 +8,6 @@ using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android-clang++ :
       <cflags>-std=c11
       <cxxflags>-fPIC
       <cxxflags>-march=armv8-a+crc
-      <cxxflags>-Wno-reserved-id-macro
       <cxxflags>-Wno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-I$(OPENSSL_ROOT)/include

@@ -2494,7 +2494,6 @@ public class libtorrent_jni {
   public final static native boolean peer_connection_handle_on_local_network(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_ignore_unchoke_slots(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_failed(long jarg1, peer_connection_handle jarg1_);
-  public final static native boolean peer_connection_handle_should_log(long jarg1, peer_connection_handle jarg1_, int jarg2);
   public final static native boolean peer_connection_handle_can_disconnect(long jarg1, peer_connection_handle jarg1_, long jarg2, error_code jarg2_);
   public final static native boolean peer_connection_handle_has_metadata(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_in_handshake(long jarg1, peer_connection_handle jarg1_);

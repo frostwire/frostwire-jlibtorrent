@@ -7,7 +7,6 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-clang++ :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC
-      <cxxflags>-Wno-reserved-id-macro
       <cxxflags>-Wno-strict-aliasing
       <cxxflags>-Wno-over-aligned
       <cxxflags>-std=c++11

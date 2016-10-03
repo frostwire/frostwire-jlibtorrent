@@ -591,7 +591,6 @@ typedef long time_t;
 %ignore libtorrent::save_resume_data_alert::resume_data;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
-%ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::peer_connection_handle::native_handle;
 %ignore libtorrent::peer_connection_handle::add_extension;
 %ignore libtorrent::peer_connection_handle::find_plugin;

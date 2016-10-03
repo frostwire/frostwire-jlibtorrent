@@ -10,8 +10,6 @@ using gcc : x86 : g++-5 :
       <cxxflags>-m32
       <cxxflags>-std=c++11
       <cxxflags>-fno-strict-aliasing
-      <cxxflags>-Wno-maybe-uninitialized
-      <cxxflags>-Wno-unused-variable
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
       <linkflags>-m32

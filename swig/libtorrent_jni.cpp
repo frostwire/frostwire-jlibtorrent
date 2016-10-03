@@ -49994,31 +49994,6 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1handle_1should_1log(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  jboolean jresult = 0 ;
-  libtorrent::peer_connection_handle *arg1 = (libtorrent::peer_connection_handle *) 0 ;
-  libtorrent::peer_log_alert::direction_t arg2 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::peer_connection_handle **)&jarg1; 
-  arg2 = (libtorrent::peer_log_alert::direction_t)jarg2; 
-  {
-    try {
-      result = (bool)((libtorrent::peer_connection_handle const *)arg1)->should_log(arg2);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1handle_1can_1disconnect(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jboolean jresult = 0 ;
   libtorrent::peer_connection_handle *arg1 = (libtorrent::peer_connection_handle *) 0 ;

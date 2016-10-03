@@ -10,8 +10,6 @@ using gcc : arm64 : aarch64-linux-gnu-g++ :
       <cxxflags>-march=armv8-a+crc
       <cxxflags>-std=c++11
       <cxxflags>-fno-strict-aliasing
-      <cxxflags>-Wno-maybe-uninitialized
-      <cxxflags>-Wno-unused-variable
       <cxxflags>-I$(OPENSSL_ROOT)/include
       <linkflags>-L$(OPENSSL_ROOT)/lib
       <linkflags>-static-libstdc++
