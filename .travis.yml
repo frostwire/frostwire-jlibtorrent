@@ -29,23 +29,17 @@ cache:
 
 before_install:
 # boost: download and bootstrap
-  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.zip
+  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.62.0/boost_1_62_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_61_0
+  - cd boost_1_62_0
   - ./bootstrap.sh
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_61_0
-  # remove when upgrade to boost 1.62
-  - if [ $os_build != "macosx" ]; then
-      sed -i 's/explicit operator void()const {}//g' $BOOST_ROOT/boost/multiprecision/detail/number_base.hpp;
-    fi
+  - export BOOST_ROOT=$PWD/boost_1_62_0
 
-# openssl: download and checkout revision
-  - git clone https://github.com/openssl/openssl openssl-src
-  - cd openssl-src
-  - git checkout abd30777cc72029e8a44e4b67201cae8ed3d19c1
-  - cd ..
-  - export OPENSSL_SOURCE=$PWD/openssl-src
+# openssl: download
+  - wget -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.0b.tar.gz
+  - tar xzvf openssl.tar.gz
+  - export OPENSSL_SOURCE=$PWD/openssl-1.1.0b
   # fix source code
   - if [ $os_build != "macosx" ]; then
       find $OPENSSL_SOURCE/crypto/sha/asm/ | egrep "armv4.*.pl" | xargs sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g';
@@ -57,7 +51,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 331a8d53c0119f978e63163e7d64292bef4e1e57
+  - git checkout 8bb7aa62ae4c04763d983a629c164ba6f657e2f7
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -118,14 +112,14 @@ before_install:
   - if [ $os_build == "macosx" ]; then brew update > /dev/null && brew install --quiet gradle; fi
 
 # openssl
-  - 'export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-bf no-blake2
+  - 'export OPENSSL_NO_OPTS="no-afalgeng no-asan no-async no-autoalginit no-autoerrinit no-bf no-blake2
         no-camellia no-capieng no-cast no-chacha no-cmac no-cms no-comp no-crypto-mdebug
         no-crypto-mdebug-backtrace no-ct no-deprecated no-des no-dgram no-dh no-dsa no-dso
         no-dtls no-dynamic-engine no-ec no-ec2m no-ecdh no-ecdsa no-ec_nistp_64_gcc_128 no-egd
-        no-engine no-err no-filenames no-gost no-heartbeats no-hw no-idea no-makedepend
-        no-md2 no-md4 no-mdc2 no-multiblock no-nextprotoneg no-ocb no-ocsp no-pic no-poly1305
+        no-engine no-err no-filenames no-fuzz-libfuzzer no-fuzz-afl no-gost no-heartbeats no-hw no-idea no-makedepend
+        no-md2 no-md4 no-mdc2 no-msan no-multiblock no-nextprotoneg no-ocb no-ocsp no-pic no-poly1305
         no-posix-io no-psk no-rc2 no-rc4 no-rc5 no-rdrand no-rfc3779 no-rmd160
-        no-scrypt no-sctp no-seed no-shared no-sock no-srp no-srtp no-sse2 no-ssl
+        no-scrypt no-sctp no-seed no-shared no-sock no-srp no-srtp no-ssl
         no-ssl-trace no-static-engine no-stdio no-threads no-tls no-ts no-ubsan no-ui no-unit-test
         no-whirlpool no-weak-ssl-ciphers no-zlib no-zlib-dynamic
         no-ssl3 no-tls1 no-tls1_1 no-tls1_2 no-dtls1 no-dtls1_2"'
