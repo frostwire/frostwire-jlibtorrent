@@ -77,8 +77,10 @@
         $action
     } catch (std::exception& e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+        return $null;
     } catch (...) {
         SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+        return $null;
     }
 }
 
