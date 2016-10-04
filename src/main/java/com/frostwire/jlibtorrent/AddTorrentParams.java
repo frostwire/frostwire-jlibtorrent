@@ -353,32 +353,29 @@ public final class AddTorrentParams {
         p.setMax_uploads(value);
     }
 
+    public int maxConnections() {
+        return p.getMax_connections();
+    }
 
-/*
-        public void setMax_connections(int value) {
-            libtorrent_jni.add_torrent_params_max_connections_set(swigCPtr, this, value);
-        }
+    public void maxConnections(int value) {
+        p.setMax_connections(value);
+    }
 
-        public int getMax_connections() {
-            return libtorrent_jni.add_torrent_params_max_connections_get(swigCPtr, this);
-        }
+    public int uploadLimit() {
+        return p.getUpload_limit();
+    }
 
-        public void setUpload_limit(int value) {
-            libtorrent_jni.add_torrent_params_upload_limit_set(swigCPtr, this, value);
-        }
+    public void uploadLimit(int value) {
+        p.setUpload_limit(value);
+    }
 
-        public int getUpload_limit() {
-            return libtorrent_jni.add_torrent_params_upload_limit_get(swigCPtr, this);
-        }
+    public int downloadLimit() {
+        return p.getDownload_limit();
+    }
 
-        public void setDownload_limit(int value) {
-            libtorrent_jni.add_torrent_params_download_limit_set(swigCPtr, this, value);
-        }
-
-        public int getDownload_limit() {
-            return libtorrent_jni.add_torrent_params_download_limit_get(swigCPtr, this);
-        }
-    */
+    public void downloadLimit(int value) {
+        p.setDownload_limit(value);
+    }
 
     /**
      * Flags controlling aspects of this torrent and how it's added. See
