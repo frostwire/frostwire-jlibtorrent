@@ -75,4 +75,8 @@ public class byte_span {
     return libtorrent_jni.byte_span_get(swigCPtr, this, idx);
   }
 
+  public void set(long idx, byte val) {
+    libtorrent_jni.byte_span_set(swigCPtr, this, idx, val);
+  }
+
 }

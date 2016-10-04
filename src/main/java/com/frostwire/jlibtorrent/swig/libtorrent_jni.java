@@ -343,12 +343,6 @@ public class libtorrent_jni {
   public final static native long alert_ptr_vector_get(long jarg1, alert_ptr_vector jarg1_, int jarg2);
   public final static native void alert_ptr_vector_set(long jarg1, alert_ptr_vector jarg1_, int jarg2, long jarg3, alert jarg3_);
   public final static native void delete_alert_ptr_vector(long jarg1);
-  public final static native void iovec_t_iov_base_set(long jarg1, iovec_t jarg1_, long jarg2);
-  public final static native long iovec_t_iov_base_get(long jarg1, iovec_t jarg1_);
-  public final static native void iovec_t_iov_len_set(long jarg1, iovec_t jarg1_, long jarg2);
-  public final static native long iovec_t_iov_len_get(long jarg1, iovec_t jarg1_);
-  public final static native long new_iovec_t();
-  public final static native void delete_iovec_t(long jarg1);
   public final static native long new_byte_span();
   public final static native long byte_span_size(long jarg1, byte_span jarg1_);
   public final static native boolean byte_span_empty(long jarg1, byte_span jarg1_);
@@ -359,6 +353,7 @@ public class libtorrent_jni {
   public final static native long byte_span_subspan__SWIG_0(long jarg1, byte_span jarg1_, long jarg2);
   public final static native long byte_span_subspan__SWIG_1(long jarg1, byte_span jarg1_, long jarg2, long jarg3);
   public final static native byte byte_span_get(long jarg1, byte_span jarg1_, long jarg2);
+  public final static native void byte_span_set(long jarg1, byte_span jarg1_, long jarg2, byte jarg3);
   public final static native void delete_byte_span(long jarg1);
   public final static native long new_byte_const_span();
   public final static native long byte_const_span_size(long jarg1, byte_const_span jarg1_);
@@ -371,17 +366,6 @@ public class libtorrent_jni {
   public final static native long byte_const_span_subspan__SWIG_1(long jarg1, byte_const_span jarg1_, long jarg2, long jarg3);
   public final static native byte byte_const_span_get(long jarg1, byte_const_span jarg1_, long jarg2);
   public final static native void delete_byte_const_span(long jarg1);
-  public final static native long new_iovec_span();
-  public final static native long iovec_span_size(long jarg1, iovec_span jarg1_);
-  public final static native boolean iovec_span_empty(long jarg1, iovec_span jarg1_);
-  public final static native long iovec_span_front(long jarg1, iovec_span jarg1_);
-  public final static native long iovec_span_back(long jarg1, iovec_span jarg1_);
-  public final static native long iovec_span_first(long jarg1, iovec_span jarg1_, long jarg2);
-  public final static native long iovec_span_last(long jarg1, iovec_span jarg1_, long jarg2);
-  public final static native long iovec_span_subspan__SWIG_0(long jarg1, iovec_span jarg1_, long jarg2);
-  public final static native long iovec_span_subspan__SWIG_1(long jarg1, iovec_span jarg1_, long jarg2, long jarg3);
-  public final static native long iovec_span_get(long jarg1, iovec_span jarg1_, long jarg2);
-  public final static native void delete_iovec_span(long jarg1);
   public final static native long sha1_hash_size();
   public final static native long new_sha1_hash__SWIG_0();
   public final static native long new_sha1_hash__SWIG_1(long jarg1, sha1_hash jarg1_);

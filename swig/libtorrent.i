@@ -283,13 +283,6 @@ namespace libtorrent {
 
     typedef sha1_hash peer_id;
 
-    namespace file {
-        struct iovec_t {
-            void* iov_base;
-            std::int64_t iov_len;
-        };
-    };
-
     namespace dht {
         typedef sha1_hash node_id;
     }
@@ -350,6 +343,9 @@ namespace libtorrent {
             int8_t get(size_t const idx) {
                 return (*self)[idx];
             }
+            void set(size_t const idx, int8_t val) {
+                (*self)[idx] = val;
+            }
         }
     };
 
@@ -379,7 +375,6 @@ namespace libtorrent {
 
     %template(byte_span) span<char>;
     %template(byte_const_span) span<char const>;
-    %template(iovec_span) span<file::iovec_t const>;
 
     class sha1_hash {
     public:
