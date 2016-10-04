@@ -36,15 +36,7 @@ public class error_code {
   }
 
   public error_code() {
-    this(libtorrent_jni.new_error_code__SWIG_0(), true);
-  }
-
-  public error_code(int val, error_category cat) {
-    this(libtorrent_jni.new_error_code__SWIG_1(val, error_category.getCPtr(cat), cat), true);
-  }
-
-  public void assign(int val, error_category cat) {
-    libtorrent_jni.error_code_assign(swigCPtr, this, val, error_category.getCPtr(cat), cat);
+    this(libtorrent_jni.new_error_code(), true);
   }
 
   public void clear() {
@@ -53,14 +45,6 @@ public class error_code {
 
   public int value() {
     return libtorrent_jni.error_code_value(swigCPtr, this);
-  }
-
-  public error_category category() {
-    return new error_category(libtorrent_jni.error_code_category(swigCPtr, this), false);
-  }
-
-  public error_condition default_error_condition() {
-    return new error_condition(libtorrent_jni.error_code_default_error_condition(swigCPtr, this), true);
   }
 
   public String message() {

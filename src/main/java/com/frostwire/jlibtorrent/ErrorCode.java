@@ -30,14 +30,6 @@ public final class ErrorCode {
         return ec.value();
     }
 
-    public ErrorCategory category() {
-        return new ErrorCategory(ec.category());
-    }
-
-    public ErrorCondition defaultErrorCondition() {
-        return new ErrorCondition(ec.default_error_condition());
-    }
-
     public String message() {
         return ec.message();
     }

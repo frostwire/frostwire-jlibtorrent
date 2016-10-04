@@ -71,14 +71,6 @@ public class sha1_hash {
     this(libtorrent_jni.new_sha1_hash__SWIG_2(byte_vector.getCPtr(s), s), true);
   }
 
-  public void assign(byte_vector s) {
-    libtorrent_jni.sha1_hash_assign(swigCPtr, this, byte_vector.getCPtr(s), s);
-  }
-
-  public byte get(long idx) {
-    return libtorrent_jni.sha1_hash_get(swigCPtr, this, idx);
-  }
-
   public int hash_code() {
     return libtorrent_jni.sha1_hash_hash_code(swigCPtr, this);
   }

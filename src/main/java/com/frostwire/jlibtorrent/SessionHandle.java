@@ -16,8 +16,7 @@ import java.util.List;
  * <p>
  * This class belongs to a middle logical layer of abstraction. It's a wrapper
  * of the underlying swig session object (from libtorrent), but it does not
- * expose all the raw features, not expose a very high level interface
- * like {@link com.frostwire.jlibtorrent.Dht}.
+ * expose all the raw features.
  *
  * @author gubatron
  * @author aldenml
@@ -29,14 +28,14 @@ public class SessionHandle {
     protected final session_handle s;
 
     /**
-     * @param s
+     * @param s the native object
      */
     public SessionHandle(session_handle s) {
         this.s = s;
     }
 
     /**
-     * @return
+     * @return the native object
      */
     public session_handle swig() {
         return s;

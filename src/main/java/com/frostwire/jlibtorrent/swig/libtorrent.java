@@ -9,14 +9,6 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent implements libtorrentConstants {
-  public static boolean op_eq(error_condition lhs, error_condition rhs) {
-    return libtorrent_jni.op_eq__SWIG_0(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
-  }
-
-  public static boolean op_lt(error_condition lhs, error_condition rhs) {
-    return libtorrent_jni.op_lt__SWIG_0(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
-  }
-
   public static boolean op_eq(error_code lhs, error_code rhs) {
     return libtorrent_jni.op_eq__SWIG_1(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
   }
@@ -26,47 +18,15 @@ public class libtorrent implements libtorrentConstants {
   }
 
   public static boolean op_ne(error_code lhs, error_code rhs) {
-    return libtorrent_jni.op_ne__SWIG_0(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
-  }
-
-  public static boolean op_ne(error_condition lhs, error_condition rhs) {
-    return libtorrent_jni.op_ne__SWIG_1(error_condition.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
-  }
-
-  public static boolean op_eq(error_code code, error_condition condition) {
-    return libtorrent_jni.op_eq__SWIG_2(error_code.getCPtr(code), code, error_condition.getCPtr(condition), condition);
-  }
-
-  public static boolean op_ne(error_code lhs, error_condition rhs) {
-    return libtorrent_jni.op_ne__SWIG_2(error_code.getCPtr(lhs), lhs, error_condition.getCPtr(rhs), rhs);
-  }
-
-  public static boolean op_eq(error_condition condition, error_code code) {
-    return libtorrent_jni.op_eq__SWIG_3(error_condition.getCPtr(condition), condition, error_code.getCPtr(code), code);
-  }
-
-  public static boolean op_ne(error_condition lhs, error_code rhs) {
-    return libtorrent_jni.op_ne__SWIG_3(error_condition.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
+    return libtorrent_jni.op_ne(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
   }
 
   public static error_code make_error_code(errc_t e) {
     return new error_code(libtorrent_jni.make_error_code(e.swigValue()), true);
   }
 
-  public static error_condition make_error_condition(errc_t e) {
-    return new error_condition(libtorrent_jni.make_error_condition(e.swigValue()), true);
-  }
-
   public static String version() {
     return libtorrent_jni.version();
-  }
-
-  public static error_category libtorrent_category() {
-    return new error_category(libtorrent_jni.libtorrent_category(), false);
-  }
-
-  public static error_category http_category() {
-    return new error_category(libtorrent_jni.http_category(), false);
   }
 
   public static stats_metric_vector session_stats_metrics() {
@@ -115,10 +75,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static boolean op_lte(address lhs, address rhs) {
     return libtorrent_jni.op_lte(address.getCPtr(lhs), lhs, address.getCPtr(rhs), rhs);
-  }
-
-  public static error_category bdecode_category() {
-    return new error_category(libtorrent_jni.bdecode_category(), false);
   }
 
   public static String make_magnet_uri(torrent_handle handle) {

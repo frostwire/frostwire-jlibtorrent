@@ -397,14 +397,6 @@ namespace libtorrent {
                 return new libtorrent::sha1_hash({reinterpret_cast<char const*>(s.data()), s.size()});
             }
 
-            void assign(std::vector<int8_t> const& s) {
-                $self->assign({reinterpret_cast<char const*>(s.data()), s.size()});
-            }
-
-            int8_t get(size_t const idx) {
-                return (int8_t)(*self)[idx];
-            }
-
             int hash_code() {
                 char const* data = $self->data();
                 int result = 1;
@@ -621,6 +613,7 @@ typedef long time_t;
 %ignore libtorrent::entry::find_key(string_view) const;
 %ignore libtorrent::entry::operator [];
 %ignore libtorrent::entry::m_type_queried;
+%ignore libtorrent::entry::swap;
 %ignore libtorrent::stats_alert::transferred;
 %ignore libtorrent::stats_alert::deprecated1;
 %ignore libtorrent::stats_alert::deprecated2;
@@ -732,13 +725,28 @@ typedef long time_t;
 %ignore libtorrent::error_to_close_reason;
 %ignore libtorrent::storage_error;
 %ignore libtorrent::user_alert_id;
+%ignore libtorrent::bdecode_category;
+%ignore libtorrent::http_category;
+%ignore libtorrent::libtorrent_category;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
 %ignore boost::system::generic_category;
 %ignore boost::system::system_category;
+%ignore boost::system::error_category;
+%ignore boost::system::error_condition;
+%ignore boost::system::error_code::error_code(int, const error_category&);
+%ignore boost::system::error_code::assign;
+%ignore boost::system::error_code::category;
+%ignore boost::system::error_code::default_error_condition;
 %ignore boost::system::error_code::unspecified_bool_true;
+%ignore boost::system::operator==(const error_code&, const error_condition&);
+%ignore boost::system::operator==(const error_condition&, const error_code&);
+%ignore boost::system::operator!=(const error_code&, const error_condition&);
+%ignore boost::system::operator!=(const error_condition&, const error_code&);
+%ignore boost::system::operator!=(const error_condition&, const error_condition&);
 %ignore boost::system::hash_value;
+%ignore boost::system::errc::make_error_condition;
 %ignore boost::asio;
 
 %ignore operator=;

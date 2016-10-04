@@ -16,7 +16,7 @@ import com.frostwire.jlibtorrent.swig.incoming_connection_alert;
  */
 public final class IncomingConnectionAlert extends AbstractAlert<incoming_connection_alert> {
 
-    public IncomingConnectionAlert(incoming_connection_alert alert) {
+    IncomingConnectionAlert(incoming_connection_alert alert) {
         super(alert);
     }
 
@@ -25,7 +25,7 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
      *
      * @return
      */
-    public SocketType getSocketType() {
+    public SocketType socketType() {
         return SocketType.fromSwig(alert.getSocket_type());
     }
 
@@ -34,7 +34,7 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
      *
      * @return
      */
-    public TcpEndpoint getIp() {
+    public TcpEndpoint ip() {
         return new TcpEndpoint(alert.getIp());
     }
 
@@ -68,20 +68,20 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
 
         UNKNOWN(-1);
 
-        private SocketType(int swigValue) {
+        SocketType(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        public int swig() {
             return swigValue;
         }
 
         public static SocketType fromSwig(int swigValue) {
             SocketType[] enumValues = SocketType.class.getEnumConstants();
             for (SocketType ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

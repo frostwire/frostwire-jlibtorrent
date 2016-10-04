@@ -1482,199 +1482,197 @@ SWIGRUNTIME void JS_veto_set_variable(v8::Local<v8::String> property, v8::Local<
 
 #define SWIGTYPE_p_add_files_listener swig_types[0]
 #define SWIGTYPE_p_alert_notify_callback swig_types[1]
-#define SWIGTYPE_p_boost__system__error_category swig_types[2]
-#define SWIGTYPE_p_boost__system__error_code swig_types[3]
-#define SWIGTYPE_p_boost__system__error_condition swig_types[4]
-#define SWIGTYPE_p_char swig_types[5]
-#define SWIGTYPE_p_const_reference swig_types[6]
-#define SWIGTYPE_p_dictionary_type swig_types[7]
-#define SWIGTYPE_p_difference_type swig_types[8]
-#define SWIGTYPE_p_headers_t swig_types[9]
-#define SWIGTYPE_p_int swig_types[10]
-#define SWIGTYPE_p_integer_type swig_types[11]
-#define SWIGTYPE_p_key_type swig_types[12]
-#define SWIGTYPE_p_libtorrent__add_torrent_alert swig_types[13]
-#define SWIGTYPE_p_libtorrent__add_torrent_params swig_types[14]
-#define SWIGTYPE_p_libtorrent__address swig_types[15]
-#define SWIGTYPE_p_libtorrent__alert swig_types[16]
-#define SWIGTYPE_p_libtorrent__announce_entry swig_types[17]
-#define SWIGTYPE_p_libtorrent__anonymous_mode_alert swig_types[18]
-#define SWIGTYPE_p_libtorrent__bdecode_node swig_types[19]
-#define SWIGTYPE_p_libtorrent__bitfield swig_types[20]
-#define SWIGTYPE_p_libtorrent__block_downloading_alert swig_types[21]
-#define SWIGTYPE_p_libtorrent__block_finished_alert swig_types[22]
-#define SWIGTYPE_p_libtorrent__block_info swig_types[23]
-#define SWIGTYPE_p_libtorrent__block_timeout_alert swig_types[24]
-#define SWIGTYPE_p_libtorrent__bloom_filterT_128_t swig_types[25]
-#define SWIGTYPE_p_libtorrent__bloom_filterT_256_t swig_types[26]
-#define SWIGTYPE_p_libtorrent__bt_peer_connection_handle swig_types[27]
-#define SWIGTYPE_p_libtorrent__cache_flushed_alert swig_types[28]
-#define SWIGTYPE_p_libtorrent__create_torrent swig_types[29]
-#define SWIGTYPE_p_libtorrent__dht__dht_state swig_types[30]
-#define SWIGTYPE_p_libtorrent__dht_announce_alert swig_types[31]
-#define SWIGTYPE_p_libtorrent__dht_bootstrap_alert swig_types[32]
-#define SWIGTYPE_p_libtorrent__dht_direct_response_alert swig_types[33]
-#define SWIGTYPE_p_libtorrent__dht_error_alert swig_types[34]
-#define SWIGTYPE_p_libtorrent__dht_get_peers_alert swig_types[35]
-#define SWIGTYPE_p_libtorrent__dht_get_peers_reply_alert swig_types[36]
-#define SWIGTYPE_p_libtorrent__dht_immutable_item_alert swig_types[37]
-#define SWIGTYPE_p_libtorrent__dht_log_alert swig_types[38]
-#define SWIGTYPE_p_libtorrent__dht_lookup swig_types[39]
-#define SWIGTYPE_p_libtorrent__dht_mutable_item_alert swig_types[40]
-#define SWIGTYPE_p_libtorrent__dht_outgoing_get_peers_alert swig_types[41]
-#define SWIGTYPE_p_libtorrent__dht_pkt_alert swig_types[42]
-#define SWIGTYPE_p_libtorrent__dht_put_alert swig_types[43]
-#define SWIGTYPE_p_libtorrent__dht_reply_alert swig_types[44]
-#define SWIGTYPE_p_libtorrent__dht_routing_bucket swig_types[45]
-#define SWIGTYPE_p_libtorrent__dht_settings swig_types[46]
-#define SWIGTYPE_p_libtorrent__dht_stats_alert swig_types[47]
-#define SWIGTYPE_p_libtorrent__entry swig_types[48]
-#define SWIGTYPE_p_libtorrent__external_ip_alert swig_types[49]
-#define SWIGTYPE_p_libtorrent__fastresume_rejected_alert swig_types[50]
-#define SWIGTYPE_p_libtorrent__file_completed_alert swig_types[51]
-#define SWIGTYPE_p_libtorrent__file_error_alert swig_types[52]
-#define SWIGTYPE_p_libtorrent__file_rename_failed_alert swig_types[53]
-#define SWIGTYPE_p_libtorrent__file_renamed_alert swig_types[54]
-#define SWIGTYPE_p_libtorrent__file_slice swig_types[55]
-#define SWIGTYPE_p_libtorrent__file_storage swig_types[56]
-#define SWIGTYPE_p_libtorrent__hash_failed_alert swig_types[57]
-#define SWIGTYPE_p_libtorrent__i2p_alert swig_types[58]
-#define SWIGTYPE_p_libtorrent__incoming_connection_alert swig_types[59]
-#define SWIGTYPE_p_libtorrent__incoming_request_alert swig_types[60]
-#define SWIGTYPE_p_libtorrent__invalid_request_alert swig_types[61]
-#define SWIGTYPE_p_libtorrent__ip_filter swig_types[62]
-#define SWIGTYPE_p_libtorrent__listen_failed_alert swig_types[63]
-#define SWIGTYPE_p_libtorrent__listen_succeeded_alert swig_types[64]
-#define SWIGTYPE_p_libtorrent__log_alert swig_types[65]
-#define SWIGTYPE_p_libtorrent__lsd_error_alert swig_types[66]
-#define SWIGTYPE_p_libtorrent__lsd_peer_alert swig_types[67]
-#define SWIGTYPE_p_libtorrent__metadata_failed_alert swig_types[68]
-#define SWIGTYPE_p_libtorrent__metadata_received_alert swig_types[69]
-#define SWIGTYPE_p_libtorrent__mmap_cache_alert swig_types[70]
-#define SWIGTYPE_p_libtorrent__partial_piece_info swig_types[71]
-#define SWIGTYPE_p_libtorrent__peer_alert swig_types[72]
-#define SWIGTYPE_p_libtorrent__peer_ban_alert swig_types[73]
-#define SWIGTYPE_p_libtorrent__peer_blocked_alert swig_types[74]
-#define SWIGTYPE_p_libtorrent__peer_class_info swig_types[75]
-#define SWIGTYPE_p_libtorrent__peer_class_type_filter swig_types[76]
-#define SWIGTYPE_p_libtorrent__peer_connect_alert swig_types[77]
-#define SWIGTYPE_p_libtorrent__peer_connection_handle swig_types[78]
-#define SWIGTYPE_p_libtorrent__peer_disconnected_alert swig_types[79]
-#define SWIGTYPE_p_libtorrent__peer_error_alert swig_types[80]
-#define SWIGTYPE_p_libtorrent__peer_info swig_types[81]
-#define SWIGTYPE_p_libtorrent__peer_log_alert swig_types[82]
-#define SWIGTYPE_p_libtorrent__peer_request swig_types[83]
-#define SWIGTYPE_p_libtorrent__peer_snubbed_alert swig_types[84]
-#define SWIGTYPE_p_libtorrent__peer_unsnubbed_alert swig_types[85]
-#define SWIGTYPE_p_libtorrent__performance_alert swig_types[86]
-#define SWIGTYPE_p_libtorrent__picker_log_alert swig_types[87]
-#define SWIGTYPE_p_libtorrent__piece_finished_alert swig_types[88]
-#define SWIGTYPE_p_libtorrent__port_filter swig_types[89]
-#define SWIGTYPE_p_libtorrent__portmap_alert swig_types[90]
-#define SWIGTYPE_p_libtorrent__portmap_error_alert swig_types[91]
-#define SWIGTYPE_p_libtorrent__portmap_log_alert swig_types[92]
-#define SWIGTYPE_p_libtorrent__read_piece_alert swig_types[93]
-#define SWIGTYPE_p_libtorrent__request_dropped_alert swig_types[94]
-#define SWIGTYPE_p_libtorrent__save_resume_data_alert swig_types[95]
-#define SWIGTYPE_p_libtorrent__save_resume_data_failed_alert swig_types[96]
-#define SWIGTYPE_p_libtorrent__scrape_failed_alert swig_types[97]
-#define SWIGTYPE_p_libtorrent__scrape_reply_alert swig_types[98]
-#define SWIGTYPE_p_libtorrent__session swig_types[99]
-#define SWIGTYPE_p_libtorrent__session_handle swig_types[100]
-#define SWIGTYPE_p_libtorrent__session_params swig_types[101]
-#define SWIGTYPE_p_libtorrent__session_proxy swig_types[102]
-#define SWIGTYPE_p_libtorrent__session_stats_alert swig_types[103]
-#define SWIGTYPE_p_libtorrent__settings_pack swig_types[104]
-#define SWIGTYPE_p_libtorrent__sha1_hash swig_types[105]
-#define SWIGTYPE_p_libtorrent__spanT_char_const_t swig_types[106]
-#define SWIGTYPE_p_libtorrent__spanT_char_t swig_types[107]
-#define SWIGTYPE_p_libtorrent__state_changed_alert swig_types[108]
-#define SWIGTYPE_p_libtorrent__state_update_alert swig_types[109]
-#define SWIGTYPE_p_libtorrent__stats_alert swig_types[110]
-#define SWIGTYPE_p_libtorrent__stats_metric swig_types[111]
-#define SWIGTYPE_p_libtorrent__storage_moved_alert swig_types[112]
-#define SWIGTYPE_p_libtorrent__storage_moved_failed_alert swig_types[113]
-#define SWIGTYPE_p_libtorrent__string_view swig_types[114]
-#define SWIGTYPE_p_libtorrent__tcp__endpoint swig_types[115]
-#define SWIGTYPE_p_libtorrent__torrent_added_alert swig_types[116]
-#define SWIGTYPE_p_libtorrent__torrent_alert swig_types[117]
-#define SWIGTYPE_p_libtorrent__torrent_checked_alert swig_types[118]
-#define SWIGTYPE_p_libtorrent__torrent_delete_failed_alert swig_types[119]
-#define SWIGTYPE_p_libtorrent__torrent_deleted_alert swig_types[120]
-#define SWIGTYPE_p_libtorrent__torrent_error_alert swig_types[121]
-#define SWIGTYPE_p_libtorrent__torrent_finished_alert swig_types[122]
-#define SWIGTYPE_p_libtorrent__torrent_handle swig_types[123]
-#define SWIGTYPE_p_libtorrent__torrent_info swig_types[124]
-#define SWIGTYPE_p_libtorrent__torrent_log_alert swig_types[125]
-#define SWIGTYPE_p_libtorrent__torrent_need_cert_alert swig_types[126]
-#define SWIGTYPE_p_libtorrent__torrent_paused_alert swig_types[127]
-#define SWIGTYPE_p_libtorrent__torrent_removed_alert swig_types[128]
-#define SWIGTYPE_p_libtorrent__torrent_resumed_alert swig_types[129]
-#define SWIGTYPE_p_libtorrent__torrent_status swig_types[130]
-#define SWIGTYPE_p_libtorrent__tracker_alert swig_types[131]
-#define SWIGTYPE_p_libtorrent__tracker_announce_alert swig_types[132]
-#define SWIGTYPE_p_libtorrent__tracker_error_alert swig_types[133]
-#define SWIGTYPE_p_libtorrent__tracker_reply_alert swig_types[134]
-#define SWIGTYPE_p_libtorrent__tracker_warning_alert swig_types[135]
-#define SWIGTYPE_p_libtorrent__trackerid_alert swig_types[136]
-#define SWIGTYPE_p_libtorrent__udp__endpoint swig_types[137]
-#define SWIGTYPE_p_libtorrent__udp_error_alert swig_types[138]
-#define SWIGTYPE_p_libtorrent__unwanted_block_alert swig_types[139]
-#define SWIGTYPE_p_libtorrent__url_seed_alert swig_types[140]
-#define SWIGTYPE_p_libtorrent__web_seed_entry swig_types[141]
-#define SWIGTYPE_p_list_type swig_types[142]
-#define SWIGTYPE_p_long swig_types[143]
-#define SWIGTYPE_p_long_long swig_types[144]
-#define SWIGTYPE_p_mapped_type swig_types[145]
-#define SWIGTYPE_p_posix_stat_t swig_types[146]
-#define SWIGTYPE_p_posix_wrapper swig_types[147]
-#define SWIGTYPE_p_preformatted_type swig_types[148]
-#define SWIGTYPE_p_set_piece_hashes_listener swig_types[149]
-#define SWIGTYPE_p_short swig_types[150]
-#define SWIGTYPE_p_signed_char swig_types[151]
-#define SWIGTYPE_p_size_type swig_types[152]
-#define SWIGTYPE_p_std__functionT_void_flibtorrent__sha1_hash_const_R_std__vectorT_char_t_R_boost__system__error_code_RF_t swig_types[153]
-#define SWIGTYPE_p_std__mapT_int_libtorrent__bitfield_t swig_types[154]
-#define SWIGTYPE_p_std__mapT_int_std__string_t swig_types[155]
-#define SWIGTYPE_p_std__mapT_std__string_libtorrent__entry_t swig_types[156]
-#define SWIGTYPE_p_std__mapT_std__string_long_t swig_types[157]
-#define SWIGTYPE_p_std__pairT_int_int_t swig_types[158]
-#define SWIGTYPE_p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t swig_types[159]
-#define SWIGTYPE_p_std__pairT_std__string_int_t swig_types[160]
-#define SWIGTYPE_p_std__pairT_std__string_std__string_t swig_types[161]
-#define SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t swig_types[162]
-#define SWIGTYPE_p_std__vectorT_int_t swig_types[163]
-#define SWIGTYPE_p_std__vectorT_libtorrent__alert_p_t swig_types[164]
-#define SWIGTYPE_p_std__vectorT_libtorrent__announce_entry_t swig_types[165]
-#define SWIGTYPE_p_std__vectorT_libtorrent__block_info_t swig_types[166]
-#define SWIGTYPE_p_std__vectorT_libtorrent__dht_lookup_t swig_types[167]
-#define SWIGTYPE_p_std__vectorT_libtorrent__dht_routing_bucket_t swig_types[168]
-#define SWIGTYPE_p_std__vectorT_libtorrent__entry_t swig_types[169]
-#define SWIGTYPE_p_std__vectorT_libtorrent__file_slice_t swig_types[170]
-#define SWIGTYPE_p_std__vectorT_libtorrent__partial_piece_info_t swig_types[171]
-#define SWIGTYPE_p_std__vectorT_libtorrent__peer_info_t swig_types[172]
-#define SWIGTYPE_p_std__vectorT_libtorrent__sha1_hash_t swig_types[173]
-#define SWIGTYPE_p_std__vectorT_libtorrent__stats_metric_t swig_types[174]
-#define SWIGTYPE_p_std__vectorT_libtorrent__tcp__endpoint_t swig_types[175]
-#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_handle_t swig_types[176]
-#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_status_t swig_types[177]
-#define SWIGTYPE_p_std__vectorT_libtorrent__udp__endpoint_t swig_types[178]
-#define SWIGTYPE_p_std__vectorT_libtorrent__web_seed_entry_t swig_types[179]
-#define SWIGTYPE_p_std__vectorT_long_long_t swig_types[180]
-#define SWIGTYPE_p_std__vectorT_signed_char_t swig_types[181]
-#define SWIGTYPE_p_std__vectorT_std__pairT_int_int_t_t swig_types[182]
-#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_int_t_t swig_types[183]
-#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_std__string_t_t swig_types[184]
-#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[185]
-#define SWIGTYPE_p_string_type swig_types[186]
-#define SWIGTYPE_p_swig_plugin swig_types[187]
-#define SWIGTYPE_p_unsigned_char swig_types[188]
-#define SWIGTYPE_p_unsigned_int swig_types[189]
-#define SWIGTYPE_p_unsigned_long_long swig_types[190]
-#define SWIGTYPE_p_unsigned_short swig_types[191]
-#define SWIGTYPE_p_value_type swig_types[192]
-static swig_type_info *swig_types[194];
-static swig_module_info swig_module = {swig_types, 193, 0, 0, 0, 0};
+#define SWIGTYPE_p_boost__system__error_code swig_types[2]
+#define SWIGTYPE_p_char swig_types[3]
+#define SWIGTYPE_p_const_reference swig_types[4]
+#define SWIGTYPE_p_dictionary_type swig_types[5]
+#define SWIGTYPE_p_difference_type swig_types[6]
+#define SWIGTYPE_p_headers_t swig_types[7]
+#define SWIGTYPE_p_int swig_types[8]
+#define SWIGTYPE_p_integer_type swig_types[9]
+#define SWIGTYPE_p_key_type swig_types[10]
+#define SWIGTYPE_p_libtorrent__add_torrent_alert swig_types[11]
+#define SWIGTYPE_p_libtorrent__add_torrent_params swig_types[12]
+#define SWIGTYPE_p_libtorrent__address swig_types[13]
+#define SWIGTYPE_p_libtorrent__alert swig_types[14]
+#define SWIGTYPE_p_libtorrent__announce_entry swig_types[15]
+#define SWIGTYPE_p_libtorrent__anonymous_mode_alert swig_types[16]
+#define SWIGTYPE_p_libtorrent__bdecode_node swig_types[17]
+#define SWIGTYPE_p_libtorrent__bitfield swig_types[18]
+#define SWIGTYPE_p_libtorrent__block_downloading_alert swig_types[19]
+#define SWIGTYPE_p_libtorrent__block_finished_alert swig_types[20]
+#define SWIGTYPE_p_libtorrent__block_info swig_types[21]
+#define SWIGTYPE_p_libtorrent__block_timeout_alert swig_types[22]
+#define SWIGTYPE_p_libtorrent__bloom_filterT_128_t swig_types[23]
+#define SWIGTYPE_p_libtorrent__bloom_filterT_256_t swig_types[24]
+#define SWIGTYPE_p_libtorrent__bt_peer_connection_handle swig_types[25]
+#define SWIGTYPE_p_libtorrent__cache_flushed_alert swig_types[26]
+#define SWIGTYPE_p_libtorrent__create_torrent swig_types[27]
+#define SWIGTYPE_p_libtorrent__dht__dht_state swig_types[28]
+#define SWIGTYPE_p_libtorrent__dht_announce_alert swig_types[29]
+#define SWIGTYPE_p_libtorrent__dht_bootstrap_alert swig_types[30]
+#define SWIGTYPE_p_libtorrent__dht_direct_response_alert swig_types[31]
+#define SWIGTYPE_p_libtorrent__dht_error_alert swig_types[32]
+#define SWIGTYPE_p_libtorrent__dht_get_peers_alert swig_types[33]
+#define SWIGTYPE_p_libtorrent__dht_get_peers_reply_alert swig_types[34]
+#define SWIGTYPE_p_libtorrent__dht_immutable_item_alert swig_types[35]
+#define SWIGTYPE_p_libtorrent__dht_log_alert swig_types[36]
+#define SWIGTYPE_p_libtorrent__dht_lookup swig_types[37]
+#define SWIGTYPE_p_libtorrent__dht_mutable_item_alert swig_types[38]
+#define SWIGTYPE_p_libtorrent__dht_outgoing_get_peers_alert swig_types[39]
+#define SWIGTYPE_p_libtorrent__dht_pkt_alert swig_types[40]
+#define SWIGTYPE_p_libtorrent__dht_put_alert swig_types[41]
+#define SWIGTYPE_p_libtorrent__dht_reply_alert swig_types[42]
+#define SWIGTYPE_p_libtorrent__dht_routing_bucket swig_types[43]
+#define SWIGTYPE_p_libtorrent__dht_settings swig_types[44]
+#define SWIGTYPE_p_libtorrent__dht_stats_alert swig_types[45]
+#define SWIGTYPE_p_libtorrent__entry swig_types[46]
+#define SWIGTYPE_p_libtorrent__external_ip_alert swig_types[47]
+#define SWIGTYPE_p_libtorrent__fastresume_rejected_alert swig_types[48]
+#define SWIGTYPE_p_libtorrent__file_completed_alert swig_types[49]
+#define SWIGTYPE_p_libtorrent__file_error_alert swig_types[50]
+#define SWIGTYPE_p_libtorrent__file_rename_failed_alert swig_types[51]
+#define SWIGTYPE_p_libtorrent__file_renamed_alert swig_types[52]
+#define SWIGTYPE_p_libtorrent__file_slice swig_types[53]
+#define SWIGTYPE_p_libtorrent__file_storage swig_types[54]
+#define SWIGTYPE_p_libtorrent__hash_failed_alert swig_types[55]
+#define SWIGTYPE_p_libtorrent__i2p_alert swig_types[56]
+#define SWIGTYPE_p_libtorrent__incoming_connection_alert swig_types[57]
+#define SWIGTYPE_p_libtorrent__incoming_request_alert swig_types[58]
+#define SWIGTYPE_p_libtorrent__invalid_request_alert swig_types[59]
+#define SWIGTYPE_p_libtorrent__ip_filter swig_types[60]
+#define SWIGTYPE_p_libtorrent__listen_failed_alert swig_types[61]
+#define SWIGTYPE_p_libtorrent__listen_succeeded_alert swig_types[62]
+#define SWIGTYPE_p_libtorrent__log_alert swig_types[63]
+#define SWIGTYPE_p_libtorrent__lsd_error_alert swig_types[64]
+#define SWIGTYPE_p_libtorrent__lsd_peer_alert swig_types[65]
+#define SWIGTYPE_p_libtorrent__metadata_failed_alert swig_types[66]
+#define SWIGTYPE_p_libtorrent__metadata_received_alert swig_types[67]
+#define SWIGTYPE_p_libtorrent__mmap_cache_alert swig_types[68]
+#define SWIGTYPE_p_libtorrent__partial_piece_info swig_types[69]
+#define SWIGTYPE_p_libtorrent__peer_alert swig_types[70]
+#define SWIGTYPE_p_libtorrent__peer_ban_alert swig_types[71]
+#define SWIGTYPE_p_libtorrent__peer_blocked_alert swig_types[72]
+#define SWIGTYPE_p_libtorrent__peer_class_info swig_types[73]
+#define SWIGTYPE_p_libtorrent__peer_class_type_filter swig_types[74]
+#define SWIGTYPE_p_libtorrent__peer_connect_alert swig_types[75]
+#define SWIGTYPE_p_libtorrent__peer_connection_handle swig_types[76]
+#define SWIGTYPE_p_libtorrent__peer_disconnected_alert swig_types[77]
+#define SWIGTYPE_p_libtorrent__peer_error_alert swig_types[78]
+#define SWIGTYPE_p_libtorrent__peer_info swig_types[79]
+#define SWIGTYPE_p_libtorrent__peer_log_alert swig_types[80]
+#define SWIGTYPE_p_libtorrent__peer_request swig_types[81]
+#define SWIGTYPE_p_libtorrent__peer_snubbed_alert swig_types[82]
+#define SWIGTYPE_p_libtorrent__peer_unsnubbed_alert swig_types[83]
+#define SWIGTYPE_p_libtorrent__performance_alert swig_types[84]
+#define SWIGTYPE_p_libtorrent__picker_log_alert swig_types[85]
+#define SWIGTYPE_p_libtorrent__piece_finished_alert swig_types[86]
+#define SWIGTYPE_p_libtorrent__port_filter swig_types[87]
+#define SWIGTYPE_p_libtorrent__portmap_alert swig_types[88]
+#define SWIGTYPE_p_libtorrent__portmap_error_alert swig_types[89]
+#define SWIGTYPE_p_libtorrent__portmap_log_alert swig_types[90]
+#define SWIGTYPE_p_libtorrent__read_piece_alert swig_types[91]
+#define SWIGTYPE_p_libtorrent__request_dropped_alert swig_types[92]
+#define SWIGTYPE_p_libtorrent__save_resume_data_alert swig_types[93]
+#define SWIGTYPE_p_libtorrent__save_resume_data_failed_alert swig_types[94]
+#define SWIGTYPE_p_libtorrent__scrape_failed_alert swig_types[95]
+#define SWIGTYPE_p_libtorrent__scrape_reply_alert swig_types[96]
+#define SWIGTYPE_p_libtorrent__session swig_types[97]
+#define SWIGTYPE_p_libtorrent__session_handle swig_types[98]
+#define SWIGTYPE_p_libtorrent__session_params swig_types[99]
+#define SWIGTYPE_p_libtorrent__session_proxy swig_types[100]
+#define SWIGTYPE_p_libtorrent__session_stats_alert swig_types[101]
+#define SWIGTYPE_p_libtorrent__settings_pack swig_types[102]
+#define SWIGTYPE_p_libtorrent__sha1_hash swig_types[103]
+#define SWIGTYPE_p_libtorrent__spanT_char_const_t swig_types[104]
+#define SWIGTYPE_p_libtorrent__spanT_char_t swig_types[105]
+#define SWIGTYPE_p_libtorrent__state_changed_alert swig_types[106]
+#define SWIGTYPE_p_libtorrent__state_update_alert swig_types[107]
+#define SWIGTYPE_p_libtorrent__stats_alert swig_types[108]
+#define SWIGTYPE_p_libtorrent__stats_metric swig_types[109]
+#define SWIGTYPE_p_libtorrent__storage_moved_alert swig_types[110]
+#define SWIGTYPE_p_libtorrent__storage_moved_failed_alert swig_types[111]
+#define SWIGTYPE_p_libtorrent__string_view swig_types[112]
+#define SWIGTYPE_p_libtorrent__tcp__endpoint swig_types[113]
+#define SWIGTYPE_p_libtorrent__torrent_added_alert swig_types[114]
+#define SWIGTYPE_p_libtorrent__torrent_alert swig_types[115]
+#define SWIGTYPE_p_libtorrent__torrent_checked_alert swig_types[116]
+#define SWIGTYPE_p_libtorrent__torrent_delete_failed_alert swig_types[117]
+#define SWIGTYPE_p_libtorrent__torrent_deleted_alert swig_types[118]
+#define SWIGTYPE_p_libtorrent__torrent_error_alert swig_types[119]
+#define SWIGTYPE_p_libtorrent__torrent_finished_alert swig_types[120]
+#define SWIGTYPE_p_libtorrent__torrent_handle swig_types[121]
+#define SWIGTYPE_p_libtorrent__torrent_info swig_types[122]
+#define SWIGTYPE_p_libtorrent__torrent_log_alert swig_types[123]
+#define SWIGTYPE_p_libtorrent__torrent_need_cert_alert swig_types[124]
+#define SWIGTYPE_p_libtorrent__torrent_paused_alert swig_types[125]
+#define SWIGTYPE_p_libtorrent__torrent_removed_alert swig_types[126]
+#define SWIGTYPE_p_libtorrent__torrent_resumed_alert swig_types[127]
+#define SWIGTYPE_p_libtorrent__torrent_status swig_types[128]
+#define SWIGTYPE_p_libtorrent__tracker_alert swig_types[129]
+#define SWIGTYPE_p_libtorrent__tracker_announce_alert swig_types[130]
+#define SWIGTYPE_p_libtorrent__tracker_error_alert swig_types[131]
+#define SWIGTYPE_p_libtorrent__tracker_reply_alert swig_types[132]
+#define SWIGTYPE_p_libtorrent__tracker_warning_alert swig_types[133]
+#define SWIGTYPE_p_libtorrent__trackerid_alert swig_types[134]
+#define SWIGTYPE_p_libtorrent__udp__endpoint swig_types[135]
+#define SWIGTYPE_p_libtorrent__udp_error_alert swig_types[136]
+#define SWIGTYPE_p_libtorrent__unwanted_block_alert swig_types[137]
+#define SWIGTYPE_p_libtorrent__url_seed_alert swig_types[138]
+#define SWIGTYPE_p_libtorrent__web_seed_entry swig_types[139]
+#define SWIGTYPE_p_list_type swig_types[140]
+#define SWIGTYPE_p_long swig_types[141]
+#define SWIGTYPE_p_long_long swig_types[142]
+#define SWIGTYPE_p_mapped_type swig_types[143]
+#define SWIGTYPE_p_posix_stat_t swig_types[144]
+#define SWIGTYPE_p_posix_wrapper swig_types[145]
+#define SWIGTYPE_p_preformatted_type swig_types[146]
+#define SWIGTYPE_p_set_piece_hashes_listener swig_types[147]
+#define SWIGTYPE_p_short swig_types[148]
+#define SWIGTYPE_p_signed_char swig_types[149]
+#define SWIGTYPE_p_size_type swig_types[150]
+#define SWIGTYPE_p_std__functionT_void_flibtorrent__sha1_hash_const_R_std__vectorT_char_t_R_boost__system__error_code_RF_t swig_types[151]
+#define SWIGTYPE_p_std__mapT_int_libtorrent__bitfield_t swig_types[152]
+#define SWIGTYPE_p_std__mapT_int_std__string_t swig_types[153]
+#define SWIGTYPE_p_std__mapT_std__string_libtorrent__entry_t swig_types[154]
+#define SWIGTYPE_p_std__mapT_std__string_long_t swig_types[155]
+#define SWIGTYPE_p_std__pairT_int_int_t swig_types[156]
+#define SWIGTYPE_p_std__pairT_libtorrent__string_view_libtorrent__bdecode_node_t swig_types[157]
+#define SWIGTYPE_p_std__pairT_std__string_int_t swig_types[158]
+#define SWIGTYPE_p_std__pairT_std__string_std__string_t swig_types[159]
+#define SWIGTYPE_p_std__pairT_std__vectorT_int8_t_t_std__vectorT_int8_t_t_t swig_types[160]
+#define SWIGTYPE_p_std__vectorT_int_t swig_types[161]
+#define SWIGTYPE_p_std__vectorT_libtorrent__alert_p_t swig_types[162]
+#define SWIGTYPE_p_std__vectorT_libtorrent__announce_entry_t swig_types[163]
+#define SWIGTYPE_p_std__vectorT_libtorrent__block_info_t swig_types[164]
+#define SWIGTYPE_p_std__vectorT_libtorrent__dht_lookup_t swig_types[165]
+#define SWIGTYPE_p_std__vectorT_libtorrent__dht_routing_bucket_t swig_types[166]
+#define SWIGTYPE_p_std__vectorT_libtorrent__entry_t swig_types[167]
+#define SWIGTYPE_p_std__vectorT_libtorrent__file_slice_t swig_types[168]
+#define SWIGTYPE_p_std__vectorT_libtorrent__partial_piece_info_t swig_types[169]
+#define SWIGTYPE_p_std__vectorT_libtorrent__peer_info_t swig_types[170]
+#define SWIGTYPE_p_std__vectorT_libtorrent__sha1_hash_t swig_types[171]
+#define SWIGTYPE_p_std__vectorT_libtorrent__stats_metric_t swig_types[172]
+#define SWIGTYPE_p_std__vectorT_libtorrent__tcp__endpoint_t swig_types[173]
+#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_handle_t swig_types[174]
+#define SWIGTYPE_p_std__vectorT_libtorrent__torrent_status_t swig_types[175]
+#define SWIGTYPE_p_std__vectorT_libtorrent__udp__endpoint_t swig_types[176]
+#define SWIGTYPE_p_std__vectorT_libtorrent__web_seed_entry_t swig_types[177]
+#define SWIGTYPE_p_std__vectorT_long_long_t swig_types[178]
+#define SWIGTYPE_p_std__vectorT_signed_char_t swig_types[179]
+#define SWIGTYPE_p_std__vectorT_std__pairT_int_int_t_t swig_types[180]
+#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_int_t_t swig_types[181]
+#define SWIGTYPE_p_std__vectorT_std__pairT_std__string_std__string_t_t swig_types[182]
+#define SWIGTYPE_p_std__vectorT_std__string_t swig_types[183]
+#define SWIGTYPE_p_string_type swig_types[184]
+#define SWIGTYPE_p_swig_plugin swig_types[185]
+#define SWIGTYPE_p_unsigned_char swig_types[186]
+#define SWIGTYPE_p_unsigned_int swig_types[187]
+#define SWIGTYPE_p_unsigned_long_long swig_types[188]
+#define SWIGTYPE_p_unsigned_short swig_types[189]
+#define SWIGTYPE_p_value_type swig_types[190]
+static swig_type_info *swig_types[192];
+static swig_module_info swig_module = {swig_types, 191, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2556,12 +2554,6 @@ SWIGINTERN int8_t libtorrent_span_Sl_char_SS_const_Sg__get(libtorrent::span< cha
 SWIGINTERN libtorrent::sha1_hash *new_libtorrent_sha1_hash__SWIG_2(std::vector< int8_t > const &s){
                 return new libtorrent::sha1_hash({reinterpret_cast<char const*>(s.data()), s.size()});
             }
-SWIGINTERN void libtorrent_sha1_hash_assign(libtorrent::sha1_hash *self,std::vector< int8_t > const &s){
-                self->assign({reinterpret_cast<char const*>(s.data()), s.size()});
-            }
-SWIGINTERN int8_t libtorrent_sha1_hash_get(libtorrent::sha1_hash *self,size_t const idx){
-                return (int8_t)(*self)[idx];
-            }
 SWIGINTERN int libtorrent_sha1_hash_hash_code(libtorrent::sha1_hash *self){
                 char const* data = self->data();
                 int result = 1;
@@ -3057,8 +3049,6 @@ SWIGV8_ClientData _exports_string_view_clientData;
 SWIGV8_ClientData _exports_address_clientData;
 SWIGV8_ClientData _exports_tcp_endpoint_clientData;
 SWIGV8_ClientData _exports_udp_endpoint_clientData;
-SWIGV8_ClientData _exports_error_category_clientData;
-SWIGV8_ClientData _exports_error_condition_clientData;
 SWIGV8_ClientData _exports_error_code_clientData;
 SWIGV8_ClientData _exports_bitfield_clientData;
 SWIGV8_ClientData _exports_peer_request_clientData;
@@ -15390,82 +15380,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_sha1_hash_assign(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  std::vector< int8_t > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_assign.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_assign" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_std__vectorT_signed_char_t,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "sha1_hash_assign" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sha1_hash_assign" "', argument " "2"" of type '" "std::vector< int8_t > const &""'"); 
-  }
-  arg2 = (std::vector< int8_t > *)(argp2);
-  libtorrent_sha1_hash_assign(arg1,(std::vector< signed char > const &)*arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_sha1_hash_get(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::sha1_hash *arg1 = (libtorrent::sha1_hash *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  int8_t result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_sha1_hash_get.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sha1_hash_get" "', argument " "1"" of type '" "libtorrent::sha1_hash *""'"); 
-  }
-  arg1 = (libtorrent::sha1_hash *)(argp1);
-  ecode2 = SWIG_AsVal_size_t(args[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "sha1_hash_get" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = (size_t)(val2);
-  result = (int8_t)libtorrent_sha1_hash_get(arg1,arg2);
-  jsresult = SWIG_From_signed_SS_char((signed char)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_sha1_hash_hash_code(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -18370,961 +18284,18 @@ fail:
 }
 
 
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-static void _wrap_delete_error_category(v8::Persistent<v8::Value> object, void *parameter) {
-  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-  static void _wrap_delete_error_category(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
-    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-    static void _wrap_delete_error_category(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
-#else
-      static void _wrap_delete_error_category(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
-        v8::Local<v8::Object> object = data.GetValue();
-        SWIGV8_Proxy *proxy = data.GetParameter();
-#endif
-        
-        if(proxy->swigCMemOwn && proxy->swigCObject) {
-          boost::system::error_category * arg1 = (boost::system::error_category *)proxy->swigCObject;
-          delete arg1;
-        }
-        delete proxy;
-        
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-        object.Dispose();
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-        object.Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
-        object->Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-        object->Dispose();
-#else
-        object.Clear();
-#endif
-      }
-
-
-static SwigV8ReturnValue _wrap_error_category_name(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *arg1 = (boost::system::error_category *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  char *result = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_category_name.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_category_name" "', argument " "1"" of type '" "boost::system::error_category const *""'"); 
-  }
-  arg1 = (boost::system::error_category *)(argp1);
-  result = (char *)((boost::system::error_category const *)arg1)->name();
-  jsresult = SWIG_FromCharPtr((const char *)result);
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_category_message(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *arg1 = (boost::system::error_category *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  std::string result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_category_message.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_category_message" "', argument " "1"" of type '" "boost::system::error_category const *""'"); 
-  }
-  arg1 = (boost::system::error_category *)(argp1);
-  ecode2 = SWIG_AsVal_int(args[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "error_category_message" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  result = ((boost::system::error_category const *)arg1)->message(arg2);
-  jsresult = SWIG_From_std_string((std::string)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_category_default_error_condition(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *arg1 = (boost::system::error_category *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  boost::system::error_condition result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_category_default_error_condition.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_category_default_error_condition" "', argument " "1"" of type '" "boost::system::error_category const *""'"); 
-  }
-  arg1 = (boost::system::error_category *)(argp1);
-  ecode2 = SWIG_AsVal_int(args[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "error_category_default_error_condition" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  result = ((boost::system::error_category const *)arg1)->default_error_condition(arg2);
-  jsresult = SWIG_NewPointerObj((new boost::system::error_condition((const boost::system::error_condition&)(result))), SWIGTYPE_p_boost__system__error_condition, SWIG_POINTER_OWN |  0 );
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_category_equivalent__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *arg1 = (boost::system::error_category *) 0 ;
-  int arg2 ;
-  boost::system::error_condition *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_category_equivalent" "', argument " "1"" of type '" "boost::system::error_category const *""'"); 
-  }
-  arg1 = (boost::system::error_category *)(argp1);
-  ecode2 = SWIG_AsVal_int(args[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "error_category_equivalent" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  res3 = SWIG_ConvertPtr(args[1], &argp3, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "error_category_equivalent" "', argument " "3"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "error_category_equivalent" "', argument " "3"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg3 = (boost::system::error_condition *)(argp3);
-  result = (bool)((boost::system::error_category const *)arg1)->equivalent(arg2,(boost::system::error_condition const &)*arg3);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_category_equivalent__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *arg1 = (boost::system::error_category *) 0 ;
-  boost::system::error_code *arg2 = 0 ;
-  int arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_category_equivalent" "', argument " "1"" of type '" "boost::system::error_category const *""'"); 
-  }
-  arg1 = (boost::system::error_category *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_boost__system__error_code,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "error_category_equivalent" "', argument " "2"" of type '" "boost::system::error_code const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "error_category_equivalent" "', argument " "2"" of type '" "boost::system::error_code const &""'"); 
-  }
-  arg2 = (boost::system::error_code *)(argp2);
-  ecode3 = SWIG_AsVal_int(args[1], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "error_category_equivalent" "', argument " "3"" of type '" "int""'");
-  } 
-  arg3 = (int)(val3);
-  result = (bool)((boost::system::error_category const *)arg1)->equivalent((boost::system::error_code const &)*arg2,arg3);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_category__wrap_error_category_equivalent(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  OverloadErrorHandler errorHandler;
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_error_category_equivalent__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_error_category_equivalent__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_error_category_equivalent__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_error_category_equivalent__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for function equivalent.");
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_category_op_eq(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *arg1 = (boost::system::error_category *) 0 ;
-  boost::system::error_category *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_category_op_eq.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_category_op_eq" "', argument " "1"" of type '" "boost::system::error_category const *""'"); 
-  }
-  arg1 = (boost::system::error_category *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_boost__system__error_category,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "error_category_op_eq" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "error_category_op_eq" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  arg2 = (boost::system::error_category *)(argp2);
-  result = (bool)((boost::system::error_category const *)arg1)->operator ==((boost::system::error_category const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_category_op_ne(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *arg1 = (boost::system::error_category *) 0 ;
-  boost::system::error_category *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_category_op_ne.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_category_op_ne" "', argument " "1"" of type '" "boost::system::error_category const *""'"); 
-  }
-  arg1 = (boost::system::error_category *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_boost__system__error_category,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "error_category_op_ne" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "error_category_op_ne" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  arg2 = (boost::system::error_category *)(argp2);
-  result = (bool)((boost::system::error_category const *)arg1)->operator !=((boost::system::error_category const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_category_op_lt(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *arg1 = (boost::system::error_category *) 0 ;
-  boost::system::error_category *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_category_op_lt.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_category_op_lt" "', argument " "1"" of type '" "boost::system::error_category const *""'"); 
-  }
-  arg1 = (boost::system::error_category *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_boost__system__error_category,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "error_category_op_lt" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "error_category_op_lt" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  arg2 = (boost::system::error_category *)(argp2);
-  result = (bool)((boost::system::error_category const *)arg1)->operator <((boost::system::error_category const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_veto_error_category(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  SWIG_exception(SWIG_ERROR, "Class error_category can not be instantiated");
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_error_condition__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  boost::system::error_condition *result;
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_error_condition__SWIG_0.");
-  result = (boost::system::error_condition *)new boost::system::error_condition();
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_boost__system__error_condition, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_error_condition__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  int arg1 ;
-  boost::system::error_category *arg2 = 0 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  boost::system::error_condition *result;
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_error_condition__SWIG_1.");
-  ecode1 = SWIG_AsVal_int(args[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_error_condition" "', argument " "1"" of type '" "int""'");
-  } 
-  arg1 = (int)(val1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_category,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_error_condition" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_error_condition" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  arg2 = (boost::system::error_category *)(argp2);
-  result = (boost::system::error_condition *)new boost::system::error_condition(arg1,(boost::system::error_category const &)*arg2);
-  
-  
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_boost__system__error_condition, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_error_condition(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  OverloadErrorHandler errorHandler;
-  v8::Handle<v8::Value> self;
-  
-  // switch all cases by means of series of if-returns.
-  
-  if(args.Length() == 0) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_error_condition__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_error_condition__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_error_condition__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_error_condition__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  // default:
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_error_condition");
-  
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_condition_assign(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = (boost::system::error_condition *) 0 ;
-  int arg2 ;
-  boost::system::error_category *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
-  
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_condition_assign.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_condition, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_condition_assign" "', argument " "1"" of type '" "boost::system::error_condition *""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  ecode2 = SWIG_AsVal_int(args[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "error_condition_assign" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  res3 = SWIG_ConvertPtr(args[1], &argp3, SWIGTYPE_p_boost__system__error_category,  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "error_condition_assign" "', argument " "3"" of type '" "boost::system::error_category const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "error_condition_assign" "', argument " "3"" of type '" "boost::system::error_category const &""'"); 
-  }
-  arg3 = (boost::system::error_category *)(argp3);
-  (arg1)->assign(arg2,(boost::system::error_category const &)*arg3);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_condition_clear(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = (boost::system::error_condition *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_condition_clear.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_condition, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_condition_clear" "', argument " "1"" of type '" "boost::system::error_condition *""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  (arg1)->clear();
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_condition_value(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = (boost::system::error_condition *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_condition_value.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_condition, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_condition_value" "', argument " "1"" of type '" "boost::system::error_condition const *""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  result = (int)((boost::system::error_condition const *)arg1)->value();
-  jsresult = SWIG_From_int((int)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_condition_category(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = (boost::system::error_condition *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  boost::system::error_category *result = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_condition_category.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_condition, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_condition_category" "', argument " "1"" of type '" "boost::system::error_condition const *""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  result = (boost::system::error_category *) &((boost::system::error_condition const *)arg1)->category();
-  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_condition_message(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = (boost::system::error_condition *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::string result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_condition_message.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_condition, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_condition_message" "', argument " "1"" of type '" "boost::system::error_condition const *""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  result = ((boost::system::error_condition const *)arg1)->message();
-  jsresult = SWIG_From_std_string((std::string)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_condition_unspecified_bool_true(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_condition_unspecified_bool_true.");
-  
-  boost::system::error_condition::unspecified_bool_true();
-  jsresult = SWIGV8_UNDEFINED();
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_op_eq__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = 0 ;
-  boost::system::error_condition *arg2 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "op_eq" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_eq" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "op_eq" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_eq" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg2 = (boost::system::error_condition *)(argp2);
-  result = (bool)operator ==((boost::system::error_condition const &)*arg1,(boost::system::error_condition const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_op_lt__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = 0 ;
-  boost::system::error_condition *arg2 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "op_lt" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_lt" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "op_lt" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_lt" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg2 = (boost::system::error_condition *)(argp2);
-  result = (bool)operator <((boost::system::error_condition const &)*arg1,(boost::system::error_condition const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-static void _wrap_delete_error_condition(v8::Persistent<v8::Value> object, void *parameter) {
-  SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-  static void _wrap_delete_error_condition(v8::Isolate *isolate, v8::Persistent<v8::Value> object, void *parameter) {
-    SWIGV8_Proxy *proxy = static_cast<SWIGV8_Proxy *>(parameter);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-    static void _wrap_delete_error_condition(v8::Isolate *isolate, v8::Persistent< v8::Object> *object, SWIGV8_Proxy *proxy) {
-#else
-      static void _wrap_delete_error_condition(const v8::WeakCallbackData<v8::Object, SWIGV8_Proxy> &data) {
-        v8::Local<v8::Object> object = data.GetValue();
-        SWIGV8_Proxy *proxy = data.GetParameter();
-#endif
-        
-        if(proxy->swigCMemOwn && proxy->swigCObject) {
-          boost::system::error_condition * arg1 = (boost::system::error_condition *)proxy->swigCObject;
-          delete arg1;
-        }
-        delete proxy;
-        
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031710)
-        object.Dispose();
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031900)
-        object.Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032100)
-        object->Dispose(isolate);
-#elif (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < SWIGV8_SETWEAK_VERSION)
-        object->Dispose();
-#else
-        object.Clear();
-#endif
-      }
-
-
-static SwigV8ReturnValue _wrap_new_error_code__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+static SwigV8ReturnValue _wrap_new_error_code(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Object> self = args.Holder();
   boost::system::error_code *result;
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_error_code__SWIG_0.");
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_error_code.");
   result = (boost::system::error_code *)new boost::system::error_code();
   
   
   
   SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_boost__system__error_code, SWIG_POINTER_OWN);
   SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_error_code__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Object> self = args.Holder();
-  int arg1 ;
-  boost::system::error_category *arg2 = 0 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  boost::system::error_code *result;
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_error_code__SWIG_1.");
-  ecode1 = SWIG_AsVal_int(args[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_error_code" "', argument " "1"" of type '" "int""'");
-  } 
-  arg1 = (int)(val1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_category,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_error_code" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_error_code" "', argument " "2"" of type '" "boost::system::error_category const &""'"); 
-  }
-  arg2 = (boost::system::error_category *)(argp2);
-  result = (boost::system::error_code *)new boost::system::error_code(arg1,(boost::system::error_category const &)*arg2);
-  
-  
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_boost__system__error_code, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_error_code(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  OverloadErrorHandler errorHandler;
-  v8::Handle<v8::Value> self;
-  
-  // switch all cases by means of series of if-returns.
-  
-  if(args.Length() == 0) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_error_code__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_error_code__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    self = _wrap_new_error_code__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(self);
-    }
-#else
-    _wrap_new_error_code__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  // default:
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_error_code");
-  
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_code_assign(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_code *arg1 = (boost::system::error_code *) 0 ;
-  int arg2 ;
-  boost::system::error_category *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
-  
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_code_assign.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_code, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_code_assign" "', argument " "1"" of type '" "boost::system::error_code *""'"); 
-  }
-  arg1 = (boost::system::error_code *)(argp1);
-  ecode2 = SWIG_AsVal_int(args[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "error_code_assign" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  res3 = SWIG_ConvertPtr(args[1], &argp3, SWIGTYPE_p_boost__system__error_category,  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "error_code_assign" "', argument " "3"" of type '" "boost::system::error_category const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "error_code_assign" "', argument " "3"" of type '" "boost::system::error_category const &""'"); 
-  }
-  arg3 = (boost::system::error_category *)(argp3);
-  (arg1)->assign(arg2,(boost::system::error_category const &)*arg3);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
   
   goto fail;
 fail:
@@ -19377,62 +18348,6 @@ static SwigV8ReturnValue _wrap_error_code_value(const SwigV8Arguments &args) {
   arg1 = (boost::system::error_code *)(argp1);
   result = (int)((boost::system::error_code const *)arg1)->value();
   jsresult = SWIG_From_int((int)(result));
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_code_category(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_code *arg1 = (boost::system::error_code *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  boost::system::error_category *result = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_code_category.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_code, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_code_category" "', argument " "1"" of type '" "boost::system::error_code const *""'"); 
-  }
-  arg1 = (boost::system::error_code *)(argp1);
-  result = (boost::system::error_category *) &((boost::system::error_code const *)arg1)->category();
-  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_error_code_default_error_condition(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_code *arg1 = (boost::system::error_code *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  boost::system::error_condition result;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_error_code_default_error_condition.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_boost__system__error_code, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "error_code_default_error_condition" "', argument " "1"" of type '" "boost::system::error_code const *""'"); 
-  }
-  arg1 = (boost::system::error_code *)(argp1);
-  result = ((boost::system::error_code const *)arg1)->default_error_condition();
-  jsresult = SWIG_NewPointerObj((new boost::system::error_condition((const boost::system::error_condition&)(result))), SWIGTYPE_p_boost__system__error_condition, SWIG_POINTER_OWN |  0 );
   
   
   SWIGV8_RETURN(jsresult);
@@ -19513,6 +18428,37 @@ fail:
 }
 
 
+static SwigV8ReturnValue _wrap_error_code__wrap_op_eq(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  OverloadErrorHandler errorHandler;
+  
+  
+  if(args.Length() == 2) {
+    errorHandler.err.Clear();
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
+    jsresult = _wrap_op_eq__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      SWIGV8_ESCAPE(jsresult);
+    }
+#else
+    _wrap_op_eq__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+#endif
+  }
+  
+  
+  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for function op_eq.");
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
 static SwigV8ReturnValue _wrap_op_lt__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
 {
   SWIGV8_HANDLESCOPE();
@@ -19560,22 +18506,6 @@ static SwigV8ReturnValue _wrap_error_code__wrap_op_lt(const SwigV8Arguments &arg
   
   v8::Handle<v8::Value> jsresult;
   OverloadErrorHandler errorHandler;
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_lt__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_lt__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
   
   
   if(args.Length() == 2) {
@@ -19636,8 +18566,7 @@ static void _wrap_delete_error_code(v8::Persistent<v8::Value> object, void *para
       }
 
 
-static SwigV8ReturnValue _wrap_op_ne__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
+static SwigV8ReturnValue _wrap_op_ne(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
@@ -19648,6 +18577,8 @@ static SwigV8ReturnValue _wrap_op_ne__SWIG_0(const SwigV8Arguments &args, V8Erro
   void *argp2 ;
   int res2 = 0 ;
   bool result;
+  
+  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_op_ne.");
   
   res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_code,  0 );
   if (!SWIG_IsOK(res1)) {
@@ -19678,374 +18609,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_op_ne__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = 0 ;
-  boost::system::error_condition *arg2 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "op_ne" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_ne" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "op_ne" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_ne" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg2 = (boost::system::error_condition *)(argp2);
-  result = (bool)boost::system::operator !=((boost::system::error_condition const &)*arg1,(boost::system::error_condition const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_op_eq__SWIG_2(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_code *arg1 = 0 ;
-  boost::system::error_condition *arg2 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_code,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "op_eq" "', argument " "1"" of type '" "boost::system::error_code const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_eq" "', argument " "1"" of type '" "boost::system::error_code const &""'"); 
-  }
-  arg1 = (boost::system::error_code *)(argp1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "op_eq" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_eq" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg2 = (boost::system::error_condition *)(argp2);
-  result = (bool)boost::system::operator ==((boost::system::error_code const &)*arg1,(boost::system::error_condition const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_op_ne__SWIG_2(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_code *arg1 = 0 ;
-  boost::system::error_condition *arg2 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_code,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "op_ne" "', argument " "1"" of type '" "boost::system::error_code const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_ne" "', argument " "1"" of type '" "boost::system::error_code const &""'"); 
-  }
-  arg1 = (boost::system::error_code *)(argp1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "op_ne" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_ne" "', argument " "2"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg2 = (boost::system::error_condition *)(argp2);
-  result = (bool)boost::system::operator !=((boost::system::error_code const &)*arg1,(boost::system::error_condition const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_op_eq__SWIG_3(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = 0 ;
-  boost::system::error_code *arg2 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "op_eq" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_eq" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_code,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "op_eq" "', argument " "2"" of type '" "boost::system::error_code const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_eq" "', argument " "2"" of type '" "boost::system::error_code const &""'"); 
-  }
-  arg2 = (boost::system::error_code *)(argp2);
-  result = (bool)boost::system::operator ==((boost::system::error_condition const &)*arg1,(boost::system::error_code const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_system__wrap_op_eq(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  OverloadErrorHandler errorHandler;
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_eq__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_eq__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_eq__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_eq__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_eq__SWIG_2(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_eq__SWIG_2(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_eq__SWIG_3(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_eq__SWIG_3(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for function op_eq.");
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_op_ne__SWIG_3(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler)
-{
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_condition *arg1 = 0 ;
-  boost::system::error_code *arg2 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  bool result;
-  
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_boost__system__error_condition,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "op_ne" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_ne" "', argument " "1"" of type '" "boost::system::error_condition const &""'"); 
-  }
-  arg1 = (boost::system::error_condition *)(argp1);
-  res2 = SWIG_ConvertPtr(args[1], &argp2, SWIGTYPE_p_boost__system__error_code,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "op_ne" "', argument " "2"" of type '" "boost::system::error_code const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "op_ne" "', argument " "2"" of type '" "boost::system::error_code const &""'"); 
-  }
-  arg2 = (boost::system::error_code *)(argp2);
-  result = (bool)boost::system::operator !=((boost::system::error_condition const &)*arg1,(boost::system::error_code const &)*arg2);
-  jsresult = SWIG_From_bool((bool)(result));
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_system__wrap_op_ne(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  OverloadErrorHandler errorHandler;
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_ne__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_ne__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_ne__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_ne__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_ne__SWIG_2(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_ne__SWIG_2(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x031903)
-    jsresult = _wrap_op_ne__SWIG_3(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      SWIGV8_ESCAPE(jsresult);
-    }
-#else
-    _wrap_op_ne__SWIG_3(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
-#endif
-  }
-  
-  
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for function op_ne.");
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_make_error_code(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -20064,34 +18627,6 @@ static SwigV8ReturnValue _wrap_make_error_code(const SwigV8Arguments &args) {
   arg1 = (boost::system::errc::errc_t)(val1);
   result = boost::system::errc::make_error_code(arg1);
   jsresult = SWIG_NewPointerObj((new boost::system::error_code((const boost::system::error_code&)(result))), SWIGTYPE_p_boost__system__error_code, SWIG_POINTER_OWN |  0 );
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_make_error_condition(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::errc::errc_t arg1 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  boost::system::error_condition result;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_make_error_condition.");
-  
-  ecode1 = SWIG_AsVal_int(args[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "make_error_condition" "', argument " "1"" of type '" "boost::system::errc::errc_t""'");
-  } 
-  arg1 = (boost::system::errc::errc_t)(val1);
-  result = boost::system::errc::make_error_condition(arg1);
-  jsresult = SWIG_NewPointerObj((new boost::system::error_condition((const boost::system::error_condition&)(result))), SWIGTYPE_p_boost__system__error_condition, SWIG_POINTER_OWN |  0 );
   
   
   SWIGV8_RETURN(jsresult);
@@ -22716,44 +21251,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_category(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *result = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_libtorrent_category.");
-  
-  result = (boost::system::error_category *) &libtorrent::libtorrent_category();
-  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_http_category(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *result = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_http_category.");
-  
-  result = (boost::system::error_category *) &libtorrent::http_category();
-  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_new_bitfield__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
   SWIGV8_HANDLESCOPE();
   
@@ -24450,45 +22947,6 @@ static SwigV8ReturnValue _wrap_entry_dict(const SwigV8Arguments &args) {
   arg1 = (libtorrent::entry *)(argp1);
   result = (libtorrent::entry::dictionary_type *) &(arg1)->dict();
   jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__mapT_std__string_libtorrent__entry_t, 0 |  0 );
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_entry_swap(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::entry *arg1 = (libtorrent::entry *) 0 ;
-  libtorrent::entry *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_entry_swap.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__entry, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "entry_swap" "', argument " "1"" of type '" "libtorrent::entry *""'"); 
-  }
-  arg1 = (libtorrent::entry *)(argp1);
-  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_libtorrent__entry,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "entry_swap" "', argument " "2"" of type '" "libtorrent::entry &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "entry_swap" "', argument " "2"" of type '" "libtorrent::entry &""'"); 
-  }
-  arg2 = (libtorrent::entry *)(argp2);
-  (arg1)->swap(*arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
   
   
   SWIGV8_RETURN(jsresult);
@@ -83768,25 +82226,6 @@ static void _wrap_delete_port_filter(v8::Persistent<v8::Value> object, void *par
       }
 
 
-static SwigV8ReturnValue _wrap_bdecode_category(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  boost::system::error_category *result = 0 ;
-  
-  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_bdecode_category.");
-  
-  result = (boost::system::error_category *) &libtorrent::bdecode_category();
-  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_boost__system__error_category, 0 |  0 );
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_libtorrent_bdecode_errors_no_error(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -95100,9 +93539,7 @@ static void *_p_libtorrent__picker_log_alertTo_p_libtorrent__alert(void *x, int 
 }
 static swig_type_info _swigt__p_add_files_listener = {"_p_add_files_listener", "p_add_files_listener|add_files_listener *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_alert_notify_callback = {"_p_alert_notify_callback", "alert_notify_callback *|p_alert_notify_callback", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_boost__system__error_category = {"_p_boost__system__error_category", "p_boost__system__error_category|boost::system::error_category *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_boost__system__error_code = {"_p_boost__system__error_code", "boost::system::error_code *|libtorrent::error_code *|p_boost__system__error_code", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_boost__system__error_condition = {"_p_boost__system__error_condition", "p_boost__system__error_condition|boost::system::error_condition *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_reference = {"_p_const_reference", "const_reference *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_dictionary_type = {"_p_dictionary_type", "dictionary_type *", 0, 0, (void*)0, 0};
@@ -95295,9 +93732,7 @@ static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_add_files_listener,
   &_swigt__p_alert_notify_callback,
-  &_swigt__p_boost__system__error_category,
   &_swigt__p_boost__system__error_code,
-  &_swigt__p_boost__system__error_condition,
   &_swigt__p_char,
   &_swigt__p_const_reference,
   &_swigt__p_dictionary_type,
@@ -95490,9 +93925,7 @@ static swig_type_info *swig_type_initial[] = {
 
 static swig_cast_info _swigc__p_add_files_listener[] = {  {&_swigt__p_add_files_listener, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_alert_notify_callback[] = {  {&_swigt__p_alert_notify_callback, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_boost__system__error_category[] = {  {&_swigt__p_boost__system__error_category, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_boost__system__error_code[] = {  {&_swigt__p_boost__system__error_code, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_boost__system__error_condition[] = {  {&_swigt__p_boost__system__error_condition, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_reference[] = {  {&_swigt__p_const_reference, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_dictionary_type[] = {  {&_swigt__p_dictionary_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -95685,9 +94118,7 @@ static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_add_files_listener,
   _swigc__p_alert_notify_callback,
-  _swigc__p_boost__system__error_category,
   _swigc__p_boost__system__error_code,
-  _swigc__p_boost__system__error_condition,
   _swigc__p_char,
   _swigc__p_const_reference,
   _swigc__p_dictionary_type,
@@ -96465,20 +94896,6 @@ SWIGV8_SET_CLASS_TEMPL(_exports_udp_endpoint_clientData.class_templ, _exports_ud
 _exports_udp_endpoint_clientData.dtor = _wrap_delete_udp_endpoint;
 if (SWIGTYPE_p_libtorrent__udp__endpoint->clientdata == 0) {
   SWIGTYPE_p_libtorrent__udp__endpoint->clientdata = &_exports_udp_endpoint_clientData;
-}
-/* Name: _exports_error_category, Type: p_boost__system__error_category, Dtor: _wrap_delete_error_category */
-v8::Handle<v8::FunctionTemplate> _exports_error_category_class = SWIGV8_CreateClassTemplate("_exports_error_category");
-SWIGV8_SET_CLASS_TEMPL(_exports_error_category_clientData.class_templ, _exports_error_category_class);
-_exports_error_category_clientData.dtor = _wrap_delete_error_category;
-if (SWIGTYPE_p_boost__system__error_category->clientdata == 0) {
-  SWIGTYPE_p_boost__system__error_category->clientdata = &_exports_error_category_clientData;
-}
-/* Name: _exports_error_condition, Type: p_boost__system__error_condition, Dtor: _wrap_delete_error_condition */
-v8::Handle<v8::FunctionTemplate> _exports_error_condition_class = SWIGV8_CreateClassTemplate("_exports_error_condition");
-SWIGV8_SET_CLASS_TEMPL(_exports_error_condition_clientData.class_templ, _exports_error_condition_class);
-_exports_error_condition_clientData.dtor = _wrap_delete_error_condition;
-if (SWIGTYPE_p_boost__system__error_condition->clientdata == 0) {
-  SWIGTYPE_p_boost__system__error_condition->clientdata = &_exports_error_condition_clientData;
 }
 /* Name: _exports_error_code, Type: p_boost__system__error_code, Dtor: _wrap_delete_error_code */
 v8::Handle<v8::FunctionTemplate> _exports_error_code_class = SWIGV8_CreateClassTemplate("_exports_error_code");
@@ -97624,8 +96041,6 @@ SWIGV8_AddMemberFunction(_exports_byte_const_span_class, "get", _wrap_byte_const
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "clear", _wrap_sha1_hash_clear);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "is_all_zeros", _wrap_sha1_hash_is_all_zeros);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "count_leading_zeroes", _wrap_sha1_hash_count_leading_zeroes);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "assign", _wrap_sha1_hash_assign);
-SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "get", _wrap_sha1_hash_get);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "hash_code", _wrap_sha1_hash_hash_code);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "to_bytes", _wrap_sha1_hash_to_bytes);
 SWIGV8_AddMemberFunction(_exports_sha1_hash_class, "to_hex", _wrap_sha1_hash_to_hex);
@@ -97735,23 +96150,8 @@ SWIGV8_AddStaticVariable(exports_obj, "too_many_links", _wrap_boost_system_errc_
 SWIGV8_AddStaticVariable(exports_obj, "too_many_symbolic_link_levels", _wrap_boost_system_errc_too_many_symbolic_link_levels, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "value_too_large", _wrap_boost_system_errc_value_too_large, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "wrong_protocol_type", _wrap_boost_system_errc_wrong_protocol_type, JS_veto_set_variable);
-SWIGV8_AddMemberFunction(_exports_error_category_class, "name", _wrap_error_category_name);
-SWIGV8_AddMemberFunction(_exports_error_category_class, "message", _wrap_error_category_message);
-SWIGV8_AddMemberFunction(_exports_error_category_class, "default_error_condition", _wrap_error_category_default_error_condition);
-SWIGV8_AddMemberFunction(_exports_error_category_class, "equivalent", _wrap_error_category__wrap_error_category_equivalent);
-SWIGV8_AddMemberFunction(_exports_error_category_class, "op_eq", _wrap_error_category_op_eq);
-SWIGV8_AddMemberFunction(_exports_error_category_class, "op_ne", _wrap_error_category_op_ne);
-SWIGV8_AddMemberFunction(_exports_error_category_class, "op_lt", _wrap_error_category_op_lt);
-SWIGV8_AddMemberFunction(_exports_error_condition_class, "assign", _wrap_error_condition_assign);
-SWIGV8_AddMemberFunction(_exports_error_condition_class, "clear", _wrap_error_condition_clear);
-SWIGV8_AddMemberFunction(_exports_error_condition_class, "value", _wrap_error_condition_value);
-SWIGV8_AddMemberFunction(_exports_error_condition_class, "category", _wrap_error_condition_category);
-SWIGV8_AddMemberFunction(_exports_error_condition_class, "message", _wrap_error_condition_message);
-SWIGV8_AddMemberFunction(_exports_error_code_class, "assign", _wrap_error_code_assign);
 SWIGV8_AddMemberFunction(_exports_error_code_class, "clear", _wrap_error_code_clear);
 SWIGV8_AddMemberFunction(_exports_error_code_class, "value", _wrap_error_code_value);
-SWIGV8_AddMemberFunction(_exports_error_code_class, "category", _wrap_error_code_category);
-SWIGV8_AddMemberFunction(_exports_error_code_class, "default_error_condition", _wrap_error_code_default_error_condition);
 SWIGV8_AddMemberFunction(_exports_error_code_class, "message", _wrap_error_code_message);
 SWIGV8_AddStaticVariable(exports_obj, "LIBTORRENT_VERSION_MAJOR", _wrap_LIBTORRENT_VERSION_MAJOR, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "LIBTORRENT_VERSION_MINOR", _wrap_LIBTORRENT_VERSION_MINOR, JS_veto_set_variable);
@@ -97954,7 +96354,6 @@ SWIGV8_AddMemberFunction(_exports_entry_class, "integer", _wrap_entry_integer);
 SWIGV8_AddMemberFunction(_exports_entry_class, "string", _wrap_entry_string);
 SWIGV8_AddMemberFunction(_exports_entry_class, "list", _wrap_entry_list);
 SWIGV8_AddMemberFunction(_exports_entry_class, "dict", _wrap_entry_dict);
-SWIGV8_AddMemberFunction(_exports_entry_class, "swap", _wrap_entry_swap);
 SWIGV8_AddMemberFunction(_exports_entry_class, "find_key", _wrap_entry_find_key);
 SWIGV8_AddMemberFunction(_exports_entry_class, "to_string", _wrap_entry_to_string);
 SWIGV8_AddMemberFunction(_exports_entry_class, "get", _wrap_entry_get);
@@ -101111,18 +99510,6 @@ _exports_udp_endpoint_class_0->SetCallHandler(_wrap_new_udp_endpoint);
 _exports_udp_endpoint_class_0->Inherit(_exports_udp_endpoint_class);
 _exports_udp_endpoint_class_0->SetHiddenPrototype(true);
 v8::Handle<v8::Object> _exports_udp_endpoint_obj = _exports_udp_endpoint_class_0->GetFunction();
-/* Class: error_category (_exports_error_category) */
-v8::Handle<v8::FunctionTemplate> _exports_error_category_class_0 = SWIGV8_CreateClassTemplate("error_category");
-_exports_error_category_class_0->SetCallHandler(_wrap_new_veto_error_category);
-_exports_error_category_class_0->Inherit(_exports_error_category_class);
-_exports_error_category_class_0->SetHiddenPrototype(true);
-v8::Handle<v8::Object> _exports_error_category_obj = _exports_error_category_class_0->GetFunction();
-/* Class: error_condition (_exports_error_condition) */
-v8::Handle<v8::FunctionTemplate> _exports_error_condition_class_0 = SWIGV8_CreateClassTemplate("error_condition");
-_exports_error_condition_class_0->SetCallHandler(_wrap_new_error_condition);
-_exports_error_condition_class_0->Inherit(_exports_error_condition_class);
-_exports_error_condition_class_0->SetHiddenPrototype(true);
-v8::Handle<v8::Object> _exports_error_condition_obj = _exports_error_condition_class_0->GetFunction();
 /* Class: error_code (_exports_error_code) */
 v8::Handle<v8::FunctionTemplate> _exports_error_code_class_0 = SWIGV8_CreateClassTemplate("error_code");
 _exports_error_code_class_0->SetCallHandler(_wrap_new_error_code);
@@ -101894,15 +100281,11 @@ SWIGV8_AddStaticFunction(_exports_sha1_hash_obj, "min", _wrap_sha1_hash_min);
 SWIGV8_AddStaticFunction(_exports_sha1_hash_obj, "compare", _wrap_sha1_hash_compare);
 SWIGV8_AddStaticFunction(_exports_address_obj, "from_string", _wrap_address_from_string);
 SWIGV8_AddStaticFunction(_exports_address_obj, "compare", _wrap_address_compare);
-SWIGV8_AddStaticFunction(_exports_error_condition_obj, "unspecified_bool_true", _wrap_error_condition_unspecified_bool_true);
+SWIGV8_AddStaticFunction(exports_obj, "op_eq", _wrap_error_code__wrap_op_eq);
 SWIGV8_AddStaticFunction(exports_obj, "op_lt", _wrap_error_code__wrap_op_lt);
-SWIGV8_AddStaticFunction(exports_obj, "op_eq", _wrap_system__wrap_op_eq);
-SWIGV8_AddStaticFunction(exports_obj, "op_ne", _wrap_system__wrap_op_ne);
+SWIGV8_AddStaticFunction(exports_obj, "op_ne", _wrap_op_ne);
 SWIGV8_AddStaticFunction(exports_obj, "make_error_code", _wrap_make_error_code);
-SWIGV8_AddStaticFunction(exports_obj, "make_error_condition", _wrap_make_error_condition);
 SWIGV8_AddStaticFunction(exports_obj, "version", _wrap_version);
-SWIGV8_AddStaticFunction(exports_obj, "libtorrent_category", _wrap_libtorrent_category);
-SWIGV8_AddStaticFunction(exports_obj, "http_category", _wrap_http_category);
 SWIGV8_AddStaticVariable(_exports_entry_obj, "int_t", _wrap_libtorrent_entry_int_t, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_entry_obj, "string_t", _wrap_libtorrent_entry_string_t, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_entry_obj, "list_t", _wrap_libtorrent_entry_list_t, JS_veto_set_variable);
@@ -102941,7 +101324,6 @@ SWIGV8_AddStaticFunction(exports_obj, "read_session_params", _wrap_libtorrent__w
 SWIGV8_AddStaticFunction(exports_obj, "op_lte", _wrap_op_lte);
 SWIGV8_AddStaticVariable(_exports_ip_filter_obj, "blocked", _wrap_libtorrent_ip_filter_blocked, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_port_filter_obj, "blocked", _wrap_libtorrent_port_filter_blocked, JS_veto_set_variable);
-SWIGV8_AddStaticFunction(exports_obj, "bdecode_category", _wrap_bdecode_category);
 SWIGV8_AddStaticVariable(_exports_bdecode_node_obj, "none_t", _wrap_libtorrent_bdecode_node_none_t, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_bdecode_node_obj, "dict_t", _wrap_libtorrent_bdecode_node_dict_t, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_bdecode_node_obj, "list_t", _wrap_libtorrent_bdecode_node_list_t, JS_veto_set_variable);
@@ -103034,8 +101416,6 @@ exports_obj->Set(SWIGV8_SYMBOL_NEW("string_view"), _exports_string_view_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("address"), _exports_address_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("tcp_endpoint"), _exports_tcp_endpoint_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("udp_endpoint"), _exports_udp_endpoint_obj);
-exports_obj->Set(SWIGV8_SYMBOL_NEW("error_category"), _exports_error_category_obj);
-exports_obj->Set(SWIGV8_SYMBOL_NEW("error_condition"), _exports_error_condition_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("error_code"), _exports_error_code_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("bitfield"), _exports_bitfield_obj);
 exports_obj->Set(SWIGV8_SYMBOL_NEW("peer_request"), _exports_peer_request_obj);
