@@ -77,6 +77,7 @@ task nativeDesktopDebugJar(type: Zip) {
     baseName 'jlibtorrent-desktop-debug'
     extension 'jar'
     from fileTree(dir: 'swig/bin/debug/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib')
+    from fileTree(dir: 'swig/bin/debug/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib.debug')
     from fileTree(dir: 'swig/bin/debug/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so')
     from fileTree(dir: 'swig/bin/debug/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so.debug')
     into 'lib/'

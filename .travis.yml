@@ -279,7 +279,7 @@ script:
     fi
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
       ${BOOST_ROOT}/b2 --user-config=config/linux-x86_64-config.jam variant=debug toolset=gcc-x86_64 target-os=linux location=bin/debug/linux/x86_64;
-      cd bin/debug/android/armeabi-v7a;
+      cd bin/debug/linux/x86_64;
       objcopy --only-keep-debug libjlibtorrent.so libjlibtorrent.so.debug;
       objcopy --strip-debug libjlibtorrent.so;
       objcopy --add-gnu-debuglink=libjlibtorrent.so.debug libjlibtorrent.so;
@@ -287,12 +287,15 @@ script:
     fi
   - if [ $os_build == "macosx" ]; then
       ${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam variant=debug toolset=clang-x86_64 target-os=darwin location=bin/debug/macosx/x86_64;
+      cd bin/debug/macosx/x86_64;
+      dsymutil -flat -o=libjlibtorrent.dylib.debug libjlibtorrent.dylib;
+      cd -;
     fi
   - cd ..
 
 before_deploy:
   - cd swig/bin
-  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$' | xargs rm
+  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
   - find . -empty -type d | xargs rm -r
   - cd ../..
 
