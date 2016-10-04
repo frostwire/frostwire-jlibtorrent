@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.entry;
 import com.frostwire.jlibtorrent.swig.entry_vector;
 import com.frostwire.jlibtorrent.swig.string_entry_map;
+import com.frostwire.jlibtorrent.swig.string_vector;
 
 import java.io.File;
 import java.io.IOException;
@@ -146,6 +147,16 @@ public final class Entry {
         public int size() {
             return (int) v.size();
         }
+
+        @Override
+        public void clear() {
+            v.clear();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return v.empty();
+        }
     }
 
     private static final class EntryMap extends AbstractMap<String, Entry> {
@@ -175,13 +186,38 @@ public final class Entry {
         }
 
         @Override
+        public void clear() {
+            m.clear();
+        }
+
+        @Override
         public boolean containsKey(Object key) {
             return m.has_key(key.toString());
         }
 
         @Override
+        public boolean isEmpty() {
+            return m.empty();
+        }
+
+        @Override
+        public Set<String> keySet() {
+            HashSet<String> s = new HashSet<>();
+
+            string_vector v = m.keys();
+            int size = (int) v.size();
+            byte[] arr = new byte[size];
+
+            for (int i = 0; i < size; i++) {
+                s.add(v.get(i));
+            }
+
+            return s;
+        }
+
+        @Override
         public Set<Entry<String, com.frostwire.jlibtorrent.Entry>> entrySet() {
-            return null;
+            throw new UnsupportedOperationException();
         }
     }
 }
