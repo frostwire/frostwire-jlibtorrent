@@ -30,3 +30,4 @@ wget -P bin/release/windows/x86_64 https://s3.amazonaws.com/jlibtorrent1/release
 # macos
 wget -P bin/release/macosx/x86_64 https://s3.amazonaws.com/jlibtorrent1/release/macosx/x86_64/libjlibtorrent.dylib
 wget -P bin/debug/macosx/x86_64 https://s3.amazonaws.com/jlibtorrent1/debug/macosx/x86_64/libjlibtorrent.dylib
+wget -P bin/debug/macosx/x86_64 https://s3.amazonaws.com/jlibtorrent1/debug/macosx/x86_64/libjlibtorrent.dylib.debug
