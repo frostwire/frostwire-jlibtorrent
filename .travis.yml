@@ -179,79 +179,68 @@ before_install:
 # jlibtorrent
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=release toolset=clang-arm target-os=android location=bin/release/android/armeabi-v7a";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=debug toolset=clang-arm target-os=android location=bin/debug/android/armeabi-v7a";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=release toolset=clang-arm target-os=android location=bin/release/android/armeabi-v7a";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/release/android/armeabi-v7a/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-readelf -d bin/release/android/armeabi-v7a/libjlibtorrent.so";
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/android-arm64-config.jam variant=release toolset=clang-arm64 target-os=linux location=bin/release/android/arm64-v8a";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/android-arm64-config.jam variant=debug toolset=clang-arm64 target-os=linux location=bin/debug/android/arm64-v8a";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm64-config.jam variant=release toolset=clang-arm64 target-os=linux location=bin/release/android/arm64-v8a";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-strip --strip-unneeded -x bin/release/android/arm64-v8a/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-readelf -d bin/release/android/arm64-v8a/libjlibtorrent.so";
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/android-x86-config.jam variant=release toolset=clang-x86 target-os=linux location=bin/release/android/x86";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/android-x86-config.jam variant=debug toolset=clang-x86 target-os=linux location=bin/debug/android/x86";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86-config.jam variant=release toolset=clang-x86 target-os=linux location=bin/release/android/x86";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x bin/release/android/x86/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/android/x86/libjlibtorrent.so";
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/android-x86_64-config.jam variant=release toolset=clang-x86_64 target-os=linux location=bin/release/android/x86_64";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/android-x86_64-config.jam variant=debug toolset=clang-x86_64 target-os=linux location=bin/debug/android/x86_64";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86_64-config.jam variant=release toolset=clang-x86_64 target-os=linux location=bin/release/android/x86_64";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-strip --strip-unneeded -x bin/release/android/x86_64/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-readelf -d bin/release/android/x86_64/libjlibtorrent.so";
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/linux-x86-config.jam variant=release toolset=gcc-x86 target-os=linux location=bin/release/linux/x86";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/linux-x86-config.jam variant=debug toolset=gcc-x86 target-os=linux location=bin/debug/linux/x86";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-x86-config.jam variant=release toolset=gcc-x86 target-os=linux location=bin/release/linux/x86";
       export run_strip="strip --strip-unneeded -x bin/release/linux/x86/libjlibtorrent.so";
       export run_readelf="readelf -d bin/release/linux/x86/libjlibtorrent.so";
     fi
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/linux-x86_64-config.jam variant=release toolset=gcc-x86_64 target-os=linux location=bin/release/linux/x86_64";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/linux-x86_64-config.jam variant=debug toolset=gcc-x86_64 target-os=linux location=bin/debug/linux/x86_64";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-x86_64-config.jam variant=release toolset=gcc-x86_64 target-os=linux location=bin/release/linux/x86_64";
       export run_strip="strip --strip-unneeded -x bin/release/linux/x86_64/libjlibtorrent.so";
       export run_readelf="readelf -d bin/release/linux/x86_64/libjlibtorrent.so";
     fi
   # linux-arm
   - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/linux-arm-config.jam variant=release toolset=gcc-arm target-os=linux location=bin/release/linux/arm";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/linux-arm-config.jam variant=debug toolset=gcc-arm target-os=linux location=bin/debug/linux/arm";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-arm-config.jam variant=release toolset=gcc-arm target-os=linux location=bin/release/linux/arm";
       export run_strip="arm-linux-gnueabihf-strip --strip-unneeded -x bin/release/linux/arm/libjlibtorrent.so";
       export run_readelf="arm-linux-gnueabihf-readelf -d bin/release/linux/arm/libjlibtorrent.so";
     fi
   # linux-arm64
   - if [[ $os_build == "linux" && $os_arch == "arm64" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/linux-arm64-config.jam variant=release toolset=gcc-arm64 target-os=linux location=bin/release/linux/arm64";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/linux-arm64-config.jam variant=debug toolset=gcc-arm64 target-os=linux location=bin/debug/linux/arm64";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-arm64-config.jam variant=release toolset=gcc-arm64 target-os=linux location=bin/release/linux/arm64";
       export run_strip="aarch64-linux-gnu-strip --strip-unneeded -x bin/release/linux/arm64/libjlibtorrent.so";
       export run_readelf="aarch64-linux-gnu-readelf -d bin/release/linux/arm64/libjlibtorrent.so";
     fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
       sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp;
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/windows-x86-config.jam variant=release toolset=gcc-x86 target-os=windows location=bin/release/windows/x86";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/windows-x86-config.jam variant=debug toolset=gcc-x86 target-os=windows location=bin/debug/windows/x86";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/windows-x86-config.jam variant=release toolset=gcc-x86 target-os=windows location=bin/release/windows/x86";
       export run_strip="i686-w64-mingw32-strip --strip-unneeded -x bin/release/windows/x86/libjlibtorrent.dll";
       export run_readelf="eval objdump -p bin/release/windows/x86/jlibtorrent.dll | grep DLL";
     fi
   # windows-x86_64
   - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/windows-x86_64-config.jam variant=release toolset=gcc-x86_64 target-os=windows location=bin/release/windows/x86_64";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/windows-x86_64-config.jam variant=debug toolset=gcc-x86_64 target-os=windows location=bin/debug/windows/x86_64";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/windows-x86_64-config.jam variant=release toolset=gcc-x86_64 target-os=windows location=bin/release/windows/x86_64";
       export run_strip="x86_64-w64-mingw32-strip --strip-unneeded -x bin/release/windows/x86_64/libjlibtorrent.dll";
       export run_readelf="eval objdump -p bin/release/windows/x86_64/jlibtorrent.dll | grep DLL";
     fi
   # macosx
   - if [ $os_build == "macosx" ]; then
-      export run_bjam_release="${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam variant=release toolset=clang-x86_64 target-os=darwin location=bin/release/macosx/x86_64";
-      export run_bjam_debug="${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam variant=debug toolset=clang-x86_64 target-os=darwin location=bin/debug/macosx/x86_64";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam variant=release toolset=clang-x86_64 target-os=darwin location=bin/release/macosx/x86_64";
       export run_strip="strip -S -x bin/release/macosx/x86_64/libjlibtorrent.dylib";
       export run_readelf="otool -L bin/release/macosx/x86_64/libjlibtorrent.dylib";
     fi
@@ -267,18 +256,38 @@ script:
   - export OPENSSL_ROOT=$PWD/openssl
 
   - cd swig
-  - $run_bjam_release
-  - $run_bjam_debug
+  - $run_bjam
   - $run_strip
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
       mv bin/release/windows/x86/libjlibtorrent.dll bin/release/windows/x86/jlibtorrent.dll;
-      mv bin/debug/windows/x86/libjlibtorrent.dll bin/debug/windows/x86/jlibtorrent.dll;
     fi
   - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
       mv bin/release/windows/x86_64/libjlibtorrent.dll bin/release/windows/x86_64/jlibtorrent.dll;
-      mv bin/debug/windows/x86_64/libjlibtorrent.dll bin/debug/windows/x86_64/jlibtorrent.dll;
     fi
   - $run_readelf
+  - cd ..
+
+# debug symbols
+  - cd swig
+  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
+      ${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=debug toolset=clang-arm target-os=android location=bin/debug/android/armeabi-v7a;
+      cd bin/debug/android/armeabi-v7a;
+      objcopy --only-keep-debug libjlibtorrent.so libjlibtorrent.so.debug;
+      objcopy --strip-debug libjlibtorrent.so;
+      objcopy --add-gnu-debuglink=libjlibtorrent.so.debug libjlibtorrent.so;
+      cd -;
+    fi
+  - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
+      ${BOOST_ROOT}/b2 --user-config=config/linux-x86_64-config.jam variant=debug toolset=gcc-x86_64 target-os=linux location=bin/debug/linux/x86_64;
+      cd bin/debug/android/armeabi-v7a;
+      objcopy --only-keep-debug libjlibtorrent.so libjlibtorrent.so.debug;
+      objcopy --strip-debug libjlibtorrent.so;
+      objcopy --add-gnu-debuglink=libjlibtorrent.so.debug libjlibtorrent.so;
+      cd -;
+    fi
+  - if [ $os_build == "macosx" ]; then
+      ${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam variant=debug toolset=clang-x86_64 target-os=darwin location=bin/debug/macosx/x86_64;
+    fi
   - cd ..
 
 before_deploy:
