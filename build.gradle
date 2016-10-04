@@ -52,7 +52,7 @@ task nativeMacOSXJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-macosx'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib')
+    from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib')
     into 'lib/'
 }
 
@@ -60,7 +60,7 @@ task nativeWindowsJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-windows'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/windows', excludes: ['**/ed25519', '**/src'], include: '**/*jlibtorrent.dll')
+    from fileTree(dir: 'swig/bin/release/windows', excludes: ['**/ed25519', '**/src'], include: '**/*jlibtorrent.dll')
     into 'lib/'
 }
 
@@ -68,7 +68,17 @@ task nativeLinuxJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-linux'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so')
+    from fileTree(dir: 'swig/bin/release/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so')
+    into 'lib/'
+}
+
+task nativeDesktopDebugJar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-desktop-debug'
+    extension 'jar'
+    from fileTree(dir: 'swig/bin/debug/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib')
+    from fileTree(dir: 'swig/bin/debug/windows', excludes: ['**/ed25519', '**/src'], include: '**/*jlibtorrent.dll')
+    from fileTree(dir: 'swig/bin/debug/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so')
     into 'lib/'
 }
 
@@ -76,7 +86,7 @@ task nativeAndroidArmJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-arm'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/android', include: 'armeabi-v7a/libjlibtorrent.so')
+    from fileTree(dir: 'swig/bin/release/android', include: 'armeabi-v7a/libjlibtorrent.so')
     into 'lib/'
 }
 
@@ -84,7 +94,7 @@ task nativeAndroidX86Jar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-x86'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/android', include: 'x86/libjlibtorrent.so')
+    from fileTree(dir: 'swig/bin/release/android', include: 'x86/libjlibtorrent.so')
     into 'lib/'
 }
 
@@ -92,7 +102,7 @@ task nativeAndroidArm64Jar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-arm64'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/android', include: 'arm64-v8a/libjlibtorrent.so')
+    from fileTree(dir: 'swig/bin/release/android', include: 'arm64-v8a/libjlibtorrent.so')
     into 'lib/'
 }
 
@@ -100,7 +110,39 @@ task nativeAndroidX64Jar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-x86_64'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/android', include: 'x86_64/libjlibtorrent.so')
+    from fileTree(dir: 'swig/bin/release/android', include: 'x86_64/libjlibtorrent.so')
+    into 'lib/'
+}
+
+task nativeAndroidDebugArmJar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-android-debug-arm'
+    extension 'jar'
+    from fileTree(dir: 'swig/bin/debug/android', include: 'armeabi-v7a/libjlibtorrent.so')
+    into 'lib/'
+}
+
+task nativeAndroidDebugX86Jar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-android-debug-x86'
+    extension 'jar'
+    from fileTree(dir: 'swig/bin/debug/android', include: 'x86/libjlibtorrent.so')
+    into 'lib/'
+}
+
+task nativeAndroidDebugArm64Jar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-android-debug-arm64'
+    extension 'jar'
+    from fileTree(dir: 'swig/bin/debug/android', include: 'arm64-v8a/libjlibtorrent.so')
+    into 'lib/'
+}
+
+task nativeAndroidDebugX64Jar(type: Zip) {
+    destinationDir file("$buildDir/libs")
+    baseName 'jlibtorrent-android-debug-x86_64'
+    extension 'jar'
+    from fileTree(dir: 'swig/bin/debug/android', include: 'x86_64/libjlibtorrent.so')
     into 'lib/'
 }
 
@@ -110,10 +152,15 @@ artifacts {
     archives nativeMacOSXJar
     archives nativeWindowsJar
     archives nativeLinuxJar
+    archives nativeDesktopDebugJar
     archives nativeAndroidArmJar
     archives nativeAndroidX86Jar
     archives nativeAndroidArm64Jar
     archives nativeAndroidX64Jar
+    archives nativeAndroidDebugArmJar
+    archives nativeAndroidDebugX86Jar
+    archives nativeAndroidDebugArm64Jar
+    archives nativeAndroidDebugX64Jar
 }
 
 signing {
@@ -138,6 +185,9 @@ uploadArchives {
             addFilter('jlibtorrent-linux') { artifact, file ->
                 artifact.name == 'jlibtorrent-linux'
             }
+            addFilter('jlibtorrent-desktop-debug') { artifact, file ->
+                artifact.name == 'jlibtorrent-desktop-debug'
+            }
             addFilter('jlibtorrent-android-arm') { artifact, file ->
                 artifact.name == 'jlibtorrent-android-arm'
             }
@@ -149,6 +199,18 @@ uploadArchives {
             }
             addFilter('jlibtorrent-android-x86_64') { artifact, file ->
                 artifact.name == 'jlibtorrent-android-x86_64'
+            }
+            addFilter('jlibtorrent-android-debug-arm') { artifact, file ->
+                artifact.name == 'jlibtorrent-android-debug-arm'
+            }
+            addFilter('jlibtorrent-android-debug-x86') { artifact, file ->
+                artifact.name == 'jlibtorrent-android-debug-x86'
+            }
+            addFilter('jlibtorrent-android-debug-arm64') { artifact, file ->
+                artifact.name == 'jlibtorrent-android-debug-arm64'
+            }
+            addFilter('jlibtorrent-android-debug-x86_64') { artifact, file ->
+                artifact.name == 'jlibtorrent-android-debug-x86_64'
             }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
@@ -175,6 +237,10 @@ uploadArchives {
                 asNode().children().last() + pomData()
                 addDependency(asNode())
             }
+            pom('jlibtorrent-desktop-debug').withXml {
+                asNode().children().last() + pomData()
+                addDependency(asNode())
+            }
             pom('jlibtorrent-android-arm').withXml {
                 asNode().children().last() + pomData()
                 addDependency(asNode())
@@ -188,6 +254,22 @@ uploadArchives {
                 addDependency(asNode())
             }
             pom('jlibtorrent-android-x86_64').withXml {
+                asNode().children().last() + pomData()
+                addDependency(asNode())
+            }
+            pom('jlibtorrent-android-debug-arm').withXml {
+                asNode().children().last() + pomData()
+                addDependency(asNode())
+            }
+            pom('jlibtorrent-android-debug-x86').withXml {
+                asNode().children().last() + pomData()
+                addDependency(asNode())
+            }
+            pom('jlibtorrent-android-debug-arm64').withXml {
+                asNode().children().last() + pomData()
+                addDependency(asNode())
+            }
+            pom('jlibtorrent-android-debug-x86_64').withXml {
                 asNode().children().last() + pomData()
                 addDependency(asNode())
             }

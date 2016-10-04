@@ -40,7 +40,7 @@
       'conditions': [
         [ 'OS=="mac"', {
             'library_dirs': [
-              '../bin/macosx/x86_64/',
+              '../bin/release/macosx/x86_64/',
             ],
             'xcode_settings': {
               'OTHER_CPLUSPLUSFLAGS' : ['-std=c++11','-stdlib=libc++'],

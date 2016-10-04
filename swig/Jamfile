@@ -21,8 +21,6 @@ rule libtorrent_linking ( properties * )
 {
     local result ;
 
-    result += <variant>release ;
-    result += <optimization>space ;
     result += <deprecated-functions>off ;
     result += <logging>on ;
     result += <crypto>libcrypto ;
@@ -46,6 +44,9 @@ lib jlibtorrent
     <conditional>@libtorrent_linking
     <library>/torrent//torrent/<link>static
     <include>.
+
+    <variant>release:<optimization>space
+    <variant>debug:<asserts>on
 
     : # default build
     <link>shared
