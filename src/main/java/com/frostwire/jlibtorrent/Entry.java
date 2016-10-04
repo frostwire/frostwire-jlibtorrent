@@ -1,13 +1,12 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.*;
+import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.entry_vector;
+import com.frostwire.jlibtorrent.swig.string_entry_map;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The Entry class represents one node in a bencoded hierarchy. It works as a
@@ -49,33 +48,12 @@ public final class Entry {
         return e.integer();
     }
 
-    public ArrayList<Entry> list() {
-        entry_vector v = e.list();
-        int size = (int) v.size();
-
-        ArrayList<Entry> list = new ArrayList<Entry>(size);
-
-        for (int i = 0; i < size; i++) {
-            list.add(new Entry(v.get(i)));
-        }
-
-        return list;
+    public List<Entry> list() {
+        return new EntryList(e.list());
     }
 
     public Map<String, Entry> dictionary() {
-        string_entry_map dict = e.dict();
-        string_vector keys = dict.keys();
-        int size = (int) keys.size();
-
-        Map<String, Entry> map = new HashMap<>(size);
-
-        for (int i = 0; i < size; i++) {
-            String key = keys.get(i);
-            Entry value = new Entry(dict.get(key));
-            map.put(key, value);
-        }
-
-        return map;
+        return new EntryMap(e.dict());
     }
 
     @Override
@@ -143,5 +121,67 @@ public final class Entry {
         }
 
         return new Entry(e);
+    }
+
+    private static final class EntryList extends AbstractList<Entry> {
+
+        private final entry_vector v;
+
+        public EntryList(entry_vector v) {
+            this.v = v;
+        }
+
+        @Override
+        public Entry get(int index) {
+            return new Entry(v.get(index));
+        }
+
+        @Override
+        public boolean add(Entry entry) {
+            v.push_back(entry.swig());
+            return true;
+        }
+
+        @Override
+        public int size() {
+            return (int) v.size();
+        }
+    }
+
+    private static final class EntryMap extends AbstractMap<String, Entry> {
+
+        private final string_entry_map m;
+
+        public EntryMap(string_entry_map m) {
+            this.m = m;
+        }
+
+        @Override
+        public com.frostwire.jlibtorrent.Entry get(Object key) {
+            String k = key.toString();
+            return m.has_key(k) ? new com.frostwire.jlibtorrent.Entry(m.get(key.toString())) : null;
+        }
+
+        @Override
+        public com.frostwire.jlibtorrent.Entry put(String key, com.frostwire.jlibtorrent.Entry value) {
+            com.frostwire.jlibtorrent.Entry r = get(key);
+            m.set(key, value.swig());
+            return r;
+        }
+
+        @Override
+        public int size() {
+            return (int) m.size();
+        }
+
+        @Override
+        public boolean containsKey(Object key) {
+            return m.has_key(key.toString());
+        }
+
+        @Override
+        public Set<Entry<String, com.frostwire.jlibtorrent.Entry>> entrySet() {
+            return null;
+        }
     }
 }
