@@ -272,9 +272,9 @@ script:
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
       ${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=debug toolset=clang-arm target-os=android location=bin/debug/android/armeabi-v7a;
       cd bin/debug/android/armeabi-v7a;
-      objcopy --only-keep-debug libjlibtorrent.so libjlibtorrent.so.debug;
-      objcopy --strip-debug libjlibtorrent.so;
-      objcopy --add-gnu-debuglink=libjlibtorrent.so.debug libjlibtorrent.so;
+      ${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --only-keep-debug libjlibtorrent.so libjlibtorrent.so.debug;
+      ${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --strip-debug libjlibtorrent.so;
+      ${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --add-gnu-debuglink=libjlibtorrent.so.debug libjlibtorrent.so;
       cd -;
     fi
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
