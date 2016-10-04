@@ -595,6 +595,8 @@ typedef long time_t;
 %ignore libtorrent::peer_connection_handle::add_extension;
 %ignore libtorrent::peer_connection_handle::find_plugin;
 %ignore libtorrent::peer_connection_handle::time_of_last_unchoke;
+%ignore libtorrent::peer_connection_handle::should_log;
+%ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::bt_peer_connection_handle::switch_send_crypto;
 %ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection_handle::native_handle;
