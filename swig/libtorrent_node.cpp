@@ -1693,7 +1693,7 @@ static swig_module_info swig_module = {swig_types, 191, 0, 0, 0, 0};
 
 // BEGIN common set include ------------------------------------------------------
 
-#include <boost/system/error_code.hpp>
+//#include <boost/system/error_code.hpp>
 
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"

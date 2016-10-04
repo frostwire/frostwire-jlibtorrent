@@ -684,7 +684,7 @@ namespace Swig {
 
 // BEGIN common set include ------------------------------------------------------
 
-#include <boost/system/error_code.hpp>
+//#include <boost/system/error_code.hpp>
 
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
