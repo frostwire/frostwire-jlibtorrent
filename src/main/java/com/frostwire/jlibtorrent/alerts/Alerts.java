@@ -564,6 +564,12 @@ public final class Alerts {
                 return new PickerLogAlert(cast_to_picker_log_alert(a));
             }
         };
+        arr[90] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new SessionErrorAlert(cast_to_session_error_alert(a));
+            }
+        };
 
         return arr;
     }

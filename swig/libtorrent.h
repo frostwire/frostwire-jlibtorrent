@@ -237,6 +237,18 @@ unsigned long getauxval(unsigned long type) {
 }
 #endif
 
+#if TORRENT_ANDROID && TORRENT_HAS_ARM && TORRENT_USE_ASSERTS
+// assuming no overflow, remove it when this issue is fixed
+// https://github.com/android-ndk/ndk/issues/184
+extern "C" {
+int64_t __mulodi4(int64_t a, int64_t b, int* overflow) {
+    int64_t result = a * b;
+    *overflow = 0;
+    return result;
+}
+}
+#endif
+
 #if defined TORRENT_ANDROID || defined TORRENT_BSD
 #define WRAP_POSIX 1
 #else

@@ -486,6 +486,11 @@ public class alert {
     return (cPtr == 0) ? null : new picker_log_alert(cPtr, false);
   }
 
+  public static session_error_alert cast_to_session_error_alert(alert a) {
+    long cPtr = libtorrent_jni.alert_cast_to_session_error_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new session_error_alert(cPtr, false);
+  }
+
   public long get_timestamp() {
     return libtorrent_jni.alert_get_timestamp(swigCPtr, this);
   }

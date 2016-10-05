@@ -45,9 +45,6 @@ lib jlibtorrent
     <library>/torrent//torrent/<link>static
     <include>.
 
-    <variant>release:<optimization>space
-    <variant>debug:<asserts>on
-
     : # default build
     <link>shared
 

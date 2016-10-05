@@ -38,7 +38,7 @@ before_install:
 
 # openssl: download
   - wget -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.0b.tar.gz
-  - tar xzvf openssl.tar.gz
+  - tar xzf openssl.tar.gz
   - export OPENSSL_SOURCE=$PWD/openssl-1.1.0b
   # fix source code
   - if [ $os_build != "macosx" ]; then
@@ -51,16 +51,16 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 9343f2fbfb769b515601cfcdb60a414a2edf3ed8
+  - git checkout 5c361715da9d20d63b019d7fc4ce772cdecd7138
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
 # android ndk: download and create toolchain
   - if [ $os_build == "android" ]; then
-      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r13-beta2-linux-x86_64.zip;
+      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r13-linux-x86_64.zip;
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
-      export NDK=$PWD/android-ndk-r13-beta2;
+      export NDK=$PWD/android-ndk-r13;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi

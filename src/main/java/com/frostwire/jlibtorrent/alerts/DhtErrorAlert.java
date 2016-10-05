@@ -12,7 +12,7 @@ import com.frostwire.jlibtorrent.swig.dht_error_alert;
  */
 public final class DhtErrorAlert extends AbstractAlert<dht_error_alert> {
 
-    public DhtErrorAlert(dht_error_alert alert) {
+    DhtErrorAlert(dht_error_alert alert) {
         super(alert);
     }
 
@@ -21,7 +21,7 @@ public final class DhtErrorAlert extends AbstractAlert<dht_error_alert> {
      *
      * @return
      */
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
     }
 
@@ -30,7 +30,7 @@ public final class DhtErrorAlert extends AbstractAlert<dht_error_alert> {
      *
      * @return
      */
-    public Operation getOperation() {
+    public Operation operation() {
         return Operation.fromSwig(alert.getOperation());
     }
 

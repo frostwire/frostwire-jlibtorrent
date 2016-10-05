@@ -723,6 +723,7 @@ public class torrent_status {
     public final static torrent_status.error_file_t error_file_url = new torrent_status.error_file_t("error_file_url", libtorrent_jni.torrent_status_error_file_url_get());
     public final static torrent_status.error_file_t error_file_ssl_ctx = new torrent_status.error_file_t("error_file_ssl_ctx", libtorrent_jni.torrent_status_error_file_ssl_ctx_get());
     public final static torrent_status.error_file_t error_file_metadata = new torrent_status.error_file_t("error_file_metadata", libtorrent_jni.torrent_status_error_file_metadata_get());
+    public final static torrent_status.error_file_t error_file_exception = new torrent_status.error_file_t("error_file_exception", libtorrent_jni.torrent_status_error_file_exception_get());
 
     public final int swigValue() {
       return swigValue;
@@ -758,7 +759,7 @@ public class torrent_status {
       swigNext = this.swigValue+1;
     }
 
-    private static error_file_t[] swigValues = { error_file_none, error_file_url, error_file_ssl_ctx, error_file_metadata };
+    private static error_file_t[] swigValues = { error_file_none, error_file_url, error_file_ssl_ctx, error_file_metadata, error_file_exception };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

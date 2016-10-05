@@ -1079,6 +1079,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_dht_get_peers_reply_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_direct_response_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_picker_log_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_session_error_alert(long jarg1, alert jarg1_);
   public final static native long alert_get_timestamp(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
   public final static native int torrent_alert_alert_type_get();
@@ -2063,6 +2064,16 @@ public class libtorrent_jni {
   public final static native int picker_log_alert_end_game_get();
   public final static native long picker_log_alert_picker_flags_get(long jarg1, picker_log_alert jarg1_);
   public final static native void delete_picker_log_alert(long jarg1);
+  public final static native int session_error_alert_priority_get();
+  public final static native int session_error_alert_alert_type_get();
+  public final static native int session_error_alert_type(long jarg1, session_error_alert jarg1_);
+  public final static native int session_error_alert_category(long jarg1, session_error_alert jarg1_);
+  public final static native String session_error_alert_what(long jarg1, session_error_alert jarg1_);
+  public final static native int session_error_alert_static_category_get();
+  public final static native String session_error_alert_message(long jarg1, session_error_alert jarg1_);
+  public final static native void session_error_alert_error_set(long jarg1, session_error_alert jarg1_, long jarg2, error_code jarg2_);
+  public final static native long session_error_alert_error_get(long jarg1, session_error_alert jarg1_);
+  public final static native void delete_session_error_alert(long jarg1);
   public final static native int num_alert_types_get();
   public final static native void peer_info_client_set(long jarg1, peer_info jarg1_, String jarg2);
   public final static native String peer_info_client_get(long jarg1, peer_info jarg1_);
@@ -2595,6 +2606,7 @@ public class libtorrent_jni {
   public final static native int torrent_status_error_file_url_get();
   public final static native int torrent_status_error_file_ssl_ctx_get();
   public final static native int torrent_status_error_file_metadata_get();
+  public final static native int torrent_status_error_file_exception_get();
   public final static native void torrent_status_save_path_set(long jarg1, torrent_status jarg1_, String jarg2);
   public final static native String torrent_status_save_path_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_name_set(long jarg1, torrent_status jarg1_, String jarg2);
@@ -2892,6 +2904,7 @@ public class libtorrent_jni {
   public final static native long dht_get_peers_reply_alert_SWIGUpcast(long jarg1);
   public final static native long dht_direct_response_alert_SWIGUpcast(long jarg1);
   public final static native long picker_log_alert_SWIGUpcast(long jarg1);
+  public final static native long session_error_alert_SWIGUpcast(long jarg1);
   public final static native long session_SWIGUpcast(long jarg1);
   public final static native long bt_peer_connection_handle_SWIGUpcast(long jarg1);
 

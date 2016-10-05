@@ -943,6 +943,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_get_peers_reply_alert)
     CAST_ALERT_METHOD(dht_direct_response_alert)
     CAST_ALERT_METHOD(picker_log_alert)
+    CAST_ALERT_METHOD(session_error_alert)
 }
 
 %extend alert {
