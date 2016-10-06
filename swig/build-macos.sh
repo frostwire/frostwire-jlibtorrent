@@ -10,3 +10,8 @@ cp bin/release/macosx/x86_64/libjlibtorrent.dylib ../
 
 node-gyp configure build
 cp build/Release/jlibtorrent.node ../node
+
+export ANDROID_TOOLCHAIN=$DEVELOPMENT_ROOT/android-toolchain-arm
+export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-arm
+export PATH=$ANDROID_TOOLCHAIN/arm-linux-androideabi/bin:$PATH
+#$BOOST_ROOT/b2 --user-config=config/android-arm-config.jam variant=release toolset=clang-arm target-os=android location=bin/release/android/armeabi-v7a
