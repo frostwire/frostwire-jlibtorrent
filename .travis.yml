@@ -268,11 +268,7 @@ script:
   - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
       mv bin/release/windows/x86_64/libjlibtorrent.dll bin/release/windows/x86_64/jlibtorrent.dll;
     fi
-  - $run_readelf
-  - cd ..
-
 # debug symbols
-  - cd swig
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
       ${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=debug toolset=clang-arm target-os=android location=bin/debug/android/armeabi-v7a;
       cd bin/debug/android/armeabi-v7a;
@@ -295,6 +291,8 @@ script:
       dsymutil -flat -o=libjlibtorrent.dylib.debug libjlibtorrent.dylib;
       cd -;
     fi
+# end debug symbols
+  - $run_readelf
   - cd ..
 
 before_deploy:
