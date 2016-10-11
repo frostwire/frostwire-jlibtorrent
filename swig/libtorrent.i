@@ -1,8 +1,5 @@
 %module (jniclassname="libtorrent_jni", directors="1") libtorrent
 
-// supress Warning 315: Nothing known about '<name>'.
-// this is due to the inner types in entry using the keyword 'using'
-#pragma SWIG nowarn=315
 // suppress Warning 317: Specialization of non-template '<name>'.
 #pragma SWIG nowarn=317
 // suppress Warning 341: The 'using' keyword in type aliasing is not fully supported yet.
@@ -21,8 +18,9 @@
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/bitfield.hpp"
 #include "libtorrent/peer_request.hpp"
-#include "libtorrent/entry.hpp"
 #include "libtorrent/file_storage.hpp"
+#include "libtorrent/bdecode.hpp"
+#include "libtorrent/bencode.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
 #include "libtorrent/add_torrent_params.hpp"
@@ -41,8 +39,6 @@
 #include "libtorrent/session.hpp"
 #include "libtorrent/peer_connection_handle.hpp"
 #include "libtorrent/ip_filter.hpp"
-#include "libtorrent/bdecode.hpp"
-#include "libtorrent/bencode.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/announce_entry.hpp"
@@ -526,10 +522,98 @@ namespace libtorrent {
         };
     }
 
-    typedef std::map<std::string, libtorrent::entry> dictionary_type;
-    typedef std::string string_type;
-    typedef std::vector< libtorrent::entry> list_type;
-    typedef std::int64_t integer_type;
+    class entry {
+    public:
+        typedef std::map<std::string, libtorrent::entry> dictionary_type;
+        typedef std::string string_type;
+        typedef std::vector<libtorrent::entry> list_type;
+        typedef std::int64_t integer_type;
+        typedef std::vector<char> preformatted_type;
+
+        enum data_type
+        {
+            int_t,
+            string_t,
+            list_t,
+            dictionary_t,
+            undefined_t,
+            preformatted_t
+        };
+
+        data_type type() const;
+
+        entry(dictionary_type);
+        entry(span<char const>);
+        entry(string_type);
+        entry(list_type);
+        entry(integer_type);
+
+        entry(data_type t);
+
+        entry(entry const& e);
+
+        entry();
+
+        const integer_type& integer() const;
+        const string_type& string() const;
+        list_type& list();
+        dictionary_type& dict();
+
+        entry* find_key(string_view key);
+
+        std::string to_string() const;
+
+        %extend {
+
+            entry& get(std::string const& key) {
+                return $self->operator[](key);
+            }
+
+            void set(std::string const& key, std::string const& value) {
+                $self->operator[](key) = value;
+            }
+
+            void set(std::string const& key, std::vector<int8_t> const& value) {
+                 $self->operator[](key) = std::string(value.begin(), value.end());
+            }
+
+            void set(std::string const& key, long long const& value) {
+                $self->operator[](key) = value;
+            }
+
+            void set(std::string const& key, libtorrent::entry const& value) {
+                $self->operator[](key) = value;
+            }
+
+            std::vector<int8_t> string_bytes() {
+                std::string s = $self->string();
+                return std::vector<int8_t>(s.begin(), s.end());
+            }
+
+            std::vector<int8_t> preformatted_bytes() {
+                std::vector<char> v = $self->preformatted();
+                return std::vector<int8_t>(v.begin(), v.end());
+            }
+
+            std::vector<int8_t> bencode() {
+                std::vector<int8_t> buffer;
+                libtorrent::bencode(std::back_inserter(buffer), *$self);
+                return buffer;
+            }
+
+            static entry from_string_bytes(std::vector<int8_t> const& string_bytes) {
+                return libtorrent::entry(std::string(string_bytes.begin(), string_bytes.end()));
+            }
+
+            static entry from_preformatted_bytes(std::vector<int8_t> const& preformatted_bytes) {
+                return libtorrent::entry(std::vector<char>(preformatted_bytes.begin(), preformatted_bytes.end()));
+            }
+
+            static entry bdecode(std::vector<int8_t>& buffer) {
+                return libtorrent::bdecode(buffer.begin(), buffer.end());
+            }
+        }
+    };
 };
 
 typedef long time_t;
@@ -613,17 +697,6 @@ typedef long time_t;
 %ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
 %ignore libtorrent::block_info::set_peer;
 %ignore libtorrent::partial_piece_info::blocks;
-%ignore libtorrent::entry::entry(entry&&);
-%ignore libtorrent::entry::entry(preformatted_type);
-%ignore libtorrent::entry::integer();
-%ignore libtorrent::entry::string();
-%ignore libtorrent::entry::dict() const;
-%ignore libtorrent::entry::list() const;
-%ignore libtorrent::entry::preformatted;
-%ignore libtorrent::entry::find_key(string_view) const;
-%ignore libtorrent::entry::operator [];
-%ignore libtorrent::entry::m_type_queried;
-%ignore libtorrent::entry::swap;
 %ignore libtorrent::stats_alert::transferred;
 %ignore libtorrent::stats_alert::deprecated1;
 %ignore libtorrent::stats_alert::deprecated2;
@@ -824,8 +897,9 @@ typedef long time_t;
 %include "libtorrent/error_code.hpp"
 %include "libtorrent/bitfield.hpp"
 %include "libtorrent/peer_request.hpp"
-%include "libtorrent/entry.hpp"
 %include "libtorrent/file_storage.hpp"
+%include "libtorrent/bdecode.hpp"
+%include "libtorrent/bencode.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/torrent_handle.hpp"
 %include "libtorrent/add_torrent_params.hpp"
@@ -844,8 +918,6 @@ typedef long time_t;
 %include "libtorrent/session.hpp"
 %include "libtorrent/peer_connection_handle.hpp"
 %include "libtorrent/ip_filter.hpp"
-%include "libtorrent/bdecode.hpp"
-%include "libtorrent/bencode.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
 %include "libtorrent/announce_entry.hpp"
@@ -1005,61 +1077,6 @@ namespace libtorrent {
 
     void add_extension(swig_plugin* ext) {
         $self->add_extension(std::shared_ptr<libtorrent::plugin>(ext));
-    }
-}
-
-%extend entry {
-
-    entry(std::string const& s) {
-        return new libtorrent::entry(s);
-    }
-
-    entry& get(std::string const& key) {
-        return $self->operator[](key);
-    }
-
-    void set(std::string const& key, std::string const& value) {
-        $self->operator[](key) = value;
-    }
-
-    void set(std::string const& key, std::vector<int8_t> const& value) {
-         $self->operator[](key) = std::string(value.begin(), value.end());
-    }
-
-    void set(std::string const& key, long long const& value) {
-        $self->operator[](key) = value;
-    }
-
-    void set(std::string const& key, libtorrent::entry const& value) {
-        $self->operator[](key) = value;
-    }
-
-    std::vector<int8_t> string_bytes() {
-        std::string s = $self->string();
-        return std::vector<int8_t>(s.begin(), s.end());
-    }
-
-    std::vector<int8_t> preformatted_bytes() {
-        std::vector<char> v = $self->preformatted();
-        return std::vector<int8_t>(v.begin(), v.end());
-    }
-
-    std::vector<int8_t> bencode() {
-        std::vector<int8_t> buffer;
-        libtorrent::bencode(std::back_inserter(buffer), *$self);
-        return buffer;
-    }
-
-    static entry from_string_bytes(std::vector<int8_t> const& string_bytes) {
-        return libtorrent::entry(std::string(string_bytes.begin(), string_bytes.end()));
-    }
-
-    static entry from_preformatted_bytes(std::vector<int8_t> const& preformatted_bytes) {
-        return libtorrent::entry(std::vector<char>(preformatted_bytes.begin(), preformatted_bytes.end()));
-    }
-
-    static entry bdecode(std::vector<int8_t>& buffer) {
-        return libtorrent::bdecode(buffer.begin(), buffer.end());
     }
 }
 
