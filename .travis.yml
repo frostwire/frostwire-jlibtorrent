@@ -51,7 +51,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
-  - git checkout 97bce3d3c2559043271e02ad9e52e8291ae3b8d1
+  - git checkout 82e0e15ed3bfec0609545af3769c8e5007ee7185
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -179,7 +179,7 @@ before_install:
 # jlibtorrent
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=release toolset=clang-arm target-os=android location=bin/release/android/armeabi-v7a";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=release toolset=clang-linux-arm target-os=android location=bin/release/android/armeabi-v7a";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/release/android/armeabi-v7a/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-readelf -d bin/release/android/armeabi-v7a/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/arm-linux-androideabi/bin:$PATH;

@@ -3,7 +3,7 @@ import os ;
 OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
 
-using clang : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++ :
+using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++ :
       <cflags>-fPIC
       <cflags>-std=c11
       <cxxflags>-fPIC
