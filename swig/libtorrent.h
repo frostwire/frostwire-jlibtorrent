@@ -290,12 +290,7 @@ int posix_open(const char* path, int flags, ...) {
 
 int posix_stat(const char *path, struct ::stat *buf) {
     typedef int func_t(const char*, struct ::stat*);
-#if defined __x86_64__ || defined __x86_64 \
-    || defined __amd64__ || defined __amd64 || defined __aarch64__
     static func_t* f = (func_t*) dlsym(get_libc(), "stat64");
-#else
-    static func_t* f = (func_t*) dlsym(get_libc(), "stat");
-#endif
     return (*f)(path, buf);
 }
 
