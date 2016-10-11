@@ -1,5 +1,8 @@
 %module (jniclassname="libtorrent_jni", directors="1") libtorrent
 
+// supress Warning 315: Nothing known about '<name>'.
+// this is due to the inner types in entry using the keyword 'using'
+#pragma SWIG nowarn=315
 // suppress Warning 317: Specialization of non-template '<name>'.
 #pragma SWIG nowarn=317
 // suppress Warning 341: The 'using' keyword in type aliasing is not fully supported yet.
@@ -522,6 +525,11 @@ namespace libtorrent {
             address address();
         };
     }
+
+    typedef std::map<std::string, libtorrent::entry> dictionary_type;
+    typedef std::string string_type;
+    typedef std::vector< libtorrent::entry> list_type;
+    typedef std::int64_t integer_type;
 };
 
 typedef long time_t;
