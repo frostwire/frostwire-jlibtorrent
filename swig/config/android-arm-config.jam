@@ -8,7 +8,6 @@ using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++
       <cflags>-std=c11
       <cxxflags>-fPIC
       <cxxflags>-march=armv7-a
-      <cxxflags>-mfpu=neon
       <cxxflags>-Wno-strict-aliasing
       <cxxflags>-std=c++11
       <cxxflags>-D__STDC_FORMAT_MACROS
