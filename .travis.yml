@@ -231,7 +231,7 @@ before_install:
     fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
-      sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp;
+      sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' swig/libtorrent_jni.cpp;
       export run_bjam="${BOOST_ROOT}/b2 --user-config=config/windows-x86-config.jam variant=release toolset=gcc-x86 target-os=windows location=bin/release/windows/x86";
       export run_strip="i686-w64-mingw32-strip --strip-unneeded -x bin/release/windows/x86/libjlibtorrent.dll";
       export run_readelf="eval objdump -p bin/release/windows/x86/jlibtorrent.dll | grep DLL";

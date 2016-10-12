@@ -57,7 +57,7 @@ See for example this bucket policy:
 	"Statement": [
 		{
 			"Effect": "Allow",
-			"Principal": {"AWS":"arn:aws:iam::<find your id here>:user/user1"},
+			"Principal": {"AWS":"arn:aws:iam::<user1's ARN here>:user/user1"},
 			"Action": "s3:PutObject",
 			"Resource": "arn:aws:s3:::jlibtorrent1/*"
 		},
@@ -72,20 +72,15 @@ See for example this bucket policy:
 ```
 - Fork the project in github.
 - Go to travis an enable the repository.
-- Go to the settings of the repository and add these variables
-`S3_ACCESS_KEY, S3_SECRET_KEY, S3_BUCKET` using the values of the
-credentials and the bucket name.
+- Go to 'More options' > 'Settings' > 'Environment Variables' and set the
+`S3_ACCESS_KEY, S3_SECRET_KEY, S3_BUCKET` variables using the values in the
+credentials file for the user you created and the bucket name you created.
 - Clone locally your repo, let's assume to the `jlibtorrent` folder and
 checkout the stable branch:
 ```bash
 $ git clone <your fork repo url> jlibtorrent
 $ cd jlibtorrent
-$ git checkout libtorrent-RC_1_1
-```
-- Create a new branch with the name `travis-build`:
-```bash
-$ git checkout -b travis-build
-$ git push --set-upstream origin travis-build
+$ git checkout master
 ```
 - Verify in your travis online if the build already started. The build
  could take about 40 minutes, be patient.
