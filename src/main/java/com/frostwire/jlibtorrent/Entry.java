@@ -87,7 +87,7 @@ public final class Entry {
             } else if (v instanceof List) {
                 d.push_back(fromList((List<?>) v).swig());
             } else if (v instanceof Map) {
-                d.push_back(fromMap((Map<?, ?>) v).swig());
+                d.push_back(fromMap((Map<String, ?>) v).swig());
             } else {
                 d.push_back(new entry(v.toString()));
             }
@@ -96,13 +96,12 @@ public final class Entry {
         return new Entry(e);
     }
 
-    public static Entry fromMap(Map<?, ?> map) {
+    public static Entry fromMap(Map<String, ?> map) {
         entry e = new entry(entry.data_type.dictionary_t);
 
         string_entry_map d = e.dict();
-        for (Map.Entry<?, ?> kv : map.entrySet()) {
-            String k = kv.getKey().toString();
-            Object v = kv.getValue();
+        for (String k : map.keySet()) {
+            Object v = map.get(k);
 
             if (v instanceof String) {
                 d.set(k, new entry((String) v));
@@ -115,7 +114,7 @@ public final class Entry {
             } else if (v instanceof List) {
                 d.set(k, fromList((List<?>) v).swig());
             } else if (v instanceof Map) {
-                d.set(k, fromMap((Map<?, ?>) v).swig());
+                d.set(k, fromMap((Map<String, ?>) v).swig());
             } else {
                 d.set(k, new entry(v.toString()));
             }
