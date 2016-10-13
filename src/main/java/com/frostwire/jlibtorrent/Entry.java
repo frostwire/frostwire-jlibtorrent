@@ -206,7 +206,6 @@ public final class Entry {
 
             string_vector v = m.keys();
             int size = (int) v.size();
-            byte[] arr = new byte[size];
 
             for (int i = 0; i < size; i++) {
                 s.add(v.get(i));
