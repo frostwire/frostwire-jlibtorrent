@@ -51,10 +51,6 @@ public class peer_connect_alert extends peer_alert {
     return libtorrent_jni.peer_connect_alert_message(swigCPtr, this);
   }
 
-  public void setSocket_type(int value) {
-    libtorrent_jni.peer_connect_alert_socket_type_set(swigCPtr, this, value);
-  }
-
   public int getSocket_type() {
     return libtorrent_jni.peer_connect_alert_socket_type_get(swigCPtr, this);
   }

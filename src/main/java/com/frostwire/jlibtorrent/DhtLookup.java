@@ -25,7 +25,9 @@ public final class DhtLookup {
     }
 
     /**
-     * @return
+     * The native object.
+     *
+     * @return the native object
      */
     public dht_lookup swig() {
         return l;
@@ -115,5 +117,14 @@ public final class DhtLookup {
      */
     public int firstTimeout() {
         return l.getFirst_timeout();
+    }
+
+    /**
+     * The node-id or info-hash target for this lookup.
+     *
+     * @return the target
+     */
+    public Sha1Hash target() {
+        return new Sha1Hash(l.getTarget());
     }
 }

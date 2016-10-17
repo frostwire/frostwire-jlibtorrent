@@ -34245,42 +34245,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_torrent_handle_set_pinned(const SwigV8Arguments &args) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
-  bool arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  bool val2 ;
-  int ecode2 = 0 ;
-  
-  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_torrent_handle_set_pinned.");
-  
-  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_handle, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_handle_set_pinned" "', argument " "1"" of type '" "libtorrent::torrent_handle const *""'"); 
-  }
-  arg1 = (libtorrent::torrent_handle *)(argp1);
-  ecode2 = SWIG_AsVal_bool(args[0], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "torrent_handle_set_pinned" "', argument " "2"" of type '" "bool""'");
-  } 
-  arg2 = (bool)(val2);
-  ((libtorrent::torrent_handle const *)arg1)->set_pinned(arg2);
-  jsresult = SWIGV8_UNDEFINED();
-  
-  
-  
-  SWIGV8_RETURN(jsresult);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_torrent_handle_set_sequential_download(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -42486,37 +42450,6 @@ fail:
 }
 
 
-static void _wrap_peer_alert_ip_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::peer_alert *arg1 = (libtorrent::peer_alert *) 0 ;
-  libtorrent::tcp::endpoint *arg2 = (libtorrent::tcp::endpoint *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__peer_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "peer_alert_ip_set" "', argument " "1"" of type '" "libtorrent::peer_alert *""'"); 
-  }
-  arg1 = (libtorrent::peer_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_libtorrent__tcp__endpoint, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "peer_alert_ip_set" "', argument " "2"" of type '" "libtorrent::tcp::endpoint *""'"); 
-  }
-  arg2 = (libtorrent::tcp::endpoint *)(argp2);
-  if (arg1) (arg1)->ip = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
 static SwigV8ReturnValue _wrap_peer_alert_ip_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -42540,37 +42473,6 @@ static SwigV8ReturnValue _wrap_peer_alert_ip_get(v8::Local<v8::String> property,
   goto fail;
 fail:
   SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static void _wrap_peer_alert_pid_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::peer_alert *arg1 = (libtorrent::peer_alert *) 0 ;
-  libtorrent::peer_id *arg2 = (libtorrent::peer_id *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__peer_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "peer_alert_pid_set" "', argument " "1"" of type '" "libtorrent::peer_alert *""'"); 
-  }
-  arg1 = (libtorrent::peer_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "peer_alert_pid_set" "', argument " "2"" of type '" "libtorrent::peer_id *""'"); 
-  }
-  arg2 = (libtorrent::peer_id *)(argp2);
-  if (arg1) (arg1)->pid = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
 }
 
 
@@ -48461,37 +48363,6 @@ fail:
 }
 
 
-static void _wrap_peer_connect_alert_socket_type_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::peer_connect_alert *arg1 = (libtorrent::peer_connect_alert *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__peer_connect_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "peer_connect_alert_socket_type_set" "', argument " "1"" of type '" "libtorrent::peer_connect_alert *""'"); 
-  }
-  arg1 = (libtorrent::peer_connect_alert *)(argp1);
-  ecode2 = SWIG_AsVal_int(value, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "peer_connect_alert_socket_type_set" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  if (arg1) (arg1)->socket_type = arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
 static SwigV8ReturnValue _wrap_peer_connect_alert_socket_type_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -48506,7 +48377,7 @@ static SwigV8ReturnValue _wrap_peer_connect_alert_socket_type_get(v8::Local<v8::
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "peer_connect_alert_socket_type_get" "', argument " "1"" of type '" "libtorrent::peer_connect_alert *""'"); 
   }
   arg1 = (libtorrent::peer_connect_alert *)(argp1);
-  result = (int) ((arg1)->socket_type);
+  result = (int)(int) ((arg1)->socket_type);
   jsresult = SWIG_From_int((int)(result));
   
   
@@ -58107,37 +57978,6 @@ fail:
 }
 
 
-static void _wrap_peer_blocked_alert_reason_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::peer_blocked_alert *arg1 = (libtorrent::peer_blocked_alert *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__peer_blocked_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "peer_blocked_alert_reason_set" "', argument " "1"" of type '" "libtorrent::peer_blocked_alert *""'"); 
-  }
-  arg1 = (libtorrent::peer_blocked_alert *)(argp1);
-  ecode2 = SWIG_AsVal_int(value, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "peer_blocked_alert_reason_set" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  if (arg1) (arg1)->reason = arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
 static SwigV8ReturnValue _wrap_peer_blocked_alert_reason_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -58152,7 +57992,7 @@ static SwigV8ReturnValue _wrap_peer_blocked_alert_reason_get(v8::Local<v8::Strin
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "peer_blocked_alert_reason_get" "', argument " "1"" of type '" "libtorrent::peer_blocked_alert *""'"); 
   }
   arg1 = (libtorrent::peer_blocked_alert *)(argp1);
-  result = (int) ((arg1)->reason);
+  result = (int)(int) ((arg1)->reason);
   jsresult = SWIG_From_int((int)(result));
   
   
@@ -61056,37 +60896,6 @@ fail:
 }
 
 
-static void _wrap_incoming_connection_alert_socket_type_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::incoming_connection_alert *arg1 = (libtorrent::incoming_connection_alert *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__incoming_connection_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "incoming_connection_alert_socket_type_set" "', argument " "1"" of type '" "libtorrent::incoming_connection_alert *""'"); 
-  }
-  arg1 = (libtorrent::incoming_connection_alert *)(argp1);
-  ecode2 = SWIG_AsVal_int(value, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "incoming_connection_alert_socket_type_set" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = (int)(val2);
-  if (arg1) (arg1)->socket_type = arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
 static SwigV8ReturnValue _wrap_incoming_connection_alert_socket_type_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -61101,7 +60910,7 @@ static SwigV8ReturnValue _wrap_incoming_connection_alert_socket_type_get(v8::Loc
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "incoming_connection_alert_socket_type_get" "', argument " "1"" of type '" "libtorrent::incoming_connection_alert *""'"); 
   }
   arg1 = (libtorrent::incoming_connection_alert *)(argp1);
-  result = (int) ((arg1)->socket_type);
+  result = (int)(int) ((arg1)->socket_type);
   jsresult = SWIG_From_int((int)(result));
   
   
@@ -61110,37 +60919,6 @@ static SwigV8ReturnValue _wrap_incoming_connection_alert_socket_type_get(v8::Loc
   goto fail;
 fail:
   SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static void _wrap_incoming_connection_alert_ip_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::incoming_connection_alert *arg1 = (libtorrent::incoming_connection_alert *) 0 ;
-  libtorrent::tcp::endpoint *arg2 = (libtorrent::tcp::endpoint *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__incoming_connection_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "incoming_connection_alert_ip_set" "', argument " "1"" of type '" "libtorrent::incoming_connection_alert *""'"); 
-  }
-  arg1 = (libtorrent::incoming_connection_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_libtorrent__tcp__endpoint, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "incoming_connection_alert_ip_set" "', argument " "2"" of type '" "libtorrent::tcp::endpoint *""'"); 
-  }
-  arg2 = (libtorrent::tcp::endpoint *)(argp2);
-  if (arg1) (arg1)->ip = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
 }
 
 
@@ -61369,37 +61147,6 @@ fail:
 }
 
 
-static void _wrap_add_torrent_alert_params_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::add_torrent_alert *arg1 = (libtorrent::add_torrent_alert *) 0 ;
-  libtorrent::add_torrent_params *arg2 = (libtorrent::add_torrent_params *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__add_torrent_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "add_torrent_alert_params_set" "', argument " "1"" of type '" "libtorrent::add_torrent_alert *""'"); 
-  }
-  arg1 = (libtorrent::add_torrent_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_libtorrent__add_torrent_params, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "add_torrent_alert_params_set" "', argument " "2"" of type '" "libtorrent::add_torrent_params *""'"); 
-  }
-  arg2 = (libtorrent::add_torrent_params *)(argp2);
-  if (arg1) (arg1)->params = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
 static SwigV8ReturnValue _wrap_add_torrent_alert_params_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -61423,37 +61170,6 @@ static SwigV8ReturnValue _wrap_add_torrent_alert_params_get(v8::Local<v8::String
   goto fail;
 fail:
   SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static void _wrap_add_torrent_alert_error_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::add_torrent_alert *arg1 = (libtorrent::add_torrent_alert *) 0 ;
-  libtorrent::error_code *arg2 = (libtorrent::error_code *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__add_torrent_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "add_torrent_alert_error_set" "', argument " "1"" of type '" "libtorrent::add_torrent_alert *""'"); 
-  }
-  arg1 = (libtorrent::add_torrent_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_boost__system__error_code, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "add_torrent_alert_error_set" "', argument " "2"" of type '" "libtorrent::error_code *""'"); 
-  }
-  arg2 = (libtorrent::error_code *)(argp2);
-  if (arg1) (arg1)->error = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
 }
 
 
@@ -65901,6 +65617,63 @@ fail:
 }
 
 
+static void _wrap_dht_lookup_target_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+  const SwigV8PropertyCallbackInfoVoid &info) {
+  SWIGV8_HANDLESCOPE();
+  
+  libtorrent::dht_lookup *arg1 = (libtorrent::dht_lookup *) 0 ;
+  libtorrent::sha1_hash *arg2 = (libtorrent::sha1_hash *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_lookup, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_lookup_target_set" "', argument " "1"" of type '" "libtorrent::dht_lookup *""'"); 
+  }
+  arg1 = (libtorrent::dht_lookup *)(argp1);
+  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "dht_lookup_target_set" "', argument " "2"" of type '" "libtorrent::sha1_hash *""'"); 
+  }
+  arg2 = (libtorrent::sha1_hash *)(argp2);
+  if (arg1) (arg1)->target = *arg2;
+  
+  
+  
+  goto fail;
+fail:
+  return;
+}
+
+
+static SwigV8ReturnValue _wrap_dht_lookup_target_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+  SWIGV8_HANDLESCOPE();
+  
+  v8::Handle<v8::Value> jsresult;
+  libtorrent::dht_lookup *arg1 = (libtorrent::dht_lookup *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  libtorrent::sha1_hash *result = 0 ;
+  
+  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_lookup, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_lookup_target_get" "', argument " "1"" of type '" "libtorrent::dht_lookup *""'"); 
+  }
+  arg1 = (libtorrent::dht_lookup *)(argp1);
+  result = (libtorrent::sha1_hash *)& ((arg1)->target);
+  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
+  
+  
+  SWIGV8_RETURN_INFO(jsresult, info);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
+}
+
+
 static SwigV8ReturnValue _wrap_dht_lookup_get_type(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
@@ -67600,37 +67373,6 @@ fail:
 }
 
 
-static void _wrap_dht_get_peers_reply_alert_info_hash_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::dht_get_peers_reply_alert *arg1 = (libtorrent::dht_get_peers_reply_alert *) 0 ;
-  libtorrent::sha1_hash *arg2 = (libtorrent::sha1_hash *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__dht_get_peers_reply_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dht_get_peers_reply_alert_info_hash_set" "', argument " "1"" of type '" "libtorrent::dht_get_peers_reply_alert *""'"); 
-  }
-  arg1 = (libtorrent::dht_get_peers_reply_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_libtorrent__sha1_hash, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "dht_get_peers_reply_alert_info_hash_set" "', argument " "2"" of type '" "libtorrent::sha1_hash *""'"); 
-  }
-  arg2 = (libtorrent::sha1_hash *)(argp2);
-  if (arg1) (arg1)->info_hash = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
-}
-
-
 static SwigV8ReturnValue _wrap_dht_get_peers_reply_alert_info_hash_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -68655,37 +68397,6 @@ static SwigV8ReturnValue _wrap_session_error_alert_message(const SwigV8Arguments
   goto fail;
 fail:
   SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static void _wrap_session_error_alert_error_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
-  const SwigV8PropertyCallbackInfoVoid &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  libtorrent::session_error_alert *arg1 = (libtorrent::session_error_alert *) 0 ;
-  libtorrent::error_code *arg2 = (libtorrent::error_code *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__session_error_alert, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "session_error_alert_error_set" "', argument " "1"" of type '" "libtorrent::session_error_alert *""'"); 
-  }
-  arg1 = (libtorrent::session_error_alert *)(argp1);
-  res2 = SWIG_ConvertPtr(value, &argp2,SWIGTYPE_p_boost__system__error_code, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "session_error_alert_error_set" "', argument " "2"" of type '" "libtorrent::error_code *""'"); 
-  }
-  arg2 = (libtorrent::error_code *)(argp2);
-  if (arg1) (arg1)->error = *arg2;
-  
-  
-  
-  goto fail;
-fail:
-  return;
 }
 
 
@@ -91155,7 +90866,7 @@ fail:
 }
 
 
-static void _wrap_torrent_status_is_loaded_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
+static void _wrap_torrent_status_deprecated_is_loaded_set(v8::Local<v8::String> property, v8::Local<v8::Value> value,
   const SwigV8PropertyCallbackInfoVoid &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -91168,15 +90879,15 @@ static void _wrap_torrent_status_is_loaded_set(v8::Local<v8::String> property, v
   
   res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_status, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_status_is_loaded_set" "', argument " "1"" of type '" "libtorrent::torrent_status *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_status_deprecated_is_loaded_set" "', argument " "1"" of type '" "libtorrent::torrent_status *""'"); 
   }
   arg1 = (libtorrent::torrent_status *)(argp1);
   ecode2 = SWIG_AsVal_bool(value, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "torrent_status_is_loaded_set" "', argument " "2"" of type '" "bool""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "torrent_status_deprecated_is_loaded_set" "', argument " "2"" of type '" "bool""'");
   } 
   arg2 = (bool)(val2);
-  if (arg1) (arg1)->is_loaded = arg2;
+  if (arg1) (arg1)->deprecated_is_loaded = arg2;
   
   
   
@@ -91186,7 +90897,7 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_torrent_status_is_loaded_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
+static SwigV8ReturnValue _wrap_torrent_status_deprecated_is_loaded_get(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
   v8::Handle<v8::Value> jsresult;
@@ -91197,10 +90908,10 @@ static SwigV8ReturnValue _wrap_torrent_status_is_loaded_get(v8::Local<v8::String
   
   res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_libtorrent__torrent_status, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_status_is_loaded_get" "', argument " "1"" of type '" "libtorrent::torrent_status *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "torrent_status_deprecated_is_loaded_get" "', argument " "1"" of type '" "libtorrent::torrent_status *""'"); 
   }
   arg1 = (libtorrent::torrent_status *)(argp1);
-  result = (bool) ((arg1)->is_loaded);
+  result = (bool) ((arg1)->deprecated_is_loaded);
   jsresult = SWIG_From_bool((bool)(result));
   
   
@@ -96752,7 +96463,6 @@ SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_upload_limit", _wra
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "upload_limit", _wrap_torrent_handle_upload_limit);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_download_limit", _wrap_torrent_handle_set_download_limit);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "download_limit", _wrap_torrent_handle_download_limit);
-SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_pinned", _wrap_torrent_handle_set_pinned);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_sequential_download", _wrap_torrent_handle_set_sequential_download);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "connect_peer", _wrap_torrent_handle__wrap_torrent_handle_connect_peer);
 SWIGV8_AddMemberFunction(_exports_torrent_handle_class, "set_max_uploads", _wrap_torrent_handle_set_max_uploads);
@@ -96890,8 +96600,8 @@ SWIGV8_AddMemberVariable(_exports_torrent_alert_class, "handle", _wrap_torrent_a
 SWIGV8_AddMemberFunction(_exports_torrent_alert_class, "torrent_name", _wrap_torrent_alert_torrent_name);
 SWIGV8_AddMemberFunction(_exports_peer_alert_class, "category", _wrap_peer_alert_category);
 SWIGV8_AddMemberFunction(_exports_peer_alert_class, "message", _wrap_peer_alert_message);
-SWIGV8_AddMemberVariable(_exports_peer_alert_class, "ip", _wrap_peer_alert_ip_get, _wrap_peer_alert_ip_set);
-SWIGV8_AddMemberVariable(_exports_peer_alert_class, "pid", _wrap_peer_alert_pid_get, _wrap_peer_alert_pid_set);
+SWIGV8_AddMemberVariable(_exports_peer_alert_class, "ip", _wrap_peer_alert_ip_get, JS_veto_set_variable);
+SWIGV8_AddMemberVariable(_exports_peer_alert_class, "pid", _wrap_peer_alert_pid_get, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_tracker_alert_class, "category", _wrap_tracker_alert_category);
 SWIGV8_AddMemberFunction(_exports_tracker_alert_class, "message", _wrap_tracker_alert_message);
 SWIGV8_AddMemberFunction(_exports_tracker_alert_class, "tracker_url", _wrap_tracker_alert_tracker_url);
@@ -97007,7 +96717,7 @@ SWIGV8_AddMemberFunction(_exports_peer_connect_alert_class, "type", _wrap_peer_c
 SWIGV8_AddMemberFunction(_exports_peer_connect_alert_class, "category", _wrap_peer_connect_alert_category);
 SWIGV8_AddMemberFunction(_exports_peer_connect_alert_class, "what", _wrap_peer_connect_alert_what);
 SWIGV8_AddMemberFunction(_exports_peer_connect_alert_class, "message", _wrap_peer_connect_alert_message);
-SWIGV8_AddMemberVariable(_exports_peer_connect_alert_class, "socket_type", _wrap_peer_connect_alert_socket_type_get, _wrap_peer_connect_alert_socket_type_set);
+SWIGV8_AddMemberVariable(_exports_peer_connect_alert_class, "socket_type", _wrap_peer_connect_alert_socket_type_get, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_peer_disconnected_alert_class, "type", _wrap_peer_disconnected_alert_type);
 SWIGV8_AddMemberFunction(_exports_peer_disconnected_alert_class, "category", _wrap_peer_disconnected_alert_category);
 SWIGV8_AddMemberFunction(_exports_peer_disconnected_alert_class, "what", _wrap_peer_disconnected_alert_what);
@@ -97191,7 +96901,7 @@ SWIGV8_AddMemberFunction(_exports_peer_blocked_alert_class, "type", _wrap_peer_b
 SWIGV8_AddMemberFunction(_exports_peer_blocked_alert_class, "category", _wrap_peer_blocked_alert_category);
 SWIGV8_AddMemberFunction(_exports_peer_blocked_alert_class, "what", _wrap_peer_blocked_alert_what);
 SWIGV8_AddMemberFunction(_exports_peer_blocked_alert_class, "message", _wrap_peer_blocked_alert_message);
-SWIGV8_AddMemberVariable(_exports_peer_blocked_alert_class, "reason", _wrap_peer_blocked_alert_reason_get, _wrap_peer_blocked_alert_reason_set);
+SWIGV8_AddMemberVariable(_exports_peer_blocked_alert_class, "reason", _wrap_peer_blocked_alert_reason_get, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_dht_announce_alert_class, "type", _wrap_dht_announce_alert_type);
 SWIGV8_AddMemberFunction(_exports_dht_announce_alert_class, "category", _wrap_dht_announce_alert_category);
 SWIGV8_AddMemberFunction(_exports_dht_announce_alert_class, "what", _wrap_dht_announce_alert_what);
@@ -97247,14 +96957,14 @@ SWIGV8_AddMemberFunction(_exports_incoming_connection_alert_class, "type", _wrap
 SWIGV8_AddMemberFunction(_exports_incoming_connection_alert_class, "category", _wrap_incoming_connection_alert_category);
 SWIGV8_AddMemberFunction(_exports_incoming_connection_alert_class, "what", _wrap_incoming_connection_alert_what);
 SWIGV8_AddMemberFunction(_exports_incoming_connection_alert_class, "message", _wrap_incoming_connection_alert_message);
-SWIGV8_AddMemberVariable(_exports_incoming_connection_alert_class, "socket_type", _wrap_incoming_connection_alert_socket_type_get, _wrap_incoming_connection_alert_socket_type_set);
-SWIGV8_AddMemberVariable(_exports_incoming_connection_alert_class, "ip", _wrap_incoming_connection_alert_ip_get, _wrap_incoming_connection_alert_ip_set);
+SWIGV8_AddMemberVariable(_exports_incoming_connection_alert_class, "socket_type", _wrap_incoming_connection_alert_socket_type_get, JS_veto_set_variable);
+SWIGV8_AddMemberVariable(_exports_incoming_connection_alert_class, "ip", _wrap_incoming_connection_alert_ip_get, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_add_torrent_alert_class, "type", _wrap_add_torrent_alert_type);
 SWIGV8_AddMemberFunction(_exports_add_torrent_alert_class, "category", _wrap_add_torrent_alert_category);
 SWIGV8_AddMemberFunction(_exports_add_torrent_alert_class, "what", _wrap_add_torrent_alert_what);
 SWIGV8_AddMemberFunction(_exports_add_torrent_alert_class, "message", _wrap_add_torrent_alert_message);
-SWIGV8_AddMemberVariable(_exports_add_torrent_alert_class, "params", _wrap_add_torrent_alert_params_get, _wrap_add_torrent_alert_params_set);
-SWIGV8_AddMemberVariable(_exports_add_torrent_alert_class, "error", _wrap_add_torrent_alert_error_get, _wrap_add_torrent_alert_error_set);
+SWIGV8_AddMemberVariable(_exports_add_torrent_alert_class, "params", _wrap_add_torrent_alert_params_get, JS_veto_set_variable);
+SWIGV8_AddMemberVariable(_exports_add_torrent_alert_class, "error", _wrap_add_torrent_alert_error_get, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_state_update_alert_class, "type", _wrap_state_update_alert_type);
 SWIGV8_AddMemberFunction(_exports_state_update_alert_class, "category", _wrap_state_update_alert_category);
 SWIGV8_AddMemberFunction(_exports_state_update_alert_class, "what", _wrap_state_update_alert_what);
@@ -97343,6 +97053,7 @@ SWIGV8_AddMemberVariable(_exports_dht_lookup_class, "branch_factor", _wrap_dht_l
 SWIGV8_AddMemberVariable(_exports_dht_lookup_class, "nodes_left", _wrap_dht_lookup_nodes_left_get, _wrap_dht_lookup_nodes_left_set);
 SWIGV8_AddMemberVariable(_exports_dht_lookup_class, "last_sent", _wrap_dht_lookup_last_sent_get, _wrap_dht_lookup_last_sent_set);
 SWIGV8_AddMemberVariable(_exports_dht_lookup_class, "first_timeout", _wrap_dht_lookup_first_timeout_get, _wrap_dht_lookup_first_timeout_set);
+SWIGV8_AddMemberVariable(_exports_dht_lookup_class, "target", _wrap_dht_lookup_target_get, _wrap_dht_lookup_target_set);
 SWIGV8_AddMemberFunction(_exports_dht_lookup_class, "get_type", _wrap_dht_lookup_get_type);
 SWIGV8_AddMemberVariable(_exports_dht_routing_bucket_class, "num_nodes", _wrap_dht_routing_bucket_num_nodes_get, _wrap_dht_routing_bucket_num_nodes_set);
 SWIGV8_AddMemberVariable(_exports_dht_routing_bucket_class, "num_replacements", _wrap_dht_routing_bucket_num_replacements_get, _wrap_dht_routing_bucket_num_replacements_set);
@@ -97375,7 +97086,7 @@ SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "type", _wrap
 SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "category", _wrap_dht_get_peers_reply_alert_category);
 SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "what", _wrap_dht_get_peers_reply_alert_what);
 SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "message", _wrap_dht_get_peers_reply_alert_message);
-SWIGV8_AddMemberVariable(_exports_dht_get_peers_reply_alert_class, "info_hash", _wrap_dht_get_peers_reply_alert_info_hash_get, _wrap_dht_get_peers_reply_alert_info_hash_set);
+SWIGV8_AddMemberVariable(_exports_dht_get_peers_reply_alert_class, "info_hash", _wrap_dht_get_peers_reply_alert_info_hash_get, JS_veto_set_variable);
 SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "num_peers", _wrap_dht_get_peers_reply_alert_num_peers);
 SWIGV8_AddMemberFunction(_exports_dht_get_peers_reply_alert_class, "peers", _wrap_dht_get_peers_reply_alert_peers);
 SWIGV8_AddMemberFunction(_exports_dht_direct_response_alert_class, "type", _wrap_dht_direct_response_alert_type);
@@ -97394,7 +97105,7 @@ SWIGV8_AddMemberFunction(_exports_session_error_alert_class, "type", _wrap_sessi
 SWIGV8_AddMemberFunction(_exports_session_error_alert_class, "category", _wrap_session_error_alert_category);
 SWIGV8_AddMemberFunction(_exports_session_error_alert_class, "what", _wrap_session_error_alert_what);
 SWIGV8_AddMemberFunction(_exports_session_error_alert_class, "message", _wrap_session_error_alert_message);
-SWIGV8_AddMemberVariable(_exports_session_error_alert_class, "error", _wrap_session_error_alert_error_get, _wrap_session_error_alert_error_set);
+SWIGV8_AddMemberVariable(_exports_session_error_alert_class, "error", _wrap_session_error_alert_error_get, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(exports_obj, "num_alert_types", _wrap_libtorrent_num_alert_types, JS_veto_set_variable);
 SWIGV8_AddMemberVariable(_exports_peer_info_class, "client", _wrap_peer_info_client_get, _wrap_peer_info_client_set);
 SWIGV8_AddMemberVariable(_exports_peer_info_class, "pieces", _wrap_peer_info_pieces_get, _wrap_peer_info_pieces_set);
@@ -97688,7 +97399,7 @@ SWIGV8_AddMemberVariable(_exports_torrent_status_class, "has_metadata", _wrap_to
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "has_incoming", _wrap_torrent_status_has_incoming_get, _wrap_torrent_status_has_incoming_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "seed_mode", _wrap_torrent_status_seed_mode_get, _wrap_torrent_status_seed_mode_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "moving_storage", _wrap_torrent_status_moving_storage_get, _wrap_torrent_status_moving_storage_set);
-SWIGV8_AddMemberVariable(_exports_torrent_status_class, "is_loaded", _wrap_torrent_status_is_loaded_get, _wrap_torrent_status_is_loaded_set);
+SWIGV8_AddMemberVariable(_exports_torrent_status_class, "deprecated_is_loaded", _wrap_torrent_status_deprecated_is_loaded_get, _wrap_torrent_status_deprecated_is_loaded_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "announcing_to_trackers", _wrap_torrent_status_announcing_to_trackers_get, _wrap_torrent_status_announcing_to_trackers_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "announcing_to_lsd", _wrap_torrent_status_announcing_to_lsd_get, _wrap_torrent_status_announcing_to_lsd_set);
 SWIGV8_AddMemberVariable(_exports_torrent_status_class, "announcing_to_dht", _wrap_torrent_status_announcing_to_dht_get, _wrap_torrent_status_announcing_to_dht_set);

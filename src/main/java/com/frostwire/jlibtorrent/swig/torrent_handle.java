@@ -271,10 +271,6 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_download_limit(swigCPtr, this);
   }
 
-  public void set_pinned(boolean p) {
-    libtorrent_jni.torrent_handle_set_pinned(swigCPtr, this, p);
-  }
-
   public void set_sequential_download(boolean sd) {
     libtorrent_jni.torrent_handle_set_sequential_download(swigCPtr, this, sd);
   }

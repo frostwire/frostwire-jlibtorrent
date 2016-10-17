@@ -51,10 +51,6 @@ public class peer_blocked_alert extends peer_alert {
     return libtorrent_jni.peer_blocked_alert_message(swigCPtr, this);
   }
 
-  public void setReason(int value) {
-    libtorrent_jni.peer_blocked_alert_reason_set(swigCPtr, this, value);
-  }
-
   public int getReason() {
     return libtorrent_jni.peer_blocked_alert_reason_get(swigCPtr, this);
   }

@@ -91,6 +91,15 @@ public class dht_lookup {
     return libtorrent_jni.dht_lookup_first_timeout_get(swigCPtr, this);
   }
 
+  public void setTarget(sha1_hash value) {
+    libtorrent_jni.dht_lookup_target_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
+  }
+
+  public sha1_hash getTarget() {
+    long cPtr = libtorrent_jni.dht_lookup_target_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
+  }
+
   public String get_type() {
     return libtorrent_jni.dht_lookup_get_type(swigCPtr, this);
   }
