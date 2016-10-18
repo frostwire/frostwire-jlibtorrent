@@ -452,6 +452,40 @@ public final class AddTorrentParams {
         p.setPiece_priorities(Priority.array2byte_vector(priorities));
     }
 
+    /**
+     * Peers to add to the torrent, to be tried to be connected to as
+     * bittorrent peers.
+     *
+     * @return the peers list
+     */
+    public ArrayList<TcpEndpoint> peers() {
+        tcp_endpoint_vector v = p.getPeers();
+        int size = (int) v.size();
+        ArrayList<TcpEndpoint> l = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            l.add(new TcpEndpoint(v.get(i)));
+        }
+
+        return l;
+    }
+
+    /**
+     * Peers to add to the torrent, to be tried to be connected to as
+     * bittorrent peers.
+     *
+     * @param value the peers list
+     */
+    public void peers(List<TcpEndpoint> value) {
+        tcp_endpoint_vector v = new tcp_endpoint_vector();
+
+        for (TcpEndpoint endp : value) {
+            v.push_back(endp.swig());
+        }
+
+        p.setPeers(v);
+    }
+
     public static AddTorrentParams createInstance() {
         return new AddTorrentParams(add_torrent_params.create_instance());
     }
