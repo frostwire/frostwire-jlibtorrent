@@ -434,7 +434,7 @@ public final class AddTorrentParams {
      * torrent. The semantics are the same as for
      * {@link TorrentHandle#prioritizeFiles(Priority[])}.
      *
-     * @param priorities
+     * @param priorities the priorities
      */
     public void filePriorities(Priority[] priorities) {
         p.setFile_priorities(Priority.array2byte_vector(priorities));
@@ -446,7 +446,7 @@ public final class AddTorrentParams {
      * set both file- and piece priorities, file priorities will take
      * precedence.
      *
-     * @param priorities
+     * @param priorities the priorities
      */
     public void piecePriorities(Priority[] priorities) {
         p.setPiece_priorities(Priority.array2byte_vector(priorities));
@@ -462,5 +462,21 @@ public final class AddTorrentParams {
 
     public static AddTorrentParams createInstanceZeroStorage() {
         return new AddTorrentParams(add_torrent_params.create_instance_zero_storage());
+    }
+
+    /**
+     * Helper function to parse a magnet uri and fill the parameters.
+     *
+     * @param uri    the magnet uri
+     * @param params the parameters to fill
+     * @return the same object as params to allow for fluently style
+     */
+    public static AddTorrentParams parseMagnetUri(String uri, AddTorrentParams params) {
+        error_code ec = new error_code();
+        libtorrent.parse_magnet_uri(uri, params.swig(), ec);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException("Invalid magnet uri: " + ec.message());
+        }
+        return params;
     }
 }
