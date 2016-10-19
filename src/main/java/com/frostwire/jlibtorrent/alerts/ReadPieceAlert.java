@@ -12,29 +12,41 @@ import com.frostwire.jlibtorrent.swig.read_piece_alert;
  * of the piece. {@link #piece()} is the piece index that was read. {@link #size()}
  * is the number of bytes that was read.
  * <p>
- * If the operation fails, {@link #ec()} will indicate what went wrong.
+ * If the operation fails, {@link #error()} will indicate what went wrong.
  *
  * @author gubatron
  * @author aldenml
  */
 public final class ReadPieceAlert extends TorrentAlert<read_piece_alert> {
 
-    public ReadPieceAlert(read_piece_alert alert) {
+    ReadPieceAlert(read_piece_alert alert) {
         super(alert);
     }
 
-    public ErrorCode ec() {
-        return new ErrorCode(alert.getEc());
+    /**
+     * @return the error
+     */
+    public ErrorCode error() {
+        return new ErrorCode(alert.getError());
     }
 
+    /**
+     * @return the native buffer pointer
+     */
     public long bufferPtr() {
         return alert.buffer_ptr();
     }
 
+    /**
+     * @return the piece index
+     */
     public int piece() {
         return alert.getPiece();
     }
 
+    /**
+     * @return the piece size
+     */
     public int size() {
         return alert.getSize();
     }

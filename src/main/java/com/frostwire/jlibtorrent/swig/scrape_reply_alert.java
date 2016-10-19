@@ -51,16 +51,8 @@ public class scrape_reply_alert extends tracker_alert {
     return libtorrent_jni.scrape_reply_alert_message(swigCPtr, this);
   }
 
-  public void setIncomplete(int value) {
-    libtorrent_jni.scrape_reply_alert_incomplete_set(swigCPtr, this, value);
-  }
-
   public int getIncomplete() {
     return libtorrent_jni.scrape_reply_alert_incomplete_get(swigCPtr, this);
-  }
-
-  public void setComplete(int value) {
-    libtorrent_jni.scrape_reply_alert_complete_set(swigCPtr, this, value);
   }
 
   public int getComplete() {

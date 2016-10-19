@@ -51,33 +51,17 @@ public class invalid_request_alert extends peer_alert {
     return libtorrent_jni.invalid_request_alert_message(swigCPtr, this);
   }
 
-  public void setRequest(peer_request value) {
-    libtorrent_jni.invalid_request_alert_request_set(swigCPtr, this, peer_request.getCPtr(value), value);
-  }
-
   public peer_request getRequest() {
     long cPtr = libtorrent_jni.invalid_request_alert_request_get(swigCPtr, this);
     return (cPtr == 0) ? null : new peer_request(cPtr, false);
-  }
-
-  public void setWe_have(boolean value) {
-    libtorrent_jni.invalid_request_alert_we_have_set(swigCPtr, this, value);
   }
 
   public boolean getWe_have() {
     return libtorrent_jni.invalid_request_alert_we_have_get(swigCPtr, this);
   }
 
-  public void setPeer_interested(boolean value) {
-    libtorrent_jni.invalid_request_alert_peer_interested_set(swigCPtr, this, value);
-  }
-
   public boolean getPeer_interested() {
     return libtorrent_jni.invalid_request_alert_peer_interested_get(swigCPtr, this);
-  }
-
-  public void setWithheld(boolean value) {
-    libtorrent_jni.invalid_request_alert_withheld_set(swigCPtr, this, value);
   }
 
   public boolean getWithheld() {

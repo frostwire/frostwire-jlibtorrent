@@ -51,10 +51,6 @@ public class hash_failed_alert extends torrent_alert {
     return libtorrent_jni.hash_failed_alert_message(swigCPtr, this);
   }
 
-  public void setPiece_index(int value) {
-    libtorrent_jni.hash_failed_alert_piece_index_set(swigCPtr, this, value);
-  }
-
   public int getPiece_index() {
     return libtorrent_jni.hash_failed_alert_piece_index_get(swigCPtr, this);
   }

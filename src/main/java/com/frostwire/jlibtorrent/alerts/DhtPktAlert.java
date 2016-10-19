@@ -33,17 +33,17 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
     /**
      * Whether this is an incoming or outgoing packet.
      *
-     * @return
+     * @return the direction
      */
     public Direction direction() {
-        return Direction.fromSwig(alert.getDir().swigValue());
+        return Direction.fromSwig(alert.getDirection().swigValue());
     }
 
     /**
      * The DHT node we received this packet from, or sent this packet to
      * (depending on {@link #direction()}).
      *
-     * @return
+     * @return the node endpoint
      */
     public UdpEndpoint node() {
         return new UdpEndpoint(alert.getNode());

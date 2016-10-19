@@ -51,8 +51,8 @@ public class dht_direct_response_alert extends alert {
     return libtorrent_jni.dht_direct_response_alert_message(swigCPtr, this);
   }
 
-  public udp_endpoint getAddr() {
-    long cPtr = libtorrent_jni.dht_direct_response_alert_addr_get(swigCPtr, this);
+  public udp_endpoint getEndpoint() {
+    long cPtr = libtorrent_jni.dht_direct_response_alert_endpoint_get(swigCPtr, this);
     return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
   }
 

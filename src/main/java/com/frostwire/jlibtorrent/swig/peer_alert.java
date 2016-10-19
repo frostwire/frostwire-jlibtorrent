@@ -43,8 +43,8 @@ public class peer_alert extends torrent_alert {
     return libtorrent_jni.peer_alert_message(swigCPtr, this);
   }
 
-  public tcp_endpoint getIp() {
-    long cPtr = libtorrent_jni.peer_alert_ip_get(swigCPtr, this);
+  public tcp_endpoint getEndpoint() {
+    long cPtr = libtorrent_jni.peer_alert_endpoint_get(swigCPtr, this);
     return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 

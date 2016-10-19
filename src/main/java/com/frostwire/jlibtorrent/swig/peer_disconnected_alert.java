@@ -51,33 +51,17 @@ public class peer_disconnected_alert extends peer_alert {
     return libtorrent_jni.peer_disconnected_alert_message(swigCPtr, this);
   }
 
-  public void setSocket_type(int value) {
-    libtorrent_jni.peer_disconnected_alert_socket_type_set(swigCPtr, this, value);
-  }
-
   public int getSocket_type() {
     return libtorrent_jni.peer_disconnected_alert_socket_type_get(swigCPtr, this);
-  }
-
-  public void setOperation(operation_t value) {
-    libtorrent_jni.peer_disconnected_alert_operation_set(swigCPtr, this, value.swigValue());
   }
 
   public operation_t getOperation() {
     return operation_t.swigToEnum(libtorrent_jni.peer_disconnected_alert_operation_get(swigCPtr, this));
   }
 
-  public void setError(error_code value) {
-    libtorrent_jni.peer_disconnected_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
-  }
-
   public error_code getError() {
     long cPtr = libtorrent_jni.peer_disconnected_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);
-  }
-
-  public void setReason(close_reason_t value) {
-    libtorrent_jni.peer_disconnected_alert_reason_set(swigCPtr, this, value.swigValue());
   }
 
   public close_reason_t getReason() {

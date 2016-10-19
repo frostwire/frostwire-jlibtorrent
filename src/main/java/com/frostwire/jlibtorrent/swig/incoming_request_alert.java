@@ -51,10 +51,6 @@ public class incoming_request_alert extends peer_alert {
     return libtorrent_jni.incoming_request_alert_message(swigCPtr, this);
   }
 
-  public void setReq(peer_request value) {
-    libtorrent_jni.incoming_request_alert_req_set(swigCPtr, this, peer_request.getCPtr(value), value);
-  }
-
   public peer_request getReq() {
     long cPtr = libtorrent_jni.incoming_request_alert_req_get(swigCPtr, this);
     return (cPtr == 0) ? null : new peer_request(cPtr, false);

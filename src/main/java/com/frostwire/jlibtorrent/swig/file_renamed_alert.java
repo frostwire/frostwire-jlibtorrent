@@ -55,10 +55,6 @@ public class file_renamed_alert extends torrent_alert {
     return libtorrent_jni.file_renamed_alert_new_name(swigCPtr, this);
   }
 
-  public void setIndex(int value) {
-    libtorrent_jni.file_renamed_alert_index_set(swigCPtr, this, value);
-  }
-
   public int getIndex() {
     return libtorrent_jni.file_renamed_alert_index_get(swigCPtr, this);
   }

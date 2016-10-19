@@ -55,33 +55,17 @@ public class listen_failed_alert extends alert {
     return libtorrent_jni.listen_failed_alert_listen_interface(swigCPtr, this);
   }
 
-  public void setError(error_code value) {
-    libtorrent_jni.listen_failed_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
-  }
-
   public error_code getError() {
     long cPtr = libtorrent_jni.listen_failed_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);
-  }
-
-  public void setOperation(int value) {
-    libtorrent_jni.listen_failed_alert_operation_set(swigCPtr, this, value);
   }
 
   public int getOperation() {
     return libtorrent_jni.listen_failed_alert_operation_get(swigCPtr, this);
   }
 
-  public void setSock_type(listen_failed_alert.socket_type_t value) {
-    libtorrent_jni.listen_failed_alert_sock_type_set(swigCPtr, this, value.swigValue());
-  }
-
-  public listen_failed_alert.socket_type_t getSock_type() {
-    return listen_failed_alert.socket_type_t.swigToEnum(libtorrent_jni.listen_failed_alert_sock_type_get(swigCPtr, this));
-  }
-
-  public void setAddress(address value) {
-    libtorrent_jni.listen_failed_alert_address_set(swigCPtr, this, address.getCPtr(value), value);
+  public socket_type_t getSocket_type() {
+    return socket_type_t.swigToEnum(libtorrent_jni.listen_failed_alert_socket_type_get(swigCPtr, this));
   }
 
   public address getAddress() {
@@ -89,60 +73,8 @@ public class listen_failed_alert extends alert {
     return (cPtr == 0) ? null : new address(cPtr, false);
   }
 
-  public void setPort(int value) {
-    libtorrent_jni.listen_failed_alert_port_set(swigCPtr, this, value);
-  }
-
   public int getPort() {
     return libtorrent_jni.listen_failed_alert_port_get(swigCPtr, this);
-  }
-
-  public final static class socket_type_t {
-    public final static listen_failed_alert.socket_type_t tcp = new listen_failed_alert.socket_type_t("tcp");
-    public final static listen_failed_alert.socket_type_t tcp_ssl = new listen_failed_alert.socket_type_t("tcp_ssl");
-    public final static listen_failed_alert.socket_type_t udp = new listen_failed_alert.socket_type_t("udp");
-    public final static listen_failed_alert.socket_type_t i2p = new listen_failed_alert.socket_type_t("i2p");
-    public final static listen_failed_alert.socket_type_t socks5 = new listen_failed_alert.socket_type_t("socks5");
-    public final static listen_failed_alert.socket_type_t utp_ssl = new listen_failed_alert.socket_type_t("utp_ssl");
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static socket_type_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + socket_type_t.class + " with value " + swigValue);
-    }
-
-    private socket_type_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private socket_type_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private socket_type_t(String swigName, socket_type_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static socket_type_t[] swigValues = { tcp, tcp_ssl, udp, i2p, socks5, utp_ssl };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
   }
 
   public final static int priority = libtorrent_jni.listen_failed_alert_priority_get();

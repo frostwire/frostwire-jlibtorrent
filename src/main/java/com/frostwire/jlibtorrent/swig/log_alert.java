@@ -51,8 +51,8 @@ public class log_alert extends alert {
     return libtorrent_jni.log_alert_message(swigCPtr, this);
   }
 
-  public String msg() {
-    return libtorrent_jni.log_alert_msg(swigCPtr, this);
+  public String log_message() {
+    return libtorrent_jni.log_alert_log_message(swigCPtr, this);
   }
 
   public final static int priority = libtorrent_jni.log_alert_priority_get();

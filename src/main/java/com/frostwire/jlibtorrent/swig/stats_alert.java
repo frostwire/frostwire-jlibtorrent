@@ -51,10 +51,6 @@ public class stats_alert extends torrent_alert {
     return libtorrent_jni.stats_alert_message(swigCPtr, this);
   }
 
-  public void setInterval(int value) {
-    libtorrent_jni.stats_alert_interval_set(swigCPtr, this, value);
-  }
-
   public int getInterval() {
     return libtorrent_jni.stats_alert_interval_get(swigCPtr, this);
   }

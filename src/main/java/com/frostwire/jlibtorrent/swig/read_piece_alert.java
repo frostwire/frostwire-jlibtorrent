@@ -51,25 +51,13 @@ public class read_piece_alert extends torrent_alert {
     return libtorrent_jni.read_piece_alert_message(swigCPtr, this);
   }
 
-  public void setEc(error_code value) {
-    libtorrent_jni.read_piece_alert_ec_set(swigCPtr, this, error_code.getCPtr(value), value);
-  }
-
-  public error_code getEc() {
-    long cPtr = libtorrent_jni.read_piece_alert_ec_get(swigCPtr, this);
+  public error_code getError() {
+    long cPtr = libtorrent_jni.read_piece_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);
-  }
-
-  public void setPiece(int value) {
-    libtorrent_jni.read_piece_alert_piece_set(swigCPtr, this, value);
   }
 
   public int getPiece() {
     return libtorrent_jni.read_piece_alert_piece_get(swigCPtr, this);
-  }
-
-  public void setSize(int value) {
-    libtorrent_jni.read_piece_alert_size_set(swigCPtr, this, value);
   }
 
   public int getSize() {

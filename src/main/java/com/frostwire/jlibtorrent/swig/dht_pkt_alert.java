@@ -55,8 +55,8 @@ public class dht_pkt_alert extends alert {
     return new byte_const_span(libtorrent_jni.dht_pkt_alert_pkt_buf(swigCPtr, this), true);
   }
 
-  public dht_pkt_alert.direction_t getDir() {
-    return dht_pkt_alert.direction_t.swigToEnum(libtorrent_jni.dht_pkt_alert_dir_get(swigCPtr, this));
+  public dht_pkt_alert.direction_t getDirection() {
+    return dht_pkt_alert.direction_t.swigToEnum(libtorrent_jni.dht_pkt_alert_direction_get(swigCPtr, this));
   }
 
   public udp_endpoint getNode() {

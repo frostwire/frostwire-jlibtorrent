@@ -51,10 +51,6 @@ public class performance_alert extends torrent_alert {
     return libtorrent_jni.performance_alert_message(swigCPtr, this);
   }
 
-  public void setWarning_code(performance_alert.performance_warning_t value) {
-    libtorrent_jni.performance_alert_warning_code_set(swigCPtr, this, value.swigValue());
-  }
-
   public performance_alert.performance_warning_t getWarning_code() {
     return performance_alert.performance_warning_t.swigToEnum(libtorrent_jni.performance_alert_warning_code_get(swigCPtr, this));
   }

@@ -51,10 +51,6 @@ public class piece_finished_alert extends torrent_alert {
     return libtorrent_jni.piece_finished_alert_message(swigCPtr, this);
   }
 
-  public void setPiece_index(int value) {
-    libtorrent_jni.piece_finished_alert_piece_index_set(swigCPtr, this, value);
-  }
-
   public int getPiece_index() {
     return libtorrent_jni.piece_finished_alert_piece_index_get(swigCPtr, this);
   }

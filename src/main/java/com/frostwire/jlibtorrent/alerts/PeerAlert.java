@@ -13,25 +13,25 @@ import com.frostwire.jlibtorrent.swig.peer_alert;
  */
 public class PeerAlert<T extends peer_alert> extends TorrentAlert<T> {
 
-    public PeerAlert(T alert) {
+    PeerAlert(T alert) {
         super(alert);
     }
 
     /**
      * The peer's IP address and port.
      *
-     * @return
+     * @return the endpoint
      */
-    public TcpEndpoint getPeerIP() {
-        return new TcpEndpoint(alert.getIp());
+    public TcpEndpoint endpoint() {
+        return new TcpEndpoint(alert.getEndpoint());
     }
 
     /**
      * the peer ID, if known.
      *
-     * @return
+     * @return the id
      */
-    public Sha1Hash getPeerId() {
+    public Sha1Hash peerId() {
         return new Sha1Hash(alert.getPid());
     }
 }

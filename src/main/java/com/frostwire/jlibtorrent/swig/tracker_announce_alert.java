@@ -51,10 +51,6 @@ public class tracker_announce_alert extends tracker_alert {
     return libtorrent_jni.tracker_announce_alert_message(swigCPtr, this);
   }
 
-  public void setEvent(int value) {
-    libtorrent_jni.tracker_announce_alert_event_set(swigCPtr, this, value);
-  }
-
   public int getEvent() {
     return libtorrent_jni.tracker_announce_alert_event_get(swigCPtr, this);
   }

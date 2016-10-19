@@ -51,10 +51,6 @@ public class storage_moved_failed_alert extends torrent_alert {
     return libtorrent_jni.storage_moved_failed_alert_message(swigCPtr, this);
   }
 
-  public void setError(error_code value) {
-    libtorrent_jni.storage_moved_failed_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
-  }
-
   public error_code getError() {
     long cPtr = libtorrent_jni.storage_moved_failed_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);

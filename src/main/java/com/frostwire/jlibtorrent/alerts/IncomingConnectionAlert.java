@@ -21,23 +21,26 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
     }
 
     /**
-     * tells you what kind of socket the connection was accepted.
+     * Tells you what kind of socket the connection was accepted.
      *
-     * @return
+     * @return the socket type
      */
     public SocketType socketType() {
         return SocketType.fromSwig(alert.getSocket_type());
     }
 
     /**
-     * is the IP address and port the connection came from.
+     * It is the IP address and port the connection came from.
      *
-     * @return
+     * @return the endpoint
      */
-    public TcpEndpoint ip() {
-        return new TcpEndpoint(alert.getIp());
+    public TcpEndpoint endpoint() {
+        return new TcpEndpoint(alert.getEndpoint());
     }
 
+    /**
+     *
+     */
     public enum SocketType {
 
         /**
@@ -45,18 +48,39 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
          */
         NONE(0),
 
+        /**
+         *
+         */
         TCP(1),
 
+        /**
+         *
+         */
         SOCKS5(2),
 
+        /**
+         *
+         */
         HTTP(3),
 
+        /**
+         *
+         */
         UTP(4),
 
+        /**
+         *
+         */
         I2P(5),
 
+        /**
+         *
+         */
         SSL_TCP(6),
 
+        /**
+         *
+         */
         SSL_SOCKS5(7),
 
         /**
@@ -64,8 +88,14 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
          */
         HTTPS(8),
 
+        /**
+         *
+         */
         SSL_UTP(9),
 
+        /**
+         *
+         */
         UNKNOWN(-1);
 
         SocketType(int swigValue) {
@@ -74,10 +104,17 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
 
         private final int swigValue;
 
+        /**
+         * @return the native value
+         */
         public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue the native value
+         * @return the java enum
+         */
         public static SocketType fromSwig(int swigValue) {
             SocketType[] enumValues = SocketType.class.getEnumConstants();
             for (SocketType ev : enumValues) {

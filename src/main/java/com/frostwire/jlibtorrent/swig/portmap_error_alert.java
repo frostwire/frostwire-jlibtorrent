@@ -51,24 +51,12 @@ public class portmap_error_alert extends alert {
     return libtorrent_jni.portmap_error_alert_message(swigCPtr, this);
   }
 
-  public void setMapping(int value) {
-    libtorrent_jni.portmap_error_alert_mapping_set(swigCPtr, this, value);
-  }
-
   public int getMapping() {
     return libtorrent_jni.portmap_error_alert_mapping_get(swigCPtr, this);
   }
 
-  public void setMap_type(int value) {
-    libtorrent_jni.portmap_error_alert_map_type_set(swigCPtr, this, value);
-  }
-
   public int getMap_type() {
     return libtorrent_jni.portmap_error_alert_map_type_get(swigCPtr, this);
-  }
-
-  public void setError(error_code value) {
-    libtorrent_jni.portmap_error_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
 
   public error_code getError() {

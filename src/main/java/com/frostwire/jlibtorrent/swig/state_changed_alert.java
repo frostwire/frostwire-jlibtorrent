@@ -51,16 +51,8 @@ public class state_changed_alert extends torrent_alert {
     return libtorrent_jni.state_changed_alert_message(swigCPtr, this);
   }
 
-  public void setState(torrent_status.state_t value) {
-    libtorrent_jni.state_changed_alert_state_set(swigCPtr, this, value.swigValue());
-  }
-
   public torrent_status.state_t getState() {
     return torrent_status.state_t.swigToEnum(libtorrent_jni.state_changed_alert_state_get(swigCPtr, this));
-  }
-
-  public void setPrev_state(torrent_status.state_t value) {
-    libtorrent_jni.state_changed_alert_prev_state_set(swigCPtr, this, value.swigValue());
   }
 
   public torrent_status.state_t getPrev_state() {

@@ -51,16 +51,8 @@ public class unwanted_block_alert extends peer_alert {
     return libtorrent_jni.unwanted_block_alert_message(swigCPtr, this);
   }
 
-  public void setBlock_index(int value) {
-    libtorrent_jni.unwanted_block_alert_block_index_set(swigCPtr, this, value);
-  }
-
   public int getBlock_index() {
     return libtorrent_jni.unwanted_block_alert_block_index_get(swigCPtr, this);
-  }
-
-  public void setPiece_index(int value) {
-    libtorrent_jni.unwanted_block_alert_piece_index_set(swigCPtr, this, value);
   }
 
   public int getPiece_index() {

@@ -12,7 +12,7 @@ import com.frostwire.jlibtorrent.swig.picker_log_alert;
  */
 public final class PickerLogAlert extends PeerAlert<picker_log_alert> {
 
-    public PickerLogAlert(picker_log_alert alert) {
+    PickerLogAlert(picker_log_alert alert) {
         super(alert);
     }
 
@@ -20,7 +20,7 @@ public final class PickerLogAlert extends PeerAlert<picker_log_alert> {
      * This is a bitmask of which features were enabled for this particular
      * pick. The bits are defined in the picker_flags_t enum.
      *
-     * @return
+     * @return the flags
      */
     public long pickerFlags() {
         return alert.getPicker_flags();

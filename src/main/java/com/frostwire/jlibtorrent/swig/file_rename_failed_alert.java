@@ -51,16 +51,8 @@ public class file_rename_failed_alert extends torrent_alert {
     return libtorrent_jni.file_rename_failed_alert_message(swigCPtr, this);
   }
 
-  public void setIndex(int value) {
-    libtorrent_jni.file_rename_failed_alert_index_set(swigCPtr, this, value);
-  }
-
   public int getIndex() {
     return libtorrent_jni.file_rename_failed_alert_index_get(swigCPtr, this);
-  }
-
-  public void setError(error_code value) {
-    libtorrent_jni.file_rename_failed_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
 
   public error_code getError() {

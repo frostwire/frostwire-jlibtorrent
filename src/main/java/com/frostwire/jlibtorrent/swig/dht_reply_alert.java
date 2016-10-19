@@ -51,10 +51,6 @@ public class dht_reply_alert extends tracker_alert {
     return libtorrent_jni.dht_reply_alert_message(swigCPtr, this);
   }
 
-  public void setNum_peers(int value) {
-    libtorrent_jni.dht_reply_alert_num_peers_set(swigCPtr, this, value);
-  }
-
   public int getNum_peers() {
     return libtorrent_jni.dht_reply_alert_num_peers_get(swigCPtr, this);
   }

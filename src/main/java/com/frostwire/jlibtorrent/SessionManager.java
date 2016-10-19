@@ -903,7 +903,7 @@ public class SessionManager {
 
     private void onListenSucceeded(ListenSucceededAlert alert) {
         try {
-            if (alert.socketType() == ListenSucceededAlert.SocketType.TCP) {
+            if (alert.socketType() == SocketType.TCP) {
                 String address = alert.address().toString(); // clone
                 int port = alert.port();
                 listenEndpoints.add(new TcpEndpoint(address, port));

@@ -2,7 +2,6 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.ErrorCode;
-import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.listen_failed_alert;
 
 /**
@@ -64,10 +63,10 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * The type of listen socket this alert refers to.
      *
      * @return
-     * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.SocketType
+     * @see com.frostwire.jlibtorrent.alerts.SocketType
      */
     public SocketType socketType() {
-        return SocketType.fromSwig(alert.getSock_type().swigValue());
+        return SocketType.fromSwig(alert.getSocket_type().swigValue());
     }
 
     /**
@@ -88,74 +87,6 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      */
     public int port() {
         return alert.getPort();
-    }
-
-    /**
-     *
-     */
-    public enum SocketType {
-
-        /**
-         *
-         */
-        TCP(listen_failed_alert.socket_type_t.tcp.swigValue()),
-
-        /**
-         *
-         */
-        TCP_SSL(listen_failed_alert.socket_type_t.tcp_ssl.swigValue()),
-
-        /**
-         *
-         */
-        UDP(listen_failed_alert.socket_type_t.udp.swigValue()),
-
-        /**
-         *
-         */
-        I2P(listen_failed_alert.socket_type_t.i2p.swigValue()),
-
-        /**
-         *
-         */
-        SOCKS5(listen_failed_alert.socket_type_t.socks5.swigValue()),
-
-        /**
-         *
-         */
-        UTP_SSL(listen_failed_alert.socket_type_t.utp_ssl.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        SocketType(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static SocketType fromSwig(int swigValue) {
-            SocketType[] enumValues = SocketType.class.getEnumConstants();
-            for (SocketType ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
     }
 
     /**

@@ -51,17 +51,9 @@ public class dht_outgoing_get_peers_alert extends alert {
     return libtorrent_jni.dht_outgoing_get_peers_alert_message(swigCPtr, this);
   }
 
-  public void setInfo_hash(sha1_hash value) {
-    libtorrent_jni.dht_outgoing_get_peers_alert_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
-  }
-
   public sha1_hash getInfo_hash() {
     long cPtr = libtorrent_jni.dht_outgoing_get_peers_alert_info_hash_get(swigCPtr, this);
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
-  }
-
-  public void setObfuscated_info_hash(sha1_hash value) {
-    libtorrent_jni.dht_outgoing_get_peers_alert_obfuscated_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
   public sha1_hash getObfuscated_info_hash() {
@@ -69,12 +61,8 @@ public class dht_outgoing_get_peers_alert extends alert {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
-  public void setIp(udp_endpoint value) {
-    libtorrent_jni.dht_outgoing_get_peers_alert_ip_set(swigCPtr, this, udp_endpoint.getCPtr(value), value);
-  }
-
-  public udp_endpoint getIp() {
-    long cPtr = libtorrent_jni.dht_outgoing_get_peers_alert_ip_get(swigCPtr, this);
+  public udp_endpoint getEndpoint() {
+    long cPtr = libtorrent_jni.dht_outgoing_get_peers_alert_endpoint_get(swigCPtr, this);
     return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
   }
 

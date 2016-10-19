@@ -51,25 +51,13 @@ public class dht_announce_alert extends alert {
     return libtorrent_jni.dht_announce_alert_message(swigCPtr, this);
   }
 
-  public void setIp(address value) {
-    libtorrent_jni.dht_announce_alert_ip_set(swigCPtr, this, address.getCPtr(value), value);
-  }
-
   public address getIp() {
     long cPtr = libtorrent_jni.dht_announce_alert_ip_get(swigCPtr, this);
     return (cPtr == 0) ? null : new address(cPtr, false);
   }
 
-  public void setPort(int value) {
-    libtorrent_jni.dht_announce_alert_port_set(swigCPtr, this, value);
-  }
-
   public int getPort() {
     return libtorrent_jni.dht_announce_alert_port_get(swigCPtr, this);
-  }
-
-  public void setInfo_hash(sha1_hash value) {
-    libtorrent_jni.dht_announce_alert_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
   public sha1_hash getInfo_hash() {

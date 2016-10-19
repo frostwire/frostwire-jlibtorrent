@@ -55,8 +55,8 @@ public class incoming_connection_alert extends alert {
     return libtorrent_jni.incoming_connection_alert_socket_type_get(swigCPtr, this);
   }
 
-  public tcp_endpoint getIp() {
-    long cPtr = libtorrent_jni.incoming_connection_alert_ip_get(swigCPtr, this);
+  public tcp_endpoint getEndpoint() {
+    long cPtr = libtorrent_jni.incoming_connection_alert_endpoint_get(swigCPtr, this);
     return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
   }
 

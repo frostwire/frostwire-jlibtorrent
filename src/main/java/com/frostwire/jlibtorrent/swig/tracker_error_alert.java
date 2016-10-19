@@ -51,24 +51,12 @@ public class tracker_error_alert extends tracker_alert {
     return libtorrent_jni.tracker_error_alert_message(swigCPtr, this);
   }
 
-  public void setTimes_in_row(int value) {
-    libtorrent_jni.tracker_error_alert_times_in_row_set(swigCPtr, this, value);
-  }
-
   public int getTimes_in_row() {
     return libtorrent_jni.tracker_error_alert_times_in_row_get(swigCPtr, this);
   }
 
-  public void setStatus_code(int value) {
-    libtorrent_jni.tracker_error_alert_status_code_set(swigCPtr, this, value);
-  }
-
   public int getStatus_code() {
     return libtorrent_jni.tracker_error_alert_status_code_get(swigCPtr, this);
-  }
-
-  public void setError(error_code value) {
-    libtorrent_jni.tracker_error_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
 
   public error_code getError() {

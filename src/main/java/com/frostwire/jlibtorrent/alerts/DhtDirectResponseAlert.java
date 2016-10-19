@@ -28,10 +28,10 @@ public final class DhtDirectResponseAlert extends AbstractAlert<dht_direct_respo
     }
 
     /**
-     * @return the address
+     * @return the endpoint
      */
-    public UdpEndpoint address() {
-        return new UdpEndpoint(alert.getAddr());
+    public UdpEndpoint endpoint() {
+        return new UdpEndpoint(alert.getEndpoint());
     }
 
     /**

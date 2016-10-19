@@ -51,17 +51,9 @@ public class torrent_delete_failed_alert extends torrent_alert {
     return libtorrent_jni.torrent_delete_failed_alert_message(swigCPtr, this);
   }
 
-  public void setError(error_code value) {
-    libtorrent_jni.torrent_delete_failed_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
-  }
-
   public error_code getError() {
     long cPtr = libtorrent_jni.torrent_delete_failed_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);
-  }
-
-  public void setInfo_hash(sha1_hash value) {
-    libtorrent_jni.torrent_delete_failed_alert_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
   public sha1_hash getInfo_hash() {

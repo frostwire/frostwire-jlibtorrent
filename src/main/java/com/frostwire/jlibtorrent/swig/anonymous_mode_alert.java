@@ -51,16 +51,8 @@ public class anonymous_mode_alert extends torrent_alert {
     return libtorrent_jni.anonymous_mode_alert_message(swigCPtr, this);
   }
 
-  public void setKind(int value) {
-    libtorrent_jni.anonymous_mode_alert_kind_set(swigCPtr, this, value);
-  }
-
   public int getKind() {
     return libtorrent_jni.anonymous_mode_alert_kind_get(swigCPtr, this);
-  }
-
-  public void setStr(String value) {
-    libtorrent_jni.anonymous_mode_alert_str_set(swigCPtr, this, value);
   }
 
   public String getStr() {

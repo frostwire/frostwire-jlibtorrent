@@ -51,16 +51,8 @@ public class peer_error_alert extends peer_alert {
     return libtorrent_jni.peer_error_alert_message(swigCPtr, this);
   }
 
-  public void setOperation(int value) {
-    libtorrent_jni.peer_error_alert_operation_set(swigCPtr, this, value);
-  }
-
   public int getOperation() {
     return libtorrent_jni.peer_error_alert_operation_get(swigCPtr, this);
-  }
-
-  public void setError(error_code value) {
-    libtorrent_jni.peer_error_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
 
   public error_code getError() {

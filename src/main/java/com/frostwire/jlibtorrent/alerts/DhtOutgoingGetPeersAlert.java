@@ -39,9 +39,9 @@ public final class DhtOutgoingGetPeersAlert extends AbstractAlert<dht_outgoing_g
     /**
      * the endpoint we're sending this query to
      *
-     * @return
+     * @return the endpoint
      */
-    public UdpEndpoint ip() {
-        return new UdpEndpoint(alert.getIp());
+    public UdpEndpoint endpoint() {
+        return new UdpEndpoint(alert.getEndpoint());
     }
 }
