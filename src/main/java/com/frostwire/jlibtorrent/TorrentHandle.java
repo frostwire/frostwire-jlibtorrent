@@ -49,6 +49,9 @@ public final class TorrentHandle {
         this.th = th;
     }
 
+    /**
+     * @return the native object
+     */
     public torrent_handle swig() {
         return th;
     }
@@ -71,9 +74,9 @@ public final class TorrentHandle {
      * {@link com.frostwire.jlibtorrent.alerts.PieceFinishedAlert} or
      * {@link com.frostwire.jlibtorrent.alerts.HashFailedAlert}.
      *
-     * @param piece
-     * @param data
-     * @param flags
+     * @param piece the piece index
+     * @param data  the piece data
+     * @param flags flags
      */
     public void addPiece(int piece, byte[] data, int flags) {
         th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags);
@@ -83,8 +86,8 @@ public final class TorrentHandle {
      * Same as calling {@link #addPiece(int, byte[], int)} with
      * {@code flags} with value 0.
      *
-     * @param piece
-     * @param data
+     * @param piece the piece index
+     * @param data  the piece data
      */
     public void addPiece(int piece, byte[] data) {
         th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data));
@@ -103,7 +106,7 @@ public final class TorrentHandle {
      * Note that if you read multiple pieces, the read operations are not
      * guaranteed to finish in the same order as you initiated them.
      *
-     * @param piece
+     * @param piece the piece index
      */
     public void readPiece(int piece) {
         th.read_piece(piece);
@@ -113,8 +116,8 @@ public final class TorrentHandle {
      * Returns true if this piece has been completely downloaded, and false
      * otherwise.
      *
-     * @param piece
-     * @return
+     * @param piece the piece index
+     * @return if piece has been completely downloaded
      */
     public boolean havePiece(int piece) {
         return th.have_piece(piece);
