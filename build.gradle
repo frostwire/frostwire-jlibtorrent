@@ -72,17 +72,6 @@ task nativeLinuxJar(type: Zip) {
     into 'lib/'
 }
 
-task nativeDesktopDebugJar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-desktop-debug'
-    extension 'jar'
-    from fileTree(dir: 'swig/bin/debug/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib')
-    from fileTree(dir: 'swig/bin/debug/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib.debug')
-    from fileTree(dir: 'swig/bin/debug/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so')
-    from fileTree(dir: 'swig/bin/debug/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so.debug')
-    into 'lib/'
-}
-
 task nativeAndroidArmJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-arm'
@@ -115,35 +104,16 @@ task nativeAndroidX64Jar(type: Zip) {
     into 'lib/'
 }
 
-task nativeAndroidDebugArmJar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-android-debug-arm'
-    extension 'jar'
-    from fileTree(dir: 'swig/bin/debug/android', include: 'armeabi-v7a/libjlibtorrent.so')
-    into 'lib/'
-}
-
-task nativeAndroidDebugSymbolsArmJar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-android-debug-symbols-arm'
-    extension 'jar'
-    from fileTree(dir: 'swig/bin/debug/android', include: 'armeabi-v7a/libjlibtorrent.so.debug')
-    into 'lib/'
-}
-
 artifacts {
     archives sourcesJar
     archives javadocJar
     archives nativeMacOSXJar
     archives nativeWindowsJar
     archives nativeLinuxJar
-    archives nativeDesktopDebugJar
     archives nativeAndroidArmJar
     archives nativeAndroidX86Jar
     archives nativeAndroidArm64Jar
     archives nativeAndroidX64Jar
-    archives nativeAndroidDebugArmJar
-    archives nativeAndroidDebugSymbolsArmJar
 }
 
 signing {
@@ -168,9 +138,6 @@ uploadArchives {
             addFilter('jlibtorrent-linux') { artifact, file ->
                 artifact.name == 'jlibtorrent-linux'
             }
-            addFilter('jlibtorrent-desktop-debug') { artifact, file ->
-                artifact.name == 'jlibtorrent-desktop-debug'
-            }
             addFilter('jlibtorrent-android-arm') { artifact, file ->
                 artifact.name == 'jlibtorrent-android-arm'
             }
@@ -182,12 +149,6 @@ uploadArchives {
             }
             addFilter('jlibtorrent-android-x86_64') { artifact, file ->
                 artifact.name == 'jlibtorrent-android-x86_64'
-            }
-            addFilter('jlibtorrent-android-debug-arm') { artifact, file ->
-                artifact.name == 'jlibtorrent-android-debug-arm'
-            }
-            addFilter('jlibtorrent-android-debug-symbols-arm') { artifact, file ->
-                artifact.name == 'jlibtorrent-android-debug-symbols-arm'
             }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
@@ -214,10 +175,6 @@ uploadArchives {
                 asNode().children().last() + pomData()
                 addDependency(asNode())
             }
-            pom('jlibtorrent-desktop-debug').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
             pom('jlibtorrent-android-arm').withXml {
                 asNode().children().last() + pomData()
                 addDependency(asNode())
@@ -231,14 +188,6 @@ uploadArchives {
                 addDependency(asNode())
             }
             pom('jlibtorrent-android-x86_64').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
-            pom('jlibtorrent-android-debug-arm').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
-            pom('jlibtorrent-android-debug-symbols-arm').withXml {
                 asNode().children().last() + pomData()
                 addDependency(asNode())
             }

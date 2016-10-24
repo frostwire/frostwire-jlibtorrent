@@ -268,30 +268,6 @@ script:
   - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
       mv bin/release/windows/x86_64/libjlibtorrent.dll bin/release/windows/x86_64/jlibtorrent.dll;
     fi
-# debug symbols
-  - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-      ${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=debug toolset=clang-arm target-os=android location=bin/debug/android/armeabi-v7a;
-      cd bin/debug/android/armeabi-v7a;
-      ${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --only-keep-debug libjlibtorrent.so libjlibtorrent.so.debug;
-      ${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --strip-debug libjlibtorrent.so;
-      ${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --add-gnu-debuglink=libjlibtorrent.so.debug libjlibtorrent.so;
-      cd -;
-    fi
-  - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-      ${BOOST_ROOT}/b2 --user-config=config/linux-x86_64-config.jam variant=debug toolset=gcc-x86_64 target-os=linux location=bin/debug/linux/x86_64;
-      cd bin/debug/linux/x86_64;
-      objcopy --only-keep-debug libjlibtorrent.so libjlibtorrent.so.debug;
-      objcopy --strip-debug libjlibtorrent.so;
-      objcopy --add-gnu-debuglink=libjlibtorrent.so.debug libjlibtorrent.so;
-      cd -;
-    fi
-  - if [ $os_build == "macosx" ]; then
-      ${BOOST_ROOT}/b2 --user-config=config/macosx-x86_64-config.jam variant=debug toolset=clang-x86_64 target-os=darwin location=bin/debug/macosx/x86_64;
-      cd bin/debug/macosx/x86_64;
-      dsymutil -flat -o=libjlibtorrent.dylib.debug libjlibtorrent.dylib;
-      cd -;
-    fi
-# end debug symbols
   - $run_readelf
   - cd ..
 
