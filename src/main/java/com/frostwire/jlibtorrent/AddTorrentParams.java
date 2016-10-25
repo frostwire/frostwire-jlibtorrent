@@ -340,14 +340,14 @@ public final class AddTorrentParams {
     }
 
     /**
-     * @return
+     * @return max uploads limit
      */
     public int maxUploads() {
         return p.getMax_uploads();
     }
 
     /**
-     * @param value
+     * @param value max uploads limit
      */
     public void maxUploads(int value) {
         p.setMax_uploads(value);
@@ -484,6 +484,38 @@ public final class AddTorrentParams {
         }
 
         p.setPeers(v);
+    }
+
+    /**
+     * Peers banned from this torrent. The will not be connected to.
+     *
+     * @return the peers list
+     */
+    public ArrayList<TcpEndpoint> bannedPeers() {
+        tcp_endpoint_vector v = p.getBanned_peers();
+        int size = (int) v.size();
+        ArrayList<TcpEndpoint> l = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            l.add(new TcpEndpoint(v.get(i)));
+        }
+
+        return l;
+    }
+
+    /**
+     * Peers banned from this torrent. The will not be connected to.
+     *
+     * @param value the peers list
+     */
+    public void bannedPeers(List<TcpEndpoint> value) {
+        tcp_endpoint_vector v = new tcp_endpoint_vector();
+
+        for (TcpEndpoint endp : value) {
+            v.push_back(endp.swig());
+        }
+
+        p.setBanned_peers(v);
     }
 
     public static AddTorrentParams createInstance() {
