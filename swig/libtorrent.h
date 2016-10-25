@@ -275,17 +275,13 @@ void* get_libc() {
     return h;
 }
 
-int posix_open(const char* path, int flags, ...) {
+int posix_open(const char* path, int flags, mode_t mode) {
     typedef int func_t(const char*, int, ...);
     static func_t* f = (func_t*) dlsym(get_libc(), "open");
-    va_list v;
-    va_start(v, flags);
 #if defined TORRENT_ANDROID
     flags |= O_LARGEFILE;
 #endif
-    int r = (*f)(path, flags, v);
-    va_end(v);
-    return r;
+    return (*f)(path, flags, mode);
 }
 
 int posix_stat(const char *path, struct ::stat *buf) {
@@ -380,22 +376,17 @@ void set_posix_wrapper(posix_wrapper *obj) {
 extern "C" {
 
 int open(const char *path, int flags, ...) {
-    if (g_posix_wrapper != NULL) {
-        mode_t mode = 0;
-        if (flags & O_CREAT) {
-            va_list v;
-            va_start(v, flags);
-            mode = (mode_t) va_arg(v, int);
-            va_end(v);
-        }
-        return g_posix_wrapper->open(path, flags, mode);
-    } else {
+    mode_t mode = 0;
+    if (flags & O_CREAT) {
         va_list v;
         va_start(v, flags);
-        int r = posix_open(path, flags, v);
+        mode = (mode_t) va_arg(v, int);
         va_end(v);
-        return r;
     }
+
+    return g_posix_wrapper != NULL ?
+           g_posix_wrapper->open(path, flags, mode) :
+           posix_open(path, flags, mode);
 }
 
 int stat(const char *path, struct ::stat *buf) {
