@@ -71024,21 +71024,6 @@ fail:
 }
 
 
-static SwigV8ReturnValue _wrap_libtorrent_settings_pack_deprecated19(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::settings_pack::deprecated19));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
 static SwigV8ReturnValue _wrap_libtorrent_settings_pack_lock_files(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
   SWIGV8_HANDLESCOPE();
   
@@ -72050,21 +72035,6 @@ static SwigV8ReturnValue _wrap_libtorrent_settings_pack_active_limit(v8::Local<v
   v8::Handle<v8::Value> jsresult;
   
   jsresult = SWIG_From_int((int)(libtorrent::settings_pack::active_limit));
-  
-  SWIGV8_RETURN_INFO(jsresult, info);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN_INFO(SWIGV8_UNDEFINED(), info);
-}
-
-
-static SwigV8ReturnValue _wrap_libtorrent_settings_pack_active_loaded_limit(v8::Local<v8::String> property, const SwigV8PropertyCallbackInfo &info) {
-  SWIGV8_HANDLESCOPE();
-  
-  v8::Handle<v8::Value> jsresult;
-  
-  jsresult = SWIG_From_int((int)(libtorrent::settings_pack::active_loaded_limit));
   
   SWIGV8_RETURN_INFO(jsresult, info);
   
@@ -97940,7 +97910,6 @@ SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "no_connect_privileged_port
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "smooth_connects", _wrap_libtorrent_settings_pack_smooth_connects, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "always_send_user_agent", _wrap_libtorrent_settings_pack_always_send_user_agent, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "apply_ip_filter_to_trackers", _wrap_libtorrent_settings_pack_apply_ip_filter_to_trackers, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "deprecated19", _wrap_libtorrent_settings_pack_deprecated19, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "lock_files", _wrap_libtorrent_settings_pack_lock_files, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "ban_web_seeds", _wrap_libtorrent_settings_pack_ban_web_seeds, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "allow_partial_disk_writes", _wrap_libtorrent_settings_pack_allow_partial_disk_writes, JS_veto_set_variable);
@@ -98009,7 +97978,6 @@ SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "active_dht_limit", _wrap_l
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "active_tracker_limit", _wrap_libtorrent_settings_pack_active_tracker_limit, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "active_lsd_limit", _wrap_libtorrent_settings_pack_active_lsd_limit, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "active_limit", _wrap_libtorrent_settings_pack_active_limit, JS_veto_set_variable);
-SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "active_loaded_limit", _wrap_libtorrent_settings_pack_active_loaded_limit, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "auto_manage_interval", _wrap_libtorrent_settings_pack_auto_manage_interval, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "seed_time_limit", _wrap_libtorrent_settings_pack_seed_time_limit, JS_veto_set_variable);
 SWIGV8_AddStaticVariable(_exports_settings_pack_obj, "auto_scrape_interval", _wrap_libtorrent_settings_pack_auto_scrape_interval, JS_veto_set_variable);

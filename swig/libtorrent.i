@@ -765,6 +765,8 @@ typedef long time_t;
 %ignore libtorrent::settings_pack::deprecated16;
 %ignore libtorrent::settings_pack::deprecated17;
 %ignore libtorrent::settings_pack::deprecated18;
+%ignore libtorrent::settings_pack::deprecated19;
+%ignore libtorrent::settings_pack::deprecated20;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
