@@ -28,6 +28,7 @@ rule libtorrent_linking ( properties * )
     result += <disk-stats>on ;
     result += <utp-log>on ;
     result += <rtti>off ;
+    result += <optimization>space ;
 
     return $(result) ;
 }
