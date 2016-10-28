@@ -298,31 +298,6 @@ public final class SettingsPack {
     }
 
     /**
-     * {@code active_loaded_limit} is the number of torrents that are allowed
-     * to be *loaded* at any given time. Note that a torrent can be active
-     * even though it's not loaded. If an unloaded torrents finds a peer
-     * that wants to access it, the torrent will be loaded on demand,
-     * using a user-supplied callback function. If the feature of
-     * unloading torrents is not enabled, this setting have no effect. If
-     * this limit is set to 0, it means unlimited.
-     *
-     * @return
-     * @see #activeDownloads()
-     */
-    public int activeLoadedLimit() {
-        return sp.get_int(settings_pack.int_types.active_loaded_limit.swigValue());
-    }
-
-    /**
-     * @param value
-     * @see #activeLoadedLimit()
-     */
-    public SettingsPack activeLoadedLimit(int value) {
-        sp.set_int(settings_pack.int_types.active_loaded_limit.swigValue(), value);
-        return this;
-    }
-
-    /**
      * @return global limit on the number of connections opened.
      */
     public int connectionsLimit() {
