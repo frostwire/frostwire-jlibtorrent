@@ -125,8 +125,7 @@ public class settings_pack {
   public final static class string_types {
     public final static settings_pack.string_types user_agent = new settings_pack.string_types("user_agent", libtorrent_jni.settings_pack_user_agent_get());
     public final static settings_pack.string_types announce_ip = new settings_pack.string_types("announce_ip");
-    public final static settings_pack.string_types mmap_cache = new settings_pack.string_types("mmap_cache");
-    public final static settings_pack.string_types handshake_client_version = new settings_pack.string_types("handshake_client_version");
+    public final static settings_pack.string_types handshake_client_version = new settings_pack.string_types("handshake_client_version", libtorrent_jni.settings_pack_handshake_client_version_get());
     public final static settings_pack.string_types outgoing_interfaces = new settings_pack.string_types("outgoing_interfaces");
     public final static settings_pack.string_types listen_interfaces = new settings_pack.string_types("listen_interfaces");
     public final static settings_pack.string_types proxy_hostname = new settings_pack.string_types("proxy_hostname");
@@ -171,7 +170,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static string_types[] swigValues = { user_agent, announce_ip, mmap_cache, handshake_client_version, outgoing_interfaces, listen_interfaces, proxy_hostname, proxy_username, proxy_password, i2p_hostname, peer_fingerprint, dht_bootstrap_nodes, max_string_setting_internal };
+    private static string_types[] swigValues = { user_agent, announce_ip, handshake_client_version, outgoing_interfaces, listen_interfaces, proxy_hostname, proxy_username, proxy_password, i2p_hostname, peer_fingerprint, dht_bootstrap_nodes, max_string_setting_internal };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

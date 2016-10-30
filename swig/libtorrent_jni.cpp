@@ -1446,7 +1446,6 @@ SWIGINTERN libtorrent::torrent_need_cert_alert const *libtorrent_alert_cast_to_t
 SWIGINTERN libtorrent::incoming_connection_alert const *libtorrent_alert_cast_to_incoming_connection_alert(libtorrent::alert const *a){          return libtorrent::alert_cast<libtorrent::incoming_connection_alert>(a);      }
 SWIGINTERN libtorrent::add_torrent_alert const *libtorrent_alert_cast_to_add_torrent_alert(libtorrent::alert const *a){          return libtorrent::alert_cast<libtorrent::add_torrent_alert>(a);      }
 SWIGINTERN libtorrent::state_update_alert const *libtorrent_alert_cast_to_state_update_alert(libtorrent::alert const *a){          return libtorrent::alert_cast<libtorrent::state_update_alert>(a);      }
-SWIGINTERN libtorrent::mmap_cache_alert const *libtorrent_alert_cast_to_mmap_cache_alert(libtorrent::alert const *a){          return libtorrent::alert_cast<libtorrent::mmap_cache_alert>(a);      }
 SWIGINTERN libtorrent::session_stats_alert const *libtorrent_alert_cast_to_session_stats_alert(libtorrent::alert const *a){          return libtorrent::alert_cast<libtorrent::session_stats_alert>(a);      }
 SWIGINTERN libtorrent::dht_error_alert const *libtorrent_alert_cast_to_dht_error_alert(libtorrent::alert const *a){          return libtorrent::alert_cast<libtorrent::dht_error_alert>(a);      }
 SWIGINTERN libtorrent::dht_immutable_item_alert const *libtorrent_alert_cast_to_dht_immutable_item_alert(libtorrent::alert const *a){          return libtorrent::alert_cast<libtorrent::dht_immutable_item_alert>(a);      }
@@ -27008,31 +27007,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1cast_1to_1mmap_1cache_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::alert *arg1 = (libtorrent::alert *) 0 ;
-  libtorrent::mmap_cache_alert *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::alert **)&jarg1; 
-  {
-    try {
-      result = (libtorrent::mmap_cache_alert *)libtorrent_alert_cast_to_mmap_cache_alert((libtorrent::alert const *)arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(libtorrent::mmap_cache_alert **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1cast_1to_1session_1stats_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::alert *arg1 = (libtorrent::alert *) 0 ;
@@ -39746,177 +39720,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1priority_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)libtorrent::mmap_cache_alert::priority;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1alert_1type_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)libtorrent::mmap_cache_alert::alert_type;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1type(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  libtorrent::mmap_cache_alert *arg1 = (libtorrent::mmap_cache_alert *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::mmap_cache_alert **)&jarg1; 
-  {
-    try {
-      result = (int)((libtorrent::mmap_cache_alert const *)arg1)->type();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1category(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  libtorrent::mmap_cache_alert *arg1 = (libtorrent::mmap_cache_alert *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::mmap_cache_alert **)&jarg1; 
-  {
-    try {
-      result = (int)((libtorrent::mmap_cache_alert const *)arg1)->category();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1what(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  libtorrent::mmap_cache_alert *arg1 = (libtorrent::mmap_cache_alert *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::mmap_cache_alert **)&jarg1; 
-  {
-    try {
-      result = (char *)((libtorrent::mmap_cache_alert const *)arg1)->what();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1static_1category_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)libtorrent::mmap_cache_alert::static_category;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1message(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  libtorrent::mmap_cache_alert *arg1 = (libtorrent::mmap_cache_alert *) 0 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::mmap_cache_alert **)&jarg1; 
-  {
-    try {
-      result = ((libtorrent::mmap_cache_alert const *)arg1)->message();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::mmap_cache_alert *arg1 = (libtorrent::mmap_cache_alert *) 0 ;
-  libtorrent::error_code *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::mmap_cache_alert **)&jarg1; 
-  result = (libtorrent::error_code *)& ((arg1)->error);
-  *(libtorrent::error_code **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1mmap_1cache_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  libtorrent::mmap_cache_alert *arg1 = (libtorrent::mmap_cache_alert *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(libtorrent::mmap_cache_alert **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1stats_1alert_1priority_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
@@ -47122,6 +46925,18 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sett
   (void)jenv;
   (void)jcls;
   result = (libtorrent::settings_pack::string_types)libtorrent::settings_pack::user_agent;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_settings_1pack_1handshake_1client_1version_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  libtorrent::settings_pack::string_types result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (libtorrent::settings_pack::string_types)libtorrent::settings_pack::handshake_client_version;
   jresult = (jint)result; 
   return jresult;
 }
@@ -56269,48 +56084,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ed2
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_default_1storage_1disk_1write_1access_1log_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
-  jboolean jresult = 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (bool)default_storage_disk_write_access_log();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_default_1storage_1disk_1write_1access_1log_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
-  bool arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = jarg1 ? true : false; 
-  {
-    try {
-      default_storage_disk_write_access_log(arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1alert_1notify_1callback(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   alert_notify_callback *arg1 = (alert_notify_callback *) 0 ;
   
@@ -57519,48 +57292,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_is_1utp_1stream_1logging(JNIEnv *jenv, jclass jcls) {
-  jboolean jresult = 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (bool)libtorrent::is_utp_stream_logging();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1utp_1stream_1logging(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
-  bool arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = jarg1 ? true : false; 
-  {
-    try {
-      libtorrent::set_utp_stream_logging(arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1alert_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong baseptr = 0;
     (void)jenv;
@@ -58102,14 +57833,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sta
     (void)jenv;
     (void)jcls;
     *(libtorrent::alert **)&baseptr = *(libtorrent::state_update_alert **)&jarg1;
-    return baseptr;
-}
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mmap_1cache_1alert_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jlong baseptr = 0;
-    (void)jenv;
-    (void)jcls;
-    *(libtorrent::alert **)&baseptr = *(libtorrent::mmap_cache_alert **)&jarg1;
     return baseptr;
 }
 

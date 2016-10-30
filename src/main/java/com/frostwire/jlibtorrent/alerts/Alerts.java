@@ -441,7 +441,7 @@ public final class Alerts {
         arr[69] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new MmapCacheAlert(cast_to_mmap_cache_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[70] = new CastLambda() {

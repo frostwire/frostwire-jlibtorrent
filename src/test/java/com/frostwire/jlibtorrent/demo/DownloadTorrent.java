@@ -20,9 +20,6 @@ public final class DownloadTorrent {
 
     public static void main(String[] args) throws Throwable {
 
-        //default_storage.disk_write_access_log(true);
-        //libtorrent.set_utp_stream_logging(true);
-
         // comment this line for a real application
         args = new String[]{"/Users/aldenml/Downloads/Honey_Larochelle_Hijack_FrostClick_FrostWire_MP3_May_06_2016.torrent"};
 
@@ -71,8 +68,5 @@ public final class DownloadTorrent {
         signal.await();
 
         s.stop();
-
-        //libtorrent.default_storage_disk_write_access_log(false);
-        //libtorrent.set_utp_stream_logging(false);
     }
 }

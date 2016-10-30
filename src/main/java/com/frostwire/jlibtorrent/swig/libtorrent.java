@@ -129,14 +129,6 @@ public class libtorrent implements libtorrentConstants {
     return new byte_vector(libtorrent_jni.ed25519_key_exchange(byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk), true);
   }
 
-  public static boolean default_storage_disk_write_access_log() {
-    return libtorrent_jni.default_storage_disk_write_access_log__SWIG_0();
-  }
-
-  public static void default_storage_disk_write_access_log(boolean enable) {
-    libtorrent_jni.default_storage_disk_write_access_log__SWIG_1(enable);
-  }
-
   public static void add_files(file_storage fs, String file, add_files_listener listener, long flags) {
     libtorrent_jni.add_files(file_storage.getCPtr(fs), fs, file, add_files_listener.getCPtr(listener), listener, flags);
   }
@@ -163,14 +155,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static void set_posix_wrapper(posix_wrapper obj) {
     libtorrent_jni.set_posix_wrapper(posix_wrapper.getCPtr(obj), obj);
-  }
-
-  public static boolean is_utp_stream_logging() {
-    return libtorrent_jni.is_utp_stream_logging();
-  }
-
-  public static void set_utp_stream_logging(boolean enable) {
-    libtorrent_jni.set_utp_stream_logging(enable);
   }
 
 }

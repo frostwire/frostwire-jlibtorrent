@@ -767,6 +767,7 @@ typedef long time_t;
 %ignore libtorrent::settings_pack::deprecated18;
 %ignore libtorrent::settings_pack::deprecated19;
 %ignore libtorrent::settings_pack::deprecated20;
+%ignore libtorrent::settings_pack::deprecated21;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
@@ -1006,7 +1007,6 @@ namespace libtorrent {
     CAST_ALERT_METHOD(incoming_connection_alert)
     CAST_ALERT_METHOD(add_torrent_alert)
     CAST_ALERT_METHOD(state_update_alert)
-    CAST_ALERT_METHOD(mmap_cache_alert)
     CAST_ALERT_METHOD(session_stats_alert)
     CAST_ALERT_METHOD(dht_error_alert)
     CAST_ALERT_METHOD(dht_immutable_item_alert)
@@ -1292,9 +1292,6 @@ namespace libtorrent {
         return (int64_t)$self->userdata;
     }
 }
-
-bool is_utp_stream_logging();
-void set_utp_stream_logging(bool enable);
 
 }
 

@@ -47,7 +47,6 @@ public enum AlertType {
     EXTERNAL_IP(external_ip_alert.alert_type),
     LISTEN_SUCCEEDED(listen_succeeded_alert.alert_type),
     STATE_UPDATE(state_update_alert.alert_type),
-    MMAP_CACHE(mmap_cache_alert.alert_type),
     SESSION_STATS(session_stats_alert.alert_type),
     SCRAPE_REPLY(scrape_reply_alert.alert_type),
     SCRAPE_FAILED(scrape_failed_alert.alert_type),
@@ -193,7 +192,7 @@ public enum AlertType {
         arr[66] = INCOMING_CONNECTION;
         arr[67] = ADD_TORRENT;
         arr[68] = STATE_UPDATE;
-        arr[69] = MMAP_CACHE;
+        arr[69] = UNKNOWN;
         arr[70] = SESSION_STATS;
         arr[71] = UNKNOWN;
         arr[72] = UNKNOWN;

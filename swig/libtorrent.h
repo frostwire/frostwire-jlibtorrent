@@ -118,14 +118,6 @@ std::vector<int8_t> ed25519_key_exchange(std::vector<int8_t>& pk,
     return std::vector<int8_t>(secret.begin(), secret.end());
 }
 
-bool default_storage_disk_write_access_log() {
-    return libtorrent::default_storage::disk_write_access_log();
-}
-
-void default_storage_disk_write_access_log(bool enable) {
-    return libtorrent::default_storage::disk_write_access_log(enable);
-}
-
 struct alert_notify_callback {
 
     virtual ~alert_notify_callback() {

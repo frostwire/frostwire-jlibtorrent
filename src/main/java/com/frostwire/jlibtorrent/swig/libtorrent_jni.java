@@ -1085,7 +1085,6 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_incoming_connection_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_add_torrent_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_state_update_alert(long jarg1, alert jarg1_);
-  public final static native long alert_cast_to_mmap_cache_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_session_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_error_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_immutable_item_alert(long jarg1, alert jarg1_);
@@ -1745,15 +1744,6 @@ public class libtorrent_jni {
   public final static native String state_update_alert_message(long jarg1, state_update_alert jarg1_);
   public final static native long state_update_alert_status_get(long jarg1, state_update_alert jarg1_);
   public final static native void delete_state_update_alert(long jarg1);
-  public final static native int mmap_cache_alert_priority_get();
-  public final static native int mmap_cache_alert_alert_type_get();
-  public final static native int mmap_cache_alert_type(long jarg1, mmap_cache_alert jarg1_);
-  public final static native int mmap_cache_alert_category(long jarg1, mmap_cache_alert jarg1_);
-  public final static native String mmap_cache_alert_what(long jarg1, mmap_cache_alert jarg1_);
-  public final static native int mmap_cache_alert_static_category_get();
-  public final static native String mmap_cache_alert_message(long jarg1, mmap_cache_alert jarg1_);
-  public final static native long mmap_cache_alert_error_get(long jarg1, mmap_cache_alert jarg1_);
-  public final static native void delete_mmap_cache_alert(long jarg1);
   public final static native int session_stats_alert_priority_get();
   public final static native int session_stats_alert_alert_type_get();
   public final static native int session_stats_alert_type(long jarg1, session_stats_alert jarg1_);
@@ -2181,6 +2171,7 @@ public class libtorrent_jni {
   public final static native int settings_pack_type_mask_get();
   public final static native int settings_pack_index_mask_get();
   public final static native int settings_pack_user_agent_get();
+  public final static native int settings_pack_handshake_client_version_get();
   public final static native int settings_pack_allow_multiple_connections_per_ip_get();
   public final static native int settings_pack_send_redundant_have_get();
   public final static native int settings_pack_use_dht_as_fallback_get();
@@ -2654,8 +2645,6 @@ public class libtorrent_jni {
   public final static native long ed25519_add_scalar_public(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_);
   public final static native long ed25519_add_scalar_secret(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_);
   public final static native long ed25519_key_exchange(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_);
-  public final static native boolean default_storage_disk_write_access_log__SWIG_0();
-  public final static native void default_storage_disk_write_access_log__SWIG_1(boolean jarg1);
   public final static native void delete_alert_notify_callback(long jarg1);
   public final static native void alert_notify_callback_on_alert(long jarg1, alert_notify_callback jarg1_);
   public final static native void alert_notify_callback_on_alertSwigExplicitalert_notify_callback(long jarg1, alert_notify_callback jarg1_);
@@ -2707,8 +2696,6 @@ public class libtorrent_jni {
   public final static native void posix_wrapper_director_connect(posix_wrapper obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void posix_wrapper_change_ownership(posix_wrapper obj, long cptr, boolean take_or_release);
   public final static native void set_posix_wrapper(long jarg1, posix_wrapper jarg1_);
-  public final static native boolean is_utp_stream_logging();
-  public final static native void set_utp_stream_logging(boolean jarg1);
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
   public final static native long tracker_alert_SWIGUpcast(long jarg1);
@@ -2777,7 +2764,6 @@ public class libtorrent_jni {
   public final static native long incoming_connection_alert_SWIGUpcast(long jarg1);
   public final static native long add_torrent_alert_SWIGUpcast(long jarg1);
   public final static native long state_update_alert_SWIGUpcast(long jarg1);
-  public final static native long mmap_cache_alert_SWIGUpcast(long jarg1);
   public final static native long session_stats_alert_SWIGUpcast(long jarg1);
   public final static native long dht_error_alert_SWIGUpcast(long jarg1);
   public final static native long dht_immutable_item_alert_SWIGUpcast(long jarg1);
