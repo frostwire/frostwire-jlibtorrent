@@ -42,8 +42,6 @@ function runJni()
         -DTORRENT_NO_RETURN="" \
         -DTORRENT_DEBUG_REFCOUNTS=1 \
         -DTORRENT_FORMAT\(x,y\)="" \
-        -DTORRENT_DISK_STATS=1 \
-        -DTORRENT_UTP_LOG_ENABLE=1 \
         -DNDEBUG=1 \
         libtorrent.i
 
@@ -81,8 +79,6 @@ function runNode()
         -DTORRENT_NO_RETURN="" \
         -DTORRENT_DEBUG_REFCOUNTS=1 \
         -DTORRENT_FORMAT\(x,y\)="" \
-        -DTORRENT_DISK_STATS=1 \
-        -DTORRENT_UTP_LOG_ENABLE=1 \
         -DNDEBUG=1 \
         libtorrent.i
 }
