@@ -88,47 +88,6 @@ $ git checkout master
 - To trigger a new build, just make a change or merge new changes from
  the stable branch, commit and push.
 
-NodeJs JLibTorrent Module (alpha)
-======
-We have recently added support for a NodeJS binary module so you can now have all the power of libtorrent in Javascript/Node.
-
-*Help Wanted:* At the moment we can only do simple things, like creating torrents and opening torrents, but nothing related to an actual torrenting session is still available, we need to figure out how to add a thread to process libtorrent alerts and then invoke the necessary callbacks for these alerts.
-
-For now it builds, it can be imported in node and you can do simple things.
-
-```bash
-MBP:swig aldenml$ node
-> var jlib = require("./build/Release/jlibtorrent");
-undefined
-> var s = new jlib.session()
-undefined
-> var ti = new jlib.torrent_info("/Users/aldenml/Downloads/Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015.torrent");
-undefined
-> ti
-torrent_info {}
-> ti.name()
-'Lisa_Richards_Beating_of_the_Sun_FrostWire_MP3_Nov_09_2015'
->
-```
-
-[Here is an example of how to create a simple .torrent](https://gist.github.com/gubatron/afc811c5d3c9ff99a860) using the low level libtorrent API already available in Javascript/Node.
-
-If you want to build the NodeJS module, you will need to install [node-gyp](https://github.com/nodejs/node-gyp)
-```
-npm install -g node-gyp
-```
-
-then from the `swig/` folder you can build the NodeJS jlibtorrent module with
-```
-node-gyp build
-```
-
-after the build is done, you can test by going to the `swig/build/Release` folder and issuing:
-```bash
-$ node -e "var jlibtorrent = require('./jlibtorrent'); console.log(jlibtorrent.LIBTORRENT_VERSION);"
-1.1.0.0
-```
-
 **Contributions are rewarded instantly with our Bitcoin donations fund**
 
 [![tip for next commit](https://tip4commit.com/projects/983.svg)](https://tip4commit.com/github/frostwire/frostwire-jlibtorrent)
