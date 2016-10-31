@@ -35,12 +35,6 @@ function runJni()
         -DTORRENT_DEPRECATED \
         -DTORRENT_EXPORT="" \
         -DTORRENT_EXTRA_EXPORT="" \
-        -DTORRENT_USE_IPV6=1 \
-        -DTORRENT_DISABLE_GEO_IP=1 \
-        -DTORRENT_USE_BOOST_DATE_TIME=1 \
-        -DTORRENT_EXCEPTION_THROW_SPECIFIER=noexcept \
-        -DTORRENT_NO_RETURN="" \
-        -DTORRENT_DEBUG_REFCOUNTS=1 \
         -DTORRENT_FORMAT\(x,y\)="" \
         -DNDEBUG=1 \
         libtorrent.i
