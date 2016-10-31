@@ -52,38 +52,6 @@ function runJni()
     sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
 }
 
-function runNode()
-{
-    swig -c++ -javascript -node -o libtorrent_node.cpp \
-        -DV8_VERSION=0x040685 \
-        -I${BOOST_ROOT} \
-        -I${LIBTORRENT_ROOT}/include \
-        -DBOOST_ASIO_DECL="" \
-        -DBOOST_NO_TYPEID=1 \
-        -DBOOST_NO_EXCEPTIONS \
-        -DBOOST_POSIX_API=1 \
-        -DBOOST_SYSTEM_NOEXCEPT="" \
-        -DBOOST_SYSTEM_DECL="" \
-        -DBOOST_SYSTEM_NO_DEPRECATED=1 \
-        -DBOOST_NO_IOSTREAM \
-        -DTORRENT_CFG="TORRENT_CFG" \
-        -DTORRENT_NO_DEPRECATE \
-        -DTORRENT_DEPRECATED_EXPORT="" \
-        -DTORRENT_DEPRECATED \
-        -DTORRENT_EXPORT="" \
-        -DTORRENT_EXTRA_EXPORT="" \
-        -DTORRENT_USE_IPV6=1 \
-        -DTORRENT_DISABLE_GEO_IP=1 \
-        -DTORRENT_USE_BOOST_DATE_TIME=1 \
-        -DTORRENT_EXCEPTION_THROW_SPECIFIER=noexcept \
-        -DTORRENT_NO_RETURN="" \
-        -DTORRENT_DEBUG_REFCOUNTS=1 \
-        -DTORRENT_FORMAT\(x,y\)="" \
-        -DNDEBUG=1 \
-        libtorrent.i
-}
-
 fixAlertFinal
 runJni
-runNode
 refixAlertFinal
