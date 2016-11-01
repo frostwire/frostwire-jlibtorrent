@@ -611,14 +611,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_moving_storage_get(swigCPtr, this);
   }
 
-  public void setDeprecated_is_loaded(boolean value) {
-    libtorrent_jni.torrent_status_deprecated_is_loaded_set(swigCPtr, this, value);
-  }
-
-  public boolean getDeprecated_is_loaded() {
-    return libtorrent_jni.torrent_status_deprecated_is_loaded_get(swigCPtr, this);
-  }
-
   public void setAnnouncing_to_trackers(boolean value) {
     libtorrent_jni.torrent_status_announcing_to_trackers_set(swigCPtr, this, value);
   }

@@ -783,6 +783,7 @@ typedef long time_t;
 %ignore libtorrent::torrent_status::deprecated_announce_interval_;
 %ignore libtorrent::torrent_status::deprecated_priority;
 %ignore libtorrent::torrent_status::unused_enum_for_backwards_compatibility;
+%ignore libtorrent::torrent_status::deprecated_is_loaded;
 %ignore libtorrent::file_storage::file_storage(file_storage&&);
 %ignore libtorrent::file_storage::file_path_hash;
 %ignore libtorrent::file_storage::all_path_hashes;

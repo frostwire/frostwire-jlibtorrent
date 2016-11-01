@@ -36,7 +36,7 @@ public final class TorrentStatus {
      * is not paused or if it's paused but not because of an error,
      * this string is empty.
      *
-     * @return
+     * @return the error code
      */
     public ErrorCode errorCode() {
         return new ErrorCode(ts.getErrc());
@@ -50,7 +50,7 @@ public final class TorrentStatus {
      * This field is only included if the torrent status is queried
      * with ``torrent_handle::query_name``.
      *
-     * @return
+     * @return the name
      */
     public String name() {
         return ts.getName();
@@ -59,7 +59,7 @@ public final class TorrentStatus {
     /**
      * The time until the torrent will announce itself to the tracker (in milliseconds).
      *
-     * @return
+     * @return the next announce time
      */
     public long nextAnnounce() {
         return ts.get_next_announce();

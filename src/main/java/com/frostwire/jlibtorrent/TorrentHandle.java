@@ -1029,7 +1029,7 @@ public final class TorrentHandle {
      * @param flags
      */
     public void setPieceDeadline(int index, int deadline, DeadlineFlags flags) {
-        th.set_piece_deadline(index, deadline, flags.getSwig());
+        th.set_piece_deadline(index, deadline, flags.swig());
     }
 
     /**
@@ -1069,11 +1069,11 @@ public final class TorrentHandle {
      * already keeps track of this internally and no calculation is required.
      *
      * @param flags
-     * @return
+     * @return the file progress
      */
-    public long[] getFileProgress(FileProgressFlags flags) {
+    public long[] fileProgress(FileProgressFlags flags) {
         int64_vector v = new int64_vector();
-        th.file_progress(v, flags.getSwig());
+        th.file_progress(v, flags.swig());
         return Vectors.int64_vector2longs(v);
     }
 
@@ -1085,9 +1085,9 @@ public final class TorrentHandle {
      * of files, *m* is the number of downloading pieces and *j* is the
      * number of blocks in a piece.
      *
-     * @return
+     * @return the file progress
      */
-    public long[] getFileProgress() {
+    public long[] fileProgress() {
         int64_vector v = new int64_vector();
         th.file_progress(v);
         return Vectors.int64_vector2longs(v);
@@ -1100,7 +1100,7 @@ public final class TorrentHandle {
      *
      * @return
      */
-    public String getSavePath() {
+    public String savePath() {
         torrent_status ts = th.status(status_flags_t.query_save_path.swigValue());
         return ts.getSave_path();
     }
@@ -1291,13 +1291,16 @@ public final class TorrentHandle {
          */
         QUERY_SAVE_PATH(status_flags_t.query_save_path.swigValue());
 
-        private StatusFlags(int swigValue) {
+        StatusFlags(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return the native value
+         */
+        public int swig() {
             return swigValue;
         }
     }
@@ -1307,15 +1310,21 @@ public final class TorrentHandle {
      */
     public enum DeadlineFlags {
 
+        /**
+         *
+         */
         ALERT_WHEN_AVAILABLE(torrent_handle.deadline_flags.alert_when_available.swigValue());
 
-        private DeadlineFlags(int swigValue) {
+        DeadlineFlags(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return the native value
+         */
+        public int swig() {
             return swigValue;
         }
     }
@@ -1325,8 +1334,6 @@ public final class TorrentHandle {
      */
     public enum FileProgressFlags {
 
-        DEFAULT(0),
-
         /**
          * only calculate file progress at piece granularity. This makes
          * the file_progress() call cheaper and also only takes bytes that
@@ -1335,13 +1342,16 @@ public final class TorrentHandle {
          */
         PIECE_GRANULARITY(torrent_handle.file_progress_flags_t.piece_granularity.swigValue());
 
-        private FileProgressFlags(int swigValue) {
+        FileProgressFlags(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return the native value
+         */
+        public int swig() {
             return swigValue;
         }
     }

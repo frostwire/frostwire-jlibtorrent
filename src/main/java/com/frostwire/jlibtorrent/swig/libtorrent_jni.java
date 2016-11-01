@@ -2624,8 +2624,6 @@ public class libtorrent_jni {
   public final static native boolean torrent_status_seed_mode_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_moving_storage_set(long jarg1, torrent_status jarg1_, boolean jarg2);
   public final static native boolean torrent_status_moving_storage_get(long jarg1, torrent_status jarg1_);
-  public final static native void torrent_status_deprecated_is_loaded_set(long jarg1, torrent_status jarg1_, boolean jarg2);
-  public final static native boolean torrent_status_deprecated_is_loaded_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_announcing_to_trackers_set(long jarg1, torrent_status jarg1_, boolean jarg2);
   public final static native boolean torrent_status_announcing_to_trackers_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_announcing_to_lsd_set(long jarg1, torrent_status jarg1_, boolean jarg2);
