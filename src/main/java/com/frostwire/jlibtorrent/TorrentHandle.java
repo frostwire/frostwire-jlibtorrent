@@ -183,7 +183,7 @@ public final class TorrentHandle {
      * It is important not to call this method for each field in the status
      * for performance reasons.
      *
-     * @return
+     * @return the status
      */
     public TorrentStatus status(boolean force) {
         long now = System.currentTimeMillis();
@@ -204,10 +204,23 @@ public final class TorrentHandle {
      * you're not interested in it (and see performance issues), you can
      * filter them out.
      *
-     * @return
+     * @return the status
      */
     public TorrentStatus status() {
         return status(false);
+    }
+
+    /**
+     * This method returns an up to date torrent status, the {@code flags} parameters
+     * is an or-combination of the {@link StatusFlags} native values, in case you want
+     * advanced (and expensive) fields filled. We recommend the use of the simple call
+     * to {@link #status()} that internally keep a cache with a small time resolution.
+     *
+     * @param flags
+     * @return the status
+     */
+    public TorrentStatus status(long flags) {
+        return new TorrentStatus(th.status(flags));
     }
 
     /**
@@ -1111,9 +1124,9 @@ public final class TorrentHandle {
      * and hasn't completely received it yet, it returns the name given
      * to it when added to the session.
      *
-     * @return
+     * @return the name
      */
-    public String getName() {
+    public String name() {
         torrent_status ts = th.status(status_flags_t.query_name.swigValue());
         return ts.getName();
     }
@@ -1306,7 +1319,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * Flags for {@link #setPieceDeadline(int, int, com.frostwire.jlibtorrent.TorrentHandle.DeadlineFlags)}.
+     * Flags for {@link #setPieceDeadline(int, int, TorrentHandle.DeadlineFlags)}.
      */
     public enum DeadlineFlags {
 
@@ -1330,7 +1343,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * Flags to be passed in {@link #getFileProgress(com.frostwire.jlibtorrent.TorrentHandle.FileProgressFlags)}.
+     * Flags to be passed in {@link #fileProgress(TorrentHandle.FileProgressFlags)}.
      */
     public enum FileProgressFlags {
 

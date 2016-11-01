@@ -139,15 +139,39 @@ public final class TorrentStatus {
      * that are skipped by an out of order block). This is supposed to be as
      * low as possible.
      *
-     * @return
+     * @return the value
      */
     public long totalRedundantBytes() {
         return ts.getTotal_redundant_bytes();
     }
 
     /**
+     * A bitmask that represents which pieces we have (set to true) and the
+     * pieces we don't have. It's a pointer and may be set to 0 if the
+     * torrent isn't downloading or seeding.
+     *
+     * @return the bitfield of pieces
+     */
+    public Bitfield pieces() {
+        return new Bitfield(ts.getPieces());
+    }
+
+    /**
+     * A bitmask representing which pieces has had their hash checked. This
+     * only applies to torrents in *seed mode*. If the torrent is not in seed
+     * mode, this bitmask may be empty.
+     *
+     * @return the bitfield of verified pieces
+     */
+    public Bitfield verifiedPieces() {
+        return new Bitfield(ts.getVerified_pieces());
+    }
+
+    /**
      * The total number of bytes of the file(s) that we have. All this does not necessarily
      * has to be downloaded during this session (that's total_payload_download).
+     *
+     * @return the value
      */
     public long totalDone() {
         return ts.getTotal_done();
