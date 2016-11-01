@@ -562,6 +562,7 @@ public class SessionManager {
 
                     long flags = p.getFlags();
                     flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+                    flags |= add_torrent_params.flags_t.flag_upload_mode.swigValue();
                     p.setFlags(flags);
 
                     ec.clear();
