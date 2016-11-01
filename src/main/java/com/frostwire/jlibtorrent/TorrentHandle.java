@@ -161,9 +161,12 @@ public final class TorrentHandle {
      * by using the libtorrent extension of just supplying a tracker and
      * info-hash.
      *
-     * @return
+     * @return the internal torrent info
      */
     public TorrentInfo torrentFile() {
+        if (!th.is_valid()) {
+            return null;
+        }
         torrent_info ti = th.torrent_file_ptr();
         return ti != null ? new TorrentInfo(ti) : null;
     }
