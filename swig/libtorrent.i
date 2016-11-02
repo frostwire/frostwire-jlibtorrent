@@ -43,6 +43,7 @@
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
+#include "libtorrent/fingerprint.hpp"
 
 #include "libtorrent.h"
 
@@ -630,6 +631,10 @@ typedef long time_t;
 %ignore libtorrent::print_entry;
 %ignore libtorrent::peer_class;
 %ignore libtorrent::peer_class_pool;
+%ignore libtorrent::fingerprint;
+%ignore libtorrent::generate_fingerprint(std::string, int, int, int);
+%ignore libtorrent::generate_fingerprint(std::string, int, int);
+%ignore libtorrent::generate_fingerprint(std::string, int);
 %ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>, std::uint32_t);
 %ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>);
 %ignore libtorrent::ip_filter::export_filter;
@@ -926,6 +931,7 @@ typedef long time_t;
 %include "libtorrent/create_torrent.hpp"
 %include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
+%include "libtorrent/fingerprint.hpp"
 
 %include "libtorrent.h"
 

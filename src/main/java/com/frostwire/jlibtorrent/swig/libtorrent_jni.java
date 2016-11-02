@@ -2636,6 +2636,7 @@ public class libtorrent_jni {
   public final static native long torrent_status_info_hash_get(long jarg1, torrent_status jarg1_);
   public final static native long torrent_status_torrent_file_ptr(long jarg1, torrent_status jarg1_);
   public final static native long torrent_status_get_next_announce(long jarg1, torrent_status jarg1_);
+  public final static native String generate_fingerprint(String jarg1, int jarg2, int jarg3, int jarg4, int jarg5);
   public final static native long ed25519_create_seed();
   public final static native long ed25519_create_keypair(long jarg1, byte_vector jarg1_);
   public final static native long ed25519_sign(long jarg1, byte_vector jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);

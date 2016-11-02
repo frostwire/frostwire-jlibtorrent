@@ -101,6 +101,10 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.set_piece_hashes(create_torrent.getCPtr(t), t, p, error_code.getCPtr(ec), ec);
   }
 
+  public static String generate_fingerprint(String name, int major, int minor, int revision, int tag) {
+    return libtorrent_jni.generate_fingerprint(name, major, minor, revision, tag);
+  }
+
   public static byte_vector ed25519_create_seed() {
     return new byte_vector(libtorrent_jni.ed25519_create_seed(), true);
   }
