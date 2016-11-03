@@ -394,6 +394,10 @@ public class SessionManager {
             return;
         }
 
+        if (!ti.isValid()) {
+            throw new IllegalArgumentException("torrent info not valid");
+        }
+
         torrent_handle th = session.find_torrent(ti.swig().info_hash());
 
         if (th != null && th.is_valid()) {
@@ -410,10 +414,6 @@ public class SessionManager {
             }
 
             return;
-        }
-
-        if (!ti.isValid()) {
-            throw new IllegalArgumentException("torrent info not valid");
         }
 
         add_torrent_params p = null;
@@ -550,8 +550,20 @@ public class SessionManager {
             try {
                 th = session.find_torrent(info_hash);
                 if (th != null && th.is_valid()) {
-                    // we have a download with the same info-hash, let's wait
+                    // we have a download with the same info-hash
                     add = false;
+
+                    torrent_info ti = th.torrent_file_ptr();
+                    if (ti != null && ti.is_valid()) {
+                        create_torrent ct = new create_torrent(ti);
+                        entry e = ct.generate();
+
+                        int size = ti.metadata_size();
+                        if (0 < size && size <= maxSize) {
+                            data[0] = Vectors.byte_vector2bytes(e.bencode());
+                        }
+                        signal.countDown();
+                    }
                 } else {
                     add = true;
                 }

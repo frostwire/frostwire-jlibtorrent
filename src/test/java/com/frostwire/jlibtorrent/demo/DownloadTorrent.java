@@ -43,7 +43,7 @@ public final class DownloadTorrent {
 
                 switch (type) {
                     case TORRENT_ADDED:
-                        System.out.print("Torrent added");
+                        System.out.println("Torrent added");
                         ((TorrentAddedAlert) alert).handle().resume();
                         break;
                     case BLOCK_FINISHED:
@@ -53,7 +53,7 @@ public final class DownloadTorrent {
                         System.out.println(s.stats().totalDownload());
                         break;
                     case TORRENT_FINISHED:
-                        System.out.print("Torrent finished");
+                        System.out.println("Torrent finished");
                         signal.countDown();
                         break;
                 }

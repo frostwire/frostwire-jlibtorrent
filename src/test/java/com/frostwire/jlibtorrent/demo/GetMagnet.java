@@ -47,7 +47,7 @@ public final class GetMagnet {
         }
 
         System.out.println("Fetching the magnet uri, please wait...");
-        byte[] data = s.fetchMagnet(uri, 30000);
+        byte[] data = s.fetchMagnet(uri, 30);
 
         if (data != null) {
             System.out.println(Entry.bdecode(data));
