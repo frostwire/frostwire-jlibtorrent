@@ -353,26 +353,44 @@ public final class AddTorrentParams {
         p.setMax_uploads(value);
     }
 
+    /**
+     * @return max connections limit
+     */
     public int maxConnections() {
         return p.getMax_connections();
     }
 
+    /**
+     * @param value max connections limit
+     */
     public void maxConnections(int value) {
         p.setMax_connections(value);
     }
 
+    /**
+     * @return upload limit
+     */
     public int uploadLimit() {
         return p.getUpload_limit();
     }
 
+    /**
+     * @param value upload limit
+     */
     public void uploadLimit(int value) {
         p.setUpload_limit(value);
     }
 
+    /**
+     * @return download limit
+     */
     public int downloadLimit() {
         return p.getDownload_limit();
     }
 
+    /**
+     * @param value download limit
+     */
     public void downloadLimit(int value) {
         p.setDownload_limit(value);
     }
@@ -381,7 +399,7 @@ public final class AddTorrentParams {
      * Flags controlling aspects of this torrent and how it's added. See
      * {@link com.frostwire.jlibtorrent.swig.add_torrent_params.flags_t} for details.
      *
-     * @return
+     * @return the flags
      */
     public long flags() {
         return p.getFlags();
@@ -391,7 +409,7 @@ public final class AddTorrentParams {
      * Flags controlling aspects of this torrent and how it's added. See
      * {@link com.frostwire.jlibtorrent.swig.add_torrent_params.flags_t} for details.
      *
-     * @param flags
+     * @param flags the flags
      */
     public void flags(long flags) {
         p.setFlags(flags);
@@ -518,14 +536,23 @@ public final class AddTorrentParams {
         p.setBanned_peers(v);
     }
 
+    /**
+     * @return an instance with the default storage
+     */
     public static AddTorrentParams createInstance() {
         return new AddTorrentParams(add_torrent_params.create_instance());
     }
 
+    /**
+     * @return an instance with a disabled storage
+     */
     public static AddTorrentParams createInstanceDisabledStorage() {
         return new AddTorrentParams(add_torrent_params.create_instance_disabled_storage());
     }
 
+    /**
+     * @return an instance with a zero storage
+     */
     public static AddTorrentParams createInstanceZeroStorage() {
         return new AddTorrentParams(add_torrent_params.create_instance_zero_storage());
     }

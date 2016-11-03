@@ -307,7 +307,7 @@ public final class TorrentInfo {
      * Returns all url seeds and http seeds in the torrent. Each entry
      * is a {@link WebSeedEntry} and may refer to either a url seed or http seed.
      *
-     * @return
+     * @return the list of web seeds
      */
     public ArrayList<WebSeedEntry> webSeeds() {
         web_seed_entry_vector v = ti.web_seeds();
@@ -325,7 +325,7 @@ public final class TorrentInfo {
      * Replaces all web seeds with the ones specified in the
      * {@code seeds} list.
      *
-     * @param seeds
+     * @param seeds the list of web seeds
      */
     public void setWebSeeds(List<WebSeedEntry> seeds) {
         web_seed_entry_vector v = new web_seed_entry_vector();

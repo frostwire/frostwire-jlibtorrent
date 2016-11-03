@@ -23,16 +23,19 @@ public final class FileSlice {
     private final long offset;
     private final long size;
 
-    public FileSlice(file_slice e) {
-        this.fileIndex = e.getFile_index();
-        this.offset = e.getOffset();
-        this.size = e.getSize();
+    /**
+     * @param fs the native object
+     */
+    public FileSlice(file_slice fs) {
+        this.fileIndex = fs.getFile_index();
+        this.offset = fs.getOffset();
+        this.size = fs.getSize();
     }
 
     /**
      * The index of the file.
      *
-     * @return
+     * @return the index
      */
     public int fileIndex() {
         return fileIndex;
@@ -41,7 +44,7 @@ public final class FileSlice {
     /**
      * The offset from the start of the file, in bytes.
      *
-     * @return
+     * @return the offset
      */
     public long offset() {
         return offset;
@@ -50,7 +53,7 @@ public final class FileSlice {
     /**
      * The size of the window, in bytes.
      *
-     * @return
+     * @return the size
      */
     public long size() {
         return size;

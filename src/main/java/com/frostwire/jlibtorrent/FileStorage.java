@@ -18,6 +18,9 @@ public final class FileStorage {
     private final torrent_info ti;
     private final file_storage fs;
 
+    /**
+     * @param fs the native object
+     */
     public FileStorage(file_storage fs) {
         this.ti = null;
         this.fs = fs;
@@ -26,8 +29,8 @@ public final class FileStorage {
     /**
      * Used to keep the torrent info reference around.
      *
-     * @param ti
-     * @param fs
+     * @param ti the torrent info to pin
+     * @param fs the native object
      */
     FileStorage(torrent_info ti, file_storage fs) {
         this.ti = ti;
@@ -48,9 +51,9 @@ public final class FileStorage {
      * This also prevent premature garbage collection in case
      * the storage was created from a torrent info.
      *
-     * @return
+     * @return the pinned torrent info
      */
-    public torrent_info getTi() {
+    public torrent_info ti() {
         return ti;
     }
 
@@ -60,7 +63,7 @@ public final class FileStorage {
      * of whether the file_storage as a whole is initialized or
      * not.
      *
-     * @return
+     * @return true if valid
      */
     public boolean isValid() {
         return fs.is_valid();
@@ -71,7 +74,7 @@ public final class FileStorage {
      * be used to avoid reallocating the internal file list when the number
      * of files to be added is known up-front.
      *
-     * @param numFiles
+     * @param numFiles the number of files
      */
     public void reserve(int numFiles) {
         fs.reserve(numFiles);
