@@ -2260,7 +2260,6 @@ public class libtorrent_jni {
   public final static native boolean session_handle_is_dht_running(long jarg1, session_handle jarg1_);
   public final static native long session_handle_get_dht_settings(long jarg1, session_handle jarg1_);
   public final static native void session_handle_add_dht_node(long jarg1, session_handle jarg1_, long jarg2, string_int_pair jarg2_);
-  public final static native void session_handle_add_dht_router(long jarg1, session_handle jarg1_, long jarg2, string_int_pair jarg2_);
   public final static native void session_handle_dht_get_item__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long session_handle_dht_put_item__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, entry jarg2_);
   public final static native void session_handle_dht_get_peers(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_);

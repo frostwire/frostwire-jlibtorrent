@@ -131,10 +131,6 @@ public class session_handle {
     libtorrent_jni.session_handle_add_dht_node(swigCPtr, this, string_int_pair.getCPtr(node), node);
   }
 
-  public void add_dht_router(string_int_pair node) {
-    libtorrent_jni.session_handle_add_dht_router(swigCPtr, this, string_int_pair.getCPtr(node), node);
-  }
-
   public void dht_get_item(sha1_hash target) {
     libtorrent_jni.session_handle_dht_get_item__SWIG_0(swigCPtr, this, sha1_hash.getCPtr(target), target);
   }

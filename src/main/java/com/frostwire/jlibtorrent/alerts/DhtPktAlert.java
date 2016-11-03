@@ -76,15 +76,15 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
         }
 
         /**
-         * @param swigValue
-         * @return
+         * @param swigValue the native value
+         * @return the java enum
          */
         public static Direction fromSwig(int swigValue) {
             Direction[] enumValues = Direction.class.getEnumConstants();

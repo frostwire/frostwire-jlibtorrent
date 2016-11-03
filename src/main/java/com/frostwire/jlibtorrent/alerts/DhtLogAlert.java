@@ -8,7 +8,7 @@ import com.frostwire.jlibtorrent.swig.dht_log_alert;
  */
 public final class DhtLogAlert extends AbstractAlert<dht_log_alert> {
 
-    public DhtLogAlert(dht_log_alert alert) {
+    DhtLogAlert(dht_log_alert alert) {
         super(alert);
     }
 
@@ -24,12 +24,15 @@ public final class DhtLogAlert extends AbstractAlert<dht_log_alert> {
     /**
      * The module, or part, of the DHT that produced this log message.
      *
-     * @return
+     * @return the dht module
      */
     public DhtModule module() {
         return DhtModule.fromSwig(alert.getModule().swigValue());
     }
 
+    /**
+     *
+     */
     public enum DhtModule {
 
         TRACKER(dht_log_alert.dht_module_t.tracker.swigValue()),
@@ -45,14 +48,21 @@ public final class DhtLogAlert extends AbstractAlert<dht_log_alert> {
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return the native value
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue the native value
+         * @return the java enum
+         */
         public static DhtModule fromSwig(int swigValue) {
             DhtModule[] enumValues = DhtModule.class.getEnumConstants();
             for (DhtModule ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

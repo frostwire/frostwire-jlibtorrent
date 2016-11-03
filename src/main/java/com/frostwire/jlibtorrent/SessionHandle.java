@@ -354,35 +354,18 @@ public class SessionHandle {
     }
 
     /**
-     * adds the given endpoint to a list of DHT router nodes.
-     * If a search is ever made while the routing table is empty, those nodes will
-     * be used as backups. Nodes in the router node list will also never be added
-     * to the regular routing table, which effectively means they are only used
-     * for bootstrapping, to keep the load off them.
-     * <p>
-     * An example routing node that you could typically add is
-     * ``router.bittorrent.com``.
-     *
-     * @param node
-     */
-    public void addDHTRouter(Pair<String, Integer> node) {
-        s.add_dht_router(node.to_string_int_pair());
-    }
-
-
-    /**
      * Applies the settings specified by the settings pack {@code sp}. This is an
      * asynchronous operation that will return immediately and actually apply
      * the settings to the main thread of libtorrent some time later.
      *
-     * @param sp
+     * @param sp the settings
      */
     public void applySettings(SettingsPack sp) {
         s.apply_settings(sp.swig());
     }
 
     /**
-     * @return
+     * @return a copy of the internal settings
      */
     public SettingsPack settings() {
         return new SettingsPack(s.get_settings());
@@ -459,7 +442,7 @@ public class SessionHandle {
     //
     // boost::array<char,64>& signature
     // 	the signature authenticating the current value. This may be zeroes
-    // 	if there is currently no value stored. The functon is expected to
+    // 	if there is currently no value stored. The function is expected to
     // 	fill in this buffer with the signature of the new value to store.
     // 	To generate the signature, you may want to use the
     // 	``sign_mutable_item`` function.
@@ -608,15 +591,15 @@ public class SessionHandle {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
         }
 
         /**
-         * @param swigValue
-         * @return
+         * @param swigValue the native value
+         * @return the java enum
          */
         public static SaveStateFlags fromSwig(int swigValue) {
             SaveStateFlags[] enumValues = SaveStateFlags.class.getEnumConstants();
@@ -652,7 +635,7 @@ public class SessionHandle {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
