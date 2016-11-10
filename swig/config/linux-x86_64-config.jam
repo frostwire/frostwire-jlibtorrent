@@ -12,4 +12,5 @@ using gcc : x86_64 : g++-5 :
       <linkflags>-L$(OPENSSL_ROOT)/lib
       <linkflags>-static-libstdc++
       <linkflags>-static-libgcc
+      <linkflags>-z noexecstack
       ;
