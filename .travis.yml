@@ -84,7 +84,8 @@ before_install:
 
 # linux desktop (x86,x86_64)
   - if [[ $os_build == "linux" && ( $os_arch == "x86" || $os_arch == "x86_64" ) ]]; then
-      sudo apt-get install -qq execstack
+      sudo apt-get install -qq execstack;
+      sudo apt-get -f install;
     fi
 
 # linux arm packages
