@@ -15,4 +15,5 @@ using gcc : x86 : g++-5 :
       <linkflags>-m32
       <linkflags>-static-libstdc++
       <linkflags>-static-libgcc
+      <linkflags>-z noexecstack
       ;
