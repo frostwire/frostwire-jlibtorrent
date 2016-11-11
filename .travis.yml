@@ -37,9 +37,9 @@ before_install:
   - export BOOST_ROOT=$PWD/boost_1_62_0
 
 # openssl: download
-  - wget -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.0b.tar.gz
+  - wget -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.0c.tar.gz
   - tar xzf openssl.tar.gz
-  - export OPENSSL_SOURCE=$PWD/openssl-1.1.0b
+  - export OPENSSL_SOURCE=$PWD/openssl-1.1.0c
   # fix source code
   - if [ $os_build != "macosx" ]; then
       find $OPENSSL_SOURCE/crypto/sha/asm/ | egrep "armv4.*.pl" | xargs sed -i 's/.comm.*OPENSSL_armcap_P,4,4/.comm    OPENSSL_armcap_P,4,4\n.hidden  OPENSSL_armcap_P/g';
