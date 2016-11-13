@@ -518,65 +518,6 @@ public final class TorrentStatus {
     }
 
     /**
-     * the number of seconds since any peer last uploaded from this torrent and the last time a downloaded piece passed the hash check, respectively.
-     * Note, when starting up a torrent that needs its files checked,
-     * piece may pass and that will be considered downloading for the purpose of this counter.
-     * -1 means there either hasn't been any uploading/downloading,
-     * or it was too long ago for libtorrent to remember (currently forgetting happens after about 18 hours).
-     *
-     * @return
-     */
-    public int timeSinceUpload() {
-        return ts.getTime_since_upload();
-    }
-
-    /**
-     * the number of seconds since any peer last uploaded from this torrent and the last time a downloaded piece passed the hash check, respectively.
-     * Note, when starting up a torrent that needs its files checked,
-     * piece may pass and that will be considered downloading for the purpose of this counter.
-     * -1 means there either hasn't been any uploading/downloading,
-     * or it was too long ago for libtorrent to remember (currently forgetting happens after about 18 hours).
-     *
-     * @return
-     */
-    public int timeSinceDownload() {
-        return ts.getTime_since_download();
-    }
-
-    /**
-     * get the number of seconds this torrent has been active (not paused).
-     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
-     * It's saved in and restored from resume data, to keep totals across sessions.
-     *
-     * @return
-     */
-    public int activeTime() {
-        return ts.getActive_time();
-    }
-
-    /**
-     * get the number of seconds this torrent has been active while being finished.
-     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
-     * It's saved in and restored from resume data, to keep totals across sessions.
-     *
-     * @return
-     */
-    public int finishedTime() {
-        return ts.getFinished_time();
-    }
-
-    /**
-     * get the number of seconds this torrent has been active while being a seed.
-     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
-     * It's saved in and restored from resume data, to keep totals across sessions.
-     *
-     * @return
-     */
-    public int seedingTime() {
-        return ts.getSeeding_time();
-    }
-
-    /**
      * A rank of how important it is to seed the torrent, it is used to determine which torrents to seed and which to queue.
      * It is based on the peer to seed ratio from the tracker scrape. Higher value means more important to seed.
      *
@@ -584,15 +525,6 @@ public final class TorrentStatus {
      */
     public int seedRank() {
         return ts.getSeed_rank();
-    }
-
-    /**
-     * the number of seconds since this torrent acquired scrape data. If it has never done that, this value is -1.
-     *
-     * @return
-     */
-    public int lastScrape() {
-        return ts.getLast_scrape();
     }
 
     /**
@@ -812,6 +744,26 @@ public final class TorrentStatus {
      */
     public Sha1Hash infoHash() {
         return new Sha1Hash(ts.getInfo_hash());
+    }
+
+    public long lastUpload() {
+        return ts.get_last_upload();
+    }
+
+    public long lastDownload() {
+        return ts.get_last_download();
+    }
+
+    public long activeDuration() {
+        return ts.get_active_duration();
+    }
+
+    public long finishedDuration() {
+        return ts.get_finished_duration();
+    }
+
+    public long seedingDuration() {
+        return ts.get_seeding_duration();
     }
 
     private static long time2millis(int time) {

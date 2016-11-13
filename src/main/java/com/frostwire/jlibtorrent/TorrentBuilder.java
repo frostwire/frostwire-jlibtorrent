@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.frostwire.jlibtorrent.swig.libtorrent.add_files;
+import static com.frostwire.jlibtorrent.swig.libtorrent.add_files_ex;
 import static com.frostwire.jlibtorrent.swig.libtorrent.set_piece_hashes_ex;
 
 /**
@@ -499,7 +499,7 @@ public final class TorrentBuilder {
                 return listener != null ? listener.accept(p) : true;
             }
         };
-        add_files(fs, absPath.getPath(), l1, flags);
+        add_files_ex(fs, absPath.getPath(), l1, flags);
         if (fs.total_size() == 0) {
             throw new IOException("content total size can't be 0");
         }
