@@ -1586,10 +1586,10 @@ SWIGINTERN int64_t libtorrent_torrent_status_get_next_announce(libtorrent::torre
         return libtorrent::total_milliseconds(self->next_announce);
     }
 SWIGINTERN int64_t libtorrent_torrent_status_get_last_upload(libtorrent::torrent_status *self){
-        return libtorrent::total_milliseconds(self->last_upload);
+        return libtorrent::total_milliseconds(self->last_upload.time_since_epoch());
     }
 SWIGINTERN int64_t libtorrent_torrent_status_get_last_download(libtorrent::torrent_status *self){
-        return libtorrent::total_milliseconds(self->last_download);
+        return libtorrent::total_milliseconds(self->last_download.time_since_epoch());
     }
 SWIGINTERN int64_t libtorrent_torrent_status_get_active_duration(libtorrent::torrent_status *self){
         return libtorrent::total_milliseconds(self->active_duration);

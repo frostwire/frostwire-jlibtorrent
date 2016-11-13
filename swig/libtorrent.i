@@ -1261,11 +1261,11 @@ namespace libtorrent {
     }
 
     int64_t get_last_upload() {
-        return libtorrent::total_milliseconds($self->last_upload);
+        return libtorrent::total_milliseconds($self->last_upload.time_since_epoch());
     }
 
     int64_t get_last_download() {
-        return libtorrent::total_milliseconds($self->last_download);
+        return libtorrent::total_milliseconds($self->last_download.time_since_epoch());
     }
 
     int64_t get_active_duration() {
