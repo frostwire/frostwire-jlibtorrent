@@ -137,7 +137,7 @@ struct add_files_listener {
     }
 };
 
-void add_files(libtorrent::file_storage& fs, std::string const& file,
+void add_files_ex(libtorrent::file_storage& fs, std::string const& file,
                 add_files_listener* listener, std::uint32_t flags) {
     using namespace std::placeholders;
     add_files(fs, file, std::bind(&add_files_listener::pred, listener, _1), flags);

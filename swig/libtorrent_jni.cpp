@@ -56171,7 +56171,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3, jobject jarg3_, jlong jarg4) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1ex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3, jobject jarg3_, jlong jarg4) {
   libtorrent::file_storage *arg1 = 0 ;
   std::string *arg2 = 0 ;
   add_files_listener *arg3 = (add_files_listener *) 0 ;
@@ -56199,7 +56199,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
   arg4 = (std::uint32_t)jarg4; 
   {
     try {
-      add_files(*arg1,(std::string const &)*arg2,arg3,arg4);
+      add_files_ex(*arg1,(std::string const &)*arg2,arg3,arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return ;

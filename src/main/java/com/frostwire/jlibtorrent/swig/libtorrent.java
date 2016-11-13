@@ -133,8 +133,8 @@ public class libtorrent implements libtorrentConstants {
     return new byte_vector(libtorrent_jni.ed25519_key_exchange(byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk), true);
   }
 
-  public static void add_files(file_storage fs, String file, add_files_listener listener, long flags) {
-    libtorrent_jni.add_files(file_storage.getCPtr(fs), fs, file, add_files_listener.getCPtr(listener), listener, flags);
+  public static void add_files_ex(file_storage fs, String file, add_files_listener listener, long flags) {
+    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, file, add_files_listener.getCPtr(listener), listener, flags);
   }
 
   public static void set_piece_hashes_ex(create_torrent t, String p, set_piece_hashes_listener listener, error_code ec) {
