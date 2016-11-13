@@ -435,60 +435,12 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_down_bandwidth_queue_get(swigCPtr, this);
   }
 
-  public void setTime_since_upload(int value) {
-    libtorrent_jni.torrent_status_time_since_upload_set(swigCPtr, this, value);
-  }
-
-  public int getTime_since_upload() {
-    return libtorrent_jni.torrent_status_time_since_upload_get(swigCPtr, this);
-  }
-
-  public void setTime_since_download(int value) {
-    libtorrent_jni.torrent_status_time_since_download_set(swigCPtr, this, value);
-  }
-
-  public int getTime_since_download() {
-    return libtorrent_jni.torrent_status_time_since_download_get(swigCPtr, this);
-  }
-
-  public void setActive_time(int value) {
-    libtorrent_jni.torrent_status_active_time_set(swigCPtr, this, value);
-  }
-
-  public int getActive_time() {
-    return libtorrent_jni.torrent_status_active_time_get(swigCPtr, this);
-  }
-
-  public void setFinished_time(int value) {
-    libtorrent_jni.torrent_status_finished_time_set(swigCPtr, this, value);
-  }
-
-  public int getFinished_time() {
-    return libtorrent_jni.torrent_status_finished_time_get(swigCPtr, this);
-  }
-
-  public void setSeeding_time(int value) {
-    libtorrent_jni.torrent_status_seeding_time_set(swigCPtr, this, value);
-  }
-
-  public int getSeeding_time() {
-    return libtorrent_jni.torrent_status_seeding_time_get(swigCPtr, this);
-  }
-
   public void setSeed_rank(int value) {
     libtorrent_jni.torrent_status_seed_rank_set(swigCPtr, this, value);
   }
 
   public int getSeed_rank() {
     return libtorrent_jni.torrent_status_seed_rank_get(swigCPtr, this);
-  }
-
-  public void setLast_scrape(int value) {
-    libtorrent_jni.torrent_status_last_scrape_set(swigCPtr, this, value);
-  }
-
-  public int getLast_scrape() {
-    return libtorrent_jni.torrent_status_last_scrape_get(swigCPtr, this);
   }
 
   public void setState(torrent_status.state_t value) {
@@ -659,6 +611,26 @@ public class torrent_status {
 
   public long get_next_announce() {
     return libtorrent_jni.torrent_status_get_next_announce(swigCPtr, this);
+  }
+
+  public long get_last_upload() {
+    return libtorrent_jni.torrent_status_get_last_upload(swigCPtr, this);
+  }
+
+  public long get_last_download() {
+    return libtorrent_jni.torrent_status_get_last_download(swigCPtr, this);
+  }
+
+  public long get_active_duration() {
+    return libtorrent_jni.torrent_status_get_active_duration(swigCPtr, this);
+  }
+
+  public long get_finished_duration() {
+    return libtorrent_jni.torrent_status_get_finished_duration(swigCPtr, this);
+  }
+
+  public long get_seeding_duration() {
+    return libtorrent_jni.torrent_status_get_seeding_duration(swigCPtr, this);
   }
 
   public final static class state_t {

@@ -789,6 +789,17 @@ typedef long time_t;
 %ignore libtorrent::torrent_status::deprecated_priority;
 %ignore libtorrent::torrent_status::unused_enum_for_backwards_compatibility;
 %ignore libtorrent::torrent_status::deprecated_is_loaded;
+%ignore libtorrent::torrent_status::last_upload;
+%ignore libtorrent::torrent_status::last_download;
+%ignore libtorrent::torrent_status::active_duration;
+%ignore libtorrent::torrent_status::finished_duration;
+%ignore libtorrent::torrent_status::seeding_duration;
+%ignore libtorrent::torrent_status::deprecated_time_since_upload;
+%ignore libtorrent::torrent_status::deprecated_time_since_download;
+%ignore libtorrent::torrent_status::deprecated_active_time;
+%ignore libtorrent::torrent_status::deprecated_finished_time;
+%ignore libtorrent::torrent_status::deprecated_seeding_time;
+%ignore libtorrent::torrent_status::deprecated_last_scrape;
 %ignore libtorrent::file_storage::file_storage(file_storage&&);
 %ignore libtorrent::file_storage::file_path_hash;
 %ignore libtorrent::file_storage::all_path_hashes;
@@ -1247,6 +1258,26 @@ namespace libtorrent {
 
     int64_t get_next_announce() {
         return libtorrent::total_milliseconds($self->next_announce);
+    }
+
+    int64_t get_last_upload() {
+        return libtorrent::total_milliseconds($self->last_upload);
+    }
+
+    int64_t get_last_download() {
+        return libtorrent::total_milliseconds($self->last_download);
+    }
+
+    int64_t get_active_duration() {
+        return libtorrent::total_milliseconds($self->active_duration);
+    }
+
+    int64_t get_finished_duration() {
+        return libtorrent::total_milliseconds($self->finished_duration);
+    }
+
+    int64_t get_seeding_duration() {
+        return libtorrent::total_milliseconds($self->seeding_duration);
     }
 }
 

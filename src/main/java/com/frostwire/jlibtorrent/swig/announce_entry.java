@@ -80,14 +80,6 @@ public class announce_entry {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public int next_announce_in() {
-    return libtorrent_jni.announce_entry_next_announce_in(swigCPtr, this);
-  }
-
-  public int min_announce_in() {
-    return libtorrent_jni.announce_entry_min_announce_in(swigCPtr, this);
-  }
-
   public void setScrape_incomplete(int value) {
     libtorrent_jni.announce_entry_scrape_incomplete_set(swigCPtr, this, value);
   }
