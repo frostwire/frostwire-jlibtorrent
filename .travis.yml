@@ -186,21 +186,21 @@ before_install:
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
-      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm64-config.jam variant=release toolset=clang-arm64 target-os=linux location=bin/release/android/arm64-v8a";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm64-config.jam variant=release toolset=clang-arm64 target-os=android location=bin/release/android/arm64-v8a";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-strip --strip-unneeded -x bin/release/android/arm64-v8a/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-readelf -d bin/release/android/arm64-v8a/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/aarch64-linux-android/bin:$PATH;
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
-      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86-config.jam variant=release toolset=clang-x86 target-os=linux location=bin/release/android/x86";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86-config.jam variant=release toolset=clang-x86 target-os=android location=bin/release/android/x86";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x bin/release/android/x86/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/android/x86/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/i686-linux-android/bin:$PATH;
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
-      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86_64-config.jam variant=release toolset=clang-x86_64 target-os=linux location=bin/release/android/x86_64";
+      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86_64-config.jam variant=release toolset=clang-x86_64 target-os=android location=bin/release/android/x86_64";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-strip --strip-unneeded -x bin/release/android/x86_64/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-readelf -d bin/release/android/x86_64/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/x86_64-linux-android/bin:$PATH;

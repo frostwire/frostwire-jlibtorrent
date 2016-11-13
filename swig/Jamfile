@@ -26,7 +26,11 @@ rule libtorrent_linking ( properties * )
     result += <crypto>libcrypto ;
     result += <ssl>off ;
     result += <rtti>off ;
-    result += <optimization>space ;
+
+    if <target-os>android in $(properties)
+    {
+        result += <optimization>space ;
+    }
 
     return $(result) ;
 }
