@@ -8,8 +8,6 @@ matrix:
     - env: os_build=android os_arch=x86_64 android_api=21
     - env: os_build=linux os_arch=x86
     - env: os_build=linux os_arch=x86_64
-    - env: os_build=linux os_arch=arm
-    - env: os_build=linux os_arch=arm64
     - dist: trusty
       env: os_build=windows os_arch=x86
     - dist: trusty
@@ -21,11 +19,6 @@ matrix:
 branches:
   only:
     - master
-
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
 
 before_install:
 # boost: download and bootstrap
@@ -76,24 +69,8 @@ before_install:
 
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
       sudo apt-get install -qq libc6-dev-i386;
-      wget http://mirrors.kernel.org/ubuntu/pool/main/g/gcc-5/lib32gcc-5-dev_5.2.1-22ubuntu2_amd64.deb;
-      sudo dpkg --force-all -i lib32gcc-5-dev_5.2.1-22ubuntu2_amd64.deb;
-      wget http://mirrors.kernel.org/ubuntu/pool/main/g/gcc-5/lib32stdc++-5-dev_5.2.1-22ubuntu2_amd64.deb;
-      sudo dpkg --force-all -i lib32stdc++-5-dev_5.2.1-22ubuntu2_amd64.deb;
-    fi
-
-# linux arm packages
-  - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
-      wget https://releases.linaro.org/components/toolchain/binaries/5.3-2016.02/arm-linux-gnueabihf/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf.tar.xz;
-      tar xf gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf.tar.xz;
-      export PATH=${PWD}/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/bin:${PATH};
-    fi
-
-# linux arm64 packages
-  - if [[ $os_build == "linux" && $os_arch == "arm64" ]]; then
-      wget https://releases.linaro.org/components/toolchain/binaries/5.3-2016.02/aarch64-linux-gnu/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu.tar.xz;
-      tar xf gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu.tar.xz;
-      export PATH=${PWD}/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu/bin:${PATH};
+      sudo apt-get install -qq lib32gcc-5-dev;
+      sudo apt-get install -qq lib32stdc++-5-dev;
     fi
 
 # linux cross compilation tools for windows development
@@ -108,8 +85,6 @@ before_install:
       sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread.dll.a;
       sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll;
     fi
-
-  - if [ $os_build == "macosx" ]; then brew update > /dev/null && brew install --quiet gradle; fi
 
 # openssl
   - 'export OPENSSL_NO_OPTS="no-afalgeng no-asan no-async no-autoalginit no-autoerrinit no-bf no-blake2
@@ -145,21 +120,13 @@ before_install:
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
+      export CC=gcc-5;
       export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -m32 --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
+      export CC=gcc-5;
       export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
-    fi
-  # linux-arm
-  - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
-      export CC=arm-linux-gnueabihf-gcc;
-      export run_openssl_configure="./Configure linux-armv4 ${OPENSSL_NO_OPTS} -fsigned-char -march=armv7-a -mfpu=neon -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
-    fi
-  # linux-arm64
-  - if [[ $os_build == "linux" && $os_arch == "arm64" ]]; then
-      export CC=aarch64-linux-gnu-gcc;
-      export run_openssl_configure="./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -fsigned-char -march=armv8-a+crypto -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
@@ -217,18 +184,6 @@ before_install:
       export run_strip="strip --strip-unneeded -x bin/release/linux/x86_64/libjlibtorrent.so";
       export run_readelf="readelf -d bin/release/linux/x86_64/libjlibtorrent.so";
     fi
-  # linux-arm
-  - if [[ $os_build == "linux" && $os_arch == "arm" ]]; then
-      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-arm-config.jam variant=release toolset=gcc-arm target-os=linux location=bin/release/linux/arm";
-      export run_strip="arm-linux-gnueabihf-strip --strip-unneeded -x bin/release/linux/arm/libjlibtorrent.so";
-      export run_readelf="arm-linux-gnueabihf-readelf -d bin/release/linux/arm/libjlibtorrent.so";
-    fi
-  # linux-arm64
-  - if [[ $os_build == "linux" && $os_arch == "arm64" ]]; then
-      export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-arm64-config.jam variant=release toolset=gcc-arm64 target-os=linux location=bin/release/linux/arm64";
-      export run_strip="aarch64-linux-gnu-strip --strip-unneeded -x bin/release/linux/arm64/libjlibtorrent.so";
-      export run_readelf="aarch64-linux-gnu-readelf -d bin/release/linux/arm64/libjlibtorrent.so";
-    fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
       sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' swig/libtorrent_jni.cpp;
@@ -273,7 +228,7 @@ script:
 
 before_deploy:
   - cd swig/bin
-  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
+  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$' | xargs rm
   - find . -empty -type d | xargs rm -r
   - cd ../..
 
