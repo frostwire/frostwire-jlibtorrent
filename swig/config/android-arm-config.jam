@@ -4,15 +4,12 @@ OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
 
 using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++ :
-      <cflags>-fPIC
-      <cflags>-std=c11
-      <cxxflags>-fPIC
-      <cxxflags>-march=armv7-a
-      <cxxflags>-mfpu=neon
-      <cxxflags>-Wno-strict-aliasing
-      <cxxflags>-std=c++11
-      <cxxflags>-D__STDC_FORMAT_MACROS
-      <cxxflags>-I$(OPENSSL_ROOT)/include
-      <linkflags>-L$(OPENSSL_ROOT)/lib
-      <linkflags>-static-libstdc++
-      ;
+    <cxxflags>-fPIC
+    <cxxflags>-march=armv7-a
+    <cxxflags>-mfpu=neon
+    <cxxflags>-std=c++11
+    <cxxflags>-D__STDC_FORMAT_MACROS
+    <cxxflags>-I$(OPENSSL_ROOT)/include
+    <linkflags>-L$(OPENSSL_ROOT)/lib
+    <linkflags>-static-libstdc++
+    ;
