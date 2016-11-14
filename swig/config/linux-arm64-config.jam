@@ -3,15 +3,13 @@ import os ;
 OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 
 using gcc : arm64 : aarch64-linux-gnu-g++ :
-      <cflags>-fPIC
-      <cflags>-std=c11
-      <cxxflags>-fPIC
-      <cxxflags>-fsigned-char
-      <cxxflags>-march=armv8-a+crc
-      <cxxflags>-std=c++11
-      <cxxflags>-fno-strict-aliasing
-      <cxxflags>-I$(OPENSSL_ROOT)/include
-      <linkflags>-L$(OPENSSL_ROOT)/lib
-      <linkflags>-static-libstdc++
-      <linkflags>-static-libgcc
-      ;
+    <cxxflags>-fPIC
+    <cxxflags>-fsigned-char
+    <cxxflags>-march=armv8-a+crc
+    <cxxflags>-std=c++11
+    <cxxflags>-fno-strict-aliasing
+    <cxxflags>-I$(OPENSSL_ROOT)/include
+    <linkflags>-L$(OPENSSL_ROOT)/lib
+    <linkflags>-static-libstdc++
+    <linkflags>-static-libgcc
+    ;
