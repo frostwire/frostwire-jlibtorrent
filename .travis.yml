@@ -13,7 +13,7 @@ matrix:
     - dist: trusty
       env: os_build=windows os_arch=x86_64
     - os: osx
-      osx_image: xcode7.3
+      osx_image: xcode8
       env: os_build=macosx os_arch=x86_64
 
 branches:
@@ -44,7 +44,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 2b58cb9de30c633c2a94f2b6eb83ed9e5e019a8b
+  - git checkout 13f9c110789df67c10f223d02eb9ed8633f6b7c7
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -101,22 +101,22 @@ before_install:
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;
-      export run_openssl_configure="./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl";
+      export run_openssl_configure="./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/aarch64-linux-android-clang;
-      export run_openssl_configure="./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl";
+      export run_openssl_configure="./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android-clang;
-      export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl";
+      export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/x86_64-linux-android-clang;
-      export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC -fno-strict-aliasing --prefix=$OPENSSL_SOURCE/../openssl";
+      export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
