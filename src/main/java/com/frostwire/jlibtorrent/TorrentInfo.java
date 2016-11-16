@@ -55,7 +55,7 @@ public final class TorrentInfo {
     }
 
     /**
-     * The {@link com.frostwire.jlibtorrent.FileStorage} object contains the information on
+     * The {@link FileStorage} object contains the information on
      * how to map the pieces to files.
      * <p>
      * It is separated from the {@link TorrentInfo} object because when creating torrents
@@ -63,10 +63,10 @@ public final class TorrentInfo {
      * in a storage, the storage needs to make its own copy of the {@link FileStorage} in order
      * to make its mapping differ from the one in the torrent file.
      *
-     * @return
+     * @return the files storage
      */
     public FileStorage files() {
-        return new FileStorage(ti, ti.files());
+        return new FileStorage(ti.files(), ti);
     }
 
     /**
@@ -74,10 +74,10 @@ public final class TorrentInfo {
      * is used by the web server connection, which needs to request files with the original
      * names. Filename may be changed using {@link #renameFile(int, String)}.
      *
-     * @return
+     * @return the original file storage
      */
     public FileStorage origFiles() {
-        return new FileStorage(ti, ti.orig_files());
+        return new FileStorage(ti.orig_files(), ti);
     }
 
     /**
@@ -92,13 +92,12 @@ public final class TorrentInfo {
      * <p>
      * The {@code newFilename} can both be a relative path, in which case the
      * file name is relative to the {@code savePath} of the torrent. If the
-     * {@code newFilename} is an absolute path (i.e. "is_complete(newFilename)
-     * == true"), then the file is detached from the {@code savePath} of the
-     * torrent. In this case the file is not moved when
+     * {@code newFilename} is an absolute path then the file is detached from
+     * the {@code savePath} of the torrent. In this case the file is not moved when
      * {@link TorrentHandle#moveStorage(String, int)} is invoked.
      *
-     * @param index
-     * @param newFilename
+     * @param index       the file index to rename
+     * @param newFilename the new file name
      */
     public void renameFile(int index, String newFilename) {
         ti.rename_file(index, newFilename);
@@ -113,7 +112,7 @@ public final class TorrentInfo {
      * The new specified {@link FileStorage} must have the exact same size as
      * the current one.
      *
-     * @param f
+     * @param f the file storage
      */
     public void remapFiles(FileStorage f) {
         ti.remap_files(f.swig());
@@ -122,18 +121,18 @@ public final class TorrentInfo {
     /**
      * Adds a tracker to the announce-list.
      *
-     * @param url
+     * @param url the tracker url
      */
     public void addTracker(String url) {
         ti.add_tracker(url);
     }
 
     /**
-     * Adds a tracker to the announce-list. The ``tier`` determines the order in
+     * Adds a tracker to the announce-list. The {@code tier} determines the order in
      * which the trackers are to be tried.
      *
-     * @param url
-     * @param tier
+     * @param url  the tracker url
+     * @param tier the tracker tier
      */
     public void addTracker(String url, int tier) {
         ti.add_tracker(url, tier);
@@ -146,7 +145,7 @@ public final class TorrentInfo {
      * tier index is the high-level priority. No matter which trackers that works or not, the
      * ones with lower tier will always be tried before the one with higher tier number.
      *
-     * @return
+     * @return the list of trackers
      */
     public ArrayList<AnnounceEntry> trackers() {
         return trackers(ti.trackers());

@@ -153,7 +153,7 @@ public final class TorrentStatus {
      * @return the bitfield of pieces
      */
     public Bitfield pieces() {
-        return new Bitfield(ts.getPieces());
+        return new Bitfield(ts.getPieces(), ts);
     }
 
     /**
@@ -164,7 +164,7 @@ public final class TorrentStatus {
      * @return the bitfield of verified pieces
      */
     public Bitfield verifiedPieces() {
-        return new Bitfield(ts.getVerified_pieces());
+        return new Bitfield(ts.getVerified_pieces(), ts);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.bitfield;
+import com.frostwire.jlibtorrent.swig.torrent_status;
 
 /**
  * The bitfield type stores any number of bits as a bitfield
@@ -12,12 +13,24 @@ import com.frostwire.jlibtorrent.swig.bitfield;
 public final class Bitfield {
 
     private final bitfield f;
+    private final torrent_status ts;
 
     /**
      * @param f the native object
      */
     public Bitfield(bitfield f) {
+        this(f, null);
+    }
+
+    /**
+     * Used to keep the torrent status reference around.
+     *
+     * @param f  the native object
+     * @param ts the torrent status to pin
+     */
+    Bitfield(bitfield f, torrent_status ts) {
         this.f = f;
+        this.ts = ts;
     }
 
     /**
@@ -25,6 +38,19 @@ public final class Bitfield {
      */
     public bitfield swig() {
         return f;
+    }
+
+    /**
+     * This methods returns the internal torrent status or null
+     * if it was constructed without one.
+     * <p>
+     * This also prevent premature garbage collection in case
+     * the storage was created from a torrent status.
+     *
+     * @return the pinned torrent info
+     */
+    public torrent_status ts() {
+        return ts;
     }
 
     /**

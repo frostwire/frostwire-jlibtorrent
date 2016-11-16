@@ -15,26 +15,25 @@ import java.util.ArrayList;
  */
 public final class FileStorage {
 
-    private final torrent_info ti;
     private final file_storage fs;
+    private final torrent_info ti;
 
     /**
      * @param fs the native object
      */
     public FileStorage(file_storage fs) {
-        this.ti = null;
-        this.fs = fs;
+        this(fs, null);
     }
 
     /**
      * Used to keep the torrent info reference around.
      *
-     * @param ti the torrent info to pin
      * @param fs the native object
+     * @param ti the torrent info to pin
      */
-    FileStorage(torrent_info ti, file_storage fs) {
-        this.ti = ti;
+    FileStorage(file_storage fs, torrent_info ti) {
         this.fs = fs;
+        this.ti = ti;
     }
 
     /**
