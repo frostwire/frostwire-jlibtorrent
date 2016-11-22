@@ -6,7 +6,7 @@ using gcc : x86 : g++-5 :
     <cxxflags>-fPIC
     <cxxflags>-m32
     <cxxflags>-std=c++11
-    <cxxflags>-fno-strict-aliasing
+    <cxxflags>-Wno-strict-aliasing
     <cxxflags>-I$(OPENSSL_ROOT)/include
     <linkflags>-L$(OPENSSL_ROOT)/lib
     <linkflags>-m32
