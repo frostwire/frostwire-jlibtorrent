@@ -97,7 +97,7 @@ before_install:
         no-scrypt no-sctp no-seed no-shared no-sock no-srp no-srtp no-ssl
         no-ssl-trace no-static-engine no-stdio no-threads no-tls no-ts no-ubsan no-ui no-unit-test
         no-whirlpool no-weak-ssl-ciphers no-zlib no-zlib-dynamic
-        no-ssl3 no-tls1 no-tls1_1 no-tls1_2 no-dtls1 no-dtls1_2"'
+        no-ssl3 no-tls1 no-tls1_1 no-tls1_2 no-dtls1 no-dtls1_2 -fno-strict-aliasing"'
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang;

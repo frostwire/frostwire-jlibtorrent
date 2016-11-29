@@ -9,6 +9,7 @@ using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++
     <cxxflags>-mfpu=neon
     <cxxflags>-std=c++11
     <cxxflags>-D__STDC_FORMAT_MACROS
+    <cxxflags>-fno-strict-aliasing
     <cxxflags>-I$(OPENSSL_ROOT)/include
     <linkflags>-L$(OPENSSL_ROOT)/lib
     <linkflags>-static-libstdc++

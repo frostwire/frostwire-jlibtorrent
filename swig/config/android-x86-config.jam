@@ -7,6 +7,7 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-clang++ :
     <cxxflags>-fPIC
     <cxxflags>-std=c++11
     <cxxflags>-D__STDC_FORMAT_MACROS
+    <cxxflags>-fno-strict-aliasing
     <cxxflags>-I$(OPENSSL_ROOT)/include
     <linkflags>-L$(OPENSSL_ROOT)/lib
     <linkflags>-static-libstdc++

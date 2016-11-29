@@ -6,6 +6,7 @@ ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
 using clang : x86_64 : $(ANDROID_TOOLCHAIN)/bin/x86_64-linux-android-clang++ :
     <cxxflags>-fPIC
     <cxxflags>-std=c++11
+    <cxxflags>-fno-strict-aliasing
     <cxxflags>-I$(OPENSSL_ROOT)/include
     <linkflags>-L$(OPENSSL_ROOT)/lib
     <linkflags>-static-libstdc++

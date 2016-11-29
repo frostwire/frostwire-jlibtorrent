@@ -4,7 +4,7 @@ OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 
 using gcc : x86 : i686-w64-mingw32-g++-5 :
     <cxxflags>-std=c++11
-    <cxxflags>-Wno-strict-aliasing
+    <cxxflags>-fno-strict-aliasing
     <cxxflags>-DBOOST_ASIO_DISABLE_CONNECTEX
     <cxxflags>-DBOOST_USE_WINAPI_VERSION=0x0600
     <cxxflags>-I$(OPENSSL_ROOT)/include

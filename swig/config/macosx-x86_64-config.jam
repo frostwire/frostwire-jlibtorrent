@@ -5,6 +5,7 @@ OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 using clang : x86_64 : clang++ :
     <cxxflags>-std=c++11
     <cxxflags>-mmacosx-version-min=10.9
+    <cxxflags>-fno-strict-aliasing
     <cxxflags>-I$(OPENSSL_ROOT)/include
     <linkflags>-L$(OPENSSL_ROOT)/lib
     ;
