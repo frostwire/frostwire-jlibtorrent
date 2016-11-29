@@ -174,7 +174,7 @@ const char* openssl_version_text() {
     return OPENSSL_VERSION_TEXT;
 }
 
-void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::uint64_t& seq,
+void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::int64_t& seq,
     std::string salt, libtorrent::dht::public_key pk, libtorrent::dht::secret_key sk,
     libtorrent::entry data) {
     using namespace libtorrent::dht;
