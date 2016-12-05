@@ -529,25 +529,17 @@ public final class TorrentBuilder {
         if (creator != null) {
             t.set_creator(creator);
         }
-        if (!urlSeeds.isEmpty()) {
-            for (String s : urlSeeds) {
-                t.add_url_seed(new string_view(s));
-            }
+        for (String s : urlSeeds) {
+            t.add_url_seed(s);
         }
-        if (!httpSeeds.isEmpty()) {
-            for (String s : httpSeeds) {
-                t.add_http_seed(new string_view(s));
-            }
+        for (String s : httpSeeds) {
+            t.add_http_seed(s);
         }
-        if (!nodes.isEmpty()) {
-            for (Pair<String, Integer> n : nodes) {
-                t.add_node(n.to_string_int_pair());
-            }
+        for (Pair<String, Integer> n : nodes) {
+            t.add_node(n.to_string_int_pair());
         }
-        if (!trackers.isEmpty()) {
-            for (Pair<String, Integer> tr : trackers) {
-                t.add_tracker(new string_view(tr.first), tr.second);
-            }
+        for (Pair<String, Integer> tr : trackers) {
+            t.add_tracker(tr.first, tr.second);
         }
         if (priv) {
             t.set_priv(priv);
@@ -560,7 +552,7 @@ public final class TorrentBuilder {
         }
         if (!collections.isEmpty()) {
             for (String s : collections) {
-                t.add_collection(new string_view(s));
+                t.add_collection(s);
             }
         }
 

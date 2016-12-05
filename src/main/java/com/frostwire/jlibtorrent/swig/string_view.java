@@ -35,12 +35,12 @@ public class string_view {
     }
   }
 
-  public string_view(String s) {
-    this(libtorrent_jni.new_string_view(s), true);
-  }
-
   public String to_string() {
     return libtorrent_jni.string_view_to_string(swigCPtr, this);
+  }
+
+  public string_view() {
+    this(libtorrent_jni.new_string_view(), true);
   }
 
 }

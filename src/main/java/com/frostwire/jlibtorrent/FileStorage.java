@@ -101,7 +101,7 @@ public final class FileStorage {
      * @see com.frostwire.jlibtorrent.FileStorage.Flags
      */
     public void addFile(String path, long fileSize, Flags fileFlags, int mtime, String symlinkPath) {
-        fs.add_file(path, fileSize, fileFlags.swig(), mtime, new string_view(symlinkPath));
+        fs.add_file(path, fileSize, fileFlags.swig(), mtime, symlinkPath);
     }
 
     /**

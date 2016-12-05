@@ -464,7 +464,6 @@ namespace libtorrent {
 
     class string_view {
     public:
-        string_view(std::string s);
         std::string to_string();
     };
 
@@ -806,6 +805,7 @@ typedef long time_t;
 %ignore libtorrent::file_storage::file_name_ptr;
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
+%ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, int, std::time_t, string_view);
 %ignore libtorrent::bitfield::bitfield(bitfield const&);
 %ignore libtorrent::bitfield::data();
 %ignore libtorrent::bitfield::const_iterator;
@@ -818,6 +818,10 @@ typedef long time_t;
 %ignore libtorrent::peer_info::deprecated__;
 %ignore libtorrent::peer_info::deprecated_remote_dl_rate;
 %ignore libtorrent::peer_list_entry;
+%ignore libtorrent::create_torrent::add_url_seed(string_view);
+%ignore libtorrent::create_torrent::add_http_seed(string_view);
+%ignore libtorrent::create_torrent::add_tracker(string_view, int);
+%ignore libtorrent::create_torrent::add_collection(string_view);
 %ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::stats_metric::name;
 %ignore libtorrent::storage_moved_failed_alert::operation;
@@ -1328,6 +1332,33 @@ namespace libtorrent {
 
     int64_t get_userdata() {
         return (int64_t)$self->userdata;
+    }
+}
+
+%extend create_torrent {
+
+    void add_url_seed(std::string const& url) {
+        $self->add_url_seed(url);
+    }
+
+    void add_http_seed(std::string const& url) {
+        $self->add_http_seed(url);
+    }
+
+    void add_tracker(std::string const& url, int tier) {
+        $self->add_tracker(url, tier);
+    }
+
+    void add_collection(std::string const& c) {
+        $self->add_collection(c);
+    }
+}
+
+%extend file_storage {
+
+    void add_file(std::string const& path, std::int64_t file_size,
+        int file_flags, std::time_t mtime, std::string const& symlink_path) {
+        $self->add_file(path, file_size, file_flags, mtime, symlink_path);
     }
 }
 
