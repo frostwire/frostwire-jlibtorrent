@@ -13,10 +13,16 @@ public final class BlockInfo {
 
     private final block_info b;
 
+    /**
+     * @param b the native object
+     */
     public BlockInfo(block_info b) {
         this.b = b;
     }
 
+    /**
+     * @return the native object
+     */
     public block_info swig() {
         return b;
     }
@@ -24,7 +30,7 @@ public final class BlockInfo {
     /**
      * The peer is the ip address of the peer this block was downloaded from.
      *
-     * @return
+     * @return the peer tcp endpoint
      */
     public TcpEndpoint peer() {
         return new TcpEndpoint(b.peer());
@@ -33,7 +39,7 @@ public final class BlockInfo {
     /**
      * The number of bytes that have been received for this block.
      *
-     * @return
+     * @return the number of bytes received
      */
     public int bytesProgress() {
         return (int) b.getBytes_progress();
@@ -42,7 +48,7 @@ public final class BlockInfo {
     /**
      * The total number of bytes in this block.
      *
-     * @return
+     * @return otal number of bytes
      */
     public int blockSize() {
         return (int) b.getBlock_size();
@@ -51,7 +57,7 @@ public final class BlockInfo {
     /**
      * The state this block is in.
      *
-     * @return
+     * @return the block's state
      */
     public BlockState state() {
         return BlockState.fromSwig((int) b.getState());
@@ -62,7 +68,7 @@ public final class BlockInfo {
      * this is 0 or 1, but at the end of the torrent blocks may be requested
      * by more peers in parallel to speed things up.
      *
-     * @return
+     * @return number of peers
      */
     public int numPeers() {
         return (int) b.getNum_peers();
@@ -106,15 +112,15 @@ public final class BlockInfo {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
         }
 
         /**
-         * @param swigValue
-         * @return
+         * @param swigValue the native value
+         * @return the state
          */
         public static BlockState fromSwig(int swigValue) {
             BlockState[] enumValues = BlockState.class.getEnumConstants();
