@@ -17496,7 +17496,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   jint jresult = 0 ;
   libtorrent::file_storage *arg1 = (libtorrent::file_storage *) 0 ;
   int arg2 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
@@ -17505,7 +17505,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   arg2 = (int)jarg2; 
   {
     try {
-      result = (time_t)((libtorrent::file_storage const *)arg1)->mtime(arg2);
+      result = (std::time_t)((libtorrent::file_storage const *)arg1)->mtime(arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -24027,13 +24027,13 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1added_1time_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  time_t arg2 ;
+  std::time_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  arg2 = (time_t)jarg2; 
+  arg2 = (std::time_t)jarg2; 
   if (arg1) (arg1)->added_time = arg2;
 }
 
@@ -24041,13 +24041,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1added_1time_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  result = (time_t) ((arg1)->added_time);
+  result = (std::time_t) ((arg1)->added_time);
   jresult = (jint)result; 
   return jresult;
 }
@@ -24055,13 +24055,13 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1completed_1time_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  time_t arg2 ;
+  std::time_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  arg2 = (time_t)jarg2; 
+  arg2 = (std::time_t)jarg2; 
   if (arg1) (arg1)->completed_time = arg2;
 }
 
@@ -24069,13 +24069,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1completed_1time_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  result = (time_t) ((arg1)->completed_time);
+  result = (std::time_t) ((arg1)->completed_time);
   jresult = (jint)result; 
   return jresult;
 }
@@ -24083,13 +24083,13 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1last_1seen_1complete_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  time_t arg2 ;
+  std::time_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  arg2 = (time_t)jarg2; 
+  arg2 = (std::time_t)jarg2; 
   if (arg1) (arg1)->last_seen_complete = arg2;
 }
 
@@ -24097,13 +24097,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1last_1seen_1complete_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  result = (time_t) ((arg1)->last_seen_complete);
+  result = (std::time_t) ((arg1)->last_seen_complete);
   jresult = (jint)result; 
   return jresult;
 }
@@ -54143,13 +54143,13 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1added_1time_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::torrent_status *arg1 = (libtorrent::torrent_status *) 0 ;
-  time_t arg2 ;
+  std::time_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  arg2 = (time_t)jarg2; 
+  arg2 = (std::time_t)jarg2; 
   if (arg1) (arg1)->added_time = arg2;
 }
 
@@ -54157,13 +54157,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1added_1time_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   libtorrent::torrent_status *arg1 = (libtorrent::torrent_status *) 0 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  result = (time_t) ((arg1)->added_time);
+  result = (std::time_t) ((arg1)->added_time);
   jresult = (jint)result; 
   return jresult;
 }
@@ -54171,13 +54171,13 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1completed_1time_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::torrent_status *arg1 = (libtorrent::torrent_status *) 0 ;
-  time_t arg2 ;
+  std::time_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  arg2 = (time_t)jarg2; 
+  arg2 = (std::time_t)jarg2; 
   if (arg1) (arg1)->completed_time = arg2;
 }
 
@@ -54185,13 +54185,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1completed_1time_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   libtorrent::torrent_status *arg1 = (libtorrent::torrent_status *) 0 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  result = (time_t) ((arg1)->completed_time);
+  result = (std::time_t) ((arg1)->completed_time);
   jresult = (jint)result; 
   return jresult;
 }
@@ -54199,13 +54199,13 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1last_1seen_1complete_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::torrent_status *arg1 = (libtorrent::torrent_status *) 0 ;
-  time_t arg2 ;
+  std::time_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  arg2 = (time_t)jarg2; 
+  arg2 = (std::time_t)jarg2; 
   if (arg1) (arg1)->last_seen_complete = arg2;
 }
 
@@ -54213,13 +54213,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1last_1seen_1complete_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   libtorrent::torrent_status *arg1 = (libtorrent::torrent_status *) 0 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  result = (time_t) ((arg1)->last_seen_complete);
+  result = (std::time_t) ((arg1)->last_seen_complete);
   jresult = (jint)result; 
   return jresult;
 }
