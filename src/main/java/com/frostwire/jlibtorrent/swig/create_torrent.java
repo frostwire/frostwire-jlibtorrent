@@ -87,10 +87,6 @@ public class create_torrent {
     libtorrent_jni.create_torrent_add_node(swigCPtr, this, string_int_pair.getCPtr(node), node);
   }
 
-  public void add_tracker(string_view url) {
-    libtorrent_jni.create_torrent_add_tracker__SWIG_0(swigCPtr, this, string_view.getCPtr(url), url);
-  }
-
   public void set_priv(boolean p) {
     libtorrent_jni.create_torrent_set_priv(swigCPtr, this, p);
   }
@@ -128,7 +124,7 @@ public class create_torrent {
   }
 
   public void add_tracker(String url, int tier) {
-    libtorrent_jni.create_torrent_add_tracker__SWIG_1(swigCPtr, this, url, tier);
+    libtorrent_jni.create_torrent_add_tracker(swigCPtr, this, url, tier);
   }
 
   public void add_collection(String c) {

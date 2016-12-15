@@ -820,6 +820,7 @@ typedef long time_t;
 %ignore libtorrent::peer_list_entry;
 %ignore libtorrent::create_torrent::add_url_seed(string_view);
 %ignore libtorrent::create_torrent::add_http_seed(string_view);
+%ignore libtorrent::create_torrent::add_tracker(string_view);
 %ignore libtorrent::create_torrent::add_tracker(string_view, int);
 %ignore libtorrent::create_torrent::add_collection(string_view);
 %ignore libtorrent::create_torrent::set_root_cert;
