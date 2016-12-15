@@ -492,9 +492,10 @@ public class SessionManager {
      * @param uri     magnet uri
      * @param timeout in seconds
      * @param maxSize in bytes
+     * @param extra   if extra data is included
      * @return the bencoded info or null
      */
-    public byte[] fetchMagnet(String uri, int timeout, final int maxSize) {
+    public byte[] fetchMagnet(String uri, int timeout, final boolean extra, final int maxSize) {
         if (session == null) {
             return null;
         }
@@ -530,7 +531,7 @@ public class SessionManager {
                     MetadataReceivedAlert a = ((MetadataReceivedAlert) alert);
                     int size = a.metadataSize();
                     if (0 < size && size <= maxSize) {
-                        data[0] = a.torrentData();
+                        data[0] = a.torrentData(extra);
                     }
                 }
 
@@ -601,15 +602,28 @@ public class SessionManager {
     }
 
     /**
-     * Similar to call {@link #fetchMagnet(String, int, int)} with
+     * Similar to call {@link #fetchMagnet(String, int, boolean, int)} with
      * a maximum size of 2MB.
      *
      * @param uri     magnet uri
      * @param timeout in seconds
+     * @param extra   if extra data is included
+     * @return the bencoded info or null
+     */
+    public byte[] fetchMagnet(String uri, int timeout, boolean extra) {
+        return fetchMagnet(uri, timeout, extra, 2 * 1024 * 1024);
+    }
+
+    /**
+     * Similar to call {@link #fetchMagnet(String, int, boolean)} with
+     * a maximum {@code extra = false}.
+     *
+     * @param uri
+     * @param timeout
      * @return the bencoded info or null
      */
     public byte[] fetchMagnet(String uri, int timeout) {
-        return fetchMagnet(uri, timeout, 2 * 1024 * 1024);
+        return fetchMagnet(uri, timeout, false);
     }
 
     /**

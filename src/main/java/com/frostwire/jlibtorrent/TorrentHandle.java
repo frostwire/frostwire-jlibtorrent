@@ -848,6 +848,16 @@ public final class TorrentHandle {
         th.remove_url_seed(url);
     }
 
+    /**
+     * Return a set of the url seeds currently in this
+     * torrent. This list is based on BEP 19.
+     *
+     * @return the url seed list
+     */
+    public List<String> urlSeeds() {
+        return Vectors.string_vector2list(th.get_url_seeds());
+    }
+
     // These functions are identical as the ``*_url_seed()`` variants, but
     // they operate on `BEP 17`_ web seeds instead of `BEP 19`_.
     //
@@ -862,6 +872,16 @@ public final class TorrentHandle {
     // See http-seeding_ for more information.
     public void removeHttpSeed(String url) {
         th.remove_http_seed(url);
+    }
+
+    /**
+     * Return a set of the url seeds currently in this
+     * torrent. This list is based on BEP 17.
+     *
+     * @return the url seed list
+     */
+    public List<String> httpSeeds() {
+        return Vectors.string_vector2list(th.get_http_seeds());
     }
 
     // ``use_interface()`` sets the network interface this torrent will use

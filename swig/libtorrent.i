@@ -1163,6 +1163,16 @@ namespace libtorrent {
     libtorrent::torrent_info const* torrent_file_ptr() {
         return $self->torrent_file().get();
     }
+
+    std::vector<std::string> get_url_seeds() const {
+        std::set<std::string> s = $self->url_seeds();
+        return {s.begin(), s.end()};
+    }
+
+    std::vector<std::string> get_http_seeds() const {
+        std::set<std::string> s = $self->http_seeds();
+        return {s.begin(), s.end()};
+    }
 }
 
 %extend dht_mutable_item_alert {

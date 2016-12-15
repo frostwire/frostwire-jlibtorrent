@@ -352,6 +352,14 @@ public class torrent_handle {
     return (cPtr == 0) ? null : new torrent_info(cPtr, false);
   }
 
+  public string_vector get_url_seeds() {
+    return new string_vector(libtorrent_jni.torrent_handle_get_url_seeds(swigCPtr, this), true);
+  }
+
+  public string_vector get_http_seeds() {
+    return new string_vector(libtorrent_jni.torrent_handle_get_http_seeds(swigCPtr, this), true);
+  }
+
   public final static class flags_t {
     public final static torrent_handle.flags_t overwrite_existing = new torrent_handle.flags_t("overwrite_existing", libtorrent_jni.torrent_handle_overwrite_existing_get());
 

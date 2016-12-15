@@ -1,9 +1,9 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.byte_const_span;
-import com.frostwire.jlibtorrent.swig.byte_vector;
-import com.frostwire.jlibtorrent.swig.int64_vector;
-import com.frostwire.jlibtorrent.swig.int_vector;
+import com.frostwire.jlibtorrent.swig.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author gubatron
@@ -90,5 +90,16 @@ public final class Vectors {
         }
 
         return v;
+    }
+
+    public static List<String> string_vector2list(string_vector v) {
+        int size = (int) v.size();
+        ArrayList<String> l = new ArrayList<>(size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(v.get(i));
+        }
+
+        return l;
     }
 }

@@ -25,7 +25,7 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
     private boolean invalid;
 
     /**
-     * @param alert
+     * @param alert the native object
      */
     MetadataReceivedAlert(metadata_received_alert alert) {
         super(alert);
@@ -37,7 +37,7 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
      * <p>
      * Internally it uses a lock synchronization to make it thread-safe.
      *
-     * @return
+     * @return the metadata size
      */
     public int metadataSize() {
         if (invalid) {
@@ -88,9 +88,11 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
      * <p>
      * Internally it uses a lock synchronization to make it thread-safe.
      *
-     * @return
+     * @param extra this controls if extra data, like trackers and web seeds
+     *              are included
+     * @return the torrent info bencoded data
      */
-    public byte[] torrentData() {
+    public byte[] torrentData(boolean extra) {
         if (invalid) {
             return null;
         }
@@ -122,11 +124,8 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
                 return null;
             }
 
-            create_torrent ct = new create_torrent(ti);
-            entry e = ct.generate();
-
             size = ti.metadata_size();
-            data = Vectors.byte_vector2bytes(e.bencode());
+            data = createTorrent(th, ti, extra);
 
         } catch (Throwable e) {
             invalid = true;
@@ -135,5 +134,40 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
         }
 
         return data;
+    }
+
+    /**
+     * Same as calling {@link #torrentData(boolean)} with {@code false}
+     *
+     * @return the info-dict data
+     */
+    public byte[] torrentData() {
+        return torrentData(false);
+    }
+
+    private static byte[] createTorrent(torrent_handle th, torrent_info ti, boolean extra) {
+        create_torrent ct = new create_torrent(ti);
+
+        if (extra) {
+            string_vector v = th.get_url_seeds();
+            int size = (int) v.size();
+            for (int i = 0; i < size; i++) {
+                ct.add_url_seed(v.get(i));
+            }
+            v = th.get_http_seeds();
+            size = (int) v.size();
+            for (int i = 0; i < size; i++) {
+                ct.add_http_seed(v.get(i));
+            }
+            announce_entry_vector trackers = th.trackers();
+            size = (int) trackers.size();
+            for (int i = 0; i < size; i++) {
+                announce_entry t = trackers.get(i);
+                ct.add_tracker(t.getUrl(), t.getTier());
+            }
+        }
+
+        entry e = ct.generate();
+        return Vectors.byte_vector2bytes(e.bencode());
     }
 }
