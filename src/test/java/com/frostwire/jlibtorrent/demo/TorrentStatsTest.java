@@ -19,13 +19,15 @@ public final class TorrentStatsTest {
 
         // comment this line for a real application
         args = new String[]{"/Users/maximiliamgierschmann/Downloads/Honey_Larochelle_Hijack_FrostClick_FrostWire_MP3_May_06_2016.torrent"};
+        //args = new String[]{"/Users/maximiliamgierschmann/Downloads/47889789802D66F326A3B3238DF29BD891CEF493.torrent"};
+
         File torrentFile = new File(args[0]);
 
         final SessionManager sessionManager = new SessionManager();
         final CountDownLatch signal = new CountDownLatch(1);
 
-        long samplingIntervalInMs = 1000; // 1 second
-        long maxHistoryInMs = 10*60*1000; // 10 minutes
+        long samplingIntervalInMs = 500; // 0.5 second
+        long maxHistoryInMs = 1 * 60 * 1000; // 1 minutes
 
         //starting sessionManager & torrent download
         sessionManager.start();
@@ -34,14 +36,41 @@ public final class TorrentStatsTest {
 
 
         //getting the torrentHandle for the TorrentStats tracker
-        TorrentHandle torrentHandle = sessionManager.find(ti.infoHash());
+        final TorrentHandle torrentHandle = sessionManager.find(ti.infoHash());
         // This creates a new TorrentStatsKeeper instance and all the internal alert listeners necessary
-        TorrentStats stats = sessionManager.trackStats(torrentHandle, samplingIntervalInMs, maxHistoryInMs);
-        // gets all the available upload speed samples (bytes/sec), in this case that'd be <= 600 elements
-        // int[] uploadSpeeds = sessionManager.get(TorrentStats.Upload);
-        // gets the last 10 available download speed samples or less if less available
-        //int[] last10DownloadSpeedSamples = stas.get(TorrentStats.Download, 10);
+        final TorrentStats stats = sessionManager.trackStats(torrentHandle, samplingIntervalInMs, maxHistoryInMs);
 
+
+        //deckaring listener to check updated values
+        sessionManager.addListener(new AlertListener() {
+            @Override
+            public int[] types() {
+                return null;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                AlertType type = alert.type();
+
+                switch (type) {
+
+                    case BLOCK_FINISHED:
+                        // gets all the available upload speed samples (bytes/sec), in this case that'd be <= 600 elements
+                        //int[] speedRate = stats.get(TorrentStats.DOWNLOAD);
+
+                        // gets the last 10 available download speed samples or less if less available
+                        int[] speedRate = stats.get(TorrentStats.DOWNLOAD, 10);
+                        //int[] speedRate = stats.get(TorrentStats.DOWNLOAD, 1);
+                        //int[] speedRate = stats.get(TorrentStats.DOWNLOAD, 5);
+
+                        System.out.println("Speeds(bytes/sec)");
+                        if (!torrentHandle.status().isFinished())
+                            for (int i = 0; i < speedRate.length; i++) System.out.print(speedRate[i] + " ");
+
+                        break;
+                }
+            }
+        });
 
         //stoping  sessionManager & torrent download
         signal.await();
