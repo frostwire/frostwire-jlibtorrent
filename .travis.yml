@@ -50,7 +50,7 @@ before_install:
 
 # android ndk: download and create toolchain
   - if [ $os_build == "android" ]; then
-      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r14-beta1-linux-x86_64.zip
+      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r14-beta1-linux-x86_64.zip;
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
       export NDK=$PWD/android-ndk-r14-beta1;
