@@ -616,7 +616,7 @@ namespace libtorrent {
     };
 };
 
-typedef long time_t;
+typedef std::int64_t time_t;
 
 %ignore libtorrent::TORRENT_CFG;
 %ignore libtorrent::detail;

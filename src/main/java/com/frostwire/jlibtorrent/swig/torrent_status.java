@@ -203,27 +203,27 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_all_time_download_get(swigCPtr, this);
   }
 
-  public void setAdded_time(int value) {
+  public void setAdded_time(long value) {
     libtorrent_jni.torrent_status_added_time_set(swigCPtr, this, value);
   }
 
-  public int getAdded_time() {
+  public long getAdded_time() {
     return libtorrent_jni.torrent_status_added_time_get(swigCPtr, this);
   }
 
-  public void setCompleted_time(int value) {
+  public void setCompleted_time(long value) {
     libtorrent_jni.torrent_status_completed_time_set(swigCPtr, this, value);
   }
 
-  public int getCompleted_time() {
+  public long getCompleted_time() {
     return libtorrent_jni.torrent_status_completed_time_get(swigCPtr, this);
   }
 
-  public void setLast_seen_complete(int value) {
+  public void setLast_seen_complete(long value) {
     libtorrent_jni.torrent_status_last_seen_complete_set(swigCPtr, this, value);
   }
 
-  public int getLast_seen_complete() {
+  public long getLast_seen_complete() {
     return libtorrent_jni.torrent_status_last_seen_complete_get(swigCPtr, this);
   }
 

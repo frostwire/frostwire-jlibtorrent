@@ -195,7 +195,7 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_name(swigCPtr, this);
   }
 
-  public int creation_date() {
+  public long creation_date() {
     return libtorrent_jni.torrent_info_creation_date(swigCPtr, this);
   }
 
