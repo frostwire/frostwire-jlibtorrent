@@ -518,33 +518,33 @@ public final class TorrentInfo {
     }
 
     /**
-     * returns the creation date of
-     * the torrent as time_t (`posix time`_). If there's no time stamp in the torrent file,
+     * Returns the creation date of he torrent as time_t (`posix time`_).
+     * If there's no time stamp in the torrent file,
      * a value of zero is returned.
      *
-     * @return
+     * @return the time
      */
-    public int creationDate() {
+    public long creationDate() {
         return ti.creation_date();
     }
 
     /**
-     * returns the creator string in the torrent. If there is no creator string
+     * Returns the creator string in the torrent. If there is no creator string
      * it will return an empty string.
      *
-     * @return
+     * @return the creator
      */
     public String creator() {
         return ti.creator();
     }
 
     /**
-     * returns the comment associated with the torrent. If there's no comment,
+     * Returns the comment associated with the torrent. If there's no comment,
      * it will return an empty string.
      * <p>
-     * the comment is an UTF-8 encoded strings.
+     * The comment is an UTF-8 encoded strings.
      *
-     * @return
+     * @return the comment
      */
     public String comment() {
         return ti.comment();

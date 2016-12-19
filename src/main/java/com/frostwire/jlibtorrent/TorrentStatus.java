@@ -766,8 +766,8 @@ public final class TorrentStatus {
         return ts.get_seeding_duration();
     }
 
-    private static long time2millis(int time) {
-        return ((long) time) * 1000;
+    private static long time2millis(long time) {
+        return time * 1000;
     }
 
     /**
