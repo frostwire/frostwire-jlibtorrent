@@ -42,18 +42,18 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/aldenml/libtorrent
+  - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 7f0e10409da49754aab0c5a40f698fb68cac0c69
+  - git checkout eaf99aa42ba8d89240bd7bb0deb3d16f4bba18c3
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
 # android ndk: download and create toolchain
   - if [ $os_build == "android" ]; then
-      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip;
+      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r14-beta1-linux-x86_64.zip
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
-      export NDK=$PWD/android-ndk-r13b;
+      export NDK=$PWD/android-ndk-r14-beta1;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
