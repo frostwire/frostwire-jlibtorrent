@@ -1119,7 +1119,7 @@ public class SessionManager {
         t.start();
     }
 
-    public TorrentStats trackStats(TorrentHandle torrentHandle, long samplingIntervalInMs, long maxHistoryInMs) {
+    public TorrentStats trackTorrentStats(TorrentHandle torrentHandle, long samplingIntervalInMs, long maxHistoryInMs) {
         return new TorrentStats(this, torrentHandle, samplingIntervalInMs, maxHistoryInMs);
     }
 

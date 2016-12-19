@@ -1,14 +1,13 @@
 package com.frostwire.jlibtorrent.demo;
+
 import com.frostwire.jlibtorrent.*;
-import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.AlertType;
-import com.frostwire.jlibtorrent.alerts.TorrentAddedAlert;
+import com.frostwire.jlibtorrent.alerts.*;
+
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
 
 /**
  * @author haperlot
- *
  * @samplingIntervalInMs the sampling interval time in milliseconds
  * @maxHistoryInMs max history in milliseconds to be tracked
  */
@@ -29,12 +28,11 @@ public final class TorrentStatsTest {
 
         //getting the torrentHandle for the TorrentStats tracker
         final TorrentHandle torrentHandle = sessionManager.find(ti.infoHash());
-
-        long samplingIntervalInMs = 500; // 0.5 second
+        long samplingIntervalInMs = 1000; // 0.5 second, 500
         long maxHistoryInMs = 1 * 60 * 1000; // 1 minutes
 
         // This creates a new TorrentStatsKeeper instance and all the internal alert listeners necessary
-        final TorrentStats stats = sessionManager.trackStats(torrentHandle, samplingIntervalInMs, maxHistoryInMs);
+        final TorrentStats stats = sessionManager.trackTorrentStats(torrentHandle, samplingIntervalInMs, maxHistoryInMs);
 
         //declaring listener to check updated values
         sessionManager.addListener(new AlertListener() {
@@ -47,25 +45,31 @@ public final class TorrentStatsTest {
             public void alert(Alert<?> alert) {
                 AlertType type = alert.type();
 
+                if (!(alert instanceof TorrentAlert<?>)) {
+                    return;
+                }
+                //if not eq to the torrentHandle return.
+                if (!((TorrentAlert<?>) alert).handle().swig().op_eq(torrentHandle.swig())) {
+                    return;
+                }
+
                 switch (type) {
-
                     case TORRENT_ADDED:
-                        System.out.println("Torrent added ");
+                        System.out.println("Torrent added");
                         ((TorrentAddedAlert) alert).handle().resume();
-
-                    case BLOCK_FINISHED:
-                        //gets all the available upload speed samples (bytes/sec), in this case that'd be <= 600 elements
-                        //int[] speedRate = stats.get(TorrentStats.DOWNLOAD);
-                        //gets the last 10 available download speed samples or less if less available
-                        //int[] speedRate = stats.get(TorrentStats.DOWNLOAD, 10);
-                        //int[] speedRate = stats.get(TorrentStats.DOWNLOAD, 1);
-                        int[] speedRate = stats.get(TorrentStats.DOWNLOAD, 5);
-                        System.out.println("Speeds(bytes/sec)");
-                        if (!torrentHandle.status().isFinished())
-                            for (int i = 0; i < speedRate.length; i++) System.out.print(speedRate[i] + " ");
-
+                        break;
+                    case TORRENT_FINISHED:
+                        System.out.println("Torrent finished");
+                        signal.countDown();
                         break;
                 }
+
+                //gets all the available upload speed samples (bytes/sec), in this case that'd be <= 600 elements
+                int[] speedRate = stats.get(TorrentStats.Metric.DownloadRate, 15);
+                if (!torrentHandle.status().isFinished()) {
+                    for (int i = 0; i < speedRate.length; i++) System.out.print(speedRate[i] + " ");
+                }
+                System.out.println(" ");
             }
         });
         //stop sessionManager

@@ -66,5 +66,7 @@ public final class TorrentStats {
         Series(int capacity) {
             super(capacity);
         }
+        //return empty queue is empty
+        return new int[limit];
     }
 }
