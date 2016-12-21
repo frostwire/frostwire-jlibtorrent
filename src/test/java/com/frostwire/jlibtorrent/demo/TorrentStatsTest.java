@@ -65,9 +65,9 @@ public final class TorrentStatsTest {
                 }
 
                 //gets all the available upload speed samples (bytes/sec), in this case that'd be <= 600 elements
-                int[] speedRate = stats.get(TorrentStats.Metric.DownloadRate, 15);
+                int[] speedRate = stats.getIntSamples(TorrentStats.Metric.DownloadRate);
                 if (!torrentHandle.status().isFinished()) {
-                    for (int i = 0; i < speedRate.length; i++) System.out.print(speedRate[i] + " ");
+                    for (int aSpeedRate : speedRate) System.out.print(aSpeedRate + " ");
                 }
                 System.out.println(" ");
             }
