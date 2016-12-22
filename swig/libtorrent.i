@@ -1,7 +1,5 @@
 %module (jniclassname="libtorrent_jni", directors="1") libtorrent
 
-// suppress Warning 302: Identifier '<name>' redefined (ignored).
-#pragma SWIG nowarn=302
 // suppress Warning 317: Specialization of non-template '<name>'.
 #pragma SWIG nowarn=317
 // suppress Warning 341: The 'using' keyword in type aliasing is not fully supported yet.
@@ -18,7 +16,6 @@
 
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
-#include "libtorrent/bitfield.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/bdecode.hpp"
@@ -310,7 +307,6 @@ namespace std {
     %template(file_index_string_map) map<file_index_t, std::string>;
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
-    %template(piece_index_bitfield_map) map<piece_index_t, libtorrent::bitfield>;
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
 };
@@ -685,6 +681,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::add_torrent_params::storage;
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::ti;
+%ignore libtorrent::add_torrent_params::unfinished_pieces;
 %ignore libtorrent::add_torrent_params::deprecated1;
 %ignore libtorrent::add_torrent_params::deprecated2;
 %ignore libtorrent::add_torrent_params::deprecated3;
@@ -849,14 +846,6 @@ typedef std::int64_t time_t;
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, int, std::time_t, string_view);
-%ignore libtorrent::bitfield::bitfield(bitfield const&);
-%ignore libtorrent::bitfield::bitfield(char const*, int);
-%ignore libtorrent::bitfield::assign;
-%ignore libtorrent::bitfield::data;
-%ignore libtorrent::bitfield::const_iterator;
-%ignore libtorrent::bitfield::begin;
-%ignore libtorrent::bitfield::end;
-%ignore libtorrent::bitfield::swap;
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
@@ -965,7 +954,6 @@ typedef std::int64_t time_t;
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/error_code.hpp"
-%include "libtorrent/bitfield.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/bdecode.hpp"

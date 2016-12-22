@@ -292,15 +292,6 @@ public class add_torrent_params {
     return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
   }
 
-  public void setUnfinished_pieces(piece_index_bitfield_map value) {
-    libtorrent_jni.add_torrent_params_unfinished_pieces_set(swigCPtr, this, piece_index_bitfield_map.getCPtr(value), value);
-  }
-
-  public piece_index_bitfield_map getUnfinished_pieces() {
-    long cPtr = libtorrent_jni.add_torrent_params_unfinished_pieces_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new piece_index_bitfield_map(cPtr, false);
-  }
-
   public void setHave_pieces(piece_index_bitfield value) {
     libtorrent_jni.add_torrent_params_have_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
