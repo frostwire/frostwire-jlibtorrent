@@ -14,12 +14,13 @@ public final class TorrentStats {
     private final torrent_handle th;
     private final Series downloadRateSeries;
     private final Series uploadRateSeries;
+    private final int MAX_SAMPLES;
 
-    public TorrentStats(TorrentHandle th) {
+    public TorrentStats(TorrentHandle th, long samplingIntervalInMs, long maxHistoryInMs) {
         this.th = th.swig(); // working with the swig types is for better performance
-        this.downloadRateSeries = new Series();
-        this.uploadRateSeries = new Series();
-
+        this.MAX_SAMPLES = (int) (maxHistoryInMs / samplingIntervalInMs);
+        this.downloadRateSeries = new Series(MAX_SAMPLES);
+        this.uploadRateSeries = new Series(MAX_SAMPLES);
         // TODO: more code here
         throw new UnsupportedOperationException("to be implemented");
     }
@@ -61,59 +62,9 @@ public final class TorrentStats {
         UPLOAD_RATE
     }
 
-    // TODO: to be implemented with a circular array
-    // to avoid expensive boxing/unboxing of primitive types
-    // the implementation should be backed by an array to allow
-    // for compactness of memory. All the arrays can be pooled
-    // from a single matrix to improve data locality at the time
-    // of bulk insertion.
-    // you can see that this class is immutable from the outside.
-    public static final class Series {
-
-        Series() {
-            throw new UnsupportedOperationException("to be implemented");
-        }
-
-        /**
-         * Adds a sample to the series.
-         *
-         * @param value sample's value
-         */
-        private void add(int value) {
-            throw new UnsupportedOperationException("to be implemented");
-        }
-
-        /**
-         * Returns the sample at index {@code index}.
-         *
-         * @param index the sample's index
-         * @return the sample's value
-         */
-        public int get(int index) {
-            throw new UnsupportedOperationException("to be implemented");
-        }
-
-        /**
-         * Returns a tail based sub-sample of the series or the entire
-         * series if count is bigger than {@link #size()}.
-         * <p>
-         * This is a potentially expensive memory operation. If memory
-         * is a concern, consider iterating with an index.
-         *
-         * @param count the count of the desired sub-sample
-         * @return array with values
-         */
-        public int[] tail(int count) {
-            throw new UnsupportedOperationException("to be implemented");
-        }
-
-        /**
-         * The amount of samples stored in the series.
-         *
-         * @return number of samples
-         */
-        public int size() {
-            throw new UnsupportedOperationException("to be implemented");
+    public static final class Series extends CircularArray {
+        Series(int capacity) {
+            super(capacity);
         }
     }
 }
