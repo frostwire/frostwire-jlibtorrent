@@ -190,7 +190,7 @@ public final class TorrentHandle {
      */
     public TorrentStatus status(boolean force) {
         long now = System.currentTimeMillis();
-        if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
+        if (th.is_valid() && (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS)) {
             lastStatusRequestTime = now;
             lastStatus = new TorrentStatus(th.status(0));
         }
