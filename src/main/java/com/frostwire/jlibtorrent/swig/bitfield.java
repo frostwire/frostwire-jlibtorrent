@@ -47,16 +47,8 @@ public class bitfield {
     this(libtorrent_jni.new_bitfield__SWIG_2(bits, val), true);
   }
 
-  public bitfield(String b, int bits) {
-    this(libtorrent_jni.new_bitfield__SWIG_3(b, bits), true);
-  }
-
   public bitfield(bitfield rhs) {
-    this(libtorrent_jni.new_bitfield__SWIG_4(bitfield.getCPtr(rhs), rhs), true);
-  }
-
-  public void assign(String b, int bits) {
-    libtorrent_jni.bitfield_assign(swigCPtr, this, b, bits);
+    this(libtorrent_jni.new_bitfield__SWIG_3(bitfield.getCPtr(rhs), rhs), true);
   }
 
   public boolean get_bit(int index) {
@@ -89,10 +81,6 @@ public class bitfield {
 
   public boolean empty() {
     return libtorrent_jni.bitfield_empty(swigCPtr, this);
-  }
-
-  public String data() {
-    return libtorrent_jni.bitfield_data(swigCPtr, this);
   }
 
   public int count() {

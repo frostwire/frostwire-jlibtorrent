@@ -1,5 +1,7 @@
 %module (jniclassname="libtorrent_jni", directors="1") libtorrent
 
+// suppress Warning 302: Identifier '<name>' redefined (ignored).
+#pragma SWIG nowarn=302
 // suppress Warning 317: Specialization of non-template '<name>'.
 #pragma SWIG nowarn=317
 // suppress Warning 341: The 'using' keyword in type aliasing is not fully supported yet.
@@ -117,6 +119,36 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 }
 #endif
 %}
+
+%typemap(jni) piece_index_t, const piece_index_t& "int"
+%typemap(jtype) piece_index_t, const piece_index_t& "int"
+%typemap(jstype) piece_index_t, const piece_index_t& "int"
+
+%typemap(in) piece_index_t {
+    $1 = piece_index_t($input);
+}
+%typemap(out) piece_index_t {
+    $result = static_cast<int>($1);
+}
+%typemap(javain) piece_index_t, const piece_index_t& "$javainput"
+%typemap(javaout) piece_index_t, const piece_index_t& {
+    return $jnicall;
+  }
+
+%typemap(jni) file_index_t, const file_index_t& "int"
+%typemap(jtype) file_index_t, const file_index_t& "int"
+%typemap(jstype) file_index_t, const file_index_t& "int"
+
+%typemap(in) file_index_t {
+    $1 = file_index_t($input);
+}
+%typemap(out) file_index_t {
+    $result = static_cast<int>($1);
+}
+%typemap(javain) file_index_t, const file_index_t& "$javainput"
+%typemap(javaout) file_index_t, const file_index_t& {
+    return $jnicall;
+  }
 
 #endif // SWIGJAVA
 
@@ -241,7 +273,7 @@ namespace std {
         }
     };
 
-    %template(int_int_pair) pair<int, int>;
+    %template(piece_index_int_pair) pair<piece_index_t, int>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
     %template(string_view_bdecode_node_pair) pair<libtorrent::string_view, libtorrent::bdecode_node>;
@@ -251,7 +283,7 @@ namespace std {
     %template(string_vector) vector<std::string>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
-    %template(int_int_pair_vector) vector<std::pair<int, int>>;
+    %template(piece_index_int_pair_vector) vector<std::pair<piece_index_t, int>>;
 
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<long long>;
@@ -272,11 +304,13 @@ namespace std {
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(tcp_endpoint_vector) vector<libtorrent::tcp::endpoint>;
     %template(udp_endpoint_vector) vector<libtorrent::udp::endpoint>;
+    %template(piece_index_vector) vector<piece_index_t>;
+    %template(file_index_vector) vector<file_index_t>;
 
-    %template(int_string_map) map<int, std::string>;
+    %template(file_index_string_map) map<file_index_t, std::string>;
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
-    %template(int_bitfield_map) map<int, libtorrent::bitfield>;
+    %template(piece_index_bitfield_map) map<piece_index_t, libtorrent::bitfield>;
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
 };
@@ -614,6 +648,15 @@ namespace libtorrent {
             }
         }
     };
+
+    template <typename IndexType>
+	struct typed_bitfield {
+        bool get_bit(IndexType const index) const;
+        void clear_bit(IndexType const index);
+        void set_bit(IndexType const index);
+        IndexType end_index() const;
+	};
+    %template(piece_index_bitfield) typed_bitfield<piece_index_t>;
 };
 
 typedef std::int64_t time_t;
@@ -624,7 +667,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::bdecode;
 %ignore libtorrent::get_bdecode_category;
-%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(int)> const&, error_code&);
+%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(piece_index_t)> const&, error_code&);
 %ignore libtorrent::hash_value;
 %ignore libtorrent::internal_file_entry;
 %ignore libtorrent::print_entry;
@@ -807,7 +850,9 @@ typedef std::int64_t time_t;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, int, std::time_t, string_view);
 %ignore libtorrent::bitfield::bitfield(bitfield const&);
-%ignore libtorrent::bitfield::data();
+%ignore libtorrent::bitfield::bitfield(char const*, int);
+%ignore libtorrent::bitfield::assign;
+%ignore libtorrent::bitfield::data;
 %ignore libtorrent::bitfield::const_iterator;
 %ignore libtorrent::bitfield::begin;
 %ignore libtorrent::bitfield::end;

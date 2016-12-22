@@ -292,31 +292,31 @@ public class add_torrent_params {
     return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
   }
 
-  public void setUnfinished_pieces(int_bitfield_map value) {
-    libtorrent_jni.add_torrent_params_unfinished_pieces_set(swigCPtr, this, int_bitfield_map.getCPtr(value), value);
+  public void setUnfinished_pieces(piece_index_bitfield_map value) {
+    libtorrent_jni.add_torrent_params_unfinished_pieces_set(swigCPtr, this, piece_index_bitfield_map.getCPtr(value), value);
   }
 
-  public int_bitfield_map getUnfinished_pieces() {
+  public piece_index_bitfield_map getUnfinished_pieces() {
     long cPtr = libtorrent_jni.add_torrent_params_unfinished_pieces_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new int_bitfield_map(cPtr, false);
+    return (cPtr == 0) ? null : new piece_index_bitfield_map(cPtr, false);
   }
 
-  public void setHave_pieces(bitfield value) {
-    libtorrent_jni.add_torrent_params_have_pieces_set(swigCPtr, this, bitfield.getCPtr(value), value);
+  public void setHave_pieces(piece_index_bitfield value) {
+    libtorrent_jni.add_torrent_params_have_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
 
-  public bitfield getHave_pieces() {
+  public piece_index_bitfield getHave_pieces() {
     long cPtr = libtorrent_jni.add_torrent_params_have_pieces_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bitfield(cPtr, false);
+    return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
-  public void setVerified_pieces(bitfield value) {
-    libtorrent_jni.add_torrent_params_verified_pieces_set(swigCPtr, this, bitfield.getCPtr(value), value);
+  public void setVerified_pieces(piece_index_bitfield value) {
+    libtorrent_jni.add_torrent_params_verified_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
 
-  public bitfield getVerified_pieces() {
+  public piece_index_bitfield getVerified_pieces() {
     long cPtr = libtorrent_jni.add_torrent_params_verified_pieces_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bitfield(cPtr, false);
+    return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
   public void setPiece_priorities(byte_vector value) {
@@ -337,13 +337,13 @@ public class add_torrent_params {
     return (cPtr == 0) ? null : new sha1_hash_vector(cPtr, false);
   }
 
-  public void setRenamed_files(int_string_map value) {
-    libtorrent_jni.add_torrent_params_renamed_files_set(swigCPtr, this, int_string_map.getCPtr(value), value);
+  public void setRenamed_files(file_index_string_map value) {
+    libtorrent_jni.add_torrent_params_renamed_files_set(swigCPtr, this, file_index_string_map.getCPtr(value), value);
   }
 
-  public int_string_map getRenamed_files() {
+  public file_index_string_map getRenamed_files() {
     long cPtr = libtorrent_jni.add_torrent_params_renamed_files_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new int_string_map(cPtr, false);
+    return (cPtr == 0) ? null : new file_index_string_map(cPtr, false);
   }
 
   public torrent_info ti_ptr() {

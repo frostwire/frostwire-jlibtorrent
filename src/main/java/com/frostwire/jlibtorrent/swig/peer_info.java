@@ -43,13 +43,13 @@ public class peer_info {
     return libtorrent_jni.peer_info_client_get(swigCPtr, this);
   }
 
-  public void setPieces(bitfield value) {
-    libtorrent_jni.peer_info_pieces_set(swigCPtr, this, bitfield.getCPtr(value), value);
+  public void setPieces(piece_index_bitfield value) {
+    libtorrent_jni.peer_info_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
 
-  public bitfield getPieces() {
+  public piece_index_bitfield getPieces() {
     long cPtr = libtorrent_jni.peer_info_pieces_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bitfield(cPtr, false);
+    return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
   public void setTotal_download(long value) {

@@ -207,8 +207,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_prioritize_pieces__SWIG_0(swigCPtr, this, int_vector.getCPtr(pieces), pieces);
   }
 
-  public void prioritize_pieces(int_int_pair_vector pieces) {
-    libtorrent_jni.torrent_handle_prioritize_pieces__SWIG_1(swigCPtr, this, int_int_pair_vector.getCPtr(pieces), pieces);
+  public void prioritize_pieces(piece_index_int_pair_vector pieces) {
+    libtorrent_jni.torrent_handle_prioritize_pieces__SWIG_1(swigCPtr, this, piece_index_int_pair_vector.getCPtr(pieces), pieces);
   }
 
   public int_vector piece_priorities() {

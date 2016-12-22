@@ -99,6 +99,14 @@ public class file_storage {
     return libtorrent_jni.file_storage_num_files(swigCPtr, this);
   }
 
+  public int end_file() {
+    return libtorrent_jni.file_storage_end_file(swigCPtr, this);
+  }
+
+  public int last_file() {
+    return libtorrent_jni.file_storage_last_file(swigCPtr, this);
+  }
+
   public long total_size() {
     return libtorrent_jni.file_storage_total_size(swigCPtr, this);
   }
@@ -109,6 +117,14 @@ public class file_storage {
 
   public int num_pieces() {
     return libtorrent_jni.file_storage_num_pieces(swigCPtr, this);
+  }
+
+  public int end_piece() {
+    return libtorrent_jni.file_storage_end_piece(swigCPtr, this);
+  }
+
+  public int last_piece() {
+    return libtorrent_jni.file_storage_last_piece(swigCPtr, this);
   }
 
   public void set_piece_length(int l) {
