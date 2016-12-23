@@ -35,6 +35,22 @@ public class piece_index_bitfield {
     }
   }
 
+  public piece_index_bitfield() {
+    this(libtorrent_jni.new_piece_index_bitfield__SWIG_0(), true);
+  }
+
+  public piece_index_bitfield(int bits) {
+    this(libtorrent_jni.new_piece_index_bitfield__SWIG_1(bits), true);
+  }
+
+  public piece_index_bitfield(int bits, boolean val) {
+    this(libtorrent_jni.new_piece_index_bitfield__SWIG_2(bits, val), true);
+  }
+
+  public piece_index_bitfield(piece_index_bitfield rhs) {
+    this(libtorrent_jni.new_piece_index_bitfield__SWIG_3(piece_index_bitfield.getCPtr(rhs), rhs), true);
+  }
+
   public boolean get_bit(int index) {
     return libtorrent_jni.piece_index_bitfield_get_bit(swigCPtr, this, index);
   }
@@ -51,8 +67,56 @@ public class piece_index_bitfield {
     return libtorrent_jni.piece_index_bitfield_end_index(swigCPtr, this);
   }
 
-  public piece_index_bitfield() {
-    this(libtorrent_jni.new_piece_index_bitfield(), true);
+  public boolean all_set() {
+    return libtorrent_jni.piece_index_bitfield_all_set(swigCPtr, this);
+  }
+
+  public boolean none_set() {
+    return libtorrent_jni.piece_index_bitfield_none_set(swigCPtr, this);
+  }
+
+  public int size() {
+    return libtorrent_jni.piece_index_bitfield_size(swigCPtr, this);
+  }
+
+  public int num_words() {
+    return libtorrent_jni.piece_index_bitfield_num_words(swigCPtr, this);
+  }
+
+  public boolean empty() {
+    return libtorrent_jni.piece_index_bitfield_empty(swigCPtr, this);
+  }
+
+  public int count() {
+    return libtorrent_jni.piece_index_bitfield_count(swigCPtr, this);
+  }
+
+  public int find_first_set() {
+    return libtorrent_jni.piece_index_bitfield_find_first_set(swigCPtr, this);
+  }
+
+  public int find_last_clear() {
+    return libtorrent_jni.piece_index_bitfield_find_last_clear(swigCPtr, this);
+  }
+
+  public void resize(int bits, boolean val) {
+    libtorrent_jni.piece_index_bitfield_resize__SWIG_0(swigCPtr, this, bits, val);
+  }
+
+  public void resize(int bits) {
+    libtorrent_jni.piece_index_bitfield_resize__SWIG_1(swigCPtr, this, bits);
+  }
+
+  public void set_all() {
+    libtorrent_jni.piece_index_bitfield_set_all(swigCPtr, this);
+  }
+
+  public void clear_all() {
+    libtorrent_jni.piece_index_bitfield_clear_all(swigCPtr, this);
+  }
+
+  public void clear() {
+    libtorrent_jni.piece_index_bitfield_clear(swigCPtr, this);
   }
 
 }
