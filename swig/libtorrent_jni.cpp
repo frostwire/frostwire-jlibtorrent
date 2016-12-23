@@ -718,6 +718,9 @@ namespace Swig {
 
 #include "libtorrent.h"
 
+using piece_index_t = libtorrent::piece_index_t;
+using file_index_t = libtorrent::file_index_t;
+
 // END common set include ------------------------------------------------------
 
 
@@ -1351,7 +1354,7 @@ SWIGINTERN std::vector< libtorrent::block_info > libtorrent_partial_piece_info_g
         return std::vector<libtorrent::block_info>(self->blocks, self->blocks + self->blocks_in_piece);
     }
 SWIGINTERN void libtorrent_torrent_handle_add_piece_bytes__SWIG_0(libtorrent::torrent_handle *self,int piece,std::vector< int8_t > const &data,int flags=0){
-        self->add_piece(piece, (char const*)&data[0], flags);
+        self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
     }
 SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_handle_torrent_file_ptr(libtorrent::torrent_handle *self){
         return self->torrent_file().get();
@@ -56314,15 +56317,17 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, int jarg2) {
   set_piece_hashes_listener *arg1 = (set_piece_hashes_listener *) 0 ;
-  int arg2 ;
+  piece_index_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(set_piece_hashes_listener **)&jarg1; 
-  arg2 = (int)jarg2; 
+  {
+    arg2 = piece_index_t(jarg2);
+  }
   {
     try {
       (arg1)->progress(arg2);

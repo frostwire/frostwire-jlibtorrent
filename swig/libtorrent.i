@@ -46,6 +46,9 @@
 
 #include "libtorrent.h"
 
+using piece_index_t = libtorrent::piece_index_t;
+using file_index_t = libtorrent::file_index_t;
+
 // END common set include ------------------------------------------------------
 %}
 
@@ -1190,7 +1193,7 @@ namespace libtorrent {
 %extend torrent_handle {
 
     void add_piece_bytes(int piece, std::vector<int8_t> const& data, int flags = 0) {
-        $self->add_piece(piece, (char const*)&data[0], flags);
+        $self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
     }
 
     libtorrent::torrent_info const* torrent_file_ptr() {

@@ -145,10 +145,12 @@ void add_files_ex(libtorrent::file_storage& fs, std::string const& file,
 
 struct set_piece_hashes_listener {
 
+    using piece_index_t = libtorrent::piece_index_t;
+
     virtual ~set_piece_hashes_listener() {
     }
 
-    virtual void progress(int i) {
+    virtual void progress(piece_index_t i) {
     }
 };
 
