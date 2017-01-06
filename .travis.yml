@@ -22,12 +22,12 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.62.0/boost_1_62_0.zip
+  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.63.0/boost_1_63_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_62_0
+  - cd boost_1_63_0
   - ./bootstrap.sh
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_62_0
+  - export BOOST_ROOT=$PWD/boost_1_63_0
 
 # openssl: download
   - wget -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.0c.tar.gz
@@ -42,9 +42,9 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/arvidn/libtorrent
+  - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
-  - git checkout 75f307c1870808c9a177ea2a4f4b12ccb210a555
+  - git checkout 8e32bb144629db2d747ba14cce7fefff8ab36489
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
