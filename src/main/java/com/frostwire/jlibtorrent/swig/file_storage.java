@@ -151,14 +151,6 @@ public class file_storage {
     libtorrent_jni.file_storage_swap(swigCPtr, this, file_storage.getCPtr(ti), ti);
   }
 
-  public void unload() {
-    libtorrent_jni.file_storage_unload(swigCPtr, this);
-  }
-
-  public boolean is_loaded() {
-    return libtorrent_jni.file_storage_is_loaded(swigCPtr, this);
-  }
-
   public void optimize(int pad_file_limit, int alignment, boolean tail_padding) {
     libtorrent_jni.file_storage_optimize__SWIG_0(swigCPtr, this, pad_file_limit, alignment, tail_padding);
   }

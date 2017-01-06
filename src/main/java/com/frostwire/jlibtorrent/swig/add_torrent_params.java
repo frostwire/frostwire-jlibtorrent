@@ -377,7 +377,6 @@ public class add_torrent_params {
     public final static add_torrent_params.flags_t flag_update_subscribe = new add_torrent_params.flags_t("flag_update_subscribe", libtorrent_jni.add_torrent_params_flag_update_subscribe_get());
     public final static add_torrent_params.flags_t flag_super_seeding = new add_torrent_params.flags_t("flag_super_seeding", libtorrent_jni.add_torrent_params_flag_super_seeding_get());
     public final static add_torrent_params.flags_t flag_sequential_download = new add_torrent_params.flags_t("flag_sequential_download", libtorrent_jni.add_torrent_params_flag_sequential_download_get());
-    public final static add_torrent_params.flags_t flag_pinned = new add_torrent_params.flags_t("flag_pinned", libtorrent_jni.add_torrent_params_flag_pinned_get());
     public final static add_torrent_params.flags_t flag_stop_when_ready = new add_torrent_params.flags_t("flag_stop_when_ready", libtorrent_jni.add_torrent_params_flag_stop_when_ready_get());
     public final static add_torrent_params.flags_t flag_override_trackers = new add_torrent_params.flags_t("flag_override_trackers", libtorrent_jni.add_torrent_params_flag_override_trackers_get());
     public final static add_torrent_params.flags_t flag_override_web_seeds = new add_torrent_params.flags_t("flag_override_web_seeds", libtorrent_jni.add_torrent_params_flag_override_web_seeds_get());
@@ -418,7 +417,7 @@ public class add_torrent_params {
       swigNext = this.swigValue+1;
     }
 
-    private static flags_t[] swigValues = { flag_seed_mode, flag_upload_mode, flag_share_mode, flag_apply_ip_filter, flag_paused, flag_auto_managed, flag_duplicate_is_error, flag_update_subscribe, flag_super_seeding, flag_sequential_download, flag_pinned, flag_stop_when_ready, flag_override_trackers, flag_override_web_seeds, flag_need_save_resume, default_flags };
+    private static flags_t[] swigValues = { flag_seed_mode, flag_upload_mode, flag_share_mode, flag_apply_ip_filter, flag_paused, flag_auto_managed, flag_duplicate_is_error, flag_update_subscribe, flag_super_seeding, flag_sequential_download, flag_stop_when_ready, flag_override_trackers, flag_override_web_seeds, flag_need_save_resume, default_flags };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

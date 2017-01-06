@@ -652,8 +652,6 @@ public class libtorrent_jni {
   public final static native void file_storage_set_name(long jarg1, file_storage jarg1_, String jarg2);
   public final static native String file_storage_name(long jarg1, file_storage jarg1_);
   public final static native void file_storage_swap(long jarg1, file_storage jarg1_, long jarg2, file_storage jarg2_);
-  public final static native void file_storage_unload(long jarg1, file_storage jarg1_);
-  public final static native boolean file_storage_is_loaded(long jarg1, file_storage jarg1_);
   public final static native void file_storage_optimize__SWIG_0(long jarg1, file_storage jarg1_, int jarg2, int jarg3, boolean jarg4);
   public final static native void file_storage_optimize__SWIG_1(long jarg1, file_storage jarg1_, int jarg2, int jarg3);
   public final static native void file_storage_optimize__SWIG_2(long jarg1, file_storage jarg1_, int jarg2);
@@ -904,7 +902,6 @@ public class libtorrent_jni {
   public final static native int add_torrent_params_flag_update_subscribe_get();
   public final static native int add_torrent_params_flag_super_seeding_get();
   public final static native int add_torrent_params_flag_sequential_download_get();
-  public final static native int add_torrent_params_flag_pinned_get();
   public final static native int add_torrent_params_flag_stop_when_ready_get();
   public final static native int add_torrent_params_flag_override_trackers_get();
   public final static native int add_torrent_params_flag_override_web_seeds_get();
@@ -2188,7 +2185,7 @@ public class libtorrent_jni {
   public final static native int settings_pack_allow_multiple_connections_per_ip_get();
   public final static native int settings_pack_send_redundant_have_get();
   public final static native int settings_pack_use_dht_as_fallback_get();
-  public final static native int settings_pack_dont_flush_write_cache_get();
+  public final static native int settings_pack_coalesce_reads_get();
   public final static native int settings_pack_disable_hash_checks_get();
   public final static native int settings_pack_volatile_read_cache_get();
   public final static native int settings_pack_no_atime_storage_get();
