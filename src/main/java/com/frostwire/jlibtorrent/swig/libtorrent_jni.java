@@ -2654,7 +2654,7 @@ public class libtorrent_jni {
   public final static native long new_add_files_listener();
   public final static native void add_files_ex(long jarg1, file_storage jarg1_, String jarg2, long jarg3, add_files_listener jarg3_, long jarg4);
   public final static native void delete_set_piece_hashes_listener(long jarg1);
-  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, long jarg2);
+  public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
   public final static native long new_set_piece_hashes_listener();
   public final static native void set_piece_hashes_ex(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, set_piece_hashes_listener jarg3_, long jarg4, error_code jarg4_);
   public final static native int boost_version();

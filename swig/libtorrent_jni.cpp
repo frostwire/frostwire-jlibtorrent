@@ -56651,21 +56651,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1progress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   set_piece_hashes_listener *arg1 = (set_piece_hashes_listener *) 0 ;
-  set_piece_hashes_listener::piece_index_t arg2 ;
-  set_piece_hashes_listener::piece_index_t *argp2 ;
+  int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(set_piece_hashes_listener **)&jarg1; 
-  argp2 = *(set_piece_hashes_listener::piece_index_t **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null set_piece_hashes_listener::piece_index_t");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (int)jarg2; 
   {
     try {
       (arg1)->progress(arg2);
