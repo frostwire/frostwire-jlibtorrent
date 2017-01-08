@@ -88,9 +88,12 @@ $ git checkout master
 - To trigger a new build, just make a change or merge new changes from
  the stable branch, commit and push.
 
-**Contributions are rewarded instantly with our Bitcoin donations fund**
-
-[![tip for next commit](https://tip4commit.com/projects/983.svg)](https://tip4commit.com/github/frostwire/frostwire-jlibtorrent)
+Projects using jLibtorrent
+==========================
+- [FrostWire](http://www.frostwire.com) (both desktop and android editions)
+- [TorrentStream-Android](https://github.com/mianharisali/TorrentStream-Android)
+- [TorrentTunes-Client](https://github.com/dessalines/torrenttunes-client)
+- [LibreTorrent](https://github.com/proninyaroslav/libretorrent)
 
 License
 ========
