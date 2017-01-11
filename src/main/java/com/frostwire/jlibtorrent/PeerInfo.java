@@ -41,6 +41,39 @@ public final class PeerInfo {
     }
 
     /**
+     * A bitfield, with one bit per piece in the torrent. Each bit tells you
+     * if the peer has that piece (if it's set to 1) or if the peer miss that
+     * piece (set to 0).
+     *
+     * @return the bitfield of pieces
+     */
+    public PieceIndexBitfield pieces() {
+        return new PieceIndexBitfield(p.getPieces());
+    }
+
+    /**
+     * The total number of bytes downloaded from this peer.
+     * These numbers do not include the protocol chatter, but only the
+     * payload data.
+     *
+     * @return number of bytes downloaded
+     */
+    public long totalDownload() {
+        return p.getTotal_download();
+    }
+
+    /**
+     * The total number of bytes uploaded to this peer.
+     * These numbers do not include the protocol chatter, but only the
+     * payload data.
+     *
+     * @return number of bytes uploaded
+     */
+    public long totalUpload() {
+        return p.getTotal_upload();
+    }
+
+    /**
      * The flags indicating which sources a peer can
      * have come from. A peer may have been seen from
      * multiple sources.
