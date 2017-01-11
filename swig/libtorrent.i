@@ -869,6 +869,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, int, std::time_t, string_view);
+%ignore libtorrent::peer_info::client;
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
@@ -1255,6 +1256,7 @@ namespace libtorrent {
 }
 
 %extend dht_put_alert {
+
     std::vector<int8_t> get_public_key() {
         std::array<char, 32> arr = $self->public_key;
         return std::vector<int8_t>(arr.begin(), arr.end());
@@ -1308,6 +1310,11 @@ namespace libtorrent {
 };
 
 %extend peer_info {
+
+    std::vector<int8_t> get_client() {
+        std::string s = $self->client;
+        return {s.begin(), s.end()};
+    }
 
     int64_t get_last_request() {
         return libtorrent::total_milliseconds($self->last_request);

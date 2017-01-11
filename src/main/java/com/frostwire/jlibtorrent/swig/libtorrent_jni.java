@@ -1993,8 +1993,6 @@ public class libtorrent_jni {
   public final static native long session_error_alert_error_get(long jarg1, session_error_alert jarg1_);
   public final static native void delete_session_error_alert(long jarg1);
   public final static native int num_alert_types_get();
-  public final static native void peer_info_client_set(long jarg1, peer_info jarg1_, String jarg2);
-  public final static native String peer_info_client_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_pieces_set(long jarg1, peer_info jarg1_, long jarg2, piece_index_bitfield jarg2_);
   public final static native long peer_info_pieces_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_total_download_set(long jarg1, peer_info jarg1_, long jarg2);
@@ -2118,6 +2116,7 @@ public class libtorrent_jni {
   public final static native byte peer_info_read_state_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_write_state_set(long jarg1, peer_info jarg1_, byte jarg2);
   public final static native byte peer_info_write_state_get(long jarg1, peer_info jarg1_);
+  public final static native long peer_info_get_client(long jarg1, peer_info jarg1_);
   public final static native long peer_info_get_last_request(long jarg1, peer_info jarg1_);
   public final static native long peer_info_get_last_active(long jarg1, peer_info jarg1_);
   public final static native long peer_info_get_download_queue_time(long jarg1, peer_info jarg1_);

@@ -35,14 +35,6 @@ public class peer_info {
     }
   }
 
-  public void setClient(String value) {
-    libtorrent_jni.peer_info_client_set(swigCPtr, this, value);
-  }
-
-  public String getClient() {
-    return libtorrent_jni.peer_info_client_get(swigCPtr, this);
-  }
-
   public void setPieces(piece_index_bitfield value) {
     libtorrent_jni.peer_info_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
@@ -405,6 +397,10 @@ public class peer_info {
 
   public byte getWrite_state() {
     return libtorrent_jni.peer_info_write_state_get(swigCPtr, this);
+  }
+
+  public byte_vector get_client() {
+    return new byte_vector(libtorrent_jni.peer_info_get_client(swigCPtr, this), true);
   }
 
   public long get_last_request() {

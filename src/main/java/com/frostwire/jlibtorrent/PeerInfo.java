@@ -18,10 +18,26 @@ public final class PeerInfo {
     }
 
     /**
-     * @return
+     * @return the native object
      */
     public peer_info swig() {
         return p;
+    }
+
+    /**
+     * This corresponds to a native string value. This string
+     * could contains problematic values for UTF-8 conversions.
+     * <p>
+     * This describe the software at the other end of the connection.
+     * In some cases this information is not available, then it will contain
+     * a string that may give away something about which software is running
+     * in the other end. In the case of a web seed, the server type and
+     * version will be a part of this string.
+     *
+     * @return the raw bytes of the string
+     */
+    public byte[] client() {
+        return Vectors.byte_vector2bytes(p.get_client());
     }
 
     /**
@@ -75,15 +91,15 @@ public final class PeerInfo {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
         }
 
         /**
-         * @param swigValue
-         * @return
+         * @param swigValue the native value
+         * @return the java enum value
          */
         public static PeerSourceFlags fromSwig(int swigValue) {
             PeerSourceFlags[] enumValues = PeerSourceFlags.class.getEnumConstants();
