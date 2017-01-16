@@ -55,8 +55,8 @@ public class SessionHandle {
      * filter which parts of the session state to save. By default, all state
      * is saved (except for the individual torrents).
      *
-     * @return
-     * @see {@link com.frostwire.jlibtorrent.swig.session_handle.save_state_flags_t}
+     * @return the bencoded byte array
+     * @see com.frostwire.jlibtorrent.swig.session_handle.save_state_flags_t
      */
     public byte[] saveState(long flags) {
         entry e = new entry();
@@ -87,8 +87,8 @@ public class SessionHandle {
      * filter which parts of the session state to load. By default, all state
      * is restored (except for the individual torrents).
      *
-     * @param data
-     * @see {@link com.frostwire.jlibtorrent.swig.session_handle.save_state_flags_t}
+     * @param data the beencoded byte array
+     * @see com.frostwire.jlibtorrent.swig.session_handle.save_state_flags_t
      */
     public void loadState(byte[] data, long flags) {
         byte_vector buffer = Vectors.bytes2byte_vector(data);
@@ -107,7 +107,6 @@ public class SessionHandle {
     /**
      * Same as calling {@link #loadState(byte[], long)} with all save state flags.
      *
-     * @return
      * @see #loadState(byte[], long)
      */
     public void loadState(byte[] data) {

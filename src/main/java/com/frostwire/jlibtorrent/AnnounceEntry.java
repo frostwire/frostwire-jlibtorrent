@@ -46,7 +46,7 @@ public final class AnnounceEntry {
     }
 
     /**
-     * The current ``&trackerid=`` argument passed to the tracker.
+     * The current {@code &trackerid=} argument passed to the tracker.
      * this is optional and is normally empty (in which case no
      * trackerid is sent).
      *

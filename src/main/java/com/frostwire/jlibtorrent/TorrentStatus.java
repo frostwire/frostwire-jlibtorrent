@@ -383,12 +383,11 @@ public final class TorrentStatus {
     }
 
     /**
-     * the number of pieces that has been downloaded. It is equivalent to:
-     * ``std::accumulate(pieces->begin(), pieces->end())``. So you don't have
+     * Returns the number of pieces that has been downloaded so you don't have
      * to count yourself. This can be used to see if anything has updated
      * since last time if you want to keep a graph of the pieces up to date.
      *
-     * @return
+     * @return the number of pieces that has been downloaded
      */
     public int numPieces() {
         return ts.getNum_pieces();
@@ -465,11 +464,13 @@ public final class TorrentStatus {
     }
 
     /**
-     * the number of peer connections this torrent has, including half-open
-     * connections that hasn't completed the bittorrent handshake yet. This
-     * is always >= ``num_peers``.
+     * Returns the number of peer connections this torrent has,
+     * including half-open connections that hasn't completed the
+     * bittorrent handshake yet.
+     * <p>
+     * This is always {@code >= num_peers}.
      *
-     * @return
+     * @return the number of peer connections
      */
     public int numConnections() {
         return ts.getNum_connections();

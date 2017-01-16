@@ -521,7 +521,8 @@ public final class TorrentHandle {
      * for the alerts:
      * <p>
      * .. code:: c++
-     * <p>
+     * <pre>
+     * {@code
      * extern int outstanding_resume_data; // global counter of outstanding resume data
      * std::vector<torrent_handle> handles = ses.get_torrents();
      * ses.pause();
@@ -533,34 +534,34 @@ public final class TorrentHandle {
      * torrent_status s = h.status();
      * if (!s.has_metadata) continue;
      * if (!s.need_save_resume_data()) continue;
-     * <p>
+     *
      * h.save_resume_data();
      * ++outstanding_resume_data;
      * }
-     * <p>
+     *
      * while (outstanding_resume_data > 0)
      * {
      * alert const* a = ses.wait_for_alert(seconds(10));
-     * <p>
+     *
      * // if we don't get an alert within 10 seconds, abort
      * if (a == 0) break;
-     * <p>
+     *
      * std::auto_ptr<alert> holder = ses.pop_alert();
-     * <p>
+     *
      * if (alert_cast<save_resume_data_failed_alert>(a))
      * {
      * process_alert(a);
      * --outstanding_resume_data;
      * continue;
      * }
-     * <p>
+     *
      * save_resume_data_alert const* rd = alert_cast<save_resume_data_alert>(a);
      * if (rd == 0)
      * {
      * process_alert(a);
      * continue;
      * }
-     * <p>
+     *
      * torrent_handle h = rd->handle;
      * torrent_status st = h.status(torrent_handle::query_save_path | torrent_handle::query_name);
      * std::ofstream out((st.save_path
@@ -570,7 +571,8 @@ public final class TorrentHandle {
      * bencode(std::ostream_iterator<char>(out), *rd->resume_data);
      * --outstanding_resume_data;
      * }
-     * <p>
+     * }
+     * </pre>
      * .. note::
      * Note how ``outstanding_resume_data`` is a global counter in this
      * example. This is deliberate, otherwise there is a race condition for
@@ -785,7 +787,7 @@ public final class TorrentHandle {
 
     /**
      * If you want libtorrent to use another list of trackers for this torrent,
-     * you can use {@link #replaceTrackers(List<AnnounceEntry>)} which takes a list of the same
+     * you can use {@link #replaceTrackers(List)} which takes a list of the same
      * form as the one returned from {@link #trackers()} and will replace it.
      * If you want an immediate effect, you have to call {@link #forceReannounce()}.
      * <p>
@@ -1314,8 +1316,8 @@ public final class TorrentHandle {
         QUERY_TORRENT_FILE(status_flags_t.query_torrent_file.swigValue()),
 
         /**
-         * includes ``name``, the name of the torrent. This is either derived
-         * from the .torrent file, or from the ``&dn=`` magnet link argument
+         * includes {@code name}, the name of the torrent. This is either derived
+         * from the .torrent file, or from the {@code &dn=} magnet link argument
          * or possibly some other source. If the name of the torrent is not
          * known, this is an empty string.
          */

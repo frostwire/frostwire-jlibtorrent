@@ -50,6 +50,9 @@ public final class TorrentInfo {
         }
     }
 
+    /**
+     * @return the native object
+     */
     public torrent_info swig() {
         return this.ti;
     }

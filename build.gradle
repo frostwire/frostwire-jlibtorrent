@@ -40,7 +40,6 @@ task sourcesJar(type: Jar) {
 
 task javadoc2(type: Javadoc) {
     source = sourceSets.main.allJava
-    failOnError false
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc2) {

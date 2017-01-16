@@ -235,9 +235,9 @@ public final class FileStorage {
     }
 
     /**
-     * Get the number of pieces in the torrent.
+     * Returns the number of pieces in the torrent.
      *
-     * @return
+     * @return the number of pieces in the torrent
      */
     public int numPieces() {
         return fs.num_pieces();
