@@ -1,12 +1,11 @@
 package com.frostwire.jlibtorrent;
 
 /**
- * Created on 12/21/16.
- *
  * @author aldenml
  * @author gubatron
  */
 public class CircularArray {
+
     private final int[] buffer;
     private int head;
     private int end;
@@ -67,15 +66,6 @@ public class CircularArray {
             pointer = (pointer + 1) % bufferSize;
             i++;
         }
-        return result;
-    }
-
-    /**
-     * Returns a copy of the internal buffer, we avoid external mutability if all they need is see what we have inside.
-     */
-    public int[] getBufferCopy() {
-        int[] result = new int[buffer.length];
-        System.arraycopy(buffer, 0, result, 0, buffer.length);
         return result;
     }
 
