@@ -635,11 +635,12 @@ public final class TorrentStatus {
     }
 
     /**
-     * true if all pieces that have a priority > 0 are downloaded. There is
+     * Returns {@code true} if all pieces that have a
+     * {@code priority > 0} are downloaded. There is
      * only a distinction between finished and seeding if some pieces or
      * files have been set to priority 0, i.e. are not downloaded.
      *
-     * @return
+     * @return {@code true} if all pieces that have a {@code priority > 0} are downloaded.
      */
     public boolean isFinished() {
         return ts.getIs_finished();

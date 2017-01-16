@@ -4,7 +4,7 @@ import com.frostwire.jlibtorrent.swig.session_stats_alert;
 
 /**
  * The {@link SessionStatsAlert} is posted when the user requests session
- * statistics by calling {@link com.frostwire.jlibtorrent.Session#postSessionStats()}
+ * statistics by calling {@link com.frostwire.jlibtorrent.SessionHandle#postSessionStats()}
  * on the session object. Its category is
  * {@link com.frostwire.jlibtorrent.swig.alert.category_t#status_notification},
  * but it is not subject to filtering, since it's only manually posted anyway.
@@ -30,7 +30,7 @@ public final class SessionStatsAlert extends AbstractAlert<session_stats_alert> 
      * on startup, and then use that mapping to interpret these values throughout
      * the process's runtime.
      *
-     * @return
+     * @return the value
      */
     public long value(int index) {
         return alert.get_value(index);
