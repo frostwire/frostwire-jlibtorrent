@@ -25139,39 +25139,15 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stat
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stats_1metric_1type_1counter_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)libtorrent::stats_metric::type_counter;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stats_1metric_1type_1gauge_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)libtorrent::stats_metric::type_gauge;
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stats_1metric_1type_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::stats_metric *arg1 = (libtorrent::stats_metric *) 0 ;
-  int arg2 ;
+  libtorrent::stats_metric::metric_type_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::stats_metric **)&jarg1; 
-  arg2 = (int)jarg2; 
+  arg2 = (libtorrent::stats_metric::metric_type_t)jarg2; 
   if (arg1) (arg1)->type = arg2;
 }
 
@@ -25179,13 +25155,13 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stat
 SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stats_1metric_1type_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   libtorrent::stats_metric *arg1 = (libtorrent::stats_metric *) 0 ;
-  int result;
+  libtorrent::stats_metric::metric_type_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::stats_metric **)&jarg1; 
-  result = (int) ((arg1)->type);
+  result = (libtorrent::stats_metric::metric_type_t) ((arg1)->type);
   jresult = (jint)result; 
   return jresult;
 }

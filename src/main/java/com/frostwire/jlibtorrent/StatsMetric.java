@@ -27,13 +27,13 @@ public final class StatsMetric {
     public static final String DHT_NODES_GAUGE_NAME = "dht.dht_nodes";
     public static final int DHT_NODES_GAUGE_INDEX = LibTorrent.findMetricIdx(DHT_NODES_GAUGE_NAME);
 
-    public static final int TYPE_COUNTER = stats_metric.type_counter;
-    public static final int TYPE_GAUGE = stats_metric.type_gauge;
+    public static final int TYPE_COUNTER = stats_metric.metric_type_t.type_counter.swigValue();
+    public static final int TYPE_GAUGE = stats_metric.metric_type_t.type_gauge.swigValue();
 
     StatsMetric(stats_metric sm) {
         this.name = sm.get_name();
         this.valueIndex = sm.getValue_index();
-        this.type = sm.getType();
+        this.type = sm.getType().swigValue();
     }
 
     public final String name;

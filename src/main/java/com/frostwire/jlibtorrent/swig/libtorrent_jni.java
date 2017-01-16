@@ -990,8 +990,6 @@ public class libtorrent_jni {
   public final static native int op_bittorrent_get();
   public final static native void stats_metric_value_index_set(long jarg1, stats_metric jarg1_, int jarg2);
   public final static native int stats_metric_value_index_get(long jarg1, stats_metric jarg1_);
-  public final static native int stats_metric_type_counter_get();
-  public final static native int stats_metric_type_gauge_get();
   public final static native void stats_metric_type_set(long jarg1, stats_metric jarg1_, int jarg2);
   public final static native int stats_metric_type_get(long jarg1, stats_metric jarg1_);
   public final static native String stats_metric_get_name(long jarg1, stats_metric jarg1_);
