@@ -584,6 +584,7 @@ public class libtorrent_jni {
   public final static native int no_i2p_router_get();
   public final static native int no_i2p_endpoint_get();
   public final static native int scrape_not_available_get();
+  public final static native int no_entropy_get();
   public final static native int cont_get();
   public final static native int ok_get();
   public final static native int created_get();
