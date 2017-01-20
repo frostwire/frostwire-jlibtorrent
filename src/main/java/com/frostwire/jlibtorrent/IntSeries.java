@@ -11,8 +11,10 @@ package com.frostwire.jlibtorrent;
 public final class IntSeries {
 
     private final int[] buffer;
+
     private int head;
     private int end;
+    private int size;
 
     IntSeries(int[] buffer) {
         if (buffer == null) {
@@ -25,6 +27,7 @@ public final class IntSeries {
 
         head = -1;
         end = -1;
+        size = 0;
     }
 
     IntSeries(int capacity) {
@@ -32,16 +35,25 @@ public final class IntSeries {
     }
 
     void add(int value) {
-        if (head == -1) {
+        if (head == -1) { // first element add
             head = end = 0;
             buffer[end] = value;
+            size = 1;
             return;
         }
 
+        // update buffer and pointers
         end = (end + 1) % buffer.length;
         buffer[end] = value;
         if (end <= head) {
             head = (head + 1) % buffer.length;
+        }
+
+        // update size
+        if (head <= end) {
+            size = 1 + (end - head);
+        } else {
+            size = buffer.length;
         }
     }
 
@@ -55,17 +67,11 @@ public final class IntSeries {
      * @return the value in the series
      */
     public int get(int index) {
-        return buffer[(head + index) % size()];
+        return buffer[(head + index) % size];
     }
 
     public int size() {
-        if (head == -1) {
-            return 0;
-        } else if (head <= end) {
-            return 1 + (end - head);
-        } else {
-            return buffer.length;
-        }
+        return size;
     }
 
     @Override
