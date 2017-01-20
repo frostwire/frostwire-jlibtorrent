@@ -76,15 +76,15 @@ public final class IntSeries {
 
     @Override
     public String toString() {
-        StringBuffer arrayStr = new StringBuffer();
-        arrayStr.append("[ ");
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
         for (int i = 0; i < buffer.length; i++) {
-            arrayStr.append(buffer[i]);
+            sb.append(buffer[i]);
             if (i != buffer.length - 1) {
-                arrayStr.append(", ");
+                sb.append(", ");
             }
         }
-        arrayStr.append(" ]");
-        return "{ head: " + head + ", end: " + end + ", size: " + size() + ", buffer: " + arrayStr.toString() + " }";
+        sb.append(" ]");
+        return "{ head: " + head + ", end: " + end + ", size: " + size() + ", buffer: " + sb.toString() + " }";
     }
 }
