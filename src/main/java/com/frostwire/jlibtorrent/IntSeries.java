@@ -68,29 +68,6 @@ public final class IntSeries {
         }
     }
 
-    /**
-     * Returns up to count elements from the head
-     */
-    public int[] tail(int count) {
-        int bufferSize = size();
-        if (bufferSize == 0) {
-            return new int[0];
-        }
-        int tailLength = Math.min(count, bufferSize);
-        int[] result = new int[tailLength];
-        int pointer = 1 + (end - tailLength);
-        if (pointer < 0) {
-            pointer = (buffer.length + pointer) % bufferSize;
-        }
-        int i = 0;
-        while (i < result.length) {
-            result[i] = buffer[pointer];
-            pointer = (pointer + 1) % bufferSize;
-            i++;
-        }
-        return result;
-    }
-
     @Override
     public String toString() {
         StringBuffer arrayStr = new StringBuffer();

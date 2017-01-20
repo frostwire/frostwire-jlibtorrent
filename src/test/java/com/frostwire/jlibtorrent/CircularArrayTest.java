@@ -57,38 +57,6 @@ public class CircularArrayTest {
         assertEquals("addAndGetTest 8.c", 7, circular.get(2));
     }
 
-    @Test
-    public void tailTest() {
-        IntSeries circular = new IntSeries(3);
-        circular.add(1);
-        int[] tail = circular.tail(3);
-        // [ 1 ]
-        //printArray("tailTest 1's tail ->", tail);
-        assertEquals("tailTest 1.a", 1, tail.length);
-        assertEquals("tailTest 1.b", 1, tail[0]);
-        circular.add(2);
-        circular.add(3);
-        tail = circular.tail(1);
-        // [ 3 ]
-        //printArray("tailTest 2's tail ->", tail);
-        assertEquals("tailTest 2.a", 1, tail.length);
-        assertEquals("tailTest 2.b", 3, tail[0]);
-        tail = circular.tail(2);
-        // [ 2, 3 ]
-        //printArray("tailTest 3's tail ->", tail);
-        assertEquals("tailTest 3.a", 2, tail.length);
-        assertEquals("tailTest 3.b", 2, tail[0]);
-        assertEquals("tailTest 3.c", 3, tail[1]);
-        circular.add(4);
-        tail = circular.tail(3);
-        // [ 2, 3, 4 ]
-        //printArray("tailTest 4's tail ->", tail);
-        assertEquals("tailTest 4.a", 3, tail.length);
-        assertEquals("tailTest 4.b", 2, tail[0]);
-        assertEquals("tailTest 4.c", 3, tail[1]);
-        assertEquals("tailTest 4.d", 4, tail[2]);
-    }
-
     private static void printArray(String name, int[] arr) {
         System.out.print(name + " [ ");
         for (int i = 0; i < arr.length; i++) {
