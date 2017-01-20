@@ -8,7 +8,7 @@ package com.frostwire.jlibtorrent;
  * @author aldenml
  * @author gubatron
  */
-public class IntSeries {
+public final class IntSeries {
 
     private final int[] buffer;
     private int head;
@@ -17,6 +17,9 @@ public class IntSeries {
     IntSeries(int[] buffer) {
         if (buffer == null) {
             throw new IllegalArgumentException("buffer to hold data can't be null");
+        }
+        if (buffer.length == 0) {
+            throw new IllegalArgumentException("buffer to hold data can't be of size 0");
         }
         this.buffer = buffer;
 
@@ -34,6 +37,7 @@ public class IntSeries {
             buffer[end] = value;
             return;
         }
+
         end = (end + 1) % buffer.length;
         buffer[end] = value;
         if (end <= head) {
@@ -41,14 +45,20 @@ public class IntSeries {
         }
     }
 
-    int get(int i) {
-        if (i < 0 || i > size() - 1) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        return buffer[(head + i) % size()];
+    /**
+     * This method will always returns a value, but keep in mind that
+     * due to the nature of the circular buffer internal logic, if you pass
+     * past the size, you will get the sames values again. Use {@link #size()}
+     * for a proper boundary check.
+     *
+     * @param index the value's index
+     * @return the value in the series
+     */
+    public int get(int index) {
+        return buffer[(head + index) % size()];
     }
 
-    int size() {
+    public int size() {
         if (head == -1) {
             return 0;
         } else if (head <= end) {
