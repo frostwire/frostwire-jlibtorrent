@@ -14,10 +14,18 @@ public class IntSeries {
     private int head;
     private int end;
 
-    IntSeries(int capacity) {
-        buffer = new int[capacity];
+    IntSeries(int[] buffer) {
+        if (buffer == null) {
+            throw new IllegalArgumentException("buffer to hold data can't be null");
+        }
+        this.buffer = buffer;
+
         head = -1;
         end = -1;
+    }
+
+    IntSeries(int capacity) {
+        this(new int[capacity]);
     }
 
     void add(int value) {
