@@ -1,6 +1,10 @@
 package com.frostwire.jlibtorrent;
 
 /**
+ * This is a limited capability data point series backed by
+ * a circular buffer logic. Used to hold equally timed sample
+ * of statistics.
+ *
  * @author aldenml
  * @author gubatron
  */

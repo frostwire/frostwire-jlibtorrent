@@ -12,20 +12,20 @@ import com.frostwire.jlibtorrent.swig.torrent_status;
 public final class TorrentStats {
 
     private final torrent_handle th;
-    private final Series downloadRateSeries;
-    private final Series uploadRateSeries;
+    private final IntSeries downloadRateSeries;
+    private final IntSeries uploadRateSeries;
     private final int MAX_SAMPLES;
 
     public TorrentStats(TorrentHandle th, long samplingIntervalInMs, long maxHistoryInMs) {
         this.th = th.swig(); // working with the swig types is for better performance
         this.MAX_SAMPLES = (int) (maxHistoryInMs / samplingIntervalInMs);
-        this.downloadRateSeries = new Series(MAX_SAMPLES);
-        this.uploadRateSeries = new Series(MAX_SAMPLES);
+        this.downloadRateSeries = new IntSeries(MAX_SAMPLES);
+        this.uploadRateSeries = new IntSeries(MAX_SAMPLES);
         // TODO: more code here
         throw new UnsupportedOperationException("to be implemented");
     }
 
-    public Series series(SeriesMetric metric) {
+    public IntSeries series(SeriesMetric metric) {
         switch (metric) {
             case DOWNLOAD_RATE:
                 return downloadRateSeries;
@@ -60,11 +60,5 @@ public final class TorrentStats {
     public enum SeriesMetric {
         DOWNLOAD_RATE,
         UPLOAD_RATE
-    }
-
-    public static final class Series extends IntSeries {
-        Series(int capacity) {
-            super(capacity);
-        }
     }
 }
