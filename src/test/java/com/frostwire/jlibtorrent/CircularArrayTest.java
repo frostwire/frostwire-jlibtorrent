@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class CircularArrayTest {
     @Test
     public void addAndGetTest() {
-        CircularArray circular = new CircularArray(3);
+        IntSeries circular = new IntSeries(3);
 
         assertEquals("addAndGetTest 1", 0, circular.size());
 
@@ -59,7 +59,7 @@ public class CircularArrayTest {
 
     @Test
     public void tailTest() {
-        CircularArray circular = new CircularArray(3);
+        IntSeries circular = new IntSeries(3);
         circular.add(1);
         int[] tail = circular.tail(3);
         // [ 1 ]
@@ -100,7 +100,7 @@ public class CircularArrayTest {
         System.out.println(" ]");
     }
 
-    private static void debugAddElement(CircularArray circular, int elem) {
+    private static void debugAddElement(IntSeries circular, int elem) {
         //System.out.println(">>> Adding " + elem);
         circular.add(elem);
         //printArray("internal buffer", circular.getBufferCopy());

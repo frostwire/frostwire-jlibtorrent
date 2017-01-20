@@ -4,13 +4,13 @@ package com.frostwire.jlibtorrent;
  * @author aldenml
  * @author gubatron
  */
-public class CircularArray {
+public class IntSeries {
 
     private final int[] buffer;
     private int head;
     private int end;
 
-    CircularArray(int capacity) {
+    IntSeries(int capacity) {
         buffer = new int[capacity];
         head = -1;
         end = -1;

@@ -62,7 +62,7 @@ public final class TorrentStats {
         UPLOAD_RATE
     }
 
-    public static final class Series extends CircularArray {
+    public static final class Series extends IntSeries {
         Series(int capacity) {
             super(capacity);
         }
