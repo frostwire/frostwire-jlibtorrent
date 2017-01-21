@@ -2169,7 +2169,8 @@ public class libtorrent_jni {
   public final static native void settings_pack_set_int(long jarg1, settings_pack jarg1_, int jarg2, int jarg3);
   public final static native void settings_pack_set_bool(long jarg1, settings_pack jarg1_, int jarg2, boolean jarg3);
   public final static native boolean settings_pack_has_val(long jarg1, settings_pack jarg1_, int jarg2);
-  public final static native void settings_pack_clear(long jarg1, settings_pack jarg1_);
+  public final static native void settings_pack_clear__SWIG_0(long jarg1, settings_pack jarg1_);
+  public final static native void settings_pack_clear__SWIG_1(long jarg1, settings_pack jarg1_, int jarg2);
   public final static native String settings_pack_get_str(long jarg1, settings_pack jarg1_, int jarg2);
   public final static native int settings_pack_get_int(long jarg1, settings_pack jarg1_, int jarg2);
   public final static native boolean settings_pack_get_bool(long jarg1, settings_pack jarg1_, int jarg2);

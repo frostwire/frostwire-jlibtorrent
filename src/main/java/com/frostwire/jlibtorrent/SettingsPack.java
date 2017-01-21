@@ -89,6 +89,14 @@ public final class SettingsPack {
         return this;
     }
 
+    public void clear() {
+        sp.clear();
+    }
+
+    public void clear(int name) {
+        sp.clear(name);
+    }
+
     /**
      * @return the session-global download rate limit in bytes per second. (0 for unlimited)
      */

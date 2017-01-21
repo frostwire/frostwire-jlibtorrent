@@ -60,7 +60,11 @@ public class settings_pack {
   }
 
   public void clear() {
-    libtorrent_jni.settings_pack_clear(swigCPtr, this);
+    libtorrent_jni.settings_pack_clear__SWIG_0(swigCPtr, this);
+  }
+
+  public void clear(int name) {
+    libtorrent_jni.settings_pack_clear__SWIG_1(swigCPtr, this, name);
   }
 
   public String get_str(int name) {
