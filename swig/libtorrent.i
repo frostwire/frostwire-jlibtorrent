@@ -48,6 +48,7 @@
 
 using piece_index_t = libtorrent::piece_index_t;
 using file_index_t = libtorrent::file_index_t;
+using peer_class_t = libtorrent::peer_class_t;
 
 // END common set include ------------------------------------------------------
 %}
@@ -147,6 +148,21 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 }
 %typemap(javain) file_index_t, const file_index_t& "$javainput"
 %typemap(javaout) file_index_t, const file_index_t& {
+    return $jnicall;
+  }
+
+%typemap(jni) peer_class_t, const peer_class_t& "int"
+%typemap(jtype) peer_class_t, const peer_class_t& "int"
+%typemap(jstype) peer_class_t, const peer_class_t& "int"
+
+%typemap(in) peer_class_t {
+    $1 = peer_class_t(std::uint32_t($input));
+}
+%typemap(out) peer_class_t {
+    $result = int(static_cast<std::uint32_t>($1));
+}
+%typemap(javain) peer_class_t, const peer_class_t& "$javainput"
+%typemap(javaout) peer_class_t, const peer_class_t& {
     return $jnicall;
   }
 
@@ -675,6 +691,16 @@ namespace libtorrent {
         void clear();
 	};
     %template(piece_index_bitfield) typed_bitfield<piece_index_t>;
+
+    struct peer_class_info {
+        bool ignore_unchoke_slots;
+        int connection_limit_factor;
+        std::string label;
+        int upload_limit;
+        int download_limit;
+        int upload_priority;
+        int download_priority;
+    };
 };
 
 typedef std::int64_t time_t;
@@ -689,8 +715,6 @@ typedef std::int64_t time_t;
 %ignore libtorrent::hash_value;
 %ignore libtorrent::internal_file_entry;
 %ignore libtorrent::print_entry;
-%ignore libtorrent::peer_class;
-%ignore libtorrent::peer_class_pool;
 %ignore libtorrent::fingerprint;
 %ignore libtorrent::generate_fingerprint(std::string, int, int, int);
 %ignore libtorrent::generate_fingerprint(std::string, int, int);
@@ -994,7 +1018,6 @@ typedef std::int64_t time_t;
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/session_settings.hpp"
 %include "libtorrent/settings_pack.hpp"
-%include "libtorrent/peer_class.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"
 %include "libtorrent/session_handle.hpp"
 %include "libtorrent/kademlia/dht_state.hpp"

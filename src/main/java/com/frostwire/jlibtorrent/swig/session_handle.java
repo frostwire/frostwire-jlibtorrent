@@ -179,6 +179,18 @@ public class session_handle {
     libtorrent_jni.session_handle_set_key(swigCPtr, this, key);
   }
 
+  public static int getGlobal_peer_class_id() {
+    return libtorrent_jni.session_handle_global_peer_class_id_get();
+  }
+
+  public static int getTcp_peer_class_id() {
+    return libtorrent_jni.session_handle_tcp_peer_class_id_get();
+  }
+
+  public static int getLocal_peer_class_id() {
+    return libtorrent_jni.session_handle_local_peer_class_id_get();
+  }
+
   public int listen_port() {
     return libtorrent_jni.session_handle_listen_port(swigCPtr, this);
   }
@@ -315,10 +327,6 @@ public class session_handle {
   }
 
   public final static int disk_cache_no_pieces = libtorrent_jni.session_handle_disk_cache_no_pieces_get();
-
-  public final static int global_peer_class_id = libtorrent_jni.session_handle_global_peer_class_id_get();
-  public final static int tcp_peer_class_id = libtorrent_jni.session_handle_tcp_peer_class_id_get();
-  public final static int local_peer_class_id = libtorrent_jni.session_handle_local_peer_class_id_get();
 
   public final static class options_t {
     public final static session_handle.options_t delete_files = new session_handle.options_t("delete_files", libtorrent_jni.session_handle_delete_files_get());
