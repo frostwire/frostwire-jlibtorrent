@@ -231,7 +231,7 @@ unsigned long getauxval(unsigned long type) {
 }
 #endif
 
-#if TORRENT_ANDROID && TORRENT_HAS_ARM && TORRENT_USE_ASSERTS
+#if defined TORRENT_ANDROID && TORRENT_HAS_ARM && TORRENT_USE_ASSERTS
 // assuming no overflow, remove it when this issue is fixed
 // https://github.com/android-ndk/ndk/issues/184
 extern "C" {
