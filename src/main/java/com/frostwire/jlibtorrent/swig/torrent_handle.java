@@ -191,6 +191,10 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_queue_position_bottom(swigCPtr, this);
   }
 
+  public void queue_position_set(int p) {
+    libtorrent_jni.torrent_handle_queue_position_set(swigCPtr, this, p);
+  }
+
   public void piece_availability(int_vector avail) {
     libtorrent_jni.torrent_handle_piece_availability(swigCPtr, this, int_vector.getCPtr(avail), avail);
   }

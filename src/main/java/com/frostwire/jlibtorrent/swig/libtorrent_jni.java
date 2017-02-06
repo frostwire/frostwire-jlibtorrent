@@ -866,6 +866,7 @@ public class libtorrent_jni {
   public final static native void torrent_handle_queue_position_down(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_queue_position_top(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_queue_position_bottom(long jarg1, torrent_handle jarg1_);
+  public final static native void torrent_handle_queue_position_set(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native void torrent_handle_piece_availability(long jarg1, torrent_handle jarg1_, long jarg2, int_vector jarg2_);
   public final static native void torrent_handle_piece_priority__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, int jarg3);
   public final static native int torrent_handle_piece_priority__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2);
@@ -1014,8 +1015,8 @@ public class libtorrent_jni {
   public final static native void delete_stats_metric(long jarg1);
   public final static native long session_stats_metrics();
   public final static native int find_metric_idx(String jarg1);
-  public final static native int close_no_reason_get();
-  public final static native int close_encryption_error_get();
+  public final static native int close_reason_t_none_get();
+  public final static native int close_reason_t_encryption_error_get();
   public final static native int alert_error_notification_get();
   public final static native int alert_peer_notification_get();
   public final static native int alert_port_mapping_notification_get();
@@ -2176,9 +2177,14 @@ public class libtorrent_jni {
   public final static native int dht_settings_item_lifetime_get(long jarg1, dht_settings jarg1_);
   public final static native void dht_settings_upload_rate_limit_set(long jarg1, dht_settings jarg1_, int jarg2);
   public final static native int dht_settings_upload_rate_limit_get(long jarg1, dht_settings jarg1_);
+  public final static native void dht_settings_sample_infohashes_interval_set(long jarg1, dht_settings jarg1_, int jarg2);
+  public final static native int dht_settings_sample_infohashes_interval_get(long jarg1, dht_settings jarg1_);
+  public final static native void dht_settings_max_infohashes_sample_count_set(long jarg1, dht_settings jarg1_, int jarg2);
+  public final static native int dht_settings_max_infohashes_sample_count_get(long jarg1, dht_settings jarg1_);
   public final static native void delete_dht_settings(long jarg1);
   public final static native int setting_by_name(String jarg1);
   public final static native String name_for_setting(int jarg1);
+  public final static native long default_settings();
   public final static native long new_settings_pack__SWIG_0();
   public final static native long new_settings_pack__SWIG_1(long jarg1, settings_pack jarg1_);
   public final static native void settings_pack_set_str(long jarg1, settings_pack jarg1_, int jarg2, String jarg3);

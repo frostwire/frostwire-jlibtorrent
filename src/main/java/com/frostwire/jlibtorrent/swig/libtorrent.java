@@ -49,6 +49,10 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.name_for_setting(s);
   }
 
+  public static settings_pack default_settings() {
+    return new settings_pack(libtorrent_jni.default_settings(), true);
+  }
+
   public static dht_state read_dht_state(bdecode_node e) {
     return new dht_state(libtorrent_jni.read_dht_state(bdecode_node.getCPtr(e), e), true);
   }

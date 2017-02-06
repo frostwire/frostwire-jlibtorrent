@@ -191,4 +191,20 @@ public class dht_settings {
     return libtorrent_jni.dht_settings_upload_rate_limit_get(swigCPtr, this);
   }
 
+  public void setSample_infohashes_interval(int value) {
+    libtorrent_jni.dht_settings_sample_infohashes_interval_set(swigCPtr, this, value);
+  }
+
+  public int getSample_infohashes_interval() {
+    return libtorrent_jni.dht_settings_sample_infohashes_interval_get(swigCPtr, this);
+  }
+
+  public void setMax_infohashes_sample_count(int value) {
+    libtorrent_jni.dht_settings_max_infohashes_sample_count_set(swigCPtr, this, value);
+  }
+
+  public int getMax_infohashes_sample_count() {
+    return libtorrent_jni.dht_settings_max_infohashes_sample_count_get(swigCPtr, this);
+  }
+
 }
