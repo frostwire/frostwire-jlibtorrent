@@ -62,12 +62,15 @@ public final class IntSeries {
      * due to the nature of the circular buffer internal logic, if you pass
      * past the size, you will get the sames values again.
      * Use {@link #size()} for a proper boundary check.
-     *
-     * <br/>Usage example:
-     * <pre><code>
+     * <p>
+     * Usage example:
+     * <pre>
+     * {@code
      *     for (int i = min(series.size(), desired_count); i >= 0; i--) {
      *         plotMyValueAt(i, series.get(i));
-     *     }</code></pre>
+     *     }
+     * }
+     * </pre>
      *
      * @param index the value's index
      * @return the value in the series
