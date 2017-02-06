@@ -206,7 +206,7 @@ struct swig_plugin : libtorrent::plugin {
     }
 };
 
-#if TORRENT_ANDROID && TORRENT_HAS_ARM && __ANDROID_API__ < 21
+#if defined TORRENT_ANDROID && TORRENT_HAS_ARM && __ANDROID_API__ < 21
 #include <stdio.h>
 unsigned long getauxval(unsigned long type) {
     typedef unsigned long getauxval_func_t(unsigned long);
