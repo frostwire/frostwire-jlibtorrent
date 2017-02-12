@@ -2398,12 +2398,12 @@ public class libtorrent_jni {
   public final static native boolean op_lte(long jarg1, address jarg1_, long jarg2, address jarg2_);
   public final static native int ip_filter_blocked_get();
   public final static native void ip_filter_add_rule(long jarg1, ip_filter jarg1_, long jarg2, address jarg2_, long jarg3, address jarg3_, long jarg4);
-  public final static native int ip_filter_access(long jarg1, ip_filter jarg1_, long jarg2, address jarg2_);
+  public final static native long ip_filter_access(long jarg1, ip_filter jarg1_, long jarg2, address jarg2_);
   public final static native long new_ip_filter();
   public final static native void delete_ip_filter(long jarg1);
   public final static native int port_filter_blocked_get();
   public final static native void port_filter_add_rule(long jarg1, port_filter jarg1_, int jarg2, int jarg3, long jarg4);
-  public final static native int port_filter_access(long jarg1, port_filter jarg1_, int jarg2);
+  public final static native long port_filter_access(long jarg1, port_filter jarg1_, int jarg2);
   public final static native long new_port_filter();
   public final static native void delete_port_filter(long jarg1);
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);

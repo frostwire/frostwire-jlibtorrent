@@ -39,7 +39,7 @@ public class port_filter {
     libtorrent_jni.port_filter_add_rule(swigCPtr, this, first, last, flags);
   }
 
-  public int access(int port) {
+  public long access(int port) {
     return libtorrent_jni.port_filter_access(swigCPtr, this, port);
   }
 

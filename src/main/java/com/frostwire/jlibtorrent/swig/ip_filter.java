@@ -39,7 +39,7 @@ public class ip_filter {
     libtorrent_jni.ip_filter_add_rule(swigCPtr, this, address.getCPtr(first), first, address.getCPtr(last), last, flags);
   }
 
-  public int access(address addr) {
+  public long access(address addr) {
     return libtorrent_jni.ip_filter_access(swigCPtr, this, address.getCPtr(addr), addr);
   }
 
