@@ -570,6 +570,12 @@ public final class Alerts {
                 return new SessionErrorAlert(cast_to_session_error_alert(a));
             }
         };
+        arr[91] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new DhtLiveNodesAlert(cast_to_dht_live_nodes_alert(a));
+            }
+        };
 
         return arr;
     }

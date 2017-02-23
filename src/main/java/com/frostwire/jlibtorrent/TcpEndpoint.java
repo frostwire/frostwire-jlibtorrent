@@ -8,7 +8,7 @@ import com.frostwire.jlibtorrent.swig.tcp_endpoint;
  * @author gubatron
  * @author aldenml
  */
-public final class TcpEndpoint {
+public final class TcpEndpoint implements Cloneable {
 
     private final tcp_endpoint endp;
 
@@ -74,5 +74,10 @@ public final class TcpEndpoint {
     @Override
     public String toString() {
         return "tcp:" + Address.toString(endp.address()) + ":" + endp.port();
+    }
+
+    @Override
+    public TcpEndpoint clone() {
+        return new TcpEndpoint(new tcp_endpoint(endp));
     }
 }

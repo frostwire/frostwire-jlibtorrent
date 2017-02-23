@@ -43,8 +43,8 @@ public class sha1_hash {
     this(libtorrent_jni.new_sha1_hash__SWIG_0(), true);
   }
 
-  public sha1_hash(sha1_hash arg0) {
-    this(libtorrent_jni.new_sha1_hash__SWIG_1(sha1_hash.getCPtr(arg0), arg0), true);
+  public sha1_hash(sha1_hash other) {
+    this(libtorrent_jni.new_sha1_hash__SWIG_1(sha1_hash.getCPtr(other), other), true);
   }
 
   public static sha1_hash max() {

@@ -12,11 +12,14 @@ import com.frostwire.jlibtorrent.swig.dht_get_peers_alert;
  */
 public final class DhtGetPeersAlert extends AbstractAlert<dht_get_peers_alert> {
 
-    public DhtGetPeersAlert(dht_get_peers_alert alert) {
+    DhtGetPeersAlert(dht_get_peers_alert alert) {
         super(alert);
     }
 
-    public Sha1Hash getInfoHash() {
+    /**
+     * @return the hash
+     */
+    public Sha1Hash infoHash() {
         return new Sha1Hash(alert.getInfo_hash());
     }
 }

@@ -95,6 +95,7 @@ public enum AlertType {
     DHT_DIRECT_RESPONSE(dht_direct_response_alert.alert_type),
     PICKER_LOG(picker_log_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
+    DHT_LIVE_NODES(dht_live_nodes_alert.alert_type),
     UNKNOWN(-1);
 
     private static AlertType[] TABLE = buildTable();
@@ -214,6 +215,7 @@ public enum AlertType {
         arr[88] = DHT_DIRECT_RESPONSE;
         arr[89] = PICKER_LOG;
         arr[90] = SESSION_ERROR;
+        arr[91] = DHT_LIVE_NODES;
 
         return arr;
     }

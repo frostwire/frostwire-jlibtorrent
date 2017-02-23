@@ -8,7 +8,7 @@ import com.frostwire.jlibtorrent.swig.udp_endpoint;
  * @author gubatron
  * @author aldenml
  */
-public final class UdpEndpoint {
+public final class UdpEndpoint implements Cloneable {
 
     private final udp_endpoint endp;
 
@@ -41,6 +41,12 @@ public final class UdpEndpoint {
         return new Address(endp.address());
     }
 
+    /**
+     * Get the port associated with the endpoint. The port number is always in
+     * the host's byte order.
+     *
+     * @return the port
+     */
     public int port() {
         return endp.port();
     }
@@ -48,5 +54,10 @@ public final class UdpEndpoint {
     @Override
     public String toString() {
         return "udp:" + Address.toString(endp.address()) + ":" + endp.port();
+    }
+
+    @Override
+    public UdpEndpoint clone() {
+        return new UdpEndpoint(new udp_endpoint(endp));
     }
 }

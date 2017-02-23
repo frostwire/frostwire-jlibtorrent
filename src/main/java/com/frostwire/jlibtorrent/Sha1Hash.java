@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author gubatron
  * @author aldenml
  */
-public final class Sha1Hash implements Comparable<Sha1Hash> {
+public final class Sha1Hash implements Comparable<Sha1Hash>, Cloneable {
 
     private final sha1_hash h;
 
@@ -132,6 +132,11 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
     @Override
     public int hashCode() {
         return h.hash_code();
+    }
+
+    @Override
+    public Sha1Hash clone() {
+        return new Sha1Hash(new sha1_hash(h));
     }
 
     /**

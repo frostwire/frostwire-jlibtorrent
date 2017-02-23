@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.swig.error_code;
  * @author gubatron
  * @author aldenml
  */
-public final class Address implements Comparable<Address> {
+public final class Address implements Comparable<Address>, Cloneable {
 
     private final address addr;
 
@@ -110,6 +110,11 @@ public final class Address implements Comparable<Address> {
     @Override
     public String toString() {
         return toString(addr);
+    }
+
+    @Override
+    public Address clone() {
+        return new Address(new address(addr));
     }
 
     static String toString(address a) {

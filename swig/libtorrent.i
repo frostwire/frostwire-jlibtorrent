@@ -294,6 +294,7 @@ namespace std {
     %template(string_string_pair) pair<std::string, std::string>;
     %template(string_view_bdecode_node_pair) pair<libtorrent::string_view, libtorrent::bdecode_node>;
     %template(byte_vectors_pair) pair<vector<int8_t>, vector<int8_t>>;
+    %template(sha1_hash_udp_endpoint_pair) pair<libtorrent::sha1_hash, libtorrent::udp::endpoint>;
 
     %template(byte_vector) vector<int8_t>;
     %template(string_vector) vector<std::string>;
@@ -322,6 +323,7 @@ namespace std {
     %template(udp_endpoint_vector) vector<libtorrent::udp::endpoint>;
     %template(piece_index_vector) vector<piece_index_t>;
     %template(file_index_vector) vector<file_index_t>;
+    %template(sha1_hash_udp_endpoint_pair_vector) vector<pair<libtorrent::sha1_hash, libtorrent::udp::endpoint>>;
 
     %template(file_index_string_map) map<file_index_t, std::string>;
     %template(string_long_map) map<std::string, long>;
@@ -433,7 +435,7 @@ namespace libtorrent {
         static size_t size();
 
         sha1_hash();
-        sha1_hash(sha1_hash const&);
+        sha1_hash(sha1_hash const& other);
 
         static sha1_hash max();
         static sha1_hash min();
@@ -520,7 +522,7 @@ namespace libtorrent {
     public:
 
         address();
-        address(address other);
+        address(address const& other);
 
         bool is_v4();
         bool is_v6();
@@ -553,6 +555,7 @@ namespace libtorrent {
         public:
             endpoint();
             endpoint(address address, unsigned short port);
+            endpoint(endpoint const& other);
 
             unsigned short port();
             address address();
@@ -565,6 +568,7 @@ namespace libtorrent {
         public:
             endpoint();
             endpoint(address address, unsigned short port);
+            endpoint(endpoint const& other);
 
             unsigned short port();
             address address();
@@ -751,7 +755,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>);
-%ignore libtorrent::session_handle::dht_direct_request(udp::endpoint, entry const&, void*);
+%ignore libtorrent::session_handle::dht_direct_request(udp::endpoint const&, entry const&, void*);
 %ignore libtorrent::session_handle::set_load_function;
 %ignore libtorrent::session_handle::set_alert_notify;
 %ignore libtorrent::session_handle::native_handle;
@@ -1136,6 +1140,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_direct_response_alert)
     CAST_ALERT_METHOD(picker_log_alert)
     CAST_ALERT_METHOD(session_error_alert)
+    CAST_ALERT_METHOD(dht_live_nodes_alert)
 }
 
 %extend alert {
@@ -1175,7 +1180,7 @@ namespace libtorrent {
             std::string(salt.begin(), salt.end()));
     }
 
-    void dht_direct_request(udp::endpoint ep, entry const& e, int64_t userdata) {
+    void dht_direct_request(udp::endpoint const& ep, entry const& e, int64_t userdata) {
         $self->dht_direct_request(ep, e, (void*)userdata);
     }
 
