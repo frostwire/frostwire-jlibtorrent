@@ -2249,6 +2249,7 @@ public class libtorrent_jni {
   public final static native int settings_pack_ban_web_seeds_get();
   public final static native int settings_pack_tracker_completion_timeout_get();
   public final static native int settings_pack_auto_manage_interval_get();
+  public final static native int settings_pack_read_cache_line_size_get();
   public final static native int settings_pack_num_optimistic_unchoke_slots_get();
   public final static native int settings_pack_unchoke_slots_limit_get();
   public final static native int settings_pack_connections_limit_get();
