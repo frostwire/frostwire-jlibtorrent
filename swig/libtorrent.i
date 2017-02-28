@@ -903,7 +903,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::file_storage::file_name_ptr;
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
-%ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, int, std::time_t, string_view);
+%ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, std::uint32_t, std::time_t, string_view);
 %ignore libtorrent::peer_info::client;
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;

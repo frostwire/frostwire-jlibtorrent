@@ -669,10 +669,9 @@ public class libtorrent_jni {
   public final static native void file_storage_add_file_borrow__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, int jarg3, String jarg4, long jarg5, long jarg6, String jarg7);
   public final static native void file_storage_add_file_borrow__SWIG_3(long jarg1, file_storage jarg1_, String jarg2, int jarg3, String jarg4, long jarg5, long jarg6);
   public final static native void file_storage_add_file_borrow__SWIG_4(long jarg1, file_storage jarg1_, String jarg2, int jarg3, String jarg4, long jarg5);
-  public final static native void file_storage_add_file__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, long jarg5, long jarg6, string_view jarg6_);
-  public final static native void file_storage_add_file__SWIG_1(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, long jarg5);
-  public final static native void file_storage_add_file__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4);
-  public final static native void file_storage_add_file__SWIG_3(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
+  public final static native void file_storage_add_file__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, long jarg5);
+  public final static native void file_storage_add_file__SWIG_1(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4);
+  public final static native void file_storage_add_file__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
   public final static native void file_storage_rename_file(long jarg1, file_storage jarg1_, int jarg2, String jarg3);
   public final static native long file_storage_map_block(long jarg1, file_storage jarg1_, int jarg2, long jarg3, int jarg4);
   public final static native long file_storage_map_file(long jarg1, file_storage jarg1_, int jarg2, long jarg3, int jarg4);
@@ -711,7 +710,7 @@ public class libtorrent_jni {
   public final static native long file_storage_file_flags(long jarg1, file_storage jarg1_, int jarg2);
   public final static native boolean file_storage_file_absolute_path(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_file_index_at_offset(long jarg1, file_storage jarg1_, long jarg2);
-  public final static native void file_storage_add_file__SWIG_4(long jarg1, file_storage jarg1_, String jarg2, long jarg3, int jarg4, long jarg5, String jarg6);
+  public final static native void file_storage_add_file__SWIG_3(long jarg1, file_storage jarg1_, String jarg2, long jarg3, int jarg4, long jarg5, String jarg6);
   public final static native int bdecode_no_error_get();
   public final static native long new_bdecode_node__SWIG_0();
   public final static native long new_bdecode_node__SWIG_1(long jarg1, bdecode_node jarg1_);
