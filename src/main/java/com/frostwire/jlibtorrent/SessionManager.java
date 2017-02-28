@@ -44,6 +44,8 @@ public class SessionManager {
     private final List<TcpEndpoint> listenEndpoints;
     private Address externalAddress;
 
+    private Throwable lastError;
+
     public SessionManager(boolean logging) {
         this.logging = logging;
 
@@ -865,6 +867,17 @@ public class SessionManager {
         return sb.toString();
     }
 
+    /**
+     * This methods return the last error recorded inside the manager
+     * operations. Typically you want to check for this if some alert
+     * listener throw an exception.
+     *
+     * @return the last error or exception registered (or null)
+     */
+    public Throwable lastError() {
+        return lastError;
+    }
+
     protected void onBeforeStart() {
     }
 
@@ -925,6 +938,7 @@ public class SessionManager {
                 listener.alert(a);
             } catch (Throwable e) {
                 LOG.warn("Error calling alert listener", e);
+                lastError = e;
             }
         }
     }

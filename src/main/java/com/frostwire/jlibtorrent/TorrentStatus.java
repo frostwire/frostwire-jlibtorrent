@@ -243,7 +243,7 @@ public final class TorrentStatus {
      * A value in the range [0, 1], that represents the progress of the torrent's
      * current task. It may be checking files or downloading.
      *
-     * @return
+     * @return the progress in [0, 1]
      */
     public float progress() {
         return ts.getProgress();
@@ -257,7 +257,7 @@ public final class TorrentStatus {
      * 1000000] (ppm = parts per million). When floating point operations are
      * disabled, this is the only alternative to the floating point value in.
      *
-     * @return
+     * @return the progress in parts per million (progress * 1000000)
      */
     public int progressPpm() {
         return ts.getProgress_ppm();

@@ -692,12 +692,14 @@ public final class TorrentHandle {
         th.set_sequential_download(sequential);
     }
 
-    // ``force_recheck`` puts the torrent back in a state where it assumes to
-    // have no resume data. All peers will be disconnected and the torrent
-    // will stop announcing to the tracker. The torrent will be added to the
-    // checking queue, and will be checked (all the files will be read and
-    // compared to the piece hashes). Once the check is complete, the torrent
-    // will start connecting to peers again, as normal.
+    /**
+     * This method puts the torrent back in a state where it assumes to
+     * have no resume data. All peers will be disconnected and the torrent
+     * will stop announcing to the tracker. The torrent will be added to the
+     * checking queue, and will be checked (all the files will be read and
+     * compared to the piece hashes). Once the check is complete, the torrent
+     * will start connecting to peers again, as normal.
+     */
     public void forceRecheck() {
         th.force_recheck();
     }
