@@ -987,6 +987,9 @@ typedef std::int64_t time_t;
 
 %ignore dht_put_item_cb;
 
+%feature("director") add_files_listener;
+%feature("director") set_piece_hashes_listener;
+
 %feature("director") alert_notify_callback;
 %feature("director") swig_plugin;
 %feature("director") posix_wrapper;
@@ -1509,6 +1512,3 @@ namespace libtorrent {
 }
 
 }
-
-%feature("director") add_files_listener;
-%feature("director") set_piece_hashes_listener;

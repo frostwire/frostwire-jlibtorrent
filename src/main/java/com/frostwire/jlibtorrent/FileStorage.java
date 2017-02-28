@@ -404,9 +404,9 @@ public final class FileStorage {
      * to file at {@code index}.
      *
      * @param index
-     * @return
+     * @return the flags
      */
-    public int fileFlags(int index) {
+    public long fileFlags(int index) {
         return fs.file_flags(index);
     }
 
@@ -550,7 +550,7 @@ public final class FileStorage {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;

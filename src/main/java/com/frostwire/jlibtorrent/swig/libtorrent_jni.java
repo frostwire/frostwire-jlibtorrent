@@ -2691,11 +2691,17 @@ public class libtorrent_jni {
   public final static native void alert_notify_callback_change_ownership(alert_notify_callback obj, long cptr, boolean take_or_release);
   public final static native void delete_add_files_listener(long jarg1);
   public final static native boolean add_files_listener_pred(long jarg1, add_files_listener jarg1_, String jarg2);
+  public final static native boolean add_files_listener_predSwigExplicitadd_files_listener(long jarg1, add_files_listener jarg1_, String jarg2);
   public final static native long new_add_files_listener();
+  public final static native void add_files_listener_director_connect(add_files_listener obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void add_files_listener_change_ownership(add_files_listener obj, long cptr, boolean take_or_release);
   public final static native void add_files_ex(long jarg1, file_storage jarg1_, String jarg2, long jarg3, add_files_listener jarg3_, long jarg4);
   public final static native void delete_set_piece_hashes_listener(long jarg1);
   public final static native void set_piece_hashes_listener_progress(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
+  public final static native void set_piece_hashes_listener_progressSwigExplicitset_piece_hashes_listener(long jarg1, set_piece_hashes_listener jarg1_, int jarg2);
   public final static native long new_set_piece_hashes_listener();
+  public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
   public final static native void set_piece_hashes_ex(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, set_piece_hashes_listener jarg3_, long jarg4, error_code jarg4_);
   public final static native int boost_version();
   public final static native String boost_lib_version();
@@ -2827,6 +2833,12 @@ public class libtorrent_jni {
 
   public static void SwigDirector_alert_notify_callback_on_alert(alert_notify_callback jself) {
     jself.on_alert();
+  }
+  public static boolean SwigDirector_add_files_listener_pred(add_files_listener jself, String p) {
+    return jself.pred(p);
+  }
+  public static void SwigDirector_set_piece_hashes_listener_progress(set_piece_hashes_listener jself, int i) {
+    jself.progress(i);
   }
   public static boolean SwigDirector_swig_plugin_on_dht_request(swig_plugin jself, long query, long source, long message, long response) {
     return jself.on_dht_request(new string_view(query, true), new udp_endpoint(source, false), new bdecode_node(message, false), new entry(response, false));
