@@ -231,8 +231,10 @@ script:
       mv bin/release/windows/x86_64/libjlibtorrent.dll bin/release/windows/x86_64/jlibtorrent.dll;
     fi
   - if [ $os_build == "macosx" ]; then
+      cd ..;
       cp bin/release/macosx/x86_64/libjlibtorrent.dylib .;
       gradle test;
+      cd swig;
     fi
   - $run_readelf
   - cd ..
