@@ -20,7 +20,7 @@ public final class FileProgressTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    @Test
+    //@Test
     public void testForceRecheck() throws Throwable {
 
         String torrentFilename = "AJC_and_The_Envelope_Pushers_Fallen_Star_FrostClick_FrostWire_MP3_January_16_2017.torrent";
