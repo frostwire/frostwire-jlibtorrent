@@ -232,7 +232,7 @@ script:
     fi
   - if [ $os_build == "macosx" ]; then
       cd ..;
-      cp bin/release/macosx/x86_64/libjlibtorrent.dylib .;
+      cp swig/bin/release/macosx/x86_64/libjlibtorrent.dylib .;
       gradle test;
       cd swig;
     fi
