@@ -972,7 +972,7 @@ public class SessionManager {
         }
     }
 
-    private boolean isFetchMangetDownload(TorrentAddedAlert alert) {
+    private boolean isFetchMagnetDownload(TorrentAddedAlert alert) {
         String name = alert.torrentName();
         return name != null && name.contains(FETCH_MAGNET_DOWNLOAD_KEY);
     }
@@ -1094,7 +1094,7 @@ public class SessionManager {
                                     break;
                                 case TORRENT_ADDED:
                                     alert = Alerts.cast(a);
-                                    if (isFetchMangetDownload((TorrentAddedAlert) alert)) {
+                                    if (isFetchMagnetDownload((TorrentAddedAlert) alert)) {
                                         continue;
                                     }
                                     break;
