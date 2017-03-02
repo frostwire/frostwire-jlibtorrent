@@ -199,8 +199,8 @@ public final class TorrentHandle {
     }
 
     /**
-     * `status()`` will return a structure with information about the status
-     * of this torrent. If the torrent_handle is invalid, it will throw
+     * Returns a structure with information about the status
+     * of this torrent. If the handle is invalid, it will throw
      * libtorrent_exception exception. See torrent_status. The ``flags``
      * argument filters what information is returned in the torrent_status.
      * Some information in there is relatively expensive to calculate, and if
