@@ -21,7 +21,7 @@ public final class GetPiecesTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    @Test
+    //@Test
     public void testStatusPieces() throws Throwable {
 
         String torrentFilename = "AJC_and_The_Envelope_Pushers_Fallen_Star_FrostClick_FrostWire_MP3_January_16_2017.torrent";
@@ -76,7 +76,7 @@ public final class GetPiecesTest {
         s.download(ti, torrentFile.getParentFile());
 
         Utils.awaitMinutes(signalFinished, "too much time downloading the torrent", 5);
-        assertNull(s.lastError());
+        assertNull(s.lastAlertError());
 
         s.stop();
     }

@@ -84,7 +84,7 @@ public final class FileProgressTest {
         s.download(ti, torrentFile.getParentFile());
 
         Utils.awaitMinutes(signalFinished, "too much time downloading the torrent", 5);
-        assertNull(s.lastError());
+        assertNull(s.lastAlertError());
 
         s.stop();
     }

@@ -91,7 +91,7 @@ public final class StatusDurationTest {
         s.download(ti, torrentFile.getParentFile());
 
         Utils.awaitMinutes(signal1, "to much time downloading the torrent 2%", 5);
-        assertNull(s.lastError());
+        assertNull(s.lastAlertError());
 
         s.stop();
 
@@ -112,7 +112,7 @@ public final class StatusDurationTest {
         s.download(ti, torrentFile.getParentFile(), resumeFile, null, null);
 
         Utils.awaitMinutes(signal2, "too much time downloading the torrent 100%", 5);
-        assertNull(s.lastError());
+        assertNull(s.lastAlertError());
 
         log("activeDuration: " + activeDuration);
         long t1 = activeDuration - savedActiveDuration; // time active in the 98%
