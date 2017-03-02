@@ -10,18 +10,19 @@ import java.util.concurrent.CountDownLatch;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author gubatron
  * @author aldenml
  */
-public final class FileProgressTest {
+public final class GetPiecesTest {
 
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    //@Test
-    public void testForceRecheck() throws Throwable {
+    @Test
+    public void testStatusPieces() throws Throwable {
 
         String torrentFilename = "AJC_and_The_Envelope_Pushers_Fallen_Star_FrostClick_FrostWire_MP3_January_16_2017.torrent";
         File torrentFile = folder.newFile(torrentFilename);
@@ -54,25 +55,16 @@ public final class FileProgressTest {
                         // this number represents the current progress of
                         // the current status (downloading or checking)
                         log("progress: " + progress);
-                        if (progress > 2 && !forceChecked) {
+                        if (progress > 4 && !forceChecked) {
                             forceChecked = true;
-                            ((PieceFinishedAlert) alert).handle().forceRecheck();
+                            TorrentHandle th = ((PieceFinishedAlert) alert).handle();
+                            PieceIndexBitfield pieces = th.status(TorrentHandle.StatusFlags.QUERY_PIECES.swig()).pieces();
+                            log("pieces size: " + pieces.size());
+                            assertTrue(pieces.size() > 0);
+                            assertTrue(pieces.count() > 0);
+                            log("pieces value at 0: " + pieces.getBit(0));
+                            signalFinished.countDown();
                         }
-                        break;
-                    case TORRENT_CHECKED:
-                        log("Torrent checked, (forced: " + forceChecked + ")");
-                        if (forceChecked) {
-                            TorrentHandle th = ((TorrentCheckedAlert) alert).handle();
-                            long[] fileProgress = th.fileProgress();
-                            long total = 0;
-                            for (long p : fileProgress) {
-                                total += p;
-                            }
-                            assertNotEquals("At least one file should have some progress", 0, total);
-                        }
-                        break;
-                    case TORRENT_FINISHED:
-                        signalFinished.countDown();
                         break;
                 }
             }

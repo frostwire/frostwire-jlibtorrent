@@ -111,7 +111,7 @@ public final class StatusDurationTest {
         long timeMark = System.currentTimeMillis();
         s.download(ti, torrentFile.getParentFile(), resumeFile, null, null);
 
-        Utils.awaitMinutes(signal2, "to much time downloading the torrent 100%", 5);
+        Utils.awaitMinutes(signal2, "too much time downloading the torrent 100%", 5);
         assertNull(s.lastError());
 
         log("activeDuration: " + activeDuration);
