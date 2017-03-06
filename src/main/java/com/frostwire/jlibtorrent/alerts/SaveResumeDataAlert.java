@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.Entry;
+import com.frostwire.jlibtorrent.AddTorrentParams;
+import com.frostwire.jlibtorrent.ErrorCode;
 import com.frostwire.jlibtorrent.swig.save_resume_data_alert;
 
 /**
@@ -12,18 +13,20 @@ import com.frostwire.jlibtorrent.swig.save_resume_data_alert;
  */
 public final class SaveResumeDataAlert extends TorrentAlert<save_resume_data_alert> {
 
-    public SaveResumeDataAlert(save_resume_data_alert alert) {
+    SaveResumeDataAlert(save_resume_data_alert alert) {
         super(alert);
     }
 
     /**
-     * Points to the resume data.
-     * <p>
-     * Node: This method trigger an internal copy (in the native side) of the entry.
+     * The {@code params} structure is populated with the fields to be passed to
+     * {@link com.frostwire.jlibtorrent.SessionHandle#addTorrent(AddTorrentParams, ErrorCode)}
+     * or {@link com.frostwire.jlibtorrent.SessionHandle#asyncAddTorrent(AddTorrentParams)}
+     * to resume the torrent. To save the state to disk, you may pass it
+     * on to {@code write_resume_data()}.
      *
-     * @return
+     * @return the params object
      */
-    public Entry resumeData() {
-        return new Entry(alert.get_resume_data());
+    public AddTorrentParams params() {
+        return new AddTorrentParams(alert.getParams());
     }
 }

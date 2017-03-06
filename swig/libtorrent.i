@@ -763,7 +763,6 @@ typedef std::int64_t time_t;
 %ignore libtorrent::session_handle::get_cache_info;
 %ignore libtorrent::session_handle::wait_for_alert;
 %ignore libtorrent::session_stats_alert::values;
-%ignore libtorrent::save_resume_data_alert::resume_data;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::native_handle;
@@ -1277,6 +1276,15 @@ namespace libtorrent {
     static libtorrent::add_torrent_params read_resume_data(std::vector<int8_t> const& buffer, error_code& ec) {
         return libtorrent::read_resume_data((char const*)&buffer[0], buffer.size(), ec);
     }
+
+    static libtorrent::entry write_resume_data(add_torrent_params const& atp) {
+        return libtorrent::write_resume_data(atp);
+    }
+
+    static std::vector<int8_t> write_resume_data_buf(add_torrent_params const& atp) {
+        auto v = libtorrent::write_resume_data_buf(atp);
+        return {v.begin(), v.end()};
+    }
 }
 
 %extend torrent_info {
@@ -1360,12 +1368,6 @@ namespace libtorrent {
 %extend session_stats_alert {
     long long get_value(int index) {
         return $self->values[index];
-    }
-}
-
-%extend save_resume_data_alert {
-    entry get_resume_data() {
-        return *($self->resume_data);
     }
 }
 

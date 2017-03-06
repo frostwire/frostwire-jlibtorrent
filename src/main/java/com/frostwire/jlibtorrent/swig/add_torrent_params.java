@@ -366,6 +366,14 @@ public class add_torrent_params {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_read_resume_data__SWIG_1(byte_vector.getCPtr(buffer), buffer, error_code.getCPtr(ec), ec), true);
   }
 
+  public static entry write_resume_data(add_torrent_params atp) {
+    return new entry(libtorrent_jni.add_torrent_params_write_resume_data(add_torrent_params.getCPtr(atp), atp), true);
+  }
+
+  public static byte_vector write_resume_data_buf(add_torrent_params atp) {
+    return new byte_vector(libtorrent_jni.add_torrent_params_write_resume_data_buf(add_torrent_params.getCPtr(atp), atp), true);
+  }
+
   public final static class flags_t {
     public final static add_torrent_params.flags_t flag_seed_mode = new add_torrent_params.flags_t("flag_seed_mode", libtorrent_jni.add_torrent_params_flag_seed_mode_get());
     public final static add_torrent_params.flags_t flag_upload_mode = new add_torrent_params.flags_t("flag_upload_mode", libtorrent_jni.add_torrent_params_flag_upload_mode_get());

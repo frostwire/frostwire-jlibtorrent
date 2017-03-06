@@ -51,8 +51,13 @@ public class save_resume_data_alert extends torrent_alert {
     return libtorrent_jni.save_resume_data_alert_message(swigCPtr, this);
   }
 
-  public entry get_resume_data() {
-    return new entry(libtorrent_jni.save_resume_data_alert_get_resume_data(swigCPtr, this), true);
+  public void setParams(add_torrent_params value) {
+    libtorrent_jni.save_resume_data_alert_params_set(swigCPtr, this, add_torrent_params.getCPtr(value), value);
+  }
+
+  public add_torrent_params getParams() {
+    long cPtr = libtorrent_jni.save_resume_data_alert_params_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new add_torrent_params(cPtr, false);
   }
 
   public final static int priority = libtorrent_jni.save_resume_data_alert_priority_get();

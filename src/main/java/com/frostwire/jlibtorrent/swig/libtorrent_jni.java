@@ -1025,6 +1025,8 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_create_instance_zero_storage();
   public final static native long add_torrent_params_read_resume_data__SWIG_0(long jarg1, bdecode_node jarg1_, long jarg2, error_code jarg2_);
   public final static native long add_torrent_params_read_resume_data__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, error_code jarg2_);
+  public final static native long add_torrent_params_write_resume_data(long jarg1, add_torrent_params jarg1_);
+  public final static native long add_torrent_params_write_resume_data_buf(long jarg1, add_torrent_params jarg1_);
   public final static native void delete_add_torrent_params(long jarg1);
   public final static native int op_bittorrent_get();
   public final static native void stats_metric_value_index_set(long jarg1, stats_metric jarg1_, int jarg2);
@@ -1498,7 +1500,8 @@ public class libtorrent_jni {
   public final static native String save_resume_data_alert_what(long jarg1, save_resume_data_alert jarg1_);
   public final static native int save_resume_data_alert_static_category_get();
   public final static native String save_resume_data_alert_message(long jarg1, save_resume_data_alert jarg1_);
-  public final static native long save_resume_data_alert_get_resume_data(long jarg1, save_resume_data_alert jarg1_);
+  public final static native void save_resume_data_alert_params_set(long jarg1, save_resume_data_alert jarg1_, long jarg2, add_torrent_params jarg2_);
+  public final static native long save_resume_data_alert_params_get(long jarg1, save_resume_data_alert jarg1_);
   public final static native void delete_save_resume_data_alert(long jarg1);
   public final static native int save_resume_data_failed_alert_priority_get();
   public final static native int save_resume_data_failed_alert_alert_type_get();

@@ -68,7 +68,8 @@ public final class StatusDurationTest {
                         th.saveResumeData();
                         break;
                     case SAVE_RESUME_DATA:
-                        resumeData = ((SaveResumeDataAlert) alert).resumeData();
+                        // TODO: restore later
+                        resumeData = null;//((SaveResumeDataAlert) alert).resumeData();
                         TorrentHandle th2 = ((SaveResumeDataAlert) alert).handle();
                         TorrentStatus status2 = th2.status();
                         activeDuration = status2.activeDuration();
