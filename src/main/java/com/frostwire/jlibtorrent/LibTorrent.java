@@ -39,6 +39,10 @@ public final class LibTorrent {
         return libtorrent.openssl_version_text();
     }
 
+    public static String jlibtorrentVersion() {
+        return "1.2.0.6";
+    }
+
     /**
      * This free function returns the list of available metrics exposed by
      * libtorrent's statistics API. Each metric has a name and a *value index*.
