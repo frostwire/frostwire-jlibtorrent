@@ -576,6 +576,12 @@ public final class Alerts {
                 return new DhtLiveNodesAlert(cast_to_dht_live_nodes_alert(a));
             }
         };
+        arr[92] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new SessionStatsHeaderAlert(cast_to_session_stats_header_alert(a));
+            }
+        };
 
         return arr;
     }

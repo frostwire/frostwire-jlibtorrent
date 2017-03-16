@@ -1144,6 +1144,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(picker_log_alert)
     CAST_ALERT_METHOD(session_error_alert)
     CAST_ALERT_METHOD(dht_live_nodes_alert)
+    CAST_ALERT_METHOD(session_stats_header_alert)
 }
 
 %extend alert {

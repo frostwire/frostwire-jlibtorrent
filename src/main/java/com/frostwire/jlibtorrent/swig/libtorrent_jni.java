@@ -1154,6 +1154,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_picker_log_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_session_error_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_live_nodes_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_session_stats_header_alert(long jarg1, alert jarg1_);
   public final static native long alert_get_timestamp(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
   public final static native int torrent_alert_alert_type_get();
@@ -2044,6 +2045,14 @@ public class libtorrent_jni {
   public final static native int dht_live_nodes_alert_num_nodes(long jarg1, dht_live_nodes_alert jarg1_);
   public final static native long dht_live_nodes_alert_nodes(long jarg1, dht_live_nodes_alert jarg1_);
   public final static native void delete_dht_live_nodes_alert(long jarg1);
+  public final static native int session_stats_header_alert_priority_get();
+  public final static native int session_stats_header_alert_alert_type_get();
+  public final static native int session_stats_header_alert_type(long jarg1, session_stats_header_alert jarg1_);
+  public final static native int session_stats_header_alert_category(long jarg1, session_stats_header_alert jarg1_);
+  public final static native String session_stats_header_alert_what(long jarg1, session_stats_header_alert jarg1_);
+  public final static native int session_stats_header_alert_static_category_get();
+  public final static native String session_stats_header_alert_message(long jarg1, session_stats_header_alert jarg1_);
+  public final static native void delete_session_stats_header_alert(long jarg1);
   public final static native int num_alert_types_get();
   public final static native void peer_info_pieces_set(long jarg1, peer_info jarg1_, long jarg2, piece_index_bitfield jarg2_);
   public final static native long peer_info_pieces_get(long jarg1, peer_info jarg1_);
@@ -2831,6 +2840,7 @@ public class libtorrent_jni {
   public final static native long picker_log_alert_SWIGUpcast(long jarg1);
   public final static native long session_error_alert_SWIGUpcast(long jarg1);
   public final static native long dht_live_nodes_alert_SWIGUpcast(long jarg1);
+  public final static native long session_stats_header_alert_SWIGUpcast(long jarg1);
   public final static native long session_SWIGUpcast(long jarg1);
   public final static native long bt_peer_connection_handle_SWIGUpcast(long jarg1);
 

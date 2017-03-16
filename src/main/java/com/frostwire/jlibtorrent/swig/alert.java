@@ -491,6 +491,11 @@ public class alert {
     return (cPtr == 0) ? null : new dht_live_nodes_alert(cPtr, false);
   }
 
+  public static session_stats_header_alert cast_to_session_stats_header_alert(alert a) {
+    long cPtr = libtorrent_jni.alert_cast_to_session_stats_header_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new session_stats_header_alert(cPtr, false);
+  }
+
   public long get_timestamp() {
     return libtorrent_jni.alert_get_timestamp(swigCPtr, this);
   }
