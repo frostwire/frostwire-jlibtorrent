@@ -1071,6 +1071,11 @@ public class SessionManager {
                             alert a = v.get(i);
                             int type = a.type();
 
+                            // ignore session_stats_header_alert
+                            if (type == session_stats_header_alert.alert_type) {
+                                continue;
+                            }
+
                             Alert<?> alert = null;
 
                             switch (AlertType.fromSwig(type)) {
