@@ -364,6 +364,21 @@ public class SessionManager {
         }
     }
 
+    /**
+     * This functions instructs the session to post the
+     * {@link com.frostwire.jlibtorrent.alerts.StateUpdateAlert},
+     * containing the status of all torrents whose state changed since the
+     * last time this function was called.
+     * <p>
+     * Only torrents who has the state subscription flag set will be
+     * included.
+     */
+    public void postTorrentUpdates() {
+        if (session != null) {
+            session.post_torrent_updates();
+        }
+    }
+
     public boolean isDhtRunning() {
         return session != null ? session.is_dht_running() : false;
     }
@@ -1127,6 +1142,7 @@ public class SessionManager {
                     if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
                         lastStatsRequestTime = now;
                         postSessionStats();
+                        postTorrentUpdates();
                     }
                 }
             }

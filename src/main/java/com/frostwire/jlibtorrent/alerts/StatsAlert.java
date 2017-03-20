@@ -6,6 +6,8 @@ import com.frostwire.jlibtorrent.swig.stats_alert;
  * This alert is posted approximately once every second, and it contains
  * byte counters of most statistics that's tracked for torrents. Each active
  * torrent posts these alerts regularly.
+ * <p>
+ * This alert will be deprecated soon.
  *
  * @author gubatron
  * @author aldenml
@@ -80,7 +82,6 @@ public final class StatsAlert extends TorrentAlert<stats_alert> {
         private final int swigValue;
 
         /**
-         *
          * @return
          */
         public int swig() {
@@ -88,7 +89,6 @@ public final class StatsAlert extends TorrentAlert<stats_alert> {
         }
 
         /**
-         *
          * @return
          */
         public int getIndex() {

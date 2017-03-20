@@ -10,13 +10,13 @@ package com.frostwire.jlibtorrent;
  */
 public final class IntSeries {
 
-    private final int[] buffer;
+    private final long[] buffer;
 
     private int head;
     private int end;
     private int size;
 
-    IntSeries(int[] buffer) {
+    IntSeries(long[] buffer) {
         if (buffer == null) {
             throw new IllegalArgumentException("buffer to hold data can't be null");
         }
@@ -31,10 +31,10 @@ public final class IntSeries {
     }
 
     IntSeries(int capacity) {
-        this(new int[capacity]);
+        this(new long[capacity]);
     }
 
-    void add(int value) {
+    void add(long value) {
         if (head == -1) { // first element add
             head = end = 0;
             buffer[end] = value;
@@ -75,7 +75,7 @@ public final class IntSeries {
      * @param index the value's index
      * @return the value in the series
      */
-    public int get(int index) {
+    public long get(int index) {
         return buffer[(head + index) % size];
     }
 
