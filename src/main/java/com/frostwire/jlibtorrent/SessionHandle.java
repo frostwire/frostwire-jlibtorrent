@@ -87,7 +87,7 @@ public class SessionHandle {
      * filter which parts of the session state to load. By default, all state
      * is restored (except for the individual torrents).
      *
-     * @param data the beencoded byte array
+     * @param data the bencoded byte array
      * @see com.frostwire.jlibtorrent.swig.session_handle.save_state_flags_t
      */
     public void loadState(byte[] data, long flags) {
@@ -124,23 +124,25 @@ public class SessionHandle {
     }
 
     /**
-     * This functions instructs the session to post the state_update_alert,
+     * This functions instructs the session to post the
+     * {@link com.frostwire.jlibtorrent.alerts.StateUpdateAlert},
      * containing the status of all torrents whose state changed since the
      * last time this function was called.
      * <p>
      * Only torrents who has the state subscription flag set will be
-     * included. This flag is on by default. See add_torrent_params.
-     * the ``flags`` argument is the same as for torrent_handle::status().
-     * see torrent_handle::status_flags_t.
+     * included. This flag is on by default. See {@link AddTorrentParams}.
+     * the {@code flags} argument is the same as for torrent_handle::status().
      *
      * @param flags or-combination of {@link TorrentHandle.StatusFlags} native values
+     * @see TorrentHandle.StatusFlags
      */
     public void postTorrentUpdates(int flags) {
         s.post_torrent_updates(flags);
     }
 
     /**
-     * This functions instructs the session to post the state_update_alert,
+     * This functions instructs the session to post the
+     * {@link com.frostwire.jlibtorrent.alerts.StateUpdateAlert},
      * containing the status of all torrents whose state changed since the
      * last time this function was called.
      * <p>
