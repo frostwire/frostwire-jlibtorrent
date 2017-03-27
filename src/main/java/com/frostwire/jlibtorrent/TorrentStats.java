@@ -50,6 +50,10 @@ public final class TorrentStats {
         }
     }
 
+    public long last(SeriesMetric metric) {
+        return series(metric).last();
+    }
+
     public void update(TorrentStatus status) {
         if (!ih.equals(status.infoHash())) {
             return; // not for us
