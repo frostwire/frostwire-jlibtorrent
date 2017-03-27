@@ -79,6 +79,16 @@ public final class IntSeries {
         return buffer[(head + index) % size];
     }
 
+    /**
+     * This method will always returns a value, if the series is empty
+     * {@code 0} is returned.
+     *
+     * @return the last value in the series
+     */
+    public long last() {
+        return end != 0 ? buffer[end] : 0;
+    }
+
     public int size() {
         return size;
     }
