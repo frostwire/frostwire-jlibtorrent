@@ -9,7 +9,7 @@ import com.frostwire.jlibtorrent.swig.torrent_status;
  * @author gubatron
  * @author aldenml
  */
-public final class TorrentStatus {
+public final class TorrentStatus implements Cloneable {
 
     private final torrent_status ts;
 
@@ -766,6 +766,11 @@ public final class TorrentStatus {
 
     public long seedingDuration() {
         return ts.get_seeding_duration();
+    }
+
+    @Override
+    protected TorrentStatus clone() {
+        return new TorrentStatus(new torrent_status(ts));
     }
 
     private static long time2millis(long time) {
