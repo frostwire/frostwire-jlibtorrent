@@ -1066,6 +1066,12 @@ public class SessionManager {
         sb.append("&x.pe=" + hostAddress + ":" + port);
     }
 
+    private static boolean isSpecialType(int type) {
+        return type == AlertType.SESSION_STATS.swig() ||
+                type == AlertType.STATE_UPDATE.swig() ||
+                type == AlertType.SESSION_STATS_HEADER.swig();
+    }
+
     private void alertsLoop() {
         Runnable r = new Runnable() {
             @Override
@@ -1085,11 +1091,6 @@ public class SessionManager {
                         for (int i = 0; i < size; i++) {
                             alert a = v.get(i);
                             int type = a.type();
-
-                            // ignore session_stats_header_alert
-                            if (type == session_stats_header_alert.alert_type) {
-                                continue;
-                            }
 
                             Alert<?> alert = null;
 
@@ -1127,8 +1128,7 @@ public class SessionManager {
                                 fireAlert(alert, type);
                             }
 
-                            if (type != AlertType.SESSION_STATS.swig() &&
-                                    listeners[libtorrent.num_alert_types] != null) {
+                            if (!isSpecialType(type) && listeners[libtorrent.num_alert_types] != null) {
                                 if (alert == null) {
                                     alert = Alerts.cast(a);
                                 }
