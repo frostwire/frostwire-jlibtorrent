@@ -66,11 +66,6 @@ public class alert {
     return (cPtr == 0) ? null : new tracker_alert(cPtr, false);
   }
 
-  public static torrent_added_alert cast_to_torrent_added_alert(alert a) {
-    long cPtr = libtorrent_jni.alert_cast_to_torrent_added_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new torrent_added_alert(cPtr, false);
-  }
-
   public static torrent_removed_alert cast_to_torrent_removed_alert(alert a) {
     long cPtr = libtorrent_jni.alert_cast_to_torrent_removed_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new torrent_removed_alert(cPtr, false);

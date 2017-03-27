@@ -1,14 +1,15 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.alerts.*;
+import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
+import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
 
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -47,8 +48,8 @@ public final class GetPiecesTest {
                 AlertType type = alert.type();
 
                 switch (type) {
-                    case TORRENT_ADDED:
-                        ((TorrentAddedAlert) alert).handle().resume();
+                    case ADD_TORRENT:
+                        ((AddTorrentAlert) alert).handle().resume();
                         break;
                     case PIECE_FINISHED:
                         int progress = (int) (((PieceFinishedAlert) alert).handle().status().progress() * 100);

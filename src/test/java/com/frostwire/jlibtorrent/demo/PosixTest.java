@@ -3,10 +3,10 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.SessionManager;
 import com.frostwire.jlibtorrent.TorrentInfo;
+import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentAddedAlert;
 import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.posix_stat_t;
 import com.frostwire.jlibtorrent.swig.posix_wrapper;
@@ -78,9 +78,9 @@ public final class PosixTest {
                 AlertType type = alert.type();
 
                 switch (type) {
-                    case TORRENT_ADDED:
+                    case ADD_TORRENT:
                         System.out.println("Torrent added");
-                        ((TorrentAddedAlert) alert).handle().resume();
+                        ((AddTorrentAlert) alert).handle().resume();
                         break;
                     case BLOCK_FINISHED:
                         BlockFinishedAlert a = (BlockFinishedAlert) alert;

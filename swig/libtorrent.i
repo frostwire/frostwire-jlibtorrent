@@ -872,12 +872,14 @@ typedef std::int64_t time_t;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
+%ignore libtorrent::announce_entry::announce_entry(string_view);
 %ignore libtorrent::announce_entry::failed;
 %ignore libtorrent::announce_entry::next_announce;
 %ignore libtorrent::announce_entry::min_announce;
 %ignore libtorrent::announce_entry::can_announce;
 %ignore libtorrent::announce_entry::deprecated_send_stats;
 %ignore libtorrent::proxy_settings::proxy_settings;
+%ignore libtorrent::torrent_status::torrent_status(torrent_status&&);
 %ignore libtorrent::torrent_status::_dummy_string_;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::torrent_status::next_announce;
@@ -1059,7 +1061,6 @@ namespace libtorrent {
     CAST_ALERT_METHOD(torrent_alert)
     CAST_ALERT_METHOD(peer_alert)
     CAST_ALERT_METHOD(tracker_alert)
-    CAST_ALERT_METHOD(torrent_added_alert)
     CAST_ALERT_METHOD(torrent_removed_alert)
     CAST_ALERT_METHOD(read_piece_alert)
     CAST_ALERT_METHOD(file_completed_alert)
@@ -1511,6 +1512,13 @@ namespace libtorrent {
     void add_file(std::string const& path, std::int64_t file_size,
         int file_flags, std::time_t mtime, std::string const& symlink_path) {
         $self->add_file(path, file_size, file_flags, mtime, symlink_path);
+    }
+}
+
+%extend announce_entry {
+
+    announce_entry(std::string const& u) {
+        return new libtorrent::announce_entry(u);
     }
 }
 

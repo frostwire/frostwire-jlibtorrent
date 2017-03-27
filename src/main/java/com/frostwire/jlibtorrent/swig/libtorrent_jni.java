@@ -1069,7 +1069,6 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_torrent_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_peer_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_tracker_alert(long jarg1, alert jarg1_);
-  public final static native long alert_cast_to_torrent_added_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_torrent_removed_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_read_piece_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_file_completed_alert(long jarg1, alert jarg1_);
@@ -1176,14 +1175,6 @@ public class libtorrent_jni {
   public final static native String tracker_alert_message(long jarg1, tracker_alert jarg1_);
   public final static native String tracker_alert_tracker_url(long jarg1, tracker_alert jarg1_);
   public final static native void delete_tracker_alert(long jarg1);
-  public final static native int torrent_added_alert_priority_get();
-  public final static native int torrent_added_alert_alert_type_get();
-  public final static native int torrent_added_alert_type(long jarg1, torrent_added_alert jarg1_);
-  public final static native int torrent_added_alert_category(long jarg1, torrent_added_alert jarg1_);
-  public final static native String torrent_added_alert_what(long jarg1, torrent_added_alert jarg1_);
-  public final static native int torrent_added_alert_static_category_get();
-  public final static native String torrent_added_alert_message(long jarg1, torrent_added_alert jarg1_);
-  public final static native void delete_torrent_added_alert(long jarg1);
   public final static native int torrent_removed_alert_priority_get();
   public final static native int torrent_removed_alert_alert_type_get();
   public final static native int torrent_removed_alert_type(long jarg1, torrent_removed_alert jarg1_);
@@ -2489,10 +2480,9 @@ public class libtorrent_jni {
   public final static native void add_files__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3);
   public final static native void add_files__SWIG_1(long jarg1, file_storage jarg1_, String jarg2);
   public final static native void set_piece_hashes(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);
-  public final static native long new_announce_entry__SWIG_0(String jarg1);
-  public final static native long new_announce_entry__SWIG_1();
+  public final static native long new_announce_entry__SWIG_0();
   public final static native void delete_announce_entry(long jarg1);
-  public final static native long new_announce_entry__SWIG_2(long jarg1, announce_entry jarg1_);
+  public final static native long new_announce_entry__SWIG_1(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_url_set(long jarg1, announce_entry jarg1_, String jarg2);
   public final static native String announce_entry_url_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_trackerid_set(long jarg1, announce_entry jarg1_, String jarg2);
@@ -2532,6 +2522,7 @@ public class libtorrent_jni {
   public final static native void announce_entry_reset(long jarg1, announce_entry jarg1_);
   public final static native boolean announce_entry_is_working(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_trim(long jarg1, announce_entry jarg1_);
+  public final static native long new_announce_entry__SWIG_2(String jarg1);
   public final static native long new_torrent_status__SWIG_0();
   public final static native void delete_torrent_status(long jarg1);
   public final static native long new_torrent_status__SWIG_1(long jarg1, torrent_status jarg1_);
@@ -2755,7 +2746,6 @@ public class libtorrent_jni {
   public final static native long torrent_alert_SWIGUpcast(long jarg1);
   public final static native long peer_alert_SWIGUpcast(long jarg1);
   public final static native long tracker_alert_SWIGUpcast(long jarg1);
-  public final static native long torrent_added_alert_SWIGUpcast(long jarg1);
   public final static native long torrent_removed_alert_SWIGUpcast(long jarg1);
   public final static native long read_piece_alert_SWIGUpcast(long jarg1);
   public final static native long file_completed_alert_SWIGUpcast(long jarg1);

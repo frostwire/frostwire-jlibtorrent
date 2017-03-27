@@ -2,7 +2,6 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
@@ -46,8 +45,8 @@ public final class FileProgressTest {
                 AlertType type = alert.type();
 
                 switch (type) {
-                    case TORRENT_ADDED:
-                        ((TorrentAddedAlert) alert).handle().resume();
+                    case ADD_TORRENT:
+                        ((AddTorrentAlert) alert).handle().resume();
                         break;
                     case PIECE_FINISHED:
                         int progress = (int) (((PieceFinishedAlert) alert).handle().status().progress() * 100);

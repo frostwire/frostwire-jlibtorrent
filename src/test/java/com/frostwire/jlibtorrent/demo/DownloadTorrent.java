@@ -4,10 +4,10 @@ import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.LibTorrent;
 import com.frostwire.jlibtorrent.SessionManager;
 import com.frostwire.jlibtorrent.TorrentInfo;
+import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentAddedAlert;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
@@ -42,9 +42,9 @@ public final class DownloadTorrent {
                 AlertType type = alert.type();
 
                 switch (type) {
-                    case TORRENT_ADDED:
+                    case ADD_TORRENT:
                         System.out.println("Torrent added");
-                        ((TorrentAddedAlert) alert).handle().resume();
+                        ((AddTorrentAlert) alert).handle().resume();
                         break;
                     case BLOCK_FINISHED:
                         BlockFinishedAlert a = (BlockFinishedAlert) alert;

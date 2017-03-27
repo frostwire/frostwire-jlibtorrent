@@ -45,7 +45,7 @@ public final class Alerts {
         arr[3] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new TorrentAddedAlert(cast_to_torrent_added_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[4] = new CastLambda() {

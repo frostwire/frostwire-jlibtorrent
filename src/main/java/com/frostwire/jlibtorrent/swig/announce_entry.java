@@ -35,16 +35,12 @@ public class announce_entry {
     }
   }
 
-  public announce_entry(String u) {
-    this(libtorrent_jni.new_announce_entry__SWIG_0(u), true);
-  }
-
   public announce_entry() {
-    this(libtorrent_jni.new_announce_entry__SWIG_1(), true);
+    this(libtorrent_jni.new_announce_entry__SWIG_0(), true);
   }
 
   public announce_entry(announce_entry arg0) {
-    this(libtorrent_jni.new_announce_entry__SWIG_2(announce_entry.getCPtr(arg0), arg0), true);
+    this(libtorrent_jni.new_announce_entry__SWIG_1(announce_entry.getCPtr(arg0), arg0), true);
   }
 
   public void setUrl(String value) {
@@ -186,6 +182,10 @@ public class announce_entry {
 
   public void trim() {
     libtorrent_jni.announce_entry_trim(swigCPtr, this);
+  }
+
+  public announce_entry(String u) {
+    this(libtorrent_jni.new_announce_entry__SWIG_2(u), true);
   }
 
   public final static class tracker_source {
