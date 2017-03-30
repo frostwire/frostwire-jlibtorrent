@@ -111,6 +111,11 @@ public class SessionManager {
         start(new SessionParams(new session_params(sp)));
     }
 
+    /**
+     * This method blocks during the destruction of the native session, it
+     * could take some time, don't call this from the UI thread or other
+     * sensitive multithreaded code.
+     */
     public void stop() {
         if (session == null) {
             return;
@@ -130,7 +135,7 @@ public class SessionManager {
 
             resetState();
 
-            s.abort().delete();
+            s.delete();
 
             onAfterStop();
 
@@ -140,7 +145,8 @@ public class SessionManager {
     }
 
     /**
-     * This method blocks for at least a second, don't call it from the UI thread.
+     * This method blocks for at least a second plus the time
+     * needed to destroy the native session, don't call it from the UI thread.
      */
     public void restart() {
         sync.lock();
