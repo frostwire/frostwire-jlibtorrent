@@ -111,14 +111,6 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_trackerid_get(swigCPtr, this);
   }
 
-  public void setUrl(String value) {
-    libtorrent_jni.add_torrent_params_url_set(swigCPtr, this, value);
-  }
-
-  public String getUrl() {
-    return libtorrent_jni.add_torrent_params_url_get(swigCPtr, this);
-  }
-
   public void setFlags(long value) {
     libtorrent_jni.add_torrent_params_flags_set(swigCPtr, this, value);
   }
@@ -372,6 +364,10 @@ public class add_torrent_params {
 
   public static byte_vector write_resume_data_buf(add_torrent_params atp) {
     return new byte_vector(libtorrent_jni.add_torrent_params_write_resume_data_buf(add_torrent_params.getCPtr(atp), atp), true);
+  }
+
+  public static void parse_magnet_uri(String uri, add_torrent_params p, error_code ec) {
+    libtorrent_jni.add_torrent_params_parse_magnet_uri(uri, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec);
   }
 
   public final static class flags_t {

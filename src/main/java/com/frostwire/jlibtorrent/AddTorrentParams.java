@@ -280,44 +280,6 @@ public final class AddTorrentParams {
     }
 
     /**
-     * If you specify a ``url``, the torrent will be set in
-     * ``downloading_metadata`` state until the .torrent file has been
-     * downloaded. If there's any error while downloading, the torrent will
-     * be stopped and the torrent error state (``torrent_status::error``)
-     * will indicate what went wrong. The ``url`` may refer to a magnet link
-     * or a regular http URL.
-     * <p>
-     * If it refers to an HTTP URL, the info-hash for the added torrent will
-     * not be the true info-hash of the .torrent. Instead a placeholder,
-     * unique, info-hash is used which is later updated once the .torrent
-     * file has been downloaded.
-     *
-     * @return the url
-     */
-    public String url() {
-        return p.getUrl();
-    }
-
-    /**
-     * If you specify a ``url``, the torrent will be set in
-     * ``downloading_metadata`` state until the .torrent file has been
-     * downloaded. If there's any error while downloading, the torrent will
-     * be stopped and the torrent error state (``torrent_status::error``)
-     * will indicate what went wrong. The ``url`` may refer to a magnet link
-     * or a regular http URL.
-     * <p>
-     * If it refers to an HTTP URL, the info-hash for the added torrent will
-     * not be the true info-hash of the .torrent. Instead a placeholder,
-     * unique, info-hash is used which is later updated once the .torrent
-     * file has been downloaded.
-     *
-     * @param value the url
-     */
-    public void url(String value) {
-        p.setUrl(value);
-    }
-
-    /**
      * Set this to the info hash of the torrent to add in case the info-hash
      * is the only known property of the torrent. i.e. you don't have a
      * .torrent file nor a magnet link.
@@ -566,7 +528,7 @@ public final class AddTorrentParams {
      */
     public static AddTorrentParams parseMagnetUri(String uri, AddTorrentParams params) {
         error_code ec = new error_code();
-        libtorrent.parse_magnet_uri(uri, params.swig(), ec);
+        add_torrent_params.parse_magnet_uri(uri, params.swig(), ec);
         if (ec.value() != 0) {
             throw new IllegalArgumentException("Invalid magnet uri: " + ec.message());
         }

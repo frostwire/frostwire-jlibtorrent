@@ -89,10 +89,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.make_magnet_uri__SWIG_1(torrent_info.getCPtr(info), info);
   }
 
-  public static void parse_magnet_uri(String uri, add_torrent_params p, error_code ec) {
-    libtorrent_jni.parse_magnet_uri(uri, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec);
-  }
-
   public static void add_files(file_storage fs, String file, long flags) {
     libtorrent_jni.add_files__SWIG_0(file_storage.getCPtr(fs), fs, file, flags);
   }

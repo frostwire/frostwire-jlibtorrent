@@ -525,7 +525,7 @@ public class SessionManager {
 
         add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
         error_code ec = new error_code();
-        libtorrent.parse_magnet_uri(uri, p, ec);
+        add_torrent_params.parse_magnet_uri(uri, p, ec);
 
         if (ec.value() != 0) {
             throw new IllegalArgumentException(ec.message());

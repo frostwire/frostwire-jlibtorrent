@@ -964,8 +964,6 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_file_priorities_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_trackerid_set(long jarg1, add_torrent_params jarg1_, String jarg2);
   public final static native String add_torrent_params_trackerid_get(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_url_set(long jarg1, add_torrent_params jarg1_, String jarg2);
-  public final static native String add_torrent_params_url_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_flags_set(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native long add_torrent_params_flags_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_info_hash_set(long jarg1, add_torrent_params jarg1_, long jarg2, sha1_hash jarg2_);
@@ -1027,6 +1025,7 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_read_resume_data__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, error_code jarg2_);
   public final static native long add_torrent_params_write_resume_data(long jarg1, add_torrent_params jarg1_);
   public final static native long add_torrent_params_write_resume_data_buf(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
   public final static native void delete_add_torrent_params(long jarg1);
   public final static native int op_bittorrent_get();
   public final static native void stats_metric_value_index_set(long jarg1, stats_metric jarg1_, int jarg2);
@@ -2446,7 +2445,6 @@ public class libtorrent_jni {
   public final static native void delete_port_filter(long jarg1);
   public final static native String make_magnet_uri__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native String make_magnet_uri__SWIG_1(long jarg1, torrent_info jarg1_);
-  public final static native void parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
   public final static native int create_torrent_optimize_alignment_get();
   public final static native int create_torrent_merkle_get();
   public final static native int create_torrent_modification_time_get();

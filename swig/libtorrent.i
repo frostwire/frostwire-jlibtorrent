@@ -725,6 +725,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::generate_fingerprint(std::string, int);
 %ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>, std::uint32_t);
 %ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>);
+%ignore libtorrent::parse_magnet_uri;
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::add_torrent_params::add_torrent_params;
 %ignore libtorrent::add_torrent_params::extensions;
@@ -736,6 +737,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::add_torrent_params::deprecated2;
 %ignore libtorrent::add_torrent_params::deprecated3;
 %ignore libtorrent::add_torrent_params::deprecated4;
+%ignore libtorrent::add_torrent_params::deprecated5;
 %ignore libtorrent::alert::timestamp;
 %ignore libtorrent::session_params::session_params(settings_pack, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(session_params&&);
@@ -823,6 +825,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
 %ignore libtorrent::read_piece_alert::buffer;
+%ignore libtorrent::bdecode_node::bdecode_node(bdecode_node&&);
 %ignore libtorrent::bdecode_node::non_owning;
 %ignore libtorrent::bdecode_node::data_section;
 %ignore libtorrent::bdecode_node::list_string_value_at;
@@ -1276,7 +1279,7 @@ namespace libtorrent {
     }
 
     static libtorrent::add_torrent_params read_resume_data(std::vector<int8_t> const& buffer, error_code& ec) {
-        return libtorrent::read_resume_data((char const*)&buffer[0], buffer.size(), ec);
+        return libtorrent::read_resume_data({(char const*)&buffer[0], buffer.size()}, ec);
     }
 
     static libtorrent::entry write_resume_data(add_torrent_params const& atp) {
@@ -1286,6 +1289,10 @@ namespace libtorrent {
     static std::vector<int8_t> write_resume_data_buf(add_torrent_params const& atp) {
         auto v = libtorrent::write_resume_data_buf(atp);
         return {v.begin(), v.end()};
+    }
+
+    static void parse_magnet_uri(std::string const& uri, add_torrent_params& p, error_code& ec) {
+        return libtorrent::parse_magnet_uri(uri, p, ec);
     }
 }
 
