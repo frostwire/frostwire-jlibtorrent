@@ -64,8 +64,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * {@link TorrentInfo} object with the torrent to add. Unless the {@link #url()}
-     * or {@link #infoHash()} is set, this is required to be initialized.
+     * {@link TorrentInfo} object with the torrent to add.
      *
      * @return the torrent info or null if not set
      */
@@ -75,8 +74,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * {@link TorrentInfo} object with the torrent to add. Unless the {@link #url()}
-     * or {@link #infoHash()} is set, this is required to be initialized.
+     * {@link TorrentInfo} object with the torrent to add.
      *
      * @param ti the torrent info
      */
