@@ -15,12 +15,37 @@ public final class LibTorrent {
     private LibTorrent() {
     }
 
+    /**
+     * The version number as reported by libtorrent
+     *
+     * @return the version number
+     */
     public static int versionNum() {
         return libtorrent.LIBTORRENT_VERSION_NUM;
     }
 
+    /**
+     * The version string as reported by libtorrent
+     *
+     * @return the version string
+     */
     public static String version() {
         return libtorrent.version();
+    }
+
+    /**
+     * The git revision of libtorrent the native library is using.
+     * <p>
+     * This is not the internal revision libtorrent reports, since
+     * that string is updated from time to time. This library can be
+     * using an up to date revision, this string is manually
+     * hardcoded in each version of jlibtorrent. See
+     * {@link libtorrent.LIBTORRENT_REVISION} for the libtorrent string.
+     *
+     * @return the git revision
+     */
+    public static String revision() {
+        return "09274842f781033f3eb5ccca833b63ebadc0fef5";
     }
 
     public static int boostVersionNum() {
