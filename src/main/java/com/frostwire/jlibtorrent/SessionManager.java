@@ -43,6 +43,7 @@ public class SessionManager {
     private boolean firewalled;
     private final List<TcpEndpoint> listenEndpoints;
     private Address externalAddress;
+    private Thread alertsLoop;
 
     private Throwable lastAlertError;
 
@@ -132,6 +133,13 @@ public class SessionManager {
 
             session s = session;
             session = null; // stop alerts loop and session methods
+            if (alertsLoop != null) {
+                try {
+                    alertsLoop.join();
+                } catch (Throwable e) {
+                    // ignore
+                }
+            }
 
             resetState();
 
@@ -924,6 +932,7 @@ public class SessionManager {
         firewalled = true;
         listenEndpoints.clear();
         externalAddress = null;
+        alertsLoop = null;
     }
 
     private void modifyListeners(boolean add, AlertListener listener) {
@@ -1157,6 +1166,8 @@ public class SessionManager {
         Thread t = new Thread(r, "SessionManager-alertsLoop");
         t.setDaemon(true);
         t.start();
+
+        alertsLoop = t;
     }
 
     public static final class MutableItem {
