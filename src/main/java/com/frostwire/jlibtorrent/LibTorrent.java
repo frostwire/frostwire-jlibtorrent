@@ -40,7 +40,7 @@ public final class LibTorrent {
      * that string is updated from time to time. This library can be
      * using an up to date revision, this string is manually
      * hardcoded in each version of jlibtorrent. See
-     * {@link libtorrent.LIBTORRENT_REVISION} for the libtorrent string.
+     * {@link libtorrent#LIBTORRENT_REVISION} for the libtorrent string.
      *
      * @return the git revision
      */
@@ -65,7 +65,7 @@ public final class LibTorrent {
     }
 
     public static String jlibtorrentVersion() {
-        return "1.2.0.7-RC3";
+        return "1.2.0.7";
     }
 
     /**
