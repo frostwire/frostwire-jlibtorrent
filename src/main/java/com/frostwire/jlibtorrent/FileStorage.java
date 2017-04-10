@@ -93,15 +93,15 @@ public final class FileStorage {
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
-     * @param path
-     * @param fileSize
-     * @param fileFlags
-     * @param mtime
-     * @param symlinkPath
-     * @see com.frostwire.jlibtorrent.FileStorage.Flags
+     * @param path    the path
+     * @param size    the file size
+     * @param flags   the file flags
+     * @param mtime   the time
+     * @param symlink the symlink
+     * @see Flags
      */
-    public void addFile(String path, long fileSize, Flags fileFlags, int mtime, String symlinkPath) {
-        fs.add_file(path, fileSize, fileFlags.swig(), mtime, symlinkPath);
+    public void addFile(String path, long size, Flags flags, int mtime, String symlink) {
+        fs.add_file(path, size, flags.swig(), mtime, symlink);
     }
 
     /**
@@ -118,14 +118,14 @@ public final class FileStorage {
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
-     * @param p
-     * @param size
-     * @param flags
-     * @param mtime
-     * @see com.frostwire.jlibtorrent.FileStorage.Flags
+     * @param path  the path
+     * @param size  the file size
+     * @param flags the file flags
+     * @param mtime the time
+     * @see Flags
      */
-    public void addFile(String p, long size, Flags flags, int mtime) {
-        fs.add_file(p, size, flags.swig(), mtime);
+    public void addFile(String path, long size, Flags flags, int mtime) {
+        fs.add_file(path, size, flags.swig(), mtime);
     }
 
     /**
@@ -142,13 +142,13 @@ public final class FileStorage {
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
-     * @param p
-     * @param size
-     * @param flags
-     * @see com.frostwire.jlibtorrent.FileStorage.Flags
+     * @param path  the path
+     * @param size  the file size
+     * @param flags the file flags
+     * @see Flags
      */
-    public void addFile(String p, long size, Flags flags) {
-        fs.add_file(p, size, flags.swig());
+    public void addFile(String path, long size, Flags flags) {
+        fs.add_file(path, size, flags.swig());
     }
 
     /**
