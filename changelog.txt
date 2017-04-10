@@ -2,6 +2,8 @@
 
     * added support for ip_notifier in macOS
     * added resolver_cache_timeout setting for internal host name resolver
+    * improved public API
+    * internal fixes in libtorrent
 
 1.2.0.7-RC3
 
