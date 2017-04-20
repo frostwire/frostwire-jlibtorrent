@@ -2419,7 +2419,7 @@ public class libtorrent_jni {
   public final static native boolean peer_connection_handle_can_disconnect(long jarg1, peer_connection_handle jarg1_, long jarg2, error_code jarg2_);
   public final static native boolean peer_connection_handle_has_metadata(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_in_handshake(long jarg1, peer_connection_handle jarg1_);
-  public final static native void peer_connection_handle_send_buffer__SWIG_0(long jarg1, peer_connection_handle jarg1_, String jarg2, int jarg3, int jarg4);
+  public final static native void peer_connection_handle_send_buffer__SWIG_0(long jarg1, peer_connection_handle jarg1_, String jarg2, int jarg3, long jarg4);
   public final static native void peer_connection_handle_send_buffer__SWIG_1(long jarg1, peer_connection_handle jarg1_, String jarg2, int jarg3);
   public final static native long peer_connection_handle_last_seen_complete(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_op_eq(long jarg1, peer_connection_handle jarg1_, long jarg2, peer_connection_handle jarg2_);

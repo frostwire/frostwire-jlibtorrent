@@ -52682,11 +52682,11 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1handle_1send_1buffer_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jint jarg4) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1handle_1send_1buffer_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3, jlong jarg4) {
   libtorrent::peer_connection_handle *arg1 = (libtorrent::peer_connection_handle *) 0 ;
   char *arg2 = (char *) 0 ;
   int arg3 ;
-  int arg4 ;
+  std::uint32_t arg4 ;
   
   (void)jenv;
   (void)jcls;
@@ -52698,7 +52698,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
     if (!arg2) return ;
   }
   arg3 = (int)jarg3; 
-  arg4 = (int)jarg4; 
+  arg4 = (std::uint32_t)jarg4; 
   {
     try {
       (arg1)->send_buffer((char const *)arg2,arg3,arg4);

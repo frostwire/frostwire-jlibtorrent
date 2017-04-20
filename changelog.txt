@@ -1,3 +1,8 @@
+1.2.0.9-RC1 (temp)
+
+    * using temporary libtorrent fork for shutdown fix
+    * lt:source code cleanup and stability
+
 1.2.0.8
 
     * fixed synchronization issues in SessionManager#stop
