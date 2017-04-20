@@ -1,5 +1,6 @@
 1.2.0.9-RC1 (temp)
 
+    * updated to boost 1.64
     * using temporary libtorrent fork for shutdown fix
     * lt:source code cleanup and stability
 

@@ -22,12 +22,12 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.63.0/boost_1_63_0.zip
+  - wget -O boost.zip http://pilotfiber.dl.sourceforge.net/project/boost/boost/1.64.0/boost_1_64_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_63_0
+  - cd boost_1_64_0
   - ./bootstrap.sh
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_63_0
+  - export BOOST_ROOT=$PWD/boost_1_64_0
 
 # openssl: download
   - wget -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.0e.tar.gz
