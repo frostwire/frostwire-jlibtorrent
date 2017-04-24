@@ -295,6 +295,7 @@ namespace std {
     %template(string_view_bdecode_node_pair) pair<libtorrent::string_view, libtorrent::bdecode_node>;
     %template(byte_vectors_pair) pair<vector<int8_t>, vector<int8_t>>;
     %template(sha1_hash_udp_endpoint_pair) pair<libtorrent::sha1_hash, libtorrent::udp::endpoint>;
+    %template(address_sha1_hash_pair) pair<libtorrent::address, libtorrent::sha1_hash>;
 
     %template(byte_vector) vector<int8_t>;
     %template(string_vector) vector<std::string>;
@@ -324,6 +325,7 @@ namespace std {
     %template(piece_index_vector) vector<piece_index_t>;
     %template(file_index_vector) vector<file_index_t>;
     %template(sha1_hash_udp_endpoint_pair_vector) vector<pair<libtorrent::sha1_hash, libtorrent::udp::endpoint>>;
+    %template(address_sha1_hash_pair_vector) vector<pair<libtorrent::address, libtorrent::sha1_hash>>;
 
     %template(file_index_string_map) map<file_index_t, std::string>;
     %template(string_long_map) map<std::string, long>;

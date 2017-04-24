@@ -53,6 +53,10 @@ public class libtorrent implements libtorrentConstants {
     return new settings_pack(libtorrent_jni.default_settings(), true);
   }
 
+  public static address_sha1_hash_pair_vector extract_node_ids(bdecode_node e, string_view key) {
+    return new address_sha1_hash_pair_vector(libtorrent_jni.extract_node_ids(bdecode_node.getCPtr(e), e, string_view.getCPtr(key), key), true);
+  }
+
   public static dht_state read_dht_state(bdecode_node e) {
     return new dht_state(libtorrent_jni.read_dht_state(bdecode_node.getCPtr(e), e), true);
   }
