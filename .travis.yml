@@ -50,15 +50,15 @@ before_install:
 
 # android ndk: download and create toolchain
   - if [ $os_build == "android" ]; then
-      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r14-linux-x86_64.zip;
+      wget -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r15-beta1-linux-x86_64.zip;
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
-      export NDK=$PWD/android-ndk-r14;
+      export NDK=$PWD/android-ndk-r15-beta1;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
   - if [[ $os_build == "android" && $os_arch == "arm" && $android_api == "16" ]]; then
-      echo "unsigned long int getauxval(unsigned long int type) __attribute__((weak));" > $PWD/android-toolchain/sysroot/usr/include/sys/auxv.h;
+      echo "unsigned long int getauxval(unsigned long int type) __attribute__((weak));" >> $PWD/android-toolchain/sysroot/usr/include/sys/auxv.h;
     fi
 
   - if [[ $os_build == "linux" || $os_build == "windows" ]]; then
