@@ -1,7 +1,16 @@
-1.2.0.9-RC1 (temp)
+1.2.0.9-RC2 (temp)
 
     * updated to boost 1.64
-    * using temporary libtorrent fork for shutdown fix
+    * lt:need_save_resume_data() will no longer return true every 15 minutes
+    * lt:create a separate DHT node for each listen socket
+    * lt:avoid connections to trackers when the event is stopped and
+      stop_tracker_timeout <= 0
+    * lt:fix storage destruction order issue
+    * lt:fix memory leak in the disk cache
+    * lt:magnet links: unescape hash parameter
+    * lt:fix double free in disk cache
+    * lt:fix typo in natpmp::start
+    * lt:remove mutex-release hack in file_pool
     * lt:source code cleanup and stability
 
 1.2.0.8
