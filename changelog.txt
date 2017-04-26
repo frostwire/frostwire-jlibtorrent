@@ -1,6 +1,7 @@
 1.2.0.9-RC2 (temp)
 
     * updated to boost 1.64
+    * lt:make DHT bootstrapping more robust by not throwing away nodes
     * lt:need_save_resume_data() will no longer return true every 15 minutes
     * lt:create a separate DHT node for each listen socket
     * lt:avoid connections to trackers when the event is stopped and
