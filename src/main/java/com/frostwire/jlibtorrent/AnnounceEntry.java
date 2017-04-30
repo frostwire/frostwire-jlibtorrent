@@ -57,26 +57,6 @@ public final class AnnounceEntry {
     }
 
     /**
-     * If this tracker has returned an error or warning message
-     * that message is stored here.
-     *
-     * @return the error message
-     */
-    public String message() {
-        return e.getMessage();
-    }
-
-    /**
-     * If this tracker failed the last time it was contacted
-     * this error code specifies what error occurred.
-     *
-     * @return the error
-     */
-    public ErrorCode lastError() {
-        return new ErrorCode(e.getLast_error());
-    }
-
-    /**
      * The tier this tracker belongs to.
      *
      * @return the tier number

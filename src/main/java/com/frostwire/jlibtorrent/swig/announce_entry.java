@@ -59,47 +59,6 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_trackerid_get(swigCPtr, this);
   }
 
-  public void setMessage(String value) {
-    libtorrent_jni.announce_entry_message_set(swigCPtr, this, value);
-  }
-
-  public String getMessage() {
-    return libtorrent_jni.announce_entry_message_get(swigCPtr, this);
-  }
-
-  public void setLast_error(error_code value) {
-    libtorrent_jni.announce_entry_last_error_set(swigCPtr, this, error_code.getCPtr(value), value);
-  }
-
-  public error_code getLast_error() {
-    long cPtr = libtorrent_jni.announce_entry_last_error_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new error_code(cPtr, false);
-  }
-
-  public void setScrape_incomplete(int value) {
-    libtorrent_jni.announce_entry_scrape_incomplete_set(swigCPtr, this, value);
-  }
-
-  public int getScrape_incomplete() {
-    return libtorrent_jni.announce_entry_scrape_incomplete_get(swigCPtr, this);
-  }
-
-  public void setScrape_complete(int value) {
-    libtorrent_jni.announce_entry_scrape_complete_set(swigCPtr, this, value);
-  }
-
-  public int getScrape_complete() {
-    return libtorrent_jni.announce_entry_scrape_complete_get(swigCPtr, this);
-  }
-
-  public void setScrape_downloaded(int value) {
-    libtorrent_jni.announce_entry_scrape_downloaded_set(swigCPtr, this, value);
-  }
-
-  public int getScrape_downloaded() {
-    return libtorrent_jni.announce_entry_scrape_downloaded_get(swigCPtr, this);
-  }
-
   public void setTier(byte value) {
     libtorrent_jni.announce_entry_tier_set(swigCPtr, this, value);
   }
@@ -116,68 +75,8 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_fail_limit_get(swigCPtr, this);
   }
 
-  public void setFails(byte value) {
-    libtorrent_jni.announce_entry_fails_set(swigCPtr, this, value);
-  }
-
-  public byte getFails() {
-    return libtorrent_jni.announce_entry_fails_get(swigCPtr, this);
-  }
-
-  public void setUpdating(boolean value) {
-    libtorrent_jni.announce_entry_updating_set(swigCPtr, this, value);
-  }
-
-  public boolean getUpdating() {
-    return libtorrent_jni.announce_entry_updating_get(swigCPtr, this);
-  }
-
-  public void setSource(byte value) {
-    libtorrent_jni.announce_entry_source_set(swigCPtr, this, value);
-  }
-
-  public byte getSource() {
-    return libtorrent_jni.announce_entry_source_get(swigCPtr, this);
-  }
-
-  public void setVerified(boolean value) {
-    libtorrent_jni.announce_entry_verified_set(swigCPtr, this, value);
-  }
-
-  public boolean getVerified() {
-    return libtorrent_jni.announce_entry_verified_get(swigCPtr, this);
-  }
-
-  public void setStart_sent(boolean value) {
-    libtorrent_jni.announce_entry_start_sent_set(swigCPtr, this, value);
-  }
-
-  public boolean getStart_sent() {
-    return libtorrent_jni.announce_entry_start_sent_get(swigCPtr, this);
-  }
-
-  public void setComplete_sent(boolean value) {
-    libtorrent_jni.announce_entry_complete_sent_set(swigCPtr, this, value);
-  }
-
-  public boolean getComplete_sent() {
-    return libtorrent_jni.announce_entry_complete_sent_get(swigCPtr, this);
-  }
-
-  public void setTriggered_manually(boolean value) {
-    libtorrent_jni.announce_entry_triggered_manually_set(swigCPtr, this, value);
-  }
-
-  public boolean getTriggered_manually() {
-    return libtorrent_jni.announce_entry_triggered_manually_get(swigCPtr, this);
-  }
-
   public void reset() {
     libtorrent_jni.announce_entry_reset(swigCPtr, this);
-  }
-
-  public boolean is_working() {
-    return libtorrent_jni.announce_entry_is_working(swigCPtr, this);
   }
 
   public void trim() {
@@ -186,52 +85,6 @@ public class announce_entry {
 
   public announce_entry(String u) {
     this(libtorrent_jni.new_announce_entry__SWIG_2(u), true);
-  }
-
-  public final static class tracker_source {
-    public final static announce_entry.tracker_source source_torrent = new announce_entry.tracker_source("source_torrent", libtorrent_jni.announce_entry_source_torrent_get());
-    public final static announce_entry.tracker_source source_client = new announce_entry.tracker_source("source_client", libtorrent_jni.announce_entry_source_client_get());
-    public final static announce_entry.tracker_source source_magnet_link = new announce_entry.tracker_source("source_magnet_link", libtorrent_jni.announce_entry_source_magnet_link_get());
-    public final static announce_entry.tracker_source source_tex = new announce_entry.tracker_source("source_tex", libtorrent_jni.announce_entry_source_tex_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static tracker_source swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + tracker_source.class + " with value " + swigValue);
-    }
-
-    private tracker_source(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private tracker_source(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private tracker_source(String swigName, tracker_source swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static tracker_source[] swigValues = { source_torrent, source_client, source_magnet_link, source_tex };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
   }
 
 }
