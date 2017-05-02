@@ -289,7 +289,7 @@ public final class SettingsPack {
      * {@code active_limit} is a hard limit on the number of active (auto
      * managed) torrents. This limit also applies to slow torrents.
      *
-     * @return
+     * @return the value
      * @see #activeDownloads()
      */
     public int activeLimit() {
@@ -297,7 +297,10 @@ public final class SettingsPack {
     }
 
     /**
-     * @param value
+     * {@code active_limit} is a hard limit on the number of active (auto
+     * managed) torrents. This limit also applies to slow torrents.
+     *
+     * @param value the value
      * @see #activeLimit()
      */
     public SettingsPack activeLimit(int value) {
@@ -553,6 +556,50 @@ public final class SettingsPack {
      */
     public SettingsPack listenInterfaces(String value) {
         sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return the current value
+     * @see #stopTrackerTimeout(int)
+     */
+    public int stopTrackerTimeout() {
+        return sp.get_int(settings_pack.int_types.stop_tracker_timeout.swigValue());
+    }
+
+    /**
+     * {@code stop_tracker_timeout} is the number of seconds to wait when
+     * sending a stopped message before considering a tracker to have
+     * timed out. This is usually shorter, to make the client quit faster.
+     * If the value is set to 0, the connections to trackers with the
+     * stopped event are suppressed.
+     *
+     * @param value the new value
+     * @return this
+     */
+    public SettingsPack stopTrackerTimeout(int value) {
+        sp.set_int(settings_pack.int_types.stop_tracker_timeout.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return the current value
+     * @see #alertQueueSize(int)
+     */
+    public int alertQueueSize() {
+        return sp.get_int(settings_pack.int_types.alert_queue_size.swigValue());
+    }
+
+    /**
+     * {@code alert_queue_size} is the maximum number of alerts queued up
+     * internally. If alerts are not popped, the queue will eventually
+     * fill up to this level.
+     *
+     * @param value the new value
+     * @return this
+     */
+    public SettingsPack alertQueueSize(int value) {
+        sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), value);
         return this;
     }
 }

@@ -20,6 +20,10 @@ public enum AlertType {
     TORRENT_ERROR(torrent_error_alert.alert_type),
     TORRENT_NEED_CERT(torrent_need_cert_alert.alert_type),
     INCOMING_CONNECTION(incoming_connection_alert.alert_type),
+
+    /**
+     * @see AddTorrentAlert
+     */
     ADD_TORRENT(add_torrent_alert.alert_type),
     SAVE_RESUME_DATA(save_resume_data_alert.alert_type),
     FASTRESUME_REJECTED(fastresume_rejected_alert.alert_type),
