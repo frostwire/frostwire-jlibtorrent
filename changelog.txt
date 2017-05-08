@@ -1,4 +1,4 @@
-1.2.0.9-RC2 (temp)
+1.2.0.9-RC2
 
     * updated to boost 1.64
     * lt:fix race condition in disk I/O storage class
