@@ -1,6 +1,9 @@
 1.2.0.9-RC2 (temp)
 
     * updated to boost 1.64
+    * lt:fix race condition in disk I/O storage class
+    * lt:avoid extra sha1_hash memory copy in create_torrent
+    * lt:fix http connection timeout on multi-homed hosts
     * lt:implemented multi-home support
     * lt:make DHT bootstrapping more robust by not throwing away nodes
     * lt:need_save_resume_data() will no longer return true every 15 minutes
