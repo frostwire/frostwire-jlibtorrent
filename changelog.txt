@@ -1,6 +1,7 @@
-1.2.0.9-RC2
+1.2.0.9-RC3
 
     * updated to boost 1.64
+    * using android NDK r15 beta1
     * lt:delay 5 seconds before reconnecting socks5 proxy for UDP ASSOCIATE
     * lt:fix NAT-PMP crash when removing a mapping at the wrong time
     * lt:fix race condition in storage tick handling in disk_io_thread
