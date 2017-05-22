@@ -1,6 +1,19 @@
 1.2.0.9-RC2
 
     * updated to boost 1.64
+    * lt:delay 5 seconds before reconnecting socks5 proxy for UDP ASSOCIATE
+    * lt:fix NAT-PMP crash when removing a mapping at the wrong time
+    * lt:fix race condition in storage tick handling in disk_io_thread
+    * lt:keep iterating over endpoints if one is found to be done in
+      tracker announce loop
+    * lt:don't abort the existing torrent when attempting to add it again
+    * lt:fix IPv6 UTP assertion failure, close listen sockets after closing
+      all connections
+    * lt:fix branch factor overflow in DHT traversal algorithm
+    * lt:bind upnp requests to correct local address
+    * lt:don't combine reuseaddr and exclusive addruse on windows
+    * lt:save resume data when removing web seeds
+    * lt:fix proxying of https connections
     * lt:fix race condition in disk I/O storage class
     * lt:avoid extra sha1_hash memory copy in create_torrent
     * lt:fix http connection timeout on multi-homed hosts

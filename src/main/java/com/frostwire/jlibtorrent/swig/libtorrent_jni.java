@@ -846,9 +846,6 @@ public class libtorrent_jni {
   public final static native int partial_piece_info_writing_get(long jarg1, partial_piece_info jarg1_);
   public final static native void partial_piece_info_requested_set(long jarg1, partial_piece_info jarg1_, int jarg2);
   public final static native int partial_piece_info_requested_get(long jarg1, partial_piece_info jarg1_);
-  public final static native void partial_piece_info_piece_state_set(long jarg1, partial_piece_info jarg1_, int jarg2);
-  public final static native int partial_piece_info_piece_state_get(long jarg1, partial_piece_info jarg1_);
-  public final static native long partial_piece_info_get_blocks(long jarg1, partial_piece_info jarg1_);
   public final static native long new_partial_piece_info();
   public final static native void delete_partial_piece_info(long jarg1);
   public final static native int torrent_handle_overwrite_existing_get();

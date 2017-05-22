@@ -75,66 +75,8 @@ public class partial_piece_info {
     return libtorrent_jni.partial_piece_info_requested_get(swigCPtr, this);
   }
 
-  public void setPiece_state(partial_piece_info.state_t value) {
-    libtorrent_jni.partial_piece_info_piece_state_set(swigCPtr, this, value.swigValue());
-  }
-
-  public partial_piece_info.state_t getPiece_state() {
-    return partial_piece_info.state_t.swigToEnum(libtorrent_jni.partial_piece_info_piece_state_get(swigCPtr, this));
-  }
-
-  public block_info_vector get_blocks() {
-    return new block_info_vector(libtorrent_jni.partial_piece_info_get_blocks(swigCPtr, this), true);
-  }
-
   public partial_piece_info() {
     this(libtorrent_jni.new_partial_piece_info(), true);
-  }
-
-  public final static class state_t {
-    public final static partial_piece_info.state_t none = new partial_piece_info.state_t("none");
-    public final static partial_piece_info.state_t slow = new partial_piece_info.state_t("slow");
-    public final static partial_piece_info.state_t medium = new partial_piece_info.state_t("medium");
-    public final static partial_piece_info.state_t fast = new partial_piece_info.state_t("fast");
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static state_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + state_t.class + " with value " + swigValue);
-    }
-
-    private state_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private state_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private state_t(String swigName, state_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static state_t[] swigValues = { none, slow, medium, fast };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
   }
 
 }

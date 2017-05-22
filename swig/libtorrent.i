@@ -794,6 +794,8 @@ typedef std::int64_t time_t;
 %ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
 %ignore libtorrent::block_info::set_peer;
 %ignore libtorrent::partial_piece_info::blocks;
+%ignore libtorrent::partial_piece_info::deprecated_state_t;
+%ignore libtorrent::partial_piece_info::deprecated_piece_state;
 %ignore libtorrent::stats_alert::transferred;
 %ignore libtorrent::stats_alert::deprecated1;
 %ignore libtorrent::stats_alert::deprecated2;
@@ -1451,12 +1453,6 @@ namespace libtorrent {
 
     int64_t get_seeding_duration() {
         return libtorrent::total_milliseconds($self->seeding_duration);
-    }
-}
-
-%extend partial_piece_info {
-    std::vector<libtorrent::block_info> get_blocks() {
-        return std::vector<libtorrent::block_info>($self->blocks, $self->blocks + $self->blocks_in_piece);
     }
 }
 

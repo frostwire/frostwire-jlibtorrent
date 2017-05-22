@@ -1408,9 +1408,6 @@ SWIGINTERN int libtorrent_bdecode_node_bdecode(std::vector< int8_t > &buffer,lib
 SWIGINTERN libtorrent::torrent_info *new_libtorrent_torrent_info__SWIG_7(int64_t buffer_ptr,int size,libtorrent::error_code &ec,int flags=0){
         return new libtorrent::torrent_info(reinterpret_cast<char const*>(buffer_ptr), size, ec, flags);
     }
-SWIGINTERN std::vector< libtorrent::block_info > libtorrent_partial_piece_info_get_blocks(libtorrent::partial_piece_info *self){
-        return std::vector<libtorrent::block_info>(self->blocks, self->blocks + self->blocks_in_piece);
-    }
 SWIGINTERN void libtorrent_torrent_handle_add_piece_bytes__SWIG_0(libtorrent::torrent_handle *self,int piece,std::vector< int8_t > const &data,int flags=0){
         self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
     }
@@ -22668,59 +22665,6 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_part
   arg1 = *(libtorrent::partial_piece_info **)&jarg1; 
   result = (int) ((arg1)->requested);
   jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_partial_1piece_1info_1piece_1state_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  libtorrent::partial_piece_info *arg1 = (libtorrent::partial_piece_info *) 0 ;
-  libtorrent::partial_piece_info::state_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::partial_piece_info **)&jarg1; 
-  arg2 = (libtorrent::partial_piece_info::state_t)jarg2; 
-  if (arg1) (arg1)->piece_state = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_partial_1piece_1info_1piece_1state_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  libtorrent::partial_piece_info *arg1 = (libtorrent::partial_piece_info *) 0 ;
-  libtorrent::partial_piece_info::state_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::partial_piece_info **)&jarg1; 
-  result = (libtorrent::partial_piece_info::state_t) ((arg1)->piece_state);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_partial_1piece_1info_1get_1blocks(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::partial_piece_info *arg1 = (libtorrent::partial_piece_info *) 0 ;
-  std::vector< libtorrent::block_info > result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::partial_piece_info **)&jarg1; 
-  {
-    try {
-      result = libtorrent_partial_piece_info_get_blocks(arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< libtorrent::block_info > **)&jresult = new std::vector< libtorrent::block_info >((const std::vector< libtorrent::block_info > &)result); 
   return jresult;
 }
 
