@@ -22,7 +22,7 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-  - wget -O boost.zip https://dl.bintray.com/boostorg/release/1.64.0/source/:boost_1_64_0.zip
+  - wget -O boost.zip https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.zip
   - unzip -qq boost.zip
   - cd boost_1_64_0
   - ./bootstrap.sh

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export DEVELOPMENT_ROOT=~/Development
-export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_63_0
+export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_64_0
 export LIBTORRENT_ROOT=$DEVELOPMENT_ROOT/libtorrent
 export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-macos
 
