@@ -750,6 +750,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::session::session(settings_pack, io_service&, int);
 %ignore libtorrent::session::session(settings_pack, io_service&);
 %ignore libtorrent::session_handle::session_handle(aux::session_impl*);
+%ignore libtorrent::session_handle::session_handle(session_handle&&);
 %ignore libtorrent::session_handle::get_torrent_status;
 %ignore libtorrent::session_handle::get_io_service;
 %ignore libtorrent::session_handle::get_connection_queue;
@@ -766,7 +767,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::session_handle::set_dht_storage;
 %ignore libtorrent::session_handle::get_cache_info;
 %ignore libtorrent::session_handle::wait_for_alert;
-%ignore libtorrent::session_stats_alert::values;
+%ignore libtorrent::session_stats_alert::counters;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::native_handle;
@@ -951,6 +952,7 @@ typedef std::int64_t time_t;
 %ignore boost::system::system_category;
 %ignore boost::system::error_category;
 %ignore boost::system::error_condition;
+%ignore boost::system::system_error;
 %ignore boost::system::error_code::error_code(int, const error_category&);
 %ignore boost::system::error_code::assign;
 %ignore boost::system::error_code::category;
@@ -1029,6 +1031,7 @@ typedef std::int64_t time_t;
 // BEGIN common set include ------------------------------------------------------
 
 %include <boost/system/error_code.hpp>
+%include <boost/system/system_error.hpp>
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/error_code.hpp"
@@ -1387,7 +1390,7 @@ namespace libtorrent {
 
 %extend session_stats_alert {
     long long get_value(int index) {
-        return $self->values[index];
+        return $self->counters()[index];
     }
 }
 

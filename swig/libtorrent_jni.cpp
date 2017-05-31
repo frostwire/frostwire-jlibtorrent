@@ -1563,7 +1563,7 @@ SWIGINTERN int libtorrent_stats_alert_get_transferred(libtorrent::stats_alert *s
         return self->transferred[index];
     }
 SWIGINTERN long long libtorrent_session_stats_alert_get_value(libtorrent::session_stats_alert *self,int index){
-        return self->values[index];
+        return self->counters()[index];
     }
 SWIGINTERN std::vector< int8_t > libtorrent_dht_mutable_item_alert_get_key(libtorrent::dht_mutable_item_alert *self){
         std::array<char, 32> arr = self->key;
@@ -49810,12 +49810,12 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   (void)jarg1_;
   arg1 = *(libtorrent::session_handle **)&jarg1;
   if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::session_handle && reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::session_handle const & reference is null");
     return 0;
   } 
   {
     try {
-      result = (libtorrent::session_handle *)new libtorrent::session_handle((libtorrent::session_handle &&)*arg1);
+      result = (libtorrent::session_handle *)new libtorrent::session_handle((libtorrent::session_handle const &)*arg1);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;

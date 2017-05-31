@@ -39,8 +39,8 @@ public class session_handle {
     this(libtorrent_jni.new_session_handle__SWIG_0(), true);
   }
 
-  public session_handle(session_handle arg0) {
-    this(libtorrent_jni.new_session_handle__SWIG_1(session_handle.getCPtr(arg0), arg0), true);
+  public session_handle(session_handle t) {
+    this(libtorrent_jni.new_session_handle__SWIG_1(session_handle.getCPtr(t), t), true);
   }
 
   public boolean is_valid() {
