@@ -24603,7 +24603,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1move_1storage_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
   libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
   std::string *arg2 = 0 ;
-  int arg3 ;
+  libtorrent::move_flags_t arg3 ;
   
   (void)jenv;
   (void)jcls;
@@ -24618,7 +24618,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  arg3 = (int)jarg3; 
+  arg3 = (libtorrent::move_flags_t)jarg3; 
   {
     try {
       ((libtorrent::torrent_handle const *)arg1)->move_storage((std::string const &)*arg2,arg3);

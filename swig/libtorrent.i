@@ -347,6 +347,12 @@ namespace libtorrent {
         storage_mode_sparse
     };
 
+    enum class move_flags_t : std::uint8_t {
+        always_replace_files,
+        fail_if_exist,
+        dont_replace
+    };
+
     enum class connection_type : std::uint8_t {
         bittorrent,
         url_seed,

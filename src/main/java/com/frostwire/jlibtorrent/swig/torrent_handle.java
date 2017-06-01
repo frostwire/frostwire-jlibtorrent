@@ -307,8 +307,8 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_max_connections(swigCPtr, this);
   }
 
-  public void move_storage(String save_path, int flags) {
-    libtorrent_jni.torrent_handle_move_storage__SWIG_0(swigCPtr, this, save_path, flags);
+  public void move_storage(String save_path, move_flags_t flags) {
+    libtorrent_jni.torrent_handle_move_storage__SWIG_0(swigCPtr, this, save_path, flags.swigValue());
   }
 
   public void move_storage(String save_path) {

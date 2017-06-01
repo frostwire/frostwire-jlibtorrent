@@ -1174,51 +1174,26 @@ public final class TorrentHandle {
      * generated instead, containing the error message.
      * <p>
      * The {@code flags} argument determines the behavior of the copying/moving
-     * of the files in the torrent. see move_flags_t.
+     * of the files in the torrent.
      * <p>
-     * * always_replace_files = 0
-     * * fail_if_exist = 1
-     * * dont_replace = 2
-     * <p>
-     * ``always_replace_files`` is the default and replaces any file that
-     * exist in both the source directory and the target directory.
-     * <p>
-     * ``fail_if_exist`` first check to see that none of the copy operations
-     * would cause an overwrite. If it would, it will fail. Otherwise it will
-     * proceed as if it was in ``always_replace_files`` mode. Note that there
-     * is an inherent race condition here. If the files in the target
-     * directory appear after the check but before the copy or move
-     * completes, they will be overwritten. When failing because of files
-     * already existing in the target path, the ``error`` of
-     * ``move_storage_failed_alert`` is set to
-     * ``boost::system::errc::file_exists``.
-     * <p>
-     * The intention is that a client may use this as a probe, and if it
-     * fails, ask the user which mode to use. The client may then re-issue
-     * the ``move_storage`` call with one of the other modes.
-     * <p>
-     * ``dont_replace`` always takes the existing file in the target
-     * directory, if there is one. The source files will still be removed in
-     * that case.
-     * <p>
-     * Files that have been renamed to have absolute pahts are not moved by
+     * Files that have been renamed to have absolute paths are not moved by
      * this function. Keep in mind that files that don't belong to the
      * torrent but are stored in the torrent's directory may be moved as
      * well. This goes for files that have been renamed to absolute paths
      * that still end up inside the save path.
      *
-     * @param savePath
-     * @param flags
+     * @param savePath the new save path
+     * @param flags    the move behavior flags
      */
-    public void moveStorage(String savePath, int flags) {
-        th.move_storage(savePath, flags);
+    public void moveStorage(String savePath, MoveFlags flags) {
+        th.move_storage(savePath, flags.swig());
     }
 
     /**
-     * Sames as calling {@link #moveStorage(String, int)} with flags 0.
+     * Sames as calling {@link #moveStorage(String, MoveFlags)} with empty flags.
      *
-     * @param savePath
-     * @see #moveStorage(String, int)
+     * @param savePath the new path
+     * @see #moveStorage(String, MoveFlags)
      */
     public void moveStorage(String savePath) {
         th.move_storage(savePath);
