@@ -97,7 +97,7 @@ public final class TorrentInfo {
      * file name is relative to the {@code savePath} of the torrent. If the
      * {@code newFilename} is an absolute path then the file is detached from
      * the {@code savePath} of the torrent. In this case the file is not moved when
-     * {@link TorrentHandle#moveStorage(String, int)} is invoked.
+     * {@link TorrentHandle#moveStorage(String, MoveFlags)} is invoked.
      *
      * @param index       the file index to rename
      * @param newFilename the new file name
