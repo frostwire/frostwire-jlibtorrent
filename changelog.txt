@@ -3,6 +3,7 @@
     * updated to OpenSSL 1.1.0f
     * updated to boost 1.64
     * using android NDK r15 beta2
+    * avoid automatic UTF-8 conversion in JNI side when using string_view
     * lt:only listen on preferred IPv6 addresses on Windows
     * lt:when stopping a torrent, never perform a name lookup on the tracker,
       only announce to trackers whose IP we already know. This is expected to

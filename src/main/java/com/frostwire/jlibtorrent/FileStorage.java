@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /**
@@ -330,25 +331,27 @@ public final class FileStorage {
     }
 
     /**
-     * returns the full path to a file.
+     * Returns the full path to a file.
      *
-     * @param index
-     * @return
+     * @param index the file index
+     * @return the full path
      */
     public String filePath(int index) {
         return fs.file_path(index);
     }
 
     /**
-     * returns *just* the name of the file, whereas
-     * ``file_path()`` returns the path (inside the torrent file) with
+     * Returns only the name of the file, whereas
+     * {@link #filePath(int)} returns the path (inside the torrent file) with
      * the filename appended.
      *
-     * @param index
-     * @return
+     * @param index the file index
+     * @return the file name
      */
     public String fileName(int index) {
-        return fs.file_name(index).to_string();
+        byte_vector v = fs.file_name(index).to_bytes();
+        byte[] arr = Vectors.byte_vector2bytes(v);
+        return new String(arr, StandardCharsets.UTF_8);
     }
 
     /**
@@ -484,15 +487,14 @@ public final class FileStorage {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
         }
 
         /**
-         * @param swigValue
-         * @return
+         * @param swigValue the native value
          */
         public static Flags fromSwig(int swigValue) {
             Flags[] enumValues = Flags.class.getEnumConstants();

@@ -39,6 +39,10 @@ public class string_view {
     return libtorrent_jni.string_view_to_string(swigCPtr, this);
   }
 
+  public byte_vector to_bytes() {
+    return new byte_vector(libtorrent_jni.string_view_to_bytes(swigCPtr, this), true);
+  }
+
   public string_view() {
     this(libtorrent_jni.new_string_view(), true);
   }
