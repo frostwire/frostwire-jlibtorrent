@@ -19,16 +19,16 @@ public final class UdpErrorAlert extends AbstractAlert<udp_error_alert> {
     }
 
     /**
-     * the source address associated with the error (if any).
+     * The source address associated with the error (if any).
      *
      * @return the endpoint
      */
     public UdpEndpoint endpoint() {
-        return new UdpEndpoint(alert.getEndpoint());
+        return new UdpEndpoint(alert.get_endpoint());
     }
 
     /**
-     * the error code describing the error.
+     * The error code describing the error.
      *
      * @return the error
      */

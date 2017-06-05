@@ -68,13 +68,12 @@ public class listen_failed_alert extends alert {
     return socket_type_t.swigToEnum(libtorrent_jni.listen_failed_alert_socket_type_get(swigCPtr, this));
   }
 
-  public address getAddress() {
-    long cPtr = libtorrent_jni.listen_failed_alert_address_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
-  }
-
   public int getPort() {
     return libtorrent_jni.listen_failed_alert_port_get(swigCPtr, this);
+  }
+
+  public address get_address() {
+    return new address(libtorrent_jni.listen_failed_alert_get_address(swigCPtr, this), true);
   }
 
   public final static int priority = libtorrent_jni.listen_failed_alert_priority_get();

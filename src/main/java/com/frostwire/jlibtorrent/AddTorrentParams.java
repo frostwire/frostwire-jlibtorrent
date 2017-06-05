@@ -84,12 +84,13 @@ public final class AddTorrentParams {
 
     /**
      * If the torrent doesn't have a tracker, but relies on the DHT to find
-     * peers, the {@link #trackers(List)} can specify tracker URLs for the torrent.
+     * peers, the {@link #trackers(List)} can specify tracker URLs for the
+     * torrent.
      *
      * @return the list of trackers
      */
     public ArrayList<String> trackers() {
-        string_vector v = p.getTrackers();
+        string_vector v = p.get_trackers();
         int size = (int) v.size();
         ArrayList<String> l = new ArrayList<>();
 
@@ -113,7 +114,7 @@ public final class AddTorrentParams {
             v.push_back(s);
         }
 
-        p.setTrackers(v);
+        p.set_trackers(v);
     }
 
     /**
@@ -126,7 +127,7 @@ public final class AddTorrentParams {
      * @return the list of trackers tiers
      */
     public ArrayList<Integer> trackerTiers() {
-        int_vector v = p.getTracker_tiers();
+        int_vector v = p.get_tracker_tiers();
         int size = (int) v.size();
         ArrayList<Integer> l = new ArrayList<>();
 
@@ -153,7 +154,7 @@ public final class AddTorrentParams {
             v.push_back(t);
         }
 
-        p.setTracker_tiers(v);
+        p.set_tracker_tiers(v);
     }
 
     /**
@@ -163,7 +164,7 @@ public final class AddTorrentParams {
      * @return the list of DHT nodes
      */
     public ArrayList<Pair<String, Integer>> dhtNodes() {
-        string_int_pair_vector v = p.getDht_nodes();
+        string_int_pair_vector v = p.get_dht_nodes();
         int size = (int) v.size();
         ArrayList<Pair<String, Integer>> l = new ArrayList<>();
 
@@ -188,7 +189,7 @@ public final class AddTorrentParams {
             v.push_back(p.to_string_int_pair());
         }
 
-        p.setDht_nodes(v);
+        p.set_dht_nodes(v);
     }
 
     /**
@@ -381,7 +382,7 @@ public final class AddTorrentParams {
      * @return the url seeds
      */
     public ArrayList<String> urlSeeds() {
-        string_vector v = p.getUrl_seeds();
+        string_vector v = p.get_url_seeds();
         int size = (int) v.size();
         ArrayList<String> l = new ArrayList<>();
 
@@ -404,7 +405,7 @@ public final class AddTorrentParams {
             v.push_back(s);
         }
 
-        p.setUrl_seeds(v);
+        p.set_url_seeds(v);
     }
 
     /**
@@ -415,7 +416,7 @@ public final class AddTorrentParams {
      * @param priorities the priorities
      */
     public void filePriorities(Priority[] priorities) {
-        p.setFile_priorities(Priority.array2byte_vector(priorities));
+        p.set_file_priorities(Priority.array2byte_vector(priorities));
     }
 
     /**
@@ -427,7 +428,7 @@ public final class AddTorrentParams {
      * @param priorities the priorities
      */
     public void piecePriorities(Priority[] priorities) {
-        p.setPiece_priorities(Priority.array2byte_vector(priorities));
+        p.set_piece_priorities(Priority.array2byte_vector(priorities));
     }
 
     /**
@@ -437,7 +438,7 @@ public final class AddTorrentParams {
      * @return the peers list
      */
     public ArrayList<TcpEndpoint> peers() {
-        tcp_endpoint_vector v = p.getPeers();
+        tcp_endpoint_vector v = p.get_peers();
         int size = (int) v.size();
         ArrayList<TcpEndpoint> l = new ArrayList<>();
 
@@ -461,7 +462,7 @@ public final class AddTorrentParams {
             v.push_back(endp.swig());
         }
 
-        p.setPeers(v);
+        p.set_peers(v);
     }
 
     /**
@@ -470,7 +471,7 @@ public final class AddTorrentParams {
      * @return the peers list
      */
     public ArrayList<TcpEndpoint> bannedPeers() {
-        tcp_endpoint_vector v = p.getBanned_peers();
+        tcp_endpoint_vector v = p.get_banned_peers();
         int size = (int) v.size();
         ArrayList<TcpEndpoint> l = new ArrayList<>();
 
@@ -493,7 +494,7 @@ public final class AddTorrentParams {
             v.push_back(endp.swig());
         }
 
-        p.setBanned_peers(v);
+        p.set_banned_peers(v);
     }
 
     /**

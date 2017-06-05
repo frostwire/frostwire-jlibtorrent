@@ -51,9 +51,17 @@ public class add_torrent_alert extends torrent_alert {
     return libtorrent_jni.add_torrent_alert_message(swigCPtr, this);
   }
 
+  public void setParams(add_torrent_params value) {
+    libtorrent_jni.add_torrent_alert_params_set(swigCPtr, this, add_torrent_params.getCPtr(value), value);
+  }
+
   public add_torrent_params getParams() {
     long cPtr = libtorrent_jni.add_torrent_alert_params_get(swigCPtr, this);
     return (cPtr == 0) ? null : new add_torrent_params(cPtr, false);
+  }
+
+  public void setError(error_code value) {
+    libtorrent_jni.add_torrent_alert_error_set(swigCPtr, this, error_code.getCPtr(value), value);
   }
 
   public error_code getError() {

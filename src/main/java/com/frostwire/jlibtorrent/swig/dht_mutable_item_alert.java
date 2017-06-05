@@ -51,9 +51,17 @@ public class dht_mutable_item_alert extends alert {
     return libtorrent_jni.dht_mutable_item_alert_message(swigCPtr, this);
   }
 
+  public void setItem(entry value) {
+    libtorrent_jni.dht_mutable_item_alert_item_set(swigCPtr, this, entry.getCPtr(value), value);
+  }
+
   public entry getItem() {
     long cPtr = libtorrent_jni.dht_mutable_item_alert_item_get(swigCPtr, this);
     return (cPtr == 0) ? null : new entry(cPtr, false);
+  }
+
+  public void setAuthoritative(boolean value) {
+    libtorrent_jni.dht_mutable_item_alert_authoritative_set(swigCPtr, this, value);
   }
 
   public boolean getAuthoritative() {

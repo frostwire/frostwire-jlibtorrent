@@ -70,13 +70,13 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
     }
 
     /**
-     * The address libtorrent attempted to listen on
-     * see alert's documentation for validity of this value.
+     * The address libtorrent attempted to listen on.
+     * See alert's documentation for validity of this value.
      *
-     * @return
+     * @return the address attempted to listen on
      */
     public Address address() {
-        return new Address(alert.getAddress());
+        return new Address(alert.get_address());
     }
 
     /**

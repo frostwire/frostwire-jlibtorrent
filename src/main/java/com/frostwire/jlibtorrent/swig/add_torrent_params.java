@@ -43,33 +43,6 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_version_get(swigCPtr, this);
   }
 
-  public void setTrackers(string_vector value) {
-    libtorrent_jni.add_torrent_params_trackers_set(swigCPtr, this, string_vector.getCPtr(value), value);
-  }
-
-  public string_vector getTrackers() {
-    long cPtr = libtorrent_jni.add_torrent_params_trackers_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new string_vector(cPtr, false);
-  }
-
-  public void setTracker_tiers(int_vector value) {
-    libtorrent_jni.add_torrent_params_tracker_tiers_set(swigCPtr, this, int_vector.getCPtr(value), value);
-  }
-
-  public int_vector getTracker_tiers() {
-    long cPtr = libtorrent_jni.add_torrent_params_tracker_tiers_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new int_vector(cPtr, false);
-  }
-
-  public void setDht_nodes(string_int_pair_vector value) {
-    libtorrent_jni.add_torrent_params_dht_nodes_set(swigCPtr, this, string_int_pair_vector.getCPtr(value), value);
-  }
-
-  public string_int_pair_vector getDht_nodes() {
-    long cPtr = libtorrent_jni.add_torrent_params_dht_nodes_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new string_int_pair_vector(cPtr, false);
-  }
-
   public void setName(String value) {
     libtorrent_jni.add_torrent_params_name_set(swigCPtr, this, value);
   }
@@ -92,15 +65,6 @@ public class add_torrent_params {
 
   public storage_mode_t getStorage_mode() {
     return storage_mode_t.swigToEnum(libtorrent_jni.add_torrent_params_storage_mode_get(swigCPtr, this));
-  }
-
-  public void setFile_priorities(byte_vector value) {
-    libtorrent_jni.add_torrent_params_file_priorities_set(swigCPtr, this, byte_vector.getCPtr(value), value);
-  }
-
-  public byte_vector getFile_priorities() {
-    long cPtr = libtorrent_jni.add_torrent_params_file_priorities_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new byte_vector(cPtr, false);
   }
 
   public void setTrackerid(String value) {
@@ -248,42 +212,6 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_num_downloaded_get(swigCPtr, this);
   }
 
-  public void setHttp_seeds(string_vector value) {
-    libtorrent_jni.add_torrent_params_http_seeds_set(swigCPtr, this, string_vector.getCPtr(value), value);
-  }
-
-  public string_vector getHttp_seeds() {
-    long cPtr = libtorrent_jni.add_torrent_params_http_seeds_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new string_vector(cPtr, false);
-  }
-
-  public void setUrl_seeds(string_vector value) {
-    libtorrent_jni.add_torrent_params_url_seeds_set(swigCPtr, this, string_vector.getCPtr(value), value);
-  }
-
-  public string_vector getUrl_seeds() {
-    long cPtr = libtorrent_jni.add_torrent_params_url_seeds_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new string_vector(cPtr, false);
-  }
-
-  public void setPeers(tcp_endpoint_vector value) {
-    libtorrent_jni.add_torrent_params_peers_set(swigCPtr, this, tcp_endpoint_vector.getCPtr(value), value);
-  }
-
-  public tcp_endpoint_vector getPeers() {
-    long cPtr = libtorrent_jni.add_torrent_params_peers_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
-  }
-
-  public void setBanned_peers(tcp_endpoint_vector value) {
-    libtorrent_jni.add_torrent_params_banned_peers_set(swigCPtr, this, tcp_endpoint_vector.getCPtr(value), value);
-  }
-
-  public tcp_endpoint_vector getBanned_peers() {
-    long cPtr = libtorrent_jni.add_torrent_params_banned_peers_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new tcp_endpoint_vector(cPtr, false);
-  }
-
   public void setHave_pieces(piece_index_bitfield value) {
     libtorrent_jni.add_torrent_params_have_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
@@ -302,33 +230,6 @@ public class add_torrent_params {
     return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
-  public void setPiece_priorities(byte_vector value) {
-    libtorrent_jni.add_torrent_params_piece_priorities_set(swigCPtr, this, byte_vector.getCPtr(value), value);
-  }
-
-  public byte_vector getPiece_priorities() {
-    long cPtr = libtorrent_jni.add_torrent_params_piece_priorities_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new byte_vector(cPtr, false);
-  }
-
-  public void setMerkle_tree(sha1_hash_vector value) {
-    libtorrent_jni.add_torrent_params_merkle_tree_set(swigCPtr, this, sha1_hash_vector.getCPtr(value), value);
-  }
-
-  public sha1_hash_vector getMerkle_tree() {
-    long cPtr = libtorrent_jni.add_torrent_params_merkle_tree_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new sha1_hash_vector(cPtr, false);
-  }
-
-  public void setRenamed_files(file_index_string_map value) {
-    libtorrent_jni.add_torrent_params_renamed_files_set(swigCPtr, this, file_index_string_map.getCPtr(value), value);
-  }
-
-  public file_index_string_map getRenamed_files() {
-    long cPtr = libtorrent_jni.add_torrent_params_renamed_files_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new file_index_string_map(cPtr, false);
-  }
-
   public torrent_info ti_ptr() {
     long cPtr = libtorrent_jni.add_torrent_params_ti_ptr(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent_info(cPtr, false);
@@ -336,6 +237,74 @@ public class add_torrent_params {
 
   public void set_ti(torrent_info ti) {
     libtorrent_jni.add_torrent_params_set_ti(swigCPtr, this, torrent_info.getCPtr(ti), ti);
+  }
+
+  public void set_renamed_files(file_index_string_map renamed_files) {
+    libtorrent_jni.add_torrent_params_set_renamed_files(swigCPtr, this, file_index_string_map.getCPtr(renamed_files), renamed_files);
+  }
+
+  public int_vector get_tracker_tiers() {
+    return new int_vector(libtorrent_jni.add_torrent_params_get_tracker_tiers(swigCPtr, this), true);
+  }
+
+  public void set_tracker_tiers(int_vector tracker_tiers) {
+    libtorrent_jni.add_torrent_params_set_tracker_tiers(swigCPtr, this, int_vector.getCPtr(tracker_tiers), tracker_tiers);
+  }
+
+  public void set_merkle_tree(sha1_hash_vector merkle_tree) {
+    libtorrent_jni.add_torrent_params_set_merkle_tree(swigCPtr, this, sha1_hash_vector.getCPtr(merkle_tree), merkle_tree);
+  }
+
+  public tcp_endpoint_vector get_banned_peers() {
+    return new tcp_endpoint_vector(libtorrent_jni.add_torrent_params_get_banned_peers(swigCPtr, this), true);
+  }
+
+  public void set_banned_peers(tcp_endpoint_vector banned_peers) {
+    libtorrent_jni.add_torrent_params_set_banned_peers(swigCPtr, this, tcp_endpoint_vector.getCPtr(banned_peers), banned_peers);
+  }
+
+  public tcp_endpoint_vector get_peers() {
+    return new tcp_endpoint_vector(libtorrent_jni.add_torrent_params_get_peers(swigCPtr, this), true);
+  }
+
+  public void set_peers(tcp_endpoint_vector peers) {
+    libtorrent_jni.add_torrent_params_set_peers(swigCPtr, this, tcp_endpoint_vector.getCPtr(peers), peers);
+  }
+
+  public void set_file_priorities(byte_vector file_priorities) {
+    libtorrent_jni.add_torrent_params_set_file_priorities(swigCPtr, this, byte_vector.getCPtr(file_priorities), file_priorities);
+  }
+
+  public string_int_pair_vector get_dht_nodes() {
+    return new string_int_pair_vector(libtorrent_jni.add_torrent_params_get_dht_nodes(swigCPtr, this), true);
+  }
+
+  public void set_dht_nodes(string_int_pair_vector dht_nodes) {
+    libtorrent_jni.add_torrent_params_set_dht_nodes(swigCPtr, this, string_int_pair_vector.getCPtr(dht_nodes), dht_nodes);
+  }
+
+  public void set_http_seeds(string_vector http_seeds) {
+    libtorrent_jni.add_torrent_params_set_http_seeds(swigCPtr, this, string_vector.getCPtr(http_seeds), http_seeds);
+  }
+
+  public string_vector get_url_seeds() {
+    return new string_vector(libtorrent_jni.add_torrent_params_get_url_seeds(swigCPtr, this), true);
+  }
+
+  public void set_url_seeds(string_vector url_seeds) {
+    libtorrent_jni.add_torrent_params_set_url_seeds(swigCPtr, this, string_vector.getCPtr(url_seeds), url_seeds);
+  }
+
+  public string_vector get_trackers() {
+    return new string_vector(libtorrent_jni.add_torrent_params_get_trackers(swigCPtr, this), true);
+  }
+
+  public void set_trackers(string_vector trackers) {
+    libtorrent_jni.add_torrent_params_set_trackers(swigCPtr, this, string_vector.getCPtr(trackers), trackers);
+  }
+
+  public void set_piece_priorities(byte_vector piece_priorities) {
+    libtorrent_jni.add_torrent_params_set_piece_priorities(swigCPtr, this, byte_vector.getCPtr(piece_priorities), piece_priorities);
   }
 
   public static add_torrent_params create_instance() {

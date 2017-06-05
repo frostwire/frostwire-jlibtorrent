@@ -51,6 +51,10 @@ public class peer_log_alert extends peer_alert {
     return libtorrent_jni.peer_log_alert_message(swigCPtr, this);
   }
 
+  public void setDirection(peer_log_alert.direction_t value) {
+    libtorrent_jni.peer_log_alert_direction_set(swigCPtr, this, value.swigValue());
+  }
+
   public peer_log_alert.direction_t getDirection() {
     return peer_log_alert.direction_t.swigToEnum(libtorrent_jni.peer_log_alert_direction_get(swigCPtr, this));
   }

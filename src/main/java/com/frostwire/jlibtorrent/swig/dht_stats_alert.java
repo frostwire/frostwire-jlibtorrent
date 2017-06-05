@@ -51,9 +51,17 @@ public class dht_stats_alert extends alert {
     return libtorrent_jni.dht_stats_alert_message(swigCPtr, this);
   }
 
+  public void setActive_requests(dht_lookup_vector value) {
+    libtorrent_jni.dht_stats_alert_active_requests_set(swigCPtr, this, dht_lookup_vector.getCPtr(value), value);
+  }
+
   public dht_lookup_vector getActive_requests() {
     long cPtr = libtorrent_jni.dht_stats_alert_active_requests_get(swigCPtr, this);
     return (cPtr == 0) ? null : new dht_lookup_vector(cPtr, false);
+  }
+
+  public void setRouting_table(dht_routing_bucket_vector value) {
+    libtorrent_jni.dht_stats_alert_routing_table_set(swigCPtr, this, dht_routing_bucket_vector.getCPtr(value), value);
   }
 
   public dht_routing_bucket_vector getRouting_table() {

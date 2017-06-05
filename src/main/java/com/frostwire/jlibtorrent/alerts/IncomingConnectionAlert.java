@@ -35,7 +35,7 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
      * @return the endpoint
      */
     public TcpEndpoint endpoint() {
-        return new TcpEndpoint(alert.getEndpoint());
+        return new TcpEndpoint(alert.get_endpoint());
     }
 
     /**

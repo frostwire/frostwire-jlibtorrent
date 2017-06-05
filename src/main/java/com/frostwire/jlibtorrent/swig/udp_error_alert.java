@@ -51,14 +51,13 @@ public class udp_error_alert extends alert {
     return libtorrent_jni.udp_error_alert_message(swigCPtr, this);
   }
 
-  public udp_endpoint getEndpoint() {
-    long cPtr = libtorrent_jni.udp_error_alert_endpoint_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
-  }
-
   public error_code getError() {
     long cPtr = libtorrent_jni.udp_error_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);
+  }
+
+  public udp_endpoint get_endpoint() {
+    return new udp_endpoint(libtorrent_jni.udp_error_alert_get_endpoint(swigCPtr, this), true);
   }
 
   public final static int priority = libtorrent_jni.udp_error_alert_priority_get();

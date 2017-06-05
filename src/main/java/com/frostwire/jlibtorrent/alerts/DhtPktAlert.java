@@ -46,7 +46,7 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      * @return the node endpoint
      */
     public UdpEndpoint node() {
-        return new UdpEndpoint(alert.getNode());
+        return new UdpEndpoint(alert.get_node());
     }
 
     /**

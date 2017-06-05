@@ -21,10 +21,10 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
      * The address libtorrent ended up listening on. This address
      * refers to the local interface.
      *
-     * @return the address
+     * @return the address ended up listening on
      */
     public Address address() {
-        return new Address(alert.getAddress());
+        return new Address(alert.get_address());
     }
 
     /**

@@ -19,11 +19,11 @@ public final class ExternalIpAlert extends AbstractAlert<external_ip_alert> {
     }
 
     /**
-     * the IP address that is believed to be our external IP.
+     * The IP address that is believed to be our external IP.
      *
-     * @return
+     * @return the external address
      */
     public Address externalAddress() {
-        return new Address(alert.getExternal_address());
+        return new Address(alert.get_external_address());
     }
 }

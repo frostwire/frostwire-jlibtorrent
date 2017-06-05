@@ -479,7 +479,7 @@ public class SessionManager {
             for (int i = 0; i < priorities.length; i++) {
                 v.push_back((byte) priorities[i].swig());
             }
-            p.setFile_priorities(v);
+            p.set_file_priorities(v);
         }
 
         if (peers != null && !peers.isEmpty()) {
@@ -487,7 +487,7 @@ public class SessionManager {
             for (TcpEndpoint endp : peers) {
                 v.push_back(endp.swig());
             }
-            p.setPeers(v);
+            p.set_peers(v);
         }
 
         long flags = p.getFlags();

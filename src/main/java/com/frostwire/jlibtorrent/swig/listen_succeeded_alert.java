@@ -51,17 +51,16 @@ public class listen_succeeded_alert extends alert {
     return libtorrent_jni.listen_succeeded_alert_message(swigCPtr, this);
   }
 
-  public address getAddress() {
-    long cPtr = libtorrent_jni.listen_succeeded_alert_address_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
-  }
-
   public int getPort() {
     return libtorrent_jni.listen_succeeded_alert_port_get(swigCPtr, this);
   }
 
   public socket_type_t getSocket_type() {
     return socket_type_t.swigToEnum(libtorrent_jni.listen_succeeded_alert_socket_type_get(swigCPtr, this));
+  }
+
+  public address get_address() {
+    return new address(libtorrent_jni.listen_succeeded_alert_get_address(swigCPtr, this), true);
   }
 
   public final static int priority = libtorrent_jni.listen_succeeded_alert_priority_get();

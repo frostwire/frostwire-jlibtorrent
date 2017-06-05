@@ -55,6 +55,10 @@ public class dht_log_alert extends alert {
     return libtorrent_jni.dht_log_alert_log_message(swigCPtr, this);
   }
 
+  public void setModule(dht_log_alert.dht_module_t value) {
+    libtorrent_jni.dht_log_alert_module_set(swigCPtr, this, value.swigValue());
+  }
+
   public dht_log_alert.dht_module_t getModule() {
     return dht_log_alert.dht_module_t.swigToEnum(libtorrent_jni.dht_log_alert_module_get(swigCPtr, this));
   }

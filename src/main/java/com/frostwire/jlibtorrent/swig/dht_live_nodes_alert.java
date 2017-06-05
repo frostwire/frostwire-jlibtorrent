@@ -51,6 +51,10 @@ public class dht_live_nodes_alert extends alert {
     return libtorrent_jni.dht_live_nodes_alert_message(swigCPtr, this);
   }
 
+  public void setNode_id(sha1_hash value) {
+    libtorrent_jni.dht_live_nodes_alert_node_id_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
+  }
+
   public sha1_hash getNode_id() {
     long cPtr = libtorrent_jni.dht_live_nodes_alert_node_id_get(swigCPtr, this);
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);

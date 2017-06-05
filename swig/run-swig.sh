@@ -38,6 +38,7 @@ function runJni()
         -DTORRENT_EXTRA_EXPORT="" \
         -DTORRENT_FORMAT\(x,y\)="" \
         -DNDEBUG=1 \
+        -Dstatic_assert="" \
         libtorrent.i
 
     # at first sigh, this could look like a very dangerous thing to

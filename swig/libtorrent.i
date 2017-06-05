@@ -741,6 +741,17 @@ typedef std::int64_t time_t;
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::ti;
 %ignore libtorrent::add_torrent_params::unfinished_pieces;
+%ignore libtorrent::add_torrent_params::renamed_files;
+%ignore libtorrent::add_torrent_params::tracker_tiers;
+%ignore libtorrent::add_torrent_params::merkle_tree;
+%ignore libtorrent::add_torrent_params::banned_peers;
+%ignore libtorrent::add_torrent_params::peers;
+%ignore libtorrent::add_torrent_params::file_priorities;
+%ignore libtorrent::add_torrent_params::dht_nodes;
+%ignore libtorrent::add_torrent_params::http_seeds;
+%ignore libtorrent::add_torrent_params::url_seeds;
+%ignore libtorrent::add_torrent_params::trackers;
+%ignore libtorrent::add_torrent_params::piece_priorities;
 %ignore libtorrent::add_torrent_params::deprecated1;
 %ignore libtorrent::add_torrent_params::deprecated2;
 %ignore libtorrent::add_torrent_params::deprecated3;
@@ -755,6 +766,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::session::session(session_params, io_service&);
 %ignore libtorrent::session::session(settings_pack, io_service&, int);
 %ignore libtorrent::session::session(settings_pack, io_service&);
+%ignore libtorrent::session_proxy::session_proxy(session_proxy&&);
 %ignore libtorrent::session_handle::session_handle(aux::session_impl*);
 %ignore libtorrent::session_handle::session_handle(session_handle&&);
 %ignore libtorrent::session_handle::get_torrent_status;
@@ -951,6 +963,16 @@ typedef std::int64_t time_t;
 %ignore libtorrent::bdecode_category;
 %ignore libtorrent::http_category;
 %ignore libtorrent::libtorrent_category;
+%ignore libtorrent::dht_announce_alert::ip;
+%ignore libtorrent::external_ip_alert::external_address;
+%ignore libtorrent::listen_failed_alert::address;
+%ignore libtorrent::listen_succeeded_alert::address;
+%ignore libtorrent::incoming_connection_alert::endpoint;
+%ignore libtorrent::peer_alert::endpoint;
+%ignore libtorrent::dht_direct_response_alert::endpoint;
+%ignore libtorrent::dht_outgoing_get_peers_alert::endpoint;
+%ignore libtorrent::dht_pkt_alert::node;
+%ignore libtorrent::udp_error_alert::endpoint;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -1282,6 +1304,80 @@ namespace libtorrent {
         $self->ti = std::make_shared<libtorrent::torrent_info>(ti);
     }
 
+    void set_renamed_files(std::map<file_index_t, std::string> const& renamed_files) {
+        $self->renamed_files = renamed_files;
+    }
+
+    std::vector<int> get_tracker_tiers() {
+        return $self->tracker_tiers;
+    }
+
+    void set_tracker_tiers(std::vector<int> const& tracker_tiers) {
+        $self->tracker_tiers = tracker_tiers;
+    }
+
+    void set_merkle_tree(std::vector<sha1_hash> const& merkle_tree) {
+        $self->merkle_tree = merkle_tree;
+    }
+
+    std::vector<tcp::endpoint> get_banned_peers() {
+        return $self->banned_peers;
+    }
+
+    void set_banned_peers(std::vector<tcp::endpoint> const& banned_peers) {
+        $self->banned_peers = banned_peers;
+    }
+
+    std::vector<tcp::endpoint> get_peers() {
+        return $self->peers;
+    }
+
+    void set_peers(std::vector<tcp::endpoint> const& peers) {
+        $self->peers = peers;
+    }
+
+    void set_file_priorities(std::vector<std::int8_t> const& file_priorities) {
+        std::vector<std::uint8_t> v(file_priorities.size());
+        for (int i = 0; i < v.size(); i++)
+            v[i] = std::uint8_t(file_priorities[i]);
+        $self->file_priorities = v;
+    }
+
+    std::vector<std::pair<std::string, int>> get_dht_nodes() {
+        return $self->dht_nodes;
+    }
+
+    void set_dht_nodes(std::vector<std::pair<std::string, int>> const& dht_nodes) {
+        $self->dht_nodes = dht_nodes;
+    }
+
+    void set_http_seeds(std::vector<std::string> const& http_seeds) {
+        $self->http_seeds = http_seeds;
+    }
+
+    std::vector<std::string> get_url_seeds() {
+        return $self->url_seeds;
+    }
+
+    void set_url_seeds(std::vector<std::string> const& url_seeds) {
+        $self->url_seeds = url_seeds;
+    }
+
+    std::vector<std::string>  get_trackers() {
+        return $self->trackers;
+    }
+
+    void set_trackers(std::vector<std::string> const& trackers) {
+        $self->trackers = trackers;
+    }
+
+    void set_piece_priorities(std::vector<std::int8_t> const& piece_priorities) {
+        std::vector<std::uint8_t> v(piece_priorities.size());
+        for (int i = 0; i < v.size(); i++)
+            v[i] = std::uint8_t(piece_priorities[i]);
+        $self->piece_priorities = v;
+    }
+
     static libtorrent::add_torrent_params create_instance() {
         return libtorrent::add_torrent_params();
     }
@@ -1540,6 +1636,76 @@ namespace libtorrent {
 
     announce_entry(std::string const& u) {
         return new libtorrent::announce_entry(u);
+    }
+}
+
+%extend dht_announce_alert {
+
+    address get_ip() {
+        return $self->ip;
+    }
+}
+
+%extend external_ip_alert {
+
+    address get_external_address() {
+        return $self->external_address;
+    }
+}
+
+%extend listen_failed_alert {
+
+    address get_address() {
+        return $self->address;
+    }
+}
+
+%extend listen_succeeded_alert {
+
+    address get_address() {
+        return $self->address;
+    }
+}
+
+%extend incoming_connection_alert {
+
+    tcp::endpoint get_endpoint() {
+        return $self->endpoint;
+    }
+}
+
+%extend peer_alert {
+
+    tcp::endpoint get_endpoint() {
+        return $self->endpoint;
+    }
+}
+
+%extend dht_direct_response_alert {
+
+    udp::endpoint get_endpoint() {
+        return $self->endpoint;
+    }
+}
+
+%extend dht_outgoing_get_peers_alert {
+
+    udp::endpoint get_endpoint() {
+        return $self->endpoint;
+    }
+}
+
+%extend dht_pkt_alert {
+
+    udp::endpoint get_node() {
+        return $self->node;
+    }
+}
+
+%extend udp_error_alert {
+
+    udp::endpoint get_endpoint() {
+        return $self->endpoint;
     }
 }
 

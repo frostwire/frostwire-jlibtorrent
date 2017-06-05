@@ -51,6 +51,10 @@ public class dht_get_peers_alert extends alert {
     return libtorrent_jni.dht_get_peers_alert_message(swigCPtr, this);
   }
 
+  public void setInfo_hash(sha1_hash value) {
+    libtorrent_jni.dht_get_peers_alert_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
+  }
+
   public sha1_hash getInfo_hash() {
     long cPtr = libtorrent_jni.dht_get_peers_alert_info_hash_get(swigCPtr, this);
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);

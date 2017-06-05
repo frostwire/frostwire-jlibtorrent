@@ -43,14 +43,17 @@ public class peer_alert extends torrent_alert {
     return libtorrent_jni.peer_alert_message(swigCPtr, this);
   }
 
-  public tcp_endpoint getEndpoint() {
-    long cPtr = libtorrent_jni.peer_alert_endpoint_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
+  public void setPid(sha1_hash value) {
+    libtorrent_jni.peer_alert_pid_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
   public sha1_hash getPid() {
     long cPtr = libtorrent_jni.peer_alert_pid_get(swigCPtr, this);
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
+  }
+
+  public tcp_endpoint get_endpoint() {
+    return new tcp_endpoint(libtorrent_jni.peer_alert_get_endpoint(swigCPtr, this), true);
   }
 
   public final static int alert_type = libtorrent_jni.peer_alert_alert_type_get();

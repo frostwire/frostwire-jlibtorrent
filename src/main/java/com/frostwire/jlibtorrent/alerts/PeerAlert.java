@@ -5,8 +5,9 @@ import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.peer_alert;
 
 /**
- * The peer alert is a base class for alerts that refer to a specific peer. It includes all
- * the information to identify the peer. i.e. ``ip`` and ``peer-id``.
+ * The peer alert is a base class for alerts that refer to a specific peer.
+ * It includes all the information to identify the peer. i.e. {@code ip} and
+ * {@code peer-id}.
  *
  * @author gubatron
  * @author aldenml
@@ -23,11 +24,11 @@ public class PeerAlert<T extends peer_alert> extends TorrentAlert<T> {
      * @return the endpoint
      */
     public TcpEndpoint endpoint() {
-        return new TcpEndpoint(alert.getEndpoint());
+        return new TcpEndpoint(alert.get_endpoint());
     }
 
     /**
-     * the peer ID, if known.
+     * The peer ID, if known.
      *
      * @return the id
      */

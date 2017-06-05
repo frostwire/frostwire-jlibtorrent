@@ -51,9 +51,8 @@ public class external_ip_alert extends alert {
     return libtorrent_jni.external_ip_alert_message(swigCPtr, this);
   }
 
-  public address getExternal_address() {
-    long cPtr = libtorrent_jni.external_ip_alert_external_address_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
+  public address get_external_address() {
+    return new address(libtorrent_jni.external_ip_alert_get_external_address(swigCPtr, this), true);
   }
 
   public final static int priority = libtorrent_jni.external_ip_alert_priority_get();

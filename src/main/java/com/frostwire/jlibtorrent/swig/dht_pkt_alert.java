@@ -55,13 +55,16 @@ public class dht_pkt_alert extends alert {
     return new byte_const_span(libtorrent_jni.dht_pkt_alert_pkt_buf(swigCPtr, this), true);
   }
 
+  public void setDirection(dht_pkt_alert.direction_t value) {
+    libtorrent_jni.dht_pkt_alert_direction_set(swigCPtr, this, value.swigValue());
+  }
+
   public dht_pkt_alert.direction_t getDirection() {
     return dht_pkt_alert.direction_t.swigToEnum(libtorrent_jni.dht_pkt_alert_direction_get(swigCPtr, this));
   }
 
-  public udp_endpoint getNode() {
-    long cPtr = libtorrent_jni.dht_pkt_alert_node_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
+  public udp_endpoint get_node() {
+    return new udp_endpoint(libtorrent_jni.dht_pkt_alert_get_node(swigCPtr, this), true);
   }
 
   public final static class direction_t {

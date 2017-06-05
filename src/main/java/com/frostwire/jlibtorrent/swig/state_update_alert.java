@@ -51,6 +51,10 @@ public class state_update_alert extends alert {
     return libtorrent_jni.state_update_alert_message(swigCPtr, this);
   }
 
+  public void setStatus(torrent_status_vector value) {
+    libtorrent_jni.state_update_alert_status_set(swigCPtr, this, torrent_status_vector.getCPtr(value), value);
+  }
+
   public torrent_status_vector getStatus() {
     long cPtr = libtorrent_jni.state_update_alert_status_get(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent_status_vector(cPtr, false);

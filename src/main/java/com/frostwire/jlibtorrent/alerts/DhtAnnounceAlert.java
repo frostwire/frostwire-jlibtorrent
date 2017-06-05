@@ -18,21 +18,21 @@ public final class DhtAnnounceAlert extends AbstractAlert<dht_announce_alert> {
     }
 
     /**
-     * @return
+     * @return the ip
      */
     public Address ip() {
-        return new Address(alert.getIp());
+        return new Address(alert.get_ip());
     }
 
     /**
-     * @return
+     * @return the port
      */
     public int port() {
         return alert.getPort();
     }
 
     /**
-     * @return
+     * @return the info-hash
      */
     public Sha1Hash infoHash() {
         return new Sha1Hash(alert.getInfo_hash());

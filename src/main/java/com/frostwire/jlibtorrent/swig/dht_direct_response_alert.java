@@ -51,17 +51,16 @@ public class dht_direct_response_alert extends alert {
     return libtorrent_jni.dht_direct_response_alert_message(swigCPtr, this);
   }
 
-  public udp_endpoint getEndpoint() {
-    long cPtr = libtorrent_jni.dht_direct_response_alert_endpoint_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new udp_endpoint(cPtr, false);
-  }
-
   public bdecode_node response() {
     return new bdecode_node(libtorrent_jni.dht_direct_response_alert_response(swigCPtr, this), true);
   }
 
   public long get_userdata() {
     return libtorrent_jni.dht_direct_response_alert_get_userdata(swigCPtr, this);
+  }
+
+  public udp_endpoint get_endpoint() {
+    return new udp_endpoint(libtorrent_jni.dht_direct_response_alert_get_endpoint(swigCPtr, this), true);
   }
 
   public final static int priority = libtorrent_jni.dht_direct_response_alert_priority_get();
