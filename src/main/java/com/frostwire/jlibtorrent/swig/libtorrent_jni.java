@@ -444,7 +444,6 @@ public class libtorrent_jni {
   public final static native long bloom_filter_256_to_bytes(long jarg1, bloom_filter_256 jarg1_);
   public final static native void bloom_filter_256_from_bytes(long jarg1, bloom_filter_256 jarg1_, long jarg2, byte_vector jarg2_);
   public final static native void delete_bloom_filter_256(long jarg1);
-  public final static native String string_view_to_string(long jarg1, string_view jarg1_);
   public final static native long string_view_to_bytes(long jarg1, string_view jarg1_);
   public final static native long new_string_view();
   public final static native void delete_string_view(long jarg1);
