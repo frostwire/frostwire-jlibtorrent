@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,5 +102,14 @@ public final class Vectors {
         }
 
         return l;
+    }
+
+    public static String byte_vector2string(byte_vector v, String encoding) {
+        byte[] arr = Vectors.byte_vector2bytes(v);
+        try {
+            return new String(arr, encoding);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

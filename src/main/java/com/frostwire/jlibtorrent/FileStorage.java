@@ -3,7 +3,6 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /**
@@ -350,8 +349,7 @@ public final class FileStorage {
      */
     public String fileName(int index) {
         byte_vector v = fs.file_name(index).to_bytes();
-        byte[] arr = Vectors.byte_vector2bytes(v);
-        return new String(arr, StandardCharsets.UTF_8);
+        return Vectors.byte_vector2string(v, "UTF-8");
     }
 
     /**
