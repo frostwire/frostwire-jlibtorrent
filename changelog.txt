@@ -1,10 +1,10 @@
-1.2.0.9(temp)
+1.2.0.9
 
     * updated to OpenSSL 1.1.0f
     * updated to boost 1.64
     * using android NDK r15
     * avoid automatic UTF-8 conversion in JNI side when using string_view
-    * lt:fix bandwith rate limit calculation
+    * lt:fix bandwidth rate limit calculation
     * lt:fix for what appears to be an clang/llvm miscompilation
     * lt:only listen on preferred IPv6 addresses on Windows
     * lt:when stopping a torrent, never perform a name lookup on the tracker,
