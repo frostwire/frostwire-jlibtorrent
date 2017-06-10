@@ -319,6 +319,7 @@ namespace std {
 
     %template(entry_vector) vector<libtorrent::entry>;
     %template(web_seed_entry_vector) vector<libtorrent::web_seed_entry>;
+    %template(announce_endpoint_vector) vector<libtorrent::announce_endpoint>;
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(tcp_endpoint_vector) vector<libtorrent::tcp::endpoint>;
     %template(udp_endpoint_vector) vector<libtorrent::udp::endpoint>;
@@ -903,18 +904,19 @@ typedef std::int64_t time_t;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
-%ignore libtorrent::announce_endpoint;
+%ignore libtorrent::announce_endpoint::announce_endpoint;
+%ignore libtorrent::announce_endpoint::next_announce;
+%ignore libtorrent::announce_endpoint::min_announce;
+%ignore libtorrent::announce_endpoint::triggered_manually;
+%ignore libtorrent::announce_endpoint::failed;
+%ignore libtorrent::announce_endpoint::can_announce;
 %ignore libtorrent::announce_entry::announce_entry(string_view);
-%ignore libtorrent::announce_entry::tracker_source;
-%ignore libtorrent::announce_entry::source;
-%ignore libtorrent::announce_entry::verified;
 %ignore libtorrent::announce_entry::deprecated_fails;
 %ignore libtorrent::announce_entry::deprecated_send_stats;
 %ignore libtorrent::announce_entry::deprecated_start_sent;
 %ignore libtorrent::announce_entry::deprecated_complete_sent;
 %ignore libtorrent::announce_entry::deprecated_triggered_manually;
 %ignore libtorrent::announce_entry::deprecated_updating;
-%ignore libtorrent::announce_entry::endpoints;
 %ignore libtorrent::announce_entry::find_endpoint;
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_status(torrent_status&&);
@@ -1634,6 +1636,17 @@ namespace libtorrent {
     void add_file(std::string const& path, std::int64_t file_size,
         int file_flags, std::time_t mtime, std::string const& symlink_path) {
         $self->add_file(path, file_size, file_flags, mtime, symlink_path);
+    }
+}
+
+%extend announce_endpoint {
+
+    int64_t get_next_announce() {
+        return libtorrent::total_milliseconds($self->next_announce.time_since_epoch());
+    }
+
+    int64_t get_min_announce() {
+        return libtorrent::total_milliseconds($self->min_announce.time_since_epoch());
     }
 }
 
