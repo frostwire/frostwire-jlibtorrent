@@ -582,6 +582,12 @@ public final class Alerts {
                 return new SessionStatsHeaderAlert(cast_to_session_stats_header_alert(a));
             }
         };
+        arr[93] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new DhtSampleInfohashesAlert(cast_to_dht_sample_infohashes_alert(a));
+            }
+        };
 
         return arr;
     }

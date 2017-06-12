@@ -980,6 +980,8 @@ typedef std::int64_t time_t;
 %ignore libtorrent::dht_outgoing_get_peers_alert::endpoint;
 %ignore libtorrent::dht_pkt_alert::node;
 %ignore libtorrent::udp_error_alert::endpoint;
+%ignore libtorrent::dht_sample_infohashes_alert::endpoint;
+%ignore libtorrent::dht_sample_infohashes_alert::interval;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -1198,6 +1200,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(session_error_alert)
     CAST_ALERT_METHOD(dht_live_nodes_alert)
     CAST_ALERT_METHOD(session_stats_header_alert)
+    CAST_ALERT_METHOD(dht_sample_infohashes_alert)
 }
 
 %extend alert {
@@ -1724,6 +1727,17 @@ namespace libtorrent {
 
     udp::endpoint get_endpoint() {
         return $self->endpoint;
+    }
+}
+
+%extend dht_sample_infohashes_alert {
+
+    udp::endpoint get_endpoint() {
+        return $self->endpoint;
+    }
+
+    std::int64_t get_interval() {
+        return libtorrent::total_milliseconds($self->interval);
     }
 }
 

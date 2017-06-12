@@ -159,6 +159,10 @@ public class session_handle {
     libtorrent_jni.session_handle_dht_live_nodes(swigCPtr, this, sha1_hash.getCPtr(nid), nid);
   }
 
+  public void dht_sample_infohashes(udp_endpoint ep, sha1_hash target) {
+    libtorrent_jni.session_handle_dht_sample_infohashes(swigCPtr, this, udp_endpoint.getCPtr(ep), ep, sha1_hash.getCPtr(target), target);
+  }
+
   public void dht_direct_request(udp_endpoint ep, entry e) {
     libtorrent_jni.session_handle_dht_direct_request__SWIG_0(swigCPtr, this, udp_endpoint.getCPtr(ep), ep, entry.getCPtr(e), e);
   }

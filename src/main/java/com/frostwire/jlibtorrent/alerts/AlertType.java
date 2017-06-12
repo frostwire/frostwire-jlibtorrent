@@ -100,6 +100,7 @@ public enum AlertType {
     SESSION_ERROR(session_error_alert.alert_type),
     DHT_LIVE_NODES(dht_live_nodes_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
+    DHT_SAMPLE_INFOHASHES(dht_sample_infohashes_alert.alert_type),
     UNKNOWN(-1);
 
     private static AlertType[] TABLE = buildTable();
@@ -221,6 +222,7 @@ public enum AlertType {
         arr[90] = SESSION_ERROR;
         arr[91] = DHT_LIVE_NODES;
         arr[92] = SESSION_STATS_HEADER;
+        arr[93] = DHT_SAMPLE_INFOHASHES;
 
         return arr;
     }

@@ -48,7 +48,7 @@ public final class DhtLiveNodesAlert extends AbstractAlert<dht_live_nodes_alert>
             sha1_hash_udp_endpoint_pair p = v.get(i);
             Sha1Hash h = new Sha1Hash(p.getFirst()).clone();
             UdpEndpoint endp = new UdpEndpoint(p.getSecond()).clone();
-            nodes.add(new Pair(h, endp));
+            nodes.add(new Pair<>(h, endp));
         }
 
         return nodes;

@@ -1173,6 +1173,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_session_error_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_live_nodes_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_session_stats_header_alert(long jarg1, alert jarg1_);
+  public final static native long alert_cast_to_dht_sample_infohashes_alert(long jarg1, alert jarg1_);
   public final static native long alert_get_timestamp(long jarg1, alert jarg1_);
   public final static native String operation_name(int jarg1);
   public final static native int torrent_alert_alert_type_get();
@@ -2095,6 +2096,21 @@ public class libtorrent_jni {
   public final static native int session_stats_header_alert_static_category_get();
   public final static native String session_stats_header_alert_message(long jarg1, session_stats_header_alert jarg1_);
   public final static native void delete_session_stats_header_alert(long jarg1);
+  public final static native int dht_sample_infohashes_alert_static_category_get();
+  public final static native int dht_sample_infohashes_alert_priority_get();
+  public final static native int dht_sample_infohashes_alert_alert_type_get();
+  public final static native int dht_sample_infohashes_alert_type(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native int dht_sample_infohashes_alert_category(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native String dht_sample_infohashes_alert_what(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native String dht_sample_infohashes_alert_message(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native int dht_sample_infohashes_alert_num_infohashes_get(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native int dht_sample_infohashes_alert_num_samples(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native long dht_sample_infohashes_alert_samples(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native int dht_sample_infohashes_alert_num_nodes(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native long dht_sample_infohashes_alert_nodes(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native long dht_sample_infohashes_alert_get_endpoint(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native long dht_sample_infohashes_alert_get_interval(long jarg1, dht_sample_infohashes_alert jarg1_);
+  public final static native void delete_dht_sample_infohashes_alert(long jarg1);
   public final static native int num_alert_types_get();
   public final static native void peer_info_pieces_set(long jarg1, peer_info jarg1_, long jarg2, piece_index_bitfield jarg2_);
   public final static native long peer_info_pieces_get(long jarg1, peer_info jarg1_);
@@ -2370,6 +2386,7 @@ public class libtorrent_jni {
   public final static native void session_handle_dht_announce__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_, int jarg3);
   public final static native void session_handle_dht_announce__SWIG_2(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native void session_handle_dht_live_nodes(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native void session_handle_dht_sample_infohashes(long jarg1, session_handle jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, sha1_hash jarg3_);
   public final static native void session_handle_dht_direct_request__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, entry jarg3_);
   public final static native void session_handle_set_ip_filter(long jarg1, session_handle jarg1_, long jarg2, ip_filter jarg2_);
   public final static native long session_handle_get_ip_filter(long jarg1, session_handle jarg1_);
@@ -2886,6 +2903,7 @@ public class libtorrent_jni {
   public final static native long session_error_alert_SWIGUpcast(long jarg1);
   public final static native long dht_live_nodes_alert_SWIGUpcast(long jarg1);
   public final static native long session_stats_header_alert_SWIGUpcast(long jarg1);
+  public final static native long dht_sample_infohashes_alert_SWIGUpcast(long jarg1);
   public final static native long session_SWIGUpcast(long jarg1);
   public final static native long bt_peer_connection_handle_SWIGUpcast(long jarg1);
 

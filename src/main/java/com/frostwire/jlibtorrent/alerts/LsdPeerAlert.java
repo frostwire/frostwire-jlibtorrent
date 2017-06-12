@@ -11,7 +11,7 @@ import com.frostwire.jlibtorrent.swig.lsd_peer_alert;
  */
 public final class LsdPeerAlert extends PeerAlert<lsd_peer_alert> {
 
-    public LsdPeerAlert(lsd_peer_alert alert) {
+    LsdPeerAlert(lsd_peer_alert alert) {
         super(alert);
     }
 }

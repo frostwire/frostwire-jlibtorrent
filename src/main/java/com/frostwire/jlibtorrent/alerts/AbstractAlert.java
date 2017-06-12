@@ -84,7 +84,7 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
      * type individually and extract and render the information from the alert depending
      * on the locale.
      *
-     * @return
+     * @return the alert message
      */
     @Override
     public String message() {
