@@ -1345,7 +1345,7 @@ namespace libtorrent {
 
     void set_file_priorities(std::vector<std::int8_t> const& file_priorities) {
         std::vector<std::uint8_t> v(file_priorities.size());
-        for (int i = 0; i < v.size(); i++)
+        for (std::size_t i = 0; i < v.size(); i++)
             v[i] = std::uint8_t(file_priorities[i]);
         $self->file_priorities = v;
     }
@@ -1380,7 +1380,7 @@ namespace libtorrent {
 
     void set_piece_priorities(std::vector<std::int8_t> const& piece_priorities) {
         std::vector<std::uint8_t> v(piece_priorities.size());
-        for (int i = 0; i < v.size(); i++)
+        for (std::size_t i = 0; i < v.size(); i++)
             v[i] = std::uint8_t(piece_priorities[i]);
         $self->piece_priorities = v;
     }
