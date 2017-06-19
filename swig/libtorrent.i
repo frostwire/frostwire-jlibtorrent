@@ -959,9 +959,6 @@ typedef std::int64_t time_t;
 %ignore libtorrent::create_torrent::add_collection(string_view);
 %ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::stats_metric::name;
-%ignore libtorrent::storage_moved_failed_alert::operation;
-%ignore libtorrent::file_error_alert::operation;
-%ignore libtorrent::fastresume_rejected_alert::operation;
 %ignore libtorrent::peer_log_alert::event_type;
 %ignore libtorrent::dht_lookup::type;
 %ignore libtorrent::error_to_close_reason;
@@ -1574,24 +1571,6 @@ namespace libtorrent {
 %extend stats_metric {
     std::string get_name() {
         return std::string($self->name);
-    }
-}
-
-%extend storage_moved_failed_alert {
-    std::string get_operation() {
-        return std::string($self->operation);
-    }
-}
-
-%extend file_error_alert {
-    std::string get_operation() {
-        return std::string($self->operation);
-    }
-}
-
-%extend fastresume_rejected_alert {
-    std::string get_operation() {
-        return std::string($self->operation);
     }
 }
 

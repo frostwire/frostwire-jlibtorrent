@@ -55,8 +55,8 @@ public class peer_disconnected_alert extends peer_alert {
     return libtorrent_jni.peer_disconnected_alert_socket_type_get(swigCPtr, this);
   }
 
-  public operation_t getOperation() {
-    return operation_t.swigToEnum(libtorrent_jni.peer_disconnected_alert_operation_get(swigCPtr, this));
+  public operation_t getOp() {
+    return operation_t.swigToEnum(libtorrent_jni.peer_disconnected_alert_op_get(swigCPtr, this));
   }
 
   public error_code getError() {

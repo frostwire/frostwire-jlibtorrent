@@ -64,8 +64,12 @@ public class fastresume_rejected_alert extends torrent_alert {
     return libtorrent_jni.fastresume_rejected_alert_file_path(swigCPtr, this);
   }
 
-  public String get_operation() {
-    return libtorrent_jni.fastresume_rejected_alert_get_operation(swigCPtr, this);
+  public void setOp(operation_t value) {
+    libtorrent_jni.fastresume_rejected_alert_op_set(swigCPtr, this, value.swigValue());
+  }
+
+  public operation_t getOp() {
+    return operation_t.swigToEnum(libtorrent_jni.fastresume_rejected_alert_op_get(swigCPtr, this));
   }
 
   public final static int priority = libtorrent_jni.fastresume_rejected_alert_priority_get();

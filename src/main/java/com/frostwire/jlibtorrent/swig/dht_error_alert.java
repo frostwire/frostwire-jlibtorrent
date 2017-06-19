@@ -60,55 +60,15 @@ public class dht_error_alert extends alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public dht_error_alert.op_t getOperation() {
-    return dht_error_alert.op_t.swigToEnum(libtorrent_jni.dht_error_alert_operation_get(swigCPtr, this));
+  public void setOp(operation_t value) {
+    libtorrent_jni.dht_error_alert_op_set(swigCPtr, this, value.swigValue());
+  }
+
+  public operation_t getOp() {
+    return operation_t.swigToEnum(libtorrent_jni.dht_error_alert_op_get(swigCPtr, this));
   }
 
   public final static int priority = libtorrent_jni.dht_error_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_error_alert_alert_type_get();
   public final static int static_category = libtorrent_jni.dht_error_alert_static_category_get();
-  public final static class op_t {
-    public final static dht_error_alert.op_t unknown = new dht_error_alert.op_t("unknown");
-    public final static dht_error_alert.op_t hostname_lookup = new dht_error_alert.op_t("hostname_lookup");
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static op_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + op_t.class + " with value " + swigValue);
-    }
-
-    private op_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private op_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private op_t(String swigName, op_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static op_t[] swigValues = { unknown, hostname_lookup };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
 }

@@ -29,16 +29,16 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.version();
   }
 
+  public static String operation_name(operation_t op) {
+    return libtorrent_jni.operation_name(op.swigValue());
+  }
+
   public static stats_metric_vector session_stats_metrics() {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
 
   public static int find_metric_idx(String name) {
     return libtorrent_jni.find_metric_idx(name);
-  }
-
-  public static String operation_name(int op) {
-    return libtorrent_jni.operation_name(op);
   }
 
   public static int setting_by_name(String name) {

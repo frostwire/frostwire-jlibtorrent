@@ -56,12 +56,16 @@ public class file_error_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public String filename() {
-    return libtorrent_jni.file_error_alert_filename(swigCPtr, this);
+  public void setOp(operation_t value) {
+    libtorrent_jni.file_error_alert_op_set(swigCPtr, this, value.swigValue());
   }
 
-  public String get_operation() {
-    return libtorrent_jni.file_error_alert_get_operation(swigCPtr, this);
+  public operation_t getOp() {
+    return operation_t.swigToEnum(libtorrent_jni.file_error_alert_op_get(swigCPtr, this));
+  }
+
+  public String filename() {
+    return libtorrent_jni.file_error_alert_filename(swigCPtr, this);
   }
 
   public final static int priority = libtorrent_jni.file_error_alert_priority_get();

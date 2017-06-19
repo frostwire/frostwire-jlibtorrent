@@ -1,5 +1,8 @@
 1.2.0.11-RC1(temp)
 
+    * lt:fix that move_storage did not work for torrents without metadata
+    * lt:fix check for fully allocated file on windows
+    * lt:defer reconnecting peers to after the second_tick loop
     * lt:implemented support for BEP 51
     * lt:source code cleanup and stability
 

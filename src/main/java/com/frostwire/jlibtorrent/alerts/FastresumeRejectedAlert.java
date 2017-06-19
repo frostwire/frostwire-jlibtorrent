@@ -1,12 +1,14 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
+import com.frostwire.jlibtorrent.Operation;
 import com.frostwire.jlibtorrent.swig.fastresume_rejected_alert;
 
 /**
- * This alert is generated when a fastresume file has been passed to {@code addTorrent} but the
- * files on disk did not match the fastresume file. The error_code explains the reason why the
- * resume file was rejected.
+ * This alert is generated when a fastresume file has been passed
+ * to {@code addTorrent} but the files on disk did not match the
+ * fastresume file. The {@link #error()} explains the reason why
+ * the resume file was rejected.
  *
  * @author gubatron
  * @author aldenml
@@ -24,7 +26,7 @@ public final class FastresumeRejectedAlert extends TorrentAlert<fastresume_rejec
     /**
      * If the error happened to a specific file, this returns the path to it.
      *
-     * @return
+     * @return the file path.
      */
     public String filePath() {
         return alert.file_path();
@@ -34,9 +36,9 @@ public final class FastresumeRejectedAlert extends TorrentAlert<fastresume_rejec
      * If the error happened in a disk operation, a string with
      * the name of that operation.
      *
-     * @return
+     * @return the operation.
      */
-    public String operation() {
-        return alert.get_operation();
+    public Operation operation() {
+        return Operation.fromSwig(alert.getOp());
     }
 }

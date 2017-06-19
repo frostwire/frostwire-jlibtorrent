@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
+import com.frostwire.jlibtorrent.Operation;
 import com.frostwire.jlibtorrent.swig.dht_error_alert;
 
 /**
@@ -19,7 +20,7 @@ public final class DhtErrorAlert extends AbstractAlert<dht_error_alert> {
     /**
      * The error code.
      *
-     * @return
+     * @return the error.
      */
     public ErrorCode error() {
         return new ErrorCode(alert.getError());
@@ -28,36 +29,9 @@ public final class DhtErrorAlert extends AbstractAlert<dht_error_alert> {
     /**
      * the operation that failed
      *
-     * @return
+     * @return the operation.
      */
     public Operation operation() {
-        return Operation.fromSwig(alert.getOperation());
-    }
-
-    public enum Operation {
-
-        UNKNOWN(dht_error_alert.op_t.unknown),
-
-        HOSTNAME_LOOKUP(dht_error_alert.op_t.hostname_lookup);
-
-        private Operation(dht_error_alert.op_t swigObj) {
-            this.swigObj = swigObj;
-        }
-
-        private final dht_error_alert.op_t swigObj;
-
-        public dht_error_alert.op_t getSwig() {
-            return swigObj;
-        }
-
-        public static Operation fromSwig(dht_error_alert.op_t swigObj) {
-            Operation[] enumValues = Operation.class.getEnumConstants();
-            for (Operation ev : enumValues) {
-                if (ev.getSwig() == swigObj) {
-                    return ev;
-                }
-            }
-            throw new IllegalArgumentException("No enum " + Operation.class + " with swig value " + swigObj);
-        }
+        return Operation.fromSwig(alert.getOp());
     }
 }
