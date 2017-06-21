@@ -65,7 +65,7 @@ public final class LibTorrent {
     }
 
     public static String jlibtorrentVersion() {
-        return "1.2.0.10";
+        return "1.2.0.11-RC1";
     }
 
     /**
