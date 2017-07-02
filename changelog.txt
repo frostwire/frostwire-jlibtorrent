@@ -1,5 +1,12 @@
-1.2.0.11-RC1
+1.2.0.11-RC2(temp)
 
+    * reduced binary size using -fvisibility=hidden
+    * lt:fix backwards compatibility issue when loading the torrent info dict
+      from resume data
+    * lt:fix regression where paused torrents could not have their queue
+      position changed
+    * lt:use netlink to enumerate network interfaces on linux
+    * lt:fix out-of-bounds read in bdecode
     * lt:fix re-check issue after move_storage
     * lt:avoid runtime fail with wrong arguments in upnp::update_map
     * lt:handle invalid arguments to set_piece_deadline()
