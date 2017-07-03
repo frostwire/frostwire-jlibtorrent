@@ -870,6 +870,7 @@ typedef std::int64_t time_t;
 %ignore libtorrent::bdecode_node::swap;
 %ignore libtorrent::bdecode_node::reserve;
 %ignore libtorrent::bdecode_node::switch_underlying_buffer;
+%ignore libtorrent::bdecode_node::has_soft_error;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::apply_pack;
