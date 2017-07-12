@@ -1,6 +1,7 @@
-1.2.0.11-RC4
+1.2.0.11-RC5(temp)
 
     * using -O2 for all architectures
+    * lt:fix handling of SSL listen sockets
     * lt:don't move listen_socket_t when deleting sockets
     * lt:avoid executing timed async task if the dht node is already removed
     * lt:reject DHT put messages with incorrect bencoding
