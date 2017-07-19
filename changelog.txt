@@ -1,6 +1,14 @@
 1.2.0.11-RC5(temp)
 
+    * using android NDK r15b
     * using -O2 for all architectures
+    * lt:submit disk jobs in read_piece()
+    * lt:add reserve entry::to_string() (optimization)
+    * lt:refactor several flags to torrent_handle::get_flags/set_flags
+    * lt:added block_uploaded_alert to allow client to track upload activity
+    * lt:fix inconsistency in file_priorities and override_resume_data behavior
+    * lt:remove call _strchr (optimization)
+    * lt:fix bandwidth rate limit calculation
     * lt:fix handling of SSL listen sockets
     * lt:don't move listen_socket_t when deleting sockets
     * lt:avoid executing timed async task if the dht node is already removed

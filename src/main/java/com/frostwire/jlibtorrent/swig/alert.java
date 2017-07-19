@@ -496,6 +496,11 @@ public class alert {
     return (cPtr == 0) ? null : new dht_sample_infohashes_alert(cPtr, false);
   }
 
+  public static block_uploaded_alert cast_to_block_uploaded_alert(alert a) {
+    long cPtr = libtorrent_jni.alert_cast_to_block_uploaded_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new block_uploaded_alert(cPtr, false);
+  }
+
   public long get_timestamp() {
     return libtorrent_jni.alert_get_timestamp(swigCPtr, this);
   }

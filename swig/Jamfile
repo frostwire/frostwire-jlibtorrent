@@ -24,7 +24,6 @@ rule libtorrent_linking ( properties * )
     result += <deprecated-functions>off ;
     result += <logging>on ;
     result += <crypto>libcrypto ;
-    result += <ssl>off ;
     result += <rtti>off ;
     result += <optimization>off ;
 

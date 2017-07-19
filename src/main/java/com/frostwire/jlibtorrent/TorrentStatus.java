@@ -549,84 +549,6 @@ public final class TorrentStatus implements Cloneable {
     }
 
     /**
-     * true if the session global IP filter applies
-     * to this torrent. This defaults to true.
-     *
-     * @return
-     */
-    public boolean ipFilterApplies() {
-        return ts.getIp_filter_applies();
-    }
-
-    /**
-     * true if the torrent is blocked from downloading. This typically
-     * happens when a disk write operation fails. If the torrent is
-     * auto-managed, it will periodically be taken out of this state, in the
-     * hope that the disk condition (be it disk full or permission errors)
-     * has been resolved. If the torrent is not auto-managed, you have to
-     * explicitly take it out of the upload mode by calling set_upload_mode()
-     * on the torrent_handle.
-     *
-     * @return
-     */
-    public boolean isUploadMode() {
-        return ts.getUpload_mode();
-    }
-
-    /**
-     * true if the torrent is currently in share-mode, i.e. not downloading
-     * the torrent, but just helping the swarm out.
-     *
-     * @return
-     */
-    public boolean isShareMode() {
-        return ts.getShare_mode();
-    }
-
-    /**
-     * true if the torrent is in super seeding mode.
-     *
-     * @return
-     */
-    public boolean isSuperSeeding() {
-        return ts.getSuper_seeding();
-    }
-
-    /**
-     * set to true if the torrent is paused and false otherwise. It's only
-     * true if the torrent itself is paused. If the torrent is not running
-     * because the session is paused, this is still false. To know if a
-     * torrent is active or not, you need to inspect both
-     * ``torrent_status::paused`` and ``session::is_paused()``.
-     *
-     * @return
-     */
-    public boolean isPaused() {
-        return ts.getPaused();
-    }
-
-    /**
-     * set to true if the torrent is auto managed, i.e. libtorrent is
-     * responsible for determining whether it should be started or queued.
-     * For more info see queuing_
-     *
-     * @return
-     */
-    public boolean isAutoManaged() {
-        return ts.getAuto_managed();
-    }
-
-    /**
-     * true when the torrent is in sequential download mode. In this mode
-     * pieces are downloaded in order rather than rarest first.
-     *
-     * @return
-     */
-    public boolean isSequentialDownload() {
-        return ts.getSequential_download();
-    }
-
-    /**
      * true if all pieces have been downloaded.
      *
      * @return
@@ -668,17 +590,6 @@ public final class TorrentStatus implements Cloneable {
      */
     public boolean hasIncoming() {
         return ts.getHas_incoming();
-    }
-
-    /**
-     * true if the torrent is in seed_mode. If the torrent was started in
-     * seed mode, it will leave seed mode once all pieces have been checked
-     * or as soon as one piece fails the hash check.
-     *
-     * @return
-     */
-    public boolean isSeedMode() {
-        return ts.getSeed_mode();
     }
 
     /**
@@ -729,17 +640,6 @@ public final class TorrentStatus implements Cloneable {
     }
 
     /**
-     * This reflects whether the ``stop_when_ready`` flag is currently enabled
-     * on this torrent. For more information, see
-     * {@link TorrentHandle#stopWhenReady(boolean)}.
-     *
-     * @return
-     */
-    public boolean stopWhenReady() {
-        return ts.getStop_when_ready();
-    }
-
-    /**
      * the info-hash for this torrent.
      *
      * @return
@@ -766,6 +666,10 @@ public final class TorrentStatus implements Cloneable {
 
     public long seedingDuration() {
         return ts.get_seeding_duration();
+    }
+
+    public long flags() {
+        return ts.getFlags();
     }
 
     @Override

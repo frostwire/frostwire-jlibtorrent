@@ -295,56 +295,20 @@ public final class TorrentHandle {
         th.resume();
     }
 
-    /**
-     * Set or clear the stop-when-ready flag. When this flag is set, the
-     * torrent will *force stop* whenever it transitions from a
-     * non-data-transferring state into a data-transferring state (referred to
-     * as being ready to download or seed). This is useful for torrents that
-     * should not start downloading or seeding yet, but what to be made ready
-     * to do so. A torrent may need to have its files checked for instance, so
-     * it needs to be started and possibly queued for checking (auto-managed
-     * and started) but as soon as it's done, it should be stopped.
-     * <p>
-     * *Force stopped* means auto-managed is set to false and it's paused. As
-     * if auto_manage(false) and pause() were called on the torrent.
-     *
-     * @param value
-     */
-    public void stopWhenReady(boolean value) {
-        th.stop_when_ready(value);
+    public long flags() {
+        return th.flags();
     }
 
-    /**
-     * Explicitly sets the upload mode of the torrent. In upload mode, the
-     * torrent will not request any pieces. If the torrent is auto managed,
-     * it will automatically be taken out of upload mode periodically (see
-     * ``session_settings::optimistic_disk_retry``). Torrents are
-     * automatically put in upload mode whenever they encounter a disk write
-     * error.
-     * <p>
-     * {@code value} should be true to enter upload mode, and false to leave it.
-     * <p>
-     * To test if a torrent is in upload mode, call
-     * ``torrent_handle::status()`` and inspect
-     * ``torrent_status::upload_mode``.
-     *
-     * @param value
-     */
-    public void setUploadMode(boolean value) {
-        th.set_upload_mode(value);
+    public void set_flags(long flags, long mask) {
+        th.set_flags(flags, mask);
     }
 
-    /**
-     * Enable or disable share mode for this torrent. When in share mode, the
-     * torrent will not necessarily be downloaded, especially not the whole
-     * of it. Only parts that are likely to be distributed to more than 2
-     * other peers are downloaded, and only if the previous prediction was
-     * correct.
-     *
-     * @param value
-     */
-    public void setShareMode(boolean value) {
-        th.set_share_mode(value);
+    public void set_flags(long flags) {
+        th.set_flags(flags);
+    }
+
+    public void unset_flags(long flags) {
+        th.unset_flags(flags);
     }
 
     /**
@@ -377,16 +341,6 @@ public final class TorrentHandle {
      */
     public boolean needSaveResumeData() {
         return th.need_save_resume_data();
-    }
-
-    /**
-     * changes whether the torrent is auto managed or not. For more info,
-     * see queuing_.
-     *
-     * @param value
-     */
-    public void setAutoManaged(boolean value) {
-        th.auto_managed(value);
     }
 
     /**
@@ -673,23 +627,6 @@ public final class TorrentHandle {
     // setting, for upload and download, respectively.
     public void setDownloadLimit(int limit) {
         th.set_download_limit(limit);
-    }
-
-    /**
-     * Enables or disables *sequential download*.
-     * <p>
-     * When enabled, the piece picker will pick pieces in sequence
-     * instead of rarest first. In this mode, piece priorities are ignored,
-     * with the exception of priority 7, which are still preferred over the
-     * sequential piece order.
-     * <p>
-     * Enabling sequential download will affect the piece distribution
-     * negatively in the swarm. It should be used sparingly.
-     *
-     * @param sequential
-     */
-    public void setSequentialDownload(boolean sequential) {
-        th.set_sequential_download(sequential);
     }
 
     /**

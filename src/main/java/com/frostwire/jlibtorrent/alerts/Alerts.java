@@ -588,6 +588,12 @@ public final class Alerts {
                 return new DhtSampleInfohashesAlert(cast_to_dht_sample_infohashes_alert(a));
             }
         };
+        arr[94] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockUploadedAlert(cast_to_block_uploaded_alert(a));
+            }
+        };
 
         return arr;
     }

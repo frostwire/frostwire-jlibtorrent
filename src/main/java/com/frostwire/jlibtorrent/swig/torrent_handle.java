@@ -131,24 +131,22 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_resume(swigCPtr, this);
   }
 
-  public void stop_when_ready(boolean b) {
-    libtorrent_jni.torrent_handle_stop_when_ready(swigCPtr, this, b);
+  public long flags() {     return libtorrent_jni.torrent_handle_flags(swigCPtr, this);   }
+
+  public void set_flags(long flags, long mask) {
+    libtorrent_jni.torrent_handle_set_flags__SWIG_0(swigCPtr, this, flags, mask);
   }
 
-  public void set_upload_mode(boolean b) {
-    libtorrent_jni.torrent_handle_set_upload_mode(swigCPtr, this, b);
+  public void set_flags(long flags) {
+    libtorrent_jni.torrent_handle_set_flags__SWIG_1(swigCPtr, this, flags);
   }
 
-  public void set_share_mode(boolean b) {
-    libtorrent_jni.torrent_handle_set_share_mode(swigCPtr, this, b);
+  public void unset_flags(long flags) {
+    libtorrent_jni.torrent_handle_unset_flags(swigCPtr, this, flags);
   }
 
   public void flush_cache() {
     libtorrent_jni.torrent_handle_flush_cache(swigCPtr, this);
-  }
-
-  public void apply_ip_filter(boolean b) {
-    libtorrent_jni.torrent_handle_apply_ip_filter(swigCPtr, this, b);
   }
 
   public void force_recheck() {
@@ -165,10 +163,6 @@ public class torrent_handle {
 
   public boolean need_save_resume_data() {
     return libtorrent_jni.torrent_handle_need_save_resume_data(swigCPtr, this);
-  }
-
-  public void auto_managed(boolean m) {
-    libtorrent_jni.torrent_handle_auto_managed(swigCPtr, this, m);
   }
 
   public int queue_position() {
@@ -275,22 +269,6 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_download_limit(swigCPtr, this);
   }
 
-  public void set_sequential_download(boolean sd) {
-    libtorrent_jni.torrent_handle_set_sequential_download(swigCPtr, this, sd);
-  }
-
-  public void connect_peer(tcp_endpoint adr, int source, int flags) {
-    libtorrent_jni.torrent_handle_connect_peer__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, source, flags);
-  }
-
-  public void connect_peer(tcp_endpoint adr, int source) {
-    libtorrent_jni.torrent_handle_connect_peer__SWIG_1(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, source);
-  }
-
-  public void connect_peer(tcp_endpoint adr) {
-    libtorrent_jni.torrent_handle_connect_peer__SWIG_2(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr);
-  }
-
   public void set_max_uploads(int max_uploads) {
     libtorrent_jni.torrent_handle_set_max_uploads(swigCPtr, this, max_uploads);
   }
@@ -317,10 +295,6 @@ public class torrent_handle {
 
   public void rename_file(int index, String new_name) {
     libtorrent_jni.torrent_handle_rename_file(swigCPtr, this, index, new_name);
-  }
-
-  public void super_seeding(boolean on) {
-    libtorrent_jni.torrent_handle_super_seeding(swigCPtr, this, on);
   }
 
   public sha1_hash info_hash() {
@@ -362,6 +336,18 @@ public class torrent_handle {
 
   public string_vector get_http_seeds() {
     return new string_vector(libtorrent_jni.torrent_handle_get_http_seeds(swigCPtr, this), true);
+  }
+
+  public void connect_peer2(tcp_endpoint adr, byte source, int flags) {
+    libtorrent_jni.torrent_handle_connect_peer2__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, source, flags);
+  }
+
+  public void connect_peer2(tcp_endpoint adr, byte source) {
+    libtorrent_jni.torrent_handle_connect_peer2__SWIG_1(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, source);
+  }
+
+  public void connect_peer2(tcp_endpoint adr) {
+    libtorrent_jni.torrent_handle_connect_peer2__SWIG_2(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr);
   }
 
   public final static class flags_t {

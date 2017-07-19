@@ -13,7 +13,7 @@ public interface Alert<T extends alert> {
     /**
      * A timestamp is automatically created in the constructor (in milliseconds).
      *
-     * @return
+     * @return the timestamp
      */
     long timestamp();
 

@@ -20,10 +20,6 @@ public enum AlertType {
     TORRENT_ERROR(torrent_error_alert.alert_type),
     TORRENT_NEED_CERT(torrent_need_cert_alert.alert_type),
     INCOMING_CONNECTION(incoming_connection_alert.alert_type),
-
-    /**
-     * @see AddTorrentAlert
-     */
     ADD_TORRENT(add_torrent_alert.alert_type),
     SAVE_RESUME_DATA(save_resume_data_alert.alert_type),
     FASTRESUME_REJECTED(fastresume_rejected_alert.alert_type),
@@ -101,6 +97,7 @@ public enum AlertType {
     DHT_LIVE_NODES(dht_live_nodes_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
     DHT_SAMPLE_INFOHASHES(dht_sample_infohashes_alert.alert_type),
+    BLOCK_UPLOADED(block_uploaded_alert.alert_type),
     UNKNOWN(-1);
 
     private static AlertType[] TABLE = buildTable();
@@ -223,6 +220,7 @@ public enum AlertType {
         arr[91] = DHT_LIVE_NODES;
         arr[92] = SESSION_STATS_HEADER;
         arr[93] = DHT_SAMPLE_INFOHASHES;
+        arr[94] = BLOCK_UPLOADED;
 
         return arr;
     }

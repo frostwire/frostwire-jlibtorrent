@@ -479,62 +479,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_need_save_resume_get(swigCPtr, this);
   }
 
-  public void setIp_filter_applies(boolean value) {
-    libtorrent_jni.torrent_status_ip_filter_applies_set(swigCPtr, this, value);
-  }
-
-  public boolean getIp_filter_applies() {
-    return libtorrent_jni.torrent_status_ip_filter_applies_get(swigCPtr, this);
-  }
-
-  public void setUpload_mode(boolean value) {
-    libtorrent_jni.torrent_status_upload_mode_set(swigCPtr, this, value);
-  }
-
-  public boolean getUpload_mode() {
-    return libtorrent_jni.torrent_status_upload_mode_get(swigCPtr, this);
-  }
-
-  public void setShare_mode(boolean value) {
-    libtorrent_jni.torrent_status_share_mode_set(swigCPtr, this, value);
-  }
-
-  public boolean getShare_mode() {
-    return libtorrent_jni.torrent_status_share_mode_get(swigCPtr, this);
-  }
-
-  public void setSuper_seeding(boolean value) {
-    libtorrent_jni.torrent_status_super_seeding_set(swigCPtr, this, value);
-  }
-
-  public boolean getSuper_seeding() {
-    return libtorrent_jni.torrent_status_super_seeding_get(swigCPtr, this);
-  }
-
-  public void setPaused(boolean value) {
-    libtorrent_jni.torrent_status_paused_set(swigCPtr, this, value);
-  }
-
-  public boolean getPaused() {
-    return libtorrent_jni.torrent_status_paused_get(swigCPtr, this);
-  }
-
-  public void setAuto_managed(boolean value) {
-    libtorrent_jni.torrent_status_auto_managed_set(swigCPtr, this, value);
-  }
-
-  public boolean getAuto_managed() {
-    return libtorrent_jni.torrent_status_auto_managed_get(swigCPtr, this);
-  }
-
-  public void setSequential_download(boolean value) {
-    libtorrent_jni.torrent_status_sequential_download_set(swigCPtr, this, value);
-  }
-
-  public boolean getSequential_download() {
-    return libtorrent_jni.torrent_status_sequential_download_get(swigCPtr, this);
-  }
-
   public void setIs_seeding(boolean value) {
     libtorrent_jni.torrent_status_is_seeding_set(swigCPtr, this, value);
   }
@@ -567,12 +511,12 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_has_incoming_get(swigCPtr, this);
   }
 
-  public void setSeed_mode(boolean value) {
-    libtorrent_jni.torrent_status_seed_mode_set(swigCPtr, this, value);
+  public void setDeprecated_seed_mode(boolean value) {
+    libtorrent_jni.torrent_status_deprecated_seed_mode_set(swigCPtr, this, value);
   }
 
-  public boolean getSeed_mode() {
-    return libtorrent_jni.torrent_status_seed_mode_get(swigCPtr, this);
+  public boolean getDeprecated_seed_mode() {
+    return libtorrent_jni.torrent_status_deprecated_seed_mode_get(swigCPtr, this);
   }
 
   public void setMoving_storage(boolean value) {
@@ -607,12 +551,12 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_announcing_to_dht_get(swigCPtr, this);
   }
 
-  public void setStop_when_ready(boolean value) {
-    libtorrent_jni.torrent_status_stop_when_ready_set(swigCPtr, this, value);
+  public void setDeprecated_stop_when_ready(boolean value) {
+    libtorrent_jni.torrent_status_deprecated_stop_when_ready_set(swigCPtr, this, value);
   }
 
-  public boolean getStop_when_ready() {
-    return libtorrent_jni.torrent_status_stop_when_ready_get(swigCPtr, this);
+  public boolean getDeprecated_stop_when_ready() {
+    return libtorrent_jni.torrent_status_deprecated_stop_when_ready_get(swigCPtr, this);
   }
 
   public void setInfo_hash(sha1_hash value) {
@@ -623,6 +567,12 @@ public class torrent_status {
     long cPtr = libtorrent_jni.torrent_status_info_hash_get(swigCPtr, this);
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
+
+  public void setFlags(long value) {
+    libtorrent_jni.torrent_status_flags_set(swigCPtr, this, value);
+  }
+
+  public long getFlags() {     return libtorrent_jni.torrent_status_flags_get(swigCPtr, this);   }
 
   public torrent_info torrent_file_ptr() {
     long cPtr = libtorrent_jni.torrent_status_torrent_file_ptr(swigCPtr, this);
