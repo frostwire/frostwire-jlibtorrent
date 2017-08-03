@@ -167,22 +167,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
     return $jnicall;
   }
 
-#define TYPE_INTEGRAL_CONVERSION(name, ntype, itype) \
-%typemap(jni) name, const name& "itype"\
-%typemap(jtype) name, const name& "itype"\
-%typemap(jstype) name, const name& "itype"\
-\
-%typemap(in) name {\
-    $1 = name(ntype($input));\
-}\
-%typemap(out) name {\
-    $result = itype(static_cast<ntype>($1));\
-}\
-%typemap(javain) name, const name& "$javainput"\
-%typemap(javaout) name, const name& {\
-    return $jnicall;\
-  }
-
 #endif // SWIGJAVA
 
 %include <stdint.i>
