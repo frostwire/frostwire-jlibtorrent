@@ -183,8 +183,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
     return $jnicall;\
   }
 
-//TYPE_INTEGRAL_CONVERSION(torrent_flags_t, std::uint64_t, long)
-
 #endif // SWIGJAVA
 
 %include <stdint.i>
