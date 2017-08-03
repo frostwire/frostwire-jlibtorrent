@@ -10,6 +10,9 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static com.frostwire.jlibtorrent.swig.alert_category_t.op_and;
+import static com.frostwire.jlibtorrent.swig.alert_category_t.op_or;
+
 /**
  * @author gubatron
  * @author aldenml
@@ -93,7 +96,7 @@ public class SessionManager {
 
             resetState();
 
-            params.settings().setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging));
+            params.settings().setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging).to_int());
             session = new session(params.swig());
             alertsLoop();
 
@@ -507,7 +510,7 @@ public class SessionManager {
         download(ti, saveDir, null, null, null);
     }
 
-    public void remove(TorrentHandle th, SessionHandle.Options options) {
+    public void remove(TorrentHandle th, SessionHandle.RemoveFlags options) {
         if (session != null && th.isValid()) {
             session.remove_torrent(th.swig(), options.swig());
         }
@@ -1007,16 +1010,17 @@ public class SessionManager {
         return name != null && name.contains(FETCH_MAGNET_DOWNLOAD_KEY);
     }
 
-    private static int alertMask(boolean logging) {
-        int mask = alert.category_t.all_categories.swigValue();
+    private static alert_category_t alertMask(boolean logging) {
+        alert_category_t mask = alert.all_categories;
         if (!logging) {
-            int log_mask = alert.category_t.session_log_notification.swigValue() |
-                    alert.category_t.torrent_log_notification.swigValue() |
-                    alert.category_t.peer_log_notification.swigValue() |
-                    alert.category_t.dht_log_notification.swigValue() |
-                    alert.category_t.port_mapping_log_notification.swigValue() |
-                    alert.category_t.picker_log_notification.swigValue();
-            mask = mask & ~log_mask;
+            alert_category_t log_mask = alert.session_log_notification;
+            log_mask = op_or(log_mask, alert.torrent_log_notification);
+            log_mask = op_or(log_mask, alert.peer_log_notification);
+            log_mask = op_or(log_mask, alert.dht_log_notification);
+            log_mask = op_or(log_mask, alert.port_mapping_log_notification);
+            log_mask = op_or(log_mask, alert.picker_log_notification);
+
+            mask = op_and(mask, log_mask.op_inv());
         }
         return mask;
     }

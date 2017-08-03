@@ -5,6 +5,7 @@
 .idea
 .gradle
 /build
+/out
 /android/build
 /android/src/main/jniLibs
 /java/out/

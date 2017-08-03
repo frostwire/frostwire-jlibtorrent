@@ -73,8 +73,8 @@ public class libtorrent implements libtorrentConstants {
     return new settings_pack(libtorrent_jni.high_performance_seed(), true);
   }
 
-  public static session_params read_session_params(bdecode_node e, long flags) {
-    return new session_params(libtorrent_jni.read_session_params__SWIG_0(bdecode_node.getCPtr(e), e, flags), true);
+  public static session_params read_session_params(bdecode_node e, save_state_flags_t flags) {
+    return new session_params(libtorrent_jni.read_session_params__SWIG_0(bdecode_node.getCPtr(e), e, save_state_flags_t.getCPtr(flags), flags), true);
   }
 
   public static session_params read_session_params(bdecode_node e) {

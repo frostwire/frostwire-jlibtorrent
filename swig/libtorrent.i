@@ -32,6 +32,7 @@
 #include "libtorrent/settings_pack.hpp"
 #include "libtorrent/peer_class.hpp"
 #include "libtorrent/peer_class_type_filter.hpp"
+#include "libtorrent/session_types.hpp"
 #include "libtorrent/session_handle.hpp"
 #include "libtorrent/kademlia/dht_state.hpp"
 #include "libtorrent/session.hpp"
@@ -194,11 +195,11 @@ TYPE_INTEGRAL_CONVERSION(torrent_flags_t, std::uint64_t, long)
 %include <std_pair.i>
 
 %apply int8_t { char };
+%apply std::int8_t { std::uint8_t };
 %apply int64_t { void* };
 
 namespace std {
 
-    typedef int8_t uint8_t;
     typedef int64_t uint64_t;
 
     template<class T> class vector {
@@ -355,6 +356,79 @@ namespace std {
 };
 
 namespace libtorrent {
+
+    namespace flags
+    {
+        template<typename UnderlyingType, typename Tag>
+        struct bitfield_flag
+        {
+            bitfield_flag all();
+
+            %extend
+            {
+                bool op_bool()
+                {
+                    return $self->operator bool();
+                }
+
+                bool op_eq(bitfield_flag const f)
+                {
+                    return $self->operator==(f);
+                }
+
+                bool op_ne(bitfield_flag const f)
+                {
+                    return $self->operator!=(f);
+                }
+
+                static bitfield_flag op_or(bitfield_flag const lhs, bitfield_flag const rhs)
+                {
+                    return lhs | rhs;
+                }
+
+                static bitfield_flag op_and(bitfield_flag const lhs, bitfield_flag const rhs)
+                {
+                    return lhs & rhs;
+                }
+
+                static bitfield_flag op_xor(bitfield_flag const lhs, bitfield_flag const rhs)
+                {
+                    return lhs ^ rhs;
+                }
+
+                bitfield_flag op_inv()
+                {
+                    return $self->operator~();
+                }
+
+                int to_int()
+                {
+                    return static_cast<int>($self->operator UnderlyingType());
+                }
+            }
+        };
+    }
+
+    struct alert_category_tag;
+    %template(alert_category_t) flags::bitfield_flag<std::uint32_t, alert_category_tag>;
+    struct add_piece_flags_tag;
+    %template(add_piece_flags_t) flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
+    struct status_flags_tag;
+    %template(status_flags_t) flags::bitfield_flag<std::uint32_t, status_flags_tag>;
+    struct deadline_flags_tag;
+    %template(deadline_flags_t) flags::bitfield_flag<std::uint8_t, deadline_flags_tag>;
+    struct session_flags_tag;
+    %template(session_flags_t) flags::bitfield_flag<std::uint8_t, session_flags_tag>;
+    struct pause_flags_tag;
+    %template(pause_flags_t) flags::bitfield_flag<std::uint8_t, pause_flags_tag>;
+    struct resume_data_flags_tag;
+    %template(resume_data_flags_t) flags::bitfield_flag<std::uint8_t, resume_data_flags_tag>;
+    struct picker_flags_tag;
+    %template(picker_flags_t) flags::bitfield_flag<std::uint32_t, picker_flags_tag>;
+    struct remove_flags_tag;
+    %template(remove_flags_t) flags::bitfield_flag<std::uint8_t, remove_flags_tag>;
+    struct save_state_flags_tag;
+    %template(save_state_flags_t) flags::bitfield_flag<std::uint32_t, save_state_flags_tag>;
 
     typedef sha1_hash peer_id;
 
@@ -977,9 +1051,8 @@ typedef std::int64_t time_t;
 %ignore libtorrent::session_params::session_params(session_params&&);
 %ignore libtorrent::session_params::extensions;
 %ignore libtorrent::session_params::dht_storage_constructor;
-%ignore libtorrent::session::session(session_params, io_service&, int);
 %ignore libtorrent::session::session(session_params, io_service&);
-%ignore libtorrent::session::session(settings_pack, io_service&, int);
+%ignore libtorrent::session::session(settings_pack, io_service&, session_flags_t const);
 %ignore libtorrent::session::session(settings_pack, io_service&);
 %ignore libtorrent::session_proxy::session_proxy(session_proxy&&);
 %ignore libtorrent::session_handle::session_handle(aux::session_impl*);
@@ -1048,8 +1121,11 @@ typedef std::int64_t time_t;
 %ignore libtorrent::dht_put_alert::seq;
 %ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
 %ignore libtorrent::dht_direct_response_alert::userdata;
+%ignore libtorrent::from_span;
+%ignore libtorrent::from_span_t;
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&, int);
+%ignore libtorrent::torrent_info::torrent_info(span<char const>, error_code&, from_span_t);
 %ignore libtorrent::torrent_info::metadata;
 %ignore libtorrent::torrent_info::load;
 %ignore libtorrent::torrent_info::unload;
@@ -1295,6 +1371,7 @@ typedef std::int64_t time_t;
 %include "libtorrent/session_settings.hpp"
 %include "libtorrent/settings_pack.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"
+%include "libtorrent/session_types.hpp"
 %include "libtorrent/session_handle.hpp"
 %include "libtorrent/kademlia/dht_state.hpp"
 %include "libtorrent/session.hpp"
@@ -1632,14 +1709,14 @@ namespace libtorrent {
 
 %extend torrent_info {
 
-    torrent_info(int64_t buffer_ptr, int size, error_code& ec, int flags = 0) {
-        return new libtorrent::torrent_info(reinterpret_cast<char const*>(buffer_ptr), size, ec, flags);
+    torrent_info(int64_t buffer_ptr, int size, error_code& ec) {
+        return new libtorrent::torrent_info(reinterpret_cast<char const*>(buffer_ptr), size, ec);
     }
 };
 
 %extend torrent_handle {
 
-    void add_piece_bytes(int piece, std::vector<int8_t> const& data, int flags = 0) {
+    void add_piece_bytes(int piece, std::vector<int8_t> const& data, add_piece_flags_t flags = {}) {
         $self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
     }
 

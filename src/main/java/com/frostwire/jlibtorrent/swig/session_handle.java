@@ -47,32 +47,32 @@ public class session_handle {
     return libtorrent_jni.session_handle_is_valid(swigCPtr, this);
   }
 
-  public void save_state(entry e, long flags) {
-    libtorrent_jni.session_handle_save_state__SWIG_0(swigCPtr, this, entry.getCPtr(e), e, flags);
+  public void save_state(entry e, save_state_flags_t flags) {
+    libtorrent_jni.session_handle_save_state__SWIG_0(swigCPtr, this, entry.getCPtr(e), e, save_state_flags_t.getCPtr(flags), flags);
   }
 
   public void save_state(entry e) {
     libtorrent_jni.session_handle_save_state__SWIG_1(swigCPtr, this, entry.getCPtr(e), e);
   }
 
-  public void load_state(bdecode_node e, long flags) {
-    libtorrent_jni.session_handle_load_state__SWIG_0(swigCPtr, this, bdecode_node.getCPtr(e), e, flags);
+  public void load_state(bdecode_node e, save_state_flags_t flags) {
+    libtorrent_jni.session_handle_load_state__SWIG_0(swigCPtr, this, bdecode_node.getCPtr(e), e, save_state_flags_t.getCPtr(flags), flags);
   }
 
   public void load_state(bdecode_node e) {
     libtorrent_jni.session_handle_load_state__SWIG_1(swigCPtr, this, bdecode_node.getCPtr(e), e);
   }
 
-  public void refresh_torrent_status(torrent_status_vector ret, long flags) {
-    libtorrent_jni.session_handle_refresh_torrent_status__SWIG_0(swigCPtr, this, torrent_status_vector.getCPtr(ret), ret, flags);
+  public void refresh_torrent_status(torrent_status_vector ret, status_flags_t flags) {
+    libtorrent_jni.session_handle_refresh_torrent_status__SWIG_0(swigCPtr, this, torrent_status_vector.getCPtr(ret), ret, status_flags_t.getCPtr(flags), flags);
   }
 
   public void refresh_torrent_status(torrent_status_vector ret) {
     libtorrent_jni.session_handle_refresh_torrent_status__SWIG_1(swigCPtr, this, torrent_status_vector.getCPtr(ret), ret);
   }
 
-  public void post_torrent_updates(long flags) {
-    libtorrent_jni.session_handle_post_torrent_updates__SWIG_0(swigCPtr, this, flags);
+  public void post_torrent_updates(status_flags_t flags) {
+    libtorrent_jni.session_handle_post_torrent_updates__SWIG_0(swigCPtr, this, status_flags_t.getCPtr(flags), flags);
   }
 
   public void post_torrent_updates() {
@@ -235,8 +235,8 @@ public class session_handle {
     libtorrent_jni.session_handle_set_peer_class(swigCPtr, this, cid, peer_class_info.getCPtr(pci), pci);
   }
 
-  public void remove_torrent(torrent_handle h, int options) {
-    libtorrent_jni.session_handle_remove_torrent__SWIG_0(swigCPtr, this, torrent_handle.getCPtr(h), h, options);
+  public void remove_torrent(torrent_handle h, remove_flags_t options) {
+    libtorrent_jni.session_handle_remove_torrent__SWIG_0(swigCPtr, this, torrent_handle.getCPtr(h), h, remove_flags_t.getCPtr(options), options);
   }
 
   public void remove_torrent(torrent_handle h) {
@@ -288,142 +288,16 @@ public class session_handle {
     libtorrent_jni.session_handle_add_extension(swigCPtr, this, swig_plugin.getCPtr(ext), ext);
   }
 
-  public final static class save_state_flags_t {
-    public final static session_handle.save_state_flags_t save_settings = new session_handle.save_state_flags_t("save_settings", libtorrent_jni.session_handle_save_settings_get());
-    public final static session_handle.save_state_flags_t save_dht_settings = new session_handle.save_state_flags_t("save_dht_settings", libtorrent_jni.session_handle_save_dht_settings_get());
-    public final static session_handle.save_state_flags_t save_dht_state = new session_handle.save_state_flags_t("save_dht_state", libtorrent_jni.session_handle_save_dht_state_get());
-    public final static session_handle.save_state_flags_t save_encryption_settings = new session_handle.save_state_flags_t("save_encryption_settings", libtorrent_jni.session_handle_save_encryption_settings_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static save_state_flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + save_state_flags_t.class + " with value " + swigValue);
-    }
-
-    private save_state_flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private save_state_flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private save_state_flags_t(String swigName, save_state_flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static save_state_flags_t[] swigValues = { save_settings, save_dht_settings, save_dht_state, save_encryption_settings };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static save_state_flags_t save_settings = new save_state_flags_t(libtorrent_jni.session_handle_save_settings_get(), false);
+  public final static save_state_flags_t save_dht_settings = new save_state_flags_t(libtorrent_jni.session_handle_save_dht_settings_get(), false);
+  public final static save_state_flags_t save_dht_state = new save_state_flags_t(libtorrent_jni.session_handle_save_dht_state_get(), false);
+  public final static save_state_flags_t save_encryption_settings = new save_state_flags_t(libtorrent_jni.session_handle_save_encryption_settings_get(), false);
   public final static int disk_cache_no_pieces = libtorrent_jni.session_handle_disk_cache_no_pieces_get();
 
-  public final static class options_t {
-    public final static session_handle.options_t delete_files = new session_handle.options_t("delete_files", libtorrent_jni.session_handle_delete_files_get());
-    public final static session_handle.options_t delete_partfile = new session_handle.options_t("delete_partfile", libtorrent_jni.session_handle_delete_partfile_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static options_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + options_t.class + " with value " + swigValue);
-    }
-
-    private options_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private options_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private options_t(String swigName, options_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static options_t[] swigValues = { delete_files, delete_partfile };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
-  public final static class session_flags_t {
-    public final static session_handle.session_flags_t add_default_plugins = new session_handle.session_flags_t("add_default_plugins", libtorrent_jni.session_handle_add_default_plugins_get());
-    public final static session_handle.session_flags_t start_default_features = new session_handle.session_flags_t("start_default_features", libtorrent_jni.session_handle_start_default_features_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static session_flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + session_flags_t.class + " with value " + swigValue);
-    }
-
-    private session_flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private session_flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private session_flags_t(String swigName, session_flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static session_flags_t[] swigValues = { add_default_plugins, start_default_features };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static remove_flags_t delete_files = new remove_flags_t(libtorrent_jni.session_handle_delete_files_get(), false);
+  public final static remove_flags_t delete_partfile = new remove_flags_t(libtorrent_jni.session_handle_delete_partfile_get(), false);
+  public final static session_flags_t add_default_plugins = new session_flags_t(libtorrent_jni.session_handle_add_default_plugins_get(), false);
+  public final static session_flags_t start_default_features = new session_flags_t(libtorrent_jni.session_handle_start_default_features_get(), false);
   public final static class protocol_type {
     public final static session_handle.protocol_type udp = new session_handle.protocol_type("udp", libtorrent_jni.session_handle_udp_get());
     public final static session_handle.protocol_type tcp = new session_handle.protocol_type("tcp", libtorrent_jni.session_handle_tcp_get());

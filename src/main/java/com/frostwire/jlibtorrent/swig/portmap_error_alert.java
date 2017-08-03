@@ -39,8 +39,8 @@ public class portmap_error_alert extends alert {
     return libtorrent_jni.portmap_error_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.portmap_error_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.portmap_error_alert_category(swigCPtr, this), true);
   }
 
   public String what() {
@@ -66,5 +66,5 @@ public class portmap_error_alert extends alert {
 
   public final static int priority = libtorrent_jni.portmap_error_alert_priority_get();
   public final static int alert_type = libtorrent_jni.portmap_error_alert_alert_type_get();
-  public final static int static_category = libtorrent_jni.portmap_error_alert_static_category_get();
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.portmap_error_alert_static_category_get(), false);
 }

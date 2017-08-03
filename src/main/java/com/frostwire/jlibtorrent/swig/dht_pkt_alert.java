@@ -39,8 +39,8 @@ public class dht_pkt_alert extends alert {
     return libtorrent_jni.dht_pkt_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.dht_pkt_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.dht_pkt_alert_category(swigCPtr, this), true);
   }
 
   public String what() {
@@ -111,7 +111,7 @@ public class dht_pkt_alert extends alert {
     private final String swigName;
   }
 
-  public final static int static_category = libtorrent_jni.dht_pkt_alert_static_category_get();
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.dht_pkt_alert_static_category_get(), false);
   public final static int priority = libtorrent_jni.dht_pkt_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_pkt_alert_alert_type_get();
 }

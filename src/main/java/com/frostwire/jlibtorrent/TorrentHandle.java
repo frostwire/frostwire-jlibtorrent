@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.*;
-import com.frostwire.jlibtorrent.swig.torrent_handle.status_flags_t;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +55,21 @@ public final class TorrentHandle {
         return th;
     }
 
+    public static final class AddPieceFlags {
+
+        private final add_piece_flags_t f;
+
+        private AddPieceFlags(add_piece_flags_t f) {
+            this.f = f;
+        }
+
+        /**
+         * Instruct libtorrent to overwrite any data that may already have been
+         * downloaded with the data of the new piece being added.
+         */
+        public static final AddPieceFlags OVERWRITE_EXISTING = new AddPieceFlags(torrent_handle.overwrite_existing);
+    }
+
     /**
      * This function will write {@code data} to the storage as piece {@code piece},
      * as if it had been downloaded from a peer. {@code data} is expected to
@@ -78,8 +92,8 @@ public final class TorrentHandle {
      * @param data  the piece data
      * @param flags flags
      */
-    public void addPiece(int piece, byte[] data, int flags) {
-        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags);
+    public void addPiece(int piece, byte[] data, AddPieceFlags flags) {
+        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags.f);
     }
 
     /**
@@ -192,7 +206,7 @@ public final class TorrentHandle {
         long now = System.currentTimeMillis();
         if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
             lastStatusRequestTime = now;
-            lastStatus = new TorrentStatus(th.status(0));
+            lastStatus = new TorrentStatus(th.status(StatusFlags.ZERO.f));
         }
 
         return lastStatus;
@@ -214,6 +228,71 @@ public final class TorrentHandle {
     }
 
     /**
+     * Flags to pass in to status() to specify which properties of the
+     * torrent to query for. By default all flags are set.
+     */
+    public static final class StatusFlags {
+
+        private final status_flags_t f;
+
+        private StatusFlags(status_flags_t f) {
+            this.f = f;
+        }
+
+        public status_flags_t swig() {
+            return f;
+        }
+
+        public static final StatusFlags ZERO = new StatusFlags(new status_flags_t());
+
+        /**
+         * calculates ``distributed_copies``, ``distributed_full_copies`` and
+         * ``distributed_fraction``.
+         */
+        public static final StatusFlags QUERY_DISTRIBUTED_COPIES = new StatusFlags(torrent_handle.query_distributed_copies);
+
+        /**
+         * includes partial downloaded blocks in ``total_done`` and
+         * ``total_wanted_done``.
+         */
+        public static final StatusFlags QUERY_ACCURATE_DOWNLOAD_COUNTERS = new StatusFlags(torrent_handle.query_accurate_download_counters);
+
+        /**
+         * includes ``last_seen_complete``.
+         */
+        public static final StatusFlags QUERY_LAST_SEEN_COMPLETE = new StatusFlags(torrent_handle.query_last_seen_complete);
+
+        /**
+         * includes ``pieces``.
+         */
+        public static final StatusFlags QUERY_PIECES = new StatusFlags(torrent_handle.query_pieces);
+
+        /**
+         * includes ``verified_pieces`` (only applies to torrents in *seed mode*).
+         */
+        public static final StatusFlags QUERY_VERIFIED_PIECES = new StatusFlags(torrent_handle.query_verified_pieces);
+
+        /**
+         * includes ``torrent_file``, which is all the static information from the .torrent file.
+         */
+        public static final StatusFlags QUERY_TORRENT_FILE = new StatusFlags(torrent_handle.query_torrent_file);
+
+        /**
+         * includes {@code name}, the name of the torrent. This is either derived
+         * from the .torrent file, or from the {@code &dn=} magnet link argument
+         * or possibly some other source. If the name of the torrent is not
+         * known, this is an empty string.
+         */
+        public static final StatusFlags QUERY_NAME = new StatusFlags(torrent_handle.query_name);
+
+        /**
+         * includes ``save_path``, the path to the directory the files of the
+         * torrent are saved to.
+         */
+        public static final StatusFlags QUERY_SAVE_PATH = new StatusFlags(torrent_handle.query_save_path);
+    }
+
+    /**
      * This method returns an up to date torrent status, the {@code flags} parameters
      * is an or-combination of the {@link StatusFlags} native values, in case you want
      * advanced (and expensive) fields filled. We recommend the use of the simple call
@@ -222,8 +301,8 @@ public final class TorrentHandle {
      * @param flags
      * @return the status
      */
-    public TorrentStatus status(long flags) {
-        return new TorrentStatus(th.status(flags));
+    public TorrentStatus status(StatusFlags flags) {
+        return new TorrentStatus(th.status(flags.f));
     }
 
     /**
@@ -536,7 +615,7 @@ public final class TorrentHandle {
      * the initial loop, and thwart the counter otherwise.
      */
     public void saveResumeData() {
-        th.save_resume_data(torrent_handle.save_resume_flags_t.save_info_dict.swigValue());
+        th.save_resume_data(torrent_handle.save_info_dict);
     }
 
     /**
@@ -984,6 +1063,27 @@ public final class TorrentHandle {
     }
 
     /**
+     * Flags for {@link #setPieceDeadline(int, int, TorrentHandle.DeadlineFlags)}.
+     */
+    public static final class DeadlineFlags {
+
+        private final deadline_flags_t f;
+
+        private DeadlineFlags(deadline_flags_t f) {
+            this.f = f;
+        }
+
+        public deadline_flags_t swig() {
+            return f;
+        }
+
+        /**
+         *
+         */
+        public static final DeadlineFlags ALERT_WHEN_AVAILABLE = new DeadlineFlags(torrent_handle.alert_when_available);
+    }
+
+    /**
      * This function sets or resets the deadline associated with a specific
      * piece index (``index``). libtorrent will attempt to download this
      * entire piece before the deadline expires. This is not necessarily
@@ -1078,7 +1178,7 @@ public final class TorrentHandle {
      * @return
      */
     public String savePath() {
-        torrent_status ts = th.status(status_flags_t.query_save_path.swigValue());
+        torrent_status ts = th.status(torrent_handle.query_save_path);
         return ts.getSave_path();
     }
 
@@ -1091,7 +1191,7 @@ public final class TorrentHandle {
      * @return the name
      */
     public String name() {
-        torrent_status ts = th.status(status_flags_t.query_name.swigValue());
+        torrent_status ts = th.status(torrent_handle.query_name);
         return ts.getName();
     }
 
@@ -1146,139 +1246,6 @@ public final class TorrentHandle {
      */
     public void renameFile(int index, String newName) {
         th.rename_file(index, newName);
-    }
-
-    /**
-     * Flags for {@link #addPiece(int, byte[], int)}.
-     */
-    public enum Flags {
-
-        /**
-         *
-         */
-        OVERWRITE_EXISTING(torrent_handle.flags_t.overwrite_existing.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        Flags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static Flags fromSwig(int swigValue) {
-            Flags[] enumValues = Flags.class.getEnumConstants();
-            for (Flags ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
-    }
-
-    /**
-     * Flags to pass in to status() to specify which properties of the
-     * torrent to query for. By default all flags are set.
-     */
-    public enum StatusFlags {
-
-        /**
-         * calculates ``distributed_copies``, ``distributed_full_copies`` and
-         * ``distributed_fraction``.
-         */
-        QUERY_DISTRIBUTED_COPIES(status_flags_t.query_distributed_copies.swigValue()),
-
-        /**
-         * includes partial downloaded blocks in ``total_done`` and
-         * ``total_wanted_done``.
-         */
-        QUERY_ACCURATE_DOWNLOAD_COUNTERS(status_flags_t.query_accurate_download_counters.swigValue()),
-
-        /**
-         * includes ``last_seen_complete``.
-         */
-        QUERY_LAST_SEEN_COMPLETE(status_flags_t.query_last_seen_complete.swigValue()),
-
-        /**
-         * includes ``pieces``.
-         */
-        QUERY_PIECES(status_flags_t.query_pieces.swigValue()),
-
-        /**
-         * includes ``verified_pieces`` (only applies to torrents in *seed mode*).
-         */
-        QUERY_VERIFIED_PIECES(status_flags_t.query_verified_pieces.swigValue()),
-
-        /**
-         * includes ``torrent_file``, which is all the static information from the .torrent file.
-         */
-        QUERY_TORRENT_FILE(status_flags_t.query_torrent_file.swigValue()),
-
-        /**
-         * includes {@code name}, the name of the torrent. This is either derived
-         * from the .torrent file, or from the {@code &dn=} magnet link argument
-         * or possibly some other source. If the name of the torrent is not
-         * known, this is an empty string.
-         */
-        QUERY_NAME(status_flags_t.query_name.swigValue()),
-
-        /**
-         * includes ``save_path``, the path to the directory the files of the
-         * torrent are saved to.
-         */
-        QUERY_SAVE_PATH(status_flags_t.query_save_path.swigValue());
-
-        StatusFlags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return the native value
-         */
-        public int swig() {
-            return swigValue;
-        }
-    }
-
-    /**
-     * Flags for {@link #setPieceDeadline(int, int, TorrentHandle.DeadlineFlags)}.
-     */
-    public enum DeadlineFlags {
-
-        /**
-         *
-         */
-        ALERT_WHEN_AVAILABLE(torrent_handle.deadline_flags.alert_when_available.swigValue());
-
-        DeadlineFlags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return the native value
-         */
-        public int swig() {
-            return swigValue;
-        }
     }
 
     /**

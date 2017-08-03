@@ -39,8 +39,8 @@ public class portmap_alert extends alert {
     return libtorrent_jni.portmap_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.portmap_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.portmap_alert_category(swigCPtr, this), true);
   }
 
   public String what() {
@@ -69,7 +69,7 @@ public class portmap_alert extends alert {
 
   public final static int priority = libtorrent_jni.portmap_alert_priority_get();
   public final static int alert_type = libtorrent_jni.portmap_alert_alert_type_get();
-  public final static int static_category = libtorrent_jni.portmap_alert_static_category_get();
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.portmap_alert_static_category_get(), false);
   public final static class protocol_t {
     public final static portmap_alert.protocol_t tcp = new portmap_alert.protocol_t("tcp");
     public final static portmap_alert.protocol_t udp = new portmap_alert.protocol_t("udp");

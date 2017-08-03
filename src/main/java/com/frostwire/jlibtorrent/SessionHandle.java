@@ -46,6 +46,44 @@ public class SessionHandle {
     }
 
     /**
+     * Flags that determines which aspects of the session should be
+     * saved when calling {@link #saveState(long)}
+     */
+    public static final class SaveStateFlags {
+
+        private final save_state_flags_t f;
+
+        private SaveStateFlags(save_state_flags_t f) {
+            this.f = f;
+        }
+
+        public save_state_flags_t swig() {
+            return f;
+        }
+
+        /**
+         * Saves settings (i.e. the {@link SettingsPack}).
+         */
+        public static final SaveStateFlags SAVE_SETTINGS = new SaveStateFlags(session_handle.save_settings);
+
+        /**
+         * Saves {@link DhtSettings}.
+         */
+        public static final SaveStateFlags SAVE_DHT_SETTINGS = new SaveStateFlags(session_handle.save_dht_settings);
+
+        /**
+         * Saves dht state such as nodes and node-id, possibly accelerating
+         * joining the DHT if provided at next session startup.
+         */
+        public static final SaveStateFlags SAVE_DHT_STATE = new SaveStateFlags(session_handle.save_dht_state);
+
+        /**
+         * Save pe_settings.
+         */
+        public static final SaveStateFlags SAVE_ENCRYPTION_SETTINGS = new SaveStateFlags(session_handle.save_encryption_settings);
+    }
+
+    /**
      * Loads and saves all session settings, including dht settings,
      * encryption settings and proxy settings. {@link #saveState(long)}
      * internally writes all keys to an {@link entry} that's passed in,
@@ -56,19 +94,17 @@ public class SessionHandle {
      * is saved (except for the individual torrents).
      *
      * @return the bencoded byte array
-     * @see com.frostwire.jlibtorrent.swig.session_handle.save_state_flags_t
      */
-    public byte[] saveState(long flags) {
+    public byte[] saveState(SaveStateFlags flags) {
         entry e = new entry();
-        s.save_state(e, flags);
+        s.save_state(e, flags.swig());
         return Vectors.byte_vector2bytes(e.bencode());
     }
 
     /**
-     * Same as calling {@link #saveState(long)} with all save state flags.
+     * Same as calling {@link #saveState(SaveStateFlags)} with all save state flags.
      *
-     * @return
-     * @see #saveState(long)
+     * @return the bencoded byte array
      */
     public byte[] saveState() {
         entry e = new entry();
@@ -80,7 +116,7 @@ public class SessionHandle {
      * Loads all session settings, including DHT settings,
      * encryption settings and proxy settings.
      * <p>
-     * {@link #loadState(byte[], long)} expects a byte array that it is a
+     * This method expects a byte array that it is a
      * bencoded buffer.
      * <p>
      * The {@code flags} argument passed in to this method can be used to
@@ -88,16 +124,15 @@ public class SessionHandle {
      * is restored (except for the individual torrents).
      *
      * @param data the bencoded byte array
-     * @see com.frostwire.jlibtorrent.swig.session_handle.save_state_flags_t
      */
-    public void loadState(byte[] data, long flags) {
+    public void loadState(byte[] data, SaveStateFlags flags) {
         byte_vector buffer = Vectors.bytes2byte_vector(data);
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
         int ret = bdecode_node.bdecode(buffer, n, ec);
 
         if (ret == 0) {
-            s.load_state(n, flags);
+            s.load_state(n, flags.swig());
             buffer.clear(); // prevents GC
         } else {
             LOG.error("failed to decode bencoded data: " + ec.message());
@@ -105,9 +140,8 @@ public class SessionHandle {
     }
 
     /**
-     * Same as calling {@link #loadState(byte[], long)} with all save state flags.
-     *
-     * @see #loadState(byte[], long)
+     * Same as calling {@link #loadState(byte[], SaveStateFlags)} with all
+     * save state flags.
      */
     public void loadState(byte[] data) {
         byte_vector buffer = Vectors.bytes2byte_vector(data);
@@ -134,10 +168,9 @@ public class SessionHandle {
      * the {@code flags} argument is the same as for torrent_handle::status().
      *
      * @param flags or-combination of {@link TorrentHandle.StatusFlags} native values
-     * @see TorrentHandle.StatusFlags
      */
-    public void postTorrentUpdates(int flags) {
-        s.post_torrent_updates(flags);
+    public void postTorrentUpdates(TorrentHandle.StatusFlags flags) {
+        s.post_torrent_updates(flags.swig());
     }
 
     /**
@@ -242,6 +275,33 @@ public class SessionHandle {
     }
 
     /**
+     * Flags to be passed in to {@link #removeTorrent(TorrentHandle, RemoveFlags)}.
+     */
+    public static final class RemoveFlags {
+
+        private final remove_flags_t f;
+
+        private RemoveFlags(remove_flags_t f) {
+            this.f = f;
+        }
+
+        public remove_flags_t swig() {
+            return f;
+        }
+
+        /**
+         * Delete the files belonging to the torrent from disk,
+         * including the part-file, if there is one.
+         */
+        public static final RemoveFlags DELETE_FILES = new RemoveFlags(session_handle.delete_files);
+
+        /**
+         * Delete just the part-file associated with this torrent.
+         */
+        public static final RemoveFlags DELETE_PARTFILE = new RemoveFlags(session_handle.delete_partfile);
+    }
+
+    /**
      * This method will close all peer connections associated with the torrent and tell the
      * tracker that we've stopped participating in the swarm. This operation cannot fail.
      * When it completes, you will receive a torrent_removed_alert.
@@ -254,7 +314,7 @@ public class SessionHandle {
      *
      * @param th
      */
-    public void removeTorrent(TorrentHandle th, Options options) {
+    public void removeTorrent(TorrentHandle th, RemoveFlags options) {
         if (th.isValid()) {
             s.remove_torrent(th.swig(), options.swig());
         }
@@ -550,97 +610,6 @@ public class SessionHandle {
         SwigPlugin p = new SwigPlugin(plugin);
         s.add_extension(p);
         p.swigReleaseOwnership();
-    }
-
-
-    /**
-     * Flags that determines which aspects of the session should be
-     * saved when calling {@link #saveState(long)}
-     */
-    public enum SaveStateFlags {
-
-        /**
-         * Saves settings (i.e. the {@link SettingsPack}).
-         */
-        SAVE_SETTINGS(session_handle.save_state_flags_t.save_settings.swigValue()),
-
-        /**
-         * Saves {@link DhtSettings}.
-         */
-        SAVE_DHT_SETTINGS(session_handle.save_state_flags_t.save_dht_settings.swigValue()),
-
-        /**
-         * Saves dht state such as nodes and node-id, possibly accelerating
-         * joining the DHT if provided at next session startup.
-         */
-        SAVE_DHT_STATE(session_handle.save_state_flags_t.save_dht_state.swigValue()),
-
-        /**
-         * Save pe_settings.
-         */
-        SAVE_ENCRYPTION_SETTINGS(session_handle.save_state_flags_t.save_encryption_settings.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        SaveStateFlags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return the native value
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue the native value
-         * @return the java enum
-         */
-        public static SaveStateFlags fromSwig(int swigValue) {
-            SaveStateFlags[] enumValues = SaveStateFlags.class.getEnumConstants();
-            for (SaveStateFlags ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
-    }
-
-    /**
-     * Flags to be passed in to {@link #removeTorrent(TorrentHandle, Options)}.
-     */
-    public enum Options {
-
-        /**
-         * Delete the files belonging to the torrent from disk,
-         * including the part-file, if there is one.
-         */
-        DELETE_FILES(session_handle.options_t.delete_files.swigValue()),
-
-        /**
-         * Delete just the part-file associated with this torrent.
-         */
-        DELETE_PARTFILE(session_handle.options_t.delete_partfile.swigValue());
-
-        Options(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return the native value
-         */
-        public int swig() {
-            return swigValue;
-        }
     }
 
     /**

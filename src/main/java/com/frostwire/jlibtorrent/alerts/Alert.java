@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.swig.alert;
+import com.frostwire.jlibtorrent.swig.alert_category_t;
 
 /**
  * @author gubatron
@@ -71,7 +72,7 @@ public interface Alert<T extends alert> {
     /**
      * Returns a bitmask specifying which categories this alert belong to.
      *
-     * @return
+     * @return the alert category
      */
-    int category();
+    alert_category_t category();
 }

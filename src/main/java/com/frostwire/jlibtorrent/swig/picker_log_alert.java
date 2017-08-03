@@ -39,8 +39,8 @@ public class picker_log_alert extends peer_alert {
     return libtorrent_jni.picker_log_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.picker_log_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.picker_log_alert_category(swigCPtr, this), true);
   }
 
   public String what() {
@@ -51,69 +51,28 @@ public class picker_log_alert extends peer_alert {
     return libtorrent_jni.picker_log_alert_message(swigCPtr, this);
   }
 
-  public long getPicker_flags() {
-    return libtorrent_jni.picker_log_alert_picker_flags_get(swigCPtr, this);
+  public picker_flags_t getPicker_flags() {
+    long cPtr = libtorrent_jni.picker_log_alert_picker_flags_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new picker_flags_t(cPtr, false);
   }
 
   public final static int priority = libtorrent_jni.picker_log_alert_priority_get();
   public final static int alert_type = libtorrent_jni.picker_log_alert_alert_type_get();
-  public final static int static_category = libtorrent_jni.picker_log_alert_static_category_get();
-  public final static class picker_flags_t {
-    public final static picker_log_alert.picker_flags_t partial_ratio = new picker_log_alert.picker_flags_t("partial_ratio", libtorrent_jni.picker_log_alert_partial_ratio_get());
-    public final static picker_log_alert.picker_flags_t prioritize_partials = new picker_log_alert.picker_flags_t("prioritize_partials", libtorrent_jni.picker_log_alert_prioritize_partials_get());
-    public final static picker_log_alert.picker_flags_t rarest_first_partials = new picker_log_alert.picker_flags_t("rarest_first_partials", libtorrent_jni.picker_log_alert_rarest_first_partials_get());
-    public final static picker_log_alert.picker_flags_t rarest_first = new picker_log_alert.picker_flags_t("rarest_first", libtorrent_jni.picker_log_alert_rarest_first_get());
-    public final static picker_log_alert.picker_flags_t reverse_rarest_first = new picker_log_alert.picker_flags_t("reverse_rarest_first", libtorrent_jni.picker_log_alert_reverse_rarest_first_get());
-    public final static picker_log_alert.picker_flags_t suggested_pieces = new picker_log_alert.picker_flags_t("suggested_pieces", libtorrent_jni.picker_log_alert_suggested_pieces_get());
-    public final static picker_log_alert.picker_flags_t prio_sequential_pieces = new picker_log_alert.picker_flags_t("prio_sequential_pieces", libtorrent_jni.picker_log_alert_prio_sequential_pieces_get());
-    public final static picker_log_alert.picker_flags_t sequential_pieces = new picker_log_alert.picker_flags_t("sequential_pieces", libtorrent_jni.picker_log_alert_sequential_pieces_get());
-    public final static picker_log_alert.picker_flags_t reverse_pieces = new picker_log_alert.picker_flags_t("reverse_pieces", libtorrent_jni.picker_log_alert_reverse_pieces_get());
-    public final static picker_log_alert.picker_flags_t time_critical = new picker_log_alert.picker_flags_t("time_critical", libtorrent_jni.picker_log_alert_time_critical_get());
-    public final static picker_log_alert.picker_flags_t random_pieces = new picker_log_alert.picker_flags_t("random_pieces", libtorrent_jni.picker_log_alert_random_pieces_get());
-    public final static picker_log_alert.picker_flags_t prefer_contiguous = new picker_log_alert.picker_flags_t("prefer_contiguous", libtorrent_jni.picker_log_alert_prefer_contiguous_get());
-    public final static picker_log_alert.picker_flags_t reverse_sequential = new picker_log_alert.picker_flags_t("reverse_sequential", libtorrent_jni.picker_log_alert_reverse_sequential_get());
-    public final static picker_log_alert.picker_flags_t backup1 = new picker_log_alert.picker_flags_t("backup1", libtorrent_jni.picker_log_alert_backup1_get());
-    public final static picker_log_alert.picker_flags_t backup2 = new picker_log_alert.picker_flags_t("backup2", libtorrent_jni.picker_log_alert_backup2_get());
-    public final static picker_log_alert.picker_flags_t end_game = new picker_log_alert.picker_flags_t("end_game", libtorrent_jni.picker_log_alert_end_game_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static picker_flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + picker_flags_t.class + " with value " + swigValue);
-    }
-
-    private picker_flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private picker_flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private picker_flags_t(String swigName, picker_flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static picker_flags_t[] swigValues = { partial_ratio, prioritize_partials, rarest_first_partials, rarest_first, reverse_rarest_first, suggested_pieces, prio_sequential_pieces, sequential_pieces, reverse_pieces, time_critical, random_pieces, prefer_contiguous, reverse_sequential, backup1, backup2, end_game };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.picker_log_alert_static_category_get(), false);
+  public final static picker_flags_t partial_ratio = new picker_flags_t(libtorrent_jni.picker_log_alert_partial_ratio_get(), false);
+  public final static picker_flags_t prioritize_partials = new picker_flags_t(libtorrent_jni.picker_log_alert_prioritize_partials_get(), false);
+  public final static picker_flags_t rarest_first_partials = new picker_flags_t(libtorrent_jni.picker_log_alert_rarest_first_partials_get(), false);
+  public final static picker_flags_t rarest_first = new picker_flags_t(libtorrent_jni.picker_log_alert_rarest_first_get(), false);
+  public final static picker_flags_t reverse_rarest_first = new picker_flags_t(libtorrent_jni.picker_log_alert_reverse_rarest_first_get(), false);
+  public final static picker_flags_t suggested_pieces = new picker_flags_t(libtorrent_jni.picker_log_alert_suggested_pieces_get(), false);
+  public final static picker_flags_t prio_sequential_pieces = new picker_flags_t(libtorrent_jni.picker_log_alert_prio_sequential_pieces_get(), false);
+  public final static picker_flags_t sequential_pieces = new picker_flags_t(libtorrent_jni.picker_log_alert_sequential_pieces_get(), false);
+  public final static picker_flags_t reverse_pieces = new picker_flags_t(libtorrent_jni.picker_log_alert_reverse_pieces_get(), false);
+  public final static picker_flags_t time_critical = new picker_flags_t(libtorrent_jni.picker_log_alert_time_critical_get(), false);
+  public final static picker_flags_t random_pieces = new picker_flags_t(libtorrent_jni.picker_log_alert_random_pieces_get(), false);
+  public final static picker_flags_t prefer_contiguous = new picker_flags_t(libtorrent_jni.picker_log_alert_prefer_contiguous_get(), false);
+  public final static picker_flags_t reverse_sequential = new picker_flags_t(libtorrent_jni.picker_log_alert_reverse_sequential_get(), false);
+  public final static picker_flags_t backup1 = new picker_flags_t(libtorrent_jni.picker_log_alert_backup1_get(), false);
+  public final static picker_flags_t backup2 = new picker_flags_t(libtorrent_jni.picker_log_alert_backup2_get(), false);
+  public final static picker_flags_t end_game = new picker_flags_t(libtorrent_jni.picker_log_alert_end_game_get(), false);
 }

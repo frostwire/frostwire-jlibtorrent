@@ -47,8 +47,8 @@ public class alert {
     return libtorrent_jni.alert_message(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.alert_category(swigCPtr, this), true);
   }
 
   public static torrent_alert cast_to_torrent_alert(alert a) {
@@ -505,67 +505,25 @@ public class alert {
     return libtorrent_jni.alert_get_timestamp(swigCPtr, this);
   }
 
-  public final static class category_t {
-    public final static alert.category_t error_notification = new alert.category_t("error_notification", libtorrent_jni.alert_error_notification_get());
-    public final static alert.category_t peer_notification = new alert.category_t("peer_notification", libtorrent_jni.alert_peer_notification_get());
-    public final static alert.category_t port_mapping_notification = new alert.category_t("port_mapping_notification", libtorrent_jni.alert_port_mapping_notification_get());
-    public final static alert.category_t storage_notification = new alert.category_t("storage_notification", libtorrent_jni.alert_storage_notification_get());
-    public final static alert.category_t tracker_notification = new alert.category_t("tracker_notification", libtorrent_jni.alert_tracker_notification_get());
-    public final static alert.category_t debug_notification = new alert.category_t("debug_notification", libtorrent_jni.alert_debug_notification_get());
-    public final static alert.category_t status_notification = new alert.category_t("status_notification", libtorrent_jni.alert_status_notification_get());
-    public final static alert.category_t progress_notification = new alert.category_t("progress_notification", libtorrent_jni.alert_progress_notification_get());
-    public final static alert.category_t ip_block_notification = new alert.category_t("ip_block_notification", libtorrent_jni.alert_ip_block_notification_get());
-    public final static alert.category_t performance_warning = new alert.category_t("performance_warning", libtorrent_jni.alert_performance_warning_get());
-    public final static alert.category_t dht_notification = new alert.category_t("dht_notification", libtorrent_jni.alert_dht_notification_get());
-    public final static alert.category_t stats_notification = new alert.category_t("stats_notification", libtorrent_jni.alert_stats_notification_get());
-    public final static alert.category_t session_log_notification = new alert.category_t("session_log_notification", libtorrent_jni.alert_session_log_notification_get());
-    public final static alert.category_t torrent_log_notification = new alert.category_t("torrent_log_notification", libtorrent_jni.alert_torrent_log_notification_get());
-    public final static alert.category_t peer_log_notification = new alert.category_t("peer_log_notification", libtorrent_jni.alert_peer_log_notification_get());
-    public final static alert.category_t incoming_request_notification = new alert.category_t("incoming_request_notification", libtorrent_jni.alert_incoming_request_notification_get());
-    public final static alert.category_t dht_log_notification = new alert.category_t("dht_log_notification", libtorrent_jni.alert_dht_log_notification_get());
-    public final static alert.category_t dht_operation_notification = new alert.category_t("dht_operation_notification", libtorrent_jni.alert_dht_operation_notification_get());
-    public final static alert.category_t port_mapping_log_notification = new alert.category_t("port_mapping_log_notification", libtorrent_jni.alert_port_mapping_log_notification_get());
-    public final static alert.category_t picker_log_notification = new alert.category_t("picker_log_notification", libtorrent_jni.alert_picker_log_notification_get());
-    public final static alert.category_t all_categories = new alert.category_t("all_categories", libtorrent_jni.alert_all_categories_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static category_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + category_t.class + " with value " + swigValue);
-    }
-
-    private category_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private category_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private category_t(String swigName, category_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static category_t[] swigValues = { error_notification, peer_notification, port_mapping_notification, storage_notification, tracker_notification, debug_notification, status_notification, progress_notification, ip_block_notification, performance_warning, dht_notification, stats_notification, session_log_notification, torrent_log_notification, peer_log_notification, incoming_request_notification, dht_log_notification, dht_operation_notification, port_mapping_log_notification, picker_log_notification, all_categories };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static alert_category_t error_notification = new alert_category_t(libtorrent_jni.alert_error_notification_get(), false);
+  public final static alert_category_t peer_notification = new alert_category_t(libtorrent_jni.alert_peer_notification_get(), false);
+  public final static alert_category_t port_mapping_notification = new alert_category_t(libtorrent_jni.alert_port_mapping_notification_get(), false);
+  public final static alert_category_t storage_notification = new alert_category_t(libtorrent_jni.alert_storage_notification_get(), false);
+  public final static alert_category_t tracker_notification = new alert_category_t(libtorrent_jni.alert_tracker_notification_get(), false);
+  public final static alert_category_t debug_notification = new alert_category_t(libtorrent_jni.alert_debug_notification_get(), false);
+  public final static alert_category_t status_notification = new alert_category_t(libtorrent_jni.alert_status_notification_get(), false);
+  public final static alert_category_t progress_notification = new alert_category_t(libtorrent_jni.alert_progress_notification_get(), false);
+  public final static alert_category_t ip_block_notification = new alert_category_t(libtorrent_jni.alert_ip_block_notification_get(), false);
+  public final static alert_category_t performance_warning = new alert_category_t(libtorrent_jni.alert_performance_warning_get(), false);
+  public final static alert_category_t dht_notification = new alert_category_t(libtorrent_jni.alert_dht_notification_get(), false);
+  public final static alert_category_t stats_notification = new alert_category_t(libtorrent_jni.alert_stats_notification_get(), false);
+  public final static alert_category_t session_log_notification = new alert_category_t(libtorrent_jni.alert_session_log_notification_get(), false);
+  public final static alert_category_t torrent_log_notification = new alert_category_t(libtorrent_jni.alert_torrent_log_notification_get(), false);
+  public final static alert_category_t peer_log_notification = new alert_category_t(libtorrent_jni.alert_peer_log_notification_get(), false);
+  public final static alert_category_t incoming_request_notification = new alert_category_t(libtorrent_jni.alert_incoming_request_notification_get(), false);
+  public final static alert_category_t dht_log_notification = new alert_category_t(libtorrent_jni.alert_dht_log_notification_get(), false);
+  public final static alert_category_t dht_operation_notification = new alert_category_t(libtorrent_jni.alert_dht_operation_notification_get(), false);
+  public final static alert_category_t port_mapping_log_notification = new alert_category_t(libtorrent_jni.alert_port_mapping_log_notification_get(), false);
+  public final static alert_category_t picker_log_notification = new alert_category_t(libtorrent_jni.alert_picker_log_notification_get(), false);
+  public final static alert_category_t all_categories = new alert_category_t(libtorrent_jni.alert_all_categories_get(), false);
 }

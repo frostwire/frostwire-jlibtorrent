@@ -39,28 +39,16 @@ public class torrent_info {
     this(libtorrent_jni.new_torrent_info__SWIG_0(torrent_info.getCPtr(t), t), true);
   }
 
-  public torrent_info(sha1_hash info_hash, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_1(sha1_hash.getCPtr(info_hash), info_hash, flags), true);
-  }
-
   public torrent_info(sha1_hash info_hash) {
-    this(libtorrent_jni.new_torrent_info__SWIG_2(sha1_hash.getCPtr(info_hash), info_hash), true);
-  }
-
-  public torrent_info(bdecode_node torrent_file, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_3(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_1(sha1_hash.getCPtr(info_hash), info_hash), true);
   }
 
   public torrent_info(bdecode_node torrent_file, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_4(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec), true);
-  }
-
-  public torrent_info(String filename, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_5(filename, error_code.getCPtr(ec), ec, flags), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_2(bdecode_node.getCPtr(torrent_file), torrent_file, error_code.getCPtr(ec), ec), true);
   }
 
   public torrent_info(String filename, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_6(filename, error_code.getCPtr(ec), ec), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_3(filename, error_code.getCPtr(ec), ec), true);
   }
 
   public file_storage files() {
@@ -235,12 +223,8 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_is_merkle_torrent(swigCPtr, this);
   }
 
-  public torrent_info(long buffer_ptr, int size, error_code ec, int flags) {
-    this(libtorrent_jni.new_torrent_info__SWIG_7(buffer_ptr, size, error_code.getCPtr(ec), ec, flags), true);
-  }
-
   public torrent_info(long buffer_ptr, int size, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_8(buffer_ptr, size, error_code.getCPtr(ec), ec), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_4(buffer_ptr, size, error_code.getCPtr(ec), ec), true);
   }
 
 }

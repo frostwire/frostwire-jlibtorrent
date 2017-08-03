@@ -47,8 +47,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_get_peer_info(swigCPtr, this, peer_info_vector.getCPtr(v), v);
   }
 
-  public torrent_status status(long flags) {
-    return new torrent_status(libtorrent_jni.torrent_handle_status__SWIG_0(swigCPtr, this, flags), true);
+  public torrent_status status(status_flags_t flags) {
+    return new torrent_status(libtorrent_jni.torrent_handle_status__SWIG_0(swigCPtr, this, status_flags_t.getCPtr(flags), flags), true);
   }
 
   public torrent_status status() {
@@ -59,8 +59,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_get_download_queue(swigCPtr, this, partial_piece_info_vector.getCPtr(queue), queue);
   }
 
-  public void set_piece_deadline(int index, int deadline, int flags) {
-    libtorrent_jni.torrent_handle_set_piece_deadline__SWIG_0(swigCPtr, this, index, deadline, flags);
+  public void set_piece_deadline(int index, int deadline, deadline_flags_t flags) {
+    libtorrent_jni.torrent_handle_set_piece_deadline__SWIG_0(swigCPtr, this, index, deadline, deadline_flags_t.getCPtr(flags), flags);
   }
 
   public void set_piece_deadline(int index, int deadline) {
@@ -119,8 +119,8 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_is_valid(swigCPtr, this);
   }
 
-  public void pause(int flags) {
-    libtorrent_jni.torrent_handle_pause__SWIG_0(swigCPtr, this, flags);
+  public void pause(pause_flags_t flags) {
+    libtorrent_jni.torrent_handle_pause__SWIG_0(swigCPtr, this, pause_flags_t.getCPtr(flags), flags);
   }
 
   public void pause() {
@@ -153,8 +153,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_force_recheck(swigCPtr, this);
   }
 
-  public void save_resume_data(int flags) {
-    libtorrent_jni.torrent_handle_save_resume_data__SWIG_0(swigCPtr, this, flags);
+  public void save_resume_data(resume_data_flags_t flags) {
+    libtorrent_jni.torrent_handle_save_resume_data__SWIG_0(swigCPtr, this, resume_data_flags_t.getCPtr(flags), flags);
   }
 
   public void save_resume_data() {
@@ -317,8 +317,8 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_id(swigCPtr, this);
   }
 
-  public void add_piece_bytes(int piece, byte_vector data, int flags) {
-    libtorrent_jni.torrent_handle_add_piece_bytes__SWIG_0(swigCPtr, this, piece, byte_vector.getCPtr(data), data, flags);
+  public void add_piece_bytes(int piece, byte_vector data, add_piece_flags_t flags) {
+    libtorrent_jni.torrent_handle_add_piece_bytes__SWIG_0(swigCPtr, this, piece, byte_vector.getCPtr(data), data, add_piece_flags_t.getCPtr(flags), flags);
   }
 
   public void add_piece_bytes(int piece, byte_vector data) {
@@ -350,142 +350,16 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_connect_peer2__SWIG_2(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr);
   }
 
-  public final static class flags_t {
-    public final static torrent_handle.flags_t overwrite_existing = new torrent_handle.flags_t("overwrite_existing", libtorrent_jni.torrent_handle_overwrite_existing_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + flags_t.class + " with value " + swigValue);
-    }
-
-    private flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private flags_t(String swigName, flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static flags_t[] swigValues = { overwrite_existing };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
-  public final static class status_flags_t {
-    public final static torrent_handle.status_flags_t query_distributed_copies = new torrent_handle.status_flags_t("query_distributed_copies", libtorrent_jni.torrent_handle_query_distributed_copies_get());
-    public final static torrent_handle.status_flags_t query_accurate_download_counters = new torrent_handle.status_flags_t("query_accurate_download_counters", libtorrent_jni.torrent_handle_query_accurate_download_counters_get());
-    public final static torrent_handle.status_flags_t query_last_seen_complete = new torrent_handle.status_flags_t("query_last_seen_complete", libtorrent_jni.torrent_handle_query_last_seen_complete_get());
-    public final static torrent_handle.status_flags_t query_pieces = new torrent_handle.status_flags_t("query_pieces", libtorrent_jni.torrent_handle_query_pieces_get());
-    public final static torrent_handle.status_flags_t query_verified_pieces = new torrent_handle.status_flags_t("query_verified_pieces", libtorrent_jni.torrent_handle_query_verified_pieces_get());
-    public final static torrent_handle.status_flags_t query_torrent_file = new torrent_handle.status_flags_t("query_torrent_file", libtorrent_jni.torrent_handle_query_torrent_file_get());
-    public final static torrent_handle.status_flags_t query_name = new torrent_handle.status_flags_t("query_name", libtorrent_jni.torrent_handle_query_name_get());
-    public final static torrent_handle.status_flags_t query_save_path = new torrent_handle.status_flags_t("query_save_path", libtorrent_jni.torrent_handle_query_save_path_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static status_flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + status_flags_t.class + " with value " + swigValue);
-    }
-
-    private status_flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private status_flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private status_flags_t(String swigName, status_flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static status_flags_t[] swigValues = { query_distributed_copies, query_accurate_download_counters, query_last_seen_complete, query_pieces, query_verified_pieces, query_torrent_file, query_name, query_save_path };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
-  public final static class deadline_flags {
-    public final static torrent_handle.deadline_flags alert_when_available = new torrent_handle.deadline_flags("alert_when_available", libtorrent_jni.torrent_handle_alert_when_available_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static deadline_flags swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + deadline_flags.class + " with value " + swigValue);
-    }
-
-    private deadline_flags(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private deadline_flags(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private deadline_flags(String swigName, deadline_flags swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static deadline_flags[] swigValues = { alert_when_available };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static add_piece_flags_t overwrite_existing = new add_piece_flags_t(libtorrent_jni.torrent_handle_overwrite_existing_get(), false);
+  public final static status_flags_t query_distributed_copies = new status_flags_t(libtorrent_jni.torrent_handle_query_distributed_copies_get(), false);
+  public final static status_flags_t query_accurate_download_counters = new status_flags_t(libtorrent_jni.torrent_handle_query_accurate_download_counters_get(), false);
+  public final static status_flags_t query_last_seen_complete = new status_flags_t(libtorrent_jni.torrent_handle_query_last_seen_complete_get(), false);
+  public final static status_flags_t query_pieces = new status_flags_t(libtorrent_jni.torrent_handle_query_pieces_get(), false);
+  public final static status_flags_t query_verified_pieces = new status_flags_t(libtorrent_jni.torrent_handle_query_verified_pieces_get(), false);
+  public final static status_flags_t query_torrent_file = new status_flags_t(libtorrent_jni.torrent_handle_query_torrent_file_get(), false);
+  public final static status_flags_t query_name = new status_flags_t(libtorrent_jni.torrent_handle_query_name_get(), false);
+  public final static status_flags_t query_save_path = new status_flags_t(libtorrent_jni.torrent_handle_query_save_path_get(), false);
+  public final static deadline_flags_t alert_when_available = new deadline_flags_t(libtorrent_jni.torrent_handle_alert_when_available_get(), false);
   public final static class file_progress_flags_t {
     public final static torrent_handle.file_progress_flags_t piece_granularity = new torrent_handle.file_progress_flags_t("piece_granularity", libtorrent_jni.torrent_handle_piece_granularity_get());
 
@@ -529,92 +403,8 @@ public class torrent_handle {
     private final String swigName;
   }
 
-  public final static class pause_flags_t {
-    public final static torrent_handle.pause_flags_t graceful_pause = new torrent_handle.pause_flags_t("graceful_pause", libtorrent_jni.torrent_handle_graceful_pause_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static pause_flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + pause_flags_t.class + " with value " + swigValue);
-    }
-
-    private pause_flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private pause_flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private pause_flags_t(String swigName, pause_flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static pause_flags_t[] swigValues = { graceful_pause };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
-  public final static class save_resume_flags_t {
-    public final static torrent_handle.save_resume_flags_t flush_disk_cache = new torrent_handle.save_resume_flags_t("flush_disk_cache", libtorrent_jni.torrent_handle_flush_disk_cache_get());
-    public final static torrent_handle.save_resume_flags_t save_info_dict = new torrent_handle.save_resume_flags_t("save_info_dict", libtorrent_jni.torrent_handle_save_info_dict_get());
-    public final static torrent_handle.save_resume_flags_t only_if_modified = new torrent_handle.save_resume_flags_t("only_if_modified", libtorrent_jni.torrent_handle_only_if_modified_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static save_resume_flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + save_resume_flags_t.class + " with value " + swigValue);
-    }
-
-    private save_resume_flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private save_resume_flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private save_resume_flags_t(String swigName, save_resume_flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static save_resume_flags_t[] swigValues = { flush_disk_cache, save_info_dict, only_if_modified };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static pause_flags_t graceful_pause = new pause_flags_t(libtorrent_jni.torrent_handle_graceful_pause_get(), false);
+  public final static resume_data_flags_t flush_disk_cache = new resume_data_flags_t(libtorrent_jni.torrent_handle_flush_disk_cache_get(), false);
+  public final static resume_data_flags_t save_info_dict = new resume_data_flags_t(libtorrent_jni.torrent_handle_save_info_dict_get(), false);
+  public final static resume_data_flags_t only_if_modified = new resume_data_flags_t(libtorrent_jni.torrent_handle_only_if_modified_get(), false);
 }

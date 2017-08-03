@@ -39,8 +39,8 @@ public class peer_disconnected_alert extends peer_alert {
     return libtorrent_jni.peer_disconnected_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.peer_disconnected_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.peer_disconnected_alert_category(swigCPtr, this), true);
   }
 
   public String what() {
@@ -70,5 +70,5 @@ public class peer_disconnected_alert extends peer_alert {
 
   public final static int priority = libtorrent_jni.peer_disconnected_alert_priority_get();
   public final static int alert_type = libtorrent_jni.peer_disconnected_alert_alert_type_get();
-  public final static int static_category = libtorrent_jni.peer_disconnected_alert_static_category_get();
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.peer_disconnected_alert_static_category_get(), false);
 }
