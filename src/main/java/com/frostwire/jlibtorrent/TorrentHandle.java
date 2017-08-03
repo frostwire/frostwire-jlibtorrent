@@ -63,6 +63,12 @@ public final class TorrentHandle {
             this.f = f;
         }
 
+        public add_piece_flags_t swig() {
+            return f;
+        }
+
+        public static final AddPieceFlags ZERO = new AddPieceFlags(new add_piece_flags_t());
+
         /**
          * Instruct libtorrent to overwrite any data that may already have been
          * downloaded with the data of the new piece being added.
@@ -93,11 +99,11 @@ public final class TorrentHandle {
      * @param flags flags
      */
     public void addPiece(int piece, byte[] data, AddPieceFlags flags) {
-        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags.f);
+        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags.swig());
     }
 
     /**
-     * Same as calling {@link #addPiece(int, byte[], int)} with
+     * Same as calling {@link #addPiece(int, byte[], AddPieceFlags)} with
      * {@code flags} with value 0.
      *
      * @param piece the piece index
@@ -206,7 +212,7 @@ public final class TorrentHandle {
         long now = System.currentTimeMillis();
         if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
             lastStatusRequestTime = now;
-            lastStatus = new TorrentStatus(th.status(StatusFlags.ZERO.f));
+            lastStatus = new TorrentStatus(th.status(StatusFlags.ZERO.swig()));
         }
 
         return lastStatus;
@@ -302,7 +308,7 @@ public final class TorrentHandle {
      * @return the status
      */
     public TorrentStatus status(StatusFlags flags) {
-        return new TorrentStatus(th.status(flags.f));
+        return new TorrentStatus(th.status(flags.swig()));
     }
 
     /**
@@ -1076,6 +1082,8 @@ public final class TorrentHandle {
         public deadline_flags_t swig() {
             return f;
         }
+
+        public static final DeadlineFlags ZERO = new DeadlineFlags(new deadline_flags_t());
 
         /**
          *

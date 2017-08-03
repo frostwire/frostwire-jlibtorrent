@@ -47,7 +47,7 @@ public class SessionHandle {
 
     /**
      * Flags that determines which aspects of the session should be
-     * saved when calling {@link #saveState(long)}
+     * saved when calling {@link #saveState(SaveStateFlags)}
      */
     public static final class SaveStateFlags {
 
@@ -60,6 +60,8 @@ public class SessionHandle {
         public save_state_flags_t swig() {
             return f;
         }
+
+        public static final SaveStateFlags ZERO = new SaveStateFlags(new save_state_flags_t());
 
         /**
          * Saves settings (i.e. the {@link SettingsPack}).
@@ -85,9 +87,9 @@ public class SessionHandle {
 
     /**
      * Loads and saves all session settings, including dht settings,
-     * encryption settings and proxy settings. {@link #saveState(long)}
-     * internally writes all keys to an {@link entry} that's passed in,
-     * which needs to either not be initialized, or initialized as a dictionary.
+     * encryption settings and proxy settings. This method
+     * internally writes all keys to an {@link entry} that is returned
+     * as a bencoded byte array.
      * <p>
      * The {@code flags} argument passed in to this method can be used to
      * filter which parts of the session state to save. By default, all state
@@ -288,6 +290,8 @@ public class SessionHandle {
         public remove_flags_t swig() {
             return f;
         }
+
+        public static final RemoveFlags ZERO = new RemoveFlags(new remove_flags_t());
 
         /**
          * Delete the files belonging to the torrent from disk,
