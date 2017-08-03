@@ -75,11 +75,14 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_trackerid_get(swigCPtr, this);
   }
 
-  public void setFlags(long value) {
-    libtorrent_jni.add_torrent_params_flags_set(swigCPtr, this, value);
+  public void setFlags(torrent_flags_t value) {
+    libtorrent_jni.add_torrent_params_flags_set(swigCPtr, this, torrent_flags_t.getCPtr(value), value);
   }
 
-  public long getFlags() {     return libtorrent_jni.add_torrent_params_flags_get(swigCPtr, this);   }
+  public torrent_flags_t getFlags() {
+    long cPtr = libtorrent_jni.add_torrent_params_flags_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
 
   public void setInfo_hash(sha1_hash value) {
     libtorrent_jni.add_torrent_params_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);

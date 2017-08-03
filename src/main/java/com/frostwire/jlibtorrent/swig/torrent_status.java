@@ -568,11 +568,14 @@ public class torrent_status {
     return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
-  public void setFlags(long value) {
-    libtorrent_jni.torrent_status_flags_set(swigCPtr, this, value);
+  public void setFlags(torrent_flags_t value) {
+    libtorrent_jni.torrent_status_flags_set(swigCPtr, this, torrent_flags_t.getCPtr(value), value);
   }
 
-  public long getFlags() {     return libtorrent_jni.torrent_status_flags_get(swigCPtr, this);   }
+  public torrent_flags_t getFlags() {
+    long cPtr = libtorrent_jni.torrent_status_flags_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
 
   public torrent_info torrent_file_ptr() {
     long cPtr = libtorrent_jni.torrent_status_torrent_file_ptr(swigCPtr, this);

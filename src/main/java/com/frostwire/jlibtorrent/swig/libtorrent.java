@@ -29,6 +29,86 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.version();
   }
 
+  public static torrent_flags_t getSeed_mode() {
+    long cPtr = libtorrent_jni.seed_mode_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getUpload_mode() {
+    long cPtr = libtorrent_jni.upload_mode_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getShare_mode() {
+    long cPtr = libtorrent_jni.share_mode_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getApply_ip_filter() {
+    long cPtr = libtorrent_jni.apply_ip_filter_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getPaused() {
+    long cPtr = libtorrent_jni.paused_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getAuto_managed() {
+    long cPtr = libtorrent_jni.auto_managed_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getDuplicate_is_error() {
+    long cPtr = libtorrent_jni.duplicate_is_error_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getUpdate_subscribe() {
+    long cPtr = libtorrent_jni.update_subscribe_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getSuper_seeding() {
+    long cPtr = libtorrent_jni.super_seeding_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getSequential_download() {
+    long cPtr = libtorrent_jni.sequential_download_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getStop_when_ready() {
+    long cPtr = libtorrent_jni.stop_when_ready_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getOverride_trackers() {
+    long cPtr = libtorrent_jni.override_trackers_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getOverride_web_seeds() {
+    long cPtr = libtorrent_jni.override_web_seeds_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getNeed_save_resume() {
+    long cPtr = libtorrent_jni.need_save_resume_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getAll() {
+    long cPtr = libtorrent_jni.all_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
+  public static torrent_flags_t getDefault_flags() {
+    long cPtr = libtorrent_jni.default_flags_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
   public static String operation_name(operation_t op) {
     return libtorrent_jni.operation_name(op.swigValue());
   }

@@ -131,18 +131,20 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_resume(swigCPtr, this);
   }
 
-  public long flags() {     return libtorrent_jni.torrent_handle_flags(swigCPtr, this);   }
-
-  public void set_flags(long flags, long mask) {
-    libtorrent_jni.torrent_handle_set_flags__SWIG_0(swigCPtr, this, flags, mask);
+  public torrent_flags_t flags() {
+    return new torrent_flags_t(libtorrent_jni.torrent_handle_flags(swigCPtr, this), true);
   }
 
-  public void set_flags(long flags) {
-    libtorrent_jni.torrent_handle_set_flags__SWIG_1(swigCPtr, this, flags);
+  public void set_flags(torrent_flags_t flags, torrent_flags_t mask) {
+    libtorrent_jni.torrent_handle_set_flags__SWIG_0(swigCPtr, this, torrent_flags_t.getCPtr(flags), flags, torrent_flags_t.getCPtr(mask), mask);
   }
 
-  public void unset_flags(long flags) {
-    libtorrent_jni.torrent_handle_unset_flags(swigCPtr, this, flags);
+  public void set_flags(torrent_flags_t flags) {
+    libtorrent_jni.torrent_handle_set_flags__SWIG_1(swigCPtr, this, torrent_flags_t.getCPtr(flags), flags);
+  }
+
+  public void unset_flags(torrent_flags_t flags) {
+    libtorrent_jni.torrent_handle_unset_flags(swigCPtr, this, torrent_flags_t.getCPtr(flags), flags);
   }
 
   public void flush_cache() {

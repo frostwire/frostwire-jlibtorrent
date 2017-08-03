@@ -20,6 +20,7 @@
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/bdecode.hpp"
 #include "libtorrent/bencode.hpp"
+#include "libtorrent/torrent_flags.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
 #include "libtorrent/add_torrent_params.hpp"
@@ -49,8 +50,6 @@
 using piece_index_t = libtorrent::piece_index_t;
 using file_index_t = libtorrent::file_index_t;
 using peer_class_t = libtorrent::peer_class_t;
-
-using torrent_flags_t = libtorrent::torrent_flags_t;
 
 // END common set include ------------------------------------------------------
 %}
@@ -184,7 +183,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
     return $jnicall;\
   }
 
-TYPE_INTEGRAL_CONVERSION(torrent_flags_t, std::uint64_t, long)
+//TYPE_INTEGRAL_CONVERSION(torrent_flags_t, std::uint64_t, long)
 
 #endif // SWIGJAVA
 
@@ -197,10 +196,9 @@ TYPE_INTEGRAL_CONVERSION(torrent_flags_t, std::uint64_t, long)
 %apply int8_t { char };
 %apply std::int8_t { std::uint8_t };
 %apply int64_t { void* };
+%apply std::int64_t { std::uint64_t };
 
 namespace std {
-
-    typedef int64_t uint64_t;
 
     template<class T> class vector {
     public:
@@ -403,7 +401,7 @@ namespace libtorrent {
 
                 int to_int()
                 {
-                    return static_cast<int>($self->operator UnderlyingType());
+                    return static_cast<int>(static_cast<UnderlyingType>(*$self));
                 }
             }
         };
@@ -429,6 +427,8 @@ namespace libtorrent {
     %template(remove_flags_t) flags::bitfield_flag<std::uint8_t, remove_flags_tag>;
     struct save_state_flags_tag;
     %template(save_state_flags_t) flags::bitfield_flag<std::uint32_t, save_state_flags_tag>;
+    struct torrent_flags_tag;
+    %template(torrent_flags_t) flags::bitfield_flag<std::uint64_t, torrent_flags_tag>;
 
     typedef sha1_hash peer_id;
 
@@ -980,28 +980,6 @@ namespace libtorrent {
             }
         }
     };
-
-    %nodefaultctor torrent_flags;
-    %nodefaultdtor torrent_flags;
-    struct torrent_flags {
-        %javaconst(1);
-        static const std::int64_t seed_mode = 0x001;
-        static const std::int64_t upload_mode = 0x004;
-        static const std::int64_t share_mode = 0x008;
-        static const std::int64_t apply_ip_filter = 0x010;
-        static const std::int64_t paused = 0x020;
-        static const std::int64_t auto_managed = 0x040;
-        static const std::int64_t duplicate_is_error = 0x080;
-        static const std::int64_t update_subscribe = 0x200;
-        static const std::int64_t super_seeding = 0x400;
-        static const std::int64_t sequential_download = 0x800;
-        static const std::int64_t stop_when_ready = 0x2000;
-        static const std::int64_t override_trackers = 0x4000;
-        static const std::int64_t override_web_seeds = 0x8000;
-        static const std::int64_t need_save_resume = 0x10000;
-        static const std::int64_t all = 0x7fffffffffffffffL;
-        %javaconst(0);
-    };
 };
 
 typedef std::int64_t time_t;
@@ -1360,6 +1338,7 @@ typedef std::int64_t time_t;
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/bdecode.hpp"
 %include "libtorrent/bencode.hpp"
+%include "libtorrent/torrent_flags.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/torrent_handle.hpp"
 %include "libtorrent/add_torrent_params.hpp"

@@ -668,8 +668,8 @@ public final class TorrentStatus implements Cloneable {
         return ts.get_seeding_duration();
     }
 
-    public long flags() {
-        return ts.getFlags();
+    public TorrentFlags flags() {
+        return new TorrentFlags(ts.getFlags());
     }
 
     @Override
