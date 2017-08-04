@@ -2832,7 +2832,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piece
   arg1 = *(std::pair< piece_index_t,int > **)&jarg1; 
   result =  ((arg1)->first);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -20209,7 +20209,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piece
     }
   }
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -23445,7 +23445,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
   arg1 = *(libtorrent::peer_request **)&jarg1; 
   result =  ((arg1)->piece);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -23607,7 +23607,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
   arg1 = *(libtorrent::file_slice **)&jarg1; 
   result =  ((arg1)->file_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -24429,7 +24429,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -24456,7 +24456,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -24556,7 +24556,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -24583,7 +24583,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -25271,7 +25271,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -27264,7 +27264,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
   arg1 = *(libtorrent::peer_info **)&jarg1; 
   result =  ((arg1)->downloading_piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -29490,7 +29490,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -29517,7 +29517,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -30323,7 +30323,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_parti
   arg1 = *(libtorrent::partial_piece_info **)&jarg1; 
   result =  ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -34978,7 +34978,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -37415,7 +37415,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -37565,7 +37565,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_track
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -37711,7 +37711,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -37898,7 +37898,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_read_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -37992,7 +37992,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_read_
   arg1 = *(libtorrent::read_piece_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -38128,7 +38128,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -38207,7 +38207,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
   arg1 = *(libtorrent::file_completed_alert **)&jarg1; 
   result = (file_index_t) ((arg1)->index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -38303,7 +38303,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -38407,7 +38407,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
   arg1 = *(libtorrent::file_renamed_alert **)&jarg1; 
   result = (file_index_t) ((arg1)->index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -38503,7 +38503,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -38582,7 +38582,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
   arg1 = *(libtorrent::file_rename_failed_alert **)&jarg1; 
   result = (file_index_t) ((arg1)->index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -38693,7 +38693,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_perfo
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -38866,7 +38866,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_state
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -39054,7 +39054,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_track
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -39282,7 +39282,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_track
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -39465,7 +39465,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_scrap
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -39641,7 +39641,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_scrap
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -39839,7 +39839,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_track
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -40012,7 +40012,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -40173,7 +40173,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_track
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -40334,7 +40334,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_hash_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -40413,7 +40413,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_hash_
   arg1 = *(libtorrent::hash_failed_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -40509,7 +40509,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -40655,7 +40655,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -40801,7 +40801,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -40947,7 +40947,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -41148,7 +41148,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -41321,7 +41321,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -41539,7 +41539,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_inval
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -41745,7 +41745,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -41903,7 +41903,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piece
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -41982,7 +41982,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piece
   arg1 = *(libtorrent::piece_finished_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -42078,7 +42078,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_reque
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -42172,7 +42172,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_reque
   arg1 = *(libtorrent::request_dropped_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -42268,7 +42268,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_block
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -42362,7 +42362,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_block
   arg1 = *(libtorrent::block_timeout_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -42458,7 +42458,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_block
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -42552,7 +42552,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_block
   arg1 = *(libtorrent::block_finished_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -42648,7 +42648,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_block
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -42742,7 +42742,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_block
   arg1 = *(libtorrent::block_downloading_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -42838,7 +42838,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_unwan
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -42920,7 +42920,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_unwan
   arg1 = *(libtorrent::unwanted_block_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -43016,7 +43016,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stora
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -43199,7 +43199,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stora
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -43425,7 +43425,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -43612,7 +43612,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -43814,7 +43814,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_save_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -44001,7 +44001,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_save_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -44174,7 +44174,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -44332,7 +44332,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -44490,7 +44490,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -44648,7 +44648,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_url_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -44871,7 +44871,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -45097,7 +45097,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_metad
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -45270,7 +45270,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_metad
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -45428,7 +45428,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -45626,7 +45626,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_exter
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -45809,7 +45809,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_liste
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -46090,7 +46090,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_liste
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -46303,7 +46303,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portm
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -46506,7 +46506,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portm
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -46724,7 +46724,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portm
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -46922,7 +46922,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fastr
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -47162,7 +47162,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -47335,7 +47335,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -47575,7 +47575,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -47762,7 +47762,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stats
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -47986,7 +47986,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cache
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -48119,7 +48119,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_anony
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -48353,7 +48353,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_lsd_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -48511,7 +48511,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_track
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -48694,7 +48694,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -48852,7 +48852,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -49050,7 +49050,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -49223,7 +49223,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_incom
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -49421,7 +49421,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -49637,7 +49637,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_state
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -49824,7 +49824,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sessi
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -50009,7 +50009,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -50224,7 +50224,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -50440,7 +50440,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -50755,7 +50755,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -51070,7 +51070,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_i2p_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -51257,7 +51257,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -51498,7 +51498,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_log_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -51681,7 +51681,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -51864,7 +51864,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -52100,7 +52100,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_lsd_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -52705,7 +52705,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -52933,7 +52933,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_incom
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -53120,7 +53120,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -53331,7 +53331,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -53567,7 +53567,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -53792,7 +53792,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -54025,7 +54025,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_picke
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -54390,7 +54390,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sessi
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -54563,7 +54563,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -54800,7 +54800,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sessi
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -54970,7 +54970,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -55281,7 +55281,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_block
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -55375,7 +55375,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_block
   arg1 = *(libtorrent::block_uploaded_alert **)&jarg1; 
   result = (piece_index_t) ((arg1)->piece_index);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -58251,7 +58251,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sessi
   (void)jcls;
   result = libtorrent::session_handle::global_peer_class_id;
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -58265,7 +58265,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sessi
   (void)jcls;
   result = libtorrent::session_handle::tcp_peer_class_id;
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -58279,7 +58279,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sessi
   (void)jcls;
   result = libtorrent::session_handle::local_peer_class_id;
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   return jresult;
 }
@@ -58443,7 +58443,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sessi
     }
   }
   {
-    jresult = int(static_cast<std::uint32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::uint32_t>(result));
   }
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
   return jresult;
@@ -63095,7 +63095,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
   result =  ((arg1)->error_file);
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -63109,7 +63109,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
   (void)jcls;
   result = libtorrent::torrent_status::error_file_none;
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -63123,7 +63123,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
   (void)jcls;
   result = libtorrent::torrent_status::error_file_url;
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -63137,7 +63137,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
   (void)jcls;
   result = libtorrent::torrent_status::error_file_ssl_ctx;
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -63151,7 +63151,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
   (void)jcls;
   result = libtorrent::torrent_status::error_file_metadata;
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }
@@ -63165,7 +63165,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
   (void)jcls;
   result = libtorrent::torrent_status::error_file_exception;
   {
-    jresult = int(static_cast<std::int32_t>(result));
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
   return jresult;
 }

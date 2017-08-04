@@ -135,16 +135,16 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 %apply std::int64_t { void* };
 %apply std::int64_t { std::time_t };
 
-%define TYPE_INTEGRAL_CONVERSION(name, ntype, itype)
-%typemap(jni) name, const name& "itype"
-%typemap(jtype) name, const name& "itype"
-%typemap(jstype) name, const name& "itype"
+%define TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, api_type, java_type)
+%typemap(jni) name, const name& "java_type"
+%typemap(jtype) name, const name& "java_type"
+%typemap(jstype) name, const name& "java_type"
 
 %typemap(in) name {
-    $1 = name(static_cast<ntype>($input));
+    $1 = name(static_cast<underlying_type>($input));
 }
 %typemap(out) name {
-    $result = itype(static_cast<ntype>($1));
+    $result = static_cast<api_type>(static_cast<underlying_type>($1));
 }
 %typemap(javain) name, const name& "$javainput"
 %typemap(javaout) name, const name& {
@@ -152,9 +152,13 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
   }
 %enddef
 
+%define TYPE_INTEGRAL_CONVERSION(name, underlying_type, java_type)
+TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, underlying_type, java_type)
+%enddef
+
 TYPE_INTEGRAL_CONVERSION(piece_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
-TYPE_INTEGRAL_CONVERSION(peer_class_t, std::uint32_t, int)
+TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 
 namespace std {
 
@@ -367,7 +371,7 @@ namespace libtorrent {
 
     struct alert_category_tag;
     %template(alert_category_t) flags::bitfield_flag<std::uint32_t, alert_category_tag>;
-    TYPE_INTEGRAL_CONVERSION(alert_category_t, std::uint32_t, int)
+    TYPE_INTEGRAL_CONVERSION_EX(alert_category_t, std::uint32_t, std::int32_t, int)
     struct add_piece_flags_tag;
     %template(add_piece_flags_t) flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
     struct status_flags_tag;
