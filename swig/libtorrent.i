@@ -153,21 +153,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
     return $jnicall;
   }
 
-%typemap(jni) peer_class_t, const peer_class_t& "int"
-%typemap(jtype) peer_class_t, const peer_class_t& "int"
-%typemap(jstype) peer_class_t, const peer_class_t& "int"
-
-%typemap(in) peer_class_t {
-    $1 = peer_class_t(std::uint32_t($input));
-}
-%typemap(out) peer_class_t {
-    $result = int(static_cast<std::uint32_t>($1));
-}
-%typemap(javain) peer_class_t, const peer_class_t& "$javainput"
-%typemap(javaout) peer_class_t, const peer_class_t& {
-    return $jnicall;
-  }
-
 #endif // SWIGJAVA
 
 %include <stdint.i>
@@ -180,6 +165,25 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 %apply std::int8_t { std::uint8_t };
 %apply int64_t { void* };
 %apply std::int64_t { std::uint64_t };
+
+%define TYPE_INTEGRAL_CONVERSION(name, ntype, itype)
+%typemap(jni) name, const name& "itype"
+%typemap(jtype) name, const name& "itype"
+%typemap(jstype) name, const name& "itype"
+
+%typemap(in) name {
+    $1 = name(static_cast<ntype>($input));
+}
+%typemap(out) name {
+    $result = itype(static_cast<ntype>($1));
+}
+%typemap(javain) name, const name& "$javainput"
+%typemap(javaout) name, const name& {
+    return $jnicall;
+  }
+%enddef
+
+TYPE_INTEGRAL_CONVERSION(peer_class_t, std::uint32_t, int)
 
 namespace std {
 

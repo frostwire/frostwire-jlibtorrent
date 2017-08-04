@@ -56795,7 +56795,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
   arg1 = *(libtorrent::peer_class_type_filter **)&jarg1; 
   arg2 = (libtorrent::peer_class_type_filter::socket_type_t)jarg2; 
   {
-    arg3 = peer_class_t(std::uint32_t(jarg3));
+    arg3 = peer_class_t(static_cast<std::uint32_t>(jarg3));
   }
   {
     try {
@@ -56822,7 +56822,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
   arg1 = *(libtorrent::peer_class_type_filter **)&jarg1; 
   arg2 = (libtorrent::peer_class_type_filter::socket_type_t)jarg2; 
   {
-    arg3 = peer_class_t(std::uint32_t(jarg3));
+    arg3 = peer_class_t(static_cast<std::uint32_t>(jarg3));
   }
   {
     try {
@@ -56849,7 +56849,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
   arg1 = *(libtorrent::peer_class_type_filter **)&jarg1; 
   arg2 = (libtorrent::peer_class_type_filter::socket_type_t)jarg2; 
   {
-    arg3 = peer_class_t(std::uint32_t(jarg3));
+    arg3 = peer_class_t(static_cast<std::uint32_t>(jarg3));
   }
   {
     try {
@@ -56876,7 +56876,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
   arg1 = *(libtorrent::peer_class_type_filter **)&jarg1; 
   arg2 = (libtorrent::peer_class_type_filter::socket_type_t)jarg2; 
   {
-    arg3 = peer_class_t(std::uint32_t(jarg3));
+    arg3 = peer_class_t(static_cast<std::uint32_t>(jarg3));
   }
   {
     try {
@@ -58279,7 +58279,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   (void)jarg1_;
   arg1 = *(libtorrent::session_handle **)&jarg1; 
   {
-    arg2 = peer_class_t(std::uint32_t(jarg2));
+    arg2 = peer_class_t(static_cast<std::uint32_t>(jarg2));
   }
   {
     try {
@@ -58306,7 +58306,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   (void)jarg1_;
   arg1 = *(libtorrent::session_handle **)&jarg1; 
   {
-    arg2 = peer_class_t(std::uint32_t(jarg2));
+    arg2 = peer_class_t(static_cast<std::uint32_t>(jarg2));
   }
   {
     try {
@@ -58335,7 +58335,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   (void)jarg3_;
   arg1 = *(libtorrent::session_handle **)&jarg1; 
   {
-    arg2 = peer_class_t(std::uint32_t(jarg2));
+    arg2 = peer_class_t(static_cast<std::uint32_t>(jarg2));
   }
   arg3 = *(libtorrent::peer_class_info **)&jarg3;
   if (!arg3) {
