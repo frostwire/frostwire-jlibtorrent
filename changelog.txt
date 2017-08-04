@@ -1,6 +1,6 @@
 1.2.0.11-RC5(temp)
 
-    * using android NDK r15b
+    * using android NDK r15c
     * using -O2 for all architectures
     * lt:fix to clearing of piece picker in suggest_read_cache mode
     * lt:fix memory issues with listen sockets references
