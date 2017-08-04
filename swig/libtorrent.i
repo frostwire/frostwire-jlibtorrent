@@ -123,36 +123,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 #endif
 %}
 
-%typemap(jni) piece_index_t, const piece_index_t& "int"
-%typemap(jtype) piece_index_t, const piece_index_t& "int"
-%typemap(jstype) piece_index_t, const piece_index_t& "int"
-
-%typemap(in) piece_index_t {
-    $1 = piece_index_t($input);
-}
-%typemap(out) piece_index_t {
-    $result = static_cast<int>($1);
-}
-%typemap(javain) piece_index_t, const piece_index_t& "$javainput"
-%typemap(javaout) piece_index_t, const piece_index_t& {
-    return $jnicall;
-  }
-
-%typemap(jni) file_index_t, const file_index_t& "int"
-%typemap(jtype) file_index_t, const file_index_t& "int"
-%typemap(jstype) file_index_t, const file_index_t& "int"
-
-%typemap(in) file_index_t {
-    $1 = file_index_t($input);
-}
-%typemap(out) file_index_t {
-    $result = static_cast<int>($1);
-}
-%typemap(javain) file_index_t, const file_index_t& "$javainput"
-%typemap(javaout) file_index_t, const file_index_t& {
-    return $jnicall;
-  }
-
 #endif // SWIGJAVA
 
 %include <stdint.i>
@@ -183,6 +153,8 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
   }
 %enddef
 
+TYPE_INTEGRAL_CONVERSION(piece_index_t, std::int32_t, int)
+TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(peer_class_t, std::uint32_t, int)
 
 namespace std {
