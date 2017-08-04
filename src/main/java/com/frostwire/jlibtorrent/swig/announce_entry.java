@@ -68,27 +68,27 @@ public class announce_entry {
     return (cPtr == 0) ? null : new announce_endpoint_vector(cPtr, false);
   }
 
-  public void setTier(byte value) {
+  public void setTier(short value) {
     libtorrent_jni.announce_entry_tier_set(swigCPtr, this, value);
   }
 
-  public byte getTier() {
+  public short getTier() {
     return libtorrent_jni.announce_entry_tier_get(swigCPtr, this);
   }
 
-  public void setFail_limit(byte value) {
+  public void setFail_limit(short value) {
     libtorrent_jni.announce_entry_fail_limit_set(swigCPtr, this, value);
   }
 
-  public byte getFail_limit() {
+  public short getFail_limit() {
     return libtorrent_jni.announce_entry_fail_limit_get(swigCPtr, this);
   }
 
-  public void setSource(byte value) {
+  public void setSource(short value) {
     libtorrent_jni.announce_entry_source_set(swigCPtr, this, value);
   }
 
-  public byte getSource() {
+  public short getSource() {
     return libtorrent_jni.announce_entry_source_get(swigCPtr, this);
   }
 

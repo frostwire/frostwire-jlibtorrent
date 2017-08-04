@@ -85,11 +85,11 @@ public class announce_endpoint {
     return libtorrent_jni.announce_endpoint_scrape_downloaded_get(swigCPtr, this);
   }
 
-  public void setFails(byte value) {
+  public void setFails(short value) {
     libtorrent_jni.announce_endpoint_fails_set(swigCPtr, this, value);
   }
 
-  public byte getFails() {
+  public short getFails() {
     return libtorrent_jni.announce_endpoint_fails_get(swigCPtr, this);
   }
 
