@@ -24919,7 +24919,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   }
   {
     try {
-      result = (std::time_t)((libtorrent::file_storage const *)arg1)->mtime(arg2);
+      result = ((libtorrent::file_storage const *)arg1)->mtime(arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -29878,7 +29878,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_t
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1info_1creation_1date(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::torrent_info *arg1 = (libtorrent::torrent_info *) 0 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
@@ -29886,7 +29886,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   arg1 = *(libtorrent::torrent_info **)&jarg1; 
   {
     try {
-      result = (time_t)((libtorrent::torrent_info const *)arg1)->creation_date();
+      result = ((libtorrent::torrent_info const *)arg1)->creation_date();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -33395,7 +33395,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  result = (std::time_t) ((arg1)->added_time);
+  result =  ((arg1)->added_time);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -33423,7 +33423,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  result = (std::time_t) ((arg1)->completed_time);
+  result =  ((arg1)->completed_time);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -33451,7 +33451,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  result = (std::time_t) ((arg1)->last_seen_complete);
+  result =  ((arg1)->last_seen_complete);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -60390,7 +60390,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1connection_1handle_1last_1seen_1complete(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::peer_connection_handle *arg1 = (libtorrent::peer_connection_handle *) 0 ;
-  time_t result;
+  std::time_t result;
   
   (void)jenv;
   (void)jcls;
@@ -60398,7 +60398,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   arg1 = *(libtorrent::peer_connection_handle **)&jarg1; 
   {
     try {
-      result = (time_t)((libtorrent::peer_connection_handle const *)arg1)->last_seen_complete();
+      result = ((libtorrent::peer_connection_handle const *)arg1)->last_seen_complete();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -63487,7 +63487,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  result = (std::time_t) ((arg1)->added_time);
+  result =  ((arg1)->added_time);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -63515,7 +63515,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  result = (std::time_t) ((arg1)->completed_time);
+  result =  ((arg1)->completed_time);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -63543,7 +63543,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::torrent_status **)&jarg1; 
-  result = (std::time_t) ((arg1)->last_seen_complete);
+  result =  ((arg1)->last_seen_complete);
   jresult = (jlong)result; 
   return jresult;
 }

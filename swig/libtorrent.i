@@ -135,6 +135,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 %apply std::int8_t { std::uint8_t };
 %apply int64_t { void* };
 %apply std::int64_t { std::uint64_t };
+%apply std::int64_t { std::time_t };
 
 %define TYPE_INTEGRAL_CONVERSION(name, ntype, itype)
 %typemap(jni) name, const name& "itype"
@@ -816,8 +817,6 @@ namespace libtorrent {
         }
     }
 };
-
-typedef std::int64_t time_t;
 
 %ignore libtorrent::TORRENT_CFG;
 %ignore libtorrent::detail;
