@@ -60,6 +60,10 @@ before_install:
   - if [[ $os_build == "android" && $os_arch == "arm" && $android_api == "16" ]]; then
       echo "unsigned long int getauxval(unsigned long int type) __attribute__((weak));" >> $PWD/android-toolchain/sysroot/usr/include/sys/auxv.h;
     fi
+  - if [[ $os_build == "android" && $android_api == "16" ]]; then
+      sed -i 's/using ::fgetpos;//g' $PWD/android-toolchain/include/c++/4.9.x/cstdio;
+      sed -i 's/using ::fsetpos;//g' $PWD/android-toolchain/include/c++/4.9.x/cstdio;
+    fi
 
   - if [[ $os_build == "linux" || $os_build == "windows" ]]; then
       sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y;
