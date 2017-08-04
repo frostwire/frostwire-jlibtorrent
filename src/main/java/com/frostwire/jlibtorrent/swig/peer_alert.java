@@ -35,8 +35,8 @@ public class peer_alert extends torrent_alert {
     super.delete();
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.peer_alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.peer_alert_category(swigCPtr, this);
   }
 
   public String message() {

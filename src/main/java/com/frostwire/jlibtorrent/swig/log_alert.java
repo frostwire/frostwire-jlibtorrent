@@ -39,8 +39,8 @@ public class log_alert extends alert {
     return libtorrent_jni.log_alert_type(swigCPtr, this);
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.log_alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.log_alert_category(swigCPtr, this);
   }
 
   public String what() {

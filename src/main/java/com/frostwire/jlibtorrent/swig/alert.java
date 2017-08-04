@@ -47,8 +47,8 @@ public class alert {
     return libtorrent_jni.alert_message(swigCPtr, this);
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.alert_category(swigCPtr, this);
   }
 
   public static torrent_alert cast_to_torrent_alert(alert a) {

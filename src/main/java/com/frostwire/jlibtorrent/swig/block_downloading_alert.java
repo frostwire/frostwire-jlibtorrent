@@ -39,8 +39,8 @@ public class block_downloading_alert extends peer_alert {
     return libtorrent_jni.block_downloading_alert_type(swigCPtr, this);
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.block_downloading_alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.block_downloading_alert_category(swigCPtr, this);
   }
 
   public String what() {

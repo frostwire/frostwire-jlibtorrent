@@ -39,8 +39,8 @@ public class unwanted_block_alert extends peer_alert {
     return libtorrent_jni.unwanted_block_alert_type(swigCPtr, this);
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.unwanted_block_alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.unwanted_block_alert_category(swigCPtr, this);
   }
 
   public String what() {

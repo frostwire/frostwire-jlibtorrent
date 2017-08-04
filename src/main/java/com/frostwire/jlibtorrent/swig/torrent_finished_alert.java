@@ -39,8 +39,8 @@ public class torrent_finished_alert extends torrent_alert {
     return libtorrent_jni.torrent_finished_alert_type(swigCPtr, this);
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.torrent_finished_alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.torrent_finished_alert_category(swigCPtr, this);
   }
 
   public String what() {

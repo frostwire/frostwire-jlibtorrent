@@ -367,6 +367,7 @@ namespace libtorrent {
 
     struct alert_category_tag;
     %template(alert_category_t) flags::bitfield_flag<std::uint32_t, alert_category_tag>;
+    TYPE_INTEGRAL_CONVERSION(alert_category_t, std::uint32_t, int)
     struct add_piece_flags_tag;
     %template(add_piece_flags_t) flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
     struct status_flags_tag;

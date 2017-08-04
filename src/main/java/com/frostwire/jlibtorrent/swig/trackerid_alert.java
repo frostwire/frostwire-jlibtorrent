@@ -39,8 +39,8 @@ public class trackerid_alert extends tracker_alert {
     return libtorrent_jni.trackerid_alert_type(swigCPtr, this);
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.trackerid_alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.trackerid_alert_category(swigCPtr, this);
   }
 
   public String what() {

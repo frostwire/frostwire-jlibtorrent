@@ -39,8 +39,8 @@ public class portmap_error_alert extends alert {
     return libtorrent_jni.portmap_error_alert_type(swigCPtr, this);
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.portmap_error_alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.portmap_error_alert_category(swigCPtr, this);
   }
 
   public String what() {

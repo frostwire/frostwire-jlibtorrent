@@ -39,8 +39,8 @@ public class hash_failed_alert extends torrent_alert {
     return libtorrent_jni.hash_failed_alert_type(swigCPtr, this);
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.hash_failed_alert_category(swigCPtr, this), true);
+  public int category() {
+    return libtorrent_jni.hash_failed_alert_category(swigCPtr, this);
   }
 
   public String what() {
