@@ -2,6 +2,10 @@
 
     * using android NDK r15b
     * using -O2 for all architectures
+    * lt:fix to clearing of piece picker in suggest_read_cache mode
+    * lt:fix memory issues with listen sockets references
+    * lt:fix bug where the resume data would fail to load the piece bitmask for
+      seeds when suggest_cache was enabled
     * lt:submit disk jobs in read_piece()
     * lt:add reserve entry::to_string() (optimization)
     * lt:refactor several flags to torrent_handle::get_flags/set_flags
