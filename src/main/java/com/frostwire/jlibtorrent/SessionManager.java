@@ -53,7 +53,7 @@ public class SessionManager {
     public SessionManager(boolean logging) {
         this.logging = logging;
 
-        this.listeners = new AlertListener[libtorrent.num_alert_types + 1];
+        this.listeners = new AlertListener[libtorrent.getNum_alert_types() + 1];
 
         this.sync = new ReentrantLock();
         this.syncMagnet = new ReentrantLock();
@@ -947,7 +947,7 @@ public class SessionManager {
 
         // all alert-type including listener
         if (types == null) {
-            modifyListeners(add, libtorrent.num_alert_types, listener);
+            modifyListeners(add, libtorrent.getNum_alert_types(), listener);
         } else {
             for (int i = 0; i < types.length; i++) {
                 modifyListeners(add, types[i], listener);
@@ -1147,11 +1147,11 @@ public class SessionManager {
                                 fireAlert(alert, type);
                             }
 
-                            if (!isSpecialType(type) && listeners[libtorrent.num_alert_types] != null) {
+                            if (!isSpecialType(type) && listeners[libtorrent.getNum_alert_types()] != null) {
                                 if (alert == null) {
                                     alert = Alerts.cast(a);
                                 }
-                                fireAlert(alert, libtorrent.num_alert_types);
+                                fireAlert(alert, libtorrent.getNum_alert_types());
                             }
                         }
                         v.clear();

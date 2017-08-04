@@ -85,7 +85,7 @@ public final class AlertsSwitch {
 
     private static Class[] getSwigAlerts() throws Exception {
         int n = 0;
-        Class[] arr = new Class[libtorrent.num_alert_types];
+        Class[] arr = new Class[libtorrent.getNum_alert_types()];
         for (Class c : getClasses("com.frostwire.jlibtorrent.swig")) {
             if (c.getName().endsWith("_alert")) {
                 Field f = c.getDeclaredField("alert_type");

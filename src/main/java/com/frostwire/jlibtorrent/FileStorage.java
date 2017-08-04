@@ -98,9 +98,8 @@ public final class FileStorage {
      * @param flags   the file flags
      * @param mtime   the time
      * @param symlink the symlink
-     * @see Flags
      */
-    public void addFile(String path, long size, Flags flags, int mtime, String symlink) {
+    public void addFile(String path, long size, FileFlags flags, int mtime, String symlink) {
         fs.add_file(path, size, flags.swig(), mtime, symlink);
     }
 
@@ -122,9 +121,8 @@ public final class FileStorage {
      * @param size  the file size
      * @param flags the file flags
      * @param mtime the time
-     * @see Flags
      */
-    public void addFile(String path, long size, Flags flags, int mtime) {
+    public void addFile(String path, long size, FileFlags flags, int mtime) {
         fs.add_file(path, size, flags.swig(), mtime);
     }
 
@@ -145,9 +143,8 @@ public final class FileStorage {
      * @param path  the path
      * @param size  the file size
      * @param flags the file flags
-     * @see Flags
      */
-    public void addFile(String path, long size, Flags flags) {
+    public void addFile(String path, long size, FileFlags flags) {
         fs.add_file(path, size, flags.swig());
     }
 
@@ -401,14 +398,58 @@ public final class FileStorage {
     }
 
     /**
+     * Flags indicating various attributes for files in
+     * a {@link FileStorage}.
+     */
+    public static final class FileFlags {
+
+        private final file_flags_t f;
+
+        private FileFlags(file_flags_t f) {
+            this.f = f;
+        }
+
+        public file_flags_t swig() {
+            return f;
+        }
+
+        /**
+         * This file is a pad file. The creator of the
+         * torrent promises the file is entirely filled with
+         * zeroes and does not need to be downloaded. The
+         * purpose is just to align the next file to either
+         * a block or piece boundary.
+         */
+        public static final FileFlags FLAG_PAD_FILE = new FileFlags(file_storage.flag_pad_file);
+
+        /**
+         * This file is hidden (sets the hidden attribute
+         * on windows).
+         */
+        public static final FileFlags FLAG_HIDDEN = new FileFlags(file_storage.flag_hidden);
+
+        /**
+         * This file is executable (sets the executable bit
+         * on posix like systems).
+         */
+        public static final FileFlags FLAG_EXECUTABLE = new FileFlags(file_storage.flag_executable);
+
+        /**
+         * This file is a symlink. The symlink target is
+         * specified in a separate field
+         */
+        public static final FileFlags FLAG_SYMLINK = new FileFlags(file_storage.flag_symlink);
+    }
+
+    /**
      * Returns a bitmask of flags from {@link FileFlags} that apply
      * to file at {@code index}.
      *
      * @param index
      * @return the flags
      */
-    public long fileFlags(int index) {
-        return fs.file_flags(index);
+    public FileFlags fileFlags(int index) {
+        return new FileFlags(fs.file_flags(index));
     }
 
     /**
@@ -442,132 +483,5 @@ public final class FileStorage {
         }
 
         return l;
-    }
-
-    /**
-     * File attribute flags.
-     */
-    public enum Flags {
-
-        /**
-         * The file is a pad file. It's required to contain zeroes
-         * at it will not be saved to disk. Its purpose is to make
-         * the following file start on a piece boundary.
-         */
-        PAD_FILE(file_storage.flags_t.pad_file.swigValue()),
-
-        /**
-         * This file has the hidden attribute set. This is primarily
-         * a windows attribute
-         */
-        ATTRIBUTE_HIDDEN(file_storage.flags_t.attribute_hidden.swigValue()),
-
-        /**
-         * This file has the executable attribute set.
-         */
-        ATTRIBUTE_EXECUTABLE(file_storage.flags_t.attribute_executable.swigValue()),
-
-        /**
-         * This file is a symbolic link. It should have a link
-         * target string associated with it.
-         */
-        ATTRIBUTE_SYMLINK(file_storage.flags_t.attribute_symlink.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        Flags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return the native value
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue the native value
-         */
-        public static Flags fromSwig(int swigValue) {
-            Flags[] enumValues = Flags.class.getEnumConstants();
-            for (Flags ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
-    }
-
-    /**
-     * Flags indicating various attributes for files in
-     * a {@link FileStorage}.
-     */
-    public enum FileFlags {
-
-        /**
-         * This file is a pad file. The creator of the
-         * torrent promises the file is entirely filled with
-         * zeroes and does not need to be downloaded. The
-         * purpose is just to align the next file to either
-         * a block or piece boundary.
-         */
-        FLAG_PAD_FILE(file_storage.file_flags_t.flag_pad_file.swigValue()),
-
-        /**
-         * This file is hidden (sets the hidden attribute
-         * on windows).
-         */
-        FLAG_ATTRIBUTE(file_storage.file_flags_t.flag_hidden.swigValue()),
-
-        /**
-         * This file is executable (sets the executable bit
-         * on posix like systems).
-         */
-        FLAG_EXECUTABLE(file_storage.file_flags_t.flag_executable.swigValue()),
-
-        /**
-         * This file is a symlink. The symlink target is
-         * specified in a separate field
-         */
-        FLAG_SYMLINK(file_storage.file_flags_t.flag_symlink.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        FileFlags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return the native value
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static FileFlags fromSwig(int swigValue) {
-            FileFlags[] enumValues = FileFlags.class.getEnumConstants();
-            for (FileFlags ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
     }
 }

@@ -121,6 +121,10 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.find_metric_idx(name);
   }
 
+  public static int getNum_alert_types() {
+    return libtorrent_jni.num_alert_types_get();
+  }
+
   public static int setting_by_name(String name) {
     return libtorrent_jni.setting_by_name(name);
   }

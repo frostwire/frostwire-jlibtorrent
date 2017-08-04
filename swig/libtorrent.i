@@ -418,6 +418,8 @@ namespace libtorrent {
     %template(peer_source_flags_t) flags::bitfield_flag<std::uint8_t, peer_source_flags_tag>;
     struct bandwidth_state_flags_tag;
     %template(bandwidth_state_flags_t) flags::bitfield_flag<std::uint8_t, bandwidth_state_flags_tag>;
+    struct file_flags_tag;
+    %template(file_flags_t) flags::bitfield_flag<std::uint8_t, file_flags_tag>;
 
     typedef sha1_hash peer_id;
 
@@ -1727,7 +1729,7 @@ namespace libtorrent {
 %extend file_storage {
 
     void add_file(std::string const& path, std::int64_t file_size,
-        int file_flags, std::time_t mtime, std::string const& symlink_path) {
+        libtorrent::file_flags_t file_flags, std::time_t mtime, std::string const& symlink_path) {
         $self->add_file(path, file_size, file_flags, mtime, symlink_path);
     }
 }

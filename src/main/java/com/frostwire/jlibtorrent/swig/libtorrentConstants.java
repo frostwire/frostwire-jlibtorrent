@@ -15,6 +15,4 @@ public interface libtorrentConstants {
   public final static int LIBTORRENT_VERSION_NUM = libtorrent_jni.LIBTORRENT_VERSION_NUM_get();
   public final static String LIBTORRENT_VERSION = libtorrent_jni.LIBTORRENT_VERSION_get();
   public final static String LIBTORRENT_REVISION = libtorrent_jni.LIBTORRENT_REVISION_get();
-  public final static int num_alert_types = libtorrent_jni.num_alert_types_get();
-
 }

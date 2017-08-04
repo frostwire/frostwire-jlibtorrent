@@ -51,36 +51,40 @@ public class file_storage {
     libtorrent_jni.file_storage_reserve(swigCPtr, this, num_files);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, long file_flags, String filehash, long mtime, string_view symlink_path) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_0(swigCPtr, this, filename, filename_len, path, file_size, file_flags, filehash, mtime, string_view.getCPtr(symlink_path), symlink_path);
+  public void add_file_borrow(String filename, int filename_len, String path, long file_size, file_flags_t file_flags, String filehash, long mtime, string_view symlink_path) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_0(swigCPtr, this, filename, filename_len, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash, mtime, string_view.getCPtr(symlink_path), symlink_path);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, long file_flags, String filehash, long mtime) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_1(swigCPtr, this, filename, filename_len, path, file_size, file_flags, filehash, mtime);
+  public void add_file_borrow(String filename, int filename_len, String path, long file_size, file_flags_t file_flags, String filehash, long mtime) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_1(swigCPtr, this, filename, filename_len, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash, mtime);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, long file_flags, String filehash) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_2(swigCPtr, this, filename, filename_len, path, file_size, file_flags, filehash);
+  public void add_file_borrow(String filename, int filename_len, String path, long file_size, file_flags_t file_flags, String filehash) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_2(swigCPtr, this, filename, filename_len, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, long file_flags) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_3(swigCPtr, this, filename, filename_len, path, file_size, file_flags);
+  public void add_file_borrow(String filename, int filename_len, String path, long file_size, file_flags_t file_flags) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_3(swigCPtr, this, filename, filename_len, path, file_size, file_flags_t.getCPtr(file_flags), file_flags);
   }
 
   public void add_file_borrow(String filename, int filename_len, String path, long file_size) {
     libtorrent_jni.file_storage_add_file_borrow__SWIG_4(swigCPtr, this, filename, filename_len, path, file_size);
   }
 
-  public void add_file(String path, long file_size, long file_flags, long mtime) {
-    libtorrent_jni.file_storage_add_file__SWIG_0(swigCPtr, this, path, file_size, file_flags, mtime);
+  public void add_file(String path, long file_size, file_flags_t file_flags, long mtime, string_view symlink_path) {
+    libtorrent_jni.file_storage_add_file__SWIG_0(swigCPtr, this, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, mtime, string_view.getCPtr(symlink_path), symlink_path);
   }
 
-  public void add_file(String path, long file_size, long file_flags) {
-    libtorrent_jni.file_storage_add_file__SWIG_1(swigCPtr, this, path, file_size, file_flags);
+  public void add_file(String path, long file_size, file_flags_t file_flags, long mtime) {
+    libtorrent_jni.file_storage_add_file__SWIG_1(swigCPtr, this, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, mtime);
+  }
+
+  public void add_file(String path, long file_size, file_flags_t file_flags) {
+    libtorrent_jni.file_storage_add_file__SWIG_2(swigCPtr, this, path, file_size, file_flags_t.getCPtr(file_flags), file_flags);
   }
 
   public void add_file(String path, long file_size) {
-    libtorrent_jni.file_storage_add_file__SWIG_2(swigCPtr, this, path, file_size);
+    libtorrent_jni.file_storage_add_file__SWIG_3(swigCPtr, this, path, file_size);
   }
 
   public void rename_file(int index, String new_filename) {
@@ -207,8 +211,8 @@ public class file_storage {
     return new string_vector(libtorrent_jni.file_storage_paths(swigCPtr, this), false);
   }
 
-  public long file_flags(int index) {
-    return libtorrent_jni.file_storage_file_flags(swigCPtr, this, index);
+  public file_flags_t file_flags(int index) {
+    return new file_flags_t(libtorrent_jni.file_storage_file_flags(swigCPtr, this, index), true);
   }
 
   public boolean file_absolute_path(int index) {
@@ -219,100 +223,12 @@ public class file_storage {
     return libtorrent_jni.file_storage_file_index_at_offset(swigCPtr, this, offset);
   }
 
-  public void add_file(String path, long file_size, int file_flags, long mtime, String symlink_path) {
-    libtorrent_jni.file_storage_add_file__SWIG_3(swigCPtr, this, path, file_size, file_flags, mtime, symlink_path);
+  public void add_file(String path, long file_size, file_flags_t file_flags, long mtime, String symlink_path) {
+    libtorrent_jni.file_storage_add_file__SWIG_4(swigCPtr, this, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, mtime, symlink_path);
   }
 
-  public final static class flags_t {
-    public final static file_storage.flags_t pad_file = new file_storage.flags_t("pad_file", libtorrent_jni.file_storage_pad_file_get());
-    public final static file_storage.flags_t attribute_hidden = new file_storage.flags_t("attribute_hidden", libtorrent_jni.file_storage_attribute_hidden_get());
-    public final static file_storage.flags_t attribute_executable = new file_storage.flags_t("attribute_executable", libtorrent_jni.file_storage_attribute_executable_get());
-    public final static file_storage.flags_t attribute_symlink = new file_storage.flags_t("attribute_symlink", libtorrent_jni.file_storage_attribute_symlink_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + flags_t.class + " with value " + swigValue);
-    }
-
-    private flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private flags_t(String swigName, flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static flags_t[] swigValues = { pad_file, attribute_hidden, attribute_executable, attribute_symlink };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
-  public final static class file_flags_t {
-    public final static file_storage.file_flags_t flag_pad_file = new file_storage.file_flags_t("flag_pad_file", libtorrent_jni.file_storage_flag_pad_file_get());
-    public final static file_storage.file_flags_t flag_hidden = new file_storage.file_flags_t("flag_hidden", libtorrent_jni.file_storage_flag_hidden_get());
-    public final static file_storage.file_flags_t flag_executable = new file_storage.file_flags_t("flag_executable", libtorrent_jni.file_storage_flag_executable_get());
-    public final static file_storage.file_flags_t flag_symlink = new file_storage.file_flags_t("flag_symlink", libtorrent_jni.file_storage_flag_symlink_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static file_flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + file_flags_t.class + " with value " + swigValue);
-    }
-
-    private file_flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private file_flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private file_flags_t(String swigName, file_flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static file_flags_t[] swigValues = { flag_pad_file, flag_hidden, flag_executable, flag_symlink };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static file_flags_t flag_pad_file = new file_flags_t(libtorrent_jni.file_storage_flag_pad_file_get(), false);
+  public final static file_flags_t flag_hidden = new file_flags_t(libtorrent_jni.file_storage_flag_hidden_get(), false);
+  public final static file_flags_t flag_executable = new file_flags_t(libtorrent_jni.file_storage_flag_executable_get(), false);
+  public final static file_flags_t flag_symlink = new file_flags_t(libtorrent_jni.file_storage_flag_symlink_get(), false);
 }

@@ -109,22 +109,22 @@ public enum AlertType {
     private final int swigValue;
 
     /**
-     * @return
+     * @return the native swig value
      */
     public int swig() {
         return swigValue;
     }
 
     /**
-     * @param swigValue
-     * @return
+     * @param swigValue the native swig value
+     * @return the API enum alert type
      */
     public static AlertType fromSwig(int swigValue) {
         return TABLE[swigValue];
     }
 
     private static AlertType[] buildTable() {
-        AlertType[] arr = new AlertType[libtorrent.num_alert_types];
+        AlertType[] arr = new AlertType[libtorrent.getNum_alert_types()];
 
         arr[0] = TORRENT;
         arr[1] = PEER;
