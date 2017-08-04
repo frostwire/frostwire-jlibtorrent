@@ -20,6 +20,7 @@
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/bdecode.hpp"
 #include "libtorrent/bencode.hpp"
+#include "libtorrent/peer_info.hpp"
 #include "libtorrent/torrent_flags.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_handle.hpp"
@@ -411,6 +412,12 @@ namespace libtorrent {
     %template(save_state_flags_t) flags::bitfield_flag<std::uint32_t, save_state_flags_tag>;
     struct torrent_flags_tag;
     %template(torrent_flags_t) flags::bitfield_flag<std::uint64_t, torrent_flags_tag>;
+    struct peer_flags_tag;
+    %template(peer_flags_t) flags::bitfield_flag<std::uint32_t, peer_flags_tag>;
+    struct peer_source_flags_tag;
+    %template(peer_source_flags_t) flags::bitfield_flag<std::uint8_t, peer_source_flags_tag>;
+    struct bandwidth_state_flags_tag;
+    %template(bandwidth_state_flags_t) flags::bitfield_flag<std::uint8_t, bandwidth_state_flags_tag>;
 
     typedef sha1_hash peer_id;
 
@@ -795,173 +802,41 @@ namespace libtorrent {
         int download_priority;
     };
 
-    struct peer_info {
+    %extend peer_info {
 
-        typed_bitfield<piece_index_t> const pieces;
-
-        std::int64_t const total_download;
-        std::int64_t const total_upload;
-
-        %nodefaultctor peer_flags;
-        %nodefaultdtor peer_flags;
-        struct peer_flags {
-            %javaconst(1);
-            static const std::int32_t interesting = 0x1;
-            static const std::int32_t choked = 0x2;
-            static const std::int32_t remote_interested = 0x4;
-            static const std::int32_t remote_choked = 0x8;
-            static const std::int32_t supports_extensions = 0x10;
-            static const std::int32_t local_connection = 0x20;
-            static const std::int32_t handshake = 0x40;
-            static const std::int32_t connecting = 0x80;
-            static const std::int32_t on_parole = 0x200;
-            static const std::int32_t seed = 0x400;
-            static const std::int32_t optimistic_unchoke = 0x800;
-            static const std::int32_t snubbed = 0x1000;
-            static const std::int32_t upload_only = 0x2000;
-            static const std::int32_t endgame_mode = 0x4000;
-            static const std::int32_t holepunched = 0x8000;
-            static const std::int32_t i2p_socket = 0x10000;
-            static const std::int32_t utp_socket = 0x20000;
-            static const std::int32_t ssl_socket = 0x40000;
-            static const std::int32_t rc4_encrypted = 0x100000;
-            static const std::int32_t plaintext_encrypted = 0x200000;
-            %javaconst(0);
-        };
-
-        %nodefaultctor peer_source_flags;
-        %nodefaultdtor peer_source_flags;
-        struct peer_source_flags {
-            %javaconst(1);
-            static const std::int8_t tracker = 0x1;
-            static const std::int8_t dht = 0x2;
-            static const std::int8_t pex = 0x4;
-            static const std::int8_t lsd = 0x8;
-            static const std::int8_t resume_data = 0x10;
-            static const std::int8_t incoming = 0x20;
-            %javaconst(0);
-        };
-
-        int const up_speed;
-        int const down_speed;
-
-        int const payload_up_speed;
-        int const payload_down_speed;
-
-        peer_id const pid;
-
-        int const queue_bytes;
-
-        int const request_timeout;
-
-        int const send_buffer_size;
-        int const used_send_buffer;
-
-        int const receive_buffer_size;
-        int const used_receive_buffer;
-        int const receive_buffer_watermark;
-
-        int const num_hashfails;
-
-        int const download_queue_length;
-
-        int const timed_out_requests;
-
-        int const busy_requests;
-
-        int const requests_in_buffer;
-
-        int const target_dl_queue_length;
-
-        int const upload_queue_length;
-
-        int const failcount;
-
-        piece_index_t const downloading_piece_index;
-        int const downloading_block_index;
-        int const downloading_progress;
-        int const downloading_total;
-
-        enum connection_type_t
-        {
-            standard_bittorrent = 0,
-            web_seed = 1,
-            http_seed = 2
-        };
-
-        int const connection_type;
-
-        int const pending_disk_bytes;
-
-        int const pending_disk_read_bytes;
-
-        int const send_quota;
-        int const receive_quota;
-
-        int const rtt;
-
-        int const num_pieces;
-
-        int const download_rate_peak;
-        int const upload_rate_peak;
-
-        float const progress;
-
-        int const progress_ppm;
-
-        int const estimated_reciprocation_rate;
-
-        tcp::endpoint const ip;
-
-        tcp::endpoint const local_endpoint;
-
-        %nodefaultctor bandwidth_state_flags;
-        %nodefaultdtor bandwidth_state_flags;
-        struct bandwidth_state_flags {
-            %javaconst(1);
-            static const std::int8_t bw_idle = 0;
-            static const std::int8_t bw_limit = 1;
-            static const std::int8_t bw_network = 2;
-            static const std::int8_t bw_disk = 4;
-            %javaconst(0);
-        };
-
-        %extend {
-
-            std::vector<int8_t> get_client() {
-                std::string s = $self->client;
-                return {s.begin(), s.end()};
-            }
-
-            int64_t get_last_request() {
-                return libtorrent::total_milliseconds($self->last_request);
-            }
-
-            int64_t get_last_active() {
-                return libtorrent::total_milliseconds($self->last_active);
-            }
-
-            int64_t get_download_queue_time() {
-                return libtorrent::total_milliseconds($self->download_queue_time);
-            }
-
-            std::int32_t get_flags() {
-                return std::int32_t(static_cast<std::uint32_t>($self->flags));
-            }
-
-            std::int8_t get_source() {
-                return std::int8_t(static_cast<std::uint8_t>($self->source));
-            }
-
-            std::int8_t get_read_state() {
-                return std::int8_t(static_cast<std::uint8_t>($self->read_state));
-            }
-
-            std::int8_t get_write_state() {
-                return std::int8_t(static_cast<std::uint8_t>($self->write_state));
-            }
+        std::vector<int8_t> get_client() {
+            std::string s = $self->client;
+            return {s.begin(), s.end()};
         }
-    };
+
+        int64_t get_last_request() {
+            return libtorrent::total_milliseconds($self->last_request);
+        }
+
+        int64_t get_last_active() {
+            return libtorrent::total_milliseconds($self->last_active);
+        }
+
+        int64_t get_download_queue_time() {
+            return libtorrent::total_milliseconds($self->download_queue_time);
+        }
+
+        std::int32_t get_flags() {
+            return std::int32_t(static_cast<std::uint32_t>($self->flags));
+        }
+
+        std::int8_t get_source() {
+            return std::int8_t(static_cast<std::uint8_t>($self->source));
+        }
+
+        std::int8_t get_read_state() {
+            return std::int8_t(static_cast<std::uint8_t>($self->read_state));
+        }
+
+        std::int8_t get_write_state() {
+            return std::int8_t(static_cast<std::uint8_t>($self->write_state));
+        }
+    }
 };
 
 typedef std::int64_t time_t;
@@ -1059,7 +934,6 @@ typedef std::int64_t time_t;
 %ignore libtorrent::torrent_handle::set_metadata;
 %ignore libtorrent::torrent_handle::set_ssl_certificate;
 %ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
-%ignore libtorrent::torrent_handle::connect_peer;
 %ignore libtorrent::block_info::set_peer;
 %ignore libtorrent::partial_piece_info::blocks;
 %ignore libtorrent::partial_piece_info::deprecated_state_t;
@@ -1226,6 +1100,9 @@ typedef std::int64_t time_t;
 %ignore libtorrent::udp_error_alert::endpoint;
 %ignore libtorrent::dht_sample_infohashes_alert::endpoint;
 %ignore libtorrent::dht_sample_infohashes_alert::interval;
+%ignore libtorrent::peer_info::last_request;
+%ignore libtorrent::peer_info::last_active;
+%ignore libtorrent::peer_info::download_queue_time;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -1320,6 +1197,7 @@ typedef std::int64_t time_t;
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/bdecode.hpp"
 %include "libtorrent/bencode.hpp"
+%include "libtorrent/peer_info.hpp"
 %include "libtorrent/torrent_flags.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/torrent_handle.hpp"
