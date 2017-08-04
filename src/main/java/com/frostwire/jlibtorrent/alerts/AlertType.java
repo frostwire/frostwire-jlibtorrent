@@ -124,7 +124,7 @@ public enum AlertType {
     }
 
     private static AlertType[] buildTable() {
-        AlertType[] arr = new AlertType[libtorrent.getNum_alert_types()];
+        AlertType[] arr = new AlertType[Alerts.NUM_ALERT_TYPES];
 
         arr[0] = TORRENT;
         arr[1] = PEER;

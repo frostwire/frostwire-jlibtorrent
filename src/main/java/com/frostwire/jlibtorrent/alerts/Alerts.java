@@ -11,6 +11,8 @@ import static com.frostwire.jlibtorrent.swig.alert.*;
  */
 public final class Alerts {
 
+    public static final int NUM_ALERT_TYPES = libtorrent.getNum_alert_types();
+
     private static CastLambda[] TABLE = buildTable();
 
     private Alerts() {
@@ -21,7 +23,7 @@ public final class Alerts {
     }
 
     private static CastLambda[] buildTable() {
-        CastLambda[] arr = new CastLambda[libtorrent.getNum_alert_types()];
+        CastLambda[] arr = new CastLambda[NUM_ALERT_TYPES];
 
         arr[0] = new CastLambda() {
             @Override
