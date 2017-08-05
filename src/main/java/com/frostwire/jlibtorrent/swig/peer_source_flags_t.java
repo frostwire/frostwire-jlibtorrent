@@ -35,8 +35,8 @@ public class peer_source_flags_t {
     }
   }
 
-  public peer_source_flags_t all() {
-    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_all(swigCPtr, this), true);
+  public static peer_source_flags_t all() {
+    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_all(), true);
   }
 
   public boolean op_bool() {

@@ -35,8 +35,8 @@ public class session_flags_t {
     }
   }
 
-  public session_flags_t all() {
-    return new session_flags_t(libtorrent_jni.session_flags_t_all(swigCPtr, this), true);
+  public static session_flags_t all() {
+    return new session_flags_t(libtorrent_jni.session_flags_t_all(), true);
   }
 
   public boolean op_bool() {

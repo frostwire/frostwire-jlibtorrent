@@ -80,7 +80,7 @@ public interface Alert<T extends alert> {
 
         private final alert_category_t f;
 
-        AlertCategory(alert_category_t f) {
+        public AlertCategory(alert_category_t f) {
             this.f = f;
         }
 

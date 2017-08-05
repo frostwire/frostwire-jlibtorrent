@@ -35,8 +35,8 @@ public class alert_category_t {
     }
   }
 
-  public alert_category_t all() {
-    return new alert_category_t(libtorrent_jni.alert_category_t_all(swigCPtr, this), true);
+  public static alert_category_t all() {
+    return new alert_category_t(libtorrent_jni.alert_category_t_all(), true);
   }
 
   public boolean op_bool() {

@@ -35,8 +35,8 @@ public class add_piece_flags_t {
     }
   }
 
-  public add_piece_flags_t all() {
-    return new add_piece_flags_t(libtorrent_jni.add_piece_flags_t_all(swigCPtr, this), true);
+  public static add_piece_flags_t all() {
+    return new add_piece_flags_t(libtorrent_jni.add_piece_flags_t_all(), true);
   }
 
   public boolean op_bool() {

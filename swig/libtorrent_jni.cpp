@@ -12164,18 +12164,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1category_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1category_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::alert_category_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::alert_category_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::alert_category_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::alert_category_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::alert_category_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -12494,18 +12491,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1piece_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1piece_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::add_piece_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::add_piece_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::add_piece_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::add_piece_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::add_piece_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -12824,18 +12818,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_status_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_status_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::status_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::status_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::status_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::status_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::status_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -13154,18 +13145,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_deadline_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_deadline_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::deadline_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::deadline_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::deadline_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::deadline_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::deadline_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -13484,18 +13472,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::session_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::session_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::session_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::session_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::session_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -13814,18 +13799,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pause_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pause_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::pause_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::pause_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::pause_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::pause_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::pause_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -14144,18 +14126,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_resume_1data_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_resume_1data_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::resume_data_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::resume_data_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::resume_data_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::resume_data_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::resume_data_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -14474,18 +14453,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_picker_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_picker_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::picker_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::picker_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::picker_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::picker_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::picker_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -14804,18 +14780,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_remove_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_remove_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::remove_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::remove_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::remove_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::remove_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::remove_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -15134,18 +15107,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_save_1state_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_save_1state_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::save_state_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::save_state_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::save_state_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::save_state_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::save_state_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -15464,18 +15434,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint64_t,libtorrent::torrent_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint64_t,libtorrent::torrent_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint64_t,libtorrent::torrent_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint64_t,libtorrent::torrent_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint64_t,libtorrent::torrent_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -15794,18 +15761,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::peer_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::peer_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::peer_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::peer_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::peer_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -16124,18 +16088,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1source_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1source_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::peer_source_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::peer_source_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::peer_source_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::peer_source_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::peer_source_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -16454,18 +16415,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bandwidth_1state_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bandwidth_1state_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::bandwidth_state_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::bandwidth_state_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::bandwidth_state_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::bandwidth_state_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::bandwidth_state_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -16784,18 +16742,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::file_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::file_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::file_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::file_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::file_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -17114,18 +17069,15 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_create_1flags_1t_1all(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_create_1flags_1t_1all(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::create_flags_tag > *arg1 = (libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::create_flags_tag > *) 0 ;
   libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::create_flags_tag > result;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::create_flags_tag > **)&jarg1; 
   {
     try {
-      result = (arg1)->all();
+      result = libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::create_flags_tag >::SWIGTEMPLATEDISAMBIGUATOR all();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;

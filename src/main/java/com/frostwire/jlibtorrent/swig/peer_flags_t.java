@@ -35,8 +35,8 @@ public class peer_flags_t {
     }
   }
 
-  public peer_flags_t all() {
-    return new peer_flags_t(libtorrent_jni.peer_flags_t_all(swigCPtr, this), true);
+  public static peer_flags_t all() {
+    return new peer_flags_t(libtorrent_jni.peer_flags_t_all(), true);
   }
 
   public boolean op_bool() {

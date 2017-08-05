@@ -35,8 +35,8 @@ public class save_state_flags_t {
     }
   }
 
-  public save_state_flags_t all() {
-    return new save_state_flags_t(libtorrent_jni.save_state_flags_t_all(swigCPtr, this), true);
+  public static save_state_flags_t all() {
+    return new save_state_flags_t(libtorrent_jni.save_state_flags_t_all(), true);
   }
 
   public boolean op_bool() {

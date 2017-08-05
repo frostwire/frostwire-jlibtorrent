@@ -35,8 +35,8 @@ public class pause_flags_t {
     }
   }
 
-  public pause_flags_t all() {
-    return new pause_flags_t(libtorrent_jni.pause_flags_t_all(swigCPtr, this), true);
+  public static pause_flags_t all() {
+    return new pause_flags_t(libtorrent_jni.pause_flags_t_all(), true);
   }
 
   public boolean op_bool() {

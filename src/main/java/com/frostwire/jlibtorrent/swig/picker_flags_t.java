@@ -35,8 +35,8 @@ public class picker_flags_t {
     }
   }
 
-  public picker_flags_t all() {
-    return new picker_flags_t(libtorrent_jni.picker_flags_t_all(swigCPtr, this), true);
+  public static picker_flags_t all() {
+    return new picker_flags_t(libtorrent_jni.picker_flags_t_all(), true);
   }
 
   public boolean op_bool() {

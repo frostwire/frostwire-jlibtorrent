@@ -35,8 +35,8 @@ public class bandwidth_state_flags_t {
     }
   }
 
-  public bandwidth_state_flags_t all() {
-    return new bandwidth_state_flags_t(libtorrent_jni.bandwidth_state_flags_t_all(swigCPtr, this), true);
+  public static bandwidth_state_flags_t all() {
+    return new bandwidth_state_flags_t(libtorrent_jni.bandwidth_state_flags_t_all(), true);
   }
 
   public boolean op_bool() {

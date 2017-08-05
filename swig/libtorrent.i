@@ -322,7 +322,7 @@ namespace libtorrent {
         template<typename UnderlyingType, typename Tag>
         struct bitfield_flag
         {
-            bitfield_flag all();
+            static bitfield_flag all();
 
             %extend
             {

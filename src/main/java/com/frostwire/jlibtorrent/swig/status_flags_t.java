@@ -35,8 +35,8 @@ public class status_flags_t {
     }
   }
 
-  public status_flags_t all() {
-    return new status_flags_t(libtorrent_jni.status_flags_t_all(swigCPtr, this), true);
+  public static status_flags_t all() {
+    return new status_flags_t(libtorrent_jni.status_flags_t_all(), true);
   }
 
   public boolean op_bool() {

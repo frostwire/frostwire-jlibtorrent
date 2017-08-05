@@ -35,8 +35,8 @@ public class resume_data_flags_t {
     }
   }
 
-  public resume_data_flags_t all() {
-    return new resume_data_flags_t(libtorrent_jni.resume_data_flags_t_all(swigCPtr, this), true);
+  public static resume_data_flags_t all() {
+    return new resume_data_flags_t(libtorrent_jni.resume_data_flags_t_all(), true);
   }
 
   public boolean op_bool() {
