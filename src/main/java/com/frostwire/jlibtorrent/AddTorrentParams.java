@@ -357,8 +357,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * Flags controlling aspects of this torrent and how it's added. See
-     * {@link com.frostwire.jlibtorrent.swig.add_torrent_params.flags_t} for details.
+     * Flags controlling aspects of this torrent and how it's added.
      *
      * @return the flags
      */
@@ -367,8 +366,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * Flags controlling aspects of this torrent and how it's added. See
-     * {@link com.frostwire.jlibtorrent.swig.add_torrent_params.flags_t} for details.
+     * Flags controlling aspects of this torrent and how it's added.
      *
      * @param flags the flags
      */

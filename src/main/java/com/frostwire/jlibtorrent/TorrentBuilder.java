@@ -100,7 +100,7 @@ public final class TorrentBuilder {
      * If a ``pad_size_limit`` is specified (other than -1), any file larger than
      * the specified number of bytes will be preceded by a pad file to align it
      * with the start of a piece. The pad_file_limit is ignored unless the
-     * {@link CreateFlags#OPTIMIZE_ALIGNMENT} flag is passed. Typically it doesn't make sense
+     * {@link OPTIMIZE_ALIGNMENT} flag is passed. Typically it doesn't make sense
      * to set this any lower than 4kiB.
      *
      * @param value
@@ -120,7 +120,7 @@ public final class TorrentBuilder {
 
     /**
      * Specifies options for the torrent creation. It can
-     * be any combination of the flags defined by {@link CreateFlags}
+     * be any combination of the flags defined by {@link create_flags_t}
      *
      * @param value
      * @return

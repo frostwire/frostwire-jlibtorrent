@@ -6,7 +6,7 @@ import com.frostwire.jlibtorrent.swig.session_stats_alert;
  * The {@link SessionStatsAlert} is posted when the user requests session
  * statistics by calling {@link com.frostwire.jlibtorrent.SessionHandle#postSessionStats()}
  * on the session object. Its category is
- * {@link com.frostwire.jlibtorrent.swig.alert.category_t#status_notification},
+ * {@link com.frostwire.jlibtorrent.swig.alert#status_notification},
  * but it is not subject to filtering, since it's only manually posted anyway.
  *
  * @author gubatron

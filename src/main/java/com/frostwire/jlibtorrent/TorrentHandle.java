@@ -321,7 +321,7 @@ public final class TorrentHandle {
      * {@link com.frostwire.jlibtorrent.alerts.FileErrorAlert}.
      * <p>
      * To know if a torrent is paused or not, call
-     * {@link #status()} and inspect {@link TorrentStatus#isPaused()} .
+     * {@link #status()} and inspect TorrentStatus#isPaused() .
      * <p>
      * The ``flags`` argument to pause can be set to
      * ``torrent_handle::graceful_pause`` which will delay the disconnect of

@@ -239,7 +239,7 @@ public class SessionHandle {
      * If the torrent you are trying to add already exists in the session (is
      * either queued for checking, being checked or downloading)
      * the error code will be set to {@link libtorrent_errors#duplicate_torrent}
-     * unless {@link com.frostwire.jlibtorrent.swig.add_torrent_params.flags_t#flag_duplicate_is_error}
+     * unless {@code flag_duplicate_is_error}
      * is set to false. In that case, {@code addTorrent} will return the handle
      * to the existing torrent.
      * <p>
