@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 import com.frostwire.jlibtorrent.swig.torrent_status;
 
 /**
@@ -668,8 +669,8 @@ public final class TorrentStatus implements Cloneable {
         return ts.get_seeding_duration();
     }
 
-    public TorrentFlags flags() {
-        return new TorrentFlags(ts.getFlags());
+    public torrent_flags_t flags() {
+        return ts.getFlags();
     }
 
     @Override

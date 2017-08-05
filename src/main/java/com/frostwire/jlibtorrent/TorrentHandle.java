@@ -348,20 +348,20 @@ public final class TorrentHandle {
         th.resume();
     }
 
-    public TorrentFlags flags() {
-        return new TorrentFlags(th.flags());
+    public torrent_flags_t flags() {
+        return th.flags();
     }
 
-    public void set_flags(TorrentFlags flags, TorrentFlags mask) {
-        th.set_flags(flags.swig(), mask.swig());
+    public void setFlags(torrent_flags_t flags, torrent_flags_t mask) {
+        th.set_flags(flags, mask);
     }
 
-    public void set_flags(TorrentFlags flags) {
-        th.set_flags(flags.swig());
+    public void setFlags(torrent_flags_t flags) {
+        th.set_flags(flags);
     }
 
-    public void unset_flags(TorrentFlags flags) {
-        th.unset_flags(flags.swig());
+    public void unsetFlags(torrent_flags_t flags) {
+        th.unset_flags(flags);
     }
 
     /**

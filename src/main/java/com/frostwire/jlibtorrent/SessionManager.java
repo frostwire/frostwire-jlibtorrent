@@ -495,7 +495,7 @@ public class SessionManager {
 
         torrent_flags_t flags = p.getFlags();
 
-        flags = torrent_flags_t.op_and(flags, TorrentFlags.AUTO_MANAGED.swig().op_inv());
+        flags = torrent_flags_t.op_and(flags, TorrentFlags.AUTO_MANAGED.op_inv());
 
         p.setFlags(flags);
 
@@ -608,9 +608,9 @@ public class SessionManager {
                     p.setSave_path(FETCH_MAGNET_DOWNLOAD_KEY + uri);
 
                     torrent_flags_t flags = p.getFlags();
-                    flags = torrent_flags_t.op_and(flags, TorrentFlags.AUTO_MANAGED.swig().op_inv());
-                    flags = torrent_flags_t.op_or(flags, TorrentFlags.UPLOAD_MODE.swig());
-                    flags = torrent_flags_t.op_or(flags, TorrentFlags.STOP_WHEN_READY.swig());
+                    flags = torrent_flags_t.op_and(flags, TorrentFlags.AUTO_MANAGED.op_inv());
+                    flags = torrent_flags_t.op_or(flags, TorrentFlags.UPLOAD_MODE);
+                    flags = torrent_flags_t.op_or(flags, TorrentFlags.STOP_WHEN_READY);
                     p.setFlags(flags);
 
                     ec.clear();

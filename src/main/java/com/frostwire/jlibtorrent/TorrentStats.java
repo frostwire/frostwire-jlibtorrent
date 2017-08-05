@@ -388,8 +388,8 @@ public final class TorrentStats {
         numConnections = st.getNum_connections();
         state = status.state();
         needSaveResume = st.getNeed_save_resume();
-        isPaused = op_and(st.getFlags(), TorrentFlags.PAUSED.swig()).op_bool();
-        isSequentialDownload = op_and(st.getFlags(), TorrentFlags.SEQUENTIAL_DOWNLOAD.swig()).op_bool();
+        isPaused = op_and(st.getFlags(), TorrentFlags.PAUSED).op_bool();
+        isSequentialDownload = op_and(st.getFlags(), TorrentFlags.SEQUENTIAL_DOWNLOAD).op_bool();
         isSeeding = st.getIs_seeding();
         isFinished = st.getIs_finished();
     }

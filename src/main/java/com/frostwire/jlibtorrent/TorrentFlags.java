@@ -9,14 +9,7 @@ import com.frostwire.jlibtorrent.swig.torrent_flags_t;
  */
 public final class TorrentFlags {
 
-    private final torrent_flags_t f;
-
-    TorrentFlags(torrent_flags_t f) {
-        this.f = f;
-    }
-
-    public torrent_flags_t swig() {
-        return f;
+    private TorrentFlags() {
     }
 
     // If ``seed_mode`` is set, libtorrent will assume that all files
@@ -34,7 +27,7 @@ public final class TorrentFlags {
     //
     // If resume data is passed in with this torrent, the seed mode saved
     // in there will override the seed mode you set here.
-    public static final TorrentFlags SEED_MODE = new TorrentFlags(libtorrent.getSeed_mode());
+    public static final torrent_flags_t SEED_MODE = libtorrent.getSeed_mode();
 
     // If ``upload_mode`` is set, the torrent will be initialized in
     // upload-mode, which means it will not make any piece requests. This
@@ -50,7 +43,7 @@ public final class TorrentFlags {
     // will eventually be taken out of upload-mode, regardless of how it
     // got there. If it's important to manually control when the torrent
     // leaves upload mode, don't make it auto managed.
-    public static final TorrentFlags UPLOAD_MODE = new TorrentFlags(libtorrent.getUpload_mode());
+    public static final torrent_flags_t UPLOAD_MODE = libtorrent.getUpload_mode();
 
     // determines if the torrent should be added in *share mode* or not.
     // Share mode indicates that we are not interested in downloading the
@@ -70,21 +63,21 @@ public final class TorrentFlags {
     //
     // The share mode has one setting, the share ratio target, see
     // ``settings_pack::share_mode_target`` for more info.
-    public static final TorrentFlags SHARE_MODE = new TorrentFlags(libtorrent.getShare_mode());
+    public static final torrent_flags_t SHARE_MODE = libtorrent.getShare_mode();
 
     // determines if the IP filter should apply to this torrent or not. By
     // default all torrents are subject to filtering by the IP filter
     // (i.e. this flag is set by default). This is useful if certain
     // torrents needs to be exempt for some reason, being an auto-update
     // torrent for instance.
-    public static final TorrentFlags APPLY_IP_FILTER = new TorrentFlags(libtorrent.getApply_ip_filter());
+    public static final torrent_flags_t APPLY_IP_FILTER = libtorrent.getApply_ip_filter();
 
     // specifies whether or not the torrent is to be started in a paused
     // state. I.e. it won't connect to the tracker or any of the peers
     // until it's resumed. This is typically a good way of avoiding race
     // conditions when setting configuration options on torrents before
     // starting them.
-    public static final TorrentFlags PAUSED = new TorrentFlags(libtorrent.getPaused());
+    public static final torrent_flags_t PAUSED = libtorrent.getPaused();
 
     // If the torrent is auto-managed (``auto_managed``), the torrent
     // may be resumed at any point, regardless of how it paused. If it's
@@ -101,23 +94,23 @@ public final class TorrentFlags {
     // when the resume data was saved will override the auto_managed state
     // you pass in here. You can override this by setting
     // ``override_resume_data``.
-    public static final TorrentFlags AUTO_MANAGED = new TorrentFlags(libtorrent.getAuto_managed());
-    public static final TorrentFlags DUPLICATE_IS_ERROR = new TorrentFlags(libtorrent.getDuplicate_is_error());
+    public static final torrent_flags_t AUTO_MANAGED = libtorrent.getAuto_managed();
+    public static final torrent_flags_t DUPLICATE_IS_ERROR = libtorrent.getDuplicate_is_error();
 
     // on by default and means that this torrent will be part of state
     // updates when calling post_torrent_updates().
-    public static final TorrentFlags UPDATE_SUBSCRIBE = new TorrentFlags(libtorrent.getUpdate_subscribe());
+    public static final torrent_flags_t UPDATE_SUBSCRIBE = libtorrent.getUpdate_subscribe();
 
     // sets the torrent into super seeding mode. If the torrent is not a
     // seed, this flag has no effect. It has the same effect as calling
     // ``torrent_handle::super_seeding(true)`` on the torrent handle
     // immediately after adding it.
-    public static final TorrentFlags SUPER_SEEDING = new TorrentFlags(libtorrent.getSuper_seeding());
+    public static final torrent_flags_t SUPER_SEEDING = libtorrent.getSuper_seeding();
 
     // sets the sequential download state for the torrent. It has the same
     // effect as calling ``torrent_handle::sequential_download(true)`` on
     // the torrent handle immediately after adding it.
-    public static final TorrentFlags SEQUENTIAL_DOWNLOAD = new TorrentFlags(libtorrent.getSequential_download());
+    public static final torrent_flags_t SEQUENTIAL_DOWNLOAD = libtorrent.getSequential_download();
 
     // When this flag is set, the
     // torrent will *force stop* whenever it transitions from a
@@ -148,25 +141,25 @@ public final class TorrentFlags {
     // for the state_changed_alert and then call pause(). The download/seeding
     // will most likely start in between posting the alert and receiving the
     // call to pause.
-    public static final TorrentFlags STOP_WHEN_READY = new TorrentFlags(libtorrent.getStop_when_ready());
+    public static final torrent_flags_t STOP_WHEN_READY = libtorrent.getStop_when_ready();
 
     // when this flag is set, the tracker list in the add_torrent_params
     // object override any trackers from the torrent file. If the flag is
     // not set, the trackers from the add_torrent_params object will be
     // added to the list of trackers used by the torrent.
-    public static final TorrentFlags OVERRIDE_TRACKERS = new TorrentFlags(libtorrent.getOverride_trackers());
+    public static final torrent_flags_t OVERRIDE_TRACKERS = libtorrent.getOverride_trackers();
 
     // If this flag is set, the web seeds from the add_torrent_params
     // object will override any web seeds in the torrent file. If it's not
     // set, web seeds in the add_torrent_params object will be added to the
     // list of web seeds used by the torrent.
-    public static final TorrentFlags OVERRIDE_WEB_SEEDS = new TorrentFlags(libtorrent.getOverride_web_seeds());
+    public static final torrent_flags_t OVERRIDE_WEB_SEEDS = libtorrent.getOverride_web_seeds();
 
     // if this flag is set (which it is by default) the torrent will be
     // considered needing to save its resume data immediately as it's
     // added. New torrents that don't have any resume data should do that.
     // This flag is cleared by a successful call to save_resume_data()
-    public static final TorrentFlags NEED_SAVE_RESUME = new TorrentFlags(libtorrent.getNeed_save_resume());
+    public static final torrent_flags_t NEED_SAVE_RESUME = libtorrent.getNeed_save_resume();
 
-    public static final TorrentFlags ALL = new TorrentFlags(libtorrent.getAll());
+    public static final torrent_flags_t ALL = libtorrent.getAll();
 }

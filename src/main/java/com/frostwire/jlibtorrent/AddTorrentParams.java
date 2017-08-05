@@ -362,8 +362,8 @@ public final class AddTorrentParams {
      *
      * @return the flags
      */
-    public TorrentFlags flags() {
-        return new TorrentFlags(p.getFlags());
+    public torrent_flags_t flags() {
+        return p.getFlags();
     }
 
     /**
@@ -372,8 +372,8 @@ public final class AddTorrentParams {
      *
      * @param flags the flags
      */
-    public void flags(TorrentFlags flags) {
-        p.setFlags(flags.swig());
+    public void flags(torrent_flags_t flags) {
+        p.setFlags(flags);
     }
 
     /**
