@@ -39,8 +39,8 @@ public class state_update_alert extends alert {
     return libtorrent_jni.state_update_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.state_update_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.state_update_alert_category(swigCPtr, this), true);
   }
 
   public String what() {

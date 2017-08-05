@@ -39,8 +39,8 @@ public class peer_log_alert extends peer_alert {
     return libtorrent_jni.peer_log_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.peer_log_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.peer_log_alert_category(swigCPtr, this), true);
   }
 
   public String what() {

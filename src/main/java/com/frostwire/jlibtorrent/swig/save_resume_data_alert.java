@@ -39,8 +39,8 @@ public class save_resume_data_alert extends torrent_alert {
     return libtorrent_jni.save_resume_data_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.save_resume_data_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.save_resume_data_alert_category(swigCPtr, this), true);
   }
 
   public String what() {

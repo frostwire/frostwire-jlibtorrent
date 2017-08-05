@@ -39,8 +39,8 @@ public class dht_get_peers_alert extends alert {
     return libtorrent_jni.dht_get_peers_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.dht_get_peers_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.dht_get_peers_alert_category(swigCPtr, this), true);
   }
 
   public String what() {

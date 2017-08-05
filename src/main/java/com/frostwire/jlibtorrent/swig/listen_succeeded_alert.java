@@ -39,8 +39,8 @@ public class listen_succeeded_alert extends alert {
     return libtorrent_jni.listen_succeeded_alert_type(swigCPtr, this);
   }
 
-  public int category() {
-    return libtorrent_jni.listen_succeeded_alert_category(swigCPtr, this);
+  public alert_category_t category() {
+    return new alert_category_t(libtorrent_jni.listen_succeeded_alert_category(swigCPtr, this), true);
   }
 
   public String what() {
