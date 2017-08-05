@@ -61,8 +61,6 @@ public class SessionHandle {
             return f;
         }
 
-        public static final SaveStateFlags ZERO = new SaveStateFlags(new save_state_flags_t());
-
         /**
          * Saves settings (i.e. the {@link SettingsPack}).
          */

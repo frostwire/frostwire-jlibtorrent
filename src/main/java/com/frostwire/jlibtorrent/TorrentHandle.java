@@ -67,8 +67,6 @@ public final class TorrentHandle {
             return f;
         }
 
-        public static final AddPieceFlags ZERO = new AddPieceFlags(new add_piece_flags_t());
-
         /**
          * Instruct libtorrent to overwrite any data that may already have been
          * downloaded with the data of the new piece being added.
@@ -1082,8 +1080,6 @@ public final class TorrentHandle {
         public deadline_flags_t swig() {
             return f;
         }
-
-        public static final DeadlineFlags ZERO = new DeadlineFlags(new deadline_flags_t());
 
         /**
          *
