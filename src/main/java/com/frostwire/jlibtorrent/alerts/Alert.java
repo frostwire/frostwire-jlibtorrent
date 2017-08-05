@@ -74,5 +74,5 @@ public interface Alert<T extends alert> {
      *
      * @return the alert category
      */
-    alert_category_t category();
+    AlertCategory category();
 }
