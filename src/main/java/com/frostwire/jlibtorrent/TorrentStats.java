@@ -2,8 +2,6 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.torrent_status;
 
-import static com.frostwire.jlibtorrent.swig.torrent_flags_t.op_and;
-
 /**
  * To be used in concert with {@link SessionManager}.
  * <p>
@@ -388,8 +386,8 @@ public final class TorrentStats {
         numConnections = st.getNum_connections();
         state = status.state();
         needSaveResume = st.getNeed_save_resume();
-        isPaused = op_and(st.getFlags(), TorrentFlags.PAUSED).op_bool();
-        isSequentialDownload = op_and(st.getFlags(), TorrentFlags.SEQUENTIAL_DOWNLOAD).op_bool();
+        isPaused = st.getFlags().and_(TorrentFlags.PAUSED).nonZero();
+        isSequentialDownload = st.getFlags().and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).nonZero();
         isSeeding = st.getIs_seeding();
         isFinished = st.getIs_finished();
     }

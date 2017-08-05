@@ -39,32 +39,32 @@ public class status_flags_t {
     return new status_flags_t(libtorrent_jni.status_flags_t_all(), true);
   }
 
-  public boolean op_bool() {
-    return libtorrent_jni.status_flags_t_op_bool(swigCPtr, this);
+  public boolean nonZero() {
+    return libtorrent_jni.status_flags_t_nonZero(swigCPtr, this);
   }
 
-  public boolean op_eq(status_flags_t f) {
-    return libtorrent_jni.status_flags_t_op_eq(swigCPtr, this, status_flags_t.getCPtr(f), f);
+  public boolean eq(status_flags_t f) {
+    return libtorrent_jni.status_flags_t_eq(swigCPtr, this, status_flags_t.getCPtr(f), f);
   }
 
-  public boolean op_ne(status_flags_t f) {
-    return libtorrent_jni.status_flags_t_op_ne(swigCPtr, this, status_flags_t.getCPtr(f), f);
+  public boolean ne(status_flags_t f) {
+    return libtorrent_jni.status_flags_t_ne(swigCPtr, this, status_flags_t.getCPtr(f), f);
   }
 
-  public static status_flags_t op_or(status_flags_t lhs, status_flags_t rhs) {
-    return new status_flags_t(libtorrent_jni.status_flags_t_op_or(status_flags_t.getCPtr(lhs), lhs, status_flags_t.getCPtr(rhs), rhs), true);
+  public status_flags_t or_(status_flags_t other) {
+    return new status_flags_t(libtorrent_jni.status_flags_t_or_(swigCPtr, this, status_flags_t.getCPtr(other), other), true);
   }
 
-  public static status_flags_t op_and(status_flags_t lhs, status_flags_t rhs) {
-    return new status_flags_t(libtorrent_jni.status_flags_t_op_and(status_flags_t.getCPtr(lhs), lhs, status_flags_t.getCPtr(rhs), rhs), true);
+  public status_flags_t and_(status_flags_t other) {
+    return new status_flags_t(libtorrent_jni.status_flags_t_and_(swigCPtr, this, status_flags_t.getCPtr(other), other), true);
   }
 
-  public static status_flags_t op_xor(status_flags_t lhs, status_flags_t rhs) {
-    return new status_flags_t(libtorrent_jni.status_flags_t_op_xor(status_flags_t.getCPtr(lhs), lhs, status_flags_t.getCPtr(rhs), rhs), true);
+  public status_flags_t xor(status_flags_t other) {
+    return new status_flags_t(libtorrent_jni.status_flags_t_xor(swigCPtr, this, status_flags_t.getCPtr(other), other), true);
   }
 
-  public status_flags_t op_inv() {
-    return new status_flags_t(libtorrent_jni.status_flags_t_op_inv(swigCPtr, this), true);
+  public status_flags_t inv() {
+    return new status_flags_t(libtorrent_jni.status_flags_t_inv(swigCPtr, this), true);
   }
 
   public int to_int() {

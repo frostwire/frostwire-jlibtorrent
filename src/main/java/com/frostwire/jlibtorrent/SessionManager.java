@@ -10,9 +10,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static com.frostwire.jlibtorrent.swig.alert_category_t.op_and;
-import static com.frostwire.jlibtorrent.swig.alert_category_t.op_or;
-
 /**
  * @author gubatron
  * @author aldenml
@@ -495,7 +492,7 @@ public class SessionManager {
 
         torrent_flags_t flags = p.getFlags();
 
-        flags = torrent_flags_t.op_and(flags, TorrentFlags.AUTO_MANAGED.op_inv());
+        flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
 
         p.setFlags(flags);
 
@@ -608,9 +605,9 @@ public class SessionManager {
                     p.setSave_path(FETCH_MAGNET_DOWNLOAD_KEY + uri);
 
                     torrent_flags_t flags = p.getFlags();
-                    flags = torrent_flags_t.op_and(flags, TorrentFlags.AUTO_MANAGED.op_inv());
-                    flags = torrent_flags_t.op_or(flags, TorrentFlags.UPLOAD_MODE);
-                    flags = torrent_flags_t.op_or(flags, TorrentFlags.STOP_WHEN_READY);
+                    flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+                    flags = flags.or_(TorrentFlags.UPLOAD_MODE);
+                    flags = flags.or_(TorrentFlags.STOP_WHEN_READY);
                     p.setFlags(flags);
 
                     ec.clear();
@@ -1014,13 +1011,13 @@ public class SessionManager {
         alert_category_t mask = alert.all_categories;
         if (!logging) {
             alert_category_t log_mask = alert.session_log_notification;
-            log_mask = op_or(log_mask, alert.torrent_log_notification);
-            log_mask = op_or(log_mask, alert.peer_log_notification);
-            log_mask = op_or(log_mask, alert.dht_log_notification);
-            log_mask = op_or(log_mask, alert.port_mapping_log_notification);
-            log_mask = op_or(log_mask, alert.picker_log_notification);
+            log_mask = log_mask.or_(alert.torrent_log_notification);
+            log_mask = log_mask.or_(alert.peer_log_notification);
+            log_mask = log_mask.or_(alert.dht_log_notification);
+            log_mask = log_mask.or_(alert.port_mapping_log_notification);
+            log_mask = log_mask.or_(alert.picker_log_notification);
 
-            mask = op_and(mask, log_mask.op_inv());
+            mask = mask.and_(log_mask.inv());
         }
         return mask;
     }

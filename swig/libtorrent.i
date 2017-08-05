@@ -326,37 +326,37 @@ namespace libtorrent {
 
             %extend
             {
-                bool op_bool()
+                bool nonZero()
                 {
                     return $self->operator bool();
                 }
 
-                bool op_eq(bitfield_flag const f)
+                bool eq(bitfield_flag const f)
                 {
                     return $self->operator==(f);
                 }
 
-                bool op_ne(bitfield_flag const f)
+                bool ne(bitfield_flag const f)
                 {
                     return $self->operator!=(f);
                 }
 
-                static bitfield_flag op_or(bitfield_flag const lhs, bitfield_flag const rhs)
+                bitfield_flag or_(bitfield_flag const other)
                 {
-                    return lhs | rhs;
+                    return *$self | other;
                 }
 
-                static bitfield_flag op_and(bitfield_flag const lhs, bitfield_flag const rhs)
+                bitfield_flag and_(bitfield_flag const other)
                 {
-                    return lhs & rhs;
+                    return *$self & other;
                 }
 
-                static bitfield_flag op_xor(bitfield_flag const lhs, bitfield_flag const rhs)
+                bitfield_flag xor(bitfield_flag const other)
                 {
-                    return lhs ^ rhs;
+                    return *$self ^ other;
                 }
 
-                bitfield_flag op_inv()
+                bitfield_flag inv()
                 {
                     return $self->operator~();
                 }

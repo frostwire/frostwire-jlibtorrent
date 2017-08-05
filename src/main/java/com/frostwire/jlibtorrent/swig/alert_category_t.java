@@ -39,32 +39,32 @@ public class alert_category_t {
     return new alert_category_t(libtorrent_jni.alert_category_t_all(), true);
   }
 
-  public boolean op_bool() {
-    return libtorrent_jni.alert_category_t_op_bool(swigCPtr, this);
+  public boolean nonZero() {
+    return libtorrent_jni.alert_category_t_nonZero(swigCPtr, this);
   }
 
-  public boolean op_eq(alert_category_t f) {
-    return libtorrent_jni.alert_category_t_op_eq(swigCPtr, this, alert_category_t.getCPtr(f), f);
+  public boolean eq(alert_category_t f) {
+    return libtorrent_jni.alert_category_t_eq(swigCPtr, this, alert_category_t.getCPtr(f), f);
   }
 
-  public boolean op_ne(alert_category_t f) {
-    return libtorrent_jni.alert_category_t_op_ne(swigCPtr, this, alert_category_t.getCPtr(f), f);
+  public boolean ne(alert_category_t f) {
+    return libtorrent_jni.alert_category_t_ne(swigCPtr, this, alert_category_t.getCPtr(f), f);
   }
 
-  public static alert_category_t op_or(alert_category_t lhs, alert_category_t rhs) {
-    return new alert_category_t(libtorrent_jni.alert_category_t_op_or(alert_category_t.getCPtr(lhs), lhs, alert_category_t.getCPtr(rhs), rhs), true);
+  public alert_category_t or_(alert_category_t other) {
+    return new alert_category_t(libtorrent_jni.alert_category_t_or_(swigCPtr, this, alert_category_t.getCPtr(other), other), true);
   }
 
-  public static alert_category_t op_and(alert_category_t lhs, alert_category_t rhs) {
-    return new alert_category_t(libtorrent_jni.alert_category_t_op_and(alert_category_t.getCPtr(lhs), lhs, alert_category_t.getCPtr(rhs), rhs), true);
+  public alert_category_t and_(alert_category_t other) {
+    return new alert_category_t(libtorrent_jni.alert_category_t_and_(swigCPtr, this, alert_category_t.getCPtr(other), other), true);
   }
 
-  public static alert_category_t op_xor(alert_category_t lhs, alert_category_t rhs) {
-    return new alert_category_t(libtorrent_jni.alert_category_t_op_xor(alert_category_t.getCPtr(lhs), lhs, alert_category_t.getCPtr(rhs), rhs), true);
+  public alert_category_t xor(alert_category_t other) {
+    return new alert_category_t(libtorrent_jni.alert_category_t_xor(swigCPtr, this, alert_category_t.getCPtr(other), other), true);
   }
 
-  public alert_category_t op_inv() {
-    return new alert_category_t(libtorrent_jni.alert_category_t_op_inv(swigCPtr, this), true);
+  public alert_category_t inv() {
+    return new alert_category_t(libtorrent_jni.alert_category_t_inv(swigCPtr, this), true);
   }
 
   public int to_int() {

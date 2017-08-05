@@ -39,32 +39,32 @@ public class peer_source_flags_t {
     return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_all(), true);
   }
 
-  public boolean op_bool() {
-    return libtorrent_jni.peer_source_flags_t_op_bool(swigCPtr, this);
+  public boolean nonZero() {
+    return libtorrent_jni.peer_source_flags_t_nonZero(swigCPtr, this);
   }
 
-  public boolean op_eq(peer_source_flags_t f) {
-    return libtorrent_jni.peer_source_flags_t_op_eq(swigCPtr, this, peer_source_flags_t.getCPtr(f), f);
+  public boolean eq(peer_source_flags_t f) {
+    return libtorrent_jni.peer_source_flags_t_eq(swigCPtr, this, peer_source_flags_t.getCPtr(f), f);
   }
 
-  public boolean op_ne(peer_source_flags_t f) {
-    return libtorrent_jni.peer_source_flags_t_op_ne(swigCPtr, this, peer_source_flags_t.getCPtr(f), f);
+  public boolean ne(peer_source_flags_t f) {
+    return libtorrent_jni.peer_source_flags_t_ne(swigCPtr, this, peer_source_flags_t.getCPtr(f), f);
   }
 
-  public static peer_source_flags_t op_or(peer_source_flags_t lhs, peer_source_flags_t rhs) {
-    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_op_or(peer_source_flags_t.getCPtr(lhs), lhs, peer_source_flags_t.getCPtr(rhs), rhs), true);
+  public peer_source_flags_t or_(peer_source_flags_t other) {
+    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_or_(swigCPtr, this, peer_source_flags_t.getCPtr(other), other), true);
   }
 
-  public static peer_source_flags_t op_and(peer_source_flags_t lhs, peer_source_flags_t rhs) {
-    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_op_and(peer_source_flags_t.getCPtr(lhs), lhs, peer_source_flags_t.getCPtr(rhs), rhs), true);
+  public peer_source_flags_t and_(peer_source_flags_t other) {
+    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_and_(swigCPtr, this, peer_source_flags_t.getCPtr(other), other), true);
   }
 
-  public static peer_source_flags_t op_xor(peer_source_flags_t lhs, peer_source_flags_t rhs) {
-    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_op_xor(peer_source_flags_t.getCPtr(lhs), lhs, peer_source_flags_t.getCPtr(rhs), rhs), true);
+  public peer_source_flags_t xor(peer_source_flags_t other) {
+    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_xor(swigCPtr, this, peer_source_flags_t.getCPtr(other), other), true);
   }
 
-  public peer_source_flags_t op_inv() {
-    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_op_inv(swigCPtr, this), true);
+  public peer_source_flags_t inv() {
+    return new peer_source_flags_t(libtorrent_jni.peer_source_flags_t_inv(swigCPtr, this), true);
   }
 
   public int to_int() {

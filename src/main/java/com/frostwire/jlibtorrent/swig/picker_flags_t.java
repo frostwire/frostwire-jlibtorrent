@@ -39,32 +39,32 @@ public class picker_flags_t {
     return new picker_flags_t(libtorrent_jni.picker_flags_t_all(), true);
   }
 
-  public boolean op_bool() {
-    return libtorrent_jni.picker_flags_t_op_bool(swigCPtr, this);
+  public boolean nonZero() {
+    return libtorrent_jni.picker_flags_t_nonZero(swigCPtr, this);
   }
 
-  public boolean op_eq(picker_flags_t f) {
-    return libtorrent_jni.picker_flags_t_op_eq(swigCPtr, this, picker_flags_t.getCPtr(f), f);
+  public boolean eq(picker_flags_t f) {
+    return libtorrent_jni.picker_flags_t_eq(swigCPtr, this, picker_flags_t.getCPtr(f), f);
   }
 
-  public boolean op_ne(picker_flags_t f) {
-    return libtorrent_jni.picker_flags_t_op_ne(swigCPtr, this, picker_flags_t.getCPtr(f), f);
+  public boolean ne(picker_flags_t f) {
+    return libtorrent_jni.picker_flags_t_ne(swigCPtr, this, picker_flags_t.getCPtr(f), f);
   }
 
-  public static picker_flags_t op_or(picker_flags_t lhs, picker_flags_t rhs) {
-    return new picker_flags_t(libtorrent_jni.picker_flags_t_op_or(picker_flags_t.getCPtr(lhs), lhs, picker_flags_t.getCPtr(rhs), rhs), true);
+  public picker_flags_t or_(picker_flags_t other) {
+    return new picker_flags_t(libtorrent_jni.picker_flags_t_or_(swigCPtr, this, picker_flags_t.getCPtr(other), other), true);
   }
 
-  public static picker_flags_t op_and(picker_flags_t lhs, picker_flags_t rhs) {
-    return new picker_flags_t(libtorrent_jni.picker_flags_t_op_and(picker_flags_t.getCPtr(lhs), lhs, picker_flags_t.getCPtr(rhs), rhs), true);
+  public picker_flags_t and_(picker_flags_t other) {
+    return new picker_flags_t(libtorrent_jni.picker_flags_t_and_(swigCPtr, this, picker_flags_t.getCPtr(other), other), true);
   }
 
-  public static picker_flags_t op_xor(picker_flags_t lhs, picker_flags_t rhs) {
-    return new picker_flags_t(libtorrent_jni.picker_flags_t_op_xor(picker_flags_t.getCPtr(lhs), lhs, picker_flags_t.getCPtr(rhs), rhs), true);
+  public picker_flags_t xor(picker_flags_t other) {
+    return new picker_flags_t(libtorrent_jni.picker_flags_t_xor(swigCPtr, this, picker_flags_t.getCPtr(other), other), true);
   }
 
-  public picker_flags_t op_inv() {
-    return new picker_flags_t(libtorrent_jni.picker_flags_t_op_inv(swigCPtr, this), true);
+  public picker_flags_t inv() {
+    return new picker_flags_t(libtorrent_jni.picker_flags_t_inv(swigCPtr, this), true);
   }
 
   public int to_int() {
