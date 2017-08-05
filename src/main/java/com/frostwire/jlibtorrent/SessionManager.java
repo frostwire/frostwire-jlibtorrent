@@ -510,9 +510,9 @@ public class SessionManager {
         download(ti, saveDir, null, null, null);
     }
 
-    public void remove(TorrentHandle th, SessionHandle.RemoveFlags options) {
+    public void remove(TorrentHandle th, remove_flags_t options) {
         if (session != null && th.isValid()) {
-            session.remove_torrent(th.swig(), options.swig());
+            session.remove_torrent(th.swig(), options);
         }
     }
 

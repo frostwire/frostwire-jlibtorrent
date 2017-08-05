@@ -1037,25 +1037,9 @@ public final class TorrentHandle {
     }
 
     /**
-     * Flags for {@link #setPieceDeadline(int, int, TorrentHandle.DeadlineFlags)}.
+     *
      */
-    public static final class DeadlineFlags {
-
-        private final deadline_flags_t f;
-
-        private DeadlineFlags(deadline_flags_t f) {
-            this.f = f;
-        }
-
-        public deadline_flags_t swig() {
-            return f;
-        }
-
-        /**
-         *
-         */
-        public static final DeadlineFlags ALERT_WHEN_AVAILABLE = new DeadlineFlags(torrent_handle.alert_when_available);
-    }
+    public static final deadline_flags_t ALERT_WHEN_AVAILABLE = torrent_handle.alert_when_available;
 
     /**
      * This function sets or resets the deadline associated with a specific
@@ -1079,8 +1063,8 @@ public final class TorrentHandle {
      * @param deadline
      * @param flags
      */
-    public void setPieceDeadline(int index, int deadline, DeadlineFlags flags) {
-        th.set_piece_deadline(index, deadline, flags.swig());
+    public void setPieceDeadline(int index, int deadline, deadline_flags_t flags) {
+        th.set_piece_deadline(index, deadline, flags);
     }
 
     /**

@@ -46,42 +46,25 @@ public class SessionHandle {
     }
 
     /**
-     * Flags that determines which aspects of the session should be
-     * saved when calling {@link #saveState(SaveStateFlags)}
+     * Saves settings (i.e. the {@link SettingsPack}).
      */
-    public static final class SaveStateFlags {
+    public static final save_state_flags_t SAVE_SETTINGS = session_handle.save_settings;
 
-        private final save_state_flags_t f;
+    /**
+     * Saves {@link DhtSettings}.
+     */
+    public static final save_state_flags_t SAVE_DHT_SETTINGS = session_handle.save_dht_settings;
 
-        private SaveStateFlags(save_state_flags_t f) {
-            this.f = f;
-        }
+    /**
+     * Saves dht state such as nodes and node-id, possibly accelerating
+     * joining the DHT if provided at next session startup.
+     */
+    public static final save_state_flags_t SAVE_DHT_STATE = session_handle.save_dht_state;
 
-        public save_state_flags_t swig() {
-            return f;
-        }
-
-        /**
-         * Saves settings (i.e. the {@link SettingsPack}).
-         */
-        public static final SaveStateFlags SAVE_SETTINGS = new SaveStateFlags(session_handle.save_settings);
-
-        /**
-         * Saves {@link DhtSettings}.
-         */
-        public static final SaveStateFlags SAVE_DHT_SETTINGS = new SaveStateFlags(session_handle.save_dht_settings);
-
-        /**
-         * Saves dht state such as nodes and node-id, possibly accelerating
-         * joining the DHT if provided at next session startup.
-         */
-        public static final SaveStateFlags SAVE_DHT_STATE = new SaveStateFlags(session_handle.save_dht_state);
-
-        /**
-         * Save pe_settings.
-         */
-        public static final SaveStateFlags SAVE_ENCRYPTION_SETTINGS = new SaveStateFlags(session_handle.save_encryption_settings);
-    }
+    /**
+     * Save pe_settings.
+     */
+    public static final save_state_flags_t SAVE_ENCRYPTION_SETTINGS = session_handle.save_encryption_settings;
 
     /**
      * Loads and saves all session settings, including dht settings,
@@ -95,14 +78,14 @@ public class SessionHandle {
      *
      * @return the bencoded byte array
      */
-    public byte[] saveState(SaveStateFlags flags) {
+    public byte[] saveState(save_state_flags_t flags) {
         entry e = new entry();
-        s.save_state(e, flags.swig());
+        s.save_state(e, flags);
         return Vectors.byte_vector2bytes(e.bencode());
     }
 
     /**
-     * Same as calling {@link #saveState(SaveStateFlags)} with all save state flags.
+     * Same as calling {@link #saveState(save_state_flags_t)} with all save state flags.
      *
      * @return the bencoded byte array
      */
@@ -125,14 +108,14 @@ public class SessionHandle {
      *
      * @param data the bencoded byte array
      */
-    public void loadState(byte[] data, SaveStateFlags flags) {
+    public void loadState(byte[] data, save_state_flags_t flags) {
         byte_vector buffer = Vectors.bytes2byte_vector(data);
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
         int ret = bdecode_node.bdecode(buffer, n, ec);
 
         if (ret == 0) {
-            s.load_state(n, flags.swig());
+            s.load_state(n, flags);
             buffer.clear(); // prevents GC
         } else {
             LOG.error("failed to decode bencoded data: " + ec.message());
@@ -140,7 +123,7 @@ public class SessionHandle {
     }
 
     /**
-     * Same as calling {@link #loadState(byte[], SaveStateFlags)} with all
+     * Same as calling {@link #loadState(byte[], save_state_flags_t)} with all
      * save state flags.
      */
     public void loadState(byte[] data) {
@@ -275,33 +258,15 @@ public class SessionHandle {
     }
 
     /**
-     * Flags to be passed in to {@link #removeTorrent(TorrentHandle, RemoveFlags)}.
+     * Delete the files belonging to the torrent from disk,
+     * including the part-file, if there is one.
      */
-    public static final class RemoveFlags {
+    public static final remove_flags_t DELETE_FILES = session_handle.delete_files;
 
-        private final remove_flags_t f;
-
-        private RemoveFlags(remove_flags_t f) {
-            this.f = f;
-        }
-
-        public remove_flags_t swig() {
-            return f;
-        }
-
-        public static final RemoveFlags ZERO = new RemoveFlags(new remove_flags_t());
-
-        /**
-         * Delete the files belonging to the torrent from disk,
-         * including the part-file, if there is one.
-         */
-        public static final RemoveFlags DELETE_FILES = new RemoveFlags(session_handle.delete_files);
-
-        /**
-         * Delete just the part-file associated with this torrent.
-         */
-        public static final RemoveFlags DELETE_PARTFILE = new RemoveFlags(session_handle.delete_partfile);
-    }
+    /**
+     * Delete just the part-file associated with this torrent.
+     */
+    public static final remove_flags_t DELETE_PARTFILE = session_handle.delete_partfile;
 
     /**
      * This method will close all peer connections associated with the torrent and tell the
@@ -314,11 +279,11 @@ public class SessionHandle {
      * after it was removed will not throw a libtorrent_exception exception. Once the torrent
      * is deleted, a torrent_deleted_alert is posted.
      *
-     * @param th
+     * @param th the handle
      */
-    public void removeTorrent(TorrentHandle th, RemoveFlags options) {
+    public void removeTorrent(TorrentHandle th, remove_flags_t options) {
         if (th.isValid()) {
-            s.remove_torrent(th.swig(), options.swig());
+            s.remove_torrent(th.swig(), options);
         }
     }
 

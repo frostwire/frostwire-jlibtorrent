@@ -17,35 +17,22 @@ public final class PickerLogAlert extends PeerAlert<picker_log_alert> {
         super(alert);
     }
 
-    public static final class PickerFlags {
-
-        private final picker_flags_t f;
-
-        private PickerFlags(picker_flags_t f) {
-            this.f = f;
-        }
-
-        public picker_flags_t swig() {
-            return f;
-        }
-
-        public static final PickerFlags PARTIAL_RATIO = new PickerFlags(picker_log_alert.partial_ratio);
-        public static final PickerFlags PRIORITIZE_PARTIALS = new PickerFlags(picker_log_alert.prioritize_partials);
-        public static final PickerFlags RAREST_FIRST_PARTIALS = new PickerFlags(picker_log_alert.rarest_first_partials);
-        public static final PickerFlags RAREST_FIRST = new PickerFlags(picker_log_alert.rarest_first);
-        public static final PickerFlags REVERSE_RAREST_FIRST = new PickerFlags(picker_log_alert.reverse_rarest_first);
-        public static final PickerFlags SUGGESTED_PIECES = new PickerFlags(picker_log_alert.suggested_pieces);
-        public static final PickerFlags PRIO_SEQUENTIAL_PIECES = new PickerFlags(picker_log_alert.prio_sequential_pieces);
-        public static final PickerFlags SEQUENTIAL_PIECES = new PickerFlags(picker_log_alert.sequential_pieces);
-        public static final PickerFlags REVERSE_PIECES = new PickerFlags(picker_log_alert.time_critical);
-        public static final PickerFlags TIME_CRITICAL = new PickerFlags(picker_log_alert.time_critical);
-        public static final PickerFlags RANDOM_PIECES = new PickerFlags(picker_log_alert.random_pieces);
-        public static final PickerFlags PREFER_CONTIGUOUS = new PickerFlags(picker_log_alert.prefer_contiguous);
-        public static final PickerFlags REVERSE_SEQUENTIAL = new PickerFlags(picker_log_alert.reverse_sequential);
-        public static final PickerFlags BACKUP1 = new PickerFlags(picker_log_alert.backup1);
-        public static final PickerFlags BACKUP2 = new PickerFlags(picker_log_alert.backup2);
-        public static final PickerFlags END_GAME = new PickerFlags(picker_log_alert.end_game);
-    }
+    public static final picker_flags_t PARTIAL_RATIO = picker_log_alert.partial_ratio;
+    public static final picker_flags_t PRIORITIZE_PARTIALS = picker_log_alert.prioritize_partials;
+    public static final picker_flags_t RAREST_FIRST_PARTIALS = picker_log_alert.rarest_first_partials;
+    public static final picker_flags_t RAREST_FIRST = picker_log_alert.rarest_first;
+    public static final picker_flags_t REVERSE_RAREST_FIRST = picker_log_alert.reverse_rarest_first;
+    public static final picker_flags_t SUGGESTED_PIECES = picker_log_alert.suggested_pieces;
+    public static final picker_flags_t PRIO_SEQUENTIAL_PIECES = picker_log_alert.prio_sequential_pieces;
+    public static final picker_flags_t SEQUENTIAL_PIECES = picker_log_alert.sequential_pieces;
+    public static final picker_flags_t REVERSE_PIECES = picker_log_alert.time_critical;
+    public static final picker_flags_t TIME_CRITICAL = picker_log_alert.time_critical;
+    public static final picker_flags_t RANDOM_PIECES = picker_log_alert.random_pieces;
+    public static final picker_flags_t PREFER_CONTIGUOUS = picker_log_alert.prefer_contiguous;
+    public static final picker_flags_t REVERSE_SEQUENTIAL = picker_log_alert.reverse_sequential;
+    public static final picker_flags_t BACKUP1 = picker_log_alert.backup1;
+    public static final picker_flags_t BACKUP2 = picker_log_alert.backup2;
+    public static final picker_flags_t END_GAME = picker_log_alert.end_game;
 
     /**
      * This is a bitmask of which features were enabled for this particular
@@ -53,7 +40,7 @@ public final class PickerLogAlert extends PeerAlert<picker_log_alert> {
      *
      * @return the flags
      */
-    public PickerFlags pickerFlags() {
-        return new PickerFlags(alert.getPicker_flags());
+    public picker_flags_t pickerFlags() {
+        return alert.getPicker_flags();
     }
 }
