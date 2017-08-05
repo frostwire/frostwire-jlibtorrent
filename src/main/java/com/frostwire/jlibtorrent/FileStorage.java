@@ -99,8 +99,8 @@ public final class FileStorage {
      * @param mtime   the time
      * @param symlink the symlink
      */
-    public void addFile(String path, long size, FileFlags flags, int mtime, String symlink) {
-        fs.add_file(path, size, flags.swig(), mtime, symlink);
+    public void addFile(String path, long size, file_flags_t flags, int mtime, String symlink) {
+        fs.add_file(path, size, flags, mtime, symlink);
     }
 
     /**
@@ -122,8 +122,8 @@ public final class FileStorage {
      * @param flags the file flags
      * @param mtime the time
      */
-    public void addFile(String path, long size, FileFlags flags, int mtime) {
-        fs.add_file(path, size, flags.swig(), mtime);
+    public void addFile(String path, long size, file_flags_t flags, int mtime) {
+        fs.add_file(path, size, flags, mtime);
     }
 
     /**
@@ -144,8 +144,8 @@ public final class FileStorage {
      * @param size  the file size
      * @param flags the file flags
      */
-    public void addFile(String path, long size, FileFlags flags) {
-        fs.add_file(path, size, flags.swig());
+    public void addFile(String path, long size, file_flags_t flags) {
+        fs.add_file(path, size, flags);
     }
 
     /**
@@ -398,58 +398,41 @@ public final class FileStorage {
     }
 
     /**
-     * Flags indicating various attributes for files in
-     * a {@link FileStorage}.
+     * This file is a pad file. The creator of the
+     * torrent promises the file is entirely filled with
+     * zeroes and does not need to be downloaded. The
+     * purpose is just to align the next file to either
+     * a block or piece boundary.
      */
-    public static final class FileFlags {
-
-        private final file_flags_t f;
-
-        private FileFlags(file_flags_t f) {
-            this.f = f;
-        }
-
-        public file_flags_t swig() {
-            return f;
-        }
-
-        /**
-         * This file is a pad file. The creator of the
-         * torrent promises the file is entirely filled with
-         * zeroes and does not need to be downloaded. The
-         * purpose is just to align the next file to either
-         * a block or piece boundary.
-         */
-        public static final FileFlags FLAG_PAD_FILE = new FileFlags(file_storage.flag_pad_file);
-
-        /**
-         * This file is hidden (sets the hidden attribute
-         * on windows).
-         */
-        public static final FileFlags FLAG_HIDDEN = new FileFlags(file_storage.flag_hidden);
-
-        /**
-         * This file is executable (sets the executable bit
-         * on posix like systems).
-         */
-        public static final FileFlags FLAG_EXECUTABLE = new FileFlags(file_storage.flag_executable);
-
-        /**
-         * This file is a symlink. The symlink target is
-         * specified in a separate field
-         */
-        public static final FileFlags FLAG_SYMLINK = new FileFlags(file_storage.flag_symlink);
-    }
+    public static final file_flags_t FLAG_PAD_FILE = file_storage.flag_pad_file;
 
     /**
-     * Returns a bitmask of flags from {@link FileFlags} that apply
+     * This file is hidden (sets the hidden attribute
+     * on windows).
+     */
+    public static final file_flags_t FLAG_HIDDEN = file_storage.flag_hidden;
+
+    /**
+     * This file is executable (sets the executable bit
+     * on posix like systems).
+     */
+    public static final file_flags_t FLAG_EXECUTABLE = file_storage.flag_executable;
+
+    /**
+     * This file is a symlink. The symlink target is
+     * specified in a separate field
+     */
+    public static final file_flags_t FLAG_SYMLINK = file_storage.flag_symlink;
+
+    /**
+     * Returns a bitmask of flags from {@link file_flags_t} that apply
      * to file at {@code index}.
      *
      * @param index
      * @return the flags
      */
-    public FileFlags fileFlags(int index) {
-        return new FileFlags(fs.file_flags(index));
+    public file_flags_t fileFlags(int index) {
+        return fs.file_flags(index);
     }
 
     /**

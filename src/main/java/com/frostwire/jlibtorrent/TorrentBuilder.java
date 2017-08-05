@@ -39,7 +39,7 @@ public final class TorrentBuilder {
     public TorrentBuilder() {
         this.pieceSize = 0;
         this.padFileLimit = -1;
-        this.flags = CreateFlags.OPTIMIZE_ALIGNMENT.swig();
+        this.flags = OPTIMIZE_ALIGNMENT;
         this.alignment = -1;
 
         this.urlSeeds = new LinkedList<>();
@@ -114,8 +114,8 @@ public final class TorrentBuilder {
     /**
      * @return
      */
-    public CreateFlags flags() {
-        return new CreateFlags(flags);
+    public create_flags_t flags() {
+        return flags;
     }
 
     /**
@@ -125,8 +125,8 @@ public final class TorrentBuilder {
      * @param value
      * @return
      */
-    public TorrentBuilder flags(CreateFlags value) {
-        this.flags = value.swig();
+    public TorrentBuilder flags(create_flags_t value) {
+        this.flags = value;
         return this;
     }
 
@@ -544,70 +544,50 @@ public final class TorrentBuilder {
     }
 
     /**
-     *
+     * This will insert pad files to align the files to piece boundaries, for
+     * optimized disk-I/O. This will minimize the number of bytes of pad-
+     * files, to keep the impact down for clients that don't support
+     * them.
      */
-    public static final class CreateFlags {
+    public static final create_flags_t OPTIMIZE_ALIGNMENT = create_torrent.optimize_alignment;
 
-        private final create_flags_t f;
+    /**
+     * This will create a merkle hash tree torrent. A merkle torrent cannot
+     * be opened in clients that don't specifically support merkle torrents.
+     * The benefit is that the resulting torrent file will be much smaller and
+     * not grow with more pieces. When this option is specified, it is
+     * recommended to have a fairly small piece size, say 64 kiB.
+     * When creating merkle torrents, the full hash tree is also generated
+     * and should be saved off separately.
+     */
+    public static final create_flags_t MERKLE = create_torrent.merkle;
 
-        private CreateFlags(create_flags_t f) {
-            this.f = f;
-        }
+    /**
+     * This will include the file modification time as part of the torrent.
+     * This is not enabled by default, as it might cause problems when you
+     * create a torrent from separate files with the same content, hoping to
+     * yield the same info-hash. If the files have different modification times,
+     * with this option enabled, you would get different info-hashes for the
+     * files.
+     */
+    public static final create_flags_t MODIFICATION_TIME = create_torrent.modification_time;
 
-        public CreateFlags() {
-            this.f = new create_flags_t();
-        }
+    /**
+     * If this flag is set, files that are symlinks get a symlink attribute
+     * set on them and their data will not be included in the torrent. This
+     * is useful if you need to reconstruct a file hierarchy which contains
+     * symlinks.
+     */
+    public static final create_flags_t SYMLINKS = create_torrent.symlinks;
 
-        public create_flags_t swig() {
-            return f;
-        }
-
-        /**
-         * This will insert pad files to align the files to piece boundaries, for
-         * optimized disk-I/O. This will minimize the number of bytes of pad-
-         * files, to keep the impact down for clients that don't support
-         * them.
-         */
-        public static final CreateFlags OPTIMIZE_ALIGNMENT = new CreateFlags(create_torrent.optimize_alignment);
-
-        /**
-         * This will create a merkle hash tree torrent. A merkle torrent cannot
-         * be opened in clients that don't specifically support merkle torrents.
-         * The benefit is that the resulting torrent file will be much smaller and
-         * not grow with more pieces. When this option is specified, it is
-         * recommended to have a fairly small piece size, say 64 kiB.
-         * When creating merkle torrents, the full hash tree is also generated
-         * and should be saved off separately.
-         */
-        public static final CreateFlags MERKLE = new CreateFlags(create_torrent.merkle);
-
-        /**
-         * This will include the file modification time as part of the torrent.
-         * This is not enabled by default, as it might cause problems when you
-         * create a torrent from separate files with the same content, hoping to
-         * yield the same info-hash. If the files have different modification times,
-         * with this option enabled, you would get different info-hashes for the
-         * files.
-         */
-        public static final CreateFlags MODIFICATION_TIME = new CreateFlags(create_torrent.modification_time);
-
-        /**
-         * If this flag is set, files that are symlinks get a symlink attribute
-         * set on them and their data will not be included in the torrent. This
-         * is useful if you need to reconstruct a file hierarchy which contains
-         * symlinks.
-         */
-        public static final CreateFlags SYMLINKS = new CreateFlags(create_torrent.symlinks);
-
-        /**
-         * To create a torrent that can be updated via a *mutable torrent*
-         * (see BEP38_). This also needs to be enabled for torrents that update
-         * another torrent.
-         * <p>
-         * BEP38: http://www.bittorrent.org/beps/bep_0038.html
-         */
-        public static final CreateFlags MUTABLE_TORRENT_SUPPORT = new CreateFlags(create_torrent.mutable_torrent_support);
-    }
+    /**
+     * To create a torrent that can be updated via a *mutable torrent*
+     * (see BEP38_). This also needs to be enabled for torrents that update
+     * another torrent.
+     * <p>
+     * BEP38: http://www.bittorrent.org/beps/bep_0038.html
+     */
+    public static final create_flags_t MUTABLE_TORRENT_SUPPORT = create_torrent.mutable_torrent_support;
 
     /**
      *
