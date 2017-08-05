@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.swig.alert;
+import com.frostwire.jlibtorrent.swig.alert_category_t;
 
 /**
  * @author gubatron
@@ -97,8 +98,8 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
      * @return the alert category
      */
     @Override
-    public AlertCategory category() {
-        return new AlertCategory(alert.category());
+    public alert_category_t category() {
+        return alert.category();
     }
 
     @Override

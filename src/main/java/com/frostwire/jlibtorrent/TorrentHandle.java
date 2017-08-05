@@ -38,6 +38,8 @@ import java.util.List;
 public final class TorrentHandle {
 
     private static final long REQUEST_STATUS_RESOLUTION_MILLIS = 500;
+    // cache this zero flag for performance reasons
+    private static final status_flags_t STATUS_FLAGS_ZERO = new status_flags_t();
 
     private final torrent_handle th;
 
@@ -55,24 +57,11 @@ public final class TorrentHandle {
         return th;
     }
 
-    public static final class AddPieceFlags {
-
-        private final add_piece_flags_t f;
-
-        private AddPieceFlags(add_piece_flags_t f) {
-            this.f = f;
-        }
-
-        public add_piece_flags_t swig() {
-            return f;
-        }
-
-        /**
-         * Instruct libtorrent to overwrite any data that may already have been
-         * downloaded with the data of the new piece being added.
-         */
-        public static final AddPieceFlags OVERWRITE_EXISTING = new AddPieceFlags(torrent_handle.overwrite_existing);
-    }
+    /**
+     * Instruct libtorrent to overwrite any data that may already have been
+     * downloaded with the data of the new piece being added.
+     */
+    public static final add_piece_flags_t OVERWRITE_EXISTING = torrent_handle.overwrite_existing;
 
     /**
      * This function will write {@code data} to the storage as piece {@code piece},
@@ -96,12 +85,12 @@ public final class TorrentHandle {
      * @param data  the piece data
      * @param flags flags
      */
-    public void addPiece(int piece, byte[] data, AddPieceFlags flags) {
-        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags.swig());
+    public void addPiece(int piece, byte[] data, add_piece_flags_t flags) {
+        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags);
     }
 
     /**
-     * Same as calling {@link #addPiece(int, byte[], AddPieceFlags)} with
+     * Same as calling {@link #addPiece(int, byte[], add_piece_flags_t)} with
      * {@code flags} with value 0.
      *
      * @param piece the piece index
@@ -210,7 +199,7 @@ public final class TorrentHandle {
         long now = System.currentTimeMillis();
         if (force || (now - lastStatusRequestTime) >= REQUEST_STATUS_RESOLUTION_MILLIS) {
             lastStatusRequestTime = now;
-            lastStatus = new TorrentStatus(th.status(StatusFlags.ZERO.swig()));
+            lastStatus = new TorrentStatus(th.status(STATUS_FLAGS_ZERO));
         }
 
         return lastStatus;
@@ -232,81 +221,62 @@ public final class TorrentHandle {
     }
 
     /**
-     * Flags to pass in to status() to specify which properties of the
-     * torrent to query for. By default all flags are set.
+     * calculates ``distributed_copies``, ``distributed_full_copies`` and
+     * ``distributed_fraction``.
      */
-    public static final class StatusFlags {
+    public static final status_flags_t QUERY_DISTRIBUTED_COPIES = torrent_handle.query_distributed_copies;
 
-        private final status_flags_t f;
+    /**
+     * includes partial downloaded blocks in ``total_done`` and
+     * ``total_wanted_done``.
+     */
+    public static final status_flags_t QUERY_ACCURATE_DOWNLOAD_COUNTERS = torrent_handle.query_accurate_download_counters;
 
-        private StatusFlags(status_flags_t f) {
-            this.f = f;
-        }
+    /**
+     * includes ``last_seen_complete``.
+     */
+    public static final status_flags_t QUERY_LAST_SEEN_COMPLETE = torrent_handle.query_last_seen_complete;
 
-        public status_flags_t swig() {
-            return f;
-        }
+    /**
+     * includes ``pieces``.
+     */
+    public static final status_flags_t QUERY_PIECES = torrent_handle.query_pieces;
 
-        public static final StatusFlags ZERO = new StatusFlags(new status_flags_t());
+    /**
+     * includes ``verified_pieces`` (only applies to torrents in *seed mode*).
+     */
+    public static final status_flags_t QUERY_VERIFIED_PIECES = torrent_handle.query_verified_pieces;
 
-        /**
-         * calculates ``distributed_copies``, ``distributed_full_copies`` and
-         * ``distributed_fraction``.
-         */
-        public static final StatusFlags QUERY_DISTRIBUTED_COPIES = new StatusFlags(torrent_handle.query_distributed_copies);
+    /**
+     * includes ``torrent_file``, which is all the static information from the .torrent file.
+     */
+    public static final status_flags_t QUERY_TORRENT_FILE = torrent_handle.query_torrent_file;
 
-        /**
-         * includes partial downloaded blocks in ``total_done`` and
-         * ``total_wanted_done``.
-         */
-        public static final StatusFlags QUERY_ACCURATE_DOWNLOAD_COUNTERS = new StatusFlags(torrent_handle.query_accurate_download_counters);
+    /**
+     * includes {@code name}, the name of the torrent. This is either derived
+     * from the .torrent file, or from the {@code &dn=} magnet link argument
+     * or possibly some other source. If the name of the torrent is not
+     * known, this is an empty string.
+     */
+    public static final status_flags_t QUERY_NAME = torrent_handle.query_name;
 
-        /**
-         * includes ``last_seen_complete``.
-         */
-        public static final StatusFlags QUERY_LAST_SEEN_COMPLETE = new StatusFlags(torrent_handle.query_last_seen_complete);
-
-        /**
-         * includes ``pieces``.
-         */
-        public static final StatusFlags QUERY_PIECES = new StatusFlags(torrent_handle.query_pieces);
-
-        /**
-         * includes ``verified_pieces`` (only applies to torrents in *seed mode*).
-         */
-        public static final StatusFlags QUERY_VERIFIED_PIECES = new StatusFlags(torrent_handle.query_verified_pieces);
-
-        /**
-         * includes ``torrent_file``, which is all the static information from the .torrent file.
-         */
-        public static final StatusFlags QUERY_TORRENT_FILE = new StatusFlags(torrent_handle.query_torrent_file);
-
-        /**
-         * includes {@code name}, the name of the torrent. This is either derived
-         * from the .torrent file, or from the {@code &dn=} magnet link argument
-         * or possibly some other source. If the name of the torrent is not
-         * known, this is an empty string.
-         */
-        public static final StatusFlags QUERY_NAME = new StatusFlags(torrent_handle.query_name);
-
-        /**
-         * includes ``save_path``, the path to the directory the files of the
-         * torrent are saved to.
-         */
-        public static final StatusFlags QUERY_SAVE_PATH = new StatusFlags(torrent_handle.query_save_path);
-    }
+    /**
+     * includes ``save_path``, the path to the directory the files of the
+     * torrent are saved to.
+     */
+    public static final status_flags_t QUERY_SAVE_PATH = torrent_handle.query_save_path;
 
     /**
      * This method returns an up to date torrent status, the {@code flags} parameters
-     * is an or-combination of the {@link StatusFlags} native values, in case you want
+     * is an or-combination of the {@link status_flags_t} native values, in case you want
      * advanced (and expensive) fields filled. We recommend the use of the simple call
      * to {@link #status()} that internally keep a cache with a small time resolution.
      *
-     * @param flags
+     * @param flags the flags
      * @return the status
      */
-    public TorrentStatus status(StatusFlags flags) {
-        return new TorrentStatus(th.status(flags.swig()));
+    public TorrentStatus status(status_flags_t flags) {
+        return new TorrentStatus(th.status(flags));
     }
 
     /**

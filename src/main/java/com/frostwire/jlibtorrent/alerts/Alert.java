@@ -11,6 +11,28 @@ public interface Alert<T extends alert> {
 
     T swig();
 
+    alert_category_t ERROR_NOTIFICATION = alert.error_notification;
+    alert_category_t PEER_NOTIFICATION = alert.peer_notification;
+    alert_category_t PORT_MAPPING_NOTIFICATION = alert.port_mapping_notification;
+    alert_category_t STORAGE_NOTIFICATION = alert.storage_notification;
+    alert_category_t TRACKER_NOTIFICATION = alert.tracker_notification;
+    alert_category_t DEBUG_NOTIFICATION = alert.debug_notification;
+    alert_category_t STATUS_NOTIFICATION = alert.status_notification;
+    alert_category_t PROGRESS_NOTIFICATION = alert.progress_notification;
+    alert_category_t IP_BLOCK_NOTIFICATION = alert.ip_block_notification;
+    alert_category_t PERFORMANCE_WARNING = alert.performance_warning;
+    alert_category_t DHT_NOTIFICATION = alert.dht_notification;
+    alert_category_t STATS_NOTIFICATION = alert.stats_notification;
+    alert_category_t SESSION_LOG_NOTIFICATION = alert.session_log_notification;
+    alert_category_t TORRENT_LOG_NOTIFICATION = alert.torrent_log_notification;
+    alert_category_t PEER_LOG_NOTIFICATION = alert.peer_log_notification;
+    alert_category_t INCOMING_REQUEST_NOTIFICATION = alert.incoming_request_notification;
+    alert_category_t DHT_LOG_NOTIFICATION = alert.dht_log_notification;
+    alert_category_t DHT_OPERATION_NOTIFICATION = alert.dht_operation_notification;
+    alert_category_t PORT_MAPPING_LOG_NOTIFICATION = alert.port_mapping_log_notification;
+    alert_category_t PICKER_LOG_NOTIFICATION = alert.picker_log_notification;
+    alert_category_t ALL_CATEGORIES = alert.all_categories;
+
     /**
      * A timestamp is automatically created in the constructor (in milliseconds).
      *
@@ -74,40 +96,5 @@ public interface Alert<T extends alert> {
      *
      * @return the alert category
      */
-    AlertCategory category();
-
-    final class AlertCategory {
-
-        private final alert_category_t f;
-
-        public AlertCategory(alert_category_t f) {
-            this.f = f;
-        }
-
-        public alert_category_t swig() {
-            return f;
-        }
-
-        public final static AlertCategory ERROR_NOTIFICATION = new AlertCategory(alert.error_notification);
-        public final static AlertCategory PEER_NOTIFICATION = new AlertCategory(alert.peer_notification);
-        public final static AlertCategory PORT_MAPPING_NOTIFICATION = new AlertCategory(alert.port_mapping_notification);
-        public final static AlertCategory STORAGE_NOTIFICATION = new AlertCategory(alert.storage_notification);
-        public final static AlertCategory TRACKER_NOTIFICATION = new AlertCategory(alert.tracker_notification);
-        public final static AlertCategory DEBUG_NOTIFICATION = new AlertCategory(alert.debug_notification);
-        public final static AlertCategory STATUS_NOTIFICATION = new AlertCategory(alert.status_notification);
-        public final static AlertCategory PROGRESS_NOTIFICATION = new AlertCategory(alert.progress_notification);
-        public final static AlertCategory IP_BLOCK_NOTIFICATION = new AlertCategory(alert.ip_block_notification);
-        public final static AlertCategory PERFORMANCE_WARNING = new AlertCategory(alert.performance_warning);
-        public final static AlertCategory DHT_NOTIFICATION = new AlertCategory(alert.dht_notification);
-        public final static AlertCategory STATS_NOTIFICATION = new AlertCategory(alert.stats_notification);
-        public final static AlertCategory SESSION_LOG_NOTIFICATION = new AlertCategory(alert.session_log_notification);
-        public final static AlertCategory TORRENT_LOG_NOTIFICATION = new AlertCategory(alert.torrent_log_notification);
-        public final static AlertCategory PEER_LOG_NOTIFICATION = new AlertCategory(alert.peer_log_notification);
-        public final static AlertCategory INCOMING_REQUEST_NOTIFICATION = new AlertCategory(alert.incoming_request_notification);
-        public final static AlertCategory DHT_LOG_NOTIFICATION = new AlertCategory(alert.dht_log_notification);
-        public final static AlertCategory DHT_OPERATION_NOTIFICATION = new AlertCategory(alert.dht_operation_notification);
-        public final static AlertCategory PORT_MAPPING_LOG_NOTIFICATION = new AlertCategory(alert.port_mapping_log_notification);
-        public final static AlertCategory PICKER_LOG_NOTIFICATION = new AlertCategory(alert.picker_log_notification);
-        public final static AlertCategory ALL_CATEGORIES = new AlertCategory(alert.all_categories);
-    }
+    alert_category_t category();
 }

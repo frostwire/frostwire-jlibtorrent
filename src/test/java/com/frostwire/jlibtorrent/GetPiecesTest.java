@@ -59,7 +59,7 @@ public final class GetPiecesTest {
                         if (progress > 4 && !forceChecked) {
                             forceChecked = true;
                             TorrentHandle th = ((PieceFinishedAlert) alert).handle();
-                            PieceIndexBitfield pieces = th.status(TorrentHandle.StatusFlags.QUERY_PIECES).pieces();
+                            PieceIndexBitfield pieces = th.status(TorrentHandle.QUERY_PIECES).pieces();
                             log("pieces size: " + pieces.size());
                             assertTrue(pieces.size() > 0);
                             assertTrue(pieces.count() > 0);

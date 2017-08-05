@@ -167,10 +167,10 @@ public class SessionHandle {
      * included. This flag is on by default. See {@link AddTorrentParams}.
      * the {@code flags} argument is the same as for torrent_handle::status().
      *
-     * @param flags or-combination of {@link TorrentHandle.StatusFlags} native values
+     * @param flags or-combination of native values
      */
-    public void postTorrentUpdates(TorrentHandle.StatusFlags flags) {
-        s.post_torrent_updates(flags.swig());
+    public void postTorrentUpdates(status_flags_t flags) {
+        s.post_torrent_updates(flags);
     }
 
     /**
