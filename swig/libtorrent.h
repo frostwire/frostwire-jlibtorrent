@@ -139,7 +139,7 @@ struct add_files_listener {
 };
 
 void add_files_ex(libtorrent::file_storage& fs, std::string const& file,
-                add_files_listener* listener, std::uint32_t flags) {
+                add_files_listener* listener, libtorrent::create_flags_t flags) {
     add_files(fs, file, std::bind(&add_files_listener::pred, listener, std::placeholders::_1), flags);
 }
 

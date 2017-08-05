@@ -399,6 +399,8 @@ namespace libtorrent {
     %template(bandwidth_state_flags_t) flags::bitfield_flag<std::uint8_t, bandwidth_state_flags_tag>;
     struct file_flags_tag;
     %template(file_flags_t) flags::bitfield_flag<std::uint8_t, file_flags_tag>;
+    struct create_flags_tag;
+    %template(create_flags_t) flags::bitfield_flag<std::uint32_t, create_flags_tag>;
 
     typedef sha1_hash peer_id;
 
@@ -834,7 +836,7 @@ namespace libtorrent {
 %ignore libtorrent::generate_fingerprint(std::string, int, int, int);
 %ignore libtorrent::generate_fingerprint(std::string, int, int);
 %ignore libtorrent::generate_fingerprint(std::string, int);
-%ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>, std::uint32_t);
+%ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>, create_flags_t);
 %ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>);
 %ignore libtorrent::parse_magnet_uri;
 %ignore libtorrent::ip_filter::export_filter;

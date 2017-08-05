@@ -177,8 +177,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.make_magnet_uri__SWIG_1(torrent_info.getCPtr(info), info);
   }
 
-  public static void add_files(file_storage fs, String file, long flags) {
-    libtorrent_jni.add_files__SWIG_0(file_storage.getCPtr(fs), fs, file, flags);
+  public static void add_files(file_storage fs, String file, create_flags_t flags) {
+    libtorrent_jni.add_files__SWIG_0(file_storage.getCPtr(fs), fs, file, create_flags_t.getCPtr(flags), flags);
   }
 
   public static void add_files(file_storage fs, String file) {
@@ -221,8 +221,8 @@ public class libtorrent implements libtorrentConstants {
     return new byte_vector(libtorrent_jni.ed25519_key_exchange(byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk), true);
   }
 
-  public static void add_files_ex(file_storage fs, String file, add_files_listener listener, long flags) {
-    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, file, add_files_listener.getCPtr(listener), listener, flags);
+  public static void add_files_ex(file_storage fs, String file, add_files_listener listener, create_flags_t flags) {
+    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, file, add_files_listener.getCPtr(listener), listener, create_flags_t.getCPtr(flags), flags);
   }
 
   public static void set_piece_hashes_ex(create_torrent t, String p, set_piece_hashes_listener listener, error_code ec) {

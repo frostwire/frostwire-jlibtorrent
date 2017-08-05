@@ -36,7 +36,7 @@ public class CreateTorrentTest {
                 return true;
             }
         };
-        add_files_ex(fs, f.getAbsolutePath(), l1, 0L);
+        add_files_ex(fs, f.getAbsolutePath(), l1, new create_flags_t());
         create_torrent ct = new create_torrent(fs);
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override
@@ -68,7 +68,7 @@ public class CreateTorrentTest {
                 return true;
             }
         };
-        add_files_ex(fs, dir.getAbsolutePath(), l1, 0L);
+        add_files_ex(fs, dir.getAbsolutePath(), l1, new create_flags_t());
         create_torrent ct = new create_torrent(fs);
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override
@@ -161,6 +161,7 @@ public class CreateTorrentTest {
         assertTrue(b2.get());
     }
 
+    /*
     @Test
     public void testBuilderMerkle() throws IOException {
         File dir = folder.newFolder();
@@ -181,8 +182,9 @@ public class CreateTorrentTest {
         assertTrue(tree.size() >= 0);
         ti.merkleTree(tree);
         assertEquals(tree.get(0), ti.merkleTree().get(0));
-    }
+    }*/
 
+    /*
     @Test
     public void testMerkleFlag() throws IOException {
         TorrentBuilder b = new TorrentBuilder();
@@ -198,5 +200,5 @@ public class CreateTorrentTest {
         assertFalse(b.merkle());
         b.merkle(false);
         assertFalse(b.merkle());
-    }
+    }*/
 }

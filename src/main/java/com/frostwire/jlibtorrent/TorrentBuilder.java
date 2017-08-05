@@ -20,7 +20,7 @@ public final class TorrentBuilder {
     private File path;
     private int pieceSize;
     private int padFileLimit;
-    private int flags;
+    private create_flags_t flags;
     private int alignment;
 
     private String comment;
@@ -39,7 +39,7 @@ public final class TorrentBuilder {
     public TorrentBuilder() {
         this.pieceSize = 0;
         this.padFileLimit = -1;
-        this.flags = Flags.OPTIMIZE_ALIGNMENT.swig();
+        this.flags = CreateFlags.OPTIMIZE_ALIGNMENT.swig();
         this.alignment = -1;
 
         this.urlSeeds = new LinkedList<>();
@@ -100,7 +100,7 @@ public final class TorrentBuilder {
      * If a ``pad_size_limit`` is specified (other than -1), any file larger than
      * the specified number of bytes will be preceded by a pad file to align it
      * with the start of a piece. The pad_file_limit is ignored unless the
-     * {@link Flags#OPTIMIZE_ALIGNMENT} flag is passed. Typically it doesn't make sense
+     * {@link CreateFlags#OPTIMIZE_ALIGNMENT} flag is passed. Typically it doesn't make sense
      * to set this any lower than 4kiB.
      *
      * @param value
@@ -114,35 +114,19 @@ public final class TorrentBuilder {
     /**
      * @return
      */
-    public int flags() {
-        return flags;
+    public CreateFlags flags() {
+        return new CreateFlags(flags);
     }
 
     /**
      * Specifies options for the torrent creation. It can
-     * be any combination of the flags defined by {@link Flags}
+     * be any combination of the flags defined by {@link CreateFlags}
      *
      * @param value
      * @return
      */
-    public TorrentBuilder flags(int value) {
-        this.flags = value;
-        return this;
-    }
-
-    /**
-     * @return
-     */
-    public boolean merkle() {
-        return (flags & Flags.MERKLE.swig()) != 0;
-    }
-
-    public TorrentBuilder merkle(boolean value) {
-        if (value) {
-            this.flags |= Flags.MERKLE.swig();
-        } else {
-            this.flags &= ~Flags.MERKLE.swig();
-        }
+    public TorrentBuilder flags(CreateFlags value) {
+        this.flags = value.swig();
         return this;
     }
 
@@ -562,7 +546,21 @@ public final class TorrentBuilder {
     /**
      *
      */
-    public enum Flags {
+    public static final class CreateFlags {
+
+        private final create_flags_t f;
+
+        private CreateFlags(create_flags_t f) {
+            this.f = f;
+        }
+
+        public CreateFlags() {
+            this.f = new create_flags_t();
+        }
+
+        public create_flags_t swig() {
+            return f;
+        }
 
         /**
          * This will insert pad files to align the files to piece boundaries, for
@@ -570,7 +568,7 @@ public final class TorrentBuilder {
          * files, to keep the impact down for clients that don't support
          * them.
          */
-        OPTIMIZE_ALIGNMENT(create_torrent.flags_t.optimize_alignment.swigValue()),
+        public static final CreateFlags OPTIMIZE_ALIGNMENT = new CreateFlags(create_torrent.optimize_alignment);
 
         /**
          * This will create a merkle hash tree torrent. A merkle torrent cannot
@@ -581,7 +579,7 @@ public final class TorrentBuilder {
          * When creating merkle torrents, the full hash tree is also generated
          * and should be saved off separately.
          */
-        MERKLE(create_torrent.flags_t.merkle.swigValue()),
+        public static final CreateFlags MERKLE = new CreateFlags(create_torrent.merkle);
 
         /**
          * This will include the file modification time as part of the torrent.
@@ -591,7 +589,7 @@ public final class TorrentBuilder {
          * with this option enabled, you would get different info-hashes for the
          * files.
          */
-        MODIFICATION_TIME(create_torrent.flags_t.modification_time.swigValue()),
+        public static final CreateFlags MODIFICATION_TIME = new CreateFlags(create_torrent.modification_time);
 
         /**
          * If this flag is set, files that are symlinks get a symlink attribute
@@ -599,7 +597,7 @@ public final class TorrentBuilder {
          * is useful if you need to reconstruct a file hierarchy which contains
          * symlinks.
          */
-        SYMLINKS(create_torrent.flags_t.symlinks.swigValue()),
+        public static final CreateFlags SYMLINKS = new CreateFlags(create_torrent.symlinks);
 
         /**
          * To create a torrent that can be updated via a *mutable torrent*
@@ -608,39 +606,7 @@ public final class TorrentBuilder {
          * <p>
          * BEP38: http://www.bittorrent.org/beps/bep_0038.html
          */
-        MUTABLE_TORRENT_SUPPORT(create_torrent.flags_t.mutable_torrent_support.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        Flags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static Flags fromSwig(int swigValue) {
-            Flags[] enumValues = Flags.class.getEnumConstants();
-            for (Flags ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
+        public static final CreateFlags MUTABLE_TORRENT_SUPPORT = new CreateFlags(create_torrent.mutable_torrent_support);
     }
 
     /**

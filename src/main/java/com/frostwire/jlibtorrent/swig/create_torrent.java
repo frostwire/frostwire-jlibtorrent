@@ -35,12 +35,12 @@ public class create_torrent {
     }
   }
 
-  public create_torrent(file_storage fs, int piece_size, int pad_file_limit, int flags, int alignment) {
-    this(libtorrent_jni.new_create_torrent__SWIG_0(file_storage.getCPtr(fs), fs, piece_size, pad_file_limit, flags, alignment), true);
+  public create_torrent(file_storage fs, int piece_size, int pad_file_limit, create_flags_t flags, int alignment) {
+    this(libtorrent_jni.new_create_torrent__SWIG_0(file_storage.getCPtr(fs), fs, piece_size, pad_file_limit, create_flags_t.getCPtr(flags), flags, alignment), true);
   }
 
-  public create_torrent(file_storage fs, int piece_size, int pad_file_limit, int flags) {
-    this(libtorrent_jni.new_create_torrent__SWIG_1(file_storage.getCPtr(fs), fs, piece_size, pad_file_limit, flags), true);
+  public create_torrent(file_storage fs, int piece_size, int pad_file_limit, create_flags_t flags) {
+    this(libtorrent_jni.new_create_torrent__SWIG_1(file_storage.getCPtr(fs), fs, piece_size, pad_file_limit, create_flags_t.getCPtr(flags), flags), true);
   }
 
   public create_torrent(file_storage fs, int piece_size, int pad_file_limit) {
@@ -131,51 +131,9 @@ public class create_torrent {
     libtorrent_jni.create_torrent_add_collection(swigCPtr, this, c);
   }
 
-  public final static class flags_t {
-    public final static create_torrent.flags_t optimize_alignment = new create_torrent.flags_t("optimize_alignment", libtorrent_jni.create_torrent_optimize_alignment_get());
-    public final static create_torrent.flags_t merkle = new create_torrent.flags_t("merkle", libtorrent_jni.create_torrent_merkle_get());
-    public final static create_torrent.flags_t modification_time = new create_torrent.flags_t("modification_time", libtorrent_jni.create_torrent_modification_time_get());
-    public final static create_torrent.flags_t symlinks = new create_torrent.flags_t("symlinks", libtorrent_jni.create_torrent_symlinks_get());
-    public final static create_torrent.flags_t mutable_torrent_support = new create_torrent.flags_t("mutable_torrent_support", libtorrent_jni.create_torrent_mutable_torrent_support_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static flags_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + flags_t.class + " with value " + swigValue);
-    }
-
-    private flags_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private flags_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private flags_t(String swigName, flags_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static flags_t[] swigValues = { optimize_alignment, merkle, modification_time, symlinks, mutable_torrent_support };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static create_flags_t optimize_alignment = new create_flags_t(libtorrent_jni.create_torrent_optimize_alignment_get(), false);
+  public final static create_flags_t merkle = new create_flags_t(libtorrent_jni.create_torrent_merkle_get(), false);
+  public final static create_flags_t modification_time = new create_flags_t(libtorrent_jni.create_torrent_modification_time_get(), false);
+  public final static create_flags_t symlinks = new create_flags_t(libtorrent_jni.create_torrent_symlinks_get(), false);
+  public final static create_flags_t mutable_torrent_support = new create_flags_t(libtorrent_jni.create_torrent_mutable_torrent_support_get(), false);
 }
