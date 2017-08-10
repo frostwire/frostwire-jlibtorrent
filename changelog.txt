@@ -1,4 +1,4 @@
-1.2.0.11-RC5
+1.2.0.11
 
     * using android NDK r15c
     * using -O2 for all architectures
