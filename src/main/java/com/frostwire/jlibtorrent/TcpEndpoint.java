@@ -13,7 +13,7 @@ public final class TcpEndpoint implements Cloneable {
     private final tcp_endpoint endp;
 
     /**
-     * @param endp
+     * @param endp the native object
      */
     public TcpEndpoint(tcp_endpoint endp) {
         this.endp = endp;
@@ -27,16 +27,16 @@ public final class TcpEndpoint implements Cloneable {
     }
 
     /**
-     * @param address
-     * @param port
+     * @param address the address
+     * @param port    the port
      */
     public TcpEndpoint(Address address, int port) {
         this(new tcp_endpoint(address.swig(), port));
     }
 
     /**
-     * @param ip
-     * @param port
+     * @param ip   the address as an IP
+     * @param port the port
      */
     public TcpEndpoint(String ip, int port) {
         error_code ec = new error_code();
@@ -48,28 +48,28 @@ public final class TcpEndpoint implements Cloneable {
     }
 
     /**
-     * @return
+     * @return the native object
      */
     public tcp_endpoint swig() {
         return endp;
     }
 
     /**
-     * @return
+     * @return the address
      */
     public Address address() {
         return new Address(endp.address());
     }
 
     /**
-     * @return
+     * @return the port
      */
     public int port() {
         return endp.port();
     }
 
     /**
-     * @return
+     * @return the string representation
      */
     @Override
     public String toString() {
