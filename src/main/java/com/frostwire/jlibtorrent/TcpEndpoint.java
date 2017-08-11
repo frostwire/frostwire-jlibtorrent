@@ -73,7 +73,9 @@ public final class TcpEndpoint implements Cloneable {
      */
     @Override
     public String toString() {
-        return "tcp:" + Address.toString(endp.address()) + ":" + endp.port();
+        address addr = endp.address();
+        String s = Address.toString(addr);
+        return (addr.is_v4() ? s : "[" + s + "]") + ":" + endp.port();
     }
 
     @Override
