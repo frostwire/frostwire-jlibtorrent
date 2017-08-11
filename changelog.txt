@@ -1,3 +1,13 @@
+1.2.0.12-RC1(temp)
+
+    * lt:fix issue with very long tracker and web seed URLs
+    * lt:fix issue where paths were not correctly coalesced when adding files
+      to file_storage (used more memory than necessary)
+    * lt:fix issue of force-recheck or seeding from read-only media, torrents
+      with empty files in them
+    * lt:fix force-recheck issue (new files would not be picked up)
+    * lt:source code cleanup, performance and stability
+
 1.2.0.11
 
     * using android NDK r15c
