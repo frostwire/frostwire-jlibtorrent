@@ -49,15 +49,15 @@ public enum SocketType {
     private final int swigValue;
 
     /**
-     * @return
+     * @return the native value
      */
     public int swig() {
         return swigValue;
     }
 
     /**
-     * @param swigValue
-     * @return
+     * @param swigValue the native value
+     * @return the enum value
      */
     public static SocketType fromSwig(int swigValue) {
         SocketType[] enumValues = SocketType.class.getEnumConstants();

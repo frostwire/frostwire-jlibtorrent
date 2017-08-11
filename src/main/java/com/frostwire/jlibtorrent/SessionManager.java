@@ -42,7 +42,7 @@ public class SessionManager {
     private long lastStatsRequestTime;
     private boolean firewalled;
     private final List<TcpEndpoint> listenEndpoints;
-    private Address externalAddress;
+    private String externalAddress;
     private Thread alertsLoop;
 
     private Throwable lastAlertError;
@@ -220,7 +220,7 @@ public class SessionManager {
         return firewalled;
     }
 
-    public Address externalAddress() {
+    public String externalAddress() {
         return externalAddress;
     }
 
@@ -886,7 +886,8 @@ public class SessionManager {
                 }
 
                 if (externalAddress != null) {
-                    addMagnetPeer(externalAddress, endp.port(), sb);
+                    // TODO: restore this
+                    //addMagnetPeer(externalAddress, endp.port(), sb);
                 }
             } catch (Throwable e) {
                 LOG.error("Error processing listen endpoint", e);
@@ -995,8 +996,16 @@ public class SessionManager {
         try {
             // libtorrent perform all kind of tests
             // to avoid non usable addresses
-            String address = alert.externalAddress().toString(); // clone
-            externalAddress = new Address(address);
+            address addr = alert.swig().get_external_address();
+            // filter out non IPv4 addresses
+            if (!addr.is_v4()) {
+                return;
+            }
+            String address = alert.externalAddress().toString();
+            if (address.contains("invalid")) {
+                return;
+            }
+            externalAddress = address;
         } catch (Throwable e) {
             LOG.error("Error saving reported external ip", e);
         }
