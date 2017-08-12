@@ -4,7 +4,6 @@ import com.frostwire.jlibtorrent.alerts.*;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
-import java.net.*;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +40,7 @@ public class SessionManager {
     private final SessionStats stats;
     private long lastStatsRequestTime;
     private boolean firewalled;
-    private final List<TcpEndpoint> listenEndpoints;
+    private final Map<String, String> listenEndpoints;
     private String externalAddress;
     private int externalPort;
     private Thread alertsLoop;
@@ -57,7 +56,7 @@ public class SessionManager {
         this.syncMagnet = new ReentrantLock();
 
         this.stats = new SessionStats();
-        this.listenEndpoints = new LinkedList<>();
+        this.listenEndpoints = new HashMap<>();
 
         resetState();
     }
@@ -225,8 +224,8 @@ public class SessionManager {
         return externalAddress;
     }
 
-    public List<TcpEndpoint> listenEndpoints() {
-        return new LinkedList<>(listenEndpoints);
+    public List<String> listenEndpoints() {
+        return new ArrayList<>(listenEndpoints.values());
     }
 
     //--------------------------------------------------
@@ -869,30 +868,13 @@ public class SessionManager {
 
         StringBuilder sb = new StringBuilder();
 
-        for (TcpEndpoint endp : listenEndpoints) {
-            try {
-                Address address = endp.address();
-                if (address.isLoopback() || address.isMulticast()) {
-                    continue;
-                }
+        if (externalAddress != null && externalPort > 0) {
+            sb.append("&x.pe=");
+            sb.append(externalAddress).append(":").append(externalPort);
+        }
 
-                if (address.isUnspecified()) {
-                    try {
-                        addAllInterfaces(address.isV6(), endp.port(), sb);
-                    } catch (Throwable e) {
-                        LOG.error("Error adding all listen interfaces", e);
-                    }
-                } else {
-                    addMagnetPeer(endp.address(), endp.port(), sb);
-                }
-
-                if (externalAddress != null) {
-                    // TODO: restore this
-                    //addMagnetPeer(externalAddress, endp.port(), sb);
-                }
-            } catch (Throwable e) {
-                LOG.error("Error processing listen endpoint", e);
-            }
+        for (String endp : listenEndpoints.values()) {
+            sb.append("&x.pe=").append(endp);
         }
 
         return sb.toString();
@@ -982,8 +964,6 @@ public class SessionManager {
             }
 
             Address addr = alert.address();
-            String address = alert.address().toString();
-            int port = alert.port();
 
             if (addr.isV4()) {
                 // consider just one IPv4 listen endpoint port
@@ -991,7 +971,26 @@ public class SessionManager {
                 externalPort = alert.port();
             }
 
-            listenEndpoints.add(new TcpEndpoint(address, port));
+            // only consider valid addresses
+            if (addr.isLoopback() || addr.isMulticast() || addr.isUnspecified()) {
+                return;
+            }
+
+            String address = addr.toString();
+            int port = alert.port();
+
+            // avoid invalid addresses
+            if (address.contains("invalid")) {
+                return;
+            }
+
+            // avoid local-link addresses
+            if (address.startsWith("127.") || address.startsWith("fe80::")) {
+                return;
+            }
+
+            String endp = (addr.isV6() ? "[" + address + "]" : address) + ":" + port;
+            listenEndpoints.put(address, endp);
         } catch (Throwable e) {
             LOG.error("Error adding listen endpoint to internal list", e);
         }
@@ -1053,54 +1052,6 @@ public class SessionManager {
         sb.append("outer.silotis.us:6881");
 
         return sb.toString();
-    }
-
-    private static void addAllInterfaces(boolean v6, int port, StringBuilder sb) throws SocketException {
-        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-
-        while (networkInterfaces.hasMoreElements()) {
-            NetworkInterface iface = networkInterfaces.nextElement();
-            if (iface.isLoopback()) {
-                continue;
-            }
-            List<InterfaceAddress> interfaceAddresses = iface.getInterfaceAddresses();
-            for (InterfaceAddress ifaceAddress : interfaceAddresses) {
-                InetAddress inetAddress = ifaceAddress.getAddress();
-
-                if (inetAddress.isLoopbackAddress() || inetAddress.isLinkLocalAddress()) {
-                    continue;
-                }
-
-                // same family?
-                if (inetAddress instanceof Inet6Address != v6) {
-                    continue;
-                }
-
-                String hostAddress = ifaceAddress.getAddress().getHostAddress();
-
-                // IPv6 address should be expressed as [address]:port
-                if (v6) {
-                    // remove the %22 or whatever mask at the end.
-                    if (hostAddress.contains("%")) {
-                        hostAddress = hostAddress.substring(0, hostAddress.indexOf("%"));
-                    }
-                    hostAddress = "[" + hostAddress + "]";
-                }
-                sb.append("&x.pe=" + hostAddress + ":" + port);
-            }
-        }
-    }
-
-    private static void addMagnetPeer(Address address, int port, StringBuilder sb) {
-        String hostAddress = address.toString();
-        if (hostAddress.contains("invalid")) {
-            return;
-        }
-
-        if (address.isV6()) {
-            hostAddress = "[" + hostAddress + "]";
-        }
-        sb.append("&x.pe=" + hostAddress + ":" + port);
     }
 
     private static boolean isSpecialType(int type) {
