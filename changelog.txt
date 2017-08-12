@@ -1,5 +1,8 @@
 1.2.0.12-RC1(temp)
 
+    * storing external address and listen endpoints as strings for better
+      performance
+    * improved creation of peers part of magnet links
     * lt:fix issue with very long tracker and web seed URLs
     * lt:fix issue where paths were not correctly coalesced when adding files
       to file_storage (used more memory than necessary)
