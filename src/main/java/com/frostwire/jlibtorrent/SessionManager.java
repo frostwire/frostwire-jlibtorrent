@@ -43,6 +43,7 @@ public class SessionManager {
     private boolean firewalled;
     private final List<TcpEndpoint> listenEndpoints;
     private String externalAddress;
+    private int externalPort;
     private Thread alertsLoop;
 
     private Throwable lastAlertError;
@@ -975,11 +976,22 @@ public class SessionManager {
 
     private void onListenSucceeded(ListenSucceededAlert alert) {
         try {
+            // only store TCP endpoints
             if (alert.socketType() == SocketType.TCP) {
-                String address = alert.address().toString(); // clone
-                int port = alert.port();
-                listenEndpoints.add(new TcpEndpoint(address, port));
+                return;
             }
+
+            Address addr = alert.address();
+            String address = alert.address().toString();
+            int port = alert.port();
+
+            if (addr.isV4()) {
+                // consider just one IPv4 listen endpoint port
+                // as the external port
+                externalPort = alert.port();
+            }
+
+            listenEndpoints.add(new TcpEndpoint(address, port));
         } catch (Throwable e) {
             LOG.error("Error adding listen endpoint to internal list", e);
         }
