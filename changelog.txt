@@ -1,4 +1,4 @@
-1.2.0.12-RC2(temp)
+1.2.0.12-RC2
 
     * storing external address and listen endpoints as strings for better
       performance
