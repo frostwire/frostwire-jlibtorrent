@@ -1,8 +1,16 @@
-1.2.0.12-RC1
+1.2.0.12-RC2(temp)
 
     * storing external address and listen endpoints as strings for better
       performance
     * improved creation of peers part of magnet links
+    * lt:fixed netlink based network interface enumeration
+    * lt:remove support for using a pool allocator for disk buffers
+    * lt:fix IPv6 tracker support by performing the second announce in
+      more cases
+    * lt:fix issue in UTF-8 encoding validation
+    * lt:fix infinite loop when parsing torrents whose filenames have zeroes
+    * lt:fix invalid read in parse_int() in bdecode_node()
+    * lt:don't create web seed connections if the torrent is upload only
     * lt:fix issue with very long tracker and web seed URLs
     * lt:fix issue where paths were not correctly coalesced when adding files
       to file_storage (used more memory than necessary)
