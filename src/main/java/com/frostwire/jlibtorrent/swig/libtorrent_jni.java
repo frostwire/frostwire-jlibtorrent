@@ -2512,6 +2512,7 @@ public class libtorrent_jni {
   public final static native int settings_pack_seeding_outgoing_connections_get();
   public final static native int settings_pack_lock_files_get();
   public final static native int settings_pack_ban_web_seeds_get();
+  public final static native int settings_pack_announce_crypto_support_get();
   public final static native int settings_pack_tracker_completion_timeout_get();
   public final static native int settings_pack_auto_manage_interval_get();
   public final static native int settings_pack_read_cache_line_size_get();
@@ -2910,8 +2911,6 @@ public class libtorrent_jni {
   public final static native boolean torrent_status_has_metadata_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_has_incoming_set(long jarg1, torrent_status jarg1_, boolean jarg2);
   public final static native boolean torrent_status_has_incoming_get(long jarg1, torrent_status jarg1_);
-  public final static native void torrent_status_deprecated_seed_mode_set(long jarg1, torrent_status jarg1_, boolean jarg2);
-  public final static native boolean torrent_status_deprecated_seed_mode_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_moving_storage_set(long jarg1, torrent_status jarg1_, boolean jarg2);
   public final static native boolean torrent_status_moving_storage_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_announcing_to_trackers_set(long jarg1, torrent_status jarg1_, boolean jarg2);
@@ -2920,8 +2919,6 @@ public class libtorrent_jni {
   public final static native boolean torrent_status_announcing_to_lsd_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_announcing_to_dht_set(long jarg1, torrent_status jarg1_, boolean jarg2);
   public final static native boolean torrent_status_announcing_to_dht_get(long jarg1, torrent_status jarg1_);
-  public final static native void torrent_status_deprecated_stop_when_ready_set(long jarg1, torrent_status jarg1_, boolean jarg2);
-  public final static native boolean torrent_status_deprecated_stop_when_ready_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_info_hash_set(long jarg1, torrent_status jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long torrent_status_info_hash_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_flags_set(long jarg1, torrent_status jarg1_, long jarg2, torrent_flags_t jarg2_);

@@ -511,14 +511,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_has_incoming_get(swigCPtr, this);
   }
 
-  public void setDeprecated_seed_mode(boolean value) {
-    libtorrent_jni.torrent_status_deprecated_seed_mode_set(swigCPtr, this, value);
-  }
-
-  public boolean getDeprecated_seed_mode() {
-    return libtorrent_jni.torrent_status_deprecated_seed_mode_get(swigCPtr, this);
-  }
-
   public void setMoving_storage(boolean value) {
     libtorrent_jni.torrent_status_moving_storage_set(swigCPtr, this, value);
   }
@@ -549,14 +541,6 @@ public class torrent_status {
 
   public boolean getAnnouncing_to_dht() {
     return libtorrent_jni.torrent_status_announcing_to_dht_get(swigCPtr, this);
-  }
-
-  public void setDeprecated_stop_when_ready(boolean value) {
-    libtorrent_jni.torrent_status_deprecated_stop_when_ready_set(swigCPtr, this, value);
-  }
-
-  public boolean getDeprecated_stop_when_ready() {
-    return libtorrent_jni.torrent_status_deprecated_stop_when_ready_get(swigCPtr, this);
   }
 
   public void setInfo_hash(sha1_hash value) {

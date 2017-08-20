@@ -1003,6 +1003,7 @@ namespace libtorrent {
 %ignore libtorrent::settings_pack::deprecated21;
 %ignore libtorrent::settings_pack::deprecated22;
 %ignore libtorrent::settings_pack::deprecated23;
+%ignore libtorrent::settings_pack::deprecated24;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
@@ -1047,6 +1048,8 @@ namespace libtorrent {
 %ignore libtorrent::torrent_status::deprecated_paused;
 %ignore libtorrent::torrent_status::deprecated_auto_managed;
 %ignore libtorrent::torrent_status::deprecated_sequential_download;
+%ignore libtorrent::torrent_status::deprecated_seed_mode;
+%ignore libtorrent::torrent_status::deprecated_stop_when_ready;
 %ignore libtorrent::file_storage::file_storage(file_storage&&);
 %ignore libtorrent::file_storage::file_path_hash;
 %ignore libtorrent::file_storage::all_path_hashes;
@@ -1084,6 +1087,7 @@ namespace libtorrent {
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
+%ignore libtorrent::peer_info::deprecated_dl_rate;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
