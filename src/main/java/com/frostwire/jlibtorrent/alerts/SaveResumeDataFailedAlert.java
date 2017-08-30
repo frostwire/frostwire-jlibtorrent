@@ -12,11 +12,11 @@ import com.frostwire.jlibtorrent.swig.save_resume_data_failed_alert;
  */
 public final class SaveResumeDataFailedAlert extends TorrentAlert<save_resume_data_failed_alert> {
 
-    public SaveResumeDataFailedAlert(save_resume_data_failed_alert alert) {
+    SaveResumeDataFailedAlert(save_resume_data_failed_alert alert) {
         super(alert);
     }
 
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
     }
 }

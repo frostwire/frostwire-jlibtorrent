@@ -1,3 +1,7 @@
+1.2.0.13-RC1(temp)
+
+    * lt:source code cleanup, performance and stability
+
 1.2.0.12
 
     * updated to boost 1.65

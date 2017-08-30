@@ -59,59 +59,15 @@ public class portmap_alert extends alert {
     return libtorrent_jni.portmap_alert_external_port_get(swigCPtr, this);
   }
 
-  public int getMap_type() {
-    return libtorrent_jni.portmap_alert_map_type_get(swigCPtr, this);
+  public portmap_protocol getMap_protocol() {
+    return portmap_protocol.swigToEnum(libtorrent_jni.portmap_alert_map_protocol_get(swigCPtr, this));
   }
 
-  public int getProtocol() {
-    return libtorrent_jni.portmap_alert_protocol_get(swigCPtr, this);
+  public portmap_transport getMap_transport() {
+    return portmap_transport.swigToEnum(libtorrent_jni.portmap_alert_map_transport_get(swigCPtr, this));
   }
 
   public final static int priority = libtorrent_jni.portmap_alert_priority_get();
   public final static int alert_type = libtorrent_jni.portmap_alert_alert_type_get();
   public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.portmap_alert_static_category_get(), false);
-  public final static class protocol_t {
-    public final static portmap_alert.protocol_t tcp = new portmap_alert.protocol_t("tcp");
-    public final static portmap_alert.protocol_t udp = new portmap_alert.protocol_t("udp");
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static protocol_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + protocol_t.class + " with value " + swigValue);
-    }
-
-    private protocol_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private protocol_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private protocol_t(String swigName, protocol_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static protocol_t[] swigValues = { tcp, udp };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
 }

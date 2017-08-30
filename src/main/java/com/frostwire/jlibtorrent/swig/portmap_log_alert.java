@@ -51,8 +51,8 @@ public class portmap_log_alert extends alert {
     return libtorrent_jni.portmap_log_alert_message(swigCPtr, this);
   }
 
-  public int getMap_type() {
-    return libtorrent_jni.portmap_log_alert_map_type_get(swigCPtr, this);
+  public portmap_transport getMap_transport() {
+    return portmap_transport.swigToEnum(libtorrent_jni.portmap_log_alert_map_transport_get(swigCPtr, this));
   }
 
   public String log_message() {

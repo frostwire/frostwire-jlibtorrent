@@ -1,5 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.PortmapProtocol;
+import com.frostwire.jlibtorrent.PortmapTransport;
 import com.frostwire.jlibtorrent.swig.portmap_alert;
 
 /**
@@ -13,7 +15,7 @@ import com.frostwire.jlibtorrent.swig.portmap_alert;
  */
 public final class PortmapAlert extends AbstractAlert<portmap_alert> {
 
-    public PortmapAlert(portmap_alert alert) {
+    PortmapAlert(portmap_alert alert) {
         super(alert);
     }
 
@@ -21,7 +23,7 @@ public final class PortmapAlert extends AbstractAlert<portmap_alert> {
      * refers to the mapping index of the port map that failed, i.e.
      * the index returned from add_mapping().
      *
-     * @return
+     * @return the mapping index
      */
     public int mapping() {
         return alert.getMapping();
@@ -30,63 +32,22 @@ public final class PortmapAlert extends AbstractAlert<portmap_alert> {
     /**
      * the external port allocated for the mapping.
      *
-     * @return
+     * @return the external port
      */
     public int externalPort() {
         return alert.getExternal_port();
     }
 
-    public PortmapType mapType() {
-        return PortmapType.fromSwig(alert.getMap_type());
+    public PortmapTransport mapTransport() {
+        return PortmapTransport.fromSwig(alert.getMap_transport().swigValue());
     }
 
     /**
      * The protocol this mapping was for.
      *
-     * @return
+     * @return the mapping protocol
      */
-    public Protocol protocol() {
-        return Protocol.fromSwig(alert.getProtocol());
-    }
-
-    /**
-     *
-     */
-    public enum Protocol {
-
-        /**
-         *
-         */
-        TCP(portmap_alert.protocol_t.tcp.swigValue()),
-
-        /**
-         *
-         */
-        UDP(portmap_alert.protocol_t.udp.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        Protocol(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        public int swig() {
-            return swigValue;
-        }
-
-        public static Protocol fromSwig(int swigValue) {
-            Protocol[] enumValues = Protocol.class.getEnumConstants();
-            for (Protocol ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
+    public PortmapProtocol mapProtocol() {
+        return PortmapProtocol.fromSwig(alert.getMap_protocol().swigValue());
     }
 }

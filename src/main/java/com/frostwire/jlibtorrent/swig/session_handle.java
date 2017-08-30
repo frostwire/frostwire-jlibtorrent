@@ -255,7 +255,7 @@ public class session_handle {
     libtorrent_jni.session_handle_pop_alerts(swigCPtr, this, alert_ptr_vector.getCPtr(alerts), alerts);
   }
 
-  public int add_port_mapping(session_handle.protocol_type t, int external_port, int local_port) {
+  public int add_port_mapping(portmap_protocol t, int external_port, int local_port) {
     return libtorrent_jni.session_handle_add_port_mapping(swigCPtr, this, t.swigValue(), external_port, local_port);
   }
 
@@ -298,48 +298,6 @@ public class session_handle {
   public final static remove_flags_t delete_partfile = new remove_flags_t(libtorrent_jni.session_handle_delete_partfile_get(), false);
   public final static session_flags_t add_default_plugins = new session_flags_t(libtorrent_jni.session_handle_add_default_plugins_get(), false);
   public final static session_flags_t start_default_features = new session_flags_t(libtorrent_jni.session_handle_start_default_features_get(), false);
-  public final static class protocol_type {
-    public final static session_handle.protocol_type udp = new session_handle.protocol_type("udp", libtorrent_jni.session_handle_udp_get());
-    public final static session_handle.protocol_type tcp = new session_handle.protocol_type("tcp", libtorrent_jni.session_handle_tcp_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static protocol_type swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + protocol_type.class + " with value " + swigValue);
-    }
-
-    private protocol_type(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private protocol_type(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private protocol_type(String swigName, protocol_type swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static protocol_type[] swigValues = { udp, tcp };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
+  public final static portmap_protocol udp = portmap_protocol.swigToEnum(libtorrent_jni.session_handle_udp_get());
+  public final static portmap_protocol tcp = portmap_protocol.swigToEnum(libtorrent_jni.session_handle_tcp_get());
 }

@@ -405,13 +405,13 @@ public class SessionHandle {
      * port mapping that was just created. Pass it to delete_port_mapping()
      * to remove it.
      *
-     * @param t
-     * @param externalPort
-     * @param localPort
+     * @param t            the mapping protocol
+     * @param externalPort the external port
+     * @param localPort    the local port
      * @return
      */
-    public int addPortMapping(ProtocolType t, int externalPort, int localPort) {
-        return s.add_port_mapping(session_handle.protocol_type.swigToEnum(t.swig()), externalPort, localPort);
+    public int addPortMapping(PortmapProtocol t, int externalPort, int localPort) {
+        return s.add_port_mapping(portmap_protocol.swigToEnum(t.swig()), externalPort, localPort);
     }
 
     public void deletePortMapping(int handle) {
@@ -564,7 +564,7 @@ public class SessionHandle {
      * return false, and then you can use ``listen_on()`` to make another
      * attempt.
      *
-     * @return
+     * @return {@code true} if listening
      */
     public boolean isListening() {
         return s.is_listening();
@@ -577,53 +577,5 @@ public class SessionHandle {
         SwigPlugin p = new SwigPlugin(plugin);
         s.add_extension(p);
         p.swigReleaseOwnership();
-    }
-
-    /**
-     * protocols used by {@link #addPortMapping(ProtocolType, int, int)}.
-     */
-    public enum ProtocolType {
-
-        /**
-         *
-         */
-        UDP(session_handle.protocol_type.udp.swigValue()),
-
-        /**
-         *
-         */
-        TCP(session_handle.protocol_type.tcp.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        ProtocolType(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static ProtocolType fromSwig(int swigValue) {
-            ProtocolType[] enumValues = ProtocolType.class.getEnumConstants();
-            for (ProtocolType ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
     }
 }
