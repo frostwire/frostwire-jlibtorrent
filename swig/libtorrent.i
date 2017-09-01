@@ -1090,6 +1090,7 @@ namespace libtorrent {
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
 %ignore libtorrent::peer_info::deprecated_dl_rate;
+%ignore libtorrent::tracker_alert::local_endpoint;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
@@ -1816,6 +1817,13 @@ namespace libtorrent {
 
     std::int64_t get_interval() {
         return libtorrent::total_milliseconds($self->interval);
+    }
+}
+
+%extend tracker_alert {
+
+    tcp::endpoint get_local_endpoint() {
+        return $self->local_endpoint;
     }
 }
 

@@ -1,5 +1,7 @@
 1.2.0.13-RC1(temp)
 
+    * lt:include endpoint in tracker alerts
+    * lt:treat unique local IPv6 addresses as local
     * lt:source code cleanup, performance and stability
 
 1.2.0.12

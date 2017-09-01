@@ -1502,6 +1502,7 @@ public class libtorrent_jni {
   public final static native long tracker_alert_category(long jarg1, tracker_alert jarg1_);
   public final static native String tracker_alert_message(long jarg1, tracker_alert jarg1_);
   public final static native String tracker_alert_tracker_url(long jarg1, tracker_alert jarg1_);
+  public final static native long tracker_alert_get_local_endpoint(long jarg1, tracker_alert jarg1_);
   public final static native void delete_tracker_alert(long jarg1);
   public final static native int torrent_removed_alert_priority_get();
   public final static native int torrent_removed_alert_alert_type_get();
