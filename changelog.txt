@@ -1,4 +1,4 @@
-1.2.0.13-RC1(temp)
+1.2.0.13-RC1
 
     * lt:avoid port mapping of local IPv6 addresses
     * lt:include endpoint in tracker alerts
