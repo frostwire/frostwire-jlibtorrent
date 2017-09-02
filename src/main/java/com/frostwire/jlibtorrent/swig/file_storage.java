@@ -51,24 +51,24 @@ public class file_storage {
     libtorrent_jni.file_storage_reserve(swigCPtr, this, num_files);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, file_flags_t file_flags, String filehash, long mtime, string_view symlink_path) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_0(swigCPtr, this, filename, filename_len, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash, mtime, string_view.getCPtr(symlink_path), symlink_path);
+  public void add_file_borrow(string_view filename, String path, long file_size, file_flags_t file_flags, String filehash, long mtime, string_view symlink_path) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_0(swigCPtr, this, string_view.getCPtr(filename), filename, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash, mtime, string_view.getCPtr(symlink_path), symlink_path);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, file_flags_t file_flags, String filehash, long mtime) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_1(swigCPtr, this, filename, filename_len, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash, mtime);
+  public void add_file_borrow(string_view filename, String path, long file_size, file_flags_t file_flags, String filehash, long mtime) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_1(swigCPtr, this, string_view.getCPtr(filename), filename, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash, mtime);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, file_flags_t file_flags, String filehash) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_2(swigCPtr, this, filename, filename_len, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash);
+  public void add_file_borrow(string_view filename, String path, long file_size, file_flags_t file_flags, String filehash) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_2(swigCPtr, this, string_view.getCPtr(filename), filename, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, filehash);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size, file_flags_t file_flags) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_3(swigCPtr, this, filename, filename_len, path, file_size, file_flags_t.getCPtr(file_flags), file_flags);
+  public void add_file_borrow(string_view filename, String path, long file_size, file_flags_t file_flags) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_3(swigCPtr, this, string_view.getCPtr(filename), filename, path, file_size, file_flags_t.getCPtr(file_flags), file_flags);
   }
 
-  public void add_file_borrow(String filename, int filename_len, String path, long file_size) {
-    libtorrent_jni.file_storage_add_file_borrow__SWIG_4(swigCPtr, this, filename, filename_len, path, file_size);
+  public void add_file_borrow(string_view filename, String path, long file_size) {
+    libtorrent_jni.file_storage_add_file_borrow__SWIG_4(swigCPtr, this, string_view.getCPtr(filename), filename, path, file_size);
   }
 
   public void add_file(String path, long file_size, file_flags_t file_flags, long mtime, string_view symlink_path) {

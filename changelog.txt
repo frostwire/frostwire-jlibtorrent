@@ -1,5 +1,6 @@
 1.2.0.13-RC1(temp)
 
+    * lt:avoid port mapping of local IPv6 addresses
     * lt:include endpoint in tracker alerts
     * lt:treat unique local IPv6 addresses as local
     * lt:source code cleanup, performance and stability

@@ -864,11 +864,11 @@ public class libtorrent_jni {
   public final static native long new_file_storage__SWIG_1(long jarg1, file_storage jarg1_);
   public final static native boolean file_storage_is_valid(long jarg1, file_storage jarg1_);
   public final static native void file_storage_reserve(long jarg1, file_storage jarg1_, int jarg2);
-  public final static native void file_storage_add_file_borrow__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, int jarg3, String jarg4, long jarg5, long jarg6, file_flags_t jarg6_, String jarg7, long jarg8, long jarg9, string_view jarg9_);
-  public final static native void file_storage_add_file_borrow__SWIG_1(long jarg1, file_storage jarg1_, String jarg2, int jarg3, String jarg4, long jarg5, long jarg6, file_flags_t jarg6_, String jarg7, long jarg8);
-  public final static native void file_storage_add_file_borrow__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, int jarg3, String jarg4, long jarg5, long jarg6, file_flags_t jarg6_, String jarg7);
-  public final static native void file_storage_add_file_borrow__SWIG_3(long jarg1, file_storage jarg1_, String jarg2, int jarg3, String jarg4, long jarg5, long jarg6, file_flags_t jarg6_);
-  public final static native void file_storage_add_file_borrow__SWIG_4(long jarg1, file_storage jarg1_, String jarg2, int jarg3, String jarg4, long jarg5);
+  public final static native void file_storage_add_file_borrow__SWIG_0(long jarg1, file_storage jarg1_, long jarg2, string_view jarg2_, String jarg3, long jarg4, long jarg5, file_flags_t jarg5_, String jarg6, long jarg7, long jarg8, string_view jarg8_);
+  public final static native void file_storage_add_file_borrow__SWIG_1(long jarg1, file_storage jarg1_, long jarg2, string_view jarg2_, String jarg3, long jarg4, long jarg5, file_flags_t jarg5_, String jarg6, long jarg7);
+  public final static native void file_storage_add_file_borrow__SWIG_2(long jarg1, file_storage jarg1_, long jarg2, string_view jarg2_, String jarg3, long jarg4, long jarg5, file_flags_t jarg5_, String jarg6);
+  public final static native void file_storage_add_file_borrow__SWIG_3(long jarg1, file_storage jarg1_, long jarg2, string_view jarg2_, String jarg3, long jarg4, long jarg5, file_flags_t jarg5_);
+  public final static native void file_storage_add_file_borrow__SWIG_4(long jarg1, file_storage jarg1_, long jarg2, string_view jarg2_, String jarg3, long jarg4);
   public final static native void file_storage_add_file__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, file_flags_t jarg4_, long jarg5, long jarg6, string_view jarg6_);
   public final static native void file_storage_add_file__SWIG_1(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, file_flags_t jarg4_, long jarg5);
   public final static native void file_storage_add_file__SWIG_2(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, file_flags_t jarg4_);
