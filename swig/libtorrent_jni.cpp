@@ -700,7 +700,6 @@ namespace Swig {
 #include "libtorrent/operations.hpp"
 #include "libtorrent/session_stats.hpp"
 #include "libtorrent/close_reason.hpp"
-#include "libtorrent/portmap.hpp"
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
 #include "libtorrent/session_settings.hpp"
@@ -724,6 +723,7 @@ namespace Swig {
 using piece_index_t = libtorrent::piece_index_t;
 using file_index_t = libtorrent::file_index_t;
 using peer_class_t = libtorrent::peer_class_t;
+using port_mapping_t = libtorrent::port_mapping_t;
 
 // END common set include ------------------------------------------------------
 
@@ -46318,17 +46318,19 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_p
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1error_1alert_1mapping_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
+SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1error_1alert_1mapping_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  int jresult = 0 ;
   libtorrent::portmap_error_alert *arg1 = (libtorrent::portmap_error_alert *) 0 ;
-  int result;
+  port_mapping_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::portmap_error_alert **)&jarg1; 
-  result = (int)(int) ((arg1)->mapping);
-  jresult = (jint)result; 
+  result = (port_mapping_t) ((arg1)->mapping);
+  {
+    jresult = static_cast<int>(static_cast<int>(result));
+  }
   return jresult;
 }
 
@@ -46532,17 +46534,19 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_p
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1alert_1mapping_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
+SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1alert_1mapping_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  int jresult = 0 ;
   libtorrent::portmap_alert *arg1 = (libtorrent::portmap_alert *) 0 ;
-  int result;
+  port_mapping_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::portmap_alert **)&jarg1; 
-  result = (int)(int) ((arg1)->mapping);
-  jresult = (jint)result; 
+  result = (port_mapping_t) ((arg1)->mapping);
+  {
+    jresult = static_cast<int>(static_cast<int>(result));
+  }
   return jresult;
 }
 
@@ -58656,13 +58660,13 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 }
 
 
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1add_1port_1mapping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4) {
-  jint jresult = 0 ;
+SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1add_1port_1mapping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4) {
+  int jresult = 0 ;
   libtorrent::session_handle *arg1 = (libtorrent::session_handle *) 0 ;
   libtorrent::portmap_protocol arg2 ;
   int arg3 ;
   int arg4 ;
-  int result;
+  port_mapping_t result;
   
   (void)jenv;
   (void)jcls;
@@ -58673,7 +58677,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   arg4 = (int)jarg4; 
   {
     try {
-      result = (int)(arg1)->add_port_mapping(arg2,arg3,arg4);
+      result = (arg1)->add_port_mapping(arg2,arg3,arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -58682,20 +58686,24 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
       return 0;
     }
   }
-  jresult = (jint)result; 
+  {
+    jresult = static_cast<int>(static_cast<int>(result));
+  }
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1delete_1port_1mapping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1delete_1port_1mapping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, int jarg2) {
   libtorrent::session_handle *arg1 = (libtorrent::session_handle *) 0 ;
-  int arg2 ;
+  port_mapping_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::session_handle **)&jarg1; 
-  arg2 = (int)jarg2; 
+  {
+    arg2 = port_mapping_t(static_cast<int>(jarg2));
+  }
   {
     try {
       (arg1)->delete_port_mapping(arg2);

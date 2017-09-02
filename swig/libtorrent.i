@@ -28,7 +28,6 @@
 #include "libtorrent/operations.hpp"
 #include "libtorrent/session_stats.hpp"
 #include "libtorrent/close_reason.hpp"
-#include "libtorrent/portmap.hpp"
 #include "libtorrent/alert.hpp"
 #include "libtorrent/alert_types.hpp"
 #include "libtorrent/session_settings.hpp"
@@ -52,6 +51,7 @@
 using piece_index_t = libtorrent::piece_index_t;
 using file_index_t = libtorrent::file_index_t;
 using peer_class_t = libtorrent::peer_class_t;
+using port_mapping_t = libtorrent::port_mapping_t;
 
 // END common set include ------------------------------------------------------
 %}
@@ -160,6 +160,7 @@ TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, underlying_type, java_type)
 TYPE_INTEGRAL_CONVERSION(piece_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
+TYPE_INTEGRAL_CONVERSION(port_mapping_t, int, int)
 
 namespace std {
 
@@ -424,6 +425,16 @@ namespace libtorrent {
         bittorrent,
         url_seed,
         http_seed
+    };
+
+    enum class portmap_transport : std::uint8_t
+    {
+        natpmp, upnp
+    };
+
+    enum class portmap_protocol : std::uint8_t
+    {
+        none, tcp, udp
     };
 
     template <typename T>
@@ -1193,7 +1204,6 @@ namespace libtorrent {
 %include "libtorrent/operations.hpp"
 %include "libtorrent/session_stats.hpp"
 %include "libtorrent/close_reason.hpp"
-%include "libtorrent/portmap.hpp"
 %include "libtorrent/alert.hpp"
 %include "libtorrent/alert_types.hpp"
 %include "libtorrent/session_settings.hpp"
