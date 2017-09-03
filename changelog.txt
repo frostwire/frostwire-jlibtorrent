@@ -2,6 +2,8 @@
 
     * lt:avoid port mapping of local IPv6 addresses
     * lt:include endpoint in tracker alerts
+    * lt:hold an owning reference to storage objects in try_flush_write_blocks
+    * lt:read_piece: handle failure to allocate piece buffer
     * lt:treat unique local IPv6 addresses as local
     * lt:source code cleanup, performance and stability
 
