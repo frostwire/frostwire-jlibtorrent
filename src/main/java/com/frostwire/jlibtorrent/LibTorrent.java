@@ -75,7 +75,7 @@ public final class LibTorrent {
      * this metric's value can be found when the session stats is sampled (by
      * calling post_session_stats()).
      *
-     * @return
+     * @return the list of all metrics
      */
     public static List<StatsMetric> sessionStatsMetrics() {
         stats_metric_vector v = libtorrent.session_stats_metrics();
@@ -95,8 +95,8 @@ public final class LibTorrent {
      * or -1 if it could not be found. The counter index is the index into the
      * values array returned by session_stats_alert.
      *
-     * @param name
-     * @return
+     * @param name the name of the metric
+     * @return the index of the metric
      */
     public static int findMetricIdx(String name) {
         return libtorrent.find_metric_idx(name);
