@@ -117,10 +117,6 @@ public class libtorrent implements libtorrentConstants {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
 
-  public static int find_metric_idx(String name) {
-    return libtorrent_jni.find_metric_idx(name);
-  }
-
   public static int getNum_alert_types() {
     return libtorrent_jni.num_alert_types_get();
   }
@@ -135,18 +131,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static settings_pack default_settings() {
     return new settings_pack(libtorrent_jni.default_settings(), true);
-  }
-
-  public static address_sha1_hash_pair_vector extract_node_ids(bdecode_node e, string_view key) {
-    return new address_sha1_hash_pair_vector(libtorrent_jni.extract_node_ids(bdecode_node.getCPtr(e), e, string_view.getCPtr(key), key), true);
-  }
-
-  public static dht_state read_dht_state(bdecode_node e) {
-    return new dht_state(libtorrent_jni.read_dht_state(bdecode_node.getCPtr(e), e), true);
-  }
-
-  public static entry save_dht_state(dht_state state) {
-    return new entry(libtorrent_jni.save_dht_state(dht_state.getCPtr(state), state), true);
   }
 
   public static settings_pack min_memory_usage() {
@@ -243,6 +227,10 @@ public class libtorrent implements libtorrentConstants {
 
   public static String openssl_version_text() {
     return libtorrent_jni.openssl_version_text();
+  }
+
+  public static int find_metric_idx_s(String name) {
+    return libtorrent_jni.find_metric_idx_s(name);
   }
 
   public static void set_posix_wrapper(posix_wrapper obj) {

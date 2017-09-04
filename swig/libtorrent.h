@@ -177,6 +177,10 @@ const char* openssl_version_text() {
     return OPENSSL_VERSION_TEXT;
 }
 
+int find_metric_idx_s(std::string const& name) {
+    return libtorrent::find_metric_idx(name);
+}
+
 void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::int64_t& seq,
     std::string salt, libtorrent::dht::public_key pk, libtorrent::dht::secret_key sk,
     libtorrent::entry data) {

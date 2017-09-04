@@ -1363,7 +1363,6 @@ public class libtorrent_jni {
   public final static native long new_stats_metric();
   public final static native void delete_stats_metric(long jarg1);
   public final static native long session_stats_metrics();
-  public final static native int find_metric_idx(String jarg1);
   public final static native int close_reason_t_none_get();
   public final static native int close_reason_t_encryption_error_get();
   public final static native long alert_error_notification_get();
@@ -2633,9 +2632,6 @@ public class libtorrent_jni {
   public final static native void dht_state_clear(long jarg1, dht_state jarg1_);
   public final static native long new_dht_state();
   public final static native void delete_dht_state(long jarg1);
-  public final static native long extract_node_ids(long jarg1, bdecode_node jarg1_, long jarg2, string_view jarg2_);
-  public final static native long read_dht_state(long jarg1, bdecode_node jarg1_);
-  public final static native long save_dht_state(long jarg1, dht_state jarg1_);
   public final static native long min_memory_usage();
   public final static native long high_performance_seed();
   public final static native long new_session_proxy__SWIG_0();
@@ -2965,6 +2961,7 @@ public class libtorrent_jni {
   public final static native String boost_lib_version();
   public final static native int openssl_version_number();
   public final static native String openssl_version_text();
+  public final static native int find_metric_idx_s(String jarg1);
   public final static native void delete_swig_plugin(long jarg1);
   public final static native boolean swig_plugin_on_dht_request(long jarg1, swig_plugin jarg1_, long jarg2, string_view jarg2_, long jarg3, udp_endpoint jarg3_, long jarg4, bdecode_node jarg4_, long jarg5, entry jarg5_);
   public final static native boolean swig_plugin_on_dht_requestSwigExplicitswig_plugin(long jarg1, swig_plugin jarg1_, long jarg2, string_view jarg2_, long jarg3, udp_endpoint jarg3_, long jarg4, bdecode_node jarg4_, long jarg5, entry jarg5_);

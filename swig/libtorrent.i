@@ -1102,6 +1102,10 @@ namespace libtorrent {
 %ignore libtorrent::peer_info::download_queue_time;
 %ignore libtorrent::peer_info::deprecated_dl_rate;
 %ignore libtorrent::tracker_alert::local_endpoint;
+%ignore libtorrent::dht::extract_node_ids;
+%ignore libtorrent::dht::read_dht_state;
+%ignore libtorrent::dht::save_dht_state;
+%ignore libtorrent::find_metric_idx;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
