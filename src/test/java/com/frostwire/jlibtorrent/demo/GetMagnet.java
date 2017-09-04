@@ -1,7 +1,8 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.Entry;
-import com.frostwire.jlibtorrent.SessionManager;
+import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.swig.settings_pack;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,8 +21,31 @@ public final class GetMagnet {
         String uri = "magnet:?xt=urn:btih:a83cc13bf4a07e85b938dcf06aa707955687ca7c";
 
         final SessionManager s = new SessionManager();
+        //final SessionManager s = new SessionManager(true);
 
-        s.start();
+        /*s.addListener(new AlertListener() {
+            @Override
+            public int[] types() {
+                return null;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                System.out.println(alert);
+            }
+        });*/
+
+        SettingsPack sp = new SettingsPack();
+        //sp.listenInterfaces("0.0.0.0:43567");
+        //sp.listenInterfaces("[::]:43567");
+        //sp.listenInterfaces("0.0.0.0:43567,[::]:43567");
+        //sp.setString(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), "router.silotis.us:6881");
+        //sp.setString(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), "router.bittorrent.com:6881");
+        //sp.setString(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), "dht.transmissionbt.com:6881");
+
+        SessionParams params = new SessionParams(sp);
+
+        s.start(params);
 
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -40,7 +64,7 @@ public final class GetMagnet {
         }, 0, 1000);
 
         System.out.println("Waiting for nodes in DHT (10 seconds)...");
-        boolean r = signal.await(10, TimeUnit.SECONDS);
+        boolean r = signal.await(40, TimeUnit.SECONDS);
         if (!r) {
             System.out.println("DHT bootstrap timeout");
             System.exit(0);
