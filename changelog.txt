@@ -1,5 +1,7 @@
-1.2.0.13-RC2
+1.2.0.13-RC3(temp)
 
+    * internal session in SessionManager blocks privileged ports and
+      only allows 80 and 443 for possible web seeds connections
     * lt:avoid port mapping of local IPv6 addresses
     * lt:include endpoint in tracker alerts
     * lt:hold an owning reference to storage objects in try_flush_write_blocks

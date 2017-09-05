@@ -97,6 +97,14 @@ public class SessionManager {
             session = new session(params.swig());
             alertsLoop();
 
+            // block all connections to port < 1024, but
+            // allows 80 and 443 for web seeds
+            port_filter f = new port_filter();
+            f.add_rule(0, 79, 1);
+            f.add_rule(81, 442, 1);
+            f.add_rule(444, 1023, 1);
+            session.set_port_filter(f);
+
             onAfterStart();
 
         } finally {
