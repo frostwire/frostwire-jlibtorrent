@@ -37,6 +37,7 @@
 #include "libtorrent/session_types.hpp"
 #include "libtorrent/session_handle.hpp"
 #include "libtorrent/kademlia/dht_state.hpp"
+#include "libtorrent/kademlia/dht_settings.hpp"
 #include "libtorrent/session.hpp"
 #include "libtorrent/peer_connection_handle.hpp"
 #include "libtorrent/ip_filter.hpp"
@@ -1105,6 +1106,8 @@ namespace libtorrent {
 %ignore libtorrent::dht::extract_node_ids;
 %ignore libtorrent::dht::read_dht_state;
 %ignore libtorrent::dht::save_dht_state;
+%ignore libtorrent::dht::read_dht_settings;
+%ignore libtorrent::dht::save_dht_settings;
 %ignore libtorrent::find_metric_idx;
 
 %ignore boost::throws;
@@ -1216,6 +1219,7 @@ namespace libtorrent {
 %include "libtorrent/session_types.hpp"
 %include "libtorrent/session_handle.hpp"
 %include "libtorrent/kademlia/dht_state.hpp"
+%include "libtorrent/kademlia/dht_settings.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/peer_connection_handle.hpp"
 %include "libtorrent/ip_filter.hpp"

@@ -35,10 +35,6 @@ public class dht_settings {
     }
   }
 
-  public dht_settings() {
-    this(libtorrent_jni.new_dht_settings(), true);
-  }
-
   public void setMax_peers_reply(int value) {
     libtorrent_jni.dht_settings_max_peers_reply_set(swigCPtr, this, value);
   }
@@ -205,6 +201,10 @@ public class dht_settings {
 
   public int getMax_infohashes_sample_count() {
     return libtorrent_jni.dht_settings_max_infohashes_sample_count_get(swigCPtr, this);
+  }
+
+  public dht_settings() {
+    this(libtorrent_jni.new_dht_settings(), true);
   }
 
 }
