@@ -8,9 +8,6 @@ import com.frostwire.jlibtorrent.swig.*;
  */
 public enum AlertType {
 
-    TORRENT(torrent_alert.alert_type),
-    PEER(peer_alert.alert_type),
-    TRACKER(tracker_alert.alert_type),
     TORRENT_FINISHED(torrent_finished_alert.alert_type),
     TORRENT_REMOVED(torrent_removed_alert.alert_type),
     TORRENT_DELETED(torrent_deleted_alert.alert_type),
@@ -126,9 +123,9 @@ public enum AlertType {
     private static AlertType[] buildTable() {
         AlertType[] arr = new AlertType[Alerts.NUM_ALERT_TYPES];
 
-        arr[0] = TORRENT;
-        arr[1] = PEER;
-        arr[2] = TRACKER;
+        arr[0] = UNKNOWN;
+        arr[1] = UNKNOWN;
+        arr[2] = UNKNOWN;
         arr[3] = UNKNOWN;
         arr[4] = TORRENT_REMOVED;
         arr[5] = READ_PIECE;

@@ -35,10 +35,6 @@ public class tracker_alert extends torrent_alert {
     super.delete();
   }
 
-  public alert_category_t category() {
-    return new alert_category_t(libtorrent_jni.tracker_alert_category(swigCPtr, this), true);
-  }
-
   public String message() {
     return libtorrent_jni.tracker_alert_message(swigCPtr, this);
   }
@@ -51,6 +47,4 @@ public class tracker_alert extends torrent_alert {
     return new tcp_endpoint(libtorrent_jni.tracker_alert_get_local_endpoint(swigCPtr, this), true);
   }
 
-  public final static int alert_type = libtorrent_jni.tracker_alert_alert_type_get();
-  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.tracker_alert_static_category_get(), false);
 }

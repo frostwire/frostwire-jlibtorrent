@@ -53,4 +53,5 @@ public class peer_ban_alert extends peer_alert {
 
   public final static int priority = libtorrent_jni.peer_ban_alert_priority_get();
   public final static int alert_type = libtorrent_jni.peer_ban_alert_alert_type_get();
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.peer_ban_alert_static_category_get(), false);
 }

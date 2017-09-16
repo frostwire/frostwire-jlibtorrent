@@ -61,4 +61,5 @@ public class unwanted_block_alert extends peer_alert {
 
   public final static int priority = libtorrent_jni.unwanted_block_alert_priority_get();
   public final static int alert_type = libtorrent_jni.unwanted_block_alert_alert_type_get();
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.unwanted_block_alert_static_category_get(), false);
 }

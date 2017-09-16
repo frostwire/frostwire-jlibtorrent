@@ -28,19 +28,19 @@ public final class Alerts {
         arr[0] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new TorrentAlert(cast_to_torrent_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[1] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new PeerAlert(cast_to_peer_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[2] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new TrackerAlert(cast_to_tracker_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[3] = new CastLambda() {

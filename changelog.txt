@@ -2,6 +2,8 @@
 
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:fix uTP path MTU discovery issue on windows, DF bit was not set
+      correctly
     * lt:select which DHT port to report based on the connection's local
       endpoint
     * lt:avoid port mapping of local IPv6 addresses

@@ -57,4 +57,5 @@ public class tracker_reply_alert extends tracker_alert {
 
   public final static int priority = libtorrent_jni.tracker_reply_alert_priority_get();
   public final static int alert_type = libtorrent_jni.tracker_reply_alert_alert_type_get();
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.tracker_reply_alert_static_category_get(), false);
 }

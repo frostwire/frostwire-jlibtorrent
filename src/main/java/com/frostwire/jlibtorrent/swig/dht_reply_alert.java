@@ -55,7 +55,7 @@ public class dht_reply_alert extends tracker_alert {
     return libtorrent_jni.dht_reply_alert_num_peers_get(swigCPtr, this);
   }
 
-  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.dht_reply_alert_static_category_get(), false);
   public final static int priority = libtorrent_jni.dht_reply_alert_priority_get();
   public final static int alert_type = libtorrent_jni.dht_reply_alert_alert_type_get();
+  public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.dht_reply_alert_static_category_get(), false);
 }

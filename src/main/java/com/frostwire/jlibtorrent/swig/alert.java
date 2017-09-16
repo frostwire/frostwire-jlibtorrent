@@ -51,21 +51,6 @@ public class alert {
     return new alert_category_t(libtorrent_jni.alert_category(swigCPtr, this), true);
   }
 
-  public static torrent_alert cast_to_torrent_alert(alert a) {
-    long cPtr = libtorrent_jni.alert_cast_to_torrent_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new torrent_alert(cPtr, false);
-  }
-
-  public static peer_alert cast_to_peer_alert(alert a) {
-    long cPtr = libtorrent_jni.alert_cast_to_peer_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new peer_alert(cPtr, false);
-  }
-
-  public static tracker_alert cast_to_tracker_alert(alert a) {
-    long cPtr = libtorrent_jni.alert_cast_to_tracker_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new tracker_alert(cPtr, false);
-  }
-
   public static torrent_removed_alert cast_to_torrent_removed_alert(alert a) {
     long cPtr = libtorrent_jni.alert_cast_to_torrent_removed_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new torrent_removed_alert(cPtr, false);

@@ -1242,9 +1242,6 @@ namespace libtorrent {
         return libtorrent::alert_cast<libtorrent::##name>(a); \
     }
 
-    CAST_ALERT_METHOD(torrent_alert)
-    CAST_ALERT_METHOD(peer_alert)
-    CAST_ALERT_METHOD(tracker_alert)
     CAST_ALERT_METHOD(torrent_removed_alert)
     CAST_ALERT_METHOD(read_piece_alert)
     CAST_ALERT_METHOD(file_completed_alert)
