@@ -1,4 +1,4 @@
-1.2.0.13-RC3(temp)
+1.2.0.13-RC3
 
     * using android NDK r16 beta1
     * updated to boost 1.65.1
