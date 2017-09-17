@@ -1,5 +1,6 @@
 1.2.0.13-RC3(temp)
 
+    * using android NDK r16 beta1
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
