@@ -4,6 +4,7 @@
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:deprecate lock_files settings
     * lt:fix uTP path MTU discovery issue on windows, DF bit was not set
       correctly
     * lt:select which DHT port to report based on the connection's local

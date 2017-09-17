@@ -1018,6 +1018,7 @@ namespace libtorrent {
 %ignore libtorrent::settings_pack::deprecated23;
 %ignore libtorrent::settings_pack::deprecated24;
 %ignore libtorrent::settings_pack::deprecated25;
+%ignore libtorrent::settings_pack::deprecated26;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
