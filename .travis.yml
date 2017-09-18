@@ -158,7 +158,8 @@ before_install:
   # android-arm
   - if [[ $os_build == "android" && $os_arch == "arm" ]]; then
       export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm-config.jam variant=release toolset=clang-linux-arm target-os=android location=bin/release/android/armeabi-v7a";
-      export run_strip="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/release/android/armeabi-v7a/libjlibtorrent.so";
+      export run_objcopy="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --only-keep-debug bin/release/android/armeabi-v7a/libjlibtorrent.so bin/release/android/armeabi-v7a/libjlibtorrent.so.debug";
+      export run_strip="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x -g bin/release/android/armeabi-v7a/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-readelf -d bin/release/android/armeabi-v7a/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/arm-linux-androideabi/bin:$PATH;
     fi
@@ -172,7 +173,8 @@ before_install:
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
       export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86-config.jam variant=release toolset=clang-x86 target-os=android location=bin/release/android/x86";
-      export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x bin/release/android/x86/libjlibtorrent.so";
+      export run_objcopy="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-objcopy --only-keep-debug bin/release/android/x86/libjlibtorrent.so bin/release/android/x86/libjlibtorrent.so.debug";
+      export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x -g bin/release/android/x86/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/android/x86/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/i686-linux-android/bin:$PATH;
     fi
@@ -227,6 +229,7 @@ script:
 
   - cd swig
   - $run_bjam
+  - $run_objcopy
   - $run_strip
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
       mv bin/release/windows/x86/libjlibtorrent.dll bin/release/windows/x86/jlibtorrent.dll;
@@ -245,7 +248,7 @@ script:
 
 before_deploy:
   - cd swig/bin
-  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$' | xargs rm
+  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
   - find . -empty -type d | xargs rm -r
   - cd ../..
 

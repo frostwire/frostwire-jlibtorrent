@@ -13,4 +13,5 @@ export ANDROID_TOOLCHAIN=$DEVELOPMENT_ROOT/android-toolchain-arm
 export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-arm
 export PATH=$ANDROID_TOOLCHAIN/arm-linux-androideabi/bin:$PATH
 #$BOOST_ROOT/b2 -j8 --user-config=config/android-arm-config.jam variant=release toolset=clang-linux-arm target-os=android location=bin/release/android/armeabi-v7a
-#${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x bin/release/android/armeabi-v7a/libjlibtorrent.so
+#${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --only-keep-debug bin/release/android/armeabi-v7a/libjlibtorrent.so bin/release/android/armeabi-v7a/libjlibtorrent.so.debug
+#${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x -g bin/release/android/armeabi-v7a/libjlibtorrent.so
