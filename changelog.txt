@@ -1,4 +1,4 @@
-1.2.0.13-RC4(temp)
+1.2.0.13-RC4
 
     * compiling for android arm and x86 with -fvisibility=hidden and
       debug information in a separated file
