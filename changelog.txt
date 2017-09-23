@@ -1,4 +1,4 @@
-1.2.0.13-RC4
+1.2.0.13-RC5(temp)
 
     * compiling for android arm and x86 with -fvisibility=hidden and
       debug information in a separated file
@@ -6,6 +6,9 @@
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:fix integer overflow in whole_pieces_threshold logic
+    * lt:DHT nodes should only handle requests on their socket
+    * lt:bump priority of storage_moved_alert and storage_moved_failed_alert
     * lt:deprecate lock_files settings
     * lt:fix uTP path MTU discovery issue on windows, DF bit was not set
       correctly
