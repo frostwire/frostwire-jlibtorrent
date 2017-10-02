@@ -684,8 +684,6 @@ namespace Swig {
 
 // BEGIN common set include ------------------------------------------------------
 
-//#include <boost/system/error_code.hpp>
-
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/peer_request.hpp"
@@ -57636,7 +57634,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   }
   {
     try {
-      result = (arg1)->get_peer_class(arg2);
+      result = ((libtorrent::session_handle const *)arg1)->get_peer_class(arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;

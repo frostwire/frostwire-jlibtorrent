@@ -12,8 +12,6 @@
 %{
 // BEGIN common set include ------------------------------------------------------
 
-//#include <boost/system/error_code.hpp>
-
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/peer_request.hpp"
@@ -1123,6 +1121,7 @@ namespace libtorrent {
 %ignore boost::system::error_code::category;
 %ignore boost::system::error_code::default_error_condition;
 %ignore boost::system::error_code::unspecified_bool_true;
+%ignore boost::system::error_code::operator std::error_code;
 %ignore boost::system::operator==(const error_code&, const error_condition&);
 %ignore boost::system::operator==(const error_condition&, const error_code&);
 %ignore boost::system::operator!=(const error_code&, const error_condition&);

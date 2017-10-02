@@ -6,6 +6,13 @@
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:more strict filename sanitation
+    * lt:improve handling of case where a torrent file has no files in it
+    * lt:clean up and fix edge cases in update_path_index
+    * lt:fix issue with the name in single file torrents being sanitized away
+    * lt:make the chunk header parser a bit more strict and accurate
+    * lt:fix integer overflow in torrent_info
+    * lt:fix windows file preallocation issue
     * lt:fix integer overflow in whole_pieces_threshold logic
     * lt:DHT nodes should only handle requests on their socket
     * lt:bump priority of storage_moved_alert and storage_moved_failed_alert
