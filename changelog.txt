@@ -1,11 +1,12 @@
 1.2.0.13-RC5(temp)
 
-    * compiling for android arm and x86 with -fvisibility=hidden and
-      debug information in a separated file
+    * enable full SSL support in libtorrent
+    * compiling with with -fvisibility=hidden and -Os
     * using android NDK r16 beta1
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:fix leak of peer_class objects (when setting per-torrent rate limits)
     * lt:more strict filename sanitation
     * lt:improve handling of case where a torrent file has no files in it
     * lt:clean up and fix edge cases in update_path_index

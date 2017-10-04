@@ -23,7 +23,7 @@ rule libtorrent_linking ( properties * )
 
     result += <deprecated-functions>off ;
     result += <logging>on ;
-    result += <crypto>libcrypto ;
+    result += <crypto>openssl ;
     result += <rtti>off ;
     result += <optimization>off ;
 
@@ -34,7 +34,7 @@ feature iostream : off on : composite propagated link-incompatible ;
 feature.compose <iostream>off : <define>BOOST_NO_IOSTREAM ;
 
 feature o2 : on off : composite propagated link-incompatible ;
-feature.compose <o2>on : <cxxflags>-O2 ;
+feature.compose <o2>on : <cxxflags>-Os ;
 
 lib jlibtorrent
 
