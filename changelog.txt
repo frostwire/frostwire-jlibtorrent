@@ -1,7 +1,7 @@
 1.2.0.13-RC5(temp)
 
     * enable full SSL support in libtorrent
-    * compiling with with -fvisibility=hidden and -Os
+    * compiling with -fvisibility=hidden and -Os
     * using android NDK r16 beta1
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
