@@ -1,4 +1,4 @@
-1.2.0.13-RC5(temp)
+1.2.0.13-RC5
 
     * enable full SSL support in libtorrent
     * compiling with -fvisibility=hidden and -Os
