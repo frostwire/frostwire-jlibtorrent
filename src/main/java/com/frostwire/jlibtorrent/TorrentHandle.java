@@ -413,14 +413,14 @@ public final class TorrentHandle {
      * <p>
      * The queue position is also available in the torrent_status.
      *
-     * @return
+     * @return the queue position
      */
-    public int getQueuePosition() {
+    public int queuePosition() {
         return th.queue_position();
     }
 
     /**
-     * The ``queue_position_*()`` functions adjust the torrents position in
+     * The {@code queue_position_*()} functions adjust the torrents position in
      * the queue. Up means closer to the front and down means closer to the
      * back of the queue. Top and bottom refers to the front and the back of
      * the queue respectively.
@@ -430,7 +430,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * The ``queue_position_*()`` functions adjust the torrents position in
+     * The {@code queue_position_*()} functions adjust the torrents position in
      * the queue. Up means closer to the front and down means closer to the
      * back of the queue. Top and bottom refers to the front and the back of
      * the queue respectively.
@@ -440,7 +440,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * The ``queue_position_*()`` functions adjust the torrents position in
+     * The {@code queue_position_*()} functions adjust the torrents position in
      * the queue. Up means closer to the front and down means closer to the
      * back of the queue. Top and bottom refers to the front and the back of
      * the queue respectively.
@@ -450,13 +450,24 @@ public final class TorrentHandle {
     }
 
     /**
-     * The ``queue_position_*()`` functions adjust the torrents position in
+     * The {@code queue_position_*()} functions adjust the torrents position in
      * the queue. Up means closer to the front and down means closer to the
      * back of the queue. Top and bottom refers to the front and the back of
      * the queue respectively.
      */
     public void queuePositionBottom() {
         th.queue_position_bottom();
+    }
+
+    /**
+     * Updates the position in the queue for this torrent. The relative order
+     * of all other torrents remain intact but their numerical queue position
+     * shifts to make space for this torrent's new position
+     *
+     * @param position the new position
+     */
+    public void queuePositionSet(int position) {
+        th.queue_position_set(position);
     }
 
     /**
