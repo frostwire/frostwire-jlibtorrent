@@ -155,6 +155,10 @@ public class torrent_info {
     return new peer_request(libtorrent_jni.torrent_info_map_file(swigCPtr, this, file, offset, size), true);
   }
 
+  public string_view ssl_cert() {
+    return new string_view(libtorrent_jni.torrent_info_ssl_cert(swigCPtr, this), true);
+  }
+
   public boolean is_valid() {
     return libtorrent_jni.torrent_info_is_valid(swigCPtr, this);
   }

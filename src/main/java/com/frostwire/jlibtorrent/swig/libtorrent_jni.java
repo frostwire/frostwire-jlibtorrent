@@ -1139,6 +1139,7 @@ public class libtorrent_jni {
   public final static native int torrent_info_num_files(long jarg1, torrent_info jarg1_);
   public final static native long torrent_info_map_block(long jarg1, torrent_info jarg1_, int jarg2, long jarg3, int jarg4);
   public final static native long torrent_info_map_file(long jarg1, torrent_info jarg1_, int jarg2, long jarg3, int jarg4);
+  public final static native long torrent_info_ssl_cert(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_valid(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_priv(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_i2p(long jarg1, torrent_info jarg1_);

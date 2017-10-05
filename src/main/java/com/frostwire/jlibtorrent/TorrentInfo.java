@@ -425,6 +425,18 @@ public final class TorrentInfo {
     }
 
     /**
+     * Returns the SSL root certificate for the torrent, if it is an SSL
+     * torrent. Otherwise returns an empty string. The certificate is
+     * the the public certificate in x509 format.
+     *
+     * @return the cert as a byte array
+     */
+    byte[] sslCert() {
+        byte_vector v = ti.ssl_cert().to_bytes();
+        return Vectors.byte_vector2bytes(v);
+    }
+
+    /**
      * Returns true if this torrent_info object has a torrent loaded.
      * <p>
      * This is primarily used to determine if a magnet link has had its
