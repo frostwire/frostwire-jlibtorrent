@@ -401,7 +401,16 @@ public final class SettingsPack {
     }
 
     /**
-     * @return
+     * Sets the disk write and read  cache. It is specified in units of 16 KiB
+     * blocks. Buffers that are part of a peer's send or receive buffer also
+     * count against this limit. Send and receive buffers will never be
+     * denied to be allocated, but they will cause the actual cached blocks
+     * to be flushed or evicted. If this is set to -1, the cache size is
+     * automatically set to the amount of physical RAM available in the
+     * machine divided by 8. If the amount of physical RAM cannot be
+     * determined, it's set to 1024 (= 16 MiB).
+     *
+     * @return the current value
      */
     public int cacheSize() {
         return sp.get_int(settings_pack.int_types.cache_size.swigValue());
@@ -416,14 +425,9 @@ public final class SettingsPack {
      * automatically set to the amount of physical RAM available in the
      * machine divided by 8. If the amount of physical RAM cannot be
      * determined, it's set to 1024 (= 16 MiB).
-     * <p>
-     * Disk buffers are allocated using a pool allocator, the number of
-     * blocks that are allocated at a time when the pool needs to grow can be
-     * specified in ``cache_buffer_chunk_size``. This defaults to 16 blocks.
-     * Lower numbers saves memory at the expense of more heap allocations. It
-     * must be at least 1.
      *
-     * @param value
+     * @param value the new value
+     * @return this
      */
     public SettingsPack cacheSize(int value) {
         sp.set_int(settings_pack.int_types.cache_size.swigValue(), value);
@@ -600,6 +604,32 @@ public final class SettingsPack {
      */
     public SettingsPack alertQueueSize(int value) {
         sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * Indicates whether or not the UPnP implementation should ignore any
+     * broadcast response from a device whose address is not the configured
+     * router for this machine. i.e. it's a way to not talk to other people's
+     * routers by mistake.
+     *
+     * @return the current value
+     */
+    public boolean upnpIgnoreNonrouters() {
+        return sp.get_bool(settings_pack.bool_types.upnp_ignore_nonrouters.swigValue());
+    }
+
+    /**
+     * Indicates whether or not the UPnP implementation should ignore any
+     * broadcast response from a device whose address is not the configured
+     * router for this machine. i.e. it's a way to not talk to other people's
+     * routers by mistake.
+     *
+     * @param value the new value
+     * @return this
+     */
+    public SettingsPack upnpIgnoreNonrouters(boolean value) {
+        sp.set_bool(settings_pack.bool_types.upnp_ignore_nonrouters.swigValue(), value);
         return this;
     }
 }
