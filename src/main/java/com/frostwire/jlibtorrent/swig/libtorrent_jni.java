@@ -2739,6 +2739,7 @@ public class libtorrent_jni {
   public final static native void create_torrent_add_http_seed(long jarg1, create_torrent jarg1_, String jarg2);
   public final static native void create_torrent_add_tracker(long jarg1, create_torrent jarg1_, String jarg2, int jarg3);
   public final static native void create_torrent_add_collection(long jarg1, create_torrent jarg1_, String jarg2);
+  public final static native void create_torrent_set_root_cert2(long jarg1, create_torrent jarg1_, long jarg2, byte_vector jarg2_);
   public final static native void add_files__SWIG_0(long jarg1, file_storage jarg1_, String jarg2, long jarg3, create_flags_t jarg3_);
   public final static native void add_files__SWIG_1(long jarg1, file_storage jarg1_, String jarg2);
   public final static native void set_piece_hashes(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, error_code jarg3_);

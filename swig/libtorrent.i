@@ -1734,6 +1734,12 @@ namespace libtorrent {
     void add_collection(std::string const& c) {
         $self->add_collection(c);
     }
+
+    void set_root_cert2(std::vector<int8_t> const& pem)
+    {
+        std::string s{pem.begin(), pem.end()};
+        $self->set_root_cert(s);
+    }
 }
 
 %extend file_storage {

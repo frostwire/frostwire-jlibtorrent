@@ -131,6 +131,10 @@ public class create_torrent {
     libtorrent_jni.create_torrent_add_collection(swigCPtr, this, c);
   }
 
+  public void set_root_cert2(byte_vector pem) {
+    libtorrent_jni.create_torrent_set_root_cert2(swigCPtr, this, byte_vector.getCPtr(pem), pem);
+  }
+
   public final static create_flags_t optimize_alignment = new create_flags_t(libtorrent_jni.create_torrent_optimize_alignment_get(), false);
   public final static create_flags_t merkle = new create_flags_t(libtorrent_jni.create_torrent_merkle_get(), false);
   public final static create_flags_t modification_time = new create_flags_t(libtorrent_jni.create_torrent_modification_time_get(), false);
