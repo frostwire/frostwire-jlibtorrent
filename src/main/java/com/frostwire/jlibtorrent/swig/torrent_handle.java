@@ -191,6 +191,14 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_queue_position_set(swigCPtr, this, p);
   }
 
+  public void set_ssl_certificate(String certificate, String private_key, String dh_params, String passphrase) {
+    libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_0(swigCPtr, this, certificate, private_key, dh_params, passphrase);
+  }
+
+  public void set_ssl_certificate(String certificate, String private_key, String dh_params) {
+    libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_1(swigCPtr, this, certificate, private_key, dh_params);
+  }
+
   public void piece_availability(int_vector avail) {
     libtorrent_jni.torrent_handle_piece_availability(swigCPtr, this, int_vector.getCPtr(avail), avail);
   }
@@ -362,6 +370,10 @@ public class torrent_handle {
 
   public void connect_peer2(tcp_endpoint adr) {
     libtorrent_jni.torrent_handle_connect_peer2__SWIG_2(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr);
+  }
+
+  public void set_ssl_certificate_buffer2(byte_vector certificate, byte_vector private_key, byte_vector dh_params) {
+    libtorrent_jni.torrent_handle_set_ssl_certificate_buffer2(swigCPtr, this, byte_vector.getCPtr(certificate), certificate, byte_vector.getCPtr(private_key), private_key, byte_vector.getCPtr(dh_params), dh_params);
   }
 
   public final static add_piece_flags_t overwrite_existing = new add_piece_flags_t(libtorrent_jni.torrent_handle_overwrite_existing_get(), false);

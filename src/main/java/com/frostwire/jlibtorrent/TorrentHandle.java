@@ -471,6 +471,84 @@ public final class TorrentHandle {
     }
 
     /**
+     * For SSL torrents, use this to specify a path to a .pem file to use as
+     * this client's certificate. The certificate must be signed by the
+     * certificate in the .torrent file to be valid.
+     * <p>
+     * Note that when a torrent first starts up, and it needs a certificate,
+     * it will suspend connecting to any peers until it has one. It's
+     * typically desirable to resume the torrent after setting the SSL
+     * certificate.
+     * <p>
+     * If you receive a {@link com.frostwire.jlibtorrent.alerts.TorrentNeedCertAlert},
+     * you need to call this to provide a valid cert. If you don't have a cert
+     * you won't be allowed to connect to any peers.
+     *
+     * @param certificate is a path to the (signed) certificate in .pem format
+     *                    corresponding to this torrent.
+     * @param privateKey  is a path to the private key for the specified
+     *                    certificate. This must be in .pem format.
+     * @param dhParams    is a path to the Diffie-Hellman parameter file, which
+     *                    needs to be in .pem format. You can generate this file using the
+     *                    openssl command like this: ``openssl dhparam -outform PEM -out
+     *                    dhparams.pem 512``.
+     */
+    public void setSslCertificate(String certificate, String privateKey,
+                                  String dhParams) {
+        th.set_ssl_certificate(certificate, privateKey, dhParams);
+    }
+
+    /**
+     * For SSL torrents, use this to specify a path to a .pem file to use as
+     * this client's certificate. The certificate must be signed by the
+     * certificate in the .torrent file to be valid.
+     * <p>
+     * Note that when a torrent first starts up, and it needs a certificate,
+     * it will suspend connecting to any peers until it has one. It's
+     * typically desirable to resume the torrent after setting the SSL
+     * certificate.
+     * <p>
+     * If you receive a {@link com.frostwire.jlibtorrent.alerts.TorrentNeedCertAlert},
+     * you need to call this to provide a valid cert. If you don't have a cert
+     * you won't be allowed to connect to any peers.
+     *
+     * @param certificate is a path to the (signed) certificate in .pem format
+     *                    corresponding to this torrent.
+     * @param privateKey  is a path to the private key for the specified
+     *                    certificate. This must be in .pem format.
+     * @param dhParams    is a path to the Diffie-Hellman parameter file, which
+     *                    needs to be in .pem format. You can generate this file using the
+     *                    openssl command like this: ``openssl dhparam -outform PEM -out
+     *                    dhparams.pem 512``.
+     * @param passphrase  may be specified if the private key is encrypted and
+     *                    requires a passphrase to be decrypted.
+     */
+    public void setSslCertificate(String certificate, String privateKey,
+                                  String dhParams, String passphrase) {
+        th.set_ssl_certificate(certificate, privateKey, dhParams, passphrase);
+    }
+
+    /**
+     * This method is like {@link #setSslCertificate} but takes the actual
+     * certificate, private key and DH params as byte arrays, rather than paths
+     * to files.
+     *
+     * @param certificate buffer of the (signed) certificate in .pem format
+     *                    corresponding to this torrent.
+     * @param privateKey  buffer of the private key for the specified
+     *                    certificate. This must be in .pem format.
+     * @param dhParams    buffer of the Diffie-Hellman parameter file, which
+     *                    needs to be in .pem format.
+     */
+    void setSslCertificateBuffer(byte[] certificate, byte[] privateKey,
+                                 byte[] dhParams) {
+        byte_vector cert = Vectors.bytes2byte_vector(certificate);
+        byte_vector pk = Vectors.bytes2byte_vector(privateKey);
+        byte_vector dh = Vectors.bytes2byte_vector(dhParams);
+        th.set_ssl_certificate_buffer2(cert, pk, dh);
+    }
+
+    /**
      * ``save_resume_data()`` generates fast-resume data and returns it as an
      * entry. This entry is suitable for being bencoded. For more information
      * about how fast-resume works, see fast-resume_.

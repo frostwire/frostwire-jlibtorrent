@@ -924,7 +924,6 @@ namespace libtorrent {
 %ignore libtorrent::torrent_handle::torrent_file;
 %ignore libtorrent::torrent_handle::get_full_peer_list;
 %ignore libtorrent::torrent_handle::set_metadata;
-%ignore libtorrent::torrent_handle::set_ssl_certificate;
 %ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
 %ignore libtorrent::block_info::set_peer;
 %ignore libtorrent::partial_piece_info::blocks;
@@ -1579,6 +1578,16 @@ namespace libtorrent {
 
     void connect_peer2(tcp::endpoint const& adr, std::int8_t source = 0, int flags = 0x1 + 0x4 + 0x8) const {
         $self->connect_peer(adr, libtorrent::peer_source_flags_t{std::uint8_t(source)}, flags);
+    }
+
+    void set_ssl_certificate_buffer2(std::vector<int8_t> const& certificate
+        , std::vector<int8_t> const& private_key
+        , std::vector<int8_t> const& dh_params)
+    {
+        std::string cert{certificate.begin(), certificate.end()};
+        std::string pk{private_key.begin(), private_key.end()};
+        std::string dh{dh_params.begin(), dh_params.end()};
+        $self->set_ssl_certificate_buffer(cert, pk, dh);
     }
 }
 
