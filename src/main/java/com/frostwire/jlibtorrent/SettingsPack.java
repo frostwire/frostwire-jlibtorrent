@@ -615,7 +615,7 @@ public final class SettingsPack {
      *
      * @return the current value
      */
-    public boolean upnpIgnoreNonrouters() {
+    public boolean upnpIgnoreNonRouters() {
         return sp.get_bool(settings_pack.bool_types.upnp_ignore_nonrouters.swigValue());
     }
 
@@ -628,7 +628,7 @@ public final class SettingsPack {
      * @param value the new value
      * @return this
      */
-    public SettingsPack upnpIgnoreNonrouters(boolean value) {
+    public SettingsPack upnpIgnoreNonRouters(boolean value) {
         sp.set_bool(settings_pack.bool_types.upnp_ignore_nonrouters.swigValue(), value);
         return this;
     }
