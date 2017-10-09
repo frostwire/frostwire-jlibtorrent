@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.ErrorCode;
 import com.frostwire.jlibtorrent.swig.torrent_need_cert_alert;
 
 /**
@@ -16,9 +15,5 @@ public final class TorrentNeedCertAlert extends TorrentAlert<torrent_need_cert_a
 
     TorrentNeedCertAlert(torrent_need_cert_alert alert) {
         super(alert);
-    }
-
-    public ErrorCode error() {
-        return new ErrorCode(alert.getError());
     }
 }

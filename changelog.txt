@@ -6,6 +6,8 @@
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:don't try to connect to a global address with a local source address
+    * lt:fix parsing of torrents with certain invalid filenames
     * lt:fix leak of peer_class objects (when setting per-torrent rate limits)
     * lt:more strict filename sanitation
     * lt:improve handling of case where a torrent file has no files in it

@@ -51,11 +51,6 @@ public class torrent_need_cert_alert extends torrent_alert {
     return libtorrent_jni.torrent_need_cert_alert_message(swigCPtr, this);
   }
 
-  public error_code getError() {
-    long cPtr = libtorrent_jni.torrent_need_cert_alert_error_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new error_code(cPtr, false);
-  }
-
   public final static int priority = libtorrent_jni.torrent_need_cert_alert_priority_get();
   public final static int alert_type = libtorrent_jni.torrent_need_cert_alert_alert_type_get();
   public final static alert_category_t static_category = new alert_category_t(libtorrent_jni.torrent_need_cert_alert_static_category_get(), false);

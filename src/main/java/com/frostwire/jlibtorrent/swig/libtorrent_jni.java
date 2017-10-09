@@ -2102,7 +2102,6 @@ public class libtorrent_jni {
   public final static native String torrent_need_cert_alert_what(long jarg1, torrent_need_cert_alert jarg1_);
   public final static native long torrent_need_cert_alert_static_category_get();
   public final static native String torrent_need_cert_alert_message(long jarg1, torrent_need_cert_alert jarg1_);
-  public final static native long torrent_need_cert_alert_error_get(long jarg1, torrent_need_cert_alert jarg1_);
   public final static native void delete_torrent_need_cert_alert(long jarg1);
   public final static native int incoming_connection_alert_priority_get();
   public final static native int incoming_connection_alert_alert_type_get();

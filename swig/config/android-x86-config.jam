@@ -1,6 +1,5 @@
 import os ;
 
-OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
 
 using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-clang++ :
@@ -9,8 +8,6 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-clang++ :
     <cxxflags>-D__STDC_FORMAT_MACROS
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
-    <cxxflags>-I$(OPENSSL_ROOT)/include
-    <linkflags>-L$(OPENSSL_ROOT)/lib
     <linkflags>-static-libstdc++
     # hacks to remove when API >= 21
     <cxxflags>"-D\"epoll_create1(x)=-1; errno=ENOSYS\""
