@@ -6,6 +6,9 @@
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:make disk_buffer_holder know the size of the buffer it holds, to fix
+      buffer overrun in chained_buffer
+    * lt:fix infinite loop when parsing certain invalid magnet links
     * lt:don't delete pieces from cache with refcount > 0
     * lt:don't try to connect to a global address with a local source address
     * lt:fix parsing of torrents with certain invalid filenames
