@@ -539,13 +539,14 @@ public class SessionManager {
             return null;
         }
 
-        add_torrent_params p = add_torrent_params.create_instance_disabled_storage();
         error_code ec = new error_code();
-        add_torrent_params.parse_magnet_uri(uri, p, ec);
+        add_torrent_params p = add_torrent_params.parse_magnet_uri(uri, ec);
 
         if (ec.value() != 0) {
             throw new IllegalArgumentException(ec.message());
         }
+
+        p.set_disabled_storage();
 
         final sha1_hash info_hash = p.getInfo_hash();
         final byte[][] data = {null};

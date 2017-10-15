@@ -320,6 +320,18 @@ public class add_torrent_params {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance_zero_storage(), true);
   }
 
+  public void set_default_storage() {
+    libtorrent_jni.add_torrent_params_set_default_storage(swigCPtr, this);
+  }
+
+  public void set_disabled_storage() {
+    libtorrent_jni.add_torrent_params_set_disabled_storage(swigCPtr, this);
+  }
+
+  public void set_zero_storage() {
+    libtorrent_jni.add_torrent_params_set_zero_storage(swigCPtr, this);
+  }
+
   public static add_torrent_params read_resume_data(bdecode_node rd, error_code ec) {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_read_resume_data__SWIG_0(bdecode_node.getCPtr(rd), rd, error_code.getCPtr(ec), ec), true);
   }
@@ -336,8 +348,8 @@ public class add_torrent_params {
     return new byte_vector(libtorrent_jni.add_torrent_params_write_resume_data_buf(add_torrent_params.getCPtr(atp), atp), true);
   }
 
-  public static void parse_magnet_uri(String uri, add_torrent_params p, error_code ec) {
-    libtorrent_jni.add_torrent_params_parse_magnet_uri(uri, add_torrent_params.getCPtr(p), p, error_code.getCPtr(ec), ec);
+  public static add_torrent_params parse_magnet_uri(String uri, error_code ec) {
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_parse_magnet_uri(uri, error_code.getCPtr(ec), ec), true);
   }
 
 }

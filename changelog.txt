@@ -1,4 +1,4 @@
-1.2.0.13-RC7
+1.2.0.13-RC8(temp)
 
     * enable full SSL support in libtorrent
     * compiling with -fvisibility=hidden and -Os
@@ -6,6 +6,9 @@
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:make parse_magnet_uri return the add_torrent_params instead of
+      taking an in-out parameter
+    * lt:pick standard std::aligned_union if using clang
     * lt:make disk_buffer_holder know the size of the buffer it holds, to fix
       buffer overrun in chained_buffer
     * lt:fix infinite loop when parsing certain invalid magnet links

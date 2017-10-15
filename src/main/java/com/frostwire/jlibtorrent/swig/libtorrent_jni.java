@@ -1352,11 +1352,14 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_create_instance_disabled_storage();
   public final static native long add_torrent_params_create_instance_zero_storage();
+  public final static native void add_torrent_params_set_default_storage(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_set_disabled_storage(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_set_zero_storage(long jarg1, add_torrent_params jarg1_);
   public final static native long add_torrent_params_read_resume_data__SWIG_0(long jarg1, bdecode_node jarg1_, long jarg2, error_code jarg2_);
   public final static native long add_torrent_params_read_resume_data__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, error_code jarg2_);
   public final static native long add_torrent_params_write_resume_data(long jarg1, add_torrent_params jarg1_);
   public final static native long add_torrent_params_write_resume_data_buf(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_parse_magnet_uri(String jarg1, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
+  public final static native long add_torrent_params_parse_magnet_uri(String jarg1, long jarg2, error_code jarg2_);
   public final static native void delete_add_torrent_params(long jarg1);
   public final static native String operation_name(int jarg1);
   public final static native void stats_metric_value_index_set(long jarg1, stats_metric jarg1_, int jarg2);

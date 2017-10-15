@@ -1526,6 +1526,21 @@ namespace libtorrent {
         return libtorrent::add_torrent_params(libtorrent::zero_storage_constructor);
     }
 
+    void set_default_storage()
+    {
+        $self->storage = libtorrent::default_storage_constructor;
+    }
+
+    void set_disabled_storage()
+    {
+        $self->storage = libtorrent::disabled_storage_constructor;
+    }
+
+    void set_zero_storage()
+    {
+        $self->storage = libtorrent::zero_storage_constructor;
+    }
+
     static libtorrent::add_torrent_params read_resume_data(libtorrent::bdecode_node const& rd, error_code& ec) {
         return libtorrent::read_resume_data(rd, ec);
     }
@@ -1543,8 +1558,8 @@ namespace libtorrent {
         return {v.begin(), v.end()};
     }
 
-    static void parse_magnet_uri(std::string const& uri, add_torrent_params& p, error_code& ec) {
-        return libtorrent::parse_magnet_uri(uri, p, ec);
+    static add_torrent_params parse_magnet_uri(std::string const& uri, error_code& ec) {
+        return libtorrent::parse_magnet_uri(uri, ec);
     }
 }
 

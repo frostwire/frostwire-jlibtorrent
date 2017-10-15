@@ -519,16 +519,15 @@ public final class AddTorrentParams {
     /**
      * Helper function to parse a magnet uri and fill the parameters.
      *
-     * @param uri    the magnet uri
-     * @param params the parameters to fill
-     * @return the same object as params to allow for fluently style
+     * @param uri the magnet uri
+     * @return the params object filled with the data from the magnet
      */
-    public static AddTorrentParams parseMagnetUri(String uri, AddTorrentParams params) {
+    public static AddTorrentParams parseMagnetUri(String uri) {
         error_code ec = new error_code();
-        add_torrent_params.parse_magnet_uri(uri, params.swig(), ec);
+        add_torrent_params params = add_torrent_params.parse_magnet_uri(uri, ec);
         if (ec.value() != 0) {
             throw new IllegalArgumentException("Invalid magnet uri: " + ec.message());
         }
-        return params;
+        return new AddTorrentParams(params);
     }
 }

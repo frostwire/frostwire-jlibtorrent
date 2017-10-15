@@ -200,7 +200,7 @@ struct swig_plugin : libtorrent::plugin {
     virtual ~swig_plugin() {
     }
 
-    std::uint32_t implemented_features() {
+    libtorrent::feature_flags_t implemented_features() {
         return libtorrent::plugin::dht_request_feature;
     }
 
