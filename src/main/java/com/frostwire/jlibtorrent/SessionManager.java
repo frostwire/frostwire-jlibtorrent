@@ -35,7 +35,7 @@ public class SessionManager {
     private final ReentrantLock sync;
     private final ReentrantLock syncMagnet;
 
-    private session session;
+    private volatile session session;
 
     private final SessionStats stats;
     private long lastStatsRequestTime;
@@ -141,6 +141,16 @@ public class SessionManager {
 
             session s = session;
             session = null; // stop alerts loop and session methods
+
+            // guarantee one more alert is post and detected
+            s.post_session_stats();
+            try {
+                // 250 is to ensure that the sleep is bigger
+                // than the wait in alerts loop
+                Thread.sleep(ALERTS_LOOP_WAIT_MILLIS + 250);
+            } catch (InterruptedException ignore) {
+            }
+
             if (alertsLoop != null) {
                 try {
                     alertsLoop.join();
@@ -1058,7 +1068,7 @@ public class SessionManager {
         sb.append("router.bittorrent.com:6881").append(",");
         sb.append("dht.transmissionbt.com:6881").append(",");
         // for DHT IPv6
-        sb.append("outer.silotis.us:6881");
+        sb.append("router.silotis.us:6881");
 
         return sb.toString();
     }
