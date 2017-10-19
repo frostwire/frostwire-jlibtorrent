@@ -1,4 +1,4 @@
-1.2.0.13-RC8(temp)
+1.2.0.13-RC8
 
     * enable full SSL support in libtorrent
     * compiling with -fvisibility=hidden and -Os
@@ -11,6 +11,7 @@
     * lt:pick standard std::aligned_union if using clang
     * lt:make disk_buffer_holder know the size of the buffer it holds, to fix
       buffer overrun in chained_buffer
+    * lt:fix full allocation failure on APFS
     * lt:fix infinite loop when parsing certain invalid magnet links
     * lt:don't delete pieces from cache with refcount > 0
     * lt:don't try to connect to a global address with a local source address
