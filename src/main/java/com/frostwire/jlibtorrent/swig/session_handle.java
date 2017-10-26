@@ -263,6 +263,14 @@ public class session_handle {
     libtorrent_jni.session_handle_delete_port_mapping(swigCPtr, this, handle);
   }
 
+  public void reopen_network_sockets(reopen_network_flags_t options) {
+    libtorrent_jni.session_handle_reopen_network_sockets__SWIG_0(swigCPtr, this, reopen_network_flags_t.getCPtr(options), options);
+  }
+
+  public void reopen_network_sockets() {
+    libtorrent_jni.session_handle_reopen_network_sockets__SWIG_1(swigCPtr, this);
+  }
+
   public void dht_get_item(byte_vector key, byte_vector salt) {
     libtorrent_jni.session_handle_dht_get_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(key), key, byte_vector.getCPtr(salt), salt);
   }
@@ -300,4 +308,5 @@ public class session_handle {
   public final static session_flags_t start_default_features = new session_flags_t(libtorrent_jni.session_handle_start_default_features_get(), false);
   public final static portmap_protocol udp = portmap_protocol.swigToEnum(libtorrent_jni.session_handle_udp_get());
   public final static portmap_protocol tcp = portmap_protocol.swigToEnum(libtorrent_jni.session_handle_tcp_get());
+  public final static reopen_network_flags_t reopen_map_ports = new reopen_network_flags_t(libtorrent_jni.session_handle_reopen_map_ports_get(), false);
 }

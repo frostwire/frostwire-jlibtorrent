@@ -402,6 +402,8 @@ namespace libtorrent {
     %template(file_flags_t) flags::bitfield_flag<std::uint8_t, file_flags_tag>;
     struct create_flags_tag;
     %template(create_flags_t) flags::bitfield_flag<std::uint32_t, create_flags_tag>;
+    struct reopen_network_flags_tag;
+    %template(reopen_network_flags_t) flags::bitfield_flag<std::uint8_t, reopen_network_flags_tag>;
 
     typedef sha1_hash peer_id;
 

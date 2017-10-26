@@ -1,4 +1,4 @@
-1.2.0.13-RC10
+1.2.0.13-RC11
 
     * enable full SSL support in libtorrent
     * compiling with -fvisibility=hidden and -Os
@@ -6,6 +6,9 @@
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:using NETLINK_NO_ENOBUFS to ignore ENOBUFS in netlink based ip notifier
+    * lt:add limit of max 50 upnp mappings and recover free global mappings
+    * lt:creating part file if needed only in set_file_priorities
     * lt:fix full allocation failure on APFS
     * lt:make parse_magnet_uri return the add_torrent_params instead of
       taking an in-out parameter

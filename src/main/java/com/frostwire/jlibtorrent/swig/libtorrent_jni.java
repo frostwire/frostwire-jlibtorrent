@@ -574,6 +574,17 @@ public class libtorrent_jni {
   public final static native int create_flags_t_to_int(long jarg1, create_flags_t jarg1_);
   public final static native long new_create_flags_t();
   public final static native void delete_create_flags_t(long jarg1);
+  public final static native long reopen_network_flags_t_all();
+  public final static native boolean reopen_network_flags_t_nonZero(long jarg1, reopen_network_flags_t jarg1_);
+  public final static native boolean reopen_network_flags_t_eq(long jarg1, reopen_network_flags_t jarg1_, long jarg2, reopen_network_flags_t jarg2_);
+  public final static native boolean reopen_network_flags_t_ne(long jarg1, reopen_network_flags_t jarg1_, long jarg2, reopen_network_flags_t jarg2_);
+  public final static native long reopen_network_flags_t_or_(long jarg1, reopen_network_flags_t jarg1_, long jarg2, reopen_network_flags_t jarg2_);
+  public final static native long reopen_network_flags_t_and_(long jarg1, reopen_network_flags_t jarg1_, long jarg2, reopen_network_flags_t jarg2_);
+  public final static native long reopen_network_flags_t_xor(long jarg1, reopen_network_flags_t jarg1_, long jarg2, reopen_network_flags_t jarg2_);
+  public final static native long reopen_network_flags_t_inv(long jarg1, reopen_network_flags_t jarg1_);
+  public final static native int reopen_network_flags_t_to_int(long jarg1, reopen_network_flags_t jarg1_);
+  public final static native long new_reopen_network_flags_t();
+  public final static native void delete_reopen_network_flags_t(long jarg1);
   public final static native long new_byte_span();
   public final static native long byte_span_size(long jarg1, byte_span jarg1_);
   public final static native boolean byte_span_empty(long jarg1, byte_span jarg1_);
@@ -2575,6 +2586,9 @@ public class libtorrent_jni {
   public final static native int session_handle_tcp_get();
   public final static native int session_handle_add_port_mapping(long jarg1, session_handle jarg1_, int jarg2, int jarg3, int jarg4);
   public final static native void session_handle_delete_port_mapping(long jarg1, session_handle jarg1_, int jarg2);
+  public final static native long session_handle_reopen_map_ports_get();
+  public final static native void session_handle_reopen_network_sockets__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, reopen_network_flags_t jarg2_);
+  public final static native void session_handle_reopen_network_sockets__SWIG_1(long jarg1, session_handle jarg1_);
   public final static native void session_handle_dht_get_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_);
   public final static native void session_handle_dht_put_item__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, entry jarg4_, long jarg5, byte_vector jarg5_);
   public final static native void session_handle_dht_direct_request__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, udp_endpoint jarg2_, long jarg3, entry jarg3_, long jarg4);
