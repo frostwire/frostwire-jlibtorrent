@@ -2,10 +2,12 @@
 
     * enable full SSL support in libtorrent
     * compiling with -fvisibility=hidden and -Os
-    * using android NDK r16 beta1
+    * using android NDK r16 beta2
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:added reopen_network_sockets method to allow manual reopen of
+      listen/outgoing sockets
     * lt:using NETLINK_NO_ENOBUFS to ignore ENOBUFS in netlink based ip notifier
     * lt:add limit of max 50 upnp mappings and recover free global mappings
     * lt:creating part file if needed only in set_file_priorities
