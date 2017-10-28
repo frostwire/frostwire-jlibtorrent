@@ -163,6 +163,7 @@ before_install:
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
       export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-arm64-config.jam variant=release toolset=clang-arm64 target-os=android location=bin/release/android/arm64-v8a";
+      export run_objcopy="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-androideabi-objcopy --only-keep-debug bin/release/android/arm64-v8a/libjlibtorrent.so bin/release/android/arm64-v8a/libjlibtorrent.so.debug";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-strip --strip-unneeded -x bin/release/android/arm64-v8a/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-readelf -d bin/release/android/arm64-v8a/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/aarch64-linux-android/bin:$PATH;
