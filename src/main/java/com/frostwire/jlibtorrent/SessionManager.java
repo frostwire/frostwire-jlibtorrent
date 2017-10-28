@@ -880,6 +880,19 @@ public class SessionManager {
         }
     }
 
+    /**
+     * Instructs the session to reopen all listen and outgoing sockets.
+     * <p>
+     * It's useful in the case your platform doesn't support the built in
+     * IP notifier mechanism, or if you have a better more reliable way to
+     * detect changes in the IP routing table.
+     */
+    public void reopenNetworkSockets() {
+        if (session != null) {
+            session.reopen_network_sockets();
+        }
+    }
+
     public String magnetPeers() {
         if (session == null) {
             return "";

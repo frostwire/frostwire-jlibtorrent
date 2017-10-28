@@ -419,6 +419,38 @@ public class SessionHandle {
     }
 
     /**
+     * This option indicates if the ports are mapped using natpmp
+     * and UPnP. If mapping was already made, they are deleted and added
+     * again. This only works if natpmp and/or upnp are configured to be
+     * enable.
+     */
+    public static final reopen_network_flags_t REOPEN_MAP_PORTS = session_handle.reopen_map_ports;
+
+    /**
+     * Instructs the session to reopen all listen and outgoing sockets.
+     * <p>
+     * It's useful in the case your platform doesn't support the built in
+     * IP notifier mechanism, or if you have a better more reliable way to
+     * detect changes in the IP routing table.
+     *
+     * @param options the options
+     */
+    public void reopenNetworkSockets(reopen_network_flags_t options) {
+        s.reopen_network_sockets(options);
+    }
+
+    /**
+     * Instructs the session to reopen all listen and outgoing sockets.
+     * <p>
+     * It's useful in the case your platform doesn't support the built in
+     * IP notifier mechanism, or if you have a better more reliable way to
+     * detect changes in the IP routing table.
+     */
+    public void reopenNetworkSockets() {
+        s.reopen_network_sockets();
+    }
+
+    /**
      * Query the DHT for an immutable item at the target hash.
      * the result is posted as a {@link DhtImmutableItemAlert}.
      *
