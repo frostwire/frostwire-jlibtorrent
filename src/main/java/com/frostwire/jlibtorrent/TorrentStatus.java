@@ -147,6 +147,13 @@ public final class TorrentStatus implements Cloneable {
     }
 
     /**
+     * IMPORTANT: If you are not getting up to date information about pieces
+     * remember that PieceIndexBitfield data is considered augmented data
+     * for a torrentHandle.status() call, meaning, if you want to get the latest
+     * piece data, you must use the TorrentHandle.QUERY_PIECES flag when invoking
+     * torrentHandle.status(TorrentHandle.QUERY_PIECES). Keep in mind this is
+     * an expensive call, therefore not part of the default flags.
+     *
      * A bitmask that represents which pieces we have (set to true) and the
      * pieces we don't have. It's a pointer and may be set to 0 if the
      * torrent isn't downloading or seeding.
