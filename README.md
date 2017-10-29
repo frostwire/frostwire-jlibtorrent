@@ -71,7 +71,7 @@ See for example this bucket policy:
 }
 ```
 - Fork the project in github.
-- Go to travis an enable the repository.
+- Go to travis and enable the repository.
 - Go to 'More options' > 'Settings' > 'Environment Variables' and set the
 `S3_ACCESS_KEY, S3_SECRET_KEY, S3_BUCKET` variables using the values in the
 credentials file for the user you created and the bucket name you created.
