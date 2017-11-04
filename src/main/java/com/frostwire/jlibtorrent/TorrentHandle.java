@@ -416,7 +416,7 @@ public final class TorrentHandle {
      * @return the queue position
      */
     public int queuePosition() {
-        return th.queue_position();
+        return th.queue_position2();
     }
 
     /**
@@ -467,7 +467,7 @@ public final class TorrentHandle {
      * @param position the new position
      */
     public void queuePositionSet(int position) {
-        th.queue_position_set(position);
+        th.queue_position_set2(position);
     }
 
     /**
@@ -1032,11 +1032,11 @@ public final class TorrentHandle {
     }
 
     public void prioritizePieces(Priority[] priorities) {
-        th.prioritize_pieces(Priority.array2int_vector(priorities));
+        th.prioritize_pieces(Priority.array2vector(priorities));
     }
 
-    public Priority[] getPiecePriorities() {
-        int_vector v = th.piece_priorities();
+    public Priority[] piecePriorities() {
+        download_priority_vector v = th.piece_priorities();
         int size = (int) v.size();
         Priority[] arr = new Priority[size];
         for (int i = 0; i < size; i++) {
@@ -1084,19 +1084,19 @@ public final class TorrentHandle {
      * file. The function sets the priorities of all the pieces in the
      * torrent based on the vector.
      *
-     * @param priorities
+     * @param priorities the array of priorities
      */
     public void prioritizeFiles(Priority[] priorities) {
-        th.prioritize_files(Priority.array2int_vector(priorities));
+        th.prioritize_files(Priority.array2vector(priorities));
     }
 
     /**
      * Returns a vector with the priorities of all files.
      *
-     * @return
+     * @return the array of priorities.
      */
     public Priority[] filePriorities() {
-        int_vector v = th.file_priorities();
+        download_priority_vector v = th.file_priorities();
         int size = (int) v.size();
         Priority[] arr = new Priority[size];
         for (int i = 0; i < size; i++) {

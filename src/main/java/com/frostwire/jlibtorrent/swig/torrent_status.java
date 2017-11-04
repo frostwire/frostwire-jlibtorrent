@@ -271,14 +271,6 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_progress_ppm_get(swigCPtr, this);
   }
 
-  public void setQueue_position(int value) {
-    libtorrent_jni.torrent_status_queue_position_set(swigCPtr, this, value);
-  }
-
-  public int getQueue_position() {
-    return libtorrent_jni.torrent_status_queue_position_get(swigCPtr, this);
-  }
-
   public void setDownload_rate(int value) {
     libtorrent_jni.torrent_status_download_rate_set(swigCPtr, this, value);
   }
@@ -588,6 +580,10 @@ public class torrent_status {
 
   public long get_seeding_duration() {
     return libtorrent_jni.torrent_status_get_seeding_duration(swigCPtr, this);
+  }
+
+  public int get_queue_position() {
+    return libtorrent_jni.torrent_status_get_queue_position(swigCPtr, this);
   }
 
   public final static class state_t {

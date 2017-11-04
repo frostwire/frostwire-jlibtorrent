@@ -278,7 +278,7 @@ public final class TorrentStatus implements Cloneable {
      * @return
      */
     public int queuePosition() {
-        return ts.getQueue_position();
+        return ts.get_queue_position();
     }
 
     /**

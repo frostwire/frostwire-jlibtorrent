@@ -1,4 +1,4 @@
-1.2.0.13-RC14
+1.2.0.13(temp)
 
     * enable full SSL support in libtorrent
     * compiling with -fvisibility=hidden and -Os
@@ -6,6 +6,8 @@
     * updated to boost 1.65.1
     * internal session in SessionManager blocks privileged ports and
       only allows 80 and 443 for possible web seeds connections
+    * lt:enable/disable the internal ip notifier with new setting
+    * lt:fix issue of null m_part_file in default_storage readv/writev
     * lt:added reopen_network_sockets method to allow manual reopen of
       listen/outgoing sockets
     * lt:using NETLINK_NO_ENOBUFS to ignore ENOBUFS in netlink based ip notifier

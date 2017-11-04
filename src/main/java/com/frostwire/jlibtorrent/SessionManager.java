@@ -455,11 +455,11 @@ public class SessionManager {
                 if (ti.numFiles() != priorities.length) {
                     throw new IllegalArgumentException("priorities count should be equals to the number of files");
                 }
-                th.prioritize_files(Priority.array2int_vector(priorities));
+                th.prioritize_files(Priority.array2vector(priorities));
             } else {
                 // did they just add the entire torrent (therefore not selecting any priorities)
                 priorities = Priority.array(Priority.NORMAL, ti.numFiles());
-                th.prioritize_files(Priority.array2int_vector(priorities));
+                th.prioritize_files(Priority.array2vector(priorities));
             }
 
             return;
@@ -497,7 +497,7 @@ public class SessionManager {
             for (int i = 0; i < priorities.length; i++) {
                 v.push_back((byte) priorities[i].swig());
             }
-            p.set_file_priorities(v);
+            p.set_file_priorities2(v);
         }
 
         if (peers != null && !peers.isEmpty()) {

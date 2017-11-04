@@ -51,6 +51,8 @@ using piece_index_t = libtorrent::piece_index_t;
 using file_index_t = libtorrent::file_index_t;
 using peer_class_t = libtorrent::peer_class_t;
 using port_mapping_t = libtorrent::port_mapping_t;
+using queue_position_t = libtorrent::queue_position_t;
+using download_priority_t = libtorrent::download_priority_t;
 
 // END common set include ------------------------------------------------------
 %}
@@ -160,6 +162,8 @@ TYPE_INTEGRAL_CONVERSION(piece_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(port_mapping_t, int, int)
+TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
+TYPE_INTEGRAL_CONVERSION(download_priority_t, std::uint8_t, int)
 
 namespace std {
 
@@ -270,7 +274,7 @@ namespace std {
         }
     };
 
-    %template(piece_index_int_pair) pair<piece_index_t, int>;
+    %template(piece_index_download_priority_pair) pair<piece_index_t, download_priority_t>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
     %template(string_view_bdecode_node_pair) pair<libtorrent::string_view, libtorrent::bdecode_node>;
@@ -282,7 +286,7 @@ namespace std {
     %template(string_vector) vector<std::string>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
-    %template(piece_index_int_pair_vector) vector<std::pair<piece_index_t, int>>;
+    %template(piece_index_download_priority_pair_vector) vector<std::pair<piece_index_t, download_priority_t>>;
 
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<long long>;
@@ -306,6 +310,7 @@ namespace std {
     %template(udp_endpoint_vector) vector<libtorrent::udp::endpoint>;
     %template(piece_index_vector) vector<piece_index_t>;
     %template(file_index_vector) vector<file_index_t>;
+    %template(download_priority_vector) vector<download_priority_t>;
     %template(sha1_hash_udp_endpoint_pair_vector) vector<pair<libtorrent::sha1_hash, libtorrent::udp::endpoint>>;
     %template(address_sha1_hash_pair_vector) vector<pair<libtorrent::address, libtorrent::sha1_hash>>;
 
@@ -927,6 +932,8 @@ namespace libtorrent {
 %ignore libtorrent::torrent_handle::get_full_peer_list;
 %ignore libtorrent::torrent_handle::set_metadata;
 %ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
+%ignore libtorrent::torrent_handle::queue_position;
+%ignore libtorrent::torrent_handle::queue_position_set;
 %ignore libtorrent::block_info::set_peer;
 %ignore libtorrent::partial_piece_info::blocks;
 %ignore libtorrent::partial_piece_info::deprecated_state_t;
@@ -1048,6 +1055,7 @@ namespace libtorrent {
 %ignore libtorrent::torrent_status::active_duration;
 %ignore libtorrent::torrent_status::finished_duration;
 %ignore libtorrent::torrent_status::seeding_duration;
+%ignore libtorrent::torrent_status::queue_position;
 %ignore libtorrent::torrent_status::deprecated_time_since_upload;
 %ignore libtorrent::torrent_status::deprecated_time_since_download;
 %ignore libtorrent::torrent_status::deprecated_active_time;
@@ -1474,10 +1482,10 @@ namespace libtorrent {
         $self->peers = peers;
     }
 
-    void set_file_priorities(std::vector<std::int8_t> const& file_priorities) {
-        std::vector<std::uint8_t> v(file_priorities.size());
+    void set_file_priorities2(std::vector<std::int8_t> const& file_priorities) {
+        std::vector<download_priority_t> v(file_priorities.size());
         for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = std::uint8_t(file_priorities[i]);
+            v[i] = download_priority_t{std::uint8_t(file_priorities[i])};
         $self->file_priorities = v;
     }
 
@@ -1509,10 +1517,10 @@ namespace libtorrent {
         $self->trackers = trackers;
     }
 
-    void set_piece_priorities(std::vector<std::int8_t> const& piece_priorities) {
-        std::vector<std::uint8_t> v(piece_priorities.size());
+    void set_piece_priorities2(std::vector<std::int8_t> const& piece_priorities) {
+        std::vector<download_priority_t> v(piece_priorities.size());
         for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = std::uint8_t(piece_priorities[i]);
+            v[i] = download_priority_t{std::uint8_t(piece_priorities[i])};
         $self->piece_priorities = v;
     }
 
@@ -1604,6 +1612,16 @@ namespace libtorrent {
         std::string pk{private_key.begin(), private_key.end()};
         std::string dh{dh_params.begin(), dh_params.end()};
         $self->set_ssl_certificate_buffer(cert, pk, dh);
+    }
+
+    int queue_position2() const
+    {
+        return static_cast<int>($self->queue_position());
+    }
+
+    void queue_position_set2(int p)
+    {
+        $self->queue_position_set(queue_position_t{p});
     }
 }
 
@@ -1705,6 +1723,11 @@ namespace libtorrent {
 
     int64_t get_seeding_duration() {
         return libtorrent::total_milliseconds($self->seeding_duration);
+    }
+
+    int get_queue_position()
+    {
+        return static_cast<int>($self->queue_position);
     }
 }
 
