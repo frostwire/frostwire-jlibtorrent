@@ -1,4 +1,4 @@
-1.2.0.13(temp)
+1.2.0.13
 
     * enable full SSL support in libtorrent
     * compiling with -fvisibility=hidden and -Os
