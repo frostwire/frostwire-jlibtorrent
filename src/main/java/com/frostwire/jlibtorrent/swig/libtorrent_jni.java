@@ -1261,11 +1261,11 @@ public class libtorrent_jni {
   public final static native int torrent_handle_piece_priority__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native void torrent_handle_prioritize_pieces__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, download_priority_vector jarg2_);
   public final static native void torrent_handle_prioritize_pieces__SWIG_1(long jarg1, torrent_handle jarg1_, long jarg2, piece_index_download_priority_pair_vector jarg2_);
-  public final static native long torrent_handle_piece_priorities(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_get_piece_priorities(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_file_priority__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, int jarg3);
   public final static native int torrent_handle_file_priority__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native void torrent_handle_prioritize_files(long jarg1, torrent_handle jarg1_, long jarg2, download_priority_vector jarg2_);
-  public final static native long torrent_handle_file_priorities(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_get_file_priorities(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_force_reannounce__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, int jarg3);
   public final static native void torrent_handle_force_reannounce__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native void torrent_handle_force_reannounce__SWIG_2(long jarg1, torrent_handle jarg1_);
