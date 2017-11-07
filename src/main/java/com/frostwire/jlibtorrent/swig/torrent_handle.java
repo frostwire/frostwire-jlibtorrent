@@ -195,42 +195,6 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_piece_availability(swigCPtr, this, int_vector.getCPtr(avail), avail);
   }
 
-  public void piece_priority(int index, int priority) {
-    libtorrent_jni.torrent_handle_piece_priority__SWIG_0(swigCPtr, this, index, priority);
-  }
-
-  public int piece_priority(int index) {
-    return libtorrent_jni.torrent_handle_piece_priority__SWIG_1(swigCPtr, this, index);
-  }
-
-  public void prioritize_pieces(download_priority_vector pieces) {
-    libtorrent_jni.torrent_handle_prioritize_pieces__SWIG_0(swigCPtr, this, download_priority_vector.getCPtr(pieces), pieces);
-  }
-
-  public void prioritize_pieces(piece_index_download_priority_pair_vector pieces) {
-    libtorrent_jni.torrent_handle_prioritize_pieces__SWIG_1(swigCPtr, this, piece_index_download_priority_pair_vector.getCPtr(pieces), pieces);
-  }
-
-  public download_priority_vector get_piece_priorities() {
-    return new download_priority_vector(libtorrent_jni.torrent_handle_get_piece_priorities(swigCPtr, this), true);
-  }
-
-  public void file_priority(int index, int priority) {
-    libtorrent_jni.torrent_handle_file_priority__SWIG_0(swigCPtr, this, index, priority);
-  }
-
-  public int file_priority(int index) {
-    return libtorrent_jni.torrent_handle_file_priority__SWIG_1(swigCPtr, this, index);
-  }
-
-  public void prioritize_files(download_priority_vector files) {
-    libtorrent_jni.torrent_handle_prioritize_files(swigCPtr, this, download_priority_vector.getCPtr(files), files);
-  }
-
-  public download_priority_vector get_file_priorities() {
-    return new download_priority_vector(libtorrent_jni.torrent_handle_get_file_priorities(swigCPtr, this), true);
-  }
-
   public void force_reannounce(int seconds, int tracker_index) {
     libtorrent_jni.torrent_handle_force_reannounce__SWIG_0(swigCPtr, this, seconds, tracker_index);
   }
@@ -374,6 +338,42 @@ public class torrent_handle {
 
   public void queue_position_set2(int p) {
     libtorrent_jni.torrent_handle_queue_position_set2(swigCPtr, this, p);
+  }
+
+  public int piece_priority2(int index) {
+    return libtorrent_jni.torrent_handle_piece_priority2__SWIG_0(swigCPtr, this, index);
+  }
+
+  public void piece_priority2(int index, int priority) {
+    libtorrent_jni.torrent_handle_piece_priority2__SWIG_1(swigCPtr, this, index, priority);
+  }
+
+  public void prioritize_pieces2(int_vector pieces) {
+    libtorrent_jni.torrent_handle_prioritize_pieces2__SWIG_0(swigCPtr, this, int_vector.getCPtr(pieces), pieces);
+  }
+
+  public void prioritize_pieces2(piece_index_int_pair_vector pieces) {
+    libtorrent_jni.torrent_handle_prioritize_pieces2__SWIG_1(swigCPtr, this, piece_index_int_pair_vector.getCPtr(pieces), pieces);
+  }
+
+  public int_vector get_piece_priorities2() {
+    return new int_vector(libtorrent_jni.torrent_handle_get_piece_priorities2(swigCPtr, this), true);
+  }
+
+  public int file_priority2(int index) {
+    return libtorrent_jni.torrent_handle_file_priority2__SWIG_0(swigCPtr, this, index);
+  }
+
+  public void file_priority2(int index, int priority) {
+    libtorrent_jni.torrent_handle_file_priority2__SWIG_1(swigCPtr, this, index, priority);
+  }
+
+  public void prioritize_files2(int_vector files) {
+    libtorrent_jni.torrent_handle_prioritize_files2(swigCPtr, this, int_vector.getCPtr(files), files);
+  }
+
+  public int_vector get_file_priorities2() {
+    return new int_vector(libtorrent_jni.torrent_handle_get_file_priorities2(swigCPtr, this), true);
   }
 
   public final static add_piece_flags_t overwrite_existing = new add_piece_flags_t(libtorrent_jni.torrent_handle_overwrite_existing_get(), false);

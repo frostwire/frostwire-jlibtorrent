@@ -1,7 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.byte_vector;
-import com.frostwire.jlibtorrent.swig.download_priority_vector;
+import com.frostwire.jlibtorrent.swig.int_vector;
 
 /**
  * @author gubatron
@@ -89,8 +89,8 @@ public enum Priority {
         return arr;
     }
 
-    static download_priority_vector array2vector(Priority[] arr) {
-        download_priority_vector v = new download_priority_vector();
+    static int_vector array2vector(Priority[] arr) {
+        int_vector v = new int_vector();
 
         for (int i = 0; i < arr.length; i++) {
             Priority p = arr[i];

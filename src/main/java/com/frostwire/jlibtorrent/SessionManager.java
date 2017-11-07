@@ -455,11 +455,11 @@ public class SessionManager {
                 if (ti.numFiles() != priorities.length) {
                     throw new IllegalArgumentException("priorities count should be equals to the number of files");
                 }
-                th.prioritize_files(Priority.array2vector(priorities));
+                th.prioritize_files2(Priority.array2vector(priorities));
             } else {
                 // did they just add the entire torrent (therefore not selecting any priorities)
                 priorities = Priority.array(Priority.NORMAL, ti.numFiles());
-                th.prioritize_files(Priority.array2vector(priorities));
+                th.prioritize_files2(Priority.array2vector(priorities));
             }
 
             return;
