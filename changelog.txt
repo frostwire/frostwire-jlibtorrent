@@ -1,3 +1,7 @@
+1.2.0.14
+
+    * fixed invalid handling of download_priority_t and swig wrapper
+
 1.2.0.13
 
     * enable full SSL support in libtorrent
