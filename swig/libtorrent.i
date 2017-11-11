@@ -836,6 +836,26 @@ namespace libtorrent {
             return std::int8_t(static_cast<std::uint8_t>($self->write_state));
         }
     }
+
+    class dropped_alerts_t
+    {
+    public:
+        bool test(std::size_t pos) const;
+
+        bool all() const;
+        bool any() const;
+        bool none() const;
+
+        std::size_t count() const;
+        std::size_t size() const;
+
+        %extend
+        {
+            bool get(std::size_t pos) {
+                return (*self)[pos];
+            }
+        }
+    };
 };
 
 %ignore libtorrent::TORRENT_CFG;

@@ -1,3 +1,10 @@
+1.2.0.15(temp)
+
+    * lt:add API to query whether alerts have been dropped or not
+    * lt:keep updating aux::time_now() while there are announces, fixes an
+      infinite loop during shutdown
+    * lt:source code cleanup, performance and stability
+
 1.2.0.14
 
     * fixed invalid handling of download_priority_t and swig wrapper

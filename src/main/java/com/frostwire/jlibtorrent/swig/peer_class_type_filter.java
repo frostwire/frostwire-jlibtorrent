@@ -55,8 +55,8 @@ public class peer_class_type_filter {
     libtorrent_jni.peer_class_type_filter_allow(swigCPtr, this, st.swigValue(), peer_class);
   }
 
-  public long apply(int st, long peer_class_mask) {
-    return libtorrent_jni.peer_class_type_filter_apply(swigCPtr, this, st, peer_class_mask);
+  public long apply(peer_class_type_filter.socket_type_t st, long peer_class_mask) {
+    return libtorrent_jni.peer_class_type_filter_apply(swigCPtr, this, st.swigValue(), peer_class_mask);
   }
 
   public final static class socket_type_t {

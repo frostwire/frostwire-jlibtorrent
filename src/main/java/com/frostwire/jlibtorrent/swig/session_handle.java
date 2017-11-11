@@ -255,6 +255,10 @@ public class session_handle {
     libtorrent_jni.session_handle_pop_alerts(swigCPtr, this, alert_ptr_vector.getCPtr(alerts), alerts);
   }
 
+  public dropped_alerts_t dropped_alerts() {
+    return new dropped_alerts_t(libtorrent_jni.session_handle_dropped_alerts(swigCPtr, this), true);
+  }
+
   public int add_port_mapping(portmap_protocol t, int external_port, int local_port) {
     return libtorrent_jni.session_handle_add_port_mapping(swigCPtr, this, t.swigValue(), external_port, local_port);
   }

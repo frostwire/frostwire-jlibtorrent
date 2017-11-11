@@ -733,6 +733,15 @@ public class libtorrent_jni {
   public final static native int peer_class_info_download_priority_get(long jarg1, peer_class_info jarg1_);
   public final static native long new_peer_class_info();
   public final static native void delete_peer_class_info(long jarg1);
+  public final static native boolean dropped_alerts_t_test(long jarg1, dropped_alerts_t jarg1_, long jarg2);
+  public final static native boolean dropped_alerts_t_all(long jarg1, dropped_alerts_t jarg1_);
+  public final static native boolean dropped_alerts_t_any(long jarg1, dropped_alerts_t jarg1_);
+  public final static native boolean dropped_alerts_t_none(long jarg1, dropped_alerts_t jarg1_);
+  public final static native long dropped_alerts_t_count(long jarg1, dropped_alerts_t jarg1_);
+  public final static native long dropped_alerts_t_size(long jarg1, dropped_alerts_t jarg1_);
+  public final static native boolean dropped_alerts_t_get(long jarg1, dropped_alerts_t jarg1_, long jarg2);
+  public final static native long new_dropped_alerts_t();
+  public final static native void delete_dropped_alerts_t(long jarg1);
   public final static native int success_get();
   public final static native int address_family_not_supported_get();
   public final static native int address_in_use_get();
@@ -2582,6 +2591,7 @@ public class libtorrent_jni {
   public final static native void session_handle_apply_settings(long jarg1, session_handle jarg1_, long jarg2, settings_pack jarg2_);
   public final static native long session_handle_get_settings(long jarg1, session_handle jarg1_);
   public final static native void session_handle_pop_alerts(long jarg1, session_handle jarg1_, long jarg2, alert_ptr_vector jarg2_);
+  public final static native long session_handle_dropped_alerts(long jarg1, session_handle jarg1_);
   public final static native int session_handle_udp_get();
   public final static native int session_handle_tcp_get();
   public final static native int session_handle_add_port_mapping(long jarg1, session_handle jarg1_, int jarg2, int jarg3, int jarg4);
