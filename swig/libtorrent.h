@@ -29,6 +29,7 @@
 #include <libtorrent/hex.hpp>
 #include <libtorrent/extensions.hpp>
 #include <libtorrent/bloom_filter.hpp>
+#include <libtorrent/announce_entry.hpp>
 
 #include <libtorrent/kademlia/dht_tracker.hpp>
 #include <libtorrent/kademlia/node_entry.hpp>

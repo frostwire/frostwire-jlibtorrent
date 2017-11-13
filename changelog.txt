@@ -1,5 +1,8 @@
 1.2.0.15(temp)
 
+    * lt:make sure the cork destructor doesn't leak exceptions
+    * lt:stop posting alerts when the session is shutting down, solves some
+      issues around destruction order
     * lt:add API to query whether alerts have been dropped or not
     * lt:keep updating aux::time_now() while there are announces, fixes an
       infinite loop during shutdown

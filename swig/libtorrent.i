@@ -41,7 +41,6 @@
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
-#include "libtorrent/announce_entry.hpp"
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/fingerprint.hpp"
 
@@ -856,6 +855,72 @@ namespace libtorrent {
             }
         }
     };
+
+    struct announce_endpoint
+    {
+        std::string message;
+        libtorrent::error_code last_error;
+        tcp::endpoint local_endpoint;
+
+        int scrape_incomplete;
+        int scrape_complete;
+        int scrape_downloaded;
+
+        std::uint8_t fails;
+        bool updating;
+        bool start_sent;
+        bool complete_sent;
+        bool triggered_manually;
+
+        bool is_working() const;
+
+        %extend
+        {
+            int64_t get_next_announce()
+            {
+                return libtorrent::total_milliseconds($self->next_announce.time_since_epoch());
+            }
+
+            int64_t get_min_announce()
+            {
+                return libtorrent::total_milliseconds($self->min_announce.time_since_epoch());
+            }
+        }
+    private:
+        announce_endpoint();
+    };
+
+    struct announce_entry
+    {
+        std::string url;
+        std::string trackerid;
+
+        std::vector<announce_endpoint> endpoints;
+
+        std::uint8_t tier;
+        std::uint8_t fail_limit;
+
+        enum tracker_source
+        {
+            source_torrent = 1,
+            source_client = 2,
+            source_magnet_link = 4,
+            source_tex = 8
+        };
+
+        std::uint8_t source;
+        bool verified;
+
+        void trim();
+
+        %extend
+        {
+            announce_entry(std::string const& u)
+            {
+                return new libtorrent::announce_entry(u);
+            }
+        }
+    };
 };
 
 %ignore libtorrent::TORRENT_CFG;
@@ -1051,20 +1116,6 @@ namespace libtorrent {
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
-%ignore libtorrent::announce_endpoint::announce_endpoint;
-%ignore libtorrent::announce_endpoint::next_announce;
-%ignore libtorrent::announce_endpoint::min_announce;
-%ignore libtorrent::announce_endpoint::triggered_manually;
-%ignore libtorrent::announce_endpoint::failed;
-%ignore libtorrent::announce_endpoint::can_announce;
-%ignore libtorrent::announce_entry::announce_entry(string_view);
-%ignore libtorrent::announce_entry::deprecated_fails;
-%ignore libtorrent::announce_entry::deprecated_send_stats;
-%ignore libtorrent::announce_entry::deprecated_start_sent;
-%ignore libtorrent::announce_entry::deprecated_complete_sent;
-%ignore libtorrent::announce_entry::deprecated_triggered_manually;
-%ignore libtorrent::announce_entry::deprecated_updating;
-%ignore libtorrent::announce_entry::find_endpoint;
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_status(torrent_status&&);
 %ignore libtorrent::torrent_status::_dummy_string_;
@@ -1257,7 +1308,6 @@ namespace libtorrent {
 %include "libtorrent/ip_filter.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
-%include "libtorrent/announce_entry.hpp"
 %include "libtorrent/torrent_status.hpp"
 %include "libtorrent/fingerprint.hpp"
 
@@ -1873,24 +1923,6 @@ namespace libtorrent {
     void add_file(std::string const& path, std::int64_t file_size,
         libtorrent::file_flags_t file_flags, std::time_t mtime, std::string const& symlink_path) {
         $self->add_file(path, file_size, file_flags, mtime, symlink_path);
-    }
-}
-
-%extend announce_endpoint {
-
-    int64_t get_next_announce() {
-        return libtorrent::total_milliseconds($self->next_announce.time_since_epoch());
-    }
-
-    int64_t get_min_announce() {
-        return libtorrent::total_milliseconds($self->min_announce.time_since_epoch());
-    }
-}
-
-%extend announce_entry {
-
-    announce_entry(std::string const& u) {
-        return new libtorrent::announce_entry(u);
     }
 }
 

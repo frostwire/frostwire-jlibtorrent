@@ -117,8 +117,12 @@ public class announce_endpoint {
     return libtorrent_jni.announce_endpoint_complete_sent_get(swigCPtr, this);
   }
 
-  public void reset() {
-    libtorrent_jni.announce_endpoint_reset(swigCPtr, this);
+  public void setTriggered_manually(boolean value) {
+    libtorrent_jni.announce_endpoint_triggered_manually_set(swigCPtr, this, value);
+  }
+
+  public boolean getTriggered_manually() {
+    return libtorrent_jni.announce_endpoint_triggered_manually_get(swigCPtr, this);
   }
 
   public boolean is_working() {
