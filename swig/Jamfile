@@ -40,11 +40,9 @@ rule libtorrent_linking ( properties * )
 feature iostream : off on : composite propagated link-incompatible ;
 feature.compose <iostream>off : <define>BOOST_NO_IOSTREAM ;
 
-feature o2 : on off : composite propagated link-incompatible ;
-feature.compose <o2>on : <toolset>darwin: <cxxflags>-Oz ;
-feature.compose <o2>on : <toolset>clang: <cxxflags>-Oz ;
-feature.compose <o2>on : <toolset>clang-linux: <cxxflags>-Oz ;
-feature.compose <o2>on : <toolset>gcc: <cxxflags>-Os ;
+feature o2 : off s1 s2 : composite propagated link-incompatible ;
+feature.compose <o2>s1 : <cxxflags>-Os ;
+feature.compose <o2>s2 : <cxxflags>-Oz ;
 
 feature ssl : on off : composite propagated link-incompatible ;
 feature.compose <ssl>on :
@@ -61,6 +59,10 @@ lib jlibtorrent
     <conditional>@libtorrent_linking
     <library>/torrent//torrent/<link>static
     <include>.
+    <toolset>darwin:<o2>s2
+    <toolset>clang:<o2>s2
+    <toolset>clang-linux:<o2>s2
+    <toolset>gcc:<o2>s1
 
     : # default build
     <link>shared
