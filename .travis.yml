@@ -158,6 +158,7 @@ before_install:
       export run_strip="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x -g bin/release/android/armeabi-v7a/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-readelf -d bin/release/android/armeabi-v7a/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/arm-linux-androideabi/bin:$PATH;
+      sed -i 's/RANLIB = ranlib/RANLIB = ${ANDROID_TOOLCHAIN}\/bin\/arm-linux-androideabi-ranlib/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
     fi
   # android-arm64
   - if [[ $os_build == "android" && $os_arch == "arm64" ]]; then
@@ -166,6 +167,7 @@ before_install:
       export run_strip="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-strip --strip-unneeded -x bin/release/android/arm64-v8a/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-readelf -d bin/release/android/arm64-v8a/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/aarch64-linux-android/bin:$PATH;
+      sed -i 's/RANLIB = ranlib/RANLIB = ${ANDROID_TOOLCHAIN}\/bin\/aarch64-linux-android-ranlib/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
     fi
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
@@ -174,6 +176,7 @@ before_install:
       export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x -g bin/release/android/x86/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/android/x86/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/i686-linux-android/bin:$PATH;
+      sed -i 's/RANLIB = ranlib/RANLIB = ${ANDROID_TOOLCHAIN}\/bin\/i686-linux-android-ranlib/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
@@ -181,6 +184,7 @@ before_install:
       export run_strip="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-strip --strip-unneeded -x bin/release/android/x86_64/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-readelf -d bin/release/android/x86_64/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/x86_64-linux-android/bin:$PATH;
+      sed -i 's/RANLIB = ranlib/RANLIB = ${ANDROID_TOOLCHAIN}\/bin\/x86_64-linux-android-ranlib/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
     fi
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
