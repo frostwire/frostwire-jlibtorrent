@@ -1,5 +1,6 @@
 1.2.0.15(temp)
 
+    * compiling with -Oz when using clang based toolchains
     * lt:make sure the cork destructor doesn't leak exceptions
     * lt:stop posting alerts when the session is shutting down, solves some
       issues around destruction order

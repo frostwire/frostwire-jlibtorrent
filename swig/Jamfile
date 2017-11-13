@@ -41,7 +41,10 @@ feature iostream : off on : composite propagated link-incompatible ;
 feature.compose <iostream>off : <define>BOOST_NO_IOSTREAM ;
 
 feature o2 : on off : composite propagated link-incompatible ;
-feature.compose <o2>on : <cxxflags>-Os ;
+feature.compose <o2>on : <toolset>darwin: <cxxflags>-Oz ;
+feature.compose <o2>on : <toolset>clang: <cxxflags>-Oz ;
+feature.compose <o2>on : <toolset>clang-linux: <cxxflags>-Oz ;
+feature.compose <o2>on : <toolset>gcc: <cxxflags>-Os ;
 
 feature ssl : on off : composite propagated link-incompatible ;
 feature.compose <ssl>on :
