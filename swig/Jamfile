@@ -72,7 +72,8 @@ lib jlibtorrent
     # lto
     <target-os>darwin:<lto>on
     <target-os>android:<lto>gold
-    <target-os>linux:<lto>on
+    <target-os>linux:<lto>off
+    <target-os>windows:<lto>off
 
     : # default build
     <link>shared
