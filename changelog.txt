@@ -1,5 +1,6 @@
-1.2.0.15(temp)
+1.2.0.15-RC1(temp)
 
+    * using android NDK r16
     * updated to OpenSSL 1.1.0g
     * compiling with LTO when using clang based toolchains
     * compiling with -Oz when using clang based toolchains
