@@ -1748,7 +1748,7 @@ namespace libtorrent {
         std::vector<download_priority_t> v(files.size());
         for (std::size_t i = 0; i < v.size(); i++)
             v[i] = download_priority_t{std::uint8_t(files[i])};
-        $self->prioritize_pieces(v);
+        $self->prioritize_files(v);
     }
 
     std::vector<int> get_file_priorities2() const

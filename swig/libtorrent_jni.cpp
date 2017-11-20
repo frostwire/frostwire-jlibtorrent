@@ -1938,7 +1938,7 @@ SWIGINTERN void libtorrent_torrent_handle_prioritize_files2(libtorrent::torrent_
         std::vector<download_priority_t> v(files.size());
         for (std::size_t i = 0; i < v.size(); i++)
             v[i] = download_priority_t{std::uint8_t(files[i])};
-        self->prioritize_pieces(v);
+        self->prioritize_files(v);
     }
 SWIGINTERN std::vector< int > libtorrent_torrent_handle_get_file_priorities2(libtorrent::torrent_handle const *self){
         std::vector<download_priority_t> v = self->get_file_priorities();
