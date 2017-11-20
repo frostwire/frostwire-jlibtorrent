@@ -549,6 +549,30 @@ public final class TorrentHandle {
     }
 
     /**
+     * The disk cache will be flushed before creating the resume data.
+     * This avoids a problem with file timestamps in the resume data in
+     * case the cache hasn't been flushed yet.
+     */
+    public static final resume_data_flags_t FLUSH_DISK_CACHE = torrent_handle.flush_disk_cache;
+
+    /**
+     * The resume data will contain the metadata from the torrent file as
+     * well. This is default for any torrent that's added without a
+     * torrent file (such as a magnet link or a URL).
+     */
+    public static final resume_data_flags_t SAVE_INFO_DICT = torrent_handle.save_info_dict;
+
+    /**
+     * If nothing significant has changed in the torrent since the last
+     * time resume data was saved, fail this attempt. Significant changes
+     * primarily include more data having been downloaded, file or piece
+     * priorities having changed etc. If the resume data doesn't need
+     * saving, a save_resume_data_failed_alert is posted with the error
+     * resume_data_not_modified.
+     */
+    public static final resume_data_flags_t ONLY_IF_MODIFIED = torrent_handle.only_if_modified;
+
+    /**
      * ``save_resume_data()`` generates fast-resume data and returns it as an
      * entry. This entry is suitable for being bencoded. For more information
      * about how fast-resume works, see fast-resume_.
@@ -677,8 +701,16 @@ public final class TorrentHandle {
      * report that they don't need to save resume data again, and skipped by
      * the initial loop, and thwart the counter otherwise.
      */
+    public void saveResumeData(resume_data_flags_t flags) {
+        th.save_resume_data(flags);
+    }
+
+    /**
+     * Similar to calling {@link #saveResumeData(resume_data_flags_t)} with
+     * empty flags.
+     */
     public void saveResumeData() {
-        th.save_resume_data(torrent_handle.save_info_dict);
+        th.save_resume_data();
     }
 
     /**

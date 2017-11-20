@@ -4,6 +4,8 @@
     * updated to OpenSSL 1.1.0g
     * compiling with LTO when using clang based toolchains
     * compiling with -Oz when using clang based toolchains
+    * API change in TorrentHandle#saveResumeData, now it pass empty flags
+      by default
     * lt:make sure the cork destructor doesn't leak exceptions
     * lt:stop posting alerts when the session is shutting down, solves some
       issues around destruction order
