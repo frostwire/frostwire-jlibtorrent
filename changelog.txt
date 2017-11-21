@@ -1,4 +1,4 @@
-1.2.0.15-RC1
+1.2.0.15-RC2
 
     * fixed issue with prioritize_files swig wrapper
     * API change in TorrentHandle#saveResumeData, now it pass empty flags
