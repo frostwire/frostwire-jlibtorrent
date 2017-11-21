@@ -7,5 +7,6 @@ using clang : x86_64 : $(ANDROID_TOOLCHAIN)/bin/x86_64-linux-android-clang++ :
     <cxxflags>-std=c++11
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
+    <cxxflags>-fvisibility-inlines-hidden
     <linkflags>-static-libstdc++
     ;

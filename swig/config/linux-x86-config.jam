@@ -6,6 +6,7 @@ using gcc : x86 : g++-5 :
     <cxxflags>-std=c++11
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
+    <cxxflags>-fvisibility-inlines-hidden
     <linkflags>-m32
     <linkflags>-static-libstdc++
     <linkflags>-static-libgcc

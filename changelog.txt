@@ -1,5 +1,6 @@
-1.2.0.15-RC2
+1.2.0.15-RC3(temp)
 
+    * compiling with -fvisibility-inlines-hidden
     * fixed issue with prioritize_files swig wrapper
     * API change in TorrentHandle#saveResumeData, now it pass empty flags
       by default
