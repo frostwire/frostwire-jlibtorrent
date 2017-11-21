@@ -65,13 +65,13 @@ lib jlibtorrent
     <library>/torrent//torrent/<link>static
     <include>.
     # o2
-    <target-os>darwin:<o2>s2
+    <target-os>darwin:<o2>s1
     <target-os>android:<o2>s2
     <target-os>linux:<o2>s1
     <target-os>windows:<o2>s1
     # lto
-    <target-os>darwin:<lto>on
-    <target-os>android:<lto>gold
+    <target-os>darwin:<lto>off
+    <target-os>android:<lto>off
     <target-os>linux:<lto>off
     <target-os>windows:<lto>off
 
