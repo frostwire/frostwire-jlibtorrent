@@ -6,7 +6,6 @@
       by default
     * using android NDK r16
     * updated to OpenSSL 1.1.0g
-    * compiling with -Oz the android binaries
     * lt:make tracker announces happen even if there are no open listen sockets
     * lt:fix issue where new listen sockets would not be opened when leaving
       force_proxy mode
