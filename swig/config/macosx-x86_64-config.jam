@@ -5,6 +5,5 @@ using darwin : x86_64 : clang++ :
     <cxxflags>-mmacosx-version-min=10.9
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
-    <cxxflags>-fvisibility-inlines-hidden
     <cxxflags>-D_DARWIN_C_SOURCE
     ;
