@@ -183,10 +183,6 @@ public class session_handle {
     return new sha1_hash(libtorrent_jni.session_handle_id(swigCPtr, this), true);
   }
 
-  public void set_key(long key) {
-    libtorrent_jni.session_handle_set_key(swigCPtr, this, key);
-  }
-
   public static int getGlobal_peer_class_id() {
     return libtorrent_jni.session_handle_global_peer_class_id_get();
   }

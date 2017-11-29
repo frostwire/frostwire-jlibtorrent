@@ -6,6 +6,12 @@
       by default
     * using android NDK r16
     * updated to OpenSSL 1.1.0g
+    * lt:generate random keys for use in tracker announces, unique per torrent
+      and the listen interface
+    * lt:fix IPv6 tracker announce issue
+    * lt:don't early move shared_ptr plugin in torrent::add_extension_fun
+    * lt:fix force-proxy regression (udp sockets would not be opened)
+    * lt:restore path sanitization behavior of ':'
     * lt:make tracker announces happen even if there are no open listen sockets
     * lt:fix issue where new listen sockets would not be opened when leaving
       force_proxy mode
