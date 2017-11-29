@@ -1,5 +1,6 @@
 1.2.0.15-RC3(temp)
 
+    * added java API to download magnet uri
     * fixed issue with prioritize_files swig wrapper
     * API change in TorrentHandle#saveResumeData, now it pass empty flags
       by default

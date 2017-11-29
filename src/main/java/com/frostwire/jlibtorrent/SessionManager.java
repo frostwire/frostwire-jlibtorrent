@@ -433,10 +433,10 @@ public class SessionManager {
     }
 
     /**
-     * @param ti
-     * @param saveDir
-     * @param resumeFile
-     * @param priorities
+     * @param ti         the torrent info to download
+     * @param saveDir    the path to save the downloaded files
+     * @param resumeFile the file with the resume file
+     * @param priorities the initial file priorities
      */
     public void download(TorrentInfo ti, File saveDir, File resumeFile, Priority[] priorities, List<TcpEndpoint> peers) {
         if (session == null) {
@@ -506,6 +506,46 @@ public class SessionManager {
                 v.push_back(endp.swig());
             }
             p.set_peers(v);
+        }
+
+        torrent_flags_t flags = p.getFlags();
+
+        flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+
+        p.setFlags(flags);
+
+        session.async_add_torrent(p);
+    }
+
+    /**
+     * Downloads a magnet uri.
+     *
+     * @param magnetUri the magnet uri to download
+     * @param saveDir   the path to save the downloaded files
+     */
+    public void download(String magnetUri, File saveDir) {
+        if (session == null) {
+            return;
+        }
+
+        error_code ec = new error_code();
+        add_torrent_params p = add_torrent_params.parse_magnet_uri(magnetUri, ec);
+
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
+
+        sha1_hash info_hash = p.getInfo_hash();
+
+        torrent_handle th = session.find_torrent(info_hash);
+
+        if (th != null && th.is_valid()) {
+            // found a download with the same hash
+            return;
+        }
+
+        if (saveDir != null) {
+            p.setSave_path(saveDir.getAbsolutePath());
         }
 
         torrent_flags_t flags = p.getFlags();
