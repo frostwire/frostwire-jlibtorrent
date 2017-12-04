@@ -1084,6 +1084,7 @@ namespace libtorrent {
 %ignore libtorrent::apply_pack;
 %ignore libtorrent::load_pack_from_dict;
 %ignore libtorrent::save_settings_to_dict;
+%ignore libtorrent::run_all_updates;
 %ignore libtorrent::error_code;
 %ignore libtorrent::settings_pack::settings_pack(settings_pack&&);
 %ignore libtorrent::settings_pack::deprecated;

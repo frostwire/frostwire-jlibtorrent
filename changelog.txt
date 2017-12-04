@@ -6,6 +6,11 @@
       by default
     * using android NDK r16
     * updated to OpenSSL 1.1.0g
+    * lt:fix incorrect use of make_tick_handler
+    * lt:fix issue with initializing settings on session construction
+    * lt:implemented support for magnet URI extension, select specific file
+      indices for download, BEP53
+    * lt:fix issue with receiving interested before metadata
     * lt:generate random keys for use in tracker announces, unique per torrent
       and the listen interface
     * lt:fix IPv6 tracker announce issue
