@@ -4,7 +4,7 @@
     * fixed issue with prioritize_files swig wrapper
     * API change in TorrentHandle#saveResumeData, now it pass empty flags
       by default
-    * using android NDK r16
+    * using android NDK r16b
     * updated to OpenSSL 1.1.0g
     * lt:fix incorrect use of make_tick_handler
     * lt:fix issue with initializing settings on session construction
