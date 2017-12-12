@@ -6,6 +6,7 @@
       by default
     * using android NDK r16b
     * updated to OpenSSL 1.1.0g
+    * lt:fix loading resume data when in seed mode
     * lt:fix incorrect use of make_tick_handler
     * lt:fix issue with initializing settings on session construction
     * lt:implemented support for magnet URI extension, select specific file
