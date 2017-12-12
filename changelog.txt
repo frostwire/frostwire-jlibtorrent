@@ -1,4 +1,4 @@
-1.2.0.15-RC3
+1.2.0.15
 
     * added java API to download magnet uri
     * fixed issue with prioritize_files swig wrapper
