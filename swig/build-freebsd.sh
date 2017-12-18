@@ -19,7 +19,7 @@ export OPENSSL_SOURCE=$PWD/openssl-1.1.0g
 rm -rf libtorrent
 git clone https://github.com/arvidn/libtorrent
 cd libtorrent
-git checkout c4cf7ebae6daf83f0e61ce98e387750e8e190597
+git checkout 87de08cb3d41014b1ecac99c59af96cbcac88a32
 cd ..
 export LIBTORRENT_ROOT=$PWD/libtorrent
 

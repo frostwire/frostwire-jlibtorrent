@@ -235,8 +235,8 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_download_limit(swigCPtr, this);
   }
 
-  public void connect_peer(tcp_endpoint adr, peer_source_flags_t source, int flags) {
-    libtorrent_jni.torrent_handle_connect_peer__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, peer_source_flags_t.getCPtr(source), source, flags);
+  public void connect_peer(tcp_endpoint adr, peer_source_flags_t source, pex_flags_t flags) {
+    libtorrent_jni.torrent_handle_connect_peer__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, peer_source_flags_t.getCPtr(source), source, pex_flags_t.getCPtr(flags), flags);
   }
 
   public void connect_peer(tcp_endpoint adr, peer_source_flags_t source) {
@@ -314,18 +314,6 @@ public class torrent_handle {
 
   public string_vector get_http_seeds() {
     return new string_vector(libtorrent_jni.torrent_handle_get_http_seeds(swigCPtr, this), true);
-  }
-
-  public void connect_peer2(tcp_endpoint adr, byte source, int flags) {
-    libtorrent_jni.torrent_handle_connect_peer2__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, source, flags);
-  }
-
-  public void connect_peer2(tcp_endpoint adr, byte source) {
-    libtorrent_jni.torrent_handle_connect_peer2__SWIG_1(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, source);
-  }
-
-  public void connect_peer2(tcp_endpoint adr) {
-    libtorrent_jni.torrent_handle_connect_peer2__SWIG_2(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr);
   }
 
   public void set_ssl_certificate_buffer2(byte_vector certificate, byte_vector private_key, byte_vector dh_params) {

@@ -109,6 +109,26 @@ public class libtorrent implements libtorrentConstants {
     return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
   }
 
+  public static pex_flags_t getPex_encryption() {
+    long cPtr = libtorrent_jni.pex_encryption_get();
+    return (cPtr == 0) ? null : new pex_flags_t(cPtr, false);
+  }
+
+  public static pex_flags_t getPex_seed() {
+    long cPtr = libtorrent_jni.pex_seed_get();
+    return (cPtr == 0) ? null : new pex_flags_t(cPtr, false);
+  }
+
+  public static pex_flags_t getPex_utp() {
+    long cPtr = libtorrent_jni.pex_utp_get();
+    return (cPtr == 0) ? null : new pex_flags_t(cPtr, false);
+  }
+
+  public static pex_flags_t getPex_holepunch() {
+    long cPtr = libtorrent_jni.pex_holepunch_get();
+    return (cPtr == 0) ? null : new pex_flags_t(cPtr, false);
+  }
+
   public static String operation_name(operation_t op) {
     return libtorrent_jni.operation_name(op.swigValue());
   }

@@ -541,6 +541,17 @@ public class libtorrent_jni {
   public final static native int peer_source_flags_t_to_int(long jarg1, peer_source_flags_t jarg1_);
   public final static native long new_peer_source_flags_t();
   public final static native void delete_peer_source_flags_t(long jarg1);
+  public final static native long pex_flags_t_all();
+  public final static native boolean pex_flags_t_nonZero(long jarg1, pex_flags_t jarg1_);
+  public final static native boolean pex_flags_t_eq(long jarg1, pex_flags_t jarg1_, long jarg2, pex_flags_t jarg2_);
+  public final static native boolean pex_flags_t_ne(long jarg1, pex_flags_t jarg1_, long jarg2, pex_flags_t jarg2_);
+  public final static native long pex_flags_t_or_(long jarg1, pex_flags_t jarg1_, long jarg2, pex_flags_t jarg2_);
+  public final static native long pex_flags_t_and_(long jarg1, pex_flags_t jarg1_, long jarg2, pex_flags_t jarg2_);
+  public final static native long pex_flags_t_xor(long jarg1, pex_flags_t jarg1_, long jarg2, pex_flags_t jarg2_);
+  public final static native long pex_flags_t_inv(long jarg1, pex_flags_t jarg1_);
+  public final static native int pex_flags_t_to_int(long jarg1, pex_flags_t jarg1_);
+  public final static native long new_pex_flags_t();
+  public final static native void delete_pex_flags_t(long jarg1);
   public final static native long bandwidth_state_flags_t_all();
   public final static native boolean bandwidth_state_flags_t_nonZero(long jarg1, bandwidth_state_flags_t jarg1_);
   public final static native boolean bandwidth_state_flags_t_eq(long jarg1, bandwidth_state_flags_t jarg1_, long jarg2, bandwidth_state_flags_t jarg2_);
@@ -1225,6 +1236,10 @@ public class libtorrent_jni {
   public final static native int torrent_info_metadata_size(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
   public final static native long new_torrent_info__SWIG_4(long jarg1, int jarg2, long jarg3, error_code jarg3_);
+  public final static native long pex_encryption_get();
+  public final static native long pex_seed_get();
+  public final static native long pex_utp_get();
+  public final static native long pex_holepunch_get();
   public final static native long block_info_peer(long jarg1, block_info jarg1_);
   public final static native void block_info_bytes_progress_set(long jarg1, block_info jarg1_, long jarg2);
   public final static native long block_info_bytes_progress_get(long jarg1, block_info jarg1_);
@@ -1313,7 +1328,7 @@ public class libtorrent_jni {
   public final static native int torrent_handle_upload_limit(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_set_download_limit(long jarg1, torrent_handle jarg1_, int jarg2);
   public final static native int torrent_handle_download_limit(long jarg1, torrent_handle jarg1_);
-  public final static native void torrent_handle_connect_peer__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, long jarg3, peer_source_flags_t jarg3_, int jarg4);
+  public final static native void torrent_handle_connect_peer__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, long jarg3, peer_source_flags_t jarg3_, long jarg4, pex_flags_t jarg4_);
   public final static native void torrent_handle_connect_peer__SWIG_1(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, long jarg3, peer_source_flags_t jarg3_);
   public final static native void torrent_handle_connect_peer__SWIG_2(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native void torrent_handle_set_max_uploads(long jarg1, torrent_handle jarg1_, int jarg2);
@@ -1333,9 +1348,6 @@ public class libtorrent_jni {
   public final static native long torrent_handle_torrent_file_ptr(long jarg1, torrent_handle jarg1_);
   public final static native long torrent_handle_get_url_seeds(long jarg1, torrent_handle jarg1_);
   public final static native long torrent_handle_get_http_seeds(long jarg1, torrent_handle jarg1_);
-  public final static native void torrent_handle_connect_peer2__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, byte jarg3, int jarg4);
-  public final static native void torrent_handle_connect_peer2__SWIG_1(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_, byte jarg3);
-  public final static native void torrent_handle_connect_peer2__SWIG_2(long jarg1, torrent_handle jarg1_, long jarg2, tcp_endpoint jarg2_);
   public final static native void torrent_handle_set_ssl_certificate_buffer2(long jarg1, torrent_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_);
   public final static native int torrent_handle_queue_position2(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_queue_position_set2(long jarg1, torrent_handle jarg1_, int jarg2);

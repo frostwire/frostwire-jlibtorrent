@@ -1,3 +1,14 @@
+1.2.0.16-RC1(temp)
+
+    * lt:improve type safety of plugin interface
+    * lt:introduce a proper type for pex flags to improve type-safety
+    * lt:fix reopening of listen sockets when disabling force-proxy
+    * lt:fix build against boost-1.66, specifically the boost.asio changes
+    * lt:fix asio debugging
+    * lt:fix rate limit utp feature
+    * lt:fix i2p support
+    * lt:source code cleanup, performance and stability
+
 1.2.0.15
 
     * added java API to download magnet uri

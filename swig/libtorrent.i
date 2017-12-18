@@ -21,6 +21,7 @@
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/torrent_flags.hpp"
 #include "libtorrent/torrent_info.hpp"
+#include "libtorrent/pex_flags.hpp"
 #include "libtorrent/torrent_handle.hpp"
 #include "libtorrent/add_torrent_params.hpp"
 #include "libtorrent/operations.hpp"
@@ -398,6 +399,8 @@ namespace libtorrent {
     %template(peer_flags_t) flags::bitfield_flag<std::uint32_t, peer_flags_tag>;
     struct peer_source_flags_tag;
     %template(peer_source_flags_t) flags::bitfield_flag<std::uint8_t, peer_source_flags_tag>;
+    struct pex_flags_tag;
+    %template(pex_flags_t) flags::bitfield_flag<std::uint8_t, pex_flags_tag>;
     struct bandwidth_state_flags_tag;
     %template(bandwidth_state_flags_t) flags::bitfield_flag<std::uint8_t, bandwidth_state_flags_tag>;
     struct file_flags_tag;
@@ -1290,6 +1293,7 @@ namespace libtorrent {
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/torrent_flags.hpp"
 %include "libtorrent/torrent_info.hpp"
+%include "libtorrent/pex_flags.hpp"
 %include "libtorrent/torrent_handle.hpp"
 %include "libtorrent/add_torrent_params.hpp"
 %include "libtorrent/operations.hpp"
@@ -1673,10 +1677,6 @@ namespace libtorrent {
     std::vector<std::string> get_http_seeds() const {
         std::set<std::string> s = $self->http_seeds();
         return {s.begin(), s.end()};
-    }
-
-    void connect_peer2(tcp::endpoint const& adr, std::int8_t source = 0, int flags = 0x1 + 0x4 + 0x8) const {
-        $self->connect_peer(adr, libtorrent::peer_source_flags_t{std::uint8_t(source)}, flags);
     }
 
     void set_ssl_certificate_buffer2(std::vector<int8_t> const& certificate
