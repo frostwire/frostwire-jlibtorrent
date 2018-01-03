@@ -626,8 +626,6 @@ namespace libtorrent {
 
         std::string to_string(boost::system::error_code ec);
 
-        static address from_string(std::string str, boost::system::error_code ec);
-
         bool is_loopback();
         bool is_unspecified();
         bool is_multicast();
@@ -639,6 +637,11 @@ namespace libtorrent {
 
             static int compare(const address& a1, const address& a2) {
                 return a1 == a2 ? 0 : (a1 < a2 ? -1 : 1);
+            }
+
+            static address from_string(std::string const& str, boost::system::error_code& ec)
+            {
+                return boost::asio::ip::make_address(str, ec);
             }
         }
     };

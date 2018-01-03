@@ -55,10 +55,6 @@ public class address {
     return libtorrent_jni.address_to_string(swigCPtr, this, error_code.getCPtr(ec), ec);
   }
 
-  public static address from_string(String str, error_code ec) {
-    return new address(libtorrent_jni.address_from_string(str, error_code.getCPtr(ec), ec), true);
-  }
-
   public boolean is_loopback() {
     return libtorrent_jni.address_is_loopback(swigCPtr, this);
   }
@@ -77,6 +73,10 @@ public class address {
 
   public static int compare(address a1, address a2) {
     return libtorrent_jni.address_compare(address.getCPtr(a1), a1, address.getCPtr(a2), a2);
+  }
+
+  public static address from_string(String str, error_code ec) {
+    return new address(libtorrent_jni.address_from_string(str, error_code.getCPtr(ec), ec), true);
   }
 
 }
