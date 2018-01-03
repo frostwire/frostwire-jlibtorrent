@@ -55,10 +55,6 @@ public class tracker_error_alert extends tracker_alert {
     return libtorrent_jni.tracker_error_alert_times_in_row_get(swigCPtr, this);
   }
 
-  public int getStatus_code() {
-    return libtorrent_jni.tracker_error_alert_status_code_get(swigCPtr, this);
-  }
-
   public error_code getError() {
     long cPtr = libtorrent_jni.tracker_error_alert_error_get(swigCPtr, this);
     return (cPtr == 0) ? null : new error_code(cPtr, false);

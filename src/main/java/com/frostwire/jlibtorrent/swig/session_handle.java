@@ -211,8 +211,16 @@ public class session_handle {
     libtorrent_jni.session_handle_set_peer_class_filter(swigCPtr, this, ip_filter.getCPtr(f), f);
   }
 
+  public ip_filter get_peer_class_filter() {
+    return new ip_filter(libtorrent_jni.session_handle_get_peer_class_filter(swigCPtr, this), true);
+  }
+
   public void set_peer_class_type_filter(peer_class_type_filter f) {
     libtorrent_jni.session_handle_set_peer_class_type_filter(swigCPtr, this, peer_class_type_filter.getCPtr(f), f);
+  }
+
+  public peer_class_type_filter get_peer_class_type_filter() {
+    return new peer_class_type_filter(libtorrent_jni.session_handle_get_peer_class_type_filter(swigCPtr, this), true);
   }
 
   public int create_peer_class(String name) {
@@ -299,7 +307,6 @@ public class session_handle {
   public final static save_state_flags_t save_settings = new save_state_flags_t(libtorrent_jni.session_handle_save_settings_get(), false);
   public final static save_state_flags_t save_dht_settings = new save_state_flags_t(libtorrent_jni.session_handle_save_dht_settings_get(), false);
   public final static save_state_flags_t save_dht_state = new save_state_flags_t(libtorrent_jni.session_handle_save_dht_state_get(), false);
-  public final static save_state_flags_t save_encryption_settings = new save_state_flags_t(libtorrent_jni.session_handle_save_encryption_settings_get(), false);
   public final static int disk_cache_no_pieces = libtorrent_jni.session_handle_disk_cache_no_pieces_get();
 
   public final static remove_flags_t delete_files = new remove_flags_t(libtorrent_jni.session_handle_delete_files_get(), false);

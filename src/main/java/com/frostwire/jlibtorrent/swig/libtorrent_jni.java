@@ -1657,7 +1657,6 @@ public class libtorrent_jni {
   public final static native long tracker_error_alert_static_category_get();
   public final static native String tracker_error_alert_message(long jarg1, tracker_error_alert jarg1_);
   public final static native int tracker_error_alert_times_in_row_get(long jarg1, tracker_error_alert jarg1_);
-  public final static native int tracker_error_alert_status_code_get(long jarg1, tracker_error_alert jarg1_);
   public final static native long tracker_error_alert_error_get(long jarg1, tracker_error_alert jarg1_);
   public final static native String tracker_error_alert_error_message(long jarg1, tracker_error_alert jarg1_);
   public final static native void delete_tracker_error_alert(long jarg1);
@@ -2585,6 +2584,7 @@ public class libtorrent_jni {
   public final static native void peer_class_type_filter_disallow(long jarg1, peer_class_type_filter jarg1_, int jarg2, int jarg3);
   public final static native void peer_class_type_filter_allow(long jarg1, peer_class_type_filter jarg1_, int jarg2, int jarg3);
   public final static native long peer_class_type_filter_apply(long jarg1, peer_class_type_filter jarg1_, int jarg2, long jarg3);
+  public final static native boolean op_eq__SWIG_0(long jarg1, peer_class_type_filter jarg1_, long jarg2, peer_class_type_filter jarg2_);
   public final static native void delete_peer_class_type_filter(long jarg1);
   public final static native long new_session_handle__SWIG_0();
   public final static native long new_session_handle__SWIG_1(long jarg1, session_handle jarg1_);
@@ -2592,7 +2592,6 @@ public class libtorrent_jni {
   public final static native long session_handle_save_settings_get();
   public final static native long session_handle_save_dht_settings_get();
   public final static native long session_handle_save_dht_state_get();
-  public final static native long session_handle_save_encryption_settings_get();
   public final static native void session_handle_save_state__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, entry jarg2_, long jarg3, save_state_flags_t jarg3_);
   public final static native void session_handle_save_state__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, entry jarg2_);
   public final static native void session_handle_load_state__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, save_state_flags_t jarg3_);
@@ -2635,7 +2634,9 @@ public class libtorrent_jni {
   public final static native int session_handle_ssl_listen_port(long jarg1, session_handle jarg1_);
   public final static native boolean session_handle_is_listening(long jarg1, session_handle jarg1_);
   public final static native void session_handle_set_peer_class_filter(long jarg1, session_handle jarg1_, long jarg2, ip_filter jarg2_);
+  public final static native long session_handle_get_peer_class_filter(long jarg1, session_handle jarg1_);
   public final static native void session_handle_set_peer_class_type_filter(long jarg1, session_handle jarg1_, long jarg2, peer_class_type_filter jarg2_);
+  public final static native long session_handle_get_peer_class_type_filter(long jarg1, session_handle jarg1_);
   public final static native int session_handle_create_peer_class(long jarg1, session_handle jarg1_, String jarg2);
   public final static native void session_handle_delete_peer_class(long jarg1, session_handle jarg1_, int jarg2);
   public final static native long session_handle_get_peer_class(long jarg1, session_handle jarg1_, int jarg2);

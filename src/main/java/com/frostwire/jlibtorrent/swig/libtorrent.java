@@ -153,6 +153,10 @@ public class libtorrent implements libtorrentConstants {
     return new settings_pack(libtorrent_jni.default_settings(), true);
   }
 
+  public static boolean op_eq(peer_class_type_filter lhs, peer_class_type_filter rhs) {
+    return libtorrent_jni.op_eq__SWIG_0(peer_class_type_filter.getCPtr(lhs), lhs, peer_class_type_filter.getCPtr(rhs), rhs);
+  }
+
   public static settings_pack min_memory_usage() {
     return new settings_pack(libtorrent_jni.min_memory_usage(), true);
   }

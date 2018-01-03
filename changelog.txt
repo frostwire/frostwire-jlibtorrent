@@ -1,5 +1,22 @@
 1.2.0.16-RC1(temp)
 
+    * lt:block_size is a constant, no need in passing it around as a variable
+    * lt:remove_peer() and attach_peer() error handling
+    * lt:support forced shutdown/destruction of torrent objects
+    * lt:improve error handling during session shutdown
+    * lt:handle serious errors in on_accept_connection handler
+    * lt:deprecate save_encryption_settings
+    * lt:handle errors in peer_connection
+    * lt:support asio handler allocators in deferred_handler
+    * lt:don't heap-allocate handlers for incoming UDP packets
+    * lt:make the chunk header parser properly fail at end of buffer, and not
+      require zero terminated strings
+    * lt:add getters for peer_class_filter and peer_class_type_filter
+    * lt:attempt to fix disconnections when torrents enter upload mode due to
+      failures
+    * lt:fix local network address mappings
+    * lt:deprecate status_code from tracker_error_alert
+    * lt:make torrent_handler::set_priority() to use peer_classes
     * lt:improve type safety of plugin interface
     * lt:introduce a proper type for pex flags to improve type-safety
     * lt:fix reopening of listen sockets when disabling force-proxy

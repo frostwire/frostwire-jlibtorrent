@@ -62,11 +62,6 @@ public class SessionHandle {
     public static final save_state_flags_t SAVE_DHT_STATE = session_handle.save_dht_state;
 
     /**
-     * Save pe_settings.
-     */
-    public static final save_state_flags_t SAVE_ENCRYPTION_SETTINGS = session_handle.save_encryption_settings;
-
-    /**
      * Loads and saves all session settings, including dht settings,
      * encryption settings and proxy settings. This method
      * internally writes all keys to an {@link entry} that is returned
