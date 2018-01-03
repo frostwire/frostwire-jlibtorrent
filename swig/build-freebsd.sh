@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # boost: download and bootstrap
-rm -rf boost_1_65_1
-wget -nv --show-progress -O boost.zip http://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.zip
+rm -rf boost_1_66_0
+wget -nv --show-progress -O boost.zip https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.zip
 unzip -qq boost.zip
-cd boost_1_65_1
+cd boost_1_66_0
 ./bootstrap.sh
 cd ..
-export BOOST_ROOT=$PWD/boost_1_65_1
+export BOOST_ROOT=$PWD/boost_1_66_0
 
 # openssl: download
 rm -rf openssl-1.1.0g

@@ -1,5 +1,6 @@
 1.2.0.16-RC1(temp)
 
+    * updated to boost 1.66.0
     * lt:block_size is a constant, no need in passing it around as a variable
     * lt:remove_peer() and attach_peer() error handling
     * lt:support forced shutdown/destruction of torrent objects
