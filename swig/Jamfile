@@ -34,6 +34,15 @@ rule libtorrent_linking ( properties * )
     result += <rtti>off ;
     result += <optimization>off ;
 
+    if <target-os>freebsd in $(properties)
+    {
+        result += <library>/torrent//torrent/<link>shared ;
+    }
+    else
+    {
+        result += <library>/torrent//torrent/<link>static ;
+    }
+
     return $(result) ;
 }
 
@@ -62,7 +71,6 @@ lib jlibtorrent
 
     : # requirements
     <conditional>@libtorrent_linking
-    <library>/torrent//torrent/<link>static
     <include>.
     # o2
     <target-os>darwin:<o2>s1

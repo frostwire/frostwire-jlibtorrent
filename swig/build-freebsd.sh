@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
 
+# requirements:
+# FreeBSD 11.1
+# bash
+# git
+# openjdk8
+# gradle
+# wget
+
+# result:
+# you need to copy these libraries together
+# from bin/release/freebsd/x86_64/
+#
+# libboost_system.so.1.66.0
+# libtorrent.so.1.2.0
+# libjlibtorrent.so
+
 # boost: download and bootstrap
 rm -rf boost_1_66_0
 wget -nv --show-progress -O boost.zip https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.zip
@@ -9,11 +25,7 @@ cd boost_1_66_0
 cd ..
 export BOOST_ROOT=$PWD/boost_1_66_0
 
-# openssl: download
-rm -rf openssl-1.1.0g
-wget -nv --show-progress -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.0g.tar.gz
-tar xzf openssl.tar.gz
-export OPENSSL_SOURCE=$PWD/openssl-1.1.0g
+export OPENSSL_ROOT=/usr
 
 # libtorrent: download and checkout revision
 rm -rf libtorrent
@@ -23,26 +35,14 @@ git checkout d635667375b2c98441ef10d9f5208bc745dbfcef
 cd ..
 export LIBTORRENT_ROOT=$PWD/libtorrent
 
-# compile openssl
-rm -rf openssl
-cd $OPENSSL_SOURCE
-export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit
-    no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls
-    no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw
-    no-makedepend no-multiblock no-nextprotoneg no-pic no-posix-io no-psk
-    no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine
-    no-stdio no-threads no-ui no-zlib no-zlib-dynamic
-    -fno-strict-aliasing -fvisibility=hidden -Os"
-./Configure BSD-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl
-echo "Compiling openssl...(remove &> /dev/null to see output)"
-make &> /dev/null
-make install &> /dev/null
-cd ..
-export OPENSSL_ROOT=$PWD/openssl
-
 # compile jlibtorrent
 rm -rf bin
 export B2_PATH=${BOOST_ROOT}/tools/build/src/engine/bin.freebsdx86_64
 ${B2_PATH}/b2 --user-config=config/freebsd-x86_64-config.jam iconv=on variant=release toolset=clang-x86_64 target-os=freebsd location=bin/release/freebsd/x86_64
 strip --strip-unneeded -x bin/release/freebsd/x86_64/libjlibtorrent.so
 readelf -d bin/release/freebsd/x86_64/libjlibtorrent.so
+
+# cd ../ and run gradle test
+cp bin/release/freebsd/x86_64/libboost_system.so.1.66.0 ../
+cp bin/release/freebsd/x86_64/libtorrent.so.1.2.0 ../
+cp bin/release/freebsd/x86_64/libjlibtorrent.so ../
