@@ -90,7 +90,7 @@ public final class StatusDurationTest {
         TorrentInfo ti = new TorrentInfo(torrentFile);
         s.download(ti, torrentFile.getParentFile());
 
-        Utils.awaitMinutes(signal1, "to much time downloading the torrent 2%", 5);
+        Utils.awaitMinutes(signal1, "too much time downloading the torrent 2%", 5);
         assertNull(s.lastAlertError());
 
         s.stop();
