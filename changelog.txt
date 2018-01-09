@@ -1,6 +1,10 @@
 1.2.0.16-RC1(temp)
 
     * updated to boost 1.66.0
+    * lt:raise auto piece size selection limit to 16 MB in create_torrent()
+    * lt:mark up performance counter operations as noexcept
+    * lt:fix noexcept marking on entry, and make move assignment
+    * lt:using make_address instead of deprecated from_string when boost>=1.66
     * lt:block_size is a constant, no need in passing it around as a variable
     * lt:remove_peer() and attach_peer() error handling
     * lt:support forced shutdown/destruction of torrent objects
