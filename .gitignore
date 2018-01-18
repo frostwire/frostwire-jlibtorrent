@@ -16,8 +16,8 @@ frostwire-jlibtorrent.i*
 /test-libtorrent
 /swig/bin
 /swig/build
-/libjlibtorrent.dylib
-/libjlibtorrent.so
-/jlibtorrent.dll
+/libjlibtorrent*.dylib
+/libjlibtorrent*.so
+/jlibtorrent*.dll
 /node/jlibtorrent.node
 /dht_shell.dat

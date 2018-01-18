@@ -70,7 +70,12 @@ using download_priority_t = libtorrent::download_priority_t;
         try {
             String path = System.getProperty("jlibtorrent.jni.path", "");
             if ("".equals(path)) {
-                System.loadLibrary("jlibtorrent-" + jlibtorrentVersion());
+                try {
+                    System.loadLibrary("jlibtorrent-" + jlibtorrentVersion());
+                } catch (LinkageError e) {
+                    // give it a try to the name without version
+                    System.loadLibrary("jlibtorrent");
+                }
             } else {
                 System.load(path);
             }
