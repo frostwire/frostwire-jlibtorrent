@@ -60,18 +60,23 @@ using download_priority_t = libtorrent::download_priority_t;
 #ifdef SWIGJAVA
 
 %pragma(java) jniclasscode=%{
+
+    public static String jlibtorrentVersion() {
+        // extracted from the gradle with the run-swig step
+        return "$JLIBTORRENT_VERSION$";
+    }
+
     static {
         try {
             String path = System.getProperty("jlibtorrent.jni.path", "");
             if ("".equals(path)) {
-                System.loadLibrary("jlibtorrent");
+                System.loadLibrary("jlibtorrent-" + jlibtorrentVersion());
             } else {
                 System.load(path);
             }
         } catch (LinkageError e) {
-            LinkageError le = new LinkageError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent");
-            le.initCause(e);
-            throw le;
+            throw new LinkageError(
+                "Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent", e);
         }
     }
 

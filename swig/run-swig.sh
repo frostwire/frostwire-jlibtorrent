@@ -48,6 +48,10 @@ function runJni()
     # and we know we can do it. The main reason is to be able to
     # compile with -fno-rtti.
     sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
+
+    # replace jlibtorrent version
+    GRADLE_VERSION=`sed -n -e '/^version /s/.* //p' ../build.gradle | tr -d "'"`
+    sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${GRADLE_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
 }
 
 fixAlertFinal

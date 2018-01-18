@@ -10,18 +10,23 @@ package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent_jni {
 
+
+    public static String jlibtorrentVersion() {
+        // extracted from the gradle with the run-swig step
+        return "1.2.0.16-RC1";
+    }
+
     static {
         try {
             String path = System.getProperty("jlibtorrent.jni.path", "");
             if ("".equals(path)) {
-                System.loadLibrary("jlibtorrent");
+                System.loadLibrary("jlibtorrent-" + jlibtorrentVersion());
             } else {
                 System.load(path);
             }
         } catch (LinkageError e) {
-            LinkageError le = new LinkageError("Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent");
-            le.initCause(e);
-            throw le;
+            throw new LinkageError(
+                "Look for your architecture binary instructions at: https://github.com/frostwire/frostwire-jlibtorrent", e);
         }
     }
 

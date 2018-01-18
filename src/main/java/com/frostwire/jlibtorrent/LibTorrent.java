@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.libtorrent_jni;
 import com.frostwire.jlibtorrent.swig.stats_metric_vector;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public final class LibTorrent {
     }
 
     public static String jlibtorrentVersion() {
-        return "1.2.0.16-RC1";
+        return libtorrent_jni.jlibtorrentVersion();
     }
 
     /**
