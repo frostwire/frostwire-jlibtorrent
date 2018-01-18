@@ -1,5 +1,6 @@
 1.2.0.16-RC1
 
+    * using version in native library names
     * updated to boost 1.66.0
     * lt:raise auto piece size selection limit to 16 MB in create_torrent()
     * lt:mark up performance counter operations as noexcept
