@@ -80,7 +80,7 @@ task nativeAndroidArmJar(type: Zip) {
     extension 'jar'
     from fileTree(dir: 'swig/bin/release/android', include: 'armeabi-v7a/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}so")
+    rename(".so", "-${version}.so")
 }
 
 task nativeAndroidX86Jar(type: Zip) {
