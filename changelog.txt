@@ -1,7 +1,10 @@
-1.2.0.16-RC1
+1.2.0.16-RC2(temp)
 
     * using version in native library names
     * updated to boost 1.66.0
+    * lt:fix tracker connection bind issue for IPv6 trackers
+    * lt:fix error handling of merkle torrents
+    * lt:fix error handling of unsupported hard-links
     * lt:raise auto piece size selection limit to 16 MB in create_torrent()
     * lt:mark up performance counter operations as noexcept
     * lt:fix noexcept marking on entry, and make move assignment
