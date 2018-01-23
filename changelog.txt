@@ -1,4 +1,4 @@
-1.2.0.16-RC2
+1.2.0.16-RC3
 
     * using version in native library names
     * updated to boost 1.66.0
