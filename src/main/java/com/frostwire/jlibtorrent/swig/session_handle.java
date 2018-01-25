@@ -179,10 +179,6 @@ public class session_handle {
     libtorrent_jni.session_handle_set_port_filter(swigCPtr, this, port_filter.getCPtr(f), f);
   }
 
-  public sha1_hash id() {
-    return new sha1_hash(libtorrent_jni.session_handle_id(swigCPtr, this), true);
-  }
-
   public static int getGlobal_peer_class_id() {
     return libtorrent_jni.session_handle_global_peer_class_id_get();
   }

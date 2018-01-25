@@ -1,7 +1,8 @@
-1.2.0.16-RC3
+1.2.0.16-RC4(temp)
 
     * using version in native library names
     * updated to boost 1.66.0
+    * lt:use unique peer_ids per connection
     * lt:fix tracker connection bind issue for IPv6 trackers
     * lt:fix error handling of merkle torrents
     * lt:fix error handling of unsupported hard-links

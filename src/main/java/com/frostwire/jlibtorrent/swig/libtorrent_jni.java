@@ -2636,7 +2636,6 @@ public class libtorrent_jni {
   public final static native void session_handle_set_ip_filter(long jarg1, session_handle jarg1_, long jarg2, ip_filter jarg2_);
   public final static native long session_handle_get_ip_filter(long jarg1, session_handle jarg1_);
   public final static native void session_handle_set_port_filter(long jarg1, session_handle jarg1_, long jarg2, port_filter jarg2_);
-  public final static native long session_handle_id(long jarg1, session_handle jarg1_);
   public final static native int session_handle_global_peer_class_id_get();
   public final static native int session_handle_tcp_peer_class_id_get();
   public final static native int session_handle_local_peer_class_id_get();
