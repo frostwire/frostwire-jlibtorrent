@@ -59247,31 +59247,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1id(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::session_handle *arg1 = (libtorrent::session_handle *) 0 ;
-  libtorrent::peer_id result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::session_handle **)&jarg1; 
-  {
-    try {
-      result = ((libtorrent::session_handle const *)arg1)->id();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(libtorrent::peer_id **)&jresult = new libtorrent::peer_id((const libtorrent::peer_id &)result); 
-  return jresult;
-}
-
-
 SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1global_1peer_1class_1id_1get(JNIEnv *jenv, jclass jcls) {
   int jresult = 0 ;
   peer_class_t result;
