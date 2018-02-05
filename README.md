@@ -23,6 +23,7 @@ compile 'com.frostwire:jlibtorrent:1.2.x.x'
 ```
 
 If you use ProGuard to obfuscate/minify make sure to add the following statement
+
 `-keep class com.frostwire.jlibtorrent.swig.libtorrent_jni {*;}`
 
 
