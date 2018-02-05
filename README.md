@@ -22,6 +22,10 @@ or Gradle:
 compile 'com.frostwire:jlibtorrent:1.2.x.x'
 ```
 
+If you use ProGuard to obfuscate/minify make sure to add the following statement
+`-keep class com.frostwire.jlibtorrent.swig.libtorrent_jni {*;}`
+
+
 Note that there are multiple version of jlibtorrent for different platforms: `jlibtorrent`, `jlibtorrent-windows`, `jlibtorrent-linux`, `jlibtorrent-macosx` and `jlibtorrent-android-<arch>`. These are all different artifacts.
 
 For examples look at https://github.com/frostwire/frostwire-jlibtorrent/tree/master/src/test/java/com/frostwire/jlibtorrent/demo
