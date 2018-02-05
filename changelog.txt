@@ -1,3 +1,14 @@
+1.2.0.17-RC1(temp)
+
+    * lt:fix torrent_status::next_announce
+    * lt:turn piece picker option flags into a proper type
+    * lt:fix pad-file scalability issue
+    * lt:made coalesce_reads/coalesce_writes settings take effect on linux
+      and windows
+    * lt:restore support for incoming connections over SOCKS5, disabled by
+      default.
+    * lt:source code cleanup, performance and stability
+
 1.2.0.16
 
     * using version in native library names
