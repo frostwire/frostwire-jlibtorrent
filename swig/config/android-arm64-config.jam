@@ -6,6 +6,7 @@ using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android-clang++ :
     <cxxflags>-fPIC
     <cxxflags>-march=armv8-a+crc
     <cxxflags>-std=c++11
+    <cxxflags>-DANDROID
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
     <linkflags>-static-libstdc++
