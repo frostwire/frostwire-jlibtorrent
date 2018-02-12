@@ -1,4 +1,4 @@
-1.2.0.17-RC1(temp)
+1.2.0.17-RC1
 
     * compiling with -mstackrealign for android x86, some devices have stack
       alignment issues
