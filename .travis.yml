@@ -179,6 +179,7 @@ before_install:
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
       export run_bjam="${BOOST_ROOT}/b2 --user-config=config/android-x86_64-config.jam variant=release toolset=clang-x86_64 target-os=android location=bin/release/android/x86_64";
+      export run_objcopy="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-objcopy --only-keep-debug bin/release/android/x86_64/libjlibtorrent.so bin/release/android/x86_64/libjlibtorrent.so.debug";
       export run_strip="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-strip --strip-unneeded -x bin/release/android/x86_64/libjlibtorrent.so";
       export run_readelf="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-readelf -d bin/release/android/x86_64/libjlibtorrent.so";
       export PATH=$ANDROID_TOOLCHAIN/x86_64-linux-android/bin:$PATH;
@@ -187,12 +188,14 @@ before_install:
   # linux-x86
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
       export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-x86-config.jam variant=release toolset=gcc-x86 target-os=linux location=bin/release/linux/x86";
+      export run_objcopy="objcopy --only-keep-debug bin/release/linux/x86/libjlibtorrent.so bin/release/linux/x86/libjlibtorrent.so.debug";
       export run_strip="strip --strip-unneeded -x bin/release/linux/x86/libjlibtorrent.so";
       export run_readelf="readelf -d bin/release/linux/x86/libjlibtorrent.so";
     fi
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
       export run_bjam="${BOOST_ROOT}/b2 --user-config=config/linux-x86_64-config.jam variant=release toolset=gcc-x86_64 target-os=linux location=bin/release/linux/x86_64";
+      export run_objcopy="objcopy --only-keep-debug bin/release/linux/x86_64/libjlibtorrent.so bin/release/linux/x86_64/libjlibtorrent.so.debug";
       export run_strip="strip --strip-unneeded -x bin/release/linux/x86_64/libjlibtorrent.so";
       export run_readelf="readelf -d bin/release/linux/x86_64/libjlibtorrent.so";
     fi

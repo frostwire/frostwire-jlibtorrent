@@ -10,4 +10,8 @@ using gcc : x86 : g++-5 :
     <linkflags>-static-libstdc++
     <linkflags>-static-libgcc
     <linkflags>"-z noexecstack"
+    # debug information
+    <cxxflags>-g
+    <cxxflags>-gdwarf-4
+    <cxxflags>-ggdb
     ;

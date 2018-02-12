@@ -8,4 +8,9 @@ using clang : x86_64 : $(ANDROID_TOOLCHAIN)/bin/x86_64-linux-android-clang++ :
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
     <linkflags>-static-libstdc++
+    # debug information
+    <cxxflags>-g
+    <cxxflags>-gdwarf-4
+    <cxxflags>-fdebug-macro
+    <cxxflags>-ggdb
     ;
