@@ -878,7 +878,7 @@ public final class TorrentHandle {
      * announce url for the tracker as well as an int {@code tier}, which
      * specifies the order in which this tracker is tried.
      *
-     * @return
+     * @return the list of trackers
      */
     public List<AnnounceEntry> trackers() {
         return TorrentInfo.trackers(th.trackers());
@@ -999,32 +999,24 @@ public final class TorrentHandle {
         return Vectors.string_vector2list(th.get_http_seeds());
     }
 
-    // ``use_interface()`` sets the network interface this torrent will use
-    // when it opens outgoing connections. By default, it uses the same
-    // interface as the session uses to listen on. The parameter must be a
-    // string containing one or more, comma separated, ip-address (either an
-    // IPv4 or IPv6 address). When specifying multiple interfaces, the
-    // torrent will round-robin which interface to use for each outgoing
-    // connection. This is useful for clients that are multi-homed.
-//    public void useInterface(String netInterface) {
-//        th.use_interface(netInterface);
-//    }
-
-    // Fills the specified ``std::vector<int>`` with the availability for
-    // each piece in this torrent. libtorrent does not keep track of
-    // availability for seeds, so if the torrent is seeding the availability
-    // for all pieces is reported as 0.
-    //
-    // The piece availability is the number of peers that we are connected
-    // that has advertised having a particular piece. This is the information
-    // that libtorrent uses in order to prefer picking rare pieces.
-    public int[] getPieceAvailability() {
+    /**
+     * Returns an array with the availability for each piece in this torrent.
+     * libtorrent does not keep track of availability for seeds, so if the
+     * torrent is seeding the availability for all pieces is reported as 0.
+     * <p>
+     * The piece availability is the number of peers that we are connected
+     * that has advertised having a particular piece. This is the information
+     * that libtorrent uses in order to prefer picking rare pieces.
+     *
+     * @return the array with piece availability
+     */
+    public int[] pieceAvailability() {
         int_vector v = new int_vector();
         th.piece_availability(v);
         return Vectors.int_vector2ints(v);
     }
 
-    // These functions are used to set and get the prioritiy of individual
+    // These functions are used to set and get the priority of individual
     // pieces. By default all pieces have priority 1. That means that the
     // random rarest first algorithm is effectively active for all pieces.
     // You may however change the priority of individual pieces. There are 8

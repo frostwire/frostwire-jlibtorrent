@@ -35,15 +35,15 @@ public enum StorageMode {
     private final int swigValue;
 
     /**
-     * @return
+     * @return the native value
      */
     public int swig() {
         return swigValue;
     }
 
     /**
-     * @param swigValue
-     * @return
+     * @param swigValue the native value
+     * @return the java enum
      */
     public static StorageMode fromSwig(int swigValue) {
         StorageMode[] enumValues = StorageMode.class.getEnumConstants();
