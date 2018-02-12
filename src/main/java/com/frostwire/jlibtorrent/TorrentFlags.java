@@ -155,10 +155,12 @@ public final class TorrentFlags {
     // list of web seeds used by the torrent.
     public static final torrent_flags_t OVERRIDE_WEB_SEEDS = libtorrent.getOverride_web_seeds();
 
-    // if this flag is set (which it is by default) the torrent will be
-    // considered needing to save its resume data immediately as it's
-    // added. New torrents that don't have any resume data should do that.
-    // This flag is cleared by a successful call to save_resume_data()
+    /**
+     * If this flag is set (which it is by default) the torrent will be
+     * considered needing to save its resume data immediately as it's
+     * added. New torrents that don't have any resume data should do that.
+     * This flag is cleared by a successful call to save_resume_data()
+     */
     public static final torrent_flags_t NEED_SAVE_RESUME = libtorrent.getNeed_save_resume();
 
     public static final torrent_flags_t ALL = libtorrent.getAll();
