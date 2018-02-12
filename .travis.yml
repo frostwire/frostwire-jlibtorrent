@@ -116,7 +116,7 @@ before_install:
   # android-x86
   - if [[ $os_build == "android" && $os_arch == "x86" ]]; then
       export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android-clang;
-      export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
+      export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -mstackrealign --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # android-x86_64
   - if [[ $os_build == "android" && $os_arch == "x86_64" ]]; then
