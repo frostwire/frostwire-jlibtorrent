@@ -30,6 +30,7 @@
 #include <libtorrent/extensions.hpp>
 #include <libtorrent/bloom_filter.hpp>
 #include <libtorrent/announce_entry.hpp>
+#include <libtorrent/enum_net.hpp>
 
 #include <libtorrent/kademlia/dht_tracker.hpp>
 #include <libtorrent/kademlia/node_entry.hpp>
@@ -211,6 +212,65 @@ struct swig_plugin : libtorrent::plugin {
         return false;
     }
 };
+
+// enum_net functions, very useful for networking
+struct ip_interface
+{
+    libtorrent::address interface_address;
+    libtorrent::address netmask;
+    std::vector<std::int8_t> name;
+    bool preferred;
+};
+
+struct ip_route
+{
+    libtorrent::address destination;
+    libtorrent::address netmask;
+    libtorrent::address gateway;
+    std::vector<std::int8_t> name;
+    int mtu;
+};
+
+std::vector<ip_interface> enum_net_interfaces(libtorrent::session* s)
+{
+    std::vector<ip_interface> ret;
+    boost::system::error_code ec;
+    auto v = libtorrent::enum_net_interfaces(s->get_io_service(), ec);
+    for (auto& e : v)
+    {
+        ip_interface iface;
+        iface.interface_address = e.interface_address;
+        iface.netmask = e.netmask;
+        iface.name = {e.name, e.name + sizeof(e.name)};
+        iface.preferred = e.preferred;
+        ret.push_back(iface);
+    }
+    return ret;
+}
+
+std::vector<ip_route> enum_routes(libtorrent::session* s)
+{
+    std::vector<ip_route> ret;
+    boost::system::error_code ec;
+    auto v = libtorrent::enum_routes(s->get_io_service(), ec);
+    for (auto& e : v)
+    {
+        ip_route r;
+        r.destination = e.destination;
+        r.netmask = e.netmask;
+        r.gateway = e.gateway;
+        r.name = {e.name, e.name + sizeof(e.name)};
+        r.mtu = e.mtu;
+        ret.push_back(r);
+    }
+    return ret;
+}
+
+libtorrent::address get_default_gateway(libtorrent::session* s)
+{
+    boost::system::error_code ec;
+    return libtorrent::get_default_gateway(s->get_io_service(), ec);
+}
 
 #if defined TORRENT_ANDROID && TORRENT_HAS_ARM && __ANDROID_API__ < 21
 #include <stdio.h>

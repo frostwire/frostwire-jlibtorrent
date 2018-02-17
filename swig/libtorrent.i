@@ -327,6 +327,9 @@ namespace std {
     %template(string_entry_map) map<std::string, libtorrent::entry>;
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
+
+    %template(ip_interface_vector) vector<ip_interface>;
+    %template(ip_route_vector) vector<ip_route>;
 };
 
 namespace libtorrent {
