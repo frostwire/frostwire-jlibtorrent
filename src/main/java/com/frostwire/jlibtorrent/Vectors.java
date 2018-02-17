@@ -106,8 +106,17 @@ public final class Vectors {
 
     public static String byte_vector2string(byte_vector v, String encoding) {
         byte[] arr = Vectors.byte_vector2bytes(v);
+
+        int n = arr.length;
+        // special case of ASCII
+        if ("US-ASCII".equals(encoding)) {
+            for (n = 0; n < arr.length && arr[n] != 0; ) {
+                n++;
+            }
+        }
+
         try {
-            return new String(arr, encoding);
+            return new String(arr, 0, n, encoding);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
