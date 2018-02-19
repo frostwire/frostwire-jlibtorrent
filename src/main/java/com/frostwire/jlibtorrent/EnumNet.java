@@ -53,12 +53,16 @@ public final class EnumNet {
         private final Address interfaceAddress;
         private final Address netmask;
         private final String name;
+        private final String friendlyName;
+        private final String description;
         private final boolean preferred;
 
         IpInterface(ip_interface iface) {
             this.interfaceAddress = new Address(iface.getInterface_address());
             this.netmask = new Address(iface.getNetmask());
             this.name = Vectors.byte_vector2string(iface.getName(), "US-ASCII");
+            this.friendlyName = Vectors.byte_vector2string(iface.getFriendly_name(), "US-ASCII");
+            this.description = Vectors.byte_vector2string(iface.getDescription(), "US-ASCII");
             this.preferred = iface.getPreferred();
         }
 
@@ -74,6 +78,14 @@ public final class EnumNet {
             return name;
         }
 
+        public String friendlyName() {
+            return friendlyName;
+        }
+
+        public String description() {
+            return description;
+        }
+
         public boolean preferred() {
             return preferred;
         }
@@ -85,6 +97,8 @@ public final class EnumNet {
             sb.append("address: ").append(interfaceAddress);
             sb.append(", netmask: ").append(netmask);
             sb.append(", name: ").append(name);
+            sb.append(", friendlyName: ").append(friendlyName);
+            sb.append(", description: ").append(description);
             sb.append(", preferred: ").append(preferred);
 
             return sb.toString();

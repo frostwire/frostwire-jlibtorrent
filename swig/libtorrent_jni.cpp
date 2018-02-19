@@ -67559,6 +67559,64 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_
 }
 
 
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1interface_1friendly_1name_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ip_interface *arg1 = (ip_interface *) 0 ;
+  std::vector< std::int8_t > *arg2 = (std::vector< std::int8_t > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ip_interface **)&jarg1; 
+  arg2 = *(std::vector< std::int8_t > **)&jarg2; 
+  if (arg1) (arg1)->friendly_name = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1interface_1friendly_1name_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ip_interface *arg1 = (ip_interface *) 0 ;
+  std::vector< std::int8_t > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ip_interface **)&jarg1; 
+  result = (std::vector< std::int8_t > *)& ((arg1)->friendly_name);
+  *(std::vector< std::int8_t > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1interface_1description_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ip_interface *arg1 = (ip_interface *) 0 ;
+  std::vector< std::int8_t > *arg2 = (std::vector< std::int8_t > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ip_interface **)&jarg1; 
+  arg2 = *(std::vector< std::int8_t > **)&jarg2; 
+  if (arg1) (arg1)->description = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1interface_1description_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ip_interface *arg1 = (ip_interface *) 0 ;
+  std::vector< std::int8_t > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ip_interface **)&jarg1; 
+  result = (std::vector< std::int8_t > *)& ((arg1)->description);
+  *(std::vector< std::int8_t > **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1interface_1preferred_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
   ip_interface *arg1 = (ip_interface *) 0 ;
   bool arg2 ;
