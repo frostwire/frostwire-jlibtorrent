@@ -1,5 +1,6 @@
-1.2.0.17-RC1
+1.2.0.17-RC2(temp)
 
+    * added EnumNet java API to help query the device network state/status/info
     * compiling with -mstackrealign for android x86, some devices have stack
       alignment issues
     * lt:defer truncating existing files until the first time we write to them
