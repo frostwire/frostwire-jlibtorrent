@@ -219,6 +219,8 @@ struct ip_interface
     libtorrent::address interface_address;
     libtorrent::address netmask;
     std::vector<std::int8_t> name;
+    std::vector<std::int8_t> friendly_name;
+    std::vector<std::int8_t> description;
     bool preferred;
 };
 
@@ -242,6 +244,8 @@ std::vector<ip_interface> enum_net_interfaces(libtorrent::session* s)
         iface.interface_address = e.interface_address;
         iface.netmask = e.netmask;
         iface.name = {e.name, e.name + sizeof(e.name)};
+        iface.friendly_name = {e.friendly_name, e.friendly_name + sizeof(e.friendly_name)};
+        iface.description = {e.description, e.description + sizeof(e.description)};
         iface.preferred = e.preferred;
         ret.push_back(iface);
     }

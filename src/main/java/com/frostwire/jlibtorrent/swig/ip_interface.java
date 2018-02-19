@@ -62,6 +62,24 @@ public class ip_interface {
     return (cPtr == 0) ? null : new byte_vector(cPtr, false);
   }
 
+  public void setFriendly_name(byte_vector value) {
+    libtorrent_jni.ip_interface_friendly_name_set(swigCPtr, this, byte_vector.getCPtr(value), value);
+  }
+
+  public byte_vector getFriendly_name() {
+    long cPtr = libtorrent_jni.ip_interface_friendly_name_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new byte_vector(cPtr, false);
+  }
+
+  public void setDescription(byte_vector value) {
+    libtorrent_jni.ip_interface_description_set(swigCPtr, this, byte_vector.getCPtr(value), value);
+  }
+
+  public byte_vector getDescription() {
+    long cPtr = libtorrent_jni.ip_interface_description_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new byte_vector(cPtr, false);
+  }
+
   public void setPreferred(boolean value) {
     libtorrent_jni.ip_interface_preferred_set(swigCPtr, this, value);
   }

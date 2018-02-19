@@ -3040,6 +3040,10 @@ public class libtorrent_jni {
   public final static native long ip_interface_netmask_get(long jarg1, ip_interface jarg1_);
   public final static native void ip_interface_name_set(long jarg1, ip_interface jarg1_, long jarg2, byte_vector jarg2_);
   public final static native long ip_interface_name_get(long jarg1, ip_interface jarg1_);
+  public final static native void ip_interface_friendly_name_set(long jarg1, ip_interface jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native long ip_interface_friendly_name_get(long jarg1, ip_interface jarg1_);
+  public final static native void ip_interface_description_set(long jarg1, ip_interface jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native long ip_interface_description_get(long jarg1, ip_interface jarg1_);
   public final static native void ip_interface_preferred_set(long jarg1, ip_interface jarg1_, boolean jarg2);
   public final static native boolean ip_interface_preferred_get(long jarg1, ip_interface jarg1_);
   public final static native long new_ip_interface();
