@@ -305,7 +305,7 @@ public final class TorrentHandle {
      * If this handle is to a torrent that hasn't loaded yet (for instance by being added)
      * by a URL, the returned value is undefined.
      *
-     * @return
+     * @return the torrent info hash
      */
     public Sha1Hash infoHash() {
         return new Sha1Hash(th.info_hash());
@@ -372,25 +372,25 @@ public final class TorrentHandle {
      * Note that by the time you get the alert, libtorrent may have cached
      * more data for the torrent, but you are guaranteed that whatever cached
      * data libtorrent had by the time you called
-     * {@link #flushCache()} has been written to disk.
+     * {@code flushCache()} has been written to disk.
      */
     public void flushCache() {
         th.flush_cache();
     }
 
     /**
-     * This function returns true if any whole chunk has been downloaded
+     * Returns true if any whole chunk has been downloaded
      * since the torrent was first loaded or since the last time the resume
      * data was saved. When saving resume data periodically, it makes sense
      * to skip any torrent which hasn't downloaded anything since the last
      * time.
      * <p>
-     * .. note::
      * A torrent's resume data is considered saved as soon as the alert is
      * posted. It is important to make sure this alert is received and
      * handled in order for this function to be meaningful.
      *
-     * @return
+     * @return true if data has been downloaded since the last time the resume
+     * data was saved.
      */
     public boolean needSaveResumeData() {
         return th.need_save_resume_data();
