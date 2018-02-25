@@ -1,8 +1,10 @@
-1.2.0.17-RC2
+1.2.0.17(temp)
 
     * added EnumNet java API to help query the device network state/status/info
     * compiling with -mstackrealign for android x86, some devices have stack
       alignment issues
+    * lt:fix tie-break in duplicate peer connection disconnect logic
+    * lt:fix issue with SSL tracker connections left in CLOSE_WAIT state
     * lt:defer truncating existing files until the first time we write to them
     * lt:fix issue when receiving a torrent with 0-sized padfiles as magnet link
     * lt:fix issue resuming 1.0.x downloads with a file priority 0
@@ -11,8 +13,6 @@
     * lt:fix pad-file scalability issue
     * lt:made coalesce_reads/coalesce_writes settings take effect on linux
       and windows
-    * lt:restore support for incoming connections over SOCKS5, disabled by
-      default.
     * lt:source code cleanup, performance and stability
 
 1.2.0.16
