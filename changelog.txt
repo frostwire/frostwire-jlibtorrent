@@ -1,4 +1,4 @@
-1.2.0.17(temp)
+1.2.0.17
 
     * added EnumNet java API to help query the device network state/status/info
     * compiling with -mstackrealign for android x86, some devices have stack
