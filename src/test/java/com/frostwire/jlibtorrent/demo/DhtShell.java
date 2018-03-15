@@ -44,6 +44,7 @@ public final class DhtShell {
 
         SessionManager s = new SessionManager();
         s.addListener(mainListener);
+        s.start();
 
         try {
             File f = new File("dht_shell.dat");
