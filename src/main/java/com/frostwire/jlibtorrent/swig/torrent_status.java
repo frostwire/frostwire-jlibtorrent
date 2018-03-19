@@ -77,20 +77,16 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_error_file_none_get();
   }
 
-  public static int getError_file_url() {
-    return libtorrent_jni.torrent_status_error_file_url_get();
-  }
-
   public static int getError_file_ssl_ctx() {
     return libtorrent_jni.torrent_status_error_file_ssl_ctx_get();
   }
 
-  public static int getError_file_metadata() {
-    return libtorrent_jni.torrent_status_error_file_metadata_get();
-  }
-
   public static int getError_file_exception() {
     return libtorrent_jni.torrent_status_error_file_exception_get();
+  }
+
+  public static int getError_file_partfile() {
+    return libtorrent_jni.torrent_status_error_file_partfile_get();
   }
 
   public void setSave_path(String value) {

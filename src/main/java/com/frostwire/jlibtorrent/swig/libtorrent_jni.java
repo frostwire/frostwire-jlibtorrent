@@ -2869,10 +2869,9 @@ public class libtorrent_jni {
   public final static native void torrent_status_error_file_set(long jarg1, torrent_status jarg1_, int jarg2);
   public final static native int torrent_status_error_file_get(long jarg1, torrent_status jarg1_);
   public final static native int torrent_status_error_file_none_get();
-  public final static native int torrent_status_error_file_url_get();
   public final static native int torrent_status_error_file_ssl_ctx_get();
-  public final static native int torrent_status_error_file_metadata_get();
   public final static native int torrent_status_error_file_exception_get();
+  public final static native int torrent_status_error_file_partfile_get();
   public final static native void torrent_status_save_path_set(long jarg1, torrent_status jarg1_, String jarg2);
   public final static native String torrent_status_save_path_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_name_set(long jarg1, torrent_status jarg1_, String jarg2);

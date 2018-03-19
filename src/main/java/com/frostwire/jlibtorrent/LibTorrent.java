@@ -46,7 +46,7 @@ public final class LibTorrent {
      * @return the git revision
      */
     public static String revision() {
-        return "0221f6e8a6e0f5ec7a9e34f21870ded0f67a2cc4";
+        return "61ae2c834b3efaa643c00cf77847ac49ed1fb4d6";
     }
 
     public static int boostVersionNum() {
