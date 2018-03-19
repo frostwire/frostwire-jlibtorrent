@@ -1,3 +1,17 @@
+1.2.0.18-RC1(temp)
+
+    * lt:stat files in the disk thread, in default_storage::initialize()
+      instead of the constructor
+    * lt:dynamically load getauxval so as to support older android devices
+    * lt:track whether a file is eligible for using the partfile on a per-file
+      basis
+    * lt:define NETLINK_NO_ENOBUFS and IFA_D_DADFAILED if they don't exist
+    * lt:fix reporting &redundant= in tracker announces
+    * lt:fix windows build with UNC paths disabled
+    * lt:fix issue querying block size from torrent before metadata has been
+      received
+    * lt:source code cleanup, performance and stability
+
 1.2.0.17
 
     * added EnumNet java API to help query the device network state/status/info

@@ -42,7 +42,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 0221f6e8a6e0f5ec7a9e34f21870ded0f67a2cc4
+  - git checkout 61ae2c834b3efaa643c00cf77847ac49ed1fb4d6
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -54,9 +54,6 @@ before_install:
       export NDK=$PWD/android-ndk-r16b;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
-    fi
-  - if [[ $os_build == "android" && $os_arch == "arm" && $android_api == "16" ]]; then
-      echo "unsigned long int getauxval(unsigned long int type) __attribute__((weak));" >> $PWD/android-toolchain/sysroot/usr/include/sys/auxv.h;
     fi
   - if [[ $os_build == "android" && $android_api == "16" ]]; then
       sed -i 's/using ::fgetpos;//g' $PWD/android-toolchain/include/c++/4.9.x/cstdio;

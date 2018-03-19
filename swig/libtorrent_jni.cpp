@@ -64580,20 +64580,6 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
 }
 
 
-SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1error_1file_1url_1get(JNIEnv *jenv, jclass jcls) {
-  int jresult = 0 ;
-  file_index_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = libtorrent::torrent_status::error_file_url;
-  {
-    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
-  }
-  return jresult;
-}
-
-
 SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1error_1file_1ssl_1ctx_1get(JNIEnv *jenv, jclass jcls) {
   int jresult = 0 ;
   file_index_t result;
@@ -64608,20 +64594,6 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
 }
 
 
-SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1error_1file_1metadata_1get(JNIEnv *jenv, jclass jcls) {
-  int jresult = 0 ;
-  file_index_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = libtorrent::torrent_status::error_file_metadata;
-  {
-    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
-  }
-  return jresult;
-}
-
-
 SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1error_1file_1exception_1get(JNIEnv *jenv, jclass jcls) {
   int jresult = 0 ;
   file_index_t result;
@@ -64629,6 +64601,20 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torre
   (void)jenv;
   (void)jcls;
   result = libtorrent::torrent_status::error_file_exception;
+  {
+    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1status_1error_1file_1partfile_1get(JNIEnv *jenv, jclass jcls) {
+  int jresult = 0 ;
+  file_index_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = libtorrent::torrent_status::error_file_partfile;
   {
     jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
   }
