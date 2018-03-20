@@ -3062,6 +3062,7 @@ public class libtorrent_jni {
   public final static native long enum_net_interfaces(long jarg1, session jarg1_);
   public final static native long enum_routes(long jarg1, session jarg1_);
   public final static native long get_default_gateway(long jarg1, session jarg1_);
+  public final static native boolean arm_neon_support();
   public final static native void posix_stat_t_size_set(long jarg1, posix_stat_t jarg1_, long jarg2);
   public final static native long posix_stat_t_size_get(long jarg1, posix_stat_t jarg1_);
   public final static native void posix_stat_t_atime_set(long jarg1, posix_stat_t jarg1_, long jarg2);

@@ -40,6 +40,8 @@
 #include <libtorrent/kademlia/item.hpp>
 #include <libtorrent/kademlia/ed25519.hpp>
 
+#include <libtorrent/aux_/cpuid.hpp>
+
 std::vector<int8_t> ed25519_create_seed() {
     std::array<char, 32> seed = libtorrent::dht::ed25519_create_seed();
     return std::vector<int8_t>(seed.data(), seed.end());
@@ -274,6 +276,11 @@ libtorrent::address get_default_gateway(libtorrent::session* s)
 {
     boost::system::error_code ec;
     return libtorrent::get_default_gateway(s->get_io_service(), ec);
+}
+
+bool arm_neon_support()
+{
+    return libtorrent::aux::arm_neon_support;
 }
 
 #if defined TORRENT_ANDROID && TORRENT_HAS_ARM && TORRENT_USE_ASSERTS
