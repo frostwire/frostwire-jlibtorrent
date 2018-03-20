@@ -1,5 +1,9 @@
 1.2.0.18-RC1(temp)
 
+    * expose to java SWIG api the aux::arm_neon_support flag for android
+      runtime verification
+    * remove hack of custom getauxval definition
+    * null check protection in EnumNet
     * lt:stat files in the disk thread, in default_storage::initialize()
       instead of the constructor
     * lt:dynamically load getauxval so as to support older android devices
