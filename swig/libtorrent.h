@@ -276,31 +276,6 @@ libtorrent::address get_default_gateway(libtorrent::session* s)
     return libtorrent::get_default_gateway(s->get_io_service(), ec);
 }
 
-#if defined TORRENT_ANDROID && TORRENT_HAS_ARM && __ANDROID_API__ < 21
-#include <stdio.h>
-unsigned long getauxval(unsigned long type) {
-    typedef unsigned long getauxval_func_t(unsigned long);
-
-    dlerror();
-    void* libc_handle = dlopen("libc.so", RTLD_NOW);
-    if (!libc_handle) {
-        printf("Could not dlopen() C library: %s\n", dlerror());
-        return 0;
-    }
-
-    unsigned long ret = 0;
-    getauxval_func_t* func = (getauxval_func_t*) dlsym(libc_handle, "getauxval");
-    if (!func) {
-        printf("Could not find getauxval() in C library\n");
-    } else {
-        // Note: getauxval() returns 0 on failure. Doesn't touch errno.
-        ret = (*func)(type);
-    }
-    dlclose(libc_handle);
-    return ret;
-}
-#endif
-
 #if defined TORRENT_ANDROID && TORRENT_HAS_ARM && TORRENT_USE_ASSERTS
 // assuming no overflow, remove it when this issue is fixed
 // https://github.com/android-ndk/ndk/issues/184
