@@ -9,6 +9,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +22,10 @@ public final class EnumNet {
     }
 
     public static List<IpInterface> enumInterfaces(SessionManager session) {
+        if (session.swig() == null) {
+            return Collections.emptyList();
+        }
+
         ip_interface_vector v = libtorrent.enum_net_interfaces(session.swig());
         int size = (int) v.size();
         ArrayList<IpInterface> l = new ArrayList<>(size);
@@ -33,6 +38,10 @@ public final class EnumNet {
     }
 
     public static List<IpRoute> enumRoutes(SessionManager session) {
+        if (session.swig() == null) {
+            return Collections.emptyList();
+        }
+
         ip_route_vector v = libtorrent.enum_routes(session.swig());
         int size = (int) v.size();
         ArrayList<IpRoute> l = new ArrayList<>(size);
@@ -45,6 +54,10 @@ public final class EnumNet {
     }
 
     public static Address defaultGateway(SessionManager session) {
+        if (session.swig() == null) {
+            return new Address();
+        }
+
         return new Address(libtorrent.get_default_gateway(session.swig()));
     }
 
