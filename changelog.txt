@@ -1,6 +1,7 @@
 1.2.0.18-RC1
 
     * using android NDK r17 beta1
+    * updated to OpenSSL 1.1.0h
     * expose to java SWIG api the aux::arm_neon_support flag for android
       runtime verification
     * remove hack of custom getauxval definition
