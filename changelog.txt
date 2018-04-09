@@ -1,4 +1,4 @@
-1.2.0.18-RC1
+1.2.0.18-RC2(temp)
 
     * using android NDK r17 beta1
     * updated to OpenSSL 1.1.0h
@@ -6,6 +6,20 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:remove the global cache of the current time, just use clock::now()
+    * lt:deprecated alert::progress_notification alert category, split into
+      finer grained categories
+    * lt:disk_io_thread abort_hash_jobs duplicate code refactor
+    * lt:fix part-file header allocation
+    * lt:fix potential fd leak in enum_net_interfaces
+    * lt:don't perform DNS lookups for the DHT bootstrap unless DHT is enabled
+    * lt:avoid calls to .address() when looking for endpoint protocol
+    * lt:removed unnecessary loop in request_a_block
+    * lt:fix changing file priorities while checking interrupts checking
+    * lt:fix issue where the current tracker would be skipped for the next
+      tracker in the same tier
+    * lt:remove redundant check in tracker announce
+    * lt:minor fixes in utp_socket_impl
     * lt:stat files in the disk thread, in default_storage::initialize()
       instead of the constructor
     * lt:dynamically load getauxval so as to support older android devices

@@ -497,7 +497,6 @@ public class alert {
   public final static alert_category_t tracker_notification = new alert_category_t(libtorrent_jni.alert_tracker_notification_get(), false);
   public final static alert_category_t debug_notification = new alert_category_t(libtorrent_jni.alert_debug_notification_get(), false);
   public final static alert_category_t status_notification = new alert_category_t(libtorrent_jni.alert_status_notification_get(), false);
-  public final static alert_category_t progress_notification = new alert_category_t(libtorrent_jni.alert_progress_notification_get(), false);
   public final static alert_category_t ip_block_notification = new alert_category_t(libtorrent_jni.alert_ip_block_notification_get(), false);
   public final static alert_category_t performance_warning = new alert_category_t(libtorrent_jni.alert_performance_warning_get(), false);
   public final static alert_category_t dht_notification = new alert_category_t(libtorrent_jni.alert_dht_notification_get(), false);
@@ -510,5 +509,9 @@ public class alert {
   public final static alert_category_t dht_operation_notification = new alert_category_t(libtorrent_jni.alert_dht_operation_notification_get(), false);
   public final static alert_category_t port_mapping_log_notification = new alert_category_t(libtorrent_jni.alert_port_mapping_log_notification_get(), false);
   public final static alert_category_t picker_log_notification = new alert_category_t(libtorrent_jni.alert_picker_log_notification_get(), false);
+  public final static alert_category_t file_progress_notification = new alert_category_t(libtorrent_jni.alert_file_progress_notification_get(), false);
+  public final static alert_category_t piece_progress_notification = new alert_category_t(libtorrent_jni.alert_piece_progress_notification_get(), false);
+  public final static alert_category_t upload_notification = new alert_category_t(libtorrent_jni.alert_upload_notification_get(), false);
+  public final static alert_category_t block_progress_notification = new alert_category_t(libtorrent_jni.alert_block_progress_notification_get(), false);
   public final static alert_category_t all_categories = new alert_category_t(libtorrent_jni.alert_all_categories_get(), false);
 }

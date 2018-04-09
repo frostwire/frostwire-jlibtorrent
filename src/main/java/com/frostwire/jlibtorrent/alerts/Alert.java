@@ -18,7 +18,6 @@ public interface Alert<T extends alert> {
     alert_category_t TRACKER_NOTIFICATION = alert.tracker_notification;
     alert_category_t DEBUG_NOTIFICATION = alert.debug_notification;
     alert_category_t STATUS_NOTIFICATION = alert.status_notification;
-    alert_category_t PROGRESS_NOTIFICATION = alert.progress_notification;
     alert_category_t IP_BLOCK_NOTIFICATION = alert.ip_block_notification;
     alert_category_t PERFORMANCE_WARNING = alert.performance_warning;
     alert_category_t DHT_NOTIFICATION = alert.dht_notification;
@@ -31,6 +30,10 @@ public interface Alert<T extends alert> {
     alert_category_t DHT_OPERATION_NOTIFICATION = alert.dht_operation_notification;
     alert_category_t PORT_MAPPING_LOG_NOTIFICATION = alert.port_mapping_log_notification;
     alert_category_t PICKER_LOG_NOTIFICATION = alert.picker_log_notification;
+    alert_category_t FILE_PROGRESS_NOTIFICATION = alert.file_progress_notification;
+    alert_category_t PIECE_PROGRESS_NOTIFICATION = alert.piece_progress_notification;
+    alert_category_t UPLOAD_NOTIFICATION = alert.upload_notification;
+    alert_category_t BLOCK_PROGRESS_NOTIFICATION = alert.block_progress_notification;
     alert_category_t ALL_CATEGORIES = alert.all_categories;
 
     /**
