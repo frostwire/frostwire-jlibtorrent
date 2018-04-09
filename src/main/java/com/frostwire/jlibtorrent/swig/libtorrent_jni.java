@@ -1488,7 +1488,6 @@ public class libtorrent_jni {
   public final static native long alert_tracker_notification_get();
   public final static native long alert_debug_notification_get();
   public final static native long alert_status_notification_get();
-  public final static native long alert_progress_notification_get();
   public final static native long alert_ip_block_notification_get();
   public final static native long alert_performance_warning_get();
   public final static native long alert_dht_notification_get();
@@ -1501,6 +1500,10 @@ public class libtorrent_jni {
   public final static native long alert_dht_operation_notification_get();
   public final static native long alert_port_mapping_log_notification_get();
   public final static native long alert_picker_log_notification_get();
+  public final static native long alert_file_progress_notification_get();
+  public final static native long alert_piece_progress_notification_get();
+  public final static native long alert_upload_notification_get();
+  public final static native long alert_block_progress_notification_get();
   public final static native long alert_all_categories_get();
   public final static native void delete_alert(long jarg1);
   public final static native int alert_type(long jarg1, alert jarg1_);
