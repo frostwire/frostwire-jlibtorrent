@@ -6,6 +6,8 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:strtoll() returns LLONG_MAX if the input overflows, handle this case
+      properly in the http parser
     * lt:remove the global cache of the current time, just use clock::now()
     * lt:deprecated alert::progress_notification alert category, split into
       finer grained categories
