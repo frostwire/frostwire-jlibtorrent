@@ -12,18 +12,18 @@
 # you need to copy these libraries together
 # from bin/release/freebsd/x86_64/
 #
-# libboost_system.so.1.66.0
+# libboost_system.so.1.67.0
 # libtorrent.so.1.2.0
 # libjlibtorrent.so
 
 # boost: download and bootstrap
-rm -rf boost_1_66_0
-wget -nv --show-progress -O boost.zip https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.zip
+rm -rf boost_1_67_0
+wget -nv --show-progress -O boost.zip https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.zip
 unzip -qq boost.zip
-cd boost_1_66_0
+cd boost_1_67_0
 ./bootstrap.sh
 cd ..
-export BOOST_ROOT=$PWD/boost_1_66_0
+export BOOST_ROOT=$PWD/boost_1_67_0
 
 export OPENSSL_ROOT=/usr
 
@@ -43,6 +43,6 @@ strip --strip-unneeded -x bin/release/freebsd/x86_64/libjlibtorrent.so
 readelf -d bin/release/freebsd/x86_64/libjlibtorrent.so
 
 # cd ../ and run gradle test
-cp bin/release/freebsd/x86_64/libboost_system.so.1.66.0 ../
+cp bin/release/freebsd/x86_64/libboost_system.so.1.67.0 ../
 cp bin/release/freebsd/x86_64/libtorrent.so.1.2.0 ../
 cp bin/release/freebsd/x86_64/libjlibtorrent.so ../
