@@ -22,12 +22,12 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.zip
+  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_66_0
+  - cd boost_1_67_0
   - ./bootstrap.sh
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_66_0
+  - export BOOST_ROOT=$PWD/boost_1_67_0
 
 # openssl: download
   - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.0h.tar.gz
