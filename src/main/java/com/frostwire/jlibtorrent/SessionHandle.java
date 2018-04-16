@@ -177,7 +177,7 @@ public class SessionHandle {
     /**
      * This will cause a dht_stats_alert to be posted.
      */
-    public void postDHTStats() {
+    public void postDhtStats() {
         s.post_dht_stats();
     }
 
@@ -350,18 +350,18 @@ public class SessionHandle {
     // ``add_dht_node`` adds a node to the routing table. This can be used if
     // your client has its own source of bootstrapping nodes.
     //
-    // ``set_dht_settings`` sets some parameters availavle to the dht node.
+    // ``set_dht_settings`` sets some parameters available to the dht node.
     // See dht_settings for more information.
     //
     // ``is_dht_running()`` returns true if the DHT support has been started
     // and false
     // otherwise.
 
-    void setDHTSettings(DhtSettings settings) {
+    void setDhtSettings(DhtSettings settings) {
         s.set_dht_settings(settings.swig());
     }
 
-    public boolean isDHTRunning() {
+    public boolean isDhtRunning() {
         return s.is_dht_running();
     }
 
@@ -372,7 +372,7 @@ public class SessionHandle {
      *
      * @param node
      */
-    public void addDHTNode(Pair<String, Integer> node) {
+    public void addDhtNode(Pair<String, Integer> node) {
         s.add_dht_node(node.to_string_int_pair());
     }
 

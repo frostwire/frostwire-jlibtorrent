@@ -109,7 +109,7 @@ public final class LibTorrent {
      *
      * @return true if the running platform has NEON support
      */
-    public static boolean hasNeonArmSupport() {
+    public static boolean hasArmNeonSupport() {
         return libtorrent.arm_neon_support();
     }
 }
