@@ -102,4 +102,14 @@ public final class LibTorrent {
     public static int findMetricIdx(String name) {
         return libtorrent.find_metric_idx_s(name);
     }
+
+    /**
+     * If the native library is an ARM architecture variant, returns true
+     * if the running platform has NEON support.
+     *
+     * @return true if the running platform has NEON support
+     */
+    public static boolean hasNeonArmSupport() {
+        return libtorrent.arm_neon_support();
+    }
 }
