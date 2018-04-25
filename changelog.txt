@@ -1,4 +1,4 @@
-1.2.0.18-RC2
+1.2.0.18-RC3
 
     * using android NDK r17 beta1
     * updated to boost 1.67.0
