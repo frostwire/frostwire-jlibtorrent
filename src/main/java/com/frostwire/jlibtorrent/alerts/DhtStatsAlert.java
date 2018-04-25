@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Contains current DHT state. Posted in response to
- * {@link com.frostwire.jlibtorrent.SessionHandle#postDHTStats()}.
+ * {@link com.frostwire.jlibtorrent.SessionHandle#postDhtStats()}.
  *
  * @author gubatron
  * @author aldenml
