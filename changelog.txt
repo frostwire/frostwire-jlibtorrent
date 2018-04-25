@@ -7,6 +7,9 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:honor torrent abort even on file check error
+    * lt:use settings_pack::urlseed_wait_retry for default retry with http seeds
+    * lt:fix storage initialization
     * lt:strtoll() returns LLONG_MAX if the input overflows, handle this case
       properly in the http parser
     * lt:remove the global cache of the current time, just use clock::now()
