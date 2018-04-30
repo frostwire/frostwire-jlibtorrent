@@ -1,6 +1,6 @@
 1.2.0.18-RC5(temp)
 
-    * using android NDK r17 beta1
+    * using android NDK r17 beta2
     * updated to boost 1.67.0
     * updated to OpenSSL 1.1.0h
     * expose to java SWIG api the aux::arm_neon_support flag for android
