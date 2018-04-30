@@ -1,4 +1,4 @@
-1.2.0.18-RC4
+1.2.0.18-RC5(temp)
 
     * using android NDK r17 beta1
     * updated to boost 1.67.0
@@ -7,6 +7,9 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:save the number of idle threads locally in
+      disk_io_thread_pool::thread_active
+    * lt:fix use after free in flush_range and flush_iovec
     * lt:honor torrent abort even on file check error
     * lt:use settings_pack::urlseed_wait_retry for default retry with http seeds
     * lt:fix storage initialization

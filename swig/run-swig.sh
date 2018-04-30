@@ -35,6 +35,7 @@ function runJni()
         -DTORRENT_CFG="TORRENT_CFG" \
         -DTORRENT_NO_DEPRECATE \
         -DTORRENT_DEPRECATED_EXPORT="" \
+        -DTORRENT_DEPRECATED_MEMBER="" \
         -DTORRENT_DEPRECATED \
         -DTORRENT_EXPORT="" \
         -DTORRENT_EXTRA_EXPORT="" \

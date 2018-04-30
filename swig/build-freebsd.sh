@@ -31,7 +31,7 @@ export OPENSSL_ROOT=/usr
 rm -rf libtorrent
 git clone https://github.com/arvidn/libtorrent
 cd libtorrent
-git checkout 2a97ec6e0e13b06b69a540d86719cc46d21913d2
+git checkout 4afa4932df9070735e7a29c044fbec72bc59baf5
 cd ..
 export LIBTORRENT_ROOT=$PWD/libtorrent
 
