@@ -913,6 +913,7 @@ public class libtorrent_jni {
   public final static native void error_code_clear(long jarg1, error_code jarg1_);
   public final static native int error_code_value(long jarg1, error_code jarg1_);
   public final static native String error_code_message(long jarg1, error_code jarg1_);
+  public final static native boolean error_code_op_bool(long jarg1, error_code jarg1_);
   public final static native boolean op_eq__SWIG_1(long jarg1, error_code jarg1_, long jarg2, error_code jarg2_);
   public final static native boolean op_lt__SWIG_1(long jarg1, error_code jarg1_, long jarg2, error_code jarg2_);
   public final static native void delete_error_code(long jarg1);
@@ -1439,6 +1440,10 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_have_pieces_get(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_verified_pieces_set(long jarg1, add_torrent_params jarg1_, long jarg2, piece_index_bitfield jarg2_);
   public final static native long add_torrent_params_verified_pieces_get(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_last_download_set(long jarg1, add_torrent_params jarg1_, long jarg2);
+  public final static native long add_torrent_params_last_download_get(long jarg1, add_torrent_params jarg1_);
+  public final static native void add_torrent_params_last_upload_set(long jarg1, add_torrent_params jarg1_, long jarg2);
+  public final static native long add_torrent_params_last_upload_get(long jarg1, add_torrent_params jarg1_);
   public final static native long add_torrent_params_ti_ptr(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_set_ti(long jarg1, add_torrent_params jarg1_, long jarg2, torrent_info jarg2_);
   public final static native void add_torrent_params_set_renamed_files(long jarg1, add_torrent_params jarg1_, long jarg2, file_index_string_map jarg2_);

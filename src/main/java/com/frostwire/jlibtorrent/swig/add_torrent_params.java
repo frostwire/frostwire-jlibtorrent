@@ -231,6 +231,22 @@ public class add_torrent_params {
     return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
+  public void setLast_download(long value) {
+    libtorrent_jni.add_torrent_params_last_download_set(swigCPtr, this, value);
+  }
+
+  public long getLast_download() {
+    return libtorrent_jni.add_torrent_params_last_download_get(swigCPtr, this);
+  }
+
+  public void setLast_upload(long value) {
+    libtorrent_jni.add_torrent_params_last_upload_set(swigCPtr, this, value);
+  }
+
+  public long getLast_upload() {
+    return libtorrent_jni.add_torrent_params_last_upload_get(swigCPtr, this);
+  }
+
   public torrent_info ti_ptr() {
     long cPtr = libtorrent_jni.add_torrent_params_ti_ptr(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent_info(cPtr, false);
