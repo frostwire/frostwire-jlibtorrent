@@ -1603,6 +1603,7 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_dht_sample_infohashes_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_block_uploaded_alert(long jarg1, alert jarg1_);
   public final static native long alert_get_timestamp(long jarg1, alert jarg1_);
+  public final static native int alert_priority_normal_get();
   public final static native String torrent_alert_message(long jarg1, torrent_alert jarg1_);
   public final static native void torrent_alert_handle_set(long jarg1, torrent_alert jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_alert_handle_get(long jarg1, torrent_alert jarg1_);
