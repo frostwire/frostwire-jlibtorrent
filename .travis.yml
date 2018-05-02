@@ -30,9 +30,9 @@ before_install:
   - export BOOST_ROOT=$PWD/boost_1_67_0
 
 # openssl: download
-  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1-pre6.tar.gz
+  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1-pre5.tar.gz
   - tar xzf openssl.tar.gz
-  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1-pre6
+  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1-pre5
   # fix source code
   - if [ $os_build == "windows" ]; then
       sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' $OPENSSL_SOURCE/crypto/cryptlib.c;
