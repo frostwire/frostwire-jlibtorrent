@@ -7,6 +7,7 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:only allow pinged nodes into the DHT routing table
     * lt:introduce a recursive mutex to protect the alert_manager, and hold the
       mutex while calling user callbacks and plugin hooks
     * lt:revise alert priorities / torrent::on_resume_data_checked issue
