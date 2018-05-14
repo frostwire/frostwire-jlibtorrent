@@ -7,6 +7,13 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:don't enable reuse-address for UDP sockets, as it will always succeed
+      and not get any incoming packets
+    * lt:account for partially downloaded pieces when announcing as a seed
+    * lt:fix bandwidth allocation
+    * lt:don't attempt to make uTP connections if we don't have any outgoing UDP
+      sockets
+    * lt:fix empty outgoing interfaces for UDP sockets
     * lt:only allow pinged nodes into the DHT routing table
     * lt:introduce a recursive mutex to protect the alert_manager, and hold the
       mutex while calling user callbacks and plugin hooks
