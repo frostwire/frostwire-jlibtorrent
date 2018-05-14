@@ -22,6 +22,7 @@
 #include "libtorrent/torrent_flags.hpp"
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/pex_flags.hpp"
+#include "libtorrent/torrent_status.hpp"
 #include "libtorrent/torrent_handle.hpp"
 #include "libtorrent/add_torrent_params.hpp"
 #include "libtorrent/operations.hpp"
@@ -34,15 +35,14 @@
 #include "libtorrent/peer_class.hpp"
 #include "libtorrent/peer_class_type_filter.hpp"
 #include "libtorrent/session_types.hpp"
+#include "libtorrent/ip_filter.hpp"
 #include "libtorrent/session_handle.hpp"
 #include "libtorrent/kademlia/dht_state.hpp"
 #include "libtorrent/kademlia/dht_settings.hpp"
 #include "libtorrent/session.hpp"
 #include "libtorrent/peer_connection_handle.hpp"
-#include "libtorrent/ip_filter.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/create_torrent.hpp"
-#include "libtorrent/torrent_status.hpp"
 #include "libtorrent/fingerprint.hpp"
 
 #include "libtorrent.h"
@@ -940,6 +940,9 @@ namespace libtorrent {
             }
         }
     };
+
+    // for torrent_status
+    struct torrent_handle;
 };
 
 %ignore libtorrent::TORRENT_CFG;
@@ -1310,6 +1313,7 @@ namespace libtorrent {
 %include "libtorrent/torrent_flags.hpp"
 %include "libtorrent/torrent_info.hpp"
 %include "libtorrent/pex_flags.hpp"
+%include "libtorrent/torrent_status.hpp"
 %include "libtorrent/torrent_handle.hpp"
 %include "libtorrent/add_torrent_params.hpp"
 %include "libtorrent/operations.hpp"
@@ -1321,15 +1325,14 @@ namespace libtorrent {
 %include "libtorrent/settings_pack.hpp"
 %include "libtorrent/peer_class_type_filter.hpp"
 %include "libtorrent/session_types.hpp"
+%include "libtorrent/ip_filter.hpp"
 %include "libtorrent/session_handle.hpp"
 %include "libtorrent/kademlia/dht_state.hpp"
 %include "libtorrent/kademlia/dht_settings.hpp"
 %include "libtorrent/session.hpp"
 %include "libtorrent/peer_connection_handle.hpp"
-%include "libtorrent/ip_filter.hpp"
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
-%include "libtorrent/torrent_status.hpp"
 %include "libtorrent/fingerprint.hpp"
 
 %include "libtorrent.h"

@@ -157,6 +157,10 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.op_eq__SWIG_0(peer_class_type_filter.getCPtr(lhs), lhs, peer_class_type_filter.getCPtr(rhs), rhs);
   }
 
+  public static boolean op_lte(address lhs, address rhs) {
+    return libtorrent_jni.op_lte(address.getCPtr(lhs), lhs, address.getCPtr(rhs), rhs);
+  }
+
   public static settings_pack min_memory_usage() {
     return new settings_pack(libtorrent_jni.min_memory_usage(), true);
   }
@@ -171,10 +175,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static session_params read_session_params(bdecode_node e) {
     return new session_params(libtorrent_jni.read_session_params__SWIG_1(bdecode_node.getCPtr(e), e), true);
-  }
-
-  public static boolean op_lte(address lhs, address rhs) {
-    return libtorrent_jni.op_lte(address.getCPtr(lhs), lhs, address.getCPtr(rhs), rhs);
   }
 
   public static String make_magnet_uri(torrent_handle handle) {
