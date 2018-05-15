@@ -49,7 +49,7 @@ function runJni()
         -D_bit="" \
         libtorrent.i
 
-    # at first sigh, this could look like a very dangerous thing to
+    # at first sight, this could look like a very dangerous thing to
     # do, but in practice, these director types are controlled by us
     # and we know we can do it. The main reason is to be able to
     # compile with -fno-rtti.
