@@ -7,6 +7,14 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:raise priority of fastresume_rejected_alert
+    * lt:don't use the partfile for existing files when their priority is 0
+    * lt:set the hidden attribute when creating the part file
+    * lt:only start a new accept request on new listen sockets, fix mapping new
+      listen sockets when re-mapping is not requested
+    * lt:don't change state to downloading if the torrent is finished
+    * lt:bump `file_error_alert` priority
+    * lt:fix address of point-to-point interfaces
     * lt:don't enable reuse-address for UDP sockets, as it will always succeed
       and not get any incoming packets
     * lt:account for partially downloaded pieces when announcing as a seed
