@@ -7,6 +7,7 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:deliver notification of alerts being dropped via alerts_dropped_alert
     * lt:raise priority of fastresume_rejected_alert
     * lt:don't use the partfile for existing files when their priority is 0
     * lt:set the hidden attribute when creating the part file

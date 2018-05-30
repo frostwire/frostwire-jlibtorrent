@@ -13,7 +13,7 @@ public final class Alerts {
 
     public static final int NUM_ALERT_TYPES = libtorrent.getNum_alert_types();
 
-    private static CastLambda[] TABLE = buildTable();
+    private static final CastLambda[] TABLE = buildTable();
 
     private Alerts() {
     }
@@ -593,6 +593,12 @@ public final class Alerts {
             @Override
             public Alert cast(alert a) {
                 return new BlockUploadedAlert(cast_to_block_uploaded_alert(a));
+            }
+        };
+        arr[95] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new AlertsDroppedAlert(cast_to_alerts_dropped_alert(a));
             }
         };
 

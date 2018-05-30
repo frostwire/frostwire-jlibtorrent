@@ -283,6 +283,27 @@ namespace std {
         }
     };
 
+    template <std::size_t N>
+    class bitset
+    {
+    public:
+        bool test(std::size_t pos) const;
+
+        bool all() const;
+        bool any() const;
+        bool none() const;
+
+        std::size_t count() const;
+        std::size_t size() const;
+
+        %extend
+        {
+            bool get(std::size_t pos) {
+                return (*self)[pos];
+            }
+        }
+    };
+
     %template(piece_index_int_pair) pair<piece_index_t, int>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
@@ -330,6 +351,8 @@ namespace std {
 
     %template(ip_interface_vector) vector<ip_interface>;
     %template(ip_route_vector) vector<ip_route>;
+
+    %template(bitset_96) bitset<96>;
 };
 
 namespace libtorrent {
@@ -854,26 +877,6 @@ namespace libtorrent {
             return std::int8_t(static_cast<std::uint8_t>($self->write_state));
         }
     }
-
-    class dropped_alerts_t
-    {
-    public:
-        bool test(std::size_t pos) const;
-
-        bool all() const;
-        bool any() const;
-        bool none() const;
-
-        std::size_t count() const;
-        std::size_t size() const;
-
-        %extend
-        {
-            bool get(std::size_t pos) {
-                return (*self)[pos];
-            }
-        }
-    };
 
     struct announce_endpoint
     {
@@ -1435,6 +1438,7 @@ namespace libtorrent {
     CAST_ALERT_METHOD(session_stats_header_alert)
     CAST_ALERT_METHOD(dht_sample_infohashes_alert)
     CAST_ALERT_METHOD(block_uploaded_alert)
+    CAST_ALERT_METHOD(alerts_dropped_alert)
 }
 
 %extend alert {
