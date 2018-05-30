@@ -126,9 +126,9 @@ before_install:
       export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -m32 --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # linux-x86_64
+  # TODO: solve the problem with no-asm
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
       export CC=gcc-5;
-      # TODO: solve the problem with no-asm
       export run_openssl_configure="./Configure linux-x86_64 no-asm ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # windows-x86
