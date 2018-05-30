@@ -96,7 +96,7 @@ before_install:
   - 'export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit
       no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls
       no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw
-      no-makedepend no-multiblock no-nextprotoneg no-pic no-posix-io no-psk
+      no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk
       no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine
       no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic
       -fno-strict-aliasing -fvisibility=hidden -Os"'
@@ -128,7 +128,8 @@ before_install:
   # linux-x86_64
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
       export CC=gcc-5;
-      export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
+      # TODO: solve the problem with no-asm
+      export run_openssl_configure="./Configure linux-x86_64 no-asm ${OPENSSL_NO_OPTS} -fPIC --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
