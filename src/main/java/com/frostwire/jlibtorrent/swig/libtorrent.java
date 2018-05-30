@@ -137,6 +137,10 @@ public class libtorrent implements libtorrentConstants {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
 
+  public static String alert_name(int alert_type) {
+    return libtorrent_jni.alert_name(alert_type);
+  }
+
   public static int getNum_alert_types() {
     return libtorrent_jni.num_alert_types_get();
   }

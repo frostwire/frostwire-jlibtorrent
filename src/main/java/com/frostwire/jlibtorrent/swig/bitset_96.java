@@ -8,16 +8,16 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class dropped_alerts_t {
+public class bitset_96 {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected dropped_alerts_t(long cPtr, boolean cMemoryOwn) {
+  protected bitset_96(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(dropped_alerts_t obj) {
+  protected static long getCPtr(bitset_96 obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -29,42 +29,42 @@ public class dropped_alerts_t {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_dropped_alerts_t(swigCPtr);
+        libtorrent_jni.delete_bitset_96(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
   public boolean test(long pos) {
-    return libtorrent_jni.dropped_alerts_t_test(swigCPtr, this, pos);
+    return libtorrent_jni.bitset_96_test(swigCPtr, this, pos);
   }
 
   public boolean all() {
-    return libtorrent_jni.dropped_alerts_t_all(swigCPtr, this);
+    return libtorrent_jni.bitset_96_all(swigCPtr, this);
   }
 
   public boolean any() {
-    return libtorrent_jni.dropped_alerts_t_any(swigCPtr, this);
+    return libtorrent_jni.bitset_96_any(swigCPtr, this);
   }
 
   public boolean none() {
-    return libtorrent_jni.dropped_alerts_t_none(swigCPtr, this);
+    return libtorrent_jni.bitset_96_none(swigCPtr, this);
   }
 
   public long count() {
-    return libtorrent_jni.dropped_alerts_t_count(swigCPtr, this);
+    return libtorrent_jni.bitset_96_count(swigCPtr, this);
   }
 
   public long size() {
-    return libtorrent_jni.dropped_alerts_t_size(swigCPtr, this);
+    return libtorrent_jni.bitset_96_size(swigCPtr, this);
   }
 
   public boolean get(long pos) {
-    return libtorrent_jni.dropped_alerts_t_get(swigCPtr, this, pos);
+    return libtorrent_jni.bitset_96_get(swigCPtr, this, pos);
   }
 
-  public dropped_alerts_t() {
-    this(libtorrent_jni.new_dropped_alerts_t(), true);
+  public bitset_96() {
+    this(libtorrent_jni.new_bitset_96(), true);
   }
 
 }

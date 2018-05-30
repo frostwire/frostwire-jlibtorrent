@@ -95,9 +95,10 @@ public enum AlertType {
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
     DHT_SAMPLE_INFOHASHES(dht_sample_infohashes_alert.alert_type),
     BLOCK_UPLOADED(block_uploaded_alert.alert_type),
+    ALERTS_DROPPED(alerts_dropped_alert.alert_type),
     UNKNOWN(-1);
 
-    private static AlertType[] TABLE = buildTable();
+    private static final AlertType[] TABLE = buildTable();
 
     AlertType(int swigValue) {
         this.swigValue = swigValue;
@@ -218,6 +219,7 @@ public enum AlertType {
         arr[92] = SESSION_STATS_HEADER;
         arr[93] = DHT_SAMPLE_INFOHASHES;
         arr[94] = BLOCK_UPLOADED;
+        arr[95] = ALERTS_DROPPED;
 
         return arr;
     }
