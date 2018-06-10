@@ -428,6 +428,16 @@ public class libtorrent_jni {
   public final static native long ip_route_vector_get(long jarg1, ip_route_vector jarg1_, int jarg2);
   public final static native void ip_route_vector_set(long jarg1, ip_route_vector jarg1_, int jarg2, long jarg3, ip_route jarg3_);
   public final static native void delete_ip_route_vector(long jarg1);
+  public final static native long new_port_mapping_t_vector();
+  public final static native long port_mapping_t_vector_size(long jarg1, port_mapping_t_vector jarg1_);
+  public final static native long port_mapping_t_vector_capacity(long jarg1, port_mapping_t_vector jarg1_);
+  public final static native void port_mapping_t_vector_reserve(long jarg1, port_mapping_t_vector jarg1_, long jarg2);
+  public final static native boolean port_mapping_t_vector_empty(long jarg1, port_mapping_t_vector jarg1_);
+  public final static native void port_mapping_t_vector_clear(long jarg1, port_mapping_t_vector jarg1_);
+  public final static native void port_mapping_t_vector_push_back(long jarg1, port_mapping_t_vector jarg1_, int jarg2);
+  public final static native int port_mapping_t_vector_get(long jarg1, port_mapping_t_vector jarg1_, int jarg2);
+  public final static native void port_mapping_t_vector_set(long jarg1, port_mapping_t_vector jarg1_, int jarg2, int jarg3);
+  public final static native void delete_port_mapping_t_vector(long jarg1);
   public final static native boolean bitset_96_test(long jarg1, bitset_96 jarg1_, long jarg2);
   public final static native boolean bitset_96_all(long jarg1, bitset_96 jarg1_);
   public final static native boolean bitset_96_any(long jarg1, bitset_96 jarg1_);
@@ -927,7 +937,6 @@ public class libtorrent_jni {
   public final static native String LIBTORRENT_REVISION_get();
   public final static native String version();
   public final static native int libtorrent_no_error_get();
-  public final static native int unsupported_protocol_version_get();
   public final static native int missing_file_sizes_get();
   public final static native int http_parse_error_get();
   public final static native int no_i2p_router_get();
@@ -2850,7 +2859,7 @@ public class libtorrent_jni {
   public final static native void session_handle_pop_alerts(long jarg1, session_handle jarg1_, long jarg2, alert_ptr_vector jarg2_);
   public final static native int session_handle_udp_get();
   public final static native int session_handle_tcp_get();
-  public final static native int session_handle_add_port_mapping(long jarg1, session_handle jarg1_, int jarg2, int jarg3, int jarg4);
+  public final static native long session_handle_add_port_mapping(long jarg1, session_handle jarg1_, int jarg2, int jarg3, int jarg4);
   public final static native void session_handle_delete_port_mapping(long jarg1, session_handle jarg1_, int jarg2);
   public final static native long session_handle_reopen_map_ports_get();
   public final static native void session_handle_reopen_network_sockets__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, reopen_network_flags_t jarg2_);
@@ -3081,7 +3090,7 @@ public class libtorrent_jni {
   public final static native void delete_ip_route(long jarg1);
   public final static native long enum_net_interfaces(long jarg1, session jarg1_);
   public final static native long enum_routes(long jarg1, session jarg1_);
-  public final static native long get_default_gateway(long jarg1, session jarg1_);
+  public final static native long get_default_gateway(long jarg1, session jarg1_, long jarg2, byte_vector jarg2_, boolean jarg3);
   public final static native boolean arm_neon_support();
   public final static native void posix_stat_t_size_set(long jarg1, posix_stat_t jarg1_, long jarg2);
   public final static native long posix_stat_t_size_get(long jarg1, posix_stat_t jarg1_);

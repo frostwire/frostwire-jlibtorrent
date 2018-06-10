@@ -8,6 +8,7 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,12 +54,25 @@ public final class EnumNet {
         return l;
     }
 
-    public static Address defaultGateway(SessionManager session) {
+    public static Address defaultGateway(SessionManager session, String device,
+                                         boolean v6) {
         if (session.swig() == null) {
             return new Address();
         }
 
-        return new Address(libtorrent.get_default_gateway(session.swig()));
+        if (device == null) {
+            device = "";
+        }
+
+        byte[] device_arr;
+        try {
+            device_arr = device.getBytes("ASCII");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return new Address(libtorrent.get_default_gateway(session.swig(),
+                Vectors.bytes2byte_vector(device_arr), v6));
     }
 
     public static final class IpInterface {

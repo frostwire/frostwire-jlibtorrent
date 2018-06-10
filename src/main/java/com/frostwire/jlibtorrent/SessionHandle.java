@@ -395,18 +395,27 @@ public class SessionHandle {
     }
 
     /**
-     * add_port_mapping adds a port forwarding on UPnP and/or NAT-PMP,
+     * Adds a port forwarding on UPnP and/or NAT-PMP, using PCP if supported,
      * whichever is enabled. The return value is a handle referring to the
-     * port mapping that was just created. Pass it to delete_port_mapping()
+     * port mapping that was just created. Pass it to {@link #deletePortMapping}
      * to remove it.
      *
      * @param t            the mapping protocol
      * @param externalPort the external port
      * @param localPort    the local port
-     * @return
+     * @return the array of port mapping ids
      */
-    public int addPortMapping(PortmapProtocol t, int externalPort, int localPort) {
-        return s.add_port_mapping(portmap_protocol.swigToEnum(t.swig()), externalPort, localPort);
+    public int[] addPortMapping(PortmapProtocol t, int externalPort, int localPort) {
+        port_mapping_t_vector v = s.add_port_mapping(portmap_protocol.swigToEnum(t.swig()), externalPort, localPort);
+
+        int size = (int) v.size();
+        int[] arr = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = v.get(i);
+        }
+
+        return arr;
     }
 
     public void deletePortMapping(int handle) {
