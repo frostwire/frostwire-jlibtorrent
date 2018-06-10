@@ -351,6 +351,7 @@ namespace std {
 
     %template(ip_interface_vector) vector<ip_interface>;
     %template(ip_route_vector) vector<ip_route>;
+    %template(port_mapping_t_vector) vector<port_mapping_t>;
 
     %template(bitset_96) bitset<96>;
 };
@@ -1139,6 +1140,7 @@ namespace libtorrent {
 %ignore libtorrent::settings_pack::deprecated24;
 %ignore libtorrent::settings_pack::deprecated25;
 %ignore libtorrent::settings_pack::deprecated26;
+%ignore libtorrent::settings_pack::deprecated27;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
@@ -1217,6 +1219,12 @@ namespace libtorrent {
 %ignore libtorrent::dht::read_dht_settings;
 %ignore libtorrent::dht::save_dht_settings;
 %ignore libtorrent::find_metric_idx;
+
+%ignore libtorrent::errors::unsupported_protocol_version;
+%ignore libtorrent::errors::natpmp_not_authorized;
+%ignore libtorrent::errors::network_failure;
+%ignore libtorrent::errors::no_resources;
+%ignore libtorrent::errors::unsupported_opcode;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;

@@ -272,10 +272,13 @@ std::vector<ip_route> enum_routes(libtorrent::session* s)
     return ret;
 }
 
-libtorrent::address get_default_gateway(libtorrent::session* s)
+libtorrent::address get_default_gateway(libtorrent::session* s
+    , std::vector<std::int8_t> device, bool v6)
 {
     boost::system::error_code ec;
-    return libtorrent::get_default_gateway(s->get_io_service(), ec);
+    return libtorrent::get_default_gateway(s->get_io_service()
+        , {reinterpret_cast<char const*>(device.data()), device.size()}
+        , v6, ec);
 }
 
 bool arm_neon_support()

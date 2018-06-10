@@ -7,6 +7,17 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:scrape_reply_alert should be high priority, since it's triggered by the
+      client
+    * lt:add support for multi-home NAT-PMP and Port Control Protocol (PCP)
+    * lt:report transport version in NAT-PMP send/receive logs
+    * lt:return a vector of mapping ids from add_port_mapping
+    * lt:don't re-map all listen sockets when changing listen_interfaces
+    * lt:create a natpmp instance for each listen socket
+    * lt:enum_routes fixes on Linux
+    * lt:fix scope_id in enum_routes on Windows
+    * lt:remove UNC prefixes from device names on Windows
+    * lt:fix netmask of routes on Windows
     * lt:deliver notification of alerts being dropped via alerts_dropped_alert
     * lt:raise priority of fastresume_rejected_alert
     * lt:don't use the partfile for existing files when their priority is 0
