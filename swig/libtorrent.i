@@ -1084,6 +1084,7 @@ namespace libtorrent {
 %ignore libtorrent::torrent_info::add_merkle_nodes;
 %ignore libtorrent::torrent_info::build_merkle_list;
 %ignore libtorrent::torrent_info::parse_torrent_file;
+%ignore libtorrent::torrent_info::piece_range;
 %ignore libtorrent::sanitize_append_path_element;
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
@@ -1181,6 +1182,8 @@ namespace libtorrent {
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
 %ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, std::uint32_t, std::time_t, string_view);
+%ignore libtorrent::file_storage::file_range;
+%ignore libtorrent::file_storage::piece_range;
 %ignore libtorrent::create_torrent::add_url_seed(string_view);
 %ignore libtorrent::create_torrent::add_http_seed(string_view);
 %ignore libtorrent::create_torrent::add_tracker(string_view);
@@ -1220,11 +1223,11 @@ namespace libtorrent {
 %ignore libtorrent::dht::save_dht_settings;
 %ignore libtorrent::find_metric_idx;
 
-%ignore libtorrent::errors::unsupported_protocol_version;
-%ignore libtorrent::errors::natpmp_not_authorized;
-%ignore libtorrent::errors::network_failure;
-%ignore libtorrent::errors::no_resources;
-%ignore libtorrent::errors::unsupported_opcode;
+%ignore libtorrent::errors::deprecated_120;
+%ignore libtorrent::errors::deprecated_121;
+%ignore libtorrent::errors::deprecated_122;
+%ignore libtorrent::errors::deprecated_123;
+%ignore libtorrent::errors::deprecated_124;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;

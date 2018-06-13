@@ -107,10 +107,6 @@ public class file_storage {
     return libtorrent_jni.file_storage_end_file(swigCPtr, this);
   }
 
-  public int last_file() {
-    return libtorrent_jni.file_storage_last_file(swigCPtr, this);
-  }
-
   public long total_size() {
     return libtorrent_jni.file_storage_total_size(swigCPtr, this);
   }

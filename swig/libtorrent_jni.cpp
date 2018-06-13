@@ -26987,33 +26987,6 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
 }
 
 
-SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_1storage_1last_1file(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  int jresult = 0 ;
-  libtorrent::file_storage *arg1 = (libtorrent::file_storage *) 0 ;
-  file_index_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::file_storage **)&jarg1; 
-  {
-    try {
-      result = ((libtorrent::file_storage const *)arg1)->last_file();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  {
-    jresult = static_cast<std::int32_t>(static_cast<std::int32_t>(result));
-  }
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_1storage_1total_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::file_storage *arg1 = (libtorrent::file_storage *) 0 ;

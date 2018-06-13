@@ -996,7 +996,6 @@ public class libtorrent_jni {
   public final static native long file_storage_map_file(long jarg1, file_storage jarg1_, int jarg2, long jarg3, int jarg4);
   public final static native int file_storage_num_files(long jarg1, file_storage jarg1_);
   public final static native int file_storage_end_file(long jarg1, file_storage jarg1_);
-  public final static native int file_storage_last_file(long jarg1, file_storage jarg1_);
   public final static native long file_storage_total_size(long jarg1, file_storage jarg1_);
   public final static native void file_storage_set_num_pieces(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_num_pieces(long jarg1, file_storage jarg1_);
