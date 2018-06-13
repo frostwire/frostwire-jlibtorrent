@@ -7,6 +7,9 @@
       runtime verification
     * remove hack of custom getauxval definition
     * null check protection in EnumNet
+    * lt:improve the API for iterating over all files and pieces, with the new
+      strong index types
+    * lt:deprecate network-threads setting
     * lt:scrape_reply_alert should be high priority, since it's triggered by the
       client
     * lt:add support for multi-home NAT-PMP and Port Control Protocol (PCP)
