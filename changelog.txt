@@ -1,11 +1,13 @@
 1.2.0.18-RC6
 
-    * using android NDK r17
+    * using android NDK r17b
     * updated to boost 1.67.0
     * updated to OpenSSL 1.1.1-pre7
     * expose to java SWIG api the aux::arm_neon_support flag for android
       runtime verification
-    * remove hack of custom getauxval definition
+    * removed hack of custom getauxval definition
+    * removed hack of fgetpos fsetpos
+    * removed hack of mulodi4
     * null check protection in EnumNet
     * lt:improve the API for iterating over all files and pieces, with the new
       strong index types
