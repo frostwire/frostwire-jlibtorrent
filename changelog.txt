@@ -9,6 +9,7 @@
     * removed hack of fgetpos fsetpos
     * removed hack of mulodi4
     * null check protection in EnumNet
+    * added new constructor to TorrentInfo from byte array
     * lt:improve the API for iterating over all files and pieces, with the new
       strong index types
     * lt:deprecate network-threads setting
