@@ -28,10 +28,22 @@ public final class TorrentInfo {
      * This might not be the most suitable for applications that
      * want to be able to report detailed errors on what might go wrong.
      *
-     * @param torrent
+     * @param torrent the torrent file
      */
     public TorrentInfo(File torrent) {
         this(bdecode0(torrent));
+    }
+
+    /**
+     * Load the torrent data and decode it inside the constructor, for convenience.
+     * <p>
+     * This might not be the most suitable for applications that
+     * want to be able to report detailed errors on what might go wrong.
+     *
+     * @param data the torrent data
+     */
+    public TorrentInfo(byte[] data) {
+        this(bdecode0(data));
     }
 
     public TorrentInfo(MappedByteBuffer buffer) {
