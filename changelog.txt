@@ -10,6 +10,10 @@
     * removed hack of mulodi4
     * null check protection in EnumNet
     * added new constructor to TorrentInfo from byte array
+    * lt:fix race condition in part_file
+    * lt:fix parts file i/o errors
+    * lt:fixed sign implicit conversion warnings and loop logic in new enum_net
+      code
     * lt:improve the API for iterating over all files and pieces, with the new
       strong index types
     * lt:deprecate network-threads setting
