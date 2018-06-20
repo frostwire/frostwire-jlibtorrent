@@ -30,9 +30,9 @@ before_install:
   - export BOOST_ROOT=$PWD/boost_1_67_0
 
 # openssl: download
-  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1-pre7.tar.gz
+  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1-pre8.tar.gz
   - tar xzf openssl.tar.gz
-  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1-pre7
+  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1-pre8
   # fix source code
   # this one avoid the use of assembler for SHA3 to fix relocation issues
   - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
