@@ -1,4 +1,4 @@
-1.2.0.18-RC7
+1.2.0.18-RC8(temp)
 
     * using android NDK r17b
     * updated to boost 1.67.0
@@ -10,6 +10,10 @@
     * removed hack of mulodi4
     * null check protection in EnumNet
     * added new constructor to TorrentInfo from byte array
+    * lt:set the minimum number of checking jobs based on the number of hasher
+      threads
+    * lt:fix coalesce read bug
+    * lt:introduce a fast-path for the hash disk job
     * lt:fix race condition in part_file
     * lt:fix parts file i/o errors
     * lt:fixed sign implicit conversion warnings and loop logic in new enum_net
