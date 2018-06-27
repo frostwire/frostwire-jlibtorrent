@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# Remove this when the issue in swig is fixed
-# https://github.com/swig/swig/issues/672
-function fixAlertFinal() {
-    sed -i '' 's/alert final : /alert  : /g' ${LIBTORRENT_ROOT}/include/libtorrent/alert_types.hpp
-}
-function refixAlertFinal() {
-    sed -i '' 's/alert  : /alert final : /g' ${LIBTORRENT_ROOT}/include/libtorrent/alert_types.hpp
-}
-
 function runJni()
 {
     JAVA_SRC_OUTPUT=../src/main/java/com/frostwire/jlibtorrent/swig
@@ -48,6 +39,7 @@ function runJni()
         -DTORRENT_FORMAT\(x,y\)="" \
         -DNDEBUG=1 \
         -D_bit="" \
+        -Dfinal="" \
         libtorrent.i
 
     # at first sight, this could look like a very dangerous thing to
@@ -61,6 +53,4 @@ function runJni()
     sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${GRADLE_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
 }
 
-fixAlertFinal
 runJni
-refixAlertFinal
