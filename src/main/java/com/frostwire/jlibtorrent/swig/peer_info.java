@@ -35,14 +35,6 @@ public class peer_info {
     }
   }
 
-  public void setClient(String value) {
-    libtorrent_jni.peer_info_client_set(swigCPtr, this, value);
-  }
-
-  public String getClient() {
-    return libtorrent_jni.peer_info_client_get(swigCPtr, this);
-  }
-
   public void setPieces(piece_index_bitfield value) {
     libtorrent_jni.peer_info_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }

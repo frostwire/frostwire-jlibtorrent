@@ -1058,8 +1058,6 @@ public class libtorrent_jni {
   public final static native String bdecode_node_to_string(long jarg1, bdecode_node jarg1_, boolean jarg2, int jarg3);
   public final static native int bdecode_node_bdecode(long jarg1, byte_vector jarg1_, long jarg2, bdecode_node jarg2_, long jarg3, error_code jarg3_);
   public final static native void delete_bdecode_node(long jarg1);
-  public final static native void peer_info_client_set(long jarg1, peer_info jarg1_, String jarg2);
-  public final static native String peer_info_client_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_pieces_set(long jarg1, peer_info jarg1_, long jarg2, piece_index_bitfield jarg2_);
   public final static native long peer_info_pieces_get(long jarg1, peer_info jarg1_);
   public final static native void peer_info_total_download_set(long jarg1, peer_info jarg1_, long jarg2);

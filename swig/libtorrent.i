@@ -1211,6 +1211,7 @@ namespace libtorrent {
 %ignore libtorrent::udp_error_alert::endpoint;
 %ignore libtorrent::dht_sample_infohashes_alert::endpoint;
 %ignore libtorrent::dht_sample_infohashes_alert::interval;
+%ignore libtorrent::peer_info::client;
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
