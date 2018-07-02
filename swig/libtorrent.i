@@ -892,7 +892,6 @@ namespace libtorrent {
         bool updating;
         bool start_sent;
         bool complete_sent;
-        bool triggered_manually;
 
         bool is_working() const;
 
