@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function fixCode() {
+    sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+    sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+}
+
+function refixCode() {
+    sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+    sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+}
+
 function runJni()
 {
     JAVA_SRC_OUTPUT=../src/main/java/com/frostwire/jlibtorrent/swig
@@ -53,4 +63,6 @@ function runJni()
     sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${GRADLE_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
 }
 
+fixCode
 runJni
+refixCode

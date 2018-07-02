@@ -10,6 +10,12 @@
     * removed hack of mulodi4
     * null check protection in EnumNet
     * added new constructor to TorrentInfo from byte array
+    * lt:fix some unintentional copies (with explicit moves)
+    * lt:qualify some assignment operators to disallow assignment to temporaries
+    * lt:fix missing move of file object in part_file
+    * lt:use more threads when creating torrents
+    * lt:bump checking_mem_usage default setting
+    * lt:enable coalesce_reads and coalesce_writes by default on windows
     * lt:set the minimum number of checking jobs based on the number of hasher
       threads
     * lt:fix coalesce read bug
