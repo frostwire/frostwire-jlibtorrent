@@ -23,24 +23,24 @@ public class VectorsTest {
         v.push_back((byte) 'A');
         v.push_back((byte) 'B');
         v.push_back((byte) 'C');
-        assertEquals(Vectors.byte_vector2string(v, "US-ASCII"), "ABC");
+        assertEquals(Vectors.byte_vector2ascii(v), "ABC");
 
         v.clear();
         v.push_back((byte) 'A');
         v.push_back((byte) 'B');
         v.push_back((byte) 0);
-        assertEquals(Vectors.byte_vector2string(v, "US-ASCII"), "AB");
+        assertEquals(Vectors.byte_vector2ascii(v), "AB");
 
         v.clear();
         v.push_back((byte) 0);
         v.push_back((byte) 0);
         v.push_back((byte) 0);
-        assertEquals(Vectors.byte_vector2string(v, "US-ASCII"), "");
+        assertEquals(Vectors.byte_vector2ascii(v), "");
 
         v.clear();
         v.push_back((byte) 'A');
         v.push_back((byte) 0);
         v.push_back((byte) 'B');
-        assertEquals(Vectors.byte_vector2string(v, "US-ASCII"), "A");
+        assertEquals(Vectors.byte_vector2ascii(v), "A");
     }
 }
