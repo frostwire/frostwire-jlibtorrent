@@ -1,6 +1,10 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.announce_endpoint_vector;
 import com.frostwire.jlibtorrent.swig.announce_entry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class holds information about one bittorrent tracker, as it
@@ -34,6 +38,18 @@ public final class AnnounceEntry {
      */
     public announce_entry swig() {
         return e;
+    }
+
+    public List<AnnounceEndpoint> endpoints() {
+        announce_endpoint_vector v = e.getEndpoints();
+        int size = (int) v.size();
+        ArrayList<AnnounceEndpoint> l = new ArrayList<>(size);
+
+        for (int i = 0; i < size; i++) {
+            l.add(new AnnounceEndpoint(v.get(i)));
+        }
+
+        return l;
     }
 
     /**
