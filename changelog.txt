@@ -10,6 +10,7 @@
     * removed hack of mulodi4
     * null check protection in EnumNet
     * added new constructor to TorrentInfo from byte array
+    * improved API for string conversions in AnnounceEntry
     * lt:fix some unintentional copies (with explicit moves)
     * lt:qualify some assignment operators to disallow assignment to temporaries
     * lt:fix missing move of file object in part_file

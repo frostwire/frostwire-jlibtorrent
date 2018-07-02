@@ -881,7 +881,6 @@ namespace libtorrent {
 
     struct announce_endpoint
     {
-        std::string message;
         libtorrent::error_code last_error;
         tcp::endpoint local_endpoint;
 
@@ -899,6 +898,12 @@ namespace libtorrent {
 
         %extend
         {
+            std::vector<int8_t> get_message()
+            {
+                std::string s = $self->message;
+                return {s.begin(), s.end()};
+            }
+
             int64_t get_next_announce()
             {
                 return libtorrent::total_milliseconds($self->next_announce.time_since_epoch());
@@ -915,9 +920,6 @@ namespace libtorrent {
 
     struct announce_entry
     {
-        std::string url;
-        std::string trackerid;
-
         std::vector<announce_endpoint> endpoints;
 
         std::uint8_t tier;
@@ -938,9 +940,32 @@ namespace libtorrent {
 
         %extend
         {
-            announce_entry(std::string const& u)
+            announce_entry(std::vector<int8_t> const& u)
             {
-                return new libtorrent::announce_entry(u);
+                return new libtorrent::announce_entry(
+                    {reinterpret_cast<char const*>(u.data()), u.size()});
+            }
+
+            std::vector<int8_t> get_url()
+            {
+                std::string s = $self->url;
+                return {s.begin(), s.end()};
+            }
+
+            void set_url(std::vector<int8_t> const& s)
+            {
+                $self->url = {s.begin(), s.end()};
+            }
+
+            std::vector<int8_t> get_trackerid()
+            {
+                std::string s = $self->trackerid;
+                return {s.begin(), s.end()};
+            }
+
+            void set_trackerid(std::vector<int8_t> const& s)
+            {
+                $self->trackerid = {s.begin(), s.end()};
             }
         }
     };

@@ -163,7 +163,7 @@ public final class MetadataReceivedAlert extends TorrentAlert<metadata_received_
             size = (int) trackers.size();
             for (int i = 0; i < size; i++) {
                 announce_entry t = trackers.get(i);
-                ct.add_tracker(t.getUrl(), t.getTier());
+                ct.add_tracker(Vectors.byte_vector2ascii(t.get_url()), t.getTier());
             }
         }
 

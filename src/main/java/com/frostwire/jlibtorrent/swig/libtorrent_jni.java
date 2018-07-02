@@ -793,8 +793,6 @@ public class libtorrent_jni {
   public final static native int peer_class_info_download_priority_get(long jarg1, peer_class_info jarg1_);
   public final static native long new_peer_class_info();
   public final static native void delete_peer_class_info(long jarg1);
-  public final static native void announce_endpoint_message_set(long jarg1, announce_endpoint jarg1_, String jarg2);
-  public final static native String announce_endpoint_message_get(long jarg1, announce_endpoint jarg1_);
   public final static native void announce_endpoint_last_error_set(long jarg1, announce_endpoint jarg1_, long jarg2, error_code jarg2_);
   public final static native long announce_endpoint_last_error_get(long jarg1, announce_endpoint jarg1_);
   public final static native void announce_endpoint_local_endpoint_set(long jarg1, announce_endpoint jarg1_, long jarg2, tcp_endpoint jarg2_);
@@ -816,13 +814,10 @@ public class libtorrent_jni {
   public final static native void announce_endpoint_triggered_manually_set(long jarg1, announce_endpoint jarg1_, boolean jarg2);
   public final static native boolean announce_endpoint_triggered_manually_get(long jarg1, announce_endpoint jarg1_);
   public final static native boolean announce_endpoint_is_working(long jarg1, announce_endpoint jarg1_);
+  public final static native long announce_endpoint_get_message(long jarg1, announce_endpoint jarg1_);
   public final static native long announce_endpoint_get_next_announce(long jarg1, announce_endpoint jarg1_);
   public final static native long announce_endpoint_get_min_announce(long jarg1, announce_endpoint jarg1_);
   public final static native void delete_announce_endpoint(long jarg1);
-  public final static native void announce_entry_url_set(long jarg1, announce_entry jarg1_, String jarg2);
-  public final static native String announce_entry_url_get(long jarg1, announce_entry jarg1_);
-  public final static native void announce_entry_trackerid_set(long jarg1, announce_entry jarg1_, String jarg2);
-  public final static native String announce_entry_trackerid_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_endpoints_set(long jarg1, announce_entry jarg1_, long jarg2, announce_endpoint_vector jarg2_);
   public final static native long announce_entry_endpoints_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_tier_set(long jarg1, announce_entry jarg1_, short jarg2);
@@ -838,7 +833,11 @@ public class libtorrent_jni {
   public final static native void announce_entry_verified_set(long jarg1, announce_entry jarg1_, boolean jarg2);
   public final static native boolean announce_entry_verified_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_trim(long jarg1, announce_entry jarg1_);
-  public final static native long new_announce_entry(String jarg1);
+  public final static native long new_announce_entry(long jarg1, byte_vector jarg1_);
+  public final static native long announce_entry_get_url(long jarg1, announce_entry jarg1_);
+  public final static native void announce_entry_set_url(long jarg1, announce_entry jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native long announce_entry_get_trackerid(long jarg1, announce_entry jarg1_);
+  public final static native void announce_entry_set_trackerid(long jarg1, announce_entry jarg1_, long jarg2, byte_vector jarg2_);
   public final static native void delete_announce_entry(long jarg1);
   public final static native int success_get();
   public final static native int address_family_not_supported_get();

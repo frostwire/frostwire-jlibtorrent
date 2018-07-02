@@ -121,4 +121,21 @@ public final class Vectors {
             throw new RuntimeException(e);
         }
     }
+
+    public static String byte_vector2ascii(byte_vector v) {
+        return byte_vector2string(v, "US-ASCII");
+    }
+
+    public static byte_vector string2byte_vector(String s, String encoding) {
+        try {
+            byte[] arr = s.getBytes(encoding);
+            return bytes2byte_vector(arr);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static byte_vector ascii2byte_vector(String s) {
+        return string2byte_vector(s, "US-ASCII");
+    }
 }
