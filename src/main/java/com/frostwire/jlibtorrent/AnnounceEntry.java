@@ -26,7 +26,7 @@ public final class AnnounceEntry {
      * @param url the tracker url
      */
     public AnnounceEntry(String url) {
-        this(new announce_entry(url));
+        this(new announce_entry(Vectors.ascii2byte_vector(url)));
     }
 
     /**
@@ -42,7 +42,11 @@ public final class AnnounceEntry {
      * @return the tracker url
      */
     public String url() {
-        return e.getUrl();
+        return Vectors.byte_vector2ascii(e.get_url());
+    }
+
+    public void url(String s) {
+        e.set_url(Vectors.ascii2byte_vector(s));
     }
 
     /**
@@ -53,7 +57,11 @@ public final class AnnounceEntry {
      * @return the trackerid url argument
      */
     public String trackerId() {
-        return e.getTrackerid();
+        return Vectors.byte_vector2ascii(e.get_trackerid());
+    }
+
+    public void trackerId(String s) {
+        e.set_trackerid(Vectors.ascii2byte_vector(s));
     }
 
     /**
