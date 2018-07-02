@@ -87,9 +87,9 @@ public final class EnumNet {
         IpInterface(ip_interface iface) {
             this.interfaceAddress = new Address(iface.getInterface_address());
             this.netmask = new Address(iface.getNetmask());
-            this.name = Vectors.byte_vector2string(iface.getName(), "US-ASCII");
-            this.friendlyName = Vectors.byte_vector2string(iface.getFriendly_name(), "US-ASCII");
-            this.description = Vectors.byte_vector2string(iface.getDescription(), "US-ASCII");
+            this.name = Vectors.byte_vector2ascii(iface.getName());
+            this.friendlyName = Vectors.byte_vector2ascii(iface.getFriendly_name());
+            this.description = Vectors.byte_vector2ascii(iface.getDescription());
             this.preferred = iface.getPreferred();
         }
 
@@ -144,7 +144,7 @@ public final class EnumNet {
             this.destination = new Address(route.getDestination());
             this.netmask = new Address(route.getNetmask());
             this.gateway = new Address(route.getGateway());
-            this.name = Vectors.byte_vector2string(route.getName(), "US-ASCII");
+            this.name = Vectors.byte_vector2ascii(route.getName());
             this.mtu = route.getMtu();
         }
 
