@@ -326,11 +326,6 @@ public class alert {
     return (cPtr == 0) ? null : new cache_flushed_alert(cPtr, false);
   }
 
-  public static anonymous_mode_alert cast_to_anonymous_mode_alert(alert a) {
-    long cPtr = libtorrent_jni.alert_cast_to_anonymous_mode_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new anonymous_mode_alert(cPtr, false);
-  }
-
   public static lsd_peer_alert cast_to_lsd_peer_alert(alert a) {
     long cPtr = libtorrent_jni.alert_cast_to_lsd_peer_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new lsd_peer_alert(cPtr, false);

@@ -12,6 +12,15 @@
     * added new constructor to TorrentInfo from byte array
     * improved API for string conversions in AnnounceEntry
     * added AnnounceEndpoint java API
+    * lt:deprecate (and disable) the force-proxy setting. Instead, always use
+      the proxy when set, never fall back on circumventing it
+    * lt:move the file priority vector throught the disk_io_job, to avoid copies
+    * lt:raise priority of cache_flushed_alert and post it unconditionally when
+      triggered explicitly by the client
+    * lt:fix some validation issues in read_resume_data()
+    * lt:bump the minimum number of hash jobs per thread from 2 to 4
+    * lt:fix deadlock when loading libtorrent Dll
+    * lt:fix torrent files prioritization
     * lt:fix some unintentional copies (with explicit moves)
     * lt:qualify some assignment operators to disallow assignment to temporaries
     * lt:fix missing move of file object in part_file
