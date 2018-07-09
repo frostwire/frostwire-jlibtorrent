@@ -933,8 +933,6 @@ namespace libtorrent {
         std::uint8_t source;
         bool verified;
 
-        void trim();
-
         %extend
         {
             announce_entry(std::vector<int8_t> const& u)

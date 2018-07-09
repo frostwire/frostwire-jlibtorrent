@@ -76,10 +76,6 @@ public class announce_entry {
     return libtorrent_jni.announce_entry_verified_get(swigCPtr, this);
   }
 
-  public void trim() {
-    libtorrent_jni.announce_entry_trim(swigCPtr, this);
-  }
-
   public announce_entry(byte_vector u) {
     this(libtorrent_jni.new_announce_entry(byte_vector.getCPtr(u), u), true);
   }
