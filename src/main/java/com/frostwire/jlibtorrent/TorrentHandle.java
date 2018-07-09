@@ -137,10 +137,10 @@ public final class TorrentHandle {
      * <p>
      * Each entry in the vector contains information about that particular peer.
      *
-     * @return
+     * @return the list with the peers information
      * @see PeerInfo
      */
-    public ArrayList<PeerInfo> peerInfo() {
+    public List<PeerInfo> peerInfo() {
         if (!th.is_valid()) {
             return new ArrayList<>();
         }
