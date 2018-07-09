@@ -115,6 +115,10 @@ public final class Vectors {
             }
         }
 
+        if (n == 0) {
+            return "";
+        }
+
         try {
             return new String(arr, 0, n, encoding);
         } catch (UnsupportedEncodingException e) {
