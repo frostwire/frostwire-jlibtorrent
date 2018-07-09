@@ -8,47 +8,43 @@ import com.frostwire.jlibtorrent.swig.error_code;
  */
 public final class ErrorCode {
 
-    private final error_code ec;
+    private int value;
+    private String message;
+    private boolean isError;
 
     /**
      * @param ec the native object
      */
     public ErrorCode(error_code ec) {
-        this.ec = ec;
-    }
-
-    /**
-     *
-     */
-    public ErrorCode() {
-        this(new error_code());
-    }
-
-    /**
-     * @return the native object
-     */
-    public error_code swig() {
-        return ec;
-    }
-
-    /**
-     *
-     */
-    public void clear() {
-        ec.clear();
+        assign(ec);
     }
 
     /**
      * @return the internal error code value
      */
     public int value() {
-        return ec.value();
+        return value;
     }
 
     /**
      * @return the error message
      */
     public String message() {
-        return ec.message();
+        return message;
+    }
+
+    /**
+     * Returns if this error code actually represents an error.
+     *
+     * @return true if an actual error
+     */
+    public boolean isError() {
+        return isError;
+    }
+
+    void assign(error_code ec) {
+        value = ec.value();
+        message = ec.message();
+        isError = ec.op_bool();
     }
 }

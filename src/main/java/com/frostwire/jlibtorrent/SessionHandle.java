@@ -240,12 +240,15 @@ public class SessionHandle {
      * <p>
      * All torrent handles must be destructed before the session is destructed!
      *
-     * @param params
-     * @param ec
-     * @return
+     * @param params the parameters to create the torrent download
+     * @param ec the error code if no torrent handle was created
+     * @return the torrent handle, could be invalid
      */
     public TorrentHandle addTorrent(AddTorrentParams params, ErrorCode ec) {
-        return new TorrentHandle(s.add_torrent(params.swig(), ec.swig()));
+        error_code e = new error_code();
+        TorrentHandle th = new TorrentHandle(s.add_torrent(params.swig(), e));
+        ec.assign(e);
+        return th;
     }
 
     public void asyncAddTorrent(AddTorrentParams params) {
