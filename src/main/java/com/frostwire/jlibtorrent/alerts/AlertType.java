@@ -65,7 +65,6 @@ public enum AlertType {
     PEER_UNSNUBBED(peer_unsnubbed_alert.alert_type),
     REQUEST_DROPPED(request_dropped_alert.alert_type),
     UDP_ERROR(udp_error_alert.alert_type),
-    ANONYMOUS_MODE(anonymous_mode_alert.alert_type),
     BLOCK_DOWNLOADING(block_downloading_alert.alert_type),
     BLOCK_TIMEOUT(block_timeout_alert.alert_type),
     CACHE_FLUSHED(cache_flushed_alert.alert_type),
@@ -183,7 +182,7 @@ public enum AlertType {
         arr[56] = DHT_GET_PEERS;
         arr[57] = STATS;
         arr[58] = CACHE_FLUSHED;
-        arr[59] = ANONYMOUS_MODE;
+        arr[59] = UNKNOWN;
         arr[60] = LSD_PEER;
         arr[61] = TRACKERID;
         arr[62] = DHT_BOOTSTRAP;

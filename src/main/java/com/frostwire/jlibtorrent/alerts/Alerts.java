@@ -382,7 +382,7 @@ public final class Alerts {
         arr[59] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new AnonymousModeAlert(cast_to_anonymous_mode_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[60] = new CastLambda() {

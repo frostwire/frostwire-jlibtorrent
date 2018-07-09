@@ -1708,7 +1708,6 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_dht_get_peers_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_cache_flushed_alert(long jarg1, alert jarg1_);
-  public final static native long alert_cast_to_anonymous_mode_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_lsd_peer_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_trackerid_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_dht_bootstrap_alert(long jarg1, alert jarg1_);
@@ -2318,19 +2317,6 @@ public class libtorrent_jni {
   public final static native String cache_flushed_alert_what(long jarg1, cache_flushed_alert jarg1_);
   public final static native long cache_flushed_alert_static_category_get();
   public final static native void delete_cache_flushed_alert(long jarg1);
-  public final static native int anonymous_mode_alert_priority_get();
-  public final static native int anonymous_mode_alert_alert_type_get();
-  public final static native int anonymous_mode_alert_type(long jarg1, anonymous_mode_alert jarg1_);
-  public final static native long anonymous_mode_alert_category(long jarg1, anonymous_mode_alert jarg1_);
-  public final static native String anonymous_mode_alert_what(long jarg1, anonymous_mode_alert jarg1_);
-  public final static native long anonymous_mode_alert_static_category_get();
-  public final static native String anonymous_mode_alert_message(long jarg1, anonymous_mode_alert jarg1_);
-  public final static native int anonymous_mode_alert_tracker_not_anonymous_get();
-  public final static native void anonymous_mode_alert_kind_set(long jarg1, anonymous_mode_alert jarg1_, int jarg2);
-  public final static native int anonymous_mode_alert_kind_get(long jarg1, anonymous_mode_alert jarg1_);
-  public final static native void anonymous_mode_alert_str_set(long jarg1, anonymous_mode_alert jarg1_, String jarg2);
-  public final static native String anonymous_mode_alert_str_get(long jarg1, anonymous_mode_alert jarg1_);
-  public final static native void delete_anonymous_mode_alert(long jarg1);
   public final static native int lsd_peer_alert_priority_get();
   public final static native int lsd_peer_alert_alert_type_get();
   public final static native int lsd_peer_alert_type(long jarg1, lsd_peer_alert jarg1_);
@@ -2741,6 +2727,7 @@ public class libtorrent_jni {
   public final static native int settings_pack_no_recheck_incomplete_resume_get();
   public final static native int settings_pack_seeding_outgoing_connections_get();
   public final static native int settings_pack_ban_web_seeds_get();
+  public final static native int settings_pack_support_share_mode_get();
   public final static native int settings_pack_announce_crypto_support_get();
   public final static native int settings_pack_tracker_completion_timeout_get();
   public final static native int settings_pack_cache_expiry_get();
@@ -3171,7 +3158,6 @@ public class libtorrent_jni {
   public final static native long dht_get_peers_alert_SWIGUpcast(long jarg1);
   public final static native long stats_alert_SWIGUpcast(long jarg1);
   public final static native long cache_flushed_alert_SWIGUpcast(long jarg1);
-  public final static native long anonymous_mode_alert_SWIGUpcast(long jarg1);
   public final static native long lsd_peer_alert_SWIGUpcast(long jarg1);
   public final static native long trackerid_alert_SWIGUpcast(long jarg1);
   public final static native long dht_bootstrap_alert_SWIGUpcast(long jarg1);

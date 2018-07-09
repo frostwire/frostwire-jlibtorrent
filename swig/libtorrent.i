@@ -1166,6 +1166,7 @@ namespace libtorrent {
 %ignore libtorrent::settings_pack::deprecated_cache_buffer_chunk_size;
 %ignore libtorrent::settings_pack::deprecated_lock_files;
 %ignore libtorrent::settings_pack::deprecated_ssl_listen;
+%ignore libtorrent::settings_pack::deprecated_force_proxy;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
@@ -1442,7 +1443,6 @@ namespace libtorrent {
     CAST_ALERT_METHOD(dht_get_peers_alert)
     CAST_ALERT_METHOD(stats_alert)
     CAST_ALERT_METHOD(cache_flushed_alert)
-    CAST_ALERT_METHOD(anonymous_mode_alert)
     CAST_ALERT_METHOD(lsd_peer_alert)
     CAST_ALERT_METHOD(trackerid_alert)
     CAST_ALERT_METHOD(dht_bootstrap_alert)
