@@ -12,7 +12,8 @@
     * added new constructor to TorrentInfo from byte array
     * improved API for AnnounceEntry
     * added AnnounceEndpoint java API, it is a lightweight class
-    * ErrorCode is a lightweight class
+    * convert ErrorCode to a lightweight class
+    * convert PeerInfo to a lightweight class
     * lt:deprecate (and disable) the force-proxy setting. Instead, always use
       the proxy when set, never fall back on circumventing it
     * lt:move the file priority vector throught the disk_io_job, to avoid copies
