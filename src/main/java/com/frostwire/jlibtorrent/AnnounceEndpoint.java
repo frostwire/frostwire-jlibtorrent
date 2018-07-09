@@ -5,39 +5,33 @@ import com.frostwire.jlibtorrent.swig.announce_endpoint;
 /**
  * Announces are sent to each tracker using every listen socket, this class
  * holds information about one listen socket for one tracker.
+ * <p>
+ * This class is a lightweight version of the native {@link announce_endpoint},
+ * and only carries a subset of all the information. However, it's completely
+ * open for custom use or optimization to accommodate client necessities.
  *
  * @author gubatron
  * @author aldenml
  */
-public final class AnnounceEndpoint {
+public class AnnounceEndpoint {
 
-    private final String message;
-    private final ErrorCode lastError;
-    private final String localEndpoint;
-    private final long nextAnnounce;
-    private final long minAnnounce;
-    private final int scrapeIncomplete;
-    private final int scrapeComplete;
-    private final int scrapeDownloaded;
-    private final int fails;
-    private final boolean updating;
-    private final boolean isWorking;
+    protected String message;
+    protected ErrorCode lastError;
+    protected String localEndpoint;
+    protected long nextAnnounce;
+    protected long minAnnounce;
+    protected int scrapeIncomplete;
+    protected int scrapeComplete;
+    protected int scrapeDownloaded;
+    protected int fails;
+    protected boolean updating;
+    protected boolean isWorking;
 
     /**
      * @param e the native object
      */
-    AnnounceEndpoint(announce_endpoint e) {
-        this.message = Vectors.byte_vector2ascii(e.get_message());
-        this.lastError = new ErrorCode(e.getLast_error());
-        this.localEndpoint = new TcpEndpoint(e.getLocal_endpoint()).toString();
-        this.nextAnnounce = e.get_next_announce();
-        this.minAnnounce = e.get_min_announce();
-        this.scrapeIncomplete = e.getScrape_incomplete();
-        this.scrapeComplete = e.getScrape_complete();
-        this.scrapeDownloaded = e.getScrape_downloaded();
-        this.fails = e.getFails();
-        this.updating = e.getUpdating();
-        this.isWorking = e.is_working();
+    public AnnounceEndpoint(announce_endpoint e) {
+        init(e);
     }
 
     /**
@@ -149,5 +143,24 @@ public final class AnnounceEndpoint {
      */
     public boolean isWorking() {
         return isWorking;
+    }
+
+    /**
+     * NOTE: use this with care and only if necessary.
+     *
+     * @param e the native object
+     */
+    protected void init(announce_endpoint e) {
+        message = Vectors.byte_vector2ascii(e.get_message());
+        lastError = new ErrorCode(e.getLast_error());
+        localEndpoint = new TcpEndpoint(e.getLocal_endpoint()).toString();
+        nextAnnounce = e.get_next_announce();
+        minAnnounce = e.get_min_announce();
+        scrapeIncomplete = e.getScrape_incomplete();
+        scrapeComplete = e.getScrape_complete();
+        scrapeDownloaded = e.getScrape_downloaded();
+        fails = e.getFails();
+        updating = e.getUpdating();
+        isWorking = e.is_working();
     }
 }
