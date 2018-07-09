@@ -93,22 +93,6 @@ public class announce_endpoint {
     return libtorrent_jni.announce_endpoint_updating_get(swigCPtr, this);
   }
 
-  public void setStart_sent(boolean value) {
-    libtorrent_jni.announce_endpoint_start_sent_set(swigCPtr, this, value);
-  }
-
-  public boolean getStart_sent() {
-    return libtorrent_jni.announce_endpoint_start_sent_get(swigCPtr, this);
-  }
-
-  public void setComplete_sent(boolean value) {
-    libtorrent_jni.announce_endpoint_complete_sent_set(swigCPtr, this, value);
-  }
-
-  public boolean getComplete_sent() {
-    return libtorrent_jni.announce_endpoint_complete_sent_get(swigCPtr, this);
-  }
-
   public boolean is_working() {
     return libtorrent_jni.announce_endpoint_is_working(swigCPtr, this);
   }

@@ -11,20 +11,33 @@ import com.frostwire.jlibtorrent.swig.announce_endpoint;
  */
 public final class AnnounceEndpoint {
 
-    private final announce_endpoint e;
+    private final String message;
+    private final ErrorCode lastError;
+    private final String localEndpoint;
+    private final long nextAnnounce;
+    private final long minAnnounce;
+    private final int scrapeIncomplete;
+    private final int scrapeComplete;
+    private final int scrapeDownloaded;
+    private final int fails;
+    private final boolean updating;
+    private final boolean isWorking;
 
     /**
      * @param e the native object
      */
-    public AnnounceEndpoint(announce_endpoint e) {
-        this.e = e;
-    }
-
-    /**
-     * @return the native object
-     */
-    public announce_endpoint swig() {
-        return e;
+    AnnounceEndpoint(announce_endpoint e) {
+        this.message = Vectors.byte_vector2ascii(e.get_message());
+        this.lastError = new ErrorCode(e.getLast_error());
+        this.localEndpoint = new TcpEndpoint(e.getLocal_endpoint()).toString();
+        this.nextAnnounce = e.get_next_announce();
+        this.minAnnounce = e.get_min_announce();
+        this.scrapeIncomplete = e.getScrape_incomplete();
+        this.scrapeComplete = e.getScrape_complete();
+        this.scrapeDownloaded = e.getScrape_downloaded();
+        this.fails = e.getFails();
+        this.updating = e.getUpdating();
+        this.isWorking = e.is_working();
     }
 
     /**
@@ -34,7 +47,7 @@ public final class AnnounceEndpoint {
      * @return the error or warning message
      */
     public String message() {
-        return Vectors.byte_vector2ascii(e.get_message());
+        return message;
     }
 
     /**
@@ -44,7 +57,7 @@ public final class AnnounceEndpoint {
      * @return the last error code
      */
     public ErrorCode lastError() {
-        return new ErrorCode(e.getLast_error());
+        return lastError;
     }
 
     /**
@@ -52,8 +65,8 @@ public final class AnnounceEndpoint {
      *
      * @return the local endpoint
      */
-    public TcpEndpoint localEndpoint() {
-        return new TcpEndpoint(e.getLocal_endpoint());
+    public String localEndpoint() {
+        return localEndpoint;
     }
 
     /**
@@ -62,14 +75,14 @@ public final class AnnounceEndpoint {
      * @return the time of next tracker announce in milliseconds
      */
     public long nextAnnounce() {
-        return e.get_next_announce();
+        return nextAnnounce;
     }
 
     /**
      * No announces before this time.
      */
     public long minAnnounce() {
-        return e.get_min_announce();
+        return minAnnounce;
     }
 
     /**
@@ -83,7 +96,7 @@ public final class AnnounceEndpoint {
      * @return the number of current downloaders
      */
     public int scrapeIncomplete() {
-        return e.getScrape_incomplete();
+        return scrapeIncomplete;
     }
 
     /**
@@ -96,7 +109,7 @@ public final class AnnounceEndpoint {
      * @return the current number of seeds
      */
     public int scrapeComplete() {
-        return e.getScrape_complete();
+        return scrapeComplete;
     }
 
     /**
@@ -111,7 +124,7 @@ public final class AnnounceEndpoint {
      * @return the cumulative number of completed downloads
      */
     public int scrapeDownloaded() {
-        return e.getScrape_downloaded();
+        return scrapeDownloaded;
     }
 
     /**
@@ -120,30 +133,14 @@ public final class AnnounceEndpoint {
      * @return the number of fails
      */
     public int fails() {
-        return e.getFails();
+        return fails;
     }
 
     /**
      * True while we're waiting for a response from the tracker.
      */
     public boolean updating() {
-        return e.getUpdating();
-    }
-
-    /**
-     * Set to true when we get a valid response from an announce
-     * with event=started. If it is set, we won't send start in the subsequent
-     * announces.
-     */
-    public boolean startSent() {
-        return e.getStart_sent();
-    }
-
-    /**
-     * Set to true when we send a event=completed.
-     */
-    public boolean completeSent() {
-        return e.getComplete_sent();
+        return updating;
     }
 
     /**
@@ -151,6 +148,6 @@ public final class AnnounceEndpoint {
      * tracker succeeded, or if we haven't tried yet.
      */
     public boolean isWorking() {
-        return e.is_working();
+        return isWorking;
     }
 }
