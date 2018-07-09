@@ -826,7 +826,6 @@ public class libtorrent_jni {
   public final static native short announce_entry_source_get(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_verified_set(long jarg1, announce_entry jarg1_, boolean jarg2);
   public final static native boolean announce_entry_verified_get(long jarg1, announce_entry jarg1_);
-  public final static native void announce_entry_trim(long jarg1, announce_entry jarg1_);
   public final static native long new_announce_entry(long jarg1, byte_vector jarg1_);
   public final static native long announce_entry_get_url(long jarg1, announce_entry jarg1_);
   public final static native void announce_entry_set_url(long jarg1, announce_entry jarg1_, long jarg2, byte_vector jarg2_);

@@ -61,8 +61,8 @@ public final class AnnounceEntry {
         return Vectors.byte_vector2ascii(e.get_url());
     }
 
-    public void url(String s) {
-        e.set_url(Vectors.ascii2byte_vector(s));
+    public void url(String value) {
+        e.set_url(Vectors.ascii2byte_vector(value));
     }
 
     /**
@@ -76,8 +76,8 @@ public final class AnnounceEntry {
         return Vectors.byte_vector2ascii(e.get_trackerid());
     }
 
-    public void trackerId(String s) {
-        e.set_trackerid(Vectors.ascii2byte_vector(s));
+    public void trackerId(String value) {
+        e.set_trackerid(Vectors.ascii2byte_vector(value));
     }
 
     /**
@@ -87,5 +87,42 @@ public final class AnnounceEntry {
      */
     public int tier() {
         return e.getTier();
+    }
+
+    public void tier(short value) {
+        e.setTier(value);
+    }
+
+    /**
+     * The max number of failures to announce to this tracker in
+     * a row, before this tracker is not used anymore. 0 means unlimited.
+     *
+     * @return the max number of failures allowed
+     */
+    public int failLimit() {
+        return e.getFail_limit();
+    }
+
+    public void failLimit(short value) {
+        e.setFail_limit(value);
+    }
+
+    /**
+     * A bitmask specifying which sources we got this tracker from.
+     *
+     * @return the source bitmask
+     */
+    public int source() {
+        return e.getSource();
+    }
+
+    /**
+     * Set to true the first time we receive a valid response
+     * from this tracker.
+     *
+     * @return if the tracker has received a valid response
+     */
+    public boolean isVerified() {
+        return e.getVerified();
     }
 }
