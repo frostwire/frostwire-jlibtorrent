@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -881,6 +882,9 @@ public final class TorrentHandle {
      * @return the list of trackers
      */
     public List<AnnounceEntry> trackers() {
+        if (!th.is_valid()) {
+            return Collections.emptyList();
+        }
         return TorrentInfo.trackers(th.trackers());
     }
 
