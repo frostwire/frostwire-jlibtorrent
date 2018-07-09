@@ -890,8 +890,6 @@ namespace libtorrent {
 
         std::uint8_t fails;
         bool updating;
-        bool start_sent;
-        bool complete_sent;
 
         bool is_working() const;
 

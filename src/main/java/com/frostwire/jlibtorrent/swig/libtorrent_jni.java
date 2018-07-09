@@ -807,10 +807,6 @@ public class libtorrent_jni {
   public final static native short announce_endpoint_fails_get(long jarg1, announce_endpoint jarg1_);
   public final static native void announce_endpoint_updating_set(long jarg1, announce_endpoint jarg1_, boolean jarg2);
   public final static native boolean announce_endpoint_updating_get(long jarg1, announce_endpoint jarg1_);
-  public final static native void announce_endpoint_start_sent_set(long jarg1, announce_endpoint jarg1_, boolean jarg2);
-  public final static native boolean announce_endpoint_start_sent_get(long jarg1, announce_endpoint jarg1_);
-  public final static native void announce_endpoint_complete_sent_set(long jarg1, announce_endpoint jarg1_, boolean jarg2);
-  public final static native boolean announce_endpoint_complete_sent_get(long jarg1, announce_endpoint jarg1_);
   public final static native boolean announce_endpoint_is_working(long jarg1, announce_endpoint jarg1_);
   public final static native long announce_endpoint_get_message(long jarg1, announce_endpoint jarg1_);
   public final static native long announce_endpoint_get_next_announce(long jarg1, announce_endpoint jarg1_);
