@@ -144,6 +144,11 @@ public class PeerInfo {
         return ip;
     }
 
+    /**
+     * NOTE: use this with care and only if necessary.
+     *
+     * @param p the native object
+     */
     protected void init(peer_info p) {
         client = Vectors.byte_vector2ascii(p.get_client());
         totalDownload = p.getTotal_download();
