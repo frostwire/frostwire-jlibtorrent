@@ -1,4 +1,4 @@
-1.2.0.18-RC9
+1.2.0.18-RC10(temp)
 
     * using android NDK r17b
     * updated to boost 1.67.0
@@ -14,6 +14,12 @@
     * added AnnounceEndpoint java API, it is a lightweight class
     * convert ErrorCode to a lightweight class
     * convert PeerInfo to a lightweight class
+    * lt:set port in handshake based on source address
+    * lt:fix Windows "file::preadv" emulation EOF handling
+    * lt:fix windows async read EOF handling
+    * lt:fix bug in read/write resume data functions
+    * lt:dht don't set implied_port for SSL torrents
+    * lt:dht announce with per-interface listen port
     * lt:deprecate (and disable) the force-proxy setting. Instead, always use
       the proxy when set, never fall back on circumventing it
     * lt:move the file priority vector throught the disk_io_job, to avoid copies

@@ -241,7 +241,7 @@ public class SessionHandle {
      * All torrent handles must be destructed before the session is destructed!
      *
      * @param params the parameters to create the torrent download
-     * @param ec the error code if no torrent handle was created
+     * @param ec     the error code if no torrent handle was created
      * @return the torrent handle, could be invalid
      */
     public TorrentHandle addTorrent(AddTorrentParams params, ErrorCode ec) {
@@ -547,6 +547,10 @@ public class SessionHandle {
     public void dhtGetPeers(Sha1Hash infoHash) {
         s.dht_get_peers(infoHash.swig());
     }
+
+    public static final int DHT_ANNOUNCE_SEED = 1;
+    public static final int DHT_ANNOUNCE_IMPLIED_PORT = 1 << 1;
+    public static final int DHT_ANNOUNCE_SSL_TORRENT = 1 << 2;
 
     /**
      * @param infoHash
