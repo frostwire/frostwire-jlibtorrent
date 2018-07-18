@@ -451,6 +451,7 @@ namespace libtorrent {
 
     namespace dht {
         typedef sha1_hash node_id;
+        typedef int announce_flags_t;
     }
 
     enum storage_mode_t {

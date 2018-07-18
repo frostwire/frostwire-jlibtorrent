@@ -35766,6 +35766,18 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
 }
 
 
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1clear_1disk_1cache_1get(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  libtorrent::flags::bitfield_flag< unsigned char,libtorrent::pause_flags_tag > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (libtorrent::flags::bitfield_flag< unsigned char,libtorrent::pause_flags_tag > *)&libtorrent::torrent_handle::clear_disk_cache;
+  *(libtorrent::flags::bitfield_flag< unsigned char,libtorrent::pause_flags_tag > **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1pause_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   libtorrent::torrent_handle *arg1 = (libtorrent::torrent_handle *) 0 ;
   libtorrent::pause_flags_t arg2 ;
@@ -62131,7 +62143,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   libtorrent::session_handle *arg1 = (libtorrent::session_handle *) 0 ;
   libtorrent::sha1_hash *arg2 = 0 ;
   int arg3 ;
-  int arg4 ;
+  libtorrent::dht::announce_flags_t arg4 ;
   
   (void)jenv;
   (void)jcls;
@@ -62144,7 +62156,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
     return ;
   } 
   arg3 = (int)jarg3; 
-  arg4 = (int)jarg4; 
+  arg4 = (libtorrent::dht::announce_flags_t)jarg4; 
   {
     try {
       (arg1)->dht_announce((libtorrent::sha1_hash const &)*arg2,arg3,arg4);

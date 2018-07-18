@@ -1460,6 +1460,7 @@ public class libtorrent_jni {
   public final static native void torrent_handle_remove_http_seed(long jarg1, torrent_handle jarg1_, String jarg2);
   public final static native boolean torrent_handle_is_valid(long jarg1, torrent_handle jarg1_);
   public final static native long torrent_handle_graceful_pause_get();
+  public final static native long torrent_handle_clear_disk_cache_get();
   public final static native void torrent_handle_pause__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, pause_flags_t jarg2_);
   public final static native void torrent_handle_pause__SWIG_1(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_resume(long jarg1, torrent_handle jarg1_);
