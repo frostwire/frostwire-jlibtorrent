@@ -97,6 +97,7 @@ Projects using jLibtorrent
 ==========================
 - [FrostWire](http://www.frostwire.com) (both desktop and android editions)
 - [TorrentStream-Android](https://github.com/mianharisali/TorrentStream-Android)
+- [Simple-Torrent-Android](https://github.com/masterwok/simple-torrent-android)
 - [TorrentTunes-Client](https://github.com/dessalines/torrenttunes-client)
 - [LibreTorrent](https://github.com/proninyaroslav/libretorrent)
 
