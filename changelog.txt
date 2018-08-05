@@ -14,6 +14,22 @@
     * added AnnounceEndpoint java API, it is a lightweight class
     * convert ErrorCode to a lightweight class
     * convert PeerInfo to a lightweight class
+    * lt:fix deprecation of mmap_cache
+    * lt:add missing increment of on_disk_counter and num_blocks_hashed counters
+    * lt:apply piece priorities immediately, even though file priority updates
+      are async. save both file- and piece priorities in fast resume
+    * lt:simplify natpmp gateway and local address discovery
+    * lt:fix typo in #if tests for TORRENT_DISABLE_ENCRYPTION
+    * lt:in torrent_handle::id(), only shift down the pointer by 10 bits
+    * lt:add piece index range checks on have_piece() and read_piece()
+    * lt:make metric_type_t an enum class, deprecate the in-class enum values
+    * lt:only post alerts for newly opened listen sockets, and only attempt to
+      map ports for newly opened sockets
+    * lt:remove special handling of uTP peers, uTP connections are no longer
+      exempt from rate limits by default
+    * lt:make natpmp deal with address_v6 instead of the bytes_type, and use
+      write_address instead of memcpy
+    * lt:fix exporting files from partfile while seeding
     * lt:set port in handshake based on source address
     * lt:fix Windows "file::preadv" emulation EOF handling
     * lt:fix windows async read EOF handling

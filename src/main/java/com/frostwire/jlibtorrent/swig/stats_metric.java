@@ -43,12 +43,12 @@ public class stats_metric {
     return libtorrent_jni.stats_metric_value_index_get(swigCPtr, this);
   }
 
-  public void setType(stats_metric.metric_type_t value) {
+  public void setType(metric_type_t value) {
     libtorrent_jni.stats_metric_type_set(swigCPtr, this, value.swigValue());
   }
 
-  public stats_metric.metric_type_t getType() {
-    return stats_metric.metric_type_t.swigToEnum(libtorrent_jni.stats_metric_type_get(swigCPtr, this));
+  public metric_type_t getType() {
+    return metric_type_t.swigToEnum(libtorrent_jni.stats_metric_type_get(swigCPtr, this));
   }
 
   public String get_name() {
@@ -57,50 +57,6 @@ public class stats_metric {
 
   public stats_metric() {
     this(libtorrent_jni.new_stats_metric(), true);
-  }
-
-  public final static class metric_type_t {
-    public final static stats_metric.metric_type_t type_counter = new stats_metric.metric_type_t("type_counter");
-    public final static stats_metric.metric_type_t type_gauge = new stats_metric.metric_type_t("type_gauge");
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static metric_type_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + metric_type_t.class + " with value " + swigValue);
-    }
-
-    private metric_type_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private metric_type_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private metric_type_t(String swigName, metric_type_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static metric_type_t[] swigValues = { type_counter, type_gauge };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
   }
 
 }
