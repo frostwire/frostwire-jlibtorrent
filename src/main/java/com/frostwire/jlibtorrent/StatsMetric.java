@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.metric_type_t;
 import com.frostwire.jlibtorrent.swig.stats_metric;
 
 /**
@@ -27,8 +28,8 @@ public final class StatsMetric {
     public static final String DHT_NODES_GAUGE_NAME = "dht.dht_nodes";
     public static final int DHT_NODES_GAUGE_INDEX = LibTorrent.findMetricIdx(DHT_NODES_GAUGE_NAME);
 
-    public static final int TYPE_COUNTER = stats_metric.metric_type_t.type_counter.swigValue();
-    public static final int TYPE_GAUGE = stats_metric.metric_type_t.type_gauge.swigValue();
+    public static final int TYPE_COUNTER = metric_type_t.counter.swigValue();
+    public static final int TYPE_GAUGE = metric_type_t.gauge.swigValue();
 
     StatsMetric(stats_metric sm) {
         this.name = sm.get_name();
