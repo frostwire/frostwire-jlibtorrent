@@ -9,7 +9,7 @@ Develop libtorrent based apps with the joy of coding in Java.
 Using
 ========
 
-Download [the latest JAR](https://search.maven.org/remote_content?g=com.frostwire&a=jlibtorrent&v=LATEST) or get the dependency via Maven:
+Download [the latest JAR](https://search.maven.org/classic/remote_content?g=com.frostwire&a=jlibtorrent&v=LATEST) or get the dependency via Maven:
 ```xml
 <dependency>
   <groupId>com.frostwire</groupId>
