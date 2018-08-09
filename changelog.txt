@@ -1,7 +1,7 @@
 1.2.0.18-RC10
 
     * using android NDK r17b
-    * updated to boost 1.67.0
+    * updated to boost 1.68.0
     * updated to OpenSSL 1.1.1-pre8
     * expose to java SWIG api the aux::arm_neon_support flag for android
       runtime verification
