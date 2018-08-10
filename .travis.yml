@@ -21,6 +21,11 @@ branches:
     - master
 
 before_install:
+# fix unzip in macOS until we can move to a higher version
+  - if [ $os_build == "macosx" ]; then
+      brew update > /dev/null && brew install --quiet unzip;
+      export PATH="/usr/local/opt/unzip/bin:$PATH";
+    fi
 # boost: download and bootstrap
   - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.zip
   - unzip -qq boost.zip
