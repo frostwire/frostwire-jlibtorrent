@@ -14,6 +14,14 @@
     * added AnnounceEndpoint java API, it is a lightweight class
     * convert ErrorCode to a lightweight class
     * convert PeerInfo to a lightweight class
+    * lt:fix exporting files to avoid overwriting existing files, before
+      exporting anything from a parts file, check whether it contains valid data
+    * lt:improve connect-boost feature, to make new torrents quickly connect
+      peers
+    * lt:add a few more stats counters measuring outgoing connection attempts.
+      simplify session_stats_header_alert by posting it on first call to
+      post_session_stats() instead of making it gated by the alert_mask
+    * lt:remove dead code from piece picker
     * lt:tweak the auto-cache-size logic to have slightly smaller cache
     * lt:fix deprecation of mmap_cache
     * lt:add missing increment of on_disk_counter and num_blocks_hashed counters
