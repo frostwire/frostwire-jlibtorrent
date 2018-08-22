@@ -187,6 +187,14 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_total_done_get(swigCPtr, this);
   }
 
+  public void setTotal(long value) {
+    libtorrent_jni.torrent_status_total_set(swigCPtr, this, value);
+  }
+
+  public long getTotal() {
+    return libtorrent_jni.torrent_status_total_get(swigCPtr, this);
+  }
+
   public void setTotal_wanted_done(long value) {
     libtorrent_jni.torrent_status_total_wanted_done_set(swigCPtr, this, value);
   }
