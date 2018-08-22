@@ -35,14 +35,10 @@ before_install:
   - export BOOST_ROOT=$PWD/boost_1_68_0
 
 # openssl: download
-  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1-pre8.tar.gz
+  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1-pre9.tar.gz
   - tar xzf openssl.tar.gz
-  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1-pre8
+  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1-pre9
   # fix source code
-  # this one avoid the use of assembler for SHA3 to fix relocation issues
-  - if [[ $os_build == "linux" && $os_arch == "x86_64" ]]; then
-      sed -i 's/keccak1600-x86_64\.s/keccak1600\.c/g' $OPENSSL_SOURCE/Configurations/00-base-templates.conf;
-    fi
   # this one avoid GDI dependency in windows
   - if [ $os_build == "windows" ]; then
       sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' $OPENSSL_SOURCE/crypto/cryptlib.c;
