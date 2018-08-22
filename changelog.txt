@@ -1,4 +1,4 @@
-1.2.0.18-RC10
+1.2.0.18-RC11
 
     * using android NDK r17b
     * updated to boost 1.68.0
