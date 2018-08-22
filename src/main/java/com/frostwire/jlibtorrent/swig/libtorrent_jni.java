@@ -1306,6 +1306,8 @@ public class libtorrent_jni {
   public final static native long torrent_status_verified_pieces_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_total_done_set(long jarg1, torrent_status jarg1_, long jarg2);
   public final static native long torrent_status_total_done_get(long jarg1, torrent_status jarg1_);
+  public final static native void torrent_status_total_set(long jarg1, torrent_status jarg1_, long jarg2);
+  public final static native long torrent_status_total_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_total_wanted_done_set(long jarg1, torrent_status jarg1_, long jarg2);
   public final static native long torrent_status_total_wanted_done_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_total_wanted_set(long jarg1, torrent_status jarg1_, long jarg2);

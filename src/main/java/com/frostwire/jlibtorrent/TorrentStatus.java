@@ -186,6 +186,16 @@ public final class TorrentStatus implements Cloneable {
     }
 
     /**
+     * The total number of bytes to download for this torrent. This
+     * may be less than the size of the torrent in case there are
+     * pad files. This number only counts bytes that will actually
+     * be requested from peers.
+     */
+    public long total() {
+        return ts.getTotal();
+    }
+
+    /**
      * The number of bytes we have downloaded, only counting the pieces that we actually want
      * to download. i.e. excluding any pieces that we have but have priority 0 (i.e. not wanted).
      */
