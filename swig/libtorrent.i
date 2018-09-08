@@ -53,6 +53,7 @@ using peer_class_t = libtorrent::peer_class_t;
 using port_mapping_t = libtorrent::port_mapping_t;
 using queue_position_t = libtorrent::queue_position_t;
 using download_priority_t = libtorrent::download_priority_t;
+using disconnect_severity_t = libtorrent::disconnect_severity_t;
 
 // END common set include ------------------------------------------------------
 %}
@@ -173,6 +174,7 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(port_mapping_t, int, int)
 TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
+TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 namespace std {
 
@@ -446,6 +448,8 @@ namespace libtorrent {
     %template(create_flags_t) flags::bitfield_flag<std::uint32_t, create_flags_tag>;
     struct reopen_network_flags_tag;
     %template(reopen_network_flags_t) flags::bitfield_flag<std::uint8_t, reopen_network_flags_tag>;
+    struct reannounce_flags_tag;
+    %template(reannounce_flags_t) flags::bitfield_flag<std::uint8_t, reannounce_flags_tag>;
 
     typedef sha1_hash peer_id;
 

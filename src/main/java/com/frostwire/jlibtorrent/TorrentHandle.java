@@ -816,6 +816,29 @@ public final class TorrentHandle {
         th.force_recheck();
     }
 
+    /**
+     * By default, force-reannounce will still honor the min-interval
+     * published by the tracker. If this flag is set, it will be ignored
+     * and the tracker is announced immediately.
+     */
+    public static final reannounce_flags_t IGNORE_MIN_INTERVAL = torrent_handle.ignore_min_interval;
+
+    // ``force_reannounce()`` will force this torrent to do another tracker
+    // request, to receive new peers. The ``seconds`` argument specifies how
+    // many seconds from now to issue the tracker announces.
+    //
+    // If the tracker's ``min_interval`` has not passed since the last
+    // announce, the forced announce will be scheduled to happen immediately
+    // as the ``min_interval`` expires. This is to honor trackers minimum
+    // re-announce interval settings.
+    //
+    // The ``tracker_index`` argument specifies which tracker to re-announce.
+    // If set to -1 (which is the default), all trackers are re-announce.
+    //
+    public void forceReannounce(int seconds, int tracker_index, reannounce_flags_t flags) {
+        th.force_reannounce(seconds, tracker_index, flags);
+    }
+
     // ``force_reannounce()`` will force this torrent to do another tracker
     // request, to receive new peers. The ``seconds`` argument specifies how
     // many seconds from now to issue the tracker announces.

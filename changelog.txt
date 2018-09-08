@@ -15,6 +15,15 @@
     * convert ErrorCode to a lightweight class
     * convert PeerInfo to a lightweight class
     * Vectors.byte_vector2string supports only ASCII and UTF-8
+    * lt:improve type-safety of the severity parameter to
+      peer_connection::disconnect()
+    * lt:fix seed count when attaching a peer is aborted
+    * lt:add option to ignore min-interval from tracker, when
+      force-reannouncing a tracker
+    * lt:raise default value for active_limit to 500, since it's supposed to be
+      an upper sanity check limit
+    * lt:make the print function for entry actually be json-like
+    * lt:fall back to copy+remove if rename_file fails
     * lt:improve handling of filesystems not supporting fallocate()
     * lt:improve piece picker performance in tracking pad-blocks
     * lt:force proxy no longer disables the DHT
