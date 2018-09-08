@@ -195,16 +195,20 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_piece_availability(swigCPtr, this, int_vector.getCPtr(avail), avail);
   }
 
+  public void force_reannounce(int seconds, int tracker_index, reannounce_flags_t arg2) {
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_0(swigCPtr, this, seconds, tracker_index, reannounce_flags_t.getCPtr(arg2), arg2);
+  }
+
   public void force_reannounce(int seconds, int tracker_index) {
-    libtorrent_jni.torrent_handle_force_reannounce__SWIG_0(swigCPtr, this, seconds, tracker_index);
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_1(swigCPtr, this, seconds, tracker_index);
   }
 
   public void force_reannounce(int seconds) {
-    libtorrent_jni.torrent_handle_force_reannounce__SWIG_1(swigCPtr, this, seconds);
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_2(swigCPtr, this, seconds);
   }
 
   public void force_reannounce() {
-    libtorrent_jni.torrent_handle_force_reannounce__SWIG_2(swigCPtr, this);
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_3(swigCPtr, this);
   }
 
   public void force_dht_announce() {
@@ -422,4 +426,5 @@ public class torrent_handle {
   public final static resume_data_flags_t flush_disk_cache = new resume_data_flags_t(libtorrent_jni.torrent_handle_flush_disk_cache_get(), false);
   public final static resume_data_flags_t save_info_dict = new resume_data_flags_t(libtorrent_jni.torrent_handle_save_info_dict_get(), false);
   public final static resume_data_flags_t only_if_modified = new resume_data_flags_t(libtorrent_jni.torrent_handle_only_if_modified_get(), false);
+  public final static reannounce_flags_t ignore_min_interval = new reannounce_flags_t(libtorrent_jni.torrent_handle_ignore_min_interval_get(), false);
 }

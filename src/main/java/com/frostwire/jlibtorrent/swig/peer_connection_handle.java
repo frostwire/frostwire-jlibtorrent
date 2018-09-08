@@ -95,8 +95,8 @@ public class peer_connection_handle {
     return new tcp_endpoint(libtorrent_jni.peer_connection_handle_local_endpoint(swigCPtr, this), true);
   }
 
-  public void disconnect(error_code ec, operation_t op, int error) {
-    libtorrent_jni.peer_connection_handle_disconnect__SWIG_0(swigCPtr, this, error_code.getCPtr(ec), ec, op.swigValue(), error);
+  public void disconnect(error_code ec, operation_t op, int arg2) {
+    libtorrent_jni.peer_connection_handle_disconnect__SWIG_0(swigCPtr, this, error_code.getCPtr(ec), ec, op.swigValue(), arg2);
   }
 
   public void disconnect(error_code ec, operation_t op) {
