@@ -42,5 +42,10 @@ public class VectorsTest {
         v.push_back((byte) 0);
         v.push_back((byte) 'B');
         assertEquals(Vectors.byte_vector2ascii(v), "A");
+
+        v.clear();
+        v.push_back((byte) 194);
+        v.push_back((byte) 181);
+        assertEquals(Vectors.byte_vector2utf8(v), "µ");
     }
 }
