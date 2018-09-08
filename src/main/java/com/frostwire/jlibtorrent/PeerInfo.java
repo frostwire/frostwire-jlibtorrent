@@ -150,7 +150,7 @@ public class PeerInfo {
      * @param p the native object
      */
     protected void init(peer_info p) {
-        client = Vectors.byte_vector2ascii(p.get_client());
+        client = Vectors.byte_vector2utf8(p.get_client());
         totalDownload = p.getTotal_download();
         totalUpload = p.getTotal_upload();
         flags = p.get_flags();

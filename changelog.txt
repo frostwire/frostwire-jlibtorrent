@@ -13,7 +13,7 @@
     * improved API for AnnounceEntry
     * added AnnounceEndpoint java API, it is a lightweight class
     * convert ErrorCode to a lightweight class
-    * convert PeerInfo to a lightweight class
+    * convert PeerInfo to a lightweight class, client is UTF-8 decoded
     * Vectors.byte_vector2string supports only ASCII and UTF-8
     * lt:improve type-safety of the severity parameter to
       peer_connection::disconnect()
