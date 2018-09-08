@@ -107,12 +107,9 @@ public final class Vectors {
     public static String byte_vector2string(byte_vector v, String encoding) {
         byte[] arr = Vectors.byte_vector2bytes(v);
 
-        int n = arr.length;
-        // special case of ASCII
-        if ("US-ASCII".equals(encoding)) {
-            for (n = 0; n < arr.length && arr[n] != 0; ) {
-                n++;
-            }
+        int n = 0;
+        for (; n < arr.length && arr[n] != 0; ) {
+            n++;
         }
 
         if (n == 0) {
@@ -128,6 +125,10 @@ public final class Vectors {
 
     public static String byte_vector2ascii(byte_vector v) {
         return byte_vector2string(v, "US-ASCII");
+    }
+
+    public static String byte_vector2utf8(byte_vector v) {
+        return byte_vector2string(v, "UTF-8");
     }
 
     public static byte_vector string2byte_vector(String s, String encoding) {

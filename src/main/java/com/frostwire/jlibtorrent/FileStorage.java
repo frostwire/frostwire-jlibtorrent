@@ -346,7 +346,7 @@ public final class FileStorage {
      */
     public String fileName(int index) {
         byte_vector v = fs.file_name(index).to_bytes();
-        return Vectors.byte_vector2string(v, "UTF-8");
+        return Vectors.byte_vector2utf8(v);
     }
 
     /**
