@@ -1,4 +1,4 @@
-1.2.0.18(temp)
+1.2.0.18
 
     * using android NDK r17c
     * updated to boost 1.68.0
