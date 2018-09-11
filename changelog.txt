@@ -1,4 +1,4 @@
-1.2.0.18-RC12
+1.2.0.18(temp)
 
     * using android NDK r17c
     * updated to boost 1.68.0
@@ -15,6 +15,8 @@
     * convert ErrorCode to a lightweight class
     * convert PeerInfo to a lightweight class, client is UTF-8 decoded
     * Vectors.byte_vector2string supports only ASCII and UTF-8
+    * lt:fix overflow in calc_bytes(), fix bug in piece picker accounting of
+      filtered pad blocks
     * lt:improve type-safety of the severity parameter to
       peer_connection::disconnect()
     * lt:fix seed count when attaching a peer is aborted
