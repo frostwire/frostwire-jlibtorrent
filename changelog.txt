@@ -15,6 +15,7 @@
     * convert ErrorCode to a lightweight class
     * convert PeerInfo to a lightweight class, client is UTF-8 decoded
     * Vectors.byte_vector2string supports only ASCII and UTF-8
+    * lt:fix redundant flushes of partfile metadata
     * lt:fix overflow in calc_bytes(), fix bug in piece picker accounting of
       filtered pad blocks
     * lt:improve type-safety of the severity parameter to
