@@ -1,3 +1,9 @@
+1.2.0.19
+    * using android NDK r18b
+    * updated to boost 1.69.0
+    * updated to OpenSSL 1.1.1a
+    * fixed activeDhtLimit SettingsPack setter
+
 1.2.0.18
 
     * using android NDK r17c
