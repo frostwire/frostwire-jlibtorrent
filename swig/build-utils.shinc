@@ -77,6 +77,7 @@ function build_openssl {
 function prepare_libtorrent {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+  abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
 
   if [ ! -d ${LIBTORRENT_ROOT} ]; then
     pushd ${SRC}
