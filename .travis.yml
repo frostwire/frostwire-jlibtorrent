@@ -2,9 +2,9 @@ language: cpp
 
 matrix:
   include:
-    - env: os_build=android os_arch=arm android_api=16
+    - env: os_build=android os_arch=arm android_api=19
     - env: os_build=android os_arch=arm64 android_api=21
-    - env: os_build=android os_arch=x86 android_api=16
+    - env: os_build=android os_arch=x86 android_api=19
     - env: os_build=android os_arch=x86_64 android_api=21
     - env: os_build=linux os_arch=x86
     - env: os_build=linux os_arch=x86_64
