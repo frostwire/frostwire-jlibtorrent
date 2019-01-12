@@ -3,6 +3,7 @@
     * updated to boost 1.69.0
     * updated to OpenSSL 1.1.1a
     * fixed activeDhtLimit SettingsPack setter
+    * development: new local build scripts for macosx, android
 
 1.2.0.18
 
