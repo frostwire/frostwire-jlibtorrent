@@ -64,6 +64,12 @@ function prepare_android_toolchain {
   popd
 }
 
+function prepare_linux_toolchain {
+  sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  sudo apt-get update -qq
+  sudo apt-get install -qq g++-5
+}
+
 function prepare_openssl {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
@@ -133,7 +139,7 @@ function build_libraries {
     mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
   fi
   cd ..
-  if [[ $os_build == "macosx" ]]; then
+  if [[ $os_build == "macosx" || $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
   if [[ $os_build == "android" && $os_arch == "arm" ]]; then
