@@ -30,7 +30,6 @@ function prepare_boost {
   abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
   abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
   abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
-
   pushd ${SRC}
   if [ ! -d ${BOOST_ROOT} ]; then
     prompt_msg "Downloading BOOST ${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
@@ -38,10 +37,28 @@ function prepare_boost {
     unzip -qq boost.zip
     rm -f boost.zip
   fi
-
   cd boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}
   ./bootstrap.sh
   cd ..
+  popd
+}
+
+function prepare_android_toolchain {
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
+  abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "android_api" ${android_api}
+  pushd ${SRC}
+  if [ ! -f android-ndk-${NDK_VERSION}.zip ]; then
+    prompt_msg "Downloading android-ndk-${NDK_VERSION}"
+    wget -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-linux-x86_64.zip;
+    prompt_msg "Extracting NDK...wait";
+    unzip -qq android-ndk-${NDK_VERSION}.zip;
+  fi
+  export NDK=$PWD/android-ndk-${NDK_VERSION};
+  prompt_msg "Creating android toolchain --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir android-toolchain-${os_arch}"
+  $NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir android-toolchain-${os_arch};
+  export ANDROID_TOOLCHAIN=$PWD/android-toolchain-${os_arch}
   popd
 }
 
@@ -49,8 +66,6 @@ function prepare_openssl {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
-
-
   if [ ! -d ${OPENSSL_SOURCE} ]; then
     prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '{$OPENSSL_SOURCE}'"
     pushd ${SRC}
@@ -78,20 +93,16 @@ function prepare_libtorrent {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
-
   if [ ! -d ${LIBTORRENT_ROOT} ]; then
     pushd ${SRC}
     git clone https://github.com/arvidn/libtorrent
     popd
   fi 
-
   pushd ${LIBTORRENT_ROOT}
   prompt_msg "Checking if you have any uncommited changes"
   git status
-
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
-
   git checkout master
   git pull origin master
   git checkout ${LIBTORRENT_REVISION}
@@ -108,24 +119,20 @@ function build_libraries {
   abort_if_var_unset "run_objcopy" ${run_objcopy}
   abort_if_var_unset "run_strip" ${run_strip}
   abort_if_var_unset "run_readelf" ${run_readelf}
-
   cd ${SWIG}
   $run_bjam
   $run_objcopy
   $run_strip
-  
   if [[ $os_build == "windows" ]]; then
     # expected but parametrized for flexibility and project
     # SHARED_LIB = libjlibtorrent.dll, libtorrent4j.dll
     # SHARED_LIB_FINAL = jlibtorrent.dll, torrent4j.dll
     mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
   fi
-
   if [[ $os_build == "macosx" ]]; then
     cd ..
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
-
   gradle test && gradle -b build.gradle build
 }
 
@@ -135,7 +142,6 @@ function cleanup_objects {
   cd ${SWIG}/bin
   find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
   find . -empty -type d | xargs rm -r
-
   cd ${SWIG}
   cd ..
   find . -type f | egrep '\d.\d.\d.\d\d.jar$'
