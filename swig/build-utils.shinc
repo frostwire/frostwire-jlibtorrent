@@ -18,7 +18,7 @@ function create_folder_if_it_doesnt_exist {
 function abort_if_var_unset {
   var_name=${1}
   var_value=${2}
-  if [[ ! -n $var_value ]]; then
+  if [[ ! -n ${var_value} ]]; then
     prompt_msg "Error ${var_name} not set. Aborting"
     exit 0
   fi
@@ -121,6 +121,7 @@ function build_libraries {
   abort_if_var_unset "run_objcopy" ${run_objcopy}
   abort_if_var_unset "run_strip" ${run_strip}
   abort_if_var_unset "run_readelf" ${run_readelf}
+  set -x
   cd ${SWIG}
   $run_bjam
   $run_objcopy
@@ -131,9 +132,12 @@ function build_libraries {
     # SHARED_LIB_FINAL = jlibtorrent.dll, torrent4j.dll
     mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
   fi
+  cd ..
   if [[ $os_build == "macosx" ]]; then
-    cd ..
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
+  fi
+  if [[ $os_build == "android" && $os_arch == "arm" ]]; then
+    cp swig/bin/release/${os_build}/${os_arch}eabi-v7a/${SHARED_LIB} .
   fi
   gradle test && gradle -b build.gradle build
 }
