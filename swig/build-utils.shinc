@@ -33,13 +33,15 @@ function prepare_boost {
   pushd ${SRC}
   if [ ! -d ${BOOST_ROOT} ]; then
     prompt_msg "Downloading BOOST ${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
-    wget -O boost.zip https://dl.bintray.com/boostorg/release/${BOOST_MAJOR}.${BOOST_VERSION}.{$BOOST_MINOR}/source/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}.zip
+    wget -O boost.zip https://dl.bintray.com/boostorg/release/${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}/source/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}.zip
     unzip -qq boost.zip
     rm -f boost.zip
   fi
-  cd boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}
+  #cd boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}
+  pushd ${BOOST_ROOT}
+  pwd
   ./bootstrap.sh
-  cd ..
+  popd
   popd
 }
 
