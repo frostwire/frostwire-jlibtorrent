@@ -1,3 +1,19 @@
+#!/usr/bin/env bash
+
+#6724c1eec03caa27f42c48c89367b35d718b8c02
+export LIBTORRENT_REVISION=3a1e546a6c63a056914547ecdbc565fb907b423d
+export OPENSSL_VERSION="1.1.1a"
+export BOOST_VERSION="69"
+export BOOST_MAJOR="1"
+export BOOST_MINOR="0"
+export SWIG=`pwd`
+export SRC="${HOME}/src"
+export BOOST_ROOT="${SRC}/boost_1_${BOOST_VERSION}_0"
+export LIBTORRENT_ROOT="${SRC}/libtorrent"
+export OPENSSL_SOURCE="$SRC/openssl-${OPENSSL_VERSION}"
+export OPENSSL_ROOT="$SRC/openssl"
+export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+
 function prompt_msg {
  echo
  echo "============================================================================="
@@ -145,7 +161,9 @@ function build_libraries {
   if [[ $os_build == "android" && $os_arch == "arm" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}eabi-v7a/${SHARED_LIB} .
   fi
-  gradle test && gradle -b build.gradle build
+  # TODO: the copying of android-x86 library
+  gradle clean
+  gradle build
 }
 
 function cleanup_objects {
