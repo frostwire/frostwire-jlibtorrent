@@ -40,7 +40,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 6724c1eec03caa27f42c48c89367b35d718b8c02
+  - git checkout 3a1e546a6c63a056914547ecdbc565fb907b423d
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -216,7 +216,7 @@ script:
   - $run_openssl_configure
   - echo "Compiling openssl...(remove &> /dev/null to see output)"
   - make &> /dev/null
-  - make install &> /dev/null
+  - make install_sw &> /dev/null
   - cd ..
   - export OPENSSL_ROOT=$PWD/openssl
 
