@@ -9,6 +9,10 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent implements libtorrentConstants {
+  public static boolean failed_impl(int ev, SWIGTYPE_p_boost__system__error_category cat) {
+    return libtorrent_jni.failed_impl(ev, SWIGTYPE_p_boost__system__error_category.getCPtr(cat));
+  }
+
   public static boolean op_eq(error_code lhs, error_code rhs) {
     return libtorrent_jni.op_eq__SWIG_1(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
   }
@@ -27,6 +31,10 @@ public class libtorrent implements libtorrentConstants {
 
   public static String version() {
     return libtorrent_jni.version();
+  }
+
+  public static String print_error(error_code arg0) {
+    return libtorrent_jni.print_error(error_code.getCPtr(arg0), arg0);
   }
 
   public static torrent_flags_t getSeed_mode() {
@@ -145,8 +153,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.num_alert_types_get();
   }
 
-  public static int setting_by_name(String name) {
-    return libtorrent_jni.setting_by_name(name);
+  public static int setting_by_name(string_view name) {
+    return libtorrent_jni.setting_by_name(string_view.getCPtr(name), name);
   }
 
   public static String name_for_setting(int s) {

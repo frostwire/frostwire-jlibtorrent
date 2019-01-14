@@ -1706,7 +1706,7 @@ namespace libtorrent {
     }
 
     static libtorrent::add_torrent_params read_resume_data(std::vector<int8_t> const& buffer, error_code& ec) {
-        return libtorrent::read_resume_data({(char const*)&buffer[0], buffer.size()}, ec);
+        return libtorrent::read_resume_data({(char const*)&buffer[0], static_cast<long>(buffer.size())}, ec);
     }
 
     static libtorrent::entry write_resume_data(add_torrent_params const& atp) {
