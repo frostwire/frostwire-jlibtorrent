@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+export JLIBTORRENT_VERSION=1.2.0.19
 export LIBTORRENT_REVISION=3a1e546a6c63a056914547ecdbc565fb907b423d
 export OPENSSL_VERSION="1.1.1a"
 export BOOST_VERSION="69"
