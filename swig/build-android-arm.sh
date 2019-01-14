@@ -8,18 +8,7 @@
 # remote android-arm build with travis is available at https://s3.amazonaws.com/gubatron-jlibtorrent/release/android/arm64-v8a/libjlibtorrent.so
 
 source build-utils.shinc
-abort_if_var_unset "LIBTORRENT_REVISION" LIBTORRENT_REVISION
-abort_if_var_unset "OPENSSL_VERSION" OPENSSL_VERSION
-abort_if_var_unset "BOOST_VERSION" BOOST_VERSION
-abort_if_var_unset "BOOST_MAJOR" BOOST_MAJOR
-abort_if_var_unset "BOOST_MINOR" BOOST_MINOR
-abort_if_var_unset "SWIG" SWIG
-abort_if_var_unset "SRC" SRC
-abort_if_var_unset "BOOST_ROOT" BOOST_ROOT
-abort_if_var_unset "LIBTORRENT_ROOT" LIBTORRENT_ROOT
-abort_if_var_unset "OPENSSL_SOURCE" OPENSSL_SOURCE
-abort_if_var_unset "OPENSSL_ROOT" OPENSSL_ROOT
-abort_if_var_unset "OPENSSL_NO_OPTS" OPENSSL_NO_OPTS
+check_min_req_vars
 
 export os_arch=arm
 export os_build=android

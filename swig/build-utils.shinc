@@ -41,6 +41,21 @@ function abort_if_var_unset {
   echo ${var_name} set to ${var_value}
 }
 
+function check_min_req_vars {
+  abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
+  abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
+  abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
+  abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
+  abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+  abort_if_var_unset "SWIG" ${SWIG}
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
+  abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
+  abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
+  abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
+}
+
 function prepare_boost {
   abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
   abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
@@ -107,7 +122,7 @@ function build_openssl {
     make clean
     $run_openssl_configure
     make -j 8
-    make install
+    make install_sw
     popd
   fi
 }
