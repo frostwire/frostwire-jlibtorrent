@@ -495,7 +495,7 @@ public class alert {
   public final static alert_category_t port_mapping_notification = new alert_category_t(libtorrent_jni.alert_port_mapping_notification_get(), false);
   public final static alert_category_t storage_notification = new alert_category_t(libtorrent_jni.alert_storage_notification_get(), false);
   public final static alert_category_t tracker_notification = new alert_category_t(libtorrent_jni.alert_tracker_notification_get(), false);
-  public final static alert_category_t debug_notification = new alert_category_t(libtorrent_jni.alert_debug_notification_get(), false);
+  public final static alert_category_t connect_notification = new alert_category_t(libtorrent_jni.alert_connect_notification_get(), false);
   public final static alert_category_t status_notification = new alert_category_t(libtorrent_jni.alert_status_notification_get(), false);
   public final static alert_category_t ip_block_notification = new alert_category_t(libtorrent_jni.alert_ip_block_notification_get(), false);
   public final static alert_category_t performance_warning = new alert_category_t(libtorrent_jni.alert_performance_warning_get(), false);
