@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#6724c1eec03caa27f42c48c89367b35d718b8c02
 export LIBTORRENT_REVISION=3a1e546a6c63a056914547ecdbc565fb907b423d
 export OPENSSL_VERSION="1.1.1a"
 export BOOST_VERSION="69"
@@ -8,7 +7,7 @@ export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
 export SWIG=`pwd`
 export SRC="${HOME}/src"
-export BOOST_ROOT="${SRC}/boost_1_${BOOST_VERSION}_0"
+export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 export LIBTORRENT_ROOT="${SRC}/libtorrent"
 export OPENSSL_SOURCE="$SRC/openssl-${OPENSSL_VERSION}"
 export OPENSSL_ROOT="$SRC/openssl"
@@ -53,7 +52,6 @@ function prepare_boost {
     unzip -qq boost.zip
     rm -f boost.zip
   fi
-  #cd boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}
   pushd ${BOOST_ROOT}
   pwd
   ./bootstrap.sh
