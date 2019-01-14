@@ -1,4 +1,10 @@
 #!/bin/bash
+# NOTE: Run this script manually every time you make changes to libtorrent.i, this is not ran by any of the build scripts, including .travis.yml
+source build-utils.shinc
+
+abort_if_var_unset "LIBTORRENT_ROOT" LIBTORRENT_ROOT
+abort_if_var_unset "BOOST_ROOT" BOOST_ROOT
+abort_if_var_unset "JLIBTORRENT_VERSION" JLIBTORRENT_VERSION
 
 function fixCode() {
     sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
