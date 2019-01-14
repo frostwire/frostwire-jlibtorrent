@@ -2,9 +2,9 @@
 # NOTE: Run this script manually every time you make changes to libtorrent.i, this is not ran by any of the build scripts, including .travis.yml
 source build-utils.shinc
 
-abort_if_var_unset "LIBTORRENT_ROOT" LIBTORRENT_ROOT
-abort_if_var_unset "BOOST_ROOT" BOOST_ROOT
-abort_if_var_unset "JLIBTORRENT_VERSION" JLIBTORRENT_VERSION
+abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
+abort_if_var_unset "JLIBTORRENT_VERSION" ${JLIBTORRENT_VERSION}
 
 function fixCode() {
     sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
@@ -32,6 +32,7 @@ function runJni()
         -DBOOST_NO_TYPEID=1 \
         -DBOOST_NO_EXCEPTIONS \
         -DBOOST_POSIX_API=1 \
+        -DBOOST_SYSTEM_CONSTEXPR="" \
         -DBOOST_SYSTEM_NOEXCEPT="" \
         -DBOOST_SYSTEM_DECL="" \
         -DBOOST_SYSTEM_NO_DEPRECATED=1 \
