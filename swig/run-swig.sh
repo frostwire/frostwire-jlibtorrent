@@ -4,7 +4,7 @@ source build-utils.shinc
 
 abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
 abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
-abort_if_var_unset "JLIBTORRENT_VERSION" ${JLIBTORRENT_VERSION}
+abort_if_var_unset "LIBRARY_VERSION" ${LIBRARY_VERSION}
 
 function fixCode() {
     sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
@@ -67,7 +67,7 @@ function runJni()
 
     # replace jlibtorrent version
     GRADLE_VERSION=`sed -n -e '/^version /s/.* //p' ../build.gradle | tr -d "'"`
-    sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${GRADLE_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
+    sed -i '' 's/\$LIBRARY_VERSION\$/'"${GRADLE_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
 }
 
 fixCode

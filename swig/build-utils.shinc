@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-export JLIBTORRENT_VERSION=1.2.0.19
+export LIBRARY_VERSION=1.2.0.19
+export LIBRARY_NAME=jlibtorrent
 export LIBTORRENT_REVISION=3a1e546a6c63a056914547ecdbc565fb907b423d
 export OPENSSL_VERSION="1.1.1a"
 export BOOST_VERSION="69"
@@ -43,6 +44,8 @@ function abort_if_var_unset {
 
 function check_min_req_vars {
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
+  abort_if_var_unset "LIBRARY_VERSION" ${LIBRARY_VERSION}
+  abort_if_var_unset "LIBRARY_NAME" ${LIBRARY_NAME}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
   abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
   abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
@@ -164,8 +167,8 @@ function build_libraries {
   $run_strip
   if [[ $os_build == "windows" ]]; then
     # expected but parametrized for flexibility and project
-    # SHARED_LIB = libjlibtorrent.dll, libtorrent4j.dll
-    # SHARED_LIB_FINAL = jlibtorrent.dll, torrent4j.dll
+    # SHARED_LIB = lib${LIBRARY_NAME}.dll, libtorrent4j.dll
+    # SHARED_LIB_FINAL = ${LIBRARY_NAME}.dll, torrent4j.dll
     mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
   fi
   cd ..

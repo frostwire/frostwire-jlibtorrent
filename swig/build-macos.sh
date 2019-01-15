@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-# This script is meant to run here inside frostwire-jlibtorrent/swig folder
+# This script is meant to run here inside the swig folder
 # It's supposed to be a one step build for the java jar and macosx (.dylib enclosing) jar
 # Output .jar files will be at:
-# frostwire-jlibtorrent/build/libs/jlibtorrent-<version>.jar
-# frostwire-jlibtorrent/build/libs/jlibtorrent-macosx-<version>.jar
+# ../build/libs/${LIBRARY_NAME}-<version>.jar
+# ../build/libs/${LIBRARY_NAME}-macosx-<version>.jar
 
 source build-utils.shinc
 check_min_req_vars
 
 export os_arch=x86_64
 export os_build=macosx
-export SHARED_LIB=libjlibtorrent.dylib
+export SHARED_LIB=lib${LIBRARY_NAME}.dylib
 export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
 export CXX=g++
 export CC=gcc
