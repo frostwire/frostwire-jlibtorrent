@@ -34,6 +34,15 @@ downloadLibrary 'libjlibtorrent.dylib' 'bin/release/macosx/x86_64' 'https://s3.a
 downloadLibrary 'libjlibtorrent.so 'bin/release/linux/x86' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86/libjlibtorrent.so'
 downloadLibrary 'libjlibtorrent.so 'bin/release/linux/x86_64' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86_64/libjlibtorrent.so'
 
+# Copy the shared library to parent folder so gradle test can find it in the java.library.path
+unameOut="$(uname -s)"
+case "${unameOut}" in
+  Darwin*) cp bin/release/macosx/x86_64/libjlibtorrent.dylib ..;;
+  Linux*)  cp bin/release/linux/x86/libjlibtorrent.so ..;;
+  CYGWIN*) cp bin/release/windows/x86/jlibtorrent.dll ..;;
+  MINGW*) cp bin/release/windows/x86/jlibtorrent.dll ..;;
+esac
+
 pushd ..
 gradle clean
 gradle build
