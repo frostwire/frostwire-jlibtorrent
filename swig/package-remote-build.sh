@@ -31,8 +31,8 @@ downloadLibrary 'jlibtorrent.dll' 'bin/release/windows/x86_64' 'https://s3.amazo
 downloadLibrary 'libjlibtorrent.dylib' 'bin/release/macosx/x86_64' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/macosx/x86_64/libjlibtorrent.dylib'
 
 # Linux (dual architecture .jar)
-downloadLibrary 'libjlibtorrent.so 'bin/release/linux/x86' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86/libjlibtorrent.so'
-downloadLibrary 'libjlibtorrent.so 'bin/release/linux/x86_64' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86_64/libjlibtorrent.so'
+downloadLibrary 'libjlibtorrent.so' 'bin/release/linux/x86' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86/libjlibtorrent.so'
+downloadLibrary 'libjlibtorrent.so' 'bin/release/linux/x86_64' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86_64/libjlibtorrent.so'
 
 # Copy the shared library to parent folder so gradle test can find it in the java.library.path
 unameOut="$(uname -s)"
