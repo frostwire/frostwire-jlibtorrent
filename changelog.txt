@@ -4,7 +4,7 @@
   * updated to boost 1.69.0
   * updated to OpenSSL 1.1.1a
   * fixed activeDhtLimit SettingsPack setter
-  * development: new local build scripts for macosx, android
+  * development: new local build scripts for macosx, android, linux, windows
   * lt:only allow cwnd to be reduced so often (utp)
   * lt:avoid announcing local ip to private tracker
   * lt:don't treat loss of MTU probe packet as a congestion signal (utp)
