@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
-# This script is meant to run here inside frostwire-jlibtorrent/swig folder
+# This script is meant to run here inside the swig/ folder
 # It's supposed to be a one step build for the java jar and android (.so enclosing) jars (armv7 and x86)
 # Output .jar files will be at:
-# frostwire-jlibtorrent/build/libs/jlibtorrent-<version>.jar
-# frostwire-jlibtorrent/build/libs/jlibtorrent-linux-<version>.jar
+# ../build/libs/${LIBRARY_NAME}-<version>.jar
+# ../build/libs/${LIBRARY_NAME}-linux-<version>.jar
 
 # remote linux-x86 build with travis is available at https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86_64/libjlibtorrent.so
+
 source build-utils.shinc
 check_min_req_vars
 
 export os_arch=x86_64
 export os_build=linux
-export SHARED_LIB=libjlibtorrent.so
+export SHARED_LIB=lib${LIBRARY_NAME}.so
 export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
 export CXX=g++
 export NDK_VERSION=r18b
