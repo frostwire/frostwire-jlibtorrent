@@ -36,7 +36,7 @@ function abort_if_var_unset {
   var_value=${2}
   if [[ ! -n ${var_value} ]]; then
     prompt_msg "Error ${var_name} not set. Aborting"
-    exit 0
+    exit 1
   fi
   echo ${var_name} set to ${var_value}
 }
