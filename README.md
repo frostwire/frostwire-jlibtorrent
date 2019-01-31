@@ -102,9 +102,9 @@ Building Locally (Mac and Linux)
 ================================
 Building on Travis is something recommended only once you know you're done with your work as builds can take above 30 minutes to finish for all platforms and architectures.
 
-When you're developing and debugging you need faster builds, and these can be performed locally with the helpo of build scripts in the `swig/` folder.
+When you're developing and debugging you need faster builds, and these can be performed locally with the help of build scripts in the `swig/` folder.
 
-Thre's a build script for each operating system, If you're on macos you can use the `build-macos.sh`, running it without setting things up should tell you about certain environment variables you'll need to set up. To understand the build process we recommend you read [`build-utils.shinc`](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/swig/build-utils.shinc)
+Thre's a build script for each operating system, for example if you're on macos you can use the `build-macos.sh`, running it without setting things up should tell you about certain environment variables you'll need to set up. To understand the build process we recommend you read your corresponding build script and [`build-utils.shinc`](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/swig/build-utils.shinc)
 
 The hacking and building process might require you to run the `run-swig.sh` script, we usually need to run this script if there are C++ api changes in libtorrent that require adjustments in `libtorrent.i` or `libtorrent.h`, this script will create automatic JNI wrappers in the outer source java folders. You should not run this script unless you know what you're doing.
 
