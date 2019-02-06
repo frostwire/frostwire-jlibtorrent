@@ -31,8 +31,7 @@ function refixCode() {
 
 function runJni()
 {
-    export JAVA_SRC_OUTPUT=`pwd`/../src/main/java/com/frostwire/jlibtorrent/swig
-    echo ${JAVA_SRC_OUTPUT}
+    JAVA_SRC_OUTPUT=../src/main/java/com/frostwire/jlibtorrent/swig
     rm -rf ${JAVA_SRC_OUTPUT}
     mkdir -p ${JAVA_SRC_OUTPUT}
 
