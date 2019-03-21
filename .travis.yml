@@ -231,11 +231,7 @@ script:
   - pwd
   - ls
 
-before_deploy:
-  - cd swig/bin
-  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
-  - find . -empty -type d | xargs rm -r
-  - cd ../..
+before_deploy:  
 
 deploy:
   provider: releases
