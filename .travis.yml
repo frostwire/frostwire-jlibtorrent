@@ -237,6 +237,7 @@ deploy:
   provider: releases
   api_key: $MY_API_KEY
   file: swig/bin/**/*
+  file_glob: true
   skip_cleanup: true
   on:
     all_branches: true
