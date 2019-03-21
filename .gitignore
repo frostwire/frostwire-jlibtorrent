@@ -21,3 +21,7 @@ frostwire-jlibtorrent.i*
 /jlibtorrent*.dll
 /node/jlibtorrent.node
 /dht_shell.dat
+/.project
+/.settings
+/bin
+/.classpath
