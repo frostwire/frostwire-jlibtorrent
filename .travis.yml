@@ -228,18 +228,15 @@ script:
     fi
   - $run_readelf
   - cd ..
-  - pwd
-  - ls swig
-  - ls swig/bin
+  - pwd  
+  - ls swig/bin/release
 
 before_deploy:  
 
 deploy:
   provider: releases
   api_key: $MY_API_KEY
-  file: 
-    - "swig/**/*"
-    - "bin/**/*"
+  file: swig/bin/**/*
   skip_cleanup: true
   on:
     all_branches: true
