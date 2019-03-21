@@ -227,17 +227,14 @@ script:
       cd swig;
     fi
   - $run_readelf
-  - cd ..
-  - pwd  
-  - ls swig/bin/release/android/arm64-v8a
+  - cd ..  
 
 before_deploy:  
 
 deploy:
   provider: releases
   api_key: $MY_API_KEY
-  file: swig/bin/**/*
-  file_glob: true
+  file: swig/bin/release/android/arm64-v8a/libjlibtorrent.so
   skip_cleanup: true
   on:
     all_branches: true
