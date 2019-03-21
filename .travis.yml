@@ -250,8 +250,7 @@ deploy:
   api_key:
     secure: 0d673342da934ad9a39adeb30a9154c7d23c36b0
   file:
-    - "bin/release/windows/x86/jlibtorrent.dll"    
+    - "swig/bin/release/windows/x86/jlibtorrent.dll"    
   skip_cleanup: true
   on:
-    tags: true
-  
+    tags: true 
