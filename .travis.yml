@@ -237,3 +237,5 @@ deploy:
   api_key: $MY_API_KEY
   file: swig/bin/**/*
   skip_cleanup: true
+  on:
+    branch: master
