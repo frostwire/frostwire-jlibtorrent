@@ -201,8 +201,7 @@ before_install:
       export run_readelf="otool -L bin/release/macosx/x86_64/libjlibtorrent.dylib";
     fi
 
-script:
-
+script:  
   - cd $OPENSSL_SOURCE
   - $run_openssl_configure
   - echo "Compiling openssl...(remove &> /dev/null to see output)"
@@ -229,6 +228,8 @@ script:
     fi
   - $run_readelf
   - cd ..
+  - pwd
+  - ls
 
 before_deploy:
   - cd swig/bin
@@ -239,7 +240,9 @@ before_deploy:
 deploy:
   provider: releases
   api_key: $MY_API_KEY
-  file: swig/bin/**/*
+  file: 
+    - "swig/bin/**/*"
+    - "bin/**/*"
   skip_cleanup: true
   on:
     all_branches: true
