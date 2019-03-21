@@ -4,6 +4,10 @@ matrix:
   include:    
     - env: os_build=android os_arch=arm64 android_api=21    
 
+branches:
+  only:
+    - master
+
 before_install:
 # boost: download and bootstrap
   - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.zip
