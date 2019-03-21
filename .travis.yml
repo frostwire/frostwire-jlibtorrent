@@ -1,21 +1,9 @@
 language: cpp
 
 matrix:
-  include:
-    - env: os_build=android os_arch=arm android_api=16
-    - env: os_build=android os_arch=arm64 android_api=21
-    - env: os_build=android os_arch=x86 android_api=16
-    - env: os_build=android os_arch=x86_64 android_api=21
-    - env: os_build=linux os_arch=x86
-    - env: os_build=linux os_arch=x86_64
-    - env: os_build=windows os_arch=x86
-    - env: os_build=windows os_arch=x86_64
-    - os: osx
-      env: os_build=macosx os_arch=x86_64
+  include:    
+    - env: os_build=android os_arch=arm64 android_api=21    
 
-branches:
-  only:
-    - master
 
 before_install:
 # boost: download and bootstrap
@@ -251,5 +239,3 @@ deploy:
     secure: 0d673342da934ad9a39adeb30a9154c7d23c36b0
   file: swig/bin/**/*
   skip_cleanup: true
-  on:
-    tags: true 
