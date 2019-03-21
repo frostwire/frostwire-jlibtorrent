@@ -4,7 +4,6 @@ matrix:
   include:    
     - env: os_build=android os_arch=arm64 android_api=21    
 
-
 before_install:
 # boost: download and bootstrap
   - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.zip
@@ -236,6 +235,6 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: 0d673342da934ad9a39adeb30a9154c7d23c36b0
+    secure: 69fc265b586f6acd880cc5824fd9a2894c5be570
   file: swig/bin/**/*
   skip_cleanup: true
