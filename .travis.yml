@@ -234,7 +234,6 @@ before_deploy:
 
 deploy:
   provider: releases
-  api_key:
-    secure: 69fc265b586f6acd880cc5824fd9a2894c5be570
+  api_key: 69fc265b586f6acd880cc5824fd9a2894c5be570
   file: swig/bin/**/*
   skip_cleanup: true
