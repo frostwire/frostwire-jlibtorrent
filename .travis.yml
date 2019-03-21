@@ -246,11 +246,12 @@ before_deploy:
   - cd ../..
 
 deploy:
-  provider: s3
-  access_key_id: $S3_ACCESS_KEY
-  secret_access_key: $S3_SECRET_KEY
-  bucket: $S3_BUCKET
+  provider: releases
+  api_key:
+    secure: 0d673342da934ad9a39adeb30a9154c7d23c36b0
+  file:
+    - "bin/release/windows/x86/jlibtorrent.dll"    
   skip_cleanup: true
-  local_dir: swig/bin
   on:
-    all_branches: true
+    tags: true
+  
