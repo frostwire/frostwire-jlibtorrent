@@ -10,7 +10,7 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-  - wget -nv -O https://github.com/boostorg/boost/archive/boost-1.68.0.zip
+  - wget -nv -O boost.zip https://github.com/boostorg/boost/archive/boost-1.68.0.zip
   - unzip -qq boost.zip
   - cd boost_1_68_0
   - ./bootstrap.sh
