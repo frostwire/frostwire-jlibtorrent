@@ -3,6 +3,7 @@ language: cpp
 matrix:
   include:
     - env: os_build=android os_arch=arm android_api=19    
+    - env: os_build=windows os_arch=x86_64
 
 branches:
   only:
@@ -240,7 +241,9 @@ before_deploy:
 deploy:
   provider: releases
   api_key: $MY_API_KEY
-  file: swig/bin/release/android/**/*.so
+  file: 
+    - swig/bin/release/android/**/*.so
+    - swig/bin/release/**/*.dll
   file_glob: true
   skip_cleanup: true
   on:
