@@ -1,5 +1,16 @@
 1.2.0.20
+  * updated to libtorrent RC_1_2 HEAD
   * updated to OpenSSL 1.1.1b
+  * lt:add support for creating symlinks, for torrents with symlinks in them
+  * lt:allow padfiles of equal size to share the same filename
+  * lt:fix seed_mode flag
+  * lt:support numeric suffixes to magnet link parameter names
+  * lt:added FrostWire's client ID
+  * lt:don't try to hash empty read in do_uncached_hash
+  * lt:don't copy a vector into the async_write operation for iovec
+  * lt:on linux, link against lbdl when using openssl
+  * lt:use UNC paths pervasively on windows
+  * lt:source code cleanup, performance and stability
 
 1.2.0.19
   * libtorrent release 1.2.0
