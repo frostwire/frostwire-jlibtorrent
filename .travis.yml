@@ -1,22 +1,8 @@
 language: cpp
 
 matrix:
-<<<<<<< HEAD
-  include:    
-    - env: os_build=android os_arch=arm64 android_api=21    
-=======
   include:
-    - env: os_build=android os_arch=arm android_api=19
-    - env: os_build=android os_arch=arm64 android_api=21
-    - env: os_build=android os_arch=x86 android_api=19
-    - env: os_build=android os_arch=x86_64 android_api=21
-    - env: os_build=linux os_arch=x86
-    - env: os_build=linux os_arch=x86_64
-    - env: os_build=windows os_arch=x86
-    - env: os_build=windows os_arch=x86_64
-    - os: osx
-      env: os_build=macosx os_arch=x86_64
->>>>>>> upstream/master
+    - env: os_build=android os_arch=arm android_api=19    
 
 branches:
   only:
@@ -24,15 +10,9 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-<<<<<<< HEAD
   - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.zip
   - unzip -qq boost.zip
   - cd boost_1_69_0
-=======
-  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.zip
-  - unzip -qq boost.zip  
-  - cd boost_1_68_0
->>>>>>> 133159e27c4eef06b4e0db492e7ce42b9a15401a
   - ./bootstrap.sh
   - cd ..
   - export BOOST_ROOT=$PWD/boost_1_69_0
@@ -49,13 +29,9 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/sweethaw/libtorrent
+  - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-<<<<<<< HEAD
   - git checkout 3a1e546a6c63a056914547ecdbc565fb907b423d
-=======
-  - git checkout ef37d3391
->>>>>>> 133159e27c4eef06b4e0db492e7ce42b9a15401a
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -225,7 +201,8 @@ before_install:
       export run_readelf="otool -L bin/release/macosx/x86_64/libjlibtorrent.dylib";
     fi
 
-script:  
+script:
+
   - cd $OPENSSL_SOURCE
   - $run_openssl_configure
   - echo "Compiling openssl...(remove &> /dev/null to see output)"
@@ -251,14 +228,19 @@ script:
       cd swig;
     fi
   - $run_readelf
-  - cd ..  
+  - cd ..
 
-before_deploy:  
+before_deploy:
+  - cd swig/bin
+  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
+  - find . -empty -type d | xargs rm -r
+  - cd ../..
 
 deploy:
   provider: releases
   api_key: $MY_API_KEY
-  file: swig/bin/release/android/arm64-v8a/libjlibtorrent.so
+  file: swig/bin/release/android/**/*.so
+  file_glob: true
   skip_cleanup: true
   on:
     all_branches: true
