@@ -32,7 +32,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/sweethaw/libtorrent
   - cd libtorrent
-  - git checkout 72215d75c70daa0e3449adef17972f0c32f75741
+  - git checkout 7002868e30227e386f1a460462d7113cbf6eeaa3
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
