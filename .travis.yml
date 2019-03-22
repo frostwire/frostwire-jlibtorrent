@@ -231,8 +231,7 @@ script:
   - $run_readelf
   - cd ..
 
-before_deploy:
-  - ls swig/bin/release/android/
+before_deploy:  
   - cd swig/bin
   - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
   - find . -empty -type d | xargs rm -r
@@ -243,7 +242,8 @@ deploy:
   api_key: $MY_API_KEY
   file: 
     - swig/bin/release/android/**/*.so
-    - swig/bin/release/**/*.dll
+    - swig/bin/release/windows/*.dll.a
+    - swig/bin/release/windows/*.dll
   file_glob: true
   skip_cleanup: true
   on:
