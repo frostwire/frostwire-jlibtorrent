@@ -581,7 +581,7 @@ namespace libtorrent {
         %extend {
 
             sha1_hash(std::vector<int8_t> const& s) {
-                return new libtorrent::sha1_hash({reinterpret_cast<char const*>(s.data()), s.size()});
+                return new libtorrent::sha1_hash({reinterpret_cast<char const*>(s.data()), static_cast<long>(s.size())});
             }
 
             int hash_code() {
@@ -805,7 +805,7 @@ namespace libtorrent {
             }
 
             static entry bdecode(std::vector<int8_t>& buffer) {
-                return libtorrent::bdecode(buffer.begin(), buffer.end());
+                return libtorrent::bdecode({reinterpret_cast<char const*>(buffer.data()), static_cast<long>(buffer.size())});
             }
         }
     };
@@ -1015,13 +1015,21 @@ namespace libtorrent {
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::add_torrent_params::deprecated5;
 %ignore libtorrent::alert::timestamp;
-%ignore libtorrent::session_params::session_params(settings_pack, std::vector<std::shared_ptr<plugin>>);
+%ignore libtorrent::session_params::session_params(settings_pack&&, std::vector<std::shared_ptr<plugin>>);
+%ignore libtorrent::session_params::session_params(settings_pack const&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(session_params&&);
+%ignore libtorrent::session_params::session_params(settings_pack&& sp);
 %ignore libtorrent::session_params::extensions;
 %ignore libtorrent::session_params::dht_storage_constructor;
-%ignore libtorrent::session::session(session_params, io_service&);
-%ignore libtorrent::session::session(settings_pack, io_service&, session_flags_t const);
-%ignore libtorrent::session::session(settings_pack, io_service&);
+%ignore libtorrent::session::session(session_params&&, io_service&);
+%ignore libtorrent::session::session(session_params const&, io_service&);
+%ignore libtorrent::session::session(settings_pack&&, io_service&, session_flags_t const);
+%ignore libtorrent::session::session(settings_pack const&, io_service&, session_flags_t const);
+%ignore libtorrent::session::session(settings_pack&&, io_service&);
+%ignore libtorrent::session::session(settings_pack const&, io_service&);
+%ignore libtorrent::session::session(session_params&&);
+%ignore libtorrent::session::session(settings_pack&&, session_flags_t const);
+%ignore libtorrent::session::session(settings_pack&&);
 %ignore libtorrent::session_proxy::session_proxy(session_proxy&&);
 %ignore libtorrent::session_handle::session_handle(aux::session_impl*);
 %ignore libtorrent::session_handle::session_handle(session_handle&&);
@@ -1041,6 +1049,9 @@ namespace libtorrent {
 %ignore libtorrent::session_handle::set_dht_storage;
 %ignore libtorrent::session_handle::get_cache_info;
 %ignore libtorrent::session_handle::wait_for_alert;
+%ignore libtorrent::session_handle::add_torrent(add_torrent_params&&, error_code&);
+%ignore libtorrent::session_handle::async_add_torrent(add_torrent_params&&);
+%ignore libtorrent::session_handle::apply_settings(settings_pack&&);
 %ignore libtorrent::session_stats_alert::counters;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
@@ -1695,7 +1706,7 @@ namespace libtorrent {
     }
 
     static libtorrent::add_torrent_params read_resume_data(std::vector<int8_t> const& buffer, error_code& ec) {
-        return libtorrent::read_resume_data({(char const*)&buffer[0], buffer.size()}, ec);
+        return libtorrent::read_resume_data({(char const*)&buffer[0], static_cast<long>(buffer.size())}, ec);
     }
 
     static libtorrent::entry write_resume_data(add_torrent_params const& atp) {

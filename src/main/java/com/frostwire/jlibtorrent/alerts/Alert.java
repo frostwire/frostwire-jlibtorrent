@@ -16,7 +16,7 @@ public interface Alert<T extends alert> {
     alert_category_t PORT_MAPPING_NOTIFICATION = alert.port_mapping_notification;
     alert_category_t STORAGE_NOTIFICATION = alert.storage_notification;
     alert_category_t TRACKER_NOTIFICATION = alert.tracker_notification;
-    alert_category_t DEBUG_NOTIFICATION = alert.debug_notification;
+    alert_category_t CONNECT_NOTIFICATION = alert.connect_notification;
     alert_category_t STATUS_NOTIFICATION = alert.status_notification;
     alert_category_t IP_BLOCK_NOTIFICATION = alert.ip_block_notification;
     alert_category_t PERFORMANCE_WARNING = alert.performance_warning;

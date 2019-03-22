@@ -1,0 +1,196 @@
+#!/usr/bin/env bash
+
+export LIBRARY_VERSION=1.2.0.19
+export LIBRARY_NAME=jlibtorrent
+export LIBTORRENT_REVISION=3a1e546a6c63a056914547ecdbc565fb907b423d
+export OPENSSL_VERSION="1.1.1a"
+export BOOST_VERSION="69"
+export BOOST_MAJOR="1"
+export BOOST_MINOR="0"
+export SWIG=`pwd`
+export SRC="${HOME}/src"
+export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+export LIBTORRENT_ROOT="${SRC}/libtorrent"
+export OPENSSL_SOURCE="$SRC/openssl-${OPENSSL_VERSION}"
+export OPENSSL_ROOT="$SRC/openssl"
+export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+
+function prompt_msg {
+ echo
+ echo "============================================================================="
+ echo $1
+ echo "============================================================================="
+ echo
+}
+
+function press_any_to_continue {
+ echo "[Press any key to continue]"
+ read -n 1 -s -r -p ""
+}
+
+function create_folder_if_it_doesnt_exist {
+ if [[ ! -d $1 ]]; then mkdir -p $1; fi;
+}
+
+function abort_if_var_unset {
+  var_name=${1}
+  var_value=${2}
+  if [[ ! -n ${var_value} ]]; then
+    prompt_msg "Error ${var_name} not set. Aborting"
+    exit 1
+  fi
+  echo ${var_name} set to ${var_value}
+}
+
+function check_min_req_vars {
+  abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
+  abort_if_var_unset "LIBRARY_VERSION" ${LIBRARY_VERSION}
+  abort_if_var_unset "LIBRARY_NAME" ${LIBRARY_NAME}
+  abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
+  abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
+  abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
+  abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+  abort_if_var_unset "SWIG" ${SWIG}
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
+  abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
+  abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
+  abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
+}
+
+function prepare_boost {
+  abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
+  abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
+  abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
+  abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+  pushd ${SRC}
+  if [ ! -d ${BOOST_ROOT} ]; then
+    prompt_msg "Downloading BOOST ${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+    wget -O boost.zip https://dl.bintray.com/boostorg/release/${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}/source/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}.zip
+    unzip -qq boost.zip
+    rm -f boost.zip
+  fi
+  pushd ${BOOST_ROOT}
+  pwd
+  ./bootstrap.sh
+  popd
+  popd
+}
+
+function prepare_android_toolchain {
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
+  abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "android_api" ${android_api}
+  pushd ${SRC}
+  if [ ! -f android-ndk-${NDK_VERSION}.zip ]; then
+    prompt_msg "Downloading android-ndk-${NDK_VERSION}"
+    wget -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-linux-x86_64.zip;
+    prompt_msg "Extracting NDK...wait";
+    unzip -qq android-ndk-${NDK_VERSION}.zip;
+  fi
+  export NDK=$PWD/android-ndk-${NDK_VERSION};
+  prompt_msg "Creating android toolchain --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir android-toolchain-${os_arch}"
+  $NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir android-toolchain-${os_arch};
+  export ANDROID_TOOLCHAIN=$PWD/android-toolchain-${os_arch}
+  popd
+}
+
+function prepare_linux_toolchain {
+  sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  sudo apt-get update -qq
+  sudo apt-get install -qq g++-5
+}
+
+function prepare_openssl {
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
+  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
+  if [ ! -d ${OPENSSL_SOURCE} ]; then
+    prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '{$OPENSSL_SOURCE}'"
+    pushd ${SRC}
+    wget -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    tar xvfz openssl.tar.gz
+    rm -f openssl.tar.gz
+    popd
+  fi
+}
+
+function build_openssl {
+  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
+  abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
+  if [ -d ${OPENSSL_SOURCE} ]; then
+    pushd ${OPENSSL_SOURCE}
+    make clean
+    $run_openssl_configure
+    make -j 8
+    make install_sw
+    popd
+  fi
+}
+
+function prepare_libtorrent {
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+  abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
+  if [ ! -d ${LIBTORRENT_ROOT} ]; then
+    pushd ${SRC}
+    git clone https://github.com/arvidn/libtorrent
+    popd
+  fi 
+  pushd ${LIBTORRENT_ROOT}
+  prompt_msg "Checking if you have any uncommited changes"
+  git status
+  prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
+  press_any_to_continue
+  git checkout master
+  git pull origin master
+  git checkout ${LIBTORRENT_REVISION}
+  popd
+}
+
+function build_libraries {
+  abort_if_var_unset "SWIG" ${SWIG}
+  abort_if_var_unset "os_build" ${os_build}
+  abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "SHARED_LIB" ${SHARED_LIB}
+  abort_if_var_unset "SHARED_LIB_FINAL" ${SHARED_LIB_FINAL}
+  abort_if_var_unset "run_bjam" ${run_bjam}
+  abort_if_var_unset "run_objcopy" ${run_objcopy}
+  abort_if_var_unset "run_strip" ${run_strip}
+  abort_if_var_unset "run_readelf" ${run_readelf}
+  set -x
+  cd ${SWIG}
+  $run_bjam
+  $run_objcopy
+  $run_strip
+  if [[ $os_build == "windows" ]]; then
+    # expected but parametrized for flexibility and project
+    # SHARED_LIB = lib${LIBRARY_NAME}.dll, libtorrent4j.dll
+    # SHARED_LIB_FINAL = ${LIBRARY_NAME}.dll, torrent4j.dll
+    mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
+  fi
+  cd ..
+  if [[ $os_build == "macosx" || $os_build == "linux" ]]; then
+    cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
+  fi
+  if [[ $os_build == "android" && $os_arch == "arm" ]]; then
+    cp swig/bin/release/${os_build}/${os_arch}eabi-v7a/${SHARED_LIB} .
+  fi
+  # TODO: the copying of android-x86 library
+  gradle clean
+  gradle build
+}
+
+function cleanup_objects {
+  abort_if_var_unset "SWIG" ${SWIG}
+  # cleanup (when it's finally working, enable this)
+  cd ${SWIG}/bin
+  find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
+  find . -empty -type d | xargs rm -r
+  cd ${SWIG}
+  cd ..
+  find . -type f | egrep '\d.\d.\d.\d\d.jar$'
+  cd ${SWIG}
+}

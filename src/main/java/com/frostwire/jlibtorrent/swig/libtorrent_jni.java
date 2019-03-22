@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "1.2.0.18";
+        return "1.2.0.19";
     }
 
     static {
@@ -922,10 +922,24 @@ public class libtorrent_jni {
   public final static native int too_many_symbolic_link_levels_get();
   public final static native int value_too_large_get();
   public final static native int wrong_protocol_type_get();
+  public final static native long new_generic_error_category();
+  public final static native String generic_error_category_name(long jarg1, generic_error_category jarg1_);
+  public final static native String generic_error_category_message__SWIG_0(long jarg1, generic_error_category jarg1_, int jarg2);
+  public final static native String generic_error_category_message__SWIG_1(long jarg1, generic_error_category jarg1_, int jarg2, String jarg3, long jarg4);
+  public final static native void delete_generic_error_category(long jarg1);
+  public final static native long new_system_error_category();
+  public final static native String system_error_category_name(long jarg1, system_error_category jarg1_);
+  public final static native long system_error_category_default_error_condition(long jarg1, system_error_category jarg1_, int jarg2);
+  public final static native String system_error_category_message__SWIG_0(long jarg1, system_error_category jarg1_, int jarg2);
+  public final static native String system_error_category_message__SWIG_1(long jarg1, system_error_category jarg1_, int jarg2, String jarg3, long jarg4);
+  public final static native void delete_system_error_category(long jarg1);
+  public final static native boolean failed_impl(int jarg1, long jarg2);
   public final static native long new_error_code();
   public final static native void error_code_clear(long jarg1, error_code jarg1_);
   public final static native int error_code_value(long jarg1, error_code jarg1_);
-  public final static native String error_code_message(long jarg1, error_code jarg1_);
+  public final static native String error_code_message__SWIG_0(long jarg1, error_code jarg1_);
+  public final static native String error_code_message__SWIG_1(long jarg1, error_code jarg1_, String jarg2, long jarg3);
+  public final static native boolean error_code_failed(long jarg1, error_code jarg1_);
   public final static native boolean error_code_op_bool(long jarg1, error_code jarg1_);
   public final static native boolean op_eq__SWIG_1(long jarg1, error_code jarg1_, long jarg2, error_code jarg2_);
   public final static native boolean op_lt__SWIG_1(long jarg1, error_code jarg1_, long jarg2, error_code jarg2_);
@@ -963,6 +977,7 @@ public class libtorrent_jni {
   public final static native int not_implemented_get();
   public final static native int bad_gateway_get();
   public final static native int service_unavailable_get();
+  public final static native String print_error(long jarg1, error_code jarg1_);
   public final static native void peer_request_piece_set(long jarg1, peer_request jarg1_, int jarg2);
   public final static native int peer_request_piece_get(long jarg1, peer_request jarg1_);
   public final static native void peer_request_start_set(long jarg1, peer_request jarg1_, int jarg2);
@@ -1640,7 +1655,7 @@ public class libtorrent_jni {
   public final static native long alert_port_mapping_notification_get();
   public final static native long alert_storage_notification_get();
   public final static native long alert_tracker_notification_get();
-  public final static native long alert_debug_notification_get();
+  public final static native long alert_connect_notification_get();
   public final static native long alert_status_notification_get();
   public final static native long alert_ip_block_notification_get();
   public final static native long alert_performance_warning_get();
@@ -2707,7 +2722,7 @@ public class libtorrent_jni {
   public final static native void alerts_dropped_alert_dropped_alerts_set(long jarg1, alerts_dropped_alert jarg1_, long jarg2, bitset_96 jarg2_);
   public final static native long alerts_dropped_alert_dropped_alerts_get(long jarg1, alerts_dropped_alert jarg1_);
   public final static native void delete_alerts_dropped_alert(long jarg1);
-  public final static native int setting_by_name(String jarg1);
+  public final static native int setting_by_name(long jarg1, string_view jarg1_);
   public final static native String name_for_setting(int jarg1);
   public final static native long default_settings();
   public final static native long new_settings_pack__SWIG_0();
@@ -2759,6 +2774,7 @@ public class libtorrent_jni {
   public final static native int settings_pack_rate_based_choker_get();
   public final static native int settings_pack_bittyrant_choker_get();
   public final static native int settings_pack_enable_os_cache_get();
+  public final static native int settings_pack_deprecated_disable_os_cache_for_aligned_files_get();
   public final static native int settings_pack_disable_os_cache_get();
   public final static native int settings_pack_prefer_tcp_get();
   public final static native int settings_pack_peer_proportional_get();
@@ -2843,7 +2859,6 @@ public class libtorrent_jni {
   public final static native long session_handle_delete_files_get();
   public final static native long session_handle_delete_partfile_get();
   public final static native long session_handle_add_default_plugins_get();
-  public final static native long session_handle_start_default_features_get();
   public final static native void session_handle_remove_torrent__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, torrent_handle jarg2_, long jarg3, remove_flags_t jarg3_);
   public final static native void session_handle_remove_torrent__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native void session_handle_apply_settings(long jarg1, session_handle jarg1_, long jarg2, settings_pack jarg2_);

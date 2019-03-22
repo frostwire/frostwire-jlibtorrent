@@ -1,17 +1,32 @@
 #!/usr/bin/env bash
+# This script is meant to run here inside the swig folder
+# It's supposed to be a one step build for the java jar and macosx (.dylib enclosing) jar
+# Output .jar files will be at:
+# ../build/libs/${LIBRARY_NAME}-<version>.jar
+# ../build/libs/${LIBRARY_NAME}-macosx-<version>.jar
 
-export DEVELOPMENT_ROOT=~/Development
-export BOOST_ROOT=$DEVELOPMENT_ROOT/boost_1_68_0
-export LIBTORRENT_ROOT=$DEVELOPMENT_ROOT/libtorrent
-export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-macos
+source build-utils.shinc
+check_min_req_vars
 
-$BOOST_ROOT/b2 -j8 --user-config=config/macosx-x86_64-config.jam variant=release toolset=darwin-x86_64 target-os=darwin location=bin/release/macosx/x86_64
-strip -S -x bin/release/macosx/x86_64/libjlibtorrent.dylib
-cp bin/release/macosx/x86_64/libjlibtorrent.dylib ../
+export os_arch=x86_64
+export os_build=macosx
+export SHARED_LIB=lib${LIBRARY_NAME}.dylib
+export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
+export CXX=g++
+export CC=gcc
+export run_openssl_configure="./Configure darwin64-${os_arch}-cc ${OPENSSL_NO_OPTS} --prefix=${OPENSSL_ROOT}";
+export run_readelf="otool -L bin/release/${os_build}/${os_arch}/${SHARED_LIB}";
+export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=darwin-${os_arch} target-os=darwin location=bin/release/${os_build}/${os_arch}"
+export run_strip="strip -S -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
+export run_objcopy="echo dummy run_objcopy for ${os_build} ${os_arch}"
 
-export ANDROID_TOOLCHAIN=$DEVELOPMENT_ROOT/android-toolchain-arm
-export OPENSSL_ROOT=$DEVELOPMENT_ROOT/openssl-arm
-export PATH=$ANDROID_TOOLCHAIN/arm-linux-androideabi/bin:$PATH
-#$BOOST_ROOT/b2 -j8 --user-config=config/android-arm-config.jam variant=release toolset=clang-linux-arm target-os=android location=bin/release/android/armeabi-v7a
-#${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-objcopy --only-keep-debug bin/release/android/armeabi-v7a/libjlibtorrent.so bin/release/android/armeabi-v7a/libjlibtorrent.so.debug
-#${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-strip --strip-unneeded -x -g bin/release/android/armeabi-v7a/libjlibtorrent.so
+create_folder_if_it_doesnt_exist ${SRC}
+prompt_msg "About to prepare BOOST ${BOOST_VERSION}"
+press_any_to_continue
+prepare_boost
+prepare_openssl
+build_openssl
+prepare_libtorrent
+build_libraries
+cleanup_objects
+

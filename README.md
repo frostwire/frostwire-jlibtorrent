@@ -9,18 +9,23 @@ Develop libtorrent based apps with the joy of coding in Java.
 Using
 ========
 
-Download [the latest JAR](https://search.maven.org/classic/remote_content?g=com.frostwire&a=jlibtorrent&v=LATEST) or get the dependency via Maven:
-```xml
-<dependency>
-  <groupId>com.frostwire</groupId>
-  <artifactId>jlibtorrent</artifactId>
-  <version>1.2.x.x</version>
-</dependency>
-```
-or Gradle:
-```groovy
-compile 'com.frostwire:jlibtorrent:1.2.x.x'
-```
+[Download the latest release .jars](https://github.com/frostwire/frostwire-jlibtorrent/releases)
+
+All platforms will need you to use at least 2 `.jar` files.
+
+The `.jar` with the java classes -> `jlibtorrent-w.x.y.z.jar` and a secondary `.jar`s containing the JNI binary library for the particular OS and CPU architecture.
+
+In the case of desktop operating systems, you might want to extract the shared library inside the jar (.dll, .so, .dylib) and place it in a folder specified by the `java.library.path` 
+
+The secondary jars are:
+ - Windows: `jlibtorrent-windows-w.x.y.z.jar` (x86 and x86_64 .dlls)
+ - Mac: `jlibtorrent-macosx-w.x.y.z.jar` (x86_64 .dylib)
+ - Linux: `jlibtorrent-linux-w.x.y.z.jar` (x86 and x86_64 .so)
+
+In the case of Android, make sure to put the following 3 jars in your project's `libs` folder (see [FrostWire for Android's](https://github.com/frostwire/frostwire/tree/master/android/libs) as an example):
+ - `jlibtorrent-w.x.y.z.jar`
+ - `jlibtorrent-android-arm-w.x.y.z.jar`
+ - `jlibtorrent-android-x86-w.x.y.z.jar`
 
 If you use ProGuard to obfuscate/minify make sure to add the following statement
 
@@ -38,8 +43,8 @@ Architectures supported:
 - Windows (x86, x86_64)
 - Mac OS X (x86_64)
 
-Building
-========
+Building with Travis
+====================
 
 You need:
 
@@ -92,6 +97,23 @@ $ git checkout master
 - When finished, check your s3 bucket for the binaries.
 - To trigger a new build, just make a change or merge new changes from
  the stable branch, commit and push.
+ 
+Building Locally (Mac and Linux)
+================================
+Building on Travis is something recommended only once you know you're done with your work as builds can take above 30 minutes to finish for all platforms and architectures.
+
+When you're developing and debugging you need faster builds, and these can be performed locally with the help of build scripts in the `swig/` folder.
+
+Thre's a build script for each operating system, for example if you're on macos you can use the `build-macos.sh`, running it without setting things up should tell you about certain environment variables you'll need to set up. To understand the build process we recommend you read your corresponding build script and [`build-utils.shinc`](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/swig/build-utils.shinc)
+
+The hacking and building process might require you to run the `run-swig.sh` script, we usually need to run this script if there are C++ api changes in libtorrent that require adjustments in `libtorrent.i` or `libtorrent.h`, this script will create automatic JNI wrappers in the outer source java folders. You should not run this script unless you know what you're doing.
+
+Then you run the build script for your OS, get to the parent folder and invoke
+`gradle build`
+
+The gradle build will look in the swig folder for the JNI shared libraries and it will automatically package the native holding `.jar` files, the final jars will be in the `build/libs` folder.
+
+The windows build script is not finished, for now the windows build is done with travis builds.
 
 Projects using jLibtorrent
 ==========================

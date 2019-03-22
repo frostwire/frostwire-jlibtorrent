@@ -70,7 +70,7 @@ std::vector<int8_t> ed25519_sign(std::vector<int8_t>& msg,
     public_key pk1((char*)pk.data());
     secret_key sk1((char*)sk.data());
 
-    signature sig = ed25519_sign({reinterpret_cast<char const*>(msg.data()), msg.size()},
+    signature sig = ed25519_sign({reinterpret_cast<char const*>(msg.data()), static_cast<long>(msg.size())},
         pk1, sk1);
     return std::vector<int8_t>(sig.bytes.begin(), sig.bytes.end());
 }
@@ -83,7 +83,7 @@ bool ed25519_verify(std::vector<int8_t>& sig,
     signature sig1((char*)sig.data());
     public_key pk1((char*)pk.data());
 
-    return ed25519_verify(sig1, {reinterpret_cast<char const*>(msg.data()), msg.size()}, pk1);
+    return ed25519_verify(sig1, {reinterpret_cast<char const*>(msg.data()), static_cast<long>(msg.size())}, pk1);
 }
 
 std::vector<int8_t> ed25519_add_scalar_public(std::vector<int8_t>& pk,
