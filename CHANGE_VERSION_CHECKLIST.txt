@@ -1,0 +1,5 @@
+bump version numberc in:
+ - src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
+ - build.gradle
+ - changelog.txt
+
