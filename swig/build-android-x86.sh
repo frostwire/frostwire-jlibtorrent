@@ -17,7 +17,7 @@ export SHARED_LIB=lib${LIBRARY_NAME}.so
 export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
 
 export CXX=g++
-export NDK_VERSION=r18b
+export NDK_VERSION=r19c
 
 prepare_android_toolchain
 abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}

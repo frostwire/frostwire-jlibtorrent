@@ -7,6 +7,7 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-clang++ :
     <cxxflags>-std=c++11
     <cxxflags>-DANDROID
     <cxxflags>-D__STDC_FORMAT_MACROS
+    <cxxflags>-D_FILE_OFFSET_BITS=64
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
     <linkflags>-static-libstdc++

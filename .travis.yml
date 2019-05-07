@@ -1,4 +1,5 @@
 language: cpp
+dist: xenial
 
 matrix:
   include:
@@ -19,12 +20,12 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.zip
+  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_69_0
+  - cd boost_1_70_0
   - ./bootstrap.sh
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_69_0
+  - export BOOST_ROOT=$PWD/boost_1_70_0
 
 # openssl: download
   - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1b.tar.gz
@@ -40,50 +41,44 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 3a1e546a6c63a056914547ecdbc565fb907b423d
+  - git checkout 02c9e2f7ff23c5b4e55c503fd804e6bce629acb3
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
 # android ndk: download and create toolchain
   - if [ $os_build == "android" ]; then
-      wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip;
+      wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip;
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
-      export NDK=$PWD/android-ndk-r18b;
+      export NDK=$PWD/android-ndk-r19c;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
 
   - if [[ $os_build == "linux" || $os_build == "windows" ]]; then
-      sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y;
-      sudo apt-get update -qq;
       sudo apt-get install -qq g++-5;
     fi
 
   - if [[ $os_build == "linux" && $os_arch == "x86" ]]; then
-      sudo add-apt-repository http://archive.ubuntu.com/ubuntu/ -y;
-      sudo apt-get update -qq;
       sudo apt-get install -qq libc6-dev-i386;
       sudo apt-get install -qq lib32gcc-5-dev;
       sudo apt-get install -qq lib32stdc++-5-dev;
+      sudo ln -s /usr/include/asm-generic /usr/include/asm;
     fi
 
 # linux cross compilation tools for windows development
-# remove files related to libwinpthread dll
-  - if [[ $os_build == "windows" ]]; then
-      sudo apt-get install -qq mingw-w64;
-      sudo add-apt-repository ppa:adrozdoff/mingw -y;
-      sudo apt-get update -qq;
-      sudo apt-get install -qq gcc-5-mingw-w64 g++-5-mingw-w64;
-      sudo rm /usr/i686-w64-mingw32/lib/libwinpthread.dll.a;
-      sudo rm /usr/i686-w64-mingw32/lib/libwinpthread-1.dll;
-      sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread.dll.a;
-      sudo rm /usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll;
+  # remove files related to libwinpthread dll
+  - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
+       sudo apt-get install -qq g++-mingw-w64-i686;
+    fi
+
+  - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
+       sudo apt-get install -qq g++-mingw-w64-x86-64;
     fi
 
 # install gradle in macOS to run the unit tests
   - if [ $os_build == "macosx" ]; then
-      brew update > /dev/null && brew install --quiet gradle;
+      brew update > /dev/null && brew install gradle;
     fi
 
 # openssl
@@ -126,12 +121,12 @@ before_install:
     fi
   # windows-x86
   - if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
-      export CC=i686-w64-mingw32-gcc-5;
+      export CC=i686-w64-mingw32-gcc-posix;
       export run_openssl_configure="./Configure mingw ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # windows-x86_64
   - if [[ $os_build == "windows" && $os_arch == "x86_64" ]]; then
-      export CC=x86_64-w64-mingw32-gcc-5;
+      export CC=x86_64-w64-mingw32-gcc-posix;
       export run_openssl_configure="./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl";
     fi
   # macosx
@@ -215,7 +210,7 @@ script:
   - cd $OPENSSL_SOURCE
   - $run_openssl_configure
   - echo "Compiling openssl...(remove &> /dev/null to see output)"
-  - make &> /dev/null
+  - make #&> /dev/null
   - make install_sw &> /dev/null
   - cd ..
   - export OPENSSL_ROOT=$PWD/openssl

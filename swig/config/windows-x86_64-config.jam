@@ -1,6 +1,6 @@
 import os ;
 
-using gcc : x86_64 : x86_64-w64-mingw32-g++-5 :
+using gcc : x86_64 : x86_64-w64-mingw32-g++-posix :
     <cxxflags>-std=c++11
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
