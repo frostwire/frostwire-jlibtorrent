@@ -139,12 +139,8 @@ public class peer_connection_handle {
     return libtorrent_jni.peer_connection_handle_in_handshake(swigCPtr, this);
   }
 
-  public void send_buffer(String begin, int size, long flags) {
-    libtorrent_jni.peer_connection_handle_send_buffer__SWIG_0(swigCPtr, this, begin, size, flags);
-  }
-
   public void send_buffer(String begin, int size) {
-    libtorrent_jni.peer_connection_handle_send_buffer__SWIG_1(swigCPtr, this, begin, size);
+    libtorrent_jni.peer_connection_handle_send_buffer(swigCPtr, this, begin, size);
   }
 
   public long last_seen_complete() {

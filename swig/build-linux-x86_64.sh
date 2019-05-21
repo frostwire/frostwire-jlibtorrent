@@ -15,7 +15,7 @@ export os_build=linux
 export SHARED_LIB=lib${LIBRARY_NAME}.so
 export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
 export CXX=g++
-export NDK_VERSION=r18b
+export NDK_VERSION=r19b
 prepare_linux_toolchain
 export CC=gcc-5
 export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${OPENSSL_ROOT}";

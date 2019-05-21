@@ -1,3 +1,33 @@
+1.2.1.0
+  * using android NDK r19c (released January 2019)
+  * updated to boost 1.70.0
+  * lt:make sure session cleanup releases all its references to torrents
+  * lt:track the mapped port for each NAT mapping transport
+  * lt:optimize resolve_duplicate_filenames_slow()
+  * lt:use a more restrictive limit on number of pieces allowed in a torrent
+  * lt:improve disk I/O logging
+  * lt:always flush disk I/O job queue before shutdown
+  * lt:fix typo in validation of reject messages. Make on_choke a bit more defensive
+  * lt:tighten up validation of dont-have messages
+  * lt:tighten up validation of reject messages, to ensure consistency of stats counters
+  * lt:tighten up message size checks
+  * lt:update symlinks to conform to BEP 47
+  * lt:source code cleanup, performance and stability
+  
+1.2.0.20
+  * updated to libtorrent RC_1_2 HEAD
+  * updated to OpenSSL 1.1.1b
+  * lt:add support for creating symlinks, for torrents with symlinks in them
+  * lt:allow padfiles of equal size to share the same filename
+  * lt:fix seed_mode flag
+  * lt:support numeric suffixes to magnet link parameter names
+  * lt:added FrostWire's client ID
+  * lt:don't try to hash empty read in do_uncached_hash
+  * lt:don't copy a vector into the async_write operation for iovec
+  * lt:on linux, link against lbdl when using openssl
+  * lt:use UNC paths pervasively on windows
+  * lt:source code cleanup, performance and stability
+
 1.2.0.19
   * libtorrent release 1.2.0
   * using android NDK r18b

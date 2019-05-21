@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-export LIBRARY_VERSION=1.2.0.19
+export LIBRARY_VERSION=1.2.1.0
 export LIBRARY_NAME=jlibtorrent
-export LIBTORRENT_REVISION=3a1e546a6c63a056914547ecdbc565fb907b423d
-export OPENSSL_VERSION="1.1.1a"
-export BOOST_VERSION="69"
+export LIBTORRENT_REVISION=02c9e2f7ff23c5b4e55c503fd804e6bce629acb3
+export OPENSSL_VERSION="1.1.1b"
+export BOOST_VERSION="70"
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
 export SWIG=`pwd`
