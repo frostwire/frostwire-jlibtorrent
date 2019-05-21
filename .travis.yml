@@ -39,9 +39,9 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/arvidn/libtorrent
+  - git clone https://github.com/sweethaw/libtorrent.git
   - cd libtorrent
-  - git checkout 02c9e2f7ff23c5b4e55c503fd804e6bce629acb3
+  - git checkout e9e815c98ef1828fc5de304e412d455fd69cf35b
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
@@ -241,11 +241,12 @@ before_deploy:
   - cd ../..
 
 deploy:
-  provider: s3
-  access_key_id: $S3_ACCESS_KEY
-  secret_access_key: $S3_SECRET_KEY
-  bucket: $S3_BUCKET
+  provider: releases
+  api_key: $MY_API_KEY
+  file: 
+    - swig/bin/release/android/**/*.so    
+    - swig/bin/release/windows/**/*.dll
+  file_glob: true
   skip_cleanup: true
-  local_dir: swig/bin
   on:
     all_branches: true
