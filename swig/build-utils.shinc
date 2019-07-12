@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-export LIBRARY_VERSION=1.2.1.0
+export LIBRARY_VERSION=1.2.1.1
 export LIBRARY_NAME=jlibtorrent
-export LIBTORRENT_REVISION=02c9e2f7ff23c5b4e55c503fd804e6bce629acb3
-export OPENSSL_VERSION="1.1.1b"
-export BOOST_VERSION="70"
+export LIBTORRENT_REVISION=d5b56ca1876dc7b96ef9aac7c7584e1f61d25774 #capture return value from placement new
+export OPENSSL_VERSION="1.1.1c"
+export BOOST_VERSION="71"
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
 export SWIG=`pwd`
 export SRC="${HOME}/src"
 export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 export LIBTORRENT_ROOT="${SRC}/libtorrent"
-export OPENSSL_SOURCE="$SRC/openssl-${OPENSSL_VERSION}"
-export OPENSSL_ROOT="$SRC/openssl"
+export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
+export OPENSSL_ROOT="${SRC}/openssl"
 export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
 function prompt_msg {
@@ -64,7 +64,14 @@ function prepare_boost {
   abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
   abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
   abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+
+  if ! [ -x "$(command -v wget)" ]; then
+      echo "Error: wget is not installed."
+      exit 1
+  fi
+  
   pushd ${SRC}
+  echo "Checking for ${BOOST_ROOT}..."
   if [ ! -d ${BOOST_ROOT} ]; then
     prompt_msg "Downloading BOOST ${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
     wget -O boost.zip https://dl.bintray.com/boostorg/release/${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}/source/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}.zip
@@ -73,7 +80,7 @@ function prepare_boost {
   fi
   pushd ${BOOST_ROOT}
   pwd
-  ./bootstrap.sh
+  ./bootstrap.sh --with-bjam=BJAM
   popd
   popd
 }
@@ -84,16 +91,26 @@ function prepare_android_toolchain {
   abort_if_var_unset "os_arch" ${os_arch}
   abort_if_var_unset "android_api" ${android_api}
   pushd ${SRC}
+
+  host_os="linux"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+      host_os="darwin"
+  fi
+  
   if [ ! -f android-ndk-${NDK_VERSION}.zip ]; then
     prompt_msg "Downloading android-ndk-${NDK_VERSION}"
-    wget -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-linux-x86_64.zip;
+    wget -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-${host_os}-x86_64.zip;
     prompt_msg "Extracting NDK...wait";
     unzip -qq android-ndk-${NDK_VERSION}.zip;
   fi
   export NDK=$PWD/android-ndk-${NDK_VERSION};
-  prompt_msg "Creating android toolchain --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir android-toolchain-${os_arch}"
-  $NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir android-toolchain-${os_arch};
-  export ANDROID_TOOLCHAIN=$PWD/android-toolchain-${os_arch}
+  prompt_msg "NDK=${NDK}"
+  TOOLCHAIN_FOLDER="android-toolchain-${os_arch}-api_${android_api}"
+  prompt_msg "Creating android toolchain --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER}"
+  $NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER};
+  export ANDROID_TOOLCHAIN=${PWD}/${TOOLCHAIN_FOLDER}
+  #prompt_msg "Setting prebuilt ANDROID_TOOLCHAIN (arch ${os_arch}, api ${android_api})"
+  prompt_msg "ANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}"
   popd
 }
 
@@ -120,6 +137,9 @@ function prepare_openssl {
 function build_openssl {
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
+  if [ -d ${OPENSSL_ROOT} ]; then
+    rm -fr ${OPENSSL_ROOT}
+  fi
   if [ -d ${OPENSSL_SOURCE} ]; then
     pushd ${OPENSSL_SOURCE}
     make clean
@@ -147,6 +167,9 @@ function prepare_libtorrent {
   git checkout master
   git pull origin master
   git checkout ${LIBTORRENT_REVISION}
+  git submodule init
+  git submodule update
+  make clean
   popd
 }
 
@@ -162,6 +185,9 @@ function build_libraries {
   abort_if_var_unset "run_readelf" ${run_readelf}
   set -x
   cd ${SWIG}
+  export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
+  echo "Added boost tools to PATH:"
+  echo ${PATH}
   $run_bjam
   $run_objcopy
   $run_strip
