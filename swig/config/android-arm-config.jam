@@ -6,7 +6,7 @@ using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++
     <cxxflags>-fPIC
     <cxxflags>-march=armv7-a
     <cxxflags>-mfpu=neon
-    <cxxflags>-std=c++11
+    <cxxflags>-std=c++14
     <cxxflags>-DANDROID
     <cxxflags>-D__STDC_FORMAT_MACROS
     <cxxflags>-D_FILE_OFFSET_BITS=64

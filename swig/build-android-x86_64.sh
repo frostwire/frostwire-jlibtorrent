@@ -3,16 +3,16 @@
 # It's supposed to be a one step build for the java jar and android (.so enclosing) jars (armv7 and x86)
 # Output .jar files will be at:
 # ../build/libs/jlibtorrent-<version>.jar
-# ../build/libs/${LIBRARY_NAME}-android-x86-<version>.jar
+# ../build/libs/${LIBRARY_NAME}-android-x86_64-<version>.jar
 
-# remote android-x86 build with travis is available at https://s3.amazonaws.com/gubatron-${LIBRARY_NAME}/release/android/x86/lib${LIBRARY_NAME}.so
+# remote android-x86 build with travis is available at https://s3.amazonaws.com/gubatron-${LIBRARY_NAME}/release/android/x86_64/lib${LIBRARY_NAME}.so
 
 source build-utils.shinc
 check_min_req_vars
 
-export os_arch=x86
+export os_arch=x86_64
 export os_build=android
-export android_api=19
+export android_api=21
 export SHARED_LIB=lib${LIBRARY_NAME}.so
 export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
 
