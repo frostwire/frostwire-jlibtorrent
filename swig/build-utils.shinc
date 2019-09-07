@@ -15,7 +15,7 @@ export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
 export OPENSSL_ROOT="${SRC}/openssl"
 export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
-function prompt_msg {
+prompt_msg() {
  echo
  echo "============================================================================="
  echo $1
@@ -23,16 +23,16 @@ function prompt_msg {
  echo
 }
 
-function press_any_to_continue {
+press_any_to_continue() {
  echo "[Press any key to continue]"
  read -n 1 -s -r -p ""
 }
 
-function create_folder_if_it_doesnt_exist {
+create_folder_if_it_doesnt_exist() {
  if [[ ! -d $1 ]]; then mkdir -p $1; fi;
 }
 
-function abort_if_var_unset {
+abort_if_var_unset() {
   var_name=${1}
   var_value=${2}
   if [[ ! -n ${var_value} ]]; then
@@ -42,7 +42,7 @@ function abort_if_var_unset {
   echo ${var_name} set to ${var_value}
 }
 
-function check_min_req_vars {
+check_min_req_vars() {
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
   abort_if_var_unset "LIBRARY_VERSION" ${LIBRARY_VERSION}
   abort_if_var_unset "LIBRARY_NAME" ${LIBRARY_NAME}
@@ -59,7 +59,7 @@ function check_min_req_vars {
   abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
 }
 
-function prepare_boost {
+prepare_boost() {
   abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
   abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
   abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
@@ -85,7 +85,7 @@ function prepare_boost {
   popd
 }
 
-function prepare_android_toolchain {
+prepare_android_toolchain() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
   abort_if_var_unset "os_arch" ${os_arch}
@@ -114,13 +114,13 @@ function prepare_android_toolchain {
   popd
 }
 
-function prepare_linux_toolchain {
+prepare_linux_toolchain() {
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   sudo apt-get update -qq
   sudo apt-get install -qq g++-5
 }
 
-function prepare_openssl {
+prepare_openssl() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
@@ -134,7 +134,7 @@ function prepare_openssl {
   fi
 }
 
-function build_openssl {
+build_openssl() {
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
   if [ -d ${OPENSSL_ROOT} ]; then
@@ -150,7 +150,7 @@ function build_openssl {
   fi
 }
 
-function prepare_libtorrent {
+prepare_libtorrent() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
@@ -173,7 +173,7 @@ function prepare_libtorrent {
   popd
 }
 
-function build_libraries {
+build_libraries() {
   abort_if_var_unset "SWIG" ${SWIG}
   abort_if_var_unset "os_build" ${os_build}
   abort_if_var_unset "os_arch" ${os_arch}
@@ -209,7 +209,7 @@ function build_libraries {
   gradle build
 }
 
-function cleanup_objects {
+cleanup_objects() {
   abort_if_var_unset "SWIG" ${SWIG}
   # cleanup (when it's finally working, enable this)
   cd ${SWIG}/bin
