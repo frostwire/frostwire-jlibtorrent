@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-export LIBRARY_VERSION=1.2.1.1
-export LIBRARY_NAME=jlibtorrent
-export LIBTORRENT_REVISION=d5b56ca1876dc7b96ef9aac7c7584e1f61d25774 #capture return value from placement new
-export OPENSSL_VERSION="1.1.1c"
-export BOOST_VERSION="71"
-export BOOST_MAJOR="1"
-export BOOST_MINOR="0"
-export SWIG=`pwd`
-export SRC="${HOME}/src"
-export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
-export LIBTORRENT_ROOT="${SRC}/libtorrent"
-export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
-export OPENSSL_ROOT="${SRC}/openssl"
-export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+LIBRARY_VERSION=1.2.1.1
+LIBRARY_NAME=jlibtorrent
+LIBTORRENT_REVISION=d5b56ca1876dc7b96ef9aac7c7584e1f61d25774 #capture return value from placement new
+OPENSSL_VERSION="1.1.1c"
+BOOST_VERSION="71"
+BOOST_MAJOR="1"
+BOOST_MINOR="0"
+SWIG=`pwd`
+SRC="${HOME}/src"
+BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+LIBTORRENT_ROOT="${SRC}/libtorrent"
+OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
+OPENSSL_ROOT="${SRC}/openssl"
+OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
 prompt_msg() {
  echo
@@ -103,12 +103,12 @@ prepare_android_toolchain() {
     prompt_msg "Extracting NDK...wait";
     unzip -qq android-ndk-${NDK_VERSION}.zip;
   fi
-  export NDK=$PWD/android-ndk-${NDK_VERSION};
+  NDK=$PWD/android-ndk-${NDK_VERSION};
   prompt_msg "NDK=${NDK}"
   TOOLCHAIN_FOLDER="android-toolchain-${os_arch}-api_${android_api}"
   prompt_msg "Creating android toolchain --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER}"
   $NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER};
-  export ANDROID_TOOLCHAIN=${PWD}/${TOOLCHAIN_FOLDER}
+  ANDROID_TOOLCHAIN=${PWD}/${TOOLCHAIN_FOLDER}
   #prompt_msg "Setting prebuilt ANDROID_TOOLCHAIN (arch ${os_arch}, api ${android_api})"
   prompt_msg "ANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}"
   popd
