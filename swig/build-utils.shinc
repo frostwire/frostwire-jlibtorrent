@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-LIBRARY_VERSION=1.2.1.1
+LIBRARY_VERSION=1.2.3.0
 LIBRARY_NAME=jlibtorrent
-LIBTORRENT_REVISION=d5b56ca1876dc7b96ef9aac7c7584e1f61d25774 #capture return value from placement new
-OPENSSL_VERSION="1.1.1c"
-BOOST_VERSION="71"
+LIBTORRENT_REVISION=b5bf6c3260bd726b0181671625c007be5ad49845 #fix http_stream::handshake2 (RC_1_2)
+OPENSSL_VERSION="1.1.1d"
+BOOST_VERSION="72"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`
@@ -164,8 +164,9 @@ prepare_libtorrent() {
   git status
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
-  git checkout master
-  git pull origin master
+  git fetch origin RC_1_2
+  git checkout RC_1_2 FETCH_HEAD #master
+  #git pull origin RC_1_2 #master
   git checkout ${LIBTORRENT_REVISION}
   git submodule init
   git submodule update

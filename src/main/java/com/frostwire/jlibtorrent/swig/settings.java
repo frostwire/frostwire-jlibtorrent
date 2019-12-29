@@ -8,16 +8,15 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class session_proxy {
+public class settings extends dht_settings {
   private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
 
-  protected session_proxy(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+  protected settings(long cPtr, boolean cMemoryOwn) {
+    super(libtorrent_jni.settings_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(session_proxy obj) {
+  protected static long getCPtr(settings obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -30,18 +29,23 @@ public class session_proxy {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_session_proxy(swigCPtr);
+        libtorrent_jni.delete_settings(swigCPtr);
       }
       swigCPtr = 0;
     }
+    super.delete();
   }
 
-  public session_proxy() {
-    this(libtorrent_jni.new_session_proxy__SWIG_0(), true);
+  public void setPrefer_verified_node_ids(boolean value) {
+    libtorrent_jni.settings_prefer_verified_node_ids_set(swigCPtr, this, value);
   }
 
-  public session_proxy(session_proxy arg0) {
-    this(libtorrent_jni.new_session_proxy__SWIG_1(session_proxy.getCPtr(arg0), arg0), true);
+  public boolean getPrefer_verified_node_ids() {
+    return libtorrent_jni.settings_prefer_verified_node_ids_get(swigCPtr, this);
+  }
+
+  public settings() {
+    this(libtorrent_jni.new_settings(), true);
   }
 
 }

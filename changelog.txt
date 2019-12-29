@@ -1,3 +1,21 @@
+1.2.3.0
+  * libtorrent 1.2.3 update (b5bf6c3260bd726b0181671625c007be5ad49845)
+  * using android NDK r20b
+  * upgraded to boost 1.72.0
+  * upgraded to openssl 1.1.1d
+  * swig version 4.0.1 (from 3.0.12)
+  * lt:fix erroneous event=completed tracker announce when checking files
+  * lt:promote errors in parsing listen_interfaces to post listen_failed_alert
+  * lt:fix bug in protocol encryption/obfuscation
+  * lt:fix buffer overflow in SOCKS5 UDP logic
+  * lt:fix issue of rapid calls to file_priority() clobbering each other
+  * lt:clear tracker errors on success
+  * lt:optimize setting with unlimited unchoke slots
+  * lt:fixed restoring of trackers, comment, creation date and created-by in resume data
+  * lt:fix handling of torrents with too large pieces
+  * lt:fixed division by zero in anti-leech choker
+  * lt:fixed bug in torrent_info::swap
+
 1.2.2.0
   * libtorrent 1.2.2 update (d5b56ca1876dc7b96ef9aac7c7584e1f61d25774)
   * using android NDK r20 (released June 2019)  

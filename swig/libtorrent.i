@@ -614,7 +614,7 @@ namespace libtorrent {
                 return *$self < n;
             }
 
-            static int compare(sha1_hash const& h1, sha1_hash const& h2) const {
+            static int compare(sha1_hash const& h1, sha1_hash const& h2) {
                 return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
             }
         }
@@ -1145,6 +1145,7 @@ namespace libtorrent {
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::apply_pack;
+%ignore libtorrent::apply_pack_impl;
 %ignore libtorrent::load_pack_from_dict;
 %ignore libtorrent::save_settings_to_dict;
 %ignore libtorrent::run_all_updates;

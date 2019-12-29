@@ -20,17 +20,17 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.zip
+  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_71_0
+  - cd boost_1_72_0
   - ./bootstrap.sh
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_71_0
+  - export BOOST_ROOT=$PWD/boost_1_72_0
 
 # openssl: download
-  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1c.tar.gz
+  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1d.tar.gz
   - tar xzf openssl.tar.gz
-  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1c
+  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1d
   # fix source code
   # this one avoid GDI dependency in windows
   - if [ $os_build == "windows" ]; then
@@ -41,7 +41,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout d5b56ca1876dc7b96ef9aac7c7584e1f61d25774
+  - git checkout b5bf6c3260bd726b0181671625c007be5ad49845
   - git submodule init
   - git submodule update
   - cd ..
@@ -49,10 +49,10 @@ before_install:
 
 # android ndk: download and create toolchain
   - if [ $os_build == "android" ]; then
-      wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip;
+      wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip;
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
-      export NDK=$PWD/android-ndk-r20;
+      export NDK=$PWD/android-ndk-r20b;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi

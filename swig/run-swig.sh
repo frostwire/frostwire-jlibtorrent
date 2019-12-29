@@ -4,7 +4,10 @@ source build-utils.shinc
 
 abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
 abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
-abort_if_var_unset "LIBRARY_VERSION" ${LIBRARY_VERSION}
+
+# Extracted from ../build.gradle
+JLIBTORRENT_VERSION=`sed -n -e '/^version /s/.* //p' ../build.gradle | tr -d "'"`
+abort_if_var_unset "JLIBTORRENT_VERSION" ${JLIBTORRENT_VERSION}
 
 function fixCode() {
     uname=`uname -s`
@@ -87,14 +90,12 @@ function runJni()
 	sed -i 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp	
     fi
     
-
     # replace jlibtorrent version
-    GRADLE_VERSION=`sed -n -e '/^version /s/.* //p' ../build.gradle | tr -d "'"`
-    uname=`uname -s`
-    if [ "$(uname)" == "Darwin" ]; then      
-	sed -i '' 's/\$LIBRARY_VERSION\$/'"${GRADLE_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
+    #uname=`uname -s`
+    if [ "$(uname)" == "Darwin" ]; then
+	sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
     else
-	sed -i 's/\$LIBRARY_VERSION\$/'"${GRADLE_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java	
+	sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java	
     fi
 }
 
