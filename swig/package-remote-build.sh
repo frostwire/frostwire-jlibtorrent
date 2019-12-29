@@ -17,11 +17,14 @@ function downloadLibrary {
   wget -O ${dest}/${fileName} $url
 }
 
-# Android-ARM
+# Android-ARM v7a
 downloadLibrary 'libjlibtorrent.so' 'bin/release/android/armeabi-v7a' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/android/armeabi-v7a/libjlibtorrent.so'
-
-# Android-X86
+# Android-ARM64 v8a
+downloadLibrary 'libjlibtorrent.so' 'bin/release/android/arm64-v8a' 'https://gubatron-jlibtorrent.s3.amazonaws.com/release/android/arm64-v8a/libjlibtorrent.so'
+# Android-x86
 downloadLibrary 'libjlibtorrent.so' 'bin/release/android/x86' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/android/x86/libjlibtorrent.so'
+# Android-x86_64
+downloadLibrary 'libjlibtorrent.so' 'bin/release/android/x86_64' 'https://gubatron-jlibtorrent.s3.amazonaws.com/release/android/x86_64/libjlibtorrent.so'
 
 # Windows (dual-architecture jar)
 downloadLibrary 'jlibtorrent.dll' 'bin/release/windows/x86' 'https://s3.amazonaws.com/gubatron-jlibtorrent/release/windows/x86/jlibtorrent.dll'
