@@ -163,5 +163,23 @@ public final class TorrentFlags {
      */
     public static final torrent_flags_t NEED_SAVE_RESUME = libtorrent.getNeed_save_resume();
 
+    /**
+     * Set this flag to disable DHT for this torrent. This lets you have the DHT
+     * enabled for the whole client, and still have specific torrents not
+     * participating in it. i.e. not announcing to the DHT nor picking up peers
+     * from it.
+     */
+    public static final torrent_flags_t DISABLE_DHT = libtorrent.getDisable_dht();
+
+    /**
+     * Set this flag to disable local service discovery for this torrent.
+     */
+    public static final torrent_flags_t DISABLE_LSD = libtorrent.getDisable_lsd();
+
+    /**
+     * Set this flag to disable peer exchange for this torrent.
+     */
+    public static final torrent_flags_t DISABLE_PEX = libtorrent.getDisable_pex();    
+
     public static final torrent_flags_t ALL = libtorrent.getAll();
 }
