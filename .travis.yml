@@ -32,10 +32,11 @@ before_install:
   - tar xzf openssl.tar.gz
   - export OPENSSL_SOURCE=$PWD/openssl-1.1.1d
   # fix source code
-  # this one avoid GDI dependency in windows
+  # avoid GDI dependency in windows, fix double return statement on threads_none.c
   - if [ $os_build == "windows" ]; then
       sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' $OPENSSL_SOURCE/crypto/cryptlib.c;
       sed -i 's/MessageBox.*//g' $OPENSSL_SOURCE/crypto/cryptlib.c;
+      sed -i 's/return return 0;/return 0;/g' $OPENSSL_SOURCE/crypto/threads_none.c;
     fi
 
 # libtorrent: download and checkout revision
