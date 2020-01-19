@@ -50,10 +50,10 @@ before_install:
 
 # android ndk: download and create toolchain
   - if [ $os_build == "android" ]; then
-      wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip;
+      wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r21-linux-x86_64.zip;
       echo "Extracting NDK...wait";
       unzip -qq android-ndk.zip;
-      export NDK=$PWD/android-ndk-r20b;
+      export NDK=$PWD/android-ndk-r21;
       $NDK/build/tools/make_standalone_toolchain.py --arch $os_arch --api $android_api --stl libc++ --install-dir android-toolchain;
       export ANDROID_TOOLCHAIN=$PWD/android-toolchain;
     fi
@@ -238,9 +238,11 @@ script:
   - cd ..
 
 before_deploy:
-  - cd swig/bin
-  - find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
-  - find . -empty -type d | xargs rm -r
+  - if [ -d swig/bin ]; then
+      cd swig/bin;
+      find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm;
+      find . -empty -type d | xargs rm -r;
+    fi
   - cd ../..
 
 deploy:
