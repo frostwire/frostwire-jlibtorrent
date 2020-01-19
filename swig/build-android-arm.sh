@@ -16,7 +16,7 @@ export android_api=19
 export SHARED_LIB=lib${LIBRARY_NAME}.so
 export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
 export CXX=g++
-export NDK_VERSION=r20
+export NDK_VERSION=r21
 prepare_android_toolchain
 abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
 export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang
