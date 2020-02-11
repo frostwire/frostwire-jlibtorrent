@@ -8,7 +8,6 @@ package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.*;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,26 +53,30 @@ public final class EnumNet {
         return l;
     }
 
-    public static Address defaultGateway(SessionManager session, String device,
-                                         boolean v6) {
-        if (session.swig() == null) {
-            return new Address();
-        }
+//    public static Address defaultGateway(SessionManager session, String device,
+//                                         boolean v6) {
+//        if (session.swig() == null) {
+//            return new Address();
+//        }
+//
+//        if (device == null) {
+//            device = "";
+//        }
+//
+//        byte[] device_arr;
+//        try {
+//            device_arr = device.getBytes("ASCII");
+//        } catch (UnsupportedEncodingException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return new Address(libtorrent.get_default_gateway(session.swig(),
+//                Vectors.bytes2byte_vector(device_arr), v6));
+//    }
 
-        if (device == null) {
-            device = "";
-        }
-
-        byte[] device_arr;
-        try {
-            device_arr = device.getBytes("ASCII");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-
-        return new Address(libtorrent.get_default_gateway(session.swig(),
-                Vectors.bytes2byte_vector(device_arr), v6));
-    }
+//    public static Address getGateway(IpInterface ipInterface, ip_route_vector routes) {
+//      return new Address(libtorrent.get_gateway(ipInterface.swig(), routes));
+//    }
 
     public static final class IpInterface {
 
@@ -83,14 +86,20 @@ public final class EnumNet {
         private final String friendlyName;
         private final String description;
         private final boolean preferred;
+        private final ip_interface s;
 
         IpInterface(ip_interface iface) {
+            this.s = iface;
             this.interfaceAddress = new Address(iface.getInterface_address());
             this.netmask = new Address(iface.getNetmask());
             this.name = Vectors.byte_vector2ascii(iface.getName());
             this.friendlyName = Vectors.byte_vector2ascii(iface.getFriendly_name());
             this.description = Vectors.byte_vector2ascii(iface.getDescription());
             this.preferred = iface.getPreferred();
+        }
+
+        public ip_interface swig() {
+            return s;
         }
 
         public Address interfaceAddress() {
@@ -139,13 +148,19 @@ public final class EnumNet {
         private final Address gateway;
         private final String name;
         private final int mtu;
+        private final ip_route s;
 
         IpRoute(ip_route route) {
+            this.s = route;
             this.destination = new Address(route.getDestination());
             this.netmask = new Address(route.getNetmask());
             this.gateway = new Address(route.getGateway());
             this.name = Vectors.byte_vector2ascii(route.getName());
             this.mtu = route.getMtu();
+        }
+
+        public ip_route swig() {
+            return this.s;
         }
 
         public Address destination() {

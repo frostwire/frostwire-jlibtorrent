@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "1.2.3.0";
+        return "1.2.4.0";
     }
 
     static {
@@ -1301,9 +1301,6 @@ public class libtorrent_jni {
   public final static native void torrent_info_add_node(long jarg1, torrent_info jarg1_, long jarg2, string_int_pair jarg2_);
   public final static native long torrent_info_info(long jarg1, torrent_info jarg1_, String jarg2);
   public final static native int torrent_info_metadata_size(long jarg1, torrent_info jarg1_);
-  public final static native void torrent_info_internal_set_creator(long jarg1, torrent_info jarg1_, long jarg2, string_view jarg2_);
-  public final static native void torrent_info_internal_set_creation_date(long jarg1, torrent_info jarg1_, long jarg2);
-  public final static native void torrent_info_internal_set_comment(long jarg1, torrent_info jarg1_, long jarg2, string_view jarg2_);
   public final static native boolean torrent_info_is_merkle_torrent(long jarg1, torrent_info jarg1_);
   public final static native long new_torrent_info__SWIG_4(long jarg1, int jarg2, long jarg3, error_code jarg3_);
   public final static native long pex_encryption_get();
@@ -2738,9 +2735,23 @@ public class libtorrent_jni {
   public final static native String alerts_dropped_alert_what(long jarg1, alerts_dropped_alert jarg1_);
   public final static native long alerts_dropped_alert_static_category_get();
   public final static native String alerts_dropped_alert_message(long jarg1, alerts_dropped_alert jarg1_);
-  public final static native void alerts_dropped_alert_dropped_alerts_set(long jarg1, alerts_dropped_alert jarg1_, long jarg2, bitset_96 jarg2_);
+  public final static native void alerts_dropped_alert_dropped_alerts_set(long jarg1, alerts_dropped_alert jarg1_, long jarg2);
   public final static native long alerts_dropped_alert_dropped_alerts_get(long jarg1, alerts_dropped_alert jarg1_);
   public final static native void delete_alerts_dropped_alert(long jarg1);
+  public final static native int socks5_alert_priority_get();
+  public final static native int socks5_alert_alert_type_get();
+  public final static native int socks5_alert_type(long jarg1, socks5_alert jarg1_);
+  public final static native long socks5_alert_category(long jarg1, socks5_alert jarg1_);
+  public final static native String socks5_alert_what(long jarg1, socks5_alert jarg1_);
+  public final static native long socks5_alert_static_category_get();
+  public final static native String socks5_alert_message(long jarg1, socks5_alert jarg1_);
+  public final static native void socks5_alert_error_set(long jarg1, socks5_alert jarg1_, long jarg2, error_code jarg2_);
+  public final static native long socks5_alert_error_get(long jarg1, socks5_alert jarg1_);
+  public final static native void socks5_alert_op_set(long jarg1, socks5_alert jarg1_, int jarg2);
+  public final static native int socks5_alert_op_get(long jarg1, socks5_alert jarg1_);
+  public final static native void socks5_alert_ip_set(long jarg1, socks5_alert jarg1_, long jarg2);
+  public final static native long socks5_alert_ip_get(long jarg1, socks5_alert jarg1_);
+  public final static native void delete_socks5_alert(long jarg1);
   public final static native int setting_by_name(long jarg1, string_view jarg1_);
   public final static native String name_for_setting(int jarg1);
   public final static native long default_settings();
@@ -2765,10 +2776,12 @@ public class libtorrent_jni {
   public final static native int settings_pack_allow_multiple_connections_per_ip_get();
   public final static native int settings_pack_send_redundant_have_get();
   public final static native int settings_pack_use_dht_as_fallback_get();
+  public final static native int settings_pack_use_parole_mode_get();
   public final static native int settings_pack_coalesce_reads_get();
   public final static native int settings_pack_disable_hash_checks_get();
   public final static native int settings_pack_volatile_read_cache_get();
   public final static native int settings_pack_no_atime_storage_get();
+  public final static native int settings_pack_enable_outgoing_utp_get();
   public final static native int settings_pack_no_recheck_incomplete_resume_get();
   public final static native int settings_pack_seeding_outgoing_connections_get();
   public final static native int settings_pack_ban_web_seeds_get();
@@ -3119,7 +3132,6 @@ public class libtorrent_jni {
   public final static native void delete_ip_route(long jarg1);
   public final static native long enum_net_interfaces(long jarg1, session jarg1_);
   public final static native long enum_routes(long jarg1, session jarg1_);
-  public final static native long get_default_gateway(long jarg1, session jarg1_, long jarg2, byte_vector jarg2_, boolean jarg3);
   public final static native boolean arm_neon_support();
   public final static native void posix_stat_t_size_set(long jarg1, posix_stat_t jarg1_, long jarg2);
   public final static native long posix_stat_t_size_get(long jarg1, posix_stat_t jarg1_);
@@ -3238,6 +3250,7 @@ public class libtorrent_jni {
   public final static native long dht_sample_infohashes_alert_SWIGUpcast(long jarg1);
   public final static native long block_uploaded_alert_SWIGUpcast(long jarg1);
   public final static native long alerts_dropped_alert_SWIGUpcast(long jarg1);
+  public final static native long socks5_alert_SWIGUpcast(long jarg1);
   public final static native long settings_SWIGUpcast(long jarg1);
   public final static native long session_SWIGUpcast(long jarg1);
   public final static native long bt_peer_connection_handle_SWIGUpcast(long jarg1);

@@ -519,15 +519,6 @@ public final class SettingsPack {
         return this;
     }
 
-    public boolean broadcastLSD() {
-        return sp.get_bool(settings_pack.bool_types.broadcast_lsd.swigValue());
-    }
-
-    public SettingsPack broadcastLSD(boolean value) {
-        sp.set_bool(settings_pack.bool_types.broadcast_lsd.swigValue(), value);
-        return this;
-    }
-
     /**
      * @return
      */
@@ -604,32 +595,6 @@ public final class SettingsPack {
      */
     public SettingsPack alertQueueSize(int value) {
         sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), value);
-        return this;
-    }
-
-    /**
-     * Indicates whether or not the UPnP implementation should ignore any
-     * broadcast response from a device whose address is not the configured
-     * router for this machine. i.e. it's a way to not talk to other people's
-     * routers by mistake.
-     *
-     * @return the current value
-     */
-    public boolean upnpIgnoreNonRouters() {
-        return sp.get_bool(settings_pack.bool_types.upnp_ignore_nonrouters.swigValue());
-    }
-
-    /**
-     * Indicates whether or not the UPnP implementation should ignore any
-     * broadcast response from a device whose address is not the configured
-     * router for this machine. i.e. it's a way to not talk to other people's
-     * routers by mistake.
-     *
-     * @param value the new value
-     * @return this
-     */
-    public SettingsPack upnpIgnoreNonRouters(boolean value) {
-        sp.set_bool(settings_pack.bool_types.upnp_ignore_nonrouters.swigValue(), value);
         return this;
     }
 }

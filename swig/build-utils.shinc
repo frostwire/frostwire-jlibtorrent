@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-LIBRARY_VERSION=1.2.3.0
+LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | sed "s/'//g"`
 LIBRARY_NAME=jlibtorrent
-LIBTORRENT_REVISION=b5bf6c3260bd726b0181671625c007be5ad49845 #fix http_stream::handshake2 (RC_1_2)
+LIBTORRENT_REVISION=ad83b1c0eb293b63c69f7879ca6ba2381369f77f #fix one more float->int conversion warning  (branch:RC_1_2) (tag:libtorrent-1_2_4)
 OPENSSL_VERSION="1.1.1d"
 BOOST_VERSION="72"
 BOOST_MAJOR="1"
@@ -165,8 +165,6 @@ prepare_libtorrent() {
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
   git fetch origin RC_1_2
-  git checkout RC_1_2 FETCH_HEAD #master
-  #git pull origin RC_1_2 #master
   git checkout ${LIBTORRENT_REVISION}
   git submodule init
   git submodule update
@@ -175,6 +173,7 @@ prepare_libtorrent() {
 }
 
 build_libraries() {
+  abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
   abort_if_var_unset "SWIG" ${SWIG}
   abort_if_var_unset "os_build" ${os_build}
   abort_if_var_unset "os_arch" ${os_arch}
@@ -189,6 +188,7 @@ build_libraries() {
   export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
   echo "Added boost tools to PATH:"
   echo ${PATH}
+  export OPENSSL_ROOT=${OPENSSL_ROOT}
   $run_bjam
   $run_objcopy
   $run_strip
@@ -213,11 +213,16 @@ build_libraries() {
 cleanup_objects() {
   abort_if_var_unset "SWIG" ${SWIG}
   # cleanup (when it's finally working, enable this)
-  cd ${SWIG}/bin
-  find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
-  find . -empty -type d | xargs rm -r
+  if [ -d ${SWIG}/bin ]; then
+    cd ${SWIG}/bin
+    find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
+    find . -empty -type d | xargs rm -r
+  else
+    echo ${SWIG}/bin folder not found, nothing to clean  
+  fi
   cd ${SWIG}
   cd ..
   find . -type f | egrep '\d.\d.\d.\d\d.jar$'
   cd ${SWIG}
 }
+

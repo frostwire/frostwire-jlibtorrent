@@ -1,3 +1,19 @@
+1.2.4.0
+ * libtorrent 1.2.4 update (ad83b1c0eb293b63c69f7879ca6ba2381369f77f)
+ * Java source compatibility upgraded from 1.7 to 1.8
+ * lt:fix binding TCP and UDP sockets to the same port, when specifying port 0
+ * lt:fix announce_to_all_trackers and announce_to_all_tiers behavior
+ * lt:fix suggest_read_cache setting
+ * lt:back-off tracker hostname looksups resulting in NXDOMAIN
+ * lt:lower SOCKS5 UDP keepalive timeout
+ * lt:fix external IP voting for multi-homed DHT nodes
+ * lt:deprecate broadcast_lsd setting. Just use multicast
+ * lt:deprecate upnp_ignore_nonrouters setting
+ * lt:don't attempt sending event=stopped if event=start never succeeded
+ * lt:make sure &key= stays consistent between different source IPs (as mandated by BEP7)
+ * lt:fix binding sockets to outgoing interface
+ * lt:add new socks5_alert to trouble shoot SOCKS5 proxies
+
 1.2.3.0
   * libtorrent 1.2.3 update (b5bf6c3260bd726b0181671625c007be5ad49845)
   * using android NDK r20b
