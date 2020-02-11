@@ -1068,6 +1068,15 @@ public class SessionManager {
         }
     }
 
+    private void onListenFailed(ListenFailedAlert alert) {
+        LOG.error("onListenFailed(): iface= " + alert.listenInterface() +
+                ", address= " + alert.address() +
+                ", port= " + alert.port() +
+                ", socketType= " + alert.socketType() +
+                ", errorCode= " + alert.error());
+        LOG.error("onListenFailed(): error_message=" + alert.message());
+    }
+
     private void toggleDht(boolean on) {
         if (session == null || isDhtRunning() == on) {
             return;
@@ -1168,6 +1177,10 @@ public class SessionManager {
                                 case LISTEN_SUCCEEDED:
                                     alert = Alerts.cast(a);
                                     onListenSucceeded((ListenSucceededAlert) alert);
+                                    break;
+                                case LISTEN_FAILED:
+                                    alert = Alerts.cast(a);
+                                    onListenFailed((ListenFailedAlert) alert);
                                     break;
                                 case EXTERNAL_IP:
                                     alert = Alerts.cast(a);
