@@ -272,14 +272,22 @@ std::vector<ip_route> enum_routes(libtorrent::session* s)
     return ret;
 }
 
-libtorrent::address get_default_gateway(libtorrent::session* s
-    , std::vector<std::int8_t> device, bool v6)
-{
-    boost::system::error_code ec;
-    return libtorrent::get_default_gateway(s->get_io_service()
-        , {reinterpret_cast<char const*>(device.data()), device.size()}
-        , v6, ec);
-}
+// TORRENT_EXTRA_EXPORT address get_default_gateway(io_service& ios, string_view device, bool v6, error_code& ec);
+//libtorrent::address get_default_gateway(libtorrent::session* s
+//    , std::vector<std::int8_t> device, bool v6)
+//{
+//    boost::system::error_code ec;
+//    return libtorrent::get_default_gateway(s->get_io_service()
+//        , {reinterpret_cast<char const*>(device.data()), device.size()}
+//        , v6, ec);
+//}
+
+//TORRENT_EXTRA_EXPORT boost::optional<address> get_gateway(
+//		ip_interface const& iface, span<ip_route const> routes);
+//libtorrent::address get_gateway(libtorrent::session* s, ip_interface const& iface)
+//{
+// return libtorrent::get_gateway(iface, enum_routes(s)).get();
+//}
 
 bool arm_neon_support()
 {

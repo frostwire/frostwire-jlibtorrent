@@ -185,8 +185,7 @@ public class settings_pack {
     public final static settings_pack.bool_types allow_multiple_connections_per_ip = new settings_pack.bool_types("allow_multiple_connections_per_ip", libtorrent_jni.settings_pack_allow_multiple_connections_per_ip_get());
     public final static settings_pack.bool_types send_redundant_have = new settings_pack.bool_types("send_redundant_have", libtorrent_jni.settings_pack_send_redundant_have_get());
     public final static settings_pack.bool_types use_dht_as_fallback = new settings_pack.bool_types("use_dht_as_fallback", libtorrent_jni.settings_pack_use_dht_as_fallback_get());
-    public final static settings_pack.bool_types upnp_ignore_nonrouters = new settings_pack.bool_types("upnp_ignore_nonrouters");
-    public final static settings_pack.bool_types use_parole_mode = new settings_pack.bool_types("use_parole_mode");
+    public final static settings_pack.bool_types use_parole_mode = new settings_pack.bool_types("use_parole_mode", libtorrent_jni.settings_pack_use_parole_mode_get());
     public final static settings_pack.bool_types use_read_cache = new settings_pack.bool_types("use_read_cache");
     public final static settings_pack.bool_types coalesce_reads = new settings_pack.bool_types("coalesce_reads", libtorrent_jni.settings_pack_coalesce_reads_get());
     public final static settings_pack.bool_types coalesce_writes = new settings_pack.bool_types("coalesce_writes");
@@ -206,8 +205,7 @@ public class settings_pack {
     public final static settings_pack.bool_types incoming_starts_queued_torrents = new settings_pack.bool_types("incoming_starts_queued_torrents");
     public final static settings_pack.bool_types report_true_downloaded = new settings_pack.bool_types("report_true_downloaded");
     public final static settings_pack.bool_types strict_end_game_mode = new settings_pack.bool_types("strict_end_game_mode");
-    public final static settings_pack.bool_types broadcast_lsd = new settings_pack.bool_types("broadcast_lsd");
-    public final static settings_pack.bool_types enable_outgoing_utp = new settings_pack.bool_types("enable_outgoing_utp");
+    public final static settings_pack.bool_types enable_outgoing_utp = new settings_pack.bool_types("enable_outgoing_utp", libtorrent_jni.settings_pack_enable_outgoing_utp_get());
     public final static settings_pack.bool_types enable_incoming_utp = new settings_pack.bool_types("enable_incoming_utp");
     public final static settings_pack.bool_types enable_outgoing_tcp = new settings_pack.bool_types("enable_outgoing_tcp");
     public final static settings_pack.bool_types enable_incoming_tcp = new settings_pack.bool_types("enable_incoming_tcp");
@@ -274,7 +272,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static bool_types[] swigValues = { allow_multiple_connections_per_ip, send_redundant_have, use_dht_as_fallback, upnp_ignore_nonrouters, use_parole_mode, use_read_cache, coalesce_reads, coalesce_writes, auto_manage_prefer_seeds, dont_count_slow_torrents, close_redundant_connections, prioritize_partial_pieces, rate_limit_ip_overhead, announce_to_all_tiers, announce_to_all_trackers, prefer_udp_trackers, strict_super_seeding, disable_hash_checks, allow_i2p_mixed, volatile_read_cache, no_atime_storage, incoming_starts_queued_torrents, report_true_downloaded, strict_end_game_mode, broadcast_lsd, enable_outgoing_utp, enable_incoming_utp, enable_outgoing_tcp, enable_incoming_tcp, no_recheck_incomplete_resume, anonymous_mode, report_web_seed_downloads, seeding_outgoing_connections, no_connect_privileged_ports, smooth_connects, always_send_user_agent, apply_ip_filter_to_trackers, ban_web_seeds, allow_partial_disk_writes, support_share_mode, support_merkle_torrents, report_redundant_bytes, listen_system_port_fallback, announce_crypto_support, enable_upnp, enable_natpmp, enable_lsd, enable_dht, prefer_rc4, proxy_hostnames, proxy_peer_connections, auto_sequential, proxy_tracker_connections, enable_ip_notifier, dht_prefer_verified_node_ids, piece_extent_affinity, max_bool_setting_internal };
+    private static bool_types[] swigValues = { allow_multiple_connections_per_ip, send_redundant_have, use_dht_as_fallback, use_parole_mode, use_read_cache, coalesce_reads, coalesce_writes, auto_manage_prefer_seeds, dont_count_slow_torrents, close_redundant_connections, prioritize_partial_pieces, rate_limit_ip_overhead, announce_to_all_tiers, announce_to_all_trackers, prefer_udp_trackers, strict_super_seeding, disable_hash_checks, allow_i2p_mixed, volatile_read_cache, no_atime_storage, incoming_starts_queued_torrents, report_true_downloaded, strict_end_game_mode, enable_outgoing_utp, enable_incoming_utp, enable_outgoing_tcp, enable_incoming_tcp, no_recheck_incomplete_resume, anonymous_mode, report_web_seed_downloads, seeding_outgoing_connections, no_connect_privileged_ports, smooth_connects, always_send_user_agent, apply_ip_filter_to_trackers, ban_web_seeds, allow_partial_disk_writes, support_share_mode, support_merkle_torrents, report_redundant_bytes, listen_system_port_fallback, announce_crypto_support, enable_upnp, enable_natpmp, enable_lsd, enable_dht, prefer_rc4, proxy_hostnames, proxy_peer_connections, auto_sequential, proxy_tracker_connections, enable_ip_notifier, dht_prefer_verified_node_ids, piece_extent_affinity, max_bool_setting_internal };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

@@ -292,10 +292,6 @@ public class libtorrent implements libtorrentConstants {
     return new ip_route_vector(libtorrent_jni.enum_routes(session.getCPtr(s), s), true);
   }
 
-  public static address get_default_gateway(session s, byte_vector device, boolean v6) {
-    return new address(libtorrent_jni.get_default_gateway(session.getCPtr(s), s, byte_vector.getCPtr(device), device, v6), true);
-  }
-
   public static boolean arm_neon_support() {
     return libtorrent_jni.arm_neon_support();
   }

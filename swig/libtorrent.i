@@ -1015,6 +1015,7 @@ namespace libtorrent {
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::add_torrent_params::deprecated5;
 %ignore libtorrent::alert::timestamp;
+%ignore libtorrent::get_gateway;
 %ignore libtorrent::session_params::session_params(settings_pack&&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(settings_pack const&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(session_params&&);
@@ -1180,6 +1181,8 @@ namespace libtorrent {
 %ignore libtorrent::settings_pack::deprecated_lock_files;
 %ignore libtorrent::settings_pack::deprecated_ssl_listen;
 %ignore libtorrent::settings_pack::deprecated_force_proxy;
+%ignore libtorrent::settings_pack::deprecated_broadcast_lsd;
+%ignore libtorrent::settings_pack::deprecated_upnp_ignore_nonrouters;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
@@ -1222,6 +1225,9 @@ namespace libtorrent {
 %ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, std::uint32_t, std::time_t, string_view);
 %ignore libtorrent::file_storage::file_range;
 %ignore libtorrent::file_storage::piece_range;
+%ignore libtorrent::torrent_info::internal_set_creator;
+%ignore libtorrent::torrent_info::internal_set_creation_date;
+%ignore libtorrent::torrent_info::internal_set_comment;
 %ignore libtorrent::file_storage::sanitize_symlinks;
 %ignore libtorrent::create_torrent::add_url_seed(string_view);
 %ignore libtorrent::create_torrent::add_http_seed(string_view);

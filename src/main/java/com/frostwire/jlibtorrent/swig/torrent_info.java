@@ -228,18 +228,6 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_metadata_size(swigCPtr, this);
   }
 
-  public void internal_set_creator(string_view arg0) {
-    libtorrent_jni.torrent_info_internal_set_creator(swigCPtr, this, string_view.getCPtr(arg0), arg0);
-  }
-
-  public void internal_set_creation_date(long arg0) {
-    libtorrent_jni.torrent_info_internal_set_creation_date(swigCPtr, this, arg0);
-  }
-
-  public void internal_set_comment(string_view arg0) {
-    libtorrent_jni.torrent_info_internal_set_comment(swigCPtr, this, string_view.getCPtr(arg0), arg0);
-  }
-
   public boolean is_merkle_torrent() {
     return libtorrent_jni.torrent_info_is_merkle_torrent(swigCPtr, this);
   }
