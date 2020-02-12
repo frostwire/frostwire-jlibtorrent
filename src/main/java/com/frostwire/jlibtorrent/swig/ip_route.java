@@ -63,6 +63,15 @@ public class ip_route {
     return (cPtr == 0) ? null : new address(cPtr, false);
   }
 
+  public void setSource_hint(address value) {
+    libtorrent_jni.ip_route_source_hint_set(swigCPtr, this, address.getCPtr(value), value);
+  }
+
+  public address getSource_hint() {
+    long cPtr = libtorrent_jni.ip_route_source_hint_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new address(cPtr, false);
+  }
+
   public void setName(byte_vector value) {
     libtorrent_jni.ip_route_name_set(swigCPtr, this, byte_vector.getCPtr(value), value);
   }

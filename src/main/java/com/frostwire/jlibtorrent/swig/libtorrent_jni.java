@@ -3124,6 +3124,8 @@ public class libtorrent_jni {
   public final static native long ip_route_netmask_get(long jarg1, ip_route jarg1_);
   public final static native void ip_route_gateway_set(long jarg1, ip_route jarg1_, long jarg2, address jarg2_);
   public final static native long ip_route_gateway_get(long jarg1, ip_route jarg1_);
+  public final static native void ip_route_source_hint_set(long jarg1, ip_route jarg1_, long jarg2, address jarg2_);
+  public final static native long ip_route_source_hint_get(long jarg1, ip_route jarg1_);
   public final static native void ip_route_name_set(long jarg1, ip_route jarg1_, long jarg2, byte_vector jarg2_);
   public final static native long ip_route_name_get(long jarg1, ip_route jarg1_);
   public final static native void ip_route_mtu_set(long jarg1, ip_route jarg1_, int jarg2);
@@ -3132,6 +3134,9 @@ public class libtorrent_jni {
   public final static native void delete_ip_route(long jarg1);
   public final static native long enum_net_interfaces(long jarg1, session jarg1_);
   public final static native long enum_routes(long jarg1, session jarg1_);
+  public final static native void zero_char_array(String jarg1, int jarg2);
+  public final static native void copy_byte_vector_to_char_array(long jarg1, byte_vector jarg1_, String jarg2, int jarg3);
+  public final static native long get_gateway(long jarg1, session jarg1_, long jarg2, ip_interface jarg2_, long jarg3, ip_route_vector jarg3_);
   public final static native boolean arm_neon_support();
   public final static native void posix_stat_t_size_set(long jarg1, posix_stat_t jarg1_, long jarg2);
   public final static native long posix_stat_t_size_get(long jarg1, posix_stat_t jarg1_);

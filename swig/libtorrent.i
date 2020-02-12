@@ -1015,7 +1015,7 @@ namespace libtorrent {
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::add_torrent_params::deprecated5;
 %ignore libtorrent::alert::timestamp;
-%ignore libtorrent::get_gateway;
+//%ignore libtorrent::get_gateway;
 %ignore libtorrent::session_params::session_params(settings_pack&&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(settings_pack const&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(session_params&&);

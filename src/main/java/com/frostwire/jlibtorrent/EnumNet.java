@@ -74,9 +74,9 @@ public final class EnumNet {
 //                Vectors.bytes2byte_vector(device_arr), v6));
 //    }
 
-//    public static Address getGateway(IpInterface ipInterface, ip_route_vector routes) {
-//      return new Address(libtorrent.get_gateway(ipInterface.swig(), routes));
-//    }
+    public static Address getGateway(SessionManager session, IpInterface ipInterface, ip_route_vector routes) {
+      return new Address(libtorrent.get_gateway(session.swig(), ipInterface.swig(), routes));
+    }
 
     public static final class IpInterface {
 
