@@ -53,27 +53,6 @@ public final class EnumNet {
         return l;
     }
 
-//    public static Address defaultGateway(SessionManager session, String device,
-//                                         boolean v6) {
-//        if (session.swig() == null) {
-//            return new Address();
-//        }
-//
-//        if (device == null) {
-//            device = "";
-//        }
-//
-//        byte[] device_arr;
-//        try {
-//            device_arr = device.getBytes("ASCII");
-//        } catch (UnsupportedEncodingException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return new Address(libtorrent.get_default_gateway(session.swig(),
-//                Vectors.bytes2byte_vector(device_arr), v6));
-//    }
-
     public static Address getGateway(SessionManager session, IpInterface ipInterface, ip_route_vector routes) {
       return new Address(libtorrent.get_gateway(session.swig(), ipInterface.swig(), routes));
     }
