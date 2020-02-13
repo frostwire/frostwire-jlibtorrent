@@ -310,8 +310,9 @@ libtorrent::address get_gateway(libtorrent::session* s, ip_interface const& ifac
    lt_ip_route.gateway = r.gateway;
    lt_ip_route.source_hint = r.source_hint;
    lt_ip_route.mtu = r.mtu;
-   //todo copy name
-   lt_routes.push_back(lt_ip_route);
+   copy_byte_vector_to_char_array(r.name, lt_ip_route.name, sizeof(lt_ip_route.name)); //64
+
+   lt_routes.push_back(static_cast<libtorrent::ip_route const>(lt_ip_route));
  }
 
  return libtorrent::get_gateway(lt_iface, lt_routes).get();
