@@ -190,6 +190,7 @@ build_libraries() {
   echo "Added boost tools to PATH:"
   echo ${PATH}
   export OPENSSL_ROOT=${OPENSSL_ROOT}
+  export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
   $run_bjam
   $run_objcopy
   $run_strip
