@@ -273,14 +273,8 @@ std::vector<ip_route> enum_routes(libtorrent::session* s)
     return ret;
 }
 
-void zero_char_array(char *arr, int len) {
-  for (int i=0; i < len; i++) {
-    arr[i] = '\0';
-  }
-}
-
-void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* target, int target_size) {
-  zero_char_array(target,target_size);
+void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* target, const unsigned int target_size) {
+  std::memset(target, 0, target_size);
   for (int i=0; i < source.size() || i <= target_size; i++) {
     target[i] = source[i];
   }
