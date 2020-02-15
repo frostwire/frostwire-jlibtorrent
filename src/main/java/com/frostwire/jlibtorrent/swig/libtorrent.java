@@ -292,11 +292,7 @@ public class libtorrent implements libtorrentConstants {
     return new ip_route_vector(libtorrent_jni.enum_routes(session.getCPtr(s), s), true);
   }
 
-  public static void zero_char_array(String arr, int len) {
-    libtorrent_jni.zero_char_array(arr, len);
-  }
-
-  public static void copy_byte_vector_to_char_array(byte_vector source, String target, int target_size) {
+  public static void copy_byte_vector_to_char_array(byte_vector source, String target, long target_size) {
     libtorrent_jni.copy_byte_vector_to_char_array(byte_vector.getCPtr(source), source, target, target_size);
   }
 
