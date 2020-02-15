@@ -273,9 +273,10 @@ std::vector<ip_route> enum_routes(libtorrent::session* s)
     return ret;
 }
 
-void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* target, const unsigned int target_size) {
+void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* target, const unsigned int target_size)
+{
   std::memset(target, 0, target_size);
-  for (int i=0; i < source.size() || i <= target_size; i++) {
+  for (unsigned int i=0; i < source.size() || i <= target_size; i++) {
     target[i] = source[i];
   }
 }
@@ -285,7 +286,7 @@ void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* targe
 //@see enum_net.hpp -> struct libtorrent::ip_route
 libtorrent::address get_gateway(libtorrent::session* s, ip_interface const& iface, std::vector<ip_route>& routes)
 {
- // convert our libtorrent.h defined types to native libtorrent:: types
+ // convert our libtorrent.h defined types to native libtorrent:: types from enum_net.hpp
  libtorrent::ip_interface lt_iface;
  lt_iface.interface_address = iface.interface_address;
  lt_iface.netmask = iface.netmask;
@@ -295,8 +296,8 @@ libtorrent::address get_gateway(libtorrent::session* s, ip_interface const& ifac
  copy_byte_vector_to_char_array(iface.friendly_name, lt_iface.friendly_name, sizeof(lt_iface.friendly_name)); // 128
  copy_byte_vector_to_char_array(iface.description, lt_iface.description, sizeof(lt_iface.description)); // 128
 
- // convert ip_route_vector to vector<libtorrent::ip_route const>
- std::vector<libtorrent::ip_route const> lt_routes;
+ // convert ip_route_vector to vector<libtorrent::ip_route const> (cannot use const, gnu g++ explodes in linux/android thinking there's an ambiguity)
+ std::vector<libtorrent::ip_route> lt_routes;
  for (auto const& r : routes) {
    libtorrent::ip_route lt_ip_route;
    lt_ip_route.destination = r.destination;
@@ -305,8 +306,7 @@ libtorrent::address get_gateway(libtorrent::session* s, ip_interface const& ifac
    lt_ip_route.source_hint = r.source_hint;
    lt_ip_route.mtu = r.mtu;
    copy_byte_vector_to_char_array(r.name, lt_ip_route.name, sizeof(lt_ip_route.name)); //64
-
-   lt_routes.push_back(static_cast<libtorrent::ip_route const>(lt_ip_route));
+   lt_routes.push_back(lt_ip_route);
  }
 
  return libtorrent::get_gateway(lt_iface, lt_routes).get();
