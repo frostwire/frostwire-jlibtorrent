@@ -3134,8 +3134,7 @@ public class libtorrent_jni {
   public final static native void delete_ip_route(long jarg1);
   public final static native long enum_net_interfaces(long jarg1, session jarg1_);
   public final static native long enum_routes(long jarg1, session jarg1_);
-  public final static native void zero_char_array(String jarg1, int jarg2);
-  public final static native void copy_byte_vector_to_char_array(long jarg1, byte_vector jarg1_, String jarg2, int jarg3);
+  public final static native void copy_byte_vector_to_char_array(long jarg1, byte_vector jarg1_, String jarg2, long jarg3);
   public final static native long get_gateway(long jarg1, session jarg1_, long jarg2, ip_interface jarg2_, long jarg3, ip_route_vector jarg3_);
   public final static native boolean arm_neon_support();
   public final static native void posix_stat_t_size_set(long jarg1, posix_stat_t jarg1_, long jarg2);

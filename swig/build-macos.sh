@@ -28,5 +28,5 @@ prepare_openssl
 build_openssl
 prepare_libtorrent
 build_libraries
-cleanup_objects
+#cleanup_objects
 
