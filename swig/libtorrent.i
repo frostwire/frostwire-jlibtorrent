@@ -1015,7 +1015,6 @@ namespace libtorrent {
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::add_torrent_params::deprecated5;
 %ignore libtorrent::alert::timestamp;
-//%ignore libtorrent::get_gateway;
 %ignore libtorrent::session_params::session_params(settings_pack&&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(settings_pack const&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(session_params&&);
@@ -1159,7 +1158,6 @@ namespace libtorrent {
 %ignore libtorrent::settings_pack::deprecated_local_download_rate_limit;
 %ignore libtorrent::settings_pack::deprecated_half_open_limit;
 %ignore libtorrent::settings_pack::deprecated_utp_delayed_ack;
-%ignore libtorrent::settings_pack::deprecated_dht_upload_rate_limit;
 %ignore libtorrent::settings_pack::deprecated_ignore_resume_timestamps;
 %ignore libtorrent::settings_pack::deprecated_network_threads;
 %ignore libtorrent::settings_pack::deprecated_lock_disk_cache;
