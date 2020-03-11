@@ -242,6 +242,15 @@ public final class SettingsPack {
         return this;
     }
 
+    public int dhtUploadRate() {
+        return sp.get_int(settings_pack.int_types.dht_upload_rate_limit.swigValue());
+    }
+
+    public SettingsPack dhtUploadRate(int value) {
+        sp.set_int(settings_pack.int_types.dht_upload_rate_limit.swigValue(), value);
+        return this;
+    }
+
     /**
      * {@code active_tracker_limit} is the max number of torrents to announce
      * to their trackers. By default this is 360, which is no more than
