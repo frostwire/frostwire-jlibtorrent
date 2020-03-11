@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "1.2.4.0";
+        return "1.2.5.0";
     }
 
     static {
@@ -2792,7 +2792,7 @@ public class libtorrent_jni {
   public final static native int settings_pack_auto_manage_interval_get();
   public final static native int settings_pack_read_cache_line_size_get();
   public final static native int settings_pack_num_optimistic_unchoke_slots_get();
-  public final static native int settings_pack_unchoke_slots_limit_get();
+  public final static native int settings_pack_dht_upload_rate_limit_get();
   public final static native int settings_pack_connections_limit_get();
   public final static native int settings_pack_utp_loss_multiplier_get();
   public final static native int settings_pack_checking_mem_usage_get();

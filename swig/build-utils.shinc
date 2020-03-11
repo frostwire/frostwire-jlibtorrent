@@ -2,7 +2,7 @@
 
 LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | sed "s/'//g"`
 LIBRARY_NAME=jlibtorrent
-LIBTORRENT_REVISION=ad83b1c0eb293b63c69f7879ca6ba2381369f77f #fix one more float->int conversion warning  (branch:RC_1_2) (tag:libtorrent-1_2_4)
+LIBTORRENT_REVISION=0f337b9ce7a1b0fc87f48843933b1c5c4dd5a9ec #bump to version 1.2.5  (branch:RC_1_2) (tag:none)
 OPENSSL_VERSION="1.1.1d"
 BOOST_VERSION="72"
 BOOST_MAJOR="1"
