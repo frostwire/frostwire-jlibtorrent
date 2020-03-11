@@ -1,3 +1,13 @@
+1.2.5.0
+ * libtorrent 1.2.5 update (0f337b9ce7a1b0fc87f48843933b1c5c4dd5a9ec)
+ * New SettingsPack::dhtUploadRate(), SettingsPack::dhtUploadRate(int)
+ * lt:announce port=1 instead of port=0, when there is no listen port
+ * lt:fix LSD over IPv6
+ * lt:support TCP_NOTSENT_LOWAT on Linux
+ * lt:fix correct interface binding of local service discovery multicast
+ * lt:fix issue with knowing which interfaces to announce to trackers and DHT
+ * lt:undeprecate settings_pack::dht_upload_rate_limit
+
 1.2.4.0
  * libtorrent 1.2.4 update (ad83b1c0eb293b63c69f7879ca6ba2381369f77f)
  * Java source compatibility upgraded from 1.7 to 1.8
