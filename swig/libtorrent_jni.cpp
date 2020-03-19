@@ -69491,32 +69491,29 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_copy
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_get_1gateway(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_get_1gateway(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
-  libtorrent::session *arg1 = (libtorrent::session *) 0 ;
-  ip_interface *arg2 = 0 ;
-  std::vector< ip_route > *arg3 = 0 ;
+  ip_interface *arg1 = 0 ;
+  std::vector< ip_route > *arg2 = 0 ;
   libtorrent::address result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
-  arg1 = *(libtorrent::session **)&jarg1; 
-  arg2 = *(ip_interface **)&jarg2;
-  if (!arg2) {
+  arg1 = *(ip_interface **)&jarg1;
+  if (!arg1) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "ip_interface const & reference is null");
     return 0;
   } 
-  arg3 = *(std::vector< ip_route > **)&jarg3;
-  if (!arg3) {
+  arg2 = *(std::vector< ip_route > **)&jarg2;
+  if (!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< ip_route > & reference is null");
     return 0;
   } 
   {
     try {
-      result = get_gateway(arg1,(ip_interface const &)*arg2,*arg3);
+      result = get_gateway((ip_interface const &)*arg1,*arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;

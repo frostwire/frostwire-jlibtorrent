@@ -296,8 +296,8 @@ public class libtorrent implements libtorrentConstants {
     libtorrent_jni.copy_byte_vector_to_char_array(byte_vector.getCPtr(source), source, target, target_size);
   }
 
-  public static address get_gateway(session s, ip_interface iface, ip_route_vector routes) {
-    return new address(libtorrent_jni.get_gateway(session.getCPtr(s), s, ip_interface.getCPtr(iface), iface, ip_route_vector.getCPtr(routes), routes), true);
+  public static address get_gateway(ip_interface iface, ip_route_vector routes) {
+    return new address(libtorrent_jni.get_gateway(ip_interface.getCPtr(iface), iface, ip_route_vector.getCPtr(routes), routes), true);
   }
 
   public static boolean arm_neon_support() {
