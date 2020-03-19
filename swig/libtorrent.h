@@ -284,7 +284,7 @@ void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* targe
 //boost::optional<address> get_gateway(ip_interface const& iface, span<ip_route const> routes);
 //@see enum_net.hpp -> struct libtorrent::ip_interface
 //@see enum_net.hpp -> struct libtorrent::ip_route
-libtorrent::address get_gateway(libtorrent::session* s, ip_interface const& iface, std::vector<ip_route>& routes)
+libtorrent::address get_gateway(ip_interface const& iface, std::vector<ip_route>& routes)
 {
  // convert our libtorrent.h defined types to native libtorrent:: types from enum_net.hpp
  libtorrent::ip_interface lt_iface;
