@@ -3,12 +3,9 @@
 LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | sed "s/'//g"`
 LIBRARY_NAME=jlibtorrent
 
-#LIBTORRENT_REVISION=0f337b9ce7a1b0fc87f48843933b1c5c4dd5a9ec #bump to version 1.2.5 (branch:RC_1_2) (tag:none)
-#GOT IT TO BUILD UP TO HERE
-#LIBTORRENT_REVISION=a652233142e9bb4efdcce48025d7199c21f7f097 #bump to version 1.2.6 (branch:RC_1_2) (tag:none)
 LIBTORRENT_REVISION=ce0a85f783bec37484776a37fe3662279091ecc5 # past bump to version 1.2.7 (branch:RC_1_2) fix incorrect filename truncation at multi-byte character 
 
-OPENSSL_VERSION="1.1.1d"
+OPENSSL_VERSION="1.1.1g"
 BOOST_VERSION="72"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
