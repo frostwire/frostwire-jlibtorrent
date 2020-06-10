@@ -8,6 +8,8 @@
 #pragma SWIG nowarn=401
 // supress Warning 402: Base class '<name>' is incomplete.
 #pragma SWIG nowarn=402
+// Overloaded method <name> ignored, using <name> instead.
+#pragma SWIG nowarn=516
 
 %{
 // BEGIN common set include ------------------------------------------------------
@@ -1015,6 +1017,9 @@ namespace libtorrent {
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::add_torrent_params::deprecated5;
 %ignore libtorrent::alert::timestamp;
+%ignore libtorrent::performance_alert::bittyrant_with_no_uplimit;
+%ignore libtorrent::performance_alert::deprecated_bittyrant_with_no_uplimit;
+%ignore libtorrent::performance_alert::performance_warning_t::bittyrant_with_no_uplimit;
 %ignore libtorrent::session_params::session_params(settings_pack&&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(settings_pack const&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_params::session_params(session_params&&);
@@ -1181,6 +1186,8 @@ namespace libtorrent {
 %ignore libtorrent::settings_pack::deprecated_force_proxy;
 %ignore libtorrent::settings_pack::deprecated_broadcast_lsd;
 %ignore libtorrent::settings_pack::deprecated_upnp_ignore_nonrouters;
+%ignore libtorrent::settings_pack::deprecated_bittyrant_choker;
+%ignore libtorrent::settings_pack::bittyrant_choker;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
@@ -1261,6 +1268,7 @@ namespace libtorrent {
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
 %ignore libtorrent::peer_info::deprecated_dl_rate;
+%ignore libtorrent::peer_info::estimated_reciprocation_rate;
 %ignore libtorrent::tracker_alert::local_endpoint;
 %ignore libtorrent::dht::extract_node_ids;
 %ignore libtorrent::dht::read_dht_state;

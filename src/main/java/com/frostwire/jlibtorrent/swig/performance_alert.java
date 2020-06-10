@@ -65,8 +65,7 @@ public class performance_alert extends torrent_alert {
     public final static performance_alert.performance_warning_t too_many_optimistic_unchoke_slots = new performance_alert.performance_warning_t("too_many_optimistic_unchoke_slots");
     public final static performance_alert.performance_warning_t too_high_disk_queue_limit = new performance_alert.performance_warning_t("too_high_disk_queue_limit");
     public final static performance_alert.performance_warning_t aio_limit_reached = new performance_alert.performance_warning_t("aio_limit_reached");
-    public final static performance_alert.performance_warning_t bittyrant_with_no_uplimit = new performance_alert.performance_warning_t("bittyrant_with_no_uplimit");
-    public final static performance_alert.performance_warning_t too_few_outgoing_ports = new performance_alert.performance_warning_t("too_few_outgoing_ports");
+    public final static performance_alert.performance_warning_t too_few_outgoing_ports = new performance_alert.performance_warning_t("too_few_outgoing_ports", libtorrent_jni.performance_alert_too_few_outgoing_ports_get());
     public final static performance_alert.performance_warning_t too_few_file_descriptors = new performance_alert.performance_warning_t("too_few_file_descriptors");
     public final static performance_alert.performance_warning_t num_warnings = new performance_alert.performance_warning_t("num_warnings");
 
@@ -104,7 +103,7 @@ public class performance_alert extends torrent_alert {
       swigNext = this.swigValue+1;
     }
 
-    private static performance_warning_t[] swigValues = { outstanding_disk_buffer_limit_reached, outstanding_request_limit_reached, upload_limit_too_low, download_limit_too_low, send_buffer_watermark_too_low, too_many_optimistic_unchoke_slots, too_high_disk_queue_limit, aio_limit_reached, bittyrant_with_no_uplimit, too_few_outgoing_ports, too_few_file_descriptors, num_warnings };
+    private static performance_warning_t[] swigValues = { outstanding_disk_buffer_limit_reached, outstanding_request_limit_reached, upload_limit_too_low, download_limit_too_low, send_buffer_watermark_too_low, too_many_optimistic_unchoke_slots, too_high_disk_queue_limit, aio_limit_reached, too_few_outgoing_ports, too_few_file_descriptors, num_warnings };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

@@ -185,7 +185,8 @@ public class settings_pack {
     public final static settings_pack.bool_types allow_multiple_connections_per_ip = new settings_pack.bool_types("allow_multiple_connections_per_ip", libtorrent_jni.settings_pack_allow_multiple_connections_per_ip_get());
     public final static settings_pack.bool_types send_redundant_have = new settings_pack.bool_types("send_redundant_have", libtorrent_jni.settings_pack_send_redundant_have_get());
     public final static settings_pack.bool_types use_dht_as_fallback = new settings_pack.bool_types("use_dht_as_fallback", libtorrent_jni.settings_pack_use_dht_as_fallback_get());
-    public final static settings_pack.bool_types use_parole_mode = new settings_pack.bool_types("use_parole_mode", libtorrent_jni.settings_pack_use_parole_mode_get());
+    public final static settings_pack.bool_types upnp_ignore_nonrouters = new settings_pack.bool_types("upnp_ignore_nonrouters");
+    public final static settings_pack.bool_types use_parole_mode = new settings_pack.bool_types("use_parole_mode");
     public final static settings_pack.bool_types use_read_cache = new settings_pack.bool_types("use_read_cache");
     public final static settings_pack.bool_types coalesce_reads = new settings_pack.bool_types("coalesce_reads", libtorrent_jni.settings_pack_coalesce_reads_get());
     public final static settings_pack.bool_types coalesce_writes = new settings_pack.bool_types("coalesce_writes");
@@ -197,7 +198,7 @@ public class settings_pack {
     public final static settings_pack.bool_types announce_to_all_tiers = new settings_pack.bool_types("announce_to_all_tiers");
     public final static settings_pack.bool_types announce_to_all_trackers = new settings_pack.bool_types("announce_to_all_trackers");
     public final static settings_pack.bool_types prefer_udp_trackers = new settings_pack.bool_types("prefer_udp_trackers");
-    public final static settings_pack.bool_types strict_super_seeding = new settings_pack.bool_types("strict_super_seeding");
+    public final static settings_pack.bool_types deprecated_strict_super_seeding = new settings_pack.bool_types("deprecated_strict_super_seeding");
     public final static settings_pack.bool_types disable_hash_checks = new settings_pack.bool_types("disable_hash_checks", libtorrent_jni.settings_pack_disable_hash_checks_get());
     public final static settings_pack.bool_types allow_i2p_mixed = new settings_pack.bool_types("allow_i2p_mixed");
     public final static settings_pack.bool_types volatile_read_cache = new settings_pack.bool_types("volatile_read_cache", libtorrent_jni.settings_pack_volatile_read_cache_get());
@@ -236,6 +237,7 @@ public class settings_pack {
     public final static settings_pack.bool_types enable_ip_notifier = new settings_pack.bool_types("enable_ip_notifier");
     public final static settings_pack.bool_types dht_prefer_verified_node_ids = new settings_pack.bool_types("dht_prefer_verified_node_ids");
     public final static settings_pack.bool_types piece_extent_affinity = new settings_pack.bool_types("piece_extent_affinity");
+    public final static settings_pack.bool_types validate_https_trackers = new settings_pack.bool_types("validate_https_trackers");
     public final static settings_pack.bool_types max_bool_setting_internal = new settings_pack.bool_types("max_bool_setting_internal");
 
     public final int swigValue() {
@@ -272,7 +274,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static bool_types[] swigValues = { allow_multiple_connections_per_ip, send_redundant_have, use_dht_as_fallback, use_parole_mode, use_read_cache, coalesce_reads, coalesce_writes, auto_manage_prefer_seeds, dont_count_slow_torrents, close_redundant_connections, prioritize_partial_pieces, rate_limit_ip_overhead, announce_to_all_tiers, announce_to_all_trackers, prefer_udp_trackers, strict_super_seeding, disable_hash_checks, allow_i2p_mixed, volatile_read_cache, no_atime_storage, incoming_starts_queued_torrents, report_true_downloaded, strict_end_game_mode, enable_outgoing_utp, enable_incoming_utp, enable_outgoing_tcp, enable_incoming_tcp, no_recheck_incomplete_resume, anonymous_mode, report_web_seed_downloads, seeding_outgoing_connections, no_connect_privileged_ports, smooth_connects, always_send_user_agent, apply_ip_filter_to_trackers, ban_web_seeds, allow_partial_disk_writes, support_share_mode, support_merkle_torrents, report_redundant_bytes, listen_system_port_fallback, announce_crypto_support, enable_upnp, enable_natpmp, enable_lsd, enable_dht, prefer_rc4, proxy_hostnames, proxy_peer_connections, auto_sequential, proxy_tracker_connections, enable_ip_notifier, dht_prefer_verified_node_ids, piece_extent_affinity, max_bool_setting_internal };
+    private static bool_types[] swigValues = { allow_multiple_connections_per_ip, send_redundant_have, use_dht_as_fallback, upnp_ignore_nonrouters, use_parole_mode, use_read_cache, coalesce_reads, coalesce_writes, auto_manage_prefer_seeds, dont_count_slow_torrents, close_redundant_connections, prioritize_partial_pieces, rate_limit_ip_overhead, announce_to_all_tiers, announce_to_all_trackers, prefer_udp_trackers, deprecated_strict_super_seeding, disable_hash_checks, allow_i2p_mixed, volatile_read_cache, no_atime_storage, incoming_starts_queued_torrents, report_true_downloaded, strict_end_game_mode, enable_outgoing_utp, enable_incoming_utp, enable_outgoing_tcp, enable_incoming_tcp, no_recheck_incomplete_resume, anonymous_mode, report_web_seed_downloads, seeding_outgoing_connections, no_connect_privileged_ports, smooth_connects, always_send_user_agent, apply_ip_filter_to_trackers, ban_web_seeds, allow_partial_disk_writes, support_share_mode, support_merkle_torrents, report_redundant_bytes, listen_system_port_fallback, announce_crypto_support, enable_upnp, enable_natpmp, enable_lsd, enable_dht, prefer_rc4, proxy_hostnames, proxy_peer_connections, auto_sequential, proxy_tracker_connections, enable_ip_notifier, dht_prefer_verified_node_ids, piece_extent_affinity, validate_https_trackers, max_bool_setting_internal };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
@@ -347,9 +349,9 @@ public class settings_pack {
     public final static settings_pack.int_types dht_announce_interval = new settings_pack.int_types("dht_announce_interval");
     public final static settings_pack.int_types udp_tracker_token_expiry = new settings_pack.int_types("udp_tracker_token_expiry");
     public final static settings_pack.int_types num_optimistic_unchoke_slots = new settings_pack.int_types("num_optimistic_unchoke_slots", libtorrent_jni.settings_pack_num_optimistic_unchoke_slots_get());
-    public final static settings_pack.int_types default_est_reciprocation_rate = new settings_pack.int_types("default_est_reciprocation_rate");
-    public final static settings_pack.int_types increase_est_reciprocation_rate = new settings_pack.int_types("increase_est_reciprocation_rate");
-    public final static settings_pack.int_types decrease_est_reciprocation_rate = new settings_pack.int_types("decrease_est_reciprocation_rate");
+    public final static settings_pack.int_types deprecated_default_est_reciprocation_rate = new settings_pack.int_types("deprecated_default_est_reciprocation_rate");
+    public final static settings_pack.int_types deprecated_increase_est_reciprocation_rate = new settings_pack.int_types("deprecated_increase_est_reciprocation_rate");
+    public final static settings_pack.int_types deprecated_decrease_est_reciprocation_rate = new settings_pack.int_types("deprecated_decrease_est_reciprocation_rate");
     public final static settings_pack.int_types max_pex_peers = new settings_pack.int_types("max_pex_peers");
     public final static settings_pack.int_types tick_interval = new settings_pack.int_types("tick_interval");
     public final static settings_pack.int_types share_mode_target = new settings_pack.int_types("share_mode_target");
@@ -402,6 +404,9 @@ public class settings_pack {
     public final static settings_pack.int_types max_web_seed_connections = new settings_pack.int_types("max_web_seed_connections");
     public final static settings_pack.int_types resolver_cache_timeout = new settings_pack.int_types("resolver_cache_timeout");
     public final static settings_pack.int_types send_not_sent_low_watermark = new settings_pack.int_types("send_not_sent_low_watermark");
+    public final static settings_pack.int_types rate_choker_initial_threshold = new settings_pack.int_types("rate_choker_initial_threshold");
+    public final static settings_pack.int_types upnp_lease_duration = new settings_pack.int_types("upnp_lease_duration");
+    public final static settings_pack.int_types max_concurrent_http_announces = new settings_pack.int_types("max_concurrent_http_announces");
     public final static settings_pack.int_types max_int_setting_internal = new settings_pack.int_types("max_int_setting_internal");
 
     public final int swigValue() {
@@ -438,7 +443,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static int_types[] swigValues = { tracker_completion_timeout, tracker_receive_timeout, stop_tracker_timeout, tracker_maximum_response_length, piece_timeout, request_timeout, request_queue_time, max_allowed_in_request_queue, max_out_request_queue, whole_pieces_threshold, peer_timeout, urlseed_timeout, urlseed_pipeline_size, urlseed_wait_retry, file_pool_size, max_failcount, min_reconnect_time, peer_connect_timeout, connection_speed, inactivity_timeout, unchoke_interval, optimistic_unchoke_interval, num_want, initial_picker_threshold, allowed_fast_set_size, suggest_mode, max_queued_disk_bytes, handshake_timeout, send_buffer_low_watermark, send_buffer_watermark, send_buffer_watermark_factor, choking_algorithm, seed_choking_algorithm, cache_size, cache_expiry, disk_io_write_mode, disk_io_read_mode, outgoing_port, num_outgoing_ports, peer_tos, active_downloads, active_seeds, active_checking, active_dht_limit, active_tracker_limit, active_lsd_limit, active_limit, auto_manage_interval, seed_time_limit, auto_scrape_interval, auto_scrape_min_interval, max_peerlist_size, max_paused_peerlist_size, min_announce_interval, auto_manage_startup, seeding_piece_quota, max_rejects, recv_socket_buffer_size, send_socket_buffer_size, max_peer_recv_buffer_size, read_cache_line_size, write_cache_line_size, optimistic_disk_retry, max_suggest_pieces, local_service_announce_interval, dht_announce_interval, udp_tracker_token_expiry, num_optimistic_unchoke_slots, default_est_reciprocation_rate, increase_est_reciprocation_rate, decrease_est_reciprocation_rate, max_pex_peers, tick_interval, share_mode_target, upload_rate_limit, download_rate_limit, dht_upload_rate_limit, unchoke_slots_limit, connections_limit, connections_slack, utp_target_delay, utp_gain_factor, utp_min_timeout, utp_syn_resends, utp_fin_resends, utp_num_resends, utp_connect_timeout, utp_loss_multiplier, mixed_mode_algorithm, listen_queue_size, torrent_connect_boost, alert_queue_size, max_metadata_size, checking_mem_usage, predictive_piece_announce, aio_threads, deprecated_aio_max, tracker_backoff, share_ratio_limit, seed_time_ratio_limit, peer_turnover, peer_turnover_cutoff, peer_turnover_interval, connect_seed_every_n_download, max_http_recv_buffer_size, max_retry_port_bind, alert_mask, out_enc_policy, in_enc_policy, allowed_enc_level, inactive_down_rate, inactive_up_rate, proxy_type, proxy_port, i2p_port, cache_size_volatile, urlseed_max_request_bytes, web_seed_name_lookup_retry, close_file_interval, utp_cwnd_reduce_timer, max_web_seed_connections, resolver_cache_timeout, send_not_sent_low_watermark, max_int_setting_internal };
+    private static int_types[] swigValues = { tracker_completion_timeout, tracker_receive_timeout, stop_tracker_timeout, tracker_maximum_response_length, piece_timeout, request_timeout, request_queue_time, max_allowed_in_request_queue, max_out_request_queue, whole_pieces_threshold, peer_timeout, urlseed_timeout, urlseed_pipeline_size, urlseed_wait_retry, file_pool_size, max_failcount, min_reconnect_time, peer_connect_timeout, connection_speed, inactivity_timeout, unchoke_interval, optimistic_unchoke_interval, num_want, initial_picker_threshold, allowed_fast_set_size, suggest_mode, max_queued_disk_bytes, handshake_timeout, send_buffer_low_watermark, send_buffer_watermark, send_buffer_watermark_factor, choking_algorithm, seed_choking_algorithm, cache_size, cache_expiry, disk_io_write_mode, disk_io_read_mode, outgoing_port, num_outgoing_ports, peer_tos, active_downloads, active_seeds, active_checking, active_dht_limit, active_tracker_limit, active_lsd_limit, active_limit, auto_manage_interval, seed_time_limit, auto_scrape_interval, auto_scrape_min_interval, max_peerlist_size, max_paused_peerlist_size, min_announce_interval, auto_manage_startup, seeding_piece_quota, max_rejects, recv_socket_buffer_size, send_socket_buffer_size, max_peer_recv_buffer_size, read_cache_line_size, write_cache_line_size, optimistic_disk_retry, max_suggest_pieces, local_service_announce_interval, dht_announce_interval, udp_tracker_token_expiry, num_optimistic_unchoke_slots, deprecated_default_est_reciprocation_rate, deprecated_increase_est_reciprocation_rate, deprecated_decrease_est_reciprocation_rate, max_pex_peers, tick_interval, share_mode_target, upload_rate_limit, download_rate_limit, dht_upload_rate_limit, unchoke_slots_limit, connections_limit, connections_slack, utp_target_delay, utp_gain_factor, utp_min_timeout, utp_syn_resends, utp_fin_resends, utp_num_resends, utp_connect_timeout, utp_loss_multiplier, mixed_mode_algorithm, listen_queue_size, torrent_connect_boost, alert_queue_size, max_metadata_size, checking_mem_usage, predictive_piece_announce, aio_threads, deprecated_aio_max, tracker_backoff, share_ratio_limit, seed_time_ratio_limit, peer_turnover, peer_turnover_cutoff, peer_turnover_interval, connect_seed_every_n_download, max_http_recv_buffer_size, max_retry_port_bind, alert_mask, out_enc_policy, in_enc_policy, allowed_enc_level, inactive_down_rate, inactive_up_rate, proxy_type, proxy_port, i2p_port, cache_size_volatile, urlseed_max_request_bytes, web_seed_name_lookup_retry, close_file_interval, utp_cwnd_reduce_timer, max_web_seed_connections, resolver_cache_timeout, send_not_sent_low_watermark, rate_choker_initial_threshold, upnp_lease_duration, max_concurrent_http_announces, max_int_setting_internal };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
@@ -536,7 +541,6 @@ public class settings_pack {
   public final static class choking_algorithm_t {
     public final static settings_pack.choking_algorithm_t fixed_slots_choker = new settings_pack.choking_algorithm_t("fixed_slots_choker", libtorrent_jni.settings_pack_fixed_slots_choker_get());
     public final static settings_pack.choking_algorithm_t rate_based_choker = new settings_pack.choking_algorithm_t("rate_based_choker", libtorrent_jni.settings_pack_rate_based_choker_get());
-    public final static settings_pack.choking_algorithm_t bittyrant_choker = new settings_pack.choking_algorithm_t("bittyrant_choker", libtorrent_jni.settings_pack_bittyrant_choker_get());
 
     public final int swigValue() {
       return swigValue;
@@ -572,7 +576,7 @@ public class settings_pack {
       swigNext = this.swigValue+1;
     }
 
-    private static choking_algorithm_t[] swigValues = { fixed_slots_choker, rate_based_choker, bittyrant_choker };
+    private static choking_algorithm_t[] swigValues = { fixed_slots_choker, rate_based_choker };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
