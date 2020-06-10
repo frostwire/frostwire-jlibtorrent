@@ -252,6 +252,10 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_connect_peer__SWIG_2(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr);
   }
 
+  public void clear_peers() {
+    libtorrent_jni.torrent_handle_clear_peers(swigCPtr, this);
+  }
+
   public void set_max_uploads(int max_uploads) {
     libtorrent_jni.torrent_handle_set_max_uploads(swigCPtr, this, max_uploads);
   }

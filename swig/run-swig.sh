@@ -13,22 +13,33 @@ function fixCode() {
     uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then
       # FreeBSD's sed is weird, it needs that extra '' parameter there for some reason
+      sed -i '' 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
+      # The line above will be reverted to normal when we build by the checkout, if not commented/deleted swig breaks
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+      sed -i '' 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
+      sed -i '' 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
     else
+      sed -i 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+      sed -i 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
+      sed -i 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
     fi
 }
 
 function refixCode() {
-    uname=`uname -s`
+    uname=`uname -s`    
     if [ "$(uname)" == "Darwin" ]; then   
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+      sed -i '' 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
+      sed -i '' 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp      
     else
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp	
+      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+      sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
+      sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp      
     fi
 }
 

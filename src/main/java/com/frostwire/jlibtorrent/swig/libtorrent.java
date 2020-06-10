@@ -160,12 +160,131 @@ public class libtorrent implements libtorrentConstants {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
 
+  public static alert_category_t getError() {
+    long cPtr = libtorrent_jni.error_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getPeer() {
+    long cPtr = libtorrent_jni.peer_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getPort_mapping() {
+    long cPtr = libtorrent_jni.port_mapping_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getStorage() {
+    long cPtr = libtorrent_jni.storage_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getTracker() {
+    long cPtr = libtorrent_jni.tracker_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getConnect() {
+    long cPtr = libtorrent_jni.connect_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getStatus() {
+    long cPtr = libtorrent_jni.status_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getIp_block() {
+    long cPtr = libtorrent_jni.ip_block_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getPerformance_warning() {
+    long cPtr = libtorrent_jni.performance_warning_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getDht() {
+    long cPtr = libtorrent_jni.dht_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getStats() {
+    long cPtr = libtorrent_jni.stats_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getSession_log() {
+    long cPtr = libtorrent_jni.session_log_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getTorrent_log() {
+    long cPtr = libtorrent_jni.torrent_log_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getPeer_log() {
+    long cPtr = libtorrent_jni.peer_log_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getIncoming_request() {
+    long cPtr = libtorrent_jni.incoming_request_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getDht_log() {
+    long cPtr = libtorrent_jni.dht_log_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getDht_operation() {
+    long cPtr = libtorrent_jni.dht_operation_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getPort_mapping_log() {
+    long cPtr = libtorrent_jni.port_mapping_log_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getPicker_log() {
+    long cPtr = libtorrent_jni.picker_log_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getFile_progress() {
+    long cPtr = libtorrent_jni.file_progress_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getPiece_progress() {
+    long cPtr = libtorrent_jni.piece_progress_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getUpload() {
+    long cPtr = libtorrent_jni.upload_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
+  public static alert_category_t getBlock_progress() {
+    long cPtr = libtorrent_jni.block_progress_get();
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+  }
+
   public static String alert_name(int alert_type) {
     return libtorrent_jni.alert_name(alert_type);
   }
 
   public static int getNum_alert_types() {
     return libtorrent_jni.num_alert_types_get();
+  }
+
+  public static int default_int_value(int name) {
+    return libtorrent_jni.default_int_value(name);
   }
 
   public static int setting_by_name(string_view name) {
