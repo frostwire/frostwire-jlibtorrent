@@ -1,4 +1,5 @@
 1.2.7.0
+ * libtorrent 1.2.7 update (ce0a85f783bec37484776a37fe3662279091ecc5)
  * upgraded to boost 1.73.0
  * upgraded to openssl 1.1.1g
  * lt: fix incorrect filename truncation at multi-byte character
