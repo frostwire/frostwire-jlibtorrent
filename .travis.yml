@@ -20,17 +20,17 @@ branches:
 
 before_install:
 # boost: download and bootstrap
-  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip
+  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_72_0
+  - cd boost_1_73_0
   - ./bootstrap.sh
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_72_0
+  - export BOOST_ROOT=$PWD/boost_1_73_0
 
 # openssl: download
-  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1d.tar.gz
+  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1g.tar.gz
   - tar xzf openssl.tar.gz
-  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1d
+  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1g
   # fix source code
   # avoid GDI dependency in windows, fix double return statement on threads_none.c
   - if [ $os_build == "windows" ]; then
@@ -42,7 +42,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 0f337b9ce7a1b0fc87f48843933b1c5c4dd5a9ec
+  - git checkout ce0a85f783bec37484776a37fe3662279091ecc5
   - git submodule init
   - git submodule update
   - cd ..
