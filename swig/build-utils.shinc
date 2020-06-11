@@ -6,7 +6,7 @@ LIBRARY_NAME=jlibtorrent
 LIBTORRENT_REVISION=ce0a85f783bec37484776a37fe3662279091ecc5 # past bump to version 1.2.7 (branch:RC_1_2) fix incorrect filename truncation at multi-byte character 
 
 OPENSSL_VERSION="1.1.1g"
-BOOST_VERSION="72"
+BOOST_VERSION="73"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`
@@ -82,7 +82,9 @@ prepare_boost() {
   fi
   pushd ${BOOST_ROOT}
   pwd
-  ./bootstrap.sh --with-bjam=BJAM
+  ./bootstrap.sh
+  ./b2
+  ./b2 /headers
   popd
   popd
 }
