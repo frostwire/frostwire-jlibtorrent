@@ -1128,6 +1128,7 @@ public class SessionManager {
 
         sb.append("dht.libtorrent.org:25401").append(",");
         sb.append("router.bittorrent.com:6881").append(",");
+        sb.append("router.utorrent.com:6881").append(",");
         sb.append("dht.transmissionbt.com:6881").append(",");
         // for DHT IPv6
         sb.append("router.silotis.us:6881");
