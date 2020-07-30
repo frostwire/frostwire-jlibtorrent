@@ -76,7 +76,7 @@ prepare_boost() {
   echo "Checking for ${BOOST_ROOT}..."
   if [ ! -d ${BOOST_ROOT} ]; then
     prompt_msg "Downloading BOOST ${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
-    wget -O boost.zip https://dl.bintray.com/boostorg/release/${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}/source/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}.zip
+    wget -4 -O boost.zip https://dl.bintray.com/boostorg/release/${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}/source/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}.zip
     unzip -qq boost.zip
     rm -f boost.zip
   fi
@@ -103,7 +103,7 @@ prepare_android_toolchain() {
   
   if [ ! -f android-ndk-${NDK_VERSION}.zip ]; then
     prompt_msg "Downloading android-ndk-${NDK_VERSION}"
-    wget -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-${host_os}-x86_64.zip;
+    wget -4 -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-${host_os}-x86_64.zip;
     prompt_msg "Extracting NDK...wait";
     unzip -qq android-ndk-${NDK_VERSION}.zip;
   fi
@@ -132,7 +132,7 @@ prepare_openssl() {
   if [ ! -d ${OPENSSL_SOURCE} ]; then
     prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '{$OPENSSL_SOURCE}'"
     pushd ${SRC}
-    wget -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    wget -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
     tar xvfz openssl.tar.gz
     rm -f openssl.tar.gz
     popd
