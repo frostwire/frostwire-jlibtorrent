@@ -1,3 +1,16 @@
+1.2.8.0
+ * lt: validate UTF-8 encoding of client version strings from peers
+ * lt: don't time out tracker announces as eagerly while resolving hostnames
+ * lt: fix NAT-PMP shutdown issue
+ * lt: improve hostname lookup by merging identical lookups
+ * lt: fix network route enumeration for large routing tables
+ * lt: fixed issue where pop_alerts() could return old, invalid alerts
+ * lt: fix issue when receiving have-all message before the metadata
+ * lt: don't leave lingering part files handles open
+ * lt: disallow calling add_piece() during checking
+ * lt: fix incorrect filename truncation at multi-byte character
+ * lt: always announce listen port 1 when using a proxy
+
 1.2.7.0
  * libtorrent 1.2.7 update (ce0a85f783bec37484776a37fe3662279091ecc5)
  * upgraded to boost 1.73.0
