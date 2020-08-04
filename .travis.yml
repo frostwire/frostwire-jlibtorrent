@@ -42,7 +42,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout ce0a85f783bec37484776a37fe3662279091ecc5
+  - git checkout 7dcd091cade0ab97d2de1f75a372a7147e507790
   - git submodule init
   - git submodule update
   - cd ..
