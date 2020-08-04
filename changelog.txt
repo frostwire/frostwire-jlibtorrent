@@ -1,4 +1,6 @@
 1.2.8.0
+ * add router.utorrent.com to list of DHT bootstrap nodes
+ * Android builds with new NDK r21d
  * lt: validate UTF-8 encoding of client version strings from peers
  * lt: don't time out tracker announces as eagerly while resolving hostnames
  * lt: fix NAT-PMP shutdown issue
