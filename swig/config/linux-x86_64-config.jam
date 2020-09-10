@@ -1,6 +1,6 @@
 import os ;
 
-using gcc : x86_64 : g++-5 :
+using gcc : x86_64 : g++-7 :
     <cxxflags>-fPIC
     <cxxflags>-std=c++14
     <cxxflags>-fno-strict-aliasing

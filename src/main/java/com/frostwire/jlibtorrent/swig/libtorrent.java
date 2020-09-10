@@ -283,6 +283,10 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.num_alert_types_get();
   }
 
+  public static String performance_warning_str(performance_alert.performance_warning_t i) {
+    return libtorrent_jni.performance_warning_str(i.swigValue());
+  }
+
   public static int default_int_value(int name) {
     return libtorrent_jni.default_int_value(name);
   }
