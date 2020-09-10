@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "1.2.8.0";
+        return "1.2.10.0";
     }
 
     static {
@@ -2778,6 +2778,7 @@ public class libtorrent_jni {
   public final static native void socks5_alert_ip_set(long jarg1, socks5_alert jarg1_, long jarg2);
   public final static native long socks5_alert_ip_get(long jarg1, socks5_alert jarg1_);
   public final static native void delete_socks5_alert(long jarg1);
+  public final static native String performance_warning_str(int jarg1);
   public final static native int default_int_value(int jarg1);
   public final static native int setting_by_name(long jarg1, string_view jarg1_);
   public final static native String name_for_setting(int jarg1);

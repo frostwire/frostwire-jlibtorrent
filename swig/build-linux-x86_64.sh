@@ -16,7 +16,7 @@ export SHARED_LIB=lib${LIBRARY_NAME}.so
 export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
 export CXX=g++
 prepare_linux_toolchain
-export CC=gcc-5
+export CC=gcc-7
 export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${OPENSSL_ROOT}";
 export run_readelf="readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=gcc-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"

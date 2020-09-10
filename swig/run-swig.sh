@@ -88,6 +88,7 @@ function runJni()
         -DNDEBUG=1 \
         -D_bit="" \
         -Dfinal="" \
+        -DBOOST_OVERRIDE="override" \
         libtorrent.i
 
     # at first sight, this could look like a very dangerous thing to

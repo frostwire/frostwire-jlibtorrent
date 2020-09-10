@@ -1,6 +1,6 @@
 import os ;
 
-using gcc : x86 : g++-5 :
+using gcc : x86 : g++-7 :
     <cxxflags>-fPIC
     <cxxflags>-m32
     <cxxflags>-std=c++14

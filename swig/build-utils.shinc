@@ -3,10 +3,10 @@
 LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | sed "s/'//g"`
 LIBRARY_NAME=jlibtorrent
 
-LIBTORRENT_REVISION=7dcd091cade0ab97d2de1f75a372a7147e507790 # crc32 big endian fixes, 1.2.8 (branch:RC_1_2) Aug 4, 2020
+LIBTORRENT_REVISION=70f1de3f7ec4012aaea420ff150ef0135d397706 # bump version to 1.2.10 (branch:RC_1_2) Sep 3, 2020
 
 OPENSSL_VERSION="1.1.1g"
-BOOST_VERSION="73"
+BOOST_VERSION="74"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`
@@ -119,10 +119,12 @@ prepare_android_toolchain() {
 }
 
 prepare_linux_toolchain() {
-  #sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  #sudo apt-get update -qq
-  #sudo apt-get install -qq g++-5
-  echo "...skipping prepare_linux_toolchain"
+  echo "preparing linux toolchain..."
+  sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  sudo apt-get update -qq
+  sudo apt-get install -qq g++-7 g++-7-multilib
+  echo "done preparing linux toolchain"
+  #echo "...skipping prepare_linux_toolchain"
 }
 
 prepare_openssl() {
