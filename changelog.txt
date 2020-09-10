@@ -1,3 +1,18 @@
+1.2.10.0
+ * libtorrent 1.2.10 update (70f1de3f7ec4012aaea420ff150ef0135d397706)
+ * lt: improve stat_file() performance on Windows
+ * lt: fix issue with loading invalid torrents with only 0-sized files
+ * lt: fix to avoid large stack allocations
+ * lt: add macro TORRENT_CXX11_ABI for clients building with C++14 against
+   libtorrent build with C++11
+ * lt: removed deprecated wstring overloads on non-windows systems
+ * lt: drop dependency on Unicode's ConvertUTF code (which had a license
+   incompatible with Debian)
+ * lt: fix bugs exposed on big-endian systems
+ * lt: fix detection of hard-links not being supported by filesystem
+ * lt: fixed resume data regression for seeds with prio 0 files
+ * binaries: compiler upgraded from g++-5 to g++-7
+
 1.2.8.0
  * add router.utorrent.com to list of DHT bootstrap nodes
  * Android builds with new NDK r21d

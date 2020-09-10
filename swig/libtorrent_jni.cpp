@@ -25962,7 +25962,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_LIBT
   
   (void)jenv;
   (void)jcls;
-  result = (int)(8);
+  result = (int)(10);
   jresult = (jint)result; 
   return jresult;
 }
@@ -25974,7 +25974,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_LIBT
   
   (void)jenv;
   (void)jcls;
-  result = (int)(((1*10000) +(2*100) +8));
+  result = (int)(((1*10000) +(2*100) +10));
   jresult = (jint)result; 
   return jresult;
 }
@@ -25986,7 +25986,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("1.2.8.0");
+  result = (char *)("1.2.10.0");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -25998,7 +25998,7 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_L
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("91a69dade");
+  result = (char *)("386596aa8");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
@@ -61520,6 +61520,30 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
       return ;
     }
   }
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_performance_1warning_1str(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jstring jresult = 0 ;
+  libtorrent::performance_alert::performance_warning_t arg1 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (libtorrent::performance_alert::performance_warning_t)jarg1; 
+  {
+    try {
+      result = (char *)libtorrent::performance_warning_str(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
 }
 
 
