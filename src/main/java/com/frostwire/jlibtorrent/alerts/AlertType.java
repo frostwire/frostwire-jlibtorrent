@@ -95,6 +95,7 @@ public enum AlertType {
     DHT_SAMPLE_INFOHASHES(dht_sample_infohashes_alert.alert_type),
     BLOCK_UPLOADED(block_uploaded_alert.alert_type),
     ALERTS_DROPPED(alerts_dropped_alert.alert_type),
+    SOCKS5_ALERT(socks5_alert.alert_type),
     UNKNOWN(-1);
 
     private static final AlertType[] TABLE = buildTable();
@@ -219,7 +220,7 @@ public enum AlertType {
         arr[93] = DHT_SAMPLE_INFOHASHES;
         arr[94] = BLOCK_UPLOADED;
         arr[95] = ALERTS_DROPPED;
-
+        arr[96] = SOCKS5_ALERT;
         return arr;
     }
 }
