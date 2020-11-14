@@ -25,7 +25,7 @@ export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android-clang
 
 export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -mstackrealign --prefix=${OPENSSL_ROOT}";
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
-export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang--${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
+export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
 export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_objcopy="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-objcopy --only-keep-debug bin/release/${os_build}/${os_arch}/${SHARED_LIB} bin/release/${os_build}/{$os_arch}/${SHARED_LIB}.debug"
 export PATH=$ANDROID_TOOLCHAIN/i686-linux-android/bin:$PATH;
