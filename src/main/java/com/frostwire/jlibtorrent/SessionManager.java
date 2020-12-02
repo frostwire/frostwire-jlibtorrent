@@ -178,10 +178,10 @@ public class SessionManager {
         sync.lock();
 
         try {
-
+            session_params params = session.session_state();
             stop();
             Thread.sleep(1000); // allow some time to release native resources
-            start();
+            start(new SessionParams(params));
 
         } catch (InterruptedException e) {
             // ignore
