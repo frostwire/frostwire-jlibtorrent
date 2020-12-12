@@ -44,6 +44,7 @@ public class SessionManager {
     private String externalAddress;
     private int externalPort;
     private Thread alertsLoop;
+    private SessionParams sessionParams;
 
     private Throwable lastAlertError;
 
@@ -94,6 +95,7 @@ public class SessionManager {
             resetState();
 
             params.settings().setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging).to_int());
+            sessionParams = params;
             session = new session(params.swig());
             alertsLoop();
 
@@ -178,11 +180,9 @@ public class SessionManager {
         sync.lock();
 
         try {
-            session_params params = session.session_state();
             stop();
             Thread.sleep(1000); // allow some time to release native resources
-            start(new SessionParams(params));
-
+            start(sessionParams);
         } catch (InterruptedException e) {
             // ignore
         } finally {
