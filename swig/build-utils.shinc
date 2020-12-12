@@ -19,9 +19,9 @@ unset_env_variables
 LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | sed "s/'//g"`
 LIBRARY_NAME=jlibtorrent
 
-LIBTORRENT_REVISION=70f1de3f7ec4012aaea420ff150ef0135d397706 # bump version to 1.2.10 (branch:RC_1_2) Sep 3, 2020
+LIBTORRENT_REVISION=471e772cb7038f1bf5f44c32a09eb42fbb80ee99 # bump version to 1.2.11 (branch:RC_1_2) Nov 28,2020
 
-OPENSSL_VERSION="1.1.1g"
+OPENSSL_VERSION="1.1.1i"
 BOOST_VERSION="75"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
