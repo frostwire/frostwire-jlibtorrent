@@ -1,12 +1,28 @@
 #!/usr/bin/env bash
 
+unset_env_variables() {
+  # The user's build environment might already have pre-set
+  # flags that can interfere with the compilation process
+  echo "unset_env_variables()"
+  unset CPPFLAGS
+  unset BOOST_LIB_PATH
+  unset BOOST_ROOT
+  unset BOOST_LIB_SUFFIX #BOOST_LIB_SUFFIX=-mt
+  unset OPENSSL_ROOT_DIR
+  unset OPENSSL_BIN_PATH
+  unset OPENSSL_INCLUDE_PATH
+  unset OPENSSL_LIB_PATH
+}
+unset_env_variables
+
+
 LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | sed "s/'//g"`
 LIBRARY_NAME=jlibtorrent
 
 LIBTORRENT_REVISION=70f1de3f7ec4012aaea420ff150ef0135d397706 # bump version to 1.2.10 (branch:RC_1_2) Sep 3, 2020
 
 OPENSSL_VERSION="1.1.1g"
-BOOST_VERSION="74"
+BOOST_VERSION="75"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`
@@ -158,6 +174,7 @@ build_openssl() {
 }
 
 prepare_libtorrent() {
+  echo "prepare_libtorrent started..."
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
@@ -177,6 +194,7 @@ prepare_libtorrent() {
   git submodule update
   make clean
   popd
+  echo "prepare_libtorrent finished."
 }
 
 build_libraries() {
@@ -197,6 +215,8 @@ build_libraries() {
   echo ${PATH}
   export OPENSSL_ROOT=${OPENSSL_ROOT}
   export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
+  export BOOST_ROOT=${BOOST_ROOT}
+  export BOOST_BUILD_PATH=${BOOST_ROOT}
   $run_bjam
   $run_objcopy
   $run_strip
