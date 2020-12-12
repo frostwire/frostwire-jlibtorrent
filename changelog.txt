@@ -1,3 +1,8 @@
+1.2.11.0
+ * libtorrent 1.2.11 update (471e772cb7038f1bf5f44c32a09eb42fbb80ee99)
+ * upgraded to boost 1.75.0
+ * upgraded to openssl 1.1.1l
+
 1.2.10.0
  * libtorrent 1.2.10 update (70f1de3f7ec4012aaea420ff150ef0135d397706)
  * lt: improve stat_file() performance on Windows

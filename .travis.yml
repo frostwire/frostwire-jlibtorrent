@@ -31,9 +31,9 @@ before_install:
   - export BOOST_BUILD_PATH=$BOOST_ROOT
 
 # openssl: download
-  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1g.tar.gz
+  - wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1i.tar.gz
   - tar xzf openssl.tar.gz
-  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1g
+  - export OPENSSL_SOURCE=$PWD/openssl-1.1.1i
   # fix source code
   # avoid GDI dependency in windows, fix double return statement on threads_none.c
   - if [ $os_build == "windows" ]; then
@@ -45,7 +45,7 @@ before_install:
 # libtorrent: download and checkout revision
   - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout 70f1de3f7ec4012aaea420ff150ef0135d397706
+  - git checkout 471e772cb7038f1bf5f44c32a09eb42fbb80ee99
   - git submodule init
   - git submodule update
   - cd ..
