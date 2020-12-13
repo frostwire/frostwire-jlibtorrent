@@ -1,6 +1,6 @@
 1.2.11.0
  * libtorrent 1.2.11 update (471e772cb7038f1bf5f44c32a09eb42fbb80ee99)
- * lt: upgraded to boost 1.75.0
+ * lt: upgraded to boost 1.74.0 (error_code.java can't be generated when using 1.75.0)
  * lt: upgraded to openssl 1.1.1l
  * lt: fix issue with moving the session object
  * lt: deprecate torrent_status::allocating. This state is no longer used
