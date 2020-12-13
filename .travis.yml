@@ -20,14 +20,14 @@ branches:
     - master
 
 before_install:
-  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.zip
+  - wget -nv -O boost.zip https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.zip
   - unzip -qq boost.zip
-  - cd boost_1_75_0
+  - cd boost_1_73_0
   - ls -lth
   - ./bootstrap.sh
   - ./b2
   - cd ..
-  - export BOOST_ROOT=$PWD/boost_1_75_0
+  - export BOOST_ROOT=$PWD/boost_1_73_0
   - export BOOST_BUILD_PATH=$BOOST_ROOT
 
 # openssl: download
