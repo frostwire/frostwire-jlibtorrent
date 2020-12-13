@@ -1193,6 +1193,7 @@ namespace libtorrent {
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_status(torrent_status&&);
+%ignore libtorrent::torrent_status::allocating;
 %ignore libtorrent::torrent_status::_dummy_string_;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::torrent_status::next_announce;

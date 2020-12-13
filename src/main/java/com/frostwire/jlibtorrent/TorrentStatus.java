@@ -738,13 +738,6 @@ public final class TorrentStatus implements Cloneable {
         SEEDING(torrent_status.state_t.seeding.swigValue()),
 
         /**
-         * If the torrent was started in full allocation mode, this
-         * indicates that the (disk) storage for the torrent is
-         * allocated.
-         */
-        ALLOCATING(torrent_status.state_t.allocating.swigValue()),
-
-        /**
          * The torrent is currently checking the fastresume data and
          * comparing it to the files on disk. This is typically
          * completed in a fraction of a second, but if you add a
