@@ -23,8 +23,11 @@ LIBTORRENT_REVISION=471e772cb7038f1bf5f44c32a09eb42fbb80ee99 # bump version to 1
 
 OPENSSL_VERSION="1.1.1i"
 BOOST_VERSION="73"
-# TEMP NOTE, DEC 12 2020
+# TEMP NOTES ON BOOST ISSUES, DEC 13 2020
 # Reverting to boost 1.73.
+# To build on macOS you need to comment the following line on ${BOOST_ROOT}/tools/build/src/tools/darwin.jam
+# 'flags darwin.compile.c++ OPTIONS $(condition) : -fcoalesce-templates ;'
+# We might have to do this in Travis CI
 
 # 1.74 seems to require -frtti linking
 #In file included from /Users/gubatron/src/libtorrent/src/announce_entry.cpp:34:
