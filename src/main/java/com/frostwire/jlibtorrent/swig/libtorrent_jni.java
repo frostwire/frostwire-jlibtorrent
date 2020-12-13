@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "1.2.10.0";
+        return "1.2.11.0";
     }
 
     static {
@@ -1046,6 +1046,7 @@ public class libtorrent_jni {
   public final static native long file_storage_file_flags(long jarg1, file_storage jarg1_, int jarg2);
   public final static native boolean file_storage_file_absolute_path(long jarg1, file_storage jarg1_, int jarg2);
   public final static native int file_storage_file_index_at_offset(long jarg1, file_storage jarg1_, long jarg2);
+  public final static native String file_storage_internal_symlink(long jarg1, file_storage jarg1_, int jarg2);
   public final static native void file_storage_add_file__SWIG_4(long jarg1, file_storage jarg1_, String jarg2, long jarg3, long jarg4, file_flags_t jarg4_, long jarg5, String jarg6);
   public final static native int bdecode_no_error_get();
   public final static native long new_bdecode_node__SWIG_0();
@@ -1227,6 +1228,7 @@ public class libtorrent_jni {
   public final static native long disable_dht_get();
   public final static native long disable_lsd_get();
   public final static native long disable_pex_get();
+  public final static native long no_verify_files_get();
   public final static native long all_get();
   public final static native long default_flags_get();
   public final static native long new_web_seed_entry__SWIG_0(String jarg1, int jarg2, String jarg3, long jarg4, string_string_pair_vector jarg4_);
@@ -1555,6 +1557,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_handle_op_ne(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native boolean torrent_handle_op_lt(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_handle_id(long jarg1, torrent_handle jarg1_);
+  public final static native boolean torrent_handle_in_session(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_add_piece_bytes__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_, long jarg4, add_piece_flags_t jarg4_);
   public final static native void torrent_handle_add_piece_bytes__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_);
   public final static native long torrent_handle_torrent_file_ptr(long jarg1, torrent_handle jarg1_);
@@ -2917,6 +2920,7 @@ public class libtorrent_jni {
   public final static native long session_handle_delete_files_get();
   public final static native long session_handle_delete_partfile_get();
   public final static native long session_handle_add_default_plugins_get();
+  public final static native long session_handle_paused_get();
   public final static native void session_handle_remove_torrent__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, torrent_handle jarg2_, long jarg3, remove_flags_t jarg3_);
   public final static native void session_handle_remove_torrent__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native void session_handle_apply_settings(long jarg1, session_handle jarg1_, long jarg2, settings_pack jarg2_);
@@ -3011,10 +3015,11 @@ public class libtorrent_jni {
   public final static native long read_session_params__SWIG_0(long jarg1, bdecode_node jarg1_, long jarg2, save_state_flags_t jarg2_);
   public final static native long read_session_params__SWIG_1(long jarg1, bdecode_node jarg1_);
   public final static native long new_session__SWIG_0(long jarg1, session_params jarg1_);
-  public final static native long new_session__SWIG_1();
-  public final static native long new_session__SWIG_2(long jarg1, settings_pack jarg1_, long jarg2, session_flags_t jarg2_);
-  public final static native long new_session__SWIG_3(long jarg1, settings_pack jarg1_);
-  public final static native long new_session__SWIG_4(long jarg1, session jarg1_);
+  public final static native long new_session__SWIG_1(long jarg1, session_params jarg1_, long jarg2, session_flags_t jarg2_);
+  public final static native long new_session__SWIG_3();
+  public final static native long new_session__SWIG_4(long jarg1, settings_pack jarg1_, long jarg2, session_flags_t jarg2_);
+  public final static native long new_session__SWIG_5(long jarg1, settings_pack jarg1_);
+  public final static native long new_session__SWIG_6(long jarg1, session jarg1_);
   public final static native void delete_session(long jarg1);
   public final static native long session_abort(long jarg1, session jarg1_);
   public final static native int peer_connection_handle_type(long jarg1, peer_connection_handle jarg1_);

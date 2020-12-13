@@ -305,6 +305,7 @@ public class session_handle {
   public final static remove_flags_t delete_files = new remove_flags_t(libtorrent_jni.session_handle_delete_files_get(), false);
   public final static remove_flags_t delete_partfile = new remove_flags_t(libtorrent_jni.session_handle_delete_partfile_get(), false);
   public final static session_flags_t add_default_plugins = new session_flags_t(libtorrent_jni.session_handle_add_default_plugins_get(), false);
+  public final static session_flags_t paused = new session_flags_t(libtorrent_jni.session_handle_paused_get(), false);
   public final static portmap_protocol udp = portmap_protocol.swigToEnum(libtorrent_jni.session_handle_udp_get());
   public final static portmap_protocol tcp = portmap_protocol.swigToEnum(libtorrent_jni.session_handle_tcp_get());
   public final static reopen_network_flags_t reopen_map_ports = new reopen_network_flags_t(libtorrent_jni.session_handle_reopen_map_ports_get(), false);

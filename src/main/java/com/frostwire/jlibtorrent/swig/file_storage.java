@@ -220,6 +220,10 @@ public class file_storage {
     return libtorrent_jni.file_storage_file_index_at_offset(swigCPtr, this, offset);
   }
 
+  public String internal_symlink(int index) {
+    return libtorrent_jni.file_storage_internal_symlink(swigCPtr, this, index);
+  }
+
   public void add_file(String path, long file_size, file_flags_t file_flags, long mtime, String symlink_path) {
     libtorrent_jni.file_storage_add_file__SWIG_4(swigCPtr, this, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, mtime, symlink_path);
   }

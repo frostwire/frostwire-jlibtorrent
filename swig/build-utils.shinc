@@ -22,7 +22,13 @@ LIBRARY_NAME=jlibtorrent
 LIBTORRENT_REVISION=471e772cb7038f1bf5f44c32a09eb42fbb80ee99 # bump version to 1.2.11 (branch:RC_1_2) Nov 28,2020
 
 OPENSSL_VERSION="1.1.1i"
-BOOST_VERSION="75"
+BOOST_VERSION="74"
+# TEMP NOTE, DEC 12 2020
+# Reverting to boost 1.74. 1.75 causes swig to not generate error_code.java and other error handling classes
+# With boost 1.75 swig will issue these boost related warnings, something must have changed
+# Warning 315: Nothing known about 'boost::system::generic_category'
+# 'boost::system::system_category'
+
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`

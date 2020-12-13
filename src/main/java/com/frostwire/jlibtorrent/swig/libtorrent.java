@@ -122,6 +122,11 @@ public class libtorrent implements libtorrentConstants {
     return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
   }
 
+  public static torrent_flags_t getNo_verify_files() {
+    long cPtr = libtorrent_jni.no_verify_files_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+  }
+
   public static torrent_flags_t getAll() {
     long cPtr = libtorrent_jni.all_get();
     return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);

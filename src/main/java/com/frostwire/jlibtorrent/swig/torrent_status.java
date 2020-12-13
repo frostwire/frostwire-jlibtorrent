@@ -601,7 +601,7 @@ public class torrent_status {
     public final static torrent_status.state_t downloading = new torrent_status.state_t("downloading");
     public final static torrent_status.state_t finished = new torrent_status.state_t("finished");
     public final static torrent_status.state_t seeding = new torrent_status.state_t("seeding");
-    public final static torrent_status.state_t allocating = new torrent_status.state_t("allocating");
+    public final static torrent_status.state_t unused_enum_for_backwards_compatibility_allocating = new torrent_status.state_t("unused_enum_for_backwards_compatibility_allocating");
     public final static torrent_status.state_t checking_resume_data = new torrent_status.state_t("checking_resume_data");
 
     public final int swigValue() {
@@ -638,7 +638,7 @@ public class torrent_status {
       swigNext = this.swigValue+1;
     }
 
-    private static state_t[] swigValues = { checking_files, downloading_metadata, downloading, finished, seeding, allocating, checking_resume_data };
+    private static state_t[] swigValues = { checking_files, downloading_metadata, downloading, finished, seeding, unused_enum_for_backwards_compatibility_allocating, checking_resume_data };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
