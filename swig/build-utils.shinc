@@ -22,9 +22,22 @@ LIBRARY_NAME=jlibtorrent
 LIBTORRENT_REVISION=471e772cb7038f1bf5f44c32a09eb42fbb80ee99 # bump version to 1.2.11 (branch:RC_1_2) Nov 28,2020
 
 OPENSSL_VERSION="1.1.1i"
-BOOST_VERSION="74"
+BOOST_VERSION="73"
 # TEMP NOTE, DEC 12 2020
-# Reverting to boost 1.74. 1.75 causes swig to not generate error_code.java and other error handling classes
+# Reverting to boost 1.73.
+
+# 1.74 seems to require -frtti linking
+#In file included from /Users/gubatron/src/libtorrent/src/announce_entry.cpp:34:
+#In file included from /Users/gubatron/src/libtorrent/include/libtorrent/announce_entry.hpp:41:
+#In file included from /Users/gubatron/src/libtorrent/include/libtorrent/socket.hpp:53:
+#In file included from /Users/gubatron/src/boost_1_74_0/boost/asio/ip/tcp.hpp:19:
+#In file included from /Users/gubatron/src/boost_1_74_0/boost/asio/basic_socket_acceptor.hpp:19:
+#In file included from /Users/gubatron/src/boost_1_74_0/boost/asio/any_io_executor.hpp:22:
+#In file included from /Users/gubatron/src/boost_1_74_0/boost/asio/execution.hpp:19:
+#/Users/gubatron/src/boost_1_74_0/boost/asio/execution/any_executor.hpp:811:12: error: use of typeid requires -frtti
+#    return typeid(void);
+
+# 1.75 causes swig to not generate error_code.java and other error handling classes
 # With boost 1.75 swig will issue these boost related warnings, something must have changed
 # Warning 315: Nothing known about 'boost::system::generic_category'
 # 'boost::system::system_category'
