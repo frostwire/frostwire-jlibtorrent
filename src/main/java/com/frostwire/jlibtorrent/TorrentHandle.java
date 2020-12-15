@@ -313,6 +313,14 @@ public final class TorrentHandle {
     }
 
     /**
+     * Note that this is a blocking function, unlike torrent_handle::is_valid() which returns immediately.
+     * @return Returns true if the torrent is in the session. It returns true before SessionHandle::removeTorrent() is called, and false afterward.
+     */
+    public boolean inSession() {
+        return th.in_session();
+    }
+
+    /**
      * This method will disconnect all peers.
      * <p>
      * When a torrent is paused, it will however
