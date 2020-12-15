@@ -45,6 +45,9 @@ public class SessionHandle {
         return s.is_valid();
     }
 
+    /** When set, the session will start paused. Call SessionHandle::resume() to start */
+    public static final session_flags_t PAUSED = session_handle.paused;
+
     /**
      * Saves settings (i.e. the {@link SettingsPack}).
      */

@@ -1,5 +1,7 @@
 1.2.11.0
- * New TorrentHandle::inSession() [blocking method, do not use in main UI threads]
+ * New TorrentHandle.inSession() [blocking method, do not use in main UI threads]
+ * New SessionManager.start(SessionParams, session_flags_t)
+ * New SessionHandle.PAUSED (session_flag_t) and corresponding unit tests
  * libtorrent 1.2.11.0 update (471e772cb7038f1bf5f44c32a09eb42fbb80ee99)
  * lt: upgraded to openssl 1.1.1l
  * lt: fix issue with moving the session object
