@@ -1,12 +1,14 @@
 1.2.11.0
  * New TorrentHandle.inSession() [blocking method, do not use in main UI threads]
+ * New ability for SessionManager to build a paused session
  * New SessionManager.start(SessionParams, session_flags_t)
  * New SessionHandle.PAUSED (session_flag_t) and corresponding unit tests
+ * Removed TorrentStatus::State::ALLOCATING enum
+ * Removed torrent_status.state_t.unused_enum_for_backwards_compatibility_allocating
  * libtorrent 1.2.11.0 update (471e772cb7038f1bf5f44c32a09eb42fbb80ee99)
  * lt: upgraded to openssl 1.1.1l
  * lt: fix issue with moving the session object
  * lt: deprecate torrent_status::allocating. This state is no longer used
- * TorrentStatus::State::ALLOCATING enum removed
  * lt: fix bug creating torrents with symbolic links
  * lt: remove special case to save metadata in resume data unconditionally when added throught magnet link
  * lt: fix bugs in mutable-torrent support (reusing identical files from different torrents)

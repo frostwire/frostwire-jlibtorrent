@@ -1317,6 +1317,7 @@ public class libtorrent_jni {
   public final static native void torrent_status_handle_set(long jarg1, torrent_status jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_status_handle_get(long jarg1, torrent_status jarg1_);
   public final static native int torrent_status_checking_files_get();
+  public final static native int torrent_status_checking_resume_data_get();
   public final static native void torrent_status_errc_set(long jarg1, torrent_status jarg1_, long jarg2, error_code jarg2_);
   public final static native long torrent_status_errc_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_error_file_set(long jarg1, torrent_status jarg1_, int jarg2);
@@ -2919,7 +2920,6 @@ public class libtorrent_jni {
   public final static native void session_handle_set_peer_class(long jarg1, session_handle jarg1_, int jarg2, long jarg3, peer_class_info jarg3_);
   public final static native long session_handle_delete_files_get();
   public final static native long session_handle_delete_partfile_get();
-  public final static native long session_handle_add_default_plugins_get();
   public final static native long session_handle_paused_get();
   public final static native void session_handle_remove_torrent__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, torrent_handle jarg2_, long jarg3, remove_flags_t jarg3_);
   public final static native void session_handle_remove_torrent__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, torrent_handle jarg2_);

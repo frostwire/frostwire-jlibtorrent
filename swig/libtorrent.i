@@ -1054,6 +1054,7 @@ namespace libtorrent {
 %ignore libtorrent::session_handle::set_dht_storage;
 %ignore libtorrent::session_handle::get_cache_info;
 %ignore libtorrent::session_handle::wait_for_alert;
+%ignore libtorrent::session_handle::add_default_plugins;
 %ignore libtorrent::session_handle::add_torrent(add_torrent_params&&, error_code&);
 %ignore libtorrent::session_handle::async_add_torrent(add_torrent_params&&);
 %ignore libtorrent::session_handle::apply_settings(settings_pack&&);
@@ -1194,6 +1195,7 @@ namespace libtorrent {
 %ignore libtorrent::proxy_settings::proxy_settings;
 %ignore libtorrent::torrent_status::torrent_status(torrent_status&&);
 %ignore libtorrent::torrent_status::allocating;
+%ignore libtorrent::torrent_status::unused_enum_for_backwards_compatibility_allocating;
 %ignore libtorrent::torrent_status::_dummy_string_;
 %ignore libtorrent::torrent_status::torrent_file;
 %ignore libtorrent::torrent_status::next_announce;
