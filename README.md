@@ -6,6 +6,8 @@ A swig Java interface for libtorrent by the makers of FrostWire.
 
 Develop libtorrent based apps with the joy of coding in Java.
 
+[Discord Developer Chatroom](https://discord.com/channels/461752211802947585/461766946669461515)
+
 Using
 ========
 
