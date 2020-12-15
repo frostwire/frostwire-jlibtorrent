@@ -78,7 +78,19 @@ public class SessionManager {
         modifyListeners(false, listener);
     }
 
+    /**
+     * Starts the session without passing session_flags_t attributes.
+     * @param params
+     */
     public void start(SessionParams params) {
+        start(params, null);
+    }
+
+    /**
+     * @param params
+     * @param flags You can pass a flag like SessionHandle.PAUSED to start the session paused.
+     */
+    public void start(SessionParams params, session_flags_t flags) {
         if (session != null) {
             return;
         }
@@ -96,7 +108,12 @@ public class SessionManager {
 
             params.settings().setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging).to_int());
             sessionParams = params;
-            session = new session(params.swig());
+
+            if (flags == null) {
+                session = new session(params.swig());
+            } else {
+                session = new session(params.swig(), flags);
+            }
             alertsLoop();
 
             // block all connections to port < 1024, but
