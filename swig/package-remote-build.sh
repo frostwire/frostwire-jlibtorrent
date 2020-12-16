@@ -14,7 +14,7 @@ function downloadLibrary {
     mkdir -p ${dest}
   fi
 
-  wget -O ${dest}/${fileName} $url
+  wget --no-check-certificate -O ${dest}/${fileName} $url
 }
 
 # Android-ARM v7a
@@ -42,8 +42,8 @@ unameOut="$(uname -s)"
 case "${unameOut}" in
   Darwin*) cp bin/release/macosx/x86_64/libjlibtorrent.dylib ..;;
   Linux*)  cp bin/release/linux/x86/libjlibtorrent.so ..;;
-  CYGWIN*) cp bin/release/windows/x86/jlibtorrent.dll ..;;
-  MINGW*) cp bin/release/windows/x86/jlibtorrent.dll ..;;
+  CYGWIN*) cp bin/release/windows/x86_64/jlibtorrent.dll ..;;
+  MINGW*) cp bin/release/windows/x86_64/jlibtorrent.dll ..;;
 esac
 
 pushd ..
