@@ -41,7 +41,7 @@ downloadLibrary 'libjlibtorrent.so' 'bin/release/linux/x86_64' 'https://s3.amazo
 unameOut="$(uname -s)"
 case "${unameOut}" in
   Darwin*) cp bin/release/macosx/x86_64/libjlibtorrent.dylib ..;;
-  Linux*)  cp bin/release/linux/x86/libjlibtorrent.so ..;;
+  Linux*)  cp bin/release/linux/x86_64/libjlibtorrent.so ..;;
   CYGWIN*) cp bin/release/windows/x86_64/jlibtorrent.dll ..;;
   MINGW*) cp bin/release/windows/x86_64/jlibtorrent.dll ..;;
 esac
