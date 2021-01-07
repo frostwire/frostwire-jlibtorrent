@@ -1,3 +1,12 @@
+1.2.12.0
+ * lt:fix loading of DHT node ID from previous session on startup
+ * lt:use getrandom(), when available, and fall back to /dev/urandom
+ * lt:fix uTP issue acking FIN packets
+ * lt:validate HTTPS certificates by default (trackers and web seeds)
+ * lt:load SSL certificates from windows system certificate store, to authenticate trackers
+ * lt:introduce mitigation for Server Side Request Forgery in tracker and web seed URLs
+ * lt:fix error handling for pool allocation failure
+
 1.2.11.0
  * New TorrentHandle.inSession() [blocking method, do not use in main UI threads]
  * New ability for SessionManager to build a paused session

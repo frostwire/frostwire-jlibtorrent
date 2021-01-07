@@ -67,6 +67,7 @@ public class peer_blocked_alert extends peer_alert {
     public final static peer_blocked_alert.reason_t utp_disabled = new peer_blocked_alert.reason_t("utp_disabled");
     public final static peer_blocked_alert.reason_t tcp_disabled = new peer_blocked_alert.reason_t("tcp_disabled");
     public final static peer_blocked_alert.reason_t invalid_local_interface = new peer_blocked_alert.reason_t("invalid_local_interface");
+    public final static peer_blocked_alert.reason_t ssrf_mitigation = new peer_blocked_alert.reason_t("ssrf_mitigation");
 
     public final int swigValue() {
       return swigValue;
@@ -102,7 +103,7 @@ public class peer_blocked_alert extends peer_alert {
       swigNext = this.swigValue+1;
     }
 
-    private static reason_t[] swigValues = { ip_filter, port_filter, i2p_mixed, privileged_ports, utp_disabled, tcp_disabled, invalid_local_interface };
+    private static reason_t[] swigValues = { ip_filter, port_filter, i2p_mixed, privileged_ports, utp_disabled, tcp_disabled, invalid_local_interface, ssrf_mitigation };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
