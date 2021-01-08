@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 unset_env_variables() {
   # The user's build environment might already have pre-set
   # flags that can interfere with the compilation process
@@ -15,12 +14,9 @@ unset_env_variables() {
 }
 unset_env_variables
 
-
 LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | sed "s/'//g"`
 LIBRARY_NAME=jlibtorrent
-
 LIBTORRENT_REVISION=77172672c8db2f6bcef17d867d9a81faae77ec1e # bump version to 1.2.12 (branch:RC_1_2) Jan 7, 2021 correct condition in Jamfile when building against OpenSSL on windows
-
 OPENSSL_VERSION="1.1.1i"
 BOOST_VERSION="73"
 # TEMP NOTES ON BOOST ISSUES, DEC 13 2020
@@ -44,7 +40,6 @@ BOOST_VERSION="73"
 # With boost 1.75 swig will issue these boost related warnings, something must have changed
 # Warning 315: Nothing known about 'boost::system::generic_category'
 # 'boost::system::system_category'
-
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`
@@ -182,9 +177,8 @@ prepare_openssl() {
   if [ ! -d ${OPENSSL_SOURCE} ]; then
     prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '{$OPENSSL_SOURCE}'"
     pushd ${SRC}
-    #TODO uncomment
     #wget -nv -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1i.tar.gz
-    #wget -4 -O --no-check-certificate openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    wget -4 -O --no-check-certificate openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
     tar xvfz openssl.tar.gz
     rm -f openssl.tar.gz
     if [[ $os_build == "windows" ]]; then
@@ -208,6 +202,18 @@ build_openssl() {
     $run_openssl_configure
     make -j 8
     make install_sw
+    popd
+  fi  
+  if [[ $os_build == "windows" ]]; then
+    pushd ${OPENSSL_ROOT}/lib
+    if [ -L libcrypto.lib ]; then
+      rm libcrypto.lib
+    fi
+    if [ -L libssl.lib ]; then
+      rm libssl.lib
+    fi
+    ln -s libcrypto.a libcrypto.lib
+    ln -s libssl.a libssl.lib
     popd
   fi
 }
@@ -242,17 +248,16 @@ build_libraries() {
   abort_if_var_unset "os_build" ${os_build}
   abort_if_var_unset "os_arch" ${os_arch}
   abort_if_var_unset "SHARED_LIB" ${SHARED_LIB}
-  abort_if_var_unset "SHARED_LIB_FINAL" ${SHARED_LIB_FINAL}
   abort_if_var_unset "run_bjam" ${run_bjam}
   abort_if_var_unset "run_objcopy" ${run_objcopy}
   abort_if_var_unset "run_strip" ${run_strip}
   abort_if_var_unset "run_readelf" ${run_readelf}
   set -x
-  #TODO: See if we can do without this naming replace
-  if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
-    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' swig/libtorrent_jni.cpp;
-  fi  
   cd ${SWIG}
+  if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
+    pwd
+    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp;
+  fi    
   export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
   echo "Added boost tools to PATH:"
   echo ${PATH}
@@ -263,10 +268,10 @@ build_libraries() {
   $run_bjam
   $run_objcopy
   $run_strip
-  cd ..
   if [[ $os_build == "windows" ]]; then
     mv bin/release/windows/${os_arch}/libjlibtorrent.dll bin/release/windows/${os_arch}/jlibtorrent.dll
-  fi
+  fi 
+  cd ..
   if [[ $os_build == "macosx" || $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
@@ -293,4 +298,3 @@ cleanup_objects() {
   find . -type f | egrep '\d.\d.\d.\d\d.jar$'
   cd ${SWIG}
 }
-
