@@ -14,7 +14,7 @@ function downloadLibrary {
     mkdir -p ${dest}
   fi
 
-  wget --no-check-certificate -O ${dest}/${fileName} $url
+  wget -4 --no-check-certificate -O ${dest}/${fileName} $url
 }
 
 # Android-ARM v7a
