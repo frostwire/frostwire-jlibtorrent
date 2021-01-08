@@ -7,11 +7,9 @@
 ./run-swig.sh
 source build-utils.shinc
 check_min_req_vars
-
 os_arch=x86
 os_build=windows
 SHARED_LIB=lib${LIBRARY_NAME}.dll
-SHARED_LIB_FINAL=${SHARED_LIB} # dummy for windows?
 CXX=g++
 CC=i686-w64-mingw32-gcc-posix
 run_openssl_configure="./Configure mingw ${OPENSSL_NO_OPTS} --prefix=$OPENSSL_SOURCE/../openssl"
@@ -28,5 +26,3 @@ prepare_openssl
 build_openssl
 prepare_libtorrent
 build_libraries
-#cleanup_objects
-
