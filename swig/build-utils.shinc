@@ -19,8 +19,7 @@ unset_env_variables
 LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | sed "s/'//g"`
 LIBRARY_NAME=jlibtorrent
 
-LIBTORRENT_REVISION=471e772cb7038f1bf5f44c32a09eb42fbb80ee99 # bump version to 1.2.11 (branch:RC_1_2) Nov 28,2020
-LIBTORRENT_REVISION=e3f2b016dcd37a9a6e8a94006c7befcf2cb7bfac # bump version to 1.2.12
+LIBTORRENT_REVISION=77172672c8db2f6bcef17d867d9a81faae77ec1e # bump version to 1.2.12 (branch:RC_1_2) Jan 7, 2021 correct condition in Jamfile when building against OpenSSL on windows
 
 OPENSSL_VERSION="1.1.1i"
 BOOST_VERSION="73"
@@ -166,6 +165,16 @@ prepare_linux_toolchain() {
   #echo "...skipping prepare_linux_toolchain"
 }
 
+prepare_windows_x86_toolchain() {
+    echo "preparing windows x86 toolchain..."
+    sudo apt-get install -qq g++-mingw-w64-i686
+}
+
+prepare_windows_x86_64_toolchain() {
+    echo "preparing windows x86_64 toolchain..."
+    sudo apt-get install -qq g++-mingw-w64-x86-64
+}
+
 prepare_openssl() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
@@ -173,9 +182,16 @@ prepare_openssl() {
   if [ ! -d ${OPENSSL_SOURCE} ]; then
     prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '{$OPENSSL_SOURCE}'"
     pushd ${SRC}
-    wget -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    #TODO uncomment
+    #wget -nv -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1i.tar.gz
+    #wget -4 -O --no-check-certificate openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
     tar xvfz openssl.tar.gz
     rm -f openssl.tar.gz
+    if [[ $os_build == "windows" ]]; then
+      sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' ${OPENSSL_SOURCE}/crypto/cryptlib.c;
+      sed -i 's/MessageBox.*//g' ${OPENSSL_SOURCE}/crypto/cryptlib.c;
+      sed -i 's/return return 0;/return 0;/g' ${OPENSSL_SOURCE}/crypto/threads_none.c;
+    fi
     popd
   fi
 }
@@ -232,6 +248,10 @@ build_libraries() {
   abort_if_var_unset "run_strip" ${run_strip}
   abort_if_var_unset "run_readelf" ${run_readelf}
   set -x
+  #TODO: See if we can do without this naming replace
+  if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
+    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' swig/libtorrent_jni.cpp;
+  fi  
   cd ${SWIG}
   export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
   echo "Added boost tools to PATH:"
@@ -243,13 +263,10 @@ build_libraries() {
   $run_bjam
   $run_objcopy
   $run_strip
-  if [[ $os_build == "windows" ]]; then
-    # expected but parametrized for flexibility and project
-    # SHARED_LIB = lib${LIBRARY_NAME}.dll, libtorrent4j.dll
-    # SHARED_LIB_FINAL = ${LIBRARY_NAME}.dll, torrent4j.dll
-    mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
-  fi
   cd ..
+  if [[ $os_build == "windows" ]]; then
+    mv bin/release/windows/${os_arch}/libjlibtorrent.dll bin/release/windows/${os_arch}/jlibtorrent.dll
+  fi
   if [[ $os_build == "macosx" || $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
