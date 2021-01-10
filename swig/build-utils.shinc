@@ -48,7 +48,7 @@ BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 LIBTORRENT_ROOT="${SRC}/libtorrent"
 OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
 OPENSSL_ROOT="${SRC}/openssl"
-OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
 prompt_msg() {
  echo
@@ -140,14 +140,16 @@ prepare_android_toolchain() {
     prompt_msg "Extracting NDK...wait";
     unzip -qq android-ndk-${NDK_VERSION}.zip;
   fi
-  NDK=$PWD/android-ndk-${NDK_VERSION};
+  export NDK=$PWD/android-ndk-${NDK_VERSION}
   prompt_msg "NDK=${NDK}"
-  TOOLCHAIN_FOLDER="android-toolchain-${os_arch}-api_${android_api}"
-  prompt_msg "Creating android toolchain --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER}"
-  $NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER};
-  ANDROID_TOOLCHAIN=${PWD}/${TOOLCHAIN_FOLDER}
-  #prompt_msg "Setting prebuilt ANDROID_TOOLCHAIN (arch ${os_arch}, api ${android_api})"
-  prompt_msg "ANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}"
+  #TOOLCHAIN_FOLDER="android-toolchain-${os_arch}-api_${android_api}"
+  #MAYBE TOOLCHAIN_FOLDER=/home/gubatron/src/android-ndk-r21d/toolchains/x86-4.9/prebuilt/linux-x86_64 
+  #prompt_msg "Creating android toolchain --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER}"
+  #$NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER};
+  #export ANDROID_TOOLCHAIN=${PWD}/${TOOLCHAIN_FOLDER}
+
+  # We now use the prebuilt toolchain
+  export ANDROID_TOOLCHAIN=${NDK}/toolchains/llvm/prebuilt/linux-x86_64
   popd
 }
 
@@ -181,6 +183,7 @@ prepare_openssl() {
     wget -4 -O --no-check-certificate openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
     tar xvfz openssl.tar.gz
     rm -f openssl.tar.gz
+    # avoid GDI dependency in windows, fix double return statement on threads_none.c
     if [[ $os_build == "windows" ]]; then
       sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' ${OPENSSL_SOURCE}/crypto/cryptlib.c;
       sed -i 's/MessageBox.*//g' ${OPENSSL_SOURCE}/crypto/cryptlib.c;
@@ -193,6 +196,8 @@ prepare_openssl() {
 build_openssl() {
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
+  prompt_msg "build_openssl: run_openssl_configure=[${run_openssl_configure}]"
+  press_any_to_continue
   if [ -d ${OPENSSL_ROOT} ]; then
     rm -fr ${OPENSSL_ROOT}
   fi
