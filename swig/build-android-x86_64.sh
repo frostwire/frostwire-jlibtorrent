@@ -16,7 +16,6 @@ export CXX=g++
 export NDK_VERSION=r21d
 prepare_android_toolchain
 abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
-export CC=$ANDROID_TOOLCHAIN/bin/x86_64-linux-android-clang
 export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC -mstackrealign --prefix=${OPENSSL_ROOT}";
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
@@ -26,9 +25,11 @@ export PATH=$ANDROID_TOOLCHAIN/i686-linux-android/bin:$PATH;
 sed -i 's/RANLIB = ranlib/RANLIB = "${ANDROID_TOOLCHAIN}\/bin\/i686-linux-android-ranlib"/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
 create_folder_if_it_doesnt_exist ${SRC}
 prompt_msg "About to prepare BOOST ${BOOST_VERSION}"
-press_any_to_continue
 prepare_boost
+# openssl compilation fails for x86_64 if we use the c++ compiler
+export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${android_api}-clang
 prepare_openssl
 build_openssl
+export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${android_api}-clang++
 prepare_libtorrent
 build_libraries
