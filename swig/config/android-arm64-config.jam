@@ -1,8 +1,9 @@
 import os ;
 
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
+ANDROID_API = [ os.environ android_api ] ;
 
-using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android-clang++ :
+using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android$(ANDROID_API)-clang++ :
     <cxxflags>-fPIC
     <cxxflags>-march=armv8-a+crc
     <cxxflags>-std=c++14
