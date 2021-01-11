@@ -10,7 +10,7 @@ source build-utils.shinc
 check_min_req_vars
 export os_arch=arm
 export os_build=android
-export android_api=19
+export android_api=21
 export SHARED_LIB=lib${LIBRARY_NAME}.so
 export CXX=g++
 export NDK_VERSION=r21d
