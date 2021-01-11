@@ -142,11 +142,13 @@ prepare_android_toolchain() {
   fi
   export NDK=$PWD/android-ndk-${NDK_VERSION}
   prompt_msg "NDK=${NDK}"
-  #TOOLCHAIN_FOLDER="android-toolchain-${os_arch}-api_${android_api}"
-  #MAYBE TOOLCHAIN_FOLDER=/home/gubatron/src/android-ndk-r21d/toolchains/x86-4.9/prebuilt/linux-x86_64 
-  #prompt_msg "Creating android toolchain --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER}"
+
+  #try this command to get path of the prebuilt toolchain in the warnings
   #$NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER};
-  #export ANDROID_TOOLCHAIN=${PWD}/${TOOLCHAIN_FOLDER}
+  #./builds/tools/make_standalone_toolchain.py --arch x86 --api 21 --stl libc++ --install-dir deleteme
+  #./builds/tools/make_standalone_toolchain.py --arch x86_64 --api 21 --stl libc++ --install-dir deleteme
+  #./builds/tools/make_standalone_toolchain.py --arch arm --api 21 --stl libc++ --install-dir deleteme
+  #./builds/tools/make_standalone_toolchain.py --arch arm64 --api 21 --stl libc++ --install-dir deleteme
 
   # We now use the prebuilt toolchain
   export ANDROID_TOOLCHAIN=${NDK}/toolchains/llvm/prebuilt/linux-x86_64
@@ -273,17 +275,18 @@ build_libraries() {
   $run_bjam
   $run_objcopy
   $run_strip
+
+  # fix libjlibtorrent.dll -> jlibtorrent.dll
   if [[ $os_build == "windows" ]]; then
-    mv bin/release/windows/${os_arch}/libjlibtorrent.dll bin/release/windows/${os_arch}/jlibtorrent.dll
-  fi 
+    cp bin/release/windows/${os_arch}/libjlibtorrent.dll bin/release/windows/${os_arch}/jlibtorrent.dll
+  fi
+  
   cd ..
+
+  # so that tests pass when running on mac or linux we copy the shared library to the root folder
   if [[ $os_build == "macosx" || $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
-  if [[ $os_build == "android" && $os_arch == "arm" ]]; then
-    cp swig/bin/release/${os_build}/${os_arch}eabi-v7a/${SHARED_LIB} .
-  fi
-  # TODO: the copying of android-x86 library
   gradle clean
   gradle build
 }
