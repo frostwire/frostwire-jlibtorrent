@@ -122,6 +122,16 @@ prepare_boost() {
   popd
 }
 
+download_android_ndk() {
+  abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
+  if [ ! -f android-ndk-${NDK_VERSION}.zip ]; then
+    prompt_msg "download_android_ndk: Downloading android-ndk-${NDK_VERSION}"
+    wget -4 -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-${host_os}-x86_64.zip;
+    prompt_msg "download_android_ndk: Extracting NDK...wait";
+    unzip -qq android-ndk-${NDK_VERSION}.zip;
+  fi
+}
+
 prepare_android_toolchain() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
@@ -133,25 +143,49 @@ prepare_android_toolchain() {
   if [[ "$OSTYPE" == "darwin"* ]]; then
       host_os="darwin"
   fi
-  
-  if [ ! -f android-ndk-${NDK_VERSION}.zip ]; then
-    prompt_msg "Downloading android-ndk-${NDK_VERSION}"
-    wget -4 -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-${host_os}-x86_64.zip;
-    prompt_msg "Extracting NDK...wait";
-    unzip -qq android-ndk-${NDK_VERSION}.zip;
+
+  download_android_ndk
+
+  export NDK=$PWD/android-ndk-${NDK_VERSION}
+  prompt_msg "prepare_android_toolchain: NDK=${NDK}"
+
+  # Use the prebuilt toolchain path
+  export ANDROID_TOOLCHAIN=${NDK}/toolchains/llvm/prebuilt/linux-x86_64
+  popd
+}
+
+prepare_android_standalone_toolchain() {
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
+  abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "android_api" ${android_api}
+  pushd ${SRC}
+
+  host_os="linux"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+      host_os="darwin"
   fi
+
+  download_android_ndk
+
   export NDK=$PWD/android-ndk-${NDK_VERSION}
   prompt_msg "NDK=${NDK}"
 
-  #try this command to get path of the prebuilt toolchain in the warnings
-  #$NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER};
-  #./builds/tools/make_standalone_toolchain.py --arch x86 --api 21 --stl libc++ --install-dir deleteme
-  #./builds/tools/make_standalone_toolchain.py --arch x86_64 --api 21 --stl libc++ --install-dir deleteme
-  #./builds/tools/make_standalone_toolchain.py --arch arm --api 21 --stl libc++ --install-dir deleteme
-  #./builds/tools/make_standalone_toolchain.py --arch arm64 --api 21 --stl libc++ --install-dir deleteme
+  if [ -d standalone_toolchain ]; then
+    rm -fr standalone_toolchain
+  fi
 
-  # We now use the prebuilt toolchain
-  export ANDROID_TOOLCHAIN=${NDK}/toolchains/llvm/prebuilt/linux-x86_64
+  #try this command to get path of the prebuilt toolchain in the warnings
+  $NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir standalone_toolchain
+  #./build/tools/make_standalone_toolchain.py --arch x86 --api 21 --stl libc++ --install-dir standalone_toolchain
+  #./build/tools/make_standalone_toolchain.py --arch x86_64 --api 21 --stl libc++ --install-dir standalone_toolchain
+  #./build/tools/make_standalone_toolchain.py --arch arm --api 21 --stl libc++ --install-dir standalone_toolchain
+  #./build/tools/make_standalone_toolchain.py --arch arm64 --api 21 --stl libc++ --install-dir standalone_toolchain
+
+  # Use the standalone toolchain path
+  export ANDROID_TOOLCHAIN=${PWD}/standalone_toolchain
+  prompt_msg "prepare_android_standalone_toolchain: ANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}"
+  press_any_to_continue
   popd
 }
 
@@ -161,7 +195,6 @@ prepare_linux_toolchain() {
   sudo apt-get update -qq
   sudo apt-get install -qq g++-7 g++-7-multilib
   echo "done preparing linux toolchain"
-  #echo "...skipping prepare_linux_toolchain"
 }
 
 prepare_windows_x86_toolchain() {
