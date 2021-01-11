@@ -16,7 +16,7 @@ export CXX=g++
 export NDK_VERSION=r21d
 prepare_android_toolchain
 abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
-export CC=$ANDROID_TOOLCHAIN/bin/arm-linux-androideabi-clang
+export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${android_api}-clang
 export run_openssl_configure="./Configure linux-${os_arch}v4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon -fPIC --prefix=${OPENSSL_ROOT}";
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/arm-linux-androideabi-readelf -d bin/release/${os_build}/${os_arch}eabi-v7a/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-linux-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}eabi-v7a"
@@ -30,5 +30,7 @@ press_any_to_continue
 prepare_boost
 prepare_openssl
 build_openssl
+prepare_android_standalone_toolchain
+export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${android_api}-clang++
 prepare_libtorrent
 build_libraries

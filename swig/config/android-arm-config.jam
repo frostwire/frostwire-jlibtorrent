@@ -1,8 +1,9 @@
 import os ;
 
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
+android_api = [ os.environ android_api ] ;
 
-using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++ :
+using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/armv7a-linux-androideabi$(android_api)-clang++
     <cxxflags>-fPIC
     <cxxflags>-march=armv7-a
     <cxxflags>-mfpu=neon
@@ -13,6 +14,7 @@ using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/arm-linux-androideabi-clang++
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
     <linkflags>-static-libstdc++
+    <linkflags>-fuse-ld=bfd
     # hacks to remove when API >= 21
     <cxxflags>"-D\"epoll_create1(x)=-1; errno=ENOSYS\""
     <cxxflags>"-D\"posix_fadvise(x1,x2,x3,x4)\""
