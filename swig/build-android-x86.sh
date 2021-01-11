@@ -10,14 +10,13 @@ source build-utils.shinc
 check_min_req_vars
 export os_arch=x86
 export os_build=android
-export android_api=19
+export android_api=21
 export SHARED_LIB=lib${LIBRARY_NAME}.so
 export CXX=g++
 export NDK_VERSION=r21d
 prepare_android_toolchain
 abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
-export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android-clang
-export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -mstackrealign --prefix=${OPENSSL_ROOT}";
+export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -mstackrealign --prefix=${OPENSSL_ROOT}"
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
 export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
@@ -28,8 +27,11 @@ create_folder_if_it_doesnt_exist ${SRC}
 prompt_msg "About to prepare BOOST ${BOOST_VERSION}"
 press_any_to_continue
 prepare_boost
+export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang
 prepare_openssl
 build_openssl
+export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang++
+export CXXFLAGS="-fPIC -std=c++14 -DANDROID -D__STDC_FORMAT_MACROS -D_FILE_OFFSET_BITS=64 -fno-strict-aliasing -fvisibility=hidden -mstackrealign"
+export LDFLAGS="-static-libstdc++"
 prepare_libtorrent
 build_libraries
-cleanup_objects
