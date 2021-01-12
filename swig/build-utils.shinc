@@ -144,6 +144,10 @@ prepare_android_toolchain() {
       host_os="darwin"
   fi
 
+  if [[ $host_os == "linux" ]]; then
+      sudo apt install swig
+  fi
+  
   download_android_ndk
 
   export NDK=$PWD/android-ndk-${NDK_VERSION}
@@ -166,6 +170,10 @@ prepare_android_standalone_toolchain() {
       host_os="darwin"
   fi
 
+  if [[ $host_os == "linux" ]]; then
+      sudo apt install swig
+  fi
+  
   download_android_ndk
 
   export NDK=$PWD/android-ndk-${NDK_VERSION}
@@ -198,13 +206,13 @@ prepare_linux_toolchain() {
 }
 
 prepare_windows_x86_toolchain() {
-    echo "preparing windows x86 toolchain..."
-    sudo apt-get install -qq g++-mingw-w64-i686
+  echo "preparing windows x86 toolchain..."
+  sudo apt-get install -qq g++-mingw-w64-i686 swig
 }
 
 prepare_windows_x86_64_toolchain() {
-    echo "preparing windows x86_64 toolchain..."
-    sudo apt-get install -qq g++-mingw-w64-x86-64
+  echo "preparing windows x86_64 toolchain..."
+  sudo apt-get install -qq g++-mingw-w64-x86-64 swig
 }
 
 prepare_openssl() {
