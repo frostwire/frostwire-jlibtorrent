@@ -193,7 +193,7 @@ prepare_linux_toolchain() {
   echo "preparing linux toolchain..."
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   sudo apt-get update -qq
-  sudo apt-get install -qq g++-7 g++-7-multilib
+  sudo apt-get install -qq g++-7 g++-7-multilib swig
   echo "done preparing linux toolchain"
 }
 
@@ -215,7 +215,7 @@ prepare_openssl() {
     prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '{$OPENSSL_SOURCE}'"
     pushd ${SRC}
     #wget -nv -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1i.tar.gz
-    wget -4 -O --no-check-certificate openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    wget -4 --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
     tar xvfz openssl.tar.gz
     rm -f openssl.tar.gz
     # avoid GDI dependency in windows, fix double return statement on threads_none.c
