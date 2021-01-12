@@ -4,7 +4,6 @@
 # Output .jar files will be at:
 # ../build/libs/${LIBRARY_NAME}-<version>.jar
 # ../build/libs/${LIBRARY_NAME}-windows-x86-<version>.jar
-./run-swig.sh
 source build-utils.shinc
 check_min_req_vars
 os_arch=x86_64
@@ -27,5 +26,5 @@ prepare_boost
 prepare_openssl
 build_openssl
 prepare_libtorrent
+./run-swig.sh
 build_libraries
-

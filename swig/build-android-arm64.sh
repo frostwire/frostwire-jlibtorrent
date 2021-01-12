@@ -5,7 +5,6 @@
 # ../build/libs/${LIBRARY_NAME}-<version>.jar
 # ../build/libs/${LIBRARY_NAME}-android-arm64-<version>.jar
 # remote android-arm build with travis is available at https://s3.amazonaws.com/gubatron-jlibtorrent/release/android/arm64-v8a/libjlibtorrent.so
-./run-swig.sh
 source build-utils.shinc
 check_min_req_vars
 export os_arch=arm64
@@ -32,5 +31,5 @@ prepare_openssl
 build_openssl
 export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${android_api}-clang++
 prepare_libtorrent
+./run-swig.sh
 build_libraries
-

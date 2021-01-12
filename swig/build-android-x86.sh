@@ -5,7 +5,6 @@
 # ../build/libs/jlibtorrent-<version>.jar
 # ../build/libs/${LIBRARY_NAME}-android-x86-<version>.jar
 # remote android-x86 build with travis is available at https://s3.amazonaws.com/gubatron-${LIBRARY_NAME}/release/android/x86/lib${LIBRARY_NAME}.so
-./run-swig.sh
 source build-utils.shinc
 check_min_req_vars
 export os_arch=x86
@@ -34,4 +33,5 @@ export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang++
 export CXXFLAGS="-fPIC -std=c++14 -DANDROID -D__STDC_FORMAT_MACROS -D_FILE_OFFSET_BITS=64 -fno-strict-aliasing -fvisibility=hidden -mstackrealign"
 export LDFLAGS="-static-libstdc++"
 prepare_libtorrent
+./run-swig.sh
 build_libraries
