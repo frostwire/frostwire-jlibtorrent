@@ -5,7 +5,6 @@
 # ../build/libs/${LIBRARY_NAME}-<version>.jar
 # ../build/libs/${LIBRARY_NAME}-linux-<version>.jar
 # remote linux-x86 build with travis is available at https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86_64/libjlibtorrent.so
-./run-swig.sh
 source build-utils.shinc
 check_min_req_vars
 export os_arch=x86_64
@@ -27,4 +26,5 @@ prepare_boost
 prepare_openssl
 build_openssl
 prepare_libtorrent
+./run-swig.sh
 build_libraries
