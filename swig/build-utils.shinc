@@ -155,6 +155,8 @@ prepare_android_toolchain() {
 
   # Use the prebuilt toolchain path
   export ANDROID_TOOLCHAIN=${NDK}/toolchains/llvm/prebuilt/linux-x86_64
+  echo "ANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}"
+  press_any_to_continue
   popd
 }
 
@@ -193,7 +195,6 @@ prepare_android_standalone_toolchain() {
   # Use the standalone toolchain path
   export ANDROID_TOOLCHAIN=${PWD}/standalone_toolchain
   prompt_msg "prepare_android_standalone_toolchain: ANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}"
-  press_any_to_continue
   popd
 }
 

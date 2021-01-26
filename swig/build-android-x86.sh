@@ -30,7 +30,7 @@ export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang
 prepare_openssl
 build_openssl
 export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang++
-export CXXFLAGS="-fPIC -std=c++14 -DANDROID -D__STDC_FORMAT_MACROS -D_FILE_OFFSET_BITS=64 -fno-strict-aliasing -fvisibility=hidden -mstackrealign"
+export CXXFLAGS="-fPIC -std=c++14 -DANDROID -D__STDC_FORMAT_MACROS -DWITH_IPP=OFF -D__USE_FILE_OFFSET64 -D_FILE_OFFSET_BITS=64 -fno-strict-aliasing -fvisibility=hidden -mstackrealign"
 export LDFLAGS="-static-libstdc++"
 prepare_libtorrent
 ./run-swig.sh
