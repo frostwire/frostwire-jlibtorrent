@@ -60,8 +60,10 @@ prompt_msg() {
 }
 
 press_any_to_continue() {
- echo "[Press any key to continue]"
- read -n 1 -s -r -p ""
+ if [ ! -n "${DONT_PRESS_ANY_KEY}" ]; then
+   echo "[Press any key to continue]"
+   read -n 1 -s -r -p ""
+ fi
 }
 
 create_folder_if_it_doesnt_exist() {
