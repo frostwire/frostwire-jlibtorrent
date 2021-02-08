@@ -5,6 +5,7 @@
 # ../build/libs/${LIBRARY_NAME}-<version>.jar
 # ../build/libs/${LIBRARY_NAME}-windows-x86-<version>.jar
 source build-utils.shinc
+press_any_to_continue
 check_min_req_vars
 os_arch=x86
 os_build=windows

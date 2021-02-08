@@ -1,3 +1,9 @@
+# building everything - Feb 7th
+1. From mac: ./build-macos.sh
+2. From ec2 machine: ./build_from_ec2.sh (builds everything except)
+3. From vmware: ./build_from_vmware.sh (builds windows x86 only)
+4. From vmware: ./download_android_binaries_from_jlibtorrent_machine.sh
+
 # libtorrent.i, libtorrent.h
 
 libtorrent.i contains SWIG extensions, ignores, and directives needed to wrap the libtorrent library.
