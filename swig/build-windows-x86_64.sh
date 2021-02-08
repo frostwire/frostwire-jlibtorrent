@@ -17,7 +17,6 @@ run_readelf="eval objdump -p bin/release/${os_build}/${os_arch}/jlibtorrent.dll 
 run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=gcc-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
 run_strip="x86_64-w64-mingw32-strip --strip-unneeded -x bin/release/${os_build}/${os_arch}/libjlibtorrent.dll";
 run_objcopy="echo dummy run_objcopy for ${os_build} ${os_arch}"
-./run-swigh.sh
 prepare_windows_x86_64_toolchain
 create_folder_if_it_doesnt_exist ${SRC}
 prompt_msg "About to prepare BOOST ${BOOST_VERSION}"
