@@ -203,6 +203,8 @@ prepare_linux_toolchain() {
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   sudo apt-get update -qq
   sudo apt-get install -qq g++-7 g++-7-multilib swig
+  sudo apt-get install build-essential gradle
+  sudo apt-get install openjdk-11-jdk-headless
   echo "done preparing linux toolchain"
 }
 
