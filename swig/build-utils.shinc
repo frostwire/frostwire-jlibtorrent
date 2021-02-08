@@ -205,6 +205,7 @@ prepare_linux_toolchain() {
   sudo apt-get install -qq g++-7 g++-7-multilib swig
   sudo apt-get install build-essential gradle
   sudo apt-get install openjdk-11-jdk-headless
+  sudo apt-get install python python-dev
   echo "done preparing linux toolchain"
 }
 
