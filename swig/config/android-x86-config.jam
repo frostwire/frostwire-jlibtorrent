@@ -14,7 +14,6 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android$(ANDROID_API)-cl
     <cxxflags>-frtti
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
-    <linkflags>-static-libstdc++
     # x86 devices have stack alignment issues, http://b.android.com/222239
     <cxxflags>-mstackrealign
     # debug information
@@ -22,4 +21,5 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android$(ANDROID_API)-cl
     <cxxflags>-gdwarf-4
     <cxxflags>-fdebug-macro
     <cxxflags>-ggdb
+    <linkflags>-static-libstdc++
     ;
