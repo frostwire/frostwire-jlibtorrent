@@ -18,6 +18,7 @@ LIBRARY_VERSION=`cat ../build.gradle | grep "version '" | awk '{ print $2 }' | s
 LIBRARY_NAME=jlibtorrent
 LIBTORRENT_REVISION=77172672c8db2f6bcef17d867d9a81faae77ec1e # bump version to 1.2.12 (branch:RC_1_2) Jan 7, 2021 correct condition in Jamfile when building against OpenSSL on windows
 OPENSSL_VERSION="1.1.1i"
+#BOOST_VERSION="74"
 BOOST_VERSION="73"
 # TEMP NOTES ON BOOST ISSUES, DEC 13 2020
 # Reverting to boost 1.73.
@@ -104,7 +105,7 @@ prepare_boost() {
       echo "Error: wget is not installed."
       exit 1
   fi
-  
+
   pushd ${SRC}
   echo "Checking for ${BOOST_ROOT}..."
   if [ ! -d ${BOOST_ROOT} ]; then
@@ -224,7 +225,7 @@ prepare_openssl() {
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   if [ ! -d ${OPENSSL_SOURCE} ]; then
-    prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '{$OPENSSL_SOURCE}'"
+    prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '${OPENSSL_SOURCE}'"
     pushd ${SRC}
     #wget -nv -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1i.tar.gz
     wget -4 --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
