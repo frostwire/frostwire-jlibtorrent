@@ -45,68 +45,10 @@ Architectures supported:
 - Windows (x86, x86_64)
 - Mac OS X (x86_64)
 
-Building with Travis
-====================
-
-You need:
-
-- Setup a travis account at http://travis-ci.org and get familiar with
-the service if necessary.
-- Open an account with Amazon Web Services (AWS) and get familiar with
-S3 (for storage) and IAM (for users).
-- Some familiarity with `git` commands.
-
-The process is:
-
-- Create a user in amazon IAM, let's suppose it is `user1`. Download
-credentials for the keys.
-- Create a bucket in amazon S3, let's suppose it is `jlibtorrent1`.
-- Set the permission of the bucket according to your workflow, but at
-least the `user1` should have permission to put/upload to the bucket.
-See for example this bucket policy:
-```json
-{
-	"Statement": [
-		{
-			"Effect": "Allow",
-			"Principal": {"AWS":"arn:aws:iam::<user1's ARN here>:user/user1"},
-			"Action": "s3:PutObject",
-			"Resource": "arn:aws:s3:::jlibtorrent1/*"
-		},
-		{
-			"Effect": "Allow",
-			"Principal": "*",
-			"Action": "s3:GetObject",
-			"Resource": "arn:aws:s3:::jlibtorrent1/*"
-		}
-	]
-}
-```
-- Fork the project in github.
-- Go to travis and enable the repository.
-- Go to 'More options' > 'Settings' > 'Environment Variables' and set the
-`S3_ACCESS_KEY, S3_SECRET_KEY, S3_BUCKET` variables using the values in the
-credentials file for the user you created and the bucket name you created.
-- Clone locally your repo, let's assume to the `jlibtorrent` folder and
-checkout the stable branch:
-```bash
-$ git clone <your fork repo url> jlibtorrent
-$ cd jlibtorrent
-$ git checkout master
-```
-- Verify in your travis online if the build already started. The build
- could take about 40 minutes, be patient.
-- When finished, check your s3 bucket for the binaries.
-- To trigger a new build, just make a change or merge new changes from
- the stable branch, commit and push.
- 
 Building Locally (Mac and Linux)
 ================================
-Building on Travis is something recommended only once you know you're done with your work as builds can take above 30 minutes to finish for all platforms and architectures.
 
-When you're developing and debugging you need faster builds, and these can be performed locally with the help of build scripts in the `swig/` folder.
-
-Thre's a build script for each operating system, for example if you're on macos you can use the `build-macos.sh`, running it without setting things up should tell you about certain environment variables you'll need to set up. To understand the build process we recommend you read your corresponding build script and [`build-utils.shinc`](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/swig/build-utils.shinc)
+A build script exists for each operating system, for example if you're on macos you can use the `build-macos.sh`, running it without setting things up should tell you about certain environment variables you'll need to set up. To understand the build process we recommend you read your corresponding build script and [`build-utils.shinc`](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/swig/build-utils.shinc)
 
 The hacking and building process might require you to run the `run-swig.sh` script, we usually need to run this script if there are C++ api changes in libtorrent that require adjustments in `libtorrent.i` or `libtorrent.h`, this script will create automatic JNI wrappers in the outer source java folders. You should not run this script unless you know what you're doing.
 
