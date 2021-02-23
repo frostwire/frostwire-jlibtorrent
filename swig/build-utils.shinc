@@ -17,7 +17,8 @@ unset_env_variables
 LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
 LIBRARY_NAME=jlibtorrent
 LIBTORRENT_REVISION=77172672c8db2f6bcef17d867d9a81faae77ec1e # bump version to 1.2.12 (branch:RC_1_2) Jan 7, 2021 correct condition in Jamfile when building against OpenSSL on windows
-OPENSSL_VERSION="1.1.1i"
+LIBTORRENT_REVISION=6aad9a463236f0e12f4c4808e4aa84aa0d8b7450 # fix incoming TCP connections when using tracker-only proxy
+OPENSSL_VERSION="1.1.1j"
 #BOOST_VERSION="74"
 BOOST_VERSION="73"
 # TEMP NOTES ON BOOST ISSUES, DEC 13 2020
