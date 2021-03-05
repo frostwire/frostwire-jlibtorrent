@@ -22,9 +22,17 @@ public class libtorrent_jni {
             if ("".equals(path)) {
                 try {
                     System.loadLibrary("jlibtorrent-" + jlibtorrentVersion());
+										System.out.println("Loaded jlibtorrent-" + jlibtorrentVersion());
                 } catch (LinkageError e) {
                     // give it a try to the name without version
-                    System.loadLibrary("jlibtorrent");
+                    e.printStackTrace();
+                    try {
+                        System.out.println("Trying jlibtorrent.<so|dylib>...");
+                        System.loadLibrary("jlibtorrent");
+                        System.loadLibrary("Loaded jlibtorrent.<so|dylib> (version=" +  jlibtorrentVersion() + ")");
+                    } catch (Throwable t) {
+							          t.printStackTrace();
+										}
                 }
             } else {
                 System.load(path);
