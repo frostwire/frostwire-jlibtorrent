@@ -1,5 +1,7 @@
 1.2.13.0
  * openssl 1.1.1j upgrade
+ * Dockerized builds
+ * Dropped windows x86 build script
  * lt:fix incoming TCP connections when using tracker-only proxy
  * lt:fix issue with paths starting with ./
  * lt:fix integer overflow when setting a high DHT upload rate limit
