@@ -135,5 +135,6 @@ RUN sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x8
 RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 #RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > /build.sh
-RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > /build.sh
+#RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > /build.sh
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86_64.sh" > /build.sh
 RUN chmod +x /build.sh

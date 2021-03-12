@@ -14,14 +14,26 @@ unset_env_variables() {
 }
 unset_env_variables
 
+common_env() {
+ export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+ export LIBTORRENT_ROOT="${SRC}/libtorrent"
+ export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
+ export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+}
+
 android_env() {
   export SRC="/src"
   export OPENSSL_ROOT="/openssl-${os_arch}"
 }
 
-desktop_env() {
+macosx_env() {
   export SRC="${HOME}/src"
   export OPENSSL_ROOT="${SRC}/openssl"
+}
+
+windows_env() {
+  export SRC="${HOME}/src"
+  export OPENSSL_ROOT="${SRC}/openssl-windows"
 }
 
 export LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
@@ -58,13 +70,6 @@ export BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 export BOOST_ROOT="${SRC}/boost_${BOOST_UNDERSCORE_VERSION}"
 
 SWIG=`pwd`
-
-common_env() {
- export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
- export LIBTORRENT_ROOT="${SRC}/libtorrent"
- export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
- export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
-}
 
 prompt_msg() {
  echo
