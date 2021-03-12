@@ -17,6 +17,7 @@ RUN apt install -y swig
 RUN apt install -y openjdk-11-jdk-headless
 RUN apt install -y gradle
 
+ENV LIBTORRENT_REVISION="6aad9a463236f0e12f4c4808e4aa84aa0d8b7450"
 ENV BOOST_MAJOR="1"
 ENV BOOST_VERSION="73"
 ENV BOOST_MINOR="0"
@@ -103,6 +104,17 @@ RUN export CC=/src/android-toolchain-x86_64/bin/x86_64-linux-android-clang \
 RUN cd /src/openssl-src \
     && make clean \
     && cd ..
+
+# Prepare latest version of libtorrent
+RUN rm -fr /src/libtorrent
+RUN cd /src \
+    && git clone https://github.com/arvidn/libtorrent \
+    && cd libtorrent \
+    && git fetch origin RC_1_2 \
+    && git reset --hard ${LIBTORRENT_REVISION} \
+    && git submodule init \
+    && git submodule update \
+    && cd /
 
 # Android cleanup (maybe not needed for jlibtorrent)
 RUN sed -i 's/POSIX_FADV_RANDOM 1/POSIX_FADV_RANDOM_NOOP 0/g' /src/android-toolchain-arm/sysroot/usr/include/linux/fadvise.h
