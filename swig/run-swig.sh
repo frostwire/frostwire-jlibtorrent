@@ -3,6 +3,7 @@
 source build-utils.shinc
 
 abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+echo "run-swig.sh: BOOST_ROOT=${BOOST_ROOT}"
 abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
 
 # Extracted from ../build.gradle
@@ -29,17 +30,17 @@ function fixCode() {
 }
 
 function refixCode() {
-    uname=`uname -s`    
-    if [ "$(uname)" == "Darwin" ]; then   
+    uname=`uname -s`
+    if [ "$(uname)" == "Darwin" ]; then
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i '' 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i '' 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp      
+      sed -i '' 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
     else
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp      
+      sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
     fi
 }
 
@@ -53,7 +54,7 @@ function runJni()
     #./run-swig.sh: line 33: 46204 Segmentation fault
     # Make sure your swig command is compiled from source, version 3.0.12 works on mac
     # https://sourceforge.net/projects/swig/files/swig/swig-3.0.12/swig-3.0.12.tar.gz/download
-    
+
     swig -c++ -java -o libtorrent_jni.cpp \
         -outdir ${JAVA_SRC_OUTPUT} \
         -package com.frostwire.jlibtorrent.swig \
@@ -96,18 +97,18 @@ function runJni()
     # and we know we can do it. The main reason is to be able to
     # compile with -fno-rtti.
     uname=`uname -s`
-    if [ "$(uname)" == "Darwin" ]; then    
+    if [ "$(uname)" == "Darwin" ]; then
 	sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
     else
-	sed -i 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp	
+	sed -i 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
     fi
-    
+
     # replace jlibtorrent version
     #uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then
 	sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
     else
-	sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java	
+	sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
     fi
 }
 
