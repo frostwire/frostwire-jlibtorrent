@@ -6,32 +6,28 @@
 # ../build/libs/${LIBRARY_NAME}-android-x86-<version>.jar
 # remote android-x86 build with travis is available at https://s3.amazonaws.com/gubatron-${LIBRARY_NAME}/release/android/x86/lib${LIBRARY_NAME}.so
 source build-utils.shinc
-check_min_req_vars
 export os_arch=x86
 export os_build=android
 export android_api=21
 export SHARED_LIB=lib${LIBRARY_NAME}.so
-export CXX=g++
+export ANDROID_TOOLCHAIN="/src/android-toolchain-x86"
+export CXX=${ANDROID_TOOLCHAIN}/bin/i686-linux-android-clang++
+export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android-clang
 export NDK_VERSION=r21d
-prepare_android_toolchain
-abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
+
+android_env
+common_env
+check_min_req_vars
+
 export run_openssl_configure="./Configure linux-elf ${OPENSSL_NO_OPTS} -fPIC -mstackrealign --prefix=${OPENSSL_ROOT}"
+
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
-export run_bjam="${BOOST_ROOT}/b2 -j8 -q --debug-building --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
+export run_bjam="${BOOST_ROOT}/b2 -j4 -q --debug-building --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
 export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_objcopy="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-objcopy --only-keep-debug bin/release/${os_build}/${os_arch}/${SHARED_LIB} bin/release/${os_build}/${os_arch}/${SHARED_LIB}.debug"
-export PATH=$ANDROID_TOOLCHAIN/i686-linux-android/bin:$PATH;
-sed -i 's/RANLIB = ranlib/RANLIB = "${ANDROID_TOOLCHAIN}\/bin\/i686-linux-android-ranlib"/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
-create_folder_if_it_doesnt_exist ${SRC}
-prompt_msg "About to prepare BOOST ${BOOST_VERSION}"
-press_any_to_continue
-prepare_boost
-export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang
-prepare_openssl
-build_openssl
-export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang++
+export PATH=${ANDROID_TOOLCHAIN}/i686-linux-android/bin:$PATH;
+#sed -i 's/RANLIB = ranlib/RANLIB = "${ANDROID_TOOLCHAIN}\/bin\/i686-linux-android-ranlib"/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
 export CXXFLAGS="-fPIC -std=c++14 -DANDROID -D__STDC_FORMAT_MACROS -DWITH_IPP=OFF -D__USE_FILE_OFFSET64 -D_FILE_OFFSET_BITS=64 -fno-strict-aliasing -fvisibility=hidden -mstackrealign"
 export LDFLAGS="-static-libstdc++"
-prepare_libtorrent
-./run-swig.sh
+export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION} && ./run-swig.sh
 build_libraries
