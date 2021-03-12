@@ -17,8 +17,12 @@ RUN apt install -y swig
 RUN apt install -y openjdk-11-jdk-headless
 RUN apt install -y gradle
 
-ENV BOOST_DOT_VERSION="1.73.0"
-ENV BOOST_VERSION="1_73_0"
+ENV BOOST_MAJOR="1"
+ENV BOOST_VERSION="73"
+ENV BOOST_MINOR="0"
+ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
+ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
 ENV NDK_VERSION="r21d"
 ENV OPENSSL_VERSION="1.1.1j"
 ENV OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
@@ -31,9 +35,9 @@ RUN mkdir src
 
 # prepare_boost
 RUN cd /src \
-    && wget -nv -O boost.tar.gz https://dl.bintray.com/boostorg/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_VERSION}.tar.gz \
+    && wget -nv -O boost.tar.gz https://dl.bintray.com/boostorg/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz \
     && tar xzf boost.tar.gz \
-    && cd boost_${BOOST_VERSION} \
+    && cd boost_${BOOST_UNDERSCORE_VERSION} \
     && ./bootstrap.sh
 
 # download android NDK
@@ -115,7 +119,7 @@ RUN sed -i 's/28/19/g' /src/android-toolchain-x86/sysroot/usr/include/sys/random
 RUN sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/stdio.h
 RUN sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/ifaddrs.h
 RUN sed -i 's/28/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/sys/random.h
-RUN sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x86_64-linux-android-ranlib"/g' /src/boost_${BOOST_VERSION}/tools/build/src/tools/gcc.jam
+RUN sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x86_64-linux-android-ranlib"/g' /src/boost_${BOOST_UNDERSCORE_VERSION}/tools/build/src/tools/gcc.jam
 RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > /build.sh
