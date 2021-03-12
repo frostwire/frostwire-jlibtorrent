@@ -10,6 +10,9 @@ version '1.2.13.0'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
 if (!hasProperty('ossrhUsername')) {
     ext.ossrhUsername = ''
 }
