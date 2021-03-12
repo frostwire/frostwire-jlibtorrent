@@ -24,12 +24,12 @@ desktop_env() {
   export OPENSSL_ROOT="${SRC}/openssl"
 }
 
-LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
-LIBRARY_NAME=jlibtorrent
-LIBTORRENT_REVISION=6aad9a463236f0e12f4c4808e4aa84aa0d8b7450 # fix incoming TCP connections when using tracker-only proxy
-OPENSSL_VERSION="1.1.1j"
+export LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
+export LIBRARY_NAME=jlibtorrent
+export LIBTORRENT_REVISION=6aad9a463236f0e12f4c4808e4aa84aa0d8b7450 # fix incoming TCP connections when using tracker-only proxy
+export OPENSSL_VERSION="1.1.1j"
 #BOOST_VERSION="74"
-BOOST_VERSION="73"
+export BOOST_VERSION="73"
 # TEMP NOTES ON BOOST ISSUES, DEC 13 2020
 # Reverting to boost 1.73.
 # To build on macOS you need to comment the following line on ${BOOST_ROOT}/tools/build/src/tools/darwin.jam
@@ -51,8 +51,12 @@ BOOST_VERSION="73"
 # With boost 1.75 swig will issue these boost related warnings, something must have changed
 # Warning 315: Nothing known about 'boost::system::generic_category'
 # 'boost::system::system_category'
-BOOST_MAJOR="1"
-BOOST_MINOR="0"
+export BOOST_MAJOR="1"
+export BOOST_MINOR="0"
+export BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
+export BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+export BOOST_ROOT="${SRC}/boost_${BOOST_UNDERSCORE_VERSION}"
+
 SWIG=`pwd`
 
 common_env() {
