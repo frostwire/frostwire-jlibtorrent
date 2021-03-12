@@ -14,6 +14,16 @@ unset_env_variables() {
 }
 unset_env_variables
 
+android_env() {
+  export SRC="/src"
+  export OPENSSL_ROOT="/openssl-${os_arch}"
+}
+
+desktop_env() {
+  export SRC="${HOME}/src"
+  export OPENSSL_ROOT="${SRC}/openssl"
+}
+
 LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
 LIBRARY_NAME=jlibtorrent
 LIBTORRENT_REVISION=6aad9a463236f0e12f4c4808e4aa84aa0d8b7450 # fix incoming TCP connections when using tracker-only proxy
@@ -44,12 +54,13 @@ BOOST_VERSION="73"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`
-SRC="${HOME}/src"
-BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
-LIBTORRENT_ROOT="${SRC}/libtorrent"
-OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
-OPENSSL_ROOT="${SRC}/openssl"
-export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+
+common_env() {
+ export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+ export LIBTORRENT_ROOT="${SRC}/libtorrent"
+ export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
+ export OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+}
 
 prompt_msg() {
  echo
@@ -150,7 +161,7 @@ prepare_android_toolchain() {
   if [[ $host_os == "linux" ]]; then
       sudo apt install swig
   fi
-  
+
   download_android_ndk
 
   export NDK=$PWD/android-ndk-${NDK_VERSION}
@@ -178,7 +189,7 @@ prepare_android_standalone_toolchain() {
   if [[ $host_os == "linux" ]]; then
       sudo apt install swig
   fi
-  
+
   download_android_ndk
 
   export NDK=$PWD/android-ndk-${NDK_VERSION}
@@ -258,7 +269,7 @@ build_openssl() {
     make -j 8
     make install_sw
     popd
-  fi  
+  fi
   if [[ $os_build == "windows" ]]; then
     pushd ${OPENSSL_ROOT}/lib
     if [ -L libcrypto.lib ]; then
@@ -282,7 +293,7 @@ prepare_libtorrent() {
     pushd ${SRC}
     git clone https://github.com/arvidn/libtorrent
     popd
-  fi 
+  fi
   pushd ${LIBTORRENT_ROOT}
   prompt_msg "Checking if you have any uncommited changes"
   git status
@@ -312,7 +323,7 @@ build_libraries() {
   if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
     pwd
     sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp;
-  fi    
+  fi
   export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
   echo "Added boost tools to PATH:"
   echo ${PATH}
@@ -328,7 +339,7 @@ build_libraries() {
   if [[ $os_build == "windows" ]]; then
     cp bin/release/windows/${os_arch}/libjlibtorrent.dll bin/release/windows/${os_arch}/jlibtorrent.dll
   fi
-  
+
   cd ..
 
   # so that tests pass when running on mac or linux we copy the shared library to the root folder
@@ -347,7 +358,7 @@ cleanup_objects() {
     find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
     find . -empty -type d | xargs rm -r
   else
-    echo ${SWIG}/bin folder not found, nothing to clean  
+    echo ${SWIG}/bin folder not found, nothing to clean
   fi
   cd ${SWIG}
   cd ..
