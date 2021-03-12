@@ -2,8 +2,20 @@ FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt update -y \
-    && apt install -y wget unzip less python perl make cmake g++ git ssh swig gradle
+RUN apt update -y
+RUN apt install -y wget
+RUN apt install -y unzip
+RUN apt install -y less
+RUN apt install -y python
+RUN apt install -y perl
+RUN apt install -y make
+RUN apt install -y cmake
+RUN apt install -y g++
+RUN apt install -y git
+RUN apt install -y ssh
+RUN apt install -y swig
+RUN apt install -y openjdk-11-jdk-headless
+RUN apt install -y gradle
 
 ENV BOOST_DOT_VERSION="1.73.0"
 ENV BOOST_VERSION="1_73_0"
@@ -88,23 +100,21 @@ RUN cd /src/openssl-src \
     && make clean \
     && cd ..
 
-# Android cleanup (maybe not needed for jlbitorrent)
-RUN sed -i 's/POSIX_FADV_RANDOM 1/POSIX_FADV_RANDOM_NOOP 0/g' /src/android-toolchain-arm/sysroot/usr/include/linux/fadvise.h \
-    && sed -i 's/24/19/g' /src/android-toolchain-arm/sysroot/usr/include/stdio.h \
-    && sed -i 's/24/19/g' /src/android-toolchain-arm/sysroot/usr/include/ifaddrs.h \
-    && sed -i 's/28/19/g' /src/android-toolchain-arm/sysroot/usr/include/sys/random.h \
-    && sed -i 's/24/21/g' /src/android-toolchain-arm64/sysroot/usr/include/stdio.h \
-    && sed -i 's/24/21/g' /src/android-toolchain-arm64/sysroot/usr/include/ifaddrs.h \
-    && sed -i 's/28/21/g' /src/android-toolchain-arm64/sysroot/usr/include/sys/random.h \
-    && sed -i 's/POSIX_FADV_RANDOM 1/POSIX_FADV_RANDOM_NOOP 0/g' /src/android-toolchain-x86/sysroot/usr/include/linux/fadvise.h \
-    && sed -i 's/24/19/g' /src/android-toolchain-x86/sysroot/usr/include/stdio.h \
-    && sed -i 's/24/19/g' /src/android-toolchain-x86/sysroot/usr/include/ifaddrs.h \
-    && sed -i 's/28/19/g' /src/android-toolchain-x86/sysroot/usr/include/sys/random.h \
-    && sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/stdio.h \
-    && sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/ifaddrs.h \
-    && sed -i 's/28/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/sys/random.h \
-    && sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x86_64-linux-android-ranlib"/g' /src/boost/tools/build/src/tools/gcc.jam
-
+# Android cleanup (maybe not needed for jlibtorrent)
+RUN sed -i 's/POSIX_FADV_RANDOM 1/POSIX_FADV_RANDOM_NOOP 0/g' /src/android-toolchain-arm/sysroot/usr/include/linux/fadvise.h
+RUN sed -i 's/24/19/g' /src/android-toolchain-arm/sysroot/usr/include/stdio.h
+RUN sed -i 's/24/19/g' /src/android-toolchain-arm/sysroot/usr/include/ifaddrs.h
+RUN sed -i 's/28/19/g' /src/android-toolchain-arm/sysroot/usr/include/sys/random.h
+RUN sed -i 's/24/21/g' /src/android-toolchain-arm64/sysroot/usr/include/stdio.h
+RUN sed -i 's/24/21/g' /src/android-toolchain-arm64/sysroot/usr/include/ifaddrs.h
+RUN sed -i 's/28/21/g' /src/android-toolchain-arm64/sysroot/usr/include/sys/random.h
+RUN sed -i 's/POSIX_FADV_RANDOM 1/POSIX_FADV_RANDOM_NOOP 0/g' /src/android-toolchain-x86/sysroot/usr/include/linux/fadvise.h
+RUN sed -i 's/24/19/g' /src/android-toolchain-x86/sysroot/usr/include/stdio.h
+RUN sed -i 's/24/19/g' /src/android-toolchain-x86/sysroot/usr/include/ifaddrs.h
+RUN sed -i 's/28/19/g' /src/android-toolchain-x86/sysroot/usr/include/sys/random.h
+RUN sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/stdio.h
+RUN sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/ifaddrs.h
+RUN sed -i 's/28/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/sys/random.h
+#RUN sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x86_64-linux-android-ranlib"/g' /src/boost/tools/build/src/tools/gcc.jam
 RUN mkdir frostwire-jlibtorrent
-
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
