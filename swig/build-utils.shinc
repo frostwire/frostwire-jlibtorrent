@@ -26,21 +26,20 @@ android_env() {
   export OPENSSL_ROOT="/openssl-${os_arch}"
 }
 
+windows_env() {
+  export SRC="/src"
+  export OPENSSL_ROOT="/openssl-windows-x86_64"
+}
+
 macosx_env() {
   export SRC="${HOME}/src"
   export OPENSSL_ROOT="${SRC}/openssl"
-}
-
-windows_env() {
-  export SRC="${HOME}/src"
-  export OPENSSL_ROOT="${SRC}/openssl-windows"
 }
 
 export LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
 export LIBRARY_NAME=jlibtorrent
 export LIBTORRENT_REVISION=6aad9a463236f0e12f4c4808e4aa84aa0d8b7450 # fix incoming TCP connections when using tracker-only proxy
 export OPENSSL_VERSION="1.1.1j"
-#BOOST_VERSION="74"
 export BOOST_VERSION="73"
 # TEMP NOTES ON BOOST ISSUES, DEC 13 2020
 # Reverting to boost 1.73.
@@ -232,15 +231,10 @@ prepare_linux_toolchain() {
   echo "done preparing linux toolchain"
 }
 
-prepare_windows_x86_toolchain() {
-  echo "preparing windows x86 toolchain..."
-  sudo apt-get install -qq g++-mingw-w64-i686 swig
-}
-
-prepare_windows_x86_64_toolchain() {
-  echo "preparing windows x86_64 toolchain..."
-  sudo apt-get install -qq g++-mingw-w64-x86-64 swig
-}
+# prepare_windows_x86_64_toolchain() {
+#   echo "preparing windows x86_64 toolchain..."
+#   sudo apt-get install -qq g++-mingw-w64-x86-64 swig
+# }
 
 prepare_openssl() {
   abort_if_var_unset "SRC" ${SRC}
