@@ -16,6 +16,7 @@ RUN apt install -y ssh
 RUN apt install -y swig
 RUN apt install -y openjdk-11-jdk-headless
 RUN apt install -y gradle
+RUN apt install -y g++-mingw-w64-x86-64
 
 ENV LIBTORRENT_REVISION="6aad9a463236f0e12f4c4808e4aa84aa0d8b7450"
 ENV BOOST_MAJOR="1"
@@ -100,6 +101,23 @@ RUN export CC=/src/android-toolchain-x86_64/bin/x86_64-linux-android-clang \
     && make install_sw \
     && cd ..
 
+#Build OpenSSL for Windows x86_64
+RUN cd /src \
+    && mkdir windows \
+    && tar xvfz openssl.tar.gz --directory windows \
+    && cd /src/windows/openssl-${OPENSSL_VERSION} \
+    && sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' crypto/cryptlib.c \
+    && sed -i 's/MessageBox.*//g' crypto/cryptlib.c \
+    && sed -i 's/return return 0;/return 0;/g' crypto/threads_none.c \
+    && export CC=export CC=x86_64-w64-mingw32-gcc-posix \
+    && ./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=/openssl-windows-x86_64 \
+    && make clean \
+    && make \
+    && make install_sw \
+    && cd /openssl-windows-x86_64/lib \
+    && cp libcrypto.a libcrypto.lib \
+    && cp libssl.a libssl.lib
+
 # Make clean
 RUN cd /src/openssl-src \
     && make clean \
@@ -136,5 +154,6 @@ RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 #RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > /build.sh
 #RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > /build.sh
-RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86_64.sh" > /build.sh
+#RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86_64.sh" > /build.sh
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh" > /build.sh
 RUN chmod +x /build.sh

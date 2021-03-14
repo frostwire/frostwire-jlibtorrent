@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script is meant to run here inside the swig folder in the Docker image
+# This script is meant to run here inside the swig folder in the Docker container
 # It's supposed to be a one step build for the java jar and android (.so enclosing) jars (armv8 and x86)
 # Output .jar files will be at:
 # ../build/libs/${LIBRARY_NAME}-<version>.jar
