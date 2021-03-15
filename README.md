@@ -17,7 +17,7 @@ All platforms will need you to use at least 2 `.jar` files.
 
 The `.jar` with the java classes -> `jlibtorrent-w.x.y.z.jar` and a secondary `.jar`s containing the JNI binary library for the particular OS and CPU architecture.
 
-In the case of desktop operating systems, you might want to extract the shared library inside the jar (.dll, .so, .dylib) and place it in a folder specified by the `java.library.path` 
+In the case of desktop operating systems, you might want to extract the shared library inside the jar (.dll, .so, .dylib) and place it in a folder specified by the `java.library.path`
 
 The secondary jars are:
  - Windows: `jlibtorrent-windows-w.x.y.z.jar` (x86 and x86_64 .dlls)
@@ -27,7 +27,9 @@ The secondary jars are:
 In the case of Android, make sure to put the following 3 jars in your project's `libs` folder (see [FrostWire for Android's](https://github.com/frostwire/frostwire/tree/master/android/libs) as an example):
  - `jlibtorrent-w.x.y.z.jar`
  - `jlibtorrent-android-arm-w.x.y.z.jar`
+ - `jlibtorrent-android-arm64-w.x.y.z.jar`
  - `jlibtorrent-android-x86-w.x.y.z.jar`
+ - `jlibtorrent-android-x86_64-w.x.y.z.jar`
 
 If you use ProGuard to obfuscate/minify make sure to add the following statement
 
@@ -41,23 +43,39 @@ For examples look at https://github.com/frostwire/frostwire-jlibtorrent/tree/mas
 Architectures supported:
 
 - Android (armeabi-v7a, arm64-v8a, x86, x86_64)
-- Linux (x86, x86_64)
-- Windows (x86, x86_64)
+- Linux (x86_64)
+- Windows (x86_64)
 - Mac OS X (x86_64)
 
-Building Locally (Mac and Linux)
+Building
 ================================
 
-A build script exists for each operating system, for example if you're on macos you can use the `build-macos.sh`, running it without setting things up should tell you about certain environment variables you'll need to set up. To understand the build process we recommend you read your corresponding build script and [`build-utils.shinc`](https://github.com/frostwire/frostwire-jlibtorrent/blob/master/swig/build-utils.shinc)
+To build the macos (x86_64) binaries you will need a mac computer, to build the mac library issue the following command:
 
-The hacking and building process might require you to run the `run-swig.sh` script, we usually need to run this script if there are C++ api changes in libtorrent that require adjustments in `libtorrent.i` or `libtorrent.h`, this script will create automatic JNI wrappers in the outer source java folders. You should not run this script unless you know what you're doing.
+`cd swig && ./build-macos.sh`
 
-Then you run the build script for your OS, get to the parent folder and invoke
-`gradle build`
+To build the windows (x86_64), linux (x86_64) and android binaries (arm, arm64, x86, x86_64) ***you will need a working version of Docker***, then just issue the following command
 
-The gradle build will look in the swig folder for the JNI shared libraries and it will automatically package the native holding `.jar` files, the final jars will be in the `build/libs` folder.
+`cd swig && ./docker_build_binaries.sh`
 
-The windows build script is not finished, for now the windows build is done with travis builds.
+The resulting jars will be at:
+ - `./build/libs/jlibtorrent-w.x.y.z.jar`
+ - `./build/libs/jlibtorrent-windows-w.x.y.z.jar`
+ - `./build/libs/jlibtorrent-macos-w.x.y.z.jar`
+ - `./build/libs/jlibtorrent-linux-w.x.y.z.jar`
+ - `./build/libs/jlibtorrent-android-arm-w.x.y.z.jar`
+ - `./build/libs/jlibtorrent-android-arm64-w.x.y.z.jar`
+ - `./build/libs/jlibtorrent-android-x86-w.x.y.z.jar`
+ - `./build/libs/jlibtorrent-android-x86_64-w.x.y.z.jar`
+
+ If you need the singled out `.so`,`.dylib` and `.dll` files and their `.debug` versions they will be at:
+ - `./swig/bin/release/windows/x86_64/jlibtorrent.dll`
+ - `./swig/bin/release/macosx/x86_64/libjlibtorrent.dylib`
+ - `./swig/bin/release/linux/x86_64/libjlibtorrent.so`
+ - `./swig/bin/release/android/armeabi-v7a/libjlibtorrent.so`
+ - `./swig/bin/release/android/arm64-v8a/libjlibtorrent.so`
+ - `./swig/bin/release/android/x86/libjlibtorrent.so`
+ - `./swig/bin/release/android/x86_64/libjlibtorrent.so`
 
 Projects using jLibtorrent
 ==========================
