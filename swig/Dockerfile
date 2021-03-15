@@ -166,9 +166,5 @@ RUN sed -i 's/28/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/sys/ran
 RUN sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x86_64-linux-android-ranlib"/g' /src/boost_${BOOST_UNDERSCORE_VERSION}/tools/build/src/tools/gcc.jam
 RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
-#RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > /build.sh
-#RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > /build.sh
-#RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86_64.sh" > /build.sh
-#RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh" > /build.sh
-RUN echo "cd /frostwire-jlibtorrent/swig && ./build-linux-x86_64.sh" > /build.sh
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh && ./build-android-arm64.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build.sh
 RUN chmod +x /build.sh
