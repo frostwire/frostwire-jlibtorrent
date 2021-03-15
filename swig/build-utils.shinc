@@ -36,6 +36,11 @@ macosx_env() {
   export OPENSSL_ROOT="${SRC}/openssl"
 }
 
+linux_env() {
+  export SRC="/src"
+  export OPENSSL_ROOT="/openssl-linux-x86_64"
+}
+
 export LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
 export LIBRARY_NAME=jlibtorrent
 export LIBTORRENT_REVISION=6aad9a463236f0e12f4c4808e4aa84aa0d8b7450 # fix incoming TCP connections when using tracker-only proxy
@@ -144,98 +149,6 @@ prepare_boost() {
   popd
 }
 
-download_android_ndk() {
-  abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
-  if [ ! -f android-ndk-${NDK_VERSION}.zip ]; then
-    prompt_msg "download_android_ndk: Downloading android-ndk-${NDK_VERSION}"
-    wget -4 -O android-ndk-${NDK_VERSION}.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-${host_os}-x86_64.zip;
-    prompt_msg "download_android_ndk: Extracting NDK...wait";
-    unzip -qq android-ndk-${NDK_VERSION}.zip;
-  fi
-}
-
-prepare_android_toolchain() {
-  abort_if_var_unset "SRC" ${SRC}
-  abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
-  abort_if_var_unset "os_arch" ${os_arch}
-  abort_if_var_unset "android_api" ${android_api}
-  pushd ${SRC}
-
-  host_os="linux"
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-      host_os="darwin"
-  fi
-
-  if [[ $host_os == "linux" ]]; then
-      sudo apt install swig
-  fi
-
-  download_android_ndk
-
-  export NDK=$PWD/android-ndk-${NDK_VERSION}
-  prompt_msg "prepare_android_toolchain: NDK=${NDK}"
-
-  # Use the prebuilt toolchain path
-  export ANDROID_TOOLCHAIN=${NDK}/toolchains/llvm/prebuilt/linux-x86_64
-  echo "ANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}"
-  press_any_to_continue
-  popd
-}
-
-prepare_android_standalone_toolchain() {
-  abort_if_var_unset "SRC" ${SRC}
-  abort_if_var_unset "NDK_VERSION" ${NDK_VERSION}
-  abort_if_var_unset "os_arch" ${os_arch}
-  abort_if_var_unset "android_api" ${android_api}
-  pushd ${SRC}
-
-  host_os="linux"
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-      host_os="darwin"
-  fi
-
-  if [[ $host_os == "linux" ]]; then
-      sudo apt install swig
-  fi
-
-  download_android_ndk
-
-  export NDK=$PWD/android-ndk-${NDK_VERSION}
-  prompt_msg "NDK=${NDK}"
-
-  if [ -d standalone_toolchain ]; then
-    rm -fr standalone_toolchain
-  fi
-
-  #try this command to get path of the prebuilt toolchain in the warnings
-  $NDK/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir standalone_toolchain
-  #./build/tools/make_standalone_toolchain.py --arch x86 --api 21 --stl libc++ --install-dir standalone_toolchain
-  #./build/tools/make_standalone_toolchain.py --arch x86_64 --api 21 --stl libc++ --install-dir standalone_toolchain
-  #./build/tools/make_standalone_toolchain.py --arch arm --api 21 --stl libc++ --install-dir standalone_toolchain
-  #./build/tools/make_standalone_toolchain.py --arch arm64 --api 21 --stl libc++ --install-dir standalone_toolchain
-
-  # Use the standalone toolchain path
-  export ANDROID_TOOLCHAIN=${PWD}/standalone_toolchain
-  prompt_msg "prepare_android_standalone_toolchain: ANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}"
-  popd
-}
-
-prepare_linux_toolchain() {
-  echo "preparing linux toolchain..."
-  sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  sudo apt-get update -qq
-  sudo apt-get install -qq g++-7 g++-7-multilib swig
-  sudo apt-get install build-essential gradle
-  sudo apt-get install openjdk-11-jdk-headless
-  sudo apt-get install python python-dev
-  echo "done preparing linux toolchain"
-}
-
-# prepare_windows_x86_64_toolchain() {
-#   echo "preparing windows x86_64 toolchain..."
-#   sudo apt-get install -qq g++-mingw-w64-x86-64 swig
-# }
-
 prepare_openssl() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
@@ -247,12 +160,6 @@ prepare_openssl() {
     wget -4 --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
     tar xvfz openssl.tar.gz
     rm -f openssl.tar.gz
-    # avoid GDI dependency in windows, fix double return statement on threads_none.c
-    if [[ $os_build == "windows" ]]; then
-      sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' ${OPENSSL_SOURCE}/crypto/cryptlib.c;
-      sed -i 's/MessageBox.*//g' ${OPENSSL_SOURCE}/crypto/cryptlib.c;
-      sed -i 's/return return 0;/return 0;/g' ${OPENSSL_SOURCE}/crypto/threads_none.c;
-    fi
     popd
   fi
 }
@@ -271,18 +178,6 @@ build_openssl() {
     $run_openssl_configure
     make -j 8
     make install_sw
-    popd
-  fi
-  if [[ $os_build == "windows" ]]; then
-    pushd ${OPENSSL_ROOT}/lib
-    if [ -L libcrypto.lib ]; then
-      rm libcrypto.lib
-    fi
-    if [ -L libssl.lib ]; then
-      rm libssl.lib
-    fi
-    ln -s libcrypto.a libcrypto.lib
-    ln -s libssl.a libssl.lib
     popd
   fi
 }

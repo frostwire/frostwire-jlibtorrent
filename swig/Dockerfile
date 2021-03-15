@@ -3,6 +3,11 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update -y
+# Common Java tooling
+RUN apt install -y openjdk-11-jdk-headless
+RUN apt install -y gradle
+RUN apt install -y swig
+# Common tooling
 RUN apt install -y wget
 RUN apt install -y unzip
 RUN apt install -y less
@@ -13,10 +18,11 @@ RUN apt install -y cmake
 RUN apt install -y g++
 RUN apt install -y git
 RUN apt install -y ssh
-RUN apt install -y swig
-RUN apt install -y openjdk-11-jdk-headless
-RUN apt install -y gradle
+# Windows toolchain
 RUN apt install -y g++-mingw-w64-x86-64
+# Linux Toolchain
+RUN apt install -y g++-7
+RUN apt install -y g++-7-multilib
 
 ENV LIBTORRENT_REVISION="6aad9a463236f0e12f4c4808e4aa84aa0d8b7450"
 ENV BOOST_MAJOR="1"
@@ -118,6 +124,14 @@ RUN cd /src \
     && cp libcrypto.a libcrypto.lib \
     && cp libssl.a libssl.lib
 
+#Build OpenSSL for Linux x86_64
+RUN export CC=gcc-7 \
+    && cd /src/openssl-src \
+    && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=/openssl-linux-x86_64 \
+    && make clean \
+    && make \
+    && make install_sw
+
 # Make clean
 RUN cd /src/openssl-src \
     && make clean \
@@ -155,5 +169,6 @@ RUN echo "This folder will be mounted dynamically from the base of our repo ever
 #RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > /build.sh
 #RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > /build.sh
 #RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86_64.sh" > /build.sh
-RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh" > /build.sh
+#RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh" > /build.sh
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-linux-x86_64.sh" > /build.sh
 RUN chmod +x /build.sh
