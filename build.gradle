@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'signing'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 group 'com.frostwire'
 archivesBaseName = 'jlibtorrent'
@@ -128,11 +129,6 @@ artifacts {
     archives nativeAndroidX64Jar
 }
 
-signing {
-    required { gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
-}
-
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -210,7 +206,7 @@ uploadArchives {
 def pomData() {
     return {
         resolveStrategy = Closure.DELEGATE_FIRST
-        name 'frostwire-jlibtorrent'
+        name 'jlibtorrent'
         description 'A swig Java interface for libtorrent by the makers of FrostWire.'
         url 'https://github.com/frostwire/frostwire-jlibtorrent'
         scm {
@@ -249,3 +245,78 @@ def addDependency(root) {
     depNode.appendNode('artifactId', archivesBaseName)
     depNode.appendNode('version', version)
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            pom {
+                pomData()
+                artifactId = 'jlibtorrent'
+            }
+        }
+        mavenMacOSX(MavenPublication) {
+
+            artifact source: nativeMacOSXJar
+            pom {
+                pomData()
+                artifactId = "$archivesBaseName-macosx"
+            }
+        }
+        mavenWindows(MavenPublication) {
+            artifact nativeWindowsJar
+            pom {
+                pomData()
+                artifactId = "$archivesBaseName-windows"
+            }
+        }
+        mavenLinux(MavenPublication) {
+            artifact nativeLinuxJar
+            pom {
+                pomData()
+                artifactId = "$archivesBaseName-linux"
+            }
+        }
+        mavenAndroidArm(MavenPublication) {
+            artifact nativeAndroidArmJar
+            pom {
+                pomData()
+                artifactId = "$archivesBaseName-android-arm"
+            }
+        }
+        mavenAndroidX86(MavenPublication) {
+            artifact nativeAndroidX86Jar
+            pom {
+                pomData()
+                artifactId = "$archivesBaseName-android-x86"
+            }
+        }
+        mavenAndroidArm64(MavenPublication) {
+            artifact nativeAndroidArm64Jar
+            pom {
+                pomData()
+                artifactId = "$archivesBaseName-android-arm64"
+            }
+        }
+        mavenAndroidX64(MavenPublication) {
+            artifact nativeAndroidX64Jar
+            pom {
+                pomData()
+                artifactId = "$archivesBaseName-android-x86_64"
+            }
+        }
+    }
+}
+
+signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+
+//signing {
+//    def signingKey = findProject("signingKey")
+//    def signingPassword = findProject("signingPassword")
+//    useInMemoryPgpKeys(signingKey.toString(), signingPassword.toString())
+//    sign publishing.publications.mavenJava
+//}
