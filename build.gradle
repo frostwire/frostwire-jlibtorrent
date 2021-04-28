@@ -315,8 +315,8 @@ signing {
 
 
 //signing {
-//    def signingKey = findProject("signingKey")
-//    def signingPassword = findProject("signingPassword")
+//    def signingKey = "$System.env.SIGNING_KEY"
+//    def signingPassword = "$System.env.SIGNING_PASSWORD"
 //    useInMemoryPgpKeys(signingKey.toString(), signingPassword.toString())
 //    sign publishing.publications.mavenJava
 //}
