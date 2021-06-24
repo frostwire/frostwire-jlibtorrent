@@ -23,6 +23,8 @@ RUN apt install -y g++-mingw-w64-x86-64
 # Linux Toolchain
 RUN apt install -y g++-7
 RUN apt install -y g++-7-multilib
+# For testing and debugging
+RUN apt install emacs-nox
 
 ENV LIBTORRENT_REVISION="6aad9a463236f0e12f4c4808e4aa84aa0d8b7450"
 ENV BOOST_MAJOR="1"
@@ -166,5 +168,10 @@ RUN sed -i 's/28/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/sys/ran
 RUN sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x86_64-linux-android-ranlib"/g' /src/boost_${BOOST_UNDERSCORE_VERSION}/tools/build/src/tools/gcc.jam
 RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
+
 RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build.sh
+
+# If you only want to build the binaries used by the Android emulator on macOS uncomment this
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > build.sh
+
 RUN chmod +x /build.sh
