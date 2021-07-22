@@ -24,7 +24,7 @@ RUN apt install -y g++-mingw-w64-x86-64
 RUN apt install -y g++-7
 RUN apt install -y g++-7-multilib
 # For testing and debugging
-RUN apt install emacs-nox
+RUN apt install -y emacs-nox
 
 ENV LIBTORRENT_REVISION="6aad9a463236f0e12f4c4808e4aa84aa0d8b7450"
 ENV BOOST_MAJOR="1"
@@ -66,7 +66,7 @@ RUN cd /src \
 RUN cd /src \
     && android-ndk/build/tools/make_standalone_toolchain.py --arch arm --api 19 --stl libc++ --install-dir android-toolchain-arm \
     && android-ndk/build/tools/make_standalone_toolchain.py --arch arm64 --api 21 --stl libc++ --install-dir android-toolchain-arm64 \
-    && android-ndk/build/tools/make_standalone_toolchain.py --arch x86 --api 19 --stl libc++ --install-dir android-toolchain-x86 \
+    && android-ndk/build/tools/make_standalone_toolchain.py --arch x86 --api 24 --stl libc++ --install-dir android-toolchain-x86 \
     && android-ndk/build/tools/make_standalone_toolchain.py --arch x86_64 --api 21 --stl libc++ --install-dir android-toolchain-x86_64
 
 # Build OpenSSL arm
