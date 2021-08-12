@@ -42,7 +42,7 @@ For examples look at https://github.com/frostwire/frostwire-jlibtorrent/tree/mas
 
 Architectures supported:
 
-- Android (armeabi-v7a, arm64-v8a, x86, x86_64)
+- Android (armeabi-v7a, arm64-v8a, x86, x86_64) sdk 24 (Android 7.0) and up
 - Linux (x86_64)
 - Windows (x86_64)
 - Mac OS X (x86_64)

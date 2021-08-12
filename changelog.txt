@@ -1,3 +1,17 @@
+1.2.14.0
+ * Android builds no longer use netlink sockets, instead use ifaddr sockets
+ * Android 6.0 and below compatibility dropped. Compatible with SDK 24 and up
+ * lt:fix issue on MacOS where the DHT was not restarted on a network-up notification
+ * lt:make remove_torrent flags be treated as flags (instead of an enum)
+ * lt:improve handling of seed flag in PEX messages
+ * lt:fix issue of accruing unlimited DHT node candidates when DHT is disabled
+ * lt:fix bug in parsing chunked encoding
+ * lt:fix incorrect reporting of active_duration when entering graceful-pause
+ * lt:fix python binding for functions taking string_view
+ * lt:fix python binding for torrent_info constructor overloads
+ * lt:issue python deprecation warnings for some deprecated functions in the python bindings
+ * lt:fix python binding for torrent_info::add_url_seed, add_tracker and add_http_seed
+
 1.2.13.0
  * openssl 1.1.1j upgrade
  * Dockerized builds
