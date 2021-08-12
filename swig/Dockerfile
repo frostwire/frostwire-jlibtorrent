@@ -26,13 +26,14 @@ RUN apt install -y g++-7-multilib
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION="6aad9a463236f0e12f4c4808e4aa84aa0d8b7450"
+ENV LIBTORRENT_REVISION="RC_1_2_ad2a6d7"
 ENV BOOST_MAJOR="1"
 ENV BOOST_VERSION="73"
 ENV BOOST_MINOR="0"
 ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
 ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
+#TODO: r21e (Jan 2021)
 ENV NDK_VERSION="r21d"
 ENV OPENSSL_VERSION="1.1.1j"
 ENV OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
@@ -45,7 +46,7 @@ RUN mkdir src
 
 # prepare_boost
 RUN cd /src \
-		&& wget -nv -O boost.tar.gz https://boostorg.jfrog.io/artifactory/main/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz \
+		&& wget -nv -O boost.tar.gz https://dl.frostwire.com/other/boost/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz \
     && tar xzf boost.tar.gz \
     && cd boost_${BOOST_UNDERSCORE_VERSION} \
     && ./bootstrap.sh
@@ -142,7 +143,7 @@ RUN cd /src/openssl-src \
 # Prepare latest version of libtorrent
 RUN rm -fr /src/libtorrent
 RUN cd /src \
-    && git clone https://github.com/arvidn/libtorrent \
+    && git clone https://github.com/gubatron/libtorrent \
     && cd libtorrent \
     && git fetch origin RC_1_2 \
     && git reset --hard ${LIBTORRENT_REVISION} \
@@ -153,25 +154,36 @@ RUN cd /src \
 # Android cleanup (maybe not needed for jlibtorrent)
 RUN sed -i 's/POSIX_FADV_RANDOM 1/POSIX_FADV_RANDOM_NOOP 0/g' /src/android-toolchain-arm/sysroot/usr/include/linux/fadvise.h
 RUN sed -i 's/24/19/g' /src/android-toolchain-arm/sysroot/usr/include/stdio.h
-RUN sed -i 's/24/19/g' /src/android-toolchain-arm/sysroot/usr/include/ifaddrs.h
+#RUN sed -i 's/24/19/g' /src/android-toolchain-arm/sysroot/usr/include/ifaddrs.h
 RUN sed -i 's/28/19/g' /src/android-toolchain-arm/sysroot/usr/include/sys/random.h
 RUN sed -i 's/24/21/g' /src/android-toolchain-arm64/sysroot/usr/include/stdio.h
-RUN sed -i 's/24/21/g' /src/android-toolchain-arm64/sysroot/usr/include/ifaddrs.h
+#RUN sed -i 's/24/21/g' /src/android-toolchain-arm64/sysroot/usr/include/ifaddrs.h
 RUN sed -i 's/28/21/g' /src/android-toolchain-arm64/sysroot/usr/include/sys/random.h
 RUN sed -i 's/POSIX_FADV_RANDOM 1/POSIX_FADV_RANDOM_NOOP 0/g' /src/android-toolchain-x86/sysroot/usr/include/linux/fadvise.h
 RUN sed -i 's/24/19/g' /src/android-toolchain-x86/sysroot/usr/include/stdio.h
 RUN sed -i 's/24/19/g' /src/android-toolchain-x86/sysroot/usr/include/ifaddrs.h
 RUN sed -i 's/28/19/g' /src/android-toolchain-x86/sysroot/usr/include/sys/random.h
 RUN sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/stdio.h
-RUN sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/ifaddrs.h
+#RUN sed -i 's/24/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/ifaddrs.h
 RUN sed -i 's/28/21/g' /src/android-toolchain-x86_64/sysroot/usr/include/sys/random.h
 RUN sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x86_64-linux-android-ranlib"/g' /src/boost_${BOOST_UNDERSCORE_VERSION}/tools/build/src/tools/gcc.jam
 RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 
-RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build.sh
+# [BUILD DESKTOP ARCHITECTURES]
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh" > build_desktop.sh
+RUN chmod +x /build_desktop.sh
 
-# If you only want to build the binaries used by the Android emulator on macOS uncomment this
-RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > build.sh
+# [PATCH for Android: Turns off NETLINK socket in favor of IFADDR sockets]
+ADD ifaddr.1.2.14.patch /src/libtorrent/ifaddr.patch
 
-RUN chmod +x /build.sh
+# [BUILD ANDROID EMULATOR ARCHITECTURE ONLY (x86)]
+RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > build_android_x86.sh
+RUN chmod +x /build_android_x86.sh
+
+# [BUILD ALL ANDROID ARCHITECTURES]
+RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build_android_all.sh
+RUN chmod +x /build_android_all.sh
+
+
+
