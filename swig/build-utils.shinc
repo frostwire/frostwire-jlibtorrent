@@ -43,7 +43,10 @@ linux_env() {
 
 export LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
 export LIBRARY_NAME=jlibtorrent
-export LIBTORRENT_REVISION=6aad9a463236f0e12f4c4808e4aa84aa0d8b7450 # fix incoming TCP connections when using tracker-only proxy
+# In order to make sure a cherry-picked commit is checkout on the RC_1_2 branch
+# I create a tag for it on the github.com/gubatron/libtorrent/commits/RC_1_2 branch
+# The tag name format is 'RC_1_2_' + <first 7 digits of commit>
+export LIBTORRENT_REVISION=RC_1_2_ad2a6d7 # fix issue on MacOS where the DHT was not restarted on a network-up notification
 export OPENSSL_VERSION="1.1.1j"
 export BOOST_VERSION="73"
 # TEMP NOTES ON BOOST ISSUES, DEC 13 2020
@@ -189,7 +192,7 @@ prepare_libtorrent() {
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
   if [ ! -d ${LIBTORRENT_ROOT} ]; then
     pushd ${SRC}
-    git clone https://github.com/arvidn/libtorrent
+    git clone https://github.com/gubatron/libtorrent
     popd
   fi
   pushd ${LIBTORRENT_ROOT}
