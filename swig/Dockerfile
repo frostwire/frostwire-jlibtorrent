@@ -171,7 +171,7 @@ RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 
 # [BUILD DESKTOP ARCHITECTURES]
-RUN echo "cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh" > build_desktop.sh
+RUN echo "cd /src/libtorrent && git checkout -- . && git status . && cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh" > build_desktop.sh
 RUN chmod +x /build_desktop.sh
 
 # [PATCH for Android: Turns off NETLINK socket in favor of IFADDR sockets]
