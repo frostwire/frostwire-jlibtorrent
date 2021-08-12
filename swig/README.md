@@ -1,3 +1,13 @@
+# About ifaddr.patch
+This patch was created inside the Dockerfile /src/libtorrent folder.
+Its purpose is to turn off netlink sockets in favor of iffaddr sockets which are now supported in android
+The patch is meant to be applied inside the /src/libtorrent folder of the target image
+The build script therefore builds first for windows and linux, and then applies the patch so that
+the android libraries can be built. This patch might need to be revised if these files change in libtorrent
+include/libtorrent/config.hpp
+include/libtorrent/alert.hpp
+src/enum_net.cpp
+
 # building everything - March 14th 2021
 1. On macos: `cd swig && ./build-macos.sh && ./docker_build_binaries.sh`
 
