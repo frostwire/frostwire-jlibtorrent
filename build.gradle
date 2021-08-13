@@ -1,6 +1,6 @@
 apply plugin: 'java'
-apply plugin: 'signing'
-apply plugin: 'maven'
+//apply plugin: 'signing'
+//apply plugin: 'maven'
 
 group 'com.frostwire'
 archivesBaseName = 'jlibtorrent'
@@ -128,6 +128,7 @@ artifacts {
     archives nativeAndroidX64Jar
 }
 
+/*
 signing {
     required { gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
@@ -206,6 +207,7 @@ uploadArchives {
         }
     }
 }
+*/
 
 def pomData() {
     return {
