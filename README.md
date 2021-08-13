@@ -24,7 +24,7 @@ The secondary jars are:
  - Mac: `jlibtorrent-macosx-w.x.y.z.jar` (x86_64 .dylib)
  - Linux: `jlibtorrent-linux-w.x.y.z.jar` (x86 and x86_64 .so)
 
-In the case of Android, make sure to put the following 3 jars in your project's `libs` folder (see [FrostWire for Android's](https://github.com/frostwire/frostwire/tree/master/android/libs) as an example):
+In the case of Android, make sure to put the following 5 jars in your project's `libs` folder (see [FrostWire for Android's](https://github.com/frostwire/frostwire/tree/master/android/libs) as an example):
  - `jlibtorrent-w.x.y.z.jar`
  - `jlibtorrent-android-arm-w.x.y.z.jar`
  - `jlibtorrent-android-arm64-w.x.y.z.jar`
