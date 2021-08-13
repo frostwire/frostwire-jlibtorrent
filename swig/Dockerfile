@@ -65,10 +65,10 @@ RUN cd /src \
 
 # Make android toolchains
 RUN cd /src \
-    && android-ndk/build/tools/make_standalone_toolchain.py --arch arm --api 19 --stl libc++ --install-dir android-toolchain-arm \
-    && android-ndk/build/tools/make_standalone_toolchain.py --arch arm64 --api 21 --stl libc++ --install-dir android-toolchain-arm64 \
+    && android-ndk/build/tools/make_standalone_toolchain.py --arch arm --api 24 --stl libc++ --install-dir android-toolchain-arm \
+    && android-ndk/build/tools/make_standalone_toolchain.py --arch arm64 --api 24 --stl libc++ --install-dir android-toolchain-arm64 \
     && android-ndk/build/tools/make_standalone_toolchain.py --arch x86 --api 24 --stl libc++ --install-dir android-toolchain-x86 \
-    && android-ndk/build/tools/make_standalone_toolchain.py --arch x86_64 --api 21 --stl libc++ --install-dir android-toolchain-x86_64
+    && android-ndk/build/tools/make_standalone_toolchain.py --arch x86_64 --api 24 --stl libc++ --install-dir android-toolchain-x86_64
 
 # Build OpenSSL arm
 RUN export CC=/src/android-toolchain-arm/bin/arm-linux-androideabi-clang \
