@@ -7,18 +7,26 @@ using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/armv7a-linux-androideabi$(AND
     <cxxflags>-fPIC
     <cxxflags>-march=armv7-a
     <cxxflags>-mfpu=neon
-    <cxxflags>-std=c++14
     <cxxflags>-DANDROID
     <cxxflags>-D__STDC_FORMAT_MACROS
+		<cxxflags>-D__USE_FILE_OFFSET64
     <cxxflags>-D_FILE_OFFSET_BITS=64
-    <cxxflags>-frtti
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
+		<cxxflags>-D_FORTIFY_SOURCE=2
+		<cxxflags>-fstack-protector-strong
     <linkflags>-static-libstdc++
-    <linkflags>-fuse-ld=bfd
+		<linkflags>-fuse-ld=lld
+		<linkflags>-Wl,--build-id=sha1
+		# remove when API >= 29
+		<linkflags>-Wl,--no-rosegment
     # debug information
     <cxxflags>-g
-    <cxxflags>-gdwarf-4
-    <cxxflags>-fdebug-macro
-    <cxxflags>-ggdb
     ;
+
+#    <cxxflags>-std=c++14
+#    <cxxflags>-frwpi
+#    <cxxflags>-ggdb
+#    <cxxflags>-gdwarf-4
+#    <cxxflags>-fdebug-macro
+#    <linkflags>-fuse-ld=bfd
