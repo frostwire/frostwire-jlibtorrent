@@ -66,10 +66,10 @@ export BOOST_VERSION="73"
 #/Users/gubatron/src/boost_1_74_0/boost/asio/execution/any_executor.hpp:811:12: error: use of typeid requires -frtti
 #    return typeid(void);
 
-# 1.75 causes swig to not generate error_code.java and other error handling classes
+# 1.75 and 1.77 causes swig to not generate error_code.java and other error handling classes
 # With boost 1.75 swig will issue these boost related warnings, something must have changed
 # Warning 315: Nothing known about 'boost::system::generic_category'
-# 'boost::system::system_category'
+# same for 'boost::system::system_category'
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
 export BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
