@@ -1,6 +1,4 @@
 apply plugin: 'java'
-//apply plugin: 'signing'
-//apply plugin: 'maven'
 
 group 'com.frostwire'
 archivesBaseName = 'jlibtorrent'
@@ -26,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
+		implementation 'junit:junit:4.12'
 }
 
 tasks.withType(Test) {
@@ -84,27 +82,27 @@ task nativeAndroidArmJar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-arm'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/release/android', include: 'armeabi-v7a/libjlibtorrent.so')
+	  from fileTree(dir: 'swig/bin/release/android', include: 'armeabi-v7a/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
+	  rename(".so", "-${version}.so")
 }
 
 task nativeAndroidX86Jar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-x86'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/release/android', include: 'x86/libjlibtorrent.so')
+	  from fileTree(dir: 'swig/bin/release/android', include: 'x86/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
+	  rename(".so", "-${version}.so")
 }
 
 task nativeAndroidArm64Jar(type: Zip) {
     destinationDir file("$buildDir/libs")
     baseName 'jlibtorrent-android-arm64'
     extension 'jar'
-    from fileTree(dir: 'swig/bin/release/android', include: 'arm64-v8a/libjlibtorrent.so')
+	  from fileTree(dir: 'swig/bin/release/android', include: 'arm64-v8a/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
+	  rename(".so", "-${version}.so")
 }
 
 task nativeAndroidX64Jar(type: Zip) {
@@ -127,87 +125,6 @@ artifacts {
     archives nativeAndroidArm64Jar
     archives nativeAndroidX64Jar
 }
-
-/*
-signing {
-    required { gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            addFilter('jlibtorrent') { artifact, file ->
-                artifact.name == 'jlibtorrent'
-            }
-            addFilter('jlibtorrent-macosx') { artifact, file ->
-                artifact.name == 'jlibtorrent-macosx'
-            }
-            addFilter('jlibtorrent-windows') { artifact, file ->
-                artifact.name == 'jlibtorrent-windows'
-            }
-            addFilter('jlibtorrent-linux') { artifact, file ->
-                artifact.name == 'jlibtorrent-linux'
-            }
-            addFilter('jlibtorrent-android-arm') { artifact, file ->
-                artifact.name == 'jlibtorrent-android-arm'
-            }
-            addFilter('jlibtorrent-android-x86') { artifact, file ->
-                artifact.name == 'jlibtorrent-android-x86'
-            }
-            addFilter('jlibtorrent-android-arm64') { artifact, file ->
-                artifact.name == 'jlibtorrent-android-arm64'
-            }
-            addFilter('jlibtorrent-android-x86_64') { artifact, file ->
-                artifact.name == 'jlibtorrent-android-x86_64'
-            }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            pom('jlibtorrent').withXml {
-                asNode().children().last() + pomData()
-            }
-            pom('jlibtorrent-macosx').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-
-            }
-            pom('jlibtorrent-windows').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
-            pom('jlibtorrent-linux').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
-            pom('jlibtorrent-android-arm').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
-            pom('jlibtorrent-android-x86').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
-            pom('jlibtorrent-android-arm64').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
-            pom('jlibtorrent-android-x86_64').withXml {
-                asNode().children().last() + pomData()
-                addDependency(asNode())
-            }
-        }
-    }
-}
-*/
 
 def pomData() {
     return {
