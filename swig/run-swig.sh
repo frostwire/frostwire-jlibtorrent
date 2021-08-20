@@ -1,9 +1,7 @@
 #!/bin/bash
-# NOTE: Run this script manually every time you make changes to libtorrent.i, this is not ran by any of the build scripts, including .travis.yml
+# WARNING: This script is not meant to be run directly. Every OS script must call it so that env path variables can be set correctly
 source build-utils.shinc
-
 abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
-echo "run-swig.sh: BOOST_ROOT=${BOOST_ROOT}"
 abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
 
 # Extracted from ../build.gradle
