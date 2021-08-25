@@ -446,6 +446,9 @@ public class SessionManager {
         }
 
         torrent_handle th = session.find_torrent(sha1.swig());
+        if (th != null && !th.is_valid()) {
+            LOG.warn("SessionManager.find(Sha1Hash " + sha1.toHex() + ") found, but it is invalid");
+        }
         return th != null && th.is_valid() ? new TorrentHandle(th) : null;
     }
 
