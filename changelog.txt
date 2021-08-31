@@ -1,6 +1,7 @@
 1.2.14.0
  * Android builds no longer use netlink sockets, instead use ifaddr sockets
  * Android 6.0 and below compatibility dropped. Compatible with SDK 24 and up
+ * openssl 1.1.1l upgrade
  * lt:fix issue on MacOS where the DHT was not restarted on a network-up notification
  * lt:make remove_torrent flags be treated as flags (instead of an enum)
  * lt:improve handling of seed flag in PEX messages
@@ -36,7 +37,7 @@
  * Removed TorrentStatus::State::ALLOCATING enum
  * Removed torrent_status.state_t.unused_enum_for_backwards_compatibility_allocating
  * libtorrent 1.2.11.0 update (471e772cb7038f1bf5f44c32a09eb42fbb80ee99)
- * lt: upgraded to openssl 1.1.1l
+ * lt: upgraded to openssl 1.1.1j
  * lt: fix issue with moving the session object
  * lt: deprecate torrent_status::allocating. This state is no longer used
  * lt: fix bug creating torrents with symbolic links

@@ -35,7 +35,7 @@ ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
 #TODO: r21e (Jan 2021)
 ENV NDK_VERSION="r21d"
-ENV OPENSSL_VERSION="1.1.1j"
+ENV OPENSSL_VERSION="1.1.1l"
 ENV OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
 # build scripts don't stop
