@@ -22,8 +22,14 @@ common_env() {
 }
 
 android_env() {
+  abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
   export SRC="/src"
   export OPENSSL_ROOT="/openssl-${os_arch}"
+  export AR=${ANDROID_TOOLCHAIN}/bin/llvm-ar
+  export LD=${ANDROID_TOOLCHAIN}/bin/ld
+  export RANLIB=${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
+  alias  ranlib=${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
 }
 
 windows_env() {
@@ -32,6 +38,7 @@ windows_env() {
 }
 
 macosx_env() {
+  abort_if_var_unset "HOME" ${HOME}
   export SRC="${HOME}/src"
   export OPENSSL_ROOT="${SRC}/openssl"
 }
@@ -218,7 +225,7 @@ build_libraries() {
   abort_if_var_unset "run_bjam" ${run_bjam}
   abort_if_var_unset "run_objcopy" ${run_objcopy}
   abort_if_var_unset "run_strip" ${run_strip}
-  abort_if_var_unset "run_readelf" ${run_readelf}
+  abort_if_var_unset "run_native_jar" ${run_native_jar}
   set -x
   cd ${SWIG}
   if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
@@ -232,9 +239,16 @@ build_libraries() {
   export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
   export BOOST_ROOT=${BOOST_ROOT}
   export BOOST_BUILD_PATH=${BOOST_ROOT}
+
   $run_bjam
+
+  # Comment 2 lines below to build without stripping debug symbols
   $run_objcopy
   $run_strip
+
+  if [[ -n $run_readelf ]]; then
+    $run_readelf
+  fi
 
   # fix libjlibtorrent.dll -> jlibtorrent.dll
   if [[ $os_build == "windows" ]]; then
@@ -247,8 +261,9 @@ build_libraries() {
   if [[ $os_build == "macosx" || $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
-  gradle clean
-  gradle build
+  ./gradlew clean
+  ./gradlew jar
+  $run_native_jar
 }
 
 cleanup_objects() {
