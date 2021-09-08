@@ -5,12 +5,12 @@ ANDROID_API = [ os.environ android_api ] ;
 
 using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android$(ANDROID_API)-clang++ :
     <cxxflags>-fPIC
-    <cxxflags>-std=c++14
+    <cxxflags>-std=c++17
     <cxxflags>-DANDROID
     <cxxflags>-D__STDC_FORMAT_MACROS
     <cxxflags>-D__USE_FILE_OFFSET64
     <cxxflags>-D_FILE_OFFSET_BITS=64
-    <cxxflags>-DWITH_IPP=OFF
+    <cxxflags>-DWITH_IPP=OFF #Intel Integrated Performance Libraries
     <cxxflags>-frtti
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
@@ -18,8 +18,6 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android$(ANDROID_API)-cl
     <cxxflags>-mstackrealign
     # debug information
     <cxxflags>-g
-    <cxxflags>-gdwarf-4
-    <cxxflags>-fdebug-macro
-    <cxxflags>-ggdb
     <linkflags>-static-libstdc++
+    <linkflags>-Wl,--build-id=sha1
     ;
