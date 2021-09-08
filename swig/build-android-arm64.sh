@@ -10,16 +10,18 @@ export os_arch=arm64
 export os_build=android
 export android_api=24
 export SHARED_LIB=lib${LIBRARY_NAME}.so
-export ANDROID_TOOLCHAIN=/src/android-toolchain-arm64
-export PATH=${ANDROID_TOOLCHAIN}/aarch64-linux-android/bin:${PATH}
-export CXX=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-clang++
-export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-clang
+export NDK_VERSION=r23
+export ANDROID_TOOLCHAIN=/src/android-ndk/toolchains/llvm/prebuilt/linux-x86_64
+export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH}
+export CXX=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${android_api}-clang++
+export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${android_api}-clang
 android_env
 common_env
 check_min_req_vars
-export run_readelf="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-readelf -d bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}"
-export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}-v8a"
-export run_strip="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}"
-export run_objcopy="${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android-objcopy --only-keep-debug bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB} bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}.debug"
+export run_bjam="${BOOST_ROOT}/b2 -j8 -q --debug-building --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}-v8a"
+export run_objcopy="${ANDROID_TOOLCHAIN}/bin/llvm-objcopy --only-keep-debug bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB} bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}.debug"
+export run_strip="${ANDROID_TOOLCHAIN}/bin/llvm-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}"
+export run_readelf="${ANDROID_TOOLCHAIN}/bin/llvm-readelf -d bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}"
+export run_native_jar="./gradlew nativeAndroidArm64Jar"
 export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION} && ./run-swig.sh
 build_libraries
