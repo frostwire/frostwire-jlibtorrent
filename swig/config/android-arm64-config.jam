@@ -6,14 +6,17 @@ ANDROID_API = [ os.environ android_api ] ;
 using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android$(ANDROID_API)-clang++ :
     <cxxflags>-fPIC
     <cxxflags>-march=armv8-a+crc
-    <cxxflags>-std=c++14
+    <cxxflags>-std=c++17
     <cxxflags>-DANDROID
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
-    <linkflags>-static-libstdc++
+    <cxxflags>-D_FORTIFY_SOURCE=2
+    <cxxflags>-fstack-protector-strong
     # debug information
     <cxxflags>-g
-    <cxxflags>-gdwarf-4
-    <cxxflags>-fdebug-macro
-    <cxxflags>-ggdb
+    <linkflags>-static-libstdc++
+    <linkflags>-fuse-ld=lld
+    <linkflags>-Wl,--build-id=sha1
+    # remove when API >= 29
+    <linkflags>-Wl,--no-rosegment
     ;
