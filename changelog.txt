@@ -1,3 +1,9 @@
+1.2.14.1
+ * Android builds updated to NDK r23 (LTS)
+ * Builds with -std=c++17
+ * Docker image simplification and cleanup using android prebuilt toolchain folder
+ * swig/build- scripts now have run_native_jar command to build only the corresponding native jar
+
 1.2.14.0
  * Android builds no longer use netlink sockets, instead use ifaddr sockets
  * Android 6.0 and below compatibility dropped. Compatible with SDK 24 and up
