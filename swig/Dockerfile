@@ -62,16 +62,14 @@ RUN cd /src \
     && tar xzf openssl.tar.gz \
     && mv openssl-${OPENSSL_VERSION} openssl-src
 
-# Make android toolchains
-RUN cd /src \
-    && android-ndk/build/tools/make_standalone_toolchain.py --arch arm --api 24 --stl libc++ --install-dir android-toolchain-arm \
-    && android-ndk/build/tools/make_standalone_toolchain.py --arch arm64 --api 24 --stl libc++ --install-dir android-toolchain-arm64 \
-    && android-ndk/build/tools/make_standalone_toolchain.py --arch x86 --api 24 --stl libc++ --install-dir android-toolchain-x86 \
-    && android-ndk/build/tools/make_standalone_toolchain.py --arch x86_64 --api 24 --stl libc++ --install-dir android-toolchain-x86_64
+ENV ANDROID_TOOLCHAIN="/src/android-ndk/toolchains/llvm/prebuilt/linux-x86_64"
+ENV AR="${ANDROID_TOOLCHAIN}/bin/llvm-ar"
+ENV LD="${ANDROID_TOOLCHAIN}/bin/ld"
+ENV RANLIB="${ANDROID_TOOLCHAIN}/bin/llvm-ranlib"
 
 # Build OpenSSL arm
-RUN export CC=/src/android-toolchain-arm/bin/arm-linux-androideabi-clang \
-    && export PATH=/src/android-toolchain-arm/arm-linux-androideabi/bin:${PATH} \
+RUN export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi19-clang \
+    && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
     && ./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon --prefix=/openssl-arm \
     && make clean \
@@ -80,8 +78,8 @@ RUN export CC=/src/android-toolchain-arm/bin/arm-linux-androideabi-clang \
     && cd /
 
 # Build OpenSSL arm64
-RUN export CC=/src/android-toolchain-arm64/bin/aarch64-linux-android-clang \
-    && export PATH=/src/android-toolchain-arm64/aarch64-linux-android/bin:${PATH} \
+RUN export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android21-clang \
+    && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
     && ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -mfpu=neon --prefix=/openssl-arm64 \
     && make clean \
@@ -90,8 +88,8 @@ RUN export CC=/src/android-toolchain-arm64/bin/aarch64-linux-android-clang \
     && cd /
 
 # Build OpenSSL x86
-RUN export CC=/src/android-toolchain-x86/bin/i686-linux-android-clang \
-    && export PATH=/src/android-toolchain-x86/i686-linux-android/bin:${PATH} \
+RUN export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android19-clang \
+    && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
     && ./Configure linux-elf ${OPENSSL_NO_OPTS} --prefix=/openssl-x86 \
     && make clean \
@@ -100,8 +98,8 @@ RUN export CC=/src/android-toolchain-x86/bin/i686-linux-android-clang \
     && cd /
 
 # Build OpenSSL x86_64
-RUN export CC=/src/android-toolchain-x86_64/bin/x86_64-linux-android-clang \
-    && export PATH=/src/android-toolchain-x86_64/x86_64-linux-android/bin:${PATH} \
+RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android21-clang \
+    && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
     && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} --prefix=/openssl-x86_64 \
     && make clean \
@@ -167,6 +165,10 @@ RUN chmod +x /build_android_x86.sh
 # [BUILD ANDROID ARM ONLY (armv7)]
 RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh" > build_android_arm.sh
 RUN chmod +x /build_android_arm.sh
+
+# [BUILD ANDROID ARM64 ONLY (armv8)]
+RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > build_android_arm64.sh
+RUN chmod +x /build_android_arm64.sh
 
 # [BUILD ALL ANDROID ARCHITECTURES]
 RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build_android_all.sh
