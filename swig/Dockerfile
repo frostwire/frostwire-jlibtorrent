@@ -33,8 +33,7 @@ ENV BOOST_MINOR="0"
 ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
 ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
-#TODO: r21e (Jan 2021)
-ENV NDK_VERSION="r21d"
+ENV NDK_VERSION="r23"
 ENV OPENSSL_VERSION="1.1.1l"
 ENV OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
@@ -53,8 +52,8 @@ RUN cd /src \
 
 # download android NDK
 RUN cd /src \
-    && wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-linux-x86_64.zip \
-    && unzip -qq android-ndk.zip \
+    && wget -nv -O android-ndk-linux.zip https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-linux.zip \
+    && unzip -qq android-ndk-linux.zip \
     && mv android-ndk-${NDK_VERSION} android-ndk
 
 # Download OpenSSL
@@ -151,11 +150,6 @@ RUN cd /src \
     && git submodule update \
     && cd /
 
-# Android cleanup (maybe not needed for jlibtorrent)
-
-# toolchain arm
-
-RUN sed -i 's/RANLIB = ranlib/RANLIB = "\/src\/android-toolchain-x86_64\/bin\/x86_64-linux-android-ranlib"/g' /src/boost_${BOOST_UNDERSCORE_VERSION}/tools/build/src/tools/gcc.jam
 RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 
@@ -169,6 +163,10 @@ ADD ifaddr.1.2.14.patch /src/libtorrent/ifaddr.patch
 # [BUILD ANDROID EMULATOR ARCHITECTURE ONLY (x86)]
 RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > build_android_x86.sh
 RUN chmod +x /build_android_x86.sh
+
+# [BUILD ANDROID ARM ONLY (armv7)]
+RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh" > build_android_arm.sh
+RUN chmod +x /build_android_arm.sh
 
 # [BUILD ALL ANDROID ARCHITECTURES]
 RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build_android_all.sh
