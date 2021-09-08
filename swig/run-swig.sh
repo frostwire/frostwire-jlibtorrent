@@ -96,17 +96,17 @@ function runJni()
     # compile with -fno-rtti.
     uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then
-	sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
+      sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
     else
-	sed -i 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
+      sed -i 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
     fi
 
     # replace jlibtorrent version
     #uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then
-	sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
+      sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java && echo "Updated jlibtorrent version ${JLIBTORRENT_VERSION} in libtorrent_jni.java"
     else
-	sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java
+      sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java && echo "Updated jlibtorrent version ${JLIBTORRENT_VERSION} in libtorrent_jni.java"
     fi
 }
 
