@@ -57,7 +57,7 @@ task nativeMacOSXJar(type: Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib')
     into 'lib/'
-    rename(".dylib", "-${archiveVersion}.dylib")
+    rename(".dylib", "-${version}.dylib")
 }
 
 task nativeWindowsJar(type: Zip) {
@@ -66,7 +66,7 @@ task nativeWindowsJar(type: Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/windows', excludes: ['**/ed25519', '**/src'], include: '**/*jlibtorrent.dll')
     into 'lib/'
-    rename(".dll", "-${archiveVersion}.dll")
+    rename(".dll", "-${version}.dll")
 }
 
 task nativeLinuxJar(type: Zip) {
@@ -75,7 +75,7 @@ task nativeLinuxJar(type: Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${archiveVersion}.so")
+    rename(".so", "-${version}.so")
 }
 
 task nativeAndroidArmJar(type: Zip) {
@@ -84,7 +84,7 @@ task nativeAndroidArmJar(type: Zip) {
     archiveExtension = 'jar'
 	  from fileTree(dir: 'swig/bin/release/android', include: 'armeabi-v7a/libjlibtorrent.so')
     into 'lib/'
-	  rename(".so", "-${archiveVersion}.so")
+	  rename(".so", "-${version}.so")
 }
 
 task nativeAndroidX86Jar(type: Zip) {
@@ -93,7 +93,7 @@ task nativeAndroidX86Jar(type: Zip) {
     archiveExtension = 'jar'
 	  from fileTree(dir: 'swig/bin/release/android', include: 'x86/libjlibtorrent.so')
     into 'lib/'
-	  rename(".so", "-${archiveVersion}.so")
+	  rename(".so", "-${version}.so")
 }
 
 task nativeAndroidArm64Jar(type: Zip) {
@@ -102,7 +102,7 @@ task nativeAndroidArm64Jar(type: Zip) {
     archiveExtension = 'jar'
 	  from fileTree(dir: 'swig/bin/release/android', include: 'arm64-v8a/libjlibtorrent.so')
     into 'lib/'
-	  rename(".so", "-${archiveVersion}.so")
+	  rename(".so", "-${version}.so")
 }
 
 task nativeAndroidX64Jar(type: Zip) {
@@ -111,7 +111,7 @@ task nativeAndroidX64Jar(type: Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/android', include: 'x86_64/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${archiveVersion}.so")
+    rename(".so", "-${version}.so")
 }
 
 artifacts {
