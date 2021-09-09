@@ -15,8 +15,6 @@ export ANDROID_TOOLCHAIN=/src/android-ndk/toolchains/llvm/prebuilt/linux-x86_64
 export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH};
 export CXX=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang++
 export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang
-#export CXXFLAGS="-fPIC -std=c++17 -DANDROID -D__STDC_FORMAT_MACROS -DWITH_IPP=OFF -D__USE_FILE_OFFSET64 -D_FILE_OFFSET_BITS=64 -fno-strict-aliasing -fvisibility=hidden -mstackrealign -g"
-#export LDFLAGS="-static-libstdc++"
 android_env
 common_env
 check_min_req_vars
@@ -25,5 +23,6 @@ export run_objcopy="${ANDROID_TOOLCHAIN}/bin/llvm-objcopy --only-keep-debug bin/
 export run_strip="${ANDROID_TOOLCHAIN}/bin/llvm-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/llvm-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeAndroidX86Jar"
-export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION} && ./run-swig.sh
+export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION}
+./run-swig.sh
 build_libraries
