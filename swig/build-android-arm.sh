@@ -23,5 +23,6 @@ export run_objcopy="${ANDROID_TOOLCHAIN}/bin/llvm-objcopy --only-keep-debug bin/
 export run_strip="${ANDROID_TOOLCHAIN}/bin/llvm-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}eabi-v7a/${SHARED_LIB}"
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/llvm-readelf -d bin/release/${os_build}/${os_arch}eabi-v7a/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeAndroidArmJar"
-export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION} && ./run-swig.sh
+export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION}
+./run-swig.sh
 build_libraries
