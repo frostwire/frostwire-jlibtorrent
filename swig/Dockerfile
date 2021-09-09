@@ -6,7 +6,6 @@ RUN apt update -y
 # Common Java tooling
 RUN apt install -y openjdk-11-jdk-headless
 RUN apt install -y gradle
-RUN apt install -y swig
 # Common tooling
 RUN apt install -y wget
 RUN apt install -y unzip
@@ -18,6 +17,10 @@ RUN apt install -y cmake
 RUN apt install -y g++
 RUN apt install -y git
 RUN apt install -y ssh
+RUN apt install -y build-essential
+RUN apt install -y libtool
+RUN apt install -y libpcre3-dev
+RUN apt install -y libpcre3
 # Windows toolchain
 RUN apt install -y g++-mingw-w64-x86-64
 # Linux Toolchain
@@ -27,6 +30,7 @@ RUN apt install -y g++-7-multilib
 RUN apt install -y emacs-nox
 
 ENV LIBTORRENT_REVISION="RC_1_2_ad2a6d7"
+ENV SWIG_VERSION="4.0.2"
 ENV BOOST_MAJOR="1"
 ENV BOOST_VERSION="73"
 ENV BOOST_MINOR="0"
@@ -42,6 +46,17 @@ ENV DONT_PRESS_ANY_KEY 1
 
 # third party SRC folder
 RUN mkdir src
+
+# prepare swig 4.0.2
+RUN cd /src \
+		&& wget -nv https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
+		&& tar xzf swig-${SWIG_VERSION}.tar.gz \
+		&& cd /src/swig-${SWIG_VERSION} \
+		&& ./configure \
+		&& make -j 8 \
+    && make install
+
+RUN swig -version
 
 # prepare_boost
 RUN cd /src \
@@ -151,25 +166,25 @@ RUN cd /src \
 RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 
-# [BUILD DESKTOP ARCHITECTURES]
+# BUILD DESKTOP ARCHITECTURES (Windows and Linux x86_64)
 RUN echo "cd /src/libtorrent && git checkout -- . && git status . && cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh" > build_desktop.sh
 RUN chmod +x /build_desktop.sh
 
-# [PATCH for Android: Turns off NETLINK socket in favor of IFADDR sockets]
+# PATCH for Android: Turns off NETLINK socket in favor of IFADDR sockets
 ADD ifaddr.1.2.14.patch /src/libtorrent/ifaddr.patch
 
-# [BUILD ANDROID EMULATOR ARCHITECTURE ONLY (x86)]
+# SCRIPT BUILD ANDROID X86 ONLY (ANDROID STUDIO'S EMULATOR ARCHITECTURE)
 RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > build_android_x86.sh
 RUN chmod +x /build_android_x86.sh
 
-# [BUILD ANDROID ARM ONLY (armv7)]
+# SCRIPT TO BUILD ANDROID ARM ONLY (armv7)
 RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh" > build_android_arm.sh
 RUN chmod +x /build_android_arm.sh
 
-# [BUILD ANDROID ARM64 ONLY (armv8)]
+# SCRIPT TO BUILD ANDROID ARM64 ONLY (armv8)
 RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > build_android_arm64.sh
 RUN chmod +x /build_android_arm64.sh
 
-# [BUILD ALL ANDROID ARCHITECTURES]
+# SCRIPT TO BUILD ALL ANDROID ARCHITECTURES
 RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build_android_all.sh
 RUN chmod +x /build_android_all.sh
