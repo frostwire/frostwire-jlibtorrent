@@ -25,7 +25,7 @@ android_env() {
   abort_if_var_unset "os_arch" ${os_arch}
   abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
   export SRC="/src"
-  export OPENSSL_ROOT="/openssl-${os_arch}"
+  export OPENSSL_ROOT="/openssl-android-${os_arch}"
   export AR=${ANDROID_TOOLCHAIN}/bin/llvm-ar
   export LD=${ANDROID_TOOLCHAIN}/bin/ld
   export RANLIB=${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
