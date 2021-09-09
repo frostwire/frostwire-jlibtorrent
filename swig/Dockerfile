@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update -y
 # Common Java tooling
 RUN apt install -y openjdk-11-jdk-headless
-RUN apt install -y gradle
 # Common tooling
 RUN apt install -y wget
 RUN apt install -y unzip
@@ -38,16 +37,25 @@ ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
 ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
 ENV NDK_VERSION="r23"
+ENV ANDROID_API="24"
 ENV OPENSSL_VERSION="1.1.1l"
 ENV OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+ENV GRADLE_VERSION="7.0.2"
+ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
 
 # build scripts don't stop
 ENV DONT_PRESS_ANY_KEY 1
+ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
 # third party SRC folder
 RUN mkdir src
 
-# prepare swig 4.0.2
+# prepare gradle
+RUN cd /src \
+    && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+    && unzip gradle-${GRADLE_VERSION}-bin.zip
+
+# prepare swig
 RUN cd /src \
 		&& wget -nv https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
 		&& tar xzf swig-${SWIG_VERSION}.tar.gz \
@@ -82,41 +90,41 @@ ENV AR="${ANDROID_TOOLCHAIN}/bin/llvm-ar"
 ENV LD="${ANDROID_TOOLCHAIN}/bin/ld"
 ENV RANLIB="${ANDROID_TOOLCHAIN}/bin/llvm-ranlib"
 
-# Build OpenSSL arm
-RUN export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi19-clang \
+# Build OpenSSL Android arm
+RUN export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
-    && ./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon --prefix=/openssl-arm \
+    && ./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon --prefix=/openssl-android-arm \
     && make clean \
     && make \
     && make install_sw \
     && cd /
 
-# Build OpenSSL arm64
-RUN export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android21-clang \
+# Build OpenSSL Android arm64
+RUN export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
-    && ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -mfpu=neon --prefix=/openssl-arm64 \
+    && ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -mfpu=neon --prefix=/openssl-android-arm64 \
     && make clean \
     && make \
     && make install_sw \
     && cd /
 
-# Build OpenSSL x86
-RUN export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android19-clang \
+# Build OpenSSL Android x86
+RUN export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
-    && ./Configure linux-elf ${OPENSSL_NO_OPTS} --prefix=/openssl-x86 \
+    && ./Configure linux-elf ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86 \
     && make clean \
     && make \
     && make install_sw \
     && cd /
 
-# Build OpenSSL x86_64
-RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android21-clang \
+# Build OpenSSL Android x86_64
+RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
-    && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} --prefix=/openssl-x86_64 \
+    && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86_64 \
     && make clean \
     && make \
     && make install_sw \
