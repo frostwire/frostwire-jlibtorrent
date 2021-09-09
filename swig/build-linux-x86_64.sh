@@ -17,10 +17,12 @@ export CC=gcc-7
 export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${OPENSSL_ROOT}"
 export run_readelf="readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j2 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=gcc-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
-export run_strip="strip --strip-unneeded -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_objcopy="objcopy --only-keep-debug bin/release/${os_build}/${os_arch}/${SHARED_LIB} bin/release/${os_build}/${os_arch}/${SHARED_LIB}.debug"
-sed -i 's/RANLIB = ranlib/RANLIB = "${ANDROID_TOOLCHAIN}\/bin\/i686-linux-android-ranlib"/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam
+export run_strip="strip --strip-unneeded -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
+export run_readelf="readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
+export run_native_jar="./gradlew nativeLinuxJar"
 press_any_to_continue
 prepare_libtorrent
-export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION} && ./run-swig.sh
+export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION}
+./run-swig.sh
 build_libraries
