@@ -52,66 +52,66 @@ task javadocJar(type: Jar, dependsOn: javadoc2) {
 }
 
 task nativeMacOSXJar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-macosx'
-    extension 'jar'
+    destinationDirectory = file("$buildDir/libs")
+    archiveBaseName = 'jlibtorrent-macosx'
+    archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib')
     into 'lib/'
-    rename(".dylib", "-${version}.dylib")
+    rename(".dylib", "-${archiveVersion}.dylib")
 }
 
 task nativeWindowsJar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-windows'
-    extension 'jar'
+    destinationDirectory = file("$buildDir/libs")
+    archiveBaseName ='jlibtorrent-windows'
+    archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/windows', excludes: ['**/ed25519', '**/src'], include: '**/*jlibtorrent.dll')
     into 'lib/'
-    rename(".dll", "-${version}.dll")
+    rename(".dll", "-${archiveVersion}.dll")
 }
 
 task nativeLinuxJar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-linux'
-    extension 'jar'
+    destinationDirectory = file("$buildDir/libs")
+    archiveBaseName ='jlibtorrent-linux'
+    archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
+    rename(".so", "-${archiveVersion}.so")
 }
 
 task nativeAndroidArmJar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-android-arm'
-    extension 'jar'
+    destinationDirectory = file("$buildDir/libs")
+    archiveBaseName ='jlibtorrent-android-arm'
+    archiveExtension = 'jar'
 	  from fileTree(dir: 'swig/bin/release/android', include: 'armeabi-v7a/libjlibtorrent.so')
     into 'lib/'
-	  rename(".so", "-${version}.so")
+	  rename(".so", "-${archiveVersion}.so")
 }
 
 task nativeAndroidX86Jar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-android-x86'
-    extension 'jar'
+    destinationDirectory = file("$buildDir/libs")
+    archiveBaseName ='jlibtorrent-android-x86'
+    archiveExtension = 'jar'
 	  from fileTree(dir: 'swig/bin/release/android', include: 'x86/libjlibtorrent.so')
     into 'lib/'
-	  rename(".so", "-${version}.so")
+	  rename(".so", "-${archiveVersion}.so")
 }
 
 task nativeAndroidArm64Jar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-android-arm64'
-    extension 'jar'
+    destinationDirectory = file("$buildDir/libs")
+    archiveBaseName ='jlibtorrent-android-arm64'
+    archiveExtension = 'jar'
 	  from fileTree(dir: 'swig/bin/release/android', include: 'arm64-v8a/libjlibtorrent.so')
     into 'lib/'
-	  rename(".so", "-${version}.so")
+	  rename(".so", "-${archiveVersion}.so")
 }
 
 task nativeAndroidX64Jar(type: Zip) {
-    destinationDir file("$buildDir/libs")
-    baseName 'jlibtorrent-android-x86_64'
-    extension 'jar'
+    destinationDirectory = file("$buildDir/libs")
+    archiveBaseName ='jlibtorrent-android-x86_64'
+    archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/android', include: 'x86_64/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
+    rename(".so", "-${archiveVersion}.so")
 }
 
 artifacts {
