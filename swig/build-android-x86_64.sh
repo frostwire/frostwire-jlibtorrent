@@ -23,5 +23,6 @@ export run_objcopy="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-objcopy --only-k
 export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeAndroidX64Jar"
-BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION} && ./run-swig.sh
+export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION}
+./run-swig.sh
 build_libraries
