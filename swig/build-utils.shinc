@@ -228,10 +228,6 @@ build_libraries() {
   abort_if_var_unset "run_native_jar" ${run_native_jar}
   set -x
   cd ${SWIG}
-  if [[ $os_build == "windows" && $os_arch == "x86" ]]; then
-    pwd
-    sed -i 's/ JNICALL Java_com_frostwire/ JNICALL _Java_com_frostwire/g' libtorrent_jni.cpp;
-  fi
   export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
   echo "Added boost tools to PATH:"
   echo ${PATH}
