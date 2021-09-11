@@ -2,12 +2,12 @@
 
 ## More explicit native crashes
 When you get a native crash log and the libtorrent function names are not explicit, if you can replicate the crash
-update the `swig/config/android-<arch>-config.jam` file and set the `<cxxflag>-fvisibility=default` (instead of `hidden`)
-and you will be able to get closer to the crash, usually a nullptr dereference.
+update the `swig/config/android-<arch>-config.jam` file and set the `<cxxflag>-fvisibility=default` (instead of `hidden`),
+rebuilt with symbol visibility on and and you will be able to get closer to the crash in C++ land, usually a `nullptr` dereference.
 
 ## Isolating native crashes in adb logcat using ndk-stack
 
-Make sure your `android-ndk-r<version>` folder is in the `$PATH` and invoke adb logcat like this
+Make sure your `android-ndk-r<version>` folder is in the `$PATH` and invoke `adb logcat` like this
 
 `adb logcat | ndk-stack -sym <path-to-shared-library-folder>`
 
