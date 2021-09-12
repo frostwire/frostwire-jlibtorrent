@@ -6,27 +6,22 @@ ANDROID_API = [ os.environ android_api ] ;
 using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/armv7a-linux-androideabi$(ANDROID_API)-clang++ :
     <cxxflags>-fPIC
     <cxxflags>-march=armv7-a
+    <cxxflags>-std=c++17
     <cxxflags>-mfpu=neon
     <cxxflags>-DANDROID
     <cxxflags>-D__STDC_FORMAT_MACROS
-		<cxxflags>-D__USE_FILE_OFFSET64
+    <cxxflags>-D__USE_FILE_OFFSET64
     <cxxflags>-D_FILE_OFFSET_BITS=64
     <cxxflags>-fno-strict-aliasing
-    <cxxflags>-fvisibility=hidden
-		<cxxflags>-D_FORTIFY_SOURCE=2
-		<cxxflags>-fstack-protector-strong
-    <linkflags>-static-libstdc++
-		<linkflags>-fuse-ld=lld
-		<linkflags>-Wl,--build-id=sha1
-		# remove when API >= 29
-		<linkflags>-Wl,--no-rosegment
+    <cxxflags>-D_FORTIFY_SOURCE=2
+    <cxxflags>-fstack-protector-strong
+		#try this if native crash stack trace doesn't show function names
+    #<cxxflags>-fvisibility=default
     # debug information
     <cxxflags>-g
+    <linkflags>-static-libstdc++
+    <linkflags>-fuse-ld=lld
+    <linkflags>-Wl,--build-id=sha1
+    # remove when API >= 29
+    <linkflags>-Wl,--no-rosegment
     ;
-
-#    <cxxflags>-std=c++14
-#    <cxxflags>-frwpi
-#    <cxxflags>-ggdb
-#    <cxxflags>-gdwarf-4
-#    <cxxflags>-fdebug-macro
-#    <linkflags>-fuse-ld=bfd
