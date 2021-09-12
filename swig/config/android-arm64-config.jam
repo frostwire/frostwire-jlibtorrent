@@ -12,7 +12,6 @@ using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android$(ANDROID_AP
     <cxxflags>-fvisibility=hidden
     <cxxflags>-D_FORTIFY_SOURCE=2
     <cxxflags>-fstack-protector-strong
-    # debug information
     <cxxflags>-g
     <linkflags>-static-libstdc++
     <linkflags>-fuse-ld=lld
