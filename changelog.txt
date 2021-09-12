@@ -1,8 +1,10 @@
 1.2.14.1
  * Android builds updated to NDK r23 (LTS)
  * Builds with -std=c++17
- * Docker image simplification and cleanup using android prebuilt toolchain folder
+ * Docker image simplification and cleanup using android ndk prebuilt toolchain folder
  * swig/build- scripts now have run_native_jar command to build only the corresponding native jar
+ * SWIG 4.0.2 ensured on all architectures
+ * lt:Fixes null pointer libtorrent crash on enum_net iface_from_ifaddrs
 
 1.2.14.0
  * Android builds no longer use netlink sockets, instead use ifaddr sockets
