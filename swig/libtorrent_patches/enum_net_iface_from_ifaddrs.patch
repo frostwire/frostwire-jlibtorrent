@@ -1,0 +1,22 @@
+diff --git a/src/enum_net.cpp b/src/enum_net.cpp
+index b6b685a5c..bc0c12960 100644
+--- a/src/enum_net.cpp
++++ b/src/enum_net.cpp
+@@ -548,11 +548,14 @@ int _System __libsocket_sysctl(int* mib, u_int namelen, void *oldp, size_t *oldl
+ 	bool iface_from_ifaddrs(ifaddrs *ifa, ip_interface &rv)
+ 	{
+ 		// determine address
++	        if (ifa->ifa_addr == nullptr) return false;
+ 		rv.interface_address = sockaddr_to_address(ifa->ifa_addr);
+ 		if (rv.interface_address.is_unspecified()) return false;
+-
+-		std::strncpy(rv.name, ifa->ifa_name, sizeof(rv.name) - 1);
+-		rv.name[sizeof(rv.name) - 1] = '\0';
++               if (ifa->ifa_name != nullptr)
++		{
++		    std::strncpy(rv.name, ifa->ifa_name, sizeof(rv.name) - 1);
++		    rv.name[sizeof(rv.name) - 1] = '\0';
++		}
+ 
+ 		// determine netmask
+ 		if (ifa->ifa_netmask != nullptr)

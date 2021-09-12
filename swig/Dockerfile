@@ -178,21 +178,20 @@ RUN echo "This folder will be mounted dynamically from the base of our repo ever
 RUN echo "cd /src/libtorrent && git checkout -- . && git status . && cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh" > build_desktop.sh
 RUN chmod +x /build_desktop.sh
 
-# PATCH for Android: Turns off NETLINK socket in favor of IFADDR sockets
-ADD ifaddr.1.2.14.patch /src/libtorrent/ifaddr.patch
-
 # SCRIPT BUILD ANDROID X86 ONLY (ANDROID STUDIO'S EMULATOR ARCHITECTURE)
-RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > build_android_x86.sh
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > build_android_x86.sh
 RUN chmod +x /build_android_x86.sh
 
 # SCRIPT TO BUILD ANDROID ARM ONLY (armv7)
-RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh" > build_android_arm.sh
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh" > build_android_arm.sh
 RUN chmod +x /build_android_arm.sh
 
 # SCRIPT TO BUILD ANDROID ARM64 ONLY (armv8)
-RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > build_android_arm64.sh
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > build_android_arm64.sh
 RUN chmod +x /build_android_arm64.sh
 
 # SCRIPT TO BUILD ALL ANDROID ARCHITECTURES
-RUN echo "cd /src/libtorrent && git checkout -- . && patch -p1 < ifaddr.patch && cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build_android_all.sh
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build_android_all.sh
 RUN chmod +x /build_android_all.sh
+
+RUN ln -s /frostwire-jlibtorrent/swig/libtorrent_patches/apply_android_patches.sh
