@@ -4,6 +4,9 @@ unset_env_variables() {
   # flags that can interfere with the compilation process
   echo "unset_env_variables()"
   unset CPPFLAGS
+  unset CXXFLAGS
+  unset CXX
+  unset CC
   unset BOOST_LIB_PATH
   unset BOOST_ROOT
   unset BOOST_LIB_SUFFIX #BOOST_LIB_SUFFIX=-mt
@@ -236,6 +239,7 @@ build_libraries() {
   export BOOST_ROOT=${BOOST_ROOT}
   export BOOST_BUILD_PATH=${BOOST_ROOT}
 
+  #libtorrent_jni.cpp is specified as a source in the Jamfile:L70
   $run_bjam
 
   # Comment 2 lines below to build without stripping debug symbols
