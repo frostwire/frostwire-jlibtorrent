@@ -261,7 +261,6 @@ build_libraries() {
   if [[ $os_build == "macosx" || $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
-  ./gradlew clean
   ./gradlew jar
   $run_native_jar
 }
