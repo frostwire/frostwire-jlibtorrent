@@ -21,18 +21,18 @@ public class libtorrent_jni {
             String path = System.getProperty("jlibtorrent.jni.path", "");
             if ("".equals(path)) {
                 try {
-                    System.loadLibrary("jlibtorrent-" + jlibtorrentVersion());
-										System.out.println("Loaded jlibtorrent-" + jlibtorrentVersion());
+                    System.out.println("Trying jlibtorrent.<so|dylib>...");
+                    System.loadLibrary("jlibtorrent");
+                    System.loadLibrary("Loaded jlibtorrent.<so|dylib> (version=" +  jlibtorrentVersion() + ")");
                 } catch (LinkageError e) {
-                    // give it a try to the name without version
+                    // give it a try to the name with version
                     e.printStackTrace();
                     try {
-                        System.out.println("Trying jlibtorrent.<so|dylib>...");
-                        System.loadLibrary("jlibtorrent");
-                        System.loadLibrary("Loaded jlibtorrent.<so|dylib> (version=" +  jlibtorrentVersion() + ")");
+                        System.loadLibrary("jlibtorrent-" + jlibtorrentVersion());
+                        System.out.println("Loaded jlibtorrent-" + jlibtorrentVersion());
                     } catch (Throwable t) {
-							          t.printStackTrace();
-										}
+                        t.printStackTrace();
+                    }
                 }
             } else {
                 System.load(path);
