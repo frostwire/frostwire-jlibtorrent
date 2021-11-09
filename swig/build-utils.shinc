@@ -58,7 +58,7 @@ export LIBRARY_NAME=jlibtorrent
 # The tag name format is 'RC_1_2_' + <first 7 digits of commit>
 export LIBTORRENT_REVISION=RC_1_2_ad2a6d7 # fix issue on MacOS where the DHT was not restarted on a network-up notification
 export OPENSSL_VERSION="1.1.1l"
-export BOOST_VERSION="73"
+export BOOST_VERSION="77"
 # TEMP NOTES ON BOOST ISSUES, DEC 13 2020
 # Reverting to boost 1.73.
 # To build on macOS you need to comment the following line on ${BOOST_ROOT}/tools/build/src/tools/darwin.jam

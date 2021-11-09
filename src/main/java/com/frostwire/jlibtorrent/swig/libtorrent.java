@@ -9,26 +9,6 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent implements libtorrentConstants {
-  public static boolean failed_impl(int ev, SWIGTYPE_p_boost__system__error_category cat) {
-    return libtorrent_jni.failed_impl(ev, SWIGTYPE_p_boost__system__error_category.getCPtr(cat));
-  }
-
-  public static boolean op_eq(error_code lhs, error_code rhs) {
-    return libtorrent_jni.op_eq__SWIG_1(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
-  }
-
-  public static boolean op_lt(error_code lhs, error_code rhs) {
-    return libtorrent_jni.op_lt__SWIG_1(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
-  }
-
-  public static boolean op_ne(error_code lhs, error_code rhs) {
-    return libtorrent_jni.op_ne(error_code.getCPtr(lhs), lhs, error_code.getCPtr(rhs), rhs);
-  }
-
-  public static error_code make_error_code(errc_t e) {
-    return new error_code(libtorrent_jni.make_error_code(e.swigValue()), true);
-  }
-
   public static String version() {
     return libtorrent_jni.version();
   }
