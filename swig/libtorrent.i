@@ -10,7 +10,9 @@
 #pragma SWIG nowarn=402
 // Overloaded method <name> ignored, using <name> instead.
 #pragma SWIG nowarn=516
-
+// Specialization of non-template '<name>'.
+#pragma SWIG nowarn=317
+	
 %{
 // BEGIN common set include ------------------------------------------------------
 
@@ -1362,6 +1364,29 @@ namespace libtorrent {
 
 %ignore swig_plugin::implemented_features;
 %ignore set_piece_hashes_listener::progress_index;
+
+%ignore boost::system::system_category;
+%ignore boost::system::generic_category;
+
+namespace boost {
+namespace system {
+
+class error_code
+{
+public:
+
+    error_code();
+    void clear();
+    int value();
+    std::string message();
+    bool failed();
+    operator bool() const;
+};
+
+error_category const& system_category();
+error_category const& generic_category();
+
+}}
 
 %ignore WRAP_POSIX;
 %ignore get_libc;

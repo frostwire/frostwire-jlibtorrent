@@ -49,11 +49,7 @@ public class error_code {
   }
 
   public String message() {
-    return libtorrent_jni.error_code_message__SWIG_0(swigCPtr, this);
-  }
-
-  public String message(String buffer, long len) {
-    return libtorrent_jni.error_code_message__SWIG_1(swigCPtr, this, buffer, len);
+    return libtorrent_jni.error_code_message(swigCPtr, this);
   }
 
   public boolean failed() {
