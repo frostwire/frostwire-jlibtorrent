@@ -3,7 +3,7 @@ apply plugin: 'java'
 group 'com.frostwire'
 archivesBaseName = 'jlibtorrent'
 // Just changing version here should be all that's necessary to bump the version on the library
-version '1.2.14.1'
+version '1.2.14.2'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'

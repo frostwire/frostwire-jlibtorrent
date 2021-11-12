@@ -1,3 +1,6 @@
+1.2.14.2
+ * upgraded to boost 1.77
+
 1.2.14.1
  * Android builds updated to NDK r23 (LTS)
  * Builds with -std=c++17
