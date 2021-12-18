@@ -139,6 +139,8 @@ prepare_boost() {
   abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
   abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
   abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+	abort_if_var_unset "BOOST_DOT_VERSION" ${BOOST_DOT_VERSION}
+	abort_if_var_unset "BOOST_UNDERSCORE_VERSION" ${BOOST_UNDERSCORE_VERSION}
 
   if ! [ -x "$(command -v wget)" ]; then
       echo "Error: wget is not installed."
@@ -149,7 +151,7 @@ prepare_boost() {
   echo "Checking for ${BOOST_ROOT}..."
   if [ ! -d ${BOOST_ROOT} ]; then
       prompt_msg "Downloading BOOST ${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
-      wget -4 -O boost.zip https://boostorg.jfrog.io/artifactory/main/release/${BOOST_MAJOR}.{$BOOST_VERSION}.${BOOST_MINOR}/source/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}.tar.gz
+      wget -4 -O boost.zip https://boostorg.jfrog.io/artifactory/main/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.zip
       unzip -qq boost.zip
       rm -f boost.zip
   fi
