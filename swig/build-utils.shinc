@@ -181,6 +181,8 @@ prepare_openssl() {
 
 build_openssl() {
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
+  abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
+  abort_if_var_unset "os_arch" ${os_arch}
   abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
   prompt_msg "build_openssl: run_openssl_configure=[${run_openssl_configure}]"
   press_any_to_continue
