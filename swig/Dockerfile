@@ -31,7 +31,7 @@ RUN apt install -y emacs-nox
 ENV LIBTORRENT_REVISION="RC_1_2_ad2a6d7"
 ENV SWIG_VERSION="4.0.2"
 ENV BOOST_MAJOR="1"
-ENV BOOST_VERSION="77"
+ENV BOOST_VERSION="78"
 ENV BOOST_MINOR="0"
 ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
 ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
@@ -68,7 +68,7 @@ RUN swig -version
 
 # prepare_boost
 RUN cd /src \
-		&& wget -nv -O boost.tar.gz https://dl.frostwire.com/other/boost/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz \
+    && wget -nv -O boost.tar.gz https://boostorg.jfrog.io/artifactory/main/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz
     && tar xzf boost.tar.gz \
     && cd boost_${BOOST_UNDERSCORE_VERSION} \
     && ./bootstrap.sh
