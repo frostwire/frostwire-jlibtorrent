@@ -9,11 +9,12 @@ unset_env_variables() {
   unset CC
   unset BOOST_LIB_PATH
   unset BOOST_ROOT
-  unset BOOST_LIB_SUFFIX #BOOST_LIB_SUFFIX=-mt
+  unset BOOST_LIB_SUFFIX
   unset OPENSSL_ROOT_DIR
   unset OPENSSL_BIN_PATH
   unset OPENSSL_INCLUDE_PATH
   unset OPENSSL_LIB_PATH
+  unset SHARED_LIB
 }
 unset_env_variables
 
@@ -56,30 +57,9 @@ export LIBRARY_NAME=jlibtorrent
 # In order to make sure a cherry-picked commit is checkout on the RC_1_2 branch
 # I create a tag for it on the github.com/gubatron/libtorrent/commits/RC_1_2 branch
 # The tag name format is 'RC_1_2_' + <first 7 digits of commit>
-export LIBTORRENT_REVISION=RC_1_2_e22621a # fix issue on MacOS where the DHT was not restarted on a network-up notification
+export LIBTORRENT_REVISION=RC_1_2_e22621a # Clean up compile flags for msvc
 export OPENSSL_VERSION="1.1.1m"
 export BOOST_VERSION="78"
-# TEMP NOTES ON BOOST ISSUES, DEC 13 2020
-# Reverting to boost 1.73.
-# To build on macOS you need to comment the following line on ${BOOST_ROOT}/tools/build/src/tools/darwin.jam
-# 'flags darwin.compile.c++ OPTIONS $(condition) : -fcoalesce-templates ;'
-# We might have to do this in Travis CI
-
-# 1.74 seems to require -frtti linking
-#In file included from /Users/gubatron/src/libtorrent/src/announce_entry.cpp:34:
-#In file included from /Users/gubatron/src/libtorrent/include/libtorrent/announce_entry.hpp:41:
-#In file included from /Users/gubatron/src/libtorrent/include/libtorrent/socket.hpp:53:
-#In file included from /Users/gubatron/src/boost_1_74_0/boost/asio/ip/tcp.hpp:19:
-#In file included from /Users/gubatron/src/boost_1_74_0/boost/asio/basic_socket_acceptor.hpp:19:
-#In file included from /Users/gubatron/src/boost_1_74_0/boost/asio/any_io_executor.hpp:22:
-#In file included from /Users/gubatron/src/boost_1_74_0/boost/asio/execution.hpp:19:
-#/Users/gubatron/src/boost_1_74_0/boost/asio/execution/any_executor.hpp:811:12: error: use of typeid requires -frtti
-#    return typeid(void);
-
-# 1.75 and 1.77 causes swig to not generate error_code.java and other error handling classes
-# With boost 1.75 swig will issue these boost related warnings, something must have changed
-# Warning 315: Nothing known about 'boost::system::generic_category'
-# same for 'boost::system::system_category'
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
 export BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
@@ -262,8 +242,14 @@ build_libraries() {
   cd ..
 
   # so that tests pass when running on mac or linux we copy the shared library to the root folder
-  if [[ $os_build == "macosx" || $os_build == "linux" ]]; then
+  if [[ $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
+  fi
+  if [[ $os_build == "macosx" ]]; then
+    # rename libjlibtorrent.dylib to libjlibtorrent.<os_arch>.dylib and copy to the root folder
+    abort_if_var_unset "RELEASE_SHARED_LIB" ${RELEASE_SHARED_LIB}
+    mv swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB}
+    cp swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB} .
   fi
   ./gradlew jar
   $run_native_jar
