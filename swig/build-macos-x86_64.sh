@@ -10,7 +10,8 @@ common_env
 check_min_req_vars
 export os_arch=x86_64
 export os_build=macosx
-export SHARED_LIB=lib${LIBRARY_NAME}.x86_64.dylib
+export SHARED_LIB=lib${LIBRARY_NAME}.dylib
+export RELEASE_SHARED_LIB=lib${LIBRARY_NAME}.${os_arch}.dylib
 export CXX=g++
 export CC=gcc
 export run_openssl_configure="./Configure darwin64-${os_arch}-cc ${OPENSSL_NO_OPTS} --prefix=${OPENSSL_ROOT}"
