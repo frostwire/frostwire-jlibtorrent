@@ -1,3 +1,7 @@
+1.2.15.1
+ * openssl 1.1.1m upgrade
+ * upgrade to boost 1.78
+
 1.2.14.2
  * upgraded to boost 1.77
 
