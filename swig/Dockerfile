@@ -24,7 +24,7 @@ RUN apt install -y libpcre3
 RUN apt install -y g++-mingw-w64-x86-64
 # Linux Toolchain
 RUN apt install -y g++-7
-#RUN apt install -y g++-7-multilib
+RUN apt install -y g++-7-multilib
 # For testing and debugging
 RUN apt install -y emacs-nox
 
