@@ -71,14 +71,31 @@ using disconnect_severity_t = libtorrent::disconnect_severity_t;
         return "$JLIBTORRENT_VERSION$";
     }
 
+    public static boolean isMacOS() {
+      String os = System.getProperty("os.name").toLowerCase(java.util.Locale.US);
+      return os.startsWith("mac os")
+    }
+
+    public static String getMacOSLibraryName() {
+      String os_arch = System.getProperty("os.arch");
+      if ("aarch64".equals("aarch64")) {
+        return "jlibtorrent.arm64";
+			}
+      return "jlibtorrent." + os_arch;
+    }
+
     static {
         try {
             String path = System.getProperty("jlibtorrent.jni.path", "");
             if ("".equals(path)) {
                 try {
-                    System.out.println("Trying jlibtorrent.<so|dylib>...");
-                    System.loadLibrary("jlibtorrent");
-                    System.loadLibrary("Loaded jlibtorrent.<so|dylib> (version=" +  jlibtorrentVersion() + ")");
+                    String jlibtorrentLibraryName = "jlibtorrent";
+                    if (isMacOS()) {
+                      jlibtorrentLibraryName = getMacOSLibraryName();
+                    }
+                    System.out.println("Trying " + jlibtorrentLibraryName + ".<so|dylib>...");
+                    System.loadLibrary(jlibtorrentLibraryName);
+                    System.out.println("Loaded jlibtorrent.<so|dylib> (version=" +  jlibtorrentVersion() + ")");
                 } catch (LinkageError e) {
                     // give it a try to the name with version
                     e.printStackTrace();
