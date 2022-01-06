@@ -24,11 +24,11 @@ RUN apt install -y libpcre3
 RUN apt install -y g++-mingw-w64-x86-64
 # Linux Toolchain
 RUN apt install -y g++-7
-RUN apt install -y g++-7-multilib
+#RUN apt install -y g++-7-multilib
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION="RC_1_2_ad2a6d7"
+ENV LIBTORRENT_REVISION="RC_1_2_e22621a"
 ENV SWIG_VERSION="4.0.2"
 ENV BOOST_MAJOR="1"
 ENV BOOST_VERSION="78"
@@ -40,7 +40,7 @@ ENV NDK_VERSION="r23"
 ENV ANDROID_API="24"
 ENV OPENSSL_VERSION="1.1.1m"
 ENV OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
-ENV GRADLE_VERSION="7.0.2"
+ENV GRADLE_VERSION="7.3.1"
 ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
 
 # build scripts don't stop
@@ -68,7 +68,7 @@ RUN swig -version
 
 # prepare_boost
 RUN cd /src \
-    && wget -nv -O boost.tar.gz https://boostorg.jfrog.io/artifactory/main/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz
+    && wget -nv -O boost.tar.gz https://boostorg.jfrog.io/artifactory/main/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz \
     && tar xzf boost.tar.gz \
     && cd boost_${BOOST_UNDERSCORE_VERSION} \
     && ./bootstrap.sh
