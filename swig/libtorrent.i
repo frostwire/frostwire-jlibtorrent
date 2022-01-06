@@ -73,14 +73,14 @@ using disconnect_severity_t = libtorrent::disconnect_severity_t;
 
     public static boolean isMacOS() {
       String os = System.getProperty("os.name").toLowerCase(java.util.Locale.US);
-      return os.startsWith("mac os")
+      return os.startsWith("mac os");
     }
 
     public static String getMacOSLibraryName() {
       String os_arch = System.getProperty("os.arch");
       if ("aarch64".equals("aarch64")) {
         return "jlibtorrent.arm64";
-			}
+      }
       return "jlibtorrent." + os_arch;
     }
 
