@@ -3,7 +3,7 @@ apply plugin: 'java'
 group 'com.frostwire'
 archivesBaseName = 'jlibtorrent'
 // Just changing version here should be all that's necessary to bump the version on the library
-version '1.2.14.2'
+version '1.2.15.1'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -51,16 +51,25 @@ task javadocJar(type: Jar, dependsOn: javadoc2) {
     from javadoc2.destinationDir
 }
 
-task nativeMacOSXJar(type: Zip) {
+task nativeMacOSArm64Jar(type: Zip) {
     destinationDirectory = file("$buildDir/libs")
-    archiveBaseName = 'jlibtorrent-macosx'
+    archiveBaseName = 'jlibtorrent-macosx-arm64'
     archiveExtension = 'jar'
-    from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.dylib')
+    from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: 'arm64/*libjlibtorrent.dylib')
     into 'lib/'
     rename(".dylib", "-${version}.dylib")
 }
 
-task nativeWindowsJar(type: Zip) {
+task nativeMacOSX86_64Jar(type: Zip) {
+    destinationDirectory = file("$buildDir/libs")
+    archiveBaseName = 'jlibtorrent-macosx-x86_64'
+    archiveExtension = 'jar'
+    from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: 'x86_64/*libjlibtorrent.dylib')
+    into 'lib/'
+    rename(".dylib", "-${version}.dylib")
+}
+
+task nativeWindowsX86_64Jar(type: Zip) {
     destinationDirectory = file("$buildDir/libs")
     archiveBaseName ='jlibtorrent-windows'
     archiveExtension = 'jar'
@@ -117,8 +126,9 @@ task nativeAndroidX64Jar(type: Zip) {
 artifacts {
     archives sourcesJar
     archives javadocJar
-    archives nativeMacOSXJar
-    archives nativeWindowsJar
+    archives nativeMacOSArm64Jar
+    archives nativeMacOSX86_64Jar
+    archives nativeWindowsX86_64Jar
     archives nativeLinuxJar
     archives nativeAndroidArmJar
     archives nativeAndroidX86Jar
