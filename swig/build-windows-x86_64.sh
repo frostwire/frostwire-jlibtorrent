@@ -17,7 +17,7 @@ export run_bjam="${BOOST_ROOT}/b2 -j2 --user-config=config/${os_build}-${os_arch
 export run_objcopy="echo dummy run_objcopy for ${os_build} ${os_arch}"
 export run_strip="x86_64-w64-mingw32-strip --strip-unneeded -x bin/release/${os_build}/${os_arch}/libjlibtorrent.dll";
 export run_readelf="eval objdump -p bin/release/${os_build}/${os_arch}/jlibtorrent.dll | grep DLL"
-export run_native_jar="./gradlew nativeWindowsJar"
+export run_native_jar="./gradlew nativeWindowsX86_64Jar"
 prepare_libtorrent
 ./run-swig.sh
 build_libraries

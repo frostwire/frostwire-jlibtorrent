@@ -57,7 +57,7 @@ export LIBRARY_NAME=jlibtorrent
 # I create a tag for it on the github.com/gubatron/libtorrent/commits/RC_1_2 branch
 # The tag name format is 'RC_1_2_' + <first 7 digits of commit>
 export LIBTORRENT_REVISION=RC_1_2_ad2a6d7 # fix issue on MacOS where the DHT was not restarted on a network-up notification
-export OPENSSL_VERSION="1.1.1l"
+export OPENSSL_VERSION="1.1.1m"
 export BOOST_VERSION="78"
 # TEMP NOTES ON BOOST ISSUES, DEC 13 2020
 # Reverting to boost 1.73.
