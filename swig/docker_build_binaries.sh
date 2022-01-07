@@ -5,8 +5,8 @@
 # Then executes the build scripts for android
 docker \
  run \
- --cpus=4 \
- --memory=8gb \
+ --cpus=8 \
+ --memory=32gb \
  -v "$PWD/../../frostwire-jlibtorrent:/frostwire-jlibtorrent" \
  -it jlibtorrent-android \
  /bin/bash /build.sh  #for some reason it won't run the script
