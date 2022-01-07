@@ -236,7 +236,7 @@ build_libraries() {
 
   # fix libjlibtorrent.dll -> jlibtorrent.dll
   if [[ $os_build == "windows" ]]; then
-    cp bin/release/windows/${os_arch}/libjlibtorrent.dll bin/release/windows/${os_arch}/jlibtorrent.dll
+    mv bin/release/windows/${os_arch}/libjlibtorrent.dll bin/release/windows/${os_arch}/jlibtorrent.dll
   fi
 
   cd ..
