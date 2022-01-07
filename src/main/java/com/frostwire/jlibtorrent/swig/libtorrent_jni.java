@@ -52,6 +52,7 @@ public class libtorrent_jni {
                     }
                 }
             } else {
+                System.out.println("libtorrent_jni: Using jlibtorrent.jni.path=" + path);
                 System.load(path);
             }
         } catch (LinkageError e) {
