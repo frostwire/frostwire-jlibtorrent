@@ -1,6 +1,16 @@
 1.2.15.1
  * openssl 1.1.1m upgrade
  * upgrade to boost 1.78
+ * new macos M1 .dylib binary (arm64)
+ * lt:don't disable announcing from local endpoints because of temporary failures
+ * lt:fix issue in parsing UPnP XML response with multiple forwarding services
+ * lt:cache DNS lookups for SOCKS5 proxy
+ * lt:fix stalled pieces on disk-full errors
+ * lt:fix build configuration issue on NetBSD, OpenBSD and DragonFly
+ * lt:make UTF-8 sanitization a bit stricter. This will re-write invalid UTF-8 code points encoding surrogate pairs
+ * lt:fix restoring last_seen_complete from resume data
+ * lt:fix issue on MacOS where the DHT was not restarted on a network-up notification
+ * lt:make remove_torrent flags be treated as flags (instead of an enum)
 
 1.2.14.2
  * upgraded to boost 1.77
