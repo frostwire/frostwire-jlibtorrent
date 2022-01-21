@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "1.2.15.1";
+        return "1.2.15.2";
     }
 
     public static boolean isMacOS() {
@@ -38,22 +38,23 @@ public class libtorrent_jni {
                     if (isMacOS()) {
                       jlibtorrentLibraryName = getMacOSLibraryName();
                     }
-                    System.out.println("Trying " + jlibtorrentLibraryName + ".<so|dylib>...");
+                    System.out.println("jlibtorrent: Trying to load jlibtorrent without version number: " + jlibtorrentLibraryName + ".<so|dylib>...");
                     System.loadLibrary(jlibtorrentLibraryName);
-                    System.out.println("Loaded jlibtorrent.<so|dylib> (version=" +  jlibtorrentVersion() + ")");
-                } catch (LinkageError e) {
+                    System.out.println("jlibtorrent: SUCCESS: Loaded jlibtorrent.<so|dylib> (version=" +  jlibtorrentVersion() + ")");
+                } catch (LinkageError ignored) {
                     // give it a try to the name with version
-                    e.printStackTrace();
                     try {
+                        System.out.println("jlibtorrent: FAILED: Trying to load jlibtorrent with version number: jlibtorrent-" + jlibtorrentVersion());
                         System.loadLibrary("jlibtorrent-" + jlibtorrentVersion());
-                        System.out.println("Loaded jlibtorrent-" + jlibtorrentVersion());
+                        System.out.println("jlibtorrent: SUCCESS: Loaded jlibtorrent-" + jlibtorrentVersion());
                     } catch (Throwable t) {
                         t.printStackTrace();
                     }
                 }
             } else {
-                System.out.println("libtorrent_jni: Using jlibtorrent.jni.path=" + path);
+                System.out.println("jlibtorrent: Trying to load jlibtorrent through system property jlibtorrent.jni.path=" + path);
                 System.load(path);
+                System.out.println("jlibtorrent: SUCCESS: Loaded jlibtorrent through jlibtorrent.jni.path parameter");
             }
         } catch (LinkageError e) {
             throw new LinkageError(
