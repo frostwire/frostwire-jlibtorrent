@@ -1,3 +1,6 @@
+1.2.15.2
+ * less verbose error messages when loading the library
+
 1.2.15.1
  * openssl 1.1.1m upgrade
  * upgrade to boost 1.78
