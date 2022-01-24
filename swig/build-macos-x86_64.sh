@@ -21,7 +21,7 @@ export run_objcopy="echo dummy run_objcopy for ${os_build} ${os_arch}"
 export run_strip="strip -S -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeMacOSX86_64Jar"
 create_folder_if_it_doesnt_exist ${SRC}
-prompt_msg "About to prepare BOOST ${BOOST_VERSION}"
+prompt_msg "$0:About to prepare BOOST ${BOOST_VERSION}"
 press_any_to_continue
 prepare_boost
 prepare_openssl
