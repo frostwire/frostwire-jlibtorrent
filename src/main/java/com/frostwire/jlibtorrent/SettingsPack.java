@@ -606,4 +606,20 @@ public final class SettingsPack {
         sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), value);
         return this;
     }
+
+
+    /**
+     * {@code validate_https_trackers} when set to true, the certificate of HTTPS trackers
+     * and HTTPS web seeds will be validated against the system's certificate store (as defined by OpenSSL).
+     * If the system does not have a certificate store, this option may have to be disabled
+     * in order to get trackers and web seeds to work).
+     */
+    public SettingsPack validateHttpsTrackers(boolean value) {
+        sp.set_bool(settings_pack.bool_types.validate_https_trackers.swigValue(), value);
+        return this;
+    }
+
+    public boolean validateHttpsTrackers() {
+        return sp.get_bool(settings_pack.bool_types.validate_https_trackers.swigValue());
+    }
 }
