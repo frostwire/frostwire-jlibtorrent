@@ -1,5 +1,16 @@
-1.2.?.?
+1.2.16.0
  * Expose settings_pack.validate_https_trackers with SettingsPack::validateHttpsTrackers methods
+ * upgrade to boost 1.79
+ * openssl 1.1.1n upgrade
+ * fix bdecode support for large strings (>= 100 MB)
+ * send User-Agent field in anonymous mode
+ * fix python binding for settings_pack conversion
+ * fix DHT announce timer issue
+ * use DSCP_TRAFFIC_TYPE socket option on windows
+ * update default ToS setting according to RFC 8622
+ * keep trying to announce to trackers even when all fail
+ * don't disable announcing from local endpoints because of temporary failures
+ * fix issue in parsing UPnP XML response with multiple forwarding services
 
 1.2.15.2
  * less verbose error messages when loading the library
