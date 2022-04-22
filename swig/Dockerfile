@@ -28,17 +28,17 @@ RUN apt install -y g++-7-multilib
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION="RC_1_2_e22621a"
+ENV LIBTORRENT_REVISION="RC_1_2_239500acf2bc60dcb91330bf3c21b939d9f603af"
 ENV SWIG_VERSION="4.0.2"
 ENV BOOST_MAJOR="1"
-ENV BOOST_VERSION="78"
+ENV BOOST_VERSION="79"
 ENV BOOST_MINOR="0"
 ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
 ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
 ENV NDK_VERSION="r23"
 ENV ANDROID_API="24"
-ENV OPENSSL_VERSION="1.1.1m"
+ENV OPENSSL_VERSION="1.1.1n"
 ENV OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 ENV GRADLE_VERSION="7.3.1"
 ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
