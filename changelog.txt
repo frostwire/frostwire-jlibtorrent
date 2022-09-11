@@ -3,6 +3,7 @@
  * openssl 1.1.1q upgrade
  * gradle 7.5.1 upgrade
  * libtorrent update to RC_1_2 b5873f23b40ef9054b2bd6a4db2a2d327a56d4b1
+ * android NDK r25b (LTS) update (from r23)
  * lt:fix wanted_done/done accounting when force-rechecking
  * lt:expose userdata via torrent_handle (back-port from 2.0)
  * lt:fix renaming of filenames that are too long for the filesystem
