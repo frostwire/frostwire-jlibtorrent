@@ -1489,6 +1489,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_handle_op_ne(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native boolean torrent_handle_op_lt(long jarg1, torrent_handle jarg1_, long jarg2, torrent_handle jarg2_);
   public final static native long torrent_handle_id(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_userdata(long jarg1, torrent_handle jarg1_);
   public final static native boolean torrent_handle_in_session(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_add_piece_bytes__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_, long jarg4, add_piece_flags_t jarg4_);
   public final static native void torrent_handle_add_piece_bytes__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_);
@@ -2751,6 +2752,7 @@ public class libtorrent_jni {
   public final static native int settings_pack_announce_crypto_support_get();
   public final static native int settings_pack_tracker_completion_timeout_get();
   public final static native int settings_pack_cache_expiry_get();
+  public final static native int settings_pack_peer_tos_get();
   public final static native int settings_pack_auto_manage_interval_get();
   public final static native int settings_pack_read_cache_line_size_get();
   public final static native int settings_pack_num_optimistic_unchoke_slots_get();

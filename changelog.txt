@@ -1,6 +1,18 @@
 1.2.17.0
+ * boost 1.80 upgrade
  * openssl 1.1.1q upgrade
  * gradle 7.5.1 upgrade
+ * libtorrent update to RC_1_2 b5873f23b40ef9054b2bd6a4db2a2d327a56d4b1
+ * lt:fix wanted_done/done accounting when force-rechecking
+ * lt:expose userdata via torrent_handle (back-port from 2.0)
+ * lt:fix renaming of filenames that are too long for the filesystem
+ * lt:made UPnP and LSD code avoid using select_reactor (to work around an issue on windows in boost.asio < 1.80)
+ * lt:fixed tracker connections spinning when hostname lookups stall
+ * lt:fixed error in pkg-config file generation in Jamfile
+ * lt:improve backwards compatibility with loading magnet link resume files
+ * lt:fix bind-to-device for tracker announces and UPnP
+ * lt:rename peer_tos setting to peer_dscp
+ * lt:fix bdecode support for large strings (>= 100 MB)
 
 1.2.16.0
  * Expose settings_pack.validate_https_trackers with SettingsPack::validateHttpsTrackers methods

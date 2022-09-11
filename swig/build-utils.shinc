@@ -57,10 +57,10 @@ export LIBRARY_NAME=jlibtorrent
 # In order to make sure a cherry-picked commit is checkout on the RC_1_2 branch
 # I create a tag for it on the github.com/gubatron/libtorrent/commits/RC_1_2 branch
 # The tag name format is 'RC_1_2_' + <first 7 digits of commit>
-#export LIBTORRENT_REVISION=e22621a1883fb1a7ca416dc9aa134518e04f0644 # Clean up compile flags for msvc
-export LIBTORRENT_REVISION=239500acf2bc60dcb91330bf3c21b939d9f603af # fix bdecode support for large strings (>= 100 MB)
+#export LIBTORRENT_REVISION=239500acf2bc60dcb91330bf3c21b939d9f603af # fix bdecode support for large strings (>= 100 MB)
+export LIBTORRENT_REVISION=b5873f23b40ef9054b2bd6a4db2a2d327a56d4b1 # bump cibuildwheel workflow version
 export OPENSSL_VERSION="1.1.1q"
-export BOOST_VERSION="79"
+export BOOST_VERSION="80"
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
 export BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
