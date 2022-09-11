@@ -304,6 +304,10 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_id(swigCPtr, this);
   }
 
+  public long userdata() {
+    return libtorrent_jni.torrent_handle_userdata(swigCPtr, this);
+  }
+
   public boolean in_session() {
     return libtorrent_jni.torrent_handle_in_session(swigCPtr, this);
   }
