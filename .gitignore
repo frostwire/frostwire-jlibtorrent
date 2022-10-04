@@ -21,3 +21,4 @@ frostwire-jlibtorrent.i*
 /jlibtorrent*.dll
 /node/jlibtorrent.node
 /dht_shell.dat
+local.properties
