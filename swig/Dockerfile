@@ -28,7 +28,11 @@ RUN apt install -y g++-7-multilib
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION="RC_1_2_adac0d"
+# uncomment if building jlibtorrent 1.2.x
+#ENV LIBTORRENT_REVISION="RC_1_2_adac0d"
+#ENV LIBTORRENT_BRANCH="RC_1_2"
+ENV LIBTORRENT_REVISION=b6d09d9368d2dacd6a1fd04d4013566ab979a45c
+ENV LIBTORRENT_BRANCH="RC_2_0"
 ENV SWIG_VERSION="4.0.2"
 ENV BOOST_MAJOR="1"
 ENV BOOST_VERSION="82"

@@ -54,11 +54,8 @@ linux_env() {
 
 export LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
 export LIBRARY_NAME=jlibtorrent
-# In order to make sure a cherry-picked commit is checkout on the RC_1_2 branch
-# I create a tag for it on the github.com/gubatron/libtorrent/commits/RC_1_2 branch
-# The tag name format is 'RC_1_2_' + <first 7 digits of commit>
-#export LIBTORRENT_REVISION=b5873f23b40ef9054b2bd6a4db2a2d327a56d4b1 # bump cibuildwheel workflow version
-export LIBTORRENT_REVISION=adac0d0843c7fb2180f43d20bd5bee0e380e4673 # backport cibuildwheel fix of not running tests in win32
+export LIBTORRENT_REVISION=b6d09d9368d2dacd6a1fd04d4013566ab979a45c # add create_torrent::generate_buf() function to generate into a buffer : RC_2_0
+export LIBTORRENT_BRANCH="RC_2_0"
 export OPENSSL_VERSION="1.1.1t"
 export BOOST_VERSION="82"
 export BOOST_MAJOR="1"
@@ -100,6 +97,7 @@ abort_if_var_unset() {
 
 check_min_req_vars() {
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
+  abort_if_var_unset "LIBTORRENT_BRANCH" ${LIBTORRENT_BRANCH}
   abort_if_var_unset "LIBRARY_VERSION" ${LIBRARY_VERSION}
   abort_if_var_unset "LIBRARY_NAME" ${LIBRARY_NAME}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
@@ -184,6 +182,7 @@ prepare_libtorrent() {
   echo "prepare_libtorrent started..."
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+  abort_if_var_unset "LIBTORRENT_BRANCH" ${LIBTORRENT_BRANCH}
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
   if [ ! -d ${LIBTORRENT_ROOT} ]; then
     pushd ${SRC}
@@ -195,7 +194,7 @@ prepare_libtorrent() {
   git status
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
-  git fetch origin RC_1_2
+  git fetch origin ${LIBTORRENT_BRANCH}
   git reset --hard ${LIBTORRENT_REVISION}
   git submodule init
   git submodule update
