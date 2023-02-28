@@ -69,7 +69,7 @@ function runJni()
         -DBOOST_SYSTEM_DECL="" \
         -DBOOST_SYSTEM_NO_DEPRECATED=1 \
         -DBOOST_NO_IOSTREAM \
-        -DBOOST_SYMBOL_VISIBLE \
+        -DBOOST_SYMBOL_VISIBLE="" \
         -DBOOST_NOEXCEPT="" \
         -DBOOST_NOEXCEPT_OR_NOTHROW="" \
         -DTORRENT_ABI_VERSION=2 \
