@@ -15,7 +15,6 @@
 	
 %{
 // BEGIN common set include ------------------------------------------------------
-
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/peer_request.hpp"
