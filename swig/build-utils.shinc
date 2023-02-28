@@ -95,7 +95,7 @@ abort_if_var_unset() {
     prompt_msg "Error ${var_name} not set. Aborting"
     exit 1
   fi
-  echo ${var_name} set to ${var_value}
+  echo abort_if_var_unset: ${var_name} set to ${var_value}
 }
 
 check_min_req_vars() {
