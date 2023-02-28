@@ -1,6 +1,7 @@
 #!/bin/bash
 # WARNING: This script is not meant to be run directly. Every OS script must call it so that env path variables can be set correctly
 source build-utils.shinc
+abort_if_var_unset "SRC" ${SRC}
 abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
 abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
 
@@ -54,6 +55,7 @@ function runJni()
     # https://sourceforge.net/projects/swig/files/swig/swig-3.0.12/swig-3.0.12.tar.gz/download
 
     swig -c++ -java -o libtorrent_jni.cpp \
+        -v \
         -outdir ${JAVA_SRC_OUTPUT} \
         -package com.frostwire.jlibtorrent.swig \
         -I${BOOST_ROOT} \
