@@ -3,7 +3,7 @@ apply plugin: 'java'
 group 'com.frostwire'
 archivesBaseName = 'jlibtorrent'
 // Just changing version here should be all that's necessary to bump the version on the library
-version '1.2.17.0'
+version '1.2.19.0'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -38,7 +38,7 @@ test {
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
@@ -47,7 +47,7 @@ task javadoc2(type: Javadoc) {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc2) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc2.destinationDir
 }
 
