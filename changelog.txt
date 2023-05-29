@@ -4,6 +4,7 @@
  * gradle 8.1.1 upgrade
  * jar built with jdk20
  * libtorrent update to RC_1_2 adac0d0843c7fb2180f43d20bd5bee0e380e4673
+ * android NDK r25c (LTS) (from r25b)
  * lt:back-port load_torrent_*() functions
  * lt:fix issue with odd piece sizes
  * lt:fix issue where stop-when-ready would not close files
