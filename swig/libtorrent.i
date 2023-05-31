@@ -179,6 +179,10 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 %apply std::int64_t { std::time_t };
 
 %define TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, api_type, java_type)
+
+// don't add deprecated finalize() methods
+%typemap(javafinalize) SWIGTYPE ""
+
 %typemap(jni) name, const name& "java_type"
 %typemap(jtype) name, const name& "java_type"
 %typemap(jstype) name, const name& "java_type"
