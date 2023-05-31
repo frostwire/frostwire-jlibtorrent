@@ -2,6 +2,9 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.swig.close_reason_t;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * These are all the reasons to disconnect a peer
  * all reasons caused by the peer sending unexpected data.
@@ -286,6 +289,9 @@ public enum CloseReason {
         return swigValue;
     }
 
+    private static Map<Integer, CloseReason> swigToCloseReason;
+    private final static Object swigToCloseReasonLock = new Object();
+
     /**
      * Converted method, it's public in order to be used in other
      * internal packages.
@@ -294,12 +300,18 @@ public enum CloseReason {
      * @return the enum value
      */
     public static CloseReason fromSwig(int swigValue) {
-        CloseReason[] enumValues = CloseReason.class.getEnumConstants();
-        for (CloseReason ev : enumValues) {
-            if (ev.swig() == swigValue) {
-                return ev;
+        if (swigToCloseReason == null) {
+            synchronized (swigToCloseReasonLock) {
+                swigToCloseReason = new HashMap<>();
+                for (CloseReason r : values()) {
+                    swigToCloseReason.put(r.swig(), r);
+                }
             }
         }
-        return UNKNOWN;
+        try {
+            return swigToCloseReason.get(swigValue);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return UNKNOWN;
+        }
     }
 }
