@@ -52,7 +52,7 @@ linux_env() {
   export OPENSSL_ROOT="/openssl-linux-x86_64"
 }
 
-export LIBRARY_VERSION=`egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g"`
+export LIBRARY_VERSION=$(egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g")
 export LIBRARY_NAME=jlibtorrent
 export LIBTORRENT_REVISION=b6d09d9368d2dacd6a1fd04d4013566ab979a45c # add create_torrent::generate_buf() function to generate into a buffer : RC_2_0
 export LIBTORRENT_BRANCH="RC_2_0"
@@ -195,6 +195,7 @@ prepare_libtorrent() {
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
   git fetch origin ${LIBTORRENT_BRANCH}
+  git checkout ${LIBTORRENT_BRANCH}
   git reset --hard ${LIBTORRENT_REVISION}
   git submodule init
   git submodule update
