@@ -21,15 +21,15 @@
 
 #include <libtorrent/config.hpp>
 #include <libtorrent/time.hpp>
-#include <libtorrent/buffer.hpp>
-#include <libtorrent/utp_stream.hpp>
+#include <libtorrent/aux_/buffer.hpp>
+#include <libtorrent/aux_/utp_stream.hpp>
 #include <libtorrent/socket_io.hpp>
 #include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/write_resume_data.hpp>
 #include <libtorrent/hex.hpp>
 #include <libtorrent/extensions.hpp>
 #include <libtorrent/bloom_filter.hpp>
-#include <libtorrent/announce_entry.hpp>
+#include <libtorrent/aux_/announce_entry.hpp>
 #include <libtorrent/enum_net.hpp>
 
 #include <libtorrent/kademlia/dht_tracker.hpp>
@@ -240,7 +240,7 @@ std::vector<ip_interface> enum_net_interfaces(libtorrent::session* s)
 {
     std::vector<ip_interface> ret;
     boost::system::error_code ec;
-    auto v = libtorrent::enum_net_interfaces(s->get_io_service(), ec);
+    auto v = libtorrent::enum_net_interfaces(s->get_context(), ec);
     for (auto& e : v)
     {
         ip_interface iface;
@@ -259,13 +259,14 @@ std::vector<ip_route> enum_routes(libtorrent::session* s)
 {
     std::vector<ip_route> ret;
     boost::system::error_code ec;
-    auto v = libtorrent::enum_routes(s->get_io_service(), ec);
+    auto v = libtorrent::enum_routes(s->get_context(), ec);
     for (auto& e : v)
     {
         ip_route r;
         r.destination = e.destination;
         r.netmask = e.netmask;
         r.gateway = e.gateway;
+        r.source_hint = e.source_hint;
         r.name = {e.name, e.name + sizeof(e.name)};
         r.mtu = e.mtu;
         ret.push_back(r);
