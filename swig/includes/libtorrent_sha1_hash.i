@@ -55,4 +55,4 @@ namespace libtorrent {
             }
         }
     };
-}; // namespace libtorrent
+} // namespace libtorrent

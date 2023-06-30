@@ -1,5 +1,4 @@
 namespace libtorrent {
-
     namespace flags
     {
         template<typename UnderlyingType, typename Tag>
@@ -51,4 +50,4 @@ namespace libtorrent {
             }
         }; // struct bitfield_flag
     } // namespace flags
-}; // namespace libtorrent
+} // namespace libtorrent

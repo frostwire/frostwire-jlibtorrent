@@ -4,4 +4,4 @@ namespace libtorrent {
     {
         none, tcp, udp
     };
-}; // namespace libtorrent
+} // namespace libtorrent
