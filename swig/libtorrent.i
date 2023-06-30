@@ -39,7 +39,6 @@
 #include "libtorrent/peer_class_type_filter.hpp"
 #include "libtorrent/session_types.hpp"
 #include "libtorrent/ip_filter.hpp"
-#include "libtorrent/session_handle.hpp"
 #include "libtorrent/kademlia/dht_state.hpp"
 #include "libtorrent/kademlia/dht_settings.hpp"
 #include "libtorrent/session.hpp"
@@ -141,7 +140,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::detail;
 %ignore libtorrent::aux;
 %ignore libtorrent::parse_int;
-%ignore libtorrent::bdecode;
 %ignore libtorrent::get_bdecode_category;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(piece_index_t)> const&, error_code&);
 %ignore libtorrent::hash_value;
@@ -177,7 +175,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::add_torrent_params::deprecated3;
 %ignore libtorrent::add_torrent_params::deprecated4;
 %ignore libtorrent::add_torrent_params::deprecated5;
-%ignore libtorrent::alert::timestamp;
 %ignore libtorrent::performance_alert::bittyrant_with_no_uplimit;
 %ignore libtorrent::performance_alert::deprecated_bittyrant_with_no_uplimit;
 %ignore libtorrent::performance_alert::performance_warning_t::bittyrant_with_no_uplimit;
@@ -197,28 +194,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::session::session(settings_pack&&, session_flags_t const);
 %ignore libtorrent::session::session(settings_pack&&);
 %ignore libtorrent::session_proxy::session_proxy(session_proxy&&);
-%ignore libtorrent::session_handle::session_handle(aux::session_impl*);
-%ignore libtorrent::session_handle::session_handle(session_handle&&);
-%ignore libtorrent::session_handle::get_torrent_status;
-%ignore libtorrent::session_handle::get_io_service;
-%ignore libtorrent::session_handle::get_connection_queue;
-%ignore libtorrent::session_handle::add_extension(std::function<std::shared_ptr<torrent_plugin>(torrent_handle const&, void*)>);
-%ignore libtorrent::session_handle::add_extension(std::shared_ptr<plugin>);
-%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>, std::string);
-%ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>);
-%ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>, std::string);
-%ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>);
-%ignore libtorrent::session_handle::dht_direct_request(udp::endpoint const&, entry const&, void*);
-%ignore libtorrent::session_handle::set_load_function;
-%ignore libtorrent::session_handle::set_alert_notify;
-%ignore libtorrent::session_handle::native_handle;
-%ignore libtorrent::session_handle::set_dht_storage;
-%ignore libtorrent::session_handle::get_cache_info;
-%ignore libtorrent::session_handle::wait_for_alert;
-%ignore libtorrent::session_handle::add_default_plugins;
-%ignore libtorrent::session_handle::add_torrent(add_torrent_params&&, error_code&);
-%ignore libtorrent::session_handle::async_add_torrent(add_torrent_params&&);
-%ignore libtorrent::session_handle::apply_settings(settings_pack&&);
 %ignore libtorrent::session_stats_alert::counters;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
@@ -271,25 +246,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
 %ignore libtorrent::read_piece_alert::buffer;
-%ignore libtorrent::bdecode_node::bdecode_node(bdecode_node&&);
-%ignore libtorrent::bdecode_node::non_owning;
-%ignore libtorrent::bdecode_node::data_section;
-%ignore libtorrent::bdecode_node::list_string_value_at;
-%ignore libtorrent::bdecode_node::dict_find;
-%ignore libtorrent::bdecode_node::dict_find_dict;
-%ignore libtorrent::bdecode_node::dict_find_list;
-%ignore libtorrent::bdecode_node::dict_find_string;
-%ignore libtorrent::bdecode_node::dict_find_int;
-%ignore libtorrent::bdecode_node::dict_find_string_value;
-%ignore libtorrent::bdecode_node::dict_find_int_value;
-%ignore libtorrent::bdecode_node::string_value;
-%ignore libtorrent::bdecode_node::string_ptr;
-%ignore libtorrent::bdecode_node::swap;
-%ignore libtorrent::bdecode_node::reserve;
-%ignore libtorrent::bdecode_node::switch_underlying_buffer;
-%ignore libtorrent::bdecode_node::has_soft_error;
 %ignore libtorrent::errors::make_error_code;
-%ignore libtorrent::bdecode_errors::make_error_code;
 %ignore libtorrent::apply_pack;
 %ignore libtorrent::apply_pack_impl;
 %ignore libtorrent::load_pack_from_dict;
@@ -472,8 +429,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 %rename(libtorrent_no_error) libtorrent::errors::no_error;
 %rename(libtorrent_errors) libtorrent::errors::error_code_enum;
-%rename(bdecode_no_error) libtorrent::bdecode_errors::no_error;
-%rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
 
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
 
@@ -514,7 +469,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "libtorrent/error_code.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/file_storage.hpp"
-%include "libtorrent/bdecode.hpp"
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/torrent_flags.hpp"
@@ -533,7 +487,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "libtorrent/peer_class_type_filter.hpp"
 %include "libtorrent/session_types.hpp"
 %include "libtorrent/ip_filter.hpp"
-%include "libtorrent/session_handle.hpp"
 %include "libtorrent/kademlia/dht_state.hpp"
 %include "libtorrent/kademlia/dht_settings.hpp"
 %include "libtorrent/session.hpp"
@@ -547,105 +500,9 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 // END common set include ------------------------------------------------------
 
 %include "libtorrent/libtorrent_alert_casts.i"
+%include "libtorrent/libtorrent_session_handle.i"
+%include "libtorrent/libtorrent_bdecode.i"
 
-%extend alert {
-
-
-}
-
-%extend session_handle {
-
-    void dht_get_item(std::vector<int8_t>& key, std::vector<int8_t>& salt) {
-        if (key.size() != 32) {
-            throw std::invalid_argument("Public key must be of size 32");
-        }
-        std::array<char, 32> pk;
-        std::copy_n(key.begin(), 32, pk.begin());
-
-        $self->dht_get_item(pk, std::string(salt.begin(), salt.end()));
-    }
-
-    void dht_put_item(std::vector<int8_t>& key, std::vector<int8_t>& sk, entry& data, std::vector<int8_t>& salt) {
-        if (key.size() != 32) {
-            throw std::invalid_argument("Public key must be of size 32");
-        }
-        if (sk.size() != 64) {
-            throw std::invalid_argument("Private key must be of size 64");
-        }
-        std::array<char, 32> pk;
-        std::copy_n(key.begin(), 32, pk.begin());
-
-        using namespace std::placeholders;
-        using namespace libtorrent::dht;
-
-        $self->dht_put_item(pk, std::bind(&dht_put_item_cb, _1, _2, _3, _4,
-            public_key((char*)key.data()), secret_key((char*)sk.data()), data),
-            std::string(salt.begin(), salt.end()));
-    }
-
-    void dht_direct_request(udp::endpoint const& ep, entry const& e, int64_t userdata) {
-        $self->dht_direct_request(ep, e, (void*)userdata);
-    }
-
-    alert* wait_for_alert_ms(int64_t max_wait) {
-        return $self->wait_for_alert(libtorrent::milliseconds(max_wait));
-    }
-
-    void set_alert_notify_callback(alert_notify_callback* cb) {
-        $self->set_alert_notify(std::bind(&alert_notify_callback::on_alert, cb));
-    }
-
-    void add_extension(swig_plugin* ext) {
-        $self->add_extension(std::shared_ptr<libtorrent::plugin>(ext));
-    }
-}
-
-%extend bdecode_node {
-
-    std::string list_string_value_at_s(int i, std::string default_val = "") {
-        return $self->list_string_value_at(i, default_val).to_string();
-    }
-
-    bdecode_node dict_find_s(std::string key) const {
-        return $self->dict_find(key);
-    }
-
-    bdecode_node dict_find_dict_s(std::string key) const {
-        return $self->dict_find_dict(key);
-    }
-
-    bdecode_node dict_find_list_s(std::string key) const {
-        return $self->dict_find_list(key);
-    }
-
-    bdecode_node dict_find_string_s(std::string key) const {
-        return $self->dict_find_string(key);
-    }
-
-    bdecode_node dict_find_int_s(std::string key) const {
-        return $self->dict_find_int(key);
-    }
-
-    std::string dict_find_string_value_s(std::string key, std::string default_value = "") const {
-        return $self->dict_find_string_value(key, default_value).to_string();
-    }
-
-    std::int64_t dict_find_int_value_s(std::string key, std::int64_t default_val = 0) const {
-        return $self->dict_find_int_value(key, default_val);
-    }
-
-    std::string string_value_s() const {
-        return $self->string_value().to_string();
-    }
-
-    static std::string to_string(bdecode_node const& e, bool single_line, int indent) {
-        return libtorrent::print_entry(e, single_line, indent);
-    }
-
-    static int bdecode(std::vector<int8_t>& buffer, bdecode_node& ret, error_code& ec) {
-        return libtorrent::bdecode((char const*)&buffer[0], (char const*)&buffer[0] + buffer.size(), ret, ec);
-    }
-}
 
 %extend add_torrent_params {
 
