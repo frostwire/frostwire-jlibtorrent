@@ -3,4 +3,4 @@ namespace libtorrent {
         storage_mode_allocate,
         storage_mode_sparse
     };
-}; // namespace libtorrent
+} // namespace libtorrent

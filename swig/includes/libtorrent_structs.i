@@ -37,4 +37,4 @@ namespace libtorrent {
     %template(reopen_network_flags_t) flags::bitfield_flag<std::uint8_t, reopen_network_flags_tag>;
     struct reannounce_flags_tag;
     %template(reannounce_flags_t) flags::bitfield_flag<std::uint8_t, reannounce_flags_tag>;
-}; // namespace libtorrent
+} // namespace libtorrent

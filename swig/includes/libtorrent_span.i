@@ -78,4 +78,4 @@ namespace libtorrent {
     %template(byte_span) span<char>;
     %template(byte_const_span) span<char const>;
 
-}; // namespace libtorrent
+} // namespace libtorrent

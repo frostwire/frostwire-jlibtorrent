@@ -4,4 +4,4 @@ namespace libtorrent {
         fail_if_exist,
         dont_replace
     };
-}; // namespace libtorrent
+} // namespace libtorrent

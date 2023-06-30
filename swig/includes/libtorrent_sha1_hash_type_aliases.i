@@ -5,4 +5,4 @@ namespace libtorrent {
         typedef sha1_hash node_id;
         typedef int announce_flags_t;
     }
-}; // namespace libtorrent
+} // namespace libtorrent

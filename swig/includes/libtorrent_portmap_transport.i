@@ -3,4 +3,4 @@ namespace libtorrent {
     {
         natpmp, upnp
     };
-};
+} // namespace libtorrent

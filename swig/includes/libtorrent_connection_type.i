@@ -4,4 +4,4 @@ namespace libtorrent {
         url_seed,
         http_seed
     };
-}; // namespace libtorrent
+} // namespace libtorrent
