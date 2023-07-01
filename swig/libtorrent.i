@@ -448,28 +448,8 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_torrent_info.i"
 %include "includes/libtorrent_torrent_handle.i"
 %include "includes/libtorrent_dht_mutable_item_alert.i"
+%include "includes/libtorrent_dht_put_alert.i"
 
-%extend dht_put_alert {
-
-    std::vector<int8_t> get_public_key() {
-        std::array<char, 32> arr = $self->public_key;
-        return std::vector<int8_t>(arr.begin(), arr.end());
-    }
-
-    std::vector<int8_t> get_signature() {
-        std::array<char, 64> arr = $self->signature;
-        return std::vector<int8_t>(arr.begin(), arr.end());
-    }
-
-    std::vector<int8_t> get_salt() {
-        std::string s = $self->salt;
-        return std::vector<int8_t>(s.begin(), s.end());
-    }
-
-    int64_t get_seq() {
-        return int64_t($self->seq);
-    }
-}
 
 %extend stats_alert {
     int get_transferred(int index) {
