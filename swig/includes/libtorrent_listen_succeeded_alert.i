@@ -1,8 +1,9 @@
-%ignore libtorrent::listen_failed_alert::address;
+%ignore libtorrent::listen_succeeded_alert::address;
 namespace libtorrent {
-    %extend listen_failed_alert {
+    %extend listen_succeeded_alert {
+
         address get_address() {
             return $self->address;
         }
-    } // listen_failed_alert
+    } // listen_succeeded_alert
 } // namespace libtorrent
