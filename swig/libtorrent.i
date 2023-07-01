@@ -18,7 +18,6 @@
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/peer_request.hpp"
-#include "libtorrent/file_storage.hpp"
 #include "libtorrent/bdecode.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/peer_info.hpp"
@@ -145,8 +144,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::generate_fingerprint(std::string, int, int, int);
 %ignore libtorrent::generate_fingerprint(std::string, int, int);
 %ignore libtorrent::generate_fingerprint(std::string, int);
-%ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>, create_flags_t);
-%ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>);
 %ignore libtorrent::parse_magnet_uri;
 %ignore libtorrent::ip_filter::export_filter;
 %ignore libtorrent::performance_alert::bittyrant_with_no_uplimit;
@@ -224,16 +221,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::proxy_settings::proxy_settings;
-%ignore libtorrent::file_storage::file_storage(file_storage&&);
-%ignore libtorrent::file_storage::file_path_hash;
-%ignore libtorrent::file_storage::all_path_hashes;
-%ignore libtorrent::file_storage::file_name_ptr;
-%ignore libtorrent::file_storage::file_name_len;
-%ignore libtorrent::file_storage::apply_pointer_offset;
-%ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, std::uint32_t, std::time_t, string_view);
-%ignore libtorrent::file_storage::file_range;
-%ignore libtorrent::file_storage::piece_range;
-%ignore libtorrent::file_storage::sanitize_symlinks;
 %ignore libtorrent::get_file_attributes;
 %ignore libtorrent::get_symlink_path;
 %ignore libtorrent::error_to_close_reason;
@@ -393,16 +380,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_dht_lookup.i"
 %include "includes/libtorrent_dht_direct_response_alert.i"
 %include "includes/libtorrent_create_torrent.i"
-
-
-
-%extend file_storage {
-
-    void add_file(std::string const& path, std::int64_t file_size,
-        libtorrent::file_flags_t file_flags, std::time_t mtime, std::string const& symlink_path) {
-        $self->add_file(path, file_size, file_flags, mtime, symlink_path);
-    }
-}
+%include "includes/libtorrent_file_storage.i"
 
 %extend dht_announce_alert {
 
