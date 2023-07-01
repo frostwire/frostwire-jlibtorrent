@@ -229,9 +229,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::bdecode_category;
 %ignore libtorrent::http_category;
 %ignore libtorrent::libtorrent_category;
-%ignore libtorrent::listen_succeeded_alert::address;
 %ignore libtorrent::incoming_connection_alert::endpoint;
-%ignore libtorrent::peer_alert::endpoint;
 %ignore libtorrent::dht_outgoing_get_peers_alert::endpoint;
 %ignore libtorrent::dht_pkt_alert::node;
 %ignore libtorrent::udp_error_alert::endpoint;
@@ -381,72 +379,59 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_dht_announce_alert.i"
 %include "includes/libtorrent_external_ip_alert.i"
 %include "includes/libtorrent_listen_failed_alert.i"
+%include "includes/libtorrent_listen_succeeded_alert.i"
+%include "includes/libtorrent_incoming_connection_alert.i"
+%include "includes/libtorrent_peer_alert.i"
 
 
-
-%extend listen_succeeded_alert {
-
-    address get_address() {
-        return $self->address;
+namespace libtorrent {
+    %extend dht_direct_response_alert {
+        udp::endpoint get_endpoint() {
+            return $self->endpoint;
+        }
     }
 }
 
-%extend incoming_connection_alert {
-
-    tcp::endpoint get_endpoint() {
-        return $self->endpoint;
+namespace libtorrent {
+    %extend dht_outgoing_get_peers_alert {
+        udp::endpoint get_endpoint() {
+            return $self->endpoint;
+        }
     }
 }
 
-%extend peer_alert {
-
-    tcp::endpoint get_endpoint() {
-        return $self->endpoint;
+namespace libtorrent {
+    %extend dht_pkt_alert {
+        udp::endpoint get_node() {
+            return $self->node;
+        }
     }
 }
 
-%extend dht_direct_response_alert {
-
-    udp::endpoint get_endpoint() {
-        return $self->endpoint;
+namespace libtorrent {
+    %extend udp_error_alert {
+        udp::endpoint get_endpoint() {
+            return $self->endpoint;
+        }
     }
 }
 
-%extend dht_outgoing_get_peers_alert {
+namespace libtorrent {
+    %extend dht_sample_infohashes_alert {
+        udp::endpoint get_endpoint() {
+            return $self->endpoint;
+        }
 
-    udp::endpoint get_endpoint() {
-        return $self->endpoint;
+        std::int64_t get_interval() {
+            return libtorrent::total_milliseconds($self->interval);
+        }
     }
 }
 
-%extend dht_pkt_alert {
-
-    udp::endpoint get_node() {
-        return $self->node;
-    }
-}
-
-%extend udp_error_alert {
-
-    udp::endpoint get_endpoint() {
-        return $self->endpoint;
-    }
-}
-
-%extend dht_sample_infohashes_alert {
-
-    udp::endpoint get_endpoint() {
-        return $self->endpoint;
-    }
-
-    std::int64_t get_interval() {
-        return libtorrent::total_milliseconds($self->interval);
-    }
-}
-
-%extend tracker_alert {
-
-    tcp::endpoint get_local_endpoint() {
-        return $self->local_endpoint;
+namespace libtorrent {
+    %extend tracker_alert {
+        tcp::endpoint get_local_endpoint() {
+            return $self->local_endpoint;
+        }
     }
 }
