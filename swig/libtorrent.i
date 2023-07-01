@@ -42,9 +42,7 @@
 #include "libtorrent/session.hpp"
 #include "libtorrent/peer_connection_handle.hpp"
 #include "libtorrent/magnet_uri.hpp"
-#include "libtorrent/create_torrent.hpp"
 #include "libtorrent/fingerprint.hpp"
-
 #include "libtorrent.h"
 
 using piece_index_t = libtorrent::piece_index_t;
@@ -178,8 +176,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::partial_piece_info::blocks;
 %ignore libtorrent::partial_piece_info::deprecated_state_t;
 %ignore libtorrent::partial_piece_info::deprecated_piece_state;
-%ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
-%ignore libtorrent::dht_direct_response_alert::userdata;
 %ignore libtorrent::from_span;
 %ignore libtorrent::from_span_t;
 %ignore libtorrent::sanitize_append_path_element;
@@ -238,15 +234,8 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::file_storage::file_range;
 %ignore libtorrent::file_storage::piece_range;
 %ignore libtorrent::file_storage::sanitize_symlinks;
-%ignore libtorrent::create_torrent::add_url_seed(string_view);
-%ignore libtorrent::create_torrent::add_http_seed(string_view);
-%ignore libtorrent::create_torrent::add_tracker(string_view);
-%ignore libtorrent::create_torrent::add_tracker(string_view, int);
-%ignore libtorrent::create_torrent::add_collection(string_view);
-%ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::get_file_attributes;
 %ignore libtorrent::get_symlink_path;
-%ignore libtorrent::dht_lookup::type;
 %ignore libtorrent::error_to_close_reason;
 %ignore libtorrent::storage_error;
 %ignore libtorrent::user_alert_id;
@@ -259,7 +248,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::listen_succeeded_alert::address;
 %ignore libtorrent::incoming_connection_alert::endpoint;
 %ignore libtorrent::peer_alert::endpoint;
-%ignore libtorrent::dht_direct_response_alert::endpoint;
 %ignore libtorrent::dht_outgoing_get_peers_alert::endpoint;
 %ignore libtorrent::dht_pkt_alert::node;
 %ignore libtorrent::udp_error_alert::endpoint;
@@ -402,45 +390,11 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_torrent_status.i"
 %include "includes/libtorrent_stats_metric.i"
 %include "includes/libtorrent_peer_log_alert.i"
+%include "includes/libtorrent_dht_lookup.i"
+%include "includes/libtorrent_dht_direct_response_alert.i"
+%include "includes/libtorrent_create_torrent.i"
 
-%extend dht_lookup {
 
-    std::string get_type() {
-        return std::string($self->type);
-    }
-}
-
-%extend dht_direct_response_alert {
-
-    int64_t get_userdata() {
-        return (int64_t)$self->userdata;
-    }
-}
-
-%extend create_torrent {
-
-    void add_url_seed(std::string const& url) {
-        $self->add_url_seed(url);
-    }
-
-    void add_http_seed(std::string const& url) {
-        $self->add_http_seed(url);
-    }
-
-    void add_tracker(std::string const& url, int tier) {
-        $self->add_tracker(url, tier);
-    }
-
-    void add_collection(std::string const& c) {
-        $self->add_collection(c);
-    }
-
-    void set_root_cert2(std::vector<int8_t> const& pem)
-    {
-        std::string s{pem.begin(), pem.end()};
-        $self->set_root_cert(s);
-    }
-}
 
 %extend file_storage {
 
