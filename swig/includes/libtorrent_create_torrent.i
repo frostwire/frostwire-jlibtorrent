@@ -5,8 +5,8 @@
 %ignore libtorrent::create_torrent::add_collection(string_view);
 %ignore libtorrent::create_torrent::set_root_cert;
 
-//#include "libtorrent/create_torrent.hpp"
-%include "libtorrent/create_torrent.hpp"
+#include "libtorrent/create_torrent.hpp"
+//%include "libtorrent/create_torrent.hpp"
 
 namespace libtorrent {
     %extend create_torrent {
