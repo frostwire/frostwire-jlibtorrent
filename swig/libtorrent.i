@@ -171,13 +171,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::session::session(settings_pack&&);
 %ignore libtorrent::session_proxy::session_proxy(session_proxy&&);
 %ignore libtorrent::picker_log_alert::blocks;
-%ignore libtorrent::peer_connection_handle::peer_connection_handle;
-%ignore libtorrent::peer_connection_handle::native_handle;
-%ignore libtorrent::peer_connection_handle::add_extension;
-%ignore libtorrent::peer_connection_handle::find_plugin;
-%ignore libtorrent::peer_connection_handle::time_of_last_unchoke;
-%ignore libtorrent::peer_connection_handle::should_log;
-%ignore libtorrent::peer_connection_handle::peer_log;
 %ignore libtorrent::bt_peer_connection_handle::switch_send_crypto;
 %ignore libtorrent::bt_peer_connection_handle::switch_recv_crypto;
 %ignore libtorrent::bt_peer_connection_handle::native_handle;
@@ -235,37 +228,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::ipv6_peer::addr;
 %ignore libtorrent::proxy_settings::proxy_settings;
-%ignore libtorrent::torrent_status::torrent_status(torrent_status&&);
-%ignore libtorrent::torrent_status::allocating;
-%ignore libtorrent::torrent_status::unused_enum_for_backwards_compatibility_allocating;
-%ignore libtorrent::torrent_status::_dummy_string_;
-%ignore libtorrent::torrent_status::torrent_file;
-%ignore libtorrent::torrent_status::next_announce;
-%ignore libtorrent::torrent_status::deprecated_announce_interval_;
-%ignore libtorrent::torrent_status::deprecated_priority;
-%ignore libtorrent::torrent_status::unused_enum_for_backwards_compatibility;
-%ignore libtorrent::torrent_status::deprecated_is_loaded;
-%ignore libtorrent::torrent_status::last_upload;
-%ignore libtorrent::torrent_status::last_download;
-%ignore libtorrent::torrent_status::active_duration;
-%ignore libtorrent::torrent_status::finished_duration;
-%ignore libtorrent::torrent_status::seeding_duration;
-%ignore libtorrent::torrent_status::queue_position;
-%ignore libtorrent::torrent_status::deprecated_time_since_upload;
-%ignore libtorrent::torrent_status::deprecated_time_since_download;
-%ignore libtorrent::torrent_status::deprecated_active_time;
-%ignore libtorrent::torrent_status::deprecated_finished_time;
-%ignore libtorrent::torrent_status::deprecated_seeding_time;
-%ignore libtorrent::torrent_status::deprecated_last_scrape;
-%ignore libtorrent::torrent_status::deprecated_ip_filter_applies;
-%ignore libtorrent::torrent_status::deprecated_upload_mode;
-%ignore libtorrent::torrent_status::deprecated_share_mode;
-%ignore libtorrent::torrent_status::deprecated_super_seeding;
-%ignore libtorrent::torrent_status::deprecated_paused;
-%ignore libtorrent::torrent_status::deprecated_auto_managed;
-%ignore libtorrent::torrent_status::deprecated_sequential_download;
-%ignore libtorrent::torrent_status::deprecated_seed_mode;
-%ignore libtorrent::torrent_status::deprecated_stop_when_ready;
 %ignore libtorrent::file_storage::file_storage(file_storage&&);
 %ignore libtorrent::file_storage::file_path_hash;
 %ignore libtorrent::file_storage::all_path_hashes;
@@ -284,8 +246,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::get_file_attributes;
 %ignore libtorrent::get_symlink_path;
-%ignore libtorrent::stats_metric::name;
-%ignore libtorrent::peer_log_alert::event_type;
 %ignore libtorrent::dht_lookup::type;
 %ignore libtorrent::error_to_close_reason;
 %ignore libtorrent::storage_error;
@@ -404,7 +364,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/torrent_flags.hpp"
 %include "libtorrent/pex_flags.hpp"
-%include "libtorrent/torrent_status.hpp"
 %include "libtorrent/add_torrent_params.hpp"
 %include "libtorrent/operations.hpp"
 %include "libtorrent/session_stats.hpp"
@@ -419,7 +378,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "libtorrent/kademlia/dht_state.hpp"
 %include "libtorrent/kademlia/dht_settings.hpp"
 %include "libtorrent/session.hpp"
-%include "libtorrent/peer_connection_handle.hpp"
+
 %include "libtorrent/magnet_uri.hpp"
 %include "libtorrent/create_torrent.hpp"
 %include "libtorrent/fingerprint.hpp"
@@ -439,61 +398,10 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_stats_alert.i"
 %include "includes/libtorrent_session_stats_alert.i"
 %include "includes/libtorrent_read_piece_alert.i"
-
-%extend peer_connection_handle {
-
-    int64_t get_time_of_last_unchoke() {
-        return libtorrent::total_milliseconds($self->time_of_last_unchoke() - libtorrent::clock_type::now());
-    }
-};
-
-%extend torrent_status {
-
-    torrent_info const* torrent_file_ptr() {
-        return $self->torrent_file.lock().get();
-    }
-
-    int64_t get_next_announce() {
-        return libtorrent::total_milliseconds($self->next_announce);
-    }
-
-    int64_t get_last_upload() {
-        return libtorrent::total_milliseconds($self->last_upload.time_since_epoch());
-    }
-
-    int64_t get_last_download() {
-        return libtorrent::total_milliseconds($self->last_download.time_since_epoch());
-    }
-
-    int64_t get_active_duration() {
-        return libtorrent::total_milliseconds($self->active_duration);
-    }
-
-    int64_t get_finished_duration() {
-        return libtorrent::total_milliseconds($self->finished_duration);
-    }
-
-    int64_t get_seeding_duration() {
-        return libtorrent::total_milliseconds($self->seeding_duration);
-    }
-
-    int get_queue_position()
-    {
-        return static_cast<int>($self->queue_position);
-    }
-}
-
-%extend stats_metric {
-    std::string get_name() {
-        return std::string($self->name);
-    }
-}
-
-%extend peer_log_alert {
-    std::string get_event_type() {
-        return std::string($self->event_type);
-    }
-}
+%include "includes/libtorrent_peer_connection_handle.i"
+%include "includes/libtorrent_torrent_status.i"
+%include "includes/libtorrent_stats_metric.i"
+%include "includes/libtorrent_peer_log_alert.i"
 
 %extend dht_lookup {
 
