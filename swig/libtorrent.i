@@ -170,7 +170,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::session::session(settings_pack&&, session_flags_t const);
 %ignore libtorrent::session::session(settings_pack&&);
 %ignore libtorrent::session_proxy::session_proxy(session_proxy&&);
-%ignore libtorrent::session_stats_alert::counters;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::native_handle;
@@ -186,19 +185,12 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::partial_piece_info::blocks;
 %ignore libtorrent::partial_piece_info::deprecated_state_t;
 %ignore libtorrent::partial_piece_info::deprecated_piece_state;
-%ignore libtorrent::stats_alert::transferred;
-%ignore libtorrent::stats_alert::deprecated1;
-%ignore libtorrent::stats_alert::deprecated2;
-%ignore libtorrent::stats_alert::deprecated3;
-%ignore libtorrent::stats_alert::deprecated4;
 %ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
 %ignore libtorrent::dht_direct_response_alert::userdata;
 %ignore libtorrent::from_span;
 %ignore libtorrent::from_span_t;
 %ignore libtorrent::sanitize_append_path_element;
 %ignore libtorrent::verify_encoding;
-%ignore libtorrent::read_piece_alert::read_piece_alert;
-%ignore libtorrent::read_piece_alert::buffer;
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::apply_pack;
 %ignore libtorrent::apply_pack_impl;
@@ -444,26 +436,9 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_torrent_handle.i"
 %include "includes/libtorrent_dht_mutable_item_alert.i"
 %include "includes/libtorrent_dht_put_alert.i"
-
-
-%extend stats_alert {
-    int get_transferred(int index) {
-        return $self->transferred[index];
-    }
-}
-
-%extend session_stats_alert {
-    long long get_value(int index) {
-        return $self->counters()[index];
-    }
-}
-
-%extend read_piece_alert {
-
-    int64_t buffer_ptr() {
-        return reinterpret_cast<int64_t>($self->buffer.get());
-    }
-}
+%include "includes/libtorrent_stats_alert.i"
+%include "includes/libtorrent_session_stats_alert.i"
+%include "includes/libtorrent_read_piece_alert.i"
 
 %extend peer_connection_handle {
 
