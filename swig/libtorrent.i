@@ -191,11 +191,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::stats_alert::deprecated2;
 %ignore libtorrent::stats_alert::deprecated3;
 %ignore libtorrent::stats_alert::deprecated4;
-%ignore libtorrent::dht_put_alert::dht_put_alert;
-%ignore libtorrent::dht_put_alert::public_key;
-%ignore libtorrent::dht_put_alert::signature;
-%ignore libtorrent::dht_put_alert::salt;
-%ignore libtorrent::dht_put_alert::seq;
 %ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
 %ignore libtorrent::dht_direct_response_alert::userdata;
 %ignore libtorrent::from_span;
