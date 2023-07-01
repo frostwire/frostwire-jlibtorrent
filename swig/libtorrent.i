@@ -229,9 +229,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::bdecode_category;
 %ignore libtorrent::http_category;
 %ignore libtorrent::libtorrent_category;
-%ignore libtorrent::dht_announce_alert::ip;
-%ignore libtorrent::external_ip_alert::external_address;
-%ignore libtorrent::listen_failed_alert::address;
 %ignore libtorrent::listen_succeeded_alert::address;
 %ignore libtorrent::incoming_connection_alert::endpoint;
 %ignore libtorrent::peer_alert::endpoint;
@@ -381,27 +378,11 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_dht_direct_response_alert.i"
 %include "includes/libtorrent_create_torrent.i"
 %include "includes/libtorrent_file_storage.i"
+%include "includes/libtorrent_dht_announce_alert.i"
+%include "includes/libtorrent_external_ip_alert.i"
+%include "includes/libtorrent_listen_failed_alert.i"
 
-%extend dht_announce_alert {
 
-    address get_ip() {
-        return $self->ip;
-    }
-}
-
-%extend external_ip_alert {
-
-    address get_external_address() {
-        return $self->external_address;
-    }
-}
-
-%extend listen_failed_alert {
-
-    address get_address() {
-        return $self->address;
-    }
-}
 
 %extend listen_succeeded_alert {
 
