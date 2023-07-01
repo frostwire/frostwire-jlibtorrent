@@ -5,5 +5,5 @@ namespace libtorrent {
         tcp::endpoint get_endpoint() {
             return $self->endpoint;
         }
-    }
-}
+    } // peer_alert
+} // namespace libtorrent
