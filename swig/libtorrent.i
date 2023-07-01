@@ -191,11 +191,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::stats_alert::deprecated2;
 %ignore libtorrent::stats_alert::deprecated3;
 %ignore libtorrent::stats_alert::deprecated4;
-%ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
-%ignore libtorrent::dht_mutable_item_alert::key;
-%ignore libtorrent::dht_mutable_item_alert::signature;
-%ignore libtorrent::dht_mutable_item_alert::seq;
-%ignore libtorrent::dht_mutable_item_alert::salt;
 %ignore libtorrent::dht_put_alert::dht_put_alert;
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
@@ -339,17 +334,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 %ignore boost::throws;
 %ignore boost::detail::throws;
-%ignore boost::system::generic_category;
-%ignore boost::system::system_category;
-%ignore boost::system::error_category;
-%ignore boost::system::error_condition;
-%ignore boost::system::system_error;
-%ignore boost::system::error_code::error_code(int, const error_category&);
-%ignore boost::system::error_code::assign;
-%ignore boost::system::error_code::category;
-%ignore boost::system::error_code::default_error_condition;
-%ignore boost::system::error_code::unspecified_bool_true;
-%ignore boost::system::error_code::operator std::error_code;
 %ignore boost::system::operator==(const error_code&, const error_condition&);
 %ignore boost::system::operator==(const error_condition&, const error_code&);
 %ignore boost::system::operator!=(const error_code&, const error_condition&);
@@ -463,28 +447,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_add_torrent_params.i"
 %include "includes/libtorrent_torrent_info.i"
 %include "includes/libtorrent_torrent_handle.i"
-
-%extend dht_mutable_item_alert {
-
-    std::vector<int8_t> get_key() {
-        std::array<char, 32> arr = $self->key;
-        return std::vector<int8_t>(arr.begin(), arr.end());
-    }
-
-    std::vector<int8_t> get_signature() {
-        std::array<char, 64> arr = $self->signature;
-        return std::vector<int8_t>(arr.begin(), arr.end());
-    }
-
-    int64_t get_seq() {
-        return int64_t($self->seq);
-    }
-
-    std::vector<int8_t> get_salt() {
-        std::string s = $self->salt;
-        return std::vector<int8_t>(s.begin(), s.end());
-    }
-}
+%include "includes/libtorrent_dht_mutable_item_alert.i"
 
 %extend dht_put_alert {
 
@@ -715,6 +678,4 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
     tcp::endpoint get_local_endpoint() {
         return $self->local_endpoint;
     }
-}
-
 }
