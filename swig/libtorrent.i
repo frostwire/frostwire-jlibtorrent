@@ -23,11 +23,9 @@
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/torrent_flags.hpp"
-#include "libtorrent/torrent_info.hpp"
 #include "libtorrent/pex_flags.hpp"
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/torrent_handle.hpp"
-#include "libtorrent/add_torrent_params.hpp"
 #include "libtorrent/operations.hpp"
 #include "libtorrent/session_stats.hpp"
 #include "libtorrent/close_reason.hpp"
@@ -153,28 +151,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::add_files(file_storage&, std::string const&, std::function<bool(std::string)>);
 %ignore libtorrent::parse_magnet_uri;
 %ignore libtorrent::ip_filter::export_filter;
-%ignore libtorrent::add_torrent_params::add_torrent_params;
-%ignore libtorrent::add_torrent_params::extensions;
-%ignore libtorrent::add_torrent_params::storage;
-%ignore libtorrent::add_torrent_params::userdata;
-%ignore libtorrent::add_torrent_params::ti;
-%ignore libtorrent::add_torrent_params::unfinished_pieces;
-%ignore libtorrent::add_torrent_params::renamed_files;
-%ignore libtorrent::add_torrent_params::tracker_tiers;
-%ignore libtorrent::add_torrent_params::merkle_tree;
-%ignore libtorrent::add_torrent_params::banned_peers;
-%ignore libtorrent::add_torrent_params::peers;
-%ignore libtorrent::add_torrent_params::file_priorities;
-%ignore libtorrent::add_torrent_params::dht_nodes;
-%ignore libtorrent::add_torrent_params::http_seeds;
-%ignore libtorrent::add_torrent_params::url_seeds;
-%ignore libtorrent::add_torrent_params::trackers;
-%ignore libtorrent::add_torrent_params::piece_priorities;
-%ignore libtorrent::add_torrent_params::deprecated1;
-%ignore libtorrent::add_torrent_params::deprecated2;
-%ignore libtorrent::add_torrent_params::deprecated3;
-%ignore libtorrent::add_torrent_params::deprecated4;
-%ignore libtorrent::add_torrent_params::deprecated5;
 %ignore libtorrent::performance_alert::bittyrant_with_no_uplimit;
 %ignore libtorrent::performance_alert::deprecated_bittyrant_with_no_uplimit;
 %ignore libtorrent::performance_alert::performance_warning_t::bittyrant_with_no_uplimit;
@@ -229,19 +205,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::dht_direct_response_alert::userdata;
 %ignore libtorrent::from_span;
 %ignore libtorrent::from_span_t;
-%ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&);
-%ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&, int);
-%ignore libtorrent::torrent_info::torrent_info(span<char const>, error_code&, from_span_t);
-%ignore libtorrent::torrent_info::metadata;
-%ignore libtorrent::torrent_info::load;
-%ignore libtorrent::torrent_info::unload;
-%ignore libtorrent::torrent_info::hash_for_piece_ptr;
-%ignore libtorrent::torrent_info::parse_info_section;
-%ignore libtorrent::torrent_info::swap;
-%ignore libtorrent::torrent_info::add_merkle_nodes;
-%ignore libtorrent::torrent_info::build_merkle_list;
-%ignore libtorrent::torrent_info::parse_torrent_file;
-%ignore libtorrent::torrent_info::piece_range;
 %ignore libtorrent::sanitize_append_path_element;
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
@@ -330,9 +293,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, std::uint32_t, std::time_t, string_view);
 %ignore libtorrent::file_storage::file_range;
 %ignore libtorrent::file_storage::piece_range;
-%ignore libtorrent::torrent_info::internal_set_creator;
-%ignore libtorrent::torrent_info::internal_set_creation_date;
-%ignore libtorrent::torrent_info::internal_set_comment;
 %ignore libtorrent::file_storage::sanitize_symlinks;
 %ignore libtorrent::create_torrent::add_url_seed(string_view);
 %ignore libtorrent::create_torrent::add_http_seed(string_view);
@@ -472,7 +432,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "libtorrent/bencode.hpp"
 %include "libtorrent/peer_info.hpp"
 %include "libtorrent/torrent_flags.hpp"
-%include "libtorrent/torrent_info.hpp"
 %include "libtorrent/pex_flags.hpp"
 %include "libtorrent/torrent_status.hpp"
 %include "libtorrent/torrent_handle.hpp"
@@ -499,150 +458,12 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 // END common set include ------------------------------------------------------
 
-%include "libtorrent/libtorrent_alert_casts.i"
-%include "libtorrent/libtorrent_session_handle.i"
-%include "libtorrent/libtorrent_bdecode.i"
+%include "includes/libtorrent_alert_casts.i"
+%include "includes/libtorrent_session_handle.i"
+%include "includes/libtorrent_bdecode.i"
+%include "includes/libtorrent_add_torrent_params.i"
+%include "includes/libtorrent_torrent_info.i"
 
-
-%extend add_torrent_params {
-
-    libtorrent::torrent_info const* ti_ptr() {
-        return $self->ti.get();
-    }
-
-    void set_ti(libtorrent::torrent_info const& ti) {
-        $self->ti = std::make_shared<libtorrent::torrent_info>(ti);
-    }
-
-    void set_renamed_files(std::map<file_index_t, std::string> const& renamed_files) {
-        $self->renamed_files = renamed_files;
-    }
-
-    std::vector<int> get_tracker_tiers() {
-        return $self->tracker_tiers;
-    }
-
-    void set_tracker_tiers(std::vector<int> const& tracker_tiers) {
-        $self->tracker_tiers = tracker_tiers;
-    }
-
-    void set_merkle_tree(std::vector<sha1_hash> const& merkle_tree) {
-        $self->merkle_tree = merkle_tree;
-    }
-
-    std::vector<tcp::endpoint> get_banned_peers() {
-        return $self->banned_peers;
-    }
-
-    void set_banned_peers(std::vector<tcp::endpoint> const& banned_peers) {
-        $self->banned_peers = banned_peers;
-    }
-
-    std::vector<tcp::endpoint> get_peers() {
-        return $self->peers;
-    }
-
-    void set_peers(std::vector<tcp::endpoint> const& peers) {
-        $self->peers = peers;
-    }
-
-    void set_file_priorities2(std::vector<std::int8_t> const& file_priorities) {
-        std::vector<download_priority_t> v(file_priorities.size());
-        for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = download_priority_t{std::uint8_t(file_priorities[i])};
-        $self->file_priorities = v;
-    }
-
-    std::vector<std::pair<std::string, int>> get_dht_nodes() {
-        return $self->dht_nodes;
-    }
-
-    void set_dht_nodes(std::vector<std::pair<std::string, int>> const& dht_nodes) {
-        $self->dht_nodes = dht_nodes;
-    }
-
-    void set_http_seeds(std::vector<std::string> const& http_seeds) {
-        $self->http_seeds = http_seeds;
-    }
-
-    std::vector<std::string> get_url_seeds() {
-        return $self->url_seeds;
-    }
-
-    void set_url_seeds(std::vector<std::string> const& url_seeds) {
-        $self->url_seeds = url_seeds;
-    }
-
-    std::vector<std::string>  get_trackers() {
-        return $self->trackers;
-    }
-
-    void set_trackers(std::vector<std::string> const& trackers) {
-        $self->trackers = trackers;
-    }
-
-    void set_piece_priorities2(std::vector<std::int8_t> const& piece_priorities) {
-        std::vector<download_priority_t> v(piece_priorities.size());
-        for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = download_priority_t{std::uint8_t(piece_priorities[i])};
-        $self->piece_priorities = v;
-    }
-
-    static libtorrent::add_torrent_params create_instance() {
-        return libtorrent::add_torrent_params();
-    }
-
-    static libtorrent::add_torrent_params create_instance_disabled_storage() {
-        return libtorrent::add_torrent_params(libtorrent::disabled_storage_constructor);
-    }
-
-    static libtorrent::add_torrent_params create_instance_zero_storage() {
-        return libtorrent::add_torrent_params(libtorrent::zero_storage_constructor);
-    }
-
-    void set_default_storage()
-    {
-        $self->storage = libtorrent::default_storage_constructor;
-    }
-
-    void set_disabled_storage()
-    {
-        $self->storage = libtorrent::disabled_storage_constructor;
-    }
-
-    void set_zero_storage()
-    {
-        $self->storage = libtorrent::zero_storage_constructor;
-    }
-
-    static libtorrent::add_torrent_params read_resume_data(libtorrent::bdecode_node const& rd, error_code& ec) {
-        return libtorrent::read_resume_data(rd, ec);
-    }
-
-    static libtorrent::add_torrent_params read_resume_data(std::vector<int8_t> const& buffer, error_code& ec) {
-        return libtorrent::read_resume_data({(char const*)&buffer[0], static_cast<long>(buffer.size())}, ec);
-    }
-
-    static libtorrent::entry write_resume_data(add_torrent_params const& atp) {
-        return libtorrent::write_resume_data(atp);
-    }
-
-    static std::vector<int8_t> write_resume_data_buf(add_torrent_params const& atp) {
-        auto v = libtorrent::write_resume_data_buf(atp);
-        return {v.begin(), v.end()};
-    }
-
-    static add_torrent_params parse_magnet_uri(std::string const& uri, error_code& ec) {
-        return libtorrent::parse_magnet_uri(uri, ec);
-    }
-}
-
-%extend torrent_info {
-
-    torrent_info(int64_t buffer_ptr, int size, error_code& ec) {
-        return new libtorrent::torrent_info(reinterpret_cast<char const*>(buffer_ptr), size, ec);
-    }
-};
 
 %extend torrent_handle {
 
