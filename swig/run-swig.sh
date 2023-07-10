@@ -17,14 +17,20 @@ function fixCode() {
       # The line above will be reverted to normal when we build by the checkout, if not commented/deleted swig breaks
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+      sed -i '' 's/(std::min)(/std::min(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i '' 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
       sed -i '' 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
+      #sed -i '' 's/extern template/template<>/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
+      #sed -i '' 's/>>/> >/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
     else
       sed -i 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+      sed -i 's/(std::min)(/std::min(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
       sed -i 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
+      #sed -i 's/extern template<>//g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
+      #sed -i 's/>>/> >/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
     fi
 }
 
@@ -33,11 +39,13 @@ function refixCode() {
     if [ "$(uname)" == "Darwin" ]; then
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+      sed -i '' 's/std::min(/(std::min)(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i '' 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
       sed -i '' 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
     else
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
+      sed -i 's/std::min(/(std::min)(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
       sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
     fi
@@ -64,17 +72,21 @@ function runJni()
         -DBOOST_NO_TYPEID=1 \
         -DBOOST_NO_EXCEPTIONS \
         -DBOOST_POSIX_API=1 \
-        -DBOOST_SYSTEM_CONSTEXPR="" \
         -DBOOST_SYSTEM_NOEXCEPT="" \
         -DBOOST_SYSTEM_DECL="" \
         -DBOOST_SYSTEM_NO_DEPRECATED=1 \
+        -DBOOST_SYSTEM_CONSTEXPR \
         -DBOOST_NO_IOSTREAM \
-        -DBOOST_SYMBOL_VISIBLE="" \
+        -DBOOST_SYMBOL_VISIBLE \
         -DBOOST_NOEXCEPT="" \
         -DBOOST_NOEXCEPT_OR_NOTHROW="" \
-        -DTORRENT_ABI_VERSION=2 \
+        -DTORRENT_ABI_VERSION=4 \
         -DTORRENT_VERSION_NAMESPACE_2="" \
         -DTORRENT_VERSION_NAMESPACE_2_END="" \
+        -DTORRENT_VERSION_NAMESPACE_3="" \
+        -DTORRENT_VERSION_NAMESPACE_3_END="" \
+        -DTORRENT_VERSION_NAMESPACE_4="" \
+        -DTORRENT_VERSION_NAMESPACE_4_END="" \
         -DTORRENT_IPV6_NAMESPACE="" \
         -DTORRENT_IPV6_NAMESPACE_END="" \
         -DTORRENT_CFG="TORRENT_CFG" \
@@ -84,12 +96,12 @@ function runJni()
         -DTORRENT_DEPRECATED_ENUM="" \
         -DTORRENT_DEPRECATED \
         -DTORRENT_EXPORT="" \
+        -DTORRENT_UNEXPORT \
         -DTORRENT_EXTRA_EXPORT="" \
         -DTORRENT_FORMAT\(x,y\)="" \
         -DNDEBUG=1 \
         -D_bit="" \
         -Dfinal="" \
-        -DBOOST_OVERRIDE="override" \
         libtorrent.i
 
     # at first sight, this could look like a very dangerous thing to

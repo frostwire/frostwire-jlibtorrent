@@ -10,7 +10,6 @@
 %ignore libtorrent::add_torrent_params::file_priorities;
 %ignore libtorrent::add_torrent_params::have_pieces;
 %ignore libtorrent::add_torrent_params::http_seeds;
-%ignore libtorrent::add_torrent_params::merkle_tree;
 %ignore libtorrent::add_torrent_params::merkle_tree_mask;
 %ignore libtorrent::add_torrent_params::merkle_trees;
 %ignore libtorrent::add_torrent_params::peers;
@@ -49,10 +48,6 @@ namespace libtorrent {
 
         void set_tracker_tiers(std::vector<int> const& tracker_tiers) {
             $self->tracker_tiers = tracker_tiers;
-        }
-
-        void set_merkle_tree(std::vector<sha1_hash> const& merkle_tree) {
-            $self->merkle_tree = merkle_tree;
         }
 
         std::vector<tcp::endpoint> get_banned_peers() {
@@ -104,6 +99,16 @@ namespace libtorrent {
 
         void set_trackers(std::vector<std::string> const& trackers) {
             $self->trackers = trackers;
+        }
+
+        std::vector<std::vector<libtorrent::sha256_hash>> get_merkle_trees() {
+            auto* v = &$self->merkle_trees;
+            return *reinterpret_cast<std::vector<std::vector<libtorrent::sha256_hash>>*>(v);
+        }
+
+        void set_merkle_trees(std::vector<std::vector<libtorrent::sha256_hash>>& v) {
+            auto* t = reinterpret_cast<libtorrent::aux::vector<std::vector<libtorrent::sha256_hash>, libtorrent::file_index_t>*>(&v);
+            $self->merkle_trees = *t;
         }
 
         void set_piece_priorities2(std::vector<std::int8_t> const& piece_priorities) {

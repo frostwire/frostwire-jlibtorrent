@@ -1,3 +1,4 @@
+%ignore libtorrent::torrent_handle::clear_disk_cache;
 %ignore libtorrent::torrent_handle::torrent_handle;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::add_piece;
