@@ -28,26 +28,6 @@ namespace libtorrent {
 %include "libtorrent/torrent_handle.hpp"
 
 namespace libtorrent {
-    struct add_piece_flags_tag;
-    %template(add_piece_flags_t) flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
-
-    struct deadline_flags_tag;
-    %template(deadline_flags_t) flags::bitfield_flag<std::uint8_t, deadline_flags_tag>;
-
-    struct file_progress_flags_tag;
-    %template(file_progress_flags_t) flags::bitfield_flag<std::uint8_t, file_progress_flags_tag>;
-
-    struct pause_flags_tag;
-    %template(pause_flags_t) flags::bitfield_flag<std::uint8_t, pause_flags_tag>;
-
-    struct resume_data_flags_tag;
-    %template(resume_data_flags_t) flags::bitfield_flag<std::uint8_t, resume_data_flags_tag>;
-
-    struct reannounce_flags_tag;
-    %template(reannounce_flags_t) flags::bitfield_flag<std::uint8_t, reannounce_flags_tag>;
-
-    struct status_flags_tag;
-    %template(status_flags_t) flags::bitfield_flag<std::uint32_t, status_flags_tag>;
 
     %extend torrent_handle {
         void add_piece_bytes(int piece, std::vector<int8_t> const& data, add_piece_flags_t flags = {}) {

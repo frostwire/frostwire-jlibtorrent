@@ -3,6 +3,8 @@ namespace libtorrent {
     %template(alert_category_t) flags::bitfield_flag<std::uint32_t, alert_category_tag>;
     struct add_piece_flags_tag;
     %template(add_piece_flags_t) flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
+    struct file_progress_flags_tag;
+    %template(file_progress_flags_t) flags::bitfield_flag<std::uint8_t, file_progress_flags_tag>;
     struct status_flags_tag;
     %template(status_flags_t) flags::bitfield_flag<std::uint32_t, status_flags_tag>;
     struct deadline_flags_tag;
