@@ -6,19 +6,9 @@
 
 namespace libtorrent {
     %extend dht_put_alert {
-        std::vector<int8_t> get_public_key() {
-            std::array<char, 32> arr = $self->public_key;
-            return std::vector<int8_t>(arr.begin(), arr.end());
-        }
-
         std::array<std::int8_t, 32> get_public_key() {
             std::array<char, 32> arr = $self->public_key;
             return *reinterpret_cast<std::array<std::int8_t, 32>*>(&arr);
-        }
-
-        std::vector<int8_t> get_signature() {
-            std::array<char, 64> arr = $self->signature;
-            return std::vector<int8_t>(arr.begin(), arr.end());
         }
 
         std::array<std::int8_t, 64> get_signature() {
