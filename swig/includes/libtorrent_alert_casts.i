@@ -4,9 +4,6 @@
 #define CAST_ALERT_METHOD(name) static libtorrent::##name const* cast_to_##name(alert const* a) { return libtorrent::alert_cast<libtorrent::##name>(a); }
 
 namespace libtorrent {
-    struct alert_category_tag;
-    %template(alert_category_t) flags::bitfield_flag<std::uint32_t, alert_category_tag>;
-
     // alert types conversion due to lack of polymorphic return type
     %extend alert {
         int64_t get_timestamp() {
