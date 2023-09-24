@@ -5,9 +5,6 @@ namespace libtorrent {
 } // namespace libtorrent
 
 namespace libtorrent {
-    struct file_flags_tag;
-    %template(file_flags_t) flags::bitfield_flag<std::uint8_t, file_flags_tag>;
-
     %extend file_storage {
         void add_file(std::string const& path, std::int64_t file_size,
             libtorrent::file_flags_t file_flags, std::time_t mtime, std::string const& symlink_path) {
