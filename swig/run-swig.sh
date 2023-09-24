@@ -77,7 +77,7 @@ function runJni()
         -DBOOST_SYSTEM_NO_DEPRECATED=1 \
         -DBOOST_SYSTEM_CONSTEXPR \
         -DBOOST_NO_IOSTREAM \
-        -DBOOST_SYMBOL_VISIBLE \
+        -DBOOST_SYMBOL_VISIBLE="" \
         -DBOOST_NOEXCEPT="" \
         -DBOOST_NOEXCEPT_OR_NOTHROW="" \
         -DTORRENT_ABI_VERSION=4 \
@@ -94,7 +94,7 @@ function runJni()
         -DTORRENT_DEPRECATED_EXPORT="" \
         -DTORRENT_DEPRECATED_MEMBER="" \
         -DTORRENT_DEPRECATED_ENUM="" \
-        -DTORRENT_DEPRECATED \
+        -DTORRENT_DEPRECATED="" \
         -DTORRENT_EXPORT="" \
         -DTORRENT_UNEXPORT \
         -DTORRENT_EXTRA_EXPORT="" \
@@ -103,6 +103,11 @@ function runJni()
         -D_bit="" \
         -Dfinal="" \
         libtorrent.i
+
+    if [ ! -f "libtorrent_jni.cpp" ]; then
+        echo "run-swig.sh: swig failed. exiting."
+        exit 1
+    fi
 
     # at first sight, this could look like a very dangerous thing to
     # do, but in practice, these director types are controlled by us
