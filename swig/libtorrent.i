@@ -136,8 +136,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 // END common set include ------------------------------------------------------
 
-//%include "includes/std_vector.i" // maybe remove this one
-//%include "includes/std_map.i"
 %include "includes/libtorrent_span.i"
 %include "includes/libtorrent_flags_bitfield_flag.i"
 %include "includes/libtorrent_move_flags_t.i"
