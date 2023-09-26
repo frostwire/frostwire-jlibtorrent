@@ -199,22 +199,6 @@ void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::int64
     sig = sign.bytes;
 }
 
-struct swig_plugin : libtorrent::plugin {
-
-    virtual ~swig_plugin() {
-    }
-
-    libtorrent::feature_flags_t implemented_features() {
-        return libtorrent::plugin::dht_request_feature;
-    }
-
-    virtual bool on_dht_request(libtorrent::string_view query,
-        libtorrent::udp::endpoint const& source,
-        libtorrent::bdecode_node const& message, libtorrent::entry& response) {
-        return false;
-    }
-};
-
 // enum_net functions, very useful for networking
 struct ip_interface
 {
