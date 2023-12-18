@@ -22,7 +22,9 @@ function fixCode() {
       sed -i '' 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
       # Comment out the problematic line
       sed -i '' 's/extern template/template<>/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
-      #sed -i '' 's/>>/> >/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
+      #sed -i '' 's/extern template/template/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
+      # TODO: Add this back to the case thats not macOS once we get this to work
+      sed -i '' 's/>>/> >/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
     else
       sed -i 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
@@ -30,8 +32,6 @@ function fixCode() {
       sed -i 's/(std::min)(/std::min(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
       sed -i 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
       sed -i 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-      sed -i 's/extern template<>//g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
-      #sed -i 's/>>/> >/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
     fi
 }
 
@@ -50,6 +50,10 @@ function refixCode() {
       sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
       sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
     fi
+    echo 'run-swig.sh: restoring ip_filter.hpp before compiling'
+    pushd ${LIBTORRENT_ROOT}/include/libtorrent
+    git checkout ip_filter.hpp
+    popd
 }
 
 function runJni()
