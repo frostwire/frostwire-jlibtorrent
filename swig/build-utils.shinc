@@ -47,6 +47,27 @@ macosx_env() {
   export OPENSSL_ROOT="${SRC}/openssl"
 }
 
+ios_env() {
+    abort_if_var_unset "HOME" ${HOME}
+    export SRC="${HOME}/src"
+    export OPENSSL_ROOT="${SRC}/openssl"
+    export IOS_SDK_VERSION="14.0"
+    export IOS_ARCH="arm64"
+    export IOS_PLATFORM="iphoneos"
+    export IOS_COMPILER="iphoneos"
+
+    XCODE_SDK_PATH=$(xcode-select -p)/Platforms/${IOS_PLATFORM}.platform/Developer/SDKs/${IOS_PLATFORM}${IOS_SDK_VERSION}.sdk
+    export IOS_SYSROOT="${XCODE_SDK_PATH}"
+
+    export CXX="clang++"
+    export CC="clang"
+
+    export CXXFLAGS="-std=c++17 -miphoneos-version-min=${IOS_SDK_VERSION} -fno-strict-aliasing -fvisibility=hidden -D_DARWIN_C_SOURCE"
+
+    export LDFLAGS="-arch ${IOS_ARCH} -isysroot ${IOS_SYSROOT} -miphoneos-version-min=${IOS_SDK_VERSION}"
+}
+
+
 linux_env() {
   export SRC="/src"
   export OPENSSL_ROOT="/openssl-linux-x86_64"
