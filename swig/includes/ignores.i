@@ -149,6 +149,7 @@
 %ignore libtorrent::session_handle::delete_peer_class;
 %ignore libtorrent::session_handle::delete_port_mapping;
 %ignore libtorrent::session_handle::dht_announce;
+%ignore libtorrent::dht_announce_alert::ip;
 %ignore libtorrent::session_handle::dht_direct_request(udp::endpoint const&, entry const&, void*);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>, std::string);

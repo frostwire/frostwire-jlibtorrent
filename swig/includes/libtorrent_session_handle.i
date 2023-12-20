@@ -32,7 +32,7 @@ namespace libtorrent {
         }
 
         void dht_direct_request(udp::endpoint const& ep, entry const& e, int64_t userdata) {
-            $self->dht_direct_request(ep, e, (void*)userdata);
+            $self->dht_direct_request(ep, e, libtorrent::client_data_t{(void*)userdata});
         }
 
         alert* wait_for_alert_ms(int64_t max_wait) {
