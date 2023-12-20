@@ -183,8 +183,8 @@ public class torrent_info {
     return new SWIGTYPE_p_std__vectorT_file_slice_t(libtorrent_jni.torrent_info_map_block(swigCPtr, this, piece, offset, size), true);
   }
 
-  public SWIGTYPE_p_peer_request map_file(int file, long offset, int size) {
-    return new SWIGTYPE_p_peer_request(libtorrent_jni.torrent_info_map_file(swigCPtr, this, file, offset, size), true);
+  public peer_request map_file(int file, long offset, int size) {
+    return new peer_request(libtorrent_jni.torrent_info_map_file(swigCPtr, this, file, offset, size), true);
   }
 
   public boolean is_valid() {

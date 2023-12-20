@@ -55,8 +55,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_post_peer_info(swigCPtr, this);
   }
 
-  public void get_peer_info(SWIGTYPE_p_std__vectorT_peer_info_t v) {
-    libtorrent_jni.torrent_handle_get_peer_info(swigCPtr, this, SWIGTYPE_p_std__vectorT_peer_info_t.getCPtr(v));
+  public void get_peer_info(peer_info_vector v) {
+    libtorrent_jni.torrent_handle_get_peer_info(swigCPtr, this, peer_info_vector.getCPtr(v), v);
   }
 
   public SWIGTYPE_p_torrent_status status(status_flags_t flags) {
@@ -303,12 +303,12 @@ public class torrent_handle {
     return libtorrent_jni.torrent_handle_download_limit(swigCPtr, this);
   }
 
-  public void connect_peer(tcp_endpoint adr, SWIGTYPE_p_peer_source_flags_t source, SWIGTYPE_p_pex_flags_t flags) {
-    libtorrent_jni.torrent_handle_connect_peer__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, SWIGTYPE_p_peer_source_flags_t.getCPtr(source), SWIGTYPE_p_pex_flags_t.getCPtr(flags));
+  public void connect_peer(tcp_endpoint adr, peer_source_flags_t source, SWIGTYPE_p_pex_flags_t flags) {
+    libtorrent_jni.torrent_handle_connect_peer__SWIG_0(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, peer_source_flags_t.getCPtr(source), source, SWIGTYPE_p_pex_flags_t.getCPtr(flags));
   }
 
-  public void connect_peer(tcp_endpoint adr, SWIGTYPE_p_peer_source_flags_t source) {
-    libtorrent_jni.torrent_handle_connect_peer__SWIG_1(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, SWIGTYPE_p_peer_source_flags_t.getCPtr(source));
+  public void connect_peer(tcp_endpoint adr, peer_source_flags_t source) {
+    libtorrent_jni.torrent_handle_connect_peer__SWIG_1(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr, peer_source_flags_t.getCPtr(source), source);
   }
 
   public void connect_peer(tcp_endpoint adr) {

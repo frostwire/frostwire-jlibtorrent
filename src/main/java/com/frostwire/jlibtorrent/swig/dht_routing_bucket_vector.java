@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class dht_routing_bucket_vector extends java.util.AbstractList<SWIGTYPE_p_libtorrent__dht_routing_bucket> implements java.util.RandomAccess {
+public class dht_routing_bucket_vector extends java.util.AbstractList<dht_routing_bucket> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class dht_routing_bucket_vector extends java.util.AbstractList<SWIGTYPE_p
     }
   }
 
-  public dht_routing_bucket_vector(SWIGTYPE_p_libtorrent__dht_routing_bucket[] initialElements) {
+  public dht_routing_bucket_vector(dht_routing_bucket[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (SWIGTYPE_p_libtorrent__dht_routing_bucket element : initialElements) {
+    for (dht_routing_bucket element : initialElements) {
       add(element);
     }
   }
 
-  public dht_routing_bucket_vector(Iterable<SWIGTYPE_p_libtorrent__dht_routing_bucket> initialElements) {
+  public dht_routing_bucket_vector(Iterable<dht_routing_bucket> initialElements) {
     this();
-    for (SWIGTYPE_p_libtorrent__dht_routing_bucket element : initialElements) {
+    for (dht_routing_bucket element : initialElements) {
       add(element);
     }
   }
 
-  public SWIGTYPE_p_libtorrent__dht_routing_bucket get(int index) {
+  public dht_routing_bucket get(int index) {
     return doGet(index);
   }
 
-  public SWIGTYPE_p_libtorrent__dht_routing_bucket set(int index, SWIGTYPE_p_libtorrent__dht_routing_bucket e) {
+  public dht_routing_bucket set(int index, dht_routing_bucket e) {
     return doSet(index, e);
   }
 
-  public boolean add(SWIGTYPE_p_libtorrent__dht_routing_bucket e) {
+  public boolean add(dht_routing_bucket e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, SWIGTYPE_p_libtorrent__dht_routing_bucket e) {
+  public void add(int index, dht_routing_bucket e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public SWIGTYPE_p_libtorrent__dht_routing_bucket remove(int index) {
+  public dht_routing_bucket remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,32 +116,32 @@ public class dht_routing_bucket_vector extends java.util.AbstractList<SWIGTYPE_p
     libtorrent_jni.dht_routing_bucket_vector_clear(swigCPtr, this);
   }
 
-  public dht_routing_bucket_vector(int count, SWIGTYPE_p_libtorrent__dht_routing_bucket value) {
-    this(libtorrent_jni.new_dht_routing_bucket_vector__SWIG_2(count, SWIGTYPE_p_libtorrent__dht_routing_bucket.getCPtr(value)), true);
+  public dht_routing_bucket_vector(int count, dht_routing_bucket value) {
+    this(libtorrent_jni.new_dht_routing_bucket_vector__SWIG_2(count, dht_routing_bucket.getCPtr(value), value), true);
   }
 
   private int doSize() {
     return libtorrent_jni.dht_routing_bucket_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(SWIGTYPE_p_libtorrent__dht_routing_bucket x) {
-    libtorrent_jni.dht_routing_bucket_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__dht_routing_bucket.getCPtr(x));
+  private void doAdd(dht_routing_bucket x) {
+    libtorrent_jni.dht_routing_bucket_vector_doAdd__SWIG_0(swigCPtr, this, dht_routing_bucket.getCPtr(x), x);
   }
 
-  private void doAdd(int index, SWIGTYPE_p_libtorrent__dht_routing_bucket x) {
-    libtorrent_jni.dht_routing_bucket_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_libtorrent__dht_routing_bucket.getCPtr(x));
+  private void doAdd(int index, dht_routing_bucket x) {
+    libtorrent_jni.dht_routing_bucket_vector_doAdd__SWIG_1(swigCPtr, this, index, dht_routing_bucket.getCPtr(x), x);
   }
 
-  private SWIGTYPE_p_libtorrent__dht_routing_bucket doRemove(int index) {
-    return new SWIGTYPE_p_libtorrent__dht_routing_bucket(libtorrent_jni.dht_routing_bucket_vector_doRemove(swigCPtr, this, index), true);
+  private dht_routing_bucket doRemove(int index) {
+    return new dht_routing_bucket(libtorrent_jni.dht_routing_bucket_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private SWIGTYPE_p_libtorrent__dht_routing_bucket doGet(int index) {
-    return new SWIGTYPE_p_libtorrent__dht_routing_bucket(libtorrent_jni.dht_routing_bucket_vector_doGet(swigCPtr, this, index), false);
+  private dht_routing_bucket doGet(int index) {
+    return new dht_routing_bucket(libtorrent_jni.dht_routing_bucket_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private SWIGTYPE_p_libtorrent__dht_routing_bucket doSet(int index, SWIGTYPE_p_libtorrent__dht_routing_bucket val) {
-    return new SWIGTYPE_p_libtorrent__dht_routing_bucket(libtorrent_jni.dht_routing_bucket_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_libtorrent__dht_routing_bucket.getCPtr(val)), true);
+  private dht_routing_bucket doSet(int index, dht_routing_bucket val) {
+    return new dht_routing_bucket(libtorrent_jni.dht_routing_bucket_vector_doSet(swigCPtr, this, index, dht_routing_bucket.getCPtr(val), val), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

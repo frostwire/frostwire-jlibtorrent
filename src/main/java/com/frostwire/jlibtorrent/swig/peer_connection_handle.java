@@ -91,8 +91,8 @@ public class peer_connection_handle {
     libtorrent_jni.peer_connection_handle_maybe_unchoke_this_peer(swigCPtr, this);
   }
 
-  public void get_peer_info(SWIGTYPE_p_peer_info p) {
-    libtorrent_jni.peer_connection_handle_get_peer_info(swigCPtr, this, SWIGTYPE_p_peer_info.getCPtr(p));
+  public void get_peer_info(peer_info p) {
+    libtorrent_jni.peer_connection_handle_get_peer_info(swigCPtr, this, peer_info.getCPtr(p), p);
   }
 
   public torrent_handle associated_torrent() {

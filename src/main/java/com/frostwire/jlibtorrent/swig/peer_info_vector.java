@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class peer_info_vector extends java.util.AbstractList<SWIGTYPE_p_libtorrent__peer_info> implements java.util.RandomAccess {
+public class peer_info_vector extends java.util.AbstractList<peer_info> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class peer_info_vector extends java.util.AbstractList<SWIGTYPE_p_libtorre
     }
   }
 
-  public peer_info_vector(SWIGTYPE_p_libtorrent__peer_info[] initialElements) {
+  public peer_info_vector(peer_info[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (SWIGTYPE_p_libtorrent__peer_info element : initialElements) {
+    for (peer_info element : initialElements) {
       add(element);
     }
   }
 
-  public peer_info_vector(Iterable<SWIGTYPE_p_libtorrent__peer_info> initialElements) {
+  public peer_info_vector(Iterable<peer_info> initialElements) {
     this();
-    for (SWIGTYPE_p_libtorrent__peer_info element : initialElements) {
+    for (peer_info element : initialElements) {
       add(element);
     }
   }
 
-  public SWIGTYPE_p_libtorrent__peer_info get(int index) {
+  public peer_info get(int index) {
     return doGet(index);
   }
 
-  public SWIGTYPE_p_libtorrent__peer_info set(int index, SWIGTYPE_p_libtorrent__peer_info e) {
+  public peer_info set(int index, peer_info e) {
     return doSet(index, e);
   }
 
-  public boolean add(SWIGTYPE_p_libtorrent__peer_info e) {
+  public boolean add(peer_info e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, SWIGTYPE_p_libtorrent__peer_info e) {
+  public void add(int index, peer_info e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public SWIGTYPE_p_libtorrent__peer_info remove(int index) {
+  public peer_info remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,32 +116,32 @@ public class peer_info_vector extends java.util.AbstractList<SWIGTYPE_p_libtorre
     libtorrent_jni.peer_info_vector_clear(swigCPtr, this);
   }
 
-  public peer_info_vector(int count, SWIGTYPE_p_libtorrent__peer_info value) {
-    this(libtorrent_jni.new_peer_info_vector__SWIG_2(count, SWIGTYPE_p_libtorrent__peer_info.getCPtr(value)), true);
+  public peer_info_vector(int count, peer_info value) {
+    this(libtorrent_jni.new_peer_info_vector__SWIG_2(count, peer_info.getCPtr(value), value), true);
   }
 
   private int doSize() {
     return libtorrent_jni.peer_info_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(SWIGTYPE_p_libtorrent__peer_info x) {
-    libtorrent_jni.peer_info_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__peer_info.getCPtr(x));
+  private void doAdd(peer_info x) {
+    libtorrent_jni.peer_info_vector_doAdd__SWIG_0(swigCPtr, this, peer_info.getCPtr(x), x);
   }
 
-  private void doAdd(int index, SWIGTYPE_p_libtorrent__peer_info x) {
-    libtorrent_jni.peer_info_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_libtorrent__peer_info.getCPtr(x));
+  private void doAdd(int index, peer_info x) {
+    libtorrent_jni.peer_info_vector_doAdd__SWIG_1(swigCPtr, this, index, peer_info.getCPtr(x), x);
   }
 
-  private SWIGTYPE_p_libtorrent__peer_info doRemove(int index) {
-    return new SWIGTYPE_p_libtorrent__peer_info(libtorrent_jni.peer_info_vector_doRemove(swigCPtr, this, index), true);
+  private peer_info doRemove(int index) {
+    return new peer_info(libtorrent_jni.peer_info_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private SWIGTYPE_p_libtorrent__peer_info doGet(int index) {
-    return new SWIGTYPE_p_libtorrent__peer_info(libtorrent_jni.peer_info_vector_doGet(swigCPtr, this, index), false);
+  private peer_info doGet(int index) {
+    return new peer_info(libtorrent_jni.peer_info_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private SWIGTYPE_p_libtorrent__peer_info doSet(int index, SWIGTYPE_p_libtorrent__peer_info val) {
-    return new SWIGTYPE_p_libtorrent__peer_info(libtorrent_jni.peer_info_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_libtorrent__peer_info.getCPtr(val)), true);
+  private peer_info doSet(int index, peer_info val) {
+    return new peer_info(libtorrent_jni.peer_info_vector_doSet(swigCPtr, this, index, peer_info.getCPtr(val), val), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

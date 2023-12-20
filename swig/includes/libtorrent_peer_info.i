@@ -1,12 +1,8 @@
-%ignore libtorrent::peer_info::client;
-%ignore libtorrent::peer_info::client;
-%ignore libtorrent::peer_info::deprecated_dl_rate;
-%ignore libtorrent::peer_info::deprecated_estimated_reciprocation_rate;
-%ignore libtorrent::peer_info::download_queue_time;
-%ignore libtorrent::peer_info::estimated_reciprocation_rate;
-%ignore libtorrent::peer_info::last_active;
-%ignore libtorrent::peer_info::last_request;
-%ignore libtorrent::peer_info::pieces;
+namespace libtorrent {
+  typedef sha1_hash peer_id;
+}
+
+%include "libtorrent/peer_info.hpp"
 
 namespace libtorrent {
     struct connection_type_tag;
