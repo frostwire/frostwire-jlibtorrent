@@ -230,6 +230,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_dht_mutable_item_alert.i"
 %include "includes/libtorrent_dht_put_alert.i"
 %include "includes/libtorrent_session_stats_alert.i"
+%include "includes/libtorrent_session_params.i"
 %include "includes/libtorrent_read_piece_alert.i"
 %include "includes/libtorrent_peer_connection_handle.i"
 %include "includes/libtorrent_torrent_status.i"
