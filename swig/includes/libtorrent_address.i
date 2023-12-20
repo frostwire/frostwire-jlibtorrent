@@ -8,7 +8,7 @@ namespace libtorrent {
         bool is_v4();
         bool is_v6();
 
-        std::string to_string(boost::system::error_code ec);
+        std::string to_string();
 
         bool is_loopback();
         bool is_unspecified();
@@ -26,6 +26,30 @@ namespace libtorrent {
             static address from_string(std::string const& str, boost::system::error_code& ec)
             {
                 return boost::asio::ip::make_address(str, ec);
+            }
+
+            int hash_code()
+            {
+                if ($self->is_v4())
+                {
+                    auto data = $self->to_v4().to_bytes();
+                    int result = 1;
+                    for (int i = 0; i < int(data.size()); i++)
+                    {
+                        result = 31 * result + data[i];
+                    }
+                    return result;
+                }
+                else
+                {
+                    auto data = $self->to_v6().to_bytes();
+                    int result = 1;
+                    for (int i = 0; i < int(data.size()); i++)
+                    {
+                        result = 31 * result + data[i];
+                    }
+                    return result;
+                }
             }
         }
     };

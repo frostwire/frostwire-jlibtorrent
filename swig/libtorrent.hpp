@@ -512,7 +512,6 @@ int remove(const char *path) {
            posix_remove(path);
 }
 
-
 } // extern "C"
 #endif
 

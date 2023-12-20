@@ -319,13 +319,14 @@ public class libtorrent_jni {
   public final static native long new_address__SWIG_1(long jarg1, address jarg1_);
   public final static native boolean address_is_v4(long jarg1, address jarg1_);
   public final static native boolean address_is_v6(long jarg1, address jarg1_);
-  public final static native String address_to_string(long jarg1, address jarg1_, long jarg2, error_code jarg2_);
+  public final static native String address_to_string(long jarg1, address jarg1_);
   public final static native boolean address_is_loopback(long jarg1, address jarg1_);
   public final static native boolean address_is_unspecified(long jarg1, address jarg1_);
   public final static native boolean address_is_multicast(long jarg1, address jarg1_);
   public final static native boolean address_op_lt(long jarg1, address jarg1_, long jarg2, address jarg2_);
   public final static native int address_compare(long jarg1, address jarg1_, long jarg2, address jarg2_);
   public final static native long address_from_string(String jarg1, long jarg2, error_code jarg2_);
+  public final static native int address_hash_code(long jarg1, address jarg1_);
   public final static native void delete_address(long jarg1);
   public final static native long new_piece_index_int_pair__SWIG_0();
   public final static native long new_piece_index_int_pair__SWIG_1(int jarg1, int jarg2);
