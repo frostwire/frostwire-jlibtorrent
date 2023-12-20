@@ -4,6 +4,8 @@ namespace libtorrent {
     struct peer_request;
 } // namespace libtorrent
 
+%include "libtorrent/file_storage.hpp"
+
 namespace libtorrent {
     %extend file_storage {
         void add_file(std::string const& path, std::int64_t file_size,
