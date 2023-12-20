@@ -9,6 +9,14 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent {
+  public static String name_for_setting(int s) {
+    return libtorrent_jni.name_for_setting(s);
+  }
+
+  public static settings_pack default_settings() {
+    return new settings_pack(libtorrent_jni.default_settings(), true);
+  }
+
   public static SWIGTYPE_p_std__arrayT_signed_char_32_t ed25519_create_seed() {
     return new SWIGTYPE_p_std__arrayT_signed_char_32_t(libtorrent_jni.ed25519_create_seed(), true);
   }
