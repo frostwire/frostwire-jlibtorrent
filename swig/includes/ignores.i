@@ -175,6 +175,20 @@
 %ignore libtorrent::verify_encoding;
 %ignore libtorrent::stats_metric::name;
 %ignore libtorrent::find_metric_idx;
+%ignore libtorrent::set_piece_hashes;
+%ignore libtorrent::create_torrent::add_url_seed(string_view);
+%ignore libtorrent::create_torrent::add_tracker(string_view);
+%ignore libtorrent::create_torrent::add_tracker(string_view, int);
+%ignore libtorrent::create_torrent::add_collection(string_view);
+%ignore libtorrent::create_torrent::set_root_cert(string_view);
+%ignore libtorrent::create_torrent::set_hash2(file_index_t, piece_index_t::diff_type, sha256_hash const&);
+%ignore libtorrent::create_torrent::piece_range;
+%ignore libtorrent::create_torrent::file_range;
+%ignore libtorrent::create_torrent::file_piece_range;
+%ignore libtorrent::create_torrent::file_list;
+%ignore libtorrent::create_torrent::generate_buf;
+%ignore libtorrent::create_torrent::set_root_cert;
+%ignore libtorrent::list_files;
 
 
 // libtorrent_session_handle.i ignores
