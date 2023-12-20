@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class dht_lookup_vector extends java.util.AbstractList<SWIGTYPE_p_libtorrent__dht_lookup> implements java.util.RandomAccess {
+public class dht_lookup_vector extends java.util.AbstractList<dht_lookup> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class dht_lookup_vector extends java.util.AbstractList<SWIGTYPE_p_libtorr
     }
   }
 
-  public dht_lookup_vector(SWIGTYPE_p_libtorrent__dht_lookup[] initialElements) {
+  public dht_lookup_vector(dht_lookup[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (SWIGTYPE_p_libtorrent__dht_lookup element : initialElements) {
+    for (dht_lookup element : initialElements) {
       add(element);
     }
   }
 
-  public dht_lookup_vector(Iterable<SWIGTYPE_p_libtorrent__dht_lookup> initialElements) {
+  public dht_lookup_vector(Iterable<dht_lookup> initialElements) {
     this();
-    for (SWIGTYPE_p_libtorrent__dht_lookup element : initialElements) {
+    for (dht_lookup element : initialElements) {
       add(element);
     }
   }
 
-  public SWIGTYPE_p_libtorrent__dht_lookup get(int index) {
+  public dht_lookup get(int index) {
     return doGet(index);
   }
 
-  public SWIGTYPE_p_libtorrent__dht_lookup set(int index, SWIGTYPE_p_libtorrent__dht_lookup e) {
+  public dht_lookup set(int index, dht_lookup e) {
     return doSet(index, e);
   }
 
-  public boolean add(SWIGTYPE_p_libtorrent__dht_lookup e) {
+  public boolean add(dht_lookup e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, SWIGTYPE_p_libtorrent__dht_lookup e) {
+  public void add(int index, dht_lookup e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public SWIGTYPE_p_libtorrent__dht_lookup remove(int index) {
+  public dht_lookup remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,32 +116,32 @@ public class dht_lookup_vector extends java.util.AbstractList<SWIGTYPE_p_libtorr
     libtorrent_jni.dht_lookup_vector_clear(swigCPtr, this);
   }
 
-  public dht_lookup_vector(int count, SWIGTYPE_p_libtorrent__dht_lookup value) {
-    this(libtorrent_jni.new_dht_lookup_vector__SWIG_2(count, SWIGTYPE_p_libtorrent__dht_lookup.getCPtr(value)), true);
+  public dht_lookup_vector(int count, dht_lookup value) {
+    this(libtorrent_jni.new_dht_lookup_vector__SWIG_2(count, dht_lookup.getCPtr(value), value), true);
   }
 
   private int doSize() {
     return libtorrent_jni.dht_lookup_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(SWIGTYPE_p_libtorrent__dht_lookup x) {
-    libtorrent_jni.dht_lookup_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__dht_lookup.getCPtr(x));
+  private void doAdd(dht_lookup x) {
+    libtorrent_jni.dht_lookup_vector_doAdd__SWIG_0(swigCPtr, this, dht_lookup.getCPtr(x), x);
   }
 
-  private void doAdd(int index, SWIGTYPE_p_libtorrent__dht_lookup x) {
-    libtorrent_jni.dht_lookup_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_libtorrent__dht_lookup.getCPtr(x));
+  private void doAdd(int index, dht_lookup x) {
+    libtorrent_jni.dht_lookup_vector_doAdd__SWIG_1(swigCPtr, this, index, dht_lookup.getCPtr(x), x);
   }
 
-  private SWIGTYPE_p_libtorrent__dht_lookup doRemove(int index) {
-    return new SWIGTYPE_p_libtorrent__dht_lookup(libtorrent_jni.dht_lookup_vector_doRemove(swigCPtr, this, index), true);
+  private dht_lookup doRemove(int index) {
+    return new dht_lookup(libtorrent_jni.dht_lookup_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private SWIGTYPE_p_libtorrent__dht_lookup doGet(int index) {
-    return new SWIGTYPE_p_libtorrent__dht_lookup(libtorrent_jni.dht_lookup_vector_doGet(swigCPtr, this, index), false);
+  private dht_lookup doGet(int index) {
+    return new dht_lookup(libtorrent_jni.dht_lookup_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private SWIGTYPE_p_libtorrent__dht_lookup doSet(int index, SWIGTYPE_p_libtorrent__dht_lookup val) {
-    return new SWIGTYPE_p_libtorrent__dht_lookup(libtorrent_jni.dht_lookup_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_libtorrent__dht_lookup.getCPtr(val)), true);
+  private dht_lookup doSet(int index, dht_lookup val) {
+    return new dht_lookup(libtorrent_jni.dht_lookup_vector_doSet(swigCPtr, this, index, dht_lookup.getCPtr(val), val), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

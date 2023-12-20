@@ -22,7 +22,7 @@
 %include "includes/libtorrent_java.i"
 
 %{
-// BEGIN common set include ----------------------------------------------------
+// BEGIN common set include (just include but don't wrap)----------------------------------------------
 #include <libtorrent/fwd.hpp>
 #include <libtorrent/flags.hpp>
 #include <libtorrent/address.hpp>
@@ -194,8 +194,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 %include "includes/boost_system_error_code.i"
 
-// #includes were here
-
+// Includes of what's actually going to be wrapped
 
 %include "includes/libtorrent_span.i"
 %include "includes/libtorrent_flags_bitfield_flag.i"
@@ -221,14 +220,17 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_peer_info.i"
 %include "includes/libtorrent_announce.i"
 %include "includes/libtorrent_torrent_handle.i"
+%include "includes/libtorrent_alert.i"
 %include "includes/libtorrent_alert_casts.i"
 %include "includes/libtorrent_session_handle.i"
+%include "includes/libtorrent_peer_request.i"
 %include "includes/libtorrent_bdecode.i"
 %include "includes/libtorrent_add_torrent_params.i"
 %include "includes/libtorrent_torrent_info.i"
 %include "includes/libtorrent_torrent_handle.i"
 %include "includes/libtorrent_dht_mutable_item_alert.i"
 %include "includes/libtorrent_dht_put_alert.i"
+%include "includes/libtorrent_session_stats.i"
 %include "includes/libtorrent_session_stats_alert.i"
 %include "includes/libtorrent_session_params.i"
 %include "includes/libtorrent_read_piece_alert.i"

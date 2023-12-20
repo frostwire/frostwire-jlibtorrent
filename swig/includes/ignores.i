@@ -72,6 +72,14 @@
 %ignore libtorrent::performance_alert::bittyrant_with_no_uplimit;
 %ignore libtorrent::performance_alert::deprecated_bittyrant_with_no_uplimit;
 %ignore libtorrent::performance_alert::performance_warning_t::bittyrant_with_no_uplimit;
+%ignore libtorrent::peer_info::client;
+%ignore libtorrent::peer_info::deprecated_dl_rate;
+%ignore libtorrent::peer_info::deprecated_estimated_reciprocation_rate;
+%ignore libtorrent::peer_info::download_queue_time;
+%ignore libtorrent::peer_info::estimated_reciprocation_rate;
+%ignore libtorrent::peer_info::last_active;
+%ignore libtorrent::peer_info::last_request;
+%ignore libtorrent::peer_info::pieces;
 %ignore libtorrent::picker_log_alert::blocks;
 %ignore libtorrent::print_entry;
 %ignore libtorrent::proxy_settings::proxy_settings;
@@ -165,6 +173,8 @@
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::user_alert_id;
 %ignore libtorrent::verify_encoding;
+%ignore libtorrent::stats_metric::name;
+%ignore libtorrent::find_metric_idx;
 
 
 // libtorrent_session_handle.i ignores
@@ -204,6 +214,8 @@
 %ignore libtorrent::session_handle::tcp_peer_class_id;
 %ignore libtorrent::session_handle::wait_for_alert;
 
+%ignore libtorrent::alert::timestamp;
+%ignore libtorrent::alert_category::all;
 
 %ignore boost::throws;
 %ignore boost::detail::throws;

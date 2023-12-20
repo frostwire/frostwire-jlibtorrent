@@ -1,5 +1,3 @@
-%ignore libtorrent::alert::timestamp;
-%ignore libtorrent::alert_category::all;
 
 #define CAST_ALERT_METHOD(name) static libtorrent::##name const* cast_to_##name(alert const* a) { return libtorrent::alert_cast<libtorrent::##name>(a); }
 

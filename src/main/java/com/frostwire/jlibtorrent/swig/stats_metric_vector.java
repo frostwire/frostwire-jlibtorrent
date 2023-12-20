@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class stats_metric_vector extends java.util.AbstractList<SWIGTYPE_p_libtorrent__stats_metric> implements java.util.RandomAccess {
+public class stats_metric_vector extends java.util.AbstractList<stats_metric> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class stats_metric_vector extends java.util.AbstractList<SWIGTYPE_p_libto
     }
   }
 
-  public stats_metric_vector(SWIGTYPE_p_libtorrent__stats_metric[] initialElements) {
+  public stats_metric_vector(stats_metric[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (SWIGTYPE_p_libtorrent__stats_metric element : initialElements) {
+    for (stats_metric element : initialElements) {
       add(element);
     }
   }
 
-  public stats_metric_vector(Iterable<SWIGTYPE_p_libtorrent__stats_metric> initialElements) {
+  public stats_metric_vector(Iterable<stats_metric> initialElements) {
     this();
-    for (SWIGTYPE_p_libtorrent__stats_metric element : initialElements) {
+    for (stats_metric element : initialElements) {
       add(element);
     }
   }
 
-  public SWIGTYPE_p_libtorrent__stats_metric get(int index) {
+  public stats_metric get(int index) {
     return doGet(index);
   }
 
-  public SWIGTYPE_p_libtorrent__stats_metric set(int index, SWIGTYPE_p_libtorrent__stats_metric e) {
+  public stats_metric set(int index, stats_metric e) {
     return doSet(index, e);
   }
 
-  public boolean add(SWIGTYPE_p_libtorrent__stats_metric e) {
+  public boolean add(stats_metric e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, SWIGTYPE_p_libtorrent__stats_metric e) {
+  public void add(int index, stats_metric e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public SWIGTYPE_p_libtorrent__stats_metric remove(int index) {
+  public stats_metric remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,32 +116,32 @@ public class stats_metric_vector extends java.util.AbstractList<SWIGTYPE_p_libto
     libtorrent_jni.stats_metric_vector_clear(swigCPtr, this);
   }
 
-  public stats_metric_vector(int count, SWIGTYPE_p_libtorrent__stats_metric value) {
-    this(libtorrent_jni.new_stats_metric_vector__SWIG_2(count, SWIGTYPE_p_libtorrent__stats_metric.getCPtr(value)), true);
+  public stats_metric_vector(int count, stats_metric value) {
+    this(libtorrent_jni.new_stats_metric_vector__SWIG_2(count, stats_metric.getCPtr(value), value), true);
   }
 
   private int doSize() {
     return libtorrent_jni.stats_metric_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(SWIGTYPE_p_libtorrent__stats_metric x) {
-    libtorrent_jni.stats_metric_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__stats_metric.getCPtr(x));
+  private void doAdd(stats_metric x) {
+    libtorrent_jni.stats_metric_vector_doAdd__SWIG_0(swigCPtr, this, stats_metric.getCPtr(x), x);
   }
 
-  private void doAdd(int index, SWIGTYPE_p_libtorrent__stats_metric x) {
-    libtorrent_jni.stats_metric_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_libtorrent__stats_metric.getCPtr(x));
+  private void doAdd(int index, stats_metric x) {
+    libtorrent_jni.stats_metric_vector_doAdd__SWIG_1(swigCPtr, this, index, stats_metric.getCPtr(x), x);
   }
 
-  private SWIGTYPE_p_libtorrent__stats_metric doRemove(int index) {
-    return new SWIGTYPE_p_libtorrent__stats_metric(libtorrent_jni.stats_metric_vector_doRemove(swigCPtr, this, index), true);
+  private stats_metric doRemove(int index) {
+    return new stats_metric(libtorrent_jni.stats_metric_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private SWIGTYPE_p_libtorrent__stats_metric doGet(int index) {
-    return new SWIGTYPE_p_libtorrent__stats_metric(libtorrent_jni.stats_metric_vector_doGet(swigCPtr, this, index), false);
+  private stats_metric doGet(int index) {
+    return new stats_metric(libtorrent_jni.stats_metric_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private SWIGTYPE_p_libtorrent__stats_metric doSet(int index, SWIGTYPE_p_libtorrent__stats_metric val) {
-    return new SWIGTYPE_p_libtorrent__stats_metric(libtorrent_jni.stats_metric_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_libtorrent__stats_metric.getCPtr(val)), true);
+  private stats_metric doSet(int index, stats_metric val) {
+    return new stats_metric(libtorrent_jni.stats_metric_vector_doSet(swigCPtr, this, index, stats_metric.getCPtr(val), val), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

@@ -211,8 +211,8 @@ public class session_handle {
     return new SWIGTYPE_p_settings_pack(libtorrent_jni.session_handle_get_settings(swigCPtr, this), true);
   }
 
-  public void pop_alerts(SWIGTYPE_p_std__vectorT_alert_p_t alerts) {
-    libtorrent_jni.session_handle_pop_alerts(swigCPtr, this, SWIGTYPE_p_std__vectorT_alert_p_t.getCPtr(alerts));
+  public void pop_alerts(alert_ptr_vector alerts) {
+    libtorrent_jni.session_handle_pop_alerts(swigCPtr, this, alert_ptr_vector.getCPtr(alerts), alerts);
   }
 
   public void reopen_network_sockets(SWIGTYPE_p_reopen_network_flags_t options) {
@@ -235,9 +235,9 @@ public class session_handle {
     libtorrent_jni.session_handle_dht_direct_request__SWIG_2(swigCPtr, this, udp_endpoint.getCPtr(ep), ep, entry.getCPtr(e), e, userdata);
   }
 
-  public SWIGTYPE_p_alert wait_for_alert_ms(long max_wait) {
+  public alert wait_for_alert_ms(long max_wait) {
     long cPtr = libtorrent_jni.session_handle_wait_for_alert_ms(swigCPtr, this, max_wait);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_alert(cPtr, false);
+    return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 
   public void set_alert_notify_callback(alert_notify_callback cb) {

@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class alert_ptr_vector extends java.util.AbstractList<SWIGTYPE_p_libtorrent__alert> implements java.util.RandomAccess {
+public class alert_ptr_vector extends java.util.AbstractList<alert> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class alert_ptr_vector extends java.util.AbstractList<SWIGTYPE_p_libtorre
     }
   }
 
-  public alert_ptr_vector(SWIGTYPE_p_libtorrent__alert[] initialElements) {
+  public alert_ptr_vector(alert[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (SWIGTYPE_p_libtorrent__alert element : initialElements) {
+    for (alert element : initialElements) {
       add(element);
     }
   }
 
-  public alert_ptr_vector(Iterable<SWIGTYPE_p_libtorrent__alert> initialElements) {
+  public alert_ptr_vector(Iterable<alert> initialElements) {
     this();
-    for (SWIGTYPE_p_libtorrent__alert element : initialElements) {
+    for (alert element : initialElements) {
       add(element);
     }
   }
 
-  public SWIGTYPE_p_libtorrent__alert get(int index) {
+  public alert get(int index) {
     return doGet(index);
   }
 
-  public SWIGTYPE_p_libtorrent__alert set(int index, SWIGTYPE_p_libtorrent__alert e) {
+  public alert set(int index, alert e) {
     return doSet(index, e);
   }
 
-  public boolean add(SWIGTYPE_p_libtorrent__alert e) {
+  public boolean add(alert e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, SWIGTYPE_p_libtorrent__alert e) {
+  public void add(int index, alert e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public SWIGTYPE_p_libtorrent__alert remove(int index) {
+  public alert remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,35 +116,35 @@ public class alert_ptr_vector extends java.util.AbstractList<SWIGTYPE_p_libtorre
     libtorrent_jni.alert_ptr_vector_clear(swigCPtr, this);
   }
 
-  public alert_ptr_vector(int count, SWIGTYPE_p_libtorrent__alert value) {
-    this(libtorrent_jni.new_alert_ptr_vector__SWIG_2(count, SWIGTYPE_p_libtorrent__alert.getCPtr(value)), true);
+  public alert_ptr_vector(int count, alert value) {
+    this(libtorrent_jni.new_alert_ptr_vector__SWIG_2(count, alert.getCPtr(value), value), true);
   }
 
   private int doSize() {
     return libtorrent_jni.alert_ptr_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(SWIGTYPE_p_libtorrent__alert x) {
-    libtorrent_jni.alert_ptr_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__alert.getCPtr(x));
+  private void doAdd(alert x) {
+    libtorrent_jni.alert_ptr_vector_doAdd__SWIG_0(swigCPtr, this, alert.getCPtr(x), x);
   }
 
-  private void doAdd(int index, SWIGTYPE_p_libtorrent__alert x) {
-    libtorrent_jni.alert_ptr_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_libtorrent__alert.getCPtr(x));
+  private void doAdd(int index, alert x) {
+    libtorrent_jni.alert_ptr_vector_doAdd__SWIG_1(swigCPtr, this, index, alert.getCPtr(x), x);
   }
 
-  private SWIGTYPE_p_libtorrent__alert doRemove(int index) {
+  private alert doRemove(int index) {
     long cPtr = libtorrent_jni.alert_ptr_vector_doRemove(swigCPtr, this, index);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__alert(cPtr, false);
+    return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 
-  private SWIGTYPE_p_libtorrent__alert doGet(int index) {
+  private alert doGet(int index) {
     long cPtr = libtorrent_jni.alert_ptr_vector_doGet(swigCPtr, this, index);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__alert(cPtr, false);
+    return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 
-  private SWIGTYPE_p_libtorrent__alert doSet(int index, SWIGTYPE_p_libtorrent__alert val) {
-    long cPtr = libtorrent_jni.alert_ptr_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_libtorrent__alert.getCPtr(val));
-    return (cPtr == 0) ? null : new SWIGTYPE_p_libtorrent__alert(cPtr, false);
+  private alert doSet(int index, alert val) {
+    long cPtr = libtorrent_jni.alert_ptr_vector_doSet(swigCPtr, this, index, alert.getCPtr(val), val);
+    return (cPtr == 0) ? null : new alert(cPtr, false);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {
