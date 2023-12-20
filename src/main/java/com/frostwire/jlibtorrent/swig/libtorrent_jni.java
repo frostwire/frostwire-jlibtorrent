@@ -1423,6 +1423,7 @@ public class libtorrent_jni {
   public final static native void torrent_info_free_piece_layers(long jarg1, torrent_info jarg1_);
   public final static native long new_torrent_info__SWIG_4(long jarg1, int jarg2, long jarg3, error_code jarg3_);
   public final static native long torrent_info_get_info_section(long jarg1, torrent_info jarg1_);
+  public final static native long new_peer_connection_handle(long jarg1);
   public final static native int peer_connection_handle_type(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_is_seed(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_upload_only(long jarg1, peer_connection_handle jarg1_);

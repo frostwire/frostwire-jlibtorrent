@@ -43,6 +43,10 @@ public class peer_connection_handle {
     }
   }
 
+  public peer_connection_handle(SWIGTYPE_p_std__weak_ptrT_peer_connection_t impl) {
+    this(libtorrent_jni.new_peer_connection_handle(SWIGTYPE_p_std__weak_ptrT_peer_connection_t.getCPtr(impl)), true);
+  }
+
   public connection_type type() {
     return connection_type.swigToEnum(libtorrent_jni.peer_connection_handle_type(swigCPtr, this));
   }

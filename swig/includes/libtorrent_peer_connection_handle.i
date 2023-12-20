@@ -1,4 +1,3 @@
-%ignore libtorrent::peer_connection_handle::peer_connection_handle;
 %ignore libtorrent::peer_connection_handle::native_handle;
 %ignore libtorrent::peer_connection_handle::add_extension;
 %ignore libtorrent::peer_connection_handle::find_plugin;
