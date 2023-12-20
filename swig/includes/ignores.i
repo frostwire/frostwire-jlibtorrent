@@ -87,7 +87,11 @@
 %ignore libtorrent::session::session(settings_pack&&, io_service&);
 %ignore libtorrent::session::session(settings_pack&&, io_service&, session_flags_t const);
 %ignore libtorrent::session::session(settings_pack&&, session_flags_t const);
+%ignore libtorrent::read_session_params;
+%ignore libtorrent::write_session_params;
+%ignore libtorrent::write_session_params_buf;
 %ignore libtorrent::session_params::dht_storage_constructor;
+%ignore libtorrent::session_params::disk_io_constructor;
 %ignore libtorrent::session_params::extensions;
 %ignore libtorrent::session_params::session_params(session_params&&);
 %ignore libtorrent::session_params::session_params(settings_pack const&, std::vector<std::shared_ptr<plugin>>);
