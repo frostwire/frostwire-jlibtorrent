@@ -1510,7 +1510,6 @@ public class libtorrent_jni {
   public final static native long alert_cast_to_socks5_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_state_changed_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_state_update_alert(long jarg1, alert jarg1_);
-  public final static native long alert_cast_to_stats_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_storage_moved_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_storage_moved_failed_alert(long jarg1, alert jarg1_);
   public final static native long alert_cast_to_torrent_checked_alert(long jarg1, alert jarg1_);

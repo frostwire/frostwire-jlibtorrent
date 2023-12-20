@@ -3632,7 +3632,6 @@ SWIGINTERN libtorrent::session_stats_header_alert const *libtorrent_alert_cast_t
 SWIGINTERN libtorrent::socks5_alert const *libtorrent_alert_cast_to_socks5_alert(libtorrent::alert const *a){ return libtorrent::alert_cast<libtorrent::socks5_alert>(a); }
 SWIGINTERN libtorrent::state_changed_alert const *libtorrent_alert_cast_to_state_changed_alert(libtorrent::alert const *a){ return libtorrent::alert_cast<libtorrent::state_changed_alert>(a); }
 SWIGINTERN libtorrent::state_update_alert const *libtorrent_alert_cast_to_state_update_alert(libtorrent::alert const *a){ return libtorrent::alert_cast<libtorrent::state_update_alert>(a); }
-SWIGINTERN libtorrent::stats_alert const *libtorrent_alert_cast_to_stats_alert(libtorrent::alert const *a){ return libtorrent::alert_cast<libtorrent::stats_alert>(a); }
 SWIGINTERN libtorrent::storage_moved_alert const *libtorrent_alert_cast_to_storage_moved_alert(libtorrent::alert const *a){ return libtorrent::alert_cast<libtorrent::storage_moved_alert>(a); }
 SWIGINTERN libtorrent::storage_moved_failed_alert const *libtorrent_alert_cast_to_storage_moved_failed_alert(libtorrent::alert const *a){ return libtorrent::alert_cast<libtorrent::storage_moved_failed_alert>(a); }
 SWIGINTERN libtorrent::torrent_checked_alert const *libtorrent_alert_cast_to_torrent_checked_alert(libtorrent::alert const *a){ return libtorrent::alert_cast<libtorrent::torrent_checked_alert>(a); }
@@ -40163,31 +40162,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
     }
   }
   *(libtorrent::state_update_alert **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1cast_1to_1stats_1alert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::alert *arg1 = (libtorrent::alert *) 0 ;
-  libtorrent::stats_alert *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::alert **)&jarg1; 
-  {
-    try {
-      result = (libtorrent::stats_alert *)libtorrent_alert_cast_to_stats_alert((libtorrent::alert const *)arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(libtorrent::stats_alert **)&jresult = result; 
   return jresult;
 }
 
