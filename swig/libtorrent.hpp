@@ -1,3 +1,6 @@
+#ifndef LIBTORRENT_HPP
+#define LIBTORRENT_HPP
+
 #ifndef _WIN32
 #include <dlfcn.h>
 #endif
@@ -10,41 +13,52 @@
 #include <algorithm>
 
 #include <boost/version.hpp>
-
-#include <boost/asio/ip/address.hpp>
-#include <boost/asio/ip/address_v4.hpp>
-#include <boost/asio/ip/address_v6.hpp>
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/ip/udp.hpp>
-
 #include <openssl/opensslv.h>
 
-#include <libtorrent/config.hpp>
-#include <libtorrent/time.hpp>
-#include <libtorrent/aux_/buffer.hpp>
-#include <libtorrent/aux_/utp_stream.hpp>
-#include <libtorrent/socket_io.hpp>
-#include <libtorrent/read_resume_data.hpp>
-#include <libtorrent/write_resume_data.hpp>
-#include <libtorrent/hex.hpp>
-#include <libtorrent/extensions.hpp>
-#include <libtorrent/bloom_filter.hpp>
-#include <libtorrent/aux_/announce_entry.hpp>
-#include <libtorrent/enum_net.hpp>
-
-#include <libtorrent/kademlia/dht_tracker.hpp>
-#include <libtorrent/kademlia/node_entry.hpp>
-#include <libtorrent/kademlia/node.hpp>
-#include <libtorrent/kademlia/node_id.hpp>
-#include <libtorrent/kademlia/get_peers.hpp>
-#include <libtorrent/kademlia/item.hpp>
-#include <libtorrent/kademlia/ed25519.hpp>
+//#include <boost/asio/ip/address.hpp>
+//#include <boost/asio/ip/address_v4.hpp>
+//#include <boost/asio/ip/address_v6.hpp>
+//#include <boost/asio/ip/tcp.hpp>
+//#include <boost/asio/ip/udp.hpp>
 
 #include <libtorrent/aux_/cpuid.hpp>
+#include <libtorrent/kademlia/ed25519.hpp>
+#include <libtorrent/kademlia/item.hpp>
+#include <libtorrent/enum_net.hpp>
+#include <libtorrent/random.hpp>
+#include <libtorrent/session_stats.hpp>
+#include <libtorrent/session.hpp>
+#include <libtorrent/create_torrent.hpp>
+#include <libtorrent/read_resume_data.hpp>
+#include <libtorrent/write_resume_data.hpp>
+#include <libtorrent/magnet_uri.hpp>
 
-std::vector<int8_t> ed25519_create_seed() {
-    std::array<char, 32> seed = libtorrent::dht::ed25519_create_seed();
-    return std::vector<int8_t>(seed.data(), seed.end());
+//#include <libtorrent/config.hpp>
+//#include <libtorrent/time.hpp>
+//#include <libtorrent/aux_/buffer.hpp>
+//#include <libtorrent/aux_/utp_stream.hpp>
+//#include <libtorrent/socket_io.hpp>
+//#include <libtorrent/read_resume_data.hpp>
+//#include <libtorrent/write_resume_data.hpp>
+//#include <libtorrent/hex.hpp>
+//#include <libtorrent/extensions.hpp>
+#include <libtorrent/bloom_filter.hpp>
+//#include <libtorrent/aux_/announce_entry.hpp>
+//#include <libtorrent/enum_net.hpp>
+//
+//#include <libtorrent/kademlia/dht_tracker.hpp>
+//#include <libtorrent/kademlia/node_entry.hpp>
+//#include <libtorrent/kademlia/node.hpp>
+//#include <libtorrent/kademlia/node_id.hpp>
+//#include <libtorrent/kademlia/get_peers.hpp>
+//#include <libtorrent/kademlia/item.hpp>
+//#include <libtorrent/kademlia/ed25519.hpp>
+//
+//#include <libtorrent/aux_/cpuid.hpp>
+
+std::array<std::int8_t, 32> ed25519_create_seed() {
+    auto seed = lt::dht::ed25519_create_seed();
+    return *reinterpret_cast<std::array<std::int8_t, 32>*>(&seed);
 }
 
 std::pair<std::vector<int8_t>, std::vector<int8_t>> ed25519_create_keypair(
@@ -258,44 +272,64 @@ std::vector<ip_route> enum_routes(libtorrent::session* s)
     return ret;
 }
 
-void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* target, const unsigned int target_size)
-{
+void mem_copy(std::vector<std::int8_t> source
+    , char* target, std::size_t target_size) {
+    std::memset(target, 0, target_size);
+    std::memcpy(target, source.data(), std::min(source.size(), target_size));
+}
+
+void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* target, const unsigned int target_size) {
   std::memset(target, 0, target_size);
   for (unsigned int i=0; i < source.size() || i <= target_size; i++) {
     target[i] = source[i];
   }
 }
 
-//boost::optional<address> get_gateway(ip_interface const& iface, span<ip_route const> routes);
-//@see enum_net.hpp -> struct libtorrent::ip_interface
-//@see enum_net.hpp -> struct libtorrent::ip_route
-libtorrent::address get_gateway(ip_interface const& iface, std::vector<ip_route>& routes)
+libtorrent::address get_gateway(ip_interface const& iface
+    , std::vector<ip_route>& routes)
 {
- // convert our libtorrent.h defined types to native libtorrent:: types from enum_net.hpp
- libtorrent::ip_interface lt_iface;
- lt_iface.interface_address = iface.interface_address;
- lt_iface.netmask = iface.netmask;
- lt_iface.preferred = iface.preferred;
+    libtorrent::ip_interface lt_iface{};
+    lt_iface.interface_address = iface.interface_address;
+    lt_iface.netmask = iface.netmask;
+    lt_iface.preferred = iface.preferred;
 
- copy_byte_vector_to_char_array(iface.name, lt_iface.name, sizeof(lt_iface.name)); // 64
- copy_byte_vector_to_char_array(iface.friendly_name, lt_iface.friendly_name, sizeof(lt_iface.friendly_name)); // 128
- copy_byte_vector_to_char_array(iface.description, lt_iface.description, sizeof(lt_iface.description)); // 128
+    mem_copy(iface.name, lt_iface.name, 64);
+    mem_copy(iface.friendly_name, lt_iface.friendly_name, 128);
+    mem_copy(iface.description, lt_iface.description, 128);
 
- // convert ip_route_vector to vector<libtorrent::ip_route const> (cannot use const, gnu g++ explodes in linux/android thinking there's an ambiguity)
- std::vector<libtorrent::ip_route> lt_routes;
- for (auto const& r : routes) {
-   libtorrent::ip_route lt_ip_route;
-   lt_ip_route.destination = r.destination;
-   lt_ip_route.netmask = r.netmask;
-   lt_ip_route.gateway = r.gateway;
-   lt_ip_route.source_hint = r.source_hint;
-   lt_ip_route.mtu = r.mtu;
-   copy_byte_vector_to_char_array(r.name, lt_ip_route.name, sizeof(lt_ip_route.name)); //64
-   lt_routes.push_back(lt_ip_route);
- }
+    std::vector<libtorrent::ip_route> lt_routes;
+    for (auto const& r : routes) {
+        libtorrent::ip_route lt_ip_route{};
+        lt_ip_route.destination = r.destination;
+        lt_ip_route.netmask = r.netmask;
+        lt_ip_route.gateway = r.gateway;
+        lt_ip_route.source_hint = r.source_hint;
+        lt_ip_route.mtu = r.mtu;
+        mem_copy(r.name, lt_ip_route.name, 64);
+        lt_routes.push_back(lt_ip_route);
+    }
 
- return libtorrent::get_gateway(lt_iface, lt_routes).get();
+    return libtorrent::get_gateway(lt_iface, lt_routes)
+        .value_or(libtorrent::address{});
 }
+
+std::string device_for_address(libtorrent::session* s
+    , libtorrent::address addr, boost::system::error_code& ec)
+{
+    return libtorrent::device_for_address(addr, s->get_context(), ec);
+}
+
+struct list_files_listener
+{
+
+    virtual ~list_files_listener()
+    {}
+
+    virtual bool pred(std::string p)
+    {
+        return true;
+    }
+};
 
 bool arm_neon_support()
 {
@@ -475,5 +509,11 @@ int remove(const char *path) {
            posix_remove(path);
 }
 
-}
+using port_mapping_t = libtorrent::port_mapping_t;
+using download_priority_t = libtorrent::download_priority_t;
+using alert = libtorrent::alert;
+
+} // extern "C"
+#endif
+
 #endif

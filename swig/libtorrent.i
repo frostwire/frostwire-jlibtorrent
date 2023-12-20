@@ -1,5 +1,11 @@
 %module (jniclassname="libtorrent_jni", directors="1") libtorrent
 
+// REMINDER:
+// #include vs %include in SWIG:
+// - #include -> It literally includes the contents of the file "foo.hpp" in the SWIG interface file
+// - %include -> It tells SWIG to parse the .hpp file and generate wrappers for the declarations in it
+
+
 // suppress Warning 317: Specialization of non-template '<name>'.
 //#pragma SWIG nowarn=317
 // suppress Warning 341: The 'using' keyword in type aliasing is not fully supported yet.
@@ -13,19 +19,77 @@
 // Specialization of non-template '<name>'.
 #pragma SWIG nowarn=317
 
-%include "includes/ignores.i"
+%include "includes/libtorrent_java.i"
 
 %{
+// BEGIN common set include ----------------------------------------------------
+#include <libtorrent/fwd.hpp>
+#include <libtorrent/flags.hpp>
+#include <libtorrent/address.hpp>
+#include <libtorrent/socket.hpp>
+#include <libtorrent/kademlia/dht_state.hpp>
+#include <libtorrent/client_data.hpp>
+#include <libtorrent/sha1_hash.hpp>
+#include <libtorrent/info_hash.hpp>
+#include <libtorrent/storage_defs.hpp>
+#include <libtorrent/bitfield.hpp>
+#include <libtorrent/operations.hpp>
+#include <libtorrent/error_code.hpp>
+#include <libtorrent/announce_entry.hpp>
+#include <libtorrent/file_storage.hpp>
+#include <libtorrent/peer_request.hpp>
+#include <libtorrent/bdecode.hpp>
+#include <libtorrent/torrent_info.hpp>
+#include <libtorrent/torrent_flags.hpp>
+#include <libtorrent/add_torrent_params.hpp>
+#include <libtorrent/close_reason.hpp>
+#include <libtorrent/peer_info.hpp>
+#include <libtorrent/pex_flags.hpp>
+#include <libtorrent/torrent_handle.hpp>
+#include <libtorrent/torrent_status.hpp>
+#include <libtorrent/performance_counters.hpp>
+#include <libtorrent/portmap.hpp>
+#include <libtorrent/piece_block.hpp>
+#include <libtorrent/socket_type.hpp>
+#include <libtorrent/entry.hpp>
+// this exists on the 'master' branch
+//#include <libtorrent/tracker_event.hpp>
+#include <libtorrent/alert.hpp>
+#include <libtorrent/alert_types.hpp>
+#include <libtorrent/settings_pack.hpp>
+#include <libtorrent/peer_class.hpp>
+#include <libtorrent/peer_class_type_filter.hpp>
+#include <libtorrent/ip_filter.hpp>
+#include <libtorrent/session_types.hpp>
+#include <libtorrent/session_params.hpp>
+#include <libtorrent/session_handle.hpp>
+#include <libtorrent/session.hpp>
+#include <libtorrent/file_storage.hpp>
+#include <libtorrent/create_torrent.hpp>
+#include <libtorrent/session_stats.hpp>
+#include <libtorrent/version.hpp>
+#include <libtorrent/magnet_uri.hpp>
+#include <libtorrent/fingerprint.hpp>
+#include <libtorrent/read_resume_data.hpp>
+#include <libtorrent/write_resume_data.hpp>
+#include <libtorrent/posix_disk_io.hpp>
+
+#include <libtorrent/hex.hpp>
+#include <libtorrent/bencode.hpp>
+
 using piece_index_t = libtorrent::piece_index_t;
 using file_index_t = libtorrent::file_index_t;
-using peer_class_t = libtorrent::peer_class_t;
-using port_mapping_t = libtorrent::port_mapping_t;
 using queue_position_t = libtorrent::queue_position_t;
-using download_priority_t = libtorrent::download_priority_t;
-using disconnect_severity_t = libtorrent::disconnect_severity_t;
+
+#include "libtorrent.hpp"
+
+template <typename IndexType>
+using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
+
+// END common set include ------------------------------------------------------
 %}
 
-%include "includes/libtorrent_java.i"
+%include "includes/ignores.i"
 
 %include <stdint.i>
 %include <typemaps.i>
@@ -102,37 +166,8 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 %include "includes/boost_system_error_code.i"
 
-%include <boost/system/error_code.hpp>
-%include <boost/system/system_error.hpp>
-%include "libtorrent/version.hpp"
-%include "libtorrent/error_code.hpp"
-%include "libtorrent/peer_request.hpp"
-%include "libtorrent/file_storage.hpp"
-%include "libtorrent/bencode.hpp"
-%include "libtorrent/peer_info.hpp"
-%include "libtorrent/torrent_flags.hpp"
-%include "libtorrent/pex_flags.hpp"
-%include "libtorrent/add_torrent_params.hpp"
-%include "libtorrent/operations.hpp"
-%include "libtorrent/session_stats.hpp"
-%include "libtorrent/close_reason.hpp"
-%include "libtorrent/alert.hpp"
-%include "libtorrent/alert_types.hpp"
-%include "libtorrent/session_settings.hpp"
-%include "libtorrent/settings_pack.hpp"
-%include "libtorrent/peer_class_type_filter.hpp"
-%include "libtorrent/session_types.hpp"
-%include "libtorrent/session_params.hpp" // includes "libtorrent/ip_filter.hpp"
-%include "libtorrent/session_handle.hpp"
-%include "libtorrent/session.hpp"
-%include "libtorrent/kademlia/dht_state.hpp"
-%include "libtorrent/kademlia/dht_settings.hpp"
-%include "libtorrent/session.hpp"
-%include "libtorrent/magnet_uri.hpp"
-%include "libtorrent/create_torrent.hpp"
-%include "libtorrent/fingerprint.hpp"
+// #includes were here
 
-// END common set include ------------------------------------------------------
 
 %include "includes/libtorrent_span.i"
 %include "includes/libtorrent_flags_bitfield_flag.i"
@@ -187,4 +222,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_udp_error_alert.i"
 %include "includes/libtorrent_dht_sample_infohashes_alert.i"
 %include "includes/libtorrent_tracker_alert.i"
+
+// wrap this stuff last.
 %include "libtorrent.hpp"
