@@ -144,6 +144,14 @@ public class libtorrent {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
 
+  public static void add_files(SWIGTYPE_p_file_storage fs, String file, create_flags_t flags) {
+    libtorrent_jni.add_files__SWIG_0(SWIGTYPE_p_file_storage.getCPtr(fs), file, create_flags_t.getCPtr(flags), flags);
+  }
+
+  public static void add_files(SWIGTYPE_p_file_storage fs, String file) {
+    libtorrent_jni.add_files__SWIG_1(SWIGTYPE_p_file_storage.getCPtr(fs), file);
+  }
+
   public static String name_for_setting(int s) {
     return libtorrent_jni.name_for_setting(s);
   }
@@ -180,12 +188,12 @@ public class libtorrent {
     return new byte_vector(libtorrent_jni.ed25519_key_exchange(byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk), true);
   }
 
-  public static void add_files_ex(file_storage fs, String file, add_files_listener listener, SWIGTYPE_p_libtorrent__create_flags_t flags) {
-    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, file, add_files_listener.getCPtr(listener), listener, SWIGTYPE_p_libtorrent__create_flags_t.getCPtr(flags));
+  public static void add_files_ex(file_storage fs, String file, add_files_listener listener, create_flags_t flags) {
+    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, file, add_files_listener.getCPtr(listener), listener, create_flags_t.getCPtr(flags), flags);
   }
 
-  public static void set_piece_hashes_ex(SWIGTYPE_p_libtorrent__create_torrent t, String p, set_piece_hashes_listener listener, error_code ec) {
-    libtorrent_jni.set_piece_hashes_ex(SWIGTYPE_p_libtorrent__create_torrent.getCPtr(t), p, set_piece_hashes_listener.getCPtr(listener), listener, error_code.getCPtr(ec), ec);
+  public static void set_piece_hashes_ex(create_torrent t, String p, set_piece_hashes_listener listener, error_code ec) {
+    libtorrent_jni.set_piece_hashes_ex(create_torrent.getCPtr(t), t, p, set_piece_hashes_listener.getCPtr(listener), listener, error_code.getCPtr(ec), ec);
   }
 
   public static int boost_version() {

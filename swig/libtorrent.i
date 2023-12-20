@@ -37,6 +37,7 @@
 #include <libtorrent/error_code.hpp>
 #include <libtorrent/announce_entry.hpp>
 #include <libtorrent/file_storage.hpp>
+#include "libtorrent/create_torrent.hpp"
 #include <libtorrent/peer_request.hpp>
 #include <libtorrent/bdecode.hpp>
 #include <libtorrent/torrent_info.hpp>
@@ -73,6 +74,7 @@
 #include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/write_resume_data.hpp>
 #include <libtorrent/posix_disk_io.hpp>
+#include "libtorrent/add_torrent_params.hpp"
 
 #include <libtorrent/hex.hpp>
 #include <libtorrent/bencode.hpp>

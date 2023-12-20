@@ -25,7 +25,7 @@
 %ignore libtorrent::add_torrent_params::verified_leaf_hashes;
 %ignore libtorrent::add_torrent_params::verified_pieces;
 
-#include "libtorrent/add_torrent_params.hpp"
+%include "libtorrent/add_torrent_params.hpp"
 
 namespace libtorrent {
     %extend add_torrent_params {
