@@ -916,6 +916,32 @@ using queue_position_t = libtorrent::queue_position_t;
 template <typename IndexType>
 using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 
+using add_torrent_params = libtorrent::add_torrent_params;
+using alert = libtorrent::alert;
+using download_priority_t = libtorrent::download_priority_t;
+using error_code = boost::system::error_code;
+using file_slice = libtorrent::file_slice;
+using file_storage = libtorrent::file_storage;
+using info_hash_t = libtorrent::info_hash_t;
+using operation_t = libtorrent::operation_t;
+using peer_class_type_filter = libtorrent::peer_class_type_filter;
+using peer_connection = libtorrent::peer_connection;
+using peer_info = libtorrent::peer_info;
+using peer_request = libtorrent::peer_request;
+using peer_source_flags_t = libtorrent::peer_source_flags_t;
+using pex_flags_t = libtorrent::pex_flags_t;
+using port_mapping_t = libtorrent::port_mapping_t;
+using remove_flags_t = libtorrent::remove_flags_t;
+using reopen_network_flags_t = libtorrent::reopen_network_flags_t;
+using save_state_flags_t = libtorrent::save_state_flags_t;
+using session_flags_t = libtorrent::session_flags_t;
+using session_params = libtorrent::session_params;
+using settings_pack = libtorrent::settings_pack;
+using sha256_hash = libtorrent::sha256_hash;
+using torrent_flags_t = libtorrent::torrent_flags_t;
+using torrent_info = libtorrent::torrent_info;
+using torrent_status = libtorrent::torrent_status;
+
 // END common set include ------------------------------------------------------
 
 
@@ -39778,6 +39804,36 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
     }
   }
   *(libtorrent::span< std::int8_t const > **)&jresult = new libtorrent::span< std::int8_t const >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1peer_1connection_1handle(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  std::weak_ptr< peer_connection > arg1 ;
+  std::weak_ptr< peer_connection > *argp1 ;
+  libtorrent::peer_connection_handle *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  argp1 = *(std::weak_ptr< peer_connection > **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::weak_ptr< peer_connection >");
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = (libtorrent::peer_connection_handle *)new libtorrent::peer_connection_handle(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(libtorrent::peer_connection_handle **)&jresult = result; 
   return jresult;
 }
 

@@ -32,9 +32,12 @@
 #include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/write_resume_data.hpp>
 #include <libtorrent/magnet_uri.hpp>
+#include <libtorrent/time.hpp>
+#include <libtorrent/bloom_filter.hpp>
+#include <libtorrent/peer_connection_handle.hpp>
 
 //#include <libtorrent/config.hpp>
-//#include <libtorrent/time.hpp>
+
 //#include <libtorrent/aux_/buffer.hpp>
 //#include <libtorrent/aux_/utp_stream.hpp>
 //#include <libtorrent/socket_io.hpp>
@@ -42,7 +45,7 @@
 //#include <libtorrent/write_resume_data.hpp>
 //#include <libtorrent/hex.hpp>
 //#include <libtorrent/extensions.hpp>
-#include <libtorrent/bloom_filter.hpp>
+
 //#include <libtorrent/aux_/announce_entry.hpp>
 //#include <libtorrent/enum_net.hpp>
 //
@@ -509,9 +512,6 @@ int remove(const char *path) {
            posix_remove(path);
 }
 
-using port_mapping_t = libtorrent::port_mapping_t;
-using download_priority_t = libtorrent::download_priority_t;
-using alert = libtorrent::alert;
 
 } // extern "C"
 #endif
