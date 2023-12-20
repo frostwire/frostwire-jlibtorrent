@@ -87,6 +87,7 @@ template <typename IndexType>
 using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 
 using add_torrent_params = libtorrent::add_torrent_params;
+using address = libtorrent::address;
 using alert = libtorrent::alert;
 using disconnect_severity_t = libtorrent::disconnect_severity_t;
 using download_priority_t = libtorrent::download_priority_t;

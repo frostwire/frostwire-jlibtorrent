@@ -917,7 +917,9 @@ template <typename IndexType>
 using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 
 using add_torrent_params = libtorrent::add_torrent_params;
+using address = libtorrent::address;
 using alert = libtorrent::alert;
+using disconnect_severity_t = libtorrent::disconnect_severity_t;
 using download_priority_t = libtorrent::download_priority_t;
 using error_code = boost::system::error_code;
 using file_slice = libtorrent::file_slice;
@@ -1500,6 +1502,28 @@ SWIGINTERN int libtorrent_address_compare(libtorrent::address const &a1,libtorre
             }
 SWIGINTERN libtorrent::address libtorrent_address_from_string(std::string const &str,boost::system::error_code &ec){
                 return boost::asio::ip::make_address(str, ec);
+            }
+SWIGINTERN int libtorrent_address_hash_code(libtorrent::address *self){
+                if (self->is_v4())
+                {
+                    auto data = self->to_v4().to_bytes();
+                    int result = 1;
+                    for (int i = 0; i < int(data.size()); i++)
+                    {
+                        result = 31 * result + data[i];
+                    }
+                    return result;
+                }
+                else
+                {
+                    auto data = self->to_v6().to_bytes();
+                    int result = 1;
+                    for (int i = 0; i < int(data.size()); i++)
+                    {
+                        result = 31 * result + data[i];
+                    }
+                    return result;
+                }
             }
 
 /* Check for overflow converting to Java int (always signed 32-bit) from (unsigned variable-bit) size_t */
@@ -11027,27 +11051,18 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
 }
 
 
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1string(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1to_1string(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   libtorrent::address *arg1 = (libtorrent::address *) 0 ;
-  boost::system::error_code arg2 ;
-  boost::system::error_code *argp2 ;
   std::string result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(libtorrent::address **)&jarg1; 
-  argp2 = *(boost::system::error_code **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null boost::system::error_code");
-    return 0;
-  }
-  arg2 = *argp2; 
   {
     try {
-      result = (arg1)->to_string(arg2);
+      result = (arg1)->to_string();
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -11239,6 +11254,31 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
     }
   }
   *(libtorrent::address **)&jresult = new libtorrent::address(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_address_1hash_1code(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  libtorrent::address *arg1 = (libtorrent::address *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::address **)&jarg1; 
+  {
+    try {
+      result = (int)libtorrent_address_hash_code(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  jresult = (jint)result; 
   return jresult;
 }
 

@@ -20,12 +20,12 @@ export run_bjam="${BOOST_ROOT}/b2 -j16 -d2 --user-config=config/${os_build}-${os
 export run_objcopy="echo dummy run_objcopy for ${os_build} ${os_arch}"
 export run_strip="strip -S -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeMacOSArm64Jar"
-create_folder_if_it_doesnt_exist ${SRC}
-prompt_msg "$0:About to prepare BOOST ${BOOST_VERSION}"
-press_any_to_continue
-prepare_boost
-prepare_openssl
-build_openssl
-prepare_libtorrent
+#create_folder_if_it_doesnt_exist ${SRC}
+#prompt_msg "$0:About to prepare BOOST ${BOOST_VERSION}"
+#press_any_to_continue
+#prepare_boost
+#prepare_openssl
+#build_openssl
+#prepare_libtorrent
 ./run-swig.sh
 build_libraries
