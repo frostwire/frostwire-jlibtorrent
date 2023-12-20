@@ -3883,21 +3883,6 @@ SWIGINTERN void libtorrent_add_torrent_params_set_piece_priorities2(libtorrent::
 SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_create_instance(){
             return libtorrent::add_torrent_params();
         }
-SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_create_instance_disabled_storage(){
-            return libtorrent::add_torrent_params(libtorrent::disabled_storage_constructor);
-        }
-SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_create_instance_zero_storage(){
-            return libtorrent::add_torrent_params(libtorrent::zero_storage_constructor);
-        }
-SWIGINTERN void libtorrent_add_torrent_params_set_default_storage(libtorrent::add_torrent_params *self){
-            self->storage = libtorrent::default_storage_constructor;
-        }
-SWIGINTERN void libtorrent_add_torrent_params_set_disabled_storage(libtorrent::add_torrent_params *self){
-            self->storage = libtorrent::disabled_storage_constructor;
-        }
-SWIGINTERN void libtorrent_add_torrent_params_set_zero_storage(libtorrent::add_torrent_params *self){
-            self->storage = libtorrent::zero_storage_constructor;
-        }
 SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_read_resume_data__SWIG_0(libtorrent::bdecode_node const &rd,libtorrent::error_code &ec){
             return libtorrent::read_resume_data(rd, ec);
         }
@@ -65643,113 +65628,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   }
   *(libtorrent::add_torrent_params **)&jresult = new libtorrent::add_torrent_params(result); 
   return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1create_1instance_1disabled_1storage(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  libtorrent::add_torrent_params result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = libtorrent_add_torrent_params_create_instance_disabled_storage();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(libtorrent::add_torrent_params **)&jresult = new libtorrent::add_torrent_params(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1create_1instance_1zero_1storage(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  libtorrent::add_torrent_params result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = libtorrent_add_torrent_params_create_instance_zero_storage();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(libtorrent::add_torrent_params **)&jresult = new libtorrent::add_torrent_params(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1set_1default_1storage(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  {
-    try {
-      libtorrent_add_torrent_params_set_default_storage(arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1set_1disabled_1storage(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  {
-    try {
-      libtorrent_add_torrent_params_set_disabled_storage(arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1set_1zero_1storage(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
-  {
-    try {
-      libtorrent_add_torrent_params_set_zero_storage(arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
 }
 
 
