@@ -2829,11 +2829,6 @@ public class libtorrent_jni {
   public final static native void add_torrent_params_set_merkle_trees(long jarg1, add_torrent_params jarg1_, long jarg2);
   public final static native void add_torrent_params_set_piece_priorities2(long jarg1, add_torrent_params jarg1_, long jarg2, byte_vector jarg2_);
   public final static native long add_torrent_params_create_instance();
-  public final static native long add_torrent_params_create_instance_disabled_storage();
-  public final static native long add_torrent_params_create_instance_zero_storage();
-  public final static native void add_torrent_params_set_default_storage(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_set_disabled_storage(long jarg1, add_torrent_params jarg1_);
-  public final static native void add_torrent_params_set_zero_storage(long jarg1, add_torrent_params jarg1_);
   public final static native long add_torrent_params_read_resume_data__SWIG_0(long jarg1, bdecode_node jarg1_, long jarg2, error_code jarg2_);
   public final static native long add_torrent_params_read_resume_data__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, error_code jarg2_);
   public final static native long add_torrent_params_write_resume_data(long jarg1, add_torrent_params jarg1_);

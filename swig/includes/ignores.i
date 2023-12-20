@@ -229,6 +229,44 @@
 %ignore libtorrent::session_handle::tcp_peer_class_id;
 %ignore libtorrent::session_handle::wait_for_alert;
 
+%ignore libtorrent::add_torrent_params::add_torrent_params;
+%ignore libtorrent::add_torrent_params::banned_peers;
+%ignore libtorrent::add_torrent_params::deprecated1;
+%ignore libtorrent::add_torrent_params::deprecated2;
+%ignore libtorrent::add_torrent_params::deprecated3;
+%ignore libtorrent::add_torrent_params::deprecated4;
+%ignore libtorrent::add_torrent_params::deprecated5;
+%ignore libtorrent::add_torrent_params::dht_nodes;
+%ignore libtorrent::add_torrent_params::extensions;
+%ignore libtorrent::add_torrent_params::file_priorities;
+%ignore libtorrent::add_torrent_params::have_pieces;
+%ignore libtorrent::add_torrent_params::http_seeds;
+%ignore libtorrent::add_torrent_params::merkle_tree_mask;
+%ignore libtorrent::add_torrent_params::merkle_trees;
+%ignore libtorrent::add_torrent_params::peers;
+%ignore libtorrent::add_torrent_params::piece_priorities;
+%ignore libtorrent::add_torrent_params::renamed_files;
+%ignore libtorrent::add_torrent_params::storage;
+%ignore libtorrent::add_torrent_params::ti;
+%ignore libtorrent::add_torrent_params::tracker_tiers;
+%ignore libtorrent::add_torrent_params::trackers;
+%ignore libtorrent::add_torrent_params::unfinished_pieces;
+%ignore libtorrent::add_torrent_params::url_seeds;
+%ignore libtorrent::add_torrent_params::userdata;
+%ignore libtorrent::add_torrent_params::verified_leaf_hashes;
+%ignore libtorrent::add_torrent_params::verified_pieces;
+%ignore libtorrent::add_torrent_params::file_priorities;
+%ignore libtorrent::add_torrent_params::piece_priorities;
+%ignore libtorrent::add_torrent_params::merkle_trees;
+%ignore libtorrent::add_torrent_params::merkle_tree_mask;
+%ignore libtorrent::add_torrent_params::verified_leaf_hashes;
+%ignore libtorrent::add_torrent_params::unfinished_pieces;
+%ignore libtorrent::add_torrent_params::renamed_files;
+%ignore libtorrent::add_torrent_params::have_pieces;
+%ignore libtorrent::add_torrent_params::verified_pieces;
+%ignore libtorrent::add_torrent_params::extensions;
+%ignore libtorrent::add_torrent_params::ti;
+
 %ignore libtorrent::alert::timestamp;
 %ignore libtorrent::alert_category::all;
 
