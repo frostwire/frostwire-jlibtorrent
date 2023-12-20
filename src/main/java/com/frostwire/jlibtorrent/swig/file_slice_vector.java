@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class file_slice_vector extends java.util.AbstractList<SWIGTYPE_p_libtorrent__file_slice> implements java.util.RandomAccess {
+public class file_slice_vector extends java.util.AbstractList<file_slice> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class file_slice_vector extends java.util.AbstractList<SWIGTYPE_p_libtorr
     }
   }
 
-  public file_slice_vector(SWIGTYPE_p_libtorrent__file_slice[] initialElements) {
+  public file_slice_vector(file_slice[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (SWIGTYPE_p_libtorrent__file_slice element : initialElements) {
+    for (file_slice element : initialElements) {
       add(element);
     }
   }
 
-  public file_slice_vector(Iterable<SWIGTYPE_p_libtorrent__file_slice> initialElements) {
+  public file_slice_vector(Iterable<file_slice> initialElements) {
     this();
-    for (SWIGTYPE_p_libtorrent__file_slice element : initialElements) {
+    for (file_slice element : initialElements) {
       add(element);
     }
   }
 
-  public SWIGTYPE_p_libtorrent__file_slice get(int index) {
+  public file_slice get(int index) {
     return doGet(index);
   }
 
-  public SWIGTYPE_p_libtorrent__file_slice set(int index, SWIGTYPE_p_libtorrent__file_slice e) {
+  public file_slice set(int index, file_slice e) {
     return doSet(index, e);
   }
 
-  public boolean add(SWIGTYPE_p_libtorrent__file_slice e) {
+  public boolean add(file_slice e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, SWIGTYPE_p_libtorrent__file_slice e) {
+  public void add(int index, file_slice e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public SWIGTYPE_p_libtorrent__file_slice remove(int index) {
+  public file_slice remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,32 +116,32 @@ public class file_slice_vector extends java.util.AbstractList<SWIGTYPE_p_libtorr
     libtorrent_jni.file_slice_vector_clear(swigCPtr, this);
   }
 
-  public file_slice_vector(int count, SWIGTYPE_p_libtorrent__file_slice value) {
-    this(libtorrent_jni.new_file_slice_vector__SWIG_2(count, SWIGTYPE_p_libtorrent__file_slice.getCPtr(value)), true);
+  public file_slice_vector(int count, file_slice value) {
+    this(libtorrent_jni.new_file_slice_vector__SWIG_2(count, file_slice.getCPtr(value), value), true);
   }
 
   private int doSize() {
     return libtorrent_jni.file_slice_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(SWIGTYPE_p_libtorrent__file_slice x) {
-    libtorrent_jni.file_slice_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__file_slice.getCPtr(x));
+  private void doAdd(file_slice x) {
+    libtorrent_jni.file_slice_vector_doAdd__SWIG_0(swigCPtr, this, file_slice.getCPtr(x), x);
   }
 
-  private void doAdd(int index, SWIGTYPE_p_libtorrent__file_slice x) {
-    libtorrent_jni.file_slice_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_libtorrent__file_slice.getCPtr(x));
+  private void doAdd(int index, file_slice x) {
+    libtorrent_jni.file_slice_vector_doAdd__SWIG_1(swigCPtr, this, index, file_slice.getCPtr(x), x);
   }
 
-  private SWIGTYPE_p_libtorrent__file_slice doRemove(int index) {
-    return new SWIGTYPE_p_libtorrent__file_slice(libtorrent_jni.file_slice_vector_doRemove(swigCPtr, this, index), true);
+  private file_slice doRemove(int index) {
+    return new file_slice(libtorrent_jni.file_slice_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private SWIGTYPE_p_libtorrent__file_slice doGet(int index) {
-    return new SWIGTYPE_p_libtorrent__file_slice(libtorrent_jni.file_slice_vector_doGet(swigCPtr, this, index), false);
+  private file_slice doGet(int index) {
+    return new file_slice(libtorrent_jni.file_slice_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private SWIGTYPE_p_libtorrent__file_slice doSet(int index, SWIGTYPE_p_libtorrent__file_slice val) {
-    return new SWIGTYPE_p_libtorrent__file_slice(libtorrent_jni.file_slice_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_libtorrent__file_slice.getCPtr(val)), true);
+  private file_slice doSet(int index, file_slice val) {
+    return new file_slice(libtorrent_jni.file_slice_vector_doSet(swigCPtr, this, index, file_slice.getCPtr(val), val), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

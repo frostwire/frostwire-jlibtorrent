@@ -27,5 +27,5 @@ export run_native_jar="./gradlew nativeMacOSArm64Jar"
 #prepare_openssl
 #build_openssl
 #prepare_libtorrent
-./run-swig.sh
+#./run-swig.sh
 build_libraries
