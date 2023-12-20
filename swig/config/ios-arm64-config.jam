@@ -1,9 +1,10 @@
 import os ;
 
-using darwin : arm64 : iphone-clang++ :
-    <cxxflags>-std=c++17
-    <cxxflags>-miphoneos-version-min=14.0
-    <cxxflags>-fno-strict-aliasing
-    <cxxflags>-fvisibility=hidden
-    <cxxflags>-D_DARWIN_C_SOURCE
+using darwin : arm64 : xcrun clang++ :
+    <compileflags>"-arch arm64"
+    <compileflags>"-stdlib=libc++"
+    <compileflags>"-std=c++17"
+    <compileflags>"-miphoneos-version-min=14.0"
+    <compileflags>"-fvisibility-inlines-hidden"
+    <compileflags>"-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk"
     ;
