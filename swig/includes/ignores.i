@@ -106,6 +106,7 @@
 %ignore libtorrent::session_params::session_params(settings_pack&& sp);
 %ignore libtorrent::session_params::session_params(settings_pack&&, std::vector<std::shared_ptr<plugin>>);
 %ignore libtorrent::session_proxy::session_proxy(session_proxy&&);
+%ignore libtorrent::stats_alert;
 %ignore libtorrent::session_stats_alert::counters;
 %ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(piece_index_t)> const&, error_code&);
 %ignore libtorrent::apply_pack_impl;
