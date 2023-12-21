@@ -2461,7 +2461,6 @@ public class libtorrent_jni {
   public final static native void dht_direct_response_alert_endpoint_set(long jarg1, dht_direct_response_alert jarg1_, long jarg2);
   public final static native long dht_direct_response_alert_endpoint_get(long jarg1, dht_direct_response_alert jarg1_);
   public final static native long dht_direct_response_alert_response(long jarg1, dht_direct_response_alert jarg1_);
-  public final static native long dht_direct_response_alert_get_userdata(long jarg1, dht_direct_response_alert jarg1_);
   public final static native long dht_direct_response_alert_get_endpoint(long jarg1, dht_direct_response_alert jarg1_);
   public final static native void delete_dht_direct_response_alert(long jarg1);
   public final static native int picker_log_alert_priority_get();
