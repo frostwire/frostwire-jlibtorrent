@@ -921,9 +921,12 @@ using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 using add_torrent_params = libtorrent::add_torrent_params;
 using address = libtorrent::address;
 using alert = libtorrent::alert;
+using bdecode_node = libtorrent::bdecode_node;
+using close_reason_t = libtorrent::close_reason_t;
 using disconnect_severity_t = libtorrent::disconnect_severity_t;
 using download_priority_t = libtorrent::download_priority_t;
 using error_code = boost::system::error_code;
+using event_t = libtorrent::event_t;
 using file_slice = libtorrent::file_slice;
 using file_storage = libtorrent::file_storage;
 using info_hash_t = libtorrent::info_hash_t;
@@ -935,6 +938,7 @@ using peer_request = libtorrent::peer_request;
 using peer_source_flags_t = libtorrent::peer_source_flags_t;
 using pex_flags_t = libtorrent::pex_flags_t;
 using port_mapping_t = libtorrent::port_mapping_t;
+using protocol_version = libtorrent::protocol_version;
 using remove_flags_t = libtorrent::remove_flags_t;
 using reopen_network_flags_t = libtorrent::reopen_network_flags_t;
 using save_state_flags_t = libtorrent::save_state_flags_t;
@@ -942,9 +946,11 @@ using session_flags_t = libtorrent::session_flags_t;
 using session_params = libtorrent::session_params;
 using settings_pack = libtorrent::settings_pack;
 using sha256_hash = libtorrent::sha256_hash;
+using socket_type_t = libtorrent::socket_type_t;
 using torrent_flags_t = libtorrent::torrent_flags_t;
 using torrent_info = libtorrent::torrent_info;
 using torrent_status = libtorrent::torrent_status;
+
 
 // END common set include ------------------------------------------------------
 
@@ -3728,9 +3734,6 @@ SWIGINTERN std::string libtorrent_dht_lookup_get_type(libtorrent::dht_lookup *se
         }
 SWIGINTERN libtorrent::udp::endpoint libtorrent_dht_pkt_alert_get_node(libtorrent::dht_pkt_alert *self){
             return self->node;
-        }
-SWIGINTERN int64_t libtorrent_dht_direct_response_alert_get_userdata(libtorrent::dht_direct_response_alert *self){
-            return (int64_t)self->userdata;
         }
 SWIGINTERN libtorrent::udp::endpoint libtorrent_dht_direct_response_alert_get_endpoint(libtorrent::dht_direct_response_alert *self){
             return self->endpoint;
@@ -58110,31 +58113,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
     }
   }
   *(bdecode_node **)&jresult = new bdecode_node(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1direct_1response_1alert_1get_1userdata(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  libtorrent::dht_direct_response_alert *arg1 = (libtorrent::dht_direct_response_alert *) 0 ;
-  int64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::dht_direct_response_alert **)&jarg1; 
-  {
-    try {
-      result = (int64_t)libtorrent_dht_direct_response_alert_get_userdata(arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = (jlong)result; 
   return jresult;
 }
 

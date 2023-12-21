@@ -91,9 +91,12 @@ using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 using add_torrent_params = libtorrent::add_torrent_params;
 using address = libtorrent::address;
 using alert = libtorrent::alert;
+using bdecode_node = libtorrent::bdecode_node;
+using close_reason_t = libtorrent::close_reason_t;
 using disconnect_severity_t = libtorrent::disconnect_severity_t;
 using download_priority_t = libtorrent::download_priority_t;
 using error_code = boost::system::error_code;
+using event_t = libtorrent::event_t;
 using file_slice = libtorrent::file_slice;
 using file_storage = libtorrent::file_storage;
 using info_hash_t = libtorrent::info_hash_t;
@@ -105,6 +108,7 @@ using peer_request = libtorrent::peer_request;
 using peer_source_flags_t = libtorrent::peer_source_flags_t;
 using pex_flags_t = libtorrent::pex_flags_t;
 using port_mapping_t = libtorrent::port_mapping_t;
+using protocol_version = libtorrent::protocol_version;
 using remove_flags_t = libtorrent::remove_flags_t;
 using reopen_network_flags_t = libtorrent::reopen_network_flags_t;
 using save_state_flags_t = libtorrent::save_state_flags_t;
@@ -112,9 +116,11 @@ using session_flags_t = libtorrent::session_flags_t;
 using session_params = libtorrent::session_params;
 using settings_pack = libtorrent::settings_pack;
 using sha256_hash = libtorrent::sha256_hash;
+using socket_type_t = libtorrent::socket_type_t;
 using torrent_flags_t = libtorrent::torrent_flags_t;
 using torrent_info = libtorrent::torrent_info;
 using torrent_status = libtorrent::torrent_status;
+
 
 // END common set include ------------------------------------------------------
 %}

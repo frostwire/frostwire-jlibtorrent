@@ -270,6 +270,8 @@
 %ignore libtorrent::alert::timestamp;
 %ignore libtorrent::alert_category::all;
 
+%ignore libtorrent::dht_direct_response_alert::get_userdata;
+
 %ignore boost::throws;
 %ignore boost::detail::throws;
 %ignore boost::system::operator==(const error_code&, const error_condition&);
