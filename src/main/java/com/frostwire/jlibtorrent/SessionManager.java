@@ -997,12 +997,6 @@ public class SessionManager {
     protected void onApplySettings(SettingsPack sp) {
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        stop();
-        super.finalize();
-    }
-
     private void resetState() {
         stats.clear();
         firewalled = true;
