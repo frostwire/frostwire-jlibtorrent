@@ -86,15 +86,29 @@
 %ignore libtorrent::run_all_updates;
 %ignore libtorrent::sanitize_append_path_element;
 %ignore libtorrent::save_settings_to_dict;
+
+%ignore libtorrent::session::session(session_params const&, io_context&);
+%ignore libtorrent::session::session(session_params const&, io_context&, session_flags_t);
 %ignore libtorrent::session::session(session_params const&, io_service&);
 %ignore libtorrent::session::session(session_params&&);
+%ignore libtorrent::session::session(session_params&&, io_context&);
+%ignore libtorrent::session::session(session_params&&, io_context&, session_flags_t);
 %ignore libtorrent::session::session(session_params&&, io_service&);
+%ignore libtorrent::session::session(session_params&&, session_flags_t);
+%ignore libtorrent::session::session(settings_pack const&, io_context&);
+%ignore libtorrent::session::session(settings_pack const&, io_context&, session_flags_t const);
 %ignore libtorrent::session::session(settings_pack const&, io_service&);
 %ignore libtorrent::session::session(settings_pack const&, io_service&, session_flags_t const);
 %ignore libtorrent::session::session(settings_pack&&);
+%ignore libtorrent::session::session(settings_pack&&, io_context&);
+%ignore libtorrent::session::session(settings_pack&&, io_context&, session_flags_t const);
 %ignore libtorrent::session::session(settings_pack&&, io_service&);
 %ignore libtorrent::session::session(settings_pack&&, io_service&, session_flags_t const);
 %ignore libtorrent::session::session(settings_pack&&, session_flags_t const);
+%ignore libtorrent::session::session(settings_pack&&, session_flags_t const);
+%ignore libtorrent::session_proxy::session_proxy(session_proxy&&);
+
+%ignore libtorrent::default_disk_io_constructor;
 %ignore libtorrent::read_session_params;
 %ignore libtorrent::write_session_params;
 %ignore libtorrent::write_session_params_buf;

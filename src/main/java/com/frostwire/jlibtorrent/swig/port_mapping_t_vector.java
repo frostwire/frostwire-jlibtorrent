@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class port_mapping_t_vector extends java.util.AbstractList<int> implements java.util.RandomAccess {
+public class port_mapping_t_vector extends java.util.AbstractList<SWIGTYPE_p_libtorrent__port_mapping_t> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class port_mapping_t_vector extends java.util.AbstractList<int> implement
     }
   }
 
-  public port_mapping_t_vector(int[] initialElements) {
+  public port_mapping_t_vector(SWIGTYPE_p_libtorrent__port_mapping_t[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (int element : initialElements) {
+    for (SWIGTYPE_p_libtorrent__port_mapping_t element : initialElements) {
       add(element);
     }
   }
 
-  public port_mapping_t_vector(Iterable<int> initialElements) {
+  public port_mapping_t_vector(Iterable<SWIGTYPE_p_libtorrent__port_mapping_t> initialElements) {
     this();
-    for (int element : initialElements) {
+    for (SWIGTYPE_p_libtorrent__port_mapping_t element : initialElements) {
       add(element);
     }
   }
 
-  public int get(int index) {
+  public SWIGTYPE_p_libtorrent__port_mapping_t get(int index) {
     return doGet(index);
   }
 
-  public int set(int index, int e) {
+  public SWIGTYPE_p_libtorrent__port_mapping_t set(int index, SWIGTYPE_p_libtorrent__port_mapping_t e) {
     return doSet(index, e);
   }
 
-  public boolean add(int e) {
+  public boolean add(SWIGTYPE_p_libtorrent__port_mapping_t e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, int e) {
+  public void add(int index, SWIGTYPE_p_libtorrent__port_mapping_t e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public int remove(int index) {
+  public SWIGTYPE_p_libtorrent__port_mapping_t remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,32 +116,32 @@ public class port_mapping_t_vector extends java.util.AbstractList<int> implement
     libtorrent_jni.port_mapping_t_vector_clear(swigCPtr, this);
   }
 
-  public port_mapping_t_vector(int count, int value) {
-    this(libtorrent_jni.new_port_mapping_t_vector__SWIG_2(count, value), true);
+  public port_mapping_t_vector(int count, SWIGTYPE_p_libtorrent__port_mapping_t value) {
+    this(libtorrent_jni.new_port_mapping_t_vector__SWIG_2(count, SWIGTYPE_p_libtorrent__port_mapping_t.getCPtr(value)), true);
   }
 
   private int doSize() {
     return libtorrent_jni.port_mapping_t_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(int x) {
-    libtorrent_jni.port_mapping_t_vector_doAdd__SWIG_0(swigCPtr, this, x);
+  private void doAdd(SWIGTYPE_p_libtorrent__port_mapping_t x) {
+    libtorrent_jni.port_mapping_t_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__port_mapping_t.getCPtr(x));
   }
 
-  private void doAdd(int index, int x) {
-    libtorrent_jni.port_mapping_t_vector_doAdd__SWIG_1(swigCPtr, this, index, x);
+  private void doAdd(int index, SWIGTYPE_p_libtorrent__port_mapping_t x) {
+    libtorrent_jni.port_mapping_t_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_libtorrent__port_mapping_t.getCPtr(x));
   }
 
-  private int doRemove(int index) {
-    return libtorrent_jni.port_mapping_t_vector_doRemove(swigCPtr, this, index);
+  private SWIGTYPE_p_libtorrent__port_mapping_t doRemove(int index) {
+    return new SWIGTYPE_p_libtorrent__port_mapping_t(libtorrent_jni.port_mapping_t_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private int doGet(int index) {
-    return libtorrent_jni.port_mapping_t_vector_doGet(swigCPtr, this, index);
+  private SWIGTYPE_p_libtorrent__port_mapping_t doGet(int index) {
+    return new SWIGTYPE_p_libtorrent__port_mapping_t(libtorrent_jni.port_mapping_t_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private int doSet(int index, int val) {
-    return libtorrent_jni.port_mapping_t_vector_doSet(swigCPtr, this, index, val);
+  private SWIGTYPE_p_libtorrent__port_mapping_t doSet(int index, SWIGTYPE_p_libtorrent__port_mapping_t val) {
+    return new SWIGTYPE_p_libtorrent__port_mapping_t(libtorrent_jni.port_mapping_t_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_libtorrent__port_mapping_t.getCPtr(val)), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

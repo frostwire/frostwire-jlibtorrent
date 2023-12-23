@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class file_index_string_map extends java.util.AbstractMap<int, String> {
+public class file_index_string_map extends java.util.AbstractMap<SWIGTYPE_p_libtorrent__file_index_t, String> {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -49,19 +49,19 @@ public class file_index_string_map extends java.util.AbstractMap<int, String> {
   }
 
   public boolean containsKey(java.lang.Object key) {
-    if (!(key instanceof int)) {
+    if (!(key instanceof SWIGTYPE_p_libtorrent__file_index_t)) {
       return false;
     }
 
-    return containsImpl((int)key);
+    return containsImpl((SWIGTYPE_p_libtorrent__file_index_t)key);
   }
 
   public String get(java.lang.Object key) {
-    if (!(key instanceof int)) {
+    if (!(key instanceof SWIGTYPE_p_libtorrent__file_index_t)) {
       return null;
     }
 
-    Iterator itr = find((int) key);
+    Iterator itr = find((SWIGTYPE_p_libtorrent__file_index_t) key);
     if (itr.isNot(end())) {
       return itr.getValue();
     }
@@ -69,8 +69,8 @@ public class file_index_string_map extends java.util.AbstractMap<int, String> {
     return null;
   }
 
-  public String put(int key, String value) {
-    Iterator itr = find((int) key);
+  public String put(SWIGTYPE_p_libtorrent__file_index_t key, String value) {
+    Iterator itr = find((SWIGTYPE_p_libtorrent__file_index_t) key);
     if (itr.isNot(end())) {
       String oldValue = itr.getValue();
       itr.setValue(value);
@@ -82,11 +82,11 @@ public class file_index_string_map extends java.util.AbstractMap<int, String> {
   }
 
   public String remove(java.lang.Object key) {
-    if (!(key instanceof int)) {
+    if (!(key instanceof SWIGTYPE_p_libtorrent__file_index_t)) {
       return null;
     }
 
-    Iterator itr = find((int) key);
+    Iterator itr = find((SWIGTYPE_p_libtorrent__file_index_t) key);
     if (itr.isNot(end())) {
       String oldValue = itr.getValue();
       removeUnchecked(itr);
@@ -96,22 +96,22 @@ public class file_index_string_map extends java.util.AbstractMap<int, String> {
     }
   }
 
-  public java.util.Set<Entry<int, String>> entrySet() {
-    java.util.Set<Entry<int, String>> setToReturn =
-        new java.util.HashSet<Entry<int, String>>();
+  public java.util.Set<Entry<SWIGTYPE_p_libtorrent__file_index_t, String>> entrySet() {
+    java.util.Set<Entry<SWIGTYPE_p_libtorrent__file_index_t, String>> setToReturn =
+        new java.util.HashSet<Entry<SWIGTYPE_p_libtorrent__file_index_t, String>>();
 
     Iterator itr = begin();
     final Iterator end = end();
     while (itr.isNot(end)) {
-      setToReturn.add(new Entry<int, String>() {
+      setToReturn.add(new Entry<SWIGTYPE_p_libtorrent__file_index_t, String>() {
         private Iterator iterator;
 
-        private Entry<int, String> init(Iterator iterator) {
+        private Entry<SWIGTYPE_p_libtorrent__file_index_t, String> init(Iterator iterator) {
           this.iterator = iterator;
           return this;
         }
 
-        public int getKey() {
+        public SWIGTYPE_p_libtorrent__file_index_t getKey() {
           return iterator.getKey();
         }
 
@@ -182,8 +182,8 @@ public class file_index_string_map extends java.util.AbstractMap<int, String> {
       return libtorrent_jni.file_index_string_map_Iterator_isNot(swigCPtr, this, file_index_string_map.Iterator.getCPtr(other), other);
     }
   
-    private int getKey() {
-      return libtorrent_jni.file_index_string_map_Iterator_getKey(swigCPtr, this);
+    private SWIGTYPE_p_libtorrent__file_index_t getKey() {
+      return new SWIGTYPE_p_libtorrent__file_index_t(libtorrent_jni.file_index_string_map_Iterator_getKey(swigCPtr, this), true);
     }
   
     private String getValue() {
@@ -204,8 +204,8 @@ public class file_index_string_map extends java.util.AbstractMap<int, String> {
     libtorrent_jni.file_index_string_map_clear(swigCPtr, this);
   }
 
-  private file_index_string_map.Iterator find(int key) {
-    return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_find(swigCPtr, this, key), true);
+  private file_index_string_map.Iterator find(SWIGTYPE_p_libtorrent__file_index_t key) {
+    return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_find(swigCPtr, this, SWIGTYPE_p_libtorrent__file_index_t.getCPtr(key)), true);
   }
 
   private file_index_string_map.Iterator begin() {
@@ -220,12 +220,12 @@ public class file_index_string_map extends java.util.AbstractMap<int, String> {
     return libtorrent_jni.file_index_string_map_sizeImpl(swigCPtr, this);
   }
 
-  private boolean containsImpl(int key) {
-    return libtorrent_jni.file_index_string_map_containsImpl(swigCPtr, this, key);
+  private boolean containsImpl(SWIGTYPE_p_libtorrent__file_index_t key) {
+    return libtorrent_jni.file_index_string_map_containsImpl(swigCPtr, this, SWIGTYPE_p_libtorrent__file_index_t.getCPtr(key));
   }
 
-  private void putUnchecked(int key, String value) {
-    libtorrent_jni.file_index_string_map_putUnchecked(swigCPtr, this, key, value);
+  private void putUnchecked(SWIGTYPE_p_libtorrent__file_index_t key, String value) {
+    libtorrent_jni.file_index_string_map_putUnchecked(swigCPtr, this, SWIGTYPE_p_libtorrent__file_index_t.getCPtr(key), value);
   }
 
   private void removeUnchecked(file_index_string_map.Iterator itr) {

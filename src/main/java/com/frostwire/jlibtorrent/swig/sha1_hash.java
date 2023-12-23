@@ -51,8 +51,8 @@ public class sha1_hash {
     this(libtorrent_jni.new_sha1_hash__SWIG_0(), true);
   }
 
-  public sha1_hash(sha1_hash other) {
-    this(libtorrent_jni.new_sha1_hash__SWIG_1(sha1_hash.getCPtr(other), other), true);
+  public sha1_hash(sha1_hash arg0) {
+    this(libtorrent_jni.new_sha1_hash__SWIG_1(sha1_hash.getCPtr(arg0), arg0), true);
   }
 
   public static sha1_hash max() {
@@ -71,12 +71,28 @@ public class sha1_hash {
     return libtorrent_jni.sha1_hash_is_all_zeros(swigCPtr, this);
   }
 
+  public boolean op_eq(sha1_hash n) {
+    return libtorrent_jni.sha1_hash_op_eq(swigCPtr, this, sha1_hash.getCPtr(n), n);
+  }
+
+  public boolean op_ne(sha1_hash n) {
+    return libtorrent_jni.sha1_hash_op_ne(swigCPtr, this, sha1_hash.getCPtr(n), n);
+  }
+
+  public boolean op_lt(sha1_hash n) {
+    return libtorrent_jni.sha1_hash_op_lt(swigCPtr, this, sha1_hash.getCPtr(n), n);
+  }
+
   public int count_leading_zeroes() {
     return libtorrent_jni.sha1_hash_count_leading_zeroes(swigCPtr, this);
   }
 
-  public sha1_hash(byte_vector s) {
-    this(libtorrent_jni.new_sha1_hash__SWIG_2(byte_vector.getCPtr(s), s), true);
+  public sha1_hash(byte_vector v) {
+    this(libtorrent_jni.new_sha1_hash__SWIG_2(byte_vector.getCPtr(v), v), true);
+  }
+
+  public void assign(byte_vector v) {
+    libtorrent_jni.sha1_hash_assign(swigCPtr, this, byte_vector.getCPtr(v), v);
   }
 
   public int hash_code() {
@@ -91,16 +107,8 @@ public class sha1_hash {
     return libtorrent_jni.sha1_hash_to_hex(swigCPtr, this);
   }
 
-  public boolean op_eq(sha1_hash n) {
-    return libtorrent_jni.sha1_hash_op_eq(swigCPtr, this, sha1_hash.getCPtr(n), n);
-  }
-
-  public boolean op_ne(sha1_hash n) {
-    return libtorrent_jni.sha1_hash_op_ne(swigCPtr, this, sha1_hash.getCPtr(n), n);
-  }
-
-  public boolean op_lt(sha1_hash n) {
-    return libtorrent_jni.sha1_hash_op_lt(swigCPtr, this, sha1_hash.getCPtr(n), n);
+  public static sha1_hash from_hex(String s) {
+    return new sha1_hash(libtorrent_jni.sha1_hash_from_hex(s), true);
   }
 
   public static int compare(sha1_hash h1, sha1_hash h2) {
