@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class address_sha1_hash_pair_vector extends java.util.AbstractList<address_sha1_hash_pair> implements java.util.RandomAccess {
+public class address_sha1_hash_pair_vector extends java.util.AbstractList<SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class address_sha1_hash_pair_vector extends java.util.AbstractList<addres
     }
   }
 
-  public address_sha1_hash_pair_vector(address_sha1_hash_pair[] initialElements) {
+  public address_sha1_hash_pair_vector(SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (address_sha1_hash_pair element : initialElements) {
+    for (SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t element : initialElements) {
       add(element);
     }
   }
 
-  public address_sha1_hash_pair_vector(Iterable<address_sha1_hash_pair> initialElements) {
+  public address_sha1_hash_pair_vector(Iterable<SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t> initialElements) {
     this();
-    for (address_sha1_hash_pair element : initialElements) {
+    for (SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t element : initialElements) {
       add(element);
     }
   }
 
-  public address_sha1_hash_pair get(int index) {
+  public SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t get(int index) {
     return doGet(index);
   }
 
-  public address_sha1_hash_pair set(int index, address_sha1_hash_pair e) {
+  public SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t set(int index, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t e) {
     return doSet(index, e);
   }
 
-  public boolean add(address_sha1_hash_pair e) {
+  public boolean add(SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, address_sha1_hash_pair e) {
+  public void add(int index, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public address_sha1_hash_pair remove(int index) {
+  public SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,32 +116,32 @@ public class address_sha1_hash_pair_vector extends java.util.AbstractList<addres
     libtorrent_jni.address_sha1_hash_pair_vector_clear(swigCPtr, this);
   }
 
-  public address_sha1_hash_pair_vector(int count, address_sha1_hash_pair value) {
-    this(libtorrent_jni.new_address_sha1_hash_pair_vector__SWIG_2(count, address_sha1_hash_pair.getCPtr(value), value), true);
+  public address_sha1_hash_pair_vector(int count, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t value) {
+    this(libtorrent_jni.new_address_sha1_hash_pair_vector__SWIG_2(count, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t.getCPtr(value)), true);
   }
 
   private int doSize() {
     return libtorrent_jni.address_sha1_hash_pair_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(address_sha1_hash_pair x) {
-    libtorrent_jni.address_sha1_hash_pair_vector_doAdd__SWIG_0(swigCPtr, this, address_sha1_hash_pair.getCPtr(x), x);
+  private void doAdd(SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t x) {
+    libtorrent_jni.address_sha1_hash_pair_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t.getCPtr(x));
   }
 
-  private void doAdd(int index, address_sha1_hash_pair x) {
-    libtorrent_jni.address_sha1_hash_pair_vector_doAdd__SWIG_1(swigCPtr, this, index, address_sha1_hash_pair.getCPtr(x), x);
+  private void doAdd(int index, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t x) {
+    libtorrent_jni.address_sha1_hash_pair_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t.getCPtr(x));
   }
 
-  private address_sha1_hash_pair doRemove(int index) {
-    return new address_sha1_hash_pair(libtorrent_jni.address_sha1_hash_pair_vector_doRemove(swigCPtr, this, index), true);
+  private SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t doRemove(int index) {
+    return new SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t(libtorrent_jni.address_sha1_hash_pair_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private address_sha1_hash_pair doGet(int index) {
-    return new address_sha1_hash_pair(libtorrent_jni.address_sha1_hash_pair_vector_doGet(swigCPtr, this, index), false);
+  private SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t doGet(int index) {
+    return new SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t(libtorrent_jni.address_sha1_hash_pair_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private address_sha1_hash_pair doSet(int index, address_sha1_hash_pair val) {
-    return new address_sha1_hash_pair(libtorrent_jni.address_sha1_hash_pair_vector_doSet(swigCPtr, this, index, address_sha1_hash_pair.getCPtr(val), val), true);
+  private SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t doSet(int index, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t val) {
+    return new SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t(libtorrent_jni.address_sha1_hash_pair_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_std__pairT_libtorrent__address_libtorrent__digest32T_160_t_t.getCPtr(val)), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

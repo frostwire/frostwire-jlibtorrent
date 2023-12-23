@@ -55,12 +55,12 @@ public class session_handle {
     return libtorrent_jni.session_handle_is_valid(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_session_params session_state(SWIGTYPE_p_save_state_flags_t flags) {
-    return new SWIGTYPE_p_session_params(libtorrent_jni.session_handle_session_state__SWIG_0(swigCPtr, this, SWIGTYPE_p_save_state_flags_t.getCPtr(flags)), true);
+  public session_params session_state(SWIGTYPE_p_save_state_flags_t flags) {
+    return new session_params(libtorrent_jni.session_handle_session_state__SWIG_0(swigCPtr, this, SWIGTYPE_p_save_state_flags_t.getCPtr(flags)), true);
   }
 
-  public SWIGTYPE_p_session_params session_state() {
-    return new SWIGTYPE_p_session_params(libtorrent_jni.session_handle_session_state__SWIG_1(swigCPtr, this), true);
+  public session_params session_state() {
+    return new session_params(libtorrent_jni.session_handle_session_state__SWIG_1(swigCPtr, this), true);
   }
 
   public void refresh_torrent_status(SWIGTYPE_p_std__vectorT_torrent_status_t ret, status_flags_t flags) {

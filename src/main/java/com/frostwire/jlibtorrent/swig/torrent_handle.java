@@ -243,8 +243,8 @@ public class torrent_handle {
     return new SWIGTYPE_p_std__shared_ptrT_torrent_info_t(libtorrent_jni.torrent_handle_torrent_file_with_hashes(swigCPtr, this), true);
   }
 
-  public SWIGTYPE_p_std__vectorT_std__vectorT_sha256_hash_t_t piece_layers() {
-    return new SWIGTYPE_p_std__vectorT_std__vectorT_sha256_hash_t_t(libtorrent_jni.torrent_handle_piece_layers(swigCPtr, this), true);
+  public sha256_hash_vector_vector piece_layers() {
+    return new sha256_hash_vector_vector(libtorrent_jni.torrent_handle_piece_layers(swigCPtr, this), true);
   }
 
   public void post_piece_availability() {
@@ -429,8 +429,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_prioritize_pieces2__SWIG_0(swigCPtr, this, int_vector.getCPtr(pieces), pieces);
   }
 
-  public void prioritize_pieces2(piece_index_int_pair_vector pieces) {
-    libtorrent_jni.torrent_handle_prioritize_pieces2__SWIG_1(swigCPtr, this, piece_index_int_pair_vector.getCPtr(pieces), pieces);
+  public void prioritize_pieces2(SWIGTYPE_p_std__vectorT_std__pairT_piece_index_t_int_t_t pieces) {
+    libtorrent_jni.torrent_handle_prioritize_pieces2__SWIG_1(swigCPtr, this, SWIGTYPE_p_std__vectorT_std__pairT_piece_index_t_int_t_t.getCPtr(pieces));
   }
 
   public int_vector get_piece_priorities2() {

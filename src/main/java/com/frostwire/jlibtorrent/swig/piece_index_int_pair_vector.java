@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class piece_index_int_pair_vector extends java.util.AbstractList<piece_index_int_pair> implements java.util.RandomAccess {
+public class piece_index_int_pair_vector extends java.util.AbstractList<SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class piece_index_int_pair_vector extends java.util.AbstractList<piece_in
     }
   }
 
-  public piece_index_int_pair_vector(piece_index_int_pair[] initialElements) {
+  public piece_index_int_pair_vector(SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (piece_index_int_pair element : initialElements) {
+    for (SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t element : initialElements) {
       add(element);
     }
   }
 
-  public piece_index_int_pair_vector(Iterable<piece_index_int_pair> initialElements) {
+  public piece_index_int_pair_vector(Iterable<SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t> initialElements) {
     this();
-    for (piece_index_int_pair element : initialElements) {
+    for (SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t element : initialElements) {
       add(element);
     }
   }
 
-  public piece_index_int_pair get(int index) {
+  public SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t get(int index) {
     return doGet(index);
   }
 
-  public piece_index_int_pair set(int index, piece_index_int_pair e) {
+  public SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t set(int index, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t e) {
     return doSet(index, e);
   }
 
-  public boolean add(piece_index_int_pair e) {
+  public boolean add(SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, piece_index_int_pair e) {
+  public void add(int index, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public piece_index_int_pair remove(int index) {
+  public SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,32 +116,32 @@ public class piece_index_int_pair_vector extends java.util.AbstractList<piece_in
     libtorrent_jni.piece_index_int_pair_vector_clear(swigCPtr, this);
   }
 
-  public piece_index_int_pair_vector(int count, piece_index_int_pair value) {
-    this(libtorrent_jni.new_piece_index_int_pair_vector__SWIG_2(count, piece_index_int_pair.getCPtr(value), value), true);
+  public piece_index_int_pair_vector(int count, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t value) {
+    this(libtorrent_jni.new_piece_index_int_pair_vector__SWIG_2(count, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t.getCPtr(value)), true);
   }
 
   private int doSize() {
     return libtorrent_jni.piece_index_int_pair_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(piece_index_int_pair x) {
-    libtorrent_jni.piece_index_int_pair_vector_doAdd__SWIG_0(swigCPtr, this, piece_index_int_pair.getCPtr(x), x);
+  private void doAdd(SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t x) {
+    libtorrent_jni.piece_index_int_pair_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t.getCPtr(x));
   }
 
-  private void doAdd(int index, piece_index_int_pair x) {
-    libtorrent_jni.piece_index_int_pair_vector_doAdd__SWIG_1(swigCPtr, this, index, piece_index_int_pair.getCPtr(x), x);
+  private void doAdd(int index, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t x) {
+    libtorrent_jni.piece_index_int_pair_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t.getCPtr(x));
   }
 
-  private piece_index_int_pair doRemove(int index) {
-    return new piece_index_int_pair(libtorrent_jni.piece_index_int_pair_vector_doRemove(swigCPtr, this, index), true);
+  private SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t doRemove(int index) {
+    return new SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t(libtorrent_jni.piece_index_int_pair_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private piece_index_int_pair doGet(int index) {
-    return new piece_index_int_pair(libtorrent_jni.piece_index_int_pair_vector_doGet(swigCPtr, this, index), false);
+  private SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t doGet(int index) {
+    return new SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t(libtorrent_jni.piece_index_int_pair_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private piece_index_int_pair doSet(int index, piece_index_int_pair val) {
-    return new piece_index_int_pair(libtorrent_jni.piece_index_int_pair_vector_doSet(swigCPtr, this, index, piece_index_int_pair.getCPtr(val), val), true);
+  private SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t doSet(int index, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t val) {
+    return new SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t(libtorrent_jni.piece_index_int_pair_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_std__pairT_libtorrent__piece_index_t_int_t.getCPtr(val)), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

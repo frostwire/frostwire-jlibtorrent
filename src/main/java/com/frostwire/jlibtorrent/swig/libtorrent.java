@@ -140,6 +140,14 @@ public class libtorrent {
     return libtorrent_jni.performance_warning_str(i.swigValue());
   }
 
+  public static SWIGTYPE_p_settings_pack min_memory_usage() {
+    return new SWIGTYPE_p_settings_pack(libtorrent_jni.min_memory_usage(), true);
+  }
+
+  public static SWIGTYPE_p_settings_pack high_performance_seed() {
+    return new SWIGTYPE_p_settings_pack(libtorrent_jni.high_performance_seed(), true);
+  }
+
   public static stats_metric_vector session_stats_metrics() {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
@@ -164,8 +172,8 @@ public class libtorrent {
     return new SWIGTYPE_p_std__arrayT_signed_char_32_t(libtorrent_jni.ed25519_create_seed(), true);
   }
 
-  public static byte_vectors_pair ed25519_create_keypair(byte_vector seed) {
-    return new byte_vectors_pair(libtorrent_jni.ed25519_create_keypair(byte_vector.getCPtr(seed), seed), true);
+  public static byte_vector_byte_vector_pair ed25519_create_keypair(byte_vector seed) {
+    return new byte_vector_byte_vector_pair(libtorrent_jni.ed25519_create_keypair(byte_vector.getCPtr(seed), seed), true);
   }
 
   public static byte_vector ed25519_sign(byte_vector msg, byte_vector pk, byte_vector sk) {
@@ -216,12 +224,12 @@ public class libtorrent {
     return libtorrent_jni.find_metric_idx_s(name);
   }
 
-  public static ip_interface_vector enum_net_interfaces(SWIGTYPE_p_libtorrent__session s) {
-    return new ip_interface_vector(libtorrent_jni.enum_net_interfaces(SWIGTYPE_p_libtorrent__session.getCPtr(s)), true);
+  public static ip_interface_vector enum_net_interfaces(session s) {
+    return new ip_interface_vector(libtorrent_jni.enum_net_interfaces(session.getCPtr(s), s), true);
   }
 
-  public static ip_route_vector enum_routes(SWIGTYPE_p_libtorrent__session s) {
-    return new ip_route_vector(libtorrent_jni.enum_routes(SWIGTYPE_p_libtorrent__session.getCPtr(s)), true);
+  public static ip_route_vector enum_routes(session s) {
+    return new ip_route_vector(libtorrent_jni.enum_routes(session.getCPtr(s), s), true);
   }
 
   public static void mem_copy(byte_vector source, String target, long target_size) {
@@ -236,8 +244,8 @@ public class libtorrent {
     return new address(libtorrent_jni.get_gateway(ip_interface.getCPtr(iface), iface, ip_route_vector.getCPtr(routes), routes), true);
   }
 
-  public static String device_for_address(SWIGTYPE_p_libtorrent__session s, address addr, error_code ec) {
-    return libtorrent_jni.device_for_address(SWIGTYPE_p_libtorrent__session.getCPtr(s), address.getCPtr(addr), addr, error_code.getCPtr(ec), ec);
+  public static String device_for_address(session s, address addr, error_code ec) {
+    return libtorrent_jni.device_for_address(session.getCPtr(s), s, address.getCPtr(addr), addr, error_code.getCPtr(ec), ec);
   }
 
   public static boolean arm_neon_support() {
