@@ -21,8 +21,8 @@ namespace std {
     %template(int64_vector) std::vector<long long>;
     %template(int_byte_pair_vector) std::vector<std::pair<int, std::int8_t>>;
     %template(int_vector) std::vector<int>;
-    %template(ip_interface_vector) std::vector<libtorrent::ip_interface>;
-    %template(ip_route_vector) std::vector<libtorrent::ip_route>;
+    %template(ip_interface_vector) std::vector<ip_interface>; // not libtorrent::ip_interface, but ip_interface struct from libtorrent.hpp:~220
+    %template(ip_route_vector) std::vector<ip_route>; // not libtorrent::ip_route, but ip_route struct from libtorrent.hpp:~230
     %template(partial_piece_info_vector) std::vector<libtorrent::partial_piece_info>;
     %template(peer_info_vector) std::vector<libtorrent::peer_info>;
     %template(piece_block_vector) std::vector<libtorrent::piece_block>;
