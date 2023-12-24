@@ -263,6 +263,8 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_dht_sample_infohashes_alert.i"
 %include "includes/libtorrent_tracker_alert.i"
 %include "includes/libtorrent_settings_pack.i"
+%include "includes/libtorrent_operations.i"
+%include "includes/libtorrent_peer_class_type_filter.i"
 
 // wrap this stuff last.
 %include "libtorrent.hpp"
