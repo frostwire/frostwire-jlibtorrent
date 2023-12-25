@@ -16,7 +16,7 @@ export CXX=clang++
 export CC=clang
 export run_openssl_configure="./Configure iphoneos-${os_arch} -fembed-bitcode ${OPENSSL_NO_OPTS} --prefix=${OPENSSL_ROOT}"
 export run_readelf="otool -L bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
-export run_bjam="${BOOST_ROOT}/b2 -j16 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=darwin-${os_arch} target-os=iphone location=bin/release/${os_build}/${os_arch}"
+export run_bjam="${BOOST_ROOT}/b2 -j16 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=darwin-iphone target-os=iphone location=bin/release/${os_build}/${os_arch}"
 export run_objcopy="echo dummy run_objcopy for ${os_build} ${os_arch}"
 export run_strip="strip -S -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeiOSArm64Jar"

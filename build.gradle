@@ -64,7 +64,7 @@ task nativeiOSArm64Jar(type: Zip) {
     destinationDirectory = file("$buildDir/libs")
     archiveBaseName = 'jlibtorrent-ios-arm64'
     archiveExtension = 'jar'
-    from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: 'arm64/*libjlibtorrent.arm64.dylib')
+    from fileTree(dir: 'swig/bin/release/ios', excludes: ['**/ed25519', '**/src'], include: 'arm64/*libjlibtorrent.arm64.dylib')
     into 'lib/'
     rename(".dylib", "-${version}.dylib")
 }
