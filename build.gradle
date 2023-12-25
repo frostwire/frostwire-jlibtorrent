@@ -136,6 +136,7 @@ artifacts {
     archives sourcesJar
     archives javadocJar
     archives nativeMacOSArm64Jar
+    archives nativeiOSArm64Jar
     archives nativeMacOSX86_64Jar
     archives nativeWindowsX86_64Jar
     archives nativeLinuxJar
