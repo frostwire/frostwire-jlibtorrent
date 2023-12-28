@@ -16,7 +16,6 @@
 %ignore libtorrent::dht::save_dht_state;
 %ignore libtorrent::dht_sample_infohashes_alert::endpoint;
 %ignore libtorrent::dht_sample_infohashes_alert::interval;
-%ignore libtorrent::error_code;
 %ignore libtorrent::error_to_close_reason;
 %ignore libtorrent::errors::deprecated_120;
 %ignore libtorrent::errors::deprecated_121;

@@ -93,7 +93,6 @@ using bdecode_node = libtorrent::bdecode_node;
 using close_reason_t = libtorrent::close_reason_t;
 using disconnect_severity_t = libtorrent::disconnect_severity_t;
 using download_priority_t = libtorrent::download_priority_t;
-using error_code = boost::system::error_code;
 using event_t = libtorrent::event_t;
 using file_slice = libtorrent::file_slice;
 using file_storage = libtorrent::file_storage;
@@ -115,9 +114,12 @@ using session_params = libtorrent::session_params;
 using settings_pack = libtorrent::settings_pack;
 using sha256_hash = libtorrent::sha256_hash;
 using socket_type_t = libtorrent::socket_type_t;
+using storage_mode_t = libtorrent::storage_mode_t;
+using tcp = libtorrent::tcp;
 using torrent_flags_t = libtorrent::torrent_flags_t;
 using torrent_info = libtorrent::torrent_info;
 using torrent_status = libtorrent::torrent_status;
+using udp = libtorrent::udp;
 
 
 // END common set include ------------------------------------------------------
@@ -202,6 +204,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 // Includes of what's actually going to be wrapped
 
+%include "includes/libtorrent_error_code.i"
 %include "includes/libtorrent_add_torrent_params.i"
 %include "includes/libtorrent_address.i"
 %include "includes/libtorrent_alert.i"
@@ -220,7 +223,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_dht_put_alert.i"
 %include "includes/libtorrent_dht_sample_infohashes_alert.i"
 %include "includes/libtorrent_entry.i"
-%include "includes/libtorrent_error_code.i"
 %include "includes/libtorrent_external_ip_alert.i"
 %include "includes/libtorrent_file_storage.i"
 %include "includes/libtorrent_flags_bitfield_flag.i"
