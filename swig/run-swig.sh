@@ -62,6 +62,10 @@ function runJni()
     rm -rf ${JAVA_SRC_OUTPUT}
     mkdir -p ${JAVA_SRC_OUTPUT}
 
+    if [ -f "libtorrent_jni.cpp" ]; then
+        rm libtorrent_jni.cpp
+    fi
+
     # If you're running from Ubuntu and you have swig 3.0.5 you might end up with a segfault running the swig command below
     #./run-swig.sh: line 33: 46204 Segmentation fault
     # Make sure your swig command is compiled from source, version 3.0.12 works on mac
@@ -107,7 +111,7 @@ function runJni()
         -DNDEBUG=1 \
         -D_bit="" \
         -Dfinal="" \
-        libtorrent.i
+        libtorrent.i || exit 1
 
     if [ ! -f "libtorrent_jni.cpp" ]; then
         echo "run-swig.sh: swig failed. exiting."
