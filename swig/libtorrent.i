@@ -23,7 +23,8 @@
 
 %{
 // BEGIN common set include (just include but don't wrap)----------------------------------------------
-#include "libtorrent/create_torrent.hpp"
+#include <libtorrent/flags.hpp>
+#include <libtorrent/create_torrent.hpp>
 #include <libtorrent/add_torrent_params.hpp>
 #include <libtorrent/add_torrent_params.hpp>
 #include <libtorrent/address.hpp>
@@ -34,13 +35,11 @@
 #include <libtorrent/bitfield.hpp>
 #include <libtorrent/client_data.hpp>
 #include <libtorrent/close_reason.hpp>
-#include <libtorrent/create_torrent.hpp>
 #include <libtorrent/entry.hpp>
 #include <libtorrent/error_code.hpp>
 #include <libtorrent/file_storage.hpp>
 #include <libtorrent/file_storage.hpp>
 #include <libtorrent/fingerprint.hpp>
-#include <libtorrent/flags.hpp>
 #include <libtorrent/info_hash.hpp>
 #include <libtorrent/ip_filter.hpp>
 #include <libtorrent/kademlia/dht_state.hpp>
@@ -204,6 +203,8 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 // Includes of what's actually going to be wrapped
 
+%include "includes/libtorrent_span.i"
+%include "includes/libtorrent_flags.i"
 %include "includes/libtorrent_error_code.i"
 %include "includes/libtorrent_add_torrent_params.i"
 %include "includes/libtorrent_address.i"
@@ -225,7 +226,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_entry.i"
 %include "includes/libtorrent_external_ip_alert.i"
 %include "includes/libtorrent_file_storage.i"
-%include "includes/libtorrent_flags_bitfield_flag.i"
 %include "includes/libtorrent_incoming_connection_alert.i"
 %include "includes/libtorrent_ip_filter.i"
 %include "includes/libtorrent_listen_failed_alert.i"
@@ -242,15 +242,14 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_portmap_protocol.i"
 %include "includes/libtorrent_portmap_transport.i"
 %include "includes/libtorrent_read_piece_alert.i"
-%include "includes/libtorrent_session.i"
 %include "includes/libtorrent_session_handle.i"
+%include "includes/libtorrent_session.i"
 %include "includes/libtorrent_session_params.i"
 %include "includes/libtorrent_session_stats.i"
 %include "includes/libtorrent_session_stats_alert.i"
 %include "includes/libtorrent_settings_pack.i"
 %include "includes/libtorrent_sha1_hash.i"
 %include "includes/libtorrent_sha1_hash_type_aliases.i"
-%include "includes/libtorrent_span.i"
 %include "includes/libtorrent_stats_metric.i"
 %include "includes/libtorrent_storage_mode_t.i"
 %include "includes/libtorrent_string_view.i"
