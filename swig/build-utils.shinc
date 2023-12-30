@@ -268,18 +268,12 @@ build_libraries() {
   if [[ $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
-  if [[ $os_build == "macosx" ]]; then
+  if [[ $os_build == "macosx" || $os_build == "ios" ]]; then
     # rename libjlibtorrent.dylib to libjlibtorrent.<os_arch>.dylib and copy to the root folder
     abort_if_var_unset "RELEASE_SHARED_LIB" ${RELEASE_SHARED_LIB}
     mv swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB}
     cp swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB} .
   fi
-  if [[ $os_build == "ios" ]]; then
-      # rename libjlibtorrent.dylib to libjlibtorrent.<os_arch>.dylib and copy to the root folder
-      abort_if_var_unset "RELEASE_SHARED_LIB" ${RELEASE_SHARED_LIB}
-      mv swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB}
-      cp swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB} .
-    fi
   ./gradlew jar
   $run_native_jar
 }

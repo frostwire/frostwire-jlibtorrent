@@ -136,7 +136,6 @@ artifacts {
     archives sourcesJar
     archives javadocJar
     archives nativeMacOSArm64Jar
-    archives nativeiOSArm64Jar
     archives nativeMacOSX86_64Jar
     archives nativeWindowsX86_64Jar
     archives nativeLinuxJar
@@ -144,6 +143,7 @@ artifacts {
     archives nativeAndroidX86Jar
     archives nativeAndroidArm64Jar
     archives nativeAndroidX64Jar
+    archives nativeiOSArm64Jar
 }
 
 def pomData() {
