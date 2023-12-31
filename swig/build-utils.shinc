@@ -56,8 +56,7 @@ ios_env() {
     export IOS_PLATFORM="iphoneos"
     export IOS_COMPILER="iphoneos"
 
-    XCODE_SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
-    export IOS_SYSROOT="${XCODE_SDK_PATH}"
+    export IOS_SYSROOT=$(xcrun --sdk iphoneos --show-sdk-path)
 
     export CXX="clang++"
     export CC="clang"
