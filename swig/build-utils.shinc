@@ -47,6 +47,26 @@ macosx_env() {
   export OPENSSL_ROOT="${SRC}/openssl"
 }
 
+ios_env() {
+    abort_if_var_unset "HOME" ${HOME}
+    export SRC="${HOME}/src"
+    export OPENSSL_ROOT="${SRC}/openssl"
+    export IOS_SDK_VERSION="14.0"
+    export IOS_ARCH="arm64"
+    export IOS_PLATFORM="iphoneos"
+    export IOS_COMPILER="iphoneos"
+
+    export IOS_SYSROOT=$(xcrun --sdk iphoneos --show-sdk-path)
+
+    export CXX="clang++"
+    export CC="clang"
+
+    export CXXFLAGS="-std=c++17 -miphoneos-version-min=${IOS_SDK_VERSION} -fno-strict-aliasing -fvisibility=hidden -D_DARWIN_C_SOURCE"
+
+    export LDFLAGS="-arch ${IOS_ARCH} -isysroot ${IOS_SYSROOT} -miphoneos-version-min=${IOS_SDK_VERSION}"
+}
+
+
 linux_env() {
   export SRC="/src"
   export OPENSSL_ROOT="/openssl-linux-x86_64"
@@ -247,7 +267,7 @@ build_libraries() {
   if [[ $os_build == "linux" ]]; then
     cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
   fi
-  if [[ $os_build == "macosx" ]]; then
+  if [[ $os_build == "macosx" || $os_build == "ios" ]]; then
     # rename libjlibtorrent.dylib to libjlibtorrent.<os_arch>.dylib and copy to the root folder
     abort_if_var_unset "RELEASE_SHARED_LIB" ${RELEASE_SHARED_LIB}
     mv swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB}
