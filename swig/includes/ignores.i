@@ -1,3 +1,7 @@
+// %ignore libtorrent::generate_fingerprint(std::string, int);
+// %ignore libtorrent::generate_fingerprint(std::string, int, int);
+// %ignore libtorrent::generate_fingerprint(std::string, int, int, int);
+
 %ignore boost::asio;
 %ignore boost::detail::throws;
 %ignore boost::system::errc::make_error_condition;
@@ -156,9 +160,6 @@
 %ignore libtorrent::fingerprint;
 %ignore libtorrent::from_span;
 %ignore libtorrent::from_span_t;
-%ignore libtorrent::generate_fingerprint(std::string, int);
-%ignore libtorrent::generate_fingerprint(std::string, int, int);
-%ignore libtorrent::generate_fingerprint(std::string, int, int, int);
 %ignore libtorrent::get_bdecode_category;
 %ignore libtorrent::get_file_attributes;
 %ignore libtorrent::get_symlink_path;
@@ -218,6 +219,12 @@
 %ignore libtorrent::read_piece_alert::buffer;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
 %ignore libtorrent::read_piece_alert::read_piece_alert;
+%ignore libtorrent::read_resume_data(bdecode_node const&);
+%ignore libtorrent::read_resume_data(bdecode_node const&, int);
+%ignore libtorrent::read_resume_data(span<char const>);
+%ignore libtorrent::read_resume_data(span<char const>, error_code&);
+%ignore libtorrent::read_resume_data(span<char const>, error_code&, load_torrent_limits const&);
+%ignore libtorrent::read_resume_data(span<char const>, load_torrent_limits const&);
 %ignore libtorrent::read_session_params;
 %ignore libtorrent::run_all_updates;
 %ignore libtorrent::run_all_updates;
@@ -363,8 +370,10 @@
 %ignore libtorrent::version_revision;
 %ignore libtorrent::version_str;
 %ignore libtorrent::version_tiny;
+%ignore libtorrent::write_resume_data_buf(add_torrent_params const& atp);
 %ignore libtorrent::write_session_params;
 %ignore libtorrent::write_session_params_buf;
+%ignore libtorrent::write_torrent_file_buf(add_torrent_params const& atp, write_torrent_flags_t flags);
 
 %ignore operator=;
 %ignore operator!;
