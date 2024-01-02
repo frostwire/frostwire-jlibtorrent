@@ -24,25 +24,24 @@
 %{
 // BEGIN common set include (just include but don't wrap)----------------------------------------------
 #include <libtorrent/flags.hpp>
+#include <libtorrent/address.hpp>
+#include <libtorrent/socket.hpp>
+#include <libtorrent/kademlia/dht_state.hpp>
 #include <libtorrent/create_torrent.hpp>
 #include <libtorrent/add_torrent_params.hpp>
-#include <libtorrent/add_torrent_params.hpp>
-#include <libtorrent/address.hpp>
+#include <libtorrent/client_data.hpp>
 #include <libtorrent/alert.hpp>
 #include <libtorrent/alert_types.hpp>
 #include <libtorrent/announce_entry.hpp>
 #include <libtorrent/bdecode.hpp>
 #include <libtorrent/bitfield.hpp>
-#include <libtorrent/client_data.hpp>
 #include <libtorrent/close_reason.hpp>
 #include <libtorrent/entry.hpp>
 #include <libtorrent/error_code.hpp>
 #include <libtorrent/file_storage.hpp>
-#include <libtorrent/file_storage.hpp>
 #include <libtorrent/fingerprint.hpp>
 #include <libtorrent/info_hash.hpp>
 #include <libtorrent/ip_filter.hpp>
-#include <libtorrent/kademlia/dht_state.hpp>
 #include <libtorrent/magnet_uri.hpp>
 #include <libtorrent/operations.hpp>
 #include <libtorrent/peer_class.hpp>
@@ -62,7 +61,6 @@
 #include <libtorrent/session_types.hpp>
 #include <libtorrent/settings_pack.hpp>
 #include <libtorrent/sha1_hash.hpp>
-#include <libtorrent/socket.hpp>
 #include <libtorrent/socket_type.hpp>
 #include <libtorrent/storage_defs.hpp>
 #include <libtorrent/torrent_flags.hpp>
@@ -89,6 +87,7 @@ using add_torrent_params = libtorrent::add_torrent_params;
 using address = libtorrent::address;
 using alert = libtorrent::alert;
 using bdecode_node = libtorrent::bdecode_node;
+using client_data_t = libtorrent::client_data_t;
 using close_reason_t = libtorrent::close_reason_t;
 using disconnect_severity_t = libtorrent::disconnect_severity_t;
 using download_priority_t = libtorrent::download_priority_t;
@@ -201,68 +200,90 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 %include "includes/boost_system_error_code.i"
 
-// Includes of what's actually going to be wrapped
-
+// Includes of what's actually going to be wrapped.
+// Order of inclusion matters.
+%include "includes/libtorrent_structs.i"
 %include "includes/libtorrent_span.i"
-%include "includes/libtorrent_flags.i"
-%include "includes/libtorrent_error_code.i"
-%include "includes/libtorrent_add_torrent_params.i"
 %include "includes/libtorrent_address.i"
+%include "includes/libtorrent_tcp_endpoint.i"
+%include "includes/libtorrent_udp_endpoint.i"
+%include "includes/libtorrent_error_code.i"
+%include "includes/libtorrent_announce.i"
+%include "includes/libtorrent_file_storage.i"
+%include "includes/libtorrent_peer_request.i"
+%include "includes/libtorrent_bdecode.i"
+%include "includes/libtorrent_torrent_info.i"
+%include "includes/libtorrent_flags.i"
+%include "includes/libtorrent_add_torrent_params.i"
+//%include "includes/libtorrent_close_reason.i" // need to create
+%include "includes/libtorrent_peer_info.i"
+//%include "includes/libtorrent_pex_flags.i" // need to create
+%include "includes/libtorrent_torrent_handle.i"
+%include "includes/libtorrent_torrent_status.i"
+//%include "includes/libtorrent_performance_counters.i" // need to create
+//%include "includes/libtorrent_portmap.i" // need to create
+//%include "includes/libtorrent_piece_block.i" // need to create
+%include "includes/libtorrent_socket_type.i"
+%include "includes/libtorrent_entry.i"
+//%include "includes/libtorrent_tracker_event.i" // will need to create when this is merged from master
+
+// ALERTS TYPES
 %include "includes/libtorrent_alert.i"
 %include "includes/libtorrent_alert_casts.i"
-%include "includes/libtorrent_announce.i"
-%include "includes/libtorrent_bdecode.i"
-%include "includes/libtorrent_bloom_filter.i"
-%include "includes/libtorrent_connection_type.i"
-%include "includes/libtorrent_create_torrent.i"
 %include "includes/libtorrent_dht_announce_alert.i"
-%include "includes/libtorrent_dht_direct_response_alert.i"
-%include "includes/libtorrent_dht_lookup.i"
-%include "includes/libtorrent_dht_mutable_item_alert.i"
-%include "includes/libtorrent_dht_outgoing_get_peers_alert.i"
-%include "includes/libtorrent_dht_pkt_alert.i"
-%include "includes/libtorrent_dht_put_alert.i"
-%include "includes/libtorrent_dht_sample_infohashes_alert.i"
-%include "includes/libtorrent_entry.i"
 %include "includes/libtorrent_external_ip_alert.i"
-%include "includes/libtorrent_file_storage.i"
-%include "includes/libtorrent_incoming_connection_alert.i"
-%include "includes/libtorrent_ip_filter.i"
 %include "includes/libtorrent_listen_failed_alert.i"
 %include "includes/libtorrent_listen_succeeded_alert.i"
-%include "includes/libtorrent_move_flags_t.i"
-%include "includes/libtorrent_operations.i"
+%include "includes/libtorrent_incoming_connection_alert.i"
 %include "includes/libtorrent_peer_alert.i"
-%include "includes/libtorrent_peer_class_info.i"
-%include "includes/libtorrent_peer_class_type_filter.i"
-%include "includes/libtorrent_peer_connection_handle.i"
-%include "includes/libtorrent_peer_info.i"
-%include "includes/libtorrent_peer_log_alert.i"
-%include "includes/libtorrent_peer_request.i"
-%include "includes/libtorrent_portmap_protocol.i"
-%include "includes/libtorrent_portmap_transport.i"
+%include "includes/libtorrent_dht_direct_response_alert.i"
+%include "includes/libtorrent_dht_outgoing_get_peers_alert.i"
+%include "includes/libtorrent_dht_pkt_alert.i"
+%include "includes/libtorrent_udp_error_alert.i"
+%include "includes/libtorrent_dht_sample_infohashes_alert.i"
+%include "includes/libtorrent_tracker_alert.i"
+%include "includes/libtorrent_dht_lookup.i"
+%include "includes/libtorrent_portmap_alert.i"
+%include "includes/libtorrent_portmap_error_alert.i"
+%include "includes/libtorrent_dht_mutable_item_alert.i"
+%include "includes/libtorrent_dht_put_alert.i"
+%include "includes/libtorrent_session_stats_alert.i"
 %include "includes/libtorrent_read_piece_alert.i"
+%include "includes/libtorrent_peer_log_alert.i"
+%include "includes/libtorrent_dht_stats_alert.i"
+%include "includes/libtorrent_torrent_conflict_alert.i"
+// END OF ALERTS TYPES
+
+%include "includes/libtorrent_settings_pack.i"
+%include "includes/libtorrent_peer_class_info.i"
+%include "includes/libtorrent_ip_filter.i"
+%include "includes/libtorrent_session_params.i"
 %include "includes/libtorrent_session_handle.i"
 %include "includes/libtorrent_session.i"
-%include "includes/libtorrent_session_params.i"
+%include "includes/libtorrent_file_storage.i"
+%include "includes/libtorrent_create_torrent.i"
 %include "includes/libtorrent_session_stats.i"
-%include "includes/libtorrent_session_stats_alert.i"
-%include "includes/libtorrent_settings_pack.i"
+%include "includes/libtorrent_version.i"
+
+
+%include "includes/libtorrent_bloom_filter.i"
+%include "includes/libtorrent_client_data.i"
+%include "includes/libtorrent_connection_type.i"
+
+
+%include "includes/libtorrent_move_flags_t.i"
+%include "includes/libtorrent_operations.i"
+%include "includes/libtorrent_peer_class_type_filter.i"
+%include "includes/libtorrent_peer_connection_handle.i"
+%include "includes/libtorrent_portmap_protocol.i"
+%include "includes/libtorrent_portmap_transport.i"
+
 %include "includes/libtorrent_sha1_hash.i"
 %include "includes/libtorrent_sha1_hash_type_aliases.i"
 %include "includes/libtorrent_stats_metric.i"
 %include "includes/libtorrent_storage_mode_t.i"
 %include "includes/libtorrent_string_view.i"
-%include "includes/libtorrent_structs.i"
-%include "includes/libtorrent_tcp_endpoint.i"
-%include "includes/libtorrent_torrent_handle.i"
-%include "includes/libtorrent_torrent_handle.i"
-%include "includes/libtorrent_torrent_info.i"
-%include "includes/libtorrent_torrent_status.i"
-%include "includes/libtorrent_tracker_alert.i"
 %include "includes/libtorrent_typed_bitfield.i"
-%include "includes/libtorrent_udp_endpoint.i"
-%include "includes/libtorrent_udp_error_alert.i"
 %include "includes/std_bitset.i"
 %include "includes/std_swig_templates.i"
 

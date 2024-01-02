@@ -1,5 +1,3 @@
-%ignore libtorrent::dht_announce_alert::ip;
-
 namespace libtorrent {
     %extend dht_announce_alert {
         address get_ip() {

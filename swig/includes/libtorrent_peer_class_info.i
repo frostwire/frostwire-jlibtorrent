@@ -1,3 +1,5 @@
+%include "libtorrent/peer_class.hpp"
+
 namespace libtorrent {
     struct peer_class_info {
         bool ignore_unchoke_slots;

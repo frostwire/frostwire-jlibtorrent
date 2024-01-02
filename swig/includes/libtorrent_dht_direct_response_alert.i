@@ -1,6 +1,3 @@
-%ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
-%ignore libtorrent::dht_direct_response_alert::userdata;
-%ignore libtorrent::dht_direct_response_alert::endpoint;
 namespace libtorrent {
     %extend dht_direct_response_alert {
         int64_t get_userdata() {
