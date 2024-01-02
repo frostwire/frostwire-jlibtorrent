@@ -202,7 +202,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 // Includes of what's actually going to be wrapped.
 // Order of inclusion matters.
-%include "includes/libtorrent_structs.i"
 %include "includes/libtorrent_span.i"
 %include "includes/libtorrent_address.i"
 %include "includes/libtorrent_tcp_endpoint.i"
@@ -214,6 +213,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_bdecode.i"
 %include "includes/libtorrent_torrent_info.i"
 %include "includes/libtorrent_flags.i"
+%include "includes/libtorrent_structs.i"
 %include "includes/libtorrent_add_torrent_params.i"
 //%include "includes/libtorrent_close_reason.i" // need to create
 %include "includes/libtorrent_peer_info.i"
@@ -264,20 +264,20 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_create_torrent.i"
 %include "includes/libtorrent_session_stats.i"
 %include "includes/libtorrent_version.i"
-
+%include "includes/libtorrent_magnet_uri.i"
+%include "includes/libtorrent_fingerprint.i"
+%include "includes/libtorrent_read_resume_data.i"
+%include "includes/libtorrent_write_resume_data.i"
 
 %include "includes/libtorrent_bloom_filter.i"
 %include "includes/libtorrent_client_data.i"
 %include "includes/libtorrent_connection_type.i"
-
-
 %include "includes/libtorrent_move_flags_t.i"
 %include "includes/libtorrent_operations.i"
 %include "includes/libtorrent_peer_class_type_filter.i"
 %include "includes/libtorrent_peer_connection_handle.i"
 %include "includes/libtorrent_portmap_protocol.i"
 %include "includes/libtorrent_portmap_transport.i"
-
 %include "includes/libtorrent_sha1_hash.i"
 %include "includes/libtorrent_sha1_hash_type_aliases.i"
 %include "includes/libtorrent_stats_metric.i"
