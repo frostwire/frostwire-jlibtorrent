@@ -1,9 +1,3 @@
-%ignore libtorrent::dht_put_alert::dht_put_alert;
-%ignore libtorrent::dht_put_alert::public_key;
-%ignore libtorrent::dht_put_alert::signature;
-%ignore libtorrent::dht_put_alert::salt;
-%ignore libtorrent::dht_put_alert::seq;
-
 namespace libtorrent {
     %extend dht_put_alert {
         std::array<std::int8_t, 32> get_public_key() {

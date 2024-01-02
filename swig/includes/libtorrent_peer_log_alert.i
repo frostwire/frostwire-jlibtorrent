@@ -1,4 +1,3 @@
-%ignore libtorrent::peer_log_alert::event_type;
 namespace libtorrent {
     %extend peer_log_alert {
         std::string get_event_type() {

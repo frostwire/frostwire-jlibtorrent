@@ -1,9 +1,3 @@
-%ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
-%ignore libtorrent::dht_mutable_item_alert::key;
-%ignore libtorrent::dht_mutable_item_alert::signature;
-%ignore libtorrent::dht_mutable_item_alert::seq;
-%ignore libtorrent::dht_mutable_item_alert::salt;
-
 namespace libtorrent {
     %extend dht_mutable_item_alert {
 

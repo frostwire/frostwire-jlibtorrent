@@ -1,4 +1,3 @@
-%ignore libtorrent::dht_pkt_alert::node;
 namespace libtorrent {
     %extend dht_pkt_alert {
         udp::endpoint get_node() {
