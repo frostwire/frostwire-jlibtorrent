@@ -1,0 +1,1 @@
+%include "libtorrent/read_resume_data.hpp"

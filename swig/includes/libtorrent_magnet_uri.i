@@ -1,0 +1,1 @@
+%include "libtorrent/magnet_uri.hpp"

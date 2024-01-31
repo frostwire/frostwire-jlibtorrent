@@ -11,6 +11,11 @@ targetCompatibility = '1.8'
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
+// make build stop at the first error
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xmaxerrs" << "1"
+}
+
 if (!hasProperty('ossrhUsername')) {
     ext.ossrhUsername = ''
 }
@@ -24,7 +29,7 @@ repositories {
 }
 
 dependencies {
-		implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
 }
 
 tasks.withType(Test) {

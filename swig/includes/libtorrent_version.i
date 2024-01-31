@@ -1,0 +1,1 @@
+%include "libtorrent/version.hpp"

@@ -28,10 +28,9 @@ RUN apt install -y g++-7-multilib
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-# uncomment if building jlibtorrent 1.2.x
 ENV LIBTORRENT_REVISION=c2012b084c6654d681720ea0693d87a48bc95b14
 ENV LIBTORRENT_BRANCH="RC_2_0"
-ENV SWIG_VERSION="4.0.2"
+ENV SWIG_VERSION="4.1.1"
 ENV BOOST_MAJOR="1"
 ENV BOOST_VERSION="82"
 ENV BOOST_MINOR="0"
@@ -62,7 +61,7 @@ RUN cd /src \
 		&& wget -nv https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
 		&& tar xzf swig-${SWIG_VERSION}.tar.gz \
 		&& cd /src/swig-${SWIG_VERSION} \
-		&& ./configure \
+		&& ./configure --without-d \
 		&& make -j 8 \
     && make install
 
@@ -167,7 +166,7 @@ RUN rm -fr /src/libtorrent
 RUN cd /src \
     && git clone https://github.com/gubatron/libtorrent \
     && cd libtorrent \
-    && git fetch origin RC_1_2 \
+    && git fetch origin RC_2_0 \
     && git reset --hard ${LIBTORRENT_REVISION} \
     && git submodule init \
     && git submodule update \
