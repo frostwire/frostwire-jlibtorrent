@@ -20,10 +20,12 @@
 #pragma SWIG nowarn=317
 
 %include "includes/libtorrent_java.i"
-
+ //%include "includes/libtorrent_flags.i"
+  
 %{
 // BEGIN common set include (just include but don't wrap)----------------------------------------------
 #include <libtorrent/flags.hpp>
+#include <libtorrent/torrent_handle.hpp>
 #include <libtorrent/address.hpp>
 #include <libtorrent/socket.hpp>
 #include <libtorrent/kademlia/dht_state.hpp>
@@ -41,6 +43,7 @@
 #include <libtorrent/file_storage.hpp>
 #include <libtorrent/fingerprint.hpp>
 #include <libtorrent/info_hash.hpp>
+#include <libtorrent/storage_defs.hpp>
 #include <libtorrent/ip_filter.hpp>
 #include <libtorrent/magnet_uri.hpp>
 #include <libtorrent/operations.hpp>
@@ -62,9 +65,9 @@
 #include <libtorrent/settings_pack.hpp>
 #include <libtorrent/sha1_hash.hpp>
 #include <libtorrent/socket_type.hpp>
-#include <libtorrent/storage_defs.hpp>
+
 #include <libtorrent/torrent_flags.hpp>
-#include <libtorrent/torrent_handle.hpp>
+//#include <libtorrent/torrent_handle.hpp>
 #include <libtorrent/torrent_info.hpp>
 #include <libtorrent/torrent_status.hpp>
 #include <libtorrent/version.hpp>
@@ -83,6 +86,8 @@ using queue_position_t = libtorrent::queue_position_t;
 template <typename IndexType>
 using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 
+//using flags = libtorrent::flags;
+//using port_mapping_t = libtorrent::port_mapping_t;
 using add_torrent_params = libtorrent::add_torrent_params;
 using address = libtorrent::address;
 using alert = libtorrent::alert;
@@ -102,7 +107,8 @@ using peer_info = libtorrent::peer_info;
 using peer_request = libtorrent::peer_request;
 using peer_source_flags_t = libtorrent::peer_source_flags_t;
 using pex_flags_t = libtorrent::pex_flags_t;
-using port_mapping_t = libtorrent::port_mapping_t;
+using portmap_transport = libtorrent::portmap_transport;
+using portmap_protocol = libtorrent::portmap_protocol;
 using protocol_version = libtorrent::protocol_version;
 using remove_flags_t = libtorrent::remove_flags_t;
 using reopen_network_flags_t = libtorrent::reopen_network_flags_t;
@@ -110,9 +116,11 @@ using save_state_flags_t = libtorrent::save_state_flags_t;
 using session_flags_t = libtorrent::session_flags_t;
 using session_params = libtorrent::session_params;
 using settings_pack = libtorrent::settings_pack;
+using sha1_hash = libtorrent::sha1_hash;
 using sha256_hash = libtorrent::sha256_hash;
 using socket_type_t = libtorrent::socket_type_t;
 using storage_mode_t = libtorrent::storage_mode_t;
+using string_view = libtorrent::string_view;
 using tcp = libtorrent::tcp;
 using torrent_flags_t = libtorrent::torrent_flags_t;
 using torrent_info = libtorrent::torrent_info;
@@ -203,26 +211,27 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 // Includes of what's actually going to be wrapped.
 // Order of inclusion matters.
 %include "includes/libtorrent_span.i"
+%include "includes/libtorrent_flags.i"
 %include "includes/libtorrent_address.i"
 %include "includes/libtorrent_tcp_endpoint.i"
 %include "includes/libtorrent_udp_endpoint.i"
+%include "includes/libtorrent_kademlia_dht_state.i"
 %include "includes/libtorrent_error_code.i"
 %include "includes/libtorrent_announce.i"
+%include "includes/libtorrent_storage_defs.i"
 %include "includes/libtorrent_file_storage.i"
 %include "includes/libtorrent_peer_request.i"
 %include "includes/libtorrent_bdecode.i"
 %include "includes/libtorrent_torrent_info.i"
-%include "includes/libtorrent_flags.i"
 %include "includes/libtorrent_structs.i"
 %include "includes/libtorrent_add_torrent_params.i"
-//%include "includes/libtorrent_close_reason.i" // need to create
+%include "includes/libtorrent_close_reason.i"
 %include "includes/libtorrent_peer_info.i"
-//%include "includes/libtorrent_pex_flags.i" // need to create
 %include "includes/libtorrent_torrent_handle.i"
 %include "includes/libtorrent_torrent_status.i"
-//%include "includes/libtorrent_performance_counters.i" // need to create
-//%include "includes/libtorrent_portmap.i" // need to create
-//%include "includes/libtorrent_piece_block.i" // need to create
+%include "includes/libtorrent_performance_counters.i"
+%include "includes/libtorrent_portmap.i"
+%include "includes/libtorrent_piece_block.i"
 %include "includes/libtorrent_socket_type.i"
 %include "includes/libtorrent_entry.i"
 //%include "includes/libtorrent_tracker_event.i" // will need to create when this is merged from master
@@ -268,6 +277,8 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_fingerprint.i"
 %include "includes/libtorrent_read_resume_data.i"
 %include "includes/libtorrent_write_resume_data.i"
+
+//%include "includes/libtorrent_web_seed_entry.i" // when web_seed_entry.hpp is merged from master, currently web_seed_entry lives in torrent_info.hpp
 
 %include "includes/libtorrent_bloom_filter.i"
 %include "includes/libtorrent_client_data.i"

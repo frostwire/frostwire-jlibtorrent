@@ -6,7 +6,7 @@ namespace libtorrent {
 
 namespace libtorrent {
     struct connection_type_tag;
-    %template(connection_type_t) flags::bitfield_flag<std::uint8_t, connection_type_tag>;
+    %template(connection_type_t) libtorrent::flags::bitfield_flag<std::uint8_t, connection_type_tag>;
 
     %extend peer_info {
         std::vector<int8_t> get_client() {
