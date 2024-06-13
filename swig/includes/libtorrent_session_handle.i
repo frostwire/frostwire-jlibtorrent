@@ -66,7 +66,7 @@ namespace libtorrent {
             $self->add_extension(std::shared_ptr<libtorrent::plugin>(ext));
         }
 
-        void dht_announce_ex(sha1_hash const& info_hash, int port = 0, std::int8_t flags = {}) {
+        void dht_announce_ex(libtorrent::sha1_hash const& info_hash, int port = 0, std::int8_t flags = {}) {
             $self->dht_announce(info_hash, port, libtorrent::dht::announce_flags_t{static_cast<std::uint8_t>(flags)});
         }
 

@@ -321,6 +321,7 @@
 %ignore libtorrent::stats_alert;
 %ignore libtorrent::stats_metric::name;
 %ignore libtorrent::storage_error;
+%ignore libtorrent::storage_params;
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::torrent_conflict_alert::metadata;

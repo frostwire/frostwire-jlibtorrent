@@ -1,6 +1,5 @@
 namespace libtorrent {
     namespace flags {
-
         template<typename UnderlyingType, typename Tag>
         struct bitfield_flag
         {
@@ -20,32 +19,32 @@ namespace libtorrent {
                     return $self->operator bool();
                 }
 
-                bool eq(bitfield_flag const f)
+                bool eq(libtorrent::flags::bitfield_flag const f)
                 {
                     return $self->operator==(f);
                 }
 
-                bool ne(bitfield_flag const f)
+                bool ne(libtorrent::flags::bitfield_flag const f)
                 {
                     return $self->operator!=(f);
                 }
 
-                bitfield_flag or_(bitfield_flag const other)
+                libtorrent::flags::bitfield_flag or_(libtorrent::flags::bitfield_flag const other)
                 {
                     return *$self | other;
                 }
 
-                bitfield_flag and_(bitfield_flag const other)
+                libtorrent::flags::bitfield_flag and_(libtorrent::flags::bitfield_flag const other)
                 {
                     return *$self & other;
                 }
 
-                bitfield_flag xor(bitfield_flag const other)
+                libtorrent::flags::bitfield_flag xor(libtorrent::flags::bitfield_flag const other)
                 {
                     return *$self ^ other;
                 }
 
-                bitfield_flag inv()
+                libtorrent::flags::bitfield_flag inv()
                 {
                     return $self->operator~();
                 }
@@ -55,9 +54,9 @@ namespace libtorrent {
                     return static_cast<int>(static_cast<UnderlyingType>(*$self));
                 }
 
-                static bitfield_flag from_int(int val)
+                static libtorrent::flags::bitfield_flag from_int(int val)
                 {
-                    return lt::flags::bitfield_flag<UnderlyingType, Tag>(static_cast<UnderlyingType>(val));
+                    return libtorrent::flags::bitfield_flag<UnderlyingType, Tag>(static_cast<UnderlyingType>(val));
                 }
             }
         }; // struct bitfield_flag
