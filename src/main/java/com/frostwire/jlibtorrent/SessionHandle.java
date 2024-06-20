@@ -54,11 +54,6 @@ public class SessionHandle {
     public static final save_state_flags_t SAVE_SETTINGS = session_handle.save_settings;
 
     /**
-     * Saves {@link DhtSettings}.
-     */
-    public static final save_state_flags_t SAVE_DHT_SETTINGS = session_handle.save_dht_settings;
-
-    /**
      * Saves dht state such as nodes and node-id, possibly accelerating
      * joining the DHT if provided at next session startup.
      */
@@ -362,10 +357,6 @@ public class SessionHandle {
     // ``is_dht_running()`` returns true if the DHT support has been started
     // and false
     // otherwise.
-
-    void setDhtSettings(DhtSettings settings) {
-        s.set_dht_settings(settings.swig());
-    }
 
     public boolean isDhtRunning() {
         return s.is_dht_running();
