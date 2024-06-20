@@ -290,8 +290,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_operations.i"
 %include "includes/libtorrent_peer_class_type_filter.i"
 %include "includes/libtorrent_peer_connection_handle.i"
-%include "includes/libtorrent_portmap_protocol.i"
-%include "includes/libtorrent_portmap_transport.i"
 %include "includes/libtorrent_sha1_hash.i"
 %include "includes/libtorrent_sha1_hash_type_aliases.i"
 %include "includes/libtorrent_stats_metric.i"
