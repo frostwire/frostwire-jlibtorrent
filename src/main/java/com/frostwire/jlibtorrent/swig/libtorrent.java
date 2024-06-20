@@ -13,6 +13,18 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.print_error(error_code.getCPtr(arg0), arg0);
   }
 
+  public static status_t op_or(status_t lhs, status_t rhs) {
+    return status_t.swigToEnum(libtorrent_jni.op_or(lhs.swigValue(), rhs.swigValue()));
+  }
+
+  public static status_t op_and(status_t lhs, status_t rhs) {
+    return status_t.swigToEnum(libtorrent_jni.op_and(lhs.swigValue(), rhs.swigValue()));
+  }
+
+  public static status_t op_inv(status_t lhs) {
+    return status_t.swigToEnum(libtorrent_jni.op_inv(lhs.swigValue()));
+  }
+
   public static alert_category_t getError() {
     long cPtr = libtorrent_jni.error_get();
     return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
