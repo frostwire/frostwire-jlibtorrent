@@ -215,6 +215,9 @@ public class libtorrent_jni {
   public final static native void announce_entry_set_trackerid(long jarg1, announce_entry jarg1_, long jarg2, byte_vector jarg2_);
   public final static native int status_t_mask_get();
   public final static native int status_t_oversized_file_get();
+  public final static native int op_or(int jarg1, int jarg2);
+  public final static native int op_and(int jarg1, int jarg2);
+  public final static native int op_inv(int jarg1);
   public final static native void file_slice_file_index_set(long jarg1, file_slice jarg1_, int jarg2);
   public final static native int file_slice_file_index_get(long jarg1, file_slice jarg1_);
   public final static native void file_slice_offset_set(long jarg1, file_slice jarg1_, long jarg2);
@@ -1186,6 +1189,7 @@ public class libtorrent_jni {
   public final static native long new_counters__SWIG_1(long jarg1, counters jarg1_);
   public final static native long counters_inc_stats_counter__SWIG_0(long jarg1, counters jarg1_, int jarg2, long jarg3);
   public final static native long counters_inc_stats_counter__SWIG_1(long jarg1, counters jarg1_, int jarg2);
+  public final static native long counters_op_at(long jarg1, counters jarg1_, int jarg2);
   public final static native void counters_set_value(long jarg1, counters jarg1_, int jarg2, long jarg3);
   public final static native void counters_blend_stats_counter(long jarg1, counters jarg1_, int jarg2, long jarg3, int jarg4);
   public final static native void delete_counters(long jarg1);
@@ -2784,6 +2788,9 @@ public class libtorrent_jni {
   public final static native boolean sha1_hash_op_ne(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native boolean sha1_hash_op_lt(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native int sha1_hash_count_leading_zeroes(long jarg1, sha1_hash jarg1_);
+  public final static native long sha1_hash_op_inv(long jarg1, sha1_hash jarg1_);
+  public final static native long sha1_hash_op_xor(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long sha1_hash_op_and(long jarg1, sha1_hash jarg1_, long jarg2, sha1_hash jarg2_);
   public final static native long new_sha1_hash__SWIG_2(long jarg1, byte_vector jarg1_);
   public final static native void sha1_hash_assign(long jarg1, sha1_hash jarg1_, long jarg2, byte_vector jarg2_);
   public final static native int sha1_hash_hash_code(long jarg1, sha1_hash jarg1_);
@@ -2803,6 +2810,9 @@ public class libtorrent_jni {
   public final static native boolean sha256_hash_op_ne(long jarg1, sha256_hash jarg1_, long jarg2, sha256_hash jarg2_);
   public final static native boolean sha256_hash_op_lt(long jarg1, sha256_hash jarg1_, long jarg2, sha256_hash jarg2_);
   public final static native int sha256_hash_count_leading_zeroes(long jarg1, sha256_hash jarg1_);
+  public final static native long sha256_hash_op_inv(long jarg1, sha256_hash jarg1_);
+  public final static native long sha256_hash_op_xor(long jarg1, sha256_hash jarg1_, long jarg2, sha256_hash jarg2_);
+  public final static native long sha256_hash_op_and(long jarg1, sha256_hash jarg1_, long jarg2, sha256_hash jarg2_);
   public final static native long new_sha256_hash__SWIG_2(long jarg1, byte_vector jarg1_);
   public final static native void sha256_hash_assign(long jarg1, sha256_hash jarg1_, long jarg2, byte_vector jarg2_);
   public final static native int sha256_hash_hash_code(long jarg1, sha256_hash jarg1_);

@@ -20,7 +20,6 @@
 #pragma SWIG nowarn=317
 
 %include "includes/libtorrent_java.i"
- //%include "includes/libtorrent_flags.i"
   
 %{
 // BEGIN common set include (just include but don't wrap)----------------------------------------------
@@ -188,6 +187,11 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %rename(op_lte) operator<=;
 %rename(op_gte) operator>=;
 %rename(op_bool) operator bool;
+%rename(op_inv) operator~;
+%rename(op_xor) operator^;
+%rename(op_or) operator|;
+%rename(op_and) operator&;
+%rename(op_at) operator[];
 
 %rename(libtorrent_no_error) libtorrent::errors::no_error;
 %rename(libtorrent_errors) libtorrent::errors::error_code_enum;

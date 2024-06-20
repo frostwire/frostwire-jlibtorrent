@@ -87,6 +87,18 @@ public class sha256_hash {
     return libtorrent_jni.sha256_hash_count_leading_zeroes(swigCPtr, this);
   }
 
+  public sha256_hash op_inv() {
+    return new sha256_hash(libtorrent_jni.sha256_hash_op_inv(swigCPtr, this), true);
+  }
+
+  public sha256_hash op_xor(sha256_hash n) {
+    return new sha256_hash(libtorrent_jni.sha256_hash_op_xor(swigCPtr, this, sha256_hash.getCPtr(n), n), true);
+  }
+
+  public sha256_hash op_and(sha256_hash n) {
+    return new sha256_hash(libtorrent_jni.sha256_hash_op_and(swigCPtr, this, sha256_hash.getCPtr(n), n), true);
+  }
+
   public sha256_hash(byte_vector v) {
     this(libtorrent_jni.new_sha256_hash__SWIG_2(byte_vector.getCPtr(v), v), true);
   }
