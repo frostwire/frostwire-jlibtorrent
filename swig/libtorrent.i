@@ -234,7 +234,8 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_torrent_handle.i"
 %include "includes/libtorrent_torrent_status.i"
 %include "includes/libtorrent_performance_counters.i"
-%include "includes/libtorrent_portmap.i"
+//breakage:
+//%include "includes/libtorrent_portmap.i"
 %include "includes/libtorrent_piece_block.i"
 %include "includes/libtorrent_socket_type.i"
 %include "includes/libtorrent_entry.i"

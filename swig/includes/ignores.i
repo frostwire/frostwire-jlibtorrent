@@ -60,7 +60,6 @@
 %ignore libtorrent::aux::filter_impl; // maybe remove this one
 %ignore libtorrent::aux::sanitize_append_path_element;
 %ignore libtorrent::aux::verify_encoding;
-%ignore libtorrent::aux::strong_typedef;
 %ignore libtorrent::aux;
 %ignore libtorrent::bdecode_category;
 %ignore libtorrent::block_info::set_peer;
