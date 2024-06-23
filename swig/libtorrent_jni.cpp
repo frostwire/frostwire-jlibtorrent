@@ -968,6 +968,7 @@ using peer_source_flags_t = libtorrent::peer_source_flags_t;
 using pex_flags_t = libtorrent::pex_flags_t;
 using portmap_transport = libtorrent::portmap_transport;
 using portmap_protocol = libtorrent::portmap_protocol;
+using port_mapping_t = libtorrent::aux::strong_typedef<int, struct port_mapping_tag>;
 using protocol_version = libtorrent::protocol_version;
 using remove_flags_t = libtorrent::remove_flags_t;
 using reopen_network_flags_t = libtorrent::reopen_network_flags_t;
@@ -1048,6 +1049,83 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 #include <map>
 #include <stdexcept>
 
+
+/* Check for overflow converting to Java int (always signed 32-bit) from (unsigned variable-bit) size_t */
+SWIGINTERN jint SWIG_JavaIntFromSize_t(size_t size) {
+  static const jint JINT_MAX = 0x7FFFFFFF;
+  return (size > (size_t)JINT_MAX) ? -1 : (jint)size;
+}
+
+
+SWIGINTERN jint SWIG_VectorSize(size_t size) {
+  jint sz = SWIG_JavaIntFromSize_t(size);
+  if (sz == -1)
+    throw std::out_of_range("vector size is too large to fit into a Java int");
+  return sz;
+}
+
+SWIGINTERN std::vector< libtorrent::port_mapping_t > *new_std_vector_Sl_libtorrent_port_mapping_t_Sg___SWIG_2(jint count,libtorrent::port_mapping_t const &value){
+        if (count < 0)
+          throw std::out_of_range("vector count must be positive");
+        return new std::vector< libtorrent::port_mapping_t >(static_cast<std::vector< libtorrent::port_mapping_t >::size_type>(count), value);
+      }
+SWIGINTERN jint std_vector_Sl_libtorrent_port_mapping_t_Sg__doCapacity(std::vector< libtorrent::port_mapping_t > *self){
+        return SWIG_VectorSize(self->capacity());
+      }
+SWIGINTERN void std_vector_Sl_libtorrent_port_mapping_t_Sg__doReserve(std::vector< libtorrent::port_mapping_t > *self,jint n){
+        if (n < 0)
+          throw std::out_of_range("vector reserve size must be positive");
+        self->reserve(n);
+      }
+SWIGINTERN jint std_vector_Sl_libtorrent_port_mapping_t_Sg__doSize(std::vector< libtorrent::port_mapping_t > const *self){
+        return SWIG_VectorSize(self->size());
+      }
+SWIGINTERN void std_vector_Sl_libtorrent_port_mapping_t_Sg__doAdd__SWIG_0(std::vector< libtorrent::port_mapping_t > *self,std::vector< libtorrent::port_mapping_t >::value_type const &x){
+        self->push_back(x);
+      }
+SWIGINTERN void std_vector_Sl_libtorrent_port_mapping_t_Sg__doAdd__SWIG_1(std::vector< libtorrent::port_mapping_t > *self,jint index,std::vector< libtorrent::port_mapping_t >::value_type const &x){
+        jint size = static_cast<jint>(self->size());
+        if (0 <= index && index <= size) {
+          self->insert(self->begin() + index, x);
+        } else {
+          throw std::out_of_range("vector index out of range");
+        }
+      }
+SWIGINTERN std::vector< libtorrent::port_mapping_t >::value_type std_vector_Sl_libtorrent_port_mapping_t_Sg__doRemove(std::vector< libtorrent::port_mapping_t > *self,jint index){
+        jint size = static_cast<jint>(self->size());
+        if (0 <= index && index < size) {
+          libtorrent::port_mapping_t const old_value = (*self)[index];
+          self->erase(self->begin() + index);
+          return old_value;
+        } else {
+          throw std::out_of_range("vector index out of range");
+        }
+      }
+SWIGINTERN std::vector< libtorrent::port_mapping_t >::value_type const &std_vector_Sl_libtorrent_port_mapping_t_Sg__doGet(std::vector< libtorrent::port_mapping_t > *self,jint index){
+        jint size = static_cast<jint>(self->size());
+        if (index >= 0 && index < size)
+          return (*self)[index];
+        else
+          throw std::out_of_range("vector index out of range");
+      }
+SWIGINTERN std::vector< libtorrent::port_mapping_t >::value_type std_vector_Sl_libtorrent_port_mapping_t_Sg__doSet(std::vector< libtorrent::port_mapping_t > *self,jint index,std::vector< libtorrent::port_mapping_t >::value_type const &val){
+        jint size = static_cast<jint>(self->size());
+        if (index >= 0 && index < size) {
+          libtorrent::port_mapping_t const old_value = (*self)[index];
+          (*self)[index] = val;
+          return old_value;
+        }
+        else
+          throw std::out_of_range("vector index out of range");
+      }
+SWIGINTERN void std_vector_Sl_libtorrent_port_mapping_t_Sg__doRemoveRange(std::vector< libtorrent::port_mapping_t > *self,jint fromIndex,jint toIndex){
+        jint size = static_cast<jint>(self->size());
+        if (0 <= fromIndex && fromIndex <= toIndex && toIndex <= size) {
+          self->erase(self->begin() + fromIndex, self->begin() + toIndex);
+        } else {
+          throw std::out_of_range("vector index out of range");
+        }
+      }
 SWIGINTERN int8_t libtorrent_span_Sl_char_Sg__get(libtorrent::span< char > *self,size_t const idx){
                 return (*self)[idx];
             }
@@ -2471,21 +2549,6 @@ SWIGINTERN std::vector< int8_t > libtorrent_string_view_to_bytes(libtorrent::str
                 std::string s = self->to_string();
                 return std::vector<int8_t>(s.begin(), s.end());
             }
-
-/* Check for overflow converting to Java int (always signed 32-bit) from (unsigned variable-bit) size_t */
-SWIGINTERN jint SWIG_JavaIntFromSize_t(size_t size) {
-  static const jint JINT_MAX = 0x7FFFFFFF;
-  return (size > (size_t)JINT_MAX) ? -1 : (jint)size;
-}
-
-
-SWIGINTERN jint SWIG_VectorSize(size_t size) {
-  jint sz = SWIG_JavaIntFromSize_t(size);
-  if (sz == -1)
-    throw std::out_of_range("vector size is too large to fit into a Java int");
-  return sz;
-}
-
 SWIGINTERN std::vector< std::pair< libtorrent::address,libtorrent::digest32< 160 > > > *new_std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg___SWIG_2(jint count,std::pair< libtorrent::address,libtorrent::digest32< 160 > > const &value){
         if (count < 0)
           throw std::out_of_range("vector count must be positive");
@@ -4019,68 +4082,6 @@ SWIGINTERN void std_vector_Sl_libtorrent_piece_index_t_Sg__doRemoveRange(std::ve
           throw std::out_of_range("vector index out of range");
         }
       }
-SWIGINTERN std::vector< libtorrent::port_mapping_t > *new_std_vector_Sl_libtorrent_port_mapping_t_Sg___SWIG_2(jint count,libtorrent::port_mapping_t const &value){
-        if (count < 0)
-          throw std::out_of_range("vector count must be positive");
-        return new std::vector< libtorrent::port_mapping_t >(static_cast<std::vector< libtorrent::port_mapping_t >::size_type>(count), value);
-      }
-SWIGINTERN jint std_vector_Sl_libtorrent_port_mapping_t_Sg__doCapacity(std::vector< libtorrent::port_mapping_t > *self){
-        return SWIG_VectorSize(self->capacity());
-      }
-SWIGINTERN void std_vector_Sl_libtorrent_port_mapping_t_Sg__doReserve(std::vector< libtorrent::port_mapping_t > *self,jint n){
-        if (n < 0)
-          throw std::out_of_range("vector reserve size must be positive");
-        self->reserve(n);
-      }
-SWIGINTERN jint std_vector_Sl_libtorrent_port_mapping_t_Sg__doSize(std::vector< libtorrent::port_mapping_t > const *self){
-        return SWIG_VectorSize(self->size());
-      }
-SWIGINTERN void std_vector_Sl_libtorrent_port_mapping_t_Sg__doAdd__SWIG_0(std::vector< libtorrent::port_mapping_t > *self,std::vector< libtorrent::port_mapping_t >::value_type const &x){
-        self->push_back(x);
-      }
-SWIGINTERN void std_vector_Sl_libtorrent_port_mapping_t_Sg__doAdd__SWIG_1(std::vector< libtorrent::port_mapping_t > *self,jint index,std::vector< libtorrent::port_mapping_t >::value_type const &x){
-        jint size = static_cast<jint>(self->size());
-        if (0 <= index && index <= size) {
-          self->insert(self->begin() + index, x);
-        } else {
-          throw std::out_of_range("vector index out of range");
-        }
-      }
-SWIGINTERN std::vector< libtorrent::port_mapping_t >::value_type std_vector_Sl_libtorrent_port_mapping_t_Sg__doRemove(std::vector< libtorrent::port_mapping_t > *self,jint index){
-        jint size = static_cast<jint>(self->size());
-        if (0 <= index && index < size) {
-          libtorrent::port_mapping_t const old_value = (*self)[index];
-          self->erase(self->begin() + index);
-          return old_value;
-        } else {
-          throw std::out_of_range("vector index out of range");
-        }
-      }
-SWIGINTERN std::vector< libtorrent::port_mapping_t >::value_type const &std_vector_Sl_libtorrent_port_mapping_t_Sg__doGet(std::vector< libtorrent::port_mapping_t > *self,jint index){
-        jint size = static_cast<jint>(self->size());
-        if (index >= 0 && index < size)
-          return (*self)[index];
-        else
-          throw std::out_of_range("vector index out of range");
-      }
-SWIGINTERN std::vector< libtorrent::port_mapping_t >::value_type std_vector_Sl_libtorrent_port_mapping_t_Sg__doSet(std::vector< libtorrent::port_mapping_t > *self,jint index,std::vector< libtorrent::port_mapping_t >::value_type const &val){
-        jint size = static_cast<jint>(self->size());
-        if (index >= 0 && index < size) {
-          libtorrent::port_mapping_t const old_value = (*self)[index];
-          (*self)[index] = val;
-          return old_value;
-        }
-        else
-          throw std::out_of_range("vector index out of range");
-      }
-SWIGINTERN void std_vector_Sl_libtorrent_port_mapping_t_Sg__doRemoveRange(std::vector< libtorrent::port_mapping_t > *self,jint fromIndex,jint toIndex){
-        jint size = static_cast<jint>(self->size());
-        if (0 <= fromIndex && fromIndex <= toIndex && toIndex <= size) {
-          self->erase(self->begin() + fromIndex, self->begin() + toIndex);
-        } else {
-          throw std::out_of_range("vector index out of range");
-        }
-      }
 SWIGINTERN std::vector< std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > > *new_std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg___SWIG_2(jint count,std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > const &value){
         if (count < 0)
           throw std::out_of_range("vector count must be positive");
@@ -5340,6 +5341,442 @@ void SwigDirector_posix_wrapper::swig_connect_director(JNIEnv *jenv, jobject jse
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1PortMappingVector_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  std::vector< libtorrent::port_mapping_t > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (std::vector< libtorrent::port_mapping_t > *)new std::vector< libtorrent::port_mapping_t >();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< libtorrent::port_mapping_t > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1PortMappingVector_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< libtorrent::port_mapping_t > *arg1 = 0 ;
+  std::vector< libtorrent::port_mapping_t > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::port_mapping_t > const & is null");
+    return 0;
+  } 
+  {
+    try {
+      result = (std::vector< libtorrent::port_mapping_t > *)new std::vector< libtorrent::port_mapping_t >((std::vector< libtorrent::port_mapping_t > const &)*arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< libtorrent::port_mapping_t > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1isEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  {
+    try {
+      result = (bool)((std::vector< libtorrent::port_mapping_t > const *)arg1)->empty();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  {
+    try {
+      (arg1)->clear();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1PortMappingVector_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jint jarg1, jlong jarg2) {
+  jlong jresult = 0 ;
+  jint arg1 ;
+  libtorrent::port_mapping_t *arg2 = 0 ;
+  std::vector< libtorrent::port_mapping_t > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = jarg1; 
+  arg2 = *(libtorrent::port_mapping_t **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::port_mapping_t const & is null");
+    return 0;
+  } 
+  {
+    try {
+      try {
+        result = (std::vector< libtorrent::port_mapping_t > *)new_std_vector_Sl_libtorrent_port_mapping_t_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::aux::strong_typedef< int,libtorrent::port_mapping_tag > const &)*arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return 0;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< libtorrent::port_mapping_t > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  jint result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  {
+    try {
+      try {
+        result = std_vector_Sl_libtorrent_port_mapping_t_Sg__doCapacity(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return 0;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doReserve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  jint arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  arg2 = jarg2; 
+  {
+    try {
+      try {
+        std_vector_Sl_libtorrent_port_mapping_t_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
+      } catch(std::length_error &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return ;
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return ;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  jint result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  {
+    try {
+      try {
+        result = std_vector_Sl_libtorrent_port_mapping_t_Sg__doSize((std::vector< libtorrent::port_mapping_t > const *)arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return 0;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doAdd_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  std::vector< libtorrent::port_mapping_t >::value_type *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  arg2 = *(std::vector< libtorrent::port_mapping_t >::value_type **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::port_mapping_t >::value_type const & is null");
+    return ;
+  } 
+  {
+    try {
+      std_vector_Sl_libtorrent_port_mapping_t_Sg__doAdd__SWIG_0(arg1,(std::vector< libtorrent::port_mapping_t >::value_type const &)*arg2);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doAdd_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  jint arg2 ;
+  std::vector< libtorrent::port_mapping_t >::value_type *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  arg2 = jarg2; 
+  arg3 = *(std::vector< libtorrent::port_mapping_t >::value_type **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::port_mapping_t >::value_type const & is null");
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_libtorrent_port_mapping_t_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::vector< libtorrent::port_mapping_t >::value_type const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return ;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doRemove(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  jint arg2 ;
+  std::vector< libtorrent::port_mapping_t >::value_type result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  arg2 = jarg2; 
+  {
+    try {
+      try {
+        result = std_vector_Sl_libtorrent_port_mapping_t_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return 0;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< libtorrent::port_mapping_t >::value_type **)&jresult = new std::vector< libtorrent::port_mapping_t >::value_type(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doGet(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  jint arg2 ;
+  std::vector< libtorrent::port_mapping_t >::value_type *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  arg2 = jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< libtorrent::port_mapping_t >::value_type *) &std_vector_Sl_libtorrent_port_mapping_t_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return 0;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< libtorrent::port_mapping_t >::value_type **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doSet(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
+  jlong jresult = 0 ;
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  jint arg2 ;
+  std::vector< libtorrent::port_mapping_t >::value_type *arg3 = 0 ;
+  std::vector< libtorrent::port_mapping_t >::value_type result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  arg2 = jarg2; 
+  arg3 = *(std::vector< libtorrent::port_mapping_t >::value_type **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::port_mapping_t >::value_type const & is null");
+    return 0;
+  } 
+  {
+    try {
+      try {
+        result = std_vector_Sl_libtorrent_port_mapping_t_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::vector< libtorrent::port_mapping_t >::value_type const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return 0;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< libtorrent::port_mapping_t >::value_type **)&jresult = new std::vector< libtorrent::port_mapping_t >::value_type(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_PortMappingVector_1doRemoveRange(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  jint arg2 ;
+  jint arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  arg2 = jarg2; 
+  arg3 = jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_libtorrent_port_mapping_t_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
+      } catch(std::out_of_range &_e) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+        return ;
+      }
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1PortMappingVector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1error_1code(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
@@ -44293,36 +44730,30 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_p
 }
 
 
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1error_1alert_1map_1transport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1error_1alert_1map_1transport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   libtorrent::portmap_error_alert *arg1 = (libtorrent::portmap_error_alert *) 0 ;
-  portmap_transport arg2 ;
-  portmap_transport *argp2 ;
+  libtorrent::portmap_transport arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::portmap_error_alert **)&jarg1; 
-  argp2 = *(portmap_transport **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null portmap_transport");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (libtorrent::portmap_transport)jarg2; 
   if (arg1) (arg1)->map_transport = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1error_1alert_1map_1transport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1error_1alert_1map_1transport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   libtorrent::portmap_error_alert *arg1 = (libtorrent::portmap_error_alert *) 0 ;
-  portmap_transport result;
+  libtorrent::portmap_transport result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::portmap_error_alert **)&jarg1; 
-  result =  ((arg1)->map_transport);
-  *(portmap_transport **)&jresult = new portmap_transport(result); 
+  result = (libtorrent::portmap_transport) ((arg1)->map_transport);
+  jresult = (jint)result; 
   return jresult;
 }
 
@@ -44538,32 +44969,32 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1alert_1map_1protocol_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1alert_1map_1protocol_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   libtorrent::portmap_alert *arg1 = (libtorrent::portmap_alert *) 0 ;
-  portmap_protocol result;
+  libtorrent::portmap_protocol result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::portmap_alert **)&jarg1; 
-  result = (portmap_protocol) ((arg1)->map_protocol);
-  *(portmap_protocol **)&jresult = new portmap_protocol(result); 
+  result = (libtorrent::portmap_protocol)(libtorrent::portmap_protocol) ((arg1)->map_protocol);
+  jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1alert_1map_1transport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1alert_1map_1transport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   libtorrent::portmap_alert *arg1 = (libtorrent::portmap_alert *) 0 ;
-  portmap_transport result;
+  libtorrent::portmap_transport result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::portmap_alert **)&jarg1; 
-  result = (portmap_transport) ((arg1)->map_transport);
-  *(portmap_transport **)&jresult = new portmap_transport(result); 
+  result = (libtorrent::portmap_transport)(libtorrent::portmap_transport) ((arg1)->map_transport);
+  jresult = (jint)result; 
   return jresult;
 }
 
@@ -44749,17 +45180,17 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_p
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1log_1alert_1map_1transport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_portmap_1log_1alert_1map_1transport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   libtorrent::portmap_log_alert *arg1 = (libtorrent::portmap_log_alert *) 0 ;
-  portmap_transport result;
+  libtorrent::portmap_transport result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::portmap_log_alert **)&jarg1; 
-  result = (portmap_transport) ((arg1)->map_transport);
-  *(portmap_transport **)&jresult = new portmap_transport(result); 
+  result = (libtorrent::portmap_transport)(libtorrent::portmap_transport) ((arg1)->map_transport);
+  jresult = (jint)result; 
   return jresult;
 }
 
@@ -58187,26 +58618,26 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1udp_1get(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  portmap_protocol result;
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1udp_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  enum libtorrent::portmap_protocol result;
   
   (void)jenv;
   (void)jcls;
-  result = libtorrent::session_handle::udp;
-  *(portmap_protocol **)&jresult = new portmap_protocol(result); 
+  result = (enum libtorrent::portmap_protocol)libtorrent::session_handle::udp;
+  jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1tcp_1get(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  portmap_protocol result;
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1tcp_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  enum libtorrent::portmap_protocol result;
   
   (void)jenv;
   (void)jcls;
-  result = libtorrent::session_handle::tcp;
-  *(portmap_protocol **)&jresult = new portmap_protocol(result); 
+  result = (enum libtorrent::portmap_protocol)libtorrent::session_handle::tcp;
+  jresult = (jint)result; 
   return jresult;
 }
 
@@ -58616,30 +59047,24 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1add_1port_1mapping_1ex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1handle_1add_1port_1mapping_1ex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4) {
   jlong jresult = 0 ;
   libtorrent::session_handle *arg1 = (libtorrent::session_handle *) 0 ;
   libtorrent::portmap_protocol arg2 ;
   int arg3 ;
   int arg4 ;
-  libtorrent::portmap_protocol *argp2 ;
   std::vector< int > result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::session_handle **)&jarg1; 
-  argp2 = *(libtorrent::portmap_protocol **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null libtorrent::portmap_protocol");
-    return 0;
-  }
-  arg2 = *argp2; 
+  arg2 = (libtorrent::portmap_protocol)jarg2; 
   arg3 = (int)jarg3; 
   arg4 = (int)jarg4; 
   {
     try {
-      result = libtorrent_session_handle_add_port_mapping_ex(arg1,SWIG_STD_MOVE(arg2),arg3,arg4);
+      result = libtorrent_session_handle_add_port_mapping_ex(arg1,arg2,arg3,arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -75778,442 +76203,6 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
   (void)jenv;
   (void)jcls;
   arg1 = *(std::vector< libtorrent::piece_index_t > **)&jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1port_1mapping_1t_1vector_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  std::vector< libtorrent::port_mapping_t > *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    try {
-      result = (std::vector< libtorrent::port_mapping_t > *)new std::vector< libtorrent::port_mapping_t >();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< libtorrent::port_mapping_t > **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1port_1mapping_1t_1vector_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  std::vector< libtorrent::port_mapping_t > *arg1 = 0 ;
-  std::vector< libtorrent::port_mapping_t > *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1;
-  if (!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::port_mapping_t > const & is null");
-    return 0;
-  } 
-  {
-    try {
-      result = (std::vector< libtorrent::port_mapping_t > *)new std::vector< libtorrent::port_mapping_t >((std::vector< libtorrent::port_mapping_t > const &)*arg1);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< libtorrent::port_mapping_t > **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1isEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  {
-    try {
-      result = (bool)((std::vector< libtorrent::port_mapping_t > const *)arg1)->empty();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  {
-    try {
-      (arg1)->clear();
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1port_1mapping_1t_1vector_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jint jarg1, jlong jarg2) {
-  jlong jresult = 0 ;
-  jint arg1 ;
-  libtorrent::port_mapping_t *arg2 = 0 ;
-  std::vector< libtorrent::port_mapping_t > *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = jarg1; 
-  arg2 = *(libtorrent::port_mapping_t **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "libtorrent::port_mapping_t const & is null");
-    return 0;
-  } 
-  {
-    try {
-      try {
-        result = (std::vector< libtorrent::port_mapping_t > *)new_std_vector_Sl_libtorrent_port_mapping_t_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::port_mapping_t const &)*arg2);
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return 0;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< libtorrent::port_mapping_t > **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  jint result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  {
-    try {
-      try {
-        result = std_vector_Sl_libtorrent_port_mapping_t_Sg__doCapacity(arg1);
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return 0;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doReserve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  jint arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  arg2 = jarg2; 
-  {
-    try {
-      try {
-        std_vector_Sl_libtorrent_port_mapping_t_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
-      } catch(std::length_error &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return ;
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return ;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  jint result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  {
-    try {
-      try {
-        result = std_vector_Sl_libtorrent_port_mapping_t_Sg__doSize((std::vector< libtorrent::port_mapping_t > const *)arg1);
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return 0;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doAdd_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  std::vector< libtorrent::port_mapping_t >::value_type *arg2 = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  arg2 = *(std::vector< libtorrent::port_mapping_t >::value_type **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::port_mapping_t >::value_type const & is null");
-    return ;
-  } 
-  {
-    try {
-      std_vector_Sl_libtorrent_port_mapping_t_Sg__doAdd__SWIG_0(arg1,(libtorrent::port_mapping_t const &)*arg2);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doAdd_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  jint arg2 ;
-  std::vector< libtorrent::port_mapping_t >::value_type *arg3 = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  arg2 = jarg2; 
-  arg3 = *(std::vector< libtorrent::port_mapping_t >::value_type **)&jarg3;
-  if (!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::port_mapping_t >::value_type const & is null");
-    return ;
-  } 
-  {
-    try {
-      try {
-        std_vector_Sl_libtorrent_port_mapping_t_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::port_mapping_t const &)*arg3);
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return ;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doRemove(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  jlong jresult = 0 ;
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  jint arg2 ;
-  std::vector< libtorrent::port_mapping_t >::value_type result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  arg2 = jarg2; 
-  {
-    try {
-      try {
-        result = std_vector_Sl_libtorrent_port_mapping_t_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return 0;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< libtorrent::port_mapping_t >::value_type **)&jresult = new std::vector< libtorrent::port_mapping_t >::value_type(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doGet(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  jlong jresult = 0 ;
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  jint arg2 ;
-  std::vector< libtorrent::port_mapping_t >::value_type *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  arg2 = jarg2; 
-  {
-    try {
-      try {
-        result = (std::vector< libtorrent::port_mapping_t >::value_type *) &std_vector_Sl_libtorrent_port_mapping_t_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return 0;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< libtorrent::port_mapping_t >::value_type **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doSet(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
-  jlong jresult = 0 ;
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  jint arg2 ;
-  std::vector< libtorrent::port_mapping_t >::value_type *arg3 = 0 ;
-  std::vector< libtorrent::port_mapping_t >::value_type result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  arg2 = jarg2; 
-  arg3 = *(std::vector< libtorrent::port_mapping_t >::value_type **)&jarg3;
-  if (!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< libtorrent::port_mapping_t >::value_type const & is null");
-    return 0;
-  } 
-  {
-    try {
-      try {
-        result = std_vector_Sl_libtorrent_port_mapping_t_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::port_mapping_t const &)*arg3);
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return 0;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  *(std::vector< libtorrent::port_mapping_t >::value_type **)&jresult = new std::vector< libtorrent::port_mapping_t >::value_type(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_port_1mapping_1t_1vector_1doRemoveRange(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  jint arg2 ;
-  jint arg3 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
-  arg2 = jarg2; 
-  arg3 = jarg3; 
-  {
-    try {
-      try {
-        std_vector_Sl_libtorrent_port_mapping_t_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
-      } catch(std::out_of_range &_e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
-        return ;
-      }
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1port_1mapping_1t_1vector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  std::vector< libtorrent::port_mapping_t > *arg1 = (std::vector< libtorrent::port_mapping_t > *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(std::vector< libtorrent::port_mapping_t > **)&jarg1; 
   {
     try {
       delete arg1;

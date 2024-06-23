@@ -108,6 +108,7 @@ using peer_source_flags_t = libtorrent::peer_source_flags_t;
 using pex_flags_t = libtorrent::pex_flags_t;
 using portmap_transport = libtorrent::portmap_transport;
 using portmap_protocol = libtorrent::portmap_protocol;
+using port_mapping_t = libtorrent::aux::strong_typedef<int, struct port_mapping_tag>;
 using protocol_version = libtorrent::protocol_version;
 using remove_flags_t = libtorrent::remove_flags_t;
 using reopen_network_flags_t = libtorrent::reopen_network_flags_t;
@@ -148,6 +149,15 @@ using udp = libtorrent::udp;
 %apply std::int64_t { std::ptrdiff_t };
 %apply std::int64_t { std::time_t };
 
+%template(PortMappingVector) std::vector<libtorrent::port_mapping_t>;
+%typemap(javatype) libtorrent::port_mapping_t "int"
+%typemap(jstype) libtorrent::port_mapping_t "int"
+%typemap(jni) libtorrent::port_mapping_t "jint"
+%typemap(javain) libtorrent::port_mapping_t "$javainput"
+%typemap(javaout) libtorrent::port_mapping_t {
+    return $jnicall;
+}
+
 %define TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, api_type, java_type)
 
 // don't add deprecated finalize() methods
@@ -176,7 +186,6 @@ TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, underlying_type, java_type)
 TYPE_INTEGRAL_CONVERSION(piece_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
-TYPE_INTEGRAL_CONVERSION(port_mapping_t, int, int)
 TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
@@ -234,8 +243,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_torrent_handle.i"
 %include "includes/libtorrent_torrent_status.i"
 %include "includes/libtorrent_performance_counters.i"
-//breakage:
-//%include "includes/libtorrent_portmap.i"
+%include "includes/libtorrent_portmap.i"
 %include "includes/libtorrent_piece_block.i"
 %include "includes/libtorrent_socket_type.i"
 %include "includes/libtorrent_entry.i"
