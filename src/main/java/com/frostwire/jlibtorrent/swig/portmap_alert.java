@@ -63,12 +63,12 @@ public class portmap_alert extends alert {
     return libtorrent_jni.portmap_alert_external_port_get(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_portmap_protocol getMap_protocol() {
-    return new SWIGTYPE_p_portmap_protocol(libtorrent_jni.portmap_alert_map_protocol_get(swigCPtr, this), true);
+  public portmap_protocol getMap_protocol() {
+    return portmap_protocol.swigToEnum(libtorrent_jni.portmap_alert_map_protocol_get(swigCPtr, this));
   }
 
-  public SWIGTYPE_p_portmap_transport getMap_transport() {
-    return new SWIGTYPE_p_portmap_transport(libtorrent_jni.portmap_alert_map_transport_get(swigCPtr, this), true);
+  public portmap_transport getMap_transport() {
+    return portmap_transport.swigToEnum(libtorrent_jni.portmap_alert_map_transport_get(swigCPtr, this));
   }
 
   public int get_mapping() {
