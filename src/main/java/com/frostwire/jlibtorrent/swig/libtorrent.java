@@ -251,8 +251,8 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.operation_name(op.swigValue());
   }
 
-  public static SWIGTYPE_p_std__arrayT_signed_char_32_t ed25519_create_seed() {
-    return new SWIGTYPE_p_std__arrayT_signed_char_32_t(libtorrent_jni.ed25519_create_seed(), true);
+  public static byte_array_32 ed25519_create_seed() {
+    return new byte_array_32(libtorrent_jni.ed25519_create_seed(), true);
   }
 
   public static byte_vector_byte_vector_pair ed25519_create_keypair(byte_vector seed) {

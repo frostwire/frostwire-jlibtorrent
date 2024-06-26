@@ -73,13 +73,13 @@ public class session_params {
     return (cPtr == 0) ? null : new dht_state(cPtr, false);
   }
 
-  public void setExt_state(SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t value) {
-    libtorrent_jni.session_params_ext_state_set(swigCPtr, this, SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t.getCPtr(value));
+  public void setExt_state(string_string_map value) {
+    libtorrent_jni.session_params_ext_state_set(swigCPtr, this, string_string_map.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t getExt_state() {
+  public string_string_map getExt_state() {
     long cPtr = libtorrent_jni.session_params_ext_state_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t(cPtr, false);
+    return (cPtr == 0) ? null : new string_string_map(cPtr, false);
   }
 
   public void setIp_filter(ip_filter value) {

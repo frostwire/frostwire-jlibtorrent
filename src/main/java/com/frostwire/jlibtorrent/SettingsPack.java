@@ -410,40 +410,6 @@ public final class SettingsPack {
     }
 
     /**
-     * Sets the disk write and read  cache. It is specified in units of 16 KiB
-     * blocks. Buffers that are part of a peer's send or receive buffer also
-     * count against this limit. Send and receive buffers will never be
-     * denied to be allocated, but they will cause the actual cached blocks
-     * to be flushed or evicted. If this is set to -1, the cache size is
-     * automatically set to the amount of physical RAM available in the
-     * machine divided by 8. If the amount of physical RAM cannot be
-     * determined, it's set to 1024 (= 16 MiB).
-     *
-     * @return the current value
-     */
-    public int cacheSize() {
-        return sp.get_int(settings_pack.int_types.cache_size.swigValue());
-    }
-
-    /**
-     * Sets the disk write and read  cache. It is specified in units of 16 KiB
-     * blocks. Buffers that are part of a peer's send or receive buffer also
-     * count against this limit. Send and receive buffers will never be
-     * denied to be allocated, but they will cause the actual cached blocks
-     * to be flushed or evicted. If this is set to -1, the cache size is
-     * automatically set to the amount of physical RAM available in the
-     * machine divided by 8. If the amount of physical RAM cannot be
-     * determined, it's set to 1024 (= 16 MiB).
-     *
-     * @param value the new value
-     * @return this
-     */
-    public SettingsPack cacheSize(int value) {
-        sp.set_int(settings_pack.int_types.cache_size.swigValue(), value);
-        return this;
-    }
-
-    /**
      * @return
      */
     public int tickInterval() {

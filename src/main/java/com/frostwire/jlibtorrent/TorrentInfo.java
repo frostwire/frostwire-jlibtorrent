@@ -177,7 +177,7 @@ public final class TorrentInfo {
      * @return
      */
     public ArrayList<Sha1Hash> similarTorrents() {
-        return Sha1Hash.convert(ti.similar_torrents());
+        return Sha1Hash.convert(ti.similar_torrents ());
     }
 
     /**

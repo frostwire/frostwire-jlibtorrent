@@ -79,8 +79,8 @@ public class bdecode_node {
     return libtorrent_jni.bdecode_node_list_size(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_std__pairT_libtorrent__bdecode_node_libtorrent__bdecode_node_t dict_at_node(int i) {
-    return new SWIGTYPE_p_std__pairT_libtorrent__bdecode_node_libtorrent__bdecode_node_t(libtorrent_jni.bdecode_node_dict_at_node(swigCPtr, this, i), true);
+  public bdecode_node_bdecode_node_pair dict_at_node(int i) {
+    return new bdecode_node_bdecode_node_pair(libtorrent_jni.bdecode_node_dict_at_node(swigCPtr, this, i), true);
   }
 
   public int dict_size() {

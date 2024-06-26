@@ -227,16 +227,16 @@ public class session_handle {
     libtorrent_jni.session_handle_dht_get_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(key), key, byte_vector.getCPtr(salt), salt);
   }
 
-  public void dht_get_item(SWIGTYPE_p_std__arrayT_signed_char_32_t key, byte_vector salt) {
-    libtorrent_jni.session_handle_dht_get_item__SWIG_2(swigCPtr, this, SWIGTYPE_p_std__arrayT_signed_char_32_t.getCPtr(key), byte_vector.getCPtr(salt), salt);
+  public void dht_get_item(byte_array_32 key, byte_vector salt) {
+    libtorrent_jni.session_handle_dht_get_item__SWIG_2(swigCPtr, this, byte_array_32.getCPtr(key), key, byte_vector.getCPtr(salt), salt);
   }
 
   public void dht_put_item(byte_vector key, byte_vector sk, entry data, byte_vector salt) {
     libtorrent_jni.session_handle_dht_put_item__SWIG_1(swigCPtr, this, byte_vector.getCPtr(key), key, byte_vector.getCPtr(sk), sk, entry.getCPtr(data), data, byte_vector.getCPtr(salt), salt);
   }
 
-  public void dht_put_item(SWIGTYPE_p_std__arrayT_signed_char_32_t key, SWIGTYPE_p_std__arrayT_signed_char_64_t sk, entry data, byte_vector salt) {
-    libtorrent_jni.session_handle_dht_put_item__SWIG_2(swigCPtr, this, SWIGTYPE_p_std__arrayT_signed_char_32_t.getCPtr(key), SWIGTYPE_p_std__arrayT_signed_char_64_t.getCPtr(sk), entry.getCPtr(data), data, byte_vector.getCPtr(salt), salt);
+  public void dht_put_item(byte_array_32 key, byte_array_64 sk, entry data, byte_vector salt) {
+    libtorrent_jni.session_handle_dht_put_item__SWIG_2(swigCPtr, this, byte_array_32.getCPtr(key), key, byte_array_64.getCPtr(sk), sk, entry.getCPtr(data), data, byte_vector.getCPtr(salt), salt);
   }
 
   public void dht_direct_request(udp_endpoint ep, entry e, long userdata) {
