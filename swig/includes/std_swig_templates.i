@@ -1,14 +1,11 @@
-namespace std {
-    %template(file_index_string_map) map<libtorrent::file_index_t, std::string>;
-    %template(file_index_vector) std::vector<libtorrent::file_index_t>;
-    %template(piece_index_int_pair) pair<piece_index_t, int>;
-    %template(piece_index_int_pair_vector) vector<std::pair<libtorrent::piece_index_t, int>>;
-    %template(piece_index_vector) std::vector<libtorrent::piece_index_t>;
-    %template(string_long_map) map<std::string, long>;
-    %template(string_view_bdecode_node_pair) pair<libtorrent::string_view, libtorrent::bdecode_node>;
-}; // namespace std
+%template(file_index_string_map) std::map<libtorrent::file_index_t, std::string>;
+%template(file_index_vector) std::vector<libtorrent::file_index_t>;
+%template(piece_index_int_pair) std::pair<piece_index_t, int>;
+%template(piece_index_int_pair_vector) std::vector<std::pair<libtorrent::piece_index_t, int>>;
+%template(piece_index_vector) std::vector<libtorrent::piece_index_t>;
+%template(string_long_map) std::map<std::string, long>;
+%template(string_view_bdecode_node_pair) std::pair<libtorrent::string_view, libtorrent::bdecode_node>;
 
-// default namespace
 %template(string_int_pair) std::pair<std::string, int>;
 %template(string_string_pair) std::pair<std::string, std::string>;
 %template(byte_vector_byte_vector_pair) std::pair<std::vector<std::int8_t>, std::vector<std::int8_t>>;
