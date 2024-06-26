@@ -1,7 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.byte_vector;
-import com.frostwire.jlibtorrent.swig.byte_vectors_pair;
+import com.frostwire.jlibtorrent.swig.byte_vector_byte_vector_pair;
 
 import static com.frostwire.jlibtorrent.swig.libtorrent.*;
 
@@ -39,7 +39,7 @@ public final class Ed25519 {
             throw new IllegalArgumentException("seed must be not null and of size " + SEED_SIZE);
         }
 
-        byte_vectors_pair keypair = ed25519_create_keypair(Vectors.bytes2byte_vector(seed));
+        byte_vector_byte_vector_pair keypair = ed25519_create_keypair(Vectors.bytes2byte_vector(seed));
 
         return new Pair<>(Vectors.byte_vector2bytes(keypair.getFirst()),
                 Vectors.byte_vector2bytes(keypair.getSecond()));

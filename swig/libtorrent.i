@@ -23,6 +23,7 @@
   
 %{
 // BEGIN common set include (just include but don't wrap)----------------------------------------------
+#include <boost/container/map.hpp>
 #include <libtorrent/flags.hpp>
 #include <libtorrent/torrent_handle.hpp>
 #include <libtorrent/address.hpp>
@@ -149,7 +150,7 @@ using udp = libtorrent::udp;
 %apply std::int64_t { std::ptrdiff_t };
 %apply std::int64_t { std::time_t };
 
-%template(PortMappingVector) std::vector<libtorrent::port_mapping_t>;
+%template(port_mapping_t_vector) std::vector<libtorrent::port_mapping_t>;
 %typemap(javatype) libtorrent::port_mapping_t "int"
 %typemap(jstype) libtorrent::port_mapping_t "int"
 %typemap(jni) libtorrent::port_mapping_t "jint"

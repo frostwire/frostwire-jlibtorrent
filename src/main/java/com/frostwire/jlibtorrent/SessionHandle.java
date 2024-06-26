@@ -606,13 +606,4 @@ public class SessionHandle {
     public boolean isListening() {
         return s.is_listening();
     }
-
-    /**
-     *
-     */
-    public void addExtension(Plugin plugin) {
-        SwigPlugin p = new SwigPlugin(plugin);
-        s.add_extension(p);
-        p.swigReleaseOwnership();
-    }
 }

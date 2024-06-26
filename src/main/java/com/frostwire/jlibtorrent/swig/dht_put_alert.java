@@ -75,12 +75,12 @@ public class dht_put_alert extends alert {
     return libtorrent_jni.dht_put_alert_num_success_get(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_std__arrayT_signed_char_32_t get_public_key() {
-    return new SWIGTYPE_p_std__arrayT_signed_char_32_t(libtorrent_jni.dht_put_alert_get_public_key(swigCPtr, this), true);
+  public byte_array_32 get_public_key() {
+    return new byte_array_32(libtorrent_jni.dht_put_alert_get_public_key(swigCPtr, this), true);
   }
 
-  public SWIGTYPE_p_std__arrayT_signed_char_64_t get_signature() {
-    return new SWIGTYPE_p_std__arrayT_signed_char_64_t(libtorrent_jni.dht_put_alert_get_signature(swigCPtr, this), true);
+  public byte_array_64 get_signature() {
+    return new byte_array_64(libtorrent_jni.dht_put_alert_get_signature(swigCPtr, this), true);
   }
 
   public byte_vector get_salt() {

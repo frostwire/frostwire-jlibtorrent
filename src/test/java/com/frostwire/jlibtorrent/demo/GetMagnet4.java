@@ -4,7 +4,6 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
-import com.frostwire.jlibtorrent.alerts.StatsAlert;
 
 import java.sql.Time;
 import java.util.Timer;

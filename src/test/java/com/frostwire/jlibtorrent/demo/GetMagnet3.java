@@ -3,7 +3,6 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
 import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.StatsAlert;
 
 import java.io.File;
 import java.io.FileOutputStream;

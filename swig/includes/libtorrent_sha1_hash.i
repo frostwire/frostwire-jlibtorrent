@@ -144,5 +144,3 @@ using sha256_hash = digest32<256>;
 
 } // namespace libtorrent
 
-%template(sha1_hash) libtorrent::digest32<160>;
-%template(sha256_hash) libtorrent::digest32<256>;
