@@ -29,50 +29,50 @@
 #include <libtorrent/address.hpp>
 #include <libtorrent/socket.hpp>
 #include <libtorrent/kademlia/dht_state.hpp>
-#include <libtorrent/create_torrent.hpp>
-#include <libtorrent/add_torrent_params.hpp>
 #include <libtorrent/client_data.hpp>
-#include <libtorrent/alert.hpp>
-#include <libtorrent/alert_types.hpp>
-#include <libtorrent/announce_entry.hpp>
-#include <libtorrent/bdecode.hpp>
-#include <libtorrent/bitfield.hpp>
-#include <libtorrent/close_reason.hpp>
-#include <libtorrent/entry.hpp>
-#include <libtorrent/error_code.hpp>
-#include <libtorrent/file_storage.hpp>
-#include <libtorrent/fingerprint.hpp>
+#include <libtorrent/sha1_hash.hpp>
 #include <libtorrent/info_hash.hpp>
 #include <libtorrent/storage_defs.hpp>
-#include <libtorrent/ip_filter.hpp>
-#include <libtorrent/magnet_uri.hpp>
+#include <libtorrent/bitfield.hpp>
 #include <libtorrent/operations.hpp>
+#include <libtorrent/error_code.hpp>
+#include <libtorrent/announce_entry.hpp>
+#include <libtorrent/file_storage.hpp>
+#include <libtorrent/peer_request.hpp>
+#include <libtorrent/bdecode.hpp>
+#include <libtorrent/torrent_info.hpp>
+#include <libtorrent/torrent_flags.hpp>
+#include <libtorrent/add_torrent_params.hpp>
+#include <libtorrent/close_reason.hpp>
+#include <libtorrent/peer_info.hpp>
+#include <libtorrent/pex_flags.hpp>
+//#include <libtorrent/torrent_handle.hpp>
+#include <libtorrent/torrent_status.hpp>
+#include <libtorrent/performance_counters.hpp>
+#include <libtorrent/portmap.hpp>
+#include <libtorrent/piece_block.hpp>
+#include <libtorrent/socket_type.hpp>
+#include <libtorrent/entry.hpp>
+//#include <libtorrent/tracker_event.hpp> // this exists on the 'master' branch
+#include <libtorrent/alert.hpp>
+#include <libtorrent/alert_types.hpp>
+#include <libtorrent/settings_pack.hpp>
 #include <libtorrent/peer_class.hpp>
 #include <libtorrent/peer_class_type_filter.hpp>
-#include <libtorrent/peer_info.hpp>
-#include <libtorrent/peer_request.hpp>
-#include <libtorrent/performance_counters.hpp>
-#include <libtorrent/pex_flags.hpp>
-#include <libtorrent/piece_block.hpp>
-#include <libtorrent/portmap.hpp>
-#include <libtorrent/posix_disk_io.hpp>
-#include <libtorrent/read_resume_data.hpp>
-#include <libtorrent/session.hpp>
-#include <libtorrent/session_handle.hpp>
-#include <libtorrent/session_params.hpp>
-#include <libtorrent/session_stats.hpp>
+#include <libtorrent/ip_filter.hpp>
 #include <libtorrent/session_types.hpp>
-#include <libtorrent/settings_pack.hpp>
-#include <libtorrent/sha1_hash.hpp>
-#include <libtorrent/socket_type.hpp>
-
-#include <libtorrent/torrent_flags.hpp>
-//#include <libtorrent/torrent_handle.hpp>
-#include <libtorrent/torrent_info.hpp>
-#include <libtorrent/torrent_status.hpp>
+#include <libtorrent/session_params.hpp>
+#include <libtorrent/session_handle.hpp>
+#include <libtorrent/session.hpp>
+#include <libtorrent/file_storage.hpp">
+#include <libtorrent/create_torrent.hpp>
+#include <libtorrent/session_stats.hpp>
 #include <libtorrent/version.hpp>
+#include <libtorrent/magnet_uri.hpp>
+#include <libtorrent/fingerprint.hpp>
+#include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/write_resume_data.hpp>
-//#include <libtorrent/tracker_event.hpp> // this exists on the 'master' branch
+#include <libtorrent/posix_disk_io.hpp>
 
 #include <libtorrent/hex.hpp>
 #include <libtorrent/bencode.hpp>
@@ -86,8 +86,6 @@ using queue_position_t = libtorrent::queue_position_t;
 template <typename IndexType>
 using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 
-//using flags = libtorrent::flags;
-//using port_mapping_t = libtorrent::port_mapping_t;
 using add_torrent_params = libtorrent::add_torrent_params;
 using address = libtorrent::address;
 using alert = libtorrent::alert;
@@ -117,8 +115,12 @@ using save_state_flags_t = libtorrent::save_state_flags_t;
 using session_flags_t = libtorrent::session_flags_t;
 using session_params = libtorrent::session_params;
 using settings_pack = libtorrent::settings_pack;
-using sha1_hash = libtorrent::sha1_hash;
-using sha256_hash = libtorrent::sha256_hash;
+// using sha1_hash = libtorrent::sha1_hash;
+// using sha256_hash = libtorrent::sha256_hash;
+// using sha1_hash = libtorrent::sha1_hash;
+// using sha256_hash = libtorrent::sha256_hash;
+// using sha1_hash_vector = std::vector<libtorrent::digest32<160>>;
+// using sha256_hash_vector = std::vector<libtorrent::digest32<256>>;
 using socket_type_t = libtorrent::socket_type_t;
 using storage_mode_t = libtorrent::storage_mode_t;
 using string_view = libtorrent::string_view;
@@ -127,7 +129,6 @@ using torrent_flags_t = libtorrent::torrent_flags_t;
 using torrent_info = libtorrent::torrent_info;
 using torrent_status = libtorrent::torrent_status;
 using udp = libtorrent::udp;
-
 
 // END common set include ------------------------------------------------------
 %}
@@ -142,6 +143,7 @@ using udp = libtorrent::udp;
 %include <std_vector.i>
 %include <std_map.i>
 %include <std_array.i>
+%include "includes/std_bitset.i"
 
 %include "boost/boost_map.i"
 
@@ -186,9 +188,15 @@ TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, underlying_type, java_type)
 
 TYPE_INTEGRAL_CONVERSION(piece_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
-TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
+TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
+
+// swig template definitions
+%include "includes/swig_templates.i"
+
+// more structs and templates
+%include "includes/libtorrent_structs.i"
 
 %rename(op_eq) operator==;
 %rename(op_ne) operator!=;
@@ -210,9 +218,9 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 
 %ignore dht_put_item_cb;
 
+// directors
 %feature("director") add_files_listener;
 %feature("director") set_piece_hashes_listener;
-
 %feature("director") alert_notify_callback;
 %feature("director") swig_plugin;
 %feature("director") posix_wrapper;
@@ -225,8 +233,8 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 // Includes of what's actually going to be wrapped.
 // Order of inclusion matters.
 %include "includes/libtorrent_span.i"
-%include "includes/libtorrent_flags.i"
 %include "includes/libtorrent_address.i"
+
 %include "includes/libtorrent_tcp_endpoint.i"
 %include "includes/libtorrent_udp_endpoint.i"
 %include "includes/libtorrent_kademlia_dht_state.i"
@@ -237,7 +245,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_peer_request.i"
 %include "includes/libtorrent_bdecode.i"
 %include "includes/libtorrent_torrent_info.i"
-%include "includes/libtorrent_structs.i"
 %include "includes/libtorrent_add_torrent_params.i"
 %include "includes/libtorrent_close_reason.i"
 %include "includes/libtorrent_peer_info.i"
@@ -305,8 +312,6 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 %include "includes/libtorrent_stats_metric.i"
 %include "includes/libtorrent_string_view.i"
 %include "includes/libtorrent_typed_bitfield.i"
-%include "includes/std_bitset.i"
-%include "includes/std_swig_templates.i"
 
 // wrap this stuff last.
 %include "libtorrent.hpp"
