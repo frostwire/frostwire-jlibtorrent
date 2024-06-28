@@ -63,12 +63,12 @@ public class tracker_announce_alert extends tracker_alert {
     return new SWIGTYPE_p_event_t(libtorrent_jni.tracker_announce_alert_event_get(swigCPtr, this), true);
   }
 
-  public void setVersion(SWIGTYPE_p_protocol_version value) {
-    libtorrent_jni.tracker_announce_alert_version_set(swigCPtr, this, SWIGTYPE_p_protocol_version.getCPtr(value));
+  public void setVersion(protocol_version value) {
+    libtorrent_jni.tracker_announce_alert_version_set(swigCPtr, this, value.swigValue());
   }
 
-  public SWIGTYPE_p_protocol_version getVersion() {
-    return new SWIGTYPE_p_protocol_version(libtorrent_jni.tracker_announce_alert_version_get(swigCPtr, this), true);
+  public protocol_version getVersion() {
+    return protocol_version.swigToEnum(libtorrent_jni.tracker_announce_alert_version_get(swigCPtr, this));
   }
 
   public final static alert_priority priority = alert_priority.swigToEnum(libtorrent_jni.tracker_announce_alert_priority_get());

@@ -15,5 +15,10 @@ namespace libtorrent {
             auto v = $self->info_section();
             return libtorrent::span<std::int8_t const>({reinterpret_cast<std::int8_t const*>(v.data()), v.size()});
         }
+
+        //sha1_hash_vector similar_torrents() {
+        std::vector<libtorrent::digest32<160>> similar_torrents() {
+            return $self->similar_torrents();
+        }
     }; // %extend torrent_info
 } // namespace libtorrent

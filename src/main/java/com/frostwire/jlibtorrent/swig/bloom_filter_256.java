@@ -43,12 +43,12 @@ public class bloom_filter_256 {
     }
   }
 
-  public boolean find(SWIGTYPE_p_sha1_hash k) {
-    return libtorrent_jni.bloom_filter_256_find(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(k));
+  public boolean find(sha1_hash k) {
+    return libtorrent_jni.bloom_filter_256_find(swigCPtr, this, sha1_hash.getCPtr(k), k);
   }
 
-  public void set(SWIGTYPE_p_sha1_hash k) {
-    libtorrent_jni.bloom_filter_256_set(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(k));
+  public void set(sha1_hash k) {
+    libtorrent_jni.bloom_filter_256_set(swigCPtr, this, sha1_hash.getCPtr(k), k);
   }
 
   public void clear() {

@@ -1,3 +1,5 @@
+%include "libtorrent_flags.i"
+
 namespace libtorrent {
     // dummy tag structs for strong_typedefs
     // they are simply used so that the newly defined strong type definitions have a different id

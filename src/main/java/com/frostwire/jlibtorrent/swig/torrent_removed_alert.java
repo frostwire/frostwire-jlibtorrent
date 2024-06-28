@@ -59,12 +59,13 @@ public class torrent_removed_alert extends torrent_alert {
     return libtorrent_jni.torrent_removed_alert_message(swigCPtr, this);
   }
 
-  public void setInfo_hashes(SWIGTYPE_p_info_hash_t value) {
-    libtorrent_jni.torrent_removed_alert_info_hashes_set(swigCPtr, this, SWIGTYPE_p_info_hash_t.getCPtr(value));
+  public void setInfo_hashes(info_hash_t value) {
+    libtorrent_jni.torrent_removed_alert_info_hashes_set(swigCPtr, this, info_hash_t.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_info_hash_t getInfo_hashes() {
-    return new SWIGTYPE_p_info_hash_t(libtorrent_jni.torrent_removed_alert_info_hashes_get(swigCPtr, this), true);
+  public info_hash_t getInfo_hashes() {
+    long cPtr = libtorrent_jni.torrent_removed_alert_info_hashes_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new info_hash_t(cPtr, false);
   }
 
   public void setUserdata(client_data_t value) {

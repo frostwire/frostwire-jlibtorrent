@@ -79,8 +79,8 @@ public class create_torrent {
     libtorrent_jni.create_torrent_set_creation_date(swigCPtr, this, timestamp);
   }
 
-  public void set_hash(int index, SWIGTYPE_p_sha1_hash h) {
-    libtorrent_jni.create_torrent_set_hash(swigCPtr, this, index, SWIGTYPE_p_sha1_hash.getCPtr(h));
+  public void set_hash(int index, sha1_hash h) {
+    libtorrent_jni.create_torrent_set_hash(swigCPtr, this, index, sha1_hash.getCPtr(h), h);
   }
 
   public void add_http_seed(SWIGTYPE_p_string_view url) {
@@ -131,8 +131,8 @@ public class create_torrent {
     return libtorrent_jni.create_torrent_piece_size(swigCPtr, this, i);
   }
 
-  public void add_similar_torrent(SWIGTYPE_p_sha1_hash ih) {
-    libtorrent_jni.create_torrent_add_similar_torrent(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(ih));
+  public void add_similar_torrent(sha1_hash ih) {
+    libtorrent_jni.create_torrent_add_similar_torrent(swigCPtr, this, sha1_hash.getCPtr(ih), ih);
   }
 
   public void add_url_seed(String url) {
@@ -159,8 +159,8 @@ public class create_torrent {
     libtorrent_jni.create_torrent_set_root_cert2(swigCPtr, this, byte_vector.getCPtr(pem), pem);
   }
 
-  public void set_hash2(int file, int piece, SWIGTYPE_p_sha256_hash h) {
-    libtorrent_jni.create_torrent_set_hash2(swigCPtr, this, file, piece, SWIGTYPE_p_sha256_hash.getCPtr(h));
+  public void set_hash2(int file, int piece, sha256_hash h) {
+    libtorrent_jni.create_torrent_set_hash2(swigCPtr, this, file, piece, sha256_hash.getCPtr(h), h);
   }
 
   public final static create_flags_t modification_time = new create_flags_t(libtorrent_jni.create_torrent_modification_time_get(), false);

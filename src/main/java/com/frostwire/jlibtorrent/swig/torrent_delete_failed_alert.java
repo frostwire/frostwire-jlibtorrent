@@ -64,12 +64,13 @@ public class torrent_delete_failed_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public void setInfo_hashes(SWIGTYPE_p_info_hash_t value) {
-    libtorrent_jni.torrent_delete_failed_alert_info_hashes_set(swigCPtr, this, SWIGTYPE_p_info_hash_t.getCPtr(value));
+  public void setInfo_hashes(info_hash_t value) {
+    libtorrent_jni.torrent_delete_failed_alert_info_hashes_set(swigCPtr, this, info_hash_t.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_info_hash_t getInfo_hashes() {
-    return new SWIGTYPE_p_info_hash_t(libtorrent_jni.torrent_delete_failed_alert_info_hashes_get(swigCPtr, this), true);
+  public info_hash_t getInfo_hashes() {
+    long cPtr = libtorrent_jni.torrent_delete_failed_alert_info_hashes_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new info_hash_t(cPtr, false);
   }
 
   public final static alert_priority priority = alert_priority.swigToEnum(libtorrent_jni.torrent_delete_failed_alert_priority_get());

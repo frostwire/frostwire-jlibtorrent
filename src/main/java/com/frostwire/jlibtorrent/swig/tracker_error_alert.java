@@ -68,12 +68,12 @@ public class tracker_error_alert extends tracker_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public void setOp(SWIGTYPE_p_operation_t value) {
-    libtorrent_jni.tracker_error_alert_op_set(swigCPtr, this, SWIGTYPE_p_operation_t.getCPtr(value));
+  public void setOp(operation_t value) {
+    libtorrent_jni.tracker_error_alert_op_set(swigCPtr, this, value.swigValue());
   }
 
-  public SWIGTYPE_p_operation_t getOp() {
-    return new SWIGTYPE_p_operation_t(libtorrent_jni.tracker_error_alert_op_get(swigCPtr, this), true);
+  public operation_t getOp() {
+    return operation_t.swigToEnum(libtorrent_jni.tracker_error_alert_op_get(swigCPtr, this));
   }
 
   public String failure_reason() {
@@ -84,12 +84,12 @@ public class tracker_error_alert extends tracker_alert {
     return libtorrent_jni.tracker_error_alert_error_message(swigCPtr, this);
   }
 
-  public void setVersion(SWIGTYPE_p_protocol_version value) {
-    libtorrent_jni.tracker_error_alert_version_set(swigCPtr, this, SWIGTYPE_p_protocol_version.getCPtr(value));
+  public void setVersion(protocol_version value) {
+    libtorrent_jni.tracker_error_alert_version_set(swigCPtr, this, value.swigValue());
   }
 
-  public SWIGTYPE_p_protocol_version getVersion() {
-    return new SWIGTYPE_p_protocol_version(libtorrent_jni.tracker_error_alert_version_get(swigCPtr, this), true);
+  public protocol_version getVersion() {
+    return protocol_version.swigToEnum(libtorrent_jni.tracker_error_alert_version_get(swigCPtr, this));
   }
 
   public final static alert_priority priority = alert_priority.swigToEnum(libtorrent_jni.tracker_error_alert_priority_get());

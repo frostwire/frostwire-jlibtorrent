@@ -67,12 +67,13 @@ public class dht_announce_alert extends alert {
     return libtorrent_jni.dht_announce_alert_port_get(swigCPtr, this);
   }
 
-  public void setInfo_hash(SWIGTYPE_p_sha1_hash value) {
-    libtorrent_jni.dht_announce_alert_info_hash_set(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(value));
+  public void setInfo_hash(sha1_hash value) {
+    libtorrent_jni.dht_announce_alert_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_sha1_hash getInfo_hash() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.dht_announce_alert_info_hash_get(swigCPtr, this), true);
+  public sha1_hash getInfo_hash() {
+    long cPtr = libtorrent_jni.dht_announce_alert_info_hash_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
   public address get_ip() {

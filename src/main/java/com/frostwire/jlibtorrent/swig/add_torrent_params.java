@@ -91,12 +91,13 @@ public class add_torrent_params {
     return new SWIGTYPE_p_torrent_flags_t(libtorrent_jni.add_torrent_params_flags_get(swigCPtr, this), true);
   }
 
-  public void setInfo_hashes(SWIGTYPE_p_info_hash_t value) {
-    libtorrent_jni.add_torrent_params_info_hashes_set(swigCPtr, this, SWIGTYPE_p_info_hash_t.getCPtr(value));
+  public void setInfo_hashes(info_hash_t value) {
+    libtorrent_jni.add_torrent_params_info_hashes_set(swigCPtr, this, info_hash_t.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_info_hash_t getInfo_hashes() {
-    return new SWIGTYPE_p_info_hash_t(libtorrent_jni.add_torrent_params_info_hashes_get(swigCPtr, this), true);
+  public info_hash_t getInfo_hashes() {
+    long cPtr = libtorrent_jni.add_torrent_params_info_hashes_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new info_hash_t(cPtr, false);
   }
 
   public void setMax_uploads(int value) {
@@ -304,12 +305,12 @@ public class add_torrent_params {
     libtorrent_jni.add_torrent_params_set_trackers(swigCPtr, this, string_vector.getCPtr(trackers), trackers);
   }
 
-  public SWIGTYPE_p_std__vectorT_std__vectorT_libtorrent__sha256_hash_t_t get_merkle_trees() {
-    return new SWIGTYPE_p_std__vectorT_std__vectorT_libtorrent__sha256_hash_t_t(libtorrent_jni.add_torrent_params_get_merkle_trees(swigCPtr, this), true);
+  public sha256_hash_vector_vector get_merkle_trees() {
+    return new sha256_hash_vector_vector(libtorrent_jni.add_torrent_params_get_merkle_trees(swigCPtr, this), true);
   }
 
-  public void set_merkle_trees(SWIGTYPE_p_std__vectorT_std__vectorT_libtorrent__sha256_hash_t_t v) {
-    libtorrent_jni.add_torrent_params_set_merkle_trees(swigCPtr, this, SWIGTYPE_p_std__vectorT_std__vectorT_libtorrent__sha256_hash_t_t.getCPtr(v));
+  public void set_merkle_trees(sha256_hash_vector_vector v) {
+    libtorrent_jni.add_torrent_params_set_merkle_trees(swigCPtr, this, sha256_hash_vector_vector.getCPtr(v), v);
   }
 
   public void set_piece_priorities2(byte_vector piece_priorities) {

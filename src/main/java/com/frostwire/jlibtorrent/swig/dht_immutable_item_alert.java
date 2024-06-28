@@ -59,12 +59,13 @@ public class dht_immutable_item_alert extends alert {
     return libtorrent_jni.dht_immutable_item_alert_message(swigCPtr, this);
   }
 
-  public void setTarget(SWIGTYPE_p_sha1_hash value) {
-    libtorrent_jni.dht_immutable_item_alert_target_set(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(value));
+  public void setTarget(sha1_hash value) {
+    libtorrent_jni.dht_immutable_item_alert_target_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_sha1_hash getTarget() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.dht_immutable_item_alert_target_get(swigCPtr, this), true);
+  public sha1_hash getTarget() {
+    long cPtr = libtorrent_jni.dht_immutable_item_alert_target_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
   public void setItem(entry value) {

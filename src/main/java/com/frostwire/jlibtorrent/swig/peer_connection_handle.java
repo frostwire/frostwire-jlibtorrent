@@ -59,8 +59,8 @@ public class peer_connection_handle {
     return libtorrent_jni.peer_connection_handle_upload_only(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_sha1_hash pid() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.peer_connection_handle_pid(swigCPtr, this), false);
+  public sha1_hash pid() {
+    return new sha1_hash(libtorrent_jni.peer_connection_handle_pid(swigCPtr, this), false);
   }
 
   public boolean has_piece(int i) {

@@ -243,8 +243,8 @@ public class torrent_handle {
     return new SWIGTYPE_p_std__shared_ptrT_libtorrent__torrent_info_t(libtorrent_jni.torrent_handle_torrent_file_with_hashes(swigCPtr, this), true);
   }
 
-  public SWIGTYPE_p_std__vectorT_std__vectorT_sha256_hash_t_t piece_layers() {
-    return new SWIGTYPE_p_std__vectorT_std__vectorT_sha256_hash_t_t(libtorrent_jni.torrent_handle_piece_layers(swigCPtr, this), true);
+  public sha256_hash_vector_vector piece_layers() {
+    return new sha256_hash_vector_vector(libtorrent_jni.torrent_handle_piece_layers(swigCPtr, this), true);
   }
 
   public void post_piece_availability() {
@@ -347,12 +347,12 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_rename_file(swigCPtr, this, index, new_name);
   }
 
-  public SWIGTYPE_p_sha1_hash info_hash() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.torrent_handle_info_hash(swigCPtr, this), true);
+  public sha1_hash info_hash() {
+    return new sha1_hash(libtorrent_jni.torrent_handle_info_hash(swigCPtr, this), true);
   }
 
-  public SWIGTYPE_p_info_hash_t info_hashes() {
-    return new SWIGTYPE_p_info_hash_t(libtorrent_jni.torrent_handle_info_hashes(swigCPtr, this), true);
+  public info_hash_t info_hashes() {
+    return new info_hash_t(libtorrent_jni.torrent_handle_info_hashes(swigCPtr, this), true);
   }
 
   public boolean op_eq(torrent_handle h) {

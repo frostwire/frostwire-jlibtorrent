@@ -59,20 +59,22 @@ public class dht_outgoing_get_peers_alert extends alert {
     return libtorrent_jni.dht_outgoing_get_peers_alert_message(swigCPtr, this);
   }
 
-  public void setInfo_hash(SWIGTYPE_p_sha1_hash value) {
-    libtorrent_jni.dht_outgoing_get_peers_alert_info_hash_set(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(value));
+  public void setInfo_hash(sha1_hash value) {
+    libtorrent_jni.dht_outgoing_get_peers_alert_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_sha1_hash getInfo_hash() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.dht_outgoing_get_peers_alert_info_hash_get(swigCPtr, this), true);
+  public sha1_hash getInfo_hash() {
+    long cPtr = libtorrent_jni.dht_outgoing_get_peers_alert_info_hash_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
-  public void setObfuscated_info_hash(SWIGTYPE_p_sha1_hash value) {
-    libtorrent_jni.dht_outgoing_get_peers_alert_obfuscated_info_hash_set(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(value));
+  public void setObfuscated_info_hash(sha1_hash value) {
+    libtorrent_jni.dht_outgoing_get_peers_alert_obfuscated_info_hash_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_sha1_hash getObfuscated_info_hash() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.dht_outgoing_get_peers_alert_obfuscated_info_hash_get(swigCPtr, this), true);
+  public sha1_hash getObfuscated_info_hash() {
+    long cPtr = libtorrent_jni.dht_outgoing_get_peers_alert_obfuscated_info_hash_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
   public udp_endpoint get_endpoint() {

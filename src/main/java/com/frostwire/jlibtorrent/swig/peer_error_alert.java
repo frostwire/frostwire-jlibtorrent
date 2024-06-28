@@ -59,12 +59,12 @@ public class peer_error_alert extends peer_alert {
     return libtorrent_jni.peer_error_alert_message(swigCPtr, this);
   }
 
-  public void setOp(SWIGTYPE_p_operation_t value) {
-    libtorrent_jni.peer_error_alert_op_set(swigCPtr, this, SWIGTYPE_p_operation_t.getCPtr(value));
+  public void setOp(operation_t value) {
+    libtorrent_jni.peer_error_alert_op_set(swigCPtr, this, value.swigValue());
   }
 
-  public SWIGTYPE_p_operation_t getOp() {
-    return new SWIGTYPE_p_operation_t(libtorrent_jni.peer_error_alert_op_get(swigCPtr, this), true);
+  public operation_t getOp() {
+    return operation_t.swigToEnum(libtorrent_jni.peer_error_alert_op_get(swigCPtr, this));
   }
 
   public error_code getError() {
