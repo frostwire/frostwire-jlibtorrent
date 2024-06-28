@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class int_byte_pair_vector extends java.util.AbstractList<SWIGTYPE_p_std__pairT_int_signed_char_t> implements java.util.RandomAccess {
+public class int_byte_pair_vector extends java.util.AbstractList<int_byte_pair> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class int_byte_pair_vector extends java.util.AbstractList<SWIGTYPE_p_std_
     }
   }
 
-  public int_byte_pair_vector(SWIGTYPE_p_std__pairT_int_signed_char_t[] initialElements) {
+  public int_byte_pair_vector(int_byte_pair[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (SWIGTYPE_p_std__pairT_int_signed_char_t element : initialElements) {
+    for (int_byte_pair element : initialElements) {
       add(element);
     }
   }
 
-  public int_byte_pair_vector(Iterable<SWIGTYPE_p_std__pairT_int_signed_char_t> initialElements) {
+  public int_byte_pair_vector(Iterable<int_byte_pair> initialElements) {
     this();
-    for (SWIGTYPE_p_std__pairT_int_signed_char_t element : initialElements) {
+    for (int_byte_pair element : initialElements) {
       add(element);
     }
   }
 
-  public SWIGTYPE_p_std__pairT_int_signed_char_t get(int index) {
+  public int_byte_pair get(int index) {
     return doGet(index);
   }
 
-  public SWIGTYPE_p_std__pairT_int_signed_char_t set(int index, SWIGTYPE_p_std__pairT_int_signed_char_t e) {
+  public int_byte_pair set(int index, int_byte_pair e) {
     return doSet(index, e);
   }
 
-  public boolean add(SWIGTYPE_p_std__pairT_int_signed_char_t e) {
+  public boolean add(int_byte_pair e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, SWIGTYPE_p_std__pairT_int_signed_char_t e) {
+  public void add(int index, int_byte_pair e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public SWIGTYPE_p_std__pairT_int_signed_char_t remove(int index) {
+  public int_byte_pair remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,8 +116,8 @@ public class int_byte_pair_vector extends java.util.AbstractList<SWIGTYPE_p_std_
     libtorrent_jni.int_byte_pair_vector_clear(swigCPtr, this);
   }
 
-  public int_byte_pair_vector(int count, SWIGTYPE_p_std__pairT_int_signed_char_t value) {
-    this(libtorrent_jni.new_int_byte_pair_vector__SWIG_2(count, SWIGTYPE_p_std__pairT_int_signed_char_t.getCPtr(value)), true);
+  public int_byte_pair_vector(int count, int_byte_pair value) {
+    this(libtorrent_jni.new_int_byte_pair_vector__SWIG_2(count, int_byte_pair.getCPtr(value), value), true);
   }
 
   private int doCapacity() {
@@ -132,24 +132,24 @@ public class int_byte_pair_vector extends java.util.AbstractList<SWIGTYPE_p_std_
     return libtorrent_jni.int_byte_pair_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(SWIGTYPE_p_std__pairT_int_signed_char_t x) {
-    libtorrent_jni.int_byte_pair_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_std__pairT_int_signed_char_t.getCPtr(x));
+  private void doAdd(int_byte_pair x) {
+    libtorrent_jni.int_byte_pair_vector_doAdd__SWIG_0(swigCPtr, this, int_byte_pair.getCPtr(x), x);
   }
 
-  private void doAdd(int index, SWIGTYPE_p_std__pairT_int_signed_char_t x) {
-    libtorrent_jni.int_byte_pair_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_std__pairT_int_signed_char_t.getCPtr(x));
+  private void doAdd(int index, int_byte_pair x) {
+    libtorrent_jni.int_byte_pair_vector_doAdd__SWIG_1(swigCPtr, this, index, int_byte_pair.getCPtr(x), x);
   }
 
-  private SWIGTYPE_p_std__pairT_int_signed_char_t doRemove(int index) {
-    return new SWIGTYPE_p_std__pairT_int_signed_char_t(libtorrent_jni.int_byte_pair_vector_doRemove(swigCPtr, this, index), true);
+  private int_byte_pair doRemove(int index) {
+    return new int_byte_pair(libtorrent_jni.int_byte_pair_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private SWIGTYPE_p_std__pairT_int_signed_char_t doGet(int index) {
-    return new SWIGTYPE_p_std__pairT_int_signed_char_t(libtorrent_jni.int_byte_pair_vector_doGet(swigCPtr, this, index), false);
+  private int_byte_pair doGet(int index) {
+    return new int_byte_pair(libtorrent_jni.int_byte_pair_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private SWIGTYPE_p_std__pairT_int_signed_char_t doSet(int index, SWIGTYPE_p_std__pairT_int_signed_char_t val) {
-    return new SWIGTYPE_p_std__pairT_int_signed_char_t(libtorrent_jni.int_byte_pair_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_std__pairT_int_signed_char_t.getCPtr(val)), true);
+  private int_byte_pair doSet(int index, int_byte_pair val) {
+    return new int_byte_pair(libtorrent_jni.int_byte_pair_vector_doSet(swigCPtr, this, index, int_byte_pair.getCPtr(val), val), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

@@ -117,13 +117,12 @@ public class peer_info {
     return libtorrent_jni.peer_info_payload_down_speed_get(swigCPtr, this);
   }
 
-  public void setPid(sha1_hash value) {
-    libtorrent_jni.peer_info_pid_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
+  public void setPid(SWIGTYPE_p_sha1_hash value) {
+    libtorrent_jni.peer_info_pid_set(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(value));
   }
 
-  public sha1_hash getPid() {
-    long cPtr = libtorrent_jni.peer_info_pid_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
+  public SWIGTYPE_p_sha1_hash getPid() {
+    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.peer_info_pid_get(swigCPtr, this), true);
   }
 
   public void setQueue_bytes(int value) {

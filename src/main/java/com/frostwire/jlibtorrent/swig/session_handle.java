@@ -252,16 +252,16 @@ public class session_handle {
     libtorrent_jni.session_handle_set_alert_notify_callback(swigCPtr, this, alert_notify_callback.getCPtr(cb), cb);
   }
 
-  public void dht_announce_ex(sha1_hash info_hash, int port, byte flags) {
-    libtorrent_jni.session_handle_dht_announce_ex__SWIG_0(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, port, flags);
+  public void dht_announce_ex(SWIGTYPE_p_libtorrent__sha1_hash info_hash, int port, byte flags) {
+    libtorrent_jni.session_handle_dht_announce_ex__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__sha1_hash.getCPtr(info_hash), port, flags);
   }
 
-  public void dht_announce_ex(sha1_hash info_hash, int port) {
-    libtorrent_jni.session_handle_dht_announce_ex__SWIG_1(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash, port);
+  public void dht_announce_ex(SWIGTYPE_p_libtorrent__sha1_hash info_hash, int port) {
+    libtorrent_jni.session_handle_dht_announce_ex__SWIG_1(swigCPtr, this, SWIGTYPE_p_libtorrent__sha1_hash.getCPtr(info_hash), port);
   }
 
-  public void dht_announce_ex(sha1_hash info_hash) {
-    libtorrent_jni.session_handle_dht_announce_ex__SWIG_2(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash);
+  public void dht_announce_ex(SWIGTYPE_p_libtorrent__sha1_hash info_hash) {
+    libtorrent_jni.session_handle_dht_announce_ex__SWIG_2(swigCPtr, this, SWIGTYPE_p_libtorrent__sha1_hash.getCPtr(info_hash));
   }
 
   public int_vector add_port_mapping_ex(portmap_protocol t, int external_port, int local_port) {

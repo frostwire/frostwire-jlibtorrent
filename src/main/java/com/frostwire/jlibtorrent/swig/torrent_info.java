@@ -96,7 +96,7 @@ public class torrent_info {
   }
 
   public SWIGTYPE_p_std__vectorT_sha1_hash_t similar_torrents() {
-    return new SWIGTYPE_p_std__vectorT_sha1_hash_t(libtorrent_jni.torrent_info_similar_torrents(swigCPtr, this), true);
+    return new SWIGTYPE_p_std__vectorT_sha1_hash_t(libtorrent_jni.torrent_info_similar_torrents__SWIG_0(swigCPtr, this), true);
   }
 
   public string_vector collections() {
