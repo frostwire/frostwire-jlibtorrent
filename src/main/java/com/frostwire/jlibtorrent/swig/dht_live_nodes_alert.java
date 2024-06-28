@@ -59,20 +59,21 @@ public class dht_live_nodes_alert extends alert {
     return libtorrent_jni.dht_live_nodes_alert_message(swigCPtr, this);
   }
 
-  public void setNode_id(SWIGTYPE_p_sha1_hash value) {
-    libtorrent_jni.dht_live_nodes_alert_node_id_set(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(value));
+  public void setNode_id(sha1_hash value) {
+    libtorrent_jni.dht_live_nodes_alert_node_id_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_sha1_hash getNode_id() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.dht_live_nodes_alert_node_id_get(swigCPtr, this), true);
+  public sha1_hash getNode_id() {
+    long cPtr = libtorrent_jni.dht_live_nodes_alert_node_id_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
   public int num_nodes() {
     return libtorrent_jni.dht_live_nodes_alert_num_nodes(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_std__vectorT_std__pairT_sha1_hash_libtorrent__udp__endpoint_t_t nodes() {
-    return new SWIGTYPE_p_std__vectorT_std__pairT_sha1_hash_libtorrent__udp__endpoint_t_t(libtorrent_jni.dht_live_nodes_alert_nodes(swigCPtr, this), true);
+  public sha1_hash_udp_endpoint_pair_vector nodes() {
+    return new sha1_hash_udp_endpoint_pair_vector(libtorrent_jni.dht_live_nodes_alert_nodes(swigCPtr, this), true);
   }
 
   public final static alert_priority priority = alert_priority.swigToEnum(libtorrent_jni.dht_live_nodes_alert_priority_get());

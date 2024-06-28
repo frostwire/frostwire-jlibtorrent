@@ -1,5 +1,3 @@
-#include "libtorrent/file_storage.hpp"
-
 namespace libtorrent {
     struct peer_request;
 } // namespace libtorrent
@@ -19,7 +17,7 @@ namespace libtorrent {
         }
 
         std::string file_name(int index) {
-            return std::string{$self->file_name(lt::file_index_t{index})};
+            return std::string{$self->file_name(libtorrent::file_index_t{index})};
         }
     } // file_storage
 } // namespace libtorrent

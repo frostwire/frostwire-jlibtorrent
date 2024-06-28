@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class int_bitfield_map extends java.util.AbstractMap<Integer, SWIGTYPE_p_libtorrent__bitfield> {
+public class int_bitfield_map extends java.util.AbstractMap<Integer, bitfield> {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -56,7 +56,7 @@ public class int_bitfield_map extends java.util.AbstractMap<Integer, SWIGTYPE_p_
     return containsImpl((Integer)key);
   }
 
-  public SWIGTYPE_p_libtorrent__bitfield get(java.lang.Object key) {
+  public bitfield get(java.lang.Object key) {
     if (!(key instanceof Integer)) {
       return null;
     }
@@ -69,10 +69,10 @@ public class int_bitfield_map extends java.util.AbstractMap<Integer, SWIGTYPE_p_
     return null;
   }
 
-  public SWIGTYPE_p_libtorrent__bitfield put(Integer key, SWIGTYPE_p_libtorrent__bitfield value) {
+  public bitfield put(Integer key, bitfield value) {
     Iterator itr = find(key);
     if (itr.isNot(end())) {
-      SWIGTYPE_p_libtorrent__bitfield oldValue = itr.getValue();
+      bitfield oldValue = itr.getValue();
       itr.setValue(value);
       return oldValue;
     } else {
@@ -81,14 +81,14 @@ public class int_bitfield_map extends java.util.AbstractMap<Integer, SWIGTYPE_p_
     }
   }
 
-  public SWIGTYPE_p_libtorrent__bitfield remove(java.lang.Object key) {
+  public bitfield remove(java.lang.Object key) {
     if (!(key instanceof Integer)) {
       return null;
     }
 
     Iterator itr = find((Integer) key);
     if (itr.isNot(end())) {
-      SWIGTYPE_p_libtorrent__bitfield oldValue = itr.getValue();
+      bitfield oldValue = itr.getValue();
       removeUnchecked(itr);
       return oldValue;
     } else {
@@ -96,17 +96,17 @@ public class int_bitfield_map extends java.util.AbstractMap<Integer, SWIGTYPE_p_
     }
   }
 
-  public java.util.Set<Entry<Integer, SWIGTYPE_p_libtorrent__bitfield>> entrySet() {
-    java.util.Set<Entry<Integer, SWIGTYPE_p_libtorrent__bitfield>> setToReturn =
-        new java.util.HashSet<Entry<Integer, SWIGTYPE_p_libtorrent__bitfield>>();
+  public java.util.Set<Entry<Integer, bitfield>> entrySet() {
+    java.util.Set<Entry<Integer, bitfield>> setToReturn =
+        new java.util.HashSet<Entry<Integer, bitfield>>();
 
     Iterator itr = begin();
     final Iterator end = end();
     while (itr.isNot(end)) {
-      setToReturn.add(new Entry<Integer, SWIGTYPE_p_libtorrent__bitfield>() {
+      setToReturn.add(new Entry<Integer, bitfield>() {
         private Iterator iterator;
 
-        private Entry<Integer, SWIGTYPE_p_libtorrent__bitfield> init(Iterator iterator) {
+        private Entry<Integer, bitfield> init(Iterator iterator) {
           this.iterator = iterator;
           return this;
         }
@@ -115,12 +115,12 @@ public class int_bitfield_map extends java.util.AbstractMap<Integer, SWIGTYPE_p_
           return iterator.getKey();
         }
 
-        public SWIGTYPE_p_libtorrent__bitfield getValue() {
+        public bitfield getValue() {
           return iterator.getValue();
         }
 
-        public SWIGTYPE_p_libtorrent__bitfield setValue(SWIGTYPE_p_libtorrent__bitfield newValue) {
-          SWIGTYPE_p_libtorrent__bitfield oldValue = iterator.getValue();
+        public bitfield setValue(bitfield newValue) {
+          bitfield oldValue = iterator.getValue();
           iterator.setValue(newValue);
           return oldValue;
         }
@@ -186,12 +186,12 @@ public class int_bitfield_map extends java.util.AbstractMap<Integer, SWIGTYPE_p_
       return libtorrent_jni.int_bitfield_map_Iterator_getKey(swigCPtr, this);
     }
   
-    private SWIGTYPE_p_libtorrent__bitfield getValue() {
-      return new SWIGTYPE_p_libtorrent__bitfield(libtorrent_jni.int_bitfield_map_Iterator_getValue(swigCPtr, this), true);
+    private bitfield getValue() {
+      return new bitfield(libtorrent_jni.int_bitfield_map_Iterator_getValue(swigCPtr, this), true);
     }
   
-    private void setValue(SWIGTYPE_p_libtorrent__bitfield newValue) {
-      libtorrent_jni.int_bitfield_map_Iterator_setValue(swigCPtr, this, SWIGTYPE_p_libtorrent__bitfield.getCPtr(newValue));
+    private void setValue(bitfield newValue) {
+      libtorrent_jni.int_bitfield_map_Iterator_setValue(swigCPtr, this, bitfield.getCPtr(newValue), newValue);
     }
   
   }
@@ -224,8 +224,8 @@ public class int_bitfield_map extends java.util.AbstractMap<Integer, SWIGTYPE_p_
     return libtorrent_jni.int_bitfield_map_containsImpl(swigCPtr, this, key);
   }
 
-  private void putUnchecked(int key, SWIGTYPE_p_libtorrent__bitfield value) {
-    libtorrent_jni.int_bitfield_map_putUnchecked(swigCPtr, this, key, SWIGTYPE_p_libtorrent__bitfield.getCPtr(value));
+  private void putUnchecked(int key, bitfield value) {
+    libtorrent_jni.int_bitfield_map_putUnchecked(swigCPtr, this, key, bitfield.getCPtr(value), value);
   }
 
   private void removeUnchecked(int_bitfield_map.Iterator itr) {

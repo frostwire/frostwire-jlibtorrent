@@ -177,7 +177,13 @@ public final class TorrentInfo {
      * @return
      */
     public ArrayList<Sha1Hash> similarTorrents() {
-        return Sha1Hash.convert(ti.similar_torrents ());
+        //return Sha1Hash.convert(ti.similar_torrents ());
+        sha1_hash_vector vec = ti.similar_torrents();
+        ArrayList<Sha1Hash> result = new ArrayList<>(vec.size());
+        for (int i = 0; i < vec.size(); i++) {
+            result.add(new Sha1Hash(vec.get(i)));
+        }
+        return result;
     }
 
     /**

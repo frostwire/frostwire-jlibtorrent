@@ -139,12 +139,12 @@ public class file_storage {
     libtorrent_jni.file_storage_canonicalize(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_sha1_hash hash(int index) {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.file_storage_hash(swigCPtr, this, index), true);
+  public sha1_hash hash(int index) {
+    return new sha1_hash(libtorrent_jni.file_storage_hash(swigCPtr, this, index), true);
   }
 
-  public SWIGTYPE_p_sha256_hash root(int index) {
-    return new SWIGTYPE_p_sha256_hash(libtorrent_jni.file_storage_root(swigCPtr, this, index), true);
+  public sha256_hash root(int index) {
+    return new sha256_hash(libtorrent_jni.file_storage_root(swigCPtr, this, index), true);
   }
 
   public String root_ptr(int index) {
@@ -211,8 +211,8 @@ public class file_storage {
     return libtorrent_jni.file_storage_file_index_at_piece(swigCPtr, this, piece);
   }
 
-  public int file_index_for_root(SWIGTYPE_p_sha256_hash root_hash) {
-    return libtorrent_jni.file_storage_file_index_for_root(swigCPtr, this, SWIGTYPE_p_sha256_hash.getCPtr(root_hash));
+  public int file_index_for_root(sha256_hash root_hash) {
+    return libtorrent_jni.file_storage_file_index_for_root(swigCPtr, this, sha256_hash.getCPtr(root_hash), root_hash);
   }
 
   public int piece_index_at_file(int f) {

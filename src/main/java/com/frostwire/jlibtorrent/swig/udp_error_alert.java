@@ -59,12 +59,12 @@ public class udp_error_alert extends alert {
     return libtorrent_jni.udp_error_alert_message(swigCPtr, this);
   }
 
-  public void setOperation(SWIGTYPE_p_operation_t value) {
-    libtorrent_jni.udp_error_alert_operation_set(swigCPtr, this, SWIGTYPE_p_operation_t.getCPtr(value));
+  public void setOperation(operation_t value) {
+    libtorrent_jni.udp_error_alert_operation_set(swigCPtr, this, value.swigValue());
   }
 
-  public SWIGTYPE_p_operation_t getOperation() {
-    return new SWIGTYPE_p_operation_t(libtorrent_jni.udp_error_alert_operation_get(swigCPtr, this), true);
+  public operation_t getOperation() {
+    return operation_t.swigToEnum(libtorrent_jni.udp_error_alert_operation_get(swigCPtr, this));
   }
 
   public error_code getError() {

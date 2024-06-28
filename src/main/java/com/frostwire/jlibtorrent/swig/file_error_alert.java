@@ -64,12 +64,12 @@ public class file_error_alert extends torrent_alert {
     return (cPtr == 0) ? null : new error_code(cPtr, false);
   }
 
-  public void setOp(SWIGTYPE_p_operation_t value) {
-    libtorrent_jni.file_error_alert_op_set(swigCPtr, this, SWIGTYPE_p_operation_t.getCPtr(value));
+  public void setOp(operation_t value) {
+    libtorrent_jni.file_error_alert_op_set(swigCPtr, this, value.swigValue());
   }
 
-  public SWIGTYPE_p_operation_t getOp() {
-    return new SWIGTYPE_p_operation_t(libtorrent_jni.file_error_alert_op_get(swigCPtr, this), true);
+  public operation_t getOp() {
+    return operation_t.swigToEnum(libtorrent_jni.file_error_alert_op_get(swigCPtr, this));
   }
 
   public String filename() {

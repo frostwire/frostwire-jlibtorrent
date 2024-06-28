@@ -77,12 +77,13 @@ public class dht_stats_alert extends alert {
     return (cPtr == 0) ? null : new dht_routing_bucket_vector(cPtr, false);
   }
 
-  public void setNid(SWIGTYPE_p_sha1_hash value) {
-    libtorrent_jni.dht_stats_alert_nid_set(swigCPtr, this, SWIGTYPE_p_sha1_hash.getCPtr(value));
+  public void setNid(sha1_hash value) {
+    libtorrent_jni.dht_stats_alert_nid_set(swigCPtr, this, sha1_hash.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_sha1_hash getNid() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.dht_stats_alert_nid_get(swigCPtr, this), true);
+  public sha1_hash getNid() {
+    long cPtr = libtorrent_jni.dht_stats_alert_nid_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
   }
 
   public udp_endpoint get_local_endpoint() {

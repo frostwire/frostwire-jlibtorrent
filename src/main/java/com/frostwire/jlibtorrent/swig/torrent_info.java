@@ -47,8 +47,8 @@ public class torrent_info {
     this(libtorrent_jni.new_torrent_info__SWIG_0(torrent_info.getCPtr(t), t), true);
   }
 
-  public torrent_info(SWIGTYPE_p_info_hash_t info_hash) {
-    this(libtorrent_jni.new_torrent_info__SWIG_1(SWIGTYPE_p_info_hash_t.getCPtr(info_hash)), true);
+  public torrent_info(info_hash_t info_hash) {
+    this(libtorrent_jni.new_torrent_info__SWIG_1(info_hash_t.getCPtr(info_hash), info_hash), true);
   }
 
   public torrent_info(bdecode_node torrent_file, error_code ec) {
@@ -95,8 +95,8 @@ public class torrent_info {
     libtorrent_jni.torrent_info_clear_trackers(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_std__vectorT_sha1_hash_t similar_torrents() {
-    return new SWIGTYPE_p_std__vectorT_sha1_hash_t(libtorrent_jni.torrent_info_similar_torrents__SWIG_0(swigCPtr, this), true);
+  public sha1_hash_vector similar_torrents() {
+    return new sha1_hash_vector(libtorrent_jni.torrent_info_similar_torrents__SWIG_0(swigCPtr, this), true);
   }
 
   public string_vector collections() {
@@ -159,12 +159,12 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_end_piece(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_sha1_hash info_hash() {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.torrent_info_info_hash(swigCPtr, this), true);
+  public sha1_hash info_hash() {
+    return new sha1_hash(libtorrent_jni.torrent_info_info_hash(swigCPtr, this), true);
   }
 
-  public SWIGTYPE_p_info_hash_t info_hashes() {
-    return new SWIGTYPE_p_info_hash_t(libtorrent_jni.torrent_info_info_hashes(swigCPtr, this), false);
+  public info_hash_t info_hashes() {
+    return new info_hash_t(libtorrent_jni.torrent_info_info_hashes(swigCPtr, this), false);
   }
 
   public boolean v1() {
@@ -203,8 +203,8 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_piece_size(swigCPtr, this, index);
   }
 
-  public SWIGTYPE_p_sha1_hash hash_for_piece(int index) {
-    return new SWIGTYPE_p_sha1_hash(libtorrent_jni.torrent_info_hash_for_piece(swigCPtr, this, index), true);
+  public sha1_hash hash_for_piece(int index) {
+    return new sha1_hash(libtorrent_jni.torrent_info_hash_for_piece(swigCPtr, this, index), true);
   }
 
   public boolean is_loaded() {

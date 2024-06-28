@@ -43,13 +43,13 @@ public class dht_state {
     }
   }
 
-  public void setNids(SWIGTYPE_p_std__vectorT_std__pairT_libtorrent__address_libtorrent__sha1_hash_t_t value) {
-    libtorrent_jni.dht_state_nids_set(swigCPtr, this, SWIGTYPE_p_std__vectorT_std__pairT_libtorrent__address_libtorrent__sha1_hash_t_t.getCPtr(value));
+  public void setNids(address_sha1_hash_pair_vector value) {
+    libtorrent_jni.dht_state_nids_set(swigCPtr, this, address_sha1_hash_pair_vector.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_std__vectorT_std__pairT_libtorrent__address_libtorrent__sha1_hash_t_t getNids() {
+  public address_sha1_hash_pair_vector getNids() {
     long cPtr = libtorrent_jni.dht_state_nids_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_std__vectorT_std__pairT_libtorrent__address_libtorrent__sha1_hash_t_t(cPtr, false);
+    return (cPtr == 0) ? null : new address_sha1_hash_pair_vector(cPtr, false);
   }
 
   public void setNodes(udp_endpoint_vector value) {

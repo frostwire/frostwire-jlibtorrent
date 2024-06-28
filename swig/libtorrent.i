@@ -64,7 +64,6 @@
 #include <libtorrent/session_params.hpp>
 #include <libtorrent/session_handle.hpp>
 #include <libtorrent/session.hpp>
-#include <libtorrent/file_storage.hpp">
 #include <libtorrent/create_torrent.hpp>
 #include <libtorrent/session_stats.hpp>
 #include <libtorrent/version.hpp>
@@ -115,12 +114,12 @@ using save_state_flags_t = libtorrent::save_state_flags_t;
 using session_flags_t = libtorrent::session_flags_t;
 using session_params = libtorrent::session_params;
 using settings_pack = libtorrent::settings_pack;
-// using sha1_hash = libtorrent::sha1_hash;
-// using sha256_hash = libtorrent::sha256_hash;
-// using sha1_hash = libtorrent::sha1_hash;
-// using sha256_hash = libtorrent::sha256_hash;
-// using sha1_hash_vector = std::vector<libtorrent::digest32<160>>;
-// using sha256_hash_vector = std::vector<libtorrent::digest32<256>>;
+//using sha1_hash = libtorrent::sha1_hash;
+//using sha256_hash = libtorrent::sha256_hash;
+//using sha1_hash = libtorrent::digest32<160>;
+//using sha256_hash = libtorrent::digest32<256>;
+using sha1_hash_vector = std::vector<libtorrent::digest32<160>>;
+using sha256_hash_vector = std::vector<libtorrent::digest32<256>>;
 using socket_type_t = libtorrent::socket_type_t;
 using storage_mode_t = libtorrent::storage_mode_t;
 using string_view = libtorrent::string_view;
@@ -233,14 +232,25 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 // Includes of what's actually going to be wrapped.
 // Order of inclusion matters.
 %include "includes/libtorrent_span.i"
+// includes/libtorrent_flags.i already included via %include "includes/libtorrent_structs.i"
 %include "includes/libtorrent_address.i"
-
+// socket.i ->
 %include "includes/libtorrent_tcp_endpoint.i"
 %include "includes/libtorrent_udp_endpoint.i"
+
 %include "includes/libtorrent_kademlia_dht_state.i"
-%include "includes/libtorrent_error_code.i"
-%include "includes/libtorrent_announce.i"
+%include "includes/libtorrent_client_data.i"
+%include "includes/libtorrent_sha1_hash.i"
+// maybe delete libtrorrent_sha1_hash_type_aliases.i
+//%include "includes/libtorrent_sha1_hash_type_aliases.i"
+%include "includes/libtorrent_info_hash.i"
 %include "includes/libtorrent_storage_defs.i"
+%include "includes/libtorrent_bitfield.i"
+%include "includes/libtorrent_operations.i"
+%include "includes/libtorrent_error_code.i"
+
+%include "includes/libtorrent_announce.i"
+
 %include "includes/libtorrent_file_storage.i"
 %include "includes/libtorrent_peer_request.i"
 %include "includes/libtorrent_bdecode.i"
@@ -302,13 +312,11 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 //%include "includes/libtorrent_web_seed_entry.i" // when web_seed_entry.hpp is merged from master, currently web_seed_entry lives in torrent_info.hpp
 
 %include "includes/libtorrent_bloom_filter.i"
-%include "includes/libtorrent_client_data.i"
+
 %include "includes/libtorrent_connection_type.i"
-%include "includes/libtorrent_operations.i"
+
 %include "includes/libtorrent_peer_class_type_filter.i"
 %include "includes/libtorrent_peer_connection_handle.i"
-%include "includes/libtorrent_sha1_hash.i"
-%include "includes/libtorrent_sha1_hash_type_aliases.i"
 %include "includes/libtorrent_stats_metric.i"
 %include "includes/libtorrent_string_view.i"
 %include "includes/libtorrent_typed_bitfield.i"

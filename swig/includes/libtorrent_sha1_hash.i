@@ -52,7 +52,7 @@ using sha256_hash = digest32<256>;
 
     digest32<160>(std::vector<std::int8_t> const& v)
     {
-        return new lt::digest32<160>(lt::span(reinterpret_cast<char const*>(v.data()), static_cast<long>(v.size())));
+        return new libtorrent::digest32<160>(libtorrent::span(reinterpret_cast<char const*>(v.data()), static_cast<long>(v.size())));
     }
 
     void assign(std::vector<std::int8_t> const& v)
@@ -99,7 +99,7 @@ using sha256_hash = digest32<256>;
 
     digest32<256>(std::vector<std::int8_t> const& v)
     {
-        return new lt::digest32<256>(lt::span(reinterpret_cast<char const*>(v.data()), static_cast<long>(v.size())));
+        return new libtorrent::digest32<256>(libtorrent::span(reinterpret_cast<char const*>(v.data()), static_cast<long>(v.size())));
     }
 
     void assign(std::vector<std::int8_t> const& v)
@@ -144,3 +144,8 @@ using sha256_hash = digest32<256>;
 
 } // namespace libtorrent
 
+%template(sha1_hash) libtorrent::digest32<160>;
+%template(sha256_hash) libtorrent::digest32<256>;
+
+%template(sha1_hash_vector) std::vector<libtorrent::digest32<160>>;
+%template(sha256_hash_vector) std::vector<libtorrent::digest32<256>>;

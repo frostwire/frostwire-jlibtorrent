@@ -8,7 +8,7 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class bitfield_vector extends java.util.AbstractList<SWIGTYPE_p_libtorrent__bitfield> implements java.util.RandomAccess {
+public class bitfield_vector extends java.util.AbstractList<bitfield> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -43,42 +43,42 @@ public class bitfield_vector extends java.util.AbstractList<SWIGTYPE_p_libtorren
     }
   }
 
-  public bitfield_vector(SWIGTYPE_p_libtorrent__bitfield[] initialElements) {
+  public bitfield_vector(bitfield[] initialElements) {
     this();
     reserve(initialElements.length);
 
-    for (SWIGTYPE_p_libtorrent__bitfield element : initialElements) {
+    for (bitfield element : initialElements) {
       add(element);
     }
   }
 
-  public bitfield_vector(Iterable<SWIGTYPE_p_libtorrent__bitfield> initialElements) {
+  public bitfield_vector(Iterable<bitfield> initialElements) {
     this();
-    for (SWIGTYPE_p_libtorrent__bitfield element : initialElements) {
+    for (bitfield element : initialElements) {
       add(element);
     }
   }
 
-  public SWIGTYPE_p_libtorrent__bitfield get(int index) {
+  public bitfield get(int index) {
     return doGet(index);
   }
 
-  public SWIGTYPE_p_libtorrent__bitfield set(int index, SWIGTYPE_p_libtorrent__bitfield e) {
+  public bitfield set(int index, bitfield e) {
     return doSet(index, e);
   }
 
-  public boolean add(SWIGTYPE_p_libtorrent__bitfield e) {
+  public boolean add(bitfield e) {
     modCount++;
     doAdd(e);
     return true;
   }
 
-  public void add(int index, SWIGTYPE_p_libtorrent__bitfield e) {
+  public void add(int index, bitfield e) {
     modCount++;
     doAdd(index, e);
   }
 
-  public SWIGTYPE_p_libtorrent__bitfield remove(int index) {
+  public bitfield remove(int index) {
     modCount++;
     return doRemove(index);
   }
@@ -116,8 +116,8 @@ public class bitfield_vector extends java.util.AbstractList<SWIGTYPE_p_libtorren
     libtorrent_jni.bitfield_vector_clear(swigCPtr, this);
   }
 
-  public bitfield_vector(int count, SWIGTYPE_p_libtorrent__bitfield value) {
-    this(libtorrent_jni.new_bitfield_vector__SWIG_2(count, SWIGTYPE_p_libtorrent__bitfield.getCPtr(value)), true);
+  public bitfield_vector(int count, bitfield value) {
+    this(libtorrent_jni.new_bitfield_vector__SWIG_2(count, bitfield.getCPtr(value), value), true);
   }
 
   private int doCapacity() {
@@ -132,24 +132,24 @@ public class bitfield_vector extends java.util.AbstractList<SWIGTYPE_p_libtorren
     return libtorrent_jni.bitfield_vector_doSize(swigCPtr, this);
   }
 
-  private void doAdd(SWIGTYPE_p_libtorrent__bitfield x) {
-    libtorrent_jni.bitfield_vector_doAdd__SWIG_0(swigCPtr, this, SWIGTYPE_p_libtorrent__bitfield.getCPtr(x));
+  private void doAdd(bitfield x) {
+    libtorrent_jni.bitfield_vector_doAdd__SWIG_0(swigCPtr, this, bitfield.getCPtr(x), x);
   }
 
-  private void doAdd(int index, SWIGTYPE_p_libtorrent__bitfield x) {
-    libtorrent_jni.bitfield_vector_doAdd__SWIG_1(swigCPtr, this, index, SWIGTYPE_p_libtorrent__bitfield.getCPtr(x));
+  private void doAdd(int index, bitfield x) {
+    libtorrent_jni.bitfield_vector_doAdd__SWIG_1(swigCPtr, this, index, bitfield.getCPtr(x), x);
   }
 
-  private SWIGTYPE_p_libtorrent__bitfield doRemove(int index) {
-    return new SWIGTYPE_p_libtorrent__bitfield(libtorrent_jni.bitfield_vector_doRemove(swigCPtr, this, index), true);
+  private bitfield doRemove(int index) {
+    return new bitfield(libtorrent_jni.bitfield_vector_doRemove(swigCPtr, this, index), true);
   }
 
-  private SWIGTYPE_p_libtorrent__bitfield doGet(int index) {
-    return new SWIGTYPE_p_libtorrent__bitfield(libtorrent_jni.bitfield_vector_doGet(swigCPtr, this, index), false);
+  private bitfield doGet(int index) {
+    return new bitfield(libtorrent_jni.bitfield_vector_doGet(swigCPtr, this, index), false);
   }
 
-  private SWIGTYPE_p_libtorrent__bitfield doSet(int index, SWIGTYPE_p_libtorrent__bitfield val) {
-    return new SWIGTYPE_p_libtorrent__bitfield(libtorrent_jni.bitfield_vector_doSet(swigCPtr, this, index, SWIGTYPE_p_libtorrent__bitfield.getCPtr(val)), true);
+  private bitfield doSet(int index, bitfield val) {
+    return new bitfield(libtorrent_jni.bitfield_vector_doSet(swigCPtr, this, index, bitfield.getCPtr(val), val), true);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

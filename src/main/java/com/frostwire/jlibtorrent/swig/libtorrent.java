@@ -9,8 +9,16 @@
 package com.frostwire.jlibtorrent.swig;
 
 public class libtorrent implements libtorrentConstants {
-  public static String print_error(error_code arg0) {
-    return libtorrent_jni.print_error(error_code.getCPtr(arg0), arg0);
+  public static long getNum_protocols() {
+    return libtorrent_jni.num_protocols_get();
+  }
+
+  public static boolean op_ne(info_hash_t lhs, info_hash_t rhs) {
+    return libtorrent_jni.op_ne(info_hash_t.getCPtr(lhs), lhs, info_hash_t.getCPtr(rhs), rhs);
+  }
+
+  public static boolean op_eq(info_hash_t lhs, info_hash_t rhs) {
+    return libtorrent_jni.op_eq(info_hash_t.getCPtr(lhs), lhs, info_hash_t.getCPtr(rhs), rhs);
   }
 
   public static status_t op_or(status_t lhs, status_t rhs) {
@@ -23,6 +31,14 @@ public class libtorrent implements libtorrentConstants {
 
   public static status_t op_inv(status_t lhs) {
     return status_t.swigToEnum(libtorrent_jni.op_inv(lhs.swigValue()));
+  }
+
+  public static String operation_name(operation_t op) {
+    return libtorrent_jni.operation_name(op.swigValue());
+  }
+
+  public static String print_error(error_code arg0) {
+    return libtorrent_jni.print_error(error_code.getCPtr(arg0), arg0);
   }
 
   public static alert_category_t getError() {
@@ -245,10 +261,6 @@ public class libtorrent implements libtorrentConstants {
 
   public static entry write_torrent_file(add_torrent_params atp, write_torrent_flags_t flags) {
     return new entry(libtorrent_jni.write_torrent_file__SWIG_1(add_torrent_params.getCPtr(atp), atp, write_torrent_flags_t.getCPtr(flags), flags), true);
-  }
-
-  public static String operation_name(operation_t op) {
-    return libtorrent_jni.operation_name(op.swigValue());
   }
 
   public static byte_array_32 ed25519_create_seed() {

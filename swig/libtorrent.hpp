@@ -60,7 +60,7 @@
 //#include <libtorrent/aux_/cpuid.hpp>
 
 std::array<std::int8_t, 32> ed25519_create_seed() {
-    auto seed = lt::dht::ed25519_create_seed();
+    auto seed = libtorrent::dht::ed25519_create_seed();
     return *reinterpret_cast<std::array<std::int8_t, 32>*>(&seed);
 }
 
