@@ -51,32 +51,28 @@ public class entry {
     this(libtorrent_jni.new_entry__SWIG_0(string_entry_map.getCPtr(arg0), arg0), true);
   }
 
-  public entry(byte_const_span arg0) {
-    this(libtorrent_jni.new_entry__SWIG_1(byte_const_span.getCPtr(arg0), arg0), true);
-  }
-
   public entry(String arg0) {
-    this(libtorrent_jni.new_entry__SWIG_2(arg0), true);
+    this(libtorrent_jni.new_entry__SWIG_1(arg0), true);
   }
 
   public entry(entry_vector arg0) {
-    this(libtorrent_jni.new_entry__SWIG_3(entry_vector.getCPtr(arg0), arg0), true);
+    this(libtorrent_jni.new_entry__SWIG_2(entry_vector.getCPtr(arg0), arg0), true);
   }
 
   public entry(long arg0) {
-    this(libtorrent_jni.new_entry__SWIG_4(arg0), true);
+    this(libtorrent_jni.new_entry__SWIG_3(arg0), true);
   }
 
   public entry(entry.data_type t) {
-    this(libtorrent_jni.new_entry__SWIG_5(t.swigValue()), true);
+    this(libtorrent_jni.new_entry__SWIG_4(t.swigValue()), true);
   }
 
   public entry(entry e) {
-    this(libtorrent_jni.new_entry__SWIG_6(entry.getCPtr(e), e), true);
+    this(libtorrent_jni.new_entry__SWIG_5(entry.getCPtr(e), e), true);
   }
 
   public entry() {
-    this(libtorrent_jni.new_entry__SWIG_7(), true);
+    this(libtorrent_jni.new_entry__SWIG_6(), true);
   }
 
   public long integer() {
@@ -93,11 +89,6 @@ public class entry {
 
   public string_entry_map dict() {
     return new string_entry_map(libtorrent_jni.entry_dict(swigCPtr, this), false);
-  }
-
-  public entry find_key(SWIGTYPE_p_string_view key) {
-    long cPtr = libtorrent_jni.entry_find_key(swigCPtr, this, SWIGTYPE_p_string_view.getCPtr(key));
-    return (cPtr == 0) ? null : new entry(cPtr, false);
   }
 
   public String to_string() {

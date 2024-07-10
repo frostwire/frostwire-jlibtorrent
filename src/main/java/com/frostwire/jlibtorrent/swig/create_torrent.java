@@ -83,10 +83,6 @@ public class create_torrent {
     libtorrent_jni.create_torrent_set_hash(swigCPtr, this, index, sha1_hash.getCPtr(h), h);
   }
 
-  public void add_http_seed(SWIGTYPE_p_string_view url) {
-    libtorrent_jni.create_torrent_add_http_seed__SWIG_0(swigCPtr, this, SWIGTYPE_p_string_view.getCPtr(url));
-  }
-
   public void add_node(string_int_pair node) {
     libtorrent_jni.create_torrent_add_node(swigCPtr, this, string_int_pair.getCPtr(node), node);
   }
@@ -140,7 +136,7 @@ public class create_torrent {
   }
 
   public void add_http_seed(String url) {
-    libtorrent_jni.create_torrent_add_http_seed__SWIG_1(swigCPtr, this, url);
+    libtorrent_jni.create_torrent_add_http_seed(swigCPtr, this, url);
   }
 
   public void add_tracker(String url) {

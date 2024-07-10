@@ -1,7 +1,3 @@
-// %ignore libtorrent::generate_fingerprint(std::string, int);
-// %ignore libtorrent::generate_fingerprint(std::string, int, int);
-// %ignore libtorrent::generate_fingerprint(std::string, int, int, int);
-
 %ignore boost::asio;
 %ignore boost::detail::throws;
 %ignore boost::system::errc::make_error_condition;
@@ -70,6 +66,7 @@
 %ignore libtorrent::create_torrent::add_tracker(string_view);
 %ignore libtorrent::create_torrent::add_tracker(string_view, int);
 %ignore libtorrent::create_torrent::add_url_seed(string_view);
+%ignore libtorrent::create_torrent::add_http_seed(string_view);
 %ignore libtorrent::create_torrent::file_list;
 %ignore libtorrent::create_torrent::file_piece_range;
 %ignore libtorrent::create_torrent::file_range;
@@ -343,7 +340,7 @@
 %ignore libtorrent::torrent_info::piece_layer;
 %ignore libtorrent::torrent_info::piece_range;
 %ignore libtorrent::torrent_info::set_piece_layers;
-%ignore libtorrent::torrent_info::ssl_cert;
+%ignore libtorrent::torrent_info::ssl_cert; // see libtorrent_torrent_info.i get_ssl_cert() -> std::string, string_view gives too much trouble
 %ignore libtorrent::torrent_info::swap;
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&);
 %ignore libtorrent::torrent_info::torrent_info(char const*, int, error_code&, int);

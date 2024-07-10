@@ -251,4 +251,8 @@ public class torrent_info {
     return new SWIGTYPE_p_libtorrent__spanT_signed_char_const_t(libtorrent_jni.torrent_info_get_info_section(swigCPtr, this), true);
   }
 
+  public String get_ssl_cert() {
+    return libtorrent_jni.torrent_info_get_ssl_cert(swigCPtr, this);
+  }
+
 }

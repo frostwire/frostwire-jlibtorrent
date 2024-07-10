@@ -450,7 +450,7 @@ public final class TorrentInfo {
      * @return the cert as a byte array
      */
     byte[] sslCert() {
-        byte_vector v = ti.ssl_cert().to_bytes();
+        byte_vector v = Vectors.ascii2byte_vector(ti.get_ssl_cert());
         return Vectors.byte_vector2bytes(v);
     }
 
