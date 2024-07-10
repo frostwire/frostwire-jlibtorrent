@@ -122,7 +122,7 @@ using sha1_hash_vector = std::vector<libtorrent::digest32<160>>;
 using sha256_hash_vector = std::vector<libtorrent::digest32<256>>;
 using socket_type_t = libtorrent::socket_type_t;
 using storage_mode_t = libtorrent::storage_mode_t;
-using string_view = libtorrent::string_view;
+//using string_view = libtorrent::string_view;
 using tcp = libtorrent::tcp;
 using torrent_flags_t = libtorrent::torrent_flags_t;
 using torrent_info = libtorrent::torrent_info;
@@ -143,7 +143,6 @@ using udp = libtorrent::udp;
 %include <std_map.i>
 %include <std_array.i>
 %include "includes/std_bitset.i"
-
 %include "boost/boost_map.i"
 
 %apply std::int8_t { char };

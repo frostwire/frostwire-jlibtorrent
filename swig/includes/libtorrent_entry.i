@@ -20,7 +20,7 @@ namespace libtorrent {
         data_type type() const;
 
         entry(dictionary_type);
-        entry(span<char const>);
+        //entry(span<char const>);
         entry(string_type);
         entry(list_type);
         entry(integer_type);
@@ -36,7 +36,8 @@ namespace libtorrent {
         list_type& list();
         dictionary_type& dict();
 
-        entry* find_key(string_view key);
+        // damn string_view
+        //entry* find_key(string_view key);
 
         std::string to_string() const;
 
