@@ -514,30 +514,7 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public ArrayList<Sha1Hash> merkleTree() {
-        return Sha1Hash.convert(ti.merkle_tree());
-    }
 
-    /**
-     * Copies the passed in merkle tree into the torrent info object.
-     * <p>
-     * You need to set the merkle tree for a torrent that you've just created
-     * (as a merkle torrent). The merkle tree is retrieved from the
-     * {@link #merkleTree()} function, and need to be saved
-     * separately from the torrent file itself. Once it's added to
-     * libtorrent, the merkle tree will be persisted in the resume data.
-     *
-     * @param tree
-     */
-    public void merkleTree(List<Sha1Hash> tree) {
-        sha1_hash_vector v = new sha1_hash_vector();
-
-        for (Sha1Hash h : tree) {
-            v.add(h.swig());
-        }
-
-        ti.set_merkle_tree(v);
-    }
 
     /**
      * returns the name of the torrent.
@@ -627,22 +604,11 @@ public final class TorrentInfo {
     }
 
     /**
-     * Returns whether or not this is a merkle torrent.
-     * See BEP30: http://bittorrent.org/beps/bep_0030.html
-     *
-     * @return
-     */
-    public boolean isMerkleTorrent() {
-        return ti.is_merkle_torrent();
-    }
-
-    /**
      * Generates a magnet URI from the specified torrent. If the torrent
      * is invalid, null is returned.
      * <p>
      * For more information about magnet links, see magnet-links_.
      *
-     * @return
      */
     public String makeMagnetUri() {
         return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
@@ -662,11 +628,11 @@ public final class TorrentInfo {
 
     // helper function
     static ArrayList<AnnounceEntry> trackers(announce_entry_vector v) {
-        int size = (int) v.size();
+        int size = v.size();
         ArrayList<AnnounceEntry> l = new ArrayList<>(size);
 
-        for (int i = 0; i < size; i++) {
-            l.add(new AnnounceEntry(v.get(i)));
+        for (announce_entry announceEntry : v) {
+            l.add(new AnnounceEntry(announceEntry));
         }
 
         return l;
