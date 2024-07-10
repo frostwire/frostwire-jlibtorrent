@@ -1,5 +1,4 @@
 
-
 %include "libtorrent/torrent_info.hpp"
 
 namespace libtorrent {

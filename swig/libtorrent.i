@@ -241,21 +241,20 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_kademlia_dht_state.i"
 %include "includes/libtorrent_client_data.i"
 %include "includes/libtorrent_sha1_hash.i"
-// maybe delete libtrorrent_sha1_hash_type_aliases.i
+// maybe delete libtorrent_sha1_hash_type_aliases.i
 //%include "includes/libtorrent_sha1_hash_type_aliases.i"
 %include "includes/libtorrent_info_hash.i"
 %include "includes/libtorrent_storage_defs.i"
 %include "includes/libtorrent_bitfield.i"
 %include "includes/libtorrent_operations.i"
 %include "includes/libtorrent_error_code.i"
-
 %include "includes/libtorrent_announce.i"
-
 %include "includes/libtorrent_file_storage.i"
 %include "includes/libtorrent_peer_request.i"
 %include "includes/libtorrent_bdecode.i"
 %include "includes/libtorrent_torrent_info.i"
-%include "includes/libtorrent_add_torrent_params.i"
+// the torrent_flags_t template is defined in includes/libtorrent_structs.i
+%include "includes/libtorrent_add_torrent_params.i" // TODO: work to be done here libtorrent 2.0 api
 %include "includes/libtorrent_close_reason.i"
 %include "includes/libtorrent_peer_info.i"
 %include "includes/libtorrent_torrent_handle.i"
@@ -265,7 +264,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_piece_block.i"
 %include "includes/libtorrent_socket_type.i"
 %include "includes/libtorrent_entry.i"
-//%include "includes/libtorrent_tracker_event.i" // will need to create when this is merged from master
+//%include "includes/libtorrent_tracker_event.i" // TODO: will need to create when this is merged from master
 
 // ALERTS TYPES
 %include "includes/libtorrent_alert.i"

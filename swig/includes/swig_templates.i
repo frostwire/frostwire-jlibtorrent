@@ -61,15 +61,11 @@
 %template(string_long_map) std::map<std::string, long>;
 %template(string_view_bdecode_node_pair) std::pair<libtorrent::string_view, libtorrent::bdecode_node>;
 
-// these are defined in libtorrent_sha1_hash.i, delete these from below when we finally finish the transition
+// TODO: these are defined in libtorrent_sha1_hash.i, delete these from below when we finally finish the transition
 //%template(sha1_hash) libtorrent::digest32<160>;
 //%template(sha256_hash) libtorrent::digest32<256>;
 //%template(sha1_hash_vector) std::vector<libtorrent::digest32<160>>;
 //%template(sha256_hash_vector) std::vector<libtorrent::digest32<256>>;
-
-
-
-
 
 %template(bitset_128) std::bitset<128>;
 %template(bitset_96) std::bitset<96>;

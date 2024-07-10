@@ -2,6 +2,7 @@
 
 %include "libtorrent/add_torrent_params.hpp"
 
+// TODO: need to bring more functions needed in bittorrent 2.0 from libtorrent4j/swig/libtorrent/add_torrent_params.i
 namespace libtorrent {
     %extend add_torrent_params {
 
