@@ -47,8 +47,8 @@ public class entry {
     return entry.data_type.swigToEnum(libtorrent_jni.entry_type(swigCPtr, this));
   }
 
-  public entry(string_entry_map arg0) {
-    this(libtorrent_jni.new_entry__SWIG_0(string_entry_map.getCPtr(arg0), arg0), true);
+  public entry(boost_string_entry_map arg0) {
+    this(libtorrent_jni.new_entry__SWIG_0(boost_string_entry_map.getCPtr(arg0), arg0), true);
   }
 
   public entry(String arg0) {
@@ -87,8 +87,8 @@ public class entry {
     return new entry_vector(libtorrent_jni.entry_list(swigCPtr, this), false);
   }
 
-  public string_entry_map dict() {
-    return new string_entry_map(libtorrent_jni.entry_dict(swigCPtr, this), false);
+  public boost_string_entry_map dict() {
+    return new boost_string_entry_map(libtorrent_jni.entry_dict(swigCPtr, this), false);
   }
 
   public String to_string() {

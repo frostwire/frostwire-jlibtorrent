@@ -2098,7 +2098,7 @@ public class libtorrent_jni {
   public final static native boolean piece_block_op_ne(long jarg1, piece_block jarg1_, long jarg2, piece_block jarg2_);
   public final static native void delete_piece_block(long jarg1);
   public final static native int entry_type(long jarg1, entry jarg1_);
-  public final static native long new_entry__SWIG_0(long jarg1, string_entry_map jarg1_);
+  public final static native long new_entry__SWIG_0(long jarg1, boost_string_entry_map jarg1_);
   public final static native long new_entry__SWIG_1(String jarg1);
   public final static native long new_entry__SWIG_2(long jarg1, entry_vector jarg1_);
   public final static native long new_entry__SWIG_3(long jarg1);
