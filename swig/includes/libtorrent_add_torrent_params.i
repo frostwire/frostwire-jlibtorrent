@@ -77,6 +77,8 @@ namespace libtorrent {
             $self->trackers = trackers;
         }
 
+        // aux::vector<std::vector<sha256_hash>, file_index_t> merkle_trees;
+        // but we return instead std::vector<std::vector<sha256_hash>>
         std::vector<std::vector<libtorrent::sha256_hash>> get_merkle_trees() {
             auto* v = &$self->merkle_trees;
             return *reinterpret_cast<std::vector<std::vector<libtorrent::sha256_hash>>*>(v);
@@ -92,6 +94,22 @@ namespace libtorrent {
             for (std::size_t i = 0; i < v.size(); i++)
                 v[i] = download_priority_t{std::uint8_t(piece_priorities[i])};
             $self->piece_priorities = v;
+        }
+
+        // bit-fields indicating which v2 leaf hashes have been verified
+        // against the root hash. If this vector is empty and merkle_trees is
+        // non-empty it implies that all hashes in merkle_trees are verified.
+        //aux::vector<std::vector<bool>, file_index_t> verified_leaf_hashes;
+        // This uses a static vector to return the result, which might not be thread safe
+        const std::vector<std::vector<bool>>& get_verified_leaf_hashes() {
+            static std::vector<std::vector<bool>> result;
+            result.clear();
+            auto* v = &$self->verified_leaf_hashes;
+            result.reserve(v->size());
+            for (const auto& item : *v) {
+                result.push_back(item);
+            }
+            return result;
         }
 
         static libtorrent::add_torrent_params create_instance() {

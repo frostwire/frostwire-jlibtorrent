@@ -317,6 +317,10 @@ public class add_torrent_params {
     libtorrent_jni.add_torrent_params_set_piece_priorities2(swigCPtr, this, byte_vector.getCPtr(piece_priorities), piece_priorities);
   }
 
+  public bool_vector_vector get_verified_leaf_hashes() {
+    return new bool_vector_vector(libtorrent_jni.add_torrent_params_get_verified_leaf_hashes(swigCPtr, this), false);
+  }
+
   public static add_torrent_params create_instance() {
     return new add_torrent_params(libtorrent_jni.add_torrent_params_create_instance(), true);
   }
