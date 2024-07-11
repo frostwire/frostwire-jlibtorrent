@@ -1633,6 +1633,7 @@ public class libtorrent_jni {
   public final static native long add_torrent_params_get_merkle_trees(long jarg1, add_torrent_params jarg1_);
   public final static native void add_torrent_params_set_merkle_trees(long jarg1, add_torrent_params jarg1_, long jarg2, sha256_hash_vector_vector jarg2_);
   public final static native void add_torrent_params_set_piece_priorities2(long jarg1, add_torrent_params jarg1_, long jarg2, byte_vector jarg2_);
+  public final static native long add_torrent_params_get_verified_leaf_hashes(long jarg1, add_torrent_params jarg1_);
   public final static native long add_torrent_params_create_instance();
   public final static native long add_torrent_params_read_resume_data__SWIG_0(long jarg1, bdecode_node jarg1_, long jarg2, error_code jarg2_);
   public final static native long add_torrent_params_read_resume_data__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, error_code jarg2_);

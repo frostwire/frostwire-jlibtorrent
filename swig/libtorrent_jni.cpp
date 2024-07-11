@@ -4591,6 +4591,16 @@ SWIGINTERN void libtorrent_add_torrent_params_set_piece_priorities2(libtorrent::
                 v[i] = download_priority_t{std::uint8_t(piece_priorities[i])};
             self->piece_priorities = v;
         }
+SWIGINTERN std::vector< std::vector< bool > > const &libtorrent_add_torrent_params_get_verified_leaf_hashes(libtorrent::add_torrent_params *self){
+            static std::vector<std::vector<bool>> result;
+            result.clear();
+            auto* v = &self->verified_leaf_hashes;
+            result.reserve(v->size());
+            for (const auto& item : *v) {
+                result.push_back(item);
+            }
+            return result;
+        }
 SWIGINTERN libtorrent::add_torrent_params libtorrent_add_torrent_params_create_instance(){
             return libtorrent::add_torrent_params();
         }
@@ -47093,6 +47103,31 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
       return ;
     }
   }
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1torrent_1params_1get_1verified_1leaf_1hashes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::add_torrent_params *arg1 = (libtorrent::add_torrent_params *) 0 ;
+  std::vector< std::vector< bool > > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::add_torrent_params **)&jarg1; 
+  {
+    try {
+      result = (std::vector< std::vector< bool > > *) &libtorrent_add_torrent_params_get_verified_leaf_hashes(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< std::vector< bool > > **)&jresult = result; 
+  return jresult;
 }
 
 

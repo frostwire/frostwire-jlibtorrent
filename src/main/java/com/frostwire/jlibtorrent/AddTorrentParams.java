@@ -3,6 +3,8 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -176,6 +178,25 @@ public final class AddTorrentParams {
         return l;
     }
 
+    public List<List<Boolean>> get_verified_leaf_hashes() {
+        bool_vector_vector verifiedLeafHashes = p.get_verified_leaf_hashes();
+        int size = (int) verifiedLeafHashes.size();
+        if (verifiedLeafHashes.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<List<Boolean>> result = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            bool_vector verifiedLeafHash = verifiedLeafHashes.get(i);
+            int size2 = (int) verifiedLeafHash.size();
+            List<Boolean> inner = new ArrayList<>();
+            for (int j = 0; j < size2; j++) {
+                inner.add(verifiedLeafHash.get(j));
+            }
+            result.add(inner);
+        }
+        return result;
+    }
+
     /**
      * A list of hostname and port pairs, representing DHT nodes to be added
      * to the session (if DHT is enabled). The hostname may be an IP address.
@@ -186,7 +207,7 @@ public final class AddTorrentParams {
         string_int_pair_vector v = new string_int_pair_vector();
 
         for (Pair<String, Integer> p : value) {
-            v.push_back(p.to_string_int_pair());
+            v.add(p.to_string_int_pair());
         }
 
         p.set_dht_nodes(v);
