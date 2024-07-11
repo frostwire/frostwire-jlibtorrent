@@ -243,6 +243,14 @@ public class file_storage {
     libtorrent_jni.file_storage_add_file_ex__SWIG_3(swigCPtr, this, error_code.getCPtr(ec), ec, path, file_size);
   }
 
+  public String file_name_ex(int index) {
+    return libtorrent_jni.file_storage_file_name_ex(swigCPtr, this, index);
+  }
+
+  public string_vector file_paths_ex() {
+    return new string_vector(libtorrent_jni.file_storage_file_paths_ex(swigCPtr, this), true);
+  }
+
   public final static long max_file_size = libtorrent_jni.file_storage_max_file_size_get();
   public final static long max_file_offset = libtorrent_jni.file_storage_max_file_offset_get();
   public final static file_flags_t flag_pad_file = new file_flags_t(libtorrent_jni.file_storage_flag_pad_file_get(), false);
