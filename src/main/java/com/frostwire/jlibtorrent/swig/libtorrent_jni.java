@@ -1445,6 +1445,8 @@ public class libtorrent_jni {
   public final static native void file_storage_add_file_ex__SWIG_1(long jarg1, file_storage jarg1_, long jarg2, error_code jarg2_, String jarg3, long jarg4, long jarg5, file_flags_t jarg5_, long jarg6);
   public final static native void file_storage_add_file_ex__SWIG_2(long jarg1, file_storage jarg1_, long jarg2, error_code jarg2_, String jarg3, long jarg4, long jarg5, file_flags_t jarg5_);
   public final static native void file_storage_add_file_ex__SWIG_3(long jarg1, file_storage jarg1_, long jarg2, error_code jarg2_, String jarg3, long jarg4);
+  public final static native String file_storage_file_name_ex(long jarg1, file_storage jarg1_, int jarg2);
+  public final static native long file_storage_file_paths_ex(long jarg1, file_storage jarg1_);
   public final static native void peer_request_piece_set(long jarg1, peer_request jarg1_, int jarg2);
   public final static native int peer_request_piece_get(long jarg1, peer_request jarg1_);
   public final static native void peer_request_start_set(long jarg1, peer_request jarg1_, int jarg2);

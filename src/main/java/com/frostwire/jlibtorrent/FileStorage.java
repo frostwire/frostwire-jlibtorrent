@@ -100,7 +100,11 @@ public final class FileStorage {
      * @param symlink the symlink
      */
     public void addFile(String path, long size, file_flags_t flags, int mtime, String symlink) {
-        fs.add_file(path, size, flags, mtime, symlink);
+        error_code ec = new error_code();
+        fs.add_file_ex(ec, path, size, flags, mtime, symlink);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     /**
@@ -123,7 +127,11 @@ public final class FileStorage {
      * @param mtime the time
      */
     public void addFile(String path, long size, file_flags_t flags, int mtime) {
-        fs.add_file(path, size, flags, mtime);
+        error_code ec = new error_code();
+        fs.add_file_ex(ec, path, size, flags, mtime);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     /**
@@ -145,7 +153,11 @@ public final class FileStorage {
      * @param flags the file flags
      */
     public void addFile(String path, long size, file_flags_t flags) {
-        fs.add_file(path, size, flags);
+        error_code ec = new error_code();
+        fs.add_file_ex(ec, path, size, flags);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     /**
@@ -165,7 +177,11 @@ public final class FileStorage {
      * @param size
      */
     public void addFile(String p, long size) {
-        fs.add_file(p, size);
+        error_code ec = new error_code();
+        fs.add_file_ex(ec, p, size);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     /**
@@ -345,8 +361,7 @@ public final class FileStorage {
      * @return the file name
      */
     public String fileName(int index) {
-        byte_vector v = fs.file_name(index).to_bytes();
-        return Vectors.byte_vector2utf8(v);
+        return fs.file_name_ex(index);
     }
 
     /**
@@ -386,7 +401,8 @@ public final class FileStorage {
      * @return
      */
     public ArrayList<String> paths() {
-        string_vector v = fs.paths();
+        // TODO: Write a test for this method
+        string_vector v = fs.file_paths_ex();
         int size = (int) v.size();
         ArrayList<String> l = new ArrayList<>(size);
 
