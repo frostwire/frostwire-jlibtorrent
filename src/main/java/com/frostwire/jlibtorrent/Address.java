@@ -109,20 +109,11 @@ public final class Address implements Comparable<Address>, Cloneable {
      */
     @Override
     public String toString() {
-        return toString(addr);
+        return this.addr.to_string();
     }
 
     @Override
     public Address clone() {
         return new Address(new address(addr));
-    }
-
-    static String toString(address a) {
-        error_code ec = new error_code();
-        String s = a.to_string(ec);
-        if (ec.value() != 0) {
-            s = "<invalid address>";
-        }
-        return s;
     }
 }

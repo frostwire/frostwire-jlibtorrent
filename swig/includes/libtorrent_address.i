@@ -23,8 +23,7 @@ namespace libtorrent {
                 return a1 == a2 ? 0 : (a1 < a2 ? -1 : 1);
             }
 
-            static address from_string(std::string const& str, boost::system::error_code& ec)
-            {
+            static address from_string(std::string const& str, boost::system::error_code& ec) {
                 return boost::asio::ip::make_address(str, ec);
             }
 
@@ -50,7 +49,7 @@ namespace libtorrent {
                     }
                     return result;
                 }
-            }
+            } // hash_code
         }
     };
 } // namespace libtorrent
