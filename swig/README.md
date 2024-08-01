@@ -2,7 +2,7 @@
 You can get the copy we use to build SWIG and build it the same way the Dockerfile does it from frostwire.com:
 
 ```bash
-export SWIG_VERSION=4.1.1
+export SWIG_VERSION=4.2.1
 cd ~/src \ # change this to the path where you keep source codes in your system
 wget -nv https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz
 tar xzf swig-${SWIG_VERSION}.tar.gz
