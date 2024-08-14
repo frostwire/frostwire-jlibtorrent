@@ -173,20 +173,22 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_total_redundant_bytes_get(swigCPtr, this);
   }
 
-  public void setPieces(SWIGTYPE_p_typed_bitfieldT_piece_index_t_t value) {
-    libtorrent_jni.torrent_status_pieces_set(swigCPtr, this, SWIGTYPE_p_typed_bitfieldT_piece_index_t_t.getCPtr(value));
+  public void setPieces(piece_index_bitfield value) {
+    libtorrent_jni.torrent_status_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_typed_bitfieldT_piece_index_t_t getPieces() {
-    return new SWIGTYPE_p_typed_bitfieldT_piece_index_t_t(libtorrent_jni.torrent_status_pieces_get(swigCPtr, this), true);
+  public piece_index_bitfield getPieces() {
+    long cPtr = libtorrent_jni.torrent_status_pieces_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
-  public void setVerified_pieces(SWIGTYPE_p_typed_bitfieldT_piece_index_t_t value) {
-    libtorrent_jni.torrent_status_verified_pieces_set(swigCPtr, this, SWIGTYPE_p_typed_bitfieldT_piece_index_t_t.getCPtr(value));
+  public void setVerified_pieces(piece_index_bitfield value) {
+    libtorrent_jni.torrent_status_verified_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_typed_bitfieldT_piece_index_t_t getVerified_pieces() {
-    return new SWIGTYPE_p_typed_bitfieldT_piece_index_t_t(libtorrent_jni.torrent_status_verified_pieces_get(swigCPtr, this), true);
+  public piece_index_bitfield getVerified_pieces() {
+    long cPtr = libtorrent_jni.torrent_status_verified_pieces_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
   public void setTotal_done(long value) {

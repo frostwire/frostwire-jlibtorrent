@@ -82,6 +82,9 @@ using queue_position_t = libtorrent::queue_position_t;
 
 #include "libtorrent.hpp"
 
+%}
+%include "includes/libtorrent_typed_bitfield.i"
+%{
 template <typename IndexType>
 using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 
@@ -317,7 +320,6 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_peer_connection_handle.i"
 %include "includes/libtorrent_stats_metric.i"
 %include "includes/libtorrent_string_view.i"
-%include "includes/libtorrent_typed_bitfield.i"
 
 // wrap this stuff last.
 %include "libtorrent.hpp"
