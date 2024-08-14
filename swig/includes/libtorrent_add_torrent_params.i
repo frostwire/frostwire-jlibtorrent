@@ -1,8 +1,5 @@
-
-
 %include "libtorrent/add_torrent_params.hpp"
 
-// TODO: need to bring more functions needed in bittorrent 2.0 from libtorrent4j/swig/libtorrent/add_torrent_params.i
 namespace libtorrent {
     %extend add_torrent_params {
 
@@ -14,8 +11,20 @@ namespace libtorrent {
             $self->ti = std::make_shared<libtorrent::torrent_info>(ti);
         }
 
+        std::vector<std::int8_t> get_file_priorities() {
+            auto* v = &$self->file_priorities;
+            return *reinterpret_cast<std::vector<std::int8_t>*>(v);
+        }
+
+        // file_index_t is a strong type definition of int
         void set_renamed_files(std::map<file_index_t, std::string> const& renamed_files) {
             $self->renamed_files = renamed_files;
+        }
+
+        // maybe this one will not be necessary
+        void set_renamed_files(std::map<int, std::string>& v) {
+            auto* t = reinterpret_cast<std::map<libtorrent::file_index_t, std::string>*>(&v);
+            $self->renamed_files = *t;
         }
 
         std::vector<int> get_tracker_tiers() {
@@ -49,6 +58,21 @@ namespace libtorrent {
             $self->file_priorities = v;
         }
 
+        void set_file_priorities(std::vector<std::int8_t>& v) {
+            auto* t = reinterpret_cast<std::vector<libtorrent::download_priority_t>*>(&v);
+            $self->file_priorities = *t;
+        }
+
+        std::vector<std::int8_t> get_piece_priorities() {
+            auto* v = &$self->piece_priorities;
+            return *reinterpret_cast<std::vector<std::int8_t>*>(v);
+        }
+
+        void set_piece_priorities(std::vector<std::int8_t>& v) {
+            auto* t = reinterpret_cast<std::vector<libtorrent::download_priority_t>*>(&v);
+            $self->piece_priorities = *t;
+        }
+
         std::vector<std::pair<std::string, int>> get_dht_nodes() {
             return $self->dht_nodes;
         }
@@ -69,7 +93,7 @@ namespace libtorrent {
             $self->url_seeds = url_seeds;
         }
 
-        std::vector<std::string>  get_trackers() {
+        std::vector<std::string> get_trackers() {
             return $self->trackers;
         }
 
@@ -89,6 +113,18 @@ namespace libtorrent {
             $self->merkle_trees = *t;
         }
 
+        std::vector<libtorrent::bitfield> get_merkle_tree_mask() {
+            auto* v = &$self->merkle_tree_mask;
+            return *reinterpret_cast<std::vector<libtorrent::bitfield>*>(v);
+        }
+
+        // commenting for now, this might be an api compatible with the master branch
+        // error: no viable overloaded '='
+//         void set_merkle_tree_mask(std::vector<libtorrent::bitfield>& v) {
+//             auto* t = reinterpret_cast<libtorrent::aux::vector<libtorrent::bitfield, libtorrent::file_index_t>*>(&v);
+//             $self->merkle_tree_mask = *t;
+//         }
+
         void set_piece_priorities2(std::vector<std::int8_t> const& piece_priorities) {
             std::vector<download_priority_t> v(piece_priorities.size());
             for (std::size_t i = 0; i < v.size(); i++)
@@ -101,7 +137,7 @@ namespace libtorrent {
         // non-empty it implies that all hashes in merkle_trees are verified.
         //aux::vector<std::vector<bool>, file_index_t> verified_leaf_hashes;
         // This uses a static vector to return the result, which might not be thread safe
-        const std::vector<std::vector<bool>>& get_verified_leaf_hashes() {
+        const std::vector<std::vector<bool>>& get_verified_leaf_hashes_old() {
             static std::vector<std::vector<bool>> result;
             result.clear();
             auto* v = &$self->verified_leaf_hashes;
@@ -110,6 +146,46 @@ namespace libtorrent {
                 result.push_back(item);
             }
             return result;
+        }
+
+        std::vector<libtorrent::bitfield> get_verified_leaf_hashes() {
+            auto* v = &$self->verified_leaf_hashes;
+            return *reinterpret_cast<std::vector<libtorrent::bitfield>*>(v);
+        }
+
+        std::map<int, bitfield> get_unfinished_pieces() {
+            auto* v = &$self->unfinished_pieces;
+            return *reinterpret_cast<std::map<int, libtorrent::bitfield>*>(v);
+        }
+
+        void set_unfinished_pieces(std::map<int, bitfield>& v) {
+            auto* t = reinterpret_cast<std::map<libtorrent::piece_index_t, libtorrent::bitfield>*>(&v);
+            $self->unfinished_pieces = *t;
+        }
+
+        std::map<int, std::string> get_renamed_files() {
+            auto* v = &$self->renamed_files;
+            return *reinterpret_cast<std::map<int, std::string>*>(v);
+        }
+
+        libtorrent::bitfield get_have_pieces() {
+            auto* v = &$self->have_pieces;
+            return *reinterpret_cast<libtorrent::bitfield*>(v);
+        }
+
+        void set_have_pieces(libtorrent::bitfield& v) {
+            auto* t = reinterpret_cast<libtorrent::typed_bitfield<libtorrent::piece_index_t>*>(&v);
+            $self->have_pieces = *t;
+        }
+
+        libtorrent::bitfield get_verified_pieces() {
+            auto* v = &$self->verified_pieces;
+            return *reinterpret_cast<libtorrent::bitfield*>(v);
+        }
+
+        void set_verified_pieces(libtorrent::bitfield& v){
+            auto* t = reinterpret_cast<libtorrent::typed_bitfield<libtorrent::piece_index_t>*>(&v);
+            $self->verified_pieces = *t;
         }
 
         static libtorrent::add_torrent_params create_instance() {

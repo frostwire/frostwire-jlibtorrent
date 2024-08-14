@@ -1,4 +1,3 @@
-%include "libtorrent_flags.i"
 
 namespace libtorrent {
     // dummy tag structs for strong_typedefs
@@ -23,13 +22,13 @@ namespace libtorrent {
     struct save_state_flags_tag;
     struct session_flags_tag;
     struct status_flags_tag;
-    struct torrent_flags_tag;
     struct write_torrent_flags_tag;
 
-    namespace aux {
-    template<typename UnderlyingType, typename Tag>
-        struct strong_typedef;
-    }
+//     namespace aux {
+//     template<typename UnderlyingType, typename Tag>
+//         struct strong_typedef;
+//     }
+
 
     %template(add_piece_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
     %template(alert_category_t) libtorrent::flags::bitfield_flag<std::uint32_t, alert_category_tag>;
@@ -50,6 +49,5 @@ namespace libtorrent {
     %template(save_state_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, save_state_flags_tag>;
     %template(session_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, session_flags_tag>;
     %template(status_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, status_flags_tag>;
-    %template(torrent_flags_t) libtorrent::flags::bitfield_flag<std::uint64_t, torrent_flags_tag>;
     %template(write_torrent_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, write_torrent_flags_tag>;
 } // namespace libtorrent

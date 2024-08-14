@@ -117,10 +117,6 @@ using save_state_flags_t = libtorrent::save_state_flags_t;
 using session_flags_t = libtorrent::session_flags_t;
 using session_params = libtorrent::session_params;
 using settings_pack = libtorrent::settings_pack;
-//using sha1_hash = libtorrent::sha1_hash;
-//using sha256_hash = libtorrent::sha256_hash;
-//using sha1_hash = libtorrent::digest32<160>;
-//using sha256_hash = libtorrent::digest32<256>;
 using sha1_hash_vector = std::vector<libtorrent::digest32<160>>;
 using sha256_hash_vector = std::vector<libtorrent::digest32<256>>;
 using socket_type_t = libtorrent::socket_type_t;
@@ -197,6 +193,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/swig_templates.i"
 
 // more structs and templates
+%include "includes/libtorrent_flags.i"
 %include "includes/libtorrent_structs.i"
 
 %rename(op_eq) operator==;
@@ -234,6 +231,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 // Includes of what's actually going to be wrapped.
 // Order of inclusion matters.
 %include "includes/libtorrent_span.i"
+
 // includes/libtorrent_flags.i already included via %include "includes/libtorrent_structs.i"
 %include "includes/libtorrent_address.i"
 // socket.i ->
@@ -255,8 +253,8 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_peer_request.i"
 %include "includes/libtorrent_bdecode.i"
 %include "includes/libtorrent_torrent_info.i"
-// the torrent_flags_t template is defined in includes/libtorrent_structs.i
-%include "includes/libtorrent_add_torrent_params.i" // TODO: work to be done here libtorrent 2.0 api
+%include "includes/libtorrent_torrent_flags.i"
+%include "includes/libtorrent_add_torrent_params.i"
 %include "includes/libtorrent_close_reason.i"
 %include "includes/libtorrent_peer_info.i"
 %include "includes/libtorrent_torrent_handle.i"
