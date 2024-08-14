@@ -33,6 +33,11 @@ public class piece_index_bitfield {
     return ptr;
   }
 
+  @SuppressWarnings({"deprecation", "removal"})
+  protected void finalize() {
+    delete();
+  }
+
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
@@ -59,20 +64,20 @@ public class piece_index_bitfield {
     this(libtorrent_jni.new_piece_index_bitfield__SWIG_3(piece_index_bitfield.getCPtr(rhs), rhs), true);
   }
 
-  public boolean get_bit(int index) {
-    return libtorrent_jni.piece_index_bitfield_get_bit(swigCPtr, this, index);
+  public boolean get_bit(SWIGTYPE_p_piece_index_t index) {
+    return libtorrent_jni.piece_index_bitfield_get_bit(swigCPtr, this, SWIGTYPE_p_piece_index_t.getCPtr(index));
   }
 
-  public void clear_bit(int index) {
-    libtorrent_jni.piece_index_bitfield_clear_bit(swigCPtr, this, index);
+  public void clear_bit(SWIGTYPE_p_piece_index_t index) {
+    libtorrent_jni.piece_index_bitfield_clear_bit(swigCPtr, this, SWIGTYPE_p_piece_index_t.getCPtr(index));
   }
 
-  public void set_bit(int index) {
-    libtorrent_jni.piece_index_bitfield_set_bit(swigCPtr, this, index);
+  public void set_bit(SWIGTYPE_p_piece_index_t index) {
+    libtorrent_jni.piece_index_bitfield_set_bit(swigCPtr, this, SWIGTYPE_p_piece_index_t.getCPtr(index));
   }
 
-  public int end_index() {
-    return libtorrent_jni.piece_index_bitfield_end_index(swigCPtr, this);
+  public SWIGTYPE_p_piece_index_t end_index() {
+    return new SWIGTYPE_p_piece_index_t(libtorrent_jni.piece_index_bitfield_end_index(swigCPtr, this), true);
   }
 
   public boolean all_set() {
