@@ -1,7 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.torrent_flags_t;
-import com.frostwire.jlibtorrent.swig.torrent_status;
+import com.frostwire.jlibtorrent.swig.*;
 
 /**
  * Holds a snapshot of the status of a torrent, as queried by
@@ -663,7 +662,18 @@ public final class TorrentStatus implements Cloneable {
      * @return
      */
     public Sha1Hash infoHash() {
-        return new Sha1Hash(ts.getInfo_hash());
+        info_hash_t infoHashes = ts.getInfo_hashes();
+        return new Sha1Hash(infoHashes.getV1());
+    }
+
+    public Sha1Hash infoHashV1() {
+        info_hash_t infoHashes = ts.getInfo_hashes();
+        return new Sha1Hash(infoHashes.getV1());
+    }
+
+    public Sha256Hash infoHashV2() {
+        info_hash_t infoHashes = ts.getInfo_hashes();
+        return new Sha256Hash(infoHashes.getV2());
     }
 
     public long lastUpload() {

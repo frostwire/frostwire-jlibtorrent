@@ -32,7 +32,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash>, Cloneable {
      */
     public Sha1Hash(byte[] bytes) {
         if (bytes.length != 20) {
-            throw new IllegalArgumentException("bytes array must be of length 20");
+            throw new IllegalArgumentException("Sha1Hash0byte[]() bytes array must be of length 20");
         }
 
         this.h = new sha1_hash(Vectors.bytes2byte_vector(bytes));
