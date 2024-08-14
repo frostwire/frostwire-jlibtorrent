@@ -560,12 +560,13 @@ public class torrent_status {
     return (cPtr == 0) ? null : new info_hash_t(cPtr, false);
   }
 
-  public void setFlags(SWIGTYPE_p_torrent_flags_t value) {
-    libtorrent_jni.torrent_status_flags_set(swigCPtr, this, SWIGTYPE_p_torrent_flags_t.getCPtr(value));
+  public void setFlags(torrent_flags_t value) {
+    libtorrent_jni.torrent_status_flags_set(swigCPtr, this, torrent_flags_t.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_torrent_flags_t getFlags() {
-    return new SWIGTYPE_p_torrent_flags_t(libtorrent_jni.torrent_status_flags_get(swigCPtr, this), true);
+  public torrent_flags_t getFlags() {
+    long cPtr = libtorrent_jni.torrent_status_flags_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
   }
 
   public torrent_info torrent_file_ptr() {

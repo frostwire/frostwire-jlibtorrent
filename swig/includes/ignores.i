@@ -41,7 +41,6 @@
 %ignore libtorrent::add_torrent_params::renamed_files;
 %ignore libtorrent::add_torrent_params::storage;
 %ignore libtorrent::add_torrent_params::ti;
-%ignore libtorrent::add_torrent_params::ti;
 %ignore libtorrent::add_torrent_params::tracker_tiers;
 %ignore libtorrent::add_torrent_params::trackers;
 %ignore libtorrent::add_torrent_params::unfinished_pieces;
@@ -321,6 +320,8 @@
 %ignore libtorrent::storage_params::pool;
 %ignore libtorrent::storage_params::priorities;
 %ignore libtorrent::torrent_conflict_alert::metadata;
+%ignore libtorrent::torrent_flags::deprecated_override_trackers;
+%ignore libtorrent::torrent_flags::deprecated_override_web_seeds;
 %ignore libtorrent::torrent_info::_internal_drain;
 %ignore libtorrent::torrent_info::add_merkle_nodes;
 %ignore libtorrent::torrent_info::build_merkle_list;
