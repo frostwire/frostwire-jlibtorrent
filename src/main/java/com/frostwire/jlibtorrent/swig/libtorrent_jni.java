@@ -65,28 +65,6 @@ public class libtorrent_jni {
     public static final native long directBufferAddress(java.nio.Buffer buffer);
     public static final native long directBufferCapacity(java.nio.Buffer buffer);
 
-  public final static native long new_piece_index_bitfield__SWIG_0();
-  public final static native long new_piece_index_bitfield__SWIG_1(int jarg1);
-  public final static native long new_piece_index_bitfield__SWIG_2(int jarg1, boolean jarg2);
-  public final static native long new_piece_index_bitfield__SWIG_3(long jarg1, piece_index_bitfield jarg1_);
-  public final static native boolean piece_index_bitfield_get_bit(long jarg1, piece_index_bitfield jarg1_, long jarg2);
-  public final static native void piece_index_bitfield_clear_bit(long jarg1, piece_index_bitfield jarg1_, long jarg2);
-  public final static native void piece_index_bitfield_set_bit(long jarg1, piece_index_bitfield jarg1_, long jarg2);
-  public final static native long piece_index_bitfield_end_index(long jarg1, piece_index_bitfield jarg1_);
-  public final static native boolean piece_index_bitfield_all_set(long jarg1, piece_index_bitfield jarg1_);
-  public final static native boolean piece_index_bitfield_none_set(long jarg1, piece_index_bitfield jarg1_);
-  public final static native int piece_index_bitfield_size(long jarg1, piece_index_bitfield jarg1_);
-  public final static native int piece_index_bitfield_num_words(long jarg1, piece_index_bitfield jarg1_);
-  public final static native boolean piece_index_bitfield_empty(long jarg1, piece_index_bitfield jarg1_);
-  public final static native int piece_index_bitfield_count(long jarg1, piece_index_bitfield jarg1_);
-  public final static native int piece_index_bitfield_find_first_set(long jarg1, piece_index_bitfield jarg1_);
-  public final static native int piece_index_bitfield_find_last_clear(long jarg1, piece_index_bitfield jarg1_);
-  public final static native void piece_index_bitfield_resize__SWIG_0(long jarg1, piece_index_bitfield jarg1_, int jarg2, boolean jarg3);
-  public final static native void piece_index_bitfield_resize__SWIG_1(long jarg1, piece_index_bitfield jarg1_, int jarg2);
-  public final static native void piece_index_bitfield_set_all(long jarg1, piece_index_bitfield jarg1_);
-  public final static native void piece_index_bitfield_clear_all(long jarg1, piece_index_bitfield jarg1_);
-  public final static native void piece_index_bitfield_clear(long jarg1, piece_index_bitfield jarg1_);
-  public final static native void delete_piece_index_bitfield(long jarg1);
   public final static native long new_port_mapping_t_vector__SWIG_0();
   public final static native long new_port_mapping_t_vector__SWIG_1(long jarg1, port_mapping_t_vector jarg1_);
   public final static native boolean port_mapping_t_vector_isEmpty(long jarg1, port_mapping_t_vector jarg1_);
@@ -2028,10 +2006,6 @@ public class libtorrent_jni {
   public final static native long torrent_status_total_failed_bytes_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_total_redundant_bytes_set(long jarg1, torrent_status jarg1_, long jarg2);
   public final static native long torrent_status_total_redundant_bytes_get(long jarg1, torrent_status jarg1_);
-  public final static native void torrent_status_pieces_set(long jarg1, torrent_status jarg1_, long jarg2, piece_index_bitfield jarg2_);
-  public final static native long torrent_status_pieces_get(long jarg1, torrent_status jarg1_);
-  public final static native void torrent_status_verified_pieces_set(long jarg1, torrent_status jarg1_, long jarg2, piece_index_bitfield jarg2_);
-  public final static native long torrent_status_verified_pieces_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_total_done_set(long jarg1, torrent_status jarg1_, long jarg2);
   public final static native long torrent_status_total_done_get(long jarg1, torrent_status jarg1_);
   public final static native void torrent_status_total_set(long jarg1, torrent_status jarg1_, long jarg2);
@@ -2134,6 +2108,8 @@ public class libtorrent_jni {
   public final static native long torrent_status_get_finished_duration(long jarg1, torrent_status jarg1_);
   public final static native long torrent_status_get_seeding_duration(long jarg1, torrent_status jarg1_);
   public final static native int torrent_status_get_queue_position(long jarg1, torrent_status jarg1_);
+  public final static native long torrent_status_get_pieces(long jarg1, torrent_status jarg1_);
+  public final static native long torrent_status_get_verified_pieces(long jarg1, torrent_status jarg1_);
   public final static native int counters_num_checking_torrents_get();
   public final static native int counters_num_gauges_counters_get();
   public final static native long new_counters__SWIG_0();
