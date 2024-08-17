@@ -1,6 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.piece_index_bitfield;
+import com.frostwire.jlibtorrent.swig.bitfield;
 import com.frostwire.jlibtorrent.swig.torrent_status;
 
 /**
@@ -12,13 +12,13 @@ import com.frostwire.jlibtorrent.swig.torrent_status;
  */
 public final class PieceIndexBitfield {
 
-    private final piece_index_bitfield f;
+    private final bitfield f;
     private final torrent_status ts;
 
     /**
      * @param f the native object
      */
-    public PieceIndexBitfield(piece_index_bitfield f) {
+    public PieceIndexBitfield(bitfield f) {
         this(f, null);
     }
 
@@ -28,7 +28,7 @@ public final class PieceIndexBitfield {
      * @param f  the native object
      * @param ts the torrent status to pin
      */
-    PieceIndexBitfield(piece_index_bitfield f, torrent_status ts) {
+    PieceIndexBitfield(bitfield f, torrent_status ts) {
         this.f = f;
         this.ts = ts;
     }
@@ -36,7 +36,7 @@ public final class PieceIndexBitfield {
     /**
      * @return the native object
      */
-    public piece_index_bitfield swig() {
+    public bitfield swig() {
         return f;
     }
 
@@ -73,10 +73,6 @@ public final class PieceIndexBitfield {
      */
     public void setBit(int index) {
         f.set_bit(index);
-    }
-
-    public int endIndex() {
-        return f.end_index();
     }
 
     /**
