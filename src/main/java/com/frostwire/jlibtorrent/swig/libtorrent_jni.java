@@ -65,21 +65,6 @@ public class libtorrent_jni {
     public static final native long directBufferAddress(java.nio.Buffer buffer);
     public static final native long directBufferCapacity(java.nio.Buffer buffer);
 
-  public final static native long new_port_mapping_t_vector__SWIG_0();
-  public final static native long new_port_mapping_t_vector__SWIG_1(long jarg1, port_mapping_t_vector jarg1_);
-  public final static native boolean port_mapping_t_vector_isEmpty(long jarg1, port_mapping_t_vector jarg1_);
-  public final static native void port_mapping_t_vector_clear(long jarg1, port_mapping_t_vector jarg1_);
-  public final static native long new_port_mapping_t_vector__SWIG_2(int jarg1, long jarg2);
-  public final static native int port_mapping_t_vector_doCapacity(long jarg1, port_mapping_t_vector jarg1_);
-  public final static native void port_mapping_t_vector_doReserve(long jarg1, port_mapping_t_vector jarg1_, int jarg2);
-  public final static native int port_mapping_t_vector_doSize(long jarg1, port_mapping_t_vector jarg1_);
-  public final static native void port_mapping_t_vector_doAdd__SWIG_0(long jarg1, port_mapping_t_vector jarg1_, long jarg2);
-  public final static native void port_mapping_t_vector_doAdd__SWIG_1(long jarg1, port_mapping_t_vector jarg1_, int jarg2, long jarg3);
-  public final static native long port_mapping_t_vector_doRemove(long jarg1, port_mapping_t_vector jarg1_, int jarg2);
-  public final static native long port_mapping_t_vector_doGet(long jarg1, port_mapping_t_vector jarg1_, int jarg2);
-  public final static native long port_mapping_t_vector_doSet(long jarg1, port_mapping_t_vector jarg1_, int jarg2, long jarg3);
-  public final static native void port_mapping_t_vector_doRemoveRange(long jarg1, port_mapping_t_vector jarg1_, int jarg2, int jarg3);
-  public final static native void delete_port_mapping_t_vector(long jarg1);
   public final static native long new_int_byte_pair__SWIG_0();
   public final static native long new_int_byte_pair__SWIG_1(int jarg1, byte jarg2);
   public final static native long new_int_byte_pair__SWIG_2(long jarg1, int_byte_pair jarg1_);
