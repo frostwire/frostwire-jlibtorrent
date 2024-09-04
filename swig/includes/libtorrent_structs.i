@@ -16,11 +16,7 @@ namespace libtorrent {
     struct picker_flags_tag;
     struct port_mapping_tag;
     struct reannounce_flags_tag;
-    struct remove_flags_tag;
-    struct reopen_network_flags_tag;
     struct resume_data_flags_tag;
-    struct save_state_flags_tag;
-    struct session_flags_tag;
     struct status_flags_tag;
     struct write_torrent_flags_tag;
 
@@ -28,7 +24,6 @@ namespace libtorrent {
 //     template<typename UnderlyingType, typename Tag>
 //         struct strong_typedef;
 //     }
-
 
     %template(add_piece_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
     %template(alert_category_t) libtorrent::flags::bitfield_flag<std::uint32_t, alert_category_tag>;
@@ -43,11 +38,10 @@ namespace libtorrent {
     %template(pex_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, pex_flags_tag>;
     %template(picker_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, picker_flags_tag>;
     %template(reannounce_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, reannounce_flags_tag>;
-    %template(remove_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, remove_flags_tag>;
-    %template(reopen_network_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, reopen_network_flags_tag>;
     %template(resume_data_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, resume_data_flags_tag>;
-    %template(save_state_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, save_state_flags_tag>;
-    %template(session_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, session_flags_tag>;
     %template(status_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, status_flags_tag>;
     %template(write_torrent_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, write_torrent_flags_tag>;
+
 } // namespace libtorrent
+
+using remove_flags_t = libtorrent::remove_flags_t;
