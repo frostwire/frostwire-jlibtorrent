@@ -46,7 +46,6 @@
 #include <libtorrent/close_reason.hpp>
 #include <libtorrent/peer_info.hpp>
 #include <libtorrent/pex_flags.hpp>
-//#include <libtorrent/torrent_handle.hpp>
 #include <libtorrent/torrent_status.hpp>
 #include <libtorrent/performance_counters.hpp>
 #include <libtorrent/portmap.hpp>
@@ -109,9 +108,7 @@ using peer_source_flags_t = libtorrent::peer_source_flags_t;
 using pex_flags_t = libtorrent::pex_flags_t;
 using portmap_transport = libtorrent::portmap_transport;
 using portmap_protocol = libtorrent::portmap_protocol;
-//using port_mapping_t = libtorrent::aux::strong_typedef<int, struct port_mapping_tag>;
 using protocol_version = libtorrent::protocol_version;
-using remove_flags_t = libtorrent::remove_flags_t;
 using reopen_network_flags_t = libtorrent::reopen_network_flags_t;
 using save_state_flags_t = libtorrent::save_state_flags_t;
 using session_flags_t = libtorrent::session_flags_t;
@@ -121,7 +118,6 @@ using sha1_hash_vector = std::vector<libtorrent::digest32<160>>;
 using sha256_hash_vector = std::vector<libtorrent::digest32<256>>;
 using socket_type_t = libtorrent::socket_type_t;
 using storage_mode_t = libtorrent::storage_mode_t;
-//using string_view = libtorrent::string_view;
 using tcp = libtorrent::tcp;
 using torrent_flags_t = libtorrent::torrent_flags_t;
 using torrent_info = libtorrent::torrent_info;
@@ -296,6 +292,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_settings_pack.i"
 %include "includes/libtorrent_peer_class_info.i"
 %include "includes/libtorrent_ip_filter.i"
+%include "includes/libtorrent_session_types.i"
 %include "includes/libtorrent_session_params.i"
 %include "includes/libtorrent_session_handle.i"
 %include "includes/libtorrent_session.i"
