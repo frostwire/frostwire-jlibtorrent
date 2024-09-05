@@ -47,8 +47,8 @@ public class session extends session_handle {
     this(libtorrent_jni.new_session__SWIG_0(session_params.getCPtr(params), params), true);
   }
 
-  public session(session_params params, SWIGTYPE_p_session_flags_t flags) {
-    this(libtorrent_jni.new_session__SWIG_1(session_params.getCPtr(params), params, SWIGTYPE_p_session_flags_t.getCPtr(flags)), true);
+  public session(session_params params, session_flags_t flags) {
+    this(libtorrent_jni.new_session__SWIG_1(session_params.getCPtr(params), params, session_flags_t.getCPtr(flags), flags), true);
   }
 
   public session() {
