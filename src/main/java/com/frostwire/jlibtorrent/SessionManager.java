@@ -79,7 +79,6 @@ public class SessionManager {
 
     /**
      * @param params
-     * @param flags  You can pass a flag like SessionHandle.PAUSED to start the session paused.
      */
     public void start(SessionParams params) {
         if (session != null) {
@@ -860,13 +859,13 @@ public class SessionManager {
 
     public void dhtAnnounce(Sha1Hash sha1, int port, int flags) {
         if (session != null) {
-            session.dht_announce(sha1.swig(), port, flags);
+            session.dht_announce_ex(sha1.swig(), port, (byte) flags);
         }
     }
 
     public void dhtAnnounce(Sha1Hash sha1) {
         if (session != null) {
-            session.dht_announce(sha1.swig());
+            session.dht_announce_ex(sha1.swig());
         }
     }
 
