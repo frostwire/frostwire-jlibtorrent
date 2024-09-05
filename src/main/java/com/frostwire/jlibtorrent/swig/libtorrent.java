@@ -429,6 +429,26 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.find_metric_idx_s(name);
   }
 
+  public static add_torrent_params read_resume_data_ex(byte_vector buffer, error_code ec, load_torrent_limits cfg) {
+    return new add_torrent_params(libtorrent_jni.read_resume_data_ex__SWIG_0(byte_vector.getCPtr(buffer), buffer, error_code.getCPtr(ec), ec, load_torrent_limits.getCPtr(cfg), cfg), true);
+  }
+
+  public static add_torrent_params read_resume_data_ex(byte_vector buffer, error_code ec) {
+    return new add_torrent_params(libtorrent_jni.read_resume_data_ex__SWIG_1(byte_vector.getCPtr(buffer), buffer, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static byte_vector write_resume_data_buf_ex(add_torrent_params atp) {
+    return new byte_vector(libtorrent_jni.write_resume_data_buf_ex(add_torrent_params.getCPtr(atp), atp), true);
+  }
+
+  public static byte_vector write_torrent_file_buf_ex(add_torrent_params atp) {
+    return new byte_vector(libtorrent_jni.write_torrent_file_buf_ex(add_torrent_params.getCPtr(atp), atp), true);
+  }
+
+  public static add_torrent_params parse_magnet_uri(String uri, error_code ec) {
+    return new add_torrent_params(libtorrent_jni.parse_magnet_uri(uri, error_code.getCPtr(ec), ec), true);
+  }
+
   public static ip_interface_vector enum_net_interfaces(session s) {
     return new ip_interface_vector(libtorrent_jni.enum_net_interfaces(session.getCPtr(s), s), true);
   }

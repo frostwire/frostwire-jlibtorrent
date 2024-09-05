@@ -55,8 +55,8 @@ public class session_handle {
     return libtorrent_jni.session_handle_is_valid(swigCPtr, this);
   }
 
-  public session_params session_state(SWIGTYPE_p_save_state_flags_t flags) {
-    return new session_params(libtorrent_jni.session_handle_session_state__SWIG_0(swigCPtr, this, SWIGTYPE_p_save_state_flags_t.getCPtr(flags)), true);
+  public session_params session_state(save_state_flags_t flags) {
+    return new session_params(libtorrent_jni.session_handle_session_state__SWIG_0(swigCPtr, this, save_state_flags_t.getCPtr(flags), flags), true);
   }
 
   public session_params session_state() {
@@ -195,8 +195,8 @@ public class session_handle {
     return new SWIGTYPE_p_peer_class_type_filter(libtorrent_jni.session_handle_get_peer_class_type_filter(swigCPtr, this), true);
   }
 
-  public void remove_torrent(torrent_handle arg0, SWIGTYPE_p_remove_flags_t arg1) {
-    libtorrent_jni.session_handle_remove_torrent__SWIG_0(swigCPtr, this, torrent_handle.getCPtr(arg0), arg0, SWIGTYPE_p_remove_flags_t.getCPtr(arg1));
+  public void remove_torrent(torrent_handle arg0, remove_flags_t arg1) {
+    libtorrent_jni.session_handle_remove_torrent__SWIG_0(swigCPtr, this, torrent_handle.getCPtr(arg0), arg0, remove_flags_t.getCPtr(arg1), arg1);
   }
 
   public void remove_torrent(torrent_handle arg0) {
@@ -215,8 +215,8 @@ public class session_handle {
     libtorrent_jni.session_handle_pop_alerts(swigCPtr, this, alert_ptr_vector.getCPtr(alerts), alerts);
   }
 
-  public void reopen_network_sockets(SWIGTYPE_p_reopen_network_flags_t options) {
-    libtorrent_jni.session_handle_reopen_network_sockets__SWIG_0(swigCPtr, this, SWIGTYPE_p_reopen_network_flags_t.getCPtr(options));
+  public void reopen_network_sockets(reopen_network_flags_t options) {
+    libtorrent_jni.session_handle_reopen_network_sockets__SWIG_0(swigCPtr, this, reopen_network_flags_t.getCPtr(options), options);
   }
 
   public void reopen_network_sockets() {
@@ -272,14 +272,14 @@ public class session_handle {
     libtorrent_jni.session_handle_delete_port_mapping_ex(swigCPtr, this, handle);
   }
 
-  public final static SWIGTYPE_p_save_state_flags_t save_settings = new SWIGTYPE_p_save_state_flags_t(libtorrent_jni.session_handle_save_settings_get(), false);
-  public final static SWIGTYPE_p_save_state_flags_t save_dht_state = new SWIGTYPE_p_save_state_flags_t(libtorrent_jni.session_handle_save_dht_state_get(), false);
-  public final static SWIGTYPE_p_save_state_flags_t save_extension_state = new SWIGTYPE_p_save_state_flags_t(libtorrent_jni.session_handle_save_extension_state_get(), false);
-  public final static SWIGTYPE_p_save_state_flags_t save_ip_filter = new SWIGTYPE_p_save_state_flags_t(libtorrent_jni.session_handle_save_ip_filter_get(), false);
-  public final static SWIGTYPE_p_remove_flags_t delete_files = new SWIGTYPE_p_remove_flags_t(libtorrent_jni.session_handle_delete_files_get(), false);
-  public final static SWIGTYPE_p_remove_flags_t delete_partfile = new SWIGTYPE_p_remove_flags_t(libtorrent_jni.session_handle_delete_partfile_get(), false);
-  public final static SWIGTYPE_p_session_flags_t paused = new SWIGTYPE_p_session_flags_t(libtorrent_jni.session_handle_paused_get(), false);
+  public final static save_state_flags_t save_settings = new save_state_flags_t(libtorrent_jni.session_handle_save_settings_get(), false);
+  public final static save_state_flags_t save_dht_state = new save_state_flags_t(libtorrent_jni.session_handle_save_dht_state_get(), false);
+  public final static save_state_flags_t save_extension_state = new save_state_flags_t(libtorrent_jni.session_handle_save_extension_state_get(), false);
+  public final static save_state_flags_t save_ip_filter = new save_state_flags_t(libtorrent_jni.session_handle_save_ip_filter_get(), false);
+  public final static remove_flags_t delete_files = new remove_flags_t(libtorrent_jni.session_handle_delete_files_get(), false);
+  public final static remove_flags_t delete_partfile = new remove_flags_t(libtorrent_jni.session_handle_delete_partfile_get(), false);
+  public final static session_flags_t paused = new session_flags_t(libtorrent_jni.session_handle_paused_get(), false);
   public final static portmap_protocol udp = portmap_protocol.swigToEnum(libtorrent_jni.session_handle_udp_get());
   public final static portmap_protocol tcp = portmap_protocol.swigToEnum(libtorrent_jni.session_handle_tcp_get());
-  public final static SWIGTYPE_p_reopen_network_flags_t reopen_map_ports = new SWIGTYPE_p_reopen_network_flags_t(libtorrent_jni.session_handle_reopen_map_ports_get(), false);
+  public final static reopen_network_flags_t reopen_map_ports = new reopen_network_flags_t(libtorrent_jni.session_handle_reopen_map_ports_get(), false);
 }

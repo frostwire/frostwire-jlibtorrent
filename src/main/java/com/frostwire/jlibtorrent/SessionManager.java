@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -44,8 +45,6 @@ public class SessionManager {
     private String externalAddress;
     private int externalPort;
     private Thread alertsLoop;
-    private SessionParams sessionParams;
-
     private Throwable lastAlertError;
 
     public SessionManager(boolean logging) {
@@ -79,18 +78,10 @@ public class SessionManager {
     }
 
     /**
-     * Starts the session without passing session_flags_t attributes.
      * @param params
+     * @param flags  You can pass a flag like SessionHandle.PAUSED to start the session paused.
      */
     public void start(SessionParams params) {
-        start(params, null);
-    }
-
-    /**
-     * @param params
-     * @param flags You can pass a flag like SessionHandle.PAUSED to start the session paused.
-     */
-    public void start(SessionParams params, session_flags_t flags) {
         if (session != null) {
             return;
         }
@@ -106,14 +97,18 @@ public class SessionManager {
 
             resetState();
 
-            params.settings().setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging).to_int());
-            sessionParams = params;
+            SettingsPack sp = params.settings();
 
-            if (flags == null) {
-                session = new session(params.swig());
-            } else {
-                session = new session(params.swig(), flags);
+            // we always control the alert mask
+            sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging).to_int());
+
+
+            // limit metadata size by default
+            if (!sp.hasValue(settings_pack.int_types.max_metadata_size.swigValue())) {
+                sp.setMaxMetadataSize(2 * 1024 * 1024);
             }
+
+            session = new session(params.swig());
             alertsLoop();
 
             // block all connections to port < 1024, but
@@ -133,9 +128,7 @@ public class SessionManager {
 
     public void start() {
         settings_pack sp = new settings_pack();
-
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
-
         start(new SessionParams(new session_params(sp)));
     }
 
@@ -197,9 +190,10 @@ public class SessionManager {
         sync.lock();
 
         try {
+            session_params params = session.session_state();
             stop();
             Thread.sleep(1000); // allow some time to release native resources
-            start(sessionParams);
+            start(new SessionParams(params));
         } catch (InterruptedException e) {
             // ignore
         } finally {
@@ -458,7 +452,7 @@ public class SessionManager {
      * @param resumeFile the file with the resume file
      * @param priorities the initial file priorities
      */
-    public void download(TorrentInfo ti, File saveDir, File resumeFile, Priority[] priorities, List<TcpEndpoint> peers) {
+    public void download(TorrentInfo ti, File saveDir, File resumeFile, Priority[] priorities, List<TcpEndpoint> peers, torrent_flags_t flags) {
         if (session == null) {
             return;
         }
@@ -513,27 +507,18 @@ public class SessionManager {
             if (ti.files().numFiles() != priorities.length) {
                 throw new IllegalArgumentException("priorities count should be equals to the number of files");
             }
-            byte_vector v = new byte_vector();
-            for (int i = 0; i < priorities.length; i++) {
-                v.push_back((byte) priorities[i].swig());
-            }
-            p.set_file_priorities2(v);
+            th.prioritize_files2(Priority.array2vector(priorities));
         }
 
         if (peers != null && !peers.isEmpty()) {
             tcp_endpoint_vector v = new tcp_endpoint_vector();
             for (TcpEndpoint endp : peers) {
-                v.push_back(endp.swig());
+                v.add(endp.swig());
             }
             p.set_peers(v);
         }
 
-        torrent_flags_t flags = p.getFlags();
-
-        flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
-
-        p.setFlags(flags);
-
+        p.setFlags(p.getFlags().or_(flags));
         session.async_add_torrent(p);
     }
 
@@ -543,7 +528,7 @@ public class SessionManager {
      * @param magnetUri the magnet uri to download
      * @param saveDir   the path to save the downloaded files
      */
-    public void download(String magnetUri, File saveDir) {
+    public void download(String magnetUri, File saveDir, torrent_flags_t flags) {
         if (session == null) {
             return;
         }
@@ -555,7 +540,7 @@ public class SessionManager {
             throw new IllegalArgumentException(ec.message());
         }
 
-        sha1_hash info_hash = p.getInfo_hash();
+        sha1_hash info_hash = p.getInfo_hashes().get_best();
 
         torrent_handle th = session.find_torrent(info_hash);
 
@@ -568,11 +553,11 @@ public class SessionManager {
             p.setSave_path(saveDir.getAbsolutePath());
         }
 
-        torrent_flags_t flags = p.getFlags();
+        if ("".equals(p.getName())) {
+            p.setName(info_hash.to_hex());
+        }
 
-        flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
-
-        p.setFlags(flags);
+        p.setFlags(p.getFlags().or_(flags));
 
         session.async_add_torrent(p);
     }
@@ -582,7 +567,7 @@ public class SessionManager {
      * @param saveDir
      */
     public void download(TorrentInfo ti, File saveDir) {
-        download(ti, saveDir, null, null, null);
+        download(ti, saveDir, null, null, null,new torrent_flags_t());
     }
 
     public void remove(TorrentHandle th, remove_flags_t options) {
@@ -600,11 +585,9 @@ public class SessionManager {
     /**
      * @param uri     magnet uri
      * @param timeout in seconds
-     * @param maxSize in bytes
-     * @param extra   if extra data is included
      * @return the bencoded info or null
      */
-    public byte[] fetchMagnet(String uri, int timeout, final boolean extra, final int maxSize) {
+    public byte[] fetchMagnet(String uri, int timeout, File tempDir) {
         if (session == null) {
             return null;
         }
@@ -616,10 +599,8 @@ public class SessionManager {
             throw new IllegalArgumentException(ec.message());
         }
 
-        p.set_disabled_storage();
-
-        final sha1_hash info_hash = p.getInfo_hash();
-        final byte[][] data = {null};
+        info_hash_t info_hashes = p.getInfo_hashes();
+        final AtomicReference<byte[]> data = new AtomicReference<>();
         final CountDownLatch signal = new CountDownLatch(1);
 
         AlertListener listener = new AlertListener() {
@@ -631,21 +612,37 @@ public class SessionManager {
             @Override
             public void alert(Alert<?> alert) {
                 torrent_handle th = ((TorrentAlert<?>) alert).swig().getHandle();
-                if (th == null || !th.is_valid() || th.info_hash().op_ne(info_hash)) {
+                if (th == null || !th.is_valid() || th.info_hash().op_ne(info_hashes.get_best())) {
                     return;
                 }
 
                 AlertType type = alert.type();
 
                 if (type.equals(AlertType.METADATA_RECEIVED)) {
-                    MetadataReceivedAlert a = ((MetadataReceivedAlert) alert);
-                    int size = a.metadataSize();
-                    if (0 < size && size <= maxSize) {
-                        data[0] = a.torrentData(extra);
+                    ((TorrentAlert<?>) alert).handle().saveResumeData(TorrentHandle.SAVE_INFO_DICT);
+                }
+
+                if (type.equals(AlertType.SAVE_RESUME_DATA)) {
+                    try {
+
+                        add_torrent_params resumeDataParams = ((SaveResumeDataAlert) alert).params().swig();
+                        byte_vector bytes = libtorrent.write_torrent_file_buf_ex(resumeDataParams);
+                        data.set(Vectors.byte_vector2bytes(bytes));
+                        signal.countDown();
+                    } catch (Throwable e) {
+                        LOG.error("Error building magnet torrent data", e);
                     }
                 }
 
-                signal.countDown();
+                if (type.equals(AlertType.METADATA_FAILED)) {
+                    LOG.error("Error fetching magnet metadata");
+                    signal.countDown();
+                }
+
+                if (type.equals(AlertType.SAVE_RESUME_DATA_FAILED)) {
+                    LOG.error("Error saving resume data");
+                    signal.countDown();
+                }
             }
         };
 
@@ -659,21 +656,15 @@ public class SessionManager {
             syncMagnet.lock();
 
             try {
-                th = session.find_torrent(info_hash);
+                th = session.find_torrent(info_hashes.get_best());
                 if (th != null && th.is_valid()) {
                     // we have a download with the same info-hash
                     add = false;
 
                     torrent_info ti = th.torrent_file_ptr();
                     if (ti != null && ti.is_valid()) {
-                        create_torrent ct = new create_torrent(ti);
-                        entry e = ct.generate();
-
-                        int size = ti.metadata_size();
-                        if (0 < size && size <= maxSize) {
-                            data[0] = Vectors.byte_vector2bytes(e.bencode());
-                        }
-                        signal.countDown();
+                        // torrent info is good, so is metadata
+                        th.save_resume_data(torrent_handle.save_info_dict);
                     }
                 } else {
                     add = true;
@@ -681,7 +672,7 @@ public class SessionManager {
 
                 if (add) {
                     p.setName(FETCH_MAGNET_DOWNLOAD_KEY + uri);
-                    p.setSave_path(FETCH_MAGNET_DOWNLOAD_KEY + uri);
+                    p.setSave_path(tempDir.getAbsolutePath());
 
                     torrent_flags_t flags = p.getFlags();
                     flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
@@ -708,32 +699,7 @@ public class SessionManager {
             }
         }
 
-        return data[0];
-    }
-
-    /**
-     * Similar to call {@link #fetchMagnet(String, int, boolean, int)} with
-     * a maximum size of 2MB.
-     *
-     * @param uri     magnet uri
-     * @param timeout in seconds
-     * @param extra   if extra data is included
-     * @return the bencoded info or null
-     */
-    public byte[] fetchMagnet(String uri, int timeout, boolean extra) {
-        return fetchMagnet(uri, timeout, extra, 2 * 1024 * 1024);
-    }
-
-    /**
-     * Similar to call {@link #fetchMagnet(String, int, boolean)} with
-     * a maximum {@code extra = false}.
-     *
-     * @param uri
-     * @param timeout
-     * @return the bencoded info or null
-     */
-    public byte[] fetchMagnet(String uri, int timeout) {
-        return fetchMagnet(uri, timeout, false);
+        return data.get();
     }
 
     /**

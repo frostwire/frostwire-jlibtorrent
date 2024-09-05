@@ -1,6 +1,8 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.settings_pack;
+import com.frostwire.jlibtorrent.swig.settings_pack.string_types;
 
 /**
  * The ``settings_pack`` struct, contains the names of all settings as
@@ -89,12 +91,54 @@ public final class SettingsPack {
         return this;
     }
 
+    public byte[] getBytes(int name) {
+        byte_vector v = sp.get_bytes(name);
+        return Vectors.byte_vector2bytes(v);
+    }
+
+    public void setBytes(int name, byte[] value) {
+        byte_vector v = Vectors.bytes2byte_vector(value);
+        sp.set_bytes(name, v);
+    }
+
     public void clear() {
         sp.clear();
     }
 
     public void clear(int name) {
         sp.clear(name);
+    }
+
+    /**
+     * Queries whether the specified configuration option has a value set in
+     * this pack. ``name`` can be any enumeration value from string_types,
+     * int_types or bool_types.
+     *
+     * @param name name id of the setting
+     * @return true if present
+     */
+    public boolean hasValue(int name) {
+        return sp.has_val(name);
+    }
+
+    /**
+     * The fingerprint for the client.
+     *
+     * It will be used as the prefix to the peer-id. If this is 20 bytes (or longer)
+     * it will be truncated to 20 bytes and used as the entire peer-id.
+     */
+    public byte[] getPeerFingerprint() {
+        return getBytes(string_types.peer_fingerprint.swigValue());
+    }
+
+    /**
+     * The fingerprint for the client.
+     *
+     * It will be used as the prefix to the peer-id. If this is 20 bytes (or longer)
+     * it will be truncated to 20 bytes and used as the entire peer-id.
+     */
+    public void setPeerFingerprint(byte[] value) {
+        setBytes(string_types.peer_fingerprint.swigValue(), value);
     }
 
     /**
@@ -495,9 +539,12 @@ public final class SettingsPack {
     }
 
     /**
-     * @return
+     * Starts the dht node and makes the trackerless service available to
+     * torrents.
+     *
+     * @return true if enable
      */
-    public boolean enableDht() {
+    public boolean isEnableDht() {
         return sp.get_bool(settings_pack.bool_types.enable_dht.swigValue());
     }
 
@@ -505,12 +552,104 @@ public final class SettingsPack {
      * Starts the dht node and makes the trackerless service available to
      * torrents.
      *
-     * @param value
-     * @return this
+     * @param value true if enable
      */
-    public SettingsPack enableDht(boolean value) {
+    public void setEnableDht(boolean value) {
         sp.set_bool(settings_pack.bool_types.enable_dht.swigValue(), value);
-        return this;
+    }
+
+    /**
+     * Starts and stops Local Service Discovery. This service will
+     * broadcast the info-hashes of all the non-private torrents on the
+     * local network to look for peers on the same swarm within multicast
+     * reach.
+     *
+     * @return true if enable
+     */
+    public boolean isEnableLsd() {
+        return sp.get_bool(settings_pack.bool_types.enable_lsd.swigValue());
+    }
+
+    /**
+     * Starts and stops Local Service Discovery. This service will
+     * broadcast the info-hashes of all the non-private torrents on the
+     * local network to look for peers on the same swarm within multicast
+     * reach.
+     *
+     * @param value true if enable
+     */
+    public void setEnableLsd(boolean value) {
+        sp.set_bool(settings_pack.bool_types.enable_lsd.swigValue(), value);
+    }
+
+    /**
+     * The maximum allowed size (in bytes) to be
+     * received by the metadata extension, i.e. magnet links.
+     */
+    public int getMaxMetadataSize() {
+        return sp.get_int(settings_pack.int_types.max_metadata_size.swigValue());
+    }
+
+    /**
+     * The maximum allowed size (in bytes) to be
+     * received by the metadata extension, i.e. magnet links.
+     *
+     * @param value true if enable
+     */
+    public void setMaxMetadataSize(int value) {
+        sp.set_int(settings_pack.int_types.max_metadata_size.swigValue(), value);
+    }
+
+    /**
+     * This is a comma-separated list of IP port-pairs. They will be added
+     * to the DHT node (if it's enabled) as back-up nodes in case we don't
+     * know of any.
+     * <p>
+     * Changing these after the DHT has been started may not have any
+     * effect until the DHT is restarted.
+     */
+    public String getDhtBootstrapNodes() {
+        return  sp.get_str(string_types.dht_bootstrap_nodes.swigValue());
+    }
+
+    /**
+     * This is a comma-separated list of IP port-pairs. They will be added
+     * to the DHT node (if it's enabled) as back-up nodes in case we don't
+     * know of any.
+     * <p>
+     * Changing these after the DHT has been started may not have any
+     * effect until the DHT is restarted.
+     *
+     * @param value the IP port-pairs list
+     */
+    public void setDhtBootstrapNodes(String value) {
+        sp.set_str(string_types.dht_bootstrap_nodes.swigValue(), value);
+    }
+
+    /**
+     * This is the STUN server used by WebTorrent to enable ICE NAT
+     * traversal for WebRTC. It must have the format ``hostname:port``.
+     *
+     * TODO: Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0
+     * See https://github.com/arvidn/libtorrent/blob/master/include/libtorrent/settings_pack.hpp#L370
+     */
+    public String getWebtorrentStunServer() {
+        new RuntimeException("Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0");
+        return "sp.get_str(string_types.webtorrent_stun_server.swigValue());";
+    }
+
+    /**
+     * This is the STUN server used by WebTorrent to enable ICE NAT
+     * traversal for WebRTC. It must have the format ``hostname:port``.
+     *
+     * TODO: Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0
+     * See https://github.com/arvidn/libtorrent/blob/master/include/libtorrent/settings_pack.hpp#L370
+     *
+     * @param value the STUN server endpoint
+     */
+    public void setWebtorrentStunServer(String value) {
+        new RuntimeException("Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0");
+        //sp.set_str(string_types.webtorrent_stun_server.swigValue(), value);
     }
 
     /**

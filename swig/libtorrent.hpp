@@ -36,29 +36,6 @@
 #include <libtorrent/bloom_filter.hpp>
 #include <libtorrent/peer_connection_handle.hpp>
 
-//#include <libtorrent/config.hpp>
-
-//#include <libtorrent/aux_/buffer.hpp>
-//#include <libtorrent/aux_/utp_stream.hpp>
-//#include <libtorrent/socket_io.hpp>
-//#include <libtorrent/read_resume_data.hpp>
-//#include <libtorrent/write_resume_data.hpp>
-//#include <libtorrent/hex.hpp>
-//#include <libtorrent/extensions.hpp>
-
-//#include <libtorrent/aux_/announce_entry.hpp>
-//#include <libtorrent/enum_net.hpp>
-//
-//#include <libtorrent/kademlia/dht_tracker.hpp>
-//#include <libtorrent/kademlia/node_entry.hpp>
-//#include <libtorrent/kademlia/node.hpp>
-//#include <libtorrent/kademlia/node_id.hpp>
-//#include <libtorrent/kademlia/get_peers.hpp>
-//#include <libtorrent/kademlia/item.hpp>
-//#include <libtorrent/kademlia/ed25519.hpp>
-//
-//#include <libtorrent/aux_/cpuid.hpp>
-
 std::array<std::int8_t, 32> ed25519_create_seed() {
     auto seed = libtorrent::dht::ed25519_create_seed();
     return *reinterpret_cast<std::array<std::int8_t, 32>*>(&seed);
@@ -228,6 +205,32 @@ void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::int64
 	++seq;
 	sign = sign_mutable_item(buf, salt, sequence_number(seq), pk, sk);
     sig = sign.bytes;
+}
+
+libtorrent::add_torrent_params read_resume_data_ex(
+  std::vector<std::int8_t> const& buffer,
+  libtorrent::error_code& ec,
+  libtorrent::load_torrent_limits const& cfg = {}) {
+    return libtorrent::read_resume_data(
+        {
+        (char const*)&buffer[0],
+        static_cast<long>(buffer.size())
+        },
+        ec, cfg);
+}
+
+std::vector<std::int8_t> write_resume_data_buf_ex(libtorrent::add_torrent_params const& atp) {
+    auto v = libtorrent::write_resume_data_buf(atp);
+    return {v.begin(), v.end()};
+}
+
+std::vector<std::int8_t> write_torrent_file_buf_ex(libtorrent::add_torrent_params const& atp) {
+    auto v = libtorrent::write_torrent_file_buf(atp, {});
+    return {v.begin(), v.end()};
+}
+
+libtorrent::add_torrent_params parse_magnet_uri(std::string const& uri, libtorrent::error_code& ec) {
+    return libtorrent::parse_magnet_uri(uri, ec);
 }
 
 // enum_net functions, very useful for networking
@@ -526,6 +529,13 @@ int remove(const char *path) {
            g_posix_wrapper->remove(path) :
            posix_remove(path);
 }
+
+#if defined(__ANDROID__) || defined(ANDROID)
+ssize_t getrandom(void* __buffer, size_t __buffer_size, unsigned int __flags) {
+    libtorrent::aux::random_bytes({static_cast<char*>(__buffer), static_cast<std::ptrdiff_t>(__buffer_size)});
+    return __buffer_size;
+}
+#endif // defined(__ANDROID__) || defined(ANDROID)
 
 } // extern "C"
 #endif
