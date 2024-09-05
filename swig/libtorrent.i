@@ -121,7 +121,6 @@ using storage_mode_t = libtorrent::storage_mode_t;
 using tcp = libtorrent::tcp;
 using torrent_flags_t = libtorrent::torrent_flags_t;
 using torrent_info = libtorrent::torrent_info;
-using torrent_status = libtorrent::torrent_status;
 using udp = libtorrent::udp;
 
 // END common set include ------------------------------------------------------
