@@ -59,12 +59,12 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_get_peer_info(swigCPtr, this, peer_info_vector.getCPtr(v), v);
   }
 
-  public SWIGTYPE_p_torrent_status status(status_flags_t flags) {
-    return new SWIGTYPE_p_torrent_status(libtorrent_jni.torrent_handle_status__SWIG_0(swigCPtr, this, status_flags_t.getCPtr(flags), flags), true);
+  public torrent_status status(status_flags_t flags) {
+    return new torrent_status(libtorrent_jni.torrent_handle_status__SWIG_0(swigCPtr, this, status_flags_t.getCPtr(flags), flags), true);
   }
 
-  public SWIGTYPE_p_torrent_status status() {
-    return new SWIGTYPE_p_torrent_status(libtorrent_jni.torrent_handle_status__SWIG_1(swigCPtr, this), true);
+  public torrent_status status() {
+    return new torrent_status(libtorrent_jni.torrent_handle_status__SWIG_1(swigCPtr, this), true);
   }
 
   public void post_status(status_flags_t flags) {

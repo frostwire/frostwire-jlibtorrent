@@ -1,35 +1,61 @@
-%ignore libtorrent::torrent_handle::clear_disk_cache;
-%ignore libtorrent::torrent_handle::torrent_handle;
 %ignore libtorrent::torrent_handle::add_extension;
 %ignore libtorrent::torrent_handle::add_piece;
-%ignore libtorrent::torrent_handle::http_seeds;
-%ignore libtorrent::torrent_handle::url_seeds;
-%ignore libtorrent::torrent_handle::get_storage_impl;
+%ignore libtorrent::torrent_handle::clear_disk_cache;
+%ignore libtorrent::torrent_handle::file_priority;
 %ignore libtorrent::torrent_handle::file_status;
-%ignore libtorrent::torrent_handle::use_interface;
-%ignore libtorrent::torrent_handle::native_handle;
-%ignore libtorrent::torrent_handle::torrent_file;
+%ignore libtorrent::torrent_handle::get_file_priorities;
 %ignore libtorrent::torrent_handle::get_full_peer_list;
-%ignore libtorrent::torrent_handle::set_metadata;
-%ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
+%ignore libtorrent::torrent_handle::get_piece_priorities;
+%ignore libtorrent::torrent_handle::get_storage_impl;
+%ignore libtorrent::torrent_handle::http_seeds;
+%ignore libtorrent::torrent_handle::native_handle;
+%ignore libtorrent::torrent_handle::piece_priority;
+%ignore libtorrent::torrent_handle::prioritize_files;
+%ignore libtorrent::torrent_handle::prioritize_pieces;
 %ignore libtorrent::torrent_handle::queue_position;
 %ignore libtorrent::torrent_handle::queue_position_set;
-%ignore libtorrent::torrent_handle::piece_priority;
-%ignore libtorrent::torrent_handle::prioritize_pieces;
-%ignore libtorrent::torrent_handle::get_piece_priorities;
-%ignore libtorrent::torrent_handle::file_priority;
-%ignore libtorrent::torrent_handle::prioritize_files;
-%ignore libtorrent::torrent_handle::get_file_priorities;
+%ignore libtorrent::torrent_handle::set_metadata;
+%ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
+%ignore libtorrent::torrent_handle::torrent_file;
+%ignore libtorrent::torrent_handle::torrent_handle;
+%ignore libtorrent::torrent_handle::url_seeds;
+%ignore libtorrent::torrent_handle::use_interface;
 
 namespace libtorrent {
-    struct torrent_handle;
+    struct torrent_status;
 }
 
 %include "libtorrent/torrent_handle.hpp"
 
 namespace libtorrent {
 
+    struct add_piece_flags_tag;
+    %template(add_piece_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
+
+    struct deadline_flags_tag;
+    %template(deadline_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, deadline_flags_tag>;
+
+    struct file_progress_flags_tag;
+    %template(file_progress_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, file_progress_flags_tag>;
+
+    struct pause_flags_tag;
+    %template(pause_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, pause_flags_tag>;
+
+    struct resume_data_flags_tag;
+    %template(resume_data_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, resume_data_flags_tag>;
+
+    struct reannounce_flags_tag;
+    %template(reannounce_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, reannounce_flags_tag>;
+
+    struct status_flags_tag;
+    %template(status_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, status_flags_tag>;
+
     %extend torrent_handle {
+        // we wrap status() because otherwise it won't compile
+//         libtorrent::torrent_status status() const {
+//             return $self->status();
+//         }
+
         void add_piece_bytes(int piece, std::vector<int8_t> const& data, add_piece_flags_t flags = {}) {
             $self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
         }

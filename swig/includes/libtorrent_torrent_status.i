@@ -32,6 +32,10 @@
 %ignore libtorrent::torrent_status::unused_enum_for_backwards_compatibility_allocating;
 %ignore libtorrent::torrent_status::verified_pieces;
 
+namespace libtorrent {
+    struct torrent_handle;
+}
+
 %include "libtorrent/torrent_status.hpp"
 
 namespace libtorrent {
