@@ -272,3 +272,34 @@ cleanup_objects() {
   find . -type f | egrep '\d.\d.\d.\d\d.jar$'
   cd ${SWIG}
 }
+
+function show_help {
+  echo "Usage: ./build-macos.sh [options]"
+  echo ""
+  echo "Options:"
+  echo "  --swig-only      Run only the SWIG step, skip building libraries"
+  echo "  --build-only     Run only the build step, skip the SWIG step"
+  echo "  -h, --help       Show this help message"
+  exit 0
+}
+
+
+# Function to parse flags --swig-only, --build-only
+parse_flags() {
+  for arg in "$@"
+  do
+    case $arg in
+      -h|--help)
+        show_help
+        ;;
+      --swig-only)
+        run_build_only=false
+        run_prep=false # Skip lenghty prepare steps
+        ;;
+      --build-only)
+        run_swig_only=false
+        run_prep=false # Skip lenghty prepare steps
+        ;;
+    esac
+  done
+}
