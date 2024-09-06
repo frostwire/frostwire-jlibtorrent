@@ -92,9 +92,8 @@ public enum Priority {
     static int_vector array2vector(Priority[] arr) {
         int_vector v = new int_vector();
 
-        for (int i = 0; i < arr.length; i++) {
-            Priority p = arr[i];
-            v.push_back(p.swig());
+        for (Priority p : arr) {
+            v.add(p.swig());
         }
 
         return v;
@@ -103,9 +102,8 @@ public enum Priority {
     static byte_vector array2byte_vector(Priority[] arr) {
         byte_vector v = new byte_vector();
 
-        for (int i = 0; i < arr.length; i++) {
-            Priority p = arr[i];
-            v.push_back((byte) p.swig());
+        for (Priority p : arr) {
+            v.add((byte) p.swig());
         }
 
         return v;
