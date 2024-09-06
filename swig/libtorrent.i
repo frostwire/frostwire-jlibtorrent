@@ -100,7 +100,6 @@ using file_slice = libtorrent::file_slice;
 using file_storage = libtorrent::file_storage;
 using info_hash_t = libtorrent::info_hash_t;
 using operation_t = libtorrent::operation_t;
-using peer_class_type_filter = libtorrent::peer_class_type_filter;
 using peer_connection = libtorrent::peer_connection;
 using peer_info = libtorrent::peer_info;
 using peer_request = libtorrent::peer_request;
@@ -289,7 +288,8 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 // END OF ALERTS TYPES
 
 %include "includes/libtorrent_settings_pack.i"
-%include "includes/libtorrent_peer_class_info.i"
+%include "includes/libtorrent_peer_class.i"
+%include "includes/libtorrent_peer_class_type_filter.i"
 %include "includes/libtorrent_ip_filter.i"
 %include "includes/libtorrent_session_types.i"
 %include "includes/libtorrent_session_params.i"
@@ -310,7 +310,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 
 %include "includes/libtorrent_connection_type.i"
 
-%include "includes/libtorrent_peer_class_type_filter.i"
+
 %include "includes/libtorrent_peer_connection_handle.i"
 %include "includes/libtorrent_stats_metric.i"
 %include "includes/libtorrent_string_view.i"

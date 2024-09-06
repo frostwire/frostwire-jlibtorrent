@@ -566,7 +566,7 @@ public class SessionManager {
      * @param saveDir
      */
     public void download(TorrentInfo ti, File saveDir) {
-        download(ti, saveDir, null, null, null,new torrent_flags_t());
+        download(ti, saveDir, null, null, null, new torrent_flags_t());
     }
 
     public void remove(TorrentHandle th, remove_flags_t options) {
@@ -1060,7 +1060,9 @@ public class SessionManager {
         if (session == null || isDhtRunning() == on) {
             return;
         }
-        applySettings(new SettingsPack().enableDht(on));
+        SettingsPack sp = new SettingsPack();
+        sp.setEnableDht(on);
+        applySettings(sp);
     }
 
     private void onExternalIpAlert(ExternalIpAlert alert) {

@@ -187,12 +187,12 @@ public class session_handle {
     return new ip_filter(libtorrent_jni.session_handle_get_peer_class_filter(swigCPtr, this), true);
   }
 
-  public void set_peer_class_type_filter(SWIGTYPE_p_peer_class_type_filter f) {
-    libtorrent_jni.session_handle_set_peer_class_type_filter(swigCPtr, this, SWIGTYPE_p_peer_class_type_filter.getCPtr(f));
+  public void set_peer_class_type_filter(peer_class_type_filter f) {
+    libtorrent_jni.session_handle_set_peer_class_type_filter(swigCPtr, this, peer_class_type_filter.getCPtr(f), f);
   }
 
-  public SWIGTYPE_p_peer_class_type_filter get_peer_class_type_filter() {
-    return new SWIGTYPE_p_peer_class_type_filter(libtorrent_jni.session_handle_get_peer_class_type_filter(swigCPtr, this), true);
+  public peer_class_type_filter get_peer_class_type_filter() {
+    return new peer_class_type_filter(libtorrent_jni.session_handle_get_peer_class_type_filter(swigCPtr, this), true);
   }
 
   public void remove_torrent(torrent_handle arg0, remove_flags_t arg1) {
