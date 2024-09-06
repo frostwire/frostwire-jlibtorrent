@@ -7,39 +7,16 @@ import com.frostwire.jlibtorrent.swig.socket_type_t;
  */
 public enum SocketType {
 
-    /**
-     *
-     */
     TCP(socket_type_t.tcp.swigValue()),
-
-    /**
-     *
-     */
-    TCP_SSL(socket_type_t.tcp_ssl.swigValue()),
-
-    /**
-     *
-     */
-    UDP(socket_type_t.udp.swigValue()),
-
-    /**
-     *
-     */
-    I2P(socket_type_t.i2p.swigValue()),
-
-    /**
-     *
-     */
     SOCKS5(socket_type_t.socks5.swigValue()),
-
-    /**
-     *
-     */
+    HTTP(socket_type_t.http.swigValue()),
+    UTP(socket_type_t.utp.swigValue()),
+    I2P(socket_type_t.i2p.swigValue()),
+    TCP_SSL(socket_type_t.tcp_ssl.swigValue()),
+    SOCKS5_SSL(socket_type_t.socks5_ssl.swigValue()),
+    HTTP_SSL(socket_type_t.http_ssl.swigValue()),
     UTP_SSL(socket_type_t.utp_ssl.swigValue()),
 
-    /**
-     *
-     */
     UNKNOWN(-1);
 
     SocketType(int swigValue) {

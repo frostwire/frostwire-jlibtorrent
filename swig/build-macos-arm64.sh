@@ -42,14 +42,12 @@ fi
 
 if [ "${run_swig_only}" = true ]; then
     echo "--swig-only mode on"
-    press_any_to_continue
     ./run-swig.sh
     exit 0
 fi
 
 if [ "${run_build_only}" = true ]; then
     echo "--build-only mode on"
-    press_any_to_continue
     build_libraries
     exit 0
 fi
