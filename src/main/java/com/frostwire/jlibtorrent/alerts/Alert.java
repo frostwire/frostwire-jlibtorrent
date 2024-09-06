@@ -21,7 +21,6 @@ public interface Alert<T extends alert> {
     alert_category_t IP_BLOCK_NOTIFICATION = alert.ip_block_notification;
     alert_category_t PERFORMANCE_WARNING = alert.performance_warning;
     alert_category_t DHT_NOTIFICATION = alert.dht_notification;
-    alert_category_t STATS_NOTIFICATION = alert.stats_notification;
     alert_category_t SESSION_LOG_NOTIFICATION = alert.session_log_notification;
     alert_category_t TORRENT_LOG_NOTIFICATION = alert.torrent_log_notification;
     alert_category_t PEER_LOG_NOTIFICATION = alert.peer_log_notification;

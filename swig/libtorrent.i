@@ -89,7 +89,6 @@ using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 
 using add_torrent_params = libtorrent::add_torrent_params;
 using address = libtorrent::address;
-using alert = libtorrent::alert;
 using bdecode_node = libtorrent::bdecode_node;
 using client_data_t = libtorrent::client_data_t;
 using close_reason_t = libtorrent::close_reason_t;
@@ -262,7 +261,6 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 
 // ALERTS TYPES
 %include "includes/libtorrent_alert.i"
-%include "includes/libtorrent_alert_casts.i"
 %include "includes/libtorrent_dht_announce_alert.i"
 %include "includes/libtorrent_external_ip_alert.i"
 %include "includes/libtorrent_listen_failed_alert.i"
