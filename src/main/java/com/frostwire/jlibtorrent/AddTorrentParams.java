@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The {@link AddTorrentParams} is a parameter pack for adding torrents to a
@@ -110,12 +111,7 @@ public final class AddTorrentParams {
      * @param value the list of trackers
      */
     public void trackers(List<String> value) {
-        string_vector v = new string_vector();
-
-        for (String s : value) {
-            v.push_back(s);
-        }
-
+        string_vector v = new string_vector(value);
         p.set_trackers(v);
     }
 
@@ -150,13 +146,7 @@ public final class AddTorrentParams {
      * @param value the list of trackers tiers
      */
     public void trackerTiers(List<Integer> value) {
-        int_vector v = new int_vector();
-
-        for (Integer t : value) {
-            v.push_back(t);
-        }
-
-        p.set_tracker_tiers(v);
+        p.set_tracker_tiers(new int_vector(value));
     }
 
     /**
@@ -179,18 +169,19 @@ public final class AddTorrentParams {
     }
 
     public List<List<Boolean>> get_verified_leaf_hashes() {
-        bool_vector_vector verifiedLeafHashes = p.get_verified_leaf_hashes();
+        bitfield_vector verifiedLeafHashes = p.get_verified_leaf_hashes();
+
         int size = (int) verifiedLeafHashes.size();
         if (verifiedLeafHashes.isEmpty()) {
             return Collections.emptyList();
         }
         List<List<Boolean>> result = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            bool_vector verifiedLeafHash = verifiedLeafHashes.get(i);
+            bitfield verifiedLeafHash = verifiedLeafHashes.get(i);
             int size2 = (int) verifiedLeafHash.size();
             List<Boolean> inner = new ArrayList<>();
             for (int j = 0; j < size2; j++) {
-                inner.add(verifiedLeafHash.get(j));
+                inner.add(verifiedLeafHash.op_at(j));
             }
             result.add(inner);
         }
@@ -306,8 +297,8 @@ public final class AddTorrentParams {
      *
      * @return the info-hash
      */
-    public Sha1Hash infoHash() {
-        return new Sha1Hash(p.getInfo_hash());
+    public InfoHash getInfoHashes() {
+        return new InfoHash(p.getInfo_hashes());
     }
 
     /**
@@ -317,8 +308,8 @@ public final class AddTorrentParams {
      *
      * @param value the info-hash
      */
-    public void infoHash(Sha1Hash value) {
-        p.setInfo_hash(value.swig());
+    public void setInfoHashes(InfoHash value) {
+        p.setInfo_hashes(value.swig());
     }
 
     /**
@@ -401,15 +392,7 @@ public final class AddTorrentParams {
      * @return the url seeds
      */
     public ArrayList<String> urlSeeds() {
-        string_vector v = p.get_url_seeds();
-        int size = (int) v.size();
-        ArrayList<String> l = new ArrayList<>();
-
-        for (int i = 0; i < size; i++) {
-            l.add(v.get(i));
-        }
-
-        return l;
+        return (ArrayList<String>) Vectors.string_vector2list(p.get_url_seeds());
     }
 
     /**
@@ -418,13 +401,7 @@ public final class AddTorrentParams {
      * @param value the url seeds
      */
     public void urlSeeds(List<String> value) {
-        string_vector v = new string_vector();
-
-        for (String s : value) {
-            v.push_back(s);
-        }
-
-        p.set_url_seeds(v);
+        p.set_url_seeds(new string_vector(value));
     }
 
     /**
@@ -475,13 +452,10 @@ public final class AddTorrentParams {
      * @param value the peers list
      */
     public void peers(List<TcpEndpoint> value) {
-        tcp_endpoint_vector v = new tcp_endpoint_vector();
-
-        for (TcpEndpoint endp : value) {
-            v.push_back(endp.swig());
-        }
-
-        p.set_peers(v);
+        List<tcp_endpoint> tcpEndpoints = value.stream()
+                .map(tcpEndpointJava -> tcpEndpointJava.swig())  // Assuming TcpEndpoint has getCPtr()
+                .collect(Collectors.toList());
+        p.set_peers(new tcp_endpoint_vector(tcpEndpoints));
     }
 
     /**
@@ -510,7 +484,7 @@ public final class AddTorrentParams {
         tcp_endpoint_vector v = new tcp_endpoint_vector();
 
         for (TcpEndpoint endp : value) {
-            v.push_back(endp.swig());
+            v.add(endp.swig());
         }
 
         p.set_banned_peers(v);
@@ -523,19 +497,19 @@ public final class AddTorrentParams {
         return new AddTorrentParams(add_torrent_params.create_instance());
     }
 
-    /**
-     * @return an instance with a disabled storage
-     */
-    public static AddTorrentParams createInstanceDisabledStorage() {
-        return new AddTorrentParams(add_torrent_params.create_instance_disabled_storage());
-    }
-
-    /**
-     * @return an instance with a zero storage
-     */
-    public static AddTorrentParams createInstanceZeroStorage() {
-        return new AddTorrentParams(add_torrent_params.create_instance_zero_storage());
-    }
+//    /**
+//     * @return an instance with a disabled storage
+//     */
+//    public static AddTorrentParams createInstanceDisabledStorage() {
+//        return new AddTorrentParams(add_torrent_params.create_instance_disabled_storage());
+//    }
+//
+//    /**
+//     * @return an instance with a zero storage
+//     */
+//    public static AddTorrentParams createInstanceZeroStorage() {
+//        return new AddTorrentParams(add_torrent_params.create_instance_zero_storage());
+//    }
 
     /**
      * Helper function to parse a magnet uri and fill the parameters.
