@@ -8,8 +8,8 @@ source build-utils.shinc
 
 # Default behavior is to run both swig and build
 run_prep=true
-run_swig_only=true
-run_build_only=true
+run_swig_only=false
+run_build_only=false
 # Call the function to parse flags
 parse_flags "$@"
 
