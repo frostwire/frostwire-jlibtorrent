@@ -314,6 +314,7 @@ public final class TorrentHandle {
 
     /**
      * Note that this is a blocking function, unlike torrent_handle::is_valid() which returns immediately.
+     *
      * @return Returns true if the torrent is in the session. It returns true before SessionHandle::removeTorrent() is called, and false afterward.
      */
     public boolean inSession() {
@@ -502,8 +503,7 @@ public final class TorrentHandle {
      *                    openssl command like this: ``openssl dhparam -outform PEM -out
      *                    dhparams.pem 512``.
      */
-    public void setSslCertificate(String certificate, String privateKey,
-                                  String dhParams) {
+    public void setSslCertificate(String certificate, String privateKey, String dhParams) {
         th.set_ssl_certificate(certificate, privateKey, dhParams);
     }
 
@@ -532,8 +532,7 @@ public final class TorrentHandle {
      * @param passphrase  may be specified if the private key is encrypted and
      *                    requires a passphrase to be decrypted.
      */
-    public void setSslCertificate(String certificate, String privateKey,
-                                  String dhParams, String passphrase) {
+    public void setSslCertificate(String certificate, String privateKey, String dhParams, String passphrase) {
         th.set_ssl_certificate(certificate, privateKey, dhParams, passphrase);
     }
 
@@ -549,8 +548,7 @@ public final class TorrentHandle {
      * @param dhParams    buffer of the Diffie-Hellman parameter file, which
      *                    needs to be in .pem format.
      */
-    void setSslCertificateBuffer(byte[] certificate, byte[] privateKey,
-                                 byte[] dhParams) {
+    void setSslCertificateBuffer(byte[] certificate, byte[] privateKey, byte[] dhParams) {
         byte_vector cert = Vectors.bytes2byte_vector(certificate);
         byte_vector pk = Vectors.bytes2byte_vector(privateKey);
         byte_vector dh = Vectors.bytes2byte_vector(dhParams);
@@ -1235,12 +1233,22 @@ public final class TorrentHandle {
     }
 
     /**
-     * This function fills in the supplied vector with the number of
-     * bytes downloaded of each file in this torrent. The progress values are
-     * ordered the same as the files in the torrent_info. This operation is
-     * not very cheap. Its complexity is *O(n + mj)*. Where *n* is the number
-     * of files, *m* is the number of downloading pieces and *j* is the
-     * number of blocks in a piece.
+     * Only calculate file progress at piece granularity. This makes
+     * the `fileProgress()` call cheaper and also only takes bytes that
+     * have passed the hash check into account, so progress cannot
+     * regress in this mode.
+     */
+    public static final file_progress_flags_t PIECE_GRANULARITY = torrent_handle.piece_granularity;
+
+    /**
+     * This function fills in the supplied vector, or returns a vector, with
+     * the number of bytes downloaded of each file in this torrent. The
+     * progress values are ordered the same as the files in the
+     * torrent_info.
+     * <p>
+     * This operation is not very cheap. Its complexity is *O(n + mj)*.
+     * Where *n* is the number of files, *m* is the number of currently
+     * downloading pieces and *j* is the number of blocks in a piece.
      * <p>
      * The ``flags`` parameter can be used to specify the granularity of the
      * file progress. If left at the default value of 0, the progress will be
@@ -1250,14 +1258,10 @@ public final class TorrentHandle {
      * fully downloaded and passed the hash check count. When specifying
      * piece granularity, the operation is a lot cheaper, since libtorrent
      * already keeps track of this internally and no calculation is required.
-     *
-     * @param flags
-     * @return the file progress
      */
-    public long[] fileProgress(FileProgressFlags flags) {
+    public long[] fileProgress(file_progress_flags_t flags) {
         int64_vector v = new int64_vector();
-        int swig = flags.swig();
-        th.file_progress(v, flags.swig());
+        th.file_progress(v, flags);
         return Vectors.int64_vector2longs(v);
     }
 
@@ -1353,32 +1357,5 @@ public final class TorrentHandle {
      */
     public void renameFile(int index, String newName) {
         th.rename_file(index, newName);
-    }
-
-    /**
-     * Flags to be passed in {@link #fileProgress(TorrentHandle.FileProgressFlags)}.
-     */
-    public enum FileProgressFlags {
-
-        /**
-         * only calculate file progress at piece granularity. This makes
-         * the file_progress() call cheaper and also only takes bytes that
-         * have passed the hash check into account, so progress cannot
-         * regress in this mode.
-         */
-        PIECE_GRANULARITY(torrent_handle.file_progress_flags_t.piece_granularity.swigValue());
-
-        FileProgressFlags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return the native value
-         */
-        public int swig() {
-            return swigValue;
-        }
     }
 }
