@@ -65,7 +65,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return the socket type.
      */
     public SocketType socketType() {
-        return SocketType.fromSwig(alert.getSocket_type().swigValue());
+        return SocketType.fromSwig(alert.get_socket_type());
     }
 
     /**
