@@ -1,4 +1,3 @@
-
 namespace libtorrent {
     // dummy tag structs for strong_typedefs
     // they are simply used so that the newly defined strong type definitions have a different id
@@ -14,10 +13,6 @@ namespace libtorrent {
     struct port_mapping_tag;
     struct write_torrent_flags_tag;
 
-    ///
-
-    ////
-
     %template(alert_category_t) libtorrent::flags::bitfield_flag<std::uint32_t, alert_category_tag>;
     %template(bandwidth_state_flags_t) libtorrent::flags::bitfield_flag<std::uint8_t, bandwidth_state_flags_tag>;
     %template(create_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, create_flags_tag>;
@@ -29,5 +24,3 @@ namespace libtorrent {
     %template(write_torrent_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, write_torrent_flags_tag>;
 
 } // namespace libtorrent
-
-using remove_flags_t = libtorrent::remove_flags_t;

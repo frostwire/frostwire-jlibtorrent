@@ -950,7 +950,7 @@ public final class TorrentHandle {
         announce_entry_vector v = new announce_entry_vector();
 
         for (AnnounceEntry t : trackers) {
-            v.push_back(t.swig());
+            v.add(t.swig());
         }
 
         th.replace_trackers(v);
@@ -1256,6 +1256,7 @@ public final class TorrentHandle {
      */
     public long[] fileProgress(FileProgressFlags flags) {
         int64_vector v = new int64_vector();
+        int swig = flags.swig();
         th.file_progress(v, flags.swig());
         return Vectors.int64_vector2longs(v);
     }

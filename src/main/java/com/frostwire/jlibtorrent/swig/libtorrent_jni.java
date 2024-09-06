@@ -3388,6 +3388,10 @@ public class libtorrent_jni {
   public final static native int peer_class_info_download_priority_get(long jarg1, peer_class_info jarg1_);
   public final static native long new_peer_class_info();
   public final static native void delete_peer_class_info(long jarg1);
+  public final static native long new_peer_class_type_filter();
+  public final static native int peer_class_type_filter_tcp_socket_get();
+  public final static native long peer_class_type_filter_apply(long jarg1, peer_class_type_filter jarg1_, int jarg2, long jarg3);
+  public final static native void delete_peer_class_type_filter(long jarg1);
   public final static native long new_ip_filter__SWIG_0();
   public final static native long new_ip_filter__SWIG_1(long jarg1, ip_filter jarg1_);
   public final static native int ip_filter_blocked_get();
@@ -3513,7 +3517,7 @@ public class libtorrent_jni {
   public final static native boolean session_handle_is_listening(long jarg1, session_handle jarg1_);
   public final static native void session_handle_set_peer_class_filter(long jarg1, session_handle jarg1_, long jarg2, ip_filter jarg2_);
   public final static native long session_handle_get_peer_class_filter(long jarg1, session_handle jarg1_);
-  public final static native void session_handle_set_peer_class_type_filter(long jarg1, session_handle jarg1_, long jarg2);
+  public final static native void session_handle_set_peer_class_type_filter(long jarg1, session_handle jarg1_, long jarg2, peer_class_type_filter jarg2_);
   public final static native long session_handle_get_peer_class_type_filter(long jarg1, session_handle jarg1_);
   public final static native long session_handle_delete_files_get();
   public final static native long session_handle_delete_partfile_get();
@@ -3638,10 +3642,6 @@ public class libtorrent_jni {
   public final static native long bloom_filter_256_to_bytes(long jarg1, bloom_filter_256 jarg1_);
   public final static native void bloom_filter_256_from_bytes(long jarg1, bloom_filter_256 jarg1_, long jarg2, byte_vector jarg2_);
   public final static native void delete_bloom_filter_256(long jarg1);
-  public final static native long new_peer_class_type_filter();
-  public final static native int peer_class_type_filter_tcp_socket_get();
-  public final static native long peer_class_type_filter_apply(long jarg1, peer_class_type_filter jarg1_, int jarg2, long jarg3);
-  public final static native void delete_peer_class_type_filter(long jarg1);
   public final static native long new_peer_connection_handle(long jarg1);
   public final static native int peer_connection_handle_type(long jarg1, peer_connection_handle jarg1_);
   public final static native boolean peer_connection_handle_is_seed(long jarg1, peer_connection_handle jarg1_);
