@@ -41,4 +41,8 @@ public class InfoHash {
     public Sha1Hash getV1() {
         return new Sha1Hash(ih_t.getV1());
     }
+
+    public Sha256Hash getV2() {
+        return new Sha256Hash(ih_t.getV2());
+    }
 }
