@@ -21,8 +21,13 @@ public class SessionManager {
     private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
-    private static final int[] METADATA_ALERT_TYPES = new int[]
-            {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
+    private static final int[] METADATA_ALERT_TYPES = new int[] {
+            AlertType.METADATA_RECEIVED.swig(),
+            AlertType.METADATA_FAILED.swig(),
+            AlertType.SAVE_RESUME_DATA.swig(),
+            AlertType.SAVE_RESUME_DATA_FAILED.swig()
+    };
+
     private static final String FETCH_MAGNET_DOWNLOAD_KEY = "fetch_magnet___";
 
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {AlertType.DHT_IMMUTABLE_ITEM.swig()};
@@ -107,6 +112,11 @@ public class SessionManager {
                 sp.setMaxMetadataSize(2 * 1024 * 1024);
             }
 
+            // use some dht bootstrap nodes if none is provided
+            if (!sp.hasValue(settings_pack.string_types.dht_bootstrap_nodes.swigValue())) {
+                sp.setDhtBootstrapNodes(defaultDHTBootstrapNodes());
+            }
+
             session = new session(params.swig());
             alertsLoop();
 
@@ -126,9 +136,10 @@ public class SessionManager {
     }
 
     public void start() {
-        settings_pack sp = new settings_pack();
-        sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
-        start(new SessionParams(new session_params(sp)));
+//        settings_pack sp = new settings_pack();
+//        sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
+//        start(new SessionParams(new session_params(sp)));
+        start(new SessionParams());
     }
 
     /**
@@ -896,13 +907,13 @@ public class SessionManager {
     }
 
     public byte[] saveState() {
-        return session != null ? new SessionHandle(session).saveState() : null;
-    }
-
-    public void loadState(byte[] data) {
-        if (session != null) {
-            new SessionHandle(session).loadState(data);
+        if (session == null) {
+            return null;
         }
+
+        session_params params = session.session_state();
+        byte_vector v = session_params.write_session_params_buf(params);
+        return Vectors.byte_vector2bytes(v);
     }
 
     /**
@@ -1104,7 +1115,7 @@ public class SessionManager {
         return mask;
     }
 
-    private static String dhtBootstrapNodes() {
+    private static String defaultDHTBootstrapNodes() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("dht.libtorrent.org:25401").append(",");

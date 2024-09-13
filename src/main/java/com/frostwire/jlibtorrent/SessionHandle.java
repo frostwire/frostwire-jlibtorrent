@@ -25,6 +25,62 @@ public class SessionHandle {
 
     private static final Logger LOG = Logger.getLogger(SessionHandle.class);
 
+    /**
+     * Delete the files belonging to the torrent from disk,
+     * including the part-file, if there is one.
+     */
+    public static final remove_flags_t DELETE_FILES = session_handle.delete_files;
+
+    /**
+     * Delete just the part-file associated with this torrent.
+     */
+    public static final remove_flags_t DELETE_PARTFILE = session_handle.delete_partfile;
+
+    public static final int DHT_ANNOUNCE_SEED = 1;
+
+    public static final int DHT_ANNOUNCE_IMPLIED_PORT = 1 << 1;
+
+    public static final int DHT_ANNOUNCE_SSL_TORRENT = 1 << 2;
+
+    /**
+     * Load or save state from plugins.
+     */
+    public static final save_state_flags_t SAVE_EXTENSION_STATE = session_handle.save_extension_state;
+
+    /**
+     * Load or save state of IP filter set in the session.
+     */
+    public static final save_state_flags_t SAVE_IP_FILTER = session_handle.save_ip_filter;
+
+    /**
+     * Saves dht state such as nodes and node-id, possibly accelerating
+     * joining the DHT if provided at next session startup.
+     */
+    public static final save_state_flags_t SAVE_DHT_STATE = session_handle.save_dht_state;
+
+    /**
+     * Saves settings (i.e. the {@link SettingsPack}).
+     */
+    public static final save_state_flags_t SAVE_SETTINGS = session_handle.save_settings;
+
+    /**
+     * This option indicates if the ports are mapped using natpmp
+     * and UPnP. If mapping was already made, they are deleted and added
+     * again.
+     * This only works if natpmp and/or upnp are configured to be enabled.
+     */
+    public static final reopen_network_flags_t REOPEN_MAP_PORTS = session_handle.reopen_map_ports;
+
+    /**
+     * When set, the session will start paused. Call SessionHandle::resume() to start.
+     */
+    public static final session_flags_t PAUSED = session_handle.paused;
+
+    public static final portmap_protocol TCP = session_handle.tcp;
+
+    public static final portmap_protocol UDP = session_handle.udp;
+
+
     protected final session_handle s;
 
     /**
@@ -45,92 +101,33 @@ public class SessionHandle {
         return s.is_valid();
     }
 
-    /** When set, the session will start paused. Call SessionHandle::resume() to start */
-    public static final session_flags_t PAUSED = session_handle.paused;
-
     /**
-     * Saves settings (i.e. the {@link SettingsPack}).
-     */
-    public static final save_state_flags_t SAVE_SETTINGS = session_handle.save_settings;
-
-    /**
-     * Saves dht state such as nodes and node-id, possibly accelerating
-     * joining the DHT if provided at next session startup.
-     */
-    public static final save_state_flags_t SAVE_DHT_STATE = session_handle.save_dht_state;
-
-    /**
-     * Loads and saves all session settings, including dht settings,
-     * encryption settings and proxy settings. This method
-     * internally writes all keys to an {@link entry} that is returned
-     * as a bencoded byte array.
-     * <p>
-     * The {@code flags} argument passed in to this method can be used to
-     * filter which parts of the session state to save. By default, all state
-     * is saved (except for the individual torrents).
+     * Returns the current session state.
      *
-     * @return the bencoded byte array
+     * This can be passed to write_session_params() to save the state to disk
+     * and restored using read_session_params() when constructing a new session.
+     *
+     * The kind of state that's included is all settings, the DHT routing table,
+     * possibly plugin-specific state.
+     *
+     * The flags parameter can be used to only save certain parts of the
+     * session state.
+     *
+     * @param flags specifies to safe certain parts
+     * @return the session params
      */
-    public byte[] saveState(save_state_flags_t flags) {
-        entry e = new entry();
-        s.save_state(e, flags);
-        return Vectors.byte_vector2bytes(e.bencode());
+    public SessionParams sessionState(save_state_flags_t flags) {
+        return new SessionParams(s.session_state(flags));
     }
 
     /**
-     * Same as calling {@link #saveState(save_state_flags_t)} with all save state flags.
+     * Same as {@link #sessionState(save_state_flags_t)} with all
+     * the flags bits active.
      *
-     * @return the bencoded byte array
+     * @return the session params
      */
-    public byte[] saveState() {
-        entry e = new entry();
-        s.save_state(e);
-        return Vectors.byte_vector2bytes(e.bencode());
-    }
-
-    /**
-     * Loads all session settings, including DHT settings,
-     * encryption settings and proxy settings.
-     * <p>
-     * This method expects a byte array that it is a
-     * bencoded buffer.
-     * <p>
-     * The {@code flags} argument passed in to this method can be used to
-     * filter which parts of the session state to load. By default, all state
-     * is restored (except for the individual torrents).
-     *
-     * @param data the bencoded byte array
-     */
-    public void loadState(byte[] data, save_state_flags_t flags) {
-        byte_vector buffer = Vectors.bytes2byte_vector(data);
-        bdecode_node n = new bdecode_node();
-        error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(buffer, n, ec);
-
-        if (ret == 0) {
-            s.load_state(n, flags);
-            buffer.clear(); // prevents GC
-        } else {
-            LOG.error("failed to decode bencoded data: " + ec.message());
-        }
-    }
-
-    /**
-     * Same as calling {@link #loadState(byte[], save_state_flags_t)} with all
-     * save state flags.
-     */
-    public void loadState(byte[] data) {
-        byte_vector buffer = Vectors.bytes2byte_vector(data);
-        bdecode_node n = new bdecode_node();
-        error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(buffer, n, ec);
-
-        if (ret == 0) {
-            s.load_state(n);
-            buffer.clear(); // prevents GC
-        } else {
-            LOG.error("failed to decode bencoded data: " + ec.message());
-        }
+    public SessionParams sessionState() {
+        return new SessionParams(s.session_state());
     }
 
     /**
@@ -252,17 +249,6 @@ public class SessionHandle {
     public void asyncAddTorrent(AddTorrentParams params) {
         s.async_add_torrent(params.swig());
     }
-
-    /**
-     * Delete the files belonging to the torrent from disk,
-     * including the part-file, if there is one.
-     */
-    public static final remove_flags_t DELETE_FILES = session_handle.delete_files;
-
-    /**
-     * Delete just the part-file associated with this torrent.
-     */
-    public static final remove_flags_t DELETE_PARTFILE = session_handle.delete_partfile;
 
     /**
      * This method will close all peer connections associated with the torrent and tell the
@@ -403,9 +389,9 @@ public class SessionHandle {
      * @return the array of port mapping ids
      */
     public int[] addPortMapping(PortmapProtocol t, int externalPort, int localPort) {
-        port_mapping_t_vector v = s.add_port_mapping(portmap_protocol.swigToEnum(t.swig()), externalPort, localPort);
+        int_vector v = s.add_port_mapping_ex(portmap_protocol.swigToEnum(t.swig()), externalPort, localPort);
 
-        int size = (int) v.size();
+        int size = v.size();
         int[] arr = new int[size];
 
         for (int i = 0; i < size; i++) {
@@ -416,16 +402,8 @@ public class SessionHandle {
     }
 
     public void deletePortMapping(int handle) {
-        s.delete_port_mapping(handle);
+        s.delete_port_mapping_ex(handle);
     }
-
-    /**
-     * This option indicates if the ports are mapped using natpmp
-     * and UPnP. If mapping was already made, they are deleted and added
-     * again. This only works if natpmp and/or upnp are configured to be
-     * enable.
-     */
-    public static final reopen_network_flags_t REOPEN_MAP_PORTS = session_handle.reopen_map_ports;
 
     /**
      * Instructs the session to reopen all listen and outgoing sockets.
@@ -542,24 +520,20 @@ public class SessionHandle {
         s.dht_get_peers(infoHash.swig());
     }
 
-    public static final int DHT_ANNOUNCE_SEED = 1;
-    public static final int DHT_ANNOUNCE_IMPLIED_PORT = 1 << 1;
-    public static final int DHT_ANNOUNCE_SSL_TORRENT = 1 << 2;
-
     /**
      * @param infoHash
      * @param port
      * @param flags
      */
-    public void dhtAnnounce(Sha1Hash infoHash, int port, int flags) {
-        s.dht_announce(infoHash.swig(), port, flags);
+    public void dhtAnnounce(Sha1Hash infoHash, int port, byte flags) {
+        s.dht_announce_ex(infoHash.swig(), port, flags);
     }
 
     /**
      * @param infoHash
      */
     public void dhtAnnounce(Sha1Hash infoHash) {
-        s.dht_announce(infoHash.swig());
+        s.dht_announce_ex(infoHash.swig());
     }
 
     /**
@@ -596,7 +570,7 @@ public class SessionHandle {
     }
 
     /**
-     * will tell you whether or not the session has
+     * will tell you whether the session has
      * successfully opened a listening port. If it hasn't, this function will
      * return false, and then you can use ``listen_on()`` to make another
      * attempt.
