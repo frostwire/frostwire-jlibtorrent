@@ -19,7 +19,7 @@ or if you're done with SWIG fixes, and now you're working on the Java Abstractio
 
 ```
 ./build-macos.sh --build-only
-```1
+```
 
 
 # Building SWIG from Source
