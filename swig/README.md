@@ -1,3 +1,27 @@
+# How to build
+
+If you are on a mac, this command will automatically pick the right architecture build scripts.
+
+All build-steps:
+```
+./build-macos.sh 
+```
+
+If you are fixing something, perhaps you need to just issues the SWIG related steps after you've first run the whole thing which sets up all the dependencies (by building them, e.g. boost, openssl, swig, libtorrent) but then you don't want to waste time building everything.
+
+If you're working on the wrapping side of things with SWIG scripting, you will want to do:
+
+```
+./build-macos.sh --swig-only
+```
+
+or if you're done with SWIG fixes, and now you're working on the Java Abstraction Layer, you don't need to re-wrap, you just need to build binaries and jars, so you now have this option, that will skip the SWIG step
+
+```
+./build-macos.sh --build-only
+```1
+
+
 # Building SWIG from Source
 You can get the copy we use to build SWIG and build it the same way the Dockerfile does it from frostwire.com:
 
