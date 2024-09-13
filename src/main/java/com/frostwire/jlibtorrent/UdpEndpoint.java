@@ -53,7 +53,7 @@ public final class UdpEndpoint implements Cloneable {
 
     @Override
     public String toString() {
-        return "udp:" + Address.toString(endp.address()) + ":" + endp.port();
+        return "udp://" + endp.address().to_string() + ":" + endp.port();
     }
 
     @Override
