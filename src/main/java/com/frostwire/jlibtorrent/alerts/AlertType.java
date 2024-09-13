@@ -51,7 +51,6 @@ public enum AlertType {
     PERFORMANCE(performance_alert.alert_type),
     PIECE_FINISHED(piece_finished_alert.alert_type),
     SAVE_RESUME_DATA_FAILED(save_resume_data_failed_alert.alert_type),
-    STATS(stats_alert.alert_type),
     STORAGE_MOVED(storage_moved_alert.alert_type),
     TORRENT_DELETE_FAILED(torrent_delete_failed_alert.alert_type),
     URL_SEED(url_seed_alert.alert_type),
@@ -96,6 +95,14 @@ public enum AlertType {
     BLOCK_UPLOADED(block_uploaded_alert.alert_type),
     ALERTS_DROPPED(alerts_dropped_alert.alert_type),
     SOCKS5_ALERT(socks5_alert.alert_type),
+    FILE_PRIO(file_prio_alert.alert_type),
+    OVERSIZED_FILE(oversized_file_alert.alert_type),
+    TORRENT_CONFLICT(torrent_conflict_alert.alert_type),
+    PEER_INFO(peer_info_alert.alert_type),
+    FILE_PROGRESS(file_progress_alert.alert_type),
+    PIECE_INFO(piece_info_alert.alert_type),
+    PIECE_AVAILABILITY(piece_availability_alert.alert_type),
+    TRACKER_LIST(tracker_list_alert.alert_type),
     UNKNOWN(-1);
 
     private static final AlertType[] TABLE = buildTable();
@@ -181,7 +188,7 @@ public enum AlertType {
         arr[54] = PEER_BLOCKED;
         arr[55] = DHT_ANNOUNCE;
         arr[56] = DHT_GET_PEERS;
-        arr[57] = STATS;
+        arr[57] = UNKNOWN;
         arr[58] = CACHE_FLUSHED;
         arr[59] = UNKNOWN;
         arr[60] = LSD_PEER;
@@ -221,6 +228,14 @@ public enum AlertType {
         arr[94] = BLOCK_UPLOADED;
         arr[95] = ALERTS_DROPPED;
         arr[96] = SOCKS5_ALERT;
+        arr[97] = FILE_PRIO;
+        arr[98] = OVERSIZED_FILE;
+        arr[99] = TORRENT_CONFLICT;
+        arr[100] = PEER_INFO;
+        arr[101] = FILE_PROGRESS;
+        arr[102] = PIECE_INFO;
+        arr[103] = PIECE_AVAILABILITY;
+        arr[104] = TRACKER_LIST;
         return arr;
     }
 }

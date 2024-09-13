@@ -370,7 +370,7 @@ public final class Alerts {
         arr[57] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new StatsAlert(cast_to_stats_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[58] = new CastLambda() {
