@@ -32,7 +32,7 @@ public class PeerInfo {
     }
 
     /**
-     * This describe the software at the other end of the connection.
+     * This describes the software at the other end of the connection.
      * In some cases this information is not available, then it will contain
      * a string that may give away something about which software is running
      * in the other end. In the case of a web seed, the server type and
@@ -157,7 +157,7 @@ public class PeerInfo {
         source = p.get_source();
         upSpeed = p.getUp_speed();
         downSpeed = p.getDown_speed();
-        connectionType = ConnectionType.fromSwig(p.getConnection_type());
+        connectionType = ConnectionType.fromSwig(p.getConnection_type().to_int());
         progress = p.getProgress();
         progressPpm = p.getProgress_ppm();
         ip = new TcpEndpoint(p.getIp()).toString();
@@ -171,17 +171,17 @@ public class PeerInfo {
         /**
          * Regular bittorrent connection.
          */
-        STANDARD_BITTORRENT(peer_info.connection_type_t.standard_bittorrent.swigValue()),
+        STANDARD_BITTORRENT(peer_info.standard_bittorrent.to_int()),
 
         /**
          * HTTP connection using the `BEP 19`_ protocol
          */
-        WEB_SEED(peer_info.connection_type_t.web_seed.swigValue()),
+        WEB_SEED(peer_info.web_seed.to_int()),
 
         /**
          * HTTP connection using the `BEP 17`_ protocol.
          */
-        HTTP_SEED(peer_info.connection_type_t.http_seed.swigValue()),
+        HTTP_SEED(peer_info.http_seed.to_int()),
 
         /**
          *
