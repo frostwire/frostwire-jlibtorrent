@@ -4853,6 +4853,9 @@ SWIGINTERN libtorrent::udp::endpoint libtorrent_dht_stats_alert_get_local_endpoi
 SWIGINTERN libtorrent::udp::endpoint libtorrent_dht_pkt_alert_get_node(libtorrent::dht_pkt_alert *self){
             return self->node;
         }
+SWIGINTERN libtorrent::client_data_t libtorrent_dht_direct_response_alert_get_userdata(libtorrent::dht_direct_response_alert *self){
+           return self->userdata;
+       }
 SWIGINTERN libtorrent::udp::endpoint libtorrent_dht_direct_response_alert_get_endpoint(libtorrent::dht_direct_response_alert *self){
             return self->endpoint;
         }
@@ -74427,6 +74430,31 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
     }
   }
   *(libtorrent::bdecode_node **)&jresult = new libtorrent::bdecode_node(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1direct_1response_1alert_1get_1userdata(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::dht_direct_response_alert *arg1 = (libtorrent::dht_direct_response_alert *) 0 ;
+  libtorrent::client_data_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::dht_direct_response_alert **)&jarg1; 
+  {
+    try {
+      result = libtorrent_dht_direct_response_alert_get_userdata(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(libtorrent::client_data_t **)&jresult = new libtorrent::client_data_t(result); 
   return jresult;
 }
 

@@ -63,6 +63,10 @@ public class dht_direct_response_alert extends alert {
     return new bdecode_node(libtorrent_jni.dht_direct_response_alert_response(swigCPtr, this), true);
   }
 
+  public client_data_t get_userdata() {
+    return new client_data_t(libtorrent_jni.dht_direct_response_alert_get_userdata(swigCPtr, this), true);
+  }
+
   public udp_endpoint get_endpoint() {
     return new udp_endpoint(libtorrent_jni.dht_direct_response_alert_get_endpoint(swigCPtr, this), true);
   }

@@ -25,8 +25,9 @@ public final class PortmapAlert extends AbstractAlert<portmap_alert> {
      *
      * @return the mapping index
      */
+    @SuppressWarnings("unused")
     public int mapping() {
-        return alert.getMapping();
+        return alert.get_mapping();
     }
 
     /**
@@ -34,6 +35,7 @@ public final class PortmapAlert extends AbstractAlert<portmap_alert> {
      *
      * @return the external port
      */
+    @SuppressWarnings("unused")
     public int externalPort() {
         return alert.getExternal_port();
     }
