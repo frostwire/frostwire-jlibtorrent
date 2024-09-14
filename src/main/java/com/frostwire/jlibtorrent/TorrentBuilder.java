@@ -4,7 +4,6 @@ import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,31 +18,28 @@ public final class TorrentBuilder {
 
     private File path;
     private int pieceSize;
-    private int padFileLimit;
     private create_flags_t flags;
     private int alignment;
 
     private String comment;
     private String creator;
-    private List<String> urlSeeds;
-    private List<String> httpSeeds;
-    private List<Pair<String, Integer>> nodes;
-    private List<Pair<String, Integer>> trackers;
+    private Long creationDate;
+    private final List<String> urlSeeds;
+    private final List<Pair<String, Integer>> nodes;
+    private final List<Pair<String, Integer>> trackers;
     private boolean priv;
 
-    private List<Sha1Hash> similarTorrents;
-    private List<String> collections;
+    private final List<Sha1Hash> similarTorrents;
+    private final List<String> collections;
 
     private Listener listener;
 
     public TorrentBuilder() {
         this.pieceSize = 0;
-        this.padFileLimit = -1;
-        this.flags = OPTIMIZE_ALIGNMENT;
+        this.flags = new create_flags_t();
         this.alignment = -1;
 
         this.urlSeeds = new LinkedList<>();
-        this.httpSeeds = new LinkedList<>();
         this.nodes = new LinkedList<>();
         this.trackers = new LinkedList<>();
 
@@ -51,18 +47,12 @@ public final class TorrentBuilder {
         this.collections = new LinkedList<>();
     }
 
-    /**
-     * @return
-     */
     public File path() {
         return path;
     }
 
     /**
-     * Adds the file specified by {@code value}
-     *
-     * @param value
-     * @return
+     * Sets the path by the specified file
      */
     public TorrentBuilder path(File value) {
         this.path = value;
@@ -70,8 +60,11 @@ public final class TorrentBuilder {
     }
 
     /**
-     * @return
+     * The ``piece_size`` is the size of each piece in bytes. It must be a
+     * power of 2 and a minimum of 16 kiB. If a piece size of 0 is
+     * specified, a piece_size will be set automatically.
      */
+    @SuppressWarnings("unused")
     public int pieceSize() {
         return pieceSize;
     }
@@ -80,39 +73,26 @@ public final class TorrentBuilder {
      * The size of each piece in bytes. It must
      * be a multiple of 16 kiB. If a piece size of 0 is specified, a
      * {@code pieceSize} will be calculated such that the torrent file is roughly 40 kB.
-     *
-     * @param value
-     * @return
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder pieceSize(int value) {
         this.pieceSize = value;
         return this;
     }
 
-    /**
-     * @return
-     */
-    public int padFileLimit() {
-        return padFileLimit;
-    }
 
     /**
-     * If a ``pad_size_limit`` is specified (other than -1), any file larger than
-     * the specified number of bytes will be preceded by a pad file to align it
-     * with the start of a piece. The pad_file_limit is ignored unless the
-     * {@link OPTIMIZE_ALIGNMENT} flag is passed. Typically it doesn't make sense
-     * to set this any lower than 4kiB.
-     *
-     * @param value
-     * @return
-     */
-    public TorrentBuilder padFileLimit(int value) {
-        this.padFileLimit = value;
-        return this;
-    }
-
-    /**
-     * @return
+     * create_flags_t is a type alias that simplifies the usage of the bitfield_flag structure for a specific case
+     * within the libtorrent namespace.
+     * <p>
+     * The bitfield_flag structure in the provided code is a utility for managing flags in a bitfield,
+     * which is essentially a data structure that compactly stores bits.
+     * <p>
+     * create_flags_t is a type alias for bitfield_flag<std::uint32_t, create_flags_tag>, specifically designed
+     * to handle creation flags in libtorrent.
+     * <p>
+     * It provides a compact, efficient way to manage binary flags using bitwise operations, with the additional
+     * type safety provided by the create_flags_tag.
      */
     public create_flags_t flags() {
         return flags;
@@ -121,18 +101,13 @@ public final class TorrentBuilder {
     /**
      * Specifies options for the torrent creation. It can
      * be any combination of the flags defined by {@link create_flags_t}
-     *
-     * @param value
-     * @return
      */
     public TorrentBuilder flags(create_flags_t value) {
         this.flags = value;
         return this;
     }
 
-    /**
-     * @return
-     */
+    @SuppressWarnings("unused")
     public int alignment() {
         return alignment;
     }
@@ -141,10 +116,8 @@ public final class TorrentBuilder {
      * Used when pad files are enabled. This is the size
      * eligible files are aligned to. The default is -1, which means the
      * piece size of the torrent.
-     *
-     * @param value
-     * @return
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder alignment(int value) {
         this.alignment = value;
         return this;
@@ -152,8 +125,6 @@ public final class TorrentBuilder {
 
     /**
      * The comment for the torrent. The comment in a torrent file is optional.
-     *
-     * @return
      */
     public String comment() {
         return comment;
@@ -161,9 +132,6 @@ public final class TorrentBuilder {
 
     /**
      * Sets the comment for the torrent. The comment in a torrent file is optional.
-     *
-     * @param value
-     * @return
      */
     public TorrentBuilder comment(String value) {
         this.comment = value;
@@ -172,18 +140,14 @@ public final class TorrentBuilder {
 
     /**
      * The creator of the torrent. This is optional.
-     *
-     * @return
      */
+    @SuppressWarnings("unused")
     public String creator() {
         return creator;
     }
 
     /**
      * Sets the creator of the torrent. This is optional.
-     *
-     * @param value
-     * @return
      */
     public TorrentBuilder creator(String value) {
         this.creator = value;
@@ -191,16 +155,43 @@ public final class TorrentBuilder {
     }
 
     /**
-     * @return
+     * The "creation time" field. Defaults to the system clock at the
+     * time of construction.
+     * The timestamp is specified in seconds, posix time. If the creation
+     * date is set to 0, the "creation date" field will be omitted from
+     * the generated torrent.
      */
+    @SuppressWarnings("unused")
+    public long creationDate() {
+        return creationDate;
+    }
+
+    /**
+     * Set the "creation time" field. Defaults to the system clock at the
+     * time of construction.
+     * The timestamp is specified in seconds, posix time. If the creation
+     * date is set to 0, the "creation date" field will be omitted from
+     * the generated torrent.
+     */
+    @SuppressWarnings("unused")
+    public TorrentBuilder creationDate(long timestamp) {
+        this.creationDate = timestamp;
+        return this;
+    }
+
+    @SuppressWarnings("unused")
     public List<String> urlSeeds() {
         return urlSeeds;
     }
 
     /**
-     * @param value
-     * @return
+     * This adds a list of url seeds to the torrent. You can have any number of url seeds. For a
+     * single file torrent, this should be an HTTP url, pointing to a file with identical
+     * content as the file of the torrent. For a multi-file torrent, it should point to
+     * a directory containing a directory with the same name as this torrent, and all the
+     * files of the torrent in it.
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder addUrlSeeds(List<String> value) {
         if (value != null) {
             this.urlSeeds.addAll(value);
@@ -209,14 +200,11 @@ public final class TorrentBuilder {
     }
 
     /**
-     * This adds a url seed to the torrent. You can have any number of url seeds. For a
+     * This adds a URL seed to the torrent. You can have any number of url seeds. For a
      * single file torrent, this should be an HTTP url, pointing to a file with identical
      * content as the file of the torrent. For a multi-file torrent, it should point to
      * a directory containing a directory with the same name as this torrent, and all the
      * files of the torrent in it.
-     *
-     * @param value
-     * @return
      */
     public TorrentBuilder addUrlSeed(String value) {
         if (value != null) {
@@ -226,51 +214,20 @@ public final class TorrentBuilder {
     }
 
     /**
-     * @return
-     */
-    public List<String> httpSeeds() {
-        return httpSeeds;
-    }
-
-    /**
-     * @param value
-     * @return
-     */
-    public TorrentBuilder addHttpSeeds(List<String> value) {
-        if (value != null) {
-            this.httpSeeds.addAll(value);
-        }
-        return this;
-    }
-
-    /**
-     * This adds a HTTP seed to the torrent. You can have any number of url seeds. For a
-     * single file torrent, this should be an HTTP url, pointing to a file with identical
-     * content as the file of the torrent. For a multi-file torrent, it should point to
-     * a directory containing a directory with the same name as this torrent, and all the
-     * files of the torrent in it.
-     *
-     * @param value
-     * @return
-     */
-    public TorrentBuilder addHttpSeed(String value) {
-        if (value != null) {
-            this.httpSeeds.add(value);
-        }
-        return this;
-    }
-
-    /**
-     * @return
+     * Lists specified DHT nodes in the torrent (added with addNodes(List<Pair<String, Integer>>)).
+     * A node is a hostname and a port number where there is a DHT node running.
      */
     public List<Pair<String, Integer>> nodes() {
         return nodes;
     }
 
     /**
-     * @param value
-     * @return
+     * This adds a DHT node to the torrent. This especially useful if you're creating a
+     * tracker less torrent. It can be used by clients to bootstrap their DHT node from.
+     * The node is a hostname and a port number where there is a DHT node running.
+     * You can have any number of DHT nodes in a torrent.
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder addNodes(List<Pair<String, Integer>> value) {
         if (value != null) {
             this.nodes.addAll(value);
@@ -283,10 +240,8 @@ public final class TorrentBuilder {
      * tracker less torrent. It can be used by clients to bootstrap their DHT node from.
      * The node is a hostname and a port number where there is a DHT node running.
      * You can have any number of DHT nodes in a torrent.
-     *
-     * @param value
-     * @return
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder addNode(Pair<String, Integer> value) {
         if (value != null) {
             this.nodes.add(value);
@@ -294,17 +249,16 @@ public final class TorrentBuilder {
         return this;
     }
 
-    /**
-     * @return
-     */
     public List<Pair<String, Integer>> trackers() {
         return trackers;
     }
 
     /**
-     * @param value
-     * @return
+     * Adds a list of trackers to the torrent.
+     *
+     * @see #addTracker(String, int)
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder addTrackers(List<Pair<String, Integer>> value) {
         if (value != null) {
             this.trackers.addAll(value);
@@ -313,8 +267,12 @@ public final class TorrentBuilder {
     }
 
     /**
-     * @param value
-     * @return
+     * Adds a tracker to the torrent. This is not strictly required, but most torrents
+     * use a tracker as their main source of peers. The url should be a http:// or udp://
+     * url to a machine running a bittorrent tracker that accepts announces for this torrent's
+     * info-hash. The tier is the fallback priority of the tracker. All trackers with tier 0 are
+     * tried first (in any order). If all fail, trackers with tier 1 are tried. If all of those
+     * fail, trackers with tier 2 are tried, and so on.
      */
     public TorrentBuilder addTracker(Pair<String, Integer> value) {
         if (value != null) {
@@ -325,30 +283,28 @@ public final class TorrentBuilder {
 
     /**
      * Adds a tracker to the torrent. This is not strictly required, but most torrents
-     * use a tracker as their main source of peers. The url should be an http:// or udp://
+     * use a tracker as their main source of peers. The url should be a http:// or udp://
      * url to a machine running a bittorrent tracker that accepts announces for this torrent's
      * info-hash. The tier is the fallback priority of the tracker. All trackers with tier 0 are
      * tried first (in any order). If all fail, trackers with tier 1 are tried. If all of those
      * fail, trackers with tier 2 are tried, and so on.
-     *
-     * @param url
-     * @param tier
-     * @return
      */
     public TorrentBuilder addTracker(String url, int tier) {
         return addTracker(new Pair<>(url, tier));
     }
 
     /**
-     * @param url
-     * @return
+     * Adds a tracker on tier 0 to the torrent.
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder addTracker(String url) {
         return addTracker(url, 0);
     }
 
     /**
-     * @return
+     * Torrents with the private flag set ask clients to not use any other
+     * sources than the tracker for peers, and to not advertise itself publicly,
+     * apart from the tracker.
      */
     public boolean isPrivate() {
         return priv;
@@ -360,9 +316,6 @@ public final class TorrentBuilder {
      * Torrents with the private flag set ask clients to not use any other
      * sources than the tracker for peers, and to not advertise itself publicly,
      * apart from the tracker.
-     *
-     * @param value
-     * @return
      */
     public TorrentBuilder setPrivate(boolean value) {
         this.priv = value;
@@ -370,16 +323,17 @@ public final class TorrentBuilder {
     }
 
     /**
-     * @return
+     * @see #addSimilarTorrent(Sha1Hash)
      */
+    @SuppressWarnings("unused")
     public List<Sha1Hash> similarTorrents() {
         return similarTorrents;
     }
 
     /**
-     * @param value
-     * @return
+     * @see #addSimilarTorrent(Sha1Hash)
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder addSimilarTorrents(List<Sha1Hash> value) {
         if (value != null) {
             this.similarTorrents.addAll(value);
@@ -396,11 +350,9 @@ public final class TorrentBuilder {
      * collection and more than one similar torrents. For more information,
      * see BEP 38.
      * <p>
-     * BEP 38: http://www.bittorrent.org/beps/bep_0038.html
-     *
-     * @param value
-     * @return
+     * BEP 38: <a href="http://www.bittorrent.org/beps/bep_0038.html">...</a>
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder addSimilarTorrent(Sha1Hash value) {
         if (value != null) {
             this.similarTorrents.add(value);
@@ -408,17 +360,11 @@ public final class TorrentBuilder {
         return this;
     }
 
-    /**
-     * @return
-     */
     public List<String> collections() {
         return collections;
     }
 
-    /**
-     * @param value
-     * @return
-     */
+    @SuppressWarnings("unused")
     public TorrentBuilder addCollections(List<String> value) {
         if (value != null) {
             this.collections.addAll(value);
@@ -435,11 +381,9 @@ public final class TorrentBuilder {
      * collection and more than one similar torrents. For more information,
      * see BEP 38.
      * <p>
-     * BEP 38: http://www.bittorrent.org/beps/bep_0038.html
-     *
-     * @param value
-     * @return
+     * BEP 38: <a href="http://www.bittorrent.org/beps/bep_0038.html">...</a>
      */
+    @SuppressWarnings("unused")
     public TorrentBuilder addCollection(String value) {
         if (value != null) {
             this.collections.add(value);
@@ -447,27 +391,18 @@ public final class TorrentBuilder {
         return this;
     }
 
-    /**
-     * @return
-     */
+    @SuppressWarnings("unused")
     public Listener listener() {
         return listener;
     }
 
-    /**
-     * @param value
-     * @return
-     */
     public TorrentBuilder listener(Listener value) {
         this.listener = value;
         return this;
     }
 
     /**
-     * This function will generate a result withe the .torrent file as a bencode tree.
-     *
-     * @return
-     * @throws IOException
+     * This function will generate a result with the .torrent file as a bencoded tree.
      */
     public Result generate() throws IOException {
         if (path == null) {
@@ -480,14 +415,26 @@ public final class TorrentBuilder {
         add_files_listener l1 = new add_files_listener() {
             @Override
             public boolean pred(String p) {
-                return listener != null ? listener.accept(p) : true;
+                return listener == null || listener.accept(p);
             }
         };
         add_files_ex(fs, absPath.getPath(), l1, flags);
         if (fs.total_size() == 0) {
             throw new IOException("content total size can't be 0");
         }
-        create_torrent t = new create_torrent(fs, pieceSize, padFileLimit, flags, alignment);
+
+        /*
+         TODO: refactor to use list_files_ex instead of add_files_ex when libtorrent master is merged onto 2.0
+         See in libtorrent: https://github.com/arvidn/libtorrent/blob/master/include/libtorrent/create_torrent.hpp#L582
+         See commented code in libtorrent.hpp: std::vector<libtorrent::create_file_entry> list_files_ex(
+         create_file_entry_vector files = list_files_ex(fs, absPath.getPath(), l1);
+        if (files.size() == 0) {
+            throw new IOException("content files can't be empty");
+        }
+        create_torrent t = new create_torrent(files, pieceSize, flags);
+        */
+
+        create_torrent t = new create_torrent(fs, pieceSize, flags);
         final int numPieces = t.num_pieces();
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override
@@ -516,9 +463,6 @@ public final class TorrentBuilder {
         for (String s : urlSeeds) {
             t.add_url_seed(s);
         }
-        for (String s : httpSeeds) {
-            t.add_http_seed(s);
-        }
         for (Pair<String, Integer> n : nodes) {
             t.add_node(n.to_string_int_pair());
         }
@@ -526,7 +470,7 @@ public final class TorrentBuilder {
             t.add_tracker(tr.first, tr.second);
         }
         if (priv) {
-            t.set_priv(priv);
+            t.set_priv(true);
         }
 
         if (!similarTorrents.isEmpty()) {
@@ -544,25 +488,6 @@ public final class TorrentBuilder {
     }
 
     /**
-     * This will insert pad files to align the files to piece boundaries, for
-     * optimized disk-I/O. This will minimize the number of bytes of pad-
-     * files, to keep the impact down for clients that don't support
-     * them.
-     */
-    public static final create_flags_t OPTIMIZE_ALIGNMENT = create_torrent.optimize_alignment;
-
-    /**
-     * This will create a merkle hash tree torrent. A merkle torrent cannot
-     * be opened in clients that don't specifically support merkle torrents.
-     * The benefit is that the resulting torrent file will be much smaller and
-     * not grow with more pieces. When this option is specified, it is
-     * recommended to have a fairly small piece size, say 64 kiB.
-     * When creating merkle torrents, the full hash tree is also generated
-     * and should be saved off separately.
-     */
-    public static final create_flags_t MERKLE = create_torrent.merkle;
-
-    /**
      * This will include the file modification time as part of the torrent.
      * This is not enabled by default, as it might cause problems when you
      * create a torrent from separate files with the same content, hoping to
@@ -570,6 +495,7 @@ public final class TorrentBuilder {
      * with this option enabled, you would get different info-hashes for the
      * files.
      */
+    @SuppressWarnings("unused")
     public static final create_flags_t MODIFICATION_TIME = create_torrent.modification_time;
 
     /**
@@ -578,32 +504,43 @@ public final class TorrentBuilder {
      * is useful if you need to reconstruct a file hierarchy which contains
      * symlinks.
      */
+    @SuppressWarnings("unused")
     public static final create_flags_t SYMLINKS = create_torrent.symlinks;
 
     /**
-     * To create a torrent that can be updated via a *mutable torrent*
-     * (see BEP38_). This also needs to be enabled for torrents that update
-     * another torrent.
-     * <p>
-     * BEP38: http://www.bittorrent.org/beps/bep_0038.html
+     * Do not generate v1 metadata. The resulting torrent will only be usable by
+     * clients which support v2. This requires setting all v2 hashes, with
+     * set_hash2() before calling generate(). Setting v1 hashes (with
+     * set_hash()) is an error with this flag set.
      */
-    public static final create_flags_t MUTABLE_TORRENT_SUPPORT = create_torrent.mutable_torrent_support;
+    @SuppressWarnings("unused")
+    public static final create_flags_t V2_ONLY = create_torrent.v2_only;
 
     /**
-     *
+     * Do not generate v2 metadata or enforce v2 alignment and padding rules
+     * this is mainly for tests, not recommended for production use. This
+     * requires setting all v1 hashes, with set_hash(), before calling
+     * generate(). Setting v2 hashes (with set_hash2()) is an error with
+     * this flag set.
      */
+    @SuppressWarnings("unused")
+    public static final create_flags_t V1_ONLY = create_torrent.v1_only;
+
+    /**
+     * This flag only affects v1-only torrents, and is only relevant
+     * together with the v1_only_flag. This flag will force the
+     * same file order and padding as a v2 (or hybrid) torrent would have.
+     * It has the effect of ordering files and inserting pad files to align
+     * them with piece boundaries.
+     */
+    @SuppressWarnings("unused")
+    public static final create_flags_t CANONICAL_FILES = create_torrent.canonical_files;
+
+
     public interface Listener {
 
-        /**
-         * @param filename
-         * @return
-         */
         boolean accept(String filename);
 
-        /**
-         * @param pieceIndex
-         * @param numPieces
-         */
         void progress(int pieceIndex, int numPieces);
     }
 
@@ -620,49 +557,23 @@ public final class TorrentBuilder {
             this.entry = new Entry(t.generate());
         }
 
-        /**
-         * @return
-         */
         public Entry entry() {
             return entry;
         }
 
-        /**
-         * @return
-         */
+        @SuppressWarnings("unused")
         public int numPieces() {
             return t.num_pieces();
         }
 
-        /**
-         * @return
-         */
+        @SuppressWarnings("unused")
         public int pieceLength() {
             return t.piece_length();
         }
 
-        /**
-         * @param index
-         * @return
-         */
+        @SuppressWarnings("unused")
         public int pieceSize(int index) {
             return t.piece_size(index);
-        }
-
-        /**
-         * This function returns the merkle hash tree, if the torrent was created
-         * as a merkle torrent. The tree is created by {@link #generate()} and won't
-         * be valid until that function has been called.
-         * <p>
-         * When creating a merkle tree torrent, the actual tree itself has to
-         * be saved off separately and fed into libtorrent the first time you start
-         * seeding it, through the {@link TorrentInfo#merkleTree(List)} function.
-         * From that point onwards, the tree will be saved in the resume data.
-         *
-         * @return
-         */
-        public ArrayList<Sha1Hash> merkleTree() {
-            return Sha1Hash.convert(t.merkle_tree());
         }
     }
 }
