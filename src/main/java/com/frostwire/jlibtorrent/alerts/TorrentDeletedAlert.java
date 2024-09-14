@@ -1,6 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
-import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.InfoHash;
 import com.frostwire.jlibtorrent.swig.torrent_deleted_alert;
 
 /**
@@ -23,7 +23,8 @@ public final class TorrentDeletedAlert extends TorrentAlert<torrent_deleted_aler
         super(alert);
     }
 
-    public Sha1Hash getInfoHash() {
-        return new Sha1Hash(alert.getInfo_hash());
+    @SuppressWarnings("unused")
+    public InfoHash getInfoHashes() {
+        return new InfoHash(alert.getInfo_hashes());
     }
 }
