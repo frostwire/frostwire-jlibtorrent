@@ -71,6 +71,10 @@ public class dht_pkt_alert extends alert {
     return new udp_endpoint(libtorrent_jni.dht_pkt_alert_get_node(swigCPtr, this), true);
   }
 
+  public byte_vector get_pkt_buf() {
+    return new byte_vector(libtorrent_jni.dht_pkt_alert_get_pkt_buf(swigCPtr, this), true);
+  }
+
   public final static class direction_t {
     public final static dht_pkt_alert.direction_t incoming = new dht_pkt_alert.direction_t("incoming");
     public final static dht_pkt_alert.direction_t outgoing = new dht_pkt_alert.direction_t("outgoing");
