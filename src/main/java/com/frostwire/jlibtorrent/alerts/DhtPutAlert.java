@@ -2,6 +2,8 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.Vectors;
+import com.frostwire.jlibtorrent.swig.byte_array_32;
+import com.frostwire.jlibtorrent.swig.byte_array_64;
 import com.frostwire.jlibtorrent.swig.dht_put_alert;
 
 /**
@@ -34,7 +36,8 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      * @return
      */
     public byte[] publicKey() {
-        return Vectors.byte_vector2bytes(alert.get_public_key());
+        byte_array_32 publicKey = alert.get_public_key();
+        return Vectors.byte_array2bytes(publicKey);
     }
 
     /**
@@ -44,7 +47,8 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      * @return
      */
     public byte[] signature() {
-        return Vectors.byte_vector2bytes(alert.get_signature());
+        byte_array_64 signature = alert.get_signature();
+        return Vectors.byte_array2bytes(signature);
     }
 
     /**

@@ -3080,6 +3080,7 @@ public class libtorrent_jni {
   public final static native void dht_pkt_alert_direction_set(long jarg1, dht_pkt_alert jarg1_, int jarg2);
   public final static native int dht_pkt_alert_direction_get(long jarg1, dht_pkt_alert jarg1_);
   public final static native long dht_pkt_alert_get_node(long jarg1, dht_pkt_alert jarg1_);
+  public final static native long dht_pkt_alert_get_pkt_buf(long jarg1, dht_pkt_alert jarg1_);
   public final static native void delete_dht_pkt_alert(long jarg1);
   public final static native long dht_get_peers_reply_alert_static_category_get();
   public final static native int dht_get_peers_reply_alert_priority_get();

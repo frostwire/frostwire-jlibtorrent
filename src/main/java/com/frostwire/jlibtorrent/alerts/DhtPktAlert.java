@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.UdpEndpoint;
 import com.frostwire.jlibtorrent.Vectors;
+import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.dht_pkt_alert;
 
 /**
@@ -24,10 +25,11 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      * is valid, which is owned by libtorrent and reclaimed whenever
      * pop_alerts() is called on the session.
      *
-     * @return
      */
+    @SuppressWarnings("unused")
     public byte[] pktBuf() {
-        return Vectors.byte_span2bytes(alert.pkt_buf());
+        byte_vector pktBuf = alert.get_pkt_buf();
+        return Vectors.byte_vector2bytes(pktBuf);
     }
 
     /**
@@ -35,6 +37,7 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      *
      * @return the direction
      */
+    @SuppressWarnings("unused")
     public Direction direction() {
         return Direction.fromSwig(alert.getDirection().swigValue());
     }

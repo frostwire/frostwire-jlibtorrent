@@ -143,4 +143,46 @@ public final class Vectors {
     public static byte_vector ascii2byte_vector(String s) {
         return string2byte_vector(s, "US-ASCII");
     }
+
+    public static byte_array_32 bytes2byte_array_32(byte[] arr) {
+        byte_array_32 v = new byte_array_32();
+
+        for (int i = 0; i < 32; i++) {
+            v.set(i, arr[i]);
+        }
+
+        return v;
+    }
+
+    public static byte[] byte_array2bytes(byte_array_32 v) {
+        int size = (int) v.size();
+        byte[] arr = new byte[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = v.get(i);
+        }
+
+        return arr;
+    }
+
+    public static byte[] byte_array2bytes(byte_array_64 v) {
+        int size = (int) v.size();
+        byte[] arr = new byte[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = v.get(i);
+        }
+
+        return arr;
+    }
+
+    public static byte_array_64 bytes2byte_array_64(byte[] arr) {
+        byte_array_64 v = new byte_array_64();
+
+        for (int i = 0; i < 64; i++) {
+            v.set(i, arr[i]);
+        }
+
+        return v;
+    }
 }
