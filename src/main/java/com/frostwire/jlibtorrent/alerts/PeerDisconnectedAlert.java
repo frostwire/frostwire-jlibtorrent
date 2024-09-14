@@ -22,8 +22,9 @@ public final class PeerDisconnectedAlert extends PeerAlert<peer_disconnected_ale
      *
      * @return the socket type.
      */
+    @SuppressWarnings("unused")
     public int socketType() {
-        return alert.getSocket_type();
+        return alert.getSocket_type().swigValue();
     }
 
     /**
@@ -49,6 +50,7 @@ public final class PeerDisconnectedAlert extends PeerAlert<peer_disconnected_ale
      *
      * @return the reason.
      */
+    @SuppressWarnings("unused")
     public CloseReason reason() {
         return CloseReason.fromSwig(alert.getReason().swigValue());
     }

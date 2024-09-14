@@ -24,7 +24,7 @@ public final class DhtDirectResponseAlert extends AbstractAlert<dht_direct_respo
      * @return the user data
      */
     public long userdata() {
-        return alert.get_userdata();
+        return alert.get_userdata().get();
     }
 
     /**

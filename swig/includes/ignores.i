@@ -84,7 +84,6 @@
 %ignore libtorrent::dht_announce_alert::ip;
 %ignore libtorrent::dht_direct_response_alert::dht_direct_response_alert;
 %ignore libtorrent::dht_direct_response_alert::endpoint;
-%ignore libtorrent::dht_direct_response_alert::get_userdata;
 %ignore libtorrent::dht_direct_response_alert::userdata;
 %ignore libtorrent::dht_lookup::type;
 %ignore libtorrent::dht_mutable_item_alert::dht_mutable_item_alert;
