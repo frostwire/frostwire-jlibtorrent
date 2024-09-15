@@ -913,6 +913,8 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 #include <libtorrent/socket_type.hpp>
 #include <libtorrent/entry.hpp>
 //#include <libtorrent/tracker_event.hpp> // this exists on the 'master' branch
+// enum class event_t is defined in tracker_manager.hpp on the 2.0 branch
+#include <libtorrent/tracker_manager.hpp>
 #include <libtorrent/alert.hpp>
 #include <libtorrent/alert_types.hpp>
 #include <libtorrent/settings_pack.hpp>
@@ -61234,17 +61236,17 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_t
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1announce_1alert_1event_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tracker_1announce_1alert_1event_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   libtorrent::tracker_announce_alert *arg1 = (libtorrent::tracker_announce_alert *) 0 ;
-  event_t result;
+  libtorrent::event_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(libtorrent::tracker_announce_alert **)&jarg1; 
-  result = (event_t) ((arg1)->event);
-  *(event_t **)&jresult = new event_t(result); 
+  result = (libtorrent::event_t)(libtorrent::event_t) ((arg1)->event);
+  jresult = (jint)result; 
   return jresult;
 }
 
