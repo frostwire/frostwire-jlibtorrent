@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.incoming_connection_alert;
+import com.frostwire.jlibtorrent.swig.socket_type_t;
 
 /**
  * The incoming connection alert is posted every time we successfully accept
@@ -25,8 +26,10 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
      *
      * @return the socket type
      */
+    @SuppressWarnings("unused")
     public SocketType socketType() {
-        return SocketType.fromSwig(alert.getSocket_type());
+        socket_type_t socketType = alert.getSocket_type();
+        return SocketType.fromSwig(socketType.swigValue());
     }
 
     /**
