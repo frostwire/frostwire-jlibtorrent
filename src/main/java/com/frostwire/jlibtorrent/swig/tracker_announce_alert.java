@@ -59,8 +59,8 @@ public class tracker_announce_alert extends tracker_alert {
     return libtorrent_jni.tracker_announce_alert_message(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_event_t getEvent() {
-    return new SWIGTYPE_p_event_t(libtorrent_jni.tracker_announce_alert_event_get(swigCPtr, this), true);
+  public event_t getEvent() {
+    return event_t.swigToEnum(libtorrent_jni.tracker_announce_alert_event_get(swigCPtr, this));
   }
 
   public void setVersion(protocol_version value) {

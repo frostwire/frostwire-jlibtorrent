@@ -2401,7 +2401,7 @@ public class libtorrent_jni {
   public final static native String tracker_announce_alert_what(long jarg1, tracker_announce_alert jarg1_);
   public final static native long tracker_announce_alert_static_category_get();
   public final static native String tracker_announce_alert_message(long jarg1, tracker_announce_alert jarg1_);
-  public final static native long tracker_announce_alert_event_get(long jarg1, tracker_announce_alert jarg1_);
+  public final static native int tracker_announce_alert_event_get(long jarg1, tracker_announce_alert jarg1_);
   public final static native void tracker_announce_alert_version_set(long jarg1, tracker_announce_alert jarg1_, int jarg2);
   public final static native int tracker_announce_alert_version_get(long jarg1, tracker_announce_alert jarg1_);
   public final static native void delete_tracker_announce_alert(long jarg1);

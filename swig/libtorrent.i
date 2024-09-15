@@ -53,6 +53,8 @@
 #include <libtorrent/socket_type.hpp>
 #include <libtorrent/entry.hpp>
 //#include <libtorrent/tracker_event.hpp> // this exists on the 'master' branch
+// enum class event_t is defined in tracker_manager.hpp on the 2.0 branch
+#include <libtorrent/tracker_manager.hpp>
 #include <libtorrent/alert.hpp>
 #include <libtorrent/alert_types.hpp>
 #include <libtorrent/settings_pack.hpp>
@@ -260,6 +262,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 //%include "includes/libtorrent_tracker_event.i" // TODO: will need to create when this is merged from master
 
 // ALERTS TYPES
+%include "includes/libtorrent_event_t.i"
 %include "includes/libtorrent_alert.i"
 %include "includes/libtorrent_dht_announce_alert.i"
 %include "includes/libtorrent_external_ip_alert.i"
