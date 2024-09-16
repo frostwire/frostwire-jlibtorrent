@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.byte_array_32;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.byte_vector_byte_vector_pair;
 
@@ -16,24 +17,17 @@ public final class Ed25519 {
     public final static int SECRET_KEY_SIZE = 64;
     public final static int SIGNATURE_SIZE = 64;
     public final static int SCALAR_SIZE = 32;
+    @SuppressWarnings("unused")
     public final static int SHARED_SECRET_SIZE = 32;
 
     private Ed25519() {
     }
 
-    /**
-     * @return
-     */
     public static byte[] createSeed() {
-        byte_vector seed = ed25519_create_seed();
-
-        return Vectors.byte_vector2bytes(seed);
+        byte_array_32 seed = ed25519_create_seed();
+        return Vectors.byte_array2bytes(seed);
     }
 
-    /**
-     * @param seed
-     * @return
-     */
     public static Pair<byte[], byte[]> createKeypair(byte[] seed) {
         if (seed == null || seed.length != SEED_SIZE) {
             throw new IllegalArgumentException("seed must be not null and of size " + SEED_SIZE);
@@ -45,12 +39,7 @@ public final class Ed25519 {
                 Vectors.byte_vector2bytes(keypair.getSecond()));
     }
 
-    /**
-     * @param message
-     * @param publicKey
-     * @param secretKey
-     * @return
-     */
+    @SuppressWarnings("unused")
     public static byte[] sign(byte[] message, byte[] publicKey, byte[] secretKey) {
         if (publicKey == null || publicKey.length != PUBLIC_KEY_SIZE) {
             throw new IllegalArgumentException("public key must be not null and of size " + PUBLIC_KEY_SIZE);
@@ -66,12 +55,7 @@ public final class Ed25519 {
         return Vectors.byte_vector2bytes(signature);
     }
 
-    /**
-     * @param signature
-     * @param message
-     * @param publicKey
-     * @return
-     */
+    @SuppressWarnings("unused")
     public static boolean verify(byte[] signature, byte[] message, byte[] publicKey) {
         if (signature == null || signature.length != SIGNATURE_SIZE) {
             throw new IllegalArgumentException("signature must be not null and of size " + SIGNATURE_SIZE);
@@ -83,11 +67,7 @@ public final class Ed25519 {
                 Vectors.bytes2byte_vector(message), Vectors.bytes2byte_vector(publicKey));
     }
 
-    /**
-     * @param publicKey
-     * @param scalar
-     * @return
-     */
+    @SuppressWarnings("unused")
     public static byte[] addScalarPublic(byte[] publicKey, byte[] scalar) {
         if (publicKey == null || publicKey.length != PUBLIC_KEY_SIZE) {
             throw new IllegalArgumentException("public key must be not null and of size " + PUBLIC_KEY_SIZE);
@@ -101,11 +81,7 @@ public final class Ed25519 {
         return Vectors.byte_vector2bytes(ret);
     }
 
-    /**
-     * @param secretKey
-     * @param scalar
-     * @return
-     */
+    @SuppressWarnings("unused")
     public static byte[] addScalarSecret(byte[] secretKey, byte[] scalar) {
         if (secretKey == null || secretKey.length != SECRET_KEY_SIZE) {
             throw new IllegalArgumentException("public key must be not null and of size " + SECRET_KEY_SIZE);
@@ -119,11 +95,7 @@ public final class Ed25519 {
         return Vectors.byte_vector2bytes(ret);
     }
 
-    /**
-     * @param publicKey
-     * @param secretKey
-     * @return
-     */
+    @SuppressWarnings("unused")
     public byte[] keyExchange(byte[] publicKey, byte[] secretKey) {
         if (publicKey == null || publicKey.length != PUBLIC_KEY_SIZE) {
             throw new IllegalArgumentException("public key must be not null and of size " + PUBLIC_KEY_SIZE);

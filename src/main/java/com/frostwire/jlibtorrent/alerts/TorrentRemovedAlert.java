@@ -27,6 +27,6 @@ public final class TorrentRemovedAlert extends TorrentAlert<torrent_removed_aler
     }
 
     public Sha1Hash infoHash() {
-        return new Sha1Hash(alert.getInfo_hash());
+        return new Sha1Hash(alert.getInfo_hashes().get_best());
     }
 }
