@@ -44,16 +44,13 @@ public final class DhtShell {
 
         SessionManager s = new SessionManager();
         s.addListener(mainListener);
-        s.start();
 
-        try {
-            File f = new File("dht_shell.dat");
-            if (f.exists()) {
-                byte[] data = Utils.readFileToByteArray(f);
-                s.loadState(data);
-            }
-        } catch (Throwable e) {
-            log(e.getMessage());
+        File f = new File("dht_shell.dat");
+        if (f.exists()) {
+            SessionParams sessionParams = new SessionParams(f);
+            s.start(sessionParams);
+        } else {
+            s.start();
         }
 
         Scanner in = new Scanner(System.in);
@@ -218,7 +215,7 @@ public final class DhtShell {
         String sha1 = s.split(" ")[1];
         String uri = "magnet:?xt=urn:btih:" + sha1;
         print("Waiting a max of 20 seconds to fetch magnet for sha1: " + sha1);
-        byte[] data = session.fetchMagnet(uri, 20);
+        byte[] data = session.fetchMagnet(uri, 20, new File("."));
         print(Entry.bdecode(data).toString());
     }
 

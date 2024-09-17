@@ -101,7 +101,7 @@ public class SessionManager {
 
             resetState();
 
-            SettingsPack sp = params.settings();
+            SettingsPack sp = params.getSettings();
 
             // we always control the alert mask
             sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging).to_int());
