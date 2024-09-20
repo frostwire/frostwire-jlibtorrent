@@ -525,4 +525,13 @@ public final class AddTorrentParams {
         }
         return new AddTorrentParams(params);
     }
+
+    /**
+     * Turns the resume data in an `AddTorrentParams` object
+     * into a bencoded structure.
+     */
+    public static Entry writeResumeData(AddTorrentParams params) {
+        entry e = libtorrent.write_resume_data(params.swig());
+        return new Entry(e);
+    }
 }
