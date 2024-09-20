@@ -12,7 +12,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.frostwire.jlibtorrent.swig.libtorrent.add_files_ex;
 import static com.frostwire.jlibtorrent.swig.libtorrent.set_piece_hashes_ex;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author gubatron
@@ -98,7 +99,6 @@ public class CreateTorrentTest {
                 .comment("comment")
                 .creator("creator")
                 .addUrlSeed("http://urlseed/")
-                .addHttpSeed("http://httpseed/")
                 .addNode(new Pair<>("1.1.1.1", 1))
                 .addTracker("udp://tracker/")
                 .setPrivate(true)
