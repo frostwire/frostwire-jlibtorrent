@@ -20,32 +20,32 @@ public class VectorsTest {
     @Test
     public void testByteVector2String() {
         byte_vector v = new byte_vector();
-        v.push_back((byte) 'A');
-        v.push_back((byte) 'B');
-        v.push_back((byte) 'C');
+        v.add((byte) 'A');
+        v.add((byte) 'B');
+        v.add((byte) 'C');
         assertEquals(Vectors.byte_vector2ascii(v), "ABC");
 
         v.clear();
-        v.push_back((byte) 'A');
-        v.push_back((byte) 'B');
-        v.push_back((byte) 0);
+        v.add((byte) 'A');
+        v.add((byte) 'B');
+        v.add((byte) 0);
         assertEquals(Vectors.byte_vector2ascii(v), "AB");
 
         v.clear();
-        v.push_back((byte) 0);
-        v.push_back((byte) 0);
-        v.push_back((byte) 0);
+        v.add((byte) 0);
+        v.add((byte) 0);
+        v.add((byte) 0);
         assertEquals(Vectors.byte_vector2ascii(v), "");
 
         v.clear();
-        v.push_back((byte) 'A');
-        v.push_back((byte) 0);
-        v.push_back((byte) 'B');
+        v.add((byte) 'A');
+        v.add((byte) 0);
+        v.add((byte) 'B');
         assertEquals(Vectors.byte_vector2ascii(v), "A");
 
         v.clear();
-        v.push_back((byte) 194);
-        v.push_back((byte) 181);
+        v.add((byte) 194);
+        v.add((byte) 181);
         assertEquals(Vectors.byte_vector2utf8(v), "µ");
     }
 }
