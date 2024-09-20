@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.*;
+import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 
@@ -68,7 +69,7 @@ public final class StatusDurationTest {
                         break;
                     case SAVE_RESUME_DATA:
                         // TODO: restore later
-                        resumeData = null;//((SaveResumeDataAlert) alert).resumeData();
+                        resumeData = AddTorrentParams.writeResumeData(((SaveResumeDataAlert) alert).params());
                         TorrentHandle th2 = ((SaveResumeDataAlert) alert).handle();
                         TorrentStatus status2 = th2.status();
                         activeDuration = status2.activeDuration();
@@ -109,7 +110,7 @@ public final class StatusDurationTest {
         s.start();
 
         long timeMark = System.currentTimeMillis();
-        s.download(ti, torrentFile.getParentFile(), resumeFile, null, null);
+        s.download(ti, torrentFile.getParentFile(), resumeFile, null, null,  new torrent_flags_t());
 
         Utils.awaitMinutes(signal2, "too much time downloading the torrent 100%", 5);
         assertNull(s.lastAlertError());

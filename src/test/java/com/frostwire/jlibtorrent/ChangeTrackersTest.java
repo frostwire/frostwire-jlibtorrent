@@ -24,12 +24,12 @@ public class ChangeTrackersTest {
         assertTrue(ti.trackers().size() > 0);
 
         entry e = entry.bdecode(Vectors.bytes2byte_vector(torrentBytes));
-        string_entry_map m = e.dict();
-        if (m.has_key("announce")) {
-            m.erase("announce");
+        boost_string_entry_map m = e.dict();
+        if (m.contains("announce")) {
+            m.remove("announce");
         }
-        if (m.has_key("announce-list")) {
-            m.erase("announce-list");
+        if (m.contains("announce-list")) {
+            m.remove("announce-list");
         }
 
         ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));
@@ -59,29 +59,29 @@ public class ChangeTrackersTest {
         assertTrue(ti.trackers().size() > 0);
 
         entry e = entry.bdecode(Vectors.bytes2byte_vector(torrentBytes));
-        string_entry_map m = e.dict();
+        boost_string_entry_map m = e.dict();
 
         // remove trackers
-        if (m.has_key("announce")) {
-            m.erase("announce");
+        if (m.contains("announce")) {
+            m.remove("announce");
         }
-        if (m.has_key("announce-list")) {
-            m.erase("announce-list");
+        if (m.contains("announce-list")) {
+            m.remove("announce-list");
         }
 
         // add trackers
         String[] tks = new String[]{"http://a:6969/announce", "http://b:6969/announce"};
         entry_vector l = new entry_vector();
-        l.push_back(new entry(tks[0]));
-        m.set("announce", new entry(l));
+        l.add(new entry(tks[0]));
+        m.put("announce", new entry(l));
 
         entry_vector tl = new entry_vector();
-        for (int i = 0; i < tks.length; i++) {
+        for (String tk : tks) {
             l.clear();
-            l.push_back(new entry(tks[i]));
-            tl.push_back(new entry(l));
+            l.add(new entry(tk));
+            tl.add(new entry(l));
         }
-        m.set("announce-list", new entry(tl));
+        m.put("announce-list", new entry(tl));
 
         ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));
         ArrayList<AnnounceEntry> trackers = ti.trackers();
