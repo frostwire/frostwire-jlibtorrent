@@ -47,7 +47,7 @@ public final class EnumNetTest {
 
         ip_route_vector ip_routes = new ip_route_vector();
         for (EnumNet.IpRoute route : ipRoutes) {
-            ip_routes.push_back(route.swig());
+            ip_routes.add(route.swig());
         }
         for (EnumNet.IpInterface iface : ipInterfaces) {
             System.out.println("Default gateway for iface=" + iface + " -> " + EnumNet.getGateway(s, iface, ip_routes));

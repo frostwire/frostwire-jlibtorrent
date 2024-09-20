@@ -1,10 +1,12 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.*;
+import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.Entry;
+import com.frostwire.jlibtorrent.SessionManager;
+import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.alerts.*;
 
 import java.io.File;
-import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
@@ -134,7 +136,7 @@ public final class GetMagnet5 {
             s.start();
         if (link.startsWith("magnet:?")) {
             waitForNodesInDHT(s);
-            byte[] data = s.fetchMagnet(link, 30);
+            byte[] data = s.fetchMagnet(link, 30, new File("/tmp"));
             TorrentInfo ti = TorrentInfo.bdecode(data);
             log(Entry.bdecode(data).toString());
             log("is valid ? =" + ti.isValid());

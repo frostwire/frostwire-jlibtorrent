@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent.demo;
 import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.StateUpdateAlert;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 /**
  * To test issue https://github.com/frostwire/frostwire-jlibtorrent/issues/180
@@ -59,16 +61,19 @@ public final class GetMagnet3 {
                         System.out.println();
                         th.prioritizeFiles(p);
                         break;
-                    case STATS:
-                        th = ((StatsAlert) alert).handle();
-                        ti = th.torrentFile();
-                        p = th.filePriorities();
+                    case STATE_UPDATE:
+                        StateUpdateAlert sua = (StateUpdateAlert) alert;
                         System.out.println(String.format("[%s] Current priorities:",
                                 new Time(System.currentTimeMillis())));
-                        for (int i = 0; i < ti.numFiles(); i++)
-                            System.out.println(String.format("priority=%-8sfile=%s",
-                                    p[i],
-                                    ti.files().fileName(i)));
+                        sua.status().forEach((torrentStatus -> {
+                            TorrentHandle handle = new TorrentHandle(torrentStatus.swig().getHandle());
+                            IntStream.range(0, handle.filePriorities().length).forEach((i) -> {
+                                Priority priority = handle.filePriorities()[i];
+                                System.out.println(String.format("priority=%-8sfile=%s",
+                                        priority,
+                                        handle.torrentFile().files().fileName(i)));
+                            });
+                        }));
                         System.out.println();
                         break;
                     case TORRENT_FINISHED:
@@ -102,7 +107,7 @@ public final class GetMagnet3 {
         }
 
         System.out.println("Fetching the magnet uri, please wait...");
-        byte[] data = s.fetchMagnet(magnet, 30, true);
+        byte[] data = s.fetchMagnet(magnet, 30, new File("/tmp"));
         if (data == null) {
             System.out.println("data == null");
             s.stop();
