@@ -61,6 +61,18 @@ public class SessionParams {
     }
 
     /**
+     * This constructor can be used to start with the default plugins
+     * (ut_metadata, ut_pex and smart_ban). The default values in the
+     * settings is to start the default features like upnp, nat-pmp,
+     * and dht for example.
+     *
+     * @param settings the initial settings pack
+     */
+    public SessionParams(SettingsPack settings) {
+        this(new session_params(settings.swig()));
+    }
+
+    /**
      * @return the settings pack
      */
     @SuppressWarnings("unused")

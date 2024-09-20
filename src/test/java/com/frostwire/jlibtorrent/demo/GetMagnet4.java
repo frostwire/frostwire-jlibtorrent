@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
+import com.frostwire.jlibtorrent.alerts.StateUpdateAlert;
 
 import java.sql.Time;
 import java.util.Timer;
@@ -20,6 +21,9 @@ import java.util.concurrent.TimeUnit;
 public final class GetMagnet4 {
 
     public static void main(String[] args) throws Throwable {
+
+        // java hack to use the magnetTI[0] inside the alert listener, as lambda's need final variables.
+        final TorrentInfo[] magnetTI = {null};
 
         final String magnet = "<magnet here>";
 
@@ -53,20 +57,26 @@ public final class GetMagnet4 {
                         System.out.println();
                         th.prioritizeFiles(p);
                         break;
-                    case STATS:
-                        th = ((StatsAlert) alert).handle();
-                        ti = th.torrentFile();
-                        // ti is null while the metadata is not received
-                        if (ti != null) {
-                            p = th.filePriorities();
-                            System.out.println(String.format("[%s] Current priorities:",
-                                    new Time(System.currentTimeMillis())));
-                            for (int i = 0; i < ti.numFiles(); i++)
-                                System.out.println(String.format("priority=%-8sfile=%s",
-                                        p[i],
-                                        ti.files().fileName(i)));
-                            System.out.println();
-                        }
+                    case STATE_UPDATE:
+                        StateUpdateAlert sua = (StateUpdateAlert) alert;
+                        System.out.println(String.format("[%s] Current priorities:", new Time(System.currentTimeMillis())));
+                        sua.status().forEach(torrentStatus -> {
+                            TorrentHandle handle = new TorrentHandle(torrentStatus.swig().getHandle());
+                            TorrentInfo info = handle.torrentFile();
+                            
+                            if (magnetTI[0] == null && info != null) {
+                                magnetTI[0] = info;
+                            }
+                            // info is null while the metadata is not received
+                            if (info != null) {
+                                Priority[] priorities = handle.filePriorities();
+                                for (int i = 0; i < info.numFiles(); i++)
+                                    System.out.println(String.format("priority=%-8sfile=%s",
+                                            priorities[i],
+                                            info.files().fileName(i)));
+                                System.out.println();
+                            }
+                        });
                         break;
                     case TORRENT_FINISHED:
                         System.out.println("Torrent finished\n");
@@ -81,7 +91,7 @@ public final class GetMagnet4 {
         waitForNodesInDHT(s);
 
         System.out.println("About to download magnet: " + magnet);
-        s.download(magnet, null);
+        s.download(magnetTI[0], null);
 
         System.in.read();
         s.stop();

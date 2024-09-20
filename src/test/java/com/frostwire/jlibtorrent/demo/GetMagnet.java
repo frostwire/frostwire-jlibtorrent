@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.swig.settings_pack;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
@@ -71,7 +72,7 @@ public final class GetMagnet {
         }
 
         System.out.println("Fetching the magnet uri, please wait...");
-        byte[] data = s.fetchMagnet(uri, 30);
+        byte[] data = s.fetchMagnet(uri, 30, new File("/tmp"));
 
         if (data != null) {
             System.out.println(Entry.bdecode(data));
