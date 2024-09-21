@@ -4015,7 +4015,6 @@ SWIGINTERN void libtorrent_announce_entry_set_trackerid(libtorrent::announce_ent
                 self->trackerid = {s.begin(), s.end()};
             }
 SWIGINTERN void libtorrent_file_storage_add_file_ex__SWIG_0(libtorrent::file_storage *self,libtorrent::error_code &ec,std::string const &path,std::int64_t file_size,libtorrent::file_flags_t file_flags={},std::time_t mtime=0,std::string symlink_path={}){
-            //, char const* root_hash = nullptr) {
             self->add_file(ec, path, file_size, file_flags, mtime, symlink_path);
         }
 SWIGINTERN std::string libtorrent_file_storage_file_name_ex(libtorrent::file_storage *self,int index){
@@ -4834,9 +4833,9 @@ SWIGINTERN std::array< std::int8_t,64 > libtorrent_dht_put_alert_get_signature(l
             std::array<char, 64> arr = self->signature;
             return *reinterpret_cast<std::array<std::int8_t, 64>*>(&arr);
         }
-SWIGINTERN std::vector< int8_t > libtorrent_dht_put_alert_get_salt(libtorrent::dht_put_alert *self){
+SWIGINTERN std::vector< std::int8_t > libtorrent_dht_put_alert_get_salt(libtorrent::dht_put_alert *self){
             std::string s = self->salt;
-            return std::vector<int8_t>(s.begin(), s.end());
+            return std::vector<std::int8_t>(s.begin(), s.end());
         }
 SWIGINTERN int64_t libtorrent_dht_put_alert_get_seq(libtorrent::dht_put_alert *self){
             return int64_t(self->seq);
@@ -71610,7 +71609,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_1put_1alert_1get_1salt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::dht_put_alert *arg1 = (libtorrent::dht_put_alert *) 0 ;
-  std::vector< int8_t > result;
+  std::vector< std::int8_t > result;
   
   (void)jenv;
   (void)jcls;
@@ -71627,7 +71626,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
       return 0;
     }
   }
-  *(std::vector< int8_t > **)&jresult = new std::vector< int8_t >(result); 
+  *(std::vector< std::int8_t > **)&jresult = new std::vector< std::int8_t >(result); 
   return jresult;
 }
 

@@ -51,11 +51,6 @@ namespace libtorrent {
     %template(status_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, status_flags_tag>;
 
     %extend torrent_handle {
-        // we wrap status() because otherwise it won't compile
-//         libtorrent::torrent_status status() const {
-//             return $self->status();
-//         }
-
         void add_piece_bytes(int piece, std::vector<int8_t> const& data, add_piece_flags_t flags = {}) {
             $self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
         }

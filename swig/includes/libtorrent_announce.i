@@ -84,39 +84,3 @@ namespace libtorrent {
     };
 
 }
-
-//     struct announce_endpoint
-//     {
-//         libtorrent::error_code last_error;
-//         tcp::endpoint local_endpoint;
-//
-//         int scrape_incomplete;
-//         int scrape_complete;
-//         int scrape_downloaded;
-//
-//         std::uint8_t fails;
-//         bool updating;
-//
-//         bool is_working() const;
-//
-//         %extend
-//         {
-//             std::vector<int8_t> get_message()
-//             {
-//                 std::string s = $self->message;
-//                 return {s.begin(), s.end()};
-//             }
-//
-//             int64_t get_next_announce()
-//             {
-//                 return libtorrent::total_milliseconds($self->next_announce.time_since_epoch());
-//             }
-//
-//             int64_t get_min_announce()
-//             {
-//                 return libtorrent::total_milliseconds($self->min_announce.time_since_epoch());
-//             }
-//         }
-//     private:
-//         announce_endpoint();
-//     };

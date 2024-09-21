@@ -26,5 +26,4 @@ namespace libtorrent {
         void clear_all();
         void clear();
 	};
-    //%template(piece_index_bitfield) typed_bitfield<piece_index_t>;
 } // namespace libtorrent
