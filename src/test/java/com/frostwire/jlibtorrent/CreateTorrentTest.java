@@ -156,9 +156,23 @@ public class CreateTorrentTest {
                 .generate();
 
         TorrentInfo ti = TorrentInfo.bdecode(r.entry().bencode());
-        assertEquals(2, ti.numFiles());
+        long totalBytes = 0;
+        for (int i=0; i < ti.numFiles(); i++) {
+            FileStorage files = ti.files();
+            String path = files.filePath(i);
+            long size = files.fileSize(i);
+            totalBytes += size;
+            System.out.println(path + " (" + size + " bytes)");
+        }
+
+        // 4 files
+        // test.txt, ./pad/16382, test1.txt, ./pad/16382
+        assertEquals(4, ti.numFiles());
         assertTrue(b1.get());
         assertTrue(b2.get());
+
+        System.out.println("Expected total size: " + totalBytes + " bytes");
+        assertEquals(totalBytes, ti.totalSize());
     }
 
     /*
