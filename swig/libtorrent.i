@@ -144,15 +144,6 @@ using udp = libtorrent::udp;
 %apply std::int64_t { std::ptrdiff_t };
 %apply std::int64_t { std::time_t };
 
-// %template(port_mapping_t_vector) std::vector<libtorrent::port_mapping_t>;
-// %typemap(javatype) libtorrent::port_mapping_t "int"
-// %typemap(jstype) libtorrent::port_mapping_t "int"
-// %typemap(jni) libtorrent::port_mapping_t "jint"
-// %typemap(javain) libtorrent::port_mapping_t "$javainput"
-// %typemap(javaout) libtorrent::port_mapping_t {
-//     return $jnicall;
-// }
-
 %define TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, api_type, java_type)
 
 // don't add deprecated finalize() methods
@@ -236,8 +227,6 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_kademlia_dht_state.i"
 %include "includes/libtorrent_client_data.i"
 %include "includes/libtorrent_sha1_hash.i"
-// maybe delete libtorrent_sha1_hash_type_aliases.i
-//%include "includes/libtorrent_sha1_hash_type_aliases.i"
 %include "includes/libtorrent_info_hash.i"
 %include "includes/libtorrent_storage_defs.i"
 %include "includes/libtorrent_bitfield.i"
@@ -305,13 +294,11 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_read_resume_data.i"
 %include "includes/libtorrent_write_resume_data.i"
 
-//%include "includes/libtorrent_web_seed_entry.i" // when web_seed_entry.hpp is merged from master, currently web_seed_entry lives in torrent_info.hpp
+//%include "includes/libtorrent_web_seed_entry.i"
+// when web_seed_entry.hpp is merged from master, currently web_seed_entry lives in torrent_info.hpp
 
 %include "includes/libtorrent_bloom_filter.i"
-
 %include "includes/libtorrent_connection_type.i"
-
-
 %include "includes/libtorrent_peer_connection_handle.i"
 %include "includes/libtorrent_stats_metric.i"
 %include "includes/libtorrent_string_view.i"
