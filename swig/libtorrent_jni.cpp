@@ -4022,11 +4022,12 @@ SWIGINTERN std::string libtorrent_file_storage_file_name_ex(libtorrent::file_sto
             return std::string{self->file_name(libtorrent::file_index_t{index})};
         }
 SWIGINTERN std::vector< std::string > libtorrent_file_storage_file_paths_ex(libtorrent::file_storage *self){
-            auto paths = self->paths();
             std::vector<std::string> result;
-            result.clear();
-            result.reserve(paths.size());
-            for (std::string const& path : paths) {
+            int num_files = self->num_files();
+            result.reserve(num_files);
+
+            for (int i = 0; i < num_files; ++i) {
+                std::string path = self->file_path(libtorrent::file_index_t{i});
                 result.push_back(path);
             }
             return result;
