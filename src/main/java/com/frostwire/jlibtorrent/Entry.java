@@ -96,7 +96,7 @@ public final class Entry {
     public static Entry fromMap(Map<String, ?> map) {
         entry e = new entry(entry.data_type.dictionary_t);
 
-        boost_string_entry_map d = e.dict();
+        string_entry_map d = e.dict();
         for (String k : map.keySet()) {
             Object v = map.get(k);
 
@@ -157,16 +157,16 @@ public final class Entry {
 
     private static final class EntryMap extends AbstractMap<String, Entry> {
 
-        private final boost_string_entry_map m;
+        private final string_entry_map m;
 
-        public EntryMap(boost_string_entry_map m) {
+        public EntryMap(string_entry_map m) {
             this.m = m;
         }
 
         @Override
         public com.frostwire.jlibtorrent.Entry get(Object key) {
             String k = key.toString();
-            return m.contains(k) ? new com.frostwire.jlibtorrent.Entry(m.get(key.toString())) : null;
+            return m.containsKey(k) ? new com.frostwire.jlibtorrent.Entry(m.get(key.toString())) : null;
         }
 
         @Override
@@ -188,26 +188,17 @@ public final class Entry {
 
         @Override
         public boolean containsKey(Object key) {
-            return m.contains(key.toString());
+            return m.containsKey(key.toString());
         }
 
         @Override
         public boolean isEmpty() {
-            return m.empty();
+            return m.isEmpty();
         }
 
         @Override
         public Set<String> keySet() {
-            HashSet<String> s = new HashSet<>();
-
-            string_vector v = m.keys();
-            int size = (int) v.size();
-
-            for (int i = 0; i < size; i++) {
-                s.add(v.get(i));
-            }
-
-            return s;
+            return m.keySet();
         }
 
         @Override

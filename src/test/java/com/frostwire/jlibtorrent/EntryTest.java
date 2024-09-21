@@ -6,10 +6,7 @@ import com.frostwire.jlibtorrent.swig.string_entry_map;
 import com.frostwire.jlibtorrent.swig.string_vector;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -41,8 +38,8 @@ public class EntryTest {
         e = Entry.fromMap(m);
         assertNotNull(e);
 
-        boost_string_entry_map dict = e.swig().dict();
-        string_vector keys = dict.keys();
+        string_entry_map dict = e.swig().dict();
+        Set<String> keys = dict.keySet();
         for (String k : keys) {
             assertNotNull(dict.get(k).to_string());
         }
