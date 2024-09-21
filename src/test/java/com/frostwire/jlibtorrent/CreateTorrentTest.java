@@ -83,7 +83,7 @@ public class CreateTorrentTest {
         entry e = ct.generate();
         byte_vector buffer = e.bencode();
         TorrentInfo ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(buffer));
-        assertEquals(2, ti.numFiles());
+        assertEquals(4, ti.numFiles());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class CreateTorrentTest {
         assertEquals(true, ti.isPrivate());
         assertTrue(ti.similarTorrents().get(0).isAllZeros());
         assertEquals("collection", ti.collections().get(0));
-        assertEquals(2, ti.numFiles());
+        assertEquals(4, ti.numFiles());
     }
 
     @Test
