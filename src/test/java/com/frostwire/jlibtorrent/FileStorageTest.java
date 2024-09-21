@@ -29,10 +29,11 @@ public class FileStorageTest {
         FileStorage fs = ti.files();
         assertTrue(fs.numFiles() > 0);
         ArrayList<String> paths = fs.paths();
+        //System.out.printf("File Storage numFiles:%d vs Paths size:%d\n", fs.numFiles(), paths.size());
         assertEquals(fs.numFiles(), paths.size());
         for (String path : paths) {
             assertTrue(path.length() > 0);
-            System.out.println("FileStorageTest::testPaths() -> " + path);
+            //System.out.printf("FileStorageTest::testPaths() -> '%s' size: %d bytes\n", path, path.length());
         }
     }
 }

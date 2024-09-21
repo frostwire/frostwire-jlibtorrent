@@ -162,7 +162,7 @@ public class CreateTorrentTest {
             String path = files.filePath(i);
             long size = files.fileSize(i);
             totalBytes += size;
-            System.out.println(path + " (" + size + " bytes)");
+            //System.out.println(path + " (" + size + " bytes)");
         }
 
         // 4 files
@@ -171,7 +171,7 @@ public class CreateTorrentTest {
         assertTrue(b1.get());
         assertTrue(b2.get());
 
-        System.out.println("Expected total size: " + totalBytes + " bytes");
+        //System.out.println("Expected total size: " + totalBytes + " bytes");
         assertEquals(totalBytes, ti.totalSize());
     }
 

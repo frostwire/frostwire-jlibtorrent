@@ -401,7 +401,6 @@ public final class FileStorage {
      * @return
      */
     public ArrayList<String> paths() {
-        // TODO: Write a test for this method
         string_vector v = fs.file_paths_ex();
         int size = (int) v.size();
         ArrayList<String> l = new ArrayList<>(size);

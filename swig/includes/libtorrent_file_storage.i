@@ -16,11 +16,12 @@ namespace libtorrent {
         }
 
         std::vector<std::string> file_paths_ex() {
-            auto paths = $self->paths();
             std::vector<std::string> result;
-            result.clear();
-            result.reserve(paths.size());
-            for (std::string const& path : paths) {
+            int num_files = $self->num_files();
+            result.reserve(num_files);
+
+            for (int i = 0; i < num_files; ++i) {
+                std::string path = $self->file_path(libtorrent::file_index_t{i});
                 result.push_back(path);
             }
             return result;
