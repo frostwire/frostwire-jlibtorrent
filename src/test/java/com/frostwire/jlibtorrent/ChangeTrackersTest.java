@@ -24,11 +24,11 @@ public class ChangeTrackersTest {
         assertTrue(ti.trackers().size() > 0);
 
         entry e = entry.bdecode(Vectors.bytes2byte_vector(torrentBytes));
-        boost_string_entry_map m = e.dict();
-        if (m.contains("announce")) {
+        string_entry_map m = e.dict();
+        if (m.containsKey("announce")) {
             m.remove("announce");
         }
-        if (m.contains("announce-list")) {
+        if (m.containsKey("announce-list")) {
             m.remove("announce-list");
         }
 
@@ -59,13 +59,15 @@ public class ChangeTrackersTest {
         assertTrue(ti.trackers().size() > 0);
 
         entry e = entry.bdecode(Vectors.bytes2byte_vector(torrentBytes));
-        boost_string_entry_map m = e.dict();
+        string_entry_map m = e.dict();
+
+        assertTrue(m != null);
 
         // remove trackers
-        if (m.contains("announce")) {
+        if (m.containsKey("announce")) {
             m.remove("announce");
         }
-        if (m.contains("announce-list")) {
+        if (m.containsKey("announce-list")) {
             m.remove("announce-list");
         }
 
