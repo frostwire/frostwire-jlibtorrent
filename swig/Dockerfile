@@ -20,6 +20,7 @@ RUN apt install -y build-essential
 RUN apt install -y libtool
 RUN apt install -y libpcre3-dev
 RUN apt install -y libpcre3
+RUN apt install -y libpcre2-dev
 # Windows toolchain
 RUN apt install -y g++-mingw-w64-x86-64
 # Linux Toolchain
@@ -29,24 +30,24 @@ RUN apt install -y g++-7-multilib
 RUN apt install -y emacs-nox
 
 ENV LIBTORRENT_REVISION=c2012b084c6654d681720ea0693d87a48bc95b14
-ENV LIBTORRENT_BRANCH="RC_2_0"
-ENV SWIG_VERSION="4.2.1"
-ENV BOOST_MAJOR="1"
-ENV BOOST_VERSION="86"
-ENV BOOST_MINOR="0"
-ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
-ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
-ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
-ENV NDK_VERSION="r25c"
-ENV ANDROID_API="24"
-ENV OPENSSL_VERSION="1.1.1t"
-ENV OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
-ENV GRADLE_VERSION="7.5.1"
-ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
+ENV LIBTORRENT_BRANCH "RC_2_0"
+ENV SWIG_VERSION "4.2.1"
+ENV BOOST_MAJOR "1"
+ENV BOOST_VERSION "86"
+ENV BOOST_MINOR "0"
+ENV BOOST_DOT_VERSION "${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
+ENV BOOST_UNDERSCORE_VERSION "${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+ENV BOOST_ROOT "/src/boost_${BOOST_UNDERSCORE_VERSION}"
+ENV NDK_VERSION "r25c"
+ENV ANDROID_API "24"
+ENV OPENSSL_VERSION "1.1.1t"
+ENV OPENSSL_NO_OPTS "no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+ENV GRADLE_VERSION "8.5"
+ENV GRADLE_HOME "/src/gradle-${GRADLE_VERSION}"
 
 # build scripts don't stop
 ENV DONT_PRESS_ANY_KEY 1
-ENV PATH=${GRADLE_HOME}/bin:${PATH}
+ENV PATH ${GRADLE_HOME}/bin:${PATH}
 
 # third party SRC folder
 RUN mkdir src
@@ -58,7 +59,7 @@ RUN cd /src \
 
 # prepare swig
 RUN cd /src \
-		&& wget -nv https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
+		&& wget -nv --no-check-certificate https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
 		&& tar xzf swig-${SWIG_VERSION}.tar.gz \
 		&& cd /src/swig-${SWIG_VERSION} \
 		&& ./configure --without-d \
