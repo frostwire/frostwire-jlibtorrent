@@ -10,9 +10,9 @@ namespace libtorrent {
             return *reinterpret_cast<std::array<std::int8_t, 64>*>(&arr);
         }
 
-        std::vector<int8_t> get_salt() {
+        std::vector<std::int8_t> get_salt() {
             std::string s = $self->salt;
-            return std::vector<int8_t>(s.begin(), s.end());
+            return std::vector<std::int8_t>(s.begin(), s.end());
         }
 
         int64_t get_seq() {

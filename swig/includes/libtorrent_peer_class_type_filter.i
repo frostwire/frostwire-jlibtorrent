@@ -14,11 +14,6 @@ namespace libtorrent {
             num_socket_types
         };
 
-        //void add(socket_type_t const st, peer_class_t const peer_class);
-        //void remove(socket_type_t const st, peer_class_t const peer_class);
-        //void disallow(socket_type_t const st, peer_class_t const peer_class);
-        //void allow(socket_type_t const st, peer_class_t const peer_class);
-
         std::uint32_t apply(socket_type_t const st, std::uint32_t peer_class_mask);
 
     };

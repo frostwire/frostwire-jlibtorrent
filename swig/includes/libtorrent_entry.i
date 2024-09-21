@@ -2,7 +2,8 @@ namespace libtorrent {
     class entry {
     public:
         typedef std::map<std::string, libtorrent::entry> dictionary_type;
-        //typedef boost::container::map<std::string, libtorrent::entry> dictionary_type;
+        // typedef boost::container::map<std::string, libtorrent::entry> dictionary_type;
+        // crashes with boost::container::map, reverted to std::map
         typedef std::string string_type;
         typedef std::vector<libtorrent::entry> list_type;
         typedef std::int64_t integer_type;
