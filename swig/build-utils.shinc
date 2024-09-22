@@ -54,7 +54,7 @@ linux_env() {
 
 export LIBRARY_VERSION=$(egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g")
 export LIBRARY_NAME=jlibtorrent
-export LIBTORRENT_REVISION=c2012b084c6654d681720ea0693d87a48bc95b14 # cmake: don't define _FILE_OFFSET_BITS on Windows (may 20, 2023)
+export LIBTORRENT_REVISION=2ab8fedabb7716947edc77958da6d0b5e1040df9 # fix test_copy_file to recognize overlayfs as supporting sparse files
 
 export LIBTORRENT_BRANCH="RC_2_0"
 export OPENSSL_VERSION="1.1.1t"
