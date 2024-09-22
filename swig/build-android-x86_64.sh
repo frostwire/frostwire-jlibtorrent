@@ -13,16 +13,17 @@ run_build_only=false
 # Call the function to parse flags
 parse_flags "$@"
 
+export os_arch=x86_64
+export ANDROID_TOOLCHAIN=/src/android-ndk/toolchains/llvm/prebuilt/linux-x86_64
+
 android_env
 common_env
 check_min_req_vars
 
-export os_arch=x86_64
 export os_build=android
 export android_api=24
 export SHARED_LIB=lib${LIBRARY_NAME}.so
 export NDK_VERSION=r23
-export ANDROID_TOOLCHAIN=/src/android-ndk/toolchains/llvm/prebuilt/linux-x86_64
 export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH};
 export CXX=${ANDROID_TOOLCHAIN}/bin/x86_64-linux${android_api}-android-clang++
 export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${android_api}-clang
