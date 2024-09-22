@@ -29,7 +29,7 @@ RUN apt install -y g++-7-multilib
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION=c2012b084c6654d681720ea0693d87a48bc95b14
+ENV LIBTORRENT_REVISION=2ab8fedabb7716947edc77958da6d0b5e1040df9
 ENV LIBTORRENT_BRANCH "RC_2_0"
 ENV SWIG_VERSION "4.2.1"
 ENV BOOST_MAJOR "1"
