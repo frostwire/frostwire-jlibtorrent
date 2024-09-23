@@ -57,7 +57,7 @@ export LIBRARY_NAME=jlibtorrent
 export LIBTORRENT_REVISION=2ab8fedabb7716947edc77958da6d0b5e1040df9 # fix test_copy_file to recognize overlayfs as supporting sparse files
 
 export LIBTORRENT_BRANCH="RC_2_0"
-export OPENSSL_VERSION="1.1.1t"
+export OPENSSL_VERSION="1.1.1v"
 export BOOST_VERSION="86"
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
