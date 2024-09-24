@@ -195,7 +195,7 @@ prepare_libtorrent() {
   git status
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
-  git fetch origin ${LIBTORRENT_BRANCH}
+  git fetch origin ${LIBTORRENT_BRANCH} --depth=1
   git checkout ${LIBTORRENT_BRANCH}
   git reset --hard ${LIBTORRENT_REVISION}
   git submodule init
