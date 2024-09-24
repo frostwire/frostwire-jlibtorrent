@@ -253,8 +253,6 @@ public class file_storage {
 
   public final static long max_file_size = libtorrent_jni.file_storage_max_file_size_get();
   public final static long max_file_offset = libtorrent_jni.file_storage_max_file_offset_get();
-  public final static int max_num_pieces = libtorrent_jni.file_storage_max_num_pieces_get();
-  public final static int max_piece_size = libtorrent_jni.file_storage_max_piece_size_get();
   public final static file_flags_t flag_pad_file = new file_flags_t(libtorrent_jni.file_storage_flag_pad_file_get(), false);
   public final static file_flags_t flag_hidden = new file_flags_t(libtorrent_jni.file_storage_flag_hidden_get(), false);
   public final static file_flags_t flag_executable = new file_flags_t(libtorrent_jni.file_storage_flag_executable_get(), false);

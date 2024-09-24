@@ -16,6 +16,7 @@ frostwire-jlibtorrent.i*
 /test-libtorrent
 /swig/bin
 /swig/build
+/swig/swig-*
 /libjlibtorrent*.dylib
 /libjlibtorrent*.so
 /jlibtorrent*.dll

@@ -253,6 +253,8 @@ build_libraries() {
     mv swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB}
     cp swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB} .
   fi
+  ./gradlew clean --stop
+  ./gradlew clean --refresh-dependencies
   ./gradlew jar
   $run_native_jar
 }

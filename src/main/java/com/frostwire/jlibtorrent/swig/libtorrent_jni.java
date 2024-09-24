@@ -1209,8 +1209,6 @@ public class libtorrent_jni {
   public final static native long new_file_storage__SWIG_1(long jarg1, file_storage jarg1_);
   public final static native long file_storage_max_file_size_get();
   public final static native long file_storage_max_file_offset_get();
-  public final static native int file_storage_max_num_pieces_get();
-  public final static native int file_storage_max_piece_size_get();
   public final static native boolean file_storage_is_valid(long jarg1, file_storage jarg1_);
   public final static native void file_storage_reserve(long jarg1, file_storage jarg1_, int jarg2);
   public final static native void file_storage_rename_file(long jarg1, file_storage jarg1_, int jarg2, String jarg3);
