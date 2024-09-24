@@ -5,8 +5,8 @@ archivesBaseName = 'jlibtorrent'
 // Just changing version here should be all that's necessary to bump the version on the library
 version '2.0.11.0'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"

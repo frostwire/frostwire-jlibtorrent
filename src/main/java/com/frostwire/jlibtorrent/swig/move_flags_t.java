@@ -12,8 +12,6 @@ public final class move_flags_t {
   public final static move_flags_t always_replace_files = new move_flags_t("always_replace_files");
   public final static move_flags_t fail_if_exist = new move_flags_t("fail_if_exist");
   public final static move_flags_t dont_replace = new move_flags_t("dont_replace");
-  public final static move_flags_t reset_save_path = new move_flags_t("reset_save_path");
-  public final static move_flags_t reset_save_path_unchecked = new move_flags_t("reset_save_path_unchecked");
 
   public final int swigValue() {
     return swigValue;
@@ -49,7 +47,7 @@ public final class move_flags_t {
     swigNext = this.swigValue+1;
   }
 
-  private static move_flags_t[] swigValues = { always_replace_files, fail_if_exist, dont_replace, reset_save_path, reset_save_path_unchecked };
+  private static move_flags_t[] swigValues = { always_replace_files, fail_if_exist, dont_replace };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;
