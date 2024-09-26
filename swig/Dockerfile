@@ -1,7 +1,10 @@
-FROM --platform=linux/amd64 ubuntu:18.04
-
+# Only amd64 ubuntu images have the cross compilers we need
+FROM --platform=linux/amd64 ubuntu:20.04
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt update -y
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
 RUN apt update -y
 # Common Java tooling
 RUN apt install -y openjdk-11-jdk-headless
@@ -21,11 +24,16 @@ RUN apt install -y libtool
 RUN apt install -y libpcre3-dev
 RUN apt install -y libpcre3
 RUN apt install -y libpcre2-dev
+RUN apt install -y bison
+RUN apt install -y pkg-config
+
 # Windows toolchain
 RUN apt install -y g++-mingw-w64-x86-64
 # Linux Toolchain
-RUN apt install -y g++-7
-RUN apt install -y g++-7-multilib
+RUN apt install -y g++-13 #TODO: try g++-13, gcc-13, g++-13-multilib
+RUN apt install -y g++-13-multilib
+
+
 # For testing and debugging
 RUN apt install -y emacs-nox
 
@@ -38,11 +46,12 @@ ENV BOOST_MINOR "0"
 ENV BOOST_DOT_VERSION "${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
 ENV BOOST_UNDERSCORE_VERSION "${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 ENV BOOST_ROOT "/src/boost_${BOOST_UNDERSCORE_VERSION}"
-ENV NDK_VERSION "r25c"
+ENV NDK_VERSION "r27b"
 ENV ANDROID_API "24"
+ENV ANDROID_NDK_HOME "/src/android-ndk"
 ENV OPENSSL_VERSION "1.1.1v"
-ENV OPENSSL_NO_OPTS "no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-srp no-srtp no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
-ENV GRADLE_VERSION "8.5"
+ENV OPENSSL_NO_OPTS "no-apps no-tests no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+ENV GRADLE_VERSION "8.10.2"
 ENV GRADLE_HOME "/src/gradle-${GRADLE_VERSION}"
 
 # build scripts don't stop
@@ -62,8 +71,8 @@ RUN cd /src \
 		&& wget -nv --no-check-certificate https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
 		&& tar xzf swig-${SWIG_VERSION}.tar.gz \
 		&& cd /src/swig-${SWIG_VERSION} \
-		&& ./configure --without-d \
-		&& make -j 8 \
+		&& ./configure --without-d --disable-ccache \
+		&& make -j 4 \
     && make install
 
 RUN swig -version
@@ -87,67 +96,71 @@ RUN cd /src \
     && tar xzf openssl.tar.gz \
     && mv openssl-${OPENSSL_VERSION} openssl-src
 
-ENV ANDROID_TOOLCHAIN="/src/android-ndk/toolchains/llvm/prebuilt/linux-x86_64"
-ENV AR="${ANDROID_TOOLCHAIN}/bin/llvm-ar"
-ENV LD="${ANDROID_TOOLCHAIN}/bin/ld"
-ENV RANLIB="${ANDROID_TOOLCHAIN}/bin/llvm-ranlib"
+ENV ANDROID_TOOLCHAIN ${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64
+ENV AR ${ANDROID_TOOLCHAIN}/bin/llvm-ar
+ENV LD ${ANDROID_TOOLCHAIN}/bin/ld
+ENV RANLIB ${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
 
 # Build OpenSSL Android arm
+# OLD: && ./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon --prefix=/openssl-android-arm \
 RUN export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
-    && ./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon --prefix=/openssl-android-arm \
+    && ./Configure android-arm ${OPENSSL_NO_OPTS} --prefix=/openssl-android-arm \
     && make clean \
     && make \
     && make install_sw \
     && cd /
 
 # Build OpenSSL Android arm64
+# OLD: && ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -mfpu=neon --prefix=/openssl-android-arm64 \
 RUN export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
-    && ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -mfpu=neon --prefix=/openssl-android-arm64 \
+    && ./Configure android-arm64 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-arm64 \
     && make clean \
     && make \
     && make install_sw \
     && cd /
 
 # Build OpenSSL Android x86
+# OLD: && ./Configure linux-elf ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86 \
 RUN export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
-    && ./Configure linux-elf ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86 \
+    && ./Configure android-x86 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86 \
     && make clean \
     && make \
     && make install_sw \
     && cd /
 
 # Build OpenSSL Android x86_64
+# && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86_64 \
 RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
-    && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86_64 \
+    && ./Configure android-x86_64 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86_64 \
     && make clean \
     && make \
     && make install_sw \
     && cd ..
 
 #Build OpenSSL for Windows x86_64
-RUN cd /src \
-    && mkdir windows \
-    && tar xvfz openssl.tar.gz --directory windows \
-    && cd /src/windows/openssl-${OPENSSL_VERSION} \
-    && sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' crypto/cryptlib.c \
-    && sed -i 's/MessageBox.*//g' crypto/cryptlib.c \
-    && sed -i 's/return return 0;/return 0;/g' crypto/threads_none.c \
-    && export CC=export CC=x86_64-w64-mingw32-gcc-posix \
-    && ./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=/openssl-windows-x86_64 \
-    && make clean \
-    && make \
-    && make install_sw \
-    && cd /openssl-windows-x86_64/lib \
-    && cp libcrypto.a libcrypto.lib \
-    && cp libssl.a libssl.lib
+#RUN cd /src \
+#    && mkdir windows \
+#    && tar xvfz openssl.tar.gz --directory windows \
+#    && cd /src/windows/openssl-${OPENSSL_VERSION} \
+#    && sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' crypto/cryptlib.c \
+#    && sed -i 's/MessageBox.*//g' crypto/cryptlib.c \
+#    && sed -i 's/return return 0;/return 0;/g' crypto/threads_none.c \
+#    && export CC=export CC=x86_64-w64-mingw32-gcc-posix \
+#    && ./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=/openssl-windows-x86_64 \
+#    && make clean \
+#    && make \
+#    && make install_sw \
+#    && cd /openssl-windows-x86_64/lib \
+#    && cp libcrypto.a libcrypto.lib \
+#    && cp libssl.a libssl.lib
 
 #Build OpenSSL for Linux x86_64
 RUN export CC=gcc-7 \
