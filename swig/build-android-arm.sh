@@ -23,7 +23,7 @@ check_min_req_vars
 export os_build=android
 export android_api=24
 export SHARED_LIB=lib${LIBRARY_NAME}.so
-export NDK_VERSION=r23
+export NDK_VERSION=r26d
 export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH}
 export CXX=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${android_api}-clang++
 export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${android_api}-clang
