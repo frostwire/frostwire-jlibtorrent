@@ -22,7 +22,7 @@ common_env() {
  export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
  export LIBTORRENT_ROOT="${SRC}/libtorrent"
  export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
- export OPENSSL_NO_OPTS="no-apps no-tests no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+ export OPENSSL_NO_OPTS="no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
 }
 
@@ -58,7 +58,7 @@ export LIBRARY_NAME=jlibtorrent
 export LIBTORRENT_REVISION=2ab8fedabb7716947edc77958da6d0b5e1040df9 # fix test_copy_file to recognize overlayfs as supporting sparse files
 
 export LIBTORRENT_BRANCH="RC_2_0"
-export OPENSSL_VERSION="1.1.1v"
+export OPENSSL_VERSION="1.1.1t"
 export BOOST_VERSION="86"
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
