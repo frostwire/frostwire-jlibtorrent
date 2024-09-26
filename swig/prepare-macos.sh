@@ -1,10 +1,8 @@
 # Installs dependencies and tools to build on macos
-
 brew install wget
 brew install pcre2
 
 export SWIG_VERSION=4.2.1
-
 
 # Function to check if SWIG is installed and return the version
 check_swig_installed() {
@@ -46,5 +44,4 @@ if ! check_swig_installed; then
 else
   echo "No need to reinstall SWIG."
 fi
-
 
