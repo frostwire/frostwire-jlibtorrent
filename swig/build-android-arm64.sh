@@ -27,11 +27,13 @@ export NDK_VERSION=r26d
 export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH}
 export CXX=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${android_api}-clang++
 export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${android_api}-clang
-export run_bjam="${BOOST_ROOT}/b2 -j8 -q --debug-building --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}-v8a"
+export CORES=$(( $(nproc) / 2 ))
+export run_bjam="${BOOST_ROOT}/b2 -j${CORES} -q --debug-building --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}-v8a"
 export run_objcopy="${ANDROID_TOOLCHAIN}/bin/llvm-objcopy --only-keep-debug bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB} bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}.debug"
 export run_strip="${ANDROID_TOOLCHAIN}/bin/llvm-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}"
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/llvm-readelf -d bin/release/${os_build}/${os_arch}-v8a/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeAndroidArm64Jar"
+export run_clean_native_jar="./gradlew cleanNativeAndroidArm64Jar"
 export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION}
 
 if [ "${run_swig_only}" = true ]; then

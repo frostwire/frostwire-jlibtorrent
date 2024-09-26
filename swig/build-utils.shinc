@@ -216,6 +216,7 @@ build_libraries() {
   abort_if_var_unset "run_objcopy" ${run_objcopy}
   abort_if_var_unset "run_strip" ${run_strip}
   abort_if_var_unset "run_native_jar" ${run_native_jar}
+  abort_if_var_unset "run_clean_native_jar" ${run_clean_native_jar}
   set -x
   cd ${SWIG}
   export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
@@ -254,9 +255,9 @@ build_libraries() {
     mv swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB}
     cp swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB} .
   fi
-  ./gradlew clean --stop
-  ./gradlew clean --refresh-dependencies
+  
   ./gradlew jar
+  $run_clean_native_jar
   $run_native_jar
 }
 

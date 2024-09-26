@@ -128,6 +128,46 @@ task nativeAndroidX64Jar(type: Zip) {
     rename(".so", "-${version}.so")
 }
 
+// Clean task for nativeMacOSArm64Jar
+task cleanNativeMacOSArm64Jar(type: Delete) {
+    delete "${buildDir}/libs/jlibtorrent-macosx-arm64-${version}.jar"
+}
+
+// Clean task for nativeMacOSX86_64Jar
+task cleanNativeMacOSX86_64Jar(type: Delete) {
+    delete "${buildDir}/libs/jlibtorrent-macosx-x86_64-${version}.jar"
+}
+
+// Clean task for nativeWindowsX86_64Jar
+task cleanNativeWindowsX86_64Jar(type: Delete) {
+    delete "${buildDir}/libs/jlibtorrent-windows-${version}.jar"
+}
+
+// Clean task for nativeLinuxJar
+task cleanNativeLinuxJar(type: Delete) {
+    delete "${buildDir}/libs/jlibtorrent-linux-${version}.jar"
+}
+
+// Clean task for nativeAndroidArmJar
+task cleanNativeAndroidArmJar(type: Delete) {
+    delete "${buildDir}/libs/jlibtorrent-android-arm-${version}.jar"
+}
+
+// Clean task for nativeAndroidX86Jar
+task cleanNativeAndroidX86Jar(type: Delete) {
+    delete "${buildDir}/libs/jlibtorrent-android-x86-${version}.jar"
+}
+
+// Clean task for nativeAndroidArm64Jar
+task cleanNativeAndroidArm64Jar(type: Delete) {
+    delete "${buildDir}/libs/jlibtorrent-android-arm64-${version}.jar"
+}
+
+// Clean task for nativeAndroidX64Jar
+task cleanNativeAndroidX64Jar(type: Delete) {
+    delete "${buildDir}/libs/jlibtorrent-android-x86_64-${version}.jar"
+}
+
 artifacts {
     archives sourcesJar
     archives javadocJar
@@ -163,11 +203,6 @@ def pomData() {
                 id 'gubatron'
                 name 'Angel Leon'
                 email 'gubatron@gmail.com'
-            }
-            developer {
-                id 'aldenml'
-                name 'Alden Torres'
-                email 'aldenml@gmail.com'
             }
         }
     }
