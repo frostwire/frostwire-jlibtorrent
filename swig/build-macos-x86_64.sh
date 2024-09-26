@@ -13,8 +13,8 @@ run_build_only=false
 # Call the function to parse flags
 parse_flags "$@"
 
-macosx_env
 common_env
+macosx_env
 check_min_req_vars
 
 export os_arch=x86_64

@@ -16,8 +16,8 @@ parse_flags "$@"
 export os_arch=arm64
 export ANDROID_TOOLCHAIN=/src/android-ndk/toolchains/llvm/prebuilt/linux-x86_64
 
-android_env
 common_env
+android_env
 check_min_req_vars
 
 export os_build=android
