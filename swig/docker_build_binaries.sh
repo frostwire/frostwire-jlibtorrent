@@ -1,6 +1,6 @@
 #!/bin/bash
 # One Step Build (It will be cached if nothing changed)
-./docker_build_image.sh
+./docker_build_image.sh || { echo "docker_build_binaries.sh: docker_build_image.sh failed. Exiting."; exit 1; }
 
 # Function to get 80% of free memory in GB
 get_available_memory() {
@@ -22,7 +22,7 @@ get_available_memory() {
         # Convert to GB
         free_mem=$(echo "$free_mem_bytes / 1024 / 1024 / 1024" | bc -l)
     else
-        echo "Unsupported OS"
+        echo "docker_build_binaries.sh: Unsupported OS"
         exit 1
     fi
 
@@ -48,7 +48,7 @@ get_num_cpus() {
     elif [[ "$(uname)" == "Darwin" ]]; then
         num_cpus=$(sysctl -n hw.ncpu)
     else
-        echo "Unsupported OS"
+        echo "docker_build_binaries.sh::get_num_cpus(): Unsupported OS"
         exit 1
     fi
     echo "$num_cpus"
@@ -57,8 +57,8 @@ get_num_cpus() {
 TOTAL_MEMORY=$(get_available_memory)
 NUM_CPUS=$(get_num_cpus)
 
-echo "Total memory assigned to Docker: $TOTAL_MEMORY"
-echo "Number of CPUs assigned to Docker: $NUM_CPUS"
+echo "docker_build_binaries.sh: Total memory assigned to Docker: $TOTAL_MEMORY"
+echo "docker_build_binaries.sh: Number of CPUs assigned to Docker: $NUM_CPUS"
 
 # Mounts this repo's folder as a volume in the container's /frostwire-jlibtorrent create_folder_if_it_doesnt_exist
 # Then executes the build scripts for android
