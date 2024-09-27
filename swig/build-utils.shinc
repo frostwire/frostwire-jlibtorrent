@@ -53,11 +53,11 @@ common_env() {
  fi
 
  # works for all OSes but macos
- export OPENSSL_NO_OPTS="no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+ export OPENSSL_NO_OPTS="no-tests no-shared no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
  if [[ "$(uname)" == "Darwin" ]]; then
      echo "common_env: macosx OPENSSL_NO_OPTS update!"
-     export OPENSSL_NO_OPTS="no-shared no-comp no-dso no-egd no-hw no-makedepend no-sctp no-ui-console -fno-strict-aliasing -fvisibility=hidden"
+     export OPENSSL_NO_OPTS="no-tests no-shared no-dynamic-engine no-comp no-dso no-egd no-hw no-makedepend no-sctp no-ui-console no-zlib no-zlib-dynamic"
      echo "common_env: OPENSSL_NO_OPTS=${OPENSSL_NO_OPTS}"
  fi 
 }
