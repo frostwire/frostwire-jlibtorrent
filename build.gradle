@@ -44,6 +44,10 @@ tasks.withType(Test) {
     systemProperty "java.library.path", "."
 }
 
+tasks.test {
+    outputs.upToDateWhen { false }
+}
+
 test {
     testLogging {
         events "passed", "skipped", "failed", "standard_out"
