@@ -19,11 +19,24 @@ unset_env_variables() {
 unset_env_variables
 
 common_env() {
+ abort_if_var_unset "SRC" ${SRC}
+ abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
+ abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
+ abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+ export B2_EXPECTED_VERSION="5.2.1"
  export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
  export LIBTORRENT_ROOT="${SRC}/libtorrent"
  export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
+
+ # works for all OSes but macos
  export OPENSSL_NO_OPTS="no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
+ if [[ ${os_build} == "macosx" ]]; then
+     echo "common_env: macosx OPENSSL_NO_OPTS update!"
+     export OPENSSL_NO_OPTS="no-comp no-dso no-egd no-hw no-makedepend no-sctp no-ui-console -fno-strict-aliasing -fvisibility=hidden"
+     echo "common_env: OPENSSL_NO_OPTS=${OPENSSL_NO_OPTS}"
+ fi
+ 
 }
 
 android_env() {
@@ -46,6 +59,7 @@ macosx_env() {
   abort_if_var_unset "HOME" ${HOME}
   export SRC="${HOME}/src"
   export OPENSSL_ROOT="${SRC}/openssl"
+  export LD=ld
 }
 
 linux_env() {
@@ -94,7 +108,7 @@ abort_if_var_unset() {
     prompt_msg "Error ${var_name} not set. Aborting"
     exit 1
   fi
-  echo abort_if_var_unset: ${var_name} set to ${var_value}
+  echo "abort_if_var_unset: ${var_name}=\"${var_value}\""
 }
 
 check_min_req_vars() {
@@ -113,6 +127,14 @@ check_min_req_vars() {
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
   abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
+}
+
+build_b2() {
+  echo "Building b2..."
+  ./bootstrap.sh
+  ./b2 --version # Verify version after build
+  ./b2
+  ./b2 /headers
 }
 
 prepare_boost() {
@@ -137,10 +159,24 @@ prepare_boost() {
       rm -f boost.zip
   fi
   pushd ${BOOST_ROOT}
+
+  # Check if b2 exists and its version
+  if [ -f ./b2 ]; then
+    B2_VERSION=$(./b2 --version 2>&1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+    echo "Found b2 version: ${B2_VERSION}"
+    
+    if [[ "${B2_VERSION}" == "${B2_EXPECTED_VERSION}" ]]; then
+      echo "b2 is up to date (version ${B2_VERSION})."
+    else
+      echo "b2 version mismatch. Expected: ${B2_EXPECTED_VERSION}, Found: ${B2_VERSION}. Rebuilding..."
+      build_b2
+    fi
+  else
+    echo "b2 not found. Building b2."
+    build_b2
+  fi
+  
   pwd
-  ./bootstrap.sh
-  ./b2
-  ./b2 /headers
   popd
   popd
 }
@@ -148,7 +184,7 @@ prepare_boost() {
 prepare_openssl() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
-  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
+  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}  
   if [ ! -d ${OPENSSL_SOURCE} ]; then
     prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '${OPENSSL_SOURCE}'"
     pushd ${SRC}
@@ -161,9 +197,11 @@ prepare_openssl() {
 }
 
 build_openssl() {
+  abort_if_var_unset "LD" ${LD}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
   abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "os_build" ${os_build}  
   abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
   prompt_msg "build_openssl: run_openssl_configure=[${run_openssl_configure}]"
   press_any_to_continue
@@ -174,7 +212,7 @@ build_openssl() {
     pushd ${OPENSSL_SOURCE}
     make clean
     $run_openssl_configure
-    make -j 10
+    make -j10 build_libs
     make install_sw
     popd
   fi
