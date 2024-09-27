@@ -18,6 +18,24 @@ unset_env_variables() {
 }
 unset_env_variables
 
+prompt_msg() {
+ echo
+ echo "============================================================================="
+ echo $1
+ echo "============================================================================="
+ echo
+}
+
+abort_if_var_unset() {
+  var_name=${1}
+  var_value=${2}
+  if [[ ! -n ${var_value} ]]; then
+    prompt_msg "Error ${var_name} not set. Aborting"
+    exit 1
+  fi
+  echo "abort_if_var_unset: "${var_name}:${var_value}
+}
+
 common_env() {
  abort_if_var_unset "SRC" ${SRC}
  abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
@@ -31,12 +49,11 @@ common_env() {
  # works for all OSes but macos
  export OPENSSL_NO_OPTS="no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
- if [[ ${os_build} == "macosx" ]]; then
+ if [[ "$(uname)" == "Darwin" ]]; then
      echo "common_env: macosx OPENSSL_NO_OPTS update!"
-     export OPENSSL_NO_OPTS="no-comp no-dso no-egd no-hw no-makedepend no-sctp no-ui-console -fno-strict-aliasing -fvisibility=hidden"
+     export OPENSSL_NO_OPTS="no-shared no-comp no-dso no-egd no-hw no-makedepend no-sctp no-ui-console -fno-strict-aliasing -fvisibility=hidden"
      echo "common_env: OPENSSL_NO_OPTS=${OPENSSL_NO_OPTS}"
- fi
- 
+ fi 
 }
 
 android_env() {
@@ -82,14 +99,6 @@ export BOOST_ROOT="${SRC}/boost_${BOOST_UNDERSCORE_VERSION}"
 
 SWIG=`pwd`
 
-prompt_msg() {
- echo
- echo "============================================================================="
- echo $1
- echo "============================================================================="
- echo
-}
-
 press_any_to_continue() {
  if [ ! -n "${DONT_PRESS_ANY_KEY}" ]; then
    echo "[Press any key to continue]"
@@ -99,16 +108,6 @@ press_any_to_continue() {
 
 create_folder_if_it_doesnt_exist() {
  if [[ ! -d $1 ]]; then mkdir -p $1; fi;
-}
-
-abort_if_var_unset() {
-  var_name=${1}
-  var_value=${2}
-  if [[ ! -n ${var_value} ]]; then
-    prompt_msg "Error ${var_name} not set. Aborting"
-    exit 1
-  fi
-  echo "abort_if_var_unset: ${var_name}=\"${var_value}\""
 }
 
 check_min_req_vars() {
@@ -126,7 +125,7 @@ check_min_req_vars() {
   abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
-  abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
+  #abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
 }
 
 build_b2() {
@@ -142,8 +141,8 @@ prepare_boost() {
   abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
   abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
   abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
-	abort_if_var_unset "BOOST_DOT_VERSION" ${BOOST_DOT_VERSION}
-	abort_if_var_unset "BOOST_UNDERSCORE_VERSION" ${BOOST_UNDERSCORE_VERSION}
+  abort_if_var_unset "BOOST_DOT_VERSION" ${BOOST_DOT_VERSION}
+  abort_if_var_unset "BOOST_UNDERSCORE_VERSION" ${BOOST_UNDERSCORE_VERSION}
 
   if ! [ -x "$(command -v wget)" ]; then
       echo "Error: wget is not installed."
