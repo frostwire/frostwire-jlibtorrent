@@ -11,9 +11,8 @@ run_swig_only=false
 run_build_only=false
 # Call the function to parse flags
 parse_flags "$@"
-
-common_env
 windows_env
+common_env
 check_min_req_vars
 export os_arch=x86_64
 export os_build=windows

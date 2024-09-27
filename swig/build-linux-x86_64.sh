@@ -6,8 +6,8 @@
 # ../build/libs/${LIBRARY_NAME}-linux-<version>.jar
 # remote linux-x86 build with travis is available at https://s3.amazonaws.com/gubatron-jlibtorrent/release/linux/x86_64/libjlibtorrent.so
 source build-utils.shinc
-common_env
 linux_env
+common_env
 check_min_req_vars
 export os_arch=x86_64
 export os_build=linux
