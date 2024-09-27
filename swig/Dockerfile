@@ -50,7 +50,9 @@ ENV ANDROID_NDK_HOME="/src/android-ndk"
 ENV OPENSSL_VERSION="1.1.1t"
 ENV GRADLE_VERSION="8.10.2"
 ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
-ENV CORES=$(nproc)
+
+RUN CORES=$(nproc) && echo "CORES=$CORES" >> /etc/environment
+ENV CORES=$CORES
 
 # build scripts don't stop
 ENV DONT_PRESS_ANY_KEY=1
