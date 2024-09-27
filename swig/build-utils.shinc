@@ -46,6 +46,12 @@ common_env() {
  export LIBTORRENT_ROOT="${SRC}/libtorrent"
  export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
 
+ if [[ "$(uname)" == "Darwin" ]]; then
+     export CORES=$(sysctl -n hw.ncpu)
+ else
+     export CORES=$(nproc)
+ fi
+
  # works for all OSes but macos
  export OPENSSL_NO_OPTS="no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
@@ -149,6 +155,8 @@ prepare_boost() {
       exit 1
   fi
 
+  prompt_msg "$0:About to prepare BOOST ${BOOST_VERSION}"
+
   pushd ${SRC}
   echo "Checking for ${BOOST_ROOT}..."
   if [ ! -d ${BOOST_ROOT} ]; then
@@ -196,7 +204,7 @@ prepare_openssl() {
 }
 
 build_openssl() {
-  abort_if_var_unset "LD" ${LD}
+  abort_if_var_unset "CORES" ${CORES}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
   abort_if_var_unset "os_arch" ${os_arch}
@@ -209,9 +217,9 @@ build_openssl() {
   fi
   if [ -d ${OPENSSL_SOURCE} ]; then
     pushd ${OPENSSL_SOURCE}
-    make clean
     $run_openssl_configure
-    make -j10 build_libs
+    make clean
+    make -j${CORES} build_libs
     make install_sw
     popd
   fi
