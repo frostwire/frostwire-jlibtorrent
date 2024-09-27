@@ -27,7 +27,7 @@ export NDK_VERSION=r26d
 export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH};
 export CXX=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang++
 export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${android_api}-clang
-export CORES=$(( $(nproc) / 2 ))
+export CORES=$(nproc)
 export run_bjam="${BOOST_ROOT}/b2 -j${CORES} -q --debug-building --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
 export run_objcopy="${ANDROID_TOOLCHAIN}/bin/llvm-objcopy --only-keep-debug bin/release/${os_build}/${os_arch}/${SHARED_LIB} bin/release/${os_build}/${os_arch}/${SHARED_LIB}.debug"
 export run_strip="${ANDROID_TOOLCHAIN}/bin/llvm-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
