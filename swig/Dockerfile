@@ -50,6 +50,7 @@ ENV ANDROID_NDK_HOME="/src/android-ndk"
 ENV OPENSSL_VERSION="1.1.1t"
 ENV GRADLE_VERSION="8.10.2"
 ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
+ENV CORES=$(nproc)
 
 # build scripts don't stop
 ENV DONT_PRESS_ANY_KEY=1
@@ -69,7 +70,7 @@ RUN cd /src \
 		&& tar xzf swig-${SWIG_VERSION}.tar.gz \
 		&& cd /src/swig-${SWIG_VERSION} \
 		&& ./configure --without-d --disable-ccache \
-		&& make -j 4 \
+		&& make -j${CORES} \
     && make install
 
 RUN swig -version
@@ -109,7 +110,7 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${ANDROID_API}-cl
     && cd /src/openssl-src \
     && ./Configure android-arm ${OPENSSL_NO_OPTS} --prefix=/openssl-android-arm \
     && make clean \
-    && make build_libs\
+    && make -j${CORES} build_libs\
     && make install_sw \
     && cd /
 
@@ -120,7 +121,7 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${ANDROID_API}-clang
     && cd /src/openssl-src \
     && ./Configure android-arm64 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-arm64 \
     && make clean \
-    && make build_libs \
+    && make -j${CORES} build_libs \
     && make install_sw \
     && cd /
 
@@ -131,7 +132,7 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${ANDROID_API}-clang \
     && cd /src/openssl-src \
     && ./Configure android-x86 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86 \
     && make clean \
-    && make build_libs \
+    && make -j${CORES} build_libs \
     && make install_sw \
     && cd /
 
@@ -142,7 +143,7 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${ANDROID_API}-clang 
     && cd /src/openssl-src \
     && ./Configure android-x86_64 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86_64 \
     && make clean \
-    && make build_libs \
+    && make -j${CORES} build_libs \
     && make install_sw \
     && cd ..
 
@@ -157,7 +158,7 @@ RUN cd /src \
     && export CC=export CC=x86_64-w64-mingw32-gcc-posix \
     && ./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=/openssl-windows-x86_64 \
     && make clean \
-    && make build_libs \
+    && make -j${CORES} build_libs \
     && make install_sw \
     && cd /openssl-windows-x86_64/lib \
     && cp libcrypto.a libcrypto.lib \
@@ -168,7 +169,7 @@ RUN export CC=gcc-9 \
     && cd /src/openssl-src \
     && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=/openssl-linux-x86_64 \
     && make clean \
-    && make build_libs \
+    && make -j${CORES} build_libs \
     && make install_sw
 
 # Make clean
