@@ -34,7 +34,6 @@ export run_strip="strip -S -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeMacOSX86_64Jar"
 export run_clean_native_jar="./gradlew cleanNativeMacOSX86_64Jar"
 create_folder_if_it_doesnt_exist ${SRC}
-prompt_msg "$0:About to prepare BOOST ${BOOST_VERSION}"
 
 if [ "${run_prep}" = true ]; then
     press_any_to_continue
