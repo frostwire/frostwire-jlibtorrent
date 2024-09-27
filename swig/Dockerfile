@@ -1,7 +1,7 @@
 # Only amd64 ubuntu images have the cross compilers we need
 ARG TARGETPLATFORM=linux/amd64
 FROM ubuntu:20.04
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update -y
 RUN apt-get install -y software-properties-common
@@ -35,25 +35,25 @@ RUN apt install -y g++-mingw-w64-x86-64
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION=2ab8fedabb7716947edc77958da6d0b5e1040df9
-ENV LIBTORRENT_BRANCH "RC_2_0"
-ENV SWIG_VERSION "4.2.1"
-ENV BOOST_MAJOR "1"
-ENV BOOST_VERSION "86"
-ENV BOOST_MINOR "0"
-ENV BOOST_DOT_VERSION "${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
-ENV BOOST_UNDERSCORE_VERSION "${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
-ENV BOOST_ROOT "/src/boost_${BOOST_UNDERSCORE_VERSION}"
-ENV NDK_VERSION "r26d"
-ENV ANDROID_API "24"
-ENV ANDROID_NDK_HOME "/src/android-ndk"
-ENV OPENSSL_VERSION "1.1.1t"
-ENV GRADLE_VERSION "8.10.2"
-ENV GRADLE_HOME "/src/gradle-${GRADLE_VERSION}"
+ENV LIBTORRENT_REVISION="2ab8fedabb7716947edc77958da6d0b5e1040df9"
+ENV LIBTORRENT_BRANCH="RC_2_0"
+ENV SWIG_VERSION="4.2.1"
+ENV BOOST_MAJOR="1"
+ENV BOOST_VERSION="86"
+ENV BOOST_MINOR="0"
+ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
+ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
+ENV NDK_VERSION="r26d"
+ENV ANDROID_API="24"
+ENV ANDROID_NDK_HOME="/src/android-ndk"
+ENV OPENSSL_VERSION="1.1.1t"
+ENV GRADLE_VERSION="8.10.2"
+ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
 
 # build scripts don't stop
-ENV DONT_PRESS_ANY_KEY 1
-ENV PATH ${GRADLE_HOME}/bin:${PATH}
+ENV DONT_PRESS_ANY_KEY=1
+ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
 # third party SRC folder
 RUN mkdir src
@@ -93,14 +93,13 @@ RUN cd /src \
     && tar xzf openssl.tar.gz \
     && mv openssl-${OPENSSL_VERSION} openssl-src
 
-#ENV OPENSSL_NO_OPTS "no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
-ENV OPENSSL_NO_OPTS "no-deprecated no-shared no-makedepend no-static-engine no-stdio no-posix-io no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -O3 -fPIC"
+#ENV OPENSSL_NO_OPTS="no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+ENV OPENSSL_NO_OPTS="no-deprecated no-shared no-makedepend no-static-engine no-stdio no-posix-io no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -O3 -fPIC"
 
-
-ENV ANDROID_TOOLCHAIN ${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64
-ENV AR ${ANDROID_TOOLCHAIN}/bin/llvm-ar
-ENV LD ${ANDROID_TOOLCHAIN}/bin/ld
-ENV RANLIB ${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
+ENV ANDROID_TOOLCHAIN=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64
+ENV AR=${ANDROID_TOOLCHAIN}/bin/llvm-ar
+ENV LD=${ANDROID_TOOLCHAIN}/bin/ld
+ENV RANLIB=${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
 
 # Build OpenSSL Android arm
 
@@ -178,9 +177,10 @@ RUN cd /src/openssl-src \
     && cd ..
 
 # Prepare latest version of libtorrent
+ENV LIBTORRENT_REPO="https://github.com/arvidn/libtorrent"
 RUN rm -fr /src/libtorrent
 RUN cd /src \
-    && git clone https://github.com/gubatron/libtorrent \
+    && git clone ${LIBTORRENT_REPO} \
     && cd libtorrent \
     && git fetch origin RC_2_0 \
     && git reset --hard ${LIBTORRENT_REVISION} \
