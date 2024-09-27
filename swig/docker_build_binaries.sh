@@ -5,11 +5,11 @@
 # Function to get 80% of free memory in GB
 get_available_memory() {
     local free_mem
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if [[ "$(uname)" == "Linux" ]]; then
         # Linux
         free_mem_kb=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
         free_mem=$(echo "$free_mem_kb / 1024 / 1024" | bc -l)  # Convert to GB
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
+    elif [[ "$(uname)" == "Darwin" ]]; then
         # macOS
         # Get page size
         page_size=$(sysctl -n hw.pagesize)
@@ -43,9 +43,9 @@ get_available_memory() {
 # Function to get the number of CPU cores
 get_num_cpus() {
     local num_cpus
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if [[ "$(uname)" == "Linux" ]]; then
         num_cpus=$(nproc)
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
+    elif [[ "$(uname)" == "Darwin" ]]; then
         num_cpus=$(sysctl -n hw.ncpu)
     else
         echo "Unsupported OS"
