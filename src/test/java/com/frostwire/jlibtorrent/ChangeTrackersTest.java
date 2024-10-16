@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.create_torrent;
-import com.frostwire.jlibtorrent.swig.entry;
-import com.frostwire.jlibtorrent.swig.entry_list;
-import com.frostwire.jlibtorrent.swig.string_entry_map;
+import com.frostwire.jlibtorrent.swig.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +17,7 @@ public class ChangeTrackersTest {
 
     @Test
     public void testChangeTrackersUsingCreateTorrent() throws IOException {
-        byte[] torrentBytes = Utils.getResourceBytes("test4.torrent");
+        byte[] torrentBytes = Utils.resourceBytes("test4.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
 
         // do we have any tracker
@@ -28,11 +25,11 @@ public class ChangeTrackersTest {
 
         entry e = entry.bdecode(Vectors.bytes2byte_vector(torrentBytes));
         string_entry_map m = e.dict();
-        if (m.has_key("announce")) {
-            m.erase("announce");
+        if (m.containsKey("announce")) {
+            m.remove("announce");
         }
-        if (m.has_key("announce-list")) {
-            m.erase("announce-list");
+        if (m.containsKey("announce-list")) {
+            m.remove("announce-list");
         }
 
         ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));
@@ -55,7 +52,7 @@ public class ChangeTrackersTest {
 
     @Test
     public void testChangeTrackersLowLevel() throws IOException {
-        byte[] torrentBytes = Utils.getResourceBytes("test4.torrent");
+        byte[] torrentBytes = Utils.resourceBytes("test4.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
 
         // do we have any tracker
@@ -64,27 +61,29 @@ public class ChangeTrackersTest {
         entry e = entry.bdecode(Vectors.bytes2byte_vector(torrentBytes));
         string_entry_map m = e.dict();
 
+        assertTrue(m != null);
+
         // remove trackers
-        if (m.has_key("announce")) {
-            m.erase("announce");
+        if (m.containsKey("announce")) {
+            m.remove("announce");
         }
-        if (m.has_key("announce-list")) {
-            m.erase("announce-list");
+        if (m.containsKey("announce-list")) {
+            m.remove("announce-list");
         }
 
         // add trackers
         String[] tks = new String[]{"http://a:6969/announce", "http://b:6969/announce"};
-        entry_list l = new entry_list();
-        l.push_back(new entry(tks[0]));
-        m.set("announce", new entry(l));
+        entry_vector l = new entry_vector();
+        l.add(new entry(tks[0]));
+        m.put("announce", new entry(l));
 
-        entry_list tl = new entry_list();
-        for (int i = 0; i < tks.length; i++) {
+        entry_vector tl = new entry_vector();
+        for (String tk : tks) {
             l.clear();
-            l.push_back(new entry(tks[i]));
-            tl.push_back(new entry(l));
+            l.add(new entry(tk));
+            tl.add(new entry(l));
         }
-        m.set("announce-list", new entry(tl));
+        m.put("announce-list", new entry(tl));
 
         ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));
         ArrayList<AnnounceEntry> trackers = ti.trackers();
@@ -96,7 +95,7 @@ public class ChangeTrackersTest {
 
     @Test
     public void testChangeTrackersWithTorrentInfo() throws IOException {
-        byte[] torrentBytes = Utils.getResourceBytes("test4.torrent");
+        byte[] torrentBytes = Utils.resourceBytes("test4.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
 
         // do we have any tracker

@@ -50,12 +50,7 @@ public enum Priority {
      * maximum priority, availability is disregarded, the piece is
      * preferred over any other piece with lower priority
      */
-    SEVEN(7),
-
-    /**
-     *
-     */
-    UNKNOWN(-1);
+    SEVEN(7);
 
     Priority(int swigValue) {
         this.swigValue = swigValue;
@@ -64,15 +59,15 @@ public enum Priority {
     private final int swigValue;
 
     /**
-     * @return
+     * @return the native value
      */
     public int swig() {
         return swigValue;
     }
 
     /**
-     * @param swigValue
-     * @return
+     * @param swigValue the native value
+     * @return the enum corresponding value
      */
     public static Priority fromSwig(int swigValue) {
         Priority[] enumValues = Priority.class.getEnumConstants();
@@ -81,7 +76,7 @@ public enum Priority {
                 return ev;
             }
         }
-        return UNKNOWN;
+        throw new IllegalArgumentException("Invalid native value");
     }
 
     public static Priority[] array(Priority value, int size) {
@@ -94,12 +89,11 @@ public enum Priority {
         return arr;
     }
 
-    static int_vector array2int_vector(Priority[] arr) {
+    static int_vector array2vector(Priority[] arr) {
         int_vector v = new int_vector();
 
-        for (int i = 0; i < arr.length; i++) {
-            Priority p = arr[i];
-            v.push_back(p != Priority.UNKNOWN ? p.swig() : Priority.IGNORE.swig());
+        for (Priority p : arr) {
+            v.add(p.swig());
         }
 
         return v;
@@ -108,9 +102,8 @@ public enum Priority {
     static byte_vector array2byte_vector(Priority[] arr) {
         byte_vector v = new byte_vector();
 
-        for (int i = 0; i < arr.length; i++) {
-            Priority p = arr[i];
-            v.push_back((byte) (p != Priority.UNKNOWN ? p.swig() : Priority.IGNORE.swig()));
+        for (Priority p : arr) {
+            v.add((byte) p.swig());
         }
 
         return v;

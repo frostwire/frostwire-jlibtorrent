@@ -8,10 +8,6 @@ import com.frostwire.jlibtorrent.swig.*;
  */
 public enum AlertType {
 
-    TORRENT(torrent_alert.alert_type),
-    PEER(peer_alert.alert_type),
-    TRACKER(tracker_alert.alert_type),
-    TORRENT_ADDED(torrent_added_alert.alert_type),
     TORRENT_FINISHED(torrent_finished_alert.alert_type),
     TORRENT_REMOVED(torrent_removed_alert.alert_type),
     TORRENT_DELETED(torrent_deleted_alert.alert_type),
@@ -47,7 +43,6 @@ public enum AlertType {
     EXTERNAL_IP(external_ip_alert.alert_type),
     LISTEN_SUCCEEDED(listen_succeeded_alert.alert_type),
     STATE_UPDATE(state_update_alert.alert_type),
-    MMAP_CACHE(mmap_cache_alert.alert_type),
     SESSION_STATS(session_stats_alert.alert_type),
     SCRAPE_REPLY(scrape_reply_alert.alert_type),
     SCRAPE_FAILED(scrape_failed_alert.alert_type),
@@ -56,7 +51,6 @@ public enum AlertType {
     PERFORMANCE(performance_alert.alert_type),
     PIECE_FINISHED(piece_finished_alert.alert_type),
     SAVE_RESUME_DATA_FAILED(save_resume_data_failed_alert.alert_type),
-    STATS(stats_alert.alert_type),
     STORAGE_MOVED(storage_moved_alert.alert_type),
     TORRENT_DELETE_FAILED(torrent_delete_failed_alert.alert_type),
     URL_SEED(url_seed_alert.alert_type),
@@ -70,7 +64,6 @@ public enum AlertType {
     PEER_UNSNUBBED(peer_unsnubbed_alert.alert_type),
     REQUEST_DROPPED(request_dropped_alert.alert_type),
     UDP_ERROR(udp_error_alert.alert_type),
-    ANONYMOUS_MODE(anonymous_mode_alert.alert_type),
     BLOCK_DOWNLOADING(block_downloading_alert.alert_type),
     BLOCK_TIMEOUT(block_timeout_alert.alert_type),
     CACHE_FLUSHED(cache_flushed_alert.alert_type),
@@ -95,9 +88,24 @@ public enum AlertType {
     DHT_GET_PEERS_REPLY(dht_get_peers_reply_alert.alert_type),
     DHT_DIRECT_RESPONSE(dht_direct_response_alert.alert_type),
     PICKER_LOG(picker_log_alert.alert_type),
+    SESSION_ERROR(session_error_alert.alert_type),
+    DHT_LIVE_NODES(dht_live_nodes_alert.alert_type),
+    SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
+    DHT_SAMPLE_INFOHASHES(dht_sample_infohashes_alert.alert_type),
+    BLOCK_UPLOADED(block_uploaded_alert.alert_type),
+    ALERTS_DROPPED(alerts_dropped_alert.alert_type),
+    SOCKS5_ALERT(socks5_alert.alert_type),
+    FILE_PRIO(file_prio_alert.alert_type),
+    OVERSIZED_FILE(oversized_file_alert.alert_type),
+    TORRENT_CONFLICT(torrent_conflict_alert.alert_type),
+    PEER_INFO(peer_info_alert.alert_type),
+    FILE_PROGRESS(file_progress_alert.alert_type),
+    PIECE_INFO(piece_info_alert.alert_type),
+    PIECE_AVAILABILITY(piece_availability_alert.alert_type),
+    TRACKER_LIST(tracker_list_alert.alert_type),
     UNKNOWN(-1);
 
-    private static AlertType[] TABLE = buildTable();
+    private static final AlertType[] TABLE = buildTable();
 
     AlertType(int swigValue) {
         this.swigValue = swigValue;
@@ -105,21 +113,28 @@ public enum AlertType {
 
     private final int swigValue;
 
+    /**
+     * @return the native swig value
+     */
     public int swig() {
         return swigValue;
     }
 
+    /**
+     * @param swigValue the native swig value
+     * @return the API enum alert type
+     */
     public static AlertType fromSwig(int swigValue) {
         return TABLE[swigValue];
     }
 
     private static AlertType[] buildTable() {
-        AlertType[] arr = new AlertType[libtorrent.num_alert_types];
+        AlertType[] arr = new AlertType[Alerts.NUM_ALERT_TYPES];
 
-        arr[0] = TORRENT;
-        arr[1] = PEER;
-        arr[2] = TRACKER;
-        arr[3] = TORRENT_ADDED;
+        arr[0] = UNKNOWN;
+        arr[1] = UNKNOWN;
+        arr[2] = UNKNOWN;
+        arr[3] = UNKNOWN;
         arr[4] = TORRENT_REMOVED;
         arr[5] = READ_PIECE;
         arr[6] = FILE_COMPLETED;
@@ -173,9 +188,9 @@ public enum AlertType {
         arr[54] = PEER_BLOCKED;
         arr[55] = DHT_ANNOUNCE;
         arr[56] = DHT_GET_PEERS;
-        arr[57] = STATS;
+        arr[57] = UNKNOWN;
         arr[58] = CACHE_FLUSHED;
-        arr[59] = ANONYMOUS_MODE;
+        arr[59] = UNKNOWN;
         arr[60] = LSD_PEER;
         arr[61] = TRACKERID;
         arr[62] = DHT_BOOTSTRAP;
@@ -185,7 +200,7 @@ public enum AlertType {
         arr[66] = INCOMING_CONNECTION;
         arr[67] = ADD_TORRENT;
         arr[68] = STATE_UPDATE;
-        arr[69] = MMAP_CACHE;
+        arr[69] = UNKNOWN;
         arr[70] = SESSION_STATS;
         arr[71] = UNKNOWN;
         arr[72] = UNKNOWN;
@@ -206,7 +221,21 @@ public enum AlertType {
         arr[87] = DHT_GET_PEERS_REPLY;
         arr[88] = DHT_DIRECT_RESPONSE;
         arr[89] = PICKER_LOG;
-
+        arr[90] = SESSION_ERROR;
+        arr[91] = DHT_LIVE_NODES;
+        arr[92] = SESSION_STATS_HEADER;
+        arr[93] = DHT_SAMPLE_INFOHASHES;
+        arr[94] = BLOCK_UPLOADED;
+        arr[95] = ALERTS_DROPPED;
+        arr[96] = SOCKS5_ALERT;
+        arr[97] = FILE_PRIO;
+        arr[98] = OVERSIZED_FILE;
+        arr[99] = TORRENT_CONFLICT;
+        arr[100] = PEER_INFO;
+        arr[101] = FILE_PROGRESS;
+        arr[102] = PIECE_INFO;
+        arr[103] = PIECE_AVAILABILITY;
+        arr[104] = TRACKER_LIST;
         return arr;
     }
 }

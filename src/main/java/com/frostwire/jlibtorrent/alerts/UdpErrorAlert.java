@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
+import com.frostwire.jlibtorrent.Operation;
 import com.frostwire.jlibtorrent.UdpEndpoint;
 import com.frostwire.jlibtorrent.swig.udp_error_alert;
 
@@ -14,25 +15,34 @@ import com.frostwire.jlibtorrent.swig.udp_error_alert;
  */
 public final class UdpErrorAlert extends AbstractAlert<udp_error_alert> {
 
-    public UdpErrorAlert(udp_error_alert alert) {
+    UdpErrorAlert(udp_error_alert alert) {
         super(alert);
     }
 
     /**
-     * the source address associated with the error (if any).
+     * The source address associated with the error (if any).
      *
-     * @return
+     * @return the endpoint
      */
-    public UdpEndpoint getEndpoint() {
-        return new UdpEndpoint(alert.getEndpoint());
+    public UdpEndpoint endpoint() {
+        return new UdpEndpoint(alert.get_endpoint());
     }
 
     /**
-     * the error code describing the error.
+     * The operation that failed.
      *
-     * @return
+     * @return the operation
      */
-    public ErrorCode getError() {
+    public Operation operation() {
+        return Operation.fromSwig(alert.getOperation());
+    }
+
+    /**
+     * The error code describing the error.
+     *
+     * @return the error
+     */
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
     }
 }

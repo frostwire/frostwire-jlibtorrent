@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.incoming_connection_alert;
+import com.frostwire.jlibtorrent.swig.socket_type_t;
 
 /**
  * The incoming connection alert is posted every time we successfully accept
@@ -16,28 +17,33 @@ import com.frostwire.jlibtorrent.swig.incoming_connection_alert;
  */
 public final class IncomingConnectionAlert extends AbstractAlert<incoming_connection_alert> {
 
-    public IncomingConnectionAlert(incoming_connection_alert alert) {
+    IncomingConnectionAlert(incoming_connection_alert alert) {
         super(alert);
     }
 
     /**
-     * tells you what kind of socket the connection was accepted.
+     * Tells you what kind of socket the connection was accepted.
      *
-     * @return
+     * @return the socket type
      */
-    public SocketType getSocketType() {
-        return SocketType.fromSwig(alert.getSocket_type());
+    @SuppressWarnings("unused")
+    public SocketType socketType() {
+        socket_type_t socketType = alert.getSocket_type();
+        return SocketType.fromSwig(socketType.swigValue());
     }
 
     /**
-     * is the IP address and port the connection came from.
+     * It is the IP address and port the connection came from.
      *
-     * @return
+     * @return the endpoint
      */
-    public TcpEndpoint getIp() {
-        return new TcpEndpoint(alert.getIp());
+    public TcpEndpoint endpoint() {
+        return new TcpEndpoint(alert.get_endpoint());
     }
 
+    /**
+     *
+     */
     public enum SocketType {
 
         /**
@@ -45,18 +51,39 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
          */
         NONE(0),
 
+        /**
+         *
+         */
         TCP(1),
 
+        /**
+         *
+         */
         SOCKS5(2),
 
+        /**
+         *
+         */
         HTTP(3),
 
+        /**
+         *
+         */
         UTP(4),
 
+        /**
+         *
+         */
         I2P(5),
 
+        /**
+         *
+         */
         SSL_TCP(6),
 
+        /**
+         *
+         */
         SSL_SOCKS5(7),
 
         /**
@@ -64,24 +91,37 @@ public final class IncomingConnectionAlert extends AbstractAlert<incoming_connec
          */
         HTTPS(8),
 
+        /**
+         *
+         */
         SSL_UTP(9),
 
+        /**
+         *
+         */
         UNKNOWN(-1);
 
-        private SocketType(int swigValue) {
+        SocketType(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return the native value
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue the native value
+         * @return the java enum
+         */
         public static SocketType fromSwig(int swigValue) {
             SocketType[] enumValues = SocketType.class.getEnumConstants();
             for (SocketType ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

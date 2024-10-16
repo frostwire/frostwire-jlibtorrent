@@ -1,14 +1,13 @@
 import os ;
 
-OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
-
-using gcc : x86_64 : g++-5 :
-      <cflags>-fPIC
-      <cflags>-std=c11
-      <cxxflags>-fPIC
-      <cxxflags>-std=c++11
-      <cxxflags>-I$(OPENSSL_ROOT)/include
-      <linkflags>-L$(OPENSSL_ROOT)/lib
-      <linkflags>-static-libstdc++
-      <linkflags>-static-libgcc
-      ;
+using gcc : x86_64 : g++-9 :
+    <cxxflags>-std=c++17
+    <cxxflags>-fPIC
+    <cxxflags>-fno-strict-aliasing
+    <cxxflags>-fvisibility=hidden
+    # debug information
+    <cxxflags>-g
+    <linkflags>-static-libstdc++
+    <linkflags>-static-libgcc
+    <linkflags>"-z noexecstack"
+    ;

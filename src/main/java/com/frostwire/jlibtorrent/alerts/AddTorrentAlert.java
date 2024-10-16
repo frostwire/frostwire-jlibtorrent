@@ -25,7 +25,7 @@ public final class AddTorrentAlert extends TorrentAlert<add_torrent_alert> {
      * {@link com.frostwire.jlibtorrent.SessionHandle#asyncAddTorrent(AddTorrentParams)}
      * caused this alert.
      *
-     * @return
+     * @return the params used to add the torrent
      */
     public AddTorrentParams params() {
         return new AddTorrentParams(alert.getParams());
@@ -34,7 +34,7 @@ public final class AddTorrentAlert extends TorrentAlert<add_torrent_alert> {
     /**
      * Set to the error, if one occurred while adding the torrent.
      *
-     * @return
+     * @return the error
      */
     public ErrorCode error() {
         return new ErrorCode(alert.getError());

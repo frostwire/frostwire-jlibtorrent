@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
+import com.frostwire.jlibtorrent.PortmapTransport;
 import com.frostwire.jlibtorrent.swig.portmap_error_alert;
 
 /**
@@ -16,7 +17,7 @@ import com.frostwire.jlibtorrent.swig.portmap_error_alert;
  */
 public final class PortmapErrorAlert extends AbstractAlert<portmap_error_alert> {
 
-    public PortmapErrorAlert(portmap_error_alert alert) {
+    PortmapErrorAlert(portmap_error_alert alert) {
         super(alert);
     }
 
@@ -24,22 +25,24 @@ public final class PortmapErrorAlert extends AbstractAlert<portmap_error_alert> 
      * refers to the mapping index of the port map that failed, i.e.
      * the index returned from add_mapping().
      *
-     * @return
+     * @return the mapping index
      */
-    public int getMapping() {
-        return alert.getMapping();
+    @SuppressWarnings("unused")
+    public int mapping() {
+        return alert.get_mapping();
     }
 
-    public PortmapType getMapType() {
-        return PortmapType.fromSwig(alert.getMap_type());
+    @SuppressWarnings("unused")
+    public PortmapTransport mapTransport() {
+        return PortmapTransport.fromSwig(alert.getMap_transport().swigValue());
     }
 
     /**
      * tells you what failed.
      *
-     * @return
+     * @return the error code
      */
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
     }
 }

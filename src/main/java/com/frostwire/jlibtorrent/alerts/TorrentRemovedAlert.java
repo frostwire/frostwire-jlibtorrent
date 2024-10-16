@@ -8,11 +8,11 @@ import com.frostwire.jlibtorrent.swig.torrent_removed_alert;
  * the torrent handle in its baseclass will always be invalid (since the torrent
  * is already removed) it has the info hash as a member, to identify it.
  * It's posted when the ``status_notification`` bit is set in the alert_mask.
- * <p/>
+ * <p>
  * Even though the ``handle`` member doesn't point to an existing torrent anymore,
  * it is still useful for comparing to other handles, which may also no
  * longer point to existing torrents, but to the same non-existing torrents.
- * <p/>
+ * <p>
  * The ``torrent_handle`` acts as a ``weak_ptr``, even though its object no
  * longer exists, it can still compare equal to another weak pointer which
  * points to the same non-existent object.
@@ -27,6 +27,6 @@ public final class TorrentRemovedAlert extends TorrentAlert<torrent_removed_aler
     }
 
     public Sha1Hash infoHash() {
-        return new Sha1Hash(alert.getInfo_hash());
+        return new Sha1Hash(alert.getInfo_hashes().get_best());
     }
 }

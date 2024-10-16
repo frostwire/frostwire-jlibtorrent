@@ -11,7 +11,9 @@ import static com.frostwire.jlibtorrent.swig.alert.*;
  */
 public final class Alerts {
 
-    private static CastLambda[] TABLE = buildTable();
+    public static final int NUM_ALERT_TYPES = libtorrent.getNum_alert_types();
+
+    private static final CastLambda[] TABLE = buildTable();
 
     private Alerts() {
     }
@@ -20,32 +22,31 @@ public final class Alerts {
         return TABLE[a.type()].cast(a);
     }
 
-    @SuppressWarnings("unchecked")
     private static CastLambda[] buildTable() {
-        CastLambda[] arr = new CastLambda[libtorrent.num_alert_types];
+        CastLambda[] arr = new CastLambda[NUM_ALERT_TYPES];
 
         arr[0] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new TorrentAlert(cast_to_torrent_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[1] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new PeerAlert(cast_to_peer_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[2] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new TrackerAlert(cast_to_tracker_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[3] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new TorrentAddedAlert(cast_to_torrent_added_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[4] = new CastLambda() {
@@ -369,7 +370,7 @@ public final class Alerts {
         arr[57] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new StatsAlert(cast_to_stats_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[58] = new CastLambda() {
@@ -381,7 +382,7 @@ public final class Alerts {
         arr[59] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new AnonymousModeAlert(cast_to_anonymous_mode_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[60] = new CastLambda() {
@@ -441,7 +442,7 @@ public final class Alerts {
         arr[69] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new MmapCacheAlert(cast_to_mmap_cache_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[70] = new CastLambda() {
@@ -562,6 +563,42 @@ public final class Alerts {
             @Override
             public Alert cast(alert a) {
                 return new PickerLogAlert(cast_to_picker_log_alert(a));
+            }
+        };
+        arr[90] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new SessionErrorAlert(cast_to_session_error_alert(a));
+            }
+        };
+        arr[91] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new DhtLiveNodesAlert(cast_to_dht_live_nodes_alert(a));
+            }
+        };
+        arr[92] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new SessionStatsHeaderAlert(cast_to_session_stats_header_alert(a));
+            }
+        };
+        arr[93] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new DhtSampleInfohashesAlert(cast_to_dht_sample_infohashes_alert(a));
+            }
+        };
+        arr[94] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockUploadedAlert(cast_to_block_uploaded_alert(a));
+            }
+        };
+        arr[95] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new AlertsDroppedAlert(cast_to_alerts_dropped_alert(a));
             }
         };
 

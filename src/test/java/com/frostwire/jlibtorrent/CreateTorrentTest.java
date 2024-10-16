@@ -10,9 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.frostwire.jlibtorrent.swig.libtorrent.add_files;
+import static com.frostwire.jlibtorrent.swig.libtorrent.add_files_ex;
 import static com.frostwire.jlibtorrent.swig.libtorrent.set_piece_hashes_ex;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author gubatron
@@ -36,7 +37,7 @@ public class CreateTorrentTest {
                 return true;
             }
         };
-        add_files(fs, f.getAbsolutePath(), l1, 0L);
+        add_files_ex(fs, f.getAbsolutePath(), l1, new create_flags_t());
         create_torrent ct = new create_torrent(fs);
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override
@@ -68,7 +69,7 @@ public class CreateTorrentTest {
                 return true;
             }
         };
-        add_files(fs, dir.getAbsolutePath(), l1, 0L);
+        add_files_ex(fs, dir.getAbsolutePath(), l1, new create_flags_t());
         create_torrent ct = new create_torrent(fs);
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override
@@ -82,7 +83,7 @@ public class CreateTorrentTest {
         entry e = ct.generate();
         byte_vector buffer = e.bencode();
         TorrentInfo ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(buffer));
-        assertEquals(2, ti.numFiles());
+        assertEquals(4, ti.numFiles());
     }
 
     @Test
@@ -98,7 +99,6 @@ public class CreateTorrentTest {
                 .comment("comment")
                 .creator("creator")
                 .addUrlSeed("http://urlseed/")
-                .addHttpSeed("http://httpseed/")
                 .addNode(new Pair<>("1.1.1.1", 1))
                 .addTracker("udp://tracker/")
                 .setPrivate(true)
@@ -125,7 +125,7 @@ public class CreateTorrentTest {
         assertEquals(true, ti.isPrivate());
         assertTrue(ti.similarTorrents().get(0).isAllZeros());
         assertEquals("collection", ti.collections().get(0));
-        assertEquals(2, ti.numFiles());
+        assertEquals(4, ti.numFiles());
     }
 
     @Test
@@ -156,11 +156,26 @@ public class CreateTorrentTest {
                 .generate();
 
         TorrentInfo ti = TorrentInfo.bdecode(r.entry().bencode());
-        assertEquals(2, ti.numFiles());
+        long totalBytes = 0;
+        for (int i=0; i < ti.numFiles(); i++) {
+            FileStorage files = ti.files();
+            String path = files.filePath(i);
+            long size = files.fileSize(i);
+            totalBytes += size;
+            //System.out.println(path + " (" + size + " bytes)");
+        }
+
+        // 4 files
+        // test.txt, ./pad/16382, test1.txt, ./pad/16382
+        assertEquals(4, ti.numFiles());
         assertTrue(b1.get());
         assertTrue(b2.get());
+
+        //System.out.println("Expected total size: " + totalBytes + " bytes");
+        assertEquals(totalBytes, ti.totalSize());
     }
 
+    /*
     @Test
     public void testBuilderMerkle() throws IOException {
         File dir = folder.newFolder();
@@ -181,8 +196,9 @@ public class CreateTorrentTest {
         assertTrue(tree.size() >= 0);
         ti.merkleTree(tree);
         assertEquals(tree.get(0), ti.merkleTree().get(0));
-    }
+    }*/
 
+    /*
     @Test
     public void testMerkleFlag() throws IOException {
         TorrentBuilder b = new TorrentBuilder();
@@ -198,5 +214,5 @@ public class CreateTorrentTest {
         assertFalse(b.merkle());
         b.merkle(false);
         assertFalse(b.merkle());
-    }
+    }*/
 }

@@ -1,9 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.file_slice_vector;
-import com.frostwire.jlibtorrent.swig.file_storage;
-import com.frostwire.jlibtorrent.swig.string_vector;
-import com.frostwire.jlibtorrent.swig.torrent_info;
+import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,25 +15,30 @@ import java.util.ArrayList;
  */
 public final class FileStorage {
 
-    private final torrent_info ti;
     private final file_storage fs;
+    private final torrent_info ti;
 
+    /**
+     * @param fs the native object
+     */
     public FileStorage(file_storage fs) {
-        this.ti = null;
-        this.fs = fs;
+        this(fs, null);
     }
 
     /**
      * Used to keep the torrent info reference around.
      *
-     * @param ti
-     * @param fs
+     * @param fs the native object
+     * @param ti the torrent info to pin
      */
-    FileStorage(torrent_info ti, file_storage fs) {
-        this.ti = ti;
+    FileStorage(file_storage fs, torrent_info ti) {
         this.fs = fs;
+        this.ti = ti;
     }
 
+    /**
+     * @return the native object
+     */
     public file_storage swig() {
         return fs;
     }
@@ -44,13 +46,13 @@ public final class FileStorage {
     /**
      * This methods returns the internal torrent info or null
      * if it was constructed without one.
-     * <p/>
+     * <p>
      * This also prevent premature garbage collection in case
      * the storage was created from a torrent info.
      *
-     * @return
+     * @return the pinned torrent info
      */
-    public torrent_info getTi() {
+    public torrent_info ti() {
         return ti;
     }
 
@@ -60,7 +62,7 @@ public final class FileStorage {
      * of whether the file_storage as a whole is initialized or
      * not.
      *
-     * @return
+     * @return true if valid
      */
     public boolean isValid() {
         return fs.is_valid();
@@ -71,7 +73,7 @@ public final class FileStorage {
      * be used to avoid reallocating the internal file list when the number
      * of files to be added is known up-front.
      *
-     * @param numFiles
+     * @param numFiles the number of files
      */
     public void reserve(int numFiles) {
         fs.reserve(numFiles);
@@ -80,85 +82,94 @@ public final class FileStorage {
     /**
      * Adds a file to the file storage. The {@code flags} argument sets attributes on the file.
      * The file attributes is an extension and may not work in all bittorrent clients.
-     * <p/>
+     * <p>
      * If more files than one are added, certain restrictions to their paths apply.
      * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
+     * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
      * can be changed by calling {@link #name(String)}.
-     * <p/>
+     * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
-     * @param path
-     * @param fileSize
-     * @param fileFlags
-     * @param mtime
-     * @param symlinkPath
-     * @see com.frostwire.jlibtorrent.FileStorage.Flags
+     * @param path    the path
+     * @param size    the file size
+     * @param flags   the file flags
+     * @param mtime   the time
+     * @param symlink the symlink
      */
-    public void addFile(String path, long fileSize, Flags fileFlags, int mtime, String symlinkPath) {
-        fs.add_file(path, fileSize, fileFlags.swig(), mtime, symlinkPath);
+    public void addFile(String path, long size, file_flags_t flags, int mtime, String symlink) {
+        error_code ec = new error_code();
+        fs.add_file_ex(ec, path, size, flags, mtime, symlink);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     /**
      * Adds a file to the file storage. The {@code flags} argument sets attributes on the file.
      * The file attributes is an extension and may not work in all bittorrent clients.
-     * <p/>
+     * <p>
      * If more files than one are added, certain restrictions to their paths apply.
      * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
+     * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
      * can be changed by calling {@link #name(String)}.
-     * <p/>
+     * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
-     * @param p
-     * @param size
-     * @param flags
-     * @param mtime
-     * @see com.frostwire.jlibtorrent.FileStorage.Flags
+     * @param path  the path
+     * @param size  the file size
+     * @param flags the file flags
+     * @param mtime the time
      */
-    public void addFile(String p, long size, Flags flags, int mtime) {
-        fs.add_file(p, size, flags.swig(), mtime);
+    public void addFile(String path, long size, file_flags_t flags, int mtime) {
+        error_code ec = new error_code();
+        fs.add_file_ex(ec, path, size, flags, mtime);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     /**
      * Adds a file to the file storage. The {@code flags} argument sets attributes on the file.
      * The file attributes is an extension and may not work in all bittorrent clients.
-     * <p/>
+     * <p>
      * If more files than one are added, certain restrictions to their paths apply.
      * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
+     * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
      * can be changed by calling {@link #name(String)}.
-     * <p/>
+     * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
-     * @param p
-     * @param size
-     * @param flags
-     * @see com.frostwire.jlibtorrent.FileStorage.Flags
+     * @param path  the path
+     * @param size  the file size
+     * @param flags the file flags
      */
-    public void addFile(String p, long size, Flags flags) {
-        fs.add_file(p, size, flags.swig());
+    public void addFile(String path, long size, file_flags_t flags) {
+        error_code ec = new error_code();
+        fs.add_file_ex(ec, path, size, flags);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     /**
      * Adds a file to the file storage.
-     * <p/>
+     * <p>
      * If more files than one are added, certain restrictions to their paths apply.
      * In a multi-file file storage (torrent), all files must share the same root directory.
-     * <p/>
+     * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
      * can be changed by calling {@link #name(String)}.
-     * <p/>
+     * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
      *
@@ -166,7 +177,11 @@ public final class FileStorage {
      * @param size
      */
     public void addFile(String p, long size) {
-        fs.add_file(p, size);
+        error_code ec = new error_code();
+        fs.add_file_ex(ec, p, size);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
     }
 
     /**
@@ -183,7 +198,7 @@ public final class FileStorage {
     /**
      * Returns a list of {@link com.frostwire.jlibtorrent.FileSlice} objects representing the portions of
      * files the specified piece index, byte offset and size range overlaps.
-     * <p/>
+     * <p>
      * This is the inverse mapping of {@link #mapFile(int, long, int)}.
      *
      * @param piece
@@ -233,9 +248,9 @@ public final class FileStorage {
     }
 
     /**
-     * Get the number of pieces in the torrent.
+     * Returns the number of pieces in the torrent.
      *
-     * @return
+     * @return the number of pieces in the torrent
      */
     public int numPieces() {
         return fs.num_pieces();
@@ -328,25 +343,25 @@ public final class FileStorage {
     }
 
     /**
-     * returns the full path to a file.
+     * Returns the full path to a file.
      *
-     * @param index
-     * @return
+     * @param index the file index
+     * @return the full path
      */
     public String filePath(int index) {
         return fs.file_path(index);
     }
 
     /**
-     * returns *just* the name of the file, whereas
-     * ``file_path()`` returns the path (inside the torrent file) with
+     * Returns only the name of the file, whereas
+     * {@link #filePath(int)} returns the path (inside the torrent file) with
      * the filename appended.
      *
-     * @param index
-     * @return
+     * @param index the file index
+     * @return the file name
      */
     public String fileName(int index) {
-        return fs.file_name(index);
+        return fs.file_name_ex(index);
     }
 
     /**
@@ -386,7 +401,7 @@ public final class FileStorage {
      * @return
      */
     public ArrayList<String> paths() {
-        string_vector v = fs.paths();
+        string_vector v = fs.file_paths_ex();
         int size = (int) v.size();
         ArrayList<String> l = new ArrayList<>(size);
 
@@ -398,13 +413,40 @@ public final class FileStorage {
     }
 
     /**
-     * Returns a bitmask of flags from {@link FileFlags} that apply
+     * This file is a pad file. The creator of the
+     * torrent promises the file is entirely filled with
+     * zeroes and does not need to be downloaded. The
+     * purpose is just to align the next file to either
+     * a block or piece boundary.
+     */
+    public static final file_flags_t FLAG_PAD_FILE = file_storage.flag_pad_file;
+
+    /**
+     * This file is hidden (sets the hidden attribute
+     * on windows).
+     */
+    public static final file_flags_t FLAG_HIDDEN = file_storage.flag_hidden;
+
+    /**
+     * This file is executable (sets the executable bit
+     * on posix like systems).
+     */
+    public static final file_flags_t FLAG_EXECUTABLE = file_storage.flag_executable;
+
+    /**
+     * This file is a symlink. The symlink target is
+     * specified in a separate field
+     */
+    public static final file_flags_t FLAG_SYMLINK = file_storage.flag_symlink;
+
+    /**
+     * Returns a bitmask of flags from {@link file_flags_t} that apply
      * to file at {@code index}.
      *
      * @param index
-     * @return
+     * @return the flags
      */
-    public int fileFlags(int index) {
+    public file_flags_t fileFlags(int index) {
         return fs.file_flags(index);
     }
 
@@ -439,133 +481,5 @@ public final class FileStorage {
         }
 
         return l;
-    }
-
-    /**
-     * File attribute flags.
-     */
-    public enum Flags {
-
-        /**
-         * The file is a pad file. It's required to contain zeroes
-         * at it will not be saved to disk. Its purpose is to make
-         * the following file start on a piece boundary.
-         */
-        PAD_FILE(file_storage.flags_t.pad_file.swigValue()),
-
-        /**
-         * This file has the hidden attribute set. This is primarily
-         * a windows attribute
-         */
-        ATTRIBUTE_HIDDEN(file_storage.flags_t.attribute_hidden.swigValue()),
-
-        /**
-         * This file has the executable attribute set.
-         */
-        ATTRIBUTE_EXECUTABLE(file_storage.flags_t.attribute_executable.swigValue()),
-
-        /**
-         * This file is a symbolic link. It should have a link
-         * target string associated with it.
-         */
-        ATTRIBUTE_SYMLINK(file_storage.flags_t.attribute_symlink.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        Flags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static Flags fromSwig(int swigValue) {
-            Flags[] enumValues = Flags.class.getEnumConstants();
-            for (Flags ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
-    }
-
-    /**
-     * Flags indicating various attributes for files in
-     * a {@link FileStorage}.
-     */
-    public enum FileFlags {
-
-        /**
-         * This file is a pad file. The creator of the
-         * torrent promises the file is entirely filled with
-         * zeroes and does not need to be downloaded. The
-         * purpose is just to align the next file to either
-         * a block or piece boundary.
-         */
-        FLAG_PAD_FILE(file_storage.file_flags_t.flag_pad_file.swigValue()),
-
-        /**
-         * This file is hidden (sets the hidden attribute
-         * on windows).
-         */
-        FLAG_ATTRIBUTE(file_storage.file_flags_t.flag_hidden.swigValue()),
-
-        /**
-         * This file is executable (sets the executable bit
-         * on posix like systems).
-         */
-        FLAG_EXECUTABLE(file_storage.file_flags_t.flag_executable.swigValue()),
-
-        /**
-         * This file is a symlink. The symlink target is
-         * specified in a separate field
-         */
-        FLAG_SYMLINK(file_storage.file_flags_t.flag_symlink.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        FileFlags(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static FileFlags fromSwig(int swigValue) {
-            FileFlags[] enumValues = FileFlags.class.getEnumConstants();
-            for (FileFlags ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
     }
 }

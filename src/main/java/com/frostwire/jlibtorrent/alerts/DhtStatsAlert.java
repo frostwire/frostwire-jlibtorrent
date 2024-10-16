@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Contains current DHT state. Posted in response to
- * {@link com.frostwire.jlibtorrent.Session#postDHTStats()}.
+ * {@link com.frostwire.jlibtorrent.SessionHandle#postDhtStats()}.
  *
  * @author gubatron
  * @author aldenml
@@ -24,7 +24,7 @@ public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
     /**
      * An array (list) with the currently running DHT lookups.
      *
-     * @return
+     * @return the list of active requests
      */
     public ArrayList<DhtLookup> activeRequests() {
         dht_lookup_vector v = alert.getActive_requests();
@@ -43,7 +43,7 @@ public final class DhtStatsAlert extends AbstractAlert<dht_stats_alert> {
      * Contains information about every bucket in the DHT routing
      * table.
      *
-     * @return
+     * @return the routing table
      */
     public ArrayList<DhtRoutingBucket> routingTable() {
         dht_routing_bucket_vector v = alert.getRouting_table();

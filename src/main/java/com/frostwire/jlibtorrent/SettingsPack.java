@@ -1,6 +1,8 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.settings_pack;
+import com.frostwire.jlibtorrent.swig.settings_pack.string_types;
 
 /**
  * The ``settings_pack`` struct, contains the names of all settings as
@@ -31,44 +33,112 @@ public final class SettingsPack {
         this(new settings_pack());
     }
 
-    public settings_pack getSwig() {
+    /**
+     * @return
+     */
+    public settings_pack swig() {
         return sp;
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public boolean getBoolean(int name) {
         return sp.get_bool(name);
     }
 
-    public void setBoolean(int name, boolean value) {
+    /**
+     * @param name
+     * @param value
+     */
+    public SettingsPack setBoolean(int name, boolean value) {
         sp.set_bool(name, value);
+        return this;
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public int getInteger(int name) {
         return sp.get_int(name);
     }
 
-    public void setInteger(int name, int value) {
+    /**
+     * @param name
+     * @param value
+     */
+    public SettingsPack setInteger(int name, int value) {
         sp.set_int(name, value);
+        return this;
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public String getString(int name) {
         return sp.get_str(name);
     }
 
-    public void setString(int name, String value) {
+    /**
+     * @param name
+     * @param value
+     */
+    public SettingsPack setString(int name, String value) {
         sp.set_str(name, value);
+        return this;
+    }
+
+    public byte[] getBytes(int name) {
+        byte_vector v = sp.get_bytes(name);
+        return Vectors.byte_vector2bytes(v);
+    }
+
+    public void setBytes(int name, byte[] value) {
+        byte_vector v = Vectors.bytes2byte_vector(value);
+        sp.set_bytes(name, v);
+    }
+
+    public void clear() {
+        sp.clear();
+    }
+
+    public void clear(int name) {
+        sp.clear(name);
     }
 
     /**
-     * Sets the session-global limits of download rate limit, in
-     * bytes per second.
-     * <p/>
-     * A value of 0 means unlimited.
+     * Queries whether the specified configuration option has a value set in
+     * this pack. ``name`` can be any enumeration value from string_types,
+     * int_types or bool_types.
      *
-     * @param value
+     * @param name name id of the setting
+     * @return true if present
      */
-    public void setDownloadRateLimit(int value) {
-        sp.set_int(settings_pack.int_types.download_rate_limit.swigValue(), value);
+    public boolean hasValue(int name) {
+        return sp.has_val(name);
+    }
+
+    /**
+     * The fingerprint for the client.
+     *
+     * It will be used as the prefix to the peer-id. If this is 20 bytes (or longer)
+     * it will be truncated to 20 bytes and used as the entire peer-id.
+     */
+    public byte[] getPeerFingerprint() {
+        return getBytes(string_types.peer_fingerprint.swigValue());
+    }
+
+    /**
+     * The fingerprint for the client.
+     *
+     * It will be used as the prefix to the peer-id. If this is 20 bytes (or longer)
+     * it will be truncated to 20 bytes and used as the entire peer-id.
+     */
+    public void setPeerFingerprint(byte[] value) {
+        setBytes(string_types.peer_fingerprint.swigValue(), value);
     }
 
     /**
@@ -79,15 +149,16 @@ public final class SettingsPack {
     }
 
     /**
-     * Sets the session-global limits of upload rate limit, in
+     * Sets the session-global limits of download rate limit, in
      * bytes per second.
-     * <p/>
+     * <p>
      * A value of 0 means unlimited.
      *
      * @param value
      */
-    public void setUploadRateLimit(int value) {
-        sp.set_int(settings_pack.int_types.upload_rate_limit.swigValue(), value);
+    public SettingsPack downloadRateLimit(int value) {
+        sp.set_int(settings_pack.int_types.download_rate_limit.swigValue(), value);
+        return this;
     }
 
     /**
@@ -98,25 +169,38 @@ public final class SettingsPack {
     }
 
     /**
+     * Sets the session-global limits of upload rate limit, in
+     * bytes per second.
+     * <p>
+     * A value of 0 means unlimited.
+     *
+     * @param value
+     */
+    public SettingsPack uploadRateLimit(int value) {
+        sp.set_int(settings_pack.int_types.upload_rate_limit.swigValue(), value);
+        return this;
+    }
+
+    /**
      * {@code active_downloads} controls how many active
      * downloading torrents the queuing mechanism allows.
-     * <p/>
+     * <p>
      * The target number of active torrents is {@code min(active_downloads +
      * active_seeds, active_limit)}. {@code active_downloads} and
      * {@code active_seeds} are upper limits on the number of downloading
      * torrents and seeding torrents respectively. Setting the value to -1
      * means unlimited.
-     * <p/>
+     * <p>
      * For auto managed torrents, these are the limits they are subject to.
      * If there are too many torrents some of the auto managed ones will be
      * paused until some slots free up.
-     * <p/>
+     * <p>
      * You can have more torrents *active*, even though they are not
      * announced to the DHT, lsd or their tracker. If some peer knows about
      * you for any reason and tries to connect, it will still be accepted,
      * unless the torrent is paused, which means it won't accept any
      * connections.
-     * <p/>
+     * <p>
      * For example if there are 10 seeding torrents and 10 downloading
      * torrents, and ``active_downloads`` is 4 and ``active_seeds`` is 4,
      * there will be 4 seeds active and 4 downloading torrents. If the
@@ -136,8 +220,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeDownloads()
      */
-    public void activeDownloads(int value) {
+    public SettingsPack activeDownloads(int value) {
         sp.set_int(settings_pack.int_types.active_downloads.swigValue(), value);
+        return this;
     }
 
     /**
@@ -155,8 +240,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeSeeds()
      */
-    public void activeSeeds(int value) {
+    public SettingsPack activeSeeds(int value) {
         sp.set_int(settings_pack.int_types.active_seeds.swigValue(), value);
+        return this;
     }
 
     /**
@@ -174,8 +260,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeChecking()
      */
-    public void activeChecking(int value) {
+    public SettingsPack activeChecking(int value) {
         sp.set_int(settings_pack.int_types.active_checking.swigValue(), value);
+        return this;
     }
 
     /**
@@ -194,8 +281,18 @@ public final class SettingsPack {
      * @param value
      * @see #activeDhtLimit()
      */
-    public void activeDhtLimit(int value) {
-        sp.set_int(settings_pack.int_types.active_checking.swigValue(), value);
+    public SettingsPack activeDhtLimit(int value) {
+        sp.set_int(settings_pack.int_types.active_dht_limit.swigValue(), value);
+        return this;
+    }
+
+    public int dhtUploadRate() {
+        return sp.get_int(settings_pack.int_types.dht_upload_rate_limit.swigValue());
+    }
+
+    public SettingsPack dhtUploadRate(int value) {
+        sp.set_int(settings_pack.int_types.dht_upload_rate_limit.swigValue(), value);
+        return this;
     }
 
     /**
@@ -214,8 +311,9 @@ public final class SettingsPack {
      * @param value
      * @see #activeTrackerLimit()
      */
-    public void activeTrackerLimit(int value) {
+    public SettingsPack activeTrackerLimit(int value) {
         sp.set_int(settings_pack.int_types.active_tracker_limit.swigValue(), value);
+        return this;
     }
 
     /**
@@ -235,15 +333,16 @@ public final class SettingsPack {
      * @param value
      * @see #activeLsdLimit()
      */
-    public void activeLsdLimit(int value) {
+    public SettingsPack activeLsdLimit(int value) {
         sp.set_int(settings_pack.int_types.active_lsd_limit.swigValue(), value);
+        return this;
     }
 
     /**
      * {@code active_limit} is a hard limit on the number of active (auto
      * managed) torrents. This limit also applies to slow torrents.
      *
-     * @return
+     * @return the value
      * @see #activeDownloads()
      */
     public int activeLimit() {
@@ -251,35 +350,22 @@ public final class SettingsPack {
     }
 
     /**
-     * @param value
+     * {@code active_limit} is a hard limit on the number of active (auto
+     * managed) torrents. This limit also applies to slow torrents.
+     *
+     * @param value the value
      * @see #activeLimit()
      */
-    public void activeLimit(int value) {
+    public SettingsPack activeLimit(int value) {
         sp.set_int(settings_pack.int_types.active_limit.swigValue(), value);
+        return this;
     }
 
     /**
-     * {@code active_loaded_limit} is the number of torrents that are allowed
-     * to be *loaded* at any given time. Note that a torrent can be active
-     * even though it's not loaded. If an unloaded torrents finds a peer
-     * that wants to access it, the torrent will be loaded on demand,
-     * using a user-supplied callback function. If the feature of
-     * unloading torrents is not enabled, this setting have no effect. If
-     * this limit is set to 0, it means unlimited.
-     *
-     * @return
-     * @see #activeDownloads()
+     * @return global limit on the number of connections opened.
      */
-    public int activeLoadedLimit() {
-        return sp.get_int(settings_pack.int_types.active_loaded_limit.swigValue());
-    }
-
-    /**
-     * @param value
-     * @see #activeLoadedLimit()
-     */
-    public void activeLoadedLimit(int value) {
-        sp.set_int(settings_pack.int_types.active_loaded_limit.swigValue(), value);
+    public int connectionsLimit() {
+        return sp.get_int(settings_pack.int_types.connections_limit.swigValue());
     }
 
     /**
@@ -290,15 +376,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setConnectionsLimit(int value) {
+    public SettingsPack connectionsLimit(int value) {
         sp.set_int(settings_pack.int_types.connections_limit.swigValue(), value);
+        return this;
     }
 
     /**
-     * @return global limit on the number of connections opened.
+     * @return the maximum number of peers in the list of known peers. (0 for unlimited)
      */
-    public int connectionsLimit() {
-        return sp.get_int(settings_pack.int_types.connections_limit.swigValue());
+    public int maxPeerlistSize() {
+        return sp.get_int(settings_pack.int_types.max_peerlist_size.swigValue());
     }
 
     /**
@@ -312,33 +399,9 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setMaxPeerlistSize(int value) {
+    public SettingsPack maxPeerlistSize(int value) {
         sp.set_int(settings_pack.int_types.max_peerlist_size.swigValue(), value);
-    }
-
-    /**
-     * @return the maximum number of peers in the list of known peers. (0 for unlimited)
-     */
-    public int maxPeerlistSize() {
-        return sp.get_int(settings_pack.int_types.max_peerlist_size.swigValue());
-    }
-
-    /**
-     * Sets the maximum number of bytes a connection may have pending in the disk
-     * write queue before its download rate is being throttled. This prevents
-     * fast downloads to slow medias to allocate more memory indefinitely.
-     * This should be set to at least 16 kB to not completely disrupt normal
-     * downloads. If it's set to 0, you will be starving the disk thread and
-     * nothing will be written to disk. this is a per session setting.
-     * <p/>
-     * When this limit is reached, the peer connections will stop reading
-     * data from their sockets, until the disk thread catches up. Setting
-     * this too low will severly limit your download rate.
-     *
-     * @param value
-     */
-    public void setMaxQueuedDiskBytes(int value) {
-        sp.set_int(settings_pack.int_types.max_queued_disk_bytes.swigValue(), value);
+        return this;
     }
 
     /**
@@ -350,17 +413,22 @@ public final class SettingsPack {
     }
 
     /**
-     * Sets the upper limit of the send buffer low-watermark.
-     * <p/>
-     * if the send buffer has fewer bytes than this, we'll read another 16kB
-     * block onto it. If set too small, upload rate capacity will suffer. If
-     * set too high, memory will be wasted. The actual watermark may be lower
-     * than this in case the upload rate is low, this is the upper limit.
+     * Sets the maximum number of bytes a connection may have pending in the disk
+     * write queue before its download rate is being throttled. This prevents
+     * fast downloads to slow medias to allocate more memory indefinitely.
+     * This should be set to at least 16 kB to not completely disrupt normal
+     * downloads. If it's set to 0, you will be starving the disk thread and
+     * nothing will be written to disk. this is a per session setting.
+     * <p>
+     * When this limit is reached, the peer connections will stop reading
+     * data from their sockets, until the disk thread catches up. Setting
+     * this too low will severely limit your download rate.
      *
      * @param value
      */
-    public void setSendBufferWatermark(int value) {
-        sp.set_int(settings_pack.int_types.send_buffer_watermark.swigValue(), value);
+    public SettingsPack maxQueuedDiskBytes(int value) {
+        sp.set_int(settings_pack.int_types.max_queued_disk_bytes.swigValue(), value);
+        return this;
     }
 
     /**
@@ -371,25 +439,25 @@ public final class SettingsPack {
     }
 
     /**
-     * Sets the disk write and read  cache. It is specified in units of 16 KiB
-     * blocks. Buffers that are part of a peer's send or receive buffer also
-     * count against this limit. Send and receive buffers will never be
-     * denied to be allocated, but they will cause the actual cached blocks
-     * to be flushed or evicted. If this is set to -1, the cache size is
-     * automatically set to the amount of physical RAM available in the
-     * machine divided by 8. If the amount of physical RAM cannot be
-     * determined, it's set to 1024 (= 16 MiB).
-     * <p/>
-     * Disk buffers are allocated using a pool allocator, the number of
-     * blocks that are allocated at a time when the pool needs to grow can be
-     * specified in ``cache_buffer_chunk_size``. This defaults to 16 blocks.
-     * Lower numbers saves memory at the expense of more heap allocations. It
-     * must be at least 1.
+     * Sets the upper limit of the send buffer low-watermark.
+     * <p>
+     * if the send buffer has fewer bytes than this, we'll read another 16kB
+     * block onto it. If set too small, upload rate capacity will suffer. If
+     * set too high, memory will be wasted. The actual watermark may be lower
+     * than this in case the upload rate is low, this is the upper limit.
      *
      * @param value
      */
-    public void setCacheSize(int value) {
-        sp.set_int(settings_pack.int_types.cache_size.swigValue(), value);
+    public SettingsPack sendBufferWatermark(int value) {
+        sp.set_int(settings_pack.int_types.send_buffer_watermark.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+    public int tickInterval() {
+        return sp.get_int(settings_pack.int_types.tick_interval.swigValue());
     }
 
     /**
@@ -401,8 +469,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setTickInterval(int value) {
+    public SettingsPack tickInterval(int value) {
         sp.set_int(settings_pack.int_types.tick_interval.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+    public int inactivityTimeout() {
+        return sp.get_int(settings_pack.int_types.inactivity_timeout.swigValue());
     }
 
     /**
@@ -411,8 +487,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setInactivityTimeout(int value) {
+    public SettingsPack inactivityTimeout(int value) {
         sp.set_int(settings_pack.int_types.inactivity_timeout.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+    public boolean seedingOutgoingConnections() {
+        return sp.get_bool(settings_pack.bool_types.seeding_outgoing_connections.swigValue());
     }
 
     /**
@@ -425,8 +509,16 @@ public final class SettingsPack {
      *
      * @param value
      */
-    public void setSeedingOutgoingConnections(boolean value) {
+    public SettingsPack seedingOutgoingConnections(boolean value) {
         sp.set_bool(settings_pack.bool_types.seeding_outgoing_connections.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+    public boolean anonymousMode() {
+        return sp.get_bool(settings_pack.bool_types.anonymous_mode.swigValue());
     }
 
     /**
@@ -435,28 +527,24 @@ public final class SettingsPack {
      * client's fingerprint. The user-agent will be reset to an empty string.
      * It will also try to not leak other identifying information, such as
      * your local listen port, your IP etc.
-     * <p/>
+     * <p>
      * If you're using I2P, a VPN or a proxy, it might make sense to enable
      * anonymous mode.
      *
      * @param value
      */
-    public void setAnonymousMode(boolean value) {
+    public SettingsPack anonymousMode(boolean value) {
         sp.set_bool(settings_pack.bool_types.anonymous_mode.swigValue(), value);
-    }
-
-    public boolean broadcastLSD() {
-        return sp.get_bool(settings_pack.bool_types.broadcast_lsd.swigValue());
-    }
-
-    public void broadcastLSD(boolean value) {
-        sp.set_bool(settings_pack.bool_types.broadcast_lsd.swigValue(), value);
+        return this;
     }
 
     /**
-     * @return
+     * Starts the dht node and makes the trackerless service available to
+     * torrents.
+     *
+     * @return true if enable
      */
-    public boolean enableDht() {
+    public boolean isEnableDht() {
         return sp.get_bool(settings_pack.bool_types.enable_dht.swigValue());
     }
 
@@ -464,9 +552,179 @@ public final class SettingsPack {
      * Starts the dht node and makes the trackerless service available to
      * torrents.
      *
-     * @param value
+     * @param value true if enable
      */
-    public void enableDht(boolean value) {
+    public void setEnableDht(boolean value) {
         sp.set_bool(settings_pack.bool_types.enable_dht.swigValue(), value);
+    }
+
+    /**
+     * Starts and stops Local Service Discovery. This service will
+     * broadcast the info-hashes of all the non-private torrents on the
+     * local network to look for peers on the same swarm within multicast
+     * reach.
+     *
+     * @return true if enable
+     */
+    public boolean isEnableLsd() {
+        return sp.get_bool(settings_pack.bool_types.enable_lsd.swigValue());
+    }
+
+    /**
+     * Starts and stops Local Service Discovery. This service will
+     * broadcast the info-hashes of all the non-private torrents on the
+     * local network to look for peers on the same swarm within multicast
+     * reach.
+     *
+     * @param value true if enable
+     */
+    public void setEnableLsd(boolean value) {
+        sp.set_bool(settings_pack.bool_types.enable_lsd.swigValue(), value);
+    }
+
+    /**
+     * The maximum allowed size (in bytes) to be
+     * received by the metadata extension, i.e. magnet links.
+     */
+    public int getMaxMetadataSize() {
+        return sp.get_int(settings_pack.int_types.max_metadata_size.swigValue());
+    }
+
+    /**
+     * The maximum allowed size (in bytes) to be
+     * received by the metadata extension, i.e. magnet links.
+     *
+     * @param value true if enable
+     */
+    public void setMaxMetadataSize(int value) {
+        sp.set_int(settings_pack.int_types.max_metadata_size.swigValue(), value);
+    }
+
+    /**
+     * This is a comma-separated list of IP port-pairs. They will be added
+     * to the DHT node (if it's enabled) as back-up nodes in case we don't
+     * know of any.
+     * <p>
+     * Changing these after the DHT has been started may not have any
+     * effect until the DHT is restarted.
+     */
+    public String getDhtBootstrapNodes() {
+        return  sp.get_str(string_types.dht_bootstrap_nodes.swigValue());
+    }
+
+    /**
+     * This is a comma-separated list of IP port-pairs. They will be added
+     * to the DHT node (if it's enabled) as back-up nodes in case we don't
+     * know of any.
+     * <p>
+     * Changing these after the DHT has been started may not have any
+     * effect until the DHT is restarted.
+     *
+     * @param value the IP port-pairs list
+     */
+    public void setDhtBootstrapNodes(String value) {
+        sp.set_str(string_types.dht_bootstrap_nodes.swigValue(), value);
+    }
+
+    /**
+     * This is the STUN server used by WebTorrent to enable ICE NAT
+     * traversal for WebRTC. It must have the format ``hostname:port``.
+     *
+     * TODO: Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0
+     * See https://github.com/arvidn/libtorrent/blob/master/include/libtorrent/settings_pack.hpp#L370
+     */
+    public String getWebtorrentStunServer() {
+        new RuntimeException("Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0");
+        return "sp.get_str(string_types.webtorrent_stun_server.swigValue());";
+    }
+
+    /**
+     * This is the STUN server used by WebTorrent to enable ICE NAT
+     * traversal for WebRTC. It must have the format ``hostname:port``.
+     *
+     * TODO: Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0
+     * See https://github.com/arvidn/libtorrent/blob/master/include/libtorrent/settings_pack.hpp#L370
+     *
+     * @param value the STUN server endpoint
+     */
+    public void setWebtorrentStunServer(String value) {
+        new RuntimeException("Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0");
+        //sp.set_str(string_types.webtorrent_stun_server.swigValue(), value);
+    }
+
+    /**
+     * @return
+     */
+    public String listenInterfaces() {
+        return sp.get_str(settings_pack.string_types.listen_interfaces.swigValue());
+    }
+
+    /**
+     * @param value
+     * @return this
+     */
+    public SettingsPack listenInterfaces(String value) {
+        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return the current value
+     * @see #stopTrackerTimeout(int)
+     */
+    public int stopTrackerTimeout() {
+        return sp.get_int(settings_pack.int_types.stop_tracker_timeout.swigValue());
+    }
+
+    /**
+     * {@code stop_tracker_timeout} is the number of seconds to wait when
+     * sending a stopped message before considering a tracker to have
+     * timed out. This is usually shorter, to make the client quit faster.
+     * If the value is set to 0, the connections to trackers with the
+     * stopped event are suppressed.
+     *
+     * @param value the new value
+     * @return this
+     */
+    public SettingsPack stopTrackerTimeout(int value) {
+        sp.set_int(settings_pack.int_types.stop_tracker_timeout.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return the current value
+     * @see #alertQueueSize(int)
+     */
+    public int alertQueueSize() {
+        return sp.get_int(settings_pack.int_types.alert_queue_size.swigValue());
+    }
+
+    /**
+     * {@code alert_queue_size} is the maximum number of alerts queued up
+     * internally. If alerts are not popped, the queue will eventually
+     * fill up to this level.
+     *
+     * @param value the new value
+     * @return this
+     */
+    public SettingsPack alertQueueSize(int value) {
+        sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), value);
+        return this;
+    }
+
+
+    /**
+     * {@code validate_https_trackers} when set to true, the certificate of HTTPS trackers
+     * and HTTPS web seeds will be validated against the system's certificate store (as defined by OpenSSL).
+     * If the system does not have a certificate store, this option may have to be disabled
+     * in order to get trackers and web seeds to work).
+     */
+    public SettingsPack validateHttpsTrackers(boolean value) {
+        sp.set_bool(settings_pack.bool_types.validate_https_trackers.swigValue(), value);
+        return this;
+    }
+
+    public boolean validateHttpsTrackers() {
+        return sp.get_bool(settings_pack.bool_types.validate_https_trackers.swigValue());
     }
 }

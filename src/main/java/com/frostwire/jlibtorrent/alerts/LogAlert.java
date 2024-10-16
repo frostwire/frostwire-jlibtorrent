@@ -6,26 +6,22 @@ import com.frostwire.jlibtorrent.swig.log_alert;
  * This alert is posted by some session wide event. Its main purpose is
  * trouble shooting and debugging. It's not enabled by the default alert
  * mask and is enabled by the ``alert::session_log_notification`` bit.
- * <p/>
- * Furthermore, it's by default disabled as a build configuration. To
- * enable, build libtorrent with logging support enabled (``logging=on``
- * with bjam or define ``TORRENT_LOGGING``).
  *
  * @author gubatron
  * @author aldenml
  */
 public final class LogAlert extends AbstractAlert<log_alert> {
 
-    public LogAlert(log_alert alert) {
+    LogAlert(log_alert alert) {
         super(alert);
     }
 
     /**
      * Returns the log message.
      *
-     * @return
+     * @return the message
      */
-    public String msg() {
-        return alert.msg();
+    public String logMessage() {
+        return alert.log_message();
     }
 }

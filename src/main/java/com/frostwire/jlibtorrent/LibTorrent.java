@@ -1,13 +1,11 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.swig.libtorrent;
-import com.frostwire.jlibtorrent.swig.posix_wrapper;
+import com.frostwire.jlibtorrent.swig.libtorrent_jni;
 import com.frostwire.jlibtorrent.swig.stats_metric_vector;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author gubatron
@@ -15,34 +13,40 @@ import java.util.Map;
  */
 public final class LibTorrent {
 
-    private static posix_wrapper g_posix_wrapper;
-
     private LibTorrent() {
     }
 
     /**
-     * This number is the previous revision of jlibtorrent, the one
-     * before the native JNI code is committed.
-     * <p/>
-     * It depends heavily in a good release workflow performed by the
-     * developers, so take it with care.
+     * The version number as reported by libtorrent
      *
-     * @return
+     * @return the version number
      */
-    public static String jrevision() {
-        return libtorrent.JLIBTORRENT_REVISION_SHA1;
-    }
-
     public static int versionNum() {
         return libtorrent.LIBTORRENT_VERSION_NUM;
     }
 
+    /**
+     * The version string as reported by libtorrent
+     *
+     * @return the version string
+     */
     public static String version() {
         return libtorrent.version();
     }
 
+    /**
+     * The git revision of libtorrent the native library is using.
+     * <p>
+     * This is not the internal revision libtorrent reports, since
+     * that string is updated from time to time. This library can be
+     * using an up to date revision, this string is manually
+     * hardcoded in each version of jlibtorrent. See
+     * {@link libtorrent#LIBTORRENT_REVISION} for the libtorrent string.
+     *
+     * @return the git revision
+     */
     public static String revision() {
-        return libtorrent.LIBTORRENT_REVISION_SHA1;
+        return "c2012b084c6654d681720ea0693d87a48bc95b14";
     }
 
     public static int boostVersionNum() {
@@ -61,17 +65,8 @@ public final class LibTorrent {
         return libtorrent.openssl_version_text();
     }
 
-    public static Map<String, Object> properties() {
-        HashMap<String, Object> m = new HashMap<>();
-        m.put("jlibtorrent", jrevision());
-        m.put("libtorrent", version() + "/" + revision());
-        m.put("boost", boostVersion());
-        m.put("openssl", opensslVersion());
-        m.put("sse42", libtorrent.getSse42_support());
-        m.put("mmx", libtorrent.getMmx_support());
-        m.put("arm_neon", libtorrent.getArm_neon_support());
-        m.put("arm_crc32c", libtorrent.getArm_crc32c_support());
-        return Collections.unmodifiableMap(m);
+    public static String jlibtorrentVersion() {
+        return libtorrent_jni.jlibtorrentVersion();
     }
 
     /**
@@ -81,9 +76,9 @@ public final class LibTorrent {
      * this metric's value can be found when the session stats is sampled (by
      * calling post_session_stats()).
      *
-     * @return
+     * @return the list of all metrics
      */
-    public static ArrayList<StatsMetric> sessionStatsMetrics() {
+    public static List<StatsMetric> sessionStatsMetrics() {
         stats_metric_vector v = libtorrent.session_stats_metrics();
         int size = (int) v.size();
 
@@ -101,15 +96,20 @@ public final class LibTorrent {
      * or -1 if it could not be found. The counter index is the index into the
      * values array returned by session_stats_alert.
      *
-     * @param name
-     * @return
+     * @param name the name of the metric
+     * @return the index of the metric
      */
     public static int findMetricIdx(String name) {
-        return libtorrent.find_metric_idx(name);
+        return libtorrent.find_metric_idx_s(name);
     }
 
-    public static void setPosixWrapper(posix_wrapper obj) {
-        g_posix_wrapper = obj;
-        libtorrent.set_posix_wrapper(obj);
+    /**
+     * If the native library is an ARM architecture variant, returns true
+     * if the running platform has NEON support.
+     *
+     * @return true if the running platform has NEON support
+     */
+    public static boolean hasArmNeonSupport() {
+        return libtorrent.arm_neon_support();
     }
 }

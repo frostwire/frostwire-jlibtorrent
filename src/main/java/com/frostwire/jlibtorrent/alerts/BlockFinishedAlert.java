@@ -10,15 +10,21 @@ import com.frostwire.jlibtorrent.swig.block_finished_alert;
  */
 public final class BlockFinishedAlert extends PeerAlert<block_finished_alert> {
 
-    public BlockFinishedAlert(block_finished_alert alert) {
+    BlockFinishedAlert(block_finished_alert alert) {
         super(alert);
     }
 
-    public int getBlockIndex() {
+    /**
+     * @return the block index
+     */
+    public int blockIndex() {
         return alert.getBlock_index();
     }
 
-    public int getPieceIndex() {
+    /**
+     * @return the piece index
+     */
+    public int pieceIndex() {
         return alert.getPiece_index();
     }
 }

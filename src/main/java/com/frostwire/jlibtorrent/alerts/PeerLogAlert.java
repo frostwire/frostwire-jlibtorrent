@@ -5,10 +5,7 @@ import com.frostwire.jlibtorrent.swig.peer_log_alert;
 /**
  * This alert is posted by events specific to a peer. It's meant to be used
  * for trouble shooting and debugging. It's not enabled by the default alert
- * mask and is enabled by the ``alert::peer_log_notification`` bit. By
- * default it is disabled as a build configuration. To enable, build
- * libtorrent with logging support enabled (``logging=on`` with bjam or
- * define ``TORRENT_LOGGING``).
+ * mask and is enabled by the ``alert::peer_log_notification`` bit.
  *
  * @author gubatron
  * @author aldenml
@@ -23,12 +20,15 @@ public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
      * String literal indicating the kind of event. For messages, this is the
      * message name.
      *
-     * @return
+     * @return the event type
      */
     public String eventType() {
         return alert.get_event_type();
     }
 
+    /**
+     * @return the direction
+     */
     public Direction direction() {
         return Direction.fromSwig(alert.getDirection().swigValue());
     }
@@ -36,10 +36,10 @@ public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
     /**
      * Returns the log message.
      *
-     * @return
+     * @return the log message
      */
-    public String msg() {
-        return alert.msg();
+    public String logMessage() {
+        return alert.log_message();
     }
 
     /**
@@ -85,7 +85,7 @@ public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;

@@ -5,7 +5,7 @@ import com.frostwire.jlibtorrent.swig.peer_blocked_alert;
 /**
  * This alert is posted when an incoming peer connection, or a peer that's about to be added
  * to our peer list, is blocked for some reason. This could be any of:
- * <p/>
+ * <p>
  * * the IP filter
  * * i2p mixed mode restrictions (a normal peer is not allowed on an i2p swarm)
  * * the port filter

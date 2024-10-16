@@ -13,43 +13,50 @@ public final class PeerRequest {
 
     private final peer_request r;
 
+    // internal
     public PeerRequest(peer_request r) {
         this.r = r;
     }
 
-    public peer_request getSwig() {
+    /**
+     * @return native object
+     */
+    public peer_request swig() {
         return r;
     }
 
     /**
      * The index of the piece in which the range starts.
      *
-     * @return
+     * @return the piece index
      */
-    public int getPiece() {
+    public int piece() {
         return r.getPiece();
     }
 
     /**
      * The offset within that piece where the range starts.
      *
-     * @return
+     * @return the start offset
      */
-    public int getStart() {
+    public int start() {
         return r.getStart();
     }
 
     /**
      * The size of the range, in bytes.
      *
-     * @return
+     * @return the range length
      */
-    public int getLength() {
+    public int length() {
         return r.getLength();
     }
 
+    /**
+     * @return string representation
+     */
     @Override
     public String toString() {
-        return "PeerRequest(piece: " + getPiece() + ", start:" + getStart() + ", length" + getLength() + ")";
+        return "PeerRequest(piece: " + piece() + ", start: " + start() + ", length: " + length() + ")";
     }
 }

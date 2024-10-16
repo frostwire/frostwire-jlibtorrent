@@ -4,24 +4,23 @@ import com.frostwire.jlibtorrent.ErrorCode;
 import com.frostwire.jlibtorrent.swig.lsd_error_alert;
 
 /**
- * posted if the local service discovery socket fails to start properly.
- * it's categorized as ``error_notification``.
+ * Posted if the local service discovery socket fails to start properly.
  *
  * @author gubatron
  * @author aldenml
  */
 public final class LsdErrorAlert extends AbstractAlert<lsd_error_alert> {
 
-    public LsdErrorAlert(lsd_error_alert alert) {
+    LsdErrorAlert(lsd_error_alert alert) {
         super(alert);
     }
 
     /**
      * The error code.
      *
-     * @return
+     * @return the error
      */
-    public ErrorCode getError() {
+    public ErrorCode error() {
         return new ErrorCode(alert.getError());
     }
 }

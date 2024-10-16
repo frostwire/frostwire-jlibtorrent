@@ -5,6 +5,7 @@
 .idea
 .gradle
 /build
+/out
 /android/build
 /android/src/main/jniLibs
 /java/out/
@@ -15,8 +16,10 @@ frostwire-jlibtorrent.i*
 /test-libtorrent
 /swig/bin
 /swig/build
-/libjlibtorrent.dylib
-/libjlibtorrent.so
-/jlibtorrent.dll
+/swig/swig-*
+/libjlibtorrent*.dylib
+/libjlibtorrent*.so
+/jlibtorrent*.dll
 /node/jlibtorrent.node
 /dht_shell.dat
+local.properties

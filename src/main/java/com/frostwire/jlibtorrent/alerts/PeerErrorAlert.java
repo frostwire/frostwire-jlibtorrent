@@ -1,12 +1,13 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.ErrorCode;
-import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.Operation;
 import com.frostwire.jlibtorrent.swig.peer_error_alert;
 
 /**
- * This alert is generated when a peer sends invalid data over the peer-peer protocol. The peer
- * will be disconnected, but you get its ip address from the alert, to identify it.
+ * This alert is generated when a peer sends invalid data over the
+ * peer-peer protocol. The peer will be disconnected, but you get
+ * its ip address from the alert, to identify it.
  *
  * @author gubatron
  * @author aldenml
@@ -18,23 +19,16 @@ public final class PeerErrorAlert extends PeerAlert<peer_error_alert> {
     }
 
     /**
-     * @return
+     * @return the operation.
      */
-    public int operation() {
-        return alert.getOperation();
-    }
-
-    /**
-     * @return
-     */
-    public String operationName() {
-        return libtorrent.operation_name(alert.getOperation());
+    public Operation operation() {
+        return Operation.fromSwig(alert.getOp());
     }
 
     /**
      * Tells you what error caused this alert.
      *
-     * @return
+     * @return the error
      */
     public ErrorCode error() {
         return new ErrorCode(alert.getError());

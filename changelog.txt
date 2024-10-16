@@ -1,0 +1,981 @@
+2.0.11.0
+ * Migration to support libtorrent 2.0 integration
+ * Maintained 1.2.x on a separate branch without active maintenance; pull requests are welcome
+ * SWIG interface files have been modularized for better maintainability and readability
+ * Added missing alert types
+ * Introduced typed_bitfield template
+ * Operator renaming for Java compatibility
+ * Included boost_system_error_code.i
+ * Added prepare-macos.sh script
+ * Updated run-swig.sh script
+ * Set TORRENT_ABI_VERSION=4
+ * Boost 1.86.0 upgrade
+ * OpenSSL 1.1.1t upgrade
+ * Gradle 8.10.2 upgrade
+ * Jar built with JDK 11
+ * Libtorrent updated to RC_2_0 (rev:2ab8fedabb7716947edc77958da6d0b5e1040df9)
+ * Android NDK r26d (LTS) upgrade (from r25c)
+ * Added `--swig-only` and `--build-only` options to swig/build scripts
+ * Added `prepare-macos.sh` script for macOS build setup
+ * Updated `run-swig.sh` script for improved SWIG processing 
+ * Upgraded SWIG to 4.2.1
+ * Enhanced exception handling in SWIG interfaces
+ * Fixed issues in file_storage.hpp and ip_filter.hpp
+ * Adjusted build flags and macros for Boost and libtorrent compatibility
+ * Enabled SWIG directors for specific classes
+ * Ignored deprecated methods in SWIG interface
+ * Improved documentation and added TODOs
+ * lt:fix uTP issue where closing the connection could corrupt the payload
+ * lt:apply DSCP/TOS to sockets before initiating the TCP connection
+ * lt:assume copy_file_range() exists on linux (unless old glibc)
+ * lt:fix issue where set_piece_deadline() did not correctly post read_piece_alert
+ * lt:fix integer overflow in piece picker
+ * lt:torrent_status::num_pieces counts pieces passed hash check, as documented
+ * lt:check settings_pack::max_out_request_queue before performance alert
+ * lt:allow on_unknown_torrent method in the absence of active torrents (new plugin feature added)
+ * lt:add feature to async_move_storage() to not move files
+ * lt:fix reject resume data if it contains mismatching info hashes
+ * lt:fix clear the candidate_cache when clear peer_list
+ * lt:fix missing python converter for dht::announce_flags_t
+ * lt:fix issue with web seed connections when they close and re-open
+ * lt:fallocate() not supported is not a fatal error
+ * lt:fix proxying of IPv6 connections via IPv4 proxy
+ * lt:treat CGNAT address range as local IPs
+ * lt:add stricter checking of piece layers when loading torrents
+ * lt:add stricter checking of v1 and v2 hashes being consistent
+ * lt:cache failed DNS lookups as well as successful ones
+ * lt:add an i2p torrent state to control interactions with clear swarms
+ * lt:fix i2p SAM protocol parsing of quoted messages
+ * lt:expose i2p peer destination in peer_info
+ * lt:fix i2p tracker announces
+ * lt:fix issue with read_piece() stopping torrent on pieces not yet downloaded
+ * lt:improve handling of allow_i2p_mixed setting to work for magnet links
+ * lt:fix web seed request for renamed single-file torrents
+ * lt:fix issue where web seeds could disappear from resume data
+ * lt:extend save_resume with additional conditional flags
+ * lt:fix issue with retrying trackers in tiers > 0
+ * lt:fix last_upload and last_download resume data fields to use posix time
+ * lt:improve error messages for no_connect_privileged_ports, by untangle it from the port filter
+ * lt:fix I2P issue introduced in 2.0.0
+ * lt:add async tracker status query, post_trackers()
+ * lt:add async torrent status query, post_status()
+ * lt:support loading version 2 of resume data format
+ * lt:fix issue with odd piece sizes
+ * lt:add async piece availability query, post_piece_availability()
+ * lt:add async download queue query, post_download_queue()
+ * lt:add async file_progress query, post_file_progress()
+ * lt:add async peer_info query, post_peer_info()
+ * lt:fix uTP streams timing out instead of closing cleanly
+ * lt:add write_torrent_file_buf() overload for generating .torrent files
+ * lt:add create_torrent::generate_buf() function to generate into a buffer
+ * lt:fix copy_file when the file ends with a sparse region
+ * lt:uTP performance, fix packet loss when sending is stalled
+ * lt:fix trackers being stuck after session pause/resume
+ * lt:fix bug in hash_picker with empty files
+ * lt:uTP performance, prevent premature timeouts/resends
+ * lt:add option to not memory map files below a certain size
+ * lt:settings_pack now returns default values when queried for missing settings
+ * lt:fix copy_file fall-back when SEEK_HOL/SEEK_DATA is not supported
+ * lt:improve error reporting from file copy and move
+ * lt:tweak pad file placement to match reference implementation (tail-padding)
+ * lt:uTP performance, more lenient nagle's algorithm to always allow one outstanding undersized packet
+ * lt:uTP performance, piggy-back held back undersized packet with ACKs
+ * lt:uTP performance, don't send redundant deferred ACKs
+ * lt:support incoming SOCKS5 packets with hostnames as source address, for UDP trackers
+ * lt:ignore duplicate network interface change notifications on linux
+ * lt:fix total_want/want accounting when forcing a recheck
+ * lt:fix merging metadata with magnet links added on top of existing torrents
+ * lt:add torrent_flag to default all file priorities to dont_download
+ * lt:fix &so= feature in magnet links
+ * lt:improve compatibility of SOCKS5 UDP ASSOCIATE
+ * lt:fix madvise range for flushing cache in mmap_storage
+ * lt:open files with no_cache set in O_SYNC mode~
+ * lt:fix issue in use of copy_file_range() on linux
+ * lt:avoid open-file race in the file_view_pool
+ * lt:fix issue where stop-when-ready would not close files
+ * lt:fix issue with duplicate hybrid torrent via separate v1 and v2 magnet links
+ * lt:added new function to load torrent files, load_torrent_*()
+ * lt:support sync_file_range() on linux
+ * lt:fix issue in write_torrent_file() when file size is exactly piece size
+ * lt:fix file_num_blocks() and file_num_pieces() for empty files
+ * lt:add new overload to make_magnet_uri()
+ * lt:add missing protocol version to tracker_reply_alert and tracker_error_alert
+ * lt:fix privilege issue with SetFileValidData()
+ * lt:add asynchronous overload of torrent_handle::add_piece()
+ * lt:default to a single hashing thread, for full checks
+ * lt:Fix bug when checking files and the first piece is invalid
+ * lt:fix issue creating a v2 torrent from torrent_info containing an empty file
+ * lt:make recheck files also update which files use partfile
+ * lt:add write_through disk_io_write_mode, which flushes pieces to disk immediately
+ * lt:improve copy file function to preserve sparse regions (when supported)
+ * lt:add function to truncate over-sized files part of a torrent
+ * lt:fix directory creation on windows shared folders
+ * lt:add flag to make add_files() not record file attributes
+ * lt:deprecate (unused) allow_partial_disk_writes settings
+ * lt:fix disk-full error reporting in mmap_disk_io
+ * lt:fixed similar-torrents feature for v2 torrents
+ * lt:fix potential unbounded recursion in add_completed_job, in disk I/O
+ * lt:deprecated (unused) volatile_read_cache setting
+ * lt:fix part files being marked as hidden on window
+ * lt:on windows, explicitly flush memory mapped files periodically
+ * lt:fix build with WolfSSL
+ * lt:fix issue where incoming uTP connections were not accepted over SOCKS5
+ * lt:fix several issues in handling of checking files of v2 torrents, esp. from magnet links
+ * lt:make the token limit when parsing metadata from magnet files configurable
+ * lt:fix issue with stalled pieces on disk full errors
+ * lt:fix missing python binding for file_progress_flags
+ * lt:fix torrent_file_with_hashes() to fail when we don't have the piece layers
+ * lt:restore path character encoding conversion for non UTF-8 locales on linux
+ * lt:fix use-after-free bug in make_magnet_uri
+ * lt:add write_torrent_file() to produce a .torrent file from add_torrent_params
+ * lt:allow loading v2 .torrent files without piece layer
+ * lt:fix issue with adding v2 torrents with invalid file root hash
+ * lt:fix piece picker bug causing double-picks with prefer-contiguous enabled
+ * lt:expose session_params in python bindings
+ * lt:fix (deprecated) use of add_torrent_params::info_hash
+ * lt:fix issue creating and loading v2 torrents with empty files. Improves conformance to BEP52 reference implementation
+ * lt:add new torrent_file_with_hashes() which includes piece layers for creating .torrent files
+ * lt:add file_prio_alert, posted when file priorities are updated
+ * lt:fix issue where set_piece_hashes() would not propagate file errors
+ * lt:add missing python binding for event_t
+ * lt:add work-around for systems without fseeko() (such as Android)
+ * lt:add convenience header libtorrent/libtorrent.hpp
+ * lt:increase default max_allowed_in_request_queue
+ * lt:fix loading non-ascii filenames on windows with torrent_info constructor (2.0 regression)
+ * lt:add std::hash<> specialization for info_hash_t
+ * lt:fix integer overflow in hash_picker and properly restrict max file sizes in torrents
+ * lt:strengthen SSRF mitigation for web seeds
+ * lt:add v1() and v2() functions to torrent_info
+ * lt:fix piece_layers() to work for single-piece files
+ * lt:fix python binding regression in session constructor flags
+ * lt:fix unaligned piece requests in mmap_storage
+ * lt:improve client_data_t ergonomics
+ * lt:fix issue with concurrent access to part files
+ * lt:fix attribute in single-file v2 torrent creation
+ * lt:fix padding for empty files in v2 torrent creation
+ * lt:add function to ask a file_storage whether it's v2 or not
+ * lt:fix mtime field when creating single-file v2 torrents
+ * lt:fix performance regression in checking files
+ * lt:disable use of SetFileValidData() by default (windows). A new setting allows enabling it
+ * lt:dropped dependency on iconv
+ * lt:deprecate set_file_hash() in torrent creator, as it's superceded by v2 torrents
+ * lt:deprecate mutable access to info_section in torrent_info
+ * lt:removed deprecated lazy_entry/lazy_bdecode
+ * lt:stats_alert deprecated
+ * lt:remove bittyrant choking algorithm
+ * lt:update userdata in add_torrent_params to be type-safe and add to torrent_handle
+ * lt:add ip_filter to session_params
+ * lt:added support for wolfSSL for SHA-1 hash and HTTPS (no Torrents over SSL)
+ * lt:requires OpenSSL minimum version 1.0.0 with SNI support
+ * lt:deprecated save_state() and load_state() on session in favour of new
+ * lt:write_session_params() and read_session_params()
+ * lt:added support for BitTorrent v2 (see docs/upgrade_to_2.0.html)
+ * lt:create_torrent() pad_file_limit parameter removed
+ * lt:create_torrent() merkle- and optimize-alignment flags removed
+ * lt:merkle_tree removed from add_torrent_params
+ * lt:announce_entry expose information per v1 and v2 info-hash announces
+ * lt:deprecated sha1_hash info_hash members on torrent_removed_alert,
+ * lt:torrent_deleted_alert, torrent_delete_failed_alert and add_torrent_params
+ * lt:undeprecate error_file_metadata for torrent errors related to its metadata
+ * lt:remove support for adding a torrent under a UUID (used for previous RSS support)
+ * lt:remove deprecated feature to add torrents by file:// URL
+ * lt:remove deprecated feature to download .torrent file from URL
+ * lt:requires boost >= 1.66 to build
+ * lt:update networking API to networking TS compatible boost.asio
+ * lt:overhauled disk I/O subsystem to use memory mapped files (where available)
+ * lt:libtorrent now requires C++14 to build
+ * lt:added support for GnuTLS for HTTPS and torrents over SSL
+ * lt:fix issue where stop-when-ready would not close files
+ * lt:uTP performance, fix packet loss when sending is stalled
+ * lt:uTP performance, prevent premature timeouts/resends
+ * lt:uTP performance, more lenient nagle's algorithm to always allow one outstanding undersized packet
+ * lt:uTP performance, piggy-back held back undersized packet with ACKs
+ * lt:uTP performance, don't send redundant deferred ACKs
+ * lt:fix wanted_done/done accounting when force-rechecking
+ * lt:expose userdata via torrent_handle (back-port from 2.0)
+ * lt:fix renaming of filenames that are too long for the filesystem
+ * lt:made UPnP and LSD code avoid using select_reactor (to work around an issue on windows in boost.asio < 1.80)
+
+1.2.19.0
+ * boost 1.82 upgrade
+ * openssl 1.1.1t upgrade
+ * gradle 8.1.1 upgrade
+ * jar built with jdk20
+ * libtorrent update to RC_1_2 adac0d0843c7fb2180f43d20bd5bee0e380e4673
+ * android NDK r25c (LTS) (from r25b)
+ * lt:back-port load_torrent_*() functions
+ * lt:fix issue with odd piece sizes
+ * lt:fix issue where stop-when-ready would not close files
+ * lt:uTP performance, fix packet loss when sending is stalled
+ * lt:uTP performance, prevent premature timeouts/resends
+ * lt:uTP performance, more lenient nagle's algorithm to always allow one outstanding undersized packet
+ * lt:uTP performance, piggy-back held back undersized packet with ACKs
+ * lt:uTP performance, don't send redundant deferred ACKs
+ * lt:fix wanted_done/done accounting when force-rechecking
+ * lt:expose userdata via torrent_handle (back-port from 2.0)
+ * lt:fix renaming of filenames that are too long for the filesystem
+ * lt:made UPnP and LSD code avoid using select_reactor (to work around an issue on windows in boost.asio < 1.80)
+
+1.2.17.0
+ * boost 1.80 upgrade
+ * openssl 1.1.1q upgrade
+ * gradle 7.5.1 upgrade
+ * libtorrent update to RC_1_2 b5873f23b40ef9054b2bd6a4db2a2d327a56d4b1
+ * android NDK r25b (LTS) update (from r23)
+ * lt:fix wanted_done/done accounting when force-rechecking
+ * lt:expose userdata via torrent_handle (back-port from 2.0)
+ * lt:fix renaming of filenames that are too long for the filesystem
+ * lt:made UPnP and LSD code avoid using select_reactor (to work around an issue on windows in boost.asio < 1.80)
+ * lt:fixed tracker connections spinning when hostname lookups stall
+ * lt:fixed error in pkg-config file generation in Jamfile
+ * lt:improve backwards compatibility with loading magnet link resume files
+ * lt:fix bind-to-device for tracker announces and UPnP
+ * lt:rename peer_tos setting to peer_dscp
+ * lt:fix bdecode support for large strings (>= 100 MB)
+
+1.2.16.0
+ * Expose settings_pack.validate_https_trackers with SettingsPack::validateHttpsTrackers methods
+ * upgrade to boost 1.79
+ * openssl 1.1.1n upgrade
+ * fix bdecode support for large strings (>= 100 MB)
+ * send User-Agent field in anonymous mode
+ * fix python binding for settings_pack conversion
+ * fix DHT announce timer issue
+ * use DSCP_TRAFFIC_TYPE socket option on windows
+ * update default ToS setting according to RFC 8622
+ * keep trying to announce to trackers even when all fail
+ * don't disable announcing from local endpoints because of temporary failures
+ * fix issue in parsing UPnP XML response with multiple forwarding services
+
+1.2.15.2
+ * less verbose error messages when loading the library
+
+1.2.15.1
+ * openssl 1.1.1m upgrade
+ * upgrade to boost 1.78
+ * new macos M1 .dylib binary (arm64)
+ * lt:don't disable announcing from local endpoints because of temporary failures
+ * lt:fix issue in parsing UPnP XML response with multiple forwarding services
+ * lt:cache DNS lookups for SOCKS5 proxy
+ * lt:fix stalled pieces on disk-full errors
+ * lt:fix build configuration issue on NetBSD, OpenBSD and DragonFly
+ * lt:make UTF-8 sanitization a bit stricter. This will re-write invalid UTF-8 code points encoding surrogate pairs
+ * lt:fix restoring last_seen_complete from resume data
+ * lt:fix issue on MacOS where the DHT was not restarted on a network-up notification
+ * lt:make remove_torrent flags be treated as flags (instead of an enum)
+
+1.2.14.2
+ * upgraded to boost 1.77
+
+1.2.14.1
+ * Android builds updated to NDK r23 (LTS)
+ * Builds with -std=c++17
+ * Docker image simplification and cleanup using android ndk prebuilt toolchain folder
+ * swig/build- scripts now have run_native_jar command to build only the corresponding native jar
+ * SWIG 4.0.2 ensured on all architectures
+ * lt:Fixes null pointer libtorrent crash on enum_net iface_from_ifaddrs
+
+1.2.14.0
+ * Android builds no longer use netlink sockets, instead use ifaddr sockets
+ * Android 6.0 and below compatibility dropped. Compatible with SDK 24 and up
+ * openssl 1.1.1l upgrade
+ * lt:fix issue on MacOS where the DHT was not restarted on a network-up notification
+ * lt:make remove_torrent flags be treated as flags (instead of an enum)
+ * lt:improve handling of seed flag in PEX messages
+ * lt:fix issue of accruing unlimited DHT node candidates when DHT is disabled
+ * lt:fix bug in parsing chunked encoding
+ * lt:fix incorrect reporting of active_duration when entering graceful-pause
+
+1.2.13.0
+ * openssl 1.1.1j upgrade
+ * Dockerized builds
+ * Dropped windows x86 build script
+ * lt:fix incoming TCP connections when using tracker-only proxy
+ * lt:fix issue with paths starting with ./
+ * lt:fix integer overflow when setting a high DHT upload rate limit
+ * lt:improve Path MTU discovery logic in uTP
+ * lt:fix overflow issue when rlimit_nofile is set to infinity
+ * lt:Fix cxxflags and linkflags injection via environment variables
+
+1.2.12.0
+ * lt:fix loading of DHT node ID from previous session on startup
+ * lt:use getrandom(), when available, and fall back to /dev/urandom
+ * lt:fix uTP issue acking FIN packets
+ * lt:validate HTTPS certificates by default (trackers and web seeds)
+ * lt:load SSL certificates from windows system certificate store, to authenticate trackers
+ * lt:introduce mitigation for Server Side Request Forgery in tracker and web seed URLs
+ * lt:fix error handling for pool allocation failure
+
+1.2.11.0
+ * New TorrentHandle.inSession() [blocking method, do not use in main UI threads]
+ * New ability for SessionManager to build a paused session
+ * New SessionManager.start(SessionParams, session_flags_t)
+ * New SessionHandle.PAUSED (session_flag_t) and corresponding unit tests
+ * Removed TorrentStatus::State::ALLOCATING enum
+ * Removed torrent_status.state_t.unused_enum_for_backwards_compatibility_allocating
+ * libtorrent 1.2.11.0 update (471e772cb7038f1bf5f44c32a09eb42fbb80ee99)
+ * lt: upgraded to openssl 1.1.1j
+ * lt: fix issue with moving the session object
+ * lt: deprecate torrent_status::allocating. This state is no longer used
+ * lt: fix bug creating torrents with symbolic links
+ * lt: remove special case to save metadata in resume data unconditionally when added throught magnet link
+ * lt: fix bugs in mutable-torrent support (reusing identical files from different torrents)
+ * lt: fix incorrectly inlined move-assignment of file_storage
+ * lt: add session::paused flag, and the ability to construct a session in paused mode
+ * lt: fix session-pause causing tracker announces to fail
+ * lt: fix peer-exchange flags bug
+ * lt: allow saving resume data before metadata has been downloaded (for magnet links)
+ * lt: record blocks in the disk queue as downloaded in the resume data
+ * lt: fix bug in set_piece_deadline() when set in a zero-priority piece
+ * lt: fix issue in URL parser, causing issues with certain tracker URLs
+ * lt: use a different error code than host-unreachable, when skipping tracker announces
+
+1.2.10.0
+ * libtorrent 1.2.10 update (70f1de3f7ec4012aaea420ff150ef0135d397706)
+ * lt: improve stat_file() performance on Windows
+ * lt: fix issue with loading invalid torrents with only 0-sized files
+ * lt: fix to avoid large stack allocations
+ * lt: add macro TORRENT_CXX11_ABI for clients building with C++14 against
+   libtorrent build with C++11
+ * lt: removed deprecated wstring overloads on non-windows systems
+ * lt: drop dependency on Unicode's ConvertUTF code (which had a license
+   incompatible with Debian)
+ * lt: fix bugs exposed on big-endian systems
+ * lt: fix detection of hard-links not being supported by filesystem
+ * lt: fixed resume data regression for seeds with prio 0 files
+ * binaries: compiler upgraded from g++-5 to g++-7
+
+1.2.8.0
+ * add router.utorrent.com to list of DHT bootstrap nodes
+ * Android builds with new NDK r21d
+ * lt: validate UTF-8 encoding of client version strings from peers
+ * lt: don't time out tracker announces as eagerly while resolving hostnames
+ * lt: fix NAT-PMP shutdown issue
+ * lt: improve hostname lookup by merging identical lookups
+ * lt: fix network route enumeration for large routing tables
+ * lt: fixed issue where pop_alerts() could return old, invalid alerts
+ * lt: fix issue when receiving have-all message before the metadata
+ * lt: don't leave lingering part files handles open
+ * lt: disallow calling add_piece() during checking
+ * lt: fix incorrect filename truncation at multi-byte character
+ * lt: always announce listen port 1 when using a proxy
+
+1.2.7.0
+ * libtorrent 1.2.7 update (ce0a85f783bec37484776a37fe3662279091ecc5)
+ * upgraded to boost 1.73.0
+ * upgraded to openssl 1.1.1g
+ * lt: fix incorrect filename truncation at multi-byte character
+ * lt: always announce listen port 1 when using a proxy
+ * lt: add set_alert_fd in python binding, to supersede set_alert_notify
+ * lt: fix bug in part files > 2 GiB
+ * lt: add function to clear the peer list for a torrent
+ * lt: fix resume data functions to save/restore more torrent flags
+ * lt: limit number of concurrent HTTP announces
+ * lt: fix queue position for force_rechecking a torrent that is not auto-managed
+ * lt: improve rate-based choker documentation, and minor tweak
+ * lt: undeprecate upnp_ignore_nonrouters (but refering to devices on our subnet)
+ * lt: increase default tracker timeout
+ * lt: retry failed socks5 server connections
+ * lt: allow UPnP lease duration to be changed after device discovery
+ * lt: fix IPv6 address change detection on Windows
+ * lt: fix peer timeout logic
+ * lt: simplify proxy handling. A proxy now overrides listen_interfaces
+ * lt: fix issues when configured to use a non-default choking algorithm
+ * lt: fix issue in reading resume data
+ * lt: revert NXDOMAIN change from 1.2.4
+ * lt: don't open any listen sockets if listen_interfaces is empty or misconfigured
+ * lt: fix bug in auto disk cache size logic
+ * lt: fix issue with outgoing_interfaces setting, where bind() would be called twice
+ * lt: add build option to disable share-mode
+ * lt: support validation of HTTPS trackers
+ * lt: deprecate strict super seeding mode
+ * lt: make UPnP port-mapping lease duration configurable
+ * lt: deprecate the bittyrant choking algorithm
+ * lt: add build option to disable streaming
+
+1.2.6.0
+ * There was no 1.2.6 release, we waited and jumped all the way to 1.2.7.0
+
+1.2.5.0
+ * libtorrent 1.2.5 update (0f337b9ce7a1b0fc87f48843933b1c5c4dd5a9ec)
+ * New SettingsPack::dhtUploadRate(), SettingsPack::dhtUploadRate(int)
+ * lt:announce port=1 instead of port=0, when there is no listen port
+ * lt:fix LSD over IPv6
+ * lt:support TCP_NOTSENT_LOWAT on Linux
+ * lt:fix correct interface binding of local service discovery multicast
+ * lt:fix issue with knowing which interfaces to announce to trackers and DHT
+ * lt:undeprecate settings_pack::dht_upload_rate_limit
+
+1.2.4.0
+ * libtorrent 1.2.4 update (ad83b1c0eb293b63c69f7879ca6ba2381369f77f)
+ * Java source compatibility upgraded from 1.7 to 1.8
+ * lt:fix binding TCP and UDP sockets to the same port, when specifying port 0
+ * lt:fix announce_to_all_trackers and announce_to_all_tiers behavior
+ * lt:fix suggest_read_cache setting
+ * lt:back-off tracker hostname looksups resulting in NXDOMAIN
+ * lt:lower SOCKS5 UDP keepalive timeout
+ * lt:fix external IP voting for multi-homed DHT nodes
+ * lt:deprecate broadcast_lsd setting. Just use multicast
+ * lt:deprecate upnp_ignore_nonrouters setting
+ * lt:don't attempt sending event=stopped if event=start never succeeded
+ * lt:make sure &key= stays consistent between different source IPs (as mandated by BEP7)
+ * lt:fix binding sockets to outgoing interface
+ * lt:add new socks5_alert to trouble shoot SOCKS5 proxies
+
+1.2.3.0
+  * libtorrent 1.2.3 update (b5bf6c3260bd726b0181671625c007be5ad49845)
+  * using android NDK r20b
+  * upgraded to boost 1.72.0
+  * upgraded to openssl 1.1.1d
+  * swig version 4.0.1 (from 3.0.12)
+  * lt:fix erroneous event=completed tracker announce when checking files
+  * lt:promote errors in parsing listen_interfaces to post listen_failed_alert
+  * lt:fix bug in protocol encryption/obfuscation
+  * lt:fix buffer overflow in SOCKS5 UDP logic
+  * lt:fix issue of rapid calls to file_priority() clobbering each other
+  * lt:clear tracker errors on success
+  * lt:optimize setting with unlimited unchoke slots
+  * lt:fixed restoring of trackers, comment, creation date and created-by in resume data
+  * lt:fix handling of torrents with too large pieces
+  * lt:fixed division by zero in anti-leech choker
+  * lt:fixed bug in torrent_info::swap
+
+1.2.2.0
+  * libtorrent 1.2.2 update (d5b56ca1876dc7b96ef9aac7c7584e1f61d25774)
+  * using android NDK r20 (released June 2019)  
+  * new local build script for android x86_64 (api level 20)
+  * updated to boost 1.71.0
+  * upgraded openssl to 1.1.1c
+  * compiled with std=c++14 (up from c++11)
+  * lt:pick contiguous pieces from peers with high download rate
+  * lt:fix error handling of moving storage to a drive letter that isn't mounted
+  * lt:fix integer overflow in http parser
+  * lt:fix integer overflow in chunked http parser
+  * lt:factor out and unit test parts of the DHT routing table logic
+  * lt:improve sanitation of symlinks, to support more complex link targets (file_storage::sanitize_symlinks)
+  * lt:avoid empty dht routing table buckets
+  * lt:fix dht_stats_alert routing table stats for multi-homed clients
+  * lt:fix entry assignment from bdecode_node and lazy_entry
+  * lt:fix use-after-free issue in socket_type
+  * lt:fix error code messages when building without deprecated functions
+  * lt:feature to disable DHT, PEX and LSD per torrent
+  * lt:fix seeding of random number generator on mingw
+  * lt:fix issue where trackers from magnet links were not included in create_torrent()
+  * lt:extend the whole_pieces_threshold setting to also request contiguous pieces from fast peers
+  * lt:fix error handling of moving storage to a drive letter that isn't mounted
+  * lt:don't leak exceptions out of handler callbacks in resolver
+  * lt:ensure headers build independently
+  * lt:fix unit template's mutating operators to give them proper ref qualifiers
+
+1.2.1.0
+  * using android NDK r19c (released January 2019)
+  * updated to boost 1.70.0
+  * lt:make sure session cleanup releases all its references to torrents
+  * lt:track the mapped port for each NAT mapping transport
+  * lt:optimize resolve_duplicate_filenames_slow()
+  * lt:use a more restrictive limit on number of pieces allowed in a torrent
+  * lt:improve disk I/O logging
+  * lt:always flush disk I/O job queue before shutdown
+  * lt:fix typo in validation of reject messages. Make on_choke a bit more defensive
+  * lt:tighten up validation of dont-have messages
+  * lt:tighten up validation of reject messages, to ensure consistency of stats counters
+  * lt:tighten up message size checks
+  * lt:update symlinks to conform to BEP 47
+  * lt:source code cleanup, performance and stability
+  
+1.2.0.20
+  * updated to libtorrent RC_1_2 HEAD
+  * updated to OpenSSL 1.1.1b
+  * lt:add support for creating symlinks, for torrents with symlinks in them
+  * lt:allow padfiles of equal size to share the same filename
+  * lt:fix seed_mode flag
+  * lt:support numeric suffixes to magnet link parameter names
+  * lt:added FrostWire's client ID
+  * lt:don't try to hash empty read in do_uncached_hash
+  * lt:don't copy a vector into the async_write operation for iovec
+  * lt:on linux, link against lbdl when using openssl
+  * lt:use UNC paths pervasively on windows
+  * lt:source code cleanup, performance and stability
+
+1.2.0.19
+  * libtorrent release 1.2.0
+  * using android NDK r18b
+  * updated to boost 1.69.0
+  * updated to OpenSSL 1.1.1a
+  * fixed activeDhtLimit SettingsPack setter
+  * development: new local build scripts for macosx, android, linux, windows
+  * lt:only allow cwnd to be reduced so often (utp)
+  * lt:avoid announcing local ip to private tracker
+  * lt:don't treat loss of MTU probe packet as a congestion signal (utp)
+  * lt:make sure we reset the duplicate ack counter every time we don't receive
+    a duplicate ack (utp)
+  * lt:remove old (incompatible) sequence number build option (utp)
+  * lt:don't leave slow-start just because we hit the advertized receive window
+  * lt:simplify and improve the uTP deferred ACK logic to respond earlier
+  * lt:improve logic for fast-retransmitting packets on incoming SACK
+  * lt:improve utp verbose logging a bit and make the parser pull out more
+    metrics
+  * lt:restore permissions on directories to 1.1. i.e. rely on umask
+  * lt:minor fix to invalid_request_alert logging
+  * lt:add assignment operator to span
+  * lt:fix %u -> %d format codes
+  * lt:fix deprecation markup in torrent_status
+  * lt:tweak heuristic of how to interpret url seeds in multi-file torrents
+  * lt:added more TORRENT_DEPRECATED_ENUM and deprecated unused aio_max in
+    settings_pack
+  * lt:take a string_view in setting_by_name
+  * lt:fix typo in peer log
+  * lt:deprecate start_default_features flag, it's only used in deprecated API
+  * lt:remove verbose peer logging
+  * lt:make stack_allocator::format_string() grow the buffer for large strings
+  * lt:move where socket buffers are set up, to happen after the socket is
+    opened. log errors in the peer's log instead of session and torrent
+  * lt:add stats counter for the number of outstanding async_accept calls
+  * lt:fix potential issue where the dht port message is sent before the peer
+    handshake
+  * lt:correct %u format code for pieces in printf() calls
+  * lt:attempt to fix an assert for a newly connected peer that disconnects just
+    as we receive the metadata
+  * lt:don't use page aligned disk buffers
+  * lt:include &ipv4= for private trackers
+  * lt:add support for &ipv4= tracker argument
+  * lt:use new bdecoder in ut_metadata class
+  * lt:fix redundant bytes overflow
+  * lt:check for self-assignment in bitfield operator=
+  * lt:initialize bencoded ints with zero when constructed
+  * lt:exit natpmp::on_reply earlier if we're shutting down
+  * lt:fix setting ipv6 interface
+  * lt:a better fix to the ssl port announce bug
+  * lt:perfect forward async handlers for udp_socket to underlying asio socket
+  * lt:move the whole add_torrent_params object into save_resume_data_alert
+  * lt:actually fix the issue with the second tracker announce with port 0
+  * lt:remove redundant MTU boundary checks
+  * lt:fix of asio-debugging build in natpmp. resend_request could be called
+    directly, not only as a handler for an async operation
+  * lt:fix move_storage with save_path with a trailing slash
+  * lt:only make snubbed peers invert the piece picking strategy when we're
+    doing rarest first
+  * lt:ssl listen port fix and improved tracker announce logging
+  * lt:properly tear down the disk_io_thread object in set_piece_hashes() when
+    exiting via an exception
+  * lt:make throwing versions of read_resume_data
+  * lt:fix overflow in sliding_average in the case of very high download rates
+  * lt:renamed debug_notification to connect_notification
+  * lt:fix issue in udp_socket with unusual socket failure
+  * lt:utp close-reason use after free fix
+  * lt:source code cleanup, performance and stability
+
+
+1.2.0.18
+
+  * using android NDK r17c
+  * updated to boost 1.68.0
+  * updated to OpenSSL 1.1.1
+  * expose to java SWIG api the aux::arm_neon_support flag for android
+      runtime verification
+  * removed hack of custom getauxval definition
+  * removed hack of fgetpos fsetpos
+  * removed hack of mulodi4
+  * null check protection in EnumNet
+  * added new constructor to TorrentInfo from byte array
+  * improved API for AnnounceEntry
+  * added AnnounceEndpoint java API, it is a lightweight class
+  * convert ErrorCode to a lightweight class
+  * convert PeerInfo to a lightweight class, client is UTF-8 decoded
+  * Vectors.byte_vector2string supports only ASCII and UTF-8
+  * lt:fix redundant flushes of partfile metadata
+  * lt:fix overflow in calc_bytes(), fix bug in piece picker accounting of
+      filtered pad blocks
+  * lt:improve type-safety of the severity parameter to
+      peer_connection::disconnect()
+  * lt:fix seed count when attaching a peer is aborted
+  * lt:add option to ignore min-interval from tracker, when
+      force-reannouncing a tracker
+  * lt:raise default value for active_limit to 500, since it's supposed to be
+      an upper sanity check limit
+  * lt:make the print function for entry actually be json-like
+  * lt:fall back to copy+remove if rename_file fails
+  * lt:improve handling of filesystems not supporting fallocate()
+  * lt:improve piece picker performance in tracking pad-blocks
+  * lt:force proxy no longer disables the DHT
+  * lt:simplify total_have/have_want/total_want. Make piece_picker track pad
+      blocks and compute byte-progress at block granularity
+  * lt:fix issue in self-connection detection introduced with the change to
+      generate unique peer-ids for each connection.
+  * lt:fix exporting files to avoid overwriting existing files, before
+      exporting anything from a parts file, check whether it contains valid data
+  * lt:improve connect-boost feature, to make new torrents quickly connect
+      peers
+  * lt:add a few more stats counters measuring outgoing connection attempts.
+      simplify session_stats_header_alert by posting it on first call to
+      post_session_stats() instead of making it gated by the alert_mask
+  * lt:remove dead code from piece picker
+  * lt:tweak the auto-cache-size logic to have slightly smaller cache
+  * lt:fix deprecation of mmap_cache
+  * lt:add missing increment of on_disk_counter and num_blocks_hashed counters
+  * lt:apply piece priorities immediately, even though file priority updates
+      are async. save both file- and piece priorities in fast resume
+  * lt:simplify natpmp gateway and local address discovery
+  * lt:fix typo in #if tests for TORRENT_DISABLE_ENCRYPTION
+  * lt:in torrent_handle::id(), only shift down the pointer by 10 bits
+  * lt:add piece index range checks on have_piece() and read_piece()
+  * lt:make metric_type_t an enum class, deprecate the in-class enum values
+  * lt:only post alerts for newly opened listen sockets, and only attempt to
+      map ports for newly opened sockets
+  * lt:remove special handling of uTP peers, uTP connections are no longer
+      exempt from rate limits by default
+  * lt:make natpmp deal with address_v6 instead of the bytes_type, and use
+      write_address instead of memcpy
+  * lt:fix exporting files from partfile while seeding
+  * lt:set port in handshake based on source address
+  * lt:fix Windows "file::preadv" emulation EOF handling
+  * lt:fix windows async read EOF handling
+  * lt:fix bug in read/write resume data functions
+  * lt:dht don't set implied_port for SSL torrents
+  * lt:dht announce with per-interface listen port
+  * lt:deprecate (and disable) the force-proxy setting. Instead, always use
+      the proxy when set, never fall back on circumventing it
+  * lt:move the file priority vector throught the disk_io_job, to avoid copies
+  * lt:raise priority of cache_flushed_alert and post it unconditionally when
+      triggered explicitly by the client
+  * lt:fix some validation issues in read_resume_data()
+  * lt:bump the minimum number of hash jobs per thread from 2 to 4
+  * lt:fix deadlock when loading libtorrent Dll
+  * lt:fix torrent files prioritization
+  * lt:fix some unintentional copies (with explicit moves)
+  * lt:qualify some assignment operators to disallow assignment to temporaries
+  * lt:fix missing move of file object in part_file
+  * lt:use more threads when creating torrents
+  * lt:bump checking_mem_usage default setting
+  * lt:enable coalesce_reads and coalesce_writes by default on windows
+  * lt:set the minimum number of checking jobs based on the number of hasher
+      threads
+  * lt:fix coalesce read bug
+  * lt:introduce a fast-path for the hash disk job
+  * lt:fix race condition in part_file
+  * lt:fix parts file i/o errors
+  * lt:fixed sign implicit conversion warnings and loop logic in new enum_net
+      code
+  * lt:improve the API for iterating over all files and pieces, with the new
+      strong index types
+  * lt:deprecate network-threads setting
+  * lt:scrape_reply_alert should be high priority, since it's triggered by the
+      client
+  * lt:add support for multi-home NAT-PMP and Port Control Protocol (PCP)
+  * lt:report transport version in NAT-PMP send/receive logs
+  * lt:return a vector of mapping ids from add_port_mapping
+  * lt:don't re-map all listen sockets when changing listen_interfaces
+  * lt:create a natpmp instance for each listen socket
+  * lt:enum_routes fixes on Linux
+  * lt:fix scope_id in enum_routes on Windows
+  * lt:remove UNC prefixes from device names on Windows
+  * lt:fix netmask of routes on Windows
+  * lt:deliver notification of alerts being dropped via alerts_dropped_alert
+  * lt:raise priority of fastresume_rejected_alert
+  * lt:don't use the partfile for existing files when their priority is 0
+  * lt:set the hidden attribute when creating the part file
+  * lt:only start a new accept request on new listen sockets, fix mapping new
+      listen sockets when re-mapping is not requested
+  * lt:don't change state to downloading if the torrent is finished
+  * lt:bump `file_error_alert` priority
+  * lt:fix address of point-to-point interfaces
+  * lt:don't enable reuse-address for UDP sockets, as it will always succeed
+      and not get any incoming packets
+  * lt:account for partially downloaded pieces when announcing as a seed
+  * lt:fix bandwidth allocation
+  * lt:don't attempt to make uTP connections if we don't have any outgoing UDP
+      sockets
+  * lt:fix empty outgoing interfaces for UDP sockets
+  * lt:only allow pinged nodes into the DHT routing table
+  * lt:introduce a recursive mutex to protect the alert_manager, and hold the
+      mutex while calling user callbacks and plugin hooks
+  * lt:revise alert priorities / torrent::on_resume_data_checked issue
+  * lt:save the number of idle threads locally in
+      disk_io_thread_pool::thread_active
+  * lt:fix use after free in flush_range and flush_iovec
+  * lt:honor torrent abort even on file check error
+  * lt:use settings_pack::urlseed_wait_retry for default retry with http seeds
+  * lt:fix storage initialization
+  * lt:strtoll() returns LLONG_MAX if the input overflows, handle this case
+      properly in the http parser
+  * lt:remove the global cache of the current time, just use clock::now()
+  * lt:deprecated alert::progress_notification alert category, split into
+      finer grained categories
+  * lt:disk_io_thread abort_hash_jobs duplicate code refactor
+  * lt:fix part-file header allocation
+  * lt:fix potential fd leak in enum_net_interfaces
+  * lt:don't perform DNS lookups for the DHT bootstrap unless DHT is enabled
+  * lt:avoid calls to .address() when looking for endpoint protocol
+  * lt:removed unnecessary loop in request_a_block
+  * lt:fix changing file priorities while checking interrupts checking
+  * lt:fix issue where the current tracker would be skipped for the next
+      tracker in the same tier
+  * lt:remove redundant check in tracker announce
+  * lt:minor fixes in utp_socket_impl
+  * lt:stat files in the disk thread, in default_storage::initialize()
+      instead of the constructor
+  * lt:dynamically load getauxval so as to support older android devices
+  * lt:track whether a file is eligible for using the partfile on a per-file
+      basis
+  * lt:define NETLINK_NO_ENOBUFS and IFA_D_DADFAILED if they don't exist
+  * lt:fix reporting &redundant= in tracker announces
+  * lt:fix windows build with UNC paths disabled
+  * lt:fix issue querying block size from torrent before metadata has been
+      received
+  * lt:source code cleanup, performance and stability
+
+1.2.0.17
+
+  * added EnumNet java API to help query the device network state/status/info
+  * compiling with -mstackrealign for android x86, some devices have stack
+      alignment issues
+  * lt:fix tie-break in duplicate peer connection disconnect logic
+  * lt:fix issue with SSL tracker connections left in CLOSE_WAIT state
+  * lt:defer truncating existing files until the first time we write to them
+  * lt:fix issue when receiving a torrent with 0-sized padfiles as magnet link
+  * lt:fix issue resuming 1.0.x downloads with a file priority 0
+  * lt:fix torrent_status::next_announce
+  * lt:turn piece picker option flags into a proper type
+  * lt:fix pad-file scalability issue
+  * lt:made coalesce_reads/coalesce_writes settings take effect on linux
+      and windows
+  * lt:source code cleanup, performance and stability
+
+1.2.0.16
+
+  * using version in native library names
+  * updated to boost 1.66.0
+  * lt:use unique peer_ids per connection
+  * lt:fix tracker connection bind issue for IPv6 trackers
+  * lt:fix error handling of merkle torrents
+  * lt:fix error handling of unsupported hard-links
+  * lt:raise auto piece size selection limit to 16 MB in create_torrent()
+  * lt:mark up performance counter operations as noexcept
+  * lt:fix noexcept marking on entry, and make move assignment
+  * lt:using make_address instead of deprecated from_string when boost>=1.66
+  * lt:block_size is a constant, no need in passing it around as a variable
+  * lt:remove_peer() and attach_peer() error handling
+  * lt:support forced shutdown/destruction of torrent objects
+  * lt:improve error handling during session shutdown
+  * lt:handle serious errors in on_accept_connection handler
+  * lt:deprecate save_encryption_settings
+  * lt:handle errors in peer_connection
+  * lt:support asio handler allocators in deferred_handler
+  * lt:don't heap-allocate handlers for incoming UDP packets
+  * lt:make the chunk header parser properly fail at end of buffer, and not
+      require zero terminated strings
+  * lt:add getters for peer_class_filter and peer_class_type_filter
+  * lt:attempt to fix disconnections when torrents enter upload mode due to
+      failures
+  * lt:fix local network address mappings
+  * lt:deprecate status_code from tracker_error_alert
+  * lt:make torrent_handler::set_priority() to use peer_classes
+  * lt:improve type safety of plugin interface
+  * lt:introduce a proper type for pex flags to improve type-safety
+  * lt:fix reopening of listen sockets when disabling force-proxy
+  * lt:fix build against boost-1.66, specifically the boost.asio changes
+  * lt:fix asio debugging
+  * lt:fix rate limit utp feature
+  * lt:fix i2p support
+  * lt:source code cleanup, performance and stability
+
+1.2.0.15
+
+  * added java API to download magnet uri
+  * fixed issue with prioritize_files swig wrapper
+  * API change in TorrentHandle#saveResumeData, now it pass empty flags
+      by default
+  * using android NDK r16b
+  * updated to OpenSSL 1.1.0g
+  * lt:fix loading resume data when in seed mode
+  * lt:fix incorrect use of make_tick_handler
+  * lt:fix issue with initializing settings on session construction
+  * lt:implemented support for magnet URI extension, select specific file
+      indices for download, BEP53
+  * lt:fix issue with receiving interested before metadata
+  * lt:generate random keys for use in tracker announces, unique per torrent
+      and the listen interface
+  * lt:fix IPv6 tracker announce issue
+  * lt:don't early move shared_ptr plugin in torrent::add_extension_fun
+  * lt:fix force-proxy regression (udp sockets would not be opened)
+  * lt:restore path sanitization behavior of ':'
+  * lt:make tracker announces happen even if there are no open listen sockets
+  * lt:fix issue where new listen sockets would not be opened when leaving
+      force_proxy mode
+  * lt:make sure the cork destructor doesn't leak exceptions
+  * lt:stop posting alerts when the session is shutting down, solves some
+      issues around destruction order
+  * lt:add API to query whether alerts have been dropped or not
+  * lt:keep updating aux::time_now() while there are announces, fixes an
+      infinite loop during shutdown
+  * lt:source code cleanup, performance and stability
+
+1.2.0.14
+
+  * fixed invalid handling of download_priority_t and swig wrapper
+
+1.2.0.13
+
+  * enable full SSL support in libtorrent
+  * compiling with -fvisibility=hidden and -Os
+  * using android NDK r16 beta2
+  * updated to boost 1.65.1
+  * internal session in SessionManager blocks privileged ports and
+      only allows 80 and 443 for possible web seeds connections
+  * lt:enable/disable the internal ip notifier with new setting
+  * lt:fix issue of null m_part_file in default_storage readv/writev
+  * lt:added reopen_network_sockets method to allow manual reopen of
+      listen/outgoing sockets
+  * lt:using NETLINK_NO_ENOBUFS to ignore ENOBUFS in netlink based ip notifier
+  * lt:add limit of max 50 upnp mappings and recover free global mappings
+  * lt:creating part file if needed only in set_file_priorities
+  * lt:fix full allocation failure on APFS
+  * lt:make parse_magnet_uri return the add_torrent_params instead of
+      taking an in-out parameter
+  * lt:pick standard std::aligned_union if using clang
+  * lt:make disk_buffer_holder know the size of the buffer it holds, to fix
+      buffer overrun in chained_buffer
+  * lt:fix infinite loop when parsing certain invalid magnet links
+  * lt:don't delete pieces from cache with refcount > 0
+  * lt:don't try to connect to a global address with a local source address
+  * lt:fix parsing of torrents with certain invalid filenames
+  * lt:fix leak of peer_class objects (when setting per-torrent rate limits)
+  * lt:more strict filename sanitation
+  * lt:improve handling of case where a torrent file has no files in it
+  * lt:clean up and fix edge cases in update_path_index
+  * lt:fix issue with the name in single file torrents being sanitized away
+  * lt:make the chunk header parser a bit more strict and accurate
+  * lt:fix integer overflow in torrent_info
+  * lt:fix windows file preallocation issue
+  * lt:fix integer overflow in whole_pieces_threshold logic
+  * lt:DHT nodes should only handle requests on their socket
+  * lt:bump priority of storage_moved_alert and storage_moved_failed_alert
+  * lt:deprecate lock_files settings
+  * lt:fix uTP path MTU discovery issue on windows, DF bit was not set
+      correctly
+  * lt:select which DHT port to report based on the connection's local
+      endpoint
+  * lt:avoid port mapping of local IPv6 addresses
+  * lt:include endpoint in tracker alerts
+  * lt:hold an owning reference to storage objects in try_flush_write_blocks
+  * lt:read_piece: handle failure to allocate piece buffer
+  * lt:treat unique local IPv6 addresses as local
+  * lt:source code cleanup, performance and stability
+
+1.2.0.12
+
+  * updated to boost 1.65
+  * storing external address and listen endpoints as strings for better
+      performance
+  * improved creation of peers part of magnet links
+  * lt:fixed netlink based network interface enumeration
+  * lt:remove support for using a pool allocator for disk buffers
+  * lt:fix IPv6 tracker support by performing the second announce in
+      more cases
+  * lt:fix issue in UTF-8 encoding validation
+  * lt:fix infinite loop when parsing torrents whose filenames have zeroes
+  * lt:fix invalid read in parse_int() in bdecode_node()
+  * lt:don't create web seed connections if the torrent is upload only
+  * lt:fix issue with very long tracker and web seed URLs
+  * lt:fix issue where paths were not correctly coalesced when adding files
+      to file_storage (used more memory than necessary)
+  * lt:fix issue of force-recheck or seeding from read-only media, torrents
+      with empty files in them
+  * lt:fix force-recheck issue (new files would not be picked up)
+  * lt:source code cleanup, performance and stability
+
+1.2.0.11
+
+  * using android NDK r15c
+  * using -O2 for all architectures
+  * lt:fix to clearing of piece picker in suggest_read_cache mode
+  * lt:fix memory issues with listen sockets references
+  * lt:fix bug where the resume data would fail to load the piece bitmask for
+      seeds when suggest_cache was enabled
+  * lt:submit disk jobs in read_piece()
+  * lt:add reserve entry::to_string() (optimization)
+  * lt:refactor several flags to torrent_handle::get_flags/set_flags
+  * lt:added block_uploaded_alert to allow client to track upload activity
+  * lt:fix inconsistency in file_priorities and override_resume_data behavior
+  * lt:remove call _strchr (optimization)
+  * lt:fix bandwidth rate limit calculation
+  * lt:fix handling of SSL listen sockets
+  * lt:don't move listen_socket_t when deleting sockets
+  * lt:avoid executing timed async task if the dht node is already removed
+  * lt:reject DHT put messages with incorrect bencoding
+  * lt:fix backwards compatibility issue when loading the torrent info dict
+      from resume data
+  * lt:fix regression where paused torrents could not have their queue
+      position changed
+  * lt:use netlink to enumerate network interfaces on linux
+  * lt:fix out-of-bounds read in bdecode
+  * lt:fix re-check issue after move_storage
+  * lt:avoid runtime fail with wrong arguments in upnp::update_map
+  * lt:handle invalid arguments to set_piece_deadline()
+  * lt:fix that move_storage did not work for torrents without metadata
+  * lt:fix check for fully allocated file on windows
+  * lt:defer reconnecting peers to after the second_tick loop
+  * lt:implemented support for BEP 51
+  * lt:source code cleanup and stability
+
+1.2.0.10
+
+  * added swig interface to announce_endpoint
+
+1.2.0.9
+
+  * updated to OpenSSL 1.1.0f
+  * updated to boost 1.64
+  * using android NDK r15
+  * avoid automatic UTF-8 conversion in JNI side when using string_view
+  * lt:fix bandwidth rate limit calculation
+  * lt:fix for what appears to be an clang/llvm miscompilation
+  * lt:only listen on preferred IPv6 addresses on Windows
+  * lt:when stopping a torrent, never perform a name lookup on the tracker,
+      only announce to trackers whose IP we already know. This is expected to
+      make shutdowns not hang
+  * lt:fix previously faulty fix to enum_routes
+  * lt:delay 5 seconds before reconnecting socks5 proxy for UDP ASSOCIATE
+  * lt:fix NAT-PMP crash when removing a mapping at the wrong time
+  * lt:fix race condition in storage tick handling in disk_io_thread
+  * lt:keep iterating over endpoints if one is found to be done in
+      tracker announce loop
+  * lt:don't abort the existing torrent when attempting to add it again
+  * lt:fix IPv6 UTP assertion failure, close listen sockets after closing
+      all connections
+  * lt:fix branch factor overflow in DHT traversal algorithm
+  * lt:bind upnp requests to correct local address
+  * lt:don't combine reuseaddr and exclusive addruse on windows
+  * lt:save resume data when removing web seeds
+  * lt:fix proxying of https connections
+  * lt:fix race condition in disk I/O storage class
+  * lt:avoid extra sha1_hash memory copy in create_torrent
+  * lt:fix http connection timeout on multi-homed hosts
+  * lt:implemented multi-home support
+  * lt:make DHT bootstrapping more robust by not throwing away nodes
+  * lt:need_save_resume_data() will no longer return true every 15 minutes
+  * lt:create a separate DHT node for each listen socket
+  * lt:avoid connections to trackers when the event is stopped and
+      stop_tracker_timeout <= 0
+  * lt:fix storage destruction order issue
+  * lt:fix memory leak in the disk cache
+  * lt:magnet links: unescape hash parameter
+  * lt:fix double free in disk cache
+  * lt:fix typo in natpmp::start
+  * lt:remove mutex-release hack in file_pool
+  * lt:source code cleanup and stability
+
+1.2.0.8
+
+  * fixed synchronization issues in SessionManager#stop
+
+1.2.0.7
+
+  * added support for ip_notifier in macOS
+  * added resolver_cache_timeout setting for internal host name resolver
+  * improved public API
+  * internal fixes in libtorrent
+
+1.2.0.7-RC3
+
+  * start of changelog

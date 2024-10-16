@@ -4,10 +4,7 @@ import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The Entry class represents one node in a bencoded hierarchy. It works as a
@@ -49,33 +46,12 @@ public final class Entry {
         return e.integer();
     }
 
-    public ArrayList<Entry> list() {
-        entry_vector v = e.list().to_vector();
-        int size = (int) v.size();
-
-        ArrayList<Entry> list = new ArrayList<Entry>(size);
-
-        for (int i = 0; i < size; i++) {
-            list.add(new Entry(v.get(i)));
-        }
-
-        return list;
+    public List<Entry> list() {
+        return new EntryList(e.list());
     }
 
     public Map<String, Entry> dictionary() {
-        string_entry_map dict = e.dict();
-        string_vector keys = dict.keys();
-        int size = (int) keys.size();
-
-        Map<String, Entry> map = new HashMap<>(size);
-
-        for (int i = 0; i < size; i++) {
-            String key = keys.get(i);
-            Entry value = new Entry(dict.get(key));
-            map.put(key, value);
-        }
-
-        return map;
+        return new EntryMap(e.dict());
     }
 
     @Override
@@ -95,53 +71,139 @@ public final class Entry {
     public static Entry fromList(List<?> list) {
         entry e = new entry(entry.data_type.list_t);
 
-        entry_list d = e.list();
+        entry_vector d = e.list();
         for (Object v : list) {
             if (v instanceof String) {
-                d.push_back(new entry((String) v));
+                d.add(new entry((String) v));
             } else if (v instanceof Integer) {
-                d.push_back(new entry((Integer) v));
+                d.add(new entry((Integer) v));
             } else if (v instanceof Entry) {
-                d.push_back(((Entry) v).swig());
+                d.add(((Entry) v).swig());
             } else if (v instanceof entry) {
-                d.push_back((entry) v);
+                d.add((entry) v);
             } else if (v instanceof List) {
-                d.push_back(fromList((List<?>) v).swig());
+                d.add(fromList((List<?>) v).swig());
             } else if (v instanceof Map) {
-                d.push_back(fromMap((Map<?, ?>) v).swig());
+                d.add(fromMap((Map<String, ?>) v).swig());
             } else {
-                d.push_back(new entry(v.toString()));
+                d.add(new entry(v.toString()));
             }
         }
 
         return new Entry(e);
     }
 
-    public static Entry fromMap(Map<?, ?> map) {
+    public static Entry fromMap(Map<String, ?> map) {
         entry e = new entry(entry.data_type.dictionary_t);
 
         string_entry_map d = e.dict();
-        for (Map.Entry<?, ?> kv : map.entrySet()) {
-            String k = kv.getKey().toString();
-            Object v = kv.getValue();
+        for (String k : map.keySet()) {
+            Object v = map.get(k);
 
             if (v instanceof String) {
-                d.set(k, new entry((String) v));
+                d.put(k, new entry((String) v));
             } else if (v instanceof Integer) {
-                d.set(k, new entry((Integer) v));
+                d.put(k, new entry((Integer) v));
             } else if (v instanceof Entry) {
-                d.set(k, ((Entry) v).swig());
+                d.put(k, ((Entry) v).swig());
             } else if (v instanceof entry) {
-                d.set(k, (entry) v);
+                d.put(k, (entry) v);
             } else if (v instanceof List) {
-                d.set(k, fromList((List<?>) v).swig());
+                d.put(k, fromList((List<?>) v).swig());
             } else if (v instanceof Map) {
-                d.set(k, fromMap((Map<?, ?>) v).swig());
+                d.put(k, fromMap((Map<String, ?>) v).swig());
             } else {
-                d.set(k, new entry(v.toString()));
+                d.put(k, new entry(v.toString()));
             }
         }
 
         return new Entry(e);
+    }
+
+    private static final class EntryList extends AbstractList<Entry> {
+
+        private final entry_vector v;
+
+        public EntryList(entry_vector v) {
+            this.v = v;
+        }
+
+        @Override
+        public Entry get(int index) {
+            return new Entry(v.get(index));
+        }
+
+        @Override
+        public boolean add(Entry entry) {
+            v.add(entry.swig());
+            return true;
+        }
+
+        @Override
+        public int size() {
+            return (int) v.size();
+        }
+
+        @Override
+        public void clear() {
+            v.clear();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return v.isEmpty();
+        }
+    }
+
+    private static final class EntryMap extends AbstractMap<String, Entry> {
+
+        private final string_entry_map m;
+
+        public EntryMap(string_entry_map m) {
+            this.m = m;
+        }
+
+        @Override
+        public com.frostwire.jlibtorrent.Entry get(Object key) {
+            String k = key.toString();
+            return m.containsKey(k) ? new com.frostwire.jlibtorrent.Entry(m.get(key.toString())) : null;
+        }
+
+        @Override
+        public com.frostwire.jlibtorrent.Entry put(String key, com.frostwire.jlibtorrent.Entry value) {
+            com.frostwire.jlibtorrent.Entry r = get(key);
+            m.put(key, value.swig());
+            return r;
+        }
+
+        @Override
+        public int size() {
+            return (int) m.size();
+        }
+
+        @Override
+        public void clear() {
+            m.clear();
+        }
+
+        @Override
+        public boolean containsKey(Object key) {
+            return m.containsKey(key.toString());
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return m.isEmpty();
+        }
+
+        @Override
+        public Set<String> keySet() {
+            return m.keySet();
+        }
+
+        @Override
+        public Set<Entry<String, com.frostwire.jlibtorrent.Entry>> entrySet() {
+            throw new UnsupportedOperationException();
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.frostwire.jlibtorrent.swig.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,33 +24,64 @@ public final class TorrentInfo {
 
     /**
      * Load the torrent file and decode it inside the constructor, for convenience.
-     * <p/>
+     * <p>
      * This might not be the most suitable for applications that
      * want to be able to report detailed errors on what might go wrong.
      *
-     * @param torrent
+     * @param torrent the torrent file
      */
     public TorrentInfo(File torrent) {
         this(bdecode0(torrent));
     }
 
+    /**
+     * Load the torrent data and decode it inside the constructor, for convenience.
+     * <p>
+     * This might not be the most suitable for applications that
+     * want to be able to report detailed errors on what might go wrong.
+     *
+     * @param data the torrent data
+     */
+    public TorrentInfo(byte[] data) {
+        this(bdecode0(data));
+    }
+
+    public TorrentInfo(MappedByteBuffer buffer) {
+        try {
+            long ptr = libtorrent_jni.directBufferAddress(buffer);
+            long size = libtorrent_jni.directBufferCapacity(buffer);
+
+            error_code ec = new error_code();
+            this.ti = new torrent_info(ptr, (int) size, ec);
+
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException("Can't decode data: " + ec.message());
+            }
+        } catch (Throwable e) {
+            throw new IllegalArgumentException("Can't decode data mapped buffer: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * @return the native object
+     */
     public torrent_info swig() {
         return this.ti;
     }
 
     /**
-     * The {@link com.frostwire.jlibtorrent.FileStorage} object contains the information on
+     * The {@link FileStorage} object contains the information on
      * how to map the pieces to files.
-     * <p/>
+     * <p>
      * It is separated from the {@link TorrentInfo} object because when creating torrents
      * a storage object needs to be created without having a torrent file. When renaming files
      * in a storage, the storage needs to make its own copy of the {@link FileStorage} in order
      * to make its mapping differ from the one in the torrent file.
      *
-     * @return
+     * @return the files storage
      */
     public FileStorage files() {
-        return new FileStorage(ti, ti.files());
+        return new FileStorage(ti.files(), ti);
     }
 
     /**
@@ -57,10 +89,10 @@ public final class TorrentInfo {
      * is used by the web server connection, which needs to request files with the original
      * names. Filename may be changed using {@link #renameFile(int, String)}.
      *
-     * @return
+     * @return the original file storage
      */
     public FileStorage origFiles() {
-        return new FileStorage(ti, ti.orig_files());
+        return new FileStorage(ti.orig_files(), ti);
     }
 
     /**
@@ -75,13 +107,12 @@ public final class TorrentInfo {
      * <p>
      * The {@code newFilename} can both be a relative path, in which case the
      * file name is relative to the {@code savePath} of the torrent. If the
-     * {@code newFilename} is an absolute path (i.e. "is_complete(newFilename)
-     * == true"), then the file is detached from the {@code savePath} of the
-     * torrent. In this case the file is not moved when
-     * {@link TorrentHandle#moveStorage(String, int)} is invoked.
+     * {@code newFilename} is an absolute path then the file is detached from
+     * the {@code savePath} of the torrent. In this case the file is not moved when
+     * {@link TorrentHandle#moveStorage(String, MoveFlags)} is invoked.
      *
-     * @param index
-     * @param newFilename
+     * @param index       the file index to rename
+     * @param newFilename the new file name
      */
     public void renameFile(int index, String newFilename) {
         ti.rename_file(index, newFilename);
@@ -96,7 +127,7 @@ public final class TorrentInfo {
      * The new specified {@link FileStorage} must have the exact same size as
      * the current one.
      *
-     * @param f
+     * @param f the file storage
      */
     public void remapFiles(FileStorage f) {
         ti.remap_files(f.swig());
@@ -105,18 +136,18 @@ public final class TorrentInfo {
     /**
      * Adds a tracker to the announce-list.
      *
-     * @param url
+     * @param url the tracker url
      */
     public void addTracker(String url) {
         ti.add_tracker(url);
     }
 
     /**
-     * Adds a tracker to the announce-list. The ``tier`` determines the order in
+     * Adds a tracker to the announce-list. The {@code tier} determines the order in
      * which the trackers are to be tried.
      *
-     * @param url
-     * @param tier
+     * @param url  the tracker url
+     * @param tier the tracker tier
      */
     public void addTracker(String url, int tier) {
         ti.add_tracker(url, tier);
@@ -124,12 +155,12 @@ public final class TorrentInfo {
 
     /**
      * Will return a sorted list with the trackers of this torrent info.
-     * <p/>
+     * <p>
      * Each announce entry contains a string, which is the tracker url, and a tier index. The
      * tier index is the high-level priority. No matter which trackers that works or not, the
      * ones with lower tier will always be tried before the one with higher tier number.
      *
-     * @return
+     * @return the list of trackers
      */
     public ArrayList<AnnounceEntry> trackers() {
         return trackers(ti.trackers());
@@ -146,7 +177,13 @@ public final class TorrentInfo {
      * @return
      */
     public ArrayList<Sha1Hash> similarTorrents() {
-        return Sha1Hash.convert(ti.similar_torrents());
+        //return Sha1Hash.convert(ti.similar_torrents ());
+        sha1_hash_vector vec = ti.similar_torrents();
+        ArrayList<Sha1Hash> result = new ArrayList<>(vec.size());
+        for (int i = 0; i < vec.size(); i++) {
+            result.add(new Sha1Hash(vec.get(i)));
+        }
+        return result;
     }
 
     /**
@@ -192,12 +229,12 @@ public final class TorrentInfo {
     /**
      * Adds one url to the list of url seeds. Currently, the only transport protocol
      * supported for the url is http.
-     * <p/>
+     * <p>
      * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
-     * <p/>
+     * <p>
      * This is the same as calling {@link #addUrlSeed(String, String, List)} with an
      * empty list.
      *
@@ -211,12 +248,12 @@ public final class TorrentInfo {
     /**
      * Adds one url to the list of url seeds. Currently, the only transport protocol
      * supported for the url is http.
-     * <p/>
+     * <p>
      * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
-     * <p/>
+     * <p>
      * The {@code extraHeaders} argument can be used to insert custom HTTP headers
      * in the requests to a specific web seed.
      *
@@ -228,7 +265,7 @@ public final class TorrentInfo {
         string_string_pair_vector v = new string_string_pair_vector();
 
         for (Pair<String, String> p : extraHeaders) {
-            v.push_back(p.to_string_string_pair());
+            v.add(p.to_string_string_pair());
         }
 
         ti.add_url_seed(url, externAuth, v);
@@ -247,7 +284,7 @@ public final class TorrentInfo {
     /**
      * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
      * is http.
-     * <p/>
+     * <p>
      * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
@@ -263,12 +300,12 @@ public final class TorrentInfo {
     /**
      * Adds one url to the list of http seeds. Currently, the only transport protocol supported
      * for the url is http.
-     * <p/>
+     * <p>
      * The {@code externAuth} argument can be used for other authorization schemes than
      * basic HTTP authorization. If set, it will override any username and password
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
-     * <p/>
+     * <p>
      * The {@code extraHeaders} argument defaults to an empty list, but can be used to
      * insert custom HTTP headers in the requests to a specific web seed.
      *
@@ -280,7 +317,7 @@ public final class TorrentInfo {
         string_string_pair_vector v = new string_string_pair_vector();
 
         for (Pair<String, String> p : extraHeaders) {
-            v.push_back(p.to_string_string_pair());
+            v.add(p.to_string_string_pair());
         }
 
         ti.add_url_seed(url, externAuth, v);
@@ -290,7 +327,7 @@ public final class TorrentInfo {
      * Returns all url seeds and http seeds in the torrent. Each entry
      * is a {@link WebSeedEntry} and may refer to either a url seed or http seed.
      *
-     * @return
+     * @return the list of web seeds
      */
     public ArrayList<WebSeedEntry> webSeeds() {
         web_seed_entry_vector v = ti.web_seeds();
@@ -308,13 +345,13 @@ public final class TorrentInfo {
      * Replaces all web seeds with the ones specified in the
      * {@code seeds} list.
      *
-     * @param seeds
+     * @param seeds the list of web seeds
      */
     public void setWebSeeds(List<WebSeedEntry> seeds) {
         web_seed_entry_vector v = new web_seed_entry_vector();
 
         for (WebSeedEntry e : seeds) {
-            v.push_back(e.swig());
+            v.add(e.swig());
         }
 
         ti.set_web_seeds(v);
@@ -331,7 +368,7 @@ public final class TorrentInfo {
 
     /**
      * The number of byte for each piece.
-     * <p/>
+     * <p>
      * The difference between {@link #pieceSize(int)} and {@link #pieceLength()} is that
      * {@link #pieceSize(int)} takes the piece index as argument and gives you the exact size
      * of that piece. It will always be the same as {@link #pieceLength()} except in the case
@@ -390,7 +427,7 @@ public final class TorrentInfo {
      * This function will map a range in a specific file into a range in the torrent.
      * The {@code offset} parameter is the offset in the file, given in bytes, where
      * 0 is the start of the file.
-     * <p/>
+     * <p>
      * The input range is assumed to be valid within the torrent. {@code offset + size}
      * is not allowed to be greater than the file size. {@code index}
      * must refer to a valid file, i.e. it cannot be {@code >= numFiles()}.
@@ -408,17 +445,18 @@ public final class TorrentInfo {
     /**
      * Returns the SSL root certificate for the torrent, if it is an SSL
      * torrent. Otherwise returns an empty string. The certificate is
-     * the public certificate in x509 format.
+     * the the public certificate in x509 format.
      *
-     * @return
+     * @return the cert as a byte array
      */
-    public byte[] sslCert() {
-        return Vectors.byte_vector2bytes(ti.get_ssl_cert());
+    byte[] sslCert() {
+        byte_vector v = Vectors.ascii2byte_vector(ti.get_ssl_cert());
+        return Vectors.byte_vector2bytes(v);
     }
 
     /**
      * Returns true if this torrent_info object has a torrent loaded.
-     * <p/>
+     * <p>
      * This is primarily used to determine if a magnet link has had its
      * metadata resolved yet or not.
      *
@@ -476,34 +514,11 @@ public final class TorrentInfo {
      *
      * @return
      */
-    public ArrayList<Sha1Hash> merkleTree() {
-        return Sha1Hash.convert(ti.merkle_tree());
-    }
 
-    /**
-     * Copies the passed in merkle tree into the torrent info object.
-     * <p>
-     * You need to set the merkle tree for a torrent that you've just created
-     * (as a merkle torrent). The merkle tree is retrieved from the
-     * {@link #merkleTree()} function, and need to be saved
-     * separately from the torrent file itself. Once it's added to
-     * libtorrent, the merkle tree will be persisted in the resume data.
-     *
-     * @param tree
-     */
-    public void merkleTree(List<Sha1Hash> tree) {
-        sha1_hash_vector v = new sha1_hash_vector();
-
-        for (Sha1Hash h : tree) {
-            v.push_back(h.swig());
-        }
-
-        ti.set_merkle_tree(v);
-    }
 
     /**
      * returns the name of the torrent.
-     * <p/>
+     * <p>
      * the name is an UTF-8 encoded strings.
      *
      * @return
@@ -513,33 +528,33 @@ public final class TorrentInfo {
     }
 
     /**
-     * returns the creation date of
-     * the torrent as time_t (`posix time`_). If there's no time stamp in the torrent file,
+     * Returns the creation date of he torrent as time_t (`posix time`_).
+     * If there's no time stamp in the torrent file,
      * a value of zero is returned.
      *
-     * @return
+     * @return the time
      */
-    public int creationDate() {
-        return ti.get_creation_date();
+    public long creationDate() {
+        return ti.creation_date();
     }
 
     /**
-     * returns the creator string in the torrent. If there is no creator string
+     * Returns the creator string in the torrent. If there is no creator string
      * it will return an empty string.
      *
-     * @return
+     * @return the creator
      */
     public String creator() {
         return ti.creator();
     }
 
     /**
-     * returns the comment associated with the torrent. If there's no comment,
+     * Returns the comment associated with the torrent. If there's no comment,
      * it will return an empty string.
-     * <p/>
-     * the comment is an UTF-8 encoded strings.
+     * <p>
+     * The comment is an UTF-8 encoded strings.
      *
-     * @return
+     * @return the comment
      */
     public String comment() {
         return ti.comment();
@@ -589,22 +604,11 @@ public final class TorrentInfo {
     }
 
     /**
-     * Returns whether or not this is a merkle torrent.
-     * See BEP30: http://bittorrent.org/beps/bep_0030.html
-     *
-     * @return
-     */
-    public boolean isMerkleTorrent() {
-        return ti.is_merkle_torrent();
-    }
-
-    /**
      * Generates a magnet URI from the specified torrent. If the torrent
      * is invalid, null is returned.
-     * <p/>
+     * <p>
      * For more information about magnet links, see magnet-links_.
      *
-     * @return
      */
     public String makeMagnetUri() {
         return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
@@ -624,11 +628,11 @@ public final class TorrentInfo {
 
     // helper function
     static ArrayList<AnnounceEntry> trackers(announce_entry_vector v) {
-        int size = (int) v.size();
+        int size = v.size();
         ArrayList<AnnounceEntry> l = new ArrayList<>(size);
 
-        for (int i = 0; i < size; i++) {
-            l.add(new AnnounceEntry(v.get(i)));
+        for (announce_entry announceEntry : v) {
+            l.add(new AnnounceEntry(announceEntry));
         }
 
         return l;

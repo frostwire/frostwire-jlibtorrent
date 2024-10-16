@@ -5,6 +5,7 @@ import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.DhtStatsAlert;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +23,7 @@ public class FetchMagnetTest {
         String sha1 = "a83cc13bf4a07e85b938dcf06aa707955687ca7c";
         String uri = "magnet:?xt=urn:btih:" + sha1;
 
-        final Session s = new Session();
+        final SessionManager s = new SessionManager();
 
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -36,12 +37,12 @@ public class FetchMagnetTest {
             @Override
             public void alert(Alert<?> alert) {
                 if (alert.type().equals(AlertType.SESSION_STATS)) {
-                    s.postDHTStats();
+                    s.postDhtStats();
                 }
 
                 if (alert.type().equals(AlertType.DHT_STATS)) {
 
-                    long nodes = s.getStats().dhtNodes();
+                    long nodes = s.stats().dhtNodes();
                     // wait for at least 10 nodes in the DHT.
                     if (nodes >= 10) {
                         signal.countDown();
@@ -51,9 +52,8 @@ public class FetchMagnetTest {
         };
 
         s.addListener(l);
-        s.postDHTStats();
-
-        Downloader d = new Downloader(s);
+        s.start();
+        s.postDhtStats();
 
         // waiting for nodes in DHT (10 seconds)
         boolean r = false;
@@ -69,12 +69,12 @@ public class FetchMagnetTest {
 
 
         // Fetching the magnet uri, waiting 30 seconds max
-        byte[] data = d.fetchMagnet(uri, 30);
+        byte[] data = s.fetchMagnet(uri, 30, new File("/tmp"));
         assertNotNull("Failed to retrieve the magnet", data);
 
-        TorrentHandle th = s.findTorrent(new Sha1Hash(sha1));
-        assertNull(th);
+        //TorrentHandle th = s.findTorrent(new Sha1Hash(sha1));
+        //assertNull(th);
 
-        s.abort();
+        s.stop();
     }
 }

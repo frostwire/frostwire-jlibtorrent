@@ -1,12 +1,8 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.LibTorrent;
-import com.frostwire.jlibtorrent.Session;
-import com.frostwire.jlibtorrent.SettingsPack;
+import com.frostwire.jlibtorrent.SessionManager;
 import com.frostwire.jlibtorrent.alerts.Alert;
-
-import java.util.Map;
 
 /**
  * @author gubatron
@@ -16,11 +12,9 @@ public final class SessionTest {
 
     public static void main(String[] args) throws Throwable {
 
-        for (Map.Entry<String, Object> e : LibTorrent.properties().entrySet()) {
-            System.out.println(e.getKey() + ": " + e.getValue());
-        }
+        SessionManager s = new SessionManager();
 
-        AlertListener l = new AlertListener() {
+        s.addListener(new AlertListener() {
             @Override
             public int[] types() {
                 return null;
@@ -30,13 +24,13 @@ public final class SessionTest {
             public void alert(Alert<?> alert) {
                 System.out.println(alert);
             }
-        };
+        });
 
-        Session s = new Session(new SettingsPack(), false, l);
+        s.start();
 
         System.out.println("Press ENTER to exit");
         System.in.read();
 
-        s.abort();
+        s.stop();
     }
 }

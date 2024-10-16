@@ -1,17 +1,23 @@
 import os ;
 
-OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
+ANDROID_API = [ os.environ android_api ] ;
 
-using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android-clang++ :
-      <cflags>-fPIC
-      <cflags>-std=c11
-      <cxxflags>-fPIC
-      <cxxflags>-fpermissive
-      <cxxflags>-fno-strict-aliasing
-      <cxxflags>-std=c++11
-      <cxxflags>-D__STDC_FORMAT_MACROS
-      <cxxflags>-I$(OPENSSL_ROOT)/include
-      <linkflags>-L$(OPENSSL_ROOT)/lib
-      <linkflags>-static-libstdc++
-      ;
+using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android$(ANDROID_API)-clang++ :
+    <cxxflags>-fPIC
+    <cxxflags>-std=c++17
+    <cxxflags>-DANDROID
+    <cxxflags>-D__STDC_FORMAT_MACROS
+    <cxxflags>-D__USE_FILE_OFFSET64
+    <cxxflags>-D_FILE_OFFSET_BITS=64
+    <cxxflags>-DWITH_IPP=OFF #Intel Integrated Performance Libraries
+    <cxxflags>-frtti
+    <cxxflags>-fno-strict-aliasing
+    <cxxflags>-fvisibility=hidden
+    # x86 devices have stack alignment issues, http://b.android.com/222239
+    <cxxflags>-mstackrealign
+    # debug information
+    <cxxflags>-g
+    <linkflags>-static-libstdc++
+    <linkflags>-Wl,--build-id=sha1
+    ;

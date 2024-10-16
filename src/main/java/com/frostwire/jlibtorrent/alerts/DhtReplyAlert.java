@@ -13,11 +13,14 @@ import com.frostwire.jlibtorrent.swig.dht_reply_alert;
  */
 public final class DhtReplyAlert extends TrackerAlert<dht_reply_alert> {
 
-    public DhtReplyAlert(dht_reply_alert alert) {
+    DhtReplyAlert(dht_reply_alert alert) {
         super(alert);
     }
 
-    public int getNumPeers() {
+    /**
+     * @return
+     */
+    public int numPeers() {
         return alert.getNum_peers();
     }
 }

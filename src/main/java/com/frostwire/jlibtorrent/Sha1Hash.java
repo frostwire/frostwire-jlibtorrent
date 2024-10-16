@@ -9,29 +9,38 @@ import java.util.ArrayList;
  * This type holds a SHA-1 digest or any other kind of 20 byte
  * sequence. It implements a number of convenience functions, such
  * as bit operations, comparison operators etc.
- * <p/>
+ * <p>
  * In libtorrent it is primarily used to hold info-hashes, piece-hashes,
  * peer IDs, node IDs etc.
  *
  * @author gubatron
  * @author aldenml
  */
-public final class Sha1Hash implements Comparable<Sha1Hash> {
+public final class Sha1Hash implements Comparable<Sha1Hash>, Cloneable {
 
     private final sha1_hash h;
 
+    /**
+     * @param h native object
+     */
     public Sha1Hash(sha1_hash h) {
         this.h = h;
     }
 
+    /**
+     * @param bytes hash as an array of bytes
+     */
     public Sha1Hash(byte[] bytes) {
         if (bytes.length != 20) {
-            throw new IllegalArgumentException("bytes array must be of length 20");
+            throw new IllegalArgumentException("Sha1Hash0byte[]() bytes array must be of length 20");
         }
 
         this.h = new sha1_hash(Vectors.bytes2byte_vector(bytes));
     }
 
+    /**
+     * @param hex hex coded representation of the hash
+     */
     public Sha1Hash(String hex) {
         this(Hex.decode(hex));
     }
@@ -43,6 +52,9 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
         this(new sha1_hash());
     }
 
+    /**
+     * @return the native object
+     */
     public sha1_hash swig() {
         return h;
     }
@@ -57,50 +69,54 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
     /**
      * return true if the sha1-hash is all zero.
      *
-     * @return
+     * @return true if zero
      */
     public boolean isAllZeros() {
         return h.is_all_zeros();
     }
 
     /**
-     * @return
+     * @return the number of leading zeroes
      */
     public int countLeadingZeroes() {
         return h.count_leading_zeroes();
     }
 
-    public byte[] toBytes() {
-        return Vectors.byte_vector2bytes(h.to_bytes());
+    /**
+     * Returns the hex representation of this has.
+     * <p>
+     * This method uses internally the libtorrent to_hex function.
+     *
+     * @return the hex representation
+     */
+    public String toHex() {
+        return h.to_hex();
     }
 
     /**
-     * Returns the hex representation of this has.
-     * <p/>
-     * This method uses internally the libtorrent to_hex function.
-     *
-     * @return
+     * @param o {@inheritDoc}
+     * @return {@inheritDoc}
      */
-    public String toHex() {
-        return Hex.encode(toBytes());
-    }
-
     @Override
     public int compareTo(Sha1Hash o) {
-        return compare(this, o);
+        return sha1_hash.compare(this.h, o.h);
     }
 
     /**
      * Returns an hex representation of this hash. Internally it
      * calls {@link #toHex()}.
      *
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public String toString() {
         return toHex();
     }
 
+    /**
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Sha1Hash)) {
@@ -110,9 +126,17 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
         return h.op_eq(((Sha1Hash) obj).h);
     }
 
+    /**
+     * @return {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return h.hash_code();
+    }
+
+    @Override
+    public Sha1Hash clone() {
+        return new Sha1Hash(new sha1_hash(h));
     }
 
     /**
@@ -120,7 +144,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
      * representable by a 160 bit number (20 bytes). This is
      * a static member function.
      *
-     * @return
+     * @return the maximum number
      */
     public static Sha1Hash max() {
         return new Sha1Hash(sha1_hash.max());
@@ -131,14 +155,10 @@ public final class Sha1Hash implements Comparable<Sha1Hash> {
      * representable by a 160 bit number (20 bytes). This is
      * a static member function.
      *
-     * @return
+     * @return the minimum number (zero)
      */
     public static Sha1Hash min() {
         return new Sha1Hash(sha1_hash.min());
-    }
-
-    public static int compare(Sha1Hash h1, Sha1Hash h2) {
-        return sha1_hash.compare(h1.h, h2.h);
     }
 
     static ArrayList<Sha1Hash> convert(sha1_hash_vector v) {

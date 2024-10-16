@@ -15,6 +15,6 @@ public final class PeerConnectAlert extends PeerAlert<peer_connect_alert> {
     }
 
     public int socketType() {
-        return alert.getSocket_type();
+        return alert.getSocket_type().swigValue();
     }
 }

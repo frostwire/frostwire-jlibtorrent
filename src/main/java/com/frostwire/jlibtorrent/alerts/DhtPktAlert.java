@@ -2,6 +2,7 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.UdpEndpoint;
 import com.frostwire.jlibtorrent.Vectors;
+import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.dht_pkt_alert;
 
 /**
@@ -24,36 +25,31 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      * is valid, which is owned by libtorrent and reclaimed whenever
      * pop_alerts() is called on the session.
      *
-     * @return
      */
+    @SuppressWarnings("unused")
     public byte[] pktBuf() {
-        return Vectors.byte_vector2bytes(alert.get_pkt_buf());
-    }
-
-    /**
-     * @return
-     */
-    public int pktSize() {
-        return alert.pkt_size();
+        byte_vector pktBuf = alert.get_pkt_buf();
+        return Vectors.byte_vector2bytes(pktBuf);
     }
 
     /**
      * Whether this is an incoming or outgoing packet.
      *
-     * @return
+     * @return the direction
      */
-    public Direction dir() {
-        return Direction.fromSwig(alert.getDir().swigValue());
+    @SuppressWarnings("unused")
+    public Direction direction() {
+        return Direction.fromSwig(alert.getDirection().swigValue());
     }
 
     /**
      * The DHT node we received this packet from, or sent this packet to
-     * (depending on {@link #dir()}).
+     * (depending on {@link #direction()}).
      *
-     * @return
+     * @return the node endpoint
      */
     public UdpEndpoint node() {
-        return new UdpEndpoint(alert.getNode());
+        return new UdpEndpoint(alert.get_node());
     }
 
     /**
@@ -61,8 +57,19 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
      */
     public enum Direction {
 
+        /**
+         *
+         */
         INCOMING(dht_pkt_alert.direction_t.incoming.swigValue()),
+
+        /**
+         *
+         */
         OUTGOING(dht_pkt_alert.direction_t.outgoing.swigValue()),
+
+        /**
+         *
+         */
         UNKNOWN(-1);
 
         Direction(int swigValue) {
@@ -72,15 +79,15 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
         private final int swigValue;
 
         /**
-         * @return
+         * @return the native value
          */
         public int swig() {
             return swigValue;
         }
 
         /**
-         * @param swigValue
-         * @return
+         * @param swigValue the native value
+         * @return the java enum
          */
         public static Direction fromSwig(int swigValue) {
             Direction[] enumValues = Direction.class.getEnumConstants();

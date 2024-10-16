@@ -8,6 +8,13 @@ if ! $(BOOST_ROOT)
 	EXIT "You need to define BOOST_ROOT" ;
 }
 
+OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
+ECHO "OPENSSL_ROOT = "$(OPENSSL_ROOT) ;
+if ! $(OPENSSL_ROOT)
+{
+	EXIT "You need to define OPENSSL_ROOT" ;
+}
+
 LIBTORRENT_ROOT = [ os.environ LIBTORRENT_ROOT ] ;
 ECHO "LIBTORRENT_ROOT = "$(LIBTORRENT_ROOT) ;
 if ! $(LIBTORRENT_ROOT)
@@ -21,22 +28,41 @@ rule libtorrent_linking ( properties * )
 {
     local result ;
 
-    result += <variant>release ;
     result += <deprecated-functions>off ;
     result += <logging>on ;
-    result += <crypto>libcrypto ;
-    result += <ssl>off ;
-    result += <disk-stats>on ;
-    result += <utp-log>on ;
-    result += <windows-version>xp ;
-    result += <warnings>off ;
+    result += <crypto>openssl ;
     result += <rtti>off ;
+    result += <optimization>off ;
+
+    if <target-os>freebsd in $(properties)
+    {
+        result += <library>/torrent//torrent/<link>shared ;
+    }
+    else
+    {
+        result += <library>/torrent//torrent/<link>static ;
+    }
 
     return $(result) ;
 }
 
 feature iostream : off on : composite propagated link-incompatible ;
 feature.compose <iostream>off : <define>BOOST_NO_IOSTREAM ;
+
+feature o2 : off s1 s2 : composite propagated link-incompatible ;
+feature.compose <o2>s1 : <cxxflags>-Os ;
+feature.compose <o2>s2 : <cxxflags>-Oz ;
+
+# feature lto : on gold : composite propagated link-incompatible ;
+# feature.compose <lto>on : <cxxflags>-flto <linkflags>-flto ;
+# feature.compose <lto>gold : <cxxflags>-flto <linkflags>-flto
+#    <linkflags>-fuse-ld=gold ;
+
+feature ssl : on off : composite propagated link-incompatible ;
+feature.compose <ssl>on :
+    <openssl-include>$(OPENSSL_ROOT)/include
+    <openssl-lib>$(OPENSSL_ROOT)/lib
+    ;
 
 lib jlibtorrent
 
@@ -45,8 +71,19 @@ lib jlibtorrent
 
     : # requirements
     <conditional>@libtorrent_linking
-    <library>/torrent//torrent/<link>static
     <include>.
+    # o2
+    <target-os>darwin:<o2>s1
+    <target-os>android:<o2>s1
+    <target-os>linux:<o2>s1
+    <target-os>windows:<o2>s1
+    # lto
+    # <target-os>darwin:<lto>off
+    # <target-os>android:<lto>off
+    # <target-os>linux:<lto>off
+    # <target-os>windows:<lto>off
+    
+    <optimization>space
 
     : # default build
     <link>shared

@@ -1,12 +1,11 @@
 package com.frostwire.jlibtorrent.demo;
 
 import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.Downloader;
-import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.SessionManager;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
-import com.frostwire.jlibtorrent.alerts.DhtStatsAlert;
 
+import java.io.File;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,7 +20,7 @@ public final class GetMagnet2 {
 
         final String uri = "magnet:?xt=urn:btih:a83cc13bf4a07e85b938dcf06aa707955687ca7c";
 
-        final Session s = new Session();
+        final SessionManager s = new SessionManager();
 
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -35,12 +34,12 @@ public final class GetMagnet2 {
             @Override
             public void alert(Alert<?> alert) {
                 if (alert.type().equals(AlertType.SESSION_STATS)) {
-                    s.postDHTStats();
+                    s.postDhtStats();
                 }
 
                 if (alert.type().equals(AlertType.DHT_STATS)) {
 
-                    long nodes = s.getStats().dhtNodes();
+                    long nodes = s.stats().dhtNodes();
                     // wait for at least 10 nodes in the DHT.
                     if (nodes >= 10) {
                         System.out.println("DHT contains " + nodes + " nodes");
@@ -51,9 +50,8 @@ public final class GetMagnet2 {
         };
 
         s.addListener(l);
-        s.postDHTStats();
-
-        final Downloader d = new Downloader(s);
+        s.start();
+        s.postDhtStats();
 
         System.out.println("Waiting for nodes in DHT (10 seconds)...");
         boolean r = signal.await(10, TimeUnit.SECONDS);
@@ -70,27 +68,25 @@ public final class GetMagnet2 {
         final AtomicInteger counter = new AtomicInteger(0);
         for (int i = 0; i < 50; i++) {
             final int index = i;
-            Thread t = new Thread() {
-                @Override
-                public void run() {
-                    byte[] data = d.fetchMagnet(uri, 30);
+            Thread t = new Thread(() -> {
+                byte[] data = s.fetchMagnet(uri, 30, new File("/tmp"));
 
-                    int count = counter.incrementAndGet();
-                    if (data != null) {
-                        System.out.println("Success fetching magnet: " + index + "/" + count);
-                    } else {
-                        System.out.println("Failed to retrieve the magnet: " + index + "/" + count);
-                    }
+                int count = counter.incrementAndGet();
+                if (data != null) {
+                    System.out.println("Success fetching magnet: " + index + "/" + count);
+                } else {
+                    System.out.println("Failed to retrieve the magnet: " + index + "/" + count);
                 }
-            };
+            });
 
             t.start();
             //t.join();
         }
 
         System.out.println("Press ENTER to exit");
+        //noinspection ResultOfMethodCallIgnored
         System.in.read();
 
-        s.abort();
+        s.stop();
     }
 }

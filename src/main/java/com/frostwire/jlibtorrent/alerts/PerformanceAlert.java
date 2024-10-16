@@ -85,8 +85,6 @@ public final class PerformanceAlert extends TorrentAlert<performance_alert> {
         // queue. Either lower ``max_queued_disk_bytes`` or increase ``cache_size``.
         TOO_HIGH_DISK_QUEUE_LIMIT(performance_alert.performance_warning_t.too_high_disk_queue_limit.swigValue()),
 
-        BITTYRANT_WITH_NO_UPLIMIT(performance_alert.performance_warning_t.bittyrant_with_no_uplimit.swigValue()),
-
         // This is generated if outgoing peer connections are failing because of *address in use*
         // errors, indicating that ``session_settings::outgoing_ports`` is set and is too small of
         // a range. Consider not using the ``outgoing_ports`` setting at all, or widen the range to

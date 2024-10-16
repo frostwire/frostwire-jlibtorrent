@@ -1,0 +1,4 @@
+bump version number in:
+ - build.gradle 'version', then run swig/run-swig.sh, then build-xxx.sh and gradle build
+ - changelog.txt
+

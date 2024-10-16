@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.TcpEndpoint;
 import com.frostwire.jlibtorrent.swig.tracker_alert;
 
 /**
@@ -12,14 +13,23 @@ import com.frostwire.jlibtorrent.swig.tracker_alert;
  */
 public class TrackerAlert<T extends tracker_alert> extends TorrentAlert<T> {
 
-    public TrackerAlert(T alert) {
+    TrackerAlert(T alert) {
         super(alert);
+    }
+
+    /**
+     * Returns the endpoint of the listen interface being announced.
+     *
+     * @return the local endpoint
+     */
+    public TcpEndpoint localEndpoint() {
+        return new TcpEndpoint(alert.get_local_endpoint());
     }
 
     /**
      * Returns a null-terminated string of the tracker's URL.
      *
-     * @return
+     * @return the tracker's URL
      */
     public String trackerUrl() {
         return alert.tracker_url();

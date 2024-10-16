@@ -1,0 +1,9 @@
+import os ;
+
+using darwin : arm64 : clang++ :
+    <cxxflags>-std=c++17
+    <cxxflags>-mmacosx-version-min=11.3
+    <cxxflags>-fno-strict-aliasing
+    <cxxflags>-fvisibility=hidden
+    <cxxflags>-D_DARWIN_C_SOURCE
+    ;

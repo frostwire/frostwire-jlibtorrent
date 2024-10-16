@@ -11,15 +11,21 @@ import com.frostwire.jlibtorrent.swig.unwanted_block_alert;
  */
 public final class UnwantedBlockAlert extends PeerAlert<unwanted_block_alert> {
 
-    public UnwantedBlockAlert(unwanted_block_alert alert) {
+    UnwantedBlockAlert(unwanted_block_alert alert) {
         super(alert);
     }
 
-    public int getBlockIndex() {
+    /**
+     * @return block index
+     */
+    public int blockIndex() {
         return alert.getBlock_index();
     }
 
-    public int getPieceIndex() {
+    /**
+     * @return piece index
+     */
+    public int pieceIndex() {
         return alert.getPiece_index();
     }
 }

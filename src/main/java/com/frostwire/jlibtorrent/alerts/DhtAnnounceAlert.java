@@ -13,19 +13,28 @@ import com.frostwire.jlibtorrent.swig.dht_announce_alert;
  */
 public final class DhtAnnounceAlert extends AbstractAlert<dht_announce_alert> {
 
-    public DhtAnnounceAlert(dht_announce_alert alert) {
+    DhtAnnounceAlert(dht_announce_alert alert) {
         super(alert);
     }
 
-    public Address getIP() {
-        return new Address(alert.getIp());
+    /**
+     * @return the ip
+     */
+    public Address ip() {
+        return new Address(alert.get_ip());
     }
 
-    public int getPort() {
+    /**
+     * @return the port
+     */
+    public int port() {
         return alert.getPort();
     }
 
-    public Sha1Hash getInfoHash() {
+    /**
+     * @return the info-hash
+     */
+    public Sha1Hash infoHash() {
         return new Sha1Hash(alert.getInfo_hash());
     }
 }

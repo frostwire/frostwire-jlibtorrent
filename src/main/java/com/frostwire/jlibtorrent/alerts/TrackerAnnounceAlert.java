@@ -4,9 +4,8 @@ import com.frostwire.jlibtorrent.swig.tracker_announce_alert;
 
 /**
  * This alert is generated each time a tracker announce is sent (or attempted to be sent).
- * <p/>
- * There are no extra data members in this alert. The url can be found in the base class
- * however.
+ * <p>
+ * There are no extra data members in this alert. The url can be found in the base class.
  *
  * @author gubatron
  * @author aldenml
@@ -19,11 +18,10 @@ public final class TrackerAnnounceAlert extends TrackerAlert<tracker_announce_al
 
     /**
      * Specifies what event was sent to the tracker.
-     *
-     * @return
      */
+    @SuppressWarnings("unused")
     public TrackerAnnounceEvent getEvent() {
-        return TrackerAnnounceEvent.fromSwig(alert.getEvent());
+        return TrackerAnnounceEvent.fromSwig(alert.getEvent().swigValue());
     }
 
     public enum TrackerAnnounceEvent {
@@ -38,7 +36,7 @@ public final class TrackerAnnounceAlert extends TrackerAlert<tracker_announce_al
 
         UNKNOWN(-1);
 
-        private TrackerAnnounceEvent(int swigValue) {
+        TrackerAnnounceEvent(int swigValue) {
             this.swigValue = swigValue;
         }
 

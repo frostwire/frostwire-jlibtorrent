@@ -11,7 +11,7 @@ import com.frostwire.jlibtorrent.swig.torrent_checked_alert;
  */
 public final class TorrentCheckedAlert extends TorrentAlert<torrent_checked_alert> {
 
-    public TorrentCheckedAlert(torrent_checked_alert alert) {
+    TorrentCheckedAlert(torrent_checked_alert alert) {
         super(alert);
     }
 }

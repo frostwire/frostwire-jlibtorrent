@@ -1,14 +1,12 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.boost_string_entry_map;
 import com.frostwire.jlibtorrent.swig.entry;
 import com.frostwire.jlibtorrent.swig.string_entry_map;
 import com.frostwire.jlibtorrent.swig.string_vector;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -41,9 +39,8 @@ public class EntryTest {
         assertNotNull(e);
 
         string_entry_map dict = e.swig().dict();
-        string_vector keys = dict.keys();
-        for (int i = 0; i < keys.size(); i++) {
-            String k = keys.get(i);
+        Set<String> keys = dict.keySet();
+        for (String k : keys) {
             assertNotNull(dict.get(k).to_string());
         }
     }
@@ -52,10 +49,10 @@ public class EntryTest {
     public void testCreation1() {
         //old school using libtorrent's (tedious if i may say) entry api
         final entry url_list = new entry();
-        url_list.list().push_back(new entry("http://server1.com"));
-        url_list.list().push_back(new entry("http://server2.com"));
+        url_list.list().add(new entry("http://server1.com"));
+        url_list.list().add(new entry("http://server2.com"));
         final entry swig_entry = new entry();
-        swig_entry.dict().set("url-list", url_list);
+        swig_entry.dict().put("url-list", url_list);
         final Entry e = new Entry(swig_entry);
         final String oldSchoolBencodedMapString = new String(e.bencode());
 

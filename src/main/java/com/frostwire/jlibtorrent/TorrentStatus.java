@@ -1,29 +1,33 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.torrent_status;
+import com.frostwire.jlibtorrent.swig.*;
 
 /**
  * Holds a snapshot of the status of a torrent, as queried by
- * {@link TorrentHandle#getStatus()}
+ * {@link TorrentHandle#status()}
  *
  * @author gubatron
  * @author aldenml
  */
-public final class TorrentStatus {
+public final class TorrentStatus implements Cloneable {
 
     private final torrent_status ts;
 
+    /**
+     * Internal, don't use it in your code.
+     *
+     * @param ts
+     */
+    // this is public to make it available to StateUpdateAlert
     public TorrentStatus(torrent_status ts) {
         this.ts = ts;
     }
 
     /**
-     * Returns a handle to the torrent whose status the object represents.
-     *
-     * @return
+     * @return the native object
      */
-    public TorrentHandle handle() {
-        return new TorrentHandle(ts.getHandle());
+    public torrent_status swig() {
+        return ts;
     }
 
     /**
@@ -32,7 +36,7 @@ public final class TorrentStatus {
      * is not paused or if it's paused but not because of an error,
      * this string is empty.
      *
-     * @return
+     * @return the error code
      */
     public ErrorCode errorCode() {
         return new ErrorCode(ts.getErrc());
@@ -46,27 +50,16 @@ public final class TorrentStatus {
      * This field is only included if the torrent status is queried
      * with ``torrent_handle::query_name``.
      *
-     * @return
+     * @return the name
      */
     public String name() {
         return ts.getName();
     }
 
     /**
-     * set to point to the ``torrent_info`` object for this torrent. It's
-     * only included if the torrent status is queried with
-     * ``torrent_handle::query_torrent_file``.
-     *
-     * @return
-     */
-    //    public TorrentInfo getTorrentFile() {
-    //        return new TorrentInfo(ts.getTorrent_file());
-    //    }
-
-    /**
      * The time until the torrent will announce itself to the tracker (in milliseconds).
      *
-     * @return
+     * @return the next announce time
      */
     public long nextAnnounce() {
         return ts.get_next_announce();
@@ -146,21 +139,28 @@ public final class TorrentStatus {
      * that are skipped by an out of order block). This is supposed to be as
      * low as possible.
      *
-     * @return
+     * @return the value
      */
     public long totalRedundantBytes() {
         return ts.getTotal_redundant_bytes();
     }
 
     /**
+     * IMPORTANT: If you are not getting up to date information about pieces
+     * remember that PieceIndexBitfield data is considered augmented data
+     * for a torrentHandle.status() call, meaning, if you want to get the latest
+     * piece data, you must use the TorrentHandle.QUERY_PIECES flag when invoking
+     * torrentHandle.status(TorrentHandle.QUERY_PIECES). Keep in mind this is
+     * an expensive call, therefore not part of the default flags.
+     *
      * A bitmask that represents which pieces we have (set to true) and the
      * pieces we don't have. It's a pointer and may be set to 0 if the
      * torrent isn't downloading or seeding.
      *
-     * @return
+     * @return the bitfield of pieces
      */
-    public Bitfield pieces() {
-        return new Bitfield(ts.getPieces());
+    public PieceIndexBitfield pieces() {
+        return new PieceIndexBitfield(ts.get_pieces(), ts);
     }
 
     /**
@@ -168,25 +168,37 @@ public final class TorrentStatus {
      * only applies to torrents in *seed mode*. If the torrent is not in seed
      * mode, this bitmask may be empty.
      *
-     * @return
+     * @return the bitfield of verified pieces
      */
-    public Bitfield getVerifiedPieces() {
-        return new Bitfield(ts.getVerified_pieces());
+    public PieceIndexBitfield verifiedPieces() {
+        return new PieceIndexBitfield(ts.get_verified_pieces(), ts);
     }
 
     /**
      * The total number of bytes of the file(s) that we have. All this does not necessarily
      * has to be downloaded during this session (that's total_payload_download).
+     *
+     * @return the value
      */
-    public long getTotalDone() {
+    public long totalDone() {
         return ts.getTotal_done();
+    }
+
+    /**
+     * The total number of bytes to download for this torrent. This
+     * may be less than the size of the torrent in case there are
+     * pad files. This number only counts bytes that will actually
+     * be requested from peers.
+     */
+    public long total() {
+        return ts.getTotal();
     }
 
     /**
      * The number of bytes we have downloaded, only counting the pieces that we actually want
      * to download. i.e. excluding any pieces that we have but have priority 0 (i.e. not wanted).
      */
-    public long getTotalWantedDone() {
+    public long totalWantedDone() {
         return ts.getTotal_wanted_done();
     }
 
@@ -194,7 +206,7 @@ public final class TorrentStatus {
      * The total number of bytes we want to download. This may be smaller than the total
      * torrent size in case any pieces are prioritized to 0, i.e. not wanted.
      */
-    public long getTotalWanted() {
+    public long totalWanted() {
         return ts.getTotal_wanted();
     }
 
@@ -202,7 +214,7 @@ public final class TorrentStatus {
      * This is the accumulated upload payload byte counter. They are saved in and restored
      * from resume data to keep totals across sessions.
      */
-    public long getAllTimeUpload() {
+    public long allTimeUpload() {
         return ts.getAll_time_upload();
     }
 
@@ -210,21 +222,21 @@ public final class TorrentStatus {
      * This is the accumulated download payload byte counters. They are saved in and restored
      * from resume data to keep totals across sessions.
      */
-    public long getAllTimeDownload() {
+    public long allTimeDownload() {
         return ts.getAll_time_download();
     }
 
     /**
      * The posix-time (in milliseconds) when this torrent was added. i.e. what time(NULL) returned at the time.
      */
-    public long getAddedTime() {
+    public long addedTime() {
         return time2millis(ts.getAdded_time());
     }
 
     /**
      * The posix-time (in milliseconds) when this torrent was finished. If the torrent is not yet finished, this is 0.
      */
-    public long getCompletedTime() {
+    public long completedTime() {
         return time2millis(ts.getCompleted_time());
     }
 
@@ -248,23 +260,23 @@ public final class TorrentStatus {
      * A value in the range [0, 1], that represents the progress of the torrent's
      * current task. It may be checking files or downloading.
      *
-     * @return
+     * @return the progress in [0, 1]
      */
-    public float getProgress() {
+    public float progress() {
         return ts.getProgress();
     }
 
     /**
      * progress parts per million (progress * 1000000) when disabling
      * floating point operations, this is the only option to query progress
-     * <p/>
+     * <p>
      * reflects the same value as ``progress``, but instead in a range [0,
      * 1000000] (ppm = parts per million). When floating point operations are
      * disabled, this is the only alternative to the floating point value in.
      *
-     * @return
+     * @return the progress in parts per million (progress * 1000000)
      */
-    public int getProgressPpm() {
+    public int progressPpm() {
         return ts.getProgress_ppm();
     }
 
@@ -274,8 +286,8 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getQueuePosition() {
-        return ts.getQueue_position();
+    public int queuePosition() {
+        return ts.get_queue_position();
     }
 
     /**
@@ -283,7 +295,7 @@ public final class TorrentStatus {
      * precision than summing the rates from all peers. The rates are given as the
      * number of bytes per second.
      */
-    public int getDownloadRate() {
+    public int downloadRate() {
         return ts.getDownload_rate();
     }
 
@@ -292,7 +304,7 @@ public final class TorrentStatus {
      * precision than summing the rates from all peers. The rates are given as the
      * number of bytes per second.
      */
-    public int getUploadRate() {
+    public int uploadRate() {
         return ts.getUpload_rate();
     }
 
@@ -301,7 +313,7 @@ public final class TorrentStatus {
      * This might be slightly smaller than the other rates, but if projected over
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
      */
-    public int getDownloadPayloadRate() {
+    public int downloadPayloadRate() {
         return ts.getDownload_payload_rate();
     }
 
@@ -310,14 +322,14 @@ public final class TorrentStatus {
      * This might be slightly smaller than the other rates, but if projected over
      * a long time (e.g. when calculating ETA:s) the difference may be noticeable.
      */
-    public int getUploadPayloadRate() {
+    public int uploadPayloadRate() {
         return ts.getUpload_payload_rate();
     }
 
     /**
      * The number of peers that are seeding that this client is currently connected to.
      */
-    public int getNumSeeds() {
+    public int numSeeds() {
         return ts.getNum_seeds();
     }
 
@@ -327,7 +339,7 @@ public final class TorrentStatus {
      * connection attempt do not count. Although they are visible in the peer list when
      * you call get_peer_info().
      */
-    public int getNumPeers() {
+    public int numPeers() {
         return ts.getNum_peers();
     }
 
@@ -339,7 +351,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumComplete() {
+    public int numComplete() {
         return ts.getNum_complete();
     }
 
@@ -351,7 +363,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumIncomplete() {
+    public int numIncomplete() {
         return ts.getNum_incomplete();
     }
 
@@ -361,7 +373,7 @@ public final class TorrentStatus {
      * of peers we know of in total, including banned peers and peers that we have failed to
      * connect to.
      */
-    public int getListSeeds() {
+    public int listSeeds() {
         return ts.getList_seeds();
     }
 
@@ -371,7 +383,7 @@ public final class TorrentStatus {
      * of peers we know of in total, including banned peers and peers that we have failed to
      * connect to.
      */
-    public int getListPeers() {
+    public int listPeers() {
         return ts.getList_peers();
     }
 
@@ -383,19 +395,18 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getConnectCandidates() {
+    public int connectCandidates() {
         return ts.getConnect_candidates();
     }
 
     /**
-     * the number of pieces that has been downloaded. It is equivalent to:
-     * ``std::accumulate(pieces->begin(), pieces->end())``. So you don't have
+     * Returns the number of pieces that has been downloaded so you don't have
      * to count yourself. This can be used to see if anything has updated
      * since last time if you want to keep a graph of the pieces up to date.
      *
-     * @return
+     * @return the number of pieces that has been downloaded
      */
-    public int getNumPieces() {
+    public int numPieces() {
         return ts.getNum_pieces();
     }
 
@@ -407,7 +418,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getDistributedFullCopies() {
+    public int distributedFullCopies() {
         return ts.getDistributed_full_copies();
     }
 
@@ -416,7 +427,7 @@ public final class TorrentStatus {
      * // piece(s). Divide this number by 1000 to get the fraction.
      * //
      * // For example, if ``distributed_full_copies`` is 2 and
-     * // ``distrbuted_fraction`` is 500, it means that the rarest pieces have
+     * // ``distributed_fraction`` is 500, it means that the rarest pieces have
      * // only 2 copies among the peers this torrent is connected to, and that
      * // 50% of all the pieces have more than two copies.
      * //
@@ -426,7 +437,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getDistributedFraction() {
+    public int distributedFraction() {
         return ts.getDistributed_fraction();
     }
 
@@ -434,16 +445,16 @@ public final class TorrentStatus {
      * the number of distributed copies of the file. note that one copy may
      * be spread out among many peers. This is a floating point
      * representation of the distributed copies.
-     * <p/>
+     * <p>
      * the integer part tells how many copies
      * there are of the rarest piece(s)
-     * <p/>
+     * <p>
      * the fractional part tells the fraction of pieces that
      * have more copies than the rarest piece(s).
      *
      * @return
      */
-    public float getDistributedCopies() {
+    public float distributedCopies() {
         return ts.getDistributed_copies();
     }
 
@@ -456,7 +467,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getBlockSize() {
+    public int blockSize() {
         return ts.getBlock_size();
     }
 
@@ -465,18 +476,20 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getNumUploads() {
+    public int numUploads() {
         return ts.getNum_uploads();
     }
 
     /**
-     * the number of peer connections this torrent has, including half-open
-     * connections that hasn't completed the bittorrent handshake yet. This
-     * is always >= ``num_peers``.
+     * Returns the number of peer connections this torrent has,
+     * including half-open connections that hasn't completed the
+     * bittorrent handshake yet.
+     * <p>
+     * This is always {@code >= num_peers}.
      *
-     * @return
+     * @return the number of peer connections
      */
-    public int getNumConnections() {
+    public int numConnections() {
         return ts.getNum_connections();
     }
 
@@ -485,7 +498,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getUploadsLimit() {
+    public int uploadsLimit() {
         return ts.getUploads_limit();
     }
 
@@ -494,7 +507,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getConnectionsLimit() {
+    public int connectionsLimit() {
         return ts.getConnections_limit();
     }
 
@@ -506,7 +519,7 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getUpBandwidthQueue() {
+    public int upBandwidthQueue() {
         return ts.getUp_bandwidth_queue();
     }
 
@@ -518,103 +531,26 @@ public final class TorrentStatus {
      *
      * @return
      */
-    public int getDownBandwidthQueue() {
+    public int downBandwidthQueue() {
         return ts.getDown_bandwidth_queue();
-    }
-
-    /**
-     * the number of seconds since any peer last uploaded from this torrent and the last time a downloaded piece passed the hash check, respectively.
-     * Note, when starting up a torrent that needs its files checked,
-     * piece may pass and that will be considered downloading for the purpose of this counter.
-     * -1 means there either hasn't been any uploading/downloading,
-     * or it was too long ago for libtorrent to remember (currently forgetting happens after about 18 hours).
-     *
-     * @return
-     */
-    public int getTimeSinceUpload() {
-        return ts.getTime_since_upload();
-    }
-
-    /**
-     * the number of seconds since any peer last uploaded from this torrent and the last time a downloaded piece passed the hash check, respectively.
-     * Note, when starting up a torrent that needs its files checked,
-     * piece may pass and that will be considered downloading for the purpose of this counter.
-     * -1 means there either hasn't been any uploading/downloading,
-     * or it was too long ago for libtorrent to remember (currently forgetting happens after about 18 hours).
-     *
-     * @return
-     */
-    public int getTimeSinceDownload() {
-        return ts.getTime_since_download();
-    }
-
-    /**
-     * get the number of seconds this torrent has been active (not paused).
-     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
-     * It's saved in and restored from resume data, to keep totals across sessions.
-     *
-     * @return
-     */
-    public int getActiveTime() {
-        return ts.getActive_time();
-    }
-
-    /**
-     * get the number of seconds this torrent has been active while being finished.
-     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
-     * It's saved in and restored from resume data, to keep totals across sessions.
-     *
-     * @return
-     */
-    public int getFinishedTime() {
-        return ts.getFinished_time();
-    }
-
-    /**
-     * get the number of seconds this torrent has been active while being a seed.
-     * ``seeding_time`` should be <= ``finished_time`` which should be <= ``active_time``.
-     * It's saved in and restored from resume data, to keep totals across sessions.
-     *
-     * @return
-     */
-    public int getSeedingTime() {
-        return ts.getSeeding_time();
     }
 
     /**
      * A rank of how important it is to seed the torrent, it is used to determine which torrents to seed and which to queue.
      * It is based on the peer to seed ratio from the tracker scrape. Higher value means more important to seed.
      *
-     * @return
+     * @return the seed rank
      */
-    public int getSeedRank() {
+    public int seedRank() {
         return ts.getSeed_rank();
     }
 
     /**
-     * the number of seconds since this torrent acquired scrape data. If it has never done that, this value is -1.
-     *
-     * @return
-     */
-    public int getLastScrape() {
-        return ts.getLast_scrape();
-    }
-
-    /**
-     * get priority of this torrent.
-     *
-     * @return
-     */
-    public Priority getPriority() {
-        return Priority.fromSwig(ts.getPriority());
-    }
-
-    //    public final int sparseRegions;
-
-    /**
      * The main state the torrent is in. See torrent_status::state_t.
+     *
+     * @return the state
      */
-    public State getState() {
+    public State state() {
         return State.fromSwig(ts.getState().swigValue());
     }
 
@@ -630,84 +566,6 @@ public final class TorrentStatus {
     }
 
     /**
-     * true if the session global IP filter applies
-     * to this torrent. This defaults to true.
-     *
-     * @return
-     */
-    public boolean ipFilterApplies() {
-        return ts.getIp_filter_applies();
-    }
-
-    /**
-     * true if the torrent is blocked from downloading. This typically
-     * happens when a disk write operation fails. If the torrent is
-     * auto-managed, it will periodically be taken out of this state, in the
-     * hope that the disk condition (be it disk full or permission errors)
-     * has been resolved. If the torrent is not auto-managed, you have to
-     * explicitly take it out of the upload mode by calling set_upload_mode()
-     * on the torrent_handle.
-     *
-     * @return
-     */
-    public boolean isUploadMode() {
-        return ts.getUpload_mode();
-    }
-
-    /**
-     * true if the torrent is currently in share-mode, i.e. not downloading
-     * the torrent, but just helping the swarm out.
-     *
-     * @return
-     */
-    public boolean isShareMode() {
-        return ts.getShare_mode();
-    }
-
-    /**
-     * true if the torrent is in super seeding mode.
-     *
-     * @return
-     */
-    public boolean isSuperSeeding() {
-        return ts.getSuper_seeding();
-    }
-
-    /**
-     * set to true if the torrent is paused and false otherwise. It's only
-     * true if the torrent itself is paused. If the torrent is not running
-     * because the session is paused, this is still false. To know if a
-     * torrent is active or not, you need to inspect both
-     * ``torrent_status::paused`` and ``session::is_paused()``.
-     *
-     * @return
-     */
-    public boolean isPaused() {
-        return ts.getPaused();
-    }
-
-    /**
-     * set to true if the torrent is auto managed, i.e. libtorrent is
-     * responsible for determining whether it should be started or queued.
-     * For more info see queuing_
-     *
-     * @return
-     */
-    public boolean isAutoManaged() {
-        return ts.getAuto_managed();
-    }
-
-    /**
-     * true when the torrent is in sequential download mode. In this mode
-     * pieces are downloaded in order rather than rarest first.
-     *
-     * @return
-     */
-    public boolean isSequentialDownload() {
-        return ts.getSequential_download();
-    }
-
-    /**
      * true if all pieces have been downloaded.
      *
      * @return
@@ -717,11 +575,12 @@ public final class TorrentStatus {
     }
 
     /**
-     * true if all pieces that have a priority > 0 are downloaded. There is
+     * Returns {@code true} if all pieces that have a
+     * {@code priority > 0} are downloaded. There is
      * only a distinction between finished and seeding if some pieces or
      * files have been set to priority 0, i.e. are not downloaded.
      *
-     * @return
+     * @return {@code true} if all pieces that have a {@code priority > 0} are downloaded.
      */
     public boolean isFinished() {
         return ts.getIs_finished();
@@ -751,17 +610,6 @@ public final class TorrentStatus {
     }
 
     /**
-     * true if the torrent is in seed_mode. If the torrent was started in
-     * seed mode, it will leave seed mode once all pieces have been checked
-     * or as soon as one piece fails the hash check.
-     *
-     * @return
-     */
-    public boolean isSeedMode() {
-        return ts.getSeed_mode();
-    }
-
-    /**
      * this is true if this torrent's storage is currently being moved from
      * one location to another. This may potentially be a long operation
      * if a large file ends up being copied from one drive to another.
@@ -770,17 +618,6 @@ public final class TorrentStatus {
      */
     public boolean isMovingStorage() {
         return ts.getMoving_storage();
-    }
-
-    /**
-     * True if this torrent is loaded into RAM. A torrent can be started
-     * and still not loaded into RAM, in case it has not had any peers interested in it
-     * yet. Torrents are loaded on demand.
-     *
-     * @return
-     */
-    public boolean isLoaded() {
-        return ts.getIs_loaded();
     }
 
     /**
@@ -820,35 +657,61 @@ public final class TorrentStatus {
     }
 
     /**
-     * This reflects whether the ``stop_when_ready`` flag is currently enabled
-     * on this torrent. For more information, see
-     * {@link TorrentHandle#stopWhenReady(boolean)}.
-     *
-     * @return
-     */
-    public boolean stopWhenReady() {
-        return ts.getStop_when_ready();
-    }
-
-    /**
      * the info-hash for this torrent.
      *
      * @return
      */
-    public Sha1Hash getInfoHash() {
-        return new Sha1Hash(ts.getInfo_hash());
+    public Sha1Hash infoHash() {
+        return infoHashV1();
     }
 
-    private static long time2millis(int time) {
-        return ((long) time) * 1000;
+    public Sha1Hash infoHashV1() {
+        info_hash_t infoHashes = ts.getInfo_hashes();
+        return new Sha1Hash(infoHashes.getV1());
+    }
+
+    public Sha256Hash infoHashV2() {
+        info_hash_t infoHashes = ts.getInfo_hashes();
+        return new Sha256Hash(infoHashes.getV2());
+    }
+
+    public long lastUpload() {
+        return ts.get_last_upload();
+    }
+
+    public long lastDownload() {
+        return ts.get_last_download();
+    }
+
+    public long activeDuration() {
+        return ts.get_active_duration();
+    }
+
+    public long finishedDuration() {
+        return ts.get_finished_duration();
+    }
+
+    public long seedingDuration() {
+        return ts.get_seeding_duration();
+    }
+
+    public torrent_flags_t flags() {
+        return ts.getFlags();
+    }
+
+    @Override
+    protected TorrentStatus clone() {
+        return new TorrentStatus(new torrent_status(ts));
+    }
+
+    private static long time2millis(long time) {
+        return time * 1000;
     }
 
     /**
      * the different overall states a torrent can be in.
      */
     public enum State {
-
-        UNUSED_ENUM_FOR_BACKWARDS_COMPATIBILITY(torrent_status.state_t.unused_enum_for_backwards_compatibility.swigValue()),
 
         /**
          * The torrent has not started its download yet, and is
@@ -884,13 +747,6 @@ public final class TorrentStatus {
         SEEDING(torrent_status.state_t.seeding.swigValue()),
 
         /**
-         * If the torrent was started in full allocation mode, this
-         * indicates that the (disk) storage for the torrent is
-         * allocated.
-         */
-        ALLOCATING(torrent_status.state_t.allocating.swigValue()),
-
-        /**
          * The torrent is currently checking the fastresume data and
          * comparing it to the files on disk. This is typically
          * completed in a fraction of a second, but if you add a
@@ -901,24 +757,29 @@ public final class TorrentStatus {
         /**
          *
          */
-        UNKNOWN(-1),
+        UNKNOWN(-1);
 
-        QUEUED_FOR_CHECKING(torrent_status.state_t.unused_enum_for_backwards_compatibility.swigValue());
-
-        private State(int swigValue) {
+        State(int swigValue) {
             this.swigValue = swigValue;
         }
 
         private final int swigValue;
 
-        public int getSwig() {
+        /**
+         * @return the native value
+         */
+        public int swig() {
             return swigValue;
         }
 
+        /**
+         * @param swigValue
+         * @return
+         */
         public static State fromSwig(int swigValue) {
             State[] enumValues = State.class.getEnumConstants();
             for (State ev : enumValues) {
-                if (ev.getSwig() == swigValue) {
+                if (ev.swig() == swigValue) {
                     return ev;
                 }
             }

@@ -1,0 +1,356 @@
+#!/usr/bin/env bash
+unset_env_variables() {
+  # The user's build environment might already have pre-set
+  # flags that can interfere with the compilation process
+  echo "unset_env_variables()"
+  unset CPPFLAGS
+  unset CXXFLAGS
+  unset CXX
+  unset CC
+  unset BOOST_LIB_PATH
+  unset BOOST_ROOT
+  unset BOOST_LIB_SUFFIX
+  unset OPENSSL_ROOT_DIR
+  unset OPENSSL_BIN_PATH
+  unset OPENSSL_INCLUDE_PATH
+  unset OPENSSL_LIB_PATH
+  unset SHARED_LIB
+}
+unset_env_variables
+
+prompt_msg() {
+ echo
+ echo "============================================================================="
+ echo $1
+ echo "============================================================================="
+ echo
+}
+
+abort_if_var_unset() {
+  var_name=${1}
+  var_value=${2}
+  if [[ ! -n ${var_value} ]]; then
+    prompt_msg "Error ${var_name} not set. Aborting"
+    exit 1
+  fi
+  echo "abort_if_var_unset: "${var_name}:${var_value}
+}
+
+common_env() {
+ abort_if_var_unset "SRC" ${SRC}
+ abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
+ abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
+ abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+ export B2_EXPECTED_VERSION="5.2.1"
+ export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+ export LIBTORRENT_ROOT="${SRC}/libtorrent"
+ export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
+
+ if [[ "$(uname)" == "Darwin" ]]; then
+     export CORES=$(sysctl -n hw.ncpu)
+ else
+     export CORES=$(nproc)
+ fi
+
+ # works for all OSes but macos
+ export OPENSSL_NO_OPTS="no-tests no-shared no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+
+ if [[ "$(uname)" == "Darwin" ]]; then
+     echo "common_env: macosx OPENSSL_NO_OPTS update!"
+     export OPENSSL_NO_OPTS="no-tests no-shared no-dynamic-engine no-comp no-dso no-egd no-hw no-makedepend no-sctp no-ui-console no-zlib no-zlib-dynamic"
+     echo "common_env: OPENSSL_NO_OPTS=${OPENSSL_NO_OPTS}"
+ fi 
+}
+
+android_env() {
+  abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
+  export SRC="/src"
+  export OPENSSL_ROOT="/openssl-android-${os_arch}"
+  export AR=${ANDROID_TOOLCHAIN}/bin/llvm-ar
+  export LD=${ANDROID_TOOLCHAIN}/bin/ld
+  export RANLIB=${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
+  alias  ranlib=${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
+}
+
+windows_env() {
+  export SRC="/src"
+  export OPENSSL_ROOT="/openssl-windows-x86_64"
+}
+
+macosx_env() {
+  abort_if_var_unset "HOME" ${HOME}
+  export SRC="${HOME}/src"
+  export OPENSSL_ROOT="${SRC}/openssl"
+  export LD=ld
+}
+
+linux_env() {
+  export SRC="/src"
+  export OPENSSL_ROOT="/openssl-linux-x86_64"
+}
+
+export LIBRARY_VERSION=$(egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g")
+export LIBRARY_NAME=jlibtorrent
+export LIBTORRENT_REVISION=2ab8fedabb7716947edc77958da6d0b5e1040df9 # fix test_copy_file to recognize overlayfs as supporting sparse files
+
+export LIBTORRENT_BRANCH="RC_2_0"
+export OPENSSL_VERSION="1.1.1t"
+export BOOST_VERSION="86"
+export BOOST_MAJOR="1"
+export BOOST_MINOR="0"
+export BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
+export BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+export BOOST_ROOT="${SRC}/boost_${BOOST_UNDERSCORE_VERSION}"
+
+SWIG=`pwd`
+
+press_any_to_continue() {
+ if [ ! -n "${DONT_PRESS_ANY_KEY}" ]; then
+   echo "[Press any key to continue]"
+   read -n 1 -s -r -p ""
+ fi
+}
+
+create_folder_if_it_doesnt_exist() {
+ if [[ ! -d $1 ]]; then mkdir -p $1; fi;
+}
+
+check_min_req_vars() {
+  abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
+  abort_if_var_unset "LIBTORRENT_BRANCH" ${LIBTORRENT_BRANCH}
+  abort_if_var_unset "LIBRARY_VERSION" ${LIBRARY_VERSION}
+  abort_if_var_unset "LIBRARY_NAME" ${LIBRARY_NAME}
+  abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
+  abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
+  abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
+  abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+  abort_if_var_unset "SWIG" ${SWIG}
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
+  abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
+  abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
+  #abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
+}
+
+build_b2() {
+  echo "Building b2..."
+  ./bootstrap.sh
+  ./b2 --version # Verify version after build
+  ./b2
+  ./b2 /headers
+}
+
+prepare_boost() {
+  abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
+  abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
+  abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
+  abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
+  abort_if_var_unset "BOOST_DOT_VERSION" ${BOOST_DOT_VERSION}
+  abort_if_var_unset "BOOST_UNDERSCORE_VERSION" ${BOOST_UNDERSCORE_VERSION}
+
+  if ! [ -x "$(command -v wget)" ]; then
+      echo "Error: wget is not installed."
+      exit 1
+  fi
+
+  prompt_msg "$0:About to prepare BOOST ${BOOST_VERSION}"
+
+  pushd ${SRC}
+  echo "Checking for ${BOOST_ROOT}..."
+  if [ ! -d ${BOOST_ROOT} ]; then
+      prompt_msg "Downloading BOOST ${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+      wget -4 -O boost.zip https://boostorg.jfrog.io/artifactory/main/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.zip
+      unzip -qq boost.zip
+      rm -f boost.zip
+  fi
+  pushd ${BOOST_ROOT}
+
+  # Check if b2 exists and its version
+  if [ -f ./b2 ]; then
+    B2_VERSION=$(./b2 --version 2>&1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+    echo "Found b2 version: ${B2_VERSION}"
+    
+    if [[ "${B2_VERSION}" == "${B2_EXPECTED_VERSION}" ]]; then
+      echo "b2 is up to date (version ${B2_VERSION})."
+    else
+      echo "b2 version mismatch. Expected: ${B2_EXPECTED_VERSION}, Found: ${B2_VERSION}. Rebuilding..."
+      build_b2
+    fi
+  else
+    echo "b2 not found. Building b2."
+    build_b2
+  fi
+  
+  pwd
+  popd
+  popd
+}
+
+prepare_openssl() {
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
+  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}  
+  if [ ! -d ${OPENSSL_SOURCE} ]; then
+    prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '${OPENSSL_SOURCE}'"
+    pushd ${SRC}
+    #wget -nv -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1i.tar.gz
+    wget -4 --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    tar xvfz openssl.tar.gz
+    rm -f openssl.tar.gz
+    popd
+  fi
+}
+
+build_openssl() {
+  abort_if_var_unset "CORES" ${CORES}
+  abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
+  abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
+  abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "os_build" ${os_build}  
+  abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
+  prompt_msg "build_openssl: run_openssl_configure=[${run_openssl_configure}]"
+  press_any_to_continue
+  if [ -d ${OPENSSL_ROOT} ]; then
+    rm -fr ${OPENSSL_ROOT}
+  fi
+  if [ -d ${OPENSSL_SOURCE} ]; then
+    pushd ${OPENSSL_SOURCE}
+    $run_openssl_configure
+    make clean
+    make -j${CORES} build_libs
+    make install_sw
+    popd
+  fi
+}
+
+prepare_libtorrent() {
+  echo "prepare_libtorrent started..."
+  abort_if_var_unset "SRC" ${SRC}
+  abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+  abort_if_var_unset "LIBTORRENT_BRANCH" ${LIBTORRENT_BRANCH}
+  abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
+  if [ ! -d ${LIBTORRENT_ROOT} ]; then
+    pushd ${SRC}
+    git clone https://github.com/gubatron/libtorrent
+    popd
+  fi
+  pushd ${LIBTORRENT_ROOT}
+  prompt_msg "Checking if you have any uncommited changes"
+  git status
+  prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
+  press_any_to_continue
+  git fetch origin ${LIBTORRENT_BRANCH} --depth=1
+  git checkout ${LIBTORRENT_BRANCH}
+  git reset --hard ${LIBTORRENT_REVISION}
+  git submodule init
+  git submodule update
+  make clean
+  popd
+  echo "prepare_libtorrent finished."
+}
+
+build_libraries() {
+  abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
+  abort_if_var_unset "SWIG" ${SWIG}
+  abort_if_var_unset "os_build" ${os_build}
+  abort_if_var_unset "os_arch" ${os_arch}
+  abort_if_var_unset "SHARED_LIB" ${SHARED_LIB}
+  abort_if_var_unset "run_bjam" ${run_bjam}
+  abort_if_var_unset "run_objcopy" ${run_objcopy}
+  abort_if_var_unset "run_strip" ${run_strip}
+  abort_if_var_unset "run_native_jar" ${run_native_jar}
+  abort_if_var_unset "run_clean_native_jar" ${run_clean_native_jar}
+  set -x
+  cd ${SWIG}
+  export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
+  echo "Added boost tools to PATH:"
+  echo ${PATH}
+  export OPENSSL_ROOT=${OPENSSL_ROOT}
+  export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
+  export BOOST_ROOT=${BOOST_ROOT}
+  export BOOST_BUILD_PATH=${BOOST_ROOT}
+
+  #libtorrent_jni.cpp is specified as a source in the Jamfile:L70
+  $run_bjam || exit 1
+
+  # Comment 2 lines below to build without stripping debug symbols
+  $run_objcopy
+  $run_strip
+
+  if [[ -n $run_readelf ]]; then
+    $run_readelf
+  fi
+
+  # fix libjlibtorrent.dll -> jlibtorrent.dll
+  if [[ $os_build == "windows" ]]; then
+    mv bin/release/windows/${os_arch}/libjlibtorrent.dll bin/release/windows/${os_arch}/jlibtorrent.dll
+  fi
+
+  cd ..
+
+  # so that tests pass when running on mac or linux we copy the shared library to the root folder
+  if [[ $os_build == "linux" ]]; then
+    cp swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} .
+  fi
+  if [[ $os_build == "macosx" ]]; then
+    # rename libjlibtorrent.dylib to libjlibtorrent.<os_arch>.dylib and copy to the root folder
+    abort_if_var_unset "RELEASE_SHARED_LIB" ${RELEASE_SHARED_LIB}
+    mv swig/bin/release/${os_build}/${os_arch}/${SHARED_LIB} swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB}
+    cp swig/bin/release/${os_build}/${os_arch}/${RELEASE_SHARED_LIB} .
+  fi
+  
+  ./gradlew jar
+  $run_clean_native_jar
+  $run_native_jar
+}
+
+cleanup_objects() {
+  abort_if_var_unset "SWIG" ${SWIG}
+  # cleanup (when it's finally working, enable this)
+  if [ -d ${SWIG}/bin ]; then
+    cd ${SWIG}/bin
+    find . -type f | egrep -v '.*\.so$|.*\.dll$|.*\.dylib$|.*\.debug$' | xargs rm
+    find . -empty -type d | xargs rm -r
+  else
+    echo ${SWIG}/bin folder not found, nothing to clean
+  fi
+  cd ${SWIG}
+  cd ..
+  find . -type f | egrep '\d.\d.\d.\d\d.jar$'
+  cd ${SWIG}
+}
+
+function show_help {
+  echo "Usage: ./build-macos.sh [options]"
+  echo ""
+  echo "Options:"
+  echo "  --swig-only      Run only the SWIG step, skip building libraries"
+  echo "  --build-only     Run only the build step, skip the SWIG step"
+  echo "  -h, --help       Show this help message"
+  exit 0
+}
+
+
+# Function to parse flags --swig-only, --build-only
+parse_flags() {
+  for arg in "$@"
+  do
+    case $arg in
+      -h|--help)
+        show_help
+        ;;
+      --swig-only)
+        run_swig_only=true
+        run_build_only=false
+        run_prep=false # Skip lenghty prepare steps
+        ;;
+      --build-only)
+        run_build_only=true
+        run_swig_only=false
+        run_prep=false # Skip lenghty prepare steps
+        ;;
+    esac
+  done
+}

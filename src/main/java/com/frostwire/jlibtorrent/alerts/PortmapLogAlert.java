@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent.alerts;
 
+import com.frostwire.jlibtorrent.PortmapTransport;
 import com.frostwire.jlibtorrent.swig.portmap_log_alert;
 
 /**
@@ -13,18 +14,18 @@ import com.frostwire.jlibtorrent.swig.portmap_log_alert;
  */
 public final class PortmapLogAlert extends AbstractAlert<portmap_log_alert> {
 
-    public PortmapLogAlert(portmap_log_alert alert) {
+    PortmapLogAlert(portmap_log_alert alert) {
         super(alert);
     }
 
-    public int mapType() {
-        return alert.getMap_type();
+    public PortmapTransport mapType() {
+        return PortmapTransport.fromSwig(alert.getMap_transport().swigValue());
     }
 
     /**
      * The message associated with this log line.
      *
-     * @return
+     * @return the log message
      */
     public String logMessage() {
         return alert.log_message();

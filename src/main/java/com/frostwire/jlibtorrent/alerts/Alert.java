@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.swig.alert;
+import com.frostwire.jlibtorrent.swig.alert_category_t;
 
 /**
  * @author gubatron
@@ -10,10 +11,34 @@ public interface Alert<T extends alert> {
 
     T swig();
 
+    alert_category_t ERROR_NOTIFICATION = alert.error_notification;
+    alert_category_t PEER_NOTIFICATION = alert.peer_notification;
+    alert_category_t PORT_MAPPING_NOTIFICATION = alert.port_mapping_notification;
+    alert_category_t STORAGE_NOTIFICATION = alert.storage_notification;
+    alert_category_t TRACKER_NOTIFICATION = alert.tracker_notification;
+    alert_category_t CONNECT_NOTIFICATION = alert.connect_notification;
+    alert_category_t STATUS_NOTIFICATION = alert.status_notification;
+    alert_category_t IP_BLOCK_NOTIFICATION = alert.ip_block_notification;
+    alert_category_t PERFORMANCE_WARNING = alert.performance_warning;
+    alert_category_t DHT_NOTIFICATION = alert.dht_notification;
+    alert_category_t SESSION_LOG_NOTIFICATION = alert.session_log_notification;
+    alert_category_t TORRENT_LOG_NOTIFICATION = alert.torrent_log_notification;
+    alert_category_t PEER_LOG_NOTIFICATION = alert.peer_log_notification;
+    alert_category_t INCOMING_REQUEST_NOTIFICATION = alert.incoming_request_notification;
+    alert_category_t DHT_LOG_NOTIFICATION = alert.dht_log_notification;
+    alert_category_t DHT_OPERATION_NOTIFICATION = alert.dht_operation_notification;
+    alert_category_t PORT_MAPPING_LOG_NOTIFICATION = alert.port_mapping_log_notification;
+    alert_category_t PICKER_LOG_NOTIFICATION = alert.picker_log_notification;
+    alert_category_t FILE_PROGRESS_NOTIFICATION = alert.file_progress_notification;
+    alert_category_t PIECE_PROGRESS_NOTIFICATION = alert.piece_progress_notification;
+    alert_category_t UPLOAD_NOTIFICATION = alert.upload_notification;
+    alert_category_t BLOCK_PROGRESS_NOTIFICATION = alert.block_progress_notification;
+    alert_category_t ALL_CATEGORIES = alert.all_categories;
+
     /**
      * A timestamp is automatically created in the constructor (in milliseconds).
      *
-     * @return
+     * @return the timestamp
      */
     long timestamp();
 
@@ -71,7 +96,7 @@ public interface Alert<T extends alert> {
     /**
      * Returns a bitmask specifying which categories this alert belong to.
      *
-     * @return
+     * @return the alert category
      */
-    int category();
+    alert_category_t category();
 }

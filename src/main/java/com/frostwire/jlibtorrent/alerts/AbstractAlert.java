@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.swig.alert;
+import com.frostwire.jlibtorrent.swig.alert_category_t;
 
 /**
  * @author gubatron
@@ -84,7 +85,7 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
      * type individually and extract and render the information from the alert depending
      * on the locale.
      *
-     * @return
+     * @return the alert message
      */
     @Override
     public String message() {
@@ -94,10 +95,10 @@ public abstract class AbstractAlert<T extends alert> implements Alert<T> {
     /**
      * Returns a bitmask specifying which categories this alert belong to.
      *
-     * @return
+     * @return the alert category
      */
     @Override
-    public int category() {
+    public alert_category_t category() {
         return alert.category();
     }
 

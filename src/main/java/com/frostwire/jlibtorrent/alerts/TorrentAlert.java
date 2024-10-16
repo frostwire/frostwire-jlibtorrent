@@ -26,6 +26,9 @@ public class TorrentAlert<T extends torrent_alert> extends AbstractAlert<T> {
         return new TorrentHandle(alert.getHandle());
     }
 
+    /**
+     * @return the name of the torrent download
+     */
     public String torrentName() {
         return alert.torrent_name();
     }

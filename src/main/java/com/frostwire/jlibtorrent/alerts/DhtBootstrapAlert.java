@@ -10,7 +10,7 @@ import com.frostwire.jlibtorrent.swig.dht_bootstrap_alert;
  */
 public final class DhtBootstrapAlert extends AbstractAlert<dht_bootstrap_alert> {
 
-    public DhtBootstrapAlert(dht_bootstrap_alert alert) {
+    DhtBootstrapAlert(dht_bootstrap_alert alert) {
         super(alert);
     }
 }

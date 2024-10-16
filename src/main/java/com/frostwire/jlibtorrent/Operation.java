@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.operation_t;
 
 /**
@@ -12,99 +13,201 @@ import com.frostwire.jlibtorrent.swig.operation_t;
 public enum Operation {
 
     /**
+     * The error was unexpected and it is unknown which operation caused it.
+     */
+    UNKNOWN(operation_t.unknown.swigValue()),
+
+    /**
      * This is used when the bittorrent logic determines to disconnect.
      */
-    OP_BITTORRENT(operation_t.op_bittorrent.swigValue()),
+    BITTORRENT(operation_t.bittorrent.swigValue()),
 
     /**
-     * A call to {@code iocontrol} failed.
+     * A call to iocontrol failed.
      */
-    OP_IOCONTROL(operation_t.op_iocontrol.swigValue()),
+    IOCONTROL(operation_t.iocontrol.swigValue()),
 
     /**
-     * A call to {@code getpeername} failed (querying the remote IP of a connection).
+     * A call to getpeername failed (querying the remote IP of a connection).
      */
-    OP_GETPEERNAME(operation_t.op_getpeername.swigValue()),
+    GETPEERNAME(operation_t.getpeername.swigValue()),
 
     /**
-     * A call to {@code getname} failed (querying the local IP of a connection).
+     * A call to getname failed (querying the local IP of a connection).
      */
-    OP_GETNAME(operation_t.op_getname.swigValue()),
+    GETNAME(operation_t.getname.swigValue()),
 
     /**
      * An attempt to allocate a receive buffer failed.
      */
-    OP_ALLOC_RECVBUF(operation_t.op_alloc_recvbuf.swigValue()),
+    ALLOC_RECVBUF(operation_t.alloc_recvbuf.swigValue()),
 
     /**
      * An attempt to allocate a send buffer failed.
      */
-    OP_ALLOC_SNDBUF(operation_t.op_alloc_sndbuf.swigValue()),
+    ALLOC_SNDBUF(operation_t.alloc_sndbuf.swigValue()),
 
     /**
      * Writing to a file failed.
      */
-    OP_FILE_WRITE(operation_t.op_file_write.swigValue()),
+    FILE_WRITE(operation_t.file_write.swigValue()),
 
     /**
      * Reading from a file failed.
      */
-    OP_FILE_READ(operation_t.op_file_read.swigValue()),
+    FILE_READ(operation_t.file_read.swigValue()),
 
     /**
      * A non-read and non-write file operation failed.
      */
-    OP_FILE(operation_t.op_file.swigValue()),
+    FILE(operation_t.file.swigValue()),
 
     /**
      * A socket write operation failed.
      */
-    OP_SOCK_WRITE(operation_t.op_sock_write.swigValue()),
+    SOCK_WRITE(operation_t.sock_write.swigValue()),
 
     /**
      * A socket read operation failed.
      */
-    OP_SOCK_READ(operation_t.op_sock_read.swigValue()),
+    SOCK_READ(operation_t.sock_read.swigValue()),
 
     /**
-     * A call to {@code open()}, to create a socket socket failed.
+     * A call to open(), to create a socket socket failed.
      */
-    OP_SOCK_OPEN(operation_t.op_sock_open.swigValue()),
+    SOCK_OPEN(operation_t.sock_open.swigValue()),
 
     /**
-     * A call to {@code bind()} on a socket failed.
+     * A call to bind() on a socket failed.
      */
-    OP_SOCK_BIND(operation_t.op_sock_bind.swigValue()),
+    SOCK_BIND(operation_t.sock_bind.swigValue()),
 
     /**
-     * An attempt to query the number of bytes available to read from a socket failed.
+     * An attempt to query the number of bytes available to read from a socket
+     * failed.
      */
-    OP_AVAILABLE(operation_t.op_available.swigValue()),
+    AVAILABLE(operation_t.available.swigValue()),
 
     /**
      * A call related to bittorrent protocol encryption failed.
      */
-    OP_ENCRYPTION(operation_t.op_encryption.swigValue()),
+    ENCRYPTION(operation_t.encryption.swigValue()),
 
     /**
      * An attempt to connect a socket failed.
      */
-    OP_CONNECT(operation_t.op_connect.swigValue()),
+    CONNECT(operation_t.connect.swigValue()),
 
     /**
      * Establishing an SSL connection failed.
      */
-    OP_SSL_HANDSHAKE(operation_t.op_ssl_handshake.swigValue()),
+    SSL_HANDSHAKE(operation_t.ssl_handshake.swigValue()),
 
     /**
      * A connection failed to satisfy the bind interface setting.
      */
-    OP_GET_INTERFACE(operation_t.op_get_interface.swigValue()),
+    GET_INTERFACE(operation_t.get_interface.swigValue()),
+
+    /**
+     * A call to listen() on a socket.
+     */
+    SOCK_LISTEN(operation_t.sock_listen.swigValue()),
+
+    /**
+     * A call to the ioctl to bind a socket to a specific network device or
+     * adaptor.
+     */
+    SOCK_BIND_TO_DEVICE(operation_t.sock_bind_to_device.swigValue()),
+
+    /**
+     * A call to accept() on a socket.
+     */
+    SOCK_ACCEPT(operation_t.sock_accept.swigValue()),
+
+    /**
+     * Convert a string into a valid network address.
+     */
+    PARSE_ADDRESS(operation_t.parse_address.swigValue()),
+
+    /**
+     * Enumeration network devices or adapters.
+     */
+    ENUM_IF(operation_t.enum_if.swigValue()),
 
     /**
      *
      */
-    UNKNOWN(-1);
+    FILE_STAT(operation_t.file_stat.swigValue()),
+
+    /**
+     *
+     */
+    FILE_COPY(operation_t.file_copy.swigValue()),
+
+    /**
+     *
+     */
+    FILE_FALLOCATE(operation_t.file_fallocate.swigValue()),
+
+    /**
+     *
+     */
+    FILE_HARD_LINK(operation_t.file_hard_link.swigValue()),
+
+    /**
+     *
+     */
+    FILE_REMOVE(operation_t.file_remove.swigValue()),
+
+    /**
+     *
+     */
+    FILE_RENAME(operation_t.file_rename.swigValue()),
+
+    /**
+     *
+     */
+    FILE_OPEN(operation_t.file_open.swigValue()),
+
+    /**
+     *
+     */
+    MKDIR(operation_t.mkdir.swigValue()),
+
+    /**
+     *
+     */
+    CHECK_RESUME(operation_t.check_resume.swigValue()),
+
+    /**
+     *
+     */
+    EXCEPTION(operation_t.exception.swigValue()),
+
+    /**
+     *
+     */
+    ALLOC_CACHE_PIECE(operation_t.alloc_cache_piece.swigValue()),
+
+    /**
+     *
+     */
+    PARTFILE_MOVE(operation_t.partfile_move.swigValue()),
+
+    /**
+     *
+     */
+    PARTFILE_READ(operation_t.partfile_read.swigValue()),
+
+    /**
+     *
+     */
+    PARTFILE_WRITE(operation_t.partfile_write.swigValue()),
+
+    /**
+     *
+     */
+    HOSTNAME_LOOKUP(operation_t.hostname_lookup.swigValue());
 
     Operation(int swigValue) {
         this.swigValue = swigValue;
@@ -113,15 +216,23 @@ public enum Operation {
     private final int swigValue;
 
     /**
-     * @return
+     * @return the native value.
      */
     public int swig() {
         return swigValue;
     }
 
+    public String nativeName() {
+        try {
+            return libtorrent.operation_name(operation_t.swigToEnum(swigValue));
+        } catch (Throwable e) {
+            return "invalid enum value";
+        }
+    }
+
     /**
-     * @param swigValue
-     * @return
+     * @param swigValue the native value
+     * @return the swig enum.
      */
     public static Operation fromSwig(int swigValue) {
         Operation[] enumValues = Operation.class.getEnumConstants();
@@ -131,5 +242,13 @@ public enum Operation {
             }
         }
         return UNKNOWN;
+    }
+
+    /**
+     * @param swigValue the native enum
+     * @return the swig enum.
+     */
+    public static Operation fromSwig(operation_t swigValue) {
+        return fromSwig(swigValue.swigValue());
     }
 }

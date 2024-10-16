@@ -1,16 +1,15 @@
 import os ;
 
-OPENSSL_ROOT = [ os.environ OPENSSL_ROOT ] ;
 ANDROID_TOOLCHAIN = [ os.environ ANDROID_TOOLCHAIN ] ;
-
-using clang : x86_64 : $(ANDROID_TOOLCHAIN)/bin/x86_64-linux-android-clang++ :
-      <cflags>-fPIC
-      <cflags>-std=c11
-      <cxxflags>-fPIC
-      <cxxflags>-fpermissive
-      <cxxflags>-fno-strict-aliasing
-      <cxxflags>-std=c++11
-      <cxxflags>-I$(OPENSSL_ROOT)/include
-      <linkflags>-L$(OPENSSL_ROOT)/lib
-      <linkflags>-static-libstdc++
-      ;
+android_api = [ os.environ android_api ] ;
+using clang : x86_64 : $(ANDROID_TOOLCHAIN)/bin/x86_64-linux-android$(android_api)-clang++ :
+    <cxxflags>-fPIC
+    <cxxflags>-std=c++17
+    <cxxflags>-DANDROID
+    <cxxflags>-fno-strict-aliasing
+    <cxxflags>-fvisibility=hidden
+    # debug information
+    <cxxflags>-g
+    <linkflags>-static-libstdc++
+    <linkflags>-Wl,--build-id=sha1
+    ;

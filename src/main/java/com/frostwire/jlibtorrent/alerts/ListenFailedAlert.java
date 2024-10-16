@@ -2,7 +2,7 @@ package com.frostwire.jlibtorrent.alerts;
 
 import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.ErrorCode;
-import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.Operation;
 import com.frostwire.jlibtorrent.swig.listen_failed_alert;
 
 /**
@@ -10,7 +10,7 @@ import com.frostwire.jlibtorrent.swig.listen_failed_alert;
  * session can be opened for listening. The {@link #listenInterface()} member is the
  * interface and port that failed, {@link #error()} is the error code describing
  * the failure.
- * <p/>
+ * <p>
  * In the case an endpoint was created before generating the alert, it is
  * represented by ``address`` and ``port``. The combinations of socket type
  * and operation in which such address and port are not valid are:
@@ -35,7 +35,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
     /**
      * The interface libtorrent attempted to listen on that failed.
      *
-     * @return
+     * @return the listen interface (as string).
      */
     public String listenInterface() {
         return alert.listen_interface();
@@ -44,7 +44,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
     /**
      * The error the system returned.
      *
-     * @return
+     * @return the error.
      */
     public ErrorCode error() {
         return new ErrorCode(alert.getError());
@@ -53,186 +53,38 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
     /**
      * The specific low level operation that failed.
      *
-     * @return
-     * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.Operation
+     * @return the operation.
      */
     public Operation operation() {
-        return Operation.fromSwig(alert.getOperation());
+        return Operation.fromSwig(alert.getOp());
     }
 
     /**
      * The type of listen socket this alert refers to.
      *
-     * @return
-     * @see com.frostwire.jlibtorrent.alerts.ListenFailedAlert.SocketType
+     * @return the socket type.
      */
     public SocketType socketType() {
-        return SocketType.fromSwig(alert.getSock_type().swigValue());
+        return SocketType.fromSwig(alert.get_socket_type());
     }
 
     /**
-     * The address libtorrent attempted to listen on
-     * see alert's documentation for validity of this value.
+     * The address libtorrent attempted to listen on.
+     * See alert's documentation for validity of this value.
      *
-     * @return
+     * @return the address attempted to listen on.
      */
     public Address address() {
-        return new Address(alert.getAddress());
+        return new Address(alert.get_address());
     }
 
     /**
      * The port libtorrent attempted to listen on
      * see alert's documentation for validity of this value.
      *
-     * @return
+     * @return the port.
      */
     public int port() {
         return alert.getPort();
-    }
-
-    /**
-     *
-     */
-    public enum SocketType {
-
-        /**
-         *
-         */
-        TCP(listen_failed_alert.socket_type_t.tcp.swigValue()),
-
-        /**
-         *
-         */
-        TCP_SSL(listen_failed_alert.socket_type_t.tcp_ssl.swigValue()),
-
-        /**
-         *
-         */
-        UDP(listen_failed_alert.socket_type_t.udp.swigValue()),
-
-        /**
-         *
-         */
-        I2P(listen_failed_alert.socket_type_t.i2p.swigValue()),
-
-        /**
-         *
-         */
-        SOCKS5(listen_failed_alert.socket_type_t.socks5.swigValue()),
-
-        /**
-         *
-         */
-        UTP_SSL(listen_failed_alert.socket_type_t.utp_ssl.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        SocketType(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static SocketType fromSwig(int swigValue) {
-            SocketType[] enumValues = SocketType.class.getEnumConstants();
-            for (SocketType ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
-    }
-
-    /**
-     *
-     */
-    public enum Operation {
-
-        /**
-         *
-         */
-        PARSE_ADDRESS(listen_failed_alert.op_t.parse_addr.swigValue()),
-
-        /**
-         *
-         */
-        OPEN(listen_failed_alert.op_t.open.swigValue()),
-
-        /**
-         *
-         */
-        BIND(listen_failed_alert.op_t.bind.swigValue()),
-
-        /**
-         *
-         */
-        LISTEN(listen_failed_alert.op_t.listen.swigValue()),
-
-        /**
-         *
-         */
-        GET_SOCKET_NAME(listen_failed_alert.op_t.get_socket_name.swigValue()),
-
-        /**
-         *
-         */
-        ACCEPT(listen_failed_alert.op_t.accept.swigValue()),
-
-        /**
-         *
-         */
-        ENUM_IF(listen_failed_alert.op_t.enum_if.swigValue()),
-
-        /**
-         *
-         */
-        BIND_TO_DEVICE(listen_failed_alert.op_t.bind_to_device.swigValue()),
-
-        /**
-         *
-         */
-        UNKNOWN(-1);
-
-        Operation(int swigValue) {
-            this.swigValue = swigValue;
-        }
-
-        private final int swigValue;
-
-        /**
-         * @return
-         */
-        public int swig() {
-            return swigValue;
-        }
-
-        /**
-         * @param swigValue
-         * @return
-         */
-        public static Operation fromSwig(int swigValue) {
-            Operation[] enumValues = Operation.class.getEnumConstants();
-            for (Operation ev : enumValues) {
-                if (ev.swig() == swigValue) {
-                    return ev;
-                }
-            }
-            return UNKNOWN;
-        }
     }
 }

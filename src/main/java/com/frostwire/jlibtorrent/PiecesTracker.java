@@ -27,8 +27,8 @@ public final class PiecesTracker {
 
         for (int fileIndex = 0; fileIndex < numFiles; fileIndex++) {
             long size = fs.fileSize(fileIndex);
-            int firstPiece = ti.mapFile(fileIndex, 0, 1).getPiece();
-            int lastPiece = ti.mapFile(fileIndex, size - 1, 1).getPiece();
+            int firstPiece = ti.mapFile(fileIndex, 0, 1).piece();
+            int lastPiece = ti.mapFile(fileIndex, size - 1, 1).piece();
 
             int numSlices = lastPiece - firstPiece + 1;
             files[fileIndex] = new int[numSlices];
@@ -41,27 +41,27 @@ public final class PiecesTracker {
 
                 ArrayList<FileSlice> slices = ti.mapBlock(pieceIndex, 0, ti.pieceSize(pieceIndex));
                 for (FileSlice slice : slices) {
-                    if (slice.getFileIndex() == fileIndex) {
-                        sizes[fileIndex][index] = slice.getSize();
+                    if (slice.fileIndex() == fileIndex) {
+                        sizes[fileIndex][index] = slice.size();
                     }
                 }
             }
         }
     }
 
-    public int getNumFiles() {
+    public int numFiles() {
         return numFiles;
     }
 
-    public int getNumPieces() {
+    public int numPieces() {
         return numPieces;
     }
 
-    public boolean isComplete(int pieceIndex) throws IllegalArgumentException {
+    public boolean isComplete(int pieceIndex) {
         return complete[pieceIndex];
     }
 
-    public void setComplete(int pieceIndex, boolean complete) throws IllegalArgumentException {
+    public void setComplete(int pieceIndex, boolean complete) {
         this.complete[pieceIndex] = complete;
     }
 
