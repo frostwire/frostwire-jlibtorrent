@@ -1642,6 +1642,7 @@ public class libtorrent_jni {
   public final static native byte peer_info_get_source(long jarg1, peer_info jarg1_);
   public final static native byte peer_info_get_read_state(long jarg1, peer_info jarg1_);
   public final static native byte peer_info_get_write_state(long jarg1, peer_info jarg1_);
+  public final static native long peer_info_get_pieces(long jarg1, peer_info jarg1_);
   public final static native long new_connection_type_t();
   public final static native long connection_type_t_all();
   public final static native boolean connection_type_t_non_zero(long jarg1, connection_type_t jarg1_);
