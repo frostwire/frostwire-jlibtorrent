@@ -4288,6 +4288,10 @@ SWIGINTERN std::int8_t libtorrent_peer_info_get_read_state(libtorrent::peer_info
 SWIGINTERN std::int8_t libtorrent_peer_info_get_write_state(libtorrent::peer_info *self){
             return std::int8_t(static_cast<std::uint8_t>(self->write_state));
         }
+SWIGINTERN libtorrent::bitfield libtorrent_peer_info_get_pieces(libtorrent::peer_info *self){
+            auto* v = &self->pieces;
+            return *reinterpret_cast<libtorrent::bitfield*>(v);
+        }
 SWIGINTERN bool libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__non_zero(libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::connection_type_tag > *self){
                     return self->operator bool();
                 }
@@ -45243,6 +45247,31 @@ SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
     }
   }
   jresult = (jbyte)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer_1info_1get_1pieces(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::peer_info *arg1 = (libtorrent::peer_info *) 0 ;
+  libtorrent::bitfield result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::peer_info **)&jarg1; 
+  {
+    try {
+      result = libtorrent_peer_info_get_pieces(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(libtorrent::bitfield **)&jresult = new libtorrent::bitfield(result); 
   return jresult;
 }
 
