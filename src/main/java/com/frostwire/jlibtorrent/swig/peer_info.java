@@ -435,6 +435,10 @@ public class peer_info {
     return libtorrent_jni.peer_info_get_write_state(swigCPtr, this);
   }
 
+  public bitfield get_pieces() {
+    return new bitfield(libtorrent_jni.peer_info_get_pieces(swigCPtr, this), true);
+  }
+
   public final static peer_flags_t interesting = new peer_flags_t(libtorrent_jni.peer_info_interesting_get(), false);
   public final static peer_flags_t choked = new peer_flags_t(libtorrent_jni.peer_info_choked_get(), false);
   public final static peer_flags_t remote_interested = new peer_flags_t(libtorrent_jni.peer_info_remote_interested_get(), false);
