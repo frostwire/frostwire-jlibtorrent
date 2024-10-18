@@ -21,6 +21,13 @@ public class AnnounceEndpoint {
     }
 
     /**
+     * @return the native object
+     */
+    public announce_endpoint swig() {
+        return h;
+    }
+
+    /**
      * The local endpoint of the listen interface associated with this endpoint.
      *
      * @return the local endpoint
