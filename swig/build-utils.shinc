@@ -92,7 +92,7 @@ linux_env() {
 
 export LIBRARY_VERSION=$(egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g")
 export LIBRARY_NAME=jlibtorrent
-export LIBTORRENT_REVISION=2ab8fedabb7716947edc77958da6d0b5e1040df9 # fix test_copy_file to recognize overlayfs as supporting sparse files
+export LIBTORRENT_REVISION=24e658aa884cb91bb9918487ba0e9bb51d7bf70f # fix tests to work on linux ZFS
 
 export LIBTORRENT_BRANCH="RC_2_0"
 export OPENSSL_VERSION="1.1.1t"

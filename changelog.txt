@@ -1,3 +1,11 @@
+2.0.11.1
+ * lt:limit piece size in torrent creator
+ * lt:don't hint FADV_RANDOM on posix systems. May improve seeding performance
+ * lt:allow boost connect while checking resume data if no_verify_files flag is set
+ * lt:fix BEP-40 peer priority for IPv6
+ * lt:limit piece size in torrent creator
+ * lt:fix file pre-allocation when changing file priority (HanabishiRecca)
+
 2.0.11.0
  * Migration to support libtorrent 2.0 integration
  * Maintained 1.2.x on a separate branch without active maintenance; pull requests are welcome
