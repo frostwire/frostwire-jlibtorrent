@@ -61,6 +61,68 @@ public final class BDecodeNode {
         return bdecode_node.to_string(n, false, 2);
     }
 
+    public boolean hasList(String key) {
+        if (n.type() == bdecode_node.type_t.none_t) {
+            return false;
+        }
+        bdecode_node target_node = n.dict_find_list_s(key);
+        return target_node.type() != bdecode_node.type_t.none_t;
+    }
+
+    public boolean hasDict(String key) {
+        if (n.type() == bdecode_node.type_t.none_t) {
+            return false;
+        }
+        bdecode_node target_node = n.dict_find_dict_s(key);
+        return target_node.type() != bdecode_node.type_t.none_t;
+    }
+
+    public boolean hasString(String key) {
+        if (n.type() == bdecode_node.type_t.none_t) {
+            return false;
+        }
+        return n.dict_find_string_value_s(key) != null;
+    }
+
+    public boolean hasInt(String key) {
+        if (n.type() != bdecode_node.type_t.int_t) {
+            return false;
+        }
+        return n.dict_find_int_value_s(key,0) != 0;
+    }
+
+    public BDecodeNode getList(String key) {
+        if (!hasList(key)) {
+            return null;
+        }
+
+        BDecodeNode result = new BDecodeNode(n.dict_find_list_s(key));
+        return result;
+    }
+
+    public BDecodeNode getDict(String key) {
+        if (!hasDict(key)) {
+            return null;
+        }
+
+        BDecodeNode result = new BDecodeNode(n.dict_find_dict_s(key));
+        return result;
+    }
+
+    public String getString(String key) {
+        if (n.type() == bdecode_node.type_t.none_t) {
+            return null;
+        }
+        return n.dict_find_string_value_s(key);
+    }
+
+    public long getInt(String key) {
+        if (n.type() != bdecode_node.type_t.int_t) {
+            return 0;
+        }
+        return n.dict_find_int_value_s(key,0);
+    }
+
     public static BDecodeNode bdecode(byte[] data) {
         byte_vector buffer = Vectors.bytes2byte_vector(data);
         bdecode_node n = new bdecode_node();

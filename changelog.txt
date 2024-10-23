@@ -1,4 +1,5 @@
 2.0.11.1
+ * BDecodeNode: hasList, hasDict, hasString, hasInt, getList, getDict, getString, getInt
  * lt:limit piece size in torrent creator
  * lt:don't hint FADV_RANDOM on posix systems. May improve seeding performance
  * lt:allow boost connect while checking resume data if no_verify_files flag is set
