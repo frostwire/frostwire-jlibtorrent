@@ -55,6 +55,18 @@ public class BDecodeReadTest {
         assertEquals(n2.type(), bdecode_node.type_t.none_t);
         // if (n2.type() != bdecode_node.type_t.none_t)
         //    assertEquals(n2.list_size(), <size>);
+        BDecodeNode node = new BDecodeNode(n2);
+        assertEquals(node.hasList("any-list"), false);
+
+        BDecodeNode eNode = new BDecodeNode(e);
+        assertEquals(eNode.hasList("info"), false);
+        assertEquals(eNode.hasDict("info"), true);
+
+        BDecodeNode infoNode = eNode.getDict("info");
+        assertNotEquals(infoNode, null);
+
+        assertEquals(infoNode.hasString("name"), true);
+        assertEquals(infoNode.getString("name"), "frostwire-6.2.3.windows.fusion.exe");
 
         ec.clear();
         buffer.clear(); // prevents GC
