@@ -88,7 +88,7 @@ public final class TorrentBuilder {
      * The bitfield_flag structure in the provided code is a utility for managing flags in a bitfield,
      * which is essentially a data structure that compactly stores bits.
      * <p>
-     * create_flags_t is a type alias for bitfield_flag<std::uint32_t, create_flags_tag>, specifically designed
+     * create_flags_t is a type alias for bitfield_flag&lt;std::uint32_t, create_flags_tag&gt;, specifically designed
      * to handle creation flags in libtorrent.
      * <p>
      * It provides a compact, efficient way to manage binary flags using bitwise operations, with the additional
@@ -214,7 +214,7 @@ public final class TorrentBuilder {
     }
 
     /**
-     * Lists specified DHT nodes in the torrent (added with addNodes(List<Pair<String, Integer>>)).
+     * Lists specified DHT nodes in the torrent (added with addNodes(List&lt;Pair&lt;String, Integer&gt;&gt;)).
      * A node is a hostname and a port number where there is a DHT node running.
      */
     public List<Pair<String, Integer>> nodes() {
