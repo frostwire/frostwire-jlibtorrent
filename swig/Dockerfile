@@ -79,7 +79,7 @@ RUN swig -version
 
 # prepare_boost
 RUN cd /src \
-    && wget -nv -O boost.tar.gz https://boostorg.jfrog.io/artifactory/main/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz \
+    && wget -nv -O boost.tar.gz https://archives.boost.io/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz \
     && tar xzf boost.tar.gz \
     && cd boost_${BOOST_UNDERSCORE_VERSION} \
     && ./bootstrap.sh
