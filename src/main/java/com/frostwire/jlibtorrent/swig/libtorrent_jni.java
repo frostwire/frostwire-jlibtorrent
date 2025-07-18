@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "2.0.11.0";
+        return "2.0.12.0";
     }
 
     public static boolean isMacOS() {
@@ -1740,6 +1740,8 @@ public class libtorrent_jni {
   public final static native long torrent_handle_if_metadata_changed_get();
   public final static native void torrent_handle_save_resume_data__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, resume_data_flags_t jarg2_);
   public final static native void torrent_handle_save_resume_data__SWIG_1(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_get_resume_data__SWIG_0(long jarg1, torrent_handle jarg1_, long jarg2, resume_data_flags_t jarg2_);
+  public final static native long torrent_handle_get_resume_data__SWIG_1(long jarg1, torrent_handle jarg1_);
   public final static native boolean torrent_handle_need_save_resume_data__SWIG_0(long jarg1, torrent_handle jarg1_);
   public final static native boolean torrent_handle_need_save_resume_data__SWIG_1(long jarg1, torrent_handle jarg1_, long jarg2, resume_data_flags_t jarg2_);
   public final static native void torrent_handle_queue_position_up(long jarg1, torrent_handle jarg1_);

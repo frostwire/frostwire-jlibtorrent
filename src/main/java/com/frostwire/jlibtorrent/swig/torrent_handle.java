@@ -207,6 +207,14 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_save_resume_data__SWIG_1(swigCPtr, this);
   }
 
+  public add_torrent_params get_resume_data(resume_data_flags_t flags) {
+    return new add_torrent_params(libtorrent_jni.torrent_handle_get_resume_data__SWIG_0(swigCPtr, this, resume_data_flags_t.getCPtr(flags), flags), true);
+  }
+
+  public add_torrent_params get_resume_data() {
+    return new add_torrent_params(libtorrent_jni.torrent_handle_get_resume_data__SWIG_1(swigCPtr, this), true);
+  }
+
   public boolean need_save_resume_data() {
     return libtorrent_jni.torrent_handle_need_save_resume_data__SWIG_0(swigCPtr, this);
   }
