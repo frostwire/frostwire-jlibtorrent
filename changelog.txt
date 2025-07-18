@@ -1,10 +1,35 @@
+2.0.12.0
+ * Libtorrent updated to RC_2_0 (rev:23388c17fff2b775a9269e39b71fc0464880106d)
+ * new torrent_handle::get_resume_data() : add_torrent_params
+ * new torrent_handle::get_resume_data(resume_data_flags_t flags) : add_torrent_params
+ * new settings_pack.int_types i2p_inbound_length_variance
+ * new settings_pack.int_types i2p_outbound_length_variance
+ * Jar built with JDK 17 - JAVA_17 compatibility
+ * Boost 1.88.0 upgrade
+ * Gradle 8.14.3
+ * dev: junit upgraded from 4.13.1 -> 4.13.2
+ * lt:add option to send host header in HTTP proxy CONNECT command
+ * lt:cache DNS failures for a shorter time
+ * lt:file_renamed_alert is always posted, regardless of alert mask
+ * lt:add feature to request resume data synchronously
+ * lt:don't leak file descriptors to child processes (O_CLOEXEC)
+ * lt:optimize the utp resend
+ * lt:optimize tracker announcements
+ * fix handling of invalid filenames
+ * add support for I2CP inbound.lengthVariance and outbound.lengthVariance tunnel settings
+ * lt: validate add_torrent_params::save_path at run-time
+ * lt: use stricter rules for what filenames are valid on Android
+ * lt: fix applying IP filter to DHT traffic (HanabishiRecca)
+ * lt: fix race condition when cancelling requests after becoming a seed
+ * lt: fix performance bug in the file pool, evicting MRU instead of LRU (HanabishiRecca)
+ * lt: fix bug where file_progress could sometimes be reported as >100%
+
 2.0.11.1
  * BDecodeNode: hasList, hasDict, hasString, hasInt, getList, getDict, getString, getInt
  * lt:limit piece size in torrent creator
  * lt:don't hint FADV_RANDOM on posix systems. May improve seeding performance
  * lt:allow boost connect while checking resume data if no_verify_files flag is set
  * lt:fix BEP-40 peer priority for IPv6
- * lt:limit piece size in torrent creator
  * lt:fix file pre-allocation when changing file priority (HanabishiRecca)
 
 2.0.11.0
