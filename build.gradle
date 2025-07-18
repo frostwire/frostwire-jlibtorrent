@@ -180,7 +180,7 @@ publishing {
             url = "https://maven.pkg.github.com/${System.getenv('GITHUB_REPOSITORY') ?: 'frostwire/frostwire-jlibtorrent'}"
             credentials {
                 username = System.getenv('USERNAME') // github.actor -> defined in publish.yml when publish action is invoked
-                password = System.getenv('TOKEN') // secrets.JLIBTORRENT_PUBLISH_GITHUB_TOKEN -> defined in repository secrets
+                password = System.getenv('TOKEN') // secrets.GITHUB_TOKEN -> generated automatically when a github action is ran, has package:write permissions
             }
         }
     }
@@ -436,8 +436,8 @@ publishing {
                     developer.appendNode('id', 'gubatron')
                     developer.appendNode('name', 'Angel Leon')
                     developer.appendNode('email', 'gubatron@gmail.com')
-                }
-            }
-        }
-    }
-}
+                } // withXml
+            } // pom
+        } // androidX64
+    } // publications
+} // publishing
