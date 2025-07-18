@@ -2,6 +2,12 @@ name: Publish Java Package
 on:
   release:
     types: [created]
+    workflow_dispatch:
+      inputs:
+        release_tag:
+          description: 'Release tag to use testing'
+          required: true
+          default: 'release/2.0.11.0'
 jobs:
   publish:
     runs-on: ubuntu-latest
