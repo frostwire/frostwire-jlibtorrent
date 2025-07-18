@@ -92,7 +92,6 @@ linux_env() {
 
 export LIBRARY_VERSION=$(egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g")
 export LIBRARY_NAME=jlibtorrent
-#export LIBTORRENT_REVISION=24e658aa884cb91bb9918487ba0e9bb51d7bf70f # fix tests to work on linux ZFS
 export LIBTORRENT_REVISION=21cbbf74ee4cdf41c5877fddb84bde128d217914 # support find_torrent() for v2 torrents
 
 
@@ -243,9 +242,14 @@ prepare_libtorrent() {
   git status
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
+  git fetch
   git fetch origin ${LIBTORRENT_BRANCH} --depth=1
+  echo "git checkout ${LIBTORRENT_BRANCH}"
   git checkout ${LIBTORRENT_BRANCH}
+  #press_any_to_continue
+  echo "git reset --hard ${LIBTORRENT_REVISION}"
   git reset --hard ${LIBTORRENT_REVISION}
+  #press_any_to_continue
   git submodule init
   git submodule update
   make clean
