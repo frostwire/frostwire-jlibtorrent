@@ -1,0 +1,59 @@
+name: Publish Java Package
+on:
+  release:
+    types: [created]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Download Release Assets from URLs
+        run: |
+          mkdir -p build/libs
+          TAG="${{ github.ref_name }}"  # e.g., release/2.0.12.0
+          ENCODED_TAG=$(echo "$TAG" | sed 's|/|%2F|g')  # e.g., release%2F2.0.12.0
+          VERSION="${TAG#release/}"  # e.g., 2.0.12.0
+          
+          # Platform-independent JAR
+          curl -L -o build/libs/jlibtorrent-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}.jar
+          
+          # macOS ARM64
+          curl -L -o build/libs/jlibtorrent-macosx-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-macosx-arm64-${VERSION}.jar
+          
+          # macOS x86_64
+          curl -L -o build/libs/jlibtorrent-macosx-x86_64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-macosx-x86_64-${VERSION}.jar
+          
+          # Windows
+          curl -L -o build/libs/jlibtorrent-windows-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-windows-${VERSION}.jar
+          
+          # Linux
+          curl -L -o build/libs/jlibtorrent-linux-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-linux-${VERSION}.jar
+          
+          # Android ARM
+          curl -L -o build/libs/jlibtorrent-android-arm-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-arm-${VERSION}.jar
+          
+          # Android x86
+          curl -L -o build/libs/jlibtorrent-android-x86-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-x86-${VERSION}.jar
+          
+          # Android ARM64
+          curl -L -o build/libs/jlibtorrent-android-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-arm64-${VERSION}.jar
+          
+          # Android x86_64
+          curl -L -o build/libs/jlibtorrent-android-x86_64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-x86_64-${VERSION}.jar
+          
+          # Optional: If you upload sources/javadoc as assets, add these
+          # curl -L -o build/libs/jlibtorrent-${VERSION}-sources.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}-sources.jar
+          # curl -L -o build/libs/jlibtorrent-${VERSION}-javadoc.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}-javadoc.jar
+      - name: Publish to GitHub Packages
+        run: gradle publish
+        env:
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.JLIBTORRENT_PUBLISH_GITHUB_TOKEN }}
+
