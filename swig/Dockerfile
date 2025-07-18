@@ -8,7 +8,7 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
 RUN apt update -y
 # Common Java tooling
-RUN apt install -y openjdk-11-jdk-headless
+RUN apt install -y openjdk-17-jdk-headless
 # Common tooling
 RUN apt install -y wget
 RUN apt install -y unzip
