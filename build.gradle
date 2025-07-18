@@ -172,26 +172,28 @@ artifacts {
 }
 
 
-// Reusable POM configuration closure
-def pomConfig = { String artifactName, String desc ->
-    withXml {
-        def root = asNode()
-        root.appendNode('name', artifactName)
-        root.appendNode('description', desc)
-        root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
-        def scm = root.appendNode('scm')
-        scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
-        scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
-        scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
-        def licenses = root.appendNode('licenses')
-        def license = licenses.appendNode('license')
-        license.appendNode('name', 'The MIT License')
-        license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
-        def developers = root.appendNode('developers')
-        def developer = developers.appendNode('developer')
-        developer.appendNode('id', 'gubatron')
-        developer.appendNode('name', 'Angel Leon')
-        developer.appendNode('email', 'gubatron@gmail.com')
+// Reusable POM configuration method
+def configurePom(MavenPom pom, String artifactName, String desc) {
+    pom.name = artifactName
+    pom.description = desc
+    pom.url = 'https://github.com/frostwire/frostwire-jlibtorrent'
+    pom.scm {
+        connection = 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git'
+        developerConnection = 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git'
+        url = 'https://github.com/frostwire/frostwire-jlibtorrent'
+    }
+    pom.licenses {
+        license {
+            name = 'The MIT License'
+            url = 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md'
+        }
+    }
+    pom.developers {
+        developer {
+            id = 'gubatron'
+            name = 'Angel Leon'
+            email = 'gubatron@gmail.com'
+        }
     }
 }
 
@@ -216,7 +218,9 @@ publishing {
             artifact file("$buildDir/libs/jlibtorrent-${version}.jar")  // Downloaded from URL
             artifact tasks.named('sourcesJar')
             artifact tasks.named('javadocJar')
-            pom pomConfig('frostwire-jlibtorrent', 'The swig Java interface for libtorrent by the makers of FrostWire. Contains only .class files to be used in any architecture alongside the native binary jar')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent', 'The swig Java interface for libtorrent by the makers of FrostWire. Contains only .class files to be used in any architecture alongside the native binary jar')
+            }
         }
         // macOS ARM64
         macOSArm64(MavenPublication) {
@@ -224,7 +228,9 @@ publishing {
             artifactId = 'jlibtorrent-macosx-arm64'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-macosx-arm64-${version}.jar")  // Downloaded from URL
-            pom pomConfig('frostwire-jlibtorrent-macosx-arm64', 'Native macOS ARM64 binaries for jlibtorrent.')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-macosx-arm64', 'Native macOS ARM64 binaries for jlibtorrent.')
+            }
         }
         // macOS x86_64
         macOSX86_64(MavenPublication) {
@@ -232,7 +238,9 @@ publishing {
             artifactId = 'jlibtorrent-macosx-x86_64'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-macosx-x86_64-${version}.jar")  // Downloaded from URL
-            pom pomConfig('frostwire-jlibtorrent-macosx-x86_64', 'Native macOS x86_64 binaries for jlibtorrent.')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-macosx-x86_64', 'Native macOS x86_64 binaries for jlibtorrent.')
+            }
         }
         // Windows
         windows(MavenPublication) {
@@ -240,7 +248,9 @@ publishing {
             artifactId = 'jlibtorrent-windows'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-windows-${version}.jar")  // Downloaded from URL
-            pom pomConfig('frostwire-jlibtorrent-windows', 'Native Windows binaries for jlibtorrent.')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-windows', 'Native Windows binaries for jlibtorrent.')
+            }
         }
         // Linux
         linux(MavenPublication) {
@@ -248,7 +258,9 @@ publishing {
             artifactId = 'jlibtorrent-linux'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-linux-${version}.jar")  // Downloaded from URL
-            pom pomConfig('frostwire-jlibtorrent-linux', 'Native Linux binaries for jlibtorrent.')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-linux', 'Native Linux binaries for jlibtorrent.')
+            }
         }
         // Android ARM
         androidArm(MavenPublication) {
@@ -256,7 +268,9 @@ publishing {
             artifactId = 'jlibtorrent-android-arm'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-android-arm-${version}.jar")  // Downloaded from URL
-            pom pomConfig('frostwire-jlibtorrent-android-arm', 'Native Android ARM binaries for jlibtorrent.')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-android-arm', 'Native Android ARM binaries for jlibtorrent.')
+            }
         }
         // Android x86
         androidX86(MavenPublication) {
@@ -264,7 +278,9 @@ publishing {
             artifactId = 'jlibtorrent-android-x86'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-android-x86-${version}.jar")  // Downloaded from URL
-            pom pomConfig('frostwire-jlibtorrent-android-x86', 'Native Android x86 binaries for jlibtorrent.')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-android-x86', 'Native Android x86 binaries for jlibtorrent.')
+            }
         }
         // Android ARM64
         androidArm64(MavenPublication) {
@@ -272,7 +288,9 @@ publishing {
             artifactId = 'jlibtorrent-android-arm64'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-android-arm64-${version}.jar")  // Downloaded from URL
-            pom pomConfig('frostwire-jlibtorrent-android-arm64', 'Native Android ARM64 binaries for jlibtorrent.')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-android-arm64', 'Native Android ARM64 binaries for jlibtorrent.')
+            }
         }
         // Android x86_64
         androidX64(MavenPublication) {
@@ -280,7 +298,9 @@ publishing {
             artifactId = 'jlibtorrent-android-x86_64'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-android-x86_64-${version}.jar")  // Downloaded from URL
-            pom pomConfig('frostwire-jlibtorrent-android-x86_64', 'Native Android x86_64 binaries for jlibtorrent.')
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-android-x86_64', 'Native Android x86_64 binaries for jlibtorrent.')
+            }
         }
     } // publications
 } // publishing
