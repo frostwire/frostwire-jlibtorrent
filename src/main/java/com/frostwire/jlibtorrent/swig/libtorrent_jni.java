@@ -3498,7 +3498,8 @@ public class libtorrent_jni {
   public final static native void session_handle_post_session_stats(long jarg1, session_handle jarg1_);
   public final static native void session_handle_post_dht_stats(long jarg1, session_handle jarg1_);
   public final static native void session_handle_set_dht_state__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, dht_state jarg2_);
-  public final static native long session_handle_find_torrent(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long session_handle_find_torrent__SWIG_0(long jarg1, session_handle jarg1_, long jarg2, sha1_hash jarg2_);
+  public final static native long session_handle_find_torrent__SWIG_1(long jarg1, session_handle jarg1_, long jarg2, sha256_hash jarg2_);
   public final static native long session_handle_get_torrents(long jarg1, session_handle jarg1_);
   public final static native long session_handle_add_torrent(long jarg1, session_handle jarg1_, long jarg2, add_torrent_params jarg2_, long jarg3, error_code jarg3_);
   public final static native void session_handle_async_add_torrent(long jarg1, session_handle jarg1_, long jarg2, add_torrent_params jarg2_);

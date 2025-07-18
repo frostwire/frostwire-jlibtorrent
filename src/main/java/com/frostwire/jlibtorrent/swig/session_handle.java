@@ -92,7 +92,11 @@ public class session_handle {
   }
 
   public torrent_handle find_torrent(sha1_hash info_hash) {
-    return new torrent_handle(libtorrent_jni.session_handle_find_torrent(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash), true);
+    return new torrent_handle(libtorrent_jni.session_handle_find_torrent__SWIG_0(swigCPtr, this, sha1_hash.getCPtr(info_hash), info_hash), true);
+  }
+
+  public torrent_handle find_torrent(sha256_hash info_hash) {
+    return new torrent_handle(libtorrent_jni.session_handle_find_torrent__SWIG_1(swigCPtr, this, sha256_hash.getCPtr(info_hash), info_hash), true);
   }
 
   public torrent_handle_vector get_torrents() {
