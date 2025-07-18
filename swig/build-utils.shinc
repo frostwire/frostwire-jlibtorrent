@@ -92,8 +92,7 @@ linux_env() {
 
 export LIBRARY_VERSION=$(egrep "version '.*'" ../build.gradle | sed "s/[version| ']//g")
 export LIBRARY_NAME=jlibtorrent
-export LIBTORRENT_REVISION=21cbbf74ee4cdf41c5877fddb84bde128d217914 # support find_torrent() for v2 torrents
-
+export LIBTORRENT_REVISION=23388c17fff2b775a9269e39b71fc0464880106d # add option to send host header in HTTP proxy CONNECT command (#7710)
 
 export LIBTORRENT_BRANCH="RC_2_0"
 export OPENSSL_VERSION="1.1.1t"

@@ -35,7 +35,7 @@ RUN apt install -y g++-mingw-w64-x86-64
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION="21cbbf74ee4cdf41c5877fddb84bde128d217914"
+ENV LIBTORRENT_REVISION="23388c17fff2b775a9269e39b71fc0464880106d"
 ENV LIBTORRENT_BRANCH="RC_2_0"
 ENV SWIG_VERSION="4.2.1"
 ENV BOOST_MAJOR="1"
