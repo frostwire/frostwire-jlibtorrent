@@ -1,6 +1,7 @@
 plugins {
-  id 'java'
+  id 'java-library'
   id 'base'
+  id 'maven-publish'
 }
 
 group 'com.frostwire'
@@ -9,12 +10,14 @@ base {
   archivesName = 'jlibtorrent'
 }
 // Just changing version here should be all that's necessary to bump the version on the library
-version '2.0.12.0'
+// Dynamic from tag for Github workflow, fallback for local testing/building binaries
+version = System.getenv('GITHUB_REF_NAME')?.replace('release/', '') ?: '2.0.12.0'
 
 java {
   sourceCompatibility = JavaVersion.VERSION_17
   targetCompatibility = JavaVersion.VERSION_17
-
+  withSourcesJar()
+  withJavadocJar()
   compileJava.options.encoding = "UTF-8"
   compileTestJava.options.encoding = "UTF-8"
 }
@@ -24,20 +27,12 @@ tasks.withType(JavaCompile).configureEach {
     options.compilerArgs << "-Xmaxerrs" << "1"
 }
 
-if (!hasProperty('ossrhUsername')) {
-    ext.ossrhUsername = ''
-}
-
-if (!hasProperty('ossrhPassword')) {
-    ext.ossrhPassword = ''
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'junit:junit:4.13.2'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 tasks.withType(Test).configureEach {
@@ -46,27 +41,9 @@ tasks.withType(Test).configureEach {
 
 tasks.test {
     outputs.upToDateWhen { false }
-}
-
-test {
     testLogging {
         events "passed", "skipped", "failed", "standard_out"
     }
-}
-
-tasks.register('sourcesJar', Jar) {
-    archiveClassifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-tasks.register('javadoc2', Javadoc) {
-    source = sourceSets.main.allJava
-}
-
-tasks.register('javadocJar', Jar) {
-    dependsOn javadoc2
-    archiveClassifier = 'javadoc'
-    from javadoc2.destinationDir
 }
 
 tasks.register('nativeMacOSArm64Jar', Zip) {
@@ -194,40 +171,273 @@ artifacts {
     archives nativeAndroidX64Jar
 }
 
-def pomData() {
-    return {
-        resolveStrategy = DELEGATE_FIRST
-        name 'frostwire-jlibtorrent'
-        description 'A swig Java interface for libtorrent by the makers of FrostWire.'
-        url 'https://github.com/frostwire/frostwire-jlibtorrent'
-        scm {
-            connection 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git'
-            developerConnection 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git'
-            url 'https://github.com/frostwire/frostwire-jlibtorrent'
-        }
-        licenses {
-            license {
-                name 'The MIT License'
-                url 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md'
-            }
-        }
-        developers {
-            developer {
-                id 'gubatron'
-                name 'Angel Leon'
-                email 'gubatron@gmail.com'
-            }
-        }
-    }
-}
 
-def addDependency(root) {
-    def dependenciesNode = root.dependencies[0]
-    if (!dependenciesNode) {
-        dependenciesNode = root.appendNode('dependencies')
+// Maven publishing to GitHub Packages
+publishing {
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = "https://maven.pkg.github.com/${System.getenv('GITHUB_REPOSITORY') ?: 'frostwire/frostwire-jlibtorrent'}"
+            credentials {
+                username = System.getenv('USERNAME') // github.actor -> defined in publish.yml when publish action is invoked
+                password = System.getenv('TOKEN') // secrets.JLIBTORRENT_PUBLISH_GITHUB_TOKEN -> defined in repository secrets
+            }
+        }
     }
-    def depNode = dependenciesNode.appendNode('dependency')
-    depNode.appendNode('groupId', group)
-    depNode.appendNode('artifactId', archivesBaseName)
-    depNode.appendNode('version', version)
+    publications {
+        // Platform-independent jlibtorrent JAR
+        jlibtorrent(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-${version}.jar")  // Downloaded from URL
+            artifact tasks.named('sourcesJar')
+            artifact tasks.named('javadocJar')
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent')
+                    root.appendNode('description', 'A swig Java interface for libtorrent by the makers of FrostWire.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+        // macOS ARM64
+        macOSArm64(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-macosx-arm64'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-macosx-arm64-${version}.jar")  // Downloaded from URL
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent-macosx-arm64')
+                    root.appendNode('description', 'Native macOS ARM64 binaries for jlibtorrent.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+        // macOS x86_64
+        macOSX86_64(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-macosx-x86_64'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-macosx-x86_64-${version}.jar")  // Downloaded from URL
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent-macosx-x86_64')
+                    root.appendNode('description', 'Native macOS x86_64 binaries for jlibtorrent.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+        // Windows
+        windows(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-windows'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-windows-${version}.jar")  // Downloaded from URL
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent-windows')
+                    root.appendNode('description', 'Native Windows binaries for jlibtorrent.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+        // Linux
+        linux(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-linux'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-linux-${version}.jar")  // Downloaded from URL
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent-linux')
+                    root.appendNode('description', 'Native Linux binaries for jlibtorrent.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+        // Android ARM
+        androidArm(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-android-arm'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-android-arm-${version}.jar")  // Downloaded from URL
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent-android-arm')
+                    root.appendNode('description', 'Native Android ARM binaries for jlibtorrent.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+        // Android x86
+        androidX86(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-android-x86'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-android-x86-${version}.jar")  // Downloaded from URL
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent-android-x86')
+                    root.appendNode('description', 'Native Android x86 binaries for jlibtorrent.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+        // Android ARM64
+        androidArm64(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-android-arm64'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-android-arm64-${version}.jar")  // Downloaded from URL
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent-android-arm64')
+                    root.appendNode('description', 'Native Android ARM64 binaries for jlibtorrent.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+        // Android x86_64
+        androidX64(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-android-x86_64'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-android-x86_64-${version}.jar")  // Downloaded from URL
+            pom {
+                withXml {
+                    def root = asNode()
+                    root.appendNode('name', 'frostwire-jlibtorrent-android-x86_64')
+                    root.appendNode('description', 'Native Android x86_64 binaries for jlibtorrent.')
+                    root.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def scm = root.appendNode('scm')
+                    scm.appendNode('connection', 'scm:git:git://github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('developerConnection', 'scm:git:ssh:git@github.com/frostwire/frostwire-jlibtorrent.git')
+                    scm.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent')
+                    def licenses = root.appendNode('licenses')
+                    def license = licenses.appendNode('license')
+                    license.appendNode('name', 'The MIT License')
+                    license.appendNode('url', 'https://github.com/frostwire/frostwire-jlibtorrent/blob/master/LICENSE.md')
+                    def developers = root.appendNode('developers')
+                    def developer = developers.appendNode('developer')
+                    developer.appendNode('id', 'gubatron')
+                    developer.appendNode('name', 'Angel Leon')
+                    developer.appendNode('email', 'gubatron@gmail.com')
+                }
+            }
+        }
+    }
 }
