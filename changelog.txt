@@ -7,6 +7,7 @@
  * Jar built with JDK 17 - JAVA_17 compatibility
  * Boost 1.88.0 upgrade
  * Gradle 8.14.3
+ * Android NDK 27d, Android API 26 support
  * dev: junit upgraded from 4.13.1 -> 4.13.2
  * lt:add option to send host header in HTTP proxy CONNECT command
  * lt:cache DNS failures for a shorter time
