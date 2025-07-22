@@ -11,6 +11,181 @@ Develop libtorrent based apps with the joy of coding in Java.
 Using
 ========
 
+## Maven packages
+
+We've finally created a Maven Repository for our [releases](https://github.com/frostwire/frostwire-jlibtorrent/releases)
+
+build.gradle (Groovy) example
+```groovy
+repositories {
+    maven { url "https://dl.frostwire.com/maven" }
+}
+
+dependencies {
+    def jlibtorrent_version = '2.0.12.0' // change version for latest
+
+    // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
+    implementation 'com.frostwire:jlibtorrent:' + jlibtorrent_version
+
+    // ANDROID (needs all of them for most projects if you want to maximize compatibility)
+    implementation 'com.frostwire:jlibtorrent-android-arm:' + jlibtorrent_version
+    implementation 'com.frostwire:jlibtorrent-android-arm64:' + jlibtorrent_version
+    implementation 'com.frostwire:jlibtorrent-android-x86:' + jlibtorrent_version
+    implementation 'com.frostwire:jlibtorrent-android-x86_64:' + jlibtorrent_version
+
+    // WINDOWS x86_64
+    implementation 'com.frostwire:jlibtorrent-windows:' + jlibtorrent_version
+
+    // MAC OS x86_64 (Intel)
+    implementation 'com.frostwire:jlibtorrent-macosx-x86_64:' + jlibtorrent_version
+    // MAC OS arm64 (Apple Silicon)
+    implementation 'com.frostwire:jlibtorrent-macosx-arm64:' + jlibtorrent_version
+
+    // LINUX x86_64
+    implementation 'com.frostwire:jlibtorrent-linux:' + jlibtorrent_version    
+}
+```
+
+build.gradle.kts (Kotlin) example
+```kotlin
+repositories {
+    maven { url = uri("https://dl.frostwire.com/maven") }
+}
+
+dependencies {
+    val jlibtorrentVersion = "2.0.12.0" // change version for latest
+
+    // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
+    implementation("com.frostwire:jlibtorrent:$jlibtorrentVersion")
+
+    // ANDROID (needs all of them for most projects if you want to maximize compatibility)
+    implementation("com.frostwire:jlibtorrent-android-arm:$jlibtorrentVersion")
+    implementation("com.frostwire:jlibtorrent-android-arm64:$jlibtorrentVersion")
+    implementation("com.frostwire:jlibtorrent-android-x86:$jlibtorrentVersion")
+    implementation("com.frostwire:jlibtorrent-android-x86_64:$jlibtorrentVersion")
+
+    // WINDOWS x86_64
+    implementation("com.frostwire:jlibtorrent-windows:$jlibtorrentVersion")
+
+    // MAC OS x86_64 (Intel)
+    implementation("com.frostwire:jlibtorrent-macosx-x86_64:$jlibtorrentVersion")
+    // MAC OS arm64 (Apple Silicon)
+    implementation("com.frostwire:jlibtorrent-macosx-arm64:$jlibtorrentVersion")
+
+    // LINUX x86_64
+    implementation("com.frostwire:jlibtorrent-linux:$jlibtorrentVersion")
+}
+```
+
+build.sbt SBT example
+```scala
+// Add the custom FrostWire repository
+resolvers += "FrostWire Maven" at "https://dl.frostwire.com/maven"
+
+// Define the library version as a variable
+val jlibtorrentVersion = "2.0.12.0" // change version for latest
+
+// Add all the necessary library dependencies
+libraryDependencies ++= Seq(
+  // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
+  "com.frostwire" % "jlibtorrent" % jlibtorrentVersion,
+
+  // ANDROID (needs all of them for most projects if you want to maximize compatibility)
+  "com.frostwire" % "jlibtorrent-android-arm" % jlibtorrentVersion,
+  "com.frostwire" % "jlibtorrent-android-arm64" % jlibtorrentVersion,
+  "com.frostwire" % "jlibtorrent-android-x86" % jlibtorrentVersion,
+  "com.frostwire" % "jlibtorrent-android-x86_64" % jlibtorrentVersion,
+
+  // WINDOWS x86_64
+  "com.frostwire" % "jlibtorrent-windows" % jlibtorrentVersion,
+
+  // MAC OS x86_64 (Intel)
+  "com.frostwire" % "jlibtorrent-macosx-x86_64" % jlibtorrentVersion,
+  // MAC OS arm64 (Apple Silicon)
+  "com.frostwire" % "jlibtorrent-macosx-arm64" % jlibtorrentVersion,
+
+  // LINUX x86_64
+  "com.frostwire" % "jlibtorrent-linux" % jlibtorrentVersion
+)
+```
+
+Maven example
+```xml
+<project>
+    <properties>
+        <jlibtorrent.version>2.0.12.0</jlibtorrent.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>frostwire-maven</id>
+            <url>https://dl.frostwire.com/maven</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar -->
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+
+        <!-- ANDROID projects need all the following artifacts to maximize chip compatibility -->
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-android-arm</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-android-arm64</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-android-x86</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-android-x86_64</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+
+        <!-- WINDOWS x86_64 -->
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-windows</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+
+        <!-- MAC OS X86_64 (Intel) -->
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-macosx-x86_64</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+
+        <!-- MAC OS ARM64 (Apple Silicon) -->
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-macosx-arm64</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+
+        <!-- LINUX X86_64 -->
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-linux</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+## Manual use of .jar files
+
 [Download the latest release .jars](https://github.com/frostwire/frostwire-jlibtorrent/releases)
 
 All platforms will need you to use at least 2 `.jar` files.
