@@ -1,5 +1,6 @@
 2.0.12.0
  * Libtorrent updated to RC_2_0 (rev:23388c17fff2b775a9269e39b71fc0464880106d)
+ * New com.frostwire:jlibtorrent- maven packages for easier integration with gradle/maven
  * new torrent_handle::get_resume_data() : add_torrent_params
  * new torrent_handle::get_resume_data(resume_data_flags_t flags) : add_torrent_params
  * new settings_pack.int_types i2p_inbound_length_variance
