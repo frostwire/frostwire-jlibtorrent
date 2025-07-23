@@ -1,4 +1,5 @@
 name: Publish Java Package
+
 on:
   release:
     types: [created]
@@ -8,60 +9,82 @@ on:
         description: 'Release tag to use testing'
         required: true
         default: 'release/2.0.12.2'
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      packages: write
       contents: read
+      packages: write        # GITHUB_TOKEN perms (still needed for publish)
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Download Release Assets from URLs
+
+      # Compute TAG and VERSION once, expose them as outputs
+      - name: Compute tag/version
+        id: vars
         run: |
-          mkdir -p build/libs
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             TAG="${{ inputs.release_tag }}"
           else
             TAG="${{ github.ref_name }}"
           fi
-          ENCODED_TAG=$(echo "$TAG" | sed 's|/|%2F|g')  # e.g., release%2F2.0.12.0
-          VERSION="${TAG#release/}"  # e.g., 2.0.12.0
-          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV  # Export for Gradle
-          
-          # Platform-independent JAR
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#release/}" >> "$GITHUB_OUTPUT"
+          echo "RELEASE_VERSION=${TAG#release/}" >> $GITHUB_ENV
+
+      - name: Delete package version if it already exists
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.PACKAGES_PAT }}   # classic PAT with delete:packages
+          VERSION: ${{ steps.vars.outputs.version }}
+        run: |
+          set -euo pipefail
+          ORG="frostwire"
+          PKG_TYPE="maven"
+          PKGS=(
+            com.frostwire.jlibtorrent
+            com.frostwire.jlibtorrent-macosx-arm64
+            com.frostwire.jlibtorrent-macosx-x86_64
+            com.frostwire.jlibtorrent-windows
+            com.frostwire.jlibtorrent-linux
+            com.frostwire.jlibtorrent-android-arm
+            com.frostwire.jlibtorrent-android-x86
+            com.frostwire.jlibtorrent-android-arm64
+            com.frostwire.jlibtorrent-android-x86_64
+          )
+          for P in "${PKGS[@]}"; do
+            id=$(gh api -H "Accept: application/vnd.github+json" \
+                 "/orgs/$ORG/packages/$PKG_TYPE/$P/versions" \
+                 --jq ".[] | select(.name==\"$VERSION\") | .id" | head -n1 || true)
+            if [[ -n "$id" ]]; then
+              echo "Deleting $P:$VERSION ($id)"
+              gh api -X DELETE -H "Accept: application/vnd.github+json" \
+                "/orgs/$ORG/packages/$PKG_TYPE/$P/versions/$id"
+            fi
+          done
+
+      - name: Download Release Assets from URLs
+        run: |
+          mkdir -p build/libs
+          TAG="${{ steps.vars.outputs.tag }}"
+          ENCODED_TAG=$(echo "$TAG" | sed 's|/|%2F|g')
+          VERSION="${{ steps.vars.outputs.version }}"
+
           curl -L --fail -o build/libs/jlibtorrent-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}.jar
-          
-          # macOS ARM64
           curl -L --fail -o build/libs/jlibtorrent-macosx-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-macosx-arm64-${VERSION}.jar
-          
-          # macOS x86_64
           curl -L --fail -o build/libs/jlibtorrent-macosx-x86_64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-macosx-x86_64-${VERSION}.jar
-          
-          # Windows
           curl -L --fail -o build/libs/jlibtorrent-windows-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-windows-${VERSION}.jar
-          
-          # Linux
           curl -L --fail -o build/libs/jlibtorrent-linux-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-linux-${VERSION}.jar
-          
-          # Android ARM
           curl -L --fail -o build/libs/jlibtorrent-android-arm-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-arm-${VERSION}.jar
-          
-          # Android x86
           curl -L --fail -o build/libs/jlibtorrent-android-x86-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-x86-${VERSION}.jar
-          
-          # Android ARM64
           curl -L --fail -o build/libs/jlibtorrent-android-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-arm64-${VERSION}.jar
-          
-          # Android x86_64
           curl -L --fail -o build/libs/jlibtorrent-android-x86_64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-x86_64-${VERSION}.jar
-          
-          # Optional: If you upload sources/javadoc as assets, add these
-          # curl -L --fail -o build/libs/jlibtorrent-${VERSION}-sources.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}-sources.jar
-          # curl -L --fail -o build/libs/jlibtorrent-${VERSION}-javadoc.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}-javadoc.jar
+
       - name: Publish to GitHub Packages
         run: gradle publish
         env:
