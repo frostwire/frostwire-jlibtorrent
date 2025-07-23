@@ -202,6 +202,10 @@ RUN chmod +x /build_desktop.sh
 RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86.sh" > build_android_x86.sh
 RUN chmod +x /build_android_x86.sh
 
+# SCRIPT BUILD ANDROID X86 ONLY (ANDROID STUDIO'S EMULATOR ARCHITECTURE)
+RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-x86_64.sh" > build_android_x86_64.sh
+RUN chmod +x /build_android_x86_64.sh
+
 # SCRIPT TO BUILD ANDROID ARM ONLY (armv7)
 RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh" > build_android_arm.sh
 RUN chmod +x /build_android_arm.sh
