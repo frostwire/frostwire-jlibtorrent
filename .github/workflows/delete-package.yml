@@ -1,0 +1,28 @@
+name: Delete package version if it already exists
+  if: always()               # run even on reruns
+  env:
+    GH_TOKEN: ${{ secrets.PACKAGES_PAT }}  # scopes: read:packages, write:packages, delete:packages
+    VERSION: ${{ env.RELEASE_VERSION }}
+  run: |
+    ORG=frostwire
+    PKGS=(
+      com.frostwire.jlibtorrent
+      com.frostwire.jlibtorrent-macosx-arm64
+      com.frostwire.jlibtorrent-macosx-x86_64
+      com.frostwire.jlibtorrent-windows
+      com.frostwire.jlibtorrent-linux
+      com.frostwire.jlibtorrent-android-arm
+      com.frostwire.jlibtorrent-android-x86
+      com.frostwire.jlibtorrent-android-arm64
+      com.frostwire.jlibtorrent-android-x86_64
+    )
+    for P in "${PKGS[@]}"; do
+      ID=$(gh api -H "Accept: application/vnd.github+json" \
+        /orgs/$ORG/packages/maven/$P/versions \
+        --jq ".[] | select(.name==\"$VERSION\") | .id" | head -n1)
+      if [ -n "$ID" ]; then
+        echo "Deleting $P version $VERSION (id $ID)"
+        gh api -X DELETE -H "Accept: application/vnd.github+json" \
+          /orgs/$ORG/packages/maven/$P/versions/$ID
+      fi
+    done
