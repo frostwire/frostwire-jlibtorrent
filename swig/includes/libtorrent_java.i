@@ -42,7 +42,7 @@ import java.nio.file.StandardCopyOption;
     }
 
 /**
-     * Loads the jlibtorrent native library from the classpath (e.g., lib/arm64/jlibtorrent.arm64-${JLIBTORRENT_VERSION}.dylib).
+     * Loads the jlibtorrent native library from the classpath (e.g., lib/arm64/libjlibtorrent.arm64-${JLIBTORRENT_VERSION}.dylib).
      * @return The absolute path to the extracted temporary file, or null if an IOException occurs.
      * @throws IOException If the library cannot be extracted or loaded.
      */
@@ -56,31 +56,31 @@ import java.nio.file.StandardCopyOption;
 
         // Determine platform-specific library path
         if (isWindows()) {
-            libraryName = "jlibtorrent-" + version;
+            libraryName = "libjlibtorrent-" + version;
             pathToLibraryInJar = "lib/x86_64/" + libraryName + ".dll";
         } else if (isLinux() && !isAndroid()) {
-            libraryName = "jlibtorrent-" + version;
+            libraryName = "libjlibtorrent-" + version;
             pathToLibraryInJar = "lib/x86_64/" + libraryName + ".so";
         } else if (isMacOS()) {
             if (isArm64) {
-                libraryName = "jlibtorrent.arm64-" + version;
+                libraryName = "libjlibtorrent.arm64-" + version;
                 pathToLibraryInJar = "lib/arm64/" + libraryName + ".dylib";
             } else {
-                libraryName = "jlibtorrent.x86_64-" + version;
+                libraryName = "libjlibtorrent.x86_64-" + version;
                 pathToLibraryInJar = "lib/x86_64/" + libraryName + ".dylib";
             }
         } else if (isAndroid()) {
             if (isArm64) {
-                libraryName = "jlibtorrent-" + version;
+                libraryName = "libjlibtorrent-" + version;
                 pathToLibraryInJar = "lib/arm64-v8a/" + libraryName + ".so";
             } else if (arch.equals("arm")) {
-                libraryName = "jlibtorrent-" + version;
+                libraryName = "libjlibtorrent-" + version;
                 pathToLibraryInJar = "lib/armeabi-v7a/" + libraryName + ".so";
             } else if (arch.equals("x86_64")) {
-                libraryName = "jlibtorrent-" + version;
+                libraryName = "libjlibtorrent-" + version;
                 pathToLibraryInJar = "lib/x86_64/" + libraryName + ".so";
             } else if (arch.equals("x86")) {
-                libraryName = "jlibtorrent-" + version;
+                libraryName = "libjlibtorrent-" + version;
                 pathToLibraryInJar = "lib/x86/" + libraryName + ".so";
             } else {
                 throw new java.io.IOException("Unsupported Android architecture: " + arch);
