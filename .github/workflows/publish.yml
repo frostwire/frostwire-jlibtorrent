@@ -7,7 +7,7 @@ on:
       release_tag:
         description: 'Release tag to use testing'
         required: true
-        default: 'release/2.0.12.0'
+        default: 'release/2.0.12.1'
 jobs:
   publish:
     runs-on: ubuntu-latest
