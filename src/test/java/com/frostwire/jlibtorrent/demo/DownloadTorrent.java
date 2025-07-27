@@ -10,6 +10,9 @@ import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
 
 import java.io.File;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -19,9 +22,8 @@ import java.util.concurrent.CountDownLatch;
 public final class DownloadTorrent {
 
     public static void main(String[] args) throws Throwable {
-
         // comment this line for a real application
-        args = new String[]{"/Users/aldenml/Downloads/Honey_Larochelle_Hijack_FrostClick_FrostWire_MP3_May_06_2016.torrent"};
+        args = new String[]{"src/test/resources/Honey_Larochelle_Hijack_FrostClick_FrostWire_MP3_May_06_2016.torrent"};
 
         File torrentFile = new File(args[0]);
 
