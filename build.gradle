@@ -1,25 +1,25 @@
 plugins {
-  id 'java-library'
-  id 'base'
-  id 'maven-publish'
+    id 'java-library'
+    id 'base'
+    id 'maven-publish'
 }
 
 group 'com.frostwire'
 
 base {
-  archivesName = 'jlibtorrent'
+    archivesName = 'jlibtorrent'
 }
 // Just changing version here should be all that's necessary to bump the version on the library
 // Dynamic from tag for Github workflow, fallback for local testing/building binaries
 version = version = System.getenv('RELEASE_VERSION') ?: System.getenv('GITHUB_REF_NAME')?.replace('release/', '') ?: '2.0.12.2'
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_17
-  targetCompatibility = JavaVersion.VERSION_17
-  withSourcesJar()
-  withJavadocJar()
-  compileJava.options.encoding = "UTF-8"
-  compileTestJava.options.encoding = "UTF-8"
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+    withJavadocJar()
+    compileJava.options.encoding = "UTF-8"
+    compileTestJava.options.encoding = "UTF-8"
 }
 
 // make build stop at the first error
@@ -33,6 +33,20 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.13.2'
+
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    def arch = System.getProperty('os.arch').toLowerCase()
+    def is_arm64 = arch == "aarch64" || arch == "arm64"
+
+    def flavor = 'windows'
+
+    if (os.isMacOsX()) {
+        flavor = is_arm64 ? 'macosx-arm64' : 'macosx-x86_64'
+    } else if (os.isLinux()) {
+        flavor = 'linux'
+    }
+
+    testImplementation files("build/libs/jlibtorrent-${flavor}-${version}.jar")
 }
 
 tasks.withType(Test).configureEach {
@@ -204,8 +218,10 @@ publishing {
             name = 'GitHubPackages'
             url = "https://maven.pkg.github.com/${System.getenv('GITHUB_REPOSITORY') ?: 'frostwire/frostwire-jlibtorrent'}"
             credentials {
-                username = System.getenv('USERNAME') // github.actor -> defined in publish.yml when publish action is invoked
-                password = System.getenv('TOKEN') // secrets.GITHUB_TOKEN -> generated automatically when a github action is ran, has package:write permissions
+                username = System.getenv('USERNAME')
+                // github.actor -> defined in publish.yml when publish action is invoked
+                password = System.getenv('TOKEN')
+                // secrets.GITHUB_TOKEN -> generated automatically when a github action is ran, has package:write permissions
             }
         }
     }
