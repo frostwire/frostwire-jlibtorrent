@@ -134,42 +134,42 @@ tasks.register('nativeAndroidX64Jar', Zip) {
 
 // Clean task for nativeMacOSArm64Jar
 tasks.register('cleanNativeMacOSArm64Jar', Delete) {
-    delete "${buildDir}/libs/jlibtorrent-macosx-arm64-${version}.jar"
+    delete layout.buildDirectory.file("libs/jlibtorrent-macosx-arm64-${version}.jar")
 }
 
 // Clean task for nativeMacOSX86_64Jar
 tasks.register('cleanNativeMacOSX86_64Jar', Delete) {
-    delete "${buildDir}/libs/jlibtorrent-macosx-x86_64-${version}.jar"
+    delete layout.buildDirectory.file("libs/jlibtorrent-macosx-x86_64-${version}.jar")
 }
 
 // Clean task for nativeWindowsX86_64Jar
 tasks.register('cleanNativeWindowsX86_64Jar', Delete) {
-    delete "${buildDir}/libs/jlibtorrent-windows-${version}.jar"
+    delete layout.buildDirectory.file("libs/jlibtorrent-windows-${version}.jar")
 }
 
 // Clean task for nativeLinuxJar
 tasks.register('cleanNativeLinuxJar', Delete) {
-    delete "${buildDir}/libs/jlibtorrent-linux-${version}.jar"
+    delete layout.buildDirectory.file("libs/jlibtorrent-linux-${version}.jar")
 }
 
 // Clean task for nativeAndroidArmJar
 tasks.register('cleanNativeAndroidArmJar', Delete) {
-    delete "${buildDir}/libs/jlibtorrent-android-arm-${version}.jar"
+    delete layout.buildDirectory.file("libs/jlibtorrent-android-arm-${version}.jar")
 }
 
 // Clean task for nativeAndroidX86Jar
 tasks.register('cleanNativeAndroidX86Jar', Delete) {
-    delete "${buildDir}/libs/jlibtorrent-android-x86-${version}.jar"
+    delete layout.buildDirectory.file("libs/jlibtorrent-android-x86-${version}.jar")
 }
 
 // Clean task for nativeAndroidArm64Jar
 tasks.register('cleanNativeAndroidArm64Jar', Delete) {
-    delete "${buildDir}/libs/jlibtorrent-android-arm64-${version}.jar"
+    delete layout.buildDirectory.file("libs/jlibtorrent-android-arm64-${version}.jar")
 }
 
 // Clean task for nativeAndroidX64Jar
 tasks.register('cleanNativeAndroidX64Jar', Delete) {
-    delete "${buildDir}/libs/jlibtorrent-android-x86_64-${version}.jar"
+    delete layout.buildDirectory.file("libs/jlibtorrent-android-x86_64-${version}.jar")
 }
 
 artifacts {
@@ -231,7 +231,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-${version}.jar")
             artifact tasks.named('sourcesJar')
             artifact tasks.named('javadocJar')
             pom {
@@ -243,7 +243,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent-macosx-arm64'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-macosx-arm64-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-macosx-arm64-${version}.jar")  // Built on macOS ARM64 with swig/build tasks and ./gradlew nativeMacOSArm64Jar
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent-macosx-arm64', 'Native macOS ARM64 binaries for jlibtorrent.')
             }
@@ -253,7 +253,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent-macosx-x86_64'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-macosx-x86_64-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-macosx-x86_64-${version}.jar")  // Built on macOS x86_64 with swig/build tasks and ./gradlew nativeMacOSX86_64Jar
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent-macosx-x86_64', 'Native macOS x86_64 binaries for jlibtorrent.')
             }
@@ -263,7 +263,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent-windows'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-windows-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-windows-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeWindowsX86_64Jar
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent-windows', 'Native Windows binaries for jlibtorrent.')
             }
@@ -273,7 +273,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent-linux'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-linux-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-linux-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeLinuxJar
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent-linux', 'Native Linux binaries for jlibtorrent.')
             }
@@ -283,7 +283,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent-android-arm'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-android-arm-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-android-arm-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeAndroidArmJar
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent-android-arm', 'Native Android ARM binaries for jlibtorrent.')
             }
@@ -293,7 +293,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent-android-x86'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-android-x86-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-android-x86-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeAndroidX86Jar
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent-android-x86', 'Native Android x86 binaries for jlibtorrent.')
             }
@@ -303,7 +303,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent-android-arm64'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-android-arm64-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-android-arm64-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeAndroidArm64Jar
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent-android-arm64', 'Native Android ARM64 binaries for jlibtorrent.')
             }
@@ -313,7 +313,7 @@ publishing {
             groupId = project.group
             artifactId = 'jlibtorrent-android-x86_64'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-android-x86_64-${version}.jar")  // Downloaded from URL
+            artifact file("$buildDir/libs/jlibtorrent-android-x86_64-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeAndroidX64Jar
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent-android-x86_64', 'Native Android x86_64 binaries for jlibtorrent.')
             }
