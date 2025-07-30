@@ -22,6 +22,12 @@ java {
     compileTestJava.options.encoding = "UTF-8"
 }
 
+// Ensure jar task depends on sourcesJar and javadocJar
+tasks.named('jar') {
+    dependsOn tasks.named('sourcesJar')
+    dependsOn tasks.named('javadocJar')
+}
+
 // make build stop at the first error
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs << "-Xmaxerrs" << "1"
