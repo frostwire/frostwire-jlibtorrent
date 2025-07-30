@@ -1,13 +1,11 @@
 package com.frostwire.jlibtorrent.demo;
 
-import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.LibTorrent;
-import com.frostwire.jlibtorrent.SessionManager;
-import com.frostwire.jlibtorrent.TorrentInfo;
+import com.frostwire.jlibtorrent.*;
 import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
+import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -23,7 +21,7 @@ public final class DownloadTorrent {
 
     public static void main(String[] args) throws Throwable {
         // comment this line for a real application
-        args = new String[]{"src/test/resources/Honey_Larochelle_Hijack_FrostClick_FrostWire_MP3_May_06_2016.torrent"};
+        args = new String[]{"src/test/resources/Hi-Rez-Someday_Ft_Jordan_Meyer_Live_Studio_Version-_FrostWire.mp4.torrent"};
 
         File torrentFile = new File(args[0]);
 
@@ -58,6 +56,9 @@ public final class DownloadTorrent {
                         System.out.println("Torrent finished");
                         signal.countDown();
                         break;
+                    default:
+                        System.out.println("Alert: " + alert.type() + " " + alert.message());
+                        break;
                 }
             }
         });
@@ -65,7 +66,16 @@ public final class DownloadTorrent {
         s.start();
 
         TorrentInfo ti = new TorrentInfo(torrentFile);
-        s.download(ti, torrentFile.getParentFile());
+
+        // This download method works fine
+        // s.download(ti, torrentFile.getParentFile());
+
+        // This other download method always ends up in:
+        // ```Exception in thread "main" java.lang.RuntimeException: invalid torrent handle used [libtorrent:20]```
+        torrent_flags_t flags = new torrent_flags_t();
+        Priority[] priorities = Priority.array(Priority.NORMAL, ti.numFiles());
+        //priorities = null;
+        s.download(ti, torrentFile.getParentFile(), null, priorities, null, flags);
 
         signal.await();
 
