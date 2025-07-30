@@ -513,11 +513,9 @@ public class SessionManager {
             p.setSave_path(saveDir.getAbsolutePath());
         }
 
-        if (priorities != null) {
-            if (ti.files().numFiles() != priorities.length) {
-                throw new IllegalArgumentException("priorities count should be equals to the number of files");
-            }
-            th.prioritize_files2(Priority.array2vector(priorities));
+        torrent_handle th2 = session.find_torrent(ti.swig().info_hash());
+        if (priorities != null && priorities.length == ti.numFiles() && th2 != null && th2.is_valid()) {
+            th2.prioritize_files2(Priority.array2vector(priorities));
         }
 
         if (peers != null && !peers.isEmpty()) {
