@@ -20,14 +20,14 @@ public final class ReadTorrent {
 
         System.out.println("Reading all in memory");
         TorrentInfo ti = new TorrentInfo(torrentFile);
-        System.out.println("info-hash: " + ti.infoHash());
+        System.out.println("info-hash: " + ti.infoHashV1());
         System.out.println(ti.toEntry());
 
         System.out.println("Reading with memory mapped");
         FileChannel fc = new RandomAccessFile(args[0], "r").getChannel();
         MappedByteBuffer buffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
         TorrentInfo ti2 = new TorrentInfo(buffer);
-        System.out.println("info-hash: " + ti2.infoHash());
+        System.out.println("info-hash: " + ti2.infoHashV1());
         System.out.println("creator: " + ti2.creator());
         System.out.println("comment: " + ti2.comment());
         System.out.println(ti2.toEntry());

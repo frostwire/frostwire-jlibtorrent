@@ -21,7 +21,7 @@ public class SessionManager {
     private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
 
-    private static final int[] METADATA_ALERT_TYPES = new int[] {
+    private static final int[] METADATA_ALERT_TYPES = new int[]{
             AlertType.METADATA_RECEIVED.swig(),
             AlertType.METADATA_FAILED.swig(),
             AlertType.SAVE_RESUME_DATA.swig(),
@@ -82,9 +82,6 @@ public class SessionManager {
         modifyListeners(false, listener);
     }
 
-    /**
-     * @param params
-     */
     public void start(SessionParams params) {
         if (session != null) {
             return;
@@ -1189,6 +1186,7 @@ public class SessionManager {
                                 if (alert == null) {
                                     alert = Alerts.cast(a);
                                 }
+
                                 fireAlert(alert, type);
                             }
 

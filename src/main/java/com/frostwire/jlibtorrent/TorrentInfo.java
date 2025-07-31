@@ -390,12 +390,26 @@ public final class TorrentInfo {
     }
 
     /**
-     * returns the info-hash of the torrent.
+     * returns the SHA1 info-hash of the torrent.
      *
      * @return
      */
-    public Sha1Hash infoHash() {
+    public Sha1Hash infoHashV1() {
         return new Sha1Hash(ti.info_hash());
+    }
+
+    public Sha256Hash infoHashV2() {
+        info_hash_t infohashes = ti.info_hashes();
+
+        if (!infohashes.has_v2()) {
+            return null; // no v2 info-hash
+        }
+
+        sha256_hash h = ti.info_hashes().getV2();
+        if (h.is_all_zeros()) {
+            return null; // no v2 info-hash
+        }
+        return new Sha256Hash(h);
     }
 
     /**
