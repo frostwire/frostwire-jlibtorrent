@@ -39,7 +39,7 @@ namespace libtorrent {
                     return *$self & other;
                 }
 
-                libtorrent::flags::bitfield_flag xor(libtorrent::flags::bitfield_flag const other)
+                libtorrent::flags::bitfield_flag xor_(libtorrent::flags::bitfield_flag const other)
                 {
                     return *$self ^ other;
                 }
