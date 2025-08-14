@@ -141,19 +141,33 @@ void add_files_ex(libtorrent::file_storage& fs, std::string const& file,
     add_files(fs, file, std::bind(&add_files_listener::pred, listener, std::placeholders::_1), flags);
 }
 
-/** jun.26.2024: not sure what this is, can't find libtorrent::create_file_entry in libtorrent's code 2.0 branch
-std::vector<libtorrent::create_file_entry> list_files_ex(
-    std::string const& file,
-    list_files_listener* listener,libtorrent::create_flags_t flags)
-{
-    return libtorrent::list_files(
-        file,
-        std::bind(&list_files_listener::pred,
-                  listener,
-                  std::placeholders::_1),
-        flags);
-}
-*/
+// Not sure how or why libtorrent4j is using this, the create_file_entry structure
+// is not exposed in libtorrent RC-2.0 branch, so this is not wrapped. It's in a `64-bit-rates` branch
+// https://github.com/arvidn/libtorrent/blob/64-bit-rates/include/libtorrent/create_torrent.hpp#L89
+//struct list_files_listener
+//{
+//
+//    virtual ~list_files_listener()
+//    {}
+//
+//    virtual bool pred(std::string p)
+//    {
+//        return true;
+//    }
+//};
+//
+//std::vector<libtorrent::create_file_entry> list_files_ex(
+//    std::string const& file,
+//    list_files_listener* listener,libtorrent::create_flags_t flags)
+//{
+//    return libtorrent::list_files(
+//        file,
+//        std::bind(&list_files_listener::pred,
+//                  listener,
+//                  std::placeholders::_1),
+//        flags);
+//}
+
 
 struct set_piece_hashes_listener {
 
