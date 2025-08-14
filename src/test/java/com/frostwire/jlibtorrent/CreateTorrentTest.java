@@ -27,7 +27,12 @@ public class CreateTorrentTest {
     @Test
     public void testFromFile() throws IOException {
         final File f = folder.newFile("test.txt");
-        Utils.writeByteArrayToFile(f, new byte[]{0}, false);
+        // create a file with 1 megabyte
+        byte[] data = new byte[1024 * 1024];
+        for (int i = 0; i < data.length; ++i) {
+            data[i] = (byte) (i % 256);
+        }
+        Utils.writeByteArrayToFile(f, data, false);
 
         file_storage fs = new file_storage();
         add_files_listener l1 = new add_files_listener() {
@@ -42,6 +47,7 @@ public class CreateTorrentTest {
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override
             public void progress(int i) {
+                System.out.println("set_piece_hashes_listener::progress(" + i + ")");
                 assertTrue(i >= 0);
             }
         };
