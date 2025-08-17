@@ -52,11 +52,17 @@ using sha256_hash = digest32<256>;
 
     digest32<160>(std::vector<std::int8_t> const& v)
     {
+        if (static_cast<std::size_t>(libtorrent::digest32<160>::size()) != v.size()) {
+            throw std::invalid_argument("digest32<160>(std::vector<std::int8_t> const& v): sha1 size must be 20 bytes");
+        }
         return new libtorrent::digest32<160>(libtorrent::span(reinterpret_cast<char const*>(v.data()), static_cast<long>(v.size())));
     }
 
     void assign(std::vector<std::int8_t> const& v)
     {
+        if (static_cast<std::size_t>($self->size()) != v.size()) {
+            throw std::invalid_argument("digest32<160>::assign(std::vector<std::int8_t> const& v): sha1 size must be 20 bytes");
+        }
         $self->assign(reinterpret_cast<char const*>(v.data()));
     }
 
@@ -66,7 +72,9 @@ using sha256_hash = digest32<256>;
         int result = 1;
         for (int i = 0; i < int($self->size()); i++)
         {
-            result = 31 * result + data[i];
+            // avoid signed-char UB / platform differences
+            //result = 31 * result + data[i];
+            result = 31 * result + static_cast<unsigned char>(data[i]);
         }
         return result;
     }
@@ -85,7 +93,8 @@ using sha256_hash = digest32<256>;
     static digest32<160> from_hex(std::string s)
     {
         libtorrent::digest32<160> hash;
-        libtorrent::aux::from_hex(s, hash.data());
+        //libtorrent::aux::from_hex(s, hash.data());
+        libtorrent::aux::from_hex(libtorrent::span<char const>(s.data(), static_cast<long>(s.size())),hash.data());
         return hash;
     }
 
@@ -99,11 +108,18 @@ using sha256_hash = digest32<256>;
 
     digest32<256>(std::vector<std::int8_t> const& v)
     {
+        if (static_cast<std::size_t>(libtorrent::digest32<256>::size()) != v.size()) {
+            throw std::invalid_argument("digest32<256>(std::vector<std::int8_t> const& v): sha256 size must be 32 bytes");
+        }
+
         return new libtorrent::digest32<256>(libtorrent::span(reinterpret_cast<char const*>(v.data()), static_cast<long>(v.size())));
     }
 
     void assign(std::vector<std::int8_t> const& v)
     {
+        if (static_cast<std::size_t>($self->size()) != v.size()) {
+            throw std::invalid_argument("digest32<256>::assign(std::vector<std::size_t> const& v): sha256 size must be 32 bytes");
+        }
         $self->assign(reinterpret_cast<char const*>(v.data()));
     }
 
@@ -113,7 +129,8 @@ using sha256_hash = digest32<256>;
         int result = 1;
         for (int i = 0; i < int($self->size()); i++)
         {
-            result = 31 * result + data[i];
+            //result = 31 * result + data[i];
+            result = 31 * result + static_cast<unsigned char>(data[i]);
         }
         return result;
     }
@@ -132,7 +149,7 @@ using sha256_hash = digest32<256>;
     static digest32<256> from_hex(std::string s)
     {
         libtorrent::digest32<256> hash;
-        libtorrent::aux::from_hex(s, hash.data());
+        libtorrent::aux::from_hex(libtorrent::span<char const>(s.data(), static_cast<long>(s.size())),hash.data());
         return hash;
     }
 

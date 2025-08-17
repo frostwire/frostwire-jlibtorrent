@@ -3793,9 +3793,15 @@ SWIGINTERN void *libtorrent_client_data_t_get(libtorrent::client_data_t *self){
             return self->get<void>();
         }
 SWIGINTERN libtorrent::digest32< 160 > *new_libtorrent_digest32_Sl_160_Sg___SWIG_2(std::vector< std::int8_t > const &v){
+        if (static_cast<std::size_t>(libtorrent::digest32<160>::size()) != v.size()) {
+            throw std::invalid_argument("digest32<160>(std::vector<std::int8_t> const& v): sha1 size must be 20 bytes");
+        }
         return new libtorrent::digest32<160>(libtorrent::span(reinterpret_cast<char const*>(v.data()), static_cast<long>(v.size())));
     }
 SWIGINTERN void libtorrent_digest32_Sl_160_Sg__assign(libtorrent::digest32< 160 > *self,std::vector< std::int8_t > const &v){
+        if (static_cast<std::size_t>(self->size()) != v.size()) {
+            throw std::invalid_argument("digest32<160>::assign(std::vector<std::int8_t> const& v): sha1 size must be 20 bytes");
+        }
         self->assign(reinterpret_cast<char const*>(v.data()));
     }
 SWIGINTERN int libtorrent_digest32_Sl_160_Sg__hash_code(libtorrent::digest32< 160 > *self){
@@ -3803,7 +3809,9 @@ SWIGINTERN int libtorrent_digest32_Sl_160_Sg__hash_code(libtorrent::digest32< 16
         int result = 1;
         for (int i = 0; i < int(self->size()); i++)
         {
-            result = 31 * result + data[i];
+            // avoid signed-char UB / platform differences
+            //result = 31 * result + data[i];
+            result = 31 * result + static_cast<unsigned char>(data[i]);
         }
         return result;
     }
@@ -3816,16 +3824,24 @@ SWIGINTERN std::string libtorrent_digest32_Sl_160_Sg__to_hex(libtorrent::digest3
     }
 SWIGINTERN libtorrent::digest32< 160 > libtorrent_digest32_Sl_160_Sg__from_hex(std::string s){
         libtorrent::digest32<160> hash;
-        libtorrent::aux::from_hex(s, hash.data());
+        //libtorrent::aux::from_hex(s, hash.data());
+        libtorrent::aux::from_hex(libtorrent::span<char const>(s.data(), static_cast<long>(s.size())),hash.data());
         return hash;
     }
 SWIGINTERN int libtorrent_digest32_Sl_160_Sg__compare(libtorrent::digest32< 160 > const &h1,libtorrent::digest32< 160 > const &h2){
         return h1 == h2 ? 0 : (h1 < h2 ? -1 : 1);
     }
 SWIGINTERN libtorrent::digest32< 256 > *new_libtorrent_digest32_Sl_256_Sg___SWIG_2(std::vector< std::int8_t > const &v){
+        if (static_cast<std::size_t>(libtorrent::digest32<256>::size()) != v.size()) {
+            throw std::invalid_argument("digest32<256>(std::vector<std::int8_t> const& v): sha256 size must be 32 bytes");
+        }
+
         return new libtorrent::digest32<256>(libtorrent::span(reinterpret_cast<char const*>(v.data()), static_cast<long>(v.size())));
     }
 SWIGINTERN void libtorrent_digest32_Sl_256_Sg__assign(libtorrent::digest32< 256 > *self,std::vector< std::int8_t > const &v){
+        if (static_cast<std::size_t>(self->size()) != v.size()) {
+            throw std::invalid_argument("digest32<256>::assign(std::vector<std::size_t> const& v): sha256 size must be 32 bytes");
+        }
         self->assign(reinterpret_cast<char const*>(v.data()));
     }
 SWIGINTERN int libtorrent_digest32_Sl_256_Sg__hash_code(libtorrent::digest32< 256 > *self){
@@ -3833,7 +3849,8 @@ SWIGINTERN int libtorrent_digest32_Sl_256_Sg__hash_code(libtorrent::digest32< 25
         int result = 1;
         for (int i = 0; i < int(self->size()); i++)
         {
-            result = 31 * result + data[i];
+            //result = 31 * result + data[i];
+            result = 31 * result + static_cast<unsigned char>(data[i]);
         }
         return result;
     }
@@ -3846,7 +3863,7 @@ SWIGINTERN std::string libtorrent_digest32_Sl_256_Sg__to_hex(libtorrent::digest3
     }
 SWIGINTERN libtorrent::digest32< 256 > libtorrent_digest32_Sl_256_Sg__from_hex(std::string s){
         libtorrent::digest32<256> hash;
-        libtorrent::aux::from_hex(s, hash.data());
+        libtorrent::aux::from_hex(libtorrent::span<char const>(s.data(), static_cast<long>(s.size())),hash.data());
         return hash;
     }
 SWIGINTERN int libtorrent_digest32_Sl_256_Sg__compare(libtorrent::digest32< 256 > const &h1,libtorrent::digest32< 256 > const &h2){
