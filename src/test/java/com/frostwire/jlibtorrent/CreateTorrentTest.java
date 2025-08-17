@@ -42,22 +42,59 @@ public class CreateTorrentTest {
                 return true;
             }
         };
+
         add_files_ex(fs, f.getAbsolutePath(), l1, new create_flags_t());
-        create_torrent ct = new create_torrent(fs);
-        set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
+        create_torrent ct = new create_torrent(fs); // hybrid torrent
+        //int autoPieceSize = 0;
+        //create_torrent ct = new create_torrent(fs, autoPieceSize, create_torrent.v1_only); // v1 only torrent
+        //create_torrent ct = new create_torrent(fs, autoPieceSize, create_torrent.v2_only); // v2 only torrent (shows truncated sha256 for the sha1)
+        set_piece_hashes_listener piece_hash_listener = new set_piece_hashes_listener() {
             @Override
             public void progress(int i) {
-                System.out.println("set_piece_hashes_listener::progress(" + i + ")");
                 assertTrue(i >= 0);
             }
         };
         error_code ec = new error_code();
-        set_piece_hashes_ex(ct, f.getParent(), l2, ec);
+
+        set_piece_hashes_ex(ct, f.getParent(), piece_hash_listener, ec);
         assertEquals(ec.value(), 0);
         entry e = ct.generate();
         byte_vector buffer = e.bencode();
-        TorrentInfo ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(buffer));
+
+        byte[] bytes = Vectors.byte_vector2bytes(buffer);
+        TorrentInfo ti = TorrentInfo.bdecode(bytes);
+        assertTrue(ti.isValid());
         assertEquals(1, ti.numFiles());
+
+        Sha1Hash sha1Hash = ti.infoHashV1();
+        Sha256Hash sha2Hash = ti.infoHashV2();
+
+        System.out.println("infohash v2 (SHA2 256): " + sha2Hash);
+        System.out.println("infohash v1 (SHA1 160): " + sha1Hash);
+        FileStorage files = ti.files();
+        System.out.println("Files in torrent: " + files.numFiles());
+        for (int i = 0; i < files.numFiles(); i++) {
+            String path = files.filePath(i);
+            long size = files.fileSize(i);
+            Sha1Hash hash = files.hash(i);
+            System.out.println("File " + i + ": " + path + " (" + size + " bytes) - hash: " + hash + ")");
+        }
+        //now write the buffer to a file
+        File torrentFile = new File("test.torrent");
+        Utils.writeByteArrayToFile(torrentFile, bytes, false);
+        System.out.println("Torrent file created at: " + torrentFile.getAbsolutePath());
+
+        // Now load the torrent from the .torrent file and check the info hashes
+        byte[] torrentFileDataArray = Utils.readFileToByteArray(torrentFile);
+        TorrentInfo ti2 = TorrentInfo.bdecode(torrentFileDataArray);
+
+        assertEquals(sha1Hash, ti2.infoHashV1());
+        System.out.println("Loaded torrent info hash V1: " + ti2.infoHashV1().toHex());
+
+        if (ti2.infoHashV2() != null) {
+            assertEquals(sha2Hash, ti2.infoHashV2());
+            System.out.println("Loaded torrent info hash V2: " + ti2.infoHashV2().toHex());
+        }
     }
 
     @Test
