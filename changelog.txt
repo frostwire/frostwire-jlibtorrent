@@ -7,6 +7,7 @@
  * new settings_pack.int_types i2p_outbound_length_variance
  * Jar built with JDK 17 - JAVA_17 compatibility
  * Boost 1.88.0 upgrade
+ * OpenSSL 3.5.2 upgrade (from 1.1.1t)
  * Upgraded SWIG to 4.3.1
  * Gradle 9.0.0
  * Android NDK 27d, Android API 26 support
