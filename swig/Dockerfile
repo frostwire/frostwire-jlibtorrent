@@ -47,12 +47,15 @@ ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
 ENV NDK_VERSION="r27d"
 ENV ANDROID_API="26"
 ENV ANDROID_NDK_HOME="/src/android-ndk"
+ENV ANDROID_NDK_ROOT="/src/android-ndk"
 ENV OPENSSL_VERSION="3.5.2"
 ENV GRADLE_VERSION="9.0.0"
 ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
 
-RUN CORES=$(nproc) && echo "CORES=$CORES" >> /etc/environment
-ENV CORES=$CORES
+RUN echo "CORES=$CORES" >> /etc/environment
+RUN cat /etc/environment
+#RUN CORES=$(nproc) && echo "CORES=$CORES" >> /etc/environment
+#ENV CORES=$(nproc)
 
 # build scripts don't stop
 ENV DONT_PRESS_ANY_KEY=1
@@ -71,6 +74,7 @@ RUN cd /src \
 		&& wget -nv --no-check-certificate https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
 		&& tar xzf swig-${SWIG_VERSION}.tar.gz \
 		&& cd /src/swig-${SWIG_VERSION} \
+		&& ./autogen.sh \
 		&& ./configure --without-d --disable-ccache \
 		&& make -j${CORES} \
     && make install
@@ -149,23 +153,6 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${ANDROID_API}-clang 
     && make install_sw \
     && cd ..
 
-#Build OpenSSL for Windows x86_64
-RUN cd /src \
-    && mkdir windows \
-    && tar xvfz openssl.tar.gz --directory windows \
-    && cd /src/windows/openssl-${OPENSSL_VERSION} \
-    && sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' crypto/cryptlib.c \
-    && sed -i 's/MessageBox.*//g' crypto/cryptlib.c \
-    && sed -i 's/return return 0;/return 0;/g' crypto/threads_none.c \
-    && export CC=export CC=x86_64-w64-mingw32-gcc-posix \
-    && ./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=/openssl-windows-x86_64 \
-    && make clean \
-    && make -j${CORES} build_libs \
-    && make install_sw \
-    && cd /openssl-windows-x86_64/lib \
-    && cp libcrypto.a libcrypto.lib \
-    && cp libssl.a libssl.lib
-
 #Build OpenSSL for Linux x86_64
 RUN export CC=gcc-9 \
     && cd /src/openssl-src \
@@ -178,6 +165,24 @@ RUN export CC=gcc-9 \
 RUN cd /src/openssl-src \
     && make clean \
     && cd ..
+
+#Build OpenSSL for Windows x86_64
+ENV OPENSSL_NO_OPTS="no-deprecated no-shared no-makedepend no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic no-legacy -fno-strict-aliasing -O3"
+RUN cd /src \
+    && mkdir windows \
+    && tar xvfz openssl.tar.gz --directory windows \
+    && cd /src/windows/openssl-${OPENSSL_VERSION} \
+    && sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' crypto/cryptlib.c \
+    && sed -i 's/MessageBox.*//g' crypto/cryptlib.c \
+    && sed -i 's/return return 0;/return 0;/g' crypto/threads_none.c \
+    && export CC=x86_64-w64-mingw32-gcc-posix \
+    && ./Configure mingw64 ${OPENSSL_NO_OPTS} --prefix=/openssl-windows-x86_64 --libdir=lib \
+    && make clean \
+    && make -j${CORES} build_libs \
+    && make install_sw \
+    && cd /openssl-windows-x86_64/lib \
+    && cp libcrypto.a libcrypto.lib \
+    && cp libssl.a libssl.lib
 
 # Prepare latest version of libtorrent
 ENV LIBTORRENT_REPO="https://github.com/arvidn/libtorrent"
