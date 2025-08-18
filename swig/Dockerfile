@@ -100,7 +100,7 @@ RUN cd /src \
     && tar xzf openssl.tar.gz \
     && mv openssl-${OPENSSL_VERSION} openssl-src
 
-ENV OPENSSL_NO_OPTS="no-deprecated no-shared no-makedepend no-static-engine no-stdio no-posix-io no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -O3 -fPIC"
+ENV OPENSSL_NO_OPTS="no-shared no-makedepend no-static-engine no-stdio no-posix-io no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -O3 -fPIC"
 
 ENV ANDROID_TOOLCHAIN=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64
 ENV AR=${ANDROID_TOOLCHAIN}/bin/llvm-ar
@@ -108,8 +108,6 @@ ENV LD=${ANDROID_TOOLCHAIN}/bin/ld
 ENV RANLIB=${ANDROID_TOOLCHAIN}/bin/llvm-ranlib
 
 # Build OpenSSL Android arm
-
-# OLD: && ./Configure linux-armv4 ${OPENSSL_NO_OPTS} -march=armv7-a -mfpu=neon --prefix=/openssl-android-arm \
 RUN export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
@@ -120,7 +118,6 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/armv7a-linux-androideabi${ANDROID_API}-cl
     && cd /
 
 # Build OpenSSL Android arm64
-# OLD: && ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -march=armv8-a+crypto -mfpu=neon --prefix=/openssl-android-arm64 \
 RUN export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
@@ -131,7 +128,6 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/aarch64-linux-android${ANDROID_API}-clang
     && cd /
 
 # Build OpenSSL Android x86
-# OLD: && ./Configure linux-elf ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86 \
 RUN export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
@@ -142,7 +138,6 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/i686-linux-android${ANDROID_API}-clang \
     && cd /
 
 # Build OpenSSL Android x86_64
-# && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} --prefix=/openssl-android-x86_64 \
 RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${ANDROID_API}-clang \
     && export PATH=${ANDROID_TOOLCHAIN}/bin:${PATH} \
     && cd /src/openssl-src \
