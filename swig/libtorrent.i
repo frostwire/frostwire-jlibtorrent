@@ -228,7 +228,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_client_data.i"
 %include "includes/libtorrent_sha1_hash.i"
 %include "includes/libtorrent_info_hash.i"
-    %include "includes/libtorrent_storage_defs.i"
+%include "includes/libtorrent_storage_defs.i"
 %include "includes/libtorrent_bitfield.i"
 %include "includes/libtorrent_operations.i"
 %include "includes/libtorrent_error_code.i"
