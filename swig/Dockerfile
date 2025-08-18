@@ -156,7 +156,7 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${ANDROID_API}-clang 
 ENV OPENSSL_NO_OPTS="no-tests no-shared no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 RUN export CC=gcc-9 \
     && cd /src/openssl-src \
-    && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=/openssl-linux-x86_64 \
+    && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=/openssl-linux-x86_64 --libdir=lib \
     && make clean \
     && make -j${CORES} build_libs \
     && make install_sw
