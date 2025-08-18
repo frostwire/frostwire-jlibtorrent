@@ -56,7 +56,7 @@ import java.nio.file.StandardCopyOption;
 
         // Determine platform-specific library path
         if (isWindows()) {
-            libraryName = "libjlibtorrent-" + version;
+            libraryName = "jlibtorrent-" + version;
             pathToLibraryInJar = "lib/x86_64/" + libraryName + ".dll";
         } else if (isLinux() && !isAndroid()) {
             libraryName = "libjlibtorrent-" + version;
