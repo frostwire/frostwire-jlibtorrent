@@ -21,4 +21,6 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android$(ANDROID_API)-cl
     <cxxflags>-g
     <linkflags>-static-libstdc++
     <linkflags>-Wl,--build-id=sha1
+    # Android 16 KB page size requirement compatibility
+    <linkflags>-Wl,--max-page-size=16384
     ;
