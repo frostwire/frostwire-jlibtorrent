@@ -24,4 +24,6 @@ using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/armv7a-linux-androideabi$(AND
     <linkflags>-Wl,--build-id=sha1
     # remove when API >= 29
     <linkflags>-Wl,--no-rosegment
+    # Android 16 KB page size requirement compatibility
+    <linkflags>-Wl,--max-page-size=16384
     ;
