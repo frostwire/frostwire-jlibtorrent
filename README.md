@@ -218,12 +218,15 @@ For examples look at https://github.com/frostwire/frostwire-jlibtorrent/tree/mas
 Architectures supported:
 
 - Android (armeabi-v7a, arm64-v8a, x86, x86_64) sdk 24 (Android 7.0) and up
+  - ✅ **Android 16 KB page size compatible** (required for Google Play as of Nov 2025)
 - Linux (x86_64)
 - Windows (x86_64)
 - Mac OS X (x86_64)
 
 Building
 ================================
+
+All Android native libraries are built with 16 KB page size compatibility for Google Play requirements.
 
 To build the macos (x86_64) binaries you will need a mac computer, to build the mac library issue the following command:
 
