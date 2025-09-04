@@ -11,6 +11,7 @@
 #include <array>
 #include <map>
 #include <algorithm>
+#include <iostream>
 
 #include <boost/version.hpp>
 #include <openssl/opensslv.h>
@@ -184,6 +185,11 @@ struct set_piece_hashes_listener {
 
 void set_piece_hashes_ex(libtorrent::create_torrent& t, std::string const& p,
                         set_piece_hashes_listener* listener, libtorrent::error_code& ec) {
+    if (listener == nullptr) {
+        std::cerr << "jlibtorrent::set_piece_hashes_ex: Warning: no listener was set or updated because a null pointer was passed." << std::endl;
+        ec = boost::system::errc::make_error_code(boost::system::errc::invalid_argument);
+        return;
+    }
     set_piece_hashes(t, p, std::bind(&set_piece_hashes_listener::progress_index, listener, std::placeholders::_1), ec);
 }
 
