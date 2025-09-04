@@ -99,7 +99,7 @@ import java.nio.file.StandardCopyOption;
 
             // Create temp file
             String suffix = pathToLibraryInJar.substring(pathToLibraryInJar.lastIndexOf('.')); // e.g., ".dylib"
-            Path tempLib = Files.createTempFile("jni-", suffix);
+            Path tempLib = Files.createTempFile("jlibtorrent-", suffix);
             tempLib.toFile().deleteOnExit();
 
             // Extract to temp file
