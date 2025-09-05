@@ -2,7 +2,8 @@ import os ;
 
 using clang : x86_64 : clang++ :
     <cxxflags>-fPIC
-    <cxxflags>-std=c++14
+    <cxxflags>-std=c++20
     <cxxflags>-fno-strict-aliasing
+    <cxxflags>-fvisibility-inlines-hidden
     <cxxflags>-fvisibility=hidden
     ;

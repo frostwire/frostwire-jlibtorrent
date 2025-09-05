@@ -1,9 +1,10 @@
 import os ;
 
 using gcc : x86_64 : x86_64-w64-mingw32-g++-posix :
-    <cxxflags>-std=c++17
+    <cxxflags>-std=c++20
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
+    <cxxflags>-fvisibility-inlines-hidden
     <cxxflags>-DBOOST_ASIO_DISABLE_CONNECTEX
     <cxxflags>-DBOOST_USE_WINAPI_VERSION=0x0600
     <linkflags>-Wl,-Bstatic -lstdc++ -Wl,-Bdynamic

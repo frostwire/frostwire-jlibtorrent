@@ -6,10 +6,11 @@ ANDROID_API = [ os.environ android_api ] ;
 using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android$(ANDROID_API)-clang++ :
     <cxxflags>-fPIC
     <cxxflags>-march=armv8-a+crc
-    <cxxflags>-std=c++17
+    <cxxflags>-std=c++20
     <cxxflags>-DANDROID
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
+    <cxxflags>-fvisibility-inlines-hidden
     <cxxflags>-D_FORTIFY_SOURCE=2
     <cxxflags>-fstack-protector-strong
     <cxxflags>-g
