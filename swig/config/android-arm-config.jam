@@ -6,7 +6,7 @@ ANDROID_API = [ os.environ android_api ] ;
 using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/armv7a-linux-androideabi$(ANDROID_API)-clang++ :
     <cxxflags>-fPIC
     <cxxflags>-march=armv7-a
-    <cxxflags>-std=c++17
+    <cxxflags>-std=c++20
     <cxxflags>-mfpu=neon
     <cxxflags>-DANDROID
     <cxxflags>-D__STDC_FORMAT_MACROS

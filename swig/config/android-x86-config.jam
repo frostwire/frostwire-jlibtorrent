@@ -5,7 +5,7 @@ ANDROID_API = [ os.environ android_api ] ;
 
 using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android$(ANDROID_API)-clang++ :
     <cxxflags>-fPIC
-    <cxxflags>-std=c++17
+    <cxxflags>-std=c++20
     <cxxflags>-DANDROID
     <cxxflags>-D__STDC_FORMAT_MACROS
     <cxxflags>-D__USE_FILE_OFFSET64
@@ -14,6 +14,7 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android$(ANDROID_API)-cl
     <cxxflags>-frtti
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
+    <cxxflags>-fvisibility-inlines-hidden
     # x86 devices have stack alignment issues, http://b.android.com/222239
     <cxxflags>-mstackrealign
     # debug information
