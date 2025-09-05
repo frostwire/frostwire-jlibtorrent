@@ -10,7 +10,7 @@ unset_env_variables() {
   unset BOOST_LIB_PATH
   unset BOOST_ROOT
   unset BOOST_LIB_SUFFIX
-  unset OPENSSL_ROOT_DIR
+  #unset OPENSSL_ROOT
   unset OPENSSL_BIN_PATH
   unset OPENSSL_INCLUDE_PATH
   unset OPENSSL_LIB_PATH
@@ -87,7 +87,7 @@ macosx_env() {
 
 linux_env() {
   export SRC="/src"
-  export OPENSSL_ROOT="/openssl-linux-x86_64"
+  export OPENSSL_ROOT="${SRC}/openssl"
 }
 
 export LIBRARY_VERSION=$(egrep "version = version" ../build.gradle | sed -E "s/.*'([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'.*/\1/")
@@ -212,9 +212,9 @@ build_openssl() {
   abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
   prompt_msg "build_openssl: run_openssl_configure=[${run_openssl_configure}]"
   press_any_to_continue
-  if [ -d ${OPENSSL_ROOT} ]; then
-    rm -fr ${OPENSSL_ROOT}
-  fi
+  #if [ -d ${OPENSSL_ROOT} ]; then
+  #  rm -fr ${OPENSSL_ROOT}
+  #fi
   if [ -d ${OPENSSL_SOURCE} ]; then
     pushd ${OPENSSL_SOURCE}
     $run_openssl_configure
@@ -257,7 +257,7 @@ prepare_libtorrent() {
 }
 
 build_libraries() {
-  abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
+  #abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
   abort_if_var_unset "SWIG" ${SWIG}
   abort_if_var_unset "os_build" ${os_build}
   abort_if_var_unset "os_arch" ${os_arch}
@@ -272,7 +272,7 @@ build_libraries() {
   export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
   echo "Added boost tools to PATH:"
   echo ${PATH}
-  export OPENSSL_ROOT=${OPENSSL_ROOT}
+  #export OPENSSL_ROOT=${OPENSSL_ROOT}
   export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
   export BOOST_ROOT=${BOOST_ROOT}
   export BOOST_BUILD_PATH=${BOOST_ROOT}
