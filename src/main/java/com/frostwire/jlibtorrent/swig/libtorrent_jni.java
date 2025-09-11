@@ -20,7 +20,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "2.0.12.3";
+        return "2.0.12.4";
     }
 
     public static boolean isMacOS() {
@@ -63,7 +63,7 @@ public class libtorrent_jni {
 
         // Determine platform-specific library path
         if (isWindows()) {
-            libraryName = "libjlibtorrent-" + version;
+            libraryName = "jlibtorrent-" + version;
             pathToLibraryInJar = "lib/x86_64/" + libraryName + ".dll";
         } else if (isLinux() && !isAndroid()) {
             libraryName = "libjlibtorrent-" + version;
@@ -106,7 +106,7 @@ public class libtorrent_jni {
 
             // Create temp file
             String suffix = pathToLibraryInJar.substring(pathToLibraryInJar.lastIndexOf('.')); // e.g., ".dylib"
-            Path tempLib = Files.createTempFile("jni-", suffix);
+            Path tempLib = Files.createTempFile("jlibtorrent-", suffix);
             tempLib.toFile().deleteOnExit();
 
             // Extract to temp file
