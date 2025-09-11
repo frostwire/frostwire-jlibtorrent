@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.sha1_hash;
 import com.frostwire.jlibtorrent.swig.sha256_hash;
 import com.frostwire.jlibtorrent.swig.sha256_hash_vector;
 
@@ -153,5 +154,9 @@ public final class Sha256Hash implements Comparable<Sha256Hash>, Cloneable {
         }
 
         return l;
+    }
+
+    public sha256_hash swig() {
+        return h;
     }
 }
