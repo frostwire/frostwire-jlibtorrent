@@ -16,6 +16,8 @@ import java.util.List;
  */
 public final class TorrentInfo {
 
+    private static Logger LOG = Logger.getLogger(TorrentInfo.class);
+
     private final torrent_info ti;
 
     public TorrentInfo(torrent_info ti) {
@@ -395,21 +397,40 @@ public final class TorrentInfo {
      * @return
      */
     public Sha1Hash infoHashV1() {
-        return new Sha1Hash(ti.info_hash());
+        info_hash_t infohashes = ti.info_hashes();
+
+        if (!infohashes.has_v1()) {
+            LOG.error("TorrentInfo.infoHashV1(): Torrent does not have v1 info-hash");
+            return null; // no v1 info-hash
+        }
+
+        sha1_hash h = ti.info_hashes().getV1();
+        if (h.is_all_zeros()) {
+            LOG.error("TorrentInfo.infoHashV1(): Torrent v1 info-hash is all zeros");
+            return null; // no v1 info-hash
+        }
+
+        return new Sha1Hash(h);
     }
 
     public Sha256Hash infoHashV2() {
         info_hash_t infohashes = ti.info_hashes();
 
         if (!infohashes.has_v2()) {
+            LOG.error("TorrentInfo.infoHashV2(): Torrent does not have v2 info-hash");
             return null; // no v2 info-hash
         }
 
         sha256_hash h = ti.info_hashes().getV2();
         if (h.is_all_zeros()) {
+            LOG.error("TorrentInfo.infoHashV2(): Torrent v2 info-hash is all zeros");
             return null; // no v2 info-hash
         }
         return new Sha256Hash(h);
+    }
+
+    public info_hash_t infoHashType() {
+        return ti.info_hashes();
     }
 
     /**
