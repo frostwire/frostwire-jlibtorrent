@@ -443,6 +443,7 @@ public class SessionManager {
 
     public TorrentHandle find(Sha1Hash sha1) {
         if (session == null) {
+            LOG.error("Cannot find Torrent handle for session null");
             return null;
         }
 
@@ -451,6 +452,31 @@ public class SessionManager {
             LOG.warn("SessionManager.find(Sha1Hash " + sha1.toHex() + ") found, but it is invalid");
         }
         return th != null && th.is_valid() ? new TorrentHandle(th) : null;
+    }
+
+    public TorrentHandle find(Sha256Hash sha256) {
+        if (session == null) {
+            LOG.error("Cannot find Torrent handle for session null");
+            return null;
+        }
+
+        torrent_handle th = session.find_torrent(sha256.swig());
+        if (th != null && !th.is_valid()) {
+            LOG.warn("SessionManager.find(Sha256Hash " + sha256.toHex() + ") found, but it is invalid");
+        }
+        return th != null && th.is_valid() ? new TorrentHandle(th) : null;
+    }
+
+    public TorrentHandle find(TorrentInfo torrentInfo) {
+         TorrentHandle result = find(torrentInfo.infoHashV2());
+        if (result == null) {
+            LOG.warn("SessionManager::find(TorrentInfo): Cannot find Torrent handle for session from infoHashV2, trying infoHashV1");
+            result = find(torrentInfo.infoHashV1());
+            if (result == null) {
+                LOG.warn("SessionManager::find(TorrentInfo): Cannot find Torrent handle for session from infoHashV1 either, returning null TorrentHandle");
+            }
+        }
+        return result;
     }
 
     /**
@@ -488,16 +514,17 @@ public class SessionManager {
 
         add_torrent_params p = null;
 
-        if (resumeFile != null) {
+        if (resumeFile != null && resumeFile.exists() && resumeFile.isFile() && resumeFile.canRead()) {
             try {
                 byte[] data = Files.bytes(resumeFile);
+                byte_vector data_byte_vector = Vectors.bytes2byte_vector(data);
                 error_code ec = new error_code();
-                p = add_torrent_params.read_resume_data(Vectors.bytes2byte_vector(data), ec);
+                p = add_torrent_params.read_resume_data(data_byte_vector, ec);
                 if (ec.value() != 0) {
-                    throw new IllegalArgumentException("Unable to read the resume data: " + ec.message());
+                    throw new IllegalArgumentException("SessionManager::download() Unable to read the resume data: " + ec.message());
                 }
             } catch (Throwable e) {
-                LOG.warn("Unable to set resume data", e);
+                LOG.warn("SessionManager::download() Unable to set resume data", e);
             }
         }
 
