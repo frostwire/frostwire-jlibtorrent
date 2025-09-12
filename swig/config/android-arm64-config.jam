@@ -19,6 +19,6 @@ using clang : arm64 : $(ANDROID_TOOLCHAIN)/bin/aarch64-linux-android$(ANDROID_AP
     <linkflags>-Wl,--build-id=sha1
     # remove when API >= 29
     <linkflags>-Wl,--no-rosegment
-    # Android 16 KB page size requirement compatibility
-    <linkflags>-Wl,--max-page-size=16384
+    # Android 16 KB page size requirement compatibility (lld expects -z form)
+    <linkflags>-Wl,-z,max-page-size=16384
     ;
