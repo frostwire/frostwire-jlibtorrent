@@ -1,9 +1,11 @@
 2.0.12.4
  * crash: don't crash if a null set_piece_hashes_listener is passed to set_piece_hashes_ex
- * libraries are now compiled with C++20
+ * libraries are now compiled with C++20 (ming/windows with C++2a which is the same)
+ * g++-9 upgraded to g++-11 for linux build 
  * new Sha256Hash::swig()
  * new SessionManager::find(Sha256Hash) and SessionManager::find(TorrentInfo) methods
  * tentative: built with android NDK r28c with 16K page size support
+ * Android 64-bit binaries are compiled to have 16KB max-page-size
 
 2.0.12.3
  * Libtorrent updated to RC_2_0 (rev:23388c17fff2b775a9269e39b71fc0464880106d)
