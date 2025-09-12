@@ -13,6 +13,6 @@ using clang : x86_64 : $(ANDROID_TOOLCHAIN)/bin/x86_64-linux-android$(android_ap
     <cxxflags>-g
     <linkflags>-static-libstdc++
     <linkflags>-Wl,--build-id=sha1
-    # Android 16 KB page size requirement compatibility
-    <linkflags>-Wl,--max-page-size=16384
-    ;
+    # Android 16 KB page size requirement compatibility (lld expects -z form)
+    <linkflags>-Wl,-z,max-page-size=16384
+;
