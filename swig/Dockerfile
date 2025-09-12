@@ -17,8 +17,8 @@ RUN apt install -y python
 RUN apt install -y perl
 RUN apt install -y make
 RUN apt install -y cmake
-RUN apt install -y g++-9
-RUN apt install -y g++-9-multilib
+RUN apt install -y g++-11
+RUN apt install -y g++-11-multilib
 RUN apt install -y git
 RUN apt install -y ssh
 RUN apt install -y build-essential
@@ -149,7 +149,7 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${ANDROID_API}-clang 
 
 #Build OpenSSL for Linux x86_64
 ENV OPENSSL_NO_OPTS="no-tests no-shared no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
-RUN export CC=gcc-9 \
+RUN export CC=gcc-11 \
     && cd /src/openssl-src \
     && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=/openssl-linux-x86_64 --libdir=lib \
     && make clean \
