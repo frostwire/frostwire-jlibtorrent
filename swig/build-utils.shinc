@@ -87,7 +87,7 @@ macosx_env() {
 
 linux_env() {
   export SRC="/src"
-  export OPENSSL_ROOT="${SRC}/openssl-src"
+  export OPENSSL_ROOT="/openssl-linux-x86_64"
 }
 
 export LIBRARY_VERSION=$(egrep "version = version" ../build.gradle | sed -E "s/.*'([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'.*/\1/")
