@@ -30,7 +30,7 @@ export run_openssl_configure="./Configure darwin64-${os_arch}-cc ${OPENSSL_NO_OP
 echo "run_openssl_configure=${run_openssl_configure}"
 press_any_to_continue
 export run_readelf="otool -L bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
-export run_bjam="${BOOST_ROOT}/b2 -j${CORES} --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=darwin-${os_arch} target-os=darwin location=bin/release/${os_build}/${os_arch}"
+export run_bjam="${BOOST_ROOT}/b2 -j${CORES} --user-config=config/${os_build}-${os_arch}-config.jam cxxstd=20 variant=release toolset=darwin-${os_arch} target-os=darwin location=bin/release/${os_build}/${os_arch}"
 export run_objcopy="echo dummy run_objcopy for ${os_build} ${os_arch}"
 export run_strip="strip -S -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeMacOSX86_64Jar"
