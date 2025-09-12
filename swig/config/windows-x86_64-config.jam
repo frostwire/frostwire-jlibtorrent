@@ -1,7 +1,7 @@
 import os ;
 
 using gcc : x86_64 : x86_64-w64-mingw32-g++-posix :
-    <cxxflags>-std=c++17
+    <cxxflags>-std=c++2a
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-fvisibility=hidden
     <cxxflags>-fvisibility-inlines-hidden
