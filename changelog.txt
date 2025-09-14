@@ -1,4 +1,4 @@
-2.0.12.4
+2.0.12.4 2025/SEP/11
  * crash: don't crash if a null set_piece_hashes_listener is passed to set_piece_hashes_ex
  * libraries are now compiled with C++20 (ming/windows with C++2a which is the same)
  * g++-9 upgraded to g++-11 for linux build 
@@ -7,7 +7,7 @@
  * built with android NDK r28c with 16K page size support
  * Android 64-bit binaries are compiled to have 16KB max-page-size
 
-2.0.12.3
+2.0.12.3 2025/AUG/13
  * Libtorrent updated to RC_2_0 (rev:23388c17fff2b775a9269e39b71fc0464880106d)
  * New com.frostwire:jlibtorrent- maven packages for easier integration with gradle/maven
  * new torrent_handle::get_resume_data() : add_torrent_params
@@ -37,7 +37,7 @@
  * lt: fix performance bug in the file pool, evicting MRU instead of LRU (HanabishiRecca)
  * lt: fix bug where file_progress could sometimes be reported as >100%
 
-2.0.11.1
+2.0.11.1 2024/OCT/22
  * BDecodeNode: hasList, hasDict, hasString, hasInt, getList, getDict, getString, getInt
  * lt:limit piece size in torrent creator
  * lt:don't hint FADV_RANDOM on posix systems. May improve seeding performance
@@ -45,7 +45,7 @@
  * lt:fix BEP-40 peer priority for IPv6
  * lt:fix file pre-allocation when changing file priority (HanabishiRecca)
 
-2.0.11.0
+2.0.11.0 2024/SEP/26
  * Migration to support libtorrent 2.0 integration
  * Maintained 1.2.x on a separate branch without active maintenance; pull requests are welcome
  * SWIG interface files have been modularized for better maintainability and readability
@@ -243,7 +243,7 @@
  * lt:fix renaming of filenames that are too long for the filesystem
  * lt:made UPnP and LSD code avoid using select_reactor (to work around an issue on windows in boost.asio < 1.80)
 
-1.2.19.0
+1.2.19.0 2023/MAY/29
  * boost 1.82 upgrade
  * openssl 1.1.1t upgrade
  * gradle 8.1.1 upgrade
