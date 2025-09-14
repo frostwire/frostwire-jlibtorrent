@@ -4,7 +4,7 @@
  * g++-9 upgraded to g++-11 for linux build 
  * new Sha256Hash::swig()
  * new SessionManager::find(Sha256Hash) and SessionManager::find(TorrentInfo) methods
- * tentative: built with android NDK r28c with 16K page size support
+ * built with android NDK r28c with 16K page size support
  * Android 64-bit binaries are compiled to have 16KB max-page-size
 
 2.0.12.3
