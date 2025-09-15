@@ -1,3 +1,6 @@
+2.0.12.5 2025/SEP/14
+ * new libtorrent::set_piece_hashes_posix_disk_io to avoid SIGSEGV/SIGBUS leaks to macos when creating torrents
+
 2.0.12.4 2025/SEP/11
  * crash: don't crash if a null set_piece_hashes_listener is passed to set_piece_hashes_ex
  * libraries are now compiled with C++20 (ming/windows with C++2a which is the same)
