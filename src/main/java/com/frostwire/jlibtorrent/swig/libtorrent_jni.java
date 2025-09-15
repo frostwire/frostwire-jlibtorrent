@@ -3834,6 +3834,7 @@ public class libtorrent_jni {
   public final static native void set_piece_hashes_listener_director_connect(set_piece_hashes_listener obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void set_piece_hashes_listener_change_ownership(set_piece_hashes_listener obj, long cptr, boolean take_or_release);
   public final static native void set_piece_hashes_ex(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, set_piece_hashes_listener jarg3_, long jarg4, error_code jarg4_);
+  public final static native void set_piece_hashes_posix_disk_io(long jarg1, create_torrent jarg1_, String jarg2, long jarg3, set_piece_hashes_listener jarg3_, long jarg4, error_code jarg4_);
   public final static native int boost_version();
   public final static native String boost_lib_version();
   public final static native int openssl_version_number();
