@@ -29,6 +29,7 @@
 #include <libtorrent/random.hpp>
 #include <libtorrent/session_stats.hpp>
 #include <libtorrent/session.hpp>
+#include <libtorrent/aux_/session_settings.hpp>
 #include <libtorrent/create_torrent.hpp>
 #include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/write_resume_data.hpp>
@@ -183,14 +184,44 @@ struct set_piece_hashes_listener {
     }
 };
 
-void set_piece_hashes_ex(libtorrent::create_torrent& t, std::string const& p,
-                        set_piece_hashes_listener* listener, libtorrent::error_code& ec) {
+void set_piece_hashes_ex(
+    libtorrent::create_torrent& t,
+    std::string const& p,
+    set_piece_hashes_listener* listener,
+    libtorrent::error_code& ec) {
+
     if (listener == nullptr) {
         std::cerr << "jlibtorrent::set_piece_hashes_ex: Warning: no listener was set or updated because a null pointer was passed." << std::endl;
         ec = boost::system::errc::make_error_code(boost::system::errc::invalid_argument);
         return;
     }
-    set_piece_hashes(t, p, std::bind(&set_piece_hashes_listener::progress_index, listener, std::placeholders::_1), ec);
+
+    set_piece_hashes(t, // create_torrent
+        p, // path
+        std::bind(&set_piece_hashes_listener::progress_index, listener, std::placeholders::_1), // progress listener
+        ec); // error_code
+}
+
+void set_piece_hashes_posix_disk_io(
+    libtorrent::create_torrent& t,
+    std::string const& p,
+    set_piece_hashes_listener* listener,
+    libtorrent::error_code& ec) {
+
+    if (listener == nullptr) {
+        std::cerr << "jlibtorrent::set_piece_hashes_ex: Warning: no listener was set or updated because a null pointer was passed." << std::endl;
+        ec = boost::system::errc::make_error_code(boost::system::errc::invalid_argument);
+        return;
+    }
+
+    libtorrent::aux::session_settings sett;
+
+    set_piece_hashes(t, // create_torrent
+        p, // path
+        sett, // session_settings
+        libtorrent::posix_disk_io_constructor, // disk io constructor type
+        std::bind(&set_piece_hashes_listener::progress_index, listener, std::placeholders::_1), // progress listener
+        ec); // error_code
 }
 
 int boost_version() {
