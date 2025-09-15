@@ -8,7 +8,7 @@ on:
       release_tag:
         description: 'Release tag to use testing'
         required: true
-        default: 'release/2.0.12.3'
+        default: 'release/2.0.12.5'
 
 jobs:
   publish:
