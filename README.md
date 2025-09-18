@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    def jlibtorrent_version = '2.0.12.2' // change version for latest
+    def jlibtorrent_version = '2.0.12.5' // change version for latest
 
     // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
     implementation 'com.frostwire:jlibtorrent:' + jlibtorrent_version
@@ -54,11 +54,16 @@ dependencies {
 build.gradle.kts (Kotlin) example
 ```kotlin
 repositories {
-    maven { url = uri("https://dl.frostwire.com/maven") }
+    maven {
+        setUrl("https://dl.frostwire.com/maven")
+        content {
+            includeGroup("com.frostwire")
+        }
+    }
 }
 
 dependencies {
-    val jlibtorrentVersion = "2.0.12.0" // change version for latest
+    val jlibtorrentVersion = "2.0.12.5" // change version for latest
 
     // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
     implementation("com.frostwire:jlibtorrent:$jlibtorrentVersion")
@@ -88,7 +93,7 @@ build.sbt SBT example
 resolvers += "FrostWire Maven" at "https://dl.frostwire.com/maven"
 
 // Define the library version as a variable
-val jlibtorrentVersion = "2.0.12.0" // change version for latest
+val jlibtorrentVersion = "2.0.12.5" // change version for latest
 
 // Add all the necessary library dependencies
 libraryDependencies ++= Seq(
