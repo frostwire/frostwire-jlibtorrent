@@ -18,7 +18,12 @@ We've finally created a Maven Repository for our [releases](https://github.com/f
 build.gradle (Groovy) example
 ```groovy
 repositories {
-    maven { url "https://dl.frostwire.com/maven" }
+    maven {
+        url "https://dl.frostwire.com/maven"
+        content {
+            includeGroup "com.frostwire"
+        }
+    }
 }
 
 dependencies {
