@@ -49,7 +49,7 @@ dependencies {
     if (os.isMacOsX()) {
         flavor = is_arm64 ? 'macosx-arm64' : 'macosx-x86_64'
     } else if (os.isLinux()) {
-        flavor = 'linux'
+        flavor = is_arm64 ? 'linux-arm64' : 'linux-x86_64'
     }
 
     testImplementation files("build/libs/jlibtorrent-${flavor}-${version}.jar")
@@ -93,11 +93,20 @@ tasks.register('nativeWindowsX86_64Jar', Zip) {
     rename(".dll", "-${version}.dll")
 }
 
-tasks.register('nativeLinuxJar', Zip) {
+tasks.register('nativeLinuxX86_64Jar', Zip) {
     destinationDirectory = layout.buildDirectory.dir("libs")
-    archiveBaseName = 'jlibtorrent-linux'
+    archiveBaseName = 'jlibtorrent-linux-x86_64'
     archiveExtension = 'jar'
-    from fileTree(dir: 'swig/bin/release/linux', excludes: ['**/ed25519', '**/src'], include: '**/*libjlibtorrent.so')
+    from fileTree(dir: 'swig/bin/release/linux', excludes: ['**/ed25519', '**/src'], include: 'x86_64/*libjlibtorrent.so')
+    into 'lib/'
+    rename(".so", "-${version}.so")
+}
+
+tasks.register('nativeLinuxArm64Jar', Zip) {
+    destinationDirectory = layout.buildDirectory.dir("libs")
+    archiveBaseName = 'jlibtorrent-linux-arm64'
+    archiveExtension = 'jar'
+    from fileTree(dir: 'swig/bin/release/linux', excludes: ['**/ed25519', '**/src'], include: 'arm64/*libjlibtorrent.so')
     into 'lib/'
     rename(".so", "-${version}.so")
 }
@@ -153,9 +162,14 @@ tasks.register('cleanNativeWindowsX86_64Jar', Delete) {
     delete layout.buildDirectory.file("libs/jlibtorrent-windows-${version}.jar")
 }
 
-// Clean task for nativeLinuxJar
-tasks.register('cleanNativeLinuxJar', Delete) {
-    delete layout.buildDirectory.file("libs/jlibtorrent-linux-${version}.jar")
+// Clean task for nativeLinuxX86_64Jar
+tasks.register('cleanNativeLinuxX86_64Jar', Delete) {
+    delete layout.buildDirectory.file("libs/jlibtorrent-linux-x86_64-${version}.jar")
+}
+
+// Clean task for nativeLinuxArm64Jar
+tasks.register('cleanNativeLinuxArm64Jar', Delete) {
+    delete layout.buildDirectory.file("libs/jlibtorrent-linux-arm64-${version}.jar")
 }
 
 // Clean task for nativeAndroidArmJar
@@ -184,7 +198,8 @@ artifacts {
     archives nativeMacOSArm64Jar
     archives nativeMacOSX86_64Jar
     archives nativeWindowsX86_64Jar
-    archives nativeLinuxJar
+    archives nativeLinuxX86_64Jar
+    archives nativeLinuxArm64Jar
     archives nativeAndroidArmJar
     archives nativeAndroidX86Jar
     archives nativeAndroidArm64Jar
@@ -274,14 +289,24 @@ publishing {
                 configurePom(delegate, 'frostwire-jlibtorrent-windows', 'Native Windows binaries for jlibtorrent.')
             }
         }
-        // Linux
-        linux(MavenPublication) {
+        // Linux x86_64
+        linuxX86_64(MavenPublication) {
             groupId = project.group
-            artifactId = 'jlibtorrent-linux'
+            artifactId = 'jlibtorrent-linux-x86_64'
             version = project.version
-            artifact file("$buildDir/libs/jlibtorrent-linux-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeLinuxJar
+            artifact file("$buildDir/libs/jlibtorrent-linux-x86_64-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeLinuxX86_64Jar
             pom {
-                configurePom(delegate, 'frostwire-jlibtorrent-linux', 'Native Linux binaries for jlibtorrent.')
+                configurePom(delegate, 'frostwire-jlibtorrent-linux-x86_64', 'Native Linux x86_64 binaries for jlibtorrent.')
+            }
+        }
+        // Linux ARM64
+        linuxArm64(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-linux-arm64'
+            version = project.version
+            artifact file("$buildDir/libs/jlibtorrent-linux-arm64-${version}.jar")  // Built in Docker with swig/build tasks and ./gradlew nativeLinuxArm64Jar
+            pom {
+                configurePom(delegate, 'frostwire-jlibtorrent-linux-arm64', 'Native Linux ARM64 binaries for jlibtorrent.')
             }
         }
         // Android ARM

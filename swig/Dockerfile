@@ -32,6 +32,9 @@ RUN apt install -y pkg-config
 # Windows toolchain
 RUN apt install -y g++-mingw-w64-x86-64
 
+# Linux ARM64 cross-compilation toolchain
+RUN apt install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+
 # For testing and debugging
 RUN apt install -y emacs-nox
 
@@ -156,6 +159,14 @@ RUN export CC=gcc-11 \
     && make -j${CORES} build_libs \
     && make install_sw
 
+#Build OpenSSL for Linux ARM64
+RUN export CC=aarch64-linux-gnu-gcc \
+    && cd /src/openssl-src \
+    && ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -fPIC --prefix=/openssl-linux-arm64 --libdir=lib \
+    && make clean \
+    && make -j${CORES} build_libs \
+    && make install_sw
+
 # Make clean
 RUN cd /src/openssl-src \
     && make clean \
@@ -194,8 +205,8 @@ RUN cd /src \
 RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 
-# BUILD DESKTOP ARCHITECTURES (Windows and Linux x86_64)
-RUN echo "cd /src/libtorrent && git checkout -- . && git status . && cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh" > build_desktop.sh
+# BUILD DESKTOP ARCHITECTURES (Windows and Linux x86_64 and ARM64)
+RUN echo "cd /src/libtorrent && git checkout -- . && git status . && cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh && ./build-linux-arm64.sh" > build_desktop.sh
 RUN chmod +x /build_desktop.sh
 
 # SCRIPT BUILD ANDROID X86 ONLY (ANDROID STUDIO'S EMULATOR ARCHITECTURE)

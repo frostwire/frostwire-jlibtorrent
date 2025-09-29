@@ -51,7 +51,8 @@ jobs:
             com.frostwire.jlibtorrent-macosx-arm64
             com.frostwire.jlibtorrent-macosx-x86_64
             com.frostwire.jlibtorrent-windows
-            com.frostwire.jlibtorrent-linux
+            com.frostwire.jlibtorrent-linux-x86_64
+            com.frostwire.jlibtorrent-linux-arm64
             com.frostwire.jlibtorrent-android-arm
             com.frostwire.jlibtorrent-android-x86
             com.frostwire.jlibtorrent-android-arm64
@@ -79,7 +80,8 @@ jobs:
           curl -L --fail -o build/libs/jlibtorrent-macosx-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-macosx-arm64-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-macosx-x86_64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-macosx-x86_64-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-windows-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-windows-${VERSION}.jar
-          curl -L --fail -o build/libs/jlibtorrent-linux-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-linux-${VERSION}.jar
+          curl -L --fail -o build/libs/jlibtorrent-linux-x86_64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-linux-x86_64-${VERSION}.jar
+          curl -L --fail -o build/libs/jlibtorrent-linux-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-linux-arm64-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-android-arm-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-arm-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-android-x86-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-x86-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-android-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-arm64-${VERSION}.jar
