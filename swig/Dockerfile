@@ -33,7 +33,7 @@ RUN apt install -y pkg-config
 RUN apt install -y g++-mingw-w64-x86-64
 
 # Linux ARM64 cross-compilation toolchain
-RUN apt install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+RUN apt install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross
 
 # For testing and debugging
 RUN apt install -y emacs-nox
