@@ -4902,6 +4902,10 @@ SWIGINTERN std::int64_t libtorrent_dht_sample_infohashes_alert_get_interval(libt
 SWIGINTERN libtorrent::torrent_info libtorrent_torrent_conflict_alert_get_metadata(libtorrent::torrent_conflict_alert *self){
             return *(self->metadata);
         }
+SWIGINTERN std::vector< std::int64_t > libtorrent_file_progress_alert_get_files(libtorrent::file_progress_alert *self){
+            auto* v = &self->files;
+            return *reinterpret_cast<std::vector<std::int64_t>*>(v);
+        }
 SWIGINTERN bool libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__non_zero(libtorrent::flags::bitfield_flag< std::uint32_t,libtorrent::alert_category_tag > *self){
                     return self->operator bool();
                 }
@@ -77488,6 +77492,31 @@ SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_f
     }
   }
   jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_1progress_1alert_1get_1files(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::file_progress_alert *arg1 = (libtorrent::file_progress_alert *) 0 ;
+  std::vector< std::int64_t > result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::file_progress_alert **)&jarg1; 
+  {
+    try {
+      result = libtorrent_file_progress_alert_get_files(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(std::vector< std::int64_t > **)&jresult = new std::vector< std::int64_t >(result); 
   return jresult;
 }
 
