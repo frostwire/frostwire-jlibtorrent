@@ -601,6 +601,60 @@ public final class Alerts {
                 return new AlertsDroppedAlert(cast_to_alerts_dropped_alert(a));
             }
         };
+        arr[96] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new Socks5Alert(cast_to_socks5_alert(a));
+            }
+        };
+        arr[97] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new FilePrioAlert(cast_to_file_prio_alert(a));
+            }
+        };
+        arr[98] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new OversizedFileAlert(cast_to_oversized_file_alert(a));
+            }
+        };
+        arr[99] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new TorrentConflictAlert(cast_to_torrent_conflict_alert(a));
+            }
+        };
+        arr[100] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new PeerInfoAlert(cast_to_peer_info_alert(a));
+            }
+        };
+        arr[101] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new FileProgressAlert(cast_to_file_progress_alert(a));
+            }
+        };
+        arr[102] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new PieceInfoAlert(cast_to_piece_info_alert(a));
+            }
+        };
+        arr[103] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new PieceAvailabilityAlert(cast_to_piece_availability_alert(a));
+            }
+        };
+        arr[104] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new TrackerListAlert(cast_to_tracker_list_alert(a));
+            }
+        };
 
         return arr;
     }

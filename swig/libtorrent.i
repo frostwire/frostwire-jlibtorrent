@@ -275,6 +275,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_peer_log_alert.i"
 %include "includes/libtorrent_dht_stats_alert.i"
 %include "includes/libtorrent_torrent_conflict_alert.i"
+%include "includes/libtorrent_file_progress_alert.i"
 // END OF ALERTS TYPES
 
 %include "includes/libtorrent_settings_pack.i"

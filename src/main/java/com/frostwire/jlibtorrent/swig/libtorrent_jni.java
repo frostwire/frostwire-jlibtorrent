@@ -20,7 +20,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "2.0.12.5";
+        return "2.0.13.6";
     }
 
     public static boolean isMacOS() {
@@ -3377,6 +3377,7 @@ public class libtorrent_jni {
   public final static native String file_progress_alert_what(long jarg1, file_progress_alert jarg1_);
   public final static native long file_progress_alert_static_category_get();
   public final static native String file_progress_alert_message(long jarg1, file_progress_alert jarg1_);
+  public final static native long file_progress_alert_get_files(long jarg1, file_progress_alert jarg1_);
   public final static native void delete_file_progress_alert(long jarg1);
   public final static native int piece_info_alert_priority_get();
   public final static native int piece_info_alert_alert_type_get();
