@@ -76,6 +76,8 @@ jobs:
           VERSION="${{ steps.vars.outputs.version }}"
 
           curl -L --fail -o build/libs/jlibtorrent-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}.jar
+          curl -L --fail -o build/libs/jlibtorrent-${VERSION}-sources.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}-sources.jar
+          curl -L --fail -o build/libs/jlibtorrent-${VERSION}-javadoc.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-${VERSION}-javadoc.jar
           curl -L --fail -o build/libs/jlibtorrent-macosx-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-macosx-arm64-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-macosx-x86_64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-macosx-x86_64-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-windows-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-windows-${VERSION}.jar
