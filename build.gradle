@@ -238,8 +238,12 @@ publishing {
             artifactId = 'jlibtorrent'
             version = project.version
             artifact file("$buildDir/libs/jlibtorrent-${version}.jar")
-            artifact tasks.named('sourcesJar')
-            artifact tasks.named('javadocJar')
+            artifact(file("$buildDir/libs/jlibtorrent-${version}-sources.jar")) {
+                classifier = 'sources'
+            }
+            artifact(file("$buildDir/libs/jlibtorrent-${version}-javadoc.jar")) {
+                classifier = 'javadoc'
+            }
             pom {
                 configurePom(delegate, 'frostwire-jlibtorrent', 'The swig Java interface for libtorrent by the makers of FrostWire. Contains only .class files to be used in any architecture alongside the native binary jar')
             }
