@@ -21,8 +21,8 @@ export run_bjam="${BOOST_ROOT}/b2 -j${CORES} --user-config=config/${os_build}-${
 export run_objcopy="objcopy --only-keep-debug bin/release/${os_build}/${os_arch}/${SHARED_LIB} bin/release/${os_build}/${os_arch}/${SHARED_LIB}.debug"
 export run_strip="strip --strip-unneeded -x bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_readelf="readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
-export run_native_jar="./gradlew nativeLinuxJar"
-export run_clean_native_jar="./gradlew cleanNativeLinuxJar"
+export run_native_jar="./gradlew nativeLinuxX86_64Jar"
+export run_clean_native_jar="./gradlew cleanNativeLinuxX86_64Jar"
 press_any_to_continue
 prepare_libtorrent
 export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION}

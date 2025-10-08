@@ -90,6 +90,11 @@ linux_env() {
   export OPENSSL_ROOT="/openssl-linux-x86_64"
 }
 
+linux_arm64_env() {
+  export SRC="/src"
+  export OPENSSL_ROOT="/openssl-linux-arm64"
+}
+
 export LIBRARY_VERSION=$(egrep "version = version" ../build.gradle | sed -E "s/.*'([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'.*/\1/")
 export LIBRARY_NAME=jlibtorrent
 export LIBTORRENT_REVISION=6baffac70cf69defb0e7813fb9ec78870677cdbb # improve stack_allocator oom handling
