@@ -1,3 +1,7 @@
+2.0.12.6 2025/OCT/08
+ * maintenance: Missing alert types added to alert types table (FilePrioAlert, FileProgressAlert, OversizedFileAlert, PeerInfoAlert, PieceAvailabilityAlert, Socks5Alert, TorrentConflictAlert, TrackerListAlert)
+ * new javadocs and source maven dependencies available in the maven repository (2.0.12.5 was republished)
+
 2.0.12.5 2025/SEP/14
  * new libtorrent::set_piece_hashes_posix_disk_io to avoid SIGSEGV/SIGBUS leaks to macos when creating torrents
 
