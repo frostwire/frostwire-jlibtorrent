@@ -1,4 +1,4 @@
-2.0.12.6 2025/OCT/08
+2.0.13.6 2025/OCT/08
  * maintenance: Missing alert types added to alert types table (FilePrioAlert, FileProgressAlert, OversizedFileAlert, PeerInfoAlert, PieceAvailabilityAlert, Socks5Alert, TorrentConflictAlert, TrackerListAlert)
  * new javadocs and source maven dependencies available in the maven repository (2.0.12.5 was republished)
 
