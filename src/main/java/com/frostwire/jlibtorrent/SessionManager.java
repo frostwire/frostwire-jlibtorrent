@@ -442,6 +442,11 @@ public class SessionManager {
     }
 
     public TorrentHandle find(Sha1Hash sha1) {
+        if (sha1 == null) {
+            LOG.warn("SessionManager.find(Sha1Hash): sha1 parameter is null, returning null");
+            return null;
+        }
+        
         if (session == null) {
             LOG.error("Cannot find Torrent handle for session null");
             return null;
@@ -455,6 +460,11 @@ public class SessionManager {
     }
 
     public TorrentHandle find(Sha256Hash sha256) {
+        if (sha256 == null) {
+            LOG.warn("SessionManager.find(Sha256Hash): sha256 parameter is null, returning null");
+            return null;
+        }
+        
         if (session == null) {
             LOG.error("Cannot find Torrent handle for session null");
             return null;
