@@ -490,6 +490,35 @@ public class SessionManager {
     }
 
     /**
+     * Returns an array of torrent handles to all the torrents currently in the session.
+     * Similar to libtorrent's session.get_torrents() method.
+     * <p>
+     * If the session is not initialized, returns an empty array.
+     *
+     * @return an array of TorrentHandle objects
+     */
+    public TorrentHandle[] getTorrentHandles() {
+        if (session == null) {
+            return new TorrentHandle[0];
+        }
+        try {
+            torrent_handle_vector handles = session.get_torrents();
+            if (handles == null || handles.isEmpty()) {
+                return new TorrentHandle[0];
+            }
+            int size = (int) handles.size();
+            TorrentHandle[] result = new TorrentHandle[size];
+            for (int i = 0; i < size; i++) {
+                result[i] = new TorrentHandle(handles.get(i));
+            }
+            return result;
+        } catch (Throwable t) {
+            LOG.error("getTorrentHandles(): error getting torrent handles", t);
+            return new TorrentHandle[0];
+        }
+    }
+
+    /**
      * @param ti         the torrent info to download
      * @param saveDir    the path to save the downloaded files
      * @param resumeFile the file with the resume file
