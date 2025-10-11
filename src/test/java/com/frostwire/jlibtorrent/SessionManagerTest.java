@@ -2,6 +2,8 @@ package com.frostwire.jlibtorrent;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -43,5 +45,18 @@ public class SessionManagerTest {
         // Test that find with null Sha256Hash returns null without throwing NPE
         TorrentHandle result = sessionManager.find((Sha256Hash) null);
         assertNull("find(Sha256Hash) should return null when sha256 parameter is null", result);
+    }
+
+    /**
+     * Test that verifies getTorrentHandles() returns an empty array when session is not started.
+     * This test verifies the new getTorrentHandles() method handles null session correctly.
+     */
+    //@Test // Commented out as it requires native library
+    public void testGetTorrentHandlesWithoutSession() {
+        SessionManager sessionManager = new SessionManager();
+        // Test that getTorrentHandles returns empty array when session is not started
+        TorrentHandle[] result = sessionManager.getTorrentHandles();
+        assertNotNull("getTorrentHandles() should return non-null array when session is null", result);
+        assertEquals("getTorrentHandles() should return empty array when session is null", 0, result.length);
     }
 }
