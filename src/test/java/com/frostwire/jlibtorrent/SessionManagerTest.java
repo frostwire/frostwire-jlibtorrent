@@ -51,7 +51,7 @@ public class SessionManagerTest {
      * Test that verifies getTorrentHandles() returns an empty array when session is not started.
      * This test verifies the new getTorrentHandles() method handles null session correctly.
      */
-    //@Test // Commented out as it requires native library
+    @Test
     public void testGetTorrentHandlesWithoutSession() {
         SessionManager sessionManager = new SessionManager();
         // Test that getTorrentHandles returns empty array when session is not started
