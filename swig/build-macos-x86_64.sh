@@ -25,7 +25,6 @@ export CXX=clang++
 export CC=clang
 export CFLAGS="-O3 -Wall -fno-strict-aliasing -fvisibility=hidden -arch ${os_arch}"
 export CXXFLAGS="-fno-strict-aliasing -fvisibility=hidden -arch ${os_arch}"
-export CORES=$(( $(sysctl -n hw.ncpu) / 2 ))
 export run_openssl_configure="./Configure darwin64-${os_arch}-cc ${OPENSSL_NO_OPTS} --prefix=${OPENSSL_ROOT} LDCMD=clang"
 echo "run_openssl_configure=${run_openssl_configure}"
 press_any_to_continue
