@@ -1,6 +1,6 @@
 # Only amd64 ubuntu images have the cross compilers we need
 ARG TARGETPLATFORM=linux/amd64
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update -y
@@ -13,12 +13,11 @@ RUN apt install -y openjdk-17-jdk-headless
 RUN apt install -y wget
 RUN apt install -y unzip
 RUN apt install -y less
-RUN apt install -y python
+RUN apt install -y python3
 RUN apt install -y perl
 RUN apt install -y make
 RUN apt install -y cmake
 RUN apt install -y g++-11
-RUN apt install -y g++-11-multilib
 RUN apt install -y git
 RUN apt install -y ssh
 RUN apt install -y build-essential
@@ -33,7 +32,7 @@ RUN apt install -y pkg-config
 RUN apt install -y g++-mingw-w64-x86-64
 
 # Linux ARM64 cross-compilation toolchain
-RUN apt install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross
+RUN apt install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross g++-x86-64-linux-gnu gcc-x86-64-linux-gnu binutils-x86-64-linux-gnu
 
 # For testing and debugging
 RUN apt install -y emacs-nox
@@ -52,7 +51,7 @@ ENV ANDROID_API="26"
 ENV ANDROID_NDK_HOME="/src/android-ndk"
 ENV ANDROID_NDK_ROOT="/src/android-ndk"
 ENV OPENSSL_VERSION="3.5.2"
-ENV GRADLE_VERSION="9.0.0"
+ENV GRADLE_VERSION="9.1.0"
 ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
 
 RUN echo "CORES=$CORES" >> /etc/environment
@@ -61,7 +60,7 @@ RUN cat /etc/environment
 #ENV CORES=$(nproc)
 
 # build scripts don't stop
-ENV DONT_PRESS_ANY_KEY=1
+ENV PROCEED_WITH_BUILD=1
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
 # third party SRC folder
