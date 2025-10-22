@@ -1,6 +1,6 @@
 import os ;
 
-using gcc : x86_64 : g++-11 :
+using gcc : x86_64 : x86_64-linux-gnu-g++ :
     <cxxflags>-std=c++20
     <cxxflags>-fPIC
     <cxxflags>-fno-strict-aliasing
@@ -11,4 +11,6 @@ using gcc : x86_64 : g++-11 :
     <linkflags>-static-libstdc++
     <linkflags>-static-libgcc
     <linkflags>"-z noexecstack"
+    <address-model>64
+    <architecture>x86    
     ;
