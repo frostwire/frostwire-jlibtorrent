@@ -25,7 +25,6 @@ export CXX=clang++
 export CC=clang
 export CFLAGS="-O3 -Wall -fno-strict-aliasing -fvisibility=hidden -arch ${os_arch}"
 export CXXFLAGS="-fno-strict-aliasing -fvisibility=hidden -arch ${os_arch}"
-export CORES=$(sysctl -n hw.ncpu)
 export run_openssl_configure="./Configure darwin64-${os_arch}-cc ${OPENSSL_NO_OPTS} --prefix=${OPENSSL_ROOT} LDCMD=clang"
 export run_readelf="otool -L bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j${CORES} -d2 --user-config=config/${os_build}-${os_arch}-config.jam cxxstd=20 variant=release toolset=darwin-${os_arch} target-os=darwin location=bin/release/${os_build}/${os_arch}"
