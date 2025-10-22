@@ -45,11 +45,12 @@ common_env() {
  export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
  export LIBTORRENT_ROOT="${SRC}/libtorrent"
  export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
+ export SWIG_VERSION="4.3.1"
 
  if [[ "$(uname)" == "Darwin" ]]; then
-     export CORES=$(sysctl -n hw.ncpu)
+     export CORES=$(( $(get_cpu_cores) / 2 ))
  else
-     export CORES=$(nproc)
+     export CORES=$(get_cpu_cores) # we don't do nproc because this function should work in windows too
  fi
 
  # works for all OSes but macos
@@ -111,7 +112,10 @@ export BOOST_ROOT="${SRC}/boost_${BOOST_UNDERSCORE_VERSION}"
 SWIG=`pwd`
 
 press_any_to_continue() {
- if [ ! -n "${DONT_PRESS_ANY_KEY}" ]; then
+ # Default to 0 if CONTINUE_BUILD is unset
+ CONTINUE_BUILD="${CONTINUE_BUILD:-0}"
+
+ if [ ! -n "${CONTINUE_BUILD}" ]; then
    echo "[Press any key to continue]"
    read -n 1 -s -r -p ""
  fi
@@ -191,6 +195,100 @@ prepare_boost() {
   pwd
   popd
   popd
+}
+
+# Check if swig is installed and available in PATH
+check_swig() {
+  if command -v swig >/dev/null 2>&1; then
+    echo ">> SWIG is available: $(swig -version | head -n 1)"
+    return 0
+  else
+    echo ">> SWIG not found"
+    return 1
+  fi
+}
+
+# Detect number of CPU cores across Linux, macOS, and Windows (Git Bash / MinGW)
+get_cpu_cores() {
+  local cores
+
+  case "$(uname -s)" in
+    Linux*)
+      if command -v nproc >/dev/null 2>&1; then
+        cores=$(nproc)
+      else
+        cores=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || echo 1)
+      fi
+      ;;
+    Darwin*)
+      cores=$(sysctl -n hw.ncpu 2>/dev/null || echo 1)
+      ;;
+    MINGW*|MSYS*|CYGWIN*)
+      # Git Bash / MSYS2 / MinGW under Windows
+      if command -v WMIC >/dev/null 2>&1; then
+        cores=$(WMIC CPU Get NumberOfLogicalProcessors 2>/dev/null | awk 'NR>1 && NF {print $1; exit}')
+      else
+        # Fallback: try PowerShell if WMIC is missing (newer Windows versions)
+        cores=$(powershell -Command "[Environment]::ProcessorCount" 2>/dev/null || echo 1)
+      fi
+      ;;
+    *)
+      # Unknown OS
+      cores=4
+      ;;
+  esac
+
+  echo "${cores:-1}"
+}
+
+
+install_swig() {
+  abort_if_var_unset "SWIG_VERSION" ${SWIG_VERSION}
+  abort_if_var_unset "CORES" ${CORES}
+  abort_if_var_unset "SRC" ${SRC}
+    
+  set -euo pipefail
+
+  if [[ ${os_build} == "linux" ]]; then
+    sudo apt install -y libpcre3-dev libpcre3 libpcre2-dev
+  fi
+  
+  mkdir -p "${SRC}"
+  pushd "${SRC}" >/dev/null
+
+  local tar="swig-${SWIG_VERSION}.tar.gz"
+  local url="https://dl.frostwire.com/other/swig/${tar}"
+
+  echo "Downloading ${url}"
+  wget -nv --no-check-certificate "$url"
+
+  echo "Extracting ${tar}"
+  tar xzf "$tar"
+
+  cd "swig-${SWIG_VERSION}"
+
+  echo "Running autogen/configure"
+  ./autogen.sh
+  ./configure --without-d --disable-ccache
+
+  echo "Building with ${CORES} cores"
+  make -j"${CORES}"
+
+  echo "Installing"
+  sudo make install
+
+  popd >/dev/null
+
+  echo "SWIG version:"
+  swig -version
+}
+
+ensure_swig() {
+  if check_swig; then
+    return 0
+  else
+    install_swig
+  fi
 }
 
 prepare_openssl() {
