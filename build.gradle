@@ -62,32 +62,6 @@ dependencies {
     testImplementation files("build/libs/jlibtorrent-${flavor}-${version}.jar")
 }
 
-// Declare explicit dependencies for compileTestJava on native jar tasks
-tasks.named('compileTestJava').configure {
-    def os = org.gradle.internal.os.OperatingSystem.current()
-    def arch = System.getProperty('os.arch').toLowerCase()
-    def is_arm64 = arch == "aarch64" || arch == "arm64"
-    def is_x86_64 = arch == "amd64" || arch == "x86_64"
-
-    if (os.isMacOsX()) {
-        if (is_arm64) {
-            dependsOn tasks.named('nativeMacOSArm64Jar')
-        } else {
-            dependsOn tasks.named('nativeMacOSX86_64Jar')
-        }
-    } else if (os.isLinux()) {
-        if (is_arm64) {
-            dependsOn tasks.named('nativeLinuxArm64Jar')
-        } else if (is_x86_64) {
-            dependsOn tasks.named('nativeLinuxX86_64Jar')
-        } else {
-            dependsOn tasks.named('nativeLinuxX86_64Jar')  // default fallback
-        }
-    } else if (os.isWindows()) {
-        dependsOn tasks.named('nativeWindowsX86_64Jar')
-    }
-}
-
 tasks.withType(Test).configureEach {
     systemProperty "java.library.path", "."
 }
@@ -178,6 +152,33 @@ tasks.register('nativeAndroidX64Jar', Zip) {
     from fileTree(dir: 'swig/bin/release/android', include: 'x86_64/libjlibtorrent.so')
     into 'lib/'
     rename(".so", "-${version}.so")
+}
+
+// Declare explicit dependencies for compileTestJava on native jar tasks
+// This must come AFTER all native jar tasks are registered
+tasks.named('compileTestJava').configure {
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    def arch = System.getProperty('os.arch').toLowerCase()
+    def is_arm64 = arch == "aarch64" || arch == "arm64"
+    def is_x86_64 = arch == "amd64" || arch == "x86_64"
+
+    if (os.isMacOsX()) {
+        if (is_arm64) {
+            dependsOn 'nativeMacOSArm64Jar'
+        } else {
+            dependsOn 'nativeMacOSX86_64Jar'
+        }
+    } else if (os.isLinux()) {
+        if (is_arm64) {
+            dependsOn 'nativeLinuxArm64Jar'
+        } else if (is_x86_64) {
+            dependsOn 'nativeLinuxX86_64Jar'
+        } else {
+            dependsOn 'nativeLinuxX86_64Jar'  // default fallback
+        }
+    } else if (os.isWindows()) {
+        dependsOn 'nativeWindowsX86_64Jar'
+    }
 }
 
 // Clean task for nativeMacOSArm64Jar
