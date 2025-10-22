@@ -14,7 +14,6 @@ export os_build=linux
 export SHARED_LIB=lib${LIBRARY_NAME}.so
 export CXX=aarch64-linux-gnu-g++
 export CC=aarch64-linux-gnu-gcc
-export CORES=$(nproc)
 export run_openssl_configure="./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${OPENSSL_ROOT}"
 export run_readelf="aarch64-linux-gnu-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j${CORES} --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=gcc-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
@@ -24,6 +23,8 @@ export run_readelf="aarch64-linux-gnu-readelf -d bin/release/${os_build}/${os_ar
 export run_native_jar="./gradlew nativeLinuxArm64Jar"
 export run_clean_native_jar="./gradlew cleanNativeLinuxArm64Jar"
 press_any_to_continue
+prepare_boost
+ensure_swig
 prepare_libtorrent
 export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION}
 ./run-swig.sh

@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# ubuntu needs to have these cross building tools
+# sudo apt-get install g++-x86-64-linux-gnu gcc-x86-64-linux-gnu binutils-x86-64-linux-gnu
+
 # Auto-select Linux build script based on architecture
 arch=$(uname -m)
 if [ "$arch" == "x86_64" ]; then

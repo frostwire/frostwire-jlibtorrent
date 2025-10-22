@@ -12,9 +12,22 @@ check_min_req_vars
 export os_arch=x86_64
 export os_build=linux
 export SHARED_LIB=lib${LIBRARY_NAME}.so
-export CXX=g++
-export CC=gcc-7
-export CORES=$(nproc)
+
+#this would work if we were on x86_64
+#export CXX=g++
+#export CC=gcc-7
+# x86_64 → Linux (glibc)
+export CC=x86_64-linux-gnu-gcc
+export CXX=x86_64-linux-gnu-g++
+export AR=x86_64-linux-gnu-ar
+export RANLIB=x86_64-linux-gnu-ranlib
+export STRIP=x86_64-linux-gnu-strip
+export LD=x86_64-linux-gnu-ld
+# (optional, helps when cross pkg-config files are installed)
+export PKG_CONFIG=x86_64-linux-gnu-pkg-config
+# or: export PKG_CONFIG_LIBDIR=/usr/x86_64-linux-gnu/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig
+
+
 export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${OPENSSL_ROOT}"
 export run_readelf="readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j${CORES} --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=gcc-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
