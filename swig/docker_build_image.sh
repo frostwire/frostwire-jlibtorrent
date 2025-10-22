@@ -1,6 +1,6 @@
 # Check for arm64 architecture and exit if found
 if [[ "$(uname -m)" == "arm64" ]]; then
-  echo "docker_build_image.sh: This script cannot run on arm64 systems due to missing dependencies in Ubuntu arm64 images or unsupported macOS arm64 environments. Please use an x86_64 environment. Exiting."
+  echo "docker_build_image.sh: We tried doing this on linux arm64 but the Android NDK tools are meant to run on x86_64. Exiting."
   exit 1
 fi
 

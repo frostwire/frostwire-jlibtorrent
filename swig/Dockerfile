@@ -205,7 +205,7 @@ RUN mkdir frostwire-jlibtorrent
 RUN echo "This folder will be mounted dynamically from the base of our repo every time the container is invoked via 'docker run'" > /frostwire-jlibtorrent/README.txt
 
 # BUILD DESKTOP ARCHITECTURES (Windows and Linux x86_64 and ARM64)
-RUN echo "cd /src/libtorrent && git checkout -- . && git status . && cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh && ./build-linux-x86_64.sh && ./build-linux-arm64.sh" > build_desktop.sh
+RUN echo "cd /src/libtorrent && git checkout -- . && git status . && cd /frostwire-jlibtorrent/swig && ./build-windows-x86_64.sh; ./build-linux-x86_64.sh; ./build-linux-arm64.sh" > build_desktop.sh
 RUN chmod +x /build_desktop.sh
 
 # SCRIPT BUILD ANDROID X86 ONLY (ANDROID STUDIO'S EMULATOR ARCHITECTURE)

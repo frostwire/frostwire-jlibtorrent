@@ -26,7 +26,7 @@ export LD=x86_64-linux-gnu-ld
 # (optional, helps when cross pkg-config files are installed)
 export PKG_CONFIG=x86_64-linux-gnu-pkg-config
 # or: export PKG_CONFIG_LIBDIR=/usr/x86_64-linux-gnu/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig
-
+export CORES=$(nproc)
 
 export run_openssl_configure="./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${OPENSSL_ROOT}"
 export run_readelf="readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"

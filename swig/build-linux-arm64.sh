@@ -14,6 +14,7 @@ export os_build=linux
 export SHARED_LIB=lib${LIBRARY_NAME}.so
 export CXX=aarch64-linux-gnu-g++
 export CC=aarch64-linux-gnu-gcc
+export CORES=$(nproc)
 export run_openssl_configure="./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${OPENSSL_ROOT}"
 export run_readelf="aarch64-linux-gnu-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j${CORES} --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=gcc-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
