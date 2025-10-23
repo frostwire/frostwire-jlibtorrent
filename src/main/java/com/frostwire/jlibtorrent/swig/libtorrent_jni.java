@@ -20,7 +20,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "2.0.13.6";
+        return "2.0.12.7";
     }
 
     public static boolean isMacOS() {
@@ -67,7 +67,11 @@ public class libtorrent_jni {
             pathToLibraryInJar = "lib/x86_64/" + libraryName + ".dll";
         } else if (isLinux() && !isAndroid()) {
             libraryName = "libjlibtorrent-" + version;
-            pathToLibraryInJar = "lib/x86_64/" + libraryName + ".so";
+            if (isArm64) {
+                pathToLibraryInJar = "lib/arm64/" + libraryName + ".so";
+            } else {
+                pathToLibraryInJar = "lib/x86_64/" + libraryName + ".so";
+            }
         } else if (isMacOS()) {
             if (isArm64) {
                 libraryName = "libjlibtorrent.arm64-" + version;
