@@ -224,8 +224,44 @@ RUN chmod +x /build_android_arm.sh
 RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm64.sh" > build_android_arm64.sh
 RUN chmod +x /build_android_arm64.sh
 
-# SCRIPT TO BUILD ALL ANDROID ARCHITECTURES
-RUN echo "cd /frostwire-jlibtorrent/swig && ./build-android-arm.sh && ./build-android-arm64.sh && ./build-android-x86.sh && ./build-android-x86_64.sh" > build_android_all.sh
+# SCRIPT TO BUILD ALL ANDROID ARCHITECTURES WITH ERROR CHECKING
+RUN echo '#!/bin/bash\n\
+set -e\n\
+cd /frostwire-jlibtorrent/swig\n\
+\n\
+echo "========================================"\n\
+echo "Building Android ARM..."\n\
+echo "========================================"\n\
+./build-android-arm.sh\n\
+echo "✓ Android ARM build completed"\n\
+ls -lh bin/release/android/armeabi-v7a/ || echo "WARNING: ARM build directory not found!"\n\
+\n\
+echo "========================================"\n\
+echo "Building Android ARM64..."\n\
+echo "========================================"\n\
+./build-android-arm64.sh\n\
+echo "✓ Android ARM64 build completed"\n\
+ls -lh bin/release/android/arm64-v8a/ || echo "WARNING: ARM64 build directory not found!"\n\
+\n\
+echo "========================================"\n\
+echo "Building Android x86..."\n\
+echo "========================================"\n\
+./build-android-x86.sh\n\
+echo "✓ Android x86 build completed"\n\
+ls -lh bin/release/android/x86/ || echo "WARNING: x86 build directory not found!"\n\
+\n\
+echo "========================================"\n\
+echo "Building Android x86_64..."\n\
+echo "========================================"\n\
+./build-android-x86_64.sh\n\
+echo "✓ Android x86_64 build completed"\n\
+ls -lh bin/release/android/x86_64/ || echo "WARNING: x86_64 build directory not found!"\n\
+\n\
+echo "========================================"\n\
+echo "All Android builds completed!"\n\
+echo "========================================"\n\
+ls -lh bin/release/android/*/*.so\n\
+' > /build_android_all.sh
 RUN chmod +x /build_android_all.sh
 
 RUN ln -s /frostwire-jlibtorrent/swig/libtorrent_patches/apply_android_patches.sh
