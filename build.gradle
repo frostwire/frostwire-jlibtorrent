@@ -104,8 +104,9 @@ tasks.register('nativeLinuxX86_64Jar', Zip) {
     destinationDirectory = layout.buildDirectory.dir("libs")
     archiveBaseName = 'jlibtorrent-linux-x86_64'
     archiveExtension = 'jar'
-    from fileTree(dir: 'swig/bin/release/linux', excludes: ['**/ed25519', '**/src'], include: 'x86_64/*libjlibtorrent.so')
-    into 'lib/x86_64/'
+    from(fileTree(dir: 'swig/bin/release/linux/x86_64', excludes: ['**/ed25519', '**/src'], include: '*libjlibtorrent.so')) {
+        into 'lib/x86_64/'
+    }
     rename(".so", "-${version}.so")
 }
 
@@ -113,8 +114,9 @@ tasks.register('nativeLinuxArm64Jar', Zip) {
     destinationDirectory = layout.buildDirectory.dir("libs")
     archiveBaseName = 'jlibtorrent-linux-arm64'
     archiveExtension = 'jar'
-    from fileTree(dir: 'swig/bin/release/linux', excludes: ['**/ed25519', '**/src'], include: 'arm64/*libjlibtorrent.so')
-    into 'lib/arm64/'
+    from(fileTree(dir: 'swig/bin/release/linux/arm64', excludes: ['**/ed25519', '**/src'], include: '*libjlibtorrent.so')) {
+        into 'lib/arm64/'
+    }
     rename(".so", "-${version}.so")
 }
 
