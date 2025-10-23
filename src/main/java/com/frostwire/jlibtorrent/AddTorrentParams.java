@@ -9,23 +9,130 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The {@link AddTorrentParams} is a parameter pack for adding torrents to a
- * session. The key fields when adding a torrent are:
- * <ul>
- * <li>ti - when you have a .torrent file</li>
- * <li>url - when you have a magnet link or http URL to the .torrent file</li>
- * <li>info_hash - when all you have is an info-hash (this is similar to a magnet link)</li>
- * </ul>
- * One of those fields need to be set. Another mandatory field is
- * {@link #savePath()}. The {@link AddTorrentParams} object is passed into one of the
- * {@link SessionHandle#addTorrent(AddTorrentParams, ErrorCode)} overloads or
- * {@link SessionHandle#asyncAddTorrent(AddTorrentParams)}.
+ * Configuration parameters for adding a torrent to the session.
  * <p>
- * If you only specify the info-hash, the torrent file will be downloaded
- * from peers, which requires them to support the metadata extension. It also
- * takes an optional {@link #name()} argument. This may be left empty in case no
- * name should be assigned to the torrent. In case it's not, the name is
- * used for the torrent as long as it doesn't have metadata.
+ * {@code AddTorrentParams} is a configuration bundle that specifies everything needed
+ * to add a torrent to a session. You must provide one of three sources:
+ * <ul>
+ *   <li><b>Torrent File:</b> {@link #torrentInfo(TorrentInfo)} - Direct .torrent file</li>
+ *   <li><b>Magnet Link:</b> {@link #url(String)} - Magnet link or HTTP URL to .torrent</li>
+ *   <li><b>Info-Hash Only:</b> {@link #infoHashV1(Sha1Hash)} or {@link #infoHashV2(Sha256Hash)}</li>
+ * </ul>
+ * <p>
+ * Additionally, you must specify {@link #savePath(String)} - where to save downloaded files.
+ * <p>
+ * <b>Creating AddTorrentParams for Different Scenarios:</b>
+ * <p>
+ * <b>From .torrent File (Most Common):</b>
+ * <pre>
+ * TorrentInfo ti = new TorrentInfo(new File("ubuntu.torrent"));
+ *
+ * AddTorrentParams params = new AddTorrentParams();
+ * params.torrentInfo(ti);
+ * params.savePath("/path/to/downloads");
+ *
+ * // Optional: Set file priorities
+ * Priority[] priorities = {Priority.NORMAL, Priority.IGNORE, Priority.NORMAL};
+ * params.filePriorities(priorities);
+ *
+ * // Optional: Set storage mode
+ * params.storageMode(StorageMode.STORAGE_MODE_SPARSE);
+ *
+ * sm.download(ti, new File("/path/to/downloads"));
+ * </pre>
+ * <p>
+ * <b>From Magnet Link:</b>
+ * <pre>
+ * String magnetLink = "magnet:?xt=urn:btih:C1939CA413B9302..." +
+ *                     "&dn=Ubuntu+20.04.iso&tr=http%3A%2F%2Ftracker.example.com";
+ *
+ * AddTorrentParams params = new AddTorrentParams();
+ * params.url(magnetLink);
+ * params.savePath("/path/to/downloads");
+ *
+ * // The session will fetch metadata from peers
+ * // Listen for METADATA_RECEIVED alert to know when ready
+ * </pre>
+ * <p>
+ * <b>From Info-Hash Only (DHT/PEX Discovery):</b>
+ * <pre>
+ * // You have an info-hash, no metadata yet
+ * Sha1Hash infoHash = new Sha1Hash("d8e8fca2dc0f896fd7cb4cb0031ba249");
+ *
+ * AddTorrentParams params = new AddTorrentParams();
+ * params.infoHashV1(infoHash);
+ * params.name("Unknown Torrent");  // Temporary name until metadata arrives
+ * params.savePath("/path/to/downloads");
+ *
+ * // Session will download metadata from peers
+ * </pre>
+ * <p>
+ * <b>Advanced Configuration:</b>
+ * <pre>
+ * AddTorrentParams params = new AddTorrentParams();
+ * params.torrentInfo(ti);
+ * params.savePath("/path/to/downloads");
+ *
+ * // Advanced options:
+ * params.resume(resumeData);            // Resume from saved state
+ * params.filePriorities(priorities);    // Skip some files
+ * params.storageMode(StorageMode.STORAGE_MODE_ALLOCATE); // Pre-allocate
+ *
+ * // Flags control behavior
+ * params.flags(new torrent_flags_t());  // Can set multiple flags
+ * params.name("Custom Name");           // For display
+ * params.comment("Download added via API");
+ *
+ * // Ports and endpoints
+ * List&lt;TcpEndpoint&gt; peers = ...;
+ * params.peers(peers);  // Pre-seed with known peers
+ *
+ * // Max upload rate for this torrent
+ * params.uploadLimit(500 * 1024);  // 500 KB/s max
+ * </pre>
+ * <p>
+ * <b>Metadata Extensions:</b>
+ * When adding a torrent with only an info-hash (no .torrent file), metadata must be
+ * downloaded from peers. This requires BEP 9 support (metadata extension) on peers.
+ * <pre>
+ * AddTorrentParams params = new AddTorrentParams();
+ * params.infoHashV1(sha1Hash);
+ * params.savePath("/downloads");
+ *
+ * // Listen for metadata updates
+ * sm.addListener(new AlertListener() {
+ *     public int[] types() {
+ *         return new int[] {AlertType.METADATA_RECEIVED.swig()};
+ *     }
+ *
+ *     public void alert(Alert&lt;?&gt; alert) {
+ *         if (alert instanceof MetadataReceivedAlert) {
+ *             System.out.println("Metadata received!");
+ *             TorrentHandle th = ((MetadataReceivedAlert) alert).handle();
+ *         }
+ *     }
+ * });
+ * </pre>
+ * <p>
+ * <b>Resume Data:</b>
+ * You can resume an incomplete download using saved resume data:
+ * <pre>
+ * // From a previous session
+ * byte[] resumeData = Files.readAllBytes(Paths.get("resume.data"));
+ *
+ * AddTorrentParams params = new AddTorrentParams();
+ * params.torrentInfo(ti);
+ * params.savePath("/path/to/downloads");
+ * params.resume(resumeData);  // Skip checking already-downloaded pieces
+ *
+ * // This resumes quickly without re-checking files
+ * </pre>
+ *
+ * @see SessionManager#download(TorrentInfo, java.io.File) - Simplified download method
+ * @see SessionHandle#addTorrent(AddTorrentParams, ErrorCode) - Add with params
+ * @see SessionHandle#asyncAddTorrent(AddTorrentParams) - Add asynchronously
+ * @see Priority - For file priorities
+ * @see StorageMode - For disk allocation strategy
  *
  * @author gubatron
  * @author aldenml
