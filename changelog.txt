@@ -1,4 +1,4 @@
-2.0.13.6 2025/OCT/08
+2.0.12.7 2025/OCT/23
  * new linux arm64 binaries, Apple Silicon and Cloud servers now running on arm64 chips can use jlibtorrent
  * new SessionManager.getTorrentHandles() -> TorrentHandle[]
  * new javadocs and source maven dependencies available in the maven repository (2.0.12.5 was republished)
