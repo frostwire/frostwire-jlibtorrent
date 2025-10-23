@@ -124,7 +124,7 @@ import com.frostwire.jlibtorrent.swig.error_code;
  * // Direct file access is typically done through TorrentInfo
  * TorrentInfo ti = new TorrentInfo(torrentData);
  * FileStorage fs = ti.files();
- * for (int i = 0; i < fs.numFiles(); i++) {
+ * for (int i = 0; i &lt; fs.numFiles(); i++) {
  *     String path = fs.filePath(i);
  *     long size = fs.fileSize(i);
  * }
@@ -176,6 +176,7 @@ import com.frostwire.jlibtorrent.swig.error_code;
  * <p>
  * <b>Common Torrent Fields Reference:</b>
  * <table border="1">
+ * <caption>BDecode Node Data Types</caption>
  *   <tr><th>Field</th><th>Type</th><th>Description</th></tr>
  *   <tr><td>announce</td><td>String</td><td>Primary tracker URL</td></tr>
  *   <tr><td>announce-list</td><td>List</td><td>List of tracker tiers (backup trackers)</td></tr>

@@ -5,7 +5,7 @@ import com.frostwire.jlibtorrent.swig.listen_succeeded_alert;
 
 /**
  * This alert is posted when the listen port succeeds to be opened on a
- * particular interface. {@link #address()} and {@link #port()} is the
+ * particular interface.  and  is the
  * endpoint that successfully was opened for listening.
  *
  * @author gubatron

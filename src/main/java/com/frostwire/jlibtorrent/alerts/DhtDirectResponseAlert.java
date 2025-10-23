@@ -9,7 +9,7 @@ import com.frostwire.jlibtorrent.swig.dht_direct_response_alert;
  * This is posted exactly once for every call to
  * {@link com.frostwire.jlibtorrent.SessionHandle#dhtDirectRequest(UdpEndpoint, Entry, long)}.
  * <p>
- * If the request failed, {@link #response()} will return a default constructed {@link BDecodeNode}.
+ * If the request failed,  will return a default constructed .
  *
  * @author gubatron
  * @author aldenml

@@ -37,7 +37,7 @@ import java.util.ArrayList;
  * int numPieces = fs.numPieces();
  *
  * // Iterate through files
- * for (int i = 0; i < numFiles; i++) {
+ * for (int i = 0; i &lt; numFiles; i++) {
  *     String fileName = fs.fileName(i);
  *     long fileSize = fs.fileSize(i);
  *     int flags = fs.fileFlags(i);
@@ -163,7 +163,7 @@ public final class FileStorage {
      * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #name(String)}.
+     * can be changed by calling .
      * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
@@ -191,7 +191,7 @@ public final class FileStorage {
      * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #name(String)}.
+     * can be changed by calling .
      * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
@@ -218,7 +218,7 @@ public final class FileStorage {
      * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #name(String)}.
+     * can be changed by calling .
      * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
@@ -243,7 +243,7 @@ public final class FileStorage {
      * <p>
      * That is, the first path element of all files must be the same.
      * This shared path element is also set to the name of the torrent. It
-     * can be changed by calling {@link #name(String)}.
+     * can be changed by calling .
      * <p>
      * The built in functions to traverse a directory to add files will
      * make sure this requirement is fulfilled.
@@ -274,7 +274,7 @@ public final class FileStorage {
      * Returns a list of {@link com.frostwire.jlibtorrent.FileSlice} objects representing the portions of
      * files the specified piece index, byte offset and size range overlaps.
      * <p>
-     * This is the inverse mapping of {@link #mapFile(int, long, int)}.
+     * This is the inverse mapping of .
      *
      * @param piece
      * @param offset
@@ -288,9 +288,9 @@ public final class FileStorage {
     /**
      * Returns a {@link com.frostwire.jlibtorrent.PeerRequest} representing the
      * piece index, byte offset and size the specified file range overlaps.
-     * This is the inverse mapping of {@link #mapBlock(int, long, int)}.
+     * This is the inverse mapping of .
      * <p>
-     * Note that the {@link PeerRequest} return type
+     * Note that the  return type
      * is meant to hold bittorrent block requests, which may not be larger
      * than 16 kiB. Mapping a range larger than that may return an overflown
      * integer.
@@ -361,7 +361,7 @@ public final class FileStorage {
     }
 
     /**
-     * Returns the piece size of {@code index}. This will be the same as {@link #pieceLength()},
+     * Returns the piece size of {@code index}. This will be the same as ,
      * except for the last piece, which may be shorter.
      *
      * @param index
@@ -429,7 +429,7 @@ public final class FileStorage {
 
     /**
      * Returns only the name of the file, whereas
-     * {@link #filePath(int)} returns the path (inside the torrent file) with
+     *  returns the path (inside the torrent file) with
      * the filename appended.
      *
      * @param index the file index

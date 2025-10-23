@@ -94,6 +94,7 @@ import com.frostwire.jlibtorrent.swig.info_hash_t;
  * <p>
  * <b>BitTorrent v1 vs v2 Comparison:</b>
  * <table border="1">
+ * <caption>BitTorrent v1 vs v2 Hash Comparison</caption>
  *   <tr><th>Feature</th><th>v1 (SHA-1)</th><th>v2 (SHA-256)</th></tr>
  *   <tr><td>Hash Size</td><td>20 bytes</td><td>32 bytes</td></tr>
  *   <tr><td>Algorithm</td><td>SHA-1</td><td>SHA-256</td></tr>

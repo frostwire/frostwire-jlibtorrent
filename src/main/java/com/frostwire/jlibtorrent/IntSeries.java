@@ -61,7 +61,7 @@ public final class IntSeries {
      * This method will always returns a value, but keep in mind that
      * due to the nature of the circular buffer internal logic, if you pass
      * past the size, you will get the sames values again.
-     * Use {@link #size()} for a proper boundary check.
+     * Use  for a proper boundary check.
      * <p>
      * Usage example:
      * <pre>

@@ -46,6 +46,7 @@ import com.frostwire.jlibtorrent.swig.portmap_transport;
  * <p>
  * <b>Comparison Table:</b>
  * <table border="1">
+ * <caption>Transport Protocol Comparison</caption>
  *   <tr><th>Feature</th><th>NAT-PMP</th><th>UPnP</th></tr>
  *   <tr><td>Standard</td><td>RFC 6886 (Apple)</td><td>IETF / IEC</td></tr>
  *   <tr><td>Typical Port Time</td><td>1-2 seconds</td><td>2-5 seconds</td></tr>

@@ -44,7 +44,7 @@ public final class DhtPktAlert extends AbstractAlert<dht_pkt_alert> {
 
     /**
      * The DHT node we received this packet from, or sent this packet to
-     * (depending on {@link #direction()}).
+     * (depending on ).
      *
      * @return the node endpoint
      */

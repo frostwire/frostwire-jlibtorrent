@@ -7,8 +7,8 @@ import com.frostwire.jlibtorrent.swig.listen_failed_alert;
 
 /**
  * This alert is generated when none of the ports, given in the port range, to
- * session can be opened for listening. The {@link #listenInterface()} member is the
- * interface and port that failed, {@link #error()} is the error code describing
+ * session can be opened for listening. The  member is the
+ * interface and port that failed,  is the error code describing
  * the failure.
  * <p>
  * In the case an endpoint was created before generating the alert, it is
@@ -20,7 +20,7 @@ import com.frostwire.jlibtorrent.swig.listen_failed_alert;
  * <p>
  * libtorrent may sometimes try to listen on port 0, if all other ports failed.
  * Port 0 asks the operating system to pick a port that's free). If that fails
- * you may see a {@link ListenFailedAlert} with port 0 even if you didn't ask to
+ * you may see a  with port 0 even if you didn't ask to
  * listen on it.
  *
  * @author gubatron

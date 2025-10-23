@@ -6,13 +6,13 @@ import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.swig.file_prio_alert;
 
 /**
- * Posted when a {@link TorrentHandle#prioritizeFiles} or
- * {@link TorrentHandle#filePriority} update of the file
+ * Posted when a  or
+ *  update of the file
  * priorities complete, which requires a round-trip to the disk
  * thread.
  * <p>
  * If the disk operation fails this alert won't be posted, but a
- * {@link FileErrorAlert} is posted instead, and the torrent is stopped.
+ *  is posted instead, and the torrent is stopped.
  *
  * @author aldenml
  */

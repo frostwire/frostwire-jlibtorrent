@@ -38,7 +38,7 @@ import com.frostwire.jlibtorrent.swig.int_vector;
  * Priority[] priorities = new Priority[ti.numFiles()];
  *
  * // Skip all files by default
- * for (int i = 0; i < priorities.length; i++) {
+ * for (int i = 0; i &lt; priorities.length; i++) {
  *     priorities[i] = Priority.IGNORE;
  * }
  *
@@ -57,10 +57,10 @@ import com.frostwire.jlibtorrent.swig.int_vector;
  * // Download files in order of importance
  * Priority[] priorities = new Priority[ti.numFiles()];
  *
- * for (int i = 0; i < priorities.length; i++) {
- *     if (i < 2) {
+ * for (int i = 0; i &lt; priorities.length; i++) {
+ *     if (i &lt; 2) {
  *         priorities[i] = Priority.SEVEN;     // Critical: max priority
- *     } else if (i < 5) {
+ *     } else if (i &lt; 5) {
  *         priorities[i] = Priority.NORMAL;    // Important: balanced
  *     } else {
  *         priorities[i] = Priority.IGNORE;    // Not needed: skip

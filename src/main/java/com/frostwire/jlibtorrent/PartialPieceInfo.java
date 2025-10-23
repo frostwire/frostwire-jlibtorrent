@@ -211,9 +211,8 @@ import com.frostwire.jlibtorrent.swig.partial_piece_info;
  *   <li>Typical piece has 16-256 blocks depending on piece size</li>
  * </ul>
  *
- * @see BlockInfo - Detailed state of individual blocks
- * @see PeerRequest - Byte range within piece being transferred
- * @see PieceInfoAlert - Contains PartialPieceInfo for all partial pieces
+ * @see BlockInfo detailed state of individual blocks
+ * @see PeerRequest byte range within piece being transferred
  *
  * @author gubatron
  * @author aldenml
@@ -237,7 +236,7 @@ public final class PartialPieceInfo {
     }
 
     /**
-     * The index of the piece in question. {@link #blocksInPiece()} is
+     * The index of the piece in question.  is
      * the number of blocks in this particular piece. This number will
      * be the same for most pieces, but the last piece may have fewer
      * blocks than the standard pieces.

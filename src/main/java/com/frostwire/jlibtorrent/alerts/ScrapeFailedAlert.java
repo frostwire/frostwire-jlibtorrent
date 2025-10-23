@@ -20,7 +20,7 @@ public final class ScrapeFailedAlert extends TrackerAlert<scrape_failed_alert> {
     /**
      * The error itself. This may indicate that the tracker sent an error
      * message (``error::tracker_failure``), in which case it can be
-     * retrieved by calling {@link #errorMessage()}.
+     * retrieved by calling .
      *
      * @return
      */

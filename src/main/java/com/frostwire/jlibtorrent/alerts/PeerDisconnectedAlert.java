@@ -6,7 +6,7 @@ import com.frostwire.jlibtorrent.swig.peer_disconnected_alert;
 
 /**
  * This alert is generated when a peer is disconnected for any
- * reason (other than the ones covered by {@link PeerErrorAlert}).
+ * reason (other than the ones covered by ).
  *
  * @author gubatron
  * @author aldenml

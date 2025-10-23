@@ -3,7 +3,7 @@ package com.frostwire.jlibtorrent.alerts;
 import com.frostwire.jlibtorrent.swig.session_stats_alert;
 
 /**
- * The {@link SessionStatsAlert} is posted when the user requests session
+ * The  is posted when the user requests session
  * statistics by calling {@link com.frostwire.jlibtorrent.SessionHandle#postSessionStats()}
  * on the session object. Its category is
  * {@link com.frostwire.jlibtorrent.swig.alert#status_notification},

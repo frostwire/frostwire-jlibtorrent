@@ -8,11 +8,11 @@ import com.frostwire.jlibtorrent.swig.read_piece_alert;
  * a call to {@link com.frostwire.jlibtorrent.TorrentHandle#readPiece(int)}
  * is completed. If the read failed, the torrent
  * is paused and an error state is set and the buffer member of the alert
- * is 0. If successful, {@link #bufferPtr()} points to a buffer containing all the data
- * of the piece. {@link #piece()} is the piece index that was read. {@link #size()}
+ * is 0. If successful,  points to a buffer containing all the data
+ * of the piece.  is the piece index that was read. 
  * is the number of bytes that was read.
  * <p>
- * If the operation fails, {@link #error()} will indicate what went wrong.
+ * If the operation fails,  will indicate what went wrong.
  *
  * @author gubatron
  * @author aldenml

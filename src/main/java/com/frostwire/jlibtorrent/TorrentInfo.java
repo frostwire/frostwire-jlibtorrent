@@ -43,7 +43,7 @@ import java.util.List;
  *
  * // Get files and sizes
  * FileStorage fs = ti.files();
- * for (int i = 0; i < fs.numFiles(); i++) {
+ * for (int i = 0; i &lt; fs.numFiles(); i++) {
  *     System.out.println(fs.fileName(i) + ": " + fs.fileSize(i) + " bytes");
  * }
  *
@@ -77,7 +77,7 @@ import java.util.List;
  * <p>
  * <b>Thread Safety:</b>
  * TorrentInfo is immutable once created and thread-safe for concurrent reads.
- * However, methods like {@link #renameFile} and {@link #remapFiles} modify state,
+ * However, methods like  and  modify state,
  * so synchronization is needed if shared across threads.
  *
  * @see SessionManager#download(TorrentInfo, File) - To start downloading
@@ -145,12 +145,12 @@ public final class TorrentInfo {
     }
 
     /**
-     * The {@link FileStorage} object contains the information on
+     * The  object contains the information on
      * how to map the pieces to files.
      * <p>
-     * It is separated from the {@link TorrentInfo} object because when creating torrents
+     * It is separated from the  object because when creating torrents
      * a storage object needs to be created without having a torrent file. When renaming files
-     * in a storage, the storage needs to make its own copy of the {@link FileStorage} in order
+     * in a storage, the storage needs to make its own copy of the  in order
      * to make its mapping differ from the one in the torrent file.
      *
      * @return the files storage
@@ -162,7 +162,7 @@ public final class TorrentInfo {
     /**
      * Returns the original (unmodified) file storage for this torrent. This
      * is used by the web server connection, which needs to request files with the original
-     * names. Filename may be changed using {@link #renameFile(int, String)}.
+     * names. Filename may be changed using .
      *
      * @return the original file storage
      */
@@ -172,13 +172,13 @@ public final class TorrentInfo {
 
     /**
      * Renames a the file with the specified index to the new name. The new
-     * filename is reflected by the {@link FileStorage} returned by {@link #files()}
-     * but not by the one returned by {@link #origFiles()}.
+     * filename is reflected by the  returned by 
+     * but not by the one returned by .
      * <p>
      * If you want to rename the base name of the torrent (for a multifile
-     * torrent), you can copy the {@code FileStorage} (see {@link #files()} and
-     * {@link #origFiles()} ), change the name, and then use
-     * {@link #remapFiles(FileStorage)}.
+     * torrent), you can copy the {@code FileStorage} (see  and
+     *  ), change the name, and then use
+     * .
      * <p>
      * The {@code newFilename} can both be a relative path, in which case the
      * file name is relative to the {@code savePath} of the torrent. If the
@@ -199,7 +199,7 @@ public final class TorrentInfo {
      * number of fixed size sector aligned files, regardless of the number
      * and sizes of the files in the torrent.
      * <p>
-     * The new specified {@link FileStorage} must have the exact same size as
+     * The new specified  must have the exact same size as
      * the current one.
      *
      * @param f the file storage
@@ -310,7 +310,7 @@ public final class TorrentInfo {
      * found in the URL itself. The string will be sent as the HTTP authorization header's
      * value (without specifying "Basic").
      * <p>
-     * This is the same as calling {@link #addUrlSeed(String, String, List)} with an
+     * This is the same as calling  with an
      * empty list.
      *
      * @param url
@@ -400,7 +400,7 @@ public final class TorrentInfo {
 
     /**
      * Returns all url seeds and http seeds in the torrent. Each entry
-     * is a {@link WebSeedEntry} and may refer to either a url seed or http seed.
+     * is a  and may refer to either a url seed or http seed.
      *
      * @return the list of web seeds
      */
@@ -444,9 +444,9 @@ public final class TorrentInfo {
     /**
      * The number of byte for each piece.
      * <p>
-     * The difference between {@link #pieceSize(int)} and {@link #pieceLength()} is that
-     * {@link #pieceSize(int)} takes the piece index as argument and gives you the exact size
-     * of that piece. It will always be the same as {@link #pieceLength()} except in the case
+     * The difference between  and  is that
+     *  takes the piece index as argument and gives you the exact size
+     * of that piece. It will always be the same as  except in the case
      * of the last piece, which may be smaller.
      *
      * @return

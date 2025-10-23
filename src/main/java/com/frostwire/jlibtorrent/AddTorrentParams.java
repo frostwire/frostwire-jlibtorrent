@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
  * {@code AddTorrentParams} is a configuration bundle that specifies everything needed
  * to add a torrent to a session. You must provide one of three sources:
  * <ul>
- *   <li><b>Torrent File:</b> {@link #torrentInfo(TorrentInfo)} - Direct .torrent file</li>
- *   <li><b>Magnet Link:</b> {@link #url(String)} - Magnet link or HTTP URL to .torrent</li>
- *   <li><b>Info-Hash Only:</b> {@link #infoHashV1(Sha1Hash)} or {@link #infoHashV2(Sha256Hash)}</li>
+ *   <li><b>Torrent File:</b>  - Direct .torrent file</li>
+ *   <li><b>Magnet Link:</b>  - Magnet link or HTTP URL to .torrent</li>
+ *   <li><b>Info-Hash Only:</b>  or </li>
  * </ul>
  * <p>
- * Additionally, you must specify {@link #savePath(String)} - where to save downloaded files.
+ * Additionally, you must specify  - where to save downloaded files.
  * <p>
  * <b>Creating AddTorrentParams for Different Scenarios:</b>
  * <p>
@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
  * <b>From Magnet Link:</b>
  * <pre>
  * String magnetLink = "magnet:?xt=urn:btih:C1939CA413B9302..." +
- *                     "&dn=Ubuntu+20.04.iso&tr=http%3A%2F%2Ftracker.example.com";
+ *                     "&amp;dn=Ubuntu+20.04.iso&amp;tr=http%3A%2F%2Ftracker.example.com";
  *
  * AddTorrentParams params = new AddTorrentParams();
  * params.url(magnetLink);
@@ -174,7 +174,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * {@link TorrentInfo} object with the torrent to add.
+     *  object with the torrent to add.
      *
      * @return the torrent info or null if not set
      */
@@ -184,7 +184,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * {@link TorrentInfo} object with the torrent to add.
+     *  object with the torrent to add.
      *
      * @param ti the torrent info
      */
@@ -194,7 +194,7 @@ public final class AddTorrentParams {
 
     /**
      * If the torrent doesn't have a tracker, but relies on the DHT to find
-     * peers, the {@link #trackers(List)} can specify tracker URLs for the
+     * peers, the  can specify tracker URLs for the
      * torrent.
      *
      * @return the list of trackers
@@ -223,7 +223,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * The tiers the URLs in {@link #trackers()} belong to. Trackers belonging to
+     * The tiers the URLs in  belong to. Trackers belonging to
      * different tiers may be treated differently, as defined by the multi
      * tracker extension. This is optional, if not specified trackers are
      * assumed to be part of tier 0, or whichever the last tier was as
@@ -244,7 +244,7 @@ public final class AddTorrentParams {
     }
 
     /**
-     * The tiers the URLs in {@link #trackers()} belong to. Trackers belonging to
+     * The tiers the URLs in  belong to. Trackers belonging to
      * different tiers may be treated differently, as defined by the multi
      * tracker extension. This is optional, if not specified trackers are
      * assumed to be part of tier 0, or whichever the last tier was as

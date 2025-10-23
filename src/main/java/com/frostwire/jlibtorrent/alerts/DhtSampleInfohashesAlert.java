@@ -60,7 +60,7 @@ public final class DhtSampleInfohashesAlert extends AbstractAlert<dht_sample_inf
     }
 
     /**
-     * The total number of nodes returned by {@link #nodes()}.
+     * The total number of nodes returned by .
      *
      * @return the number of nodes
      */

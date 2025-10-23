@@ -17,7 +17,7 @@ public final class UrlSeedAlert extends TorrentAlert<url_seed_alert> {
 
     /**
      * The error the web seed encountered. If this is not set, the server
-     * sent an error message, call {@link #errorMessage()}.
+     * sent an error message, call .
      *
      * @return error code
      */

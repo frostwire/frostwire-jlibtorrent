@@ -68,7 +68,7 @@ import com.frostwire.jlibtorrent.swig.peer_request;
  * // Typical block is 16KB
  * if (blockSize == 16384) {
  *     System.out.println("Standard block size\");
- * } else if (blockSize < 16384) {
+ * } else if (blockSize &lt; 16384) {
  *     System.out.println("Last block in piece (partial)\");
  * }
  * </pre>
@@ -158,11 +158,9 @@ import com.frostwire.jlibtorrent.swig.peer_request;
  *   <li>Request/response is the fundamental BitTorrent protocol message</li>
  * </ul>
  *
- * @see BlockInfo - Represents state of a block being downloaded
- * @see PartialPieceInfo - State of incomplete pieces with block progress
- * @see TorrentInfo#mapFile(int, long, int) - Map file offsets to piece requests
- * @see IncomingRequestAlert - When peers request blocks from you
- * @see InvalidRequestAlert - When peers send malformed requests
+ * @see BlockInfo represents state of a block being downloaded
+ * @see PartialPieceInfo state of incomplete pieces with block progress
+ * @see TorrentInfo map file offsets to piece requests
  *
  * @author gubatron
  * @author aldenml

@@ -65,7 +65,7 @@ import java.io.IOException;
  * </pre>
  * <p>
  * <b>Performance Tuning:</b>
- * Via the embedded {@link SettingsPack}, you can tune:
+ * Via the embedded , you can tune:
  * <ul>
  *   <li>Bandwidth limits (downloadRateLimit, uploadRateLimit)</li>
  *   <li>Connection limits (connectionsLimit, maxPeerlistSize)</li>

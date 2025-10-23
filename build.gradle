@@ -228,6 +228,16 @@ tasks.register('cleanNativeAndroidX64Jar', Delete) {
     delete layout.buildDirectory.file("libs/jlibtorrent-android-x86_64-${version}.jar")
 }
 
+// Configure javadoc to exclude auto-generated SWIG classes
+tasks.withType(Javadoc).configureEach {
+    exclude '**/swig/**'
+    options.addBooleanOption('html5', true)
+    // Disable doclint to ignore common javadoc warnings
+    if (JavaVersion.current().isJava8Compatible()) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
 artifacts {
     archives sourcesJar
     archives javadocJar

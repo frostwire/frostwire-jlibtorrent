@@ -7,7 +7,7 @@ import com.frostwire.jlibtorrent.swig.fastresume_rejected_alert;
 /**
  * This alert is generated when a fastresume file has been passed
  * to {@code addTorrent} but the files on disk did not match the
- * fastresume file. The {@link #error()} explains the reason why
+ * fastresume file. The  explains the reason why
  * the resume file was rejected.
  *
  * @author gubatron

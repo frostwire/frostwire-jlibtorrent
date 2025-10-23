@@ -7,8 +7,8 @@ import com.frostwire.jlibtorrent.swig.add_torrent_alert;
 /**
  * This alert is always posted when a torrent was attempted to be added
  * and contains the return status of the add operation. The torrent handle
- * of the new torrent can be found in the {@link #handle()} member.
- * If adding the torrent failed, {@link #error()} contains the error code.
+ * of the new torrent can be found in the  member.
+ * If adding the torrent failed,  contains the error code.
  *
  * @author gubatron
  * @author aldenml

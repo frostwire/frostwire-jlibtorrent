@@ -82,7 +82,7 @@ final class Files {
      * Use this method instead of <code>toByteArray(InputStream)</code>
      * when <code>InputStream</code> size is known.
      * <b>NOTE:</b> the method checks that the length can safely be cast to an int without truncation
-     * before using {@link #toByteArray(java.io.InputStream, int)} to read into the byte array.
+     * before using  to read into the byte array.
      * (Arrays can have no more than Integer.MAX_VALUE entries anyway)
      *
      * @param input the <code>InputStream</code> to read from

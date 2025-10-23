@@ -10,7 +10,7 @@ import java.util.List;
  * Handle to a torrent currently active in the session.
  * <p>
  * {@code TorrentHandle} is your primary interface for controlling a single torrent.
- * Once a torrent has been added to a {@link SessionManager}, you interact with it
+ * Once a torrent has been added to a , you interact with it
  * through a TorrentHandle. You can use it to:
  * <ul>
  *   <li>Query torrent status (progress, speed, peers, errors)</li>
@@ -79,13 +79,13 @@ import java.util.List;
  * <p>
  * <b>Performance Warnings:</b>
  * <b>⚠️ Synchronous Queries are Expensive:</b>
- * Any method that returns information (like {@link #status()}, {@link #peerInfo()}, etc.)
+ * Any method that returns information (like , , etc.)
  * blocks the calling thread until the libtorrent background thread responds. This can be
  * expensive if called frequently or from GUI threads.
  * <p>
  * <b>Best Practices:</b>
  * <ul>
- *   <li>Call {@link #status()} once and extract multiple fields, don't call for each field</li>
+ *   <li>Call  once and extract multiple fields, don't call for each field</li>
  *   <li>Don't call status() in tight loops or frequently-called event handlers</li>
  *   <li>Cache results if you don't need the absolute latest values</li>
  *   <li>Use {@link SessionManager#postTorrentUpdates()} and STATE_UPDATE alerts for efficient polling</li>
@@ -93,7 +93,7 @@ import java.util.List;
  * <p>
  * <b>Handle Validity:</b>
  * Once a torrent is removed from the session (via {@link SessionManager#remove(TorrentHandle)}),
- * its handle becomes invalid. Always check {@link #isValid()} before using a handle, especially
+ * its handle becomes invalid. Always check  before using a handle, especially
  * if you're storing handles for later use. Calling methods on an invalid handle will throw an exception.
  * <p>
  * <b>Thread Safety:</b>
@@ -162,7 +162,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * Same as calling {@link #addPiece(int, byte[], add_piece_flags_t)} with
+     * Same as calling  with
      * {@code flags} with value 0.
      *
      * @param piece the piece index
@@ -342,7 +342,7 @@ public final class TorrentHandle {
      * This method returns an up to date torrent status, the {@code flags} parameters
      * is an or-combination of the {@link status_flags_t} native values, in case you want
      * advanced (and expensive) fields filled. We recommend the use of the simple call
-     * to {@link #status()} that internally keep a cache with a small time resolution.
+     * to  that internally keep a cache with a small time resolution.
      *
      * @param flags the flags
      * @return the status
@@ -354,7 +354,7 @@ public final class TorrentHandle {
     /**
      * Returns an array (list) with information about pieces that are partially
      * downloaded or not downloaded at all but partially requested. See
-     * {@link PartialPieceInfo} for the fields in the returned vector.
+     *  for the fields in the returned vector.
      *
      * @return a list with partial piece info
      */
@@ -402,7 +402,7 @@ public final class TorrentHandle {
      * {@link com.frostwire.jlibtorrent.alerts.FileErrorAlert}.
      * <p>
      * To know if a torrent is paused or not, call
-     * {@link #status()} and inspect TorrentStatus#isPaused() .
+     *  and inspect TorrentStatus#isPaused() .
      * <p>
      * The ``flags`` argument to pause can be set to
      * ``torrent_handle::graceful_pause`` which will delay the disconnect of
@@ -608,7 +608,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * This method is like {@link #setSslCertificate} but takes the actual
+     * This method is like  but takes the actual
      * certificate, private key and DH params as byte arrays, rather than paths
      * to files.
      *
@@ -784,7 +784,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * Similar to calling {@link #saveResumeData(resume_data_flags_t)} with
+     * Similar to calling  with
      * empty flags.
      */
     public void saveResumeData() {
@@ -1004,9 +1004,9 @@ public final class TorrentHandle {
 
     /**
      * If you want libtorrent to use another list of trackers for this torrent,
-     * you can use {@link #replaceTrackers(List)} which takes a list of the same
-     * form as the one returned from {@link #trackers()} and will replace it.
-     * If you want an immediate effect, you have to call {@link #forceReannounce()}.
+     * you can use  which takes a list of the same
+     * form as the one returned from  and will replace it.
+     * If you want an immediate effect, you have to call .
      * <p>
      * The updated set of trackers will be saved in the resume data, and when
      * a torrent is started with resume data, the trackers from the resume
@@ -1029,7 +1029,7 @@ public final class TorrentHandle {
      * This method will look if the specified tracker is already in the
      * set. If it is, it doesn't do anything. If it's not in the current set
      * of trackers, it will insert it in the tier specified in the
-     * {@link AnnounceEntry}.
+     * .
      * <p>
      * The updated set of trackers will be saved in the resume data, and when
      * a torrent is started with resume data, the trackers from the resume
@@ -1297,7 +1297,7 @@ public final class TorrentHandle {
 
     /**
      * Removes deadlines on all pieces in the torrent.
-     * As if {@link #resetPieceDeadline(int)} was called on all pieces.
+     * As if  was called on all pieces.
      */
     public void clearPieceDeadlines() {
         th.clear_piece_deadlines();
@@ -1409,7 +1409,7 @@ public final class TorrentHandle {
     }
 
     /**
-     * Sames as calling {@link #moveStorage(String, MoveFlags)} with empty flags.
+     * Sames as calling  with empty flags.
      *
      * @param savePath the new path
      * @see #moveStorage(String, MoveFlags)

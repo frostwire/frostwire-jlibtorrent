@@ -60,7 +60,7 @@ import java.util.ArrayList;
  * boolean equal = hash.equals(hash2);
  * </pre>
  * <p>
- * <b>Note:</b> For BitTorrent v2 torrents, use {@link Sha256Hash} instead.
+ * <b>Note:</b> For BitTorrent v2 torrents, use  instead.
  * Hybrid torrents (v1 + v2) will have both SHA-1 and SHA-256 info-hashes.
  *
  * @see TorrentInfo#infoHashV1() - Get SHA-1 info-hash from torrent
@@ -158,7 +158,7 @@ public final class Sha1Hash implements Comparable<Sha1Hash>, Cloneable {
 
     /**
      * Returns an hex representation of this hash. Internally it
-     * calls {@link #toHex()}.
+     * calls .
      *
      * @return {@inheritDoc}
      */

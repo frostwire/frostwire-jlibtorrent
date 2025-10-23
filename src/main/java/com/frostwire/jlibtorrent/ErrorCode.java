@@ -38,8 +38,8 @@ import com.frostwire.jlibtorrent.swig.error_code;
  *   <li><b>isError():</b> True only if an actual error (0 = no error)</li>
  * </ul>
  *
- * @see Operation - The operation that failed (if provided in alert)
- * @see PeerError - Contains ErrorCode and Operation for peer disconnects
+ * @see Operation the operation that failed (if provided in alert)
+ * @see com.frostwire.jlibtorrent.swig.error_code the underlying native error code
  *
  * @author gubatron
  * @author aldenml

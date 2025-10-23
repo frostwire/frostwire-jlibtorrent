@@ -59,7 +59,7 @@ public class SessionHandle {
     public static final save_state_flags_t SAVE_DHT_STATE = session_handle.save_dht_state;
 
     /**
-     * Saves settings (i.e. the {@link SettingsPack}).
+     * Saves settings (i.e. the ).
      */
     public static final save_state_flags_t SAVE_SETTINGS = session_handle.save_settings;
 
@@ -121,7 +121,7 @@ public class SessionHandle {
     }
 
     /**
-     * Same as {@link #sessionState(save_state_flags_t)} with all
+     * Same as  with all
      * the flags bits active.
      *
      * @return the session params
@@ -137,7 +137,7 @@ public class SessionHandle {
      * last time this function was called.
      * <p>
      * Only torrents who has the state subscription flag set will be
-     * included. This flag is on by default. See {@link AddTorrentParams}.
+     * included. This flag is on by default. See .
      * the {@code flags} argument is the same as for torrent_handle::status().
      *
      * @param flags or-combination of native values
@@ -178,7 +178,7 @@ public class SessionHandle {
 
     /**
      * Looks for a torrent with the given info-hash. In case there is such
-     * a torrent in the session, a {@link TorrentHandle} to that torrent
+     * a torrent in the session, a  to that torrent
      * is returned.
      * <p>
      * In case the torrent cannot be found, a null is returned.
@@ -212,17 +212,17 @@ public class SessionHandle {
     }
 
     /**
-     * You add torrents through the {@link #addTorrent(AddTorrentParams, ErrorCode)}
+     * You add torrents through the 
      * function where you give an object with all the parameters.
      * The {@code addTorrent} overloads will block
      * until the torrent has been added (or failed to be added) and returns
-     * an error code and a {@link TorrentHandle}. In order to add torrents more
-     * efficiently, consider using {@link #asyncAddTorrent(AddTorrentParams)}
+     * an error code and a . In order to add torrents more
+     * efficiently, consider using 
      * which returns immediately, without waiting for the torrent to add.
      * Notification of the torrent being added is sent as
      * {@link com.frostwire.jlibtorrent.alerts.AddTorrentAlert}.
      * <p>
-     * The {@link TorrentHandle} returned by this method can be used to retrieve
+     * The  returned by this method can be used to retrieve
      * information about the torrent's progress, its peers etc. It is also
      * used to abort a torrent.
      * <p>
@@ -380,7 +380,7 @@ public class SessionHandle {
     /**
      * Adds a port forwarding on UPnP and/or NAT-PMP, using PCP if supported,
      * whichever is enabled. The return value is a handle referring to the
-     * port mapping that was just created. Pass it to {@link #deletePortMapping}
+     * port mapping that was just created. Pass it to 
      * to remove it.
      *
      * @param t            the mapping protocol
@@ -431,7 +431,7 @@ public class SessionHandle {
 
     /**
      * Query the DHT for an immutable item at the target hash.
-     * the result is posted as a {@link DhtImmutableItemAlert}.
+     * the result is posted as a .
      *
      * @param target
      */
@@ -444,7 +444,7 @@ public class SessionHandle {
      * this is an ed25519 key. The {@code salt} argument is optional and may be left
      * as an empty string if no salt is to be used.
      * <p>
-     * if the item is found in the DHT, a {@link DhtMutableItemAlert} is
+     * if the item is found in the DHT, a  is
      * posted.
      *
      * @param key

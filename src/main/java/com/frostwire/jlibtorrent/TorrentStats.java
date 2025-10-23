@@ -3,7 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.torrent_status;
 
 /**
- * To be used in concert with {@link SessionManager}.
+ * To be used in concert with .
  * <p>
  * The call to {@code SessionManager#postTorrentUpdates()} is done approximately
  * every second. This class holds a time series per metric and a time series for

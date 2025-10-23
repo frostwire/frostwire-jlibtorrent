@@ -276,7 +276,7 @@ public final class BlockInfo {
     }
 
     /**
-     * This is the enum used for {@link #state()}.
+     * This is the enum used for .
      */
     public enum BlockState {
 

@@ -44,7 +44,7 @@ public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
 
     /**
      * Describes whether this log refers to in-flow or out-flow of the
-     * peer. The exception is {@link #INFO} which is neither incoming or outgoing.
+     * peer. The exception is  which is neither incoming or outgoing.
      */
     public enum Direction {
 

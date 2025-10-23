@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * <p>
  * <b>BitTorrent v1 vs v2 vs Hybrid:</b>
  * <ul>
- *   <li><b>v1 torrents:</b> Use SHA-1 info-hash (20 bytes, {@link Sha1Hash})</li>
+ *   <li><b>v1 torrents:</b> Use SHA-1 info-hash (20 bytes, )</li>
  *   <li><b>v2 torrents:</b> Use SHA-256 info-hash (32 bytes, {@code Sha256Hash})</li>
  *   <li><b>Hybrid torrents:</b> Have BOTH SHA-1 and SHA-256 info-hashes for backward compatibility</li>
  * </ul>
@@ -86,8 +86,8 @@ import java.util.ArrayList;
  * Sha256Hash copy = hash.clone();
  * </pre>
  * <p>
- * <b>Note:</b> For legacy BitTorrent v1 torrents, use {@link Sha1Hash} (20 bytes).
- * The {@link TorrentInfo} class will automatically provide the appropriate hash type.
+ * <b>Note:</b> For legacy BitTorrent v1 torrents, use  (20 bytes).
+ * The  class will automatically provide the appropriate hash type.
  *
  * @see TorrentInfo#infoHashV2() - Get SHA-256 info-hash from torrent
  * @see TorrentInfo#infoHashV1() - Get SHA-1 info-hash from torrent
@@ -177,7 +177,7 @@ public final class Sha256Hash implements Comparable<Sha256Hash>, Cloneable {
 
     /**
      * Returns an hex representation of this hash. Internally it
-     * calls {@link #toHex()}.
+     * calls .
      *
      * @return {@inheritDoc}
      */

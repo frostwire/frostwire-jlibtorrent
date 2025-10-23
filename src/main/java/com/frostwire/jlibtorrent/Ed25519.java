@@ -29,7 +29,7 @@ import static com.frostwire.jlibtorrent.swig.libtorrent.*;
  * byte[] seed = Ed25519.createSeed();  // 32 random bytes
  *
  * // Generate keypair from seed
- * Pair<byte[], byte[]> keypair = Ed25519.createKeypair(seed);
+ * Pair&lt;byte[], byte[]&gt; keypair = Ed25519.createKeypair(seed);
  * byte[] publicKey = keypair.first;    // 32 bytes - can be shared
  * byte[] secretKey = keypair.second;   // 64 bytes - keep private
  *
@@ -61,7 +61,7 @@ import static com.frostwire.jlibtorrent.swig.libtorrent.*;
  * <pre>
  * // Node setup (done once, saved for later)
  * byte[] nodeSeed = Ed25519.createSeed();
- * Pair<byte[], byte[]> nodeKeys = Ed25519.createKeypair(nodeSeed);
+ * Pair&lt;byte[], byte[]&gt; nodeKeys = Ed25519.createKeypair(nodeSeed);
  * byte[] nodePublicKey = nodeKeys.first;
  * byte[] nodeSecretKey = nodeKeys.second;
  *
@@ -104,6 +104,7 @@ import static com.frostwire.jlibtorrent.swig.libtorrent.*;
  * <p>
  * <b>Size Reference:</b>
  * <table border="1">
+ * <caption>Ed25519 Cryptography Key Information</caption>
  *   <tr><th>Component</th><th>Size (bytes)</th><th>Bits</th><th>Usage</th></tr>
  *   <tr><td>Seed</td><td>32</td><td>256</td><td>Random data for key generation</td></tr>
  *   <tr><td>Public Key</td><td>32</td><td>256</td><td>Shared openly, for verification/encryption</td></tr>

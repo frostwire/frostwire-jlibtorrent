@@ -5,9 +5,9 @@ import com.frostwire.jlibtorrent.swig.file_slice;
 /**
  * Represents a window of a file in a torrent.
  * <p>
- * The {@link #fileIndex()} refers to the index of the file (in the {@link com.frostwire.jlibtorrent.TorrentInfo}).
- * To get the path and filename, use {@link TorrentInfo#files()}. The {@link #offset()} is the byte offset in the
- * file where the range starts, and {@link #size()} is the number of bytes this range is. The {@code size + offset}
+ * The  refers to the index of the file (in the {@link com.frostwire.jlibtorrent.TorrentInfo}).
+ * To get the path and filename, use {@link TorrentInfo#files()}. The  is the byte offset in the
+ * file where the range starts, and  is the number of bytes this range is. The {@code size + offset}
  * will never be greater than the file size.
  * <p>
  * Implementation note: This class does not store internally a reference to the native swig
