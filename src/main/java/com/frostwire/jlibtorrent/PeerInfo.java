@@ -3,12 +3,129 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.peer_info;
 
 /**
- * Holds information and statistics about one peer
- * that libtorrent is connected to.
+ * Statistics and information for a single connected peer.
  * <p>
- * This class is a lightweight version of the native {@link peer_info}, and
- * only carries a subset of all the information. However, it's completely open
- * for custom use or optimization to accommodate client necessities.
+ * {@code PeerInfo} provides a snapshot of statistics for a peer you're connected to
+ * while downloading a torrent. It includes data transfer rates, protocol information,
+ * peer identification, connection state, and download progress.
+ * <p>
+ * <b>Getting Peer Information:</b>
+ * <pre>
+ * TorrentHandle th = ...;  // Get from download
+ *
+ * // Get list of all peers we're connected to
+ * List&lt;PeerInfo&gt; peers = th.peerInfo();
+ *
+ * System.out.println("Connected to " + peers.size() + " peers");
+ *
+ * for (PeerInfo peer : peers) {
+ *     System.out.println("Peer: " + peer.ip());
+ *     System.out.println("  Client: " + peer.client());
+ *     System.out.println("  Progress: " + (peer.progress() * 100) + "%");
+ *     System.out.println("  Download speed: " + (peer.downSpeed() / 1024) + " KB/s");
+ *     System.out.println("  Upload speed: " + (peer.upSpeed() / 1024) + " KB/s");
+ *     System.out.println("  Total downloaded: " + peer.totalDownload() + " bytes");
+ *     System.out.println("  Total uploaded: " + peer.totalUpload() + " bytes");
+ * }
+ * </pre>
+ * <p>
+ * <b>Peer Statistics and Metrics:</b>
+ * <pre>
+ * for (PeerInfo peer : peers) {
+ *     // Transfer statistics (payload only, no protocol overhead)
+ *     long downloaded = peer.totalDownload();  // Bytes from this peer
+ *     long uploaded = peer.totalUpload();      // Bytes to this peer
+ *
+ *     // Current speeds (updated ~1x per second)
+ *     int downBps = peer.downSpeed();  // Bytes per second
+ *     int upBps = peer.upSpeed();      // Bytes per second
+ *
+ *     // Progress: how much of the torrent does this peer have?
+ *     float progress = peer.progress();  // 0.0 to 1.0
+ *     float progressPpm = peer.progressPpm();  // Parts per million (more precise)
+ *     System.out.println("Peer has " + (progress * 100) + "% of torrent");
+ *
+ *     // Peer identification
+ *     String ip = peer.ip();           // IP address:port
+ *     String client = peer.client();   // Client software version
+ *     System.out.println(ip + " running " + client);
+ * }
+ * </pre>
+ * <p>
+ * <b>Peer Connection Information:</b>
+ * <pre>
+ * for (PeerInfo peer : peers) {
+ *     // Connection state flags
+ *     int flags = peer.flags();
+ *     // Flags indicate: chocking state, optimistic unchoke, snubbed, etc.
+ *
+ *     // Where did we learn about this peer?
+ *     byte source = peer.source();
+ *     // Bit flags: DHT, PEX (peer exchange), tracker, etc.
+ *
+ *     // Connection type
+ *     ConnectionType type = peer.connectionType();
+ *     System.out.println("Connection: " + type);  // e.g., STANDARD_BEP
+ * }
+ * </pre>
+ * <p>
+ * <b>Analyzing Peer Performance:</b>
+ * <pre>
+ * // Find fastest peers
+ * List&lt;PeerInfo&gt; peers = th.peerInfo();
+ *
+ * // Sort by download speed
+ * List&lt;PeerInfo&gt; fastestPeers = peers.stream()
+ *     .sorted((a, b) -&gt; Integer.compare(b.downSpeed(), a.downSpeed()))
+ *     .limit(5)
+ *     .collect(Collectors.toList());
+ *
+ * System.out.println("Top 5 fastest peers:");
+ * for (PeerInfo peer : fastestPeers) {
+ *     System.out.println("  " + peer.ip() + " @ " +
+ *         (peer.downSpeed() / 1024 / 1024) + " MB/s");
+ * }
+ *
+ * // Find peers with most progress
+ * List&lt;PeerInfo&gt; completePeers = peers.stream()
+ *     .filter(p -&gt; p.progress() &gt; 0.99)  // 99%+ complete
+ *     .collect(Collectors.toList());
+ *
+ * System.out.println("Seeders (complete): " + completePeers.size());
+ * </pre>
+ * <p>
+ * <b>Peer Quality Assessment:</b>
+ * <pre>
+ * for (PeerInfo peer : peers) {
+ *     // Assess peer quality
+ *     int downBps = peer.downSpeed();
+ *     float progress = peer.progress();
+ *     long totalDownloaded = peer.totalDownload();
+ *
+ *     // Peers that have sent us data are valuable
+ *     boolean useful = totalDownloaded &gt; 0;
+ *
+ *     // Complete peers (seeders) are especially valuable
+ *     boolean isSeeder = progress &gt; 0.99;
+ *
+ *     // Fast peers should be prioritized
+ *     boolean isFast = downBps &gt; (1024 * 100);  // &gt; 100 KB/s
+ *
+ *     if (isSeeder &amp;&amp; isFast) {
+ *         System.out.println("Premium seeder: " + peer.ip());
+ *     }
+ * }
+ * </pre>
+ * <p>
+ * <b>Performance Notes:</b>
+ * - {@link TorrentHandle#peerInfo()} is a synchronous call (may block slightly)
+ * - Call infrequently or cache results if performance is critical
+ * - Updated approximately once per second by libtorrent
+ * - For efficient batch updates, use {@link SessionManager#postTorrentUpdates()}
+ *
+ * @see TorrentHandle#peerInfo() - Get peer list from a torrent
+ * @see TorrentStatus - For overall torrent statistics
+ * @see ConnectionType - For peer connection type details
  *
  * @author gubatron
  * @author aldenml
