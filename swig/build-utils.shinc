@@ -1,4 +1,4 @@
-'#!/usr/bin/env bash
+#!/usr/bin/env bash
 unset_env_variables() {
   # The user's build environment might already have pre-set
   # flags that can interfere with the compilation process
