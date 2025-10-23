@@ -18,7 +18,98 @@
 package com.frostwire.jlibtorrent;
 
 /**
- * Converts hexadecimal Strings.
+ * Utility for converting between hexadecimal strings and binary data.
+ * <p>
+ * {@code Hex} provides efficient conversion between byte arrays and their hexadecimal
+ * string representations. Used throughout jlibtorrent for displaying and parsing
+ * binary data like SHA-1 hashes, info-hashes, and peer IDs in human-readable form.
+ * <p>
+ * <b>Hexadecimal Encoding in BitTorrent:</b>
+ * <pre>
+ * // Binary SHA-1 hash (20 bytes)
+ * byte[] sha1 = new byte[] {
+ *     (byte)0xd8, (byte)0xe8, (byte)0xfc, (byte)0xa2, (byte)0xdc,
+ *     0x0f, (byte)0x89, 0x6f, (byte)0xd7, (byte)0xcb,
+ *     0x4c, (byte)0xb0, 0x03, 0x1b, (byte)0xa2, 0x49,
+ *     ... (remaining 4 bytes)
+ * };
+ *
+ * // Convert to hex string for display
+ * String hex = Hex.encode(sha1);
+ * // Output: "d8e8fca2dc0f896fd7cb4cb0031ba249" + more
+ * </pre>
+ * <p>
+ * <b>Common Uses in jlibtorrent:</b>
+ * <ul>
+ *   <li><b>Hash Display:</b> Show SHA-1 or SHA-256 hashes in UI</li>
+ *   <li><b>Parsing:</b> Convert hex string to binary (e.g., from user input)</li>
+ *   <li><b>Logging:</b> Display binary data in readable form</li>
+ *   <li><b>Debugging:</b> Inspect binary structures as hex</li>
+ * </ul>
+ * <p>
+ * <b>Encoding Examples:</b>
+ * <pre>
+ * // Encode bytes to hex string
+ * byte[] data = {0x01, 0x23, (byte)0x45, (byte)0x67, (byte)0x89, (byte)0xAB};
+ * String hex = Hex.encode(data);
+ * System.out.println(hex);  // Output: "0123456789ab"
+ *
+ * // Hash to hex
+ * Sha1Hash hash = new Sha1Hash(torrent);
+ * String hashHex = Hex.encode(hash.swig().to_bytes());
+ * System.out.println("Info-hash: " + hashHex);
+ * </pre>
+ * <p>
+ * <b>Decoding Examples:</b>
+ * <pre>
+ * // Decode hex string to bytes
+ * String hex = "0123456789ab";
+ * byte[] data = Hex.decode(hex);
+ * System.out.println("Decoded: " + data.length + " bytes");
+ *
+ * // Parse hash from hex string
+ * String hashStr = "d8e8fca2dc0f896fd7cb4cb0031ba249";
+ * byte[] hashBytes = Hex.decode(hashStr);
+ * Sha1Hash hash = new Sha1Hash(hashBytes);
+ * </pre>
+ * <p>
+ * <b>Hex String Format:</b>
+ * <ul>
+ *   <li><b>Lowercase letters:</b> 'a'-'f' for values 10-15 (standard)</li>
+ *   <li><b>Length:</b> Always double the byte array length (2 chars per byte)</li>
+ *   <li><b>Validation:</b> Invalid hex characters throw IllegalArgumentException</li>
+ * </ul>
+ * <p>
+ * <b>Error Handling:</b>
+ * <pre>
+ * try {
+ *     // Odd number of characters
+ *     byte[] data = Hex.decode("abc");
+ * } catch (IllegalArgumentException e) {
+ *     System.err.println("Invalid hex: " + e.getMessage());
+ * }
+ *
+ * try {
+ *     // Invalid character
+ *     byte[] data = Hex.decode("0g23");
+ * } catch (IllegalArgumentException e) {
+ *     System.err.println("Invalid hex digit: " + e.getMessage());
+ * }
+ * </pre>
+ * <p>
+ * <b>Performance Notes:</b>
+ * <ul>
+ *   <li>Encoding is O(n) where n = byte array length</li>
+ *   <li>Decoding is O(n) where n = hex string length</li>
+ *   <li>No intermediate collections; direct byte/char manipulation</li>
+ *   <li>Safe for large binary data (entire files, torrents)</li>
+ * </ul>
+ *
+ * @see Sha1Hash#toHex() - Convenient hash to hex method
+ * @see Sha256Hash#toHex() - v2 hash to hex
+ *
+ * @author gubatron
+ * @author aldenml
  */
 final class Hex {
 
