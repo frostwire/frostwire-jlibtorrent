@@ -43,7 +43,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PACKAGES_PAT }}   # classic PAT with delete:packages
           VERSION: ${{ steps.vars.outputs.version }}
         run: |
-          set -euo pipefail
+          set +e  # Don't exit on error, we handle it manually
           ORG="frostwire"
           PKG_TYPE="maven"
           PKGS=(
@@ -59,15 +59,36 @@ jobs:
             com.frostwire.jlibtorrent-android-x86_64
           )
           for P in "${PKGS[@]}"; do
-            id=$(gh api -H "Accept: application/vnd.github+json" \
-                 "/orgs/$ORG/packages/$PKG_TYPE/$P/versions" \
-                 --jq ".[] | select(.name==\"$VERSION\") | .id" | head -n1 || true)
-            if [[ -n "$id" ]]; then
-              echo "Deleting $P:$VERSION ($id)"
-              gh api -X DELETE -H "Accept: application/vnd.github+json" \
-                "/orgs/$ORG/packages/$PKG_TYPE/$P/versions/$id"
+            # Query the package versions, capturing both output and exit code
+            versions_response=$(gh api -H "Accept: application/vnd.github+json" \
+                 "/orgs/$ORG/packages/$PKG_TYPE/$P/versions" 2>&1)
+            api_exit_code=$?
+
+            # If the API call failed (404, etc.), skip to next package
+            if [ $api_exit_code -ne 0 ]; then
+              echo "Package $P not found or inaccessible, skipping..."
+              continue
+            fi
+
+            # Extract the ID for the matching version
+            id=$(echo "$versions_response" | jq -r ".[] | select(.name==\"$VERSION\") | .id" 2>/dev/null | head -n1)
+
+            # Only delete if we found a valid ID
+            if [[ -n "$id" && "$id" != "null" ]]; then
+              echo "Deleting $P:$VERSION (ID: $id)"
+              delete_response=$(gh api -X DELETE -H "Accept: application/vnd.github+json" \
+                "/orgs/$ORG/packages/$PKG_TYPE/$P/versions/$id" 2>&1)
+              delete_exit_code=$?
+              if [ $delete_exit_code -eq 0 ]; then
+                echo "Successfully deleted $P:$VERSION"
+              else
+                echo "Warning: Failed to delete $P:$VERSION - $delete_response"
+              fi
+            else
+              echo "Version $VERSION not found in package $P"
             fi
           done
+          exit 0  # Always succeed - deletion is optional
 
       - name: Download Release Assets from URLs
         run: |
