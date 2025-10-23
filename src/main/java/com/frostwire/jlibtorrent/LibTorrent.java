@@ -8,6 +8,121 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * System information and version utilities for libtorrent and jlibtorrent.
+ * <p>
+ * {@code LibTorrent} provides access to library version information, dependency versions,
+ * platform capabilities, and session metrics. This is useful for logging, debugging,
+ * feature detection, and reporting.
+ * <p>
+ * <b>Version Information:</b>
+ * <pre>
+ * // Get version info for debugging and logs
+ * System.out.println("LibTorrent version: " + LibTorrent.version());
+ * System.out.println("LibTorrent version num: " + LibTorrent.versionNum());
+ * System.out.println("LibTorrent revision: " + LibTorrent.revision());
+ *
+ * System.out.println("JLibTorrent version: " + LibTorrent.jlibtorrentVersion());
+ *
+ * System.out.println("Boost version: " + LibTorrent.boostVersion());
+ * System.out.println("OpenSSL version: " + LibTorrent.opensslVersion());
+ *
+ * // Output example:
+ * // LibTorrent version: 2.0.5
+ * // LibTorrent version num: 131589
+ * // LibTorrent revision: c2012b084c6654d681720ea0693d87a48bc95b14
+ * // JLibTorrent version: 2.0.12.7
+ * // Boost version: 1_78_0
+ * // OpenSSL version: OpenSSL 1.1.1n  15 Mar 2022
+ * </pre>
+ * <p>
+ * <b>Platform Detection and Capabilities:</b>
+ * <pre>
+ * // Check for ARM NEON support (ARM optimization)
+ * if (LibTorrent.hasArmNeonSupport()) {
+ *     System.out.println("Running on ARM with NEON support");
+ * } else {
+ *     System.out.println("Not running ARM NEON platform");
+ * }
+ * </pre>
+ * <p>
+ * <b>Session Metrics Discovery:</b>
+ * <pre>
+ * // Get all available metrics for session statistics
+ * List&lt;StatsMetric&gt; metrics = LibTorrent.sessionStatsMetrics();
+ *
+ * System.out.println("Available session metrics: " + metrics.size());
+ * for (StatsMetric metric : metrics) {
+ *     System.out.println("  " + metric.name() + " (index " + metric.valueIndex() + ")");
+ * }
+ *
+ * // Example output (first few):
+ * // Available session metrics: 150+
+ * //   net.sent_payload_bytes (index 0)
+ * //   net.recv_payload_bytes (index 1)
+ * //   net.sent_bytes (index 2)
+ * //   net.recv_bytes (index 3)
+ * //   net.read_bytes (index 4)
+ * //   ...
+ * </pre>
+ * <p>
+ * <b>Metrics Lookup:</b>
+ * <pre>
+ * // Find metric index by name
+ * int downloadIndex = LibTorrent.findMetricIdx("net.recv_payload_bytes");
+ * int uploadIndex = LibTorrent.findMetricIdx("net.sent_payload_bytes");
+ *
+ * if (downloadIndex >= 0 &amp;&amp; uploadIndex >= 0) {
+ *     System.out.println("Found download metric at index: " + downloadIndex);
+ *     System.out.println("Found upload metric at index: " + uploadIndex);
+ *
+ *     // Use these indices with SessionStatsAlert.values()
+ *     // to get actual metric values from session statistics
+ * } else {
+ *     System.out.println("Metric not found");
+ * }
+ * </pre>
+ * <p>
+ * <b>Using Metrics with Session Statistics:</b>
+ * <pre>
+ * // Get session metrics
+ * List&lt;StatsMetric&gt; metrics = LibTorrent.sessionStatsMetrics();
+ *
+ * // Post session stats request
+ * sm.postSessionStats();
+ *
+ * // In your alert listener for SessionStatsAlert:
+ * // SessionStatsAlert alert = ...;
+ * // long[] values = alert.values();
+ *
+ * // Look up a metric
+ * int idx = LibTorrent.findMetricIdx("net.recv_payload_bytes");
+ * if (idx &gt;= 0) {
+ *     long bytesReceived = values[idx];
+ *     System.out.println("Downloaded: " + bytesReceived + " bytes");
+ * }
+ * </pre>
+ * <p>
+ * <b>Typical Use Case - Version Reporting:</b>
+ * <pre>
+ * // Log library versions on startup
+ * String versionInfo = String.format(
+ *     "JLibTorrent %s (libtorrent %s, Boost %s, OpenSSL %s)",
+ *     LibTorrent.jlibtorrentVersion(),
+ *     LibTorrent.version(),
+ *     LibTorrent.boostVersion(),
+ *     LibTorrent.opensslVersion()
+ * );
+ * System.out.println(versionInfo);
+ *
+ * // Report capabilities
+ * if (LibTorrent.hasArmNeonSupport()) {
+ *     System.out.println("Platform: ARM with NEON optimization");
+ * }
+ * </pre>
+ *
+ * @see StatsMetric - For metric structure and information
+ * @see SessionManager#postSessionStats() - To request session statistics
+ *
  * @author gubatron
  * @author aldenml
  */
