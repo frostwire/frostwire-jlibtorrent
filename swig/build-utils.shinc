@@ -10,7 +10,6 @@ unset_env_variables() {
   unset BOOST_LIB_PATH
   unset BOOST_ROOT
   unset BOOST_LIB_SUFFIX
-  #unset OPENSSL_ROOT
   unset OPENSSL_BIN_PATH
   unset OPENSSL_INCLUDE_PATH
   unset OPENSSL_LIB_PATH
@@ -140,7 +139,6 @@ check_min_req_vars() {
   abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
-  #abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
 }
 
 build_b2() {
@@ -298,7 +296,6 @@ prepare_openssl() {
   if [ ! -d ${OPENSSL_SOURCE} ]; then
     prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '${OPENSSL_SOURCE}'"
     pushd ${SRC}
-    #wget -nv -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-1.1.1i.tar.gz
     wget -4 --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
     tar xvfz openssl.tar.gz
     rm -f openssl.tar.gz
@@ -315,9 +312,6 @@ build_openssl() {
   abort_if_var_unset "run_openssl_configure" ${run_openssl_configure}
   prompt_msg "build_openssl: run_openssl_configure=[${run_openssl_configure}]"
   press_any_to_continue
-  #if [ -d ${OPENSSL_ROOT} ]; then
-  #  rm -fr ${OPENSSL_ROOT}
-  #fi
   if [ -d ${OPENSSL_SOURCE} ]; then
     pushd ${OPENSSL_SOURCE}
     $run_openssl_configure
@@ -360,7 +354,6 @@ prepare_libtorrent() {
 }
 
 build_libraries() {
-  #abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
   abort_if_var_unset "SWIG" ${SWIG}
   abort_if_var_unset "os_build" ${os_build}
   abort_if_var_unset "os_arch" ${os_arch}
@@ -375,7 +368,6 @@ build_libraries() {
   export PATH=${PATH}:${BOOST_ROOT}/tools/build/src/engine
   echo "Added boost tools to PATH:"
   echo ${PATH}
-  #export OPENSSL_ROOT=${OPENSSL_ROOT}
   export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
   export BOOST_ROOT=${BOOST_ROOT}
   export BOOST_BUILD_PATH=${BOOST_ROOT}
