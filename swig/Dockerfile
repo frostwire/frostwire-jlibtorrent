@@ -264,4 +264,3 @@ ls -lh bin/release/android/*/*.so\n\
 ' > /build_android_all.sh
 RUN chmod +x /build_android_all.sh
 
-RUN ln -s /frostwire-jlibtorrent/swig/libtorrent_patches/apply_android_patches.sh
