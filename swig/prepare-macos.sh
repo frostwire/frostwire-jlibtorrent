@@ -1,10 +1,11 @@
 # Installs dependencies and tools to build on macos
 brew install wget
 brew install pcre2
-
+brew install automake
+brew install autoconf
 # DO NOT USE XTool's bison, the swig build uses a -W flag that's not recognized by it
 brew install bison
-export PATH=/opt/homebrew/opt/bison/bin:${PATH}
+export PATH="$(brew --prefix bison)/bin:${PATH}"
 
 export SWIG_VERSION=4.3.1
 
