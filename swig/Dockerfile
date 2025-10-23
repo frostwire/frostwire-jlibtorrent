@@ -37,7 +37,7 @@ RUN apt install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-c
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION="6baffac70cf69defb0e7813fb9ec78870677cdbb"
+ENV LIBTORRENT_REVISION="c106f62ec26d491ad313bb512352f88d863b837d"
 ENV LIBTORRENT_BRANCH="RC_2_0"
 ENV SWIG_VERSION="4.3.1"
 ENV BOOST_MAJOR="1"
