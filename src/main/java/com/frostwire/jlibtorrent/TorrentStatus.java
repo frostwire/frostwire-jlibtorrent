@@ -3,8 +3,102 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.*;
 
 /**
- * Holds a snapshot of the status of a torrent, as queried by
- * {@link TorrentHandle#status()}
+ * Real-time snapshot of a torrent's status and statistics.
+ * <p>
+ * {@code TorrentStatus} contains all information about a torrent's download/upload progress,
+ * connection state, error conditions, and performance metrics. It's obtained by calling
+ * {@link TorrentHandle#status()}, which is a synchronous call that queries the session.
+ * <p>
+ * <b>Performance Note:</b>
+ * Status queries block the calling thread. Cache results if you don't need real-time values,
+ * or use {@link SessionManager#postTorrentUpdates()} with STATE_UPDATE alerts for efficient
+ * batch status updates.
+ * <p>
+ * <b>Common Usage Patterns:</b>
+ * <pre>
+ * TorrentHandle th = ...;
+ * TorrentStatus status = th.status();
+ *
+ * // Download progress
+ * double progress = status.progress();  // 0.0 to 1.0
+ * System.out.println("Downloaded: " + (progress * 100) + "%");
+ *
+ * // Download speed
+ * long downloadRate = status.downloadRate();  // bytes per second
+ * long uploadRate = status.uploadRate();
+ * System.out.println("Speed: " + (downloadRate / 1024 / 1024) + " MB/s down");
+ *
+ * // Peers
+ * int numPeers = status.numPeers();
+ * int numComplete = status.numComplete();
+ * int numIncomplete = status.numIncomplete();
+ *
+ * // Download size
+ * long totalDone = status.totalDone();
+ * long totalSize = status.totalWanted();
+ * System.out.println("Progress: " + totalDone + " / " + totalSize + " bytes");
+ *
+ * // Error handling
+ * if (status.isPaused()) {
+ *     String error = status.errorMessage();
+ *     if (!error.isEmpty()) {
+ *         System.err.println("Error: " + error);
+ *     }
+ * }
+ * </pre>
+ * <p>
+ * <b>State Information:</b>
+ * <pre>
+ * TorrentStatus status = th.status();
+ *
+ * // Check torrent state
+ * if (status.isFinished()) {
+ *     System.out.println("Download complete!");
+ * }
+ *
+ * if (status.isSeeding()) {
+ *     System.out.println("Seeding to " + status.numPeers() + " peers");
+ * }
+ *
+ * if (status.isPaused()) {
+ *     System.out.println("Download paused");
+ * }
+ *
+ * // Check for errors
+ * ErrorCode err = status.errorCode();
+ * if (err.value() != 0) {
+ *     System.err.println("Torrent error: " + err.message());
+ * }
+ * </pre>
+ * <p>
+ * <b>Accumulated Statistics:</b>
+ * <pre>
+ * TorrentStatus status = th.status();
+ *
+ * // This session's traffic
+ * long sessionDownload = status.totalDownload();  // Resets when torrent is paused/restarted
+ * long sessionUpload = status.totalUpload();
+ *
+ * // All-time statistics (persistent across sessions)
+ * long allTimeDownload = status.allTimeDownload();
+ * long allTimeUpload = status.allTimeUpload();
+ *
+ * // Payload-only (excludes protocol overhead)
+ * long payloadDownload = status.totalPayloadDownload();
+ * long payloadUpload = status.totalPayloadUpload();
+ * </pre>
+ * <p>
+ * <b>Tracker Information:</b>
+ * <pre>
+ * TorrentStatus status = th.status();
+ *
+ * String currentTracker = status.currentTracker();
+ * long nextAnnounce = status.nextAnnounce();  // milliseconds
+ * String name = status.name();  // Torrent name
+ * </pre>
+ *
+ * @see TorrentHandle#status() - To query current status
+ * @see SessionManager#postTorrentUpdates() - For efficient batch status updates
  *
  * @author gubatron
  * @author aldenml

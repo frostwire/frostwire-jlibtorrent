@@ -6,9 +6,84 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * This class represents a file list and the piece
- * size. Everything necessary to interpret a regular bittorrent storage
- * file structure.
+ * Represents the file structure and piece mapping for a torrent.
+ * <p>
+ * {@code FileStorage} contains the list of files in a torrent and maps logical pieces
+ * to physical file locations on disk. It's used both for:
+ * <ul>
+ *   <li><b>Inspecting torrents:</b> Querying file names, sizes, and piece mapping</li>
+ *   <li><b>Creating torrents:</b> Adding files and setting piece size</li>
+ *   <li><b>Modifying torrents:</b> Renaming files or remapping pieces</li>
+ * </ul>
+ * <p>
+ * <b>Understanding Pieces and Files:</b>
+ * <br/>
+ * In BitTorrent, content is divided into fixed-size "pieces" (typically 16 KB to 16 MB each).
+ * A piece might span across multiple files, and a file might contain data from multiple pieces.
+ * FileStorage manages this mapping:
+ * <pre>
+ * File1 (1 MB)  |  File2 (2 MB)  |  File3 (500 KB)
+ * Piece0 [====] | [===Piece1===] | [=Piece2====]
+ * </pre>
+ * <p>
+ * <b>Reading Torrent Files:</b>
+ * <pre>
+ * TorrentInfo ti = new TorrentInfo(new File("download.torrent"));
+ * FileStorage fs = ti.files();
+ *
+ * long totalSize = fs.totalSize();
+ * int numFiles = fs.numFiles();
+ * int pieceLength = fs.pieceLength();
+ * int numPieces = fs.numPieces();
+ *
+ * // Iterate through files
+ * for (int i = 0; i < numFiles; i++) {
+ *     String fileName = fs.fileName(i);
+ *     long fileSize = fs.fileSize(i);
+ *     int flags = fs.fileFlags(i);
+ *     System.out.println(fileName + " (" + fileSize + " bytes)");
+ * }
+ * </pre>
+ * <p>
+ * <b>Creating Torrents:</b>
+ * <pre>
+ * FileStorage fs = new FileStorage();
+ * fs.setPieceLength(262144); // 256 KB pieces
+ * fs.addFile("video.mp4", 1000000000L);
+ * fs.addFile("readme.txt", 5000);
+ *
+ * // Use this storage to create a torrent
+ * TorrentBuilder tb = new TorrentBuilder(fs, ...);
+ * </pre>
+ * <p>
+ * <b>File Path Conventions:</b>
+ * Multi-file torrents have all files under a common root directory (the torrent name).
+ * Single-file torrents have no root directory - the path is the file name itself.
+ * <pre>
+ * // Multi-file torrent
+ * fs.addFile("MyTorrent/file1.txt", 1000);
+ * fs.addFile("MyTorrent/subdir/file2.txt", 2000);
+ *
+ * // Single-file torrent
+ * fs.addFile("myfile.iso", 1000000);
+ * </pre>
+ * <p>
+ * <b>File Operations:</b>
+ * <pre>
+ * FileStorage fs = ti.files();
+ *
+ * // Get files that contain a specific piece
+ * FileSlice slice = fs.mapBlock(pieceIndex, 0, pieceLength);
+ * System.out.println("Piece in file: " + slice.fileIndex() + ", offset: " + slice.offset());
+ *
+ * // Rename a file (creates a copy for modification)
+ * TorrentInfo ti2 = new TorrentInfo(ti.swig());
+ * ti2.renameFile(0, "new-name.txt");
+ * </pre>
+ *
+ * @see TorrentInfo#files() - Get FileStorage from a torrent
+ * @see TorrentBuilder - For creating torrents
+ * @see FileSlice - For piece-to-file mapping
  *
  * @author gubatron
  * @author aldenml

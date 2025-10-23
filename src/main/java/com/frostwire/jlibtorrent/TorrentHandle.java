@@ -7,31 +7,102 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * You will usually have to store your torrent handles somewhere, since it's
- * the object through which you retrieve information about the torrent and
- * aborts the torrent.
+ * Handle to a torrent currently active in the session.
  * <p>
- * .. warning::
- * Any member function that returns a value or fills in a value has to be
- * made synchronously. This means it has to wait for the main thread to
- * complete the query before it can return. This might potentially be
- * expensive if done from within a GUI thread that needs to stay
- * responsive. Try to avoid querying for information you don't need, and
- * try to do it in as few calls as possible. You can get most of the
- * interesting information about a torrent from the
- * torrent_handle::status() call.
+ * {@code TorrentHandle} is your primary interface for controlling a single torrent.
+ * Once a torrent has been added to a {@link SessionManager}, you interact with it
+ * through a TorrentHandle. You can use it to:
+ * <ul>
+ *   <li>Query torrent status (progress, speed, peers, errors)</li>
+ *   <li>Control playback (pause, resume)</li>
+ *   <li>Manage file priorities</li>
+ *   <li>Move storage location</li>
+ *   <li>Add pieces manually (for P2P streaming or direct data injection)</li>
+ *   <li>Save resume data</li>
+ *   <li>Manage peers and connections</li>
+ * </ul>
  * <p>
- * The default constructor will initialize the handle to an invalid state.
- * Which means you cannot perform any operation on it, unless you first
- * assign it a valid handle. If you try to perform any operation on an
- * uninitialized handle, it will throw ``invalid_handle``.
+ * <b>Getting a TorrentHandle:</b>
+ * <pre>
+ * // From an ADD_TORRENT alert
+ * AddTorrentAlert alert = (AddTorrentAlert) alert;
+ * TorrentHandle th = alert.handle();
+ *
+ * // From SessionManager by info-hash
+ * Sha1Hash hash = torrentInfo.infoHashV1();
+ * TorrentHandle th = sm.find(hash);
+ *
+ * // From SessionManager - get all torrents
+ * for (TorrentHandle th : sm.getTorrentHandles()) {
+ *     // ...
+ * }
+ * </pre>
  * <p>
- * .. warning::
- * All operations on a torrent_handle may throw libtorrent_exception
- * exception, in case the handle is no longer referring to a torrent.
- * There is one exception is_valid() will never throw. Since the torrents
- * are processed by a background thread, there is no guarantee that a
- * handle will remain valid between two calls.
+ * <b>Querying Status:</b>
+ * <pre>
+ * TorrentHandle th = ...;
+ *
+ * // Efficient status query - includes most info you need
+ * TorrentStatus status = th.status();
+ *
+ * System.out.println("Progress: " + (status.progress() * 100) + "%");
+ * System.out.println("Speed: " + status.downloadRate() / 1024 + " KB/s");
+ * System.out.println("Peers: " + status.numPeers());
+ * System.out.println("Downloaded: " + status.totalDone() + " bytes");
+ *
+ * if (status.isFinished()) {
+ *     System.out.println("Download complete!");
+ * }
+ * </pre>
+ * <p>
+ * <b>Controlling Download:</b>
+ * <pre>
+ * TorrentHandle th = ...;
+ *
+ * // Pause the torrent
+ * th.pause();
+ *
+ * // Resume after pausing
+ * th.resume();
+ *
+ * // Change file priorities (only download specific files)
+ * Priority[] priorities = {
+ *     Priority.NORMAL,  // Download file 0
+ *     Priority.IGNORE,  // Skip file 1
+ *     Priority.NORMAL   // Download file 2
+ * };
+ * th.prioritizeFiles(priorities);
+ *
+ * // Move storage to a different location
+ * th.moveStorage("/path/to/new/location", new MoveFlags());
+ * </pre>
+ * <p>
+ * <b>Performance Warnings:</b>
+ * <b>⚠️ Synchronous Queries are Expensive:</b>
+ * Any method that returns information (like {@link #status()}, {@link #peerInfo()}, etc.)
+ * blocks the calling thread until the libtorrent background thread responds. This can be
+ * expensive if called frequently or from GUI threads.
+ * <p>
+ * <b>Best Practices:</b>
+ * <ul>
+ *   <li>Call {@link #status()} once and extract multiple fields, don't call for each field</li>
+ *   <li>Don't call status() in tight loops or frequently-called event handlers</li>
+ *   <li>Cache results if you don't need the absolute latest values</li>
+ *   <li>Use {@link SessionManager#postTorrentUpdates()} and STATE_UPDATE alerts for efficient polling</li>
+ * </ul>
+ * <p>
+ * <b>Handle Validity:</b>
+ * Once a torrent is removed from the session (via {@link SessionManager#remove(TorrentHandle)}),
+ * its handle becomes invalid. Always check {@link #isValid()} before using a handle, especially
+ * if you're storing handles for later use. Calling methods on an invalid handle will throw an exception.
+ * <p>
+ * <b>Thread Safety:</b>
+ * The TorrentHandle itself is thread-safe, but the underlying torrent may be modified or removed
+ * by the session at any time. Therefore, no guarantee is made about handle validity between calls.
+ *
+ * @see SessionManager - For starting/stopping torrents
+ * @see TorrentStatus - For status information structure
+ * @see Priority - For file download priorities
  *
  * @author gubatron
  * @author aldenml

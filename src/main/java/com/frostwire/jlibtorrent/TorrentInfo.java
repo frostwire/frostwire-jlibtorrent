@@ -9,7 +9,80 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents the information stored in a .torrent file
+ * Represents the metadata contained in a .torrent file or magnet link.
+ * <p>
+ * {@code TorrentInfo} is the immutable descriptor of a torrent, containing:
+ * <ul>
+ *   <li>Information hash(es) (SHA-1 and/or SHA-256)</li>
+ *   <li>File list and sizes</li>
+ *   <li>Piece hashes for data verification</li>
+ *   <li>Tracker URLs</li>
+ *   <li>Optional comments and creator info</li>
+ *   <li>Web seed URLs</li>
+ * </ul>
+ * <p>
+ * <b>Creating TorrentInfo:</b>
+ * <pre>
+ * // From a .torrent file
+ * TorrentInfo ti = new TorrentInfo(new File("download.torrent"));
+ *
+ * // From raw bencoded data
+ * byte[] torrentData = Files.readAllBytes(Paths.get("download.torrent"));
+ * TorrentInfo ti = new TorrentInfo(torrentData);
+ *
+ * // From a MappedByteBuffer (memory-mapped file)
+ * RandomAccessFile raf = new RandomAccessFile(torrentFile, "r");
+ * MappedByteBuffer buffer = raf.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, raf.length());
+ * TorrentInfo ti = new TorrentInfo(buffer);
+ * </pre>
+ * <p>
+ * <b>Querying Torrent Properties:</b>
+ * Once created, you can query torrent details:
+ * <pre>
+ * TorrentInfo ti = new TorrentInfo(torrentFile);
+ *
+ * // Get files and sizes
+ * FileStorage fs = ti.files();
+ * for (int i = 0; i < fs.numFiles(); i++) {
+ *     System.out.println(fs.fileName(i) + ": " + fs.fileSize(i) + " bytes");
+ * }
+ *
+ * // Get trackers (grouped by tier)
+ * for (AnnounceEntry tracker : ti.trackers()) {
+ *     System.out.println("Tier " + tracker.tier() + ": " + tracker.url());
+ * }
+ *
+ * // Get total size
+ * long totalSize = ti.totalSize();
+ *
+ * // Get info-hash
+ * Sha1Hash infoHashV1 = ti.infoHashV1();
+ * </pre>
+ * <p>
+ * <b>Modifying Torrent Metadata:</b>
+ * You can modify certain metadata before adding to a session:
+ * <pre>
+ * TorrentInfo ti = new TorrentInfo(torrentFile);
+ *
+ * // Add additional trackers
+ * ti.addTracker("http://backup-tracker.example.com:8080/announce", 1);
+ *
+ * // Rename a file in the torrent
+ * ti.renameFile(0, "better-name.iso");
+ *
+ * // Change how pieces map to files
+ * FileStorage fs = ti.files();
+ * ti.remapFiles(fs);
+ * </pre>
+ * <p>
+ * <b>Thread Safety:</b>
+ * TorrentInfo is immutable once created and thread-safe for concurrent reads.
+ * However, methods like {@link #renameFile} and {@link #remapFiles} modify state,
+ * so synchronization is needed if shared across threads.
+ *
+ * @see SessionManager#download(TorrentInfo, File) - To start downloading
+ * @see FileStorage - For file mapping and information
+ * @see AnnounceEntry - For tracker information
  *
  * @author gubatron
  * @author aldenml
