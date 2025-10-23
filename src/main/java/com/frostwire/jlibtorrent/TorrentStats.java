@@ -392,9 +392,104 @@ public final class TorrentStats {
         isFinished = st.getIs_finished();
     }
 
+    /**
+     * Time-series metrics available in {@code TorrentStats}.
+     * <p>
+     * {@code SeriesMetric} identifies which time-series data to retrieve from a
+     * {@code TorrentStats} instance. Each metric maintains a rolling window of
+     * samples collected at regular intervals (approximately every second).
+     * <p>
+     * <b>Available Metrics:</b>
+     * <ul>
+     *   <li><b>TIME:</b> Timestamps of each sample (seconds since epoch)</li>
+     *   <li><b>DOWNLOAD_RATE:</b> Instantaneous download speed in bytes/second</li>
+     *   <li><b>UPLOAD_RATE:</b> Instantaneous upload speed in bytes/second</li>
+     * </ul>
+     * <p>
+     * <b>Accessing Time Series Data:</b>
+     * <pre>
+     * TorrentStats stats = ...; // From SessionManager or TorrentHandle
+     *
+     * // Get the download rate series (sliding window of samples)
+     * IntSeries downloadRates = stats.series(TorrentStats.SeriesMetric.DOWNLOAD_RATE);
+     *
+     * // Get most recent sample
+     * long latestDownloadRate = downloadRates.last();
+     * System.out.println(\"Current speed: \" + latestDownloadRate + \" B/s\");
+     *
+     * // Get all samples in the window
+     * for (int i = 0; i &lt; downloadRates.size(); i++) {
+     *     long rate = downloadRates.get(i);
+     *     System.out.println(\"Sample \" + i + \": \" + rate + \" B/s\");
+     * }
+     * </pre>
+     * <p>
+     * <b>Calculating Statistics from Series:</b>
+     * <pre>
+     * IntSeries uploadRates = stats.series(TorrentStats.SeriesMetric.UPLOAD_RATE);
+     *
+     * // Calculate average speed over time window
+     * long total = 0;
+     * for (int i = 0; i &lt; uploadRates.size(); i++) {
+     *     total += uploadRates.get(i);
+     * }
+     * long avgSpeed = uploadRates.size() > 0 ? total / uploadRates.size() : 0;
+     * System.out.println(\"Average upload speed: \" + avgSpeed + \" B/s\");
+     *
+     * // Get maximum and minimum speeds
+     * long maxSpeed = 0, minSpeed = Long.MAX_VALUE;
+     * for (int i = 0; i &lt; uploadRates.size(); i++) {
+     *     long rate = uploadRates.get(i);
+     *     maxSpeed = Math.max(maxSpeed, rate);
+     *     minSpeed = Math.min(minSpeed, rate);
+     * }
+     * System.out.println(\"Max upload: \" + maxSpeed + \" B/s\");
+     * System.out.println(\"Min upload: \" + (minSpeed == Long.MAX_VALUE ? 0 : minSpeed) + \" B/s\");
+     * </pre>
+     * <p>
+     * <b>Time Series Window:</b>
+     * <p>
+     * The series maintains a fixed-size circular buffer (typically 60 samples). Once the
+     * buffer fills, new samples overwrite the oldest data. The actual time span depends
+     * on the sampling interval and buffer size.
+     * <p>
+     * <b>Using TIME Metric:</b>
+     * <pre>
+     * // Correlate speed samples with timestamps
+     * IntSeries times = stats.series(TorrentStats.SeriesMetric.TIME);
+     * IntSeries downloadRates = stats.series(TorrentStats.SeriesMetric.DOWNLOAD_RATE);
+     *
+     * for (int i = 0; i &lt; times.size(); i++) {
+     *     long timestamp = times.get(i);
+     *     long speed = downloadRates.get(i);
+     *     System.out.println(\"At \" + new Date(timestamp * 1000) + \": \" + speed + \" B/s\");
+     * }
+     * </pre>
+     * <p>
+     * <b>Performance Notes:</b>
+     * <ul>
+     *   <li>Series data is sampled approximately once per second</li>
+     *   <li>Buffer size is fixed; new samples overwrite oldest data</li>
+     *   <li>Access is O(1) for random and sequential access</li>
+     *   <li>No synchronization; read from same thread as sampling thread if possible</li>
+     * </ul>
+     */
     public enum SeriesMetric {
+        /**
+         * Timestamp series - when each sample was collected (UNIX time in seconds).
+         */
         TIME,
+
+        /**
+         * Download rate series - instantaneous download speed in bytes per second.
+         * This is total downloaded data, including protocol overhead.
+         */
         DOWNLOAD_RATE,
+
+        /**
+         * Upload rate series - instantaneous upload speed in bytes per second.
+         * This is total uploaded data, including protocol overhead.
+         */
         UPLOAD_RATE
     }
 }

@@ -1558,6 +1558,112 @@ public class SessionManager {
         alertsLoop = t;
     }
 
+    /**
+     * Mutable DHT item with signature and sequence number.
+     * <p>
+     * {@code MutableItem} represents a mutable distributed hash table (DHT) item retrieved
+     * from the DHT network. Mutable items are identified by a public key and can be updated
+     * by the key owner. Each item includes the data, a digital signature proving ownership,
+     * and a sequence number for versioning.
+     * <p>
+     * <b>Understanding Mutable DHT Items:</b>
+     * <br/>
+     * BitTorrent's DHT supports two types of items:
+     * <ul>
+     *   <li><b>Immutable Items:</b> Identified by SHA-1 hash, immutable, no ownership</li>
+     *   <li><b>Mutable Items:</b> Identified by public key, updateable, signed by owner</li>
+     * </ul>
+     * Mutable items allow key holders to publish data that can be updated over time.
+     * <p>
+     * <b>Item Structure:</b>
+     * <ul>
+     *   <li><b>item:</b> Bencoded Entry containing the actual data</li>
+     *   <li><b>signature:</b> Ed25519 signature proving key holder's ownership</li>
+     *   <li><b>seq:</b> Sequence number for versioning (causally ordered updates)</li>
+     * </ul>
+     * <p>
+     * <b>Retrieving Mutable Items:</b>
+     * <pre>
+     * // Retrieve a mutable DHT item by public key
+     * byte[] publicKey = ...; // Ed25519 public key (32 bytes)
+     * byte[] salt = ...; // Optional salt (empty byte array if unused)
+     *
+     * SessionManager sm = new SessionManager();
+     * sm.start();
+     *
+     * // Request item from DHT
+     * sm.dhtGetItem(publicKey, salt);
+     *
+     * // Listen for response
+     * sm.addListener(new AlertListener() {
+     *     public int[] types() {
+     *         return new int[] {AlertType.DHT_MUTABLE_ITEM.swig()};
+     *     }
+     *
+     *     public void alert(Alert&lt;?&gt; alert) {
+     *         DhtMutableItemAlert mia = (DhtMutableItemAlert) alert;
+     *         SessionManager.MutableItem item = mia.item();
+     *
+     *         // Access the item data
+     *         Entry data = item.item;
+     *         byte[] signature = item.signature;
+     *         long version = item.seq;
+     *     }
+     * });
+     * </pre>
+     * <p>
+     * <b>Verifying Item Authenticity:</b>
+     * <p>
+     * The signature field contains an Ed25519 signature of the item data and sequence number.
+     * The signature proves that only the holder of the corresponding private key could have
+     * created or updated this item.
+     * <p>
+     * <b>Sequence Number:</b>
+     * <p>
+     * The sequence number ensures causally ordered updates. A newer item has a higher sequence
+     * number. DHT nodes use this to detect which version is newest and accept updates with
+     * higher sequence numbers.
+     * <pre>
+     * SessionManager.MutableItem item = ...;
+     *
+     * // Version information
+     * long version = item.seq;
+     * System.out.println(\"Item version: \" + version);
+     *
+     * // Newer items have higher sequence numbers
+     * if (newItem.seq > oldItem.seq) {
+     *     System.out.println(\"newItem is newer\");
+     * }
+     * </pre>
+     * <p>
+     * <b>Publishing Updates:</b>
+     * <pre>
+     * // To publish a new version (requires private key)
+     * byte[] newData = bencodeData(...);
+     * long newSeq = existingItem.seq + 1;
+     * byte[] signature = signData(newData, newSeq, privateKey);
+     *
+     * // Call dhtPutItem() with new data, signature, and sequence
+     * sm.dhtPutItem(publicKey, newData, signature, newSeq, salt);
+     * </pre>
+     * <p>
+     * <b>Public Key Format:</b>
+     * <p>
+     * The public key is a 32-byte Ed25519 key. To identify a mutable item, combine the
+     * public key with the optional salt to create a unique content ID within the DHT.
+     * <p>
+     * <b>Performance Notes:</b>
+     * <ul>
+     *   <li>Retrieval is asynchronous; DHT queries typically complete within 10-30 seconds</li>
+     *   <li>Signature verification is performed by DHT nodes before storing</li>
+     *   <li>Updates with identical or lower sequence numbers are rejected</li>
+     *   <li>Storage is replicated across DHT nodes for redundancy</li>
+     * </ul>
+     *
+     * @see Entry - For accessing item data
+     * @see com.frostwire.jlibtorrent.alerts.DhtMutableItemAlert - For item retrieval notification
+     * @see SessionManager#dhtPutItem(byte[], byte[], byte[], long, byte[]) - For publishing updates
+     */
     public static final class MutableItem {
 
         private MutableItem(Entry item, byte[] signature, long seq) {
@@ -1566,8 +1672,22 @@ public class SessionManager {
             this.seq = seq;
         }
 
+        /**
+         * The bencoded item data stored in the DHT.
+         */
         public final Entry item;
+
+        /**
+         * Ed25519 signature proving ownership and authenticity of the item.
+         * The signature is computed over the serialized item and sequence number.
+         */
         public final byte[] signature;
+
+        /**
+         * Version number of this item (sequence number).
+         * Higher sequence numbers indicate newer versions.
+         * Used to detect and reject stale updates.
+         */
         public final long seq;
     }
 }

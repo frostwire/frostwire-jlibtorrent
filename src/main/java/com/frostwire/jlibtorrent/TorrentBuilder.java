@@ -11,6 +11,161 @@ import static com.frostwire.jlibtorrent.swig.libtorrent.add_files_ex;
 import static com.frostwire.jlibtorrent.swig.libtorrent.set_piece_hashes_ex;
 
 /**
+ * Fluent builder for creating .torrent files from local files and directories.
+ * <p>
+ * {@code TorrentBuilder} provides a convenient API for creating BitTorrent metafiles (.torrent)
+ * from local files and directories. It supports all modern torrent features including trackers,
+ * DHT nodes, web seeds, metadata, and hash computation with progress tracking.
+ * <p>
+ * <b>Understanding Torrent Creation:</b>
+ * <br/>
+ * A .torrent file is a bencoded metadata file containing:
+ * <ul>
+ *   <li><b>File Information:</b> Names, sizes, and pieces (chunks)</li>
+ *   <li><b>Piece Hashes:</b> SHA-1 or SHA-256 hashes for verification</li>
+ *   <li><b>Announce URLs:</b> Tracker URLs organized by tier/priority</li>
+ *   <li><b>DHT Nodes:</b> Bootstrap nodes for decentralized peer discovery</li>
+ *   <li><b>Web Seeds:</b> HTTP/FTP URLs for web seeding</li>
+ *   <li><b>Metadata:</b> Comment, creator, creation time, private flag</li>
+ * </ul>
+ * <p>
+ * <b>Basic Torrent Creation:</b>
+ * <pre>
+ * // Create a torrent for a single file
+ * TorrentBuilder builder = new TorrentBuilder();
+ * builder.path(new File(\"/path/to/file.iso\"));
+ * builder.pieceSize(262144);  // 256 KB pieces
+ * builder.addTracker(\"http://tracker.example.com:6969/announce\", 0);
+ * builder.comment(\"My ISO image\");
+ * builder.creator(\"My App v1.0\");
+ *
+ * TorrentBuilder.Result result = builder.build();
+ * Entry torrentEntry = result.entry();
+ * // Save torrentEntry to file...
+ * </pre>
+ * <p>
+ * <b>Multi-File Torrent:</b>
+ * <pre>
+ * // Create a torrent for a directory
+ * TorrentBuilder builder = new TorrentBuilder();
+ * builder.path(new File(\"/path/to/directory\"));
+ * builder.pieceSize(16384);  // 16 KB pieces for flexibility
+ * builder.addTracker(\"http://primary-tracker.com/announce\", 0);  // Tier 0
+ * builder.addTracker(\"http://backup-tracker.com/announce\", 1);   // Tier 1
+ * builder.addNode(new Pair&lt;&gt;(\"router.bittorrent.com\", 6881));\n * builder.addUrlSeed(\"http://mirror.example.com/data/\");\n *
+ * TorrentBuilder.Result result = builder.build();
+ * </pre>
+ * <p>
+ * <b>Piece Size Considerations:</b>
+ * <pre>
+ * // Piece sizes must be power of 2, between 16 KiB and 16 MiB
+ * // Common sizes:
+ * builder.pieceSize(16384);    // 16 KiB - many small pieces, larger .torrent file
+ * builder.pieceSize(32768);    // 32 KiB
+ * builder.pieceSize(65536);    // 64 KiB
+ * builder.pieceSize(262144);   // 256 KiB - good default for large files
+ * builder.pieceSize(1048576);  // 1 MiB - for very large files
+ *
+ * // Auto-sizing: set to 0 to let TorrentBuilder choose
+ * builder.pieceSize(0);  // Will be ~40 KB torrent file size
+ * </pre>
+ * <p>
+ * <b>Tracker Organization:</b>
+ * <pre>
+ * // Trackers are tried in tier order (priority)
+ * // Tier 0 tried first, then tier 1 if all tier 0 fail, etc.
+ * builder.addTracker(\"http://tier0-a.com/announce\", 0);
+ * builder.addTracker(\"http://tier0-b.com/announce\", 0);  // Alternative tier 0
+ * builder.addTracker(\"http://tier1-backup.com/announce\", 1);
+ * builder.addTracker(\"http://tier2-last-resort.com/announce\", 2);
+ * </pre>
+ * <p>
+ * <b>Progress Tracking:</b>
+ * <pre>
+ * TorrentBuilder builder = new TorrentBuilder();
+ * // ... setup configuration ...
+ *
+ * builder.listener(new TorrentBuilder.Listener() {
+ *     public boolean accept(String filename) {
+ *         // Return true to include, false to skip
+ *         return !filename.startsWith(\".\");  // Skip hidden files
+ *     }
+ *
+ *     public void progress(int pieceIndex, int numPieces) {
+ *         // Called as hashes are computed
+ *         double percent = (double) pieceIndex / numPieces * 100;
+ *         System.out.println(String.format(\"Hashing: %.1f%%\", percent));
+ *     }
+ * });
+ *
+ * TorrentBuilder.Result result = builder.build();
+ * </pre>
+ * <p>
+ * <b>DHT Nodes and Web Seeds:</b>
+ * <pre>
+ * // DHT nodes for decentralized peer discovery (tracker-less torrent)
+ * builder.addNode(new Pair&lt;&gt;(\"router.bittorrent.com\", 6881));
+ * builder.addNode(new Pair&lt;&gt;(\"router.transmissionbt.com\", 6881));
+ * builder.addNode(new Pair&lt;&gt;(\"dht.transmissionbt.com\", 6881));
+ *
+ * // Web seeds for HTTP/FTP distribution
+ * builder.addUrlSeed(\"http://cdn.example.com/downloads/file.iso\");
+ * builder.addUrlSeed(\"ftp://mirror.example.com/file.iso\");
+ * </pre>
+ * <p>
+ * <b>Metadata and Privacy:</b>
+ * <pre>
+ * builder.comment(\"ISO image for my project\");
+ * builder.creator(\"My Torrent Creator v1.0\");
+ * builder.creationDate(System.currentTimeMillis() / 1000);  // UNIX timestamp
+ * builder.priv(true);  // Private torrent (DHT/PEX disabled)
+ * </pre>
+ * <p>
+ * <b>Flags for Advanced Features:</b>
+ * <pre>
+ * // Enable specific creation options
+ * builder.flags(TorrentBuilder.PADDING);  // Add padding files for alignment
+ * builder.flags(TorrentBuilder.SYMLINKS);  // Preserve symbolic links
+ * builder.flags(TorrentBuilder.V2_ONLY);  // Only v2 metadata (modern clients)
+ * </pre>
+ * <p>
+ * <b>Accessing Build Results:</b>
+ * <pre>
+ * TorrentBuilder.Result result = builder.build();
+ *
+ * // Get bencoded torrent data
+ * Entry torrentEntry = result.entry();
+ *
+ * // Get torrent metadata
+ * int numPieces = result.numPieces();
+ * int pieceLength = result.pieceLength();
+ *
+ * // Get individual piece size
+ * int lastPieceSize = result.pieceSize(result.numPieces() - 1);
+ *
+ * // Save to file
+ * byte[] torrentData = torrentEntry.bencode();
+ * Files.write(Paths.get(\"file.torrent\"), torrentData);
+ * </pre>
+ * <p>
+ * <b>Builder Pattern:</b>
+ * <p>
+ * {@code TorrentBuilder} uses the fluent builder pattern. All configuration methods return
+ * the builder itself, enabling method chaining for clean, readable code.
+ * <p>
+ * <b>Performance Notes:</b>
+ * <ul>
+ *   <li>Hash computation is CPU-intensive; progress callback helps monitor long operations</li>
+ *   <li>Smaller pieces = larger .torrent file and more I/O</li>
+ *   <li>Larger pieces = smaller .torrent file but less granular progress</li>
+ *   <li>Call build() only once; reuse TorrentBuilder for multiple torrents</li>
+ * </ul>
+ *
+ * @see TorrentInfo - For reading existing .torrent files
+ * @see Entry - For bencoded data manipulation
+ * @see Result - Build output containing torrent metadata
+ * @see Listener - For progress callbacks during hash computation
+ *
  * @author gubatron
  * @author aldenml
  */
@@ -537,15 +692,124 @@ public final class TorrentBuilder {
     public static final create_flags_t CANONICAL_FILES = create_torrent.canonical_files;
 
 
+    /**
+     * Callback interface for torrent creation events.
+     * <p>
+     * {@code Listener} allows applications to filter files during torrent creation and
+     * track hash computation progress. Implement this interface to customize which files
+     * are included in the torrent and display progress to the user.
+     * <p>
+     * <b>File Filtering:</b>
+     * <p>
+     * The {@code accept()} method is called for every file encountered during directory
+     * traversal. Return true to include the file, false to skip it. This is useful for
+     * excluding temporary files, hidden files, or other unwanted data.
+     * <p>
+     * <b>Progress Tracking:</b>
+     * <p>
+     * The {@code progress()} method is called as each piece's hash is computed, enabling
+     * progress bars or status updates during the potentially time-consuming hashing phase.
+     * <p>
+     * <b>Usage Example:</b>
+     * <pre>
+     * TorrentBuilder.Listener listener = new TorrentBuilder.Listener() {
+     *     public boolean accept(String filename) {
+     *         // Skip hidden files and system files
+     *         if (filename.startsWith(\".\")) return false;
+     *         if (filename.equals(\"Thumbs.db\")) return false;
+     *         if (filename.equals(\"Desktop.ini\")) return false;
+     *         return true;
+     *     }
+     *
+     *     public void progress(int pieceIndex, int numPieces) {
+     *         // Display progress
+     *         double percent = (double) pieceIndex / numPieces * 100;
+     *         System.out.println(String.format(\"Hashing: %.0f%% (%d/%d pieces)\",
+     *             percent, pieceIndex, numPieces));
+     *     }
+     * };
+     *
+     * TorrentBuilder builder = new TorrentBuilder();
+     * builder.listener(listener);
+     * </pre>
+     */
     public interface Listener {
 
+        /**
+         * Called during directory traversal to filter files.
+         * <p>
+         * Return true to include the file in the torrent, false to skip it.
+         *
+         * @param filename the filename being considered
+         * @return true to include, false to skip
+         */
         boolean accept(String filename);
 
+        /**
+         * Called periodically during hash computation.
+         * <p>
+         * Use this to update progress bars or status displays.
+         *
+         * @param pieceIndex the current piece being hashed (0-based)
+         * @param numPieces the total number of pieces
+         */
         void progress(int pieceIndex, int numPieces);
     }
 
     /**
+     * Result of torrent creation containing metadata and bencoded data.
+     * <p>
+     * {@code Result} contains the successful output of torrent file creation including
+     * the bencoded torrent entry and metadata about the created torrent (number of pieces,
+     * piece sizes, etc.). This information can be used to save the .torrent file or
+     * display torrent information to the user.
+     * <p>
+     * <b>Accessing Torrent Data:</b>
+     * <pre>
+     * TorrentBuilder.Result result = builder.build();
      *
+     * // Get bencoded torrent entry for saving to file
+     * Entry torrentEntry = result.entry();
+     * byte[] torrentData = torrentEntry.bencode();
+     *
+     * // Save to .torrent file
+     * Files.write(Paths.get(\"file.torrent\"), torrentData);
+     * </pre>
+     * <p>
+     * <b>Querying Torrent Metadata:</b>
+     * <pre>
+     * TorrentBuilder.Result result = builder.build();
+     *
+     * // Number of pieces in the torrent
+     * int pieceCount = result.numPieces();
+     * System.out.println(\"Total pieces: \" + pieceCount);
+     *
+     * // Standard piece length (except possibly the last piece)
+     * int pieceLen = result.pieceLength();
+     * System.out.println(\"Piece size: \" + pieceLen + \" bytes\");
+     *
+     * // Size of a specific piece (last piece may be smaller)
+     * for (int i = 0; i &lt; result.numPieces(); i++) {
+     *     int size = result.pieceSize(i);
+     *     System.out.println(\"Piece \" + i + \": \" + size + \" bytes\");
+     * }
+     * </pre>
+     * <p>
+     * <b>Creating TorrentInfo from Result:</b>
+     * <pre>
+     * TorrentBuilder.Result result = builder.build();
+     *
+     * // Create bencoded data
+     * byte[] torrentBytes = result.entry().bencode();
+     *
+     * // Create TorrentInfo from the bencoded data
+     * TorrentInfo ti = new TorrentInfo(torrentBytes);
+     *
+     * // Now can inspect the created torrent
+     * System.out.println(\"Info-hash: \" + ti.infoHash());
+     * System.out.println(\"Files: \" + ti.numFiles());
+     * System.out.println(\"Total size: \" + ti.totalSize());
+     * </pre>
      */
     public static final class Result {
 

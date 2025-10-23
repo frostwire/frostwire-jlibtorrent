@@ -271,6 +271,73 @@ public final class EnumNet {
       return new Address(libtorrent.get_gateway(ipInterface.swig(), routes));
     }
 
+    /**
+     * Network interface information including address, netmask, and interface name.
+     * <p>
+     * {@code IpInterface} represents a single network interface on the local system
+     * with its IP address, netmask, and descriptive names. Used to select which
+     * network interfaces to bind BitTorrent traffic to.
+     * <p>
+     * <b>Interface Properties:</b>
+     * <ul>
+     *   <li><b>Address:</b> IPv4 or IPv6 address assigned to interface</li>
+     *   <li><b>Netmask:</b> Network mask determining subnet size</li>
+     *   <li><b>Name:</b> System interface name (eth0, wlan0, en0, etc)</li>
+     *   <li><b>Friendly Name:</b> Human-readable interface name</li>
+     *   <li><b>Description:</b> Hardware or connection description</li>
+     *   <li><b>Preferred:</b> Whether this is the primary/default interface</li>
+     * </ul>
+     * <p>
+     * <b>Accessing Interface Information:</b>
+     * <pre>
+     * EnumNet.IpInterface iface = ...;
+     *
+     * // Get address information
+     * Address addr = iface.interfaceAddress();
+     * System.out.println(\"IP: \" + addr);
+     *
+     * // Get netmask (determines network range)
+     * Address netmask = iface.netmask();
+     * System.out.println(\"Netmask: \" + netmask);
+     *
+     * // Get names
+     * System.out.println(\"System name: \" + iface.name());
+     * System.out.println(\"Friendly name: \" + iface.friendlyName());
+     * System.out.println(\"Description: \" + iface.description());
+     *
+     * // Check if preferred
+     * if (iface.preferred()) {
+     *     System.out.println(\"This is the primary interface\");
+     * }
+     * </pre>
+     * <p>
+     * <b>IPv4 vs IPv6:</b>
+     * <pre>
+     * // Identify address type
+     * Address addr = iface.interfaceAddress();
+     * if (addr.isV4()) {
+     *     System.out.println(\"IPv4: \" + addr);
+     * } else if (addr.isV6()) {
+     *     System.out.println(\"IPv6: \" + addr);
+     * }
+     * </pre>
+     * <p>
+     * <b>Selecting Interfaces for BitTorrent:</b>
+     * <pre>
+     * // Find suitable interfaces for listening
+     * for (EnumNet.IpInterface iface : EnumNet.enumInterfaces(sm)) {
+     *     Address addr = iface.interfaceAddress();
+     *
+     *     // Skip loopback (127.0.0.1, ::1)
+     *     if (addr.isLoopback()) continue;
+     *
+     *     // Skip link-local IPv6
+     *     if (addr.isV6() &amp;&amp; addr.toString().startsWith(\"fe80:\")) continue;
+     *
+     *     System.out.println(\"Good for listening: \" + iface.name() + \" - \" + addr);
+     * }
+     * </pre>
+     */
     public static final class IpInterface {
 
         private final Address interfaceAddress;
@@ -334,6 +401,119 @@ public final class EnumNet {
         }
     }
 
+    /**
+     * Network routing table entry describing a route to a destination network.
+     * <p>
+     * {@code IpRoute} represents a single entry in the system routing table. It specifies
+     * a destination network, the gateway to reach it, and the network interface to use.
+     * This is useful for understanding network topology and MTU (Maximum Transmission Unit)
+     * constraints for different routes.
+     * <p>
+     * <b>Route Properties:</b>
+     * <ul>
+     *   <li><b>Destination:</b> Target network address (e.g., 192.168.1.0)</li>
+     *   <li><b>Netmask:</b> Network mask determining destination network size</li>
+     *   <li><b>Gateway:</b> IP address of gateway/router to reach destination</li>
+     *   <li><b>Interface Name:</b> Physical/logical interface used for this route</li>
+     *   <li><b>MTU:</b> Maximum packet size for this route</li>
+     * </ul>
+     * <p>
+     * <b>Reading Route Information:</b>
+     * <pre>
+     * EnumNet.IpRoute route = ...;
+     *
+     * // Get route destination
+     * Address dest = route.destination();
+     * System.out.println(\"Route to: \" + dest);
+     *
+     * // Get netmask (network size)
+     * Address netmask = route.netmask();
+     * System.out.println(\"Netmask: \" + netmask);
+     *
+     * // Get gateway
+     * Address gateway = route.gateway();
+     * System.out.println(\"Via gateway: \" + gateway);
+     *
+     * // Get interface
+     * String iface = route.name();
+     * System.out.println(\"Interface: \" + iface);
+     *
+     * // Get MTU (maximum packet size)
+     * int mtu = route.mtu();
+     * System.out.println(\"MTU: \" + mtu + \" bytes\");
+     * </pre>
+     * <p>
+     * <b>Route Analysis:</b>
+     * <pre>
+     * // Identify default route
+     * for (EnumNet.IpRoute route : EnumNet.enumRoutes(sm)) {
+     *     Address dest = route.destination();
+     *     Address mask = route.netmask();
+     *
+     *     // Default route: 0.0.0.0/0
+     *     if (dest.toString().equals(\"0.0.0.0\") &amp;&amp;
+     *         mask.toString().equals(\"0.0.0.0\")) {
+     *         System.out.println(\"Default gateway: \" + route.gateway());
+     *         System.out.println(\"Via interface: \" + route.name());
+     *     }
+     * }
+     * </pre>
+     * <p>
+     * <b>Understanding MTU:</b>
+     * <pre>
+     * // Check MTU for each route
+     * for (EnumNet.IpRoute route : EnumNet.enumRoutes(sm)) {
+     *     int mtu = route.mtu();
+     *     System.out.println(\"Route to \" + route.destination());
+     *     System.out.println(\"  MTU: \" + mtu + \" bytes\");
+     *
+     *     // Typical MTU values:
+     *     // 1500 - Standard Ethernet
+     *     // 1492 - PPPoE (Point-to-Point over Ethernet)
+     *     // 9000 - Jumbo frames (high-speed networks)
+     *     // 576  - Minimum (required by standards)
+     * }
+     * </pre>
+     * <p>
+     * <b>IPv4 vs IPv6 Routes:</b>
+     * <pre>
+     * // Check route address family
+     * for (EnumNet.IpRoute route : EnumNet.enumRoutes(sm)) {
+     *     Address dest = route.destination();
+     *
+     *     if (dest.isV4()) {
+     *         System.out.println(\"IPv4 route: \" + dest);
+     *     } else if (dest.isV6()) {
+     *         System.out.println(\"IPv6 route: \" + dest);
+     *     }
+     * }
+     * </pre>
+     * <p>
+     * <b>Finding Route to Host:</b>
+     * <pre>
+     * // Find which route would be used for a specific destination
+     * Address targetHost = new Address(\"8.8.8.8\");
+     * for (EnumNet.IpRoute route : EnumNet.enumRoutes(sm)) {
+     *     Address dest = route.destination();
+     *     Address mask = route.netmask();
+     *
+     *     // Check if target is in this route's network
+     *     // (simplified - actual implementation more complex)
+     *     if (isInSubnet(targetHost, dest, mask)) {
+     *         System.out.println(\"Route for \" + targetHost + \": \" + route.name());
+     *         System.out.println(\"Via: \" + route.gateway());
+     *     }
+     * }
+     * </pre>
+     * <p>
+     * <b>Performance Notes:</b>
+     * <ul>
+     *   <li>Routing table is typically small (10-100 entries on most systems)</li>
+     *   <li>Routes are ordered by specificity (more specific routes first)</li>
+     *   <li>Default route (0.0.0.0/0) is the catch-all for unmatched destinations</li>
+     *   <li>MTU affects BitTorrent bandwidth efficiency</li>
+     * </ul>
+     */
     public static final class IpRoute {
 
         private final Address destination;
