@@ -67,4 +67,4 @@ docker run \
     --memory=$TOTAL_MEMORY \
     -v "$PWD/../../frostwire-jlibtorrent:/frostwire-jlibtorrent" \
     -it jlibtorrent-android \
-    /bin/bash -c "/build_desktop.sh && /apply_android_patches.sh && /build_android_all.sh"
+    /bin/bash -c "/build_desktop.sh && /build_android_all.sh"
