@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    def jlibtorrent_version = '2.0.12.5' // change version for latest
+    def jlibtorrent_version = '2.0.13.6' // change version for latest
 
     // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
     implementation 'com.frostwire:jlibtorrent:' + jlibtorrent_version
@@ -47,7 +47,9 @@ dependencies {
     implementation 'com.frostwire:jlibtorrent-macosx-arm64:' + jlibtorrent_version
 
     // LINUX x86_64
-    implementation 'com.frostwire:jlibtorrent-linux:' + jlibtorrent_version    
+    implementation 'com.frostwire:jlibtorrent-linux-x86_64:' + jlibtorrent_version
+    // LINUX arm64
+    implementation 'com.frostwire:jlibtorrent-linux-arm64:' + jlibtorrent_version
 }
 ```
 
@@ -63,7 +65,7 @@ repositories {
 }
 
 dependencies {
-    val jlibtorrentVersion = "2.0.12.5" // change version for latest
+    val jlibtorrentVersion = "2.0.13.6" // change version for latest
 
     // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
     implementation("com.frostwire:jlibtorrent:$jlibtorrentVersion")
@@ -83,7 +85,9 @@ dependencies {
     implementation("com.frostwire:jlibtorrent-macosx-arm64:$jlibtorrentVersion")
 
     // LINUX x86_64
-    implementation("com.frostwire:jlibtorrent-linux:$jlibtorrentVersion")
+    implementation("com.frostwire:jlibtorrent-linux-x86_64:$jlibtorrentVersion")
+    // LINUX arm64
+    implementation("com.frostwire:jlibtorrent-linux-arm64:$jlibtorrentVersion")
 }
 ```
 
@@ -93,7 +97,7 @@ build.sbt SBT example
 resolvers += "FrostWire Maven" at "https://dl.frostwire.com/maven"
 
 // Define the library version as a variable
-val jlibtorrentVersion = "2.0.12.5" // change version for latest
+val jlibtorrentVersion = "2.0.13.6" // change version for latest
 
 // Add all the necessary library dependencies
 libraryDependencies ++= Seq(
@@ -115,7 +119,9 @@ libraryDependencies ++= Seq(
   "com.frostwire" % "jlibtorrent-macosx-arm64" % jlibtorrentVersion,
 
   // LINUX x86_64
-  "com.frostwire" % "jlibtorrent-linux" % jlibtorrentVersion
+  "com.frostwire" % "jlibtorrent-linux-x86_64" % jlibtorrentVersion,
+  // LINUX arm64
+  "com.frostwire" % "jlibtorrent-linux-arm64" % jlibtorrentVersion
 )
 ```
 
@@ -123,7 +129,7 @@ Maven example
 ```xml
 <project>
     <properties>
-        <jlibtorrent.version>2.0.12.0</jlibtorrent.version>
+        <jlibtorrent.version>2.0.13.6</jlibtorrent.version>
     </properties>
 
     <repositories>
@@ -187,7 +193,14 @@ Maven example
         <!-- LINUX X86_64 -->
         <dependency>
             <groupId>com.frostwire</groupId>
-            <artifactId>jlibtorrent-linux</artifactId>
+            <artifactId>jlibtorrent-linux-x86_64</artifactId>
+            <version>${jlibtorrent.version}</version>
+        </dependency>
+
+        <!-- LINUX ARM64 -->
+        <dependency>
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent-linux-arm64</artifactId>
             <version>${jlibtorrent.version}</version>
         </dependency>
     </dependencies>
@@ -205,9 +218,9 @@ The `.jar` with the java classes -> `jlibtorrent-w.x.y.z.jar` and a secondary `.
 In the case of desktop operating systems, you might want to extract the shared library inside the jar (.dll, .so, .dylib) and place it in a folder specified by the `java.library.path`
 
 The secondary jars are:
- - Windows: `jlibtorrent-windows-w.x.y.z.jar` (x86 and x86_64 .dlls)
- - Mac: `jlibtorrent-macosx-w.x.y.z.jar` (x86_64 .dylib)
- - Linux: `jlibtorrent-linux-w.x.y.z.jar` (x86 and x86_64 .so)
+ - Windows: `jlibtorrent-windows-w.x.y.z.jar` (x86_64 .dll)
+ - Mac: `jlibtorrent-macosx-x86_64-w.x.y.z.jar` (x86_64 .dylib), `jlibtorrent-macosx-arm64-w.x.y.z.jar` (arm64 .dylib)
+ - Linux: `jlibtorrent-linux-x86_64-w.x.y.z.jar` (x86_64 .so), `jlibtorrent-linux-arm64-w.x.y.z.jar` (arm64 .so)
 
 In the case of Android, make sure to put the following 5 jars in your project's `libs` folder (see [FrostWire for Android's](https://github.com/frostwire/frostwire/tree/master/android/libs) as an example):
  - `jlibtorrent-w.x.y.z.jar`
@@ -229,9 +242,9 @@ Architectures supported:
 
 - Android (armeabi-v7a, arm64-v8a, x86, x86_64) sdk 24 (Android 7.0) and up
   - ✅ **Android 16 KB page size compatible** (required for Google Play as of Nov 2025)
-- Linux (x86_64)
+- Linux (x86_64, arm64)
 - Windows (x86_64)
-- Mac OS X (x86_64)
+- Mac OS X (x86_64, arm64)
 
 Building
 ================================
