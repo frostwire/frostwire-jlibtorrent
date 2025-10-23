@@ -60,7 +60,11 @@ import java.nio.file.StandardCopyOption;
             pathToLibraryInJar = "lib/x86_64/" + libraryName + ".dll";
         } else if (isLinux() && !isAndroid()) {
             libraryName = "libjlibtorrent-" + version;
-            pathToLibraryInJar = "lib/x86_64/" + libraryName + ".so";
+            if (isArm64) {
+                pathToLibraryInJar = "lib/arm64/" + libraryName + ".so";
+            } else {
+                pathToLibraryInJar = "lib/x86_64/" + libraryName + ".so";
+            }
         } else if (isMacOS()) {
             if (isArm64) {
                 libraryName = "libjlibtorrent.arm64-" + version;
