@@ -4,6 +4,181 @@ import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 
 /**
+ * Flags controlling torrent startup behavior and operating modes.
+ * <p>
+ * {@code TorrentFlags} provides a collection of static flags used to configure how torrents
+ * are added and started. These flags control important modes like seeding, pausing, sharing,
+ * DHT participation, and other behaviors. Flags are combined using bitwise OR and passed via
+ * {@code AddTorrentParams.flags()}.
+ * <p>
+ * <b>Common Torrent Operating Modes:</b>
+ * <ul>
+ *   <li><b>SEED_MODE:</b> Skip initial hash check (assume files are already valid)</li>
+ *   <li><b>UPLOAD_MODE:</b> Don't download, only upload (for disk I/O error recovery)</li>
+ *   <li><b>SHARE_MODE:</b> Download only as much as uploaded (ratio-limited mode)</li>
+ *   <li><b>AUTO_MANAGED:</b> Let session queue and manage torrent automatically</li>
+ *   <li><b>PAUSED:</b> Start in paused state (no connections until resumed)</li>
+ * </ul>
+ * <p>
+ * <b>Using Torrent Flags:</b>
+ * <pre>
+ * AddTorrentParams params = new AddTorrentParams();
+ *
+ * // Add a flag (single flag)
+ * params.flags(TorrentFlags.SEED_MODE);
+ *
+ * // Combine multiple flags using bitwise OR
+ * torrent_flags_t flags = TorrentFlags.PAUSED
+ *     .or(TorrentFlags.AUTO_MANAGED)
+ *     .or(TorrentFlags.UPDATE_SUBSCRIBE);
+ * params.flags(flags);
+ *
+ * // Check if a flag is set (using bitwise AND)
+ * if ((flags.and(TorrentFlags.PAUSED).value() != 0)) {
+ *     System.out.println(\"Torrent will start paused\");
+ * }
+ * </pre>
+ * <p>
+ * <b>Key Flags Explained:</b>
+ * <pre>
+ * SEED_MODE:
+ *   - Assumes all files exist and match torrent hashes
+ *   - Skips initial hash verification on startup
+ *   - Significant speedup for known-valid files
+ *   - If hash mismatch: auto-leaves seed mode and rechecks
+ *   - Useful for: torrenting files you created, resumed downloads
+ *
+ * UPLOAD_MODE:
+ *   - No piece requests made (won't download)
+ *   - Only uploads available pieces
+ *   - Auto-entered on disk I/O errors
+ *   - Use when recovering from disk problems
+ *   - If auto_managed: periodically tries to recover
+ *
+ * SHARE_MODE:
+ *   - Downloads only as much as uploaded to swarm
+ *   - Maintains upload/download ratio ~1.0
+ *   - Used for ratio-conscious uploading
+ *   - Maintains share ratio target (see settings_pack)
+ *   - Don't modify priorities in share mode
+ *
+ * AUTO_MANAGED:
+ *   - Session automatically queues and starts torrents
+ *   - Default torrent ordering by add order
+ *   - Automatically resumed/paused based on queue
+ *   - For manual control: don't set this flag
+ *   - See settings_pack for queue limits
+ *
+ * PAUSED:
+ *   - Torrent added in paused state
+ *   - No tracker or peer connections until resumed
+ *   - Good for setting priorities before starting
+ *   - Prevents race conditions with configuration
+ * </pre>
+ * <p>
+ * <b>Advanced Flags:</b>
+ * <pre>
+ * // Stop when ready to download/seed
+ * params.flags(TorrentFlags.STOP_WHEN_READY);
+ * // Torrent will force-stop as soon as ready to download
+ * // Useful for: checking files, moving to archive, etc
+ *
+ * // Super seeding mode (only have complete pieces available)
+ * params.flags(TorrentFlags.SUPER_SEEDING);
+ * // Optimizes seeding of rare content
+ *
+ * // Sequential download (pieces in order)
+ * params.flags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+ * // Good for: streaming, preview-first scenarios
+ *
+ * // DHT and peer exchange control
+ * params.flags(TorrentFlags.DISABLE_DHT);
+ * params.flags(TorrentFlags.DISABLE_PEX);
+ * params.flags(TorrentFlags.DISABLE_LSD);
+ * // Disable specific peer discovery methods
+ * </pre>
+ * <p>
+ * <b>Network Features Control:</b>
+ * <pre>
+ * // Disable DHT for privacy (tracker only)
+ * torrent_flags_t flags = TorrentFlags.DISABLE_DHT;
+ *
+ * // Disable peer exchange (for private torrents)
+ * flags = flags.or(TorrentFlags.DISABLE_PEX);
+ *
+ * // Disable local service discovery (for privacy)
+ * flags = flags.or(TorrentFlags.DISABLE_LSD);
+ *
+ * // IP filter policy for this torrent
+ * torrent_flags_t withFilter = TorrentFlags.APPLY_IP_FILTER;
+ * // (or leave unset to exempt from IP filter)
+ * </pre>
+ * <p>
+ * <b>Tracker and Web Seed Override:</b>
+ * <pre>
+ * // Replace torrent's trackers with these
+ * params.flags(TorrentFlags.OVERRIDE_TRACKERS);
+ * params.trackers(...);  // Your tracker list replaces torrent's
+ *
+ * // Replace torrent's web seeds with these
+ * params.flags(TorrentFlags.OVERRIDE_WEB_SEEDS);
+ * params.webSeeds(...);  // Your web seeds replace torrent's
+ *
+ * // (Without these flags, new trackers/seeds are added to torrent's list)
+ * </pre>
+ * <p>
+ * <b>Resume Data and Updates:</b>
+ * <pre>
+ * // Mark that resume data needs saving
+ * torrent_flags_t flags = TorrentFlags.NEED_SAVE_RESUME;
+ * // Cleared after successful save_resume_data()
+ *
+ * // Subscribe to torrent status updates
+ * params.flags(TorrentFlags.UPDATE_SUBSCRIBE);
+ * // Torrent included in post_torrent_updates() results
+ * </pre>
+ * <p>
+ * <b>Practical Examples:</b>
+ * <pre>
+ * // Example 1: Add a new torrent, start paused and auto-managed
+ * AddTorrentParams params = new AddTorrentParams();
+ * params.flags(TorrentFlags.PAUSED.or(TorrentFlags.AUTO_MANAGED));
+ * // Torrent will be queued, not started until previous torrents complete
+ *
+ * // Example 2: Seed-only (no downloading)
+ * params.flags(TorrentFlags.SEED_MODE.or(TorrentFlags.UPLOAD_MODE));
+ * // Torrent acts as seeder, won't download incomplete pieces
+ *
+ * // Example 3: Quick-start with resume data
+ * params.flags(TorrentFlags.SEED_MODE);
+ * params.resumeData(previousResumeData);
+ * // Skips hash check + resumes from where it was
+ *
+ * // Example 4: Private torrent (no DHT/PEX/LSD)
+ * torrent_flags_t privacy = TorrentFlags.DISABLE_DHT
+ *     .or(TorrentFlags.DISABLE_PEX)
+ *     .or(TorrentFlags.DISABLE_LSD);
+ * params.flags(privacy);
+ * // Uses only tracker and direct peer connections
+ *
+ * // Example 5: For-preview streaming
+ * torrent_flags_t streaming = TorrentFlags.SEQUENTIAL_DOWNLOAD
+ *     .or(TorrentFlags.AUTO_MANAGED);
+ * params.flags(streaming);
+ * // Downloads pieces in order for streaming playback
+ * </pre>
+ * <p>
+ * <b>Flag Combinations and Interactions:</b>
+ * <ul>
+ *   <li>AUTO_MANAGED + PAUSED: Queues torrent for auto-starting</li>
+ *   <li>SEED_MODE + UPLOAD_MODE: Complete seeder (no pieces to download)</li>
+ *   <li>SHARE_MODE + SEQUENTIAL_DOWNLOAD: Doesn't work well (conflicting strategies)</li>
+ *   <li>STOP_WHEN_READY: Cancels if already in data-transfer state</li>
+ * </ul>
+ *
+ * @see AddTorrentParams#flags(torrent_flags_t) - Set flags when adding torrent
+ * @see SessionManager#addTorrent(AddTorrentParams) - Add torrent with these flags
+ *
  * @author gubatron
  * @author aldenml
  */

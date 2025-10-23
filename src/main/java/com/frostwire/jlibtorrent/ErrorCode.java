@@ -3,6 +3,44 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.error_code;
 
 /**
+ * Error status information from libtorrent operations.
+ * <p>
+ * {@code ErrorCode} wraps error information from libtorrent C++ library,
+ * containing an integer error code value and human-readable error message.
+ * Used throughout jlibtorrent to report operation failures in a portable way.
+ * <p>
+ * <b>Understanding Error Codes:</b>
+ * <pre>
+ * ErrorCode ec = ...;  // From alert or API
+ *
+ * // Check if this is actually an error
+ * if (ec.isError()) {
+ *     // An error occurred
+ *     int code = ec.value();
+ *     String msg = ec.message();
+ *
+ *     System.err.println(\"Error \" + code + \": \" + msg);
+ * }
+ * </pre>
+ * <p>
+ * <b>Common Error Scenarios:</b>
+ * <pre>
+ * // Network errors (Connection refused, timeout, etc)
+ * // I/O errors (Disk full, permission denied, etc)
+ * // Protocol errors (Invalid metadata, corrupted files, etc)
+ * // System errors (Memory allocation, resource limits, etc)
+ * </pre>
+ * <p>
+ * <b>Error Information Properties:</b>
+ * <ul>
+ *   <li><b>value():</b> Integer error code (platform/system dependent)</li>
+ *   <li><b>message():</b> Human-readable error description</li>
+ *   <li><b>isError():</b> True only if an actual error (0 = no error)</li>
+ * </ul>
+ *
+ * @see Operation - The operation that failed (if provided in alert)
+ * @see PeerError - Contains ErrorCode and Operation for peer disconnects
+ *
  * @author gubatron
  * @author aldenml
  */
