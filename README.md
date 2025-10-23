@@ -249,34 +249,68 @@ Architectures supported:
 Building
 ================================
 
-All Android native libraries are built with 16 KB page size compatibility for Google Play requirements.
+All Android native libraries are built with 16 KB page size compatibility for Google Play requirements (mandatory as of Nov 2025).
 
-To build the macos (x86_64) binaries you will need a mac computer, to build the mac library issue the following command:
+**For detailed build instructions, see [BUILD_MANUAL.md](BUILD_MANUAL.md)**
 
-`cd swig && ./build-macos.sh`
+### Quick Start
 
-To build the windows (x86_64), linux (x86_64) and android binaries (arm, arm64, x86, x86_64) ***you will need a working version of Docker***, then just issue the following command
+**Build macOS binaries** (requires macOS computer):
+```bash
+cd swig
+./prepare-macos.sh   # One-time setup
+./build-macos.sh     # Build for current architecture
+```
 
-`cd swig && ./docker_build_binaries.sh`
+**Build all other platforms** (requires Docker):
+```bash
+cd swig
+./docker_build_binaries.sh   # Builds Windows, Linux, Android
+```
 
-The resulting jars will be at:
- - `./build/libs/jlibtorrent-w.x.y.z.jar`
- - `./build/libs/jlibtorrent-windows-w.x.y.z.jar`
- - `./build/libs/jlibtorrent-macos-w.x.y.z.jar`
- - `./build/libs/jlibtorrent-linux-w.x.y.z.jar`
- - `./build/libs/jlibtorrent-android-arm-w.x.y.z.jar`
- - `./build/libs/jlibtorrent-android-arm64-w.x.y.z.jar`
- - `./build/libs/jlibtorrent-android-x86-w.x.y.z.jar`
- - `./build/libs/jlibtorrent-android-x86_64-w.x.y.z.jar`
+### Build Output
 
- If you need the singled out `.so`,`.dylib` and `.dll` files and their `.debug` versions they will be at:
- - `./swig/bin/release/windows/x86_64/jlibtorrent.dll`
- - `./swig/bin/release/macosx/x86_64/libjlibtorrent.dylib`
- - `./swig/bin/release/linux/x86_64/libjlibtorrent.so`
- - `./swig/bin/release/android/armeabi-v7a/libjlibtorrent.so`
- - `./swig/bin/release/android/arm64-v8a/libjlibtorrent.so`
- - `./swig/bin/release/android/x86/libjlibtorrent.so`
- - `./swig/bin/release/android/x86_64/libjlibtorrent.so`
+The resulting JAR files will be in `./build/libs/`:
+ - `jlibtorrent-w.x.y.z.jar` - Java wrapper classes (all platforms)
+ - `jlibtorrent-macosx-x86_64-w.x.y.z.jar` - macOS Intel (x86_64)
+ - `jlibtorrent-macosx-arm64-w.x.y.z.jar` - macOS Apple Silicon (arm64)
+ - `jlibtorrent-windows-w.x.y.z.jar` - Windows x86_64
+ - `jlibtorrent-linux-x86_64-w.x.y.z.jar` - Linux x86_64
+ - `jlibtorrent-linux-arm64-w.x.y.z.jar` - Linux arm64
+ - `jlibtorrent-android-arm-w.x.y.z.jar` - Android armeabi-v7a
+ - `jlibtorrent-android-arm64-w.x.y.z.jar` - Android arm64-v8a
+ - `jlibtorrent-android-x86-w.x.y.z.jar` - Android x86
+ - `jlibtorrent-android-x86_64-w.x.y.z.jar` - Android x86_64
+
+### Native Libraries
+
+Raw native library files (.so, .dylib, .dll) are available in:
+```
+./swig/bin/release/
+├── windows/x86_64/jlibtorrent.dll
+├── macosx/x86_64/libjlibtorrent.dylib
+├── macosx/arm64/libjlibtorrent.dylib
+├── linux/x86_64/libjlibtorrent.so
+├── linux/arm64/libjlibtorrent.so
+└── android/
+    ├── armeabi-v7a/libjlibtorrent.so
+    ├── arm64-v8a/libjlibtorrent.so
+    ├── x86/libjlibtorrent.so
+    └── x86_64/libjlibtorrent.so
+```
+
+### Prerequisites
+
+**macOS (native build):**
+- Xcode Command Line Tools
+- Homebrew with: wget, pcre2, automake, autoconf, bison
+
+**All other platforms (Docker):**
+- Docker installed and running
+- 8+ GB RAM (16+ GB recommended)
+- 20-30 GB free disk space
+
+For detailed prerequisites and troubleshooting, see [BUILD_MANUAL.md](BUILD_MANUAL.md).
 
 Projects using jLibtorrent
 ==========================
