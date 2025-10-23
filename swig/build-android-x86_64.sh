@@ -33,7 +33,7 @@ export run_objcopy="${ANDROID_TOOLCHAIN}/bin/llvm-objcopy --only-keep-debug bin/
 export run_strip="${ANDROID_TOOLCHAIN}/bin/llvm-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_readelf="${ANDROID_TOOLCHAIN}/bin/llvm-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_native_jar="./gradlew nativeAndroidX64Jar"
-export run_clean_native_jar="./gradlew cleanNativeAndroidX86Jar"
+export run_clean_native_jar="./gradlew cleanNativeAndroidX64Jar"
 export BOOST_ROOT=/src/boost_${BOOST_UNDERSCORE_VERSION}
 
 if [ "${run_swig_only}" = true ]; then
