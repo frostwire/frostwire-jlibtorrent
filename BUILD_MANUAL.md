@@ -204,9 +204,9 @@ Docker-based builds produce Windows, Linux, and Android binaries all in one cont
 - Docker installed and running on your system
 - At least 8 GB of free RAM (16+ GB recommended)
 - 20-30 GB of free disk space for build cache and artifacts
+- x68_64 architecture
 
 **Supported host platforms:**
-- macOS (any Intel or Apple Silicon Mac with Docker Desktop)
 - Linux x86_64 (not arm64 - Android NDK tools are x86_64 only)
 - Windows with WSL2 or Docker Desktop
 
@@ -220,7 +220,7 @@ cd swig
 ```
 
 This single command:
-1. Builds the Docker image (cached if unchanged)
+1. Builds the Docker image (calls `docker_build_image.sh`, cached if unchanged)
 2. Starts a Docker container with optimized CPU and memory allocation
 3. Compiles Windows x86_64 binaries
 4. Compiles Linux x86_64 and arm64 binaries
@@ -238,7 +238,7 @@ This single command:
 
 This command:
 - Checks host OS and CPU count
-- Validates host isn't arm64 (Android NDK requires x86_64)
+- Validates host isn't arm64 (Android NDK requires x86_64, this might change soon given google's internal push towards ARM compatibility)
 - Builds `jlibtorrent-android` Docker image using the `Dockerfile`
 - Tags the image for later reuse
 
@@ -248,7 +248,7 @@ The build is cached, so subsequent runs are instant unless dependencies change.
 ```
 docker_build_image.sh: We tried doing this on linux arm64 but...
 docker_build_image.sh: Number of CPUs: 8
-Step 1/50 : FROM ubuntu:20.04
+Step 1/50 : FROM ubuntu:24.04
 ...
 Successfully built jlibtorrent-android:latest
 ```
@@ -276,10 +276,10 @@ Automatically executes after image is built. The script:
 ### Docker Build Configuration
 
 The `Dockerfile` includes:
-- Ubuntu 20.04 base image
+- Ubuntu 24.04 base image
 - Build tools: gcc, clang, make, cmake
 - Cross-compilation toolchains: NDK, MSVC, Linux GCC
-- Dependencies: OpenSSL, Boost, pkg-config
+- Dependencies: OpenSSL 3.x, Boost, pkg-config
 
 Environment variables in Docker:
 ```bash
