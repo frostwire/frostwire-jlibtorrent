@@ -1,4 +1,4 @@
-2.0.12.8 2025/OCT/24 [In Development]
+2.0.12.7 2025/OCT/24
  * comprehensive javadoc documentation for ALL 50+ public API classes in com.frostwire.jlibtorrent
  * TorrentBuilder: Fluent builder API for creating .torrent files with 100+ lines of examples
    - TorrentBuilder.Listener: File filtering and progress tracking callbacks
@@ -10,8 +10,6 @@
  * Enhanced documentation for AnnounceInfohash, Pair, PiecesTracker, Vectors, AlertMulticaster, MoveFlags, IntSeries, and all nested types
  * All code examples include 5-10+ working implementations covering real-world scenarios
  * Build: javadoc compiles successfully with zero HTML/critical errors
-
-2.0.12.7 2025/OCT/23
  * new linux arm64 binaries, Apple Silicon and Cloud servers now running on arm64 chips can use jlibtorrent
  * new SessionManager.getTorrentHandles() -> TorrentHandle[]
  * new javadocs and source maven dependencies available in the maven repository (2.0.12.5 was republished)
