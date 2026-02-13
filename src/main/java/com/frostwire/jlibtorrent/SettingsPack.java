@@ -727,4 +727,76 @@ public final class SettingsPack {
     public boolean validateHttpsTrackers() {
         return sp.get_bool(settings_pack.bool_types.validate_https_trackers.swigValue());
     }
+
+    /**
+     * Returns whether the disk copy-on-write optimization is disabled.
+     * <p>
+     * When disabled, libtorrent will not use the operating system's copy-on-write
+     * mechanism for memory-mapped files. Disabling copy-on-write can improve
+     * disk I/O performance on certain filesystems (e.g., Btrfs, APFS, ZFS)
+     * where copy-on-write introduces additional overhead for torrent workloads.
+     * <p>
+     * By default this is {@code false} (copy-on-write is enabled/used by the OS
+     * if available).
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * SettingsPack pack = new SettingsPack();
+     *
+     * // Check current setting
+     * boolean cowDisabled = pack.diskDisableCopyOnWrite();
+     *
+     * // Disable copy-on-write for better performance on CoW filesystems
+     * pack.diskDisableCopyOnWrite(true);
+     *
+     * // Apply settings to session
+     * sessionManager.applySettings(pack);
+     *
+     * // Or use fluent API during session setup
+     * SettingsPack settings = new SettingsPack()
+     *     .diskDisableCopyOnWrite(true)
+     *     .downloadRateLimit(0)
+     *     .uploadRateLimit(0);
+     * }</pre>
+     *
+     * @return {@code true} if copy-on-write is disabled, {@code false} otherwise
+     * @see #diskDisableCopyOnWrite(boolean)
+     */
+    public boolean diskDisableCopyOnWrite() {
+        return sp.get_bool(settings_pack.bool_types.disk_disable_copy_on_write.swigValue());
+    }
+
+    /**
+     * Sets whether to disable the disk copy-on-write optimization.
+     * <p>
+     * When set to {@code true}, libtorrent will not use the operating system's
+     * copy-on-write mechanism for memory-mapped files. This can improve disk
+     * I/O performance on filesystems that use copy-on-write by default (e.g.,
+     * Btrfs, APFS, ZFS), where the CoW behavior introduces extra overhead
+     * for random-write workloads typical of BitTorrent downloads.
+     * <p>
+     * <b>When to use:</b>
+     * <ul>
+     *   <li>On Btrfs/ZFS/APFS filesystems where CoW causes fragmentation</li>
+     *   <li>When downloading to SSDs where CoW write amplification is a concern</li>
+     *   <li>When experiencing slower-than-expected disk I/O throughput</li>
+     * </ul>
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * SettingsPack pack = new SettingsPack()
+     *     .diskDisableCopyOnWrite(true)
+     *     .downloadRateLimit(0);
+     *
+     * sessionManager.applySettings(pack);
+     * }</pre>
+     *
+     * @param value {@code true} to disable copy-on-write, {@code false} to leave it enabled
+     * @return this SettingsPack for fluent chaining
+     * @see #diskDisableCopyOnWrite()
+     */
+    public SettingsPack diskDisableCopyOnWrite(boolean value) {
+        sp.set_bool(settings_pack.bool_types.disk_disable_copy_on_write.swigValue(), value);
+        return this;
+    }
 }
