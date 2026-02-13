@@ -11,7 +11,7 @@ base {
 }
 // Just changing version here should be all that's necessary to bump the version on the library
 // Dynamic from tag for Github workflow, fallback for local testing/building binaries
-version = version = System.getenv('RELEASE_VERSION') ?: System.getenv('GITHUB_REF_NAME')?.replace('release/', '') ?: '2.0.12.7'
+version = version = System.getenv('RELEASE_VERSION') ?: System.getenv('GITHUB_REF_NAME')?.replace('release/', '') ?: '2.0.12.8'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
