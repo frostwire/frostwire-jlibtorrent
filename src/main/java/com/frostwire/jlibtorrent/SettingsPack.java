@@ -736,8 +736,8 @@ public final class SettingsPack {
      * disk I/O performance on certain filesystems (e.g., Btrfs, APFS, ZFS)
      * where copy-on-write introduces additional overhead for torrent workloads.
      * <p>
-     * By default this is {@code false} (copy-on-write is enabled/used by the OS
-     * if available).
+     * By default this is {@code true} (copy-on-write is disabled) in current
+     * libtorrent builds, as CoW tends to hurt torrent workload performance.
      * <p>
      * <b>Example:</b>
      * <pre>{@code
