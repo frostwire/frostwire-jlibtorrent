@@ -97,7 +97,7 @@ linux_arm64_env() {
 
 export LIBRARY_VERSION=$(egrep "version = version" ../build.gradle | sed -E "s/.*'([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'.*/\1/")
 export LIBRARY_NAME=jlibtorrent
-export LIBTORRENT_REVISION=c106f62ec26d491ad313bb512352f88d863b837d # fix build issues when disabling i2p support
+export LIBTORRENT_REVISION=46cc651d150be6356c311446647b6d0d8bf2eb4f # libtorrent 2.0.12
 
 export LIBTORRENT_BRANCH="RC_2_0"
 export OPENSSL_VERSION="3.5.2"
