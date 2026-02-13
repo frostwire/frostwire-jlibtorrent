@@ -897,69 +897,155 @@ public final class TorrentHandle {
      * By default, force-reannounce will still honor the min-interval
      * published by the tracker. If this flag is set, it will be ignored
      * and the tracker is announced immediately.
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * TorrentHandle th = ...;
+     *
+     * // Force immediate reannounce, ignoring tracker min-interval
+     * th.forceReannounce(0, -1, TorrentHandle.IGNORE_MIN_INTERVAL);
+     * }</pre>
+     *
+     * @see #forceReannounce(int, int, reannounce_flags_t)
+     * @see #HIGH_PRIORITY
      */
     public static final reannounce_flags_t IGNORE_MIN_INTERVAL = torrent_handle.ignore_min_interval;
 
-    // ``force_reannounce()`` will force this torrent to do another tracker
-    // request, to receive new peers. The ``seconds`` argument specifies how
-    // many seconds from now to issue the tracker announces.
-    //
-    // If the tracker's ``min_interval`` has not passed since the last
-    // announce, the forced announce will be scheduled to happen immediately
-    // as the ``min_interval`` expires. This is to honor trackers minimum
-    // re-announce interval settings.
-    //
-    // The ``tracker_index`` argument specifies which tracker to re-announce.
-    // If set to -1 (which is the default), all trackers are re-announce.
-    //
+    /**
+     * When set, the reannounce is given high priority, placing it at the front
+     * of the tracker announce queue. This is useful when you want the announce
+     * to happen as soon as possible, for example when a torrent finishes
+     * downloading and you want to quickly notify the tracker you are now seeding.
+     * <p>
+     * Can be combined with {@link #IGNORE_MIN_INTERVAL} using
+     * {@code or_()} for the most aggressive reannouncement behavior.
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * TorrentHandle th = ...;
+     *
+     * // High-priority reannounce to all trackers
+     * th.forceReannounce(0, -1, TorrentHandle.HIGH_PRIORITY);
+     *
+     * // Combine flags: ignore min-interval AND high priority
+     * reannounce_flags_t flags = TorrentHandle.IGNORE_MIN_INTERVAL
+     *     .or_(TorrentHandle.HIGH_PRIORITY);
+     * th.forceReannounce(0, -1, flags);
+     *
+     * // High-priority reannounce to a specific tracker (index 0)
+     * th.forceReannounce(0, 0, TorrentHandle.HIGH_PRIORITY);
+     * }</pre>
+     *
+     * @see #forceReannounce(int, int, reannounce_flags_t)
+     * @see #IGNORE_MIN_INTERVAL
+     */
+    public static final reannounce_flags_t HIGH_PRIORITY = torrent_handle.high_priority;
+
+    /**
+     * Forces this torrent to do another tracker request, to receive new peers.
+     * <p>
+     * If the tracker's {@code min_interval} has not passed since the last
+     * announce, the forced announce will be scheduled to happen immediately
+     * as the {@code min_interval} expires. This is to honor trackers' minimum
+     * re-announce interval settings. Use {@link #IGNORE_MIN_INTERVAL} to
+     * bypass this behavior.
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * TorrentHandle th = ...;
+     *
+     * // Reannounce in 30 seconds, to tracker at index 0, with high priority
+     * th.forceReannounce(30, 0, TorrentHandle.HIGH_PRIORITY);
+     *
+     * // Immediate reannounce to all trackers, ignoring min-interval
+     * reannounce_flags_t flags = TorrentHandle.IGNORE_MIN_INTERVAL
+     *     .or_(TorrentHandle.HIGH_PRIORITY);
+     * th.forceReannounce(0, -1, flags);
+     * }</pre>
+     *
+     * @param seconds       number of seconds from now to issue the tracker announces
+     * @param tracker_index index of the tracker to re-announce to, or -1 for all trackers
+     * @param flags         reannounce flags (e.g. {@link #IGNORE_MIN_INTERVAL},
+     *                      {@link #HIGH_PRIORITY})
+     * @see #IGNORE_MIN_INTERVAL
+     * @see #HIGH_PRIORITY
+     */
     public void forceReannounce(int seconds, int tracker_index, reannounce_flags_t flags) {
         th.force_reannounce(seconds, tracker_index, flags);
     }
 
-    // ``force_reannounce()`` will force this torrent to do another tracker
-    // request, to receive new peers. The ``seconds`` argument specifies how
-    // many seconds from now to issue the tracker announces.
-    //
-    // If the tracker's ``min_interval`` has not passed since the last
-    // announce, the forced announce will be scheduled to happen immediately
-    // as the ``min_interval`` expires. This is to honor trackers minimum
-    // re-announce interval settings.
-    //
-    // The ``tracker_index`` argument specifies which tracker to re-announce.
-    // If set to -1 (which is the default), all trackers are re-announce.
-    //
+    /**
+     * Forces this torrent to do another tracker request, to receive new peers.
+     * <p>
+     * If the tracker's {@code min_interval} has not passed since the last
+     * announce, the forced announce will be scheduled to happen immediately
+     * as the {@code min_interval} expires.
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * TorrentHandle th = ...;
+     *
+     * // Reannounce in 60 seconds, to tracker at index 2
+     * th.forceReannounce(60, 2);
+     *
+     * // Reannounce immediately to all trackers
+     * th.forceReannounce(0, -1);
+     * }</pre>
+     *
+     * @param seconds       number of seconds from now to issue the tracker announces
+     * @param tracker_index index of the tracker to re-announce to, or -1 for all trackers
+     * @see #forceReannounce(int, int, reannounce_flags_t)
+     */
     public void forceReannounce(int seconds, int tracker_index) {
         th.force_reannounce(seconds, tracker_index);
     }
 
-    // ``force_reannounce()`` will force this torrent to do another tracker
-    // request, to receive new peers. The ``seconds`` argument specifies how
-    // many seconds from now to issue the tracker announces.
-    //
-    // If the tracker's ``min_interval`` has not passed since the last
-    // announce, the forced announce will be scheduled to happen immediately
-    // as the ``min_interval`` expires. This is to honor trackers minimum
-    // re-announce interval settings.
-    //
-    // The ``tracker_index`` argument specifies which tracker to re-announce.
-    // If set to -1 (which is the default), all trackers are re-announce.
-    //
+    /**
+     * Forces this torrent to do another tracker request to all trackers,
+     * to receive new peers.
+     * <p>
+     * If the tracker's {@code min_interval} has not passed since the last
+     * announce, the forced announce will be scheduled to happen immediately
+     * as the {@code min_interval} expires.
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * TorrentHandle th = ...;
+     *
+     * // Reannounce to all trackers in 30 seconds
+     * th.forceReannounce(30);
+     * }</pre>
+     *
+     * @param seconds number of seconds from now to issue the tracker announces
+     * @see #forceReannounce(int, int, reannounce_flags_t)
+     */
     public void forceReannounce(int seconds) {
         th.force_reannounce(seconds);
     }
 
     /**
-     * Force this torrent to do another tracker
-     * request, to receive new peers. The ``seconds`` argument specifies how
-     * many seconds from now to issue the tracker announces.
+     * Forces this torrent to immediately do another tracker request to all
+     * trackers, to receive new peers.
      * <p>
-     * If the tracker's ``min_interval`` has not passed since the last
+     * If the tracker's {@code min_interval} has not passed since the last
      * announce, the forced announce will be scheduled to happen immediately
-     * as the ``min_interval`` expires. This is to honor trackers minimum
+     * as the {@code min_interval} expires. This is to honor trackers' minimum
      * re-announce interval settings.
      * <p>
-     * The ``tracker_index`` argument specifies which tracker to re-announce.
-     * If set to -1 (which is the default), all trackers are re-announce.
+     * <b>Example:</b>
+     * <pre>{@code
+     * TorrentHandle th = ...;
+     *
+     * // Simple immediate reannounce
+     * th.forceReannounce();
+     *
+     * // For more control, use the overloaded versions with flags:
+     * th.forceReannounce(0, -1, TorrentHandle.IGNORE_MIN_INTERVAL);
+     * }</pre>
+     *
+     * @see #forceReannounce(int, int, reannounce_flags_t)
+     * @see #IGNORE_MIN_INTERVAL
+     * @see #HIGH_PRIORITY
      */
     public void forceReannounce() {
         th.force_reannounce();
