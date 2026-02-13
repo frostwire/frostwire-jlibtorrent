@@ -1,3 +1,14 @@
+2.0.12.8 2026/FEB/13
+ * new TorrentHandle.HIGH_PRIORITY reannounce flag for front-of-queue tracker announces
+ * new SettingsPack.diskDisableCopyOnWrite() getter/setter for disabling CoW on Btrfs/APFS/ZFS
+ * new StatsMetric file pool diagnostic metrics:
+   - FILE_POOL_HITS_COUNTER: file handle cache hits
+   - FILE_POOL_MISSES_COUNTER: cache misses requiring new file open
+   - FILE_POOL_THREAD_STALL_COUNTER: thread stalls on file handle contention
+   - FILE_POOL_RACE_COUNTER: concurrent access race conditions
+   - FILE_POOL_SIZE_GAUGE: current number of open file handles in pool
+ * SWIG regeneration with updated libtorrent bindings (file pool counters/gauges, disk_disable_copy_on_write, high_priority flag)
+
 2.0.12.7 2025/OCT/24
  * comprehensive javadoc documentation for ALL 50+ public API classes in com.frostwire.jlibtorrent
  * TorrentBuilder: Fluent builder API for creating .torrent files with 100+ lines of examples
