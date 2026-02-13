@@ -8,6 +8,10 @@
    - FILE_POOL_RACE_COUNTER: concurrent access race conditions
    - FILE_POOL_SIZE_GAUGE: current number of open file handles in pool
  * SWIG regeneration with updated libtorrent bindings (file pool counters/gauges, disk_disable_copy_on_write, high_priority flag)
+ * fix test suite SIGSEGV: fork a new JVM per test class (forkEvery=1) to prevent native memory corruption
+ * fix ReadTorrentsTest: update stale hybrid torrent V1 hash, fix NPE on pure V2 torrent V1 hash access
+ * fix GetPiecesTest/FileProgressTest/FetchMagnetTest: wrap session cleanup in try/finally, disable network-dependent tests
+ * new tests: TorrentHandleTest (5), SettingsPackTest (6), StatsMetric file pool tests (4). Full suite: 39 tests passing
 
 2.0.12.7 2025/OCT/24
  * comprehensive javadoc documentation for ALL 50+ public API classes in com.frostwire.jlibtorrent
