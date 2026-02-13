@@ -12,6 +12,24 @@
  * fix ReadTorrentsTest: update stale hybrid torrent V1 hash, fix NPE on pure V2 torrent V1 hash access
  * fix GetPiecesTest/FileProgressTest/FetchMagnetTest: wrap session cleanup in try/finally, disable network-dependent tests
  * new tests: TorrentHandleTest (5), SettingsPackTest (6), StatsMetric file pool tests (4). Full suite: 39 tests passing
+ * lt: fix issue in XML parser
+ * lt: when building against OpenSSL, require at least version 1.1.1
+ * lt: add setting to set no-copy-on-write flag on new files
+ * lt: add performance counters to file pool
+ * lt: add high_priority flag to torrent_handle::force_reannounce()
+ * lt: update default DSCP value and update docs
+ * lt: fix python binding for set_notify_function()
+ * lt: fix error handling in mmap disk I/O when hashing files
+ * lt: improve copy_file_range() fallback
+ * lt: don't overwrite existing files when renaming
+ * lt: check settings_pack::max_out_request_queue before performance alert
+ * lt: add announce_port setting to override the port announced to trackers
+ * lt: allow on_unknown_torrent method in the absence of active torrents (new plugin feature added)
+ * lt: add feature to async_move_storage() to not move files
+ * lt: fix reject resume data if it contains mismatching info hashes
+ * lt: fix clear the candidate_cache when clear peer_list
+ * lt: fix missing python converter for dht::announce_flags_t
+
 
 2.0.12.7 2025/OCT/24
  * comprehensive javadoc documentation for ALL 50+ public API classes in com.frostwire.jlibtorrent
