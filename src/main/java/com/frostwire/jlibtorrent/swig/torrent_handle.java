@@ -482,4 +482,5 @@ public class torrent_handle {
   public final static resume_data_flags_t if_state_changed = new resume_data_flags_t(libtorrent_jni.torrent_handle_if_state_changed_get(), false);
   public final static resume_data_flags_t if_metadata_changed = new resume_data_flags_t(libtorrent_jni.torrent_handle_if_metadata_changed_get(), false);
   public final static reannounce_flags_t ignore_min_interval = new reannounce_flags_t(libtorrent_jni.torrent_handle_ignore_min_interval_get(), false);
+  public final static reannounce_flags_t high_priority = new reannounce_flags_t(libtorrent_jni.torrent_handle_high_priority_get(), false);
 }

@@ -1870,6 +1870,7 @@ public class libtorrent_jni {
   public final static native void torrent_handle_post_piece_availability(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_piece_availability(long jarg1, torrent_handle jarg1_, long jarg2, int_vector jarg2_);
   public final static native long torrent_handle_ignore_min_interval_get();
+  public final static native long torrent_handle_high_priority_get();
   public final static native void torrent_handle_force_reannounce__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, int jarg3, long jarg4, reannounce_flags_t jarg4_);
   public final static native void torrent_handle_force_reannounce__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, int jarg3);
   public final static native void torrent_handle_force_reannounce__SWIG_2(long jarg1, torrent_handle jarg1_, int jarg2);
