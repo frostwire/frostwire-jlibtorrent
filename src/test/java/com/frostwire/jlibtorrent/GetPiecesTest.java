@@ -23,7 +23,9 @@ public final class GetPiecesTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    @Test
+    // Disabled: network-dependent integration test that requires active seeders.
+    // Enable manually for local testing when seeders are available.
+    //@Test
     public void testStatusPieces() throws Throwable {
 
         String torrentFilename = "bittorrent-v2-hybrid-test.torrent";
@@ -74,13 +76,15 @@ public final class GetPiecesTest {
 
         s.start();
 
-        TorrentInfo ti = new TorrentInfo(torrentFile);
-        s.download(ti, torrentFile.getParentFile());
+        try {
+            TorrentInfo ti = new TorrentInfo(torrentFile);
+            s.download(ti, torrentFile.getParentFile());
 
-        Utils.awaitMinutes(signalFinished, "too much time downloading the torrent", 5);
-        assertNull(s.lastAlertError());
-
-        s.stop();
+            Utils.awaitMinutes(signalFinished, "too much time downloading the torrent", 5);
+            assertNull(s.lastAlertError());
+        } finally {
+            s.stop();
+        }
     }
 
     private static void log(String msg) {

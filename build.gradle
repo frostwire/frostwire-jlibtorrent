@@ -68,6 +68,9 @@ tasks.withType(Test).configureEach {
 
 tasks.test {
     outputs.upToDateWhen { false }
+    // Fork a new JVM per test class to avoid native memory corruption
+    // when many test classes load the JNI library in the same process
+    forkEvery = 1
     testLogging {
         events "passed", "skipped", "failed", "standard_out"
     }

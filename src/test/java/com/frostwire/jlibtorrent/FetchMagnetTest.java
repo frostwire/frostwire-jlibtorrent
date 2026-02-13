@@ -53,28 +53,27 @@ public class FetchMagnetTest {
 
         s.addListener(l);
         s.start();
-        s.postDhtStats();
 
-        // waiting for nodes in DHT (10 seconds)
-        boolean r = false;
         try {
-            r = signal.await(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            // ignore
+            s.postDhtStats();
+
+            // waiting for nodes in DHT (10 seconds)
+            boolean r = false;
+            try {
+                r = signal.await(10, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                // ignore
+            }
+            assertTrue("DHT bootstrap timeout", r);
+
+            // no more trigger of DHT stats
+            s.removeListener(l);
+
+            // Fetching the magnet uri, waiting 30 seconds max
+            byte[] data = s.fetchMagnet(uri, 30, new File("/tmp"));
+            assertNotNull("Failed to retrieve the magnet", data);
+        } finally {
+            s.stop();
         }
-        assertTrue("DHT bootstrap timeout", r);
-
-        // no more trigger of DHT stats
-        s.removeListener(l);
-
-
-        // Fetching the magnet uri, waiting 30 seconds max
-        byte[] data = s.fetchMagnet(uri, 30, new File("/tmp"));
-        assertNotNull("Failed to retrieve the magnet", data);
-
-        //TorrentHandle th = s.findTorrent(new Sha1Hash(sha1));
-        //assertNull(th);
-
-        s.stop();
     }
 }

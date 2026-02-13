@@ -79,13 +79,15 @@ public final class FileProgressTest {
 
         s.start();
 
-        TorrentInfo ti = new TorrentInfo(torrentFile);
-        s.download(ti, torrentFile.getParentFile());
+        try {
+            TorrentInfo ti = new TorrentInfo(torrentFile);
+            s.download(ti, torrentFile.getParentFile());
 
-        Utils.awaitMinutes(signalFinished, "too much time downloading the torrent", 5);
-        assertNull(s.lastAlertError());
-
-        s.stop();
+            Utils.awaitMinutes(signalFinished, "too much time downloading the torrent", 5);
+            assertNull(s.lastAlertError());
+        } finally {
+            s.stop();
+        }
     }
 
     private static void log(String msg) {
