@@ -12,5 +12,6 @@ using gcc : arm64 : aarch64-linux-gnu-g++ :
     <linkflags>-static-libgcc
     <linkflags>"-z noexecstack"
     <address-model>64
-    <architecture>arm    
+    <architecture>arm
+    <cxxflags>-frtti
     ;
