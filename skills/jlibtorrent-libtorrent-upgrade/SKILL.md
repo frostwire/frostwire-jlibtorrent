@@ -391,6 +391,24 @@ using darwin : arm64 : clang++ :
 ### C++ Standard
 The build scripts specify `cxxstd=20`. Ensure upstream commits are compatible with C++20. If upstream bumps to C++23, update all `config/*.jam` files.
 
+### Clean Rebuild After Compiler Flag Changes
+Adding or removing compiler flags (especially `-frtti`/`-fno-rtti`, `-fvisibility=hidden`, `-mmacosx-version-min`) changes the ABI of compiled code. Cached object files from previous builds will have incompatible vtables and symbol layouts.
+
+**Symptom:** Build succeeds but tests crash with SIGSEGV in seemingly unrelated code (e.g., `asio_detail_posix_thread_function`, random destructor calls, virtual function table corruption).
+
+**Fix:** Always do a clean rebuild when compiler flags change:
+```bash
+rm -rf swig/bin/release/<os>/<arch>/*
+# Then rebuild
+```
+
+**Lesson Learned (cb6fe6b9c upgrade):** After adding `-frtti` to fix `smart_ban.cpp` compilation, tests crashed with SIGSEGV in ASIO thread pool cleanup. The crash persisted even after reverting Boost from 1.91.0 to 1.88.0. Only a clean rebuild (`rm -rf bin/release/macosx/arm64/*`) fixed the ABI mismatch.
+
+### Dependency Upgrade Validation
+When upgrading Boost or OpenSSL, build and test on ONE platform first. Even if upstream CI uses the new version, platform-specific issues may exist.
+
+**Lesson Learned (cb6fe6b9c upgrade):** Boost 1.91.0 build succeeded but caused SIGSEGV on macOS arm64. Reverted to 1.88.0. OpenSSL 3.6.0 worked without issues.
+
 ---
 
 ## Common Pitfalls
@@ -405,6 +423,8 @@ The build scripts specify `cxxstd=20`. Ensure upstream commits are compatible wi
 | **JVM crashes in tests** | `forkEvery = 1` in `build.gradle` is mandatory for JNI tests |
 | **Changelog ordering** | Newest release must be at the TOP of `changelog.txt` |
 | **Tests assuming upstream defaults** | Always verify defaults through the SWIG layer; they can change |
+| **Stale object files after flag changes** | `rm -rf swig/bin/release/<os>/<arch>/*` and rebuild from scratch |
+| **Dependency upgrades without smoke test** | Build and test ONE platform before rolling out to all platforms |
 | **Tests asserting undefined behavior** | C++ functions may not validate input; test JVM survival, not return values |
 | **Building Docker on Apple Silicon** | Don't. Use EC2 x86_64 or GitHub Actions for cross-compiled platforms |
 | **Releasing before all platforms built** | Tagging creates a GitHub Release event; ensure ALL artifacts are ready first |
