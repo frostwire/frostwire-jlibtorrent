@@ -203,6 +203,10 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_piece_size(swigCPtr, this, index);
   }
 
+  public int piece_size_for_req(int index) {
+    return libtorrent_jni.torrent_info_piece_size_for_req(swigCPtr, this, index);
+  }
+
   public sha1_hash hash_for_piece(int index) {
     return new sha1_hash(libtorrent_jni.torrent_info_hash_for_piece(swigCPtr, this, index), true);
   }

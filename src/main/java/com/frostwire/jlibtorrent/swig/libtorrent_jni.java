@@ -20,7 +20,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "2.0.12.7";
+        return "2.0.12.9";
     }
 
     public static boolean isMacOS() {
@@ -1486,6 +1486,7 @@ public class libtorrent_jni {
   public final static native boolean torrent_info_priv(long jarg1, torrent_info jarg1_);
   public final static native boolean torrent_info_is_i2p(long jarg1, torrent_info jarg1_);
   public final static native int torrent_info_piece_size(long jarg1, torrent_info jarg1_, int jarg2);
+  public final static native int torrent_info_piece_size_for_req(long jarg1, torrent_info jarg1_, int jarg2);
   public final static native long torrent_info_hash_for_piece(long jarg1, torrent_info jarg1_, int jarg2);
   public final static native boolean torrent_info_is_loaded(long jarg1, torrent_info jarg1_);
   public final static native String torrent_info_name(long jarg1, torrent_info jarg1_);
