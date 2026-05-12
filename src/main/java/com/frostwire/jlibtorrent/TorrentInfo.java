@@ -614,19 +614,113 @@ public final class TorrentInfo {
      * Returns the effective piece size for the given piece index when making or validating
      * piece hash requests.
      * <p>
-     * For v1 and hybrid torrents this returns the same value as {@link #pieceSize(int)}.
-     * For v2-only torrents, however, the value may differ because pad blocks are not
-     * included in piece hash requests. In such cases the returned size reflects only the
-     * data blocks, omitting any padding that would otherwise be counted by
-     * {@link #pieceSize(int)}.
+     * This method is the cornerstone of correct piece handling across all BitTorrent protocol
+     * versions. For <b>v1</b> and <b>hybrid</b> torrents it returns the same value as
+     * {@link #pieceSize(int)} — every byte in the piece is data and participates in the hash.
+     * For <b>v2-only</b> torrents, however, the value may be <i>strictly smaller</i> because
+     * <b>pad blocks</b> are excluded from piece hash requests.
      * <p>
-     * Use this method when you need the exact number of bytes to read or hash for a piece
-     * request, especially in BitTorrent v2 contexts.
+     * <b>What are pad blocks and why do they matter?</b>
+     * <p>
+     * BitTorrent v2 introduces per-file piece alignment. When files do not end exactly on a
+     * piece boundary, the remaining bytes of the final piece are filled with pad blocks —
+     * zero-length placeholders that have no data but still occupy space in the nominal piece
+     * layout. {@link #pieceSize(int)} counts these pad blocks, giving you the <i>storage</i>
+     * size of the piece. {@code pieceSizeForReq()} omits them, giving you the <i>data</i>
+     * size that must be read, hashed, or transmitted in a piece request. Using the wrong
+     * size in a v2 torrent leads to incorrect hash validation, truncated reads, or inflated
+     * progress bars.
+     * <p>
+     * <b>Comparison with {@link #pieceSize(int)}:</b>
+     * <table border="1" cellpadding="4" cellspacing="0">
+     *   <tr><th>Torrent type</th><th>{@code pieceSize(piece)}</th><th>{@code pieceSizeForReq(piece)}</th></tr>
+     *   <tr><td>v1 only</td><td>Full piece size (data only)</td><td>Same as {@code pieceSize()}</td></tr>
+     *   <tr><td>Hybrid (v1+v2)</td><td>Full piece size (data only)</td><td>Same as {@code pieceSize()}</td></tr>
+     *   <tr><td>v2 only</td><td>Storage size incl. pad blocks</td><td>Data size <i>excl.</i> pad blocks</td></tr>
+     * </table>
+     * <p>
+     * <b>When to use:</b>
+     * <ul>
+     *   <li>When allocating buffers for piece hash verification in a v2 torrent</li>
+     *   <li>When computing aggregate download progress that must match the hash layer</li>
+     *   <li>When building a cross-version BitTorrent client that must handle v1, hybrid, and v2 torrents correctly</li>
+     *   <li>When reporting piece-level statistics to the user (e.g. "3.2 MB of data verified")</li>
+     * </ul>
+     * <p>
+     * <b>Example 1 — Piece validation loop:</b>
+     * <pre>{@code
+     * TorrentInfo ti = new TorrentInfo(new File("download.torrent"));
+     * int numPieces = ti.numPieces();
      *
-     * @param piece the piece index
-     * @return the effective piece size for hash requests, in bytes
+     * for (int i = 0; i < numPieces; i++) {
+     *     // For v2 torrents pieceSizeForReq() gives the exact bytes to hash.
+     *     // For v1/hybrid torrents it is identical to pieceSize(), so the same
+     *     // loop works for all protocol versions without branching.
+     *     int bytesToHash = ti.pieceSizeForReq(i);
+     *     byte[] pieceBuffer = new byte[bytesToHash];
+     *
+     *     // readPieceData(i, pieceBuffer, bytesToHash);  // app-specific I/O
+     *     // validateHash(i, pieceBuffer);                  // app-specific hash check
+     *
+     *     System.out.println("Piece " + i + ": hashed " + bytesToHash + " bytes");
+     * }
+     * }</pre>
+     * <p>
+     * <b>Example 2 — Progress calculation (v1 vs v2):</b>
+     * <pre>{@code
+     * TorrentInfo ti = new TorrentInfo(new File("download.torrent"));
+     * int numPieces = ti.numPieces();
+     * boolean[] havePiece = new boolean[numPieces]; // filled by the download engine
+     *
+     * long dataBytesDownloaded = 0;
+     * long storageBytesDownloaded = 0;
+     *
+     * for (int i = 0; i < numPieces; i++) {
+     *     if (havePiece[i]) {
+         *         dataBytesDownloaded    += ti.pieceSizeForReq(i); // real payload
+         *         storageBytesDownloaded += ti.pieceSize(i);       // incl. padding
+     *     }
+     * }
+     *
+     * // User-facing progress should use dataBytesDownloaded / totalSize()
+     * // because pad blocks are not user data. Internal disk accounting
+     * // may still want storageBytesDownloaded.
+     * double userProgress = (double) dataBytesDownloaded / ti.totalSize();
+     * System.out.printf("User progress: %.2f%%%n", userProgress * 100.0);
+     * }</pre>
+     * <p>
+     * <b>Example 3 — Buffer allocation in a cross-version client:</b>
+     * <pre>{@code
+     * TorrentInfo ti = new TorrentInfo(new File("download.torrent"));
+     * info_hash_t hashes = ti.infoHashType();
+     * boolean isV2Only = hashes.has_v2() && !hashes.has_v1();
+     *
+     * // Always use pieceSizeForReq() for network buffers.
+     * // It is safe for all torrent versions and avoids over-allocation
+     * // in v2-only torrents where pad blocks would waste memory.
+     * int maxPieceReq = 0;
+     * for (int i = 0; i < ti.numPieces(); i++) {
+     *     maxPieceReq = Math.max(maxPieceReq, ti.pieceSizeForReq(i));
+     * }
+     *
+     * ByteBuffer pieceBuffer = ByteBuffer.allocateDirect(maxPieceReq);
+     *
+     * if (isV2Only) {
+     *     System.out.println("v2 torrent detected — max request buffer: " + maxPieceReq);
+     * } else {
+     *     System.out.println("v1/hybrid torrent — max request buffer: " + maxPieceReq);
+     * }
+     * }</pre>
+     *
+     * @param piece the piece index (must be a valid piece, i.e. {@code >= 0} and {@code < numPieces()})
+     * @return the effective piece size for hash requests, in bytes; for v1 and hybrid torrents this is
+     *         identical to {@link #pieceSize(int)}, while for v2-only torrents it excludes pad blocks
      * @see #pieceSize(int)
      * @see #pieceLength()
+     * @see #numPieces()
+     * @see #totalSize()
+     * @see #infoHashType()
+     * @since 2.0.12.9
      */
     public int pieceSizeForReq(int piece) {
         return ti.piece_size_for_req(piece);
