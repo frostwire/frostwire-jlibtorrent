@@ -30,7 +30,7 @@ import java.util.List;
  * // LibTorrent version: 2.0.5
  * // LibTorrent version num: 131589
  * // LibTorrent revision: c2012b084c6654d681720ea0693d87a48bc95b14
- * // JLibTorrent version: 2.0.12.7
+     * // JLibTorrent version: 2.0.12.9
  * // Boost version: 1_78_0
  * // OpenSSL version: OpenSSL 1.1.1n  15 Mar 2022
  * </pre>
