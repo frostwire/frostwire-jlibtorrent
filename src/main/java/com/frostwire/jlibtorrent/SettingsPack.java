@@ -801,35 +801,114 @@ public final class SettingsPack {
     }
 
     /**
-     * Overrides the NAT-PMP gateway address. If empty, auto-detect.
+     * Returns the override address for NAT-PMP (NAT Port Mapping Protocol)
+     * gateway requests.
      * <p>
-     * This setting allows specifying a custom gateway address for NAT-PMP
-     * (NAT Port Mapping Protocol) requests. When left empty, libtorrent will
-     * automatically detect the gateway address to use for port mappings.
+     * By default libtorrent auto-detects the local gateway by inspecting the
+     * routing table. In certain topologies — VPN tunnels, multi-homed hosts,
+     * containers, or networks where the default route does not own the public
+     * IP — this auto-detection picks the wrong interface and port mappings
+     * fail silently. This getter returns the currently configured gateway
+     * override; an empty string means "let libtorrent auto-detect".
      * <p>
-     * This is useful in network configurations where automatic gateway
-     * detection fails or when a specific gateway needs to be targeted.
+     * <b>When to use:</b>
+     * <ul>
+     *   <li>VPN client networks where the tun/tap interface is the default
+     *       route but the VPN provider does not support NAT-PMP</li>
+     *   <li>Multi-WAN or policy-routing setups where the gateway owning the
+     *       public IP is not the default route</li>
+     *   <li>Docker / LXC containers where the container gateway differs from
+     *       the host gateway</li>
+     * </ul>
+     * <p>
+     * <b>Default:</b> {@code ""} (empty string — auto-detect)
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * SettingsPack pack = new SettingsPack();
      *
-     * @return the configured NAT-PMP gateway address, or empty string for auto-detect
+     * // Check current override (will be empty on fresh pack)
+     * String current = pack.natpmpGateway();
+     * if (current.isEmpty()) {
+     *     System.out.println("Auto-detect enabled");
+     * }
+     *
+     * // Force NAT-PMP through a known gateway on a VPN subnet
+     * pack.natpmpGateway("10.8.0.1");
+     *
+     * // Apply and start session
+     * SessionManager session = new SessionManager();
+     * session.start();
+     * session.applySettings(pack);
+     * }</pre>
+     *
+     * @return the configured NAT-PMP gateway address, or empty string when
+     *         auto-detect is in effect
      * @see #natpmpGateway(String)
+     * @see SessionManager
+     * @since 2.0.12.9
      */
     public String natpmpGateway() {
         return sp.get_str(settings_pack.string_types.natpmp_gateway.swigValue());
     }
 
     /**
-     * Sets the NAT-PMP gateway address override. If empty, auto-detect.
+     * Overrides the gateway address used for NAT-PMP (NAT Port Mapping
+     * Protocol) requests.
      * <p>
-     * This setting allows specifying a custom gateway address for NAT-PMP
-     * (NAT Port Mapping Protocol) requests. When left empty, libtorrent will
-     * automatically detect the gateway address to use for port mappings.
+     * Setting a non-empty value forces libtorrent to send NAT-PMP
+     * {@code map-request} packets to the supplied IPv4 address instead of
+     * querying the operating-system routing table. This is the only reliable
+     * way to make port-mapping work when the default route does not own the
+     * public IP (e.g., VPN split-tunnel, multi-homed server, container
+     * bridge). If the string is empty (the default) libtorrent falls back
+     * to automatic gateway discovery.
      * <p>
-     * This is useful in network configurations where automatic gateway
-     * detection fails or when a specific gateway needs to be targeted.
+     * <b>When to use:</b>
+     * <ul>
+     *   <li>When {@code portmap_log} alerts show "no router" but you know a
+     *       NAT-PMP-enabled gateway exists on a secondary interface</li>
+     *   <li>After switching from Wi-Fi to wired Ethernet and the gateway
+     *       changes subnet (e.g. 192.168.1.1 → 192.168.50.1)</li>
+     *   <li>On seed-boxes with multiple upstream ISPs where only one router
+     *       supports NAT-PMP / UPnP</li>
+     * </ul>
+     * <p>
+     * <b>Constraints &amp; edge cases:</b>
+     * <ul>
+     *   <li>The value must be a valid dotted IPv4 address. Hostnames are
+     *       <b>not</b> resolved by libtorrent.</li>
+     *   <li>Changing this setting at runtime invalidates existing port maps;
+     *       libtorrent will re-map through the new gateway on the next
+     *       refresh cycle.</li>
+     *   <li>Has no effect when UPnP is used instead of NAT-PMP.</li>
+     * </ul>
+     * <p>
+     * <b>Default:</b> {@code ""} (empty string — auto-detect)
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * // Detect auto-detect failure from portmap alerts, then override
+     * SessionManager session = new SessionManager();
+     * session.start();
      *
-     * @param value the NAT-PMP gateway address, or empty string for auto-detect
+     * SettingsPack pack = new SettingsPack();
+     * pack.setEnableDht(true)
+     *     .portRangeStart(6881)
+     *     .portRangeEnd(6889);
+     *
+     * // After observing "no router" portmap_log alerts, pin the gateway
+     * pack.natpmpGateway("192.168.50.1");
+     *
+     * session.applySettings(pack);
+     * }</pre>
+     *
+     * @param value the NAT-PMP gateway IPv4 address, or empty string to
+     *              restore auto-detect
      * @return this SettingsPack for fluent chaining
      * @see #natpmpGateway()
+     * @see SessionManager
+     * @since 2.0.12.9
      */
     public SettingsPack natpmpGateway(String value) {
         sp.set_str(settings_pack.string_types.natpmp_gateway.swigValue(), value);
@@ -837,35 +916,119 @@ public final class SettingsPack {
     }
 
     /**
-     * Allows multiple connections from peers with the same peer ID.
+     * Returns whether libtorrent allows more than one simultaneous connection
+     * from peers that share the same peer ID (PID).
      * <p>
-     * When enabled, libtorrent will allow multiple simultaneous connections
-     * from peers that share the same peer ID. By default, libtorrent only
-     * allows one connection per peer ID to prevent duplicate connections.
+     * The BitTorrent protocol nominally assigns a unique peer ID to every
+     * client instance, but in practice multiple peers behind the same NAT may
+     * expose the same PID because they run the same client version and port,
+     * or because a buggy tracker hands out identical IDs. By default
+     * (value {@code false}) libtorrent keeps only the first connection and
+     * drops duplicates as a anti-DDoS / anti-loop measure.
      * <p>
-     * Enabling this can be useful in scenarios where multiple peers behind
-     * the same NAT share a single peer ID, or for testing purposes.
+     * <b>When to use:</b>
+     * <ul>
+     *   <li>Swarms with many peers behind carrier-grade NAT (CGNAT) where
+     *       distinct users legitimately share the same public IP and PID</li>
+     *   <li>Private trackers that intentionally assign identical peer IDs
+     *       to sibling instances for accounting</li>
+     *   <li>Testing / debugging scenarios where you run multiple local
+     *       clients with the same {@code peer_id} prefix</li>
+     * </ul>
+     * <p>
+     * <b>Default:</b> {@code false} (duplicate peer IDs are rejected)
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * SettingsPack pack = new SettingsPack();
      *
-     * @return {@code true} if multiple connections per peer ID are allowed
+     * // Check whether duplicates are currently allowed
+     * boolean allowed = pack.allowMultipleConnectionsPerPid();
+     * System.out.println("Duplicates allowed: " + allowed); // false
+     *
+     * // Only enable for a specific private swarm known to use CGNAT
+     * if (swarmIsBehindCGNAT()) {
+     *     pack.allowMultipleConnectionsPerPid(true);
+     * }
+     *
+     * session.applySettings(pack);
+     * }</pre>
+     *
+     * @return {@code true} if multiple connections per peer ID are allowed,
+     *         {@code false} if duplicates are dropped
      * @see #allowMultipleConnectionsPerPid(boolean)
+     * @see SessionManager
+     * @since 2.0.12.9
      */
     public boolean allowMultipleConnectionsPerPid() {
         return sp.get_bool(settings_pack.bool_types.allow_multiple_connections_per_pid.swigValue());
     }
 
     /**
-     * Sets whether to allow multiple connections from peers with the same peer ID.
+     * Controls whether libtorrent accepts multiple simultaneous connections
+     * from peers that present the same peer ID.
      * <p>
-     * When enabled, libtorrent will allow multiple simultaneous connections
-     * from peers that share the same peer ID. By default, libtorrent only
-     * allows one connection per peer ID to prevent duplicate connections.
+     * Disabling the duplicate-PID guard ({@code false}, the default) is the
+     * safest choice for public swarms because it prevents:
+     * <ul>
+     *   <li>Connection loops created by mis-configured port-forwarding</li>
+     *   <li>Accidental (or intentional) connection-flooding from a single
+     *       hostile client re-using one peer ID</li>
+     *   <li>Wasted upload bandwidth to the same remote client instance</li>
+     * </ul>
      * <p>
-     * Enabling this can be useful in scenarios where multiple peers behind
-     * the same NAT share a single peer ID, or for testing purposes.
+     * Enabling it ({@code true}) relaxes that safety check and is
+     * appropriate only when you <b>know</b> the swarm contains multiple
+     * legitimate peers sharing a PID — typically because of NAT or tracker
+     * behaviour, not malice.
+     * <p>
+     * <b>When to use:</b>
+     * <ul>
+     *   <li>Enterprise or campus networks with symmetric NAT where many
+     *       identical client versions appear behind one public IP</li>
+     *   <li>Swarms served by a tracker that assigns peer IDs based on
+     *       ASN rather than per-user nonce</li>
+     *   <li>Integration tests that spawn many local libtorrent instances
+     *       with the same {@code fingerprint}</li>
+     * </ul>
+     * <p>
+     * <b>Constraints &amp; security warning:</b>
+     * <ul>
+     *   <li>Do <b>not</b> enable on public, untrusted swarms — a single
+     *       attacker can exhaust your connection limit by reconnecting
+     *       under the same peer ID.</li>
+     *   <li>This setting interacts with {@code connectionsLimit()}; if the
+     *       limit is low, duplicate-PID connections may crowd out unique
+     *       peers.</li>
+     *   <li>Changes take effect immediately for new incoming connections;
+     *       existing duplicates are not retroactively killed.</li>
+     * </ul>
+     * <p>
+     * <b>Default:</b> {@code false}
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * SettingsPack pack = new SettingsPack();
      *
-     * @param value {@code true} to allow multiple connections per peer ID
+     * // Default: safe mode — reject duplicate peer IDs
+     * pack.allowMultipleConnectionsPerPid(false);
+     *
+     * // For a controlled, private swarm behind the same corporate NAT:
+     * if (torrent.isPrivate() && network.isCorporateNAT()) {
+     *     pack.allowMultipleConnectionsPerPid(true)
+     *         .connectionsLimit(500);  // raise limit to absorb extra peers
+     * }
+     *
+     * session.applySettings(pack);
+     * }</pre>
+     *
+     * @param value {@code true} to allow multiple connections per peer ID,
+     *              {@code false} to reject duplicates
      * @return this SettingsPack for fluent chaining
      * @see #allowMultipleConnectionsPerPid()
+     * @see #connectionsLimit(int)
+     * @see SessionManager
+     * @since 2.0.12.9
      */
     public SettingsPack allowMultipleConnectionsPerPid(boolean value) {
         sp.set_bool(settings_pack.bool_types.allow_multiple_connections_per_pid.swigValue(), value);
@@ -873,35 +1036,125 @@ public final class SettingsPack {
     }
 
     /**
-     * Controls the NAT-PMP port mapping lease duration in seconds.
+     * Returns the lease duration, in seconds, requested for NAT-PMP port
+     * mappings.
      * <p>
-     * This setting specifies how long port mappings requested via NAT-PMP
-     * (NAT Port Mapping Protocol) should remain valid. The default lease
-     * duration is typically 3600 seconds (1 hour).
+     * When libtorrent asks a NAT-PMP-enabled router to open a port, it
+     * proposes a lifetime for that mapping. The router may honour the request
+     * or substitute its own maximum. A longer lease means fewer renewal
+     * packets and lower background traffic; a shorter lease means the mapping
+     * vanishes quickly if the client crashes, keeping the router's NAT table
+     * small and friendly to other devices.
      * <p>
-     * A longer lease duration reduces the frequency of renewal requests,
-     * while a shorter duration allows faster recovery if the mapping fails.
+     * <b>When to use shorter leases:</b>
+     * <ul>
+     *   <li>Short interactive sessions (e.g., a mobile app that seeds only
+     *       while the user is watching)</li>
+     *   <li>Routers with tiny NAT tables that evict long-lived mappings</li>
+     *   <li>Development / CI environments where the session is torn down
+     *       within minutes</li>
+     * </ul>
+     * <b>When to use longer leases:</b>
+     * <ul>
+     *   <li>24/7 seed-boxes or dedicated home servers</li>
+     *   <li>Connections over satellite or high-latency links where every
+     *       extra packet is expensive</li>
+     *   <li>Routers known to rate-limit NAT-PMP renewals</li>
+     * </ul>
+     * <p>
+     * <b>Default:</b> {@code 3600} seconds (1 hour)
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * SettingsPack pack = new SettingsPack();
+     *
+     * // Default is 3600s — fine for a typical desktop session
+     * int current = pack.natpmpLeaseDuration();
+     * System.out.println("Current lease: " + current + "s");
+     *
+     * // For a short-lived mobile session, reduce to 5 minutes
+     * pack.natpmpLeaseDuration(300);
+     *
+     * // For a long-running seeder on a stable home network, extend to 2h
+     * if (sessionType == SEED_BOX) {
+     *     pack.natpmpLeaseDuration(7200);
+     * }
+     *
+     * session.applySettings(pack);
+     * }</pre>
      *
      * @return the NAT-PMP lease duration in seconds
      * @see #natpmpLeaseDuration(int)
+     * @see #natpmpGateway(String)
+     * @see SessionManager
+     * @since 2.0.12.9
      */
     public int natpmpLeaseDuration() {
         return sp.get_int(settings_pack.int_types.natpmp_lease_duration.swigValue());
     }
 
     /**
-     * Sets the NAT-PMP port mapping lease duration in seconds.
+     * Sets the requested lease duration for NAT-PMP port mappings in seconds.
      * <p>
-     * This setting specifies how long port mappings requested via NAT-PMP
-     * (NAT Port Mapping Protocol) should remain valid. The default lease
-     * duration is typically 3600 seconds (1 hour).
+     * Every mapping created via NAT-PMP (and by extension PCP) carries a
+     * lifetime. libtorrent renews the mapping automatically at roughly 50 %
+     * of the lease elapsed time, so the chosen value directly controls
+     * background chatter: a 3600-second lease generates a renewal every ~30
+     * minutes, while a 300-second lease renews every ~2.5 minutes.
      * <p>
-     * A longer lease duration reduces the frequency of renewal requests,
-     * while a shorter duration allows faster recovery if the mapping fails.
+     * Choose the value based on your session's expected lifetime and the
+     * router's behaviour. Many consumer routers silently cap leases at 7200 s
+     * (2 h) regardless of what the client asks, so values above that may
+     * not produce any benefit. Conversely, values below 60 s can trigger
+     * aggressive renewal loops or be rejected outright by picky firmware.
+     * <p>
+     * <b>Constraints &amp; edge cases:</b>
+     * <ul>
+     *   <li>Values &lt; 60 are allowed but may be rounded up by the router or
+     *       cause excessive renewal traffic.</li>
+     *   <li>Zero is technically valid in the NAT-PMP spec but is interpreted
+     *       by many routers as "delete this mapping immediately"; avoid it
+     *       unless you explicitly want to un-map.</li>
+     *   <li>Changing this setting does not alter the lifetime of already
+     *       active mappings — only new requests use the updated value.</li>
+     *   <li>Has no effect on UPnP-IGD mappings, which usually follow the
+     *       router's own lease policy.</li>
+     * </ul>
+     * <p>
+     * <b>Default:</b> {@code 3600} seconds (1 hour)
+     * <p>
+     * <b>Example:</b>
+     * <pre>{@code
+     * // Dynamic adjustment based on session type
+     * SettingsPack pack = new SettingsPack()
+     *     .setEnableDht(true)
+     *     .portRangeStart(50000)
+     *     .portRangeEnd(50050);
+     *
+     * switch (sessionProfile) {
+     *     case MOBILE_TEMPORARY:
+     *         // 5 min — router table stays small, user won't notice renewals
+     *         pack.natpmpLeaseDuration(300);
+     *         break;
+     *     case DESKTOP_STANDARD:
+     *         // 1 hour — default, balanced
+     *         pack.natpmpLeaseDuration(3600);
+     *         break;
+     *     case SEED_BOX:
+     *         // 2 hours — minimise packet count on a stable server
+     *         pack.natpmpLeaseDuration(7200);
+     *         break;
+     * }
+     *
+     * session.applySettings(pack);
+     * }</pre>
      *
      * @param value the NAT-PMP lease duration in seconds
      * @return this SettingsPack for fluent chaining
      * @see #natpmpLeaseDuration()
+     * @see #natpmpGateway(String)
+     * @see SessionManager
+     * @since 2.0.12.9
      */
     public SettingsPack natpmpLeaseDuration(int value) {
         sp.set_int(settings_pack.int_types.natpmp_lease_duration.swigValue(), value);
