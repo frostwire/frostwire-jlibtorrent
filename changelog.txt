@@ -12,8 +12,8 @@
    - SettingsPack.allowMultipleConnectionsPerPid(): CGNAT/private tracker examples with security warnings
    - SettingsPack.natpmpLeaseDuration(): Session-type-aware lease duration examples
    - TorrentInfo.pieceSizeForReq(): v2 torrent piece validation, progress calculation, buffer allocation examples
- * build: Boost 1.91.0 upgrade (from 1.88.0)
  * build: OpenSSL 3.6.0 upgrade (from 3.5.2)
+ * build: Boost 1.91.0 attempted but reverted to 1.88.0 (SIGSEGV in asio_detail_posix_thread_function during thread pool cleanup)
  * macOS arm64 binary built and all 56 tests passing
  * [PENDING] Linux arm64, Linux x86_64, Windows x86_64, Android (4 arches), macOS x86_64 builds on EC2
 
