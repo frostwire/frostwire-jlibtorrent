@@ -87,6 +87,72 @@ public class SettingsPackTest {
                 512 * 1024, pack.uploadRateLimit());
     }
 
+    // =================== natpmpGateway ===================
+
+    @Test
+    public void testNatpmpGatewayRoundTrip() {
+        SettingsPack pack = new SettingsPack();
+        pack.natpmpGateway("192.168.1.1");
+        assertEquals("natpmpGateway should round-trip",
+                "192.168.1.1", pack.natpmpGateway());
+
+        pack.natpmpGateway("");
+        assertEquals("natpmpGateway should be empty after clearing",
+                "", pack.natpmpGateway());
+    }
+
+    @Test
+    public void testNatpmpGatewayFluentApi() {
+        SettingsPack pack = new SettingsPack();
+        SettingsPack result = pack.natpmpGateway("10.0.0.1");
+        assertSame("natpmpGateway setter should return same SettingsPack instance",
+                pack, result);
+    }
+
+    // =================== allowMultipleConnectionsPerPid ===================
+
+    @Test
+    public void testAllowMultipleConnectionsPerPidRoundTrip() {
+        SettingsPack pack = new SettingsPack();
+        pack.allowMultipleConnectionsPerPid(true);
+        assertTrue("allowMultipleConnectionsPerPid should be true after setting",
+                pack.allowMultipleConnectionsPerPid());
+
+        pack.allowMultipleConnectionsPerPid(false);
+        assertFalse("allowMultipleConnectionsPerPid should be false after setting",
+                pack.allowMultipleConnectionsPerPid());
+    }
+
+    @Test
+    public void testAllowMultipleConnectionsPerPidFluentApi() {
+        SettingsPack pack = new SettingsPack();
+        SettingsPack result = pack.allowMultipleConnectionsPerPid(true);
+        assertSame("allowMultipleConnectionsPerPid setter should return same SettingsPack instance",
+                pack, result);
+    }
+
+    // =================== natpmpLeaseDuration ===================
+
+    @Test
+    public void testNatpmpLeaseDurationRoundTrip() {
+        SettingsPack pack = new SettingsPack();
+        pack.natpmpLeaseDuration(7200);
+        assertEquals("natpmpLeaseDuration should round-trip",
+                7200, pack.natpmpLeaseDuration());
+
+        pack.natpmpLeaseDuration(1800);
+        assertEquals("natpmpLeaseDuration should update correctly",
+                1800, pack.natpmpLeaseDuration());
+    }
+
+    @Test
+    public void testNatpmpLeaseDurationFluentApi() {
+        SettingsPack pack = new SettingsPack();
+        SettingsPack result = pack.natpmpLeaseDuration(3600);
+        assertSame("natpmpLeaseDuration setter should return same SettingsPack instance",
+                pack, result);
+    }
+
     /**
      * Verify that the underlying swig object is accessible.
      */
