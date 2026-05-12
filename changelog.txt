@@ -1,8 +1,14 @@
 2.0.12.9 2026/MAY/12
- * [IN PROGRESS] libtorrent upgraded to cb6fe6b9c28735b42edd77740a554d1709acad02 (RC_2_0, 86 commits ahead of 46cc651d)
- * [PENDING] SWIG regeneration and Java wrapper updates for new API
- * [PENDING] macOS arm64 and Linux arm64 builds verified locally
- * [PENDING] Remaining platforms (Linux x86_64, Windows, Android, macOS x86_64) to be built on EC2
+ * libtorrent upgraded to cb6fe6b9c28735b42edd77740a554d1709acad02 (RC_2_0, 86 commits ahead of 46cc651d)
+ * new SettingsPack.natpmpGateway() getter/setter for overriding NAT-PMP gateway address
+ * new SettingsPack.allowMultipleConnectionsPerPid() getter/setter for multiple connections from same peer ID
+ * new SettingsPack.natpmpLeaseDuration() getter/setter for NAT-PMP port mapping lease duration
+ * new TorrentInfo.pieceSizeForReq() — v2-aware piece size for hash requests (excludes pad blocks)
+ * SWIG regeneration for libtorrent cb6fe6b9c with new settings and torrent_info method
+ * build: add -frtti to macOS arm64 and Linux arm64 configs (required by smart_ban.cpp dynamic_cast)
+ * fix: diskDisableCopyOnWrite default changed to false per upstream commit 5720b90a1
+ * macOS arm64 binary built and all 56 tests passing
+ * [PENDING] Linux arm64, Linux x86_64, Windows x86_64, Android (4 arches), macOS x86_64 builds on EC2
 
 2.0.12.8 2026/FEB/13
  * new TorrentHandle.HIGH_PRIORITY reannounce flag for front-of-queue tracker announces
