@@ -596,8 +596,40 @@ public final class TorrentInfo {
         return ti.is_i2p();
     }
 
+    /**
+     * Returns the size of the piece at the given index.
+     * <p>
+     * For most pieces this returns the same value as {@link #pieceLength()}, but the last piece
+     * may be smaller. For v1 and hybrid torrents this is the authoritative piece size.
+     *
+     * @param index the piece index
+     * @return the size of the specified piece in bytes
+     * @see #pieceLength()
+     */
     public int pieceSize(int index) {
         return ti.piece_size(index);
+    }
+
+    /**
+     * Returns the effective piece size for the given piece index when making or validating
+     * piece hash requests.
+     * <p>
+     * For v1 and hybrid torrents this returns the same value as {@link #pieceSize(int)}.
+     * For v2-only torrents, however, the value may differ because pad blocks are not
+     * included in piece hash requests. In such cases the returned size reflects only the
+     * data blocks, omitting any padding that would otherwise be counted by
+     * {@link #pieceSize(int)}.
+     * <p>
+     * Use this method when you need the exact number of bytes to read or hash for a piece
+     * request, especially in BitTorrent v2 contexts.
+     *
+     * @param piece the piece index
+     * @return the effective piece size for hash requests, in bytes
+     * @see #pieceSize(int)
+     * @see #pieceLength()
+     */
+    public int pieceSizeForReq(int piece) {
+        return ti.piece_size_for_req(piece);
     }
 
     /**
