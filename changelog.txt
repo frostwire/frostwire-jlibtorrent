@@ -7,6 +7,11 @@
  * SWIG regeneration for libtorrent cb6fe6b9c with new settings and torrent_info method
  * build: add -frtti to macOS arm64 and Linux arm64 configs (required by smart_ban.cpp dynamic_cast)
  * fix: diskDisableCopyOnWrite default changed to false per upstream commit 5720b90a1
+ * world-class Javadoc with real-world code examples for all new API:
+   - SettingsPack.natpmpGateway(): VPN/multi-homed gateway override examples
+   - SettingsPack.allowMultipleConnectionsPerPid(): CGNAT/private tracker examples with security warnings
+   - SettingsPack.natpmpLeaseDuration(): Session-type-aware lease duration examples
+   - TorrentInfo.pieceSizeForReq(): v2 torrent piece validation, progress calculation, buffer allocation examples
  * macOS arm64 binary built and all 56 tests passing
  * [PENDING] Linux arm64, Linux x86_64, Windows x86_64, Android (4 arches), macOS x86_64 builds on EC2
 
