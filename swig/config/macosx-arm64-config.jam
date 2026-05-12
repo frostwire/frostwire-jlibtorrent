@@ -6,4 +6,5 @@ using darwin : arm64 : clang++ :
     <cxxflags>-fvisibility=hidden
     <cxxflags>-fvisibility-inlines-hidden
     <cxxflags>-D_DARWIN_C_SOURCE
+    <cxxflags>-frtti
     ;

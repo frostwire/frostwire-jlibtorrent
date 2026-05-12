@@ -21,12 +21,13 @@ public class SettingsPackTest {
 
     /**
      * Verify that diskDisableCopyOnWrite has a deterministic default value.
-     * In current libtorrent builds, the default is {@code true} (CoW disabled).
+     * In libtorrent 2.0.12 (commit 5720b90a1), the default was changed to {@code false}
+     * (CoW enabled by default).
      */
     @Test
     public void testDiskDisableCopyOnWriteDefaultValue() {
         SettingsPack pack = new SettingsPack();
-        assertTrue("diskDisableCopyOnWrite should default to true",
+        assertFalse("diskDisableCopyOnWrite should default to false (CoW enabled)",
                 pack.diskDisableCopyOnWrite());
     }
 
