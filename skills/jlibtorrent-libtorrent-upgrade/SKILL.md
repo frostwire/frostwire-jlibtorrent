@@ -10,12 +10,24 @@ Use this skill whenever a new libtorrent `RC_2_0` commit needs to be integrated.
 
 ## Prerequisites
 
-- macOS with Xcode / command-line tools (for macOS binaries and SWIG regeneration)
+### Dev Machine (Apple Silicon Mac)
+- macOS with Xcode / command-line tools
 - SWIG 4.3.1 installed locally (`swig -version`)
 - JDK 17
 - Gradle or `./gradlew`
-- Docker (for Linux/Windows/Android cross-compilation) — **see Platform Caveats below**
-- EC2 build farm or x86_64 Linux machine (for cross-compiled platforms) — **see Platform Caveats below**
+- Local libtorrent checkout at `~/src/libtorrent` (for SWIG regeneration)
+- Local boost at `~/src/boost_1_88_0`
+- Local openssl at `~/src/openssl`
+
+### Intel Mac (separate machine)
+- macOS with Xcode / command-line tools
+- Same local dependencies as dev machine
+- Used ONLY for macOS x86_64 builds
+
+### AWS EC2 x86_64 Server
+- Docker installed and running
+- Repo checked out at the correct commit
+- Used for ALL non-macOS platforms: Linux x86_64, Linux arm64, Windows x86_64, Android (arm/arm64/x86/x86_64)
 
 ---
 
@@ -147,11 +159,11 @@ Commit: `Add <feature> to <Class>`, `Add tests for <feature>`
 
 ---
 
-## Step 6: Smoke Test — SINGLE PLATFORM FIRST
+## Step 6: Smoke Test — macOS arm64 ONLY (Dev Machine)
 
-**ALWAYS run a smoke test on ONE platform before fanning out to all platforms.** This catches compile failures, linker errors, and runtime crashes early.
+**ALWAYS run a smoke test on macOS arm64 before handing off to other build machines.** This catches compile failures, linker errors, and runtime crashes early. You only need to smoke test ONE platform — if it fails here, it will fail everywhere with the same root cause.
 
-### macOS arm64 smoke test (recommended as primary dev platform)
+### macOS arm64 smoke test (dev machine)
 ```bash
 cd swig
 ./build-macos-arm64.sh --build-only
@@ -174,32 +186,47 @@ If tests fail:
 - Disable or fix network-dependent tests if they flap.
 - Review whether upstream changed defaults that your tests assumed.
 
-**Lesson Learned (cb6fe6b9c upgrade):** The smoke test caught a `dynamic_cast` compilation failure in `smart_ban.cpp` introduced by upstream commit `d0e59960a`. Fixing this (`-frtti`) on one platform prevented wasting time on 7 parallel Docker builds that would have all failed the same way.
+**DO NOT attempt to build Linux, Windows, or Android locally** — these require the AWS EC2 x86_64 Docker environment.
+
+**Lesson Learned (cb6fe6b9c upgrade):** The smoke test caught a `dynamic_cast` compilation failure in `smart_ban.cpp` introduced by upstream commit `d0e59960a`. Fixing this (`-frtti`) on macOS arm64 prevented the same failure on ALL other platforms (Linux x86_64, Linux arm64, Windows, and all Android arches), saving hours of wasted parallel Docker builds on EC2.
 
 ---
 
 ## Step 7: Build Native Binaries
 
-### macOS (local machine)
+### Build Topology
+
+| Platform | Architecture | Where to Build | Method |
+|----------|-------------|----------------|--------|
+| macOS | arm64 | **Apple Silicon dev machine** (local) | `./build-macos-arm64.sh` |
+| macOS | x86_64 | **Separate Intel Mac** (different machine) | `./build-macos-x86_64.sh` |
+| Linux | x86_64 | **AWS EC2 x86_64** | Docker |
+| Linux | arm64 | **AWS EC2 x86_64** | Docker (cross-compile) |
+| Windows | x86_64 | **AWS EC2 x86_64** | Docker (cross-compile) |
+| Android | arm | **AWS EC2 x86_64** | Docker (cross-compile) |
+| Android | arm64 | **AWS EC2 x86_64** | Docker (cross-compile) |
+| Android | x86 | **AWS EC2 x86_64** | Docker (cross-compile) |
+| Android | x86_64 | **AWS EC2 x86_64** | Docker (cross-compile) |
+
+**CRITICAL:** The `Dockerfile` and all Docker-based builds are **ONLY to be run on the AWS EC2 x86_64 server.** Do NOT run Docker builds on Apple Silicon — the Dockerfile contains x86_64-centric cross-compilation steps (especially Android ARM OpenSSL) that crash under QEMU emulation with SIGTRAP/Error 133.
+
+### macOS arm64 (Apple Silicon dev machine)
 ```bash
 cd swig
-./build-macos-arm64.sh    # Apple Silicon
-./build-macos-x86_64.sh   # Intel (if still supported)
+./build-macos-arm64.sh --build-only
 ```
 
-### Linux / Windows / Android (Docker or EC2)
-
-**⚠️ PLATFORM CAVEAT — Docker on Apple Silicon:**
-The `Dockerfile` is designed for **x86_64 host cross-compilation**. It contains steps that run Android arm OpenSSL builds under cross-compilation toolchains that crash with SIGTRAP/Error 133 when executed on Apple Silicon under Docker Desktop's QEMU emulation.
-
-**DO NOT attempt to run the full Dockerfile build on macOS arm64.** Use one of these options:
-1. **EC2 x86_64 instance** — native x86_64 host, cross-compilers work correctly
-2. **EC2 arm64 instance** — requires Dockerfile refactoring to remove x86_64-centric cross-compiler assumptions
-3. **GitHub Actions** — use matrix builds with appropriate runners
-
-**EC2 Build Commands (after checking out repo at correct commit):**
+### macOS x86_64 (Intel Mac — separate machine)
 ```bash
-# Build Docker image (on x86_64 EC2)
+cd swig
+./build-macos-x86_64.sh --build-only
+```
+
+### Linux / Windows / Android (AWS EC2 x86_64 ONLY)
+
+**On the EC2 x86_64 instance:**
+```bash
+# Build Docker image (x86_64 host)
 docker build -t jlibtorrent-build swig/
 
 # Desktop (Linux x86_64, Linux arm64, Windows x86_64)
@@ -209,7 +236,15 @@ docker run --rm -v $(pwd):/frostwire-jlibtorrent jlibtorrent-build /build_deskto
 docker run --rm -v $(pwd):/frostwire-jlibtorrent jlibtorrent-build /build_android_all.sh
 ```
 
-**Lesson Learned (cb6fe6b9c upgrade):** The Docker build failed at Android arm OpenSSL compilation with Error 133. The entire Docker-based build phase (Linux arm64, Windows, all Android) had to be deferred to EC2. Document this up front in future plans.
+**Artifact retrieval from EC2:**
+After all EC2 builds complete:
+1. Verify all binaries exist and are non-empty
+2. `rsync` or `scp` artifacts back to local machine:
+   ```bash
+   rsync -av ec2-user@<ec2-host>:~/frostwire-jlibtorrent/swig/bin/release/linux/ ./swig/bin/release/linux/
+   rsync -av ec2-user@<ec2-host>:~/frostwire-jlibtorrent/swig/bin/release/windows/ ./swig/bin/release/windows/
+   rsync -av ec2-user@<ec2-host>:~/frostwire-jlibtorrent/swig/bin/release/android/ ./swig/bin/release/android/
+   ```
 
 ### Validate Android 16KB page size
 ```bash
@@ -271,12 +306,17 @@ git tag release/X.Y.Z.W
 git push origin release/X.Y.Z.W
 ```
 
-2. Create GitHub Release, upload all JAR artifacts:
+2. Gather all artifacts from their build locations:
+   - **Dev machine:** `build/libs/jlibtorrent-X.Y.Z.W.jar`, `jlibtorrent-X.Y.Z.W-sources.jar`, `jlibtorrent-X.Y.Z.W-javadoc.jar`, `jlibtorrent-macosx-arm64-X.Y.Z.W.jar`
+   - **Intel Mac:** `build/libs/jlibtorrent-macosx-x86_64-X.Y.Z.W.jar` (scp/rsync back)
+   - **EC2:** `build/libs/jlibtorrent-linux-x86_64-X.Y.Z.W.jar`, `jlibtorrent-linux-arm64-X.Y.Z.W.jar`, `jlibtorrent-windows-X.Y.Z.W.jar`, `jlibtorrent-android-*-X.Y.Z.W.jar` (scp/rsync back)
+
+3. Create GitHub Release, upload all JAR artifacts:
    - `jlibtorrent-X.Y.Z.W.jar`
    - `jlibtorrent-X.Y.Z.W-sources.jar`
    - `jlibtorrent-X.Y.Z.W-javadoc.jar`
    - `jlibtorrent-macosx-arm64-X.Y.Z.W.jar`
-   - `jlibtorrent-macosx-x86_64-X.Y.Z.W.jar` (if available)
+   - `jlibtorrent-macosx-x86_64-X.Y.Z.W.jar`
    - `jlibtorrent-windows-X.Y.Z.W.jar`
    - `jlibtorrent-linux-x86_64-X.Y.Z.W.jar`
    - `jlibtorrent-linux-arm64-X.Y.Z.W.jar`
