@@ -799,4 +799,112 @@ public final class SettingsPack {
         sp.set_bool(settings_pack.bool_types.disk_disable_copy_on_write.swigValue(), value);
         return this;
     }
+
+    /**
+     * Overrides the NAT-PMP gateway address. If empty, auto-detect.
+     * <p>
+     * This setting allows specifying a custom gateway address for NAT-PMP
+     * (NAT Port Mapping Protocol) requests. When left empty, libtorrent will
+     * automatically detect the gateway address to use for port mappings.
+     * <p>
+     * This is useful in network configurations where automatic gateway
+     * detection fails or when a specific gateway needs to be targeted.
+     *
+     * @return the configured NAT-PMP gateway address, or empty string for auto-detect
+     * @see #natpmpGateway(String)
+     */
+    public String natpmpGateway() {
+        return sp.get_str(settings_pack.string_types.natpmp_gateway.swigValue());
+    }
+
+    /**
+     * Sets the NAT-PMP gateway address override. If empty, auto-detect.
+     * <p>
+     * This setting allows specifying a custom gateway address for NAT-PMP
+     * (NAT Port Mapping Protocol) requests. When left empty, libtorrent will
+     * automatically detect the gateway address to use for port mappings.
+     * <p>
+     * This is useful in network configurations where automatic gateway
+     * detection fails or when a specific gateway needs to be targeted.
+     *
+     * @param value the NAT-PMP gateway address, or empty string for auto-detect
+     * @return this SettingsPack for fluent chaining
+     * @see #natpmpGateway()
+     */
+    public SettingsPack natpmpGateway(String value) {
+        sp.set_str(settings_pack.string_types.natpmp_gateway.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * Allows multiple connections from peers with the same peer ID.
+     * <p>
+     * When enabled, libtorrent will allow multiple simultaneous connections
+     * from peers that share the same peer ID. By default, libtorrent only
+     * allows one connection per peer ID to prevent duplicate connections.
+     * <p>
+     * Enabling this can be useful in scenarios where multiple peers behind
+     * the same NAT share a single peer ID, or for testing purposes.
+     *
+     * @return {@code true} if multiple connections per peer ID are allowed
+     * @see #allowMultipleConnectionsPerPid(boolean)
+     */
+    public boolean allowMultipleConnectionsPerPid() {
+        return sp.get_bool(settings_pack.bool_types.allow_multiple_connections_per_pid.swigValue());
+    }
+
+    /**
+     * Sets whether to allow multiple connections from peers with the same peer ID.
+     * <p>
+     * When enabled, libtorrent will allow multiple simultaneous connections
+     * from peers that share the same peer ID. By default, libtorrent only
+     * allows one connection per peer ID to prevent duplicate connections.
+     * <p>
+     * Enabling this can be useful in scenarios where multiple peers behind
+     * the same NAT share a single peer ID, or for testing purposes.
+     *
+     * @param value {@code true} to allow multiple connections per peer ID
+     * @return this SettingsPack for fluent chaining
+     * @see #allowMultipleConnectionsPerPid()
+     */
+    public SettingsPack allowMultipleConnectionsPerPid(boolean value) {
+        sp.set_bool(settings_pack.bool_types.allow_multiple_connections_per_pid.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * Controls the NAT-PMP port mapping lease duration in seconds.
+     * <p>
+     * This setting specifies how long port mappings requested via NAT-PMP
+     * (NAT Port Mapping Protocol) should remain valid. The default lease
+     * duration is typically 3600 seconds (1 hour).
+     * <p>
+     * A longer lease duration reduces the frequency of renewal requests,
+     * while a shorter duration allows faster recovery if the mapping fails.
+     *
+     * @return the NAT-PMP lease duration in seconds
+     * @see #natpmpLeaseDuration(int)
+     */
+    public int natpmpLeaseDuration() {
+        return sp.get_int(settings_pack.int_types.natpmp_lease_duration.swigValue());
+    }
+
+    /**
+     * Sets the NAT-PMP port mapping lease duration in seconds.
+     * <p>
+     * This setting specifies how long port mappings requested via NAT-PMP
+     * (NAT Port Mapping Protocol) should remain valid. The default lease
+     * duration is typically 3600 seconds (1 hour).
+     * <p>
+     * A longer lease duration reduces the frequency of renewal requests,
+     * while a shorter duration allows faster recovery if the mapping fails.
+     *
+     * @param value the NAT-PMP lease duration in seconds
+     * @return this SettingsPack for fluent chaining
+     * @see #natpmpLeaseDuration()
+     */
+    public SettingsPack natpmpLeaseDuration(int value) {
+        sp.set_int(settings_pack.int_types.natpmp_lease_duration.swigValue(), value);
+        return this;
+    }
 }
