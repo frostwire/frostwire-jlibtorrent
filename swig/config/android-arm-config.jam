@@ -15,6 +15,7 @@ using clang-linux : arm : $(ANDROID_TOOLCHAIN)/bin/armv7a-linux-androideabi$(AND
     <cxxflags>-fno-strict-aliasing
     <cxxflags>-D_FORTIFY_SOURCE=2
     <cxxflags>-fstack-protector-strong
+    <cxxflags>-frtti
 		#try this if native crash stack trace doesn't show function names
     #<cxxflags>-fvisibility=default
     # debug information
