@@ -1,10 +1,9 @@
 # FULL RELEASE PROCESS
 # 1. Build macosx-arm64 and macosx-x86_64 in the mac laptops natively
-# 2. Build the latest Docker container in the AWS jlibtorrent-builder on-demand machine
-# 3. Build the desktop builds on that linux machine
-# 4. Apply android-patches script inside the docker container and build android jars
-# 5. git tag the release "release/2.x.y.z"
-# 6. Upload all the jars to the release
-# 7. Run the "Publish Java Package" action on github https://github.com/frostwire/frostwire-jlibtorrent/actions/workflows/publish.yml with the latest release version
-# 8. Run deploy_jlibtorrent_maven_release from any folder in virginia passing the version number (not the tag), e.g. $ deploy_jlibtorrent_maven_release 2.0.12.0
+# 2. Build the latest Docker container in the AWS jlibtorrent-builder on-demand machine (docker_build_image.sh)
+# 3. Build the desktop builds on that linux machine (docker_build_binaries.sh , jars should be inside build/libs/)
+# 4. git tag the release "release/2.x.y.z" (scp into mac machine from ews (scp ubuntu@aws.ip.address:~/frostwire-jlibtorrent/build/libs/*.jar .)
+# 5. Upload all the 12 jars to the release
+# 6. Run the "Publish Java Package" action on github https://github.com/frostwire/frostwire-jlibtorrent/actions/workflows/publish.yml with the latest release version
+# 7. Run deploy_jlibtorrent_maven_release from any folder in virginia passing the version number (not the tag), e.g. $ deploy_jlibtorrent_maven_release 2.0.12.0
 
