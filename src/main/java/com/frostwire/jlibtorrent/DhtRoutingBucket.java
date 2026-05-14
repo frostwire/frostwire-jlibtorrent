@@ -172,7 +172,6 @@ import com.frostwire.jlibtorrent.swig.dht_routing_bucket;
  * // - Periodic refresh keeps far buckets alive
  * </pre>
  *
- * @see SessionManager#getDhtRoutingBuckets() - Get all routing buckets
  * @see DhtLookup - For active lookup metrics
  * @see SessionManager#postDhtStats() - Request DHT statistics
  *

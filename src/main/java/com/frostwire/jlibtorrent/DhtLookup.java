@@ -152,7 +152,7 @@ import com.frostwire.jlibtorrent.swig.dht_lookup;
  * find_node (locate nodes)     - Branch factor ~3-4 (conservative)
  * </pre>
  *
- * @see SessionManager#dhtGetPeers(Sha1Hash) - Initiate peer discovery
+ * @see SessionManager#dhtGetPeers(Sha1Hash, int) - Initiate peer discovery
  * @see SessionManager#dhtGetItem(Sha1Hash, int) - Retrieve DHT item
  * @see DhtRoutingBucket - For bucket statistics
  *

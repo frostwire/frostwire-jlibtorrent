@@ -75,8 +75,8 @@ import com.frostwire.jlibtorrent.swig.portmap_protocol;
  * </ul>
  *
  * @see SettingsPack - Configure port mapping settings
- * @see PortmapAlert - Successful port mapping
- * @see PortmapErrorAlert - Port mapping failure
+ * @see com.frostwire.jlibtorrent.alerts.PortmapAlert - Successful port mapping
+ * @see com.frostwire.jlibtorrent.alerts.PortmapErrorAlert - Port mapping failure
  *
  * @author gubatron
  * @author aldenml

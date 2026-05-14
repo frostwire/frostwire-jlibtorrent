@@ -121,9 +121,9 @@ import com.frostwire.jlibtorrent.swig.operation_t;
  * System.out.println(\"Failed operation: \" + name);
  * </pre>
  *
- * @see PeerError - Contains Operation and ErrorCode
+ * @see com.frostwire.jlibtorrent.alerts.PeerErrorAlert - Contains Operation and ErrorCode
  * @see ErrorCode - Error details for the operation
- * @see PeerDisconnectedAlert - Uses Operation to identify failure type
+ * @see com.frostwire.jlibtorrent.alerts.PeerDisconnectedAlert - Uses Operation to identify failure type
  *
  * @author gubatron
  * @author aldenml

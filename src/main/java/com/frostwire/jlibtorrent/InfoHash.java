@@ -113,7 +113,7 @@ import com.frostwire.jlibtorrent.swig.info_hash_t;
  *
  * @see Sha1Hash - For v1 (SHA-1) hash operations
  * @see Sha256Hash - For v2 (SHA-256) hash operations
- * @see TorrentInfo#infoHash() - Get InfoHash from torrent metadata
+ * @see TorrentInfo#infoHashType() - Get InfoHash from torrent metadata
  * @see SessionManager#find(Sha1Hash) - Look up torrent by v1 hash
  * @see SessionManager#find(Sha256Hash) - Look up torrent by v2 hash
  *

@@ -177,7 +177,7 @@ import com.frostwire.jlibtorrent.swig.torrent_flags_t;
  * </ul>
  *
  * @see AddTorrentParams#flags(torrent_flags_t) - Set flags when adding torrent
- * @see SessionManager#addTorrent(AddTorrentParams) - Add torrent with these flags
+ * @see SessionManager#download(TorrentInfo, File) - Add torrent with default flags
  *
  * @author gubatron
  * @author aldenml

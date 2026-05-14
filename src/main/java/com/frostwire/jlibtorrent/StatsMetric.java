@@ -118,8 +118,8 @@ import com.frostwire.jlibtorrent.swig.stats_metric;
  *
  * @see StatsMetric#TYPE_COUNTER - For cumulative counters
  * @see StatsMetric#TYPE_GAUGE - For point-in-time values
- * @see SessionStatsAlert#value(int) - Get metric value by index
- * @see LibTorrent#metrics() - Discover all available metrics
+ * @see com.frostwire.jlibtorrent.alerts.SessionStatsAlert#value(int) - Get metric value by index
+ * @see LibTorrent#sessionStatsMetrics() - Discover all available metrics
  *
  * @author gubatron
  * @author aldenml

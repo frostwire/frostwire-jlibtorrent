@@ -121,7 +121,7 @@ import java.util.ArrayList;
  * @see TorrentInfo - Source of file/piece mapping data
  * @see FileStorage - File size and path information
  * @see FileSlice - Individual file chunks within pieces
- * @see PieceFinishedAlert - Listen for piece completion
+ * @see com.frostwire.jlibtorrent.alerts.PieceFinishedAlert - Listen for piece completion
  *
  * @author gubatron
  * @author aldenml

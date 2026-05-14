@@ -1662,7 +1662,7 @@ public class SessionManager {
      *
      * @see Entry - For accessing item data
      * @see com.frostwire.jlibtorrent.alerts.DhtMutableItemAlert - For item retrieval notification
-     * @see SessionManager#dhtPutItem(byte[], byte[], byte[], long, byte[]) - For publishing updates
+     * @see SessionManager#dhtPutItem(byte[], byte[], com.frostwire.jlibtorrent.Entry, byte[]) - For publishing updates
      */
     public static final class MutableItem {
 

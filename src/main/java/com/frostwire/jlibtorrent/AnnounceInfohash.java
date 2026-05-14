@@ -106,7 +106,6 @@ import com.frostwire.jlibtorrent.swig.announce_infohash;
  * </ul>
  *
  * @see AnnounceEndpoint - Container for announce info-hashes
- * @see TorrentStatus#announceEndpoints() - Get announce endpoints
  * @see TorrentHandle#status() - Query torrent status
  *
  * @author gubatron

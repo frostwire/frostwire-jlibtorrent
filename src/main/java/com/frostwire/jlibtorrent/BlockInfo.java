@@ -204,7 +204,7 @@ import com.frostwire.jlibtorrent.swig.block_info;
  *
  * @see PeerRequest - Represents a byte range request
  * @see PartialPieceInfo - Summary of all blocks in a piece
- * @see PieceInfoAlert - Contains BlockInfo for all partial pieces
+ * @see com.frostwire.jlibtorrent.alerts.PieceInfoAlert - Contains BlockInfo for all partial pieces
  * @see BlockState - Enumeration of possible block states
  *
  * @author gubatron

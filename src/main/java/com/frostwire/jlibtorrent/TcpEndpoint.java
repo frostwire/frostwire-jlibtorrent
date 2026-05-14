@@ -114,7 +114,6 @@ import com.frostwire.jlibtorrent.swig.tcp_endpoint;
  *
  * @see Address - For IP address manipulation
  * @see UdpEndpoint - For UDP-based network operations
- * @see PeerInfo#endpoint() - Get endpoint of a connected peer
  * @see SessionManager#dhtGetPeers(Sha1Hash, int) - Get peer endpoints from DHT
  *
  * @author gubatron

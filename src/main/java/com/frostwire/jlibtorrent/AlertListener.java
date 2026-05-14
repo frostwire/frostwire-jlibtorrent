@@ -157,7 +157,7 @@ import com.frostwire.jlibtorrent.alerts.Alert;
  * @see Alert - The base interface for all alert types
  * @see SessionManager#addListener(AlertListener) - Register a listener
  * @see SessionManager#removeListener(AlertListener) - Unregister a listener
- * @see AlertType - All available alert types
+ * @see com.frostwire.jlibtorrent.alerts.AlertType - All available alert types
  *
  * @author gubatron
  * @author aldenml
