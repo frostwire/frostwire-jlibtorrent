@@ -44,7 +44,7 @@ common_env() {
  export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
  export LIBTORRENT_ROOT="${SRC}/libtorrent"
  export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
- export SWIG_VERSION="4.3.1"
+ export SWIG_VERSION="4.4.1"
 
  if [[ "$(uname)" == "Darwin" ]]; then
      export CORES=$(( $(get_cpu_cores) / 2 ))

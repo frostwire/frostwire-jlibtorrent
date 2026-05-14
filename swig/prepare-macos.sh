@@ -7,7 +7,7 @@ brew install autoconf
 brew install bison
 export PATH="$(brew --prefix bison)/bin:${PATH}"
 
-export SWIG_VERSION=4.3.1
+export SWIG_VERSION=4.4.1
 
 # Function to check if SWIG is installed and return the version
 check_swig_installed() {
