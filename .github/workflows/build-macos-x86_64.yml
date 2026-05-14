@@ -1,0 +1,130 @@
+name: Build macOS x86_64
+
+# Manual trigger only. Optionally specify a release tag to upload the
+# finished JAR directly to an existing GitHub Release.
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: >
+          GitHub Release tag to attach the artifact to
+          (e.g. release/2.0.12.9).
+          Leave empty to produce only a downloadable workflow artifact.
+        required: false
+        default: ''
+
+# contents:write is required when uploading to a release via gh release upload
+permissions:
+  contents: write
+
+jobs:
+  build:
+    # macos-13 is the last GitHub-hosted Intel (x86_64) macOS runner.
+    # macos-14+ are Apple Silicon (ARM64).
+    runs-on: macos-13
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      # Read version from build.gradle fallback line, or strip "release/" from tag input.
+      - name: Resolve version
+        id: vars
+        run: |
+          if [ -n "${{ inputs.release_tag }}" ]; then
+            VERSION="${{ inputs.release_tag }}"
+            VERSION="${VERSION#release/}"
+          else
+            VERSION=$(grep "version = version" build.gradle \
+              | sed -E "s/.*'([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'.*/\1/")
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "RELEASE_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Install Homebrew dependencies
+        run: |
+          brew install wget pcre2 automake autoconf bison
+          # The Homebrew bison must shadow the macOS system bison for SWIG's configure
+          echo "$(brew --prefix bison)/bin" >> "$GITHUB_PATH"
+
+      # Cache ~/src which holds Boost, OpenSSL (source + install prefix),
+      # libtorrent clone, and the SWIG source tree.
+      # The cache key encodes all version pins; the restore-keys prefix lets
+      # a stale cache still warm the slow Boost bootstrap.
+      - name: Cache ~/src
+        uses: actions/cache@v4
+        with:
+          path: ~/src
+          key: macos-x86_64-src-boost1.88.0-openssl3.6.0-${{ hashFiles('swig/build-utils.shinc') }}
+          restore-keys: |
+            macos-x86_64-src-boost1.88.0-openssl3.6.0-
+
+      # Build SWIG 4.4.1 from source. The source lives in ~/src/swig-4.4.1
+      # which is covered by the cache above.  If the Makefile is already
+      # present we skip autogen/configure; if the binary is already installed
+      # we skip the entire step.
+      - name: Install SWIG 4.4.1
+        run: |
+          SWIG_VERSION=4.4.1
+          SRC="$HOME/src"
+          mkdir -p "$SRC"
+
+          if swig -version 2>/dev/null | grep -q "SWIG Version ${SWIG_VERSION}"; then
+            echo "SWIG ${SWIG_VERSION} already installed, skipping"
+          else
+            cd "$SRC"
+            if [ ! -d "swig-${SWIG_VERSION}" ]; then
+              wget -nv --no-check-certificate \
+                "https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz"
+              tar xzf "swig-${SWIG_VERSION}.tar.gz"
+              rm -f "swig-${SWIG_VERSION}.tar.gz"
+            fi
+            cd "swig-${SWIG_VERSION}"
+            if [ ! -f "Makefile" ]; then
+              ./autogen.sh
+              ./configure --without-d --disable-ccache
+            fi
+            make -j$(sysctl -n hw.ncpu)
+            sudo make install
+          fi
+          swig -version
+
+      # CONTINUE_BUILD=1 makes press_any_to_continue a no-op so the script
+      # runs fully unattended.  RELEASE_VERSION is picked up by build.gradle
+      # to version the output JAR.
+      - name: Build jlibtorrent macOS x86_64
+        env:
+          CONTINUE_BUILD: "1"
+          RELEASE_VERSION: ${{ steps.vars.outputs.version }}
+        run: |
+          chmod +x gradlew swig/build-macos-x86_64.sh swig/run-swig.sh
+          cd swig
+          ./build-macos-x86_64.sh
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jlibtorrent-macosx-x86_64-${{ steps.vars.outputs.version }}
+          path: build/libs/jlibtorrent-macosx-x86_64-${{ steps.vars.outputs.version }}.jar
+          if-no-files-found: error
+
+      # Only runs when a release_tag was provided.  Uploads (or overwrites)
+      # the JAR on the existing GitHub Release so that publish.yml can later
+      # pick it up via curl.
+      - name: Upload to GitHub Release
+        if: ${{ inputs.release_tag != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.vars.outputs.version }}"
+          JAR="build/libs/jlibtorrent-macosx-x86_64-${VERSION}.jar"
+          TAG="${{ inputs.release_tag }}"
+          echo "Uploading ${JAR} to release ${TAG}"
+          gh release upload "${TAG}" "${JAR}" --clobber
