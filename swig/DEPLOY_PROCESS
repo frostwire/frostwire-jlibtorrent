@@ -1,6 +1,6 @@
 # FULL RELEASE PROCESS
 # 1. Build macosx-arm64 and macosx-x86_64 in the mac laptops natively
-# 2. Build the latest Docker container in the AWS jlibtorrent-builder on-demand machine (docker_build_image.sh)
+# 2. Build the latest Docker container in the AWS jlibtorrent-builder on-demand machine (there's a local fix_permissions.sh you can run before git pull. docker_build_image.sh)
 # 3. Build the desktop builds on that linux machine (docker_build_binaries.sh , jars should be inside build/libs/)
 # 4. git tag the release "release/2.x.y.z" (scp into mac machine from ews (scp ubuntu@aws.ip.address:~/frostwire-jlibtorrent/build/libs/*.jar .)
 # 5. Upload all the 12 jars to the release
