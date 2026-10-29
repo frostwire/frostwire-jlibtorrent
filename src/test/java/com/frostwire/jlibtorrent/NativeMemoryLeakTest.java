@@ -42,7 +42,10 @@ public class NativeMemoryLeakTest {
     }
 
     private static void assertFlat(String what, Runnable op) throws Exception {
-        for (int i = 0; i < 5_000; i++) {
+        // A full warm-up batch first: the JIT and the native allocator grow the process once, a few
+        // tens of MB, then plateau. A leak keeps growing in every batch, so only the second batch is
+        // measured.
+        for (int i = 0; i < ROUNDS; i++) {
             op.run();
         }
         System.gc();
