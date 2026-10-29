@@ -97,6 +97,7 @@ linux_arm64_env() {
 
 export LIBRARY_VERSION=$(egrep "version = version" ../build.gradle | sed -E "s/.*'([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'.*/\1/")
 export LIBRARY_NAME=jlibtorrent
+export LIBTORRENT_REPO=https://github.com/arvidn/libtorrent # same as swig/Dockerfile
 export LIBTORRENT_REVISION=eb397173da6189dad52f008916c27419dde32faa # libtorrent 2.0.15 (RC_2_0)
 
 export LIBTORRENT_BRANCH="RC_2_0"
@@ -330,7 +331,7 @@ prepare_libtorrent() {
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
   if [ ! -d ${LIBTORRENT_ROOT} ]; then
     pushd ${SRC}
-    git clone https://github.com/gubatron/libtorrent
+    git clone ${LIBTORRENT_REPO}
     popd
   fi
   pushd ${LIBTORRENT_ROOT}
@@ -338,8 +339,9 @@ prepare_libtorrent() {
   git status
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
-  git fetch
-  git fetch origin ${LIBTORRENT_BRANCH} --depth=1
+  # Fetch from upstream by URL: a checkout cloned from a fork (gubatron/libtorrent, last synced
+  # 2025-09) would not have the pinned revision.
+  git fetch ${LIBTORRENT_REPO} ${LIBTORRENT_BRANCH}
   echo "git checkout ${LIBTORRENT_BRANCH}"
   git checkout ${LIBTORRENT_BRANCH}
   #press_any_to_continue
