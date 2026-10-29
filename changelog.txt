@@ -24,6 +24,9 @@
  * fix: Entry.dictionary() is a complete Map: values(), iteration, forEach, toString(), equals() and remove() work
    (entrySet() used to throw UnsupportedOperationException); keys iterate in bencode order (#331)
  * new: Entry.equals()/hashCode() compare by value (type and bencoded form) (#331)
+ * build: run-swig.sh no longer edits libtorrent's headers: SWIG 4.5.1 needs one patched header, parsed from a
+   temporary overlay copy (six older in-place edits dropped, output byte-identical); RTTI on everywhere and the
+   generated director dynamic_casts are no longer rewritten to static_cast (#339)
  * perf: byte arrays cross JNI in one call instead of one call per byte: 1 MB to native 6 ms -> 0.4 ms, back
    3-4 ms -> 0.1 ms; every decode benefits (#338)
  * fix: wrappers free the native temporaries of every call (#337). SWIG proxies are only freed by delete(), and
