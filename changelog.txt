@@ -11,6 +11,12 @@
    - BREAKING for apps that load the library themselves by its old versioned name
  * new native libtorrent_jni.jlibtorrentNativeVersion(); the Java side refuses a native library built from
    another libtorrent version, naming both versions (#327)
+ * OpenSSL 3.6.0 -> 4.1.0 on every platform; libtorrent supports OpenSSL 4 since upstream 723970d9b
+   - dropped the Configure options OpenSSL 4 deprecates with the ENGINE removal (no-static-engine,
+     no-dynamic-engine, no-afalgeng, no-hw)
+   - the OpenSSL tarball's SHA-256 is now verified in the Dockerfile and in the macOS prep step
+     (which also stopped using wget --no-check-certificate)
+   - Windows: the cryptlib.c patch matches OpenSSL 4's `_WIN32_WINNT >= 0x0333` spelling
  * build: run-swig.sh restores libtorrent's alert.hpp after SWIG (it was left edited in the checkout)
  * swig: torrent_info.resolve_duplicate_filenames() is generated but upstream marks it hidden (used for
    magnet links internally); no Java wrapper

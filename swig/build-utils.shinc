@@ -53,11 +53,11 @@ common_env() {
  fi
 
  # works for all OSes but macos
- export OPENSSL_NO_OPTS="no-tests no-shared no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+ export OPENSSL_NO_OPTS="no-tests no-shared no-comp no-dso no-egd no-makedepend no-multiblock no-nextprotoneg no-sctp no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 
  if [[ "$(uname)" == "Darwin" ]]; then
      echo "common_env: macosx OPENSSL_NO_OPTS update!"
-     export OPENSSL_NO_OPTS="no-tests no-shared no-dynamic-engine no-comp no-dso no-egd no-hw no-makedepend no-sctp no-ui-console no-zlib no-zlib-dynamic"
+     export OPENSSL_NO_OPTS="no-tests no-shared no-comp no-dso no-egd no-makedepend no-sctp no-ui-console no-zlib no-zlib-dynamic"
      echo "common_env: OPENSSL_NO_OPTS=${OPENSSL_NO_OPTS}"
  fi 
 }
@@ -101,7 +101,8 @@ export LIBTORRENT_REPO=https://github.com/arvidn/libtorrent # same as swig/Docke
 export LIBTORRENT_REVISION=eb397173da6189dad52f008916c27419dde32faa # libtorrent 2.0.15 (RC_2_0)
 
 export LIBTORRENT_BRANCH="RC_2_0"
-export OPENSSL_VERSION="3.6.0"
+export OPENSSL_VERSION="4.1.0"
+export OPENSSL_SHA256="50c17baf54cb008f6ce42d50deb4b28050a1aad711636cabd4b241c7e90cc2fd" # same as swig/Dockerfile
 export BOOST_VERSION="88"
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
@@ -297,7 +298,12 @@ prepare_openssl() {
   if [ ! -d ${OPENSSL_SOURCE} ]; then
     prompt_msg "Downloading OPENSSL ${OPENSSL_VERSION} to '${OPENSSL_SOURCE}'"
     pushd ${SRC}
-    wget -4 --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    wget -4 -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    if [ "$(shasum -a 256 openssl.tar.gz | cut -d' ' -f1)" != "${OPENSSL_SHA256}" ]; then
+      echo "prepare_openssl: openssl-${OPENSSL_VERSION}.tar.gz does not match OPENSSL_SHA256, aborting"
+      rm -f openssl.tar.gz
+      exit 1
+    fi
     tar xvfz openssl.tar.gz
     rm -f openssl.tar.gz
     popd

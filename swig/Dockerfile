@@ -50,7 +50,9 @@ ENV NDK_VERSION="r28c"
 ENV ANDROID_API="26"
 ENV ANDROID_NDK_HOME="/src/android-ndk"
 ENV ANDROID_NDK_ROOT="/src/android-ndk"
-ENV OPENSSL_VERSION="3.6.0"
+ENV OPENSSL_VERSION="4.1.0"
+# sha256 of openssl-${OPENSSL_VERSION}.tar.gz from https://github.com/openssl/openssl/releases
+ENV OPENSSL_SHA256="50c17baf54cb008f6ce42d50deb4b28050a1aad711636cabd4b241c7e90cc2fd"
 ENV GRADLE_VERSION="9.5.1"
 ENV GRADLE_HOME="/src/gradle-${GRADLE_VERSION}"
 
@@ -99,10 +101,11 @@ RUN cd /src \
 # Download OpenSSL
 RUN cd /src \
     && wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz \
+    && echo "${OPENSSL_SHA256}  openssl.tar.gz" | sha256sum -c - \
     && tar xzf openssl.tar.gz \
     && mv openssl-${OPENSSL_VERSION} openssl-src
 
-ENV OPENSSL_NO_OPTS="no-shared no-makedepend no-static-engine no-stdio no-posix-io no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -O3 -fPIC"
+ENV OPENSSL_NO_OPTS="no-shared no-makedepend no-stdio no-posix-io no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -O3 -fPIC"
 
 ENV ANDROID_TOOLCHAIN=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64
 ENV AR=${ANDROID_TOOLCHAIN}/bin/llvm-ar
@@ -150,7 +153,7 @@ RUN export CC=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android${ANDROID_API}-clang 
     && cd ..
 
 #Build OpenSSL for Linux x86_64
-ENV OPENSSL_NO_OPTS="no-tests no-shared no-afalgeng no-comp no-dso no-dynamic-engine no-egd no-hw no-makedepend no-multiblock no-nextprotoneg no-sctp no-static-engine no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
+ENV OPENSSL_NO_OPTS="no-tests no-shared no-comp no-dso no-egd no-makedepend no-multiblock no-nextprotoneg no-sctp no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
 RUN export CC=gcc-11 \
     && cd /src/openssl-src \
     && ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=/openssl-linux-x86_64 --libdir=lib \
@@ -172,12 +175,12 @@ RUN cd /src/openssl-src \
     && cd ..
 
 #Build OpenSSL for Windows x86_64
-ENV OPENSSL_NO_OPTS="no-shared no-makedepend no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic no-legacy -fno-strict-aliasing -O3"
+ENV OPENSSL_NO_OPTS="no-shared no-makedepend no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic no-legacy -fno-strict-aliasing -O3"
 RUN cd /src \
     && mkdir windows \
     && tar xvfz openssl.tar.gz --directory windows \
     && cd /src/windows/openssl-${OPENSSL_VERSION} \
-    && sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT>=0x0333/if 0/g' crypto/cryptlib.c \
+    && sed -i 's/if defined(_WIN32_WINNT) && _WIN32_WINNT *>= *0x0333/if 0/g' crypto/cryptlib.c \
     && sed -i 's/MessageBox.*//g' crypto/cryptlib.c \
     && sed -i 's/return return 0;/return 0;/g' crypto/threads_none.c \
     && export CC=x86_64-w64-mingw32-gcc-posix \
