@@ -1,3 +1,6 @@
+2.0.15.0 2026/OCT/29
+ * libtorrent upgraded to eb397173da6189dad52f008916c27419dde32faa (RC_2_0, 123 commits ahead of cb6fe6b9c; libtorrent 2.0.13, 2.0.14, 2.0.15 and unreleased 2.0.16 fixes)
+
 2.0.12.9 2026/MAY/12
  * libtorrent upgraded to cb6fe6b9c28735b42edd77740a554d1709acad02 (RC_2_0, 86 commits ahead of 46cc651d)
  * new SettingsPack.natpmpGateway() getter/setter for overriding NAT-PMP gateway address

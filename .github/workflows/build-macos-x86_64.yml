@@ -8,7 +8,7 @@ on:
       release_tag:
         description: >
           GitHub Release tag to attach the artifact to
-          (e.g. release/2.0.12.9).
+          (e.g. release/2.0.15.0).
           Leave empty to produce only a downloadable workflow artifact.
         required: false
         default: ''
