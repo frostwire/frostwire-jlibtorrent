@@ -24,6 +24,11 @@
  * fix: Entry.dictionary() is a complete Map: values(), iteration, forEach, toString(), equals() and remove() work
    (entrySet() used to throw UnsupportedOperationException); keys iterate in bencode order (#331)
  * new: Entry.equals()/hashCode() compare by value (type and bencoded form) (#331)
+ * fix: Entry.bdecode throws a documented IllegalArgumentException for malformed bencode instead of a bare
+   RuntimeException; new SWIG overload entry.bdecode(buffer, error_code) (#332)
+ * SWIG 4.4.1 -> 4.5.1 (the SWIG tarball's SHA-256 is now verified); generated Java API unchanged
+   - session_params read/write_session_params(_buf) are explicit overloads instead of C++ default arguments,
+     which SWIG 4.5 expands into code that doesn't compile
  * build: run-swig.sh restores libtorrent's alert.hpp after SWIG (it was left edited in the checkout)
  * swig: torrent_info.resolve_duplicate_filenames() is generated but upstream marks it hidden (used for
    magnet links internally); no Java wrapper
