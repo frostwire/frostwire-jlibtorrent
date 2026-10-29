@@ -24,6 +24,8 @@
  * fix: Entry.dictionary() is a complete Map: values(), iteration, forEach, toString(), equals() and remove() work
    (entrySet() used to throw UnsupportedOperationException); keys iterate in bencode order (#331)
  * new: Entry.equals()/hashCode() compare by value (type and bencoded form) (#331)
+ * fix: Entry.dictionary() returns the right values for keys that aren't valid UTF-8, like a v2 torrent's binary
+   piece layers keys (it returned null) (#335)
  * fix: Entry.bdecode throws a documented IllegalArgumentException for malformed bencode instead of a bare
    RuntimeException; new SWIG overload entry.bdecode(buffer, error_code) (#332)
  * new: TorrentHandle.torrentFileWithHashes(): the metadata with v2 piece layers, needed to save a v2 torrent from a
