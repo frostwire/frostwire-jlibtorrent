@@ -82,7 +82,6 @@ tasks.register('nativeMacOSArm64Jar', Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: 'arm64/*libjlibtorrent.arm64.dylib')
     into 'lib/'
-    rename(".dylib", "-${version}.dylib")
 }
 
 tasks.register('nativeMacOSX86_64Jar', Zip) {
@@ -91,7 +90,6 @@ tasks.register('nativeMacOSX86_64Jar', Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/macosx', excludes: ['**/ed25519', '**/src'], include: 'x86_64/*libjlibtorrent.x86_64.dylib')
     into 'lib/'
-    rename(".dylib", "-${version}.dylib")
 }
 
 tasks.register('nativeWindowsX86_64Jar', Zip) {
@@ -100,7 +98,6 @@ tasks.register('nativeWindowsX86_64Jar', Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/windows', excludes: ['**/ed25519', '**/src'], include: '**/*jlibtorrent.dll')
     into 'lib/'
-    rename(".dll", "-${version}.dll")
 }
 
 tasks.register('nativeLinuxX86_64Jar', Zip) {
@@ -110,7 +107,6 @@ tasks.register('nativeLinuxX86_64Jar', Zip) {
     from(fileTree(dir: 'swig/bin/release/linux/x86_64', excludes: ['**/ed25519', '**/src'], include: '*libjlibtorrent.so')) {
         into 'lib/x86_64/'
     }
-    rename(".so", "-${version}.so")
 }
 
 tasks.register('nativeLinuxArm64Jar', Zip) {
@@ -120,7 +116,6 @@ tasks.register('nativeLinuxArm64Jar', Zip) {
     from(fileTree(dir: 'swig/bin/release/linux/arm64', excludes: ['**/ed25519', '**/src'], include: '*libjlibtorrent.so')) {
         into 'lib/arm64/'
     }
-    rename(".so", "-${version}.so")
 }
 
 tasks.register('nativeAndroidArmJar', Zip) {
@@ -129,7 +124,6 @@ tasks.register('nativeAndroidArmJar', Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/android', include: 'armeabi-v7a/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
 }
 
 tasks.register('nativeAndroidX86Jar', Zip) {
@@ -138,7 +132,6 @@ tasks.register('nativeAndroidX86Jar', Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/android', include: 'x86/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
 }
 
 tasks.register('nativeAndroidArm64Jar', Zip) {
@@ -147,7 +140,6 @@ tasks.register('nativeAndroidArm64Jar', Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/android', include: 'arm64-v8a/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
 }
 
 tasks.register('nativeAndroidX64Jar', Zip) {
@@ -156,7 +148,6 @@ tasks.register('nativeAndroidX64Jar', Zip) {
     archiveExtension = 'jar'
     from fileTree(dir: 'swig/bin/release/android', include: 'x86_64/libjlibtorrent.so')
     into 'lib/'
-    rename(".so", "-${version}.so")
 }
 
 // Declare explicit dependencies for compileTestJava on native jar tasks
