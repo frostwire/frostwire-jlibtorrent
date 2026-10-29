@@ -50,9 +50,11 @@ function refixCode() {
       sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
       sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
     fi
-    echo 'run-swig.sh: restoring ip_filter.hpp before compiling'
+    # fixCode also edits alert.hpp; restore both from git so the checkout the native
+    # build compiles is pristine (the sed rules above can't undo the alert.hpp edit).
+    echo 'run-swig.sh: restoring alert.hpp and ip_filter.hpp before compiling'
     pushd ${LIBTORRENT_ROOT}/include/libtorrent
-    git checkout ip_filter.hpp
+    git checkout alert.hpp ip_filter.hpp
     popd
 }
 
@@ -132,9 +134,9 @@ function runJni()
     # replace jlibtorrent version
     #uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then
-      sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java && echo "Updated jlibtorrent version ${JLIBTORRENT_VERSION} in libtorrent_jni.java"
+      sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java libtorrent_jni.cpp && echo "Updated jlibtorrent version ${JLIBTORRENT_VERSION} in libtorrent_jni.java and libtorrent_jni.cpp"
     else
-      sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java && echo "Updated jlibtorrent version ${JLIBTORRENT_VERSION} in libtorrent_jni.java"
+      sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/com/frostwire/jlibtorrent/swig/libtorrent_jni.java libtorrent_jni.cpp && echo "Updated jlibtorrent version ${JLIBTORRENT_VERSION} in libtorrent_jni.java and libtorrent_jni.cpp"
     fi
 }
 
