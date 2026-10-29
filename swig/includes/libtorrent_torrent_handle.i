@@ -50,17 +50,25 @@ namespace libtorrent {
     struct status_flags_tag;
     %template(status_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, status_flags_tag>;
 
+    %newobject torrent_handle::torrent_file_with_hashes_copy;
+
     %extend torrent_handle {
         void add_piece_bytes(int piece, std::vector<int8_t> const& data, add_piece_flags_t flags = {}) {
             $self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
         }
 
+        // The session's own torrent_info: valid while the torrent is in the session. It has no v2
+        // piece layers (libtorrent 2.0 drops them); see torrent_file_with_hashes_copy().
         libtorrent::torrent_info const* torrent_file_ptr() {
             return $self->torrent_file().get();
         }
 
-        libtorrent::torrent_info const* torrent_file_with_hashes_ptr() {
-                return $self->torrent_file_with_hashes().get();
+        // torrent_file_with_hashes() returns a new copy held by a temporary shared_ptr, so returning
+        // .get() handed Java a pointer to freed memory. Return a heap copy Java owns instead
+        // (%newobject above): frostwire/frostwire-jlibtorrent#333.
+        libtorrent::torrent_info* torrent_file_with_hashes_copy() {
+            std::shared_ptr<libtorrent::torrent_info> ti = $self->torrent_file_with_hashes();
+            return ti ? new libtorrent::torrent_info(*ti) : nullptr;
         }
 
         std::vector<std::string> get_url_seeds() const {

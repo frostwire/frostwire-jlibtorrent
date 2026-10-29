@@ -1791,7 +1791,7 @@ public class libtorrent_jni {
   public final static native void torrent_handle_add_piece_bytes__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_, long jarg4, add_piece_flags_t jarg4_);
   public final static native void torrent_handle_add_piece_bytes__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_);
   public final static native long torrent_handle_torrent_file_ptr(long jarg1, torrent_handle jarg1_);
-  public final static native long torrent_handle_torrent_file_with_hashes_ptr(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_torrent_file_with_hashes_copy(long jarg1, torrent_handle jarg1_);
   public final static native long torrent_handle_get_url_seeds(long jarg1, torrent_handle jarg1_);
   public final static native long torrent_handle_get_http_seeds(long jarg1, torrent_handle jarg1_);
   public final static native void torrent_handle_set_ssl_certificate_buffer2(long jarg1, torrent_handle jarg1_, long jarg2, byte_vector jarg2_, long jarg3, byte_vector jarg3_, long jarg4, byte_vector jarg4_);

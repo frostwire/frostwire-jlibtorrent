@@ -848,10 +848,40 @@ public final class TorrentInfo {
         return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
     }
 
+    /**
+     * Rebuilds the .torrent file's bencoded structure from this metadata, for example to save a
+     * torrent whose metadata came from a magnet link or from a session.
+     * <p>
+     * libtorrent needs every piece hash to write a torrent. A v2 torrent also needs its piece
+     * layers, which {@link TorrentHandle#torrentFile()} leaves out; use
+     * {@link TorrentHandle#torrentFileWithHashes()} for metadata taken from a session.
+     *
+     * @return the torrent as an {@link Entry}
+     * @throws IllegalStateException if libtorrent can't write it, typically because v2 piece layers
+     *         are missing; the message is libtorrent's
+     */
     public Entry toEntry() {
-        return new Entry(new create_torrent(ti).generate());
+        try {
+            return new Entry(new create_torrent(ti).generate());
+        } catch (IllegalStateException e) {
+            throw e;
+        } catch (RuntimeException e) {
+            // create_torrent::generate() reports a torrent it can't write by throwing, which SWIG
+            // turns into a bare RuntimeException (frostwire/frostwire-jlibtorrent#333).
+            throw new IllegalStateException("Can't write this torrent: " + e.getMessage(), e);
+        }
     }
 
+    /**
+     * Writes this metadata as a .torrent file's bytes.
+     * <pre>{@code
+     * TorrentInfo ti = handle.torrentFileWithHashes();
+     * Files.write(Paths.get(ti.name() + ".torrent"), ti.bencode());
+     * }</pre>
+     *
+     * @return the bencoded .torrent
+     * @throws IllegalStateException if libtorrent can't write it; see {@link #toEntry()}
+     */
     public byte[] bencode() {
         return toEntry().bencode();
     }

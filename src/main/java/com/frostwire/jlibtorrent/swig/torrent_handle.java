@@ -400,9 +400,9 @@ public class torrent_handle {
     return (cPtr == 0) ? null : new torrent_info(cPtr, false);
   }
 
-  public torrent_info torrent_file_with_hashes_ptr() {
-    long cPtr = libtorrent_jni.torrent_handle_torrent_file_with_hashes_ptr(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent_info(cPtr, false);
+  public torrent_info torrent_file_with_hashes_copy() {
+    long cPtr = libtorrent_jni.torrent_handle_torrent_file_with_hashes_copy(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_info(cPtr, true);
   }
 
   public string_vector get_url_seeds() {

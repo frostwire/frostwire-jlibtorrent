@@ -4367,8 +4367,9 @@ SWIGINTERN void libtorrent_torrent_handle_add_piece_bytes__SWIG_0(libtorrent::to
 SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_handle_torrent_file_ptr(libtorrent::torrent_handle *self){
             return self->torrent_file().get();
         }
-SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_handle_torrent_file_with_hashes_ptr(libtorrent::torrent_handle *self){
-                return self->torrent_file_with_hashes().get();
+SWIGINTERN libtorrent::torrent_info *libtorrent_torrent_handle_torrent_file_with_hashes_copy(libtorrent::torrent_handle *self){
+            std::shared_ptr<libtorrent::torrent_info> ti = self->torrent_file_with_hashes();
+            return ti ? new libtorrent::torrent_info(*ti) : nullptr;
         }
 SWIGINTERN std::vector< std::string > libtorrent_torrent_handle_get_url_seeds(libtorrent::torrent_handle const *self){
             std::set<std::string> s = self->url_seeds();
@@ -48824,7 +48825,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1torrent_1file_1with_1hashes_1ptr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1torrent_1file_1with_1hashes_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   libtorrent::torrent_handle *arg1 = 0 ;
   libtorrent::torrent_info *result = 0 ;
@@ -48835,7 +48836,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   arg1 = *(libtorrent::torrent_handle **)&jarg1; 
   {
     try {
-      result = (libtorrent::torrent_info *)libtorrent_torrent_handle_torrent_file_with_hashes_ptr(arg1);
+      result = (libtorrent::torrent_info *)libtorrent_torrent_handle_torrent_file_with_hashes_copy(arg1);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;

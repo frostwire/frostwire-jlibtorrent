@@ -230,23 +230,62 @@ public final class TorrentHandle {
     }
 
     /**
-     * Returns a pointer to the torrent_info object associated with this
-     * torrent. The {@link com.frostwire.jlibtorrent.TorrentInfo} object
-     * may be a copy of the internal object.
+     * Returns the torrent's metadata: name, files, trackers, piece hashes. This is cheap, the
+     * session's own object rather than a copy, so use it for reading.
      * <p>
-     * If the torrent doesn't have metadata, the pointer will not be
-     * initialized (i.e. a NULL pointer). The torrent may be in a state
-     * without metadata only if it was started without a .torrent file, e.g.
-     * by using the libtorrent extension of just supplying a tracker and
-     * info-hash.
+     * Two limits:
+     * <ul>
+     *   <li>It has no v2 piece layers: libtorrent 2.0 drops them from this object. To write the
+     *   torrent back out as a .torrent file, use {@link #torrentFileWithHashes()}, or
+     *   {@link TorrentInfo#bencode()} throws for v2-only torrents.</li>
+     *   <li>It is only valid while the torrent is in the session. Don't keep it after removing the
+     *   torrent.</li>
+     * </ul>
+     * <pre>{@code
+     * TorrentInfo ti = handle.torrentFile();
+     * if (ti != null) {
+     *     System.out.println(ti.name() + ": " + ti.numFiles() + " files, " + ti.totalSize() + " bytes");
+     * }
+     * }</pre>
      *
-     * @return the internal torrent info
+     * @return the metadata, or {@code null} if the handle is invalid or the torrent has no metadata
+     *         yet (a magnet link still fetching it)
      */
     public TorrentInfo torrentFile() {
         if (!th.is_valid()) {
             return null;
         }
         torrent_info ti = th.torrent_file_ptr();
+        return ti != null ? new TorrentInfo(ti) : null;
+    }
+
+    /**
+     * Returns a copy of the torrent's metadata that includes the v2 piece layers, which
+     * {@link #torrentFile()} leaves out. Use it to save a torrent from a running session, e.g. to
+     * restore it on the next start: for a v2-only torrent this is the only object
+     * {@link TorrentInfo#bencode()} can write.
+     * <pre>{@code
+     * TorrentInfo ti = handle.torrentFileWithHashes();
+     * if (ti != null) {
+     *     Files.write(Paths.get(ti.name() + ".torrent"), ti.bencode());
+     * }
+     * }</pre>
+     * The piece layers are only present once libtorrent has them: when the torrent was added from
+     * a .torrent file that carries them, or once it is seeding. For a v2 magnet download still in
+     * progress, {@code bencode()} can still throw {@link IllegalStateException}; save it again later.
+     * <p>
+     * This makes a full copy, so it costs more than {@code torrentFile()}; don't call it on every
+     * status update. libtorrent 2.1 drops it in favor of {@code save_resume_data} plus
+     * {@code write_torrent_file}.
+     *
+     * @return a copy of the metadata with piece layers, or {@code null} if the handle is invalid or
+     *         the torrent has no metadata yet
+     */
+    public TorrentInfo torrentFileWithHashes() {
+        if (!th.is_valid()) {
+            return null;
+        }
+        torrent_info ti = th.torrent_file_with_hashes_copy();
         return ti != null ? new TorrentInfo(ti) : null;
     }
 

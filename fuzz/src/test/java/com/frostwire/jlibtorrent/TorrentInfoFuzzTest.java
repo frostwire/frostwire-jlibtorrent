@@ -8,8 +8,15 @@ import com.code_intelligence.jazzer.junit.FuzzTest;
  * parsed torrent, through the Java wrappers and the SWIG layer.
  * <p>
  * Input: .torrent files from the web, from users and from peers (metadata exchange). The
- * constructor documents {@link IllegalArgumentException} for data it can't decode; anything else,
- * a hang, or a native crash (see {@link FuzzInputs}) is a finding.
+ * constructor documents {@link IllegalArgumentException} for data it can't decode, and
+ * {@link TorrentInfo#bencode()} documents {@link IllegalStateException} for metadata libtorrent
+ * can't write (v2 piece layers missing). Anything else, a hang, or a native crash (see
+ * {@link FuzzInputs}) is a finding.
+ * <p>
+ * The written copy must re-open for torrents without v2 hashes. For v2 torrents it is not checked:
+ * libtorrent loads a piece layer that doesn't hash to its file's {@code pieces root} (it validates
+ * layers while downloading), and the copy it writes then fails to load. That is upstream behavior,
+ * noted on frostwire/frostwire-jlibtorrent#333.
  */
 class TorrentInfoFuzzTest {
 
@@ -64,7 +71,14 @@ class TorrentInfoFuzzTest {
             fs.padFileAt(i);
         }
         ti.makeMagnetUri();
-        byte[] encoded = ti.bencode();
-        new TorrentInfo(encoded);
+        byte[] encoded;
+        try {
+            encoded = ti.bencode();
+        } catch (IllegalStateException expected) {
+            return;
+        }
+        if (v2 == null) {
+            new TorrentInfo(FuzzInputs.record(encoded));
+        }
     }
 }
