@@ -24,6 +24,13 @@
  * fix: Entry.dictionary() is a complete Map: values(), iteration, forEach, toString(), equals() and remove() work
    (entrySet() used to throw UnsupportedOperationException); keys iterate in bencode order (#331)
  * new: Entry.equals()/hashCode() compare by value (type and bencoded form) (#331)
+ * fix: strings cross JNI as real UTF-8 bytes instead of JNI's modified UTF-8 (#336): bytes that aren't UTF-8 no
+   longer cause undefined behavior (Android CheckJNI aborted), embedded NULs survive, and characters outside
+   the BMP (emoji) reach libtorrent as UTF-8 instead of CESU-8, so such file names work; exception messages
+   are sanitized
+ * new: Entry.bytes(), Entry.dictionaryKeys() and Entry.get(byte[]) for binary strings and keys (#336)
+ * removed from the bindings (broken, unused): libtorrent.copy_byte_vector_to_char_array, libtorrent.mem_copy,
+   file_storage.root_ptr (use file_storage.root) (#336)
  * fix: Entry.dictionary() returns the right values for keys that aren't valid UTF-8, like a v2 torrent's binary
    piece layers keys (it returned null) (#335)
  * fix: Entry.bdecode throws a documented IllegalArgumentException for malformed bencode instead of a bare
