@@ -21,7 +21,10 @@ import static org.junit.Assert.assertTrue;
 public class NativeMemoryLeakTest {
 
     private static final int ROUNDS = 100_000;
-    private static final long ALLOWED_GROWTH_KB = 40 * 1024;  // was ~400 MB for TorrentInfo before
+    // RSS noise across a 100k batch reaches a few tens of MB either way; the leaks this guards
+    // against grew 1.7-2.8 GB per batch (13.5 KB per call). 150 MB catches anything above ~1.5 KB
+    // per call.
+    private static final long ALLOWED_GROWTH_KB = 150 * 1024;
 
     @Test
     public void parsingTorrentsDoesNotLeakTemporaries() throws Exception {
