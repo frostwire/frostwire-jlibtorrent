@@ -24,6 +24,8 @@
  * fix: Entry.dictionary() is a complete Map: values(), iteration, forEach, toString(), equals() and remove() work
    (entrySet() used to throw UnsupportedOperationException); keys iterate in bencode order (#331)
  * new: Entry.equals()/hashCode() compare by value (type and bencoded form) (#331)
+ * perf: byte arrays cross JNI in one call instead of one call per byte: 1 MB to native 6 ms -> 0.4 ms, back
+   3-4 ms -> 0.1 ms; every decode benefits (#338)
  * fix: wrappers free the native temporaries of every call (#337). SWIG proxies are only freed by delete(), and
    decoding leaked a copy of its whole input: 100k TorrentInfo parses of a 13.5 KB torrent leaked 1.7 GB and
    100k Entry decode + encode calls 2.8 GB; both now stay flat. Ed25519 no longer leaves secret keys in leaked
