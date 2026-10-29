@@ -67,4 +67,47 @@ public class EntryMapTest {
         assertFalse(d.containsKey("a"));
         assertEquals("de", new String(root.bencode(), StandardCharsets.US_ASCII));
     }
+
+    /**
+     * frostwire/frostwire-jlibtorrent#335: keys that aren't valid UTF-8 (a v2 torrent's binary piece
+     * layers keys, raw file names) came back with null values: the String form of such a key doesn't
+     * convert back to the same bytes, so looking the value up by it missed.
+     */
+    @Test
+    public void keysThatAreNotUtf8StillReachTheirValues() throws Exception {
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        // Keys in bencode (byte) order: the 32-byte hash (0x80...) sorts before 0xff.
+        out.write(ascii("d32:"));
+        byte[] hash = new byte[32];
+        for (int i = 0; i < hash.length; i++) {
+            hash[i] = (byte) (0x80 + i);
+        }
+        out.write(hash);
+        out.write(ascii("4:abcd1:"));
+        out.write(0xff);
+        out.write(ascii("i7ee"));
+        byte[] bencoded = out.toByteArray();
+
+        Entry root = Entry.bdecode(bencoded);
+        Map<String, Entry> d = root.dictionary();
+        assertEquals(2, d.size());
+        for (Entry value : d.values()) {
+            assertTrue("no null values", value != null);
+        }
+        for (Map.Entry<String, Entry> e : d.entrySet()) {
+            if (e.getValue().swig().type() == com.frostwire.jlibtorrent.swig.entry.data_type.int_t) {
+                assertEquals(7, e.getValue().integer());
+                e.setValue(decode("i8e"));
+            }
+        }
+        byte[] expected = bencoded.clone();
+        int intAt = new String(bencoded, StandardCharsets.ISO_8859_1).indexOf("i7e");
+        expected[intAt + 1] = '8';
+        assertTrue("setValue writes through and the keys keep their bytes",
+                java.util.Arrays.equals(expected, root.bencode()));
+    }
+
+    private static byte[] ascii(String s) {
+        return s.getBytes(StandardCharsets.US_ASCII);
+    }
 }
