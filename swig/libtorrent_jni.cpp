@@ -5078,14 +5078,24 @@ SWIGINTERN int libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reope
 SWIGINTERN libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::reopen_network_flags_tag > libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__from_int(int val){
                     return libtorrent::flags::bitfield_flag<std::uint8_t, libtorrent::reopen_network_flags_tag>(static_cast<std::uint8_t>(val));
                 }
-SWIGINTERN libtorrent::session_params libtorrent_session_params_read_session_params__SWIG_0(libtorrent::bdecode_node const &e,libtorrent::save_state_flags_t flags=libtorrent::flags::bitfield_flag< std::uint32_t,struct save_state_flags_tag >::all()){
+SWIGINTERN libtorrent::session_params libtorrent_session_params_read_session_params__SWIG_0(libtorrent::bdecode_node const &e,libtorrent::save_state_flags_t flags){
             return libtorrent::read_session_params(e, flags);
         }
-SWIGINTERN libtorrent::entry libtorrent_session_params_write_session_params__SWIG_0(libtorrent::session_params const &sp,libtorrent::save_state_flags_t flags=libtorrent::flags::bitfield_flag< std::uint32_t,struct save_state_flags_tag >::all()){
+SWIGINTERN libtorrent::session_params libtorrent_session_params_read_session_params__SWIG_1(libtorrent::bdecode_node const &e){
+            return libtorrent::read_session_params(e, libtorrent::save_state_flags_t::all());
+        }
+SWIGINTERN libtorrent::entry libtorrent_session_params_write_session_params__SWIG_0(libtorrent::session_params const &sp,libtorrent::save_state_flags_t flags){
             return libtorrent::write_session_params(sp, flags);
         }
-SWIGINTERN std::vector< std::int8_t > libtorrent_session_params_write_session_params_buf__SWIG_0(libtorrent::session_params const &sp,libtorrent::save_state_flags_t flags=libtorrent::flags::bitfield_flag< std::uint32_t,struct save_state_flags_tag >::all()){
+SWIGINTERN libtorrent::entry libtorrent_session_params_write_session_params__SWIG_1(libtorrent::session_params const &sp){
+            return libtorrent::write_session_params(sp, libtorrent::save_state_flags_t::all());
+        }
+SWIGINTERN std::vector< std::int8_t > libtorrent_session_params_write_session_params_buf__SWIG_0(libtorrent::session_params const &sp,libtorrent::save_state_flags_t flags){
             auto v = libtorrent::write_session_params_buf(sp, flags);
+            return {v.begin(), v.end()};
+        }
+SWIGINTERN std::vector< std::int8_t > libtorrent_session_params_write_session_params_buf__SWIG_1(libtorrent::session_params const &sp){
+            auto v = libtorrent::write_session_params_buf(sp, libtorrent::save_state_flags_t::all());
             return {v.begin(), v.end()};
         }
 SWIGINTERN void libtorrent_session_params_set_posix_disk_io_constructor(libtorrent::session_params *self){
@@ -82080,7 +82090,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   } 
   {
     try {
-      result = libtorrent_session_params_read_session_params__SWIG_0((libtorrent::bdecode_node const &)*arg1);
+      result = libtorrent_session_params_read_session_params__SWIG_1((libtorrent::bdecode_node const &)*arg1);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -82147,7 +82157,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   } 
   {
     try {
-      result = libtorrent_session_params_write_session_params__SWIG_0((libtorrent::session_params const &)*arg1);
+      result = libtorrent_session_params_write_session_params__SWIG_1((libtorrent::session_params const &)*arg1);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
@@ -82214,7 +82224,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   } 
   {
     try {
-      result = libtorrent_session_params_write_session_params_buf__SWIG_0((libtorrent::session_params const &)*arg1);
+      result = libtorrent_session_params_write_session_params_buf__SWIG_1((libtorrent::session_params const &)*arg1);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
       return 0;
