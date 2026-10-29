@@ -117,6 +117,15 @@ public class entry {
     libtorrent_jni.entry_set__SWIG_3(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), entry.getCPtr(value), value);
   }
 
+  public byte_vector_vector dict_keys_bytes() {
+    return new byte_vector_vector(libtorrent_jni.entry_dict_keys_bytes(swigCPtr, this), true);
+  }
+
+  public entry dict_find_bytes(byte_vector key) {
+    long cPtr = libtorrent_jni.entry_dict_find_bytes(swigCPtr, this, byte_vector.getCPtr(key), key);
+    return (cPtr == 0) ? null : new entry(cPtr, false);
+  }
+
   public byte_vector string_bytes() {
     return new byte_vector(libtorrent_jni.entry_string_bytes(swigCPtr, this), true);
   }

@@ -65,6 +65,23 @@ namespace libtorrent {
                 $self->operator[](key) = value;
             }
 
+            // Dictionary keys are byte strings; as Java Strings, keys that aren't UTF-8 (a v2
+            // torrent's binary piece layers keys) can't be told apart. These address them by their
+            // bytes (frostwire/frostwire-jlibtorrent#336).
+            std::vector<std::vector<std::int8_t>> dict_keys_bytes() {
+                std::vector<std::vector<std::int8_t>> keys;
+                for (auto const& kv : $self->dict()) {
+                    keys.emplace_back(kv.first.begin(), kv.first.end());
+                }
+                return keys;
+            }
+
+            libtorrent::entry* dict_find_bytes(std::vector<std::int8_t> const& key) {
+                auto& d = $self->dict();
+                auto const it = d.find(std::string(key.begin(), key.end()));
+                return it == d.end() ? nullptr : &it->second;
+            }
+
             std::vector<int8_t> string_bytes() {
                 std::string s = $self->string();
                 return std::vector<int8_t>(s.begin(), s.end());

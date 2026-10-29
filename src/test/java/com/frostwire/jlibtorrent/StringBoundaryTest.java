@@ -63,4 +63,31 @@ public class StringBoundaryTest {
         System.arraycopy(bencodedString, colon + 1, payload, 0, payload.length);
         return payload;
     }
+
+    @Test
+    public void binaryKeysAndValuesAreReachableAsBytes() throws Exception {
+        byte[] k1 = new byte[32];
+        byte[] k2 = new byte[32];
+        for (int i = 0; i < 32; i++) {
+            k1[i] = (byte) (0x80 + i);
+            k2[i] = (byte) (0xa0 + i);
+        }
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        out.write("d32:".getBytes(StandardCharsets.US_ASCII));
+        out.write(k1);
+        out.write("2:".getBytes(StandardCharsets.US_ASCII));
+        out.write(new byte[]{(byte) 0xfe, (byte) 0xff});
+        out.write("32:".getBytes(StandardCharsets.US_ASCII));
+        out.write(k2);
+        out.write("i2ee".getBytes(StandardCharsets.US_ASCII));
+        Entry d = Entry.bdecode(out.toByteArray());
+
+        java.util.List<byte[]> keys = d.dictionaryKeys();
+        assertEquals(2, keys.size());
+        assertArrayEquals(k1, keys.get(0));
+        assertArrayEquals(k2, keys.get(1));
+        assertArrayEquals(new byte[]{(byte) 0xfe, (byte) 0xff}, d.get(k1).bytes());
+        assertEquals(2, d.get(k2).integer());
+        assertEquals(null, d.get(new byte[]{1, 2, 3}));
+    }
 }

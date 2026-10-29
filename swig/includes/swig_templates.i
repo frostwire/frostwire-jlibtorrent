@@ -11,6 +11,7 @@
 %template(int_vector) std::vector<int>;
 %template(int64_vector) std::vector<long long>;
 %template(byte_vector) std::vector<std::int8_t>;
+%template(byte_vector_vector) std::vector<std::vector<std::int8_t>>;
 %template(bool_vector) std::vector<bool>;
 %template(int_byte_pair_vector) std::vector<std::pair<int, std::int8_t>>;
 %template(string_int_pair_vector) std::vector<std::pair<std::string, int>>;

@@ -163,6 +163,56 @@ public final class Entry {
         return e.string();
     }
 
+    /**
+     * The raw bytes of a string entry. Bencoded strings are byte strings; {@link #string()} decodes
+     * them as UTF-8 and replaces anything else with U+FFFD, so use this for binary values such as
+     * hashes or peer data.
+     * <pre>{@code
+     * byte[] pieces = info.dictionary().get("pieces").bytes();  // concatenated 20-byte SHA-1s
+     * }</pre>
+     *
+     * @return the string's bytes
+     * @throws RuntimeException if this entry is not a string
+     */
+    public byte[] bytes() {
+        return Vectors.byte_vector2bytes(e.string_bytes());
+    }
+
+    /**
+     * The keys of a dictionary entry as raw bytes, in bencode (byte) order. Keys that aren't UTF-8,
+     * like the 32-byte root hashes keying a v2 torrent's {@code piece layers}, are distinct here,
+     * while their {@code String} forms in {@link #dictionary()} are all U+FFFD.
+     * <pre>{@code
+     * Entry layers = torrent.dictionary().get("piece layers");
+     * for (byte[] root : layers.dictionaryKeys()) {
+     *     byte[] hashes = layers.get(root).bytes();
+     * }
+     * }</pre>
+     *
+     * @return the keys' bytes
+     * @throws RuntimeException if this entry is not a dictionary
+     */
+    public List<byte[]> dictionaryKeys() {
+        byte_vector_vector keys = e.dict_keys_bytes();
+        List<byte[]> result = new ArrayList<>((int) keys.size());
+        for (int i = 0; i < keys.size(); i++) {
+            result.add(Vectors.byte_vector2bytes(keys.get(i)));
+        }
+        return result;
+    }
+
+    /**
+     * Looks a dictionary value up by the key's raw bytes; see {@link #dictionaryKeys()}.
+     *
+     * @param key the key's bytes
+     * @return the value, or {@code null} if the dictionary has no such key
+     * @throws RuntimeException if this entry is not a dictionary
+     */
+    public Entry get(byte[] key) {
+        entry value = e.dict_find_bytes(Vectors.bytes2byte_vector(key));
+        return value != null ? new Entry(value) : null;
+    }
+
     public long integer() {
         return e.integer();
     }
