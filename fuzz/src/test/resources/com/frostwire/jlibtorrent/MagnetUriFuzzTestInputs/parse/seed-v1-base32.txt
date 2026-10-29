@@ -1,0 +1,1 @@
+magnet:?xt=urn:btih:WRN7ZT6NKMA6SSXYKAFRUGDDIFJUNKI2&dn=name&tr=http%3A%2F%2Ftracker.example.org%2Fannounce&x.pe=10.0.0.1:6881&so=0,2-4

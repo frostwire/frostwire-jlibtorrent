@@ -395,3 +395,123 @@ publishing {
         }
     } // publications
 } // publishing
+
+// ---------------------------------------------------------------------------
+// Coverage-guided fuzzing with Jazzer (skills/jlibtorrent-fuzz-pipeline).
+// Harnesses live in fuzz/src/test/java, their committed seed and crash inputs in
+// fuzz/src/test/resources/<pkg>/<Class>Inputs/<method>/. Neither task is part of
+// test, check or build.
+//   ./gradlew fuzzTest
+//       replays every committed input as plain JUnit 5 (regression mode, no fuzzing)
+//   ./gradlew fuzz -Pfuzz.target=<FQCN> [-Pfuzz.duration=300s] [-Pfuzz.keepGoing=N]
+//       fuzzes ONE harness for a fixed time (Jazzer runs one fuzz test per JVM)
+// The harnesses call into the native library: build this platform's native jar first
+// (swig/build-<os>-<arch>.sh --build-only). A native crash kills the JVM without a Jazzer
+// report; fuzz/last-input.bin then holds the input that was running (see FuzzInputs).
+// ---------------------------------------------------------------------------
+def fuzzBaseDir = file('fuzz')
+
+def nativeFlavor = {
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    def arch = System.getProperty('os.arch').toLowerCase()
+    def is_arm64 = arch == "aarch64" || arch == "arm64"
+    if (os.isMacOsX()) {
+        return is_arm64 ? 'macosx-arm64' : 'macosx-x86_64'
+    }
+    if (os.isLinux()) {
+        return is_arm64 ? 'linux-arm64' : 'linux-x86_64'
+    }
+    return 'windows'
+}()
+
+sourceSets {
+    fuzzTest {
+        java.srcDir 'fuzz/src/test/java'
+        resources.srcDir 'fuzz/src/test/resources'
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output + files("build/libs/jlibtorrent-${nativeFlavor}-${version}.jar")
+    }
+}
+
+dependencies {
+    fuzzTestImplementation platform('org.junit:junit-bom:5.14.4')
+    fuzzTestImplementation 'org.junit.jupiter:junit-jupiter'
+    fuzzTestImplementation 'com.code-intelligence:jazzer-junit:0.30.0'
+    fuzzTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+def configureFuzzTask = { Test t ->
+    t.group = 'verification'
+    t.dependsOn tasks.named('fuzzTestClasses')
+    t.testClassesDirs = sourceSets.fuzzTest.output.classesDirs
+    t.classpath = sourceSets.fuzzTest.runtimeClasspath
+    t.useJUnitPlatform()
+    t.maxParallelForks = 1
+    t.maxHeapSize = '2g'
+    // Jazzer writes crash files to <basedir>/src/test/resources/<pkg>/<Class>Inputs/<method>/
+    // and the generated corpus to <basedir>/.cifuzz-corpus/<Class>/<method>/.
+    t.workingDir = fuzzBaseDir
+    t.systemProperty 'jazzer.internal.basedir', fuzzBaseDir.absolutePath
+    t.systemProperty 'jlibtorrent.fuzz.lastInput', new File(fuzzBaseDir, 'last-input.bin').absolutePath
+    // One input running longer than this is a hang finding (libFuzzer -timeout).
+    t.systemProperty 'junit.jupiter.execution.timeout.testtemplate.method.default', '10s'
+    t.systemProperty 'java.util.logging.config.file', new File(fuzzBaseDir, 'logging.properties').absolutePath
+    // Jazzer self-attaches its agent and loads libFuzzer through JNI.
+    t.jvmArgs '-XX:+EnableDynamicAgentLoading'
+    t.filter {
+        includeTestsMatching '*FuzzTest'
+    }
+    t.testLogging {
+        events 'passed', 'failed', 'skipped'
+        exceptionFormat = 'full'
+    }
+}
+
+tasks.register('fuzzTest', Test) { t ->
+    description = 'Replays the committed Jazzer seed and crash inputs as plain JUnit tests (no fuzzing).'
+    configureFuzzTask(t)
+}
+
+tasks.register('fuzz', Test) { t ->
+    description = 'Fuzzes one Jazzer harness: -Pfuzz.target=<FQCN> [-Pfuzz.duration=300s] [-Pfuzz.keepGoing=N].'
+    configureFuzzTask(t)
+    outputs.upToDateWhen { false }
+    testLogging.showStandardStreams = true
+    def target = project.findProperty('fuzz.target')
+    environment 'JAZZER_FUZZ', '1'
+    // Jazzer turns the 10 s default above into libFuzzer's per-input -timeout; JUnit itself must
+    // not enforce it, or it fails the whole fuzzing invocation once it has run for 10 s.
+    systemProperty 'junit.jupiter.execution.timeout.mode', 'disabled'
+    systemProperty 'jazzer.max_duration', project.findProperty('fuzz.duration') ?: '300s'
+    if (project.hasProperty('fuzz.keepGoing')) {
+        systemProperty 'jazzer.keep_going', project.property('fuzz.keepGoing')
+    }
+    // Comma-separated DEDUP_TOKENs of known findings, to fuzz past them before they are fixed.
+    if (project.hasProperty('fuzz.ignore')) {
+        systemProperty 'jazzer.ignore', project.property('fuzz.ignore')
+    }
+    if (target) {
+        filter.includePatterns.clear()
+        filter.includeTestsMatching target.toString()
+    }
+    long startedAt = 0
+    doFirst {
+        if (!target) {
+            throw new GradleException('Jazzer fuzzes one harness per run: pass -Pfuzz.target=<fully qualified FuzzTest class>')
+        }
+        startedAt = System.currentTimeMillis()
+    }
+    // With -Pfuzz.keepGoing the test passes as long as fewer findings than N were made, so fail
+    // on any crash file this run wrote instead of trusting the JUnit result.
+    doLast {
+        def inputs = 'src/test/resources/' + target.toString().replace('.', '/') + 'Inputs/**/'
+        def findings = fileTree(fuzzBaseDir) {
+            include inputs + 'crash-*', inputs + 'timeout-*', inputs + 'oom-*', inputs + 'slow-unit-*',
+                    'crash-*', 'timeout-*', 'oom-*', 'slow-unit-*'
+        }.files.findAll { it.lastModified() >= startedAt }
+        if (!findings.isEmpty()) {
+            throw new GradleException("Fuzzing wrote ${findings.size()} finding(s):\n  " +
+                    findings.collect { it.absolutePath }.sort().join('\n  '))
+        }
+    }
+}

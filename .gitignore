@@ -24,3 +24,11 @@ frostwire-jlibtorrent.i*
 /dht_shell.dat
 local.properties
 *.token
+# Jazzer fuzzing (build.gradle fuzz tasks)
+/fuzz/.cifuzz-corpus/
+/fuzz/last-input.bin
+/fuzz/hs_err_pid*.log
+/fuzz/crash-*
+/fuzz/timeout-*
+/fuzz/oom-*
+/fuzz/slow-unit-*
