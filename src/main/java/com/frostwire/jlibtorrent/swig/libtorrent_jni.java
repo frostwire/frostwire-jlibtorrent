@@ -2085,7 +2085,8 @@ public class libtorrent_jni {
   public final static native long entry_bencode(long jarg1, entry jarg1_);
   public final static native long entry_from_string_bytes(long jarg1, byte_vector jarg1_);
   public final static native long entry_from_preformatted_bytes(long jarg1, byte_vector jarg1_);
-  public final static native long entry_bdecode(long jarg1, byte_vector jarg1_);
+  public final static native long entry_bdecode__SWIG_0(long jarg1, byte_vector jarg1_);
+  public final static native long entry_bdecode__SWIG_1(long jarg1, byte_vector jarg1_, long jarg2, error_code jarg2_);
   public final static native void delete_entry(long jarg1);
   public final static native long error_get();
   public final static native long peer_get();

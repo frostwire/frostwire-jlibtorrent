@@ -92,6 +92,17 @@ namespace libtorrent {
             static entry bdecode(std::vector<int8_t>& buffer) {
                 return libtorrent::bdecode({reinterpret_cast<char const*>(buffer.data()), static_cast<long>(buffer.size())});
             }
+
+            // Reports malformed data through ec instead of throwing (the overload above throws
+            // system_error, which reaches Java as a bare RuntimeException).
+            static entry bdecode(std::vector<int8_t>& buffer, libtorrent::error_code& ec) {
+                libtorrent::bdecode_node n = libtorrent::bdecode(
+                        {reinterpret_cast<char const*>(buffer.data()), static_cast<long>(buffer.size())}, ec);
+                if (ec) {
+                    return libtorrent::entry();
+                }
+                return libtorrent::entry(n);
+            }
         } // %extend
     }; // class entry
 } // namespace libtorrent

@@ -136,7 +136,11 @@ public class entry {
   }
 
   public static entry bdecode(byte_vector buffer) {
-    return new entry(libtorrent_jni.entry_bdecode(byte_vector.getCPtr(buffer), buffer), true);
+    return new entry(libtorrent_jni.entry_bdecode__SWIG_0(byte_vector.getCPtr(buffer), buffer), true);
+  }
+
+  public static entry bdecode(byte_vector buffer, error_code ec) {
+    return new entry(libtorrent_jni.entry_bdecode__SWIG_1(byte_vector.getCPtr(buffer), buffer, error_code.getCPtr(ec), ec), true);
   }
 
   public final static class data_type {

@@ -206,8 +206,28 @@ public final class Entry {
         return Arrays.hashCode(bencode());
     }
 
+    /**
+     * Decodes bencoded data, e.g. a .torrent file, fast-resume data or a DHT item, into an entry tree.
+     * <pre>{@code
+     * Entry torrent = Entry.bdecode(Files.readAllBytes(Paths.get("ubuntu.torrent")));
+     * String name = torrent.dictionary().get("info").dictionary().get("name").string();
+     * }</pre>
+     * Decoding stops at the end of the first complete value; any bytes after it are ignored. For large
+     * inputs where only a few keys are read, {@link BDecodeNode#bdecode(byte[])} avoids copying the
+     * whole tree.
+     *
+     * @param data bencoded bytes
+     * @return the decoded entry
+     * @throws IllegalArgumentException if {@code data} is not valid bencode (truncated, malformed, or
+     *         nested deeper than libtorrent's limit); the message is libtorrent's
+     */
     public static Entry bdecode(byte[] data) {
-        return new Entry(entry.bdecode(Vectors.bytes2byte_vector(data)));
+        error_code ec = new error_code();
+        entry e = entry.bdecode(Vectors.bytes2byte_vector(data), ec);
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException("Can't decode data: " + ec.message());
+        }
+        return new Entry(e);
     }
 
     public static Entry bdecode(File file) throws IOException {

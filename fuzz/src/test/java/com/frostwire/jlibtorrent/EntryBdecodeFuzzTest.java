@@ -11,16 +11,21 @@ import java.util.Arrays;
  * that re-encoding round-trips.
  * <p>
  * Input: bencoded data from peers (DHT items, extension messages) and from disk (resume data,
- * torrents). {@code bdecode} documents no exception: data it can't decode comes back as an
- * undefined entry. Any exception, a hang, a round trip that changes the bytes, or a native crash
- * (see {@link FuzzInputs}) is a finding.
+ * torrents). {@code bdecode} documents {@link IllegalArgumentException} for data it can't decode.
+ * Any other exception, a hang, a round trip that changes the bytes, or a native crash (see
+ * {@link FuzzInputs}) is a finding.
  */
 class EntryBdecodeFuzzTest {
 
     @FuzzTest
     void decodeWalkAndRoundTrip(FuzzedDataProvider data) {
         byte[] bytes = FuzzInputs.record(data.consumeRemainingAsBytes());
-        Entry e = Entry.bdecode(bytes);
+        Entry e;
+        try {
+            e = Entry.bdecode(bytes);
+        } catch (IllegalArgumentException expected) {
+            return;
+        }
         if (e.swig().type() == entry.data_type.undefined_t) {
             return;
         }
