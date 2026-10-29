@@ -1,0 +1,71 @@
+package com.frostwire.jlibtorrent;
+
+import org.junit.Assume;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
+import static org.junit.Assert.assertTrue;
+
+/**
+ * frostwire/frostwire-jlibtorrent#337: SWIG proxies are only freed by {@code delete()}, and the
+ * wrappers leaked the native temporaries of every call (decode buffers, nodes, error codes, result
+ * vectors). Parsing a torrent leaked about 4 KB, more than the torrent_info it returned.
+ * <p>
+ * Each loop frees the object it gets back, so any growth left is leaked temporaries. It measures
+ * the process's resident memory, so it runs only through {@code ./gradlew leakTest}, not with the
+ * unit tests.
+ */
+public class NativeMemoryLeakTest {
+
+    private static final int ROUNDS = 100_000;
+    private static final long ALLOWED_GROWTH_KB = 40 * 1024;  // was ~400 MB for TorrentInfo before
+
+    @Test
+    public void parsingTorrentsDoesNotLeakTemporaries() throws Exception {
+        Assume.assumeTrue(Boolean.getBoolean("jlibtorrent.leakTest"));
+        byte[] torrent = resource("/bittorrent-v2-test.torrent");
+        assertFlat("TorrentInfo(byte[])", () -> new TorrentInfo(torrent).swig().delete());
+    }
+
+    @Test
+    public void decodingAndEncodingEntriesDoesNotLeakTemporaries() throws Exception {
+        Assume.assumeTrue(Boolean.getBoolean("jlibtorrent.leakTest"));
+        byte[] data = resource("/bittorrent-v2-test.torrent");
+        assertFlat("Entry.bdecode + bencode", () -> {
+            Entry e = Entry.bdecode(data);
+            e.bencode();
+            e.swig().delete();
+        });
+    }
+
+    private static void assertFlat(String what, Runnable op) throws Exception {
+        for (int i = 0; i < 5_000; i++) {
+            op.run();
+        }
+        System.gc();
+        long before = rssKb();
+        for (int i = 0; i < ROUNDS; i++) {
+            op.run();
+        }
+        System.gc();
+        long growth = rssKb() - before;
+        System.out.println(what + ": RSS grew " + growth / 1024 + " MB over " + ROUNDS + " calls");
+        assertTrue(what + " leaked " + growth / 1024 + " MB over " + ROUNDS + " calls", growth < ALLOWED_GROWTH_KB);
+    }
+
+    private static long rssKb() throws IOException {
+        Process p = new ProcessBuilder("ps", "-o", "rss=", "-p", String.valueOf(ProcessHandle.current().pid())).start();
+        try (InputStream in = p.getInputStream()) {
+            return Long.parseLong(new String(in.readAllBytes(), StandardCharsets.US_ASCII).trim());
+        }
+    }
+
+    private static byte[] resource(String name) throws IOException {
+        try (InputStream in = NativeMemoryLeakTest.class.getResourceAsStream(name)) {
+            return in.readAllBytes();
+        }
+    }
+}

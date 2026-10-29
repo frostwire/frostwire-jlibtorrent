@@ -515,3 +515,22 @@ tasks.register('fuzz', Test) { t ->
         }
     }
 }
+
+// Native memory regression check (frostwire/frostwire-jlibtorrent#337): measures process RSS over
+// 100k calls, so it isn't part of `test`. Run: ./gradlew leakTest
+tasks.register('leakTest', Test) {
+    group = 'verification'
+    description = 'Checks that common wrapper calls do not leak native memory (RSS-based, slow).'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    systemProperty 'jlibtorrent.leakTest', 'true'
+    maxHeapSize = '256m'
+    filter {
+        includeTestsMatching 'com.frostwire.jlibtorrent.NativeMemoryLeakTest'
+    }
+    testLogging {
+        events 'passed', 'failed'
+        showStandardStreams = true
+    }
+    outputs.upToDateWhen { false }
+}
