@@ -26,6 +26,12 @@
  * new: Entry.equals()/hashCode() compare by value (type and bencoded form) (#331)
  * fix: Entry.bdecode throws a documented IllegalArgumentException for malformed bencode instead of a bare
    RuntimeException; new SWIG overload entry.bdecode(buffer, error_code) (#332)
+ * new: TorrentHandle.torrentFileWithHashes(): the metadata with v2 piece layers, needed to save a v2 torrent from a
+   session; torrentFile() leaves them out (#333)
+ * fix: TorrentInfo.toEntry()/bencode() throw a documented IllegalStateException when libtorrent can't write the
+   torrent (v2 piece layers missing) instead of a bare RuntimeException (#333)
+ * fix: the SWIG torrent_handle.torrent_file_with_hashes_ptr() returned a pointer to freed memory; replaced by
+   torrent_file_with_hashes_copy(), owned by Java (#333)
  * SWIG 4.4.1 -> 4.5.1 (the SWIG tarball's SHA-256 is now verified); generated Java API unchanged
    - session_params read/write_session_params(_buf) are explicit overloads instead of C++ default arguments,
      which SWIG 4.5 expands into code that doesn't compile
