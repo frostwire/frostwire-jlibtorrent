@@ -91094,7 +91094,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_aler
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_alert_1notify_1callback_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   alert_notify_callback *obj = *((alert_notify_callback **)&objarg);
-  SwigDirector_alert_notify_callback *director = static_cast<SwigDirector_alert_notify_callback *>(obj);
+  SwigDirector_alert_notify_callback *director = dynamic_cast<SwigDirector_alert_notify_callback *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -91236,7 +91236,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add_1files_1listener_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   add_files_listener *obj = *((add_files_listener **)&objarg);
-  SwigDirector_add_files_listener *director = static_cast<SwigDirector_add_files_listener *>(obj);
+  SwigDirector_add_files_listener *director = dynamic_cast<SwigDirector_add_files_listener *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -91395,7 +91395,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_set_1piece_1hashes_1listener_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   set_piece_hashes_listener *obj = *((set_piece_hashes_listener **)&objarg);
-  SwigDirector_set_piece_hashes_listener *director = static_cast<SwigDirector_set_piece_hashes_listener *>(obj);
+  SwigDirector_set_piece_hashes_listener *director = dynamic_cast<SwigDirector_set_piece_hashes_listener *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
@@ -93164,7 +93164,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posi
 
 SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_posix_1wrapper_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
   posix_wrapper *obj = *((posix_wrapper **)&objarg);
-  SwigDirector_posix_wrapper *director = static_cast<SwigDirector_posix_wrapper *>(obj);
+  SwigDirector_posix_wrapper *director = dynamic_cast<SwigDirector_posix_wrapper *>(obj);
   (void)jcls;
   if (director) {
     director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);

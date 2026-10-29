@@ -9,53 +9,25 @@ abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
 JLIBTORRENT_VERSION=`sed -n -e '/^version /s/.* //p' ../build.gradle | tr -d "'"`
 abort_if_var_unset "JLIBTORRENT_VERSION" ${JLIBTORRENT_VERSION}
 
-function fixCode() {
-    uname=`uname -s`
-    if [ "$(uname)" == "Darwin" ]; then
-      # FreeBSD's sed is weird, it needs that extra '' parameter there for some reason
-      sed -i '' 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
-      # The line above will be reverted to normal when we build by the checkout, if not commented/deleted swig breaks
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/(std::min)(/std::min(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i '' 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-      # Comment out the problematic line
-      sed -i '' 's/extern template/template<>/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
-      #sed -i '' 's/extern template/template/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
-      # TODO: Add this back to the case thats not macOS once we get this to work
-      sed -i '' 's/>>/> >/g' ${LIBTORRENT_ROOT}/include/libtorrent/ip_filter.hpp
-    else
-      sed -i 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/(std::min)(/std::min(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
+# SWIG parses a copy of the libtorrent headers it can't read as they are, from an overlay
+# directory searched before ${LIBTORRENT_ROOT}/include. The libtorrent checkout itself is never
+# modified (frostwire/frostwire-jlibtorrent#339). With SWIG 4.5.1 only torrent_handle.hpp needs it:
+# SWIG can't parse the braced default argument `client_data_t userdata = client_data_t{}`.
+# Earlier SWIG versions needed seven in-place edits (alert.hpp, file_storage.hpp,
+# announce_entry.hpp, ip_filter.hpp); without them 4.5.1 generates byte-identical output.
+function prepareHeaderOverlay() {
+    HEADER_OVERLAY=$(mktemp -d "${TMPDIR:-/tmp}/jlibtorrent-swig-headers.XXXXXX")
+    mkdir -p "${HEADER_OVERLAY}/libtorrent"
+    sed 's/userdata = client_data_t{});/userdata);/g' \
+        "${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp" > "${HEADER_OVERLAY}/libtorrent/torrent_handle.hpp"
+    if ! grep -q 'client_data_t userdata);' "${HEADER_OVERLAY}/libtorrent/torrent_handle.hpp"; then
+        echo "run-swig.sh: torrent_handle.hpp no longer has the client_data_t{} default argument; review prepareHeaderOverlay"
+        exit 1
     fi
 }
 
-function refixCode() {
-    uname=`uname -s`
-    if [ "$(uname)" == "Darwin" ]; then
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/std::min(/(std::min)(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i '' 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-    else
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/std::min(/(std::min)(/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-    fi
-    # fixCode also edits alert.hpp; restore both from git so the checkout the native
-    # build compiles is pristine (the sed rules above can't undo the alert.hpp edit).
-    echo 'run-swig.sh: restoring alert.hpp and ip_filter.hpp before compiling'
-    pushd ${LIBTORRENT_ROOT}/include/libtorrent
-    git checkout alert.hpp ip_filter.hpp
-    popd
+function removeHeaderOverlay() {
+    rm -rf "${HEADER_OVERLAY:?}"
 }
 
 function runJni()
@@ -78,6 +50,7 @@ function runJni()
         -outdir ${JAVA_SRC_OUTPUT} \
         -package com.frostwire.jlibtorrent.swig \
         -I${BOOST_ROOT} \
+        -I${HEADER_OVERLAY} \
         -I${LIBTORRENT_ROOT}/include \
         -DBOOST_ASIO_DECL="" \
         -DBOOST_NO_TYPEID=1 \
@@ -120,17 +93,6 @@ function runJni()
         exit 1
     fi
 
-    # at first sight, this could look like a very dangerous thing to
-    # do, but in practice, these director types are controlled by us
-    # and we know we can do it. The main reason is to be able to
-    # compile with -fno-rtti.
-    uname=`uname -s`
-    if [ "$(uname)" == "Darwin" ]; then
-      sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
-    else
-      sed -i 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
-    fi
-
     # replace jlibtorrent version
     #uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then
@@ -140,6 +102,6 @@ function runJni()
     fi
 }
 
-fixCode
+prepareHeaderOverlay
 runJni
-refixCode
+removeHeaderOverlay

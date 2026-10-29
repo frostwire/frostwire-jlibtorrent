@@ -31,7 +31,9 @@ rule libtorrent_linking ( properties * )
     result += <deprecated-functions>off ;
     result += <logging>on ;
     result += <crypto>openssl ;
-    result += <rtti>off ;
+    # Every platform config compiles with -frtti, and the generated director code uses
+    # dynamic_cast (frostwire/frostwire-jlibtorrent#339).
+    result += <rtti>on ;
     result += <optimization>off ;
 
     if <target-os>freebsd in $(properties)
