@@ -126,7 +126,11 @@ public final class Sha256Hash implements Comparable<Sha256Hash>, Cloneable {
     }
 
     /**
-     * @param hex hex coded representation of the hash
+     * Parses a hash from its hexadecimal form, as found in magnet links and on web pages.
+     *
+     * @param hex hex coded representation of the hash, 64 characters
+     * @throws IllegalArgumentException if {@code hex} has an odd number of characters, a character
+     *            that is not a hexadecimal digit, or doesn't decode to 32 bytes
      */
     public Sha256Hash(String hex) {
         this(Hex.decode(hex));

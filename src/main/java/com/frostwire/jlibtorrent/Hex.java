@@ -125,15 +125,20 @@ final class Hex {
     /**
      * Converts an array of characters representing hexadecimal values into an array of bytes of those same values. The
      * returned array will be half the length of the passed array, as it takes two characters to represent any given
-     * byte. An exception is thrown if the passed char array has an odd number of elements.
+     * byte.
      *
      * @param data
      *            An array of characters containing hexadecimal digits
      * @return A byte array containing binary data decoded from the supplied char array.
+     * @throws IllegalArgumentException if {@code data} has an odd number of characters or a character
+     *            that is not a hexadecimal digit
      */
     public static byte[] decode(final char[] data) {
 
         final int len = data.length;
+        if ((len & 0x01) != 0) {
+            throw new IllegalArgumentException("Odd number of hexadecimal characters: " + len);
+        }
 
         final byte[] out = new byte[len >> 1];
 
@@ -149,6 +154,17 @@ final class Hex {
         return out;
     }
 
+    /**
+     * Decodes a string of hexadecimal digits, e.g. an info-hash taken from a magnet link.
+     * <pre>{@code
+     * byte[] hash = Hex.decode("e3b0c44298fc1c149afbf4c8996fb92427ae41e4");  // 20 bytes
+     * }</pre>
+     *
+     * @param data hexadecimal digits, two per byte, in either case
+     * @return the decoded bytes
+     * @throws IllegalArgumentException if {@code data} has an odd number of characters or a character
+     *            that is not a hexadecimal digit
+     */
     public static byte[] decode(String data) {
         return decode(data.toCharArray());
     }
