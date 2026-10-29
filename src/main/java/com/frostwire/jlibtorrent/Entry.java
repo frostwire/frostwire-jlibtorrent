@@ -156,7 +156,7 @@ public final class Entry {
     }
 
     public byte[] bencode() {
-        return Vectors.byte_vector2bytes(e.bencode());
+        return Vectors.byte_vector2bytesAndDelete(e.bencode());
     }
 
     public String string() {
@@ -175,7 +175,7 @@ public final class Entry {
      * @throws RuntimeException if this entry is not a string
      */
     public byte[] bytes() {
-        return Vectors.byte_vector2bytes(e.string_bytes());
+        return Vectors.byte_vector2bytesAndDelete(e.string_bytes());
     }
 
     /**
@@ -194,11 +194,15 @@ public final class Entry {
      */
     public List<byte[]> dictionaryKeys() {
         byte_vector_vector keys = e.dict_keys_bytes();
-        List<byte[]> result = new ArrayList<>((int) keys.size());
-        for (int i = 0; i < keys.size(); i++) {
-            result.add(Vectors.byte_vector2bytes(keys.get(i)));
+        try {
+            List<byte[]> result = new ArrayList<>((int) keys.size());
+            for (int i = 0; i < keys.size(); i++) {
+                result.add(Vectors.byte_vector2bytes(keys.get(i)));
+            }
+            return result;
+        } finally {
+            keys.delete();
         }
-        return result;
     }
 
     /**
@@ -209,8 +213,13 @@ public final class Entry {
      * @throws RuntimeException if this entry is not a dictionary
      */
     public Entry get(byte[] key) {
-        entry value = e.dict_find_bytes(Vectors.bytes2byte_vector(key));
-        return value != null ? new Entry(value) : null;
+        byte_vector k = Vectors.bytes2byte_vector(key);
+        try {
+            entry value = e.dict_find_bytes(k);
+            return value != null ? new Entry(value) : null;
+        } finally {
+            k.delete();
+        }
     }
 
     public long integer() {
@@ -272,12 +281,20 @@ public final class Entry {
      *         nested deeper than libtorrent's limit); the message is libtorrent's
      */
     public static Entry bdecode(byte[] data) {
+        byte_vector buffer = Vectors.bytes2byte_vector(data);
         error_code ec = new error_code();
-        entry e = entry.bdecode(Vectors.bytes2byte_vector(data), ec);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException("Can't decode data: " + ec.message());
+        try {
+            // the entry copies what it needs from the buffer
+            entry e = entry.bdecode(buffer, ec);
+            if (ec.value() != 0) {
+                e.delete();
+                throw new IllegalArgumentException("Can't decode data: " + ec.message());
+            }
+            return new Entry(e);
+        } finally {
+            buffer.delete();
+            ec.delete();
         }
-        return new Entry(e);
     }
 
     public static Entry bdecode(File file) throws IOException {

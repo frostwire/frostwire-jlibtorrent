@@ -191,14 +191,17 @@ public class SessionParams {
         byte_vector buffer = Vectors.bytes2byte_vector(data);
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(buffer, n, ec);
-
-        if (ret == 0) {
-            session_params params = session_params.read_session_params(n);
-            buffer.clear(); // prevents GC
-            return params;
-        } else {
-            throw new IllegalArgumentException("Can't decode data: " + ec.message());
+        try {
+            int ret = bdecode_node.bdecode(buffer, n, ec);
+            if (ret != 0) {
+                throw new IllegalArgumentException("Can't decode data: " + ec.message());
+            }
+            // session_params copies the settings and DHT state out of the node
+            return session_params.read_session_params(n);
+        } finally {
+            n.delete();
+            buffer.delete();
+            ec.delete();
         }
     }
 }

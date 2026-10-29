@@ -833,9 +833,14 @@ public class SessionManager {
                 byte[] data = Files.bytes(resumeFile);
                 byte_vector data_byte_vector = Vectors.bytes2byte_vector(data);
                 error_code ec = new error_code();
-                p = add_torrent_params.read_resume_data(data_byte_vector, ec);
-                if (ec.value() != 0) {
-                    throw new IllegalArgumentException("SessionManager::download() Unable to read the resume data: " + ec.message());
+                try {
+                    p = add_torrent_params.read_resume_data(data_byte_vector, ec);
+                    if (ec.value() != 0) {
+                        throw new IllegalArgumentException("SessionManager::download() Unable to read the resume data: " + ec.message());
+                    }
+                } finally {
+                    data_byte_vector.delete();
+                    ec.delete();
                 }
             } catch (Throwable e) {
                 LOG.warn("SessionManager::download() Unable to set resume data", e);
@@ -880,10 +885,15 @@ public class SessionManager {
         }
 
         error_code ec = new error_code();
-        add_torrent_params p = add_torrent_params.parse_magnet_uri(magnetUri, ec);
-
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        add_torrent_params p;
+        try {
+            p = add_torrent_params.parse_magnet_uri(magnetUri, ec);
+            if (ec.value() != 0) {
+                p.delete();
+                throw new IllegalArgumentException(ec.message());
+            }
+        } finally {
+            ec.delete();
         }
 
         sha1_hash info_hash = p.getInfo_hashes().get_best();
@@ -939,10 +949,15 @@ public class SessionManager {
         }
 
         error_code ec = new error_code();
-        add_torrent_params p = add_torrent_params.parse_magnet_uri(uri, ec);
-
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        add_torrent_params p;
+        try {
+            p = add_torrent_params.parse_magnet_uri(uri, ec);
+            if (ec.value() != 0) {
+                p.delete();
+                throw new IllegalArgumentException(ec.message());
+            }
+        } finally {
+            ec.delete();
         }
 
         info_hash_t info_hashes = p.getInfo_hashes();

@@ -326,12 +326,17 @@ public final class BDecodeNode {
         byte_vector buffer = Vectors.bytes2byte_vector(data);
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(buffer, n, ec);
-
-        if (ret == 0) {
-            return new BDecodeNode(n, buffer);
-        } else {
+        try {
+            int ret = bdecode_node.bdecode(buffer, n, ec);
+            if (ret == 0) {
+                // the node points into the buffer; the BDecodeNode keeps both
+                return new BDecodeNode(n, buffer);
+            }
+            n.delete();
+            buffer.delete();
             throw new IllegalArgumentException("Can't decode data: " + ec.message());
+        } finally {
+            ec.delete();
         }
     }
 }

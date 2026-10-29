@@ -626,11 +626,16 @@ public final class AddTorrentParams {
      */
     public static AddTorrentParams parseMagnetUri(String uri) {
         error_code ec = new error_code();
-        add_torrent_params params = add_torrent_params.parse_magnet_uri(uri, ec);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException("Invalid magnet uri: " + ec.message());
+        try {
+            add_torrent_params params = add_torrent_params.parse_magnet_uri(uri, ec);
+            if (ec.value() != 0) {
+                params.delete();
+                throw new IllegalArgumentException("Invalid magnet uri: " + ec.message());
+            }
+            return new AddTorrentParams(params);
+        } finally {
+            ec.delete();
         }
-        return new AddTorrentParams(params);
     }
 
     /**

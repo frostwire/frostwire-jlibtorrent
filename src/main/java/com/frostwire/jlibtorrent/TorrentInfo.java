@@ -127,10 +127,14 @@ public final class TorrentInfo {
             long size = libtorrent_jni.directBufferCapacity(buffer);
 
             error_code ec = new error_code();
-            this.ti = new torrent_info(ptr, (int) size, ec);
+            try {
+                this.ti = new torrent_info(ptr, (int) size, ec);
 
-            if (ec.value() != 0) {
-                throw new IllegalArgumentException("Can't decode data: " + ec.message());
+                if (ec.value() != 0) {
+                    throw new IllegalArgumentException("Can't decode data: " + ec.message());
+                }
+            } finally {
+                ec.delete();
             }
         } catch (Throwable e) {
             throw new IllegalArgumentException("Can't decode data mapped buffer: " + e.getMessage(), e);
@@ -915,18 +919,24 @@ public final class TorrentInfo {
         byte_vector buffer = Vectors.bytes2byte_vector(data);
         bdecode_node n = new bdecode_node();
         error_code ec = new error_code();
-        int ret = bdecode_node.bdecode(buffer, n, ec);
-
-        if (ret == 0) {
+        try {
+            int ret = bdecode_node.bdecode(buffer, n, ec);
+            if (ret != 0) {
+                throw new IllegalArgumentException("Can't decode data: " + ec.message());
+            }
             ec.clear();
+            // torrent_info copies the info section, so the decode buffers can go afterwards.
             torrent_info ti = new torrent_info(n, ec);
-            buffer.clear(); // prevents GC
             if (ec.value() != 0) {
+                ti.delete();
                 throw new IllegalArgumentException("Can't decode data: " + ec.message());
             }
             return ti;
-        } else {
-            throw new IllegalArgumentException("Can't decode data: " + ec.message());
+        } finally {
+            // The node points into the buffer: free it first (frostwire/frostwire-jlibtorrent#337).
+            n.delete();
+            buffer.delete();
+            ec.delete();
         }
     }
 }

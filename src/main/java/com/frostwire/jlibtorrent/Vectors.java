@@ -175,6 +175,21 @@ public final class Vectors {
         return arr;
     }
 
+    /**
+     * Copies a vector a native call returned into a Java array and frees the vector's native memory.
+     * Use it for results nothing else keeps, e.g. {@code byte_vector2bytesAndDelete(e.bencode())}:
+     * SWIG proxies are only freed by {@code delete()} (frostwire/frostwire-jlibtorrent#337).
+     * {@code delete()} frees nothing for a vector the proxy doesn't own, so it is safe on references
+     * too, as long as the vector isn't used afterwards.
+     */
+    public static byte[] byte_vector2bytesAndDelete(byte_vector v) {
+        try {
+            return byte_vector2bytes(v);
+        } finally {
+            v.delete();
+        }
+    }
+
     public static void byte_vector2bytes(byte_vector v, byte[] arr) {
         int size = (int) v.size();
 
