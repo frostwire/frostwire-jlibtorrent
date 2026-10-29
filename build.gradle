@@ -440,9 +440,18 @@ dependencies {
     fuzzTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+def nativeJarTask = [
+        'macosx-arm64' : 'nativeMacOSArm64Jar',
+        'macosx-x86_64': 'nativeMacOSX86_64Jar',
+        'linux-x86_64' : 'nativeLinuxX86_64Jar',
+        'linux-arm64'  : 'nativeLinuxArm64Jar',
+        'windows'      : 'nativeWindowsX86_64Jar'][nativeFlavor]
+
 def configureFuzzTask = { Test t ->
     t.group = 'verification'
     t.dependsOn tasks.named('fuzzTestClasses')
+    // the harnesses load the native library from this platform's jar
+    t.dependsOn tasks.named(nativeJarTask)
     t.testClassesDirs = sourceSets.fuzzTest.output.classesDirs
     t.classpath = sourceSets.fuzzTest.runtimeClasspath
     t.useJUnitPlatform()
