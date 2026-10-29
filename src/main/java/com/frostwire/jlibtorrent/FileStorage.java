@@ -176,9 +176,13 @@ public final class FileStorage {
      */
     public void addFile(String path, long size, file_flags_t flags, int mtime, String symlink) {
         error_code ec = new error_code();
-        fs.add_file_ex(ec, path, size, flags, mtime, symlink);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        try {
+            fs.add_file_ex(ec, path, size, flags, mtime, symlink);
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException(ec.message());
+            }
+        } finally {
+            ec.delete();
         }
     }
 
@@ -203,9 +207,13 @@ public final class FileStorage {
      */
     public void addFile(String path, long size, file_flags_t flags, int mtime) {
         error_code ec = new error_code();
-        fs.add_file_ex(ec, path, size, flags, mtime);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        try {
+            fs.add_file_ex(ec, path, size, flags, mtime);
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException(ec.message());
+            }
+        } finally {
+            ec.delete();
         }
     }
 
@@ -229,9 +237,13 @@ public final class FileStorage {
      */
     public void addFile(String path, long size, file_flags_t flags) {
         error_code ec = new error_code();
-        fs.add_file_ex(ec, path, size, flags);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        try {
+            fs.add_file_ex(ec, path, size, flags);
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException(ec.message());
+            }
+        } finally {
+            ec.delete();
         }
     }
 
@@ -253,9 +265,13 @@ public final class FileStorage {
      */
     public void addFile(String p, long size) {
         error_code ec = new error_code();
-        fs.add_file_ex(ec, p, size);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        try {
+            fs.add_file_ex(ec, p, size);
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException(ec.message());
+            }
+        } finally {
+            ec.delete();
         }
     }
 

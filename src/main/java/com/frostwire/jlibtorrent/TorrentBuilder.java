@@ -604,9 +604,13 @@ public final class TorrentBuilder {
             throw new IOException("path's parent can't be null");
         }
         error_code ec = new error_code();
-        set_piece_hashes_ex(t, parent.getAbsolutePath(), l2, ec);
-        if (ec.value() != 0) {
-            throw new IOException(ec.message());
+        try {
+            set_piece_hashes_ex(t, parent.getAbsolutePath(), l2, ec);
+            if (ec.value() != 0) {
+                throw new IOException(ec.message());
+            }
+        } finally {
+            ec.delete();
         }
 
         if (comment != null) {

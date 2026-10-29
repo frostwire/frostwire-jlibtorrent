@@ -241,9 +241,13 @@ public class SessionHandle {
      */
     public TorrentHandle addTorrent(AddTorrentParams params, ErrorCode ec) {
         error_code e = new error_code();
-        TorrentHandle th = new TorrentHandle(s.add_torrent(params.swig(), e));
-        ec.assign(e);
-        return th;
+        try {
+            TorrentHandle th = new TorrentHandle(s.add_torrent(params.swig(), e));
+            ec.assign(e);  // copies the value and message
+            return th;
+        } finally {
+            e.delete();
+        }
     }
 
     public void asyncAddTorrent(AddTorrentParams params) {
@@ -451,7 +455,14 @@ public class SessionHandle {
      * @param salt
      */
     public void dhtGetItem(byte[] key, byte[] salt) {
-        s.dht_get_item(Vectors.bytes2byte_vector(key), Vectors.bytes2byte_vector(salt));
+        byte_vector k = Vectors.bytes2byte_vector(key);
+        byte_vector sv = Vectors.bytes2byte_vector(salt);
+        try {
+            s.dht_get_item(k, sv);  // copied before the request is queued
+        } finally {
+            k.delete();
+            sv.delete();
+        }
     }
 
     /**
@@ -507,10 +518,16 @@ public class SessionHandle {
     // the DHT works, it is natural to always do a lookup before storing and
     // calling the callback in between is convenient.
     public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, byte[] salt) {
-        s.dht_put_item(Vectors.bytes2byte_vector(publicKey),
-                Vectors.bytes2byte_vector(privateKey),
-                entry.swig(),
-                Vectors.bytes2byte_vector(salt));
+        byte_vector pub = Vectors.bytes2byte_vector(publicKey);
+        byte_vector priv = Vectors.bytes2byte_vector(privateKey);
+        byte_vector sv = Vectors.bytes2byte_vector(salt);
+        try {
+            s.dht_put_item(pub, priv, entry.swig(), sv);  // copied before the request is queued
+        } finally {
+            pub.delete();
+            priv.delete();
+            sv.delete();
+        }
     }
 
     /**

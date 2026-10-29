@@ -199,9 +199,14 @@ public final class Address implements Comparable<Address>, Cloneable {
      */
     public Address(String ip) {
         error_code ec = new error_code();
-        this.addr = address.from_string(ip, ec);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        try {
+            this.addr = address.from_string(ip, ec);
+            if (ec.value() != 0) {
+                addr.delete();
+                throw new IllegalArgumentException(ec.message());
+            }
+        } finally {
+            ec.delete();
         }
     }
 

@@ -98,7 +98,11 @@ public final class SettingsPack {
 
     public void setBytes(int name, byte[] value) {
         byte_vector v = Vectors.bytes2byte_vector(value);
-        sp.set_bytes(name, v);
+        try {
+            sp.set_bytes(name, v);  // copies the bytes
+        } finally {
+            v.delete();
+        }
     }
 
     public void clear() {

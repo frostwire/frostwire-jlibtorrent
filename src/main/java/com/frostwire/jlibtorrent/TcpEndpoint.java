@@ -152,10 +152,15 @@ public final class TcpEndpoint implements Cloneable {
     public TcpEndpoint(String ip, int port) {
         error_code ec = new error_code();
         address addr = address.from_string(ip, ec);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        try {
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException(ec.message());
+            }
+            this.endp = new tcp_endpoint(addr, port);  // copies the address
+        } finally {
+            addr.delete();
+            ec.delete();
         }
-        this.endp = new tcp_endpoint(addr, port);
     }
 
     /**

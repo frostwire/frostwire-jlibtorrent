@@ -164,10 +164,15 @@ public final class UdpEndpoint implements Cloneable {
     public UdpEndpoint(String ip, int port) {
         error_code ec = new error_code();
         address addr = address.from_string(ip, ec);
-        if (ec.value() != 0) {
-            throw new IllegalArgumentException(ec.message());
+        try {
+            if (ec.value() != 0) {
+                throw new IllegalArgumentException(ec.message());
+            }
+            this.endp = new udp_endpoint(addr, port);  // copies the address
+        } finally {
+            addr.delete();
+            ec.delete();
         }
-        this.endp = new udp_endpoint(addr, port);
     }
 
     public udp_endpoint swig() {

@@ -158,7 +158,12 @@ public final class TorrentHandle {
      * @param flags flags
      */
     public void addPiece(int piece, byte[] data, add_piece_flags_t flags) {
-        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data), flags);
+        byte_vector v = Vectors.bytes2byte_vector(data);
+        try {
+            th.add_piece_bytes(piece, v, flags);  // libtorrent copies the data
+        } finally {
+            v.delete();
+        }
     }
 
     /**
@@ -169,7 +174,12 @@ public final class TorrentHandle {
      * @param data  the piece data
      */
     public void addPiece(int piece, byte[] data) {
-        th.add_piece_bytes(piece, Vectors.bytes2byte_vector(data));
+        byte_vector v = Vectors.bytes2byte_vector(data);
+        try {
+            th.add_piece_bytes(piece, v);  // libtorrent copies the data
+        } finally {
+            v.delete();
+        }
     }
 
     /**
@@ -662,7 +672,13 @@ public final class TorrentHandle {
         byte_vector cert = Vectors.bytes2byte_vector(certificate);
         byte_vector pk = Vectors.bytes2byte_vector(privateKey);
         byte_vector dh = Vectors.bytes2byte_vector(dhParams);
-        th.set_ssl_certificate_buffer2(cert, pk, dh);
+        try {
+            th.set_ssl_certificate_buffer2(cert, pk, dh);  // copied into strings
+        } finally {
+            cert.delete();
+            pk.delete();
+            dh.delete();
+        }
     }
 
     /**

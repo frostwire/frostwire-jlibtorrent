@@ -1,5 +1,6 @@
 package com.frostwire.jlibtorrent;
 
+import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 import com.frostwire.jlibtorrent.swig.sha256_hash;
 import com.frostwire.jlibtorrent.swig.sha256_hash_vector;
@@ -122,7 +123,12 @@ public final class Sha256Hash implements Comparable<Sha256Hash>, Cloneable {
             throw new IllegalArgumentException("Sha256Hash(byte[]) bytes array must be of length 32");
         }
 
-        this.h = new sha256_hash(Vectors.bytes2byte_vector(bytes));
+        byte_vector v = Vectors.bytes2byte_vector(bytes);
+        try {
+            this.h = new sha256_hash(v);  // copies the bytes
+        } finally {
+            v.delete();
+        }
     }
 
     /**
