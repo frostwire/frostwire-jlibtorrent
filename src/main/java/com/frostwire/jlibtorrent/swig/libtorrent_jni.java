@@ -179,6 +179,8 @@ public class libtorrent_jni {
   public final static native byte byte_vector_doGet(long jarg1, byte_vector jarg1_, int jarg2);
   public final static native byte byte_vector_doSet(long jarg1, byte_vector jarg1_, int jarg2, byte jarg3);
   public final static native void byte_vector_doRemoveRange(long jarg1, byte_vector jarg1_, int jarg2, int jarg3);
+  public final static native void byte_vector_assign_bytes(long jarg1, byte_vector jarg1_, byte[] jarg2);
+  public final static native void byte_vector_copy_to(long jarg1, byte_vector jarg1_, byte[] jarg2);
   public final static native void delete_byte_vector(long jarg1);
   public final static native long new_byte_vector_vector__SWIG_0();
   public final static native long new_byte_vector_vector__SWIG_1(long jarg1, byte_vector_vector jarg1_);

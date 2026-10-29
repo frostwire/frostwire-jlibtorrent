@@ -177,6 +177,7 @@ TYPE_INTEGRAL_CONVERSION(disconnect_severity_t, std::uint8_t, int)
 TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 
 // swig template definitions
+%include "includes/libtorrent_byte_vector.i"
 %include "includes/swig_templates.i"
 
 // more structs and templates

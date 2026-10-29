@@ -158,4 +158,12 @@ public class byte_vector extends java.util.AbstractList<Byte> implements java.ut
     libtorrent_jni.byte_vector_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
   }
 
+  public void assign_bytes(byte[] JBYTES_IN) {
+    libtorrent_jni.byte_vector_assign_bytes(swigCPtr, this, JBYTES_IN);
+  }
+
+  public void copy_to(byte[] JBYTES_OUT) {
+    libtorrent_jni.byte_vector_copy_to(swigCPtr, this, JBYTES_OUT);
+  }
+
 }

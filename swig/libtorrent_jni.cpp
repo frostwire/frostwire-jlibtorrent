@@ -1368,6 +1368,13 @@ SWIGINTERN void std_vector_Sl_std_int8_t_Sg__doRemoveRange(std::vector< std::int
           throw std::out_of_range("vector index out of range");
         }
       }
+SWIGINTERN void std_vector_Sl_std_int8_t_Sg__assign_bytes(std::vector< std::int8_t > *self,std::int8_t const *JBYTES_IN,std::size_t JLENGTH){
+        self->assign(JBYTES_IN, JBYTES_IN + JLENGTH);
+    }
+SWIGINTERN void std_vector_Sl_std_int8_t_Sg__copy_to(std::vector< std::int8_t > *self,std::int8_t *JBYTES_OUT,std::size_t JLENGTH){
+        std::size_t const n = std::min(self->size(), JLENGTH);
+        if (n > 0) std::memcpy(JBYTES_OUT, self->data(), n);
+    }
 SWIGINTERN std::vector< std::vector< std::int8_t > > *new_std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg___SWIG_2(jint count,std::vector< std::int8_t > const &value){
         if (count < 0)
           throw std::out_of_range("vector count must be positive");
@@ -8737,6 +8744,76 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
       return ;
     }
   }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte_1vector_1assign_1bytes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  std::vector< std::int8_t > *arg1 = 0 ;
+  std::int8_t *arg2 = 0 ;
+  std::size_t arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< std::int8_t > **)&jarg1; 
+  
+  if (!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null byte array");
+    return ;
+  }
+  arg3 = static_cast<std::size_t>(jenv->GetArrayLength(jarg2));
+  arg2 = (std::int8_t *) jenv->GetByteArrayElements(jarg2, nullptr);
+  if (!arg2) return ;
+  
+  {
+    try {
+      std_vector_Sl_std_int8_t_Sg__assign_bytes(arg1,(signed char const *)arg2,SWIG_STD_MOVE(*(&arg3)));
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+  
+  jenv->ReleaseByteArrayElements(jarg2, (jbyte*) arg2, JNI_ABORT);
+  
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte_1vector_1copy_1to(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  std::vector< std::int8_t > *arg1 = 0 ;
+  std::int8_t *arg2 = 0 ;
+  std::size_t arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< std::int8_t > **)&jarg1; 
+  
+  if (!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null byte array");
+    return ;
+  }
+  arg3 = static_cast<std::size_t>(jenv->GetArrayLength(jarg2));
+  arg2 = (std::int8_t *) jenv->GetByteArrayElements(jarg2, nullptr);
+  if (!arg2) return ;
+  
+  {
+    try {
+      std_vector_Sl_std_int8_t_Sg__copy_to(arg1,arg2,SWIG_STD_MOVE(*(&arg3)));
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+  
+  jenv->ReleaseByteArrayElements(jarg2, (jbyte*) arg2, 0);
+  
 }
 
 

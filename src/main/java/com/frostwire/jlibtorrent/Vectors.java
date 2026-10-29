@@ -165,15 +165,12 @@ public final class Vectors {
     }
 
     public static byte[] byte_vector2bytes(byte_vector v) {
-        int size = (int) v.size();
-        byte[] arr = new byte[size];
-
-        for (int i = 0; i < size; i++) {
-            arr[i] = v.get(i);
-        }
-
+        // one JNI call (frostwire/frostwire-jlibtorrent#338)
+        byte[] arr = new byte[(int) v.size()];
+        v.copy_to(arr);
         return arr;
     }
+
 
     /**
      * Copies a vector a native call returned into a Java array and frees the vector's native memory.
@@ -191,20 +188,12 @@ public final class Vectors {
     }
 
     public static void byte_vector2bytes(byte_vector v, byte[] arr) {
-        int size = (int) v.size();
-
-        for (int i = 0; i < size; i++) {
-            arr[i] = v.get(i);
-        }
+        v.copy_to(arr);
     }
 
     public static byte_vector bytes2byte_vector(byte[] arr) {
         byte_vector v = new byte_vector();
-
-        for (int i = 0; i < arr.length; i++) {
-            v.add(arr[i]);
-        }
-
+        v.assign_bytes(arr);  // one JNI call (frostwire/frostwire-jlibtorrent#338)
         return v;
     }
 
