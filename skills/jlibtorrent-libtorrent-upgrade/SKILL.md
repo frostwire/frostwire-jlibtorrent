@@ -6,14 +6,17 @@ End-to-end workflow for upgrading the underlying libtorrent C++ library in the f
 
 Use this skill whenever a new libtorrent `RC_2_0` commit needs to be integrated.
 
+**Branch policy (2026-10-29):** jlibtorrent 2.0.x tracks `RC_2_0`. Upstream's default branch is now `RC_2_1` (v2.1.x), but that migration has ~20 binding breaks and a new default disk engine; it is planned for the FrostWire 7.2.x series in frostwire/frostwire-jlibtorrent#329, which lists the measured breaks. Don't drift onto `RC_2_1` during a 2.0.x upgrade.
+
 ---
 
 ## Prerequisites
 
 ### Dev Machine (Apple Silicon Mac)
 - macOS with Xcode / command-line tools
-- SWIG 4.3.1 installed locally (`swig -version`)
-- JDK 17
+- SWIG 4.4.1 installed locally (`swig -version`)
+- JDK 17 for Gradle: run `export JAVA_HOME=$(/usr/libexec/java_home -v 17)` first. Gradle 9.5.1 can't run on a newer default JDK (JDK 27 fails with `Unsupported class file major version 71`).
+- A consistent Apple toolchain: clang, ld and the SDK from the same install (see Build Config Caveats, "Toolchain/SDK mismatch")
 - Gradle or `./gradlew`
 - Local libtorrent checkout at `~/src/libtorrent` (for SWIG regeneration)
 - Local boost at `~/src/boost_1_88_0`
@@ -37,8 +40,12 @@ Use this skill whenever a new libtorrent `RC_2_0` commit needs to be integrated.
 2. Check `include/libtorrent/version.hpp` in that commit to confirm MAJOR.MINOR.TINY.
 3. jlibtorrent version format: `{libtorrent MAJOR}.{libtorrent MINOR}.{libtorrent TINY}.{jlibtorrent patch}`
    - Example: libtorrent `2.0.12` + jlibtorrent patch `8` → version `2.0.12.9`
+   - A new libtorrent version starts the patch at 0: libtorrent `2.0.15` → `2.0.15.0`
+   - Since 2.0.15.0 the native file names carry no version and the native library reports its version through `libtorrent_jni.jlibtorrentNativeVersion()`. A Java-only fix can ship as `X.Y.Z.(W+1)` reusing the previous natives, as long as the libtorrent part (`X.Y.Z`) matches.
 
 **Lesson Learned (cb6fe6b9c upgrade):** Even 86 commits on the same RC_2_0 branch can still be libtorrent `2.0.12` with only the jlibtorrent patch incrementing.
+
+**Lesson Learned (eb397173d upgrade):** `LIBTORRENT_REVISION` inside libtorrent's `version.hpp` is not updated on every commit (eb397173d still says `485467b33`); trust the `MAJOR.MINOR.TINY` defines, not that string.
 
 ---
 
@@ -81,10 +88,13 @@ export OPENSSL_VERSION="3.5.2"
 ./run-swig.sh
 ```
 
-Ensure the local `libtorrent` repo is at the target commit before running SWIG:
+`run-swig.sh` edits libtorrent's headers in place for SWIG (`fixCode`) and restores them afterwards (`refixCode`). Before 2.0.15.0, `refixCode` didn't restore `alert.hpp`, so old checkouts may still carry `//deleted temporarily because it is defined twice`. Check `git -C ~/src/libtorrent status` before and after SWIG; it must show no modified tracked files.
+
+Ensure the local `libtorrent` repo is at the target commit before running SWIG. `~/src/libtorrent`'s remote may be a fork that lacks the commit, so fetch it from upstream by URL:
 ```bash
 cd ~/src/libtorrent
-git fetch origin <commit>
+git checkout -- include/libtorrent/alert.hpp   # only if the stale SWIG edit is there
+git fetch https://github.com/arvidn/libtorrent <commit>
 git checkout RC_2_0
 git reset --hard <commit>
 git submodule update --init
@@ -104,9 +114,27 @@ Look for:
 
 **Lesson Learned (cb6fe6b9c upgrade):** The 86-commit delta only exposed 3 new settings and 1 new `torrent_info` method. Don't assume scale — always diff the generated files.
 
+**Lesson Learned (eb397173d upgrade):** 123 commits exposed only `torrent_info::resolve_duplicate_filenames()`, which upstream marks `// hidden` (internal). A header diff can also be comment-only (`settings_pack.hpp` +26 lines, no new settings). Check for `// hidden` before wrapping something SWIG exposed.
+
 Commit: `SWIG regeneration: <list new features>`
 
 ---
+
+## Step 3b (optional, before committing to a target): Measure binding breaks cheaply
+
+To judge a target, especially a new upstream branch, without building natives:
+1. `git clone --filter=blob:none https://github.com/arvidn/libtorrent` into a scratch dir, then `git worktree add` the candidate commit and run `git submodule update --init --depth 1` there.
+2. Copy `swig/` (minus `bin`, `build`, `swig-*`) and `build.gradle` into a scratch dir, then run the real `swig/run-swig.sh` with `LIBTORRENT_ROOT=<worktree>`. A hand-rolled `swig` command without `fixCode`'s header patches fails at `torrent_handle.hpp` (`client_data_t{}` default argument).
+3. Syntax-check the generated C++ with the build's defines:
+   ```bash
+   clang++ -std=c++20 -fsyntax-only -fno-rtti -ferror-limit=0 -w \
+     -DTORRENT_ABI_VERSION=100 -DTORRENT_USE_OPENSSL -DTORRENT_USE_LIBCRYPTO -DTORRENT_SSL_PEERS \
+     -DBOOST_ASIO_ENABLE_CANCELIO -DBOOST_ASIO_NO_DEPRECATED \
+     -I. -I<worktree>/include -I$HOME/src/boost_1_88_0 -I/opt/homebrew/opt/openssl@3/include libtorrent_jni.cpp
+   ```
+4. Each `fatal error: 'libtorrent/X.hpp' file not found` hides everything after it. If `include/libtorrent/aux_/X.hpp` exists, add a shim `shim/libtorrent/X.hpp` containing `#include <libtorrent/aux_/X.hpp>`, add `-Ishim`, and repeat. Then group the errors by symbol.
+
+2026-10-29 result: RC_2_0 head had 0 errors; RC_2_1 at e5590c42a had 165 errors from about 20 causes (see #329).
 
 ## Step 4: Diff Review & Triage
 
@@ -125,6 +153,11 @@ Key files to check:
 - `include/libtorrent/torrent_info.hpp` — new metadata queries
 - `include/libtorrent/create_torrent.hpp` — BEP changes (e.g., symlinks)
 - `include/libtorrent/stats_metric.hpp` — new performance counters
+
+For the changelog's `lt:` lines, list only upstream entries that are new to us. Release tags don't tell you that: entries pile up on the branch before a tag, so some may already be in the old pin. Diff the ChangeLog itself:
+```bash
+diff <(git show <old>:ChangeLog) <(git show <new>:ChangeLog) | grep '^>' | grep '\*'
+```
 
 Partition work among parallel agents based on the diff. Write a MentisDB Checkpoint with specific task assignments.
 
@@ -388,6 +421,26 @@ using darwin : arm64 : clang++ :
 
 **Lesson Learned (cb6fe6b9c upgrade):** Commit `d0e59960a` added `dynamic_cast<smart_ban_plugin*>` in `src/smart_ban.cpp`. We added `-frtti` to both `macosx-arm64-config.jam` and `linux-arm64-config.jam`. Check if this is needed for other platforms too.
 
+### Toolchain/SDK mismatch (macOS)
+**Symptom:** everything compiles, then linking `libjlibtorrent.dylib` fails with `tapi error: malformed file ... unknown architecture arm64e.x1-macos` in `libSystem.tbd` / `libc++.tbd`. Even a hello-world fails to link.
+
+**Cause:** `xcode-select` points at an Xcode whose `ld` (e.g. ld-1230, Xcode 26) is older than the SDK `xcrun` hands clang. Here that was the CommandLineTools `MacOSX.sdk` → `MacOSX27.0.sdk`, after a CommandLineTools update without an Xcode update.
+
+**Fix (per build, no system change):** use the CommandLineTools toolchain as a whole, then clean-rebuild:
+```bash
+export DEVELOPER_DIR=/Library/Developer/CommandLineTools   # its ld (27037+) matches its SDK
+rm -rf "${S:?}"/*   # with S=bin/release/macosx/arm64
+./build-macos-arm64.sh --build-only
+```
+Check first with `echo 'int main(){}' > t.cc && clang++ t.cc -o t`. Updating Xcode, or `sudo xcode-select -s`, is the maintainer's call.
+
+### Minimum macOS version
+The linker, not the compiler, stamps a dylib's minimum OS (`LC_BUILD_VERSION minos`). Without `<linkflags>-mmacosx-version-min=11.3` it uses the SDK's version: 2.0.12.9 shipped arm64 with minos 26.0 and x86_64 with minos 15.0. Check every macOS build:
+```bash
+otool -l bin/release/macosx/<arch>/libjlibtorrent.<arch>.dylib | grep -A4 LC_BUILD_VERSION   # minos must be 11.3
+```
+"built for newer 'macOS' version" link warnings name a static library that was built without the flag, so far always `~/src/openssl` (rebuild it with `CFLAGS=... -mmacosx-version-min=11.3`, `./Configure darwin64-<arch>-cc ... --prefix=$HOME/src/openssl`).
+
 ### C++ Standard
 The build scripts specify `cxxstd=20`. Ensure upstream commits are compatible with C++20. If upstream bumps to C++23, update all `config/*.jam` files.
 
@@ -428,6 +481,9 @@ When upgrading Boost or OpenSSL, build and test on ONE platform first. Even if u
 | **Tests asserting undefined behavior** | C++ functions may not validate input; test JVM survival, not return values |
 | **Building Docker on Apple Silicon** | Don't. Use EC2 x86_64 or GitHub Actions for cross-compiled platforms |
 | **Releasing before all platforms built** | Tagging creates a GitHub Release event; ensure ALL artifacts are ready first |
+| **Stale native jar after a `build.gradle` change** | Gradle can report a native `Zip` jar task up to date; run it with `--rerun-tasks` and `unzip -l` the jar to check the file names |
+| **Wrapping upstream internals** | SWIG exposes functions upstream marks `// hidden`; don't add Java wrappers for those |
+| **Assuming the old pin lacks a release's fixes** | Diff `ChangeLog` between the old and new commit; tags lag the branch |
 
 ---
 
@@ -442,7 +498,7 @@ When upgrading Boost or OpenSSL, build and test on ONE platform first. Even if u
 - `src/main/java/com/frostwire/jlibtorrent/LibTorrent.java` (Javadoc examples)
 - `swig/libtorrent_jni.cpp` (auto-generated)
 - `swig/libtorrent_jni.h` (auto-generated)
-- `src/main/java/com/frostwire/jlibtorrent/swig/*.java` (auto-generated)
+- `src/main/java/com/frostwire/jlibtorrent/swig/*.java` (auto-generated; `libtorrent_jni.java` and `libtorrent_jni.cpp` carry the version stamped by `run-swig.sh`, check with `grep NewStringUTF swig/libtorrent_jni.cpp`)
 - `changelog.txt`
 - Potentially `swig/config/*-config.jam` (compiler flags)
 
