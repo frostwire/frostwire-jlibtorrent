@@ -180,6 +180,32 @@ public final class Entry {
         return e.to_string();
     }
 
+    /**
+     * Two entries are equal when they hold the same value: same type and the same bencoded form.
+     * <pre>{@code
+     * Entry a = Entry.bdecode("d3:fooi1ee".getBytes());
+     * Entry b = Entry.bdecode("d3:fooi1ee".getBytes());
+     * a.equals(b);                            // true
+     * a.dictionary().equals(b.dictionary());  // true
+     * }</pre>
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Entry)) {
+            return false;
+        }
+        Entry other = (Entry) o;
+        return e.type() == other.e.type() && Arrays.equals(bencode(), other.bencode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(bencode());
+    }
+
     public static Entry bdecode(byte[] data) {
         return new Entry(entry.bdecode(Vectors.bytes2byte_vector(data)));
     }
@@ -323,8 +349,106 @@ public final class Entry {
         }
 
         @Override
-        public Set<Entry<String, com.frostwire.jlibtorrent.Entry>> entrySet() {
-            throw new UnsupportedOperationException();
+        public com.frostwire.jlibtorrent.Entry remove(Object key) {
+            String k = key.toString();
+            if (!m.containsKey(k)) {
+                return null;
+            }
+            return new com.frostwire.jlibtorrent.Entry(m.remove(k));
+        }
+
+        /**
+         * A view over the native map, so every {@link Map} operation works: iteration, {@code values()},
+         * {@code forEach}, {@code equals}, {@code toString}. {@code setValue} and the iterator's
+         * {@code remove} write through to the native dictionary (frostwire/frostwire-jlibtorrent#331).
+         */
+        @Override
+        public Set<Map.Entry<String, com.frostwire.jlibtorrent.Entry>> entrySet() {
+            return new AbstractSet<Map.Entry<String, com.frostwire.jlibtorrent.Entry>>() {
+                @Override
+                public Iterator<Map.Entry<String, com.frostwire.jlibtorrent.Entry>> iterator() {
+                    // Snapshot the keys in bencode order: libtorrent's dictionary is a
+                    // std::map<std::string, entry>, sorted by the keys' bytes.
+                    List<String> snapshot = new ArrayList<>(m.keySet());
+                    snapshot.sort(EntryMap::compareAsBytes);
+                    Iterator<String> keys = snapshot.iterator();
+                    return new Iterator<Map.Entry<String, com.frostwire.jlibtorrent.Entry>>() {
+                        private String current;
+
+                        @Override
+                        public boolean hasNext() {
+                            return keys.hasNext();
+                        }
+
+                        @Override
+                        public Map.Entry<String, com.frostwire.jlibtorrent.Entry> next() {
+                            current = keys.next();
+                            return new LiveEntry(current);
+                        }
+
+                        @Override
+                        public void remove() {
+                            if (current == null) {
+                                throw new IllegalStateException();
+                            }
+                            m.remove(current);
+                            current = null;
+                        }
+                    };
+                }
+
+                @Override
+                public int size() {
+                    return (int) m.size();
+                }
+            };
+        }
+
+        private static int compareAsBytes(String a, String b) {
+            return Arrays.compareUnsigned(a.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+                    b.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        }
+
+        private final class LiveEntry implements Map.Entry<String, com.frostwire.jlibtorrent.Entry> {
+            private final String key;
+
+            private LiveEntry(String key) {
+                this.key = key;
+            }
+
+            @Override
+            public String getKey() {
+                return key;
+            }
+
+            @Override
+            public com.frostwire.jlibtorrent.Entry getValue() {
+                return EntryMap.this.get(key);
+            }
+
+            @Override
+            public com.frostwire.jlibtorrent.Entry setValue(com.frostwire.jlibtorrent.Entry value) {
+                return EntryMap.this.put(key, value);
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (!(o instanceof Map.Entry)) {
+                    return false;
+                }
+                Map.Entry<?, ?> other = (Map.Entry<?, ?>) o;
+                return key.equals(other.getKey()) && Objects.equals(getValue(), other.getValue());
+            }
+
+            @Override
+            public int hashCode() {
+                return key.hashCode() ^ Objects.hashCode(getValue());
+            }
+
+            @Override
+            public String toString() {
+                return key + "=" + getValue();
+            }
         }
     }
 }
