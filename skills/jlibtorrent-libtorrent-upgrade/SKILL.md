@@ -88,7 +88,7 @@ export OPENSSL_VERSION="3.5.2"
 ./run-swig.sh
 ```
 
-`run-swig.sh` edits libtorrent's headers in place for SWIG (`fixCode`) and restores them afterwards (`refixCode`). Before 2.0.15.0, `refixCode` didn't restore `alert.hpp`, so old checkouts may still carry `//deleted temporarily because it is defined twice`. Check `git -C ~/src/libtorrent status` before and after SWIG; it must show no modified tracked files.
+`run-swig.sh` never modifies the libtorrent checkout (since #339). SWIG parses a patched copy of `torrent_handle.hpp` from a temporary overlay directory searched first: SWIG 4.5.1 can't parse its braced default argument `client_data_t{}`. The other six in-place `sed` edits older versions needed (`alert.hpp`, `file_storage.hpp`, `announce_entry.hpp`, `ip_filter.hpp`) are gone; without them the output is byte-identical. Old checkouts may still carry the `alert.hpp` edit from before b8581836 (`//deleted temporarily because it is defined twice`): `git -C ~/src/libtorrent status` must be clean. When a SWIG or libtorrent upgrade breaks parsing, add the fix to `prepareHeaderOverlay`, never to the checkout.
 
 Ensure the local `libtorrent` repo is at the target commit before running SWIG. `~/src/libtorrent`'s remote may be a fork that lacks the commit, so fetch it from upstream by URL:
 ```bash
@@ -406,6 +406,7 @@ Phase 8: Changelog + Release      [1 agent]
 ## Build Config Caveats
 
 ### RTTI (`-frtti` / `-fno-rtti`)
+Since #339 RTTI is on everywhere: the Jamfile sets `<rtti>on`, every config has `-frtti`, and the generated director code keeps SWIG's `dynamic_cast` (run-swig.sh no longer rewrites it to `static_cast`). The history below explains how it got here.
 jlibtorrent historically builds with `-fno-rtti` to reduce binary size. However, upstream libtorrent may introduce `dynamic_cast` in new commits.
 
 **Symptom:** Build fails with `error: use of dynamic_cast requires -frtti`
