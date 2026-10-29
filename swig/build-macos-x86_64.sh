@@ -23,8 +23,8 @@ export SHARED_LIB=lib${LIBRARY_NAME}.dylib
 export RELEASE_SHARED_LIB=lib${LIBRARY_NAME}.${os_arch}.dylib
 export CXX=clang++
 export CC=clang
-export CFLAGS="-O3 -Wall -fno-strict-aliasing -fvisibility=hidden -arch ${os_arch}"
-export CXXFLAGS="-fno-strict-aliasing -fvisibility=hidden -arch ${os_arch}"
+export CFLAGS="-O3 -Wall -fno-strict-aliasing -fvisibility=hidden -arch ${os_arch} -mmacosx-version-min=11.3"
+export CXXFLAGS="-fno-strict-aliasing -fvisibility=hidden -arch ${os_arch} -mmacosx-version-min=11.3"
 export run_openssl_configure="./Configure darwin64-${os_arch}-cc ${OPENSSL_NO_OPTS} --prefix=${OPENSSL_ROOT} LDCMD=clang"
 echo "run_openssl_configure=${run_openssl_configure}"
 press_any_to_continue
