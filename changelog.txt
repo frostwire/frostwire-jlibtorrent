@@ -1,5 +1,32 @@
 2.0.15.0 2026/OCT/29
  * libtorrent upgraded to eb397173da6189dad52f008916c27419dde32faa (RC_2_0, 123 commits ahead of cb6fe6b9c; libtorrent 2.0.13, 2.0.14, 2.0.15 and unreleased 2.0.16 fixes)
+ * native library loading no longer copies the library on every start (#326):
+   - Android: System.loadLibrary("jlibtorrent") only; the APK already installs lib/<abi>/libjlibtorrent.so
+     (2.0.12.9 copied 13.4 MB out of the APK into the cache dir on every start and never deleted it)
+   - desktop: the bundled library is extracted once into <cache>/jlibtorrent/<version>-<crc>/ and reused
+     (%LOCALAPPDATA%, ~/Library/Caches, $XDG_CACHE_HOME or ~/.cache; override with -Djlibtorrent.cache.dir)
+   - -Djlibtorrent.jni.path is now tried first instead of last
+   - new public NativeLibraryLoader (loadedLibrary() tells where the library came from)
+ * native libraries ship under unversioned names (libjlibtorrent.so, jlibtorrent.dll, libjlibtorrent.<arch>.dylib) (#327)
+   - BREAKING for apps that load the library themselves by its old versioned name
+ * new native libtorrent_jni.jlibtorrentNativeVersion(); the Java side refuses a native library built from
+   another libtorrent version, naming both versions (#327)
+ * build: run-swig.sh restores libtorrent's alert.hpp after SWIG (it was left edited in the checkout)
+ * swig: torrent_info.resolve_duplicate_filenames() is generated but upstream marks it hidden (used for
+   magnet links internally); no Java wrapper
+ * no new settings, alerts or torrent_handle methods between cb6fe6b9c and eb397173d
+ * lt: fix corruption bug in mmap_storage (2.0.14)
+ * lt: fix blocking UDP sockets in LSD, NAT-PMP and UPnP; fix stuck trackers on session pause (2.0.14)
+ * lt: fix issue in merkle tree; fix use of a stack buffer past its lifetime in i2p SAM (2.0.14)
+ * lt: fix Windows disk read short-read errors; fix torrent_status::total for seeds (2.0.14)
+ * lt: fix web seed requests for single-file torrents in multi-file mode; fix duplicate filenames in magnet links (2.0.14)
+ * lt: fix DNS leaks of hostnamed peers and i2p UDP tracker hostnames; proxy_hostnames covers HTTP proxies for web seeds (2.0.15)
+ * lt: fix shutdown issue with SSL torrents; hash-picker fixes; fix crc32 inline asm (2.0.15)
+ * lt: stricter basic auth for web seeds; disk job pool performance; fix race removing an auto managed torrent (2.0.13)
+ * lt: fix bind_to_device on Windows; fix rollback of move-storage; fix renaming sanitized files back (2.0.16, unreleased)
+ * lt: fix active_time, seeding_time and finished_time; fix torrent updates for idle torrents; improve dont-count-slow-torrents (2.0.14)
+ * lt: fix external_ip_alert not posted with UPnP/NAT-PMP enabled; fix ip_filter/ssrf_mitigation false positives on proxied web seeds
+ * lt: fix tracker announcements involving i2p trackers; fix post_download_queue() when a torrent completes (2.0.13)
 
 2.0.12.9 2026/MAY/12
  * libtorrent upgraded to cb6fe6b9c28735b42edd77740a554d1709acad02 (RC_2_0, 86 commits ahead of 46cc651d)
