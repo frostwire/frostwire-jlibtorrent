@@ -1234,7 +1234,6 @@ public class libtorrent_jni {
   public final static native void file_storage_canonicalize(long jarg1, file_storage jarg1_);
   public final static native long file_storage_hash(long jarg1, file_storage jarg1_, int jarg2);
   public final static native long file_storage_root(long jarg1, file_storage jarg1_, int jarg2);
-  public final static native String file_storage_root_ptr(long jarg1, file_storage jarg1_, int jarg2);
   public final static native String file_storage_symlink(long jarg1, file_storage jarg1_, int jarg2);
   public final static native long file_storage_mtime(long jarg1, file_storage jarg1_, int jarg2);
   public final static native String file_storage_file_path__SWIG_0(long jarg1, file_storage jarg1_, int jarg2, String jarg3);
@@ -3768,8 +3767,6 @@ public class libtorrent_jni {
   public final static native void delete_ip_route(long jarg1);
   public final static native long enum_net_interfaces(long jarg1, session jarg1_);
   public final static native long enum_routes(long jarg1, session jarg1_);
-  public final static native void mem_copy(long jarg1, byte_vector jarg1_, String jarg2, long jarg3);
-  public final static native void copy_byte_vector_to_char_array(long jarg1, byte_vector jarg1_, String jarg2, long jarg3);
   public final static native long get_gateway(long jarg1, ip_interface jarg1_, long jarg2, ip_route_vector jarg2_);
   public final static native String device_for_address(long jarg1, session jarg1_, long jarg2, address jarg2_, long jarg3, error_code jarg3_);
   public final static native void delete_list_files_listener(long jarg1);

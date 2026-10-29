@@ -461,14 +461,6 @@ public class libtorrent implements libtorrentConstants {
     return new ip_route_vector(libtorrent_jni.enum_routes(session.getCPtr(s), s), true);
   }
 
-  public static void mem_copy(byte_vector source, String target, long target_size) {
-    libtorrent_jni.mem_copy(byte_vector.getCPtr(source), source, target, target_size);
-  }
-
-  public static void copy_byte_vector_to_char_array(byte_vector source, String target, long target_size) {
-    libtorrent_jni.copy_byte_vector_to_char_array(byte_vector.getCPtr(source), source, target, target_size);
-  }
-
   public static address get_gateway(ip_interface iface, ip_route_vector routes) {
     return new address(libtorrent_jni.get_gateway(ip_interface.getCPtr(iface), iface, ip_route_vector.getCPtr(routes), routes), true);
   }

@@ -36893,35 +36893,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
 }
 
 
-SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_1storage_1root_1ptr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, int jarg2) {
-  jstring jresult = 0 ;
-  libtorrent::file_storage *arg1 = 0 ;
-  file_index_t arg2 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(libtorrent::file_storage **)&jarg1; 
-  {
-    arg2 = file_index_t(static_cast<std::int32_t>(jarg2));
-  }
-  {
-    try {
-      result = (char *)((libtorrent::file_storage const *)arg1)->root_ptr(SWIG_STD_MOVE(*(&arg2)));
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return 0;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return 0;
-    }
-  }
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
 SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_1storage_1symlink(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, int jarg2) {
   jstring jresult = 0 ;
   libtorrent::file_storage *arg1 = 0 ;
@@ -89103,78 +89074,6 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_enu
   }
   *(std::vector< ip_route > **)&jresult = new std::vector< ip_route >(result); 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_mem_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3) {
-  std::vector< std::int8_t > arg1 ;
-  char *arg2 = 0 ;
-  std::size_t arg3 ;
-  std::vector< std::int8_t > *argp1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(std::vector< std::int8_t > **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< std::int8_t >");
-    return ;
-  }
-  arg1 = *argp1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  arg3 = (std::size_t)jarg3; 
-  {
-    try {
-      mem_copy(SWIG_STD_MOVE(*(&arg1)),arg2,SWIG_STD_MOVE(*(&arg3)));
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_copy_1byte_1vector_1to_1char_1array(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3) {
-  std::vector< std::int8_t > arg1 ;
-  char *arg2 = 0 ;
-  unsigned int arg3 ;
-  std::vector< std::int8_t > *argp1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(std::vector< std::int8_t > **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< std::int8_t >");
-    return ;
-  }
-  arg1 = *argp1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  arg3 = (unsigned int)jarg3; 
-  {
-    try {
-      copy_byte_vector_to_char_array(SWIG_STD_MOVE(*(&arg1)),arg2,arg3);
-    } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
-      return ;
-    } catch (...) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
-      return ;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
 }
 
 

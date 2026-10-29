@@ -147,10 +147,6 @@ public class file_storage {
     return new sha256_hash(libtorrent_jni.file_storage_root(swigCPtr, this, index), true);
   }
 
-  public String root_ptr(int index) {
-    return libtorrent_jni.file_storage_root_ptr(swigCPtr, this, index);
-  }
-
   public String symlink(int index) {
     return libtorrent_jni.file_storage_symlink(swigCPtr, this, index);
   }

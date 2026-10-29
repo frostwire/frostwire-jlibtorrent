@@ -394,3 +394,10 @@
 %ignore ::rename;
 %ignore ::remove;
 %ignore g_posix_wrapper;
+
+// A Java String can't be an output buffer, and root_ptr() is a 32-byte binary hash without a NUL
+// terminator, so neither maps to a String (frostwire/frostwire-jlibtorrent#336). Use
+// file_storage.root(index) for the hash.
+%ignore copy_byte_vector_to_char_array;
+%ignore mem_copy;
+%ignore libtorrent::file_storage::root_ptr;
