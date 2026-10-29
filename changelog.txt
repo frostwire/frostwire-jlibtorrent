@@ -17,6 +17,10 @@
    - the OpenSSL tarball's SHA-256 is now verified in the Dockerfile and in the macOS prep step
      (which also stopped using wget --no-check-certificate)
    - Windows: the cryptlib.c patch matches OpenSSL 4's `_WIN32_WINNT >= 0x0333` spelling
+ * new Jazzer fuzzing pipeline (fuzz/, ./gradlew fuzzTest and ./gradlew fuzz -Pfuzz.target=...) for TorrentInfo,
+   magnet URIs, Entry/BDecodeNode bdecode, resume data, session state and the hex/address/endpoint parsers
+ * fix: Hex.decode, Sha1Hash(String) and Sha256Hash(String) throw IllegalArgumentException for an odd-length
+   string instead of ArrayIndexOutOfBoundsException (#330)
  * build: run-swig.sh restores libtorrent's alert.hpp after SWIG (it was left edited in the checkout)
  * swig: torrent_info.resolve_duplicate_filenames() is generated but upstream marks it hidden (used for
    magnet links internally); no Java wrapper
