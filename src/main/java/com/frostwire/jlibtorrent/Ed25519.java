@@ -175,7 +175,11 @@ public final class Ed25519 {
 
     public static byte[] createSeed() {
         byte_array_32 seed = ed25519_create_seed();
-        return Vectors.byte_array2bytes(seed);
+        try {
+            return Vectors.byte_array2bytes(seed);
+        } finally {
+            seed.delete();
+        }
     }
 
     public static Pair<byte[], byte[]> createKeypair(byte[] seed) {
@@ -183,10 +187,20 @@ public final class Ed25519 {
             throw new IllegalArgumentException("seed must be not null and of size " + SEED_SIZE);
         }
 
-        byte_vector_byte_vector_pair keypair = ed25519_create_keypair(Vectors.bytes2byte_vector(seed));
-
-        return new Pair<>(Vectors.byte_vector2bytes(keypair.getFirst()),
-                Vectors.byte_vector2bytes(keypair.getSecond()));
+        // Free every native copy, including the secret key's, as soon as it's copied out
+        // (frostwire/frostwire-jlibtorrent#337).
+        byte_vector s = Vectors.bytes2byte_vector(seed);
+        byte_vector_byte_vector_pair keypair = null;
+        try {
+            keypair = ed25519_create_keypair(s);
+            return new Pair<>(Vectors.byte_vector2bytes(keypair.getFirst()),
+                    Vectors.byte_vector2bytes(keypair.getSecond()));
+        } finally {
+            s.delete();
+            if (keypair != null) {
+                keypair.delete();
+            }
+        }
     }
 
     @SuppressWarnings("unused")
@@ -198,11 +212,16 @@ public final class Ed25519 {
             throw new IllegalArgumentException("secret key must be not null and of size " + SECRET_KEY_SIZE);
         }
 
-        byte_vector signature = ed25519_sign(Vectors.bytes2byte_vector(message),
-                Vectors.bytes2byte_vector(publicKey),
-                Vectors.bytes2byte_vector(secretKey));
-
-        return Vectors.byte_vector2bytes(signature);
+        byte_vector m = Vectors.bytes2byte_vector(message);
+        byte_vector pk = Vectors.bytes2byte_vector(publicKey);
+        byte_vector sk = Vectors.bytes2byte_vector(secretKey);
+        try {
+            return Vectors.byte_vector2bytesAndDelete(ed25519_sign(m, pk, sk));
+        } finally {
+            m.delete();
+            pk.delete();
+            sk.delete();
+        }
     }
 
     @SuppressWarnings("unused")
@@ -213,8 +232,16 @@ public final class Ed25519 {
         if (publicKey == null || publicKey.length != PUBLIC_KEY_SIZE) {
             throw new IllegalArgumentException("public key must be not null and of size " + PUBLIC_KEY_SIZE);
         }
-        return ed25519_verify(Vectors.bytes2byte_vector(signature),
-                Vectors.bytes2byte_vector(message), Vectors.bytes2byte_vector(publicKey));
+        byte_vector sig = Vectors.bytes2byte_vector(signature);
+        byte_vector m = Vectors.bytes2byte_vector(message);
+        byte_vector pk = Vectors.bytes2byte_vector(publicKey);
+        try {
+            return ed25519_verify(sig, m, pk);
+        } finally {
+            sig.delete();
+            m.delete();
+            pk.delete();
+        }
     }
 
     @SuppressWarnings("unused")
@@ -226,9 +253,14 @@ public final class Ed25519 {
             throw new IllegalArgumentException("scalar must be not null and of size " + SCALAR_SIZE);
         }
 
-        byte_vector ret = ed25519_add_scalar_public(Vectors.bytes2byte_vector(publicKey), Vectors.bytes2byte_vector(scalar));
-
-        return Vectors.byte_vector2bytes(ret);
+        byte_vector pk = Vectors.bytes2byte_vector(publicKey);
+        byte_vector sc = Vectors.bytes2byte_vector(scalar);
+        try {
+            return Vectors.byte_vector2bytesAndDelete(ed25519_add_scalar_public(pk, sc));
+        } finally {
+            pk.delete();
+            sc.delete();
+        }
     }
 
     @SuppressWarnings("unused")
@@ -240,9 +272,14 @@ public final class Ed25519 {
             throw new IllegalArgumentException("scalar must be not null and of size " + SCALAR_SIZE);
         }
 
-        byte_vector ret = ed25519_add_scalar_secret(Vectors.bytes2byte_vector(secretKey), Vectors.bytes2byte_vector(scalar));
-
-        return Vectors.byte_vector2bytes(ret);
+        byte_vector sk = Vectors.bytes2byte_vector(secretKey);
+        byte_vector sc = Vectors.bytes2byte_vector(scalar);
+        try {
+            return Vectors.byte_vector2bytesAndDelete(ed25519_add_scalar_secret(sk, sc));
+        } finally {
+            sk.delete();
+            sc.delete();
+        }
     }
 
     @SuppressWarnings("unused")
@@ -254,9 +291,13 @@ public final class Ed25519 {
             throw new IllegalArgumentException("private key must be not null and of size " + SECRET_KEY_SIZE);
         }
 
-        byte_vector secret = ed25519_key_exchange(Vectors.bytes2byte_vector(publicKey),
-                Vectors.bytes2byte_vector(secretKey));
-
-        return Vectors.byte_vector2bytes(secret);
+        byte_vector pk = Vectors.bytes2byte_vector(publicKey);
+        byte_vector sk = Vectors.bytes2byte_vector(secretKey);
+        try {
+            return Vectors.byte_vector2bytesAndDelete(ed25519_key_exchange(pk, sk));
+        } finally {
+            pk.delete();
+            sk.delete();
+        }
     }
 }

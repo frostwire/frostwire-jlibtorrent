@@ -58,7 +58,7 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      * @return
      */
     public byte[] salt() {
-        return Vectors.byte_vector2bytes(alert.get_salt());
+        return Vectors.byte_vector2bytesAndDelete(alert.get_salt());
     }
 
     /**

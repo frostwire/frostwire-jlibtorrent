@@ -23,7 +23,7 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
      * @return
      */
     public byte[] key() {
-        return Vectors.byte_vector2bytes(alert.get_key());
+        return Vectors.byte_vector2bytesAndDelete(alert.get_key());
     }
 
     /**
@@ -36,7 +36,7 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
      * @return
      */
     public byte[] signature() {
-        return Vectors.byte_vector2bytes(alert.get_signature());
+        return Vectors.byte_vector2bytesAndDelete(alert.get_signature());
     }
 
     /**
@@ -55,7 +55,7 @@ public final class DhtMutableItemAlert extends AbstractAlert<dht_mutable_item_al
      * @return
      */
     public byte[] salt() {
-        return Vectors.byte_vector2bytes(alert.get_salt());
+        return Vectors.byte_vector2bytesAndDelete(alert.get_salt());
     }
 
     /**
