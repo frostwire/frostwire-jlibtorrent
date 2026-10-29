@@ -62,9 +62,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/src
-          key: macos-x86_64-src-boost1.88.0-openssl3.6.0-${{ hashFiles('swig/build-utils.shinc') }}
+          key: macos-x86_64-src-boost1.88.0-openssl4.1.0-${{ hashFiles('swig/build-utils.shinc') }}
           restore-keys: |
-            macos-x86_64-src-boost1.88.0-openssl3.6.0-
+            macos-x86_64-src-boost1.88.0-openssl4.1.0-
 
       # Build SWIG 4.5.1 from source. The source lives in ~/src/swig-4.5.1
       # which is covered by the cache above.  If the Makefile is already
