@@ -103,12 +103,12 @@ public class torrent_info {
     return new string_vector(libtorrent_jni.torrent_info_collections(swigCPtr, this), true);
   }
 
-  public void add_url_seed(String url, String ext_auth, string_string_pair_vector ext_headers) {
-    libtorrent_jni.torrent_info_add_url_seed__SWIG_0(swigCPtr, this, url, ext_auth, string_string_pair_vector.getCPtr(ext_headers), ext_headers);
+  public void add_url_seed(String url, String extern_auth, string_string_pair_vector ext_headers) {
+    libtorrent_jni.torrent_info_add_url_seed__SWIG_0(swigCPtr, this, url, extern_auth, string_string_pair_vector.getCPtr(ext_headers), ext_headers);
   }
 
-  public void add_url_seed(String url, String ext_auth) {
-    libtorrent_jni.torrent_info_add_url_seed__SWIG_1(swigCPtr, this, url, ext_auth);
+  public void add_url_seed(String url, String extern_auth) {
+    libtorrent_jni.torrent_info_add_url_seed__SWIG_1(swigCPtr, this, url, extern_auth);
   }
 
   public void add_url_seed(String url) {
@@ -245,6 +245,10 @@ public class torrent_info {
 
   public void free_piece_layers() {
     libtorrent_jni.torrent_info_free_piece_layers(swigCPtr, this);
+  }
+
+  public void resolve_duplicate_filenames() {
+    libtorrent_jni.torrent_info_resolve_duplicate_filenames(swigCPtr, this);
   }
 
   public torrent_info(long buffer_ptr, int size, error_code ec) {
