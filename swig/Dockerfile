@@ -39,7 +39,9 @@ RUN apt install -y emacs-nox
 
 ENV LIBTORRENT_REVISION="eb397173da6189dad52f008916c27419dde32faa"
 ENV LIBTORRENT_BRANCH="RC_2_0"
-ENV SWIG_VERSION="4.4.1"
+ENV SWIG_VERSION="4.5.1"
+# sha256 of swig-${SWIG_VERSION}.tar.gz (the SourceForge release, mirrored on dl.frostwire.com)
+ENV SWIG_SHA256="7fec50b27deddab5455a9633780b6341eddfb96215a7619e93a76eb27178f653"
 ENV BOOST_MAJOR="1"
 ENV BOOST_VERSION="88"
 ENV BOOST_MINOR="0"
@@ -75,7 +77,8 @@ RUN cd /src \
 
 # prepare swig
 RUN cd /src \
-		&& wget -nv --no-check-certificate https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
+		&& wget -nv https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz \
+		&& echo "${SWIG_SHA256}  swig-${SWIG_VERSION}.tar.gz" | sha256sum -c - \
 		&& tar xzf swig-${SWIG_VERSION}.tar.gz \
 		&& cd /src/swig-${SWIG_VERSION} \
 		&& ./autogen.sh \

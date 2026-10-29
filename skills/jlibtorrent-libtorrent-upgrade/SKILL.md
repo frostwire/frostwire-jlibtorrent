@@ -14,7 +14,7 @@ Use this skill whenever a new libtorrent `RC_2_0` commit needs to be integrated.
 
 ### Dev Machine (Apple Silicon Mac)
 - macOS with Xcode / command-line tools
-- SWIG 4.4.1 installed locally (`swig -version`)
+- SWIG 4.5.1 on the `PATH` (`swig -version`). It isn't packaged anywhere useful; build it from the tarball on `dl.frostwire.com/other/swig/` (see "Upgrading SWIG"). `run-swig.sh` uses whichever `swig` comes first on the `PATH`.
 - JDK 17 for Gradle: run `export JAVA_HOME=$(/usr/libexec/java_home -v 17)` first. Gradle 9.5.1 can't run on a newer default JDK (JDK 27 fails with `Unsupported class file major version 71`).
 - A consistent Apple toolchain: clang, ld and the SDK from the same install (see Build Config Caveats, "Toolchain/SDK mismatch")
 - Gradle or `./gradlew`
@@ -433,6 +433,15 @@ rm -rf "${S:?}"/*   # with S=bin/release/macosx/arm64
 ./build-macos-arm64.sh --build-only
 ```
 Check first with `echo 'int main(){}' > t.cc && clang++ t.cc -o t`. Updating Xcode, or `sudo xcode-select -s`, is the maintainer's call.
+
+### Upgrading SWIG
+SWIG generates all of `swig/libtorrent_jni.cpp` and `src/main/java/com/frostwire/jlibtorrent/swig/`, so a SWIG upgrade is a binding change and is checked like one. Done for 4.4.1 → 4.5.1 on 2026-10-29:
+1. **Check the release notes for Java and C++ changes.** Read `RELEASENOTES` and the `[Java]` and `*** POTENTIAL INCOMPATIBILITY ***` entries in `CHANGES` for the new version. 4.5.0's nine incompatibilities were all Python, Ruby, Lua and other languages, plus one C++ parsing fix.
+2. **Get the official tarball and prove it matches the tag.** It's on SourceForge (`https://sourceforge.net/projects/swig/files/swig/swig-X.Y.Z/swig-X.Y.Z.tar.gz/download`); GitHub releases carry no files. Clone the `vX.Y.Z` tag, and `cmp` every `git ls-files` path against the extracted tarball. Expect 0 differences; only repo housekeeping files are missing from the tarball.
+3. **Mirror it.** Upload it to `dl.frostwire.com/other/swig/` on virginia1 (maintainer's OK: production server), then check a fresh download's SHA-256. Put the hash in `SWIG_SHA256` in `swig/Dockerfile` and `swig/build-utils.shinc`, and in `SWIG_SHA256` in `.github/workflows/build-macos-x86_64.yml`. All three verify the download.
+4. **Build it into a prefix**, so the system `swig` stays untouched until you choose: `./configure --prefix=$HOME/src/swig-X.Y.Z-install --without-d --disable-ccache && make -j && make install`, then `export PATH=$HOME/src/swig-X.Y.Z-install/bin:$PATH`. On a Mac with the toolchain mismatch below, configure fails with "C compiler cannot create executables" until you set `DEVELOPER_DIR`.
+5. **Regenerate into a scratch copy and diff it** against the committed output before touching the repo. For 4.5.1 the Java side changed only the `Version` header in all 264 files. The C++ side changed only how arguments are passed (`SWIG_STD_MOVE(*(&argN))` instead of `SWIG_STD_MOVE(argN)`). Then regenerate for real, rebuild, and run the tests.
+6. **Don't regenerate while a fuzz run is going.** The next `fuzz` invocation recompiles the Java side, and a changed binding over the old native library gives false crashes.
 
 ### Minimum macOS version
 The linker, not the compiler, stamps a dylib's minimum OS (`LC_BUILD_VERSION minos`). Without `<linkflags>-mmacosx-version-min=11.3` it uses the SDK's version: 2.0.12.9 shipped arm64 with minos 26.0 and x86_64 with minos 15.0. Check every macOS build:

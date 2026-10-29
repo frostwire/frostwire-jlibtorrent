@@ -66,13 +66,14 @@ jobs:
           restore-keys: |
             macos-x86_64-src-boost1.88.0-openssl3.6.0-
 
-      # Build SWIG 4.4.1 from source. The source lives in ~/src/swig-4.4.1
+      # Build SWIG 4.5.1 from source. The source lives in ~/src/swig-4.5.1
       # which is covered by the cache above.  If the Makefile is already
       # present we skip autogen/configure; if the binary is already installed
       # we skip the entire step.
-      - name: Install SWIG 4.4.1
+      - name: Install SWIG 4.5.1
         run: |
-          SWIG_VERSION=4.4.1
+          SWIG_VERSION=4.5.1
+          SWIG_SHA256=7fec50b27deddab5455a9633780b6341eddfb96215a7619e93a76eb27178f653
           SRC="$HOME/src"
           mkdir -p "$SRC"
 
@@ -81,8 +82,8 @@ jobs:
           else
             cd "$SRC"
             if [ ! -d "swig-${SWIG_VERSION}" ]; then
-              wget -nv --no-check-certificate \
-                "https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz"
+              wget -nv "https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz"
+              echo "${SWIG_SHA256}  swig-${SWIG_VERSION}.tar.gz" | shasum -a 256 -c -
               tar xzf "swig-${SWIG_VERSION}.tar.gz"
               rm -f "swig-${SWIG_VERSION}.tar.gz"
             fi

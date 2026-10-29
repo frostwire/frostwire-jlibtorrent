@@ -44,7 +44,8 @@ common_env() {
  export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
  export LIBTORRENT_ROOT="${SRC}/libtorrent"
  export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
- export SWIG_VERSION="4.4.1"
+ export SWIG_VERSION="4.5.1"
+ export SWIG_SHA256="7fec50b27deddab5455a9633780b6341eddfb96215a7619e93a76eb27178f653" # same as swig/Dockerfile
 
  if [[ "$(uname)" == "Darwin" ]]; then
      export CORES=$(( $(get_cpu_cores) / 2 ))
@@ -260,7 +261,12 @@ install_swig() {
   local url="https://dl.frostwire.com/other/swig/${tar}"
 
   echo "Downloading ${url}"
-  wget -nv --no-check-certificate "$url"
+  wget -nv "$url"
+  if [ "$(shasum -a 256 "$tar" | cut -d' ' -f1)" != "${SWIG_SHA256}" ]; then
+    echo "install_swig: ${tar} does not match SWIG_SHA256, aborting"
+    rm -f "$tar"
+    exit 1
+  fi
 
   echo "Extracting ${tar}"
   tar xzf "$tar"
