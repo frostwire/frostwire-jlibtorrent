@@ -144,19 +144,19 @@ public class torrent_handle {
   }
 
   public void add_url_seed(String url) {
-    libtorrent_jni.torrent_handle_add_url_seed(swigCPtr, this, url);
+    libtorrent_jni.torrent_handle_add_url_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void remove_url_seed(String url) {
-    libtorrent_jni.torrent_handle_remove_url_seed(swigCPtr, this, url);
+    libtorrent_jni.torrent_handle_remove_url_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_http_seed(String url) {
-    libtorrent_jni.torrent_handle_add_http_seed(swigCPtr, this, url);
+    libtorrent_jni.torrent_handle_add_http_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void remove_http_seed(String url) {
-    libtorrent_jni.torrent_handle_remove_http_seed(swigCPtr, this, url);
+    libtorrent_jni.torrent_handle_remove_http_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public boolean is_valid() {
@@ -240,11 +240,11 @@ public class torrent_handle {
   }
 
   public void set_ssl_certificate(String certificate, String private_key, String dh_params, String passphrase) {
-    libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_0(swigCPtr, this, certificate, private_key, dh_params, passphrase);
+    libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_0(swigCPtr, this, (certificate == null ? null : certificate.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (private_key == null ? null : private_key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (dh_params == null ? null : dh_params.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (passphrase == null ? null : passphrase.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void set_ssl_certificate(String certificate, String private_key, String dh_params) {
-    libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_1(swigCPtr, this, certificate, private_key, dh_params);
+    libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_1(swigCPtr, this, (certificate == null ? null : certificate.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (private_key == null ? null : private_key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (dh_params == null ? null : dh_params.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public SWIGTYPE_p_std__shared_ptrT_libtorrent__torrent_info_t torrent_file_with_hashes() {
@@ -344,15 +344,15 @@ public class torrent_handle {
   }
 
   public void move_storage(String save_path, move_flags_t flags) {
-    libtorrent_jni.torrent_handle_move_storage__SWIG_0(swigCPtr, this, save_path, flags.swigValue());
+    libtorrent_jni.torrent_handle_move_storage__SWIG_0(swigCPtr, this, (save_path == null ? null : save_path.getBytes(java.nio.charset.StandardCharsets.UTF_8)), flags.swigValue());
   }
 
   public void move_storage(String save_path) {
-    libtorrent_jni.torrent_handle_move_storage__SWIG_1(swigCPtr, this, save_path);
+    libtorrent_jni.torrent_handle_move_storage__SWIG_1(swigCPtr, this, (save_path == null ? null : save_path.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void rename_file(int index, String new_name) {
-    libtorrent_jni.torrent_handle_rename_file(swigCPtr, this, index, new_name);
+    libtorrent_jni.torrent_handle_rename_file(swigCPtr, this, index, (new_name == null ? null : new_name.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public sha1_hash info_hash() {

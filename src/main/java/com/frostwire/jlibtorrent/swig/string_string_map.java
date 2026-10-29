@@ -183,15 +183,17 @@ public class string_string_map extends java.util.AbstractMap<String, String> {
     }
   
     private String getKey() {
-      return libtorrent_jni.string_string_map_Iterator_getKey(swigCPtr, this);
+      byte[] bytes = libtorrent_jni.string_string_map_Iterator_getKey(swigCPtr, this);
+      return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
     }
   
     private String getValue() {
-      return libtorrent_jni.string_string_map_Iterator_getValue(swigCPtr, this);
+      byte[] bytes = libtorrent_jni.string_string_map_Iterator_getValue(swigCPtr, this);
+      return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
     }
   
     private void setValue(String newValue) {
-      libtorrent_jni.string_string_map_Iterator_setValue(swigCPtr, this, newValue);
+      libtorrent_jni.string_string_map_Iterator_setValue(swigCPtr, this, (newValue == null ? null : newValue.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
     }
   
   }
@@ -205,7 +207,7 @@ public class string_string_map extends java.util.AbstractMap<String, String> {
   }
 
   private string_string_map.Iterator find(String key) {
-    return new string_string_map.Iterator(libtorrent_jni.string_string_map_find(swigCPtr, this, key), true);
+    return new string_string_map.Iterator(libtorrent_jni.string_string_map_find(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   private string_string_map.Iterator begin() {
@@ -221,11 +223,11 @@ public class string_string_map extends java.util.AbstractMap<String, String> {
   }
 
   private boolean containsImpl(String key) {
-    return libtorrent_jni.string_string_map_containsImpl(swigCPtr, this, key);
+    return libtorrent_jni.string_string_map_containsImpl(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   private void putUnchecked(String key, String value) {
-    libtorrent_jni.string_string_map_putUnchecked(swigCPtr, this, key, value);
+    libtorrent_jni.string_string_map_putUnchecked(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   private void removeUnchecked(string_string_map.Iterator itr) {

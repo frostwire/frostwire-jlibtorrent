@@ -102,27 +102,30 @@ public class torrent_status {
   }
 
   public void setSave_path(String value) {
-    libtorrent_jni.torrent_status_save_path_set(swigCPtr, this, value);
+    libtorrent_jni.torrent_status_save_path_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getSave_path() {
-    return libtorrent_jni.torrent_status_save_path_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_status_save_path_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setName(String value) {
-    libtorrent_jni.torrent_status_name_set(swigCPtr, this, value);
+    libtorrent_jni.torrent_status_name_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getName() {
-    return libtorrent_jni.torrent_status_name_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_status_name_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setCurrent_tracker(String value) {
-    libtorrent_jni.torrent_status_current_tracker_set(swigCPtr, this, value);
+    libtorrent_jni.torrent_status_current_tracker_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getCurrent_tracker() {
-    return libtorrent_jni.torrent_status_current_tracker_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_status_current_tracker_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setTotal_download(long value) {

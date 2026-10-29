@@ -52,11 +52,13 @@ public class dht_direct_response_alert extends alert {
   }
 
   public String what() {
-    return libtorrent_jni.dht_direct_response_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.dht_direct_response_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.dht_direct_response_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.dht_direct_response_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public bdecode_node response() {

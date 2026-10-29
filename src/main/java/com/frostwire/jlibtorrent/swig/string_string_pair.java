@@ -48,7 +48,7 @@ public class string_string_pair {
   }
 
   public string_string_pair(String first, String second) {
-    this(libtorrent_jni.new_string_string_pair__SWIG_1(first, second), true);
+    this(libtorrent_jni.new_string_string_pair__SWIG_1((first == null ? null : first.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (second == null ? null : second.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public string_string_pair(string_string_pair other) {
@@ -56,19 +56,21 @@ public class string_string_pair {
   }
 
   public void setFirst(String value) {
-    libtorrent_jni.string_string_pair_first_set(swigCPtr, this, value);
+    libtorrent_jni.string_string_pair_first_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getFirst() {
-    return libtorrent_jni.string_string_pair_first_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.string_string_pair_first_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setSecond(String value) {
-    libtorrent_jni.string_string_pair_second_set(swigCPtr, this, value);
+    libtorrent_jni.string_string_pair_second_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getSecond() {
-    return libtorrent_jni.string_string_pair_second_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.string_string_pair_second_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
 }

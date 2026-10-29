@@ -183,7 +183,8 @@ public class string_long_map extends java.util.AbstractMap<String, Integer> {
     }
   
     private String getKey() {
-      return libtorrent_jni.string_long_map_Iterator_getKey(swigCPtr, this);
+      byte[] bytes = libtorrent_jni.string_long_map_Iterator_getKey(swigCPtr, this);
+      return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
     }
   
     private int getValue() {
@@ -205,7 +206,7 @@ public class string_long_map extends java.util.AbstractMap<String, Integer> {
   }
 
   private string_long_map.Iterator find(String key) {
-    return new string_long_map.Iterator(libtorrent_jni.string_long_map_find(swigCPtr, this, key), true);
+    return new string_long_map.Iterator(libtorrent_jni.string_long_map_find(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   private string_long_map.Iterator begin() {
@@ -221,11 +222,11 @@ public class string_long_map extends java.util.AbstractMap<String, Integer> {
   }
 
   private boolean containsImpl(String key) {
-    return libtorrent_jni.string_long_map_containsImpl(swigCPtr, this, key);
+    return libtorrent_jni.string_long_map_containsImpl(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   private void putUnchecked(String key, int value) {
-    libtorrent_jni.string_long_map_putUnchecked(swigCPtr, this, key, value);
+    libtorrent_jni.string_long_map_putUnchecked(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), value);
   }
 
   private void removeUnchecked(string_long_map.Iterator itr) {

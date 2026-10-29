@@ -60,11 +60,12 @@ public class peer_class_info {
   }
 
   public void setLabel(String value) {
-    libtorrent_jni.peer_class_info_label_set(swigCPtr, this, value);
+    libtorrent_jni.peer_class_info_label_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getLabel() {
-    return libtorrent_jni.peer_class_info_label_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.peer_class_info_label_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setUpload_limit(int value) {

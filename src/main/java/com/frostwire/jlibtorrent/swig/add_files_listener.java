@@ -59,7 +59,7 @@ public class add_files_listener {
   }
 
   public boolean pred(String p) {
-    return (getClass() == add_files_listener.class) ? libtorrent_jni.add_files_listener_pred(swigCPtr, this, p) : libtorrent_jni.add_files_listener_predSwigExplicitadd_files_listener(swigCPtr, this, p);
+    return (getClass() == add_files_listener.class) ? libtorrent_jni.add_files_listener_pred(swigCPtr, this, (p == null ? null : p.getBytes(java.nio.charset.StandardCharsets.UTF_8))) : libtorrent_jni.add_files_listener_predSwigExplicitadd_files_listener(swigCPtr, this, (p == null ? null : p.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   @SuppressWarnings("this-escape")

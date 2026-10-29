@@ -52,11 +52,13 @@ public class fastresume_rejected_alert extends torrent_alert {
   }
 
   public String what() {
-    return libtorrent_jni.fastresume_rejected_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.fastresume_rejected_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.fastresume_rejected_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.fastresume_rejected_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setError(error_code value) {
@@ -69,7 +71,8 @@ public class fastresume_rejected_alert extends torrent_alert {
   }
 
   public String file_path() {
-    return libtorrent_jni.fastresume_rejected_alert_file_path(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.fastresume_rejected_alert_file_path(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setOp(operation_t value) {

@@ -52,19 +52,21 @@ public class announce_entry {
   }
 
   public void setUrl(String value) {
-    libtorrent_jni.announce_entry_url_set(swigCPtr, this, value);
+    libtorrent_jni.announce_entry_url_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getUrl() {
-    return libtorrent_jni.announce_entry_url_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.announce_entry_url_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setTrackerid(String value) {
-    libtorrent_jni.announce_entry_trackerid_set(swigCPtr, this, value);
+    libtorrent_jni.announce_entry_trackerid_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getTrackerid() {
-    return libtorrent_jni.announce_entry_trackerid_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.announce_entry_trackerid_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setEndpoints(announce_endpoint_vector value) {
@@ -109,7 +111,7 @@ public class announce_entry {
   }
 
   public announce_entry(String url) {
-    this(libtorrent_jni.new_announce_entry__SWIG_2(url), true);
+    this(libtorrent_jni.new_announce_entry__SWIG_2((url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public announce_entry(byte_vector u) {

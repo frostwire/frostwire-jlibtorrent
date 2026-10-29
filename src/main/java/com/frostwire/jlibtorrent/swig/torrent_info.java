@@ -56,7 +56,7 @@ public class torrent_info {
   }
 
   public torrent_info(String filename, error_code ec) {
-    this(libtorrent_jni.new_torrent_info__SWIG_3(filename, error_code.getCPtr(ec), ec), true);
+    this(libtorrent_jni.new_torrent_info__SWIG_3((filename == null ? null : filename.getBytes(java.nio.charset.StandardCharsets.UTF_8)), error_code.getCPtr(ec), ec), true);
   }
 
   public file_storage files() {
@@ -68,7 +68,7 @@ public class torrent_info {
   }
 
   public void rename_file(int index, String new_filename) {
-    libtorrent_jni.torrent_info_rename_file(swigCPtr, this, index, new_filename);
+    libtorrent_jni.torrent_info_rename_file(swigCPtr, this, index, (new_filename == null ? null : new_filename.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void remap_files(file_storage f) {
@@ -76,15 +76,15 @@ public class torrent_info {
   }
 
   public void add_tracker(String url, int tier) {
-    libtorrent_jni.torrent_info_add_tracker__SWIG_0(swigCPtr, this, url, tier);
+    libtorrent_jni.torrent_info_add_tracker__SWIG_0(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), tier);
   }
 
   public void add_tracker(String url) {
-    libtorrent_jni.torrent_info_add_tracker__SWIG_1(swigCPtr, this, url);
+    libtorrent_jni.torrent_info_add_tracker__SWIG_1(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_tracker(String url, int tier, announce_entry.tracker_source source) {
-    libtorrent_jni.torrent_info_add_tracker__SWIG_2(swigCPtr, this, url, tier, source.swigValue());
+    libtorrent_jni.torrent_info_add_tracker__SWIG_2(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), tier, source.swigValue());
   }
 
   public announce_entry_vector trackers() {
@@ -104,27 +104,27 @@ public class torrent_info {
   }
 
   public void add_url_seed(String url, String extern_auth, string_string_pair_vector ext_headers) {
-    libtorrent_jni.torrent_info_add_url_seed__SWIG_0(swigCPtr, this, url, extern_auth, string_string_pair_vector.getCPtr(ext_headers), ext_headers);
+    libtorrent_jni.torrent_info_add_url_seed__SWIG_0(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (extern_auth == null ? null : extern_auth.getBytes(java.nio.charset.StandardCharsets.UTF_8)), string_string_pair_vector.getCPtr(ext_headers), ext_headers);
   }
 
   public void add_url_seed(String url, String extern_auth) {
-    libtorrent_jni.torrent_info_add_url_seed__SWIG_1(swigCPtr, this, url, extern_auth);
+    libtorrent_jni.torrent_info_add_url_seed__SWIG_1(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (extern_auth == null ? null : extern_auth.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_url_seed(String url) {
-    libtorrent_jni.torrent_info_add_url_seed__SWIG_2(swigCPtr, this, url);
+    libtorrent_jni.torrent_info_add_url_seed__SWIG_2(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_http_seed(String url, String extern_auth, string_string_pair_vector extra_headers) {
-    libtorrent_jni.torrent_info_add_http_seed__SWIG_0(swigCPtr, this, url, extern_auth, string_string_pair_vector.getCPtr(extra_headers), extra_headers);
+    libtorrent_jni.torrent_info_add_http_seed__SWIG_0(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (extern_auth == null ? null : extern_auth.getBytes(java.nio.charset.StandardCharsets.UTF_8)), string_string_pair_vector.getCPtr(extra_headers), extra_headers);
   }
 
   public void add_http_seed(String url, String extern_auth) {
-    libtorrent_jni.torrent_info_add_http_seed__SWIG_1(swigCPtr, this, url, extern_auth);
+    libtorrent_jni.torrent_info_add_http_seed__SWIG_1(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (extern_auth == null ? null : extern_auth.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_http_seed(String url) {
-    libtorrent_jni.torrent_info_add_http_seed__SWIG_2(swigCPtr, this, url);
+    libtorrent_jni.torrent_info_add_http_seed__SWIG_2(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public web_seed_entry_vector web_seeds() {
@@ -216,7 +216,8 @@ public class torrent_info {
   }
 
   public String name() {
-    return libtorrent_jni.torrent_info_name(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_info_name(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public long creation_date() {
@@ -224,11 +225,13 @@ public class torrent_info {
   }
 
   public String creator() {
-    return libtorrent_jni.torrent_info_creator(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_info_creator(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String comment() {
-    return libtorrent_jni.torrent_info_comment(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_info_comment(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public string_int_pair_vector nodes() {
@@ -240,7 +243,7 @@ public class torrent_info {
   }
 
   public bdecode_node info(String key) {
-    return new bdecode_node(libtorrent_jni.torrent_info_info(swigCPtr, this, key), true);
+    return new bdecode_node(libtorrent_jni.torrent_info_info(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public void free_piece_layers() {
@@ -260,7 +263,8 @@ public class torrent_info {
   }
 
   public String get_ssl_cert() {
-    return libtorrent_jni.torrent_info_get_ssl_cert(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_info_get_ssl_cert(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
 }

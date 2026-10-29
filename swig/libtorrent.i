@@ -132,6 +132,7 @@ using udp = libtorrent::udp;
 %include <typemaps.i>
 %include <std_common.i> // maybe remove this one
 %include <std_string.i>
+%include "includes/libtorrent_std_string.i"
 %include <std_pair.i>
 %include <std_vector.i>
 %include <std_map.i>

@@ -104,59 +104,66 @@ public class bdecode_node {
   }
 
   public String list_string_value_at_s(int i, String default_val) {
-    return libtorrent_jni.bdecode_node_list_string_value_at_s__SWIG_0(swigCPtr, this, i, default_val);
+    byte[] bytes = libtorrent_jni.bdecode_node_list_string_value_at_s__SWIG_0(swigCPtr, this, i, (default_val == null ? null : default_val.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String list_string_value_at_s(int i) {
-    return libtorrent_jni.bdecode_node_list_string_value_at_s__SWIG_1(swigCPtr, this, i);
+    byte[] bytes = libtorrent_jni.bdecode_node_list_string_value_at_s__SWIG_1(swigCPtr, this, i);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public bdecode_node dict_find_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_s(swigCPtr, this, key), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public bdecode_node dict_find_dict_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_dict_s(swigCPtr, this, key), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_dict_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public bdecode_node dict_find_list_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_list_s(swigCPtr, this, key), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_list_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public bdecode_node dict_find_string_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_string_s(swigCPtr, this, key), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_string_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public bdecode_node dict_find_int_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_int_s(swigCPtr, this, key), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_int_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public String dict_find_string_value_s(String key, String default_value) {
-    return libtorrent_jni.bdecode_node_dict_find_string_value_s__SWIG_0(swigCPtr, this, key, default_value);
+    byte[] bytes = libtorrent_jni.bdecode_node_dict_find_string_value_s__SWIG_0(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (default_value == null ? null : default_value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String dict_find_string_value_s(String key) {
-    return libtorrent_jni.bdecode_node_dict_find_string_value_s__SWIG_1(swigCPtr, this, key);
+    byte[] bytes = libtorrent_jni.bdecode_node_dict_find_string_value_s__SWIG_1(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public long dict_find_int_value_s(String key, long default_val) {
-    return libtorrent_jni.bdecode_node_dict_find_int_value_s__SWIG_0(swigCPtr, this, key, default_val);
+    return libtorrent_jni.bdecode_node_dict_find_int_value_s__SWIG_0(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), default_val);
   }
 
   public long dict_find_int_value_s(String key) {
-    return libtorrent_jni.bdecode_node_dict_find_int_value_s__SWIG_1(swigCPtr, this, key);
+    return libtorrent_jni.bdecode_node_dict_find_int_value_s__SWIG_1(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String string_value_s() {
-    return libtorrent_jni.bdecode_node_string_value_s(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.bdecode_node_string_value_s(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String string_value_ex() {
-    return libtorrent_jni.bdecode_node_string_value_ex(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.bdecode_node_string_value_ex(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public static String to_string(bdecode_node e, boolean single_line, int indent) {
-    return libtorrent_jni.bdecode_node_to_string(bdecode_node.getCPtr(e), e, single_line, indent);
+    byte[] bytes = libtorrent_jni.bdecode_node_to_string(bdecode_node.getCPtr(e), e, single_line, indent);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public static int bdecode(byte_vector buffer, bdecode_node ret, error_code ec) {

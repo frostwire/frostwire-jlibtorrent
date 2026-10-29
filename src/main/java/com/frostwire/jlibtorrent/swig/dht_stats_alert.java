@@ -52,11 +52,13 @@ public class dht_stats_alert extends alert {
   }
 
   public String what() {
-    return libtorrent_jni.dht_stats_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.dht_stats_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.dht_stats_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.dht_stats_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setActive_requests(dht_lookup_vector value) {

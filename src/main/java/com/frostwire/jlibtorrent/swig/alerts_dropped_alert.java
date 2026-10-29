@@ -52,11 +52,13 @@ public class alerts_dropped_alert extends alert {
   }
 
   public String what() {
-    return libtorrent_jni.alerts_dropped_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.alerts_dropped_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.alerts_dropped_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.alerts_dropped_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setDropped_alerts(bitset_128 value) {

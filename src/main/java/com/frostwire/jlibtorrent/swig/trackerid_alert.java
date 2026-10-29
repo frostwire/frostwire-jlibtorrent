@@ -52,15 +52,18 @@ public class trackerid_alert extends tracker_alert {
   }
 
   public String what() {
-    return libtorrent_jni.trackerid_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.trackerid_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.trackerid_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.trackerid_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String tracker_id() {
-    return libtorrent_jni.trackerid_alert_tracker_id(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.trackerid_alert_tracker_id(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public final static alert_priority priority = alert_priority.swigToEnum(libtorrent_jni.trackerid_alert_priority_get());

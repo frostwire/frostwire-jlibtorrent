@@ -44,7 +44,8 @@ public class peer_alert extends torrent_alert {
   }
 
   public String message() {
-    return libtorrent_jni.peer_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.peer_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setPid(sha1_hash value) {

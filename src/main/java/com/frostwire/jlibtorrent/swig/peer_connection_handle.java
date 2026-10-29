@@ -152,7 +152,7 @@ public class peer_connection_handle {
   }
 
   public void send_buffer(String begin, int size) {
-    libtorrent_jni.peer_connection_handle_send_buffer(swigCPtr, this, begin, size);
+    libtorrent_jni.peer_connection_handle_send_buffer(swigCPtr, this, (begin == null ? null : begin.getBytes(java.nio.charset.StandardCharsets.UTF_8)), size);
   }
 
   public long last_seen_complete() {

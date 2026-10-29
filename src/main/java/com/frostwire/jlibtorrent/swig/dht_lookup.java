@@ -109,7 +109,8 @@ public class dht_lookup {
   }
 
   public String get_type() {
-    return libtorrent_jni.dht_lookup_get_type(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.dht_lookup_get_type(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public dht_lookup() {

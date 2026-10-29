@@ -44,15 +44,15 @@ public class web_seed_entry {
   }
 
   public web_seed_entry(String url_, web_seed_entry.type_t type_, String auth_, string_string_pair_vector extra_headers_) {
-    this(libtorrent_jni.new_web_seed_entry__SWIG_0(url_, type_.swigValue(), auth_, string_string_pair_vector.getCPtr(extra_headers_), extra_headers_), true);
+    this(libtorrent_jni.new_web_seed_entry__SWIG_0((url_ == null ? null : url_.getBytes(java.nio.charset.StandardCharsets.UTF_8)), type_.swigValue(), (auth_ == null ? null : auth_.getBytes(java.nio.charset.StandardCharsets.UTF_8)), string_string_pair_vector.getCPtr(extra_headers_), extra_headers_), true);
   }
 
   public web_seed_entry(String url_, web_seed_entry.type_t type_, String auth_) {
-    this(libtorrent_jni.new_web_seed_entry__SWIG_1(url_, type_.swigValue(), auth_), true);
+    this(libtorrent_jni.new_web_seed_entry__SWIG_1((url_ == null ? null : url_.getBytes(java.nio.charset.StandardCharsets.UTF_8)), type_.swigValue(), (auth_ == null ? null : auth_.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public web_seed_entry(String url_, web_seed_entry.type_t type_) {
-    this(libtorrent_jni.new_web_seed_entry__SWIG_2(url_, type_.swigValue()), true);
+    this(libtorrent_jni.new_web_seed_entry__SWIG_2((url_ == null ? null : url_.getBytes(java.nio.charset.StandardCharsets.UTF_8)), type_.swigValue()), true);
   }
 
   public boolean op_eq(web_seed_entry e) {
@@ -64,19 +64,21 @@ public class web_seed_entry {
   }
 
   public void setUrl(String value) {
-    libtorrent_jni.web_seed_entry_url_set(swigCPtr, this, value);
+    libtorrent_jni.web_seed_entry_url_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getUrl() {
-    return libtorrent_jni.web_seed_entry_url_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.web_seed_entry_url_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setAuth(String value) {
-    libtorrent_jni.web_seed_entry_auth_set(swigCPtr, this, value);
+    libtorrent_jni.web_seed_entry_auth_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getAuth() {
-    return libtorrent_jni.web_seed_entry_auth_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.web_seed_entry_auth_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setExtra_headers(string_string_pair_vector value) {

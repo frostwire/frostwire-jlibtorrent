@@ -52,11 +52,13 @@ public class socks5_alert extends alert {
   }
 
   public String what() {
-    return libtorrent_jni.socks5_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.socks5_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.socks5_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.socks5_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setError(error_code value) {

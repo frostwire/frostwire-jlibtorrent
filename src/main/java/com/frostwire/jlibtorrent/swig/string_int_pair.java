@@ -48,7 +48,7 @@ public class string_int_pair {
   }
 
   public string_int_pair(String first, int second) {
-    this(libtorrent_jni.new_string_int_pair__SWIG_1(first, second), true);
+    this(libtorrent_jni.new_string_int_pair__SWIG_1((first == null ? null : first.getBytes(java.nio.charset.StandardCharsets.UTF_8)), second), true);
   }
 
   public string_int_pair(string_int_pair other) {
@@ -56,11 +56,12 @@ public class string_int_pair {
   }
 
   public void setFirst(String value) {
-    libtorrent_jni.string_int_pair_first_set(swigCPtr, this, value);
+    libtorrent_jni.string_int_pair_first_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getFirst() {
-    return libtorrent_jni.string_int_pair_first_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.string_int_pair_first_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setSecond(int value) {

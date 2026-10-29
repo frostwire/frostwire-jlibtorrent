@@ -68,11 +68,11 @@ public class create_torrent {
   }
 
   public void set_comment(String str) {
-    libtorrent_jni.create_torrent_set_comment(swigCPtr, this, str);
+    libtorrent_jni.create_torrent_set_comment(swigCPtr, this, (str == null ? null : str.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void set_creator(String str) {
-    libtorrent_jni.create_torrent_set_creator(swigCPtr, this, str);
+    libtorrent_jni.create_torrent_set_creator(swigCPtr, this, (str == null ? null : str.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void set_creation_date(long timestamp) {
@@ -132,23 +132,23 @@ public class create_torrent {
   }
 
   public void add_url_seed(String url) {
-    libtorrent_jni.create_torrent_add_url_seed(swigCPtr, this, url);
+    libtorrent_jni.create_torrent_add_url_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_http_seed(String url) {
-    libtorrent_jni.create_torrent_add_http_seed(swigCPtr, this, url);
+    libtorrent_jni.create_torrent_add_http_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_tracker(String url) {
-    libtorrent_jni.create_torrent_add_tracker__SWIG_0(swigCPtr, this, url);
+    libtorrent_jni.create_torrent_add_tracker__SWIG_0(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_tracker(String url, int tier) {
-    libtorrent_jni.create_torrent_add_tracker__SWIG_1(swigCPtr, this, url, tier);
+    libtorrent_jni.create_torrent_add_tracker__SWIG_1(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), tier);
   }
 
   public void add_collection(String c) {
-    libtorrent_jni.create_torrent_add_collection(swigCPtr, this, c);
+    libtorrent_jni.create_torrent_add_collection(swigCPtr, this, (c == null ? null : c.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void set_root_cert2(byte_vector pem) {

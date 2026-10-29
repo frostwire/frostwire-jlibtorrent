@@ -52,19 +52,21 @@ public class add_torrent_params {
   }
 
   public void setName(String value) {
-    libtorrent_jni.add_torrent_params_name_set(swigCPtr, this, value);
+    libtorrent_jni.add_torrent_params_name_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getName() {
-    return libtorrent_jni.add_torrent_params_name_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.add_torrent_params_name_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setSave_path(String value) {
-    libtorrent_jni.add_torrent_params_save_path_set(swigCPtr, this, value);
+    libtorrent_jni.add_torrent_params_save_path_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getSave_path() {
-    return libtorrent_jni.add_torrent_params_save_path_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.add_torrent_params_save_path_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setStorage_mode(storage_mode_t value) {
@@ -76,11 +78,12 @@ public class add_torrent_params {
   }
 
   public void setTrackerid(String value) {
-    libtorrent_jni.add_torrent_params_trackerid_set(swigCPtr, this, value);
+    libtorrent_jni.add_torrent_params_trackerid_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getTrackerid() {
-    return libtorrent_jni.add_torrent_params_trackerid_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.add_torrent_params_trackerid_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setFlags(torrent_flags_t value) {
@@ -399,7 +402,7 @@ public class add_torrent_params {
   }
 
   public static add_torrent_params parse_magnet_uri(String uri, error_code ec) {
-    return new add_torrent_params(libtorrent_jni.add_torrent_params_parse_magnet_uri(uri, error_code.getCPtr(ec), ec), true);
+    return new add_torrent_params(libtorrent_jni.add_torrent_params_parse_magnet_uri((uri == null ? null : uri.getBytes(java.nio.charset.StandardCharsets.UTF_8)), error_code.getCPtr(ec), ec), true);
   }
 
 }

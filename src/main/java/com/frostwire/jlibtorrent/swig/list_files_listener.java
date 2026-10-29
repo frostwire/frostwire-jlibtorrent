@@ -44,7 +44,7 @@ public class list_files_listener {
   }
 
   public boolean pred(String p) {
-    return libtorrent_jni.list_files_listener_pred(swigCPtr, this, p);
+    return libtorrent_jni.list_files_listener_pred(swigCPtr, this, (p == null ? null : p.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public list_files_listener() {

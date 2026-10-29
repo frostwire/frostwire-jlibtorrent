@@ -44,7 +44,8 @@ public class torrent_alert extends alert {
   }
 
   public String message() {
-    return libtorrent_jni.torrent_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setHandle(torrent_handle value) {
@@ -57,7 +58,8 @@ public class torrent_alert extends alert {
   }
 
   public String torrent_name() {
-    return libtorrent_jni.torrent_alert_torrent_name(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.torrent_alert_torrent_name(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
 }

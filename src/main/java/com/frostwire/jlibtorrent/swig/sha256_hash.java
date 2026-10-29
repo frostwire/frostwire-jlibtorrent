@@ -116,11 +116,12 @@ public class sha256_hash {
   }
 
   public String to_hex() {
-    return libtorrent_jni.sha256_hash_to_hex(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.sha256_hash_to_hex(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public static sha256_hash from_hex(String s) {
-    return new sha256_hash(libtorrent_jni.sha256_hash_from_hex(s), true);
+    return new sha256_hash(libtorrent_jni.sha256_hash_from_hex((s == null ? null : s.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public static int compare(sha256_hash h1, sha256_hash h2) {

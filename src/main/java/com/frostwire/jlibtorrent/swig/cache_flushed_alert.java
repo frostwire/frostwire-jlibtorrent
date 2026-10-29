@@ -52,7 +52,8 @@ public class cache_flushed_alert extends torrent_alert {
   }
 
   public String what() {
-    return libtorrent_jni.cache_flushed_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.cache_flushed_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public final static alert_priority priority = alert_priority.swigToEnum(libtorrent_jni.cache_flushed_alert_priority_get());

@@ -52,11 +52,13 @@ public class dht_outgoing_get_peers_alert extends alert {
   }
 
   public String what() {
-    return libtorrent_jni.dht_outgoing_get_peers_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.dht_outgoing_get_peers_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.dht_outgoing_get_peers_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.dht_outgoing_get_peers_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setInfo_hash(sha1_hash value) {

@@ -44,7 +44,7 @@ public class settings_interface {
   }
 
   public void set_str(int name, String val) {
-    libtorrent_jni.settings_interface_set_str(swigCPtr, this, name, val);
+    libtorrent_jni.settings_interface_set_str(swigCPtr, this, name, (val == null ? null : val.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void set_int(int name, int val) {
@@ -60,7 +60,8 @@ public class settings_interface {
   }
 
   public String get_str(int name) {
-    return libtorrent_jni.settings_interface_get_str(swigCPtr, this, name);
+    byte[] bytes = libtorrent_jni.settings_interface_get_str(swigCPtr, this, name);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public int get_int(int name) {

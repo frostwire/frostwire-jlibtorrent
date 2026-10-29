@@ -60,7 +60,7 @@ public class file_storage {
   }
 
   public void rename_file(int index, String new_filename) {
-    libtorrent_jni.file_storage_rename_file(swigCPtr, this, index, new_filename);
+    libtorrent_jni.file_storage_rename_file(swigCPtr, this, index, (new_filename == null ? null : new_filename.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public file_slice_vector map_block(int piece, long offset, long size) {
@@ -124,11 +124,12 @@ public class file_storage {
   }
 
   public void set_name(String n) {
-    libtorrent_jni.file_storage_set_name(swigCPtr, this, n);
+    libtorrent_jni.file_storage_set_name(swigCPtr, this, (n == null ? null : n.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String name() {
-    return libtorrent_jni.file_storage_name(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.file_storage_name(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void swap(file_storage ti) {
@@ -148,7 +149,8 @@ public class file_storage {
   }
 
   public String symlink(int index) {
-    return libtorrent_jni.file_storage_symlink(swigCPtr, this, index);
+    byte[] bytes = libtorrent_jni.file_storage_symlink(swigCPtr, this, index);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public long mtime(int index) {
@@ -156,11 +158,13 @@ public class file_storage {
   }
 
   public String file_path(int index, String save_path) {
-    return libtorrent_jni.file_storage_file_path__SWIG_0(swigCPtr, this, index, save_path);
+    byte[] bytes = libtorrent_jni.file_storage_file_path__SWIG_0(swigCPtr, this, index, (save_path == null ? null : save_path.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String file_path(int index) {
-    return libtorrent_jni.file_storage_file_path__SWIG_1(swigCPtr, this, index);
+    byte[] bytes = libtorrent_jni.file_storage_file_path__SWIG_1(swigCPtr, this, index);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public long file_size(int index) {
@@ -224,23 +228,24 @@ public class file_storage {
   }
 
   public void add_file_ex(error_code ec, String path, long file_size, file_flags_t file_flags, long mtime, String symlink_path) {
-    libtorrent_jni.file_storage_add_file_ex__SWIG_0(swigCPtr, this, error_code.getCPtr(ec), ec, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, mtime, symlink_path);
+    libtorrent_jni.file_storage_add_file_ex__SWIG_0(swigCPtr, this, error_code.getCPtr(ec), ec, (path == null ? null : path.getBytes(java.nio.charset.StandardCharsets.UTF_8)), file_size, file_flags_t.getCPtr(file_flags), file_flags, mtime, (symlink_path == null ? null : symlink_path.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void add_file_ex(error_code ec, String path, long file_size, file_flags_t file_flags, long mtime) {
-    libtorrent_jni.file_storage_add_file_ex__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec, path, file_size, file_flags_t.getCPtr(file_flags), file_flags, mtime);
+    libtorrent_jni.file_storage_add_file_ex__SWIG_1(swigCPtr, this, error_code.getCPtr(ec), ec, (path == null ? null : path.getBytes(java.nio.charset.StandardCharsets.UTF_8)), file_size, file_flags_t.getCPtr(file_flags), file_flags, mtime);
   }
 
   public void add_file_ex(error_code ec, String path, long file_size, file_flags_t file_flags) {
-    libtorrent_jni.file_storage_add_file_ex__SWIG_2(swigCPtr, this, error_code.getCPtr(ec), ec, path, file_size, file_flags_t.getCPtr(file_flags), file_flags);
+    libtorrent_jni.file_storage_add_file_ex__SWIG_2(swigCPtr, this, error_code.getCPtr(ec), ec, (path == null ? null : path.getBytes(java.nio.charset.StandardCharsets.UTF_8)), file_size, file_flags_t.getCPtr(file_flags), file_flags);
   }
 
   public void add_file_ex(error_code ec, String path, long file_size) {
-    libtorrent_jni.file_storage_add_file_ex__SWIG_3(swigCPtr, this, error_code.getCPtr(ec), ec, path, file_size);
+    libtorrent_jni.file_storage_add_file_ex__SWIG_3(swigCPtr, this, error_code.getCPtr(ec), ec, (path == null ? null : path.getBytes(java.nio.charset.StandardCharsets.UTF_8)), file_size);
   }
 
   public String file_name_ex(int index) {
-    return libtorrent_jni.file_storage_file_name_ex(swigCPtr, this, index);
+    byte[] bytes = libtorrent_jni.file_storage_file_name_ex(swigCPtr, this, index);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public string_vector file_paths_ex() {

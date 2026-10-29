@@ -56,15 +56,15 @@ public class boost_string_entry_map {
   }
 
   public boolean contains(String k) {
-    return libtorrent_jni.boost_string_entry_map_contains(swigCPtr, this, k);
+    return libtorrent_jni.boost_string_entry_map_contains(swigCPtr, this, (k == null ? null : k.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void put(String k, entry v) {
-    libtorrent_jni.boost_string_entry_map_put(swigCPtr, this, k, entry.getCPtr(v), v);
+    libtorrent_jni.boost_string_entry_map_put(swigCPtr, this, (k == null ? null : k.getBytes(java.nio.charset.StandardCharsets.UTF_8)), entry.getCPtr(v), v);
   }
 
   public entry get(String k) {
-    return new entry(libtorrent_jni.boost_string_entry_map_get(swigCPtr, this, k), false);
+    return new entry(libtorrent_jni.boost_string_entry_map_get(swigCPtr, this, (k == null ? null : k.getBytes(java.nio.charset.StandardCharsets.UTF_8))), false);
   }
 
   public string_vector keys() {
@@ -72,7 +72,7 @@ public class boost_string_entry_map {
   }
 
   public void remove(String key) {
-    libtorrent_jni.boost_string_entry_map_remove(swigCPtr, this, key);
+    libtorrent_jni.boost_string_entry_map_remove(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public boost_string_entry_map() {

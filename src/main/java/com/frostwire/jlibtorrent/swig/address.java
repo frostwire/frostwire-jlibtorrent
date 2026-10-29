@@ -60,7 +60,8 @@ public class address {
   }
 
   public String to_string() {
-    return libtorrent_jni.address_to_string(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.address_to_string(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public boolean is_loopback() {
@@ -84,7 +85,7 @@ public class address {
   }
 
   public static address from_string(String str, error_code ec) {
-    return new address(libtorrent_jni.address_from_string(str, error_code.getCPtr(ec), ec), true);
+    return new address(libtorrent_jni.address_from_string((str == null ? null : str.getBytes(java.nio.charset.StandardCharsets.UTF_8)), error_code.getCPtr(ec), ec), true);
   }
 
   public int hash_code() {

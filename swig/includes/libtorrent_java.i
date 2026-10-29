@@ -56,11 +56,52 @@
     public static final native long directBufferCapacity(java.nio.Buffer buffer);
 %}
 
+%{
+#include <cstdint>
+#include <cstring>
+#include <string>
+// Exception messages reach Java through ThrowNew, which takes modified UTF-8 (JNI): anything else is
+// undefined behavior, and Android's CheckJNI aborts. libtorrent messages can embed file paths and
+// peer-supplied text, so keep only valid 1-3 byte UTF-8 (no surrogates, no NUL) and replace every
+// other byte with '?' (frostwire/frostwire-jlibtorrent#336).
+static std::string jlibtorrent_jni_safe_message(char const* s) {
+    std::string out;
+    if (s == nullptr) return out;
+    auto const* p = reinterpret_cast<unsigned char const*>(s);
+    while (*p) {
+        unsigned char const c = p[0];
+        int n = 0;
+        std::uint32_t cp = 0;
+        if (c < 0x80) { n = 1; cp = c; }
+        else if ((c & 0xE0) == 0xC0) { n = 2; cp = c & 0x1F; }
+        else if ((c & 0xF0) == 0xE0) { n = 3; cp = c & 0x0F; }
+        bool ok = n > 0;
+        for (int i = 1; ok && i < n; ++i) {
+            ok = (p[i] & 0xC0) == 0x80;
+            if (ok) cp = (cp << 6) | (p[i] & 0x3F);
+        }
+        if (ok && n == 2 && cp < 0x80) ok = false;
+        if (ok && n == 3 && (cp < 0x800 || (cp >= 0xD800 && cp <= 0xDFFF))) ok = false;
+        if (ok) {
+            out.append(reinterpret_cast<char const*>(p), static_cast<std::size_t>(n));
+            p += n;
+        } else {
+            out.push_back('?');
+            ++p;
+        }
+    }
+    return out;
+}
+static std::string jlibtorrent_jni_safe_message(std::string const& s) {
+    return jlibtorrent_jni_safe_message(s.c_str());
+}
+%}
+
 %exception {
     try {
         $action
     } catch (std::exception& e) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+        SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
         return $null;
     } catch (...) {
         SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
@@ -83,7 +124,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
     try {
         return reinterpret_cast<jlong>(jenv->GetDirectBufferAddress(jbuf));
     } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
     } catch (...) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }
@@ -95,7 +136,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
     try {
         return reinterpret_cast<jlong>(jenv->GetDirectBufferCapacity(jbuf));
     } catch (std::exception& e) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, e.what());
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
     } catch (...) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
     }

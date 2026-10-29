@@ -187,11 +187,12 @@ public class file_index_string_map extends java.util.AbstractMap<SWIGTYPE_p_libt
     }
   
     private String getValue() {
-      return libtorrent_jni.file_index_string_map_Iterator_getValue(swigCPtr, this);
+      byte[] bytes = libtorrent_jni.file_index_string_map_Iterator_getValue(swigCPtr, this);
+      return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
     }
   
     private void setValue(String newValue) {
-      libtorrent_jni.file_index_string_map_Iterator_setValue(swigCPtr, this, newValue);
+      libtorrent_jni.file_index_string_map_Iterator_setValue(swigCPtr, this, (newValue == null ? null : newValue.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
     }
   
   }
@@ -225,7 +226,7 @@ public class file_index_string_map extends java.util.AbstractMap<SWIGTYPE_p_libt
   }
 
   private void putUnchecked(SWIGTYPE_p_libtorrent__file_index_t key, String value) {
-    libtorrent_jni.file_index_string_map_putUnchecked(swigCPtr, this, SWIGTYPE_p_libtorrent__file_index_t.getCPtr(key), value);
+    libtorrent_jni.file_index_string_map_putUnchecked(swigCPtr, this, SWIGTYPE_p_libtorrent__file_index_t.getCPtr(key), (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   private void removeUnchecked(file_index_string_map.Iterator itr) {

@@ -52,11 +52,13 @@ public class peer_log_alert extends peer_alert {
   }
 
   public String what() {
-    return libtorrent_jni.peer_log_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.peer_log_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.peer_log_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.peer_log_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setDirection(peer_log_alert.direction_t value) {
@@ -68,11 +70,13 @@ public class peer_log_alert extends peer_alert {
   }
 
   public String log_message() {
-    return libtorrent_jni.peer_log_alert_log_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.peer_log_alert_log_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String get_event_type() {
-    return libtorrent_jni.peer_log_alert_get_event_type(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.peer_log_alert_get_event_type(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public final static class direction_t {

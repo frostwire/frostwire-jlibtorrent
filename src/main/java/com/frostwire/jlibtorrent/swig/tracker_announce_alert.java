@@ -52,11 +52,13 @@ public class tracker_announce_alert extends tracker_alert {
   }
 
   public String what() {
-    return libtorrent_jni.tracker_announce_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.tracker_announce_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.tracker_announce_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.tracker_announce_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public event_t getEvent() {

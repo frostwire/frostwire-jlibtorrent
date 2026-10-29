@@ -52,7 +52,7 @@ public class entry {
   }
 
   public entry(String arg0) {
-    this(libtorrent_jni.new_entry__SWIG_1(arg0), true);
+    this(libtorrent_jni.new_entry__SWIG_1((arg0 == null ? null : arg0.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   public entry(entry_vector arg0) {
@@ -80,7 +80,8 @@ public class entry {
   }
 
   public String string() {
-    return libtorrent_jni.entry_string(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.entry_string(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public entry_vector list() {
@@ -92,27 +93,28 @@ public class entry {
   }
 
   public String to_string() {
-    return libtorrent_jni.entry_to_string(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.entry_to_string(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public entry get(String key) {
-    return new entry(libtorrent_jni.entry_get(swigCPtr, this, key), false);
+    return new entry(libtorrent_jni.entry_get(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), false);
   }
 
   public void set(String key, String value) {
-    libtorrent_jni.entry_set__SWIG_0(swigCPtr, this, key, value);
+    libtorrent_jni.entry_set__SWIG_0(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void set(String key, byte_vector value) {
-    libtorrent_jni.entry_set__SWIG_1(swigCPtr, this, key, byte_vector.getCPtr(value), value);
+    libtorrent_jni.entry_set__SWIG_1(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), byte_vector.getCPtr(value), value);
   }
 
   public void set(String key, long value) {
-    libtorrent_jni.entry_set__SWIG_2(swigCPtr, this, key, value);
+    libtorrent_jni.entry_set__SWIG_2(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), value);
   }
 
   public void set(String key, entry value) {
-    libtorrent_jni.entry_set__SWIG_3(swigCPtr, this, key, entry.getCPtr(value), value);
+    libtorrent_jni.entry_set__SWIG_3(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), entry.getCPtr(value), value);
   }
 
   public byte_vector string_bytes() {

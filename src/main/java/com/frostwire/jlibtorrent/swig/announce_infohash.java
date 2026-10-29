@@ -44,11 +44,12 @@ public class announce_infohash {
   }
 
   public void setMessage(String value) {
-    libtorrent_jni.announce_infohash_message_set(swigCPtr, this, value);
+    libtorrent_jni.announce_infohash_message_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public String getMessage() {
-    return libtorrent_jni.announce_infohash_message_get(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.announce_infohash_message_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setLast_error(error_code value) {

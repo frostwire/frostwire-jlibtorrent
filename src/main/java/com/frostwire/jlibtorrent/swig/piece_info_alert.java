@@ -52,11 +52,13 @@ public class piece_info_alert extends torrent_alert {
   }
 
   public String what() {
-    return libtorrent_jni.piece_info_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.piece_info_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.piece_info_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.piece_info_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setPiece_info(partial_piece_info_vector value) {

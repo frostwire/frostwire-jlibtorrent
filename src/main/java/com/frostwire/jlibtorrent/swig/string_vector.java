@@ -119,7 +119,7 @@ public class string_vector extends java.util.AbstractList<String> implements jav
   }
 
   public string_vector(int count, String value) {
-    this(libtorrent_jni.new_string_vector__SWIG_2(count, value), true);
+    this(libtorrent_jni.new_string_vector__SWIG_2(count, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
   }
 
   private int doCapacity() {
@@ -135,23 +135,26 @@ public class string_vector extends java.util.AbstractList<String> implements jav
   }
 
   private void doAdd(String x) {
-    libtorrent_jni.string_vector_doAdd__SWIG_0(swigCPtr, this, x);
+    libtorrent_jni.string_vector_doAdd__SWIG_0(swigCPtr, this, (x == null ? null : x.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   private void doAdd(int index, String x) {
-    libtorrent_jni.string_vector_doAdd__SWIG_1(swigCPtr, this, index, x);
+    libtorrent_jni.string_vector_doAdd__SWIG_1(swigCPtr, this, index, (x == null ? null : x.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   private String doRemove(int index) {
-    return libtorrent_jni.string_vector_doRemove(swigCPtr, this, index);
+    byte[] bytes = libtorrent_jni.string_vector_doRemove(swigCPtr, this, index);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   private String doGet(int index) {
-    return libtorrent_jni.string_vector_doGet(swigCPtr, this, index);
+    byte[] bytes = libtorrent_jni.string_vector_doGet(swigCPtr, this, index);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   private String doSet(int index, String val) {
-    return libtorrent_jni.string_vector_doSet(swigCPtr, this, index, val);
+    byte[] bytes = libtorrent_jni.string_vector_doSet(swigCPtr, this, index, (val == null ? null : val.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

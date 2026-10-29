@@ -52,11 +52,13 @@ public class tracker_error_alert extends tracker_alert {
   }
 
   public String what() {
-    return libtorrent_jni.tracker_error_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.tracker_error_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.tracker_error_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.tracker_error_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public int getTimes_in_row() {
@@ -77,11 +79,13 @@ public class tracker_error_alert extends tracker_alert {
   }
 
   public String failure_reason() {
-    return libtorrent_jni.tracker_error_alert_failure_reason(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.tracker_error_alert_failure_reason(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String error_message() {
-    return libtorrent_jni.tracker_error_alert_error_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.tracker_error_alert_error_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public void setVersion(protocol_version value) {

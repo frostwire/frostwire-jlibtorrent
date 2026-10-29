@@ -13,6 +13,6 @@ public interface libtorrentConstants {
   public final static int LIBTORRENT_VERSION_MINOR = libtorrent_jni.LIBTORRENT_VERSION_MINOR_get();
   public final static int LIBTORRENT_VERSION_TINY = libtorrent_jni.LIBTORRENT_VERSION_TINY_get();
   public final static int LIBTORRENT_VERSION_NUM = libtorrent_jni.LIBTORRENT_VERSION_NUM_get();
-  public final static String LIBTORRENT_VERSION = libtorrent_jni.LIBTORRENT_VERSION_get();
-  public final static String LIBTORRENT_REVISION = libtorrent_jni.LIBTORRENT_REVISION_get();
+  public final static String LIBTORRENT_VERSION = "2.0.15.0";
+  public final static String LIBTORRENT_REVISION = "485467b33";
 }

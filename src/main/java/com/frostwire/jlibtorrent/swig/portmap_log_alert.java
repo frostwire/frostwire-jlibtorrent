@@ -52,11 +52,13 @@ public class portmap_log_alert extends alert {
   }
 
   public String what() {
-    return libtorrent_jni.portmap_log_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.portmap_log_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.portmap_log_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.portmap_log_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public portmap_transport getMap_transport() {
@@ -64,7 +66,8 @@ public class portmap_log_alert extends alert {
   }
 
   public String log_message() {
-    return libtorrent_jni.portmap_log_alert_log_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.portmap_log_alert_log_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public final static alert_priority priority = alert_priority.swigToEnum(libtorrent_jni.portmap_log_alert_priority_get());

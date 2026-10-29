@@ -52,19 +52,23 @@ public class file_renamed_alert extends torrent_alert {
   }
 
   public String what() {
-    return libtorrent_jni.file_renamed_alert_what(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.file_renamed_alert_what(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String message() {
-    return libtorrent_jni.file_renamed_alert_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.file_renamed_alert_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String new_name() {
-    return libtorrent_jni.file_renamed_alert_new_name(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.file_renamed_alert_new_name(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public String old_name() {
-    return libtorrent_jni.file_renamed_alert_old_name(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.file_renamed_alert_old_name(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public int getIndex() {

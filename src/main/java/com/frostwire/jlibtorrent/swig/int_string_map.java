@@ -187,11 +187,12 @@ public class int_string_map extends java.util.AbstractMap<Integer, String> {
     }
   
     private String getValue() {
-      return libtorrent_jni.int_string_map_Iterator_getValue(swigCPtr, this);
+      byte[] bytes = libtorrent_jni.int_string_map_Iterator_getValue(swigCPtr, this);
+      return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
     }
   
     private void setValue(String newValue) {
-      libtorrent_jni.int_string_map_Iterator_setValue(swigCPtr, this, newValue);
+      libtorrent_jni.int_string_map_Iterator_setValue(swigCPtr, this, (newValue == null ? null : newValue.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
     }
   
   }
@@ -225,7 +226,7 @@ public class int_string_map extends java.util.AbstractMap<Integer, String> {
   }
 
   private void putUnchecked(int key, String value) {
-    libtorrent_jni.int_string_map_putUnchecked(swigCPtr, this, key, value);
+    libtorrent_jni.int_string_map_putUnchecked(swigCPtr, this, key, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   private void removeUnchecked(int_string_map.Iterator itr) {

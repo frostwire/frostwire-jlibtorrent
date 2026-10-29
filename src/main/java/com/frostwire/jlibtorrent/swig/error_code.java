@@ -56,7 +56,8 @@ public class error_code {
   }
 
   public String message() {
-    return libtorrent_jni.error_code_message(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.error_code_message(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public boolean failed() {

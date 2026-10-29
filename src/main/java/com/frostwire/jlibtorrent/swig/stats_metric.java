@@ -60,7 +60,8 @@ public class stats_metric {
   }
 
   public String get_name() {
-    return libtorrent_jni.stats_metric_get_name(swigCPtr, this);
+    byte[] bytes = libtorrent_jni.stats_metric_get_name(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public stats_metric() {
