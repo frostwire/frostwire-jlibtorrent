@@ -21,6 +21,9 @@
    magnet URIs, Entry/BDecodeNode bdecode, resume data, session state and the hex/address/endpoint parsers
  * fix: Hex.decode, Sha1Hash(String) and Sha256Hash(String) throw IllegalArgumentException for an odd-length
    string instead of ArrayIndexOutOfBoundsException (#330)
+ * fix: Entry.dictionary() is a complete Map: values(), iteration, forEach, toString(), equals() and remove() work
+   (entrySet() used to throw UnsupportedOperationException); keys iterate in bencode order (#331)
+ * new: Entry.equals()/hashCode() compare by value (type and bencoded form) (#331)
  * build: run-swig.sh restores libtorrent's alert.hpp after SWIG (it was left edited in the checkout)
  * swig: torrent_info.resolve_duplicate_filenames() is generated but upstream marks it hidden (used for
    magnet links internally); no Java wrapper
