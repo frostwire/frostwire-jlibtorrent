@@ -1,0 +1,279 @@
+name: Build release
+
+# Builds every jlibtorrent jar on GitHub-hosted runners and, when a release tag is given,
+# attaches them to that GitHub release (creating it as a draft if it doesn't exist yet).
+# How to use it: README.md, "Building a release with GitHub Actions".
+#
+#   Java jars (jar, sources, javadoc) ......... ubuntu-latest
+#   Linux x86_64/arm64, Windows x86_64,
+#   Android arm/arm64/x86/x86_64 .............. ubuntu-latest, inside the swig/Dockerfile image
+#   macOS arm64 ............................... macos-15 (Apple Silicon)
+#   macOS x86_64 .............................. macos-15-intel (GitHub's last hosted Intel image)
+#
+# The Docker image is built once per swig/Dockerfile revision and kept in GHCR
+# (ghcr.io/<owner>/jlibtorrent-build:<hash>), so later runs pull it instead of rebuilding
+# OpenSSL for six targets and downloading the NDK.
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: >
+          Release tag, e.g. release/2.0.16.0. Its version must match build.gradle. The jars are
+          attached to this release; a draft is created on the commit being built if it doesn't
+          exist. Leave empty to only produce workflow artifacts.
+        required: false
+        default: ''
+
+permissions:
+  contents: write   # create the draft release and upload assets
+  packages: write   # push the build image to GHCR
+
+concurrency:
+  group: build-release-${{ inputs.release_tag || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.vars.outputs.version }}
+      image: ${{ steps.vars.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # The native libraries embed build.gradle's version (run-swig.sh reads it) and the Java side
+      # refuses a native library of another version, so a tag that disagrees would ship jars that
+      # don't load each other. Fail before building anything.
+      - name: Resolve version and build image
+        id: vars
+        run: |
+          GRADLE_VERSION=$(sed -n "s/^version = .*'\([0-9][0-9.]*\)'.*/\1/p" build.gradle)
+          if [ -z "$GRADLE_VERSION" ]; then
+            echo "::error::could not read the version from build.gradle"; exit 1
+          fi
+          TAG="${{ inputs.release_tag }}"
+          if [ -n "$TAG" ]; then
+            if [ "${TAG#release/}" != "$GRADLE_VERSION" ]; then
+              echo "::error::release tag $TAG does not match build.gradle version $GRADLE_VERSION"; exit 1
+            fi
+          fi
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "version=$GRADLE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "image=ghcr.io/${OWNER}/jlibtorrent-build:${{ hashFiles('swig/Dockerfile') }}" >> "$GITHUB_OUTPUT"
+          echo "Building jlibtorrent $GRADLE_VERSION"
+
+  build-image:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          docker image prune -af > /dev/null
+          df -h /
+
+      - name: Build and push the image if this Dockerfile revision isn't in GHCR yet
+        env:
+          IMAGE: ${{ needs.prepare.outputs.image }}
+        run: |
+          if docker manifest inspect "$IMAGE" > /dev/null 2>&1; then
+            echo "$IMAGE already exists"
+          else
+            docker build -t "$IMAGE" --build-arg CORES=$(nproc) swig/
+            docker push "$IMAGE"
+          fi
+
+  java:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+      - name: Build the Java, sources and javadoc jars
+        env:
+          RELEASE_VERSION: ${{ needs.prepare.outputs.version }}
+        run: ./gradlew --no-daemon jar sourcesJar javadocJar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jars-java
+          path: |
+            build/libs/jlibtorrent-${{ needs.prepare.outputs.version }}.jar
+            build/libs/jlibtorrent-${{ needs.prepare.outputs.version }}-sources.jar
+            build/libs/jlibtorrent-${{ needs.prepare.outputs.version }}-javadoc.jar
+          if-no-files-found: error
+
+  docker:
+    needs: [prepare, build-image]
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { target: linux-x86_64,   script: build-linux-x86_64.sh,   jar: jlibtorrent-linux-x86_64 }
+          - { target: linux-arm64,    script: build-linux-arm64.sh,    jar: jlibtorrent-linux-arm64 }
+          - { target: windows-x86_64, script: build-windows-x86_64.sh, jar: jlibtorrent-windows }
+          - { target: android-arm,    script: build-android-arm.sh,    jar: jlibtorrent-android-arm }
+          - { target: android-arm64,  script: build-android-arm64.sh,  jar: jlibtorrent-android-arm64 }
+          - { target: android-x86,    script: build-android-x86.sh,    jar: jlibtorrent-android-x86 }
+          - { target: android-x86_64, script: build-android-x86_64.sh, jar: jlibtorrent-android-x86_64 }
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          docker image prune -af > /dev/null
+          df -h /
+
+      - name: Pull the build image
+        env:
+          IMAGE: ${{ needs.prepare.outputs.image }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker pull "$IMAGE"
+
+      - name: Build ${{ matrix.target }}
+        env:
+          IMAGE: ${{ needs.prepare.outputs.image }}
+        run: |
+          docker run --rm \
+            -e CONTINUE_BUILD=1 \
+            -e RELEASE_VERSION=${{ needs.prepare.outputs.version }} \
+            -v "$GITHUB_WORKSPACE:/frostwire-jlibtorrent" \
+            "$IMAGE" \
+            /bin/bash -c "cd /frostwire-jlibtorrent/swig && ./${{ matrix.script }}"
+          # The container runs as root; give the files back to the runner user.
+          sudo chown -R "$(id -u):$(id -g)" "$GITHUB_WORKSPACE"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jars-${{ matrix.target }}
+          path: build/libs/${{ matrix.jar }}-${{ needs.prepare.outputs.version }}.jar
+          if-no-files-found: error
+
+  macos:
+    needs: prepare
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: arm64,  runner: macos-15 }
+          - { arch: x86_64, runner: macos-15-intel }
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Install Homebrew dependencies
+        run: |
+          brew install wget pcre2 automake autoconf bison
+          # The Homebrew bison must shadow the macOS system bison for SWIG's configure
+          echo "$(brew --prefix bison)/bin" >> "$GITHUB_PATH"
+
+      # ~/src holds Boost, OpenSSL (source and install prefix), the libtorrent clone and the SWIG
+      # source tree. The key changes with any pinned version in build-utils.shinc.
+      - name: Cache ~/src
+        uses: actions/cache@v4
+        with:
+          path: ~/src
+          key: macos-${{ matrix.arch }}-src-${{ hashFiles('swig/build-utils.shinc') }}
+          restore-keys: |
+            macos-${{ matrix.arch }}-src-
+
+      - name: Install SWIG
+        run: |
+          SWIG_VERSION=$(sed -n 's/^ *export SWIG_VERSION="\(.*\)"/\1/p' swig/build-utils.shinc)
+          SWIG_SHA256=$(sed -n 's/^ *export SWIG_SHA256="\([0-9a-f]*\)".*/\1/p' swig/build-utils.shinc)
+          SRC="$HOME/src"
+          mkdir -p "$SRC"
+          if swig -version 2>/dev/null | grep -q "SWIG Version ${SWIG_VERSION}"; then
+            echo "SWIG ${SWIG_VERSION} already installed"
+          else
+            cd "$SRC"
+            if [ ! -d "swig-${SWIG_VERSION}" ]; then
+              wget -nv "https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz"
+              echo "${SWIG_SHA256}  swig-${SWIG_VERSION}.tar.gz" | shasum -a 256 -c -
+              tar xzf "swig-${SWIG_VERSION}.tar.gz"
+              rm -f "swig-${SWIG_VERSION}.tar.gz"
+            fi
+            cd "swig-${SWIG_VERSION}"
+            if [ ! -f Makefile ]; then
+              ./autogen.sh
+              ./configure --without-d --disable-ccache
+            fi
+            make -j$(sysctl -n hw.ncpu)
+            sudo make install
+          fi
+          swig -version
+
+      # CONTINUE_BUILD=1 keeps press_any_to_continue from waiting for a key.
+      - name: Build macOS ${{ matrix.arch }}
+        env:
+          CONTINUE_BUILD: "1"
+          RELEASE_VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          chmod +x gradlew swig/*.sh
+          cd swig
+          ./build-macos-${{ matrix.arch }}.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jars-macosx-${{ matrix.arch }}
+          path: build/libs/jlibtorrent-macosx-${{ matrix.arch }}-${{ needs.prepare.outputs.version }}.jar
+          if-no-files-found: error
+
+  release:
+    needs: [prepare, java, docker, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: jars-*
+          path: dist
+          merge-multiple: true
+
+      # Every jar present, each native library for the right architecture at the path
+      # NativeLibraryLoader looks in, carrying this version, and 64-bit Android 16 KB aligned.
+      - name: Verify the jars
+        run: python3 .github/scripts/verify_release_jars.py dist ${{ needs.prepare.outputs.version }}
+
+      - name: Checksums
+        run: |
+          cd dist
+          sha256sum *.jar | tee SHA256SUMS.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jlibtorrent-${{ needs.prepare.outputs.version }}
+          path: dist/
+
+      - name: Attach to the release
+        if: ${{ inputs.release_tag != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.release_tag }}
+        run: |
+          if ! gh release view "$TAG" > /dev/null 2>&1; then
+            gh release create "$TAG" --draft --target "$GITHUB_SHA" --title "$TAG" \
+              --notes "jlibtorrent ${{ needs.prepare.outputs.version }}. Release notes to come; see changelog.txt."
+          fi
+          gh release upload "$TAG" dist/*.jar dist/SHA256SUMS.txt --clobber
