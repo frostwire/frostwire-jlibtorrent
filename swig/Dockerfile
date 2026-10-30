@@ -2,6 +2,11 @@
 ARG TARGETPLATFORM=linux/amd64
 FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive
+# Parallel jobs for the make steps below. docker_build_image.sh and the GitHub build-release
+# workflow pass --build-arg CORES=$(nproc). Without this ARG the value was dropped and every
+# "make -j${CORES}" ran with no job limit, fine on a 16-core builder, out of memory on a
+# 4-core CI runner.
+ARG CORES=4
 
 RUN apt update -y
 RUN apt-get install -y software-properties-common
