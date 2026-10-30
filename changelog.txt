@@ -1,3 +1,14 @@
+2.0.15.1 2026/OCT/30
+ * fix: loading the native library no longer dies with SIGILL on machines that report SVE2 without SVE,
+   such as the Android emulator on Apple M4 Macs (and possibly arm64 Linux VMs there). OpenSSL 4.1 trusts the
+   kernel's SVE2 flag on its own and runs an SVE instruction while the library loads; the Android and Linux
+   arm64 builds now count SVE2 only when SVE is reported too (no real CPU has one without the other).
+   2.0.12.9 (OpenSSL 3.6, no SVE2 code) wasn't affected.
+ * build: first release built entirely on GitHub Actions (Build release workflow): Linux, Windows and Android
+   in the swig/Dockerfile image, macOS arm64 on macos-15 and x86_64 on macos-15-intel; the EC2 builder and the
+   two Macs are no longer needed
+ * build: the Dockerfile declares its CORES build argument (make had no job limit)
+
 2.0.15.0 2026/OCT/29
  * libtorrent upgraded to eb397173da6189dad52f008916c27419dde32faa (RC_2_0, 123 commits ahead of cb6fe6b9c; libtorrent 2.0.13, 2.0.14, 2.0.15 and unreleased 2.0.16 fixes)
  * native library loading no longer copies the library on every start (#326):
