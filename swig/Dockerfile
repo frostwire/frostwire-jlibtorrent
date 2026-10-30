@@ -113,6 +113,16 @@ RUN cd /src \
     && tar xzf openssl.tar.gz \
     && mv openssl-${OPENSSL_VERSION} openssl-src
 
+# OpenSSL 4 trusts the kernel's SVE2 flag alone and, while the library loads, runs an SVE
+# instruction to read the vector length. Some VMs report SVE2 without SVE, which no real CPU
+# does: the Android emulator on Apple M4 Macs reports "sve2" but the chip can't run SVE outside
+# streaming mode, so loading jlibtorrent died with SIGILL in _armv8_sve_get_vl_bytes. Count SVE2
+# only when SVE is reported too. Affects the aarch64 builds (Android arm64, Linux arm64); the
+# grep fails the build if the line it patches ever changes.
+RUN cd /src/openssl-src \
+    && sed -i 's/    if (getauxval(OSSL_HWCAP2) \& OSSL_HWCAP2_SVE2)/    if ((OPENSSL_armcap_P \& ARMV8_SVE) \&\& (getauxval(OSSL_HWCAP2) \& OSSL_HWCAP2_SVE2))/' crypto/armcap.c \
+    && grep -q 'if ((OPENSSL_armcap_P & ARMV8_SVE) && (getauxval(OSSL_HWCAP2) & OSSL_HWCAP2_SVE2))' crypto/armcap.c
+
 ENV OPENSSL_NO_OPTS="no-shared no-makedepend no-stdio no-posix-io no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -O3 -fPIC"
 
 ENV ANDROID_TOOLCHAIN=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64
