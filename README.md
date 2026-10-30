@@ -312,6 +312,56 @@ Raw native library files (.so, .dylib, .dll) are available in:
 
 For detailed prerequisites and troubleshooting, see [BUILD_MANUAL.md](BUILD_MANUAL.md).
 
+Building a release with GitHub Actions
+================================
+
+The **Build release** workflow ([`.github/workflows/build-release.yml`](.github/workflows/build-release.yml)) builds all 12 jars on GitHub's runners and attaches them to a GitHub release. You don't need the Macs or the EC2 builder. It's free for this public repository.
+
+| Jars | Runner |
+|---|---|
+| `jlibtorrent`, `-sources`, `-javadoc` | `ubuntu-latest` |
+| Linux x86_64 and arm64, Windows x86_64, Android arm/arm64/x86/x86_64 | `ubuntu-latest`, inside the [`swig/Dockerfile`](swig/Dockerfile) image |
+| macOS arm64 | `macos-15` (Apple Silicon) |
+| macOS x86_64 | `macos-15-intel` (GitHub's last hosted Intel image) |
+
+### 1. Prepare the version on master
+
+1. Set the new version as the fallback in `build.gradle`, for example `?: '2.0.16.0'`. The native libraries embed this version (`run-swig.sh` reads it), and the Java side refuses a native library of another version. That's why the workflow refuses a release tag that doesn't match `build.gradle`.
+2. Regenerate the SWIG sources if the bindings or the version changed (`cd swig && ./run-swig.sh`).
+3. Add the release notes at the top of `changelog.txt`.
+4. Commit and push to master.
+
+### 2. Run the workflow
+
+Go to **Actions → Build release → Run workflow** on `master` and enter the release tag, e.g. `release/2.0.16.0`. From a terminal:
+
+```bash
+gh workflow run build-release.yml --repo frostwire/frostwire-jlibtorrent --ref master -f release_tag=release/2.0.16.0
+gh run watch --repo frostwire/frostwire-jlibtorrent   # pick the run to follow it
+```
+
+What it does:
+- It checks that the tag's version matches `build.gradle`.
+- It builds the Docker image once per `swig/Dockerfile` revision and stores it in GHCR (`ghcr.io/frostwire/jlibtorrent-build:<hash of the Dockerfile>`). Later runs pull it. The first run after a Dockerfile change spends roughly an extra hour building OpenSSL for six targets and downloading the NDK.
+- It builds the Java jars, the seven Docker targets and the two macOS architectures in parallel. Expect one to two hours. The macOS jobs cache `~/src` (Boost, OpenSSL, libtorrent, SWIG), so their later runs are faster.
+- It runs [`.github/scripts/verify_release_jars.py`](.github/scripts/verify_release_jars.py) on the result. The script checks that all 12 jars are present. For every native jar it checks that it holds exactly one library, at the path `NativeLibraryLoader` loads from, for the right CPU and with the release version. It also checks that 64-bit Android libraries have 16 KB aligned segments. You can run it locally too: `python3 .github/scripts/verify_release_jars.py build/libs 2.0.16.0`.
+- It writes `SHA256SUMS.txt`, saves everything as the run artifact `jlibtorrent-<version>`, and uploads the jars and checksums to the release. If the release doesn't exist yet, it creates it as a **draft** on the commit it built. Rerunning replaces the assets (`--clobber`).
+
+Leave the release tag empty for a trial build: you get the run artifacts and no release is touched.
+
+If one platform fails, its error is in that job's log. The other platforms still finish (`fail-fast: false`), but nothing is uploaded to the release until all of them pass. Fix the problem and run the workflow again.
+
+### 3. Publish
+
+1. Open the draft under [Releases](https://github.com/frostwire/frostwire-jlibtorrent/releases), write the release notes (or paste the blog post) and press **Publish**. Publishing creates the `release/x.y.z.w` tag on the commit the draft targets.
+2. Publish the Maven packages to GitHub Packages: **Actions → Publish Java Package → Run workflow** with the same release tag. Publishing a draft does **not** start this workflow automatically: GitHub doesn't fire `release: created` for drafts. It downloads the 12 jars from the release and publishes the 10 `com.frostwire:jlibtorrent*` artifacts.
+   ```bash
+   gh workflow run publish.yml --repo frostwire/frostwire-jlibtorrent --ref master -f release_tag=release/2.0.16.0
+   ```
+3. Update the Maven repository at `https://dl.frostwire.com/maven`: on the dl.frostwire.com server, run `deploy_jlibtorrent_maven_release 2.0.16.0` in a login shell (it reads `GITHUB_PAT` from `~/.bash_profile`; the script is [`deploy_jlibtorrent_maven_release.sh`](deploy_jlibtorrent_maven_release.sh)). It copies the `.pom` and `.sha1` files from GitHub Packages and regenerates each artifact's `maven-metadata.xml`. The `.jar` downloads themselves are redirected to the GitHub release assets.
+
+The EC2 and local builds in **Building** above still work and produce the same jars. Use them when you need a build GitHub can't run, such as a debug build on a specific machine.
+
 Projects using jLibtorrent
 ==========================
 - [FrostWire](http://www.frostwire.com) (both desktop and android editions)
