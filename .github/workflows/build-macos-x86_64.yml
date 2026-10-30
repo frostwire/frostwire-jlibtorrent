@@ -19,9 +19,10 @@ permissions:
 
 jobs:
   build:
-    # macos-13 is the last GitHub-hosted Intel (x86_64) macOS runner.
-    # macos-14+ are Apple Silicon (ARM64).
-    runs-on: macos-13
+    # macos-15-intel is GitHub's last hosted Intel (x86_64) macOS image; macos-13 was
+    # retired, and jobs asking for it queued until they were cancelled. The other
+    # macos-* labels are Apple Silicon (ARM64).
+    runs-on: macos-15-intel
 
     steps:
       - name: Checkout
