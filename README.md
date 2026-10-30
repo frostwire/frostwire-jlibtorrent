@@ -360,7 +360,7 @@ If one platform fails, its error is in that job's log. The other platforms still
    ```
 3. Update the Maven repository at `https://dl.frostwire.com/maven`: on the dl.frostwire.com server, run `deploy_jlibtorrent_maven_release 2.0.16.0` in a login shell (it reads `GITHUB_PAT` from `~/.bash_profile`; the script is [`deploy_jlibtorrent_maven_release.sh`](deploy_jlibtorrent_maven_release.sh)). It copies the `.pom` and `.sha1` files from GitHub Packages and regenerates each artifact's `maven-metadata.xml`. The `.jar` downloads themselves are redirected to the GitHub release assets.
 
-The EC2 and local builds in **Building** above still work and produce the same jars. Use them when you need a build GitHub can't run, such as a debug build on a specific machine.
+The local builds in **Building** above (macOS scripts, and Docker on any x86_64 Linux machine) still work and produce the same jars; use them when you need a build GitHub can't run, such as a debug build. The AWS EC2 builder was retired after 2.0.15.1, the first release built entirely by this workflow.
 
 Projects using jLibtorrent
 ==========================

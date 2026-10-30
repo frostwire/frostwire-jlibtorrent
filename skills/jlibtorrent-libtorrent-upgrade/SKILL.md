@@ -27,7 +27,7 @@ Use this skill whenever a new libtorrent `RC_2_0` commit needs to be integrated.
 - Same local dependencies as dev machine
 - Used ONLY for macOS x86_64 builds
 
-### AWS EC2 x86_64 Server
+### Docker host (x86_64)  (was: AWS EC2 x86_64 Server, retired 2026-10-30)
 - Docker installed and running
 - Repo checked out at the correct commit
 - Used for ALL non-macOS platforms: Linux x86_64, Linux arm64, Windows x86_64, Android (arm/arm64/x86/x86_64)
@@ -219,7 +219,7 @@ If tests fail:
 - Disable or fix network-dependent tests if they flap.
 - Review whether upstream changed defaults that your tests assumed.
 
-**DO NOT attempt to build Linux, Windows, or Android locally** — these require the AWS EC2 x86_64 Docker environment.
+**DO NOT attempt to build Linux, Windows, or Android on Apple Silicon** — these need the x86_64 Docker environment: the Build release workflow, or an x86_64 Linux machine.
 
 **Lesson Learned (cb6fe6b9c upgrade):** The smoke test caught a `dynamic_cast` compilation failure in `smart_ban.cpp` introduced by upstream commit `d0e59960a`. Fixing this (`-frtti`) on macOS arm64 prevented the same failure on ALL other platforms (Linux x86_64, Linux arm64, Windows, and all Android arches), saving hours of wasted parallel Docker builds on EC2.
 
@@ -227,21 +227,24 @@ If tests fail:
 
 ## Step 7: Build Native Binaries
 
+**Since 2.0.15.1 (2026-10-30) releases are built on GitHub Actions, not on EC2.** Run the **Build release** workflow with the release tag (README, "Building a release with GitHub Actions"): it builds all 12 jars (Docker targets on `ubuntu-latest`, macOS arm64 on `macos-15`, macOS x86_64 on `macos-15-intel`), verifies them with `.github/scripts/verify_release_jars.py` and attaches them to a draft release. The `jlibtorrent-builder` EC2 instance and its volume were terminated. The Docker commands below still work on any x86_64 Linux machine for local builds; everything this step says about "EC2" now means that Docker host.
+
+
 ### Build Topology
 
 | Platform | Architecture | Where to Build | Method |
 |----------|-------------|----------------|--------|
 | macOS | arm64 | **Apple Silicon dev machine** (local) | `./build-macos-arm64.sh` |
 | macOS | x86_64 | **Separate Intel Mac** (different machine) | `./build-macos-x86_64.sh` |
-| Linux | x86_64 | **AWS EC2 x86_64** | Docker |
-| Linux | arm64 | **AWS EC2 x86_64** | Docker (cross-compile) |
-| Windows | x86_64 | **AWS EC2 x86_64** | Docker (cross-compile) |
-| Android | arm | **AWS EC2 x86_64** | Docker (cross-compile) |
-| Android | arm64 | **AWS EC2 x86_64** | Docker (cross-compile) |
-| Android | x86 | **AWS EC2 x86_64** | Docker (cross-compile) |
-| Android | x86_64 | **AWS EC2 x86_64** | Docker (cross-compile) |
+| Linux | x86_64 | **GitHub Actions** (`ubuntu-latest`, Docker) | Docker |
+| Linux | arm64 | **GitHub Actions** (`ubuntu-latest`, Docker) | Docker (cross-compile) |
+| Windows | x86_64 | **GitHub Actions** (`ubuntu-latest`, Docker) | Docker (cross-compile) |
+| Android | arm | **GitHub Actions** (`ubuntu-latest`, Docker) | Docker (cross-compile) |
+| Android | arm64 | **GitHub Actions** (`ubuntu-latest`, Docker) | Docker (cross-compile) |
+| Android | x86 | **GitHub Actions** (`ubuntu-latest`, Docker) | Docker (cross-compile) |
+| Android | x86_64 | **GitHub Actions** (`ubuntu-latest`, Docker) | Docker (cross-compile) |
 
-**CRITICAL:** The `Dockerfile` and all Docker-based builds are **ONLY to be run on the AWS EC2 x86_64 server.** Do NOT run Docker builds on Apple Silicon — the Dockerfile contains x86_64-centric cross-compilation steps (especially Android ARM OpenSSL) that crash under QEMU emulation with SIGTRAP/Error 133.
+**CRITICAL:** The `Dockerfile` and all Docker-based builds run **only on x86_64 hosts** (the Build release workflow, or an x86_64 Linux machine). Do NOT run Docker builds on Apple Silicon — the Dockerfile contains x86_64-centric cross-compilation steps (especially Android ARM OpenSSL) that crash under QEMU emulation with SIGTRAP/Error 133.
 
 ### macOS arm64 (Apple Silicon dev machine)
 ```bash
@@ -255,7 +258,7 @@ cd swig
 ./build-macos-x86_64.sh --build-only
 ```
 
-### Linux / Windows / Android (AWS EC2 x86_64 ONLY)
+### Linux / Windows / Android (Docker on x86_64; CI runs this in the Build release workflow)
 
 **On the EC2 x86_64 instance:**
 ```bash
