@@ -34,12 +34,12 @@ concurrency:
 
 jobs:
   prepare:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       version: ${{ steps.vars.outputs.version }}
       image: ${{ steps.vars.outputs.image }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # The native libraries embed build.gradle's version (run-swig.sh reads it) and the Java side
       # refuses a native library of another version, so a tag that disagrees would ship jars that
@@ -64,10 +64,10 @@ jobs:
 
   build-image:
     needs: prepare
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 180
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
@@ -91,10 +91,10 @@ jobs:
 
   java:
     needs: prepare
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -103,7 +103,7 @@ jobs:
         env:
           RELEASE_VERSION: ${{ needs.prepare.outputs.version }}
         run: ./gradlew --no-daemon jar sourcesJar javadocJar
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: jars-java
           path: |
@@ -114,7 +114,7 @@ jobs:
 
   docker:
     needs: [prepare, build-image]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 300
     strategy:
       fail-fast: false
@@ -128,7 +128,7 @@ jobs:
           - { target: android-x86,    script: build-android-x86.sh,    jar: jlibtorrent-android-x86 }
           - { target: android-x86_64, script: build-android-x86_64.sh, jar: jlibtorrent-android-x86_64 }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Free disk space
         run: |
@@ -156,7 +156,7 @@ jobs:
           # The container runs as root; give the files back to the runner user.
           sudo chown -R "$(id -u):$(id -g)" "$GITHUB_WORKSPACE"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: jars-${{ matrix.target }}
           path: build/libs/${{ matrix.jar }}-${{ needs.prepare.outputs.version }}.jar
@@ -173,9 +173,9 @@ jobs:
           - { arch: x86_64, runner: macos-15-intel }
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -190,7 +190,7 @@ jobs:
       # ~/src holds Boost, OpenSSL (source and install prefix), the libtorrent clone and the SWIG
       # source tree. The key changes with any pinned version in build-utils.shinc.
       - name: Cache ~/src
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/src
           key: macos-${{ matrix.arch }}-src-${{ hashFiles('swig/build-utils.shinc') }}
@@ -233,7 +233,7 @@ jobs:
           cd swig
           ./build-macos-${{ matrix.arch }}.sh
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: jars-macosx-${{ matrix.arch }}
           path: build/libs/jlibtorrent-macosx-${{ matrix.arch }}-${{ needs.prepare.outputs.version }}.jar
@@ -241,11 +241,11 @@ jobs:
 
   release:
     needs: [prepare, java, docker, macos]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           pattern: jars-*
           path: dist
@@ -261,7 +261,7 @@ jobs:
           cd dist
           sha256sum *.jar | tee SHA256SUMS.txt
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: jlibtorrent-${{ needs.prepare.outputs.version }}
           path: dist/
