@@ -12,11 +12,15 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.FileTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
@@ -124,6 +128,54 @@ public class NativeLibraryLoaderTest {
         assertArrayEquals(new byte[]{2, 2, 2}, Files.readAllBytes(b));
     }
 
+    // frostwire/frostwire-jlibtorrent#340: every upgrade used to leave its 20-30 MB copy behind.
+    @Test
+    public void loadingFromTheCacheDeletesOlderCopiesOnly() throws Exception {
+        Path root = tmp.newFolder("cache").toPath();
+        Path cache = root.resolve("jlibtorrent");
+        long twoHoursAgo = System.currentTimeMillis() - 2 * 3600_000L;
+        Path old = copyDir(cache.resolve("2.0.15.0-1a2b3c"), twoHoursAgo);
+        Path fresh = copyDir(cache.resolve("2.0.15.1-4d5e6f"), System.currentTimeMillis());
+        // not <version>-<key> folders: not the loader's to delete
+        Path notACopy = copyDir(cache.resolve("my-notes"), twoHoursAgo);
+        Path aFile = Files.write(cache.resolve("2.0.14.0-777"), new byte[]{1});
+        Files.setLastModifiedTime(aFile, FileTime.fromMillis(twoHoursAgo));
+        // links must never lead the delete outside the cache
+        Path outside = copyDir(tmp.newFolder("outside").toPath().resolve("2.0.13.0-888"), twoHoursAgo);
+        Path outsideFile = outside.resolve("libjlibtorrent.so");
+        Path linkedCopy = cache.resolve("2.0.13.0-888");
+        boolean links;
+        try {
+            Files.createSymbolicLink(linkedCopy, outside);
+            Path link = Files.createSymbolicLink(old.resolve("link-to-outside.so"), outsideFile);
+            // the link's own time, not its target's
+            Files.getFileAttributeView(link, BasicFileAttributeView.class, LinkOption.NOFOLLOW_LINKS)
+                    .setTimes(FileTime.fromMillis(twoHoursAgo), null, null);
+            links = true;
+        } catch (IOException | UnsupportedOperationException e) {
+            links = false; // Windows without the privilege to create links
+        }
+        Files.setLastModifiedTime(old, FileTime.fromMillis(twoHoursAgo));
+
+        URL resource = resourceInJar("lib/x86_64/libjlibtorrent.so", new byte[]{1, 2, 3});
+        List<String> loaded = new ArrayList<>();
+        String library = NativeLibraryLoader.loadFromCache(resource, root, "2.0.15.2", "libjlibtorrent.so", loaded::add);
+        assertEquals(Collections.singletonList(library), loaded);
+        Path loadedDir = Paths.get(library).getParent();
+        // the loaded copy stays even once it's old
+        Files.setLastModifiedTime(Paths.get(library), FileTime.fromMillis(twoHoursAgo));
+        Files.setLastModifiedTime(loadedDir, FileTime.fromMillis(twoHoursAgo));
+        NativeLibraryLoader.loadFromCache(resource, root, "2.0.15.2", "libjlibtorrent.so", loaded::add);
+
+        assertFalse("an old copy is deleted", Files.exists(old, LinkOption.NOFOLLOW_LINKS));
+        assertTrue("a copy used in the last hour stays", Files.exists(fresh.resolve("libjlibtorrent.so")));
+        assertTrue("the loaded copy stays", Files.exists(Paths.get(library)));
+        assertTrue(Files.exists(notACopy.resolve("libjlibtorrent.so")));
+        assertTrue(Files.exists(aFile));
+        assertTrue("a link out of the cache is not followed", Files.exists(outsideFile));
+        assertEquals(links, Files.isSymbolicLink(linkedCopy));
+    }
+
     @Test
     public void nativeVersionMustMatchTheLibtorrentPart() {
         NativeLibraryLoader.checkNativeVersion("2.0.15.0", "2.0.15.0");
@@ -134,6 +186,15 @@ public class NativeLibraryLoaderTest {
         } catch (LinkageError expected) {
             assertTrue(expected.getMessage(), expected.getMessage().contains("2.0.12.9"));
         }
+    }
+
+    // A cached-copy folder holding a library, both last modified at the given time.
+    private static Path copyDir(Path dir, long modifiedMillis) throws IOException {
+        Files.createDirectories(dir);
+        Path library = Files.write(dir.resolve("libjlibtorrent.so"), new byte[]{1, 2, 3});
+        Files.setLastModifiedTime(library, FileTime.fromMillis(modifiedMillis));
+        Files.setLastModifiedTime(dir, FileTime.fromMillis(modifiedMillis));
+        return dir;
     }
 
     private static void assertPlatform(Platform p, Os os, String resourcePath, String systemName) {
