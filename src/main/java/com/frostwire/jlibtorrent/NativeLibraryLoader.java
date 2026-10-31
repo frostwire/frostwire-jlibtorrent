@@ -6,14 +6,22 @@ import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.AtomicMoveNotSupportedException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
+import java.util.regex.Pattern;
 
 /**
  * Finds and loads the jlibtorrent native library, once per process, without copying it on every
@@ -31,7 +39,8 @@ import java.util.jar.JarEntry;
  *   <i>once</i> into a per-user cache ({@code <cache>/jlibtorrent/<version>-<entry crc>/}) and
  *   reused by later starts. It is written to a temporary file and moved into place, so concurrent
  *   first starts can't load a half-written library, and nothing has to be deleted at exit (Windows
- *   can't delete a loaded DLL).</li>
+ *   can't delete a loaded DLL). After a load, the copies of other versions and builds that nothing
+ *   used in the last hour are deleted.</li>
  *   <li><b>Desktop fallback:</b> {@code System.loadLibrary} from {@code java.library.path}.</li>
  * </ol>
  * The bundled copy comes before {@code java.library.path} because it is the build that matches
@@ -45,6 +54,13 @@ public final class NativeLibraryLoader {
 
     static final String JNI_PATH_PROPERTY = "jlibtorrent.jni.path";
     static final String CACHE_DIR_PROPERTY = "jlibtorrent.cache.dir";
+
+    /** Older cached copies are deleted only once nothing touched them for this long. */
+    static final long STALE_COPY_AGE_MILLIS = 60 * 60 * 1000L;
+
+    // <cache root>/jlibtorrent/<version>-<key>/: the only folders deleteStaleCopies may delete
+    private static final String CACHE_DIR_NAME = "jlibtorrent";
+    private static final Pattern COPY_DIR_NAME = Pattern.compile("[0-9]+(\\.[0-9]+)*-[0-9a-f]+");
 
     private static final Logger LOG = Logger.getLogger(NativeLibraryLoader.class);
 
@@ -171,7 +187,101 @@ public final class NativeLibraryLoader {
             library = cachedLibrary(resource, cacheRoot, version, fileName);
             systemLoad.accept(library.toString());
         }
+        deleteStaleCopies(library.getParent(), System.currentTimeMillis());
         return library.toString();
+    }
+
+    /**
+     * Deletes the other {@code <version>-<key>} folders next to {@code loadedDir}, the copy just
+     * loaded: earlier versions and builds, 20-30 MB each (frostwire/frostwire-jlibtorrent#340).
+     * Best effort, and only inside the {@code jlibtorrent} cache folder:
+     * <ul>
+     *   <li>a folder modified in the last {@link #STALE_COPY_AGE_MILLIS} (its own time or a file's in
+     *   it) stays: another app or version may be extracting or loading it right now;</li>
+     *   <li>only real directories named {@code <version>-<key>} are candidates, never a link, a file or
+     *   anything else in the cache;</li>
+     *   <li>links inside a deleted folder are removed, never followed;</li>
+     *   <li>a file that can't be deleted (a DLL another process has loaded, on Windows) keeps its
+     *   folder; a later start tries again.</li>
+     * </ul>
+     *
+     * @return the folders deleted
+     */
+    static List<Path> deleteStaleCopies(Path loadedDir, long nowMillis) {
+        List<Path> deleted = new ArrayList<>();
+        Path loaded = loadedDir.toAbsolutePath().normalize();
+        Path cacheDir = loaded.getParent();
+        if (cacheDir == null || cacheDir.getFileName() == null
+                || !CACHE_DIR_NAME.equals(cacheDir.getFileName().toString())
+                || !COPY_DIR_NAME.matcher(loaded.getFileName().toString()).matches()) {
+            return deleted; // not a copy in our cache: touch nothing
+        }
+        try (DirectoryStream<Path> children = Files.newDirectoryStream(cacheDir)) {
+            for (Path child : children) {
+                Path copy = child.toAbsolutePath().normalize();
+                if (!cacheDir.equals(copy.getParent())
+                        || copy.equals(loaded)
+                        || !COPY_DIR_NAME.matcher(copy.getFileName().toString()).matches()
+                        || !Files.isDirectory(copy, LinkOption.NOFOLLOW_LINKS)
+                        || Files.isSameFile(copy, loaded)
+                        || usedSince(copy, nowMillis - STALE_COPY_AGE_MILLIS)) {
+                    continue;
+                }
+                try {
+                    deleteTree(copy);
+                    deleted.add(copy);
+                    LOG.info("jlibtorrent: deleted the older native library copy " + copy);
+                } catch (IOException e) {
+                    LOG.debug("jlibtorrent: could not delete the older native library copy " + copy + ": " + e);
+                }
+            }
+        } catch (IOException | SecurityException e) {
+            LOG.debug("jlibtorrent: could not clean the native library cache " + cacheDir + ": " + e);
+        }
+        return deleted;
+    }
+
+    // True if the folder, or anything directly in it, was modified after the given time.
+    private static boolean usedSince(Path dir, long sinceMillis) throws IOException {
+        if (Files.getLastModifiedTime(dir, LinkOption.NOFOLLOW_LINKS).toMillis() > sinceMillis) {
+            return true;
+        }
+        try (DirectoryStream<Path> entries = Files.newDirectoryStream(dir)) {
+            for (Path entry : entries) {
+                if (Files.getLastModifiedTime(entry, LinkOption.NOFOLLOW_LINKS).toMillis() > sinceMillis) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Deletes dir and everything in it without following links: a link is deleted, not its target.
+    private static void deleteTree(Path dir) throws IOException {
+        Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.delete(inside(dir, file));
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path d, IOException e) throws IOException {
+                if (e != null) {
+                    throw e;
+                }
+                Files.delete(inside(dir, d));
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    private static Path inside(Path dir, Path p) throws IOException {
+        Path normalized = p.toAbsolutePath().normalize();
+        if (!normalized.startsWith(dir)) {
+            throw new IOException(p + " is outside " + dir);
+        }
+        return normalized;
     }
 
     /**
@@ -181,7 +291,7 @@ public final class NativeLibraryLoader {
      */
     static Path cachedLibrary(URL resource, Path cacheRoot, String version, String fileName) throws IOException {
         ResourceInfo info = ResourceInfo.of(resource);
-        Path dir = cacheRoot.resolve("jlibtorrent").resolve(version + "-" + info.key);
+        Path dir = cacheRoot.resolve(CACHE_DIR_NAME).resolve(version + "-" + info.key);
         Path target = dir.resolve(fileName);
         if (isComplete(target, info.size)) {
             return target;
