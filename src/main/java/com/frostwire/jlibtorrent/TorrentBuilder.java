@@ -573,7 +573,13 @@ public final class TorrentBuilder {
                 return listener == null || listener.accept(p);
             }
         };
-        add_files_ex(fs, absPath.getPath(), l1, flags);
+        try {
+            add_files_ex(fs, absPath.getPath(), l1, flags);
+        } finally {
+            // Listeners are directors, which only delete() frees (frostwire/frostwire-jlibtorrent#337).
+            // add_files_ex() is done with it.
+            l1.delete();
+        }
         if (fs.total_size() == 0) {
             throw new IOException("content total size can't be 0");
         }
@@ -589,6 +595,7 @@ public final class TorrentBuilder {
         create_torrent t = new create_torrent(files, pieceSize, flags);
         */
 
+        // t keeps a reference to fs: the create_torrent proxy keeps fs reachable.
         create_torrent t = new create_torrent(fs, pieceSize, flags);
         final int numPieces = t.num_pieces();
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
@@ -611,6 +618,7 @@ public final class TorrentBuilder {
             }
         } finally {
             ec.delete();
+            l2.delete();
         }
 
         if (comment != null) {
