@@ -1,3 +1,13 @@
+2.0.15.3 2026/OCT/31
+ * fix: calling a method of an object after delete() throws IllegalStateException ("<type> used after delete()")
+   instead of killing the JVM with SIGSEGV. Every native method that takes an object checks it for null first: one
+   comparison per call. This catches the class of bug behind 2.0.15.2's fetchMagnet fix. It can't catch a pointer
+   to memory freed some other way; objects that are views into another keep that one alive (2.0.15.2)
+ * the generated C++ changes, so the release ships rebuilt natives. 2.0.15.2 natives load with these Java classes
+   (only the first three version components must match) but don't have the check
+ * build: publishing a GitHub release now publishes its Maven packages to GitHub Packages by itself (publish.yml
+   runs on "release: published"), and a rerun also replaces the AAR package
+
 2.0.15.2 2026/OCT/31
  * the generated C++ is unchanged from 2.0.15.1 apart from the version string: the 2.0.15.1 natives also work with
    these Java classes (only the first three version components must match); the release ships rebuilt natives

@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.frostwire:jlibtorrent-android:2.0.15.2'
+    implementation 'com.frostwire:jlibtorrent-android:2.0.15.3'
 }
 ```
 
