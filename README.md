@@ -15,6 +15,26 @@ Using
 
 We've finally created a Maven Repository for our [releases](https://github.com/frostwire/frostwire-jlibtorrent/releases)
 
+### Android: one AAR (recommended, 2.0.15.2 and later)
+
+`com.frostwire:jlibtorrent-android` is an Android library (AAR) holding the Java classes, the native library for every ABI (armeabi-v7a, arm64-v8a, x86, x86_64) and its own R8/ProGuard keep rules, so it replaces `jlibtorrent` plus the four `jlibtorrent-android-<arch>` jars, and you don't add keep rules yourself. Pick the ABIs your APK ships with `abiFilters`; Google Play App Bundles deliver only the device's ABI either way.
+
+```groovy
+android {
+    defaultConfig {
+        ndk { abiFilters "arm64-v8a", "x86_64" } // optional: only the ABIs you ship
+    }
+}
+
+dependencies {
+    implementation 'com.frostwire:jlibtorrent-android:2.0.15.2'
+}
+```
+
+The AAR is built from the jars below, which are still published for projects that prefer them.
+
+### Jars
+
 build.gradle (Groovy) example
 ```groovy
 repositories {
@@ -32,7 +52,7 @@ dependencies {
     // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
     implementation 'com.frostwire:jlibtorrent:' + jlibtorrent_version
 
-    // ANDROID (needs all of them for most projects if you want to maximize compatibility)
+    // ANDROID with jars (or use the jlibtorrent-android AAR above instead of these and jlibtorrent)
     implementation 'com.frostwire:jlibtorrent-android-arm:' + jlibtorrent_version
     implementation 'com.frostwire:jlibtorrent-android-arm64:' + jlibtorrent_version
     implementation 'com.frostwire:jlibtorrent-android-x86:' + jlibtorrent_version
@@ -222,7 +242,7 @@ The secondary jars are:
  - Mac: `jlibtorrent-macosx-x86_64-w.x.y.z.jar` (x86_64 .dylib), `jlibtorrent-macosx-arm64-w.x.y.z.jar` (arm64 .dylib)
  - Linux: `jlibtorrent-linux-x86_64-w.x.y.z.jar` (x86_64 .so), `jlibtorrent-linux-arm64-w.x.y.z.jar` (arm64 .so)
 
-In the case of Android, make sure to put the following 5 jars in your project's `libs` folder (see [FrostWire for Android's](https://github.com/frostwire/frostwire/tree/master/android/libs) as an example):
+In the case of Android, either use the AAR, `jlibtorrent-android-w.x.y.z.aar` from the release (Java classes, every ABI's library and its keep rules in one file), or put the following 5 jars in your project's `libs` folder (see [FrostWire for Android's](https://github.com/frostwire/frostwire/tree/master/android/libs) as an example):
  - `jlibtorrent-w.x.y.z.jar`
  - `jlibtorrent-android-arm-w.x.y.z.jar`
  - `jlibtorrent-android-arm64-w.x.y.z.jar`
@@ -240,7 +260,7 @@ For examples look at https://github.com/frostwire/frostwire-jlibtorrent/tree/mas
 
 Architectures supported:
 
-- Android (armeabi-v7a, arm64-v8a, x86, x86_64) sdk 24 (Android 7.0) and up
+- Android (armeabi-v7a, arm64-v8a, x86, x86_64) sdk 26 (Android 8.0) and up: the native libraries are built for API 26
   - ✅ **Android 16 KB page size compatible** (required for Google Play as of Nov 2025)
 - Linux (x86_64, arm64)
 - Windows (x86_64)
@@ -315,7 +335,7 @@ For detailed prerequisites and troubleshooting, see [BUILD_MANUAL.md](BUILD_MANU
 Building a release with GitHub Actions
 ================================
 
-The **Build release** workflow ([`.github/workflows/build-release.yml`](.github/workflows/build-release.yml)) builds all 12 jars on GitHub's runners and attaches them to a GitHub release. You don't need the Macs or the EC2 builder. It's free for this public repository.
+The **Build release** workflow ([`.github/workflows/build-release.yml`](.github/workflows/build-release.yml)) builds all 12 jars and the Android AAR on GitHub's runners and attaches them to a GitHub release. You don't need the Macs or the EC2 builder. It's free for this public repository.
 
 | Jars | Runner |
 |---|---|
@@ -344,7 +364,7 @@ What it does:
 - It checks that the tag's version matches `build.gradle`.
 - It builds the Docker image once per `swig/Dockerfile` revision and stores it in GHCR (`ghcr.io/frostwire/jlibtorrent-build:<hash of the Dockerfile>`). Later runs pull it. The first run after a Dockerfile change spends roughly an extra hour building OpenSSL for six targets and downloading the NDK.
 - It builds the Java jars, the seven Docker targets and the two macOS architectures in parallel. Expect one to two hours. The macOS jobs cache `~/src` (Boost, OpenSSL, libtorrent, SWIG), so their later runs are faster.
-- It runs [`.github/scripts/verify_release_jars.py`](.github/scripts/verify_release_jars.py) on the result. The script checks that all 12 jars are present. For every native jar it checks that it holds exactly one library, at the path `NativeLibraryLoader` loads from, for the right CPU and with the release version. It also checks that 64-bit Android libraries have 16 KB aligned segments. You can run it locally too: `python3 .github/scripts/verify_release_jars.py build/libs 2.0.16.0`.
+- It runs [`.github/scripts/verify_release_jars.py`](.github/scripts/verify_release_jars.py) on the result. The script checks that all 12 jars and the AAR are present. For every native jar it checks that it holds exactly one library, at the path `NativeLibraryLoader` loads from, for the right CPU and with the release version. It also checks that 64-bit Android libraries have 16 KB aligned segments, and that the AAR (packed by [`.github/scripts/build_android_aar.py`](.github/scripts/build_android_aar.py)) holds exactly the Java jar and the Android jars' libraries. You can run it locally too: `python3 .github/scripts/verify_release_jars.py build/libs 2.0.16.0`.
 - It writes `SHA256SUMS.txt`, saves everything as the run artifact `jlibtorrent-<version>`, and uploads the jars and checksums to the release. If the release doesn't exist yet, it creates it as a **draft** on the commit it built. Rerunning replaces the assets (`--clobber`).
 
 Leave the release tag empty for a trial build: you get the run artifacts and no release is touched.
@@ -354,7 +374,7 @@ If one platform fails, its error is in that job's log. The other platforms still
 ### 3. Publish
 
 1. Open the draft under [Releases](https://github.com/frostwire/frostwire-jlibtorrent/releases), write the release notes (or paste the blog post) and press **Publish**. Publishing creates the `release/x.y.z.w` tag on the commit the draft targets.
-2. Publish the Maven packages to GitHub Packages: **Actions → Publish Java Package → Run workflow** with the same release tag. Publishing a draft does **not** start this workflow automatically: GitHub doesn't fire `release: created` for drafts. It downloads the 12 jars from the release and publishes the 10 `com.frostwire:jlibtorrent*` artifacts.
+2. Publish the Maven packages to GitHub Packages: **Actions → Publish Java Package → Run workflow** with the same release tag. Publishing a draft does **not** start this workflow automatically: GitHub doesn't fire `release: created` for drafts. It downloads the 12 jars and the AAR from the release and publishes the 11 `com.frostwire:jlibtorrent*` artifacts.
    ```bash
    gh workflow run publish.yml --repo frostwire/frostwire-jlibtorrent --ref master -f release_tag=release/2.0.16.0
    ```
