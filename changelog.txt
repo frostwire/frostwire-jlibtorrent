@@ -12,6 +12,9 @@
      delete(); alerts, and views taken from them such as TorrentAlert.handle(), still belong to the session and
      stay valid until the next pop_alerts
  * fix: TorrentBuilder.generate() frees its file and piece hash listeners
+ * fix: desktop deletes the cached native library copies of older versions and builds after a load (#340): every
+   upgrade left a 20-30 MB <cache>/jlibtorrent/<version>-<crc>/ folder behind. Folders used in the last hour stay,
+   and so does anything in the cache not named <version>-<crc>
  * build: run-swig.sh keeps hand-written files in the swig package (OwnedPointer) and resolves the ownership
    typemaps' placeholders (resolve-borrow-owner.pl)
 
