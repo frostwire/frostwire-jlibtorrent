@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 
 /**
@@ -151,15 +152,24 @@ public final class NativeLibraryLoader {
 
     private static String loadFromCache(URL resource, Path cacheRoot, String version, String fileName)
             throws IOException {
+        return loadFromCache(resource, cacheRoot, version, fileName, System::load);
+    }
+
+    /**
+     * Loads the cached copy of {@code resource} with {@code systemLoad} ({@code System::load}, or a
+     * stand-in in tests), extracting it first if needed.
+     */
+    static String loadFromCache(URL resource, Path cacheRoot, String version, String fileName,
+                                Consumer<String> systemLoad) throws IOException {
         Path library = cachedLibrary(resource, cacheRoot, version, fileName);
         try {
-            System.load(library.toString());
+            systemLoad.accept(library.toString());
         } catch (UnsatisfiedLinkError e) {
             // A damaged cached copy of the right size: write it again once.
             LOG.warn("jlibtorrent: cached " + library + " failed to load, extracting it again: " + e.getMessage());
             Files.deleteIfExists(library);
             library = cachedLibrary(resource, cacheRoot, version, fileName);
-            System.load(library.toString());
+            systemLoad.accept(library.toString());
         }
         return library.toString();
     }
