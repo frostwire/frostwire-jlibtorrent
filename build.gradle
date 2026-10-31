@@ -393,6 +393,20 @@ publishing {
                 configurePom(delegate, 'frostwire-jlibtorrent-android-x86_64', 'Native Android x86_64 binaries for jlibtorrent.')
             }
         }
+        // Android library (AAR): the Java classes, the four ABIs' native libraries and R8 keep rules,
+        // packed from the jars above by .github/scripts/build_android_aar.py
+        androidAar(MavenPublication) {
+            groupId = project.group
+            artifactId = 'jlibtorrent-android'
+            version = project.version
+            artifact(file("$buildDir/libs/jlibtorrent-android-${version}.aar")) {
+                extension = 'aar'
+            }
+            pom {
+                packaging = 'aar'
+                configurePom(delegate, 'frostwire-jlibtorrent-android', 'jlibtorrent as an Android library: Java classes, native libraries for armeabi-v7a, arm64-v8a, x86 and x86_64, and R8 keep rules.')
+            }
+        }
     } // publications
 } // publishing
 

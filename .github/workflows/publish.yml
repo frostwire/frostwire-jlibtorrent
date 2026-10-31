@@ -109,6 +109,7 @@ jobs:
           curl -L --fail -o build/libs/jlibtorrent-android-x86-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-x86-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-android-arm64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-arm64-${VERSION}.jar
           curl -L --fail -o build/libs/jlibtorrent-android-x86_64-${VERSION}.jar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-x86_64-${VERSION}.jar
+          curl -L --fail -o build/libs/jlibtorrent-android-${VERSION}.aar https://github.com/frostwire/frostwire-jlibtorrent/releases/download/${ENCODED_TAG}/jlibtorrent-android-${VERSION}.aar
 
       - name: Publish to GitHub Packages
         run: gradle publish
