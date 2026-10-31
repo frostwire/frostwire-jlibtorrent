@@ -1041,8 +1041,16 @@ public class SessionManager {
                     flags = flags.or_(TorrentFlags.STOP_WHEN_READY);
                     p.setFlags(flags);
 
-                    ec.clear();
-                    th = session.add_torrent(p, ec);
+                    // ec was freed after parsing the magnet: the add gets its own
+                    error_code addError = new error_code();
+                    try {
+                        th = session.add_torrent(p, addError);
+                        if (addError.value() != 0) {
+                            throw new IllegalStateException("Can't add the magnet: " + addError.message());
+                        }
+                    } finally {
+                        addError.delete();
+                    }
                     th.resume();
                 }
             } finally {
