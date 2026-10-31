@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class ip_route {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected ip_route(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected ip_route(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, ip_route::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(ip_route obj) {
@@ -24,23 +34,37 @@ public class ip_route {
   protected static long swigRelease(ip_route obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_ip_route(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_ip_route(swigCPtr);
   }
 
   public void setDestination(address value) {
@@ -49,7 +73,7 @@ public class ip_route {
 
   public address getDestination() {
     long cPtr = libtorrent_jni.ip_route_destination_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
+    return (cPtr == 0) ? null : new address(cPtr, false, this);
   }
 
   public void setNetmask(address value) {
@@ -58,7 +82,7 @@ public class ip_route {
 
   public address getNetmask() {
     long cPtr = libtorrent_jni.ip_route_netmask_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
+    return (cPtr == 0) ? null : new address(cPtr, false, this);
   }
 
   public void setGateway(address value) {
@@ -67,7 +91,7 @@ public class ip_route {
 
   public address getGateway() {
     long cPtr = libtorrent_jni.ip_route_gateway_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
+    return (cPtr == 0) ? null : new address(cPtr, false, this);
   }
 
   public void setSource_hint(address value) {
@@ -76,7 +100,7 @@ public class ip_route {
 
   public address getSource_hint() {
     long cPtr = libtorrent_jni.ip_route_source_hint_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
+    return (cPtr == 0) ? null : new address(cPtr, false, this);
   }
 
   public void setName(byte_vector value) {
@@ -85,7 +109,7 @@ public class ip_route {
 
   public byte_vector getName() {
     long cPtr = libtorrent_jni.ip_route_name_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new byte_vector(cPtr, false);
+    return (cPtr == 0) ? null : new byte_vector(cPtr, false, this);
   }
 
   public void setMtu(int value) {

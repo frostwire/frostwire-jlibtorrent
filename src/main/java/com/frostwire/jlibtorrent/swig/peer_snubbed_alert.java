@@ -10,10 +10,18 @@ package com.frostwire.jlibtorrent.swig;
 
 public class peer_snubbed_alert extends peer_alert {
   private transient long swigCPtr;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
 
   protected peer_snubbed_alert(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.peer_snubbed_alert_SWIGUpcast(cPtr), cMemoryOwn);
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected peer_snubbed_alert(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
+    super(libtorrent_jni.peer_snubbed_alert_SWIGUpcast(cPtr), false, borrowedFrom);
     swigCPtr = cPtr;
+    swigCMemOwn = cMemoryOwn;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, peer_snubbed_alert::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(peer_snubbed_alert obj) {
@@ -23,24 +31,38 @@ public class peer_snubbed_alert extends peer_alert {
   protected static long swigRelease(peer_snubbed_alert obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  @Override
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
+    super.swigDisarm();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_peer_snubbed_alert(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
     super.delete();
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_peer_snubbed_alert(swigCPtr);
   }
 
   public int type() {

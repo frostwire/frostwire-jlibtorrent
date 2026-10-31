@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class file_index_string_map extends java.util.AbstractMap<SWIGTYPE_p_libtorrent__file_index_t, String> {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected file_index_string_map(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected file_index_string_map(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, file_index_string_map::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(file_index_string_map obj) {
@@ -24,23 +34,37 @@ public class file_index_string_map extends java.util.AbstractMap<SWIGTYPE_p_libt
   protected static long swigRelease(file_index_string_map obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_file_index_string_map(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_file_index_string_map(swigCPtr);
   }
 
 
@@ -142,10 +166,20 @@ public class file_index_string_map extends java.util.AbstractMap<SWIGTYPE_p_libt
   static public class Iterator {
     private transient long swigCPtr;
     protected transient boolean swigCMemOwn;
+    // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+    private transient final OwnedPointer swigOwnedPtr;
+    // The proxy whose native memory this one points into (borrowed views only).
+    private transient Object swigBorrowedFrom;
   
     protected Iterator(long cPtr, boolean cMemoryOwn) {
+      this(cPtr, cMemoryOwn, null);
+    }
+  
+    protected Iterator(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
       swigCMemOwn = cMemoryOwn;
       swigCPtr = cPtr;
+      swigBorrowedFrom = borrowedFrom;
+      swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, Iterator::swigDeleteNative) : null;
     }
   
     protected static long getCPtr(Iterator obj) {
@@ -155,27 +189,41 @@ public class file_index_string_map extends java.util.AbstractMap<SWIGTYPE_p_libt
     protected static long swigRelease(Iterator obj) {
       long ptr = 0;
       if (obj != null) {
-        if (!obj.swigCMemOwn)
-          throw new RuntimeException("Cannot release ownership as memory is not owned");
-        ptr = obj.swigCPtr;
-        obj.swigCMemOwn = false;
-        obj.delete();
+        synchronized (obj) {
+          if (!obj.swigCMemOwn)
+            throw new RuntimeException("Cannot release ownership as memory is not owned");
+          ptr = obj.swigCPtr;
+          obj.swigCMemOwn = false;
+          obj.swigDisarm();
+          obj.delete();
+        }
       }
       return ptr;
+    }
+  
+    // Ownership moves to C++: the cleaner must never free the object.
+    protected void swigDisarm() {
+      if (swigOwnedPtr != null)
+        swigOwnedPtr.release();
     }
   
     public synchronized void delete() {
       if (swigCPtr != 0) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          libtorrent_jni.delete_file_index_string_map_Iterator(swigCPtr);
+          swigOwnedPtr.free();
         }
         swigCPtr = 0;
       }
+      swigBorrowedFrom = null;
+    }
+  
+    private static void swigDeleteNative(long swigCPtr) {
+      libtorrent_jni.delete_file_index_string_map_Iterator(swigCPtr);
     }
   
     private file_index_string_map.Iterator getNextUnchecked() {
-      return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_Iterator_getNextUnchecked(swigCPtr, this), true);
+      return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_Iterator_getNextUnchecked(swigCPtr, this), true, swigBorrowedFrom);
     }
   
     private boolean isNot(file_index_string_map.Iterator other) {
@@ -206,15 +254,15 @@ public class file_index_string_map extends java.util.AbstractMap<SWIGTYPE_p_libt
   }
 
   private file_index_string_map.Iterator find(SWIGTYPE_p_libtorrent__file_index_t key) {
-    return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_find(swigCPtr, this, SWIGTYPE_p_libtorrent__file_index_t.getCPtr(key)), true);
+    return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_find(swigCPtr, this, SWIGTYPE_p_libtorrent__file_index_t.getCPtr(key)), true, this);
   }
 
   private file_index_string_map.Iterator begin() {
-    return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_begin(swigCPtr, this), true);
+    return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_begin(swigCPtr, this), true, this);
   }
 
   private file_index_string_map.Iterator end() {
-    return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_end(swigCPtr, this), true);
+    return new file_index_string_map.Iterator(libtorrent_jni.file_index_string_map_end(swigCPtr, this), true, this);
   }
 
   private int sizeImpl() {

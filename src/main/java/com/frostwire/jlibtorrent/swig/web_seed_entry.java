@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class web_seed_entry {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected web_seed_entry(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected web_seed_entry(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, web_seed_entry::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(web_seed_entry obj) {
@@ -24,23 +34,37 @@ public class web_seed_entry {
   protected static long swigRelease(web_seed_entry obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_web_seed_entry(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_web_seed_entry(swigCPtr);
   }
 
   public web_seed_entry(String url_, web_seed_entry.type_t type_, String auth_, string_string_pair_vector extra_headers_) {
@@ -87,7 +111,7 @@ public class web_seed_entry {
 
   public string_string_pair_vector getExtra_headers() {
     long cPtr = libtorrent_jni.web_seed_entry_extra_headers_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new string_string_pair_vector(cPtr, false);
+    return (cPtr == 0) ? null : new string_string_pair_vector(cPtr, false, this);
   }
 
   public void setType(short value) {

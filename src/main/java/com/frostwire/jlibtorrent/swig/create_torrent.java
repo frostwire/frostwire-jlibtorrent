@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class create_torrent {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected create_torrent(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected create_torrent(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, create_torrent::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(create_torrent obj) {
@@ -24,39 +34,53 @@ public class create_torrent {
   protected static long swigRelease(create_torrent obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_create_torrent(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_create_torrent(swigCPtr);
   }
 
   public create_torrent(file_storage fs, int piece_size, create_flags_t flags) {
-    this(libtorrent_jni.new_create_torrent__SWIG_0(file_storage.getCPtr(fs), fs, piece_size, create_flags_t.getCPtr(flags), flags), true);
+    this(libtorrent_jni.new_create_torrent__SWIG_0(file_storage.getCPtr(fs), fs, piece_size, create_flags_t.getCPtr(flags), flags), true, fs);
   }
 
   public create_torrent(file_storage fs, int piece_size) {
-    this(libtorrent_jni.new_create_torrent__SWIG_1(file_storage.getCPtr(fs), fs, piece_size), true);
+    this(libtorrent_jni.new_create_torrent__SWIG_1(file_storage.getCPtr(fs), fs, piece_size), true, fs);
   }
 
   public create_torrent(file_storage fs) {
-    this(libtorrent_jni.new_create_torrent__SWIG_2(file_storage.getCPtr(fs), fs), true);
+    this(libtorrent_jni.new_create_torrent__SWIG_2(file_storage.getCPtr(fs), fs), true, fs);
   }
 
   public create_torrent(torrent_info ti) {
-    this(libtorrent_jni.new_create_torrent__SWIG_3(torrent_info.getCPtr(ti), ti), true);
+    this(libtorrent_jni.new_create_torrent__SWIG_3(torrent_info.getCPtr(ti), ti), true, ti);
   }
 
   public entry generate() {
@@ -64,7 +88,7 @@ public class create_torrent {
   }
 
   public file_storage files() {
-    return new file_storage(libtorrent_jni.create_torrent_files(swigCPtr, this), false);
+    return new file_storage(libtorrent_jni.create_torrent_files(swigCPtr, this), false, this);
   }
 
   public void set_comment(String str) {

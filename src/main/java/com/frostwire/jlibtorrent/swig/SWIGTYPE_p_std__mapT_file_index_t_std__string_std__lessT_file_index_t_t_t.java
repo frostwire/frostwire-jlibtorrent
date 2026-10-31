@@ -10,9 +10,17 @@ package com.frostwire.jlibtorrent.swig;
 
 public class SWIGTYPE_p_std__mapT_file_index_t_std__string_std__lessT_file_index_t_t_t {
   private transient long swigCPtr;
+  // The proxy whose native memory this one points into, kept reachable while this one is.
+  @SuppressWarnings("unused")
+  private transient Object swigBorrowedFrom;
 
   protected SWIGTYPE_p_std__mapT_file_index_t_std__string_std__lessT_file_index_t_t_t(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+    this(cPtr, futureUse, null);
+  }
+
+  protected SWIGTYPE_p_std__mapT_file_index_t_std__string_std__lessT_file_index_t_t_t(long cPtr, @SuppressWarnings("unused") boolean futureUse, Object borrowedFrom) {
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
   }
 
   protected SWIGTYPE_p_std__mapT_file_index_t_std__string_std__lessT_file_index_t_t_t() {

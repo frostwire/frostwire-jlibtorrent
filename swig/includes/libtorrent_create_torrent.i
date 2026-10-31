@@ -1,3 +1,9 @@
+// create_torrent keeps a reference to the file_storage it's made from (or to the torrent_info's
+// files): the new proxy keeps that argument reachable (frostwire/frostwire-jlibtorrent#337).
+%typemap(javaconstruct) libtorrent::create_torrent {
+    this($imcall, true, JLIBTORRENT_CTOR_BORROW);
+  }
+
 %include "libtorrent/create_torrent.hpp"
 
 namespace libtorrent {

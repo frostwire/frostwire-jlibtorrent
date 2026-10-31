@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class boost_string_entry_map {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected boost_string_entry_map(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected boost_string_entry_map(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, boost_string_entry_map::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(boost_string_entry_map obj) {
@@ -24,23 +34,37 @@ public class boost_string_entry_map {
   protected static long swigRelease(boost_string_entry_map obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_boost_string_entry_map(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_boost_string_entry_map(swigCPtr);
   }
 
   public boolean empty() {
@@ -64,7 +88,7 @@ public class boost_string_entry_map {
   }
 
   public entry get(String k) {
-    return new entry(libtorrent_jni.boost_string_entry_map_get(swigCPtr, this, (k == null ? null : k.getBytes(java.nio.charset.StandardCharsets.UTF_8))), false);
+    return new entry(libtorrent_jni.boost_string_entry_map_get(swigCPtr, this, (k == null ? null : k.getBytes(java.nio.charset.StandardCharsets.UTF_8))), false, this);
   }
 
   public string_vector keys() {

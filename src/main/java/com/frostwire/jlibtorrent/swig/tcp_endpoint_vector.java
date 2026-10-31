@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class tcp_endpoint_vector extends java.util.AbstractList<tcp_endpoint> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected tcp_endpoint_vector(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected tcp_endpoint_vector(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, tcp_endpoint_vector::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(tcp_endpoint_vector obj) {
@@ -24,23 +34,37 @@ public class tcp_endpoint_vector extends java.util.AbstractList<tcp_endpoint> im
   protected static long swigRelease(tcp_endpoint_vector obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_tcp_endpoint_vector(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_tcp_endpoint_vector(swigCPtr);
   }
 
   @SuppressWarnings("this-escape")
@@ -147,7 +171,7 @@ public class tcp_endpoint_vector extends java.util.AbstractList<tcp_endpoint> im
   }
 
   private tcp_endpoint doGet(int index) {
-    return new tcp_endpoint(libtorrent_jni.tcp_endpoint_vector_doGet(swigCPtr, this, index), false);
+    return new tcp_endpoint(libtorrent_jni.tcp_endpoint_vector_doGet(swigCPtr, this, index), false, this);
   }
 
   private tcp_endpoint doSet(int index, tcp_endpoint val) {

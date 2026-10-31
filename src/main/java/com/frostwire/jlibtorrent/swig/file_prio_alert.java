@@ -10,10 +10,18 @@ package com.frostwire.jlibtorrent.swig;
 
 public class file_prio_alert extends torrent_alert {
   private transient long swigCPtr;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
 
   protected file_prio_alert(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.file_prio_alert_SWIGUpcast(cPtr), cMemoryOwn);
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected file_prio_alert(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
+    super(libtorrent_jni.file_prio_alert_SWIGUpcast(cPtr), false, borrowedFrom);
     swigCPtr = cPtr;
+    swigCMemOwn = cMemoryOwn;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, file_prio_alert::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(file_prio_alert obj) {
@@ -23,24 +31,38 @@ public class file_prio_alert extends torrent_alert {
   protected static long swigRelease(file_prio_alert obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  @Override
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
+    super.swigDisarm();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_file_prio_alert(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
     super.delete();
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_file_prio_alert(swigCPtr);
   }
 
   public int type() {
@@ -67,7 +89,7 @@ public class file_prio_alert extends torrent_alert {
 
   public error_code getError() {
     long cPtr = libtorrent_jni.file_prio_alert_error_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new error_code(cPtr, false);
+    return (cPtr == 0) ? null : new error_code(cPtr, false, this);
   }
 
   public void setOp(operation_t value) {

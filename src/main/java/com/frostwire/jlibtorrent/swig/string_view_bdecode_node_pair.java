@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class string_view_bdecode_node_pair {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected string_view_bdecode_node_pair(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected string_view_bdecode_node_pair(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, string_view_bdecode_node_pair::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(string_view_bdecode_node_pair obj) {
@@ -24,23 +34,37 @@ public class string_view_bdecode_node_pair {
   protected static long swigRelease(string_view_bdecode_node_pair obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_string_view_bdecode_node_pair(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_string_view_bdecode_node_pair(swigCPtr);
   }
 
   public string_view_bdecode_node_pair() {
@@ -61,7 +85,7 @@ public class string_view_bdecode_node_pair {
 
   public string_view getFirst() {
     long cPtr = libtorrent_jni.string_view_bdecode_node_pair_first_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new string_view(cPtr, false);
+    return (cPtr == 0) ? null : new string_view(cPtr, false, this);
   }
 
   public void setSecond(bdecode_node value) {
@@ -70,7 +94,7 @@ public class string_view_bdecode_node_pair {
 
   public bdecode_node getSecond() {
     long cPtr = libtorrent_jni.string_view_bdecode_node_pair_second_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bdecode_node(cPtr, false);
+    return (cPtr == 0) ? null : new bdecode_node(cPtr, false, this);
   }
 
 }

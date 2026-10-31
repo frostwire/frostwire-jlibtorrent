@@ -10,10 +10,18 @@ package com.frostwire.jlibtorrent.swig;
 
 public class settings_pack extends settings_interface {
   private transient long swigCPtr;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
 
   protected settings_pack(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.settings_pack_SWIGUpcast(cPtr), cMemoryOwn);
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected settings_pack(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
+    super(libtorrent_jni.settings_pack_SWIGUpcast(cPtr), false, borrowedFrom);
     swigCPtr = cPtr;
+    swigCMemOwn = cMemoryOwn;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, settings_pack::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(settings_pack obj) {
@@ -23,24 +31,38 @@ public class settings_pack extends settings_interface {
   protected static long swigRelease(settings_pack obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  @Override
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
+    super.swigDisarm();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_settings_pack(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
     super.delete();
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_settings_pack(swigCPtr);
   }
 
   public settings_pack() {

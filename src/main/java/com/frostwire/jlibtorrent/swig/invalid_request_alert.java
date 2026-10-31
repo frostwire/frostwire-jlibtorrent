@@ -10,10 +10,18 @@ package com.frostwire.jlibtorrent.swig;
 
 public class invalid_request_alert extends peer_alert {
   private transient long swigCPtr;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
 
   protected invalid_request_alert(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.invalid_request_alert_SWIGUpcast(cPtr), cMemoryOwn);
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected invalid_request_alert(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
+    super(libtorrent_jni.invalid_request_alert_SWIGUpcast(cPtr), false, borrowedFrom);
     swigCPtr = cPtr;
+    swigCMemOwn = cMemoryOwn;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, invalid_request_alert::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(invalid_request_alert obj) {
@@ -23,24 +31,38 @@ public class invalid_request_alert extends peer_alert {
   protected static long swigRelease(invalid_request_alert obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  @Override
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
+    super.swigDisarm();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_invalid_request_alert(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
     super.delete();
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_invalid_request_alert(swigCPtr);
   }
 
   public int type() {
@@ -63,7 +85,7 @@ public class invalid_request_alert extends peer_alert {
 
   public peer_request getRequest() {
     long cPtr = libtorrent_jni.invalid_request_alert_request_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new peer_request(cPtr, false);
+    return (cPtr == 0) ? null : new peer_request(cPtr, false, this);
   }
 
   public boolean getWe_have() {

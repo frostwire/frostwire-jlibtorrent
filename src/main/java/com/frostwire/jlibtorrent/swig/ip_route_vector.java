@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class ip_route_vector extends java.util.AbstractList<ip_route> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected ip_route_vector(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected ip_route_vector(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, ip_route_vector::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(ip_route_vector obj) {
@@ -24,23 +34,37 @@ public class ip_route_vector extends java.util.AbstractList<ip_route> implements
   protected static long swigRelease(ip_route_vector obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_ip_route_vector(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_ip_route_vector(swigCPtr);
   }
 
   @SuppressWarnings("this-escape")
@@ -147,7 +171,7 @@ public class ip_route_vector extends java.util.AbstractList<ip_route> implements
   }
 
   private ip_route doGet(int index) {
-    return new ip_route(libtorrent_jni.ip_route_vector_doGet(swigCPtr, this, index), false);
+    return new ip_route(libtorrent_jni.ip_route_vector_doGet(swigCPtr, this, index), false, this);
   }
 
   private ip_route doSet(int index, ip_route val) {

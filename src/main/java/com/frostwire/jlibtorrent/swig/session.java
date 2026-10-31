@@ -12,8 +12,13 @@ public class session extends session_handle {
   private transient long swigCPtr;
 
   protected session(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.session_SWIGUpcast(cPtr), cMemoryOwn);
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected session(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
+    super(libtorrent_jni.session_SWIGUpcast(cPtr), false, borrowedFrom);
     swigCPtr = cPtr;
+    swigCMemOwn = cMemoryOwn;
   }
 
   protected static long getCPtr(session obj) {
@@ -23,11 +28,13 @@ public class session extends session_handle {
   protected static long swigRelease(session obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.delete();
+      }
     }
     return ptr;
   }

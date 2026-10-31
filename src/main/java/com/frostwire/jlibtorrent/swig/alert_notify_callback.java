@@ -11,10 +11,17 @@ package com.frostwire.jlibtorrent.swig;
 public class alert_notify_callback {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected alert_notify_callback(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected alert_notify_callback(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
   }
 
   protected static long getCPtr(alert_notify_callback obj) {
@@ -24,13 +31,19 @@ public class alert_notify_callback {
   protected static long swigRelease(alert_notify_callback obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Never armed: only delete() frees this type.
+  protected void swigDisarm() {
   }
 
   public synchronized void delete() {
@@ -41,6 +54,7 @@ public class alert_notify_callback {
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
   }
 
   protected void swigDirectorDisconnect() {

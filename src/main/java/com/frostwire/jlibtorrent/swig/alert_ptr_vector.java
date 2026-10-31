@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class alert_ptr_vector extends java.util.AbstractList<alert> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected alert_ptr_vector(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected alert_ptr_vector(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, alert_ptr_vector::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(alert_ptr_vector obj) {
@@ -24,23 +34,37 @@ public class alert_ptr_vector extends java.util.AbstractList<alert> implements j
   protected static long swigRelease(alert_ptr_vector obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_alert_ptr_vector(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_alert_ptr_vector(swigCPtr);
   }
 
   @SuppressWarnings("this-escape")
@@ -144,17 +168,17 @@ public class alert_ptr_vector extends java.util.AbstractList<alert> implements j
 
   private alert doRemove(int index) {
     long cPtr = libtorrent_jni.alert_ptr_vector_doRemove(swigCPtr, this, index);
-    return (cPtr == 0) ? null : new alert(cPtr, false);
+    return (cPtr == 0) ? null : new alert(cPtr, false, this);
   }
 
   private alert doGet(int index) {
     long cPtr = libtorrent_jni.alert_ptr_vector_doGet(swigCPtr, this, index);
-    return (cPtr == 0) ? null : new alert(cPtr, false);
+    return (cPtr == 0) ? null : new alert(cPtr, false, this);
   }
 
   private alert doSet(int index, alert val) {
     long cPtr = libtorrent_jni.alert_ptr_vector_doSet(swigCPtr, this, index, alert.getCPtr(val), val);
-    return (cPtr == 0) ? null : new alert(cPtr, false);
+    return (cPtr == 0) ? null : new alert(cPtr, false, this);
   }
 
   private void doRemoveRange(int fromIndex, int toIndex) {

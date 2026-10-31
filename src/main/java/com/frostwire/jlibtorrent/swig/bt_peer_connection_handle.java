@@ -10,10 +10,18 @@ package com.frostwire.jlibtorrent.swig;
 
 public class bt_peer_connection_handle extends peer_connection_handle {
   private transient long swigCPtr;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
 
   protected bt_peer_connection_handle(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.bt_peer_connection_handle_SWIGUpcast(cPtr), cMemoryOwn);
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected bt_peer_connection_handle(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
+    super(libtorrent_jni.bt_peer_connection_handle_SWIGUpcast(cPtr), false, borrowedFrom);
     swigCPtr = cPtr;
+    swigCMemOwn = cMemoryOwn;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, bt_peer_connection_handle::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(bt_peer_connection_handle obj) {
@@ -23,24 +31,38 @@ public class bt_peer_connection_handle extends peer_connection_handle {
   protected static long swigRelease(bt_peer_connection_handle obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  @Override
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
+    super.swigDisarm();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_bt_peer_connection_handle(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
     super.delete();
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_bt_peer_connection_handle(swigCPtr);
   }
 
   public bt_peer_connection_handle(peer_connection_handle pc) {

@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class sha1_hash_udp_endpoint_pair_vector extends java.util.AbstractList<sha1_hash_udp_endpoint_pair> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected sha1_hash_udp_endpoint_pair_vector(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected sha1_hash_udp_endpoint_pair_vector(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, sha1_hash_udp_endpoint_pair_vector::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(sha1_hash_udp_endpoint_pair_vector obj) {
@@ -24,23 +34,37 @@ public class sha1_hash_udp_endpoint_pair_vector extends java.util.AbstractList<s
   protected static long swigRelease(sha1_hash_udp_endpoint_pair_vector obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_sha1_hash_udp_endpoint_pair_vector(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_sha1_hash_udp_endpoint_pair_vector(swigCPtr);
   }
 
   @SuppressWarnings("this-escape")
@@ -147,7 +171,7 @@ public class sha1_hash_udp_endpoint_pair_vector extends java.util.AbstractList<s
   }
 
   private sha1_hash_udp_endpoint_pair doGet(int index) {
-    return new sha1_hash_udp_endpoint_pair(libtorrent_jni.sha1_hash_udp_endpoint_pair_vector_doGet(swigCPtr, this, index), false);
+    return new sha1_hash_udp_endpoint_pair(libtorrent_jni.sha1_hash_udp_endpoint_pair_vector_doGet(swigCPtr, this, index), false, this);
   }
 
   private sha1_hash_udp_endpoint_pair doSet(int index, sha1_hash_udp_endpoint_pair val) {

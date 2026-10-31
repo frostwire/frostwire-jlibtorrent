@@ -1,3 +1,8 @@
+// bdecode() leaves ret pointing into buffer: ret keeps buffer reachable
+// (frostwire/frostwire-jlibtorrent#337). bdecode_node is the class here, so the private field is
+// accessible. Defined before the %include: the %extend below is emitted with the class.
+%typemap(javain, post="      $javainput.swigBorrowedFrom = buffer;") libtorrent::bdecode_node& ret "$javaclassname.getCPtr($javainput)"
+
 %ignore libtorrent::bdecode;
 %ignore libtorrent::bdecode_category;
 %ignore libtorrent::bdecode_errors::make_error_code;
@@ -78,3 +83,5 @@ namespace libtorrent {
         }
     }
 } // namespace libtorrent
+
+%clear libtorrent::bdecode_node& ret;

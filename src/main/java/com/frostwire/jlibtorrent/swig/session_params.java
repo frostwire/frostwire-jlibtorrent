@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class session_params {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected session_params(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected session_params(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, session_params::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(session_params obj) {
@@ -24,23 +34,37 @@ public class session_params {
   protected static long swigRelease(session_params obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_session_params(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_session_params(swigCPtr);
   }
 
   public session_params(settings_pack sp) {
@@ -61,7 +85,7 @@ public class session_params {
 
   public settings_pack getSettings() {
     long cPtr = libtorrent_jni.session_params_settings_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new settings_pack(cPtr, false);
+    return (cPtr == 0) ? null : new settings_pack(cPtr, false, this);
   }
 
   public void setDht_state(dht_state value) {
@@ -70,7 +94,7 @@ public class session_params {
 
   public dht_state getDht_state() {
     long cPtr = libtorrent_jni.session_params_dht_state_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new dht_state(cPtr, false);
+    return (cPtr == 0) ? null : new dht_state(cPtr, false, this);
   }
 
   public void setExt_state(string_string_map value) {
@@ -79,7 +103,7 @@ public class session_params {
 
   public string_string_map getExt_state() {
     long cPtr = libtorrent_jni.session_params_ext_state_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new string_string_map(cPtr, false);
+    return (cPtr == 0) ? null : new string_string_map(cPtr, false, this);
   }
 
   public void setIp_filter(ip_filter value) {
@@ -88,7 +112,7 @@ public class session_params {
 
   public ip_filter getIp_filter() {
     long cPtr = libtorrent_jni.session_params_ip_filter_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ip_filter(cPtr, false);
+    return (cPtr == 0) ? null : new ip_filter(cPtr, false, this);
   }
 
   public static session_params read_session_params(bdecode_node e, save_state_flags_t flags) {

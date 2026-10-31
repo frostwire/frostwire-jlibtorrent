@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class peer_connection_handle {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected peer_connection_handle(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected peer_connection_handle(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, peer_connection_handle::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(peer_connection_handle obj) {
@@ -24,23 +34,37 @@ public class peer_connection_handle {
   protected static long swigRelease(peer_connection_handle obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_peer_connection_handle(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_peer_connection_handle(swigCPtr);
   }
 
   public peer_connection_handle(SWIGTYPE_p_std__weak_ptrT_peer_connection_t impl) {
@@ -60,7 +84,7 @@ public class peer_connection_handle {
   }
 
   public sha1_hash pid() {
-    return new sha1_hash(libtorrent_jni.peer_connection_handle_pid(swigCPtr, this), false);
+    return new sha1_hash(libtorrent_jni.peer_connection_handle_pid(swigCPtr, this), false, this);
   }
 
   public boolean has_piece(int i) {
@@ -100,7 +124,7 @@ public class peer_connection_handle {
   }
 
   public tcp_endpoint remote() {
-    return new tcp_endpoint(libtorrent_jni.peer_connection_handle_remote(swigCPtr, this), false);
+    return new tcp_endpoint(libtorrent_jni.peer_connection_handle_remote(swigCPtr, this), false, this);
   }
 
   public tcp_endpoint local_endpoint() {

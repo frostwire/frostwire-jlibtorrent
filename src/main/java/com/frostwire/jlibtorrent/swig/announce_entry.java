@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class announce_entry {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected announce_entry(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected announce_entry(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, announce_entry::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(announce_entry obj) {
@@ -24,23 +34,37 @@ public class announce_entry {
   protected static long swigRelease(announce_entry obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_announce_entry(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_announce_entry(swigCPtr);
   }
 
   public announce_entry() {
@@ -75,7 +99,7 @@ public class announce_entry {
 
   public announce_endpoint_vector getEndpoints() {
     long cPtr = libtorrent_jni.announce_entry_endpoints_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new announce_endpoint_vector(cPtr, false);
+    return (cPtr == 0) ? null : new announce_endpoint_vector(cPtr, false, this);
   }
 
   public void setTier(short value) {

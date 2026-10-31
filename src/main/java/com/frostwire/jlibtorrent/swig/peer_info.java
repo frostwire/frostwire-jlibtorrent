@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class peer_info {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected peer_info(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected peer_info(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, peer_info::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(peer_info obj) {
@@ -24,23 +34,37 @@ public class peer_info {
   protected static long swigRelease(peer_info obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_peer_info(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_peer_info(swigCPtr);
   }
 
   public peer_info() {
@@ -73,7 +97,7 @@ public class peer_info {
 
   public peer_flags_t getFlags() {
     long cPtr = libtorrent_jni.peer_info_flags_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new peer_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new peer_flags_t(cPtr, false, this);
   }
 
   public void setSource(peer_source_flags_t value) {
@@ -82,7 +106,7 @@ public class peer_info {
 
   public peer_source_flags_t getSource() {
     long cPtr = libtorrent_jni.peer_info_source_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new peer_source_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new peer_source_flags_t(cPtr, false, this);
   }
 
   public void setUp_speed(int value) {
@@ -123,7 +147,7 @@ public class peer_info {
 
   public sha1_hash getPid() {
     long cPtr = libtorrent_jni.peer_info_pid_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false, this);
   }
 
   public void setQueue_bytes(int value) {
@@ -284,7 +308,7 @@ public class peer_info {
 
   public connection_type_t getConnection_type() {
     long cPtr = libtorrent_jni.peer_info_connection_type_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new connection_type_t(cPtr, false);
+    return (cPtr == 0) ? null : new connection_type_t(cPtr, false, this);
   }
 
   public void setPending_disk_bytes(int value) {
@@ -373,7 +397,7 @@ public class peer_info {
 
   public tcp_endpoint getIp() {
     long cPtr = libtorrent_jni.peer_info_ip_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
+    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false, this);
   }
 
   public void setLocal_endpoint(tcp_endpoint value) {
@@ -382,7 +406,7 @@ public class peer_info {
 
   public tcp_endpoint getLocal_endpoint() {
     long cPtr = libtorrent_jni.peer_info_local_endpoint_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false);
+    return (cPtr == 0) ? null : new tcp_endpoint(cPtr, false, this);
   }
 
   public void setRead_state(bandwidth_state_flags_t value) {
@@ -391,7 +415,7 @@ public class peer_info {
 
   public bandwidth_state_flags_t getRead_state() {
     long cPtr = libtorrent_jni.peer_info_read_state_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bandwidth_state_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new bandwidth_state_flags_t(cPtr, false, this);
   }
 
   public void setWrite_state(bandwidth_state_flags_t value) {
@@ -400,7 +424,7 @@ public class peer_info {
 
   public bandwidth_state_flags_t getWrite_state() {
     long cPtr = libtorrent_jni.peer_info_write_state_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bandwidth_state_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new bandwidth_state_flags_t(cPtr, false, this);
   }
 
   public byte_vector get_client() {

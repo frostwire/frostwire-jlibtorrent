@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class dht_state {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected dht_state(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected dht_state(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, dht_state::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(dht_state obj) {
@@ -24,23 +34,37 @@ public class dht_state {
   protected static long swigRelease(dht_state obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_dht_state(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_dht_state(swigCPtr);
   }
 
   public void setNids(address_sha1_hash_pair_vector value) {
@@ -49,7 +73,7 @@ public class dht_state {
 
   public address_sha1_hash_pair_vector getNids() {
     long cPtr = libtorrent_jni.dht_state_nids_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address_sha1_hash_pair_vector(cPtr, false);
+    return (cPtr == 0) ? null : new address_sha1_hash_pair_vector(cPtr, false, this);
   }
 
   public void setNodes(udp_endpoint_vector value) {
@@ -58,7 +82,7 @@ public class dht_state {
 
   public udp_endpoint_vector getNodes() {
     long cPtr = libtorrent_jni.dht_state_nodes_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new udp_endpoint_vector(cPtr, false);
+    return (cPtr == 0) ? null : new udp_endpoint_vector(cPtr, false, this);
   }
 
   public void setNodes6(udp_endpoint_vector value) {
@@ -67,7 +91,7 @@ public class dht_state {
 
   public udp_endpoint_vector getNodes6() {
     long cPtr = libtorrent_jni.dht_state_nodes6_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new udp_endpoint_vector(cPtr, false);
+    return (cPtr == 0) ? null : new udp_endpoint_vector(cPtr, false, this);
   }
 
   public void clear() {

@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class address_sha1_hash_pair {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected address_sha1_hash_pair(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected address_sha1_hash_pair(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, address_sha1_hash_pair::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(address_sha1_hash_pair obj) {
@@ -24,23 +34,37 @@ public class address_sha1_hash_pair {
   protected static long swigRelease(address_sha1_hash_pair obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_address_sha1_hash_pair(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_address_sha1_hash_pair(swigCPtr);
   }
 
   public address_sha1_hash_pair() {
@@ -61,7 +85,7 @@ public class address_sha1_hash_pair {
 
   public address getFirst() {
     long cPtr = libtorrent_jni.address_sha1_hash_pair_first_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new address(cPtr, false);
+    return (cPtr == 0) ? null : new address(cPtr, false, this);
   }
 
   public void setSecond(sha1_hash value) {
@@ -70,7 +94,7 @@ public class address_sha1_hash_pair {
 
   public sha1_hash getSecond() {
     long cPtr = libtorrent_jni.address_sha1_hash_pair_second_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new sha1_hash(cPtr, false);
+    return (cPtr == 0) ? null : new sha1_hash(cPtr, false, this);
   }
 
 }

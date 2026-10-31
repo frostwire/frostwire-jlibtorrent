@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class torrent_info {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected torrent_info(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected torrent_info(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, torrent_info::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(torrent_info obj) {
@@ -24,23 +34,37 @@ public class torrent_info {
   protected static long swigRelease(torrent_info obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_torrent_info(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_torrent_info(swigCPtr);
   }
 
   public torrent_info(torrent_info t) {
@@ -60,11 +84,11 @@ public class torrent_info {
   }
 
   public file_storage files() {
-    return new file_storage(libtorrent_jni.torrent_info_files(swigCPtr, this), false);
+    return new file_storage(libtorrent_jni.torrent_info_files(swigCPtr, this), false, this);
   }
 
   public file_storage orig_files() {
-    return new file_storage(libtorrent_jni.torrent_info_orig_files(swigCPtr, this), false);
+    return new file_storage(libtorrent_jni.torrent_info_orig_files(swigCPtr, this), false, this);
   }
 
   public void rename_file(int index, String new_filename) {
@@ -88,7 +112,7 @@ public class torrent_info {
   }
 
   public announce_entry_vector trackers() {
-    return new announce_entry_vector(libtorrent_jni.torrent_info_trackers(swigCPtr, this), false);
+    return new announce_entry_vector(libtorrent_jni.torrent_info_trackers(swigCPtr, this), false, this);
   }
 
   public void clear_trackers() {
@@ -128,7 +152,7 @@ public class torrent_info {
   }
 
   public web_seed_entry_vector web_seeds() {
-    return new web_seed_entry_vector(libtorrent_jni.torrent_info_web_seeds(swigCPtr, this), false);
+    return new web_seed_entry_vector(libtorrent_jni.torrent_info_web_seeds(swigCPtr, this), false, this);
   }
 
   public void set_web_seeds(web_seed_entry_vector seeds) {
@@ -164,7 +188,7 @@ public class torrent_info {
   }
 
   public info_hash_t info_hashes() {
-    return new info_hash_t(libtorrent_jni.torrent_info_info_hashes(swigCPtr, this), false);
+    return new info_hash_t(libtorrent_jni.torrent_info_info_hashes(swigCPtr, this), false, this);
   }
 
   public boolean v1() {
@@ -235,7 +259,7 @@ public class torrent_info {
   }
 
   public string_int_pair_vector nodes() {
-    return new string_int_pair_vector(libtorrent_jni.torrent_info_nodes(swigCPtr, this), false);
+    return new string_int_pair_vector(libtorrent_jni.torrent_info_nodes(swigCPtr, this), false, this);
   }
 
   public void add_node(string_int_pair node) {
@@ -243,7 +267,7 @@ public class torrent_info {
   }
 
   public bdecode_node info(String key) {
-    return new bdecode_node(libtorrent_jni.torrent_info_info(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
+    return new bdecode_node(libtorrent_jni.torrent_info_info(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true, this);
   }
 
   public void free_piece_layers() {
@@ -259,7 +283,7 @@ public class torrent_info {
   }
 
   public SWIGTYPE_p_libtorrent__spanT_signed_char_const_t get_info_section() {
-    return new SWIGTYPE_p_libtorrent__spanT_signed_char_const_t(libtorrent_jni.torrent_info_get_info_section(swigCPtr, this), true);
+    return new SWIGTYPE_p_libtorrent__spanT_signed_char_const_t(libtorrent_jni.torrent_info_get_info_section(swigCPtr, this), true, this);
   }
 
   public String get_ssl_cert() {

@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class entry {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected entry(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected entry(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, entry::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(entry obj) {
@@ -24,23 +34,37 @@ public class entry {
   protected static long swigRelease(entry obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_entry(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_entry(swigCPtr);
   }
 
   public entry.data_type type() {
@@ -85,11 +109,11 @@ public class entry {
   }
 
   public entry_vector list() {
-    return new entry_vector(libtorrent_jni.entry_list(swigCPtr, this), false);
+    return new entry_vector(libtorrent_jni.entry_list(swigCPtr, this), false, this);
   }
 
   public string_entry_map dict() {
-    return new string_entry_map(libtorrent_jni.entry_dict(swigCPtr, this), false);
+    return new string_entry_map(libtorrent_jni.entry_dict(swigCPtr, this), false, this);
   }
 
   public String to_string() {
@@ -98,7 +122,7 @@ public class entry {
   }
 
   public entry get(String key) {
-    return new entry(libtorrent_jni.entry_get(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), false);
+    return new entry(libtorrent_jni.entry_get(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), false, this);
   }
 
   public void set(String key, String value) {
@@ -123,7 +147,7 @@ public class entry {
 
   public entry dict_find_bytes(byte_vector key) {
     long cPtr = libtorrent_jni.entry_dict_find_bytes(swigCPtr, this, byte_vector.getCPtr(key), key);
-    return (cPtr == 0) ? null : new entry(cPtr, false);
+    return (cPtr == 0) ? null : new entry(cPtr, false, this);
   }
 
   public byte_vector string_bytes() {

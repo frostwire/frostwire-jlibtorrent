@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class partial_piece_info_vector extends java.util.AbstractList<partial_piece_info> implements java.util.RandomAccess {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected partial_piece_info_vector(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected partial_piece_info_vector(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, partial_piece_info_vector::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(partial_piece_info_vector obj) {
@@ -24,23 +34,37 @@ public class partial_piece_info_vector extends java.util.AbstractList<partial_pi
   protected static long swigRelease(partial_piece_info_vector obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_partial_piece_info_vector(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_partial_piece_info_vector(swigCPtr);
   }
 
   @SuppressWarnings("this-escape")
@@ -147,7 +171,7 @@ public class partial_piece_info_vector extends java.util.AbstractList<partial_pi
   }
 
   private partial_piece_info doGet(int index) {
-    return new partial_piece_info(libtorrent_jni.partial_piece_info_vector_doGet(swigCPtr, this, index), false);
+    return new partial_piece_info(libtorrent_jni.partial_piece_info_vector_doGet(swigCPtr, this, index), false, this);
   }
 
   private partial_piece_info doSet(int index, partial_piece_info val) {

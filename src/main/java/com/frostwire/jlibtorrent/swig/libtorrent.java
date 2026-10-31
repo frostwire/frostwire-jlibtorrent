@@ -45,227 +45,227 @@ public class libtorrent implements libtorrentConstants {
 
   public static torrent_flags_t getSeed_mode() {
     long cPtr = libtorrent_jni.seed_mode_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getUpload_mode() {
     long cPtr = libtorrent_jni.upload_mode_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getShare_mode() {
     long cPtr = libtorrent_jni.share_mode_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getApply_ip_filter() {
     long cPtr = libtorrent_jni.apply_ip_filter_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getPaused() {
     long cPtr = libtorrent_jni.paused_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getAuto_managed() {
     long cPtr = libtorrent_jni.auto_managed_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getDuplicate_is_error() {
     long cPtr = libtorrent_jni.duplicate_is_error_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getUpdate_subscribe() {
     long cPtr = libtorrent_jni.update_subscribe_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getSuper_seeding() {
     long cPtr = libtorrent_jni.super_seeding_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getSequential_download() {
     long cPtr = libtorrent_jni.sequential_download_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getStop_when_ready() {
     long cPtr = libtorrent_jni.stop_when_ready_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getOverride_trackers() {
     long cPtr = libtorrent_jni.override_trackers_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getOverride_web_seeds() {
     long cPtr = libtorrent_jni.override_web_seeds_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getNeed_save_resume() {
     long cPtr = libtorrent_jni.need_save_resume_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getDisable_dht() {
     long cPtr = libtorrent_jni.disable_dht_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getDisable_lsd() {
     long cPtr = libtorrent_jni.disable_lsd_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getDisable_pex() {
     long cPtr = libtorrent_jni.disable_pex_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getNo_verify_files() {
     long cPtr = libtorrent_jni.no_verify_files_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getDefault_dont_download() {
     long cPtr = libtorrent_jni.default_dont_download_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getI2p_torrent() {
     long cPtr = libtorrent_jni.i2p_torrent_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getAll() {
     long cPtr = libtorrent_jni.all_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getDefault_flags() {
     long cPtr = libtorrent_jni.default_flags_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
   public static alert_category_t getError() {
     long cPtr = libtorrent_jni.error_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getPeer() {
     long cPtr = libtorrent_jni.peer_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getPort_mapping() {
     long cPtr = libtorrent_jni.port_mapping_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getStorage() {
     long cPtr = libtorrent_jni.storage_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getTracker() {
     long cPtr = libtorrent_jni.tracker_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getConnect() {
     long cPtr = libtorrent_jni.connect_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getStatus() {
     long cPtr = libtorrent_jni.status_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getIp_block() {
     long cPtr = libtorrent_jni.ip_block_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getPerformance_warning() {
     long cPtr = libtorrent_jni.performance_warning_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getDht() {
     long cPtr = libtorrent_jni.dht_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getStats() {
     long cPtr = libtorrent_jni.stats_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getSession_log() {
     long cPtr = libtorrent_jni.session_log_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getTorrent_log() {
     long cPtr = libtorrent_jni.torrent_log_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getPeer_log() {
     long cPtr = libtorrent_jni.peer_log_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getIncoming_request() {
     long cPtr = libtorrent_jni.incoming_request_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getDht_log() {
     long cPtr = libtorrent_jni.dht_log_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getDht_operation() {
     long cPtr = libtorrent_jni.dht_operation_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getPort_mapping_log() {
     long cPtr = libtorrent_jni.port_mapping_log_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getPicker_log() {
     long cPtr = libtorrent_jni.picker_log_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getFile_progress() {
     long cPtr = libtorrent_jni.file_progress_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getPiece_progress() {
     long cPtr = libtorrent_jni.piece_progress_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getUpload() {
     long cPtr = libtorrent_jni.upload_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static alert_category_t getBlock_progress() {
     long cPtr = libtorrent_jni.block_progress_get();
-    return (cPtr == 0) ? null : new alert_category_t(cPtr, false);
+    return (cPtr == 0) ? null : new alert_category_t(cPtr, false, null);
   }
 
   public static String alert_name(int alert_type) {
@@ -364,17 +364,17 @@ public class libtorrent implements libtorrentConstants {
 
   public static write_torrent_flags_t getAllow_missing_piece_layer() {
     long cPtr = libtorrent_jni.allow_missing_piece_layer_get();
-    return (cPtr == 0) ? null : new write_torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new write_torrent_flags_t(cPtr, false, null);
   }
 
   public static write_torrent_flags_t getNo_http_seeds() {
     long cPtr = libtorrent_jni.no_http_seeds_get();
-    return (cPtr == 0) ? null : new write_torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new write_torrent_flags_t(cPtr, false, null);
   }
 
   public static write_torrent_flags_t getInclude_dht_nodes() {
     long cPtr = libtorrent_jni.include_dht_nodes_get();
-    return (cPtr == 0) ? null : new write_torrent_flags_t(cPtr, false);
+    return (cPtr == 0) ? null : new write_torrent_flags_t(cPtr, false, null);
   }
 
   public static entry write_torrent_file(add_torrent_params atp) {

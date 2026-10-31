@@ -20,6 +20,7 @@
 #pragma SWIG nowarn=317
 
 %include "includes/libtorrent_java.i"
+%include "includes/libtorrent_ownership.i"
   
 %{
 // BEGIN common set include (just include but don't wrap)----------------------------------------------

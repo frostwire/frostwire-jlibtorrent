@@ -10,10 +10,18 @@ package com.frostwire.jlibtorrent.swig;
 
 public class state_update_alert extends alert {
   private transient long swigCPtr;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
 
   protected state_update_alert(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.state_update_alert_SWIGUpcast(cPtr), cMemoryOwn);
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected state_update_alert(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
+    super(libtorrent_jni.state_update_alert_SWIGUpcast(cPtr), false, borrowedFrom);
     swigCPtr = cPtr;
+    swigCMemOwn = cMemoryOwn;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, state_update_alert::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(state_update_alert obj) {
@@ -23,24 +31,38 @@ public class state_update_alert extends alert {
   protected static long swigRelease(state_update_alert obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  @Override
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
+    super.swigDisarm();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_state_update_alert(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
     super.delete();
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_state_update_alert(swigCPtr);
   }
 
   public int type() {
@@ -67,7 +89,7 @@ public class state_update_alert extends alert {
 
   public torrent_status_vector getStatus() {
     long cPtr = libtorrent_jni.state_update_alert_status_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent_status_vector(cPtr, false);
+    return (cPtr == 0) ? null : new torrent_status_vector(cPtr, false, this);
   }
 
   public final static alert_priority priority = alert_priority.swigToEnum(libtorrent_jni.state_update_alert_priority_get());

@@ -10,10 +10,18 @@ package com.frostwire.jlibtorrent.swig;
 
 public class url_seed_alert extends torrent_alert {
   private transient long swigCPtr;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
 
   protected url_seed_alert(long cPtr, boolean cMemoryOwn) {
-    super(libtorrent_jni.url_seed_alert_SWIGUpcast(cPtr), cMemoryOwn);
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected url_seed_alert(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
+    super(libtorrent_jni.url_seed_alert_SWIGUpcast(cPtr), false, borrowedFrom);
     swigCPtr = cPtr;
+    swigCMemOwn = cMemoryOwn;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, url_seed_alert::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(url_seed_alert obj) {
@@ -23,24 +31,38 @@ public class url_seed_alert extends torrent_alert {
   protected static long swigRelease(url_seed_alert obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  @Override
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
+    super.swigDisarm();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_url_seed_alert(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
     super.delete();
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_url_seed_alert(swigCPtr);
   }
 
   public int type() {
@@ -63,7 +85,7 @@ public class url_seed_alert extends torrent_alert {
 
   public error_code getError() {
     long cPtr = libtorrent_jni.url_seed_alert_error_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new error_code(cPtr, false);
+    return (cPtr == 0) ? null : new error_code(cPtr, false, this);
   }
 
   public String server_url() {

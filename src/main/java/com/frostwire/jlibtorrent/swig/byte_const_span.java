@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class byte_const_span {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected byte_const_span(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected byte_const_span(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, byte_const_span::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(byte_const_span obj) {
@@ -24,23 +34,37 @@ public class byte_const_span {
   protected static long swigRelease(byte_const_span obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_byte_const_span(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_byte_const_span(swigCPtr);
   }
 
   public byte_const_span() {
@@ -64,19 +88,19 @@ public class byte_const_span {
   }
 
   public byte_const_span first(long n) {
-    return new byte_const_span(libtorrent_jni.byte_const_span_first(swigCPtr, this, n), true);
+    return new byte_const_span(libtorrent_jni.byte_const_span_first(swigCPtr, this, n), true, this);
   }
 
   public byte_const_span last(long n) {
-    return new byte_const_span(libtorrent_jni.byte_const_span_last(swigCPtr, this, n), true);
+    return new byte_const_span(libtorrent_jni.byte_const_span_last(swigCPtr, this, n), true, this);
   }
 
   public byte_const_span subspan(long offset) {
-    return new byte_const_span(libtorrent_jni.byte_const_span_subspan__SWIG_0(swigCPtr, this, offset), true);
+    return new byte_const_span(libtorrent_jni.byte_const_span_subspan__SWIG_0(swigCPtr, this, offset), true, this);
   }
 
   public byte_const_span subspan(long offset, long count) {
-    return new byte_const_span(libtorrent_jni.byte_const_span_subspan__SWIG_1(swigCPtr, this, offset, count), true);
+    return new byte_const_span(libtorrent_jni.byte_const_span_subspan__SWIG_1(swigCPtr, this, offset, count), true, this);
   }
 
   public byte get(long idx) {

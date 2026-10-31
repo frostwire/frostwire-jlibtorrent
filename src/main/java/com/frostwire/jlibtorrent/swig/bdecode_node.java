@@ -11,10 +11,20 @@ package com.frostwire.jlibtorrent.swig;
 public class bdecode_node {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  // Armed while this proxy owns *swigCPtr (null when it doesn't, or a derived class does).
+  private transient final OwnedPointer swigOwnedPtr;
+  // The proxy whose native memory this one points into (borrowed views only).
+  private transient Object swigBorrowedFrom;
 
   protected bdecode_node(long cPtr, boolean cMemoryOwn) {
+    this(cPtr, cMemoryOwn, null);
+  }
+
+  protected bdecode_node(long cPtr, boolean cMemoryOwn, Object borrowedFrom) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
+    swigBorrowedFrom = borrowedFrom;
+    swigOwnedPtr = cMemoryOwn ? OwnedPointer.adopt(this, cPtr, bdecode_node::swigDeleteNative) : null;
   }
 
   protected static long getCPtr(bdecode_node obj) {
@@ -24,23 +34,37 @@ public class bdecode_node {
   protected static long swigRelease(bdecode_node obj) {
     long ptr = 0;
     if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new RuntimeException("Cannot release ownership as memory is not owned");
-      ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.delete();
+      synchronized (obj) {
+        if (!obj.swigCMemOwn)
+          throw new RuntimeException("Cannot release ownership as memory is not owned");
+        ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.swigDisarm();
+        obj.delete();
+      }
     }
     return ptr;
+  }
+
+  // Ownership moves to C++: the cleaner must never free the object.
+  protected void swigDisarm() {
+    if (swigOwnedPtr != null)
+      swigOwnedPtr.release();
   }
 
   public synchronized void delete() {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        libtorrent_jni.delete_bdecode_node(swigCPtr);
+        swigOwnedPtr.free();
       }
       swigCPtr = 0;
     }
+    swigBorrowedFrom = null;
+  }
+
+  private static void swigDeleteNative(long swigCPtr) {
+    libtorrent_jni.delete_bdecode_node(swigCPtr);
   }
 
   public bdecode_node() {
@@ -64,7 +88,7 @@ public class bdecode_node {
   }
 
   public bdecode_node list_at(int i) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_list_at(swigCPtr, this, i), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_list_at(swigCPtr, this, i), true, this);
   }
 
   public long list_int_value_at(int i, long default_val) {
@@ -80,7 +104,7 @@ public class bdecode_node {
   }
 
   public bdecode_node_bdecode_node_pair dict_at_node(int i) {
-    return new bdecode_node_bdecode_node_pair(libtorrent_jni.bdecode_node_dict_at_node(swigCPtr, this, i), true);
+    return new bdecode_node_bdecode_node_pair(libtorrent_jni.bdecode_node_dict_at_node(swigCPtr, this, i), true, this);
   }
 
   public int dict_size() {
@@ -114,23 +138,23 @@ public class bdecode_node {
   }
 
   public bdecode_node dict_find_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true, this);
   }
 
   public bdecode_node dict_find_dict_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_dict_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_dict_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true, this);
   }
 
   public bdecode_node dict_find_list_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_list_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_list_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true, this);
   }
 
   public bdecode_node dict_find_string_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_string_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_string_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true, this);
   }
 
   public bdecode_node dict_find_int_s(String key) {
-    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_int_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true);
+    return new bdecode_node(libtorrent_jni.bdecode_node_dict_find_int_s(swigCPtr, this, (key == null ? null : key.getBytes(java.nio.charset.StandardCharsets.UTF_8))), true, this);
   }
 
   public String dict_find_string_value_s(String key, String default_value) {
@@ -167,7 +191,11 @@ public class bdecode_node {
   }
 
   public static int bdecode(byte_vector buffer, bdecode_node ret, error_code ec) {
-    return libtorrent_jni.bdecode_node_bdecode(byte_vector.getCPtr(buffer), buffer, bdecode_node.getCPtr(ret), ret, error_code.getCPtr(ec), ec);
+    try {
+      return libtorrent_jni.bdecode_node_bdecode(byte_vector.getCPtr(buffer), buffer, bdecode_node.getCPtr(ret), ret, error_code.getCPtr(ec), ec);
+    } finally {
+      ret.swigBorrowedFrom = buffer;
+    }
   }
 
   public final static class type_t {
