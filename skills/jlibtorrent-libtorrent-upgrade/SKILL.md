@@ -111,6 +111,13 @@ Look for:
 - New `torrent_handle` methods/flags → add to `TorrentHandle.java`
 - New `stats_metric` indices → add to `StatsMetric.java`
 - New `torrent_info` methods → add to `TorrentInfo.java`
+- Native ownership (`swig/includes/libtorrent_ownership.i`, since 2.0.15.2, #337): owned proxies are freed by a cleaner thread once unreachable, and a reference/pointer returned by an instance method keeps the object it came from reachable. Check new API for:
+  - a view returned **by value** (a new span/string_view/iterator-like type) → add it to `JLIBTORRENT_VIEW_VALUE`
+  - a **static** function returning a reference/pointer into one of its arguments (static returns get no owner) → a name-specific `javaout` typemap
+  - a constructor or setter that makes C++ **keep a reference** to an argument (like `create_torrent(file_storage&)`) → a `javaconstruct`/`javain post` keep-alive
+  - a new director, or a type C++ keeps calling into → `JLIBTORRENT_EXPLICIT_DELETE`
+  - `src/main/java/com/frostwire/jlibtorrent/swig/OwnedPointer.java` is hand-written; `run-swig.sh` only deletes the files carrying SWIG's banner, and runs `resolve-borrow-owner.pl`, which fails on any placeholder it can't resolve. The ownership typemaps are Java-only: `libtorrent_jni.cpp` must not change because of them.
+- `/usr/local/bin/swig` may be an older SWIG: put 4.5.1 first on the `PATH` (`swig -version`), or the generated files change everywhere.
 
 **Lesson Learned (cb6fe6b9c upgrade):** The 86-commit delta only exposed 3 new settings and 1 new `torrent_info` method. Don't assume scale — always diff the generated files.
 
