@@ -1,18 +1,19 @@
 #!/bin/bash
 
-# FULL RELEASE PROCESS
-# 1. Build macosx-arm64 and macosx-x86_64 in the mac laptops natively
-# 2. Build the latest Docker container in the AWS jlibtorrent-builder on-demand machine
-# 3. Build the desktop builds on that linux machine
-# 4. Apply android-patches script inside the docker container and build android jars
-# 5. git tag the release "release/2.x.y.z"
-# 6. Upload all the jars to the release
-# 7. Run the "Publish Java Package" action on github https://github.com/frostwire/frostwire-jlibtorrent/actions/workflows/publish.yml with the latest release version
-# 8. Run this script from any folder in this server passing the version number (not the tag), e.g. $ deploy_jlibtorrent_maven_release 2.0.12.0
+# FULL RELEASE PROCESS (see the README, "Building a release with GitHub Actions")
+# 1. Run the "Build release" workflow (build-release.yml) with release_tag release/2.x.y.z: it builds
+#    the 12 jars and the Android AAR and attaches them to a draft release.
+# 2. Publish the draft release.
+# 3. Run the "Publish Java Package" workflow (publish.yml) with the same tag.
+# 4. Run this script on virginia1 with the version number (not the tag), e.g.
+#    $ deploy_jlibtorrent_maven_release 2.0.15.2
+#
+# www.frostwire.com/downloads follows the version this script deploys: includes/config.php reads the
+# <release> of com/frostwire/jlibtorrent/maven-metadata.xml, written below.
 
-# Binary .jar artifacts are served directly from GitHub release assets via a
-# 302 redirect configured in lighttpd (see configs/lighttpd.confs/virginia1/
-# lighttpd.conf, dl.frostwire.com vhost). This script therefore only fetches the
+# Binary .jar and .aar artifacts are served directly from GitHub release assets via a
+# 302 redirect configured in nginx (frostwire-tools configs/nginx/virginia1/sites/60-dl.conf,
+# dl.frostwire.com). This script therefore only fetches the
 # Maven metadata (.pom/.sha1) that GitHub releases do not carry, and regenerates
 # the maven-metadata.xml index for each artifact.
 
@@ -36,7 +37,13 @@ ARTIFACTS=(
     "jlibtorrent-android-x86"
     "jlibtorrent-android-arm64"
     "jlibtorrent-android-x86_64"
+    "jlibtorrent-android"
 )
+
+# The binary's extension: the Android library is an AAR (since 2.0.15.2), everything else a jar.
+binary_extension() {
+    if [ "$1" = "jlibtorrent-android" ]; then echo "aar"; else echo "jar"; fi
+}
 
 pushd ~/dl.frostwire.com/maven/ || { echo "deploy_jlibtorrent_maven_release: Error: Failed to change to ~/dl.frostwire.com/maven/"; exit 1; }
 
@@ -44,13 +51,14 @@ pushd ~/dl.frostwire.com/maven/ || { echo "deploy_jlibtorrent_maven_release: Err
 # The .jar binaries are NOT mirrored here: lighttpd 302-redirects .jar requests
 # to the public GitHub release assets, so GitHub serves the bytes for free.
 for ARTIFACT in "${ARTIFACTS[@]}"; do
+    EXT=$(binary_extension "$ARTIFACT")
     mkdir -p "com/frostwire/$ARTIFACT/$VERSION"
     curl -u "$USERNAME:$PAT" -L -o "com/frostwire/$ARTIFACT/$VERSION/$ARTIFACT-$VERSION.pom" \
          "https://maven.pkg.github.com/$REPO/com/frostwire/$ARTIFACT/$VERSION/$ARTIFACT-$VERSION.pom"
     curl -u "$USERNAME:$PAT" -L -o "com/frostwire/$ARTIFACT/$VERSION/$ARTIFACT-$VERSION.pom.sha1" \
          "https://maven.pkg.github.com/$REPO/com/frostwire/$ARTIFACT/$VERSION/$ARTIFACT-$VERSION.pom.sha1"
-    curl -u "$USERNAME:$PAT" -L -o "com/frostwire/$ARTIFACT/$VERSION/$ARTIFACT-$VERSION.jar.sha1" \
-         "https://maven.pkg.github.com/$REPO/com/frostwire/$ARTIFACT/$VERSION/$ARTIFACT-$VERSION.jar.sha1"
+    curl -u "$USERNAME:$PAT" -L -o "com/frostwire/$ARTIFACT/$VERSION/$ARTIFACT-$VERSION.$EXT.sha1" \
+         "https://maven.pkg.github.com/$REPO/com/frostwire/$ARTIFACT/$VERSION/$ARTIFACT-$VERSION.$EXT.sha1"
 done
 
 # Generate maven-metadata.xml for each artifact
@@ -73,8 +81,8 @@ for ARTIFACT in "${ARTIFACTS[@]}"; do
     <versioning>
         <release>$LATEST</release>
         <versions>" > "$OUTPUT_FILE"
-    for VERSION in $VERSIONS; do
-        echo "            <version>$VERSION</version>" >> "$OUTPUT_FILE"
+    for V in $VERSIONS; do
+        echo "            <version>$V</version>" >> "$OUTPUT_FILE"
     done
     echo "        </versions>
         <lastUpdated>$LAST_UPDATED</lastUpdated>
@@ -85,3 +93,5 @@ for ARTIFACT in "${ARTIFACTS[@]}"; do
 done
 
 popd
+
+echo "deploy_jlibtorrent_maven_release: deployed $VERSION; www.frostwire.com/downloads now links jlibtorrent $(sed -n 's:.*<release>\(.*\)</release>.*:\1:p' ~/dl.frostwire.com/maven/com/frostwire/jlibtorrent/maven-metadata.xml)"
