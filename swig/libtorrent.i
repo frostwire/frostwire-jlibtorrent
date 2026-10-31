@@ -21,6 +21,7 @@
 
 %include "includes/libtorrent_java.i"
 %include "includes/libtorrent_ownership.i"
+%include "includes/libtorrent_null_self.i"
   
 %{
 // BEGIN common set include (just include but don't wrap)----------------------------------------------
