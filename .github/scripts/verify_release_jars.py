@@ -7,7 +7,10 @@ For each of the 12 jars a release ships it checks that the jar exists and, for t
 that it holds exactly the native library NativeLibraryLoader looks for, at that path, built for
 the right CPU, carrying <version> (the Java side refuses a library of another version), and, on
 64-bit Android, with 16 KB aligned LOAD segments (required by Android 15+ devices with 16 KB
-pages). Exits non-zero listing every problem.
+pages). It also checks the Android library (jlibtorrent-android-<version>.aar, built from those jars
+by build_android_aar.py): its manifest, that classes.jar is the Java jar and each jni/<abi> library
+is byte-identical to its Android jar's (so the checks above cover it), and its consumer keep rules.
+Exits non-zero listing every problem.
 """
 
 import struct
@@ -124,6 +127,52 @@ def check_java(directory, version, problems):
             print(f"ok  {name}")
 
 
+AAR_ABIS = {  # ABI directory in the AAR -> the Android jar holding the same library
+    "armeabi-v7a": "jlibtorrent-android-arm",
+    "arm64-v8a": "jlibtorrent-android-arm64",
+    "x86": "jlibtorrent-android-x86",
+    "x86_64": "jlibtorrent-android-x86_64",
+}
+
+
+def check_aar(directory, version, problems):
+    name = f"jlibtorrent-android-{version}.aar"
+    try:
+        aar = zipfile.ZipFile(f"{directory}/{name}")
+    except FileNotFoundError:
+        problems.append(f"{name}: missing")
+        return
+    with aar:
+        names = set(aar.namelist())
+        before = len(problems)
+        for required in ("AndroidManifest.xml", "classes.jar", "proguard.txt", "R.txt"):
+            if required not in names:
+                problems.append(f"{name}: has no {required}")
+        if "AndroidManifest.xml" in names:
+            manifest = aar.read("AndroidManifest.xml").decode()
+            if 'package="com.frostwire.jlibtorrent"' not in manifest or "minSdkVersion" not in manifest:
+                problems.append(f"{name}: AndroidManifest.xml lacks the package or minSdkVersion")
+        if "classes.jar" in names:
+            with open(f"{directory}/jlibtorrent-{version}.jar", "rb") as f:
+                if aar.read("classes.jar") != f.read():
+                    problems.append(f"{name}: classes.jar differs from jlibtorrent-{version}.jar")
+        if "proguard.txt" in names and "libtorrent_jni" not in aar.read("proguard.txt").decode():
+            problems.append(f"{name}: proguard.txt doesn't keep libtorrent_jni")
+        for abi, prefix in AAR_ABIS.items():
+            entry = f"jni/{abi}/libjlibtorrent.so"
+            if entry not in names:
+                problems.append(f"{name}: has no {entry}")
+                continue
+            with zipfile.ZipFile(f"{directory}/{prefix}-{version}.jar") as jar:
+                if aar.read(entry) != jar.read(NATIVE_JARS[prefix][0]):
+                    problems.append(f"{name}: {entry} differs from {prefix}-{version}.jar")
+        unexpected = [n for n in names if n.endswith(NATIVE_SUFFIXES) and not n.startswith("jni/")]
+        if unexpected:
+            problems.append(f"{name}: native libraries outside jni/: {unexpected}")
+        if len(problems) == before:
+            print(f"ok  {name}")
+
+
 def main():
     if len(sys.argv) != 3:
         sys.exit(__doc__)
@@ -132,10 +181,11 @@ def main():
     check_java(directory, version, problems)
     for prefix, spec in NATIVE_JARS.items():
         check_native(directory, version, prefix, spec, problems)
+    check_aar(directory, version, problems)
     if problems:
         print("\n".join(["", "PROBLEMS:"] + problems))
         sys.exit(1)
-    print(f"\nAll 12 jlibtorrent {version} jars check out.")
+    print(f"\nAll 12 jlibtorrent {version} jars and the Android AAR check out.")
 
 
 if __name__ == "__main__":
