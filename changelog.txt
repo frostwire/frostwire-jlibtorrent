@@ -1,5 +1,6 @@
 2.0.15.2 2026/OCT/31
- * Java-only release: same native libraries as 2.0.15.1 (the generated C++ is unchanged; they report 2.0.15.1)
+ * the generated C++ is unchanged from 2.0.15.1 apart from the version string: the 2.0.15.1 natives also work with
+   these Java classes (only the first three version components must match); the release ships rebuilt natives
  * fix: native objects are freed once their Java object is unreachable (#337). A dropped TorrentInfo, Entry,
    vector, status or other SWIG object no longer leaks its native memory: 100k TorrentInfo(byte[]) parses of a
    13.5 KB torrent without delete() grew the process by 1.7 GB, now it stays flat
