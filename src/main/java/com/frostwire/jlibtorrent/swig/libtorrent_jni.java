@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "2.0.15.1";
+        return "2.0.15.2";
     }
 
     public static boolean isMacOS() {

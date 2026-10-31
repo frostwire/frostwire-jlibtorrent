@@ -1,3 +1,20 @@
+2.0.15.2 2026/OCT/31
+ * Java-only release: same native libraries as 2.0.15.1 (the generated C++ is unchanged; they report 2.0.15.1)
+ * fix: native objects are freed once their Java object is unreachable (#337). A dropped TorrentInfo, Entry,
+   vector, status or other SWIG object no longer leaks its native memory: 100k TorrentInfo(byte[]) parses of a
+   13.5 KB torrent without delete() grew the process by 1.7 GB, now it stays flat
+   - one daemon thread, jlibtorrent-cleaner, frees them (PhantomReference-based, so it works on Android 8+;
+     java.lang.ref.Cleaner needs Android 13)
+   - delete() still frees right away and can be called twice; don't call it while a view into the object is in use
+   - a view into another object (TorrentInfo.files(), entry.dict(), vector elements, bdecode_node children,
+     map iterators) keeps that object alive, so dropping the owner first is safe
+   - listeners and other directors (alert_notify_callback, posix_wrapper) and session are still freed only by
+     delete(); alerts, and views taken from them such as TorrentAlert.handle(), still belong to the session and
+     stay valid until the next pop_alerts
+ * fix: TorrentBuilder.generate() frees its file and piece hash listeners
+ * build: run-swig.sh keeps hand-written files in the swig package (OwnedPointer) and resolves the ownership
+   typemaps' placeholders (resolve-borrow-owner.pl)
+
 2.0.15.1 2026/OCT/30
  * fix: loading the native library no longer dies with SIGILL on machines that report SVE2 without SVE,
    such as the Android emulator on Apple M4 Macs (and possibly arm64 Linux VMs there). OpenSSL 4.1 trusts the
