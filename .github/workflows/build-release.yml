@@ -251,15 +251,20 @@ jobs:
           path: dist
           merge-multiple: true
 
+      # The Android library (AAR), packed from the Android jars and the Java jar.
+      - name: Build the Android AAR
+        run: python3 -I .github/scripts/build_android_aar.py dist ${{ needs.prepare.outputs.version }}
+
       # Every jar present, each native library for the right architecture at the path
-      # NativeLibraryLoader looks in, carrying this version, and 64-bit Android 16 KB aligned.
-      - name: Verify the jars
+      # NativeLibraryLoader looks in, carrying this version, and 64-bit Android 16 KB aligned;
+      # the AAR holding exactly the jars' classes and libraries.
+      - name: Verify the jars and the AAR
         run: python3 .github/scripts/verify_release_jars.py dist ${{ needs.prepare.outputs.version }}
 
       - name: Checksums
         run: |
           cd dist
-          sha256sum *.jar | tee SHA256SUMS.txt
+          sha256sum *.jar *.aar | tee SHA256SUMS.txt
 
       - uses: actions/upload-artifact@v7
         with:
@@ -276,4 +281,4 @@ jobs:
             gh release create "$TAG" --draft --target "$GITHUB_SHA" --title "$TAG" \
               --notes "jlibtorrent ${{ needs.prepare.outputs.version }}. Release notes to come; see changelog.txt."
           fi
-          gh release upload "$TAG" dist/*.jar dist/SHA256SUMS.txt --clobber
+          gh release upload "$TAG" dist/*.jar dist/*.aar dist/SHA256SUMS.txt --clobber
