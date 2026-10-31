@@ -60,7 +60,9 @@ public class NativeOwnershipTest {
         String classpath = System.getProperty("jlibtorrent.test.classpath", System.getProperty("java.class.path"));
         File log = File.createTempFile("jlibtorrent-" + scenario, ".log");
         try {
-            Process p = new ProcessBuilder(List.of(java, "-Xmx256m", "-cp", classpath,
+            // a crash report goes next to the log, not into the working directory
+            String errorFile = "-XX:ErrorFile=" + log.getAbsolutePath() + ".hs_err_%p.log";
+            Process p = new ProcessBuilder(List.of(java, "-Xmx256m", errorFile, "-cp", classpath,
                     OwnershipScenarios.class.getName(), scenario))
                     .redirectErrorStream(true)
                     .redirectOutput(log)
