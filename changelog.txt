@@ -13,6 +13,12 @@
      delete(); alerts, and views taken from them such as TorrentAlert.handle(), still belong to the session and
      stay valid until the next pop_alerts
  * fix: TorrentBuilder.generate() frees its file and piece hash listeners
+ * new: Android library (AAR), com.frostwire:jlibtorrent-android / jlibtorrent-android-<version>.aar (#327): the Java
+   classes, the native library for armeabi-v7a, arm64-v8a, x86 and x86_64, and its own R8/ProGuard keep rules (the
+   native methods and the director classes C++ calls back into) in one dependency. Apps pick ABIs with abiFilters
+   instead of picking jars, and Android packages the libraries the standard way rather than through the Android Gradle
+   plugin's legacy handling of native libraries inside jars. The jars are still published; the AAR is built from them
+   and verify_release_jars.py checks they match byte for byte. minSdk 26, the API the native libraries are built for
  * fix: desktop deletes the cached native library copies of older versions and builds after a load (#340): every
    upgrade left a 20-30 MB <cache>/jlibtorrent/<version>-<crc>/ folder behind. Folders used in the last hour stay,
    and so does anything in the cache not named <version>-<crc>
