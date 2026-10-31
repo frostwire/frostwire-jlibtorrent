@@ -374,7 +374,7 @@ If one platform fails, its error is in that job's log. The other platforms still
 ### 3. Publish
 
 1. Open the draft under [Releases](https://github.com/frostwire/frostwire-jlibtorrent/releases), write the release notes (or paste the blog post) and press **Publish**. Publishing creates the `release/x.y.z.w` tag on the commit the draft targets.
-2. Publish the Maven packages to GitHub Packages: **Actions → Publish Java Package → Run workflow** with the same release tag. Publishing a draft does **not** start this workflow automatically: GitHub doesn't fire `release: created` for drafts. It downloads the 12 jars and the AAR from the release and publishes the 11 `com.frostwire:jlibtorrent*` artifacts.
+2. Publishing starts **Publish Java Package** (`publish.yml`) automatically: it downloads the 12 jars and the AAR from the release and publishes the 11 `com.frostwire:jlibtorrent*` artifacts to GitHub Packages. Wait for it to finish before step 3. To publish a release's packages again, run it by hand with the release tag:
    ```bash
    gh workflow run publish.yml --repo frostwire/frostwire-jlibtorrent --ref master -f release_tag=release/2.0.16.0
    ```

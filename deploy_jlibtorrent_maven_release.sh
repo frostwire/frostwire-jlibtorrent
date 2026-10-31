@@ -4,7 +4,7 @@
 # 1. Run the "Build release" workflow (build-release.yml) with release_tag release/2.x.y.z: it builds
 #    the 12 jars and the Android AAR and attaches them to a draft release.
 # 2. Publish the draft release.
-# 3. Run the "Publish Java Package" workflow (publish.yml) with the same tag.
+# 3. Wait for the "Publish Java Package" workflow (publish.yml), which publishing starts by itself.
 # 4. Run this script on virginia1 with the version number (not the tag), e.g.
 #    $ deploy_jlibtorrent_maven_release 2.0.15.2
 #

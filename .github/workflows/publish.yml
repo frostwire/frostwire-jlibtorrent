@@ -1,17 +1,20 @@
 name: Publish Java Package
 
 on:
+  # Publishing a release (a draft from build-release.yml) publishes its packages. Not "created": the
+  # drafts are created with GITHUB_TOKEN, whose events start no workflows.
   release:
-    types: [created]
+    types: [published]
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'Release tag to use testing'
+        description: 'Release tag to publish again, e.g. release/2.0.15.3'
         required: true
-        default: 'release/2.0.15.2'
 
 jobs:
   publish:
+    # only jlibtorrent releases (release/x.y.z.w)
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'release/')
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -31,7 +34,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             TAG="${{ inputs.release_tag }}"
           else
-            TAG="${{ github.ref_name }}"
+            TAG="${{ github.event.release.tag_name }}"
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=${TAG#release/}" >> "$GITHUB_OUTPUT"
@@ -57,6 +60,7 @@ jobs:
             com.frostwire.jlibtorrent-android-x86
             com.frostwire.jlibtorrent-android-arm64
             com.frostwire.jlibtorrent-android-x86_64
+            com.frostwire.jlibtorrent-android
           )
           for P in "${PKGS[@]}"; do
             # Query the package versions, capturing both output and exit code
