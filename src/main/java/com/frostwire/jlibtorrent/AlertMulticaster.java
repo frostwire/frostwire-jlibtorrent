@@ -11,67 +11,39 @@ import com.frostwire.jlibtorrent.alerts.Alert;
  * <p>
  * <b>How Multicasting Works:</b>
  * <br/>
- * When multiple listeners are registered, they're internally combined into a tree structure
- * of {@code AlertMulticaster} instances. Each multicaster forwards alerts to two child
- * listeners, enabling efficient distribution of events:
- * <pre>
- * // Multiple listeners scenario
- * listener1.alert(alert);
- * listener2.alert(alert);
- * listener3.alert(alert);
- *
- * // Internally structured as:
- * //         Multicaster_A
- * //        /              \
- * //   Multicaster_B      listener3
- * //   /        \
- * // listener1  listener2
- * </pre>
+ * A multicaster holds the registered listeners in an immutable array, in registration
+ * order, and calls each of them in turn. Adding or removing a listener builds a new
+ * multicaster, so a dispatch already running keeps the array it started with.
  * <p>
- * <b>Alert Distribution:</b>
+ * It used to chain listeners into a binary tree as deep as the number of listeners, and
+ * both {@code alert} and {@code remove} recursed through it: an application registering
+ * one listener per torrent threw {@code StackOverflowError} with thousands of torrents
+ * (frostwire/frostwire#1441). Nothing here recurses now.
  * <p>
  * This class is an internal implementation detail of {@code SessionManager}. Applications
- * typically don't interact with it directly. The framework transparently manages alert
- * distribution as listeners are added/removed.
- * <p>
- * <b>Adding and Removing Listeners:</b>
+ * typically don't interact with it directly:
  * <pre>
- * // Application code (not using AlertMulticaster directly)
  * SessionManager sm = new SessionManager();
- * sm.addListener(listener1);   // Internally uses AlertMulticaster
+ * sm.addListener(listener1);
  * sm.addListener(listener2);
- *
- * // Both listeners now receive events
- * // ... session events occur ...
- *
- * // Remove a listener
- * sm.removeListener(listener1);  // Rebuilds multicaster tree
- * // listener2 still receives events
+ * // ... both listeners receive events ...
+ * sm.removeListener(listener1);  // listener2 still receives events
  * </pre>
- * <p>
- * <b>Implementation Details:</b>
- * <ul>
- *   <li>Forms a binary tree where each node has exactly two children</li>
- *   <li>Leaf nodes are the actual user-registered listeners</li>
- *   <li>Non-leaf nodes are AlertMulticaster instances</li>
- *   <li>Accepts all alerts (returns null from types() method)</li>
- *   <li>Forwards each alert to both children in sequence</li>
- * </ul>
  * <p>
  * <b>Performance Characteristics:</b>
  * <ul>
- *   <li>Adding listener: O(1) - creates new multicaster node</li>
- *   <li>Removing listener: O(n) - rebuilds tree where n = number of listeners</li>
- *   <li>Alert distribution: O(n) - forwards to all listeners (unavoidable)</li>
- *   <li>Memory: O(n) - stores reference to each listener</li>
+ *   <li>Adding or removing a listener: O(n), copies the array</li>
+ *   <li>Alert distribution: O(n), one call per listener, no recursion</li>
+ *   <li>Memory: O(n)</li>
  * </ul>
  * <p>
  * <b>Important Notes:</b>
  * <ul>
  *   <li>This class is package-private; not part of public API</li>
- *   <li>Used by SessionManager for listener management</li>
- *   <li>Order of listener invocation is not guaranteed</li>
- *   <li>Exceptions in one listener don't affect other listeners</li>
+ *   <li>Listeners are called in registration order</li>
+ *   <li>Removing a listener registered more than once drops its most recent registration</li>
+ *   <li>An exception thrown by a listener stops the dispatch of that alert to the listeners
+ *   after it; {@code SessionManager} catches and logs it</li>
  * </ul>
  *
  * @see SessionManager#addListener(AlertListener) - Register listeners
@@ -83,12 +55,10 @@ import com.frostwire.jlibtorrent.alerts.Alert;
  */
 final class AlertMulticaster implements AlertListener {
 
-    private final AlertListener a;
-    private final AlertListener b;
+    private final AlertListener[] listeners;
 
-    public AlertMulticaster(AlertListener a, AlertListener b) {
-        this.a = a;
-        this.b = b;
+    private AlertMulticaster(AlertListener[] listeners) {
+        this.listeners = listeners;
     }
 
     @Override
@@ -98,42 +68,57 @@ final class AlertMulticaster implements AlertListener {
 
     @Override
     public void alert(Alert<?> alert) {
-        a.alert(alert);
-        b.alert(alert);
-    }
-
-    public static AlertListener add(AlertListener a, AlertListener b) {
-        return addInternal(a, b);
-    }
-
-    public static AlertListener remove(AlertListener l, AlertListener oldl) {
-        return removeInternal(l, oldl);
-    }
-
-    private AlertListener remove(AlertListener oldl) {
-        if (oldl == a) return b;
-        if (oldl == b) return a;
-        AlertListener a2 = removeInternal(a, oldl);
-        AlertListener b2 = removeInternal(b, oldl);
-        if (a2 == a && b2 == b) {
-            return this;        // it's not here
+        for (AlertListener listener : listeners) {
+            listener.alert(alert);
         }
-        return addInternal(a2, b2);
     }
 
-    private static AlertListener addInternal(AlertListener a, AlertListener b) {
+    /**
+     * Returns a listener calling {@code a}'s listeners, then {@code b}'s.
+     */
+    public static AlertListener add(AlertListener a, AlertListener b) {
         if (a == null) return b;
         if (b == null) return a;
-        return new AlertMulticaster(a, b);
+        AlertListener[] first = listenersOf(a);
+        AlertListener[] second = listenersOf(b);
+        AlertListener[] all = new AlertListener[first.length + second.length];
+        System.arraycopy(first, 0, all, 0, first.length);
+        System.arraycopy(second, 0, all, first.length, second.length);
+        return new AlertMulticaster(all);
     }
 
-    private static AlertListener removeInternal(AlertListener l, AlertListener oldl) {
+    /**
+     * Returns {@code l} without the most recent registration of {@code oldl}: {@code l} itself
+     * when {@code oldl} isn't in it, a single listener when one is left, or null when none is.
+     */
+    public static AlertListener remove(AlertListener l, AlertListener oldl) {
         if (l == oldl || l == null) {
             return null;
-        } else if (l instanceof AlertMulticaster) {
-            return ((AlertMulticaster) l).remove(oldl);
-        } else {
+        }
+        if (!(l instanceof AlertMulticaster)) {
             return l; // it's not here
         }
+        AlertListener[] current = ((AlertMulticaster) l).listeners;
+        int index = -1;
+        for (int i = current.length - 1; i >= 0; i--) {
+            if (current[i] == oldl) {
+                index = i;
+                break;
+            }
+        }
+        if (index < 0) {
+            return l; // it's not here
+        }
+        if (current.length == 2) {
+            return current[1 - index];
+        }
+        AlertListener[] rest = new AlertListener[current.length - 1];
+        System.arraycopy(current, 0, rest, 0, index);
+        System.arraycopy(current, index + 1, rest, index, current.length - index - 1);
+        return new AlertMulticaster(rest);
+    }
+
+    private static AlertListener[] listenersOf(AlertListener l) {
+        return l instanceof AlertMulticaster ? ((AlertMulticaster) l).listeners : new AlertListener[]{l};
     }
 }
