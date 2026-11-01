@@ -1,3 +1,8 @@
+2.0.15.4 (unreleased)
+ * fix: an application registering thousands of alert listeners (e.g. one per torrent) no longer crashes with
+   StackOverflowError when one is removed or an alert is dispatched: SessionManager keeps listeners in an array
+   instead of a tree as deep as the number of listeners (frostwire/frostwire#1441)
+
 2.0.15.3 2026/OCT/31
  * fix: calling a method of an object after delete() throws IllegalStateException ("<type> used after delete()")
    instead of killing the JVM with SIGSEGV. Every native method that takes an object checks it for null first: one
