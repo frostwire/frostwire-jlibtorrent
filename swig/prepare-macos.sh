@@ -7,7 +7,15 @@ brew install autoconf
 brew install bison
 export PATH="$(brew --prefix bison)/bin:${PATH}"
 
-export SWIG_VERSION=4.4.1
+# The SWIG version and the sha256 of its tarball come from build-utils.shinc, the one place the
+# build pins them (the Dockerfile and the release workflow use the same values).
+SWIG_VERSION=$(sed -n 's/^ *export SWIG_VERSION="\(.*\)"/\1/p' build-utils.shinc)
+SWIG_SHA256=$(sed -n 's/^ *export SWIG_SHA256="\([0-9a-f]*\)".*/\1/p' build-utils.shinc)
+if [ -z "${SWIG_VERSION}" ] || [ -z "${SWIG_SHA256}" ]; then
+  echo "prepare-macos.sh: run it from the swig folder (SWIG_VERSION/SWIG_SHA256 not found in build-utils.shinc)"
+  exit 1
+fi
+export SWIG_VERSION
 
 # Function to check if SWIG is installed and return the version
 check_swig_installed() {
@@ -36,7 +44,8 @@ if ! check_swig_installed; then
   echo "Proceeding to download and install SWIG version $SWIG_VERSION..."
   
   if [ ! -d "swig-${SWIG_VERSION}" ]; then
-    wget -nv --no-check-certificate https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz
+    wget -nv https://dl.frostwire.com/other/swig/swig-${SWIG_VERSION}.tar.gz
+    echo "${SWIG_SHA256}  swig-${SWIG_VERSION}.tar.gz" | shasum -a 256 -c - || exit 1
     tar xzf "swig-${SWIG_VERSION}.tar.gz"
   fi
   
