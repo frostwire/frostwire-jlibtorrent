@@ -48,11 +48,13 @@ ENV SWIG_VERSION="4.5.1"
 # sha256 of swig-${SWIG_VERSION}.tar.gz (the SourceForge release, mirrored on dl.frostwire.com)
 ENV SWIG_SHA256="7fec50b27deddab5455a9633780b6341eddfb96215a7619e93a76eb27178f653"
 ENV BOOST_MAJOR="1"
-ENV BOOST_VERSION="88"
+ENV BOOST_VERSION="92"
 ENV BOOST_MINOR="0"
 ENV BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
 ENV BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
 ENV BOOST_ROOT="/src/boost_${BOOST_UNDERSCORE_VERSION}"
+# sha256 of boost_${BOOST_UNDERSCORE_VERSION}.tar.gz, as published next to it on archives.boost.io (.json)
+ENV BOOST_SHA256="c4a3b310ddd2472416e091067166b0713be97c63f38c212c484ada022fd296ce"
 ENV NDK_VERSION="r28c"
 ENV ANDROID_API="26"
 ENV ANDROID_NDK_HOME="/src/android-ndk"
@@ -96,6 +98,7 @@ RUN swig -version
 # prepare_boost
 RUN cd /src \
     && wget -nv -O boost.tar.gz https://archives.boost.io/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.tar.gz \
+    && echo "${BOOST_SHA256}  boost.tar.gz" | sha256sum -c - \
     && tar xzf boost.tar.gz \
     && cd boost_${BOOST_UNDERSCORE_VERSION} \
     && ./bootstrap.sh

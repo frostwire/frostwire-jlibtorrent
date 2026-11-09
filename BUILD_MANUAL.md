@@ -540,7 +540,7 @@ Current build configuration:
 - **SWIG:** 4.3.1 (macOS builds)
 - **Android NDK:** r21e (Docker builds)
 - **libtorrent:** RC_2_1 branch (libtorrent 2.1.x)
-- **Boost:** Latest stable (managed by build system)
+- **Boost:** 1.92.0 (`BOOST_VERSION` in `swig/build-utils.shinc` and `swig/Dockerfile`, downloads checked against archives.boost.io's sha256)
 
 ---
 

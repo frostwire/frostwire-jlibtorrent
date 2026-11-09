@@ -40,7 +40,7 @@ common_env() {
  abort_if_var_unset "BOOST_MAJOR" ${BOOST_MAJOR}
  abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
  abort_if_var_unset "BOOST_MINOR" ${BOOST_MINOR}
- export B2_EXPECTED_VERSION="5.2.1"
+ export B2_EXPECTED_VERSION="5.5.3" # the b2 Boost 1.92.0 bootstraps
  export BOOST_ROOT="${SRC}/boost_${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
  export LIBTORRENT_ROOT="${SRC}/libtorrent"
  export OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
@@ -104,11 +104,14 @@ export LIBTORRENT_REVISION=dcbd4b291da01e88879f91141548caf1e0a4a2cd # libtorrent
 export LIBTORRENT_BRANCH="RC_2_1"
 export OPENSSL_VERSION="4.1.0"
 export OPENSSL_SHA256="50c17baf54cb008f6ce42d50deb4b28050a1aad711636cabd4b241c7e90cc2fd" # same as swig/Dockerfile
-export BOOST_VERSION="88"
+export BOOST_VERSION="92"
 export BOOST_MAJOR="1"
 export BOOST_MINOR="0"
 export BOOST_DOT_VERSION="${BOOST_MAJOR}.${BOOST_VERSION}.${BOOST_MINOR}"
 export BOOST_UNDERSCORE_VERSION="${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
+# sha256 of boost_${BOOST_UNDERSCORE_VERSION}.zip, as published next to it on archives.boost.io (.json).
+# The Dockerfile downloads the .tar.gz and has its own BOOST_SHA256.
+export BOOST_ZIP_SHA256="c46baee75ed4b558cf6553630d0615a147ed582812917b57e6f0839d1954549f"
 export BOOST_ROOT="${SRC}/boost_${BOOST_UNDERSCORE_VERSION}"
 
 SWIG=`pwd`
@@ -172,6 +175,11 @@ prepare_boost() {
   if [ ! -d ${BOOST_ROOT} ]; then
       prompt_msg "Downloading BOOST ${BOOST_MAJOR}_${BOOST_VERSION}_${BOOST_MINOR}"
       wget -4 -O boost.zip https://archives.boost.io/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_UNDERSCORE_VERSION}.zip
+      if [ "$(shasum -a 256 boost.zip | cut -d' ' -f1)" != "${BOOST_ZIP_SHA256}" ]; then
+        echo "prepare_boost: boost.zip does not match BOOST_ZIP_SHA256, aborting"
+        rm -f boost.zip
+        exit 1
+      fi
       unzip -qq boost.zip
       rm -f boost.zip
   fi

@@ -45,6 +45,8 @@
    those
  * build: libtorrent is built with webtorrent=off (2.1 builds WebTorrent by default, which needs libdatachannel)
    and with iostream on (2.1's logging writes a sha1_hash to a stringstream, upstream ff0ebd76c)
+ * build: Boost 1.92.0 (was 1.88.0), b2 5.5.3; the Boost and SWIG downloads are checked against their sha256
+   (Boost's as published on archives.boost.io). SWIG stays at 4.5.1, still the newest release
  * lt: removed BEP 17 web seeds (in favor of BEP 19); new multi-threaded pread() disk I/O backend, the default
  * lt: torrent_info holds only the info dictionary; trackers and web seeds live in add_torrent_params
  * lt: new create-torrent API (list_files(), create_file_entry); remap_files() deprecated

@@ -21,7 +21,7 @@ Use this skill whenever a new libtorrent commit on the branch jlibtorrent tracks
 - A consistent Apple toolchain: clang, ld and the SDK from the same install (see Build Config Caveats, "Toolchain/SDK mismatch")
 - Gradle or `./gradlew`
 - Local libtorrent checkout at `~/src/libtorrent` (for SWIG regeneration)
-- Local boost at `~/src/boost_1_88_0`
+- Local boost at `~/src/boost_1_92_0` (`BOOST_VERSION` in `swig/build-utils.shinc`)
 - Local openssl at `~/src/openssl`
 
 ### Intel Mac (separate machine)
@@ -83,7 +83,7 @@ Commit: `Update libtorrent revision to <hash>`
 cd swig
 export SRC="${HOME}/src"
 export BOOST_MAJOR="1"
-export BOOST_VERSION="88"
+export BOOST_VERSION="92"
 export BOOST_MINOR="0"
 export LIBTORRENT_ROOT="${SRC}/libtorrent"
 export OPENSSL_VERSION="3.5.2"
@@ -139,7 +139,7 @@ To judge a target, especially a new upstream branch, without building natives:
    clang++ -std=c++20 -fsyntax-only -fno-rtti -ferror-limit=0 -w \
      -DTORRENT_ABI_VERSION=100 -DTORRENT_USE_OPENSSL -DTORRENT_USE_LIBCRYPTO -DTORRENT_SSL_PEERS \
      -DBOOST_ASIO_ENABLE_CANCELIO -DBOOST_ASIO_NO_DEPRECATED \
-     -I. -I<worktree>/include -I$HOME/src/boost_1_88_0 -I/opt/homebrew/opt/openssl@3/include libtorrent_jni.cpp
+     -I. -I<worktree>/include -I$HOME/src/boost_1_92_0 -I/opt/homebrew/opt/openssl@3/include libtorrent_jni.cpp
    ```
 4. Each `fatal error: 'libtorrent/X.hpp' file not found` hides everything after it. If `include/libtorrent/aux_/X.hpp` exists, add a shim `shim/libtorrent/X.hpp` containing `#include <libtorrent/aux_/X.hpp>`, add `-Ishim`, and repeat. Then group the errors by symbol.
 
@@ -495,6 +495,8 @@ rm -rf swig/bin/release/<os>/<arch>/*
 When upgrading Boost or OpenSSL, build and test on ONE platform first. Even if upstream CI uses the new version, platform-specific issues may exist.
 
 **Lesson Learned (cb6fe6b9c upgrade):** Boost 1.91.0 build succeeded but caused SIGSEGV on macOS arm64. Reverted to 1.88.0. OpenSSL 3.6.0 worked without issues.
+
+**2026-11-09 (RC_2_1 branch):** Boost 1.92.0 (b2 5.5.3) built clean on macOS arm64 and passed `test` (115), `leakTest` (5) and `fuzzTest` (33) with no crash. Its downloads are checked: `BOOST_ZIP_SHA256` in `build-utils.shinc`, `BOOST_SHA256` (tar.gz) in the Dockerfile, both from the `.json` next to each file on archives.boost.io. A Boost bump needs a clean build dir (`bin/release/<os>/<arch>`).
 
 ---
 
