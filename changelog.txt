@@ -67,8 +67,6 @@
    succession; apply IP filter to DHT nodes; fix use-after-free reading a UPnP response; fix web seed SSRF
    mitigation for IPv6; fix uTP sockets stalling on close; DHT storage flooding mitigation; several pread disk
    I/O, merkle tree and i2p fixes (2.1.1, 2.1.2 and RC_2_1 after it)
-
-2.0.15.4 (unreleased)
  * fix: an application registering thousands of alert listeners (e.g. one per torrent) no longer crashes with
    StackOverflowError when one is removed or an alert is dispatched: SessionManager keeps listeners in an array
    instead of a tree as deep as the number of listeners (frostwire/frostwire#1441)
