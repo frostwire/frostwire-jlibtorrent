@@ -631,8 +631,16 @@ public final class SettingsPack {
     }
 
     /**
+     * libtorrent's default STUN server for WebTorrent, Google's public one. jlibtorrent keeps it:
+     * neither SettingsPack nor SessionManager sets {@code webtorrent_stun_server}, so a session
+     * uses this unless the application sets another, pending a FrostWire-run STUN server.
+     */
+    public static final String DEFAULT_WEBTORRENT_STUN_SERVER = "stun.l.google.com:19302";
+
+    /**
      * The STUN server WebTorrent uses for ICE NAT traversal of its WebRTC connections, as
-     * {@code hostname:port}. libtorrent's default is {@code stun.l.google.com:19302}.
+     * {@code hostname:port}. The default is {@link #DEFAULT_WEBTORRENT_STUN_SERVER}
+     * ({@code stun.l.google.com:19302}, Google's public STUN server).
      *
      * @return the STUN server
      */
@@ -642,6 +650,7 @@ public final class SettingsPack {
 
     /**
      * Sets the STUN server WebTorrent uses for ICE NAT traversal of its WebRTC connections.
+     * Without a call, the session uses {@link #DEFAULT_WEBTORRENT_STUN_SERVER}.
      *
      * @param value the STUN server, as {@code hostname:port}
      */

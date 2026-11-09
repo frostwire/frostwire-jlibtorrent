@@ -48,6 +48,9 @@
    getWebtorrentStunServer()/setWebtorrentStunServer() (were stubs), minWebsocketAnnounceInterval(),
    webtorrentConnectionTimeout(), maxWebtorrentOffers() (0 disables WebRTC offers), applyFilterToDht();
    SocketType.RTC. libtorrent drops wss:// trackers when it loads a .torrent without WebTorrent
+ * WebTorrent uses Google's public STUN server, libtorrent's default (stun.l.google.com:19302,
+   SettingsPack.DEFAULT_WEBTORRENT_STUN_SERVER), pending a FrostWire-run STUN server. jlibtorrent doesn't override
+   it; set another with SettingsPack.setWebtorrentStunServer()
  * build: the libtorrent checkout needs `git submodule update --init --recursive` and CMake: b2 builds usrsctp
    and libjuice with CMake, for the build's target through swig/config/cmake-toolchain.cmake (CMAKE_TOOLCHAIN_FILE)
  * build: libtorrent is built with iostream on (2.1's logging writes a sha1_hash to a stringstream, upstream

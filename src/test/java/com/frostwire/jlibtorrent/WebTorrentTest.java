@@ -50,7 +50,8 @@ public class WebTorrentTest {
     @Test
     public void webTorrentSettingsHaveLibtorrentsDefaultsAndReachTheSession() {
         SettingsPack defaults = new SettingsPack();
-        assertEquals("stun.l.google.com:19302", defaults.getWebtorrentStunServer());
+        assertEquals("stun.l.google.com:19302", SettingsPack.DEFAULT_WEBTORRENT_STUN_SERVER);
+        assertEquals(SettingsPack.DEFAULT_WEBTORRENT_STUN_SERVER, defaults.getWebtorrentStunServer());
         assertEquals(60, defaults.minWebsocketAnnounceInterval());
         assertEquals(120, defaults.webtorrentConnectionTimeout());
         assertEquals(10, defaults.maxWebtorrentOffers());
@@ -67,6 +68,28 @@ public class WebTorrentTest {
             assertEquals(30, applied.get_int(settings_pack.int_types.webtorrent_connection_timeout.swigValue()));
             assertEquals(4, applied.get_int(settings_pack.int_types.max_webtorrent_offers.swigValue()));
             assertEquals(90, applied.get_int(settings_pack.int_types.min_websocket_announce_interval.swigValue()));
+        } finally {
+            session.stop();
+        }
+    }
+
+    @Test
+    public void aSessionWithDefaultSettingsUsesGooglesStunServer() {
+        // nothing in jlibtorrent overrides libtorrent's default (maintainer's choice, pending a
+        // FrostWire-run STUN server)
+        SessionManager session = new SessionManager(false);
+        session.start(new SessionParams(offline()));
+        try {
+            assertEquals(SettingsPack.DEFAULT_WEBTORRENT_STUN_SERVER, session.swig().get_settings()
+                    .get_str(settings_pack.string_types.webtorrent_stun_server.swigValue()));
+        } finally {
+            session.stop();
+        }
+        session = new SessionManager(false);
+        session.start();
+        try {
+            assertEquals(SettingsPack.DEFAULT_WEBTORRENT_STUN_SERVER, session.swig().get_settings()
+                    .get_str(settings_pack.string_types.webtorrent_stun_server.swigValue()));
         } finally {
             session.stop();
         }
