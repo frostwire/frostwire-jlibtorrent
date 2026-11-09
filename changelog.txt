@@ -1,5 +1,60 @@
 2.1.2.0 (unreleased)
- * libtorrent upgraded to dcbd4b291 (RC_2_1, libtorrent 2.1.2), from eb397173d (RC_2_0, 2.0.15)
+ * libtorrent upgraded to dcbd4b291 (RC_2_1, libtorrent 2.1.2 + fixes), from eb397173d (RC_2_0, 2.0.15)
+   (frostwire/frostwire-jlibtorrent#329). Natives of 2.0.x don't load with these Java classes
+ * libtorrent 2.1's torrent_info holds only the info dictionary. TorrentInfo now also keeps what
+   load_torrent_buffer() returns for the rest of the .torrent file (trackers, web seeds, DHT nodes, comment,
+   creator, creation date, v2 piece layers), and passes it on:
+   - SessionManager.download(TorrentInfo, ...) and AddTorrentParams.torrentInfo(TorrentInfo) add the torrent
+     with its trackers and web seeds. Adding only the torrent_info (ti.swig()) would add a torrent without them
+   - TorrentInfo.bencode()/toEntry() write it with write_torrent_file(), keeping "announce" next to
+     "announce-list" and the DHT nodes, as 2.0 did
+   - new TorrentInfo(add_torrent_params) and TorrentInfo.swigParams()
+   - a TorrentInfo made from a bare torrent_info (TorrentHandle.torrentFile(), alerts) has no trackers, web
+     seeds, comment or creator: ask the TorrentHandle (trackers(), urlSeeds())
+ * TorrentHandle.torrentFileWithHashes() still works: libtorrent 2.1 removed torrent_file_with_hashes(), so it
+   builds the .torrent from the handle's info dictionary, piece layers (piece_layers()), trackers and web seeds.
+   The original comment, creator and creation date aren't in the session and are missing
+ * TorrentHandle.makeMagnetUri() still works (2.1 removed make_magnet_uri(torrent_handle const&))
+ * new alerts: FilePrioritiesAlert (105), FileStatusAlert (106), IpBanAlert (107), AlertType FILE_PRIORITIES,
+   FILE_STATUS, IP_BAN; new TorrentHandle.postFilePriorities(), postFileStatus()
+ * new SessionParams.setPreadDiskIO(): libtorrent 2.1's multi-threaded pread() disk backend, which is also
+   its new default (setDefaultDiskIO()). 2.0's default was memory mapped files on 64-bit systems
+ * TorrentBuilder uses libtorrent 2.1's list_files() + create_torrent(create_file_entry list); its API is
+   unchanged. In the SWIG layer libtorrent.add_files_ex(file_storage, ...) is now list_files_ex(path, listener,
+   flags) returning a create_file_entry_vector, and create_torrent takes that instead of a file_storage
+ * breaking (libtorrent 2.1 removed BEP 17 HTTP seeds and per-web-seed auth/headers):
+   - removed TorrentHandle.addHttpSeed(), removeHttpSeed(), httpSeeds()
+   - removed TorrentInfo.addHttpSeed() (3 overloads), addUrlSeed(url, auth) and addUrlSeed(url, auth, headers)
+   - WebSeedEntry is a plain URL: new WebSeedEntry(String), no swig(); auth() and extraHeaders() are empty,
+     type() is always URL_SEED
+ * breaking (removed or deprecated upstream):
+   - removed TorrentInfo.renameFile(), remapFiles(), info(String); origFiles() is deprecated and returns
+     files(). Rename files with TorrentHandle.renameFile()
+   - removed FileStorage.renameFile() and FileStorage.hash(int)
+   - removed TorrentFlags.OVERRIDE_TRACKERS and OVERRIDE_WEB_SEEDS
+   - TorrentAlert.torrentName() is deprecated: libtorrent 2.1 no longer stores the name in the alert, so it
+     asks the session (a blocking call) and returns "" once the torrent is gone
+   - PeerLogAlert.eventType() is the name of the new event enum (PeerLogAlert.event()), upper case
+ * SWIG layer: session_handle.wait_for_alert_ms() returns boolean; peer_info's ip / local_endpoint fields are
+   remote_endpoint() / local_endpoint(); torrent_status.need_save_resume is need_save_resume_data (flags);
+   peer_alert's endpoint can be an i2p destination (get_endpoint_type(), get_i2p_destination());
+   torrent_info parsing constructors are gone (use libtorrent.load_torrent_buffer_ex()); new renamed_files,
+   create_file_entry(_vector), load_torrent_limits.max_directory_depth / max_duplicate_filenames, settings
+   apply_filter_to_dht and the webtorrent ones (WebTorrent itself isn't built)
+ * EnumNet and bloom_filter_128/256 keep their API: libtorrent 2.1 made them internal (aux::), the bindings wrap
+   those
+ * build: libtorrent is built with webtorrent=off (2.1 builds WebTorrent by default, which needs libdatachannel)
+   and with iostream on (2.1's logging writes a sha1_hash to a stringstream, upstream ff0ebd76c)
+ * lt: removed BEP 17 web seeds (in favor of BEP 19); new multi-threaded pread() disk I/O backend, the default
+ * lt: torrent_info holds only the info dictionary; trackers and web seeds live in add_torrent_params
+ * lt: new create-torrent API (list_files(), create_file_entry); remap_files() deprecated
+ * lt: resume data format optimized to use less space; configurable part file directory
+ * lt: i2p peer exchange; ip_ban_alert; post_file_status(), post_file_priorities(); max_directory_depth load
+   limit; option to skip v1 hash validation for hybrid torrents
+ * lt: fix wait_for_alert() race; fix tracker force announce; fix file priority updates lost in quick
+   succession; apply IP filter to DHT nodes; fix use-after-free reading a UPnP response; fix web seed SSRF
+   mitigation for IPv6; fix uTP sockets stalling on close; DHT storage flooding mitigation; several pread disk
+   I/O, merkle tree and i2p fixes (2.1.1, 2.1.2 and RC_2_1 after it)
 
 2.0.15.4 (unreleased)
  * fix: an application registering thousands of alert listeners (e.g. one per torrent) no longer crashes with
