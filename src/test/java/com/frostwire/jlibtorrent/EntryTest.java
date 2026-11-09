@@ -1,6 +1,5 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.boost_string_entry_map;
 import com.frostwire.jlibtorrent.swig.entry;
 import com.frostwire.jlibtorrent.swig.string_entry_map;
 import com.frostwire.jlibtorrent.swig.string_vector;
