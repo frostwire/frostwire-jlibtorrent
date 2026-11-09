@@ -35,6 +35,12 @@ rule libtorrent_linking ( properties * )
     # dynamic_cast (frostwire/frostwire-jlibtorrent#339).
     result += <rtti>on ;
     result += <optimization>off ;
+    # libtorrent 2.1 builds WebTorrent support (libdatachannel, deps/libdatachannel) by default.
+    # jlibtorrent doesn't wrap it, and its CMake-built dependencies don't cross-compile here.
+    result += <webtorrent>off ;
+    # libtorrent 2.1's logging writes a sha1_hash to a std::stringstream (src/torrent.cpp,
+    # upstream ff0ebd76c), which doesn't compile with BOOST_NO_IOSTREAM (<iostream>off below).
+    result += <iostream>on ;
 
     if <target-os>freebsd in $(properties)
     {
