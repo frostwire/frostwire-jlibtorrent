@@ -4,9 +4,11 @@
 
 End-to-end workflow for upgrading the underlying libtorrent C++ library in the frostwire-jlibtorrent Java/JNI bindings project. This skill covers the full lifecycle from version bump through SWIG regeneration, Java wrapper additions, native builds across all platforms, testing, and release.
 
-Use this skill whenever a new libtorrent `RC_2_0` commit needs to be integrated.
+Use this skill whenever a new libtorrent commit on the branch jlibtorrent tracks (`LIBTORRENT_BRANCH` in `swig/build-utils.shinc`) needs to be integrated.
 
-**Branch policy (2026-10-29):** jlibtorrent 2.0.x tracks `RC_2_0`. Upstream's default branch is now `RC_2_1` (v2.1.x), but that migration has ~20 binding breaks and a new default disk engine; it is planned for the FrostWire 7.2.x series in frostwire/frostwire-jlibtorrent#329, which lists the measured breaks. Don't drift onto `RC_2_1` during a 2.0.x upgrade.
+**Branch policy (2026-11-09):** jlibtorrent 2.1.x (branch `libtorrent-rc-2-1`, for FrostWire 7.2.x) tracks `RC_2_1`; jlibtorrent 2.0.x (`master` until 2.1 is merged) tracks `RC_2_0`. Don't mix them: a 2.0.x fix release stays on `RC_2_0`. The RC_2_0 -> RC_2_1 migration is frostwire/frostwire-jlibtorrent#329; what it changed is under "Lessons Learned (RC_2_1 migration)" below.
+
+**One libtorrent checkout:** the build scripts use `${SRC}/libtorrent` (`~/src/libtorrent`; the repo's `libtorrent` symlink points there). Check out the branch's pinned revision before building either line, and `git -C ~/src/libtorrent submodule update --init` (RC_2_1 adds `deps/libdatachannel`, which the build doesn't use).
 
 ---
 
@@ -36,7 +38,7 @@ Use this skill whenever a new libtorrent `RC_2_0` commit needs to be integrated.
 
 ## Step 1: Identify Target Commit and Version
 
-1. Determine the target `libtorrent` commit hash on `RC_2_0`.
+1. Determine the target `libtorrent` commit hash on the tracked branch (`RC_2_1` for 2.1.x, `RC_2_0` for 2.0.x).
 2. Check `include/libtorrent/version.hpp` in that commit to confirm MAJOR.MINOR.TINY.
 3. jlibtorrent version format: `{libtorrent MAJOR}.{libtorrent MINOR}.{libtorrent TINY}.{jlibtorrent patch}`
    - Example: libtorrent `2.0.12` + jlibtorrent patch `8` → version `2.0.12.9`
@@ -95,7 +97,7 @@ Ensure the local `libtorrent` repo is at the target commit before running SWIG. 
 cd ~/src/libtorrent
 git checkout -- include/libtorrent/alert.hpp   # only if the stale SWIG edit is there
 git fetch https://github.com/arvidn/libtorrent <commit>
-git checkout RC_2_0
+git checkout -B RC_2_1 <commit>   # RC_2_0 for a 2.0.x upgrade
 git reset --hard <commit>
 git submodule update --init
 ```
@@ -142,6 +144,18 @@ To judge a target, especially a new upstream branch, without building natives:
 4. Each `fatal error: 'libtorrent/X.hpp' file not found` hides everything after it. If `include/libtorrent/aux_/X.hpp` exists, add a shim `shim/libtorrent/X.hpp` containing `#include <libtorrent/aux_/X.hpp>`, add `-Ishim`, and repeat. Then group the errors by symbol.
 
 2026-10-29 result: RC_2_0 head had 0 errors; RC_2_1 at e5590c42a had 165 errors from about 20 causes (see #329).
+
+## Lessons Learned (RC_2_1 migration, eb397173d -> dcbd4b291, 2026-11-09)
+
+What broke and how 2.1.2.0 handled it, for the next branch move:
+- **Headers moved to `aux_/`** (`tracker_manager.hpp`, `enum_net.hpp`, `bloom_filter.hpp`, 50+ more). `event_t` is in `tracker_event.hpp`. `EnumNet` and `bloom_filter_128/256` (FrostWire desktop VPN detection, Android `NotifiedStorage`) keep their API: `libtorrent.hpp` calls `aux::` and aliases `libtorrent::bloom_filter` to `aux::bloom_filter`, because `%ignore libtorrent::aux;` in `ignores.i` hides anything declared in `aux` in a `.i` file.
+- **`torrent_info` is the info dictionary only.** Trackers, web seeds, nodes, comment, creator, creation date and piece layers come back from `load_torrent_buffer()` in an `add_torrent_params`. Every parsing constructor is deprecated (ABI < 4, compiled out). Java `TorrentInfo` keeps that `add_torrent_params`, and adding a torrent goes through `TorrentInfo.applyTo()` / `add_torrent_file_ex()`: adding only `ti` adds a torrent with no trackers. `ti_ptr()` returns a view into the params, so `swig()` is no longer owned (`swigRelease()` refuses it).
+- **`entry::dictionary_type` is a `boost::container::map`** (was `std::map`). Declaring it as `std::map` in `libtorrent_entry.i` compiles and silently corrupts every dictionary access (sizes of 2^60, missing keys). `swig/boost/boost_container_map.i` is SWIG's `std_map.i` for `boost::container::map`; `string_entry_map` kept its Java API. When a C++ type changes under a SWIG typedef, the C++ compiles and only the tests notice.
+- **Removed APIs that FrostWire calls got reimplemented, not dropped:** `torrent_file_with_hashes()` (from `piece_layers()` + trackers + web seeds, round-tripped through `load_torrent_buffer()`), `make_magnet_uri(torrent_handle)`, `torrent_alert::torrent_name()` (Java asks `status(query_name)`). BEP 17 HTTP seeds are gone for good.
+- **Build:** `<webtorrent>off` (2.1 builds libdatachannel by default; its CMake deps fail here) and `<iostream>on` (upstream ff0ebd76c streams a `sha1_hash` in logging code, which doesn't compile with `BOOST_NO_IOSTREAM`). Both are in `swig/Jamfile`.
+- **Alerts:** 105 `file_priorities_alert`, 106 `file_status_alert`, 107 `ip_ban_alert`; `num_alert_types` 108. A new alert needs `CAST_ALERT_METHOD` in `libtorrent_alert.i`, an `AlertType` entry and table slot, and an `Alerts` cast, or `Alerts.cast()` hits a null slot. Alert objects die at the next `pop_alerts`: tests must copy values inside the listener.
+- **`%ignore` order matters:** an `%ignore` for a member of an alert must be in `ignores.i` (before `alert_types.hpp` is parsed), not in the per-alert `.i` file included after it.
+- The Step 3b dry run listed the right causes, but `clang++ -fsyntax-only` passing is not the end: it took a full macOS build and the test suite to find the `entry` map, the webtorrent and the iostream problems.
 
 ## Step 4: Diff Review & Triage
 
@@ -327,7 +341,7 @@ In `changelog.txt`, document incrementally as you work — don't leave it to the
 **Format:**
 ```
 X.Y.Z.W YYYY/MMM/DD
- * libtorrent upgraded to <hash> (RC_2_0, N commits ahead of <old_hash>)
+ * libtorrent upgraded to <hash> (RC_2_1, N commits ahead of <old_hash>)
  * new SettingsPack.fooBar() getter/setter for ...
  * new TorrentInfo.bazQux() for v2-aware ...
  * build: add -frtti to macOS arm64 config (required by smart_ban.cpp dynamic_cast)
