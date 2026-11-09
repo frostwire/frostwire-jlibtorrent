@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.frostwire:jlibtorrent-android:2.0.15.3'
+    implementation 'com.frostwire:jlibtorrent-android:2.1.2.0'
 }
 ```
 
@@ -47,7 +47,7 @@ repositories {
 }
 
 dependencies {
-    def jlibtorrent_version = '2.0.15.0' // change version for latest
+    def jlibtorrent_version = '2.1.2.0' // change version for latest
 
     // ALL ARCHITECTURES need the java .class wrappers jlibtorrent.jar
     implementation 'com.frostwire:jlibtorrent:' + jlibtorrent_version

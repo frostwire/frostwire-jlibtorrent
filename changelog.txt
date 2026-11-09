@@ -1,3 +1,6 @@
+2.1.2.0 (unreleased)
+ * libtorrent upgraded to dcbd4b291 (RC_2_1, libtorrent 2.1.2), from eb397173d (RC_2_0, 2.0.15)
+
 2.0.15.4 (unreleased)
  * fix: an application registering thousands of alert listeners (e.g. one per torrent) no longer crashes with
    StackOverflowError when one is removed or an alert is dispatched: SessionManager keeps listeners in an array

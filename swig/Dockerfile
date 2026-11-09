@@ -42,8 +42,8 @@ RUN apt install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-c
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION="eb397173da6189dad52f008916c27419dde32faa"
-ENV LIBTORRENT_BRANCH="RC_2_0"
+ENV LIBTORRENT_REVISION="dcbd4b291da01e88879f91141548caf1e0a4a2cd"
+ENV LIBTORRENT_BRANCH="RC_2_1"
 ENV SWIG_VERSION="4.5.1"
 # sha256 of swig-${SWIG_VERSION}.tar.gz (the SourceForge release, mirrored on dl.frostwire.com)
 ENV SWIG_SHA256="7fec50b27deddab5455a9633780b6341eddfb96215a7619e93a76eb27178f653"
@@ -216,7 +216,7 @@ RUN rm -fr /src/libtorrent
 RUN cd /src \
     && git clone ${LIBTORRENT_REPO} \
     && cd libtorrent \
-    && git fetch origin RC_2_0 \
+    && git fetch origin ${LIBTORRENT_BRANCH} \
     && git reset --hard ${LIBTORRENT_REVISION} \
     && git submodule init \
     && git submodule update \

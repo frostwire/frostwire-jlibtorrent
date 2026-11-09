@@ -159,7 +159,7 @@ The `build-macos.sh` script automatically detects your Mac's architecture and ca
 ```
 Building libtorrent for macOS arm64...
 [... compilation output ...]
-Generated jlibtorrent-macosx-arm64-2.0.15.0.jar
+Generated jlibtorrent-macosx-arm64-2.1.2.0.jar
 ```
 
 ### Building Both macOS Architectures
@@ -334,10 +334,10 @@ docker rmi jlibtorrent-android
 **Android JAR dependencies:**
 Most Android projects need all four architectures:
 ```gradle
-implementation 'com.frostwire:jlibtorrent-android-arm:2.0.15.0'
-implementation 'com.frostwire:jlibtorrent-android-arm64:2.0.15.0'
-implementation 'com.frostwire:jlibtorrent-android-x86:2.0.15.0'
-implementation 'com.frostwire:jlibtorrent-android-x86_64:2.0.15.0'
+implementation 'com.frostwire:jlibtorrent-android-arm:2.1.2.0'
+implementation 'com.frostwire:jlibtorrent-android-arm64:2.1.2.0'
+implementation 'com.frostwire:jlibtorrent-android-x86:2.1.2.0'
+implementation 'com.frostwire:jlibtorrent-android-x86_64:2.1.2.0'
 ```
 
 ### Linux Builds
@@ -539,7 +539,7 @@ bash /build_android_all.sh
 Current build configuration:
 - **SWIG:** 4.3.1 (macOS builds)
 - **Android NDK:** r21e (Docker builds)
-- **libtorrent:** RC_2_0 branch (latest)
+- **libtorrent:** RC_2_1 branch (libtorrent 2.1.x)
 - **Boost:** Latest stable (managed by build system)
 
 ---
