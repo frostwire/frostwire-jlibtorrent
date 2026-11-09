@@ -47,6 +47,12 @@ namespace libtorrent {
             $self->disk_io_constructor = libtorrent::posix_disk_io_constructor;
         }
 
+        // libtorrent 2.1's multi-threaded pread()/pwrite() disk backend (its default on most platforms)
+        void set_pread_disk_io_constructor()
+        {
+            $self->disk_io_constructor = libtorrent::pread_disk_io_constructor;
+        }
+
         void set_default_disk_io_constructor()
         {
             $self->disk_io_constructor = libtorrent::default_disk_io_constructor;

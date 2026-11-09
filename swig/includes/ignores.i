@@ -111,6 +111,10 @@
 %ignore libtorrent::errors::make_error_code;
 %ignore libtorrent::external_ip_alert::external_address;
 %ignore libtorrent::file_progress_alert::files;
+%ignore libtorrent::file_status_alert::state;
+%ignore libtorrent::peer_alert::ep; // see libtorrent_peer_alert.i
+%ignore libtorrent::file_priorities_alert::priorities;
+%ignore libtorrent::ip_ban_alert::banned_address;
 %ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, std::uint32_t, std::time_t, string_view);
 %ignore libtorrent::file_storage::add_file;
 %ignore libtorrent::file_storage::add_file_borrow;
@@ -167,7 +171,6 @@
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::pieces;
-%ignore libtorrent::peer_log_alert::event_type;
 %ignore libtorrent::performance_alert::bittyrant_with_no_uplimit;
 %ignore libtorrent::performance_alert::deprecated_bittyrant_with_no_uplimit;
 %ignore libtorrent::performance_alert::performance_warning_t::bittyrant_with_no_uplimit;

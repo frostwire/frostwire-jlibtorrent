@@ -208,7 +208,7 @@ public class SessionManager {
      *     public void alert(Alert&lt;?&gt; alert) {
      *         if (alert instanceof BlockFinishedAlert) {
      *             BlockFinishedAlert a = (BlockFinishedAlert) alert;
-     *             System.out.println("Block downloaded for: " + a.torrentName());
+     *             System.out.println("Block downloaded for: " + a.handle().infoHash());
      *         }
      *     }
      * });
@@ -851,7 +851,7 @@ public class SessionManager {
             p = add_torrent_params.create_instance();
         }
 
-        p.set_ti(ti.swig());
+        ti.applyTo(p);
         if (saveDir != null) {
             p.setSave_path(saveDir.getAbsolutePath());
         }
@@ -1455,7 +1455,9 @@ public class SessionManager {
     }
 
     private boolean isFetchMagnetDownload(AddTorrentAlert alert) {
-        String name = alert.torrentName();
+        // the name fetchMagnet() gave the add_torrent_params (libtorrent 2.1 no longer keeps a
+        // torrent name in every torrent alert)
+        String name = alert.params().name();
         return name != null && name.contains(FETCH_MAGNET_DOWNLOAD_KEY);
     }
 
@@ -1500,13 +1502,14 @@ public class SessionManager {
                 alert_ptr_vector v = new alert_ptr_vector();
 
                 while (session != null) {
-                    alert ptr = session.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
+                    // libtorrent 2.1: true if an alert is pending
+                    boolean pending = session.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
 
                     if (session == null) {
                         return;
                     }
 
-                    if (ptr != null) {
+                    if (pending) {
                         session.pop_alerts(v);
                         long size = v.size();
                         for (int i = 0; i < size; i++) {

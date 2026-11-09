@@ -54,9 +54,8 @@
 #include <libtorrent/piece_block.hpp>
 #include <libtorrent/socket_type.hpp>
 #include <libtorrent/entry.hpp>
-//#include <libtorrent/tracker_event.hpp> // this exists on the 'master' branch
-// enum class event_t is defined in tracker_manager.hpp on the 2.0 branch
-#include <libtorrent/tracker_manager.hpp>
+// enum class event_t (libtorrent 2.1 moved tracker_manager.hpp to aux_/)
+#include <libtorrent/tracker_event.hpp>
 #include <libtorrent/alert.hpp>
 #include <libtorrent/alert_types.hpp>
 #include <libtorrent/settings_pack.hpp>
@@ -75,6 +74,9 @@
 #include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/write_resume_data.hpp>
 #include <libtorrent/posix_disk_io.hpp>
+#include <libtorrent/pread_disk_io.hpp>
+#include <libtorrent/load_torrent.hpp>
+#include <libtorrent/disk_interface.hpp>
 
 #include <libtorrent/hex.hpp>
 #include <libtorrent/bencode.hpp>
@@ -103,7 +105,6 @@ using file_slice = libtorrent::file_slice;
 using file_storage = libtorrent::file_storage;
 using info_hash_t = libtorrent::info_hash_t;
 using operation_t = libtorrent::operation_t;
-using peer_connection = libtorrent::peer_connection;
 using peer_info = libtorrent::peer_info;
 using peer_request = libtorrent::peer_request;
 using peer_source_flags_t = libtorrent::peer_source_flags_t;
@@ -140,7 +141,7 @@ using udp = libtorrent::udp;
 %include <std_map.i>
 %include <std_array.i>
 %include "includes/std_bitset.i"
-%include "boost/boost_map.i"
+%include "boost/boost_container_map.i"
 
 %apply std::int8_t { char };
 %apply std::int64_t { void* };
@@ -280,6 +281,7 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_dht_stats_alert.i"
 %include "includes/libtorrent_torrent_conflict_alert.i"
 %include "includes/libtorrent_file_progress_alert.i"
+%include "includes/libtorrent_file_status_alert.i"
 // END OF ALERTS TYPES
 
 %include "includes/libtorrent_settings_pack.i"
@@ -299,8 +301,8 @@ TYPE_INTEGRAL_CONVERSION_EX(peer_class_t, std::uint32_t, std::int32_t, int)
 %include "includes/libtorrent_read_resume_data.i"
 %include "includes/libtorrent_write_resume_data.i"
 
-//%include "includes/libtorrent_web_seed_entry.i"
-// when web_seed_entry.hpp is merged from master, currently web_seed_entry lives in torrent_info.hpp
+// web_seed_entry (libtorrent 2.1: web_seed_entry.hpp) is only used by deprecated torrent_info API and
+// isn't wrapped. Web seeds are add_torrent_params::url_seeds.
 
 %include "includes/libtorrent_bloom_filter.i"
 %include "includes/libtorrent_connection_type.i"

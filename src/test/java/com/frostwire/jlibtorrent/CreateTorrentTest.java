@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.frostwire.jlibtorrent.swig.libtorrent.add_files_ex;
+import static com.frostwire.jlibtorrent.swig.libtorrent.list_files_ex;
 import static com.frostwire.jlibtorrent.swig.libtorrent.set_piece_hashes_ex;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,7 +34,6 @@ public class CreateTorrentTest {
         }
         Utils.writeByteArrayToFile(f, data, false);
 
-        file_storage fs = new file_storage();
         add_files_listener l1 = new add_files_listener() {
             @Override
             public boolean pred(String p) {
@@ -43,11 +42,14 @@ public class CreateTorrentTest {
             }
         };
 
-        add_files_ex(fs, f.getAbsolutePath(), l1, new create_flags_t());
-        create_torrent ct = new create_torrent(fs); // hybrid torrent
+        // libtorrent 2.1: list_files() + create_torrent(files) replace add_files() + create_torrent(fs)
+        create_file_entry_vector entries = list_files_ex(f.getAbsolutePath(), l1, new create_flags_t());
+        assertEquals(1, entries.size());
+        assertEquals(1024 * 1024, entries.get(0).getSize());
+        create_torrent ct = new create_torrent(entries); // hybrid torrent
         //int autoPieceSize = 0;
-        //create_torrent ct = new create_torrent(fs, autoPieceSize, create_torrent.v1_only); // v1 only torrent
-        //create_torrent ct = new create_torrent(fs, autoPieceSize, create_torrent.v2_only); // v2 only torrent (shows truncated sha256 for the sha1)
+        //create_torrent ct = new create_torrent(entries, autoPieceSize, create_torrent.v1_only); // v1 only torrent
+        //create_torrent ct = new create_torrent(entries, autoPieceSize, create_torrent.v2_only); // v2 only torrent (shows truncated sha256 for the sha1)
         set_piece_hashes_listener piece_hash_listener = new set_piece_hashes_listener() {
             @Override
             public void progress(int i) {
@@ -76,8 +78,7 @@ public class CreateTorrentTest {
         for (int i = 0; i < files.numFiles(); i++) {
             String path = files.filePath(i);
             long size = files.fileSize(i);
-            Sha1Hash hash = files.hash(i);
-            System.out.println("File " + i + ": " + path + " (" + size + " bytes) - hash: " + hash + ")");
+            System.out.println("File " + i + ": " + path + " (" + size + " bytes)");
         }
         //now write the buffer to a file
         File torrentFile = new File("test.torrent");
@@ -105,15 +106,15 @@ public class CreateTorrentTest {
         File f2 = new File(dir, "test1.txt");
         Utils.writeByteArrayToFile(f2, new byte[]{0}, false);
 
-        file_storage fs = new file_storage();
         add_files_listener l1 = new add_files_listener() {
             @Override
             public boolean pred(String p) {
                 return true;
             }
         };
-        add_files_ex(fs, dir.getAbsolutePath(), l1, new create_flags_t());
-        create_torrent ct = new create_torrent(fs);
+        create_file_entry_vector entries = list_files_ex(dir.getAbsolutePath(), l1, new create_flags_t());
+        assertEquals(2, entries.size());
+        create_torrent ct = new create_torrent(entries);
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override
             public void progress(int i) {
@@ -154,14 +155,9 @@ public class CreateTorrentTest {
         assertEquals("creator", ti.creator());
 
         ArrayList<WebSeedEntry> seeds = ti.webSeeds();
-        for (WebSeedEntry e : seeds) {
-            if (e.type() == WebSeedEntry.Type.URL_SEED) {
-                assertEquals("http://urlseed/", e.url());
-            }
-            if (e.type() == WebSeedEntry.Type.HTTP_SEED) {
-                assertEquals("http://httpseed/", e.url());
-            }
-        }
+        assertEquals(1, seeds.size());
+        assertEquals("http://urlseed/", seeds.get(0).url());
+        assertEquals(WebSeedEntry.Type.URL_SEED, seeds.get(0).type());
 
         assertEquals("1.1.1.1", ti.nodes().get(0).first);
         assertEquals("udp://tracker/", ti.trackers().get(0).url());

@@ -68,7 +68,7 @@ public class NativeMemoryLeakTest {
         byte[] torrent = resource("/bittorrent-v2-test.torrent");
         // files() is a view into the torrent_info: both go once the view is unreachable
         assertFlat("TorrentInfo(byte[]).files() without delete()",
-                () -> new TorrentInfo(torrent).swig().files().num_files());
+                () -> new TorrentInfo(torrent).swig().layout().num_files());
     }
 
     private static void assertFlat(String what, Runnable op) throws Exception {

@@ -54,7 +54,8 @@ namespace libtorrent {
             $self->dht_direct_request(ep, e, libtorrent::client_data_t{(void*)userdata});
         }
 
-        alert* wait_for_alert_ms(std::int64_t max_wait) {
+        // libtorrent 2.1: true if an alert is pending, false on timeout
+        bool wait_for_alert_ms(std::int64_t max_wait) {
             return $self->wait_for_alert(libtorrent::milliseconds(max_wait));
         }
 

@@ -71,6 +71,14 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_read_piece(swigCPtr, this, piece);
   }
 
+  public void set_sequential_range(int first_piece, int last_piece) {
+    libtorrent_jni.torrent_handle_set_sequential_range__SWIG_0(swigCPtr, this, first_piece, last_piece);
+  }
+
+  public void set_sequential_range(int first_piece) {
+    libtorrent_jni.torrent_handle_set_sequential_range__SWIG_1(swigCPtr, this, first_piece);
+  }
+
   public boolean have_piece(int piece) {
     return libtorrent_jni.torrent_handle_have_piece(swigCPtr, this, piece);
   }
@@ -147,6 +155,10 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_post_file_progress(swigCPtr, this, file_progress_flags_t.getCPtr(flags), flags);
   }
 
+  public void post_file_status() {
+    libtorrent_jni.torrent_handle_post_file_status(swigCPtr, this);
+  }
+
   public void clear_error() {
     libtorrent_jni.torrent_handle_clear_error(swigCPtr, this);
   }
@@ -173,14 +185,6 @@ public class torrent_handle {
 
   public void remove_url_seed(String url) {
     libtorrent_jni.torrent_handle_remove_url_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
-  }
-
-  public void add_http_seed(String url) {
-    libtorrent_jni.torrent_handle_add_http_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
-  }
-
-  public void remove_http_seed(String url) {
-    libtorrent_jni.torrent_handle_remove_http_seed(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public boolean is_valid() {
@@ -271,8 +275,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_set_ssl_certificate__SWIG_1(swigCPtr, this, (certificate == null ? null : certificate.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (private_key == null ? null : private_key.getBytes(java.nio.charset.StandardCharsets.UTF_8)), (dh_params == null ? null : dh_params.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
-  public SWIGTYPE_p_std__shared_ptrT_libtorrent__torrent_info_t torrent_file_with_hashes() {
-    return new SWIGTYPE_p_std__shared_ptrT_libtorrent__torrent_info_t(libtorrent_jni.torrent_handle_torrent_file_with_hashes(swigCPtr, this), true);
+  public renamed_files get_renamed_files() {
+    return new renamed_files(libtorrent_jni.torrent_handle_get_renamed_files(swigCPtr, this), true);
   }
 
   public sha256_hash_vector_vector piece_layers() {
@@ -287,6 +291,10 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_piece_availability(swigCPtr, this, int_vector.getCPtr(avail), avail);
   }
 
+  public void post_file_priorities() {
+    libtorrent_jni.torrent_handle_post_file_priorities(swigCPtr, this);
+  }
+
   public void force_reannounce(int seconds, int idx, reannounce_flags_t arg2) {
     libtorrent_jni.torrent_handle_force_reannounce__SWIG_0(swigCPtr, this, seconds, idx, reannounce_flags_t.getCPtr(arg2), arg2);
   }
@@ -295,12 +303,24 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_force_reannounce__SWIG_1(swigCPtr, this, seconds, idx);
   }
 
+  public void force_reannounce(int seconds, String url, reannounce_flags_t arg2) {
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_2(swigCPtr, this, seconds, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), reannounce_flags_t.getCPtr(arg2), arg2);
+  }
+
+  public void force_reannounce(int seconds, String url) {
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_3(swigCPtr, this, seconds, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+  }
+
+  public void force_reannounce(int seconds, reannounce_flags_t arg1) {
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_4(swigCPtr, this, seconds, reannounce_flags_t.getCPtr(arg1), arg1);
+  }
+
   public void force_reannounce(int seconds) {
-    libtorrent_jni.torrent_handle_force_reannounce__SWIG_2(swigCPtr, this, seconds);
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_5(swigCPtr, this, seconds);
   }
 
   public void force_reannounce() {
-    libtorrent_jni.torrent_handle_force_reannounce__SWIG_3(swigCPtr, this);
+    libtorrent_jni.torrent_handle_force_reannounce__SWIG_6(swigCPtr, this);
   }
 
   public void force_dht_announce() {
@@ -317,6 +337,10 @@ public class torrent_handle {
 
   public void scrape_tracker() {
     libtorrent_jni.torrent_handle_scrape_tracker__SWIG_1(swigCPtr, this);
+  }
+
+  public void scrape_tracker(String url) {
+    libtorrent_jni.torrent_handle_scrape_tracker__SWIG_2(swigCPtr, this, (url == null ? null : url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
   }
 
   public void set_upload_limit(int limit) {
@@ -345,6 +369,14 @@ public class torrent_handle {
 
   public void connect_peer(tcp_endpoint adr) {
     libtorrent_jni.torrent_handle_connect_peer__SWIG_2(swigCPtr, this, tcp_endpoint.getCPtr(adr), adr);
+  }
+
+  public void connect_peer(sha256_hash i2p_dest, peer_source_flags_t source) {
+    libtorrent_jni.torrent_handle_connect_peer__SWIG_3(swigCPtr, this, sha256_hash.getCPtr(i2p_dest), i2p_dest, peer_source_flags_t.getCPtr(source), source);
+  }
+
+  public void connect_peer(sha256_hash i2p_dest) {
+    libtorrent_jni.torrent_handle_connect_peer__SWIG_4(swigCPtr, this, sha256_hash.getCPtr(i2p_dest), i2p_dest);
   }
 
   public void clear_peers() {
@@ -424,17 +456,17 @@ public class torrent_handle {
     return (cPtr == 0) ? null : new torrent_info(cPtr, false, this);
   }
 
-  public torrent_info torrent_file_with_hashes_copy() {
-    long cPtr = libtorrent_jni.torrent_handle_torrent_file_with_hashes_copy(swigCPtr, this);
-    return (cPtr == 0) ? null : new torrent_info(cPtr, true, this);
+  public add_torrent_params torrent_file_with_hashes_atp(error_code ec) {
+    return new add_torrent_params(libtorrent_jni.torrent_handle_torrent_file_with_hashes_atp(swigCPtr, this, error_code.getCPtr(ec), ec), true);
+  }
+
+  public String make_magnet_uri() {
+    byte[] bytes = libtorrent_jni.torrent_handle_make_magnet_uri(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public string_vector get_url_seeds() {
     return new string_vector(libtorrent_jni.torrent_handle_get_url_seeds(swigCPtr, this), true);
-  }
-
-  public string_vector get_http_seeds() {
-    return new string_vector(libtorrent_jni.torrent_handle_get_http_seeds(swigCPtr, this), true);
   }
 
   public void set_ssl_certificate_buffer2(byte_vector certificate, byte_vector private_key, byte_vector dh_params) {
@@ -494,17 +526,18 @@ public class torrent_handle {
   public final static status_flags_t query_torrent_file = new status_flags_t(libtorrent_jni.torrent_handle_query_torrent_file_get(), false);
   public final static status_flags_t query_name = new status_flags_t(libtorrent_jni.torrent_handle_query_name_get(), false);
   public final static status_flags_t query_save_path = new status_flags_t(libtorrent_jni.torrent_handle_query_save_path_get(), false);
+  public final static status_flags_t query_renamed_files = new status_flags_t(libtorrent_jni.torrent_handle_query_renamed_files_get(), false);
   public final static deadline_flags_t alert_when_available = new deadline_flags_t(libtorrent_jni.torrent_handle_alert_when_available_get(), false);
   public final static file_progress_flags_t piece_granularity = new file_progress_flags_t(libtorrent_jni.torrent_handle_piece_granularity_get(), false);
   public final static pause_flags_t graceful_pause = new pause_flags_t(libtorrent_jni.torrent_handle_graceful_pause_get(), false);
   public final static resume_data_flags_t flush_disk_cache = new resume_data_flags_t(libtorrent_jni.torrent_handle_flush_disk_cache_get(), false);
   public final static resume_data_flags_t save_info_dict = new resume_data_flags_t(libtorrent_jni.torrent_handle_save_info_dict_get(), false);
-  public final static resume_data_flags_t only_if_modified = new resume_data_flags_t(libtorrent_jni.torrent_handle_only_if_modified_get(), false);
   public final static resume_data_flags_t if_counters_changed = new resume_data_flags_t(libtorrent_jni.torrent_handle_if_counters_changed_get(), false);
   public final static resume_data_flags_t if_download_progress = new resume_data_flags_t(libtorrent_jni.torrent_handle_if_download_progress_get(), false);
   public final static resume_data_flags_t if_config_changed = new resume_data_flags_t(libtorrent_jni.torrent_handle_if_config_changed_get(), false);
   public final static resume_data_flags_t if_state_changed = new resume_data_flags_t(libtorrent_jni.torrent_handle_if_state_changed_get(), false);
   public final static resume_data_flags_t if_metadata_changed = new resume_data_flags_t(libtorrent_jni.torrent_handle_if_metadata_changed_get(), false);
+  public final static resume_data_flags_t only_if_modified = new resume_data_flags_t(libtorrent_jni.torrent_handle_only_if_modified_get(), false);
   public final static reannounce_flags_t ignore_min_interval = new reannounce_flags_t(libtorrent_jni.torrent_handle_ignore_min_interval_get(), false);
   public final static reannounce_flags_t high_priority = new reannounce_flags_t(libtorrent_jni.torrent_handle_high_priority_get(), false);
 }

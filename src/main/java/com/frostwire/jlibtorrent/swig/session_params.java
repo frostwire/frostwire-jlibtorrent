@@ -88,6 +88,15 @@ public class session_params {
     return (cPtr == 0) ? null : new settings_pack(cPtr, false, this);
   }
 
+  public void setFlags(session_flags_t value) {
+    libtorrent_jni.session_params_flags_set(swigCPtr, this, session_flags_t.getCPtr(value), value);
+  }
+
+  public session_flags_t getFlags() {
+    long cPtr = libtorrent_jni.session_params_flags_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new session_flags_t(cPtr, false, this);
+  }
+
   public void setDht_state(dht_state value) {
     libtorrent_jni.session_params_dht_state_set(swigCPtr, this, dht_state.getCPtr(value), value);
   }
@@ -141,6 +150,10 @@ public class session_params {
 
   public void set_posix_disk_io_constructor() {
     libtorrent_jni.session_params_set_posix_disk_io_constructor(swigCPtr, this);
+  }
+
+  public void set_pread_disk_io_constructor() {
+    libtorrent_jni.session_params_set_pread_disk_io_constructor(swigCPtr, this);
   }
 
   public void set_default_disk_io_constructor() {

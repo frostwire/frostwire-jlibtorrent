@@ -12,6 +12,7 @@
 #include <map>
 #include <algorithm>
 #include <iostream>
+#include <set>
 
 #include <boost/version.hpp>
 #include <openssl/opensslv.h>
@@ -25,7 +26,7 @@
 #include <libtorrent/aux_/cpuid.hpp>
 #include <libtorrent/kademlia/ed25519.hpp>
 #include <libtorrent/kademlia/item.hpp>
-#include <libtorrent/enum_net.hpp>
+#include <libtorrent/aux_/enum_net.hpp>
 #include <libtorrent/random.hpp>
 #include <libtorrent/session_stats.hpp>
 #include <libtorrent/session.hpp>
@@ -33,10 +34,20 @@
 #include <libtorrent/create_torrent.hpp>
 #include <libtorrent/read_resume_data.hpp>
 #include <libtorrent/write_resume_data.hpp>
+#include <libtorrent/load_torrent.hpp>
+#include <libtorrent/bencode.hpp>
+#include <libtorrent/posix_disk_io.hpp>
 #include <libtorrent/magnet_uri.hpp>
 #include <libtorrent/time.hpp>
-#include <libtorrent/bloom_filter.hpp>
+#include <libtorrent/aux_/bloom_filter.hpp>
 #include <libtorrent/peer_connection_handle.hpp>
+
+// libtorrent 2.1 moved bloom_filter into aux:: (internal API). FrostWire Android keeps a
+// bloom_filter_256 of notified torrents, so the bindings keep wrapping it under its 2.0 name.
+namespace libtorrent {
+    template <int N>
+    using bloom_filter = aux::bloom_filter<N>;
+}
 
 std::array<std::int8_t, 32> ed25519_create_seed() {
     auto seed = libtorrent::dht::ed25519_create_seed();
@@ -138,9 +149,12 @@ struct add_files_listener {
     }
 };
 
-void add_files_ex(libtorrent::file_storage& fs, std::string const& file,
+// libtorrent 2.1 replaced add_files(file_storage&, ...) with list_files(), which returns the files to
+// pass to the create_torrent constructor. A null listener adds every file.
+std::vector<libtorrent::create_file_entry> list_files_ex(std::string const& file,
                 add_files_listener* listener, libtorrent::create_flags_t flags) {
-    add_files(fs, file, std::bind(&add_files_listener::pred, listener, std::placeholders::_1), flags);
+    if (listener == nullptr) return libtorrent::list_files(file, flags);
+    return libtorrent::list_files(file, std::bind(&add_files_listener::pred, listener, std::placeholders::_1), flags);
 }
 
 // Not sure how or why libtorrent4j is using this, the create_file_entry structure
@@ -214,11 +228,11 @@ void set_piece_hashes_posix_disk_io(
         return;
     }
 
-    libtorrent::aux::session_settings sett;
+    libtorrent::settings_pack sett;
 
     set_piece_hashes(t, // create_torrent
         p, // path
-        sett, // session_settings
+        sett, // settings_pack (libtorrent 2.1; aux::session_settings in 2.0)
         libtorrent::posix_disk_io_constructor, // disk io constructor type
         std::bind(&set_piece_hashes_listener::progress_index, listener, std::placeholders::_1), // progress listener
         ec); // error_code
@@ -280,6 +294,134 @@ std::vector<std::int8_t> write_torrent_file_buf_ex(libtorrent::add_torrent_param
     return {v.begin(), v.end()};
 }
 
+// libtorrent 2.1 deprecated (ABI < 4) every torrent_info constructor that parses a .torrent file:
+// load_torrent_buffer() returns the info dictionary in ti, and the rest of the file (trackers, web
+// seeds, DHT nodes, comment, creator, creation date, v2 piece layers) in the add_torrent_params.
+libtorrent::add_torrent_params load_torrent_buffer_ex(std::vector<std::int8_t> const& buffer,
+    libtorrent::error_code& ec, libtorrent::load_torrent_limits const& cfg) {
+    return libtorrent::load_torrent_buffer({reinterpret_cast<char const*>(buffer.data()),
+        static_cast<std::ptrdiff_t>(buffer.size())}, ec, cfg);
+}
+
+libtorrent::add_torrent_params load_torrent_buffer_ex(std::vector<std::int8_t> const& buffer,
+    libtorrent::error_code& ec) {
+    return load_torrent_buffer_ex(buffer, ec, libtorrent::load_torrent_limits{});
+}
+
+// the same from native memory, e.g. a direct or memory-mapped java.nio.ByteBuffer
+libtorrent::add_torrent_params load_torrent_buffer_ptr(std::int64_t buffer_ptr, int size,
+    libtorrent::error_code& ec) {
+    return libtorrent::load_torrent_buffer({reinterpret_cast<char const*>(buffer_ptr),
+        static_cast<std::ptrdiff_t>(size)}, ec, libtorrent::load_torrent_limits{});
+}
+
+// Sets dst's torrent to the .torrent file loaded in src: its info dictionary, trackers, web seeds,
+// DHT nodes, comment, creator, creation date and v2 piece layers. In libtorrent 2.1 torrent_info holds
+// only the info dictionary, so adding a torrent with just ti would drop the rest of the .torrent file.
+// This merges them the way libtorrent 2.0 merged a torrent_info's own trackers and web seeds with
+// add_torrent_params': the .torrent's first, then dst's, unless resume data read into dst had its own
+// list (read_resume_data() sets deprecated_override_trackers / _web_seeds), which then wins.
+void add_torrent_file_ex(libtorrent::add_torrent_params& dst, libtorrent::add_torrent_params const& src) {
+    namespace tf = libtorrent::torrent_flags;
+    dst.ti = src.ti;
+    if (!(dst.flags & tf::deprecated_override_trackers)) {
+        std::vector<std::string> trackers = src.trackers;
+        std::vector<int> tiers = src.tracker_tiers;
+        tiers.resize(trackers.size(), 0);
+        for (std::size_t i = 0; i < dst.trackers.size(); ++i) {
+            if (std::find(trackers.begin(), trackers.end(), dst.trackers[i]) != trackers.end()) continue;
+            trackers.push_back(dst.trackers[i]);
+            tiers.push_back(i < dst.tracker_tiers.size() ? dst.tracker_tiers[i] : 0);
+        }
+        dst.trackers = std::move(trackers);
+        dst.tracker_tiers = std::move(tiers);
+    }
+    if (!(dst.flags & tf::deprecated_override_web_seeds)) {
+        std::vector<std::string> seeds = src.url_seeds;
+        for (auto const& u : dst.url_seeds)
+            if (std::find(seeds.begin(), seeds.end(), u) == seeds.end()) seeds.push_back(u);
+        dst.url_seeds = std::move(seeds);
+    }
+    if (dst.dht_nodes.empty()) dst.dht_nodes = src.dht_nodes;
+    if (dst.comment.empty()) dst.comment = src.comment;
+    if (dst.created_by.empty()) dst.created_by = src.created_by;
+    if (dst.creation_date == 0) dst.creation_date = src.creation_date;
+    if (dst.merkle_trees.empty()) {
+        dst.merkle_trees = src.merkle_trees;
+        dst.merkle_tree_mask = src.merkle_tree_mask;
+        dst.verified_leaf_hashes = src.verified_leaf_hashes;
+    }
+}
+
+// libtorrent 2.1 removed torrent_handle::torrent_file_with_hashes() (deprecated, ABI < 4). Build the
+// .torrent from the handle instead (its info dictionary, the v2 piece layers it has, its trackers and
+// web seeds) and load it back, so write_torrent_file() can write it. A v2 file whose piece layer
+// isn't complete yet (a magnet download) is left out: write_torrent_file() then fails for it, as
+// create_torrent(torrent_file_with_hashes()) did in 2.0. Without metadata, ec is set.
+libtorrent::add_torrent_params torrent_file_with_hashes_ex(libtorrent::torrent_handle const& th,
+    libtorrent::error_code& ec) {
+    std::shared_ptr<libtorrent::torrent_info const> ti = th.torrent_file();
+    if (!ti || !ti->is_valid()) {
+        ec = libtorrent::errors::torrent_missing_info;
+        return {};
+    }
+
+    libtorrent::entry e;
+    auto const info = ti->info_section();
+    e["info"].preformatted().assign(info.data(), info.data() + info.size());
+
+    std::vector<libtorrent::announce_entry> const trackers = th.trackers();
+    if (!trackers.empty()) {
+        e["announce"] = trackers.front().url;
+        libtorrent::entry::list_type& tiers = e["announce-list"].list();
+        int tier = -1;
+        for (auto const& t : trackers) {
+            if (tiers.empty() || t.tier != tier) {
+                tiers.emplace_back(libtorrent::entry::list_type());
+                tier = t.tier;
+            }
+            tiers.back().list().emplace_back(t.url);
+        }
+    }
+
+    std::set<std::string> const url_seeds = th.url_seeds();
+    if (!url_seeds.empty()) {
+        libtorrent::entry::list_type& l = e["url-list"].list();
+        for (auto const& u : url_seeds) l.emplace_back(u);
+    }
+
+    if (ti->v2()) {
+        libtorrent::file_storage const& fs = ti->layout();
+        std::vector<std::vector<libtorrent::sha256_hash>> const layers = th.piece_layers();
+        libtorrent::entry::dictionary_type& pl = e["piece layers"].dict();
+        for (libtorrent::file_index_t f : fs.file_range()) {
+            int const i = static_cast<int>(f);
+            if (fs.pad_file_at(f) || fs.file_size(f) <= fs.piece_length()) continue;
+            if (i >= int(layers.size()) || int(layers[std::size_t(i)].size()) != fs.file_num_pieces(f)) continue;
+            std::string& layer = pl[fs.root(f).to_string()].string();
+            if (!layer.empty()) continue; // files with the same content share a root
+            for (auto const& h : layers[std::size_t(i)]) layer += h.to_string();
+        }
+        if (pl.empty()) e.dict().erase("piece layers");
+    }
+
+    std::vector<char> buf;
+    libtorrent::bencode(std::back_inserter(buf), e);
+    return libtorrent::load_torrent_buffer(buf, ec, libtorrent::load_torrent_limits{});
+}
+
+// libtorrent 2.1 removed make_magnet_uri(torrent_handle const&) (deprecated, ABI < 4); this is the
+// same link from the same blocking queries: info hashes, name, trackers and web seeds.
+std::string make_magnet_uri_ex(libtorrent::torrent_handle const& th) {
+    if (!th.is_valid()) return "";
+    libtorrent::add_torrent_params atp;
+    atp.info_hashes = th.info_hashes();
+    atp.name = th.status(libtorrent::torrent_handle::query_name).name;
+    for (auto const& t : th.trackers()) atp.trackers.push_back(t.url);
+    for (auto const& u : th.url_seeds()) atp.url_seeds.push_back(u);
+    return libtorrent::make_magnet_uri(atp);
+}
+
 libtorrent::add_torrent_params parse_magnet_uri(std::string const& uri, libtorrent::error_code& ec) {
     return libtorrent::parse_magnet_uri(uri, ec);
 }
@@ -310,7 +452,7 @@ std::vector<ip_interface> enum_net_interfaces(libtorrent::session* s)
 {
     std::vector<ip_interface> ret;
     boost::system::error_code ec;
-    auto v = libtorrent::enum_net_interfaces(s->get_context(), ec);
+    auto v = libtorrent::aux::enum_net_interfaces(s->get_context(), ec);
     for (auto& e : v)
     {
         ip_interface iface;
@@ -329,7 +471,7 @@ std::vector<ip_route> enum_routes(libtorrent::session* s)
 {
     std::vector<ip_route> ret;
     boost::system::error_code ec;
-    auto v = libtorrent::enum_routes(s->get_context(), ec);
+    auto v = libtorrent::aux::enum_routes(s->get_context(), ec);
     for (auto& e : v)
     {
         ip_route r;
@@ -360,7 +502,7 @@ void copy_byte_vector_to_char_array(std::vector<std::int8_t> source, char* targe
 libtorrent::address get_gateway(ip_interface const& iface
     , std::vector<ip_route>& routes)
 {
-    libtorrent::ip_interface lt_iface{};
+    libtorrent::aux::ip_interface lt_iface{};
     lt_iface.interface_address = iface.interface_address;
     lt_iface.netmask = iface.netmask;
     lt_iface.preferred = iface.preferred;
@@ -369,9 +511,9 @@ libtorrent::address get_gateway(ip_interface const& iface
     mem_copy(iface.friendly_name, lt_iface.friendly_name, 128);
     mem_copy(iface.description, lt_iface.description, 128);
 
-    std::vector<libtorrent::ip_route> lt_routes;
+    std::vector<libtorrent::aux::ip_route> lt_routes;
     for (auto const& r : routes) {
-        libtorrent::ip_route lt_ip_route{};
+        libtorrent::aux::ip_route lt_ip_route{};
         lt_ip_route.destination = r.destination;
         lt_ip_route.netmask = r.netmask;
         lt_ip_route.gateway = r.gateway;
@@ -381,14 +523,14 @@ libtorrent::address get_gateway(ip_interface const& iface
         lt_routes.push_back(lt_ip_route);
     }
 
-    return libtorrent::get_gateway(lt_iface, lt_routes)
+    return libtorrent::aux::get_gateway(lt_iface, lt_routes)
         .value_or(libtorrent::address{});
 }
 
 std::string device_for_address(libtorrent::session* s
     , libtorrent::address addr, boost::system::error_code& ec)
 {
-    return libtorrent::device_for_address(addr, s->get_context(), ec);
+    return libtorrent::aux::device_for_address(addr, s->get_context(), ec);
 }
 
 struct list_files_listener

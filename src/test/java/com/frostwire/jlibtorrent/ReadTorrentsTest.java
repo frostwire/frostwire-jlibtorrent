@@ -28,8 +28,7 @@ public class ReadTorrentsTest {
             String file_name = file_storage.fileName(i);
             String file_path = file_storage.filePath(i);
             long file_size = file_storage.fileSize(i);
-            Sha1Hash hash = file_storage.hash(i);
-            System.out.println("readHybridTorrent: file[" + i + "]: name: " + file_name + ", path: " + file_path + ", size: " + file_size + ", hash: " + hash);
+            System.out.println("readHybridTorrent: file[" + i + "]: name: " + file_name + ", path: " + file_path + ", size: " + file_size);
         }
     }
 
@@ -53,8 +52,7 @@ public class ReadTorrentsTest {
             String file_name = file_storage.fileName(i);
             String file_path = file_storage.filePath(i);
             long file_size = file_storage.fileSize(i);
-            Sha1Hash hash = file_storage.hash(i);
-            System.out.println("readV2Torrent: file[" + i + "]: name: " + file_name + ", path: " + file_path + ", size: " + file_size + ", hash: " + hash);
+            System.out.println("readV2Torrent: file[" + i + "]: name: " + file_name + ", path: " + file_path + ", size: " + file_size);
         }
     }
 
@@ -77,8 +75,7 @@ public class ReadTorrentsTest {
             String file_name = file_storage.fileName(i);
             String file_path = file_storage.filePath(i);
             long file_size = file_storage.fileSize(i);
-            Sha1Hash hash = file_storage.hash(i);
-            System.out.println("readV1Torrent: file[" + i + "]: name: " + file_name + ", path: " + file_path + ", size: " + file_size + ", hash: " + hash);
+            System.out.println("readV1Torrent: file[" + i + "]: name: " + file_name + ", path: " + file_path + ", size: " + file_size);
         }
     }
 }

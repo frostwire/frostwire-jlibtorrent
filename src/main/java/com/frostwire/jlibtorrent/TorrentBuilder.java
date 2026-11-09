@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.frostwire.jlibtorrent.swig.libtorrent.add_files_ex;
+import static com.frostwire.jlibtorrent.swig.libtorrent.list_files_ex;
 import static com.frostwire.jlibtorrent.swig.libtorrent.set_piece_hashes_ex;
 
 /**
@@ -566,37 +566,36 @@ public final class TorrentBuilder {
 
         File absPath = path.getAbsoluteFile();
 
-        file_storage fs = new file_storage();
+        // libtorrent 2.1: list_files() collects the files, and create_torrent copies that list.
         add_files_listener l1 = new add_files_listener() {
             @Override
             public boolean pred(String p) {
                 return listener == null || listener.accept(p);
             }
         };
+        create_file_entry_vector files;
         try {
-            add_files_ex(fs, absPath.getPath(), l1, flags);
+            files = list_files_ex(absPath.getPath(), l1, flags);
         } finally {
             // Listeners are directors, which only delete() frees (frostwire/frostwire-jlibtorrent#337).
-            // add_files_ex() is done with it.
+            // list_files_ex() is done with it.
             l1.delete();
         }
-        if (fs.total_size() == 0) {
+        long totalSize = 0;
+        for (int i = 0; i < files.size(); i++) {
+            totalSize += files.get(i).getSize();
+        }
+        if (totalSize == 0) {
+            files.delete();
             throw new IOException("content total size can't be 0");
         }
 
-        /*
-         TODO: refactor to use list_files_ex instead of add_files_ex when libtorrent master is merged onto 2.0
-         See in libtorrent: https://github.com/arvidn/libtorrent/blob/master/include/libtorrent/create_torrent.hpp#L582
-         See commented code in libtorrent.hpp: std::vector<libtorrent::create_file_entry> list_files_ex(
-         create_file_entry_vector files = list_files_ex(fs, absPath.getPath(), l1);
-        if (files.size() == 0) {
-            throw new IOException("content files can't be empty");
+        create_torrent t;
+        try {
+            t = new create_torrent(files, pieceSize, flags);
+        } finally {
+            files.delete();
         }
-        create_torrent t = new create_torrent(files, pieceSize, flags);
-        */
-
-        // t keeps a reference to fs: the create_torrent proxy keeps fs reachable.
-        create_torrent t = new create_torrent(fs, pieceSize, flags);
         final int numPieces = t.num_pieces();
         set_piece_hashes_listener l2 = new set_piece_hashes_listener() {
             @Override

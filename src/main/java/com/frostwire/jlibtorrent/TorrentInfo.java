@@ -60,24 +60,22 @@ import java.util.List;
  * </pre>
  * <p>
  * <b>Modifying Torrent Metadata:</b>
- * You can modify certain metadata before adding to a session:
+ * You can modify the metadata outside the info dictionary before adding the torrent to a session:
  * <pre>
  * TorrentInfo ti = new TorrentInfo(torrentFile);
  *
  * // Add additional trackers
  * ti.addTracker("http://backup-tracker.example.com:8080/announce", 1);
- *
- * // Rename a file in the torrent
- * ti.renameFile(0, "better-name.iso");
- *
- * // Change how pieces map to files
- * FileStorage fs = ti.files();
- * ti.remapFiles(fs);
  * </pre>
  * <p>
+ * <b>libtorrent 2.1:</b> libtorrent's {@code torrent_info} holds only the info dictionary. The rest
+ * of a .torrent file (trackers, web seeds, DHT nodes, comment, creator, creation date and v2 piece
+ * layers) comes back from {@code load_torrent_buffer()} in an {@code add_torrent_params}, which this
+ * class keeps next to it. A {@code TorrentInfo} made from a bare {@link torrent_info}, such as
+ * {@link TorrentHandle#torrentFile()}, has none of that until you add it.
+ * <p>
  * <b>Thread Safety:</b>
- * TorrentInfo is immutable once created and thread-safe for concurrent reads.
- * However, methods like  and  modify state,
+ * Reading is thread-safe. The methods that add trackers, web seeds or nodes change state,
  * so synchronization is needed if shared across threads.
  *
  * @see SessionManager#download(TorrentInfo, File) - To start downloading
@@ -93,8 +91,26 @@ public final class TorrentInfo {
 
     private final torrent_info ti;
 
+    // the .torrent file's metadata outside the info dictionary (libtorrent 2.1), with ti in its ti
+    // field; created on first use for a TorrentInfo made from a bare torrent_info
+    private add_torrent_params atp;
+
     public TorrentInfo(torrent_info ti) {
         this.ti = ti;
+    }
+
+    /**
+     * @param atp what {@code load_torrent_buffer()} (or {@code load_torrent_file()},
+     *            {@code read_resume_data()}) returned: its {@code ti} must be set
+     */
+    public TorrentInfo(add_torrent_params atp) {
+        torrent_info t = atp.ti_ptr();
+        if (t == null) {
+            throw new IllegalArgumentException("add_torrent_params has no torrent_info");
+        }
+        // t is a view into atp, and keeps it reachable
+        this.ti = t;
+        this.atp = atp;
     }
 
     /**
@@ -122,94 +138,70 @@ public final class TorrentInfo {
     }
 
     public TorrentInfo(MappedByteBuffer buffer) {
-        try {
-            long ptr = libtorrent_jni.directBufferAddress(buffer);
-            long size = libtorrent_jni.directBufferCapacity(buffer);
-
-            error_code ec = new error_code();
-            try {
-                this.ti = new torrent_info(ptr, (int) size, ec);
-
-                if (ec.value() != 0) {
-                    throw new IllegalArgumentException("Can't decode data: " + ec.message());
-                }
-            } finally {
-                ec.delete();
-            }
-        } catch (Throwable e) {
-            throw new IllegalArgumentException("Can't decode data mapped buffer: " + e.getMessage(), e);
-        }
+        this(load0(buffer));
     }
 
     /**
-     * @return the native object
+     * @return the native object: the info dictionary only, see the class documentation
      */
     public torrent_info swig() {
         return this.ti;
     }
 
     /**
-     * The  object contains the information on
-     * how to map the pieces to files.
+     * The native {@code add_torrent_params} holding this torrent's info dictionary ({@code ti}) and
+     * the rest of its .torrent file: trackers, web seeds, DHT nodes, comment, creator, creation
+     * date and v2 piece layers. Changes made through it show in this object.
+     *
+     * @return the native object, created on first use
+     */
+    public add_torrent_params swigParams() {
+        if (atp == null) {
+            add_torrent_params p = add_torrent_params.create_instance();
+            p.set_ti(ti);
+            atp = p;
+        }
+        return atp;
+    }
+
+    /**
+     * Sets {@code p}'s torrent to this one: its info dictionary, and the trackers, web seeds, DHT
+     * nodes, comment, creator, creation date and v2 piece layers {@code p} doesn't have already
+     * (resume data read into {@code p} keeps its own). In libtorrent 2.1 the info dictionary alone
+     * has no trackers, so a torrent added with only {@code set_ti()} would have none.
+     *
+     * @param p the parameters to add a torrent with
+     */
+    void applyTo(add_torrent_params p) {
+        if (atp == null) {
+            p.set_ti(ti);
+        } else {
+            libtorrent.add_torrent_file_ex(p, atp);
+        }
+    }
+
+    /**
+     * The files of the torrent and how its pieces map to them.
      * <p>
-     * It is separated from the  object because when creating torrents
-     * a storage object needs to be created without having a torrent file. When renaming files
-     * in a storage, the storage needs to make its own copy of the  in order
-     * to make its mapping differ from the one in the torrent file.
+     * In libtorrent 2.1 this is the torrent's own, immutable layout ({@code torrent_info::layout()}):
+     * file renames live in the torrent ({@link TorrentHandle#renameFile(int, String)}), not here.
      *
      * @return the files storage
      */
     public FileStorage files() {
-        return new FileStorage(ti.files(), ti);
+        return new FileStorage(ti.layout(), ti);
     }
 
     /**
-     * Returns the original (unmodified) file storage for this torrent. This
-     * is used by the web server connection, which needs to request files with the original
-     * names. Filename may be changed using .
+     * Same as {@link #files()}: libtorrent 2.1 no longer renames files in a torrent_info, so the
+     * original and current file storage are the same.
      *
-     * @return the original file storage
+     * @return the file storage
+     * @deprecated use {@link #files()}
      */
+    @Deprecated
     public FileStorage origFiles() {
-        return new FileStorage(ti.orig_files(), ti);
-    }
-
-    /**
-     * Renames a the file with the specified index to the new name. The new
-     * filename is reflected by the  returned by 
-     * but not by the one returned by .
-     * <p>
-     * If you want to rename the base name of the torrent (for a multifile
-     * torrent), you can copy the {@code FileStorage} (see  and
-     *  ), change the name, and then use
-     * .
-     * <p>
-     * The {@code newFilename} can both be a relative path, in which case the
-     * file name is relative to the {@code savePath} of the torrent. If the
-     * {@code newFilename} is an absolute path then the file is detached from
-     * the {@code savePath} of the torrent. In this case the file is not moved when
-     * {@link TorrentHandle#moveStorage(String, MoveFlags)} is invoked.
-     *
-     * @param index       the file index to rename
-     * @param newFilename the new file name
-     */
-    public void renameFile(int index, String newFilename) {
-        ti.rename_file(index, newFilename);
-    }
-
-    /**
-     * Remaps the file storage to a new file layout. This can be used to, for
-     * instance, download all data in a torrent to a single file, or to a
-     * number of fixed size sector aligned files, regardless of the number
-     * and sizes of the files in the torrent.
-     * <p>
-     * The new specified  must have the exact same size as
-     * the current one.
-     *
-     * @param f the file storage
-     */
-    public void remapFiles(FileStorage f) {
-        ti.remap_files(f.swig());
+        return files();
     }
 
     /**
@@ -218,7 +210,7 @@ public final class TorrentInfo {
      * @param url the tracker url
      */
     public void addTracker(String url) {
-        ti.add_tracker(url);
+        addTracker(url, 0);
     }
 
     /**
@@ -229,7 +221,17 @@ public final class TorrentInfo {
      * @param tier the tracker tier
      */
     public void addTracker(String url, int tier) {
-        ti.add_tracker(url, tier);
+        add_torrent_params p = swigParams();
+        string_vector urls = p.get_trackers();
+        int_vector tiers = p.get_tracker_tiers();
+        // tracker_tiers may be shorter than trackers: a missing tier is 0
+        while (tiers.size() < urls.size()) {
+            tiers.add(0);
+        }
+        urls.add(url);
+        tiers.add(tier);
+        p.set_trackers(urls);
+        p.set_tracker_tiers(tiers);
     }
 
     /**
@@ -242,7 +244,20 @@ public final class TorrentInfo {
      * @return the list of trackers
      */
     public ArrayList<AnnounceEntry> trackers() {
-        return trackers(ti.trackers());
+        ArrayList<AnnounceEntry> l = new ArrayList<>();
+        if (atp == null) {
+            return l;
+        }
+        string_vector urls = atp.get_trackers();
+        int_vector tiers = atp.get_tracker_tiers();
+        for (int i = 0; i < urls.size(); i++) {
+            AnnounceEntry e = new AnnounceEntry(urls.get(i));
+            e.tier((short) (i < tiers.size() ? tiers.get(i) : 0));
+            l.add(e);
+        }
+        // sorted by tier, as torrent_info::trackers() was in libtorrent 2.0 (a stable sort)
+        l.sort((x, y) -> Integer.compare(x.tier(), y.tier()));
+        return l;
     }
 
     /**
@@ -291,132 +306,43 @@ public final class TorrentInfo {
      * Clear the internal list of trackers.
      */
     public void clearTrackers() {
-        ti.trackers().clear();
+        if (atp != null) {
+            atp.set_trackers(new string_vector());
+            atp.set_tracker_tiers(new int_vector());
+        }
     }
 
     /**
-     * Adds one url to the list of url seeds. Currently, the only transport protocol
-     * supported for the url is http.
+     * Adds a web seed (BEP 19, "url-list"): an HTTP server with the torrent's files.
+     * <p>
+     * libtorrent 2.1 removed BEP 17 HTTP seeds and per-web-seed authentication and headers, so
+     * the {@code addHttpSeed} methods and the {@code addUrlSeed} overloads taking them are gone.
      *
-     * @param url
-     * @see #addHttpSeed(String, String)
+     * @param url the web seed's URL
      */
     public void addUrlSeed(String url) {
-        ti.add_url_seed(url);
-    }
-
-    /**
-     * Adds one url to the list of url seeds. Currently, the only transport protocol
-     * supported for the url is http.
-     * <p>
-     * The {@code externAuth} argument can be used for other authorization schemes than
-     * basic HTTP authorization. If set, it will override any username and password
-     * found in the URL itself. The string will be sent as the HTTP authorization header's
-     * value (without specifying "Basic").
-     * <p>
-     * This is the same as calling  with an
-     * empty list.
-     *
-     * @param url
-     * @param externAuth
-     */
-    public void addUrlSeed(String url, String externAuth) {
-        ti.add_url_seed(url, externAuth);
-    }
-
-    /**
-     * Adds one url to the list of url seeds. Currently, the only transport protocol
-     * supported for the url is http.
-     * <p>
-     * The {@code externAuth} argument can be used for other authorization schemes than
-     * basic HTTP authorization. If set, it will override any username and password
-     * found in the URL itself. The string will be sent as the HTTP authorization header's
-     * value (without specifying "Basic").
-     * <p>
-     * The {@code extraHeaders} argument can be used to insert custom HTTP headers
-     * in the requests to a specific web seed.
-     *
-     * @param url
-     * @param externAuth
-     * @param extraHeaders
-     */
-    public void addUrlSeed(String url, String externAuth, List<Pair<String, String>> extraHeaders) {
-        string_string_pair_vector v = new string_string_pair_vector();
-
-        for (Pair<String, String> p : extraHeaders) {
-            v.add(p.to_string_string_pair());
+        add_torrent_params p = swigParams();
+        string_vector v = p.get_url_seeds();
+        if (!v.contains(url)) {
+            v.add(url);
+            p.set_url_seeds(v);
         }
-
-        ti.add_url_seed(url, externAuth, v);
     }
 
     /**
-     * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
-     * is http.
-     *
-     * @param url
-     */
-    public void addHttpSeed(String url) {
-        ti.add_url_seed(url);
-    }
-
-    /**
-     * Adds one url to the list of http seeds. Currently, the only transport protocol supported for the url
-     * is http.
-     * <p>
-     * The {@code externAuth} argument can be used for other authorization schemes than
-     * basic HTTP authorization. If set, it will override any username and password
-     * found in the URL itself. The string will be sent as the HTTP authorization header's
-     * value (without specifying "Basic").
-     *
-     * @param url
-     * @param externAuth
-     */
-    public void addHttpSeed(String url, String externAuth) {
-        ti.add_url_seed(url, externAuth);
-    }
-
-    /**
-     * Adds one url to the list of http seeds. Currently, the only transport protocol supported
-     * for the url is http.
-     * <p>
-     * The {@code externAuth} argument can be used for other authorization schemes than
-     * basic HTTP authorization. If set, it will override any username and password
-     * found in the URL itself. The string will be sent as the HTTP authorization header's
-     * value (without specifying "Basic").
-     * <p>
-     * The {@code extraHeaders} argument defaults to an empty list, but can be used to
-     * insert custom HTTP headers in the requests to a specific web seed.
-     *
-     * @param url
-     * @param externAuth
-     * @param extraHeaders
-     */
-    public void addHttpSeed(String url, String externAuth, List<Pair<String, String>> extraHeaders) {
-        string_string_pair_vector v = new string_string_pair_vector();
-
-        for (Pair<String, String> p : extraHeaders) {
-            v.add(p.to_string_string_pair());
-        }
-
-        ti.add_url_seed(url, externAuth, v);
-    }
-
-    /**
-     * Returns all url seeds and http seeds in the torrent. Each entry
-     * is a  and may refer to either a url seed or http seed.
+     * Returns the web seeds (BEP 19) of the torrent.
      *
      * @return the list of web seeds
      */
     public ArrayList<WebSeedEntry> webSeeds() {
-        web_seed_entry_vector v = ti.web_seeds();
-        int size = (int) v.size();
-
-        ArrayList<WebSeedEntry> l = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
+        ArrayList<WebSeedEntry> l = new ArrayList<>();
+        if (atp == null) {
+            return l;
+        }
+        string_vector v = atp.get_url_seeds();
+        for (int i = 0; i < v.size(); i++) {
             l.add(new WebSeedEntry(v.get(i)));
         }
-
         return l;
     }
 
@@ -427,13 +353,11 @@ public final class TorrentInfo {
      * @param seeds the list of web seeds
      */
     public void setWebSeeds(List<WebSeedEntry> seeds) {
-        web_seed_entry_vector v = new web_seed_entry_vector();
-
+        string_vector v = new string_vector();
         for (WebSeedEntry e : seeds) {
-            v.add(e.swig());
+            v.add(e.url());
         }
-
-        ti.set_web_seeds(v);
+        swigParams().set_url_seeds(v);
     }
 
     /**
@@ -773,7 +697,7 @@ public final class TorrentInfo {
      * @return the time
      */
     public long creationDate() {
-        return ti.creation_date();
+        return atp != null ? atp.getCreation_date() : 0;
     }
 
     /**
@@ -783,7 +707,7 @@ public final class TorrentInfo {
      * @return the creator
      */
     public String creator() {
-        return ti.creator();
+        return atp != null ? atp.getCreated_by() : "";
     }
 
     /**
@@ -795,7 +719,7 @@ public final class TorrentInfo {
      * @return the comment
      */
     public String comment() {
-        return ti.comment();
+        return atp != null ? atp.getComment() : "";
     }
 
     /**
@@ -805,7 +729,10 @@ public final class TorrentInfo {
      * @return
      */
     public ArrayList<Pair<String, Integer>> nodes() {
-        string_int_pair_vector v = ti.nodes();
+        if (atp == null) {
+            return new ArrayList<>(0);
+        }
+        string_int_pair_vector v = atp.get_dht_nodes();
         int size = (int) v.size();
 
         ArrayList<Pair<String, Integer>> l = new ArrayList<>(size);
@@ -826,19 +753,10 @@ public final class TorrentInfo {
      * @param port
      */
     public void addNode(String host, int port) {
-        ti.add_node(new string_int_pair(host, port));
-    }
-
-    /**
-     * This function looks up keys from the info-dictionary of the loaded
-     * torrent file. It can be used to access extension values put in the
-     * .torrent file. If the specified key cannot be found, it returns NULL.
-     *
-     * @param key
-     * @return
-     */
-    public bdecode_node info(String key) {
-        return ti.info(key);
+        add_torrent_params p = swigParams();
+        string_int_pair_vector v = p.get_dht_nodes();
+        v.add(new string_int_pair(host, port));
+        p.set_dht_nodes(v);
     }
 
     /**
@@ -849,7 +767,7 @@ public final class TorrentInfo {
      *
      */
     public String makeMagnetUri() {
-        return ti.is_valid() ? libtorrent.make_magnet_uri(ti) : null;
+        return ti.is_valid() ? libtorrent.make_magnet_uri(swigParams()) : null;
     }
 
     /**
@@ -865,12 +783,24 @@ public final class TorrentInfo {
      *         are missing; the message is libtorrent's
      */
     public Entry toEntry() {
+        return new Entry(writeTorrentFile());
+    }
+
+    private entry writeTorrentFile() {
         try {
-            return new Entry(new create_torrent(ti).generate());
+            // DHT nodes too, as libtorrent 2.0's create_torrent(torrent_info) wrote them
+            entry e = libtorrent.write_torrent_file(swigParams(), libtorrent.getInclude_dht_nodes());
+            // libtorrent 2.1 writes "announce" only for a single tracker. Write the first one next
+            // to "announce-list" as well, as 2.0 did, for clients that don't read announce-list
+            ArrayList<AnnounceEntry> trackers = trackers();
+            if (!trackers.isEmpty() && !e.dict().containsKey("announce")) {
+                e.set("announce", trackers.get(0).url());
+            }
+            return e;
         } catch (IllegalStateException e) {
             throw e;
         } catch (RuntimeException e) {
-            // create_torrent::generate() reports a torrent it can't write by throwing, which SWIG
+            // write_torrent_file() reports a torrent it can't write by throwing, which SWIG
             // turns into a bare RuntimeException (frostwire/frostwire-jlibtorrent#333).
             throw new IllegalStateException("Can't write this torrent: " + e.getMessage(), e);
         }
@@ -894,6 +824,22 @@ public final class TorrentInfo {
         return new TorrentInfo(bdecode0(data));
     }
 
+    /**
+     * Loads a .torrent file's bytes with libtorrent's default load limits.
+     *
+     * @param data the .torrent file
+     * @param ec   set to the error, if any
+     * @return the torrent: the info dictionary in its {@code ti}, without one on error
+     */
+    static add_torrent_params loadTorrentBuffer(byte[] data, error_code ec) {
+        byte_vector buffer = Vectors.bytes2byte_vector(data);
+        try {
+            return libtorrent.load_torrent_buffer_ex(buffer, ec);
+        } finally {
+            buffer.delete();
+        }
+    }
+
     // helper function
     static ArrayList<AnnounceEntry> trackers(announce_entry_vector v) {
         int size = v.size();
@@ -906,7 +852,7 @@ public final class TorrentInfo {
         return l;
     }
 
-    private static torrent_info bdecode0(File file) {
+    private static add_torrent_params bdecode0(File file) {
         try {
             byte[] data = Files.bytes(file);
             return bdecode0(data);
@@ -915,28 +861,35 @@ public final class TorrentInfo {
         }
     }
 
-    private static torrent_info bdecode0(byte[] data) {
-        byte_vector buffer = Vectors.bytes2byte_vector(data);
-        bdecode_node n = new bdecode_node();
+    private static add_torrent_params bdecode0(byte[] data) {
         error_code ec = new error_code();
         try {
-            int ret = bdecode_node.bdecode(buffer, n, ec);
-            if (ret != 0) {
-                throw new IllegalArgumentException("Can't decode data: " + ec.message());
-            }
-            ec.clear();
-            // torrent_info copies the info section, so the decode buffers can go afterwards.
-            torrent_info ti = new torrent_info(n, ec);
+            add_torrent_params p = loadTorrentBuffer(data, ec);
             if (ec.value() != 0) {
-                ti.delete();
                 throw new IllegalArgumentException("Can't decode data: " + ec.message());
             }
-            return ti;
+            return p;
         } finally {
-            // The node points into the buffer: free it first (frostwire/frostwire-jlibtorrent#337).
-            n.delete();
-            buffer.delete();
             ec.delete();
+        }
+    }
+
+    private static add_torrent_params load0(MappedByteBuffer buffer) {
+        try {
+            long ptr = libtorrent_jni.directBufferAddress(buffer);
+            long size = libtorrent_jni.directBufferCapacity(buffer);
+            error_code ec = new error_code();
+            try {
+                add_torrent_params p = libtorrent.load_torrent_buffer_ptr(ptr, (int) size, ec);
+                if (ec.value() != 0) {
+                    throw new IllegalArgumentException("Can't decode data: " + ec.message());
+                }
+                return p;
+            } finally {
+                ec.delete();
+            }
+        } catch (Throwable e) {
+            throw new IllegalArgumentException("Can't decode data mapped buffer: " + e.getMessage(), e);
         }
     }
 }

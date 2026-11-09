@@ -318,17 +318,8 @@ public final class TorrentFlags {
     // call to pause.
     public static final torrent_flags_t STOP_WHEN_READY = libtorrent.getStop_when_ready();
 
-    // when this flag is set, the tracker list in the add_torrent_params
-    // object override any trackers from the torrent file. If the flag is
-    // not set, the trackers from the add_torrent_params object will be
-    // added to the list of trackers used by the torrent.
-    public static final torrent_flags_t OVERRIDE_TRACKERS = libtorrent.getOverride_trackers();
-
-    // If this flag is set, the web seeds from the add_torrent_params
-    // object will override any web seeds in the torrent file. If it's not
-    // set, web seeds in the add_torrent_params object will be added to the
-    // list of web seeds used by the torrent.
-    public static final torrent_flags_t OVERRIDE_WEB_SEEDS = libtorrent.getOverride_web_seeds();
+    // OVERRIDE_TRACKERS and OVERRIDE_WEB_SEEDS are gone: libtorrent 2.1 keeps trackers and web
+    // seeds only in add_torrent_params, not in the torrent file, so there's nothing to override.
 
     /**
      * If this flag is set (which it is by default) the torrent will be

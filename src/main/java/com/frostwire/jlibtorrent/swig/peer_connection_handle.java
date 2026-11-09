@@ -67,8 +67,8 @@ public class peer_connection_handle {
     libtorrent_jni.delete_peer_connection_handle(swigCPtr);
   }
 
-  public peer_connection_handle(SWIGTYPE_p_std__weak_ptrT_peer_connection_t impl) {
-    this(libtorrent_jni.new_peer_connection_handle(SWIGTYPE_p_std__weak_ptrT_peer_connection_t.getCPtr(impl)), true);
+  public peer_connection_handle(SWIGTYPE_p_std__weak_ptrT_libtorrent__aux__peer_connection_t impl) {
+    this(libtorrent_jni.new_peer_connection_handle(SWIGTYPE_p_std__weak_ptrT_libtorrent__aux__peer_connection_t.getCPtr(impl)), true);
   }
 
   public connection_type type() {

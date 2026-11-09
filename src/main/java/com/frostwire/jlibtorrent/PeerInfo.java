@@ -277,7 +277,7 @@ public class PeerInfo {
         connectionType = ConnectionType.fromSwig(p.getConnection_type().to_int());
         progress = p.getProgress();
         progressPpm = p.getProgress_ppm();
-        ip = new TcpEndpoint(p.getIp()).toString();
+        ip = new TcpEndpoint(p.remote_endpoint()).toString();
     }
 
     /**

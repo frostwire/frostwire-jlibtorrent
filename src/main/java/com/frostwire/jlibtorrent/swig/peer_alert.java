@@ -83,4 +83,56 @@ public class peer_alert extends torrent_alert {
     return new tcp_endpoint(libtorrent_jni.peer_alert_get_endpoint(swigCPtr, this), true);
   }
 
+  public int get_endpoint_type() {
+    return libtorrent_jni.peer_alert_get_endpoint_type(swigCPtr, this);
+  }
+
+  public sha256_hash get_i2p_destination() {
+    return new sha256_hash(libtorrent_jni.peer_alert_get_i2p_destination(swigCPtr, this), true);
+  }
+
+  public final static class endpoint_type_t {
+    public final static peer_alert.endpoint_type_t ip_endpoint = new peer_alert.endpoint_type_t("ip_endpoint");
+    public final static peer_alert.endpoint_type_t i2p_endpoint = new peer_alert.endpoint_type_t("i2p_endpoint");
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
+    }
+
+    public static endpoint_type_t swigToEnum(int swigValue) {
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
+      throw new IllegalArgumentException("No enum " + endpoint_type_t.class + " with value " + swigValue);
+    }
+
+    private endpoint_type_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
+    }
+
+    private endpoint_type_t(String swigName, int swigValue) {
+      this.swigName = swigName;
+      this.swigValue = swigValue;
+      swigNext = swigValue+1;
+    }
+
+    private endpoint_type_t(String swigName, endpoint_type_t swigEnum) {
+      this.swigName = swigName;
+      this.swigValue = swigEnum.swigValue;
+      swigNext = this.swigValue+1;
+    }
+
+    private static endpoint_type_t[] swigValues = { ip_endpoint, i2p_endpoint };
+    private static int swigNext = 0;
+    private final int swigValue;
+    private final String swigName;
+  }
+
 }

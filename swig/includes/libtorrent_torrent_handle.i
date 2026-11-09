@@ -7,7 +7,6 @@
 %ignore libtorrent::torrent_handle::get_full_peer_list;
 %ignore libtorrent::torrent_handle::get_piece_priorities;
 %ignore libtorrent::torrent_handle::get_storage_impl;
-%ignore libtorrent::torrent_handle::http_seeds;
 %ignore libtorrent::torrent_handle::native_handle;
 %ignore libtorrent::torrent_handle::piece_priority;
 %ignore libtorrent::torrent_handle::prioritize_files;
@@ -50,7 +49,6 @@ namespace libtorrent {
     struct status_flags_tag;
     %template(status_flags_t) libtorrent::flags::bitfield_flag<std::uint32_t, status_flags_tag>;
 
-    %newobject torrent_handle::torrent_file_with_hashes_copy;
 
     %extend torrent_handle {
         void add_piece_bytes(int piece, std::vector<int8_t> const& data, add_piece_flags_t flags = {}) {
@@ -58,26 +56,28 @@ namespace libtorrent {
         }
 
         // The session's own torrent_info: valid while the torrent is in the session. It has no v2
-        // piece layers (libtorrent 2.0 drops them); see torrent_file_with_hashes_copy().
+        // piece layers, trackers or web seeds; see torrent_file_with_hashes_atp().
         libtorrent::torrent_info const* torrent_file_ptr() {
             return $self->torrent_file().get();
         }
 
-        // torrent_file_with_hashes() returns a new copy held by a temporary shared_ptr, so returning
-        // .get() handed Java a pointer to freed memory. Return a heap copy Java owns instead
-        // (%newobject above): frostwire/frostwire-jlibtorrent#333.
-        libtorrent::torrent_info* torrent_file_with_hashes_copy() {
-            std::shared_ptr<libtorrent::torrent_info> ti = $self->torrent_file_with_hashes();
-            return ti ? new libtorrent::torrent_info(*ti) : nullptr;
+        // libtorrent 2.1 removed torrent_file_with_hashes() (deprecated, ABI < 4). This builds the same
+        // thing from the handle: the info dictionary, the v2 piece layers the torrent has
+        // (piece_layers()), its trackers and web seeds, loaded back with load_torrent_buffer() into
+        // add_torrent_params, which write_torrent_file() turns into a .torrent. Without metadata, ec is
+        // set and the result has no ti.
+        libtorrent::add_torrent_params torrent_file_with_hashes_atp(libtorrent::error_code& ec) {
+            return torrent_file_with_hashes_ex(*$self, ec);
+        }
+
+        // libtorrent 2.1 removed make_magnet_uri(torrent_handle const&): the magnet link for this
+        // torrent (info hashes, name, trackers, web seeds), or "" for an invalid handle.
+        std::string make_magnet_uri() {
+            return make_magnet_uri_ex(*$self);
         }
 
         std::vector<std::string> get_url_seeds() const {
             std::set<std::string> s = $self->url_seeds();
-            return {s.begin(), s.end()};
-        }
-
-        std::vector<std::string> get_http_seeds() const {
-            std::set<std::string> s = $self->http_seeds();
             return {s.begin(), s.end()};
         }
 

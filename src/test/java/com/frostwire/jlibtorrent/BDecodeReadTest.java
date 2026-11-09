@@ -3,6 +3,8 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.error_code;
+import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.load_torrent_limits;
 import com.frostwire.jlibtorrent.swig.torrent_info;
 import org.junit.Test;
 
@@ -10,6 +12,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author gubatron
@@ -29,10 +32,14 @@ public class BDecodeReadTest {
         assertEquals("failed to decode torrent: " + ec.message(), ret, 0);
 
         ec.clear();
-        torrent_info ti = new torrent_info(e, ec);
+        // libtorrent 2.1 deprecated torrent_info(bdecode_node const&, error_code&): parse the info
+        // dictionary with the from_info_section constructor
+        torrent_info ti = new torrent_info(e.dict_find_s("info"), ec, new load_torrent_limits(),
+                libtorrent.getFrom_info_section());
         buffer.clear(); // prevents GC
 
-        assertEquals("failed to create torrent info: " + ec.message(), ret, 0);
+        assertEquals("failed to create torrent info: " + ec.message(), 0, ec.value());
+        assertTrue(ti.is_valid());
     }
 
     @Test

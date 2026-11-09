@@ -79,9 +79,4 @@ public class torrent_alert extends alert {
     return (cPtr == 0) ? null : new torrent_handle(cPtr, false, this);
   }
 
-  public String torrent_name() {
-    byte[] bytes = libtorrent_jni.torrent_alert_torrent_name(swigCPtr, this);
-    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
-  }
-
 }

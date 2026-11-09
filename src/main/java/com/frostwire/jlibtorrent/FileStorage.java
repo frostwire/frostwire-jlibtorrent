@@ -275,16 +275,6 @@ public final class FileStorage {
         }
     }
 
-    /**
-     * Renames the file at {@code index} to {@code newFilename}. Keep in mind
-     * that filenames are expected to be UTF-8 encoded.
-     *
-     * @param index
-     * @param newFilename
-     */
-    public void renameFile(int index, String newFilename) {
-        fs.rename_file(index, newFilename);
-    }
 
     /**
      * Returns a list of {@link com.frostwire.jlibtorrent.FileSlice} objects representing the portions of
@@ -407,17 +397,6 @@ public final class FileStorage {
         fs.set_name(name);
     }
 
-    /**
-     * Is a sha-1 hash of the file, or 0 if none was
-     * provided in the torrent file. This can potentially be used to
-     * join a bittorrent network with other file sharing networks.
-     *
-     * @param index
-     * @return
-     */
-    public Sha1Hash hash(int index) {
-        return new Sha1Hash(fs.hash(index));
-    }
 
     /**
      * returns the full path to a file.

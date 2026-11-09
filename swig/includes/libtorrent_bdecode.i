@@ -35,7 +35,7 @@
 namespace libtorrent {
     %extend bdecode_node {
         std::string list_string_value_at_s(int i, std::string default_val = "") {
-            return $self->list_string_value_at(i, default_val).to_string();
+            return std::string($self->list_string_value_at(i, default_val));
         }
 
         bdecode_node dict_find_s(std::string key) const {
@@ -59,7 +59,7 @@ namespace libtorrent {
         }
 
         std::string dict_find_string_value_s(std::string key, std::string default_value = "") const {
-            return $self->dict_find_string_value(key, default_value).to_string();
+            return std::string($self->dict_find_string_value(key, default_value));
         }
 
         std::int64_t dict_find_int_value_s(std::string key, std::int64_t default_val = 0) const {
@@ -67,7 +67,7 @@ namespace libtorrent {
         }
 
         std::string string_value_s() const {
-            return $self->string_value().to_string();
+            return std::string($self->string_value());
         }
 
         std::string string_value_ex() const {

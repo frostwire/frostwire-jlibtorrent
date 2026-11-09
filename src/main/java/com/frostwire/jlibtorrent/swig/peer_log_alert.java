@@ -83,6 +83,14 @@ public class peer_log_alert extends peer_alert {
     return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
+  public void setEvent_type(peer_log_alert.event_t value) {
+    libtorrent_jni.peer_log_alert_event_type_set(swigCPtr, this, value.swigValue());
+  }
+
+  public peer_log_alert.event_t getEvent_type() {
+    return peer_log_alert.event_t.swigToEnum(libtorrent_jni.peer_log_alert_event_type_get(swigCPtr, this));
+  }
+
   public void setDirection(peer_log_alert.direction_t value) {
     libtorrent_jni.peer_log_alert_direction_set(swigCPtr, this, value.swigValue());
   }
@@ -93,11 +101,6 @@ public class peer_log_alert extends peer_alert {
 
   public String log_message() {
     byte[] bytes = libtorrent_jni.peer_log_alert_log_message(swigCPtr, this);
-    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
-  }
-
-  public String get_event_type() {
-    byte[] bytes = libtorrent_jni.peer_log_alert_get_event_type(swigCPtr, this);
     return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
@@ -143,6 +146,181 @@ public class peer_log_alert extends peer_alert {
     }
 
     private static direction_t[] swigValues = { incoming_message, outgoing_message, incoming, outgoing, info };
+    private static int swigNext = 0;
+    private final int swigValue;
+    private final String swigName;
+  }
+
+  public final static class event_t {
+    public final static peer_log_alert.event_t tracker_response = new peer_log_alert.event_t("tracker_response");
+    public final static peer_log_alert.event_t allowed = new peer_log_alert.event_t("allowed");
+    public final static peer_log_alert.event_t seed = new peer_log_alert.event_t("seed");
+    public final static peer_log_alert.event_t cancel_all_requests = new peer_log_alert.event_t("cancel_all_requests");
+    public final static peer_log_alert.event_t short_lived_disconnect = new peer_log_alert.event_t("short_lived_disconnect");
+    public final static peer_log_alert.event_t graceful_pause = new peer_log_alert.event_t("graceful_pause");
+    public final static peer_log_alert.event_t request_time = new peer_log_alert.event_t("request_time");
+    public final static peer_log_alert.event_t connection = new peer_log_alert.event_t("connection");
+    public final static peer_log_alert.event_t set_peer_class = new peer_log_alert.event_t("set_peer_class");
+    public final static peer_log_alert.event_t peer_class = new peer_log_alert.event_t("peer_class");
+    public final static peer_log_alert.event_t local_endpoint = new peer_log_alert.event_t("local_endpoint");
+    public final static peer_log_alert.event_t update_interest = new peer_log_alert.event_t("update_interest");
+    public final static peer_log_alert.event_t init = new peer_log_alert.event_t("init");
+    public final static peer_log_alert.event_t received = new peer_log_alert.event_t("received");
+    public final static peer_log_alert.event_t attach = new peer_log_alert.event_t("attach");
+    public final static peer_log_alert.event_t construct = new peer_log_alert.event_t("construct");
+    public final static peer_log_alert.event_t encryption = new peer_log_alert.event_t("encryption");
+    public final static peer_log_alert.event_t extensions = new peer_log_alert.event_t("extensions");
+    public final static peer_log_alert.event_t upload_only = new peer_log_alert.event_t("upload_only");
+    public final static peer_log_alert.event_t share_mode = new peer_log_alert.event_t("share_mode");
+    public final static peer_log_alert.event_t send_barrier = new peer_log_alert.event_t("send_barrier");
+    public final static peer_log_alert.event_t piece_picker = new peer_log_alert.event_t("piece_picker");
+    public final static peer_log_alert.event_t duplicate_peer = new peer_log_alert.event_t("duplicate_peer");
+    public final static peer_log_alert.event_t duplicate_peer_resolution = new peer_log_alert.event_t("duplicate_peer_resolution");
+    public final static peer_log_alert.event_t super_seeding = new peer_log_alert.event_t("super_seeding");
+    public final static peer_log_alert.event_t merging_requests = new peer_log_alert.event_t("merging_requests");
+    public final static peer_log_alert.event_t predictive_have = new peer_log_alert.event_t("predictive_have");
+    public final static peer_log_alert.event_t banning_peer = new peer_log_alert.event_t("banning_peer");
+    public final static peer_log_alert.event_t choking_peer = new peer_log_alert.event_t("choking_peer");
+    public final static peer_log_alert.event_t torrent = new peer_log_alert.event_t("torrent");
+    public final static peer_log_alert.event_t optimistic_unchoke = new peer_log_alert.event_t("optimistic_unchoke");
+    public final static peer_log_alert.event_t max_out_queue_size = new peer_log_alert.event_t("max_out_queue_size");
+    public final static peer_log_alert.event_t update_queue_size = new peer_log_alert.event_t("update_queue_size");
+    public final static peer_log_alert.event_t last_activity = new peer_log_alert.event_t("last_activity");
+    public final static peer_log_alert.event_t mutual_no_interest = new peer_log_alert.event_t("mutual_no_interest");
+    public final static peer_log_alert.event_t slow_start = new peer_log_alert.event_t("slow_start");
+    public final static peer_log_alert.event_t send_buffer_watermark = new peer_log_alert.event_t("send_buffer_watermark");
+    public final static peer_log_alert.event_t torrent_aborted = new peer_log_alert.event_t("torrent_aborted");
+    public final static peer_log_alert.event_t piece_failed = new peer_log_alert.event_t("piece_failed");
+    public final static peer_log_alert.event_t request_bandwidth = new peer_log_alert.event_t("request_bandwidth");
+    public final static peer_log_alert.event_t assign_bandwidth = new peer_log_alert.event_t("assign_bandwidth");
+    public final static peer_log_alert.event_t waiting_for_disk = new peer_log_alert.event_t("waiting_for_disk");
+    public final static peer_log_alert.event_t close_reason = new peer_log_alert.event_t("close_reason");
+    public final static peer_log_alert.event_t peer_error = new peer_log_alert.event_t("peer_error");
+    public final static peer_log_alert.event_t no_handshake = new peer_log_alert.event_t("no_handshake");
+    public final static peer_log_alert.event_t no_request = new peer_log_alert.event_t("no_request");
+    public final static peer_log_alert.event_t piece_request_timed_out = new peer_log_alert.event_t("piece_request_timed_out");
+    public final static peer_log_alert.event_t invalid_cancel = new peer_log_alert.event_t("invalid_cancel");
+    public final static peer_log_alert.event_t invalid_request = new peer_log_alert.event_t("invalid_request");
+    public final static peer_log_alert.event_t invalid_piece = new peer_log_alert.event_t("invalid_piece");
+    public final static peer_log_alert.event_t invalid_suggest = new peer_log_alert.event_t("invalid_suggest");
+    public final static peer_log_alert.event_t invalid_have = new peer_log_alert.event_t("invalid_have");
+    public final static peer_log_alert.event_t invalid_allowed_fast = new peer_log_alert.event_t("invalid_allowed_fast");
+    public final static peer_log_alert.event_t exception = new peer_log_alert.event_t("exception");
+    public final static peer_log_alert.event_t holepunch = new peer_log_alert.event_t("holepunch");
+    public final static peer_log_alert.event_t holepunch_mode = new peer_log_alert.event_t("holepunch_mode");
+    public final static peer_log_alert.event_t send_buffer_depleted = new peer_log_alert.event_t("send_buffer_depleted");
+    public final static peer_log_alert.event_t available = new peer_log_alert.event_t("available");
+    public final static peer_log_alert.event_t grow_buffer = new peer_log_alert.event_t("grow_buffer");
+    public final static peer_log_alert.event_t async_write = new peer_log_alert.event_t("async_write");
+    public final static peer_log_alert.event_t async_read = new peer_log_alert.event_t("async_read");
+    public final static peer_log_alert.event_t sync_read = new peer_log_alert.event_t("sync_read");
+    public final static peer_log_alert.event_t cannot_write = new peer_log_alert.event_t("cannot_write");
+    public final static peer_log_alert.event_t cannot_read = new peer_log_alert.event_t("cannot_read");
+    public final static peer_log_alert.event_t on_receive_data = new peer_log_alert.event_t("on_receive_data");
+    public final static peer_log_alert.event_t on_send_data = new peer_log_alert.event_t("on_send_data");
+    public final static peer_log_alert.event_t wrote = new peer_log_alert.event_t("wrote");
+    public final static peer_log_alert.event_t read = new peer_log_alert.event_t("read");
+    public final static peer_log_alert.event_t corked_write = new peer_log_alert.event_t("corked_write");
+    public final static peer_log_alert.event_t file_async_write = new peer_log_alert.event_t("file_async_write");
+    public final static peer_log_alert.event_t file_async_write_complete = new peer_log_alert.event_t("file_async_write_complete");
+    public final static peer_log_alert.event_t file_async_read = new peer_log_alert.event_t("file_async_read");
+    public final static peer_log_alert.event_t file_async_read_complete = new peer_log_alert.event_t("file_async_read_complete");
+    public final static peer_log_alert.event_t seed_mode_file_async_hash = new peer_log_alert.event_t("seed_mode_file_async_hash");
+    public final static peer_log_alert.event_t seed_mode_file_hash = new peer_log_alert.event_t("seed_mode_file_hash");
+    public final static peer_log_alert.event_t disk_buffer = new peer_log_alert.event_t("disk_buffer");
+    public final static peer_log_alert.event_t on_files_checked = new peer_log_alert.event_t("on_files_checked");
+    public final static peer_log_alert.event_t open = new peer_log_alert.event_t("open");
+    public final static peer_log_alert.event_t bind = new peer_log_alert.event_t("bind");
+    public final static peer_log_alert.event_t socket_buffer = new peer_log_alert.event_t("socket_buffer");
+    public final static peer_log_alert.event_t set_non_blocking = new peer_log_alert.event_t("set_non_blocking");
+    public final static peer_log_alert.event_t set_dscp = new peer_log_alert.event_t("set_dscp");
+    public final static peer_log_alert.event_t async_connect = new peer_log_alert.event_t("async_connect");
+    public final static peer_log_alert.event_t connection_failed = new peer_log_alert.event_t("connection_failed");
+    public final static peer_log_alert.event_t connection_closed = new peer_log_alert.event_t("connection_closed");
+    public final static peer_log_alert.event_t closing_connection = new peer_log_alert.event_t("closing_connection");
+    public final static peer_log_alert.event_t connect_failed = new peer_log_alert.event_t("connect_failed");
+    public final static peer_log_alert.event_t on_connected = new peer_log_alert.event_t("on_connected");
+    public final static peer_log_alert.event_t connection_established = new peer_log_alert.event_t("connection_established");
+    public final static peer_log_alert.event_t ut_metadata = new peer_log_alert.event_t("ut_metadata");
+    public final static peer_log_alert.event_t on_metadata = new peer_log_alert.event_t("on_metadata");
+    public final static peer_log_alert.event_t pex = new peer_log_alert.event_t("pex");
+    public final static peer_log_alert.event_t pex_diff = new peer_log_alert.event_t("pex_diff");
+    public final static peer_log_alert.event_t pex_full = new peer_log_alert.event_t("pex_full");
+    public final static peer_log_alert.event_t i2p_pex = new peer_log_alert.event_t("i2p_pex");
+    public final static peer_log_alert.event_t i2p_pex_diff = new peer_log_alert.event_t("i2p_pex_diff");
+    public final static peer_log_alert.event_t i2p_pex_full = new peer_log_alert.event_t("i2p_pex_full");
+    public final static peer_log_alert.event_t web_seed = new peer_log_alert.event_t("web_seed");
+    public final static peer_log_alert.event_t save_restart_data = new peer_log_alert.event_t("save_restart_data");
+    public final static peer_log_alert.event_t restart_data = new peer_log_alert.event_t("restart_data");
+    public final static peer_log_alert.event_t location = new peer_log_alert.event_t("location");
+    public final static peer_log_alert.event_t missing_file = new peer_log_alert.event_t("missing_file");
+    public final static peer_log_alert.event_t receive_bytes = new peer_log_alert.event_t("receive_bytes");
+    public final static peer_log_alert.event_t status = new peer_log_alert.event_t("status");
+    public final static peer_log_alert.event_t invalid_http_response = new peer_log_alert.event_t("invalid_http_response");
+    public final static peer_log_alert.event_t chunked_encoding = new peer_log_alert.event_t("chunked_encoding");
+    public final static peer_log_alert.event_t incoming_payload = new peer_log_alert.event_t("incoming_payload");
+    public final static peer_log_alert.event_t incoming_zeroes = new peer_log_alert.event_t("incoming_zeroes");
+    public final static peer_log_alert.event_t pop_request = new peer_log_alert.event_t("pop_request");
+    public final static peer_log_alert.event_t handle_padfile = new peer_log_alert.event_t("handle_padfile");
+    public final static peer_log_alert.event_t allowed_fast = new peer_log_alert.event_t("allowed_fast");
+    public final static peer_log_alert.event_t have_none = new peer_log_alert.event_t("have_none");
+    public final static peer_log_alert.event_t have_all = new peer_log_alert.event_t("have_all");
+    public final static peer_log_alert.event_t have = new peer_log_alert.event_t("have");
+    public final static peer_log_alert.event_t dont_have = new peer_log_alert.event_t("dont_have");
+    public final static peer_log_alert.event_t dht_port = new peer_log_alert.event_t("dht_port");
+    public final static peer_log_alert.event_t cancel = new peer_log_alert.event_t("cancel");
+    public final static peer_log_alert.event_t reject = new peer_log_alert.event_t("reject");
+    public final static peer_log_alert.event_t interested = new peer_log_alert.event_t("interested");
+    public final static peer_log_alert.event_t not_interested = new peer_log_alert.event_t("not_interested");
+    public final static peer_log_alert.event_t keepalive = new peer_log_alert.event_t("keepalive");
+    public final static peer_log_alert.event_t choke = new peer_log_alert.event_t("choke");
+    public final static peer_log_alert.event_t unchoke = new peer_log_alert.event_t("unchoke");
+    public final static peer_log_alert.event_t suggest_piece = new peer_log_alert.event_t("suggest_piece");
+    public final static peer_log_alert.event_t bitfield = new peer_log_alert.event_t("bitfield");
+    public final static peer_log_alert.event_t request = new peer_log_alert.event_t("request");
+    public final static peer_log_alert.event_t handshake = new peer_log_alert.event_t("handshake");
+    public final static peer_log_alert.event_t hash_request = new peer_log_alert.event_t("hash_request");
+    public final static peer_log_alert.event_t hashes = new peer_log_alert.event_t("hashes");
+    public final static peer_log_alert.event_t hash_reject = new peer_log_alert.event_t("hash_reject");
+    public final static peer_log_alert.event_t extension_message = new peer_log_alert.event_t("extension_message");
+    public final static peer_log_alert.event_t extended_handshake = new peer_log_alert.event_t("extended_handshake");
+    public final static peer_log_alert.event_t piece = new peer_log_alert.event_t("piece");
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
+    }
+
+    public static event_t swigToEnum(int swigValue) {
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
+      throw new IllegalArgumentException("No enum " + event_t.class + " with value " + swigValue);
+    }
+
+    private event_t(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
+    }
+
+    private event_t(String swigName, int swigValue) {
+      this.swigName = swigName;
+      this.swigValue = swigValue;
+      swigNext = swigValue+1;
+    }
+
+    private event_t(String swigName, event_t swigEnum) {
+      this.swigName = swigName;
+      this.swigValue = swigEnum.swigValue;
+      swigNext = this.swigValue+1;
+    }
+
+    private static event_t[] swigValues = { tracker_response, allowed, seed, cancel_all_requests, short_lived_disconnect, graceful_pause, request_time, connection, set_peer_class, peer_class, local_endpoint, update_interest, init, received, attach, construct, encryption, extensions, upload_only, share_mode, send_barrier, piece_picker, duplicate_peer, duplicate_peer_resolution, super_seeding, merging_requests, predictive_have, banning_peer, choking_peer, torrent, optimistic_unchoke, max_out_queue_size, update_queue_size, last_activity, mutual_no_interest, slow_start, send_buffer_watermark, torrent_aborted, piece_failed, request_bandwidth, assign_bandwidth, waiting_for_disk, close_reason, peer_error, no_handshake, no_request, piece_request_timed_out, invalid_cancel, invalid_request, invalid_piece, invalid_suggest, invalid_have, invalid_allowed_fast, exception, holepunch, holepunch_mode, send_buffer_depleted, available, grow_buffer, async_write, async_read, sync_read, cannot_write, cannot_read, on_receive_data, on_send_data, wrote, read, corked_write, file_async_write, file_async_write_complete, file_async_read, file_async_read_complete, seed_mode_file_async_hash, seed_mode_file_hash, disk_buffer, on_files_checked, open, bind, socket_buffer, set_non_blocking, set_dscp, async_connect, connection_failed, connection_closed, closing_connection, connect_failed, on_connected, connection_established, ut_metadata, on_metadata, pex, pex_diff, pex_full, i2p_pex, i2p_pex_diff, i2p_pex_full, web_seed, save_restart_data, restart_data, location, missing_file, receive_bytes, status, invalid_http_response, chunked_encoding, incoming_payload, incoming_zeroes, pop_request, handle_padfile, allowed_fast, have_none, have_all, have, dont_have, dht_port, cancel, reject, interested, not_interested, keepalive, choke, unchoke, suggest_piece, bitfield, request, handshake, hash_request, hashes, hash_reject, extension_message, extended_handshake, piece };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

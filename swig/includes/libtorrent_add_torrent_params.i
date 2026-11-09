@@ -81,9 +81,6 @@ namespace libtorrent {
             $self->dht_nodes = dht_nodes;
         }
 
-        void set_http_seeds(std::vector<std::string> const& http_seeds) {
-            $self->http_seeds = http_seeds;
-        }
 
         std::vector<std::string> get_url_seeds() {
             return $self->url_seeds;
@@ -135,18 +132,7 @@ namespace libtorrent {
         // bit-fields indicating which v2 leaf hashes have been verified
         // against the root hash. If this vector is empty and merkle_trees is
         // non-empty it implies that all hashes in merkle_trees are verified.
-        //aux::vector<std::vector<bool>, file_index_t> verified_leaf_hashes;
-        // This uses a static vector to return the result, which might not be thread safe
-        const std::vector<std::vector<bool>>& get_verified_leaf_hashes_old() {
-            static std::vector<std::vector<bool>> result;
-            result.clear();
-            auto* v = &$self->verified_leaf_hashes;
-            result.reserve(v->size());
-            for (const auto& item : *v) {
-                result.push_back(item);
-            }
-            return result;
-        }
+        // aux::vector<bitfield, file_index_t> verified_leaf_hashes (libtorrent 2.1; vector<vector<bool>> in 2.0)
 
         std::vector<libtorrent::bitfield> get_verified_leaf_hashes() {
             auto* v = &$self->verified_leaf_hashes;

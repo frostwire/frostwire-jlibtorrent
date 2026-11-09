@@ -240,14 +240,16 @@ public final class TorrentHandle {
     }
 
     /**
-     * Returns the torrent's metadata: name, files, trackers, piece hashes. This is cheap, the
+     * Returns the torrent's metadata: name, files, piece hashes. This is cheap, the
      * session's own object rather than a copy, so use it for reading.
      * <p>
-     * Two limits:
+     * Three limits:
      * <ul>
-     *   <li>It has no v2 piece layers: libtorrent 2.0 drops them from this object. To write the
+     *   <li>Since libtorrent 2.1 it is the info dictionary only: no trackers (see
+     *   {@link #trackers()}), web seeds ({@link #urlSeeds()}), comment or creator.</li>
+     *   <li>It has no v2 piece layers. To write the
      *   torrent back out as a .torrent file, use {@link #torrentFileWithHashes()}, or
-     *   {@link TorrentInfo#bencode()} throws for v2-only torrents.</li>
+     *   {@link TorrentInfo#bencode()} throws for v2 torrents.</li>
      *   <li>It is only valid while the torrent is in the session. Don't keep it after removing the
      *   torrent.</li>
      * </ul>
@@ -285,8 +287,10 @@ public final class TorrentHandle {
      * progress, {@code bencode()} can still throw {@link IllegalStateException}; save it again later.
      * <p>
      * This makes a full copy, so it costs more than {@code torrentFile()}; don't call it on every
-     * status update. libtorrent 2.1 drops it in favor of {@code save_resume_data} plus
-     * {@code write_torrent_file}.
+     * status update. libtorrent 2.1 removed {@code torrent_handle::torrent_file_with_hashes()}:
+     * jlibtorrent builds the same .torrent from the handle's info dictionary, piece layers
+     * ({@code piece_layers()}, a blocking call), trackers and web seeds. The comment, creator and
+     * creation date of the original .torrent file aren't in the session, so they're missing.
      *
      * @return a copy of the metadata with piece layers, or {@code null} if the handle is invalid or
      *         the torrent has no metadata yet
@@ -295,8 +299,13 @@ public final class TorrentHandle {
         if (!th.is_valid()) {
             return null;
         }
-        torrent_info ti = th.torrent_file_with_hashes_copy();
-        return ti != null ? new TorrentInfo(ti) : null;
+        error_code ec = new error_code();
+        try {
+            add_torrent_params p = th.torrent_file_with_hashes_atp(ec);
+            return ec.value() == 0 && p.ti_ptr() != null ? new TorrentInfo(p) : null;
+        } finally {
+            ec.delete();
+        }
     }
 
     /**
@@ -869,7 +878,7 @@ public final class TorrentHandle {
      * @return
      */
     public String makeMagnetUri() {
-        return th.is_valid() ? libtorrent.make_magnet_uri(th) : null;
+        return th.is_valid() ? th.make_magnet_uri() : null;
     }
 
     // ``set_upload_limit`` will limit the upload bandwidth used by this
@@ -1216,32 +1225,6 @@ public final class TorrentHandle {
      */
     public List<String> urlSeeds() {
         return Vectors.string_vector2list(th.get_url_seeds());
-    }
-
-    // These functions are identical as the ``*_url_seed()`` variants, but
-    // they operate on `BEP 17`_ web seeds instead of `BEP 19`_.
-    //
-    // See http-seeding_ for more information.
-    public void addHttpSeed(String url) {
-        th.add_url_seed(url);
-    }
-
-    // These functions are identical as the ``*_url_seed()`` variants, but
-    // they operate on `BEP 17`_ web seeds instead of `BEP 19`_.
-    //
-    // See http-seeding_ for more information.
-    public void removeHttpSeed(String url) {
-        th.remove_http_seed(url);
-    }
-
-    /**
-     * Return a set of the url seeds currently in this
-     * torrent. This list is based on BEP 17.
-     *
-     * @return the url seed list
-     */
-    public List<String> httpSeeds() {
-        return Vectors.string_vector2list(th.get_http_seeds());
     }
 
     /**

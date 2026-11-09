@@ -21,18 +21,6 @@ public class libtorrent implements libtorrentConstants {
     return libtorrent_jni.op_eq(info_hash_t.getCPtr(lhs), lhs, info_hash_t.getCPtr(rhs), rhs);
   }
 
-  public static status_t op_or(status_t lhs, status_t rhs) {
-    return status_t.swigToEnum(libtorrent_jni.op_or(lhs.swigValue(), rhs.swigValue()));
-  }
-
-  public static status_t op_and(status_t lhs, status_t rhs) {
-    return status_t.swigToEnum(libtorrent_jni.op_and(lhs.swigValue(), rhs.swigValue()));
-  }
-
-  public static status_t op_inv(status_t lhs) {
-    return status_t.swigToEnum(libtorrent_jni.op_inv(lhs.swigValue()));
-  }
-
   public static String operation_name(operation_t op) {
     byte[] bytes = libtorrent_jni.operation_name(op.swigValue());
     return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
@@ -41,6 +29,15 @@ public class libtorrent implements libtorrentConstants {
   public static String print_error(error_code arg0) {
     byte[] bytes = libtorrent_jni.print_error(error_code.getCPtr(arg0), arg0);
     return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
+  }
+
+  public static void setFrom_info_section(from_info_section_t value) {
+    libtorrent_jni.from_info_section_set(from_info_section_t.getCPtr(value), value);
+  }
+
+  public static from_info_section_t getFrom_info_section() {
+    long cPtr = libtorrent_jni.from_info_section_get();
+    return (cPtr == 0) ? null : new from_info_section_t(cPtr, false, null);
   }
 
   public static torrent_flags_t getSeed_mode() {
@@ -98,16 +95,6 @@ public class libtorrent implements libtorrentConstants {
     return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
-  public static torrent_flags_t getOverride_trackers() {
-    long cPtr = libtorrent_jni.override_trackers_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
-  }
-
-  public static torrent_flags_t getOverride_web_seeds() {
-    long cPtr = libtorrent_jni.override_web_seeds_get();
-    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
-  }
-
   public static torrent_flags_t getNeed_save_resume() {
     long cPtr = libtorrent_jni.need_save_resume_get();
     return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
@@ -140,6 +127,11 @@ public class libtorrent implements libtorrentConstants {
 
   public static torrent_flags_t getI2p_torrent() {
     long cPtr = libtorrent_jni.i2p_torrent_get();
+    return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
+  }
+
+  public static torrent_flags_t getDisable_v1_hashes() {
+    long cPtr = libtorrent_jni.disable_v1_hashes_get();
     return (cPtr == 0) ? null : new torrent_flags_t(cPtr, false, null);
   }
 
@@ -298,14 +290,6 @@ public class libtorrent implements libtorrentConstants {
     return new settings_pack(libtorrent_jni.high_performance_seed(), true);
   }
 
-  public static void add_files(file_storage fs, String file, create_flags_t flags) {
-    libtorrent_jni.add_files__SWIG_0(file_storage.getCPtr(fs), fs, (file == null ? null : file.getBytes(java.nio.charset.StandardCharsets.UTF_8)), create_flags_t.getCPtr(flags), flags);
-  }
-
-  public static void add_files(file_storage fs, String file) {
-    libtorrent_jni.add_files__SWIG_1(file_storage.getCPtr(fs), fs, (file == null ? null : file.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
-  }
-
   public static stats_metric_vector session_stats_metrics() {
     return new stats_metric_vector(libtorrent_jni.session_stats_metrics(), true);
   }
@@ -316,17 +300,7 @@ public class libtorrent implements libtorrentConstants {
   }
 
   public static String make_magnet_uri(add_torrent_params atp) {
-    byte[] bytes = libtorrent_jni.make_magnet_uri__SWIG_0(add_torrent_params.getCPtr(atp), atp);
-    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
-  }
-
-  public static String make_magnet_uri(torrent_handle handle) {
-    byte[] bytes = libtorrent_jni.make_magnet_uri__SWIG_1(torrent_handle.getCPtr(handle), handle);
-    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
-  }
-
-  public static String make_magnet_uri(torrent_info info) {
-    byte[] bytes = libtorrent_jni.make_magnet_uri__SWIG_2(torrent_info.getCPtr(info), info);
+    byte[] bytes = libtorrent_jni.make_magnet_uri(add_torrent_params.getCPtr(atp), atp);
     return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
@@ -413,8 +387,8 @@ public class libtorrent implements libtorrentConstants {
     return new byte_vector(libtorrent_jni.ed25519_key_exchange(byte_vector.getCPtr(pk), pk, byte_vector.getCPtr(sk), sk), true);
   }
 
-  public static void add_files_ex(file_storage fs, String file, add_files_listener listener, create_flags_t flags) {
-    libtorrent_jni.add_files_ex(file_storage.getCPtr(fs), fs, (file == null ? null : file.getBytes(java.nio.charset.StandardCharsets.UTF_8)), add_files_listener.getCPtr(listener), listener, create_flags_t.getCPtr(flags), flags);
+  public static create_file_entry_vector list_files_ex(String file, add_files_listener listener, create_flags_t flags) {
+    return new create_file_entry_vector(libtorrent_jni.list_files_ex((file == null ? null : file.getBytes(java.nio.charset.StandardCharsets.UTF_8)), add_files_listener.getCPtr(listener), listener, create_flags_t.getCPtr(flags), flags), true);
   }
 
   public static void set_piece_hashes_ex(create_torrent t, String p, set_piece_hashes_listener listener, error_code ec) {
@@ -461,6 +435,31 @@ public class libtorrent implements libtorrentConstants {
 
   public static byte_vector write_torrent_file_buf_ex(add_torrent_params atp) {
     return new byte_vector(libtorrent_jni.write_torrent_file_buf_ex(add_torrent_params.getCPtr(atp), atp), true);
+  }
+
+  public static add_torrent_params load_torrent_buffer_ex(byte_vector buffer, error_code ec, load_torrent_limits cfg) {
+    return new add_torrent_params(libtorrent_jni.load_torrent_buffer_ex__SWIG_0(byte_vector.getCPtr(buffer), buffer, error_code.getCPtr(ec), ec, load_torrent_limits.getCPtr(cfg), cfg), true);
+  }
+
+  public static add_torrent_params load_torrent_buffer_ex(byte_vector buffer, error_code ec) {
+    return new add_torrent_params(libtorrent_jni.load_torrent_buffer_ex__SWIG_1(byte_vector.getCPtr(buffer), buffer, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static add_torrent_params load_torrent_buffer_ptr(long buffer_ptr, int size, error_code ec) {
+    return new add_torrent_params(libtorrent_jni.load_torrent_buffer_ptr(buffer_ptr, size, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static void add_torrent_file_ex(add_torrent_params dst, add_torrent_params src) {
+    libtorrent_jni.add_torrent_file_ex(add_torrent_params.getCPtr(dst), dst, add_torrent_params.getCPtr(src), src);
+  }
+
+  public static add_torrent_params torrent_file_with_hashes_ex(torrent_handle th, error_code ec) {
+    return new add_torrent_params(libtorrent_jni.torrent_file_with_hashes_ex(torrent_handle.getCPtr(th), th, error_code.getCPtr(ec), ec), true);
+  }
+
+  public static String make_magnet_uri_ex(torrent_handle th) {
+    byte[] bytes = libtorrent_jni.make_magnet_uri_ex(torrent_handle.getCPtr(th), th);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
   public static add_torrent_params parse_magnet_uri(String uri, error_code ec) {

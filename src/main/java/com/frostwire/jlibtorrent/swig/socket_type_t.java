@@ -14,6 +14,7 @@ public final class socket_type_t {
   public final static socket_type_t http = new socket_type_t("http");
   public final static socket_type_t utp = new socket_type_t("utp");
   public final static socket_type_t i2p = new socket_type_t("i2p");
+  public final static socket_type_t rtc = new socket_type_t("rtc");
   public final static socket_type_t tcp_ssl = new socket_type_t("tcp_ssl");
   public final static socket_type_t socks5_ssl = new socket_type_t("socks5_ssl");
   public final static socket_type_t http_ssl = new socket_type_t("http_ssl");
@@ -53,7 +54,7 @@ public final class socket_type_t {
     swigNext = this.swigValue+1;
   }
 
-  private static socket_type_t[] swigValues = { tcp, socks5, http, utp, i2p, tcp_ssl, socks5_ssl, http_ssl, utp_ssl };
+  private static socket_type_t[] swigValues = { tcp, socks5, http, utp, i2p, rtc, tcp_ssl, socks5_ssl, http_ssl, utp_ssl };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

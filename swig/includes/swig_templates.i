@@ -21,7 +21,6 @@
 %template(udp_endpoint_vector) std::vector<libtorrent::udp::endpoint>;
 %template(announce_endpoint_vector) std::vector<libtorrent::announce_endpoint>;
 %template(announce_entry_vector) std::vector<libtorrent::announce_entry>;
-%template(web_seed_entry_vector) std::vector<libtorrent::web_seed_entry>;
 %template(file_slice_vector) std::vector<libtorrent::file_slice>;
 %template(piece_block_vector) std::vector<libtorrent::piece_block>;
 %template(torrent_status_vector) std::vector<libtorrent::torrent_status>;
@@ -35,7 +34,7 @@
 %template(stats_metric_vector) std::vector<libtorrent::stats_metric>;
 %template(ip_interface_vector) std::vector<ip_interface>;
 %template(ip_route_vector) std::vector<ip_route>;
-//%template(create_file_entry_vector) std::vector<libtorrent::create_file_entry>;
+%template(create_file_entry_vector) std::vector<libtorrent::create_file_entry>;
 %template(block_info_vector) std::vector<libtorrent::block_info>;
 %template(bitfield_vector) std::vector<libtorrent::bitfield>;
 
@@ -50,9 +49,8 @@
 %template(int_string_map) std::map<int, std::string>;
 %template(string_string_map) std::map<std::string, std::string>;
 %template(int_bitfield_map) std::map<int, libtorrent::bitfield>;
-%template(string_entry_map) std::map<std::string, libtorrent::entry>;
+%template(string_entry_map) boost::container::map<std::string, libtorrent::entry, libtorrent::aux::strview_less>;
 
-%template(boost_string_entry_map) boost::container::map<std::string, libtorrent::entry>;
 
 %template(file_index_string_map) std::map<libtorrent::file_index_t, std::string>;
 %template(file_index_vector) std::vector<libtorrent::file_index_t>;

@@ -83,10 +83,6 @@ public class file_storage {
     libtorrent_jni.file_storage_reserve(swigCPtr, this, num_files);
   }
 
-  public void rename_file(int index, String new_filename) {
-    libtorrent_jni.file_storage_rename_file(swigCPtr, this, index, (new_filename == null ? null : new_filename.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
-  }
-
   public file_slice_vector map_block(int piece, long offset, long size) {
     return new file_slice_vector(libtorrent_jni.file_storage_map_block(swigCPtr, this, piece, offset, size), true);
   }
@@ -105,6 +101,10 @@ public class file_storage {
 
   public long total_size() {
     return libtorrent_jni.file_storage_total_size(swigCPtr, this);
+  }
+
+  public long size_on_disk() {
+    return libtorrent_jni.file_storage_size_on_disk(swigCPtr, this);
   }
 
   public void set_num_pieces(int n) {
@@ -158,14 +158,6 @@ public class file_storage {
 
   public void swap(file_storage ti) {
     libtorrent_jni.file_storage_swap(swigCPtr, this, file_storage.getCPtr(ti), ti);
-  }
-
-  public void canonicalize() {
-    libtorrent_jni.file_storage_canonicalize(swigCPtr, this);
-  }
-
-  public sha1_hash hash(int index) {
-    return new sha1_hash(libtorrent_jni.file_storage_hash(swigCPtr, this, index), true);
   }
 
   public sha256_hash root(int index) {
@@ -235,6 +227,10 @@ public class file_storage {
     return libtorrent_jni.file_storage_file_index_at_piece(swigCPtr, this, piece);
   }
 
+  public int last_file_index_at_piece(int piece) {
+    return libtorrent_jni.file_storage_last_file_index_at_piece(swigCPtr, this, piece);
+  }
+
   public int file_index_for_root(sha256_hash root_hash) {
     return libtorrent_jni.file_storage_file_index_for_root(swigCPtr, this, sha256_hash.getCPtr(root_hash), root_hash);
   }
@@ -243,12 +239,12 @@ public class file_storage {
     return libtorrent_jni.file_storage_piece_index_at_file(swigCPtr, this, f);
   }
 
-  public boolean v2() {
-    return libtorrent_jni.file_storage_v2(swigCPtr, this);
+  public int last_piece_index_at_file(int f) {
+    return libtorrent_jni.file_storage_last_piece_index_at_file(swigCPtr, this, f);
   }
 
-  public void canonicalize_impl(boolean backwards_compatible) {
-    libtorrent_jni.file_storage_canonicalize_impl(swigCPtr, this, backwards_compatible);
+  public boolean v2() {
+    return libtorrent_jni.file_storage_v2(swigCPtr, this);
   }
 
   public void add_file_ex(error_code ec, String path, long file_size, file_flags_t file_flags, long mtime, String symlink_path) {

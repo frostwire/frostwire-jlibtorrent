@@ -75,6 +75,14 @@ public class tracker_alert extends torrent_alert {
     return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
+  public void setVersion(protocol_version value) {
+    libtorrent_jni.tracker_alert_version_set(swigCPtr, this, value.swigValue());
+  }
+
+  public protocol_version getVersion() {
+    return protocol_version.swigToEnum(libtorrent_jni.tracker_alert_version_get(swigCPtr, this));
+  }
+
   public tcp_endpoint get_local_endpoint() {
     return new tcp_endpoint(libtorrent_jni.tracker_alert_get_local_endpoint(swigCPtr, this), true);
   }

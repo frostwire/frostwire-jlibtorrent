@@ -8,30 +8,30 @@
 
 package com.frostwire.jlibtorrent.swig;
 
-public class SWIGTYPE_p_std__weak_ptrT_peer_connection_t {
+public class SWIGTYPE_p_std__weak_ptrT_libtorrent__aux__peer_connection_t {
   private transient long swigCPtr;
   // The proxy whose native memory this one points into, kept reachable while this one is.
   @SuppressWarnings("unused")
   private transient Object swigBorrowedFrom;
 
-  protected SWIGTYPE_p_std__weak_ptrT_peer_connection_t(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  protected SWIGTYPE_p_std__weak_ptrT_libtorrent__aux__peer_connection_t(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     this(cPtr, futureUse, null);
   }
 
-  protected SWIGTYPE_p_std__weak_ptrT_peer_connection_t(long cPtr, @SuppressWarnings("unused") boolean futureUse, Object borrowedFrom) {
+  protected SWIGTYPE_p_std__weak_ptrT_libtorrent__aux__peer_connection_t(long cPtr, @SuppressWarnings("unused") boolean futureUse, Object borrowedFrom) {
     swigCPtr = cPtr;
     swigBorrowedFrom = borrowedFrom;
   }
 
-  protected SWIGTYPE_p_std__weak_ptrT_peer_connection_t() {
+  protected SWIGTYPE_p_std__weak_ptrT_libtorrent__aux__peer_connection_t() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_std__weak_ptrT_peer_connection_t obj) {
+  protected static long getCPtr(SWIGTYPE_p_std__weak_ptrT_libtorrent__aux__peer_connection_t obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
-  protected static long swigRelease(SWIGTYPE_p_std__weak_ptrT_peer_connection_t obj) {
+  protected static long swigRelease(SWIGTYPE_p_std__weak_ptrT_libtorrent__aux__peer_connection_t obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

@@ -271,9 +271,8 @@ public class session_handle {
     libtorrent_jni.session_handle_dht_direct_request__SWIG_2(swigCPtr, this, udp_endpoint.getCPtr(ep), ep, entry.getCPtr(e), e, userdata);
   }
 
-  public alert wait_for_alert_ms(long max_wait) {
-    long cPtr = libtorrent_jni.session_handle_wait_for_alert_ms(swigCPtr, this, max_wait);
-    return (cPtr == 0) ? null : new alert(cPtr, false, this);
+  public boolean wait_for_alert_ms(long max_wait) {
+    return libtorrent_jni.session_handle_wait_for_alert_ms(swigCPtr, this, max_wait);
   }
 
   public void set_alert_notify_callback(alert_notify_callback cb) {

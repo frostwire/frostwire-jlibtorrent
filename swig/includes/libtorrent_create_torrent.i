@@ -1,8 +1,7 @@
-// create_torrent keeps a reference to the file_storage it's made from (or to the torrent_info's
-// files): the new proxy keeps that argument reachable (frostwire/frostwire-jlibtorrent#337).
-%typemap(javaconstruct) libtorrent::create_torrent {
-    this($imcall, true, JLIBTORRENT_CTOR_BORROW);
-  }
+// libtorrent 2.1: create_torrent copies the create_file_entry list it's made from, so it doesn't
+// keep its constructor argument alive any more (2.0's create_torrent(file_storage&) did, #337).
+%ignore libtorrent::create_torrent::file_list;
+%ignore libtorrent::list_files;
 
 %include "libtorrent/create_torrent.hpp"
 
@@ -10,10 +9,6 @@ namespace libtorrent {
     %extend create_torrent {
         void add_url_seed(std::string const& url) {
             $self->add_url_seed(url);
-        }
-
-        void add_http_seed(std::string const& url) {
-            $self->add_http_seed(url);
         }
 
         void add_tracker(std::string const& url) {

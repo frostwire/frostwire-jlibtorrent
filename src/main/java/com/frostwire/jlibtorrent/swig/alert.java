@@ -229,6 +229,11 @@ public class alert {
     return (cPtr == 0) ? null : new file_prio_alert(cPtr, false, null);
   }
 
+  public static file_priorities_alert cast_to_file_priorities_alert(alert a) {
+    long cPtr = libtorrent_jni.alert_cast_to_file_priorities_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new file_priorities_alert(cPtr, false, null);
+  }
+
   public static file_progress_alert cast_to_file_progress_alert(alert a) {
     long cPtr = libtorrent_jni.alert_cast_to_file_progress_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new file_progress_alert(cPtr, false, null);
@@ -242,6 +247,11 @@ public class alert {
   public static file_renamed_alert cast_to_file_renamed_alert(alert a) {
     long cPtr = libtorrent_jni.alert_cast_to_file_renamed_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new file_renamed_alert(cPtr, false, null);
+  }
+
+  public static file_status_alert cast_to_file_status_alert(alert a) {
+    long cPtr = libtorrent_jni.alert_cast_to_file_status_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new file_status_alert(cPtr, false, null);
   }
 
   public static hash_failed_alert cast_to_hash_failed_alert(alert a) {
@@ -267,6 +277,11 @@ public class alert {
   public static invalid_request_alert cast_to_invalid_request_alert(alert a) {
     long cPtr = libtorrent_jni.alert_cast_to_invalid_request_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new invalid_request_alert(cPtr, false, null);
+  }
+
+  public static ip_ban_alert cast_to_ip_ban_alert(alert a) {
+    long cPtr = libtorrent_jni.alert_cast_to_ip_ban_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new ip_ban_alert(cPtr, false, null);
   }
 
   public static listen_failed_alert cast_to_listen_failed_alert(alert a) {

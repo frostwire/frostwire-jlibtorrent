@@ -656,7 +656,7 @@ public final class TorrentStatus implements Cloneable {
      * @return
      */
     public boolean needSaveResume() {
-        return ts.getNeed_save_resume();
+        return ts.getNeed_save_resume_data().nonZero();
     }
 
     /**

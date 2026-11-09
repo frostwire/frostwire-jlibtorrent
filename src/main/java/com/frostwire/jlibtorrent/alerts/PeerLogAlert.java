@@ -17,13 +17,22 @@ public final class PeerLogAlert extends PeerAlert<peer_log_alert> {
     }
 
     /**
-     * String literal indicating the kind of event. For messages, this is the
-     * message name.
+     * The kind of event, upper case: for messages, the message name, e.g. {@code "HANDSHAKE"}.
+     * <p>
+     * libtorrent 2.1 made it an enum ({@link #event()}); this is its name, the same string
+     * libtorrent 2.0 gave for the events both versions have.
      *
      * @return the event type
      */
     public String eventType() {
-        return alert.get_event_type();
+        return alert.getEvent_type().toString().toUpperCase(java.util.Locale.ROOT);
+    }
+
+    /**
+     * @return the kind of event (libtorrent 2.1)
+     */
+    public peer_log_alert.event_t event() {
+        return alert.getEvent_type();
     }
 
     /**

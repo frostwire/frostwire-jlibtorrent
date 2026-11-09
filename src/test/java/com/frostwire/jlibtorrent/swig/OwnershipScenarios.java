@@ -40,12 +40,12 @@ public final class OwnershipScenarios {
         System.out.flush();
     }
 
-    // torrent_info.files() returns a file_storage that points into the torrent_info. Dropping the
+    // torrent_info.layout() (files() before libtorrent 2.1) returns a file_storage that points into the torrent_info. Dropping the
     // torrent_info while keeping the file_storage must not free the memory under it.
     private static void borrowedFileStorage() throws Exception {
         byte[] data = resource("/noaa-ncei-national-marine-sanctuary-program-academic-torrents.torrent");
         torrent_info ti = new TorrentInfo(data).swig();
-        file_storage fs = ti.files();
+        file_storage fs = ti.layout();
         int numFiles = fs.num_files();
         long totalSize = fs.total_size();
         List<String> paths = new ArrayList<>();
@@ -126,7 +126,9 @@ public final class OwnershipScenarios {
     // collected. Here "C++" is this scenario, which reads it and frees it once, at the end.
     private static void releaseDisarmsCleanup() throws Exception {
         byte[] data = resource("/noaa-ncei-national-marine-sanctuary-program-academic-torrents.torrent");
-        torrent_info ti = new TorrentInfo(data).swig();
+        // an owned copy: since libtorrent 2.1, TorrentInfo(byte[]).swig() is a view into the
+        // add_torrent_params load_torrent_buffer() returned, which swigRelease() refuses
+        torrent_info ti = new torrent_info(new TorrentInfo(data).swig());
         int numFiles = ti.num_files();
         WeakReference<torrent_info> proxy = new WeakReference<>(ti);
         long ptr = torrent_info.swigRelease(ti);
@@ -167,7 +169,7 @@ public final class OwnershipScenarios {
                 int ops = 0;
                 while (System.nanoTime() < deadline) {
                     torrent_info ti = new TorrentInfo(data).swig();
-                    file_storage fs = ti.files();
+                    file_storage fs = ti.layout();
                     check(fs.num_files() == numFiles, "num_files");
                     if (random.nextInt(4) == 0) {
                         kept.add(fs); // outlives ti, which is dropped without delete()

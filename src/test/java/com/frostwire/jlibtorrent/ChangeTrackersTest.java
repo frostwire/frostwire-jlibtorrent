@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class ChangeTrackersTest {
 
     @Test
-    public void testChangeTrackersUsingCreateTorrent() throws IOException {
+    public void testChangeTrackersAndBencode() throws IOException {
         byte[] torrentBytes = Utils.resourceBytes("test4.torrent");
         TorrentInfo ti = TorrentInfo.bdecode(torrentBytes);
 
@@ -36,13 +36,12 @@ public class ChangeTrackersTest {
         // did we remove all trackers
         assertEquals(ti.trackers().size(), 0);
 
-        create_torrent c = new create_torrent(ti.swig());
+        // libtorrent 2.1 removed create_torrent(torrent_info const&): trackers added to a TorrentInfo
+        // go into its add_torrent_params, which write_torrent_file() writes out
+        ti.addTracker("http://a:6969/announce", 0);
+        ti.addTracker("http://b:6969/announce", 1);
 
-        c.add_tracker("http://a:6969/announce", 0);
-        c.add_tracker("http://b:6969/announce", 1);
-
-        e = c.generate();
-        ti = TorrentInfo.bdecode(Vectors.byte_vector2bytes(e.bencode()));
+        ti = TorrentInfo.bdecode(ti.bencode());
         ArrayList<AnnounceEntry> trackers = ti.trackers();
         // do we have exactly the two added trackers
         assertEquals(trackers.size(), 2);

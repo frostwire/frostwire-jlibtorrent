@@ -1,6 +1,30 @@
 namespace libtorrent {
     struct peer_request;
+
+    %extend renamed_files {
+        // the leaf file name of file index in fs, honoring a rename
+        std::string get_file_name(file_storage const& fs, file_index_t index) const {
+            return std::string($self->file_name(fs, index));
+        }
+
+        // the renames, as file index to new path
+        std::map<int, std::string> get_renamed_files(file_storage const& fs) const {
+            std::map<int, std::string> ret;
+            for (auto const& e : $self->export_filenames(fs))
+                ret.emplace(static_cast<int>(e.first), e.second);
+            return ret;
+        }
+    } // renamed_files
 } // namespace libtorrent
+
+// libtorrent 2.1: renamed_files records a torrent's file renames without changing its file_storage
+// (torrent_handle::get_renamed_files(), torrent_status::renamed_files). filenames is a view holding
+// references to a file_storage and a renamed_files, which Java can't keep alive: use
+// renamed_files::file_path() instead.
+%ignore libtorrent::filenames;
+%ignore libtorrent::renamed_files::file_name;
+%ignore libtorrent::renamed_files::import_filenames;
+%ignore libtorrent::renamed_files::export_filenames;
 
 %include "libtorrent/file_storage.hpp"
 

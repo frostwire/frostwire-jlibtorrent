@@ -189,7 +189,7 @@ public final class AddTorrentParams {
      * @param ti the torrent info
      */
     public void torrentInfo(TorrentInfo ti) {
-        p.set_ti(ti.swig());
+        ti.applyTo(p);
     }
 
     /**

@@ -93,6 +93,15 @@ public class add_torrent_params {
     return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
+  public void setPart_file_dir(String value) {
+    libtorrent_jni.add_torrent_params_part_file_dir_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+  }
+
+  public String getPart_file_dir() {
+    byte[] bytes = libtorrent_jni.add_torrent_params_part_file_dir_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
+  }
+
   public void setStorage_mode(storage_mode_t value) {
     libtorrent_jni.add_torrent_params_storage_mode_set(swigCPtr, this, value.swigValue());
   }
@@ -264,6 +273,41 @@ public class add_torrent_params {
     return libtorrent_jni.add_torrent_params_last_upload_get(swigCPtr, this);
   }
 
+  public void setComment(String value) {
+    libtorrent_jni.add_torrent_params_comment_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+  }
+
+  public String getComment() {
+    byte[] bytes = libtorrent_jni.add_torrent_params_comment_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
+  }
+
+  public void setCreated_by(String value) {
+    libtorrent_jni.add_torrent_params_created_by_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+  }
+
+  public String getCreated_by() {
+    byte[] bytes = libtorrent_jni.add_torrent_params_created_by_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
+  }
+
+  public void setCreation_date(long value) {
+    libtorrent_jni.add_torrent_params_creation_date_set(swigCPtr, this, value);
+  }
+
+  public long getCreation_date() {
+    return libtorrent_jni.add_torrent_params_creation_date_get(swigCPtr, this);
+  }
+
+  public void setRoot_certificate(String value) {
+    libtorrent_jni.add_torrent_params_root_certificate_set(swigCPtr, this, (value == null ? null : value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+  }
+
+  public String getRoot_certificate() {
+    byte[] bytes = libtorrent_jni.add_torrent_params_root_certificate_get(swigCPtr, this);
+    return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
+  }
+
   public torrent_info ti_ptr() {
     long cPtr = libtorrent_jni.add_torrent_params_ti_ptr(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent_info(cPtr, false, this);
@@ -333,10 +377,6 @@ public class add_torrent_params {
     libtorrent_jni.add_torrent_params_set_dht_nodes(swigCPtr, this, string_int_pair_vector.getCPtr(dht_nodes), dht_nodes);
   }
 
-  public void set_http_seeds(string_vector http_seeds) {
-    libtorrent_jni.add_torrent_params_set_http_seeds(swigCPtr, this, string_vector.getCPtr(http_seeds), http_seeds);
-  }
-
   public string_vector get_url_seeds() {
     return new string_vector(libtorrent_jni.add_torrent_params_get_url_seeds(swigCPtr, this), true);
   }
@@ -367,10 +407,6 @@ public class add_torrent_params {
 
   public void set_piece_priorities2(byte_vector piece_priorities) {
     libtorrent_jni.add_torrent_params_set_piece_priorities2(swigCPtr, this, byte_vector.getCPtr(piece_priorities), piece_priorities);
-  }
-
-  public bool_vector_vector get_verified_leaf_hashes_old() {
-    return new bool_vector_vector(libtorrent_jni.add_torrent_params_get_verified_leaf_hashes_old(swigCPtr, this), false, this);
   }
 
   public bitfield_vector get_verified_leaf_hashes() {

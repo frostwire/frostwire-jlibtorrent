@@ -67,6 +67,14 @@ public class block_info {
     libtorrent_jni.delete_block_info(swigCPtr);
   }
 
+  public void setNum_peers(int value) {
+    libtorrent_jni.block_info_num_peers_set(swigCPtr, this, value);
+  }
+
+  public int getNum_peers() {
+    return libtorrent_jni.block_info_num_peers_get(swigCPtr, this);
+  }
+
   public tcp_endpoint peer() {
     return new tcp_endpoint(libtorrent_jni.block_info_peer(swigCPtr, this), true);
   }
@@ -93,14 +101,6 @@ public class block_info {
 
   public long getState() {
     return libtorrent_jni.block_info_state_get(swigCPtr, this);
-  }
-
-  public void setNum_peers(long value) {
-    libtorrent_jni.block_info_num_peers_set(swigCPtr, this, value);
-  }
-
-  public long getNum_peers() {
-    return libtorrent_jni.block_info_num_peers_get(swigCPtr, this);
   }
 
   public block_info() {
