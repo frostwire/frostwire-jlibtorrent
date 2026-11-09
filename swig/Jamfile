@@ -35,12 +35,21 @@ rule libtorrent_linking ( properties * )
     # dynamic_cast (frostwire/frostwire-jlibtorrent#339).
     result += <rtti>on ;
     result += <optimization>off ;
-    # libtorrent 2.1 builds WebTorrent support (libdatachannel, deps/libdatachannel) by default.
-    # jlibtorrent doesn't wrap it, and its CMake-built dependencies don't cross-compile here.
-    result += <webtorrent>off ;
+    # WebTorrent (wss:// trackers, WebRTC peers). libtorrent builds it with libdatachannel
+    # (deps/libdatachannel) and its submodules plog, libjuice and usrsctp; the last two are built
+    # with CMake from b2 (deps/libdatachannel/Jamfile), with the compiler and flags in CC, CFLAGS,
+    # CMAKE_* from the build script. Needs `git submodule update --init --recursive` in libtorrent.
+    result += <webtorrent>on ;
     # libtorrent 2.1's logging writes a sha1_hash to a std::stringstream (src/torrent.cpp,
     # upstream ff0ebd76c), which doesn't compile with BOOST_NO_IOSTREAM (<iostream>off below).
     result += <iostream>on ;
+
+    # WebTorrent's libjuice and usrsctp, built with CMake, need these on Windows; their CMake
+    # link interface doesn't reach b2. Untested until the next Windows build.
+    if <target-os>windows in $(properties)
+    {
+        result += <linkflags>-lbcrypt <linkflags>-lws2_32 <linkflags>-liphlpapi ;
+    }
 
     if <target-os>freebsd in $(properties)
     {

@@ -221,8 +221,7 @@ RUN cd /src \
     && cd libtorrent \
     && git fetch origin ${LIBTORRENT_BRANCH} \
     && git reset --hard ${LIBTORRENT_REVISION} \
-    && git submodule init \
-    && git submodule update \
+    && git submodule update --init --recursive \
     && cd /
 
 RUN mkdir frostwire-jlibtorrent

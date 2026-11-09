@@ -483,6 +483,10 @@ public class libtorrent implements libtorrentConstants {
     return bytes == null ? null : new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
   }
 
+  public static boolean webtorrent_supported() {
+    return libtorrent_jni.webtorrent_supported();
+  }
+
   public static boolean arm_neon_support() {
     return libtorrent_jni.arm_neon_support();
   }

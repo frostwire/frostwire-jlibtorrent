@@ -184,6 +184,8 @@ jobs:
       - name: Install Homebrew dependencies
         run: |
           brew install wget pcre2 automake autoconf bison
+          # CMake builds WebTorrent's usrsctp and libjuice; the runner image usually has it
+          command -v cmake >/dev/null || brew install cmake
           # The Homebrew bison must shadow the macOS system bison for SWIG's configure
           echo "$(brew --prefix bison)/bin" >> "$GITHUB_PATH"
 

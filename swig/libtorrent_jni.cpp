@@ -108738,6 +108738,28 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_webtorrent_1supported(JNIEnv *jenv, jclass jcls) {
+  jboolean jresult = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (bool)webtorrent_supported();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_arm_1neon_1support(JNIEnv *jenv, jclass jcls) {
   jboolean jresult = 0 ;
   bool result;

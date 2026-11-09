@@ -3813,6 +3813,7 @@ public class libtorrent_jni {
   public final static native void delete_list_files_listener(long jarg1);
   public final static native boolean list_files_listener_pred(long jarg1, list_files_listener jarg1_, byte[] jarg2);
   public final static native long new_list_files_listener();
+  public final static native boolean webtorrent_supported();
   public final static native boolean arm_neon_support();
   public final static native void posix_stat_t_size_set(long jarg1, posix_stat_t jarg1_, long jarg2);
   public final static native long posix_stat_t_size_get(long jarg1, posix_stat_t jarg1_);

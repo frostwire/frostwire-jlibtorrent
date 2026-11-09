@@ -16,6 +16,10 @@ public enum SocketType {
     SOCKS5_SSL(socket_type_t.socks5_ssl.swigValue()),
     HTTP_SSL(socket_type_t.http_ssl.swigValue()),
     UTP_SSL(socket_type_t.utp_ssl.swigValue()),
+    /**
+     * A WebRTC data channel to a WebTorrent peer (libtorrent 2.1).
+     */
+    RTC(socket_type_t.rtc.swigValue()),
 
     UNKNOWN(-1);
 

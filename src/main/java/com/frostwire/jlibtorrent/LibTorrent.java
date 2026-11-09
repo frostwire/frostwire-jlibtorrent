@@ -219,6 +219,17 @@ public final class LibTorrent {
     }
 
     /**
+     * Whether the native library was built with WebTorrent: wss:// (WebSocket) trackers and
+     * WebRTC peers, which talk to browser clients. Since jlibtorrent 2.1.2.0 every platform's
+     * library is meant to have it; a torrent's wss:// trackers are simply not used without it.
+     *
+     * @return true if libtorrent was built with TORRENT_USE_RTC
+     */
+    public static boolean hasWebTorrentSupport() {
+        return libtorrent.webtorrent_supported();
+    }
+
+    /**
      * If the native library is an ARM architecture variant, returns true
      * if the running platform has NEON support.
      *

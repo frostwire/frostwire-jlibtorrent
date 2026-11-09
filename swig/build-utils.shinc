@@ -368,8 +368,8 @@ prepare_libtorrent() {
   echo "git reset --hard ${LIBTORRENT_REVISION}"
   git reset --hard ${LIBTORRENT_REVISION}
   #press_any_to_continue
-  git submodule init
-  git submodule update
+  # --recursive: WebTorrent needs libdatachannel's own submodules (plog, libjuice, usrsctp)
+  git submodule update --init --recursive
   make clean
   popd
   echo "prepare_libtorrent finished."
@@ -393,6 +393,19 @@ build_libraries() {
   export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
   export BOOST_ROOT=${BOOST_ROOT}
   export BOOST_BUILD_PATH=${BOOST_ROOT}
+
+  # WebTorrent: libtorrent's deps/libdatachannel/Jamfile builds usrsctp and libjuice with CMake, in
+  # build directories inside the libtorrent checkout that every OS and arch shares. Point CMake at
+  # this build's compiler and target, and start those directories over so one platform's objects
+  # don't end up in another's library.
+  export CMAKE_TOOLCHAIN_FILE="${SWIG}/config/cmake-toolchain.cmake"
+  for dep in usrsctp libjuice; do
+    rm -rf "${LIBTORRENT_ROOT:?}/deps/libdatachannel/deps/${dep}"/build-*
+  done
+  if [ ! -f "${LIBTORRENT_ROOT}/deps/libdatachannel/deps/plog/include/plog/Log.h" ]; then
+    echo "build_libraries: libdatachannel's submodules are missing; run git submodule update --init --recursive in ${LIBTORRENT_ROOT}"
+    exit 1
+  fi
 
   #libtorrent_jni.cpp is specified as a source in the Jamfile:L70
   $run_bjam || exit 1

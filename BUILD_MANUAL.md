@@ -107,8 +107,10 @@ Building on macOS requires a physical Mac computer because cross-compilation fro
 Install build dependencies via Homebrew:
 
 ```bash
-brew install wget pcre2 automake autoconf bison
+brew install wget pcre2 automake autoconf bison cmake
 ```
+
+**WebTorrent (2.1.2.0 and later):** libtorrent is built with WebTorrent (`<webtorrent>on` in `swig/Jamfile`), which needs libdatachannel and its submodules plog, libjuice and usrsctp. The libtorrent checkout needs `git submodule update --init --recursive` (`prepare_libtorrent` and the Dockerfile do it), and CMake on the `PATH`: b2 builds usrsctp and libjuice with CMake, for the target in `swig/config/cmake-toolchain.cmake`.
 
 **Important:** macOS Xcode's built-in `bison` has compatibility issues. The script ensures the Homebrew `bison` is used.
 
@@ -340,6 +342,8 @@ implementation 'com.frostwire:jlibtorrent-android-x86:2.1.2.0'
 implementation 'com.frostwire:jlibtorrent-android-x86_64:2.1.2.0'
 ```
 
+**WebTorrent on Android:** usrsctp and libjuice are built with the NDK's CMake toolchain (`android.toolchain.cmake`, ABI and API level from the build script) through `swig/config/cmake-toolchain.cmake`; libdatachannel links the per-architecture OpenSSL the Dockerfile builds.
+
 ### Linux Builds
 
 **Linux x86_64 and arm64** are both built inside the Docker container.
@@ -351,6 +355,8 @@ implementation 'com.frostwire:jlibtorrent-android-x86_64:2.1.2.0'
 **Linux SDK/toolchain:**
 - GCC 9.x for both architectures
 - glibc 2.29+ compatibility
+
+**WebTorrent on Linux:** usrsctp and libjuice are cross-built with the same `x86_64-linux-gnu-gcc` / `aarch64-linux-gnu-gcc` as libtorrent (`CMAKE_SYSTEM_NAME Linux` in `swig/config/cmake-toolchain.cmake`).
 
 ### Windows Builds
 
@@ -364,9 +370,11 @@ implementation 'com.frostwire:jlibtorrent-android-x86_64:2.1.2.0'
 - Windows 7 SP1 and later
 - x86_64 architecture only
 
+**WebTorrent on Windows:** usrsctp and libjuice are cross-built with MinGW (`CMAKE_SYSTEM_NAME Windows`); `swig/Jamfile` adds `ws2_32`, `iphlpapi` and `bcrypt` to the DLL's link for libjuice and usrsctp (not yet tried in a Windows build).
+
 ### macOS Builds
 
-See [macOS Builds](#macos-builds) section above.
+See [macOS Builds](#macos-builds) section above. usrsctp and libjuice are built for macOS 11.3 like the rest (`CMAKE_OSX_DEPLOYMENT_TARGET`).
 
 ---
 

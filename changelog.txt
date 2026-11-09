@@ -43,8 +43,15 @@
    apply_filter_to_dht and the webtorrent ones (WebTorrent itself isn't built)
  * EnumNet and bloom_filter_128/256 keep their API: libtorrent 2.1 made them internal (aux::), the bindings wrap
    those
- * build: libtorrent is built with webtorrent=off (2.1 builds WebTorrent by default, which needs libdatachannel)
-   and with iostream on (2.1's logging writes a sha1_hash to a stringstream, upstream ff0ebd76c)
+ * new: WebTorrent. libtorrent is built with it (libdatachannel, libjuice, usrsctp, plog), so torrents can use
+   wss:// trackers and WebRTC peers (browser clients). New LibTorrent.hasWebTorrentSupport(); SettingsPack
+   getWebtorrentStunServer()/setWebtorrentStunServer() (were stubs), minWebsocketAnnounceInterval(),
+   webtorrentConnectionTimeout(), maxWebtorrentOffers() (0 disables WebRTC offers), applyFilterToDht();
+   SocketType.RTC. libtorrent drops wss:// trackers when it loads a .torrent without WebTorrent
+ * build: the libtorrent checkout needs `git submodule update --init --recursive` and CMake: b2 builds usrsctp
+   and libjuice with CMake, for the build's target through swig/config/cmake-toolchain.cmake (CMAKE_TOOLCHAIN_FILE)
+ * build: libtorrent is built with iostream on (2.1's logging writes a sha1_hash to a stringstream, upstream
+   ff0ebd76c)
  * build: Boost 1.92.0 (was 1.88.0), b2 5.5.3; the Boost and SWIG downloads are checked against their sha256
    (Boost's as published on archives.boost.io). SWIG stays at 4.5.1, still the newest release
  * lt: removed BEP 17 web seeds (in favor of BEP 19); new multi-threaded pread() disk I/O backend, the default

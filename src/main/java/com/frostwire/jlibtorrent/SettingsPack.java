@@ -631,29 +631,102 @@ public final class SettingsPack {
     }
 
     /**
-     * This is the STUN server used by WebTorrent to enable ICE NAT
-     * traversal for WebRTC. It must have the format ``hostname:port``.
+     * The STUN server WebTorrent uses for ICE NAT traversal of its WebRTC connections, as
+     * {@code hostname:port}. libtorrent's default is {@code stun.l.google.com:19302}.
      *
-     * TODO: Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0
-     * See https://github.com/arvidn/libtorrent/blob/master/include/libtorrent/settings_pack.hpp#L370
+     * @return the STUN server
      */
     public String getWebtorrentStunServer() {
-        new RuntimeException("Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0");
-        return "sp.get_str(string_types.webtorrent_stun_server.swigValue());";
+        return sp.get_str(settings_pack.string_types.webtorrent_stun_server.swigValue());
     }
 
     /**
-     * This is the STUN server used by WebTorrent to enable ICE NAT
-     * traversal for WebRTC. It must have the format ``hostname:port``.
+     * Sets the STUN server WebTorrent uses for ICE NAT traversal of its WebRTC connections.
      *
-     * TODO: Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0
-     * See https://github.com/arvidn/libtorrent/blob/master/include/libtorrent/settings_pack.hpp#L370
-     *
-     * @param value the STUN server endpoint
+     * @param value the STUN server, as {@code hostname:port}
      */
     public void setWebtorrentStunServer(String value) {
-        new RuntimeException("Uncomment code below when settings_pack.hpp from libtorrent master is merged to RC_2_0");
-        //sp.set_str(string_types.webtorrent_stun_server.swigValue(), value);
+        sp.set_str(settings_pack.string_types.webtorrent_stun_server.swigValue(), value);
+    }
+
+    /**
+     * @return the minimum announce interval, in seconds, accepted from a WebTorrent (wss://)
+     * tracker; libtorrent's default is 60
+     */
+    public int minWebsocketAnnounceInterval() {
+        return sp.get_int(settings_pack.int_types.min_websocket_announce_interval.swigValue());
+    }
+
+    /**
+     * Sets the minimum announce interval, in seconds, accepted from a WebTorrent (wss://)
+     * tracker, the WebSocket tracker that signals WebRTC connections. A sanity check on what
+     * the tracker returns.
+     *
+     * @param value seconds
+     * @return this
+     */
+    public SettingsPack minWebsocketAnnounceInterval(int value) {
+        sp.set_int(settings_pack.int_types.min_websocket_announce_interval.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return the WebRTC connection timeout of WebTorrent peers, in seconds; libtorrent's
+     * default is 120
+     */
+    public int webtorrentConnectionTimeout() {
+        return sp.get_int(settings_pack.int_types.webtorrent_connection_timeout.swigValue());
+    }
+
+    /**
+     * Sets the WebRTC connection timeout of WebTorrent peers.
+     *
+     * @param value seconds
+     * @return this
+     */
+    public SettingsPack webtorrentConnectionTimeout(int value) {
+        sp.set_int(settings_pack.int_types.webtorrent_connection_timeout.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return the maximum number of WebRTC offers per WebTorrent tracker announce; libtorrent's
+     * default is 10
+     */
+    public int maxWebtorrentOffers() {
+        return sp.get_int(settings_pack.int_types.max_webtorrent_offers.swigValue());
+    }
+
+    /**
+     * Sets the maximum number of WebRTC offers generated and advertised per WebTorrent tracker
+     * announce. It also limits the concurrent incoming WebRTC negotiations per torrent. 0
+     * disables WebTorrent offers, so the session neither offers nor accepts WebRTC peers
+     * through wss:// trackers.
+     *
+     * @param value the number of offers, 0 to disable
+     * @return this
+     */
+    public SettingsPack maxWebtorrentOffers(int value) {
+        sp.set_int(settings_pack.int_types.max_webtorrent_offers.swigValue(), value);
+        return this;
+    }
+
+    /**
+     * @return whether the IP filter also applies to DHT nodes (libtorrent 2.1)
+     */
+    public boolean applyFilterToDht() {
+        return sp.get_bool(settings_pack.bool_types.apply_filter_to_dht.swigValue());
+    }
+
+    /**
+     * Sets whether the session's IP filter also applies to DHT nodes (libtorrent 2.1).
+     *
+     * @param value true to filter DHT nodes too
+     * @return this
+     */
+    public SettingsPack applyFilterToDht(boolean value) {
+        sp.set_bool(settings_pack.bool_types.apply_filter_to_dht.swigValue(), value);
+        return this;
     }
 
     /**

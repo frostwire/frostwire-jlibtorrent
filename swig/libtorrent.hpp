@@ -545,6 +545,12 @@ struct list_files_listener
     }
 };
 
+// true if this native library was built with WebTorrent (wss:// trackers, WebRTC peers)
+bool webtorrent_supported()
+{
+    return TORRENT_USE_RTC != 0;
+}
+
 bool arm_neon_support()
 {
     return libtorrent::aux::arm_neon_support;

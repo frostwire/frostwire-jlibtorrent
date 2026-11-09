@@ -5,6 +5,8 @@ brew install automake
 brew install autoconf
 # DO NOT USE XTool's bison, the swig build uses a -W flag that's not recognized by it
 brew install bison
+# CMake builds usrsctp and libjuice for WebTorrent (libtorrent/deps/libdatachannel)
+command -v cmake >/dev/null || brew install cmake
 export PATH="$(brew --prefix bison)/bin:${PATH}"
 
 # The SWIG version and the sha256 of its tarball come from build-utils.shinc, the one place the
