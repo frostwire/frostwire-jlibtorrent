@@ -872,6 +872,23 @@ public final class TorrentHandle {
     }
 
     /**
+     * Asks libtorrent 2.1 for the files the torrent has open. The answer comes back as a
+     * {@link com.frostwire.jlibtorrent.alerts.FileStatusAlert}, without blocking this thread.
+     */
+    public void postFileStatus() {
+        th.post_file_status();
+    }
+
+    /**
+     * Asks libtorrent 2.1 for the priority of every file. The answer comes back as a
+     * {@link com.frostwire.jlibtorrent.alerts.FilePrioritiesAlert}, without blocking this thread
+     * the way {@link #filePriorities()} does.
+     */
+    public void postFilePriorities() {
+        th.post_file_priorities();
+    }
+
+    /**
      * Generates a magnet URI from the specified torrent. If the torrent
      * handle is invalid, null is returned.
      *

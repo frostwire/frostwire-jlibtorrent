@@ -169,9 +169,19 @@ public class SessionParams {
     }
 
     /**
+     * Use libtorrent 2.1's multi-threaded disk I/O back-end built on {@code pread()} and
+     * {@code pwrite()} (Windows: overlapped I/O). It is also the default since libtorrent 2.1.
+     */
+    @SuppressWarnings("unused")
+    public void setPreadDiskIO() {
+        s_p.set_pread_disk_io_constructor();
+    }
+
+    /**
      * Internally set the session to use the more appropriate disk I/O back-end.
-     * On systems that support memory mapped files (and a 64-bit address space) the
-     * memory mapped storage will be constructed, otherwise the portable posix storage.
+     * Since libtorrent 2.1 that is the multi-threaded pread() back-end ({@link #setPreadDiskIO()})
+     * wherever pread() exists, including Windows, Linux, macOS and Android. libtorrent 2.0 picked
+     * memory mapped files on 64-bit systems instead.
      */
     @SuppressWarnings("unused")
     public void setDefaultDiskIO() {

@@ -655,6 +655,24 @@ public final class Alerts {
                 return new TrackerListAlert(cast_to_tracker_list_alert(a));
             }
         };
+        arr[105] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new FilePrioritiesAlert(cast_to_file_priorities_alert(a));
+            }
+        };
+        arr[106] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new FileStatusAlert(cast_to_file_status_alert(a));
+            }
+        };
+        arr[107] = new CastLambda() {
+            @Override
+            public Alert<?> cast(alert a) {
+                return new IpBanAlert(cast_to_ip_ban_alert(a));
+            }
+        };
 
         return arr;
     }
