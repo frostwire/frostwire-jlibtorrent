@@ -18,6 +18,15 @@ Copies, kept identical: this repository's `skills/libtorrent-upstream-patches/` 
 - **Aim for what arvidn will merge.** Order the work by how likely each fix is to be accepted, and send the surest ones first: a range check, a clamp or a missing limit with a test merges quickly; a change in protocol behaviour or a new policy is a discussion. For those, send the smallest version that fixes the bug, state the open choice in the PR, and consider asking in an issue first.
 - **As minimal and granular as possible.** One root cause per pull request, small enough to review in a few minutes, touching only the lines the fix needs: no refactoring, renaming, reformatting of untouched lines, new abstractions or drive-by cleanups. If two fixes can be reviewed and merged independently, they are two PRs. A neighbouring one-line fix may ride along only when it is in the same function and is named in the description.
 - **Write it the way the project does.** Before writing, read how the same file and its siblings do the same kind of thing and copy that: the existing limit next door (`max_pex_peers` in `ut_pex`, `max_suggest_pieces`), the existing error code, the existing log call, the comment style (lower-case sentences that say why), tabs, `const` on locals, `int(…)`/`std::uint8_t(…)` casts, `TORRENT_ASSERT`, `#ifndef TORRENT_DISABLE_LOGGING` around logging, `aux::` helpers instead of new ones, `TEST_CHECK`/`TEST_EQUAL` and the helpers already in the test file. Prefer a setting or constant the project already has over a new one. clang-format (§5) decides line breaking; everything else follows the code around the change.
+- **What arvidn asks for in review (2026-11, PRs #9165, #9167, #9170, #9166).** Apply these up front:
+  - *Simple over sophisticated.* A plain limit beats de-duplication plus a limit; a counter compared against time connected beats a window with resets. If a fix feels "bespoke", look for the dumber version.
+  - *No new constants or members in headers* unless the state must live there. A limit goes in place, as a literal, in the one function that uses it (`if (int(m_allowed_fast.size()) >= 30)`).
+  - *Tests as simulations* (`simulation/`, with `fake_peer` and `sim::http_server`), not real sockets and not the Python helpers (`web_server.py` is being phased out). Simulations are deterministic.
+  - *Tests through public interfaces.* Don't reach into `native_handle()` to read a peer connection's internals; observe `peer_log_alert` (by `event_type`), other alerts or session stats.
+  - *A parameter instead of poking a field after the call* (`add_web_seed(..., redirect_depth)`).
+  - *Vague ChangeLog lines* ("fix web seed redirects"), not a description of the mechanism.
+  - *A partial fix for a hostile-peer problem is not accepted.* If one malicious peer can still win by being first, the design is wrong; say what is unsolved, and expect to be asked for the full model (per-peer state for metadata).
+  - He asks "is this actually a problem?" (#9164). Have the answer ready: what breaks or degrades, shown from the code or measured.
 - **Work serially.** Finish one PR (tests, format, review, push) before starting the next. Every PR starts about 70 CI jobs upstream, so don't open more than the work needs.
 - **Judgement calls are stated as such.** A new limit or constant (a cap, a rate, a timeout) is the maintainer's to change: say what was picked and why, and offer to change it.
 - **Never force-push a PR branch.** Add commits; arvidn squashes when merging. Amending and force-pushing a pushed branch is also blocked in auto mode.
@@ -47,7 +56,14 @@ cd build/test && ./test_fast_extension      # the whole file
 - `test/web_server.py` and the other Python helpers are **copied into `build/test` at configure time**. After editing one, copy it again (or re-run cmake), or the test keeps using the old copy.
 - Debug builds have asserts on (`TORRENT_USE_ASSERTS`), which is what makes assert-only bugs reproducible.
 - Code touched by `#if TORRENT_USE_RTC` (websocket tracker, WebTorrent) needs a second build directory without `-Dwebtorrent=OFF`.
-- Not runnable locally without Boost.Build: the simulations (`simulation/Jamfile`). CI runs them; say so in the PR.
+- **Simulations** build with Boost.Build. There is a `b2` in the Boost source tree (`~/src/boost_1_92_0/b2`). Don't create `~/user-config.jam` (it would affect the jlibtorrent builds); use a private one:
+  ```sh
+  echo "using darwin ;" > /path/to/scratch/user-config.jam
+  cd simulation && BOOST_ROOT=$HOME/src/boost_1_92_0 $HOME/src/boost_1_92_0/b2 \
+    --user-config=/path/to/scratch/user-config.jam toolset=darwin -j12 test_web_seed
+  ```
+  The target is the test's file name without `.cpp`; b2 builds libtorrent in simulator mode (a few minutes the first time) and runs every test in that file. Failures are in the output as `***** file:line "TEST_ERROR: ..."`.
+- Simulation building blocks: `simulation/fake_peer.hpp` (`set_reserved_bits`, `send_extended(id, payload)`, `send_message`; everything queued before the connect is sent after the handshake), `run_fake_peer_session` / `test_peer` / `test_peer_magnet` in `simulation/test_peer_connection.cpp`, and `sim::http_server` (`register_handler`, `register_redirect`, `register_content`) as used in `simulation/test_web_seed.cpp`. libtorrent's own extension message IDs are fixed (`ut_metadata` 2, `upload_only` 3, `ut_holepunch` 4, `lt_donthave` 7).
 - Some tests need local Python modules (`websocket_server.py`); a test that can't start its helper fails with or without the patch. Report it as not run.
 
 ## 3. The test
@@ -58,6 +74,7 @@ cd build/test && ./test_fast_extension      # the whole file
   - **Peer protocol**: `test/test_fast_extension.cpp`. It has a raw-socket fake peer (`setup_peer`, `do_handshake`, `send_extension_handshake`, `send_ut_metadata_msg`, …). Give a second fake peer its own peer id, or it is dropped as a duplicate.
   - **Web seeds / HTTP trackers**: `test/web_server.py` (add a path) with `start_web_server()`.
   - **I2P peers**: play the SAM bridge on a local acceptor (HELLO, SESSION CREATE, NAMING LOOKUP, STREAM ACCEPT, then the peer's destination line); `i2p_pex_max_peers` in `test_fast_extension.cpp` is the example.
+- **Marker replies must be unambiguous.** On a torrent without metadata the session sends its own `ut_metadata` requests, so "wait for any `ut_metadata` message" returns before your messages were handled; wait for the specific reply (`msg_type` 2, the reject). This race made a test pass or fail by luck.
 - **Know when the session has handled your messages** without sleeping: send something that gets a reply after them (a `ut_metadata` request, or a block request that gets rejected) and read up to that reply. Messages on one connection are handled in order.
 - **Read internal state** on the session thread: `post(ses.native_handle()->get_context(), …)` with a `std::promise`, or session stats counters through `get_counters()`. Check that a counter really counts what you think (2026-11: the incoming fast-extension counters didn't, which became its own PR).
 - **Slow CI machines:** wait in a bounded loop for a condition instead of a fixed sleep; assert `<=` a limit on gauges that retransmits or timeouts can only lower; don't assert exact packet counts.
@@ -86,6 +103,8 @@ git clang-format --binary cfvenv/bin/clang-format --diff origin/<base>   # must 
 ```
 
 Rebuild and re-run the tests after formatting, then commit.
+
+**Compile with CI's warning flags too.** The clang jobs build with `-Weverything -Werror` (minus a list of `-Wno-...`; copy the flags from a CI log line). Compile each changed `.cpp` with them and `-fsyntax-only`, and look only at diagnostics on your own lines (a newer local clang reports extra warnings in untouched code). The one that bit us: a test helper outside the anonymous namespace is `-Wmissing-prototypes`. Adding a parameter to a `torrent` member also breaks `torrent_handle.cpp`, which calls members through `async_call` and explicit template instantiations: build the library, not just the file you changed.
 
 ## 6. Commit, review, push, pull request
 
@@ -143,6 +162,9 @@ Stop watching a PR when every check has finished and each failure is either fixe
 ## 8. After review
 
 - Answer arvidn's review comments with commits on the same branch; reply with what changed.
+- **Answer review comments in place**: reply in each inline thread (`gh api -X POST repos/arvidn/libtorrent/pulls/<n>/comments/<comment id>/replies -f body=...`), naming the commit that addresses it, and answer questions ("what do you think of…") there too, with your opinion and the trade-off. A top-level summary comment is fine in addition, not instead.
+- **Push back when he's wrong, concede when he's right, and correct the record either way.** If a review comment rests on a wrong assumption, show the code that contradicts it; if an earlier comment of ours was inaccurate, say so.
+- **Merging the base branch into several PR branches:** resolve and verify each branch by itself (no conflict markers, formatter clean, the test file builds and passes) before committing. Every PR adds a ChangeLog line at the top and tests in the same file, so they all conflict as soon as one is merged. "Keep both sides" is right for the ChangeLog but can cut a function in half in a test file; a loop that commits and pushes without checking pushed a file that didn't compile.
 - **Conflicts:** first check whether the fix has already landed. arvidn sometimes squashes several of our PRs into one commit on the base branch. `git merge-tree --write-tree origin/<base> <branch>`, then diff the resulting tree against `origin/<base>` for `src` and `include`: no difference means it is merged, and the PR should be closed (the maintainer's call), not rebased. A real conflict (usually the `ChangeLog` top line, since each PR adds one) is resolved by merging the base branch into the PR branch, not by rebasing.
 - When a fix lands, note the libtorrent commit in MentisDB; the next jlibtorrent upgrade (`skills/jlibtorrent-libtorrent-upgrade`) picks it up and its changelog can name it.
 
