@@ -67,6 +67,11 @@ cd build/test && ./test_fast_extension      # the whole file
   The target is the test's file name without `.cpp`; b2 builds libtorrent in simulator mode (a few minutes the first time) and runs every test in that file. Failures are in the output as `***** file:line "TEST_ERROR: ..."`.
 - Simulation building blocks: `simulation/fake_peer.hpp` (`set_reserved_bits`, `send_extended(id, payload)`, `send_message`; everything queued before the connect is sent after the handshake), `run_fake_peer_session` / `test_peer` / `test_peer_magnet` in `simulation/test_peer_connection.cpp`, and `sim::http_server` (`register_handler`, `register_redirect`, `register_content`) as used in `simulation/test_web_seed.cpp`. libtorrent's own extension message IDs are fixed (`ut_metadata` 2, `upload_only` 3, `ut_holepunch` 4, `lt_donthave` 7).
 - Some tests need local Python modules (`websocket_server.py`); a test that can't start its helper fails with or without the patch. Report it as not run.
+- Simulation gotchas:
+  - The simulated clock starts at 0, so "now + a huge value" does not overflow there the way it does on a real clock. A converted test can pass without the fix: rerun the fail-without-the-fix check every time a test moves to a simulation, and assert the limit itself (e.g. "no more than a week away") instead of the wrap-around.
+  - Output of passing test cases is not shown. To see a debug `printf`, make the case fail (a temporary `TEST_CHECK(false)`).
+  - A fake peer can send more later: queue with `send_extended()` and call `flush_send_buffer()` from a `sim::timer`. Use timers to fix the order of events between two fake peers.
+- Plugin code that calls back into the torrent (`set_metadata()`, `pause()`) may disconnect peers synchronously, which runs the peer plugins' `on_disconnect()`. Don't hold references to state that `on_disconnect()` may free across such a call.
 
 ## 3. The test
 
