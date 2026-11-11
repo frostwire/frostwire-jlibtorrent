@@ -107,6 +107,16 @@ public class TorrentFileMetadataTest {
     }
 
     @Test
+    public void aMagnetMadeFromATorrentInfoCarriesItsName() throws Exception {
+        TorrentInfo ti = new TorrentInfo(torrent(content(tmp.newFolder("data"), 40000, 5000), null));
+
+        String magnet = ti.makeMagnetUri();
+
+        assertTrue(magnet, magnet.startsWith("magnet:?xt=urn:btih:" + ti.infoHashV1().toHex()));
+        assertTrue("the link names the torrent: " + magnet, magnet.contains("&dn=folder"));
+    }
+
+    @Test
     public void bencodeWritesTheWholeTorrentBack() throws Exception {
         byte[] original = torrent(content(tmp.newFolder("data"), 40000, 5000), null);
         TorrentInfo ti = new TorrentInfo(original);

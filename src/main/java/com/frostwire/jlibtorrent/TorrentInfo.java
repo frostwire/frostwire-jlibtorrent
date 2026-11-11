@@ -767,7 +767,16 @@ public final class TorrentInfo {
      *
      */
     public String makeMagnetUri() {
-        return ti.is_valid() ? libtorrent.make_magnet_uri(swigParams()) : null;
+        if (!ti.is_valid()) {
+            return null;
+        }
+        add_torrent_params p = swigParams();
+        // libtorrent 2.1 takes the link's display name (dn=) only from the params' name, not
+        // from the torrent they carry, so a link made from set_ti() alone would have none
+        if (p.getName().isEmpty()) {
+            p.setName(ti.name());
+        }
+        return libtorrent.make_magnet_uri(p);
     }
 
     /**
