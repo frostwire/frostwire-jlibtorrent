@@ -25,6 +25,8 @@ Copies, kept identical: this repository's `skills/libtorrent-upstream-patches/` 
   - *Tests through public interfaces.* Don't reach into `native_handle()` to read a peer connection's internals; observe `peer_log_alert` (by `event_type`), other alerts or session stats.
   - *A parameter instead of poking a field after the call* (`add_web_seed(..., redirect_depth)`).
   - *Vague ChangeLog lines* ("fix web seed redirects"), not a description of the mechanism.
+  - *A ChangeLog entry only for the important fixes* (2026-11-11, #9163: "one problem with adding ChangeLog entries for every PR is that they will conflict. Maybe only the most important ones would be enough"). A small hardening fix (a range check, a limit, a counter) gets none, which also keeps it from conflicting with every other open PR when one is merged. Keep an entry for a fix users would notice.
+  - *No helper or constant in a header for a limit*, even when three .cpp files share it: apply the limit in place at each site, with the literal (#9163).
   - *A partial fix for a hostile-peer problem is not accepted.* If one malicious peer can still win by being first, the design is wrong; say what is unsolved, and expect to be asked for the full model (per-peer state for metadata).
   - He asks "is this actually a problem?" (#9164). Have the answer ready: what breaks or degrades, shown from the code or measured.
 - **Work serially, and send two or three PRs at a time.** Finish one PR (tests, format, review, push) before starting the next. Every PR starts about 70 CI jobs upstream: nine in one evening (2026-11-09) caused runner time-outs and cancelled jobs on arvidn's CI, and since each PR adds a ChangeLog line at the top, all the others conflict as soon as one is merged. Send the most mergeable two or three, wait for the review, and apply what it says to the rest before sending them.
@@ -94,7 +96,7 @@ cd build/test && ./test_fast_extension      # the whole file
 - Look for the same mistake in sibling code (`ut_pex` / `i2p_pex` / `ut_metadata`, HTTP / UDP / websocket trackers) and fix every site in the same PR when it is the same check.
 - Keep existing behaviour for valid input, and say in the PR what changes for invalid input (ignored, treated as unsupported, connection closed).
 - Reuse an existing error code or setting when one fits; a new public enum value or setting is more for arvidn to review, so mention the alternative.
-- Add one line at the **top** of the unreleased section of `ChangeLog`, in its style (`* fix …`, tab-indented, lower case, user-visible effect).
+- Only for a fix users would notice: add one line at the **top** of the unreleased section of `ChangeLog`, in its style (`* fix …`, tab-indented, lower case, vague). Small hardening fixes get no entry (see §0).
 
 ## 5. Format before the first push
 
