@@ -15,6 +15,9 @@
    builds the .torrent from the handle's info dictionary, piece layers (piece_layers()), trackers and web seeds.
    The original comment, creator and creation date aren't in the session and are missing
  * TorrentHandle.makeMagnetUri() still works (2.1 removed make_magnet_uri(torrent_handle const&))
+ * fix: TorrentInfo.makeMagnetUri() includes the torrent's name (dn=) again: libtorrent 2.1 takes a magnet link's
+   display name only from the add_torrent_params' name, not from the torrent they carry, so a link made from a
+   TorrentInfo had none
  * new alerts: FilePrioritiesAlert (105), FileStatusAlert (106), IpBanAlert (107), AlertType FILE_PRIORITIES,
    FILE_STATUS, IP_BAN; new TorrentHandle.postFilePriorities(), postFileStatus()
  * new SessionParams.setPreadDiskIO(): libtorrent 2.1's multi-threaded pread() disk backend, which is also
