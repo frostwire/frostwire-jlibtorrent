@@ -1,5 +1,5 @@
 2.1.2.0 (unreleased)
- * libtorrent upgraded to dcbd4b291 (RC_2_1, libtorrent 2.1.2 + fixes), from eb397173d (RC_2_0, 2.0.15)
+ * libtorrent upgraded to 2fdc87690 (RC_2_1, libtorrent 2.1.2 + fixes), from eb397173d (RC_2_0, 2.0.15)
    (frostwire/frostwire-jlibtorrent#329). Natives of 2.0.x don't load with these Java classes
  * libtorrent 2.1's torrent_info holds only the info dictionary. TorrentInfo now also keeps what
    load_torrent_buffer() returns for the rest of the .torrent file (trackers, web seeds, DHT nodes, comment,
@@ -70,6 +70,18 @@
    succession; apply IP filter to DHT nodes; fix use-after-free reading a UPnP response; fix web seed SSRF
    mitigation for IPv6; fix uTP sockets stalling on close; DHT storage flooding mitigation; several pread disk
    I/O, merkle tree and i2p fixes (2.1.1, 2.1.2 and RC_2_1 after it)
+ * lt: fixes FrostWire sent to libtorrent (arvidn/libtorrent #9128, #9136, #9162, #9165, #9167, #9168, #9169):
+   - a DHT put with a public key but no signature is no longer stored under the mutable item's target
+   - DHT traversals no longer send requests to our own node ID
+   - the listen port in a peer's extension handshake is validated (range, port filter and
+     no_connect_privileged_ports)
+   - extension message IDs outside of 1-255 in an extension handshake are no longer truncated to a byte
+   - the size of the allowed-fast set received from a peer is limited
+   - fix web seed redirects
+   - fix session stats counters for incoming fast extension messages
+ * lt: fix announce_to_all_tiers and announce_to_all_trackers names being swapped; correct accounting for job
+   types in performance counters; fix reporting the random_access file mode; fix up the DHT traversal's branch
+   factor adjustment (RC_2_0 fixes merged into RC_2_1 on 2026-11-09)
  * fix: an application registering thousands of alert listeners (e.g. one per torrent) no longer crashes with
    StackOverflowError when one is removed or an alert is dispatched: SessionManager keeps listeners in an array
    instead of a tree as deep as the number of listeners (frostwire/frostwire#1441)
