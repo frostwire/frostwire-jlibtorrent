@@ -13,7 +13,7 @@ public class libtorrent_jni {
 
     public static String jlibtorrentVersion() {
         // extracted from the gradle with the run-swig step
-        return "2.1.2.0";
+        return "2.1.2.1";
     }
 
     public static boolean isMacOS() {
@@ -3519,6 +3519,7 @@ public class libtorrent_jni {
   public final static native long session_params_write_session_params_buf__SWIG_1(long jarg1, session_params jarg1_);
   public final static native void session_params_set_posix_disk_io_constructor(long jarg1, session_params jarg1_);
   public final static native void session_params_set_pread_disk_io_constructor(long jarg1, session_params jarg1_);
+  public final static native void session_params_set_mmap_disk_io_constructor(long jarg1, session_params jarg1_);
   public final static native void session_params_set_default_disk_io_constructor(long jarg1, session_params jarg1_);
   public final static native long new_session_handle__SWIG_0();
   public final static native long new_session_handle__SWIG_1(long jarg1, session_handle jarg1_);

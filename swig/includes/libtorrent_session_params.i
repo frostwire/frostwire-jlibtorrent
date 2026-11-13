@@ -53,6 +53,14 @@ namespace libtorrent {
             $self->disk_io_constructor = libtorrent::pread_disk_io_constructor;
         }
 
+        // libtorrent 2.0's default on 64-bit systems: memory mapped files. libtorrent only declares it where
+        // memory mapped files exist (TORRENT_HAVE_MMAP || TORRENT_HAVE_MAP_VIEW_OF_FILE), which is every
+        // platform jlibtorrent is built for. Not guarded here: SWIG's preprocessor doesn't know those macros
+        void set_mmap_disk_io_constructor()
+        {
+            $self->disk_io_constructor = libtorrent::mmap_disk_io_constructor;
+        }
+
         void set_default_disk_io_constructor()
         {
             $self->disk_io_constructor = libtorrent::default_disk_io_constructor;

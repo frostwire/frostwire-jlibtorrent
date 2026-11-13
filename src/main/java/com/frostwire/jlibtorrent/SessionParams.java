@@ -178,10 +178,24 @@ public class SessionParams {
     }
 
     /**
+     * Use the multi-threaded disk I/O back-end built on memory mapped files. It was libtorrent 2.0's
+     * default on 64-bit systems; libtorrent 2.1 replaced it with the pread() back-end
+     * ({@link #setPreadDiskIO()}) as its default.
+     * <p>
+     * Caveat: with memory mapped files an I/O error (a full disk, a removed or failing drive, a truncated
+     * file) is delivered as a SIGBUS or SIGSEGV signal instead of an error code, and the JVM cannot catch it,
+     * so the whole process crashes. That is why FrostWire avoids this back-end on macOS and Linux.
+     */
+    @SuppressWarnings("unused")
+    public void setMMapDiskIO() {
+        s_p.set_mmap_disk_io_constructor();
+    }
+
+    /**
      * Internally set the session to use the more appropriate disk I/O back-end.
      * Since libtorrent 2.1 that is the multi-threaded pread() back-end ({@link #setPreadDiskIO()})
      * wherever pread() exists, including Windows, Linux, macOS and Android. libtorrent 2.0 picked
-     * memory mapped files on 64-bit systems instead.
+     * memory mapped files on 64-bit systems instead, which {@link #setMMapDiskIO()} selects.
      */
     @SuppressWarnings("unused")
     public void setDefaultDiskIO() {

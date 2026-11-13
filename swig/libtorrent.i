@@ -75,6 +75,7 @@
 #include <libtorrent/write_resume_data.hpp>
 #include <libtorrent/posix_disk_io.hpp>
 #include <libtorrent/pread_disk_io.hpp>
+#include <libtorrent/mmap_disk_io.hpp>
 #include <libtorrent/load_torrent.hpp>
 #include <libtorrent/disk_interface.hpp>
 

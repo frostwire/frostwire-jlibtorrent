@@ -909,7 +909,7 @@ extern "C" {
 // run-swig.sh replaces the placeholder in the generated libtorrent_jni.cpp, so the native
 // library reports the version it was built from.
 SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_jlibtorrentNativeVersion(JNIEnv *jenv, jclass jcls) {
-    return jenv->NewStringUTF("2.1.2.0");
+    return jenv->NewStringUTF("2.1.2.1");
 }
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_directBufferAddress(JNIEnv *jenv, jclass jcls, jobject jbuf) {
@@ -992,6 +992,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 #include <libtorrent/write_resume_data.hpp>
 #include <libtorrent/posix_disk_io.hpp>
 #include <libtorrent/pread_disk_io.hpp>
+#include <libtorrent/mmap_disk_io.hpp>
 #include <libtorrent/load_torrent.hpp>
 #include <libtorrent/disk_interface.hpp>
 
@@ -5242,6 +5243,9 @@ SWIGINTERN void libtorrent_session_params_set_posix_disk_io_constructor(libtorre
         }
 SWIGINTERN void libtorrent_session_params_set_pread_disk_io_constructor(libtorrent::session_params *self){
             self->disk_io_constructor = libtorrent::pread_disk_io_constructor;
+        }
+SWIGINTERN void libtorrent_session_params_set_mmap_disk_io_constructor(libtorrent::session_params *self){
+            self->disk_io_constructor = libtorrent::mmap_disk_io_constructor;
         }
 SWIGINTERN void libtorrent_session_params_set_default_disk_io_constructor(libtorrent::session_params *self){
             self->disk_io_constructor = libtorrent::default_disk_io_constructor;
@@ -100085,6 +100089,33 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   {
     try {
       libtorrent_session_params_set_pread_disk_io_constructor(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_session_1params_1set_1mmap_1disk_1io_1constructor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  libtorrent::session_params *arg1 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::session_params **)&jarg1; 
+  
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIllegalStateException, "libtorrent::session_params used after delete()");
+    return ;
+  }
+  
+  {
+    try {
+      libtorrent_session_params_set_mmap_disk_io_constructor(arg1);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;

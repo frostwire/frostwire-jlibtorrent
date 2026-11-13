@@ -156,6 +156,10 @@ public class session_params {
     libtorrent_jni.session_params_set_pread_disk_io_constructor(swigCPtr, this);
   }
 
+  public void set_mmap_disk_io_constructor() {
+    libtorrent_jni.session_params_set_mmap_disk_io_constructor(swigCPtr, this);
+  }
+
   public void set_default_disk_io_constructor() {
     libtorrent_jni.session_params_set_default_disk_io_constructor(swigCPtr, this);
   }
