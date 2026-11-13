@@ -161,7 +161,7 @@ The `build-macos.sh` script automatically detects your Mac's architecture and ca
 ```
 Building libtorrent for macOS arm64...
 [... compilation output ...]
-Generated jlibtorrent-macosx-arm64-2.1.2.0.jar
+Generated jlibtorrent-macosx-arm64-2.1.2.1.jar
 ```
 
 ### Building Both macOS Architectures
@@ -336,10 +336,10 @@ docker rmi jlibtorrent-android
 **Android JAR dependencies:**
 Most Android projects need all four architectures:
 ```gradle
-implementation 'com.frostwire:jlibtorrent-android-arm:2.1.2.0'
-implementation 'com.frostwire:jlibtorrent-android-arm64:2.1.2.0'
-implementation 'com.frostwire:jlibtorrent-android-x86:2.1.2.0'
-implementation 'com.frostwire:jlibtorrent-android-x86_64:2.1.2.0'
+implementation 'com.frostwire:jlibtorrent-android-arm:2.1.2.1'
+implementation 'com.frostwire:jlibtorrent-android-arm64:2.1.2.1'
+implementation 'com.frostwire:jlibtorrent-android-x86:2.1.2.1'
+implementation 'com.frostwire:jlibtorrent-android-x86_64:2.1.2.1'
 ```
 
 **WebTorrent on Android:** usrsctp and libjuice are built with the NDK's CMake toolchain (`android.toolchain.cmake`, ABI and API level from the build script) through `swig/config/cmake-toolchain.cmake`; libdatachannel links the per-architecture OpenSSL the Dockerfile builds.

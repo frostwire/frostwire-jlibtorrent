@@ -1,3 +1,8 @@
+2.1.2.1
+ * new SessionParams.setMMapDiskIO(): selects libtorrent's memory mapped files disk back-end, libtorrent 2.0's
+   default on 64-bit systems (libtorrent 2.1 defaults to pread). Same as 2.1.2.0 otherwise.
+   Memory mapped I/O errors arrive as SIGBUS/SIGSEGV, which the JVM cannot catch
+
 2.1.2.0 (unreleased)
  * libtorrent upgraded to 2fdc87690 (RC_2_1, libtorrent 2.1.2 + fixes), from eb397173d (RC_2_0, 2.0.15)
    (frostwire/frostwire-jlibtorrent#329). Natives of 2.0.x don't load with these Java classes
