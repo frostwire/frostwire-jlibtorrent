@@ -1,3 +1,10 @@
+2.1.2.2 (unreleased)
+ * SessionManager's alerts thread survives a throwable inside one iteration (for example an OutOfMemoryError reading
+   an alert batch): the batch is dropped, the failure is logged and kept (lastAlertsLoopFailure(),
+   alertsLoopFailures()) and the loop goes on. Before, the thread ended and no alert was processed until the
+   session was restarted (frostwire/frostwire#1559)
+ * new SessionManager.isAlertsLoopAlive() and restartAlertsLoop(), for callers that must recover a dead thread
+
 2.1.2.1
  * new SessionParams.setMMapDiskIO(): selects libtorrent's memory mapped files disk back-end, libtorrent 2.0's
    default on 64-bit systems (libtorrent 2.1 defaults to pread). Same as 2.1.2.0 otherwise.

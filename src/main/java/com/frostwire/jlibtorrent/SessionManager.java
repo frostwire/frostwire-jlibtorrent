@@ -1495,6 +1495,90 @@ public class SessionManager {
                 type == AlertType.SESSION_STATS_HEADER.swig();
     }
 
+    /** The last throwable the alerts loop survived, or null. */
+    private volatile Throwable lastAlertsLoopFailure;
+
+    /** How many throwables the alerts loop survived. */
+    private volatile int alertsLoopFailures;
+
+    /** Test seam: run at the start of every loop iteration, inside the guard. */
+    volatile Runnable alertsLoopFault;
+
+    /** Test seam: ends the alerts thread as if it had died. */
+    private volatile boolean alertsLoopKill;
+
+    /** Test seam: ends the alerts thread and waits for it, leaving the session running. */
+    void killAlertsLoopForTest() throws InterruptedException {
+        Thread t = alertsLoop;
+        alertsLoopKill = true;
+        try {
+            if (t != null) {
+                t.join(ALERTS_LOOP_WAIT_MILLIS + 2000);
+            }
+        } finally {
+            alertsLoopKill = false;
+        }
+    }
+
+    /**
+     * Records a throwable the alerts loop survived, drops the batch it was reading and backs off
+     * briefly so a persistent failure (no memory) does not spin the CPU.
+     */
+    private void onAlertsLoopFailure(Throwable t, alert_ptr_vector v) {
+        lastAlertsLoopFailure = t;
+        alertsLoopFailures++;
+        try {
+            LOG.error("alerts loop survived: " + t, t);
+        } catch (Throwable ignored) {
+            // logging can fail too, with the same OutOfMemoryError
+        }
+        try {
+            v.clear();
+        } catch (Throwable ignored) {
+        }
+        try {
+            Thread.sleep(ALERTS_LOOP_FAILURE_BACKOFF_MILLIS);
+        } catch (InterruptedException ignored) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * Whether the thread that processes the session's alerts is running. It is false before
+     * {@link #start()}, after {@link #stop()}, and if the thread ever died: then no alerts are
+     * processed (transfers stop updating, finished downloads are not noticed) until
+     * {@link #restartAlertsLoop()}.
+     */
+    public boolean isAlertsLoopAlive() {
+        Thread t = alertsLoop;
+        return t != null && t.isAlive();
+    }
+
+    /**
+     * Starts the alerts thread again when the session is running and the thread is not.
+     *
+     * @return true if a new thread was started
+     */
+    public synchronized boolean restartAlertsLoop() {
+        if (session == null || isAlertsLoopAlive()) {
+            return false;
+        }
+        alertsLoop();
+        return true;
+    }
+
+    /** The last throwable the alerts loop survived, or null; for diagnostics. */
+    public Throwable lastAlertsLoopFailure() {
+        return lastAlertsLoopFailure;
+    }
+
+    /** How many throwables the alerts loop survived; for diagnostics. */
+    public int alertsLoopFailures() {
+        return alertsLoopFailures;
+    }
+
+    private static final long ALERTS_LOOP_FAILURE_BACKOFF_MILLIS = 100;
+
     private void alertsLoop() {
         Runnable r = new Runnable() {
             @Override
@@ -1502,6 +1586,16 @@ public class SessionManager {
                 alert_ptr_vector v = new alert_ptr_vector();
 
                 while (session != null) {
+                  try {
+                    // test seam: lets a test throw from inside the guarded body
+                    if (alertsLoopKill) {
+                        return;
+                    }
+                    Runnable fault = alertsLoopFault;
+                    if (fault != null) {
+                        fault.run();
+                    }
+
                     // libtorrent 2.1: true if an alert is pending
                     boolean pending = session.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
 
@@ -1573,6 +1667,11 @@ public class SessionManager {
                         postSessionStats();
                         postTorrentUpdates();
                     }
+                  } catch (Throwable t) {
+                    // One bad batch (an OutOfMemoryError reading it, an alert that does not cast)
+                    // must not end the loop: after it nothing is processed until restart.
+                    onAlertsLoopFailure(t, v);
+                  }
                 }
             }
         };
