@@ -7,7 +7,7 @@
  * ----------------------------------------------------------------------------- */
 
 
-#define SWIG_VERSION 0x040501
+#define SWIG_VERSION 0x040401
 #define SWIGJAVA
 #define SWIG_DIRECTORS
 
@@ -46,7 +46,7 @@
 #   else
 #     define SWIGUNUSED
 #   endif
-# elif defined(__ICC) || defined (__clang__)
+# elif defined(__ICC)
 #   define SWIGUNUSED __attribute__ ((__unused__))
 # else
 #   define SWIGUNUSED
@@ -135,14 +135,11 @@
 # pragma warning disable 592
 #endif
 
-#if defined(__cplusplus) && __cplusplus >= 201103L
+#if defined(__cplusplus) && __cplusplus >=201103L
 # define SWIG_NOEXCEPT noexcept
 #else
 # define SWIG_NOEXCEPT throw()
 #endif 
-
-#define SWIG_QUOTE_STRING(x) #x
-#define SWIG_STRINGIFY(x) SWIG_QUOTE_STRING(x)
 
 /* -----------------------------------------------------------------------------
  * swigcompat.swg
@@ -824,7 +821,7 @@ template<typename T> class SwigValueWrapper {
 public:
   SwigValueWrapper() : pointer(0) { }
   SwigValueWrapper& operator=(const T& t) { SwigSmartPointer tmp(new T(t)); pointer = tmp; return *this; }
-#if __cplusplus >= 201103L
+#if __cplusplus >=201103L
   SwigValueWrapper& operator=(T&& t) { SwigSmartPointer tmp(new T(std::move(t))); pointer = tmp; return *this; }
   operator T&&() const { return std::move(*pointer.ptr); }
 #else
@@ -847,19 +844,20 @@ template <typename T> T SwigValueInit() {
   return T();
 }
 
-#if __cplusplus >= 201103L
+#if __cplusplus >=201103L
 # define SWIG_STD_MOVE(OBJ) std::move(OBJ)
 #else
 # define SWIG_STD_MOVE(OBJ) OBJ
 #endif
 
-#if __cplusplus >= 201103L
+#endif
+
+#if defined(__cplusplus) && (__cplusplus >=201103L)
 # define SWIG_OVERRIDE override
 #else
 # define SWIG_OVERRIDE
 #endif
 
-#endif
 
 
 #include <cstdint>
@@ -4457,11 +4455,24 @@ SWIGINTERN int libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_conne
 SWIGINTERN libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::connection_type_tag > libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__from_int(int val){
                     return libtorrent::flags::bitfield_flag<std::uint8_t, libtorrent::connection_type_tag>(static_cast<std::uint8_t>(val));
                 }
+
+struct torrent_info_ref {
+    std::shared_ptr<libtorrent::torrent_info const> ti;
+    libtorrent::torrent_info const* get() const { return ti.get(); }
+};
+
 SWIGINTERN void libtorrent_torrent_handle_add_piece_bytes__SWIG_0(libtorrent::torrent_handle *self,int piece,std::vector< int8_t > const &data,libtorrent::add_piece_flags_t flags={}){
             self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
         }
 SWIGINTERN libtorrent::torrent_info const *libtorrent_torrent_handle_torrent_file_ptr(libtorrent::torrent_handle *self){
             return self->torrent_file().get();
+        }
+SWIGINTERN torrent_info_ref *libtorrent_torrent_handle_torrent_file_ref(libtorrent::torrent_handle *self){
+            std::shared_ptr<libtorrent::torrent_info const> p = self->torrent_file();
+            if (!p) {
+                return nullptr;
+            }
+            return new torrent_info_ref{std::move(p)};
         }
 SWIGINTERN libtorrent::add_torrent_params libtorrent_torrent_handle_torrent_file_with_hashes_atp(libtorrent::torrent_handle *self,libtorrent::error_code &ec){
             return torrent_file_with_hashes_ex(*self, ec);
@@ -6005,7 +6016,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = (int)jarg2; 
   {
     try {
-      result = (std::pair< std::string,int > *)new std::pair< std::string,int >(SWIG_STD_MOVE(*(&arg1)),arg2);
+      result = (std::pair< std::string,int > *)new std::pair< std::string,int >(SWIG_STD_MOVE(arg1),arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -6231,7 +6242,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   
   {
     try {
-      result = (std::pair< std::string,std::string > *)new std::pair< std::string,std::string >(SWIG_STD_MOVE(*(&arg1)),SWIG_STD_MOVE(*(&arg2)));
+      result = (std::pair< std::string,std::string > *)new std::pair< std::string,std::string >(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -6466,7 +6477,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = *argp2; 
   {
     try {
-      result = (std::pair< std::vector< std::int8_t >,std::vector< std::int8_t > > *)new std::pair< std::vector< std::int8_t >,std::vector< std::int8_t > >(SWIG_STD_MOVE(*(&arg1)),SWIG_STD_MOVE(*(&arg2)));
+      result = (std::pair< std::vector< std::int8_t >,std::vector< std::int8_t > > *)new std::pair< std::vector< std::int8_t >,std::vector< std::int8_t > >(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -6665,7 +6676,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = *argp2; 
   {
     try {
-      result = (std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > *)new std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint >(SWIG_STD_MOVE(*(&arg1)),SWIG_STD_MOVE(*(&arg2)));
+      result = (std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > *)new std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint >(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -6864,7 +6875,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = *argp2; 
   {
     try {
-      result = (std::pair< libtorrent::bdecode_node,libtorrent::bdecode_node > *)new std::pair< libtorrent::bdecode_node,libtorrent::bdecode_node >(SWIG_STD_MOVE(*(&arg1)),SWIG_STD_MOVE(*(&arg2)));
+      result = (std::pair< libtorrent::bdecode_node,libtorrent::bdecode_node > *)new std::pair< libtorrent::bdecode_node,libtorrent::bdecode_node >(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -7063,7 +7074,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = *argp2; 
   {
     try {
-      result = (std::pair< libtorrent::address,libtorrent::digest32< 160 > > *)new std::pair< libtorrent::address,libtorrent::digest32< 160 > >(SWIG_STD_MOVE(*(&arg1)),SWIG_STD_MOVE(*(&arg2)));
+      result = (std::pair< libtorrent::address,libtorrent::digest32< 160 > > *)new std::pair< libtorrent::address,libtorrent::digest32< 160 > >(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -7350,7 +7361,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::string > *)new_std_vector_Sl_std_string_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::string const &)*arg2);
+        result = (std::vector< std::string > *)new_std_vector_Sl_std_string_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::string const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -7422,7 +7433,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_string_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_string_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -7554,7 +7565,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_string_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::string const &)*arg3);
+        std_vector_Sl_std_string_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::string const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -7590,7 +7601,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   {
     try {
       try {
-        result = std_vector_Sl_std_string_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_string_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -7633,7 +7644,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   {
     try {
       try {
-        result = (std::vector< std::string >::value_type *) &std_vector_Sl_std_string_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::string >::value_type *) &std_vector_Sl_std_string_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -7692,7 +7703,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   {
     try {
       try {
-        result = std_vector_Sl_std_string_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::string const &)*arg3);
+        result = std_vector_Sl_std_string_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::string const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -7735,7 +7746,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_string_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_string_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -7901,7 +7912,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< int > *)new_std_vector_Sl_int_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(int const &)*arg2);
+        result = (std::vector< int > *)new_std_vector_Sl_int_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(int const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -7973,7 +7984,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        std_vector_Sl_int_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_int_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -8081,7 +8092,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        std_vector_Sl_int_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(int const &)*arg3);
+        std_vector_Sl_int_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(int const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -8117,7 +8128,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        result = (std::vector< int >::value_type)std_vector_Sl_int_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< int >::value_type)std_vector_Sl_int_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -8155,7 +8166,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        result = (std::vector< int >::value_type *) &std_vector_Sl_int_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< int >::value_type *) &std_vector_Sl_int_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -8197,7 +8208,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        result = (std::vector< int >::value_type)std_vector_Sl_int_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(int const &)*arg3);
+        result = (std::vector< int >::value_type)std_vector_Sl_int_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(int const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -8235,7 +8246,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        std_vector_Sl_int_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_int_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -8401,7 +8412,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< long long > *)new_std_vector_Sl_long_SS_long_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(long long const &)*arg2);
+        result = (std::vector< long long > *)new_std_vector_Sl_long_SS_long_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(long long const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -8473,7 +8484,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int6
   {
     try {
       try {
-        std_vector_Sl_long_SS_long_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_long_SS_long_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -8581,7 +8592,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int6
   {
     try {
       try {
-        std_vector_Sl_long_SS_long_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(long long const &)*arg3);
+        std_vector_Sl_long_SS_long_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(long long const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -8617,7 +8628,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
   {
     try {
       try {
-        result = (std::vector< long long >::value_type)std_vector_Sl_long_SS_long_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< long long >::value_type)std_vector_Sl_long_SS_long_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -8655,7 +8666,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
   {
     try {
       try {
-        result = (std::vector< long long >::value_type *) &std_vector_Sl_long_SS_long_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< long long >::value_type *) &std_vector_Sl_long_SS_long_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -8697,7 +8708,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
   {
     try {
       try {
-        result = (std::vector< long long >::value_type)std_vector_Sl_long_SS_long_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(long long const &)*arg3);
+        result = (std::vector< long long >::value_type)std_vector_Sl_long_SS_long_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(long long const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -8735,7 +8746,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int6
   {
     try {
       try {
-        std_vector_Sl_long_SS_long_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_long_SS_long_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -8901,7 +8912,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::int8_t > *)new_std_vector_Sl_std_int8_t_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(signed char const &)*arg2);
+        result = (std::vector< std::int8_t > *)new_std_vector_Sl_std_int8_t_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(signed char const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -8973,7 +8984,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   {
     try {
       try {
-        std_vector_Sl_std_int8_t_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_int8_t_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -9081,7 +9092,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   {
     try {
       try {
-        std_vector_Sl_std_int8_t_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(signed char const &)*arg3);
+        std_vector_Sl_std_int8_t_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(signed char const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -9117,7 +9128,7 @@ SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   {
     try {
       try {
-        result = (std::vector< signed char >::value_type)std_vector_Sl_std_int8_t_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< signed char >::value_type)std_vector_Sl_std_int8_t_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -9155,7 +9166,7 @@ SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   {
     try {
       try {
-        result = (std::vector< signed char >::value_type *) &std_vector_Sl_std_int8_t_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< signed char >::value_type *) &std_vector_Sl_std_int8_t_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -9197,7 +9208,7 @@ SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   {
     try {
       try {
-        result = (std::vector< signed char >::value_type)std_vector_Sl_std_int8_t_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(signed char const &)*arg3);
+        result = (std::vector< signed char >::value_type)std_vector_Sl_std_int8_t_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(signed char const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -9235,7 +9246,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   {
     try {
       try {
-        std_vector_Sl_std_int8_t_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_int8_t_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -9277,7 +9288,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   
   {
     try {
-      std_vector_Sl_std_int8_t_Sg__assign_bytes(arg1,(signed char const *)arg2,SWIG_STD_MOVE(*(&arg3)));
+      std_vector_Sl_std_int8_t_Sg__assign_bytes(arg1,(signed char const *)arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -9318,7 +9329,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   
   {
     try {
-      std_vector_Sl_std_int8_t_Sg__copy_to(arg1,arg2,SWIG_STD_MOVE(*(&arg3)));
+      std_vector_Sl_std_int8_t_Sg__copy_to(arg1,arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -9486,7 +9497,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::vector< std::int8_t > > *)new_std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::vector< signed char > const &)*arg2);
+        result = (std::vector< std::vector< std::int8_t > > *)new_std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::vector< signed char > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -9558,7 +9569,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -9672,7 +9683,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::vector< signed char > const &)*arg3);
+        std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::vector< signed char > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -9708,7 +9719,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   {
     try {
       try {
-        result = std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -9746,7 +9757,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   {
     try {
       try {
-        result = (std::vector< std::vector< signed char > >::value_type *) &std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::vector< signed char > >::value_type *) &std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -9791,7 +9802,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   {
     try {
       try {
-        result = std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::vector< signed char > const &)*arg3);
+        result = std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::vector< signed char > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -9829,7 +9840,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_vector_Sl_std_int8_t_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -9995,7 +10006,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< bool > *)new_std_vector_Sl_bool_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(bool const &)*arg2);
+        result = (std::vector< bool > *)new_std_vector_Sl_bool_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(bool const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -10067,7 +10078,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bool
   {
     try {
       try {
-        std_vector_Sl_bool_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_bool_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -10175,7 +10186,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bool
   {
     try {
       try {
-        std_vector_Sl_bool_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(bool const &)*arg3);
+        std_vector_Sl_bool_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(bool const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -10211,7 +10222,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   {
     try {
       try {
-        result = (std::vector< bool >::value_type)std_vector_Sl_bool_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< bool >::value_type)std_vector_Sl_bool_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -10249,7 +10260,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   {
     try {
       try {
-        result = (bool)std_vector_Sl_bool_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (bool)std_vector_Sl_bool_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -10291,7 +10302,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   {
     try {
       try {
-        result = (std::vector< bool >::value_type)std_vector_Sl_bool_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(bool const &)*arg3);
+        result = (std::vector< bool >::value_type)std_vector_Sl_bool_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(bool const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -10329,7 +10340,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bool
   {
     try {
       try {
-        std_vector_Sl_bool_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_bool_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -10498,7 +10509,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::pair< int,std::int8_t > > *)new_std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::pair< int,signed char > const &)*arg2);
+        result = (std::vector< std::pair< int,std::int8_t > > *)new_std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::pair< int,signed char > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -10570,7 +10581,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -10684,7 +10695,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< int,signed char > const &)*arg3);
+        std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::pair< int,signed char > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -10720,7 +10731,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -10758,7 +10769,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
   {
     try {
       try {
-        result = (std::vector< std::pair< int,signed char > >::value_type *) &std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::pair< int,signed char > >::value_type *) &std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -10803,7 +10814,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< int,signed char > const &)*arg3);
+        result = std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::pair< int,signed char > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -10841,7 +10852,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_pair_Sl_int_Sc_std_int8_t_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -11010,7 +11021,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::pair< std::string,int > > *)new_std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::pair< std::string,int > const &)*arg2);
+        result = (std::vector< std::pair< std::string,int > > *)new_std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::pair< std::string,int > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -11082,7 +11093,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -11196,7 +11207,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< std::string,int > const &)*arg3);
+        std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::pair< std::string,int > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -11232,7 +11243,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_str
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -11270,7 +11281,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_str
   {
     try {
       try {
-        result = (std::vector< std::pair< std::string,int > >::value_type *) &std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::pair< std::string,int > >::value_type *) &std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -11315,7 +11326,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_str
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< std::string,int > const &)*arg3);
+        result = std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::pair< std::string,int > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -11353,7 +11364,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_pair_Sl_std_string_Sc_int_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -11522,7 +11533,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::pair< std::string,std::string > > *)new_std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::pair< std::string,std::string > const &)*arg2);
+        result = (std::vector< std::pair< std::string,std::string > > *)new_std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::pair< std::string,std::string > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -11594,7 +11605,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -11708,7 +11719,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< std::string,std::string > const &)*arg3);
+        std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::pair< std::string,std::string > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -11744,7 +11755,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_str
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -11782,7 +11793,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_str
   {
     try {
       try {
-        result = (std::vector< std::pair< std::string,std::string > >::value_type *) &std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::pair< std::string,std::string > >::value_type *) &std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -11827,7 +11838,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_str
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< std::string,std::string > const &)*arg3);
+        result = std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::pair< std::string,std::string > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -11865,7 +11876,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_pair_Sl_std_string_Sc_std_string_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -12034,7 +12045,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::tcp::endpoint > *)new_std_vector_Sl_libtorrent_tcp_endpoint_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::tcp::endpoint const &)*arg2);
+        result = (std::vector< libtorrent::tcp::endpoint > *)new_std_vector_Sl_libtorrent_tcp_endpoint_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::tcp::endpoint const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -12106,7 +12117,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_tcp_endpoint_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_tcp_endpoint_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -12220,7 +12231,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_tcp_endpoint_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::tcp::endpoint const &)*arg3);
+        std_vector_Sl_libtorrent_tcp_endpoint_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::tcp::endpoint const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -12256,7 +12267,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_tcp_endpoint_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_tcp_endpoint_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -12294,7 +12305,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp
   {
     try {
       try {
-        result = (std::vector< libtorrent::tcp::endpoint >::value_type *) &std_vector_Sl_libtorrent_tcp_endpoint_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::tcp::endpoint >::value_type *) &std_vector_Sl_libtorrent_tcp_endpoint_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -12339,7 +12350,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_tcp_endpoint_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::tcp::endpoint const &)*arg3);
+        result = std_vector_Sl_libtorrent_tcp_endpoint_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::tcp::endpoint const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -12377,7 +12388,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tcp_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_tcp_endpoint_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_tcp_endpoint_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -12546,7 +12557,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::udp::endpoint > *)new_std_vector_Sl_libtorrent_udp_endpoint_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::udp::endpoint const &)*arg2);
+        result = (std::vector< libtorrent::udp::endpoint > *)new_std_vector_Sl_libtorrent_udp_endpoint_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::udp::endpoint const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -12618,7 +12629,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_udp_endpoint_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_udp_endpoint_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -12732,7 +12743,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_udp_endpoint_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::udp::endpoint const &)*arg3);
+        std_vector_Sl_libtorrent_udp_endpoint_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::udp::endpoint const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -12768,7 +12779,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_udp_endpoint_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_udp_endpoint_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -12806,7 +12817,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp
   {
     try {
       try {
-        result = (std::vector< libtorrent::udp::endpoint >::value_type *) &std_vector_Sl_libtorrent_udp_endpoint_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::udp::endpoint >::value_type *) &std_vector_Sl_libtorrent_udp_endpoint_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -12851,7 +12862,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_udp_endpoint_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::udp::endpoint const &)*arg3);
+        result = std_vector_Sl_libtorrent_udp_endpoint_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::udp::endpoint const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -12889,7 +12900,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_udp_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_udp_endpoint_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_udp_endpoint_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -13058,7 +13069,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::announce_endpoint > *)new_std_vector_Sl_libtorrent_announce_endpoint_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::announce_endpoint const &)*arg2);
+        result = (std::vector< libtorrent::announce_endpoint > *)new_std_vector_Sl_libtorrent_announce_endpoint_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::announce_endpoint const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -13130,7 +13141,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_anno
   {
     try {
       try {
-        std_vector_Sl_libtorrent_announce_endpoint_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_announce_endpoint_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -13244,7 +13255,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_anno
   {
     try {
       try {
-        std_vector_Sl_libtorrent_announce_endpoint_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::announce_endpoint const &)*arg3);
+        std_vector_Sl_libtorrent_announce_endpoint_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::announce_endpoint const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -13280,7 +13291,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ann
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_announce_endpoint_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_announce_endpoint_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -13318,7 +13329,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ann
   {
     try {
       try {
-        result = (std::vector< libtorrent::announce_endpoint >::value_type *) &std_vector_Sl_libtorrent_announce_endpoint_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::announce_endpoint >::value_type *) &std_vector_Sl_libtorrent_announce_endpoint_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -13363,7 +13374,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ann
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_announce_endpoint_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::announce_endpoint const &)*arg3);
+        result = std_vector_Sl_libtorrent_announce_endpoint_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::announce_endpoint const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -13401,7 +13412,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_anno
   {
     try {
       try {
-        std_vector_Sl_libtorrent_announce_endpoint_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_announce_endpoint_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -13570,7 +13581,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::announce_entry > *)new_std_vector_Sl_libtorrent_announce_entry_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::announce_entry const &)*arg2);
+        result = (std::vector< libtorrent::announce_entry > *)new_std_vector_Sl_libtorrent_announce_entry_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::announce_entry const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -13642,7 +13653,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_anno
   {
     try {
       try {
-        std_vector_Sl_libtorrent_announce_entry_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_announce_entry_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -13756,7 +13767,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_anno
   {
     try {
       try {
-        std_vector_Sl_libtorrent_announce_entry_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::announce_entry const &)*arg3);
+        std_vector_Sl_libtorrent_announce_entry_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::announce_entry const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -13792,7 +13803,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ann
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_announce_entry_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_announce_entry_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -13830,7 +13841,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ann
   {
     try {
       try {
-        result = (std::vector< libtorrent::announce_entry >::value_type *) &std_vector_Sl_libtorrent_announce_entry_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::announce_entry >::value_type *) &std_vector_Sl_libtorrent_announce_entry_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -13875,7 +13886,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ann
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_announce_entry_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::announce_entry const &)*arg3);
+        result = std_vector_Sl_libtorrent_announce_entry_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::announce_entry const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -13913,7 +13924,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_anno
   {
     try {
       try {
-        std_vector_Sl_libtorrent_announce_entry_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_announce_entry_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -14082,7 +14093,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::file_slice > *)new_std_vector_Sl_libtorrent_file_slice_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::file_slice const &)*arg2);
+        result = (std::vector< libtorrent::file_slice > *)new_std_vector_Sl_libtorrent_file_slice_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::file_slice const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -14154,7 +14165,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   {
     try {
       try {
-        std_vector_Sl_libtorrent_file_slice_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_file_slice_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -14268,7 +14279,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   {
     try {
       try {
-        std_vector_Sl_libtorrent_file_slice_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::file_slice const &)*arg3);
+        std_vector_Sl_libtorrent_file_slice_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::file_slice const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -14304,7 +14315,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_file_slice_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_file_slice_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -14342,7 +14353,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   {
     try {
       try {
-        result = (std::vector< libtorrent::file_slice >::value_type *) &std_vector_Sl_libtorrent_file_slice_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::file_slice >::value_type *) &std_vector_Sl_libtorrent_file_slice_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -14387,7 +14398,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_file_slice_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::file_slice const &)*arg3);
+        result = std_vector_Sl_libtorrent_file_slice_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::file_slice const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -14425,7 +14436,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   {
     try {
       try {
-        std_vector_Sl_libtorrent_file_slice_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_file_slice_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -14594,7 +14605,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::piece_block > *)new_std_vector_Sl_libtorrent_piece_block_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::piece_block const &)*arg2);
+        result = (std::vector< libtorrent::piece_block > *)new_std_vector_Sl_libtorrent_piece_block_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::piece_block const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -14666,7 +14677,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_libtorrent_piece_block_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_piece_block_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -14780,7 +14791,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_libtorrent_piece_block_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::piece_block const &)*arg3);
+        std_vector_Sl_libtorrent_piece_block_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::piece_block const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -14816,7 +14827,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_piece_block_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_piece_block_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -14854,7 +14865,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = (std::vector< libtorrent::piece_block >::value_type *) &std_vector_Sl_libtorrent_piece_block_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::piece_block >::value_type *) &std_vector_Sl_libtorrent_piece_block_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -14899,7 +14910,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_piece_block_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::piece_block const &)*arg3);
+        result = std_vector_Sl_libtorrent_piece_block_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::piece_block const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -14937,7 +14948,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_libtorrent_piece_block_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_piece_block_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -15106,7 +15117,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::torrent_status > *)new_std_vector_Sl_libtorrent_torrent_status_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::torrent_status const &)*arg2);
+        result = (std::vector< libtorrent::torrent_status > *)new_std_vector_Sl_libtorrent_torrent_status_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::torrent_status const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -15178,7 +15189,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_torrent_status_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_torrent_status_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -15292,7 +15303,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_torrent_status_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::torrent_status const &)*arg3);
+        std_vector_Sl_libtorrent_torrent_status_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::torrent_status const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -15328,7 +15339,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_torrent_status_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_torrent_status_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -15366,7 +15377,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   {
     try {
       try {
-        result = (std::vector< libtorrent::torrent_status >::value_type *) &std_vector_Sl_libtorrent_torrent_status_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::torrent_status >::value_type *) &std_vector_Sl_libtorrent_torrent_status_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -15411,7 +15422,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_torrent_status_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::torrent_status const &)*arg3);
+        result = std_vector_Sl_libtorrent_torrent_status_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::torrent_status const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -15449,7 +15460,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_torrent_status_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_torrent_status_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -15618,7 +15629,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::dht_lookup > *)new_std_vector_Sl_libtorrent_dht_lookup_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::dht_lookup const &)*arg2);
+        result = (std::vector< libtorrent::dht_lookup > *)new_std_vector_Sl_libtorrent_dht_lookup_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::dht_lookup const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -15690,7 +15701,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_dht_lookup_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_dht_lookup_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -15804,7 +15815,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_dht_lookup_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::dht_lookup const &)*arg3);
+        std_vector_Sl_libtorrent_dht_lookup_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::dht_lookup const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -15840,7 +15851,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_dht_lookup_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_dht_lookup_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -15878,7 +15889,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
   {
     try {
       try {
-        result = (std::vector< libtorrent::dht_lookup >::value_type *) &std_vector_Sl_libtorrent_dht_lookup_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::dht_lookup >::value_type *) &std_vector_Sl_libtorrent_dht_lookup_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -15923,7 +15934,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_dht_lookup_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::dht_lookup const &)*arg3);
+        result = std_vector_Sl_libtorrent_dht_lookup_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::dht_lookup const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -15961,7 +15972,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_dht_lookup_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_dht_lookup_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -16130,7 +16141,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::dht_routing_bucket > *)new_std_vector_Sl_libtorrent_dht_routing_bucket_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::dht_routing_bucket const &)*arg2);
+        result = (std::vector< libtorrent::dht_routing_bucket > *)new_std_vector_Sl_libtorrent_dht_routing_bucket_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::dht_routing_bucket const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -16202,7 +16213,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -16316,7 +16327,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::dht_routing_bucket const &)*arg3);
+        std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::dht_routing_bucket const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -16352,7 +16363,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -16390,7 +16401,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
   {
     try {
       try {
-        result = (std::vector< libtorrent::dht_routing_bucket >::value_type *) &std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::dht_routing_bucket >::value_type *) &std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -16435,7 +16446,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::dht_routing_bucket const &)*arg3);
+        result = std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::dht_routing_bucket const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -16473,7 +16484,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dht_
   {
     try {
       try {
-        std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_dht_routing_bucket_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -16642,7 +16653,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::entry > *)new_std_vector_Sl_libtorrent_entry_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::entry const &)*arg2);
+        result = (std::vector< libtorrent::entry > *)new_std_vector_Sl_libtorrent_entry_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::entry const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -16714,7 +16725,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_entry_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_entry_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -16828,7 +16839,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_entry_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::entry const &)*arg3);
+        std_vector_Sl_libtorrent_entry_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::entry const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -16864,7 +16875,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ent
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_entry_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_entry_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -16902,7 +16913,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ent
   {
     try {
       try {
-        result = (std::vector< libtorrent::entry >::value_type *) &std_vector_Sl_libtorrent_entry_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::entry >::value_type *) &std_vector_Sl_libtorrent_entry_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -16947,7 +16958,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ent
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_entry_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::entry const &)*arg3);
+        result = std_vector_Sl_libtorrent_entry_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::entry const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -16985,7 +16996,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_entr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_entry_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_entry_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -17154,7 +17165,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::partial_piece_info > *)new_std_vector_Sl_libtorrent_partial_piece_info_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::partial_piece_info const &)*arg2);
+        result = (std::vector< libtorrent::partial_piece_info > *)new_std_vector_Sl_libtorrent_partial_piece_info_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::partial_piece_info const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -17226,7 +17237,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_part
   {
     try {
       try {
-        std_vector_Sl_libtorrent_partial_piece_info_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_partial_piece_info_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -17340,7 +17351,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_part
   {
     try {
       try {
-        std_vector_Sl_libtorrent_partial_piece_info_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::partial_piece_info const &)*arg3);
+        std_vector_Sl_libtorrent_partial_piece_info_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::partial_piece_info const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -17376,7 +17387,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_par
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_partial_piece_info_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_partial_piece_info_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -17414,7 +17425,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_par
   {
     try {
       try {
-        result = (std::vector< libtorrent::partial_piece_info >::value_type *) &std_vector_Sl_libtorrent_partial_piece_info_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::partial_piece_info >::value_type *) &std_vector_Sl_libtorrent_partial_piece_info_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -17459,7 +17470,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_par
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_partial_piece_info_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::partial_piece_info const &)*arg3);
+        result = std_vector_Sl_libtorrent_partial_piece_info_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::partial_piece_info const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -17497,7 +17508,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_part
   {
     try {
       try {
-        std_vector_Sl_libtorrent_partial_piece_info_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_partial_piece_info_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -17666,7 +17677,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::peer_info > *)new_std_vector_Sl_libtorrent_peer_info_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::peer_info const &)*arg2);
+        result = (std::vector< libtorrent::peer_info > *)new_std_vector_Sl_libtorrent_peer_info_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::peer_info const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -17738,7 +17749,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
   {
     try {
       try {
-        std_vector_Sl_libtorrent_peer_info_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_peer_info_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -17852,7 +17863,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
   {
     try {
       try {
-        std_vector_Sl_libtorrent_peer_info_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::peer_info const &)*arg3);
+        std_vector_Sl_libtorrent_peer_info_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::peer_info const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -17888,7 +17899,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_peer_info_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_peer_info_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -17926,7 +17937,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   {
     try {
       try {
-        result = (std::vector< libtorrent::peer_info >::value_type *) &std_vector_Sl_libtorrent_peer_info_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::peer_info >::value_type *) &std_vector_Sl_libtorrent_peer_info_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -17971,7 +17982,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_peer_info_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::peer_info const &)*arg3);
+        result = std_vector_Sl_libtorrent_peer_info_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::peer_info const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -18009,7 +18020,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
   {
     try {
       try {
-        std_vector_Sl_libtorrent_peer_info_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_peer_info_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -18178,7 +18189,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::torrent_handle > *)new_std_vector_Sl_libtorrent_torrent_handle_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::torrent_handle const &)*arg2);
+        result = (std::vector< libtorrent::torrent_handle > *)new_std_vector_Sl_libtorrent_torrent_handle_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::torrent_handle const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -18250,7 +18261,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_torrent_handle_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_torrent_handle_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -18364,7 +18375,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_torrent_handle_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::torrent_handle const &)*arg3);
+        std_vector_Sl_libtorrent_torrent_handle_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::torrent_handle const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -18400,7 +18411,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_torrent_handle_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_torrent_handle_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -18438,7 +18449,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   {
     try {
       try {
-        result = (std::vector< libtorrent::torrent_handle >::value_type *) &std_vector_Sl_libtorrent_torrent_handle_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::torrent_handle >::value_type *) &std_vector_Sl_libtorrent_torrent_handle_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -18483,7 +18494,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_torrent_handle_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::torrent_handle const &)*arg3);
+        result = std_vector_Sl_libtorrent_torrent_handle_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::torrent_handle const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -18521,7 +18532,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   {
     try {
       try {
-        std_vector_Sl_libtorrent_torrent_handle_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_torrent_handle_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -18688,7 +18699,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::alert * > *)new_std_vector_Sl_libtorrent_alert_Sm__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::alert *const &)*arg2);
+        result = (std::vector< libtorrent::alert * > *)new_std_vector_Sl_libtorrent_alert_Sm__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::alert *const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -18760,7 +18771,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_aler
   {
     try {
       try {
-        std_vector_Sl_libtorrent_alert_Sm__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_alert_Sm__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -18870,7 +18881,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_aler
   {
     try {
       try {
-        std_vector_Sl_libtorrent_alert_Sm__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::alert *const &)*arg3);
+        std_vector_Sl_libtorrent_alert_Sm__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::alert *const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -18906,7 +18917,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   {
     try {
       try {
-        result = (std::vector< libtorrent::alert * >::value_type)std_vector_Sl_libtorrent_alert_Sm__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::alert * >::value_type)std_vector_Sl_libtorrent_alert_Sm__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -18944,7 +18955,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   {
     try {
       try {
-        result = (std::vector< libtorrent::alert * >::value_type *) &std_vector_Sl_libtorrent_alert_Sm__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::alert * >::value_type *) &std_vector_Sl_libtorrent_alert_Sm__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -18987,7 +18998,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   {
     try {
       try {
-        result = (std::vector< libtorrent::alert * >::value_type)std_vector_Sl_libtorrent_alert_Sm__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::alert *const &)*arg3);
+        result = (std::vector< libtorrent::alert * >::value_type)std_vector_Sl_libtorrent_alert_Sm__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::alert *const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -19025,7 +19036,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_aler
   {
     try {
       try {
-        std_vector_Sl_libtorrent_alert_Sm__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_alert_Sm__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -19194,7 +19205,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::stats_metric > *)new_std_vector_Sl_libtorrent_stats_metric_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::stats_metric const &)*arg2);
+        result = (std::vector< libtorrent::stats_metric > *)new_std_vector_Sl_libtorrent_stats_metric_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::stats_metric const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -19266,7 +19277,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stat
   {
     try {
       try {
-        std_vector_Sl_libtorrent_stats_metric_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_stats_metric_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -19380,7 +19391,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stat
   {
     try {
       try {
-        std_vector_Sl_libtorrent_stats_metric_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::stats_metric const &)*arg3);
+        std_vector_Sl_libtorrent_stats_metric_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::stats_metric const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -19416,7 +19427,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sta
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_stats_metric_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_stats_metric_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -19454,7 +19465,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sta
   {
     try {
       try {
-        result = (std::vector< libtorrent::stats_metric >::value_type *) &std_vector_Sl_libtorrent_stats_metric_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::stats_metric >::value_type *) &std_vector_Sl_libtorrent_stats_metric_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -19499,7 +19510,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sta
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_stats_metric_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::stats_metric const &)*arg3);
+        result = std_vector_Sl_libtorrent_stats_metric_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::stats_metric const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -19537,7 +19548,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stat
   {
     try {
       try {
-        std_vector_Sl_libtorrent_stats_metric_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_stats_metric_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -19706,7 +19717,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< ip_interface > *)new_std_vector_Sl_ip_interface_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(ip_interface const &)*arg2);
+        result = (std::vector< ip_interface > *)new_std_vector_Sl_ip_interface_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(ip_interface const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -19778,7 +19789,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1
   {
     try {
       try {
-        std_vector_Sl_ip_interface_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_ip_interface_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -19892,7 +19903,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1
   {
     try {
       try {
-        std_vector_Sl_ip_interface_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(ip_interface const &)*arg3);
+        std_vector_Sl_ip_interface_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(ip_interface const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -19928,7 +19939,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_
   {
     try {
       try {
-        result = std_vector_Sl_ip_interface_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_ip_interface_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -19966,7 +19977,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_
   {
     try {
       try {
-        result = (std::vector< ip_interface >::value_type *) &std_vector_Sl_ip_interface_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< ip_interface >::value_type *) &std_vector_Sl_ip_interface_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -20011,7 +20022,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_
   {
     try {
       try {
-        result = std_vector_Sl_ip_interface_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(ip_interface const &)*arg3);
+        result = std_vector_Sl_ip_interface_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(ip_interface const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -20049,7 +20060,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1
   {
     try {
       try {
-        std_vector_Sl_ip_interface_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_ip_interface_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -20218,7 +20229,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< ip_route > *)new_std_vector_Sl_ip_route_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(ip_route const &)*arg2);
+        result = (std::vector< ip_route > *)new_std_vector_Sl_ip_route_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(ip_route const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -20290,7 +20301,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1
   {
     try {
       try {
-        std_vector_Sl_ip_route_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_ip_route_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -20404,7 +20415,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1
   {
     try {
       try {
-        std_vector_Sl_ip_route_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(ip_route const &)*arg3);
+        std_vector_Sl_ip_route_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(ip_route const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -20440,7 +20451,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_
   {
     try {
       try {
-        result = std_vector_Sl_ip_route_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_ip_route_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -20478,7 +20489,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_
   {
     try {
       try {
-        result = (std::vector< ip_route >::value_type *) &std_vector_Sl_ip_route_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< ip_route >::value_type *) &std_vector_Sl_ip_route_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -20523,7 +20534,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_
   {
     try {
       try {
-        result = std_vector_Sl_ip_route_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(ip_route const &)*arg3);
+        result = std_vector_Sl_ip_route_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(ip_route const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -20561,7 +20572,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ip_1
   {
     try {
       try {
-        std_vector_Sl_ip_route_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_ip_route_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -20730,7 +20741,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::create_file_entry > *)new_std_vector_Sl_libtorrent_create_file_entry_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::create_file_entry const &)*arg2);
+        result = (std::vector< libtorrent::create_file_entry > *)new_std_vector_Sl_libtorrent_create_file_entry_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::create_file_entry const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -20802,7 +20813,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   {
     try {
       try {
-        std_vector_Sl_libtorrent_create_file_entry_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_create_file_entry_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -20916,7 +20927,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   {
     try {
       try {
-        std_vector_Sl_libtorrent_create_file_entry_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::create_file_entry const &)*arg3);
+        std_vector_Sl_libtorrent_create_file_entry_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::create_file_entry const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -20952,7 +20963,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cre
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_create_file_entry_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_create_file_entry_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -20990,7 +21001,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cre
   {
     try {
       try {
-        result = (std::vector< libtorrent::create_file_entry >::value_type *) &std_vector_Sl_libtorrent_create_file_entry_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::create_file_entry >::value_type *) &std_vector_Sl_libtorrent_create_file_entry_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -21035,7 +21046,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cre
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_create_file_entry_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::create_file_entry const &)*arg3);
+        result = std_vector_Sl_libtorrent_create_file_entry_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::create_file_entry const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -21073,7 +21084,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   {
     try {
       try {
-        std_vector_Sl_libtorrent_create_file_entry_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_create_file_entry_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -21242,7 +21253,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::block_info > *)new_std_vector_Sl_libtorrent_block_info_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::block_info const &)*arg2);
+        result = (std::vector< libtorrent::block_info > *)new_std_vector_Sl_libtorrent_block_info_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::block_info const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -21314,7 +21325,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bloc
   {
     try {
       try {
-        std_vector_Sl_libtorrent_block_info_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_block_info_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -21428,7 +21439,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bloc
   {
     try {
       try {
-        std_vector_Sl_libtorrent_block_info_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::block_info const &)*arg3);
+        std_vector_Sl_libtorrent_block_info_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::block_info const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -21464,7 +21475,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_blo
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_block_info_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_block_info_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -21502,7 +21513,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_blo
   {
     try {
       try {
-        result = (std::vector< libtorrent::block_info >::value_type *) &std_vector_Sl_libtorrent_block_info_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::block_info >::value_type *) &std_vector_Sl_libtorrent_block_info_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -21547,7 +21558,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_blo
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_block_info_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::block_info const &)*arg3);
+        result = std_vector_Sl_libtorrent_block_info_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::block_info const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -21585,7 +21596,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bloc
   {
     try {
       try {
-        std_vector_Sl_libtorrent_block_info_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_block_info_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -21754,7 +21765,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::bitfield > *)new_std_vector_Sl_libtorrent_bitfield_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::bitfield const &)*arg2);
+        result = (std::vector< libtorrent::bitfield > *)new_std_vector_Sl_libtorrent_bitfield_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::bitfield const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -21826,7 +21837,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitf
   {
     try {
       try {
-        std_vector_Sl_libtorrent_bitfield_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_bitfield_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -21940,7 +21951,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitf
   {
     try {
       try {
-        std_vector_Sl_libtorrent_bitfield_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::bitfield const &)*arg3);
+        std_vector_Sl_libtorrent_bitfield_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::bitfield const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -21976,7 +21987,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bit
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_bitfield_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_bitfield_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -22014,7 +22025,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bit
   {
     try {
       try {
-        result = (std::vector< libtorrent::bitfield >::value_type *) &std_vector_Sl_libtorrent_bitfield_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::bitfield >::value_type *) &std_vector_Sl_libtorrent_bitfield_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -22059,7 +22070,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bit
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_bitfield_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::bitfield const &)*arg3);
+        result = std_vector_Sl_libtorrent_bitfield_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::bitfield const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -22097,7 +22108,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bitf
   {
     try {
       try {
-        std_vector_Sl_libtorrent_bitfield_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_bitfield_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -22266,7 +22277,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::vector< bool > > *)new_std_vector_Sl_std_vector_Sl_bool_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::vector< bool > const &)*arg2);
+        result = (std::vector< std::vector< bool > > *)new_std_vector_Sl_std_vector_Sl_bool_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::vector< bool > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -22338,7 +22349,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bool
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -22452,7 +22463,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bool
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::vector< bool > const &)*arg3);
+        std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::vector< bool > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -22488,7 +22499,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_boo
   {
     try {
       try {
-        result = std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -22526,7 +22537,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_boo
   {
     try {
       try {
-        result = (std::vector< std::vector< bool > >::value_type *) &std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::vector< bool > >::value_type *) &std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -22571,7 +22582,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_boo
   {
     try {
       try {
-        result = std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::vector< bool > const &)*arg3);
+        result = std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::vector< bool > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -22609,7 +22620,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bool
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_vector_Sl_bool_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -22778,7 +22789,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::vector< libtorrent::digest32< 256 > > > *)new_std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::vector< libtorrent::digest32< 256 > > const &)*arg2);
+        result = (std::vector< std::vector< libtorrent::digest32< 256 > > > *)new_std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::vector< libtorrent::digest32< 256 > > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -22850,7 +22861,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha2
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -22964,7 +22975,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha2
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::vector< libtorrent::digest32< 256 > > const &)*arg3);
+        std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::vector< libtorrent::digest32< 256 > > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -23000,7 +23011,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -23038,7 +23049,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = (std::vector< std::vector< libtorrent::digest32< 256 > > >::value_type *) &std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::vector< libtorrent::digest32< 256 > > >::value_type *) &std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -23083,7 +23094,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::vector< libtorrent::digest32< 256 > > const &)*arg3);
+        result = std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::vector< libtorrent::digest32< 256 > > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -23121,7 +23132,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha2
   {
     try {
       try {
-        std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -23290,7 +23301,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > > *)new_std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > const &)*arg2);
+        result = (std::vector< std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > > *)new_std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -23362,7 +23373,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha1
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -23476,7 +23487,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha1
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > const &)*arg3);
+        std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -23512,7 +23523,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -23550,7 +23561,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = (std::vector< std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > >::value_type *) &std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > >::value_type *) &std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -23595,7 +23606,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > const &)*arg3);
+        result = std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::pair< libtorrent::digest32< 160 >,libtorrent::udp::endpoint > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -23633,7 +23644,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha1
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_pair_Sl_libtorrent_digest32_Sl_160_Sg__Sc_libtorrent_udp_endpoint_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -23802,7 +23813,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::pair< libtorrent::address,libtorrent::digest32< 160 > > > *)new_std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::pair< libtorrent::address,libtorrent::digest32< 160 > > const &)*arg2);
+        result = (std::vector< std::pair< libtorrent::address,libtorrent::digest32< 160 > > > *)new_std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::pair< libtorrent::address,libtorrent::digest32< 160 > > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -23874,7 +23885,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_addr
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -23988,7 +23999,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_addr
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< libtorrent::address,libtorrent::digest32< 160 > > const &)*arg3);
+        std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::pair< libtorrent::address,libtorrent::digest32< 160 > > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -24024,7 +24035,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -24062,7 +24073,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   {
     try {
       try {
-        result = (std::vector< std::pair< libtorrent::address,libtorrent::digest32< 160 > > >::value_type *) &std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::pair< libtorrent::address,libtorrent::digest32< 160 > > >::value_type *) &std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -24107,7 +24118,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< libtorrent::address,libtorrent::digest32< 160 > > const &)*arg3);
+        result = std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::pair< libtorrent::address,libtorrent::digest32< 160 > > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -24145,7 +24156,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_addr
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_pair_Sl_libtorrent_address_Sc_libtorrent_digest32_Sl_160_Sg__Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -24797,7 +24808,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)std_map_Sl_int_Sc_std_string_Sg__iterator_isNot((std::map< int,std::string >::iterator const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)std_map_Sl_int_Sc_std_string_Sg__iterator_isNot((std::map< int,std::string >::iterator const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -25244,7 +25255,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   
   {
     try {
-      std_map_Sl_int_Sc_std_string_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(*(&arg2)));
+      std_map_Sl_int_Sc_std_string_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -25390,7 +25401,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)std_map_Sl_std_string_Sc_std_string_Sg__iterator_isNot((std::map< std::string,std::string >::iterator const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)std_map_Sl_std_string_Sc_std_string_Sg__iterator_isNot((std::map< std::string,std::string >::iterator const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -25878,7 +25889,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   
   {
     try {
-      std_map_Sl_std_string_Sc_std_string_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(*(&arg2)));
+      std_map_Sl_std_string_Sc_std_string_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -26024,7 +26035,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)std_map_Sl_int_Sc_libtorrent_bitfield_Sg__iterator_isNot((std::map< int,libtorrent::bitfield >::iterator const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)std_map_Sl_int_Sc_libtorrent_bitfield_Sg__iterator_isNot((std::map< int,libtorrent::bitfield >::iterator const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -26448,7 +26459,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_int_
   
   {
     try {
-      std_map_Sl_int_Sc_libtorrent_bitfield_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(*(&arg2)));
+      std_map_Sl_int_Sc_libtorrent_bitfield_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -26594,7 +26605,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)boost_container_map_Sl_std_string_Sc_libtorrent_entry_Sc_libtorrent_aux_strview_less_Sg__iterator_isNot((boost::container::map< std::string,libtorrent::entry,libtorrent::aux::strview_less >::iterator const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)boost_container_map_Sl_std_string_Sc_libtorrent_entry_Sc_libtorrent_aux_strview_less_Sg__iterator_isNot((boost::container::map< std::string,libtorrent::entry,libtorrent::aux::strview_less >::iterator const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -27059,7 +27070,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   
   {
     try {
-      boost_container_map_Sl_std_string_Sc_libtorrent_entry_Sc_libtorrent_aux_strview_less_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(*(&arg2)));
+      boost_container_map_Sl_std_string_Sc_libtorrent_entry_Sc_libtorrent_aux_strview_less_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -27205,7 +27216,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)std_map_Sl_libtorrent_file_index_t_Sc_std_string_Sg__iterator_isNot((std::map< libtorrent::file_index_t,std::string >::iterator const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)std_map_Sl_libtorrent_file_index_t_Sc_std_string_Sg__iterator_isNot((std::map< libtorrent::file_index_t,std::string >::iterator const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -27658,7 +27669,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      std_map_Sl_libtorrent_file_index_t_Sc_std_string_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(*(&arg2)));
+      std_map_Sl_libtorrent_file_index_t_Sc_std_string_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -27822,7 +27833,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::file_index_t > *)new_std_vector_Sl_libtorrent_file_index_t_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::file_index_t const &)*arg2);
+        result = (std::vector< libtorrent::file_index_t > *)new_std_vector_Sl_libtorrent_file_index_t_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::file_index_t const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -27894,7 +27905,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   {
     try {
       try {
-        std_vector_Sl_libtorrent_file_index_t_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_file_index_t_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -28006,7 +28017,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   {
     try {
       try {
-        std_vector_Sl_libtorrent_file_index_t_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::file_index_t const &)*arg3);
+        std_vector_Sl_libtorrent_file_index_t_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::file_index_t const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -28042,7 +28053,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_file_index_t_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_file_index_t_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -28080,7 +28091,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   {
     try {
       try {
-        result = (std::vector< libtorrent::file_index_t >::value_type *) &std_vector_Sl_libtorrent_file_index_t_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::file_index_t >::value_type *) &std_vector_Sl_libtorrent_file_index_t_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -28124,7 +28135,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_file_index_t_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::file_index_t const &)*arg3);
+        result = std_vector_Sl_libtorrent_file_index_t_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::file_index_t const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -28162,7 +28173,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   {
     try {
       try {
-        std_vector_Sl_libtorrent_file_index_t_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_file_index_t_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -28240,7 +28251,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = (int)jarg2; 
   {
     try {
-      result = (std::pair< piece_index_t,int > *)new std::pair< piece_index_t,int >(SWIG_STD_MOVE(*(&arg1)),arg2);
+      result = (std::pair< piece_index_t,int > *)new std::pair< piece_index_t,int >(SWIG_STD_MOVE(arg1),arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -28519,7 +28530,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< std::pair< libtorrent::piece_index_t,int > > *)new_std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(std::pair< libtorrent::piece_index_t,int > const &)*arg2);
+        result = (std::vector< std::pair< libtorrent::piece_index_t,int > > *)new_std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(std::pair< libtorrent::piece_index_t,int > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -28591,7 +28602,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -28703,7 +28714,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< libtorrent::piece_index_t,int > const &)*arg3);
+        std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(std::pair< libtorrent::piece_index_t,int > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -28739,7 +28750,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -28777,7 +28788,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = (std::vector< std::pair< libtorrent::piece_index_t,int > >::value_type *) &std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< std::pair< libtorrent::piece_index_t,int > >::value_type *) &std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -28821,7 +28832,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(std::pair< libtorrent::piece_index_t,int > const &)*arg3);
+        result = std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(std::pair< libtorrent::piece_index_t,int > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -28859,7 +28870,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_std_pair_Sl_libtorrent_piece_index_t_Sc_int_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -29027,7 +29038,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::piece_index_t > *)new_std_vector_Sl_libtorrent_piece_index_t_Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::piece_index_t const &)*arg2);
+        result = (std::vector< libtorrent::piece_index_t > *)new_std_vector_Sl_libtorrent_piece_index_t_Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::piece_index_t const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -29099,7 +29110,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_libtorrent_piece_index_t_Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_piece_index_t_Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -29211,7 +29222,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_libtorrent_piece_index_t_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::piece_index_t const &)*arg3);
+        std_vector_Sl_libtorrent_piece_index_t_Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::piece_index_t const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -29247,7 +29258,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_piece_index_t_Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_piece_index_t_Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -29285,7 +29296,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = (std::vector< libtorrent::piece_index_t >::value_type *) &std_vector_Sl_libtorrent_piece_index_t_Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::piece_index_t >::value_type *) &std_vector_Sl_libtorrent_piece_index_t_Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -29329,7 +29340,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pie
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_piece_index_t_Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::piece_index_t const &)*arg3);
+        result = std_vector_Sl_libtorrent_piece_index_t_Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::piece_index_t const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -29367,7 +29378,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_piec
   {
     try {
       try {
-        std_vector_Sl_libtorrent_piece_index_t_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_piece_index_t_Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -29517,7 +29528,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)std_map_Sl_std_string_Sc_long_Sg__iterator_isNot((std::map< std::string,long >::iterator const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)std_map_Sl_std_string_Sc_long_Sg__iterator_isNot((std::map< std::string,long >::iterator const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -29976,7 +29987,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_stri
   
   {
     try {
-      std_map_Sl_std_string_Sc_long_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(*(&arg2)));
+      std_map_Sl_std_string_Sc_long_Sg__removeUnchecked(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -30062,7 +30073,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = *argp2; 
   {
     try {
-      result = (std::pair< libtorrent::string_view,libtorrent::bdecode_node > *)new std::pair< libtorrent::string_view,libtorrent::bdecode_node >(SWIG_STD_MOVE(*(&arg1)),SWIG_STD_MOVE(*(&arg2)));
+      result = (std::pair< libtorrent::string_view,libtorrent::bdecode_node > *)new std::pair< libtorrent::string_view,libtorrent::bdecode_node >(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -30232,7 +30243,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)((std::bitset< 128 > const *)arg1)->test(SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)((std::bitset< 128 > const *)arg1)->test(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -30420,7 +30431,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)std_bitset_Sl_128_Sg__get(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)std_bitset_Sl_128_Sg__get(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -30501,7 +30512,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)((std::bitset< 96 > const *)arg1)->test(SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)((std::bitset< 96 > const *)arg1)->test(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -30689,7 +30700,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)std_bitset_Sl_96_Sg__get(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)std_bitset_Sl_96_Sg__get(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -30883,7 +30894,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -30923,7 +30934,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -30963,7 +30974,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ban
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31003,7 +31014,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ban
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31043,7 +31054,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ban
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_bandwidth_state_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31301,7 +31312,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31341,7 +31352,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31381,7 +31392,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cre
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31421,7 +31432,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cre
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31461,7 +31472,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cre
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_create_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31719,7 +31730,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31759,7 +31770,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31799,7 +31810,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31839,7 +31850,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -31879,7 +31890,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32137,7 +32148,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32177,7 +32188,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32217,7 +32228,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32257,7 +32268,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32297,7 +32308,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_peer_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32555,7 +32566,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32595,7 +32606,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32635,7 +32646,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32675,7 +32686,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32715,7 +32726,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pee
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_peer_source_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -32973,7 +32984,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33013,7 +33024,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33053,7 +33064,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pex
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33093,7 +33104,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pex
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33133,7 +33144,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pex
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pex_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33391,7 +33402,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33431,7 +33442,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33471,7 +33482,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pic
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33511,7 +33522,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pic
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33551,7 +33562,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pic
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_picker_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33809,7 +33820,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33849,7 +33860,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33889,7 +33900,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_wri
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33929,7 +33940,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_wri
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -33969,7 +33980,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_wri
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_write_torrent_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34464,7 +34475,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = ((libtorrent::span< char > const *)arg1)->first(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::span< char > const *)arg1)->first(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34497,7 +34508,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = ((libtorrent::span< char > const *)arg1)->last(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::span< char > const *)arg1)->last(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34530,7 +34541,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = ((libtorrent::span< char > const *)arg1)->subspan(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::span< char > const *)arg1)->subspan(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34565,7 +34576,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = ((libtorrent::span< char > const *)arg1)->subspan(SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+      result = ((libtorrent::span< char > const *)arg1)->subspan(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34598,7 +34609,7 @@ SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = (int8_t)libtorrent_span_Sl_char_Sg__get(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (int8_t)libtorrent_span_Sl_char_Sg__get(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34631,7 +34642,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byte
   
   {
     try {
-      libtorrent_span_Sl_char_Sg__set(arg1,SWIG_STD_MOVE(*(&arg2)),arg3);
+      libtorrent_span_Sl_char_Sg__set(arg1,SWIG_STD_MOVE(arg2),arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -34834,7 +34845,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = ((libtorrent::span< char const > const *)arg1)->first(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::span< char const > const *)arg1)->first(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34867,7 +34878,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = ((libtorrent::span< char const > const *)arg1)->last(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::span< char const > const *)arg1)->last(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34900,7 +34911,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = ((libtorrent::span< char const > const *)arg1)->subspan(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::span< char const > const *)arg1)->subspan(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34935,7 +34946,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = ((libtorrent::span< char const > const *)arg1)->subspan(SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+      result = ((libtorrent::span< char const > const *)arg1)->subspan(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -34968,7 +34979,7 @@ SWIGEXPORT jbyte JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_byt
   
   {
     try {
-      result = (int8_t)libtorrent_span_Sl_char_SS_const_Sg__get(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (int8_t)libtorrent_span_Sl_char_SS_const_Sg__get(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -35467,7 +35478,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = (unsigned short)jarg2; 
   {
     try {
-      result = (libtorrent::tcp::endpoint *)new libtorrent::tcp::endpoint(SWIG_STD_MOVE(*(&arg1)),arg2);
+      result = (libtorrent::tcp::endpoint *)new libtorrent::tcp::endpoint(SWIG_STD_MOVE(arg1),arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -35639,7 +35650,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = (unsigned short)jarg2; 
   {
     try {
-      result = (libtorrent::udp::endpoint *)new libtorrent::udp::endpoint(SWIG_STD_MOVE(*(&arg1)),arg2);
+      result = (libtorrent::udp::endpoint *)new libtorrent::udp::endpoint(SWIG_STD_MOVE(arg1),arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -36681,7 +36692,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   
   {
     try {
-      result = libtorrent_digest32_Sl_160_Sg__from_hex(SWIG_STD_MOVE(*(&arg1)));
+      result = libtorrent_digest32_Sl_160_Sg__from_hex(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -37367,7 +37378,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   
   {
     try {
-      result = libtorrent_digest32_Sl_256_Sg__from_hex(SWIG_STD_MOVE(*(&arg1)));
+      result = libtorrent_digest32_Sl_256_Sg__from_hex(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -37570,7 +37581,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::digest32< 160 > > *)new_std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::digest32< 160 > const &)*arg2);
+        result = (std::vector< libtorrent::digest32< 160 > > *)new_std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::digest32< 160 > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -37642,7 +37653,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha1
   {
     try {
       try {
-        std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -37756,7 +37767,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha1
   {
     try {
       try {
-        std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::digest32< 160 > const &)*arg3);
+        std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::digest32< 160 > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -37792,7 +37803,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -37830,7 +37841,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = (std::vector< libtorrent::digest32< 160 > >::value_type *) &std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::digest32< 160 > >::value_type *) &std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -37875,7 +37886,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::digest32< 160 > const &)*arg3);
+        result = std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::digest32< 160 > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -37913,7 +37924,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha1
   {
     try {
       try {
-        std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_digest32_Sl_160_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -38082,7 +38093,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   {
     try {
       try {
-        result = (std::vector< libtorrent::digest32< 256 > > *)new_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg___SWIG_2(SWIG_STD_MOVE(*(&arg1)),(libtorrent::digest32< 256 > const &)*arg2);
+        result = (std::vector< libtorrent::digest32< 256 > > *)new_std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg___SWIG_2(SWIG_STD_MOVE(arg1),(libtorrent::digest32< 256 > const &)*arg2);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -38154,7 +38165,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha2
   {
     try {
       try {
-        std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(*(&arg2)));
+        std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doReserve(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::length_error &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -38268,7 +38279,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha2
   {
     try {
       try {
-        std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::digest32< 256 > const &)*arg3);
+        std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doAdd__SWIG_1(arg1,SWIG_STD_MOVE(arg2),(libtorrent::digest32< 256 > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -38304,7 +38315,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doRemove(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -38342,7 +38353,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = (std::vector< libtorrent::digest32< 256 > >::value_type *) &std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(*(&arg2)));
+        result = (std::vector< libtorrent::digest32< 256 > >::value_type *) &std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doGet(arg1,SWIG_STD_MOVE(arg2));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -38387,7 +38398,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha
   {
     try {
       try {
-        result = std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(*(&arg2)),(libtorrent::digest32< 256 > const &)*arg3);
+        result = std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doSet(arg1,SWIG_STD_MOVE(arg2),(libtorrent::digest32< 256 > const &)*arg3);
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return 0;
@@ -38425,7 +38436,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sha2
   {
     try {
       try {
-        std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+        std_vector_Sl_libtorrent_digest32_Sl_256_Sg__Sg__doRemoveRange(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
       } catch(std::out_of_range &_e) {
         SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
         return ;
@@ -38518,7 +38529,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg1 = *argp1; 
   {
     try {
-      result = (libtorrent::info_hash_t *)new libtorrent::info_hash_t(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::info_hash_t *)new libtorrent::info_hash_t(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -38549,7 +38560,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg1 = *argp1; 
   {
     try {
-      result = (libtorrent::info_hash_t *)new libtorrent::info_hash_t(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::info_hash_t *)new libtorrent::info_hash_t(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -38589,7 +38600,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = *argp2; 
   {
     try {
-      result = (libtorrent::info_hash_t *)new libtorrent::info_hash_t(SWIG_STD_MOVE(*(&arg1)),SWIG_STD_MOVE(*(&arg2)));
+      result = (libtorrent::info_hash_t *)new libtorrent::info_hash_t(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -41603,7 +41614,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   
   {
     try {
-      result = (libtorrent::announce_entry *)new_libtorrent_announce_entry__SWIG_2(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::announce_entry *)new_libtorrent_announce_entry__SWIG_2(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42158,7 +42169,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->map_block(SWIG_STD_MOVE(*(&arg2)),arg3,arg4);
+      result = ((libtorrent::file_storage const *)arg1)->map_block(SWIG_STD_MOVE(arg2),arg3,arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42197,7 +42208,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->map_file(SWIG_STD_MOVE(*(&arg2)),arg3,arg4);
+      result = ((libtorrent::file_storage const *)arg1)->map_file(SWIG_STD_MOVE(arg2),arg3,arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42544,7 +42555,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      result = (int)((libtorrent::file_storage const *)arg1)->piece_size(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::file_storage const *)arg1)->piece_size(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42579,7 +42590,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      result = (int)((libtorrent::file_storage const *)arg1)->piece_size2(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::file_storage const *)arg1)->piece_size2(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42614,7 +42625,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      result = (int)((libtorrent::file_storage const *)arg1)->blocks_in_piece2(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::file_storage const *)arg1)->blocks_in_piece2(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42793,7 +42804,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->root(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->root(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42828,7 +42839,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->symlink(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->symlink(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42868,7 +42879,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->mtime(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->mtime(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42919,7 +42930,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->file_path(SWIG_STD_MOVE(*(&arg2)),(std::string const &)*arg3);
+      result = ((libtorrent::file_storage const *)arg1)->file_path(SWIG_STD_MOVE(arg2),(std::string const &)*arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42959,7 +42970,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->file_path(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->file_path(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -42999,7 +43010,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = (std::int64_t)((libtorrent::file_storage const *)arg1)->file_size(SWIG_STD_MOVE(*(&arg2)));
+      result = (std::int64_t)((libtorrent::file_storage const *)arg1)->file_size(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43034,7 +43045,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)((libtorrent::file_storage const *)arg1)->pad_file_at(SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)((libtorrent::file_storage const *)arg1)->pad_file_at(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43069,7 +43080,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = (std::int64_t)((libtorrent::file_storage const *)arg1)->file_offset(SWIG_STD_MOVE(*(&arg2)));
+      result = (std::int64_t)((libtorrent::file_storage const *)arg1)->file_offset(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43104,7 +43115,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      result = (int)((libtorrent::file_storage const *)arg1)->file_num_pieces(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::file_storage const *)arg1)->file_num_pieces(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43139,7 +43150,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      result = (int)((libtorrent::file_storage const *)arg1)->file_num_blocks(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::file_storage const *)arg1)->file_num_blocks(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43174,7 +43185,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      result = (int)((libtorrent::file_storage const *)arg1)->file_first_piece_node(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::file_storage const *)arg1)->file_first_piece_node(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43209,7 +43220,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      result = (int)((libtorrent::file_storage const *)arg1)->file_first_block_node(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::file_storage const *)arg1)->file_first_block_node(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43292,7 +43303,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->file_flags(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->file_flags(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43327,7 +43338,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)((libtorrent::file_storage const *)arg1)->file_absolute_path(SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)((libtorrent::file_storage const *)arg1)->file_absolute_path(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43397,7 +43408,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->file_index_at_piece(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->file_index_at_piece(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43434,7 +43445,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->last_file_index_at_piece(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->last_file_index_at_piece(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43511,7 +43522,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->piece_index_at_file(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->piece_index_at_file(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43548,7 +43559,7 @@ SWIGEXPORT int JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file_
   
   {
     try {
-      result = ((libtorrent::file_storage const *)arg1)->last_piece_index_at_file(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::file_storage const *)arg1)->last_piece_index_at_file(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -43660,7 +43671,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      libtorrent_file_storage_add_file_ex__SWIG_0(arg1,*arg2,(std::string const &)*arg3,arg4,SWIG_STD_MOVE(*(&arg5)),SWIG_STD_MOVE(*(&arg6)),SWIG_STD_MOVE(*(&arg7)));
+      libtorrent_file_storage_add_file_ex__SWIG_0(arg1,*arg2,(std::string const &)*arg3,arg4,SWIG_STD_MOVE(arg5),SWIG_STD_MOVE(arg6),SWIG_STD_MOVE(arg7));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -43723,7 +43734,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      libtorrent_file_storage_add_file_ex__SWIG_0(arg1,*arg2,(std::string const &)*arg3,arg4,SWIG_STD_MOVE(*(&arg5)),SWIG_STD_MOVE(*(&arg6)));
+      libtorrent_file_storage_add_file_ex__SWIG_0(arg1,*arg2,(std::string const &)*arg3,arg4,SWIG_STD_MOVE(arg5),SWIG_STD_MOVE(arg6));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -43784,7 +43795,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_file
   
   {
     try {
-      libtorrent_file_storage_add_file_ex__SWIG_0(arg1,*arg2,(std::string const &)*arg3,arg4,SWIG_STD_MOVE(*(&arg5)));
+      libtorrent_file_storage_add_file_ex__SWIG_0(arg1,*arg2,(std::string const &)*arg3,arg4,SWIG_STD_MOVE(arg5));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -43961,7 +43972,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = ((libtorrent::renamed_files const *)arg1)->file_path((libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(*(&arg3)),(std::string const &)*arg4);
+      result = ((libtorrent::renamed_files const *)arg1)->file_path((libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(arg3),(std::string const &)*arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -44008,7 +44019,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = ((libtorrent::renamed_files const *)arg1)->file_path((libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(*(&arg3)));
+      result = ((libtorrent::renamed_files const *)arg1)->file_path((libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -44055,7 +44066,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)((libtorrent::renamed_files const *)arg1)->file_absolute_path((libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(*(&arg3)));
+      result = (bool)((libtorrent::renamed_files const *)arg1)->file_absolute_path((libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -44111,7 +44122,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_rena
   
   {
     try {
-      (arg1)->rename_file((libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(*(&arg3)),(std::string const &)*arg4);
+      (arg1)->rename_file((libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(arg3),(std::string const &)*arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -44151,7 +44162,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = libtorrent_renamed_files_get_file_name((libtorrent::renamed_files const *)arg1,(libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(*(&arg3)));
+      result = libtorrent_renamed_files_get_file_name((libtorrent::renamed_files const *)arg1,(libtorrent::file_storage const &)*arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -44981,7 +44992,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = libtorrent_bdecode_node_list_string_value_at_s__SWIG_0(arg1,arg2,SWIG_STD_MOVE(*(&arg3)));
+      result = libtorrent_bdecode_node_list_string_value_at_s__SWIG_0(arg1,arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45069,7 +45080,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bde
   
   {
     try {
-      result = libtorrent_bdecode_node_dict_find_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_bdecode_node_dict_find_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45114,7 +45125,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bde
   
   {
     try {
-      result = libtorrent_bdecode_node_dict_find_dict_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_bdecode_node_dict_find_dict_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45159,7 +45170,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bde
   
   {
     try {
-      result = libtorrent_bdecode_node_dict_find_list_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_bdecode_node_dict_find_list_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45204,7 +45215,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bde
   
   {
     try {
-      result = libtorrent_bdecode_node_dict_find_string_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_bdecode_node_dict_find_string_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45249,7 +45260,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bde
   
   {
     try {
-      result = libtorrent_bdecode_node_dict_find_int_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_bdecode_node_dict_find_int_s((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45308,7 +45319,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = libtorrent_bdecode_node_dict_find_string_value_s__SWIG_0((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+      result = libtorrent_bdecode_node_dict_find_string_value_s__SWIG_0((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45358,7 +45369,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   
   {
     try {
-      result = libtorrent_bdecode_node_dict_find_string_value_s__SWIG_0((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_bdecode_node_dict_find_string_value_s__SWIG_0((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45410,7 +45421,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bde
   
   {
     try {
-      result = (std::int64_t)libtorrent_bdecode_node_dict_find_int_value_s__SWIG_0((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)),arg3);
+      result = (std::int64_t)libtorrent_bdecode_node_dict_find_int_value_s__SWIG_0((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2),arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -45455,7 +45466,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_bde
   
   {
     try {
-      result = (std::int64_t)libtorrent_bdecode_node_dict_find_int_value_s__SWIG_0((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (std::int64_t)libtorrent_bdecode_node_dict_find_int_value_s__SWIG_0((libtorrent::bdecode_node const *)arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -46103,7 +46114,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg4 = *argp4; 
   {
     try {
-      result = (libtorrent::torrent_info *)new libtorrent::torrent_info((libtorrent::bdecode_node const &)*arg1,*arg2,(libtorrent::load_torrent_limits const &)*arg3,SWIG_STD_MOVE(*(&arg4)));
+      result = (libtorrent::torrent_info *)new libtorrent::torrent_info((libtorrent::bdecode_node const &)*arg1,*arg2,(libtorrent::load_torrent_limits const &)*arg3,SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -46668,7 +46679,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = ((libtorrent::torrent_info const *)arg1)->map_block(SWIG_STD_MOVE(*(&arg2)),arg3,arg4);
+      result = ((libtorrent::torrent_info const *)arg1)->map_block(SWIG_STD_MOVE(arg2),arg3,arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -46707,7 +46718,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = ((libtorrent::torrent_info const *)arg1)->map_file(SWIG_STD_MOVE(*(&arg2)),arg3,arg4);
+      result = ((libtorrent::torrent_info const *)arg1)->map_file(SWIG_STD_MOVE(arg2),arg3,arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -46835,7 +46846,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      result = (int)((libtorrent::torrent_info const *)arg1)->piece_size(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::torrent_info const *)arg1)->piece_size(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -46870,7 +46881,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      result = (int)((libtorrent::torrent_info const *)arg1)->piece_size_for_req(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::torrent_info const *)arg1)->piece_size_for_req(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -46905,7 +46916,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = ((libtorrent::torrent_info const *)arg1)->hash_for_piece(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::torrent_info const *)arg1)->hash_for_piece(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -47010,7 +47021,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      (arg1)->internal_set_collections(SWIG_STD_MOVE(*(&arg2)));
+      (arg1)->internal_set_collections(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -47046,7 +47057,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      (arg1)->internal_set_similar(SWIG_STD_MOVE(*(&arg2)));
+      (arg1)->internal_set_similar(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -47509,7 +47520,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -47549,7 +47560,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -47589,7 +47600,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -47629,7 +47640,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -47669,7 +47680,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint64_t_Sc_libtorrent_torrent_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -53067,7 +53078,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -53107,7 +53118,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -53147,7 +53158,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_con
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -53187,7 +53198,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_con
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -53227,7 +53238,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_con
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_connection_type_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -53336,6 +53347,125 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dele
   
   if (!arg1) {
     SWIG_JavaThrowException(jenv, SWIG_JavaIllegalStateException, "libtorrent::flags::bitfield_flag< std::uint8_t,libtorrent::connection_type_tag > used after delete()");
+    return ;
+  }
+  
+  {
+    try {
+      delete arg1;
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
+      return ;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1info_1ref_1ti_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  torrent_info_ref *arg1 = 0 ;
+  std::shared_ptr< libtorrent::torrent_info const > *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(torrent_info_ref **)&jarg1; 
+  arg2 = *(std::shared_ptr< libtorrent::torrent_info const > **)&jarg2; 
+  
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIllegalStateException, "torrent_info_ref used after delete()");
+    return ;
+  }
+  
+  if (arg1) (arg1)->ti = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1info_1ref_1ti_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  torrent_info_ref *arg1 = 0 ;
+  std::shared_ptr< libtorrent::torrent_info const > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(torrent_info_ref **)&jarg1; 
+  
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIllegalStateException, "torrent_info_ref used after delete()");
+    return 0;
+  }
+  
+  result = (std::shared_ptr< libtorrent::torrent_info const > *)& ((arg1)->ti);
+  *(std::shared_ptr< libtorrent::torrent_info const > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1info_1ref_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  torrent_info_ref *arg1 = 0 ;
+  libtorrent::torrent_info *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(torrent_info_ref **)&jarg1; 
+  
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIllegalStateException, "torrent_info_ref used after delete()");
+    return 0;
+  }
+  
+  {
+    try {
+      result = (libtorrent::torrent_info *)((torrent_info_ref const *)arg1)->get();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(libtorrent::torrent_info **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new_1torrent_1info_1ref(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  torrent_info_ref *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (torrent_info_ref *)new torrent_info_ref();
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(torrent_info_ref **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_delete_1torrent_1info_1ref(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  torrent_info_ref *arg1 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(torrent_info_ref **)&jarg1; 
+  
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIllegalStateException, "torrent_info_ref used after delete()");
     return ;
   }
   
@@ -53875,7 +54005,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->read_piece(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->read_piece(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -53910,7 +54040,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->set_sequential_range(SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+      ((libtorrent::torrent_handle const *)arg1)->set_sequential_range(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -53941,7 +54071,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->set_sequential_range(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->set_sequential_range(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -53974,7 +54104,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)((libtorrent::torrent_handle const *)arg1)->have_piece(SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)((libtorrent::torrent_handle const *)arg1)->have_piece(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -54183,7 +54313,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = ((libtorrent::torrent_handle const *)arg1)->status(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::torrent_handle const *)arg1)->status(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -54252,7 +54382,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->post_status(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->post_status(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -54425,7 +54555,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->set_piece_deadline(SWIG_STD_MOVE(*(&arg2)),arg3,SWIG_STD_MOVE(*(&arg4)));
+      ((libtorrent::torrent_handle const *)arg1)->set_piece_deadline(SWIG_STD_MOVE(arg2),arg3,SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -54458,7 +54588,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->set_piece_deadline(SWIG_STD_MOVE(*(&arg2)),arg3);
+      ((libtorrent::torrent_handle const *)arg1)->set_piece_deadline(SWIG_STD_MOVE(arg2),arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -54489,7 +54619,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->reset_piece_deadline(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->reset_piece_deadline(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -54571,7 +54701,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->file_progress(*arg2,SWIG_STD_MOVE(*(&arg3)));
+      ((libtorrent::torrent_handle const *)arg1)->file_progress(*arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -54643,7 +54773,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = ((libtorrent::torrent_handle const *)arg1)->file_progress(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::torrent_handle const *)arg1)->file_progress(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -54712,7 +54842,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->post_file_progress(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->post_file_progress(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -55057,7 +55187,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->pause(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->pause(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -55187,7 +55317,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->set_flags(SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)));
+      ((libtorrent::torrent_handle const *)arg1)->set_flags(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -55223,7 +55353,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->set_flags(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->set_flags(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -55259,7 +55389,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->unset_flags(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->unset_flags(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -55445,7 +55575,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->save_resume_data(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->save_resume_data(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -55510,7 +55640,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
   
   {
     try {
-      result = ((libtorrent::torrent_handle const *)arg1)->get_resume_data(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::torrent_handle const *)arg1)->get_resume_data(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -55612,7 +55742,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)((libtorrent::torrent_handle const *)arg1)->need_save_resume_data(SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)((libtorrent::torrent_handle const *)arg1)->need_save_resume_data(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -56102,7 +56232,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->force_reannounce(arg2,arg3,SWIG_STD_MOVE(*(&arg4)));
+      ((libtorrent::torrent_handle const *)arg1)->force_reannounce(arg2,arg3,SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -56187,7 +56317,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->force_reannounce(arg2,(std::string const &)*arg3,SWIG_STD_MOVE(*(&arg4)));
+      ((libtorrent::torrent_handle const *)arg1)->force_reannounce(arg2,(std::string const &)*arg3,SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -56270,7 +56400,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->force_reannounce(arg2,SWIG_STD_MOVE(*(&arg3)));
+      ((libtorrent::torrent_handle const *)arg1)->force_reannounce(arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -56477,7 +56607,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->scrape_tracker(SWIG_STD_MOVE(*(&arg2)));
+      ((libtorrent::torrent_handle const *)arg1)->scrape_tracker(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -56648,7 +56778,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->connect_peer((libtorrent::tcp::endpoint const &)*arg2,SWIG_STD_MOVE(*(&arg3)),SWIG_STD_MOVE(*(&arg4)));
+      ((libtorrent::torrent_handle const *)arg1)->connect_peer((libtorrent::tcp::endpoint const &)*arg2,SWIG_STD_MOVE(arg3),SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -56691,7 +56821,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->connect_peer((libtorrent::tcp::endpoint const &)*arg2,SWIG_STD_MOVE(*(&arg3)));
+      ((libtorrent::torrent_handle const *)arg1)->connect_peer((libtorrent::tcp::endpoint const &)*arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -56768,7 +56898,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->connect_peer((libtorrent::sha256_hash const &)*arg2,SWIG_STD_MOVE(*(&arg3)));
+      ((libtorrent::torrent_handle const *)arg1)->connect_peer((libtorrent::sha256_hash const &)*arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -57084,7 +57214,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      ((libtorrent::torrent_handle const *)arg1)->rename_file(SWIG_STD_MOVE(*(&arg2)),(std::string const &)*arg3);
+      ((libtorrent::torrent_handle const *)arg1)->rename_file(SWIG_STD_MOVE(arg2),(std::string const &)*arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -57398,7 +57528,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      libtorrent_torrent_handle_add_piece_bytes__SWIG_0(arg1,arg2,(std::vector< signed char > const &)*arg3,SWIG_STD_MOVE(*(&arg4)));
+      libtorrent_torrent_handle_add_piece_bytes__SWIG_0(arg1,arg2,(std::vector< signed char > const &)*arg3,SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -57473,6 +57603,37 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_tor
     }
   }
   *(libtorrent::torrent_info **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torrent_1handle_1torrent_1file_1ref(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  libtorrent::torrent_handle *arg1 = 0 ;
+  torrent_info_ref *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(libtorrent::torrent_handle **)&jarg1; 
+  
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIllegalStateException, "libtorrent::torrent_handle used after delete()");
+    return 0;
+  }
+  
+  {
+    try {
+      result = (torrent_info_ref *)libtorrent_torrent_handle_torrent_file_ref(arg1);
+    } catch (std::exception& e) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
+      return 0;
+    } catch (...) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "Unknown exception type");
+      return 0;
+    }
+  }
+  *(torrent_info_ref **)&jresult = result; 
   return jresult;
 }
 
@@ -57711,7 +57872,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      result = (int)libtorrent_torrent_handle_piece_priority2__SWIG_0(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (int)libtorrent_torrent_handle_piece_priority2__SWIG_0(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -57746,7 +57907,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      libtorrent_torrent_handle_piece_priority2__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),arg3);
+      libtorrent_torrent_handle_piece_priority2__SWIG_1(arg1,SWIG_STD_MOVE(arg2),arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -57877,7 +58038,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      result = (int)libtorrent_torrent_handle_file_priority2__SWIG_0(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (int)libtorrent_torrent_handle_file_priority2__SWIG_0(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -57912,7 +58073,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_torr
   
   {
     try {
-      libtorrent_torrent_handle_file_priority2__SWIG_1(arg1,SWIG_STD_MOVE(*(&arg2)),arg3);
+      libtorrent_torrent_handle_file_priority2__SWIG_1(arg1,SWIG_STD_MOVE(arg2),arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -58147,7 +58308,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58187,7 +58348,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58227,7 +58388,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58267,7 +58428,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58307,7 +58468,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_add
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_add_piece_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58565,7 +58726,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58605,7 +58766,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58645,7 +58806,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dea
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58685,7 +58846,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dea
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58725,7 +58886,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dea
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_deadline_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -58983,7 +59144,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59023,7 +59184,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59063,7 +59224,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59103,7 +59264,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59143,7 +59304,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_fil
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_file_progress_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59401,7 +59562,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59441,7 +59602,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59481,7 +59642,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pau
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59521,7 +59682,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pau
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59561,7 +59722,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_pau
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_pause_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59819,7 +59980,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59859,7 +60020,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59899,7 +60060,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_res
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59939,7 +60100,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_res
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -59979,7 +60140,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_res
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_resume_data_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60237,7 +60398,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60277,7 +60438,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60317,7 +60478,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_rea
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60357,7 +60518,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_rea
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60397,7 +60558,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_rea
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reannounce_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60655,7 +60816,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60695,7 +60856,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60735,7 +60896,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sta
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60775,7 +60936,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sta
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -60815,7 +60976,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sta
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_status_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -64369,7 +64530,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = (int)jarg2; 
   {
     try {
-      result = (libtorrent::piece_block *)new libtorrent::piece_block(SWIG_STD_MOVE(*(&arg1)),arg2);
+      result = (libtorrent::piece_block *)new libtorrent::piece_block(SWIG_STD_MOVE(arg1),arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -64655,7 +64816,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg1 = *argp1; 
   {
     try {
-      result = (libtorrent::entry *)new libtorrent::entry(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::entry *)new libtorrent::entry(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -64691,7 +64852,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   
   {
     try {
-      result = (libtorrent::entry *)new libtorrent::entry(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::entry *)new libtorrent::entry(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -64722,7 +64883,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg1 = *argp1; 
   {
     try {
-      result = (libtorrent::entry *)new libtorrent::entry(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::entry *)new libtorrent::entry(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -95460,7 +95621,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -95500,7 +95661,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -95540,7 +95701,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -95580,7 +95741,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -95620,7 +95781,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ale
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_alert_category_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -95831,7 +95992,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sett
   
   {
     try {
-      (arg1)->set_str(arg2,SWIG_STD_MOVE(*(&arg3)));
+      (arg1)->set_str(arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -96124,7 +96285,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sett
   
   {
     try {
-      (arg1)->set_str(arg2,SWIG_STD_MOVE(*(&arg3)));
+      (arg1)->set_str(arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -97026,7 +97187,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sett
   
   {
     try {
-      libtorrent_settings_pack_set_bytes(arg1,arg2,SWIG_STD_MOVE(*(&arg3)));
+      libtorrent_settings_pack_set_bytes(arg1,arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -97994,7 +98155,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98034,7 +98195,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98074,7 +98235,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_rem
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98114,7 +98275,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_rem
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98154,7 +98315,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_rem
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_remove_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98412,7 +98573,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98452,7 +98613,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98492,7 +98653,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sav
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98532,7 +98693,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sav
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98572,7 +98733,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sav
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint32_t_Sc_libtorrent_save_state_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98830,7 +98991,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98870,7 +99031,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98910,7 +99071,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98950,7 +99111,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -98990,7 +99151,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_session_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -99248,7 +99409,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__eq(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -99288,7 +99449,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__ne(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -99328,7 +99489,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_reo
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__or_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -99368,7 +99529,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_reo
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__and_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -99408,7 +99569,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_reo
   
   {
     try {
-      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_flags_bitfield_flag_Sl_std_uint8_t_Sc_libtorrent_reopen_network_flags_tag_Sg__xor_(arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -99869,7 +100030,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   arg2 = *argp2; 
   {
     try {
-      result = libtorrent_session_params_read_session_params__SWIG_0((libtorrent::bdecode_node const &)*arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_session_params_read_session_params__SWIG_0((libtorrent::bdecode_node const &)*arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -99936,7 +100097,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   arg2 = *argp2; 
   {
     try {
-      result = libtorrent_session_params_write_session_params__SWIG_0((libtorrent::session_params const &)*arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_session_params_write_session_params__SWIG_0((libtorrent::session_params const &)*arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -100003,7 +100164,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   arg2 = *argp2; 
   {
     try {
-      result = libtorrent_session_params_write_session_params_buf__SWIG_0((libtorrent::session_params const &)*arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent_session_params_write_session_params_buf__SWIG_0((libtorrent::session_params const &)*arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -100310,7 +100471,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   
   {
     try {
-      result = ((libtorrent::session_handle const *)arg1)->session_state(SWIG_STD_MOVE(*(&arg2)));
+      result = ((libtorrent::session_handle const *)arg1)->session_state(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -100382,7 +100543,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   
   {
     try {
-      ((libtorrent::session_handle const *)arg1)->refresh_torrent_status(arg2,SWIG_STD_MOVE(*(&arg3)));
+      ((libtorrent::session_handle const *)arg1)->refresh_torrent_status(arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -100448,7 +100609,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   
   {
     try {
-      (arg1)->post_torrent_updates(SWIG_STD_MOVE(*(&arg2)));
+      (arg1)->post_torrent_updates(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -100971,7 +101132,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_ses
   
   {
     try {
-      result = (arg1)->dht_put_item(SWIG_STD_MOVE(*(&arg2)));
+      result = (arg1)->dht_put_item(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -101132,7 +101293,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   
   {
     try {
-      (arg1)->dht_direct_request((libtorrent::udp::endpoint const &)*arg2,(libtorrent::entry const &)*arg3,SWIG_STD_MOVE(*(&arg4)));
+      (arg1)->dht_direct_request((libtorrent::udp::endpoint const &)*arg2,(libtorrent::entry const &)*arg3,SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -101209,7 +101370,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   
   {
     try {
-      (arg1)->set_ip_filter(SWIG_STD_MOVE(*(&arg2)));
+      (arg1)->set_ip_filter(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -101576,7 +101737,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   
   {
     try {
-      (arg1)->remove_torrent((libtorrent::torrent_handle const &)*arg2,SWIG_STD_MOVE(*(&arg3)));
+      (arg1)->remove_torrent((libtorrent::torrent_handle const &)*arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -101777,7 +101938,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_sess
   
   {
     try {
-      (arg1)->reopen_network_sockets(SWIG_STD_MOVE(*(&arg2)));
+      (arg1)->reopen_network_sockets(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -102623,7 +102784,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   
   {
     try {
-      result = (libtorrent::create_file_entry *)new libtorrent::create_file_entry(SWIG_STD_MOVE(*(&arg1)),arg2,SWIG_STD_MOVE(*(&arg3)),SWIG_STD_MOVE(*(&arg4)),SWIG_STD_MOVE(*(&arg5)));
+      result = (libtorrent::create_file_entry *)new libtorrent::create_file_entry(SWIG_STD_MOVE(arg1),arg2,SWIG_STD_MOVE(arg3),SWIG_STD_MOVE(arg4),SWIG_STD_MOVE(arg5));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -102672,7 +102833,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg4 = (std::time_t)jarg4; 
   {
     try {
-      result = (libtorrent::create_file_entry *)new libtorrent::create_file_entry(SWIG_STD_MOVE(*(&arg1)),arg2,SWIG_STD_MOVE(*(&arg3)),SWIG_STD_MOVE(*(&arg4)));
+      result = (libtorrent::create_file_entry *)new libtorrent::create_file_entry(SWIG_STD_MOVE(arg1),arg2,SWIG_STD_MOVE(arg3),SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -102719,7 +102880,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg3 = *argp3; 
   {
     try {
-      result = (libtorrent::create_file_entry *)new libtorrent::create_file_entry(SWIG_STD_MOVE(*(&arg1)),arg2,SWIG_STD_MOVE(*(&arg3)));
+      result = (libtorrent::create_file_entry *)new libtorrent::create_file_entry(SWIG_STD_MOVE(arg1),arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -102757,7 +102918,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = (std::int64_t)jarg2; 
   {
     try {
-      result = (libtorrent::create_file_entry *)new libtorrent::create_file_entry(SWIG_STD_MOVE(*(&arg1)),arg2);
+      result = (libtorrent::create_file_entry *)new libtorrent::create_file_entry(SWIG_STD_MOVE(arg1),arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -103160,7 +103321,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg3 = *argp3; 
   {
     try {
-      result = (libtorrent::create_torrent *)new libtorrent::create_torrent(SWIG_STD_MOVE(*(&arg1)),arg2,SWIG_STD_MOVE(*(&arg3)));
+      result = (libtorrent::create_torrent *)new libtorrent::create_torrent(SWIG_STD_MOVE(arg1),arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -103193,7 +103354,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg2 = (int)jarg2; 
   {
     try {
-      result = (libtorrent::create_torrent *)new libtorrent::create_torrent(SWIG_STD_MOVE(*(&arg1)),arg2);
+      result = (libtorrent::create_torrent *)new libtorrent::create_torrent(SWIG_STD_MOVE(arg1),arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -103224,7 +103385,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg1 = *argp1; 
   {
     try {
-      result = (libtorrent::create_torrent *)new libtorrent::create_torrent(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::create_torrent *)new libtorrent::create_torrent(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -103394,7 +103555,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   
   {
     try {
-      (arg1)->set_creation_date(SWIG_STD_MOVE(*(&arg2)));
+      (arg1)->set_creation_date(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -103432,7 +103593,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   
   {
     try {
-      (arg1)->set_hash(SWIG_STD_MOVE(*(&arg2)),(libtorrent::sha1_hash const &)*arg3);
+      (arg1)->set_hash(SWIG_STD_MOVE(arg2),(libtorrent::sha1_hash const &)*arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -103468,7 +103629,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   
   {
     try {
-      (arg1)->add_node(SWIG_STD_MOVE(*(&arg2)));
+      (arg1)->add_node(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -103720,7 +103881,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_cre
   
   {
     try {
-      result = (libtorrent::create_file_entry *) &((libtorrent::create_torrent const *)arg1)->file_at(SWIG_STD_MOVE(*(&arg2)));
+      result = (libtorrent::create_file_entry *) &((libtorrent::create_torrent const *)arg1)->file_at(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -103817,7 +103978,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   
   {
     try {
-      result = (int)((libtorrent::create_torrent const *)arg1)->piece_size(SWIG_STD_MOVE(*(&arg2)));
+      result = (int)((libtorrent::create_torrent const *)arg1)->piece_size(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -103855,7 +104016,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   
   {
     try {
-      (arg1)->add_similar_torrent(SWIG_STD_MOVE(*(&arg2)));
+      (arg1)->add_similar_torrent(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -104103,7 +104264,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_crea
   
   {
     try {
-      libtorrent_create_torrent_set_hash2(arg1,SWIG_STD_MOVE(*(&arg2)),arg3,(libtorrent::digest32< 256 > const &)*arg4);
+      libtorrent_create_torrent_set_hash2(arg1,SWIG_STD_MOVE(arg2),arg3,(libtorrent::digest32< 256 > const &)*arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -104443,7 +104604,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   arg5 = (int)jarg5; 
   {
     try {
-      result = libtorrent::generate_fingerprint(SWIG_STD_MOVE(*(&arg1)),arg2,arg3,arg4,arg5);
+      result = libtorrent::generate_fingerprint(SWIG_STD_MOVE(arg1),arg2,arg3,arg4,arg5);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -104490,7 +104651,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   arg4 = (int)jarg4; 
   {
     try {
-      result = libtorrent::generate_fingerprint(SWIG_STD_MOVE(*(&arg1)),arg2,arg3,arg4);
+      result = libtorrent::generate_fingerprint(SWIG_STD_MOVE(arg1),arg2,arg3,arg4);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -104535,7 +104696,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   arg3 = (int)jarg3; 
   {
     try {
-      result = libtorrent::generate_fingerprint(SWIG_STD_MOVE(*(&arg1)),arg2,arg3);
+      result = libtorrent::generate_fingerprint(SWIG_STD_MOVE(arg1),arg2,arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -104578,7 +104739,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   arg2 = (int)jarg2; 
   {
     try {
-      result = libtorrent::generate_fingerprint(SWIG_STD_MOVE(*(&arg1)),arg2);
+      result = libtorrent::generate_fingerprint(SWIG_STD_MOVE(arg1),arg2);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -104789,7 +104950,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_wri
   arg2 = *argp2; 
   {
     try {
-      result = libtorrent::write_torrent_file((libtorrent::add_torrent_params const &)*arg1,SWIG_STD_MOVE(*(&arg2)));
+      result = libtorrent::write_torrent_file((libtorrent::add_torrent_params const &)*arg1,SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -105305,7 +105466,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg1 = *argp1; 
   {
     try {
-      result = (libtorrent::peer_connection_handle *)new libtorrent::peer_connection_handle(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::peer_connection_handle *)new libtorrent::peer_connection_handle(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -105464,7 +105625,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)((libtorrent::peer_connection_handle const *)arg1)->has_piece(SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)((libtorrent::peer_connection_handle const *)arg1)->has_piece(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -105811,7 +105972,7 @@ SWIGEXPORT void JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_peer
   
   {
     try {
-      (arg1)->disconnect((libtorrent::error_code const &)*arg2,arg3,SWIG_STD_MOVE(*(&arg4)));
+      (arg1)->disconnect((libtorrent::error_code const &)*arg2,arg3,SWIG_STD_MOVE(arg4));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return ;
@@ -106407,7 +106568,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_new
   arg1 = *argp1; 
   {
     try {
-      result = (libtorrent::bt_peer_connection_handle *)new libtorrent::bt_peer_connection_handle(SWIG_STD_MOVE(*(&arg1)));
+      result = (libtorrent::bt_peer_connection_handle *)new libtorrent::bt_peer_connection_handle(SWIG_STD_MOVE(arg1));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -107180,7 +107341,7 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_lis
   arg3 = *argp3; 
   {
     try {
-      result = list_files_ex((std::string const &)*arg1,arg2,SWIG_STD_MOVE(*(&arg3)));
+      result = list_files_ex((std::string const &)*arg1,arg2,SWIG_STD_MOVE(arg3));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -108657,7 +108818,7 @@ SWIGEXPORT jbyteArray JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jn
   } 
   {
     try {
-      result = device_for_address(arg1,SWIG_STD_MOVE(*(&arg2)),*arg3);
+      result = device_for_address(arg1,SWIG_STD_MOVE(arg2),*arg3);
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;
@@ -108733,7 +108894,7 @@ SWIGEXPORT jboolean JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_
   
   {
     try {
-      result = (bool)(arg1)->pred(SWIG_STD_MOVE(*(&arg2)));
+      result = (bool)(arg1)->pred(SWIG_STD_MOVE(arg2));
     } catch (std::exception& e) {
       SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, jlibtorrent_jni_safe_message(e.what()).c_str());
       return 0;

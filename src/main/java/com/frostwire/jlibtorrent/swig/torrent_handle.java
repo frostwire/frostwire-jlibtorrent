@@ -456,6 +456,11 @@ public class torrent_handle {
     return (cPtr == 0) ? null : new torrent_info(cPtr, false, this);
   }
 
+  public torrent_info_ref torrent_file_ref() {
+    long cPtr = libtorrent_jni.torrent_handle_torrent_file_ref(swigCPtr, this);
+    return (cPtr == 0) ? null : new torrent_info_ref(cPtr, true, this);
+  }
+
   public add_torrent_params torrent_file_with_hashes_atp(error_code ec) {
     return new add_torrent_params(libtorrent_jni.torrent_handle_torrent_file_with_hashes_atp(swigCPtr, this, error_code.getCPtr(ec), ec), true);
   }

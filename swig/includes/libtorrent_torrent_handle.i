@@ -24,6 +24,15 @@ namespace libtorrent {
     struct torrent_status;
 }
 
+// Owns a share of the session's torrent_info: libtorrent frees that metadata when the torrent is
+// removed or the session stops, so a raw pointer into it can dangle (frostwire/frostwire#1531).
+%inline %{
+struct torrent_info_ref {
+    std::shared_ptr<libtorrent::torrent_info const> ti;
+    libtorrent::torrent_info const* get() const { return ti.get(); }
+};
+%}
+
 %include "libtorrent/torrent_handle.hpp"
 
 namespace libtorrent {
@@ -59,6 +68,16 @@ namespace libtorrent {
         // piece layers, trackers or web seeds; see torrent_file_with_hashes_atp().
         libtorrent::torrent_info const* torrent_file_ptr() {
             return $self->torrent_file().get();
+        }
+
+        // Same metadata as torrent_file_ptr(), but the result keeps it alive: null without metadata.
+        %newobject torrent_file_ref;
+        torrent_info_ref* torrent_file_ref() {
+            std::shared_ptr<libtorrent::torrent_info const> p = $self->torrent_file();
+            if (!p) {
+                return nullptr;
+            }
+            return new torrent_info_ref{std::move(p)};
         }
 
         // libtorrent 2.1 removed torrent_file_with_hashes() (deprecated, ABI < 4). This builds the same

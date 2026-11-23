@@ -250,8 +250,8 @@ public final class TorrentHandle {
      *   <li>It has no v2 piece layers. To write the
      *   torrent back out as a .torrent file, use {@link #torrentFileWithHashes()}, or
      *   {@link TorrentInfo#bencode()} throws for v2 torrents.</li>
-     *   <li>It is only valid while the torrent is in the session. Don't keep it after removing the
-     *   torrent.</li>
+     *   <li>It keeps the metadata alive: it stays valid after the torrent is removed from the
+     *   session, as long as you hold it.</li>
      * </ul>
      * <pre>{@code
      * TorrentInfo ti = handle.torrentFile();
@@ -267,8 +267,8 @@ public final class TorrentHandle {
         if (!th.is_valid()) {
             return null;
         }
-        torrent_info ti = th.torrent_file_ptr();
-        return ti != null ? new TorrentInfo(ti) : null;
+        torrent_info_ref ref = th.torrent_file_ref();
+        return ref != null ? new TorrentInfo(ref) : null;
     }
 
     /**
