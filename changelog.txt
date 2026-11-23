@@ -1,3 +1,17 @@
+2.1.2.2 (unreleased)
+ * SessionManager's alerts thread survives a throwable inside one iteration (for example an OutOfMemoryError reading
+   an alert batch): the batch is dropped, the failure is logged and kept (lastAlertsLoopFailure(),
+   alertsLoopFailures()) and the loop goes on. Before, the thread ended and no alert was processed until the
+   session was restarted (frostwire/frostwire#1559)
+ * new SessionManager.isAlertsLoopAlive() and restartAlertsLoop(), for callers that must recover a dead thread
+ * TorrentHandle.torrentFile() keeps the torrent's metadata alive: its TorrentInfo stays valid after the torrent is
+   removed from the session or the session stops. Before, it wrapped a raw pointer that libtorrent frees, and reading
+   the TorrentInfo then crashed the JVM with SIGSEGV (frostwire/frostwire#1531). New native helper
+   torrent_info_ref, torrent_handle.torrent_file_ref()
+ * libtorrent upgraded to 93946d603 (RC_2_1 head, 2026-11-23): includes the fix for hybrid torrents created from a
+   folder with a file named like a sibling folder (Stems/ and Stems.zip), which did not load: "the v1 and v2 file
+   metadata does not match" (arvidn/libtorrent#9183, frostwire/frostwire#1550)
+
 2.1.2.1
  * new SessionParams.setMMapDiskIO(): selects libtorrent's memory mapped files disk back-end, libtorrent 2.0's
    default on 64-bit systems (libtorrent 2.1 defaults to pread). Same as 2.1.2.0 otherwise.

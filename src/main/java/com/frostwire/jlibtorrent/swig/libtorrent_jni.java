@@ -1642,6 +1642,11 @@ public class libtorrent_jni {
   public final static native int connection_type_t_to_int(long jarg1, connection_type_t jarg1_);
   public final static native long connection_type_t_from_int(int jarg1);
   public final static native void delete_connection_type_t(long jarg1);
+  public final static native void torrent_info_ref_ti_set(long jarg1, torrent_info_ref jarg1_, long jarg2);
+  public final static native long torrent_info_ref_ti_get(long jarg1, torrent_info_ref jarg1_);
+  public final static native long torrent_info_ref_get(long jarg1, torrent_info_ref jarg1_);
+  public final static native long new_torrent_info_ref();
+  public final static native void delete_torrent_info_ref(long jarg1);
   public final static native void block_info_num_peers_set(long jarg1, block_info jarg1_, int jarg2);
   public final static native int block_info_num_peers_get(long jarg1, block_info jarg1_);
   public final static native long block_info_peer(long jarg1, block_info jarg1_);
@@ -1785,6 +1790,7 @@ public class libtorrent_jni {
   public final static native void torrent_handle_add_piece_bytes__SWIG_0(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_, long jarg4, add_piece_flags_t jarg4_);
   public final static native void torrent_handle_add_piece_bytes__SWIG_1(long jarg1, torrent_handle jarg1_, int jarg2, long jarg3, byte_vector jarg3_);
   public final static native long torrent_handle_torrent_file_ptr(long jarg1, torrent_handle jarg1_);
+  public final static native long torrent_handle_torrent_file_ref(long jarg1, torrent_handle jarg1_);
   public final static native long torrent_handle_torrent_file_with_hashes_atp(long jarg1, torrent_handle jarg1_, long jarg2, error_code jarg2_);
   public final static native byte[] torrent_handle_make_magnet_uri(long jarg1, torrent_handle jarg1_);
   public final static native long torrent_handle_get_url_seeds(long jarg1, torrent_handle jarg1_);

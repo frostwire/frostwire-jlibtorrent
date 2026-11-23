@@ -95,8 +95,20 @@ public final class TorrentInfo {
     // field; created on first use for a TorrentInfo made from a bare torrent_info
     private add_torrent_params atp;
 
+    // keeps the native owner of ti reachable while this object is, see TorrentHandle.torrentFile()
+    private Object owner;
+
     public TorrentInfo(torrent_info ti) {
         this.ti = ti;
+    }
+
+    /**
+     * @param ref a share of a session's torrent_info: it keeps the metadata alive for as long as this
+     *            object is reachable, even after the torrent is removed from the session
+     */
+    TorrentInfo(torrent_info_ref ref) {
+        this.ti = ref.get();
+        this.owner = ref;
     }
 
     /**
