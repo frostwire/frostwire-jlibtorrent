@@ -44,6 +44,14 @@ public class BDecodeNodeTest {
     }
 
     @Test
+    public void hasStringIsFalseForMissingOrNonStringKeys() {
+        BDecodeNode n = decode("d1:ni7e1:s3:stre");
+        assertFalse(n.hasString("missing"));
+        assertFalse(n.hasString("n"));
+        assertTrue(n.hasString("s"));
+    }
+
+    @Test
     public void nodesWithoutAValueAnswerNegatively() {
         BDecodeNode none = new BDecodeNode(new com.frostwire.jlibtorrent.swig.bdecode_node());
         assertNull(none.buffer());
