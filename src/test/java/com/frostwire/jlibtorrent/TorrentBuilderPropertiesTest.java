@@ -107,6 +107,27 @@ public class TorrentBuilderPropertiesTest {
     }
 
     @Test
+    public void creationDateDefaultsToNowAndIsAppliedByGenerate() throws IOException {
+        long before = System.currentTimeMillis() / 1000;
+        TorrentBuilder b = new TorrentBuilder();
+        long date = b.creationDate(); // used to throw NullPointerException
+        assertTrue(date >= before && date <= before + 60);
+
+        File root = TestTorrents.content(folder.getRoot(), "date", "a.bin", 20000, "b.bin", 5000);
+        TorrentInfo ti = TorrentInfo.bdecode(TestTorrents.builder(root)
+                .creationDate(1600000000L).generate().entry().bencode());
+        assertEquals(1600000000L, ti.creationDate());
+    }
+
+    @Test
+    public void creationDateZeroOmitsTheField() throws IOException {
+        File root = TestTorrents.content(folder.getRoot(), "nodate", "a.bin", 20000, "b.bin", 5000);
+        TorrentInfo ti = TorrentInfo.bdecode(TestTorrents.builder(root)
+                .creationDate(0).generate().entry().bencode());
+        assertEquals(0, ti.creationDate());
+    }
+
+    @Test
     public void generateWritesEveryPropertyIntoTheTorrent() throws IOException {
         File root = TestTorrents.content(folder.getRoot(), "props", "a.bin", 20000, "b.bin", 5000);
         TorrentBuilder b = TestTorrents.builder(root)
