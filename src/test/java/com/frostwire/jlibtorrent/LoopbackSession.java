@@ -6,9 +6,6 @@ import com.frostwire.jlibtorrent.alerts.ListenSucceededAlert;
 import com.frostwire.jlibtorrent.alerts.SocketType;
 import com.frostwire.jlibtorrent.swig.settings_pack;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,16 +38,11 @@ final class LoopbackSession implements AutoCloseable {
 
     static final long TIMEOUT_SECONDS = 60;
 
-    /** Accessors that must not be invoked while touching an alert. */
-    private static final java.util.Set<String> SKIPPED = new java.util.HashSet<>(
-            java.util.Arrays.asList("wait", "notify", "notifyAll", "getClass"));
-
     final SessionManager sm;
     private final Map<Class<?>, AtomicInteger> counts = new ConcurrentHashMap<>();
     private final List<String> accessorFailures = new CopyOnWriteArrayList<>();
     private final List<Expectation<?, ?>> expectations = new CopyOnWriteArrayList<>();
     private final CompletableFuture<Integer> listenPort = new CompletableFuture<>();
-    private final Map<Class<?>, java.util.Set<String>> touchedAccessors = new ConcurrentHashMap<>();
 
     private LoopbackSession(SessionManager sm) {
         this.sm = sm;
@@ -150,23 +142,7 @@ final class LoopbackSession implements AutoCloseable {
     }
 
     private void touchAccessors(Alert<?> alert) {
-        java.util.Set<String> names = touchedAccessors.computeIfAbsent(alert.getClass(),
-                k -> java.util.concurrent.ConcurrentHashMap.newKeySet());
-        for (Method m : alert.getClass().getMethods()) {
-            if (m.getParameterCount() != 0 || Modifier.isStatic(m.getModifiers()) || SKIPPED.contains(m.getName())
-                    || m.getDeclaringClass() == Object.class) {
-                continue;
-            }
-            try {
-                m.setAccessible(true);
-                m.invoke(alert);
-                names.add(m.getName());
-            } catch (InvocationTargetException e) {
-                accessorFailures.add(alert.getClass().getSimpleName() + "." + m.getName() + "() threw " + e.getCause());
-            } catch (ReflectiveOperationException | RuntimeException e) {
-                accessorFailures.add(alert.getClass().getSimpleName() + "." + m.getName() + "() could not be called: " + e);
-            }
-        }
+        accessorFailures.addAll(Accessors.touch(alert));
     }
 
     /** Accessors that threw when the alert thread touched them. */
