@@ -178,7 +178,7 @@ public final class TorrentBuilder {
 
     private String comment;
     private String creator;
-    private Long creationDate;
+    private long creationDate;
     private final List<String> urlSeeds;
     private final List<Pair<String, Integer>> nodes;
     private final List<Pair<String, Integer>> trackers;
@@ -193,6 +193,7 @@ public final class TorrentBuilder {
         this.pieceSize = 0;
         this.flags = new create_flags_t();
         this.alignment = -1;
+        this.creationDate = System.currentTimeMillis() / 1000;
 
         this.urlSeeds = new LinkedList<>();
         this.nodes = new LinkedList<>();
@@ -262,6 +263,11 @@ public final class TorrentBuilder {
         return this;
     }
 
+    /**
+     * @deprecated libtorrent 2.1 has no alignment parameter (pad files are always
+     * aligned to the piece length), so this value is stored but never applied.
+     */
+    @Deprecated
     @SuppressWarnings("unused")
     public int alignment() {
         return alignment;
@@ -271,7 +277,11 @@ public final class TorrentBuilder {
      * Used when pad files are enabled. This is the size
      * eligible files are aligned to. The default is -1, which means the
      * piece size of the torrent.
+     *
+     * @deprecated libtorrent 2.1 has no alignment parameter (pad files are always
+     * aligned to the piece length), so this value is stored but never applied.
      */
+    @Deprecated
     @SuppressWarnings("unused")
     public TorrentBuilder alignment(int value) {
         this.alignment = value;
@@ -626,6 +636,7 @@ public final class TorrentBuilder {
         if (creator != null) {
             t.set_creator(creator);
         }
+        t.set_creation_date(creationDate);
         for (String s : urlSeeds) {
             t.add_url_seed(s);
         }
