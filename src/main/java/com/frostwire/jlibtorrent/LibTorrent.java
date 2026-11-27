@@ -27,9 +27,9 @@ import java.util.List;
  * System.out.println("OpenSSL version: " + LibTorrent.opensslVersion());
  *
  * // Output example:
- * // LibTorrent version: 2.0.5
- * // LibTorrent version num: 131589
- * // LibTorrent revision: c2012b084c6654d681720ea0693d87a48bc95b14
+ * // LibTorrent version: 2.1.2
+ * // LibTorrent version num: 20102
+ * // LibTorrent revision: 2fdc87690889d1d150e66d7c929585b5699c7498
  * // JLibTorrent version: 2.1.2.0
  * // Boost version: 1_78_0
  * // OpenSSL version: OpenSSL 1.1.1n  15 Mar 2022
@@ -155,13 +155,15 @@ public final class LibTorrent {
      * This is not the internal revision libtorrent reports, since
      * that string is updated from time to time. This library can be
      * using an up to date revision, this string is manually
-     * hardcoded in each version of jlibtorrent. See
+     * hardcoded in each version of jlibtorrent (it must be the HEAD of the
+     * libtorrent submodule, and the first "libtorrent upgraded to" line of
+     * changelog.txt; a test checks the latter). See
      * {@link libtorrent#LIBTORRENT_REVISION} for the libtorrent string.
      *
      * @return the git revision
      */
     public static String revision() {
-        return "c2012b084c6654d681720ea0693d87a48bc95b14";
+        return "2fdc87690889d1d150e66d7c929585b5699c7498";
     }
 
     public static int boostVersionNum() {

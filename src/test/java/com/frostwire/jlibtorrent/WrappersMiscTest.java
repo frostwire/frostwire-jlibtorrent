@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Small wrappers that need no session: version information, pairs, info hashes, move flags,
@@ -42,6 +43,22 @@ public class WrappersMiscTest {
         // only reported, the answer depends on the CPU
         LibTorrent.hasArmNeonSupport();
         LibTorrent.hasWebTorrentSupport();
+    }
+
+    /** The hardcoded revision must follow the libtorrent upgrade recorded in the changelog. */
+    @Test
+    public void revisionMatchesTheLatestLibtorrentUpgradeInTheChangelog() throws Exception {
+        String revision = LibTorrent.revision();
+        assertEquals(40, revision.length());
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile("libtorrent upgraded to ([0-9a-f]{7,40})");
+        for (String line : java.nio.file.Files.readAllLines(java.nio.file.Paths.get("changelog.txt"))) {
+            java.util.regex.Matcher m = p.matcher(line);
+            if (m.find()) {
+                assertTrue(revision + " vs changelog " + m.group(1), revision.startsWith(m.group(1)));
+                return;
+            }
+        }
+        fail("no 'libtorrent upgraded to' line in changelog.txt");
     }
 
     @Test
