@@ -317,13 +317,20 @@ public final class TorrentHandle {
      * you're not interested in it (and see performance issues), you can
      * filter them out.
      * <p>
-     * By default everything is included. The flags you can use to decide
-     * what to *include* are defined in the status_flags_t enum.
+     * This overload queries with no flags and caches the result for 500
+     * milliseconds unless {@code force} is true. Because no flag is set, the
+     * fields that are expensive to compute are <b>not</b> filled in:
+     * {@link TorrentStatus#name()} is an empty string, and
+     * {@link TorrentStatus#pieces()} and {@link TorrentStatus#verifiedPieces()}
+     * are empty, unless you use {@link #status(status_flags_t)} with
+     * {@link #QUERY_NAME}, {@link #QUERY_PIECES} or {@link #QUERY_VERIFIED_PIECES}
+     * (and the other {@code QUERY_*} flags for their fields).
      * <p>
      * It is important not to call this method for each field in the status
      * for performance reasons.
      *
-     * @return the status
+     * @param force skip the 500 milliseconds cache
+     * @return the status, with only the cheap fields filled in
      */
     public TorrentStatus status(boolean force) {
         long now = System.currentTimeMillis();
@@ -343,8 +350,13 @@ public final class TorrentHandle {
      * Some information in there is relatively expensive to calculate, and if
      * you're not interested in it (and see performance issues), you can
      * filter them out.
+     * <p>
+     * Same as {@code status(false)}: queries with no flags, so
+     * {@link TorrentStatus#name()}, {@link TorrentStatus#pieces()} and
+     * {@link TorrentStatus#verifiedPieces()} are empty unless the result of
+     * {@link #status(status_flags_t)} with the matching {@code QUERY_*} flag is used.
      *
-     * @return the status
+     * @return the status, with only the cheap fields filled in
      */
     public TorrentStatus status() {
         return status(false);
@@ -1292,18 +1304,41 @@ public final class TorrentHandle {
     //
     // ``piece_priorities`` returns a vector with one element for each piece
     // in the torrent. Each element is the current priority of that piece.
+
+    /**
+     * Sets the priority of the piece at {@code index}.
+     * <p>
+     * Eventually consistent: the change is posted to the network thread, so
+     * reading it back right after this call with {@link #piecePriority(int)} or
+     * {@link #piecePriorities()} can still return the previous value.
+     * <p>
+     * A torrent that has finished (a seed) has no piece picker, and the call is
+     * ignored for it, as is the case for a torrent with no metadata.
+     */
     public void piecePriority(int index, Priority priority) {
         th.piece_priority2(index, priority.swig());
     }
 
+    /**
+     * The priority of the piece at {@code index}. Eventually consistent: right
+     * after {@link #piecePriority(int, Priority)} it can return the previous value.
+     */
     public Priority piecePriority(int index) {
         return Priority.fromSwig(th.piece_priority2(index));
     }
 
+    /**
+     * Sets the priority of every piece. Eventually consistent and ignored on a
+     * finished torrent, see {@link #piecePriority(int, Priority)}.
+     */
     public void prioritizePieces(Priority[] priorities) {
         th.prioritize_pieces2(Priority.array2vector(priorities));
     }
 
+    /**
+     * The priority of every piece. Eventually consistent: right after a setter it
+     * can return the previous values, see {@link #piecePriority(int, Priority)}.
+     */
     public Priority[] piecePriorities() {
         int_vector v = th.get_piece_priorities2();
         int size = (int) v.size();
@@ -1327,6 +1362,10 @@ public final class TorrentHandle {
      * You cannot set the file priorities on a torrent that does not yet have
      * metadata or a torrent that is a seed. ``file_priority(int, int)`` and
      * prioritize_files() are both no-ops for such torrents.
+     * <p>
+     * Eventually consistent: the change is posted to the network thread, so
+     * reading it back right after this call with {@link #filePriority(int)} or
+     * {@link #filePriorities()} can still return the previous value.
      *
      * @param index
      * @param priority
@@ -1339,6 +1378,9 @@ public final class TorrentHandle {
      * index must be in the range [0, number_of_files).
      * <p>
      * queries or sets the priority of file index.
+     * <p>
+     * Eventually consistent: right after {@link #filePriority(int, Priority)} or
+     * {@link #prioritizeFiles(Priority[])} it can return the previous value.
      *
      * @param index
      * @return
@@ -1361,6 +1403,9 @@ public final class TorrentHandle {
 
     /**
      * Returns a vector with the priorities of all files.
+     * <p>
+     * Eventually consistent: right after a setter it can return the previous
+     * values, see {@link #filePriority(int, Priority)}.
      *
      * @return the array of priorities.
      */
