@@ -1,18 +1,15 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.CacheFlushedAlert;
-import com.frostwire.jlibtorrent.alerts.FileCompletedAlert;
 import com.frostwire.jlibtorrent.alerts.FilePrioritiesAlert;
 import com.frostwire.jlibtorrent.alerts.FileRenamedAlert;
 import com.frostwire.jlibtorrent.alerts.FileStatusAlert;
 import com.frostwire.jlibtorrent.alerts.ReadPieceAlert;
 import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
-import com.frostwire.jlibtorrent.alerts.StorageMovedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentCheckedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentPausedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentResumedAlert;
-import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
