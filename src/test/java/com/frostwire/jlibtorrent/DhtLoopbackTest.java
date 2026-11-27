@@ -18,6 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -69,6 +70,22 @@ public class DhtLoopbackTest {
 
             assertEquals(Collections0.emptyList(), a.accessorFailures());
             assertEquals(Collections0.emptyList(), b.accessorFailures());
+        }
+    }
+
+    @Test
+    public void itemsThatWereNeverStoredAreNotFound() {
+        try (LoopbackSession a = LoopbackSession.startDht(true);
+             LoopbackSession b = LoopbackSession.startDht(true)) {
+            connect(a, b);
+
+            // libtorrent still posts the alert, with an uninitialized entry: that is "not found"
+            long start = System.nanoTime();
+            assertNull(b.sm.dhtGetItem(new Sha1Hash(TestTorrents.bytes(20, 9)), 30));
+            byte[] key = Ed25519.createKeypair(Ed25519.createSeed()).first;
+            assertNull(b.sm.dhtGetItem(key, "nothing".getBytes(StandardCharsets.UTF_8), 30));
+            // it answered because the alert arrived, not because the timeout expired
+            assertTrue(java.util.concurrent.TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - start) < 25);
         }
     }
 
