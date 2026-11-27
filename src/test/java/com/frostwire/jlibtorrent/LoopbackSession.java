@@ -96,6 +96,23 @@ final class LoopbackSession implements AutoCloseable {
         return startWith(sm, new SessionParams(sp));
     }
 
+    /**
+     * A loopback session whose DHT node is running and accepts loopback peers in its routing
+     * table, with no bootstrap routers: it only learns the nodes it is told about.
+     */
+    static LoopbackSession startDht(boolean logging) {
+        SettingsPack sp = new SettingsPack();
+        sp.setBoolean(settings_pack.bool_types.dht_restrict_routing_ips.swigValue(), false);
+        sp.setBoolean(settings_pack.bool_types.dht_restrict_search_ips.swigValue(), false);
+        sp.setBoolean(settings_pack.bool_types.dht_enforce_node_id.swigValue(), false);
+        sp.setBoolean(settings_pack.bool_types.dht_ignore_dark_internet.swigValue(), false);
+        sp.setBoolean(settings_pack.bool_types.dht_prefer_verified_node_ids.swigValue(), false);
+        sp.setBoolean(settings_pack.bool_types.dht_extended_routing_table.swigValue(), false);
+        LoopbackSession s = start(logging, sp);
+        s.sm.startDht();
+        return s;
+    }
+
     /** Starts the manager with exactly the given params (no loopback settings are applied). */
     static LoopbackSession startWith(SessionManager sm, SessionParams params) {
         LoopbackSession s = new LoopbackSession(sm);
