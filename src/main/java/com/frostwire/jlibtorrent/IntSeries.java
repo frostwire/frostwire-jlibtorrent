@@ -224,7 +224,7 @@ public final class IntSeries {
      * @return the last value in the series
      */
     public long last() {
-        return end != 0 ? buffer[end] : 0;
+        return size != 0 ? buffer[end] : 0;
     }
 
     public int size() {
