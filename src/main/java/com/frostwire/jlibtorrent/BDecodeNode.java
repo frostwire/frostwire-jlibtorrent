@@ -277,10 +277,11 @@ public final class BDecodeNode {
     }
 
     public boolean hasString(String key) {
-        if (n.type() == bdecode_node.type_t.none_t) {
+        if (n.type() != bdecode_node.type_t.dict_t) {
             return false;
         }
-        return n.dict_find_string_value_s(key) != null;
+        bdecode_node target_node = n.dict_find_string_s(key);
+        return target_node.type() == bdecode_node.type_t.string_t;
     }
 
     public boolean hasInt(String key) {
