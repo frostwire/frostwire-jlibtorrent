@@ -266,7 +266,7 @@ public final class Ed25519 {
     @SuppressWarnings("unused")
     public static byte[] addScalarSecret(byte[] secretKey, byte[] scalar) {
         if (secretKey == null || secretKey.length != SECRET_KEY_SIZE) {
-            throw new IllegalArgumentException("public key must be not null and of size " + SECRET_KEY_SIZE);
+            throw new IllegalArgumentException("secret key must be not null and of size " + SECRET_KEY_SIZE);
         }
         if (scalar == null || scalar.length != SCALAR_SIZE) {
             throw new IllegalArgumentException("scalar must be not null and of size " + SCALAR_SIZE);
@@ -283,12 +283,12 @@ public final class Ed25519 {
     }
 
     @SuppressWarnings("unused")
-    public byte[] keyExchange(byte[] publicKey, byte[] secretKey) {
+    public static byte[] keyExchange(byte[] publicKey, byte[] secretKey) {
         if (publicKey == null || publicKey.length != PUBLIC_KEY_SIZE) {
             throw new IllegalArgumentException("public key must be not null and of size " + PUBLIC_KEY_SIZE);
         }
         if (secretKey == null || secretKey.length != SECRET_KEY_SIZE) {
-            throw new IllegalArgumentException("private key must be not null and of size " + SECRET_KEY_SIZE);
+            throw new IllegalArgumentException("secret key must be not null and of size " + SECRET_KEY_SIZE);
         }
 
         byte_vector pk = Vectors.bytes2byte_vector(publicKey);

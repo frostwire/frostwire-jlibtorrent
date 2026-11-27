@@ -72,9 +72,8 @@ public class Ed25519Test {
     public void keyExchangeAgreesOnASharedSecret() {
         Pair<byte[], byte[]> a = keypair();
         Pair<byte[], byte[]> b = keypair();
-        Ed25519 ed = instance();
-        byte[] s1 = ed.keyExchange(b.first, a.second);
-        byte[] s2 = ed.keyExchange(a.first, b.second);
+        byte[] s1 = Ed25519.keyExchange(b.first, a.second);
+        byte[] s2 = Ed25519.keyExchange(a.first, b.second);
         assertEquals(Ed25519.SHARED_SECRET_SIZE, s1.length);
         assertArrayEquals(s1, s2);
         assertNotEquals(0, s1.length);
@@ -85,7 +84,6 @@ public class Ed25519Test {
         Pair<byte[], byte[]> k = keypair();
         byte[] sig = Ed25519.sign(MESSAGE, k.first, k.second);
         byte[] scalar = new byte[Ed25519.SCALAR_SIZE];
-        Ed25519 ed = instance();
 
         expectIae(() -> Ed25519.createKeypair(null));
         expectIae(() -> Ed25519.createKeypair(new byte[31]));
@@ -97,8 +95,8 @@ public class Ed25519Test {
         expectIae(() -> Ed25519.addScalarPublic(k.first, new byte[31]));
         expectIae(() -> Ed25519.addScalarSecret(new byte[10], scalar));
         expectIae(() -> Ed25519.addScalarSecret(k.second, null));
-        expectIae(() -> ed.keyExchange(null, k.second));
-        expectIae(() -> ed.keyExchange(k.first, new byte[10]));
+        expectIae(() -> Ed25519.keyExchange(null, k.second));
+        expectIae(() -> Ed25519.keyExchange(k.first, new byte[10]));
     }
 
     private static void expectIae(Runnable r) {
@@ -110,17 +108,19 @@ public class Ed25519Test {
         }
     }
 
-    /**
-     * The constructor is private and {@code keyExchange} is an instance method, so the public API
-     * can't reach it: reflection is the only way in (see the bug report on Ed25519.keyExchange).
-     */
-    private static Ed25519 instance() {
+    @Test
+    public void keyExchangeIsStaticLikeTheRestOfTheApi() throws Exception {
+        assertTrue(java.lang.reflect.Modifier.isStatic(
+                Ed25519.class.getMethod("keyExchange", byte[].class, byte[].class).getModifiers()));
+    }
+
+    @Test
+    public void addScalarSecretMessageNamesTheSecretKey() {
         try {
-            java.lang.reflect.Constructor<Ed25519> c = Ed25519.class.getDeclaredConstructor();
-            c.setAccessible(true);
-            return c.newInstance();
-        } catch (ReflectiveOperationException e) {
-            throw new AssertionError(e);
+            Ed25519.addScalarSecret(new byte[10], new byte[Ed25519.SCALAR_SIZE]);
+            fail("expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage(), e.getMessage().startsWith("secret key"));
         }
     }
 }
