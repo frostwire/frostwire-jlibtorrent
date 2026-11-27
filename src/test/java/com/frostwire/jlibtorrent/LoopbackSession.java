@@ -1,6 +1,7 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.ListenSucceededAlert;
 import com.frostwire.jlibtorrent.alerts.SocketType;
 import com.frostwire.jlibtorrent.swig.settings_pack;
@@ -93,6 +94,8 @@ final class LoopbackSession implements AutoCloseable {
     /** Like {@link #start(boolean, SettingsPack)} for a subclass of the manager. */
     static LoopbackSession start(SessionManager sm, SettingsPack sp) {
         sp.listenInterfaces("127.0.0.1:0");
+        // an empty list stops the manager from filling in the public bootstrap routers
+        sp.setDhtBootstrapNodes("");
         sp.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), false);
         sp.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), false);
         sp.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), false);
@@ -108,6 +111,19 @@ final class LoopbackSession implements AutoCloseable {
             @Override
             public int[] types() {
                 return null;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                s.deliver(alert);
+            }
+        });
+        // the manager keeps these three out of the catch-all listener
+        sm.addListener(new AlertListener() {
+            @Override
+            public int[] types() {
+                return new int[]{AlertType.SESSION_STATS.swig(), AlertType.STATE_UPDATE.swig(),
+                        AlertType.SESSION_STATS_HEADER.swig()};
             }
 
             @Override
