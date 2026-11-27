@@ -18,6 +18,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -88,6 +89,39 @@ public class EnumRoundTripTest {
         for (Class<?> type : ENUMS) {
             for (Object c : type.getEnumConstants()) {
                 assertSame(c, Enum.valueOf((Class<? extends Enum>) type.asSubclass(Enum.class), ((Enum<?>) c).name()));
+            }
+        }
+    }
+
+    /** Native values no constant has fall back to UNKNOWN, or are refused. */
+    @Test
+    public void unknownNativeValuesFallBack() throws Exception {
+        for (Class<?> type : ENUMS) {
+            Method fromSwig = type.getMethod("fromSwig", int.class);
+            Object unknown = null;
+            for (Object c : type.getEnumConstants()) {
+                if ("UNKNOWN".equals(((Enum<?>) c).name())) {
+                    unknown = c;
+                }
+            }
+            if (type == CloseReason.class || type == AlertType.class || type == Priority.class) {
+                // these don't implement the fallback: see the bug report
+                // (CloseReason answers null, AlertType throws, Priority throws IllegalArgumentException)
+                continue;
+            }
+            Object result;
+            try {
+                result = fromSwig.invoke(null, 987_654_321);
+            } catch (java.lang.reflect.InvocationTargetException e) {
+                // an enum with no UNKNOWN constant refuses what it doesn't know
+                assertNull(type + " has UNKNOWN but threw " + e.getCause(), unknown);
+                assertTrue(type + " threw " + e.getCause(), e.getCause() instanceof IllegalArgumentException);
+                continue;
+            }
+            if (unknown != null) {
+                assertSame(type + " falls back to UNKNOWN", unknown, result);
+            } else {
+                assertTrue(type + " answered " + result, result == null || type.isInstance(result));
             }
         }
     }

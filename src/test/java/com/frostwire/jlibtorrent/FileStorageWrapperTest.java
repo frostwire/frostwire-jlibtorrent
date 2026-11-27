@@ -98,4 +98,36 @@ public class FileStorageWrapperTest {
         assertEquals(4, fs.numFiles());
         assertEquals(10, fs.totalSize());
     }
+
+    @Test
+    public void filesTooLargeAreRejectedByEveryOverload() {
+        FileStorage fs = new FileStorage(new com.frostwire.jlibtorrent.swig.file_storage());
+        fs.name("big");
+        long tooLarge = Long.MAX_VALUE;
+        try {
+            fs.addFile("big/1", tooLarge);
+            org.junit.Assert.fail("too large");
+        } catch (IllegalArgumentException expected) {
+            assertEquals("File too large", expected.getMessage());
+        }
+        try {
+            fs.addFile("big/2", tooLarge, FileStorage.FLAG_HIDDEN);
+            org.junit.Assert.fail("too large");
+        } catch (IllegalArgumentException expected) {
+            assertEquals("File too large", expected.getMessage());
+        }
+        try {
+            fs.addFile("big/3", tooLarge, FileStorage.FLAG_HIDDEN, 1_600_000_000);
+            org.junit.Assert.fail("too large");
+        } catch (IllegalArgumentException expected) {
+            assertEquals("File too large", expected.getMessage());
+        }
+        try {
+            fs.addFile("big/4", tooLarge, FileStorage.FLAG_SYMLINK, 1_600_000_000, "big/1");
+            org.junit.Assert.fail("too large");
+        } catch (IllegalArgumentException expected) {
+            assertEquals("File too large", expected.getMessage());
+        }
+        assertEquals(0, fs.numFiles());
+    }
 }
