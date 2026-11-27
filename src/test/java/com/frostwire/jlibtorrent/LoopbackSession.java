@@ -172,6 +172,11 @@ final class LoopbackSession implements AutoCloseable {
         return get(listenPort, "the listen alert");
     }
 
+    /** The loopback listen port, or -1 while the listen alert hasn't arrived. */
+    int listenPortOrMinusOne() {
+        return listenPort.isDone() ? listenPort.getNow(-1) : -1;
+    }
+
     TcpEndpoint endpoint() {
         return new TcpEndpoint("127.0.0.1", listenPort());
     }
