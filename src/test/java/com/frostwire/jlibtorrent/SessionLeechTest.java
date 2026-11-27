@@ -3,6 +3,7 @@ package com.frostwire.jlibtorrent;
 import com.frostwire.jlibtorrent.alerts.AddTorrentAlert;
 import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
 import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
+import com.frostwire.jlibtorrent.alerts.PieceInfoAlert;
 import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
 import com.frostwire.jlibtorrent.alerts.StorageMovedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentDeletedAlert;
@@ -92,6 +93,23 @@ public class SessionLeechTest {
             assertEquals(seeder.listenPort(), Integer.parseInt(peer.ip().substring(peer.ip().lastIndexOf(':') + 1)));
             assertNotNull(peer.connectionType());
             assertTrue(peer.progress() >= 0f);
+
+            // the blocks of the pieces in flight, as the download queue alert reports them
+            CompletableFuture<List<String>> blocks = leecher.expect(PieceInfoAlert.class,
+                    a -> !a.getBlockData().isEmpty(), a -> {
+                        List<String> failures = new ArrayList<>();
+                        for (BlockInfo b : a.getBlockData()) {
+                            failures.addAll(Accessors.touch(b));
+                            assertNotNull(b.state());
+                            assertTrue(b.blockSize() > 0);
+                        }
+                        return failures;
+                    });
+            LoopbackSession.awaitCondition("blocks in flight", () -> {
+                th.swig().post_download_queue();
+                return blocks.isDone();
+            });
+            assertEquals(Collections.<String>emptyList(), LoopbackSession.get(blocks, "the blocks"));
 
             PartialPieceInfo piece = queue.get(0);
             assertEquals(Collections.<String>emptyList(), Accessors.touch(piece));

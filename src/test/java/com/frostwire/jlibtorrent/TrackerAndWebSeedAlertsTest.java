@@ -137,6 +137,18 @@ public class TrackerAndWebSeedAlertsTest {
             assertEquals("mind the gap", LoopbackSession.get(warning, "the warning"));
 
             LoopbackSession.awaitCondition("the torrent", () -> s.sm.find(ti[0]) != null);
+
+            // the announce resolved the tracker: its endpoints carry per info hash state
+            LoopbackSession.awaitCondition("tracker endpoints", () -> {
+                java.util.List<AnnounceEntry> trackers = s.sm.find(ti[0]).trackers();
+                return !trackers.isEmpty() && !trackers.get(0).endpoints().isEmpty();
+            });
+            AnnounceEndpoint endpoint = s.sm.find(ti[0]).trackers().get(0).endpoints().get(0);
+            assertEquals(java.util.Collections.<String>emptyList(), Accessors.touch(endpoint));
+            assertTrue(endpoint.enabled());
+            AnnounceInfohash v1 = endpoint.infohashV1();
+            assertEquals(java.util.Collections.<String>emptyList(), Accessors.touch(v1));
+            assertTrue(v1.isWorking());
             CompletableFuture<int[]> scrape = s.expect(ScrapeReplyAlert.class, a -> true,
                     a -> new int[]{a.getComplete(), a.getIncomplete()});
             s.sm.find(ti[0]).scrapeTracker();

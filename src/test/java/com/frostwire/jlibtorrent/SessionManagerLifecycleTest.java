@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,7 +37,7 @@ public class SessionManagerLifecycleTest {
     public TemporaryFolder folder = new TemporaryFolder();
 
     @Test
-    public void aStoppedManagerAnswersWithNeutralValues() {
+    public void aStoppedManagerAnswersWithNeutralValues() throws IOException {
         SessionManager sm = new SessionManager();
         assertFalse(sm.isRunning());
         assertNull(sm.swig());
@@ -96,6 +97,9 @@ public class SessionManagerLifecycleTest {
         sm.moveStorage(folder.getRoot());
         sm.reopenNetworkSockets();
         sm.download("magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567", folder.getRoot(), new com.frostwire.jlibtorrent.swig.torrent_flags_t());
+        TorrentInfo ti = TestTorrents.torrentInfo(TestTorrents.builder(
+                TestTorrents.content(folder.newFolder("never-added"), "n", "n.bin", 1000)));
+        sm.download(ti, folder.getRoot());
         assertEquals(0, sm.getTorrentHandles().length);
     }
 
