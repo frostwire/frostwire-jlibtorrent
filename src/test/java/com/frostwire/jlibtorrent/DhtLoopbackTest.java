@@ -1,7 +1,9 @@
 package com.frostwire.jlibtorrent;
 
 import com.frostwire.jlibtorrent.alerts.DhtAnnounceAlert;
-import com.frostwire.jlibtorrent.alerts.DhtBootstrapAlert;
+import com.frostwire.jlibtorrent.alerts.DhtLiveNodesAlert;
+import com.frostwire.jlibtorrent.alerts.DhtSampleInfohashesAlert;
+import com.frostwire.jlibtorrent.alerts.DhtStatsAlert;
 import com.frostwire.jlibtorrent.alerts.DhtDirectResponseAlert;
 import com.frostwire.jlibtorrent.alerts.DhtGetPeersAlert;
 import com.frostwire.jlibtorrent.alerts.DhtOutgoingGetPeersAlert;
@@ -131,6 +133,88 @@ public class DhtLoopbackTest {
             handle.dhtDirectRequest(new UdpEndpoint("127.0.0.1", a.listenPort()), Entry.fromMap(query), 77L);
             handle.dhtDirectRequest(new UdpEndpoint("127.0.0.1", a.listenPort()), Entry.fromMap(query));
             LoopbackSession.get(response, "the direct response");
+        }
+    }
+
+    @Test
+    public void routingTablesLookupsLiveNodesAndSamplesAreReported() {
+        try (LoopbackSession a = LoopbackSession.startDht(true);
+             LoopbackSession b = LoopbackSession.startDht(true)) {
+            connect(a, b);
+
+            // the routing table of b holds a
+            CompletableFuture<java.util.List<String>> buckets = b.expect(DhtStatsAlert.class,
+                    x -> !x.routingTable().isEmpty(), x -> {
+                        java.util.List<String> failures = new ArrayList<>();
+                        for (DhtRoutingBucket bucket : x.routingTable()) {
+                            failures.addAll(Accessors.touch(bucket));
+                            failures.addAll(Accessors.touch(x));
+                        }
+                        return failures;
+                    });
+            LoopbackSession.awaitCondition("a routing table", () -> {
+                b.sm.postDhtStats();
+                return buckets.isDone();
+            });
+            assertEquals(new ArrayList<String>(), LoopbackSession.get(buckets, "the routing table"));
+
+            // the live nodes of one of b's own DHT nodes: asking for an id b doesn't own answers with none
+            Sha1Hash nodeId = new Sha1Hash(TestTorrents.bytes(20, 5));
+            CompletableFuture<String> live = b.expect(DhtLiveNodesAlert.class, x -> true, x -> {
+                for (Pair<Sha1Hash, UdpEndpoint> n : x.nodes()) {
+                    assertNotNull(n.first);
+                    assertTrue(n.second.port() > 0);
+                }
+                return x.nodeId().toHex() + "|" + x.numNodes() + "|" + x.nodes().size();
+            });
+            b.sm.swig().dht_live_nodes(nodeId.swig());
+            assertEquals(nodeId.toHex() + "|0|0", LoopbackSession.get(live, "the live nodes"));
+
+            // a stores an announced peer; b samples the infohashes a knows
+            Sha1Hash infoHash = new Sha1Hash(TestTorrents.bytes(20, 6));
+            CompletableFuture<Boolean> stored = a.expect(DhtAnnounceAlert.class);
+            b.sm.dhtAnnounce(infoHash, 4343, 0);
+            LoopbackSession.get(stored, "the announce to be stored");
+
+            CompletableFuture<String> sample = b.expect(DhtSampleInfohashesAlert.class, x -> true, x -> {
+                for (Sha1Hash h : x.samples()) {
+                    assertNotNull(h);
+                }
+                for (Pair<Sha1Hash, UdpEndpoint> n : x.nodes()) {
+                    assertNotNull(n.second);
+                }
+                return x.endpoint().port() + "|" + x.interval() + "|" + x.numInfohashes() + "|" + x.numSamples() + "|" + x.numNodes();
+            });
+            b.sm.swig().dht_sample_infohashes(new UdpEndpoint("127.0.0.1", a.listenPort()).swig(), infoHash.swig());
+            String described = LoopbackSession.get(sample, "the infohash sample");
+            assertTrue(described, described.startsWith(a.listenPort() + "|"));
+            assertEquals(new ArrayList<String>(), b.accessorFailures());
+        }
+    }
+
+    @Test
+    public void activeLookupsAreReported() {
+        try (LoopbackSession a = LoopbackSession.startDht(true);
+             LoopbackSession b = LoopbackSession.startDht(true)) {
+            connect(a, b);
+            // a stops answering, so b's lookups stay in flight until they time out
+            a.sm.stopDht();
+            CompletableFuture<java.util.List<String>> lookups = b.expect(DhtStatsAlert.class,
+                    x -> !x.activeRequests().isEmpty(), x -> {
+                        java.util.List<String> failures = new ArrayList<>();
+                        for (DhtLookup l : x.activeRequests()) {
+                            failures.addAll(Accessors.touch(l));
+                        }
+                        return failures;
+                    });
+            Sha1Hash target = new Sha1Hash(TestTorrents.bytes(20, 8));
+            SessionHandle handle = new SessionHandle(b.sm.swig());
+            LoopbackSession.awaitCondition("an active lookup", () -> {
+                handle.dhtGetPeers(target);
+                b.sm.postDhtStats();
+                return lookups.isDone();
+            });
+            assertEquals(new ArrayList<String>(), LoopbackSession.get(lookups, "the lookup"));
         }
     }
 }
