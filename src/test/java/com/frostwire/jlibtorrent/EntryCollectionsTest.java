@@ -208,6 +208,19 @@ public class EntryCollectionsTest {
     }
 
     @Test
+    public void longShortByteAndBooleanBecomeIntegers() {
+        Entry list = Entry.fromList(Arrays.asList(5L, (short) 6, (byte) 7, true, false));
+        assertEquals("li5ei6ei7ei1ei0ee", new String(list.bencode(), StandardCharsets.UTF_8));
+
+        Map<String, Object> m = new LinkedHashMap<>();
+        m.put("l", 5000000000L);
+        m.put("b", true);
+        m.put("nested", Arrays.asList(1L, Collections.singletonMap("k", 2L)));
+        assertEquals("d1:bi1e1:li5000000000e6:nestedli1ed1:ki2eeee",
+                new String(Entry.fromMap(m).bencode(), StandardCharsets.UTF_8));
+    }
+
+    @Test
     public void bdecodeFromAFile() throws IOException {
         File f = folder.newFile("d.bin");
         Utils.writeByteArrayToFile(f, "d1:a1:be".getBytes(StandardCharsets.UTF_8), false);

@@ -302,56 +302,57 @@ public final class Entry {
         return bdecode(data);
     }
 
+    /**
+     * Builds a list entry. Element mapping: {@code String} to a string,
+     * {@code Integer}, {@code Long}, {@code Short} and {@code Byte} to an integer,
+     * {@code Boolean} to the integer 1 or 0 (bencode has no boolean type),
+     * {@code Entry}/{@code entry} as they are, {@code List} and {@code Map}
+     * recursively, anything else to its {@code toString()} as a string.
+     */
     public static Entry fromList(List<?> list) {
         entry e = new entry(entry.data_type.list_t);
 
         entry_vector d = e.list();
         for (Object v : list) {
-            if (v instanceof String) {
-                d.add(new entry((String) v));
-            } else if (v instanceof Integer) {
-                d.add(new entry((Integer) v));
-            } else if (v instanceof Entry) {
-                d.add(((Entry) v).swig());
-            } else if (v instanceof entry) {
-                d.add((entry) v);
-            } else if (v instanceof List) {
-                d.add(fromList((List<?>) v).swig());
-            } else if (v instanceof Map) {
-                d.add(fromMap((Map<String, ?>) v).swig());
-            } else {
-                d.add(new entry(v.toString()));
-            }
+            d.add(toSwigEntry(v));
         }
 
         return new Entry(e);
     }
 
+    /**
+     * Builds a dictionary entry. Values are mapped as in {@link #fromList(List)}.
+     */
     public static Entry fromMap(Map<String, ?> map) {
         entry e = new entry(entry.data_type.dictionary_t);
 
         string_entry_map d = e.dict();
         for (String k : map.keySet()) {
-            Object v = map.get(k);
-
-            if (v instanceof String) {
-                d.put(k, new entry((String) v));
-            } else if (v instanceof Integer) {
-                d.put(k, new entry((Integer) v));
-            } else if (v instanceof Entry) {
-                d.put(k, ((Entry) v).swig());
-            } else if (v instanceof entry) {
-                d.put(k, (entry) v);
-            } else if (v instanceof List) {
-                d.put(k, fromList((List<?>) v).swig());
-            } else if (v instanceof Map) {
-                d.put(k, fromMap((Map<String, ?>) v).swig());
-            } else {
-                d.put(k, new entry(v.toString()));
-            }
+            d.put(k, toSwigEntry(map.get(k)));
         }
 
         return new Entry(e);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static entry toSwigEntry(Object v) {
+        if (v instanceof String) {
+            return new entry((String) v);
+        } else if (v instanceof Integer || v instanceof Long || v instanceof Short || v instanceof Byte) {
+            return new entry(((Number) v).longValue());
+        } else if (v instanceof Boolean) {
+            return new entry((Boolean) v ? 1L : 0L);
+        } else if (v instanceof Entry) {
+            return ((Entry) v).swig();
+        } else if (v instanceof entry) {
+            return (entry) v;
+        } else if (v instanceof List) {
+            return fromList((List<?>) v).swig();
+        } else if (v instanceof Map) {
+            return fromMap((Map<String, ?>) v).swig();
+        } else {
+            return new entry(v.toString());
+        }
     }
 
     private static final class EntryList extends AbstractList<Entry> {
