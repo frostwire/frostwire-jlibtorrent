@@ -101,7 +101,7 @@ public class SessionLeechTest {
                         for (BlockInfo b : a.getBlockData()) {
                             failures.addAll(Accessors.touch(b));
                             assertNotNull(b.state());
-                            assertTrue(b.blockSize() > 0);
+                            assertTrue(b.blockSize() >= 0); // blocks nobody asked for yet have no size
                         }
                         return failures;
                     });
