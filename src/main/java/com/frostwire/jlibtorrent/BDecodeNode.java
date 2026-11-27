@@ -285,10 +285,11 @@ public final class BDecodeNode {
     }
 
     public boolean hasInt(String key) {
-        if (n.type() != bdecode_node.type_t.int_t) {
+        if (n.type() != bdecode_node.type_t.dict_t) {
             return false;
         }
-        return n.dict_find_int_value_s(key,0) != 0;
+        bdecode_node target_node = n.dict_find_int_s(key);
+        return target_node.type() == bdecode_node.type_t.int_t;
     }
 
     public BDecodeNode getList(String key) {
@@ -317,10 +318,10 @@ public final class BDecodeNode {
     }
 
     public long getInt(String key) {
-        if (n.type() != bdecode_node.type_t.int_t) {
+        if (!hasInt(key)) {
             return 0;
         }
-        return n.dict_find_int_value_s(key,0);
+        return n.dict_find_int_value_s(key, 0);
     }
 
     public static BDecodeNode bdecode(byte[] data) {

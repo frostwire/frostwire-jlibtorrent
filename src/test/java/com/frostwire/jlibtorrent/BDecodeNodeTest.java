@@ -52,6 +52,19 @@ public class BDecodeNodeTest {
     }
 
     @Test
+    public void intLookupsReadDictionaryEntries() {
+        BDecodeNode n = decode("d1:ni7e1:s3:str1:zi0ee");
+        assertTrue(n.hasInt("n"));
+        assertEquals(7, n.getInt("n"));
+        assertTrue("a stored zero is present", n.hasInt("z"));
+        assertEquals(0, n.getInt("z"));
+        assertFalse(n.hasInt("missing"));
+        assertEquals(0, n.getInt("missing"));
+        assertFalse("a string is not an int", n.hasInt("s"));
+        assertEquals(0, n.getInt("s"));
+    }
+
+    @Test
     public void nodesWithoutAValueAnswerNegatively() {
         BDecodeNode none = new BDecodeNode(new com.frostwire.jlibtorrent.swig.bdecode_node());
         assertNull(none.buffer());
