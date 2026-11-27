@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'base'
     id 'maven-publish'
+    id 'jacoco'
 }
 
 group 'com.frostwire'
@@ -67,6 +68,7 @@ tasks.withType(Test).configureEach {
 }
 
 tasks.test {
+    finalizedBy 'jacocoTestReport'
     outputs.upToDateWhen { false }
     // Fork a new JVM per test class to avoid native memory corruption
     // when many test classes load the JNI library in the same process
@@ -556,4 +558,35 @@ tasks.register('leakTest', Test) {
         showStandardStreams = true
     }
     outputs.upToDateWhen { false }
+}
+
+// ---------------------------------------------------------------------------
+// Coverage of the hand-written code. The SWIG-generated JNI glue
+// (com/frostwire/jlibtorrent/swig) is machine-generated and left out of the
+// report and of the verification. The test task forks one JVM per test class;
+// the agent appends to the same exec file from every fork.
+//   ./gradlew test            -> build/reports/jacoco/test/html/index.html (+ jacocoTestReport.xml)
+// ---------------------------------------------------------------------------
+jacoco {
+    toolVersion = '0.8.16'
+}
+
+def handWrittenClasses = {
+    files(sourceSets.main.output.classesDirs.files.collect {
+        fileTree(dir: it, exclude: ['**/swig/**'])
+    })
+}
+
+tasks.named('jacocoTestReport', JacocoReport) {
+    dependsOn tasks.named('test')
+    classDirectories.setFrom(handWrittenClasses())
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+}
+
+tasks.named('jacocoTestCoverageVerification', JacocoCoverageVerification) {
+    classDirectories.setFrom(handWrittenClasses())
 }
