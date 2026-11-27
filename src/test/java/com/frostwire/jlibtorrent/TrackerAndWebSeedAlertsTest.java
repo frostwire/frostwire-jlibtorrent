@@ -222,4 +222,32 @@ public class TrackerAndWebSeedAlertsTest {
             assertEquals(java.util.Collections.<String>emptyList(), leecher.accessorFailures());
         }
     }
+
+    @Test
+    public void anExternalAddressReportedByATrackerIsKnownAndAdvertisedInMagnets() throws IOException {
+        File saveDir = folder.newFolder("save");
+        File root = TestTorrents.content(saveDir, "external", "a.bin", 40_000);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] head = ascii("d8:intervali1800e11:external ip4:");
+        out.write(head, 0, head.length);
+        out.write(new byte[]{(byte) 203, 0, 113, 7}, 0, 4); // 203.0.113.7, reserved for documentation
+        byte[] tail = ascii("5:peers0:e");
+        out.write(tail, 0, tail.length);
+        byte[] body = out.toByteArray();
+        int port = serve("/announce", 200, ex -> body);
+        TorrentInfo ti = torrent(root, "http://127.0.0.1:" + port + "/announce");
+
+        try (LoopbackSession s = LoopbackSession.start(true, new SettingsPack())) {
+            assertEquals(null, s.sm.externalAddress());
+            assertEquals("", s.sm.magnetPeers());
+            CompletableFuture<String> external = s.expect(com.frostwire.jlibtorrent.alerts.ExternalIpAlert.class, a -> true,
+                    a -> a.externalAddress().toString());
+            s.sm.download(ti, saveDir);
+            assertEquals("203.0.113.7", LoopbackSession.get(external, "the external address"));
+            LoopbackSession.awaitCondition("the manager to record it", () -> s.sm.externalAddress() != null);
+            assertEquals("203.0.113.7", s.sm.externalAddress());
+            assertTrue(s.sm.magnetPeers(), s.sm.magnetPeers().startsWith("&x.pe=203.0.113.7:"));
+            assertEquals(java.util.Collections.<String>emptyList(), s.accessorFailures());
+        }
+    }
 }
