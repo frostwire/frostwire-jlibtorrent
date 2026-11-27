@@ -134,10 +134,14 @@ public enum AlertType {
 
     /**
      * @param swigValue the native swig value
-     * @return the API enum alert type
+     * @return the API enum alert type, {@link #UNKNOWN} if the value is out of range
      */
     public static AlertType fromSwig(int swigValue) {
-        return TABLE[swigValue];
+        if (swigValue < 0 || swigValue >= TABLE.length) {
+            return UNKNOWN;
+        }
+        AlertType t = TABLE[swigValue];
+        return t != null ? t : UNKNOWN;
     }
 
     private static AlertType[] buildTable() {

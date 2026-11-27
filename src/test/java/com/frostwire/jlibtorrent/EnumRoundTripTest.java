@@ -104,10 +104,6 @@ public class EnumRoundTripTest {
                     unknown = c;
                 }
             }
-            if (type == AlertType.class) {
-                // AlertType doesn't implement the fallback yet: see the bug report
-                continue;
-            }
             Object result;
             try {
                 result = fromSwig.invoke(null, 987_654_321);
@@ -123,6 +119,14 @@ public class EnumRoundTripTest {
                 assertTrue(type + " answered " + result, result == null || type.isInstance(result));
             }
         }
+    }
+
+    @Test
+    public void alertTypeFromSwigAnswersUnknownOutOfRange() {
+        assertSame(AlertType.UNKNOWN, AlertType.fromSwig(-1));
+        assertSame(AlertType.UNKNOWN, AlertType.fromSwig(-1000));
+        assertSame(AlertType.UNKNOWN, AlertType.fromSwig(Integer.MIN_VALUE));
+        assertSame(AlertType.UNKNOWN, AlertType.fromSwig(Integer.MAX_VALUE));
     }
 
     private static Method swigGetter(Class<?> type) throws NoSuchMethodException {
