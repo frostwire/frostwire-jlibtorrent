@@ -10,7 +10,6 @@ import java.util.logging.LogRecord;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author gubatron
@@ -60,7 +59,11 @@ public class LoggerTest {
                 assertEquals(i % 2 == 1, records.get(i).getThrown() != null);
             }
             assertSame(t, records.get(1).getThrown());
-            assertTrue(records.get(0).getLevel().intValue() >= Level.INFO.intValue());
+            Level[] levels = {Level.INFO, Level.INFO, Level.WARNING, Level.WARNING,
+                    Level.SEVERE, Level.SEVERE, Level.FINE, Level.FINE};
+            for (int i = 0; i < levels.length; i++) {
+                assertEquals(messages[i], levels[i], records.get(i).getLevel());
+            }
         } finally {
             jul.removeHandler(h);
             jul.setUseParentHandlers(true);
