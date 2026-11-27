@@ -1074,7 +1074,7 @@ public class SessionManager {
     /**
      * @param sha1
      * @param timeout in seconds
-     * @return the item
+     * @return the item, or null if it wasn't found or the timeout expired
      */
     public Entry dhtGetItem(Sha1Hash sha1, int timeout) {
         if (session == null) {
@@ -1096,7 +1096,14 @@ public class SessionManager {
             public void alert(Alert<?> alert) {
                 DhtImmutableItemAlert a = (DhtImmutableItemAlert) alert;
                 if (target.op_eq(a.swig().getTarget())) {
-                    result[0] = new Entry(new entry(a.swig().getItem()));
+                    // when nothing is found libtorrent still posts the alert, with an
+                    // uninitialized entry: that's the "not found" answer, which is null
+                    entry item = new entry(a.swig().getItem());
+                    if (isUninitialized(item)) {
+                        item.delete();
+                    } else {
+                        result[0] = new Entry(item);
+                    }
                     signal.countDown();
                 }
             }
@@ -1117,6 +1124,16 @@ public class SessionManager {
         }
 
         return result[0];
+    }
+
+    /**
+     * libtorrent 2.1 declares {@code entry::undefined_t} after {@code preformatted_t}
+     * (native value 5), while the swig generated {@code entry.data_type} has them the
+     * other way around, so comparing with {@code data_type.undefined_t} never matches;
+     * the native value is what's reliable.
+     */
+    private static boolean isUninitialized(entry e) {
+        return e.type().swigValue() == 5;
     }
 
     /**
@@ -1148,9 +1165,13 @@ public class SessionManager {
                 boolean sameKey = Arrays.equals(key, a.key());
                 boolean sameSalt = Arrays.equals(salt, a.salt());
                 if (sameKey && sameSalt) {
-                    Entry e = new Entry(new entry(a.swig().getItem()));
-                    MutableItem item = new MutableItem(e, a.signature(), a.seq());
-                    result[0] = item;
+                    entry item = new entry(a.swig().getItem());
+                    if (isUninitialized(item)) {
+                        // nothing found: libtorrent posts the alert with an uninitialized entry
+                        item.delete();
+                    } else {
+                        result[0] = new MutableItem(new Entry(item), a.signature(), a.seq());
+                    }
                     signal.countDown();
                 }
             }
