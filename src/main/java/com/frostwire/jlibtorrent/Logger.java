@@ -48,7 +48,8 @@ import static java.util.logging.Level.INFO;
  * jltLogger.setLevel(java.util.logging.Level.FINER);
  * </pre>
  * <p>
- * <b>Log Levels:</b>
+ * <b>Log Levels</b> (mapped to java.util.logging INFO, WARNING, SEVERE and FINE;
+ * with the default configuration debug() is not printed):
  * <ul>
  *   <li><b>info():</b> Important milestones (session started, torrent added)</li>
  *   <li><b>warn():</b> Unusual but recoverable (slow peer, retried operation)</li>
@@ -90,26 +91,26 @@ final class Logger {
     }
 
     public void warn(String msg) {
-        jul.logp(INFO, name, "", msg);
+        jul.logp(Level.WARNING, name, "", msg);
     }
 
     public void warn(String msg, Throwable e) {
-        jul.logp(Level.INFO, name, "", msg, e);
+        jul.logp(Level.WARNING, name, "", msg, e);
     }
 
     public void error(String msg) {
-        jul.logp(INFO, name, "", msg);
+        jul.logp(Level.SEVERE, name, "", msg);
     }
 
     public void error(String msg, Throwable e) {
-        jul.logp(Level.INFO, name, "", msg, e);
+        jul.logp(Level.SEVERE, name, "", msg, e);
     }
 
     public void debug(String msg) {
-        jul.logp(INFO, name, "", msg);
+        jul.logp(Level.FINE, name, "", msg);
     }
 
     public void debug(String msg, Throwable e) {
-        jul.logp(Level.INFO, name, "", msg, e);
+        jul.logp(Level.FINE, name, "", msg, e);
     }
 }
