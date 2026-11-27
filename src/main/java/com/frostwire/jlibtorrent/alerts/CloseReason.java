@@ -289,29 +289,25 @@ public enum CloseReason {
         return swigValue;
     }
 
-    private static Map<Integer, CloseReason> swigToCloseReason;
-    private final static Object swigToCloseReasonLock = new Object();
+    private static final Map<Integer, CloseReason> SWIG_TO_CLOSE_REASON = buildMap();
+
+    private static Map<Integer, CloseReason> buildMap() {
+        Map<Integer, CloseReason> map = new HashMap<>();
+        for (CloseReason r : values()) {
+            map.put(r.swig(), r);
+        }
+        return map;
+    }
 
     /**
      * Converted method, it's public in order to be used in other
      * internal packages.
      *
      * @param swigValue the native value
-     * @return the enum value
+     * @return the enum value, {@link #UNKNOWN} if there is no such native value
      */
     public static CloseReason fromSwig(int swigValue) {
-        if (swigToCloseReason == null) {
-            synchronized (swigToCloseReasonLock) {
-                swigToCloseReason = new HashMap<>();
-                for (CloseReason r : values()) {
-                    swigToCloseReason.put(r.swig(), r);
-                }
-            }
-        }
-        try {
-            return swigToCloseReason.get(swigValue);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return UNKNOWN;
-        }
+        CloseReason r = SWIG_TO_CLOSE_REASON.get(swigValue);
+        return r != null ? r : UNKNOWN;
     }
 }

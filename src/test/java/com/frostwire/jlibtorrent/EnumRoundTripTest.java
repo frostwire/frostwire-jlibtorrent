@@ -104,9 +104,8 @@ public class EnumRoundTripTest {
                     unknown = c;
                 }
             }
-            if (type == CloseReason.class || type == AlertType.class || type == Priority.class) {
-                // these don't implement the fallback: see the bug report
-                // (CloseReason answers null, AlertType throws, Priority throws IllegalArgumentException)
+            if (type == AlertType.class) {
+                // AlertType doesn't implement the fallback yet: see the bug report
                 continue;
             }
             Object result;
