@@ -909,7 +909,7 @@ extern "C" {
 // run-swig.sh replaces the placeholder in the generated libtorrent_jni.cpp, so the native
 // library reports the version it was built from.
 SWIGEXPORT jstring JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_jlibtorrentNativeVersion(JNIEnv *jenv, jclass jcls) {
-    return jenv->NewStringUTF("2.1.2.1");
+    return jenv->NewStringUTF("2.1.3.0");
 }
 
 SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_directBufferAddress(JNIEnv *jenv, jclass jcls, jobject jbuf) {
@@ -104331,7 +104331,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_LIBT
   
   (void)jenv;
   (void)jcls;
-  result = (int)(2);
+  result = (int)(3);
   jresult = (jint)result; 
   return jresult;
 }
@@ -104343,7 +104343,7 @@ SWIGEXPORT jint JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_LIBT
   
   (void)jenv;
   (void)jcls;
-  result = (int)(((2*10000)+(1*100)+2));
+  result = (int)(((2*10000)+(1*100)+3));
   jresult = (jint)result; 
   return jresult;
 }
