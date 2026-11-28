@@ -1,7 +1,8 @@
 2.1.3.0 (unreleased)
- * libtorrent upgraded to 87b77c039 (v2.1.3), from 2fdc87690 (RC_2_1, 2.1.2 + fixes). No change to the public API or
-   the SWIG glue besides the version numbers. Natives of 2.1.2.x are replaced by this release's
- * libtorrent fixes, security and hardening (upstream ChangeLog, 2.1.3 and the 2.0.16 fixes merged into it):
+ * libtorrent upgraded to f29e8b533 (RC_2_1 tip after v2.1.3), from 2fdc87690 (RC_2_1, 2.1.2 + fixes). The only
+   public API change is the new info_hash_t.contains() (SWIG glue regenerated). Natives of 2.1.2.x are replaced by
+   this release's
+ * libtorrent fixes, security and hardening (upstream ChangeLog: 2.1.3, the 2.0.16 and 2.0.17 fixes merged into it, and RC_2_1 after the v2.1.3 tag):
    - apply the IP filter to WebRTC peers
    - fix a use-after-free in the pread disk I/O when a cached piece is evicted while another thread flushes it
    - fix a race between removing a torrent and a hash job parked in the pread disk cache
@@ -21,6 +22,17 @@
    - fix pe_crypto barrier handling, fix reading pad files from a pread cache hit, fix a gzip failure path in
      the HTTP handler, fix an out-of-bounds access in upnp delete_mapping() with an invalid handle
    - on POSIX, filenames go to the OS as UTF-8, independent of the locale
+   - fix closing of websocket streams
+   - fix a piece picker bug when losing a partially downloaded piece, and add a defensive check in the piece picker
+   - improve validation of metadata against the info-hashes: torrent_handle::set_metadata() with a buffer that
+     matches the info-hash but isn't valid metadata puts the torrent in an error state and pauses it
+   - i2p peers don't use the DHT
+   - better DHT write tokens (the secret is now 16 bytes)
+   - treat 0.0.0.0 and :: as local host in the tracker and web seed SSRF checks
+   - preserve the file attributes of empty files, and fix edge cases creating empty files when changing priority
+   - defer updating tracker entries when the listen sockets change
+   - harden add_files_impl() when creating torrents
+   - ip_filter lookups no longer call memcmp() (faster), new info_hash_t::contains()
    - libdatachannel (WebTorrent) updated to 0.24.8, the default peer fingerprint is now -LT2130-
  * Fixes found while covering the hand-written code with tests (JaCoCo, SWIG glue left out; the numbers are
    issues in frostwire/frostwire-jlibtorrent). Ordered by how many applications they can affect:

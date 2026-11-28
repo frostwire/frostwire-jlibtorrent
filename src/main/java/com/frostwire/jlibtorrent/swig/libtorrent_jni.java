@@ -1075,6 +1075,7 @@ public class libtorrent_jni {
   public final static native boolean info_hash_t_has_v1(long jarg1, info_hash_t jarg1_);
   public final static native boolean info_hash_t_has_v2(long jarg1, info_hash_t jarg1_);
   public final static native boolean info_hash_t_has(long jarg1, info_hash_t jarg1_, int jarg2);
+  public final static native boolean info_hash_t_contains(long jarg1, info_hash_t jarg1_, long jarg2, info_hash_t jarg2_);
   public final static native long info_hash_t_get(long jarg1, info_hash_t jarg1_, int jarg2);
   public final static native long info_hash_t_get_best(long jarg1, info_hash_t jarg1_);
   public final static native boolean op_ne(long jarg1, info_hash_t jarg1_, long jarg2, info_hash_t jarg2_);
