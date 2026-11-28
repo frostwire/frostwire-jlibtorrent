@@ -1,3 +1,44 @@
+2.1.3.0 (unreleased)
+ * Fixes found while covering the hand-written code with tests (JaCoCo, SWIG glue left out; the numbers are
+   issues in frostwire/frostwire-jlibtorrent). Ordered by how many applications they can affect:
+ * fix: SessionManager.dhtGetItem(), both overloads: when the lookup finds nothing, libtorrent still posts the
+   alert with an uninitialized entry and both overloads returned it (it printed '<uninitialized>', bencoded to
+   '0:' and string() threw 'invalid type requested from entry'). They now return null as soon as that alert
+   arrives, the same answer as a timeout (#352). Callers that already null-check a timeout need no change
+ * fix: Entry.fromList()/fromMap() encoded only Integer as a bencode integer; Long, Short and Byte were written
+   as strings of their decimal value. They are integers now, and Boolean is the integer 1 or 0 (bencode has no
+   boolean). Unknown types are still written as strings with toString(); nested List and Map were already
+   recursive. API change on the wire: code that put a Long in a map and read it back as a string must read an
+   integer now, and a peer that expects the old string form sees an integer (#345). Use new Entry(long) or
+   Entry.bdecode() to be explicit
+ * fix: BDecodeNode.hasString() was true for every key of a dictionary (a missing key gave "", never null); it
+   checks that the entry exists and is a string (#343)
+ * fix: BDecodeNode.hasInt()/getInt() looked at the node itself (a dictionary) instead of the key, so hasInt()
+   was always false and getInt() 0, and a stored 0 counted as absent (#344)
+ * fix: TorrentBuilder.creationDate() threw NullPointerException unless the setter had been called, and
+   generate() never passed the value on, so the setter did nothing. The date defaults to the time of
+   construction, as documented, and generate() applies it (0 leaves the field out) (#349)
+ * deprecated: TorrentBuilder.alignment() and alignment(int): libtorrent 2.1's create_torrent has no such
+   parameter (pad files are always aligned to the piece length), so they never had an effect (#349)
+ * fix: Ed25519.keyExchange() is static, like the rest of the class and its javadoc example: it was a public
+   instance method of a class with a private constructor, which nobody could call without reflection. Its error
+   messages (and addScalarSecret()'s) name the secret key instead of the public or private key (#348)
+ * fix: AlertType.fromSwig() answers UNKNOWN for -1 and for values past the table instead of throwing
+   ArrayIndexOutOfBoundsException (#347)
+ * fix: CloseReason.fromSwig() answers UNKNOWN for native values it doesn't know instead of null, and builds its
+   lookup table in a static initializer (the lazy one could publish a half filled map to other threads) (#346)
+ * fix: IntSeries.last() returned 0 whenever the newest value sat at index 0 (every wrap-around) and threw
+   ArrayIndexOutOfBoundsException on an empty series; it answers 0 only for an empty series (#350)
+ * fix: Logger.warn(), error() and debug() logged at INFO; they log at WARNING, SEVERE and FINE. With the default
+   java.util.logging configuration warnings and errors were already printed, but the debug messages of the native
+   library loader are no longer printed unless FINE is enabled (#354)
+ * fix: LibTorrent.revision() and its javadoc example held libtorrent 2.0.x's revision; a test now compares the
+   constant with the libtorrent revision named further down in this file, which fails when they drift (#351)
+ * change: TorrentHandle javadoc says what the status() query flags return and that file priorities are
+   eventually consistent
+ * test: coverage of the hand-written code is 95.8% of lines, with a loopback session harness and a hand-written
+   BitTorrent peer for the alert tests; a JaCoCo report is part of the build
+
 2.1.2.1
  * new SessionParams.setMMapDiskIO(): selects libtorrent's memory mapped files disk back-end, libtorrent 2.0's
    default on 64-bit systems (libtorrent 2.1 defaults to pread). Same as 2.1.2.0 otherwise.
