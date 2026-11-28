@@ -96,13 +96,15 @@ public class MisbehavingPeerAlertsTest {
             try (RawPeer peer = new RawPeer(server.accept())) {
                 peer.readHandshake();
                 peer.sendHandshake(infoHash());
-                // a block nobody asked for, sent before the leecher has any reason to ask
-                peer.sendPiece(0, 0, new byte[PIECE]);
-                peer.send(RawPeer.BITFIELD, new byte[]{(byte) 0xe0}); // all three pieces
-                peer.send(RawPeer.UNCHOKE, new byte[0]);
-
-                // then answer every request with zeros, which never match the piece hashes
+                // the leecher may close the connection as soon as it sees the unwanted block, which
+                // is the answer the test is after: every write may hit a closed socket
                 try {
+                    // a block nobody asked for, sent before the leecher has any reason to ask
+                    peer.sendPiece(0, 0, new byte[PIECE]);
+                    peer.send(RawPeer.BITFIELD, new byte[]{(byte) 0xe0}); // all three pieces
+                    peer.send(RawPeer.UNCHOKE, new byte[0]);
+
+                    // then answer every request with zeros, which never match the piece hashes
                     RawPeer.Message m;
                     while (!banned.isDone() && (m = peer.read()) != null) {
                         if (m.id == RawPeer.REQUEST) {
