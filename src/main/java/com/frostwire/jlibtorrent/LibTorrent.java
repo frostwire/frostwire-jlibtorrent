@@ -29,7 +29,7 @@ import java.util.List;
  * // Output example:
  * // LibTorrent version: 2.1.2
  * // LibTorrent version num: 20102
- * // LibTorrent revision: 87b77c039e98200e0e7625ddc5bdc55b44c7f2c1
+ * // LibTorrent revision: f29e8b53368ea475a36d9d293d063b61f82bfb59
  * // JLibTorrent version: 2.1.3.0
  * // Boost version: 1_78_0
  * // OpenSSL version: OpenSSL 1.1.1n  15 Mar 2022
@@ -163,7 +163,7 @@ public final class LibTorrent {
      * @return the git revision
      */
     public static String revision() {
-        return "87b77c039e98200e0e7625ddc5bdc55b44c7f2c1";
+        return "f29e8b53368ea475a36d9d293d063b61f82bfb59";
     }
 
     public static int boostVersionNum() {
