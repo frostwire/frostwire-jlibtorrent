@@ -99,6 +99,10 @@ public class info_hash_t {
     return libtorrent_jni.info_hash_t_has(swigCPtr, this, v.swigValue());
   }
 
+  public boolean contains(info_hash_t ih) {
+    return libtorrent_jni.info_hash_t_contains(swigCPtr, this, info_hash_t.getCPtr(ih), ih);
+  }
+
   public sha1_hash get(protocol_version v) {
     return new sha1_hash(libtorrent_jni.info_hash_t_get(swigCPtr, this, v.swigValue()), true);
   }

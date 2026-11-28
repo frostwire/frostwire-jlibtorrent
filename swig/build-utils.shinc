@@ -99,7 +99,7 @@ linux_arm64_env() {
 export LIBRARY_VERSION=$(egrep "version = version" ../build.gradle | sed -E "s/.*'([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'.*/\1/")
 export LIBRARY_NAME=jlibtorrent
 export LIBTORRENT_REPO=https://github.com/arvidn/libtorrent # same as swig/Dockerfile
-export LIBTORRENT_REVISION=87b77c039e98200e0e7625ddc5bdc55b44c7f2c1 # libtorrent 2.1.3 (v2.1.3, RC_2_1)
+export LIBTORRENT_REVISION=f29e8b53368ea475a36d9d293d063b61f82bfb59 # libtorrent 2.1.3 + fixes (RC_2_1 head, 2026-11-28)
 
 export LIBTORRENT_BRANCH="RC_2_1"
 export OPENSSL_VERSION="4.1.0"

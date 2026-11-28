@@ -42,7 +42,7 @@ RUN apt install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-c
 # For testing and debugging
 RUN apt install -y emacs-nox
 
-ENV LIBTORRENT_REVISION="87b77c039e98200e0e7625ddc5bdc55b44c7f2c1"
+ENV LIBTORRENT_REVISION="f29e8b53368ea475a36d9d293d063b61f82bfb59"
 ENV LIBTORRENT_BRANCH="RC_2_1"
 ENV SWIG_VERSION="4.5.1"
 # sha256 of swig-${SWIG_VERSION}.tar.gz (the SourceForge release, mirrored on dl.frostwire.com)
